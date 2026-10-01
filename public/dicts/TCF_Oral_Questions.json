@@ -1,0 +1,434 @@
+[
+  {
+    "name": "Pouvez-vous me donner plus de détails ?",
+    "trans": [
+      "口语提问：您能给我更多细节吗？"
+    ]
+  },
+  {
+    "name": "À quelle heure est-ce que ça commence ?",
+    "trans": [
+      "口语提问：几点开始？"
+    ]
+  },
+  {
+    "name": "À quelle heure est-ce que ça se termine ?",
+    "trans": [
+      "口语提问：几点结束？"
+    ]
+  },
+  {
+    "name": "Quels sont les horaires ?",
+    "trans": [
+      "口语提问：时间安排是什么？"
+    ]
+  },
+  {
+    "name": "Est-ce ouvert le week-end ?",
+    "trans": [
+      "口语提问：周末营业吗？"
+    ]
+  },
+  {
+    "name": "Est-ce qu'il faut réserver ?",
+    "trans": [
+      "口语提问：需要预订吗？"
+    ]
+  },
+  {
+    "name": "Comment puis-je réserver ?",
+    "trans": [
+      "口语提问：我怎么预订？"
+    ]
+  },
+  {
+    "name": "Combien ça coûte ?",
+    "trans": [
+      "口语提问：多少钱？"
+    ]
+  },
+  {
+    "name": "Quel est le tarif ?",
+    "trans": [
+      "口语提问：费用是多少？"
+    ]
+  },
+  {
+    "name": "Est-ce qu'il y a une réduction ?",
+    "trans": [
+      "口语提问：有折扣吗？"
+    ]
+  },
+  {
+    "name": "Le prix comprend quoi exactement ?",
+    "trans": [
+      "口语提问：价格具体包含什么？"
+    ]
+  },
+  {
+    "name": "Comment puis-je payer ?",
+    "trans": [
+      "口语提问：我怎么付款？"
+    ]
+  },
+  {
+    "name": "Est-ce que je peux payer par carte ?",
+    "trans": [
+      "口语提问：可以刷卡吗？"
+    ]
+  },
+  {
+    "name": "Où est-ce que ça se trouve ?",
+    "trans": [
+      "口语提问：在哪里？"
+    ]
+  },
+  {
+    "name": "Comment est-ce que je peux y aller ?",
+    "trans": [
+      "口语提问：我怎么去那里？"
+    ]
+  },
+  {
+    "name": "Y a-t-il un parking ?",
+    "trans": [
+      "口语提问：有停车场吗？"
+    ]
+  },
+  {
+    "name": "Est-ce accessible en transport en commun ?",
+    "trans": [
+      "口语提问：公共交通方便到达吗？"
+    ]
+  },
+  {
+    "name": "Combien de temps dure le trajet ?",
+    "trans": [
+      "口语提问：路程要多久？"
+    ]
+  },
+  {
+    "name": "Est-ce loin d'ici ?",
+    "trans": [
+      "口语提问：离这里远吗？"
+    ]
+  },
+  {
+    "name": "Que dois-je apporter ?",
+    "trans": [
+      "口语提问：我需要带什么？"
+    ]
+  },
+  {
+    "name": "Quels documents sont nécessaires ?",
+    "trans": [
+      "口语提问：需要哪些文件？"
+    ]
+  },
+  {
+    "name": "Est-ce qu'une pièce d'identité est nécessaire ?",
+    "trans": [
+      "口语提问：需要身份证件吗？"
+    ]
+  },
+  {
+    "name": "Faut-il remplir un formulaire ?",
+    "trans": [
+      "口语提问：需要填表吗？"
+    ]
+  },
+  {
+    "name": "Où puis-je trouver le formulaire ?",
+    "trans": [
+      "口语提问：在哪里能找到表格？"
+    ]
+  },
+  {
+    "name": "Quelle est la date limite ?",
+    "trans": [
+      "口语提问：截止日期是什么时候？"
+    ]
+  },
+  {
+    "name": "Combien de temps faut-il attendre ?",
+    "trans": [
+      "口语提问：需要等多久？"
+    ]
+  },
+  {
+    "name": "Quand vais-je recevoir une réponse ?",
+    "trans": [
+      "口语提问：什么时候能收到回复？"
+    ]
+  },
+  {
+    "name": "Est-ce que je peux modifier ma réservation ?",
+    "trans": [
+      "口语提问：可以修改预订吗？"
+    ]
+  },
+  {
+    "name": "Est-ce que je peux annuler ?",
+    "trans": [
+      "口语提问：可以取消吗？"
+    ]
+  },
+  {
+    "name": "Y a-t-il des frais d'annulation ?",
+    "trans": [
+      "口语提问：有取消费用吗？"
+    ]
+  },
+  {
+    "name": "Quelles sont les conditions ?",
+    "trans": [
+      "口语提问：条件是什么？"
+    ]
+  },
+  {
+    "name": "Qui peut participer ?",
+    "trans": [
+      "口语提问：谁可以参加？"
+    ]
+  },
+  {
+    "name": "Y a-t-il un âge minimum ?",
+    "trans": [
+      "口语提问：有最低年龄要求吗？"
+    ]
+  },
+  {
+    "name": "Est-ce adapté aux débutants ?",
+    "trans": [
+      "口语提问：适合初学者吗？"
+    ]
+  },
+  {
+    "name": "Combien de personnes peuvent participer ?",
+    "trans": [
+      "口语提问：可以有多少人参加？"
+    ]
+  },
+  {
+    "name": "Est-ce qu'il reste des places ?",
+    "trans": [
+      "口语提问：还有名额吗？"
+    ]
+  },
+  {
+    "name": "Y a-t-il une liste d'attente ?",
+    "trans": [
+      "口语提问：有候补名单吗？"
+    ]
+  },
+  {
+    "name": "Quel niveau est demandé ?",
+    "trans": [
+      "口语提问：要求什么水平？"
+    ]
+  },
+  {
+    "name": "Est-ce qu'il faut avoir de l'expérience ?",
+    "trans": [
+      "口语提问：需要经验吗？"
+    ]
+  },
+  {
+    "name": "Quel matériel est fourni ?",
+    "trans": [
+      "口语提问：提供哪些材料/设备？"
+    ]
+  },
+  {
+    "name": "Qu'est-ce qui est inclus ?",
+    "trans": [
+      "口语提问：包含什么？"
+    ]
+  },
+  {
+    "name": "Est-ce que les repas sont inclus ?",
+    "trans": [
+      "口语提问：包含餐食吗？"
+    ]
+  },
+  {
+    "name": "Est-ce que l'hébergement est inclus ?",
+    "trans": [
+      "口语提问：包含住宿吗？"
+    ]
+  },
+  {
+    "name": "Puis-je venir avec quelqu'un ?",
+    "trans": [
+      "口语提问：我可以带人一起来吗？"
+    ]
+  },
+  {
+    "name": "Est-ce que les enfants sont acceptés ?",
+    "trans": [
+      "口语提问：接受儿童吗？"
+    ]
+  },
+  {
+    "name": "Y a-t-il un service de garde ?",
+    "trans": [
+      "口语提问：有托儿服务吗？"
+    ]
+  },
+  {
+    "name": "Est-ce que je dois m'inscrire à l'avance ?",
+    "trans": [
+      "口语提问：需要提前报名吗？"
+    ]
+  },
+  {
+    "name": "Comment se déroule l'activité ?",
+    "trans": [
+      "口语提问：活动怎么进行？"
+    ]
+  },
+  {
+    "name": "Quelle est la durée de l'activité ?",
+    "trans": [
+      "口语提问：活动持续多久？"
+    ]
+  },
+  {
+    "name": "À quelle fréquence ont lieu les séances ?",
+    "trans": [
+      "口语提问：活动多久一次？"
+    ]
+  },
+  {
+    "name": "Qui est responsable de l'activité ?",
+    "trans": [
+      "口语提问：谁负责这项活动？"
+    ]
+  },
+  {
+    "name": "À qui dois-je m'adresser ?",
+    "trans": [
+      "口语提问：我应该联系谁？"
+    ]
+  },
+  {
+    "name": "Puis-je parler au responsable ?",
+    "trans": [
+      "口语提问：我可以和负责人说话吗？"
+    ]
+  },
+  {
+    "name": "Avez-vous une adresse courriel ?",
+    "trans": [
+      "口语提问：有电子邮箱吗？"
+    ]
+  },
+  {
+    "name": "Puis-je vous rappeler plus tard ?",
+    "trans": [
+      "口语提问：我可以稍后再打来吗？"
+    ]
+  },
+  {
+    "name": "Pourriez-vous répéter, s'il vous plaît ?",
+    "trans": [
+      "口语提问：您能重复一下吗？"
+    ]
+  },
+  {
+    "name": "Pourriez-vous parler un peu plus lentement ?",
+    "trans": [
+      "口语提问：您能说慢一点吗？"
+    ]
+  },
+  {
+    "name": "Qu'est-ce que vous voulez dire par là ?",
+    "trans": [
+      "口语提问：您这是什么意思？"
+    ]
+  },
+  {
+    "name": "Si j'ai bien compris...",
+    "trans": [
+      "口语互动：如果我理解正确……"
+    ]
+  },
+  {
+    "name": "Donc, si je comprends bien...",
+    "trans": [
+      "口语互动：所以，如果我理解正确……"
+    ]
+  },
+  {
+    "name": "Est-ce que vous pourriez confirmer ?",
+    "trans": [
+      "口语提问：您能确认一下吗？"
+    ]
+  },
+  {
+    "name": "Est-ce que c'est bien ça ?",
+    "trans": [
+      "口语确认：是这样没错吧？"
+    ]
+  },
+  {
+    "name": "Que me conseillez-vous ?",
+    "trans": [
+      "口语提问：您建议我怎么做？"
+    ]
+  },
+  {
+    "name": "Quelle option me recommandez-vous ?",
+    "trans": [
+      "口语提问：您推荐哪个选项？"
+    ]
+  },
+  {
+    "name": "Quelle est la différence entre les deux ?",
+    "trans": [
+      "口语提问：两者有什么区别？"
+    ]
+  },
+  {
+    "name": "Quels sont les avantages ?",
+    "trans": [
+      "口语提问：有哪些优点？"
+    ]
+  },
+  {
+    "name": "Quels sont les inconvénients ?",
+    "trans": [
+      "口语提问：有哪些缺点？"
+    ]
+  },
+  {
+    "name": "Pourquoi me conseillez-vous cette option ?",
+    "trans": [
+      "口语提问：为什么您建议这个选项？"
+    ]
+  },
+  {
+    "name": "Est-ce que je peux prendre le temps de réfléchir ?",
+    "trans": [
+      "口语提问：我可以考虑一下吗？"
+    ]
+  },
+  {
+    "name": "Puis-je vous donner ma réponse demain ?",
+    "trans": [
+      "口语提问：我可以明天答复吗？"
+    ]
+  },
+  {
+    "name": "Que se passe-t-il si je change d'avis ?",
+    "trans": [
+      "口语提问：如果我改变主意会怎样？"
+    ]
+  },
+  {
+    "name": "Y a-t-il autre chose que je devrais savoir ?",
+    "trans": [
+      "口语提问：还有什么我应该知道的吗？"
+    ]
+  }
+]
