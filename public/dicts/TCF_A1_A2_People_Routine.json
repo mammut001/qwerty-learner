@@ -1,0 +1,530 @@
+[
+  {
+    "name": "personne",
+    "trans": [
+      "n.f. 人；某人"
+    ]
+  },
+  {
+    "name": "homme",
+    "trans": [
+      "n.m. 男人；人"
+    ]
+  },
+  {
+    "name": "femme",
+    "trans": [
+      "n.f. 女人；妻子"
+    ]
+  },
+  {
+    "name": "parent",
+    "trans": [
+      "n.m. 父母之一；亲属"
+    ]
+  },
+  {
+    "name": "père",
+    "trans": [
+      "n.m. 父亲"
+    ]
+  },
+  {
+    "name": "mère",
+    "trans": [
+      "n.f. 母亲"
+    ]
+  },
+  {
+    "name": "frère",
+    "trans": [
+      "n.m. 兄弟"
+    ]
+  },
+  {
+    "name": "sœur",
+    "trans": [
+      "n.f. 姐妹"
+    ]
+  },
+  {
+    "name": "mari",
+    "trans": [
+      "n.m. 丈夫"
+    ]
+  },
+  {
+    "name": "épouse",
+    "trans": [
+      "n.f. 妻子"
+    ]
+  },
+  {
+    "name": "couple",
+    "trans": [
+      "n.m. 夫妻；情侣"
+    ]
+  },
+  {
+    "name": "célibataire",
+    "trans": [
+      "adj./n. 单身的；单身者"
+    ]
+  },
+  {
+    "name": "marié",
+    "trans": [
+      "adj. 已婚的"
+    ]
+  },
+  {
+    "name": "âge",
+    "trans": [
+      "n.m. 年龄"
+    ]
+  },
+  {
+    "name": "nom",
+    "trans": [
+      "n.m. 姓名；名称"
+    ]
+  },
+  {
+    "name": "prénom",
+    "trans": [
+      "n.m. 名"
+    ]
+  },
+  {
+    "name": "nationalité",
+    "trans": [
+      "n.f. 国籍"
+    ]
+  },
+  {
+    "name": "langue",
+    "trans": [
+      "n.f. 语言；舌头"
+    ]
+  },
+  {
+    "name": "matin",
+    "trans": [
+      "n.m. 早晨"
+    ]
+  },
+  {
+    "name": "midi",
+    "trans": [
+      "n.m. 中午"
+    ]
+  },
+  {
+    "name": "soir",
+    "trans": [
+      "n.m. 晚上"
+    ]
+  },
+  {
+    "name": "nuit",
+    "trans": [
+      "n.f. 夜晚"
+    ]
+  },
+  {
+    "name": "week-end",
+    "trans": [
+      "n.m. 周末"
+    ]
+  },
+  {
+    "name": "réveil",
+    "trans": [
+      "n.m. 闹钟；醒来"
+    ]
+  },
+  {
+    "name": "se réveiller",
+    "trans": [
+      "v.pron. 醒来"
+    ]
+  },
+  {
+    "name": "se laver",
+    "trans": [
+      "v.pron. 洗漱；清洗自己"
+    ]
+  },
+  {
+    "name": "se doucher",
+    "trans": [
+      "v.pron. 洗淋浴"
+    ]
+  },
+  {
+    "name": "s'habiller",
+    "trans": [
+      "v.pron. 穿衣"
+    ]
+  },
+  {
+    "name": "se préparer",
+    "trans": [
+      "v.pron. 做准备"
+    ]
+  },
+  {
+    "name": "prendre une douche",
+    "trans": [
+      "loc.v. 洗淋浴"
+    ]
+  },
+  {
+    "name": "prendre le petit-déjeuner",
+    "trans": [
+      "loc.v. 吃早餐"
+    ]
+  },
+  {
+    "name": "aller au travail",
+    "trans": [
+      "loc.v. 去上班"
+    ]
+  },
+  {
+    "name": "rentrer",
+    "trans": [
+      "v. 回家；返回"
+    ]
+  },
+  {
+    "name": "faire les courses",
+    "trans": [
+      "loc.v. 买日用品；购物"
+    ]
+  },
+  {
+    "name": "faire la cuisine",
+    "trans": [
+      "loc.v. 做饭"
+    ]
+  },
+  {
+    "name": "faire le ménage",
+    "trans": [
+      "loc.v. 做家务；打扫"
+    ]
+  },
+  {
+    "name": "nettoyer",
+    "trans": [
+      "v. 清洁；打扫"
+    ]
+  },
+  {
+    "name": "ranger",
+    "trans": [
+      "v. 整理；收好"
+    ]
+  },
+  {
+    "name": "laver",
+    "trans": [
+      "v. 洗"
+    ]
+  },
+  {
+    "name": "cuisiner",
+    "trans": [
+      "v. 做饭"
+    ]
+  },
+  {
+    "name": "préparer",
+    "trans": [
+      "v. 准备"
+    ]
+  },
+  {
+    "name": "ouvrir",
+    "trans": [
+      "v. 打开"
+    ]
+  },
+  {
+    "name": "fermer",
+    "trans": [
+      "v. 关闭"
+    ]
+  },
+  {
+    "name": "allumer",
+    "trans": [
+      "v. 打开电器；点亮"
+    ]
+  },
+  {
+    "name": "éteindre",
+    "trans": [
+      "v. 关掉电器；熄灭"
+    ]
+  },
+  {
+    "name": "porter",
+    "trans": [
+      "v. 穿戴；携带"
+    ]
+  },
+  {
+    "name": "changer",
+    "trans": [
+      "v. 改变；更换"
+    ]
+  },
+  {
+    "name": "partager",
+    "trans": [
+      "v. 分享；分摊"
+    ]
+  },
+  {
+    "name": "inviter",
+    "trans": [
+      "v. 邀请"
+    ]
+  },
+  {
+    "name": "visiter",
+    "trans": [
+      "v. 参观；拜访地点"
+    ]
+  },
+  {
+    "name": "rendre visite à",
+    "trans": [
+      "loc.v. 拜访某人"
+    ]
+  },
+  {
+    "name": "fêter",
+    "trans": [
+      "v. 庆祝"
+    ]
+  },
+  {
+    "name": "anniversaire",
+    "trans": [
+      "n.m. 生日；周年纪念"
+    ]
+  },
+  {
+    "name": "cadeau",
+    "trans": [
+      "n.m. 礼物"
+    ]
+  },
+  {
+    "name": "fête",
+    "trans": [
+      "n.f. 节日；聚会"
+    ]
+  },
+  {
+    "name": "loisir",
+    "trans": [
+      "n.m. 休闲活动"
+    ]
+  },
+  {
+    "name": "sport",
+    "trans": [
+      "n.m. 运动"
+    ]
+  },
+  {
+    "name": "musique",
+    "trans": [
+      "n.f. 音乐"
+    ]
+  },
+  {
+    "name": "film",
+    "trans": [
+      "n.m. 电影"
+    ]
+  },
+  {
+    "name": "livre",
+    "trans": [
+      "n.m. 书"
+    ]
+  },
+  {
+    "name": "lecture",
+    "trans": [
+      "n.f. 阅读"
+    ]
+  },
+  {
+    "name": "télévision",
+    "trans": [
+      "n.f. 电视"
+    ]
+  },
+  {
+    "name": "internet",
+    "trans": [
+      "n.m. 互联网"
+    ]
+  },
+  {
+    "name": "photo",
+    "trans": [
+      "n.f. 照片"
+    ]
+  },
+  {
+    "name": "promenade",
+    "trans": [
+      "n.f. 散步"
+    ]
+  },
+  {
+    "name": "se promener",
+    "trans": [
+      "v.pron. 散步"
+    ]
+  },
+  {
+    "name": "courir",
+    "trans": [
+      "v. 跑步"
+    ]
+  },
+  {
+    "name": "nager",
+    "trans": [
+      "v. 游泳"
+    ]
+  },
+  {
+    "name": "danser",
+    "trans": [
+      "v. 跳舞"
+    ]
+  },
+  {
+    "name": "chanter",
+    "trans": [
+      "v. 唱歌"
+    ]
+  },
+  {
+    "name": "jouer",
+    "trans": [
+      "v. 玩；演奏"
+    ]
+  },
+  {
+    "name": "se détendre",
+    "trans": [
+      "v.pron. 放松"
+    ]
+  },
+  {
+    "name": "se reposer",
+    "trans": [
+      "v.pron. 休息"
+    ]
+  },
+  {
+    "name": "occupé",
+    "trans": [
+      "adj. 忙的；被占用的"
+    ]
+  },
+  {
+    "name": "libre",
+    "trans": [
+      "adj. 空闲的；自由的"
+    ]
+  },
+  {
+    "name": "seul",
+    "trans": [
+      "adj. 独自的；唯一的"
+    ]
+  },
+  {
+    "name": "ensemble",
+    "trans": [
+      "adv. 一起"
+    ]
+  },
+  {
+    "name": "tôt",
+    "trans": [
+      "adv. 早"
+    ]
+  },
+  {
+    "name": "tard",
+    "trans": [
+      "adv. 晚；迟"
+    ]
+  },
+  {
+    "name": "d'habitude",
+    "trans": [
+      "loc. 通常"
+    ]
+  },
+  {
+    "name": "chaque jour",
+    "trans": [
+      "loc. 每天"
+    ]
+  },
+  {
+    "name": "tous les jours",
+    "trans": [
+      "loc. 每天"
+    ]
+  },
+  {
+    "name": "une fois par semaine",
+    "trans": [
+      "loc. 每周一次"
+    ]
+  },
+  {
+    "name": "à la maison",
+    "trans": [
+      "loc. 在家"
+    ]
+  },
+  {
+    "name": "dehors",
+    "trans": [
+      "adv. 在外面"
+    ]
+  },
+  {
+    "name": "dedans",
+    "trans": [
+      "adv. 在里面"
+    ]
+  },
+  {
+    "name": "chez moi",
+    "trans": [
+      "loc. 在我家"
+    ]
+  },
+  {
+    "name": "chez nous",
+    "trans": [
+      "loc. 在我们家"
+    ]
+  }
+]
