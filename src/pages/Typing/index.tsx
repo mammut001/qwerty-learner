@@ -18,6 +18,7 @@ import { IsDesktop, isLegal } from '@/utils'
 import { useSaveChapterRecord } from '@/utils/db'
 import { useMixPanelChapterLogUploader } from '@/utils/mixpanel'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
+import { NavLink } from 'react-router-dom'
 import type React from 'react'
 import { useCallback, useEffect, useState } from 'react'
 import { useImmerReducer } from 'use-immer'
@@ -131,6 +132,14 @@ const App: React.FC = () => {
       <Layout>
         <Header>
           <DictChapterButton />
+          <Tooltip content="按动词学习 Présent / Passé composé / Imparfait">
+            <NavLink
+              to="/conjugation"
+              className="block rounded-lg px-3 py-1 text-base transition-colors duration-300 ease-in-out hover:bg-indigo-400 hover:text-white focus:outline-none dark:text-white dark:text-opacity-60 dark:hover:text-opacity-100"
+            >
+              动词变位
+            </NavLink>
+          </Tooltip>
           <PronunciationSwitcher />
           <Switcher />
           <StartButton isLoading={isLoading} />
