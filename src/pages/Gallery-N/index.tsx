@@ -75,7 +75,7 @@ export default function GalleryPage() {
                     ))}
                   </div>
                   <div className="flex items-center justify-center pb-10 pt-24 text-xs text-gray-500">
-                    <p>词库按 TCF Canada 学习场景整理；当前按 A1-A2 → B1 → B2 → TCF 专项组织，建议按顺序推进。</p>
+                    <p>词库按 TCF Canada 学习场景整理；当前按 A1-A2 → 语法专项 → B1 → B2 → TCF 专项组织，建议按顺序推进。</p>
                   </div>
                 </ScrollArea.Viewport>
                 <ScrollArea.Scrollbar className="flex touch-none select-none bg-transparent " orientation="vertical"></ScrollArea.Scrollbar>
