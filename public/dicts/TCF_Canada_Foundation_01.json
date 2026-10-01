@@ -1,0 +1,614 @@
+[
+  {
+    "name": "être",
+    "trans": [
+      "v. 是；处于；存在；也是构成部分复合时态的助动词"
+    ]
+  },
+  {
+    "name": "avoir",
+    "trans": [
+      "v. 有；拥有；也是构成部分复合时态的助动词"
+    ]
+  },
+  {
+    "name": "aller",
+    "trans": [
+      "v. 去；前往；aller + infinitif 可表示最近将来时"
+    ]
+  },
+  {
+    "name": "faire",
+    "trans": [
+      "v. 做；制造；进行；天气表达中常用"
+    ]
+  },
+  {
+    "name": "pouvoir",
+    "trans": [
+      "v. 能；可以"
+    ]
+  },
+  {
+    "name": "vouloir",
+    "trans": [
+      "v. 想要；愿意"
+    ]
+  },
+  {
+    "name": "devoir",
+    "trans": [
+      "v. 必须；应该；欠"
+    ]
+  },
+  {
+    "name": "savoir",
+    "trans": [
+      "v. 知道事实；会做某事"
+    ]
+  },
+  {
+    "name": "connaître",
+    "trans": [
+      "v. 认识；熟悉人、地点或事物"
+    ]
+  },
+  {
+    "name": "venir",
+    "trans": [
+      "v. 来；venir de + infinitif 可表示最近过去时"
+    ]
+  },
+  {
+    "name": "partir",
+    "trans": [
+      "v. 离开；出发"
+    ]
+  },
+  {
+    "name": "prendre",
+    "trans": [
+      "v. 拿；乘坐；吃/喝；花费（时间）"
+    ]
+  },
+  {
+    "name": "mettre",
+    "trans": [
+      "v. 放；穿；花费（时间）"
+    ]
+  },
+  {
+    "name": "donner",
+    "trans": [
+      "v. 给；给予"
+    ]
+  },
+  {
+    "name": "parler",
+    "trans": [
+      "v. 说；交谈；讲某种语言"
+    ]
+  },
+  {
+    "name": "dire",
+    "trans": [
+      "v. 说；告诉"
+    ]
+  },
+  {
+    "name": "voir",
+    "trans": [
+      "v. 看见；见到"
+    ]
+  },
+  {
+    "name": "regarder",
+    "trans": [
+      "v. 看；观看；注视"
+    ]
+  },
+  {
+    "name": "écouter",
+    "trans": [
+      "v. 听；倾听"
+    ]
+  },
+  {
+    "name": "entendre",
+    "trans": [
+      "v. 听见；理解（某些表达中）"
+    ]
+  },
+  {
+    "name": "comprendre",
+    "trans": [
+      "v. 理解；明白"
+    ]
+  },
+  {
+    "name": "apprendre",
+    "trans": [
+      "v. 学习；得知"
+    ]
+  },
+  {
+    "name": "travailler",
+    "trans": [
+      "v. 工作；学习/努力做"
+    ]
+  },
+  {
+    "name": "étudier",
+    "trans": [
+      "v. 学习；研究"
+    ]
+  },
+  {
+    "name": "habiter",
+    "trans": [
+      "v. 居住"
+    ]
+  },
+  {
+    "name": "vivre",
+    "trans": [
+      "v. 生活；居住；经历"
+    ]
+  },
+  {
+    "name": "aimer",
+    "trans": [
+      "v. 喜欢；爱"
+    ]
+  },
+  {
+    "name": "préférer",
+    "trans": [
+      "v. 更喜欢；偏爱"
+    ]
+  },
+  {
+    "name": "penser",
+    "trans": [
+      "v. 想；认为；思考"
+    ]
+  },
+  {
+    "name": "croire",
+    "trans": [
+      "v. 相信；认为"
+    ]
+  },
+  {
+    "name": "trouver",
+    "trans": [
+      "v. 找到；觉得；认为"
+    ]
+  },
+  {
+    "name": "demander",
+    "trans": [
+      "v. 问；请求；要求"
+    ]
+  },
+  {
+    "name": "répondre",
+    "trans": [
+      "v. 回答；回复"
+    ]
+  },
+  {
+    "name": "acheter",
+    "trans": [
+      "v. 买；购买"
+    ]
+  },
+  {
+    "name": "payer",
+    "trans": [
+      "v. 支付；付款"
+    ]
+  },
+  {
+    "name": "manger",
+    "trans": [
+      "v. 吃"
+    ]
+  },
+  {
+    "name": "boire",
+    "trans": [
+      "v. 喝"
+    ]
+  },
+  {
+    "name": "dormir",
+    "trans": [
+      "v. 睡觉"
+    ]
+  },
+  {
+    "name": "se lever",
+    "trans": [
+      "v.pron. 起床；站起来"
+    ]
+  },
+  {
+    "name": "se coucher",
+    "trans": [
+      "v.pron. 上床睡觉；躺下"
+    ]
+  },
+  {
+    "name": "commencer",
+    "trans": [
+      "v. 开始"
+    ]
+  },
+  {
+    "name": "finir",
+    "trans": [
+      "v. 结束；完成"
+    ]
+  },
+  {
+    "name": "choisir",
+    "trans": [
+      "v. 选择"
+    ]
+  },
+  {
+    "name": "attendre",
+    "trans": [
+      "v. 等待；期待"
+    ]
+  },
+  {
+    "name": "chercher",
+    "trans": [
+      "v. 寻找；尝试寻找"
+    ]
+  },
+  {
+    "name": "utiliser",
+    "trans": [
+      "v. 使用"
+    ]
+  },
+  {
+    "name": "essayer",
+    "trans": [
+      "v. 尝试；试穿"
+    ]
+  },
+  {
+    "name": "aider",
+    "trans": [
+      "v. 帮助"
+    ]
+  },
+  {
+    "name": "rencontrer",
+    "trans": [
+      "v. 遇见；会见"
+    ]
+  },
+  {
+    "name": "arriver",
+    "trans": [
+      "v. 到达；发生"
+    ]
+  },
+  {
+    "name": "rester",
+    "trans": [
+      "v. 停留；保持"
+    ]
+  },
+  {
+    "name": "passer",
+    "trans": [
+      "v. 经过；度过；参加（考试）；花费（时间）"
+    ]
+  },
+  {
+    "name": "sortir",
+    "trans": [
+      "v. 出去；外出；拿出"
+    ]
+  },
+  {
+    "name": "entrer",
+    "trans": [
+      "v. 进入"
+    ]
+  },
+  {
+    "name": "retourner",
+    "trans": [
+      "v. 返回；翻转"
+    ]
+  },
+  {
+    "name": "oublier",
+    "trans": [
+      "v. 忘记"
+    ]
+  },
+  {
+    "name": "se souvenir",
+    "trans": [
+      "v.pron. 记得；想起，常用 se souvenir de"
+    ]
+  },
+  {
+    "name": "aujourd'hui",
+    "trans": [
+      "adv./n. 今天"
+    ]
+  },
+  {
+    "name": "demain",
+    "trans": [
+      "adv./n. 明天"
+    ]
+  },
+  {
+    "name": "hier",
+    "trans": [
+      "adv./n. 昨天"
+    ]
+  },
+  {
+    "name": "maintenant",
+    "trans": [
+      "adv. 现在"
+    ]
+  },
+  {
+    "name": "souvent",
+    "trans": [
+      "adv. 经常"
+    ]
+  },
+  {
+    "name": "toujours",
+    "trans": [
+      "adv. 总是；仍然"
+    ]
+  },
+  {
+    "name": "jamais",
+    "trans": [
+      "adv. 从不；永不；曾经（疑问/条件语境）"
+    ]
+  },
+  {
+    "name": "parfois",
+    "trans": [
+      "adv. 有时"
+    ]
+  },
+  {
+    "name": "déjà",
+    "trans": [
+      "adv. 已经；早已"
+    ]
+  },
+  {
+    "name": "encore",
+    "trans": [
+      "adv. 还；再；仍然"
+    ]
+  },
+  {
+    "name": "bientôt",
+    "trans": [
+      "adv. 很快；不久"
+    ]
+  },
+  {
+    "name": "ici",
+    "trans": [
+      "adv. 这里"
+    ]
+  },
+  {
+    "name": "là-bas",
+    "trans": [
+      "adv. 那里；那边"
+    ]
+  },
+  {
+    "name": "pourquoi",
+    "trans": [
+      "adv. 为什么"
+    ]
+  },
+  {
+    "name": "parce que",
+    "trans": [
+      "loc.conj. 因为"
+    ]
+  },
+  {
+    "name": "donc",
+    "trans": [
+      "conj./adv. 所以；因此"
+    ]
+  },
+  {
+    "name": "mais",
+    "trans": [
+      "conj. 但是"
+    ]
+  },
+  {
+    "name": "pourtant",
+    "trans": [
+      "adv./conj. 然而；可是"
+    ]
+  },
+  {
+    "name": "aussi",
+    "trans": [
+      "adv. 也；同样；如此"
+    ]
+  },
+  {
+    "name": "ensuite",
+    "trans": [
+      "adv. 然后；接下来"
+    ]
+  },
+  {
+    "name": "pendant",
+    "trans": [
+      "prep. 在……期间；持续"
+    ]
+  },
+  {
+    "name": "avant",
+    "trans": [
+      "prep./adv. 在……之前；以前"
+    ]
+  },
+  {
+    "name": "après",
+    "trans": [
+      "prep./adv. 在……之后；以后"
+    ]
+  },
+  {
+    "name": "avec",
+    "trans": [
+      "prep. 和；与；带有"
+    ]
+  },
+  {
+    "name": "sans",
+    "trans": [
+      "prep. 没有；不带"
+    ]
+  },
+  {
+    "name": "chez",
+    "trans": [
+      "prep. 在……家；在……处；在……行业/人群中"
+    ]
+  },
+  {
+    "name": "travail",
+    "trans": [
+      "n.m. 工作；劳动"
+    ]
+  },
+  {
+    "name": "logement",
+    "trans": [
+      "n.m. 住房；住所"
+    ]
+  },
+  {
+    "name": "famille",
+    "trans": [
+      "n.f. 家庭；家人"
+    ]
+  },
+  {
+    "name": "ami",
+    "trans": [
+      "n.m. 朋友；女性形式 amie"
+    ]
+  },
+  {
+    "name": "enfant",
+    "trans": [
+      "n.m./f. 孩子；儿童"
+    ]
+  },
+  {
+    "name": "temps",
+    "trans": [
+      "n.m. 时间；天气"
+    ]
+  },
+  {
+    "name": "jour",
+    "trans": [
+      "n.m. 天；白天"
+    ]
+  },
+  {
+    "name": "semaine",
+    "trans": [
+      "n.f. 星期；周"
+    ]
+  },
+  {
+    "name": "mois",
+    "trans": [
+      "n.m. 月；月份"
+    ]
+  },
+  {
+    "name": "année",
+    "trans": [
+      "n.f. 年；年度"
+    ]
+  },
+  {
+    "name": "ville",
+    "trans": [
+      "n.f. 城市"
+    ]
+  },
+  {
+    "name": "pays",
+    "trans": [
+      "n.m. 国家；地区"
+    ]
+  },
+  {
+    "name": "voiture",
+    "trans": [
+      "n.f. 汽车"
+    ]
+  },
+  {
+    "name": "transport",
+    "trans": [
+      "n.m. 交通；运输"
+    ]
+  },
+  {
+    "name": "argent",
+    "trans": [
+      "n.m. 钱；银"
+    ]
+  },
+  {
+    "name": "problème",
+    "trans": [
+      "n.m. 问题；麻烦"
+    ]
+  },
+  {
+    "name": "question",
+    "trans": [
+      "n.f. 问题；提问"
+    ]
+  },
+  {
+    "name": "besoin",
+    "trans": [
+      "n.m. 需要；需求，常用 avoir besoin de"
+    ]
+  },
+  {
+    "name": "important",
+    "trans": [
+      "adj. 重要的；数量大的，阴性 importante"
+    ]
+  }
+]

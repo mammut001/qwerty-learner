@@ -16,13 +16,13 @@ import type { ReviewRecord } from '@/utils/db/record'
 import { atom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 
-export const currentDictIdAtom = atomWithStorage('currentDict', 'cet4')
+export const currentDictIdAtom = atomWithStorage('currentDict', 'tcf-canada-foundation-01')
 export const currentDictInfoAtom = atom<Dictionary>((get) => {
   const id = get(currentDictIdAtom)
   let dict = idDictionaryMap[id]
-  // 如果 dict 不存在，则返回 cet4. Typing 中会检查 DictId 是否存在，如果不存在则会重置为 cet4
+  // 如果本地缓存的词库已不存在，则回退到默认 TCF Canada 法语词库
   if (!dict) {
-    dict = idDictionaryMap.cet4
+    dict = idDictionaryMap['tcf-canada-foundation-01']
   }
   return dict
 })
@@ -52,8 +52,8 @@ export const hintSoundsConfigAtom = atomForConfig('hintSoundsConfig', {
 export const pronunciationConfigAtom = atomForConfig('pronunciation', {
   isOpen: true,
   volume: 1,
-  type: 'us' as PronunciationType,
-  name: '美音',
+  type: 'fr' as PronunciationType,
+  name: '法语',
   isLoop: false,
   isTransRead: false,
   transVolume: 1,
@@ -86,7 +86,7 @@ export const isReviewModeAtom = atom((get) => get(reviewModeInfoAtom).isReviewMo
 
 export const phoneticConfigAtom = atomForConfig('phoneticConfig', {
   isOpen: true,
-  type: 'us' as PhoneticType,
+  type: 'fr' as PhoneticType,
 })
 
 export const isOpenDarkModeAtom = atomWithStorage('isOpenDarkModeAtom', window.matchMedia('(prefers-color-scheme: dark)').matches)

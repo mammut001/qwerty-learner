@@ -21,7 +21,7 @@ export type GalleryState = {
 }
 
 const initialGalleryState: GalleryState = {
-  currentLanguageTab: 'en',
+  currentLanguageTab: 'fr',
 }
 
 export const GalleryContext = createContext<{

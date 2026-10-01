@@ -22,6 +22,8 @@ export function generateWordSoundSrc(word: string, pronunciation: Exclude<Pronun
       return `${pronunciationApi}${word}&le=zh`
     case 'ja':
       return `${pronunciationApi}${word}&le=jap`
+    case 'fr':
+      return `${pronunciationApi}${encodeURIComponent(word)}&le=fr`
     case 'de':
       return `${pronunciationApi}${word}&le=de`
     case 'hapin':
