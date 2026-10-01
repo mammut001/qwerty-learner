@@ -1,0 +1,578 @@
+[
+  {
+    "name": "accepter",
+    "trans": [
+      "v. 接受"
+    ]
+  },
+  {
+    "name": "refuser",
+    "trans": [
+      "v. 拒绝"
+    ]
+  },
+  {
+    "name": "décider",
+    "trans": [
+      "v. 决定"
+    ]
+  },
+  {
+    "name": "décider de",
+    "trans": [
+      "loc.v. 决定做……"
+    ]
+  },
+  {
+    "name": "proposer de",
+    "trans": [
+      "loc.v. 提议做……"
+    ]
+  },
+  {
+    "name": "essayer de",
+    "trans": [
+      "loc.v. 尝试做……"
+    ]
+  },
+  {
+    "name": "arrêter de",
+    "trans": [
+      "loc.v. 停止做……"
+    ]
+  },
+  {
+    "name": "continuer à",
+    "trans": [
+      "loc.v. 继续做……"
+    ]
+  },
+  {
+    "name": "commencer à",
+    "trans": [
+      "loc.v. 开始做……"
+    ]
+  },
+  {
+    "name": "réussir à",
+    "trans": [
+      "loc.v. 成功做到……"
+    ]
+  },
+  {
+    "name": "apprendre à",
+    "trans": [
+      "loc.v. 学会做……"
+    ]
+  },
+  {
+    "name": "aider à",
+    "trans": [
+      "loc.v. 帮助做……"
+    ]
+  },
+  {
+    "name": "servir à",
+    "trans": [
+      "loc.v. 用来……"
+    ]
+  },
+  {
+    "name": "chercher à",
+    "trans": [
+      "loc.v. 试图……"
+    ]
+  },
+  {
+    "name": "penser à",
+    "trans": [
+      "loc.v. 想到；考虑……"
+    ]
+  },
+  {
+    "name": "penser de",
+    "trans": [
+      "loc.v. 对……有何看法"
+    ]
+  },
+  {
+    "name": "rêver de",
+    "trans": [
+      "loc.v. 梦想……"
+    ]
+  },
+  {
+    "name": "avoir envie de",
+    "trans": [
+      "loc.v. 想要……"
+    ]
+  },
+  {
+    "name": "avoir peur de",
+    "trans": [
+      "loc.v. 害怕……"
+    ]
+  },
+  {
+    "name": "avoir l'habitude de",
+    "trans": [
+      "loc.v. 习惯于……"
+    ]
+  },
+  {
+    "name": "avoir besoin de",
+    "trans": [
+      "loc.v. 需要……"
+    ]
+  },
+  {
+    "name": "avoir l'intention de",
+    "trans": [
+      "loc.v. 打算……"
+    ]
+  },
+  {
+    "name": "être capable de",
+    "trans": [
+      "loc.v. 有能力……"
+    ]
+  },
+  {
+    "name": "être obligé de",
+    "trans": [
+      "loc.v. 被迫；必须……"
+    ]
+  },
+  {
+    "name": "être prêt à",
+    "trans": [
+      "loc.v. 准备好……"
+    ]
+  },
+  {
+    "name": "être intéressé par",
+    "trans": [
+      "loc.v. 对……感兴趣"
+    ]
+  },
+  {
+    "name": "s'intéresser à",
+    "trans": [
+      "loc.v. 对……感兴趣"
+    ]
+  },
+  {
+    "name": "participer à",
+    "trans": [
+      "loc.v. 参加……"
+    ]
+  },
+  {
+    "name": "assister à",
+    "trans": [
+      "loc.v. 出席；参加……"
+    ]
+  },
+  {
+    "name": "profiter de",
+    "trans": [
+      "loc.v. 利用；享受……"
+    ]
+  },
+  {
+    "name": "dépendre de",
+    "trans": [
+      "loc.v. 取决于……"
+    ]
+  },
+  {
+    "name": "s'occuper de",
+    "trans": [
+      "loc.v. 负责；照顾……"
+    ]
+  },
+  {
+    "name": "parler de",
+    "trans": [
+      "loc.v. 谈论……"
+    ]
+  },
+  {
+    "name": "parler à",
+    "trans": [
+      "loc.v. 和某人说话"
+    ]
+  },
+  {
+    "name": "demander à",
+    "trans": [
+      "loc.v. 向某人请求；要求某人"
+    ]
+  },
+  {
+    "name": "demander de",
+    "trans": [
+      "loc.v. 请求做……"
+    ]
+  },
+  {
+    "name": "répondre à",
+    "trans": [
+      "loc.v. 回答；回复……"
+    ]
+  },
+  {
+    "name": "écrire à",
+    "trans": [
+      "loc.v. 给……写信"
+    ]
+  },
+  {
+    "name": "téléphoner à",
+    "trans": [
+      "loc.v. 给……打电话"
+    ]
+  },
+  {
+    "name": "ressembler à",
+    "trans": [
+      "loc.v. 像；类似于……"
+    ]
+  },
+  {
+    "name": "appartenir à",
+    "trans": [
+      "loc.v. 属于……"
+    ]
+  },
+  {
+    "name": "manquer de",
+    "trans": [
+      "loc.v. 缺少……"
+    ]
+  },
+  {
+    "name": "changer de",
+    "trans": [
+      "loc.v. 更换……"
+    ]
+  },
+  {
+    "name": "se servir de",
+    "trans": [
+      "loc.v. 使用……"
+    ]
+  },
+  {
+    "name": "se souvenir de",
+    "trans": [
+      "loc.v. 记得……"
+    ]
+  },
+  {
+    "name": "se rendre compte de",
+    "trans": [
+      "loc.v. 意识到……"
+    ]
+  },
+  {
+    "name": "se plaindre de",
+    "trans": [
+      "loc.v. 抱怨……"
+    ]
+  },
+  {
+    "name": "s'excuser de",
+    "trans": [
+      "loc.v. 为……道歉"
+    ]
+  },
+  {
+    "name": "remercier pour",
+    "trans": [
+      "loc.v. 为……感谢"
+    ]
+  },
+  {
+    "name": "féliciter pour",
+    "trans": [
+      "loc.v. 为……祝贺"
+    ]
+  },
+  {
+    "name": "bénéficier de",
+    "trans": [
+      "loc.v. 受益于……"
+    ]
+  },
+  {
+    "name": "souffrir de",
+    "trans": [
+      "loc.v. 患有；受……之苦"
+    ]
+  },
+  {
+    "name": "manquer à",
+    "trans": [
+      "loc.v. 让某人想念；未履行"
+    ]
+  },
+  {
+    "name": "convenir à",
+    "trans": [
+      "loc.v. 适合……"
+    ]
+  },
+  {
+    "name": "faire attention à",
+    "trans": [
+      "loc.v. 注意……"
+    ]
+  },
+  {
+    "name": "s'habituer à",
+    "trans": [
+      "loc.v. 习惯于……"
+    ]
+  },
+  {
+    "name": "renoncer à",
+    "trans": [
+      "loc.v. 放弃……"
+    ]
+  },
+  {
+    "name": "tenir à",
+    "trans": [
+      "loc.v. 重视；坚持……"
+    ]
+  },
+  {
+    "name": "arriver à",
+    "trans": [
+      "loc.v. 成功做到；到达……"
+    ]
+  },
+  {
+    "name": "permettre à",
+    "trans": [
+      "loc.v. 允许某人……"
+    ]
+  },
+  {
+    "name": "empêcher de",
+    "trans": [
+      "loc.v. 阻止做……"
+    ]
+  },
+  {
+    "name": "éviter de",
+    "trans": [
+      "loc.v. 避免做……"
+    ]
+  },
+  {
+    "name": "risquer de",
+    "trans": [
+      "loc.v. 有可能；冒险……"
+    ]
+  },
+  {
+    "name": "promettre de",
+    "trans": [
+      "loc.v. 承诺做……"
+    ]
+  },
+  {
+    "name": "oublier de",
+    "trans": [
+      "loc.v. 忘记做……"
+    ]
+  },
+  {
+    "name": "se dépêcher de",
+    "trans": [
+      "loc.v. 赶快做……"
+    ]
+  },
+  {
+    "name": "choisir de",
+    "trans": [
+      "loc.v. 选择做……"
+    ]
+  },
+  {
+    "name": "prévoir de",
+    "trans": [
+      "loc.v. 计划做……"
+    ]
+  },
+  {
+    "name": "refuser de",
+    "trans": [
+      "loc.v. 拒绝做……"
+    ]
+  },
+  {
+    "name": "accepter de",
+    "trans": [
+      "loc.v. 接受做……"
+    ]
+  },
+  {
+    "name": "proposer à quelqu'un de",
+    "trans": [
+      "loc.v. 建议某人做……"
+    ]
+  },
+  {
+    "name": "conseiller à quelqu'un de",
+    "trans": [
+      "loc.v. 建议某人做……"
+    ]
+  },
+  {
+    "name": "interdire à quelqu'un de",
+    "trans": [
+      "loc.v. 禁止某人做……"
+    ]
+  },
+  {
+    "name": "demander à quelqu'un de",
+    "trans": [
+      "loc.v. 要求某人做……"
+    ]
+  },
+  {
+    "name": "dire à quelqu'un de",
+    "trans": [
+      "loc.v. 告诉某人去做……"
+    ]
+  },
+  {
+    "name": "encourager quelqu'un à",
+    "trans": [
+      "loc.v. 鼓励某人做……"
+    ]
+  },
+  {
+    "name": "inviter quelqu'un à",
+    "trans": [
+      "loc.v. 邀请某人做……"
+    ]
+  },
+  {
+    "name": "obliger quelqu'un à",
+    "trans": [
+      "loc.v. 迫使某人做……"
+    ]
+  },
+  {
+    "name": "apprendre quelque chose à quelqu'un",
+    "trans": [
+      "表达：教某人某事"
+    ]
+  },
+  {
+    "name": "expliquer quelque chose à quelqu'un",
+    "trans": [
+      "表达：向某人解释某事"
+    ]
+  },
+  {
+    "name": "offrir quelque chose à quelqu'un",
+    "trans": [
+      "表达：送给某人某物"
+    ]
+  },
+  {
+    "name": "prêter quelque chose à quelqu'un",
+    "trans": [
+      "表达：借给某人某物"
+    ]
+  },
+  {
+    "name": "emprunter quelque chose à quelqu'un",
+    "trans": [
+      "表达：向某人借某物"
+    ]
+  },
+  {
+    "name": "rendre quelque chose à quelqu'un",
+    "trans": [
+      "表达：把某物归还给某人"
+    ]
+  },
+  {
+    "name": "s'adresser à",
+    "trans": [
+      "loc.v. 向……说话；联系……"
+    ]
+  },
+  {
+    "name": "faire confiance à",
+    "trans": [
+      "loc.v. 信任……"
+    ]
+  },
+  {
+    "name": "compter sur",
+    "trans": [
+      "loc.v. 依靠；指望……"
+    ]
+  },
+  {
+    "name": "s'entendre avec",
+    "trans": [
+      "loc.v. 和……相处融洽"
+    ]
+  },
+  {
+    "name": "se mettre d'accord",
+    "trans": [
+      "loc.v. 达成一致"
+    ]
+  },
+  {
+    "name": "être d'accord avec",
+    "trans": [
+      "loc.v. 同意……"
+    ]
+  },
+  {
+    "name": "être contre",
+    "trans": [
+      "loc.v. 反对……"
+    ]
+  },
+  {
+    "name": "être pour",
+    "trans": [
+      "loc.v. 支持……"
+    ]
+  },
+  {
+    "name": "insister sur",
+    "trans": [
+      "loc.v. 强调；坚持……"
+    ]
+  },
+  {
+    "name": "agir sur",
+    "trans": [
+      "loc.v. 对……产生作用"
+    ]
+  },
+  {
+    "name": "porter sur",
+    "trans": [
+      "loc.v. 涉及；主题是……"
+    ]
+  },
+  {
+    "name": "aboutir à",
+    "trans": [
+      "loc.v. 导致；最终达到……"
+    ]
+  }
+]
