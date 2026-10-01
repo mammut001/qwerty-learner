@@ -1,0 +1,386 @@
+[
+  {
+    "name": "je voudrais",
+    "trans": [
+      "表达：我想要……（礼貌）"
+    ]
+  },
+  {
+    "name": "j'aimerais",
+    "trans": [
+      "表达：我想……；我希望……（更礼貌）"
+    ]
+  },
+  {
+    "name": "est-ce que je pourrais",
+    "trans": [
+      "表达：我可以……吗？"
+    ]
+  },
+  {
+    "name": "serait-il possible de",
+    "trans": [
+      "表达：是否可以……？"
+    ]
+  },
+  {
+    "name": "pourriez-vous",
+    "trans": [
+      "表达：您能……吗？"
+    ]
+  },
+  {
+    "name": "je vous appelle pour",
+    "trans": [
+      "表达：我打电话是为了……"
+    ]
+  },
+  {
+    "name": "je vous écris pour",
+    "trans": [
+      "表达：我写信是为了……"
+    ]
+  },
+  {
+    "name": "je me permets de",
+    "trans": [
+      "表达：请允许我……；我冒昧……"
+    ]
+  },
+  {
+    "name": "je souhaiterais",
+    "trans": [
+      "表达：我希望……（正式）"
+    ]
+  },
+  {
+    "name": "j'ai besoin de",
+    "trans": [
+      "表达：我需要……"
+    ]
+  },
+  {
+    "name": "je cherche",
+    "trans": [
+      "表达：我在寻找……"
+    ]
+  },
+  {
+    "name": "je m'intéresse à",
+    "trans": [
+      "表达：我对……感兴趣"
+    ]
+  },
+  {
+    "name": "je suis disponible",
+    "trans": [
+      "表达：我有空"
+    ]
+  },
+  {
+    "name": "cela me convient",
+    "trans": [
+      "表达：这对我合适"
+    ]
+  },
+  {
+    "name": "cela ne me convient pas",
+    "trans": [
+      "表达：这对我不合适"
+    ]
+  },
+  {
+    "name": "je préfère",
+    "trans": [
+      "表达：我更倾向于……"
+    ]
+  },
+  {
+    "name": "à mon avis",
+    "trans": [
+      "表达：在我看来"
+    ]
+  },
+  {
+    "name": "selon moi",
+    "trans": [
+      "表达：依我看"
+    ]
+  },
+  {
+    "name": "je pense que",
+    "trans": [
+      "表达：我认为……"
+    ]
+  },
+  {
+    "name": "je crois que",
+    "trans": [
+      "表达：我觉得；我相信……"
+    ]
+  },
+  {
+    "name": "je trouve que",
+    "trans": [
+      "表达：我觉得……"
+    ]
+  },
+  {
+    "name": "il me semble que",
+    "trans": [
+      "表达：在我看来似乎……"
+    ]
+  },
+  {
+    "name": "je suis d'accord",
+    "trans": [
+      "表达：我同意"
+    ]
+  },
+  {
+    "name": "je ne suis pas d'accord",
+    "trans": [
+      "表达：我不同意"
+    ]
+  },
+  {
+    "name": "je suis tout à fait d'accord",
+    "trans": [
+      "表达：我完全同意"
+    ]
+  },
+  {
+    "name": "je comprends votre point de vue",
+    "trans": [
+      "表达：我理解您的观点"
+    ]
+  },
+  {
+    "name": "cependant",
+    "trans": [
+      "表达：然而"
+    ]
+  },
+  {
+    "name": "cela dépend",
+    "trans": [
+      "表达：这要看情况"
+    ]
+  },
+  {
+    "name": "d'un côté",
+    "trans": [
+      "表达：一方面"
+    ]
+  },
+  {
+    "name": "de l'autre côté",
+    "trans": [
+      "表达：另一方面"
+    ]
+  },
+  {
+    "name": "le principal avantage",
+    "trans": [
+      "表达：主要优点"
+    ]
+  },
+  {
+    "name": "le principal inconvénient",
+    "trans": [
+      "表达：主要缺点"
+    ]
+  },
+  {
+    "name": "le problème, c'est que",
+    "trans": [
+      "表达：问题在于……"
+    ]
+  },
+  {
+    "name": "la raison principale",
+    "trans": [
+      "表达：主要原因"
+    ]
+  },
+  {
+    "name": "par exemple",
+    "trans": [
+      "表达：例如"
+    ]
+  },
+  {
+    "name": "prenons l'exemple de",
+    "trans": [
+      "表达：以……为例"
+    ]
+  },
+  {
+    "name": "cela permet de",
+    "trans": [
+      "表达：这使得……成为可能"
+    ]
+  },
+  {
+    "name": "cela peut aider à",
+    "trans": [
+      "表达：这可以帮助……"
+    ]
+  },
+  {
+    "name": "cela risque de",
+    "trans": [
+      "表达：这可能会导致……（风险）"
+    ]
+  },
+  {
+    "name": "cela dépend de",
+    "trans": [
+      "表达：这取决于……"
+    ]
+  },
+  {
+    "name": "il est important de",
+    "trans": [
+      "表达：……很重要"
+    ]
+  },
+  {
+    "name": "il est nécessaire de",
+    "trans": [
+      "表达：……是必要的"
+    ]
+  },
+  {
+    "name": "il faudrait",
+    "trans": [
+      "表达：应该……；最好……"
+    ]
+  },
+  {
+    "name": "on devrait",
+    "trans": [
+      "表达：我们/人们应该……"
+    ]
+  },
+  {
+    "name": "on pourrait",
+    "trans": [
+      "表达：我们/人们可以……"
+    ]
+  },
+  {
+    "name": "il vaut mieux",
+    "trans": [
+      "表达：最好……"
+    ]
+  },
+  {
+    "name": "je vous remercie",
+    "trans": [
+      "表达：谢谢您"
+    ]
+  },
+  {
+    "name": "merci d'avance",
+    "trans": [
+      "表达：提前感谢"
+    ]
+  },
+  {
+    "name": "dans l'attente de votre réponse",
+    "trans": [
+      "书面：期待您的回复"
+    ]
+  },
+  {
+    "name": "cordialement",
+    "trans": [
+      "书面：谨致问候"
+    ]
+  },
+  {
+    "name": "bien cordialement",
+    "trans": [
+      "书面：诚挚问候"
+    ]
+  },
+  {
+    "name": "je reste à votre disposition",
+    "trans": [
+      "书面：如需更多信息，我随时可以提供"
+    ]
+  },
+  {
+    "name": "en ce qui concerne",
+    "trans": [
+      "表达：关于……；就……而言"
+    ]
+  },
+  {
+    "name": "quant à",
+    "trans": [
+      "表达：至于……"
+    ]
+  },
+  {
+    "name": "en ce qui me concerne",
+    "trans": [
+      "表达：就我而言"
+    ]
+  },
+  {
+    "name": "pour ma part",
+    "trans": [
+      "表达：就我个人而言"
+    ]
+  },
+  {
+    "name": "tout d'abord",
+    "trans": [
+      "表达：首先"
+    ]
+  },
+  {
+    "name": "ensuite",
+    "trans": [
+      "表达：然后"
+    ]
+  },
+  {
+    "name": "enfin",
+    "trans": [
+      "表达：最后"
+    ]
+  },
+  {
+    "name": "pour conclure",
+    "trans": [
+      "表达：总结来说"
+    ]
+  },
+  {
+    "name": "en résumé",
+    "trans": [
+      "表达：总而言之"
+    ]
+  },
+  {
+    "name": "c'est pourquoi",
+    "trans": [
+      "表达：这就是为什么……"
+    ]
+  },
+  {
+    "name": "par conséquent",
+    "trans": [
+      "表达：因此"
+    ]
+  },
+  {
+    "name": "malgré cela",
+    "trans": [
+      "表达：尽管如此"
+    ]
+  }
+]
