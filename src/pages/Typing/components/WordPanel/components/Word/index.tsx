@@ -78,7 +78,7 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
           if (wordState.hasWrong) return
 
           if (updateAction.value === ' ') {
-            updateAction.event.preventDefault()
+            updateAction.event?.preventDefault()
             setWordState((state) => {
               state.inputWord = state.inputWord + EXPLICIT_SPACE
             })
@@ -312,6 +312,25 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
           )}
         </div>
       </div>
+      {currentLanguage === 'fr' && state.isTyping && (
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-1.5">
+          <span className="mr-1 text-xs text-gray-400">法语字符</span>
+          {['é', 'è', 'ê', 'ë', 'à', 'â', 'ù', 'û', 'ô', 'ö', 'î', 'ï', 'ç', 'œ', 'æ'].map((char) => (
+            <button
+              key={char}
+              type="button"
+              className="min-w-8 rounded-md bg-gray-100 px-2 py-1 text-sm text-gray-600 transition hover:bg-indigo-100 hover:text-indigo-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+              onMouseDown={(event) => {
+                event.preventDefault()
+                updateInput({ type: 'add', value: char })
+              }}
+              aria-label={`输入法语字符 ${char}`}
+            >
+              {char}
+            </button>
+          ))}
+        </div>
+      )}
       <TipAlert className="fixed bottom-10 right-3" show={showTipAlert} setShow={setShowTipAlert} />
     </>
   )
