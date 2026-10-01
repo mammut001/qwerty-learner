@@ -1,0 +1,518 @@
+[
+  {
+    "name": "service public",
+    "trans": [
+      "n.m. 公共服务"
+    ]
+  },
+  {
+    "name": "bureau",
+    "trans": [
+      "n.m. 办公室；书桌"
+    ]
+  },
+  {
+    "name": "poste",
+    "trans": [
+      "n.f. 邮局；n.m. 岗位"
+    ]
+  },
+  {
+    "name": "bibliothèque",
+    "trans": [
+      "n.f. 图书馆"
+    ]
+  },
+  {
+    "name": "centre communautaire",
+    "trans": [
+      "n.m. 社区中心"
+    ]
+  },
+  {
+    "name": "garderie",
+    "trans": [
+      "n.f. 托儿所"
+    ]
+  },
+  {
+    "name": "école maternelle",
+    "trans": [
+      "n.f. 幼儿园"
+    ]
+  },
+  {
+    "name": "école primaire",
+    "trans": [
+      "n.f. 小学"
+    ]
+  },
+  {
+    "name": "collège",
+    "trans": [
+      "n.m. 初中；学院"
+    ]
+  },
+  {
+    "name": "lycée",
+    "trans": [
+      "n.m. 高中"
+    ]
+  },
+  {
+    "name": "hôpital",
+    "trans": [
+      "n.m. 医院"
+    ]
+  },
+  {
+    "name": "clinique",
+    "trans": [
+      "n.f. 诊所"
+    ]
+  },
+  {
+    "name": "assurance maladie",
+    "trans": [
+      "n.f. 医疗保险"
+    ]
+  },
+  {
+    "name": "dentiste",
+    "trans": [
+      "n.m./f. 牙医"
+    ]
+  },
+  {
+    "name": "infirmier",
+    "trans": [
+      "n.m. 护士；阴性 infirmière"
+    ]
+  },
+  {
+    "name": "patient",
+    "trans": [
+      "n.m. 病人；阴性 patiente"
+    ]
+  },
+  {
+    "name": "ordonnance",
+    "trans": [
+      "n.f. 处方"
+    ]
+  },
+  {
+    "name": "traitement",
+    "trans": [
+      "n.m. 治疗；处理"
+    ]
+  },
+  {
+    "name": "accident",
+    "trans": [
+      "n.m. 事故"
+    ]
+  },
+  {
+    "name": "blessure",
+    "trans": [
+      "n.f. 伤"
+    ]
+  },
+  {
+    "name": "police",
+    "trans": [
+      "n.f. 警察；警局"
+    ]
+  },
+  {
+    "name": "pompier",
+    "trans": [
+      "n.m. 消防员"
+    ]
+  },
+  {
+    "name": "sécurité sociale",
+    "trans": [
+      "n.f. 社会保障"
+    ]
+  },
+  {
+    "name": "justice",
+    "trans": [
+      "n.f. 司法；公正"
+    ]
+  },
+  {
+    "name": "loi",
+    "trans": [
+      "n.f. 法律"
+    ]
+  },
+  {
+    "name": "règle",
+    "trans": [
+      "n.f. 规则"
+    ]
+  },
+  {
+    "name": "droit",
+    "trans": [
+      "n.m. 权利；法律"
+    ]
+  },
+  {
+    "name": "devoir",
+    "trans": [
+      "n.m. 义务；作业"
+    ]
+  },
+  {
+    "name": "autorisation",
+    "trans": [
+      "n.f. 许可"
+    ]
+  },
+  {
+    "name": "interdiction",
+    "trans": [
+      "n.f. 禁止"
+    ]
+  },
+  {
+    "name": "transport en commun",
+    "trans": [
+      "n.m. 公共交通"
+    ]
+  },
+  {
+    "name": "abonnement",
+    "trans": [
+      "n.m. 订阅；月票"
+    ]
+  },
+  {
+    "name": "stationnement",
+    "trans": [
+      "n.m. 停车"
+    ]
+  },
+  {
+    "name": "parking",
+    "trans": [
+      "n.m. 停车场"
+    ]
+  },
+  {
+    "name": "embouteillage",
+    "trans": [
+      "n.m. 堵车"
+    ]
+  },
+  {
+    "name": "piste cyclable",
+    "trans": [
+      "n.f. 自行车道"
+    ]
+  },
+  {
+    "name": "vélo",
+    "trans": [
+      "n.m. 自行车"
+    ]
+  },
+  {
+    "name": "piéton",
+    "trans": [
+      "n.m. 行人；阴性 piétonne"
+    ]
+  },
+  {
+    "name": "route",
+    "trans": [
+      "n.f. 道路"
+    ]
+  },
+  {
+    "name": "autoroute",
+    "trans": [
+      "n.f. 高速公路"
+    ]
+  },
+  {
+    "name": "déchet",
+    "trans": [
+      "n.m. 废弃物；垃圾"
+    ]
+  },
+  {
+    "name": "recyclage",
+    "trans": [
+      "n.m. 回收利用"
+    ]
+  },
+  {
+    "name": "tri",
+    "trans": [
+      "n.m. 分类；筛选"
+    ]
+  },
+  {
+    "name": "énergie",
+    "trans": [
+      "n.f. 能源；精力"
+    ]
+  },
+  {
+    "name": "électricité",
+    "trans": [
+      "n.f. 电"
+    ]
+  },
+  {
+    "name": "chauffage",
+    "trans": [
+      "n.m. 暖气"
+    ]
+  },
+  {
+    "name": "eau potable",
+    "trans": [
+      "n.f. 饮用水"
+    ]
+  },
+  {
+    "name": "espace vert",
+    "trans": [
+      "n.m. 绿地"
+    ]
+  },
+  {
+    "name": "parc",
+    "trans": [
+      "n.m. 公园"
+    ]
+  },
+  {
+    "name": "nature",
+    "trans": [
+      "n.f. 自然"
+    ]
+  },
+  {
+    "name": "protection",
+    "trans": [
+      "n.f. 保护"
+    ]
+  },
+  {
+    "name": "association",
+    "trans": [
+      "n.f. 协会"
+    ]
+  },
+  {
+    "name": "bénévole",
+    "trans": [
+      "n.m./f. 志愿者"
+    ]
+  },
+  {
+    "name": "bénévolat",
+    "trans": [
+      "n.m. 志愿服务"
+    ]
+  },
+  {
+    "name": "activité",
+    "trans": [
+      "n.f. 活动"
+    ]
+  },
+  {
+    "name": "événement",
+    "trans": [
+      "n.m. 活动；事件"
+    ]
+  },
+  {
+    "name": "culture",
+    "trans": [
+      "n.f. 文化"
+    ]
+  },
+  {
+    "name": "spectacle",
+    "trans": [
+      "n.m. 演出"
+    ]
+  },
+  {
+    "name": "exposition",
+    "trans": [
+      "n.f. 展览"
+    ]
+  },
+  {
+    "name": "musée",
+    "trans": [
+      "n.m. 博物馆"
+    ]
+  },
+  {
+    "name": "cinéma",
+    "trans": [
+      "n.m. 电影院；电影"
+    ]
+  },
+  {
+    "name": "actualité",
+    "trans": [
+      "n.f. 新闻；时事"
+    ]
+  },
+  {
+    "name": "journal",
+    "trans": [
+      "n.m. 报纸；日志"
+    ]
+  },
+  {
+    "name": "information",
+    "trans": [
+      "n.f. 信息；新闻"
+    ]
+  },
+  {
+    "name": "média",
+    "trans": [
+      "n.m. 媒体"
+    ]
+  },
+  {
+    "name": "publicité",
+    "trans": [
+      "n.f. 广告"
+    ]
+  },
+  {
+    "name": "population",
+    "trans": [
+      "n.f. 人口"
+    ]
+  },
+  {
+    "name": "habitant",
+    "trans": [
+      "n.m. 居民"
+    ]
+  },
+  {
+    "name": "communauté",
+    "trans": [
+      "n.f. 社区；群体"
+    ]
+  },
+  {
+    "name": "relation",
+    "trans": [
+      "n.f. 关系"
+    ]
+  },
+  {
+    "name": "entraide",
+    "trans": [
+      "n.f. 互助"
+    ]
+  },
+  {
+    "name": "isolement",
+    "trans": [
+      "n.m. 孤立"
+    ]
+  },
+  {
+    "name": "intégration",
+    "trans": [
+      "n.f. 融入；整合"
+    ]
+  },
+  {
+    "name": "diversité",
+    "trans": [
+      "n.f. 多样性"
+    ]
+  },
+  {
+    "name": "respect",
+    "trans": [
+      "n.m. 尊重"
+    ]
+  },
+  {
+    "name": "conflit",
+    "trans": [
+      "n.m. 冲突"
+    ]
+  },
+  {
+    "name": "accord",
+    "trans": [
+      "n.m. 协议；同意"
+    ]
+  },
+  {
+    "name": "désaccord",
+    "trans": [
+      "n.m. 分歧"
+    ]
+  },
+  {
+    "name": "plainte",
+    "trans": [
+      "n.f. 投诉；抱怨"
+    ]
+  },
+  {
+    "name": "réclamation",
+    "trans": [
+      "n.f. 投诉；索赔"
+    ]
+  },
+  {
+    "name": "solution",
+    "trans": [
+      "n.f. 解决方案"
+    ]
+  },
+  {
+    "name": "aide",
+    "trans": [
+      "n.f. 帮助"
+    ]
+  },
+  {
+    "name": "soutien",
+    "trans": [
+      "n.m. 支持"
+    ]
+  },
+  {
+    "name": "conseil",
+    "trans": [
+      "n.m. 建议；委员会"
+    ]
+  },
+  {
+    "name": "accueil",
+    "trans": [
+      "n.m. 接待；欢迎"
+    ]
+  },
+  {
+    "name": "guichet",
+    "trans": [
+      "n.m. 柜台；窗口"
+    ]
+  }
+]
