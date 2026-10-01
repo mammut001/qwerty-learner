@@ -1,0 +1,554 @@
+[
+  {
+    "name": "prendre une décision",
+    "trans": [
+      "loc.v. 做决定"
+    ]
+  },
+  {
+    "name": "prendre des mesures",
+    "trans": [
+      "loc.v. 采取措施"
+    ]
+  },
+  {
+    "name": "prendre conscience de",
+    "trans": [
+      "loc.v. 意识到"
+    ]
+  },
+  {
+    "name": "prendre en charge",
+    "trans": [
+      "loc.v. 负责；承担"
+    ]
+  },
+  {
+    "name": "prendre part à",
+    "trans": [
+      "loc.v. 参加"
+    ]
+  },
+  {
+    "name": "prendre le temps de",
+    "trans": [
+      "loc.v. 花时间做……"
+    ]
+  },
+  {
+    "name": "mettre en œuvre",
+    "trans": [
+      "loc.v. 实施"
+    ]
+  },
+  {
+    "name": "mettre en place",
+    "trans": [
+      "loc.v. 建立；实施"
+    ]
+  },
+  {
+    "name": "mettre l'accent sur",
+    "trans": [
+      "loc.v. 强调"
+    ]
+  },
+  {
+    "name": "mettre fin à",
+    "trans": [
+      "loc.v. 结束"
+    ]
+  },
+  {
+    "name": "mettre à disposition",
+    "trans": [
+      "loc.v. 提供使用"
+    ]
+  },
+  {
+    "name": "mettre en évidence",
+    "trans": [
+      "loc.v. 突出；显示"
+    ]
+  },
+  {
+    "name": "faire face à",
+    "trans": [
+      "loc.v. 面对"
+    ]
+  },
+  {
+    "name": "faire appel à",
+    "trans": [
+      "loc.v. 求助于；调用"
+    ]
+  },
+  {
+    "name": "faire partie de",
+    "trans": [
+      "loc.v. 属于……的一部分"
+    ]
+  },
+  {
+    "name": "faire preuve de",
+    "trans": [
+      "loc.v. 表现出；展现"
+    ]
+  },
+  {
+    "name": "faire attention à",
+    "trans": [
+      "loc.v. 注意"
+    ]
+  },
+  {
+    "name": "faire en sorte de",
+    "trans": [
+      "loc.v. 设法；确保"
+    ]
+  },
+  {
+    "name": "avoir accès à",
+    "trans": [
+      "loc.v. 可以获得；进入"
+    ]
+  },
+  {
+    "name": "avoir recours à",
+    "trans": [
+      "loc.v. 求助于；采用"
+    ]
+  },
+  {
+    "name": "avoir lieu",
+    "trans": [
+      "loc.v. 发生；举行"
+    ]
+  },
+  {
+    "name": "avoir pour objectif de",
+    "trans": [
+      "loc.v. 目标是……"
+    ]
+  },
+  {
+    "name": "avoir un impact sur",
+    "trans": [
+      "loc.v. 对……有影响"
+    ]
+  },
+  {
+    "name": "avoir tendance à",
+    "trans": [
+      "loc.v. 倾向于"
+    ]
+  },
+  {
+    "name": "jouer un rôle dans",
+    "trans": [
+      "loc.v. 在……中发挥作用"
+    ]
+  },
+  {
+    "name": "tenir compte de",
+    "trans": [
+      "loc.v. 考虑到"
+    ]
+  },
+  {
+    "name": "tenir à",
+    "trans": [
+      "loc.v. 重视；坚持"
+    ]
+  },
+  {
+    "name": "tenir informé",
+    "trans": [
+      "loc.v. 让……了解最新情况"
+    ]
+  },
+  {
+    "name": "donner lieu à",
+    "trans": [
+      "loc.v. 导致；引起"
+    ]
+  },
+  {
+    "name": "donner accès à",
+    "trans": [
+      "loc.v. 使能够获得"
+    ]
+  },
+  {
+    "name": "donner l'impression de",
+    "trans": [
+      "loc.v. 给人……的印象"
+    ]
+  },
+  {
+    "name": "poser un problème",
+    "trans": [
+      "loc.v. 构成问题"
+    ]
+  },
+  {
+    "name": "poser une question",
+    "trans": [
+      "loc.v. 提问"
+    ]
+  },
+  {
+    "name": "poser des limites",
+    "trans": [
+      "loc.v. 设定界限"
+    ]
+  },
+  {
+    "name": "apporter une solution",
+    "trans": [
+      "loc.v. 提供解决方案"
+    ]
+  },
+  {
+    "name": "apporter une aide",
+    "trans": [
+      "loc.v. 提供帮助"
+    ]
+  },
+  {
+    "name": "apporter une contribution",
+    "trans": [
+      "loc.v. 作出贡献"
+    ]
+  },
+  {
+    "name": "assurer un service",
+    "trans": [
+      "loc.v. 提供服务"
+    ]
+  },
+  {
+    "name": "assurer la sécurité",
+    "trans": [
+      "loc.v. 确保安全"
+    ]
+  },
+  {
+    "name": "garantir l'accès à",
+    "trans": [
+      "loc.v. 保证获得……"
+    ]
+  },
+  {
+    "name": "garantir la qualité",
+    "trans": [
+      "loc.v. 保证质量"
+    ]
+  },
+  {
+    "name": "favoriser l'accès à",
+    "trans": [
+      "loc.v. 促进获得……"
+    ]
+  },
+  {
+    "name": "favoriser le développement",
+    "trans": [
+      "loc.v. 促进发展"
+    ]
+  },
+  {
+    "name": "encourager la participation",
+    "trans": [
+      "loc.v. 鼓励参与"
+    ]
+  },
+  {
+    "name": "encourager l'utilisation",
+    "trans": [
+      "loc.v. 鼓励使用"
+    ]
+  },
+  {
+    "name": "répondre aux besoins",
+    "trans": [
+      "loc.v. 满足需求"
+    ]
+  },
+  {
+    "name": "répondre aux attentes",
+    "trans": [
+      "loc.v. 满足期望"
+    ]
+  },
+  {
+    "name": "répondre à une demande",
+    "trans": [
+      "loc.v. 回应需求；申请"
+    ]
+  },
+  {
+    "name": "réduire les coûts",
+    "trans": [
+      "loc.v. 降低成本"
+    ]
+  },
+  {
+    "name": "réduire les risques",
+    "trans": [
+      "loc.v. 降低风险"
+    ]
+  },
+  {
+    "name": "limiter les effets",
+    "trans": [
+      "loc.v. 限制影响"
+    ]
+  },
+  {
+    "name": "éviter les erreurs",
+    "trans": [
+      "loc.v. 避免错误"
+    ]
+  },
+  {
+    "name": "prévenir les risques",
+    "trans": [
+      "loc.v. 预防风险"
+    ]
+  },
+  {
+    "name": "résoudre un problème",
+    "trans": [
+      "loc.v. 解决问题"
+    ]
+  },
+  {
+    "name": "surmonter une difficulté",
+    "trans": [
+      "loc.v. 克服困难"
+    ]
+  },
+  {
+    "name": "atteindre un objectif",
+    "trans": [
+      "loc.v. 达成目标"
+    ]
+  },
+  {
+    "name": "obtenir un résultat",
+    "trans": [
+      "loc.v. 获得结果"
+    ]
+  },
+  {
+    "name": "améliorer la qualité",
+    "trans": [
+      "loc.v. 提高质量"
+    ]
+  },
+  {
+    "name": "améliorer les conditions",
+    "trans": [
+      "loc.v. 改善条件"
+    ]
+  },
+  {
+    "name": "augmenter les chances de",
+    "trans": [
+      "loc.v. 提高……的可能性"
+    ]
+  },
+  {
+    "name": "contribuer à",
+    "trans": [
+      "loc.v. 有助于"
+    ]
+  },
+  {
+    "name": "conduire à",
+    "trans": [
+      "loc.v. 导致"
+    ]
+  },
+  {
+    "name": "entraîner une conséquence",
+    "trans": [
+      "loc.v. 引发后果"
+    ]
+  },
+  {
+    "name": "provoquer une réaction",
+    "trans": [
+      "loc.v. 引起反应"
+    ]
+  },
+  {
+    "name": "représenter un avantage",
+    "trans": [
+      "loc.v. 构成优势"
+    ]
+  },
+  {
+    "name": "représenter un risque",
+    "trans": [
+      "loc.v. 构成风险"
+    ]
+  },
+  {
+    "name": "constituer une solution",
+    "trans": [
+      "loc.v. 构成一种解决办法"
+    ]
+  },
+  {
+    "name": "constituer un obstacle",
+    "trans": [
+      "loc.v. 构成障碍"
+    ]
+  },
+  {
+    "name": "remettre en question",
+    "trans": [
+      "loc.v. 质疑；重新审视"
+    ]
+  },
+  {
+    "name": "remettre à plus tard",
+    "trans": [
+      "loc.v. 推迟"
+    ]
+  },
+  {
+    "name": "prendre en considération",
+    "trans": [
+      "loc.v. 考虑到"
+    ]
+  },
+  {
+    "name": "tenir compte du fait que",
+    "trans": [
+      "表达：考虑到……这一事实"
+    ]
+  },
+  {
+    "name": "dans la mesure où",
+    "trans": [
+      "loc.conj. 在……范围内；鉴于"
+    ]
+  },
+  {
+    "name": "dans le cadre de",
+    "trans": [
+      "loc.prép. 在……框架下"
+    ]
+  },
+  {
+    "name": "en matière de",
+    "trans": [
+      "loc.prép. 在……方面"
+    ]
+  },
+  {
+    "name": "en termes de",
+    "trans": [
+      "loc.prép. 就……而言"
+    ]
+  },
+  {
+    "name": "du point de vue de",
+    "trans": [
+      "loc.prép. 从……角度看"
+    ]
+  },
+  {
+    "name": "par rapport à",
+    "trans": [
+      "loc.prép. 与……相比；关于"
+    ]
+  },
+  {
+    "name": "à l'égard de",
+    "trans": [
+      "loc.prép. 对于；针对"
+    ]
+  },
+  {
+    "name": "au niveau de",
+    "trans": [
+      "loc.prép. 在……层面"
+    ]
+  },
+  {
+    "name": "dans le domaine de",
+    "trans": [
+      "loc.prép. 在……领域"
+    ]
+  },
+  {
+    "name": "à long terme",
+    "trans": [
+      "loc. 长期来看"
+    ]
+  },
+  {
+    "name": "à court terme",
+    "trans": [
+      "loc. 短期来看"
+    ]
+  },
+  {
+    "name": "dans l'ensemble",
+    "trans": [
+      "loc. 总体来看"
+    ]
+  },
+  {
+    "name": "dans une certaine mesure",
+    "trans": [
+      "loc. 在一定程度上"
+    ]
+  },
+  {
+    "name": "dans la plupart des cas",
+    "trans": [
+      "loc. 在大多数情况下"
+    ]
+  },
+  {
+    "name": "de manière générale",
+    "trans": [
+      "loc. 总体而言"
+    ]
+  },
+  {
+    "name": "de façon efficace",
+    "trans": [
+      "loc. 以有效方式"
+    ]
+  },
+  {
+    "name": "de plus en plus",
+    "trans": [
+      "loc. 越来越"
+    ]
+  },
+  {
+    "name": "de moins en moins",
+    "trans": [
+      "loc. 越来越少"
+    ]
+  },
+  {
+    "name": "non seulement... mais aussi",
+    "trans": [
+      "结构：不仅……而且……"
+    ]
+  },
+  {
+    "name": "plus... plus...",
+    "trans": [
+      "结构：越……越……"
+    ]
+  }
+]
