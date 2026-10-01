@@ -1,0 +1,458 @@
+[
+  {
+    "name": "emploi",
+    "trans": [
+      "n.m. 工作；职位"
+    ]
+  },
+  {
+    "name": "poste",
+    "trans": [
+      "n.m. 职位；岗位"
+    ]
+  },
+  {
+    "name": "entreprise",
+    "trans": [
+      "n.f. 企业；公司"
+    ]
+  },
+  {
+    "name": "collègue",
+    "trans": [
+      "n.m./f. 同事"
+    ]
+  },
+  {
+    "name": "patron",
+    "trans": [
+      "n.m. 老板；阴性 patronne"
+    ]
+  },
+  {
+    "name": "employé",
+    "trans": [
+      "n.m. 员工；阴性 employée"
+    ]
+  },
+  {
+    "name": "salaire",
+    "trans": [
+      "n.m. 工资"
+    ]
+  },
+  {
+    "name": "horaire",
+    "trans": [
+      "n.m. 时间表；工作时间"
+    ]
+  },
+  {
+    "name": "contrat",
+    "trans": [
+      "n.m. 合同"
+    ]
+  },
+  {
+    "name": "entretien",
+    "trans": [
+      "n.m. 面试；谈话；维护"
+    ]
+  },
+  {
+    "name": "candidature",
+    "trans": [
+      "n.f. 求职申请"
+    ]
+  },
+  {
+    "name": "CV",
+    "trans": [
+      "n.m. 简历"
+    ]
+  },
+  {
+    "name": "expérience",
+    "trans": [
+      "n.f. 经验；经历"
+    ]
+  },
+  {
+    "name": "compétence",
+    "trans": [
+      "n.f. 技能；能力"
+    ]
+  },
+  {
+    "name": "responsable",
+    "trans": [
+      "adj./n. 负责的；负责人"
+    ]
+  },
+  {
+    "name": "réunion",
+    "trans": [
+      "n.f. 会议"
+    ]
+  },
+  {
+    "name": "projet",
+    "trans": [
+      "n.m. 项目；计划"
+    ]
+  },
+  {
+    "name": "tâche",
+    "trans": [
+      "n.f. 任务"
+    ]
+  },
+  {
+    "name": "objectif",
+    "trans": [
+      "n.m. 目标"
+    ]
+  },
+  {
+    "name": "réussir",
+    "trans": [
+      "v. 成功；通过"
+    ]
+  },
+  {
+    "name": "échouer",
+    "trans": [
+      "v. 失败；考试不及格"
+    ]
+  },
+  {
+    "name": "améliorer",
+    "trans": [
+      "v. 改善；提高"
+    ]
+  },
+  {
+    "name": "développer",
+    "trans": [
+      "v. 发展；开发"
+    ]
+  },
+  {
+    "name": "organiser",
+    "trans": [
+      "v. 组织；安排"
+    ]
+  },
+  {
+    "name": "université",
+    "trans": [
+      "n.f. 大学"
+    ]
+  },
+  {
+    "name": "école",
+    "trans": [
+      "n.f. 学校"
+    ]
+  },
+  {
+    "name": "cours",
+    "trans": [
+      "n.m. 课程；课"
+    ]
+  },
+  {
+    "name": "examen",
+    "trans": [
+      "n.m. 考试"
+    ]
+  },
+  {
+    "name": "diplôme",
+    "trans": [
+      "n.m. 文凭；学位证书"
+    ]
+  },
+  {
+    "name": "formation",
+    "trans": [
+      "n.f. 培训；教育"
+    ]
+  },
+  {
+    "name": "stage",
+    "trans": [
+      "n.m. 实习；培训"
+    ]
+  },
+  {
+    "name": "étudiant",
+    "trans": [
+      "n.m. 学生；阴性 étudiante"
+    ]
+  },
+  {
+    "name": "professeur",
+    "trans": [
+      "n.m./f. 教师"
+    ]
+  },
+  {
+    "name": "devoirs",
+    "trans": [
+      "n.m.pl. 作业"
+    ]
+  },
+  {
+    "name": "note",
+    "trans": [
+      "n.f. 分数；笔记"
+    ]
+  },
+  {
+    "name": "matière",
+    "trans": [
+      "n.f. 学科；材料"
+    ]
+  },
+  {
+    "name": "inscription",
+    "trans": [
+      "n.f. 注册；报名"
+    ]
+  },
+  {
+    "name": "s'inscrire",
+    "trans": [
+      "v.pron. 注册；报名"
+    ]
+  },
+  {
+    "name": "document",
+    "trans": [
+      "n.m. 文件；材料"
+    ]
+  },
+  {
+    "name": "formulaire",
+    "trans": [
+      "n.m. 表格"
+    ]
+  },
+  {
+    "name": "dossier",
+    "trans": [
+      "n.m. 材料档案；申请文件"
+    ]
+  },
+  {
+    "name": "demande",
+    "trans": [
+      "n.f. 申请；请求；需求"
+    ]
+  },
+  {
+    "name": "permis",
+    "trans": [
+      "n.m. 许可证；驾照"
+    ]
+  },
+  {
+    "name": "carte d'identité",
+    "trans": [
+      "n.f. 身份证"
+    ]
+  },
+  {
+    "name": "assurance",
+    "trans": [
+      "n.f. 保险；信心"
+    ]
+  },
+  {
+    "name": "banque",
+    "trans": [
+      "n.f. 银行"
+    ]
+  },
+  {
+    "name": "compte",
+    "trans": [
+      "n.m. 账户；账单；计算"
+    ]
+  },
+  {
+    "name": "facture",
+    "trans": [
+      "n.f. 账单；发票"
+    ]
+  },
+  {
+    "name": "impôt",
+    "trans": [
+      "n.m. 税"
+    ]
+  },
+  {
+    "name": "service",
+    "trans": [
+      "n.m. 服务；部门"
+    ]
+  },
+  {
+    "name": "administration",
+    "trans": [
+      "n.f. 行政；管理机构"
+    ]
+  },
+  {
+    "name": "mairie",
+    "trans": [
+      "n.f. 市政府；市政厅"
+    ]
+  },
+  {
+    "name": "gouvernement",
+    "trans": [
+      "n.m. 政府"
+    ]
+  },
+  {
+    "name": "citoyen",
+    "trans": [
+      "n.m. 公民；阴性 citoyenne"
+    ]
+  },
+  {
+    "name": "résident",
+    "trans": [
+      "n.m. 居民；阴性 résidente"
+    ]
+  },
+  {
+    "name": "résidence permanente",
+    "trans": [
+      "n.f. 永久居留"
+    ]
+  },
+  {
+    "name": "immigration",
+    "trans": [
+      "n.f. 移民"
+    ]
+  },
+  {
+    "name": "visa",
+    "trans": [
+      "n.m. 签证"
+    ]
+  },
+  {
+    "name": "preuve",
+    "trans": [
+      "n.f. 证明；证据"
+    ]
+  },
+  {
+    "name": "signature",
+    "trans": [
+      "n.f. 签名"
+    ]
+  },
+  {
+    "name": "envoyer",
+    "trans": [
+      "v. 发送；寄送"
+    ]
+  },
+  {
+    "name": "recevoir",
+    "trans": [
+      "v. 收到；接待"
+    ]
+  },
+  {
+    "name": "remplir",
+    "trans": [
+      "v. 填写；装满"
+    ]
+  },
+  {
+    "name": "signer",
+    "trans": [
+      "v. 签署"
+    ]
+  },
+  {
+    "name": "joindre",
+    "trans": [
+      "v. 附上；连接；联系"
+    ]
+  },
+  {
+    "name": "confirmer",
+    "trans": [
+      "v. 确认"
+    ]
+  },
+  {
+    "name": "annuler",
+    "trans": [
+      "v. 取消"
+    ]
+  },
+  {
+    "name": "reporter",
+    "trans": [
+      "v. 推迟；延期"
+    ]
+  },
+  {
+    "name": "disponible",
+    "trans": [
+      "adj. 有空的；可用的"
+    ]
+  },
+  {
+    "name": "obligatoire",
+    "trans": [
+      "adj. 强制的；必需的"
+    ]
+  },
+  {
+    "name": "gratuit",
+    "trans": [
+      "adj. 免费的；阴性 gratuite"
+    ]
+  },
+  {
+    "name": "payant",
+    "trans": [
+      "adj. 收费的；阴性 payante"
+    ]
+  },
+  {
+    "name": "délai",
+    "trans": [
+      "n.m. 期限；时限"
+    ]
+  },
+  {
+    "name": "date limite",
+    "trans": [
+      "n.f. 截止日期"
+    ]
+  },
+  {
+    "name": "condition",
+    "trans": [
+      "n.f. 条件；状况"
+    ]
+  },
+  {
+    "name": "renseignement",
+    "trans": [
+      "n.m. 信息；咨询"
+    ]
+  }
+]
