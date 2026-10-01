@@ -1,0 +1,386 @@
+[
+  {
+    "name": "d'abord",
+    "trans": [
+      "adv. 首先"
+    ]
+  },
+  {
+    "name": "tout d'abord",
+    "trans": [
+      "loc. 首先；一开始"
+    ]
+  },
+  {
+    "name": "ensuite",
+    "trans": [
+      "adv. 然后；接下来"
+    ]
+  },
+  {
+    "name": "puis",
+    "trans": [
+      "adv. 然后；接着"
+    ]
+  },
+  {
+    "name": "enfin",
+    "trans": [
+      "adv. 最后；终于"
+    ]
+  },
+  {
+    "name": "finalement",
+    "trans": [
+      "adv. 最终；终于"
+    ]
+  },
+  {
+    "name": "de plus",
+    "trans": [
+      "loc. 此外"
+    ]
+  },
+  {
+    "name": "en plus",
+    "trans": [
+      "loc. 另外；而且"
+    ]
+  },
+  {
+    "name": "également",
+    "trans": [
+      "adv. 同样；也"
+    ]
+  },
+  {
+    "name": "par ailleurs",
+    "trans": [
+      "loc. 此外；另一方面"
+    ]
+  },
+  {
+    "name": "d'une part",
+    "trans": [
+      "loc. 一方面"
+    ]
+  },
+  {
+    "name": "d'autre part",
+    "trans": [
+      "loc. 另一方面"
+    ]
+  },
+  {
+    "name": "par exemple",
+    "trans": [
+      "loc. 例如"
+    ]
+  },
+  {
+    "name": "notamment",
+    "trans": [
+      "adv. 尤其；特别是"
+    ]
+  },
+  {
+    "name": "en particulier",
+    "trans": [
+      "loc. 特别是"
+    ]
+  },
+  {
+    "name": "c'est-à-dire",
+    "trans": [
+      "loc. 也就是说"
+    ]
+  },
+  {
+    "name": "en effet",
+    "trans": [
+      "loc. 的确；事实上"
+    ]
+  },
+  {
+    "name": "car",
+    "trans": [
+      "conj. 因为"
+    ]
+  },
+  {
+    "name": "puisque",
+    "trans": [
+      "conj. 既然；由于"
+    ]
+  },
+  {
+    "name": "grâce à",
+    "trans": [
+      "loc.prép. 多亏；由于（积极原因）"
+    ]
+  },
+  {
+    "name": "à cause de",
+    "trans": [
+      "loc.prép. 因为；由于（通常消极）"
+    ]
+  },
+  {
+    "name": "donc",
+    "trans": [
+      "adv./conj. 所以；因此"
+    ]
+  },
+  {
+    "name": "alors",
+    "trans": [
+      "adv. 那么；于是"
+    ]
+  },
+  {
+    "name": "c'est pourquoi",
+    "trans": [
+      "loc. 这就是为什么"
+    ]
+  },
+  {
+    "name": "par conséquent",
+    "trans": [
+      "loc. 因此"
+    ]
+  },
+  {
+    "name": "ainsi",
+    "trans": [
+      "adv. 因此；这样"
+    ]
+  },
+  {
+    "name": "cependant",
+    "trans": [
+      "adv. 然而"
+    ]
+  },
+  {
+    "name": "pourtant",
+    "trans": [
+      "adv. 然而；可是"
+    ]
+  },
+  {
+    "name": "toutefois",
+    "trans": [
+      "adv. 然而；不过"
+    ]
+  },
+  {
+    "name": "en revanche",
+    "trans": [
+      "loc. 相反；另一方面"
+    ]
+  },
+  {
+    "name": "au contraire",
+    "trans": [
+      "loc. 相反"
+    ]
+  },
+  {
+    "name": "malgré",
+    "trans": [
+      "prép. 尽管"
+    ]
+  },
+  {
+    "name": "même si",
+    "trans": [
+      "loc.conj. 即使"
+    ]
+  },
+  {
+    "name": "bien que",
+    "trans": [
+      "loc.conj. 虽然；尽管，后接虚拟式"
+    ]
+  },
+  {
+    "name": "tandis que",
+    "trans": [
+      "loc.conj. 而；然而；当……时"
+    ]
+  },
+  {
+    "name": "alors que",
+    "trans": [
+      "loc.conj. 而；然而；当……时"
+    ]
+  },
+  {
+    "name": "si",
+    "trans": [
+      "conj. 如果"
+    ]
+  },
+  {
+    "name": "à condition que",
+    "trans": [
+      "loc.conj. 只要；条件是，后接虚拟式"
+    ]
+  },
+  {
+    "name": "au cas où",
+    "trans": [
+      "loc. 万一；如果发生某情况"
+    ]
+  },
+  {
+    "name": "sinon",
+    "trans": [
+      "adv./conj. 否则"
+    ]
+  },
+  {
+    "name": "quand",
+    "trans": [
+      "conj./adv. 当……时；什么时候"
+    ]
+  },
+  {
+    "name": "lorsque",
+    "trans": [
+      "conj. 当……时"
+    ]
+  },
+  {
+    "name": "pendant que",
+    "trans": [
+      "loc.conj. 在……期间"
+    ]
+  },
+  {
+    "name": "avant de",
+    "trans": [
+      "loc.prép. 在……之前，后接不定式"
+    ]
+  },
+  {
+    "name": "après avoir",
+    "trans": [
+      "loc. 在做完……之后，配合过去不定式"
+    ]
+  },
+  {
+    "name": "depuis",
+    "trans": [
+      "prép./adv. 自从；以来"
+    ]
+  },
+  {
+    "name": "pendant",
+    "trans": [
+      "prép. 持续；在……期间"
+    ]
+  },
+  {
+    "name": "jusqu'à",
+    "trans": [
+      "loc.prép. 直到"
+    ]
+  },
+  {
+    "name": "afin de",
+    "trans": [
+      "loc.prép. 为了，后接不定式"
+    ]
+  },
+  {
+    "name": "pour",
+    "trans": [
+      "prép. 为了；对于"
+    ]
+  },
+  {
+    "name": "sans",
+    "trans": [
+      "prép. 没有；不"
+    ]
+  },
+  {
+    "name": "au lieu de",
+    "trans": [
+      "loc.prép. 而不是"
+    ]
+  },
+  {
+    "name": "selon",
+    "trans": [
+      "prép. 根据；按照"
+    ]
+  },
+  {
+    "name": "d'après",
+    "trans": [
+      "loc.prép. 根据；据……所说"
+    ]
+  },
+  {
+    "name": "quant à",
+    "trans": [
+      "loc.prép. 至于"
+    ]
+  },
+  {
+    "name": "concernant",
+    "trans": [
+      "prép./part. 关于"
+    ]
+  },
+  {
+    "name": "en général",
+    "trans": [
+      "loc. 一般来说"
+    ]
+  },
+  {
+    "name": "en réalité",
+    "trans": [
+      "loc. 实际上"
+    ]
+  },
+  {
+    "name": "à mon avis",
+    "trans": [
+      "loc. 在我看来"
+    ]
+  },
+  {
+    "name": "selon moi",
+    "trans": [
+      "loc. 依我看"
+    ]
+  },
+  {
+    "name": "en conclusion",
+    "trans": [
+      "loc. 总之；最后"
+    ]
+  },
+  {
+    "name": "pour conclure",
+    "trans": [
+      "loc. 总结来说"
+    ]
+  },
+  {
+    "name": "en résumé",
+    "trans": [
+      "loc. 总而言之"
+    ]
+  },
+  {
+    "name": "bref",
+    "trans": [
+      "adv. 简言之；总之"
+    ]
+  }
+]
