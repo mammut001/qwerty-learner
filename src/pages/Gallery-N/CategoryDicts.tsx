@@ -1,37 +1,29 @@
-import DictTagSwitcher from './DictTagSwitcher'
 import DictionaryComponent from './DictionaryWithoutCover'
-import { currentDictInfoAtom } from '@/store'
 import type { Dictionary } from '@/typings'
-import { findCommonValues } from '@/utils'
-import { useAtomValue } from 'jotai'
-import { useCallback, useEffect, useMemo, useState } from 'react'
 
-export default function DictionaryGroup({ groupedDictsByTag }: { groupedDictsByTag: Record<string, Dictionary[]> }) {
-  const tagList = useMemo(() => Object.keys(groupedDictsByTag), [groupedDictsByTag])
-  const [currentTag, setCurrentTag] = useState(tagList.length > 0 ? tagList[0] : '')
-  const currentDictInfo = useAtomValue(currentDictInfoAtom)
+type Props = {
+  category: string
+  dictionaries: Dictionary[]
+}
 
-  const onChangeCurrentTag = useCallback((tag: string) => {
-    setCurrentTag(tag)
-  }, [])
-
-  useEffect(() => {
-    const commonTags = findCommonValues(tagList, currentDictInfo.tags)
-    if (commonTags.length > 0) {
-      setCurrentTag(commonTags[0])
-    }
-  }, [currentDictInfo.tags, tagList])
+export default function DictionaryGroup({ category, dictionaries }: Props) {
+  const totalWords = dictionaries.reduce((sum, dict) => sum + dict.length, 0)
 
   return (
-    <div>
-      <DictTagSwitcher tagList={tagList} currentTag={currentTag} onChangeCurrentTag={onChangeCurrentTag} />
-      <div className="mt-8 grid gap-x-5 gap-y-10 px-1 pb-4 sm:grid-cols-1 md:grid-cols-2 dic3:grid-cols-3 dic4:grid-cols-4">
-        {currentTag && groupedDictsByTag[currentTag] ? (
-          groupedDictsByTag[currentTag].map((dict) => <DictionaryComponent key={dict.id} dictionary={dict} />)
-        ) : (
-          <div className="col-span-full text-center text-gray-500">当前分类下没有可用的词典</div>
-        )}
+    <section className="w-full">
+      <div className="mb-6 flex items-end justify-between pr-4">
+        <div>
+          <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">{category}</h2>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            {dictionaries.length} 个词库 · {totalWords} 个学习项
+          </p>
+        </div>
       </div>
-    </div>
+      <div className="grid gap-x-5 gap-y-8 px-1 pb-4 sm:grid-cols-1 md:grid-cols-2 dic3:grid-cols-3 dic4:grid-cols-4">
+        {dictionaries.map((dict) => (
+          <DictionaryComponent key={dict.id} dictionary={dict} />
+        ))}
+      </div>
+    </section>
   )
 }
