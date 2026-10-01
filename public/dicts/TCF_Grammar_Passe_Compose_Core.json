@@ -1,0 +1,554 @@
+[
+  {
+    "name": "j'ai été",
+    "trans": [
+      "passé composé de être：我曾经/已经是；我去了（être 作实义动词时）"
+    ]
+  },
+  {
+    "name": "j'ai eu",
+    "trans": [
+      "passé composé de avoir：我有过；我得到了"
+    ]
+  },
+  {
+    "name": "j'ai fait",
+    "trans": [
+      "passé composé de faire：我做了"
+    ]
+  },
+  {
+    "name": "j'ai dit",
+    "trans": [
+      "passé composé de dire：我说了"
+    ]
+  },
+  {
+    "name": "j'ai pu",
+    "trans": [
+      "passé composé de pouvoir：我能够/得以做了"
+    ]
+  },
+  {
+    "name": "j'ai voulu",
+    "trans": [
+      "passé composé de vouloir：我想要/曾想做"
+    ]
+  },
+  {
+    "name": "j'ai dû",
+    "trans": [
+      "passé composé de devoir：我不得不；我应该是……（视语境）"
+    ]
+  },
+  {
+    "name": "j'ai su",
+    "trans": [
+      "passé composé de savoir：我得知了；我知道了"
+    ]
+  },
+  {
+    "name": "j'ai vu",
+    "trans": [
+      "passé composé de voir：我看见了"
+    ]
+  },
+  {
+    "name": "j'ai pris",
+    "trans": [
+      "passé composé de prendre：我拿了；乘坐了"
+    ]
+  },
+  {
+    "name": "j'ai mis",
+    "trans": [
+      "passé composé de mettre：我放了；穿上了"
+    ]
+  },
+  {
+    "name": "j'ai écrit",
+    "trans": [
+      "passé composé de écrire：我写了"
+    ]
+  },
+  {
+    "name": "j'ai lu",
+    "trans": [
+      "passé composé de lire：我读了"
+    ]
+  },
+  {
+    "name": "j'ai bu",
+    "trans": [
+      "passé composé de boire：我喝了"
+    ]
+  },
+  {
+    "name": "j'ai compris",
+    "trans": [
+      "passé composé de comprendre：我明白了"
+    ]
+  },
+  {
+    "name": "j'ai appris",
+    "trans": [
+      "passé composé de apprendre：我学会了；我得知了"
+    ]
+  },
+  {
+    "name": "j'ai conduit",
+    "trans": [
+      "passé composé de conduire：我开车了"
+    ]
+  },
+  {
+    "name": "j'ai reçu",
+    "trans": [
+      "passé composé de recevoir：我收到了"
+    ]
+  },
+  {
+    "name": "j'ai ouvert",
+    "trans": [
+      "passé composé de ouvrir：我打开了"
+    ]
+  },
+  {
+    "name": "j'ai offert",
+    "trans": [
+      "passé composé de offrir：我送了；提供了"
+    ]
+  },
+  {
+    "name": "j'ai attendu",
+    "trans": [
+      "passé composé de attendre：我等了"
+    ]
+  },
+  {
+    "name": "j'ai répondu",
+    "trans": [
+      "passé composé de répondre：我回答了"
+    ]
+  },
+  {
+    "name": "j'ai entendu",
+    "trans": [
+      "passé composé de entendre：我听见了"
+    ]
+  },
+  {
+    "name": "j'ai vendu",
+    "trans": [
+      "passé composé de vendre：我卖了"
+    ]
+  },
+  {
+    "name": "j'ai perdu",
+    "trans": [
+      "passé composé de perdre：我丢了；失去了"
+    ]
+  },
+  {
+    "name": "j'ai choisi",
+    "trans": [
+      "passé composé de choisir：我选择了"
+    ]
+  },
+  {
+    "name": "j'ai fini",
+    "trans": [
+      "passé composé de finir：我完成了"
+    ]
+  },
+  {
+    "name": "j'ai réussi",
+    "trans": [
+      "passé composé de réussir：我成功了；通过了"
+    ]
+  },
+  {
+    "name": "j'ai travaillé",
+    "trans": [
+      "passé composé de travailler：我工作了"
+    ]
+  },
+  {
+    "name": "j'ai étudié",
+    "trans": [
+      "passé composé de étudier：我学习了"
+    ]
+  },
+  {
+    "name": "j'ai parlé",
+    "trans": [
+      "passé composé de parler：我说话了；交谈了"
+    ]
+  },
+  {
+    "name": "j'ai regardé",
+    "trans": [
+      "passé composé de regarder：我看了"
+    ]
+  },
+  {
+    "name": "j'ai écouté",
+    "trans": [
+      "passé composé de écouter：我听了"
+    ]
+  },
+  {
+    "name": "j'ai demandé",
+    "trans": [
+      "passé composé de demander：我问了；请求了"
+    ]
+  },
+  {
+    "name": "j'ai trouvé",
+    "trans": [
+      "passé composé de trouver：我找到了；觉得"
+    ]
+  },
+  {
+    "name": "j'ai cherché",
+    "trans": [
+      "passé composé de chercher：我寻找了"
+    ]
+  },
+  {
+    "name": "j'ai acheté",
+    "trans": [
+      "passé composé de acheter：我买了"
+    ]
+  },
+  {
+    "name": "j'ai payé",
+    "trans": [
+      "passé composé de payer：我付钱了"
+    ]
+  },
+  {
+    "name": "j'ai mangé",
+    "trans": [
+      "passé composé de manger：我吃了"
+    ]
+  },
+  {
+    "name": "j'ai commencé",
+    "trans": [
+      "passé composé de commencer：我开始了"
+    ]
+  },
+  {
+    "name": "j'ai essayé",
+    "trans": [
+      "passé composé de essayer：我尝试了"
+    ]
+  },
+  {
+    "name": "j'ai envoyé",
+    "trans": [
+      "passé composé de envoyer：我发送了"
+    ]
+  },
+  {
+    "name": "j'ai appelé",
+    "trans": [
+      "passé composé de appeler：我打电话/叫了"
+    ]
+  },
+  {
+    "name": "j'ai quitté",
+    "trans": [
+      "passé composé de quitter：我离开了某地/某人"
+    ]
+  },
+  {
+    "name": "j'ai changé",
+    "trans": [
+      "passé composé de changer：我改变了；换了"
+    ]
+  },
+  {
+    "name": "j'ai oublié",
+    "trans": [
+      "passé composé de oublier：我忘了"
+    ]
+  },
+  {
+    "name": "j'ai passé",
+    "trans": [
+      "passé composé de passer：我度过了；通过了；经过了（部分用法）"
+    ]
+  },
+  {
+    "name": "j'ai rencontré",
+    "trans": [
+      "passé composé de rencontrer：我遇见了"
+    ]
+  },
+  {
+    "name": "j'ai commencé à travailler",
+    "trans": [
+      "句块：我开始工作了"
+    ]
+  },
+  {
+    "name": "j'ai fini de travailler",
+    "trans": [
+      "句块：我完成工作了"
+    ]
+  },
+  {
+    "name": "j'ai décidé de partir",
+    "trans": [
+      "句块：我决定离开"
+    ]
+  },
+  {
+    "name": "j'ai essayé de comprendre",
+    "trans": [
+      "句块：我试着理解"
+    ]
+  },
+  {
+    "name": "j'ai oublié de répondre",
+    "trans": [
+      "句块：我忘记回复"
+    ]
+  },
+  {
+    "name": "j'ai réussi à finir",
+    "trans": [
+      "句块：我成功完成了"
+    ]
+  },
+  {
+    "name": "j'ai dû attendre",
+    "trans": [
+      "句块：我不得不等待"
+    ]
+  },
+  {
+    "name": "j'ai pu réserver",
+    "trans": [
+      "句块：我成功订到了/能够预订"
+    ]
+  },
+  {
+    "name": "j'ai voulu changer",
+    "trans": [
+      "句块：我想要改变/更换"
+    ]
+  },
+  {
+    "name": "j'ai appris le français",
+    "trans": [
+      "句块：我学了法语"
+    ]
+  },
+  {
+    "name": "j'ai pris le bus",
+    "trans": [
+      "句块：我坐了公交车"
+    ]
+  },
+  {
+    "name": "j'ai fait les courses",
+    "trans": [
+      "句块：我买了日用品"
+    ]
+  },
+  {
+    "name": "j'ai pris rendez-vous",
+    "trans": [
+      "句块：我预约了"
+    ]
+  },
+  {
+    "name": "j'ai envoyé un courriel",
+    "trans": [
+      "句块：我发了一封电子邮件"
+    ]
+  },
+  {
+    "name": "j'ai reçu une réponse",
+    "trans": [
+      "句块：我收到了一份回复"
+    ]
+  },
+  {
+    "name": "j'ai rempli le formulaire",
+    "trans": [
+      "句块：我填了表格"
+    ]
+  },
+  {
+    "name": "j'ai signé le document",
+    "trans": [
+      "句块：我签了文件"
+    ]
+  },
+  {
+    "name": "j'ai réservé une chambre",
+    "trans": [
+      "句块：我订了一个房间"
+    ]
+  },
+  {
+    "name": "j'ai acheté un billet",
+    "trans": [
+      "句块：我买了一张票"
+    ]
+  },
+  {
+    "name": "j'ai posé une question",
+    "trans": [
+      "句块：我问了一个问题"
+    ]
+  },
+  {
+    "name": "j'ai trouvé une solution",
+    "trans": [
+      "句块：我找到了解决办法"
+    ]
+  },
+  {
+    "name": "je suis allé",
+    "trans": [
+      "passé composé avec être：我去了；阴性写 je suis allée"
+    ]
+  },
+  {
+    "name": "je suis venu",
+    "trans": [
+      "passé composé avec être：我来了；阴性 venue"
+    ]
+  },
+  {
+    "name": "je suis arrivé",
+    "trans": [
+      "passé composé avec être：我到了；阴性 arrivée"
+    ]
+  },
+  {
+    "name": "je suis parti",
+    "trans": [
+      "passé composé avec être：我离开了；阴性 partie"
+    ]
+  },
+  {
+    "name": "je suis entré",
+    "trans": [
+      "passé composé avec être：我进去了；阴性 entrée"
+    ]
+  },
+  {
+    "name": "je suis sorti",
+    "trans": [
+      "passé composé avec être：我出去了；阴性 sortie"
+    ]
+  },
+  {
+    "name": "je suis retourné",
+    "trans": [
+      "passé composé avec être：我回去了；阴性 retournée"
+    ]
+  },
+  {
+    "name": "je suis resté",
+    "trans": [
+      "passé composé avec être：我留下了；阴性 restée"
+    ]
+  },
+  {
+    "name": "je suis tombé",
+    "trans": [
+      "passé composé avec être：我摔倒了；阴性 tombée"
+    ]
+  },
+  {
+    "name": "je suis né",
+    "trans": [
+      "passé composé avec être：我出生了；阴性 née"
+    ]
+  },
+  {
+    "name": "je suis rentré",
+    "trans": [
+      "常见用法：我回家/回来了；阴性 rentrée"
+    ]
+  },
+  {
+    "name": "je me suis levé",
+    "trans": [
+      "代词动词：我起床了；阴性 levée"
+    ]
+  },
+  {
+    "name": "je me suis couché",
+    "trans": [
+      "代词动词：我上床睡觉了；阴性 couchée"
+    ]
+  },
+  {
+    "name": "je me suis réveillé",
+    "trans": [
+      "代词动词：我醒来了；阴性 réveillée"
+    ]
+  },
+  {
+    "name": "je me suis préparé",
+    "trans": [
+      "代词动词：我准备好了；阴性 préparée"
+    ]
+  },
+  {
+    "name": "je me suis promené",
+    "trans": [
+      "代词动词：我散步了；阴性 promenée"
+    ]
+  },
+  {
+    "name": "je me suis reposé",
+    "trans": [
+      "代词动词：我休息了；阴性 reposée"
+    ]
+  },
+  {
+    "name": "je me suis inscrit",
+    "trans": [
+      "代词动词：我报名/注册了；阴性 inscrite"
+    ]
+  },
+  {
+    "name": "nous avons fait",
+    "trans": [
+      "passé composé：我们做了"
+    ]
+  },
+  {
+    "name": "nous avons pris",
+    "trans": [
+      "passé composé：我们拿了/乘坐了"
+    ]
+  },
+  {
+    "name": "nous sommes arrivés",
+    "trans": [
+      "passé composé avec être：我们到了；全女性为 arrivées"
+    ]
+  },
+  {
+    "name": "ils ont dit",
+    "trans": [
+      "passé composé：他们说了"
+    ]
+  },
+  {
+    "name": "elles sont parties",
+    "trans": [
+      "passé composé avec être：她们离开了"
+    ]
+  }
+]
