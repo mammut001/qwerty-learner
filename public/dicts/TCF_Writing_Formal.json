@@ -1,0 +1,434 @@
+[
+  {
+    "name": "Madame, Monsieur,",
+    "trans": [
+      "正式邮件开头：尊敬的先生/女士"
+    ]
+  },
+  {
+    "name": "Je me permets de vous contacter afin de...",
+    "trans": [
+      "正式：我冒昧联系您是为了……"
+    ]
+  },
+  {
+    "name": "Je vous écris au sujet de...",
+    "trans": [
+      "正式：我写信是关于……"
+    ]
+  },
+  {
+    "name": "Je souhaiterais obtenir des renseignements concernant...",
+    "trans": [
+      "正式：我希望获得关于……的信息"
+    ]
+  },
+  {
+    "name": "Je souhaiterais vous faire part de...",
+    "trans": [
+      "正式：我想向您说明……"
+    ]
+  },
+  {
+    "name": "Je vous contacte à la suite de...",
+    "trans": [
+      "正式：鉴于/继……之后我联系您"
+    ]
+  },
+  {
+    "name": "Suite à votre annonce...",
+    "trans": [
+      "正式：关于您的公告/广告……"
+    ]
+  },
+  {
+    "name": "Suite à notre conversation...",
+    "trans": [
+      "正式：继我们之前的谈话……"
+    ]
+  },
+  {
+    "name": "Comme convenu...",
+    "trans": [
+      "正式：按照之前商定的……"
+    ]
+  },
+  {
+    "name": "Je vous remercie pour votre réponse.",
+    "trans": [
+      "正式：感谢您的回复"
+    ]
+  },
+  {
+    "name": "Je vous remercie par avance pour votre aide.",
+    "trans": [
+      "正式：提前感谢您的帮助"
+    ]
+  },
+  {
+    "name": "Je vous serais reconnaissant de bien vouloir...",
+    "trans": [
+      "正式：如您能……我将不胜感激"
+    ]
+  },
+  {
+    "name": "Pourriez-vous, s'il vous plaît, me confirmer...",
+    "trans": [
+      "正式：请您确认……"
+    ]
+  },
+  {
+    "name": "Serait-il possible de...",
+    "trans": [
+      "正式：是否可以……"
+    ]
+  },
+  {
+    "name": "Je souhaiterais savoir si...",
+    "trans": [
+      "正式：我想知道是否……"
+    ]
+  },
+  {
+    "name": "Je voudrais également savoir...",
+    "trans": [
+      "正式：我还想了解……"
+    ]
+  },
+  {
+    "name": "En ce qui concerne...",
+    "trans": [
+      "正式：关于……"
+    ]
+  },
+  {
+    "name": "Concernant...",
+    "trans": [
+      "正式：关于……"
+    ]
+  },
+  {
+    "name": "À propos de...",
+    "trans": [
+      "表达：关于……"
+    ]
+  },
+  {
+    "name": "D'après les informations disponibles...",
+    "trans": [
+      "正式：根据现有信息……"
+    ]
+  },
+  {
+    "name": "Selon les informations que j'ai reçues...",
+    "trans": [
+      "正式：根据我收到的信息……"
+    ]
+  },
+  {
+    "name": "Je tiens à préciser que...",
+    "trans": [
+      "正式：我想说明……"
+    ]
+  },
+  {
+    "name": "Je tiens à souligner que...",
+    "trans": [
+      "正式：我想强调……"
+    ]
+  },
+  {
+    "name": "Il convient de préciser que...",
+    "trans": [
+      "正式：需要说明的是……"
+    ]
+  },
+  {
+    "name": "Il est important de noter que...",
+    "trans": [
+      "正式：需要注意的是……"
+    ]
+  },
+  {
+    "name": "Le principal problème est que...",
+    "trans": [
+      "论证：主要问题是……"
+    ]
+  },
+  {
+    "name": "L'un des principaux avantages est...",
+    "trans": [
+      "论证：主要优点之一是……"
+    ]
+  },
+  {
+    "name": "L'un des principaux inconvénients est...",
+    "trans": [
+      "论证：主要缺点之一是……"
+    ]
+  },
+  {
+    "name": "Cela présente plusieurs avantages.",
+    "trans": [
+      "论证：这有几个优点"
+    ]
+  },
+  {
+    "name": "Cela peut entraîner plusieurs conséquences.",
+    "trans": [
+      "论证：这可能带来若干后果"
+    ]
+  },
+  {
+    "name": "Cette situation s'explique notamment par...",
+    "trans": [
+      "论证：这种情况尤其可以由……解释"
+    ]
+  },
+  {
+    "name": "Plusieurs facteurs peuvent expliquer...",
+    "trans": [
+      "论证：若干因素可以解释……"
+    ]
+  },
+  {
+    "name": "Il existe plusieurs solutions possibles.",
+    "trans": [
+      "论证：存在几种可能的解决方案"
+    ]
+  },
+  {
+    "name": "Une première solution consisterait à...",
+    "trans": [
+      "论证：第一种解决办法可以是……"
+    ]
+  },
+  {
+    "name": "Une autre possibilité serait de...",
+    "trans": [
+      "论证：另一种可能是……"
+    ]
+  },
+  {
+    "name": "Il serait préférable de...",
+    "trans": [
+      "论证：最好……"
+    ]
+  },
+  {
+    "name": "Il faudrait également...",
+    "trans": [
+      "论证：还应该……"
+    ]
+  },
+  {
+    "name": "Il est nécessaire de mettre en place...",
+    "trans": [
+      "论证：有必要实施……"
+    ]
+  },
+  {
+    "name": "Afin d'améliorer la situation...",
+    "trans": [
+      "论证：为了改善情况……"
+    ]
+  },
+  {
+    "name": "Pour éviter ce problème...",
+    "trans": [
+      "论证：为了避免这个问题……"
+    ]
+  },
+  {
+    "name": "Grâce à cette mesure...",
+    "trans": [
+      "论证：得益于这项措施……"
+    ]
+  },
+  {
+    "name": "Cette mesure permettrait de...",
+    "trans": [
+      "论证：这项措施可以……"
+    ]
+  },
+  {
+    "name": "Cette solution aurait pour avantage de...",
+    "trans": [
+      "论证：这个方案的优点是……"
+    ]
+  },
+  {
+    "name": "Toutefois, il faut également tenir compte de...",
+    "trans": [
+      "论证：不过也必须考虑到……"
+    ]
+  },
+  {
+    "name": "Néanmoins, cette solution présente certaines limites.",
+    "trans": [
+      "论证：不过这个方案有一定局限"
+    ]
+  },
+  {
+    "name": "Même si cette idée semble intéressante...",
+    "trans": [
+      "论证：即使这个想法看起来不错……"
+    ]
+  },
+  {
+    "name": "Bien que cette solution soit efficace...",
+    "trans": [
+      "论证：虽然这个方案有效……"
+    ]
+  },
+  {
+    "name": "D'une part..., d'autre part...",
+    "trans": [
+      "结构：一方面……另一方面……"
+    ]
+  },
+  {
+    "name": "Non seulement..., mais aussi...",
+    "trans": [
+      "结构：不仅……而且……"
+    ]
+  },
+  {
+    "name": "Par conséquent...",
+    "trans": [
+      "连接：因此……"
+    ]
+  },
+  {
+    "name": "C'est pourquoi...",
+    "trans": [
+      "连接：这就是为什么……"
+    ]
+  },
+  {
+    "name": "En revanche...",
+    "trans": [
+      "连接：另一方面；相反……"
+    ]
+  },
+  {
+    "name": "En effet...",
+    "trans": [
+      "连接：事实上；的确……"
+    ]
+  },
+  {
+    "name": "À titre d'exemple...",
+    "trans": [
+      "正式：举例来说……"
+    ]
+  },
+  {
+    "name": "Prenons le cas de...",
+    "trans": [
+      "论证：以……为例"
+    ]
+  },
+  {
+    "name": "Autrement dit...",
+    "trans": [
+      "连接：换句话说……"
+    ]
+  },
+  {
+    "name": "En d'autres termes...",
+    "trans": [
+      "连接：换句话说……"
+    ]
+  },
+  {
+    "name": "Dans l'ensemble...",
+    "trans": [
+      "总结：总体来看……"
+    ]
+  },
+  {
+    "name": "En résumé...",
+    "trans": [
+      "总结：总而言之……"
+    ]
+  },
+  {
+    "name": "Pour toutes ces raisons...",
+    "trans": [
+      "总结：由于以上这些原因……"
+    ]
+  },
+  {
+    "name": "En conclusion...",
+    "trans": [
+      "总结：总之……"
+    ]
+  },
+  {
+    "name": "Pour conclure...",
+    "trans": [
+      "总结：最后……"
+    ]
+  },
+  {
+    "name": "Je vous remercie de l'attention portée à ma demande.",
+    "trans": [
+      "正式：感谢您关注我的请求"
+    ]
+  },
+  {
+    "name": "Dans l'attente de votre réponse...",
+    "trans": [
+      "正式：期待您的回复……"
+    ]
+  },
+  {
+    "name": "Je reste à votre disposition pour tout renseignement complémentaire.",
+    "trans": [
+      "正式：如需更多信息我随时可以提供"
+    ]
+  },
+  {
+    "name": "N'hésitez pas à me contacter si nécessaire.",
+    "trans": [
+      "正式：如有需要请随时联系我"
+    ]
+  },
+  {
+    "name": "Je vous prie d'agréer, Madame, Monsieur, mes salutations distinguées.",
+    "trans": [
+      "正式结尾：谨致敬意"
+    ]
+  },
+  {
+    "name": "Cordialement,",
+    "trans": [
+      "邮件结尾：谨致问候"
+    ]
+  },
+  {
+    "name": "Bien cordialement,",
+    "trans": [
+      "邮件结尾：诚挚问候"
+    ]
+  },
+  {
+    "name": "Veuillez trouver ci-joint...",
+    "trans": [
+      "正式：附件请查收……"
+    ]
+  },
+  {
+    "name": "Vous trouverez ci-joint...",
+    "trans": [
+      "正式：随信附上……"
+    ]
+  },
+  {
+    "name": "Je vous confirme que...",
+    "trans": [
+      "正式：我向您确认……"
+    ]
+  }
+]
