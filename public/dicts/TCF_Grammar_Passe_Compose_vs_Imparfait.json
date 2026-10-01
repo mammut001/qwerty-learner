@@ -1,0 +1,242 @@
+[
+  {
+    "name": "Hier, j'ai travaillé toute la journée",
+    "trans": [
+      "完成事件：昨天我工作了一整天 → passé composé"
+    ]
+  },
+  {
+    "name": "Quand j'étais petit, je jouais souvent dehors",
+    "trans": [
+      "过去习惯：小时候我经常在外面玩 → imparfait"
+    ]
+  },
+  {
+    "name": "Je regardais la télé quand le téléphone a sonné",
+    "trans": [
+      "背景进行中 + 突发事件：我在看电视时电话响了"
+    ]
+  },
+  {
+    "name": "Il pleuvait quand nous sommes sortis",
+    "trans": [
+      "天气背景 + 发生的动作：我们出门时正在下雨"
+    ]
+  },
+  {
+    "name": "Nous dînions quand Marie est arrivée",
+    "trans": [
+      "进行中的背景 + 到达事件：我们吃饭时 Marie 到了"
+    ]
+  },
+  {
+    "name": "Avant, je prenais le bus tous les jours",
+    "trans": [
+      "过去习惯：以前我每天坐公交"
+    ]
+  },
+  {
+    "name": "Hier, j'ai pris le bus à huit heures",
+    "trans": [
+      "一次完成事件：昨天八点我坐了公交"
+    ]
+  },
+  {
+    "name": "Pendant que je cuisinais, il a appelé",
+    "trans": [
+      "我做饭的过程中，他打来了电话"
+    ]
+  },
+  {
+    "name": "J'ai perdu mes clés pendant que je faisais les courses",
+    "trans": [
+      "买东西是背景，丢钥匙是完成事件"
+    ]
+  },
+  {
+    "name": "Je dormais quand l'alarme a sonné",
+    "trans": [
+      "睡觉是背景，闹钟响是事件"
+    ]
+  },
+  {
+    "name": "Elle lisait quand je suis entré",
+    "trans": [
+      "她正在读书时，我进来了"
+    ]
+  },
+  {
+    "name": "Le soleil brillait et les enfants jouaient",
+    "trans": [
+      "两个背景状态/进行中的动作 → imparfait"
+    ]
+  },
+  {
+    "name": "Soudain, un chien a traversé la rue",
+    "trans": [
+      "soudain 常引出突发完成事件 → passé composé"
+    ]
+  },
+  {
+    "name": "Il faisait froid, alors j'ai fermé la fenêtre",
+    "trans": [
+      "天气是背景；关窗是完成动作"
+    ]
+  },
+  {
+    "name": "J'avais faim, alors j'ai préparé quelque chose",
+    "trans": [
+      "状态用 imparfait；做东西吃是事件"
+    ]
+  },
+  {
+    "name": "Je ne savais pas quoi faire, alors j'ai appelé un ami",
+    "trans": [
+      "不知道是状态；打电话是事件"
+    ]
+  },
+  {
+    "name": "Quand j'habitais à Montréal, je travaillais au centre-ville",
+    "trans": [
+      "过去一段时期内的背景/习惯 → imparfait"
+    ]
+  },
+  {
+    "name": "L'année dernière, j'ai déménagé à Ottawa",
+    "trans": [
+      "明确完成的搬家事件 → passé composé"
+    ]
+  },
+  {
+    "name": "Tous les dimanches, nous allions au marché",
+    "trans": [
+      "过去反复发生的习惯 → imparfait"
+    ]
+  },
+  {
+    "name": "Dimanche dernier, nous sommes allés au marché",
+    "trans": [
+      "上个星期日的一次事件 → passé composé"
+    ]
+  },
+  {
+    "name": "Je faisais mes devoirs quand mon ami est arrivé",
+    "trans": [
+      "做作业在进行；朋友到达是事件"
+    ]
+  },
+  {
+    "name": "Elle préparait le dîner quand elle a reçu le message",
+    "trans": [
+      "准备晚饭是背景；收到消息是事件"
+    ]
+  },
+  {
+    "name": "Nous marchions dans le parc quand il a commencé à pleuvoir",
+    "trans": [
+      "散步在进行；开始下雨是突发事件"
+    ]
+  },
+  {
+    "name": "Je conduisais quand j'ai vu l'accident",
+    "trans": [
+      "开车是背景；看到事故是发生的事件"
+    ]
+  },
+  {
+    "name": "Il était huit heures quand le cours a commencé",
+    "trans": [
+      "时间背景 + 课程开始事件"
+    ]
+  },
+  {
+    "name": "La rue était calme quand nous sommes arrivés",
+    "trans": [
+      "状态背景 + 到达事件"
+    ]
+  },
+  {
+    "name": "Je pensais à toi quand tu m'as envoyé un message",
+    "trans": [
+      "思考在进行；收到消息是事件"
+    ]
+  },
+  {
+    "name": "Quand elle était étudiante, elle habitait près de l'université",
+    "trans": [
+      "过去身份与居住背景 → imparfait"
+    ]
+  },
+  {
+    "name": "Elle a fini ses études en 2024",
+    "trans": [
+      "明确完成：她在 2024 年完成学业"
+    ]
+  },
+  {
+    "name": "Avant, je ne comprenais pas cette règle",
+    "trans": [
+      "过去持续状态：以前我不理解这个规则"
+    ]
+  },
+  {
+    "name": "Hier, j'ai enfin compris cette règle",
+    "trans": [
+      "状态发生变化并完成：昨天我终于理解了"
+    ]
+  },
+  {
+    "name": "Il avait beaucoup de travail, mais il a quand même accepté",
+    "trans": [
+      "有很多工作是状态；接受是事件"
+    ]
+  },
+  {
+    "name": "Je voulais sortir, mais il a commencé à neiger",
+    "trans": [
+      "想出去是状态；开始下雪是事件"
+    ]
+  },
+  {
+    "name": "Quand nous étions enfants, nous passions l'été chez nos grands-parents",
+    "trans": [
+      "童年反复习惯/背景 → imparfait"
+    ]
+  },
+  {
+    "name": "L'été dernier, nous avons passé deux semaines au Québec",
+    "trans": [
+      "一次完整经历 → passé composé"
+    ]
+  },
+  {
+    "name": "Je cherchais mon téléphone quand je l'ai trouvé sous le canapé",
+    "trans": [
+      "寻找过程是背景；找到是完成事件"
+    ]
+  },
+  {
+    "name": "Elle attendait le bus quand elle a rencontré son ancien collègue",
+    "trans": [
+      "等待是背景；偶遇是事件"
+    ]
+  },
+  {
+    "name": "Je travaillais encore quand tu as appelé",
+    "trans": [
+      "工作进行中；你的电话是事件"
+    ]
+  },
+  {
+    "name": "La réunion était longue, mais elle s'est terminée à cinq heures",
+    "trans": [
+      "会议状态用 imparfait；结束是完成事件"
+    ]
+  },
+  {
+    "name": "Je connaissais déjà ce quartier, mais j'ai découvert un nouveau café",
+    "trans": [
+      "熟悉是状态；发现是新事件"
+    ]
+  }
+]
