@@ -1,0 +1,554 @@
+[
+  {
+    "name": "développement",
+    "trans": [
+      "n.m. 发展；开发"
+    ]
+  },
+  {
+    "name": "croissance",
+    "trans": [
+      "n.f. 增长"
+    ]
+  },
+  {
+    "name": "baisse",
+    "trans": [
+      "n.f. 下降"
+    ]
+  },
+  {
+    "name": "hausse",
+    "trans": [
+      "n.f. 上升"
+    ]
+  },
+  {
+    "name": "augmentation",
+    "trans": [
+      "n.f. 增加"
+    ]
+  },
+  {
+    "name": "réduction",
+    "trans": [
+      "n.f. 减少"
+    ]
+  },
+  {
+    "name": "amélioration",
+    "trans": [
+      "n.f. 改善"
+    ]
+  },
+  {
+    "name": "détérioration",
+    "trans": [
+      "n.f. 恶化"
+    ]
+  },
+  {
+    "name": "transformation",
+    "trans": [
+      "n.f. 转变"
+    ]
+  },
+  {
+    "name": "transition",
+    "trans": [
+      "n.f. 过渡；转型"
+    ]
+  },
+  {
+    "name": "innovation",
+    "trans": [
+      "n.f. 创新"
+    ]
+  },
+  {
+    "name": "progrès",
+    "trans": [
+      "n.m. 进步"
+    ]
+  },
+  {
+    "name": "changement",
+    "trans": [
+      "n.m. 改变"
+    ]
+  },
+  {
+    "name": "stabilité",
+    "trans": [
+      "n.f. 稳定"
+    ]
+  },
+  {
+    "name": "priorité",
+    "trans": [
+      "n.f. 优先事项"
+    ]
+  },
+  {
+    "name": "nécessité",
+    "trans": [
+      "n.f. 必要性"
+    ]
+  },
+  {
+    "name": "possibilité",
+    "trans": [
+      "n.f. 可能性"
+    ]
+  },
+  {
+    "name": "capacité",
+    "trans": [
+      "n.f. 能力；容量"
+    ]
+  },
+  {
+    "name": "difficulté",
+    "trans": [
+      "n.f. 困难"
+    ]
+  },
+  {
+    "name": "obstacle",
+    "trans": [
+      "n.m. 障碍"
+    ]
+  },
+  {
+    "name": "défi",
+    "trans": [
+      "n.m. 挑战"
+    ]
+  },
+  {
+    "name": "risque",
+    "trans": [
+      "n.m. 风险"
+    ]
+  },
+  {
+    "name": "danger",
+    "trans": [
+      "n.m. 危险"
+    ]
+  },
+  {
+    "name": "bénéfice",
+    "trans": [
+      "n.m. 好处；利润"
+    ]
+  },
+  {
+    "name": "coût",
+    "trans": [
+      "n.m. 成本"
+    ]
+  },
+  {
+    "name": "investissement",
+    "trans": [
+      "n.m. 投资"
+    ]
+  },
+  {
+    "name": "revenu",
+    "trans": [
+      "n.m. 收入"
+    ]
+  },
+  {
+    "name": "dépense",
+    "trans": [
+      "n.f. 支出"
+    ]
+  },
+  {
+    "name": "budget",
+    "trans": [
+      "n.m. 预算"
+    ]
+  },
+  {
+    "name": "ressource",
+    "trans": [
+      "n.f. 资源"
+    ]
+  },
+  {
+    "name": "besoin",
+    "trans": [
+      "n.m. 需求"
+    ]
+  },
+  {
+    "name": "demande",
+    "trans": [
+      "n.f. 需求；申请"
+    ]
+  },
+  {
+    "name": "offre",
+    "trans": [
+      "n.f. 供给；提议"
+    ]
+  },
+  {
+    "name": "accès",
+    "trans": [
+      "n.m. 获取；进入"
+    ]
+  },
+  {
+    "name": "disponibilité",
+    "trans": [
+      "n.f. 可用性；空闲"
+    ]
+  },
+  {
+    "name": "qualité",
+    "trans": [
+      "n.f. 质量；品质"
+    ]
+  },
+  {
+    "name": "efficacité",
+    "trans": [
+      "n.f. 效率；有效性"
+    ]
+  },
+  {
+    "name": "performance",
+    "trans": [
+      "n.f. 表现；绩效"
+    ]
+  },
+  {
+    "name": "productivité",
+    "trans": [
+      "n.f. 生产率"
+    ]
+  },
+  {
+    "name": "compétitivité",
+    "trans": [
+      "n.f. 竞争力"
+    ]
+  },
+  {
+    "name": "emploi",
+    "trans": [
+      "n.m. 就业；工作"
+    ]
+  },
+  {
+    "name": "chômage",
+    "trans": [
+      "n.m. 失业"
+    ]
+  },
+  {
+    "name": "précarité",
+    "trans": [
+      "n.f. 不稳定；脆弱处境"
+    ]
+  },
+  {
+    "name": "pauvreté",
+    "trans": [
+      "n.f. 贫困"
+    ]
+  },
+  {
+    "name": "richesse",
+    "trans": [
+      "n.f. 财富"
+    ]
+  },
+  {
+    "name": "niveau de vie",
+    "trans": [
+      "n.m. 生活水平"
+    ]
+  },
+  {
+    "name": "pouvoir d'achat",
+    "trans": [
+      "n.m. 购买力"
+    ]
+  },
+  {
+    "name": "bien-être",
+    "trans": [
+      "n.m. 福祉"
+    ]
+  },
+  {
+    "name": "satisfaction",
+    "trans": [
+      "n.f. 满意"
+    ]
+  },
+  {
+    "name": "confiance",
+    "trans": [
+      "n.f. 信任；信心"
+    ]
+  },
+  {
+    "name": "motivation",
+    "trans": [
+      "n.f. 动力"
+    ]
+  },
+  {
+    "name": "engagement",
+    "trans": [
+      "n.m. 承诺；参与"
+    ]
+  },
+  {
+    "name": "participation",
+    "trans": [
+      "n.f. 参与"
+    ]
+  },
+  {
+    "name": "coopération",
+    "trans": [
+      "n.f. 合作"
+    ]
+  },
+  {
+    "name": "solidarité",
+    "trans": [
+      "n.f. 团结；互助"
+    ]
+  },
+  {
+    "name": "responsabilité",
+    "trans": [
+      "n.f. 责任"
+    ]
+  },
+  {
+    "name": "autonomie",
+    "trans": [
+      "n.f. 自主性"
+    ]
+  },
+  {
+    "name": "indépendance",
+    "trans": [
+      "n.f. 独立"
+    ]
+  },
+  {
+    "name": "dépendance",
+    "trans": [
+      "n.f. 依赖"
+    ]
+  },
+  {
+    "name": "influence",
+    "trans": [
+      "n.f. 影响"
+    ]
+  },
+  {
+    "name": "pression",
+    "trans": [
+      "n.f. 压力"
+    ]
+  },
+  {
+    "name": "contrainte",
+    "trans": [
+      "n.f. 约束；限制"
+    ]
+  },
+  {
+    "name": "limite",
+    "trans": [
+      "n.f. 限制；边界"
+    ]
+  },
+  {
+    "name": "condition",
+    "trans": [
+      "n.f. 条件；状况"
+    ]
+  },
+  {
+    "name": "critère",
+    "trans": [
+      "n.m. 标准"
+    ]
+  },
+  {
+    "name": "principe",
+    "trans": [
+      "n.m. 原则"
+    ]
+  },
+  {
+    "name": "valeur",
+    "trans": [
+      "n.f. 价值；数值"
+    ]
+  },
+  {
+    "name": "objectif",
+    "trans": [
+      "n.m. 目标"
+    ]
+  },
+  {
+    "name": "résultat",
+    "trans": [
+      "n.m. 结果"
+    ]
+  },
+  {
+    "name": "moyen",
+    "trans": [
+      "n.m. 手段；方式"
+    ]
+  },
+  {
+    "name": "méthode",
+    "trans": [
+      "n.f. 方法"
+    ]
+  },
+  {
+    "name": "approche",
+    "trans": [
+      "n.f. 方法；途径"
+    ]
+  },
+  {
+    "name": "stratégie",
+    "trans": [
+      "n.f. 策略"
+    ]
+  },
+  {
+    "name": "politique",
+    "trans": [
+      "n.f. 政策；政治"
+    ]
+  },
+  {
+    "name": "mesure",
+    "trans": [
+      "n.f. 措施"
+    ]
+  },
+  {
+    "name": "réforme",
+    "trans": [
+      "n.f. 改革"
+    ]
+  },
+  {
+    "name": "réglementation",
+    "trans": [
+      "n.f. 法规"
+    ]
+  },
+  {
+    "name": "norme",
+    "trans": [
+      "n.f. 标准；规范"
+    ]
+  },
+  {
+    "name": "principe",
+    "trans": [
+      "n.m. 原则"
+    ]
+  },
+  {
+    "name": "contexte",
+    "trans": [
+      "n.m. 背景；语境"
+    ]
+  },
+  {
+    "name": "facteur",
+    "trans": [
+      "n.m. 因素"
+    ]
+  },
+  {
+    "name": "phénomène",
+    "trans": [
+      "n.m. 现象"
+    ]
+  },
+  {
+    "name": "tendance",
+    "trans": [
+      "n.f. 趋势"
+    ]
+  },
+  {
+    "name": "perspective",
+    "trans": [
+      "n.f. 前景；视角"
+    ]
+  },
+  {
+    "name": "conséquence",
+    "trans": [
+      "n.f. 后果"
+    ]
+  },
+  {
+    "name": "cause",
+    "trans": [
+      "n.f. 原因"
+    ]
+  },
+  {
+    "name": "origine",
+    "trans": [
+      "n.f. 起源；来源"
+    ]
+  },
+  {
+    "name": "enjeu",
+    "trans": [
+      "n.m. 关键问题；利害关系"
+    ]
+  },
+  {
+    "name": "débat",
+    "trans": [
+      "n.m. 讨论；辩论"
+    ]
+  },
+  {
+    "name": "controverse",
+    "trans": [
+      "n.f. 争议"
+    ]
+  },
+  {
+    "name": "consensus",
+    "trans": [
+      "n.m. 共识"
+    ]
+  },
+  {
+    "name": "compromis",
+    "trans": [
+      "n.m. 妥协"
+    ]
+  }
+]
