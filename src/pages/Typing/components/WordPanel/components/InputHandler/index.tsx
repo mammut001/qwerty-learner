@@ -30,7 +30,7 @@ export type WordUpdateAction = WordAddAction | WordDeleteAction | WordCompositio
 export type WordAddAction = {
   type: 'add'
   value: string
-  event: FormEvent<HTMLTextAreaElement> | KeyboardEvent
+  event?: FormEvent<HTMLTextAreaElement> | KeyboardEvent
 }
 
 export type WordDeleteAction = {
