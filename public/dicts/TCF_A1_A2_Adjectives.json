@@ -1,0 +1,530 @@
+[
+  {
+    "name": "grand",
+    "trans": [
+      "adj. 大的；高的"
+    ]
+  },
+  {
+    "name": "petit",
+    "trans": [
+      "adj. 小的；矮的"
+    ]
+  },
+  {
+    "name": "jeune",
+    "trans": [
+      "adj. 年轻的"
+    ]
+  },
+  {
+    "name": "vieux",
+    "trans": [
+      "adj. 老的；旧的"
+    ]
+  },
+  {
+    "name": "nouveau",
+    "trans": [
+      "adj. 新的"
+    ]
+  },
+  {
+    "name": "ancien",
+    "trans": [
+      "adj. 以前的；古老的"
+    ]
+  },
+  {
+    "name": "beau",
+    "trans": [
+      "adj. 美丽的；漂亮的"
+    ]
+  },
+  {
+    "name": "joli",
+    "trans": [
+      "adj. 好看的；漂亮的"
+    ]
+  },
+  {
+    "name": "bon",
+    "trans": [
+      "adj. 好的"
+    ]
+  },
+  {
+    "name": "mauvais",
+    "trans": [
+      "adj. 坏的；差的"
+    ]
+  },
+  {
+    "name": "facile",
+    "trans": [
+      "adj. 容易的"
+    ]
+  },
+  {
+    "name": "difficile",
+    "trans": [
+      "adj. 困难的"
+    ]
+  },
+  {
+    "name": "simple",
+    "trans": [
+      "adj. 简单的"
+    ]
+  },
+  {
+    "name": "compliqué",
+    "trans": [
+      "adj. 复杂的"
+    ]
+  },
+  {
+    "name": "rapide",
+    "trans": [
+      "adj. 快的"
+    ]
+  },
+  {
+    "name": "lent",
+    "trans": [
+      "adj. 慢的"
+    ]
+  },
+  {
+    "name": "fort",
+    "trans": [
+      "adj. 强的；强烈的"
+    ]
+  },
+  {
+    "name": "faible",
+    "trans": [
+      "adj. 弱的；低的"
+    ]
+  },
+  {
+    "name": "propre",
+    "trans": [
+      "adj. 干净的；自己的"
+    ]
+  },
+  {
+    "name": "sale",
+    "trans": [
+      "adj. 脏的"
+    ]
+  },
+  {
+    "name": "plein",
+    "trans": [
+      "adj. 满的"
+    ]
+  },
+  {
+    "name": "vide",
+    "trans": [
+      "adj. 空的"
+    ]
+  },
+  {
+    "name": "ouvert",
+    "trans": [
+      "adj. 开着的；开放的"
+    ]
+  },
+  {
+    "name": "fermé",
+    "trans": [
+      "adj. 关着的；关闭的"
+    ]
+  },
+  {
+    "name": "prêt",
+    "trans": [
+      "adj. 准备好的"
+    ]
+  },
+  {
+    "name": "fatigué",
+    "trans": [
+      "adj. 疲惫的"
+    ]
+  },
+  {
+    "name": "content",
+    "trans": [
+      "adj. 高兴的；满意的"
+    ]
+  },
+  {
+    "name": "heureux",
+    "trans": [
+      "adj. 幸福的；高兴的"
+    ]
+  },
+  {
+    "name": "triste",
+    "trans": [
+      "adj. 难过的"
+    ]
+  },
+  {
+    "name": "inquiet",
+    "trans": [
+      "adj. 担心的"
+    ]
+  },
+  {
+    "name": "calme",
+    "trans": [
+      "adj. 平静的"
+    ]
+  },
+  {
+    "name": "nerveux",
+    "trans": [
+      "adj. 紧张的"
+    ]
+  },
+  {
+    "name": "gentil",
+    "trans": [
+      "adj. 友善的"
+    ]
+  },
+  {
+    "name": "sympathique",
+    "trans": [
+      "adj. 友好的；讨人喜欢的"
+    ]
+  },
+  {
+    "name": "poli",
+    "trans": [
+      "adj. 有礼貌的"
+    ]
+  },
+  {
+    "name": "impoli",
+    "trans": [
+      "adj. 没礼貌的"
+    ]
+  },
+  {
+    "name": "sérieux",
+    "trans": [
+      "adj. 认真的；严肃的"
+    ]
+  },
+  {
+    "name": "drôle",
+    "trans": [
+      "adj. 好笑的；奇怪的"
+    ]
+  },
+  {
+    "name": "intéressant",
+    "trans": [
+      "adj. 有趣的"
+    ]
+  },
+  {
+    "name": "ennuyeux",
+    "trans": [
+      "adj. 无聊的"
+    ]
+  },
+  {
+    "name": "utile",
+    "trans": [
+      "adj. 有用的"
+    ]
+  },
+  {
+    "name": "inutile",
+    "trans": [
+      "adj. 没用的"
+    ]
+  },
+  {
+    "name": "possible",
+    "trans": [
+      "adj. 可能的"
+    ]
+  },
+  {
+    "name": "impossible",
+    "trans": [
+      "adj. 不可能的"
+    ]
+  },
+  {
+    "name": "vrai",
+    "trans": [
+      "adj. 真的；真实的"
+    ]
+  },
+  {
+    "name": "faux",
+    "trans": [
+      "adj. 错误的；假的"
+    ]
+  },
+  {
+    "name": "certain",
+    "trans": [
+      "adj. 确定的；某些"
+    ]
+  },
+  {
+    "name": "différent",
+    "trans": [
+      "adj. 不同的"
+    ]
+  },
+  {
+    "name": "pareil",
+    "trans": [
+      "adj. 相同的；一样的"
+    ]
+  },
+  {
+    "name": "même",
+    "trans": [
+      "adj./adv. 相同的；甚至"
+    ]
+  },
+  {
+    "name": "seulement",
+    "trans": [
+      "adv. 仅仅；只"
+    ]
+  },
+  {
+    "name": "presque",
+    "trans": [
+      "adv. 几乎"
+    ]
+  },
+  {
+    "name": "très",
+    "trans": [
+      "adv. 非常"
+    ]
+  },
+  {
+    "name": "assez",
+    "trans": [
+      "adv. 相当；足够"
+    ]
+  },
+  {
+    "name": "trop",
+    "trans": [
+      "adv. 太；过于"
+    ]
+  },
+  {
+    "name": "peu",
+    "trans": [
+      "adv./n. 少；不多"
+    ]
+  },
+  {
+    "name": "beaucoup",
+    "trans": [
+      "adv. 很多"
+    ]
+  },
+  {
+    "name": "plus",
+    "trans": [
+      "adv. 更多；不再"
+    ]
+  },
+  {
+    "name": "moins",
+    "trans": [
+      "adv. 更少"
+    ]
+  },
+  {
+    "name": "bien",
+    "trans": [
+      "adv. 好；很好"
+    ]
+  },
+  {
+    "name": "mal",
+    "trans": [
+      "adv. 不好；坏地"
+    ]
+  },
+  {
+    "name": "mieux",
+    "trans": [
+      "adv. 更好"
+    ]
+  },
+  {
+    "name": "pire",
+    "trans": [
+      "adj./adv. 更糟"
+    ]
+  },
+  {
+    "name": "exactement",
+    "trans": [
+      "adv. 准确地；正是"
+    ]
+  },
+  {
+    "name": "probablement",
+    "trans": [
+      "adv. 很可能"
+    ]
+  },
+  {
+    "name": "peut-être",
+    "trans": [
+      "adv. 也许"
+    ]
+  },
+  {
+    "name": "certainement",
+    "trans": [
+      "adv. 肯定地"
+    ]
+  },
+  {
+    "name": "vraiment",
+    "trans": [
+      "adv. 真正地；确实"
+    ]
+  },
+  {
+    "name": "surtout",
+    "trans": [
+      "adv. 尤其"
+    ]
+  },
+  {
+    "name": "seulement",
+    "trans": [
+      "adv. 仅仅"
+    ]
+  },
+  {
+    "name": "facilement",
+    "trans": [
+      "adv. 容易地"
+    ]
+  },
+  {
+    "name": "rapidement",
+    "trans": [
+      "adv. 快速地"
+    ]
+  },
+  {
+    "name": "lentement",
+    "trans": [
+      "adv. 缓慢地"
+    ]
+  },
+  {
+    "name": "normalement",
+    "trans": [
+      "adv. 通常；正常情况下"
+    ]
+  },
+  {
+    "name": "généralement",
+    "trans": [
+      "adv. 一般地"
+    ]
+  },
+  {
+    "name": "rarement",
+    "trans": [
+      "adv. 很少"
+    ]
+  },
+  {
+    "name": "immédiatement",
+    "trans": [
+      "adv. 立即"
+    ]
+  },
+  {
+    "name": "directement",
+    "trans": [
+      "adv. 直接地"
+    ]
+  },
+  {
+    "name": "exact",
+    "trans": [
+      "adj. 准确的"
+    ]
+  },
+  {
+    "name": "complet",
+    "trans": [
+      "adj. 完整的"
+    ]
+  },
+  {
+    "name": "nécessaire",
+    "trans": [
+      "adj. 必要的"
+    ]
+  },
+  {
+    "name": "principal",
+    "trans": [
+      "adj. 主要的"
+    ]
+  },
+  {
+    "name": "prochain",
+    "trans": [
+      "adj. 下一个的；即将到来的"
+    ]
+  },
+  {
+    "name": "dernier",
+    "trans": [
+      "adj. 最后的；上一个的"
+    ]
+  },
+  {
+    "name": "premier",
+    "trans": [
+      "adj. 第一的"
+    ]
+  },
+  {
+    "name": "suivant",
+    "trans": [
+      "adj. 接下来的"
+    ]
+  },
+  {
+    "name": "local",
+    "trans": [
+      "adj. 当地的"
+    ]
+  },
+  {
+    "name": "public",
+    "trans": [
+      "adj. 公共的"
+    ]
+  }
+]
