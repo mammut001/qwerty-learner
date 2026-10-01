@@ -1,0 +1,482 @@
+[
+  {
+    "name": "appartement",
+    "trans": [
+      "n.m. 公寓"
+    ]
+  },
+  {
+    "name": "maison",
+    "trans": [
+      "n.f. 房子；住宅"
+    ]
+  },
+  {
+    "name": "chambre",
+    "trans": [
+      "n.f. 房间；卧室"
+    ]
+  },
+  {
+    "name": "cuisine",
+    "trans": [
+      "n.f. 厨房；烹饪"
+    ]
+  },
+  {
+    "name": "salle de bains",
+    "trans": [
+      "n.f. 浴室"
+    ]
+  },
+  {
+    "name": "loyer",
+    "trans": [
+      "n.m. 房租"
+    ]
+  },
+  {
+    "name": "propriétaire",
+    "trans": [
+      "n.m./f. 房东；业主"
+    ]
+  },
+  {
+    "name": "locataire",
+    "trans": [
+      "n.m./f. 租客"
+    ]
+  },
+  {
+    "name": "déménager",
+    "trans": [
+      "v. 搬家"
+    ]
+  },
+  {
+    "name": "emménager",
+    "trans": [
+      "v. 搬入新居"
+    ]
+  },
+  {
+    "name": "quartier",
+    "trans": [
+      "n.m. 街区；社区"
+    ]
+  },
+  {
+    "name": "voisin",
+    "trans": [
+      "n.m. 邻居；阴性 voisine"
+    ]
+  },
+  {
+    "name": "adresse",
+    "trans": [
+      "n.f. 地址"
+    ]
+  },
+  {
+    "name": "rue",
+    "trans": [
+      "n.f. 街道"
+    ]
+  },
+  {
+    "name": "centre-ville",
+    "trans": [
+      "n.m. 市中心"
+    ]
+  },
+  {
+    "name": "banlieue",
+    "trans": [
+      "n.f. 郊区"
+    ]
+  },
+  {
+    "name": "magasin",
+    "trans": [
+      "n.m. 商店"
+    ]
+  },
+  {
+    "name": "supermarché",
+    "trans": [
+      "n.m. 超市"
+    ]
+  },
+  {
+    "name": "marché",
+    "trans": [
+      "n.m. 市场"
+    ]
+  },
+  {
+    "name": "prix",
+    "trans": [
+      "n.m. 价格"
+    ]
+  },
+  {
+    "name": "réduction",
+    "trans": [
+      "n.f. 折扣；减少"
+    ]
+  },
+  {
+    "name": "promotion",
+    "trans": [
+      "n.f. 促销；晋升"
+    ]
+  },
+  {
+    "name": "ticket",
+    "trans": [
+      "n.m. 票；小票"
+    ]
+  },
+  {
+    "name": "reçu",
+    "trans": [
+      "n.m. 收据"
+    ]
+  },
+  {
+    "name": "carte bancaire",
+    "trans": [
+      "n.f. 银行卡"
+    ]
+  },
+  {
+    "name": "espèces",
+    "trans": [
+      "n.f.pl. 现金"
+    ]
+  },
+  {
+    "name": "cher",
+    "trans": [
+      "adj. 贵的；亲爱的"
+    ]
+  },
+  {
+    "name": "bon marché",
+    "trans": [
+      "loc.adj. 便宜的"
+    ]
+  },
+  {
+    "name": "taille",
+    "trans": [
+      "n.f. 尺码；大小；身高"
+    ]
+  },
+  {
+    "name": "couleur",
+    "trans": [
+      "n.f. 颜色"
+    ]
+  },
+  {
+    "name": "essayer",
+    "trans": [
+      "v. 尝试；试穿"
+    ]
+  },
+  {
+    "name": "commander",
+    "trans": [
+      "v. 点餐；订购；命令"
+    ]
+  },
+  {
+    "name": "réserver",
+    "trans": [
+      "v. 预订"
+    ]
+  },
+  {
+    "name": "restaurant",
+    "trans": [
+      "n.m. 餐馆"
+    ]
+  },
+  {
+    "name": "menu",
+    "trans": [
+      "n.m. 菜单；套餐"
+    ]
+  },
+  {
+    "name": "addition",
+    "trans": [
+      "n.f. 账单；加法"
+    ]
+  },
+  {
+    "name": "petit-déjeuner",
+    "trans": [
+      "n.m. 早餐"
+    ]
+  },
+  {
+    "name": "déjeuner",
+    "trans": [
+      "n.m. 午餐"
+    ]
+  },
+  {
+    "name": "dîner",
+    "trans": [
+      "n.m. 晚餐"
+    ]
+  },
+  {
+    "name": "repas",
+    "trans": [
+      "n.m. 一餐；饭"
+    ]
+  },
+  {
+    "name": "pain",
+    "trans": [
+      "n.m. 面包"
+    ]
+  },
+  {
+    "name": "fromage",
+    "trans": [
+      "n.m. 奶酪"
+    ]
+  },
+  {
+    "name": "viande",
+    "trans": [
+      "n.f. 肉"
+    ]
+  },
+  {
+    "name": "poisson",
+    "trans": [
+      "n.m. 鱼"
+    ]
+  },
+  {
+    "name": "légume",
+    "trans": [
+      "n.m. 蔬菜"
+    ]
+  },
+  {
+    "name": "fruit",
+    "trans": [
+      "n.m. 水果"
+    ]
+  },
+  {
+    "name": "eau",
+    "trans": [
+      "n.f. 水"
+    ]
+  },
+  {
+    "name": "café",
+    "trans": [
+      "n.m. 咖啡"
+    ]
+  },
+  {
+    "name": "bus",
+    "trans": [
+      "n.m. 公交车"
+    ]
+  },
+  {
+    "name": "métro",
+    "trans": [
+      "n.m. 地铁"
+    ]
+  },
+  {
+    "name": "train",
+    "trans": [
+      "n.m. 火车"
+    ]
+  },
+  {
+    "name": "gare",
+    "trans": [
+      "n.f. 火车站"
+    ]
+  },
+  {
+    "name": "arrêt",
+    "trans": [
+      "n.m. 车站；停止"
+    ]
+  },
+  {
+    "name": "billet",
+    "trans": [
+      "n.m. 票；纸币"
+    ]
+  },
+  {
+    "name": "trajet",
+    "trans": [
+      "n.m. 路程；路线"
+    ]
+  },
+  {
+    "name": "circulation",
+    "trans": [
+      "n.f. 交通；流通"
+    ]
+  },
+  {
+    "name": "retard",
+    "trans": [
+      "n.m. 延迟；迟到"
+    ]
+  },
+  {
+    "name": "à l'heure",
+    "trans": [
+      "loc. 准时"
+    ]
+  },
+  {
+    "name": "conduire",
+    "trans": [
+      "v. 驾驶"
+    ]
+  },
+  {
+    "name": "marcher",
+    "trans": [
+      "v. 走路；运转"
+    ]
+  },
+  {
+    "name": "vacances",
+    "trans": [
+      "n.f.pl. 假期"
+    ]
+  },
+  {
+    "name": "voyage",
+    "trans": [
+      "n.m. 旅行"
+    ]
+  },
+  {
+    "name": "hôtel",
+    "trans": [
+      "n.m. 酒店"
+    ]
+  },
+  {
+    "name": "aéroport",
+    "trans": [
+      "n.m. 机场"
+    ]
+  },
+  {
+    "name": "valise",
+    "trans": [
+      "n.f. 行李箱"
+    ]
+  },
+  {
+    "name": "passeport",
+    "trans": [
+      "n.m. 护照"
+    ]
+  },
+  {
+    "name": "météo",
+    "trans": [
+      "n.f. 天气预报"
+    ]
+  },
+  {
+    "name": "pluie",
+    "trans": [
+      "n.f. 雨"
+    ]
+  },
+  {
+    "name": "neige",
+    "trans": [
+      "n.f. 雪"
+    ]
+  },
+  {
+    "name": "soleil",
+    "trans": [
+      "n.m. 太阳"
+    ]
+  },
+  {
+    "name": "chaud",
+    "trans": [
+      "adj. 热的；暖的"
+    ]
+  },
+  {
+    "name": "froid",
+    "trans": [
+      "adj./n.m. 冷的；寒冷"
+    ]
+  },
+  {
+    "name": "malade",
+    "trans": [
+      "adj. 生病的"
+    ]
+  },
+  {
+    "name": "médecin",
+    "trans": [
+      "n.m./f. 医生"
+    ]
+  },
+  {
+    "name": "pharmacie",
+    "trans": [
+      "n.f. 药房"
+    ]
+  },
+  {
+    "name": "rendez-vous",
+    "trans": [
+      "n.m. 预约；会面"
+    ]
+  },
+  {
+    "name": "santé",
+    "trans": [
+      "n.f. 健康"
+    ]
+  },
+  {
+    "name": "douleur",
+    "trans": [
+      "n.f. 疼痛"
+    ]
+  },
+  {
+    "name": "médicament",
+    "trans": [
+      "n.m. 药物"
+    ]
+  },
+  {
+    "name": "urgence",
+    "trans": [
+      "n.f. 紧急情况；急诊"
+    ]
+  }
+]
