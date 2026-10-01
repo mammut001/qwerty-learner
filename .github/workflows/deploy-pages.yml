@@ -1,10 +1,16 @@
-name: Deployment to Github/Gitee pages
+name: Deploy French Qwerty Learner to GitHub Pages
+
 on:
   push:
     branches:
       - master
+
+permissions:
+  contents: write
+
 env:
   REACT_APP_DEPLOY_ENV: pages
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -12,24 +18,18 @@ jobs:
       matrix:
         node-version: [18.17.0]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install Packages
-        run: yarn
+          cache: yarn
+      - name: Install packages
+        run: yarn --frozen-lockfile
       - name: Build page
         run: yarn build
       - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
-      - name: Sync to Gitee
-        uses: wearerequired/git-mirror-action@master
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.GITEE }}
-        with:
-          source-repo: git@github.com:RealKai42/qwerty-learner.git
-          destination-repo: git@gitee.com:KaiyiWing/qwerty-learner.git
