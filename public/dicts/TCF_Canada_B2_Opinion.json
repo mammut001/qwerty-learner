@@ -1,0 +1,434 @@
+[
+  {
+    "name": "enjeu",
+    "trans": [
+      "n.m. 关键问题；利害关系"
+    ]
+  },
+  {
+    "name": "avantage",
+    "trans": [
+      "n.m. 优点；优势"
+    ]
+  },
+  {
+    "name": "inconvénient",
+    "trans": [
+      "n.m. 缺点；不便"
+    ]
+  },
+  {
+    "name": "conséquence",
+    "trans": [
+      "n.f. 后果；结果"
+    ]
+  },
+  {
+    "name": "cause",
+    "trans": [
+      "n.f. 原因；事业"
+    ]
+  },
+  {
+    "name": "solution",
+    "trans": [
+      "n.f. 解决办法"
+    ]
+  },
+  {
+    "name": "mesure",
+    "trans": [
+      "n.f. 措施；测量"
+    ]
+  },
+  {
+    "name": "impact",
+    "trans": [
+      "n.m. 影响"
+    ]
+  },
+  {
+    "name": "effet",
+    "trans": [
+      "n.m. 效果；影响"
+    ]
+  },
+  {
+    "name": "évolution",
+    "trans": [
+      "n.f. 发展；变化"
+    ]
+  },
+  {
+    "name": "tendance",
+    "trans": [
+      "n.f. 趋势"
+    ]
+  },
+  {
+    "name": "situation",
+    "trans": [
+      "n.f. 情况；形势"
+    ]
+  },
+  {
+    "name": "société",
+    "trans": [
+      "n.f. 社会；公司"
+    ]
+  },
+  {
+    "name": "environnement",
+    "trans": [
+      "n.m. 环境"
+    ]
+  },
+  {
+    "name": "éducation",
+    "trans": [
+      "n.f. 教育"
+    ]
+  },
+  {
+    "name": "économie",
+    "trans": [
+      "n.f. 经济"
+    ]
+  },
+  {
+    "name": "technologie",
+    "trans": [
+      "n.f. 技术"
+    ]
+  },
+  {
+    "name": "réseau social",
+    "trans": [
+      "n.m. 社交网络"
+    ]
+  },
+  {
+    "name": "consommation",
+    "trans": [
+      "n.f. 消费；消耗"
+    ]
+  },
+  {
+    "name": "pollution",
+    "trans": [
+      "n.f. 污染"
+    ]
+  },
+  {
+    "name": "changement climatique",
+    "trans": [
+      "n.m. 气候变化"
+    ]
+  },
+  {
+    "name": "qualité de vie",
+    "trans": [
+      "n.f. 生活质量"
+    ]
+  },
+  {
+    "name": "égalité",
+    "trans": [
+      "n.f. 平等"
+    ]
+  },
+  {
+    "name": "inégalité",
+    "trans": [
+      "n.f. 不平等"
+    ]
+  },
+  {
+    "name": "liberté",
+    "trans": [
+      "n.f. 自由"
+    ]
+  },
+  {
+    "name": "sécurité",
+    "trans": [
+      "n.f. 安全"
+    ]
+  },
+  {
+    "name": "responsabilité",
+    "trans": [
+      "n.f. 责任"
+    ]
+  },
+  {
+    "name": "comportement",
+    "trans": [
+      "n.m. 行为"
+    ]
+  },
+  {
+    "name": "habitude",
+    "trans": [
+      "n.f. 习惯"
+    ]
+  },
+  {
+    "name": "choix",
+    "trans": [
+      "n.m. 选择"
+    ]
+  },
+  {
+    "name": "décision",
+    "trans": [
+      "n.f. 决定"
+    ]
+  },
+  {
+    "name": "opinion",
+    "trans": [
+      "n.f. 观点；意见"
+    ]
+  },
+  {
+    "name": "point de vue",
+    "trans": [
+      "n.m. 观点；角度"
+    ]
+  },
+  {
+    "name": "argument",
+    "trans": [
+      "n.m. 论点；理由"
+    ]
+  },
+  {
+    "name": "raison",
+    "trans": [
+      "n.f. 理由；理性"
+    ]
+  },
+  {
+    "name": "exemple",
+    "trans": [
+      "n.m. 例子"
+    ]
+  },
+  {
+    "name": "convaincre",
+    "trans": [
+      "v. 说服"
+    ]
+  },
+  {
+    "name": "persuader",
+    "trans": [
+      "v. 劝服"
+    ]
+  },
+  {
+    "name": "expliquer",
+    "trans": [
+      "v. 解释"
+    ]
+  },
+  {
+    "name": "justifier",
+    "trans": [
+      "v. 证明……合理；说明理由"
+    ]
+  },
+  {
+    "name": "souligner",
+    "trans": [
+      "v. 强调；划线"
+    ]
+  },
+  {
+    "name": "montrer",
+    "trans": [
+      "v. 展示；表明"
+    ]
+  },
+  {
+    "name": "démontrer",
+    "trans": [
+      "v. 证明；论证"
+    ]
+  },
+  {
+    "name": "constater",
+    "trans": [
+      "v. 注意到；确认事实"
+    ]
+  },
+  {
+    "name": "estimer",
+    "trans": [
+      "v. 认为；估计"
+    ]
+  },
+  {
+    "name": "considérer",
+    "trans": [
+      "v. 认为；考虑"
+    ]
+  },
+  {
+    "name": "sembler",
+    "trans": [
+      "v. 似乎"
+    ]
+  },
+  {
+    "name": "paraître",
+    "trans": [
+      "v. 看起来；出版"
+    ]
+  },
+  {
+    "name": "soutenir",
+    "trans": [
+      "v. 支持；主张"
+    ]
+  },
+  {
+    "name": "proposer",
+    "trans": [
+      "v. 提议"
+    ]
+  },
+  {
+    "name": "suggérer",
+    "trans": [
+      "v. 建议；暗示"
+    ]
+  },
+  {
+    "name": "recommander",
+    "trans": [
+      "v. 推荐；建议"
+    ]
+  },
+  {
+    "name": "éviter",
+    "trans": [
+      "v. 避免"
+    ]
+  },
+  {
+    "name": "permettre",
+    "trans": [
+      "v. 允许；使可能"
+    ]
+  },
+  {
+    "name": "empêcher",
+    "trans": [
+      "v. 阻止"
+    ]
+  },
+  {
+    "name": "favoriser",
+    "trans": [
+      "v. 促进；有利于"
+    ]
+  },
+  {
+    "name": "encourager",
+    "trans": [
+      "v. 鼓励"
+    ]
+  },
+  {
+    "name": "réduire",
+    "trans": [
+      "v. 减少"
+    ]
+  },
+  {
+    "name": "augmenter",
+    "trans": [
+      "v. 增加"
+    ]
+  },
+  {
+    "name": "préserver",
+    "trans": [
+      "v. 保护；保存"
+    ]
+  },
+  {
+    "name": "remplacer",
+    "trans": [
+      "v. 替代"
+    ]
+  },
+  {
+    "name": "adapter",
+    "trans": [
+      "v. 调整；适应"
+    ]
+  },
+  {
+    "name": "s'adapter",
+    "trans": [
+      "v.pron. 适应"
+    ]
+  },
+  {
+    "name": "faire face à",
+    "trans": [
+      "loc.v. 面对；应对"
+    ]
+  },
+  {
+    "name": "prendre en compte",
+    "trans": [
+      "loc.v. 考虑到"
+    ]
+  },
+  {
+    "name": "mettre en place",
+    "trans": [
+      "loc.v. 建立；实施"
+    ]
+  },
+  {
+    "name": "avoir tendance à",
+    "trans": [
+      "loc.v. 倾向于"
+    ]
+  },
+  {
+    "name": "jouer un rôle",
+    "trans": [
+      "loc.v. 发挥作用"
+    ]
+  },
+  {
+    "name": "il est essentiel de",
+    "trans": [
+      "loc. ……是非常重要的"
+    ]
+  },
+  {
+    "name": "il est possible de",
+    "trans": [
+      "loc. ……是可能的"
+    ]
+  },
+  {
+    "name": "il vaut mieux",
+    "trans": [
+      "loc. 最好……"
+    ]
+  },
+  {
+    "name": "il faut tenir compte de",
+    "trans": [
+      "loc. 必须考虑到……"
+    ]
+  }
+]
