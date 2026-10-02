@@ -62,6 +62,12 @@ export default function GalleryPage() {
                 <LanguageTabSwitcher />
                 <div className="flex gap-2">
                   <NavLink
+                    to="/study-plan"
+                    className="rounded-xl bg-green-50 px-4 py-2 text-sm font-medium text-green-700 transition hover:bg-green-100 dark:bg-gray-800 dark:text-green-300 dark:hover:bg-gray-700"
+                  >
+                    学习计划
+                  </NavLink>
+                  <NavLink
                     to="/grammar-session"
                     className="rounded-xl bg-amber-50 px-4 py-2 text-sm font-medium text-amber-700 transition hover:bg-amber-100 dark:bg-gray-800 dark:text-amber-300 dark:hover:bg-gray-700"
                   >
