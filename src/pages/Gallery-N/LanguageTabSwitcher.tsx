@@ -8,7 +8,7 @@ export type LanguageTabOption = {
   name: string
 }
 
-const options: LanguageTabOption[] = [{ id: 'fr', name: '法语' }]
+const options: LanguageTabOption[] = [{ id: 'fr', name: '法语 · TCF Canada' }]
 
 export function LanguageTabSwitcher() {
   const { state, setState } = useContext(GalleryContext)!
@@ -29,7 +29,7 @@ export function LanguageTabSwitcher() {
           <RadioGroup.Option key={option.id} value={option.id} className="cursor-pointer">
             {({ checked }) => (
               <div className={`flex items-center border-b-2 px-2 pb-1 ${checked ? 'border-indigo-500' : 'border-transparent'}`}>
-                <span className="mr-1.5 text-2xl" aria-hidden="true">🇫🇷</span>
+                <span className="mr-1.5 text-2xl" aria-hidden="true">🇨🇦</span>
                 <p className="text-lg font-medium text-gray-700 dark:text-gray-200">{option.name}</p>
               </div>
             )}
