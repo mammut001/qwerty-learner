@@ -15,6 +15,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 const AnalysisPage = lazy(() => import('./pages/Analysis'))
 const GalleryPage = lazy(() => import('./pages/Gallery-N'))
 const ConjugationPage = lazy(() => import('./pages/Conjugation'))
+const GrammarSessionPage = lazy(() => import('./pages/GrammarSession'))
 
 function Root() {
   const darkMode = useAtomValue(isOpenDarkModeAtom)
@@ -49,6 +50,7 @@ function Root() {
                 <Route index element={<TypingPage />} />
                 <Route path="/gallery" element={<GalleryPage />} />
                 <Route path="/conjugation" element={<ConjugationPage />} />
+                <Route path="/grammar-session" element={<GrammarSessionPage />} />
                 <Route path="/analysis" element={<AnalysisPage />} />
                 <Route path="/error-book" element={<ErrorBook />} />
                 <Route path="/friend-links" element={<FriendLinks />} />
