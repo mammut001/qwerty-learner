@@ -60,12 +60,20 @@ export default function GalleryPage() {
             <div className="flex h-full flex-col overflow-y-auto">
               <div className="flex h-20 w-full items-center justify-between pb-6 pr-20">
                 <LanguageTabSwitcher />
-                <NavLink
-                  to="/conjugation"
-                  className="rounded-xl bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 transition hover:bg-indigo-100 dark:bg-gray-800 dark:text-indigo-300 dark:hover:bg-gray-700"
-                >
-                  Conjugaison · 动词变位
-                </NavLink>
+                <div className="flex gap-2">
+                  <NavLink
+                    to="/grammar-session"
+                    className="rounded-xl bg-amber-50 px-4 py-2 text-sm font-medium text-amber-700 transition hover:bg-amber-100 dark:bg-gray-800 dark:text-amber-300 dark:hover:bg-gray-700"
+                  >
+                    30 分钟语法
+                  </NavLink>
+                  <NavLink
+                    to="/conjugation"
+                    className="rounded-xl bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 transition hover:bg-indigo-100 dark:bg-gray-800 dark:text-indigo-300 dark:hover:bg-gray-700"
+                  >
+                    Conjugaison · 动词变位
+                  </NavLink>
+                </div>
               </div>
               <ScrollArea.Root className="flex-1 overflow-y-auto">
                 <ScrollArea.Viewport className="h-full w-full ">
