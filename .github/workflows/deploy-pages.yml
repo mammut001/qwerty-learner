@@ -56,5 +56,4 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-
-# deployment trigger: enabled
+# deployment trigger: pages-source-enabled
