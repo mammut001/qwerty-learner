@@ -202,6 +202,12 @@ export default function ConjugationPage() {
           返回练习
         </NavLink>
         <NavLink
+          to="/grammar-session"
+          className="rounded-lg px-3 py-1 text-sm text-gray-600 hover:bg-indigo-100 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-gray-700"
+        >
+          30分钟语法
+        </NavLink>
+        <NavLink
           to="/gallery"
           className="flex items-center gap-1 rounded-lg px-3 py-1 text-sm text-gray-600 hover:bg-indigo-100 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-gray-700"
         >
