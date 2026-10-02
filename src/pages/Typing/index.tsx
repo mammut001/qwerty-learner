@@ -132,6 +132,14 @@ const App: React.FC = () => {
       <Layout>
         <Header>
           <DictChapterButton />
+          <Tooltip content="26 周 TCF Canada 学习计划与今日任务">
+            <NavLink
+              to="/study-plan"
+              className="block rounded-lg px-3 py-1 text-base transition-colors duration-300 ease-in-out hover:bg-indigo-400 hover:text-white focus:outline-none dark:text-white dark:text-opacity-60 dark:hover:text-opacity-100"
+            >
+              学习计划
+            </NavLink>
+          </Tooltip>
           <Tooltip content="30 分钟：passé composé vs imparfait">
             <NavLink
               to="/grammar-session"
