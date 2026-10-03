@@ -27,13 +27,33 @@ type StudyPlanStorage = {
 const STORAGE_KEY = 'qwerty-fr-study-plan-v1'
 const DAY_MS = 24 * 60 * 60 * 1000
 
-const phaseDictionaryIds: Record<number, string> = {
-  1: 'tcf-grammar-pc-vs-imparfait',
-  2: 'tcf-canada-b1-connectors',
-  3: 'tcf-canada-b2-opinion',
-  4: 'tcf-oral-questions',
-  5: 'tcf-canada-oral-writing',
-  6: 'tcf-canada-oral-writing',
+const weekDictionaryIds: Record<number, string> = {
+  1: 'tcf-canada-foundation-01',
+  2: 'tcf-grammar-passe-compose-core',
+  3: 'tcf-grammar-pc-vs-imparfait',
+  4: 'tcf-a1-a2-people-routine',
+  5: 'tcf-canada-work-study-admin',
+  6: 'tcf-canada-b1-connectors',
+  7: 'tcf-b1-verbs-prepositions',
+  8: 'tcf-b1-services-society',
+  9: 'tcf-canada-b2-opinion',
+  10: 'tcf-b2-abstract-nouns',
+  11: 'tcf-b2-collocations',
+  12: 'tcf-canada-oral-writing',
+  13: 'tcf-canada-oral-writing',
+  14: 'tcf-oral-questions',
+  15: 'tcf-writing-formal',
+  16: 'tcf-canada-b2-opinion',
+  17: 'tcf-canada-oral-writing',
+  18: 'tcf-b2-collocations',
+  19: 'tcf-oral-questions',
+  20: 'tcf-writing-formal',
+  21: 'tcf-canada-b2-opinion',
+  22: 'tcf-canada-oral-writing',
+  23: 'tcf-oral-questions',
+  24: 'tcf-writing-formal',
+  25: 'tcf-b2-abstract-nouns',
+  26: 'tcf-b2-collocations',
 }
 
 const kindLabels: Record<StudyTaskKind, string> = {
@@ -119,7 +139,7 @@ export default function StudyPlanPage() {
   const currentWeek = currentWeekIndex + 1
   const phase = getStudyPhase(currentWeek)
   const phaseProgress = Math.min(100, Math.round((currentWeek / 26) * 100))
-  const targetDictionary = idDictionaryMap[phaseDictionaryIds[phase.id]]
+  const targetDictionary = idDictionaryMap[weekDictionaryIds[currentWeek]]
   const conjugationHref =
     phase.id === 1
       ? '/conjugation?verb=prendre&tense=passeCompose&mode=practice&scope=current'
