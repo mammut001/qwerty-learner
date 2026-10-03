@@ -10,7 +10,7 @@ import {
   type StudyTask,
   type StudyTaskKind,
 } from '@/resources/studyPlan'
-import { useMemo, useState } from 'react'
+import { type ChangeEvent, useMemo, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import IconArrowLeft from '~icons/tabler/arrow-left'
 import IconCalendar from '~icons/tabler/calendar'
@@ -80,6 +80,47 @@ function parseDateKey(key: string) {
   return new Date(year, month - 1, day)
 }
 
+function isDateKey(value: unknown): value is string {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false
+  return toDateKey(parseDateKey(value)) === value
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
+function parseImportedStorage(value: unknown): StudyPlanStorage | null {
+  if (!isRecord(value)) return null
+  if (!Object.prototype.hasOwnProperty.call(value, 'startDate')) return null
+  if (!Object.prototype.hasOwnProperty.call(value, 'minutes')) return null
+  if (!Object.prototype.hasOwnProperty.call(value, 'minimumMode')) return null
+  if (!isDateKey(value.startDate) || !isRecord(value.minutes) || !isRecord(value.minimumMode)) return null
+
+  const minutes: StudyPlanStorage['minutes'] = {}
+  for (const [dateKey, dayValue] of Object.entries(value.minutes)) {
+    if (!isDateKey(dateKey) || !isRecord(dayValue)) return null
+
+    const dayMinutes: Record<string, number> = {}
+    for (const [taskId, minuteValue] of Object.entries(dayValue)) {
+      if (!taskId || typeof minuteValue !== 'number' || !Number.isFinite(minuteValue) || minuteValue < 0) return null
+      dayMinutes[taskId] = minuteValue
+    }
+    minutes[dateKey] = dayMinutes
+  }
+
+  const minimumMode: StudyPlanStorage['minimumMode'] = {}
+  for (const [dateKey, modeValue] of Object.entries(value.minimumMode)) {
+    if (!isDateKey(dateKey) || typeof modeValue !== 'boolean') return null
+    minimumMode[dateKey] = modeValue
+  }
+
+  return {
+    startDate: value.startDate,
+    minutes,
+    minimumMode,
+  }
+}
+
 function loadStorage(todayKey: string): StudyPlanStorage {
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY)
@@ -123,6 +164,8 @@ export default function StudyPlanPage() {
   const today = useMemo(() => new Date(), [])
   const todayKey = toDateKey(today)
   const [storage, setStorage] = useState<StudyPlanStorage>(() => loadStorage(todayKey))
+  const importInputRef = useRef<HTMLInputElement>(null)
+  const [importMessage, setImportMessage] = useState('')
 
   const saveStorage = (next: StudyPlanStorage) => {
     setStorage(next)
@@ -214,6 +257,39 @@ export default function StudyPlanPage() {
       ...storage,
       startDate: value,
     })
+  }
+
+  const exportStudyPlan = () => {
+    const blob = new Blob([JSON.stringify(storage, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const anchor = document.createElement('a')
+    anchor.href = url
+    anchor.download = `qwerty-fr-study-plan-${todayKey}.json`
+    document.body.appendChild(anchor)
+    anchor.click()
+    anchor.remove()
+    URL.revokeObjectURL(url)
+    setImportMessage('已导出学习计划 JSON。')
+  }
+
+  const importStudyPlan = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    event.target.value = ''
+    if (!file) return
+
+    try {
+      const parsed = JSON.parse(await file.text()) as unknown
+      const imported = parseImportedStorage(parsed)
+      if (!imported) {
+        setImportMessage('导入失败：JSON 结构不符合学习计划格式，现有数据未修改。')
+        return
+      }
+
+      saveStorage(imported)
+      setImportMessage('导入成功：学习计划数据已更新。')
+    } catch {
+      setImportMessage('导入失败：文件不是有效 JSON，现有数据未修改。')
+    }
   }
 
   const renderTask = (task: StudyTask, dateKey: string, compact = false) => {
@@ -344,15 +420,43 @@ export default function StudyPlanPage() {
               <p className="mt-2 text-gray-500 dark:text-gray-400">{phase.goal}</p>
             </div>
 
-            <label className="text-sm text-gray-500 dark:text-gray-400">
-              计划开始日
-              <input
-                type="date"
-                value={storage.startDate}
-                onChange={(event) => changeStartDate(event.target.value)}
-                className="ml-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-gray-700 outline-none focus:border-indigo-400 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
-              />
-            </label>
+            <div className="flex flex-col items-end gap-2">
+              <label className="text-sm text-gray-500 dark:text-gray-400">
+                计划开始日
+                <input
+                  type="date"
+                  value={storage.startDate}
+                  onChange={(event) => changeStartDate(event.target.value)}
+                  className="ml-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-gray-700 outline-none focus:border-indigo-400 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
+                />
+              </label>
+
+              <div className="flex flex-wrap justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={exportStudyPlan}
+                  className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300"
+                >
+                  导出 JSON
+                </button>
+                <button
+                  type="button"
+                  onClick={() => importInputRef.current?.click()}
+                  className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300"
+                >
+                  导入 JSON
+                </button>
+                <input
+                  ref={importInputRef}
+                  type="file"
+                  accept="application/json,.json"
+                  onChange={importStudyPlan}
+                  className="hidden"
+                />
+              </div>
+
+              {importMessage && <div className="max-w-sm text-right text-xs text-gray-500 dark:text-gray-400">{importMessage}</div>}
+            </div>
           </div>
 
           <div className="mt-6 h-2 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700">
