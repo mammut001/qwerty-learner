@@ -289,6 +289,16 @@ export default function StudyPlanPage() {
     previewErrorWordsState.dictId === previewDictionary?.id ? previewErrorWordsState.status : 'loading'
   const previewErrorWords =
     previewErrorWordsStatus === 'ready' ? previewErrorWordsState.words : new Set<string>()
+  const previewMistakenWordCount =
+    previewErrorWordsStatus === 'ready' &&
+    !isPreviewWordListLoading &&
+    !previewWordListError &&
+    previewWordList
+      ? (() => {
+          const loadedWordNames = new Set(previewWordList.map((word) => word.name))
+          return Array.from(previewErrorWords).filter((wordName) => loadedWordNames.has(wordName)).length
+        })()
+      : null
   const isMistakeFilterActive = onlyMistakenPreviewWords && previewErrorWordsStatus === 'ready'
   const matchedPreviewWords = isMistakeFilterActive
     ? filteredPreviewWords.filter((word) => previewErrorWords.has(word.name))
@@ -722,7 +732,7 @@ export default function StudyPlanPage() {
                   disabled={previewErrorWordsStatus !== 'ready'}
                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                 />
-                只看错过的
+                只看错过的{previewMistakenWordCount !== null ? `（${previewMistakenWordCount}）` : ''}
               </label>
             </div>
           </div>
