@@ -888,7 +888,10 @@ export default function StudyPlanPage() {
           </div>
         </section>
 
-        <section className="mt-7 rounded-3xl border border-gray-100 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+        <section
+          id="study-dictionary-preview"
+          className="mt-7 rounded-3xl border border-gray-100 bg-white p-6 dark:border-gray-700 dark:bg-gray-800"
+        >
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <div className="flex flex-wrap items-center gap-2 text-sm font-medium text-indigo-500">
@@ -1376,6 +1379,9 @@ export default function StudyPlanPage() {
                             onClick={() => {
                               setSelectedMistakeChapter(null)
                               setPreviewWeek(week)
+                              document
+                                .getElementById('study-dictionary-preview')
+                                ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
                             }}
                             className={`shrink-0 rounded-lg px-2.5 text-xs font-medium transition ${
                               previewWeek === week
