@@ -888,6 +888,11 @@ export default function StudyPlanPage() {
               <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">
                 {previewDictionary?.name ?? '词库加载失败'}
               </h2>
+              {previewDictionary && (
+                <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                  {previewDictionary.length} 词 · 共 {Math.ceil(previewDictionary.length / CHAPTER_LENGTH)} 章
+                </div>
+              )}
               {previewDictionary && !isPreviewWordListLoading && !previewWordListError && previewWordList && (
                 <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-gray-500 dark:text-gray-400">
                   <span>
