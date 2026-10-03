@@ -708,9 +708,17 @@ export default function StudyPlanPage() {
                 </NavLink>
               )}
               {previewWeek !== currentWeek && previewDictionary && (
-                <span className="mt-1 block text-sm text-gray-500 dark:text-gray-400">
+                <button
+                  type="button"
+                  onClick={() =>
+                    document
+                      .getElementById('study-dictionary-preview')
+                      ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  }
+                  className="mt-1 block text-sm text-gray-500 underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-300"
+                >
                   正在预览：{previewDictionary.name}
-                </span>
+                </button>
               )}
             </div>
 
