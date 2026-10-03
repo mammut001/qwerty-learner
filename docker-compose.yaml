@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   qwertylearner:
     build:
@@ -7,3 +5,19 @@ services:
       dockerfile: Dockerfile
     ports:
       - '8990:5173'
+    depends_on:
+      - study-api
+  study-api:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    environment:
+      HOST: 0.0.0.0
+      STUDY_DB_PATH: /data/study-plan.sqlite
+      STUDY_ORIGIN: ${STUDY_ORIGIN:-http://localhost:8990}
+      STUDY_COOKIE_SECURE: ${STUDY_COOKIE_SECURE:-false}
+    volumes:
+      - study-data:/data
+    restart: unless-stopped
+volumes:
+  study-data:

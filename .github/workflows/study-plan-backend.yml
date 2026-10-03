@@ -1,0 +1,24 @@
+name: Study plan persistence
+on:
+  pull_request:
+    paths:
+      - 'server/**'
+      - 'src/services/studyPlanSync.ts'
+      - 'src/pages/StudyPlan/**'
+      - 'src/pages/Typing/index.tsx'
+      - '.github/workflows/study-plan-backend.yml'
+  push:
+    branches: [feature/study-plan, master]
+    paths:
+      - 'server/**'
+      - 'src/services/studyPlanSync.ts'
+      - '.github/workflows/study-plan-backend.yml'
+jobs:
+  persistence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node --test server/*.test.mjs

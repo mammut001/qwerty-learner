@@ -16,6 +16,7 @@ const AnalysisPage = lazy(() => import('./pages/Analysis'))
 const GalleryPage = lazy(() => import('./pages/Gallery-N'))
 const ConjugationPage = lazy(() => import('./pages/Conjugation'))
 const GrammarSessionPage = lazy(() => import('./pages/GrammarSession'))
+const StudyPlanPage = lazy(() => import('./pages/StudyPlan'))
 
 function Root() {
   const darkMode = useAtomValue(isOpenDarkModeAtom)
@@ -51,6 +52,7 @@ function Root() {
                 <Route path="/gallery" element={<GalleryPage />} />
                 <Route path="/conjugation" element={<ConjugationPage />} />
                 <Route path="/grammar-session" element={<GrammarSessionPage />} />
+                <Route path="/study-plan" element={<StudyPlanPage />} />
                 <Route path="/analysis" element={<AnalysisPage />} />
                 <Route path="/error-book" element={<ErrorBook />} />
                 <Route path="/friend-links" element={<FriendLinks />} />

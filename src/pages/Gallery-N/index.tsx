@@ -1,7 +1,7 @@
 import DictionaryGroup from './CategoryDicts'
 import { LanguageTabSwitcher } from './LanguageTabSwitcher'
 import Layout from '@/components/Layout'
-import { dictionaries } from '@/resources/dictionary'
+import { dictionaries, idDictionaryMap } from '@/resources/dictionary'
 import { currentDictInfoAtom } from '@/store'
 import type { Dictionary, LanguageCategoryType } from '@/typings'
 import groupBy from '@/utils/groupBy'
@@ -9,7 +9,7 @@ import * as ScrollArea from '@radix-ui/react-scroll-area'
 import { useAtomValue } from 'jotai'
 import { createContext, useCallback, useEffect, useMemo } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate, useSearchParams } from 'react-router-dom'
 import type { Updater } from 'use-immer'
 import { useImmer } from 'use-immer'
 import IconX from '~icons/tabler/x'
@@ -30,7 +30,9 @@ export const GalleryContext = createContext<{
 export default function GalleryPage() {
   const [galleryState, setGalleryState] = useImmer<GalleryState>(initialGalleryState)
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const currentDictInfo = useAtomValue(currentDictInfoAtom)
+  const targetDictionary = idDictionaryMap[searchParams.get('dict') ?? '']
 
   const groupedByCategory = useMemo(() => {
     const currentLanguageCategoryDicts = dictionaries.filter((dict) => dict.languageCategory === galleryState.currentLanguageTab)
@@ -51,6 +53,14 @@ export default function GalleryPage() {
     }
   }, [currentDictInfo, setGalleryState])
 
+  useEffect(() => {
+    if (targetDictionary) {
+      setGalleryState((state) => {
+        state.currentLanguageTab = targetDictionary.languageCategory
+      })
+    }
+  }, [setGalleryState, targetDictionary])
+
   return (
     <Layout>
       <GalleryContext.Provider value={{ state: galleryState, setState: setGalleryState }}>
@@ -61,6 +71,12 @@ export default function GalleryPage() {
               <div className="flex h-20 w-full items-center justify-between pb-6 pr-20">
                 <LanguageTabSwitcher />
                 <div className="flex gap-2">
+                  <NavLink
+                    to="/study-plan"
+                    className="rounded-xl bg-green-50 px-4 py-2 text-sm font-medium text-green-700 transition hover:bg-green-100 dark:bg-gray-800 dark:text-green-300 dark:hover:bg-gray-700"
+                  >
+                    学习计划
+                  </NavLink>
                   <NavLink
                     to="/grammar-session"
                     className="rounded-xl bg-amber-50 px-4 py-2 text-sm font-medium text-amber-700 transition hover:bg-amber-100 dark:bg-gray-800 dark:text-amber-300 dark:hover:bg-gray-700"
@@ -79,7 +95,12 @@ export default function GalleryPage() {
                 <ScrollArea.Viewport className="h-full w-full ">
                   <div className="mr-4 flex flex-1 flex-col items-start justify-start gap-14 overflow-y-auto">
                     {groupedByCategory.map(([category, categoryDictionaries]) => (
-                      <DictionaryGroup key={category} category={category} dictionaries={categoryDictionaries} />
+                      <DictionaryGroup
+                        key={category}
+                        category={category}
+                        dictionaries={categoryDictionaries}
+                        targetDictionaryId={targetDictionary?.id}
+                      />
                     ))}
                   </div>
                   <div className="flex items-center justify-center pb-10 pt-24 text-xs text-gray-500">

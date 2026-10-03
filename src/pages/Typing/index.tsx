@@ -1,3 +1,4 @@
+import { addStudyMinutes } from '@/services/studyPlanSync'
 import Layout from '../../components/Layout'
 import { DictChapterButton } from './components/DictChapterButton'
 import PronunciationSwitcher from './components/PronunciationSwitcher'
@@ -18,10 +19,22 @@ import { IsDesktop, isLegal } from '@/utils'
 import { useSaveChapterRecord } from '@/utils/db'
 import { useMixPanelChapterLogUploader } from '@/utils/mixpanel'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useSearchParams } from 'react-router-dom'
 import type React from 'react'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useImmerReducer } from 'use-immer'
+
+const studyVocabularyTaskIds = new Set(['mon-vocab', 'fri-vocab', 'minimum-vocab'])
+
+const recordStudyPlanVocabularyMinutes = (dateKey: string, taskId: string, elapsedSeconds: number) => {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateKey) || !studyVocabularyTaskIds.has(taskId) || elapsedSeconds <= 0) return
+
+  try {
+    addStudyMinutes(dateKey, taskId, Math.max(1, Math.ceil(elapsedSeconds / 60)))
+  } catch {
+    // Keep the typing result usable if the study-plan storage is unavailable or malformed.
+  }
+}
 
 const App: React.FC = () => {
   const [state, dispatch] = useImmerReducer(typingReducer, structuredClone(initialState))
@@ -30,12 +43,61 @@ const App: React.FC = () => {
 
   const [currentDictId, setCurrentDictId] = useAtom(currentDictIdAtom)
   const setCurrentChapter = useSetAtom(currentChapterAtom)
+  const setReviewModeInfo = useSetAtom(reviewModeInfoAtom)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const requestedDictId = searchParams.get('dict')
+  const requestedChapter = searchParams.get('chapter')
+  const requestedStudyDate = searchParams.get('studyDate')
+  const requestedStudyTaskId = searchParams.get('studyTask')
+  const studyPlanTracking = useRef<{ dateKey: string; taskId: string } | null>(null)
+  const recordedStudyPlanChapter = useRef(false)
   const randomConfig = useAtomValue(randomConfigAtom)
   const chapterLogUploader = useMixPanelChapterLogUploader(state)
   const saveChapterRecord = useSaveChapterRecord()
 
   const reviewModeInfo = useAtomValue(reviewModeInfoAtom)
   const isReviewMode = useAtomValue(isReviewModeAtom)
+
+  useEffect(() => {
+    if (!requestedDictId || !(requestedDictId in idDictionaryMap)) return
+
+    const requestedDictionary = idDictionaryMap[requestedDictId]
+    const parsedChapter =
+      requestedChapter !== null && /^\d+$/.test(requestedChapter) ? Number(requestedChapter) : -1
+    const nextChapter =
+      Number.isSafeInteger(parsedChapter) && parsedChapter >= 0 && parsedChapter < requestedDictionary.chapterCount
+        ? parsedChapter
+        : 0
+
+    setCurrentDictId(requestedDictId)
+    setCurrentChapter(nextChapter)
+    setReviewModeInfo((old) => ({ ...old, isReviewMode: false }))
+
+    studyPlanTracking.current =
+      requestedStudyDate &&
+      requestedStudyTaskId &&
+      /^\d{4}-\d{2}-\d{2}$/.test(requestedStudyDate) &&
+      studyVocabularyTaskIds.has(requestedStudyTaskId)
+        ? { dateKey: requestedStudyDate, taskId: requestedStudyTaskId }
+        : null
+
+    const nextSearchParams = new URLSearchParams(searchParams)
+    nextSearchParams.delete('dict')
+    nextSearchParams.delete('chapter')
+    nextSearchParams.delete('studyDate')
+    nextSearchParams.delete('studyTask')
+    setSearchParams(nextSearchParams, { replace: true })
+  }, [
+    requestedDictId,
+    requestedChapter,
+    requestedStudyDate,
+    requestedStudyTaskId,
+    searchParams,
+    setCurrentChapter,
+    setCurrentDictId,
+    setReviewModeInfo,
+    setSearchParams,
+  ])
 
   useEffect(() => {
     // 检测用户设备
@@ -114,6 +176,18 @@ const App: React.FC = () => {
   }, [state.isFinished, state.isSavingRecord])
 
   useEffect(() => {
+    if (!state.isFinished) {
+      recordedStudyPlanChapter.current = false
+      return
+    }
+    const tracking = studyPlanTracking.current
+    if (recordedStudyPlanChapter.current || !tracking) return
+
+    recordStudyPlanVocabularyMinutes(tracking.dateKey, tracking.taskId, state.timerData.time)
+    recordedStudyPlanChapter.current = true
+  }, [state.isFinished, state.timerData.time])
+
+  useEffect(() => {
     // 启动计时器
     let intervalId: number
     if (state.isTyping) {
@@ -132,6 +206,14 @@ const App: React.FC = () => {
       <Layout>
         <Header>
           <DictChapterButton />
+          <Tooltip content="26 周 TCF Canada 学习计划与今日任务">
+            <NavLink
+              to="/study-plan"
+              className="block rounded-lg px-3 py-1 text-base transition-colors duration-300 ease-in-out hover:bg-indigo-400 hover:text-white focus:outline-none dark:text-white dark:text-opacity-60 dark:hover:text-opacity-100"
+            >
+              学习计划
+            </NavLink>
+          </Tooltip>
           <Tooltip content="30 分钟：passé composé vs imparfait">
             <NavLink
               to="/grammar-session"

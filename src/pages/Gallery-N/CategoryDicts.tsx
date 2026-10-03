@@ -4,9 +4,10 @@ import type { Dictionary } from '@/typings'
 type Props = {
   category: string
   dictionaries: Dictionary[]
+  targetDictionaryId?: string
 }
 
-export default function DictionaryGroup({ category, dictionaries }: Props) {
+export default function DictionaryGroup({ category, dictionaries, targetDictionaryId }: Props) {
   const totalWords = dictionaries.reduce((sum, dict) => sum + dict.length, 0)
 
   return (
@@ -21,7 +22,7 @@ export default function DictionaryGroup({ category, dictionaries }: Props) {
       </div>
       <div className="grid gap-x-5 gap-y-8 px-1 pb-4 sm:grid-cols-1 md:grid-cols-2 dic3:grid-cols-3 dic4:grid-cols-4">
         {dictionaries.map((dict) => (
-          <DictionaryComponent key={dict.id} dictionary={dict} />
+          <DictionaryComponent key={dict.id} dictionary={dict} autoOpen={dict.id === targetDictionaryId} />
         ))}
       </div>
     </section>
