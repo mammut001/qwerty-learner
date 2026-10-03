@@ -822,9 +822,9 @@ export default function StudyPlanPage() {
               <div className="text-xs text-gray-400">连续性</div>
               <div className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">{activeRecentDays} / 3 天有学习</div>
               <div className="mt-2 space-y-1 text-sm text-gray-500">
-                {recentThreeDays.map((item) => (
+                {recentThreeDays.map((item, index) => (
                   <div key={item.key}>
-                    {item.name} · {item.total > 0 ? '有' : '无'}
+                    {['今天', '昨天', '前天'][index]} · {item.name} · {item.total > 0 ? '有' : '无'}
                   </div>
                 ))}
               </div>
