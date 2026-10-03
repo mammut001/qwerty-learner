@@ -696,6 +696,9 @@ export default function StudyPlanPage() {
                 Week {currentWeek} / 26 · {phase.name}
               </h1>
               <p className="mt-2 text-gray-500 dark:text-gray-400">{phase.goal}</p>
+              {targetDictionary && (
+                <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">本周词库：{targetDictionary.name}</div>
+              )}
             </div>
 
             <div className="flex flex-col items-end gap-2">
