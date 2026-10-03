@@ -9,15 +9,20 @@ import type { Dictionary } from '@/typings'
 import { calcChapterCount } from '@/utils'
 import * as Progress from '@radix-ui/react-progress'
 import { useAtomValue } from 'jotai'
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 interface Props {
   dictionary: Dictionary
+  autoOpen?: boolean
 }
 
-export default function DictionaryComponent({ dictionary }: Props) {
+export default function DictionaryComponent({ dictionary, autoOpen = false }: Props) {
   const currentDictID = useAtomValue(currentDictIdAtom)
   const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    if (autoOpen) setOpen(true)
+  }, [autoOpen])
 
   const buttonRef = useRef<HTMLButtonElement>(null)
   const entry = useIntersectionObserver(buttonRef, {})

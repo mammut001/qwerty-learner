@@ -9,7 +9,7 @@ import {
   type FrenchVerbConjugation,
 } from '@/resources/conjugation'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useSearchParams } from 'react-router-dom'
 import IconArrowLeft from '~icons/tabler/arrow-left'
 import IconBook from '~icons/tabler/book'
 import IconRefresh from '~icons/tabler/refresh'
@@ -88,12 +88,25 @@ const buildQuestion = (verb: FrenchVerbConjugation, selectedTense: ConjugationTe
 }
 
 export default function ConjugationPage() {
+  const [searchParams] = useSearchParams()
+  const requestedVerb = searchParams.get('verb')
+  const requestedTense = searchParams.get('tense')
+  const requestedMode = searchParams.get('mode')
+  const requestedScope = searchParams.get('scope')
+  const initialVerb = frenchVerbs.find((verb) => verb.infinitive === requestedVerb) ?? defaultConjugationVerb
+  const initialTense: ConjugationTense =
+    requestedTense && tenses.includes(requestedTense as ConjugationTense)
+      ? (requestedTense as ConjugationTense)
+      : 'passeCompose'
+  const initialMode: 'study' | 'practice' = requestedMode === 'practice' ? 'practice' : 'study'
+  const initialScope: PracticeScope = requestedScope === 'mixed' ? 'mixed' : 'current'
+
   const [query, setQuery] = useState('')
-  const [selectedVerb, setSelectedVerb] = useState<FrenchVerbConjugation>(defaultConjugationVerb)
-  const [selectedTense, setSelectedTense] = useState<ConjugationTense>('passeCompose')
-  const [mode, setMode] = useState<'study' | 'practice'>('study')
-  const [practiceScope, setPracticeScope] = useState<PracticeScope>('current')
-  const [question, setQuestion] = useState<PracticeQuestion>(() => buildQuestion(defaultConjugationVerb, 'passeCompose', 'current'))
+  const [selectedVerb, setSelectedVerb] = useState<FrenchVerbConjugation>(initialVerb)
+  const [selectedTense, setSelectedTense] = useState<ConjugationTense>(initialTense)
+  const [mode, setMode] = useState<'study' | 'practice'>(initialMode)
+  const [practiceScope, setPracticeScope] = useState<PracticeScope>(initialScope)
+  const [question, setQuestion] = useState<PracticeQuestion>(() => buildQuestion(initialVerb, initialTense, initialScope))
   const [answer, setAnswer] = useState('')
   const [result, setResult] = useState<PracticeResult>(null)
   const [stats, setStats] = useState<ConjugationStats>(() => loadStats())

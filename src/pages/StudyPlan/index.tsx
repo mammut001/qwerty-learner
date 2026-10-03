@@ -1,5 +1,6 @@
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
+import { idDictionaryMap } from '@/resources/dictionary'
 import {
   getDayPlan,
   getStudyPhase,
@@ -25,6 +26,15 @@ type StudyPlanStorage = {
 
 const STORAGE_KEY = 'qwerty-fr-study-plan-v1'
 const DAY_MS = 24 * 60 * 60 * 1000
+
+const phaseDictionaryIds: Record<number, string> = {
+  1: 'tcf-grammar-pc-vs-imparfait',
+  2: 'tcf-canada-b1-connectors',
+  3: 'tcf-canada-b2-opinion',
+  4: 'tcf-oral-questions',
+  5: 'tcf-canada-oral-writing',
+  6: 'tcf-canada-oral-writing',
+}
 
 const kindLabels: Record<StudyTaskKind, string> = {
   grammar: '语法',
@@ -109,6 +119,11 @@ export default function StudyPlanPage() {
   const currentWeek = currentWeekIndex + 1
   const phase = getStudyPhase(currentWeek)
   const phaseProgress = Math.min(100, Math.round((currentWeek / 26) * 100))
+  const targetDictionary = idDictionaryMap[phaseDictionaryIds[phase.id]]
+  const conjugationHref =
+    phase.id === 1
+      ? '/conjugation?verb=prendre&tense=passeCompose&mode=practice&scope=current'
+      : '/conjugation?mode=practice&scope=mixed'
   const todayPlan = getDayPlan(today.getDay())
   const minimumMode = Boolean(storage.minimumMode[todayKey])
   const todayTasks = minimumMode ? minimumModeTasks : todayPlan.tasks
@@ -183,6 +198,18 @@ export default function StudyPlanPage() {
   const renderTask = (task: StudyTask, dateKey: string, compact = false) => {
     const actual = storage.minutes[dateKey]?.[task.id] ?? 0
     const complete = actual >= task.minutes
+    let taskHref = task.href
+    let actionLabel = task.actionLabel
+
+    if (task.kind === 'vocabulary' && task.href === '/gallery' && targetDictionary) {
+      taskHref = `/gallery?dict=${targetDictionary.id}`
+      actionLabel = `打开 ${targetDictionary.name}`
+    } else if (task.href === '/grammar-session') {
+      actionLabel = '练 Passé composé vs imparfait'
+    } else if (task.href === '/conjugation') {
+      taskHref = conjugationHref
+      actionLabel = phase.id === 1 ? '练 prendre · Passé composé' : '开始核心动词练习'
+    }
 
     return (
       <div
@@ -213,13 +240,13 @@ export default function StudyPlanPage() {
         </div>
 
         <div className="mt-4 flex flex-wrap items-center gap-2">
-          {task.href ? (
+          {taskHref ? (
             <NavLink
-              to={task.href}
+              to={taskHref}
               className="flex items-center gap-1 rounded-lg bg-indigo-500 px-3 py-1.5 text-sm text-white transition hover:bg-indigo-600"
             >
               <IconPlayerPlay />
-              {task.actionLabel ?? '开始'}
+              {actionLabel ?? '开始'}
             </NavLink>
           ) : (
             <span className="rounded-lg bg-gray-100 px-3 py-1.5 text-xs text-gray-500 dark:bg-gray-900 dark:text-gray-400">
