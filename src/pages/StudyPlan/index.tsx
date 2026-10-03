@@ -442,6 +442,8 @@ export default function StudyPlanPage() {
     if (!missed) return earliest
     return earliest === null || item.key < earliest ? item.key : earliest
   }, null)
+  const earliestMissedDayName =
+    currentPlanWeekDays.find((item) => item.key === earliestMissedDayKey)?.day.name ?? null
   const highlightedMissedDayStillMissed =
     highlightedMissedDayKey !== null &&
     currentPlanWeekDays.some((item) => {
@@ -782,19 +784,22 @@ export default function StudyPlanPage() {
               </div>
               <div className="mt-1 text-sm text-gray-500">计划约 {minutesLabel(weeklyPlannedMinutes)}（≈ 7 小时）</div>
               <div className="mt-1 text-sm text-gray-500">完成 {weeklyCompletedDays} / 7 天</div>
-              {weeklyMissedDays > 0 && earliestMissedDayKey ? (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setHighlightedMissedDayKey(earliestMissedDayKey)
-                    document
-                      .getElementById(`study-week-day-${earliestMissedDayKey}`)
-                      ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-                  }}
-                  className="mt-1 text-sm text-gray-500 underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:hover:text-indigo-300"
-                >
-                  未完成 {weeklyMissedDays} 天
-                </button>
+              {weeklyMissedDays > 0 && earliestMissedDayKey && earliestMissedDayName ? (
+                <div className="mt-1 flex items-center gap-1.5 text-sm">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setHighlightedMissedDayKey(earliestMissedDayKey)
+                      document
+                        .getElementById(`study-week-day-${earliestMissedDayKey}`)
+                        ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                    }}
+                    className="text-gray-500 underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:hover:text-indigo-300"
+                  >
+                    未完成 {weeklyMissedDays} 天
+                  </button>
+                  <span className="text-gray-400">最早是{earliestMissedDayName}</span>
+                </div>
               ) : (
                 <div className="mt-1 text-sm text-gray-500">未完成 {weeklyMissedDays} 天</div>
               )}
