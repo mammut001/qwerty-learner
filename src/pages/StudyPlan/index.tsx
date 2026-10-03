@@ -1284,6 +1284,8 @@ export default function StudyPlanPage() {
             {studyPhases.map((item) => {
               const active = item.id === phase.id
               const weeks = Array.from({ length: item.weeks[1] - item.weeks[0] + 1 }, (_, index) => item.weeks[0] + index)
+              const roadmapPhaseStart = addDays(startDate, (item.weeks[0] - 1) * 7)
+              const roadmapPhaseEnd = addDays(startDate, item.weeks[1] * 7 - 1)
 
               return (
                 <div
@@ -1294,8 +1296,11 @@ export default function StudyPlanPage() {
                       : 'border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800'
                   }`}
                 >
-                  <div className="text-xs font-medium text-indigo-500">
-                    第 {item.weeks[0]}–{item.weeks[1]} 周 {active ? '· 当前阶段' : ''}
+                  <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-indigo-500">
+                    <span>第 {item.weeks[0]}–{item.weeks[1]} 周 {active ? '· 当前阶段' : ''}</span>
+                    <span className="font-normal text-gray-400 dark:text-gray-500">
+                      {toDateKey(roadmapPhaseStart)} · {toDateKey(roadmapPhaseEnd)}
+                    </span>
                   </div>
                   <div className="mt-2 text-lg font-semibold text-gray-900 dark:text-white">{item.name}</div>
                   <div className="mt-2 text-sm font-medium text-gray-700 dark:text-gray-200">{item.goal}</div>
