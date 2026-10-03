@@ -213,6 +213,8 @@ export default function StudyPlanPage() {
     error: '',
   })
   const previewDictionary = idDictionaryMap[weekDictionaryIds[previewWeek]]
+  const previewWeekStart = addDays(startDate, (previewWeek - 1) * 7)
+  const previewWeekEnd = addDays(previewWeekStart, 6)
   const {
     data: previewWordList,
     error: previewWordListError,
@@ -873,6 +875,9 @@ export default function StudyPlanPage() {
                 <span>词库预览</span>
                 <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs text-indigo-600 dark:bg-indigo-950 dark:text-indigo-300">
                   正在预览第 {previewWeek} 周
+                </span>
+                <span className="text-xs font-normal text-gray-400">
+                  {toDateKey(previewWeekStart)} · {toDateKey(previewWeekEnd)}
                 </span>
               </div>
               <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">
