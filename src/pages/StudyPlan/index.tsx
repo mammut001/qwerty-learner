@@ -1018,6 +1018,8 @@ export default function StudyPlanPage() {
               const dayMinimumMode = Boolean(storage.minimumMode[key])
               const dayTasks = dayMinimumMode ? minimumModeTasks : day.tasks
               const dayActual = actualMinutesForTasks(key, dayTasks)
+              const dayPlannedMinutes = dayTasks.reduce((sum, task) => sum + task.minutes, 0)
+              const dayComplete = dayPlannedMinutes > 0 && dayActual >= dayPlannedMinutes
               const isToday = key === todayKey
 
               return (
@@ -1040,7 +1042,14 @@ export default function StudyPlanPage() {
                         {day.note ? ` · ${day.note}` : ''}
                       </div>
                     </div>
-                    <div className="text-sm font-medium text-gray-500">已记录 {dayActual} min</div>
+                    <div className="flex items-center gap-2 text-sm font-medium text-gray-500">
+                      <span>已记录 {dayActual} min</span>
+                      {dayComplete && (
+                        <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700 dark:bg-green-950 dark:text-green-300">
+                          完成
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   <div className="mt-4 grid gap-3 lg:grid-cols-3">
