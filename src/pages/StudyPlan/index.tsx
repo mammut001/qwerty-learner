@@ -784,6 +784,9 @@ export default function StudyPlanPage() {
               <div className="text-xs text-gray-400">本周实际</div>
               <div className="mt-1 flex items-center gap-2">
                 <div className="text-2xl font-semibold text-gray-900 dark:text-white">{minutesLabel(weeklyActualMinutes)}</div>
+                {weeklyPlannedMinutes > 0 && weeklyPlannedMinutes - weeklyActualMinutes > 0 && (
+                  <span className="text-sm text-gray-400">还差 {weeklyPlannedMinutes - weeklyActualMinutes} min</span>
+                )}
                 {weeklyPlannedMinutes > 0 && weeklyActualMinutes >= weeklyPlannedMinutes && (
                   <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700 dark:bg-green-950 dark:text-green-300">
                     完成
