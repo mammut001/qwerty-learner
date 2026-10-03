@@ -1420,36 +1420,54 @@ export default function StudyPlanPage() {
                         <div
                           id={`study-roadmap-week-${week}`}
                           key={week}
-                          className={`relative flex items-stretch gap-2 rounded-xl p-1 text-sm transition ${
+                          className={`flex items-stretch gap-2 rounded-xl p-1 text-sm transition ${
                             isCurrentWeek
                               ? 'bg-indigo-500 text-white shadow-sm'
                               : 'bg-gray-50 text-gray-600 dark:bg-gray-900 dark:text-gray-300'
                           }`}
                         >
-                          <NavLink
-                            to={weekHref}
-                            onClick={isCurrentWeek && todayVocabularyTask ? () => saveStorage(storage) : undefined}
+                          <div
                             className={`min-w-0 flex-1 rounded-lg px-2 py-1 transition ${
                               isCurrentWeek ? 'hover:bg-indigo-600' : 'hover:bg-indigo-50 dark:hover:bg-gray-700'
                             }`}
                           >
                             <div className="flex items-center justify-between gap-3">
                               <div className="flex flex-wrap items-center gap-2">
-                                <span className={`font-medium ${isCurrentWeek ? 'text-white' : 'text-gray-700 dark:text-gray-200'}`}>
+                                <NavLink
+                                  to={weekHref}
+                                  onClick={isCurrentWeek && todayVocabularyTask ? () => saveStorage(storage) : undefined}
+                                  className={`font-medium ${isCurrentWeek ? 'text-white' : 'text-gray-700 dark:text-gray-200'}`}
+                                >
                                   第 {week} 周
-                                </span>
-                                {week === previewWeek && !isCurrentWeek && <span className="inline-block w-6" aria-hidden="true" />}
-                                <span className={`text-xs ${isCurrentWeek ? 'text-indigo-100' : 'text-gray-400 dark:text-gray-500'}`}>
+                                </NavLink>
+                                {week === previewWeek && !isCurrentWeek && (
+                                  <span className="text-xs text-gray-400 dark:text-gray-500">预览</span>
+                                )}
+                                <NavLink
+                                  to={weekHref}
+                                  onClick={isCurrentWeek && todayVocabularyTask ? () => saveStorage(storage) : undefined}
+                                  className={`text-xs ${isCurrentWeek ? 'text-indigo-100' : 'text-gray-400 dark:text-gray-500'}`}
+                                >
                                   {toDateKey(roadmapWeekStart)} · {toDateKey(roadmapWeekEnd)}
-                                </span>
+                                </NavLink>
                               </div>
                               {isCurrentWeek && (
-                                <span className="rounded-full bg-white/20 px-2 py-0.5 text-[11px] font-medium text-white">当前周</span>
+                                <NavLink
+                                  to={weekHref}
+                                  onClick={todayVocabularyTask ? () => saveStorage(storage) : undefined}
+                                  className="rounded-full bg-white/20 px-2 py-0.5 text-[11px] font-medium text-white"
+                                >
+                                  当前周
+                                </NavLink>
                               )}
                             </div>
                             {dictionary && (
-                              <>
-                                <div className={`mt-1 leading-5 ${isCurrentWeek ? 'text-indigo-50' : 'text-gray-500 dark:text-gray-400'}`}>
+                              <NavLink
+                                to={weekHref}
+                                onClick={isCurrentWeek && todayVocabularyTask ? () => saveStorage(storage) : undefined}
+                                className={`mt-1 block leading-5 ${isCurrentWeek ? 'text-indigo-50' : 'text-gray-500 dark:text-gray-400'}`}
+                              >
+                                <div>
                                   {dictionary.name} · {dictionary.length} 词 · 共 {Math.ceil(dictionary.length / CHAPTER_LENGTH)} 章
                                 </div>
                                 {isCurrentWeek && (
@@ -1468,15 +1486,9 @@ export default function StudyPlanPage() {
                                     )}
                                   </div>
                                 )}
-                              </>
+                              </NavLink>
                             )}
-                          </NavLink>
-                          {week === previewWeek && !isCurrentWeek && (
-                            <span className="pointer-events-none absolute left-3 top-2 flex items-center gap-2">
-                              <span className="invisible font-medium">第 {week} 周</span>
-                              <span className="pointer-events-auto text-xs text-gray-400 dark:text-gray-500">预览</span>
-                            </span>
-                          )}
+                          </div>
                           <button
                             type="button"
                             onClick={() => {
