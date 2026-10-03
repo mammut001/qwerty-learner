@@ -938,9 +938,11 @@ export default function StudyPlanPage() {
               </div>
             ) : (
               <div className="rounded-2xl bg-gray-50 px-4 py-5 text-sm text-gray-500 dark:bg-gray-900 dark:text-gray-400">
-                {normalizedPreviewFilter || isMistakeFilterActive || isMistakeChapterFilterActive
-                  ? '没有匹配的词。'
-                  : '这个词库没有可显示的词。'}
+                {isMistakeChapterFilterActive
+                  ? '这一章没有匹配的错过词'
+                  : normalizedPreviewFilter || isMistakeFilterActive
+                    ? '没有匹配的词。'
+                    : '这个词库没有可显示的词。'}
               </div>
             )}
           </div>
