@@ -2,6 +2,7 @@ import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { CHAPTER_LENGTH } from '@/constants'
 import { idDictionaryMap } from '@/resources/dictionary'
+import { db } from '@/utils/db'
 import { wordListFetcher } from '@/utils/wordListFetcher'
 import {
   getDayPlan,
@@ -25,6 +26,13 @@ type StudyPlanStorage = {
   startDate: string
   minutes: Record<string, Record<string, number>>
   minimumMode: Record<string, boolean>
+}
+
+type PreviewErrorWordsState = {
+  dictId: string
+  status: 'loading' | 'ready' | 'error'
+  words: Set<string>
+  error: string
 }
 
 const STORAGE_KEY = 'qwerty-fr-study-plan-v1'
@@ -193,6 +201,12 @@ export default function StudyPlanPage() {
   const targetDictionary = idDictionaryMap[weekDictionaryIds[currentWeek]]
   const [previewWeek, setPreviewWeek] = useState(currentWeek)
   const [previewFilter, setPreviewFilter] = useState('')
+  const [previewErrorWordsState, setPreviewErrorWordsState] = useState<PreviewErrorWordsState>({
+    dictId: '',
+    status: 'loading',
+    words: new Set(),
+    error: '',
+  })
   const previewDictionary = idDictionaryMap[weekDictionaryIds[previewWeek]]
   const {
     data: previewWordList,
@@ -217,6 +231,60 @@ export default function StudyPlanPage() {
   useEffect(() => {
     setPreviewFilter('')
   }, [previewWeek])
+
+  useEffect(() => {
+    const dictId = previewDictionary?.id
+    if (!dictId) {
+      setPreviewErrorWordsState({
+        dictId: '',
+        status: 'error',
+        words: new Set(),
+        error: '找不到正在预览的词库。',
+      })
+      return
+    }
+
+    let cancelled = false
+    setPreviewErrorWordsState({
+      dictId,
+      status: 'loading',
+      words: new Set(),
+      error: '',
+    })
+
+    db.wordRecords
+      .where('dict')
+      .equals(dictId)
+      .and((record) => record.wrongCount > 0)
+      .toArray()
+      .then((records) => {
+        if (cancelled) return
+        setPreviewErrorWordsState({
+          dictId,
+          status: 'ready',
+          words: new Set(records.map((record) => record.word)),
+          error: '',
+        })
+      })
+      .catch((error: unknown) => {
+        if (cancelled) return
+        setPreviewErrorWordsState({
+          dictId,
+          status: 'error',
+          words: new Set(),
+          error: error instanceof Error ? error.message : '读取错题记录失败。',
+        })
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [previewDictionary?.id])
+
+  const previewErrorWordsStatus =
+    previewErrorWordsState.dictId === previewDictionary?.id ? previewErrorWordsState.status : 'loading'
+  const previewErrorWords =
+    previewErrorWordsStatus === 'ready' ? previewErrorWordsState.words : new Set<string>()
 
   const conjugationHref =
     phase.id === 1
@@ -622,6 +690,18 @@ export default function StudyPlanPage() {
             </label>
           </div>
 
+          <div className="mt-4">
+            {previewErrorWordsStatus === 'loading' ? (
+              <div className="rounded-2xl bg-gray-50 px-4 py-3 text-sm text-gray-500 dark:bg-gray-900 dark:text-gray-400">
+                正在读取错题记录…
+              </div>
+            ) : previewErrorWordsStatus === 'error' ? (
+              <div className="rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950/30 dark:text-red-300">
+                错题记录读取失败：{previewErrorWordsState.error}
+              </div>
+            ) : null}
+          </div>
+
           <div className="mt-5">
             {previewWordListError ? (
               <div className="rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950/30 dark:text-red-300">
@@ -648,11 +728,18 @@ export default function StudyPlanPage() {
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="font-medium text-gray-900 dark:text-gray-100">{word.name}</div>
-                        {chapter !== null && (
-                          <span className="shrink-0 rounded-full bg-white px-2 py-0.5 text-[11px] font-medium text-gray-500 shadow-sm dark:bg-gray-800 dark:text-gray-300">
-                            第 {chapter} 章
-                          </span>
-                        )}
+                        <div className="flex shrink-0 flex-wrap justify-end gap-1">
+                          {previewErrorWordsStatus === 'ready' && previewErrorWords.has(word.name) && (
+                            <span className="rounded-full bg-red-100 px-2 py-0.5 text-[11px] font-medium text-red-700 dark:bg-red-950 dark:text-red-300">
+                              错过
+                            </span>
+                          )}
+                          {chapter !== null && (
+                            <span className="rounded-full bg-white px-2 py-0.5 text-[11px] font-medium text-gray-500 shadow-sm dark:bg-gray-800 dark:text-gray-300">
+                              第 {chapter} 章
+                            </span>
+                          )}
+                        </div>
                       </div>
                       {word.notation && (
                         <div className="mt-1 text-xs font-medium text-indigo-500 dark:text-indigo-300">{word.notation}</div>
