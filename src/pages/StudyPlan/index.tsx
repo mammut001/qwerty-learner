@@ -1385,7 +1385,7 @@ export default function StudyPlanPage() {
                         }
                         className="font-normal text-gray-400 underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:text-gray-500 dark:hover:text-indigo-300"
                       >
-                        正在预览第 {previewWeek} 周
+                        正在预览第 {previewWeek} 周{previewDictionary ? ` · ${previewDictionary.name}` : ''}
                       </button>
                     )}
                     <span className="font-normal text-gray-400 dark:text-gray-500">
