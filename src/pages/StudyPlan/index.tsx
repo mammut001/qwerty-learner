@@ -697,7 +697,9 @@ export default function StudyPlanPage() {
               </h1>
               <p className="mt-2 text-gray-500 dark:text-gray-400">{phase.goal}</p>
               {targetDictionary && (
-                <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">本周词库：{targetDictionary.name}</div>
+                <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                  本周词库：{targetDictionary.name} · {targetDictionary.length} 词 · 共 {Math.ceil(targetDictionary.length / CHAPTER_LENGTH)} 章
+                </div>
               )}
             </div>
 
