@@ -1112,9 +1112,16 @@ export default function StudyPlanPage() {
                               )}
                             </div>
                             {dictionary && (
-                              <div className={`mt-1 leading-5 ${isCurrentWeek ? 'text-indigo-50' : 'text-gray-500 dark:text-gray-400'}`}>
-                                {dictionary.name} · {dictionary.length} 词
-                              </div>
+                              <>
+                                <div className={`mt-1 leading-5 ${isCurrentWeek ? 'text-indigo-50' : 'text-gray-500 dark:text-gray-400'}`}>
+                                  {dictionary.name} · {dictionary.length} 词
+                                </div>
+                                {isCurrentWeek && (
+                                  <div className="mt-1 text-xs text-indigo-100">
+                                    本周已记录 {minutesLabel(weeklyActualMinutes)}
+                                  </div>
+                                )}
+                              </>
                             )}
                           </NavLink>
                           <button
