@@ -479,7 +479,7 @@ export default function StudyPlanPage() {
     const day = getDayPlan(date.getDay())
     const tasks = storage.minimumMode[key] ? minimumModeTasks : day.tasks
     const total = actualMinutesForTasks(key, tasks)
-    return { key, total }
+    return { key, name: day.name, total }
   })
   const activeRecentDays = recentThreeDays.filter((item) => item.total > 0).length
 
@@ -824,6 +824,13 @@ export default function StudyPlanPage() {
             <div className="rounded-2xl bg-gray-50 p-4 dark:bg-gray-900">
               <div className="text-xs text-gray-400">连续性</div>
               <div className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">{activeRecentDays} / 3 天有学习</div>
+              <div className="mt-2 space-y-1 text-sm text-gray-500">
+                {recentThreeDays.map((item) => (
+                  <div key={item.key}>
+                    {item.name} · {item.total > 0 ? '有' : '无'}
+                  </div>
+                ))}
+              </div>
               <div className="mt-1 text-sm text-gray-500">原则：可以少学，但尽量不要连续三天完全不碰法语。</div>
             </div>
           </div>
