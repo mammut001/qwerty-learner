@@ -191,17 +191,31 @@ export default function StudyPlanPage() {
   const phaseProgress = Math.min(100, Math.round((currentWeek / 26) * 100))
   const targetDictionary = idDictionaryMap[weekDictionaryIds[currentWeek]]
   const [previewWeek, setPreviewWeek] = useState(currentWeek)
+  const [previewFilter, setPreviewFilter] = useState('')
   const previewDictionary = idDictionaryMap[weekDictionaryIds[previewWeek]]
   const {
     data: previewWordList,
     error: previewWordListError,
     isLoading: isPreviewWordListLoading,
   } = useSWR(previewDictionary?.url ?? null, wordListFetcher)
-  const previewWords = previewWordList?.slice(0, 20) ?? []
+
+  const normalizedPreviewFilter = previewFilter.trim().toLocaleLowerCase()
+  const filteredPreviewWords = normalizedPreviewFilter
+    ? (previewWordList ?? []).filter((word) =>
+        [word.name, word.notation ?? '', ...word.trans].some((value) =>
+          value.toLocaleLowerCase().includes(normalizedPreviewFilter),
+        ),
+      )
+    : (previewWordList ?? [])
+  const previewWords = filteredPreviewWords.slice(0, 20)
 
   useEffect(() => {
     setPreviewWeek(currentWeek)
   }, [currentWeek])
+
+  useEffect(() => {
+    setPreviewFilter('')
+  }, [previewWeek])
 
   const conjugationHref =
     phase.id === 1
@@ -576,12 +590,28 @@ export default function StudyPlanPage() {
               <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">
                 {previewDictionary?.name ?? '词库加载失败'}
               </h2>
-              {previewDictionary && (
+              {previewDictionary && !isPreviewWordListLoading && !previewWordListError && previewWordList && (
                 <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  共 {previewDictionary.length} 词 · 先看前 20 个
+                  {normalizedPreviewFilter
+                    ? `匹配了 ${filteredPreviewWords.length} 个 · 显示了 ${previewWords.length} 个（最多 20 个）`
+                    : previewWordList.length < 20
+                      ? `共 ${previewWordList.length} 词 · 已全部显示`
+                      : `共 ${previewWordList.length} 词 · 先看前 20 个`}
                 </p>
               )}
             </div>
+
+            <label className="w-full max-w-sm text-sm text-gray-500 dark:text-gray-400">
+              过滤词库
+              <input
+                type="search"
+                value={previewFilter}
+                onChange={(event) => setPreviewFilter(event.target.value)}
+                placeholder="按词名、notation 或中文释义"
+                disabled={isPreviewWordListLoading || Boolean(previewWordListError)}
+                className="mt-1 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-gray-700 outline-none transition placeholder:text-gray-400 focus:border-indigo-400 disabled:cursor-not-allowed disabled:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:disabled:bg-gray-950"
+              />
+            </label>
           </div>
 
           <div className="mt-5">
@@ -593,7 +623,7 @@ export default function StudyPlanPage() {
               <div className="rounded-2xl bg-gray-50 px-4 py-5 text-sm text-gray-500 dark:bg-gray-900 dark:text-gray-400">
                 正在加载第 {previewWeek} 周词库…
               </div>
-            ) : (
+            ) : previewWords.length > 0 ? (
               <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
                 {previewWords.map((word, index) => (
                   <div key={`${word.name}-${index}`} className="rounded-xl bg-gray-50 px-3 py-2 dark:bg-gray-900">
@@ -608,6 +638,10 @@ export default function StudyPlanPage() {
                     )}
                   </div>
                 ))}
+              </div>
+            ) : (
+              <div className="rounded-2xl bg-gray-50 px-4 py-5 text-sm text-gray-500 dark:bg-gray-900 dark:text-gray-400">
+                {normalizedPreviewFilter ? '没有匹配的词。' : '这个词库没有可显示的词。'}
               </div>
             )}
           </div>
