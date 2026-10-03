@@ -72,18 +72,14 @@ function loadStorage(todayKey: string): StudyPlanStorage {
   }
 }
 
-function getMonday(date: Date) {
-  const copy = new Date(date.getFullYear(), date.getMonth(), date.getDate())
-  const day = copy.getDay()
-  const distance = day === 0 ? -6 : 1 - day
-  copy.setDate(copy.getDate() + distance)
-  return copy
-}
-
 function addDays(date: Date, amount: number) {
   const next = new Date(date.getFullYear(), date.getMonth(), date.getDate())
   next.setDate(next.getDate() + amount)
   return next
+}
+
+function calendarDayNumber(date: Date) {
+  return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / DAY_MS
 }
 
 function minutesLabel(minutes: number) {
@@ -108,32 +104,37 @@ export default function StudyPlanPage() {
   }
 
   const startDate = parseDateKey(storage.startDate)
-  const dayOffset = Math.max(
-    0,
-    Math.floor(
-      (new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime() - startDate.getTime()) / DAY_MS,
-    ),
-  )
-  const currentWeek = Math.min(26, Math.floor(dayOffset / 7) + 1)
+  const dayOffset = Math.max(0, calendarDayNumber(today) - calendarDayNumber(startDate))
+  const currentWeekIndex = Math.min(25, Math.floor(dayOffset / 7))
+  const currentWeek = currentWeekIndex + 1
   const phase = getStudyPhase(currentWeek)
   const phaseProgress = Math.min(100, Math.round((currentWeek / 26) * 100))
   const todayPlan = getDayPlan(today.getDay())
   const minimumMode = Boolean(storage.minimumMode[todayKey])
   const todayTasks = minimumMode ? minimumModeTasks : todayPlan.tasks
 
-  const weekMonday = getMonday(today)
+  const planWeekStart = addDays(startDate, currentWeekIndex * 7)
+  const currentPlanWeekDays = Array.from({ length: 7 }, (_, index) => {
+    const date = addDays(planWeekStart, index)
+    return {
+      date,
+      key: toDateKey(date),
+      day: getDayPlan(date.getDay()),
+    }
+  })
   const weeklyPlannedMinutes = weeklyStudyPlan.reduce(
     (total, day) => total + day.tasks.reduce((dayTotal, task) => dayTotal + task.minutes, 0),
     0,
   )
+  const actualMinutesForTasks = (dateKey: string, tasks: StudyTask[]) =>
+    tasks.reduce((sum, task) => sum + (storage.minutes[dateKey]?.[task.id] ?? 0), 0)
 
-  const weeklyActualMinutes = Array.from({ length: 7 }).reduce((total, _, index) => {
-    const key = toDateKey(addDays(weekMonday, index))
-    const dayMinutes = Object.values(storage.minutes[key] ?? {}).reduce((sum, value) => sum + value, 0)
-    return total + dayMinutes
+  const weeklyActualMinutes = currentPlanWeekDays.reduce((total, item) => {
+    const tasks = storage.minimumMode[item.key] ? minimumModeTasks : item.day.tasks
+    return total + actualMinutesForTasks(item.key, tasks)
   }, 0)
 
-  const todayActualMinutes = Object.values(storage.minutes[todayKey] ?? {}).reduce((sum, value) => sum + value, 0)
+  const todayActualMinutes = actualMinutesForTasks(todayKey, todayTasks)
   const todayPlannedMinutes = todayTasks.reduce((sum, task) => sum + task.minutes, 0)
 
   const recentThreeDays = [0, -1, -2].map((offset) => {
@@ -371,20 +372,19 @@ export default function StudyPlanPage() {
           <div>
             <div className="text-sm font-medium text-indigo-500">正常周 · 约 7 小时</div>
             <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">本周安排</h2>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">567 保持轻量；周四做 TCF 专项，周日只复盘错误。</p>
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">五六日保持轻量；周四做 TCF 专项，周日只复盘错误。</p>
           </div>
 
           <div className="mt-5 space-y-4">
-            {weeklyStudyPlan.map((day) => {
-              const dayOffsetFromMonday = day.weekday === 0 ? 6 : day.weekday - 1
-              const date = addDays(weekMonday, dayOffsetFromMonday)
-              const key = toDateKey(date)
-              const dayActual = Object.values(storage.minutes[key] ?? {}).reduce((sum, value) => sum + value, 0)
+            {currentPlanWeekDays.map(({ date, key, day }) => {
+              const dayMinimumMode = Boolean(storage.minimumMode[key])
+              const dayTasks = dayMinimumMode ? minimumModeTasks : day.tasks
+              const dayActual = actualMinutesForTasks(key, dayTasks)
               const isToday = key === todayKey
 
               return (
                 <div
-                  key={day.weekday}
+                  key={key}
                   className={`rounded-2xl border p-5 ${
                     isToday
                       ? 'border-indigo-300 bg-indigo-50/50 dark:border-indigo-800 dark:bg-indigo-950/20'
@@ -398,7 +398,7 @@ export default function StudyPlanPage() {
                         {isToday && <span className="rounded-full bg-indigo-500 px-2 py-0.5 text-xs text-white">今天</span>}
                       </div>
                       <div className="mt-1 text-sm text-gray-500">
-                        {day.totalLabel}
+                        {dayMinimumMode ? '10 分钟最低模式' : day.totalLabel}
                         {day.note ? ` · ${day.note}` : ''}
                       </div>
                     </div>
@@ -406,7 +406,7 @@ export default function StudyPlanPage() {
                   </div>
 
                   <div className="mt-4 grid gap-3 lg:grid-cols-3">
-                    {day.tasks.map((task) => renderTask(task, key, true))}
+                    {dayTasks.map((task) => renderTask(task, key, true))}
                   </div>
                 </div>
               )
