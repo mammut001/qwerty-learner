@@ -1245,8 +1245,13 @@ export default function StudyPlanPage() {
                                   {dictionary.name} · {dictionary.length} 词
                                 </div>
                                 {isCurrentWeek && (
-                                  <div className="mt-1 text-xs text-indigo-100">
-                                    本周已记录 {minutesLabel(weeklyActualMinutes)}
+                                  <div className="mt-1 flex items-center gap-2 text-xs text-indigo-100">
+                                    <span>本周已记录 {minutesLabel(weeklyActualMinutes)}</span>
+                                    {weeklyPlannedMinutes > 0 && weeklyActualMinutes >= weeklyPlannedMinutes && (
+                                      <span className="rounded-full bg-white/20 px-2 py-0.5 font-medium text-white">
+                                        完成
+                                      </span>
+                                    )}
                                   </div>
                                 )}
                               </>
