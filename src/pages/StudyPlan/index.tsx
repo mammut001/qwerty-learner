@@ -1375,6 +1375,11 @@ export default function StudyPlanPage() {
                         </span>
                       </>
                     )}
+                    {!active && previewWeek >= item.weeks[0] && previewWeek <= item.weeks[1] && (
+                      <span className="font-normal text-gray-400 dark:text-gray-500">
+                        正在预览第 {previewWeek} 周
+                      </span>
+                    )}
                     <span className="font-normal text-gray-400 dark:text-gray-500">
                       {toDateKey(roadmapPhaseStart)} · {toDateKey(roadmapPhaseEnd)}
                     </span>
