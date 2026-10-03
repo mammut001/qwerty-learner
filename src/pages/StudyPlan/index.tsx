@@ -1352,6 +1352,11 @@ export default function StudyPlanPage() {
                 >
                   <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-indigo-500">
                     <span>第 {item.weeks[0]}–{item.weeks[1]} 周 {active ? '· 当前阶段' : ''}</span>
+                    {active && (
+                      <span className="font-normal text-gray-400 dark:text-gray-500">
+                        本阶段第 {currentWeek - item.weeks[0] + 1} / {item.weeks[1] - item.weeks[0] + 1} 周
+                      </span>
+                    )}
                     <span className="font-normal text-gray-400 dark:text-gray-500">
                       {toDateKey(roadmapPhaseStart)} · {toDateKey(roadmapPhaseEnd)}
                     </span>
