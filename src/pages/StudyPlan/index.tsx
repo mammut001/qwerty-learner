@@ -732,7 +732,14 @@ export default function StudyPlanPage() {
             </div>
             <div className="rounded-2xl bg-gray-50 p-4 dark:bg-gray-900">
               <div className="text-xs text-gray-400">本周实际</div>
-              <div className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">{minutesLabel(weeklyActualMinutes)}</div>
+              <div className="mt-1 flex items-center gap-2">
+                <div className="text-2xl font-semibold text-gray-900 dark:text-white">{minutesLabel(weeklyActualMinutes)}</div>
+                {weeklyPlannedMinutes > 0 && weeklyActualMinutes >= weeklyPlannedMinutes && (
+                  <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700 dark:bg-green-950 dark:text-green-300">
+                    完成
+                  </span>
+                )}
+              </div>
               <div className="mt-1 text-sm text-gray-500">计划约 {minutesLabel(weeklyPlannedMinutes)}（≈ 7 小时）</div>
             </div>
             <div className="rounded-2xl bg-gray-50 p-4 dark:bg-gray-900">
