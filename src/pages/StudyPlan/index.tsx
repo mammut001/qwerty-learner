@@ -376,6 +376,17 @@ export default function StudyPlanPage() {
   const previewPracticeHref = previewDictionary
     ? `/?dict=${encodeURIComponent(previewDictionary.id)}${previewTrackingQuery}`
     : '/'
+  const selectedMistakeChapterIndex =
+    selectedMistakeChapter !== null ? selectedMistakeChapter - 1 : null
+  const selectedMistakeChapterPracticeHref =
+    isMistakeChapterFilterActive &&
+    selectedMistakeChapterIndex !== null &&
+    Number.isSafeInteger(selectedMistakeChapterIndex) &&
+    selectedMistakeChapterIndex >= 0 &&
+    previewDictionary &&
+    selectedMistakeChapterIndex < previewDictionary.chapterCount
+      ? `${previewPracticeHref}&chapter=${selectedMistakeChapterIndex}`
+      : null
 
   const planWeekStart = addDays(startDate, currentWeekIndex * 7)
   const currentPlanWeekDays = Array.from({ length: 7 }, (_, index) => {
@@ -742,17 +753,31 @@ export default function StudyPlanPage() {
                 {previewDictionary?.name ?? '词库加载失败'}
               </h2>
               {previewDictionary && !isPreviewWordListLoading && !previewWordListError && previewWordList && (
-                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  {normalizedPreviewFilter || isMistakeFilterActive || isMistakeChapterFilterActive
-                    ? `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 显示了 ${previewWords.length} 个${
-                        isMistakeChapterFilterActive && selectedMistakeChapter !== null
-                          ? ` · 正在看第 ${selectedMistakeChapter} 章错过的词`
-                          : ''
-                      }`
-                    : previewWordList.length < PREVIEW_PAGE_SIZE
-                      ? `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 已全部显示`
-                      : `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 显示了 ${previewWords.length} 个`}
-                </p>
+                <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-gray-500 dark:text-gray-400">
+                  <span>
+                    {normalizedPreviewFilter || isMistakeFilterActive || isMistakeChapterFilterActive
+                      ? `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 显示了 ${previewWords.length} 个`
+                      : previewWordList.length < PREVIEW_PAGE_SIZE
+                        ? `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 已全部显示`
+                        : `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 显示了 ${previewWords.length} 个`}
+                  </span>
+                  {isMistakeChapterFilterActive && selectedMistakeChapter !== null && (
+                    <>
+                      <span>正在看第 {selectedMistakeChapter} 章错过的词</span>
+                      {selectedMistakeChapterPracticeHref && (
+                        <NavLink
+                          to={selectedMistakeChapterPracticeHref}
+                          onClick={
+                            previewWeek === currentWeek && todayVocabularyTask ? () => saveStorage(storage) : undefined
+                          }
+                          className="font-medium text-indigo-600 underline decoration-indigo-300 underline-offset-2 hover:text-indigo-700 dark:text-indigo-300 dark:hover:text-indigo-200"
+                        >
+                          去练这一章
+                        </NavLink>
+                      )}
+                    </>
+                  )}
+                </div>
               )}
             </div>
 
