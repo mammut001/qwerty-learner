@@ -1,6 +1,7 @@
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { idDictionaryMap } from '@/resources/dictionary'
+import { wordListFetcher } from '@/utils/wordListFetcher'
 import {
   getDayPlan,
   getStudyPhase,
@@ -12,6 +13,7 @@ import {
 } from '@/resources/studyPlan'
 import { type ChangeEvent, useMemo, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import useSWR from 'swr'
 import IconArrowLeft from '~icons/tabler/arrow-left'
 import IconCalendar from '~icons/tabler/calendar'
 import IconCheck from '~icons/tabler/check'
@@ -183,6 +185,12 @@ export default function StudyPlanPage() {
   const phase = getStudyPhase(currentWeek)
   const phaseProgress = Math.min(100, Math.round((currentWeek / 26) * 100))
   const targetDictionary = idDictionaryMap[weekDictionaryIds[currentWeek]]
+  const {
+    data: currentWeekWordList,
+    error: currentWeekWordListError,
+    isLoading: isCurrentWeekWordListLoading,
+  } = useSWR(targetDictionary?.url ?? null, wordListFetcher)
+  const currentWeekPreviewWords = currentWeekWordList?.slice(0, 20) ?? []
   const conjugationHref =
     phase.id === 1
       ? '/conjugation?verb=prendre&tense=passeCompose&mode=practice&scope=current'
@@ -489,6 +497,47 @@ export default function StudyPlanPage() {
                 {item}
               </span>
             ))}
+          </div>
+        </section>
+
+        <section className="mt-7 rounded-3xl border border-gray-100 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <div className="text-sm font-medium text-indigo-500">本周词库</div>
+              <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">
+                {targetDictionary?.name ?? '当前周词库'}
+              </h2>
+              {targetDictionary && (
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                  第 {currentWeek} 周 · 共 {targetDictionary.length} 词 · 先看前 20 个
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="mt-5">
+            {currentWeekWordListError ? (
+              <div className="rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950/30 dark:text-red-300">
+                词库加载失败：{currentWeekWordListError.message}
+              </div>
+            ) : isCurrentWeekWordListLoading ? (
+              <div className="rounded-2xl bg-gray-50 px-4 py-5 text-sm text-gray-500 dark:bg-gray-900 dark:text-gray-400">
+                正在加载本周词库…
+              </div>
+            ) : (
+              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+                {currentWeekPreviewWords.map((word, index) => (
+                  <div key={`${word.name}-${index}`} className="rounded-xl bg-gray-50 px-3 py-2 dark:bg-gray-900">
+                    <div className="font-medium text-gray-900 dark:text-gray-100">{word.name}</div>
+                    {word.trans.length > 0 && (
+                      <div className="mt-1 line-clamp-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
+                        {word.trans.slice(0, 2).join('；')}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
