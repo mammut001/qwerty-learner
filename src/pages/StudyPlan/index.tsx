@@ -596,6 +596,9 @@ export default function StudyPlanPage() {
               </span>
               <h3 className="font-semibold text-gray-900 dark:text-white">{task.title}</h3>
               <span className="text-xs text-gray-400">目标 {task.minutes} min</span>
+              {!complete && task.minutes - actual > 0 && (
+                <span className="text-xs text-gray-400">还差 {task.minutes - actual} min</span>
+              )}
             </div>
             {!compact && <p className="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">{task.description}</p>}
           </div>
