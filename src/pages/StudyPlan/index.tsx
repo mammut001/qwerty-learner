@@ -1041,6 +1041,7 @@ export default function StudyPlanPage() {
               const dayActual = actualMinutesForTasks(key, dayTasks)
               const dayPlannedMinutes = dayTasks.reduce((sum, task) => sum + task.minutes, 0)
               const dayComplete = dayPlannedMinutes > 0 && dayActual >= dayPlannedMinutes
+              const dayMissed = key < todayKey && dayPlannedMinutes > 0 && !dayComplete
               const isToday = key === todayKey
 
               return (
@@ -1068,6 +1069,11 @@ export default function StudyPlanPage() {
                       {dayComplete && (
                         <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700 dark:bg-green-950 dark:text-green-300">
                           完成
+                        </span>
+                      )}
+                      {dayMissed && (
+                        <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700 dark:bg-red-950 dark:text-red-300">
+                          未完成
                         </span>
                       )}
                     </div>
