@@ -1116,6 +1116,9 @@ export default function StudyPlanPage() {
                   <IconClock />
                   今天 {todayActualMinutes} / {todayPlannedMinutes} min
                 </div>
+                {todayPlannedMinutes > 0 && todayActualMinutes > todayPlannedMinutes && (
+                  <span className="text-gray-400">超出 {todayActualMinutes - todayPlannedMinutes} min</span>
+                )}
                 {todayPlannedMinutes > 0 && todayPlannedMinutes - todayActualMinutes > 0 && (
                   <span className="text-gray-400">还差 {todayPlannedMinutes - todayActualMinutes} min</span>
                 )}
