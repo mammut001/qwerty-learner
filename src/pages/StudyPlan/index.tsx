@@ -138,8 +138,11 @@ export default function StudyPlanPage() {
   const todayPlannedMinutes = todayTasks.reduce((sum, task) => sum + task.minutes, 0)
 
   const recentThreeDays = [0, -1, -2].map((offset) => {
-    const key = toDateKey(addDays(today, offset))
-    const total = Object.values(storage.minutes[key] ?? {}).reduce((sum, value) => sum + value, 0)
+    const date = addDays(today, offset)
+    const key = toDateKey(date)
+    const day = getDayPlan(date.getDay())
+    const tasks = storage.minimumMode[key] ? minimumModeTasks : day.tasks
+    const total = actualMinutesForTasks(key, tasks)
     return { key, total }
   })
   const activeRecentDays = recentThreeDays.filter((item) => item.total > 0).length
