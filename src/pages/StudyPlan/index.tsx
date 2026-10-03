@@ -902,7 +902,19 @@ export default function StudyPlanPage() {
                 </span>
               </div>
               <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">
-                {previewDictionary?.name ?? '词库加载失败'}
+                {previewDictionary ? (
+                  <NavLink
+                    to={previewPracticeHref}
+                    onClick={
+                      previewWeek === currentWeek && todayVocabularyTask ? () => saveStorage(storage) : undefined
+                    }
+                    className="underline decoration-gray-300 underline-offset-4 hover:text-indigo-600 dark:hover:text-indigo-300"
+                  >
+                    {previewDictionary.name}
+                  </NavLink>
+                ) : (
+                  '词库加载失败'
+                )}
               </h2>
               {previewDictionary && (
                 <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">
