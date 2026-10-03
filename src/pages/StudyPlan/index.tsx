@@ -778,6 +778,7 @@ export default function StudyPlanPage() {
           <div className="mt-6 h-2 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700">
             <div className="h-full rounded-full bg-indigo-500 transition-all" style={{ width: `${phaseProgress}%` }} />
           </div>
+          <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">整体进度 {phaseProgress}%</div>
 
           <div className="mt-5 grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl bg-indigo-50 p-4 dark:bg-indigo-950/30">
