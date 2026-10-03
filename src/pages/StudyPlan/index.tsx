@@ -838,7 +838,7 @@ export default function StudyPlanPage() {
                           .getElementById(`study-week-day-${item.key}`)
                           ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
                       }
-                      className="block text-left hover:text-indigo-600 dark:hover:text-indigo-300"
+                      className="block text-left underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:hover:text-indigo-300"
                     >
                       {label}
                     </button>
