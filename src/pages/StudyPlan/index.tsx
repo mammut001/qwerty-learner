@@ -1144,6 +1144,7 @@ export default function StudyPlanPage() {
                     <div>
                       <div className="flex items-center gap-2">
                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{day.name}</h3>
+                        <span className="text-sm font-normal text-gray-400">{key}</span>
                         {isToday && <span className="rounded-full bg-indigo-500 px-2 py-0.5 text-xs text-white">今天</span>}
                         {highlightedMissedDayStillMissed && highlightedMissedDayKey === key && (
                           <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700 dark:bg-amber-950 dark:text-amber-300">
