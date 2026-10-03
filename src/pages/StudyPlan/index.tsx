@@ -1086,7 +1086,7 @@ export default function StudyPlanPage() {
         <section className="mt-7">
           <div className="mb-4 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <div className="text-sm font-medium text-indigo-500">今日计划 · {todayPlan.name}</div>
+              <div className="text-sm font-medium text-indigo-500">今日计划 · {todayPlan.name} · {todayKey}</div>
               <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">
                 {minimumMode ? '10 分钟最低模式' : todayPlan.totalLabel}
               </h2>
