@@ -1438,6 +1438,9 @@ export default function StudyPlanPage() {
                                 <span className={`font-medium ${isCurrentWeek ? 'text-white' : 'text-gray-700 dark:text-gray-200'}`}>
                                   第 {week} 周
                                 </span>
+                                {week === previewWeek && !isCurrentWeek && (
+                                  <span className="text-xs text-gray-400 dark:text-gray-500">预览</span>
+                                )}
                                 <span className={`text-xs ${isCurrentWeek ? 'text-indigo-100' : 'text-gray-400 dark:text-gray-500'}`}>
                                   {toDateKey(roadmapWeekStart)} · {toDateKey(roadmapWeekEnd)}
                                 </span>
