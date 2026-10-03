@@ -201,6 +201,7 @@ export default function StudyPlanPage() {
   const targetDictionary = idDictionaryMap[weekDictionaryIds[currentWeek]]
   const [previewWeek, setPreviewWeek] = useState(currentWeek)
   const [previewFilter, setPreviewFilter] = useState('')
+  const [onlyMistakenPreviewWords, setOnlyMistakenPreviewWords] = useState(false)
   const [previewErrorWordsState, setPreviewErrorWordsState] = useState<PreviewErrorWordsState>({
     dictId: '',
     status: 'loading',
@@ -222,7 +223,6 @@ export default function StudyPlanPage() {
         ),
       )
     : (previewWordList ?? [])
-  const previewWords = filteredPreviewWords.slice(0, 20)
 
   useEffect(() => {
     setPreviewWeek(currentWeek)
@@ -230,6 +230,7 @@ export default function StudyPlanPage() {
 
   useEffect(() => {
     setPreviewFilter('')
+    setOnlyMistakenPreviewWords(false)
   }, [previewWeek])
 
   useEffect(() => {
@@ -285,6 +286,11 @@ export default function StudyPlanPage() {
     previewErrorWordsState.dictId === previewDictionary?.id ? previewErrorWordsState.status : 'loading'
   const previewErrorWords =
     previewErrorWordsStatus === 'ready' ? previewErrorWordsState.words : new Set<string>()
+  const isMistakeFilterActive = onlyMistakenPreviewWords && previewErrorWordsStatus === 'ready'
+  const matchedPreviewWords = isMistakeFilterActive
+    ? filteredPreviewWords.filter((word) => previewErrorWords.has(word.name))
+    : filteredPreviewWords
+  const previewWords = matchedPreviewWords.slice(0, 20)
 
   const conjugationHref =
     phase.id === 1
@@ -668,8 +674,8 @@ export default function StudyPlanPage() {
               </h2>
               {previewDictionary && !isPreviewWordListLoading && !previewWordListError && previewWordList && (
                 <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  {normalizedPreviewFilter
-                    ? `匹配了 ${filteredPreviewWords.length} 个 · 显示了 ${previewWords.length} 个（最多 20 个）`
+                  {normalizedPreviewFilter || isMistakeFilterActive
+                    ? `匹配了 ${matchedPreviewWords.length} 个 · 显示了 ${previewWords.length} 个（最多 20 个）`
                     : previewWordList.length < 20
                       ? `共 ${previewWordList.length} 词 · 已全部显示`
                       : `共 ${previewWordList.length} 词 · 先看前 20 个`}
@@ -677,17 +683,36 @@ export default function StudyPlanPage() {
               )}
             </div>
 
-            <label className="w-full max-w-sm text-sm text-gray-500 dark:text-gray-400">
-              过滤词库
-              <input
-                type="search"
-                value={previewFilter}
-                onChange={(event) => setPreviewFilter(event.target.value)}
-                placeholder="按词名、notation 或中文释义"
-                disabled={isPreviewWordListLoading || Boolean(previewWordListError)}
-                className="mt-1 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-gray-700 outline-none transition placeholder:text-gray-400 focus:border-indigo-400 disabled:cursor-not-allowed disabled:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:disabled:bg-gray-950"
-              />
-            </label>
+            <div className="w-full max-w-sm space-y-2">
+              <label className="block text-sm text-gray-500 dark:text-gray-400">
+                过滤词库
+                <input
+                  type="search"
+                  value={previewFilter}
+                  onChange={(event) => setPreviewFilter(event.target.value)}
+                  placeholder="按词名、notation 或中文释义"
+                  disabled={isPreviewWordListLoading || Boolean(previewWordListError)}
+                  className="mt-1 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-gray-700 outline-none transition placeholder:text-gray-400 focus:border-indigo-400 disabled:cursor-not-allowed disabled:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:disabled:bg-gray-950"
+                />
+              </label>
+
+              <label
+                className={`flex items-center gap-2 text-sm ${
+                  previewErrorWordsStatus === 'ready'
+                    ? 'cursor-pointer text-gray-600 dark:text-gray-300'
+                    : 'cursor-not-allowed text-gray-400'
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={onlyMistakenPreviewWords}
+                  onChange={(event) => setOnlyMistakenPreviewWords(event.target.checked)}
+                  disabled={previewErrorWordsStatus !== 'ready'}
+                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                />
+                只看错过的
+              </label>
+            </div>
           </div>
 
           <div className="mt-4">
@@ -755,7 +780,7 @@ export default function StudyPlanPage() {
               </div>
             ) : (
               <div className="rounded-2xl bg-gray-50 px-4 py-5 text-sm text-gray-500 dark:bg-gray-900 dark:text-gray-400">
-                {normalizedPreviewFilter ? '没有匹配的词。' : '这个词库没有可显示的词。'}
+                {normalizedPreviewFilter || isMistakeFilterActive ? '没有匹配的词。' : '这个词库没有可显示的词。'}
               </div>
             )}
           </div>
