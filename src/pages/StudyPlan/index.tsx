@@ -717,7 +717,7 @@ export default function StudyPlanPage() {
                   }
                   className="mt-1 block text-sm text-gray-500 underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-300"
                 >
-                  正在预览：{previewDictionary.name} · {previewDictionary.length} 词 · 共 {Math.ceil(previewDictionary.length / CHAPTER_LENGTH)} 章
+                  正在预览第 {previewWeek} 周：{previewDictionary.name} · {previewDictionary.length} 词 · 共 {Math.ceil(previewDictionary.length / CHAPTER_LENGTH)} 章
                 </button>
               )}
             </div>
