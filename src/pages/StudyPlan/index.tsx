@@ -123,6 +123,10 @@ function parseImportedStorage(value: unknown): StudyPlanStorage | null {
   }
 }
 
+function countRecordedMinuteDays(minutes: StudyPlanStorage['minutes']) {
+  return Object.values(minutes).filter((dayMinutes) => Object.values(dayMinutes).some((value) => value > 0)).length
+}
+
 function loadStorage(todayKey: string): StudyPlanStorage {
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY)
@@ -168,6 +172,7 @@ export default function StudyPlanPage() {
   const [storage, setStorage] = useState<StudyPlanStorage>(() => loadStorage(todayKey))
   const importInputRef = useRef<HTMLInputElement>(null)
   const [importMessage, setImportMessage] = useState('')
+  const [pendingImport, setPendingImport] = useState<StudyPlanStorage | null>(null)
 
   const saveStorage = (next: StudyPlanStorage) => {
     setStorage(next)
@@ -292,6 +297,8 @@ export default function StudyPlanPage() {
     event.target.value = ''
     if (!file) return
 
+    setPendingImport(null)
+
     try {
       const parsed = JSON.parse(await file.text()) as unknown
       const imported = parseImportedStorage(parsed)
@@ -300,11 +307,23 @@ export default function StudyPlanPage() {
         return
       }
 
-      saveStorage(imported)
-      setImportMessage('导入成功：学习计划数据已更新。')
+      setPendingImport(imported)
+      setImportMessage('')
     } catch {
       setImportMessage('导入失败：文件不是有效 JSON，现有数据未修改。')
     }
+  }
+
+  const confirmImportStudyPlan = () => {
+    if (!pendingImport) return
+    saveStorage(pendingImport)
+    setPendingImport(null)
+    setImportMessage('导入成功：学习计划数据已更新。')
+  }
+
+  const cancelImportStudyPlan = () => {
+    setPendingImport(null)
+    setImportMessage('已取消导入，现有数据未修改。')
   }
 
   const renderTask = (task: StudyTask, dateKey: string, compact = false) => {
@@ -469,6 +488,44 @@ export default function StudyPlanPage() {
                   className="hidden"
                 />
               </div>
+
+              {pendingImport && (
+                <div className="w-full max-w-md rounded-2xl border border-amber-200 bg-amber-50 p-4 text-left dark:border-amber-900 dark:bg-amber-950/30">
+                  <div className="text-sm font-semibold text-amber-800 dark:text-amber-200">确认覆盖现有学习计划？</div>
+                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                    <div className="rounded-xl bg-white/80 p-3 dark:bg-gray-900/70">
+                      <div className="text-xs font-medium text-gray-400">现有计划</div>
+                      <div className="mt-1 text-sm font-medium text-gray-800 dark:text-gray-100">开始日：{storage.startDate}</div>
+                      <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                        {countRecordedMinuteDays(storage.minutes)} 天记录了分钟
+                      </div>
+                    </div>
+                    <div className="rounded-xl bg-white/80 p-3 dark:bg-gray-900/70">
+                      <div className="text-xs font-medium text-gray-400">导入文件</div>
+                      <div className="mt-1 text-sm font-medium text-gray-800 dark:text-gray-100">开始日：{pendingImport.startDate}</div>
+                      <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                        {countRecordedMinuteDays(pendingImport.minutes)} 天记录了分钟
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-4 flex justify-end gap-2">
+                    <button
+                      type="button"
+                      onClick={cancelImportStudyPlan}
+                      className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800"
+                    >
+                      取消
+                    </button>
+                    <button
+                      type="button"
+                      onClick={confirmImportStudyPlan}
+                      className="rounded-lg bg-amber-600 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-amber-700"
+                    >
+                      确认导入
+                    </button>
+                  </div>
+                </div>
+              )}
 
               {importMessage && <div className="max-w-sm text-right text-xs text-gray-500 dark:text-gray-400">{importMessage}</div>}
             </div>
