@@ -203,6 +203,7 @@ export default function StudyPlanPage() {
   const [previewWeek, setPreviewWeek] = useState(currentWeek)
   const [previewFilter, setPreviewFilter] = useState('')
   const [onlyMistakenPreviewWords, setOnlyMistakenPreviewWords] = useState(false)
+  const [selectedMistakeChapter, setSelectedMistakeChapter] = useState<number | null>(null)
   const [previewPage, setPreviewPage] = useState(1)
   const [previewErrorWordsState, setPreviewErrorWordsState] = useState<PreviewErrorWordsState>({
     dictId: '',
@@ -233,6 +234,7 @@ export default function StudyPlanPage() {
   useEffect(() => {
     setPreviewFilter('')
     setOnlyMistakenPreviewWords(false)
+    setSelectedMistakeChapter(null)
     setPreviewPage(1)
   }, [previewWeek])
 
@@ -317,9 +319,22 @@ export default function StudyPlanPage() {
       : null
   const previewMistakenWordCount = previewMistakeSummary?.total ?? null
   const isMistakeFilterActive = onlyMistakenPreviewWords && previewErrorWordsStatus === 'ready'
-  const matchedPreviewWords = isMistakeFilterActive
-    ? filteredPreviewWords.filter((word) => previewErrorWords.has(word.name))
+  const isMistakeChapterFilterActive =
+    selectedMistakeChapter !== null &&
+    previewErrorWordsStatus === 'ready' &&
+    !isPreviewWordListLoading &&
+    !previewWordListError &&
+    Boolean(previewWordList)
+  const chapterFilteredPreviewWords = isMistakeChapterFilterActive
+    ? filteredPreviewWords.filter((word) => {
+        const fullWordIndex = previewWordList?.indexOf(word) ?? -1
+        if (fullWordIndex < 0 || !previewErrorWords.has(word.name)) return false
+        return Math.floor(fullWordIndex / CHAPTER_LENGTH) + 1 === selectedMistakeChapter
+      })
     : filteredPreviewWords
+  const matchedPreviewWords = isMistakeFilterActive
+    ? chapterFilteredPreviewWords.filter((word) => previewErrorWords.has(word.name))
+    : chapterFilteredPreviewWords
   const previewTotalPages = Math.max(1, Math.ceil(matchedPreviewWords.length / PREVIEW_PAGE_SIZE))
   const currentPreviewPage = Math.min(previewPage, previewTotalPages)
   const previewPageStart = (currentPreviewPage - 1) * PREVIEW_PAGE_SIZE
@@ -707,7 +722,7 @@ export default function StudyPlanPage() {
               </h2>
               {previewDictionary && !isPreviewWordListLoading && !previewWordListError && previewWordList && (
                 <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  {normalizedPreviewFilter || isMistakeFilterActive
+                  {normalizedPreviewFilter || isMistakeFilterActive || isMistakeChapterFilterActive
                     ? `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 显示了 ${previewWords.length} 个`
                     : previewWordList.length < PREVIEW_PAGE_SIZE
                       ? `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 已全部显示`
@@ -750,16 +765,32 @@ export default function StudyPlanPage() {
                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                 />
                 <span>只看错过的{previewMistakenWordCount !== null ? `（${previewMistakenWordCount}）` : ''}</span>
-                {previewMistakeSummary &&
-                  previewMistakeSummary.chapters.map(({ chapter, count }) => (
-                    <span
-                      key={chapter}
-                      className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500 dark:bg-gray-800 dark:text-gray-300"
-                    >
-                      第 {chapter} 章 {count} 个
-                    </span>
-                  ))}
               </label>
+
+              {previewMistakeSummary && previewMistakeSummary.chapters.length > 0 && (
+                <div className="flex flex-wrap gap-1.5">
+                  {previewMistakeSummary.chapters.map(({ chapter, count }) => {
+                    const active = selectedMistakeChapter === chapter
+                    return (
+                      <button
+                        key={chapter}
+                        type="button"
+                        onClick={() => {
+                          setSelectedMistakeChapter(active ? null : chapter)
+                          setPreviewPage(1)
+                        }}
+                        className={`rounded-full px-2 py-0.5 text-xs font-medium transition ${
+                          active
+                            ? 'bg-indigo-500 text-white'
+                            : 'bg-gray-100 text-gray-500 hover:bg-indigo-100 hover:text-indigo-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
+                        }`}
+                      >
+                        第 {chapter} 章 {count} 个
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
             </div>
           </div>
 
@@ -857,7 +888,9 @@ export default function StudyPlanPage() {
               </div>
             ) : (
               <div className="rounded-2xl bg-gray-50 px-4 py-5 text-sm text-gray-500 dark:bg-gray-900 dark:text-gray-400">
-                {normalizedPreviewFilter || isMistakeFilterActive ? '没有匹配的词。' : '这个词库没有可显示的词。'}
+                {normalizedPreviewFilter || isMistakeFilterActive || isMistakeChapterFilterActive
+                  ? '没有匹配的词。'
+                  : '这个词库没有可显示的词。'}
               </div>
             )}
           </div>
@@ -1008,7 +1041,10 @@ export default function StudyPlanPage() {
                           </NavLink>
                           <button
                             type="button"
-                            onClick={() => setPreviewWeek(week)}
+                            onClick={() => {
+                              setSelectedMistakeChapter(null)
+                              setPreviewWeek(week)
+                            }}
                             className={`shrink-0 rounded-lg px-2.5 text-xs font-medium transition ${
                               previewWeek === week
                                 ? isCurrentWeek
