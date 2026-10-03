@@ -1281,7 +1281,20 @@ export default function StudyPlanPage() {
 
         <section className="mt-10">
           <div className="text-sm font-medium text-indigo-500">六个月路线</div>
-          <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">26 周怎么推进</h2>
+          <div className="mt-1 flex flex-wrap items-center justify-between gap-3">
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">26 周怎么推进</h2>
+            <button
+              type="button"
+              onClick={() =>
+                document
+                  .getElementById(`study-roadmap-week-${currentWeek}`)
+                  ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+              }
+              className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:hover:text-indigo-300"
+            >
+              回到当前周
+            </button>
+          </div>
 
           <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {studyPhases.map((item) => {
@@ -1323,6 +1336,7 @@ export default function StudyPlanPage() {
 
                       return (
                         <div
+                          id={`study-roadmap-week-${week}`}
                           key={week}
                           className={`flex items-stretch gap-2 rounded-xl p-1 text-sm transition ${
                             isCurrentWeek
