@@ -72,8 +72,9 @@ const App: React.FC = () => {
   const setReviewModeInfo = useSetAtom(reviewModeInfoAtom)
   const [searchParams, setSearchParams] = useSearchParams()
   const requestedDictId = searchParams.get('dict')
-  const studyDate = searchParams.get('studyDate')
-  const studyTaskId = searchParams.get('studyTask')
+  const requestedStudyDate = searchParams.get('studyDate')
+  const requestedStudyTaskId = searchParams.get('studyTask')
+  const studyPlanTracking = useRef<{ dateKey: string; taskId: string } | null>(null)
   const recordedStudyPlanChapter = useRef(false)
   const randomConfig = useAtomValue(randomConfigAtom)
   const chapterLogUploader = useMixPanelChapterLogUploader(state)
@@ -89,11 +90,23 @@ const App: React.FC = () => {
     setCurrentChapter(0)
     setReviewModeInfo((old) => ({ ...old, isReviewMode: false }))
 
+    studyPlanTracking.current =
+      requestedStudyDate &&
+      requestedStudyTaskId &&
+      /^\d{4}-\d{2}-\d{2}$/.test(requestedStudyDate) &&
+      studyVocabularyTaskIds.has(requestedStudyTaskId)
+        ? { dateKey: requestedStudyDate, taskId: requestedStudyTaskId }
+        : null
+
     const nextSearchParams = new URLSearchParams(searchParams)
     nextSearchParams.delete('dict')
+    nextSearchParams.delete('studyDate')
+    nextSearchParams.delete('studyTask')
     setSearchParams(nextSearchParams, { replace: true })
   }, [
     requestedDictId,
+    requestedStudyDate,
+    requestedStudyTaskId,
     searchParams,
     setCurrentChapter,
     setCurrentDictId,
@@ -182,11 +195,12 @@ const App: React.FC = () => {
       recordedStudyPlanChapter.current = false
       return
     }
-    if (recordedStudyPlanChapter.current || !studyDate || !studyTaskId) return
+    const tracking = studyPlanTracking.current
+    if (recordedStudyPlanChapter.current || !tracking) return
 
-    recordStudyPlanVocabularyMinutes(studyDate, studyTaskId, state.timerData.time)
+    recordStudyPlanVocabularyMinutes(tracking.dateKey, tracking.taskId, state.timerData.time)
     recordedStudyPlanChapter.current = true
-  }, [state.isFinished, state.timerData.time, studyDate, studyTaskId])
+  }, [state.isFinished, state.timerData.time])
 
   useEffect(() => {
     // 启动计时器
