@@ -1310,6 +1310,8 @@ export default function StudyPlanPage() {
                           ? `&studyDate=${todayKey}&studyTask=${todayVocabularyTask.id}`
                           : ''
                       const weekHref = dictionary ? `/?dict=${encodeURIComponent(dictionary.id)}${trackingQuery}` : '/'
+                      const roadmapWeekStart = addDays(startDate, (week - 1) * 7)
+                      const roadmapWeekEnd = addDays(roadmapWeekStart, 6)
 
                       return (
                         <div
@@ -1328,9 +1330,14 @@ export default function StudyPlanPage() {
                             }`}
                           >
                             <div className="flex items-center justify-between gap-3">
-                              <span className={`font-medium ${isCurrentWeek ? 'text-white' : 'text-gray-700 dark:text-gray-200'}`}>
-                                第 {week} 周
-                              </span>
+                              <div className="flex flex-wrap items-center gap-2">
+                                <span className={`font-medium ${isCurrentWeek ? 'text-white' : 'text-gray-700 dark:text-gray-200'}`}>
+                                  第 {week} 周
+                                </span>
+                                <span className={`text-xs ${isCurrentWeek ? 'text-indigo-100' : 'text-gray-400 dark:text-gray-500'}`}>
+                                  {toDateKey(roadmapWeekStart)} · {toDateKey(roadmapWeekEnd)}
+                                </span>
+                              </div>
                               {isCurrentWeek && (
                                 <span className="rounded-full bg-white/20 px-2 py-0.5 text-[11px] font-medium text-white">当前周</span>
                               )}
