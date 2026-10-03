@@ -1379,6 +1379,9 @@ export default function StudyPlanPage() {
                     {item.weeks[1] < currentWeek && (
                       <span className="font-normal text-gray-400 dark:text-gray-500">已过</span>
                     )}
+                    {item.weeks[0] > currentWeek && (
+                      <span className="font-normal text-gray-400 dark:text-gray-500">未到</span>
+                    )}
                     {active && (
                       <>
                         <span className="font-normal text-gray-400 dark:text-gray-500">
