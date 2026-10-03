@@ -40,9 +40,7 @@ const recordStudyPlanVocabularyMinutes = (dateKey: string, taskId: string, elaps
     }
     const chapterMinutes = Math.max(1, Math.ceil(elapsedSeconds / 60))
     const existingMinutes = storage.minutes?.[dateKey]?.[taskId] ?? 0
-    const nextMinutes = Math.max(existingMinutes, chapterMinutes)
-
-    if (nextMinutes === existingMinutes) return
+    const nextMinutes = existingMinutes + chapterMinutes
 
     window.localStorage.setItem(
       STUDY_PLAN_STORAGE_KEY,
