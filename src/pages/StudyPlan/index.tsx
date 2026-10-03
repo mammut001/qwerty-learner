@@ -794,9 +794,17 @@ export default function StudyPlanPage() {
           <div className="mt-5 grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl bg-indigo-50 p-4 dark:bg-indigo-950/30">
               <div className="text-xs text-indigo-500">当前阶段</div>
-              <div className="mt-1 font-semibold text-gray-900 dark:text-white">
+              <button
+                type="button"
+                onClick={() =>
+                  document
+                    .getElementById(`study-roadmap-phase-${phase.id}`)
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                }
+                className="mt-1 font-semibold text-gray-900 underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:text-white dark:hover:text-indigo-300"
+              >
                 第 {phase.weeks[0]}–{phase.weeks[1]} 周 · {phase.name}
-              </div>
+              </button>
               <div className="mt-1 text-sm text-indigo-400">
                 {toDateKey(phaseStartDate)} · {toDateKey(phaseEndDate)}
               </div>
