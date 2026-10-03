@@ -827,7 +827,7 @@ export default function StudyPlanPage() {
               <div className="mt-2 space-y-1 text-sm text-gray-500">
                 {recentThreeDays.map((item, index) => (
                   <div key={item.key}>
-                    {['今天', '昨天', '前天'][index]} · {item.name} · {item.total > 0 ? '有' : '无'}
+                    {['今天', '昨天', '前天'][index]} · {item.name} · {item.key} · {item.total > 0 ? '有' : '无'}
                   </div>
                 ))}
               </div>
