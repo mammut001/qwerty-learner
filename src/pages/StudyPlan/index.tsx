@@ -930,6 +930,9 @@ export default function StudyPlanPage() {
                 >
                   {getStudyPhase(previewWeek).name}
                 </button>
+                <span className="text-xs font-normal text-gray-400">
+                  在阶段里第 {previewWeek - getStudyPhase(previewWeek).weeks[0] + 1} / {getStudyPhase(previewWeek).weeks[1] - getStudyPhase(previewWeek).weeks[0] + 1} 周
+                </span>
                 {previewWeek !== currentWeek && <span className="text-xs font-normal text-gray-400">不是当前周</span>}
                 <span className="text-xs font-normal text-gray-400">
                   {toDateKey(previewWeekStart)} · {toDateKey(previewWeekEnd)}
