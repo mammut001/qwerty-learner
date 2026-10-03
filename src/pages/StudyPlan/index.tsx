@@ -1472,9 +1472,9 @@ export default function StudyPlanPage() {
                             )}
                           </NavLink>
                           {week === previewWeek && !isCurrentWeek && (
-                            <span className="absolute left-3 top-2 flex items-center gap-2">
+                            <span className="pointer-events-none absolute left-3 top-2 flex items-center gap-2">
                               <span className="invisible font-medium">第 {week} 周</span>
-                              <span className="text-xs text-gray-400 dark:text-gray-500">预览</span>
+                              <span className="pointer-events-auto text-xs text-gray-400 dark:text-gray-500">预览</span>
                             </span>
                           )}
                           <button
