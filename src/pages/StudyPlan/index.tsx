@@ -11,7 +11,7 @@ import {
   type StudyTask,
   type StudyTaskKind,
 } from '@/resources/studyPlan'
-import { type ChangeEvent, useMemo, useRef, useState } from 'react'
+import { type ChangeEvent, useEffect, useMemo, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import useSWR from 'swr'
 import IconArrowLeft from '~icons/tabler/arrow-left'
@@ -185,12 +185,19 @@ export default function StudyPlanPage() {
   const phase = getStudyPhase(currentWeek)
   const phaseProgress = Math.min(100, Math.round((currentWeek / 26) * 100))
   const targetDictionary = idDictionaryMap[weekDictionaryIds[currentWeek]]
+  const [previewWeek, setPreviewWeek] = useState(currentWeek)
+  const previewDictionary = idDictionaryMap[weekDictionaryIds[previewWeek]]
   const {
-    data: currentWeekWordList,
-    error: currentWeekWordListError,
-    isLoading: isCurrentWeekWordListLoading,
-  } = useSWR(targetDictionary?.url ?? null, wordListFetcher)
-  const currentWeekPreviewWords = currentWeekWordList?.slice(0, 20) ?? []
+    data: previewWordList,
+    error: previewWordListError,
+    isLoading: isPreviewWordListLoading,
+  } = useSWR(previewDictionary?.url ?? null, wordListFetcher)
+  const previewWords = previewWordList?.slice(0, 20) ?? []
+
+  useEffect(() => {
+    setPreviewWeek(currentWeek)
+  }, [currentWeek])
+
   const conjugationHref =
     phase.id === 1
       ? '/conjugation?verb=prendre&tense=passeCompose&mode=practice&scope=current'
@@ -503,32 +510,40 @@ export default function StudyPlanPage() {
         <section className="mt-7 rounded-3xl border border-gray-100 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <div className="text-sm font-medium text-indigo-500">本周词库</div>
+              <div className="flex flex-wrap items-center gap-2 text-sm font-medium text-indigo-500">
+                <span>词库预览</span>
+                <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs text-indigo-600 dark:bg-indigo-950 dark:text-indigo-300">
+                  正在预览第 {previewWeek} 周
+                </span>
+              </div>
               <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">
-                {targetDictionary?.name ?? '当前周词库'}
+                {previewDictionary?.name ?? '词库加载失败'}
               </h2>
-              {targetDictionary && (
+              {previewDictionary && (
                 <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  第 {currentWeek} 周 · 共 {targetDictionary.length} 词 · 先看前 20 个
+                  共 {previewDictionary.length} 词 · 先看前 20 个
                 </p>
               )}
             </div>
           </div>
 
           <div className="mt-5">
-            {currentWeekWordListError ? (
+            {previewWordListError ? (
               <div className="rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950/30 dark:text-red-300">
-                词库加载失败：{currentWeekWordListError.message}
+                词库加载失败：{previewWordListError.message}
               </div>
-            ) : isCurrentWeekWordListLoading ? (
+            ) : isPreviewWordListLoading ? (
               <div className="rounded-2xl bg-gray-50 px-4 py-5 text-sm text-gray-500 dark:bg-gray-900 dark:text-gray-400">
-                正在加载本周词库…
+                正在加载第 {previewWeek} 周词库…
               </div>
             ) : (
               <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-                {currentWeekPreviewWords.map((word, index) => (
+                {previewWords.map((word, index) => (
                   <div key={`${word.name}-${index}`} className="rounded-xl bg-gray-50 px-3 py-2 dark:bg-gray-900">
                     <div className="font-medium text-gray-900 dark:text-gray-100">{word.name}</div>
+                    {word.notation && (
+                      <div className="mt-1 text-xs font-medium text-indigo-500 dark:text-indigo-300">{word.notation}</div>
+                    )}
                     {word.trans.length > 0 && (
                       <div className="mt-1 line-clamp-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
                         {word.trans.slice(0, 2).join('；')}
@@ -655,30 +670,51 @@ export default function StudyPlanPage() {
                       const weekHref = dictionary ? `/?dict=${encodeURIComponent(dictionary.id)}${trackingQuery}` : '/'
 
                       return (
-                        <NavLink
+                        <div
                           key={week}
-                          to={weekHref}
-                          onClick={isCurrentWeek && todayVocabularyTask ? () => saveStorage(storage) : undefined}
-                          className={`block rounded-xl px-3 py-2 text-sm transition ${
+                          className={`flex items-stretch gap-2 rounded-xl p-1 text-sm transition ${
                             isCurrentWeek
-                              ? 'bg-indigo-500 text-white shadow-sm hover:bg-indigo-600'
-                              : 'bg-gray-50 text-gray-600 hover:bg-indigo-50 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-700'
+                              ? 'bg-indigo-500 text-white shadow-sm'
+                              : 'bg-gray-50 text-gray-600 dark:bg-gray-900 dark:text-gray-300'
                           }`}
                         >
-                          <div className="flex items-center justify-between gap-3">
-                            <span className={`font-medium ${isCurrentWeek ? 'text-white' : 'text-gray-700 dark:text-gray-200'}`}>
-                              第 {week} 周
-                            </span>
-                            {isCurrentWeek && (
-                              <span className="rounded-full bg-white/20 px-2 py-0.5 text-[11px] font-medium text-white">当前周</span>
-                            )}
-                          </div>
-                          {dictionary && (
-                            <div className={`mt-1 leading-5 ${isCurrentWeek ? 'text-indigo-50' : 'text-gray-500 dark:text-gray-400'}`}>
-                              {dictionary.name} · {dictionary.length} 词
+                          <NavLink
+                            to={weekHref}
+                            onClick={isCurrentWeek && todayVocabularyTask ? () => saveStorage(storage) : undefined}
+                            className={`min-w-0 flex-1 rounded-lg px-2 py-1 transition ${
+                              isCurrentWeek ? 'hover:bg-indigo-600' : 'hover:bg-indigo-50 dark:hover:bg-gray-700'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between gap-3">
+                              <span className={`font-medium ${isCurrentWeek ? 'text-white' : 'text-gray-700 dark:text-gray-200'}`}>
+                                第 {week} 周
+                              </span>
+                              {isCurrentWeek && (
+                                <span className="rounded-full bg-white/20 px-2 py-0.5 text-[11px] font-medium text-white">当前周</span>
+                              )}
                             </div>
-                          )}
-                        </NavLink>
+                            {dictionary && (
+                              <div className={`mt-1 leading-5 ${isCurrentWeek ? 'text-indigo-50' : 'text-gray-500 dark:text-gray-400'}`}>
+                                {dictionary.name} · {dictionary.length} 词
+                              </div>
+                            )}
+                          </NavLink>
+                          <button
+                            type="button"
+                            onClick={() => setPreviewWeek(week)}
+                            className={`shrink-0 rounded-lg px-2.5 text-xs font-medium transition ${
+                              previewWeek === week
+                                ? isCurrentWeek
+                                  ? 'bg-white text-indigo-600'
+                                  : 'bg-indigo-500 text-white'
+                                : isCurrentWeek
+                                  ? 'bg-white/15 text-white hover:bg-white/25'
+                                  : 'bg-white text-indigo-600 hover:bg-indigo-100 dark:bg-gray-800 dark:text-indigo-300 dark:hover:bg-gray-700'
+                            }`}
+                          >
+                            {previewWeek === week ? '预览中' : '预览'}
+                          </button>
+                        </div>
                       )
                     })}
                   </div>
