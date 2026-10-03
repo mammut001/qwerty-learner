@@ -224,6 +224,12 @@ export default function StudyPlanPage() {
     Number(onlyMistakenPreviewWords) +
     Number(selectedMistakeChapter !== null)
   const hasPreviewFilters = previewFilterCount > 0
+  const clearPreviewFilters = () => {
+    setPreviewFilter('')
+    setOnlyMistakenPreviewWords(false)
+    setSelectedMistakeChapter(null)
+    setPreviewPage(1)
+  }
   const filteredPreviewWords = normalizedPreviewFilter
     ? (previewWordList ?? []).filter((word) =>
         [word.name, word.notation ?? '', ...word.trans].some((value) =>
@@ -796,6 +802,11 @@ export default function StudyPlanPage() {
                     setPreviewFilter(event.target.value)
                     setPreviewPage(1)
                   }}
+                  onKeyDown={(event) => {
+                    if (event.key !== 'Escape' || !hasPreviewFilters) return
+                    event.preventDefault()
+                    clearPreviewFilters()
+                  }}
                   placeholder="按词名、notation 或中文释义"
                   disabled={isPreviewWordListLoading || Boolean(previewWordListError)}
                   className="mt-1 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-gray-700 outline-none transition placeholder:text-gray-400 focus:border-indigo-400 disabled:cursor-not-allowed disabled:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:disabled:bg-gray-950"
@@ -805,12 +816,7 @@ export default function StudyPlanPage() {
               {hasPreviewFilters && (
                 <button
                   type="button"
-                  onClick={() => {
-                    setPreviewFilter('')
-                    setOnlyMistakenPreviewWords(false)
-                    setSelectedMistakeChapter(null)
-                    setPreviewPage(1)
-                  }}
+                  onClick={clearPreviewFilters}
                   className="w-fit rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800"
                 >
                   清除筛选（{previewFilterCount}）
