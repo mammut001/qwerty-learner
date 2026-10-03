@@ -707,6 +707,11 @@ export default function StudyPlanPage() {
                   本周词库：{targetDictionary.name} · {targetDictionary.length} 词 · 共 {Math.ceil(targetDictionary.length / CHAPTER_LENGTH)} 章
                 </NavLink>
               )}
+              {previewWeek !== currentWeek && previewDictionary && (
+                <span className="mt-1 block text-sm text-gray-500 dark:text-gray-400">
+                  正在预览：{previewDictionary.name}
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col items-end gap-2">
