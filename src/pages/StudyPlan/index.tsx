@@ -147,6 +147,7 @@ export default function StudyPlanPage() {
   const todayPlan = getDayPlan(today.getDay())
   const minimumMode = Boolean(storage.minimumMode[todayKey])
   const todayTasks = minimumMode ? minimumModeTasks : todayPlan.tasks
+  const todayVocabularyTask = todayTasks.find((task) => task.kind === 'vocabulary' && task.href === '/gallery')
 
   const planWeekStart = addDays(startDate, currentWeekIndex * 7)
   const currentPlanWeekDays = Array.from({ length: 7 }, (_, index) => {
@@ -494,14 +495,21 @@ export default function StudyPlanPage() {
                     {weeks.map((week) => {
                       const dictionary = idDictionaryMap[weekDictionaryIds[week]]
                       const isCurrentWeek = week === currentWeek
+                      const trackingQuery =
+                        isCurrentWeek && todayVocabularyTask
+                          ? `&studyDate=${todayKey}&studyTask=${todayVocabularyTask.id}`
+                          : ''
+                      const weekHref = dictionary ? `/?dict=${encodeURIComponent(dictionary.id)}${trackingQuery}` : '/'
 
                       return (
-                        <div
+                        <NavLink
                           key={week}
-                          className={`rounded-xl px-3 py-2 text-sm ${
+                          to={weekHref}
+                          onClick={isCurrentWeek && todayVocabularyTask ? () => saveStorage(storage) : undefined}
+                          className={`block rounded-xl px-3 py-2 text-sm transition ${
                             isCurrentWeek
-                              ? 'bg-indigo-500 text-white shadow-sm'
-                              : 'bg-gray-50 text-gray-600 dark:bg-gray-900 dark:text-gray-300'
+                              ? 'bg-indigo-500 text-white shadow-sm hover:bg-indigo-600'
+                              : 'bg-gray-50 text-gray-600 hover:bg-indigo-50 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-700'
                           }`}
                         >
                           <div className="flex items-center justify-between gap-3">
@@ -517,7 +525,7 @@ export default function StudyPlanPage() {
                               {dictionary.name} · {dictionary.length} 词
                             </div>
                           )}
-                        </div>
+                        </NavLink>
                       )
                     })}
                   </div>
