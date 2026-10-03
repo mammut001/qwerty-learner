@@ -896,6 +896,17 @@ export default function StudyPlanPage() {
             <div>
               <div className="flex flex-wrap items-center gap-2 text-sm font-medium text-indigo-500">
                 <span>词库预览</span>
+                <button
+                  type="button"
+                  onClick={() =>
+                    document
+                      .getElementById(`study-roadmap-week-${previewWeek}`)
+                      ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                  }
+                  className="rounded-lg border border-gray-200 bg-white px-2.5 py-1 text-xs font-medium text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:hover:text-indigo-300"
+                >
+                  定位这一周
+                </button>
                 <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs text-indigo-600 dark:bg-indigo-950 dark:text-indigo-300">
                   正在预览第 {previewWeek} 周
                 </span>
