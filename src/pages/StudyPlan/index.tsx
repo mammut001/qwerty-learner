@@ -1192,6 +1192,9 @@ export default function StudyPlanPage() {
                     </div>
                     <div className="flex items-center gap-2 text-sm font-medium text-gray-500">
                       <span>已记录 {dayActual} min</span>
+                      {dayPlannedMinutes > 0 && dayActual > dayPlannedMinutes && (
+                        <span className="text-gray-400">超出 {dayActual - dayPlannedMinutes} min</span>
+                      )}
                       {dayMissed && dayPlannedMinutes - dayActual > 0 && (
                         <span className="text-gray-400">还差 {dayPlannedMinutes - dayActual} min</span>
                       )}
