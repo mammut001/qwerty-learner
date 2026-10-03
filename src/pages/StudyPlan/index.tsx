@@ -1376,9 +1376,17 @@ export default function StudyPlanPage() {
                       </>
                     )}
                     {!active && previewWeek >= item.weeks[0] && previewWeek <= item.weeks[1] && (
-                      <span className="font-normal text-gray-400 dark:text-gray-500">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          document
+                            .getElementById(`study-roadmap-week-${previewWeek}`)
+                            ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                        }
+                        className="font-normal text-gray-400 underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:text-gray-500 dark:hover:text-indigo-300"
+                      >
                         正在预览第 {previewWeek} 周
-                      </span>
+                      </button>
                     )}
                     <span className="font-normal text-gray-400 dark:text-gray-500">
                       {toDateKey(roadmapPhaseStart)} · {toDateKey(roadmapPhaseEnd)}
