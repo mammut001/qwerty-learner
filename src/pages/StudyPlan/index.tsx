@@ -432,6 +432,15 @@ export default function StudyPlanPage() {
     const complete = plannedMinutes > 0 && actualMinutes >= plannedMinutes
     return item.key < todayKey && plannedMinutes > 0 && !complete
   }).length
+  const earliestMissedDayKey = currentPlanWeekDays.reduce<string | null>((earliest, item) => {
+    const tasks = storage.minimumMode[item.key] ? minimumModeTasks : item.day.tasks
+    const plannedMinutes = tasks.reduce((sum, task) => sum + task.minutes, 0)
+    const actualMinutes = actualMinutesForTasks(item.key, tasks)
+    const complete = plannedMinutes > 0 && actualMinutes >= plannedMinutes
+    const missed = item.key < todayKey && plannedMinutes > 0 && !complete
+    if (!missed) return earliest
+    return earliest === null || item.key < earliest ? item.key : earliest
+  }, null)
 
   const todayActualMinutes = actualMinutesForTasks(todayKey, todayTasks)
   const todayPlannedMinutes = todayTasks.reduce((sum, task) => sum + task.minutes, 0)
@@ -755,7 +764,21 @@ export default function StudyPlanPage() {
               </div>
               <div className="mt-1 text-sm text-gray-500">计划约 {minutesLabel(weeklyPlannedMinutes)}（≈ 7 小时）</div>
               <div className="mt-1 text-sm text-gray-500">完成 {weeklyCompletedDays} / 7 天</div>
-              <div className="mt-1 text-sm text-gray-500">未完成 {weeklyMissedDays} 天</div>
+              {weeklyMissedDays > 0 && earliestMissedDayKey ? (
+                <button
+                  type="button"
+                  onClick={() =>
+                    document
+                      .getElementById(`study-week-day-${earliestMissedDayKey}`)
+                      ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                  }
+                  className="mt-1 text-sm text-gray-500 underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:hover:text-indigo-300"
+                >
+                  未完成 {weeklyMissedDays} 天
+                </button>
+              ) : (
+                <div className="mt-1 text-sm text-gray-500">未完成 {weeklyMissedDays} 天</div>
+              )}
             </div>
             <div className="rounded-2xl bg-gray-50 p-4 dark:bg-gray-900">
               <div className="text-xs text-gray-400">连续性</div>
@@ -1054,6 +1077,7 @@ export default function StudyPlanPage() {
 
               return (
                 <div
+                  id={`study-week-day-${key}`}
                   key={key}
                   className={`rounded-2xl border p-5 ${
                     isToday
