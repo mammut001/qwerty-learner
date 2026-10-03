@@ -985,9 +985,16 @@ export default function StudyPlanPage() {
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1 text-sm text-gray-500">
-                <IconClock />
-                今天 {todayActualMinutes} / {todayPlannedMinutes} min
+              <div className="flex items-center gap-2 text-sm text-gray-500">
+                <div className="flex items-center gap-1">
+                  <IconClock />
+                  今天 {todayActualMinutes} / {todayPlannedMinutes} min
+                </div>
+                {todayPlannedMinutes > 0 && todayActualMinutes >= todayPlannedMinutes && (
+                  <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700 dark:bg-green-950 dark:text-green-300">
+                    完成
+                  </span>
+                )}
               </div>
               <button
                 type="button"
