@@ -955,7 +955,7 @@ export default function StudyPlanPage() {
                     onClick={() => setPreviewWeek(currentWeek)}
                     className="text-xs font-normal text-gray-400 underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:hover:text-indigo-300"
                   >
-                    不是当前周
+                    改回第 {currentWeek} 周
                   </button>
                 )}
                 <span className="text-xs font-normal text-gray-400">
