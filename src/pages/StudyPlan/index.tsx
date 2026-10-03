@@ -279,7 +279,7 @@ export default function StudyPlanPage() {
     return () => {
       cancelled = true
     }
-  }, [previewDictionary?.id])
+  }, [previewDictionary?.id, previewWeek])
 
   const previewErrorWordsStatus =
     previewErrorWordsState.dictId === previewDictionary?.id ? previewErrorWordsState.status : 'loading'
