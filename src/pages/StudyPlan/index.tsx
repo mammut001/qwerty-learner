@@ -199,6 +199,8 @@ export default function StudyPlanPage() {
   const currentWeekIndex = Math.min(25, Math.floor(dayOffset / 7))
   const currentWeek = currentWeekIndex + 1
   const phase = getStudyPhase(currentWeek)
+  const phaseStartDate = addDays(startDate, (phase.weeks[0] - 1) * 7)
+  const phaseEndDate = addDays(startDate, phase.weeks[1] * 7 - 1)
   const phaseProgress = Math.min(100, Math.round((currentWeek / 26) * 100))
   const targetDictionary = idDictionaryMap[weekDictionaryIds[currentWeek]]
   const [previewWeek, setPreviewWeek] = useState(currentWeek)
@@ -782,6 +784,9 @@ export default function StudyPlanPage() {
               <div className="text-xs text-indigo-500">当前阶段</div>
               <div className="mt-1 font-semibold text-gray-900 dark:text-white">
                 第 {phase.weeks[0]}–{phase.weeks[1]} 周 · {phase.name}
+              </div>
+              <div className="mt-1 text-sm text-indigo-400">
+                {toDateKey(phaseStartDate)} · {toDateKey(phaseEndDate)}
               </div>
               <div className="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-300">{phase.state}</div>
             </div>
