@@ -318,6 +318,27 @@ export default function StudyPlanPage() {
         })()
       : null
   const previewMistakenWordCount = previewMistakeSummary?.total ?? null
+
+  useEffect(() => {
+    if (selectedMistakeChapter === null) return
+
+    if (previewWordListError || previewErrorWordsStatus === 'error') {
+      setSelectedMistakeChapter(null)
+      setPreviewPage(1)
+      return
+    }
+
+    if (!previewMistakeSummary) return
+
+    const selectedChapterStillExists = previewMistakeSummary.chapters.some(
+      ({ chapter }) => chapter === selectedMistakeChapter,
+    )
+    if (!selectedChapterStillExists) {
+      setSelectedMistakeChapter(null)
+      setPreviewPage(1)
+    }
+  }, [previewErrorWordsStatus, previewMistakeSummary, previewWordListError, selectedMistakeChapter])
+
   const isMistakeFilterActive = onlyMistakenPreviewWords && previewErrorWordsStatus === 'ready'
   const isMistakeChapterFilterActive =
     selectedMistakeChapter !== null &&
@@ -723,7 +744,11 @@ export default function StudyPlanPage() {
               {previewDictionary && !isPreviewWordListLoading && !previewWordListError && previewWordList && (
                 <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                   {normalizedPreviewFilter || isMistakeFilterActive || isMistakeChapterFilterActive
-                    ? `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 显示了 ${previewWords.length} 个`
+                    ? `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 显示了 ${previewWords.length} 个${
+                        isMistakeChapterFilterActive && selectedMistakeChapter !== null
+                          ? ` · 正在看第 ${selectedMistakeChapter} 章错过的词`
+                          : ''
+                      }`
                     : previewWordList.length < PREVIEW_PAGE_SIZE
                       ? `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 已全部显示`
                       : `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 显示了 ${previewWords.length} 个`}
