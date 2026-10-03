@@ -949,7 +949,15 @@ export default function StudyPlanPage() {
                 <span className="text-xs font-normal text-gray-400">
                   这一阶段还剩 {getStudyPhase(previewWeek).weeks[1] - previewWeek} 周
                 </span>
-                {previewWeek !== currentWeek && <span className="text-xs font-normal text-gray-400">不是当前周</span>}
+                {previewWeek !== currentWeek && (
+                  <button
+                    type="button"
+                    onClick={() => setPreviewWeek(currentWeek)}
+                    className="text-xs font-normal text-gray-400 underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:hover:text-indigo-300"
+                  >
+                    不是当前周
+                  </button>
+                )}
                 <span className="text-xs font-normal text-gray-400">
                   {toDateKey(previewWeekStart)} · {toDateKey(previewWeekEnd)}
                 </span>
