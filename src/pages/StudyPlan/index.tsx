@@ -809,7 +809,7 @@ export default function StudyPlanPage() {
                   >
                     未完成 {weeklyMissedDays} 天
                   </button>
-                  <span className="text-gray-400">最早是{earliestMissedDayName}</span>
+                  <span className="text-gray-400">最早是{earliestMissedDayName} · {earliestMissedDayKey}</span>
                   {earliestMissedDayRemainingMinutes !== null && earliestMissedDayRemainingMinutes > 0 && (
                     <span className="text-gray-400">还差 {earliestMissedDayRemainingMinutes} min</span>
                   )}
