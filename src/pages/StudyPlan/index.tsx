@@ -910,6 +910,7 @@ export default function StudyPlanPage() {
                 <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs text-indigo-600 dark:bg-indigo-950 dark:text-indigo-300">
                   正在预览第 {previewWeek} 周
                 </span>
+                <span className="text-xs font-normal text-gray-400">{getStudyPhase(previewWeek).name}</span>
                 {previewWeek !== currentWeek && <span className="text-xs font-normal text-gray-400">不是当前周</span>}
                 <span className="text-xs font-normal text-gray-400">
                   {toDateKey(previewWeekStart)} · {toDateKey(previewWeekEnd)}
