@@ -219,6 +219,8 @@ export default function StudyPlanPage() {
   } = useSWR(previewDictionary?.url ?? null, wordListFetcher)
 
   const normalizedPreviewFilter = previewFilter.trim().toLocaleLowerCase()
+  const hasPreviewFilters =
+    Boolean(normalizedPreviewFilter) || onlyMistakenPreviewWords || selectedMistakeChapter !== null
   const filteredPreviewWords = normalizedPreviewFilter
     ? (previewWordList ?? []).filter((word) =>
         [word.name, word.notation ?? '', ...word.trans].some((value) =>
@@ -796,6 +798,21 @@ export default function StudyPlanPage() {
                   className="mt-1 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-gray-700 outline-none transition placeholder:text-gray-400 focus:border-indigo-400 disabled:cursor-not-allowed disabled:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:disabled:bg-gray-950"
                 />
               </label>
+
+              {hasPreviewFilters && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setPreviewFilter('')
+                    setOnlyMistakenPreviewWords(false)
+                    setSelectedMistakeChapter(null)
+                    setPreviewPage(1)
+                  }}
+                  className="w-fit rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800"
+                >
+                  清除筛选
+                </button>
+              )}
 
               <label
                 className={`flex items-center gap-2 text-sm ${
