@@ -222,7 +222,7 @@ export default function StudyPlanPage() {
     let actionLabel = task.actionLabel
 
     if (task.kind === 'vocabulary' && task.href === '/gallery' && targetDictionary) {
-      taskHref = `/?dict=${targetDictionary.id}`
+      taskHref = `/?dict=${targetDictionary.id}&studyDate=${dateKey}&studyTask=${task.id}`
       actionLabel = `练 ${targetDictionary.name}`
     } else if (task.href === '/grammar-session') {
       actionLabel = '练 Passé composé vs imparfait'
@@ -263,6 +263,7 @@ export default function StudyPlanPage() {
           {taskHref ? (
             <NavLink
               to={taskHref}
+              onClick={task.kind === 'vocabulary' ? () => saveStorage(storage) : undefined}
               className="flex items-center gap-1 rounded-lg bg-indigo-500 px-3 py-1.5 text-sm text-white transition hover:bg-indigo-600"
             >
               <IconPlayerPlay />

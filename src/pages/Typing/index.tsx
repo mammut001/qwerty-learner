@@ -20,8 +20,47 @@ import { useMixPanelChapterLogUploader } from '@/utils/mixpanel'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { NavLink, useSearchParams } from 'react-router-dom'
 import type React from 'react'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useImmerReducer } from 'use-immer'
+
+const STUDY_PLAN_STORAGE_KEY = 'qwerty-fr-study-plan-v1'
+const studyVocabularyTaskIds = new Set(['mon-vocab', 'fri-vocab', 'minimum-vocab'])
+
+const recordStudyPlanVocabularyMinutes = (dateKey: string, taskId: string, elapsedSeconds: number) => {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateKey) || !studyVocabularyTaskIds.has(taskId) || elapsedSeconds <= 0) return
+
+  try {
+    const raw = window.localStorage.getItem(STUDY_PLAN_STORAGE_KEY)
+    if (!raw) return
+
+    const storage = JSON.parse(raw) as {
+      startDate?: string
+      minutes?: Record<string, Record<string, number>>
+      minimumMode?: Record<string, boolean>
+    }
+    const chapterMinutes = Math.max(1, Math.ceil(elapsedSeconds / 60))
+    const existingMinutes = storage.minutes?.[dateKey]?.[taskId] ?? 0
+    const nextMinutes = Math.max(existingMinutes, chapterMinutes)
+
+    if (nextMinutes === existingMinutes) return
+
+    window.localStorage.setItem(
+      STUDY_PLAN_STORAGE_KEY,
+      JSON.stringify({
+        ...storage,
+        minutes: {
+          ...(storage.minutes ?? {}),
+          [dateKey]: {
+            ...(storage.minutes?.[dateKey] ?? {}),
+            [taskId]: nextMinutes,
+          },
+        },
+      }),
+    )
+  } catch {
+    // Keep the typing result usable if the study-plan storage is unavailable or malformed.
+  }
+}
 
 const App: React.FC = () => {
   const [state, dispatch] = useImmerReducer(typingReducer, structuredClone(initialState))
@@ -33,6 +72,9 @@ const App: React.FC = () => {
   const setReviewModeInfo = useSetAtom(reviewModeInfoAtom)
   const [searchParams, setSearchParams] = useSearchParams()
   const requestedDictId = searchParams.get('dict')
+  const studyDate = searchParams.get('studyDate')
+  const studyTaskId = searchParams.get('studyTask')
+  const recordedStudyPlanChapter = useRef(false)
   const randomConfig = useAtomValue(randomConfigAtom)
   const chapterLogUploader = useMixPanelChapterLogUploader(state)
   const saveChapterRecord = useSaveChapterRecord()
@@ -134,6 +176,17 @@ const App: React.FC = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.isFinished, state.isSavingRecord])
+
+  useEffect(() => {
+    if (!state.isFinished) {
+      recordedStudyPlanChapter.current = false
+      return
+    }
+    if (recordedStudyPlanChapter.current || !studyDate || !studyTaskId) return
+
+    recordStudyPlanVocabularyMinutes(studyDate, studyTaskId, state.timerData.time)
+    recordedStudyPlanChapter.current = true
+  }, [state.isFinished, state.timerData.time, studyDate, studyTaskId])
 
   useEffect(() => {
     // 启动计时器
