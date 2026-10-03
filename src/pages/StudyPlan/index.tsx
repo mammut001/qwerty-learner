@@ -1318,7 +1318,7 @@ export default function StudyPlanPage() {
                             {dictionary && (
                               <>
                                 <div className={`mt-1 leading-5 ${isCurrentWeek ? 'text-indigo-50' : 'text-gray-500 dark:text-gray-400'}`}>
-                                  {dictionary.name} · {dictionary.length} 词
+                                  {dictionary.name} · {dictionary.length} 词 · 共 {Math.ceil(dictionary.length / CHAPTER_LENGTH)} 章
                                 </div>
                                 {isCurrentWeek && (
                                   <div className="mt-1 flex items-center gap-2 text-xs text-indigo-100">
