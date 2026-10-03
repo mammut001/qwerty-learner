@@ -472,6 +472,8 @@ export default function StudyPlanPage() {
           <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {studyPhases.map((item) => {
               const active = item.id === phase.id
+              const weeks = Array.from({ length: item.weeks[1] - item.weeks[0] + 1 }, (_, index) => item.weeks[0] + index)
+
               return (
                 <div
                   key={item.id}
@@ -482,11 +484,43 @@ export default function StudyPlanPage() {
                   }`}
                 >
                   <div className="text-xs font-medium text-indigo-500">
-                    第 {item.weeks[0]}–{item.weeks[1]} 周 {active ? '· 当前' : ''}
+                    第 {item.weeks[0]}–{item.weeks[1]} 周 {active ? '· 当前阶段' : ''}
                   </div>
                   <div className="mt-2 text-lg font-semibold text-gray-900 dark:text-white">{item.name}</div>
                   <div className="mt-2 text-sm font-medium text-gray-700 dark:text-gray-200">{item.goal}</div>
                   <div className="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">{item.state}</div>
+
+                  <div className="mt-4 space-y-2 border-t border-gray-100 pt-4 dark:border-gray-700">
+                    {weeks.map((week) => {
+                      const dictionary = idDictionaryMap[weekDictionaryIds[week]]
+                      const isCurrentWeek = week === currentWeek
+
+                      return (
+                        <div
+                          key={week}
+                          className={`rounded-xl px-3 py-2 text-sm ${
+                            isCurrentWeek
+                              ? 'bg-indigo-500 text-white shadow-sm'
+                              : 'bg-gray-50 text-gray-600 dark:bg-gray-900 dark:text-gray-300'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between gap-3">
+                            <span className={`font-medium ${isCurrentWeek ? 'text-white' : 'text-gray-700 dark:text-gray-200'}`}>
+                              第 {week} 周
+                            </span>
+                            {isCurrentWeek && (
+                              <span className="rounded-full bg-white/20 px-2 py-0.5 text-[11px] font-medium text-white">当前周</span>
+                            )}
+                          </div>
+                          {dictionary && (
+                            <div className={`mt-1 leading-5 ${isCurrentWeek ? 'text-indigo-50' : 'text-gray-500 dark:text-gray-400'}`}>
+                              {dictionary.name} · {dictionary.length} 词
+                            </div>
+                          )}
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
               )
             })}
