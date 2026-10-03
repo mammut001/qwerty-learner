@@ -1376,6 +1376,9 @@ export default function StudyPlanPage() {
                     <span className="font-normal text-gray-400 dark:text-gray-500">
                       共 {item.weeks[1] - item.weeks[0] + 1} 周
                     </span>
+                    {item.weeks[1] < currentWeek && (
+                      <span className="font-normal text-gray-400 dark:text-gray-500">已过</span>
+                    )}
                     {active && (
                       <>
                         <span className="font-normal text-gray-400 dark:text-gray-500">
