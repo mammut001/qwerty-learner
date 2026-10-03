@@ -1441,7 +1441,7 @@ export default function StudyPlanPage() {
                                   第 {week} 周
                                 </NavLink>
                                 {week === previewWeek && !isCurrentWeek && (
-                                  <span className="rounded-md bg-indigo-50 px-1.5 py-0.5 text-xs text-indigo-600 dark:bg-indigo-950 dark:text-indigo-300">预览</span>
+                                  <span className="rounded-full bg-indigo-50 px-1.5 py-0.5 text-xs text-indigo-600 dark:bg-indigo-950 dark:text-indigo-300">预览</span>
                                 )}
                                 <NavLink
                                   to={weekHref}
