@@ -1086,7 +1086,21 @@ export default function StudyPlanPage() {
         <section className="mt-7">
           <div className="mb-4 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <div className="text-sm font-medium text-indigo-500">今日计划 · {todayPlan.name} · {todayKey}</div>
+              {currentPlanWeekDays.some((item) => item.key === todayKey) ? (
+                <button
+                  type="button"
+                  onClick={() =>
+                    document
+                      .getElementById(`study-week-day-${todayKey}`)
+                      ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                  }
+                  className="text-sm font-medium text-indigo-500 underline decoration-indigo-300 underline-offset-2 hover:text-indigo-600 dark:hover:text-indigo-300"
+                >
+                  今日计划 · {todayPlan.name} · {todayKey}
+                </button>
+              ) : (
+                <div className="text-sm font-medium text-indigo-500">今日计划 · {todayPlan.name} · {todayKey}</div>
+              )}
               <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">
                 {minimumMode ? '10 分钟最低模式' : todayPlan.totalLabel}
               </h2>
