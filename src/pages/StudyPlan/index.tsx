@@ -289,16 +289,33 @@ export default function StudyPlanPage() {
     previewErrorWordsState.dictId === previewDictionary?.id ? previewErrorWordsState.status : 'loading'
   const previewErrorWords =
     previewErrorWordsStatus === 'ready' ? previewErrorWordsState.words : new Set<string>()
-  const previewMistakenWordCount =
+  const previewMistakeSummary =
     previewErrorWordsStatus === 'ready' &&
     !isPreviewWordListLoading &&
     !previewWordListError &&
     previewWordList
       ? (() => {
-          const loadedWordNames = new Set(previewWordList.map((word) => word.name))
-          return Array.from(previewErrorWords).filter((wordName) => loadedWordNames.has(wordName)).length
+          const seenWordNames = new Set<string>()
+          const chapterCounts = new Map<number, number>()
+          let total = 0
+
+          previewWordList.forEach((word, index) => {
+            if (seenWordNames.has(word.name)) return
+            seenWordNames.add(word.name)
+            if (!previewErrorWords.has(word.name)) return
+
+            total += 1
+            const chapter = Math.floor(index / CHAPTER_LENGTH) + 1
+            chapterCounts.set(chapter, (chapterCounts.get(chapter) ?? 0) + 1)
+          })
+
+          return {
+            total,
+            chapters: Array.from(chapterCounts.entries()).map(([chapter, count]) => ({ chapter, count })),
+          }
         })()
       : null
+  const previewMistakenWordCount = previewMistakeSummary?.total ?? null
   const isMistakeFilterActive = onlyMistakenPreviewWords && previewErrorWordsStatus === 'ready'
   const matchedPreviewWords = isMistakeFilterActive
     ? filteredPreviewWords.filter((word) => previewErrorWords.has(word.name))
@@ -732,7 +749,16 @@ export default function StudyPlanPage() {
                   disabled={previewErrorWordsStatus !== 'ready'}
                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                 />
-                只看错过的{previewMistakenWordCount !== null ? `（${previewMistakenWordCount}）` : ''}
+                <span>只看错过的{previewMistakenWordCount !== null ? `（${previewMistakenWordCount}）` : ''}</span>
+                {previewMistakeSummary &&
+                  previewMistakeSummary.chapters.map(({ chapter, count }) => (
+                    <span
+                      key={chapter}
+                      className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500 dark:bg-gray-800 dark:text-gray-300"
+                    >
+                      第 {chapter} 章 {count} 个
+                    </span>
+                  ))}
               </label>
             </div>
           </div>
