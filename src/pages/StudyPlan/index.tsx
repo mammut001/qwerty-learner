@@ -37,6 +37,7 @@ type PreviewErrorWordsState = {
 
 const STORAGE_KEY = 'qwerty-fr-study-plan-v1'
 const DAY_MS = 24 * 60 * 60 * 1000
+const PREVIEW_PAGE_SIZE = 20
 
 const weekDictionaryIds: Record<number, string> = {
   1: 'tcf-canada-foundation-01',
@@ -202,6 +203,7 @@ export default function StudyPlanPage() {
   const [previewWeek, setPreviewWeek] = useState(currentWeek)
   const [previewFilter, setPreviewFilter] = useState('')
   const [onlyMistakenPreviewWords, setOnlyMistakenPreviewWords] = useState(false)
+  const [previewPage, setPreviewPage] = useState(1)
   const [previewErrorWordsState, setPreviewErrorWordsState] = useState<PreviewErrorWordsState>({
     dictId: '',
     status: 'loading',
@@ -231,6 +233,7 @@ export default function StudyPlanPage() {
   useEffect(() => {
     setPreviewFilter('')
     setOnlyMistakenPreviewWords(false)
+    setPreviewPage(1)
   }, [previewWeek])
 
   useEffect(() => {
@@ -290,7 +293,10 @@ export default function StudyPlanPage() {
   const matchedPreviewWords = isMistakeFilterActive
     ? filteredPreviewWords.filter((word) => previewErrorWords.has(word.name))
     : filteredPreviewWords
-  const previewWords = matchedPreviewWords.slice(0, 20)
+  const previewTotalPages = Math.max(1, Math.ceil(matchedPreviewWords.length / PREVIEW_PAGE_SIZE))
+  const currentPreviewPage = Math.min(previewPage, previewTotalPages)
+  const previewPageStart = (currentPreviewPage - 1) * PREVIEW_PAGE_SIZE
+  const previewWords = matchedPreviewWords.slice(previewPageStart, previewPageStart + PREVIEW_PAGE_SIZE)
 
   const conjugationHref =
     phase.id === 1
@@ -675,10 +681,10 @@ export default function StudyPlanPage() {
               {previewDictionary && !isPreviewWordListLoading && !previewWordListError && previewWordList && (
                 <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                   {normalizedPreviewFilter || isMistakeFilterActive
-                    ? `匹配了 ${matchedPreviewWords.length} 个 · 显示了 ${previewWords.length} 个（最多 20 个）`
-                    : previewWordList.length < 20
-                      ? `共 ${previewWordList.length} 词 · 已全部显示`
-                      : `共 ${previewWordList.length} 词 · 先看前 20 个`}
+                    ? `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 显示了 ${previewWords.length} 个`
+                    : previewWordList.length < PREVIEW_PAGE_SIZE
+                      ? `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 已全部显示`
+                      : `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 显示了 ${previewWords.length} 个`}
                 </p>
               )}
             </div>
@@ -689,7 +695,10 @@ export default function StudyPlanPage() {
                 <input
                   type="search"
                   value={previewFilter}
-                  onChange={(event) => setPreviewFilter(event.target.value)}
+                  onChange={(event) => {
+                    setPreviewFilter(event.target.value)
+                    setPreviewPage(1)
+                  }}
                   placeholder="按词名、notation 或中文释义"
                   disabled={isPreviewWordListLoading || Boolean(previewWordListError)}
                   className="mt-1 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-gray-700 outline-none transition placeholder:text-gray-400 focus:border-indigo-400 disabled:cursor-not-allowed disabled:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:disabled:bg-gray-950"
@@ -706,7 +715,10 @@ export default function StudyPlanPage() {
                 <input
                   type="checkbox"
                   checked={onlyMistakenPreviewWords}
-                  onChange={(event) => setOnlyMistakenPreviewWords(event.target.checked)}
+                  onChange={(event) => {
+                    setOnlyMistakenPreviewWords(event.target.checked)
+                    setPreviewPage(1)
+                  }}
                   disabled={previewErrorWordsStatus !== 'ready'}
                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                 />
@@ -737,8 +749,9 @@ export default function StudyPlanPage() {
                 正在加载第 {previewWeek} 周词库…
               </div>
             ) : previewWords.length > 0 ? (
-              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-                {previewWords.map((word, index) => {
+              <div>
+                <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+                  {previewWords.map((word, index) => {
                   const fullWordIndex = previewWordList?.indexOf(word) ?? -1
                   const chapterIndex = fullWordIndex >= 0 ? Math.floor(fullWordIndex / CHAPTER_LENGTH) : null
                   const chapter = chapterIndex !== null ? chapterIndex + 1 : null
@@ -778,8 +791,33 @@ export default function StudyPlanPage() {
                         </div>
                       )}
                     </NavLink>
-                  )
-                })}
+                    )
+                  })}
+                </div>
+
+                {previewTotalPages > 1 && (
+                  <div className="mt-4 flex items-center justify-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setPreviewPage(Math.max(1, currentPreviewPage - 1))}
+                      disabled={currentPreviewPage <= 1}
+                      className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300"
+                    >
+                      上一页
+                    </button>
+                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                      第 {currentPreviewPage} 页 / 共 {previewTotalPages} 页
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setPreviewPage(Math.min(previewTotalPages, currentPreviewPage + 1))}
+                      disabled={currentPreviewPage >= previewTotalPages}
+                      className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300"
+                    >
+                      下一页
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="rounded-2xl bg-gray-50 px-4 py-5 text-sm text-gray-500 dark:bg-gray-900 dark:text-gray-400">
