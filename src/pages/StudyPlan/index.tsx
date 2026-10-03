@@ -225,6 +225,13 @@ export default function StudyPlanPage() {
   const minimumMode = Boolean(storage.minimumMode[todayKey])
   const todayTasks = minimumMode ? minimumModeTasks : todayPlan.tasks
   const todayVocabularyTask = todayTasks.find((task) => task.kind === 'vocabulary' && task.href === '/gallery')
+  const previewTrackingQuery =
+    previewWeek === currentWeek && todayVocabularyTask
+      ? `&studyDate=${todayKey}&studyTask=${todayVocabularyTask.id}`
+      : ''
+  const previewPracticeHref = previewDictionary
+    ? `/?dict=${encodeURIComponent(previewDictionary.id)}${previewTrackingQuery}`
+    : '/'
 
   const planWeekStart = addDays(startDate, currentWeekIndex * 7)
   const currentPlanWeekDays = Array.from({ length: 7 }, (_, index) => {
@@ -626,7 +633,14 @@ export default function StudyPlanPage() {
             ) : previewWords.length > 0 ? (
               <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
                 {previewWords.map((word, index) => (
-                  <div key={`${word.name}-${index}`} className="rounded-xl bg-gray-50 px-3 py-2 dark:bg-gray-900">
+                  <NavLink
+                    key={`${word.name}-${index}`}
+                    to={previewPracticeHref}
+                    onClick={
+                      previewWeek === currentWeek && todayVocabularyTask ? () => saveStorage(storage) : undefined
+                    }
+                    className="rounded-xl bg-gray-50 px-3 py-2 transition hover:bg-indigo-50 dark:bg-gray-900 dark:hover:bg-gray-700"
+                  >
                     <div className="font-medium text-gray-900 dark:text-gray-100">{word.name}</div>
                     {word.notation && (
                       <div className="mt-1 text-xs font-medium text-indigo-500 dark:text-indigo-300">{word.notation}</div>
@@ -636,7 +650,7 @@ export default function StudyPlanPage() {
                         {word.trans.slice(0, 2).join('；')}
                       </div>
                     )}
-                  </div>
+                  </NavLink>
                 ))}
               </div>
             ) : (
