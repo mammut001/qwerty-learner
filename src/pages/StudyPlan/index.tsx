@@ -1420,7 +1420,7 @@ export default function StudyPlanPage() {
                         <div
                           id={`study-roadmap-week-${week}`}
                           key={week}
-                          className={`flex items-stretch gap-2 rounded-xl p-1 text-sm transition ${
+                          className={`relative flex items-stretch gap-2 rounded-xl p-1 text-sm transition ${
                             isCurrentWeek
                               ? 'bg-indigo-500 text-white shadow-sm'
                               : 'bg-gray-50 text-gray-600 dark:bg-gray-900 dark:text-gray-300'
@@ -1438,9 +1438,7 @@ export default function StudyPlanPage() {
                                 <span className={`font-medium ${isCurrentWeek ? 'text-white' : 'text-gray-700 dark:text-gray-200'}`}>
                                   第 {week} 周
                                 </span>
-                                {week === previewWeek && !isCurrentWeek && (
-                                  <span className="text-xs text-gray-400 dark:text-gray-500">预览</span>
-                                )}
+                                {week === previewWeek && !isCurrentWeek && <span className="inline-block w-6" aria-hidden="true" />}
                                 <span className={`text-xs ${isCurrentWeek ? 'text-indigo-100' : 'text-gray-400 dark:text-gray-500'}`}>
                                   {toDateKey(roadmapWeekStart)} · {toDateKey(roadmapWeekEnd)}
                                 </span>
@@ -1473,6 +1471,12 @@ export default function StudyPlanPage() {
                               </>
                             )}
                           </NavLink>
+                          {week === previewWeek && !isCurrentWeek && (
+                            <span className="absolute left-3 top-2 flex items-center gap-2">
+                              <span className="invisible font-medium">第 {week} 周</span>
+                              <span className="text-xs text-gray-400 dark:text-gray-500">预览</span>
+                            </span>
+                          )}
                           <button
                             type="button"
                             onClick={() => {
