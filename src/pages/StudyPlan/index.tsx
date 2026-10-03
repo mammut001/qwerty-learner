@@ -1247,6 +1247,9 @@ export default function StudyPlanPage() {
                                 {isCurrentWeek && (
                                   <div className="mt-1 flex items-center gap-2 text-xs text-indigo-100">
                                     <span>本周已记录 {minutesLabel(weeklyActualMinutes)}</span>
+                                    {weeklyPlannedMinutes > 0 && weeklyPlannedMinutes - weeklyActualMinutes > 0 && (
+                                      <span>还差 {weeklyPlannedMinutes - weeklyActualMinutes} min</span>
+                                    )}
                                     {weeklyPlannedMinutes > 0 && weeklyActualMinutes >= weeklyPlannedMinutes && (
                                       <span className="rounded-full bg-white/20 px-2 py-0.5 font-medium text-white">
                                         完成
