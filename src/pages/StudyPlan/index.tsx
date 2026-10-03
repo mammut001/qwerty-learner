@@ -808,8 +808,9 @@ export default function StudyPlanPage() {
               <div className="mt-1 text-sm text-indigo-400">
                 {toDateKey(phaseStartDate)} · {toDateKey(phaseEndDate)}
               </div>
-              <div className="mt-1 text-sm text-indigo-400">
-                本阶段第 {currentWeek - phase.weeks[0] + 1} / {phase.weeks[1] - phase.weeks[0] + 1} 周
+              <div className="mt-1 flex flex-wrap items-center gap-2 text-sm text-indigo-400">
+                <span>本阶段第 {currentWeek - phase.weeks[0] + 1} / {phase.weeks[1] - phase.weeks[0] + 1} 周</span>
+                <span>本阶段还剩 {phase.weeks[1] - currentWeek} 周</span>
               </div>
               <div className="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-300">{phase.state}</div>
             </div>
