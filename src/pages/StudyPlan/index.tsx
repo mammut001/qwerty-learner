@@ -419,6 +419,12 @@ export default function StudyPlanPage() {
     const tasks = storage.minimumMode[item.key] ? minimumModeTasks : item.day.tasks
     return total + actualMinutesForTasks(item.key, tasks)
   }, 0)
+  const weeklyCompletedDays = currentPlanWeekDays.filter((item) => {
+    const tasks = storage.minimumMode[item.key] ? minimumModeTasks : item.day.tasks
+    const plannedMinutes = tasks.reduce((sum, task) => sum + task.minutes, 0)
+    const actualMinutes = actualMinutesForTasks(item.key, tasks)
+    return plannedMinutes > 0 && actualMinutes >= plannedMinutes
+  }).length
 
   const todayActualMinutes = actualMinutesForTasks(todayKey, todayTasks)
   const todayPlannedMinutes = todayTasks.reduce((sum, task) => sum + task.minutes, 0)
@@ -741,6 +747,7 @@ export default function StudyPlanPage() {
                 )}
               </div>
               <div className="mt-1 text-sm text-gray-500">计划约 {minutesLabel(weeklyPlannedMinutes)}（≈ 7 小时）</div>
+              <div className="mt-1 text-sm text-gray-500">完成 {weeklyCompletedDays} / 7 天</div>
             </div>
             <div className="rounded-2xl bg-gray-50 p-4 dark:bg-gray-900">
               <div className="text-xs text-gray-400">连续性</div>
