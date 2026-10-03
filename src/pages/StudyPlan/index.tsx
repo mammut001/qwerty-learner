@@ -910,7 +910,17 @@ export default function StudyPlanPage() {
                 <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs text-indigo-600 dark:bg-indigo-950 dark:text-indigo-300">
                   正在预览第 {previewWeek} 周
                 </span>
-                <span className="text-xs font-normal text-gray-400">{getStudyPhase(previewWeek).name}</span>
+                <button
+                  type="button"
+                  onClick={() =>
+                    document
+                      .getElementById(`study-roadmap-phase-${getStudyPhase(previewWeek).id}`)
+                      ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  }
+                  className="text-xs font-normal text-gray-400 underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:hover:text-indigo-300"
+                >
+                  {getStudyPhase(previewWeek).name}
+                </button>
                 {previewWeek !== currentWeek && <span className="text-xs font-normal text-gray-400">不是当前周</span>}
                 <span className="text-xs font-normal text-gray-400">
                   {toDateKey(previewWeekStart)} · {toDateKey(previewWeekEnd)}
@@ -1317,6 +1327,7 @@ export default function StudyPlanPage() {
 
               return (
                 <div
+                  id={`study-roadmap-phase-${item.id}`}
                   key={item.id}
                   className={`rounded-2xl border p-5 ${
                     active
