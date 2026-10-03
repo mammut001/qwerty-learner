@@ -18,7 +18,7 @@ import { IsDesktop, isLegal } from '@/utils'
 import { useSaveChapterRecord } from '@/utils/db'
 import { useMixPanelChapterLogUploader } from '@/utils/mixpanel'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useSearchParams } from 'react-router-dom'
 import type React from 'react'
 import { useCallback, useEffect, useState } from 'react'
 import { useImmerReducer } from 'use-immer'
@@ -30,12 +30,34 @@ const App: React.FC = () => {
 
   const [currentDictId, setCurrentDictId] = useAtom(currentDictIdAtom)
   const setCurrentChapter = useSetAtom(currentChapterAtom)
+  const setReviewModeInfo = useSetAtom(reviewModeInfoAtom)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const requestedDictId = searchParams.get('dict')
   const randomConfig = useAtomValue(randomConfigAtom)
   const chapterLogUploader = useMixPanelChapterLogUploader(state)
   const saveChapterRecord = useSaveChapterRecord()
 
   const reviewModeInfo = useAtomValue(reviewModeInfoAtom)
   const isReviewMode = useAtomValue(isReviewModeAtom)
+
+  useEffect(() => {
+    if (!requestedDictId || !(requestedDictId in idDictionaryMap)) return
+
+    setCurrentDictId(requestedDictId)
+    setCurrentChapter(0)
+    setReviewModeInfo((old) => ({ ...old, isReviewMode: false }))
+
+    const nextSearchParams = new URLSearchParams(searchParams)
+    nextSearchParams.delete('dict')
+    setSearchParams(nextSearchParams, { replace: true })
+  }, [
+    requestedDictId,
+    searchParams,
+    setCurrentChapter,
+    setCurrentDictId,
+    setReviewModeInfo,
+    setSearchParams,
+  ])
 
   useEffect(() => {
     // 检测用户设备

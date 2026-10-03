@@ -222,8 +222,8 @@ export default function StudyPlanPage() {
     let actionLabel = task.actionLabel
 
     if (task.kind === 'vocabulary' && task.href === '/gallery' && targetDictionary) {
-      taskHref = `/gallery?dict=${targetDictionary.id}`
-      actionLabel = `打开 ${targetDictionary.name}`
+      taskHref = `/?dict=${targetDictionary.id}`
+      actionLabel = `练 ${targetDictionary.name}`
     } else if (task.href === '/grammar-session') {
       actionLabel = '练 Passé composé vs imparfait'
     } else if (task.href === '/conjugation') {
