@@ -183,6 +183,7 @@ export default function StudyPlanPage() {
   const importInputRef = useRef<HTMLInputElement>(null)
   const [importMessage, setImportMessage] = useState('')
   const [pendingImport, setPendingImport] = useState<StudyPlanStorage | null>(null)
+  const [highlightedMissedDayKey, setHighlightedMissedDayKey] = useState<string | null>(null)
 
   const saveStorage = (next: StudyPlanStorage) => {
     setStorage(next)
@@ -441,6 +442,23 @@ export default function StudyPlanPage() {
     if (!missed) return earliest
     return earliest === null || item.key < earliest ? item.key : earliest
   }, null)
+  const highlightedMissedDayStillMissed =
+    highlightedMissedDayKey !== null &&
+    currentPlanWeekDays.some((item) => {
+      if (item.key !== highlightedMissedDayKey) return false
+      const tasks = storage.minimumMode[item.key] ? minimumModeTasks : item.day.tasks
+      const plannedMinutes = tasks.reduce((sum, task) => sum + task.minutes, 0)
+      const actualMinutes = actualMinutesForTasks(item.key, tasks)
+      const complete = plannedMinutes > 0 && actualMinutes >= plannedMinutes
+      return item.key < todayKey && plannedMinutes > 0 && !complete
+    })
+
+  useEffect(() => {
+    if (highlightedMissedDayKey === null) return
+    if (weeklyMissedDays === 0 || !highlightedMissedDayStillMissed) {
+      setHighlightedMissedDayKey(null)
+    }
+  }, [highlightedMissedDayKey, highlightedMissedDayStillMissed, weeklyMissedDays])
 
   const todayActualMinutes = actualMinutesForTasks(todayKey, todayTasks)
   const todayPlannedMinutes = todayTasks.reduce((sum, task) => sum + task.minutes, 0)
@@ -767,11 +785,12 @@ export default function StudyPlanPage() {
               {weeklyMissedDays > 0 && earliestMissedDayKey ? (
                 <button
                   type="button"
-                  onClick={() =>
+                  onClick={() => {
+                    setHighlightedMissedDayKey(earliestMissedDayKey)
                     document
                       .getElementById(`study-week-day-${earliestMissedDayKey}`)
                       ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-                  }
+                  }}
                   className="mt-1 text-sm text-gray-500 underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:hover:text-indigo-300"
                 >
                   未完成 {weeklyMissedDays} 天
@@ -1083,6 +1102,10 @@ export default function StudyPlanPage() {
                     isToday
                       ? 'border-indigo-300 bg-indigo-50/50 dark:border-indigo-800 dark:bg-indigo-950/20'
                       : 'border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800'
+                  } ${
+                    highlightedMissedDayStillMissed && highlightedMissedDayKey === key
+                      ? 'ring-2 ring-amber-400 ring-offset-2 dark:ring-offset-gray-900'
+                      : ''
                   }`}
                 >
                   <div className="flex flex-wrap items-center justify-between gap-3">
