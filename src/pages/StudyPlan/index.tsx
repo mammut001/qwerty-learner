@@ -444,6 +444,14 @@ export default function StudyPlanPage() {
   }, null)
   const earliestMissedDayName =
     currentPlanWeekDays.find((item) => item.key === earliestMissedDayKey)?.day.name ?? null
+  const earliestMissedDayRemainingMinutes = (() => {
+    const item = currentPlanWeekDays.find((dayItem) => dayItem.key === earliestMissedDayKey)
+    if (!item) return null
+    const tasks = storage.minimumMode[item.key] ? minimumModeTasks : item.day.tasks
+    const plannedMinutes = tasks.reduce((sum, task) => sum + task.minutes, 0)
+    const actualMinutes = actualMinutesForTasks(item.key, tasks)
+    return plannedMinutes - actualMinutes
+  })()
   const highlightedMissedDayStillMissed =
     highlightedMissedDayKey !== null &&
     currentPlanWeekDays.some((item) => {
@@ -799,6 +807,9 @@ export default function StudyPlanPage() {
                     未完成 {weeklyMissedDays} 天
                   </button>
                   <span className="text-gray-400">最早是{earliestMissedDayName}</span>
+                  {earliestMissedDayRemainingMinutes !== null && earliestMissedDayRemainingMinutes > 0 && (
+                    <span className="text-gray-400">还差 {earliestMissedDayRemainingMinutes} min</span>
+                  )}
                 </div>
               ) : (
                 <div className="mt-1 text-sm text-gray-500">未完成 {weeklyMissedDays} 天</div>
