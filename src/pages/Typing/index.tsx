@@ -70,6 +70,7 @@ const App: React.FC = () => {
   const setReviewModeInfo = useSetAtom(reviewModeInfoAtom)
   const [searchParams, setSearchParams] = useSearchParams()
   const requestedDictId = searchParams.get('dict')
+  const requestedChapter = searchParams.get('chapter')
   const requestedStudyDate = searchParams.get('studyDate')
   const requestedStudyTaskId = searchParams.get('studyTask')
   const studyPlanTracking = useRef<{ dateKey: string; taskId: string } | null>(null)
@@ -84,8 +85,16 @@ const App: React.FC = () => {
   useEffect(() => {
     if (!requestedDictId || !(requestedDictId in idDictionaryMap)) return
 
+    const requestedDictionary = idDictionaryMap[requestedDictId]
+    const parsedChapter =
+      requestedChapter !== null && /^\d+$/.test(requestedChapter) ? Number(requestedChapter) : -1
+    const nextChapter =
+      Number.isSafeInteger(parsedChapter) && parsedChapter >= 0 && parsedChapter < requestedDictionary.chapterCount
+        ? parsedChapter
+        : 0
+
     setCurrentDictId(requestedDictId)
-    setCurrentChapter(0)
+    setCurrentChapter(nextChapter)
     setReviewModeInfo((old) => ({ ...old, isReviewMode: false }))
 
     studyPlanTracking.current =
@@ -98,11 +107,13 @@ const App: React.FC = () => {
 
     const nextSearchParams = new URLSearchParams(searchParams)
     nextSearchParams.delete('dict')
+    nextSearchParams.delete('chapter')
     nextSearchParams.delete('studyDate')
     nextSearchParams.delete('studyTask')
     setSearchParams(nextSearchParams, { replace: true })
   }, [
     requestedDictId,
+    requestedChapter,
     requestedStudyDate,
     requestedStudyTaskId,
     searchParams,

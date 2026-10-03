@@ -740,12 +740,15 @@ export default function StudyPlanPage() {
               <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
                 {previewWords.map((word, index) => {
                   const fullWordIndex = previewWordList?.indexOf(word) ?? -1
-                  const chapter = fullWordIndex >= 0 ? Math.floor(fullWordIndex / CHAPTER_LENGTH) + 1 : null
+                  const chapterIndex = fullWordIndex >= 0 ? Math.floor(fullWordIndex / CHAPTER_LENGTH) : null
+                  const chapter = chapterIndex !== null ? chapterIndex + 1 : null
+                  const wordPracticeHref =
+                    chapterIndex !== null ? `${previewPracticeHref}&chapter=${chapterIndex}` : previewPracticeHref
 
                   return (
                     <NavLink
                       key={`${word.name}-${index}`}
-                      to={previewPracticeHref}
+                      to={wordPracticeHref}
                       onClick={
                         previewWeek === currentWeek && todayVocabularyTask ? () => saveStorage(storage) : undefined
                       }
