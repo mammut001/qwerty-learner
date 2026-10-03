@@ -376,7 +376,7 @@ export default function StudyPlanPage() {
           </div>
 
           <div className="mt-5 space-y-4">
-            {currentPlanWeekDays.map(({ date, key, day }) => {
+            {currentPlanWeekDays.map(({ key, day }) => {
               const dayMinimumMode = Boolean(storage.minimumMode[key])
               const dayTasks = dayMinimumMode ? minimumModeTasks : day.tasks
               const dayActual = actualMinutesForTasks(key, dayTasks)
