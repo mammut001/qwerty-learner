@@ -59,6 +59,8 @@
   },
   "scripts": {
     "dev": "vite",
+    "server": "node server/study-plan.mjs",
+    "test:backend": "node --test server/*.test.mjs",
     "start": "vite",
     "build": "cross-env CI=false vite build --base=./",
     "test": "echo \"No tests\"",

@@ -15,6 +15,7 @@ export default defineConfig(async ({ mode }) => {
     return getLastCommit((err, commit) => (err ? 'unknown' : resolve(commit.shortHash)))
   })
   return {
+    server: { proxy: { '/api': 'http://127.0.0.1:8787' } },
     plugins: [
       react({ babel: { plugins: [jotaiDebugLabel, jotaiReactRefresh] } }),
       visualizer() as PluginOption,

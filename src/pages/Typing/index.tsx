@@ -1,3 +1,4 @@
+import { addStudyMinutes } from '@/services/studyPlanSync'
 import Layout from '../../components/Layout'
 import { DictChapterButton } from './components/DictChapterButton'
 import PronunciationSwitcher from './components/PronunciationSwitcher'
@@ -23,38 +24,13 @@ import type React from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useImmerReducer } from 'use-immer'
 
-const STUDY_PLAN_STORAGE_KEY = 'qwerty-fr-study-plan-v1'
 const studyVocabularyTaskIds = new Set(['mon-vocab', 'fri-vocab', 'minimum-vocab'])
 
 const recordStudyPlanVocabularyMinutes = (dateKey: string, taskId: string, elapsedSeconds: number) => {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(dateKey) || !studyVocabularyTaskIds.has(taskId) || elapsedSeconds <= 0) return
 
   try {
-    const raw = window.localStorage.getItem(STUDY_PLAN_STORAGE_KEY)
-    if (!raw) return
-
-    const storage = JSON.parse(raw) as {
-      startDate?: string
-      minutes?: Record<string, Record<string, number>>
-      minimumMode?: Record<string, boolean>
-    }
-    const chapterMinutes = Math.max(1, Math.ceil(elapsedSeconds / 60))
-    const existingMinutes = storage.minutes?.[dateKey]?.[taskId] ?? 0
-    const nextMinutes = existingMinutes + chapterMinutes
-
-    window.localStorage.setItem(
-      STUDY_PLAN_STORAGE_KEY,
-      JSON.stringify({
-        ...storage,
-        minutes: {
-          ...(storage.minutes ?? {}),
-          [dateKey]: {
-            ...(storage.minutes?.[dateKey] ?? {}),
-            [taskId]: nextMinutes,
-          },
-        },
-      }),
-    )
+    addStudyMinutes(dateKey, taskId, Math.max(1, Math.ceil(elapsedSeconds / 60)))
   } catch {
     // Keep the typing result usable if the study-plan storage is unavailable or malformed.
   }

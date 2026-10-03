@@ -1,3 +1,4 @@
+import { saveStudyPlan, subscribeStudyPlan, syncStudyPlan } from '@/services/studyPlanSync'
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { CHAPTER_LENGTH } from '@/constants'
@@ -5,13 +6,13 @@ import { idDictionaryMap } from '@/resources/dictionary'
 import { db } from '@/utils/db'
 import { wordListFetcher } from '@/utils/wordListFetcher'
 import {
+  type StudyTask,
+  type StudyTaskKind,
   getDayPlan,
   getStudyPhase,
   minimumModeTasks,
   studyPhases,
   weeklyStudyPlan,
-  type StudyTask,
-  type StudyTaskKind,
 } from '@/resources/studyPlan'
 import { type ChangeEvent, useEffect, useMemo, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
@@ -114,7 +115,7 @@ function parseImportedStorage(value: unknown): StudyPlanStorage | null {
 
     const dayMinutes: Record<string, number> = {}
     for (const [taskId, minuteValue] of Object.entries(dayValue)) {
-      if (!taskId || typeof minuteValue !== 'number' || !Number.isFinite(minuteValue) || minuteValue < 0) return null
+      if (!/^[a-z][a-z0-9-]{0,79}$/.test(taskId) || typeof minuteValue !== 'number' || !Number.isFinite(minuteValue) || minuteValue < 0 || minuteValue > 1000000) return null
       dayMinutes[taskId] = minuteValue
     }
     minutes[dateKey] = dayMinutes
@@ -185,12 +186,17 @@ export default function StudyPlanPage() {
   const [pendingImport, setPendingImport] = useState<StudyPlanStorage | null>(null)
   const [highlightedMissedDayKey, setHighlightedMissedDayKey] = useState<string | null>(null)
 
+  useEffect(() => {
+    const unsubscribe = subscribeStudyPlan(setStorage, setImportMessage)
+    void syncStudyPlan(loadStorage(todayKey))
+    return unsubscribe
+  }, [todayKey])
+
   const saveStorage = (next: StudyPlanStorage) => {
-    setStorage(next)
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
+      saveStudyPlan(storage, next)
     } catch {
-      // The plan still works in-memory if localStorage is unavailable.
+      setImportMessage('无法保存记录，请检查浏览器存储空间后重试。')
     }
   }
 
