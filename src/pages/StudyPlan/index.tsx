@@ -1151,7 +1151,14 @@ export default function StudyPlanPage() {
         <section className="mt-10">
           <div>
             <div className="text-sm font-medium text-indigo-500">正常周 · 约 7 小时</div>
-            <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">本周安排</h2>
+            <div className="mt-1 flex flex-wrap items-baseline gap-2">
+              <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">本周安排</h2>
+              {currentPlanWeekDays.length === 7 && (
+                <span className="text-sm font-normal text-gray-400">
+                  {currentPlanWeekDays[0].key} · {currentPlanWeekDays[currentPlanWeekDays.length - 1].key}
+                </span>
+              )}
+            </div>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">五六日保持轻量；周四做 TCF 专项，周日只复盘错误。</p>
           </div>
 
