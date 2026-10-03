@@ -825,11 +825,27 @@ export default function StudyPlanPage() {
                 {activeRecentDays === 0 && <span className="text-sm text-gray-400">这三天都没学</span>}
               </div>
               <div className="mt-2 space-y-1 text-sm text-gray-500">
-                {recentThreeDays.map((item, index) => (
-                  <div key={item.key}>
-                    {['今天', '昨天', '前天'][index]} · {item.name} · {item.key} · {item.total > 0 ? '有' : '无'}
-                  </div>
-                ))}
+                {recentThreeDays.map((item, index) => {
+                  const isInCurrentPlanWeek = currentPlanWeekDays.some((dayItem) => dayItem.key === item.key)
+                  const label = `${['今天', '昨天', '前天'][index]} · ${item.name} · ${item.key} · ${item.total > 0 ? '有' : '无'}`
+
+                  return isInCurrentPlanWeek ? (
+                    <button
+                      key={item.key}
+                      type="button"
+                      onClick={() =>
+                        document
+                          .getElementById(`study-week-day-${item.key}`)
+                          ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                      }
+                      className="block text-left hover:text-indigo-600 dark:hover:text-indigo-300"
+                    >
+                      {label}
+                    </button>
+                  ) : (
+                    <div key={item.key}>{label}</div>
+                  )
+                })}
               </div>
               <div className="mt-1 text-sm text-gray-500">原则：可以少学，但尽量不要连续三天完全不碰法语。</div>
             </div>
