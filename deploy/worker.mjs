@@ -1,4 +1,5 @@
-import { apply, record, validate } from '../server/study-model.mjs'
+import { studyPolicy, sessionCookie } from '../server/study-http.mjs'
+import { apply, record, validate, importOperations, exportPlan } from '../server/study-model.mjs'
 
 const json = (status, data, headers = {}) => new Response(JSON.stringify(data), {
   status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', ...headers },
@@ -26,17 +27,18 @@ async function readBody(request) {
 
 export async function studyApi(request, env) {
   const path = new URL(request.url).pathname
-  if (path === '/api/health') {
-    try { await env.DB.prepare('SELECT revision FROM learners LIMIT 1').all(); return json(200, { ok: true, storage: 'd1' }) }
-    catch { return json(503, { error: 'Database not ready' }) }
+  const health = ['/api/health', '/health'].includes(path)
+  if (health) {
+    try {
+      await env.DB.prepare('SELECT id,state,revision FROM learners LIMIT 1').all()
+      await env.DB.prepare('SELECT learner,id,payload,revision FROM mutations LIMIT 1').all()
+      return json(200, { ok: true, storage: 'd1' })
+    } catch { return json(503, { error: 'Database not ready' }) }
   }
-  if (path !== '/api/study-plan') return json(404, { error: 'Not found' })
-  if (!['GET', 'POST', 'PATCH'].includes(request.method)) return json(405, { error: 'Method not allowed' }, { Allow: 'GET, POST, PATCH' })
-  // Fixed deployment origin, never inferred from Host or a forwarded header.
-  const origin = request.headers.get('origin')
-  if (!env.STUDY_ORIGIN || (env.STUDY_COOKIE_SECURE !== 'true' && !env.STUDY_ORIGIN.startsWith('http://localhost:'))) return json(503, { error: 'Origin configuration missing' })
-  if ((origin && origin !== env.STUDY_ORIGIN) || request.headers.get('sec-fetch-site') === 'cross-site') return json(403, { error: 'Origin rejected' })
-  if (request.method !== 'GET' && (origin !== env.STUDY_ORIGIN || request.headers.get('content-type')?.split(';')[0] !== 'application/json')) return json(403, { error: 'Same-origin JSON required' })
+  const importing = path === '/api/study-plan/import'
+  const exporting = path === '/api/study-plan/export'
+  if ((importing && request.method !== 'POST') || (exporting && request.method !== 'GET')) return json(405, { error: 'Method not allowed' })
+  if (!importing && !exporting && path !== '/api/study-plan') return json(404, { error: 'Not found' })
   const db = env.DB.withSession('first-primary')
   const token = /(?:^|;\s*)study_session=([a-f0-9]{64})(?:;|$)/.exec(request.headers.get('cookie') || '')?.[1]
   let learner = token ? await digest(token) : null
@@ -44,18 +46,22 @@ export async function studyApi(request, env) {
   let row = learner ? await getRow() : null
   const headers = {}
   if (!row) {
-    if (request.method !== 'GET') return json(401, { error: 'Load plan first' })
+    if (request.method !== 'GET' || exporting) return json(401, { error: 'Load plan first' })
     const next = randomToken()
     learner = await digest(next)
     await db.prepare('INSERT INTO learners(id) VALUES(?)').bind(learner).run()
     row = { state: null, revision: 0 }
-    headers['Set-Cookie'] = `study_session=${next}; Path=/api; HttpOnly; SameSite=Strict; Max-Age=31536000${env.STUDY_COOKIE_SECURE === 'true' ? '; Secure' : ''}`
+    headers['Set-Cookie'] = sessionCookie(next, { secure: env.STUDY_COOKIE_SECURE === 'true', sameSite: env.STUDY_COOKIE_SAME_SITE || 'strict' })
+  }
+  if (exporting) {
+    if (!row.state) return json(409, { error: 'Initialize plan first' })
+    return json(200, exportPlan(JSON.parse(row.state)))
   }
   if (request.method === 'GET') return json(200, { state: row.state ? JSON.parse(row.state) : null }, headers)
   let input
-  try { input = await readBody(request) }
+  try { input = await readBody(request); if (importing) input.operations = importOperations(input.backup) }
   catch (error) { return json(error instanceof RangeError ? 413 : 400, { error: 'Invalid request' }) }
-  if (request.method === 'POST') {
+  if (request.method === 'POST' && !importing) {
     try { validate(input.state) } catch { return json(400, { error: 'Invalid plan' }) }
     await db.prepare('UPDATE learners SET state=?,revision=revision+1 WHERE id=? AND state IS NULL').bind(JSON.stringify(input.state), learner).run()
     return json(200, { state: JSON.parse((await getRow()).state) })
@@ -90,8 +96,14 @@ export async function studyApi(request, env) {
 
 export default {
   async fetch(request, env) {
-    if (!new URL(request.url).pathname.startsWith('/api/')) return env.ASSETS.fetch(request)
-    try { return await studyApi(request, env) }
-    catch { return json(503, { error: 'Storage unavailable; retry later' }) }
+    const path = new URL(request.url).pathname
+    if (!path.startsWith('/api/') && path !== '/health') return env.ASSETS.fetch(request)
+    const policy = studyPolicy({ origin: env.STUDY_ORIGIN, secure: env.STUDY_COOKIE_SECURE === 'true', sameSite: env.STUDY_COOKIE_SAME_SITE || 'strict' }, request, ['/api/health', '/health'].includes(path))
+    if (policy.status) return policy.status === 204 ? new Response(null, { status: 204, headers: policy.headers }) : json(policy.status, { error: policy.status === 503 ? 'Invalid server configuration' : 'Request rejected' }, policy.headers)
+    let response
+    try { response = await studyApi(request, env) }
+    catch { response = json(503, { error: 'Storage unavailable; retry later' }) }
+    for (const [key, value] of Object.entries(policy.headers)) response.headers.set(key, value)
+    return response
   },
 }

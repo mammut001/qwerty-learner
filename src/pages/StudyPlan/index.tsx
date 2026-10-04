@@ -1,4 +1,4 @@
-import { saveStudyPlan, subscribeStudyPlan, syncStudyPlan } from '@/services/studyPlanSync'
+import { exportRemoteStudyPlan, importRemoteStudyPlan, saveStudyPlan, subscribeStudyPlan, syncStudyPlan } from '@/services/studyPlanSync'
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { CHAPTER_LENGTH } from '@/constants'
@@ -526,17 +526,22 @@ export default function StudyPlanPage() {
     })
   }
 
-  const exportStudyPlan = () => {
-    const blob = new Blob([JSON.stringify(storage, null, 2)], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    const anchor = document.createElement('a')
-    anchor.href = url
-    anchor.download = `qwerty-fr-study-plan-${todayKey}.json`
-    document.body.appendChild(anchor)
-    anchor.click()
-    anchor.remove()
-    URL.revokeObjectURL(url)
-    setImportMessage('已导出学习计划 JSON。')
+  const exportStudyPlan = async () => {
+    try {
+      const backup = await exportRemoteStudyPlan(storage)
+      const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' })
+      const url = URL.createObjectURL(blob)
+      const anchor = document.createElement('a')
+      anchor.href = url
+      anchor.download = `qwerty-fr-study-plan-${todayKey}.json`
+      document.body.appendChild(anchor)
+      anchor.click()
+      anchor.remove()
+      URL.revokeObjectURL(url)
+      setImportMessage('已导出服务端学习计划 JSON。')
+    } catch {
+      setImportMessage('导出失败：请确认服务端可用且待保存记录已同步；本机记录未修改。')
+    }
   }
 
   const importStudyPlan = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -548,7 +553,8 @@ export default function StudyPlanPage() {
 
     try {
       const parsed = JSON.parse(await file.text()) as unknown
-      const imported = parseImportedStorage(parsed)
+      const candidate = isRecord(parsed) && parsed.format === 'qwerty-study-plan' && parsed.version === 1 ? parsed.state : parsed
+      const imported = parseImportedStorage(candidate)
       if (!imported) {
         setImportMessage('导入失败：JSON 结构不符合学习计划格式，现有数据未修改。')
         return
@@ -561,11 +567,15 @@ export default function StudyPlanPage() {
     }
   }
 
-  const confirmImportStudyPlan = () => {
+  const confirmImportStudyPlan = async () => {
     if (!pendingImport) return
-    saveStorage(pendingImport)
-    setPendingImport(null)
-    setImportMessage('导入成功：学习计划数据已更新。')
+    try {
+      const saved = await importRemoteStudyPlan(storage, pendingImport)
+      setPendingImport(null)
+      setImportMessage(saved ? '导入成功：已保存到服务端。' : '导入已保留在本机队列，连接恢复后将同步到服务端。')
+    } catch {
+      setImportMessage('导入失败：无法保存，请检查浏览器存储。')
+    }
   }
 
   const cancelImportStudyPlan = () => {

@@ -29,11 +29,11 @@ The verified URL and database ID are saved in ignored `deploy/deployment.json`. 
 
 ## Origin, cookies and frontend routing
 
-The existing study-plan client requests **relative `/api/study-plan`**. There is no frontend API-base variable to set for the recommended deployment. The Worker serves `/api/*`; all other paths use static assets with SPA fallback. The script sets `STUDY_ORIGIN` to the actual public HTTPS origin and `STUDY_COOKIE_SECURE=true`. Session cookies are HttpOnly and SameSite Strict; cross-origin writes are rejected. CORS is unnecessary for this same-origin path.
+The existing study-plan client requests **relative `/api/study-plan`**. Leave `VITE_STUDY_API_BASE_URL` empty for the recommended same-origin deployment. A separate remote API can be selected at build time as described below. The Worker serves `/api/*`; all other paths use static assets with SPA fallback. The script sets `STUDY_ORIGIN` to the actual public HTTPS origin and `STUDY_COOKIE_SECURE=true`. Session cookies are HttpOnly and SameSite Strict; cross-origin writes are rejected. Same-origin hosting needs no CORS handshake. For separate origins, both backends implement exact-origin credentialed CORS; wildcard origins are rejected.
 
 Local Vite still proxies `/api` to `http://127.0.0.1:8787`. Run the Node backend with its default `STUDY_ORIGIN=http://localhost:5173`. The production Docker Nginx proxy sends `/api` to `http://study-api:8787` and serves the frontend at the same public origin.
 
-If an existing public Nginx frontend must use the Worker API, adapt `nginx-public-api.conf.example`, replacing `STUDY_WORKER_HOST` with the deployed Worker hostname. Set `STUDY_ORIGIN` in `deploy/.env` to that **frontend** HTTPS origin and rerun deployment. Keep the browser's original Origin and Cookie headers; enable upstream TLS verification/SNI as shown. The deployment smoke then runs through that frontend, which must already serve this frontend build and proxy `/api`. Do not point a GitHub Pages page directly at the Worker: Pages cannot provide this same-origin proxy.
+If an existing public Nginx frontend must use the Worker API, adapt `nginx-public-api.conf.example`, replacing `STUDY_WORKER_HOST` with the deployed Worker hostname. Set `STUDY_ORIGIN` in `deploy/.env` to that **frontend** HTTPS origin and rerun deployment. Keep the browser's original Origin and Cookie headers; enable upstream TLS verification/SNI as shown. The deployment smoke then runs through that frontend, which must already serve this frontend build and proxy `/api`. GitHub Pages cannot provide this same-origin proxy; it can use the direct remote mode below if browser cookie policy permits it.
 
 Browser identity is tied to the site's cookie. Refreshes and server restarts preserve state, but clearing cookies or changing domains creates a new identity. Use the existing page export/import to move records to a new origin; there is no cross-device login in this deployment.
 
@@ -58,7 +58,7 @@ Back up a running database with SQLite's backup API, or stop the API and copy th
 
 ## Automated verification
 
-`GET /api/health` returns 200 only when the configured database is readable (including the D1 schema); unavailable storage returns 503. It exposes no study records.
+`GET /health` and `GET /api/health` return JSON 200 only when both required database tables/columns are readable; unavailable storage or missing schema returns 503. Both aliases reject unsupported methods, disable caching, and never create a session. The Nginx and Worker routes reserve `/health` so SPA fallback cannot report a false healthy response. It exposes no study records.
 
 ```bash
 npm run test:backend
@@ -72,3 +72,78 @@ npm run smoke:study -- https://YOUR-PUBLIC-HOST
 The cloud test uses Wrangler's actual local D1 implementation, checks SPA routing and API behavior, stops and restarts the Worker against the same database, and verifies saved progress. The smoke checks migration, minutes, completion, concurrent increments, retry deduplication, browser isolation and rejected cross-origin writes. It creates a separate anonymous test identity; it does not alter another browser's records.
 
 The `Study plan persistence` GitHub Actions workflow builds frontend and Node Docker images, validates the production overlay, exercises the Nginx→Node path, and checks persistence after an API restart. A separate job builds and tests the Worker with real local D1. Neither CI job needs hosting secrets or deploys paid resources. Docker image validation runs in CI; Docker is required to run that job locally.
+
+## Separate frontend → remote Worker API
+
+This mode uses the existing anonymous browser identity, not a login account. Cookie replay restores the same records after refresh; a new device or cleared cookies has a different identity. No API key belongs in frontend JavaScript.
+
+1. In ignored `deploy/.env`, set `STUDY_REMOTE_API=true` and `STUDY_ORIGIN=https://YOUR-FRONTEND-HOST` (exact origin, no path/trailing slash). Run `npm run deploy:free`. It sets the Worker to `STUDY_COOKIE_SECURE=true`, `STUDY_COOKIE_SAME_SITE=none` and verifies the Worker API using the configured frontend Origin. D1's existing migration is sufficient; no schema change is required for CORS.
+2. Build the separately hosted frontend with the printed API origin:
+
+   ```bash
+   VITE_STUDY_API_BASE_URL=https://YOUR-APP.YOUR-SUBDOMAIN.workers.dev npm run build -- --base=/
+   ```
+
+   Or copy root `.env.example` to ignored `.env.local`, set only the Vite value, and rebuild. Vite replaces this **at build time**; changing container runtime environment does not change an already-built bundle. Docker accepts `--build-arg VITE_STUDY_API_BASE_URL=...`; Compose forwards the equivalent environment variable to the build. The value must be an HTTPS origin, with HTTP permitted only for localhost development. The client appends `/api/study-plan` and uses `credentials: include`.
+3. Publish that `build/` directory on the existing frontend host. No roadmap layout change is involved. For GitHub Pages under a repository path, use its existing appropriate Vite `--base` instead of `/`; the API origin stays absolute.
+
+The exact account step that cannot be performed without your Cloudflare connection is **My Profile → API Tokens → Create Token → Custom token → Continue to summary → Create Token**, scoped to the account and permissions listed above. Save it locally in `deploy/.env`; never paste it into this PR or chat. After the free account is linked, the single deploy command handles D1, migrations, the Worker and public API smoke. There is still no provisioned public URL in this repository.
+
+Cross-site requests require HTTPS and `SameSite=None; Secure`. Browsers that block third-party cookies can still reject this mode even with correct CORS; the page reports the missing session and retains queued records locally instead of reporting a successful save. For reliable operation across browser privacy modes, use the default Worker-hosted same-origin frontend or the documented same-origin Nginx proxy. CORS allows exactly `STUDY_ORIGIN`, includes credentials and `Vary: Origin`, and accepts only GET/POST/PATCH plus validated OPTIONS preflight. Arbitrary origins, `null`, unexpected headers, and non-JSON writes are rejected. Anonymous cookies stay HttpOnly and are never copied to localStorage.
+
+Pending operations are scoped by API base so switching deployments cannot replay an old server's mutation queue against a different server. Already-saved browser snapshots remain available for first-use migration; changing API base is an intentional move to a different storage/identity boundary.
+
+For a separate Node API, set the same `STUDY_ORIGIN`, `STUDY_COOKIE_SECURE=true`, and `STUDY_COOKIE_SAME_SITE=none` on the server behind HTTPS. Root `.env.example` is a template: direct `node server/study-plan.mjs` reads exported process variables, or start it with Node 24's `--env-file=.env.local`. Do not expose an HTTP production API.
+
+## Credential-free, persistent Workers preview
+
+From a Node 24 checkout, run exactly:
+
+```bash
+npm run preview:study
+```
+
+This installs locked dependencies, builds the same-origin frontend, applies all D1 migrations **locally**, and starts Wrangler at `http://localhost:8787/study-plan`. `/health` is available at that origin. No Cloudflare login, API token, payment or remote resource creation occurs. Stop with Ctrl+C and run the command again: records survive in ignored `deploy/.wrangler/state`. Open the same `localhost` hostname each time to retain the cookie. Do not delete that directory when checking restart persistence.
+
+CI additionally builds with a nonempty remote API base, verifies that the compiled bundle contains it, checks credentialed CORS and refresh persistence against both Node and actual local D1, and deliberately removes a D1 table to verify readiness becomes 503. Existing Docker CI exercises both health aliases through Nginx and saved-state persistence after restart.
+
+## Per-browser remote export and import
+
+The existing learning-plan export button now flushes pending changes and downloads **server state**, in `{format:"qwerty-study-plan", version:1, exportedAt, state}` JSON. It reports failure if the server is unavailable or queued changes remain; it does not silently substitute a local snapshot. The existing import picker/confirmation accepts this envelope and previous plain-state JSON files. Import replaces the current browser identity's plan atomically through the remote API. Offline imports stay in the durable mutation queue and retry after reconnect/reload. Layout and learning content are unchanged.
+
+- `GET /api/study-plan/export`: requires the current session and an initialized plan. Returns only this identity's progress, never cookies or other users' records.
+- `POST /api/study-plan/import`: same Origin/JSON/session requirements as other writes. Body is `{id:"UUID", backup:{format:"qwerty-study-plan",version:1,state:{...}}}`. Initialize the session/plan through the ordinary GET/POST flow first. A repeated ID with identical contents is a no-op; reusing it with other contents is rejected. A retry after later edits returns current state instead of replaying the replacement.
+- Invalid versions, oversized plans, invalid dates/tasks/minutes and cross-origin writes are rejected without changing saved data. The shared Node/D1 model uses existing mutation tables, so no extra migration is needed.
+
+Keep exported JSON private. It contains progress but no login secret. Importing on a second device provides a point-in-time copy; it is not continuous account synchronization.
+
+## Operator backup / restore: Docker SQLite
+
+A full database backup covers every anonymous identity and the deduplication ledger. It is separate from one-browser JSON export. With the production Compose command used by `scripts/deploy-vm.sh`, make a consistent online backup (including committed WAL changes):
+
+```bash
+docker compose --env-file deploy/.env.production -f docker-compose.yaml -f docker-compose.production.yaml exec study-api node server/sqlite-backup.mjs /data/study-plan.sqlite /tmp/study-backup.sqlite
+docker compose --env-file deploy/.env.production -f docker-compose.yaml -f docker-compose.production.yaml cp study-api:/tmp/study-backup.sqlite ./study-backup.sqlite
+```
+
+The helper refuses an existing destination; use a new filename per backup. Store the resulting file outside the VM securely. `/tmp` is temporary: copy it before restarting the container. Do not commit database backups.
+
+To restore, first stop the `study-api` service with the same Compose arguments. Save the entire existing `study-data` volume as a rollback copy. In a temporary maintenance container with that volume mounted, move **all three** existing `study-plan.sqlite`, `study-plan.sqlite-wal` and `study-plan.sqlite-shm` files out of the data directory (if present), then copy the verified standalone backup to `/data/study-plan.sqlite` and set its owner to the image's `node` user (UID 1000), mode 600. Never replace only the main file while retaining an old WAL or while Node is running. Start `study-api` again; verify `/api/health` and the same browser's progress. Keep the rollback volume until verification passes. A restore rolls back progress for every identity to the backup time; stop writes during restoration.
+
+## Operator backup / restore: Cloudflare D1
+
+Use the pinned Wrangler installed by the deploy command. These commands require the resource owner's existing local Cloudflare authorization; no secret is placed in command arguments. For a live database:
+
+```bash
+node --env-file=deploy/.env deploy/node_modules/wrangler/bin/wrangler.js d1 export DB --remote --config deploy/wrangler.production.json --output study-backup.sql
+```
+
+For the credential-free persistent local preview, replace `--remote --config deploy/wrangler.production.json` with `--local --config deploy/wrangler.json`.
+
+Restore the SQL into a **new, empty** D1 database rather than dropping the live tables. Create that database with Wrangler `d1 create`, copy the production config to an ignored restore config, and change only its D1 database name/ID to the new database. Run:
+
+```bash
+node --env-file=deploy/.env deploy/node_modules/wrangler/bin/wrangler.js d1 execute DB --remote --config deploy/wrangler.restore.json --file study-backup.sql
+```
+
+Pause incoming writes, point the Worker binding at the restored database, and deploy that reviewed config with `wrangler deploy --config deploy/wrangler.restore.json`. Verify readiness and a known browser's progress before resuming traffic. Keep the original database and config for rollback. The normal deploy script intentionally refuses an unrelated database name; after a deliberate restore, keep using the reviewed restore config or explicitly reconcile its stable database identity before resuming the normal deploy script. Do not run migrations to create duplicate tables before importing the full SQL export. Never commit the SQL, credentials, or generated restore config.

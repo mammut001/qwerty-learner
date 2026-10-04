@@ -17,7 +17,10 @@ export function apply(state, operations) {
   if (!Array.isArray(operations) || operations.length > 10000) throw new Error('Invalid operations')
   for (const op of operations) {
     if (!record(op)) throw new Error('Invalid operation')
-    if (op.kind === 'startDate' && date(op.value)) state.startDate = op.value
+    if (op.kind === 'replace') {
+      validate(op.value)
+      state = structuredClone(op.value)
+    } else if (op.kind === 'startDate' && date(op.value)) state.startDate = op.value
     else if (op.kind === 'mode' && date(op.day) && (op.value === null || typeof op.value === 'boolean')) {
       if (op.value === null) delete state.minimumMode[op.day]
       else state.minimumMode[op.day] = op.value
@@ -33,3 +36,12 @@ export function apply(state, operations) {
   return state
 }
 
+
+export function importOperations(backup) {
+  if (!record(backup) || backup.format !== 'qwerty-study-plan' || backup.version !== 1) throw new Error('Unsupported backup')
+  validate(backup.state)
+  return [{ kind: 'replace', value: backup.state }]
+}
+export function exportPlan(state) {
+  return { format: 'qwerty-study-plan', version: 1, exportedAt: new Date().toISOString(), state }
+}

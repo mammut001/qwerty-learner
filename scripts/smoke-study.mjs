@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import { randomUUID } from 'node:crypto'
 import { readFile, writeFile } from 'node:fs/promises'
 
-export async function smokeStudy(base, { saveSession, resumeSession } = {}) {
+export async function smokeStudy(base, { saveSession, resumeSession, frontendOrigin } = {}) {
   const url = new URL(base)
   assert.ok(url.protocol === 'https:' || ['localhost', '127.0.0.1'].includes(url.hostname), 'Public smoke requires HTTPS')
   const origin = url.origin
@@ -10,7 +10,7 @@ export async function smokeStudy(base, { saveSession, resumeSession } = {}) {
   const call = async (method, body, options = {}) => {
     const res = await fetch(`${origin}/api/study-plan`, {
       method, redirect: 'error', signal: AbortSignal.timeout(20000),
-      headers: { Cookie: options.cookie ?? cookie, Origin: options.origin ?? origin, ...(body ? { 'Content-Type': 'application/json' } : {}) },
+      headers: { Cookie: options.cookie ?? cookie, Origin: options.origin ?? frontendOrigin ?? origin, ...(body ? { 'Content-Type': 'application/json' } : {}) },
       body: body ? JSON.stringify(body) : undefined,
     })
     const data = await res.json()
@@ -18,6 +18,11 @@ export async function smokeStudy(base, { saveSession, resumeSession } = {}) {
   }
   const health = await fetch(`${origin}/api/health`, { signal: AbortSignal.timeout(20000) })
   assert.equal(health.status, 200, 'D1 health check')
+  const alias = await fetch(`${origin}/health`, { signal: AbortSignal.timeout(20000) })
+  assert.equal(alias.status, 200, '/health is API readiness, not SPA HTML')
+  assert.equal((await alias.json()).ok, true)
+  assert.equal(alias.headers.get('cache-control'), 'no-store')
+  assert.equal(alias.headers.get('set-cookie'), null)
   const page = await fetch(`${origin}/study-plan`, { signal: AbortSignal.timeout(20000) })
   assert.equal(page.status, 200, 'SPA deep link')
   assert.match(page.headers.get('content-type'), /text\/html/)
@@ -32,7 +37,7 @@ export async function smokeStudy(base, { saveSession, resumeSession } = {}) {
   let response = await call('GET')
   assert.equal(response.res.status, 200)
   const setCookie = response.res.headers.get('set-cookie')
-  assert.match(setCookie, /HttpOnly; SameSite=Strict/)
+  assert.match(setCookie, /HttpOnly; SameSite=(Strict|None)/)
   if (url.protocol === 'https:') assert.match(setCookie, /; Secure/)
   cookie = setCookie.split(';')[0]
   assert.equal(response.data.state, null)

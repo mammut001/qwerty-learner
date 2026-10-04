@@ -4,6 +4,7 @@ import { mkdtemp, readFile, writeFile, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { smokeCors } from './smoke-study-cors.mjs'
 import { smokeStudy } from './smoke-study.mjs'
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)))
@@ -54,6 +55,17 @@ try {
   await stop()
   await start()
   await smokeStudy(base, { resumeSession: session })
+  await smokeCors(base, base)
+  await stop()
+  config.vars.STUDY_ORIGIN = 'https://frontend.example.invalid'
+  config.vars.STUDY_COOKIE_SECURE = 'true'
+  config.vars.STUDY_COOKIE_SAME_SITE = 'none'
+  await writeFile(configPath, JSON.stringify(config))
+  await start()
+  await smokeCors(base, config.vars.STUDY_ORIGIN, { crossSite: true })
+  const broken = spawnSync(process.execPath, [wrangler, 'd1', 'execute', 'DB', '--local', '--command', 'DROP TABLE mutations', ...common], { cwd: root, env: environment, stdio: 'pipe' })
+  if (broken.status !== 0) throw new Error('Could not prepare readiness failure test')
+  if ((await fetch(`${base}/health`)).status !== 503) throw new Error('Readiness ignored missing database schema')
   console.log('PASS: deployed Worker adapter + real local D1 + SPA deep link + persistent restart')
 } finally {
   await stop()

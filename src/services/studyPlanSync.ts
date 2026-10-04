@@ -1,18 +1,29 @@
+// Empty means same-origin; set at Vite build time for a separate API deployment.
+export function studyApiBase(value = ''): string {
+  if (!value.trim()) return ''
+  const url = new URL(value.trim())
+  if (url.username || url.password || url.search || url.hash || url.pathname !== '/' ||
+      !(url.protocol === 'https:' || (url.protocol === 'http:' && ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname))))
+    throw new Error('VITE_STUDY_API_BASE_URL must be an HTTPS origin (HTTP is allowed only for local development).')
+  return url.origin
+}
+const API_BASE = studyApiBase(import.meta.env?.VITE_STUDY_API_BASE_URL)
 export type StudyPlanStorage = {
   startDate: string
   minutes: Record<string, Record<string, number>>
   minimumMode: Record<string, boolean>
 }
 type Operation = {
-  kind: 'startDate' | 'mode' | 'minutes' | 'increment'
+  kind: 'startDate' | 'mode' | 'minutes' | 'increment' | 'replace'
   day?: string
   task?: string
-  value: string | number | boolean | null
+  value: string | number | boolean | null | StudyPlanStorage
 }
 type Mutation = { id: string; operations: Operation[] }
 const KEY = 'qwerty-fr-study-plan-v1'
-const SEED = 'qwerty-fr-study-plan-migration'
-const PENDING = 'qwerty-fr-study-plan-pending:'
+const SEED = `qwerty-fr-study-plan-migration${API_BASE ? ':' + API_BASE : ''}`
+const PENDING = `qwerty-fr-study-plan-pending:${API_BASE ? API_BASE + ':' : ''}`
+const isPendingKey = (key: string) => key.startsWith(PENDING) && /^\d{16}:/.test(key.slice(PENDING.length))
 const listeners = new Set<(state: StudyPlanStorage) => void>()
 const statuses = new Set<(message: string) => void>()
 let running: Promise<void> | undefined
@@ -23,17 +34,18 @@ const publish = (state: StudyPlanStorage) => {
   localStorage.setItem(KEY, JSON.stringify(state))
   listeners.forEach((listener) => listener(state))
 }
-async function request(method: string, body?: unknown): Promise<StudyPlanStorage | null> {
+async function request(method: string, body?: unknown, path = ''): Promise<StudyPlanStorage | null> {
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), 10000)
   try {
-    const response = await fetch('/api/study-plan', {
+    const response = await fetch(`${API_BASE}/api/study-plan${path}`, {
       method,
-      credentials: 'same-origin',
+      credentials: 'include',
       signal: controller.signal,
       headers: body ? { 'Content-Type': 'application/json' } : undefined,
       body: body ? JSON.stringify(body) : undefined,
     })
+    if (response.status === 401) throw new Error('STUDY_SESSION_BLOCKED')
     if (!response.ok) throw new Error(`Study API: ${response.status}`)
     return (await response.json()).state
   } finally {
@@ -42,7 +54,7 @@ async function request(method: string, body?: unknown): Promise<StudyPlanStorage
 }
 function pending(): Mutation[] {
   return Object.keys(localStorage)
-    .filter((key) => key.startsWith(PENDING))
+    .filter(isPendingKey)
     .sort()
     .map((key) => JSON.parse(localStorage.getItem(key) || 'null') as Mutation)
 }
@@ -53,10 +65,12 @@ async function drain() {
     const next = pending()[0]
     if (!next) break
     statuses.forEach((listener) => listener('正在保存到服务端…'))
-    state = await request('PATCH', next)
+    state = next.operations.length === 1 && next.operations[0].kind === 'replace'
+      ? await request('POST', { id: next.id, backup: { format: 'qwerty-study-plan', version: 1, state: next.operations[0].value } }, '/import')
+      : await request('PATCH', next)
     // Delete only this acknowledged operation, never the entire pending queue.
     for (const key of Object.keys(localStorage)) {
-      if (key.startsWith(PENDING) && JSON.parse(localStorage.getItem(key) || 'null').id === next.id) localStorage.removeItem(key)
+      if (isPendingKey(key) && JSON.parse(localStorage.getItem(key) || 'null').id === next.id) localStorage.removeItem(key)
     }
   }
   if (state) publish(state)
@@ -80,8 +94,10 @@ export function syncStudyPlan(initial?: StudyPlanStorage): Promise<void> {
   // Web Locks also serialize first-session creation and queue processing across tabs.
   const locks = (navigator as Navigator & { locks?: { request: (name: string, callback: () => Promise<void>) => Promise<void> } }).locks
   running = (locks ? locks.request('qwerty-study-plan', drain) : drain())
-    .catch(() => {
-      statuses.forEach((listener) => listener('服务端暂不可用，记录保留在本机，将自动重试。'))
+    .catch((error: Error) => {
+      statuses.forEach((listener) => listener(error.message === 'STUDY_SESSION_BLOCKED'
+        ? '浏览器未保留登录会话。请使用同源部署或允许此站点的 Cookie；记录仍保留在本机。'
+        : '服务端暂不可用，记录保留在本机，将自动重试。'))
       if (!retry)
         retry = setTimeout(() => {
           retry = undefined
@@ -100,12 +116,13 @@ function enqueue(operations: Operation[]) {
   const last = Math.max(
     0,
     ...Object.keys(localStorage)
-      .filter((key) => key.startsWith(PENDING))
+      .filter(isPendingKey)
       .map((key) => Number(key.slice(PENDING.length).split(':')[0])),
   )
   const order = Math.max(Date.now() * 1000, last + 1)
   localStorage.setItem(`${PENDING}${order.toString().padStart(16, '0')}:${id}`, JSON.stringify({ id, operations }))
   void syncStudyPlan()
+  return id
 }
 export function saveStudyPlan(previous: StudyPlanStorage, next: StudyPlanStorage) {
   const operations: Operation[] = []
@@ -145,4 +162,20 @@ export function subscribeStudyPlan(listener: (state: StudyPlanStorage) => void, 
     window.removeEventListener('online', refresh)
     window.removeEventListener('focus', refresh)
   }
+}
+
+// Existing page controls call these; no roadmap layout changes.
+export async function exportRemoteStudyPlan(initial: StudyPlanStorage) {
+  await syncStudyPlan(initial)
+  if (pending().length) throw new Error('请等待待保存记录同步后再导出。')
+  const state = await request('GET', undefined, '/export')
+  if (!state || pending().length) throw new Error('同步未完成，请稍后重试。')
+  return { format: 'qwerty-study-plan', version: 1, exportedAt: new Date().toISOString(), state }
+}
+export async function importRemoteStudyPlan(previous: StudyPlanStorage, state: StudyPlanStorage) {
+  fallback = previous
+  const id = enqueue([{ kind: 'replace', value: state }])
+  publish(state)
+  await syncStudyPlan()
+  return !pending().some((mutation) => mutation.id === id)
 }

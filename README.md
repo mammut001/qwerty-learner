@@ -97,3 +97,12 @@ GitHub Pages 只能托管静态文件，无法运行这个后端。仅部署到 
 - 待提交操作先写入本地队列，刷新不会丢失；断网或接口失败后自动重试，状态显示在现有消息位置。
 - 学习计划开始日期决定当前周/阶段，因此刷新后进度、完成标记和分钟数一起恢复。
 - 本次未迁移全站 IndexedDB 词汇历史、语法答题记录或变位正确率；范围仅为学习计划及其关联词汇分钟数。
+
+### 远程 API 与无需凭据的预览
+
+`npm run preview:study` 一条命令启动本地 Workers + 持久 D1 + 学习计划页面，无需托管账号。
+默认前端仍请求同源 `/api/study-plan`；分开托管时，在构建前设置 `VITE_STUDY_API_BASE_URL=https://你的Worker域名`。
+服务端配置精确 `STUDY_ORIGIN`，跨站 HTTPS 模式使用 `STUDY_COOKIE_SECURE=true`、`STUDY_COOKIE_SAME_SITE=none`；前端自动携带 Cookie。
+`/health` 与 `/api/health` 验证数据库表结构就绪，数据库异常返回 503。
+浏览器拦截第三方 Cookie 时请用同源部署；当前为匿名会话，刷新可恢复，但不等同于跨设备账号。
+完整环境变量、免费部署及剩余账号授权步骤见 [部署说明](deploy/README.md#separate-frontend--remote-worker-api)。

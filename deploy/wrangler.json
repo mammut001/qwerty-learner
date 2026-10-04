@@ -9,16 +9,22 @@
     "directory": "../build",
     "binding": "ASSETS",
     "not_found_handling": "single-page-application",
-    "run_worker_first": ["/api/*"]
+    "run_worker_first": [
+      "/api/*",
+      "/health"
+    ]
   },
   "vars": {
     "STUDY_ORIGIN": "http://localhost:8787",
-    "STUDY_COOKIE_SECURE": "false"
+    "STUDY_COOKIE_SECURE": "false",
+    "STUDY_COOKIE_SAME_SITE": "strict"
   },
-  "d1_databases": [{
-    "binding": "DB",
-    "database_name": "qwerty-study-plan",
-    "database_id": "00000000-0000-0000-0000-000000000000",
-    "migrations_dir": "migrations"
-  }]
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "qwerty-study-plan",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ]
 }

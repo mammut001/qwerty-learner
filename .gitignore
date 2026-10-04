@@ -45,3 +45,11 @@ playwright-report
 /deploy/deployment.json
 !/deploy/package-lock.json
 /deploy/.env.production
+
+.env.local
+.env.*.local
+/deploy/wrangler.restore.json
+/study-backup*.sqlite*
+/study-backup*.sql
+/build-check.log
+/cloud-check.log

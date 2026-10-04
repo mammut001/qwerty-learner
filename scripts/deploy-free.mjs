@@ -44,7 +44,10 @@ if (!subdomain?.subdomain) {
   subdomain = await api('/workers/subdomain', 'PUT', { subdomain: requested })
 }
 const workerOrigin = `https://${name}.${subdomain.subdomain}.workers.dev`
+const direct = process.env.STUDY_REMOTE_API === 'true'
+if (direct && !process.env.STUDY_ORIGIN) throw new Error('Direct remote API requires STUDY_ORIGIN: the exact frontend HTTPS origin')
 const origin = process.env.STUDY_ORIGIN || workerOrigin
+const smokeBase = direct ? workerOrigin : origin
 if (new URL(origin).origin !== origin || !origin.startsWith('https://')) throw new Error('STUDY_ORIGIN must be an exact HTTPS origin, without a trailing slash')
 const template = JSON.parse(readFileSync('deploy/wrangler.json', 'utf8'))
 const configPath = 'deploy/wrangler.production.json'
@@ -65,7 +68,7 @@ const database = await api(`/d1/database/${databaseId}`)
 if (database.name !== name) throw new Error('D1 database name does not match this app; refusing to migrate an unrelated database')
 const config = {
   ...template, name, account_id: account,
-  vars: { STUDY_ORIGIN: origin, STUDY_COOKIE_SECURE: 'true' },
+  vars: { STUDY_ORIGIN: origin, STUDY_COOKIE_SECURE: 'true', STUDY_COOKIE_SAME_SITE: direct ? 'none' : 'strict' },
   d1_databases: [{ ...template.d1_databases[0], database_name: name, database_id: databaseId }],
 }
 writeFileSync(configPath, JSON.stringify(config, null, 2) + '\n')
@@ -75,11 +78,11 @@ run(process.execPath, [wrangler, 'deploy', '--config', configPath])
 // Public DNS/TLS may take a few seconds on the first deploy. Fail visibly if it never becomes healthy.
 let healthy = false
 for (let attempt = 0; attempt < 12; attempt++) {
-  try { healthy = (await fetch(`${origin}/api/health`, { signal: AbortSignal.timeout(10000) })).ok } catch {}
+  try { healthy = (await fetch(`${smokeBase}/api/health`, { signal: AbortSignal.timeout(10000) })).ok } catch {}
   if (healthy) break
   await new Promise((r) => setTimeout(r, 5000))
 }
 if (!healthy) throw new Error(`Deployed but health check failed: ${origin}/api/health`)
-await smokeStudy(origin)
-writeFileSync('deploy/deployment.json', JSON.stringify({ origin, workerOrigin, databaseId, verifiedAt: new Date().toISOString() }, null, 2) + '\n')
-console.log(`Verified public base URL: ${origin}\nStudy plan: ${origin}/study-plan\nSame-origin API: ${origin}/api/study-plan\nWorker upstream: ${workerOrigin}`)
+await smokeStudy(smokeBase, { frontendOrigin: origin })
+writeFileSync('deploy/deployment.json', JSON.stringify({ origin, workerOrigin, apiBase: smokeBase, databaseId, verifiedAt: new Date().toISOString() }, null, 2) + '\n')
+console.log(`Verified API base URL: ${smokeBase}\nAllowed frontend origin: ${origin}\nWorker upstream: ${workerOrigin}\n${direct ? 'Build the separate frontend with VITE_STUDY_API_BASE_URL=' + workerOrigin : 'Study plan: ' + origin + '/study-plan'}`)

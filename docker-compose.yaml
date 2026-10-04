@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        VITE_STUDY_API_BASE_URL: ${VITE_STUDY_API_BASE_URL:-}
     ports:
       - '8990:5173'
     depends_on:
@@ -15,6 +17,7 @@ services:
       HOST: 0.0.0.0
       STUDY_DB_PATH: /data/study-plan.sqlite
       STUDY_ORIGIN: ${STUDY_ORIGIN:-http://localhost:8990}
+      STUDY_COOKIE_SAME_SITE: ${STUDY_COOKIE_SAME_SITE:-strict}
       STUDY_COOKIE_SECURE: ${STUDY_COOKIE_SECURE:-false}
     volumes:
       - study-data:/data
