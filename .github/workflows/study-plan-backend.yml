@@ -3,22 +3,81 @@ on:
   pull_request:
     paths:
       - 'server/**'
+      - 'deploy/**'
+      - 'scripts/*study*'
+      - 'scripts/*deploy*'
       - 'src/services/studyPlanSync.ts'
       - 'src/pages/StudyPlan/**'
       - 'src/pages/Typing/index.tsx'
+      - 'vite.config.ts'
+      - 'package.json'
+      - 'Dockerfile'
+      - 'docker-compose*.yaml'
+      - 'public/default.conf'
+      - '.dockerignore'
       - '.github/workflows/study-plan-backend.yml'
   push:
-    branches: [feature/study-plan, master]
+    branches: [feature/study-plan]
     paths:
       - 'server/**'
+      - 'deploy/**'
+      - 'scripts/*study*'
+      - 'scripts/*deploy*'
       - 'src/services/studyPlanSync.ts'
+      - 'vite.config.ts'
+      - 'package.json'
+      - 'Dockerfile'
+      - 'docker-compose*.yaml'
+      - 'public/default.conf'
+      - '.dockerignore'
       - '.github/workflows/study-plan-backend.yml'
+permissions:
+  contents: read
 jobs:
   persistence:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
       - run: node --test server/*.test.mjs
+      - run: npm ci --prefix deploy --no-audit --no-fund
+      - run: npx --yes yarn@1.22.22 install --frozen-lockfile
+      - run: npm run build -- --base=/
+      - name: Real Worker and D1 smoke, including process restart
+        run: npm run test:cloud
+  node-production-images:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validate HTTPS production overlay
+        run: docker compose -f docker-compose.yaml -f docker-compose.production.yaml config --quiet
+        env:
+          STUDY_DOMAIN: study.example.invalid
+          ACME_EMAIL: ci@example.invalid
+      - name: Build the actual frontend and Node SQLite images
+        run: docker compose build
+      - name: Start Nginx-to-Node stack and prove API persistence
+        run: |
+          docker compose up -d
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://localhost:8990/api/health; then break; fi
+            sleep 2
+          done
+          node scripts/smoke-study.mjs http://localhost:8990 --save-session "$RUNNER_TEMP/study-session.json"
+          docker compose restart study-api
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://localhost:8990/api/health; then break; fi
+            sleep 2
+          done
+          node scripts/smoke-study.mjs http://localhost:8990 --resume-session "$RUNNER_TEMP/study-session.json"
+      - if: failure()
+        run: docker compose logs --no-color --tail 100
+      - if: always()
+        run: docker compose down

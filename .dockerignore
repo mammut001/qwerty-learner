@@ -1,0 +1,15 @@
+.git
+node_modules
+deploy/node_modules
+build
+stats.html
+**/.env
+**/.env.*
+**/.dev.vars*
+**/.wrangler
+**/data
+**/*.sqlite*
+deploy/wrangler.production.json
+deploy/deployment.json
+playwright-report
+test-results

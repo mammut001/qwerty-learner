@@ -47,6 +47,8 @@ yarn start
 
 仓库包含 GitHub Pages workflow，推送到 `master` 后可构建并发布到 `gh-pages`。
 
+公网学习计划推荐使用 **Cloudflare Workers Free + D1**：前端与 API 同源、HTTPS、安全 Cookie，数据在重新部署后保留。完整注册步骤、环境变量、`npm run deploy:free` 一键部署，以及 Node SQLite + Nginx 的生产 Compose 路径见 [部署 README](deploy/README.md)。GitHub Pages 静态发布本身不能运行学习计划后端。
+
 ## Upstream
 
 本项目基于 [RealKai42/qwerty-learner](https://github.com/RealKai42/qwerty-learner) 修改。原项目许可证见本仓库 `LICENSE`，衍生版本继续遵守相应开源许可。

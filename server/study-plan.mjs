@@ -1,3 +1,4 @@
+import { apply, record, validate } from './study-model.mjs'
 import { randomBytes, createHash } from 'node:crypto'
 import { mkdirSync } from 'node:fs'
 import { createServer } from 'node:http'
@@ -6,40 +7,6 @@ import { DatabaseSync } from 'node:sqlite'
 import { pathToFileURL } from 'node:url'
 
 const hash = (value) => createHash('sha256').update(value).digest('hex')
-const date = (v) =>
-  typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(v)) && new Date(v).toISOString().slice(0, 10) === v
-const record = (v) => v !== null && typeof v === 'object' && !Array.isArray(v)
-const task = (v) => typeof v === 'string' && /^[a-z][a-z0-9-]{0,79}$/.test(v)
-const minutes = (v) => typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= 1000000
-function validate(state) {
-  if (!record(state) || !date(state.startDate) || !record(state.minutes) || !record(state.minimumMode)) throw new Error('Invalid plan')
-  for (const [day, tasks] of Object.entries(state.minutes)) {
-    if (!date(day) || !record(tasks)) throw new Error('Invalid day')
-    for (const [id, value] of Object.entries(tasks)) if (!task(id) || !minutes(value)) throw new Error('Invalid minutes')
-  }
-  for (const [day, value] of Object.entries(state.minimumMode))
-    if (!date(day) || typeof value !== 'boolean') throw new Error('Invalid mode')
-  if (Buffer.byteLength(JSON.stringify(state)) > 512000) throw new Error('Plan too large')
-}
-function apply(state, operations) {
-  if (!Array.isArray(operations) || operations.length > 10000) throw new Error('Invalid operations')
-  for (const op of operations) {
-    if (!record(op)) throw new Error('Invalid operation')
-    if (op.kind === 'startDate' && date(op.value)) state.startDate = op.value
-    else if (op.kind === 'mode' && date(op.day) && (op.value === null || typeof op.value === 'boolean')) {
-      if (op.value === null) delete state.minimumMode[op.day]
-      else state.minimumMode[op.day] = op.value
-    } else if (['minutes', 'increment'].includes(op.kind) && date(op.day) && task(op.task) && (op.value === null || minutes(op.value))) {
-      state.minutes[op.day] ??= {}
-      if (op.value === null && op.kind === 'minutes') delete state.minutes[op.day][op.task]
-      else if (op.value !== null)
-        state.minutes[op.day][op.task] = op.kind === 'increment' ? (state.minutes[op.day][op.task] ?? 0) + op.value : op.value
-      else throw new Error('Invalid increment')
-    } else throw new Error('Invalid operation')
-  }
-  validate(state)
-  return state
-}
 
 export function createStudyServer({
   database = process.env.STUDY_DB_PATH || './data/study-plan.sqlite',
@@ -55,6 +22,10 @@ export function createStudyServer({
     const send = (status, data) => {
       res.writeHead(status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' })
       res.end(JSON.stringify(data))
+    }
+    if (req.url === '/api/health' && req.method === 'GET') {
+      try { db.prepare('SELECT 1').get(); return send(200, { ok: true, storage: 'sqlite' }) }
+      catch { return send(503, { error: 'Database not ready' }) }
     }
     if (req.url !== '/api/study-plan') return send(404, { error: 'Not found' })
     if (!['GET', 'POST', 'PATCH'].includes(req.method)) return send(405, { error: 'Method not allowed' })

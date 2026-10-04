@@ -1,0 +1,38 @@
+# Docker Compose v2.24+; layer over docker-compose.yaml.
+services:
+  qwertylearner:
+    ports: !reset []
+    restart: unless-stopped
+    depends_on:
+      study-api:
+        condition: service_healthy
+  study-api:
+    environment:
+      STUDY_ORIGIN: https://${STUDY_DOMAIN:?Set STUDY_DOMAIN in deploy/.env.production}
+      STUDY_COOKIE_SECURE: 'true'
+    read_only: true
+    tmpfs:
+      - /tmp
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://127.0.0.1:8787/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+  https:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      - qwertylearner
+    environment:
+      STUDY_DOMAIN: ${STUDY_DOMAIN:?Set STUDY_DOMAIN}
+      ACME_EMAIL: ${ACME_EMAIL:?Set ACME_EMAIL}
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+volumes:
+  caddy-data:
+  caddy-config:

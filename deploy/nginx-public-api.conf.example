@@ -1,0 +1,16 @@
+# OPTIONAL: only for a separate Nginx frontend. Main deployment needs no proxy:
+# Cloudflare serves the unchanged Vite build and /api/* on one HTTPS origin.
+# Replace STUDY_WORKER_HOST and set Worker's STUDY_ORIGIN to this frontend's
+# exact public HTTPS origin, then redeploy. Do NOT rewrite the Origin header.
+location /api/ {
+    proxy_pass https://STUDY_WORKER_HOST;
+    proxy_ssl_verify on;
+    proxy_ssl_trusted_certificate /etc/ssl/certs/ca-certificates.crt;
+    proxy_ssl_server_name on;
+    proxy_ssl_name STUDY_WORKER_HOST;
+    proxy_set_header Host STUDY_WORKER_HOST;
+    proxy_set_header Cookie $http_cookie;
+    proxy_set_header Origin $http_origin;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_redirect off;
+}
