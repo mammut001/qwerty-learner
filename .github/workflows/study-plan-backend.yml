@@ -48,7 +48,7 @@ jobs:
       - name: Build with a separate remote API origin
         run: |
           npm run build -- --base=/
-          rg --quiet 'https://study-api.example.invalid' build/assets
+          grep -R -q -F 'https://study-api.example.invalid' build/assets
         env:
           VITE_STUDY_API_BASE_URL: https://study-api.example.invalid
       - run: npm run build -- --base=/
