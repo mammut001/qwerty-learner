@@ -211,6 +211,12 @@ export default function GrammarSessionPage() {
       answers: answers as Record<string, Choice>,
       reasons: reasons as Record<string, string>,
       outputAnswers,
+      items: passeComposeVsImparfaitScenarios.map((question) => ({
+        id: String(question.id),
+        label: question.signal || 'Passé composé vs imparfait',
+        prompt: question.prompt,
+        correct: answers[question.id] === question.correct,
+      })),
     }
 
     let record: GrammarSessionRecord = {

@@ -1,5 +1,5 @@
 import { studyPolicy, sessionCookie } from '../server/study-http.mjs'
-import { apply, record, validate, importOperations, exportPlan, normalizeState, studyAnalytics } from '../server/study-model.mjs'
+import { apply, record, validate, importOperations, exportPlan, normalizeState, studyAnalytics, buildReviewQueue } from '../server/study-model.mjs'
 
 const MAX_BODY_BYTES = 1700000
 const json = (status, data, headers = {}) => new Response(JSON.stringify(data), {
@@ -30,11 +30,11 @@ async function resolveLearner(db, token) {
   if (!token) return null
   const credential = await digest(token)
   let row = await db.prepare('SELECT id,state,revision FROM learners WHERE id=?').bind(credential).first()
-  if (row) return { learner: credential, row }
-  const link = await db.prepare('SELECT learner FROM sync_keys WHERE key_hash=?').bind(credential).first()
+  if (row) return { learner: credential, row, viaSyncKey: false }
+  const link = await db.prepare('SELECT learner FROM sync_keys WHERE key_hash=? AND revoked=0').bind(credential).first()
   if (!link) return null
   row = await db.prepare('SELECT id,state,revision FROM learners WHERE id=?').bind(link.learner).first()
-  return row ? { learner: link.learner, row } : null
+  return row ? { learner: link.learner, row, viaSyncKey: true } : null
 }
 
 export async function studyApi(request, env) {
@@ -45,7 +45,7 @@ export async function studyApi(request, env) {
     try {
       await env.DB.prepare('SELECT id,state,revision FROM learners LIMIT 1').all()
       await env.DB.prepare('SELECT learner,id,payload,revision FROM mutations LIMIT 1').all()
-      await env.DB.prepare('SELECT key_hash,learner,created FROM sync_keys LIMIT 1').all()
+      await env.DB.prepare('SELECT key_hash,learner,created,revoked FROM sync_keys LIMIT 1').all()
       return json(200, { ok: true, storage: 'd1' })
     } catch {
       return json(503, { error: 'Database not ready' })
@@ -56,11 +56,16 @@ export async function studyApi(request, env) {
   const exporting = path === '/api/study-plan/export'
   const analytics = path === '/api/study-plan/analytics'
   const syncKey = path === '/api/study-plan/sync-key'
+  const revokeSyncKey = path === '/api/study-plan/sync-key/revoke'
   const linking = path === '/api/study-plan/link'
+  const unlinking = path === '/api/study-plan/unlink'
+  const syncInfo = path === '/api/study-plan/sync'
+  const review = path === '/api/study-plan/review'
   const plan = path === '/api/study-plan'
-  if (!importing && !exporting && !analytics && !syncKey && !linking && !plan) return json(404, { error: 'Not found' })
-  if ((importing || syncKey || linking) && request.method !== 'POST') return json(405, { error: 'Method not allowed' })
-  if ((exporting || analytics) && request.method !== 'GET') return json(405, { error: 'Method not allowed' })
+  if (!importing && !exporting && !analytics && !syncKey && !revokeSyncKey && !linking && !unlinking && !syncInfo && !review && !plan)
+    return json(404, { error: 'Not found' })
+  if ((importing || syncKey || revokeSyncKey || linking || unlinking) && request.method !== 'POST') return json(405, { error: 'Method not allowed' })
+  if ((exporting || analytics || syncInfo || review) && request.method !== 'GET') return json(405, { error: 'Method not allowed' })
   if (plan && !['GET', 'POST', 'PATCH'].includes(request.method)) return json(405, { error: 'Method not allowed' })
 
   const db = env.DB.withSession('first-primary')
@@ -70,7 +75,7 @@ export async function studyApi(request, env) {
     try {
       const input = await readBody(request)
       if (typeof input.key !== 'string' || !/^[a-f0-9]{64}$/.test(input.key)) return json(400, { error: 'Invalid sync key' })
-      const linked = await db.prepare('SELECT learner FROM sync_keys WHERE key_hash=?').bind(await digest(input.key)).first()
+      const linked = await db.prepare('SELECT learner FROM sync_keys WHERE key_hash=? AND revoked=0').bind(await digest(input.key)).first()
       if (!linked) return json(401, { error: 'Invalid sync key' })
       const row = await db.prepare('SELECT state FROM learners WHERE id=?').bind(linked.learner).first()
       if (!row?.state) return json(409, { error: 'Sync key has no initialized plan' })
@@ -88,6 +93,7 @@ export async function studyApi(request, env) {
   let resolved = await resolveLearner(db, token)
   let learner = resolved?.learner ?? null
   let row = resolved?.row ?? null
+  let viaSyncKey = resolved?.viaSyncKey ?? false
 
   if (!row) {
     if (request.method !== 'GET' || exporting) return json(401, { error: 'Load plan first' })
@@ -95,6 +101,7 @@ export async function studyApi(request, env) {
     learner = await digest(next)
     await db.prepare('INSERT INTO learners(id) VALUES(?)').bind(learner).run()
     row = { state: null, revision: 0 }
+    viaSyncKey = false
     headers['Set-Cookie'] = sessionCookie(next, {
       secure: env.STUDY_COOKIE_SECURE === 'true',
       sameSite: env.STUDY_COOKIE_SAME_SITE || 'strict',
@@ -105,10 +112,55 @@ export async function studyApi(request, env) {
 
   if (syncKey) {
     if (!row.state) return json(409, { error: 'Initialize plan first' })
+    if (viaSyncKey) return json(409, { error: 'Unlink this device before rotating the sync key' })
     const key = randomToken()
-    await db.prepare('INSERT INTO sync_keys(key_hash,learner,created) VALUES(?,?,?)')
-      .bind(await digest(key), learner, Date.now()).run()
+    await db.batch([
+      db.prepare('UPDATE sync_keys SET revoked=1 WHERE learner=? AND revoked=0').bind(learner),
+      db.prepare('INSERT INTO sync_keys(key_hash,learner,created,revoked) VALUES(?,?,?,0)')
+        .bind(await digest(key), learner, Date.now()),
+    ])
     return json(200, { key })
+  }
+
+  if (revokeSyncKey) {
+    try {
+      const input = await readBody(request)
+      if (typeof input.key !== 'string' || !/^[a-f0-9]{64}$/.test(input.key)) return json(400, { error: 'Invalid sync key' })
+      if (token === input.key) return json(409, { error: 'Unlink this device before revoking its active sync key' })
+      const result = await db.prepare('UPDATE sync_keys SET revoked=1 WHERE key_hash=? AND learner=? AND revoked=0')
+        .bind(await digest(input.key), learner).run()
+      return result.meta.changes ? json(200, { revoked: true }) : json(404, { error: 'Sync key not found' })
+    } catch (error) {
+      return json(error instanceof RangeError ? 413 : 400, { error: 'Unable to revoke sync key' })
+    }
+  }
+
+  if (syncInfo) {
+    const active = await db.prepare('SELECT COUNT(*) AS count FROM sync_keys WHERE learner=? AND revoked=0').bind(learner).first()
+    return json(200, { bound: viaSyncKey, activeKeys: active?.count ?? 0 }, headers)
+  }
+
+  if (unlinking) {
+    if (!row.state) return json(409, { error: 'Initialize plan first' })
+    const next = randomToken()
+    const nextLearner = await digest(next)
+    await db.prepare('INSERT INTO learners(id,state,revision) VALUES(?,?,0)').bind(nextLearner, row.state).run()
+    headers['Set-Cookie'] = sessionCookie(next, {
+      secure: env.STUDY_COOKIE_SECURE === 'true',
+      sameSite: env.STUDY_COOKIE_SAME_SITE || 'strict',
+    })
+    return json(200, { state: normalizeState(JSON.parse(row.state)), bound: false }, headers)
+  }
+
+  if (review) {
+    if (!row.state) return json(200, { queue: [] }, headers)
+    const today = requestUrl.searchParams.get('today')
+    if (!today || !/^\d{4}-\d{2}-\d{2}$/.test(today)) return json(400, { error: 'Invalid review date' }, headers)
+    try {
+      return json(200, { queue: buildReviewQueue(JSON.parse(row.state), today) }, headers)
+    } catch {
+      return json(400, { error: 'Unable to build review queue' }, headers)
+    }
   }
 
   if (exporting) {

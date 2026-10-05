@@ -52,6 +52,13 @@ export type GrammarDraft = {
   deadline: number | null
 }
 
+export type GrammarSessionItem = {
+  id: string
+  label: string
+  prompt?: string
+  correct: boolean
+}
+
 export type GrammarSessionRecord = {
   id: string
   topic: string
@@ -63,20 +70,87 @@ export type GrammarSessionRecord = {
   answers: Record<string, GrammarChoice>
   reasons: Record<string, string>
   outputAnswers: string[]
+  items?: GrammarSessionItem[]
 }
 
 export type TenseStat = { correct: number; total: number }
-export type ConjugationStats = Record<string, Partial<Record<'present' | 'passeCompose' | 'imparfait', TenseStat>>>
+export type ConjugationTense = 'present' | 'passeCompose' | 'imparfait'
+export type ConjugationStats = Record<string, Partial<Record<ConjugationTense, TenseStat>>>
+export type ConjugationAttempt = {
+  id: string
+  verb: string
+  tense: ConjugationTense
+  correct: boolean
+  day: string
+  occurredAt: number
+}
+
+export type ReviewKind = 'vocabulary' | 'grammar' | 'conjugation'
+export type ReviewState = {
+  kind: ReviewKind
+  sourceId: string
+  label: string
+  dueDate: string
+  intervalDays: number
+  repetitions: number
+  ease: number
+  lastReviewedAt: number | null
+  updatedAt: number
+  lastResult: number
+}
+
+export type ReviewQueueItem = {
+  itemId: string
+  kind: ReviewKind
+  sourceId: string
+  label: string
+  errorCount: number
+  lastErrorAt: number
+  dueDate: string
+  repetitions: number
+  intervalDays: number
+  ease: number
+  lastReviewedAt: number | null
+}
+
+export type SyncMeta = {
+  startDateUpdatedAt: number
+  minimumModeUpdatedAt: Record<string, number>
+  minutesUpdatedAt: Record<string, Record<string, number>>
+  grammarDraftUpdatedAt: number
+}
 
 export type LearningProgress = {
   vocabulary: { records: VocabularyProgressRecord[] }
   grammar: { draft: GrammarDraft | null; history: GrammarSessionRecord[] }
   conjugation: ConjugationStats
   conjugationDaily: Record<string, TenseStat>
+  conjugationAttempts: ConjugationAttempt[]
+  reviews: { items: Record<string, ReviewState> }
 }
 
 export type StudyServerState = StudyPlanStorage & {
   learning: LearningProgress
+  syncMeta: SyncMeta
+}
+
+export type TrendPoint = {
+  label: string
+  startDate: string
+  endDate: string
+  minutes: number
+  vocabularyAccuracy: number | null
+  grammarAccuracy: number | null
+  conjugationAccuracy: number | null
+}
+
+export type ErrorRankingItem = {
+  id: string
+  label: string
+  errors: number
+  attempts: number
+  correct: number
+  accuracy: number | null
 }
 
 export type StudyAnalytics = {
@@ -88,6 +162,17 @@ export type StudyAnalytics = {
     weeklyPlannedMinutes: number
     weeklyCompletedDays: number
     weekCompletionPercent: number
+    weeklyHistory: Array<{
+      week: number
+      startDate: string
+      endDate: string
+      minutes: number
+      plannedMinutes: number
+      completionPercent: number
+      completedDays: number
+      wrongWords: number
+      wrongAttempts: number
+    }>
     phase: {
       id: number
       weeks: [number, number]
@@ -97,7 +182,7 @@ export type StudyAnalytics = {
     }
   }
   streak: { current: number; longest: number }
-  vocabulary: { attempts: number; uniqueWords: number; wrongWords: number; minutes: number }
+  vocabulary: { attempts: number; uniqueWords: number; wrongWords: number; minutes: number; accuracy: number | null }
   grammar: {
     sessions: number
     correct: number
@@ -107,28 +192,48 @@ export type StudyAnalytics = {
     hasDraft: boolean
   }
   conjugation: { attempts: number; correct: number; accuracy: number | null; practicedVerbs: number }
+  trends: { daily: TrendPoint[]; weekly: TrendPoint[]; monthly: TrendPoint[] }
+  rankings: {
+    vocabulary: ErrorRankingItem[]
+    grammar: ErrorRankingItem[]
+    conjugation: ErrorRankingItem[]
+  }
+  reviewDue: number
 }
 
 type Operation =
-  | { kind: 'startDate'; value: string }
-  | { kind: 'mode'; day: string; value: boolean | null }
-  | { kind: 'minutes' | 'increment'; day: string; task: string; value: number | null }
+  | { kind: 'startDate'; value: string; updatedAt: number }
+  | { kind: 'mode'; day: string; value: boolean | null; updatedAt: number }
+  | { kind: 'minutes'; day: string; task: string; value: number | null; updatedAt: number }
+  | { kind: 'increment'; day: string; task: string; value: number; updatedAt: number }
   | { kind: 'replace'; value: StudyPlanStorage | StudyServerState }
   | { kind: 'vocabularyRecords'; value: VocabularyProgressRecord[] }
-  | { kind: 'grammarDraft'; value: GrammarDraft | null }
+  | { kind: 'grammarDraft'; value: GrammarDraft | null; updatedAt: number }
   | { kind: 'grammarSession'; value: GrammarSessionRecord }
   | { kind: 'grammarSeed'; value: GrammarSessionRecord[] }
   | { kind: 'conjugationSeed'; value: ConjugationStats }
-  | { kind: 'conjugationAttempt'; verb: string; tense: 'present' | 'passeCompose' | 'imparfait'; correct: boolean; day: string }
+  | { kind: 'conjugationAttempt'; value: ConjugationAttempt }
+  | {
+      kind: 'reviewResult'
+      itemId: string
+      reviewKind: ReviewKind
+      sourceId: string
+      label: string
+      quality: number
+      reviewedAt: number
+      day: string
+    }
 
 type Mutation = { id: string; operations: Operation[] }
 
 const KEY = 'qwerty-fr-study-plan-v1'
-const ANALYTICS_KEY = 'qwerty-fr-study-analytics-v1'
+const ANALYTICS_KEY = 'qwerty-fr-study-analytics-v2'
+const REVIEW_KEY = 'qwerty-fr-study-review-v1'
 const SYNC_KEY = 'qwerty-fr-study-sync-key-v1'
 const SEED = `qwerty-fr-study-plan-migration${API_BASE ? ':' + API_BASE : ''}`
 const PENDING = `qwerty-fr-study-plan-pending:${API_BASE ? API_BASE + ':' : ''}`
 const MAX_VOCAB_RECORDS = 3000
+const MAX_CONJUGATION_ATTEMPTS = 3000
 const isPendingKey = (key: string) => key.startsWith(PENDING) && /^\d{16}:/.test(key.slice(PENDING.length))
 const listeners = new Set<(state: StudyServerState) => void>()
 const statuses = new Set<(message: string) => void>()
@@ -137,6 +242,11 @@ export type StudySyncStatus = {
   phase: 'idle' | 'queued' | 'syncing' | 'saved' | 'offline' | 'error'
   pending: number
   message: string
+}
+
+export type StudySyncInfo = {
+  bound: boolean
+  activeKeys: number
 }
 
 const syncStatusListeners = new Set<(status: StudySyncStatus) => void>()
@@ -154,12 +264,29 @@ const localDay = (timestampMs = Date.now()) => {
   return `${year}-${month}-${day}`
 }
 
+const addLocalDays = (day: string, amount: number) => {
+  const value = new Date(`${day}T12:00:00`)
+  value.setDate(value.getDate() + amount)
+  return localDay(value.getTime())
+}
+
+export function emptySyncMeta(): SyncMeta {
+  return {
+    startDateUpdatedAt: 0,
+    minimumModeUpdatedAt: {},
+    minutesUpdatedAt: {},
+    grammarDraftUpdatedAt: 0,
+  }
+}
+
 export function emptyLearningProgress(): LearningProgress {
   return {
     vocabulary: { records: [] },
     grammar: { draft: null, history: [] },
     conjugation: {},
     conjugationDaily: {},
+    conjugationAttempts: [],
+    reviews: { items: {} },
   }
 }
 
@@ -179,8 +306,11 @@ function withLearning(state: StudyPlanStorage | StudyServerState): StudyServerSt
           },
           conjugation: learning.conjugation ?? {},
           conjugationDaily: learning.conjugationDaily ?? {},
+          conjugationAttempts: learning.conjugationAttempts ?? [],
+          reviews: { items: learning.reviews?.items ?? {} },
         }
       : emptyLearningProgress(),
+    syncMeta: source.syncMeta ?? emptySyncMeta(),
   }
 }
 
@@ -190,6 +320,7 @@ function defaultState(): StudyServerState {
     minutes: {},
     minimumMode: {},
     learning: emptyLearningProgress(),
+    syncMeta: emptySyncMeta(),
   }
 }
 
@@ -207,6 +338,7 @@ function ensureFallback(initial?: StudyPlanStorage | StudyServerState): StudySer
   if (initial) {
     const normalized = withLearning(initial)
     const suppliedLearning = Object.prototype.hasOwnProperty.call(initial, 'learning')
+    const suppliedSyncMeta = Object.prototype.hasOwnProperty.call(initial, 'syncMeta')
     fallback = cached
       ? {
           ...cached,
@@ -214,6 +346,7 @@ function ensureFallback(initial?: StudyPlanStorage | StudyServerState): StudySer
           minutes: normalized.minutes,
           minimumMode: normalized.minimumMode,
           learning: suppliedLearning ? normalized.learning : cached.learning,
+          syncMeta: suppliedSyncMeta ? normalized.syncMeta : cached.syncMeta,
         }
       : normalized
   } else {
@@ -241,7 +374,10 @@ async function api(method: string, path = '', body?: unknown, unauthorized = 'ST
       body: body === undefined ? undefined : JSON.stringify(body),
     })
     if (response.status === 401) throw new Error(unauthorized)
-    if (!response.ok) throw new Error(`Study API: ${response.status}`)
+    if (!response.ok) {
+      const data = (await response.json().catch(() => ({}))) as { error?: string }
+      throw new Error(data.error || `Study API: ${response.status}`)
+    }
     return (await response.json()) as Record<string, unknown>
   } finally {
     clearTimeout(timeout)
@@ -304,9 +440,7 @@ export function subscribeStudySyncStatus(listener: (status: StudySyncStatus) => 
   ensureAutoSyncListeners()
   syncStatusListeners.add(listener)
   listener(getStudySyncSnapshot())
-  return () => {
-    syncStatusListeners.delete(listener)
-  }
+  return () => syncStatusListeners.delete(listener)
 }
 
 function removeAcknowledgedMutation(id: string) {
@@ -326,14 +460,14 @@ async function drain() {
   for (;;) {
     const next = pending()[0]
     if (!next) break
-    emitSyncStatus('syncing', '正在保存到服务端…')
+    emitSyncStatus('syncing', '正在合并并保存到服务端…')
     state =
       next.operations.length === 1 && next.operations[0].kind === 'replace'
         ? await requestState(
             'POST',
             {
               id: next.id,
-              backup: { format: 'qwerty-study-plan', version: 2, state: next.operations[0].value },
+              backup: { format: 'qwerty-study-plan', version: 3, state: next.operations[0].value },
             },
             '/import',
           )
@@ -347,7 +481,7 @@ async function drain() {
     clearTimeout(retry)
     retry = undefined
   }
-  emitSyncStatus('saved', '已保存到服务端')
+  emitSyncStatus('saved', '已与服务端合并并保存')
 }
 
 export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Promise<void> {
@@ -373,7 +507,7 @@ export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Pr
         sessionBlocked
           ? '浏览器未保留学习会话。记录仍保留在本机，允许 Cookie 后会继续同步。'
           : offline
-            ? '当前离线：学习记录已保存在本机，联网后会自动同步。'
+            ? '当前离线：学习记录已保存在本机，联网后会按最新时间戳自动合并。'
             : '服务端暂不可用，记录保留在本机，将自动重试。',
       )
       if (!retry)
@@ -409,33 +543,52 @@ function enqueue(operations: Operation[]) {
   return id
 }
 
+function applyStudyPlanClocks(state: StudyServerState, operations: Operation[]) {
+  const next = withLearning(state)
+  for (const op of operations) {
+    if (op.kind === 'startDate') next.syncMeta.startDateUpdatedAt = op.updatedAt
+    else if (op.kind === 'mode') next.syncMeta.minimumModeUpdatedAt[op.day] = op.updatedAt
+    else if (op.kind === 'minutes' || op.kind === 'increment') {
+      next.syncMeta.minutesUpdatedAt[op.day] ??= {}
+      next.syncMeta.minutesUpdatedAt[op.day][op.task] = op.updatedAt
+    } else if (op.kind === 'grammarDraft') next.syncMeta.grammarDraftUpdatedAt = op.updatedAt
+  }
+  return next
+}
+
 function optimisticOperation(operation: Operation, update: (state: StudyServerState) => StudyServerState) {
   const current = ensureFallback()
   enqueue([operation])
-  publish(update(current))
+  publish(applyStudyPlanClocks(update(current), [operation]))
 }
 
 export function saveStudyPlan(previous: StudyPlanStorage, next: StudyPlanStorage) {
   const operations: Operation[] = []
-  if (previous.startDate !== next.startDate) operations.push({ kind: 'startDate', value: next.startDate })
+  const updatedAt = Date.now()
+  if (previous.startDate !== next.startDate) operations.push({ kind: 'startDate', value: next.startDate, updatedAt })
   for (const day of Array.from(new Set([...Object.keys(previous.minimumMode), ...Object.keys(next.minimumMode)]))) {
     if (previous.minimumMode[day] !== next.minimumMode[day])
-      operations.push({ kind: 'mode', day, value: next.minimumMode[day] ?? null })
+      operations.push({ kind: 'mode', day, value: next.minimumMode[day] ?? null, updatedAt })
   }
   for (const day of Array.from(new Set([...Object.keys(previous.minutes), ...Object.keys(next.minutes)]))) {
     for (const task of Array.from(new Set([...Object.keys(previous.minutes[day] ?? {}), ...Object.keys(next.minutes[day] ?? {})]))) {
       if (previous.minutes[day]?.[task] !== next.minutes[day]?.[task])
-        operations.push({ kind: 'minutes', day, task, value: next.minutes[day]?.[task] ?? null })
+        operations.push({ kind: 'minutes', day, task, value: next.minutes[day]?.[task] ?? null, updatedAt })
     }
   }
   const current = ensureFallback(previous)
   enqueue(operations)
-  publish({ ...current, startDate: next.startDate, minutes: next.minutes, minimumMode: next.minimumMode })
+  publish(
+    applyStudyPlanClocks(
+      { ...current, startDate: next.startDate, minutes: next.minutes, minimumMode: next.minimumMode },
+      operations,
+    ),
+  )
 }
 
 export function addStudyMinutes(day: string, task: string, value: number) {
-  ensureFallback()
-  optimisticOperation({ kind: 'increment', day, task, value }, (state) => ({
+  const updatedAt = Date.now()
+  optimisticOperation({ kind: 'increment', day, task, value, updatedAt }, (state) => ({
     ...state,
     minutes: {
       ...state.minutes,
@@ -489,7 +642,8 @@ export function migrateVocabularyHistory(records: VocabularyProgressInput[]) {
 }
 
 export function saveGrammarDraft(draft: GrammarDraft | null) {
-  optimisticOperation({ kind: 'grammarDraft', value: draft }, (state) => ({
+  const updatedAt = Date.now()
+  optimisticOperation({ kind: 'grammarDraft', value: draft, updatedAt }, (state) => ({
     ...state,
     learning: {
       ...state.learning,
@@ -504,21 +658,28 @@ export function completeGrammarSession(session: Omit<GrammarSessionRecord, 'id' 
     id: session.id ?? crypto.randomUUID(),
     day: session.day ?? localDay(session.finishedAt),
   }
+  const updatedAt = Date.now()
   const state = ensureFallback()
-  enqueue([
+  const operations: Operation[] = [
     { kind: 'grammarSession', value: record },
-    { kind: 'grammarDraft', value: null },
-  ])
-  publish({
-    ...state,
-    learning: {
-      ...state.learning,
-      grammar: {
-        draft: null,
-        history: [record, ...state.learning.grammar.history.filter((item) => item.id !== record.id)].slice(0, 50),
+    { kind: 'grammarDraft', value: null, updatedAt },
+  ]
+  enqueue(operations)
+  publish(
+    applyStudyPlanClocks(
+      {
+        ...state,
+        learning: {
+          ...state.learning,
+          grammar: {
+            draft: null,
+            history: [record, ...state.learning.grammar.history.filter((item) => item.id !== record.id)].slice(0, 50),
+          },
+        },
       },
-    },
-  })
+      operations,
+    ),
+  )
   return record
 }
 
@@ -546,11 +707,20 @@ export function seedConjugationStats(stats: ConjugationStats) {
 
 export function recordConjugationAttempt(
   verb: string,
-  tense: 'present' | 'passeCompose' | 'imparfait',
+  tense: ConjugationTense,
   correct: boolean,
   day = localDay(),
 ) {
-  optimisticOperation({ kind: 'conjugationAttempt', verb, tense, correct, day }, (state) => {
+  const occurredAt = Date.now()
+  const attempt: ConjugationAttempt = {
+    id: crypto.randomUUID(),
+    verb,
+    tense,
+    correct,
+    day,
+    occurredAt,
+  }
+  optimisticOperation({ kind: 'conjugationAttempt', value: attempt }, (state) => {
     const current = state.learning.conjugation[verb]?.[tense] ?? { correct: 0, total: 0 }
     const daily = state.learning.conjugationDaily[day] ?? { correct: 0, total: 0 }
     return {
@@ -568,9 +738,74 @@ export function recordConjugationAttempt(
           ...state.learning.conjugationDaily,
           [day]: { correct: daily.correct + (correct ? 1 : 0), total: daily.total + 1 },
         },
+        conjugationAttempts: [...state.learning.conjugationAttempts.filter((item) => item.id !== attempt.id), attempt].slice(
+          -MAX_CONJUGATION_ATTEMPTS,
+        ),
       },
     }
   })
+  return attempt
+}
+
+function localReviewState(previous: ReviewState | undefined, item: ReviewQueueItem, quality: number, reviewedAt: number): ReviewState {
+  let ease = previous?.ease ?? item.ease ?? 2.5
+  let repetitions = previous?.repetitions ?? item.repetitions ?? 0
+  let intervalDays = previous?.intervalDays ?? item.intervalDays ?? 0
+  ease = Math.max(1.3, ease + 0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02))
+  if (quality < 3) {
+    repetitions = 0
+    intervalDays = 1
+  } else {
+    repetitions += 1
+    if (repetitions === 1) intervalDays = 1
+    else if (repetitions === 2) intervalDays = 6
+    else intervalDays = Math.max(1, Math.round(Math.max(1, intervalDays) * ease))
+  }
+  return {
+    kind: item.kind,
+    sourceId: item.sourceId,
+    label: item.label,
+    dueDate: addLocalDays(localDay(reviewedAt), intervalDays),
+    intervalDays,
+    repetitions,
+    ease: Math.round(ease * 100) / 100,
+    lastReviewedAt: reviewedAt,
+    updatedAt: reviewedAt,
+    lastResult: quality,
+  }
+}
+
+export function submitReviewResult(item: ReviewQueueItem, quality: number) {
+  if (!Number.isInteger(quality) || quality < 0 || quality > 5) throw new Error('INVALID_REVIEW_QUALITY')
+  const reviewedAt = Date.now()
+  const day = localDay(reviewedAt)
+  const operation: Operation = {
+    kind: 'reviewResult',
+    itemId: item.itemId,
+    reviewKind: item.kind,
+    sourceId: item.sourceId,
+    label: item.label,
+    quality,
+    reviewedAt,
+    day,
+  }
+  const state = ensureFallback()
+  enqueue([operation])
+  const review = localReviewState(state.learning.reviews.items[item.itemId], item, quality, reviewedAt)
+  publish({
+    ...state,
+    learning: {
+      ...state.learning,
+      reviews: { items: { ...state.learning.reviews.items, [item.itemId]: review } },
+    },
+  })
+  try {
+    const cached = JSON.parse(localStorage.getItem(REVIEW_KEY) ?? '[]') as ReviewQueueItem[]
+    localStorage.setItem(REVIEW_KEY, JSON.stringify(cached.filter((candidate) => candidate.itemId !== item.itemId)))
+  } catch {
+    // The durable mutation queue is the source of truth.
+  }
+  return review
 }
 
 export async function getLearningProgress(): Promise<LearningProgress> {
@@ -614,7 +849,7 @@ export async function exportRemoteStudyPlan(initial: StudyPlanStorage) {
   if (!payload.state || pending().length) throw new Error('同步未完成，请稍后重试。')
   return payload as {
     format: 'qwerty-study-plan'
-    version: 2
+    version: 3
     exportedAt: string
     state: StudyServerState
   }
@@ -625,7 +860,7 @@ export async function importRemoteStudyPlan(previous: StudyPlanStorage, state: S
   const imported = withLearning(state)
   const next = Object.prototype.hasOwnProperty.call(state, 'learning')
     ? imported
-    : { ...imported, learning: current.learning }
+    : { ...imported, learning: current.learning, syncMeta: current.syncMeta }
   const id = enqueue([{ kind: 'replace', value: next }])
   publish(next)
   await syncStudyPlan()
@@ -649,6 +884,23 @@ export async function loadStudyAnalytics(): Promise<StudyAnalytics | null> {
   }
 }
 
+export async function loadReviewQueue(): Promise<ReviewQueueItem[]> {
+  await syncStudyPlan()
+  try {
+    const payload = await api('GET', `/review?today=${encodeURIComponent(localDay())}`)
+    const queue = Array.isArray(payload.queue) ? (payload.queue as ReviewQueueItem[]) : []
+    localStorage.setItem(REVIEW_KEY, JSON.stringify(queue))
+    return queue
+  } catch {
+    try {
+      const cached = localStorage.getItem(REVIEW_KEY)
+      return cached ? (JSON.parse(cached) as ReviewQueueItem[]) : []
+    } catch {
+      return []
+    }
+  }
+}
+
 export async function createStudySyncKey(initial?: StudyPlanStorage) {
   await syncStudyPlan(initial)
   if (pending().length) throw new Error('PENDING_MUTATIONS')
@@ -668,6 +920,15 @@ export function getStoredStudySyncKey() {
   }
 }
 
+export async function loadStudySyncInfo(): Promise<StudySyncInfo> {
+  await syncStudyPlan()
+  const payload = await api('GET', '/sync')
+  return {
+    bound: payload.bound === true,
+    activeKeys: typeof payload.activeKeys === 'number' ? payload.activeKeys : 0,
+  }
+}
+
 export async function linkStudyDevice(key: string): Promise<StudyServerState> {
   const normalized = key.trim().toLowerCase()
   if (!/^[a-f0-9]{64}$/.test(normalized)) throw new Error('INVALID_SYNC_KEY')
@@ -682,4 +943,27 @@ export async function linkStudyDevice(key: string): Promise<StudyServerState> {
   localStorage.setItem(SYNC_KEY, normalized)
   publish(withLearning(state))
   return withLearning(state)
+}
+
+export async function unlinkStudyDevice(): Promise<StudyServerState> {
+  await syncStudyPlan()
+  if (pending().length) throw new Error('PENDING_MUTATIONS')
+  const payload = await api('POST', '/unlink', {})
+  const state = payload.state as StudyServerState | undefined
+  if (!state) throw new Error('UNLINK_FAILED')
+  localStorage.removeItem(SYNC_KEY)
+  localStorage.removeItem(SEED)
+  publish(withLearning(state))
+  emitSyncStatus('saved', '已解绑；这台设备已保留一份独立学习进度。')
+  return withLearning(state)
+}
+
+export async function revokeStudySyncKey(key = getStoredStudySyncKey()) {
+  const normalized = key.trim().toLowerCase()
+  if (!/^[a-f0-9]{64}$/.test(normalized)) throw new Error('INVALID_SYNC_KEY')
+  await syncStudyPlan()
+  if (pending().length) throw new Error('PENDING_MUTATIONS')
+  await api('POST', '/sync-key/revoke', { key: normalized })
+  if (getStoredStudySyncKey() === normalized) localStorage.removeItem(SYNC_KEY)
+  return true
 }

@@ -4,13 +4,27 @@ export const record = (v) => v !== null && typeof v === 'object' && !Array.isArr
 const task = (v) => typeof v === 'string' && /^[a-z][a-z0-9-]{0,79}$/.test(v)
 const minutes = (v) => typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= 1000000
 const integer = (v, min = 0, max = Number.MAX_SAFE_INTEGER) => Number.isSafeInteger(v) && v >= min && v <= max
+const number = (v, min, max) => typeof v === 'number' && Number.isFinite(v) && v >= min && v <= max
 const text = (v, max) => typeof v === 'string' && v.length <= max
 const uuid = (v) => typeof v === 'string' && /^[a-f0-9-]{36}$/.test(v)
 const tense = (v) => ['present', 'passeCompose', 'imparfait'].includes(v)
+const reviewKind = (v) => ['vocabulary', 'grammar', 'conjugation'].includes(v)
+const timestamp = (v) => integer(v, 0, 9999999999999)
 
 const MAX_VOCAB_RECORDS = 3000
 const MAX_GRAMMAR_HISTORY = 50
+const MAX_CONJUGATION_ATTEMPTS = 3000
+const MAX_REVIEW_ITEMS = 1000
 const MAX_STATE_BYTES = 1500000
+
+export function emptySyncMeta() {
+  return {
+    startDateUpdatedAt: 0,
+    minimumModeUpdatedAt: {},
+    minutesUpdatedAt: {},
+    grammarDraftUpdatedAt: 0,
+  }
+}
 
 export function emptyLearningProgress() {
   return {
@@ -18,6 +32,8 @@ export function emptyLearningProgress() {
     grammar: { draft: null, history: [] },
     conjugation: {},
     conjugationDaily: {},
+    conjugationAttempts: [],
+    reviews: { items: {} },
   }
 }
 
@@ -34,8 +50,8 @@ function validateGrammarDraft(value) {
   if (!record(value) || value.status !== 'running' || !integer(value.secondsLeft, 0, 1800) ||
       !integer(value.currentBatch, 0, 100) || !record(value.answers) || !record(value.reasons) ||
       !record(value.submittedBatches) || !Array.isArray(value.outputAnswers) || value.outputAnswers.length > 20 ||
-      !(value.startedAt === null || integer(value.startedAt, 0, 9999999999999)) ||
-      !(value.deadline === null || integer(value.deadline, 0, 9999999999999))) throw new Error('Invalid grammar draft')
+      !(value.startedAt === null || timestamp(value.startedAt)) ||
+      !(value.deadline === null || timestamp(value.deadline))) throw new Error('Invalid grammar draft')
   for (const [key, answer] of Object.entries(value.answers))
     if (!/^\d{1,4}$/.test(key) || !['A', 'B'].includes(answer)) throw new Error('Invalid grammar answer')
   for (const [key, reason] of Object.entries(value.reasons))
@@ -45,10 +61,16 @@ function validateGrammarDraft(value) {
   if (value.outputAnswers.some((answer) => !text(answer, 6000))) throw new Error('Invalid grammar output')
 }
 
+function validateGrammarItem(value) {
+  if (!record(value) || !text(value.id, 120) || !text(value.label, 400) || typeof value.correct !== 'boolean' ||
+      !(value.prompt === undefined || text(value.prompt, 1000)))
+    throw new Error('Invalid grammar item')
+}
+
 function validateGrammarSession(value) {
   if (!record(value) || !uuid(value.id) || !text(value.topic, 200) || !integer(value.score, 0, 10000) ||
       !integer(value.total, 0, 10000) || value.score > value.total || !integer(value.elapsedSeconds, 0, 86400) ||
-      !integer(value.finishedAt, 0, 9999999999999) || !date(value.day) || !record(value.answers) ||
+      !timestamp(value.finishedAt) || !date(value.day) || !record(value.answers) ||
       !record(value.reasons) || !Array.isArray(value.outputAnswers) || value.outputAnswers.length > 20)
     throw new Error('Invalid grammar session')
   for (const [key, answer] of Object.entries(value.answers))
@@ -56,6 +78,10 @@ function validateGrammarSession(value) {
   for (const [key, reason] of Object.entries(value.reasons))
     if (!/^\d{1,4}$/.test(key) || !text(reason, 4000)) throw new Error('Invalid grammar reason')
   if (value.outputAnswers.some((answer) => !text(answer, 6000))) throw new Error('Invalid grammar output')
+  if (value.items !== undefined) {
+    if (!Array.isArray(value.items) || value.items.length > 100) throw new Error('Invalid grammar items')
+    value.items.forEach(validateGrammarItem)
+  }
 }
 
 function validateConjugation(value) {
@@ -69,11 +95,42 @@ function validateConjugation(value) {
   }
 }
 
+function validateConjugationAttempt(value) {
+  if (!record(value) || !uuid(value.id) || !text(value.verb, 120) || !tense(value.tense) ||
+      typeof value.correct !== 'boolean' || !date(value.day) || !timestamp(value.occurredAt))
+    throw new Error('Invalid conjugation attempt')
+}
+
+function validateReviewState(value) {
+  if (!record(value) || !reviewKind(value.kind) || !text(value.sourceId, 400) || !text(value.label, 500) ||
+      !date(value.dueDate) || !integer(value.intervalDays, 0, 36500) || !integer(value.repetitions, 0, 10000) ||
+      !number(value.ease, 1.3, 4) || !(value.lastReviewedAt === null || timestamp(value.lastReviewedAt)) ||
+      !timestamp(value.updatedAt) || !integer(value.lastResult, 0, 5))
+    throw new Error('Invalid review state')
+}
+
+function validateSyncMeta(value) {
+  if (!record(value) || !timestamp(value.startDateUpdatedAt) || !record(value.minimumModeUpdatedAt) ||
+      !record(value.minutesUpdatedAt) || !timestamp(value.grammarDraftUpdatedAt)) throw new Error('Invalid sync metadata')
+  for (const [day, valueAt] of Object.entries(value.minimumModeUpdatedAt))
+    if (!date(day) || !timestamp(valueAt)) throw new Error('Invalid mode clock')
+  for (const [day, tasks] of Object.entries(value.minutesUpdatedAt)) {
+    if (!date(day) || !record(tasks)) throw new Error('Invalid minutes clock')
+    for (const [id, valueAt] of Object.entries(tasks))
+      if (!task(id) || !timestamp(valueAt)) throw new Error('Invalid minutes clock')
+  }
+}
+
 function validateLearning(value) {
   if (!record(value) || !record(value.vocabulary) || !Array.isArray(value.vocabulary.records) ||
       value.vocabulary.records.length > MAX_VOCAB_RECORDS || !record(value.grammar) ||
       !Array.isArray(value.grammar.history) || value.grammar.history.length > MAX_GRAMMAR_HISTORY ||
       !record(value.conjugation) || !record(value.conjugationDaily)) throw new Error('Invalid learning progress')
+  const conjugationAttempts = value.conjugationAttempts ?? []
+  const reviews = value.reviews ?? { items: {} }
+  if (!Array.isArray(conjugationAttempts) || conjugationAttempts.length > MAX_CONJUGATION_ATTEMPTS ||
+      !record(reviews) || !record(reviews.items) || Object.keys(reviews.items).length > MAX_REVIEW_ITEMS)
+    throw new Error('Invalid learning progress')
   value.vocabulary.records.forEach(validateVocabularyRecord)
   validateGrammarDraft(value.grammar.draft)
   value.grammar.history.forEach(validateGrammarSession)
@@ -81,6 +138,11 @@ function validateLearning(value) {
   for (const [day, stat] of Object.entries(value.conjugationDaily)) {
     if (!date(day) || !record(stat) || !integer(stat.correct, 0, 10000000) ||
         !integer(stat.total, 0, 10000000) || stat.correct > stat.total) throw new Error('Invalid conjugation daily stat')
+  }
+  conjugationAttempts.forEach(validateConjugationAttempt)
+  for (const [id, item] of Object.entries(reviews.items)) {
+    if (!text(id, 500)) throw new Error('Invalid review ID')
+    validateReviewState(item)
   }
 }
 
@@ -93,6 +155,7 @@ export function validate(state) {
   for (const [day, value] of Object.entries(state.minimumMode))
     if (!date(day) || typeof value !== 'boolean') throw new Error('Invalid mode')
   if (state.learning !== undefined) validateLearning(state.learning)
+  if (state.syncMeta !== undefined) validateSyncMeta(state.syncMeta)
   if (new TextEncoder().encode(JSON.stringify(state)).byteLength > MAX_STATE_BYTES) throw new Error('Plan too large')
 }
 
@@ -100,6 +163,10 @@ export function normalizeState(state) {
   validate(state)
   const next = structuredClone(state)
   next.learning ??= emptyLearningProgress()
+  next.learning.conjugationAttempts ??= []
+  next.learning.reviews ??= { items: {} }
+  next.learning.reviews.items ??= {}
+  next.syncMeta ??= emptySyncMeta()
   validate(next)
   return next
 }
@@ -118,10 +185,58 @@ function mergeVocabularyRecords(current, incoming) {
   return appended.slice(-MAX_VOCAB_RECORDS)
 }
 
+function mergeConjugationAttempts(current, incoming) {
+  const seen = new Set(current.map((item) => item.id))
+  const appended = [...current]
+  for (const item of incoming) {
+    validateConjugationAttempt(item)
+    if (!seen.has(item.id)) {
+      appended.push(structuredClone(item))
+      seen.add(item.id)
+    }
+  }
+  appended.sort((a, b) => a.occurredAt - b.occurredAt || a.id.localeCompare(b.id))
+  return appended.slice(-MAX_CONJUGATION_ATTEMPTS)
+}
+
 function conjugationTotals(stats) {
   let total = 0
   for (const tenses of Object.values(stats)) for (const value of Object.values(tenses)) total += value.total
   return total
+}
+
+const opUpdatedAt = (op) => timestamp(op.updatedAt) ? op.updatedAt : 0
+const shouldApply = (incoming, current) => incoming >= (current ?? 0)
+
+function scheduleReview(previous, op) {
+  const quality = op.quality
+  const reviewedAt = op.reviewedAt
+  const reviewDay = op.day
+  const easeBefore = previous?.ease ?? 2.5
+  let ease = Math.max(1.3, easeBefore + 0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02))
+  let repetitions = previous?.repetitions ?? 0
+  let intervalDays = previous?.intervalDays ?? 0
+  if (quality < 3) {
+    repetitions = 0
+    intervalDays = 1
+  } else {
+    repetitions += 1
+    if (repetitions === 1) intervalDays = 1
+    else if (repetitions === 2) intervalDays = 6
+    else intervalDays = Math.max(1, Math.round(Math.max(1, intervalDays) * ease))
+  }
+  return {
+    kind: op.reviewKind,
+    sourceId: op.sourceId,
+    label: op.label,
+    dueDate: addDays(reviewDay, intervalDays),
+    intervalDays,
+    repetitions,
+    ease: Math.round(ease * 100) / 100,
+    lastReviewedAt: reviewedAt,
+    updatedAt: reviewedAt,
+    lastResult: quality,
+  }
 }
 
 export function apply(state, operations) {
@@ -131,21 +246,45 @@ export function apply(state, operations) {
     if (!record(op)) throw new Error('Invalid operation')
     if (op.kind === 'replace') {
       state = normalizeState(op.value)
-    } else if (op.kind === 'startDate' && date(op.value)) state.startDate = op.value
-    else if (op.kind === 'mode' && date(op.day) && (op.value === null || typeof op.value === 'boolean')) {
-      if (op.value === null) delete state.minimumMode[op.day]
-      else state.minimumMode[op.day] = op.value
-    } else if (['minutes', 'increment'].includes(op.kind) && date(op.day) && task(op.task) && (op.value === null || minutes(op.value))) {
+    } else if (op.kind === 'startDate' && date(op.value)) {
+      const updatedAt = opUpdatedAt(op)
+      if (shouldApply(updatedAt, state.syncMeta.startDateUpdatedAt)) {
+        state.startDate = op.value
+        state.syncMeta.startDateUpdatedAt = updatedAt
+      }
+    } else if (op.kind === 'mode' && date(op.day) && (op.value === null || typeof op.value === 'boolean')) {
+      const updatedAt = opUpdatedAt(op)
+      if (shouldApply(updatedAt, state.syncMeta.minimumModeUpdatedAt[op.day])) {
+        if (op.value === null) delete state.minimumMode[op.day]
+        else state.minimumMode[op.day] = op.value
+        state.syncMeta.minimumModeUpdatedAt[op.day] = updatedAt
+      }
+    } else if (op.kind === 'minutes' && date(op.day) && task(op.task) && (op.value === null || minutes(op.value))) {
+      const updatedAt = opUpdatedAt(op)
+      state.syncMeta.minutesUpdatedAt[op.day] ??= {}
+      if (shouldApply(updatedAt, state.syncMeta.minutesUpdatedAt[op.day][op.task])) {
+        state.minutes[op.day] ??= {}
+        if (op.value === null) delete state.minutes[op.day][op.task]
+        else state.minutes[op.day][op.task] = op.value
+        state.syncMeta.minutesUpdatedAt[op.day][op.task] = updatedAt
+      }
+    } else if (op.kind === 'increment' && date(op.day) && task(op.task) && minutes(op.value)) {
       state.minutes[op.day] ??= {}
-      if (op.value === null && op.kind === 'minutes') delete state.minutes[op.day][op.task]
-      else if (op.value !== null)
-        state.minutes[op.day][op.task] = op.kind === 'increment' ? (state.minutes[op.day][op.task] ?? 0) + op.value : op.value
-      else throw new Error('Invalid increment')
+      state.minutes[op.day][op.task] = (state.minutes[op.day][op.task] ?? 0) + op.value
+      state.syncMeta.minutesUpdatedAt[op.day] ??= {}
+      state.syncMeta.minutesUpdatedAt[op.day][op.task] = Math.max(
+        state.syncMeta.minutesUpdatedAt[op.day][op.task] ?? 0,
+        opUpdatedAt(op),
+      )
     } else if (op.kind === 'vocabularyRecords' && Array.isArray(op.value) && op.value.length <= MAX_VOCAB_RECORDS) {
       state.learning.vocabulary.records = mergeVocabularyRecords(state.learning.vocabulary.records, op.value)
     } else if (op.kind === 'grammarDraft') {
       validateGrammarDraft(op.value)
-      state.learning.grammar.draft = structuredClone(op.value)
+      const updatedAt = opUpdatedAt(op)
+      if (shouldApply(updatedAt, state.syncMeta.grammarDraftUpdatedAt)) {
+        state.learning.grammar.draft = structuredClone(op.value)
+        state.syncMeta.grammarDraftUpdatedAt = updatedAt
+      }
     } else if (op.kind === 'grammarSession') {
       validateGrammarSession(op.value)
       if (!state.learning.grammar.history.some((item) => item.id === op.value.id))
@@ -156,17 +295,26 @@ export function apply(state, operations) {
     } else if (op.kind === 'conjugationSeed') {
       validateConjugation(op.value)
       if (conjugationTotals(state.learning.conjugation) === 0) state.learning.conjugation = structuredClone(op.value)
-    } else if (op.kind === 'conjugationAttempt' && text(op.verb, 120) && tense(op.tense) &&
-               typeof op.correct === 'boolean' && date(op.day)) {
-      const byVerb = state.learning.conjugation[op.verb] ?? {}
-      const stat = byVerb[op.tense] ?? { correct: 0, total: 0 }
-      byVerb[op.tense] = { correct: stat.correct + (op.correct ? 1 : 0), total: stat.total + 1 }
-      state.learning.conjugation[op.verb] = byVerb
-      const daily = state.learning.conjugationDaily[op.day] ?? { correct: 0, total: 0 }
-      state.learning.conjugationDaily[op.day] = {
-        correct: daily.correct + (op.correct ? 1 : 0),
-        total: daily.total + 1,
+    } else if (op.kind === 'conjugationAttempt' && record(op.value)) {
+      validateConjugationAttempt(op.value)
+      if (!state.learning.conjugationAttempts.some((item) => item.id === op.value.id)) {
+        state.learning.conjugationAttempts = mergeConjugationAttempts(state.learning.conjugationAttempts, [op.value])
+        const byVerb = state.learning.conjugation[op.value.verb] ?? {}
+        const stat = byVerb[op.value.tense] ?? { correct: 0, total: 0 }
+        byVerb[op.value.tense] = { correct: stat.correct + (op.value.correct ? 1 : 0), total: stat.total + 1 }
+        state.learning.conjugation[op.value.verb] = byVerb
+        const daily = state.learning.conjugationDaily[op.value.day] ?? { correct: 0, total: 0 }
+        state.learning.conjugationDaily[op.value.day] = {
+          correct: daily.correct + (op.value.correct ? 1 : 0),
+          total: daily.total + 1,
+        }
       }
+    } else if (op.kind === 'reviewResult' && text(op.itemId, 500) && reviewKind(op.reviewKind) &&
+               text(op.sourceId, 400) && text(op.label, 500) && integer(op.quality, 0, 5) &&
+               timestamp(op.reviewedAt) && date(op.day)) {
+      const previous = state.learning.reviews.items[op.itemId]
+      if (!previous || op.reviewedAt >= previous.updatedAt)
+        state.learning.reviews.items[op.itemId] = scheduleReview(previous, op)
     } else throw new Error('Invalid operation')
   }
   validate(state)
@@ -193,6 +341,7 @@ const addDays = (key, amount) => {
 }
 const diffDays = (from, to) => Math.floor((keyToUtc(to) - keyToUtc(from)) / 86400000)
 const sum = (values) => values.reduce((total, value) => total + value, 0)
+const accuracy = (correct, total) => total ? Math.round((correct / total) * 100) : null
 
 function targetsFor(state, day) {
   return state.minimumMode[day] ? MINIMUM_TARGETS : (NORMAL_TARGETS[keyToUtc(day).getUTCDay()] ?? {})
@@ -226,6 +375,238 @@ function streaks(days, today) {
     cursor = addDays(cursor, -1)
   }
   return { current, longest }
+}
+
+function dayMetrics(state, day) {
+  const vocab = state.learning.vocabulary.records.filter((item) => item.day === day)
+  const grammar = state.learning.grammar.history.filter((item) => item.day === day)
+  let grammarCorrect = 0, grammarTotal = 0
+  for (const session of grammar) {
+    grammarCorrect += session.score
+    grammarTotal += session.total
+  }
+  const conjugation = state.learning.conjugationDaily[day] ?? { correct: 0, total: 0 }
+  return {
+    minutes: sum(Object.values(state.minutes[day] ?? {})),
+    vocabularyCorrect: vocab.filter((item) => item.wrongCount === 0).length,
+    vocabularyTotal: vocab.length,
+    grammarCorrect,
+    grammarTotal,
+    conjugationCorrect: conjugation.correct,
+    conjugationTotal: conjugation.total,
+  }
+}
+
+function aggregateDays(state, days, label, startDate, endDate) {
+  const metrics = days.map((day) => dayMetrics(state, day))
+  const total = (key) => sum(metrics.map((item) => item[key]))
+  return {
+    label,
+    startDate,
+    endDate,
+    minutes: total('minutes'),
+    vocabularyAccuracy: accuracy(total('vocabularyCorrect'), total('vocabularyTotal')),
+    grammarAccuracy: accuracy(total('grammarCorrect'), total('grammarTotal')),
+    conjugationAccuracy: accuracy(total('conjugationCorrect'), total('conjugationTotal')),
+  }
+}
+
+function startOfWeek(day) {
+  const value = keyToUtc(day)
+  const weekday = value.getUTCDay()
+  value.setUTCDate(value.getUTCDate() - ((weekday + 6) % 7))
+  return toKey(value)
+}
+
+function startOfMonth(day) {
+  return day.slice(0, 7) + '-01'
+}
+
+function monthDays(start) {
+  const value = keyToUtc(start)
+  const month = value.getUTCMonth()
+  const days = []
+  while (value.getUTCMonth() === month) {
+    days.push(toKey(value))
+    value.setUTCDate(value.getUTCDate() + 1)
+  }
+  return days
+}
+
+function trendBuckets(state, today) {
+  const daily = Array.from({ length: 30 }, (_, index) => addDays(today, index - 29))
+    .map((day) => aggregateDays(state, [day], day.slice(5), day, day))
+  const currentWeekStart = startOfWeek(today)
+  const weekly = Array.from({ length: 12 }, (_, index) => addDays(currentWeekStart, (index - 11) * 7))
+    .map((start) => {
+      const days = Array.from({ length: 7 }, (_, index) => addDays(start, index))
+      return aggregateDays(state, days, start.slice(5), start, days[6])
+    })
+  const currentMonthStart = startOfMonth(today)
+  const currentMonth = keyToUtc(currentMonthStart)
+  const monthly = Array.from({ length: 12 }, (_, index) => {
+    const value = new Date(Date.UTC(currentMonth.getUTCFullYear(), currentMonth.getUTCMonth() + index - 11, 1))
+    const start = toKey(value)
+    const days = monthDays(start)
+    return aggregateDays(state, days, start.slice(0, 7), start, days[days.length - 1])
+  })
+  return { daily, weekly, monthly }
+}
+
+function rankings(state) {
+  const vocabulary = new Map()
+  for (const item of state.learning.vocabulary.records) {
+    const key = item.dict + '|' + item.word
+    const row = vocabulary.get(key) ?? { id: key, label: item.word, errors: 0, attempts: 0, correct: 0 }
+    row.attempts += 1
+    row.errors += item.wrongCount
+    if (item.wrongCount === 0) row.correct += 1
+    vocabulary.set(key, row)
+  }
+
+  const grammar = new Map()
+  for (const session of state.learning.grammar.history) {
+    if (session.items?.length) {
+      for (const item of session.items) {
+        const row = grammar.get(item.id) ?? { id: item.id, label: item.label, errors: 0, attempts: 0, correct: 0 }
+        row.attempts += 1
+        row.errors += item.correct ? 0 : 1
+        row.correct += item.correct ? 1 : 0
+        grammar.set(item.id, row)
+      }
+    } else {
+      const key = 'topic:' + session.topic
+      const row = grammar.get(key) ?? { id: key, label: session.topic, errors: 0, attempts: 0, correct: 0 }
+      row.attempts += session.total
+      row.correct += session.score
+      row.errors += session.total - session.score
+      grammar.set(key, row)
+    }
+  }
+
+  const conjugation = new Map()
+  for (const [verb, tenses] of Object.entries(state.learning.conjugation)) {
+    let correct = 0, total = 0
+    for (const stat of Object.values(tenses)) {
+      correct += stat.correct
+      total += stat.total
+    }
+    conjugation.set(verb, { id: verb, label: verb, errors: total - correct, attempts: total, correct })
+  }
+
+  const finish = (map) => [...map.values()]
+    .map((item) => ({ ...item, accuracy: accuracy(item.correct, item.attempts) }))
+    .filter((item) => item.errors > 0)
+    .sort((a, b) => b.errors - a.errors || b.attempts - a.attempts || a.label.localeCompare(b.label))
+    .slice(0, 10)
+
+  return {
+    vocabulary: finish(vocabulary),
+    grammar: finish(grammar),
+    conjugation: finish(conjugation),
+  }
+}
+
+function reviewCandidates(state) {
+  const candidates = new Map()
+  for (const item of state.learning.vocabulary.records) {
+    if (item.wrongCount <= 0) continue
+    const sourceId = item.dict + '|' + item.word
+    const itemId = 'vocabulary:' + sourceId
+    const row = candidates.get(itemId) ?? {
+      itemId,
+      kind: 'vocabulary',
+      sourceId,
+      label: item.word,
+      errorCount: 0,
+      lastErrorAt: 0,
+    }
+    row.errorCount += item.wrongCount
+    row.lastErrorAt = Math.max(row.lastErrorAt, item.timeStamp * 1000)
+    candidates.set(itemId, row)
+  }
+
+  for (const session of state.learning.grammar.history) {
+    if (session.items?.length) {
+      for (const item of session.items) {
+        if (item.correct) continue
+        const sourceId = item.id
+        const itemId = 'grammar:' + sourceId
+        const row = candidates.get(itemId) ?? {
+          itemId,
+          kind: 'grammar',
+          sourceId,
+          label: item.prompt ? item.label + ' · ' + item.prompt : item.label,
+          errorCount: 0,
+          lastErrorAt: 0,
+        }
+        row.errorCount += 1
+        row.lastErrorAt = Math.max(row.lastErrorAt, session.finishedAt)
+        candidates.set(itemId, row)
+      }
+    } else if (session.score < session.total) {
+      const sourceId = 'topic:' + session.topic
+      const itemId = 'grammar:' + sourceId
+      const row = candidates.get(itemId) ?? {
+        itemId,
+        kind: 'grammar',
+        sourceId,
+        label: session.topic,
+        errorCount: 0,
+        lastErrorAt: 0,
+      }
+      row.errorCount += session.total - session.score
+      row.lastErrorAt = Math.max(row.lastErrorAt, session.finishedAt)
+      candidates.set(itemId, row)
+    }
+  }
+
+  const conjugationLastErrors = new Map()
+  for (const attempt of state.learning.conjugationAttempts) {
+    if (!attempt.correct) {
+      const sourceId = attempt.verb + '|' + attempt.tense
+      conjugationLastErrors.set(sourceId, Math.max(conjugationLastErrors.get(sourceId) ?? 0, attempt.occurredAt))
+    }
+  }
+  for (const [verb, tenses] of Object.entries(state.learning.conjugation)) {
+    for (const [tenseName, stat] of Object.entries(tenses)) {
+      const errors = stat.total - stat.correct
+      if (errors <= 0) continue
+      const sourceId = verb + '|' + tenseName
+      const itemId = 'conjugation:' + sourceId
+      candidates.set(itemId, {
+        itemId,
+        kind: 'conjugation',
+        sourceId,
+        label: verb + ' · ' + tenseName,
+        errorCount: errors,
+        lastErrorAt: conjugationLastErrors.get(sourceId) ?? 0,
+      })
+    }
+  }
+  return [...candidates.values()]
+}
+
+export function buildReviewQueue(input, today = toKey(new Date())) {
+  const state = normalizeState(input)
+  if (!date(today)) throw new Error('Invalid review date')
+  return reviewCandidates(state)
+    .map((candidate) => {
+      const review = state.learning.reviews.items[candidate.itemId]
+      const resurfaced = candidate.lastErrorAt > (review?.lastReviewedAt ?? 0)
+      const dueDate = resurfaced || !review ? today : review.dueDate
+      return {
+        ...candidate,
+        dueDate,
+        repetitions: review?.repetitions ?? 0,
+        intervalDays: review?.intervalDays ?? 0,
+        ease: review?.ease ?? 2.5,
+        lastReviewedAt: review?.lastReviewedAt ?? null,
+      }
+    })
+    .filter((item) => item.dueDate <= today)
+    .sort((a, b) => a.dueDate.localeCompare(b.dueDate) || b.errorCount - a.errorCount || b.lastErrorAt - a.lastErrorAt)
+    .slice(0, 50)
 }
 
 export function studyAnalytics(input, now = new Date()) {
@@ -320,29 +701,33 @@ export function studyAnalytics(input, now = new Date()) {
       uniqueWords: new Set(vocabulary.map((item) => item.word)).size,
       wrongWords: vocabularyWrongWords.size,
       minutes: Math.round(sum(vocabulary.map((item) => item.durationMs)) / 60000),
+      accuracy: accuracy(vocabulary.filter((item) => item.wrongCount === 0).length, vocabulary.length),
     },
     grammar: {
       sessions: grammar.length,
       correct: grammarCorrect,
       total: grammarTotal,
-      accuracy: grammarTotal ? Math.round((grammarCorrect / grammarTotal) * 100) : null,
+      accuracy: accuracy(grammarCorrect, grammarTotal),
       minutes: Math.round(sum(grammar.map((item) => item.elapsedSeconds)) / 60),
       hasDraft: state.learning.grammar.draft !== null,
     },
     conjugation: {
       attempts: conjugationTotal,
       correct: conjugationCorrect,
-      accuracy: conjugationTotal ? Math.round((conjugationCorrect / conjugationTotal) * 100) : null,
+      accuracy: accuracy(conjugationCorrect, conjugationTotal),
       practicedVerbs: practicedVerbs.size,
     },
+    trends: trendBuckets(state, today),
+    rankings: rankings(state),
+    reviewDue: buildReviewQueue(state, today).length,
   }
 }
 
 export function importOperations(backup) {
-  if (!record(backup) || backup.format !== 'qwerty-study-plan' || ![1, 2].includes(backup.version)) throw new Error('Unsupported backup')
+  if (!record(backup) || backup.format !== 'qwerty-study-plan' || ![1, 2, 3].includes(backup.version)) throw new Error('Unsupported backup')
   validate(backup.state)
   return [{ kind: 'replace', value: backup.state }]
 }
 export function exportPlan(state) {
-  return { format: 'qwerty-study-plan', version: 2, exportedAt: new Date().toISOString(), state: normalizeState(state) }
+  return { format: 'qwerty-study-plan', version: 3, exportedAt: new Date().toISOString(), state: normalizeState(state) }
 }

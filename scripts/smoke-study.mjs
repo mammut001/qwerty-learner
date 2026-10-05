@@ -96,9 +96,23 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
           answers: { 1: 'A' },
           reasons: { 1: '背景描述' },
           outputAnswers: ['Je regardais la télé.'],
+          items: [
+            { id: '1', label: '背景 + 突发事件', correct: true },
+            { id: '2', label: '过去习惯', correct: false },
+          ],
         },
       },
-      { kind: 'conjugationAttempt', verb: 'prendre', tense: 'passeCompose', correct: true, day: '2026-10-03' },
+      {
+        kind: 'conjugationAttempt',
+        value: {
+          id: randomUUID(),
+          verb: 'prendre',
+          tense: 'passeCompose',
+          correct: false,
+          day: '2026-10-03',
+          occurredAt: 1791061300000,
+        },
+      },
     ],
   }
   assert.equal((await call('PATCH', learningMutation)).res.status, 200)
@@ -118,11 +132,41 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   assert.equal(analytics.data.analytics.vocabulary.attempts, 1)
   assert.equal(analytics.data.analytics.grammar.sessions, 1)
   assert.equal(analytics.data.analytics.conjugation.attempts, 1)
+  assert.equal(analytics.data.analytics.vocabulary.accuracy, 0)
+  assert.equal(analytics.data.analytics.grammar.accuracy, 80)
+  assert.equal(analytics.data.analytics.conjugation.accuracy, 0)
+  assert.equal(analytics.data.analytics.trends.daily.length, 30)
+  assert.equal(analytics.data.analytics.trends.weekly.length, 12)
+  assert.equal(analytics.data.analytics.trends.monthly.length, 12)
+  assert.equal(analytics.data.analytics.rankings.vocabulary[0].label, 'prendre')
+  assert.equal(analytics.data.analytics.rankings.grammar[0].label, '过去习惯')
+  assert.equal(analytics.data.analytics.rankings.conjugation[0].label, 'prendre')
   assert.ok(analytics.data.analytics.plan.weeklyHistory.length > 0)
   const latestAnalyticsWeek = analytics.data.analytics.plan.weeklyHistory.at(-1)
   assert.equal(latestAnalyticsWeek.wrongWords, 1)
   assert.equal(latestAnalyticsWeek.wrongAttempts, 1)
   assert.equal(typeof latestAnalyticsWeek.completionPercent, 'number')
+
+  const reviewResponse = await call('GET', undefined, { path: '/review?today=2026-10-05' })
+  assert.equal(reviewResponse.res.status, 200)
+  assert.equal(reviewResponse.data.queue.length, 3)
+  const vocabReview = reviewResponse.data.queue.find((item) => item.kind === 'vocabulary')
+  assert.ok(vocabReview)
+  assert.equal((await call('PATCH', {
+    id: randomUUID(),
+    operations: [{
+      kind: 'reviewResult',
+      itemId: vocabReview.itemId,
+      reviewKind: vocabReview.kind,
+      sourceId: vocabReview.sourceId,
+      label: vocabReview.label,
+      quality: 4,
+      reviewedAt: 1791230400000,
+      day: '2026-10-05',
+    }],
+  })).res.status, 200)
+  assert.equal((await call('GET', undefined, { path: '/review?today=2026-10-05' })).data.queue.some((item) => item.itemId === vocabReview.itemId), false)
+  expected = (await call('GET')).data.state
 
   const keyResponse = await call('POST', {}, { path: '/sync-key' })
   assert.equal(keyResponse.res.status, 200)
@@ -132,6 +176,12 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   assert.equal(linked.res.status, 200)
   const linkedCookie = linked.res.headers.get('set-cookie').split(';')[0]
   assert.deepEqual((await call('GET', undefined, { cookie: linkedCookie })).data.state, expected, 'A second device reads the same learner state')
+  assert.deepEqual((await call('GET', undefined, { cookie: linkedCookie, path: '/sync' })).data, { bound: true, activeKeys: 1 })
+  const detached = await call('POST', {}, { cookie: linkedCookie, path: '/unlink' })
+  assert.equal(detached.res.status, 200)
+  const detachedCookie = detached.res.headers.get('set-cookie').split(';')[0]
+  assert.deepEqual((await call('GET', undefined, { cookie: detachedCookie, path: '/sync' })).data, { bound: false, activeKeys: 0 })
+  assert.deepEqual((await call('GET', undefined, { cookie: detachedCookie })).data.state, expected, 'Unlinked device keeps an independent copy')
 
   assert.equal((await call('GET', undefined, { cookie: '' })).data.state, null, 'Browser identities isolated')
   assert.equal((await call('PATCH', mutation, { cookie: '' })).res.status, 401)
@@ -139,7 +189,7 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   assert.equal((await call('PATCH', { id: randomUUID(), operations: [{ kind: 'minutes', day: '2026-10-03', task: 'sat-retell', value: -1 }] })).res.status, 400)
   assert.deepEqual((await call('GET')).data.state, expected, 'Rejected write leaves state intact')
   if (saveSession) await writeFile(saveSession, JSON.stringify({ origin, cookie, expected, syncKey }), { mode: 0o600 })
-  console.log('PASS: same-origin API, migration, learning persistence, analytics, cross-device sync, concurrent minutes, retry deduplication, isolation and CSRF')
+  console.log('PASS: same-origin API, analytics trends/rankings, SM-2 review, bind/unbind, restart persistence, concurrent/idempotent writes, isolation and CSRF')
 }
 if (process.argv[1]?.endsWith('smoke-study.mjs')) {
   const [base, mode, path] = process.argv.slice(2)

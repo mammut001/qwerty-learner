@@ -6,14 +6,20 @@ import {
   importRemoteStudyPlan,
   linkStudyDevice,
   loadStudyAnalytics,
+  loadStudySyncInfo,
+  revokeStudySyncKey,
   saveStudyPlan,
   subscribeLearningProgress,
   subscribeStudyPlan,
+  subscribeStudySyncStatus,
   syncStudyPlan,
+  unlinkStudyDevice,
   type LearningProgress,
   type StudyAnalytics,
   type StudyPlanStorage,
   type StudyServerState,
+  type StudySyncInfo,
+  type StudySyncStatus,
 } from '@/services/studyPlanSync'
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
@@ -145,6 +151,9 @@ function parseImportedStorage(value: unknown): StudyPlanStorage | StudyServerSta
   if (isRecord(value.learning)) {
     ;(imported as StudyServerState).learning = value.learning as unknown as LearningProgress
   }
+  if (isRecord(value.syncMeta)) {
+    ;(imported as StudyServerState).syncMeta = value.syncMeta as StudyServerState['syncMeta']
+  }
   return imported
 }
 
@@ -203,16 +212,25 @@ export default function StudyPlanPage() {
   const [analytics, setAnalytics] = useState<StudyAnalytics | null>(null)
   const [syncKey, setSyncKey] = useState(() => getStoredStudySyncKey())
   const [syncKeyInput, setSyncKeyInput] = useState(() => getStoredStudySyncKey())
+  const [syncInfo, setSyncInfo] = useState<StudySyncInfo>({ bound: false, activeKeys: 0 })
+  const [syncStatus, setSyncStatus] = useState<StudySyncStatus>({
+    phase: 'idle',
+    pending: 0,
+    message: '尚未同步',
+  })
 
   useEffect(() => {
     const unsubscribe = subscribeStudyPlan(setStorage, setImportMessage)
     const unsubscribeLearning = subscribeLearningProgress(setLearning)
+    const unsubscribeStatus = subscribeStudySyncStatus(setSyncStatus)
     void syncStudyPlan(loadStorage(todayKey)).then(() => {
       void getLearningProgress().then(setLearning)
+      void loadStudySyncInfo().then(setSyncInfo).catch(() => undefined)
     })
     return () => {
       unsubscribe()
       unsubscribeLearning()
+      unsubscribeStatus()
     }
   }, [todayKey])
 
@@ -610,7 +628,10 @@ export default function StudyPlanPage() {
 
     try {
       const parsed = JSON.parse(await file.text()) as unknown
-      const candidate = isRecord(parsed) && parsed.format === 'qwerty-study-plan' && (parsed.version === 1 || parsed.version === 2) ? parsed.state : parsed
+      const candidate =
+        isRecord(parsed) && parsed.format === 'qwerty-study-plan' && (parsed.version === 1 || parsed.version === 2 || parsed.version === 3)
+          ? parsed.state
+          : parsed
       const imported = parseImportedStorage(candidate)
       if (!imported) {
         setImportMessage('导入失败：JSON 结构不符合学习计划格式，现有数据未修改。')
@@ -645,6 +666,7 @@ export default function StudyPlanPage() {
       const key = await createStudySyncKey(storage)
       setSyncKey(key)
       setSyncKeyInput(key)
+      setSyncInfo(await loadStudySyncInfo())
       setImportMessage('同步码已生成。它等同账号密码，请只保存在你自己的设备上。')
     } catch {
       setImportMessage('暂时无法生成同步码：请先等待本机待保存记录同步完成。')
@@ -667,12 +689,44 @@ export default function StudyPlanPage() {
       setStorage(linked)
       setLearning(linked.learning)
       setSyncKey(syncKeyInput.trim().toLowerCase())
-      setImportMessage('这台设备已连接到同一份服务端学习进度。')
+      setSyncInfo(await loadStudySyncInfo())
+      setImportMessage('这台设备已绑定到同一份服务端学习进度。')
     } catch (error) {
       setImportMessage(
         error instanceof Error && error.message === 'INVALID_SYNC_KEY'
           ? '同步码无效，请检查后重试。'
           : '连接失败：请确认同步码正确，并等待本机待保存记录同步完成。',
+      )
+    }
+  }
+
+  const disconnectSync = async () => {
+    try {
+      const detached = await unlinkStudyDevice()
+      setStorage(detached)
+      setLearning(detached.learning)
+      setSyncKey('')
+      setSyncKeyInput('')
+      setSyncInfo({ bound: false, activeKeys: 0 })
+      setImportMessage('已解绑：当前进度保留在这台设备的新独立副本中，之后不会再和原设备互相覆盖。')
+    } catch {
+      setImportMessage('解绑失败：请先联网并等待待同步记录保存完成。')
+    }
+  }
+
+  const revokeSyncCode = async () => {
+    if (!syncKey) return
+    try {
+      await revokeStudySyncKey(syncKey)
+      setSyncKey('')
+      setSyncKeyInput('')
+      setSyncInfo(await loadStudySyncInfo())
+      setImportMessage('同步码已撤销，之后不能再用它绑定新设备。')
+    } catch (error) {
+      setImportMessage(
+        error instanceof Error && error.message.includes('Unlink this device')
+          ? '当前设备正在使用这个同步码，请先解绑当前设备再撤销。'
+          : '撤销同步码失败，请确认网络正常。',
       )
     }
   }
@@ -871,14 +925,15 @@ export default function StudyPlanPage() {
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div>
                     <div className="text-xs font-medium text-gray-500 dark:text-gray-300">跨设备同步</div>
-                    <div className="mt-0.5 text-[11px] text-gray-400">同步码可读取整份学习进度，等同账号密码。</div>
+                    <div className="mt-0.5 text-[11px] text-gray-400">同步码等同账号密码；轮换后旧码失效，其他设备需要用新码重新绑定。</div>
                   </div>
                   <button
                     type="button"
                     onClick={generateSyncKey}
-                    className="rounded-lg border border-gray-200 bg-white px-2.5 py-1 text-xs font-medium text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                    disabled={syncInfo.bound}
+                    className="rounded-lg border border-gray-200 bg-white px-2.5 py-1 text-xs font-medium text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
                   >
-                    {syncKey ? '再生成一个同步码' : '生成同步码'}
+                    {syncKey ? '轮换同步码' : '生成同步码'}
                   </button>
                 </div>
 
@@ -916,8 +971,36 @@ export default function StudyPlanPage() {
                     disabled={!/^[a-fA-F0-9]{64}$/.test(syncKeyInput.trim())}
                     className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
                   >
-                    连接
+                    绑定
                   </button>
+                </div>
+
+                <div className="mt-2 flex flex-wrap items-center gap-2 border-t border-gray-200 pt-2 text-[11px] dark:border-gray-700">
+                  <span className={syncInfo.bound ? 'text-indigo-600 dark:text-indigo-300' : 'text-gray-400'}>
+                    {syncInfo.bound ? '此设备已通过同步码绑定' : '此设备使用独立会话'}
+                  </span>
+                  <span className="text-gray-400">有效同步码 {syncInfo.activeKeys}</span>
+                  <span className={syncStatus.pending > 0 ? 'text-amber-600 dark:text-amber-300' : 'text-green-600 dark:text-green-300'}>
+                    {syncStatus.pending > 0 ? `${syncStatus.pending} 条待同步` : syncStatus.message}
+                  </span>
+                  {syncInfo.bound && (
+                    <button
+                      type="button"
+                      onClick={disconnectSync}
+                      className="ml-auto rounded-md border border-gray-200 bg-white px-2 py-1 text-gray-500 hover:border-amber-300 hover:text-amber-600 dark:border-gray-700 dark:bg-gray-800"
+                    >
+                      解绑此设备
+                    </button>
+                  )}
+                  {syncKey && !syncInfo.bound && (
+                    <button
+                      type="button"
+                      onClick={revokeSyncCode}
+                      className="ml-auto rounded-md border border-gray-200 bg-white px-2 py-1 text-gray-500 hover:border-red-300 hover:text-red-600 dark:border-gray-700 dark:bg-gray-800"
+                    >
+                      撤销同步码
+                    </button>
+                  )}
                 </div>
               </div>
 

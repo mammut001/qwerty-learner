@@ -35,7 +35,7 @@ Local Vite still proxies `/api` to `http://127.0.0.1:8787`. Run the Node backend
 
 If an existing public Nginx frontend must use the Worker API, adapt `nginx-public-api.conf.example`, replacing `STUDY_WORKER_HOST` with the deployed Worker hostname. Set `STUDY_ORIGIN` in `deploy/.env` to that **frontend** HTTPS origin and rerun deployment. Keep the browser's original Origin and Cookie headers; enable upstream TLS verification/SNI as shown. The deployment smoke then runs through that frontend, which must already serve this frontend build and proxy `/api`. GitHub Pages cannot provide this same-origin proxy; it can use the direct remote mode below if browser cookie policy permits it.
 
-Browser identity starts with the site's cookie. Refreshes and server restarts preserve state. The study-plan page can also generate a random 256-bit sync code; entering that code on another device links its cookie to the same learner state. The server stores only the sync-code hash. Treat the displayed code like a password and keep it on trusted devices.
+Browser identity starts with the site's cookie. Refreshes and server restarts preserve state. The study-plan page can generate a random 256-bit sync code; entering it on another device links that browser to the same learner. A linked device can detach into an independent copy, and the owner can revoke or rotate the generated code. Rotating invalidates the previous code, so already-linked devices must bind again with the new code. The server stores only sync-code hashes plus revocation state. Treat a live code like a password and keep it on trusted devices.
 
 ## Production Node SQLite + Nginx on an existing free VM
 
@@ -69,7 +69,7 @@ npm run test:cloud
 npm run smoke:study -- https://YOUR-PUBLIC-HOST
 ```
 
-The cloud test uses Wrangler's actual local D1 implementation, checks SPA routing and API behavior, stops and restarts the Worker against the same database, and verifies saved progress. The smoke checks migration, minutes, completion, concurrent increments, retry deduplication, browser isolation and rejected cross-origin writes. It creates a separate anonymous test identity; it does not alter another browser's records.
+The cloud test uses Wrangler's actual local D1 implementation, checks SPA routing and API behavior, stops and restarts the Worker against the same database, and verifies saved progress. The smoke covers migrations, analytics trends/rankings, SM-2 review scheduling, sync-code bind/unbind, concurrent/idempotent writes, restart persistence, browser isolation and rejected cross-origin writes. It creates a separate anonymous test identity; it does not alter another browser's records.
 
 The `Study plan persistence` GitHub Actions workflow builds frontend and Node Docker images, validates the production overlay, exercises the Nginx→Node path, and checks persistence after an API restart. A separate job builds and tests the Worker with real local D1. Neither CI job needs hosting secrets or deploys paid resources. Docker image validation runs in CI; Docker is required to run that job locally.
 
@@ -77,7 +77,7 @@ The `Study plan persistence` GitHub Actions workflow builds frontend and Node Do
 
 This mode still uses an anonymous learner rather than a login account. Cookie replay restores the same records after refresh; a new device can explicitly join the same learner with the study-plan sync code. No deployment API key belongs in frontend JavaScript.
 
-1. In ignored `deploy/.env`, set `STUDY_REMOTE_API=true` and `STUDY_ORIGIN=https://YOUR-FRONTEND-HOST` (exact origin, no path/trailing slash). Run `npm run deploy:free`. It sets the Worker to `STUDY_COOKIE_SECURE=true`, `STUDY_COOKIE_SAME_SITE=none` and verifies the Worker API using the configured frontend Origin. Apply all checked-in D1 migrations; the sync-code mapping lives in the additive `0002_sync_keys.sql` migration. No additional schema change is required specifically for CORS.
+1. In ignored `deploy/.env`, set `STUDY_REMOTE_API=true` and `STUDY_ORIGIN=https://YOUR-FRONTEND-HOST` (exact origin, no path/trailing slash). Run `npm run deploy:free`. It sets the Worker to `STUDY_COOKIE_SECURE=true`, `STUDY_COOKIE_SAME_SITE=none` and verifies the Worker API using the configured frontend Origin. Apply all checked-in D1 migrations. `0002_sync_keys.sql` adds portable sync-code mappings and `0003_sync_key_revocation.sql` adds revocation state/indexing. No additional schema change is required specifically for CORS.
 2. Build the separately hosted frontend with the printed API origin:
 
    ```bash
@@ -109,16 +109,20 @@ CI additionally builds with a nonempty remote API base, verifies that the compil
 
 ## Per-browser remote export and import
 
-The existing learning-plan export button now flushes pending changes and downloads **server state**, in `{format:"qwerty-study-plan", version:1, exportedAt, state}` JSON. It reports failure if the server is unavailable or queued changes remain; it does not silently substitute a local snapshot. The existing import picker/confirmation accepts this envelope and previous plain-state JSON files. Import replaces the current browser identity's plan atomically through the remote API. Offline imports stay in the durable mutation queue and retry after reconnect/reload. Layout and learning content are unchanged.
+The existing learning-plan export button now flushes pending changes and downloads **server state**, in `{format:"qwerty-study-plan", version:3, exportedAt, state}` JSON. It reports failure if the server is unavailable or queued changes remain; it does not silently substitute a local snapshot. The existing import picker/confirmation accepts this envelope and previous plain-state JSON files. Import replaces the current browser identity's plan atomically through the remote API. Offline imports stay in the durable mutation queue and retry after reconnect/reload. Layout and learning content are unchanged.
 
 - `GET /api/study-plan/export`: requires the current session and an initialized plan. Returns only this identity's progress, never cookies or other users' records.
-- `GET /api/study-plan/analytics?today=YYYY-MM-DD`: returns server-derived weekly/total minutes, phase/week completion, streaks, and vocabulary/grammar/conjugation rollups for the current learner.
-- `POST /api/study-plan/sync-key`: creates a new portable sync code for the current initialized learner; only its hash is stored server-side.
+- `GET /api/study-plan/analytics?today=YYYY-MM-DD`: returns server-derived day/week/month learning-time and accuracy trends, error rankings, plan completion/streaks, and review-due count.
+- `GET /api/study-plan/review?today=YYYY-MM-DD`: builds the current learner's due vocabulary/grammar/conjugation review queue from backend error history and persisted SM-2 state.
+- `GET /api/study-plan/sync`: reports whether this browser is currently bound through a sync code and how many share codes remain active.
+- `POST /api/study-plan/sync-key`: rotates to one new portable sync code for the current initialized learner; older share codes are revoked and only hashes are stored server-side.
+- `POST /api/study-plan/sync-key/revoke`: revokes a supplied active share code owned by the current learner.
 - `POST /api/study-plan/link`: accepts a sync code, binds this browser session to that learner, and returns the full current state.
-- `POST /api/study-plan/import`: same Origin/JSON/session requirements as other writes. Body is `{id:"UUID", backup:{format:"qwerty-study-plan",version:1,state:{...}}}`. Initialize the session/plan through the ordinary GET/POST flow first. A repeated ID with identical contents is a no-op; reusing it with other contents is rejected. A retry after later edits returns current state instead of replaying the replacement.
-- Invalid versions, oversized plans, invalid dates/tasks/minutes and cross-origin writes are rejected without changing saved data. Node creates the additive sync-code table on startup; D1 requires the checked-in `0002_sync_keys.sql` migration.
+- `POST /api/study-plan/unlink`: detaches this browser into an independent learner while cloning its current state.
+- `POST /api/study-plan/import`: same Origin/JSON/session requirements as other writes. Body is `{id:"UUID", backup:{format:"qwerty-study-plan",version:3,state:{...}}}`. Initialize the session/plan through the ordinary GET/POST flow first. A repeated ID with identical contents is a no-op; reusing it with other contents is rejected. A retry after later edits returns current state instead of replaying the replacement.
+- Invalid versions, oversized plans, invalid review payloads/dates/tasks/minutes and cross-origin writes are rejected without changing saved data. Node upgrades the sync-code table on startup; D1 applies `0002_sync_keys.sql` and `0003_sync_key_revocation.sql`.
 
-Keep exported JSON private. It contains progress but no login secret. Importing on a second device provides a point-in-time copy; it is not continuous account synchronization.
+Keep exported JSON private. It contains progress but no login secret. Import/export remains a point-in-time backup path. Continuous anonymous-device synchronization uses the sync-code bind flow; offline mutations are replayed after reconnect and mutable-field conflicts use latest-timestamp-wins.
 
 ## Operator backup / restore: Docker SQLite
 

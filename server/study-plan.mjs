@@ -1,5 +1,5 @@
 import { studyPolicy, sessionCookie } from './study-http.mjs'
-import { apply, record, validate, importOperations, exportPlan, normalizeState, studyAnalytics } from './study-model.mjs'
+import { apply, record, validate, importOperations, exportPlan, normalizeState, studyAnalytics, buildReviewQueue } from './study-model.mjs'
 import { randomBytes, createHash } from 'node:crypto'
 import { mkdirSync } from 'node:fs'
 import { createServer } from 'node:http'
@@ -32,17 +32,19 @@ export function createStudyServer({
   db.exec(`PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000;
     CREATE TABLE IF NOT EXISTS learners (id TEXT PRIMARY KEY, state TEXT);
     CREATE TABLE IF NOT EXISTS mutations (learner TEXT, id TEXT, payload TEXT NOT NULL, PRIMARY KEY(learner,id));
-    CREATE TABLE IF NOT EXISTS sync_keys (key_hash TEXT PRIMARY KEY, learner TEXT NOT NULL, created INTEGER NOT NULL);`)
+    CREATE TABLE IF NOT EXISTS sync_keys (key_hash TEXT PRIMARY KEY, learner TEXT NOT NULL, created INTEGER NOT NULL, revoked INTEGER NOT NULL DEFAULT 0);`)
+  if (!db.prepare("PRAGMA table_info(sync_keys)").all().some((column) => column.name === 'revoked'))
+    db.exec('ALTER TABLE sync_keys ADD COLUMN revoked INTEGER NOT NULL DEFAULT 0')
 
   const resolveLearner = (token) => {
     if (!token) return null
     const credential = hash(token)
     let row = db.prepare('SELECT id,state FROM learners WHERE id=?').get(credential)
-    if (row) return { learner: credential, row }
-    const link = db.prepare('SELECT learner FROM sync_keys WHERE key_hash=?').get(credential)
+    if (row) return { learner: credential, row, viaSyncKey: false }
+    const link = db.prepare('SELECT learner FROM sync_keys WHERE key_hash=? AND revoked=0').get(credential)
     if (!link) return null
     row = db.prepare('SELECT id,state FROM learners WHERE id=?').get(link.learner)
-    return row ? { learner: link.learner, row } : null
+    return row ? { learner: link.learner, row, viaSyncKey: true } : null
   }
 
   const handler = async (req, res) => {
@@ -57,9 +59,14 @@ export function createStudyServer({
     const exporting = path === '/api/study-plan/export'
     const analytics = path === '/api/study-plan/analytics'
     const syncKey = path === '/api/study-plan/sync-key'
+    const revokeSyncKey = path === '/api/study-plan/sync-key/revoke'
     const linking = path === '/api/study-plan/link'
+    const unlinking = path === '/api/study-plan/unlink'
+    const syncInfo = path === '/api/study-plan/sync'
+    const review = path === '/api/study-plan/review'
     const plan = path === '/api/study-plan'
-    if (!health && !importing && !exporting && !analytics && !syncKey && !linking && !plan) return send(404, { error: 'Not found' })
+    if (!health && !importing && !exporting && !analytics && !syncKey && !revokeSyncKey && !linking && !unlinking && !syncInfo && !review && !plan)
+      return send(404, { error: 'Not found' })
 
     const policy = studyPolicy({ origin, secure, sameSite }, { method: req.method, headers: new Headers(req.headers) }, health)
     for (const [key, value] of Object.entries(policy.headers)) res.setHeader(key, value)
@@ -69,22 +76,22 @@ export function createStudyServer({
       try {
         db.prepare('SELECT id,state FROM learners LIMIT 1').get()
         db.prepare('SELECT learner,id,payload FROM mutations LIMIT 1').get()
-        db.prepare('SELECT key_hash,learner,created FROM sync_keys LIMIT 1').get()
+        db.prepare('SELECT key_hash,learner,created,revoked FROM sync_keys LIMIT 1').get()
         return send(200, { ok: true, storage: 'sqlite' })
       } catch {
         return send(503, { error: 'Database not ready' })
       }
     }
 
-    if ((importing || syncKey || linking) && req.method !== 'POST') return send(405, { error: 'Method not allowed' })
-    if ((exporting || analytics) && req.method !== 'GET') return send(405, { error: 'Method not allowed' })
+    if ((importing || syncKey || revokeSyncKey || linking || unlinking) && req.method !== 'POST') return send(405, { error: 'Method not allowed' })
+    if ((exporting || analytics || syncInfo || review) && req.method !== 'GET') return send(405, { error: 'Method not allowed' })
     if (plan && !['GET', 'POST', 'PATCH'].includes(req.method)) return send(405, { error: 'Method not allowed' })
 
     if (linking) {
       try {
         const input = await readBody(req)
         if (typeof input.key !== 'string' || !/^[a-f0-9]{64}$/.test(input.key)) return send(400, { error: 'Invalid sync key' })
-        const linked = db.prepare('SELECT learner FROM sync_keys WHERE key_hash=?').get(hash(input.key))
+        const linked = db.prepare('SELECT learner FROM sync_keys WHERE key_hash=? AND revoked=0').get(hash(input.key))
         if (!linked) return send(401, { error: 'Invalid sync key' })
         const row = db.prepare('SELECT state FROM learners WHERE id=?').get(linked.learner)
         if (!row?.state) return send(409, { error: 'Sync key has no initialized plan' })
@@ -99,6 +106,7 @@ export function createStudyServer({
     let resolved = resolveLearner(token)
     let learner = resolved?.learner ?? null
     let row = resolved?.row ?? null
+    let viaSyncKey = resolved?.viaSyncKey ?? false
 
     if (!row) {
       if (req.method !== 'GET' || exporting) return send(401, { error: 'Load plan first' })
@@ -106,14 +114,61 @@ export function createStudyServer({
       learner = hash(next)
       db.prepare('INSERT INTO learners(id) VALUES(?)').run(learner)
       row = { state: null }
+      viaSyncKey = false
       res.setHeader('Set-Cookie', sessionCookie(next, { secure, sameSite }))
     }
 
     if (syncKey) {
       if (!row.state) return send(409, { error: 'Initialize plan first' })
+      if (viaSyncKey) return send(409, { error: 'Unlink this device before rotating the sync key' })
       const key = randomBytes(32).toString('hex')
-      db.prepare('INSERT INTO sync_keys(key_hash,learner,created) VALUES(?,?,?)').run(hash(key), learner, Date.now())
+      db.exec('BEGIN IMMEDIATE')
+      try {
+        db.prepare('UPDATE sync_keys SET revoked=1 WHERE learner=? AND revoked=0').run(learner)
+        db.prepare('INSERT INTO sync_keys(key_hash,learner,created,revoked) VALUES(?,?,?,0)').run(hash(key), learner, Date.now())
+        db.exec('COMMIT')
+      } catch (error) {
+        db.exec('ROLLBACK')
+        throw error
+      }
       return send(200, { key })
+    }
+
+    if (revokeSyncKey) {
+      try {
+        const input = await readBody(req)
+        if (typeof input.key !== 'string' || !/^[a-f0-9]{64}$/.test(input.key)) return send(400, { error: 'Invalid sync key' })
+        if (token === input.key) return send(409, { error: 'Unlink this device before revoking its active sync key' })
+        const result = db.prepare('UPDATE sync_keys SET revoked=1 WHERE key_hash=? AND learner=? AND revoked=0').run(hash(input.key), learner)
+        return result.changes ? send(200, { revoked: true }) : send(404, { error: 'Sync key not found' })
+      } catch (error) {
+        return send(error instanceof RangeError ? 413 : 400, { error: 'Unable to revoke sync key' })
+      }
+    }
+
+    if (syncInfo) {
+      const activeKeys = db.prepare('SELECT COUNT(*) AS count FROM sync_keys WHERE learner=? AND revoked=0').get(learner)?.count ?? 0
+      return send(200, { bound: viaSyncKey, activeKeys })
+    }
+
+    if (unlinking) {
+      if (!row.state) return send(409, { error: 'Initialize plan first' })
+      const next = randomBytes(32).toString('hex')
+      const nextLearner = hash(next)
+      db.prepare('INSERT INTO learners(id,state) VALUES(?,?)').run(nextLearner, row.state)
+      res.setHeader('Set-Cookie', sessionCookie(next, { secure, sameSite }))
+      return send(200, { state: normalizeState(JSON.parse(row.state)), bound: false })
+    }
+
+    if (review) {
+      if (!row.state) return send(200, { queue: [] })
+      const today = requestUrl.searchParams.get('today')
+      if (!today || !/^\d{4}-\d{2}-\d{2}$/.test(today)) return send(400, { error: 'Invalid review date' })
+      try {
+        return send(200, { queue: buildReviewQueue(JSON.parse(row.state), today) })
+      } catch {
+        return send(400, { error: 'Unable to build review queue' })
+      }
     }
 
     if (exporting) {
