@@ -45,6 +45,45 @@ test('client offline queue, LWW merge, review scheduling and sync bind/unbind', 
 
   try {
     const client = await import('../src/services/studyPlanSync.ts')
+    const schedule = await import('../src/resources/studyPlanSchedule.ts')
+    const studyPlan = await import('../src/resources/studyPlan.ts')
+    const redistributedSettings = {
+      examDate: '2027-03-31',
+      dailyTargetMinutes: null,
+      studyDays: [1, 3, 5],
+    }
+    const redistributed = redistributedSettings.studyDays.flatMap((weekday) =>
+      schedule.getConfiguredDayTasks(
+        studyPlan.getDayPlan(weekday),
+        redistributedSettings,
+        false,
+        studyPlan.minimumModeTasks,
+      ),
+    )
+    assert.deepEqual(
+      new Set(redistributed.map((task) => task.id)),
+      new Set(studyPlan.weeklyStudyPlan.flatMap((day) => day.tasks.map((task) => task.id))),
+      'custom study days redistribute the whole weekly task set rather than dropping content',
+    )
+    assert.equal(
+      schedule.getConfiguredDayTasks(
+        studyPlan.getDayPlan(2),
+        redistributedSettings,
+        false,
+        studyPlan.minimumModeTasks,
+      ).length,
+      0,
+      'unselected weekday is a planned rest day',
+    )
+    const scaled = schedule.scaleStudyTasks(
+      [
+        { id: 'a', title: 'a', minutes: 30, kind: 'grammar', description: 'a' },
+        { id: 'b', title: 'b', minutes: 20, kind: 'review', description: 'b' },
+      ],
+      45,
+    )
+    assert.equal(scaled.reduce((sum, task) => sum + task.minutes, 0), 45)
+    assert.equal(schedule.startDateFromExamDate('2027-03-31'), '2026-10-01')
     assert.equal(client.studyApiBase('https://study.example.invalid/'), 'https://study.example.invalid')
     assert.equal(client.studyApiBase(''), '')
     for (const value of ['http://remote.example.invalid', 'https://u:p@example.invalid', 'https://example.invalid/api'])
@@ -58,6 +97,21 @@ test('client offline queue, LWW merge, review scheduling and sync bind/unbind', 
     storage.removeItem(KEY)
     await client.syncStudyPlan(initial)
     assert.equal(JSON.parse(storage.getItem(KEY)).minutes['2026-10-03']['sat-listening'], 15)
+    assert.equal(JSON.parse(storage.getItem(KEY)).settings.examDate, '2027-03-31')
+
+    client.saveStudyPlanSettings({
+      examDate: '2027-03-31',
+      dailyTargetMinutes: 45,
+      studyDays: [1, 3, 5],
+    })
+    await client.syncStudyPlan()
+    const configured = JSON.parse(storage.getItem(KEY))
+    assert.deepEqual(configured.settings, {
+      examDate: '2027-03-31',
+      dailyTargetMinutes: 45,
+      studyDays: [1, 3, 5],
+    })
+    assert.equal(configured.minutes['2026-10-03']['sat-listening'], 15, 'settings preserve previous progress')
 
     loseResponse = true
     client.addStudyMinutes('2026-10-03', 'mon-vocab', 3)
@@ -176,8 +230,13 @@ test('client offline queue, LWW merge, review scheduling and sync bind/unbind', 
 
     cookie = ownerCookie
     const backup = await reloaded.exportRemoteStudyPlan(initial)
-    assert.equal(backup.version, 3)
-    const imported = { ...backup.state, startDate: '2026-09-01', minutes: { '2026-10-04': { 'sun-vocab': 60 } } }
+    assert.equal(backup.version, 4)
+    const imported = {
+      ...backup.state,
+      startDate: '2026-09-01',
+      settings: { ...backup.state.settings, examDate: '2027-03-01' },
+      minutes: { '2026-10-04': { 'sun-vocab': 60 } },
+    }
     offline = true
     assert.equal(await reloaded.importRemoteStudyPlan(backup.state, imported), false)
     offline = false

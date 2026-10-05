@@ -1,7 +1,8 @@
 {
+  "id": ".",
   "short_name": "Qwerty Français",
   "name": "Qwerty Français — TCF Canada",
-  "description": "TCF Canada 法语打字背词工具",
+  "description": "TCF Canada 法语打字背词与 26 周学习计划",
   "icons": [
     {
       "src": "favicon.ico",
@@ -19,9 +20,11 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "./study-plan",
+  "scope": "./",
   "display": "standalone",
   "theme_color": "#818CF8",
   "background_color": "#ffffff",
-  "lang": "zh-CN"
+  "lang": "zh-CN",
+  "categories": ["education", "productivity"]
 }

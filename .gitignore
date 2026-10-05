@@ -53,3 +53,6 @@ playwright-report
 /study-backup*.sql
 /build-check.log
 /cloud-check.log
+
+# Local study-plan E2E database
+/.tmp/

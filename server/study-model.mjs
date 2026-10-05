@@ -20,6 +20,7 @@ const MAX_STATE_BYTES = 1500000
 export function emptySyncMeta() {
   return {
     startDateUpdatedAt: 0,
+    settingsUpdatedAt: 0,
     minimumModeUpdatedAt: {},
     minutesUpdatedAt: {},
     grammarDraftUpdatedAt: 0,
@@ -110,7 +111,8 @@ function validateReviewState(value) {
 }
 
 function validateSyncMeta(value) {
-  if (!record(value) || !timestamp(value.startDateUpdatedAt) || !record(value.minimumModeUpdatedAt) ||
+  if (!record(value) || !timestamp(value.startDateUpdatedAt) ||
+      !timestamp(value.settingsUpdatedAt ?? 0) || !record(value.minimumModeUpdatedAt) ||
       !record(value.minutesUpdatedAt) || !timestamp(value.grammarDraftUpdatedAt)) throw new Error('Invalid sync metadata')
   for (const [day, valueAt] of Object.entries(value.minimumModeUpdatedAt))
     if (!date(day) || !timestamp(valueAt)) throw new Error('Invalid mode clock')
@@ -118,6 +120,23 @@ function validateSyncMeta(value) {
     if (!date(day) || !record(tasks)) throw new Error('Invalid minutes clock')
     for (const [id, valueAt] of Object.entries(tasks))
       if (!task(id) || !timestamp(valueAt)) throw new Error('Invalid minutes clock')
+  }
+}
+
+function validatePlanSettings(value) {
+  if (!record(value) || !date(value.examDate) ||
+      !(value.dailyTargetMinutes === null || integer(value.dailyTargetMinutes, 20, 240)) ||
+      !Array.isArray(value.studyDays) || value.studyDays.length < 1 || value.studyDays.length > 7 ||
+      new Set(value.studyDays).size !== value.studyDays.length ||
+      value.studyDays.some((day) => !integer(day, 0, 6)))
+    throw new Error('Invalid plan settings')
+}
+
+function defaultPlanSettings(startDate) {
+  return {
+    examDate: addDays(startDate, 181),
+    dailyTargetMinutes: null,
+    studyDays: [1, 2, 3, 4, 5, 6, 0],
   }
 }
 
@@ -154,6 +173,7 @@ export function validate(state) {
   }
   for (const [day, value] of Object.entries(state.minimumMode))
     if (!date(day) || typeof value !== 'boolean') throw new Error('Invalid mode')
+  if (state.settings !== undefined) validatePlanSettings(state.settings)
   if (state.learning !== undefined) validateLearning(state.learning)
   if (state.syncMeta !== undefined) validateSyncMeta(state.syncMeta)
   if (new TextEncoder().encode(JSON.stringify(state)).byteLength > MAX_STATE_BYTES) throw new Error('Plan too large')
@@ -162,11 +182,15 @@ export function validate(state) {
 export function normalizeState(state) {
   validate(state)
   const next = structuredClone(state)
+  next.settings ??= defaultPlanSettings(next.startDate)
+  validatePlanSettings(next.settings)
+  next.startDate = addDays(next.settings.examDate, -181)
   next.learning ??= emptyLearningProgress()
   next.learning.conjugationAttempts ??= []
   next.learning.reviews ??= { items: {} }
   next.learning.reviews.items ??= {}
   next.syncMeta ??= emptySyncMeta()
+  next.syncMeta.settingsUpdatedAt ??= 0
   validate(next)
   return next
 }
@@ -248,9 +272,21 @@ export function apply(state, operations) {
       state = normalizeState(op.value)
     } else if (op.kind === 'startDate' && date(op.value)) {
       const updatedAt = opUpdatedAt(op)
-      if (shouldApply(updatedAt, state.syncMeta.startDateUpdatedAt)) {
+      if (shouldApply(updatedAt, state.syncMeta.startDateUpdatedAt) &&
+          shouldApply(updatedAt, state.syncMeta.settingsUpdatedAt)) {
         state.startDate = op.value
+        state.settings = { ...state.settings, examDate: addDays(op.value, 181) }
         state.syncMeta.startDateUpdatedAt = updatedAt
+        state.syncMeta.settingsUpdatedAt = updatedAt
+      }
+    } else if (op.kind === 'settings') {
+      validatePlanSettings(op.value)
+      const updatedAt = opUpdatedAt(op)
+      if (shouldApply(updatedAt, state.syncMeta.settingsUpdatedAt)) {
+        state.settings = structuredClone(op.value)
+        state.startDate = addDays(op.value.examDate, -181)
+        state.syncMeta.settingsUpdatedAt = updatedAt
+        state.syncMeta.startDateUpdatedAt = Math.max(state.syncMeta.startDateUpdatedAt, updatedAt)
       }
     } else if (op.kind === 'mode' && date(op.day) && (op.value === null || typeof op.value === 'boolean')) {
       const updatedAt = opUpdatedAt(op)
@@ -356,12 +392,61 @@ const diffDays = (from, to) => Math.floor((keyToUtc(to) - keyToUtc(from)) / 8640
 const sum = (values) => values.reduce((total, value) => total + value, 0)
 const accuracy = (correct, total) => total ? Math.round((correct / total) * 100) : null
 
+function scaleTargets(targets, targetMinutes) {
+  if (targetMinutes === null) return targets
+  const entries = Object.entries(targets)
+  const sourceTotal = sum(entries.map(([, value]) => value))
+  if (!entries.length || sourceTotal <= 0) return targets
+  const allocations = entries.map(([id, value]) => {
+    const exact = (value / sourceTotal) * targetMinutes
+    return { id, minutes: Math.max(1, Math.floor(exact)), fraction: exact - Math.floor(exact) }
+  })
+  let allocated = sum(allocations.map((item) => item.minutes))
+  const order = [...allocations].sort((a, b) => b.fraction - a.fraction)
+  let index = 0
+  while (allocated < targetMinutes) {
+    order[index % order.length].minutes += 1
+    allocated += 1
+    index += 1
+  }
+  while (allocated > targetMinutes && allocations.some((item) => item.minutes > 1)) {
+    const item = order[index % order.length]
+    if (item.minutes > 1) {
+      item.minutes -= 1
+      allocated -= 1
+    }
+    index += 1
+  }
+  return Object.fromEntries(allocations.map((item) => [item.id, item.minutes]))
+}
+
+const WEEKDAY_ORDER = [1, 2, 3, 4, 5, 6, 0]
+function baseTargetsForWeekday(settings, weekday) {
+  if (!settings.studyDays.includes(weekday)) return {}
+  const defaultWeek = settings.studyDays.length === 7 && WEEKDAY_ORDER.every((day) => settings.studyDays.includes(day))
+  if (defaultWeek) return NORMAL_TARGETS[weekday] ?? {}
+
+  const activeDays = WEEKDAY_ORDER.filter((day) => settings.studyDays.includes(day))
+  const position = activeDays.indexOf(weekday)
+  if (position < 0) return {}
+  const allTargets = WEEKDAY_ORDER.flatMap((day) => Object.entries(NORMAL_TARGETS[day] ?? {}))
+  const start = Math.floor((position * allTargets.length) / activeDays.length)
+  const end = Math.floor(((position + 1) * allTargets.length) / activeDays.length)
+  return Object.fromEntries(allTargets.slice(start, end))
+}
+
 function targetsFor(state, day) {
-  return state.minimumMode[day] ? MINIMUM_TARGETS : (NORMAL_TARGETS[keyToUtc(day).getUTCDay()] ?? {})
+  const weekday = keyToUtc(day).getUTCDay()
+  if (!state.settings.studyDays.includes(weekday)) return {}
+  if (state.minimumMode[day]) return MINIMUM_TARGETS
+  return scaleTargets(baseTargetsForWeekday(state.settings, weekday), state.settings.dailyTargetMinutes)
 }
 function actualForTargets(state, day, targets) {
   const actual = state.minutes[day] ?? {}
   return sum(Object.keys(targets).map((id) => actual[id] ?? 0))
+}
+function recordedMinutesForDay(state, day) {
+  return sum(Object.values(state.minutes[day] ?? {}))
 }
 function dayComplete(state, day) {
   const targets = targetsFor(state, day)
@@ -629,17 +714,24 @@ export function studyAnalytics(input, now = new Date()) {
   const currentWeek = Math.max(1, Math.min(26, rawWeek))
   const weekStart = addDays(state.startDate, (currentWeek - 1) * 7)
   const weekDays = Array.from({ length: 7 }, (_, index) => addDays(weekStart, index))
-  const weeklyMinutes = sum(weekDays.map((day) => actualForTargets(state, day, targetsFor(state, day))))
+  const weeklyMinutes = sum(weekDays.map((day) => recordedMinutesForDay(state, day)))
   const weeklyPlannedMinutes = sum(weekDays.map((day) => sum(Object.values(targetsFor(state, day)))))
+  const weeklyPlannedDays = weekDays.filter((day) => sum(Object.values(targetsFor(state, day))) > 0).length
   const weeklyCompletedDays = weekDays.filter((day) => dayComplete(state, day)).length
   const phaseIndex = PHASES.findIndex(([start, end]) => currentWeek >= start && currentWeek <= end)
   const [phaseStartWeek, phaseEndWeek] = PHASES[Math.max(0, phaseIndex)]
   const phaseStart = addDays(state.startDate, (phaseStartWeek - 1) * 7)
   const phaseEnd = addDays(state.startDate, phaseEndWeek * 7 - 1)
   const effectiveEnd = today < phaseEnd ? today : phaseEnd
-  const phaseElapsedDays = effectiveEnd < phaseStart ? 0 : diffDays(phaseStart, effectiveEnd) + 1
+  const phaseCalendarDays = effectiveEnd < phaseStart ? 0 : diffDays(phaseStart, effectiveEnd) + 1
+  let phaseElapsedDays = 0
   let phaseCompletedDays = 0
-  for (let i = 0; i < phaseElapsedDays; i++) if (dayComplete(state, addDays(phaseStart, i))) phaseCompletedDays += 1
+  for (let i = 0; i < phaseCalendarDays; i++) {
+    const day = addDays(phaseStart, i)
+    if (sum(Object.values(targetsFor(state, day))) <= 0) continue
+    phaseElapsedDays += 1
+    if (dayComplete(state, day)) phaseCompletedDays += 1
+  }
 
   const vocabulary = state.learning.vocabulary.records
   const grammar = state.learning.grammar.history
@@ -672,7 +764,7 @@ export function studyAnalytics(input, now = new Date()) {
     const startDate = addDays(state.startDate, (week - 1) * 7)
     const days = Array.from({ length: 7 }, (__, dayIndex) => addDays(startDate, dayIndex))
     const plannedMinutes = sum(days.map((day) => sum(Object.values(targetsFor(state, day)))))
-    const actualMinutes = sum(days.map((day) => actualForTargets(state, day, targetsFor(state, day))))
+    const actualMinutes = sum(days.map((day) => recordedMinutesForDay(state, day)))
     const completedDays = days.filter((day) => dayComplete(state, day)).length
     const wrongRecords = vocabulary.filter(
       (item) => item.day >= startDate && item.day <= days[days.length - 1] && item.wrongCount > 0,
@@ -697,8 +789,9 @@ export function studyAnalytics(input, now = new Date()) {
       currentWeek,
       weeklyMinutes,
       weeklyPlannedMinutes,
+      weeklyPlannedDays,
       weeklyCompletedDays,
-      weekCompletionPercent: Math.round((weeklyCompletedDays / 7) * 100),
+      weekCompletionPercent: weeklyPlannedDays ? Math.round((weeklyCompletedDays / weeklyPlannedDays) * 100) : 0,
       weeklyHistory,
       phase: {
         id: phaseIndex + 1,
@@ -737,10 +830,10 @@ export function studyAnalytics(input, now = new Date()) {
 }
 
 export function importOperations(backup) {
-  if (!record(backup) || backup.format !== 'qwerty-study-plan' || ![1, 2, 3].includes(backup.version)) throw new Error('Unsupported backup')
+  if (!record(backup) || backup.format !== 'qwerty-study-plan' || ![1, 2, 3, 4].includes(backup.version)) throw new Error('Unsupported backup')
   validate(backup.state)
   return [{ kind: 'replace', value: backup.state }]
 }
 export function exportPlan(state) {
-  return { format: 'qwerty-study-plan', version: 3, exportedAt: new Date().toISOString(), state: normalizeState(state) }
+  return { format: 'qwerty-study-plan', version: 4, exportedAt: new Date().toISOString(), state: normalizeState(state) }
 }

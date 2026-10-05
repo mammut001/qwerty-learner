@@ -50,10 +50,18 @@ export async function smokeCors(base, frontend, { crossSite = false } = {}) {
   assert.equal(exportedResponse.status, 200)
   const backup = await exportedResponse.json()
   assert.equal(backup.format, 'qwerty-study-plan')
-  assert.equal(backup.version, 3)
+  assert.equal(backup.version, 4)
   assert.deepEqual(backup.state, normalizedState)
   const importId = crypto.randomUUID()
-  const changed = { ...backup, state: { ...backup.state, startDate: '2026-09-28', minutes: { '2026-10-04': { 'sun-vocab': 42 } } } }
+  const changed = {
+    ...backup,
+    state: {
+      ...backup.state,
+      startDate: '2026-09-28',
+      settings: { ...backup.state.settings, examDate: '2027-03-28' },
+      minutes: { '2026-10-04': { 'sun-vocab': 42 } },
+    },
+  }
   const importCall = (value, id = importId, targetCookie = cookie) => request('/api/study-plan/import', { method: 'POST', headers: { Cookie: targetCookie, 'Content-Type': 'application/json' }, body: JSON.stringify({ id, backup: value }) })
   assert.equal((await importCall(changed)).status, 200)
   assert.equal((await importCall(changed)).status, 200)

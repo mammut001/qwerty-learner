@@ -9,6 +9,7 @@ import {
   loadStudySyncInfo,
   revokeStudySyncKey,
   saveStudyPlan,
+  saveStudyPlanSettings,
   subscribeLearningProgress,
   subscribeStudyPlan,
   subscribeStudySyncStatus,
@@ -21,6 +22,18 @@ import {
   type StudySyncInfo,
   type StudySyncStatus,
 } from '@/services/studyPlanSync'
+import {
+  getPwaInstallState,
+  installStudyPwa,
+  subscribePwaInstallState,
+  type PwaInstallState,
+} from '@/services/pwa'
+import {
+  getStudyReminderPreferences,
+  requestStudyReminderPermission,
+  saveStudyReminderPreferences,
+  type StudyReminderPreferences,
+} from '@/services/studyReminder'
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { CHAPTER_LENGTH } from '@/constants'
@@ -36,6 +49,12 @@ import {
   studyPhases,
   weeklyStudyPlan,
 } from '@/resources/studyPlan'
+import {
+  configuredWeeklyTargetMinutes,
+  getConfiguredDayTasks,
+  normalizeStudyPlanSettings,
+  type StudyPlanSettings,
+} from '@/resources/studyPlanSchedule'
 import { type ChangeEvent, useEffect, useMemo, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import useSWR from 'swr'
@@ -145,6 +164,10 @@ function parseImportedStorage(value: unknown): StudyPlanStorage | StudyServerSta
 
   const imported: StudyPlanStorage | StudyServerState = {
     startDate: value.startDate,
+    settings: normalizeStudyPlanSettings(
+      isRecord(value.settings) ? (value.settings as Partial<StudyPlanSettings>) : undefined,
+      value.startDate,
+    ),
     minutes,
     minimumMode,
   }
@@ -166,8 +189,10 @@ function loadStorage(todayKey: string): StudyPlanStorage {
     const raw = window.localStorage.getItem(STORAGE_KEY)
     if (raw) {
       const parsed = JSON.parse(raw) as Partial<StudyPlanStorage>
+      const startDate = parsed.startDate ?? todayKey
       return {
-        startDate: parsed.startDate ?? todayKey,
+        startDate,
+        settings: normalizeStudyPlanSettings(parsed.settings, startDate),
         minutes: parsed.minutes ?? {},
         minimumMode: parsed.minimumMode ?? {},
       }
@@ -178,6 +203,7 @@ function loadStorage(todayKey: string): StudyPlanStorage {
 
   return {
     startDate: todayKey,
+    settings: normalizeStudyPlanSettings(undefined, todayKey),
     minutes: {},
     minimumMode: {},
   }
@@ -218,6 +244,13 @@ export default function StudyPlanPage() {
     pending: 0,
     message: '尚未同步',
   })
+  const [dailyTargetInput, setDailyTargetInput] = useState(
+    storage.settings.dailyTargetMinutes === null ? '' : String(storage.settings.dailyTargetMinutes),
+  )
+  const [reminderPreferences, setReminderPreferences] = useState<StudyReminderPreferences>(() =>
+    getStudyReminderPreferences(),
+  )
+  const [pwaState, setPwaState] = useState<PwaInstallState>(() => getPwaInstallState())
 
   useEffect(() => {
     const unsubscribe = subscribeStudyPlan(setStorage, setImportMessage)
@@ -233,6 +266,14 @@ export default function StudyPlanPage() {
       unsubscribeStatus()
     }
   }, [todayKey])
+
+  useEffect(() => {
+    setDailyTargetInput(
+      storage.settings.dailyTargetMinutes === null ? '' : String(storage.settings.dailyTargetMinutes),
+    )
+  }, [storage.settings.dailyTargetMinutes])
+
+  useEffect(() => subscribePwaInstallState(setPwaState), [])
 
   useEffect(() => {
     let cancelled = false
@@ -464,7 +505,7 @@ export default function StudyPlanPage() {
       : '/conjugation?mode=practice&scope=mixed'
   const todayPlan = getDayPlan(today.getDay())
   const minimumMode = Boolean(storage.minimumMode[todayKey])
-  const todayTasks = minimumMode ? minimumModeTasks : todayPlan.tasks
+  const todayTasks = getConfiguredDayTasks(todayPlan, storage.settings, minimumMode, minimumModeTasks)
   const todayVocabularyTask = todayTasks.find((task) => task.kind === 'vocabulary' && task.href === '/gallery')
   const previewTrackingQuery =
     previewWeek === currentWeek && todayVocabularyTask
@@ -494,32 +535,28 @@ export default function StudyPlanPage() {
       day: getDayPlan(date.getDay()),
     }
   })
-  const weeklyPlannedMinutes = weeklyStudyPlan.reduce(
-    (total, day) => total + day.tasks.reduce((dayTotal, task) => dayTotal + task.minutes, 0),
-    0,
-  )
+  const weeklyPlannedMinutes = configuredWeeklyTargetMinutes(weeklyStudyPlan, storage.settings, minimumModeTasks)
   const actualMinutesForTasks = (dateKey: string, tasks: StudyTask[]) =>
     tasks.reduce((sum, task) => sum + (storage.minutes[dateKey]?.[task.id] ?? 0), 0)
+  const recordedMinutesForDay = (dateKey: string) =>
+    Object.values(storage.minutes[dateKey] ?? {}).reduce((sum, value) => sum + value, 0)
 
-  const weeklyActualMinutes = currentPlanWeekDays.reduce((total, item) => {
-    const tasks = storage.minimumMode[item.key] ? minimumModeTasks : item.day.tasks
-    return total + actualMinutesForTasks(item.key, tasks)
-  }, 0)
+  const weeklyActualMinutes = currentPlanWeekDays.reduce((total, item) => total + recordedMinutesForDay(item.key), 0)
   const weeklyCompletedDays = currentPlanWeekDays.filter((item) => {
-    const tasks = storage.minimumMode[item.key] ? minimumModeTasks : item.day.tasks
+    const tasks = getConfiguredDayTasks(item.day, storage.settings, Boolean(storage.minimumMode[item.key]), minimumModeTasks)
     const plannedMinutes = tasks.reduce((sum, task) => sum + task.minutes, 0)
     const actualMinutes = actualMinutesForTasks(item.key, tasks)
     return plannedMinutes > 0 && actualMinutes >= plannedMinutes
   }).length
   const weeklyMissedDays = currentPlanWeekDays.filter((item) => {
-    const tasks = storage.minimumMode[item.key] ? minimumModeTasks : item.day.tasks
+    const tasks = getConfiguredDayTasks(item.day, storage.settings, Boolean(storage.minimumMode[item.key]), minimumModeTasks)
     const plannedMinutes = tasks.reduce((sum, task) => sum + task.minutes, 0)
     const actualMinutes = actualMinutesForTasks(item.key, tasks)
     const complete = plannedMinutes > 0 && actualMinutes >= plannedMinutes
     return item.key < todayKey && plannedMinutes > 0 && !complete
   }).length
   const earliestMissedDayKey = currentPlanWeekDays.reduce<string | null>((earliest, item) => {
-    const tasks = storage.minimumMode[item.key] ? minimumModeTasks : item.day.tasks
+    const tasks = getConfiguredDayTasks(item.day, storage.settings, Boolean(storage.minimumMode[item.key]), minimumModeTasks)
     const plannedMinutes = tasks.reduce((sum, task) => sum + task.minutes, 0)
     const actualMinutes = actualMinutesForTasks(item.key, tasks)
     const complete = plannedMinutes > 0 && actualMinutes >= plannedMinutes
@@ -532,7 +569,7 @@ export default function StudyPlanPage() {
   const earliestMissedDayRemainingMinutes = (() => {
     const item = currentPlanWeekDays.find((dayItem) => dayItem.key === earliestMissedDayKey)
     if (!item) return null
-    const tasks = storage.minimumMode[item.key] ? minimumModeTasks : item.day.tasks
+    const tasks = getConfiguredDayTasks(item.day, storage.settings, Boolean(storage.minimumMode[item.key]), minimumModeTasks)
     const plannedMinutes = tasks.reduce((sum, task) => sum + task.minutes, 0)
     const actualMinutes = actualMinutesForTasks(item.key, tasks)
     return plannedMinutes - actualMinutes
@@ -541,7 +578,7 @@ export default function StudyPlanPage() {
     highlightedMissedDayKey !== null &&
     currentPlanWeekDays.some((item) => {
       if (item.key !== highlightedMissedDayKey) return false
-      const tasks = storage.minimumMode[item.key] ? minimumModeTasks : item.day.tasks
+      const tasks = getConfiguredDayTasks(item.day, storage.settings, Boolean(storage.minimumMode[item.key]), minimumModeTasks)
       const plannedMinutes = tasks.reduce((sum, task) => sum + task.minutes, 0)
       const actualMinutes = actualMinutesForTasks(item.key, tasks)
       const complete = plannedMinutes > 0 && actualMinutes >= plannedMinutes
@@ -555,15 +592,14 @@ export default function StudyPlanPage() {
     }
   }, [highlightedMissedDayKey, highlightedMissedDayStillMissed, weeklyMissedDays])
 
-  const todayActualMinutes = actualMinutesForTasks(todayKey, todayTasks)
+  const todayActualMinutes = recordedMinutesForDay(todayKey)
   const todayPlannedMinutes = todayTasks.reduce((sum, task) => sum + task.minutes, 0)
 
   const recentThreeDays = [0, -1, -2].map((offset) => {
     const date = addDays(today, offset)
     const key = toDateKey(date)
     const day = getDayPlan(date.getDay())
-    const tasks = storage.minimumMode[key] ? minimumModeTasks : day.tasks
-    const total = actualMinutesForTasks(key, tasks)
+    const total = recordedMinutesForDay(key)
     return { key, name: day.name, total }
   })
   const activeRecentDays = recentThreeDays.filter((item) => item.total > 0).length
@@ -593,12 +629,71 @@ export default function StudyPlanPage() {
     })
   }
 
-  const changeStartDate = (value: string) => {
+  const updatePlanSettings = (next: StudyPlanSettings) => {
+    try {
+      saveStudyPlanSettings(next)
+      setImportMessage('计划设置已保存；历史学习记录保持不变。')
+    } catch {
+      setImportMessage('计划设置保存失败，请检查输入后重试。')
+    }
+  }
+
+  const changeExamDate = (value: string) => {
     if (!value) return
-    saveStorage({
-      ...storage,
-      startDate: value,
-    })
+    updatePlanSettings({ ...storage.settings, examDate: value })
+  }
+
+  const commitDailyTarget = () => {
+    const value = dailyTargetInput.trim()
+    if (!value) {
+      updatePlanSettings({ ...storage.settings, dailyTargetMinutes: null })
+      return
+    }
+    const minutes = Number(value)
+    if (!Number.isInteger(minutes) || minutes < 20 || minutes > 240) {
+      setDailyTargetInput(storage.settings.dailyTargetMinutes === null ? '' : String(storage.settings.dailyTargetMinutes))
+      setImportMessage('每天目标分钟需要是 20–240 的整数；留空则沿用原计划每天任务时长。')
+      return
+    }
+    updatePlanSettings({ ...storage.settings, dailyTargetMinutes: minutes })
+  }
+
+  const toggleStudyDay = (weekday: number) => {
+    const selected = storage.settings.studyDays.includes(weekday)
+    if (selected && storage.settings.studyDays.length === 1) {
+      setImportMessage('每周至少保留一个学习日。')
+      return
+    }
+    const studyDays = selected
+      ? storage.settings.studyDays.filter((day) => day !== weekday)
+      : [...storage.settings.studyDays, weekday]
+    updatePlanSettings({ ...storage.settings, studyDays })
+  }
+
+  const toggleReminder = async () => {
+    if (reminderPreferences.enabled) {
+      const next = saveStudyReminderPreferences({ ...reminderPreferences, enabled: false })
+      setReminderPreferences(next)
+      return
+    }
+    const permission = await requestStudyReminderPermission()
+    if (permission !== 'granted') {
+      setImportMessage('浏览器没有授予通知权限；提醒保持关闭。')
+      return
+    }
+    const next = saveStudyReminderPreferences({ ...reminderPreferences, enabled: true })
+    setReminderPreferences(next)
+    setImportMessage('学习提醒已开启。')
+  }
+
+  const changeReminderTime = (time: string) => {
+    const next = saveStudyReminderPreferences({ ...reminderPreferences, time })
+    setReminderPreferences(next)
+  }
+
+  const installPwa = async () => {
+    const installed = await installStudyPwa()
+    setImportMessage(installed ? '已接受安装，可以从系统应用入口打开。' : '当前浏览器暂未提供安装提示。')
   }
 
   const exportStudyPlan = async () => {
@@ -629,7 +724,9 @@ export default function StudyPlanPage() {
     try {
       const parsed = JSON.parse(await file.text()) as unknown
       const candidate =
-        isRecord(parsed) && parsed.format === 'qwerty-study-plan' && (parsed.version === 1 || parsed.version === 2 || parsed.version === 3)
+        isRecord(parsed) &&
+        parsed.format === 'qwerty-study-plan' &&
+        (parsed.version === 1 || parsed.version === 2 || parsed.version === 3 || parsed.version === 4)
           ? parsed.state
           : parsed
       const imported = parseImportedStorage(candidate)
@@ -887,15 +984,127 @@ export default function StudyPlanPage() {
             </div>
 
             <div className="flex flex-col items-end gap-2">
-              <label className="text-sm text-gray-500 dark:text-gray-400">
-                计划开始日
-                <input
-                  type="date"
-                  value={storage.startDate}
-                  onChange={(event) => changeStartDate(event.target.value)}
-                  className="ml-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-gray-700 outline-none focus:border-indigo-400 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
-                />
-              </label>
+              <div
+                data-testid="study-plan-settings"
+                className="w-full max-w-md rounded-xl border border-gray-100 bg-gray-50 p-3 text-left dark:border-gray-700 dark:bg-gray-900"
+              >
+                <div className="text-xs font-medium text-gray-500 dark:text-gray-300">学习计划设置</div>
+                <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                  <label className="text-xs text-gray-500 dark:text-gray-400">
+                    考试日期
+                    <input
+                      type="date"
+                      value={storage.settings.examDate}
+                      onChange={(event) => changeExamDate(event.target.value)}
+                      aria-label="考试日期"
+                      className="mt-1 w-full rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-sm text-gray-700 outline-none focus:border-indigo-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                    />
+                  </label>
+                  <label className="text-xs text-gray-500 dark:text-gray-400">
+                    每天目标分钟
+                    <input
+                      type="number"
+                      min={20}
+                      max={240}
+                      step={5}
+                      value={dailyTargetInput}
+                      onChange={(event) => setDailyTargetInput(event.target.value)}
+                      onBlur={commitDailyTarget}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter') event.currentTarget.blur()
+                      }}
+                      placeholder="留空＝原计划"
+                      aria-label="每天目标分钟"
+                      className="mt-1 w-full rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-sm text-gray-700 outline-none focus:border-indigo-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                    />
+                  </label>
+                </div>
+                <div className="mt-2">
+                  <div className="text-xs text-gray-500 dark:text-gray-400">每周学习日</div>
+                  <div className="mt-1 flex flex-wrap gap-1">
+                    {[
+                      [1, '一'],
+                      [2, '二'],
+                      [3, '三'],
+                      [4, '四'],
+                      [5, '五'],
+                      [6, '六'],
+                      [0, '日'],
+                    ].map(([weekday, label]) => {
+                      const active = storage.settings.studyDays.includes(Number(weekday))
+                      return (
+                        <button
+                          key={weekday}
+                          type="button"
+                          aria-pressed={active}
+                          aria-label={`周${label}学习`}
+                          onClick={() => toggleStudyDay(Number(weekday))}
+                          className={`rounded-md px-2 py-1 text-xs ${
+                            active
+                              ? 'bg-indigo-500 text-white'
+                              : 'border border-gray-200 bg-white text-gray-400 dark:border-gray-700 dark:bg-gray-800'
+                          }`}
+                        >
+                          周{label}
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+                <div className="mt-2 text-[11px] leading-5 text-gray-400">
+                  26 周会按考试日重新排期：{storage.startDate} → {storage.settings.examDate}。调整只改变计划日期和目标，已有实际分钟与练习记录不会删除。
+                </div>
+              </div>
+
+              <div className="w-full max-w-md rounded-xl border border-gray-100 bg-gray-50 p-3 text-left dark:border-gray-700 dark:bg-gray-900">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <div className="text-xs font-medium text-gray-500 dark:text-gray-300">提醒与离线安装</div>
+                    <div className="mt-0.5 text-[11px] text-gray-400">
+                      浏览器/PWA 运行时可按时提醒；完全关闭后，系统不会保证纯网页定时唤醒。
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={toggleReminder}
+                    aria-pressed={reminderPreferences.enabled}
+                    className={`rounded-lg px-2.5 py-1 text-xs font-medium ${
+                      reminderPreferences.enabled
+                        ? 'bg-indigo-500 text-white'
+                        : 'border border-gray-200 bg-white text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'
+                    }`}
+                  >
+                    {reminderPreferences.enabled ? '提醒已开启' : '开启提醒'}
+                  </button>
+                </div>
+                <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
+                  <label className="text-gray-500 dark:text-gray-400">
+                    提醒时间
+                    <input
+                      type="time"
+                      value={reminderPreferences.time}
+                      onChange={(event) => changeReminderTime(event.target.value)}
+                      aria-label="学习提醒时间"
+                      className="ml-2 rounded-lg border border-gray-200 bg-white px-2 py-1 text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                    />
+                  </label>
+                  {pwaState.installed ? (
+                    <span className="ml-auto text-green-600 dark:text-green-300">已安装为 PWA</span>
+                  ) : pwaState.canInstall ? (
+                    <button
+                      type="button"
+                      onClick={installPwa}
+                      className="ml-auto rounded-lg border border-gray-200 bg-white px-2.5 py-1 font-medium text-gray-600 hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                    >
+                      安装到设备
+                    </button>
+                  ) : (
+                    <span className="ml-auto text-gray-400">
+                      {pwaState.serviceWorkerReady ? '离线缓存已就绪' : '浏览器暂不支持安装'}
+                    </span>
+                  )}
+                </div>
+              </div>
 
               <div className="flex flex-wrap justify-end gap-2">
                 <button
@@ -1095,8 +1304,8 @@ export default function StudyPlanPage() {
                   </span>
                 )}
               </div>
-              <div className="mt-1 text-sm text-gray-500">计划约 {minutesLabel(weeklyPlannedMinutes)}（≈ 7 小时）</div>
-              <div className="mt-1 text-sm text-gray-500">完成 {weeklyCompletedDays} / 7 天</div>
+              <div className="mt-1 text-sm text-gray-500">计划约 {minutesLabel(weeklyPlannedMinutes)}</div>
+              <div className="mt-1 text-sm text-gray-500">完成 {weeklyCompletedDays} / {storage.settings.studyDays.length} 个学习日</div>
               {analytics && (
                 <div className="mt-1 text-xs text-gray-400">
                   服务端累计 {minutesLabel(analytics.plan.totalMinutes)} · 本周完成度 {analytics.plan.weekCompletionPercent}%
@@ -1482,7 +1691,15 @@ export default function StudyPlanPage() {
                 <div className="text-sm font-medium text-indigo-500">今日计划 · {todayPlan.name} · {todayKey}</div>
               )}
               <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">
-                {minimumMode ? '10 分钟最低模式' : todayPlan.totalLabel}
+                {todayTasks.length === 0
+                  ? '休息日（按设置）'
+                  : minimumMode
+                    ? '10 分钟最低模式'
+                    : storage.settings.dailyTargetMinutes
+                      ? `${storage.settings.dailyTargetMinutes} min 目标`
+                      : storage.settings.studyDays.length < 7
+                        ? `${todayPlannedMinutes} min 目标`
+                        : todayPlan.totalLabel}
               </h2>
               {todayPlan.note && <p className="mt-1 text-sm text-gray-500">{todayPlan.note}</p>}
             </div>
@@ -1505,26 +1722,40 @@ export default function StudyPlanPage() {
                   </span>
                 )}
               </div>
-              <button
-                type="button"
-                onClick={toggleMinimumMode}
-                className={`rounded-xl px-4 py-2 text-sm font-medium transition ${
-                  minimumMode
-                    ? 'bg-amber-500 text-white hover:bg-amber-600'
-                    : 'bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-950/30 dark:text-amber-300'
-                }`}
-              >
-                {minimumMode ? '恢复正常计划' : '今天太累了 → 10 分钟模式'}
-              </button>
+              {todayTasks.length > 0 ? (
+                <button
+                  type="button"
+                  onClick={toggleMinimumMode}
+                  className={`rounded-xl px-4 py-2 text-sm font-medium transition ${
+                    minimumMode
+                      ? 'bg-amber-500 text-white hover:bg-amber-600'
+                      : 'bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-950/30 dark:text-amber-300'
+                  }`}
+                >
+                  {minimumMode ? '恢复正常计划' : '今天太累了 → 10 分钟模式'}
+                </button>
+              ) : (
+                <span className="rounded-xl bg-gray-100 px-4 py-2 text-sm text-gray-400 dark:bg-gray-900">
+                  今天不安排计划任务
+                </span>
+              )}
             </div>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2">{todayTasks.map((task) => renderTask(task, todayKey))}</div>
+          {todayTasks.length > 0 ? (
+            <div className="grid gap-4 md:grid-cols-2">{todayTasks.map((task) => renderTask(task, todayKey))}</div>
+          ) : (
+            <div className="rounded-2xl bg-gray-50 px-4 py-5 text-sm text-gray-500 dark:bg-gray-900 dark:text-gray-400">
+              按你的每周学习日设置，今天是休息日。历史学习记录仍会保留在统计里。
+            </div>
+          )}
         </section>
 
         <section className="mt-10">
           <div>
-            <div className="text-sm font-medium text-indigo-500">正常周 · 约 7 小时</div>
+            <div className="text-sm font-medium text-indigo-500">
+              每周 {storage.settings.studyDays.length} 个学习日 · 计划 {minutesLabel(weeklyPlannedMinutes)}
+            </div>
             <div className="mt-1 flex flex-wrap items-baseline gap-2">
               <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">本周安排</h2>
               {currentPlanWeekDays.length === 7 && (
@@ -1533,16 +1764,19 @@ export default function StudyPlanPage() {
                 </span>
               )}
             </div>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">五六日保持轻量；周四做 TCF 专项，周日只复盘错误。</p>
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+              未选中的日期保留原路线位置但作为休息日；调整设置不会删除已经完成的实际记录。
+            </p>
           </div>
 
           <div className="mt-5 space-y-4">
             {currentPlanWeekDays.map(({ key, day }) => {
               const dayMinimumMode = Boolean(storage.minimumMode[key])
-              const dayTasks = dayMinimumMode ? minimumModeTasks : day.tasks
-              const dayActual = actualMinutesForTasks(key, dayTasks)
+              const dayTasks = getConfiguredDayTasks(day, storage.settings, dayMinimumMode, minimumModeTasks)
+              const dayActual = recordedMinutesForDay(key)
+              const dayScheduledActual = actualMinutesForTasks(key, dayTasks)
               const dayPlannedMinutes = dayTasks.reduce((sum, task) => sum + task.minutes, 0)
-              const dayComplete = dayPlannedMinutes > 0 && dayActual >= dayPlannedMinutes
+              const dayComplete = dayPlannedMinutes > 0 && dayScheduledActual >= dayPlannedMinutes
               const dayMissed = key < todayKey && dayPlannedMinutes > 0 && !dayComplete
               const isToday = key === todayKey
 
@@ -1573,8 +1807,16 @@ export default function StudyPlanPage() {
                         )}
                       </div>
                       <div className="mt-1 text-sm text-gray-500">
-                        {dayMinimumMode ? '10 分钟最低模式' : day.totalLabel}
-                        {day.note ? ` · ${day.note}` : ''}
+                        {dayTasks.length === 0
+                          ? '休息日（按设置）'
+                          : dayMinimumMode
+                            ? '10 分钟最低模式'
+                            : storage.settings.dailyTargetMinutes
+                              ? `${storage.settings.dailyTargetMinutes} min 目标`
+                              : storage.settings.studyDays.length < 7
+                                ? `${dayPlannedMinutes} min 目标`
+                                : day.totalLabel}
+                        {day.note && dayTasks.length > 0 ? ` · ${day.note}` : ''}
                       </div>
                     </div>
                     <div className="flex items-center gap-2 text-sm font-medium text-gray-500">
@@ -1598,9 +1840,15 @@ export default function StudyPlanPage() {
                     </div>
                   </div>
 
-                  <div className="mt-4 grid gap-3 lg:grid-cols-3">
-                    {dayTasks.map((task) => renderTask(task, key, true))}
-                  </div>
+                  {dayTasks.length > 0 ? (
+                    <div className="mt-4 grid gap-3 lg:grid-cols-3">
+                      {dayTasks.map((task) => renderTask(task, key, true))}
+                    </div>
+                  ) : (
+                    <div className="mt-4 rounded-xl bg-gray-50 px-4 py-3 text-sm text-gray-400 dark:bg-gray-900">
+                      这一天按当前设置不安排计划任务；已有历史分钟仍保留。
+                    </div>
+                  )}
                 </div>
               )
             })}

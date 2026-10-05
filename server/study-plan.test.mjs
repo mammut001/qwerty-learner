@@ -40,6 +40,12 @@ test('durability, analytics, review scheduling, LWW sync and device binding', as
     assert.deepEqual(initializedState.learning.conjugationAttempts, [])
     assert.deepEqual(initializedState.learning.reviews.items, {})
     assert.equal(initializedState.syncMeta.startDateUpdatedAt, 0)
+    assert.equal(initializedState.syncMeta.settingsUpdatedAt, 0)
+    assert.deepEqual(initializedState.settings, {
+      examDate: '2027-03-31',
+      dailyTargetMinutes: null,
+      studyDays: [1, 2, 3, 4, 5, 6, 0],
+    })
     assert.deepEqual((await (await call('POST', cookie, { state: { ...initial, startDate: '2020-01-01' } })).json()).state, initializedState)
 
     const mutation = {
@@ -65,6 +71,28 @@ test('durability, analytics, review scheduling, LWW sync and device binding', as
     let state = (await (await call('GET', cookie)).json()).state
     assert.equal(state.minutes['2026-10-03']['sat-retell'], 20, 'older offline write cannot overwrite newer remote field')
     assert.equal(state.syncMeta.minutesUpdatedAt['2026-10-03']['sat-retell'], 200)
+
+    const settingsMutation = {
+      id: randomUUID(),
+      operations: [{
+        kind: 'settings',
+        value: { examDate: '2027-03-31', dailyTargetMinutes: 60, studyDays: [1, 3, 5] },
+        updatedAt: 300,
+      }],
+    }
+    assert.equal((await call('PATCH', cookie, settingsMutation)).status, 200)
+    assert.equal((await call('PATCH', cookie, {
+      id: randomUUID(),
+      operations: [{
+        kind: 'settings',
+        value: { examDate: '2027-04-30', dailyTargetMinutes: 90, studyDays: [2, 4] },
+        updatedAt: 250,
+      }],
+    })).status, 200)
+    state = (await (await call('GET', cookie)).json()).state
+    assert.equal(state.startDate, '2026-10-01')
+    assert.deepEqual(state.settings, { examDate: '2027-03-31', dailyTargetMinutes: 60, studyDays: [1, 3, 5] })
+    assert.equal(state.minutes['2026-10-03']['sat-retell'], 20, 're-scheduling never rewrites completed history')
 
     const vocabId = randomUUID()
     const grammarId = randomUUID()
@@ -140,6 +168,9 @@ test('durability, analytics, review scheduling, LWW sync and device binding', as
     assert.equal(analytics.analytics.rankings.grammar[0].label, '过去习惯')
     assert.equal(analytics.analytics.rankings.conjugation[0].label, 'prendre')
     assert.equal(analytics.analytics.reviewDue, 4)
+    assert.equal(analytics.analytics.plan.weeklyPlannedDays, 3)
+    assert.equal(analytics.analytics.plan.weeklyPlannedMinutes, 180)
+    assert.equal(analytics.analytics.plan.weeklyMinutes, 35, 'history on a newly configured rest day remains counted')
 
     const review = await (await call('GET', cookie, undefined, options.origin, '/review?today=2026-10-05')).json()
     assert.equal(review.queue.length, 4)
@@ -203,6 +234,19 @@ test('durability, analytics, review scheduling, LWW sync and device binding', as
     assert.equal((await call('POST', cookie, { key: 'bad' }, options.origin, '/sync-key/revoke')).status, 400)
 
     const beforeInvalid = (await (await call('GET', cookie)).json()).state
+    for (const value of [
+      { examDate: 'bad-date', dailyTargetMinutes: 60, studyDays: [1, 3, 5] },
+      { examDate: '2027-03-31', dailyTargetMinutes: 5, studyDays: [1, 3, 5] },
+      { examDate: '2027-03-31', dailyTargetMinutes: 60, studyDays: [] },
+      { examDate: '2027-03-31', dailyTargetMinutes: 60, studyDays: [1, 7] },
+    ]) {
+      assert.equal((await call('PATCH', cookie, {
+        id: randomUUID(),
+        operations: [{ kind: 'settings', value, updatedAt: Date.now() }],
+      })).status, 400)
+    }
+    assert.deepEqual((await (await call('GET', cookie)).json()).state, beforeInvalid, 'invalid settings roll back atomically')
+
     assert.equal((await call('PATCH', cookie, {
       id: randomUUID(),
       operations: [{ kind: 'reviewResult', itemId: 'x', reviewKind: 'vocabulary', sourceId: 'x', label: 'x', quality: 9, reviewedAt: Date.now(), day: '2026-10-05' }],

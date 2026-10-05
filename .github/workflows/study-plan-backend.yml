@@ -7,12 +7,21 @@ on:
       - 'scripts/*study*'
       - 'scripts/*deploy*'
       - 'src/services/studyPlanSync.ts'
+      - 'src/services/studyReminder.ts'
+      - 'src/services/pwa.ts'
+      - 'src/resources/studyPlanSchedule.ts'
+      - 'tests/e2e-study/**'
+      - 'playwright.study.config.ts'
+      - 'public/sw.js'
+      - 'public/manifest.json'
       - 'src/pages/StudyPlan/**'
       - 'src/pages/Typing/index.tsx'
       - 'src/pages/GrammarSession/**'
       - 'src/pages/Conjugation/**'
       - 'src/pages/Analysis/**'
       - 'src/utils/db/**'
+      - 'src/index.tsx'
+      - 'index.html'
       - 'vite.config.ts'
       - 'package.json'
       - 'Dockerfile'
@@ -28,11 +37,21 @@ on:
       - 'scripts/*study*'
       - 'scripts/*deploy*'
       - 'src/services/studyPlanSync.ts'
+      - 'src/services/studyReminder.ts'
+      - 'src/services/pwa.ts'
+      - 'src/resources/studyPlanSchedule.ts'
+      - 'tests/e2e-study/**'
+      - 'playwright.study.config.ts'
+      - 'public/sw.js'
+      - 'public/manifest.json'
+      - 'src/pages/StudyPlan/**'
       - 'src/pages/Typing/index.tsx'
       - 'src/pages/GrammarSession/**'
       - 'src/pages/Conjugation/**'
       - 'src/pages/Analysis/**'
       - 'src/utils/db/**'
+      - 'src/index.tsx'
+      - 'index.html'
       - 'vite.config.ts'
       - 'package.json'
       - 'Dockerfile'
@@ -96,3 +115,19 @@ jobs:
         run: docker compose logs --no-color --tail 100
       - if: always()
         run: docker compose down
+
+  study-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npx --yes yarn@1.22.22 install --frozen-lockfile
+      - run: npx playwright install chromium
+      - name: End-to-end study flow
+        run: |
+          rm -rf .tmp
+          mkdir -p .tmp
+          npm run test:e2e:study

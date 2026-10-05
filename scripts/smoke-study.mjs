@@ -52,6 +52,11 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   assert.deepEqual(initialized.data.state.minutes, state.minutes)
   assert.deepEqual(initialized.data.state.minimumMode, state.minimumMode)
   assert.deepEqual(initialized.data.state.learning.vocabulary.records, [])
+  assert.deepEqual(initialized.data.state.settings, {
+    examDate: '2027-03-31',
+    dailyTargetMinutes: null,
+    studyDays: [1, 2, 3, 4, 5, 6, 0],
+  })
   assert.deepEqual((await call('POST', { state: { ...state, startDate: '2020-01-01' } })).data.state, initialized.data.state, 'Migration is create-only')
   const mutation = { id: randomUUID(), operations: [
     { kind: 'startDate', value: '2026-09-28' },
@@ -118,11 +123,26 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   assert.equal((await call('PATCH', learningMutation)).res.status, 200)
   assert.equal((await call('PATCH', learningMutation)).res.status, 200, 'Learning replay is idempotent')
 
+  const settingsMutation = {
+    id: randomUUID(),
+    operations: [{
+      kind: 'settings',
+      value: { examDate: '2027-03-28', dailyTargetMinutes: 45, studyDays: [1, 3, 5] },
+      updatedAt: Date.now(),
+    }],
+  }
+  assert.equal((await call('PATCH', settingsMutation)).res.status, 200)
+
   expected = (await call('GET')).data.state
   assert.equal(expected.minutes['2026-10-03']['sat-retell'], 8, 'Concurrent updates preserved')
   assert.equal(expected.minutes['2026-10-03']['sat-listening'], 15, 'Completion target preserved')
   assert.equal(expected.minimumMode['2026-10-03'], true)
   assert.equal(expected.startDate, '2026-09-28')
+  assert.deepEqual(expected.settings, {
+    examDate: '2027-03-28',
+    dailyTargetMinutes: 45,
+    studyDays: [1, 3, 5],
+  })
   assert.equal(expected.learning.vocabulary.records.length, 1)
   assert.equal(expected.learning.grammar.history.length, 1)
   assert.equal(expected.learning.conjugation.prendre.passeCompose.total, 1)
@@ -135,6 +155,7 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   assert.equal(analytics.data.analytics.vocabulary.accuracy, 0)
   assert.equal(analytics.data.analytics.grammar.accuracy, 80)
   assert.equal(analytics.data.analytics.conjugation.accuracy, 0)
+  assert.equal(analytics.data.analytics.plan.weeklyPlannedDays, 3)
   assert.equal(analytics.data.analytics.trends.daily.length, 30)
   assert.equal(analytics.data.analytics.trends.weekly.length, 12)
   assert.equal(analytics.data.analytics.trends.monthly.length, 12)

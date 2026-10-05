@@ -1,3 +1,4 @@
+import { normalizeStudyPlanSettings, startDateFromExamDate, type StudyPlanSettings } from '../resources/studyPlanSchedule.ts'
 // Empty means same-origin; set at Vite build time for a separate API deployment.
 export function studyApiBase(value = ''): string {
   if (!value.trim()) return ''
@@ -18,6 +19,7 @@ const API_BASE = studyApiBase(import.meta.env?.VITE_STUDY_API_BASE_URL)
 
 export type StudyPlanStorage = {
   startDate: string
+  settings: StudyPlanSettings
   minutes: Record<string, Record<string, number>>
   minimumMode: Record<string, boolean>
 }
@@ -115,6 +117,7 @@ export type ReviewQueueItem = {
 
 export type SyncMeta = {
   startDateUpdatedAt: number
+  settingsUpdatedAt: number
   minimumModeUpdatedAt: Record<string, number>
   minutesUpdatedAt: Record<string, Record<string, number>>
   grammarDraftUpdatedAt: number
@@ -160,6 +163,7 @@ export type StudyAnalytics = {
     currentWeek: number
     weeklyMinutes: number
     weeklyPlannedMinutes: number
+    weeklyPlannedDays: number
     weeklyCompletedDays: number
     weekCompletionPercent: number
     weeklyHistory: Array<{
@@ -203,6 +207,7 @@ export type StudyAnalytics = {
 
 type Operation =
   | { kind: 'startDate'; value: string; updatedAt: number }
+  | { kind: 'settings'; value: StudyPlanSettings; updatedAt: number }
   | { kind: 'mode'; day: string; value: boolean | null; updatedAt: number }
   | { kind: 'minutes'; day: string; task: string; value: number | null; updatedAt: number }
   | { kind: 'increment'; day: string; task: string; value: number; updatedAt: number }
@@ -273,6 +278,7 @@ const addLocalDays = (day: string, amount: number) => {
 export function emptySyncMeta(): SyncMeta {
   return {
     startDateUpdatedAt: 0,
+    settingsUpdatedAt: 0,
     minimumModeUpdatedAt: {},
     minutesUpdatedAt: {},
     grammarDraftUpdatedAt: 0,
@@ -295,6 +301,7 @@ function withLearning(state: StudyPlanStorage | StudyServerState): StudyServerSt
   const learning = source.learning
   return {
     startDate: state.startDate,
+    settings: normalizeStudyPlanSettings(source.settings, state.startDate),
     minutes: state.minutes ?? {},
     minimumMode: state.minimumMode ?? {},
     learning: learning
@@ -310,13 +317,22 @@ function withLearning(state: StudyPlanStorage | StudyServerState): StudyServerSt
           reviews: { items: learning.reviews?.items ?? {} },
         }
       : emptyLearningProgress(),
-    syncMeta: source.syncMeta ?? emptySyncMeta(),
+    syncMeta: source.syncMeta
+      ? {
+          ...emptySyncMeta(),
+          ...source.syncMeta,
+          minimumModeUpdatedAt: source.syncMeta.minimumModeUpdatedAt ?? {},
+          minutesUpdatedAt: source.syncMeta.minutesUpdatedAt ?? {},
+        }
+      : emptySyncMeta(),
   }
 }
 
 function defaultState(): StudyServerState {
+  const startDate = localDay()
   return {
-    startDate: localDay(),
+    startDate,
+    settings: normalizeStudyPlanSettings(undefined, startDate),
     minutes: {},
     minimumMode: {},
     learning: emptyLearningProgress(),
@@ -343,6 +359,7 @@ function ensureFallback(initial?: StudyPlanStorage | StudyServerState): StudySer
       ? {
           ...cached,
           startDate: normalized.startDate,
+          settings: normalized.settings,
           minutes: normalized.minutes,
           minimumMode: normalized.minimumMode,
           learning: suppliedLearning ? normalized.learning : cached.learning,
@@ -467,7 +484,7 @@ async function drain() {
             'POST',
             {
               id: next.id,
-              backup: { format: 'qwerty-study-plan', version: 3, state: next.operations[0].value },
+              backup: { format: 'qwerty-study-plan', version: 4, state: next.operations[0].value },
             },
             '/import',
           )
@@ -547,7 +564,10 @@ function applyStudyPlanClocks(state: StudyServerState, operations: Operation[]) 
   const next = withLearning(state)
   for (const op of operations) {
     if (op.kind === 'startDate') next.syncMeta.startDateUpdatedAt = op.updatedAt
-    else if (op.kind === 'mode') next.syncMeta.minimumModeUpdatedAt[op.day] = op.updatedAt
+    else if (op.kind === 'settings') {
+      next.syncMeta.settingsUpdatedAt = op.updatedAt
+      next.syncMeta.startDateUpdatedAt = Math.max(next.syncMeta.startDateUpdatedAt, op.updatedAt)
+    } else if (op.kind === 'mode') next.syncMeta.minimumModeUpdatedAt[op.day] = op.updatedAt
     else if (op.kind === 'minutes' || op.kind === 'increment') {
       next.syncMeta.minutesUpdatedAt[op.day] ??= {}
       next.syncMeta.minutesUpdatedAt[op.day][op.task] = op.updatedAt
@@ -584,6 +604,18 @@ export function saveStudyPlan(previous: StudyPlanStorage, next: StudyPlanStorage
       operations,
     ),
   )
+}
+
+export function saveStudyPlanSettings(settings: StudyPlanSettings) {
+  const current = ensureFallback()
+  const normalized = normalizeStudyPlanSettings(settings, current.startDate)
+  const nextStartDate = startDateFromExamDate(normalized.examDate)
+  const updatedAt = Date.now()
+  optimisticOperation({ kind: 'settings', value: normalized, updatedAt }, (state) => ({
+    ...state,
+    startDate: nextStartDate,
+    settings: normalized,
+  }))
 }
 
 export function addStudyMinutes(day: string, task: string, value: number) {
@@ -849,7 +881,7 @@ export async function exportRemoteStudyPlan(initial: StudyPlanStorage) {
   if (!payload.state || pending().length) throw new Error('同步未完成，请稍后重试。')
   return payload as {
     format: 'qwerty-study-plan'
-    version: 3
+    version: 4
     exportedAt: string
     state: StudyServerState
   }

@@ -69,7 +69,7 @@ npm run test:cloud
 npm run smoke:study -- https://YOUR-PUBLIC-HOST
 ```
 
-The cloud test uses Wrangler's actual local D1 implementation, checks SPA routing and API behavior, stops and restarts the Worker against the same database, and verifies saved progress. The smoke covers migrations, analytics trends/rankings, SM-2 review scheduling, sync-code bind/unbind, concurrent/idempotent writes, restart persistence, browser isolation and rejected cross-origin writes. It creates a separate anonymous test identity; it does not alter another browser's records.
+The cloud test uses Wrangler's actual local D1 implementation, checks SPA routing and API behavior, plan settings, analytics/review state, stops and restarts the Worker against the same database, and verifies saved progress. The smoke covers migrations, analytics trends/rankings, SM-2 review scheduling, sync-code bind/unbind, concurrent/idempotent writes, restart persistence, browser isolation and rejected cross-origin writes. It creates a separate anonymous test identity; it does not alter another browser's records.
 
 The `Study plan persistence` GitHub Actions workflow builds frontend and Node Docker images, validates the production overlay, exercises the Nginx→Node path, and checks persistence after an API restart. A separate job builds and tests the Worker with real local D1. Neither CI job needs hosting secrets or deploys paid resources. Docker image validation runs in CI; Docker is required to run that job locally.
 
@@ -109,7 +109,7 @@ CI additionally builds with a nonempty remote API base, verifies that the compil
 
 ## Per-browser remote export and import
 
-The existing learning-plan export button now flushes pending changes and downloads **server state**, in `{format:"qwerty-study-plan", version:3, exportedAt, state}` JSON. It reports failure if the server is unavailable or queued changes remain; it does not silently substitute a local snapshot. The existing import picker/confirmation accepts this envelope and previous plain-state JSON files. Import replaces the current browser identity's plan atomically through the remote API. Offline imports stay in the durable mutation queue and retry after reconnect/reload. Layout and learning content are unchanged.
+The existing learning-plan export button now flushes pending changes and downloads **server state**, in `{format:"qwerty-study-plan", version:4, exportedAt, state}` JSON. It reports failure if the server is unavailable or queued changes remain; it does not silently substitute a local snapshot. The existing import picker/confirmation accepts this envelope and previous plain-state JSON files. Import replaces the current browser identity's plan atomically through the remote API. Offline imports stay in the durable mutation queue and retry after reconnect/reload. Layout and learning content are unchanged.
 
 - `GET /api/study-plan/export`: requires the current session and an initialized plan. Returns only this identity's progress, never cookies or other users' records.
 - `GET /api/study-plan/analytics?today=YYYY-MM-DD`: returns server-derived day/week/month learning-time and accuracy trends, error rankings, plan completion/streaks, and review-due count.
@@ -119,7 +119,7 @@ The existing learning-plan export button now flushes pending changes and downloa
 - `POST /api/study-plan/sync-key/revoke`: revokes a supplied active share code owned by the current learner.
 - `POST /api/study-plan/link`: accepts a sync code, binds this browser session to that learner, and returns the full current state.
 - `POST /api/study-plan/unlink`: detaches this browser into an independent learner while cloning its current state.
-- `POST /api/study-plan/import`: same Origin/JSON/session requirements as other writes. Body is `{id:"UUID", backup:{format:"qwerty-study-plan",version:3,state:{...}}}`. Initialize the session/plan through the ordinary GET/POST flow first. A repeated ID with identical contents is a no-op; reusing it with other contents is rejected. A retry after later edits returns current state instead of replaying the replacement.
+- `POST /api/study-plan/import`: same Origin/JSON/session requirements as other writes. Body is `{id:"UUID", backup:{format:"qwerty-study-plan",version:4,state:{...}}}`. Initialize the session/plan through the ordinary GET/POST flow first. A repeated ID with identical contents is a no-op; reusing it with other contents is rejected. A retry after later edits returns current state instead of replaying the replacement.
 - Invalid versions, oversized plans, invalid review payloads/dates/tasks/minutes and cross-origin writes are rejected without changing saved data. Node upgrades the sync-code table on startup; D1 applies `0002_sync_keys.sql` and `0003_sync_key_revocation.sql`.
 
 Keep exported JSON private. It contains progress but no login secret. Import/export remains a point-in-time backup path. Continuous anonymous-device synchronization uses the sync-code bind flow; offline mutations are replayed after reconnect and mutable-field conflicts use latest-timestamp-wins.
@@ -154,3 +154,18 @@ node --env-file=deploy/.env deploy/node_modules/wrangler/bin/wrangler.js d1 exec
 ```
 
 Pause incoming writes, point the Worker binding at the restored database, and deploy that reviewed config with `wrangler deploy --config deploy/wrangler.restore.json`. Verify readiness and a known browser's progress before resuming traffic. Keep the original database and config for rollback. The normal deploy script intentionally refuses an unrelated database name; after a deliberate restore, keep using the reviewed restore config or explicitly reconcile its stable database identity before resuming the normal deploy script. Do not run migrations to create duplicate tables before importing the full SQL export. Never commit the SQL, credentials, or generated restore config.
+
+
+## PWA and browser reminders
+
+The frontend registers `public/sw.js` for same-origin PWA/offline shell support. The service worker never intercepts `/api/*`; API writes therefore cannot be satisfied by a stale cache. On registration the page warms the cache with the static resources already loaded, so the installed app can reopen its shell offline while study mutations remain in the browser's durable queue.
+
+`public/default.conf` serves `/sw.js` with no-cache headers so deployed browsers can promptly revalidate worker updates. Browser notification permission is requested only from a user action. Reminder preferences are per-browser; synced plan settings remain part of the learner state.
+
+The dedicated CI flow is:
+
+```bash
+npm run test:e2e:study
+```
+
+It runs Chromium against a local Vite frontend and Node SQLite API, exercises a real conjugation result, offline progress mutation/reload, reconnect replay, portable sync-code binding and the backend-powered Analysis page.

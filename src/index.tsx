@@ -5,6 +5,8 @@ import { FriendLinks } from './pages/FriendLinks'
 import MobilePage from './pages/Mobile'
 import TypingPage from './pages/Typing'
 import { isOpenDarkModeAtom } from '@/store'
+import { registerStudyPwa } from '@/services/pwa'
+import { startStudyReminderScheduler } from '@/services/studyReminder'
 import { migrateVocabularyHistory } from '@/services/studyPlanSync'
 import { db } from '@/utils/db'
 import 'animate.css'
@@ -47,6 +49,8 @@ function Root() {
   const darkMode = useAtomValue(isOpenDarkModeAtom)
   useEffect(() => {
     void migrateExistingVocabularyHistory()
+    void registerStudyPwa()
+    startStudyReminderScheduler()
   }, [])
 
   useEffect(() => {
