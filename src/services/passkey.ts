@@ -42,7 +42,7 @@ const encodeBase64url = (value: ArrayBuffer) => {
   const bytes = new Uint8Array(value)
   let binary = ''
   for (let index = 0; index < bytes.length; index += 0x8000)
-    binary += String.fromCharCode(...bytes.subarray(index, index + 0x8000))
+    binary += String.fromCharCode(...Array.from(bytes.subarray(index, index + 0x8000)))
   return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '')
 }
 

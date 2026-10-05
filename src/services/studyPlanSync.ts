@@ -1,4 +1,4 @@
-import { normalizeStudyPlanSettings, startDateFromExamDate, type StudyPlanSettings } from '../resources/studyPlanSchedule.ts'
+import { normalizeStudyPlanSettings, startDateFromExamDate, type StudyPlanSettings } from '../resources/studyPlanSchedule'
 // Empty means same-origin; set at Vite build time for a separate API deployment.
 export function studyApiBase(value = ''): string {
   if (!value.trim()) return ''

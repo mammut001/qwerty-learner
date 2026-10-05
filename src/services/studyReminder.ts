@@ -1,9 +1,9 @@
-import { getDayPlan, minimumModeTasks } from '../resources/studyPlan.ts'
+import { getDayPlan, minimumModeTasks } from '../resources/studyPlan'
 import {
   getConfiguredDayTasks,
   normalizeStudyPlanSettings,
   type StudyPlanSettings,
-} from '../resources/studyPlanSchedule.ts'
+} from '../resources/studyPlanSchedule'
 import type { StudyPlanStorage } from './studyPlanSync'
 
 export type StudyReminderPreferences = {
@@ -104,8 +104,8 @@ export async function checkStudyReminder(now = new Date()) {
   const tasks = getConfiguredDayTasks(dayPlan, plan.settings, Boolean(plan.minimumMode[today]), minimumModeTasks)
   if (!tasks.length) return false
 
-  const planned = tasks.reduce((sum, task) => sum + task.minutes, 0)
-  const actual = tasks.reduce((sum, task) => sum + (plan.minutes[today]?.[task.id] ?? 0), 0)
+  const planned = tasks.reduce((sum: number, task) => sum + task.minutes, 0)
+  const actual = tasks.reduce((sum: number, task) => sum + (plan.minutes[today]?.[task.id] ?? 0), 0)
   if (actual >= planned) return false
 
   await showStudyNotification(Math.max(0, planned - actual))

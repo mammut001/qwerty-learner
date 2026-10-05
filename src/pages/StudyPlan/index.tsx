@@ -299,8 +299,18 @@ export default function StudyPlanPage() {
     )
   }, [storage.settings.dailyTargetMinutes])
 
-  useEffect(() => subscribePwaInstallState(setPwaState), [])
-  useEffect(() => subscribeFocusTimer(setFocusSnapshot), [])
+  useEffect(() => {
+    const unsubscribe = subscribePwaInstallState(setPwaState)
+    return () => {
+      unsubscribe()
+    }
+  }, [])
+  useEffect(() => {
+    const unsubscribe = subscribeFocusTimer(setFocusSnapshot)
+    return () => {
+      unsubscribe()
+    }
+  }, [])
 
   useEffect(() => {
     let cancelled = false
@@ -705,7 +715,7 @@ export default function StudyPlanPage() {
       return
     }
     const studyDays = selected
-      ? storage.settings.studyDays.filter((day) => day !== weekday)
+      ? storage.settings.studyDays.filter((day: number) => day !== weekday)
       : [...storage.settings.studyDays, weekday]
     updatePlanSettings({ ...storage.settings, studyDays })
   }

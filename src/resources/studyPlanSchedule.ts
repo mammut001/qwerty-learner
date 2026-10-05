@@ -1,4 +1,4 @@
-import { weeklyStudyPlan, type DayPlan, type StudyTask } from './studyPlan.ts'
+import { weeklyStudyPlan, type DayPlan, type StudyTask } from './studyPlan'
 
 export type StudyPlanSettings = {
   examDate: string
@@ -49,17 +49,20 @@ export const normalizeStudyPlanSettings = (
   startDate: string,
 ): StudyPlanSettings => {
   const fallback = defaultStudyPlanSettings(startDate)
-  const studyDays = Array.isArray(value?.studyDays)
-    ? Array.from(new Set(value.studyDays.filter((day) => Number.isInteger(day) && day >= 0 && day <= 6)))
+  const requestedStudyDays = value?.studyDays
+  const requestedTarget = value?.dailyTargetMinutes
+  const studyDays = Array.isArray(requestedStudyDays)
+    ? Array.from(new Set(requestedStudyDays.filter((day: number) => Number.isInteger(day) && day >= 0 && day <= 6)))
     : fallback.studyDays
   return {
     examDate: validDateKey(value?.examDate) ? value.examDate : fallback.examDate,
     dailyTargetMinutes:
-      value?.dailyTargetMinutes === null ||
-      (Number.isInteger(value?.dailyTargetMinutes) &&
-        Number(value?.dailyTargetMinutes) >= 20 &&
-        Number(value?.dailyTargetMinutes) <= 240)
-        ? (value?.dailyTargetMinutes ?? null)
+      requestedTarget === null ||
+      (typeof requestedTarget === 'number' &&
+        Number.isInteger(requestedTarget) &&
+        requestedTarget >= 20 &&
+        requestedTarget <= 240)
+        ? requestedTarget
         : fallback.dailyTargetMinutes,
     studyDays: studyDays.length ? studyDays : fallback.studyDays,
   }
@@ -110,12 +113,12 @@ const defaultWeekSelected = (settings: StudyPlanSettings) =>
 const redistributedTasksForWeekday = (weekday: number, settings: StudyPlanSettings): StudyTask[] => {
   if (!isConfiguredStudyDay(settings, weekday)) return []
   if (defaultWeekSelected(settings)) {
-    return weeklyStudyPlan.find((plan) => plan.weekday === weekday)?.tasks ?? []
+    return weeklyStudyPlan.find((plan: DayPlan) => plan.weekday === weekday)?.tasks ?? []
   }
   const activeDays = DEFAULT_STUDY_DAYS.filter((day) => settings.studyDays.includes(day))
   const position = activeDays.indexOf(weekday)
   if (position < 0) return []
-  const allTasks = weeklyStudyPlan.flatMap((plan) => plan.tasks)
+  const allTasks = weeklyStudyPlan.flatMap((plan: DayPlan) => plan.tasks)
   const start = Math.floor((position * allTasks.length) / activeDays.length)
   const end = Math.floor(((position + 1) * allTasks.length) / activeDays.length)
   return allTasks.slice(start, end)
