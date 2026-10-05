@@ -8,6 +8,13 @@ import {
   type ConjugationTense,
   type FrenchVerbConjugation,
 } from '@/resources/conjugation'
+import {
+  getLearningProgress,
+  recordConjugationAttempt,
+  seedConjugationStats,
+  type ConjugationStats,
+  type TenseStat,
+} from '@/services/studyPlanSync'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { NavLink, useSearchParams } from 'react-router-dom'
 import IconArrowLeft from '~icons/tabler/arrow-left'
@@ -16,8 +23,6 @@ import IconRefresh from '~icons/tabler/refresh'
 
 type PracticeScope = 'current' | 'mixed'
 type PracticeResult = 'correct' | 'wrong' | null
-type TenseStat = { correct: number; total: number }
-type ConjugationStats = Record<string, Partial<Record<ConjugationTense, TenseStat>>>
 
 type PracticeQuestion = {
   tense: ConjugationTense
@@ -112,6 +117,38 @@ export default function ConjugationPage() {
   const [stats, setStats] = useState<ConjugationStats>(() => loadStats())
   const inputRef = useRef<HTMLInputElement>(null)
 
+  useEffect(() => {
+    let cancelled = false
+    const local = loadStats()
+    void getLearningProgress().then((learning) => {
+      if (cancelled) return
+      const remote = learning.conjugation
+      const remoteTotal = Object.values(remote).reduce(
+        (sum, byTense) => sum + Object.values(byTense).reduce((inner, stat) => inner + (stat?.total ?? 0), 0),
+        0,
+      )
+      if (remoteTotal > 0) {
+        setStats(remote)
+        try {
+          window.localStorage.setItem(STATS_KEY, JSON.stringify(remote))
+        } catch {
+          // Server state remains available even when localStorage is blocked.
+        }
+        return
+      }
+
+      const localTotal = Object.values(local).reduce(
+        (sum, byTense) => sum + Object.values(byTense).reduce((inner, stat) => inner + (stat?.total ?? 0), 0),
+        0,
+      )
+      if (localTotal > 0) seedConjugationStats(local)
+    })
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
   const filteredVerbs = useMemo(() => {
     const needle = query.trim().toLowerCase()
     if (!needle) return frenchVerbs
@@ -152,6 +189,11 @@ export default function ConjugationPage() {
         window.localStorage.setItem(STATS_KEY, JSON.stringify(next))
         return next
       })
+      try {
+        recordConjugationAttempt(selectedVerb.infinitive, tense, isCorrect)
+      } catch {
+        // Keep local practice responsive; the local stats above remain available.
+      }
     },
     [selectedVerb.infinitive],
   )

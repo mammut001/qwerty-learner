@@ -1,4 +1,20 @@
-import { exportRemoteStudyPlan, importRemoteStudyPlan, saveStudyPlan, subscribeStudyPlan, syncStudyPlan } from '@/services/studyPlanSync'
+import {
+  createStudySyncKey,
+  exportRemoteStudyPlan,
+  getLearningProgress,
+  getStoredStudySyncKey,
+  importRemoteStudyPlan,
+  linkStudyDevice,
+  loadStudyAnalytics,
+  saveStudyPlan,
+  subscribeLearningProgress,
+  subscribeStudyPlan,
+  syncStudyPlan,
+  type LearningProgress,
+  type StudyAnalytics,
+  type StudyPlanStorage,
+  type StudyServerState,
+} from '@/services/studyPlanSync'
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { CHAPTER_LENGTH } from '@/constants'
@@ -22,12 +38,6 @@ import IconCalendar from '~icons/tabler/calendar'
 import IconCheck from '~icons/tabler/check'
 import IconClock from '~icons/tabler/clock'
 import IconPlayerPlay from '~icons/tabler/player-play'
-
-type StudyPlanStorage = {
-  startDate: string
-  minutes: Record<string, Record<string, number>>
-  minimumMode: Record<string, boolean>
-}
 
 type PreviewErrorWordsState = {
   dictId: string
@@ -102,7 +112,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
 
-function parseImportedStorage(value: unknown): StudyPlanStorage | null {
+function parseImportedStorage(value: unknown): StudyPlanStorage | StudyServerState | null {
   if (!isRecord(value)) return null
   if (!Object.prototype.hasOwnProperty.call(value, 'startDate')) return null
   if (!Object.prototype.hasOwnProperty.call(value, 'minutes')) return null
@@ -127,11 +137,15 @@ function parseImportedStorage(value: unknown): StudyPlanStorage | null {
     minimumMode[dateKey] = modeValue
   }
 
-  return {
+  const imported: StudyPlanStorage | StudyServerState = {
     startDate: value.startDate,
     minutes,
     minimumMode,
   }
+  if (isRecord(value.learning)) {
+    ;(imported as StudyServerState).learning = value.learning as unknown as LearningProgress
+  }
+  return imported
 }
 
 function countRecordedMinuteDays(minutes: StudyPlanStorage['minutes']) {
@@ -183,14 +197,41 @@ export default function StudyPlanPage() {
   const [storage, setStorage] = useState<StudyPlanStorage>(() => loadStorage(todayKey))
   const importInputRef = useRef<HTMLInputElement>(null)
   const [importMessage, setImportMessage] = useState('')
-  const [pendingImport, setPendingImport] = useState<StudyPlanStorage | null>(null)
+  const [pendingImport, setPendingImport] = useState<StudyPlanStorage | StudyServerState | null>(null)
   const [highlightedMissedDayKey, setHighlightedMissedDayKey] = useState<string | null>(null)
+  const [learning, setLearning] = useState<LearningProgress | null>(null)
+  const [analytics, setAnalytics] = useState<StudyAnalytics | null>(null)
+  const [syncKey, setSyncKey] = useState(() => getStoredStudySyncKey())
+  const [syncKeyInput, setSyncKeyInput] = useState(() => getStoredStudySyncKey())
 
   useEffect(() => {
     const unsubscribe = subscribeStudyPlan(setStorage, setImportMessage)
-    void syncStudyPlan(loadStorage(todayKey))
-    return unsubscribe
+    const unsubscribeLearning = subscribeLearningProgress(setLearning)
+    void syncStudyPlan(loadStorage(todayKey)).then(() => {
+      void getLearningProgress().then(setLearning)
+    })
+    return () => {
+      unsubscribe()
+      unsubscribeLearning()
+    }
   }, [todayKey])
+
+  useEffect(() => {
+    let cancelled = false
+    const timer = window.setTimeout(() => {
+      void loadStudyAnalytics()
+        .then((value) => {
+          if (!cancelled) setAnalytics(value)
+        })
+        .catch(() => {
+          // Existing local summaries remain available while the backend is offline.
+        })
+    }, 400)
+    return () => {
+      cancelled = true
+      window.clearTimeout(timer)
+    }
+  }, [learning, storage])
 
   const saveStorage = (next: StudyPlanStorage) => {
     try {
@@ -280,6 +321,22 @@ export default function StudyPlanPage() {
       error: '',
     })
 
+    if (learning && learning.vocabulary.records.length > 0) {
+      setPreviewErrorWordsState({
+        dictId,
+        status: 'ready',
+        words: new Set(
+          learning.vocabulary.records
+            .filter((record) => record.dict === dictId && record.wrongCount > 0)
+            .map((record) => record.word),
+        ),
+        error: '',
+      })
+      return () => {
+        cancelled = true
+      }
+    }
+
     db.wordRecords
       .where('dict')
       .equals(dictId)
@@ -307,7 +364,7 @@ export default function StudyPlanPage() {
     return () => {
       cancelled = true
     }
-  }, [previewDictionary?.id, previewWeek])
+  }, [learning, previewDictionary?.id, previewWeek])
 
   const previewErrorWordsStatus =
     previewErrorWordsState.dictId === previewDictionary?.id ? previewErrorWordsState.status : 'loading'
@@ -553,7 +610,7 @@ export default function StudyPlanPage() {
 
     try {
       const parsed = JSON.parse(await file.text()) as unknown
-      const candidate = isRecord(parsed) && parsed.format === 'qwerty-study-plan' && parsed.version === 1 ? parsed.state : parsed
+      const candidate = isRecord(parsed) && parsed.format === 'qwerty-study-plan' && (parsed.version === 1 || parsed.version === 2) ? parsed.state : parsed
       const imported = parseImportedStorage(candidate)
       if (!imported) {
         setImportMessage('导入失败：JSON 结构不符合学习计划格式，现有数据未修改。')
@@ -581,6 +638,43 @@ export default function StudyPlanPage() {
   const cancelImportStudyPlan = () => {
     setPendingImport(null)
     setImportMessage('已取消导入，现有数据未修改。')
+  }
+
+  const generateSyncKey = async () => {
+    try {
+      const key = await createStudySyncKey(storage)
+      setSyncKey(key)
+      setSyncKeyInput(key)
+      setImportMessage('同步码已生成。它等同账号密码，请只保存在你自己的设备上。')
+    } catch {
+      setImportMessage('暂时无法生成同步码：请先等待本机待保存记录同步完成。')
+    }
+  }
+
+  const copySyncKey = async () => {
+    if (!syncKey) return
+    try {
+      await navigator.clipboard.writeText(syncKey)
+      setImportMessage('同步码已复制。')
+    } catch {
+      setImportMessage('浏览器无法自动复制，请手动选择同步码。')
+    }
+  }
+
+  const connectWithSyncKey = async () => {
+    try {
+      const linked = await linkStudyDevice(syncKeyInput)
+      setStorage(linked)
+      setLearning(linked.learning)
+      setSyncKey(syncKeyInput.trim().toLowerCase())
+      setImportMessage('这台设备已连接到同一份服务端学习进度。')
+    } catch (error) {
+      setImportMessage(
+        error instanceof Error && error.message === 'INVALID_SYNC_KEY'
+          ? '同步码无效，请检查后重试。'
+          : '连接失败：请确认同步码正确，并等待本机待保存记录同步完成。',
+      )
+    }
   }
 
   const renderTask = (task: StudyTask, dateKey: string, compact = false) => {
@@ -773,6 +867,60 @@ export default function StudyPlanPage() {
                 />
               </div>
 
+              <div className="w-full max-w-md rounded-xl border border-gray-100 bg-gray-50 p-3 text-left dark:border-gray-700 dark:bg-gray-900">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <div className="text-xs font-medium text-gray-500 dark:text-gray-300">跨设备同步</div>
+                    <div className="mt-0.5 text-[11px] text-gray-400">同步码可读取整份学习进度，等同账号密码。</div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={generateSyncKey}
+                    className="rounded-lg border border-gray-200 bg-white px-2.5 py-1 text-xs font-medium text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                  >
+                    {syncKey ? '再生成一个同步码' : '生成同步码'}
+                  </button>
+                </div>
+
+                {syncKey && (
+                  <div className="mt-2 flex gap-2">
+                    <input
+                      type="password"
+                      readOnly
+                      value={syncKey}
+                      aria-label="当前学习进度同步码"
+                      className="min-w-0 flex-1 rounded-lg border border-gray-200 bg-white px-2 py-1.5 font-mono text-xs text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                    />
+                    <button
+                      type="button"
+                      onClick={copySyncKey}
+                      className="rounded-lg bg-indigo-500 px-3 py-1.5 text-xs font-medium text-white hover:bg-indigo-600"
+                    >
+                      复制
+                    </button>
+                  </div>
+                )}
+
+                <div className="mt-2 flex gap-2">
+                  <input
+                    type="password"
+                    value={syncKeyInput}
+                    onChange={(event) => setSyncKeyInput(event.target.value)}
+                    placeholder="在新设备粘贴 64 位同步码"
+                    aria-label="连接已有学习进度的同步码"
+                    className="min-w-0 flex-1 rounded-lg border border-gray-200 bg-white px-2 py-1.5 font-mono text-xs text-gray-600 outline-none focus:border-indigo-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                  />
+                  <button
+                    type="button"
+                    onClick={connectWithSyncKey}
+                    disabled={!/^[a-fA-F0-9]{64}$/.test(syncKeyInput.trim())}
+                    className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                  >
+                    连接
+                  </button>
+                </div>
+              </div>
+
               {pendingImport && (
                 <div className="w-full max-w-md rounded-2xl border border-amber-200 bg-amber-50 p-4 text-left dark:border-amber-900 dark:bg-amber-950/30">
                   <div className="text-sm font-semibold text-amber-800 dark:text-amber-200">确认覆盖现有学习计划？</div>
@@ -842,6 +990,11 @@ export default function StudyPlanPage() {
                 <span>本阶段还剩 {phase.weeks[1] - currentWeek} 周</span>
               </div>
               <div className="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-300">{phase.state}</div>
+              {analytics && (
+                <div className="mt-2 text-xs text-indigo-400">
+                  服务端阶段完成 {analytics.plan.phase.completionPercent}% · {analytics.plan.phase.completedDays} / {analytics.plan.phase.elapsedDays} 个已到日期完成
+                </div>
+              )}
             </div>
             <div className="rounded-2xl bg-gray-50 p-4 dark:bg-gray-900">
               <div className="text-xs text-gray-400">本周实际</div>
@@ -861,6 +1014,11 @@ export default function StudyPlanPage() {
               </div>
               <div className="mt-1 text-sm text-gray-500">计划约 {minutesLabel(weeklyPlannedMinutes)}（≈ 7 小时）</div>
               <div className="mt-1 text-sm text-gray-500">完成 {weeklyCompletedDays} / 7 天</div>
+              {analytics && (
+                <div className="mt-1 text-xs text-gray-400">
+                  服务端累计 {minutesLabel(analytics.plan.totalMinutes)} · 本周完成度 {analytics.plan.weekCompletionPercent}%
+                </div>
+              )}
               {weeklyMissedDays > 0 && earliestMissedDayKey && earliestMissedDayName ? (
                 <div className="mt-1 flex items-center gap-1.5 text-sm">
                   <button
@@ -914,8 +1072,21 @@ export default function StudyPlanPage() {
                 })}
               </div>
               <div className="mt-1 text-sm text-gray-500">原则：可以少学，但尽量不要连续三天完全不碰法语。</div>
+              {analytics && (
+                <div className="mt-2 text-xs text-gray-400">
+                  当前连续 {analytics.streak.current} 天 · 历史最长 {analytics.streak.longest} 天
+                </div>
+              )}
             </div>
           </div>
+
+          {analytics && (
+            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 rounded-xl bg-gray-50 px-4 py-3 text-xs text-gray-500 dark:bg-gray-900 dark:text-gray-400">
+              <span>词汇：{analytics.vocabulary.attempts} 次 · {analytics.vocabulary.uniqueWords} 个词 · {analytics.vocabulary.wrongWords} 个错词</span>
+              <span>语法：{analytics.grammar.sessions} 次{analytics.grammar.accuracy === null ? '' : ` · ${analytics.grammar.accuracy}%`}{analytics.grammar.hasDraft ? ' · 有未完成练习' : ''}</span>
+              <span>变位：{analytics.conjugation.attempts} 题{analytics.conjugation.accuracy === null ? '' : ` · ${analytics.conjugation.accuracy}%`} · {analytics.conjugation.practicedVerbs} 个动词</span>
+            </div>
+          )}
 
           <div className="mt-5 flex flex-wrap gap-2">
             {phase.focus.map((item) => (

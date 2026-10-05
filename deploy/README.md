@@ -35,7 +35,7 @@ Local Vite still proxies `/api` to `http://127.0.0.1:8787`. Run the Node backend
 
 If an existing public Nginx frontend must use the Worker API, adapt `nginx-public-api.conf.example`, replacing `STUDY_WORKER_HOST` with the deployed Worker hostname. Set `STUDY_ORIGIN` in `deploy/.env` to that **frontend** HTTPS origin and rerun deployment. Keep the browser's original Origin and Cookie headers; enable upstream TLS verification/SNI as shown. The deployment smoke then runs through that frontend, which must already serve this frontend build and proxy `/api`. GitHub Pages cannot provide this same-origin proxy; it can use the direct remote mode below if browser cookie policy permits it.
 
-Browser identity is tied to the site's cookie. Refreshes and server restarts preserve state, but clearing cookies or changing domains creates a new identity. Use the existing page export/import to move records to a new origin; there is no cross-device login in this deployment.
+Browser identity starts with the site's cookie. Refreshes and server restarts preserve state. The study-plan page can also generate a random 256-bit sync code; entering that code on another device links its cookie to the same learner state. The server stores only the sync-code hash. Treat the displayed code like a password and keep it on trusted devices.
 
 ## Production Node SQLite + Nginx on an existing free VM
 
@@ -75,9 +75,9 @@ The `Study plan persistence` GitHub Actions workflow builds frontend and Node Do
 
 ## Separate frontend → remote Worker API
 
-This mode uses the existing anonymous browser identity, not a login account. Cookie replay restores the same records after refresh; a new device or cleared cookies has a different identity. No API key belongs in frontend JavaScript.
+This mode still uses an anonymous learner rather than a login account. Cookie replay restores the same records after refresh; a new device can explicitly join the same learner with the study-plan sync code. No deployment API key belongs in frontend JavaScript.
 
-1. In ignored `deploy/.env`, set `STUDY_REMOTE_API=true` and `STUDY_ORIGIN=https://YOUR-FRONTEND-HOST` (exact origin, no path/trailing slash). Run `npm run deploy:free`. It sets the Worker to `STUDY_COOKIE_SECURE=true`, `STUDY_COOKIE_SAME_SITE=none` and verifies the Worker API using the configured frontend Origin. D1's existing migration is sufficient; no schema change is required for CORS.
+1. In ignored `deploy/.env`, set `STUDY_REMOTE_API=true` and `STUDY_ORIGIN=https://YOUR-FRONTEND-HOST` (exact origin, no path/trailing slash). Run `npm run deploy:free`. It sets the Worker to `STUDY_COOKIE_SECURE=true`, `STUDY_COOKIE_SAME_SITE=none` and verifies the Worker API using the configured frontend Origin. Apply all checked-in D1 migrations; the sync-code mapping lives in the additive `0002_sync_keys.sql` migration. No additional schema change is required specifically for CORS.
 2. Build the separately hosted frontend with the printed API origin:
 
    ```bash
@@ -89,7 +89,7 @@ This mode uses the existing anonymous browser identity, not a login account. Coo
 
 The exact account step that cannot be performed without your Cloudflare connection is **My Profile → API Tokens → Create Token → Custom token → Continue to summary → Create Token**, scoped to the account and permissions listed above. Save it locally in `deploy/.env`; never paste it into this PR or chat. After the free account is linked, the single deploy command handles D1, migrations, the Worker and public API smoke. There is still no provisioned public URL in this repository.
 
-Cross-site requests require HTTPS and `SameSite=None; Secure`. Browsers that block third-party cookies can still reject this mode even with correct CORS; the page reports the missing session and retains queued records locally instead of reporting a successful save. For reliable operation across browser privacy modes, use the default Worker-hosted same-origin frontend or the documented same-origin Nginx proxy. CORS allows exactly `STUDY_ORIGIN`, includes credentials and `Vary: Origin`, and accepts only GET/POST/PATCH plus validated OPTIONS preflight. Arbitrary origins, `null`, unexpected headers, and non-JSON writes are rejected. Anonymous cookies stay HttpOnly and are never copied to localStorage.
+Cross-site requests require HTTPS and `SameSite=None; Secure`. Browsers that block third-party cookies can still reject this mode even with correct CORS; the page reports the missing session and retains queued records locally instead of reporting a successful save. For reliable operation across browser privacy modes, use the default Worker-hosted same-origin frontend or the documented same-origin Nginx proxy. CORS allows exactly `STUDY_ORIGIN`, includes credentials and `Vary: Origin`, and accepts only GET/POST/PATCH plus validated OPTIONS preflight. Arbitrary origins, `null`, unexpected headers, and non-JSON writes are rejected. Anonymous session cookies stay HttpOnly and are never copied to localStorage. The separate user-generated sync code is intentionally shown to the user and cached locally so it can be copied to another trusted device.
 
 Pending operations are scoped by API base so switching deployments cannot replay an old server's mutation queue against a different server. Already-saved browser snapshots remain available for first-use migration; changing API base is an intentional move to a different storage/identity boundary.
 
@@ -112,8 +112,11 @@ CI additionally builds with a nonempty remote API base, verifies that the compil
 The existing learning-plan export button now flushes pending changes and downloads **server state**, in `{format:"qwerty-study-plan", version:1, exportedAt, state}` JSON. It reports failure if the server is unavailable or queued changes remain; it does not silently substitute a local snapshot. The existing import picker/confirmation accepts this envelope and previous plain-state JSON files. Import replaces the current browser identity's plan atomically through the remote API. Offline imports stay in the durable mutation queue and retry after reconnect/reload. Layout and learning content are unchanged.
 
 - `GET /api/study-plan/export`: requires the current session and an initialized plan. Returns only this identity's progress, never cookies or other users' records.
+- `GET /api/study-plan/analytics?today=YYYY-MM-DD`: returns server-derived weekly/total minutes, phase/week completion, streaks, and vocabulary/grammar/conjugation rollups for the current learner.
+- `POST /api/study-plan/sync-key`: creates a new portable sync code for the current initialized learner; only its hash is stored server-side.
+- `POST /api/study-plan/link`: accepts a sync code, binds this browser session to that learner, and returns the full current state.
 - `POST /api/study-plan/import`: same Origin/JSON/session requirements as other writes. Body is `{id:"UUID", backup:{format:"qwerty-study-plan",version:1,state:{...}}}`. Initialize the session/plan through the ordinary GET/POST flow first. A repeated ID with identical contents is a no-op; reusing it with other contents is rejected. A retry after later edits returns current state instead of replaying the replacement.
-- Invalid versions, oversized plans, invalid dates/tasks/minutes and cross-origin writes are rejected without changing saved data. The shared Node/D1 model uses existing mutation tables, so no extra migration is needed.
+- Invalid versions, oversized plans, invalid dates/tasks/minutes and cross-origin writes are rejected without changing saved data. Node creates the additive sync-code table on startup; D1 requires the checked-in `0002_sync_keys.sql` migration.
 
 Keep exported JSON private. It contains progress but no login secret. Importing on a second device provides a point-in-time copy; it is not continuous account synchronization.
 

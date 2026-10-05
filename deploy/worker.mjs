@@ -1,6 +1,7 @@
 import { studyPolicy, sessionCookie } from '../server/study-http.mjs'
-import { apply, record, validate, importOperations, exportPlan } from '../server/study-model.mjs'
+import { apply, record, validate, importOperations, exportPlan, normalizeState, studyAnalytics } from '../server/study-model.mjs'
 
+const MAX_BODY_BYTES = 1700000
 const json = (status, data, headers = {}) => new Response(JSON.stringify(data), {
   status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', ...headers },
 })
@@ -8,7 +9,7 @@ const digest = async (value) => Array.from(new Uint8Array(await crypto.subtle.di
 const randomToken = () => Array.from(crypto.getRandomValues(new Uint8Array(32)), (b) => b.toString(16).padStart(2, '0')).join('')
 
 async function readBody(request) {
-  if (Number(request.headers.get('content-length')) > 600000) throw new RangeError('Request too large')
+  if (Number(request.headers.get('content-length')) > MAX_BODY_BYTES) throw new RangeError('Request too large')
   const reader = request.body?.getReader()
   if (!reader) throw new SyntaxError('Missing body')
   const decoder = new TextDecoder()
@@ -17,7 +18,7 @@ async function readBody(request) {
     const { value, done } = await reader.read()
     if (done) break
     size += value.byteLength
-    if (size > 600000) { await reader.cancel(); throw new RangeError('Request too large') }
+    if (size > MAX_BODY_BYTES) { await reader.cancel(); throw new RangeError('Request too large') }
     text += decoder.decode(value, { stream: true })
   }
   const input = JSON.parse(text + decoder.decode())
@@ -25,62 +26,140 @@ async function readBody(request) {
   return input
 }
 
+async function resolveLearner(db, token) {
+  if (!token) return null
+  const credential = await digest(token)
+  let row = await db.prepare('SELECT id,state,revision FROM learners WHERE id=?').bind(credential).first()
+  if (row) return { learner: credential, row }
+  const link = await db.prepare('SELECT learner FROM sync_keys WHERE key_hash=?').bind(credential).first()
+  if (!link) return null
+  row = await db.prepare('SELECT id,state,revision FROM learners WHERE id=?').bind(link.learner).first()
+  return row ? { learner: link.learner, row } : null
+}
+
 export async function studyApi(request, env) {
-  const path = new URL(request.url).pathname
+  const requestUrl = new URL(request.url)
+  const path = requestUrl.pathname
   const health = ['/api/health', '/health'].includes(path)
   if (health) {
     try {
       await env.DB.prepare('SELECT id,state,revision FROM learners LIMIT 1').all()
       await env.DB.prepare('SELECT learner,id,payload,revision FROM mutations LIMIT 1').all()
+      await env.DB.prepare('SELECT key_hash,learner,created FROM sync_keys LIMIT 1').all()
       return json(200, { ok: true, storage: 'd1' })
-    } catch { return json(503, { error: 'Database not ready' }) }
+    } catch {
+      return json(503, { error: 'Database not ready' })
+    }
   }
+
   const importing = path === '/api/study-plan/import'
   const exporting = path === '/api/study-plan/export'
-  if ((importing && request.method !== 'POST') || (exporting && request.method !== 'GET')) return json(405, { error: 'Method not allowed' })
-  if (!importing && !exporting && path !== '/api/study-plan') return json(404, { error: 'Not found' })
+  const analytics = path === '/api/study-plan/analytics'
+  const syncKey = path === '/api/study-plan/sync-key'
+  const linking = path === '/api/study-plan/link'
+  const plan = path === '/api/study-plan'
+  if (!importing && !exporting && !analytics && !syncKey && !linking && !plan) return json(404, { error: 'Not found' })
+  if ((importing || syncKey || linking) && request.method !== 'POST') return json(405, { error: 'Method not allowed' })
+  if ((exporting || analytics) && request.method !== 'GET') return json(405, { error: 'Method not allowed' })
+  if (plan && !['GET', 'POST', 'PATCH'].includes(request.method)) return json(405, { error: 'Method not allowed' })
+
   const db = env.DB.withSession('first-primary')
-  const token = /(?:^|;\s*)study_session=([a-f0-9]{64})(?:;|$)/.exec(request.headers.get('cookie') || '')?.[1]
-  let learner = token ? await digest(token) : null
-  const getRow = () => db.prepare('SELECT state,revision FROM learners WHERE id=?').bind(learner).first()
-  let row = learner ? await getRow() : null
   const headers = {}
+
+  if (linking) {
+    try {
+      const input = await readBody(request)
+      if (typeof input.key !== 'string' || !/^[a-f0-9]{64}$/.test(input.key)) return json(400, { error: 'Invalid sync key' })
+      const linked = await db.prepare('SELECT learner FROM sync_keys WHERE key_hash=?').bind(await digest(input.key)).first()
+      if (!linked) return json(401, { error: 'Invalid sync key' })
+      const row = await db.prepare('SELECT state FROM learners WHERE id=?').bind(linked.learner).first()
+      if (!row?.state) return json(409, { error: 'Sync key has no initialized plan' })
+      headers['Set-Cookie'] = sessionCookie(input.key, {
+        secure: env.STUDY_COOKIE_SECURE === 'true',
+        sameSite: env.STUDY_COOKIE_SAME_SITE || 'strict',
+      })
+      return json(200, { state: normalizeState(JSON.parse(row.state)) }, headers)
+    } catch (error) {
+      return json(error instanceof RangeError ? 413 : 400, { error: 'Unable to link device' })
+    }
+  }
+
+  const token = /(?:^|;\s*)study_session=([a-f0-9]{64})(?:;|$)/.exec(request.headers.get('cookie') || '')?.[1]
+  let resolved = await resolveLearner(db, token)
+  let learner = resolved?.learner ?? null
+  let row = resolved?.row ?? null
+
   if (!row) {
     if (request.method !== 'GET' || exporting) return json(401, { error: 'Load plan first' })
     const next = randomToken()
     learner = await digest(next)
     await db.prepare('INSERT INTO learners(id) VALUES(?)').bind(learner).run()
     row = { state: null, revision: 0 }
-    headers['Set-Cookie'] = sessionCookie(next, { secure: env.STUDY_COOKIE_SECURE === 'true', sameSite: env.STUDY_COOKIE_SAME_SITE || 'strict' })
+    headers['Set-Cookie'] = sessionCookie(next, {
+      secure: env.STUDY_COOKIE_SECURE === 'true',
+      sameSite: env.STUDY_COOKIE_SAME_SITE || 'strict',
+    })
   }
+
+  const getRow = () => db.prepare('SELECT state,revision FROM learners WHERE id=?').bind(learner).first()
+
+  if (syncKey) {
+    if (!row.state) return json(409, { error: 'Initialize plan first' })
+    const key = randomToken()
+    await db.prepare('INSERT INTO sync_keys(key_hash,learner,created) VALUES(?,?,?)')
+      .bind(await digest(key), learner, Date.now()).run()
+    return json(200, { key })
+  }
+
   if (exporting) {
     if (!row.state) return json(409, { error: 'Initialize plan first' })
     return json(200, exportPlan(JSON.parse(row.state)))
   }
-  if (request.method === 'GET') return json(200, { state: row.state ? JSON.parse(row.state) : null }, headers)
+
+  if (analytics) {
+    if (!row.state) return json(200, { analytics: null }, headers)
+    const today = requestUrl.searchParams.get('today')
+    const now = today && /^\d{4}-\d{2}-\d{2}$/.test(today) && !Number.isNaN(Date.parse(`${today}T12:00:00.000Z`))
+      ? new Date(`${today}T12:00:00.000Z`)
+      : new Date()
+    return json(200, { analytics: studyAnalytics(JSON.parse(row.state), now) }, headers)
+  }
+
+  if (request.method === 'GET') return json(200, { state: row.state ? normalizeState(JSON.parse(row.state)) : null }, headers)
+
   let input
-  try { input = await readBody(request); if (importing) input.operations = importOperations(input.backup) }
-  catch (error) { return json(error instanceof RangeError ? 413 : 400, { error: 'Invalid request' }) }
+  try {
+    input = await readBody(request)
+    if (importing) input.operations = importOperations(input.backup)
+  } catch (error) {
+    return json(error instanceof RangeError ? 413 : 400, { error: 'Invalid request' })
+  }
+
   if (request.method === 'POST' && !importing) {
     try { validate(input.state) } catch { return json(400, { error: 'Invalid plan' }) }
-    await db.prepare('UPDATE learners SET state=?,revision=revision+1 WHERE id=? AND state IS NULL').bind(JSON.stringify(input.state), learner).run()
-    return json(200, { state: JSON.parse((await getRow()).state) })
+    await db.prepare('UPDATE learners SET state=?,revision=revision+1 WHERE id=? AND state IS NULL')
+      .bind(JSON.stringify(normalizeState(input.state)), learner).run()
+    const current = await getRow()
+    return json(200, { state: normalizeState(JSON.parse(current.state)) })
   }
+
   if (typeof input.id !== 'string' || !/^[a-f0-9-]{36}$/.test(input.id)) return json(400, { error: 'Invalid mutation ID' })
   const payload = JSON.stringify(input.operations)
   if (payload === undefined) return json(400, { error: 'Missing operations' })
-  // Optimistic concurrency with an atomic D1 batch. A mutation and its state update
-  // commit together; competing writers retry against the current revision.
+
   for (let attempt = 0; attempt < 8; attempt++) {
     const seen = await db.prepare('SELECT payload FROM mutations WHERE learner=? AND id=?').bind(learner, input.id).first()
     if (seen) {
       if (seen.payload !== payload) return json(400, { error: 'Mutation ID reused' })
-      return json(200, { state: JSON.parse((await getRow()).state) })
+      const current = await getRow()
+      return json(200, { state: normalizeState(JSON.parse(current.state)) })
     }
+
     row = await getRow()
     if (!row?.state) return json(400, { error: 'Initialize plan first' })
     let state
     try { state = apply(JSON.parse(row.state), input.operations) } catch { return json(400, { error: 'Invalid operations' }) }
+
     const result = await db.batch([
       db.prepare(`INSERT INTO mutations(learner,id,payload,revision)
         SELECT id,?,?,revision FROM learners WHERE id=? AND revision=?
@@ -98,8 +177,20 @@ export default {
   async fetch(request, env) {
     const path = new URL(request.url).pathname
     if (!path.startsWith('/api/') && path !== '/health') return env.ASSETS.fetch(request)
-    const policy = studyPolicy({ origin: env.STUDY_ORIGIN, secure: env.STUDY_COOKIE_SECURE === 'true', sameSite: env.STUDY_COOKIE_SAME_SITE || 'strict' }, request, ['/api/health', '/health'].includes(path))
-    if (policy.status) return policy.status === 204 ? new Response(null, { status: 204, headers: policy.headers }) : json(policy.status, { error: policy.status === 503 ? 'Invalid server configuration' : 'Request rejected' }, policy.headers)
+    const policy = studyPolicy(
+      {
+        origin: env.STUDY_ORIGIN,
+        secure: env.STUDY_COOKIE_SECURE === 'true',
+        sameSite: env.STUDY_COOKIE_SAME_SITE || 'strict',
+      },
+      request,
+      ['/api/health', '/health'].includes(path),
+    )
+    if (policy.status) {
+      return policy.status === 204
+        ? new Response(null, { status: 204, headers: policy.headers })
+        : json(policy.status, { error: policy.status === 503 ? 'Invalid server configuration' : 'Request rejected' }, policy.headers)
+    }
     let response
     try { response = await studyApi(request, env) }
     catch { response = json(503, { error: 'Storage unavailable; retry later' }) }

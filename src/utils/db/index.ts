@@ -3,6 +3,7 @@ import { ChapterRecord, ReviewRecord, WordRecord } from './record'
 import { TypingContext, TypingStateActionType } from '@/pages/Typing/store'
 import type { TypingState } from '@/pages/Typing/store/type'
 import { currentChapterAtom, currentDictIdAtom, isReviewModeAtom } from '@/store'
+import { recordVocabularyProgress } from '@/services/studyPlanSync'
 import type { Table } from 'dexie'
 import Dexie from 'dexie'
 import { useAtomValue } from 'jotai'
@@ -109,6 +110,21 @@ export function useSaveWordRecord() {
         dbID = await db.wordRecords.add(wordRecord)
       } catch (e) {
         console.error(e)
+      }
+      if (dbID > 0) {
+        try {
+          recordVocabularyProgress({
+            word: wordRecord.word,
+            dict: wordRecord.dict,
+            chapter: wordRecord.chapter,
+            timeStamp: wordRecord.timeStamp,
+            durationMs: wordRecord.timing.reduce((total, value) => total + value, 0),
+            wrongCount: wordRecord.wrongCount,
+            wrongKeys: Object.values(wordRecord.mistakes ?? {}).flat().map(String).slice(0, 200),
+          })
+        } catch {
+          // IndexedDB remains the local source of truth until the durable sync queue is available again.
+        }
       }
       if (dispatch) {
         dbID > 0 && dispatch({ type: TypingStateActionType.ADD_WORD_RECORD_ID, payload: dbID })

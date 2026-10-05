@@ -64,7 +64,11 @@ test('client migrates, reloads from server, replays a lost response exactly once
     await client.syncStudyPlan()
     storage.removeItem(KEY) // proves restore is from SQLite, not localStorage
     await client.syncStudyPlan(initial)
-    assert.deepEqual(JSON.parse(storage.getItem(KEY)), next)
+    const restoredState = JSON.parse(storage.getItem(KEY))
+    assert.equal(restoredState.startDate, next.startDate)
+    assert.deepEqual(restoredState.minutes, next.minutes)
+    assert.deepEqual(restoredState.minimumMode, next.minimumMode)
+    assert.deepEqual(restoredState.learning.vocabulary.records, [])
     loseResponse = true
     client.addStudyMinutes('2026-10-03', 'mon-vocab', 3)
     await client.syncStudyPlan()
@@ -79,6 +83,58 @@ test('client migrates, reloads from server, replays a lost response exactly once
     await reloaded.syncStudyPlan(JSON.parse(storage.getItem(KEY)))
     assert.equal(JSON.parse(storage.getItem(KEY)).minutes['2026-10-03']['mon-vocab'], 5)
     assert.equal(Object.keys(storage).filter((key) => key.includes('pending:')).length, 0)
+
+    reloaded.recordVocabularyProgress({
+      word: 'prendre',
+      dict: 'tcf-canada-foundation-01',
+      chapter: 0,
+      timeStamp: 1791014400,
+      durationMs: 1200,
+      wrongCount: 1,
+      wrongKeys: ['x'],
+    })
+    reloaded.saveGrammarDraft({
+      status: 'running',
+      secondsLeft: 900,
+      currentBatch: 1,
+      answers: { 1: 'A' },
+      reasons: { 1: '背景描述' },
+      submittedBatches: { 0: true },
+      outputAnswers: ['', '', ''],
+      startedAt: 1791060000000,
+      deadline: 1791060900000,
+    })
+    reloaded.recordConjugationAttempt('prendre', 'passeCompose', true, '2026-10-03')
+    reloaded.completeGrammarSession({
+      topic: 'passé composé vs imparfait',
+      score: 8,
+      total: 10,
+      elapsedSeconds: 1200,
+      finishedAt: 1791061200000,
+      answers: { 1: 'A' },
+      reasons: { 1: '背景描述' },
+      outputAnswers: ['Je regardais la télé.'],
+    })
+    await reloaded.syncStudyPlan()
+    const learning = await reloaded.getLearningProgress()
+    assert.equal(learning.vocabulary.records.length, 1)
+    assert.equal(learning.grammar.history.length, 1)
+    assert.equal(learning.grammar.draft, null)
+    assert.equal(learning.conjugation.prendre.passeCompose.total, 1)
+    const analytics = await reloaded.loadStudyAnalytics()
+    assert.equal(analytics.vocabulary.attempts, 1)
+    assert.equal(analytics.grammar.sessions, 1)
+    assert.equal(analytics.conjugation.attempts, 1)
+
+    const syncKey = await reloaded.createStudySyncKey()
+    const linkedExpected = (await reloaded.exportRemoteStudyPlan(initial)).state
+    cookie = ''
+    for (const key of Object.keys(storage)) delete storage[key]
+    const linkedDevice = await import('../src/services/studyPlanSync.ts?linked-device')
+    const linkedState = await linkedDevice.linkStudyDevice(syncKey)
+    assert.deepEqual(linkedState, linkedExpected)
+    assert.equal((await linkedDevice.getLearningProgress()).vocabulary.records.length, 1)
+
     const backup = await reloaded.exportRemoteStudyPlan(initial)
     const imported = { ...backup.state, startDate: '2026-09-01', minutes: { '2026-10-04': { 'sun-vocab': 60 } } }
     offline = true

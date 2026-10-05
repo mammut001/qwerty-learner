@@ -1,6 +1,13 @@
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { grammarBatches, passeComposeVsImparfaitScenarios } from '@/resources/grammarSessions'
+import {
+  completeGrammarSession,
+  getLearningProgress,
+  saveGrammarDraft,
+  seedGrammarHistory,
+  type GrammarSessionRecord,
+} from '@/services/studyPlanSync'
 import { useEffect, useMemo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import IconArrowLeft from '~icons/tabler/arrow-left'
@@ -13,6 +20,15 @@ type SessionStatus = 'intro' | 'running' | 'finished'
 
 const SESSION_SECONDS = 30 * 60
 const HISTORY_KEY = 'qwerty-fr-grammar-session-history-v1'
+const HISTORY_MIGRATION_KEY = 'qwerty-fr-grammar-server-migration-v1'
+
+const toDateKey = (timestamp: number) => {
+  const date = new Date(timestamp)
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
 
 const outputPrompts = [
   {
@@ -44,14 +60,97 @@ export default function GrammarSessionPage() {
   const [submittedBatches, setSubmittedBatches] = useState<Record<number, boolean>>({})
   const [outputAnswers, setOutputAnswers] = useState<string[]>(['', '', ''])
   const [startedAt, setStartedAt] = useState<number | null>(null)
+  const [deadline, setDeadline] = useState<number | null>(null)
+  const [hydrated, setHydrated] = useState(false)
 
   useEffect(() => {
-    if (status !== 'running' || secondsLeft <= 0) return
-    const timer = window.setInterval(() => {
-      setSecondsLeft((old) => Math.max(0, old - 1))
-    }, 1000)
+    let cancelled = false
+    void getLearningProgress()
+      .then((learning) => {
+        if (cancelled) return
+        const draft = learning.grammar.draft
+        if (draft) {
+          setStatus('running')
+          setCurrentBatch(Math.min(grammarBatches.length - 1, draft.currentBatch))
+          setAnswers(draft.answers as Record<number, Choice>)
+          setReasons(draft.reasons as Record<number, string>)
+          setSubmittedBatches(draft.submittedBatches as Record<number, boolean>)
+          setOutputAnswers(draft.outputAnswers.length === outputPrompts.length ? draft.outputAnswers : ['', '', ''])
+          setStartedAt(draft.startedAt)
+          setDeadline(draft.deadline)
+          setSecondsLeft(
+            draft.deadline ? Math.max(0, Math.ceil((draft.deadline - Date.now()) / 1000)) : draft.secondsLeft,
+          )
+        }
+
+        try {
+          if (!learning.grammar.history.length && !window.localStorage.getItem(HISTORY_MIGRATION_KEY)) {
+            const legacy = JSON.parse(window.localStorage.getItem(HISTORY_KEY) ?? '[]') as Array<Record<string, unknown>>
+            const records: GrammarSessionRecord[] = legacy.slice(0, 50).flatMap((item) => {
+              const finishedAt = typeof item.finishedAt === 'number' ? item.finishedAt : 0
+              const score = typeof item.score === 'number' ? item.score : 0
+              const total = typeof item.total === 'number' ? item.total : 0
+              if (!finishedAt || score < 0 || total < score) return []
+              return [{
+                id: crypto.randomUUID(),
+                topic: typeof item.topic === 'string' ? item.topic : 'passé composé vs imparfait',
+                score,
+                total,
+                elapsedSeconds: typeof item.elapsedSeconds === 'number' ? Math.max(0, Math.round(item.elapsedSeconds)) : 0,
+                finishedAt,
+                day: toDateKey(finishedAt),
+                answers: (item.answers && typeof item.answers === 'object' ? item.answers : {}) as Record<string, Choice>,
+                reasons: (item.reasons && typeof item.reasons === 'object' ? item.reasons : {}) as Record<string, string>,
+                outputAnswers: Array.isArray(item.outputAnswers) ? item.outputAnswers.filter((value): value is string => typeof value === 'string') : [],
+              }]
+            })
+            seedGrammarHistory(records)
+            window.localStorage.setItem(HISTORY_MIGRATION_KEY, 'queued')
+          }
+        } catch {
+          // Legacy local history stays untouched and can be retried later.
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setHydrated(true)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  useEffect(() => {
+    if (status !== 'running') return
+    const tick = () => {
+      setSecondsLeft((old) => (deadline ? Math.max(0, Math.ceil((deadline - Date.now()) / 1000)) : Math.max(0, old - 1)))
+    }
+    tick()
+    const timer = window.setInterval(tick, 1000)
     return () => window.clearInterval(timer)
-  }, [secondsLeft, status])
+  }, [deadline, status])
+
+  useEffect(() => {
+    if (!hydrated || status !== 'running') return
+    const timer = window.setTimeout(() => {
+      try {
+        saveGrammarDraft({
+          status: 'running',
+          secondsLeft: deadline ? Math.max(0, Math.ceil((deadline - Date.now()) / 1000)) : secondsLeft,
+          currentBatch,
+          answers: answers as Record<string, Choice>,
+          reasons: reasons as Record<string, string>,
+          submittedBatches: submittedBatches as Record<string, boolean>,
+          outputAnswers,
+          startedAt,
+          deadline,
+        })
+      } catch {
+        // Keep the current browser session usable if durable storage is temporarily unavailable.
+      }
+    }, 350)
+    return () => window.clearTimeout(timer)
+  }, [answers, currentBatch, deadline, hydrated, outputAnswers, reasons, startedAt, status, submittedBatches])
 
   const batch = grammarBatches[currentBatch]
   const batchQuestions = useMemo(
@@ -75,6 +174,7 @@ export default function GrammarSessionPage() {
   )
 
   const startSession = () => {
+    const now = Date.now()
     setStatus('running')
     setSecondsLeft(SESSION_SECONDS)
     setCurrentBatch(0)
@@ -82,7 +182,8 @@ export default function GrammarSessionPage() {
     setReasons({})
     setSubmittedBatches({})
     setOutputAnswers(['', '', ''])
-    setStartedAt(Date.now())
+    setStartedAt(now)
+    setDeadline(now + SESSION_SECONDS * 1000)
   }
 
   const submitBatch = () => {
@@ -100,14 +201,26 @@ export default function GrammarSessionPage() {
   const finishSession = () => {
     const finishedAt = Date.now()
     const elapsedSeconds = startedAt ? Math.round((finishedAt - startedAt) / 1000) : SESSION_SECONDS - secondsLeft
-    const record = {
+    const baseRecord = {
       topic: 'passé composé vs imparfait',
       score,
       total: passeComposeVsImparfaitScenarios.length,
       elapsedSeconds,
       finishedAt,
-      reasons,
+      answers: answers as Record<string, Choice>,
+      reasons: reasons as Record<string, string>,
       outputAnswers,
+    }
+
+    let record: GrammarSessionRecord = {
+      ...baseRecord,
+      id: crypto.randomUUID(),
+      day: toDateKey(finishedAt),
+    }
+    try {
+      record = completeGrammarSession(baseRecord)
+    } catch {
+      // The legacy local history below still protects this finished session.
     }
 
     try {
@@ -117,6 +230,7 @@ export default function GrammarSessionPage() {
       // localStorage unavailable: session can still finish normally
     }
 
+    setDeadline(null)
     setStatus('finished')
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
