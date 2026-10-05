@@ -124,6 +124,7 @@ type Operation =
 type Mutation = { id: string; operations: Operation[] }
 
 const KEY = 'qwerty-fr-study-plan-v1'
+const ANALYTICS_KEY = 'qwerty-fr-study-analytics-v1'
 const SYNC_KEY = 'qwerty-fr-study-sync-key-v1'
 const SEED = `qwerty-fr-study-plan-migration${API_BASE ? ':' + API_BASE : ''}`
 const PENDING = `qwerty-fr-study-plan-pending:${API_BASE ? API_BASE + ':' : ''}`
@@ -131,6 +132,16 @@ const MAX_VOCAB_RECORDS = 3000
 const isPendingKey = (key: string) => key.startsWith(PENDING) && /^\d{16}:/.test(key.slice(PENDING.length))
 const listeners = new Set<(state: StudyServerState) => void>()
 const statuses = new Set<(message: string) => void>()
+
+export type StudySyncStatus = {
+  phase: 'idle' | 'queued' | 'syncing' | 'saved' | 'offline' | 'error'
+  pending: number
+  message: string
+}
+
+const syncStatusListeners = new Set<(status: StudySyncStatus) => void>()
+let syncStatus: StudySyncStatus = { phase: 'idle', pending: 0, message: '尚未同步' }
+let autoSyncInstalled = false
 let running: Promise<void> | undefined
 let retry: ReturnType<typeof setTimeout> | undefined
 let fallback: StudyServerState | undefined
@@ -250,6 +261,54 @@ function pending(): Mutation[] {
     .map((key) => JSON.parse(localStorage.getItem(key) || 'null') as Mutation)
 }
 
+function emitSyncStatus(phase: StudySyncStatus['phase'], message: string) {
+  let count = 0
+  try {
+    count = pending().length
+  } catch {
+    count = syncStatus.pending
+  }
+  syncStatus = { phase, pending: count, message }
+  statuses.forEach((listener) => listener(message))
+  syncStatusListeners.forEach((listener) => listener(syncStatus))
+}
+
+function ensureAutoSyncListeners() {
+  if (autoSyncInstalled || typeof window === 'undefined') return
+  autoSyncInstalled = true
+  const resume = () => {
+    try {
+      if (pending().length > 0) void syncStudyPlan()
+    } catch {
+      // Browser storage may be unavailable; the next explicit save will surface the error.
+    }
+  }
+  window.addEventListener('online', resume)
+  window.addEventListener('focus', resume)
+  if (typeof document !== 'undefined') {
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') resume()
+    })
+  }
+}
+
+export function getStudySyncSnapshot(): StudySyncStatus {
+  try {
+    return { ...syncStatus, pending: pending().length }
+  } catch {
+    return { ...syncStatus }
+  }
+}
+
+export function subscribeStudySyncStatus(listener: (status: StudySyncStatus) => void) {
+  ensureAutoSyncListeners()
+  syncStatusListeners.add(listener)
+  listener(getStudySyncSnapshot())
+  return () => {
+    syncStatusListeners.delete(listener)
+  }
+}
+
 function removeAcknowledgedMutation(id: string) {
   for (const key of Object.keys(localStorage)) {
     if (isPendingKey(key) && JSON.parse(localStorage.getItem(key) || 'null').id === id) localStorage.removeItem(key)
@@ -267,7 +326,7 @@ async function drain() {
   for (;;) {
     const next = pending()[0]
     if (!next) break
-    statuses.forEach((listener) => listener('正在保存到服务端…'))
+    emitSyncStatus('syncing', '正在保存到服务端…')
     state =
       next.operations.length === 1 && next.operations[0].kind === 'replace'
         ? await requestState(
@@ -288,15 +347,16 @@ async function drain() {
     clearTimeout(retry)
     retry = undefined
   }
-  statuses.forEach((listener) => listener('已保存到服务端'))
+  emitSyncStatus('saved', '已保存到服务端')
 }
 
 export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Promise<void> {
+  ensureAutoSyncListeners()
   try {
     ensureFallback(initial)
     if (!localStorage.getItem(SEED)) localStorage.setItem(SEED, JSON.stringify(fallback))
   } catch {
-    statuses.forEach((listener) => listener('无法访问浏览器存储，请检查隐私设置或存储空间。'))
+    emitSyncStatus('error', '无法访问浏览器存储，请检查隐私设置或存储空间。')
     return Promise.resolve()
   }
   if (running) return running
@@ -306,12 +366,15 @@ export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Pr
   }).locks
   running = (locks ? locks.request('qwerty-study-plan', drain) : drain())
     .catch((error: Error) => {
-      statuses.forEach((listener) =>
-        listener(
-          error.message === 'STUDY_SESSION_BLOCKED'
-            ? '浏览器未保留学习会话。请使用同源部署或允许此站点的 Cookie；记录仍保留在本机。'
+      const sessionBlocked = error.message === 'STUDY_SESSION_BLOCKED'
+      const offline = typeof navigator !== 'undefined' && navigator.onLine === false
+      emitSyncStatus(
+        offline ? 'offline' : 'error',
+        sessionBlocked
+          ? '浏览器未保留学习会话。记录仍保留在本机，允许 Cookie 后会继续同步。'
+          : offline
+            ? '当前离线：学习记录已保存在本机，联网后会自动同步。'
             : '服务端暂不可用，记录保留在本机，将自动重试。',
-        ),
       )
       if (!retry)
         retry = setTimeout(() => {
@@ -327,6 +390,7 @@ export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Pr
 
 function enqueue(operations: Operation[]) {
   if (!operations.length) return
+  ensureAutoSyncListeners()
   ensureFallback()
   const id = crypto.randomUUID()
   const last = Math.max(
@@ -340,6 +404,7 @@ function enqueue(operations: Operation[]) {
     `${PENDING}${order.toString().padStart(16, '0')}:${id}`,
     JSON.stringify({ id, operations }),
   )
+  emitSyncStatus('queued', '已先保存在本机，正在同步…')
   void syncStudyPlan()
   return id
 }
@@ -513,6 +578,11 @@ export async function getLearningProgress(): Promise<LearningProgress> {
   return (readCachedState() ?? ensureFallback()).learning
 }
 
+export async function flushStudyProgress(): Promise<StudySyncStatus> {
+  await syncStudyPlan()
+  return getStudySyncSnapshot()
+}
+
 export function subscribeStudyPlan(
   listener: (state: StudyPlanStorage) => void,
   status: (message: string) => void,
@@ -564,8 +634,19 @@ export async function importRemoteStudyPlan(previous: StudyPlanStorage, state: S
 
 export async function loadStudyAnalytics(): Promise<StudyAnalytics | null> {
   await syncStudyPlan()
-  const payload = await api('GET', `/analytics?today=${encodeURIComponent(localDay())}`)
-  return (payload.analytics as StudyAnalytics | null) ?? null
+  try {
+    const payload = await api('GET', `/analytics?today=${encodeURIComponent(localDay())}`)
+    const analytics = (payload.analytics as StudyAnalytics | null) ?? null
+    if (analytics) localStorage.setItem(ANALYTICS_KEY, JSON.stringify(analytics))
+    return analytics
+  } catch {
+    try {
+      const cached = localStorage.getItem(ANALYTICS_KEY)
+      return cached ? (JSON.parse(cached) as StudyAnalytics) : null
+    } catch {
+      return null
+    }
+  }
 }
 
 export async function createStudySyncKey(initial?: StudyPlanStorage) {

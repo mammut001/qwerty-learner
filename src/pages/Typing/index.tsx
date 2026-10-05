@@ -1,4 +1,4 @@
-import { addStudyMinutes } from '@/services/studyPlanSync'
+import { addStudyMinutes, flushStudyProgress } from '@/services/studyPlanSync'
 import Layout from '../../components/Layout'
 import { DictChapterButton } from './components/DictChapterButton'
 import PronunciationSwitcher from './components/PronunciationSwitcher'
@@ -51,6 +51,7 @@ const App: React.FC = () => {
   const requestedStudyTaskId = searchParams.get('studyTask')
   const studyPlanTracking = useRef<{ dateKey: string; taskId: string } | null>(null)
   const recordedStudyPlanChapter = useRef(false)
+  const flushedFinishedChapter = useRef(false)
   const randomConfig = useAtomValue(randomConfigAtom)
   const chapterLogUploader = useMixPanelChapterLogUploader(state)
   const saveChapterRecord = useSaveChapterRecord()
@@ -166,10 +167,19 @@ const App: React.FC = () => {
   }, [words])
 
   useEffect(() => {
-    // 当用户完成章节后且完成 word Record 数据保存，记录 chapter Record 数据,
-    if (state.isFinished && !state.isSavingRecord) {
+    // 当用户完成章节后且完成 word Record 数据保存，记录 chapter Record 数据。
+    // 单词记录本身已先写入 IndexedDB + durable sync queue；这里在结果页出现时主动 flush。
+    if (!state.isFinished) {
+      flushedFinishedChapter.current = false
+      return
+    }
+    if (!state.isSavingRecord) {
       chapterLogUploader()
       saveChapterRecord(state)
+      if (!flushedFinishedChapter.current) {
+        flushedFinishedChapter.current = true
+        void flushStudyProgress()
+      }
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

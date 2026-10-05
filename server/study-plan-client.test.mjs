@@ -125,6 +125,11 @@ test('client migrates, reloads from server, replays a lost response exactly once
     assert.equal(analytics.vocabulary.attempts, 1)
     assert.equal(analytics.grammar.sessions, 1)
     assert.equal(analytics.conjugation.attempts, 1)
+    assert.ok(analytics.plan.weeklyHistory.length > 0)
+    const latestWeek = analytics.plan.weeklyHistory[analytics.plan.weeklyHistory.length - 1]
+    assert.equal(latestWeek.wrongWords, 1)
+    assert.equal(latestWeek.wrongAttempts, 1)
+    assert.equal(typeof latestWeek.completionPercent, 'number')
 
     const syncKey = await reloaded.createStudySyncKey()
     const linkedExpected = (await reloaded.exportRemoteStudyPlan(initial)).state
@@ -134,6 +139,18 @@ test('client migrates, reloads from server, replays a lost response exactly once
     const linkedState = await linkedDevice.linkStudyDevice(syncKey)
     assert.deepEqual(linkedState, linkedExpected)
     assert.equal((await linkedDevice.getLearningProgress()).vocabulary.records.length, 1)
+
+    offline = true
+    linkedDevice.recordConjugationAttempt('venir', 'present', true, '2026-10-05')
+    await linkedDevice.flushStudyProgress()
+    assert.ok(linkedDevice.getStudySyncSnapshot().pending > 0, 'offline completion remains in the durable local queue')
+    assert.equal(linkedDevice.getStudySyncSnapshot().phase, 'error')
+    offline = false
+    window.dispatchEvent(new Event('online'))
+    for (let attempt = 0; attempt < 50 && linkedDevice.getStudySyncSnapshot().pending > 0; attempt++)
+      await new Promise((resolve) => setTimeout(resolve, 20))
+    assert.equal(linkedDevice.getStudySyncSnapshot().pending, 0, 'online event automatically replays pending learning mutations')
+    assert.equal((await linkedDevice.getLearningProgress()).conjugation.venir.present.total, 1)
 
     const backup = await reloaded.exportRemoteStudyPlan(initial)
     const imported = { ...backup.state, startDate: '2026-09-01', minutes: { '2026-10-04': { 'sun-vocab': 60 } } }

@@ -3,6 +3,7 @@ import Layout from '@/components/Layout'
 import { grammarBatches, passeComposeVsImparfaitScenarios } from '@/resources/grammarSessions'
 import {
   completeGrammarSession,
+  flushStudyProgress,
   getLearningProgress,
   saveGrammarDraft,
   seedGrammarHistory,
@@ -232,6 +233,7 @@ export default function GrammarSessionPage() {
 
     setDeadline(null)
     setStatus('finished')
+    void flushStudyProgress()
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 

@@ -133,10 +133,14 @@ test('durability, create-only migration, isolation, idempotent minutes and valid
     }
     assert.equal((await call('PATCH', cookie, learningMutation)).status, 200)
     assert.equal((await call('PATCH', cookie, learningMutation)).status, 200, 'learning mutation is idempotent')
-    const analytics = await (await call('GET', cookie, undefined, options.origin, '/analytics')).json()
+    const analytics = await (await call('GET', cookie, undefined, options.origin, '/analytics?today=2026-10-03')).json()
     assert.equal(analytics.analytics.vocabulary.attempts, 1)
     assert.equal(analytics.analytics.grammar.sessions, 1)
     assert.equal(analytics.analytics.conjugation.attempts, 1)
+    assert.ok(analytics.analytics.plan.weeklyHistory.length > 0)
+    const latestAnalyticsWeek = analytics.analytics.plan.weeklyHistory.at(-1)
+    assert.equal(latestAnalyticsWeek.wrongWords, 1)
+    assert.equal(latestAnalyticsWeek.wrongAttempts, 1)
 
     const keyResponse = await call('POST', cookie, {}, options.origin, '/sync-key')
     assert.equal(keyResponse.status, 200)

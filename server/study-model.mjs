@@ -272,6 +272,29 @@ export function studyAnalytics(input, now = new Date()) {
   const grammarCorrect = sum(grammar.map((item) => item.score))
   const grammarTotal = sum(grammar.map((item) => item.total))
   const vocabularyWrongWords = new Set(vocabulary.filter((item) => item.wrongCount > 0).map((item) => item.word))
+  const firstHistoryWeek = Math.max(1, currentWeek - 11)
+  const weeklyHistory = Array.from({ length: currentWeek - firstHistoryWeek + 1 }, (_, index) => {
+    const week = firstHistoryWeek + index
+    const startDate = addDays(state.startDate, (week - 1) * 7)
+    const days = Array.from({ length: 7 }, (__, dayIndex) => addDays(startDate, dayIndex))
+    const plannedMinutes = sum(days.map((day) => sum(Object.values(targetsFor(state, day)))))
+    const actualMinutes = sum(days.map((day) => actualForTargets(state, day, targetsFor(state, day))))
+    const completedDays = days.filter((day) => dayComplete(state, day)).length
+    const wrongRecords = vocabulary.filter(
+      (item) => item.day >= startDate && item.day <= days[days.length - 1] && item.wrongCount > 0,
+    )
+    return {
+      week,
+      startDate,
+      endDate: days[days.length - 1],
+      minutes: actualMinutes,
+      plannedMinutes,
+      completionPercent: plannedMinutes ? Math.min(100, Math.round((actualMinutes / plannedMinutes) * 100)) : 0,
+      completedDays,
+      wrongWords: new Set(wrongRecords.map((item) => item.word)).size,
+      wrongAttempts: sum(wrongRecords.map((item) => item.wrongCount)),
+    }
+  })
 
   return {
     generatedAt: now.toISOString(),
@@ -282,6 +305,7 @@ export function studyAnalytics(input, now = new Date()) {
       weeklyPlannedMinutes,
       weeklyCompletedDays,
       weekCompletionPercent: Math.round((weeklyCompletedDays / 7) * 100),
+      weeklyHistory,
       phase: {
         id: phaseIndex + 1,
         weeks: [phaseStartWeek, phaseEndWeek],

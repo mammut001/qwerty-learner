@@ -9,6 +9,7 @@ import {
   type FrenchVerbConjugation,
 } from '@/resources/conjugation'
 import {
+  flushStudyProgress,
   getLearningProgress,
   recordConjugationAttempt,
   seedConjugationStats,
@@ -172,6 +173,13 @@ export default function ConjugationPage() {
     }
   }, [selectedVerb, selectedTense, practiceScope, mode, startNextQuestion])
 
+  useEffect(
+    () => () => {
+      void flushStudyProgress()
+    },
+    [],
+  )
+
   const updateStat = useCallback(
     (tense: ConjugationTense, isCorrect: boolean) => {
       setStats((old) => {
@@ -326,7 +334,10 @@ export default function ConjugationPage() {
             <div className="flex rounded-xl bg-gray-100 p-1 dark:bg-gray-900">
               <button
                 type="button"
-                onClick={() => setMode('study')}
+                onClick={() => {
+                  if (mode === 'practice') void flushStudyProgress()
+                  setMode('study')
+                }}
                 className={`rounded-lg px-4 py-2 text-sm ${
                   mode === 'study' ? 'bg-white font-medium text-indigo-600 shadow dark:bg-gray-700' : 'text-gray-500'
                 }`}

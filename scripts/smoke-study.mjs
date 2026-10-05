@@ -118,6 +118,11 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   assert.equal(analytics.data.analytics.vocabulary.attempts, 1)
   assert.equal(analytics.data.analytics.grammar.sessions, 1)
   assert.equal(analytics.data.analytics.conjugation.attempts, 1)
+  assert.ok(analytics.data.analytics.plan.weeklyHistory.length > 0)
+  const latestAnalyticsWeek = analytics.data.analytics.plan.weeklyHistory.at(-1)
+  assert.equal(latestAnalyticsWeek.wrongWords, 1)
+  assert.equal(latestAnalyticsWeek.wrongAttempts, 1)
+  assert.equal(typeof latestAnalyticsWeek.completionPercent, 'number')
 
   const keyResponse = await call('POST', {}, { path: '/sync-key' })
   assert.equal(keyResponse.res.status, 200)
