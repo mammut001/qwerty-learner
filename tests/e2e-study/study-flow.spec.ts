@@ -57,7 +57,7 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
   await context.setOffline(false)
   await page.evaluate(() => window.dispatchEvent(new Event('online')))
   await expect.poll(() => pendingMutationCount(page), { timeout: 20_000 }).toBe(0)
-  await expect(page.getByText('已与服务端合并并保存')).toBeVisible()
+  await expect(page.locator('span').filter({ hasText: /^已与服务端合并并保存$/ })).toBeVisible()
 
   // Generate a portable sync code only after every offline mutation has reached the server.
   const generate = page.getByRole('button', { name: /生成同步码|轮换同步码/ })
