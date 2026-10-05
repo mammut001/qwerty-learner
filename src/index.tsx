@@ -14,6 +14,8 @@ const GalleryPage = lazy(() => import('./pages/Gallery-N'))
 const ConjugationPage = lazy(() => import('./pages/Conjugation'))
 const GrammarSessionPage = lazy(() => import('./pages/GrammarSession'))
 const StudyPlanPage = lazy(() => import('./pages/StudyPlan'))
+const TcfListeningPage = lazy(() => import('./pages/TcfListening'))
+const TcfReadingPage = lazy(() => import('./pages/TcfReading'))
 const MobilePage = lazy(() => import('./pages/Mobile'))
 const ErrorBookPage = lazy(() => import('./pages/ErrorBook').then((module) => ({ default: module.ErrorBook })))
 const FriendLinksPage = lazy(() => import('./pages/FriendLinks').then((module) => ({ default: module.FriendLinks })))
@@ -77,6 +79,8 @@ function Root() {
             <Route path="/conjugation" element={<ConjugationPage />} />
             <Route path="/grammar-session" element={<GrammarSessionPage />} />
             <Route path="/study-plan" element={<StudyPlanPage />} />
+            <Route path="/tcf-listening" element={<TcfListeningPage />} />
+            <Route path="/tcf-reading" element={<TcfReadingPage />} />
             <Route path="/analysis" element={<AnalysisPage />} />
             <Route path="/error-book" element={<ErrorBookPage />} />
             <Route path="/friend-links" element={<FriendLinksPage />} />

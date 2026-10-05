@@ -19,7 +19,7 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   }
   const health = await fetch(`${origin}/api/health`, { signal: AbortSignal.timeout(20000) })
   assert.equal(health.status, 200, 'D1 health check')
-  assert.equal((await health.clone().json()).schemaVersion, 6, 'schema migration version is current')
+  assert.equal((await health.clone().json()).schemaVersion, 7, 'schema migration version is current')
   const alias = await fetch(`${origin}/health`, { signal: AbortSignal.timeout(20000) })
   assert.equal(alias.status, 200, '/health is API readiness, not SPA HTML')
   assert.equal((await alias.json()).ok, true)
@@ -128,6 +128,26 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
           occurredAt: 1791061300000,
         },
       },
+      {
+        kind: 'tcfAttempt',
+        value: {
+          id: randomUUID(),
+          skill: 'listening',
+          questionCount: 39,
+          answers: Array.from({ length: 39 }, (_, index) => ({
+            questionId: `co-${String(index + 1).padStart(2, '0')}`,
+            choice: index < 26 ? 1 : null,
+            correct: index < 26,
+          })),
+          correctCount: 26,
+          scaledScore: 466,
+          nclc: 7,
+          durationSeconds: 1200,
+          startedAt: 1791060000000,
+          finishedAt: 1791061200000,
+          day: '2026-10-03',
+        },
+      },
     ],
   }
   assert.equal((await call('PATCH', learningMutation)).res.status, 200)
@@ -208,6 +228,10 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   assert.equal(analytics.data.analytics.dashboard.mastery.vocabulary.activeErrors, 1)
   assert.equal(analytics.data.analytics.dashboard.mastery.grammar.activeErrors, 1)
   assert.equal(analytics.data.analytics.dashboard.mastery.conjugation.activeErrors, 1)
+  assert.equal(analytics.data.analytics.tcf.listening.attempts, 1)
+  assert.equal(analytics.data.analytics.tcf.listening.latestScore, 466)
+  assert.equal(analytics.data.analytics.tcf.listening.targetScore, 458)
+  assert.equal(analytics.data.analytics.tcf.reading.attempts, 0)
   assert.equal(analytics.data.analytics.today.targetMinutes, 45)
   assert.equal(
     analytics.data.analytics.today.tasks.reduce((total, task) => total + task.minutes, 0),
@@ -216,6 +240,11 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   )
   assert.ok(analytics.data.analytics.today.tasks.some((task) => task.id === 'smart-review'))
   assert.match(analytics.data.analytics.dashboard.projection.predictedCompletionDate, /^\d{4}-\d{2}-\d{2}$/)
+
+  const tcfHistory = await call('GET', undefined, { path: '/tcf-attempts?skill=listening' })
+  assert.equal(tcfHistory.res.status, 200)
+  assert.equal(tcfHistory.data.items.length, 1)
+  assert.equal(tcfHistory.data.items[0].scaledScore, 466)
 
   const reviewResponse = await call('GET', undefined, { path: '/review?today=2026-10-05' })
   assert.equal(reviewResponse.res.status, 200)

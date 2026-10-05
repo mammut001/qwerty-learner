@@ -24,6 +24,13 @@
 
 新增独立 `Conjugaison` 页面，首批包含 30 个核心动词，支持 Présent、Passé composé、Imparfait 三种时态的查看与随机打字练习；正确/总次数会原子累计到学习后端，并保留本地兼容缓存。
 
+## TCF Canada 听力 / 阅读模考
+
+- `/tcf-listening`：CO 39 题 / 35 分钟，四选一。训练题音频使用浏览器 `fr-CA` SpeechSynthesis 播放，每题在一次模考中只能触发一次；交卷后可查看音频文本、正确答案与解析。
+- `/tcf-reading`：CE 39 题 / 60 分钟，覆盖通知、实用短文、文章与观点类文本，交卷后逐题复盘。
+- 两项均以 0–699 做训练用线性分数估算并估算 NCLC；NCLC 7 目标固定为 CO 458 / CE 453。该估算用于训练趋势，不替代官方 TCF Canada 加权成绩。
+- 完整答卷、用时、估算分数与 NCLC 通过原有 durable mutation queue 保存，离线先落本机，恢复联网后自动同步；SQLite / D1 materialize 到 schema v7 的 `tcf_attempts`。
+
 ## 特点
 
 - 只展示法语词库，不保留原版英语、日语、德语等词库。
@@ -56,7 +63,7 @@ yarn start
 
 ## 学习计划服务端持久化
 
-学习计划现在使用同源 `/api/study-plan` API + SQLite / Workers D1 保存考试日期/26 周排期、每天目标分钟、每周学习日、每天的实际任务分钟数、最低模式，以及词汇历史、语法进度/历史和动词变位统计。`/api/study-plan/analytics` 从同一份服务端状态聚合周/总分钟、阶段完成度、连续学习天数和三类练习统计。
+学习计划现在使用同源 `/api/study-plan` API + SQLite / Workers D1 保存考试日期/26 周排期、每天目标分钟、每周学习日、每天的实际任务分钟数、最低模式，以及词汇历史、语法进度/历史、动词变位统计和 TCF CO/CE 模考记录。`/api/study-plan/analytics` 从同一份服务端状态聚合周/总分钟、阶段完成度、连续学习天数和三类练习统计。
 任务完成状态仍按原有规则由「实际分钟数 ≥ 任务目标」计算；取消完成会把分钟数存为 0。
 词汇练习完成章节后的分钟数也写入服务端。路线图、词库、语法训练和变位练习内容不变。
 
@@ -100,7 +107,7 @@ GitHub Pages 只能托管静态文件，无法运行这个后端。仅部署到 
 - 练习页面使用同一 durable mutation queue：词汇章节结束、语法训练完成、变位练习离开时会主动 flush；断网时先留在本机，浏览器重新联网、聚焦或恢复可见后自动重放并按时间戳合并。
 - 后端根据单词、语法题和变位错误历史生成“今日复习”队列；复习按钮使用简化 SM-2（ease / repetition / interval / due date），结果同样跨设备同步。
 - 同步码支持查看绑定状态、解绑当前设备（保留独立副本）以及从原设备撤销同步码；被撤销的码无法再绑定新设备。
-- “数据分析”页面完全读取服务端 analytics/review API：可按天/周/月查看学习分钟、单词/语法/变位正确率趋势，并显示错误最多的单词、语法点和动词排行。
+- “数据分析”页面完全读取服务端 analytics/review API：可按天/周/月查看学习分钟、单词/语法/变位正确率趋势，并显示错误最多的单词、语法点和动词排行；同页按技能显示 CO/CE 历次模考分数趋势与 NCLC 7 目标线。
 
 ### 远程 API 与无需凭据的预览
 
@@ -119,7 +126,7 @@ GitHub Pages 只能托管静态文件，无法运行这个后端。仅部署到 
 - 浏览器通知提醒是显式 opt-in，并支持自定义提醒时间。提醒偏好只保存在当前浏览器；考试日期/每日目标/学习日会随 learner 后端状态跨设备同步。
 - 已注册 PWA Service Worker。应用壳和已经加载的静态资源会缓存供离线启动，`/api/*` 永远不进入 Service Worker 缓存；断网练习继续走原有 durable mutation queue，联网后自动同步。
 - 浏览器平台无法保证在网页/PWA **完全关闭** 后仅靠本地 JavaScript 准时唤醒，因此本地提醒在浏览器或 PWA 运行/恢复时检查并通知。
-- `npm run test:e2e:study` 使用本地 Node SQLite API + Vite + Chromium，覆盖真实变位练习、断网保存、PWA 离线 reload、恢复网络自动同步、同步码第二设备绑定以及服务端统计页。
+- `npm run test:e2e:study` 使用本地 Node SQLite API + Vite + Chromium，覆盖真实变位练习、断网保存、PWA 离线 reload、恢复网络自动同步、同步码第二设备绑定、CO/CE 模考与服务端统计页。
 
 ## 统一错题本、打卡成就与学习周报
 
@@ -145,20 +152,20 @@ GitHub Pages 只能托管静态文件，无法运行这个后端。仅部署到 
 - 智能任务复用真实练习入口：词汇章节计时、语法 session 完成时间、变位 practice 实际停留分钟和 SM-2 复习结果都会写回同一份服务端分钟/统计状态。
 - `/study-plan`、`/analysis`、`/error-book`、语法与变位页面支持窄屏访问；新增控件使用 ARIA label/progressbar、可见 focus ring，并提高深色模式文字/边框对比度。
 
-## Schema v5 与旧数据迁移
+## Schema v7 与旧数据迁移
 
-- D1 新增顺序迁移 `0005_schema_version.sql`，SQLite 启动时建立同一 `schema_meta`；`/health` 与 `/api/health` 只有在 `schema_version=5` 时才返回 ready。
-- 导出格式升级到 `qwerty-study-plan` v5，并包含 `schemaVersion: 5`；导入继续兼容 v1–v5 和旧 plain-state JSON。
+- D1 顺序迁移目前为 `0001`→`0007`；schema v7 新增 TCF 模考 materialized 表。SQLite 启动时建立同构表；`/health` 与 `/api/health` 只有在 `schema_version=7` 时才返回 ready。
+- 导出格式继续使用兼容的 `qwerty-study-plan` v5，并报告 `schemaVersion: 7`；导入继续兼容 v1–v5 和旧 plain-state JSON，新字段由 normalize 自动补齐。
 - 首次升级会统一扫描旧 IndexedDB 词汇记录、grammar localStorage 和 conjugation localStorage。迁移按内容签名去重并进入 durable mutation queue；只有服务端确认队列清空才写迁移完成标记，所以断网不会误标成功。
 - “删除我的全部学习数据”现在同时删除当前 learner 的服务端状态以及浏览器 IndexedDB / 旧 grammar、conjugation 兼容缓存，避免旧数据在刷新后再次迁回服务端。
 
 ## Passkey、专注计时、导出与运维门禁
 
 - 匿名模式继续是默认模式。学习计划控制区可选创建 WebAuthn Passkey；Passkey 直接绑定现有 learner，不复制学习状态。新设备使用 Passkey 登录后会恢复同一 learner 的计划、词汇、语法、变位、错题本、打卡、成就和周报，无需手动同步码。
-- Passkey 服务端同时支持 Node SQLite 与 Workers/D1。D1 顺序迁移升级到 schema v6；Node 启动时创建同构账户/凭据/challenge/session 表。注册和登录验证 challenge、origin、RP ID hash、用户在场/验证 flags、ES256/RS256 签名与 sign counter。
+- Passkey 服务端同时支持 Node SQLite 与 Workers/D1。D1 顺序迁移当前为 schema v7；Node 启动时创建同构账户/凭据/challenge/session 表。注册和登录验证 challenge、origin、RP ID hash、用户在场/验证 flags、ES256/RS256 签名与 sign counter。
 - 学习计划控制区提供可选专注计时器。计时可暂停/继续；页面隐藏立即自动暂停，连续 2 分钟无键盘、鼠标或触摸输入自动暂停。结束时把“任务分钟增量 + focus session 记录”放进同一个 durable mutation，断网先落本地、联网后幂等重放；周报可单独汇总专注分钟。
 - `GET /api/study-plan/records.csv`、`/error-book.csv`、`/weekly-reports.csv` 从服务端状态导出 UTF-8 CSV。统计页保留周报 JSON，同时提供学习记录、错题本、周报 CSV 和打印友好周报；周报包含词汇/语法/变位活动分钟与专注分钟（专注时间可与对应模块重叠）。
 - Node/Worker 请求带 `X-Request-ID`，输出结构化 JSON request log，并统计请求总数、5xx、慢请求和耗时。Node 的 `/api/metrics` 在未设置 token 时仅允许 loopback；设置 `STUDY_METRICS_TOKEN` 后使用 bearer token。Worker 的 `/api/metrics` 始终要求 `STUDY_METRICS_TOKEN`。
 - `npm run test:backup-drill` 在线备份 WAL 模式 SQLite、执行 quick_check、修改 live DB 后从备份恢复并验证 point-in-time 数据，同时验证备份脚本不会覆盖已有文件。
 - `yarn typecheck` 运行全量 `tsc --noEmit`。生产构建按路由 lazy-load，并通过 Vite manifest 计算首屏依赖图 gzip 体积；`yarn check:bundle` 对首屏、最大 chunk 与全部 JS 设置 CI 预算。
-- 错题本/SM-2 复习、每日打卡/streak、成就和周报继续使用现有后端 learner state + materialized SQLite/D1 表，不新增第二套数据源。CI 额外顺序执行 D1 `0001`→`0006` 迁移链，验证 schema v6 表与关键列完整。
+- 错题本/SM-2 复习、每日打卡/streak、成就和周报继续使用现有后端 learner state + materialized SQLite/D1 表，不新增第二套数据源。CI 额外顺序执行 D1 `0001`→`0007` 迁移链，验证 schema v7 表与关键列完整。

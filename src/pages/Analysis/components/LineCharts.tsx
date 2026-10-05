@@ -17,9 +17,11 @@ interface LineChartsProps {
   data: [string, number][]
   name: string
   suffix?: string
+  target?: number
+  targetLabel?: string
 }
 
-const LineCharts: FC<LineChartsProps> = ({ data, title, suffix, name }) => {
+const LineCharts: FC<LineChartsProps> = ({ data, title, suffix, name, target, targetLabel }) => {
   const [isOpenDarkMode] = useAtom(isOpenDarkModeAtom)
 
   const chartRef = useRef<HTMLDivElement>(null)
@@ -64,11 +66,29 @@ const LineCharts: FC<LineChartsProps> = ({ data, title, suffix, name }) => {
           data: data,
           emphasis: { focus: 'series' },
         },
+        ...(target === undefined || data.length === 0
+          ? []
+          : [{
+              name: targetLabel ?? '目标',
+              type: 'line',
+              symbol: 'none',
+              data: data.length === 1
+                ? [
+                    [new Date(new Date(data[0][0]).getTime() - 12 * 60 * 60 * 1000).toISOString(), target],
+                    [new Date(new Date(data[0][0]).getTime() + 12 * 60 * 60 * 1000).toISOString(), target],
+                  ]
+                : [
+                    [data[0][0], target],
+                    [data[data.length - 1][0], target],
+                  ],
+              lineStyle: { type: 'dashed', width: 2 },
+              tooltip: { show: false },
+            }]),
       ],
     }
 
     chart.setOption(option)
-  }, [data, title, suffix, name, isOpenDarkMode])
+  }, [data, title, suffix, name, target, targetLabel, isOpenDarkMode])
 
   useEffect(() => {
     if (!chartRef.current) return

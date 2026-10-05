@@ -38,6 +38,7 @@ test('durability, analytics, review scheduling, LWW sync and device binding', as
     const initializedState = (await initialized.json()).state
     assert.equal(initializedState.startDate, initial.startDate)
     assert.deepEqual(initializedState.learning.conjugationAttempts, [])
+    assert.deepEqual(initializedState.learning.tcfAttempts, [])
     assert.deepEqual(initializedState.learning.reviews.items, {})
     assert.equal(initializedState.syncMeta.startDateUpdatedAt, 0)
     assert.equal(initializedState.syncMeta.settingsUpdatedAt, 0)
@@ -237,7 +238,7 @@ test('durability, analytics, review scheduling, LWW sync and device binding', as
     await start()
     const healthAfterRestart = await fetch(base.replace('/api/study-plan', '/api/health'))
     assert.equal(healthAfterRestart.status, 200)
-    assert.equal((await healthAfterRestart.json()).schemaVersion, 6)
+    assert.equal((await healthAfterRestart.json()).schemaVersion, 7)
     state = (await (await call('GET', cookie)).json()).state
     assert.equal(state.learning.reviews.items[vocabReview.itemId].repetitions, 1, 'review schedule survives restart')
     assert.equal(state.minutes['2026-10-03']['sat-retell'], 20)

@@ -108,6 +108,8 @@ export const weeklyStudyPlan: DayPlan[] = [
         minutes: 30,
         kind: 'listening',
         description: '听一段可理解材料，先抓大意，再回听细节。',
+        href: '/tcf-listening',
+        actionLabel: '打开 CO 模考',
       },
       {
         id: 'mon-vocab',
@@ -131,6 +133,8 @@ export const weeklyStudyPlan: DayPlan[] = [
         minutes: 35,
         kind: 'reading',
         description: '限时读一篇材料，标出主题、观点和连接词。',
+        href: '/tcf-reading',
+        actionLabel: '打开 CE 模考',
       },
       {
         id: 'tue-writing',
@@ -159,6 +163,8 @@ export const weeklyStudyPlan: DayPlan[] = [
         minutes: 30,
         kind: 'listening',
         description: '听完后不用中文逐句翻译，先复述大意。',
+        href: '/tcf-listening',
+        actionLabel: '打开 CO 模考',
       },
       {
         id: 'wed-speaking',
@@ -222,6 +228,8 @@ export const weeklyStudyPlan: DayPlan[] = [
         minutes: 10,
         kind: 'listening',
         description: '通勤或休息时听短材料，不要求做笔记。',
+        href: '/tcf-listening',
+        actionLabel: '打开 CO 模考',
       },
     ],
   },
@@ -236,6 +244,8 @@ export const weeklyStudyPlan: DayPlan[] = [
         minutes: 15,
         kind: 'listening',
         description: '完整听一遍，抓住人物、主题、发生了什么。',
+        href: '/tcf-listening',
+        actionLabel: '打开 CO 模考',
       },
       {
         id: 'sat-retell',

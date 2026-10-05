@@ -17,13 +17,14 @@ import {
   applyWorkerMakeup,
   listWorkerAchievements,
   listWorkerWeeklyReports,
+  listWorkerTcfAttempts,
   consumeWorkerRateLimit,
   writeWorkerAudit,
   deleteWorkerLearnerData,
 } from './study-worker-features.mjs'
 
 const MAX_BODY_BYTES = 1700000
-const STUDY_SCHEMA_VERSION = 6
+const STUDY_SCHEMA_VERSION = 7
 const metrics = createStudyMetrics()
 const json = (status, data, headers = {}) => new Response(JSON.stringify(data), {
   status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', ...headers },
@@ -94,6 +95,7 @@ export async function studyApi(request, env) {
       await env.DB.prepare('SELECT learner,day FROM checkins LIMIT 1').all()
       await env.DB.prepare('SELECT learner,achievement_id FROM achievements LIMIT 1').all()
       await env.DB.prepare('SELECT learner,week_start FROM weekly_reports LIMIT 1').all()
+      await env.DB.prepare('SELECT learner,attempt_id,skill FROM tcf_attempts LIMIT 1').all()
       await env.DB.prepare('SELECT scope,action FROM rate_limits LIMIT 1').all()
       await env.DB.prepare('SELECT id,action FROM audit_log LIMIT 1').all()
       await env.DB.prepare('SELECT id,learner,user_handle FROM accounts LIMIT 1').all()
@@ -133,17 +135,18 @@ export async function studyApi(request, env) {
   const recordsCsv = path === '/api/study-plan/records.csv'
   const errorCsv = path === '/api/study-plan/error-book.csv'
   const reportsCsv = path === '/api/study-plan/weekly-reports.csv'
+  const tcfAttempts = path === '/api/study-plan/tcf-attempts'
   const plan = path === '/api/study-plan'
   if (!importing && !exporting && !analytics && !syncKey && !revokeSyncKey && !linking && !unlinking && !syncInfo &&
       !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData &&
       !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
-      !recordsCsv && !errorCsv && !reportsCsv && !plan)
+      !recordsCsv && !errorCsv && !reportsCsv && !tcfAttempts && !plan)
     return jsonError(404, 'NOT_FOUND', 'Not found')
   if ((importing || syncKey || revokeSyncKey || linking || unlinking || makeup || passkeyRegisterOptions ||
       passkeyRegisterVerify || passkeyLoginOptions || passkeyLoginVerify) && request.method !== 'POST')
     return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
   if ((exporting || analytics || syncInfo || review || errorBook || checkins || achievements || reports || reportExport ||
-      account || recordsCsv || errorCsv || reportsCsv) && request.method !== 'GET')
+      account || recordsCsv || errorCsv || reportsCsv || tcfAttempts) && request.method !== 'GET')
     return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
   if (deleteData && request.method !== 'DELETE') return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
   if (plan && !['GET', 'POST', 'PATCH'].includes(request.method)) return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
@@ -387,7 +390,7 @@ export async function studyApi(request, env) {
     }
   }
 
-  if (row.state && (errorBook || checkins || achievements || reports || reportExport || errorCsv || reportsCsv || makeup)) {
+  if (row.state && (errorBook || checkins || achievements || reports || reportExport || errorCsv || reportsCsv || tcfAttempts || makeup)) {
     try {
       await materializeWorkerFeatures(db, learner, JSON.parse(row.state))
     } catch {
@@ -464,6 +467,16 @@ export async function studyApi(request, env) {
     const items = await listWorkerWeeklyReports(db, learner, limit)
     if (reportExport) return json(200, { format: 'qwerty-study-weekly-reports', version: 1, exportedAt: new Date().toISOString(), items }, headers)
     return json(200, { items }, headers)
+  }
+
+  if (tcfAttempts) {
+    const skill = requestUrl.searchParams.get('skill') || ''
+    const limitValue = Number(requestUrl.searchParams.get('limit') || 100)
+    if ((skill && !['listening', 'reading'].includes(skill)) || !Number.isFinite(limitValue))
+      return jsonError(400, 'INVALID_TCF_FILTER', 'Invalid TCF attempt filter', {}, headers)
+    if (!row.state) return json(200, { items: [] }, headers)
+    const limit = Math.min(120, Math.max(1, Math.round(limitValue)))
+    return json(200, { items: await listWorkerTcfAttempts(db, learner, { skill, limit }) }, headers)
   }
 
   if (deleteData) {

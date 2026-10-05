@@ -22,6 +22,24 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
     },
   })
 
+  await context.addInitScript(() => {
+    class MockSpeechSynthesisUtterance {
+      text: string
+      lang = ''
+      rate = 1
+      pitch = 1
+      constructor(text: string) { this.text = text }
+    }
+    Object.defineProperty(window, 'SpeechSynthesisUtterance', {
+      configurable: true,
+      value: MockSpeechSynthesisUtterance,
+    })
+    Object.defineProperty(window, 'speechSynthesis', {
+      configurable: true,
+      value: { cancel() {}, speak() {} },
+    })
+  })
+
   await page.goto('/study-plan')
   await expect(page.getByText('TCF Canada · 26 周学习计划')).toBeVisible()
   await expect(page.getByTestId('smart-today-plan')).toBeVisible()
@@ -137,6 +155,32 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
   await expect.poll(() => pendingMutationCount(page), { timeout: 20_000 }).toBe(0)
   await expect(page.locator('span').filter({ hasText: /^已与服务端合并并保存$/ })).toBeVisible()
 
+  // Complete one CO and one CE mock attempt. CO audio must lock after a single play.
+  await page.goto('/tcf-listening')
+  await expect(page.getByText('TCF Canada 听力 CO')).toBeVisible()
+  await expect(page.getByText('39 题完整模拟')).toBeVisible()
+  await page.getByTestId('tcf-start-exam').click()
+  await expect(page.getByTestId('tcf-timer')).toContainText(/34:|35:/)
+  const playOnce = page.getByTestId('tcf-audio-play')
+  await playOnce.click()
+  await expect(playOnce).toBeDisabled()
+  await page.getByRole('button', { name: /Acheter des billets de cinéma/ }).click()
+  await page.getByTestId('tcf-submit-exam').click()
+  await expect(page.getByTestId('tcf-result')).toBeVisible()
+  await expect(page.getByTestId('tcf-explanation')).toBeVisible()
+  await expect.poll(() => pendingMutationCount(page)).toBe(0)
+
+  await page.goto('/tcf-reading')
+  await expect(page.getByText('TCF Canada 阅读 CE')).toBeVisible()
+  await page.getByTestId('tcf-start-exam').click()
+  await expect(page.getByTestId('tcf-timer')).toContainText(/59:|60:/)
+  await page.getByRole('button', { name: /Utiliser le bassin pour enfants/ }).click()
+  await page.getByTestId('tcf-submit-exam').click()
+  await expect(page.getByTestId('tcf-result')).toBeVisible()
+  await expect.poll(() => pendingMutationCount(page)).toBe(0)
+  await page.goto('/study-plan')
+  await expect(page.getByText('TCF Canada · 26 周学习计划')).toBeVisible()
+
   // Generate a portable sync code only after every offline mutation has reached the server.
   const generate = page.getByRole('button', { name: /生成同步码|轮换同步码/ })
   await generate.click()
@@ -159,17 +203,27 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
   await expect(secondPage.getByText('打卡与成就')).toBeVisible()
   await expect(secondPage.getByText('学习周报')).toBeVisible()
   await expect(secondPage.getByText('每周总结与下周建议')).toBeVisible()
-  const currentReport = secondPage.locator('[data-print-weekly-reports] details').first()
-  await currentReport.evaluate((element) => {
-    ;(element as HTMLDetailsElement).open = true
-  })
-  await expect(currentReport).toHaveAttribute('open', '')
-  await expect(currentReport.getByText(/专注 1 min/)).toBeVisible()
+  const currentReportBody = secondPage.locator(
+    '[data-print-weekly-reports] details[open] [data-testid^="weekly-report-body-"]',
+  )
+  await expect(currentReportBody).toBeVisible()
+  await expect(currentReportBody).toContainText('专注 1 min')
   await expect(secondPage.getByTestId('learning-dashboard')).toBeVisible()
   await expect(secondPage.getByText('每日学习分钟热力图')).toBeVisible()
   await expect(secondPage.getByRole('progressbar', { name: '词汇掌握度' })).toBeVisible()
   await expect(secondPage.getByRole('progressbar', { name: '语法掌握度' })).toBeVisible()
   await expect(secondPage.getByRole('progressbar', { name: '变位掌握度' })).toBeVisible()
+  await expect(secondPage.getByTestId('tcf-score-trends')).toBeVisible()
+  await expect(secondPage.getByText('CO 目标 458')).toBeVisible()
+  await expect(secondPage.getByText('CE 目标 453')).toBeVisible()
+  const syncedTcf = await secondPage.evaluate(async () => {
+    const [listening, reading] = await Promise.all([
+      fetch('/api/study-plan/tcf-attempts?skill=listening', { credentials: 'include' }).then((response) => response.json()),
+      fetch('/api/study-plan/tcf-attempts?skill=reading', { credentials: 'include' }).then((response) => response.json()),
+    ])
+    return { listening: listening.items?.length ?? 0, reading: reading.items?.length ?? 0 }
+  })
+  expect(syncedTcf).toEqual({ listening: 1, reading: 1 })
 
   // Analytics endpoint failure falls back to the last cached backend dashboard instead of crashing the page.
   await secondPage.route('**/api/study-plan/analytics**', (route) => route.abort())

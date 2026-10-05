@@ -5,7 +5,7 @@ import { join } from 'node:path'
 import { DatabaseSync } from 'node:sqlite'
 import { test } from 'node:test'
 
-test('D1 migration chain 0001 through 0006 applies cleanly and lands on schema v6', () => {
+test('D1 migration chain 0001 through 0007 applies cleanly and lands on schema v7', () => {
   const dir = mkdtempSync(join(tmpdir(), 'study-migrations-'))
   const database = join(dir, 'migrations.sqlite')
   const db = new DatabaseSync(database)
@@ -17,7 +17,7 @@ test('D1 migration chain 0001 through 0006 applies cleanly and lands on schema v
 
     assert.deepEqual(
       files.map((name) => Number(name.slice(0, 4))),
-      [1, 2, 3, 4, 5, 6],
+      [1, 2, 3, 4, 5, 6, 7],
       'migration numbers must stay contiguous and ordered',
     )
 
@@ -30,7 +30,7 @@ test('D1 migration chain 0001 through 0006 applies cleanly and lands on schema v
     const schemaVersion = Number(
       db.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").get()?.value,
     )
-    assert.equal(schemaVersion, 6)
+    assert.equal(schemaVersion, 7)
 
     const requiredTables = [
       'learners',
@@ -40,6 +40,7 @@ test('D1 migration chain 0001 through 0006 applies cleanly and lands on schema v
       'checkins',
       'achievements',
       'weekly_reports',
+      'tcf_attempts',
       'rate_limits',
       'audit_log',
       'schema_meta',

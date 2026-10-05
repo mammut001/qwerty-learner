@@ -79,7 +79,7 @@ async function materializeWeeklyReports(db, learner, state, nowMs) {
   let weekStart = state.startDate
   let previous = null
   let generated = 0
-  const statements = []
+  const statements = [db.prepare('DELETE FROM weekly_reports WHERE learner=?').bind(learner)]
   while (weekStart <= today && generated < 26) {
     const weekEnd = addDays(weekStart, 6)
     const summaries = Array.from({ length: 7 }, (_, index) => studyDaySummary(state, addDays(weekStart, index)))
@@ -100,12 +100,31 @@ async function materializeWeeklyReports(db, learner, state, nowMs) {
   if (statements.length) await runBatches(db, statements)
 }
 
+async function materializeTcfAttempts(db, learner, state) {
+  const statements = [db.prepare('DELETE FROM tcf_attempts WHERE learner=?').bind(learner)]
+  for (const item of state.learning?.tcfAttempts ?? []) {
+    statements.push(
+      db.prepare(`
+        INSERT INTO tcf_attempts(
+          learner,attempt_id,skill,question_count,correct_count,scaled_score,nclc,
+          duration_seconds,started_at,finished_at,day,answers
+        ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)
+      `).bind(
+        learner, item.id, item.skill, item.questionCount, item.correctCount, item.scaledScore, item.nclc,
+        item.durationSeconds, item.startedAt, item.finishedAt, item.day, safeJson(item.answers),
+      ),
+    )
+  }
+  await runBatches(db, statements)
+}
+
 export async function materializeWorkerFeatures(db, learner, input, nowMs = Date.now()) {
   const state = normalizeState(input)
   await materializeErrorBook(db, learner, state)
   await materializeAutoCheckins(db, learner, state, nowMs)
   await materializeAchievements(db, learner, state, nowMs)
   await materializeWeeklyReports(db, learner, state, nowMs)
+  await materializeTcfAttempts(db, learner, state)
 }
 
 export async function listWorkerErrorBook(db, learner, { kind = '', status = 'active', from = '', to = '', limit = 100 } = {}) {
@@ -209,6 +228,35 @@ export async function listWorkerWeeklyReports(db, learner, limit = 26) {
   }))
 }
 
+export async function listWorkerTcfAttempts(db, learner, { skill = '', limit = 100 } = {}) {
+  const clauses = ['learner=?']
+  const args = [learner]
+  if (skill) {
+    clauses.push('skill=?')
+    args.push(skill)
+  }
+  args.push(limit)
+  const result = await db.prepare(`
+    SELECT attempt_id,skill,question_count,correct_count,scaled_score,nclc,duration_seconds,
+           started_at,finished_at,day,answers
+    FROM tcf_attempts WHERE ${clauses.join(' AND ')}
+    ORDER BY finished_at DESC LIMIT ?
+  `).bind(...args).all()
+  return (result.results ?? []).map((row) => ({
+    id: row.attempt_id,
+    skill: row.skill,
+    questionCount: row.question_count,
+    correctCount: row.correct_count,
+    scaledScore: row.scaled_score,
+    nclc: row.nclc,
+    durationSeconds: row.duration_seconds,
+    startedAt: row.started_at,
+    finishedAt: row.finished_at,
+    day: row.day,
+    answers: parseJson(row.answers, []),
+  }))
+}
+
 export async function consumeWorkerRateLimit(db, scope, action, {
   nowMs = Date.now(), limit = 8, windowMs = 5 * 60_000, blockMs = 15 * 60_000,
 } = {}) {
@@ -246,6 +294,7 @@ export async function deleteWorkerLearnerData(db, learner) {
     db.prepare('DELETE FROM checkins WHERE learner=?').bind(learner),
     db.prepare('DELETE FROM achievements WHERE learner=?').bind(learner),
     db.prepare('DELETE FROM weekly_reports WHERE learner=?').bind(learner),
+    db.prepare('DELETE FROM tcf_attempts WHERE learner=?').bind(learner),
     db.prepare('DELETE FROM audit_log WHERE learner=?').bind(learner),
     db.prepare('DELETE FROM rate_limits WHERE scope=?').bind('learner:' + learner),
     db.prepare('DELETE FROM passkey_challenges WHERE learner=?').bind(learner),

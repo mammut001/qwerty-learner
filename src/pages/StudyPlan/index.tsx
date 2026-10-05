@@ -1001,6 +1001,8 @@ export default function StudyPlanPage() {
     } else if (task.href === '/conjugation') {
       taskHref = conjugationHref
       actionLabel = phase.id === 1 ? '练 prendre · Passé composé' : '开始核心动词练习'
+    } else if (task.href === '/tcf-listening' || task.href === '/tcf-reading') {
+      taskHref = `${task.href}?studyDate=${dateKey}&studyTask=${task.id}`
     }
 
     return (

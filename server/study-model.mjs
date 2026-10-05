@@ -10,12 +10,14 @@ const text = (v, max) => typeof v === 'string' && v.length <= max
 const uuid = (v) => typeof v === 'string' && /^[a-f0-9-]{36}$/.test(v)
 const tense = (v) => ['present', 'passeCompose', 'imparfait'].includes(v)
 const reviewKind = (v) => ['vocabulary', 'grammar', 'conjugation'].includes(v)
+const tcfSkill = (v) => ['listening', 'reading'].includes(v)
 const timestamp = (v) => integer(v, 0, 9999999999999)
 
 const MAX_VOCAB_RECORDS = 3000
 const MAX_GRAMMAR_HISTORY = 50
 const MAX_CONJUGATION_ATTEMPTS = 3000
 const MAX_FOCUS_SESSIONS = 2000
+const MAX_TCF_ATTEMPTS = 120
 const MAX_REVIEW_ITEMS = 1000
 const MAX_STATE_BYTES = 1500000
 
@@ -37,6 +39,7 @@ export function emptyLearningProgress() {
     conjugationDaily: {},
     conjugationAttempts: [],
     focusSessions: [],
+    tcfAttempts: [],
     reviews: { items: {} },
   }
 }
@@ -111,6 +114,49 @@ function validateFocusSession(value) {
     throw new Error('Invalid focus session')
 }
 
+function expectedTcfNclc(skill, score) {
+  if (score >= 549) return 10
+  if (skill === 'listening') {
+    if (score >= 523) return 9
+    if (score >= 503) return 8
+    if (score >= 458) return 7
+    if (score >= 398) return 6
+    if (score >= 369) return 5
+    if (score >= 331) return 4
+    return 0
+  }
+  if (score >= 524) return 9
+  if (score >= 499) return 8
+  if (score >= 453) return 7
+  if (score >= 406) return 6
+  if (score >= 375) return 5
+  if (score >= 342) return 4
+  return 0
+}
+
+function validateTcfAttempt(value) {
+  if (!record(value) || !uuid(value.id) || !tcfSkill(value.skill) || value.questionCount !== 39 ||
+      !Array.isArray(value.answers) || value.answers.length !== value.questionCount ||
+      !integer(value.correctCount, 0, value.questionCount) || !integer(value.scaledScore, 0, 699) ||
+      !integer(value.nclc, 0, 10) || !integer(value.durationSeconds, 0, 3600) ||
+      !timestamp(value.startedAt) || !timestamp(value.finishedAt) || value.finishedAt < value.startedAt ||
+      !date(value.day)) throw new Error('Invalid TCF attempt')
+  const prefix = value.skill === 'listening' ? 'co-' : 'ce-'
+  const ids = new Set()
+  for (const answer of value.answers) {
+    if (!record(answer) || !text(answer.questionId, 80) || !answer.questionId.startsWith(prefix) ||
+        ids.has(answer.questionId) ||
+        !(answer.choice === null || integer(answer.choice, 0, 3)) ||
+        typeof answer.correct !== 'boolean') throw new Error('Invalid TCF answer')
+    ids.add(answer.questionId)
+  }
+  const calculatedCorrect = value.answers.filter((answer) => answer.correct).length
+  const expectedScore = Math.round((calculatedCorrect / value.questionCount) * 699)
+  if (calculatedCorrect !== value.correctCount || value.scaledScore !== expectedScore ||
+      value.nclc !== expectedTcfNclc(value.skill, expectedScore))
+    throw new Error('Invalid TCF score')
+}
+
 
 function validateReviewState(value) {
   if (!record(value) || !reviewKind(value.kind) || !text(value.sourceId, 400) || !text(value.label, 500) ||
@@ -157,9 +203,11 @@ function validateLearning(value) {
       !record(value.conjugation) || !record(value.conjugationDaily)) throw new Error('Invalid learning progress')
   const conjugationAttempts = value.conjugationAttempts ?? []
   const focusSessions = value.focusSessions ?? []
+  const tcfAttempts = value.tcfAttempts ?? []
   const reviews = value.reviews ?? { items: {} }
   if (!Array.isArray(conjugationAttempts) || conjugationAttempts.length > MAX_CONJUGATION_ATTEMPTS ||
       !Array.isArray(focusSessions) || focusSessions.length > MAX_FOCUS_SESSIONS ||
+      !Array.isArray(tcfAttempts) || tcfAttempts.length > MAX_TCF_ATTEMPTS ||
       !record(reviews) || !record(reviews.items) || Object.keys(reviews.items).length > MAX_REVIEW_ITEMS)
     throw new Error('Invalid learning progress')
   value.vocabulary.records.forEach(validateVocabularyRecord)
@@ -172,6 +220,7 @@ function validateLearning(value) {
   }
   conjugationAttempts.forEach(validateConjugationAttempt)
   focusSessions.forEach(validateFocusSession)
+  tcfAttempts.forEach(validateTcfAttempt)
   for (const [id, item] of Object.entries(reviews.items)) {
     if (!text(id, 500)) throw new Error('Invalid review ID')
     validateReviewState(item)
@@ -201,6 +250,7 @@ export function normalizeState(state) {
   next.learning ??= emptyLearningProgress()
   next.learning.conjugationAttempts ??= []
   next.learning.focusSessions ??= []
+  next.learning.tcfAttempts ??= []
   next.learning.reviews ??= { items: {} }
   next.learning.reviews.items ??= {}
   next.syncMeta ??= emptySyncMeta()
@@ -249,6 +299,20 @@ function mergeFocusSessions(current, incoming) {
   }
   appended.sort((a, b) => a.endedAt - b.endedAt || a.id.localeCompare(b.id))
   return appended.slice(-MAX_FOCUS_SESSIONS)
+}
+
+function mergeTcfAttempts(current, incoming) {
+  const seen = new Set(current.map((item) => item.id))
+  const appended = [...current]
+  for (const item of incoming) {
+    validateTcfAttempt(item)
+    if (!seen.has(item.id)) {
+      appended.push(structuredClone(item))
+      seen.add(item.id)
+    }
+  }
+  appended.sort((a, b) => a.finishedAt - b.finishedAt || a.id.localeCompare(b.id))
+  return appended.slice(-MAX_TCF_ATTEMPTS)
 }
 
 function conjugationTotals(stats) {
@@ -389,6 +453,9 @@ export function apply(state, operations) {
     } else if (op.kind === 'focusSession' && record(op.value)) {
       validateFocusSession(op.value)
       state.learning.focusSessions = mergeFocusSessions(state.learning.focusSessions, [op.value])
+    } else if (op.kind === 'tcfAttempt' && record(op.value)) {
+      validateTcfAttempt(op.value)
+      state.learning.tcfAttempts = mergeTcfAttempts(state.learning.tcfAttempts, [op.value])
     } else if (op.kind === 'reviewResult' && text(op.itemId, 500) && reviewKind(op.reviewKind) &&
                text(op.sourceId, 400) && text(op.label, 500) && integer(op.quality, 0, 5) &&
                timestamp(op.reviewedAt) && date(op.day)) {
@@ -869,6 +936,28 @@ export function buildTodayTaskPlan(input, today = toKey(new Date())) {
   return todayPlanForState(state, today)
 }
 
+function tcfSkillAnalytics(state, skill, targetScore) {
+  const attempts = state.learning.tcfAttempts
+    .filter((item) => item.skill === skill)
+    .sort((a, b) => a.finishedAt - b.finishedAt)
+  const latest = attempts.length ? attempts[attempts.length - 1] : null
+  const bestScore = attempts.length ? Math.max(...attempts.map((item) => item.scaledScore)) : null
+  return {
+    attempts: attempts.length,
+    latestScore: latest?.scaledScore ?? null,
+    bestScore,
+    targetScore,
+    gapToTarget: latest ? Math.max(0, targetScore - latest.scaledScore) : null,
+    latestNclc: latest?.nclc ?? null,
+    trend: attempts.slice(-20).map((item) => ({
+      id: item.id,
+      finishedAt: item.finishedAt,
+      score: item.scaledScore,
+      nclc: item.nclc,
+    })),
+  }
+}
+
 export function studyAnalytics(input, now = new Date()) {
   const state = normalizeState(input)
   const today = toKey(now)
@@ -989,6 +1078,10 @@ export function studyAnalytics(input, now = new Date()) {
       sessions: state.learning.focusSessions.length,
       minutes: sum(state.learning.focusSessions.map((item) => item.minutes)),
     },
+    tcf: {
+      listening: tcfSkillAnalytics(state, 'listening', 458),
+      reading: tcfSkillAnalytics(state, 'reading', 453),
+    },
     trends: trendBuckets(state, today),
     rankings: rankings(state),
     reviewDue: buildReviewQueue(state, today).length,
@@ -1003,5 +1096,5 @@ export function importOperations(backup) {
   return [{ kind: 'replace', value: backup.state }]
 }
 export function exportPlan(state) {
-  return { format: 'qwerty-study-plan', version: 5, schemaVersion: 6, exportedAt: new Date().toISOString(), state: normalizeState(state) }
+  return { format: 'qwerty-study-plan', version: 5, schemaVersion: 7, exportedAt: new Date().toISOString(), state: normalizeState(state) }
 }

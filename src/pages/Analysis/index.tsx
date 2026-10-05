@@ -271,6 +271,14 @@ const Analysis = () => {
   const heatmapMax = dashboard ? Math.max(1, ...dashboard.heatmap.map((item) => item.minutes)) : 1
   const mastery = dashboard?.mastery
   const projection = dashboard?.projection
+  const tcfListeningData = (analytics?.tcf?.listening?.trend ?? []).map<[string, number]>((item) => [
+    new Date(item.finishedAt).toISOString(),
+    item.score,
+  ])
+  const tcfReadingData = (analytics?.tcf?.reading?.trend ?? []).map<[string, number]>((item) => [
+    new Date(item.finishedAt).toISOString(),
+    item.score,
+  ])
 
   return (
     <Layout>
@@ -628,7 +636,11 @@ const Analysis = () => {
               ) : (
                 <div className="mt-5 grid gap-4">
                   {weeklyReports.slice(0, 8).map((report) => (
-                    <details key={report.weekStart} className="rounded-xl border border-gray-100 p-4 dark:border-gray-700">
+                    <details
+                      key={report.weekStart}
+                      open={!report.finalized}
+                      className="rounded-xl border border-gray-100 p-4 dark:border-gray-700"
+                    >
                       <summary className="cursor-pointer list-none">
                         <div className="flex flex-wrap items-center gap-3">
                           <span className="font-medium text-gray-900 dark:text-white">{report.weekStart} → {report.weekEnd}</span>
@@ -637,7 +649,10 @@ const Analysis = () => {
                           <span className="ml-auto text-xs text-gray-400">{report.finalized ? '已归档' : '本周更新中'}</span>
                         </div>
                       </summary>
-                      <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                      <div
+                        data-testid={`weekly-report-body-${report.weekStart}`}
+                        className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-4"
+                      >
                         <div className="rounded-lg bg-gray-50 p-3 text-sm dark:bg-gray-900">
                           <div className="text-xs text-gray-400">本周活动时长</div>
                           <div className="mt-2 space-y-1 text-gray-700 dark:text-gray-200">
@@ -732,6 +747,59 @@ const Analysis = () => {
                       <div className="mt-1 text-xs text-gray-500">{analytics.conjugation.attempts} 道练习</div>
                     </div>
                   </div>
+
+                  <section data-testid="tcf-score-trends" className="mt-5 rounded-xl border border-indigo-100 bg-indigo-50/40 p-4 dark:border-indigo-900 dark:bg-indigo-950/20">
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <div>
+                        <div className="text-sm font-semibold text-indigo-700 dark:text-indigo-300">TCF Canada 模考趋势</div>
+                        <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">按技能分别统计服务端已同步的完整模考；虚线为 NCLC 7 目标。</div>
+                      </div>
+                      <div className="flex flex-wrap gap-2 text-xs">
+                        <span className="rounded-full bg-white px-3 py-1.5 dark:bg-gray-900">CO 目标 458</span>
+                        <span className="rounded-full bg-white px-3 py-1.5 dark:bg-gray-900">CE 目标 453</span>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                      <div className="rounded-lg bg-white p-3 dark:bg-gray-900">
+                        <div className="text-xs text-gray-400">听力 CO</div>
+                        <div className="mt-1 text-lg font-semibold text-gray-900 dark:text-white">
+                          {analytics.tcf?.listening?.latestScore ?? '—'}
+                        </div>
+                        <div className="mt-1 text-xs text-gray-500">
+                          {analytics.tcf?.listening?.attempts ?? 0} 次 ·
+                          {analytics.tcf?.listening?.gapToTarget === null || analytics.tcf?.listening?.gapToTarget === undefined
+                            ? ' 尚无成绩'
+                            : analytics.tcf.listening.gapToTarget === 0
+                              ? ' 已达到 NCLC 7 目标'
+                              : ` 距目标 ${analytics.tcf.listening.gapToTarget} 分`}
+                        </div>
+                      </div>
+                      <div className="rounded-lg bg-white p-3 dark:bg-gray-900">
+                        <div className="text-xs text-gray-400">阅读 CE</div>
+                        <div className="mt-1 text-lg font-semibold text-gray-900 dark:text-white">
+                          {analytics.tcf?.reading?.latestScore ?? '—'}
+                        </div>
+                        <div className="mt-1 text-xs text-gray-500">
+                          {analytics.tcf?.reading?.attempts ?? 0} 次 ·
+                          {analytics.tcf?.reading?.gapToTarget === null || analytics.tcf?.reading?.gapToTarget === undefined
+                            ? ' 尚无成绩'
+                            : analytics.tcf.reading.gapToTarget === 0
+                              ? ' 已达到 NCLC 7 目标'
+                              : ` 距目标 ${analytics.tcf.reading.gapToTarget} 分`}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 grid gap-4 xl:grid-cols-2">
+                      <div className="h-72 rounded-xl border border-indigo-100 bg-white p-4 dark:border-indigo-900 dark:bg-gray-900">
+                        <LineCharts title="听力 CO 历次模考分数" name="CO 分数" data={tcfListeningData} target={458} targetLabel="NCLC 7 · 458" />
+                      </div>
+                      <div className="h-72 rounded-xl border border-indigo-100 bg-white p-4 dark:border-indigo-900 dark:bg-gray-900">
+                        <LineCharts title="阅读 CE 历次模考分数" name="CE 分数" data={tcfReadingData} target={453} targetLabel="NCLC 7 · 453" />
+                      </div>
+                    </div>
+                  </section>
 
                   <div className="mt-5 grid gap-4 xl:grid-cols-2">
                     <div className="h-72 rounded-xl border border-gray-100 p-4 dark:border-gray-700">

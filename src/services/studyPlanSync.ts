@@ -153,6 +153,26 @@ export type FocusSessionRecord = {
   endedAt: number
 }
 
+export type TcfSkill = 'listening' | 'reading'
+export type TcfAttemptAnswer = {
+  questionId: string
+  choice: number | null
+  correct: boolean
+}
+export type TcfAttemptRecord = {
+  id: string
+  skill: TcfSkill
+  questionCount: number
+  answers: TcfAttemptAnswer[]
+  correctCount: number
+  scaledScore: number
+  nclc: number
+  durationSeconds: number
+  startedAt: number
+  finishedAt: number
+  day: string
+}
+
 export type ReviewKind = 'vocabulary' | 'grammar' | 'conjugation'
 export type ReviewState = {
   kind: ReviewKind
@@ -196,6 +216,7 @@ export type LearningProgress = {
   conjugationDaily: Record<string, TenseStat>
   conjugationAttempts: ConjugationAttempt[]
   focusSessions: FocusSessionRecord[]
+  tcfAttempts: TcfAttemptRecord[]
   reviews: { items: Record<string, ReviewState> }
 }
 
@@ -353,6 +374,16 @@ export type SmartTodayPlan = {
   tasks: SmartTodayTask[]
 }
 
+export type TcfSkillAnalytics = {
+  attempts: number
+  latestScore: number | null
+  bestScore: number | null
+  targetScore: number
+  gapToTarget: number | null
+  latestNclc: number | null
+  trend: Array<{ id: string; finishedAt: number; score: number; nclc: number }>
+}
+
 export type StudyAnalytics = {
   generatedAt: string
   plan: {
@@ -394,6 +425,10 @@ export type StudyAnalytics = {
   }
   conjugation: { attempts: number; correct: number; accuracy: number | null; practicedVerbs: number }
   focus: { sessions: number; minutes: number }
+  tcf: {
+    listening: TcfSkillAnalytics
+    reading: TcfSkillAnalytics
+  }
   trends: { daily: TrendPoint[]; weekly: TrendPoint[]; monthly: TrendPoint[] }
   rankings: {
     vocabulary: ErrorRankingItem[]
@@ -419,6 +454,7 @@ type Operation =
   | { kind: 'conjugationSeed'; value: ConjugationStats }
   | { kind: 'conjugationAttempt'; value: ConjugationAttempt }
   | { kind: 'focusSession'; value: FocusSessionRecord }
+  | { kind: 'tcfAttempt'; value: TcfAttemptRecord }
   | {
       kind: 'reviewResult'
       itemId: string
@@ -442,6 +478,7 @@ const PENDING = `qwerty-fr-study-plan-pending:${API_BASE ? API_BASE + ':' : ''}`
 const MAX_VOCAB_RECORDS = 3000
 const MAX_CONJUGATION_ATTEMPTS = 3000
 const MAX_FOCUS_SESSIONS = 2000
+const MAX_TCF_ATTEMPTS = 120
 const isPendingKey = (key: string) => key.startsWith(PENDING) && /^\d{16}:/.test(key.slice(PENDING.length))
 const listeners = new Set<(state: StudyServerState) => void>()
 const statuses = new Set<(message: string) => void>()
@@ -506,6 +543,7 @@ export function emptyLearningProgress(): LearningProgress {
     conjugationDaily: {},
     conjugationAttempts: [],
     focusSessions: [],
+    tcfAttempts: [],
     reviews: { items: {} },
   }
 }
@@ -529,6 +567,7 @@ function withLearning(state: StudyPlanStorage | StudyServerState): StudyServerSt
           conjugationDaily: learning.conjugationDaily ?? {},
           conjugationAttempts: learning.conjugationAttempts ?? [],
           focusSessions: learning.focusSessions ?? [],
+          tcfAttempts: learning.tcfAttempts ?? [],
           reviews: { items: learning.reviews?.items ?? {} },
         }
       : emptyLearningProgress(),
@@ -907,6 +946,47 @@ export function recordFocusSession(input: Omit<FocusSessionRecord, 'id'> & { id?
     learning: { ...current.learning, focusSessions },
   })
   return session
+}
+
+export function recordTcfAttempt(
+  input: Omit<TcfAttemptRecord, 'id' | 'day'> & { id?: string; day?: string },
+) {
+  if (!['listening', 'reading'].includes(input.skill)) throw new Error('INVALID_TCF_SKILL')
+  if (!Number.isInteger(input.questionCount) || input.questionCount !== 39) throw new Error('INVALID_TCF_QUESTION_COUNT')
+  if (!Array.isArray(input.answers) || input.answers.length !== input.questionCount) throw new Error('INVALID_TCF_ANSWERS')
+  if (input.answers.some((answer) =>
+    !answer ||
+    typeof answer.questionId !== 'string' ||
+    answer.questionId.length > 80 ||
+    !(answer.choice === null || (Number.isInteger(answer.choice) && answer.choice >= 0 && answer.choice <= 3)) ||
+    typeof answer.correct !== 'boolean'
+  )) throw new Error('INVALID_TCF_ANSWERS')
+  if (!Number.isInteger(input.correctCount) || input.correctCount < 0 || input.correctCount > input.questionCount)
+    throw new Error('INVALID_TCF_SCORE')
+  if (!Number.isInteger(input.scaledScore) || input.scaledScore < 0 || input.scaledScore > 699)
+    throw new Error('INVALID_TCF_SCORE')
+  if (!Number.isInteger(input.nclc) || input.nclc < 0 || input.nclc > 10) throw new Error('INVALID_TCF_NCLC')
+  if (!Number.isInteger(input.durationSeconds) || input.durationSeconds < 0 || input.durationSeconds > 3600)
+    throw new Error('INVALID_TCF_DURATION')
+  if (!Number.isSafeInteger(input.startedAt) || !Number.isSafeInteger(input.finishedAt) || input.startedAt < 0 || input.finishedAt < input.startedAt)
+    throw new Error('INVALID_TCF_TIMESTAMP')
+
+  const attempt: TcfAttemptRecord = {
+    ...input,
+    id: input.id ?? crypto.randomUUID(),
+    day: input.day ?? localDay(input.finishedAt),
+    answers: input.answers.map((answer) => ({ ...answer })),
+  }
+  optimisticOperation({ kind: 'tcfAttempt', value: attempt }, (state) => {
+    const attempts = [
+      ...state.learning.tcfAttempts.filter((item) => item.id !== attempt.id),
+      attempt,
+    ]
+      .sort((a, b) => a.finishedAt - b.finishedAt || a.id.localeCompare(b.id))
+      .slice(-MAX_TCF_ATTEMPTS)
+    return { ...state, learning: { ...state.learning, tcfAttempts: attempts } }
+  })
+  return attempt
 }
 
 export function recordVocabularyProgress(input: VocabularyProgressInput) {
@@ -1600,6 +1680,15 @@ export async function loadStudyAchievements(): Promise<StudyAchievement[]> {
   await syncStudyPlan()
   const payload = await api('GET', '/achievements')
   return Array.isArray(payload.items) ? (payload.items as StudyAchievement[]) : []
+}
+
+export async function loadTcfAttempts(skill?: TcfSkill, limit = 100): Promise<TcfAttemptRecord[]> {
+  await syncStudyPlan()
+  const query = new URLSearchParams()
+  if (skill) query.set('skill', skill)
+  query.set('limit', String(Math.min(120, Math.max(1, Math.round(limit)))))
+  const payload = await api('GET', `/tcf-attempts?${query.toString()}`)
+  return Array.isArray(payload.items) ? (payload.items as TcfAttemptRecord[]) : []
 }
 
 export async function loadWeeklyStudyReports(limit = 26): Promise<WeeklyStudyReport[]> {

@@ -7,7 +7,7 @@ const parseJson = (value, fallback = null) => {
   try { return JSON.parse(value) } catch { return fallback }
 }
 
-export const STUDY_SCHEMA_VERSION = 6
+export const STUDY_SCHEMA_VERSION = 7
 
 export function ensureNodeFeatureSchema(db) {
   db.exec(`
@@ -32,6 +32,13 @@ export function ensureNodeFeatureSchema(db) {
       generated_at INTEGER NOT NULL, finalized INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (learner,week_start)
     );
     CREATE INDEX IF NOT EXISTS weekly_reports_history ON weekly_reports(learner,week_start DESC);
+    CREATE TABLE IF NOT EXISTS tcf_attempts (
+      learner TEXT NOT NULL, attempt_id TEXT NOT NULL, skill TEXT NOT NULL, question_count INTEGER NOT NULL,
+      correct_count INTEGER NOT NULL, scaled_score INTEGER NOT NULL, nclc INTEGER NOT NULL,
+      duration_seconds INTEGER NOT NULL, started_at INTEGER NOT NULL, finished_at INTEGER NOT NULL,
+      day TEXT NOT NULL, answers TEXT NOT NULL, PRIMARY KEY (learner,attempt_id)
+    );
+    CREATE INDEX IF NOT EXISTS tcf_attempts_history ON tcf_attempts(learner,skill,finished_at DESC);
     CREATE TABLE IF NOT EXISTS rate_limits (
       scope TEXT NOT NULL, action TEXT NOT NULL, window_start INTEGER NOT NULL, count INTEGER NOT NULL,
       blocked_until INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (scope,action)
@@ -134,6 +141,7 @@ function materializeAchievements(db, learner, state, nowMs) {
 }
 
 function materializeWeeklyReports(db, learner, state, nowMs) {
+  db.prepare('DELETE FROM weekly_reports WHERE learner=?').run(learner)
   const today = new Date(nowMs).toISOString().slice(0, 10)
   let weekStart = state.startDate
   let previous = null
@@ -155,12 +163,29 @@ function materializeWeeklyReports(db, learner, state, nowMs) {
   }
 }
 
+function materializeTcfAttempts(db, learner, state) {
+  db.prepare('DELETE FROM tcf_attempts WHERE learner=?').run(learner)
+  const insert = db.prepare(`
+    INSERT INTO tcf_attempts(
+      learner,attempt_id,skill,question_count,correct_count,scaled_score,nclc,
+      duration_seconds,started_at,finished_at,day,answers
+    ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)
+  `)
+  for (const item of state.learning?.tcfAttempts ?? []) {
+    insert.run(
+      learner, item.id, item.skill, item.questionCount, item.correctCount, item.scaledScore, item.nclc,
+      item.durationSeconds, item.startedAt, item.finishedAt, item.day, safeJson(item.answers),
+    )
+  }
+}
+
 export function materializeNodeFeatures(db, learner, input, nowMs = Date.now()) {
   const state = normalizeState(input)
   materializeErrorBook(db, learner, state)
   materializeAutoCheckins(db, learner, state, nowMs)
   materializeAchievements(db, learner, state, nowMs)
   materializeWeeklyReports(db, learner, state, nowMs)
+  materializeTcfAttempts(db, learner, state)
 }
 
 export function listNodeErrorBook(db, learner, { kind = '', status = 'active', from = '', to = '', limit = 100 } = {}) {
@@ -260,6 +285,33 @@ export function listNodeWeeklyReports(db, learner, limit = 26) {
   }))
 }
 
+export function listNodeTcfAttempts(db, learner, { skill = '', limit = 100 } = {}) {
+  const clauses = ['learner=?']
+  const args = [learner]
+  if (skill) {
+    clauses.push('skill=?')
+    args.push(skill)
+  }
+  return db.prepare(`
+    SELECT attempt_id,skill,question_count,correct_count,scaled_score,nclc,duration_seconds,
+           started_at,finished_at,day,answers
+    FROM tcf_attempts WHERE ${clauses.join(' AND ')}
+    ORDER BY finished_at DESC LIMIT ?
+  `).all(...args, limit).map((row) => ({
+    id: row.attempt_id,
+    skill: row.skill,
+    questionCount: row.question_count,
+    correctCount: row.correct_count,
+    scaledScore: row.scaled_score,
+    nclc: row.nclc,
+    durationSeconds: row.duration_seconds,
+    startedAt: row.started_at,
+    finishedAt: row.finished_at,
+    day: row.day,
+    answers: parseJson(row.answers, []),
+  }))
+}
+
 export function consumeNodeRateLimit(db, scope, action, {
   nowMs = Date.now(), limit = 8, windowMs = 5 * 60_000, blockMs = 15 * 60_000,
 } = {}) {
@@ -295,7 +347,7 @@ export function deleteNodeLearnerData(db, learner) {
     db.prepare('DELETE FROM accounts WHERE id=?').run(account.id)
   }
   db.prepare('DELETE FROM passkey_challenges WHERE learner=?').run(learner)
-  const tables = ['mutations','sync_keys','error_book','checkins','achievements','weekly_reports','audit_log']
+  const tables = ['mutations','sync_keys','error_book','checkins','achievements','weekly_reports','tcf_attempts','audit_log']
   for (const table of tables) db.prepare(`DELETE FROM ${table} WHERE learner=?`).run(learner)
   db.prepare('DELETE FROM rate_limits WHERE scope=?').run('learner:' + learner)
   db.prepare('DELETE FROM learners WHERE id=?').run(learner)

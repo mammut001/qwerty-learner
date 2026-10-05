@@ -20,6 +20,7 @@ import {
   applyNodeMakeup,
   listNodeAchievements,
   listNodeWeeklyReports,
+  listNodeTcfAttempts,
   consumeNodeRateLimit,
   writeNodeAudit,
   deleteNodeLearnerData,
@@ -181,11 +182,12 @@ export function createStudyServer({
     const recordsCsv = path === '/api/study-plan/records.csv'
     const errorCsv = path === '/api/study-plan/error-book.csv'
     const reportsCsv = path === '/api/study-plan/weekly-reports.csv'
+    const tcfAttempts = path === '/api/study-plan/tcf-attempts'
     const plan = path === '/api/study-plan'
     if (!health && !importing && !exporting && !analytics && !syncKey && !revokeSyncKey && !linking && !unlinking &&
         !syncInfo && !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData &&
         !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
-        !recordsCsv && !errorCsv && !reportsCsv && !plan)
+        !recordsCsv && !errorCsv && !reportsCsv && !tcfAttempts && !plan)
       return sendError(404, 'NOT_FOUND', 'Not found')
 
     const policy = studyPolicy({ origin, secure, sameSite }, { method: req.method, headers: new Headers(req.headers) }, health)
@@ -207,6 +209,7 @@ export function createStudyServer({
         db.prepare('SELECT learner,day FROM checkins LIMIT 1').get()
         db.prepare('SELECT learner,achievement_id FROM achievements LIMIT 1').get()
         db.prepare('SELECT learner,week_start FROM weekly_reports LIMIT 1').get()
+        db.prepare('SELECT learner,attempt_id,skill FROM tcf_attempts LIMIT 1').get()
         db.prepare('SELECT scope,action FROM rate_limits LIMIT 1').get()
         db.prepare('SELECT id,action FROM audit_log LIMIT 1').get()
         db.prepare('SELECT id,learner,user_handle FROM accounts LIMIT 1').get()
@@ -225,7 +228,7 @@ export function createStudyServer({
         passkeyRegisterVerify || passkeyLoginOptions || passkeyLoginVerify) && req.method !== 'POST')
       return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if ((exporting || analytics || syncInfo || review || errorBook || checkins || achievements || reports || reportExport ||
-        account || recordsCsv || errorCsv || reportsCsv) && req.method !== 'GET')
+        account || recordsCsv || errorCsv || reportsCsv || tcfAttempts) && req.method !== 'GET')
       return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if (deleteData && req.method !== 'DELETE') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if (plan && !['GET', 'POST', 'PATCH'].includes(req.method)) return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
@@ -448,7 +451,7 @@ export function createStudyServer({
       }
     }
 
-    if (row.state && (errorBook || checkins || achievements || reports || reportExport || errorCsv || reportsCsv || makeup)) {
+    if (row.state && (errorBook || checkins || achievements || reports || reportExport || errorCsv || reportsCsv || tcfAttempts || makeup)) {
       try {
         materializeNodeFeatures(db, learner, JSON.parse(row.state))
       } catch {
@@ -525,6 +528,16 @@ export function createStudyServer({
       const items = listNodeWeeklyReports(db, learner, limit)
       if (reportExport) return send(200, { format: 'qwerty-study-weekly-reports', version: 1, exportedAt: new Date().toISOString(), items })
       return send(200, { items })
+    }
+
+    if (tcfAttempts) {
+      const skill = requestUrl.searchParams.get('skill') || ''
+      const limitValue = Number(requestUrl.searchParams.get('limit') || 100)
+      if ((skill && !['listening', 'reading'].includes(skill)) || !Number.isFinite(limitValue))
+        return sendError(400, 'INVALID_TCF_FILTER', 'Invalid TCF attempt filter')
+      if (!row.state) return send(200, { items: [] })
+      const limit = Math.min(120, Math.max(1, Math.round(limitValue)))
+      return send(200, { items: listNodeTcfAttempts(db, learner, { skill, limit }) })
     }
 
     if (deleteData) {
