@@ -20,5 +20,9 @@ jobs:
           cache: yarn
       - name: Install packages
         run: yarn --frozen-lockfile
+      - name: TypeScript full check
+        run: yarn typecheck
       - name: Build French app
         run: yarn build
+      - name: Enforce production bundle budget
+        run: yarn check:bundle

@@ -238,7 +238,8 @@ export async function writeWorkerAudit(db, { id, learner = null, action, status,
 }
 
 export async function deleteWorkerLearnerData(db, learner) {
-  await db.batch([
+  const account = await db.prepare('SELECT id FROM accounts WHERE learner=?').bind(learner).first()
+  const statements = [
     db.prepare('DELETE FROM mutations WHERE learner=?').bind(learner),
     db.prepare('DELETE FROM sync_keys WHERE learner=?').bind(learner),
     db.prepare('DELETE FROM error_book WHERE learner=?').bind(learner),
@@ -247,6 +248,15 @@ export async function deleteWorkerLearnerData(db, learner) {
     db.prepare('DELETE FROM weekly_reports WHERE learner=?').bind(learner),
     db.prepare('DELETE FROM audit_log WHERE learner=?').bind(learner),
     db.prepare('DELETE FROM rate_limits WHERE scope=?').bind('learner:' + learner),
+    db.prepare('DELETE FROM passkey_challenges WHERE learner=?').bind(learner),
     db.prepare('DELETE FROM learners WHERE id=?').bind(learner),
-  ])
+  ]
+  if (account?.id) {
+    statements.unshift(
+      db.prepare('DELETE FROM passkeys WHERE account_id=?').bind(account.id),
+      db.prepare('DELETE FROM account_sessions WHERE account_id=?').bind(account.id),
+      db.prepare('DELETE FROM accounts WHERE id=?').bind(account.id),
+    )
+  }
+  await db.batch(statements)
 }

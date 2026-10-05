@@ -72,7 +72,10 @@
     "lint": "eslint .",
     "prettier": "prettier --write .",
     "prepare": "husky install",
-    "preview:study": "node scripts/preview-study.mjs"
+    "preview:study": "node scripts/preview-study.mjs",
+    "typecheck": "tsc --noEmit",
+    "check:bundle": "node scripts/check-bundle-budget.mjs",
+    "test:backup-drill": "node scripts/backup-restore-drill.mjs"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [

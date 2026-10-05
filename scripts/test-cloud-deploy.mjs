@@ -20,6 +20,7 @@ config.main = resolve('deploy/worker.mjs')
 config.assets.directory = resolve('build')
 config.d1_databases[0].migrations_dir = resolve('deploy/migrations')
 config.vars.STUDY_ORIGIN = base
+config.vars.STUDY_METRICS_TOKEN = 'cloud-smoke-metrics-token'
 const configPath = join(directory, 'wrangler.json')
 await writeFile(configPath, JSON.stringify(config))
 const wrangler = resolve('deploy/node_modules/wrangler/bin/wrangler.js')
@@ -50,6 +51,18 @@ try {
   const migration = spawnSync(process.execPath, [wrangler, 'd1', 'migrations', 'apply', 'DB', '--local', ...common], { cwd: root, env: environment, stdio: 'inherit' })
   if (migration.status !== 0) throw new Error('D1 migration failed')
   await start()
+  const noMetrics = await fetch(`${base}/api/metrics`)
+  if (noMetrics.status !== 401) throw new Error('Worker metrics endpoint must reject missing bearer token')
+  const metrics = await fetch(`${base}/api/metrics`, {
+    headers: {
+      Authorization: 'Bearer cloud-smoke-metrics-token',
+      'X-Request-ID': 'd1-metrics-smoke-0001',
+    },
+  })
+  if (!metrics.ok || metrics.headers.get('x-request-id') !== 'd1-metrics-smoke-0001')
+    throw new Error('Worker metrics endpoint failed authenticated request/request-id echo')
+  if (!(await metrics.text()).includes('qwerty_study_http_requests_total'))
+    throw new Error('Worker metrics response missing Prometheus counters')
   const session = join(directory, 'session.json')
   await smokeStudy(base, { saveSession: session })
   await stop()
@@ -66,7 +79,7 @@ try {
   const broken = spawnSync(process.execPath, [wrangler, 'd1', 'execute', 'DB', '--local', '--command', 'DROP TABLE mutations', ...common], { cwd: root, env: environment, stdio: 'pipe' })
   if (broken.status !== 0) throw new Error('Could not prepare readiness failure test')
   if ((await fetch(`${base}/health`)).status !== 503) throw new Error('Readiness ignored missing database schema')
-  console.log('PASS: deployed Worker adapter + real local D1 + SPA deep link + persistent restart')
+  console.log('PASS: deployed Worker adapter + real local D1 + Passkey + metrics + CSV + SPA deep link + persistent restart')
 } finally {
   await stop()
   await rm(directory, { recursive: true, force: true })

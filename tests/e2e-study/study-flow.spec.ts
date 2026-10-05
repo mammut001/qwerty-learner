@@ -12,6 +12,20 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
   await expect(page.getByTestId('smart-today-plan')).toBeVisible()
   await expect(page.getByText('智能今日任务')).toBeVisible()
 
+  // Real browser WebAuthn through Chromium's virtual authenticator.
+  const cdp = await context.newCDPSession(page)
+  await cdp.send('WebAuthn.enable')
+  const authenticator = await cdp.send('WebAuthn.addVirtualAuthenticator', {
+    options: {
+      protocol: 'ctap2',
+      transport: 'internal',
+      hasResidentKey: true,
+      hasUserVerification: true,
+      isUserVerified: true,
+      automaticPresenceSimulation: true,
+    },
+  })
+
   // Plan settings re-date the 26-week roadmap without erasing already recorded minutes.
   const firstMinutes = page.getByLabel(/实际学习分钟数/).first()
   await firstMinutes.fill('15')
@@ -21,6 +35,40 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
   await dailyTarget.blur()
   await expect(page.getByTestId('study-plan-settings')).toContainText('2026-10-01 → 2027-03-31')
   await expect(firstMinutes).toHaveValue('15')
+
+  // Optional focus timer survives route changes and writes only real active minutes through the existing queue.
+  await page.getByLabel('专注计时分钟').fill('5')
+  await page.getByRole('button', { name: '开始专注' }).click()
+  await expect(page.getByTestId('focus-timer-dock')).toBeVisible()
+  await page.getByRole('button', { name: '暂停' }).click()
+  await expect(page.getByTestId('focus-timer-dock')).toContainText('已暂停')
+  await page.getByRole('button', { name: '继续' }).click()
+  await page.evaluate(() => {
+    const key = 'qwerty-fr-focus-timer-v1'
+    const timer = JSON.parse(localStorage.getItem(key) || 'null')
+    if (!timer) throw new Error('focus timer missing')
+    timer.activeMs = 60_000
+    timer.remainingMs = Math.max(1, timer.remainingMs - 60_000)
+    timer.lastTickAt = Date.now()
+    timer.lastActivityAt = Date.now()
+    localStorage.setItem(key, JSON.stringify(timer))
+  })
+  await page.getByRole('button', { name: '结束并记录' }).click()
+  await expect(page.getByTestId('focus-timer-dock')).toContainText('已记录 1 min')
+  await expect.poll(() => pendingMutationCount(page)).toBe(0)
+
+  // Passkey is optional: bind the current anonymous learner, then clear browser storage/cookies
+  // and prove discoverable-credential login restores the same server-side state without a sync code.
+  await page.getByRole('button', { name: '创建 Passkey' }).click()
+  await expect(page.getByTestId('passkey-account')).toContainText('1 个 Passkey')
+  const recordedBeforePasskeyLogin = await page.getByLabel(/实际学习分钟数/).first().inputValue()
+  await context.clearCookies()
+  await page.evaluate(() => localStorage.clear())
+  await page.reload()
+  await expect(page.getByText('TCF Canada · 26 周学习计划')).toBeVisible()
+  await page.getByRole('button', { name: '使用 Passkey 登录' }).click()
+  await expect(page.getByTestId('passkey-account')).toContainText('已登录')
+  await expect(page.getByLabel(/实际学习分钟数/).first()).toHaveValue(recordedBeforePasskeyLogin)
 
   // Browser reminder is opt-in and local to this browser.
   await page.getByRole('button', { name: '开启提醒' }).click()
@@ -107,10 +155,17 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
   await expect(secondPage.getByText('每日学习分钟热力图')).toBeVisible()
   await secondPage.unroute('**/api/study-plan/analytics**')
 
-  const downloadPromise = secondPage.waitForEvent('download')
-  await secondPage.getByRole('button', { name: '导出周报' }).click()
-  const download = await downloadPromise
-  expect(download.suggestedFilename()).toMatch(/^qwerty-study-weekly-reports-/)
+  for (const [button, pattern] of [
+    ['周报 CSV', /^qwerty-study-weekly-reports-.*\.csv$/],
+    ['学习记录 CSV', /^qwerty-study-records-.*\.csv$/],
+    ['错题本 CSV', /^qwerty-study-error-book-.*\.csv$/],
+  ] as const) {
+    const downloadPromise = secondPage.waitForEvent('download')
+    await secondPage.getByRole('button', { name: button }).click()
+    const download = await downloadPromise
+    expect(download.suggestedFilename()).toMatch(pattern)
+  }
+  await expect(secondPage.getByRole('button', { name: '打印周报' })).toBeVisible()
 
   await second.close()
 
@@ -136,4 +191,5 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
   await closeErrorBook.focus()
   await expect(closeErrorBook).toBeFocused()
   await mobile.close()
+  await cdp.send('WebAuthn.removeVirtualAuthenticator', { authenticatorId: authenticator.authenticatorId })
 })

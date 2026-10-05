@@ -104,7 +104,7 @@ test('backup v5 exports schema version and imports remain compatible with v1 thr
   const state = baseState()
   const backup = exportPlan(state)
   assert.equal(backup.version, 5)
-  assert.equal(backup.schemaVersion, 5)
+  assert.equal(backup.schemaVersion, 6)
   for (const version of [1, 2, 3, 4, 5]) {
     const operations = importOperations({
       format: 'qwerty-study-plan',

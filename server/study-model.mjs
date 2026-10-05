@@ -969,5 +969,5 @@ export function importOperations(backup) {
   return [{ kind: 'replace', value: backup.state }]
 }
 export function exportPlan(state) {
-  return { format: 'qwerty-study-plan', version: 5, schemaVersion: 5, exportedAt: new Date().toISOString(), state: normalizeState(state) }
+  return { format: 'qwerty-study-plan', version: 5, schemaVersion: 6, exportedAt: new Date().toISOString(), state: normalizeState(state) }
 }

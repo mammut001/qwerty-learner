@@ -11,6 +11,7 @@ import {
   loadStudyAchievements,
   loadWeeklyStudyReports,
   exportWeeklyStudyReports,
+  downloadStudyCsv,
   submitReviewResult,
   subscribeStudySyncStatus,
   type ReviewQueueItem,
@@ -19,6 +20,7 @@ import {
   type TrendPoint,
   type StudyCheckinSummary,
   type StudyAchievement,
+  type StudyCsvKind,
   type WeeklyStudyReport,
 } from '@/services/studyPlanSync'
 import { isOpenDarkModeAtom } from '@/store'
@@ -217,6 +219,23 @@ const Analysis = () => {
       setFeatureMessage('周报导出失败，请联网后重试。')
     }
   }
+
+  const exportCsv = async (kind: StudyCsvKind) => {
+    try {
+      const payload = await downloadStudyCsv(kind)
+      const blob = new Blob([payload.text], { type: 'text/csv;charset=utf-8' })
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = payload.filename.replace('.csv', `-${new Date().toISOString().slice(0, 10)}.csv`)
+      link.click()
+      URL.revokeObjectURL(url)
+    } catch {
+      setFeatureMessage('CSV 导出失败，请确认联网且待同步记录已经保存。')
+    }
+  }
+
+  const printWeeklyReports = () => window.print()
 
   const reviewResult = async (item: ReviewQueueItem, quality: number) => {
     submitReviewResult(item, quality)
@@ -555,20 +574,53 @@ const Analysis = () => {
               </div>
             </section>
 
-            <section className="mx-0 my-6 rounded-2xl sm:mx-4 sm:my-8 border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+            <section
+              data-print-weekly-reports
+              className="mx-0 my-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm sm:mx-4 sm:my-8 dark:border-gray-700 dark:bg-gray-800"
+            >
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <div className="text-sm font-medium text-indigo-500">学习周报</div>
                   <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">每周总结与下周建议</h2>
                   <p className="mt-1 text-sm text-gray-500">周报由后端根据真实学习记录自动生成并保存历史版本。</p>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => void exportReports()}
-                  className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 text-gray-500 hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-300"
-                >
-                  导出周报
-                </button>
+                <div data-print-hidden className="flex flex-wrap justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => void exportReports()}
+                    className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-500 outline-none hover:border-indigo-300 hover:text-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 dark:text-gray-300"
+                  >
+                    周报 JSON
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => void exportCsv('weekly-reports')}
+                    className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-500 outline-none hover:border-indigo-300 hover:text-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 dark:text-gray-300"
+                  >
+                    周报 CSV
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => void exportCsv('records')}
+                    className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-500 outline-none hover:border-indigo-300 hover:text-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 dark:text-gray-300"
+                  >
+                    学习记录 CSV
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => void exportCsv('error-book')}
+                    className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-500 outline-none hover:border-indigo-300 hover:text-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 dark:text-gray-300"
+                  >
+                    错题本 CSV
+                  </button>
+                  <button
+                    type="button"
+                    onClick={printWeeklyReports}
+                    className="rounded-lg bg-indigo-600 px-3 py-1.5 text-sm font-medium text-white outline-none hover:bg-indigo-700 focus-visible:ring-2 focus-visible:ring-indigo-500"
+                  >
+                    打印周报
+                  </button>
+                </div>
               </div>
 
               {weeklyReports.length === 0 ? (

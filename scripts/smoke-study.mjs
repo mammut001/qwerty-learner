@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import { randomUUID } from 'node:crypto'
 import { readFile, writeFile } from 'node:fs/promises'
+import { createPasskeyFixture } from '../server/study-passkey-test-helper.mjs'
 
 export async function smokeStudy(base, { saveSession, resumeSession, frontendOrigin } = {}) {
   const url = new URL(base)
@@ -18,7 +19,7 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   }
   const health = await fetch(`${origin}/api/health`, { signal: AbortSignal.timeout(20000) })
   assert.equal(health.status, 200, 'D1 health check')
-  assert.equal((await health.clone().json()).schemaVersion, 5, 'schema migration version is current')
+  assert.equal((await health.clone().json()).schemaVersion, 6, 'schema migration version is current')
   const alias = await fetch(`${origin}/health`, { signal: AbortSignal.timeout(20000) })
   assert.equal(alias.status, 200, '/health is API readiness, not SPA HTML')
   assert.equal((await alias.json()).ok, true)
@@ -237,6 +238,45 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   assert.equal((await call('GET', undefined, { path: '/review?today=2026-10-05' })).data.queue.some((item) => item.itemId === vocabReview.itemId), false)
   expected = (await call('GET')).data.state
 
+  // Register a genuine P-256 WebAuthn credential against the anonymous learner, then
+  // authenticate from a fresh cookie jar and continue the rest of smoke through the account session.
+  const passkeyOrigin = frontendOrigin ?? origin
+  const fixture = await createPasskeyFixture(passkeyOrigin)
+  const registerOptions = await call('POST', {}, { path: '/passkey/register/options' })
+  assert.equal(registerOptions.res.status, 200)
+  const registration = await fixture.registration(registerOptions.data.options.challenge)
+  const registered = await call('POST', { credential: registration }, { path: '/passkey/register/verify' })
+  assert.equal(registered.res.status, 200)
+  assert.equal(registered.data.account.registered, true)
+
+  const loginOptions = await call('POST', {}, { cookie: '', path: '/passkey/login/options' })
+  assert.equal(loginOptions.res.status, 200)
+  const assertion = await fixture.authentication(loginOptions.data.options.challenge, 1)
+  const loggedIn = await call('POST', { credential: assertion }, { cookie: '', path: '/passkey/login/verify' })
+  assert.equal(loggedIn.res.status, 200)
+  assert.deepEqual(loggedIn.data.state, expected, 'Passkey login restores the same learner state without a sync code')
+  cookie = loggedIn.res.headers.get('set-cookie').split(';')[0]
+  assert.equal((await call('GET', undefined, { path: '/account' })).data.signedIn, true)
+
+  const recordsCsv = await fetch(`${origin}/api/study-plan/records.csv`, {
+    headers: { Cookie: cookie, Origin: frontendOrigin ?? origin },
+  })
+  assert.equal(recordsCsv.status, 200)
+  assert.match(recordsCsv.headers.get('content-type'), /text\/csv/)
+  assert.match(await recordsCsv.text(), /prendre/)
+
+  const errorCsv = await fetch(`${origin}/api/study-plan/error-book.csv`, {
+    headers: { Cookie: cookie, Origin: frontendOrigin ?? origin },
+  })
+  assert.equal(errorCsv.status, 200)
+  assert.match(await errorCsv.text(), /vocabulary/)
+
+  const reportsCsv = await fetch(`${origin}/api/study-plan/weekly-reports.csv`, {
+    headers: { Cookie: cookie, Origin: frontendOrigin ?? origin },
+  })
+  assert.equal(reportsCsv.status, 200)
+  assert.match(await reportsCsv.text(), /week_start/)
+
   const keyResponse = await call('POST', {}, { path: '/sync-key' })
   assert.equal(keyResponse.res.status, 200)
   syncKey = keyResponse.data.key
@@ -258,7 +298,7 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   assert.equal((await call('PATCH', { id: randomUUID(), operations: [{ kind: 'minutes', day: '2026-10-03', task: 'sat-retell', value: -1 }] })).res.status, 400)
   assert.deepEqual((await call('GET')).data.state, expected, 'Rejected write leaves state intact')
   if (saveSession) await writeFile(saveSession, JSON.stringify({ origin, cookie, expected, syncKey }), { mode: 0o600 })
-  console.log('PASS: schema v5, dashboard/today plan, unified error book, checkins/achievements, weekly reports, analytics/SM-2, sync, restart persistence, idempotency, isolation and CSRF')
+  console.log('PASS: schema v6, passkey account restore, CSV exports, dashboard/today plan, unified error book, checkins/achievements, weekly reports, analytics/SM-2, sync, restart persistence, idempotency, isolation and CSRF')
 }
 if (process.argv[1]?.endsWith('smoke-study.mjs')) {
   const [base, mode, path] = process.argv.slice(2)

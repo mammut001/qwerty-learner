@@ -9,6 +9,15 @@ import Icons from 'unplugin-icons/vite'
 import { defineConfig } from 'vite'
 import type { PluginOption } from 'vite'
 
+const chunkForDependency = (id: string) => {
+  if (!id.includes('node_modules')) return undefined
+  if (/node_modules\/(react|react-dom|react-router|react-router-dom|scheduler)\//.test(id)) return 'react-core'
+  if (/node_modules\/(echarts|zrender)\//.test(id)) return 'charts'
+  if (/node_modules\/(@radix-ui|@headlessui|@floating-ui)\//.test(id)) return 'ui-kit'
+  if (/node_modules\/(dexie|dexie-react-hooks|dexie-export-import)\//.test(id)) return 'storage'
+  return undefined
+}
+
 // https://vitejs.dev/config/
 export default defineConfig(async ({ mode }) => {
   const latestCommitHash = await new Promise<string>((resolve) => {
@@ -33,6 +42,12 @@ export default defineConfig(async ({ mode }) => {
       minify: true,
       outDir: 'build',
       sourcemap: false,
+      manifest: true,
+      rollupOptions: {
+        output: {
+          manualChunks: chunkForDependency,
+        },
+      },
     },
     esbuild: {
       drop: mode === 'development' ? [] : ['console', 'debugger'],

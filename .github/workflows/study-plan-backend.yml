@@ -6,7 +6,19 @@ on:
       - 'deploy/**'
       - 'scripts/*study*'
       - 'scripts/*deploy*'
+      - 'scripts/check-bundle-budget.mjs'
+      - 'scripts/backup-restore-drill.mjs'
+      - 'scripts/check-bundle-budget.mjs'
+      - 'scripts/backup-restore-drill.mjs'
       - 'src/services/studyPlanSync.ts'
+      - 'src/services/focusTimer.ts'
+      - 'src/services/passkey.ts'
+      - 'src/components/FocusTimerDock.tsx'
+      - 'src/utils/trackEvent.ts'
+      - 'src/services/focusTimer.ts'
+      - 'src/services/passkey.ts'
+      - 'src/components/FocusTimerDock.tsx'
+      - 'src/utils/trackEvent.ts'
       - 'src/services/studyReminder.ts'
       - 'src/services/pwa.ts'
       - 'src/resources/studyPlanSchedule.ts'
@@ -73,6 +85,8 @@ jobs:
         with:
           node-version: '24'
       - run: node --test server/*.test.mjs
+      - name: SQLite online backup and restore drill
+        run: npm run test:backup-drill
       - run: npm ci --prefix deploy --no-audit --no-fund
       - run: npx --yes yarn@1.22.22 install --frozen-lockfile
       - name: Build with a separate remote API origin

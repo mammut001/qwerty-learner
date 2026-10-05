@@ -1,4 +1,14 @@
 import { studyPolicy, sessionCookie } from './study-http.mjs'
+import { errorBookCsv, learningRecordsCsv, weeklyReportsCsv } from './study-csv.mjs'
+import { bearerMatches, createStudyMetrics, logStudyRequest, loopbackAddress, studyRequestId } from './study-observability.mjs'
+import {
+  createNodePasskeyLoginOptions,
+  createNodePasskeyRegistrationOptions,
+  nodePasskeyAccountInfo,
+  resolveNodeAccountSession,
+  verifyNodePasskeyLogin,
+  verifyNodePasskeyRegistration,
+} from './study-node-passkey.mjs'
 import { apply, record, validate, importOperations, exportPlan, normalizeState, studyAnalytics, buildReviewQueue } from './study-model.mjs'
 import {
   ensureNodeFeatureSchema,
@@ -47,6 +57,8 @@ export function createStudyServer({
   secure = process.env.STUDY_COOKIE_SECURE === 'true',
   sameSite = process.env.STUDY_COOKIE_SAME_SITE || 'strict',
   trustProxyIp = process.env.STUDY_TRUST_PROXY_IP === 'true',
+  metricsToken = process.env.STUDY_METRICS_TOKEN || '',
+  slowRequestMs = Number(process.env.STUDY_SLOW_REQUEST_MS || 1000),
 } = {}) {
   mkdirSync(dirname(resolve(database)), { recursive: true })
   const db = new DatabaseSync(database)
@@ -57,25 +69,65 @@ export function createStudyServer({
   if (!db.prepare("PRAGMA table_info(sync_keys)").all().some((column) => column.name === 'revoked'))
     db.exec('ALTER TABLE sync_keys ADD COLUMN revoked INTEGER NOT NULL DEFAULT 0')
   ensureNodeFeatureSchema(db)
+  const metrics = createStudyMetrics()
+  const slowThresholdMs = Number.isFinite(slowRequestMs) && slowRequestMs >= 0 ? slowRequestMs : 1000
 
   const resolveLearner = (token) => {
     if (!token) return null
     const credential = hash(token)
     let row = db.prepare('SELECT id,state FROM learners WHERE id=?').get(credential)
-    if (row) return { learner: credential, row, viaSyncKey: false }
+    if (row) return { learner: credential, row, viaSyncKey: false, viaAccount: false }
     const link = db.prepare('SELECT learner FROM sync_keys WHERE key_hash=? AND revoked=0').get(credential)
-    if (!link) return null
-    row = db.prepare('SELECT id,state FROM learners WHERE id=?').get(link.learner)
-    return row ? { learner: link.learner, row, viaSyncKey: true } : null
+    if (link) {
+      row = db.prepare('SELECT id,state FROM learners WHERE id=?').get(link.learner)
+      if (row) return { learner: link.learner, row, viaSyncKey: true, viaAccount: false }
+    }
+    const accountSession = resolveNodeAccountSession(db, credential)
+    return accountSession
+      ? { ...accountSession, viaSyncKey: false, viaAccount: true }
+      : null
   }
 
   const handler = async (req, res) => {
+    const requestStarted = performance.now()
+    const requestHeaders = new Headers(req.headers)
+    const requestId = studyRequestId(requestHeaders)
+    const requestUrl = new URL(req.url || '/', 'http://study.local')
+    const path = requestUrl.pathname
+    res.setHeader('X-Request-ID', requestId)
+    res.once('finish', () => {
+      if (path === '/api/metrics') return
+      const durationMs = performance.now() - requestStarted
+      metrics.observe(res.statusCode, durationMs, slowThresholdMs)
+      logStudyRequest({
+        requestId,
+        method: req.method || 'GET',
+        path,
+        status: res.statusCode,
+        durationMs,
+        storage: 'sqlite',
+        slowThresholdMs,
+      })
+    })
     const send = (status, data, extraHeaders = {}) => {
       res.writeHead(status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', ...extraHeaders })
       res.end(JSON.stringify(data))
     }
     const sendError = (status, code, message, extra = {}, headers = {}) =>
       send(status, { error: message, code, ...extra }, headers)
+    const sendText = (status, body, contentType, extraHeaders = {}) => {
+      res.writeHead(status, {
+        'Content-Type': contentType,
+        'Cache-Control': 'no-store',
+        'X-Content-Type-Options': 'nosniff',
+        ...extraHeaders,
+      })
+      res.end(body)
+    }
+    const sendCsv = (filename, body) =>
+      sendText(200, body, 'text/csv; charset=utf-8', {
+        'Content-Disposition': `attachment; filename="${filename}"`,
+      })
     const actorSource =
       trustProxyIp && typeof req.headers['x-study-client-ip'] === 'string'
         ? req.headers['x-study-client-ip']
@@ -95,9 +147,16 @@ export function createStudyServer({
         // Audit must never leak or block the primary user operation.
       }
     }
-    const requestUrl = new URL(req.url || '/', 'http://study.local')
-    const path = requestUrl.pathname
     const health = ['/api/health', '/health'].includes(path)
+    const metricsRoute = path === '/api/metrics'
+    if (metricsRoute) {
+      const authorized =
+        bearerMatches(req.headers.authorization, metricsToken) ||
+        (!metricsToken && loopbackAddress(req.socket?.remoteAddress))
+      if (!authorized) return sendError(401, 'METRICS_UNAUTHORIZED', 'Metrics access denied')
+      if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      return sendText(200, metrics.render(), 'text/plain; version=0.0.4; charset=utf-8')
+    }
     const importing = path === '/api/study-plan/import'
     const exporting = path === '/api/study-plan/export'
     const analytics = path === '/api/study-plan/analytics'
@@ -114,9 +173,19 @@ export function createStudyServer({
     const reports = path === '/api/study-plan/weekly-reports'
     const reportExport = path === '/api/study-plan/weekly-reports/export'
     const deleteData = path === '/api/study-plan/data'
+    const account = path === '/api/study-plan/account'
+    const passkeyRegisterOptions = path === '/api/study-plan/passkey/register/options'
+    const passkeyRegisterVerify = path === '/api/study-plan/passkey/register/verify'
+    const passkeyLoginOptions = path === '/api/study-plan/passkey/login/options'
+    const passkeyLoginVerify = path === '/api/study-plan/passkey/login/verify'
+    const recordsCsv = path === '/api/study-plan/records.csv'
+    const errorCsv = path === '/api/study-plan/error-book.csv'
+    const reportsCsv = path === '/api/study-plan/weekly-reports.csv'
     const plan = path === '/api/study-plan'
     if (!health && !importing && !exporting && !analytics && !syncKey && !revokeSyncKey && !linking && !unlinking &&
-        !syncInfo && !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData && !plan)
+        !syncInfo && !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData &&
+        !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
+        !recordsCsv && !errorCsv && !reportsCsv && !plan)
       return sendError(404, 'NOT_FOUND', 'Not found')
 
     const policy = studyPolicy({ origin, secure, sameSite }, { method: req.method, headers: new Headers(req.headers) }, health)
@@ -140,6 +209,10 @@ export function createStudyServer({
         db.prepare('SELECT learner,week_start FROM weekly_reports LIMIT 1').get()
         db.prepare('SELECT scope,action FROM rate_limits LIMIT 1').get()
         db.prepare('SELECT id,action FROM audit_log LIMIT 1').get()
+        db.prepare('SELECT id,learner,user_handle FROM accounts LIMIT 1').get()
+        db.prepare('SELECT credential_id,account_id FROM passkeys LIMIT 1').get()
+        db.prepare('SELECT challenge,purpose FROM passkey_challenges LIMIT 1').get()
+        db.prepare('SELECT token_hash,account_id FROM account_sessions LIMIT 1').get()
         const schemaVersion = getNodeSchemaVersion(db)
         if (schemaVersion !== STUDY_SCHEMA_VERSION) throw new Error('Schema version mismatch')
         return send(200, { ok: true, storage: 'sqlite', schemaVersion })
@@ -148,12 +221,48 @@ export function createStudyServer({
       }
     }
 
-    if ((importing || syncKey || revokeSyncKey || linking || unlinking || makeup) && req.method !== 'POST')
+    if ((importing || syncKey || revokeSyncKey || linking || unlinking || makeup || passkeyRegisterOptions ||
+        passkeyRegisterVerify || passkeyLoginOptions || passkeyLoginVerify) && req.method !== 'POST')
       return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
-    if ((exporting || analytics || syncInfo || review || errorBook || checkins || achievements || reports || reportExport) && req.method !== 'GET')
+    if ((exporting || analytics || syncInfo || review || errorBook || checkins || achievements || reports || reportExport ||
+        account || recordsCsv || errorCsv || reportsCsv) && req.method !== 'GET')
       return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if (deleteData && req.method !== 'DELETE') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if (plan && !['GET', 'POST', 'PATCH'].includes(req.method)) return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+
+    if (passkeyLoginOptions || passkeyLoginVerify) {
+      const limit = consumeNodeRateLimit(db, 'actor:' + actorHash, 'passkey-login', {
+        limit: 20,
+        windowMs: 5 * 60_000,
+        blockMs: 10 * 60_000,
+      })
+      if (!limit.allowed)
+        return sendError(429, 'PASSKEY_RATE_LIMITED', 'Too many passkey attempts. Try again later.')
+      try {
+        const input = await readBody(req)
+        if (passkeyLoginOptions) {
+          if (!hasExactKeys(input, [])) return sendError(400, 'PASSKEY_REQUEST_INVALID', 'Invalid passkey request')
+          return send(200, { options: createNodePasskeyLoginOptions(db, origin) })
+        }
+        if (!hasExactKeys(input, ['credential'], ['credential']))
+          return sendError(400, 'PASSKEY_REQUEST_INVALID', 'Invalid passkey request')
+        const result = await verifyNodePasskeyLogin(db, origin, input.credential)
+        res.setHeader('Set-Cookie', sessionCookie(result.sessionToken, { secure, sameSite }))
+        audit(result.learner, 'passkey_login', 'success')
+        return send(200, {
+          state: normalizeState(result.state),
+          account: {
+            registered: result.registered,
+            signedIn: result.signedIn,
+            passkeyCount: result.passkeyCount,
+            createdAt: result.createdAt,
+          },
+        })
+      } catch (error) {
+        audit(null, 'passkey_login', 'denied', { code: error instanceof Error ? error.message : 'PASSKEY_LOGIN_FAILED' })
+        return sendError(401, error instanceof Error ? error.message : 'PASSKEY_LOGIN_FAILED', 'Passkey login failed')
+      }
+    }
 
     if (linking) {
       const limit = consumeNodeRateLimit(db, 'actor:' + actorHash, 'sync-link', {
@@ -205,6 +314,7 @@ export function createStudyServer({
     let learner = resolved?.learner ?? null
     let row = resolved?.row ?? null
     let viaSyncKey = resolved?.viaSyncKey ?? false
+    let viaAccount = resolved?.viaAccount ?? false
 
     if (!row) {
       if (req.method !== 'GET' || exporting || errorBook || checkins || achievements || reports || reportExport || deleteData)
@@ -214,7 +324,44 @@ export function createStudyServer({
       db.prepare('INSERT INTO learners(id) VALUES(?)').run(learner)
       row = { state: null }
       viaSyncKey = false
+      viaAccount = false
       res.setHeader('Set-Cookie', sessionCookie(next, { secure, sameSite }))
+    }
+
+    if (account) return send(200, nodePasskeyAccountInfo(db, learner, viaAccount))
+
+    if (passkeyRegisterOptions || passkeyRegisterVerify) {
+      if (!row.state) return sendError(409, 'PLAN_UNINITIALIZED', 'Initialize plan first')
+      const limit = consumeNodeRateLimit(db, 'learner:' + learner, 'passkey-register', {
+        limit: 12,
+        windowMs: 60 * 60_000,
+        blockMs: 60 * 60_000,
+      })
+      if (!limit.allowed) return sendError(429, 'PASSKEY_RATE_LIMITED', 'Too many passkey changes. Try again later.')
+      try {
+        const input = await readBody(req)
+        if (passkeyRegisterOptions) {
+          if (!hasExactKeys(input, [])) return sendError(400, 'PASSKEY_REQUEST_INVALID', 'Invalid passkey request')
+          return send(200, { options: createNodePasskeyRegistrationOptions(db, learner, origin) })
+        }
+        if (!hasExactKeys(input, ['credential'], ['credential']))
+          return sendError(400, 'PASSKEY_REQUEST_INVALID', 'Invalid passkey request')
+        const result = await verifyNodePasskeyRegistration(db, learner, origin, input.credential)
+        res.setHeader('Set-Cookie', sessionCookie(result.sessionToken, { secure, sameSite }))
+        viaAccount = true
+        audit(learner, 'passkey_register', 'success')
+        return send(200, {
+          account: {
+            registered: result.registered,
+            signedIn: result.signedIn,
+            passkeyCount: result.passkeyCount,
+            createdAt: result.createdAt,
+          },
+        })
+      } catch (error) {
+        audit(learner, 'passkey_register', 'error', { code: error instanceof Error ? error.message : 'PASSKEY_REGISTER_FAILED' })
+        return sendError(400, error instanceof Error ? error.message : 'PASSKEY_REGISTER_FAILED', 'Passkey registration failed')
+      }
     }
 
     if (syncKey) {
@@ -301,12 +448,27 @@ export function createStudyServer({
       }
     }
 
-    if (row.state && (errorBook || checkins || achievements || reports || reportExport || makeup)) {
+    if (row.state && (errorBook || checkins || achievements || reports || reportExport || errorCsv || reportsCsv || makeup)) {
       try {
         materializeNodeFeatures(db, learner, JSON.parse(row.state))
       } catch {
         return sendError(503, 'DERIVED_DATA_UNAVAILABLE', 'Derived study data is temporarily unavailable')
       }
+    }
+
+    if (recordsCsv) {
+      if (!row.state) return sendError(409, 'PLAN_UNINITIALIZED', 'Initialize plan first')
+      return sendCsv('qwerty-study-records.csv', learningRecordsCsv(normalizeState(JSON.parse(row.state))))
+    }
+
+    if (errorCsv) {
+      const items = listNodeErrorBook(db, learner, { status: 'all', limit: 1000 })
+      return sendCsv('qwerty-study-error-book.csv', errorBookCsv(items))
+    }
+
+    if (reportsCsv) {
+      const items = listNodeWeeklyReports(db, learner, 26)
+      return sendCsv('qwerty-study-weekly-reports.csv', weeklyReportsCsv(items))
     }
 
     if (errorBook) {

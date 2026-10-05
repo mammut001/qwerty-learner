@@ -381,6 +381,15 @@ export type StudySyncInfo = {
   activeKeys: number
 }
 
+export type PasskeyAccountInfo = {
+  registered: boolean
+  signedIn: boolean
+  passkeyCount: number
+  createdAt?: number
+}
+
+export type StudyCsvKind = 'records' | 'error-book' | 'weekly-reports'
+
 const syncStatusListeners = new Set<(status: StudySyncStatus) => void>()
 let syncStatus: StudySyncStatus = { phase: 'idle', pending: 0, message: '尚未同步' }
 let autoSyncInstalled = false
@@ -527,6 +536,26 @@ async function api(method: string, path = '', body?: unknown, unauthorized = 'ST
       throw error
     }
     return (await response.json()) as Record<string, unknown>
+  } finally {
+    clearTimeout(timeout)
+  }
+}
+
+async function apiText(method: string, path: string) {
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), 10000)
+  try {
+    const response = await fetch(`${API_BASE}/api/study-plan${path}`, {
+      method,
+      credentials: 'include',
+      signal: controller.signal,
+    })
+    if (response.status === 401) throw new Error('STUDY_SESSION_BLOCKED')
+    if (!response.ok) {
+      const text = await response.text().catch(() => '')
+      throw new Error(text || `Study API: ${response.status}`)
+    }
+    return response.text()
   } finally {
     clearTimeout(timeout)
   }
@@ -1202,7 +1231,7 @@ export async function exportRemoteStudyPlan(initial: StudyPlanStorage) {
   return payload as {
     format: 'qwerty-study-plan'
     version: 5
-    schemaVersion: 5
+    schemaVersion: 6
     exportedAt: string
     state: StudyServerState
   }
@@ -1252,6 +1281,87 @@ export async function loadReviewQueue(): Promise<ReviewQueueItem[]> {
       return []
     }
   }
+}
+
+const normalizePasskeyAccount = (value: unknown): PasskeyAccountInfo => {
+  const source = value && typeof value === 'object' && !Array.isArray(value)
+    ? (value as Record<string, unknown>)
+    : {}
+  return {
+    registered: source.registered === true,
+    signedIn: source.signedIn === true,
+    passkeyCount: typeof source.passkeyCount === 'number' ? Math.max(0, Math.round(source.passkeyCount)) : 0,
+    createdAt: typeof source.createdAt === 'number' ? source.createdAt : undefined,
+  }
+}
+
+export async function loadPasskeyAccount(): Promise<PasskeyAccountInfo> {
+  await syncStudyPlan()
+  const payload = await api('GET', '/account')
+  return normalizePasskeyAccount(payload)
+}
+
+export async function beginPasskeyRegistration(): Promise<Record<string, unknown>> {
+  await syncStudyPlan()
+  if (pending().length) throw new Error('PENDING_MUTATIONS')
+  const payload = await api('POST', '/passkey/register/options', {})
+  if (!payload.options || typeof payload.options !== 'object') throw new Error('PASSKEY_OPTIONS_INVALID')
+  return payload.options as Record<string, unknown>
+}
+
+export async function finishPasskeyRegistration(credential: unknown): Promise<PasskeyAccountInfo> {
+  await syncStudyPlan()
+  if (pending().length) throw new Error('PENDING_MUTATIONS')
+  const payload = await api('POST', '/passkey/register/verify', { credential })
+  const account = normalizePasskeyAccount(payload.account)
+  if (!account.registered) throw new Error('PASSKEY_REGISTRATION_FAILED')
+  localStorage.removeItem(SYNC_KEY)
+  return account
+}
+
+export async function beginPasskeyLogin(): Promise<Record<string, unknown>> {
+  if (pending().length) {
+    await syncStudyPlan()
+    if (pending().length) throw new Error('PENDING_MUTATIONS')
+  }
+  const payload = await api('POST', '/passkey/login/options', {})
+  if (!payload.options || typeof payload.options !== 'object') throw new Error('PASSKEY_OPTIONS_INVALID')
+  return payload.options as Record<string, unknown>
+}
+
+export async function finishPasskeyLogin(credential: unknown): Promise<{
+  state: StudyServerState
+  account: PasskeyAccountInfo
+}> {
+  if (pending().length) {
+    await syncStudyPlan()
+    if (pending().length) throw new Error('PENDING_MUTATIONS')
+  }
+  const payload = await api('POST', '/passkey/login/verify', { credential }, 'PASSKEY_LOGIN_FAILED')
+  const state = payload.state as StudyPlanStorage | StudyServerState | undefined
+  if (!state) throw new Error('PASSKEY_LOGIN_FAILED')
+  const normalized = withLearning(state)
+  localStorage.removeItem(SYNC_KEY)
+  localStorage.removeItem(SEED)
+  publish(normalized)
+  emitSyncStatus('saved', 'Passkey 登录成功，已恢复服务端学习进度。')
+  return { state: normalized, account: normalizePasskeyAccount(payload.account) }
+}
+
+export async function downloadStudyCsv(kind: StudyCsvKind): Promise<{ filename: string; text: string }> {
+  await syncStudyPlan()
+  if (pending().length) throw new Error('PENDING_MUTATIONS')
+  const paths: Record<StudyCsvKind, string> = {
+    records: '/records.csv',
+    'error-book': '/error-book.csv',
+    'weekly-reports': '/weekly-reports.csv',
+  }
+  const filenames: Record<StudyCsvKind, string> = {
+    records: 'qwerty-study-records.csv',
+    'error-book': 'qwerty-study-error-book.csv',
+    'weekly-reports': 'qwerty-study-weekly-reports.csv',
+  }
+  return { filename: filenames[kind], text: await apiText('GET', paths[kind]) }
 }
 
 export async function createStudySyncKey(initial?: StudyPlanStorage) {

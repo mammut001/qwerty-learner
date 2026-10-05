@@ -7,7 +7,7 @@ const parseJson = (value, fallback = null) => {
   try { return JSON.parse(value) } catch { return fallback }
 }
 
-export const STUDY_SCHEMA_VERSION = 5
+export const STUDY_SCHEMA_VERSION = 6
 
 export function ensureNodeFeatureSchema(db) {
   db.exec(`
@@ -44,6 +44,24 @@ export function ensureNodeFeatureSchema(db) {
     CREATE TABLE IF NOT EXISTS schema_meta (
       key TEXT PRIMARY KEY, value TEXT NOT NULL, updated_at INTEGER NOT NULL
     );
+    CREATE TABLE IF NOT EXISTS accounts (
+      id TEXT PRIMARY KEY, learner TEXT NOT NULL UNIQUE, user_handle TEXT NOT NULL UNIQUE, created_at INTEGER NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS passkeys (
+      credential_id TEXT PRIMARY KEY, account_id TEXT NOT NULL, public_key TEXT NOT NULL,
+      algorithm INTEGER NOT NULL, sign_count INTEGER NOT NULL DEFAULT 0, transports TEXT NOT NULL,
+      created_at INTEGER NOT NULL, last_used_at INTEGER
+    );
+    CREATE INDEX IF NOT EXISTS passkeys_account ON passkeys(account_id,created_at);
+    CREATE TABLE IF NOT EXISTS passkey_challenges (
+      challenge TEXT PRIMARY KEY, purpose TEXT NOT NULL, learner TEXT, user_handle TEXT,
+      expires_at INTEGER NOT NULL, created_at INTEGER NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS passkey_challenges_expiry ON passkey_challenges(expires_at);
+    CREATE TABLE IF NOT EXISTS account_sessions (
+      token_hash TEXT PRIMARY KEY, account_id TEXT NOT NULL, created_at INTEGER NOT NULL, expires_at INTEGER NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS account_sessions_account ON account_sessions(account_id,expires_at);
   `)
   const existingVersion = Number(
     db.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").get()?.value ?? 0,
@@ -270,6 +288,13 @@ export function writeNodeAudit(db, { id, learner = null, action, status, actorHa
 }
 
 export function deleteNodeLearnerData(db, learner) {
+  const account = db.prepare('SELECT id FROM accounts WHERE learner=?').get(learner)
+  if (account?.id) {
+    db.prepare('DELETE FROM passkeys WHERE account_id=?').run(account.id)
+    db.prepare('DELETE FROM account_sessions WHERE account_id=?').run(account.id)
+    db.prepare('DELETE FROM accounts WHERE id=?').run(account.id)
+  }
+  db.prepare('DELETE FROM passkey_challenges WHERE learner=?').run(learner)
   const tables = ['mutations','sync_keys','error_book','checkins','achievements','weekly_reports','audit_log']
   for (const table of tables) db.prepare(`DELETE FROM ${table} WHERE learner=?`).run(learner)
   db.prepare('DELETE FROM rate_limits WHERE scope=?').run('learner:' + learner)

@@ -1,4 +1,14 @@
 import { studyPolicy, sessionCookie } from '../server/study-http.mjs'
+import { errorBookCsv, learningRecordsCsv, weeklyReportsCsv } from '../server/study-csv.mjs'
+import { bearerMatches, createStudyMetrics, logStudyRequest, studyRequestId } from '../server/study-observability.mjs'
+import {
+  createWorkerPasskeyLoginOptions,
+  createWorkerPasskeyRegistrationOptions,
+  resolveWorkerAccountSession,
+  verifyWorkerPasskeyLogin,
+  verifyWorkerPasskeyRegistration,
+  workerPasskeyAccountInfo,
+} from './study-worker-passkey.mjs'
 import { apply, record, validate, importOperations, exportPlan, normalizeState, studyAnalytics, buildReviewQueue } from '../server/study-model.mjs'
 import {
   materializeWorkerFeatures,
@@ -13,11 +23,22 @@ import {
 } from './study-worker-features.mjs'
 
 const MAX_BODY_BYTES = 1700000
-const STUDY_SCHEMA_VERSION = 5
+const STUDY_SCHEMA_VERSION = 6
+const metrics = createStudyMetrics()
 const json = (status, data, headers = {}) => new Response(JSON.stringify(data), {
   status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', ...headers },
 })
 const jsonError = (status, code, message, extra = {}, headers = {}) => json(status, { error: message, code, ...extra }, headers)
+const csvResponse = (filename, body, headers = {}) => new Response(body, {
+  status: 200,
+  headers: {
+    'Content-Type': 'text/csv; charset=utf-8',
+    'Content-Disposition': `attachment; filename="${filename}"`,
+    'Cache-Control': 'no-store',
+    'X-Content-Type-Options': 'nosniff',
+    ...headers,
+  },
+})
 const digest = async (value) => Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value))), (b) => b.toString(16).padStart(2, '0')).join('')
 const randomToken = () => Array.from(crypto.getRandomValues(new Uint8Array(32)), (b) => b.toString(16).padStart(2, '0')).join('')
 const randomId = () => Array.from(crypto.getRandomValues(new Uint8Array(16)), (b) => b.toString(16).padStart(2, '0')).join('')
@@ -50,11 +71,14 @@ async function resolveLearner(db, token) {
   if (!token) return null
   const credential = await digest(token)
   let row = await db.prepare('SELECT id,state,revision FROM learners WHERE id=?').bind(credential).first()
-  if (row) return { learner: credential, row, viaSyncKey: false }
+  if (row) return { learner: credential, row, viaSyncKey: false, viaAccount: false }
   const link = await db.prepare('SELECT learner FROM sync_keys WHERE key_hash=? AND revoked=0').bind(credential).first()
-  if (!link) return null
-  row = await db.prepare('SELECT id,state,revision FROM learners WHERE id=?').bind(link.learner).first()
-  return row ? { learner: link.learner, row, viaSyncKey: true } : null
+  if (link) {
+    row = await db.prepare('SELECT id,state,revision FROM learners WHERE id=?').bind(link.learner).first()
+    if (row) return { learner: link.learner, row, viaSyncKey: true, viaAccount: false }
+  }
+  const accountSession = await resolveWorkerAccountSession(db, credential)
+  return accountSession ? { ...accountSession, viaSyncKey: false, viaAccount: true } : null
 }
 
 export async function studyApi(request, env) {
@@ -72,6 +96,10 @@ export async function studyApi(request, env) {
       await env.DB.prepare('SELECT learner,week_start FROM weekly_reports LIMIT 1').all()
       await env.DB.prepare('SELECT scope,action FROM rate_limits LIMIT 1').all()
       await env.DB.prepare('SELECT id,action FROM audit_log LIMIT 1').all()
+      await env.DB.prepare('SELECT id,learner,user_handle FROM accounts LIMIT 1').all()
+      await env.DB.prepare('SELECT credential_id,account_id FROM passkeys LIMIT 1').all()
+      await env.DB.prepare('SELECT challenge,purpose FROM passkey_challenges LIMIT 1').all()
+      await env.DB.prepare('SELECT token_hash,account_id FROM account_sessions LIMIT 1').all()
       const schema = await env.DB.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").first()
       const schemaVersion = Number(schema?.value)
       if (schemaVersion !== STUDY_SCHEMA_VERSION) throw new Error('Schema version mismatch')
@@ -97,13 +125,25 @@ export async function studyApi(request, env) {
   const reports = path === '/api/study-plan/weekly-reports'
   const reportExport = path === '/api/study-plan/weekly-reports/export'
   const deleteData = path === '/api/study-plan/data'
+  const account = path === '/api/study-plan/account'
+  const passkeyRegisterOptions = path === '/api/study-plan/passkey/register/options'
+  const passkeyRegisterVerify = path === '/api/study-plan/passkey/register/verify'
+  const passkeyLoginOptions = path === '/api/study-plan/passkey/login/options'
+  const passkeyLoginVerify = path === '/api/study-plan/passkey/login/verify'
+  const recordsCsv = path === '/api/study-plan/records.csv'
+  const errorCsv = path === '/api/study-plan/error-book.csv'
+  const reportsCsv = path === '/api/study-plan/weekly-reports.csv'
   const plan = path === '/api/study-plan'
   if (!importing && !exporting && !analytics && !syncKey && !revokeSyncKey && !linking && !unlinking && !syncInfo &&
-      !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData && !plan)
+      !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData &&
+      !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
+      !recordsCsv && !errorCsv && !reportsCsv && !plan)
     return jsonError(404, 'NOT_FOUND', 'Not found')
-  if ((importing || syncKey || revokeSyncKey || linking || unlinking || makeup) && request.method !== 'POST')
+  if ((importing || syncKey || revokeSyncKey || linking || unlinking || makeup || passkeyRegisterOptions ||
+      passkeyRegisterVerify || passkeyLoginOptions || passkeyLoginVerify) && request.method !== 'POST')
     return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
-  if ((exporting || analytics || syncInfo || review || errorBook || checkins || achievements || reports || reportExport) && request.method !== 'GET')
+  if ((exporting || analytics || syncInfo || review || errorBook || checkins || achievements || reports || reportExport ||
+      account || recordsCsv || errorCsv || reportsCsv) && request.method !== 'GET')
     return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
   if (deleteData && request.method !== 'DELETE') return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
   if (plan && !['GET', 'POST', 'PATCH'].includes(request.method)) return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
@@ -116,6 +156,42 @@ export async function studyApi(request, env) {
       await writeWorkerAudit(db, { id: randomId(), learner, action, status, actorHash, details })
     } catch {
       // Audit must never leak or block the primary user operation.
+    }
+  }
+
+  if (passkeyLoginOptions || passkeyLoginVerify) {
+    const limit = await consumeWorkerRateLimit(db, 'actor:' + actorHash, 'passkey-login', {
+      limit: 20,
+      windowMs: 5 * 60_000,
+      blockMs: 10 * 60_000,
+    })
+    if (!limit.allowed) return jsonError(429, 'PASSKEY_RATE_LIMITED', 'Too many passkey attempts. Try again later.')
+    try {
+      const input = await readBody(request)
+      if (passkeyLoginOptions) {
+        if (!hasExactKeys(input, [])) return jsonError(400, 'PASSKEY_REQUEST_INVALID', 'Invalid passkey request')
+        return json(200, { options: await createWorkerPasskeyLoginOptions(db, env.STUDY_ORIGIN) }, headers)
+      }
+      if (!hasExactKeys(input, ['credential'], ['credential']))
+        return jsonError(400, 'PASSKEY_REQUEST_INVALID', 'Invalid passkey request')
+      const result = await verifyWorkerPasskeyLogin(db, env.STUDY_ORIGIN, input.credential)
+      headers['Set-Cookie'] = sessionCookie(result.sessionToken, {
+        secure: env.STUDY_COOKIE_SECURE === 'true',
+        sameSite: env.STUDY_COOKIE_SAME_SITE || 'strict',
+      })
+      await audit(result.learner, 'passkey_login', 'success')
+      return json(200, {
+        state: normalizeState(result.state),
+        account: {
+          registered: result.registered,
+          signedIn: result.signedIn,
+          passkeyCount: result.passkeyCount,
+          createdAt: result.createdAt,
+        },
+      }, headers)
+    } catch (error) {
+      await audit(null, 'passkey_login', 'denied', { code: error instanceof Error ? error.message : 'PASSKEY_LOGIN_FAILED' })
+      return jsonError(401, error instanceof Error ? error.message : 'PASSKEY_LOGIN_FAILED', 'Passkey login failed', {}, headers)
     }
   }
 
@@ -172,6 +248,7 @@ export async function studyApi(request, env) {
   let learner = resolved?.learner ?? null
   let row = resolved?.row ?? null
   let viaSyncKey = resolved?.viaSyncKey ?? false
+  let viaAccount = resolved?.viaAccount ?? false
 
   if (!row) {
     if (request.method !== 'GET' || exporting || errorBook || checkins || achievements || reports || reportExport || deleteData)
@@ -181,6 +258,7 @@ export async function studyApi(request, env) {
     await db.prepare('INSERT INTO learners(id) VALUES(?)').bind(learner).run()
     row = { state: null, revision: 0 }
     viaSyncKey = false
+    viaAccount = false
     headers['Set-Cookie'] = sessionCookie(next, {
       secure: env.STUDY_COOKIE_SECURE === 'true',
       sameSite: env.STUDY_COOKIE_SAME_SITE || 'strict',
@@ -188,6 +266,45 @@ export async function studyApi(request, env) {
   }
 
   const getRow = () => db.prepare('SELECT state,revision FROM learners WHERE id=?').bind(learner).first()
+
+  if (account) return json(200, await workerPasskeyAccountInfo(db, learner, viaAccount), headers)
+
+  if (passkeyRegisterOptions || passkeyRegisterVerify) {
+    if (!row.state) return jsonError(409, 'PLAN_UNINITIALIZED', 'Initialize plan first', {}, headers)
+    const limit = await consumeWorkerRateLimit(db, 'learner:' + learner, 'passkey-register', {
+      limit: 12,
+      windowMs: 60 * 60_000,
+      blockMs: 60 * 60_000,
+    })
+    if (!limit.allowed) return jsonError(429, 'PASSKEY_RATE_LIMITED', 'Too many passkey changes. Try again later.', {}, headers)
+    try {
+      const input = await readBody(request)
+      if (passkeyRegisterOptions) {
+        if (!hasExactKeys(input, [])) return jsonError(400, 'PASSKEY_REQUEST_INVALID', 'Invalid passkey request', {}, headers)
+        return json(200, { options: await createWorkerPasskeyRegistrationOptions(db, learner, env.STUDY_ORIGIN) }, headers)
+      }
+      if (!hasExactKeys(input, ['credential'], ['credential']))
+        return jsonError(400, 'PASSKEY_REQUEST_INVALID', 'Invalid passkey request', {}, headers)
+      const result = await verifyWorkerPasskeyRegistration(db, learner, env.STUDY_ORIGIN, input.credential)
+      headers['Set-Cookie'] = sessionCookie(result.sessionToken, {
+        secure: env.STUDY_COOKIE_SECURE === 'true',
+        sameSite: env.STUDY_COOKIE_SAME_SITE || 'strict',
+      })
+      viaAccount = true
+      await audit(learner, 'passkey_register', 'success')
+      return json(200, {
+        account: {
+          registered: result.registered,
+          signedIn: result.signedIn,
+          passkeyCount: result.passkeyCount,
+          createdAt: result.createdAt,
+        },
+      }, headers)
+    } catch (error) {
+      await audit(learner, 'passkey_register', 'error', { code: error instanceof Error ? error.message : 'PASSKEY_REGISTER_FAILED' })
+      return jsonError(400, error instanceof Error ? error.message : 'PASSKEY_REGISTER_FAILED', 'Passkey registration failed', {}, headers)
+    }
+  }
 
   if (syncKey) {
     const limit = await consumeWorkerRateLimit(db, 'learner:' + learner, 'sync-key-write', {
@@ -270,12 +387,27 @@ export async function studyApi(request, env) {
     }
   }
 
-  if (row.state && (errorBook || checkins || achievements || reports || reportExport || makeup)) {
+  if (row.state && (errorBook || checkins || achievements || reports || reportExport || errorCsv || reportsCsv || makeup)) {
     try {
       await materializeWorkerFeatures(db, learner, JSON.parse(row.state))
     } catch {
       return jsonError(503, 'DERIVED_DATA_UNAVAILABLE', 'Derived study data is temporarily unavailable', {}, headers)
     }
+  }
+
+  if (recordsCsv) {
+    if (!row.state) return jsonError(409, 'PLAN_UNINITIALIZED', 'Initialize plan first', {}, headers)
+    return csvResponse('qwerty-study-records.csv', learningRecordsCsv(normalizeState(JSON.parse(row.state))), headers)
+  }
+
+  if (errorCsv) {
+    const items = await listWorkerErrorBook(db, learner, { status: 'all', limit: 1000 })
+    return csvResponse('qwerty-study-error-book.csv', errorBookCsv(items), headers)
+  }
+
+  if (reportsCsv) {
+    const items = await listWorkerWeeklyReports(db, learner, 26)
+    return csvResponse('qwerty-study-weekly-reports.csv', weeklyReportsCsv(items), headers)
   }
 
   if (errorBook) {
@@ -435,6 +567,28 @@ export default {
   async fetch(request, env) {
     const path = new URL(request.url).pathname
     if (!path.startsWith('/api/') && path !== '/health') return env.ASSETS.fetch(request)
+
+    const requestId = studyRequestId(request.headers)
+    const startedAt = performance.now()
+    const slowThresholdMs = Number.isFinite(Number(env.STUDY_SLOW_REQUEST_MS))
+      ? Math.max(0, Number(env.STUDY_SLOW_REQUEST_MS))
+      : 1000
+
+    if (path === '/api/metrics') {
+      if (!bearerMatches(request.headers.get('authorization'), env.STUDY_METRICS_TOKEN || ''))
+        return jsonError(401, 'METRICS_UNAUTHORIZED', 'Metrics access denied', {}, { 'X-Request-ID': requestId })
+      if (request.method !== 'GET')
+        return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed', {}, { 'X-Request-ID': requestId })
+      return new Response(metrics.render(), {
+        status: 200,
+        headers: {
+          'Content-Type': 'text/plain; version=0.0.4; charset=utf-8',
+          'Cache-Control': 'no-store',
+          'X-Request-ID': requestId,
+        },
+      })
+    }
+
     const policy = studyPolicy(
       {
         origin: env.STUDY_ORIGIN,
@@ -444,8 +598,9 @@ export default {
       request,
       ['/api/health', '/health'].includes(path),
     )
+    let response
     if (policy.status) {
-      return policy.status === 204
+      response = policy.status === 204
         ? new Response(null, { status: 204, headers: policy.headers })
         : jsonError(
             policy.status,
@@ -454,11 +609,24 @@ export default {
             {},
             policy.headers,
           )
+    } else {
+      try { response = await studyApi(request, env) }
+      catch { response = jsonError(503, 'STORAGE_UNAVAILABLE', 'Storage unavailable; retry later') }
+      for (const [key, value] of Object.entries(policy.headers)) response.headers.set(key, value)
     }
-    let response
-    try { response = await studyApi(request, env) }
-    catch { response = jsonError(503, 'STORAGE_UNAVAILABLE', 'Storage unavailable; retry later') }
-    for (const [key, value] of Object.entries(policy.headers)) response.headers.set(key, value)
+
+    response.headers.set('X-Request-ID', requestId)
+    const durationMs = performance.now() - startedAt
+    metrics.observe(response.status, durationMs, slowThresholdMs)
+    logStudyRequest({
+      requestId,
+      method: request.method,
+      path,
+      status: response.status,
+      durationMs,
+      storage: 'd1',
+      slowThresholdMs,
+    })
     return response
   },
 }

@@ -8,6 +8,7 @@ import {
   linkStudyDevice,
   loadStudyAnalytics,
   loadStudySyncInfo,
+  loadPasskeyAccount,
   revokeStudySyncKey,
   saveStudyPlan,
   saveStudyPlanSettings,
@@ -17,12 +18,20 @@ import {
   syncStudyPlan,
   unlinkStudyDevice,
   type LearningProgress,
+  type PasskeyAccountInfo,
   type StudyAnalytics,
   type StudyPlanStorage,
   type StudyServerState,
   type StudySyncInfo,
   type StudySyncStatus,
 } from '@/services/studyPlanSync'
+import { loginWithStudyPasskey, passkeyAvailable, registerStudyPasskey } from '@/services/passkey'
+import {
+  getFocusTimerSnapshot,
+  startFocusTimer,
+  subscribeFocusTimer,
+  type FocusTimerSnapshot,
+} from '@/services/focusTimer'
 import {
   getPwaInstallState,
   installStudyPwa,
@@ -247,6 +256,14 @@ export default function StudyPlanPage() {
   const [syncKey, setSyncKey] = useState(() => getStoredStudySyncKey())
   const [syncKeyInput, setSyncKeyInput] = useState(() => getStoredStudySyncKey())
   const [syncInfo, setSyncInfo] = useState<StudySyncInfo>({ bound: false, activeKeys: 0 })
+  const [accountInfo, setAccountInfo] = useState<PasskeyAccountInfo>({
+    registered: false,
+    signedIn: false,
+    passkeyCount: 0,
+  })
+  const [focusTaskId, setFocusTaskId] = useState('')
+  const [focusMinutes, setFocusMinutes] = useState(25)
+  const [focusSnapshot, setFocusSnapshot] = useState<FocusTimerSnapshot | null>(() => getFocusTimerSnapshot())
   const [syncStatus, setSyncStatus] = useState<StudySyncStatus>({
     phase: 'idle',
     pending: 0,
@@ -267,6 +284,7 @@ export default function StudyPlanPage() {
     void syncStudyPlan(loadStorage(todayKey)).then(() => {
       void getLearningProgress().then(setLearning)
       void loadStudySyncInfo().then(setSyncInfo).catch(() => undefined)
+      void loadPasskeyAccount().then(setAccountInfo).catch(() => undefined)
     })
     return () => {
       unsubscribe()
@@ -282,6 +300,7 @@ export default function StudyPlanPage() {
   }, [storage.settings.dailyTargetMinutes])
 
   useEffect(() => subscribePwaInstallState(setPwaState), [])
+  useEffect(() => subscribeFocusTimer(setFocusSnapshot), [])
 
   useEffect(() => {
     let cancelled = false
@@ -514,9 +533,22 @@ export default function StudyPlanPage() {
   const todayPlan = getDayPlan(today.getDay())
   const minimumMode = Boolean(storage.minimumMode[todayKey])
   const todayTasks = getConfiguredDayTasks(todayPlan, storage.settings, minimumMode, minimumModeTasks)
+  useEffect(() => {
+    if (!todayTasks.length) {
+      setFocusTaskId('')
+      return
+    }
+    if (!todayTasks.some((task) => task.id === focusTaskId)) setFocusTaskId(todayTasks[0].id)
+  }, [focusTaskId, todayTasks])
   const todayVocabularyTask = todayTasks.find((task) => task.kind === 'vocabulary' && task.href === '/gallery')
+  const focusOwnsTodayVocabulary = Boolean(
+    focusSnapshot &&
+    focusSnapshot.day === todayKey &&
+    todayVocabularyTask &&
+    focusSnapshot.taskId === todayVocabularyTask.id,
+  )
   const previewTrackingQuery =
-    previewWeek === currentWeek && todayVocabularyTask
+    previewWeek === currentWeek && todayVocabularyTask && !focusOwnsTodayVocabulary
       ? `&studyDate=${todayKey}&studyTask=${todayVocabularyTask.id}`
       : ''
   const previewPracticeHref = previewDictionary
@@ -704,6 +736,69 @@ export default function StudyPlanPage() {
     setImportMessage(installed ? '已接受安装，可以从系统应用入口打开。' : '当前浏览器暂未提供安装提示。')
   }
 
+  const startFocus = () => {
+    const task = todayTasks.find((candidate) => candidate.id === focusTaskId)
+    if (!task) {
+      setImportMessage('今天没有可用于专注计时的路线图任务。')
+      return
+    }
+    try {
+      startFocusTimer({
+        day: todayKey,
+        taskId: task.id,
+        title: task.title,
+        targetMinutes: focusMinutes,
+      })
+      setImportMessage(`专注计时已开始：${task.title} · ${focusMinutes} 分钟。`)
+    } catch {
+      setImportMessage('无法启动专注计时，请检查任务与时长。')
+    }
+  }
+
+  const createPasskey = async () => {
+    setImportMessage('')
+    try {
+      const account = await registerStudyPasskey()
+      setAccountInfo(account)
+      setSyncKey('')
+      setSyncKeyInput('')
+      setSyncInfo(await loadStudySyncInfo())
+      setImportMessage('Passkey 已绑定到当前学习进度。以后换设备可直接使用 Passkey 登录。')
+    } catch (error) {
+      const code = error instanceof Error ? error.message : ''
+      setImportMessage(
+        code === 'PASSKEY_UNSUPPORTED' || code === 'PASSKEY_BROWSER_UNSUPPORTED'
+          ? '当前浏览器或系统不支持所需的 Passkey API。'
+          : code === 'PENDING_MUTATIONS'
+            ? '请等待待同步记录保存完成后再创建 Passkey。'
+            : 'Passkey 创建未完成；现有匿名学习进度没有变化。',
+      )
+    }
+  }
+
+  const loginPasskey = async () => {
+    setImportMessage('')
+    try {
+      const result = await loginWithStudyPasskey()
+      setStorage(result.state)
+      setLearning(result.state.learning)
+      setAccountInfo(result.account)
+      setSyncKey('')
+      setSyncKeyInput('')
+      setSyncInfo(await loadStudySyncInfo())
+      setImportMessage('Passkey 登录成功，已恢复账户绑定的全部学习进度。')
+    } catch (error) {
+      const code = error instanceof Error ? error.message : ''
+      setImportMessage(
+        code === 'PASSKEY_UNSUPPORTED'
+          ? '当前浏览器不支持 Passkey。'
+          : code === 'PENDING_MUTATIONS'
+            ? '请先等待本机待同步记录保存完成，再切换到账户进度。'
+            : 'Passkey 登录失败或已取消；当前匿名进度保持不变。',
+      )
+    }
+  }
+
   const exportStudyPlan = async () => {
     try {
       const backup = await exportRemoteStudyPlan(storage)
@@ -881,7 +976,14 @@ export default function StudyPlanPage() {
     let actionLabel = task.actionLabel
 
     if (task.kind === 'vocabulary' && task.href === '/gallery' && targetDictionary) {
-      taskHref = `/?dict=${targetDictionary.id}&studyDate=${dateKey}&studyTask=${task.id}`
+      const focusOwnsTask = Boolean(
+        focusSnapshot &&
+        focusSnapshot.day === dateKey &&
+        focusSnapshot.taskId === task.id,
+      )
+      taskHref = focusOwnsTask
+        ? `/?dict=${targetDictionary.id}`
+        : `/?dict=${targetDictionary.id}&studyDate=${dateKey}&studyTask=${task.id}`
       actionLabel = `练 ${targetDictionary.name}`
     } else if (task.href === '/grammar-session') {
       actionLabel = '练 Passé composé vs imparfait'
@@ -1012,7 +1114,7 @@ export default function StudyPlanPage() {
               {targetDictionary && (
                 <NavLink
                   to={`/?dict=${encodeURIComponent(targetDictionary.id)}${
-                    todayVocabularyTask ? `&studyDate=${todayKey}&studyTask=${todayVocabularyTask.id}` : ''
+                    todayVocabularyTask && !focusOwnsTodayVocabulary ? `&studyDate=${todayKey}&studyTask=${todayVocabularyTask.id}` : ''
                   }`}
                   onClick={todayVocabularyTask ? () => saveStorage(storage) : undefined}
                   className="mt-1 block text-sm text-gray-500 underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-300"
@@ -1180,6 +1282,109 @@ export default function StudyPlanPage() {
                   onChange={importStudyPlan}
                   className="hidden"
                 />
+              </div>
+
+              <div
+                data-testid="focus-timer-setup"
+                className="w-full max-w-md rounded-xl border border-gray-100 bg-gray-50 p-3 text-left dark:border-gray-700 dark:bg-gray-900"
+              >
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div>
+                    <div className="text-xs font-medium text-gray-600 dark:text-gray-200">专注计时 · 可选</div>
+                    <div className="mt-0.5 text-[11px] leading-5 text-gray-500 dark:text-gray-400">
+                      隐藏页面或连续 2 分钟无输入会自动暂停；结束后只把真实有效分钟写回所选任务。
+                    </div>
+                  </div>
+                  {focusSnapshot && focusSnapshot.status !== 'finished' && (
+                    <span className="rounded-full bg-indigo-100 px-2 py-1 text-[11px] text-indigo-700 dark:bg-indigo-950 dark:text-indigo-200">
+                      {focusSnapshot.status === 'running' ? '计时中' : '已暂停'}
+                    </span>
+                  )}
+                </div>
+                <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_88px_auto]">
+                  <select
+                    aria-label="专注计时任务"
+                    value={focusTaskId}
+                    onChange={(event) => setFocusTaskId(event.target.value)}
+                    disabled={!todayTasks.length || Boolean(focusSnapshot && focusSnapshot.status !== 'finished')}
+                    className="min-w-0 rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-xs text-gray-700 outline-none focus:border-indigo-400 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                  >
+                    {todayTasks.length ? todayTasks.map((task) => (
+                      <option key={task.id} value={task.id}>{task.title}</option>
+                    )) : <option value="">今天是休息日</option>}
+                  </select>
+                  <input
+                    type="number"
+                    min={5}
+                    max={120}
+                    step={5}
+                    value={focusMinutes}
+                    disabled={Boolean(focusSnapshot && focusSnapshot.status !== 'finished')}
+                    onChange={(event) => setFocusMinutes(Math.min(120, Math.max(5, Math.round(Number(event.target.value) || 25))))}
+                    aria-label="专注计时分钟"
+                    className="rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-center text-xs text-gray-700 outline-none focus:border-indigo-400 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                  />
+                  <button
+                    type="button"
+                    onClick={startFocus}
+                    disabled={!todayTasks.length || Boolean(focusSnapshot && focusSnapshot.status !== 'finished')}
+                    className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white outline-none hover:bg-indigo-700 focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    开始专注
+                  </button>
+                </div>
+                <div className="mt-2 flex gap-2">
+                  {[25, 50].map((minutes) => (
+                    <button
+                      key={minutes}
+                      type="button"
+                      disabled={Boolean(focusSnapshot && focusSnapshot.status !== 'finished')}
+                      onClick={() => setFocusMinutes(minutes)}
+                      className="rounded-md border border-gray-200 bg-white px-2 py-1 text-[11px] text-gray-500 hover:border-indigo-300 disabled:opacity-40 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                    >
+                      {minutes} min
+                    </button>
+                  ))}
+                  <span className="ml-auto text-[11px] text-gray-400">暂停/继续/结束可在右下角计时器操作</span>
+                </div>
+              </div>
+
+              <div
+                data-testid="passkey-account"
+                className="w-full max-w-md rounded-xl border border-gray-100 bg-gray-50 p-3 text-left dark:border-gray-700 dark:bg-gray-900"
+              >
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div>
+                    <div className="text-xs font-medium text-gray-600 dark:text-gray-200">Passkey 账户 · 可选</div>
+                    <div className="mt-0.5 text-[11px] leading-5 text-gray-500 dark:text-gray-400">
+                      不创建账户也可继续匿名使用。Passkey 只绑定当前 learner，换设备登录后直接恢复同一份进度。
+                    </div>
+                  </div>
+                  <span className={`text-[11px] ${accountInfo.registered ? 'text-green-600 dark:text-green-300' : 'text-gray-400'}`}>
+                    {accountInfo.registered
+                      ? `${accountInfo.passkeyCount} 个 Passkey · ${accountInfo.signedIn ? '已登录' : '已绑定'}`
+                      : '匿名模式'}
+                  </span>
+                </div>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => void createPasskey()}
+                    disabled={!passkeyAvailable()}
+                    className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white outline-none hover:bg-indigo-700 focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    {accountInfo.registered ? '添加另一个 Passkey' : '创建 Passkey'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => void loginPasskey()}
+                    disabled={!passkeyAvailable()}
+                    className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 outline-none hover:border-indigo-300 hover:text-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                  >
+                    使用 Passkey 登录
+                  </button>
+                  {!passkeyAvailable() && <span className="self-center text-[11px] text-amber-600 dark:text-amber-300">此浏览器不支持 Passkey</span>}
+                </div>
               </div>
 
               <div className="w-full max-w-md rounded-xl border border-gray-100 bg-gray-50 p-3 text-left dark:border-gray-700 dark:bg-gray-900">
