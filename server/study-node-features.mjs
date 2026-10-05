@@ -7,6 +7,8 @@ const parseJson = (value, fallback = null) => {
   try { return JSON.parse(value) } catch { return fallback }
 }
 
+export const STUDY_SCHEMA_VERSION = 5
+
 export function ensureNodeFeatureSchema(db) {
   db.exec(`
     CREATE TABLE IF NOT EXISTS error_book (
@@ -39,7 +41,24 @@ export function ensureNodeFeatureSchema(db) {
       actor_hash TEXT NOT NULL, details TEXT NOT NULL, created_at INTEGER NOT NULL
     );
     CREATE INDEX IF NOT EXISTS audit_log_learner_created ON audit_log(learner,created_at DESC);
+    CREATE TABLE IF NOT EXISTS schema_meta (
+      key TEXT PRIMARY KEY, value TEXT NOT NULL, updated_at INTEGER NOT NULL
+    );
   `)
+  const existingVersion = Number(
+    db.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").get()?.value ?? 0,
+  )
+  if (existingVersion > STUDY_SCHEMA_VERSION)
+    throw new Error(`Database schema v${existingVersion} is newer than server v${STUDY_SCHEMA_VERSION}`)
+  db.prepare(`
+    INSERT INTO schema_meta(key,value,updated_at) VALUES('schema_version',?,?)
+    ON CONFLICT(key) DO UPDATE SET value=excluded.value,updated_at=excluded.updated_at
+  `).run(String(STUDY_SCHEMA_VERSION), Date.now())
+}
+
+export function getNodeSchemaVersion(db) {
+  const value = db.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").get()?.value
+  return Number(value)
 }
 
 function materializeErrorBook(db, learner, state) {

@@ -18,6 +18,7 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   }
   const health = await fetch(`${origin}/api/health`, { signal: AbortSignal.timeout(20000) })
   assert.equal(health.status, 200, 'D1 health check')
+  assert.equal((await health.clone().json()).schemaVersion, 5, 'schema migration version is current')
   const alias = await fetch(`${origin}/health`, { signal: AbortSignal.timeout(20000) })
   assert.equal(alias.status, 200, '/health is API readiness, not SPA HTML')
   assert.equal((await alias.json()).ok, true)
@@ -202,6 +203,18 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   assert.equal(latestAnalyticsWeek.wrongWords, 1)
   assert.equal(latestAnalyticsWeek.wrongAttempts, 1)
   assert.equal(typeof latestAnalyticsWeek.completionPercent, 'number')
+  assert.equal(analytics.data.analytics.dashboard.heatmap.length, 90)
+  assert.equal(analytics.data.analytics.dashboard.mastery.vocabulary.activeErrors, 1)
+  assert.equal(analytics.data.analytics.dashboard.mastery.grammar.activeErrors, 1)
+  assert.equal(analytics.data.analytics.dashboard.mastery.conjugation.activeErrors, 1)
+  assert.equal(analytics.data.analytics.today.targetMinutes, 45)
+  assert.equal(
+    analytics.data.analytics.today.tasks.reduce((total, task) => total + task.minutes, 0),
+    45,
+    'smart tasks stay inside configured daily minutes',
+  )
+  assert.ok(analytics.data.analytics.today.tasks.some((task) => task.id === 'smart-review'))
+  assert.match(analytics.data.analytics.dashboard.projection.predictedCompletionDate, /^\d{4}-\d{2}-\d{2}$/)
 
   const reviewResponse = await call('GET', undefined, { path: '/review?today=2026-10-05' })
   assert.equal(reviewResponse.res.status, 200)
@@ -245,7 +258,7 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   assert.equal((await call('PATCH', { id: randomUUID(), operations: [{ kind: 'minutes', day: '2026-10-03', task: 'sat-retell', value: -1 }] })).res.status, 400)
   assert.deepEqual((await call('GET')).data.state, expected, 'Rejected write leaves state intact')
   if (saveSession) await writeFile(saveSession, JSON.stringify({ origin, cookie, expected, syncKey }), { mode: 0o600 })
-  console.log('PASS: same-origin API, unified error book, checkins/achievements, weekly reports, analytics/SM-2, sync, restart persistence, idempotency, isolation and CSRF')
+  console.log('PASS: schema v5, dashboard/today plan, unified error book, checkins/achievements, weekly reports, analytics/SM-2, sync, restart persistence, idempotency, isolation and CSRF')
 }
 if (process.argv[1]?.endsWith('smoke-study.mjs')) {
   const [base, mode, path] = process.argv.slice(2)

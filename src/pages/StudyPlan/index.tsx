@@ -105,6 +105,13 @@ const weekDictionaryIds: Record<number, string> = {
   26: 'tcf-b2-collocations',
 }
 
+const smartKindLabels = {
+  review: '复习',
+  vocabulary: '词汇',
+  grammar: '语法',
+  conjugation: '变位',
+} as const
+
 const kindLabels: Record<StudyTaskKind, string> = {
   grammar: '语法',
   listening: '听力',
@@ -279,7 +286,7 @@ export default function StudyPlanPage() {
   useEffect(() => {
     let cancelled = false
     const timer = window.setTimeout(() => {
-      void loadStudyAnalytics()
+      void loadStudyAnalytics({ sync: false })
         .then((value) => {
           if (!cancelled) setAnalytics(value)
         })
@@ -727,7 +734,7 @@ export default function StudyPlanPage() {
       const candidate =
         isRecord(parsed) &&
         parsed.format === 'qwerty-study-plan' &&
-        (parsed.version === 1 || parsed.version === 2 || parsed.version === 3 || parsed.version === 4)
+        (parsed.version === 1 || parsed.version === 2 || parsed.version === 3 || parsed.version === 4 || parsed.version === 5)
           ? parsed.state
           : parsed
       const imported = parseImportedStorage(candidate)
@@ -837,11 +844,34 @@ export default function StudyPlanPage() {
     }
     try {
       await deleteAllStudyData()
-      setImportMessage('全部学习数据已删除，页面将重新初始化。')
+      await db.delete()
+      for (const key of [
+        'qwerty-fr-grammar-session-history-v1',
+        'qwerty-fr-grammar-server-migration-v1',
+        'qwerty-fr-conjugation-stats-v1',
+        'qwerty-fr-vocabulary-server-migration-v1',
+      ]) window.localStorage.removeItem(key)
+      setImportMessage('服务端与本机学习数据都已删除，页面将重新初始化。')
       window.setTimeout(() => window.location.reload(), 300)
     } catch {
       setImportMessage('删除失败：请先联网并等待待同步记录保存完成。')
     }
+  }
+
+  const smartToday = analytics?.today
+
+  const smartTaskHref = (task: NonNullable<StudyAnalytics['today']>['tasks'][number]) => {
+    if (task.kind === 'vocabulary' && targetDictionary)
+      return `/?dict=${encodeURIComponent(targetDictionary.id)}&studyDate=${todayKey}&studyTask=${task.id}`
+    if (task.kind === 'grammar')
+      return `/grammar-session?studyDate=${todayKey}&studyTask=${task.id}`
+    if (task.kind === 'conjugation') {
+      const separator = task.href.includes('?') ? '&' : '?'
+      return `${task.href}${separator}studyDate=${todayKey}&studyTask=${task.id}`
+    }
+    if (task.kind === 'review')
+      return `/analysis?studyDate=${todayKey}&studyTask=${task.id}`
+    return task.href
   }
 
   const renderTask = (task: StudyTask, dateKey: string, compact = false) => {
@@ -967,8 +997,8 @@ export default function StudyPlanPage() {
         </NavLink>
       </Header>
 
-      <main className="container mx-auto w-full max-w-6xl flex-1 px-10 pb-12">
-        <section className="my-card rounded-3xl bg-white p-7 dark:bg-gray-800">
+      <main className="container mx-auto w-full max-w-6xl flex-1 px-4 pb-12 sm:px-6 lg:px-10">
+        <section className="my-card rounded-3xl bg-white p-4 sm:p-7 dark:bg-gray-800">
           <div className="flex flex-wrap items-start justify-between gap-6">
             <div>
               <div className="flex items-center gap-2 text-sm font-medium text-indigo-500">
@@ -1419,6 +1449,81 @@ export default function StudyPlanPage() {
               </span>
             ))}
           </div>
+        </section>
+
+        <section
+          aria-labelledby="smart-today-title"
+          data-testid="smart-today-plan"
+          className="mt-7 rounded-3xl border border-indigo-200 bg-indigo-50/70 p-4 sm:p-6 dark:border-indigo-900 dark:bg-indigo-950/50"
+        >
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <div className="text-sm font-medium text-indigo-700 dark:text-indigo-300">智能今日任务</div>
+              <h2 id="smart-today-title" className="mt-1 text-2xl font-semibold text-gray-950 dark:text-white">
+                {smartToday ? `${smartToday.completedMinutes} / ${smartToday.targetMinutes} min` : '正在读取今日组合…'}
+              </h2>
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-gray-700 dark:text-gray-200">
+                根据 SM-2 到期量、active 错题和每天目标分钟动态分配。路线图本身不变，这一层只决定今天先做什么。
+              </p>
+            </div>
+            {smartToday && (
+              <div className="rounded-xl border border-indigo-200 bg-white px-4 py-3 text-sm text-gray-700 dark:border-indigo-800 dark:bg-gray-900 dark:text-gray-200">
+                到期复习 {smartToday.dueReviews} · active 错题 {smartToday.activeErrors}
+              </div>
+            )}
+          </div>
+
+          {smartToday ? (
+            <div className="mt-5 grid gap-3 md:grid-cols-2">
+              {smartToday.tasks.map((task) => (
+                <article
+                  key={task.id}
+                  className={`rounded-2xl border p-4 ${task.complete ? 'border-green-300 bg-green-50 dark:border-green-800 dark:bg-green-950/40' : 'border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900'}`}
+                >
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="rounded-full bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-800 dark:bg-indigo-900 dark:text-indigo-100">
+                      {smartKindLabels[task.kind]}
+                    </span>
+                    <h3 className="font-semibold text-gray-950 dark:text-white">{task.title}</h3>
+                    {task.complete && <span className="ml-auto text-sm font-medium text-green-700 dark:text-green-300">已完成</span>}
+                  </div>
+                  <p className="mt-2 text-sm leading-6 text-gray-700 dark:text-gray-200">{task.reason}</p>
+                  <div className="mt-3 flex items-center gap-3">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex justify-between text-xs text-gray-600 dark:text-gray-300">
+                        <span>{task.actualMinutes} / {task.minutes} min</span>
+                        <span>{Math.min(100, Math.round((task.actualMinutes / Math.max(1, task.minutes)) * 100))}%</span>
+                      </div>
+                      <div
+                        role="progressbar"
+                        aria-label={`${task.title} 今日完成度`}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                        aria-valuenow={Math.min(100, Math.round((task.actualMinutes / Math.max(1, task.minutes)) * 100))}
+                        className="mt-1 h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700"
+                      >
+                        <div
+                          className="h-full rounded-full bg-indigo-600 dark:bg-indigo-400"
+                          style={{ width: `${Math.min(100, Math.round((task.actualMinutes / Math.max(1, task.minutes)) * 100))}%` }}
+                        />
+                      </div>
+                    </div>
+                    <NavLink
+                      to={smartTaskHref(task)}
+                      aria-label={`开始${task.title}`}
+                      className="shrink-0 rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white outline-none hover:bg-indigo-700 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 dark:bg-indigo-500 dark:hover:bg-indigo-400"
+                    >
+                      {task.complete ? '再练一次' : '开始'}
+                    </NavLink>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="mt-5 rounded-xl bg-white p-4 text-sm text-gray-600 dark:bg-gray-900 dark:text-gray-300">
+              服务端暂不可用且本机还没有今日任务缓存。路线图和离线练习仍可正常使用。
+            </div>
+          )}
         </section>
 
         <section

@@ -189,6 +189,17 @@ test('client offline queue, LWW merge, review scheduling and sync bind/unbind', 
     assert.equal(analytics.rankings.vocabulary[0].label, 'prendre')
     assert.equal(analytics.rankings.grammar[0].label, '过去习惯')
     assert.equal(analytics.rankings.conjugation[0].label, 'prendre')
+    assert.equal(analytics.dashboard.heatmap.length, 90)
+    assert.equal(analytics.today.tasks.reduce((total, task) => total + task.minutes, 0), analytics.today.targetMinutes)
+
+    const beforeAnalyticsFailure = globalThis.fetch
+    globalThis.fetch = async (path, options) => {
+      if (String(path).includes('/analytics')) throw new Error('analytics offline')
+      return beforeAnalyticsFailure(path, options)
+    }
+    const cachedAnalytics = await reloaded.loadStudyAnalytics()
+    assert.deepEqual(cachedAnalytics, analytics, 'analytics cache keeps dashboard usable when backend stats endpoint is unavailable')
+    globalThis.fetch = beforeAnalyticsFailure
 
     let reviewQueue = await reloaded.loadReviewQueue()
     assert.equal(reviewQueue.length, 3)
@@ -230,7 +241,8 @@ test('client offline queue, LWW merge, review scheduling and sync bind/unbind', 
 
     cookie = ownerCookie
     const backup = await reloaded.exportRemoteStudyPlan(initial)
-    assert.equal(backup.version, 4)
+    assert.equal(backup.version, 5)
+    assert.equal(backup.schemaVersion, 5)
     const imported = {
       ...backup.state,
       startDate: '2026-09-01',

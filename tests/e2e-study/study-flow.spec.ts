@@ -9,6 +9,8 @@ const pendingMutationCount = async (page) =>
 test('practice, offline persistence, sync, analytics, reminders and PWA shell', async ({ browser, page, context }) => {
   await page.goto('/study-plan')
   await expect(page.getByText('TCF Canada · 26 周学习计划')).toBeVisible()
+  await expect(page.getByTestId('smart-today-plan')).toBeVisible()
+  await expect(page.getByText('智能今日任务')).toBeVisible()
 
   // Plan settings re-date the 26-week roadmap without erasing already recorded minutes.
   const firstMinutes = page.getByLabel(/实际学习分钟数/).first()
@@ -34,8 +36,9 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
   expect(manifest.display).toBe('standalone')
   expect(manifest.start_url).toBe('./study-plan')
 
-  // A real conjugation practice result is written to the study backend.
-  await page.goto('/conjugation?verb=prendre&tense=present&mode=practice&scope=current')
+  // Start a real conjugation practice from the smart plan so task time and answer stats share one backend state.
+  await page.getByRole('link', { name: '开始动词变位' }).click()
+  await expect(page).toHaveURL(/studyTask=smart-conjugation/)
   const answer = page.getByPlaceholder('例如：nous avons pris')
   await answer.fill('definitely-wrong')
   await page.getByRole('button', { name: '检查（Enter）' }).click()
@@ -50,6 +53,9 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
 
   await page.goto('/study-plan')
   await expect.poll(() => pendingMutationCount(page)).toBe(0)
+  await expect(
+    page.getByTestId('smart-today-plan').locator('article').filter({ hasText: '动词变位' }),
+  ).toContainText(/1 \/ /)
 
   // Go offline, edit progress, then prove the installed shell itself still reloads.
   await context.setOffline(true)
@@ -88,6 +94,18 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
   await expect(secondPage.getByText('打卡与成就')).toBeVisible()
   await expect(secondPage.getByText('学习周报')).toBeVisible()
   await expect(secondPage.getByText('每周总结与下周建议')).toBeVisible()
+  await expect(secondPage.getByTestId('learning-dashboard')).toBeVisible()
+  await expect(secondPage.getByText('每日学习分钟热力图')).toBeVisible()
+  await expect(secondPage.getByRole('progressbar', { name: '词汇掌握度' })).toBeVisible()
+  await expect(secondPage.getByRole('progressbar', { name: '语法掌握度' })).toBeVisible()
+  await expect(secondPage.getByRole('progressbar', { name: '变位掌握度' })).toBeVisible()
+
+  // Analytics endpoint failure falls back to the last cached backend dashboard instead of crashing the page.
+  await secondPage.route('**/api/study-plan/analytics**', (route) => route.abort())
+  await secondPage.reload()
+  await expect(secondPage.getByTestId('learning-dashboard')).toBeVisible()
+  await expect(secondPage.getByText('每日学习分钟热力图')).toBeVisible()
+  await secondPage.unroute('**/api/study-plan/analytics**')
 
   const downloadPromise = secondPage.waitForEvent('download')
   await secondPage.getByRole('button', { name: '导出周报' }).click()
@@ -95,4 +113,27 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
   expect(download.suggestedFilename()).toMatch(/^qwerty-study-weekly-reports-/)
 
   await second.close()
+
+  // Study plan, analytics and error book remain usable on a narrow mobile viewport.
+  const mobile = await browser.newContext({ viewport: { width: 390, height: 844 } })
+  const mobilePage = await mobile.newPage()
+  await mobilePage.goto('/study-plan')
+  await expect(mobilePage.getByText('TCF Canada · 26 周学习计划')).toBeVisible()
+  await mobilePage.getByLabel('连接已有学习进度的同步码').fill(syncCode)
+  await mobilePage.getByRole('button', { name: '绑定' }).click()
+  await expect(mobilePage.getByTestId('smart-today-plan')).toBeVisible()
+
+  await mobilePage.goto('/analysis')
+  await expect(mobilePage).toHaveURL(/\/analysis$/)
+  await expect(mobilePage.getByTestId('learning-dashboard')).toBeVisible()
+  const closeAnalysis = mobilePage.getByRole('button', { name: '关闭统计页' })
+  await closeAnalysis.focus()
+  await expect(closeAnalysis).toBeFocused()
+
+  await mobilePage.goto('/error-book')
+  await expect(mobilePage.getByText('服务端统一错题本')).toBeVisible()
+  const closeErrorBook = mobilePage.getByRole('button', { name: '关闭错题本' })
+  await closeErrorBook.focus()
+  await expect(closeErrorBook).toBeFocused()
+  await mobile.close()
 })

@@ -226,6 +226,60 @@ export type WeeklyStudyReport = {
   finalized: boolean
 }
 
+export type MasteryMetric = {
+  known: number
+  mastered: number
+  activeErrors: number
+  percent: number
+}
+
+export type DashboardHeatmapDay = {
+  day: string
+  minutes: number
+  plannedMinutes: number
+  completionPercent: number
+}
+
+export type StudyDashboard = {
+  heatmap: DashboardHeatmapDay[]
+  mastery: {
+    vocabulary: MasteryMetric
+    grammar: MasteryMetric
+    conjugation: MasteryMetric
+  }
+  projection: {
+    totalPlannedMinutes: number
+    completedMinutes: number
+    remainingMinutes: number
+    progressPercent: number
+    averageDailyMinutes: number
+    predictedCompletionDate: string | null
+    scheduledCompletionDate: string
+    deltaDays: number | null
+  }
+}
+
+export type SmartTodayTask = {
+  id: 'smart-review' | 'smart-vocab' | 'smart-grammar' | 'smart-conjugation'
+  kind: 'review' | ReviewKind
+  title: string
+  minutes: number
+  href: string
+  reason: string
+  actualMinutes: number
+  complete: boolean
+}
+
+export type SmartTodayPlan = {
+  day: string
+  targetMinutes: number
+  plannedRoadmapMinutes: number
+  dueReviews: number
+  activeErrors: number
+  completedMinutes: number
+  tasks: SmartTodayTask[]
+}
+
 export type StudyAnalytics = {
   generatedAt: string
   plan: {
@@ -273,6 +327,8 @@ export type StudyAnalytics = {
     conjugation: ErrorRankingItem[]
   }
   reviewDue: number
+  dashboard: StudyDashboard
+  today: SmartTodayPlan
 }
 
 type Operation =
@@ -302,9 +358,10 @@ type Operation =
 type Mutation = { id: string; operations: Operation[] }
 
 const KEY = 'qwerty-fr-study-plan-v1'
-const ANALYTICS_KEY = 'qwerty-fr-study-analytics-v2'
+const ANALYTICS_KEY = 'qwerty-fr-study-analytics-v3'
 const REVIEW_KEY = 'qwerty-fr-study-review-v1'
 const SYNC_KEY = 'qwerty-fr-study-sync-key-v1'
+const LEGACY_MIGRATION_KEY = `qwerty-fr-study-legacy-migration-v2${API_BASE ? ':' + API_BASE : ''}`
 const SEED = `qwerty-fr-study-plan-migration${API_BASE ? ':' + API_BASE : ''}`
 const PENDING = `qwerty-fr-study-plan-pending:${API_BASE ? API_BASE + ':' : ''}`
 const MAX_VOCAB_RECORDS = 3000
@@ -330,6 +387,7 @@ let autoSyncInstalled = false
 let running: Promise<void> | undefined
 let retry: ReturnType<typeof setTimeout> | undefined
 let fallback: StudyServerState | undefined
+let legacyMigrationRunning: Promise<boolean> | undefined
 
 const localDay = (timestampMs = Date.now()) => {
   const date = new Date(timestampMs)
@@ -557,7 +615,7 @@ async function drain() {
             'POST',
             {
               id: next.id,
-              backup: { format: 'qwerty-study-plan', version: 4, state: next.operations[0].value },
+              backup: { format: 'qwerty-study-plan', version: 5, schemaVersion: 5, state: next.operations[0].value },
             },
             '/import',
           )
@@ -744,6 +802,195 @@ export function migrateVocabularyHistory(records: VocabularyProgressInput[]) {
       },
     },
   })
+}
+
+
+const stableLegacyUuid = (value: string) => {
+  const seeds = [2166136261, 2246822519, 3266489917, 668265263]
+  const chunks = seeds.map((seed) => {
+    let hash = seed >>> 0
+    for (let index = 0; index < value.length; index++) {
+      hash ^= value.charCodeAt(index)
+      hash = Math.imul(hash, 16777619) >>> 0
+      hash ^= hash >>> 13
+    }
+    return hash.toString(16).padStart(8, '0')
+  })
+  const hex = chunks.join('').slice(0, 32)
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`
+}
+
+const sanitizeLegacyGrammarHistory = (value: unknown): GrammarSessionRecord[] => {
+  if (!Array.isArray(value)) return []
+  return value.slice(0, 50).flatMap((item, index) => {
+    if (!item || typeof item !== 'object' || Array.isArray(item)) return []
+    const row = item as Record<string, unknown>
+    const finishedAt = typeof row.finishedAt === 'number' && Number.isFinite(row.finishedAt) ? row.finishedAt : 0
+    const score = typeof row.score === 'number' && Number.isInteger(row.score) ? row.score : -1
+    const total = typeof row.total === 'number' && Number.isInteger(row.total) ? row.total : -1
+    if (finishedAt <= 0 || score < 0 || total < score || total > 10000) return []
+
+    const answers = Object.fromEntries(
+      Object.entries(row.answers && typeof row.answers === 'object' && !Array.isArray(row.answers) ? row.answers : {})
+        .filter(([key, answer]) => /^\d{1,4}$/.test(key) && (answer === 'A' || answer === 'B')),
+    ) as Record<string, GrammarChoice>
+    const reasons = Object.fromEntries(
+      Object.entries(row.reasons && typeof row.reasons === 'object' && !Array.isArray(row.reasons) ? row.reasons : {})
+        .filter(([key, reason]) => /^\d{1,4}$/.test(key) && typeof reason === 'string')
+        .map(([key, reason]) => [key, String(reason).slice(0, 4000)]),
+    )
+
+    const topic = typeof row.topic === 'string' ? row.topic.slice(0, 200) : 'passé composé vs imparfait'
+    return [{
+      id: stableLegacyUuid(`grammar|${finishedAt}|${topic}|${score}|${total}|${index}`),
+      topic,
+      score,
+      total,
+      elapsedSeconds:
+        typeof row.elapsedSeconds === 'number' && Number.isFinite(row.elapsedSeconds)
+          ? Math.max(0, Math.min(86400, Math.round(row.elapsedSeconds)))
+          : 0,
+      finishedAt,
+      day: localDay(finishedAt),
+      answers,
+      reasons,
+      outputAnswers: Array.isArray(row.outputAnswers)
+        ? row.outputAnswers.filter((entry): entry is string => typeof entry === 'string').slice(0, 20).map((entry) => entry.slice(0, 6000))
+        : [],
+    }]
+  })
+}
+
+const sanitizeLegacyConjugation = (value: unknown): ConjugationStats => {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return {}
+  const result: ConjugationStats = {}
+  for (const [verb, rawTenses] of Object.entries(value as Record<string, unknown>)) {
+    if (!verb || verb.length > 120 || !rawTenses || typeof rawTenses !== 'object' || Array.isArray(rawTenses)) continue
+    const next: Partial<Record<ConjugationTense, TenseStat>> = {}
+    for (const tense of ['present', 'passeCompose', 'imparfait'] as ConjugationTense[]) {
+      const raw = (rawTenses as Record<string, unknown>)[tense]
+      if (!raw || typeof raw !== 'object' || Array.isArray(raw)) continue
+      const stat = raw as Record<string, unknown>
+      if (
+        typeof stat.correct !== 'number' ||
+        typeof stat.total !== 'number' ||
+        !Number.isInteger(stat.correct) ||
+        !Number.isInteger(stat.total)
+      ) continue
+      const correct = stat.correct
+      const total = stat.total
+      if (correct < 0 || total < correct || total > 10000000) continue
+      next[tense] = { correct, total }
+    }
+    if (Object.keys(next).length) result[verb] = next
+  }
+  return result
+}
+
+export function migrateLegacyStudyData(input: {
+  vocabulary?: VocabularyProgressInput[]
+  grammarHistory?: unknown
+  conjugation?: unknown
+}) {
+  if (legacyMigrationRunning) return legacyMigrationRunning
+  legacyMigrationRunning = runLegacyStudyMigration(input).finally(() => {
+    legacyMigrationRunning = undefined
+  })
+  return legacyMigrationRunning
+}
+
+async function runLegacyStudyMigration(input: {
+  vocabulary?: VocabularyProgressInput[]
+  grammarHistory?: unknown
+  conjugation?: unknown
+}) {
+  try {
+    if (localStorage.getItem(LEGACY_MIGRATION_KEY) === 'done') return true
+    await syncStudyPlan()
+    const state = ensureFallback()
+    const operations: Operation[] = []
+
+    const existingVocabulary = new Set(
+      state.learning.vocabulary.records.map((item) =>
+        [item.word, item.dict, item.chapter ?? -1, item.timeStamp, item.wrongCount].join('|'),
+      ),
+    )
+    const vocabulary = (input.vocabulary ?? []).slice(-MAX_VOCAB_RECORDS).flatMap((item, index) => {
+      if (!item.word || !item.dict || !Number.isFinite(item.timeStamp) || item.timeStamp < 0) return []
+      const signature = [item.word, item.dict, item.chapter ?? -1, item.timeStamp, item.wrongCount].join('|')
+      if (existingVocabulary.has(signature)) return []
+      existingVocabulary.add(signature)
+      return [{
+        ...item,
+        id: item.id ?? stableLegacyUuid(`vocabulary|${signature}|${index}`),
+        day: item.day ?? localDay(item.timeStamp * 1000),
+        durationMs: Math.max(0, Math.min(86400000, Math.round(item.durationMs))),
+        wrongCount: Math.max(0, Math.min(10000, Math.round(item.wrongCount))),
+        wrongKeys: item.wrongKeys.filter((key) => typeof key === 'string').slice(0, 200).map((key) => key.slice(0, 20)),
+      } satisfies VocabularyProgressRecord]
+    })
+    if (vocabulary.length) operations.push({ kind: 'vocabularyRecords', value: vocabulary })
+
+    const grammar = sanitizeLegacyGrammarHistory(input.grammarHistory)
+    const existingGrammar = new Set(
+      state.learning.grammar.history.map((item) => [item.topic, item.finishedAt, item.score, item.total].join('|')),
+    )
+    const grammarAdditions = grammar.filter((item) => {
+      const signature = [item.topic, item.finishedAt, item.score, item.total].join('|')
+      if (existingGrammar.has(signature)) return false
+      existingGrammar.add(signature)
+      return true
+    })
+    grammarAdditions.forEach((value) => operations.push({ kind: 'grammarSession', value }))
+
+    const legacyConjugation = sanitizeLegacyConjugation(input.conjugation)
+    const remoteConjugationTotal = Object.values(state.learning.conjugation).reduce(
+      (sum, byTense) => sum + Object.values(byTense).reduce((inner, stat) => inner + (stat?.total ?? 0), 0),
+      0,
+    )
+    const legacyConjugationTotal = Object.values(legacyConjugation).reduce(
+      (sum, byTense) => sum + Object.values(byTense).reduce((inner, stat) => inner + (stat?.total ?? 0), 0),
+      0,
+    )
+    if (remoteConjugationTotal === 0 && legacyConjugationTotal > 0)
+      operations.push({ kind: 'conjugationSeed', value: legacyConjugation })
+
+    if (operations.length) {
+      const current = ensureFallback()
+      enqueue(operations)
+      let learning = current.learning
+      if (vocabulary.length) {
+        learning = {
+          ...learning,
+          vocabulary: {
+            records: [...learning.vocabulary.records, ...vocabulary].slice(-MAX_VOCAB_RECORDS),
+          },
+        }
+      }
+      if (grammarAdditions.length) {
+        learning = {
+          ...learning,
+          grammar: {
+            ...learning.grammar,
+            history: [...grammarAdditions, ...learning.grammar.history].slice(0, 50),
+          },
+        }
+      }
+      if (remoteConjugationTotal === 0 && legacyConjugationTotal > 0)
+        learning = { ...learning, conjugation: legacyConjugation }
+      publish({ ...current, learning })
+    }
+
+    await syncStudyPlan()
+    if (pending().length === 0) {
+      localStorage.setItem(LEGACY_MIGRATION_KEY, 'done')
+      return true
+    }
+    return false
+  } catch {
+    return false
+  }
+
 }
 
 export function saveGrammarDraft(draft: GrammarDraft | null) {
@@ -954,7 +1201,8 @@ export async function exportRemoteStudyPlan(initial: StudyPlanStorage) {
   if (!payload.state || pending().length) throw new Error('同步未完成，请稍后重试。')
   return payload as {
     format: 'qwerty-study-plan'
-    version: 4
+    version: 5
+    schemaVersion: 5
     exportedAt: string
     state: StudyServerState
   }
@@ -972,8 +1220,8 @@ export async function importRemoteStudyPlan(previous: StudyPlanStorage, state: S
   return !pending().some((mutation) => mutation.id === id)
 }
 
-export async function loadStudyAnalytics(): Promise<StudyAnalytics | null> {
-  await syncStudyPlan()
+export async function loadStudyAnalytics(options: { sync?: boolean } = {}): Promise<StudyAnalytics | null> {
+  if (options.sync !== false) await syncStudyPlan()
   try {
     const payload = await api('GET', `/analytics?today=${encodeURIComponent(localDay())}`)
     const analytics = (payload.analytics as StudyAnalytics | null) ?? null
@@ -1150,6 +1398,7 @@ export async function deleteAllStudyData() {
       key === ANALYTICS_KEY ||
       key === REVIEW_KEY ||
       key === SYNC_KEY ||
+      key === LEGACY_MIGRATION_KEY ||
       key === SEED ||
       isPendingKey(key)
     ) {

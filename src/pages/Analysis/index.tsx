@@ -1,6 +1,7 @@
 import LineCharts from './components/LineCharts'
 import Layout from '@/components/Layout'
 import {
+  addStudyMinutes,
   flushStudyProgress,
   getStudySyncSnapshot,
   loadReviewQueue,
@@ -25,7 +26,7 @@ import * as ScrollArea from '@radix-ui/react-scroll-area'
 import { useAtom } from 'jotai'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import IconX from '~icons/tabler/x'
 
 type TrendScale = 'daily' | 'weekly' | 'monthly'
@@ -51,6 +52,15 @@ const kindLabels: Record<ReviewQueueItem['kind'], string> = {
 
 const accuracySeries = (points: TrendPoint[], key: 'vocabularyAccuracy' | 'grammarAccuracy' | 'conjugationAccuracy') =>
   points.flatMap<[string, number]>((point) => (point[key] === null ? [] : [[point.startDate, point[key] as number]]))
+
+const heatmapCellClass = (minutes: number, maxMinutes: number) => {
+  if (minutes <= 0) return 'bg-gray-100 dark:bg-gray-800'
+  const ratio = maxMinutes ? minutes / maxMinutes : 0
+  if (ratio >= 0.75) return 'bg-indigo-600 dark:bg-indigo-400'
+  if (ratio >= 0.5) return 'bg-indigo-500 dark:bg-indigo-500'
+  if (ratio >= 0.25) return 'bg-indigo-300 dark:bg-indigo-700'
+  return 'bg-indigo-200 dark:bg-indigo-900'
+}
 
 const rankingCard = (
   title: string,
@@ -78,6 +88,9 @@ const rankingCard = (
 
 const Analysis = () => {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const requestedStudyDate = searchParams.get('studyDate')
+  const requestedStudyTask = searchParams.get('studyTask')
   const [, setIsOpenDarkMode] = useAtom(isOpenDarkModeAtom)
   const [analytics, setAnalytics] = useState<StudyAnalytics | null>(null)
   const [analyticsLoading, setAnalyticsLoading] = useState(true)
@@ -207,6 +220,17 @@ const Analysis = () => {
 
   const reviewResult = async (item: ReviewQueueItem, quality: number) => {
     submitReviewResult(item, quality)
+    if (
+      requestedStudyTask === 'smart-review' &&
+      requestedStudyDate &&
+      /^\d{4}-\d{2}-\d{2}$/.test(requestedStudyDate)
+    ) {
+      try {
+        addStudyMinutes(requestedStudyDate, requestedStudyTask, 2)
+      } catch {
+        // The review result itself remains durable even if smart-task minute tracking cannot be queued.
+      }
+    }
     setReviewQueue((old) => old.filter((candidate) => candidate.itemId !== item.itemId))
     await flushStudyProgress()
     if (getStudySyncSnapshot().pending === 0) void refreshAll()
@@ -224,14 +248,163 @@ const Analysis = () => {
   const vocabularyData = accuracySeries(points, 'vocabularyAccuracy')
   const grammarData = accuracySeries(points, 'grammarAccuracy')
   const conjugationData = accuracySeries(points, 'conjugationAccuracy')
+  const dashboard = analytics?.dashboard
+  const heatmapMax = dashboard ? Math.max(1, ...dashboard.heatmap.map((item) => item.minutes)) : 1
+  const mastery = dashboard?.mastery
+  const projection = dashboard?.projection
 
   return (
     <Layout>
-      <div className="flex w-full flex-1 flex-col overflow-y-auto pl-20 pr-20 pt-20">
-        <IconX className="absolute right-20 top-10 mr-2 h-7 w-7 cursor-pointer text-gray-400" onClick={onBack} />
+      <div className="flex w-full flex-1 flex-col overflow-y-auto px-4 pt-12 sm:px-6 lg:px-20 lg:pt-20">
+        <button
+          type="button"
+          aria-label="关闭统计页"
+          onClick={onBack}
+          className="absolute right-4 top-4 rounded-lg p-2 text-gray-500 outline-none hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-indigo-500 sm:right-6 lg:right-20 lg:top-10 dark:text-gray-300 dark:hover:bg-gray-800"
+        >
+          <IconX className="h-7 w-7" />
+        </button>
         <ScrollArea.Root className="flex-1 overflow-y-auto">
           <ScrollArea.Viewport className="h-full w-auto pb-[20rem] [&>div]:!block">
-            <section className="mx-4 my-8 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+            <section
+              aria-labelledby="learning-dashboard-title"
+              data-testid="learning-dashboard"
+              className="mx-0 my-6 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm sm:mx-4 sm:my-8 sm:p-6 dark:border-gray-700 dark:bg-gray-900"
+            >
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <div className="text-sm font-medium text-indigo-600 dark:text-indigo-300">学习数据仪表盘</div>
+                  <h1 id="learning-dashboard-title" className="mt-1 text-2xl font-semibold text-gray-950 dark:text-white">
+                    进度、掌握度与完成预测
+                  </h1>
+                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                    数据来自服务端统计；断网或后端暂不可用时会自动读取最近一次本地缓存。
+                  </p>
+                </div>
+                {projection && (
+                  <div className="rounded-xl border border-indigo-100 bg-indigo-50 px-4 py-3 text-sm text-indigo-900 dark:border-indigo-900 dark:bg-indigo-950/70 dark:text-indigo-100">
+                    <div className="text-xs font-medium">按近 28 天速度预测</div>
+                    <div className="mt-1 text-lg font-semibold">
+                      {projection.predictedCompletionDate ?? '数据不足'}
+                    </div>
+                    <div className="mt-1 text-xs text-indigo-700 dark:text-indigo-300">
+                      当前 {projection.averageDailyMinutes} min/天 · 计划 {projection.scheduledCompletionDate}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {dashboard ? (
+                <>
+                  <div className="mt-5 grid gap-4 lg:grid-cols-[1.5fr_1fr]">
+                    <div className="rounded-xl border border-gray-200 p-4 dark:border-gray-700">
+                      <div className="flex items-center justify-between gap-3">
+                        <h2 className="font-semibold text-gray-900 dark:text-white">每日学习分钟热力图</h2>
+                        <span className="text-xs text-gray-500 dark:text-gray-400">最近 90 天</span>
+                      </div>
+                      <div
+                        role="img"
+                        aria-label="最近 90 天每日学习分钟热力图"
+                        className="mt-4 grid grid-flow-col grid-rows-7 gap-1 overflow-x-auto pb-2"
+                      >
+                        {dashboard.heatmap.map((item) => (
+                          <div
+                            key={item.day}
+                            title={`${item.day}: ${item.minutes} 分钟`}
+                            aria-label={`${item.day} 学习 ${item.minutes} 分钟`}
+                            className={`h-4 w-4 shrink-0 rounded-[3px] ${heatmapCellClass(item.minutes, heatmapMax)}`}
+                          />
+                        ))}
+                      </div>
+                      <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+                        <span>少</span>
+                        {[0, 0.2, 0.4, 0.7, 1].map((ratio) => (
+                          <span
+                            key={ratio}
+                            aria-hidden="true"
+                            className={`h-3 w-3 rounded-[2px] ${heatmapCellClass(Math.round(heatmapMax * ratio), heatmapMax)}`}
+                          />
+                        ))}
+                        <span>多</span>
+                      </div>
+                    </div>
+
+                    <div className="rounded-xl border border-gray-200 p-4 dark:border-gray-700">
+                      <h2 className="font-semibold text-gray-900 dark:text-white">完成预测</h2>
+                      {projection ? (
+                        <div className="mt-4 space-y-3 text-sm">
+                          <div className="flex items-center justify-between gap-3">
+                            <span className="text-gray-600 dark:text-gray-300">总进度</span>
+                            <strong className="text-gray-950 dark:text-white">{projection.progressPercent}%</strong>
+                          </div>
+                          <div
+                            role="progressbar"
+                            aria-label="总学习进度"
+                            aria-valuemin={0}
+                            aria-valuemax={100}
+                            aria-valuenow={projection.progressPercent}
+                            className="h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700"
+                          >
+                            <div className="h-full rounded-full bg-indigo-600 dark:bg-indigo-400" style={{ width: `${projection.progressPercent}%` }} />
+                          </div>
+                          <div className="flex items-center justify-between gap-3">
+                            <span className="text-gray-600 dark:text-gray-300">已完成分钟</span>
+                            <span className="text-gray-900 dark:text-gray-100">{projection.completedMinutes} / {projection.totalPlannedMinutes}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-3">
+                            <span className="text-gray-600 dark:text-gray-300">预计完成</span>
+                            <span className="text-gray-900 dark:text-gray-100">{projection.predictedCompletionDate ?? '数据不足'}</span>
+                          </div>
+                          {projection.deltaDays !== null && (
+                            <div className={`rounded-lg px-3 py-2 text-xs ${projection.deltaDays <= 0 ? 'bg-green-50 text-green-800 dark:bg-green-950/50 dark:text-green-200' : 'bg-amber-50 text-amber-800 dark:bg-amber-950/50 dark:text-amber-200'}`}>
+                              {projection.deltaDays <= 0
+                                ? `按当前速度预计可提前 ${Math.abs(projection.deltaDays)} 天完成。`
+                                : `按当前速度预计比计划晚 ${projection.deltaDays} 天，建议提高每日有效学习分钟。`}
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="mt-4 text-sm text-gray-500 dark:text-gray-400">暂无足够数据用于预测。</div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                    {([
+                      ['词汇', mastery?.vocabulary],
+                      ['语法', mastery?.grammar],
+                      ['变位', mastery?.conjugation],
+                    ] as const).map(([label, value]) => (
+                      <div key={label} className="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800">
+                        <div className="flex items-center justify-between gap-3">
+                          <span className="font-medium text-gray-900 dark:text-gray-100">{label}掌握度</span>
+                          <strong className="text-xl text-indigo-700 dark:text-indigo-300">{value?.percent ?? 0}%</strong>
+                        </div>
+                        <div
+                          role="progressbar"
+                          aria-label={`${label}掌握度`}
+                          aria-valuemin={0}
+                          aria-valuemax={100}
+                          aria-valuenow={value?.percent ?? 0}
+                          className="mt-3 h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700"
+                        >
+                          <div className="h-full rounded-full bg-indigo-600 dark:bg-indigo-400" style={{ width: `${value?.percent ?? 0}%` }} />
+                        </div>
+                        <div className="mt-2 text-xs text-gray-600 dark:text-gray-300">
+                          已掌握 {value?.mastered ?? 0} / 已接触 {value?.known ?? 0} · active 错项 {value?.activeErrors ?? 0}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <div className="mt-5 rounded-xl bg-gray-100 p-4 text-sm text-gray-600 dark:bg-gray-800 dark:text-gray-300">
+                  当前没有可用的仪表盘缓存。你仍可继续离线练习，联网后这里会自动恢复。
+                </div>
+              )}
+            </section>
+
+            <section className="mx-0 my-6 rounded-2xl sm:mx-4 sm:my-8 border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <div className="text-sm font-medium text-indigo-500">今日复习 · 间隔重复</div>
@@ -246,7 +419,7 @@ const Analysis = () => {
                 <button
                   type="button"
                   onClick={() => void refreshAll()}
-                  className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-500 hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-300"
+                  className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 text-gray-500 hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-300"
                 >
                   刷新数据
                 </button>
@@ -291,7 +464,7 @@ const Analysis = () => {
               )}
             </section>
 
-            <section className="mx-4 my-8 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+            <section className="mx-0 my-6 rounded-2xl sm:mx-4 sm:my-8 border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <div className="text-sm font-medium text-indigo-500">打卡与成就</div>
@@ -382,7 +555,7 @@ const Analysis = () => {
               </div>
             </section>
 
-            <section className="mx-4 my-8 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+            <section className="mx-0 my-6 rounded-2xl sm:mx-4 sm:my-8 border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <div className="text-sm font-medium text-indigo-500">学习周报</div>
@@ -392,7 +565,7 @@ const Analysis = () => {
                 <button
                   type="button"
                   onClick={() => void exportReports()}
-                  className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-500 hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-300"
+                  className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 text-gray-500 hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-300"
                 >
                   导出周报
                 </button>
@@ -442,7 +615,7 @@ const Analysis = () => {
               )}
             </section>
 
-            <section className="mx-4 my-8 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+            <section className="mx-0 my-6 rounded-2xl sm:mx-4 sm:my-8 border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <div className="text-sm font-medium text-indigo-500">服务端学习统计</div>

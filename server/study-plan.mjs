@@ -2,6 +2,8 @@ import { studyPolicy, sessionCookie } from './study-http.mjs'
 import { apply, record, validate, importOperations, exportPlan, normalizeState, studyAnalytics, buildReviewQueue } from './study-model.mjs'
 import {
   ensureNodeFeatureSchema,
+  getNodeSchemaVersion,
+  STUDY_SCHEMA_VERSION,
   materializeNodeFeatures,
   listNodeErrorBook,
   listNodeCheckins,
@@ -138,7 +140,9 @@ export function createStudyServer({
         db.prepare('SELECT learner,week_start FROM weekly_reports LIMIT 1').get()
         db.prepare('SELECT scope,action FROM rate_limits LIMIT 1').get()
         db.prepare('SELECT id,action FROM audit_log LIMIT 1').get()
-        return send(200, { ok: true, storage: 'sqlite' })
+        const schemaVersion = getNodeSchemaVersion(db)
+        if (schemaVersion !== STUDY_SCHEMA_VERSION) throw new Error('Schema version mismatch')
+        return send(200, { ok: true, storage: 'sqlite', schemaVersion })
       } catch {
         return sendError(503, 'DATABASE_NOT_READY', 'Database not ready')
       }

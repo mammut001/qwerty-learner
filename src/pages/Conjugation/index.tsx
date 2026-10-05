@@ -9,10 +9,10 @@ import {
   type FrenchVerbConjugation,
 } from '@/resources/conjugation'
 import {
+  addStudyMinutes,
   flushStudyProgress,
   getLearningProgress,
   recordConjugationAttempt,
-  seedConjugationStats,
   type ConjugationStats,
   type TenseStat,
 } from '@/services/studyPlanSync'
@@ -99,6 +99,8 @@ export default function ConjugationPage() {
   const requestedTense = searchParams.get('tense')
   const requestedMode = searchParams.get('mode')
   const requestedScope = searchParams.get('scope')
+  const requestedStudyDate = searchParams.get('studyDate')
+  const requestedStudyTask = searchParams.get('studyTask')
   const initialVerb = frenchVerbs.find((verb) => verb.infinitive === requestedVerb) ?? defaultConjugationVerb
   const initialTense: ConjugationTense =
     requestedTense && tenses.includes(requestedTense as ConjugationTense)
@@ -117,10 +119,28 @@ export default function ConjugationPage() {
   const [result, setResult] = useState<PracticeResult>(null)
   const [stats, setStats] = useState<ConjugationStats>(() => loadStats())
   const inputRef = useRef<HTMLInputElement>(null)
+  const trackedPracticeStartedAt = useRef<number | null>(null)
+
+  const recordTrackedPracticeMinutes = useCallback(() => {
+    if (
+      requestedStudyTask !== 'smart-conjugation' ||
+      !requestedStudyDate ||
+      !/^\d{4}-\d{2}-\d{2}$/.test(requestedStudyDate) ||
+      trackedPracticeStartedAt.current === null
+    ) {
+      return
+    }
+    const elapsedMinutes = Math.max(1, Math.ceil((Date.now() - trackedPracticeStartedAt.current) / 60000))
+    trackedPracticeStartedAt.current = null
+    try {
+      addStudyMinutes(requestedStudyDate, requestedStudyTask, elapsedMinutes)
+    } catch {
+      // Individual conjugation attempts still persist even if smart-task minute tracking cannot be queued.
+    }
+  }, [requestedStudyDate, requestedStudyTask])
 
   useEffect(() => {
     let cancelled = false
-    const local = loadStats()
     void getLearningProgress().then((learning) => {
       if (cancelled) return
       const remote = learning.conjugation
@@ -138,11 +158,7 @@ export default function ConjugationPage() {
         return
       }
 
-      const localTotal = Object.values(local).reduce(
-        (sum, byTense) => sum + Object.values(byTense).reduce((inner, stat) => inner + (stat?.total ?? 0), 0),
-        0,
-      )
-      if (localTotal > 0) seedConjugationStats(local)
+
     })
 
     return () => {
@@ -173,11 +189,18 @@ export default function ConjugationPage() {
     }
   }, [selectedVerb, selectedTense, practiceScope, mode, startNextQuestion])
 
+  useEffect(() => {
+    if (mode === 'practice' && requestedStudyTask === 'smart-conjugation' && trackedPracticeStartedAt.current === null)
+      trackedPracticeStartedAt.current = Date.now()
+    if (mode !== 'practice') recordTrackedPracticeMinutes()
+  }, [mode, recordTrackedPracticeMinutes, requestedStudyTask])
+
   useEffect(
     () => () => {
+      recordTrackedPracticeMinutes()
       void flushStudyProgress()
     },
-    [],
+    [recordTrackedPracticeMinutes],
   )
 
   const updateStat = useCallback(

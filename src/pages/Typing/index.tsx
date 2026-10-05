@@ -24,7 +24,7 @@ import type React from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useImmerReducer } from 'use-immer'
 
-const studyVocabularyTaskIds = new Set(['mon-vocab', 'fri-vocab', 'minimum-vocab'])
+const studyVocabularyTaskIds = new Set(['mon-vocab', 'fri-vocab', 'minimum-vocab', 'smart-vocab'])
 
 const recordStudyPlanVocabularyMinutes = (dateKey: string, taskId: string, elapsedSeconds: number) => {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(dateKey) || !studyVocabularyTaskIds.has(taskId) || elapsedSeconds <= 0) return

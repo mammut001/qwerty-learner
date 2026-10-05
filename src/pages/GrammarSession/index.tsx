@@ -2,15 +2,15 @@ import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { grammarBatches, passeComposeVsImparfaitScenarios } from '@/resources/grammarSessions'
 import {
+  addStudyMinutes,
   completeGrammarSession,
   flushStudyProgress,
   getLearningProgress,
   saveGrammarDraft,
-  seedGrammarHistory,
   type GrammarSessionRecord,
 } from '@/services/studyPlanSync'
 import { useEffect, useMemo, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useSearchParams } from 'react-router-dom'
 import IconArrowLeft from '~icons/tabler/arrow-left'
 import IconBook from '~icons/tabler/book'
 import IconClock from '~icons/tabler/clock'
@@ -21,7 +21,6 @@ type SessionStatus = 'intro' | 'running' | 'finished'
 
 const SESSION_SECONDS = 30 * 60
 const HISTORY_KEY = 'qwerty-fr-grammar-session-history-v1'
-const HISTORY_MIGRATION_KEY = 'qwerty-fr-grammar-server-migration-v1'
 
 const toDateKey = (timestamp: number) => {
   const date = new Date(timestamp)
@@ -53,6 +52,9 @@ const formatTime = (seconds: number) => {
 }
 
 export default function GrammarSessionPage() {
+  const [searchParams] = useSearchParams()
+  const requestedStudyDate = searchParams.get('studyDate')
+  const requestedStudyTask = searchParams.get('studyTask')
   const [status, setStatus] = useState<SessionStatus>('intro')
   const [secondsLeft, setSecondsLeft] = useState(SESSION_SECONDS)
   const [currentBatch, setCurrentBatch] = useState(0)
@@ -84,33 +86,6 @@ export default function GrammarSessionPage() {
           )
         }
 
-        try {
-          if (!learning.grammar.history.length && !window.localStorage.getItem(HISTORY_MIGRATION_KEY)) {
-            const legacy = JSON.parse(window.localStorage.getItem(HISTORY_KEY) ?? '[]') as Array<Record<string, unknown>>
-            const records: GrammarSessionRecord[] = legacy.slice(0, 50).flatMap((item) => {
-              const finishedAt = typeof item.finishedAt === 'number' ? item.finishedAt : 0
-              const score = typeof item.score === 'number' ? item.score : 0
-              const total = typeof item.total === 'number' ? item.total : 0
-              if (!finishedAt || score < 0 || total < score) return []
-              return [{
-                id: crypto.randomUUID(),
-                topic: typeof item.topic === 'string' ? item.topic : 'passé composé vs imparfait',
-                score,
-                total,
-                elapsedSeconds: typeof item.elapsedSeconds === 'number' ? Math.max(0, Math.round(item.elapsedSeconds)) : 0,
-                finishedAt,
-                day: toDateKey(finishedAt),
-                answers: (item.answers && typeof item.answers === 'object' ? item.answers : {}) as Record<string, Choice>,
-                reasons: (item.reasons && typeof item.reasons === 'object' ? item.reasons : {}) as Record<string, string>,
-                outputAnswers: Array.isArray(item.outputAnswers) ? item.outputAnswers.filter((value): value is string => typeof value === 'string') : [],
-              }]
-            })
-            seedGrammarHistory(records)
-            window.localStorage.setItem(HISTORY_MIGRATION_KEY, 'queued')
-          }
-        } catch {
-          // Legacy local history stays untouched and can be retried later.
-        }
       })
       .finally(() => {
         if (!cancelled) setHydrated(true)
@@ -237,6 +212,18 @@ export default function GrammarSessionPage() {
       // localStorage unavailable: session can still finish normally
     }
 
+    if (
+      requestedStudyTask === 'smart-grammar' &&
+      requestedStudyDate &&
+      /^\d{4}-\d{2}-\d{2}$/.test(requestedStudyDate)
+    ) {
+      try {
+        addStudyMinutes(requestedStudyDate, requestedStudyTask, Math.max(1, Math.ceil(elapsedSeconds / 60)))
+      } catch {
+        // The grammar result itself remains durable even if task-minute tracking cannot be queued.
+      }
+    }
+
     setDeadline(null)
     setStatus('finished')
     void flushStudyProgress()
@@ -264,13 +251,13 @@ export default function GrammarSessionPage() {
           </NavLink>
         </Header>
 
-        <main className="container mx-auto flex flex-1 items-center justify-center px-10 pb-10">
-          <section className="my-card w-full max-w-3xl rounded-3xl bg-white p-10 dark:bg-gray-800">
+        <main className="container mx-auto flex flex-1 items-center justify-center px-4 pb-10 sm:px-6 lg:px-10">
+          <section className="my-card w-full max-w-3xl rounded-3xl bg-white p-5 sm:p-10 dark:bg-gray-800">
             <div className="flex items-center gap-3 text-indigo-500">
               <IconClock className="text-3xl" />
               <span className="text-sm font-medium">30 分钟 · 过去时态恢复</span>
             </div>
-            <h1 className="mt-4 text-4xl font-semibold text-gray-900 dark:text-white">Passé composé vs imparfait</h1>
+            <h1 className="mt-4 text-3xl font-semibold sm:text-4xl text-gray-900 dark:text-white">Passé composé vs imparfait</h1>
             <p className="mt-4 text-lg leading-8 text-gray-600 dark:text-gray-300">
               这不是刷分模式。每一道题都要先选答案，再用中文或法语写一句“为什么”。提交之后才会看到标准解释。
             </p>
@@ -317,10 +304,10 @@ export default function GrammarSessionPage() {
           </NavLink>
         </Header>
 
-        <main className="container mx-auto flex flex-1 items-center justify-center px-10 pb-10">
-          <section className="my-card w-full max-w-3xl rounded-3xl bg-white p-10 dark:bg-gray-800">
+        <main className="container mx-auto flex flex-1 items-center justify-center px-4 pb-10 sm:px-6 lg:px-10">
+          <section className="my-card w-full max-w-3xl rounded-3xl bg-white p-5 sm:p-10 dark:bg-gray-800">
             <div className="text-sm font-medium text-indigo-500">本次 30 分钟训练完成</div>
-            <h1 className="mt-3 text-4xl font-semibold text-gray-900 dark:text-white">
+            <h1 className="mt-3 text-3xl font-semibold sm:text-4xl text-gray-900 dark:text-white">
               {score} / {passeComposeVsImparfaitScenarios.length}
             </h1>
             <p className="mt-4 leading-7 text-gray-600 dark:text-gray-300">

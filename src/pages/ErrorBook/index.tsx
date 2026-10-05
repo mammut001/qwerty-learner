@@ -70,8 +70,15 @@ export function ErrorBook() {
 
   return (
     <Layout>
-      <div className="relative flex w-full flex-1 flex-col overflow-hidden px-16 pb-10 pt-16">
-        <IconX className="absolute right-16 top-8 h-7 w-7 cursor-pointer text-gray-400" onClick={() => navigate('/')} />
+      <div className="relative flex w-full flex-1 flex-col overflow-hidden px-4 pb-10 pt-14 sm:px-6 lg:px-16 lg:pt-16">
+        <button
+          type="button"
+          aria-label="关闭错题本"
+          onClick={() => navigate('/')}
+          className="absolute right-4 top-3 rounded-lg p-2 text-gray-500 outline-none hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-indigo-500 sm:right-6 lg:right-16 lg:top-6 dark:text-gray-300 dark:hover:bg-gray-800"
+        >
+          <IconX className="h-7 w-7" />
+        </button>
 
         <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col overflow-hidden">
           <div className="flex flex-wrap items-end justify-between gap-4">
@@ -94,7 +101,7 @@ export function ErrorBook() {
                 aria-label="错题类型"
                 value={type}
                 onChange={(event) => setType(event.target.value as TypeFilter)}
-                className="mt-1 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900"
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100"
               >
                 <option value="">全部</option>
                 <option value="vocabulary">词汇</option>
@@ -108,7 +115,7 @@ export function ErrorBook() {
                 aria-label="错题状态"
                 value={status}
                 onChange={(event) => setStatus(event.target.value as StatusFilter)}
-                className="mt-1 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900"
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100"
               >
                 <option value="active">待掌握</option>
                 <option value="mastered">已掌握</option>
@@ -122,7 +129,7 @@ export function ErrorBook() {
                 type="date"
                 value={from}
                 onChange={(event) => setFrom(event.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900"
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100"
               />
             </label>
             <label className="text-xs text-gray-500">
@@ -132,14 +139,14 @@ export function ErrorBook() {
                 type="date"
                 value={to}
                 onChange={(event) => setTo(event.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900"
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100"
               />
             </label>
           </div>
 
           {message && <div className="mt-4 rounded-xl bg-amber-50 p-3 text-sm text-amber-700 dark:bg-amber-950/30">{message}</div>}
 
-          <ScrollArea.Root className="mt-5 flex-1 overflow-hidden">
+          <ScrollArea.Root className="mt-5 flex-1 overflow-hidden" aria-label="错题列表">
             <ScrollArea.Viewport className="h-full w-full pb-16">
               {loading ? (
                 <div className="rounded-2xl bg-gray-50 p-8 text-center text-sm text-gray-400 dark:bg-gray-900">正在读取错题本…</div>
@@ -173,7 +180,7 @@ export function ErrorBook() {
                       <button
                         type="button"
                         onClick={() => retry(item)}
-                        className="rounded-lg bg-indigo-500 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-600"
+                        className="rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white outline-none hover:bg-indigo-700 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 dark:bg-indigo-500 dark:hover:bg-indigo-400"
                       >
                         一键重练
                       </button>

@@ -7,7 +7,7 @@ import TypingPage from './pages/Typing'
 import { isOpenDarkModeAtom } from '@/store'
 import { registerStudyPwa } from '@/services/pwa'
 import { startStudyReminderScheduler } from '@/services/studyReminder'
-import { migrateVocabularyHistory } from '@/services/studyPlanSync'
+import { migrateLegacyStudyData } from '@/services/studyPlanSync'
 import { db } from '@/utils/db'
 import 'animate.css'
 import { useAtomValue } from 'jotai'
@@ -22,14 +22,13 @@ const ConjugationPage = lazy(() => import('./pages/Conjugation'))
 const GrammarSessionPage = lazy(() => import('./pages/GrammarSession'))
 const StudyPlanPage = lazy(() => import('./pages/StudyPlan'))
 
-const VOCABULARY_MIGRATION_KEY = 'qwerty-fr-vocabulary-server-migration-v1'
-
-async function migrateExistingVocabularyHistory() {
+async function migrateExistingStudyData() {
   try {
-    if (window.localStorage.getItem(VOCABULARY_MIGRATION_KEY)) return
     const records = (await db.wordRecords.orderBy('timeStamp').reverse().limit(3000).toArray()).reverse()
-    migrateVocabularyHistory(
-      records.map((record) => ({
+    const grammarHistory = JSON.parse(window.localStorage.getItem('qwerty-fr-grammar-session-history-v1') ?? '[]')
+    const conjugation = JSON.parse(window.localStorage.getItem('qwerty-fr-conjugation-stats-v1') ?? '{}')
+    await migrateLegacyStudyData({
+      vocabulary: records.map((record) => ({
         word: record.word,
         dict: record.dict,
         chapter: record.chapter,
@@ -38,17 +37,18 @@ async function migrateExistingVocabularyHistory() {
         wrongCount: record.wrongCount,
         wrongKeys: Object.values(record.mistakes ?? {}).flat().map(String).slice(0, 200),
       })),
-    )
-    window.localStorage.setItem(VOCABULARY_MIGRATION_KEY, 'queued')
+      grammarHistory,
+      conjugation,
+    })
   } catch {
-    // Keep local IndexedDB data untouched and retry on a later page load.
+    // Keep every legacy store untouched and retry on a later page load.
   }
 }
 
 function Root() {
   const darkMode = useAtomValue(isOpenDarkModeAtom)
   useEffect(() => {
-    void migrateExistingVocabularyHistory()
+    void migrateExistingStudyData()
     void registerStudyPwa()
     startStudyReminderScheduler()
   }, [])
@@ -60,14 +60,7 @@ function Root() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600)
 
   useEffect(() => {
-    const handleResize = () => {
-      const isMobile = window.innerWidth <= 600
-      if (!isMobile) {
-        window.location.href = REACT_APP_DEPLOY_ENV === 'pages' ? '/qwerty-learner/' : '/'
-      }
-      setIsMobile(isMobile)
-    }
-
+    const handleResize = () => setIsMobile(window.innerWidth <= 600)
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
@@ -77,22 +70,16 @@ function Root() {
       <BrowserRouter basename={REACT_APP_DEPLOY_ENV === 'pages' ? '/qwerty-learner' : ''}>
         <Suspense fallback={<Loading />}>
           <Routes>
-            {isMobile ? (
-              <Route path="/*" element={<Navigate to="/mobile" />} />
-            ) : (
-              <>
-                <Route index element={<TypingPage />} />
-                <Route path="/gallery" element={<GalleryPage />} />
-                <Route path="/conjugation" element={<ConjugationPage />} />
-                <Route path="/grammar-session" element={<GrammarSessionPage />} />
-                <Route path="/study-plan" element={<StudyPlanPage />} />
-                <Route path="/analysis" element={<AnalysisPage />} />
-                <Route path="/error-book" element={<ErrorBook />} />
-                <Route path="/friend-links" element={<FriendLinks />} />
-                <Route path="/*" element={<Navigate to="/" />} />
-              </>
-            )}
+            <Route index element={isMobile ? <MobilePage /> : <TypingPage />} />
+            <Route path="/gallery" element={isMobile ? <MobilePage /> : <GalleryPage />} />
+            <Route path="/conjugation" element={<ConjugationPage />} />
+            <Route path="/grammar-session" element={<GrammarSessionPage />} />
+            <Route path="/study-plan" element={<StudyPlanPage />} />
+            <Route path="/analysis" element={<AnalysisPage />} />
+            <Route path="/error-book" element={<ErrorBook />} />
+            <Route path="/friend-links" element={<FriendLinks />} />
             <Route path="/mobile" element={<MobilePage />} />
+            <Route path="/*" element={<Navigate to={isMobile ? '/study-plan' : '/'} />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

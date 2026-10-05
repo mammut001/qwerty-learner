@@ -649,6 +649,196 @@ export function buildReviewQueue(input, today = toKey(new Date())) {
     .slice(0, 50)
 }
 
+
+const masteryKinds = ['vocabulary', 'grammar', 'conjugation']
+const masteryRow = (known, activeErrors) => {
+  const mastered = Math.max(0, known - activeErrors)
+  return {
+    known,
+    mastered,
+    activeErrors,
+    percent: known ? Math.max(0, Math.min(100, Math.round((mastered / known) * 100))) : 0,
+  }
+}
+
+function dashboardForState(state, today) {
+  const activeErrors = activeErrorBookCandidates(state)
+  const activeByKind = Object.fromEntries(masteryKinds.map((kind) => [
+    kind,
+    new Set(activeErrors.filter((item) => item.kind === kind).map((item) => item.sourceId)).size,
+  ]))
+
+  const vocabularyKnown = new Set(state.learning.vocabulary.records.map((item) => item.dict + '|' + item.word)).size
+  const grammarKnown = new Set(
+    state.learning.grammar.history.flatMap((session) =>
+      session.items?.length ? session.items.map((item) => item.id) : ['topic:' + session.topic],
+    ),
+  ).size
+  const conjugationKnown = new Set(
+    Object.entries(state.learning.conjugation).flatMap(([verb, tenses]) =>
+      Object.entries(tenses)
+        .filter(([, stat]) => stat.total > 0)
+        .map(([tense]) => verb + '|' + tense),
+    ),
+  ).size
+
+  const heatmap = Array.from({ length: 90 }, (_, index) => addDays(today, index - 89)).map((day) => {
+    const plannedMinutes = sum(Object.values(targetsFor(state, day)))
+    const actualMinutes = recordedMinutesForDay(state, day)
+    return {
+      day,
+      minutes: actualMinutes,
+      plannedMinutes,
+      completionPercent: plannedMinutes ? Math.min(100, Math.round((actualMinutes / plannedMinutes) * 100)) : 0,
+    }
+  })
+
+  const totalPlannedMinutes = sum(
+    Array.from({ length: 182 }, (_, index) => addDays(state.startDate, index))
+      .map((day) => sum(Object.values(targetsFor(state, day)))),
+  )
+  const completedMinutes = Math.min(totalPlannedMinutes, totalPlanMinutes(state))
+  const recentDays = Array.from({ length: 28 }, (_, index) => addDays(today, index - 27))
+  const recentMinutes = sum(recentDays.map((day) => recordedMinutesForDay(state, day)))
+  const averageDailyMinutes = Math.round((recentMinutes / 28) * 10) / 10
+  const remainingMinutes = Math.max(0, totalPlannedMinutes - completedMinutes)
+  const daysToFinish = remainingMinutes === 0 ? 0 : averageDailyMinutes > 0 ? Math.ceil(remainingMinutes / averageDailyMinutes) : null
+  const predictedCompletionDate = daysToFinish === null ? null : addDays(today, daysToFinish)
+
+  return {
+    heatmap,
+    mastery: {
+      vocabulary: masteryRow(vocabularyKnown, activeByKind.vocabulary ?? 0),
+      grammar: masteryRow(grammarKnown, activeByKind.grammar ?? 0),
+      conjugation: masteryRow(conjugationKnown, activeByKind.conjugation ?? 0),
+    },
+    projection: {
+      totalPlannedMinutes,
+      completedMinutes,
+      remainingMinutes,
+      progressPercent: totalPlannedMinutes ? Math.min(100, Math.round((completedMinutes / totalPlannedMinutes) * 100)) : 0,
+      averageDailyMinutes,
+      predictedCompletionDate,
+      scheduledCompletionDate: state.settings.examDate,
+      deltaDays: predictedCompletionDate ? diffDays(state.settings.examDate, predictedCompletionDate) : null,
+    },
+  }
+}
+
+export function buildStudyDashboard(input, today = toKey(new Date())) {
+  const state = normalizeState(input)
+  if (!date(today)) throw new Error('Invalid dashboard date')
+  return dashboardForState(state, today)
+}
+
+const allocateWeightedMinutes = (total, weights) => {
+  if (total <= 0) return weights.map(() => 0)
+  const weightSum = sum(weights)
+  const raw = weights.map((weight) => (total * weight) / weightSum)
+  const allocated = raw.map(Math.floor)
+  let remaining = total - sum(allocated)
+  const order = raw
+    .map((value, index) => ({ index, fraction: value - allocated[index] }))
+    .sort((a, b) => b.fraction - a.fraction || a.index - b.index)
+  for (let index = 0; remaining > 0; index = (index + 1) % order.length) {
+    allocated[order[index].index] += 1
+    remaining -= 1
+  }
+  return allocated
+}
+
+function todayPlanForState(state, today) {
+  const due = buildReviewQueue(state, today)
+  const activeErrors = activeErrorBookCandidates(state)
+  const plannedToday = sum(Object.values(targetsFor(state, today)))
+  const targetMinutes = state.settings.dailyTargetMinutes ?? (plannedToday > 0 ? plannedToday : 60)
+  const errorCounts = {
+    vocabulary: activeErrors.filter((item) => item.kind === 'vocabulary').length,
+    grammar: activeErrors.filter((item) => item.kind === 'grammar').length,
+    conjugation: activeErrors.filter((item) => item.kind === 'conjugation').length,
+  }
+
+  const reviewMinutes = due.length
+    ? Math.min(Math.max(2, due.length * 2), Math.max(2, Math.round(targetMinutes * 0.45)))
+    : 0
+  const remainder = Math.max(0, targetMinutes - reviewMinutes)
+  const weights = [
+    4 + Math.min(4, errorCounts.vocabulary),
+    3 + Math.min(4, errorCounts.grammar),
+    3 + Math.min(4, errorCounts.conjugation),
+  ]
+  const [vocabularyMinutes, grammarMinutes, conjugationMinutes] = allocateWeightedMinutes(remainder, weights)
+  const actual = state.minutes[today] ?? {}
+
+  const definitions = [
+    ...(reviewMinutes > 0
+      ? [{
+          id: 'smart-review',
+          kind: 'review',
+          title: '到期复习',
+          minutes: reviewMinutes,
+          href: '/analysis',
+          reason: `${due.length} 项 SM-2 到期复习，优先清空遗留记忆负债。`,
+        }]
+      : []),
+    {
+      id: 'smart-vocab',
+      kind: 'vocabulary',
+      title: '新词与错词巩固',
+      minutes: vocabularyMinutes,
+      href: '/',
+      reason: errorCounts.vocabulary
+        ? `当前有 ${errorCounts.vocabulary} 个 active 错词，先巩固再推进新词。`
+        : '当前词汇错题压力较低，继续推进新词。',
+    },
+    {
+      id: 'smart-grammar',
+      kind: 'grammar',
+      title: '语法训练',
+      minutes: grammarMinutes,
+      href: '/grammar-session',
+      reason: errorCounts.grammar
+        ? `当前有 ${errorCounts.grammar} 个 active 语法错点。`
+        : '保持语法训练占比，避免只刷词汇。',
+    },
+    {
+      id: 'smart-conjugation',
+      kind: 'conjugation',
+      title: '动词变位',
+      minutes: conjugationMinutes,
+      href: '/conjugation?mode=practice&scope=mixed',
+      reason: errorCounts.conjugation
+        ? `当前有 ${errorCounts.conjugation} 个 active 变位弱项。`
+        : '用混合变位练习维持提取速度。',
+    },
+  ].filter((item) => item.minutes > 0)
+
+  const tasks = definitions.map((item) => {
+    const actualMinutes = actual[item.id] ?? 0
+    return {
+      ...item,
+      actualMinutes,
+      complete: actualMinutes >= item.minutes,
+    }
+  })
+
+  return {
+    day: today,
+    targetMinutes,
+    plannedRoadmapMinutes: plannedToday,
+    dueReviews: due.length,
+    activeErrors: activeErrors.length,
+    completedMinutes: sum(tasks.map((item) => Math.min(item.minutes, item.actualMinutes))),
+    tasks,
+  }
+}
+
+export function buildTodayTaskPlan(input, today = toKey(new Date())) {
+  const state = normalizeState(input)
+  if (!date(today)) throw new Error('Invalid today-plan date')
+  return todayPlanForState(state, today)
+}
+
 export function studyAnalytics(input, now = new Date()) {
   const state = normalizeState(input)
   const today = toKey(now)
@@ -768,14 +958,16 @@ export function studyAnalytics(input, now = new Date()) {
     trends: trendBuckets(state, today),
     rankings: rankings(state),
     reviewDue: buildReviewQueue(state, today).length,
+    dashboard: dashboardForState(state, today),
+    today: todayPlanForState(state, today),
   }
 }
 
 export function importOperations(backup) {
-  if (!record(backup) || backup.format !== 'qwerty-study-plan' || ![1, 2, 3, 4].includes(backup.version)) throw new Error('Unsupported backup')
+  if (!record(backup) || backup.format !== 'qwerty-study-plan' || ![1, 2, 3, 4, 5].includes(backup.version)) throw new Error('Unsupported backup')
   validate(backup.state)
   return [{ kind: 'replace', value: backup.state }]
 }
 export function exportPlan(state) {
-  return { format: 'qwerty-study-plan', version: 4, exportedAt: new Date().toISOString(), state: normalizeState(state) }
+  return { format: 'qwerty-study-plan', version: 5, schemaVersion: 5, exportedAt: new Date().toISOString(), state: normalizeState(state) }
 }

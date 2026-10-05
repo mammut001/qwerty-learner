@@ -168,6 +168,17 @@ test('durability, analytics, review scheduling, LWW sync and device binding', as
     assert.equal(analytics.analytics.rankings.grammar[0].label, '过去习惯')
     assert.equal(analytics.analytics.rankings.conjugation[0].label, 'prendre')
     assert.equal(analytics.analytics.reviewDue, 4)
+    assert.equal(analytics.analytics.dashboard.heatmap.length, 90)
+    assert.equal(analytics.analytics.dashboard.mastery.vocabulary.activeErrors, 1)
+    assert.equal(analytics.analytics.dashboard.mastery.grammar.activeErrors, 1)
+    assert.equal(analytics.analytics.dashboard.mastery.conjugation.activeErrors, 2)
+    assert.equal(analytics.analytics.today.targetMinutes, 60)
+    assert.equal(
+      analytics.analytics.today.tasks.reduce((total, task) => total + task.minutes, 0),
+      60,
+      'smart today tasks fit exactly inside the configured daily target',
+    )
+    assert.ok(analytics.analytics.today.tasks.some((task) => task.id === 'smart-review'))
     assert.equal(analytics.analytics.plan.weeklyPlannedDays, 3)
     assert.equal(analytics.analytics.plan.weeklyPlannedMinutes, 180)
     assert.equal(analytics.analytics.plan.weeklyMinutes, 35, 'history on a newly configured rest day remains counted')
@@ -224,6 +235,9 @@ test('durability, analytics, review scheduling, LWW sync and device binding', as
 
     await stop()
     await start()
+    const healthAfterRestart = await fetch(base.replace('/api/study-plan', '/api/health'))
+    assert.equal(healthAfterRestart.status, 200)
+    assert.equal((await healthAfterRestart.json()).schemaVersion, 5)
     state = (await (await call('GET', cookie)).json()).state
     assert.equal(state.learning.reviews.items[vocabReview.itemId].repetitions, 1, 'review schedule survives restart')
     assert.equal(state.minutes['2026-10-03']['sat-retell'], 20)

@@ -13,6 +13,7 @@ import {
 } from './study-worker-features.mjs'
 
 const MAX_BODY_BYTES = 1700000
+const STUDY_SCHEMA_VERSION = 5
 const json = (status, data, headers = {}) => new Response(JSON.stringify(data), {
   status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', ...headers },
 })
@@ -71,7 +72,10 @@ export async function studyApi(request, env) {
       await env.DB.prepare('SELECT learner,week_start FROM weekly_reports LIMIT 1').all()
       await env.DB.prepare('SELECT scope,action FROM rate_limits LIMIT 1').all()
       await env.DB.prepare('SELECT id,action FROM audit_log LIMIT 1').all()
-      return json(200, { ok: true, storage: 'd1' })
+      const schema = await env.DB.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").first()
+      const schemaVersion = Number(schema?.value)
+      if (schemaVersion !== STUDY_SCHEMA_VERSION) throw new Error('Schema version mismatch')
+      return json(200, { ok: true, storage: 'd1', schemaVersion })
     } catch {
       return jsonError(503, 'DATABASE_NOT_READY', 'Database not ready')
     }

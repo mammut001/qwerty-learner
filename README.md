@@ -136,3 +136,18 @@ GitHub Pages 只能托管静态文件，无法运行这个后端。仅部署到 
 - 同步码绑定对客户端来源做限流：默认 5 分钟最多 6 次，超限阻断 15 分钟；生成/撤销等同步码写操作也有 learner 级限流。
 - 敏感操作写入审计日志，但不会记录原始同步码、Cookie 或原始 IP；actor 只保存哈希值。
 - Docker 生产链路由 Caddy 明确覆盖可信客户端地址头，经 Nginx 传给 Node；standalone Node 默认不信任代理头，避免伪造来源绕过限流。
+
+## 学习数据仪表盘与智能今日任务
+
+- `/analysis` 的仪表盘由后端 analytics 统一计算：最近 90 天每日学习分钟热力图、按天/周/月正确率趋势、词汇/语法/变位掌握度，以及基于最近 28 天实际学习速度的预计完成日期。
+- analytics 成功返回后会缓存在本机。断网或统计接口暂不可用时，页面读取最近缓存；没有缓存时显示空状态而不是抛错。
+- `/study-plan` 顶部新增“智能今日任务”层，但 **不改变 26 周路线图布局**。后端按 SM-2 到期量、active 错题分布和每日目标分钟生成复习/词汇/语法/变位配比，总分钟严格限制在当日目标内。
+- 智能任务复用真实练习入口：词汇章节计时、语法 session 完成时间、变位 practice 实际停留分钟和 SM-2 复习结果都会写回同一份服务端分钟/统计状态。
+- `/study-plan`、`/analysis`、`/error-book`、语法与变位页面支持窄屏访问；新增控件使用 ARIA label/progressbar、可见 focus ring，并提高深色模式文字/边框对比度。
+
+## Schema v5 与旧数据迁移
+
+- D1 新增顺序迁移 `0005_schema_version.sql`，SQLite 启动时建立同一 `schema_meta`；`/health` 与 `/api/health` 只有在 `schema_version=5` 时才返回 ready。
+- 导出格式升级到 `qwerty-study-plan` v5，并包含 `schemaVersion: 5`；导入继续兼容 v1–v5 和旧 plain-state JSON。
+- 首次升级会统一扫描旧 IndexedDB 词汇记录、grammar localStorage 和 conjugation localStorage。迁移按内容签名去重并进入 durable mutation queue；只有服务端确认队列清空才写迁移完成标记，所以断网不会误标成功。
+- “删除我的全部学习数据”现在同时删除当前 learner 的服务端状态以及浏览器 IndexedDB / 旧 grammar、conjugation 兼容缓存，避免旧数据在刷新后再次迁回服务端。

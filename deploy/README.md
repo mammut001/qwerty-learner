@@ -109,7 +109,7 @@ CI additionally builds with a nonempty remote API base, verifies that the compil
 
 ## Per-browser remote export and import
 
-The existing learning-plan export button now flushes pending changes and downloads **server state**, in `{format:"qwerty-study-plan", version:4, exportedAt, state}` JSON. It reports failure if the server is unavailable or queued changes remain; it does not silently substitute a local snapshot. The existing import picker/confirmation accepts this envelope and previous plain-state JSON files. Import replaces the current browser identity's plan atomically through the remote API. Offline imports stay in the durable mutation queue and retry after reconnect/reload. Layout and learning content are unchanged.
+The existing learning-plan export button now flushes pending changes and downloads **server state**, in `{format:"qwerty-study-plan", version:5, schemaVersion:5, exportedAt, state}` JSON. It reports failure if the server is unavailable or queued changes remain; it does not silently substitute a local snapshot. The existing import picker/confirmation accepts this envelope and previous plain-state JSON files. Import replaces the current browser identity's plan atomically through the remote API. Offline imports stay in the durable mutation queue and retry after reconnect/reload. Layout and learning content are unchanged.
 
 - `GET /api/study-plan/export`: requires the current session and an initialized plan. Returns only this identity's progress, never cookies or other users' records.
 - `GET /api/study-plan/analytics?today=YYYY-MM-DD`: returns server-derived day/week/month learning-time and accuracy trends, error rankings, plan completion/streaks, and review-due count.
@@ -119,7 +119,7 @@ The existing learning-plan export button now flushes pending changes and downloa
 - `POST /api/study-plan/sync-key/revoke`: revokes a supplied active share code owned by the current learner.
 - `POST /api/study-plan/link`: accepts a sync code, binds this browser session to that learner, and returns the full current state.
 - `POST /api/study-plan/unlink`: detaches this browser into an independent learner while cloning its current state.
-- `POST /api/study-plan/import`: same Origin/JSON/session requirements as other writes. Body is `{id:"UUID", backup:{format:"qwerty-study-plan",version:4,state:{...}}}`. Initialize the session/plan through the ordinary GET/POST flow first. A repeated ID with identical contents is a no-op; reusing it with other contents is rejected. A retry after later edits returns current state instead of replaying the replacement.
+- `POST /api/study-plan/import`: same Origin/JSON/session requirements as other writes. Body is `{id:"UUID", backup:{format:"qwerty-study-plan",version:5,schemaVersion:5,state:{...}}}`. Initialize the session/plan through the ordinary GET/POST flow first. A repeated ID with identical contents is a no-op; reusing it with other contents is rejected. A retry after later edits returns current state instead of replaying the replacement.
 - Invalid versions, oversized plans, invalid review payloads/dates/tasks/minutes and cross-origin writes are rejected without changing saved data. Node upgrades the sync-code table on startup; D1 applies `0002_sync_keys.sql` and `0003_sync_key_revocation.sql`.
 
 Keep exported JSON private. It contains progress but no login secret. Import/export remains a point-in-time backup path. Continuous anonymous-device synchronization uses the sync-code bind flow; offline mutations are replayed after reconnect and mutable-field conflicts use latest-timestamp-wins.
@@ -196,3 +196,18 @@ New API routes:
 Errors use stable top-level `code` values alongside the human-readable `error` string. The sync-link endpoint is actor-rate-limited and sync-key mutations are learner-rate-limited. Audit rows store only a hashed actor identifier and never raw credentials.
 
 For Docker deployments, `STUDY_TRUST_PROXY_IP=true` is enabled only behind the shipped Nginx/Caddy chain. Caddy overwrites `X-Study-Client-IP` from the actual remote host and Nginx forwards that dedicated header to the Node API. Direct Node deployments should leave proxy trust disabled unless an equivalent trusted edge overwrites the header.
+
+## Schema migration 0005 and analytics v5
+
+Apply every checked-in D1 migration in order. `0005_schema_version.sql` introduces `schema_meta` and records `schema_version=5`. The Node SQLite backend creates/upgrades the equivalent table at startup. Both health aliases now verify the current schema version before reporting readiness.
+
+Backup envelopes emitted by v5 include `version:5` and `schemaVersion:5`; imports intentionally continue accepting versions 1 through 5. The frontend's first-sync migration consolidates legacy IndexedDB vocabulary history plus grammar/conjugation localStorage into the durable server queue and marks migration complete only after the queue drains.
+
+`GET /api/study-plan/analytics` now also returns:
+
+- `dashboard.heatmap`: 90 daily minute buckets;
+- `dashboard.mastery`: vocabulary/grammar/conjugation known, mastered and active-error counts;
+- `dashboard.projection`: planned/completed/remaining minutes, recent pace and predicted completion date;
+- `today`: deterministic smart-task allocation constrained to the configured daily target.
+
+These are derived from learner state rather than separate client-side calculations, so linked devices receive the same planning/statistics model.
