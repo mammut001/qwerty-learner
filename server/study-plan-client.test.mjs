@@ -187,6 +187,10 @@ test('client offline queue, LWW merge, review scheduling and sync bind/unbind', 
     assert.ok(Object.keys(storage).some((key) => key.includes('pending:')))
     await importReload.syncStudyPlan()
     assert.equal((await importReload.exportRemoteStudyPlan(initial)).state.startDate, '2026-09-01')
+
+    // The reloaded client intentionally scheduled a retry while offline above.
+    // Run one successful drain before closing the temporary server so that timer is cleared.
+    await reloaded.syncStudyPlan()
   } finally {
     Date.now = realNow
     globalThis.fetch = realFetch

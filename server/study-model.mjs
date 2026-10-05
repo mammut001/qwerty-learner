@@ -309,6 +309,19 @@ export function apply(state, operations) {
           total: daily.total + 1,
         }
       }
+    } else if (op.kind === 'conjugationAttempt' && text(op.verb, 120) && tense(op.tense) &&
+               typeof op.correct === 'boolean' && date(op.day)) {
+      // Compatibility for durable offline mutations queued by the previous frontend.
+      // Mutation-level idempotency still prevents double counting; only the new format has per-attempt history.
+      const byVerb = state.learning.conjugation[op.verb] ?? {}
+      const stat = byVerb[op.tense] ?? { correct: 0, total: 0 }
+      byVerb[op.tense] = { correct: stat.correct + (op.correct ? 1 : 0), total: stat.total + 1 }
+      state.learning.conjugation[op.verb] = byVerb
+      const daily = state.learning.conjugationDaily[op.day] ?? { correct: 0, total: 0 }
+      state.learning.conjugationDaily[op.day] = {
+        correct: daily.correct + (op.correct ? 1 : 0),
+        total: daily.total + 1,
+      }
     } else if (op.kind === 'reviewResult' && text(op.itemId, 500) && reviewKind(op.reviewKind) &&
                text(op.sourceId, 400) && text(op.label, 500) && integer(op.quality, 0, 5) &&
                timestamp(op.reviewedAt) && date(op.day)) {

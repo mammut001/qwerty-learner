@@ -120,6 +120,13 @@ test('durability, analytics, review scheduling, LWW sync and device binding', as
     }
     assert.equal((await call('PATCH', cookie, learningMutation)).status, 200)
     assert.equal((await call('PATCH', cookie, learningMutation)).status, 200, 'append-only learning events replay once')
+    const legacyConjugationMutation = {
+      id: randomUUID(),
+      operations: [{ kind: 'conjugationAttempt', verb: 'venir', tense: 'present', correct: false, day: '2026-10-03' }],
+    }
+    assert.equal((await call('PATCH', cookie, legacyConjugationMutation)).status, 200, 'previous offline conjugation format remains replayable')
+    assert.equal((await call('PATCH', cookie, legacyConjugationMutation)).status, 200)
+    assert.equal((await (await call('GET', cookie)).json()).state.learning.conjugation.venir.present.total, 1)
 
     const analytics = await (await call('GET', cookie, undefined, options.origin, '/analytics?today=2026-10-05')).json()
     assert.equal(analytics.analytics.vocabulary.attempts, 1)
@@ -132,10 +139,10 @@ test('durability, analytics, review scheduling, LWW sync and device binding', as
     assert.equal(analytics.analytics.rankings.vocabulary[0].label, 'prendre')
     assert.equal(analytics.analytics.rankings.grammar[0].label, '过去习惯')
     assert.equal(analytics.analytics.rankings.conjugation[0].label, 'prendre')
-    assert.equal(analytics.analytics.reviewDue, 3)
+    assert.equal(analytics.analytics.reviewDue, 4)
 
     const review = await (await call('GET', cookie, undefined, options.origin, '/review?today=2026-10-05')).json()
-    assert.equal(review.queue.length, 3)
+    assert.equal(review.queue.length, 4)
     const vocabReview = review.queue.find((item) => item.kind === 'vocabulary')
     assert.ok(vocabReview)
     const reviewMutation = {
