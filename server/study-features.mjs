@@ -189,6 +189,27 @@ export function buildWeeklyReport(state, weekStart, daySummaries, previousReport
   const vocabularyAccuracy = accuracy(total('vocabularyCorrect'), total('vocabularyTotal'))
   const grammarAccuracy = accuracy(total('grammarCorrect'), total('grammarTotal'))
   const conjugationAccuracy = accuracy(total('conjugationCorrect'), total('conjugationTotal'))
+  const vocabularyMinutes = Math.round(
+    sum((state?.learning?.vocabulary?.records ?? [])
+      .filter((item) => item.day >= weekStart && item.day <= weekEnd)
+      .map((item) => Number(item.durationMs ?? 0))) / 60000,
+  )
+  const grammarMinutes = Math.round(
+    sum((state?.learning?.grammar?.history ?? [])
+      .filter((item) => item.day >= weekStart && item.day <= weekEnd)
+      .map((item) => Number(item.elapsedSeconds ?? 0))) / 60,
+  )
+  const conjugationMinutes = sum(
+    Array.from({ length: 7 }, (_, index) => state?.minutes?.[addDays(weekStart, index)] ?? {})
+      .flatMap((tasks) => Object.entries(tasks)
+        .filter(([taskId]) => taskId.includes('conjugation'))
+        .map(([, value]) => Number(value) || 0)),
+  )
+  const focusMinutes = sum(
+    (state?.learning?.focusSessions ?? [])
+      .filter((item) => item.day >= weekStart && item.day <= weekEnd)
+      .map((item) => Number(item.minutes) || 0),
+  )
   const minutes = sum(daySummaries.map((item) => item.actualMinutes))
   const plannedMinutes = sum(daySummaries.map((item) => item.plannedMinutes))
   const plannedDays = daySummaries.filter((item) => item.plannedMinutes > 0).length
@@ -228,6 +249,12 @@ export function buildWeeklyReport(state, weekStart, daySummaries, previousReport
       vocabulary: vocabularyAccuracy,
       grammar: grammarAccuracy,
       conjugation: conjugationAccuracy,
+    },
+    activityMinutes: {
+      vocabulary: vocabularyMinutes,
+      grammar: grammarMinutes,
+      conjugation: conjugationMinutes,
+      focus: focusMinutes,
     },
     accuracyChange: changes,
     weakPoints,

@@ -637,7 +637,16 @@ const Analysis = () => {
                           <span className="ml-auto text-xs text-gray-400">{report.finalized ? '已归档' : '本周更新中'}</span>
                         </div>
                       </summary>
-                      <div className="mt-4 grid gap-4 md:grid-cols-3">
+                      <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                        <div className="rounded-lg bg-gray-50 p-3 text-sm dark:bg-gray-900">
+                          <div className="text-xs text-gray-400">本周活动时长</div>
+                          <div className="mt-2 space-y-1 text-gray-700 dark:text-gray-200">
+                            <div>词汇 {report.activityMinutes?.vocabulary ?? 0} min</div>
+                            <div>语法 {report.activityMinutes?.grammar ?? 0} min</div>
+                            <div>变位 {report.activityMinutes?.conjugation ?? 0} min</div>
+                            <div>专注 {report.activityMinutes?.focus ?? 0} min</div>
+                          </div>
+                        </div>
                         <div className="rounded-lg bg-gray-50 p-3 text-sm dark:bg-gray-900">
                           <div className="text-xs text-gray-400">正确率</div>
                           <div className="mt-2 space-y-1 text-gray-700 dark:text-gray-200">

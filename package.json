@@ -63,7 +63,7 @@
     "deploy:free": "node --env-file-if-exists=deploy/.env scripts/deploy-free.mjs",
     "smoke:study": "node scripts/smoke-study.mjs",
     "test:cloud": "node scripts/test-cloud-deploy.mjs",
-    "test:backend": "node --test server/*.test.mjs",
+    "test:backend": "node --experimental-loader ./server/ts-extension-loader.mjs --test server/*.test.mjs",
     "start": "vite",
     "build": "cross-env CI=false vite build --base=./",
     "test": "echo \"No tests\"",

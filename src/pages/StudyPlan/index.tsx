@@ -768,7 +768,8 @@ export default function StudyPlanPage() {
   const createPasskey = async () => {
     setImportMessage('')
     try {
-      const account = await registerStudyPasskey()
+      await registerStudyPasskey()
+      const account = await loadPasskeyAccount()
       setAccountInfo(account)
       setSyncKey('')
       setSyncKeyInput('')

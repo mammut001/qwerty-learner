@@ -1,4 +1,4 @@
-import { addStudyMinutes, flushStudyProgress } from './studyPlanSync'
+import { flushStudyProgress, recordFocusSession } from './studyPlanSync'
 
 export const FOCUS_IDLE_MS = 2 * 60 * 1000
 const KEY = 'qwerty-fr-focus-timer-v1'
@@ -176,7 +176,13 @@ async function commitFocusTimerResult(snapshot: FocusTimerSnapshot) {
   const minutes = focusTimerRecordedMinutes(committed)
   if (minutes > 0) {
     try {
-      addStudyMinutes(committed.day, committed.taskId, minutes)
+      recordFocusSession({
+        day: committed.day,
+        taskId: committed.taskId,
+        title: committed.title,
+        minutes,
+        endedAt: Date.now(),
+      })
       await flushStudyProgress()
     } catch {
       persist({ ...committed, committed: false })

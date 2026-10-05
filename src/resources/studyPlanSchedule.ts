@@ -51,11 +51,12 @@ export const normalizeStudyPlanSettings = (
   const fallback = defaultStudyPlanSettings(startDate)
   const requestedStudyDays = value?.studyDays
   const requestedTarget = value?.dailyTargetMinutes
+  const requestedExamDate = value?.examDate
   const studyDays = Array.isArray(requestedStudyDays)
     ? Array.from(new Set(requestedStudyDays.filter((day: number) => Number.isInteger(day) && day >= 0 && day <= 6)))
     : fallback.studyDays
   return {
-    examDate: validDateKey(value?.examDate) ? value.examDate : fallback.examDate,
+    examDate: validDateKey(requestedExamDate) ? requestedExamDate : fallback.examDate,
     dailyTargetMinutes:
       requestedTarget === null ||
       (typeof requestedTarget === 'number' &&

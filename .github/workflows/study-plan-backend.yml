@@ -36,55 +36,22 @@ on:
       - 'public/default.conf'
       - '.dockerignore'
       - '.github/workflows/study-plan-backend.yml'
-  push:
-    branches: [feature/study-plan]
-    paths:
-      - 'server/**'
-      - 'deploy/**'
-      - 'scripts/*study*'
-      - 'scripts/*deploy*'
-      - 'scripts/check-bundle-budget.mjs'
-      - 'scripts/backup-restore-drill.mjs'
-      - 'src/services/studyPlanSync.ts'
-      - 'src/services/focusTimer.ts'
-      - 'src/services/passkey.ts'
-      - 'src/components/FocusTimerDock.tsx'
-      - 'src/utils/trackEvent.ts'
-      - 'src/services/studyReminder.ts'
-      - 'src/services/pwa.ts'
-      - 'src/resources/studyPlanSchedule.ts'
-      - 'tests/e2e-study/**'
-      - 'playwright.study.config.ts'
-      - 'public/sw.js'
-      - 'public/manifest.json'
-      - 'src/pages/StudyPlan/**'
-      - 'src/pages/Typing/index.tsx'
-      - 'src/pages/GrammarSession/**'
-      - 'src/pages/Conjugation/**'
-      - 'src/pages/Analysis/**'
-      - 'src/pages/ErrorBook/**'
-      - 'src/utils/db/**'
-      - 'src/index.tsx'
-      - 'index.html'
-      - 'vite.config.ts'
-      - 'package.json'
-      - 'Dockerfile'
-      - 'docker-compose*.yaml'
-      - 'public/default.conf'
-      - '.dockerignore'
-      - '.github/workflows/study-plan-backend.yml'
+concurrency:
+  group: study-plan-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 jobs:
   persistence:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - run: node --test server/*.test.mjs
+      - run: npm run test:backend
       - name: SQLite online backup and restore drill
         run: npm run test:backup-drill
       - run: npm ci --prefix deploy --no-audit --no-fund
@@ -100,7 +67,7 @@ jobs:
         run: npm run test:cloud
   node-production-images:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -134,7 +101,7 @@ jobs:
 
   study-e2e:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

@@ -42,6 +42,12 @@ export function learningRecordsCsv(state) {
       item.correct ? 1 : 0, 1, '', iso(item.occurredAt),
     ])
   }
+  for (const item of state?.learning?.focusSessions ?? []) {
+    rows.push([
+      'focus', item.day, 'focus', item.title, item.taskId,
+      '', '', Number(item.minutes) || 0, iso(item.endedAt),
+    ])
+  }
   return csv(rows)
 }
 
@@ -69,6 +75,7 @@ export function weeklyReportsCsv(items) {
   const rows = [[
     'week_start','week_end','minutes','planned_minutes','completion_percent',
     'vocabulary_accuracy','grammar_accuracy','conjugation_accuracy',
+    'vocabulary_minutes','grammar_minutes','conjugation_minutes','focus_minutes',
     'weak_points','suggestions','finalized'
   ]]
   for (const item of items ?? []) {
@@ -81,6 +88,10 @@ export function weeklyReportsCsv(items) {
       item.accuracy?.vocabulary ?? '',
       item.accuracy?.grammar ?? '',
       item.accuracy?.conjugation ?? '',
+      item.activityMinutes?.vocabulary ?? 0,
+      item.activityMinutes?.grammar ?? 0,
+      item.activityMinutes?.conjugation ?? 0,
+      item.activityMinutes?.focus ?? 0,
       (item.weakPoints ?? []).map((point) => `${point.label}:${point.errors}`).join('; '),
       (item.suggestions ?? []).join('; '),
       item.finalized ? 'true' : 'false',

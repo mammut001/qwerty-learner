@@ -15,6 +15,7 @@ const timestamp = (v) => integer(v, 0, 9999999999999)
 const MAX_VOCAB_RECORDS = 3000
 const MAX_GRAMMAR_HISTORY = 50
 const MAX_CONJUGATION_ATTEMPTS = 3000
+const MAX_FOCUS_SESSIONS = 2000
 const MAX_REVIEW_ITEMS = 1000
 const MAX_STATE_BYTES = 1500000
 
@@ -35,6 +36,7 @@ export function emptyLearningProgress() {
     conjugation: {},
     conjugationDaily: {},
     conjugationAttempts: [],
+    focusSessions: [],
     reviews: { items: {} },
   }
 }
@@ -103,6 +105,13 @@ function validateConjugationAttempt(value) {
     throw new Error('Invalid conjugation attempt')
 }
 
+function validateFocusSession(value) {
+  if (!record(value) || !uuid(value.id) || !date(value.day) || !task(value.taskId) ||
+      !text(value.title, 160) || !integer(value.minutes, 1, 240) || !timestamp(value.endedAt))
+    throw new Error('Invalid focus session')
+}
+
+
 function validateReviewState(value) {
   if (!record(value) || !reviewKind(value.kind) || !text(value.sourceId, 400) || !text(value.label, 500) ||
       !date(value.dueDate) || !integer(value.intervalDays, 0, 36500) || !integer(value.repetitions, 0, 10000) ||
@@ -147,8 +156,10 @@ function validateLearning(value) {
       !Array.isArray(value.grammar.history) || value.grammar.history.length > MAX_GRAMMAR_HISTORY ||
       !record(value.conjugation) || !record(value.conjugationDaily)) throw new Error('Invalid learning progress')
   const conjugationAttempts = value.conjugationAttempts ?? []
+  const focusSessions = value.focusSessions ?? []
   const reviews = value.reviews ?? { items: {} }
   if (!Array.isArray(conjugationAttempts) || conjugationAttempts.length > MAX_CONJUGATION_ATTEMPTS ||
+      !Array.isArray(focusSessions) || focusSessions.length > MAX_FOCUS_SESSIONS ||
       !record(reviews) || !record(reviews.items) || Object.keys(reviews.items).length > MAX_REVIEW_ITEMS)
     throw new Error('Invalid learning progress')
   value.vocabulary.records.forEach(validateVocabularyRecord)
@@ -160,6 +171,7 @@ function validateLearning(value) {
         !integer(stat.total, 0, 10000000) || stat.correct > stat.total) throw new Error('Invalid conjugation daily stat')
   }
   conjugationAttempts.forEach(validateConjugationAttempt)
+  focusSessions.forEach(validateFocusSession)
   for (const [id, item] of Object.entries(reviews.items)) {
     if (!text(id, 500)) throw new Error('Invalid review ID')
     validateReviewState(item)
@@ -188,6 +200,7 @@ export function normalizeState(state) {
   next.startDate = addDays(next.settings.examDate, -181)
   next.learning ??= emptyLearningProgress()
   next.learning.conjugationAttempts ??= []
+  next.learning.focusSessions ??= []
   next.learning.reviews ??= { items: {} }
   next.learning.reviews.items ??= {}
   next.syncMeta ??= emptySyncMeta()
@@ -222,6 +235,20 @@ function mergeConjugationAttempts(current, incoming) {
   }
   appended.sort((a, b) => a.occurredAt - b.occurredAt || a.id.localeCompare(b.id))
   return appended.slice(-MAX_CONJUGATION_ATTEMPTS)
+}
+
+function mergeFocusSessions(current, incoming) {
+  const seen = new Set(current.map((item) => item.id))
+  const appended = [...current]
+  for (const item of incoming) {
+    validateFocusSession(item)
+    if (!seen.has(item.id)) {
+      appended.push(structuredClone(item))
+      seen.add(item.id)
+    }
+  }
+  appended.sort((a, b) => a.endedAt - b.endedAt || a.id.localeCompare(b.id))
+  return appended.slice(-MAX_FOCUS_SESSIONS)
 }
 
 function conjugationTotals(stats) {
@@ -359,6 +386,9 @@ export function apply(state, operations) {
         correct: daily.correct + (op.correct ? 1 : 0),
         total: daily.total + 1,
       }
+    } else if (op.kind === 'focusSession' && record(op.value)) {
+      validateFocusSession(op.value)
+      state.learning.focusSessions = mergeFocusSessions(state.learning.focusSessions, [op.value])
     } else if (op.kind === 'reviewResult' && text(op.itemId, 500) && reviewKind(op.reviewKind) &&
                text(op.sourceId, 400) && text(op.label, 500) && integer(op.quality, 0, 5) &&
                timestamp(op.reviewedAt) && date(op.day)) {
@@ -954,6 +984,10 @@ export function studyAnalytics(input, now = new Date()) {
       correct: conjugationCorrect,
       accuracy: accuracy(conjugationCorrect, conjugationTotal),
       practicedVerbs: practicedVerbs.size,
+    },
+    focus: {
+      sessions: state.learning.focusSessions.length,
+      minutes: sum(state.learning.focusSessions.map((item) => item.minutes)),
     },
     trends: trendBuckets(state, today),
     rankings: rankings(state),

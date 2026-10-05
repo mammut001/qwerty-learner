@@ -7,12 +7,8 @@ const pendingMutationCount = async (page) =>
   )
 
 test('practice, offline persistence, sync, analytics, reminders and PWA shell', async ({ browser, page, context }) => {
-  await page.goto('/study-plan')
-  await expect(page.getByText('TCF Canada · 26 周学习计划')).toBeVisible()
-  await expect(page.getByTestId('smart-today-plan')).toBeVisible()
-  await expect(page.getByText('智能今日任务')).toBeVisible()
-
-  // Real browser WebAuthn through Chromium's virtual authenticator.
+  // Install a discoverable virtual authenticator before the app is loaded so feature detection
+  // and navigator.credentials.create/get see the same WebAuthn environment from first render.
   const cdp = await context.newCDPSession(page)
   await cdp.send('WebAuthn.enable')
   const authenticator = await cdp.send('WebAuthn.addVirtualAuthenticator', {
@@ -25,6 +21,13 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
       automaticPresenceSimulation: true,
     },
   })
+
+  await page.goto('/study-plan')
+  await expect(page.getByText('TCF Canada · 26 周学习计划')).toBeVisible()
+  await expect(page.getByTestId('smart-today-plan')).toBeVisible()
+  await expect(page.getByText('智能今日任务')).toBeVisible()
+  await expect.poll(() => page.evaluate(() => location.hostname)).toBe('localhost')
+  await expect.poll(() => page.evaluate(() => typeof PublicKeyCredential !== 'undefined')).toBe(true)
 
   // Plan settings re-date the 26-week roadmap without erasing already recorded minutes.
   const firstMinutes = page.getByLabel(/实际学习分钟数/).first()
@@ -59,14 +62,28 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
 
   // Passkey is optional: bind the current anonymous learner, then clear browser storage/cookies
   // and prove discoverable-credential login restores the same server-side state without a sync code.
+  const registerResponsePromise = page.waitForResponse(
+    (response) =>
+      response.url().endsWith('/api/study-plan/passkey/register/verify') &&
+      response.request().method() === 'POST',
+  )
   await page.getByRole('button', { name: '创建 Passkey' }).click()
+  const registerResponse = await registerResponsePromise
+  expect(registerResponse.status()).toBe(200)
   await expect(page.getByTestId('passkey-account')).toContainText('1 个 Passkey')
   const recordedBeforePasskeyLogin = await page.getByLabel(/实际学习分钟数/).first().inputValue()
   await context.clearCookies()
   await page.evaluate(() => localStorage.clear())
   await page.reload()
   await expect(page.getByText('TCF Canada · 26 周学习计划')).toBeVisible()
+  const loginResponsePromise = page.waitForResponse(
+    (response) =>
+      response.url().endsWith('/api/study-plan/passkey/login/verify') &&
+      response.request().method() === 'POST',
+  )
   await page.getByRole('button', { name: '使用 Passkey 登录' }).click()
+  const loginResponse = await loginResponsePromise
+  expect(loginResponse.status()).toBe(200)
   await expect(page.getByTestId('passkey-account')).toContainText('已登录')
   await expect(page.getByLabel(/实际学习分钟数/).first()).toHaveValue(recordedBeforePasskeyLogin)
 
@@ -142,6 +159,12 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
   await expect(secondPage.getByText('打卡与成就')).toBeVisible()
   await expect(secondPage.getByText('学习周报')).toBeVisible()
   await expect(secondPage.getByText('每周总结与下周建议')).toBeVisible()
+  const currentReport = secondPage.locator('[data-print-weekly-reports] details').first()
+  await currentReport.evaluate((element) => {
+    ;(element as HTMLDetailsElement).open = true
+  })
+  await expect(currentReport).toHaveAttribute('open', '')
+  await expect(currentReport.getByText(/专注 1 min/)).toBeVisible()
   await expect(secondPage.getByTestId('learning-dashboard')).toBeVisible()
   await expect(secondPage.getByText('每日学习分钟热力图')).toBeVisible()
   await expect(secondPage.getByRole('progressbar', { name: '词汇掌握度' })).toBeVisible()

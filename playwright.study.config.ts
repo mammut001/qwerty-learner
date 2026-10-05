@@ -10,7 +10,7 @@ export default defineConfig({
   timeout: 60_000,
   expect: { timeout: 10_000 },
   use: {
-    baseURL: 'http://127.0.0.1:4173',
+    baseURL: 'http://localhost:4173',
     trace: 'retain-on-failure',
   },
   projects: [
@@ -32,13 +32,13 @@ export default defineConfig({
         ...process.env,
         HOST: '127.0.0.1',
         PORT: '8787',
-        STUDY_ORIGIN: 'http://127.0.0.1:4173',
+        STUDY_ORIGIN: 'http://localhost:4173',
         STUDY_DB_PATH: '.tmp/study-e2e.sqlite',
       },
     },
     {
-      command: 'npx vite --host 127.0.0.1 --port 4173',
-      url: 'http://127.0.0.1:4173/study-plan',
+      command: 'npx vite --host 0.0.0.0 --port 4173',
+      url: 'http://localhost:4173/study-plan',
       reuseExistingServer: !process.env.CI,
       timeout: 30_000,
     },

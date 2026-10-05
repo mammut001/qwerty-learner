@@ -156,8 +156,9 @@ GitHub Pages 只能托管静态文件，无法运行这个后端。仅部署到 
 
 - 匿名模式继续是默认模式。学习计划控制区可选创建 WebAuthn Passkey；Passkey 直接绑定现有 learner，不复制学习状态。新设备使用 Passkey 登录后会恢复同一 learner 的计划、词汇、语法、变位、错题本、打卡、成就和周报，无需手动同步码。
 - Passkey 服务端同时支持 Node SQLite 与 Workers/D1。D1 顺序迁移升级到 schema v6；Node 启动时创建同构账户/凭据/challenge/session 表。注册和登录验证 challenge、origin、RP ID hash、用户在场/验证 flags、ES256/RS256 签名与 sign counter。
-- 学习计划控制区提供可选专注计时器。计时可暂停/继续；页面隐藏立即自动暂停，连续 2 分钟无键盘、鼠标或触摸输入自动暂停。结束时只把真实有效的完整分钟通过现有 durable mutation queue 写回当天所选任务；断网时仍先落本地队列。
-- `GET /api/study-plan/records.csv`、`/error-book.csv`、`/weekly-reports.csv` 从服务端状态导出 UTF-8 CSV。统计页保留周报 JSON，同时提供学习记录、错题本、周报 CSV 和打印友好周报。
+- 学习计划控制区提供可选专注计时器。计时可暂停/继续；页面隐藏立即自动暂停，连续 2 分钟无键盘、鼠标或触摸输入自动暂停。结束时把“任务分钟增量 + focus session 记录”放进同一个 durable mutation，断网先落本地、联网后幂等重放；周报可单独汇总专注分钟。
+- `GET /api/study-plan/records.csv`、`/error-book.csv`、`/weekly-reports.csv` 从服务端状态导出 UTF-8 CSV。统计页保留周报 JSON，同时提供学习记录、错题本、周报 CSV 和打印友好周报；周报包含词汇/语法/变位活动分钟与专注分钟（专注时间可与对应模块重叠）。
 - Node/Worker 请求带 `X-Request-ID`，输出结构化 JSON request log，并统计请求总数、5xx、慢请求和耗时。Node 的 `/api/metrics` 在未设置 token 时仅允许 loopback；设置 `STUDY_METRICS_TOKEN` 后使用 bearer token。Worker 的 `/api/metrics` 始终要求 `STUDY_METRICS_TOKEN`。
 - `npm run test:backup-drill` 在线备份 WAL 模式 SQLite、执行 quick_check、修改 live DB 后从备份恢复并验证 point-in-time 数据，同时验证备份脚本不会覆盖已有文件。
 - `yarn typecheck` 运行全量 `tsc --noEmit`。生产构建按路由 lazy-load，并通过 Vite manifest 计算首屏依赖图 gzip 体积；`yarn check:bundle` 对首屏、最大 chunk 与全部 JS 设置 CI 预算。
+- 错题本/SM-2 复习、每日打卡/streak、成就和周报继续使用现有后端 learner state + materialized SQLite/D1 表，不新增第二套数据源。CI 额外顺序执行 D1 `0001`→`0006` 迁移链，验证 schema v6 表与关键列完整。

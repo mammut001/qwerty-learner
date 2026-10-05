@@ -26,7 +26,7 @@ const jsonRequest = async (base, path, { method = 'GET', cookie = '', origin, bo
 test('Passkey binds an anonymous learner and restores it from a fresh browser session', async () => {
   const dir = mkdtempSync(join(tmpdir(), 'study-passkey-api-'))
   const database = join(dir, 'data.sqlite')
-  const origin = 'http://localhost:5173'
+  const origin = 'http://localhost:4173'
   const server = createStudyServer({ database, origin, metricsToken: 'metrics-secret', slowRequestMs: 0 })
   await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
   const base = `http://127.0.0.1:${server.address().port}`
@@ -54,6 +54,15 @@ test('Passkey binds an anonymous learner and restores it from a fresh browser se
       body: {},
     })
     assert.equal(registerOptions.response.status, 200)
+    assert.equal(registerOptions.body.options.rp.id, 'localhost')
+    const invalidOptions = await jsonRequest(base, '/api/study-plan/passkey/register/options', {
+      method: 'POST',
+      cookie: anonymousCookie,
+      origin,
+      body: { unexpected: true },
+    })
+    assert.equal(invalidOptions.response.status, 400)
+    assert.equal(invalidOptions.body.code, 'PASSKEY_REQUEST_INVALID')
     const fixture = await createPasskeyFixture(origin)
     const registration = await fixture.registration(registerOptions.body.options.challenge)
     const registered = await jsonRequest(base, '/api/study-plan/passkey/register/verify', {

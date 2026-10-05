@@ -113,16 +113,69 @@ test('error book, checkins, achievements, reports, rate limits, audit and delete
     assert.equal(secondMakeup.response.status, 409)
     assert.equal(secondMakeup.data.code, 'ALREADY_CHECKED_IN')
 
+    const checkins = await call('GET', `/checkins?today=${today}`)
+    assert.equal(checkins.response.status, 200)
+    assert.ok(checkins.data.items.some((item) => item.day === yesterday && item.status === 'makeup'))
+    assert.equal(typeof checkins.data.streak.current, 'number')
+    assert.equal(typeof checkins.data.streak.longest, 'number')
+    assert.ok(checkins.data.streak.longest >= 1)
+
     const achievements = await call('GET', '/achievements')
     assert.ok(achievements.data.items.some((item) => item.id === 'minutes-600'))
+
+    const focusId = randomUUID()
+    const focusSaved = await call('PATCH', '', {
+      id: randomUUID(),
+      operations: [
+        { kind: 'increment', day: today, task: 'smart-conjugation', value: 12, updatedAt: Date.now() },
+        {
+          kind: 'focusSession',
+          value: {
+            id: focusId,
+            day: today,
+            taskId: 'smart-conjugation',
+            title: '动词变位',
+            minutes: 12,
+            endedAt: Date.now(),
+          },
+        },
+      ],
+    })
+    assert.equal(focusSaved.response.status, 200)
+
+    const invalidFocus = await call('PATCH', '', {
+      id: randomUUID(),
+      operations: [{
+        kind: 'focusSession',
+        value: {
+          id: randomUUID(),
+          day: today,
+          taskId: 'INVALID TASK',
+          title: 'bad',
+          minutes: 999,
+          endedAt: Date.now(),
+        },
+      }],
+    })
+    assert.equal(invalidFocus.response.status, 400)
+    assert.equal(typeof invalidFocus.data.code, 'string')
 
     const reports = await call('GET', '/weekly-reports')
     assert.ok(reports.data.items.length >= 1)
     assert.equal(typeof reports.data.items[0].completionPercent, 'number')
     assert.ok(Array.isArray(reports.data.items[0].suggestions))
+    assert.ok(reports.data.items.some((item) => item.activityMinutes?.focus === 12))
+    assert.ok(reports.data.items.some((item) => item.activityMinutes?.conjugation >= 12))
     const reportExport = await call('GET', '/weekly-reports/export')
     assert.equal(reportExport.data.format, 'qwerty-study-weekly-reports')
     assert.equal(reportExport.data.version, 1)
+    const weeklyCsvResponse = await fetch(base + '/weekly-reports.csv', {
+      headers: { Origin: 'http://localhost:5173', Cookie: cookie },
+    })
+    assert.equal(weeklyCsvResponse.status, 200)
+    const weeklyCsv = await weeklyCsvResponse.text()
+    assert.match(weeklyCsv, /focus_minutes/)
+    assert.match(weeklyCsv, /conjugation_minutes/)
 
     const syncKey = await call('POST', '/sync-key', {})
     assert.equal(syncKey.response.status, 200)

@@ -1,4 +1,61 @@
-import { normalizeStudyPlanSettings, startDateFromExamDate, type StudyPlanSettings } from '../resources/studyPlanSchedule'
+type StudyPlanSettings = {
+  examDate: string
+  dailyTargetMinutes: number | null
+  studyDays: number[]
+}
+
+const STUDY_PLAN_DAY_COUNT = 26 * 7
+const DEFAULT_STUDY_DAYS = [1, 2, 3, 4, 5, 6, 0]
+
+const validStudyDateKey = (value: unknown): value is string => {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false
+  const [year, month, day] = value.split('-').map(Number)
+  const date = new Date(year, month - 1, day, 12)
+  return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day
+}
+
+const shiftStudyDateKey = (key: string, amount: number) => {
+  const [year, month, day] = key.split('-').map(Number)
+  const date = new Date(year, month - 1, day, 12)
+  date.setDate(date.getDate() + amount)
+  const nextYear = date.getFullYear()
+  const nextMonth = String(date.getMonth() + 1).padStart(2, '0')
+  const nextDay = String(date.getDate()).padStart(2, '0')
+  return `${nextYear}-${nextMonth}-${nextDay}`
+}
+
+const startDateFromExamDate = (examDate: string) =>
+  shiftStudyDateKey(examDate, -(STUDY_PLAN_DAY_COUNT - 1))
+
+const normalizeStudyPlanSettings = (
+  value: Partial<StudyPlanSettings> | null | undefined,
+  startDate: string,
+): StudyPlanSettings => {
+  const fallback: StudyPlanSettings = {
+    examDate: shiftStudyDateKey(startDate, STUDY_PLAN_DAY_COUNT - 1),
+    dailyTargetMinutes: null,
+    studyDays: [...DEFAULT_STUDY_DAYS],
+  }
+  const requestedStudyDays = value?.studyDays
+  const requestedTarget = value?.dailyTargetMinutes
+  const requestedExamDate = value?.examDate
+  const studyDays = Array.isArray(requestedStudyDays)
+    ? Array.from(new Set(requestedStudyDays.filter((day: number) => Number.isInteger(day) && day >= 0 && day <= 6)))
+    : fallback.studyDays
+  return {
+    examDate: validStudyDateKey(requestedExamDate) ? requestedExamDate : fallback.examDate,
+    dailyTargetMinutes:
+      requestedTarget === null ||
+      (typeof requestedTarget === 'number' &&
+        Number.isInteger(requestedTarget) &&
+        requestedTarget >= 20 &&
+        requestedTarget <= 240)
+        ? requestedTarget
+        : fallback.dailyTargetMinutes,
+    studyDays: studyDays.length ? studyDays : fallback.studyDays,
+  }
+}
+
 // Empty means same-origin; set at Vite build time for a separate API deployment.
 export function studyApiBase(value = ''): string {
   if (!value.trim()) return ''
@@ -87,6 +144,15 @@ export type ConjugationAttempt = {
   occurredAt: number
 }
 
+export type FocusSessionRecord = {
+  id: string
+  day: string
+  taskId: string
+  title: string
+  minutes: number
+  endedAt: number
+}
+
 export type ReviewKind = 'vocabulary' | 'grammar' | 'conjugation'
 export type ReviewState = {
   kind: ReviewKind
@@ -129,6 +195,7 @@ export type LearningProgress = {
   conjugation: ConjugationStats
   conjugationDaily: Record<string, TenseStat>
   conjugationAttempts: ConjugationAttempt[]
+  focusSessions: FocusSessionRecord[]
   reviews: { items: Record<string, ReviewState> }
 }
 
@@ -214,6 +281,12 @@ export type WeeklyStudyReport = {
     vocabulary: number | null
     grammar: number | null
     conjugation: number | null
+  }
+  activityMinutes: {
+    vocabulary: number
+    grammar: number
+    conjugation: number
+    focus: number
   }
   accuracyChange: {
     vocabularyAccuracy: number | null
@@ -320,6 +393,7 @@ export type StudyAnalytics = {
     hasDraft: boolean
   }
   conjugation: { attempts: number; correct: number; accuracy: number | null; practicedVerbs: number }
+  focus: { sessions: number; minutes: number }
   trends: { daily: TrendPoint[]; weekly: TrendPoint[]; monthly: TrendPoint[] }
   rankings: {
     vocabulary: ErrorRankingItem[]
@@ -344,6 +418,7 @@ type Operation =
   | { kind: 'grammarSeed'; value: GrammarSessionRecord[] }
   | { kind: 'conjugationSeed'; value: ConjugationStats }
   | { kind: 'conjugationAttempt'; value: ConjugationAttempt }
+  | { kind: 'focusSession'; value: FocusSessionRecord }
   | {
       kind: 'reviewResult'
       itemId: string
@@ -366,6 +441,7 @@ const SEED = `qwerty-fr-study-plan-migration${API_BASE ? ':' + API_BASE : ''}`
 const PENDING = `qwerty-fr-study-plan-pending:${API_BASE ? API_BASE + ':' : ''}`
 const MAX_VOCAB_RECORDS = 3000
 const MAX_CONJUGATION_ATTEMPTS = 3000
+const MAX_FOCUS_SESSIONS = 2000
 const isPendingKey = (key: string) => key.startsWith(PENDING) && /^\d{16}:/.test(key.slice(PENDING.length))
 const listeners = new Set<(state: StudyServerState) => void>()
 const statuses = new Set<(message: string) => void>()
@@ -429,6 +505,7 @@ export function emptyLearningProgress(): LearningProgress {
     conjugation: {},
     conjugationDaily: {},
     conjugationAttempts: [],
+    focusSessions: [],
     reviews: { items: {} },
   }
 }
@@ -451,6 +528,7 @@ function withLearning(state: StudyPlanStorage | StudyServerState): StudyServerSt
           conjugation: learning.conjugation ?? {},
           conjugationDaily: learning.conjugationDaily ?? {},
           conjugationAttempts: learning.conjugationAttempts ?? [],
+          focusSessions: learning.focusSessions ?? [],
           reviews: { items: learning.reviews?.items ?? {} },
         }
       : emptyLearningProgress(),
@@ -787,6 +865,48 @@ export function addStudyMinutes(day: string, task: string, value: number) {
       [day]: { ...(state.minutes[day] ?? {}), [task]: (state.minutes[day]?.[task] ?? 0) + value },
     },
   }))
+}
+
+export function recordFocusSession(input: Omit<FocusSessionRecord, 'id'> & { id?: string }) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(input.day)) throw new Error('INVALID_FOCUS_DAY')
+  if (!/^[a-z][a-z0-9-]{0,79}$/.test(input.taskId)) throw new Error('INVALID_FOCUS_TASK')
+  if (!input.title.trim() || input.title.length > 160) throw new Error('INVALID_FOCUS_TITLE')
+  if (!Number.isInteger(input.minutes) || input.minutes < 1 || input.minutes > 240)
+    throw new Error('INVALID_FOCUS_MINUTES')
+  if (!Number.isSafeInteger(input.endedAt) || input.endedAt < 0 || input.endedAt > 9999999999999)
+    throw new Error('INVALID_FOCUS_TIMESTAMP')
+
+  const session: FocusSessionRecord = {
+    id: input.id ?? crypto.randomUUID(),
+    day: input.day,
+    taskId: input.taskId,
+    title: input.title.trim(),
+    minutes: input.minutes,
+    endedAt: input.endedAt,
+  }
+  const updatedAt = input.endedAt
+  const current = ensureFallback()
+  const operations: Operation[] = [
+    { kind: 'increment', day: session.day, task: session.taskId, value: session.minutes, updatedAt },
+    { kind: 'focusSession', value: session },
+  ]
+  enqueue(operations)
+  const focusSessions = [
+    ...current.learning.focusSessions.filter((item) => item.id !== session.id),
+    session,
+  ].slice(-MAX_FOCUS_SESSIONS)
+  publish({
+    ...current,
+    minutes: {
+      ...current.minutes,
+      [session.day]: {
+        ...(current.minutes[session.day] ?? {}),
+        [session.taskId]: (current.minutes[session.day]?.[session.taskId] ?? 0) + session.minutes,
+      },
+    },
+    learning: { ...current.learning, focusSessions },
+  })
+  return session
 }
 
 export function recordVocabularyProgress(input: VocabularyProgressInput) {
