@@ -169,3 +169,30 @@ npm run test:e2e:study
 ```
 
 It runs Chromium against a local Vite frontend and Node SQLite API, exercises a real conjugation result, offline progress mutation/reload, reconnect replay, portable sync-code binding and the backend-powered Analysis page.
+
+## Learning feature tables and migration 0004
+
+Apply every checked-in D1 migration. `0004_learning_features.sql` adds:
+
+- `error_book`: materialized unified vocabulary/grammar/conjugation error state and mastery streaks.
+- `checkins`: automatic target-completion check-ins plus bounded manual makeup records.
+- `achievements`: immutable unlocked milestone records.
+- `weekly_reports`: persisted plan-week report history.
+- `rate_limits`: sync-code brute-force / write throttling state.
+- `audit_log`: hashed-actor audit events for sensitive operations.
+
+The Node SQLite backend creates the equivalent additive schema on startup.
+
+New API routes:
+
+- `GET /api/study-plan/error-book?type=&status=active|mastered|all&from=&to=&limit=`
+- `GET /api/study-plan/checkins?today=YYYY-MM-DD`
+- `POST /api/study-plan/checkins/makeup` with `{"day":"YYYY-MM-DD"}`
+- `GET /api/study-plan/achievements`
+- `GET /api/study-plan/weekly-reports`
+- `GET /api/study-plan/weekly-reports/export`
+- `DELETE /api/study-plan/data` with `{"confirm":"DELETE"}`
+
+Errors use stable top-level `code` values alongside the human-readable `error` string. The sync-link endpoint is actor-rate-limited and sync-key mutations are learner-rate-limited. Audit rows store only a hashed actor identifier and never raw credentials.
+
+For Docker deployments, `STUDY_TRUST_PROXY_IP=true` is enabled only behind the shipped Nginx/Caddy chain. Caddy overwrites `X-Study-Client-IP` from the actual remote host and Nginx forwards that dedicated header to the Node API. Direct Node deployments should leave proxy trust disabled unless an equivalent trusted edge overwrites the header.

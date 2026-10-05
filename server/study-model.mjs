@@ -1,3 +1,4 @@
+import { activeErrorBookCandidates } from './study-features.mjs'
 const date = (v) =>
   typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(v)) && new Date(v).toISOString().slice(0, 10) === v
 export const record = (v) => v !== null && typeof v === 'object' && !Array.isArray(v)
@@ -453,6 +454,23 @@ function dayComplete(state, day) {
   const planned = sum(Object.values(targets))
   return planned > 0 && actualForTargets(state, day, targets) >= planned
 }
+
+export function studyDaySummary(input, day) {
+  const state = normalizeState(input)
+  if (!date(day)) throw new Error('Invalid summary date')
+  const targets = targetsFor(state, day)
+  const plannedMinutes = sum(Object.values(targets))
+  const actualMinutes = recordedMinutesForDay(state, day)
+  const targetMinutes = actualForTargets(state, day, targets)
+  return {
+    day,
+    plannedMinutes,
+    actualMinutes,
+    targetMinutes,
+    active: plannedMinutes > 0,
+    complete: plannedMinutes > 0 && targetMinutes >= plannedMinutes,
+  }
+}
 function totalPlanMinutes(state) {
   return sum(Object.values(state.minutes).flatMap((tasks) => Object.values(tasks)))
 }
@@ -606,83 +624,7 @@ function rankings(state) {
 }
 
 function reviewCandidates(state) {
-  const candidates = new Map()
-  for (const item of state.learning.vocabulary.records) {
-    if (item.wrongCount <= 0) continue
-    const sourceId = item.dict + '|' + item.word
-    const itemId = 'vocabulary:' + sourceId
-    const row = candidates.get(itemId) ?? {
-      itemId,
-      kind: 'vocabulary',
-      sourceId,
-      label: item.word,
-      errorCount: 0,
-      lastErrorAt: 0,
-    }
-    row.errorCount += item.wrongCount
-    row.lastErrorAt = Math.max(row.lastErrorAt, item.timeStamp * 1000)
-    candidates.set(itemId, row)
-  }
-
-  for (const session of state.learning.grammar.history) {
-    if (session.items?.length) {
-      for (const item of session.items) {
-        if (item.correct) continue
-        const sourceId = item.id
-        const itemId = 'grammar:' + sourceId
-        const row = candidates.get(itemId) ?? {
-          itemId,
-          kind: 'grammar',
-          sourceId,
-          label: item.prompt ? item.label + ' · ' + item.prompt : item.label,
-          errorCount: 0,
-          lastErrorAt: 0,
-        }
-        row.errorCount += 1
-        row.lastErrorAt = Math.max(row.lastErrorAt, session.finishedAt)
-        candidates.set(itemId, row)
-      }
-    } else if (session.score < session.total) {
-      const sourceId = 'topic:' + session.topic
-      const itemId = 'grammar:' + sourceId
-      const row = candidates.get(itemId) ?? {
-        itemId,
-        kind: 'grammar',
-        sourceId,
-        label: session.topic,
-        errorCount: 0,
-        lastErrorAt: 0,
-      }
-      row.errorCount += session.total - session.score
-      row.lastErrorAt = Math.max(row.lastErrorAt, session.finishedAt)
-      candidates.set(itemId, row)
-    }
-  }
-
-  const conjugationLastErrors = new Map()
-  for (const attempt of state.learning.conjugationAttempts) {
-    if (!attempt.correct) {
-      const sourceId = attempt.verb + '|' + attempt.tense
-      conjugationLastErrors.set(sourceId, Math.max(conjugationLastErrors.get(sourceId) ?? 0, attempt.occurredAt))
-    }
-  }
-  for (const [verb, tenses] of Object.entries(state.learning.conjugation)) {
-    for (const [tenseName, stat] of Object.entries(tenses)) {
-      const errors = stat.total - stat.correct
-      if (errors <= 0) continue
-      const sourceId = verb + '|' + tenseName
-      const itemId = 'conjugation:' + sourceId
-      candidates.set(itemId, {
-        itemId,
-        kind: 'conjugation',
-        sourceId,
-        label: verb + ' · ' + tenseName,
-        errorCount: errors,
-        lastErrorAt: conjugationLastErrors.get(sourceId) ?? 0,
-      })
-    }
-  }
-  return [...candidates.values()]
+  return activeErrorBookCandidates(state)
 }
 
 export function buildReviewQueue(input, today = toKey(new Date())) {

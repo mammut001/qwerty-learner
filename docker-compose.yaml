@@ -19,6 +19,7 @@ services:
       STUDY_ORIGIN: ${STUDY_ORIGIN:-http://localhost:8990}
       STUDY_COOKIE_SAME_SITE: ${STUDY_COOKIE_SAME_SITE:-strict}
       STUDY_COOKIE_SECURE: ${STUDY_COOKIE_SECURE:-false}
+      STUDY_TRUST_PROXY_IP: 'true'
     volumes:
       - study-data:/data
     restart: unless-stopped

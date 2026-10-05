@@ -5,12 +5,20 @@ import {
   getStudySyncSnapshot,
   loadReviewQueue,
   loadStudyAnalytics,
+  loadStudyCheckins,
+  applyStudyMakeup,
+  loadStudyAchievements,
+  loadWeeklyStudyReports,
+  exportWeeklyStudyReports,
   submitReviewResult,
   subscribeStudySyncStatus,
   type ReviewQueueItem,
   type StudyAnalytics,
   type StudySyncStatus,
   type TrendPoint,
+  type StudyCheckinSummary,
+  type StudyAchievement,
+  type WeeklyStudyReport,
 } from '@/services/studyPlanSync'
 import { isOpenDarkModeAtom } from '@/store'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
@@ -77,6 +85,14 @@ const Analysis = () => {
   const [reviewLoading, setReviewLoading] = useState(true)
   const [trendScale, setTrendScale] = useState<TrendScale>('weekly')
   const [syncStatus, setSyncStatus] = useState<StudySyncStatus>(() => getStudySyncSnapshot())
+  const [checkins, setCheckins] = useState<StudyCheckinSummary>({
+    items: [],
+    daily: [],
+    streak: { current: 0, longest: 0 },
+  })
+  const [achievements, setAchievements] = useState<StudyAchievement[]>([])
+  const [weeklyReports, setWeeklyReports] = useState<WeeklyStudyReport[]>([])
+  const [featureMessage, setFeatureMessage] = useState('')
   const hadPendingSync = useRef(false)
 
   const onBack = useCallback(() => {
@@ -111,9 +127,24 @@ const Analysis = () => {
     }
   }, [])
 
+  const refreshFeatures = useCallback(async () => {
+    try {
+      const [checkinData, achievementData, reportData] = await Promise.all([
+        loadStudyCheckins(),
+        loadStudyAchievements(),
+        loadWeeklyStudyReports(),
+      ])
+      setCheckins(checkinData)
+      setAchievements(achievementData)
+      setWeeklyReports(reportData)
+    } catch {
+      setFeatureMessage('打卡、成就或周报暂时无法读取。')
+    }
+  }, [])
+
   const refreshAll = useCallback(async () => {
-    await Promise.all([refreshAnalytics(), refreshReview()])
-  }, [refreshAnalytics, refreshReview])
+    await Promise.all([refreshAnalytics(), refreshReview(), refreshFeatures()])
+  }, [refreshAnalytics, refreshFeatures, refreshReview])
 
   useEffect(() => {
     void refreshAll()
@@ -133,6 +164,46 @@ const Analysis = () => {
       window.removeEventListener('online', onOnline)
     }
   }, [refreshAll])
+
+  const recentDays = Array.from({ length: 7 }, (_, index) => {
+    const date = new Date()
+    date.setDate(date.getDate() - index - 1)
+    return date.toISOString().slice(0, 10)
+  })
+
+  const makeupDay = async (day: string) => {
+    setFeatureMessage('')
+    try {
+      setCheckins(await applyStudyMakeup(day))
+      setAchievements(await loadStudyAchievements())
+      setFeatureMessage(`${day} 补签成功。`)
+    } catch (error) {
+      const code = error instanceof Error ? error.message : ''
+      const messages: Record<string, string> = {
+        MAKEUP_WINDOW_EXPIRED: '只能补签最近 7 天。',
+        NOT_A_STUDY_DAY: '这一天不是当前计划学习日。',
+        ALREADY_CHECKED_IN: '这一天已经打卡或补签。',
+        MAKEUP_MINUTES_REQUIRED: '补签要求当天至少有 10 分钟学习记录。',
+        MAKEUP_LIMIT_REACHED: '每个自然周最多补签 2 次。',
+      }
+      setFeatureMessage(messages[code] ?? '补签失败，请检查网络与学习记录。')
+    }
+  }
+
+  const exportReports = async () => {
+    try {
+      const payload = await exportWeeklyStudyReports()
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' })
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `qwerty-study-weekly-reports-${new Date().toISOString().slice(0, 10)}.json`
+      link.click()
+      URL.revokeObjectURL(url)
+    } catch {
+      setFeatureMessage('周报导出失败，请联网后重试。')
+    }
+  }
 
   const reviewResult = async (item: ReviewQueueItem, quality: number) => {
     submitReviewResult(item, quality)
@@ -215,6 +286,157 @@ const Analysis = () => {
                         ))}
                       </div>
                     </div>
+                  ))}
+                </div>
+              )}
+            </section>
+
+            <section className="mx-4 my-8 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <div className="text-sm font-medium text-indigo-500">打卡与成就</div>
+                  <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">
+                    连续 {checkins.streak.current} 天 · 最长 {checkins.streak.longest} 天
+                  </h2>
+                  <p className="mt-1 text-sm text-gray-500">正常完成目标自动打卡；最近 7 天可补签，每周最多 2 次，且当天至少学习 10 分钟。</p>
+                </div>
+                <div className="rounded-xl bg-indigo-50 px-4 py-3 text-sm text-indigo-700 dark:bg-indigo-950/30 dark:text-indigo-300">
+                  已解锁 {achievements.length} 个成就
+                </div>
+              </div>
+
+              {featureMessage && (
+                <div className="mt-4 rounded-xl bg-gray-50 px-4 py-3 text-sm text-gray-600 dark:bg-gray-900 dark:text-gray-300">
+                  {featureMessage}
+                </div>
+              )}
+
+              <div className="mt-5 grid gap-3 lg:grid-cols-3">
+                <div className="rounded-xl border border-gray-100 p-4 dark:border-gray-700">
+                  <div className="text-sm font-semibold text-gray-800 dark:text-gray-100">每日目标完成情况</div>
+                  <div className="mt-3 grid gap-2">
+                    {checkins.daily.slice(-7).reverse().map((day) => (
+                      <div key={day.day} className="rounded-lg bg-gray-50 px-3 py-2 text-sm dark:bg-gray-900">
+                        <div className="flex items-center gap-2">
+                          <span className="flex-1 text-gray-600 dark:text-gray-300">{day.day}</span>
+                          <span className={day.complete ? 'text-green-600' : day.active ? 'text-amber-600' : 'text-gray-400'}>
+                            {day.checkinStatus === 'makeup'
+                              ? '补签'
+                              : day.complete
+                                ? '完成'
+                                : day.active
+                                  ? '未完成'
+                                  : '休息日'}
+                          </span>
+                        </div>
+                        <div className="mt-1 text-xs text-gray-400">
+                          {day.actualMinutes} / {day.plannedMinutes} min
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-xl border border-gray-100 p-4 dark:border-gray-700">
+                  <div className="text-sm font-semibold text-gray-800 dark:text-gray-100">最近 7 天补签</div>
+                  <div className="mt-3 grid gap-2">
+                    {recentDays.map((day) => {
+                      const item = checkins.items.find((checkin) => checkin.day === day)
+                      return (
+                        <div key={day} className="flex items-center gap-3 rounded-lg bg-gray-50 px-3 py-2 text-sm dark:bg-gray-900">
+                          <span className="flex-1 text-gray-600 dark:text-gray-300">{day}</span>
+                          {item ? (
+                            <span className={item.status === 'makeup' ? 'text-amber-600' : 'text-green-600'}>
+                              {item.status === 'makeup' ? '已补签' : '已完成'}
+                            </span>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => void makeupDay(day)}
+                              className="rounded-md border border-gray-200 bg-white px-2 py-1 text-xs text-gray-500 hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-800"
+                            >
+                              尝试补签
+                            </button>
+                          )}
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+
+                <div className="rounded-xl border border-gray-100 p-4 dark:border-gray-700">
+                  <div className="text-sm font-semibold text-gray-800 dark:text-gray-100">里程碑成就</div>
+                  {achievements.length === 0 ? (
+                    <div className="mt-3 text-sm text-gray-400">继续完成每日目标，成就会自动在服务端解锁并跨设备同步。</div>
+                  ) : (
+                    <div className="mt-3 grid gap-2">
+                      {achievements.slice(0, 8).map((item) => (
+                        <div key={item.id} className="rounded-lg bg-gray-50 px-3 py-2 dark:bg-gray-900">
+                          <div className="text-sm font-medium text-gray-800 dark:text-gray-100">{item.title}</div>
+                          <div className="mt-0.5 text-xs text-gray-400">{item.description}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </section>
+
+            <section className="mx-4 my-8 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <div className="text-sm font-medium text-indigo-500">学习周报</div>
+                  <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">每周总结与下周建议</h2>
+                  <p className="mt-1 text-sm text-gray-500">周报由后端根据真实学习记录自动生成并保存历史版本。</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => void exportReports()}
+                  className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-500 hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-300"
+                >
+                  导出周报
+                </button>
+              </div>
+
+              {weeklyReports.length === 0 ? (
+                <div className="mt-5 rounded-xl bg-gray-50 p-4 text-sm text-gray-400 dark:bg-gray-900">还没有可生成的周报。</div>
+              ) : (
+                <div className="mt-5 grid gap-4">
+                  {weeklyReports.slice(0, 8).map((report) => (
+                    <details key={report.weekStart} className="rounded-xl border border-gray-100 p-4 dark:border-gray-700">
+                      <summary className="cursor-pointer list-none">
+                        <div className="flex flex-wrap items-center gap-3">
+                          <span className="font-medium text-gray-900 dark:text-white">{report.weekStart} → {report.weekEnd}</span>
+                          <span className="text-sm text-indigo-600">{minutesLabel(report.minutes)}</span>
+                          <span className="text-sm text-gray-500">完成率 {report.completionPercent}%</span>
+                          <span className="ml-auto text-xs text-gray-400">{report.finalized ? '已归档' : '本周更新中'}</span>
+                        </div>
+                      </summary>
+                      <div className="mt-4 grid gap-4 md:grid-cols-3">
+                        <div className="rounded-lg bg-gray-50 p-3 text-sm dark:bg-gray-900">
+                          <div className="text-xs text-gray-400">正确率</div>
+                          <div className="mt-2 space-y-1 text-gray-700 dark:text-gray-200">
+                            <div>单词 {report.accuracy.vocabulary === null ? '—' : `${report.accuracy.vocabulary}%`}</div>
+                            <div>语法 {report.accuracy.grammar === null ? '—' : `${report.accuracy.grammar}%`}</div>
+                            <div>变位 {report.accuracy.conjugation === null ? '—' : `${report.accuracy.conjugation}%`}</div>
+                          </div>
+                        </div>
+                        <div className="rounded-lg bg-gray-50 p-3 text-sm dark:bg-gray-900">
+                          <div className="text-xs text-gray-400">薄弱点</div>
+                          <div className="mt-2 space-y-1 text-gray-700 dark:text-gray-200">
+                            {report.weakPoints.length ? report.weakPoints.slice(0, 4).map((item) => (
+                              <div key={`${item.kind}-${item.label}`} className="truncate">{item.label} · {item.errors} 错</div>
+                            )) : <div>本周没有明显薄弱点</div>}
+                          </div>
+                        </div>
+                        <div className="rounded-lg bg-gray-50 p-3 text-sm dark:bg-gray-900">
+                          <div className="text-xs text-gray-400">下周建议</div>
+                          <div className="mt-2 space-y-1 text-gray-700 dark:text-gray-200">
+                            {report.suggestions.map((suggestion) => <div key={suggestion}>{suggestion}</div>)}
+                          </div>
+                        </div>
+                      </div>
+                    </details>
                   ))}
                 </div>
               )}

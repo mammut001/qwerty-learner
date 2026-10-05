@@ -156,6 +156,76 @@ export type ErrorRankingItem = {
   accuracy: number | null
 }
 
+export type ErrorBookItem = {
+  itemId: string
+  kind: ReviewKind
+  sourceId: string
+  label: string
+  context: Record<string, unknown>
+  errorCount: number
+  correctStreak: number
+  mastered: boolean
+  firstWrongAt: number | null
+  lastWrongAt: number | null
+  lastAttemptAt: number
+  updatedAt: number
+}
+
+export type StudyCheckin = {
+  day: string
+  status: 'complete' | 'makeup'
+  completedAt: number
+  source: 'automatic' | 'manual'
+}
+
+export type StudyCheckinDay = {
+  day: string
+  plannedMinutes: number
+  actualMinutes: number
+  targetMinutes: number
+  active: boolean
+  complete: boolean
+  checkinStatus: 'complete' | 'makeup' | null
+}
+
+export type StudyCheckinSummary = {
+  items: StudyCheckin[]
+  daily: StudyCheckinDay[]
+  streak: { current: number; longest: number }
+}
+
+export type StudyAchievement = {
+  id: string
+  title: string
+  description: string
+  unlockedAt: number
+  progress: Record<string, number>
+}
+
+export type WeeklyStudyReport = {
+  weekStart: string
+  weekEnd: string
+  minutes: number
+  plannedMinutes: number
+  plannedDays: number
+  completedDays: number
+  completionPercent: number
+  accuracy: {
+    vocabulary: number | null
+    grammar: number | null
+    conjugation: number | null
+  }
+  accuracyChange: {
+    vocabularyAccuracy: number | null
+    grammarAccuracy: number | null
+    conjugationAccuracy: number | null
+  }
+  weakPoints: Array<{ kind: ReviewKind; label: string; errors: number }>
+  suggestions: string[]
+  generatedAt: number
+  finalized: boolean
+}
+
 export type StudyAnalytics = {
   generatedAt: string
   plan: {
@@ -392,8 +462,11 @@ async function api(method: string, path = '', body?: unknown, unauthorized = 'ST
     })
     if (response.status === 401) throw new Error(unauthorized)
     if (!response.ok) {
-      const data = (await response.json().catch(() => ({}))) as { error?: string }
-      throw new Error(data.error || `Study API: ${response.status}`)
+      const data = (await response.json().catch(() => ({}))) as { error?: string; code?: string }
+      const error = new Error(data.code || data.error || `Study API: ${response.status}`)
+      ;(error as Error & { code?: string; status?: number }).code = data.code
+      ;(error as Error & { code?: string; status?: number }).status = response.status
+      throw error
     }
     return (await response.json()) as Record<string, unknown>
   } finally {
@@ -999,3 +1072,92 @@ export async function revokeStudySyncKey(key = getStoredStudySyncKey()) {
   if (getStoredStudySyncKey() === normalized) localStorage.removeItem(SYNC_KEY)
   return true
 }
+
+export async function loadErrorBook(filters: {
+  type?: ReviewKind | ''
+  status?: 'active' | 'mastered' | 'all'
+  from?: string
+  to?: string
+  limit?: number
+} = {}): Promise<ErrorBookItem[]> {
+  await syncStudyPlan()
+  const params = new URLSearchParams()
+  if (filters.type) params.set('type', filters.type)
+  if (filters.status) params.set('status', filters.status)
+  if (filters.from) params.set('from', filters.from)
+  if (filters.to) params.set('to', filters.to)
+  if (filters.limit) params.set('limit', String(filters.limit))
+  const payload = await api('GET', `/error-book?${params.toString()}`)
+  return Array.isArray(payload.items) ? (payload.items as ErrorBookItem[]) : []
+}
+
+export async function loadStudyCheckins(today = localDay()): Promise<StudyCheckinSummary> {
+  await syncStudyPlan()
+  const payload = await api('GET', `/checkins?today=${encodeURIComponent(today)}`)
+  return {
+    items: Array.isArray(payload.items) ? (payload.items as StudyCheckin[]) : [],
+    daily: Array.isArray(payload.daily) ? (payload.daily as StudyCheckinDay[]) : [],
+    streak:
+      payload.streak && typeof payload.streak === 'object'
+        ? (payload.streak as StudyCheckinSummary['streak'])
+        : { current: 0, longest: 0 },
+  }
+}
+
+export async function applyStudyMakeup(day: string): Promise<StudyCheckinSummary> {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) throw new Error('INVALID_MAKEUP_DAY')
+  await syncStudyPlan()
+  const payload = await api('POST', '/checkins/makeup', { day })
+  return {
+    items: Array.isArray(payload.items) ? (payload.items as StudyCheckin[]) : [],
+    daily: Array.isArray(payload.daily) ? (payload.daily as StudyCheckinDay[]) : [],
+    streak:
+      payload.streak && typeof payload.streak === 'object'
+        ? (payload.streak as StudyCheckinSummary['streak'])
+        : { current: 0, longest: 0 },
+  }
+}
+
+export async function loadStudyAchievements(): Promise<StudyAchievement[]> {
+  await syncStudyPlan()
+  const payload = await api('GET', '/achievements')
+  return Array.isArray(payload.items) ? (payload.items as StudyAchievement[]) : []
+}
+
+export async function loadWeeklyStudyReports(limit = 26): Promise<WeeklyStudyReport[]> {
+  await syncStudyPlan()
+  const payload = await api('GET', `/weekly-reports?limit=${Math.min(26, Math.max(1, Math.round(limit)))}`)
+  return Array.isArray(payload.items) ? (payload.items as WeeklyStudyReport[]) : []
+}
+
+export async function exportWeeklyStudyReports() {
+  await syncStudyPlan()
+  return api('GET', '/weekly-reports/export?limit=26') as Promise<{
+    format: 'qwerty-study-weekly-reports'
+    version: 1
+    exportedAt: string
+    items: WeeklyStudyReport[]
+  }>
+}
+
+export async function deleteAllStudyData() {
+  await syncStudyPlan()
+  if (pending().length) throw new Error('PENDING_MUTATIONS')
+  await api('DELETE', '/data', { confirm: 'DELETE' })
+  for (const key of Object.keys(localStorage)) {
+    if (
+      key === KEY ||
+      key === ANALYTICS_KEY ||
+      key === REVIEW_KEY ||
+      key === SYNC_KEY ||
+      key === SEED ||
+      isPendingKey(key)
+    ) {
+      localStorage.removeItem(key)
+    }
+  }
+  fallback = undefined
+  emitSyncStatus('idle', '学习数据已删除')
+  return true
+}
+

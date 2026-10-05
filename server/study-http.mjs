@@ -13,7 +13,7 @@ export function studyPolicy({ origin, secure, sameSite = 'strict' }, { method, h
     responseHeaders['Access-Control-Allow-Origin'] = origin
     responseHeaders['Access-Control-Allow-Credentials'] = 'true'
   }
-  const methods = health ? ['GET'] : ['GET', 'POST', 'PATCH']
+  const methods = health ? ['GET'] : ['GET', 'POST', 'PATCH', 'DELETE']
   if (method === 'OPTIONS') {
     const requested = (headers.get('access-control-request-headers') || '').toLowerCase().split(',').map((value) => value.trim()).filter(Boolean)
     if (requestOrigin !== origin || !methods.includes(headers.get('access-control-request-method')) || requested.some((name) => name !== 'content-type'))

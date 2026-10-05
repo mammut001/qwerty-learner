@@ -1,5 +1,6 @@
 import {
   createStudySyncKey,
+  deleteAllStudyData,
   exportRemoteStudyPlan,
   getLearningProgress,
   getStoredStudySyncKey,
@@ -828,6 +829,21 @@ export default function StudyPlanPage() {
     }
   }
 
+  const deleteAllData = async () => {
+    const confirmation = window.prompt('此操作会永久删除服务端学习计划、错题本、打卡、成就、周报和同步数据。请输入 DELETE 确认。')
+    if (confirmation !== 'DELETE') {
+      setImportMessage('已取消删除。')
+      return
+    }
+    try {
+      await deleteAllStudyData()
+      setImportMessage('全部学习数据已删除，页面将重新初始化。')
+      window.setTimeout(() => window.location.reload(), 300)
+    } catch {
+      setImportMessage('删除失败：请先联网并等待待同步记录保存完成。')
+    }
+  }
+
   const renderTask = (task: StudyTask, dateKey: string, compact = false) => {
     const actual = storage.minutes[dateKey]?.[task.id] ?? 0
     const complete = actual >= task.minutes
@@ -942,6 +958,12 @@ export default function StudyPlanPage() {
           className="rounded-lg px-3 py-1 text-sm text-gray-600 hover:bg-indigo-100 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-gray-700"
         >
           动词变位
+        </NavLink>
+        <NavLink
+          to="/error-book"
+          className="rounded-lg px-3 py-1 text-sm text-gray-600 hover:bg-indigo-100 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-gray-700"
+        >
+          错题本
         </NavLink>
       </Header>
 
@@ -1210,6 +1232,16 @@ export default function StudyPlanPage() {
                       撤销同步码
                     </button>
                   )}
+                </div>
+                <div className="mt-3 border-t border-red-100 pt-3 dark:border-red-950">
+                  <button
+                    type="button"
+                    onClick={() => void deleteAllData()}
+                    className="rounded-md border border-red-200 bg-white px-2.5 py-1 text-xs text-red-600 hover:bg-red-50 dark:border-red-900 dark:bg-gray-800 dark:text-red-300"
+                  >
+                    删除我的全部学习数据
+                  </button>
+                  <div className="mt-1 text-[11px] text-gray-400">会同时删除服务端进度、错题本、打卡、成就、周报、同步码与审计记录。</div>
                 </div>
               </div>
 

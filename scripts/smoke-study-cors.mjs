@@ -25,7 +25,12 @@ export async function smokeCors(base, frontend, { crossSite = false } = {}) {
     assert.equal(denied.status, 403)
     assert.equal(denied.headers.get('access-control-allow-origin'), null)
   }
-  assert.equal((await request('/api/study-plan', { method: 'OPTIONS', headers: { 'Access-Control-Request-Method': 'DELETE' } })).status, 403)
+  const deletePreflight = await request('/api/study-plan/data', {
+    method: 'OPTIONS',
+    headers: { 'Access-Control-Request-Method': 'DELETE', 'Access-Control-Request-Headers': 'content-type' },
+  })
+  assert.equal(deletePreflight.status, 204)
+  assert.match(deletePreflight.headers.get('access-control-allow-methods'), /DELETE/)
   const first = await request('/api/study-plan')
   const cookieHeader = first.headers.get('set-cookie')
   assert.equal(first.status, 200)
@@ -78,5 +83,5 @@ export async function smokeCors(base, frontend, { crossSite = false } = {}) {
   assert.equal((await importCall(backup, crypto.randomUUID(), otherCookie)).status, 200)
   assert.deepEqual((await (await request('/api/study-plan/export', { headers: { Cookie: otherCookie } })).json()).state, backup.state, 'Export/import round trips to an independent identity')
   assert.equal((await request('/api/study-plan/export')).status, 401)
-  console.log('PASS: credentialed CORS, preflight, remote session reload, export/import round trip, CSRF, /health and /api/health')
+  console.log('PASS: credentialed CORS including DELETE preflight, remote session reload, export/import round trip, CSRF, /health and /api/health')
 }

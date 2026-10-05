@@ -41,6 +41,13 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
   await page.getByRole('button', { name: '检查（Enter）' }).click()
   await expect(page.getByText('✗ 再看一下这个形式')).toBeVisible()
 
+  // The wrong answer appears in the unified backend error book and can be retrained in one click.
+  await page.goto('/error-book')
+  await expect(page.getByText('服务端统一错题本')).toBeVisible()
+  await expect(page.getByTestId('error-book-item').filter({ hasText: 'prendre' })).toBeVisible()
+  await page.getByTestId('error-book-item').filter({ hasText: 'prendre' }).getByRole('button', { name: '一键重练' }).click()
+  await expect(page).toHaveURL(/\/conjugation\?verb=prendre/)
+
   await page.goto('/study-plan')
   await expect.poll(() => pendingMutationCount(page)).toBe(0)
 
@@ -78,6 +85,14 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
   await expect(secondPage.getByText('错误最多的动词')).toBeVisible()
   await expect(secondPage.getByText('prendre', { exact: true }).first()).toBeVisible()
   await expect(secondPage.getByText('动词变位正确率').first()).toBeVisible()
+  await expect(secondPage.getByText('打卡与成就')).toBeVisible()
+  await expect(secondPage.getByText('学习周报')).toBeVisible()
+  await expect(secondPage.getByText('每周总结与下周建议')).toBeVisible()
+
+  const downloadPromise = secondPage.waitForEvent('download')
+  await secondPage.getByRole('button', { name: '导出周报' }).click()
+  const download = await downloadPromise
+  expect(download.suggestedFilename()).toMatch(/^qwerty-study-weekly-reports-/)
 
   await second.close()
 })

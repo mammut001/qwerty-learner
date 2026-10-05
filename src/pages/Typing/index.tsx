@@ -240,6 +240,14 @@ const App: React.FC = () => {
               动词变位
             </NavLink>
           </Tooltip>
+          <Tooltip content="统一查看词汇、语法和动词变位错题">
+            <NavLink
+              to="/error-book"
+              className="block rounded-lg px-3 py-1 text-base transition-colors duration-300 ease-in-out hover:bg-indigo-400 hover:text-white focus:outline-none dark:text-white dark:text-opacity-60 dark:hover:text-opacity-100"
+            >
+              错题本
+            </NavLink>
+          </Tooltip>
           <PronunciationSwitcher />
           <Switcher />
           <StartButton isLoading={isLoading} />

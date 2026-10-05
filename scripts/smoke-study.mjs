@@ -45,7 +45,15 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   if (url.protocol === 'https:') assert.match(setCookie, /; Secure/)
   cookie = setCookie.split(';')[0]
   assert.equal(response.data.state, null)
-  const state = { startDate: '2026-10-01', minutes: { '2026-10-03': { 'sat-listening': 5 } }, minimumMode: {} }
+  const makeupDay = new Date(Date.now() - 86400000).toISOString().slice(0, 10)
+  const state = {
+    startDate: '2026-10-01',
+    minutes: {
+      '2026-10-03': { 'sat-listening': 5, 'manual-total': 600 },
+    },
+    minimumMode: {},
+  }
+  state.minutes[makeupDay] = { ...(state.minutes[makeupDay] ?? {}), 'manual-study': 10 }
   const initialized = await call('POST', { state })
   assert.equal(initialized.res.status, 200)
   assert.equal(initialized.data.state.startDate, state.startDate)
@@ -122,6 +130,33 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   }
   assert.equal((await call('PATCH', learningMutation)).res.status, 200)
   assert.equal((await call('PATCH', learningMutation)).res.status, 200, 'Learning replay is idempotent')
+
+  const errorBook = await call('GET', undefined, { path: '/error-book?status=active' })
+  assert.equal(errorBook.res.status, 200)
+  assert.equal(errorBook.data.items.length, 3)
+  assert.ok(errorBook.data.items.some((item) => item.kind === 'vocabulary' && item.label === 'prendre'))
+  assert.ok(errorBook.data.items.some((item) => item.kind === 'grammar'))
+  assert.ok(errorBook.data.items.some((item) => item.kind === 'conjugation'))
+
+  const makeup = await call('POST', { day: makeupDay }, { path: '/checkins/makeup' })
+  assert.equal(makeup.res.status, 200)
+  assert.equal(makeup.data.items.find((item) => item.day === makeupDay).status, 'makeup')
+
+  const achievements = await call('GET', undefined, { path: '/achievements' })
+  assert.equal(achievements.res.status, 200)
+  assert.ok(achievements.data.items.some((item) => item.id === 'minutes-600'))
+
+  const reports = await call('GET', undefined, { path: '/weekly-reports' })
+  assert.equal(reports.res.status, 200)
+  assert.ok(reports.data.items.length >= 1)
+  assert.ok(Array.isArray(reports.data.items[0].suggestions))
+  const reportsExport = await call('GET', undefined, { path: '/weekly-reports/export' })
+  assert.equal(reportsExport.res.status, 200)
+  assert.equal(reportsExport.data.format, 'qwerty-study-weekly-reports')
+
+  const invalidErrorBook = await call('GET', undefined, { path: '/error-book?type=bad' })
+  assert.equal(invalidErrorBook.res.status, 400)
+  assert.equal(invalidErrorBook.data.code, 'INVALID_ERROR_BOOK_FILTER')
 
   const settingsMutation = {
     id: randomUUID(),
@@ -210,7 +245,7 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   assert.equal((await call('PATCH', { id: randomUUID(), operations: [{ kind: 'minutes', day: '2026-10-03', task: 'sat-retell', value: -1 }] })).res.status, 400)
   assert.deepEqual((await call('GET')).data.state, expected, 'Rejected write leaves state intact')
   if (saveSession) await writeFile(saveSession, JSON.stringify({ origin, cookie, expected, syncKey }), { mode: 0o600 })
-  console.log('PASS: same-origin API, analytics trends/rankings, SM-2 review, bind/unbind, restart persistence, concurrent/idempotent writes, isolation and CSRF')
+  console.log('PASS: same-origin API, unified error book, checkins/achievements, weekly reports, analytics/SM-2, sync, restart persistence, idempotency, isolation and CSRF')
 }
 if (process.argv[1]?.endsWith('smoke-study.mjs')) {
   const [base, mode, path] = process.argv.slice(2)
