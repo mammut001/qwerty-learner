@@ -1,3 +1,4 @@
+import AccessGate from './components/AccessGate'
 import Loading from './components/Loading'
 import './index.css'
 import { isOpenDarkModeAtom } from '@/store'
@@ -82,27 +83,29 @@ function Root() {
   return (
     <React.StrictMode>
       <BrowserRouter basename={REACT_APP_DEPLOY_ENV === 'pages' ? '/qwerty-learner' : ''}>
-        <Suspense fallback={<Loading />}>
-          <Routes>
-            <Route index element={<HomeRedirect />} />
-            <Route path="/typing" element={isMobile ? <KeyboardRequiredPage /> : <TypingPage />} />
-            <Route path="/gallery" element={isMobile ? <KeyboardRequiredPage /> : <GalleryPage />} />
-            <Route path="/dictionary" element={<DictionaryPage />} />
-            <Route path="/word-lists" element={<CustomDictPage />} />
-            <Route path="/conjugation" element={<ConjugationPage />} />
-            <Route path="/grammar-session" element={<GrammarSessionPage />} />
-            <Route path="/study-plan" element={<StudyPlanPage />} />
-            <Route path="/tcf" element={<TcfHubPage />} />
-            <Route path="/tcf-listening" element={<TcfListeningPage />} />
-            <Route path="/tcf-reading" element={<TcfReadingPage />} />
-            <Route path="/tcf-writing" element={<TcfWritingPage />} />
-            <Route path="/tcf-speaking" element={<TcfSpeakingPage />} />
-            <Route path="/analysis" element={<AnalysisPage />} />
-            <Route path="/error-book" element={<ErrorBookPage />} />
-            <Route path="/*" element={<Navigate to="/study-plan" />} />
-          </Routes>
-          <FocusTimerDock />
-        </Suspense>
+        <AccessGate>
+          <Suspense fallback={<Loading />}>
+            <Routes>
+              <Route index element={<HomeRedirect />} />
+              <Route path="/typing" element={isMobile ? <KeyboardRequiredPage /> : <TypingPage />} />
+              <Route path="/gallery" element={isMobile ? <KeyboardRequiredPage /> : <GalleryPage />} />
+              <Route path="/dictionary" element={<DictionaryPage />} />
+              <Route path="/word-lists" element={<CustomDictPage />} />
+              <Route path="/conjugation" element={<ConjugationPage />} />
+              <Route path="/grammar-session" element={<GrammarSessionPage />} />
+              <Route path="/study-plan" element={<StudyPlanPage />} />
+              <Route path="/tcf" element={<TcfHubPage />} />
+              <Route path="/tcf-listening" element={<TcfListeningPage />} />
+              <Route path="/tcf-reading" element={<TcfReadingPage />} />
+              <Route path="/tcf-writing" element={<TcfWritingPage />} />
+              <Route path="/tcf-speaking" element={<TcfSpeakingPage />} />
+              <Route path="/analysis" element={<AnalysisPage />} />
+              <Route path="/error-book" element={<ErrorBookPage />} />
+              <Route path="/*" element={<Navigate to="/study-plan" />} />
+            </Routes>
+            <FocusTimerDock />
+          </Suspense>
+        </AccessGate>
       </BrowserRouter>
     </React.StrictMode>
   )

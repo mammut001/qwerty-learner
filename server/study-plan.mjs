@@ -33,7 +33,7 @@ import {
   writeNodeAudit,
   deleteNodeLearnerData,
 } from './study-node-features.mjs'
-import { randomBytes, createHash } from 'node:crypto'
+import { randomBytes, createHash, createHmac, timingSafeEqual } from 'node:crypto'
 import { mkdirSync, statSync, createReadStream } from 'node:fs'
 import { createServer } from 'node:http'
 import { dirname, resolve, extname, join, normalize } from 'node:path'
@@ -142,6 +142,7 @@ export function createStudyServer({
   metricsToken = process.env.STUDY_METRICS_TOKEN || '',
   slowRequestMs = Number(process.env.STUDY_SLOW_REQUEST_MS || 1000),
   staticDir = process.env.STUDY_STATIC_DIR || '',
+  accessPassword = process.env.STUDY_ACCESS_PASSWORD || '',
 } = {}) {
   mkdirSync(dirname(resolve(database)), { recursive: true })
   const db = new DatabaseSync(database)
@@ -154,6 +155,20 @@ export function createStudyServer({
   ensureNodeFeatureSchema(db)
   const metrics = createStudyMetrics()
   const slowThresholdMs = Number.isFinite(slowRequestMs) && slowRequestMs >= 0 ? slowRequestMs : 1000
+
+  // Optional site-wide gate for a personal deployment: with STUDY_ACCESS_PASSWORD set, every data route needs a
+  // signed access cookie. The signing key is derived from the password, so changing it revokes every device.
+  const accessKey = accessPassword ? createHash('sha256').update('study-access-v1:' + accessPassword).digest() : null
+  const ACCESS_TTL_MS = 90 * 24 * 60 * 60_000
+  const signAccess = (expires) => createHmac('sha256', accessKey).update(String(expires)).digest()
+  const accessCookie = (value, maxAgeSeconds) =>
+    `study_access=${value}; Path=/api; HttpOnly; SameSite=${sameSite === 'none' ? 'None' : 'Strict'}; Max-Age=${maxAgeSeconds}${secure ? '; Secure' : ''}`
+  const accessGranted = (cookieHeader) => {
+    if (!accessKey) return true
+    const match = /(?:^|;\s*)study_access=(\d{13})\.([a-f0-9]{64})(?:;|$)/.exec(cookieHeader || '')
+    if (!match || Number(match[1]) <= Date.now()) return false
+    return timingSafeEqual(Buffer.from(match[2], 'hex'), signAccess(match[1]))
+  }
 
   const resolveLearner = (token) => {
     if (!token) return null
@@ -268,11 +283,12 @@ export function createStudyServer({
     const tcfWriting = path === '/api/study-plan/tcf-writing'
     const tcfSpeaking = path === '/api/study-plan/tcf-speaking'
     const tcfAttempts = path === '/api/study-plan/tcf-attempts'
+    const access = path === '/api/study-plan/access'
     const plan = path === '/api/study-plan'
     if (!health && !importing && !exporting && !analytics && !syncKey && !revokeSyncKey && !linking && !unlinking &&
         !syncInfo && !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData &&
         !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
-        !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts && !plan) {
+        !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts && !access && !plan) {
       if (staticDir && !path.startsWith('/api/')) {
         return serveStatic(req, res, staticDir)
       }
@@ -319,6 +335,42 @@ export function createStudyServer({
         return sendError(503, 'DATABASE_NOT_READY', 'Database not ready')
       }
     }
+
+    if (access) {
+      const required = Boolean(accessKey)
+      if (req.method === 'GET') return send(200, { required, granted: accessGranted(req.headers.cookie) })
+      if (req.method === 'DELETE') return send(200, { required, granted: !required }, { 'Set-Cookie': accessCookie('', 0) })
+      if (req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      if (!required) return send(200, { required, granted: true })
+      const limit = consumeNodeRateLimit(db, 'actor:' + actorHash, 'access-login', {
+        limit: 8,
+        windowMs: 10 * 60_000,
+        blockMs: 15 * 60_000,
+      })
+      if (!limit.allowed)
+        return sendError(429, 'ACCESS_RATE_LIMITED', 'Too many attempts. Try again later.', {
+          retryAfterSeconds: Math.ceil(limit.retryAfterMs / 1000),
+        })
+      let input
+      try {
+        input = await readBody(req)
+      } catch {
+        return sendError(400, 'ACCESS_REQUEST_INVALID', 'Invalid access request')
+      }
+      if (!hasExactKeys(input, ['password'], ['password']) || typeof input.password !== 'string' || input.password.length > 200)
+        return sendError(400, 'ACCESS_REQUEST_INVALID', 'Invalid access request')
+      const supplied = createHash('sha256').update('study-access-v1:' + input.password).digest()
+      if (!timingSafeEqual(supplied, accessKey)) {
+        audit(null, 'access_login', 'denied')
+        return sendError(401, 'ACCESS_DENIED', 'Wrong access password')
+      }
+      const expires = Date.now() + ACCESS_TTL_MS
+      audit(null, 'access_login', 'success')
+      return send(200, { required, granted: true }, {
+        'Set-Cookie': accessCookie(`${expires}.${signAccess(expires).toString('hex')}`, Math.floor(ACCESS_TTL_MS / 1000)),
+      })
+    }
+    if (!accessGranted(req.headers.cookie)) return sendError(401, 'ACCESS_REQUIRED', 'Access password required')
 
     if ((importing || syncKey || revokeSyncKey || linking || unlinking || makeup || passkeyRegisterOptions ||
         passkeyRegisterVerify || passkeyLoginOptions || passkeyLoginVerify) && req.method !== 'POST')
