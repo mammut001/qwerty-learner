@@ -1,3 +1,4 @@
+import LookupText from '@/components/Dictionary/LookupText'
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import {
@@ -98,9 +99,11 @@ function QuestionContent({
               {reviewing ? (
                 <>
                   <div className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-                    复盘音频文本 (Transcription)
+                    复盘音频文本 (Transcription) · 点单词可查词
                   </div>
-                  <p className="mt-3 text-sm leading-relaxed text-gray-800 dark:text-gray-100">{question.audioText}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-gray-800 dark:text-gray-100">
+                    <LookupText text={question.audioText ?? ''} />
+                  </p>
                 </>
               ) : (
                 <div>
@@ -180,8 +183,11 @@ function QuestionContent({
           {/* Left Column: Passage / Document (7 cols) */}
           <div className="lg:col-span-7">
             <div className="h-full rounded-2xl border border-gray-200 bg-gray-50/80 p-6 leading-relaxed text-gray-800 shadow-sm dark:border-gray-700 dark:bg-gray-900/90 dark:text-gray-100 sm:text-base sm:leading-7">
-              <div className="mb-3 text-xs font-bold uppercase tracking-wider text-gray-400">Document / 阅读材料</div>
-              <div className="whitespace-pre-wrap">{question.passage}</div>
+              <div className="mb-3 text-xs font-bold uppercase tracking-wider text-gray-400">
+                Document / 阅读材料
+                {reviewing && <span className="ml-2 font-medium normal-case tracking-normal text-indigo-400">点单词可查词</span>}
+              </div>
+              <div className="whitespace-pre-wrap">{reviewing ? <LookupText text={question.passage ?? ''} /> : question.passage}</div>
             </div>
           </div>
 
