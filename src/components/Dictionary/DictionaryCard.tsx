@@ -98,6 +98,32 @@ function AddToWordList({ word, meaning }: { word: string; meaning: string }) {
   )
 }
 
+function OnlineMeanings({ meanings, compact }: { meanings: string[]; compact: boolean }) {
+  if (meanings.length === 0) return null
+  return (
+    <div
+      data-testid="dictionary-online"
+      className="mt-2 rounded-xl bg-indigo-50 px-3 py-2 text-sm text-indigo-800 dark:bg-indigo-950/40 dark:text-indigo-200"
+    >
+      {compact ? (
+        <>
+          <span className="mr-2 text-xs font-semibold text-indigo-500">中文维基词典 · 在线</span>
+          {meanings.join('；')}
+        </>
+      ) : (
+        <>
+          <div className="text-xs font-semibold text-indigo-500">中文维基词典 · 在线</div>
+          <ol className="mt-1 list-inside list-decimal space-y-0.5 text-sm leading-6">
+            {meanings.map((meaning) => (
+              <li key={meaning}>{meaning}</li>
+            ))}
+          </ol>
+        </>
+      )}
+    </div>
+  )
+}
+
 function WordBlock({ item, compact, onlineMeanings = [] }: { item: DictionaryWord; compact: boolean; onlineMeanings?: string[] }) {
   const ipa = item.entries.find((entry) => entry.ipa)?.ipa
   return (
@@ -117,28 +143,7 @@ function WordBlock({ item, compact, onlineMeanings = [] }: { item: DictionaryWor
         </button>
       </div>
 
-      {onlineMeanings.length > 0 && (
-        <div
-          data-testid="dictionary-online"
-          className="mt-2 rounded-xl bg-indigo-50 px-3 py-2 text-sm text-indigo-800 dark:bg-indigo-950/40 dark:text-indigo-200"
-        >
-          {compact ? (
-            <>
-              <span className="mr-2 text-xs font-semibold text-indigo-500">中文维基词典 · 在线</span>
-              {onlineMeanings.join('；')}
-            </>
-          ) : (
-            <>
-              <div className="text-xs font-semibold text-indigo-500">中文维基词典 · 在线</div>
-              <ol className="mt-1 list-inside list-decimal space-y-0.5 text-sm leading-6">
-                {onlineMeanings.map((meaning) => (
-                  <li key={meaning}>{meaning}</li>
-                ))}
-              </ol>
-            </>
-          )}
-        </div>
-      )}
+      <OnlineMeanings meanings={onlineMeanings} compact={compact} />
 
       {item.site.length > 0 && (
         <div className="mt-2 rounded-xl bg-indigo-50 px-3 py-2 text-sm text-indigo-800 dark:bg-indigo-950/40 dark:text-indigo-200">
@@ -219,26 +224,7 @@ export default function DictionaryCard({ result, compact = false }: { result: Di
                 <IconVolume className="h-5 w-5" />
               </button>
             </div>
-            <div
-              data-testid="dictionary-online"
-              className="mt-2 rounded-xl bg-indigo-50 px-3 py-2 text-sm text-indigo-800 dark:bg-indigo-950/40 dark:text-indigo-200"
-            >
-              {compact ? (
-                <>
-                  <span className="mr-2 text-xs font-semibold text-indigo-500">中文维基词典 · 在线</span>
-                  {onlineMeanings.join('；')}
-                </>
-              ) : (
-                <>
-                  <div className="text-xs font-semibold text-indigo-500">中文维基词典 · 在线</div>
-                  <ol className="mt-1 list-inside list-decimal space-y-0.5 text-sm leading-6">
-                    {onlineMeanings.map((meaning) => (
-                      <li key={meaning}>{meaning}</li>
-                    ))}
-                  </ol>
-                </>
-              )}
-            </div>
+            <OnlineMeanings meanings={onlineMeanings} compact={compact} />
           </div>
           <AddToWordList word={result.query} meaning={onlineMeanings.slice(0, 3).join('；')} />
         </div>

@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test'
+const { expect, test } = require('@playwright/test')
 
 const CANNED_BODY = JSON.stringify({
   parse: {
