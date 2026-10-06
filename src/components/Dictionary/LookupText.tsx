@@ -1,10 +1,21 @@
 import DictionaryCard from './DictionaryCard'
 import { type DictionaryResult, lookupDictionary } from '@/services/dictionary'
-import { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import IconX from '~icons/tabler/x'
 
 const WORD = /([A-Za-zÀ-ÖØ-öø-ÿŒœÆæ]+(?:['’-][A-Za-zÀ-ÖØ-öø-ÿŒœÆæ]+)*)/
+
+type CloseListener = () => void
+const closeSubscribers = new Set<CloseListener>()
+
+function notifyCloseOthers(except: CloseListener) {
+  closeSubscribers.forEach((listener) => {
+    if (listener !== except) {
+      listener()
+    }
+  })
+}
 
 /** French text whose words can be clicked to look them up in the offline dictionary. */
 export default function LookupText({ text, className }: { text: string; className?: string }) {
@@ -13,9 +24,25 @@ export default function LookupText({ text, className }: { text: string; classNam
   const [result, setResult] = useState<DictionaryResult | null>(null)
   const [error, setError] = useState('')
 
+  const closeSelf = useCallback(() => {
+    setActive(null)
+  }, [])
+
+  useEffect(() => {
+    closeSubscribers.add(closeSelf)
+    return () => {
+      closeSubscribers.delete(closeSelf)
+    }
+  }, [closeSelf])
+
   useEffect(() => {
     setActive(null)
   }, [text])
+
+  const openToken = (token: string) => {
+    notifyCloseOthers(closeSelf)
+    setActive(token)
+  }
 
   useEffect(() => {
     if (active === null) return
@@ -43,9 +70,9 @@ export default function LookupText({ text, className }: { text: string; classNam
               key={index}
               role="button"
               tabIndex={0}
-              onClick={() => setActive(token)}
+              onClick={() => openToken(token)}
               onKeyDown={(event) => {
-                if (event.key === 'Enter') setActive(token)
+                if (event.key === 'Enter') openToken(token)
               }}
               className={`cursor-pointer rounded decoration-indigo-300 decoration-dotted underline-offset-4 hover:bg-indigo-100 hover:underline dark:hover:bg-indigo-900/50 ${
                 active === token ? 'bg-indigo-100 dark:bg-indigo-900/50' : ''

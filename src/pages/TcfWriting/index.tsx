@@ -1,3 +1,4 @@
+import LookupText from '@/components/Dictionary/LookupText'
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { type TcfEeScores, calculateEeTotalScore, countFrenchWords, estimateTcfEeNclc } from '@/resources/tcfEvaluation'
@@ -813,7 +814,7 @@ export default function TcfWritingPage() {
                           </span>
                         </div>
                         <div className="mt-1.5 h-64 overflow-y-auto whitespace-pre-wrap rounded-xl border border-indigo-100 bg-indigo-50/50 p-4 text-sm leading-relaxed text-gray-800 dark:border-indigo-900/60 dark:bg-indigo-950/30 dark:text-gray-200">
-                          {prompt.sampleAnswer}
+                          <LookupText text={prompt.sampleAnswer} />
                         </div>
                       </div>
                     </div>

@@ -1,3 +1,4 @@
+import LookupText from '@/components/Dictionary/LookupText'
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { defaultGrammarTopic, findGrammarTopic, grammarTopicForQuestionIds, grammarTopics } from '@/resources/grammarTopics'
@@ -431,7 +432,9 @@ export default function GrammarSessionPage() {
                     {scenarios.indexOf(question) + 1}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="text-xl font-medium leading-8 text-gray-900 dark:text-white">{question.prompt}</div>
+                    <div className="text-xl font-medium leading-8 text-gray-900 dark:text-white">
+                      {batchSubmitted ? <LookupText text={question.prompt} /> : question.prompt}
+                    </div>
 
                     <div className="mt-4 grid gap-3 md:grid-cols-2">
                       {question.options.map((option) => {

@@ -1,3 +1,4 @@
+import LookupText from '@/components/Dictionary/LookupText'
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { type TcfEoScores, calculateEoTotalScore, estimateTcfEoNclc } from '@/resources/tcfEvaluation'
@@ -970,7 +971,9 @@ export default function TcfSpeakingPage() {
                     </div>
                     <ul className="mt-2 space-y-1 text-sm text-gray-700 dark:text-gray-300">
                       {prompt1.sampleKeyPoints.map((point, i) => (
-                        <li key={i}>• {point}</li>
+                        <li key={i}>
+                          • <LookupText text={point} />
+                        </li>
                       ))}
                     </ul>
                   </div>
@@ -993,7 +996,9 @@ export default function TcfSpeakingPage() {
                     </div>
                     <ul className="mt-2 space-y-1 text-sm text-gray-700 dark:text-gray-300">
                       {prompt2.suggestedQuestions.map((q, i) => (
-                        <li key={i}>• {q}</li>
+                        <li key={i}>
+                          • <LookupText text={q} />
+                        </li>
                       ))}
                     </ul>
                   </div>
@@ -1016,7 +1021,9 @@ export default function TcfSpeakingPage() {
                       <div className="text-xs font-semibold text-indigo-600 dark:text-indigo-400">支持观点与论据 (Arguments pour)：</div>
                       <ul className="mt-2 space-y-1 text-xs text-gray-700 dark:text-gray-300">
                         {prompt3.suggestedArgumentsFor.map((arg, i) => (
-                          <li key={i}>• {arg}</li>
+                          <li key={i}>
+                            • <LookupText text={arg} />
+                          </li>
                         ))}
                       </ul>
                     </div>
@@ -1027,7 +1034,9 @@ export default function TcfSpeakingPage() {
                       </div>
                       <ul className="mt-2 space-y-1 text-xs text-gray-700 dark:text-gray-300">
                         {prompt3.suggestedArgumentsAgainst.map((arg, i) => (
-                          <li key={i}>• {arg}</li>
+                          <li key={i}>
+                            • <LookupText text={arg} />
+                          </li>
                         ))}
                       </ul>
                     </div>
@@ -1037,7 +1046,9 @@ export default function TcfSpeakingPage() {
                     <div className="text-xs font-semibold text-gray-800 dark:text-gray-200">高分阐述逻辑框架 (Plan recommandé)：</div>
                     <ol className="mt-2 list-inside list-decimal space-y-1 text-xs text-gray-700 dark:text-gray-300">
                       {prompt3.sampleOutline.map((step, i) => (
-                        <li key={i}>{step}</li>
+                        <li key={i}>
+                          <LookupText text={step} />
+                        </li>
                       ))}
                     </ol>
                   </div>
