@@ -428,16 +428,16 @@ export default function TcfMockExamPage({ skill }: { skill: TcfQcmSkill }) {
               <div className="flex items-center gap-3">
                 <NavLink
                   to="/study-plan"
-                  className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-indigo-600"
+                  className="inline-flex items-center gap-1.5 whitespace-nowrap text-xs font-medium text-gray-500 hover:text-indigo-600"
                 >
                   <IconArrowLeft className="h-3.5 w-3.5" />
                   退出
                 </NavLink>
                 <span className="h-4 w-px bg-gray-200 dark:bg-gray-700" />
-                <span className="text-xs font-semibold text-gray-800 dark:text-gray-200">
-                  {config.label} · 第 {currentIndex + 1} / {questions.length} 题
+                <span className="whitespace-nowrap text-xs font-semibold text-gray-800 dark:text-gray-200">
+                  <span className="hidden sm:inline">{config.label} · </span>第 {currentIndex + 1} / {questions.length} 题
                 </span>
-                <span className="text-xs text-gray-400">
+                <span className="hidden whitespace-nowrap text-xs text-gray-400 sm:inline">
                   (已作答 {answeredCount} / {questions.length})
                 </span>
               </div>

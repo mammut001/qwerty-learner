@@ -301,7 +301,7 @@ export default function TcfWritingPage() {
               <div className="flex items-center gap-3">
                 <NavLink
                   to="/study-plan"
-                  className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-indigo-600"
+                  className="inline-flex items-center gap-1.5 whitespace-nowrap text-xs font-medium text-gray-500 hover:text-indigo-600"
                 >
                   <IconArrowLeft className="h-3.5 w-3.5" />
                   退出
@@ -320,14 +320,15 @@ export default function TcfWritingPage() {
                         type="button"
                         data-testid={`tcf-writing-task-tab-${t}`}
                         onClick={() => setActiveTask(t)}
-                        className={`flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs font-semibold transition ${
+                        className={`flex items-center gap-1.5 whitespace-nowrap rounded-xl px-2 py-1.5 text-xs font-semibold transition sm:gap-2 sm:px-3 ${
                           isActive
                             ? 'bg-indigo-600 text-white shadow-sm'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300'
                         }`}
                       >
                         <span>
-                          Tâche {t} ({limits}词)
+                          Tâche {t}
+                          <span className="hidden sm:inline"> ({limits}词)</span>
                         </span>
                         <span
                           className={`rounded-full px-1.5 py-0.5 font-mono text-[11px] ${

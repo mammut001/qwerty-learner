@@ -32,8 +32,16 @@ test('TCF question sets, shared navigation, only-wrong review and wrong-answer p
   await page.getByTestId('tcf-only-wrong').check()
   await expect(reviewGrid).toHaveCount(38)
 
+  // The overview shows the reading attempt against its NCLC 7 target and leaves untested skills blank.
+  await page.goto('/tcf')
+  await expect(page.getByTestId('tcf-hub-reading')).toContainText('已考 1 次')
+  await expect(page.getByTestId('tcf-hub-reading')).toContainText('距目标还差 435 分')
+  await expect(page.getByTestId('tcf-hub-speaking')).toContainText('开始第一次模考')
+  await expect(page.getByTestId('tcf-hub-summary')).toContainText('0 / 4')
+  await page.getByTestId('tcf-hub-reading').getByRole('link', { name: '再考一次' }).click()
+  await expect(page).toHaveURL(/\/tcf-reading$/)
+
   // Only the question that was actually answered wrong enters the practice pool.
-  await page.reload()
   await expect(page.getByTestId('tcf-set-b')).toHaveAttribute('aria-checked', 'true')
   await expect(page.getByText('错题重练 · 1 题')).toBeVisible()
   await page.getByTestId('tcf-start-practice').click()
