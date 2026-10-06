@@ -303,19 +303,56 @@ export default function TcfSpeakingPage() {
 
   return (
     <Layout>
-      <div className="flex w-full flex-1 flex-col overflow-y-auto px-4 py-8 sm:px-8 lg:px-20">
-        <div className="mx-auto w-full max-w-5xl">
+      <div className="flex w-full flex-1 flex-col overflow-y-auto px-4 py-4 sm:px-6 lg:px-8">
+        <div className={`mx-auto w-full ${mode !== 'intro' ? 'max-w-7xl' : 'max-w-5xl'}`}>
           {/* Header navigation & status */}
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <NavLink to="/study-plan" className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-indigo-600">
-              <IconArrowLeft className="h-4 w-4" />
-              返回学习计划
-            </NavLink>
+          {mode !== 'speaking' ? (
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <NavLink to="/study-plan" className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-indigo-600">
+                <IconArrowLeft className="h-4 w-4" />
+                返回学习计划
+              </NavLink>
+            </div>
+          ) : (
+            <div className="sticky top-0 z-20 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-gray-200/90 bg-white/95 px-4 py-2.5 shadow-sm backdrop-blur dark:border-gray-700 dark:bg-gray-800/95">
+              <div className="flex items-center gap-3">
+                <NavLink to="/study-plan" className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-indigo-600">
+                  <IconArrowLeft className="h-3.5 w-3.5" />
+                  退出
+                </NavLink>
+                <span className="h-4 w-px bg-gray-200 dark:bg-gray-700" />
+                {/* Task switcher tabs */}
+                <div className="flex items-center gap-1.5">
+                  {[1, 2, 3].map((taskNum) => {
+                    const t = taskNum as 1 | 2 | 3
+                    const hasAudio = Boolean(audioUrls[t])
+                    const isActive = activeTask === t
+                    const label = t === 1 ? 'Tâche 1 (面试2分)' : t === 2 ? 'Tâche 2 (互动5.5分)' : 'Tâche 3 (论证4.5分)'
+                    return (
+                      <button
+                        key={t}
+                        type="button"
+                        data-testid={`tcf-speaking-task-tab-${t}`}
+                        onClick={() => setActiveTask(t)}
+                        className={`flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs font-semibold transition ${
+                          isActive
+                            ? 'bg-indigo-600 text-white shadow-sm'
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300'
+                        }`}
+                      >
+                        <span>{label}</span>
+                        {hasAudio && (
+                          <span className="flex h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-white dark:ring-gray-900" />
+                        )}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
 
-            {mode === 'speaking' && (
               <div className="flex items-center gap-3">
                 <span
-                  className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium ${
+                  className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ${
                     micAvailable
                       ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300'
                       : micAvailable === false
@@ -324,39 +361,50 @@ export default function TcfSpeakingPage() {
                   }`}
                 >
                   <IconMicrophone className="h-3.5 w-3.5" />
-                  {micAvailable ? '麦克风录音已就绪' : '纯计时模拟模式'}
+                  {micAvailable ? '麦克风录音已就绪' : '计时模式'}
                 </span>
 
                 <div
                   data-testid="tcf-speaking-timer"
-                  className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-4 py-2 font-mono text-sm text-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                  className="inline-flex items-center gap-2 rounded-xl bg-gray-100 px-3.5 py-1.5 font-mono text-sm font-bold text-gray-800 shadow-inner dark:bg-gray-900 dark:text-gray-100"
                 >
                   <IconClock className="h-4 w-4" />
                   {formatClock(taskRemaining[activeTask])}
                 </div>
-              </div>
-            )}
-          </div>
 
-          {/* Banner */}
-          <header className="mt-8 rounded-2xl bg-gradient-to-br from-indigo-50 to-white p-6 dark:from-indigo-950/40 dark:to-gray-900 sm:p-8">
-            <div className="text-sm font-semibold text-indigo-600">TCF Canada · Expression Orale</div>
-            <h1 className="mt-2 text-3xl font-bold text-gray-950 dark:text-white">口语 3 任务完整模拟</h1>
-            <p className="mt-3 max-w-3xl leading-7 text-gray-600 dark:text-gray-300">
-              约 12 分钟完成 3 个口语任务。支持准备计时、作答计时与浏览器录音回放；作答后通过 5 维度自评换算 NCLC 等级。
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3 text-sm">
-              <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
-                目标 NCLC 7
-              </span>
-              <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
-                目标 10/20 分
-              </span>
-              <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
-                总时长约 12 分钟
-              </span>
+                <button
+                  type="button"
+                  data-testid="tcf-speaking-finish"
+                  onClick={enterAssessment}
+                  className="rounded-xl bg-indigo-600 px-4 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-indigo-700"
+                >
+                  完成作答，进入自评
+                </button>
+              </div>
             </div>
-          </header>
+          )}
+
+          {/* Banner: Only show in intro mode */}
+          {mode === 'intro' && (
+            <header className="mt-8 rounded-2xl bg-gradient-to-br from-indigo-50 to-white p-6 dark:from-indigo-950/40 dark:to-gray-900 sm:p-8">
+              <div className="text-sm font-semibold text-indigo-600">TCF Canada · Expression Orale</div>
+              <h1 className="mt-2 text-3xl font-bold text-gray-950 dark:text-white">口语 3 任务完整模拟</h1>
+              <p className="mt-3 max-w-3xl leading-7 text-gray-600 dark:text-gray-300">
+                约 12 分钟完成 3 个口语任务。支持准备计时、作答计时与浏览器录音回放；作答后通过 5 维度自评换算 NCLC 等级。
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3 text-sm">
+                <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
+                  目标 NCLC 7
+                </span>
+                <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
+                  目标 10/20 分
+                </span>
+                <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
+                  总时长约 12 分钟
+                </span>
+              </div>
+            </header>
+          )}
 
           {/* Intro mode */}
           {mode === 'intro' && (
@@ -414,285 +462,295 @@ export default function TcfSpeakingPage() {
             </section>
           )}
 
-          {/* Speaking mode */}
+          {/* Speaking mode: Realistic Split View */}
           {mode === 'speaking' && (
-            <section className="mt-6 space-y-6">
-              {/* Task Tabs */}
-              <div className="flex flex-wrap items-center gap-2 border-b border-gray-200 pb-3 dark:border-gray-700">
-                {[1, 2, 3].map((taskNum) => {
-                  const t = taskNum as 1 | 2 | 3
-                  const hasAudio = Boolean(audioUrls[t])
-                  return (
-                    <button
-                      key={t}
-                      type="button"
-                      data-testid={`tcf-speaking-task-tab-${t}`}
-                      onClick={() => setActiveTask(t)}
-                      className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition ${
-                        activeTask === t
-                          ? 'bg-indigo-600 text-white shadow-sm'
-                          : 'bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300'
-                      }`}
-                    >
-                      <span>
-                        任务 {t} ({t === 1 ? '约2分' : t === 2 ? '准备2分+答3.5分' : '约4.5分'})
+            <section className="mt-4 grid grid-cols-1 gap-6 lg:grid-cols-12">
+              {/* Left Column: Task Materials (7 cols on lg) */}
+              <div className="space-y-4 lg:col-span-7">
+                {activeTask === 1 && (
+                  <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                    <div className="flex items-center justify-between border-b border-gray-100 pb-3 dark:border-gray-700">
+                      <span className="rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-bold text-indigo-600 dark:bg-indigo-950 dark:text-indigo-300">
+                        Tâche 1 · Entretien dirigé
                       </span>
-                      {hasAudio && <span className="flex h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-white" />}
-                    </button>
-                  )
-                })}
+                      <span className="text-xs text-gray-500">约 2 分钟 · 无准备时间</span>
+                    </div>
+                    <h2 className="mt-3 text-lg font-bold text-gray-950 dark:text-white leading-snug">{prompt1.title}</h2>
+                    <p className="mt-2 text-sm leading-relaxed text-gray-700 dark:text-gray-200">{prompt1.intro}</p>
+
+                    <div className="mt-4 rounded-xl border border-indigo-100 bg-indigo-50/60 p-4 dark:border-indigo-900/60 dark:bg-indigo-950/40">
+                      <div className="text-xs font-bold text-indigo-700 dark:text-indigo-300">
+                        考官可能提出的问题 (Questions de l&apos;examinateur)：
+                      </div>
+                      <ul className="mt-2.5 space-y-2 text-sm text-gray-800 dark:text-gray-200">
+                        {prompt1.questions.map((q, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <span className="font-bold text-indigo-500">•</span>
+                            <span>{q}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="mt-4 rounded-xl bg-gray-50 p-3 text-xs leading-5 text-gray-500 dark:bg-gray-900/50">
+                      💡 <strong>应试策略</strong>：自然从容，详细介绍个人背景、经历与日常生活，避免单字回答，尽量使用复合句扩展。
+                    </div>
+                  </div>
+                )}
+
+                {activeTask === 2 && (
+                  <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                    <div className="flex items-center justify-between border-b border-gray-100 pb-3 dark:border-gray-700">
+                      <span className="rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-bold text-indigo-600 dark:bg-indigo-950 dark:text-indigo-300">
+                        Tâche 2 · Exercice en interaction
+                      </span>
+                      <span className="text-xs text-gray-500">2 分钟准备 + 约 3.5 分钟作答</span>
+                    </div>
+                    <h2 className="mt-3 text-lg font-bold text-gray-950 dark:text-white leading-snug">{prompt2.title}</h2>
+
+                    <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                      <div className="rounded-xl border border-indigo-100 bg-indigo-50/60 p-3 text-xs leading-relaxed text-gray-800 dark:border-indigo-900/60 dark:bg-indigo-950/40 dark:text-gray-200">
+                        <strong className="text-indigo-700 dark:text-indigo-300">情境描述：</strong>
+                        <div className="mt-1">{prompt2.scenario}</div>
+                      </div>
+                      <div className="rounded-xl border border-purple-100 bg-purple-50/60 p-3 text-xs leading-relaxed text-gray-800 dark:border-purple-900/60 dark:bg-purple-950/40 dark:text-gray-200">
+                        <strong className="text-purple-700 dark:text-purple-300">角色扮演：</strong>
+                        <div className="mt-1">考官为【{prompt2.examinerRole}】，您为【{prompt2.examineeRole}】。</div>
+                      </div>
+                    </div>
+
+                    <div className="mt-3 text-sm leading-relaxed text-gray-800 dark:text-gray-200">
+                      {prompt2.instructions}
+                    </div>
+
+                    <div className="mt-4 rounded-xl bg-gray-50 p-3 text-xs leading-5 text-gray-500 dark:bg-gray-900/50">
+                      💡 <strong>互动提示</strong>：主动向考官提问获取详细信息，使用多种疑问句型（Est-ce que... / Pourriez-vous me dire si... / Quels sont...）。
+                    </div>
+                  </div>
+                )}
+
+                {activeTask === 3 && (
+                  <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                    <div className="flex items-center justify-between border-b border-gray-100 pb-3 dark:border-gray-700">
+                      <span className="rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-bold text-indigo-600 dark:bg-indigo-950 dark:text-indigo-300">
+                        Tâche 3 · Expression d&apos;un point de vue
+                      </span>
+                      <span className="text-xs text-gray-500">约 4.5 分钟自由阐述 · 无准备时间</span>
+                    </div>
+                    <h2 className="mt-3 text-lg font-bold text-gray-950 dark:text-white leading-snug">{prompt3.title}</h2>
+                    <div className="mt-2 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
+                      辩论主题：{prompt3.topic}
+                    </div>
+                    <p className="mt-3 text-sm leading-relaxed text-gray-800 dark:text-gray-200">{prompt3.prompt}</p>
+
+                    <div className="mt-4 rounded-xl bg-gray-50 p-3 text-xs leading-5 text-gray-500 dark:bg-gray-900/50">
+                      💡 <strong>结构提示</strong>：遵循"引入话题 → 阐述正反观点 → 表达个人明确立场 → 总结"的标准论辩框架，运用连接词展开论据。
+                    </div>
+                  </div>
+                )}
               </div>
 
-              {/* Task 1 Card */}
-              {activeTask === 1 && (
-                <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                  <div className="text-xs font-semibold uppercase tracking-wider text-indigo-500">
-                    Tâche 1 · Entretien dirigé (约 2 分钟，无准备时间)
+              {/* Right Column: Recording Console (5 cols on lg) */}
+              <div className="flex flex-col space-y-4 lg:col-span-5">
+                <div className="flex flex-1 flex-col rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                  <div className="flex items-center justify-between border-b border-gray-100 pb-3 dark:border-gray-700">
+                    <span className="text-sm font-bold text-gray-900 dark:text-white">
+                      考场录音工作台
+                    </span>
+                    <span
+                      className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                        taskPhases[activeTask] === 'recording'
+                          ? 'animate-pulse bg-red-100 text-red-700 dark:bg-red-950/60 dark:text-red-300'
+                          : taskPhases[activeTask] === 'prep'
+                          ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300'
+                          : taskPhases[activeTask] === 'finished'
+                          ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300'
+                          : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'
+                      }`}
+                    >
+                      {taskPhases[activeTask] === 'recording'
+                        ? '● 正在作答录音中'
+                        : taskPhases[activeTask] === 'prep'
+                        ? '⏳ 准备时间'
+                        : taskPhases[activeTask] === 'finished'
+                        ? '✓ 作答完成'
+                        : '○ 等待作答'}
+                    </span>
                   </div>
-                  <h2 className="mt-2 text-xl font-bold text-gray-950 dark:text-white">{prompt1.title}</h2>
-                  <p className="mt-2 leading-7 text-gray-700 dark:text-gray-200">{prompt1.intro}</p>
 
-                  <div className="mt-4 rounded-xl border border-indigo-100 bg-indigo-50/50 p-4 dark:border-indigo-900/60 dark:bg-indigo-950/30">
-                    <div className="text-xs font-semibold text-indigo-700 dark:text-indigo-300">
-                      考官可能提出的问题 (Questions de l&apos;examinateur)：
+                  {/* Big countdown clock */}
+                  <div className="my-6 flex flex-col items-center justify-center rounded-2xl bg-gray-50/80 p-6 dark:bg-gray-900/60">
+                    <div className="text-xs font-medium uppercase tracking-wider text-gray-400">
+                      {taskPhases[activeTask] === 'prep' ? '准备剩余时间' : '作答剩余时间'}
                     </div>
-                    <ul className="mt-2 space-y-1.5 text-sm text-gray-800 dark:text-gray-200">
-                      {prompt1.questions.map((q, i) => (
-                        <li key={i}>• {q}</li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Actions & Recorder */}
-                  <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-gray-100 pt-4 dark:border-gray-700">
-                    <div className="flex flex-wrap items-center gap-3">
-                      {taskPhases[1] === 'idle' && (
-                        <button
-                          type="button"
-                          data-testid="tcf-speaking-record-btn"
-                          onClick={() => void startTaskRecording(1)}
-                          className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 font-medium text-white hover:bg-indigo-700"
-                        >
-                          <IconMicrophone className="h-4 w-4" />
-                          开始作答录音
-                        </button>
-                      )}
-
-                      {taskPhases[1] === 'recording' && (
-                        <button
-                          type="button"
-                          data-testid="tcf-speaking-stop-btn"
-                          onClick={() => stopTaskRecording(1)}
-                          className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-5 py-2.5 font-medium text-white hover:bg-red-700"
-                        >
-                          <IconPlayerStop className="h-4 w-4" />
-                          停止作答
-                        </button>
-                      )}
-
-                      {taskPhases[1] === 'finished' && (
-                        <div className="flex flex-wrap items-center gap-3">
-                          <span className="text-sm text-gray-600 dark:text-gray-400">作答完成 (用时 {taskDurations[1]} 秒)</span>
-                          <button
-                            type="button"
-                            onClick={() => void resetTask(1)}
-                            className="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 px-3 py-1.5 text-xs text-gray-600 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300"
-                          >
-                            <IconTrash className="h-3.5 w-3.5" />
-                            重录本题
-                          </button>
-                        </div>
-                      )}
+                    <div className="mt-2 font-mono text-4xl font-extrabold text-gray-900 dark:text-white">
+                      {formatClock(taskRemaining[activeTask])}
                     </div>
-
-                    {audioUrls[1] && (
-                      <div className="flex items-center gap-2">
-                        <audio data-testid="tcf-audio-player-1" controls src={audioUrls[1]} className="h-9" />
+                    {taskPhases[activeTask] === 'recording' && (
+                      <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-red-600 dark:text-red-400">
+                        <span className="h-2 w-2 animate-ping rounded-full bg-red-500" />
+                        麦克风正在录音中，请清晰作答
                       </div>
                     )}
                   </div>
-                </div>
-              )}
 
-              {/* Task 2 Card */}
-              {activeTask === 2 && (
-                <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                  <div className="text-xs font-semibold uppercase tracking-wider text-indigo-500">
-                    Tâche 2 · Exercice en interaction (2 分钟准备 + 约 3.5 分钟作答)
-                  </div>
-                  <h2 className="mt-2 text-xl font-bold text-gray-950 dark:text-white">{prompt2.title}</h2>
-
-                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                    <div className="rounded-xl bg-gray-50 p-3 text-xs leading-5 text-gray-700 dark:bg-gray-900 dark:text-gray-300">
-                      <strong>情境描述：</strong>
-                      {prompt2.scenario}
-                    </div>
-                    <div className="rounded-xl bg-gray-50 p-3 text-xs leading-5 text-gray-700 dark:bg-gray-900 dark:text-gray-300">
-                      <strong>角色设定：</strong>考官为 {prompt2.examinerRole}，您为 {prompt2.examineeRole}。
-                    </div>
-                  </div>
-
-                  <p className="mt-3 leading-7 text-gray-800 dark:text-gray-200">{prompt2.instructions}</p>
-
-                  {/* Actions & Recorder */}
-                  <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-gray-100 pt-4 dark:border-gray-700">
-                    <div className="flex flex-wrap items-center gap-3">
-                      {taskPhases[2] === 'idle' && (
-                        <div className="flex gap-2">
+                  {/* Actions area */}
+                  <div className="space-y-3">
+                    {/* Task 1 controls */}
+                    {activeTask === 1 && (
+                      <div>
+                        {taskPhases[1] === 'idle' && (
                           <button
                             type="button"
-                            onClick={() => startTaskPrep(2)}
-                            className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 font-medium text-white hover:bg-indigo-700"
+                            data-testid="tcf-speaking-record-btn"
+                            onClick={() => void startTaskRecording(1)}
+                            className="flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 py-3 font-semibold text-white shadow-sm hover:bg-indigo-700"
                           >
-                            <IconClock className="h-4 w-4" />
-                            开始 2 分钟准备
+                            <IconMicrophone className="h-4 w-4" />
+                            开始作答录音
                           </button>
+                        )}
+                        {taskPhases[1] === 'recording' && (
+                          <button
+                            type="button"
+                            data-testid="tcf-speaking-stop-btn"
+                            onClick={() => stopTaskRecording(1)}
+                            className="flex w-full items-center justify-center gap-2 rounded-xl bg-red-600 py-3 font-semibold text-white shadow-sm hover:bg-red-700"
+                          >
+                            <IconPlayerStop className="h-4 w-4" />
+                            停止作答
+                          </button>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Task 2 controls */}
+                    {activeTask === 2 && (
+                      <div>
+                        {taskPhases[2] === 'idle' && (
+                          <div className="grid grid-cols-2 gap-2">
+                            <button
+                              type="button"
+                              onClick={() => startTaskPrep(2)}
+                              className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-indigo-600 py-2.5 text-xs font-semibold text-white hover:bg-indigo-700"
+                            >
+                              <IconClock className="h-4 w-4" />
+                              开始 2 分钟准备
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => void startTaskRecording(2)}
+                              className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-indigo-600 py-2.5 text-xs font-semibold text-indigo-600 hover:bg-indigo-50 dark:text-indigo-400"
+                            >
+                              跳过准备，直接作答
+                            </button>
+                          </div>
+                        )}
+                        {taskPhases[2] === 'prep' && (
                           <button
                             type="button"
                             onClick={() => void startTaskRecording(2)}
-                            className="inline-flex items-center gap-2 rounded-xl border border-indigo-600 px-4 py-2.5 text-sm font-medium text-indigo-600 hover:bg-indigo-50 dark:text-indigo-400"
+                            className="flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 py-3 font-semibold text-white shadow-sm hover:bg-indigo-700"
                           >
-                            跳过准备，直接作答
-                          </button>
-                        </div>
-                      )}
-
-                      {taskPhases[2] === 'prep' && (
-                        <div className="flex items-center gap-3">
-                          <span className="text-sm font-medium text-indigo-600">准备中 (倒计时 {formatClock(taskRemaining[2])})</span>
-                          <button
-                            type="button"
-                            onClick={() => void startTaskRecording(2)}
-                            className="rounded-lg bg-indigo-600 px-4 py-2 text-xs font-semibold text-white hover:bg-indigo-700"
-                          >
+                            <IconMicrophone className="h-4 w-4" />
                             准备完毕，开始作答录音
                           </button>
-                        </div>
-                      )}
-
-                      {taskPhases[2] === 'recording' && (
-                        <button
-                          type="button"
-                          onClick={() => stopTaskRecording(2)}
-                          className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-5 py-2.5 font-medium text-white hover:bg-red-700"
-                        >
-                          <IconPlayerStop className="h-4 w-4" />
-                          停止作答
-                        </button>
-                      )}
-
-                      {taskPhases[2] === 'finished' && (
-                        <div className="flex flex-wrap items-center gap-3">
-                          <span className="text-sm text-gray-600 dark:text-gray-400">作答完成 (用时 {taskDurations[2]} 秒)</span>
+                        )}
+                        {taskPhases[2] === 'recording' && (
                           <button
                             type="button"
-                            onClick={() => void resetTask(2)}
-                            className="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 px-3 py-1.5 text-xs text-gray-600 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300"
+                            onClick={() => stopTaskRecording(2)}
+                            className="flex w-full items-center justify-center gap-2 rounded-xl bg-red-600 py-3 font-semibold text-white shadow-sm hover:bg-red-700"
+                          >
+                            <IconPlayerStop className="h-4 w-4" />
+                            停止作答
+                          </button>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Task 3 controls */}
+                    {activeTask === 3 && (
+                      <div>
+                        {taskPhases[3] === 'idle' && (
+                          <button
+                            type="button"
+                            onClick={() => void startTaskRecording(3)}
+                            className="flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 py-3 font-semibold text-white shadow-sm hover:bg-indigo-700"
+                          >
+                            <IconMicrophone className="h-4 w-4" />
+                            开始作答录音
+                          </button>
+                        )}
+                        {taskPhases[3] === 'recording' && (
+                          <button
+                            type="button"
+                            onClick={() => stopTaskRecording(3)}
+                            className="flex w-full items-center justify-center gap-2 rounded-xl bg-red-600 py-3 font-semibold text-white shadow-sm hover:bg-red-700"
+                          >
+                            <IconPlayerStop className="h-4 w-4" />
+                            停止作答
+                          </button>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Finished recording display */}
+                    {taskPhases[activeTask] === 'finished' && (
+                      <div className="rounded-xl border border-gray-100 bg-gray-50/60 p-4 dark:border-gray-700 dark:bg-gray-900/60">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                            录音已就绪 (用时 {taskDurations[activeTask]} 秒)
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => void resetTask(activeTask)}
+                            className="inline-flex items-center gap-1 text-xs text-rose-600 hover:text-rose-700 dark:text-rose-400"
                           >
                             <IconTrash className="h-3.5 w-3.5" />
-                            重录本题
+                            重新录制
                           </button>
                         </div>
-                      )}
-                    </div>
-
-                    {audioUrls[2] && (
-                      <div className="flex items-center gap-2">
-                        <audio controls src={audioUrls[2]} className="h-9" />
+                        {audioUrls[activeTask] && (
+                          <div className="mt-3">
+                            <audio
+                              data-testid={`tcf-audio-player-${activeTask}`}
+                              controls
+                              src={audioUrls[activeTask] ?? undefined}
+                              className="h-10 w-full"
+                            />
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
-                </div>
-              )}
 
-              {/* Task 3 Card */}
-              {activeTask === 3 && (
-                <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                  <div className="text-xs font-semibold uppercase tracking-wider text-indigo-500">
-                    Tâche 3 · Expression d&apos;un point de vue (约 4.5 分钟，无准备时间)
-                  </div>
-                  <h2 className="mt-2 text-xl font-bold text-gray-950 dark:text-white">{prompt3.title}</h2>
-                  <div className="mt-2 text-sm font-medium text-gray-600 dark:text-gray-300">主题：{prompt3.topic}</div>
-                  <p className="mt-3 leading-7 text-gray-800 dark:text-gray-200">{prompt3.prompt}</p>
-
-                  {/* Actions & Recorder */}
-                  <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-gray-100 pt-4 dark:border-gray-700">
-                    <div className="flex flex-wrap items-center gap-3">
-                      {taskPhases[3] === 'idle' && (
-                        <button
-                          type="button"
-                          onClick={() => void startTaskRecording(3)}
-                          className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 font-medium text-white hover:bg-indigo-700"
-                        >
-                          <IconMicrophone className="h-4 w-4" />
-                          开始作答录音
-                        </button>
-                      )}
-
-                      {taskPhases[3] === 'recording' && (
-                        <button
-                          type="button"
-                          onClick={() => stopTaskRecording(3)}
-                          className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-5 py-2.5 font-medium text-white hover:bg-red-700"
-                        >
-                          <IconPlayerStop className="h-4 w-4" />
-                          停止作答
-                        </button>
-                      )}
-
-                      {taskPhases[3] === 'finished' && (
-                        <div className="flex flex-wrap items-center gap-3">
-                          <span className="text-sm text-gray-600 dark:text-gray-400">作答完成 (用时 {taskDurations[3]} 秒)</span>
-                          <button
-                            type="button"
-                            onClick={() => void resetTask(3)}
-                            className="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 px-3 py-1.5 text-xs text-gray-600 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300"
-                          >
-                            <IconTrash className="h-3.5 w-3.5" />
-                            重录本题
-                          </button>
-                        </div>
-                      )}
+                  {/* Navigation footer */}
+                  <div className="mt-6 flex items-center justify-between border-t border-gray-100 pt-4 dark:border-gray-700">
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        disabled={activeTask === 1}
+                        onClick={() => setActiveTask((old) => (old === 3 ? 2 : 1))}
+                        className="rounded-lg border border-gray-300 px-3.5 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50 disabled:opacity-40 dark:border-gray-600 dark:text-gray-300"
+                      >
+                        ← 上一题
+                      </button>
+                      <button
+                        type="button"
+                        disabled={activeTask === 3}
+                        onClick={() => setActiveTask((old) => (old === 1 ? 2 : 3))}
+                        className="rounded-lg border border-gray-300 px-3.5 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50 disabled:opacity-40 dark:border-gray-600 dark:text-gray-300"
+                      >
+                        下一题 →
+                      </button>
                     </div>
 
-                    {audioUrls[3] && (
-                      <div className="flex items-center gap-2">
-                        <audio controls src={audioUrls[3]} className="h-9" />
-                      </div>
-                    )}
+                    <div className="text-xs text-gray-400">
+                      纯本地录音 · 不占云端
+                    </div>
                   </div>
                 </div>
-              )}
-
-              {/* Bottom navigation */}
-              <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                <div className="flex gap-2">
-                  <button
-                    type="button"
-                    disabled={activeTask === 1}
-                    onClick={() => setActiveTask((old) => (old === 3 ? 2 : 1))}
-                    className="rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-600 disabled:opacity-40 dark:border-gray-600 dark:text-gray-300"
-                  >
-                    上一题
-                  </button>
-                  <button
-                    type="button"
-                    disabled={activeTask === 3}
-                    onClick={() => setActiveTask((old) => (old === 1 ? 2 : 3))}
-                    className="rounded-lg bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 disabled:opacity-40 dark:bg-indigo-950 dark:text-indigo-300"
-                  >
-                    下一题
-                  </button>
-                </div>
-
-                <button
-                  type="button"
-                  data-testid="tcf-speaking-finish"
-                  onClick={enterAssessment}
-                  className="rounded-xl bg-indigo-600 px-6 py-2.5 font-semibold text-white hover:bg-indigo-700"
-                >
-                  完成作答，进入自评
-                </button>
               </div>
             </section>
           )}

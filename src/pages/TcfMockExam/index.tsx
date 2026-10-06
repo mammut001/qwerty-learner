@@ -33,82 +33,155 @@ function QuestionContent({
 }) {
   const reviewing = mode === 'review'
   return (
-    <div className="space-y-5">
-      <div className="text-xs font-medium uppercase tracking-wide text-indigo-500">
-        {question.type} · {question.id.toUpperCase()}
+    <div className="space-y-4">
+      <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-indigo-500">
+        <span>{question.type} · {question.id.toUpperCase()}</span>
       </div>
 
       {skill === 'listening' ? (
-        <div className="rounded-xl border border-indigo-100 bg-indigo-50 p-4 dark:border-indigo-900 dark:bg-indigo-950/40">
-          {reviewing ? (
-            <>
-              <div className="text-xs font-medium text-indigo-500">复盘音频文本</div>
-              <p className="mt-2 leading-7 text-gray-800 dark:text-gray-100">{question.audioText}</p>
-            </>
-          ) : (
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <div className="font-medium text-gray-900 dark:text-white">音频只可播放一次</div>
-                <div className="mt-1 text-sm text-gray-500">{played ? '本题播放机会已使用。' : '准备好后再点击播放；点击后不能重播。'}</div>
-              </div>
-              <button
-                type="button"
-                data-testid="tcf-audio-play"
-                disabled={played}
-                onClick={onPlay}
-                className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white disabled:cursor-not-allowed disabled:bg-gray-300 dark:disabled:bg-gray-700"
-              >
-                <IconPlayerPlay className="h-4 w-4" />
-                {played ? '已播放' : '播放一次'}
-              </button>
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+          {/* Audio Console / Transcription */}
+          <div className="lg:col-span-5">
+            <div className="rounded-2xl border border-indigo-100 bg-indigo-50/70 p-5 dark:border-indigo-900/60 dark:bg-indigo-950/40">
+              {reviewing ? (
+                <>
+                  <div className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                    复盘音频文本 (Transcription)
+                  </div>
+                  <p className="mt-3 text-sm leading-relaxed text-gray-800 dark:text-gray-100">{question.audioText}</p>
+                </>
+              ) : (
+                <div>
+                  <div className="text-sm font-bold text-gray-900 dark:text-white">听力音频控制台</div>
+                  <div className="mt-2 text-xs leading-relaxed text-gray-500">
+                    {played ? '本题播放机会已使用。' : '准备好后再点击播放；音频仅可播放一次，不可暂停或重播。'}
+                  </div>
+                  <button
+                    type="button"
+                    data-testid="tcf-audio-play"
+                    disabled={played}
+                    onClick={onPlay}
+                    className="mt-4 inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 disabled:cursor-not-allowed disabled:bg-gray-300 dark:disabled:bg-gray-700"
+                  >
+                    <IconPlayerPlay className="h-4 w-4" />
+                    {played ? '已播放' : '播放音频 (一次机会)'}
+                  </button>
+                </div>
+              )}
             </div>
-          )}
+          </div>
+
+          {/* Prompt and choices */}
+          <div className="space-y-4 lg:col-span-7">
+            <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+              <h2 className="text-lg font-bold text-gray-950 dark:text-white leading-snug">{question.prompt}</h2>
+
+              <div className="mt-4 grid gap-2.5">
+                {question.choices.map((choice, index) => {
+                  const isSelected = selected === index
+                  const isCorrect = reviewing && question.answer === index
+                  const isWrong = reviewing && isSelected && question.answer !== index
+                  const tone = isCorrect
+                    ? 'border-green-500 bg-green-50 dark:bg-green-950/40'
+                    : isWrong
+                    ? 'border-red-400 bg-red-50 dark:bg-red-950/30'
+                    : isSelected
+                    ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-950/40'
+                    : 'border-gray-200 bg-white hover:border-indigo-300 hover:bg-gray-50/50 dark:border-gray-700 dark:bg-gray-800'
+                  return (
+                    <button
+                      key={choice}
+                      type="button"
+                      disabled={reviewing}
+                      onClick={() => onSelect(index)}
+                      className={`flex w-full items-start gap-3 rounded-xl border p-3.5 text-left transition ${tone}`}
+                    >
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-100 text-xs font-bold text-gray-700 dark:bg-gray-700 dark:text-gray-200">
+                        {answerLetters[index]}
+                      </span>
+                      <span className="pt-0.5 text-sm text-gray-800 dark:text-gray-100">{choice}</span>
+                    </button>
+                  )
+                })}
+              </div>
+
+              {reviewing && (
+                <div
+                  data-testid="tcf-explanation"
+                  className="mt-4 rounded-xl bg-gray-100 p-4 text-sm leading-relaxed text-gray-700 dark:bg-gray-900 dark:text-gray-200"
+                >
+                  <strong className="text-gray-900 dark:text-white">解析：</strong>
+                  {question.explanation}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       ) : (
-        <div className="rounded-xl border border-gray-200 bg-gray-50 p-5 leading-7 text-gray-800 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100">
-          {question.passage}
-        </div>
-      )}
+        /* Reading: Realistic TCF SO two-column split layout */
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+          {/* Left Column: Passage / Document (7 cols) */}
+          <div className="lg:col-span-7">
+            <div className="h-full rounded-2xl border border-gray-200 bg-gray-50/80 p-6 leading-relaxed text-gray-800 shadow-sm dark:border-gray-700 dark:bg-gray-900/90 dark:text-gray-100 sm:text-base sm:leading-7">
+              <div className="mb-3 text-xs font-bold uppercase tracking-wider text-gray-400">
+                Document / 阅读材料
+              </div>
+              <div className="whitespace-pre-wrap">{question.passage}</div>
+            </div>
+          </div>
 
-      <div>
-        <h2 className="text-xl font-semibold text-gray-950 dark:text-white">{question.prompt}</h2>
-        <div className="mt-4 grid gap-3">
-          {question.choices.map((choice, index) => {
-            const isSelected = selected === index
-            const isCorrect = reviewing && question.answer === index
-            const isWrong = reviewing && isSelected && question.answer !== index
-            const tone = isCorrect
-              ? 'border-green-500 bg-green-50 dark:bg-green-950/40'
-              : isWrong
-              ? 'border-red-400 bg-red-50 dark:bg-red-950/30'
-              : isSelected
-              ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-950/40'
-              : 'border-gray-200 bg-white hover:border-indigo-300 dark:border-gray-700 dark:bg-gray-800'
-            return (
-              <button
-                key={choice}
-                type="button"
-                disabled={reviewing}
-                onClick={() => onSelect(index)}
-                className={`flex w-full items-start gap-3 rounded-xl border p-4 text-left transition ${tone}`}
-              >
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-100 text-sm font-semibold text-gray-600 dark:bg-gray-700 dark:text-gray-200">
-                  {answerLetters[index]}
-                </span>
-                <span className="pt-0.5 text-gray-800 dark:text-gray-100">{choice}</span>
-              </button>
-            )
-          })}
-        </div>
-      </div>
+          {/* Right Column: Question prompt & choices (5 cols) */}
+          <div className="space-y-4 lg:col-span-5">
+            <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+              <div className="mb-2 text-xs font-bold uppercase tracking-wider text-indigo-500">
+                Question / 问题
+              </div>
+              <h2 className="text-base font-bold text-gray-950 dark:text-white leading-snug sm:text-lg">
+                {question.prompt}
+              </h2>
 
-      {reviewing && (
-        <div
-          data-testid="tcf-explanation"
-          className="rounded-xl bg-gray-100 p-4 text-sm leading-6 text-gray-700 dark:bg-gray-900 dark:text-gray-200"
-        >
-          <strong>解析：</strong>
-          {question.explanation}
+              <div className="mt-4 grid gap-2.5">
+                {question.choices.map((choice, index) => {
+                  const isSelected = selected === index
+                  const isCorrect = reviewing && question.answer === index
+                  const isWrong = reviewing && isSelected && question.answer !== index
+                  const tone = isCorrect
+                    ? 'border-green-500 bg-green-50 dark:bg-green-950/40'
+                    : isWrong
+                    ? 'border-red-400 bg-red-50 dark:bg-red-950/30'
+                    : isSelected
+                    ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-950/40'
+                    : 'border-gray-200 bg-white hover:border-indigo-300 hover:bg-gray-50/50 dark:border-gray-700 dark:bg-gray-800'
+                  return (
+                    <button
+                      key={choice}
+                      type="button"
+                      disabled={reviewing}
+                      onClick={() => onSelect(index)}
+                      className={`flex w-full items-start gap-3 rounded-xl border p-3 text-left transition ${tone}`}
+                    >
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gray-100 text-xs font-bold text-gray-700 dark:bg-gray-700 dark:text-gray-200">
+                        {answerLetters[index]}
+                      </span>
+                      <span className="pt-0.5 text-xs font-medium text-gray-800 dark:text-gray-100 sm:text-sm">
+                        {choice}
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
+
+              {reviewing && (
+                <div
+                  data-testid="tcf-explanation"
+                  className="mt-4 rounded-xl bg-gray-100 p-4 text-xs leading-5 text-gray-700 dark:bg-gray-900 dark:text-gray-200 sm:text-sm sm:leading-6"
+                >
+                  <strong className="text-gray-900 dark:text-white">解析：</strong>
+                  {question.explanation}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>
@@ -218,44 +291,81 @@ export default function TcfMockExamPage({ skill }: { skill: TcfQcmSkill }) {
 
   return (
     <Layout>
-      <div className="flex w-full flex-1 flex-col overflow-y-auto px-4 py-8 sm:px-8 lg:px-20">
-        <div className="mx-auto w-full max-w-5xl">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <NavLink to="/study-plan" className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-indigo-600">
-              <IconArrowLeft className="h-4 w-4" />
-              返回学习计划
-            </NavLink>
-            {mode !== 'intro' && (
-              <div
-                data-testid="tcf-timer"
-                className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-4 py-2 font-mono text-sm text-gray-700 dark:bg-gray-800 dark:text-gray-200"
-              >
-                <IconClock className="h-4 w-4" />
-                {formatClock(remainingSeconds)}
+      <div className="flex w-full flex-1 flex-col overflow-y-auto px-4 py-4 sm:px-6 lg:px-8">
+        <div className={`mx-auto w-full ${mode !== 'intro' ? 'max-w-7xl' : 'max-w-5xl'}`}>
+          {/* Header navigation & status */}
+          {mode === 'running' ? (
+            <div className="sticky top-0 z-20 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-gray-200/90 bg-white/95 px-4 py-2.5 shadow-sm backdrop-blur dark:border-gray-700 dark:bg-gray-800/95">
+              <div className="flex items-center gap-3">
+                <NavLink to="/study-plan" className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-indigo-600">
+                  <IconArrowLeft className="h-3.5 w-3.5" />
+                  退出
+                </NavLink>
+                <span className="h-4 w-px bg-gray-200 dark:bg-gray-700" />
+                <span className="text-xs font-semibold text-gray-800 dark:text-gray-200">
+                  {config.label} · 第 {currentIndex + 1} / {questions.length} 题
+                </span>
+                <span className="text-xs text-gray-400">
+                  (已作答 {answeredCount} / {questions.length})
+                </span>
               </div>
-            )}
-          </div>
 
-          <header className="mt-8 rounded-2xl bg-gradient-to-br from-indigo-50 to-white p-6 dark:from-indigo-950/40 dark:to-gray-900 sm:p-8">
-            <div className="text-sm font-semibold text-indigo-600">{config.label}</div>
-            <h1 className="mt-2 text-3xl font-bold text-gray-950 dark:text-white">39 题完整模拟</h1>
-            <p className="mt-3 max-w-3xl leading-7 text-gray-600 dark:text-gray-300">
-              {skill === 'listening'
-                ? '35 分钟。每题法语音频只能播放一次，四选一；交卷后查看音频文本、答案与解析。'
-                : '60 分钟。覆盖通知、短文、实用文本、文章与观点类材料，四选一；交卷后逐题复盘。'}
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3 text-sm">
-              <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
-                目标 NCLC 7
-              </span>
-              <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
-                目标分数 {config.targetScore}
-              </span>
-              <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
-                {config.minutes} 分钟
-              </span>
+              <div className="flex items-center gap-3">
+                <div
+                  data-testid="tcf-timer"
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-gray-100 px-3.5 py-1.5 font-mono text-sm font-bold text-gray-800 shadow-inner dark:bg-gray-900 dark:text-gray-100"
+                >
+                  <IconClock className="h-4 w-4" />
+                  {formatClock(remainingSeconds)}
+                </div>
+                <button
+                  type="button"
+                  data-testid="tcf-submit-exam"
+                  disabled={submitting}
+                  onClick={() => void finishExam()}
+                  className="rounded-xl bg-red-600 px-4 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-red-700 disabled:opacity-50"
+                >
+                  {submitting ? '正在交卷…' : '交卷'}
+                </button>
+              </div>
             </div>
-          </header>
+          ) : (
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <NavLink to="/study-plan" className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-indigo-600">
+                <IconArrowLeft className="h-4 w-4" />
+                返回学习计划
+              </NavLink>
+              {mode === 'review' && (
+                <div className="inline-flex items-center gap-2 rounded-full bg-indigo-50 px-3.5 py-1 text-xs font-semibold text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
+                  复盘模式 · {config.label}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Banner: Only in intro mode */}
+          {mode === 'intro' && (
+            <header className="mt-8 rounded-2xl bg-gradient-to-br from-indigo-50 to-white p-6 dark:from-indigo-950/40 dark:to-gray-900 sm:p-8">
+              <div className="text-sm font-semibold text-indigo-600">{config.label}</div>
+              <h1 className="mt-2 text-3xl font-bold text-gray-950 dark:text-white">39 题完整模拟</h1>
+              <p className="mt-3 max-w-3xl leading-7 text-gray-600 dark:text-gray-300">
+                {skill === 'listening'
+                  ? '35 分钟。每题法语音频只能播放一次，四选一；交卷后查看音频文本、答案与解析。'
+                  : '60 分钟。覆盖通知、短文、实用文本、文章与观点类材料，四选一；交卷后逐题复盘。'}
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3 text-sm">
+                <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
+                  目标 NCLC 7
+                </span>
+                <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
+                  目标分数 {config.targetScore}
+                </span>
+                <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
+                  {config.minutes} 分钟
+                </span>
+              </div>
+            </header>
+          )}
 
           {mode === 'intro' ? (
             <section className="mt-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
@@ -308,14 +418,35 @@ export default function TcfMockExamPage({ skill }: { skill: TcfQcmSkill }) {
                 </section>
               )}
 
-              <section className="mt-6 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-7">
-                <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+              {mode === 'review' && (
+                <div data-testid="tcf-review-grid" className="mt-4 grid grid-cols-8 gap-2 sm:grid-cols-10">
+                  {questions.map((item, index) => {
+                    const correct = answers[item.id] === item.answer
+                    return (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => setCurrentIndex(index)}
+                        aria-label={`复盘第 ${index + 1} 题`}
+                        className={`h-9 rounded-lg text-xs font-semibold ${currentIndex === index ? 'ring-2 ring-indigo-500' : ''} ${
+                          correct ? 'bg-green-100 text-green-700 dark:bg-green-950/60 dark:text-green-300' : 'bg-red-100 text-red-700 dark:bg-red-950/60 dark:text-red-300'
+                        }`}
+                      >
+                        {index + 1}
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
+
+              <section className="mt-4 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6">
+                <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                   <div>
-                    <div className="text-sm font-medium text-indigo-600">
+                    <div className="text-sm font-semibold text-indigo-600">
                       第 {currentIndex + 1} / {questions.length} 题
                     </div>
                     {mode === 'running' && (
-                      <div className="mt-1 text-xs text-gray-400">
+                      <div className="mt-0.5 text-xs text-gray-400">
                         已作答 {answeredCount} / {questions.length}
                       </div>
                     )}
@@ -338,59 +469,30 @@ export default function TcfMockExamPage({ skill }: { skill: TcfQcmSkill }) {
                   onSelect={(choice) => setAnswers((old) => ({ ...old, [question.id]: choice }))}
                 />
 
-                <div className="mt-7 flex flex-wrap items-center justify-between gap-3">
-                  <button
-                    type="button"
-                    disabled={currentIndex === 0}
-                    onClick={() => setCurrentIndex((old) => Math.max(0, old - 1))}
-                    className="rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-600 disabled:opacity-40 dark:border-gray-600 dark:text-gray-200"
-                  >
-                    上一题
-                  </button>
+                <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-gray-100 pt-4 dark:border-gray-700">
                   <div className="flex gap-2">
-                    {mode === 'running' && (
-                      <button
-                        type="button"
-                        data-testid="tcf-submit-exam"
-                        disabled={submitting}
-                        onClick={() => void finishExam()}
-                        className="rounded-lg border border-red-200 px-4 py-2 text-sm font-medium text-red-600 disabled:opacity-50 dark:border-red-900"
-                      >
-                        {submitting ? '正在保存…' : '交卷'}
-                      </button>
-                    )}
+                    <button
+                      type="button"
+                      disabled={currentIndex === 0}
+                      onClick={() => setCurrentIndex((old) => Math.max(0, old - 1))}
+                      className="rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 disabled:opacity-40 dark:border-gray-600 dark:text-gray-200"
+                    >
+                      ← 上一题
+                    </button>
                     <button
                       type="button"
                       disabled={currentIndex === questions.length - 1}
                       onClick={() => setCurrentIndex((old) => Math.min(questions.length - 1, old + 1))}
-                      className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
+                      className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-40"
                     >
-                      下一题
+                      下一题 →
                     </button>
+                  </div>
+                  <div className="text-xs text-gray-400">
+                    第 {currentIndex + 1} / {questions.length} 题
                   </div>
                 </div>
               </section>
-
-              {mode === 'review' && (
-                <div data-testid="tcf-review-grid" className="mt-4 grid grid-cols-8 gap-2 sm:grid-cols-10">
-                  {questions.map((item, index) => {
-                    const correct = answers[item.id] === item.answer
-                    return (
-                      <button
-                        key={item.id}
-                        type="button"
-                        onClick={() => setCurrentIndex(index)}
-                        aria-label={`复盘第 ${index + 1} 题`}
-                        className={`h-9 rounded-lg text-xs font-semibold ${currentIndex === index ? 'ring-2 ring-indigo-500' : ''} ${
-                          correct ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-                        }`}
-                      >
-                        {index + 1}
-                      </button>
-                    )
-                  })}
-                </div>
-              )}
             </>
           )}
 
