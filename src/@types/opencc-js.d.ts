@@ -1,4 +1,4 @@
-declare module 'opencc-js' {
+declare module 'opencc-js/t2cn' {
   export type Locale = 'cn' | 'tw' | 'hk' | 'twp' | 'jp' | 't'
   export interface ConverterOptions {
     from?: Locale

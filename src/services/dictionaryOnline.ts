@@ -4,7 +4,7 @@ let converterPromise: Promise<(text: string) => string> | null = null
 
 async function getConverter(): Promise<(text: string) => string> {
   if (!converterPromise) {
-    converterPromise = import('opencc-js').then((OpenCC) => OpenCC.Converter({ from: 'tw', to: 'cn' }))
+    converterPromise = import('opencc-js/t2cn').then((OpenCC) => OpenCC.Converter({ from: 'tw', to: 'cn' }))
   }
   return converterPromise
 }
