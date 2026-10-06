@@ -20,6 +20,8 @@ services:
       STUDY_COOKIE_SAME_SITE: ${STUDY_COOKIE_SAME_SITE:-strict}
       STUDY_COOKIE_SECURE: ${STUDY_COOKIE_SECURE:-false}
       STUDY_TRUST_PROXY_IP: 'true'
+      # Optional: require this password before any data route answers (personal deployments).
+      STUDY_ACCESS_PASSWORD: ${STUDY_ACCESS_PASSWORD:-}
     volumes:
       - study-data:/data
     restart: unless-stopped
