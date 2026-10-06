@@ -16,6 +16,13 @@ test('online Chinese fallback from Wiktionary with caching and error handling, p
       body: CANNED_BODY,
     })
   })
+  await page.route('https://fr.wiktionary.org/**', (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ error: { code: 'missingtitle' } }),
+    }),
+  )
 
   // 1. /dictionary?q=voisinage shows dictionary-online containing 住所，住处 (Simplified!) and 住宅,
   // and not 不应出现 and not example.
@@ -43,6 +50,8 @@ test('online Chinese fallback from Wiktionary with caching and error handling, p
   // dictionary-online block. Use a different word for this case: trottoir.
   await page.unroute('https://zh.wiktionary.org/**')
   await page.route('https://zh.wiktionary.org/**', (route) => route.abort())
+  await page.unroute('https://fr.wiktionary.org/**')
+  await page.route('https://fr.wiktionary.org/**', (route) => route.abort())
   await page.goto('/dictionary?q=trottoir')
   const result = page.getByTestId('dictionary-result')
   await expect(result).toBeVisible()
@@ -77,4 +86,71 @@ test('online Chinese fallback from Wiktionary with caching and error handling, p
   await promptWord.click()
   const popover = page.getByTestId('dictionary-popover')
   await expect(popover).toBeVisible()
+})
+
+test('French Wiktionary translation tables as second online source, with empty-outcome caching', async ({ page }) => {
+  const MISSING_BODY = JSON.stringify({ error: { code: 'missingtitle' } })
+  const FR_BODY = JSON.stringify({
+    parse: {
+      text: '<ul><li><span data-translation-lang="en" class="trad-en">Anglais</span> : <span class="translation"><bdi lang="en" class="lang-en">daily</bdi></span></li><li><span data-translation-lang="zh" class="trad-zh">Chinois</span> : <span class="translation"><bdi lang="zh" class="lang-zh">發票</bdi>, <bdi lang="zh" class="lang-zh">发票</bdi> (<bdi lang="zh-Latn" class="lang-zh-Latn">fāpiào</bdi>)</span></li></ul>',
+    },
+  })
+  let zhCount = 0
+  let frCount = 0
+  await page.route('https://zh.wiktionary.org/**', (route) => {
+    zhCount += 1
+    void route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: MISSING_BODY,
+    })
+  })
+  await page.route('https://fr.wiktionary.org/**', (route) => {
+    frCount += 1
+    void route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: FR_BODY,
+    })
+  })
+
+  // /dictionary?q=embauche has no offline Chinese: zh Wiktionary misses, fr translation table supplies 发票
+  // (Traditional 發票 collapsed into one, pinyin and English rows dropped).
+  await page.goto('/dictionary?q=embauche')
+  const onlineBlock = page.getByTestId('dictionary-online')
+  await expect(onlineBlock).toBeVisible()
+  await expect(onlineBlock).toContainText('法语维基词典译表')
+  await expect(onlineBlock).toContainText('发票')
+  await expect(onlineBlock).not.toContainText('發票')
+  await expect(onlineBlock).not.toContainText('fāpiào')
+  await expect(onlineBlock).not.toContainText('daily')
+  const blockText = (await onlineBlock.textContent()) ?? ''
+  expect(blockText.match(/发票/g)?.length ?? 0).toBe(1)
+  expect(zhCount).toBe(1)
+  expect(frCount).toBe(1)
+
+  // Both sources missing: no online block, English definitions still visible, empty outcome cached.
+  await page.unroute('https://fr.wiktionary.org/**')
+  await page.route('https://fr.wiktionary.org/**', (route) => {
+    frCount += 1
+    void route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: MISSING_BODY,
+    })
+  })
+  await page.goto('/dictionary?q=remboursement')
+  const result = page.getByTestId('dictionary-result')
+  await expect(result).toBeVisible()
+  await expect(result).toContainText('reimbursement')
+  await page.waitForResponse('https://fr.wiktionary.org/**')
+  await expect(page.getByTestId('dictionary-online')).toHaveCount(0)
+  const zhAfter = zhCount
+  const frAfter = frCount
+
+  await page.goto('/dictionary?q=remboursement')
+  await expect(page.getByTestId('dictionary-result')).toBeVisible()
+  await expect(page.getByTestId('dictionary-online')).toHaveCount(0)
+  expect(zhCount).toBe(zhAfter)
+  expect(frCount).toBe(frAfter)
 })

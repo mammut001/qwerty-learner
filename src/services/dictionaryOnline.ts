@@ -33,13 +33,13 @@ function getHeadingWrapper(h2: HTMLHeadingElement, doc: Document): Element {
   return h2
 }
 
-export async function fetchOnlineChinese(word: string): Promise<string[]> {
+async function fetchWiktionaryParseText(host: string, word: string): Promise<string | null> {
   const controller = new AbortController()
   const timer = window.setTimeout(() => controller.abort(), 8000)
 
   let data: unknown
   try {
-    const url = `https://zh.wiktionary.org/w/api.php?action=parse&page=${encodeURIComponent(
+    const url = `https://${host}/w/api.php?action=parse&page=${encodeURIComponent(
       word,
     )}&prop=text&format=json&formatversion=2&origin=*&redirects=1`
     const response = await fetch(url, { signal: controller.signal })
@@ -62,7 +62,7 @@ export async function fetchOnlineChinese(word: string): Promise<string[]> {
   if (record.error && typeof record.error === 'object') {
     const errObj = record.error as Record<string, unknown>
     if (errObj.code === 'missingtitle') {
-      return []
+      return null
     }
     throw new Error(`维基词典接口错误（${String(errObj.code ?? 'unknown')}）`)
   }
@@ -76,7 +76,14 @@ export async function fetchOnlineChinese(word: string): Promise<string[]> {
     throw new Error('返回数据缺少 parse.text 字段')
   }
 
-  const doc = new DOMParser().parseFromString(parseObj.text, 'text/html')
+  return parseObj.text
+}
+
+export async function fetchOnlineChinese(word: string): Promise<string[]> {
+  const text = await fetchWiktionaryParseText('zh.wiktionary.org', word)
+  if (text === null) return []
+
+  const doc = new DOMParser().parseFromString(text, 'text/html')
   const frenchH2 = findFrenchH2(doc)
   if (!frenchH2) return []
 
@@ -143,13 +150,73 @@ export async function fetchOnlineChinese(word: string): Promise<string[]> {
   return definitions
 }
 
-const CACHE_KEY = 'qwerty-fr-dictionary-online-v1'
+const FR_TRANSLATION_LANGS = ['zh', 'cmn', 'zh-Hans', 'zh-Hant']
+const CJK_PATTERN = /[一-鿿]/
+
+export async function fetchFrenchWiktionaryChinese(word: string): Promise<string[]> {
+  const text = await fetchWiktionaryParseText('fr.wiktionary.org', word)
+  if (text === null) return []
+
+  const doc = new DOMParser().parseFromString(text, 'text/html')
+  const candidates: string[] = []
+  const rows = Array.from(doc.querySelectorAll('li'))
+  for (let i = 0; i < rows.length; i += 1) {
+    const row = rows[i]
+    if (!row.querySelector('span.trad-zh, span.trad-cmn')) continue
+    const bdis = Array.from(row.querySelectorAll('bdi'))
+    for (let j = 0; j < bdis.length; j += 1) {
+      const lang = bdis[j].getAttribute('lang') ?? ''
+      if (FR_TRANSLATION_LANGS.indexOf(lang) === -1) continue
+      const raw = (bdis[j].textContent ?? '').trim()
+      if (!raw || !CJK_PATTERN.test(raw)) continue
+      candidates.push(raw)
+    }
+  }
+
+  if (candidates.length === 0) return []
+
+  const converter = await getConverter()
+  const definitions: string[] = []
+  const seen = new Set<string>()
+  for (let i = 0; i < candidates.length; i += 1) {
+    const converted = converter(candidates[i]).trim()
+    if (!converted || seen.has(converted)) continue
+    seen.add(converted)
+    definitions.push(converted)
+    if (definitions.length >= 6) break
+  }
+
+  return definitions
+}
+
+export type OnlineChineseSource = 'zh-wiktionary' | 'fr-wiktionary'
+
+export interface OnlineChineseResult {
+  zh: string[]
+  source: OnlineChineseSource | null
+}
+
+const CACHE_KEY = 'qwerty-fr-dictionary-online-v2'
+const OLD_CACHE_KEY = 'qwerty-fr-dictionary-online-v1'
 const CACHE_TTL_MS = 30 * 24 * 60 * 60 * 1000
 const MAX_CACHE_ENTRIES = 400
 
-type CacheRecord = Record<string, { zh: string[]; at: number }>
+type CacheRecord = Record<string, { zh: string[]; source: OnlineChineseSource | null; at: number }>
+
+let oldCacheRemoved = false
+
+function removeOldCacheOnce() {
+  if (oldCacheRemoved) return
+  oldCacheRemoved = true
+  try {
+    window.localStorage.removeItem(OLD_CACHE_KEY)
+  } catch {
+    // Best-effort cleanup of the previous cache version.
+  }
+}
 
 function readCache(): CacheRecord {
+  removeOldCacheOnce()
   try {
     const raw = window.localStorage.getItem(CACHE_KEY)
     if (!raw) return {}
@@ -171,19 +238,19 @@ function writeCache(data: CacheRecord) {
   }
 }
 
-function getCached(word: string): string[] | null {
+function getCached(word: string): OnlineChineseResult | null {
   const cache = readCache()
   const entry = cache[word]
   if (!entry) return null
   if (Date.now() - entry.at > CACHE_TTL_MS) {
     return null
   }
-  return entry.zh
+  return { zh: Array.isArray(entry.zh) ? entry.zh : [], source: entry.source ?? null }
 }
 
-function setCached(word: string, zh: string[]) {
+function setCached(word: string, outcome: OnlineChineseResult) {
   const cache = readCache()
-  cache[word] = { zh, at: Date.now() }
+  cache[word] = { zh: outcome.zh, source: outcome.source, at: Date.now() }
 
   const keys = Object.keys(cache)
   if (keys.length > MAX_CACHE_ENTRIES) {
@@ -196,11 +263,11 @@ function setCached(word: string, zh: string[]) {
   writeCache(cache)
 }
 
-const inflight = new Map<string, Promise<string[]>>()
+const inflight = new Map<string, Promise<OnlineChineseResult>>()
 
-export async function loadOnlineChinese(word: string): Promise<string[]> {
+export async function loadOnlineChinese(word: string): Promise<OnlineChineseResult> {
   const normalized = word.trim()
-  if (!normalized) return []
+  if (!normalized) return { zh: [], source: null }
 
   const cached = getCached(normalized)
   if (cached !== null) return cached
@@ -208,11 +275,27 @@ export async function loadOnlineChinese(word: string): Promise<string[]> {
   const pending = inflight.get(normalized)
   if (pending) return pending
 
-  const request = fetchOnlineChinese(normalized)
-    .then((result) => {
-      setCached(normalized, result)
+  const lookup = (async (): Promise<OnlineChineseResult> => {
+    try {
+      const zh = await fetchOnlineChinese(normalized)
+      if (zh.length > 0) {
+        const outcome: OnlineChineseResult = { zh, source: 'zh-wiktionary' }
+        setCached(normalized, outcome)
+        return outcome
+      }
+    } catch {
+      // Chinese Wiktionary failed; still try French Wiktionary below.
+    }
+    const fr = await fetchFrenchWiktionaryChinese(normalized)
+    const outcome: OnlineChineseResult = fr.length > 0 ? { zh: fr, source: 'fr-wiktionary' } : { zh: [], source: null }
+    setCached(normalized, outcome)
+    return outcome
+  })()
+
+  const request = lookup
+    .then((outcome) => {
       inflight.delete(normalized)
-      return result
+      return outcome
     })
     .catch((error: unknown) => {
       inflight.delete(normalized)
