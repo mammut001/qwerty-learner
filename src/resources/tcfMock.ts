@@ -7,6 +7,7 @@ import {
   estimateTcfEeNclc,
   estimateTcfEoNclc,
 } from './tcfEvaluation'
+import { TCF_LISTENING_SET_B, TCF_READING_SET_B } from './tcfMockSetB'
 
 export {
   calculateEeTotalScore,
@@ -953,4 +954,35 @@ export type TcfQcmSkill = 'listening' | 'reading'
 export const TCF_QUESTIONS: Record<TcfQcmSkill, TcfQuestion[]> = {
   listening: TCF_LISTENING_QUESTIONS,
   reading: TCF_READING_QUESTIONS,
+}
+
+export type TcfQuestionSet = { id: string; label: string; questions: TcfQuestion[] }
+
+export const TCF_QUESTION_SETS: Record<TcfQcmSkill, TcfQuestionSet[]> = {
+  listening: [
+    { id: 'a', label: '套题 A', questions: TCF_LISTENING_QUESTIONS },
+    { id: 'b', label: '套题 B', questions: TCF_LISTENING_SET_B },
+  ],
+  reading: [
+    { id: 'a', label: '套题 A', questions: TCF_READING_QUESTIONS },
+    { id: 'b', label: '套题 B', questions: TCF_READING_SET_B },
+  ],
+}
+
+export const TCF_MIXED_SET_ID = 'mixed'
+
+// A mixed paper draws each position from a random set, so the A1 → C2 progression is kept.
+export function pickTcfQuestions(skill: TcfQcmSkill, setId: string, random: () => number = Math.random): TcfQuestion[] {
+  const sets = TCF_QUESTION_SETS[skill]
+  if (setId !== TCF_MIXED_SET_ID) return (sets.find((set) => set.id === setId) ?? sets[0]).questions
+  return sets[0].questions.map((_, index) => sets[Math.floor(random() * sets.length)].questions[index])
+}
+
+export function shuffleTcfChoiceOrder(random: () => number = Math.random): number[] {
+  const order = [0, 1, 2, 3]
+  for (let index = order.length - 1; index > 0; index -= 1) {
+    const swap = Math.floor(random() * (index + 1))
+    ;[order[index], order[swap]] = [order[swap], order[index]]
+  }
+  return order
 }

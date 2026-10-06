@@ -47,7 +47,7 @@ export default function StartButton({ isLoading }: { isLoading: boolean }) {
         <button
           className={`${
             state.isTyping ? 'bg-gray-400  dark:bg-gray-700 dark:hover:bg-gray-500' : 'bg-indigo-500'
-          } my-btn-primary w-20 shadow`}
+          } my-btn-primary w-20 whitespace-nowrap px-0 shadow`}
           type="button"
           onClick={onToggleIsTyping}
           aria-label={state.isTyping ? '暂停' : '开始'}
@@ -59,7 +59,7 @@ export default function StartButton({ isLoading }: { isLoading: boolean }) {
             <button
               className={`${
                 state.isTyping ? 'bg-gray-500 dark:bg-gray-700 dark:hover:bg-gray-500 ' : 'bg-indigo-400 '
-              } my-btn-primary mb-1 mt-1 w-18  transition-colors duration-200`}
+              } my-btn-primary mb-1 mt-1 w-18 whitespace-nowrap px-0 transition-colors duration-200`}
               type="button"
               onClick={onClickRestart}
               aria-label={'重新开始'}

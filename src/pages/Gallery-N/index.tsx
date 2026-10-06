@@ -1,8 +1,9 @@
 import DictionaryGroup from './CategoryDicts'
 import { LanguageTabSwitcher } from './LanguageTabSwitcher'
 import Layout from '@/components/Layout'
-import { dictionaries, idDictionaryMap } from '@/resources/dictionary'
+import { dictionaries } from '@/resources/dictionary'
 import { currentDictInfoAtom } from '@/store'
+import { customDictionariesAtom, findDictionary } from '@/store/customDict'
 import type { Dictionary, LanguageCategoryType } from '@/typings'
 import groupBy from '@/utils/groupBy'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
@@ -32,15 +33,18 @@ export default function GalleryPage() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const currentDictInfo = useAtomValue(currentDictInfoAtom)
-  const targetDictionary = idDictionaryMap[searchParams.get('dict') ?? '']
+  const customDictionaries = useAtomValue(customDictionariesAtom)
+  const targetDictionary = findDictionary(searchParams.get('dict'), customDictionaries)
 
   const groupedByCategory = useMemo(() => {
-    const currentLanguageCategoryDicts = dictionaries.filter((dict) => dict.languageCategory === galleryState.currentLanguageTab)
+    const currentLanguageCategoryDicts = [...customDictionaries, ...dictionaries].filter(
+      (dict) => dict.languageCategory === galleryState.currentLanguageTab,
+    )
     return Object.entries(groupBy(currentLanguageCategoryDicts, (dict) => dict.category))
-  }, [galleryState.currentLanguageTab])
+  }, [customDictionaries, galleryState.currentLanguageTab])
 
   const onBack = useCallback(() => {
-    navigate('/')
+    navigate('/typing')
   }, [navigate])
 
   useHotkeys('enter,esc', onBack, { preventDefault: true })
@@ -71,6 +75,13 @@ export default function GalleryPage() {
               <div className="flex h-20 w-full items-center justify-between pb-6 pr-20">
                 <LanguageTabSwitcher />
                 <div className="flex gap-2">
+                  <NavLink
+                    to="/word-lists"
+                    data-testid="gallery-word-lists"
+                    className="rounded-xl bg-indigo-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-600"
+                  >
+                    ＋ 我的词表
+                  </NavLink>
                   <NavLink
                     to="/study-plan"
                     className="rounded-xl bg-green-50 px-4 py-2 text-sm font-medium text-green-700 transition hover:bg-green-100 dark:bg-gray-800 dark:text-green-300 dark:hover:bg-gray-700"

@@ -1,18 +1,17 @@
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
-import { grammarBatches, passeComposeVsImparfaitScenarios } from '@/resources/grammarSessions'
+import { defaultGrammarTopic, findGrammarTopic, grammarTopicForQuestionIds, grammarTopics } from '@/resources/grammarTopics'
 import {
+  type GrammarSessionRecord,
   addStudyMinutes,
   completeGrammarSession,
   flushStudyProgress,
   getLearningProgress,
   saveGrammarDraft,
-  type GrammarSessionRecord,
 } from '@/services/studyPlanSync'
 import { useEffect, useMemo, useState } from 'react'
 import { NavLink, useSearchParams } from 'react-router-dom'
 import IconArrowLeft from '~icons/tabler/arrow-left'
-import IconBook from '~icons/tabler/book'
 import IconClock from '~icons/tabler/clock'
 import IconRefresh from '~icons/tabler/refresh'
 
@@ -30,20 +29,15 @@ const toDateKey = (timestamp: number) => {
   return `${year}-${month}-${day}`
 }
 
-const outputPrompts = [
-  {
-    zh: '我正在看电视的时候，我朋友给我打电话了。',
-    hint: 'regarder la télé / appeler',
-  },
-  {
-    zh: '以前我每天坐公交，但是昨天我走路去了公司。',
-    hint: 'avant / prendre le bus / hier / aller au travail à pied',
-  },
-  {
-    zh: '当我走进厨房的时候，我妈妈正在准备晚饭。',
-    hint: 'entrer dans la cuisine / préparer le dîner',
-  },
-]
+const TOPIC_KEY = 'qwerty-fr-grammar-topic'
+
+const readStoredTopicId = () => {
+  try {
+    return window.localStorage.getItem(TOPIC_KEY)
+  } catch {
+    return null
+  }
+}
 
 const formatTime = (seconds: number) => {
   const minutes = Math.floor(seconds / 60)
@@ -65,27 +59,37 @@ export default function GrammarSessionPage() {
   const [startedAt, setStartedAt] = useState<number | null>(null)
   const [deadline, setDeadline] = useState<number | null>(null)
   const [hydrated, setHydrated] = useState(false)
+  const [topicId, setTopicId] = useState(
+    () => (findGrammarTopic(searchParams.get('topic')) ?? findGrammarTopic(readStoredTopicId()) ?? defaultGrammarTopic).id,
+  )
+  const [history, setHistory] = useState<GrammarSessionRecord[]>([])
+  const topic = findGrammarTopic(topicId) ?? defaultGrammarTopic
+  const { scenarios, batches, outputPrompts } = topic
 
   useEffect(() => {
     let cancelled = false
     void getLearningProgress()
       .then((learning) => {
         if (cancelled) return
+        setHistory(learning.grammar.history)
         const draft = learning.grammar.draft
         if (draft) {
+          // An untouched draft has no question ids yet, so fall back to the topic last started on this device.
+          const draftTopic =
+            grammarTopicForQuestionIds([...Object.keys(draft.answers), ...Object.keys(draft.reasons)]) ??
+            findGrammarTopic(readStoredTopicId()) ??
+            defaultGrammarTopic
+          setTopicId(draftTopic.id)
           setStatus('running')
-          setCurrentBatch(Math.min(grammarBatches.length - 1, draft.currentBatch))
+          setCurrentBatch(Math.min(draftTopic.batches.length - 1, draft.currentBatch))
           setAnswers(draft.answers as Record<number, Choice>)
           setReasons(draft.reasons as Record<number, string>)
           setSubmittedBatches(draft.submittedBatches as Record<number, boolean>)
-          setOutputAnswers(draft.outputAnswers.length === outputPrompts.length ? draft.outputAnswers : ['', '', ''])
+          setOutputAnswers(draft.outputAnswers.length === draftTopic.outputPrompts.length ? draft.outputAnswers : ['', '', ''])
           setStartedAt(draft.startedAt)
           setDeadline(draft.deadline)
-          setSecondsLeft(
-            draft.deadline ? Math.max(0, Math.ceil((draft.deadline - Date.now()) / 1000)) : draft.secondsLeft,
-          )
+          setSecondsLeft(draft.deadline ? Math.max(0, Math.ceil((draft.deadline - Date.now()) / 1000)) : draft.secondsLeft)
         }
-
       })
       .finally(() => {
         if (!cancelled) setHydrated(true)
@@ -128,10 +132,10 @@ export default function GrammarSessionPage() {
     return () => window.clearTimeout(timer)
   }, [answers, currentBatch, deadline, hydrated, outputAnswers, reasons, startedAt, status, submittedBatches])
 
-  const batch = grammarBatches[currentBatch]
+  const batch = batches[Math.min(batches.length - 1, currentBatch)]
   const batchQuestions = useMemo(
-    () => passeComposeVsImparfaitScenarios.filter((question) => batch.questionIds.includes(question.id)),
-    [batch.questionIds],
+    () => scenarios.filter((question) => batch.questionIds.includes(question.id)),
+    [batch.questionIds, scenarios],
   )
 
   const batchSubmitted = Boolean(submittedBatches[currentBatch])
@@ -141,16 +145,17 @@ export default function GrammarSessionPage() {
   })
 
   const score = useMemo(
-    () =>
-      passeComposeVsImparfaitScenarios.reduce(
-        (total, question) => total + (answers[question.id] === question.correct ? 1 : 0),
-        0,
-      ),
-    [answers],
+    () => scenarios.reduce((total, question) => total + (answers[question.id] === question.correct ? 1 : 0), 0),
+    [answers, scenarios],
   )
 
   const startSession = () => {
     const now = Date.now()
+    try {
+      window.localStorage.setItem(TOPIC_KEY, topic.id)
+    } catch {
+      // Remembering the topic only matters for restoring an untouched draft.
+    }
     setStatus('running')
     setSecondsLeft(SESSION_SECONDS)
     setCurrentBatch(0)
@@ -168,7 +173,7 @@ export default function GrammarSessionPage() {
   }
 
   const nextBatch = () => {
-    if (currentBatch < grammarBatches.length - 1) {
+    if (currentBatch < batches.length - 1) {
       setCurrentBatch((old) => old + 1)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
@@ -178,17 +183,17 @@ export default function GrammarSessionPage() {
     const finishedAt = Date.now()
     const elapsedSeconds = startedAt ? Math.round((finishedAt - startedAt) / 1000) : SESSION_SECONDS - secondsLeft
     const baseRecord = {
-      topic: 'passé composé vs imparfait',
+      topic: topic.topic,
       score,
-      total: passeComposeVsImparfaitScenarios.length,
+      total: scenarios.length,
       elapsedSeconds,
       finishedAt,
       answers: answers as Record<string, Choice>,
       reasons: reasons as Record<string, string>,
       outputAnswers,
-      items: passeComposeVsImparfaitScenarios.map((question) => ({
+      items: scenarios.map((question) => ({
         id: String(question.id),
-        label: question.signal || 'Passé composé vs imparfait',
+        label: question.signal || topic.title,
         prompt: question.prompt,
         correct: answers[question.id] === question.correct,
       })),
@@ -212,11 +217,7 @@ export default function GrammarSessionPage() {
       // localStorage unavailable: session can still finish normally
     }
 
-    if (
-      requestedStudyTask === 'smart-grammar' &&
-      requestedStudyDate &&
-      /^\d{4}-\d{2}-\d{2}$/.test(requestedStudyDate)
-    ) {
+    if (requestedStudyTask === 'smart-grammar' && requestedStudyDate && /^\d{4}-\d{2}-\d{2}$/.test(requestedStudyDate)) {
       try {
         addStudyMinutes(requestedStudyDate, requestedStudyTask, Math.max(1, Math.ceil(elapsedSeconds / 60)))
       } catch {
@@ -224,6 +225,7 @@ export default function GrammarSessionPage() {
       }
     }
 
+    setHistory((old) => [record, ...old])
     setDeadline(null)
     setStatus('finished')
     void flushStudyProgress()
@@ -235,51 +237,67 @@ export default function GrammarSessionPage() {
   if (status === 'intro') {
     return (
       <Layout>
-        <Header>
-          <NavLink
-            to="/"
-            className="flex items-center gap-1 rounded-lg px-3 py-1 text-sm text-gray-600 hover:bg-indigo-100 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-gray-700"
-          >
-            <IconArrowLeft />
-            返回练习
-          </NavLink>
-          <NavLink
-            to="/conjugation"
-            className="rounded-lg px-3 py-1 text-sm text-gray-600 hover:bg-indigo-100 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-gray-700"
-          >
-            动词变位
-          </NavLink>
-        </Header>
+        <Header />
 
         <main className="container mx-auto flex flex-1 items-center justify-center px-4 pb-10 sm:px-6 lg:px-10">
-          <section className="my-card w-full max-w-3xl rounded-3xl bg-white p-5 sm:p-10 dark:bg-gray-800">
+          <section className="my-card w-full max-w-3xl rounded-3xl bg-white p-5 dark:bg-gray-800 sm:p-10">
             <div className="flex items-center gap-3 text-indigo-500">
               <IconClock className="text-3xl" />
-              <span className="text-sm font-medium">30 分钟 · 过去时态恢复</span>
+              <span className="text-sm font-medium">
+                30 分钟 · {topic.tagline} · {topic.level}
+              </span>
             </div>
-            <h1 className="mt-4 text-3xl font-semibold sm:text-4xl text-gray-900 dark:text-white">Passé composé vs imparfait</h1>
+            <h1 className="mt-4 text-3xl font-semibold text-gray-900 dark:text-white sm:text-4xl">{topic.title}</h1>
             <p className="mt-4 text-lg leading-8 text-gray-600 dark:text-gray-300">
               这不是刷分模式。每一道题都要先选答案，再用中文或法语写一句“为什么”。提交之后才会看到标准解释。
             </p>
 
-            <div className="mt-8 grid gap-4 md:grid-cols-3">
-              <div className="rounded-2xl bg-indigo-50 p-5 dark:bg-indigo-950/40">
-                <div className="text-sm text-indigo-500">第 1 组</div>
-                <div className="mt-1 font-medium text-gray-800 dark:text-gray-100">4 题 · 背景 vs 事件</div>
-              </div>
-              <div className="rounded-2xl bg-indigo-50 p-5 dark:bg-indigo-950/40">
-                <div className="text-sm text-indigo-500">第 2 组</div>
-                <div className="mt-1 font-medium text-gray-800 dark:text-gray-100">4 题 · 时间词与习惯</div>
-              </div>
-              <div className="rounded-2xl bg-indigo-50 p-5 dark:bg-indigo-950/40">
-                <div className="text-sm text-indigo-500">第 3 组</div>
-                <div className="mt-1 font-medium text-gray-800 dark:text-gray-100">2 题 + 3 句输出</div>
+            <div className="mt-8">
+              <div className="text-sm font-semibold text-gray-900 dark:text-white">选择语法专题</div>
+              <div className="mt-3 grid gap-3 sm:grid-cols-2" role="radiogroup" aria-label="选择语法专题">
+                {grammarTopics.map((item) => {
+                  const last = history.find((session) => session.topic === item.topic)
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      role="radio"
+                      aria-checked={item.id === topic.id}
+                      data-testid={`grammar-topic-${item.id}`}
+                      onClick={() => setTopicId(item.id)}
+                      className={`rounded-xl border p-4 text-left transition ${
+                        item.id === topic.id
+                          ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-950/40'
+                          : 'border-gray-200 hover:border-indigo-300 dark:border-gray-700'
+                      }`}
+                    >
+                      <div className="font-semibold text-gray-900 dark:text-white">{item.title}</div>
+                      <div className="mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400">
+                        {item.tagline} · {item.level} · {item.scenarios.length} 题
+                      </div>
+                      <div className="mt-1 text-xs text-gray-400">
+                        {last ? `上次 ${last.score} / ${last.total} · ${last.day}` : '还没练过'}
+                      </div>
+                    </button>
+                  )
+                })}
               </div>
             </div>
 
-            <div className="mt-8 rounded-2xl border border-amber-100 bg-amber-50 p-5 text-sm leading-6 text-amber-800 dark:border-amber-900 dark:bg-amber-950/30 dark:text-amber-300">
-              核心提醒：不要先找“时间词公式”。先问自己：
-              <strong>这是在描述当时的背景/习惯，还是在讲发生并完成了什么？</strong>
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              {batches.map((item, index) => (
+                <div key={item.title} className="rounded-2xl bg-indigo-50 p-5 dark:bg-indigo-950/40">
+                  <div className="text-sm text-indigo-500">第 {index + 1} 组</div>
+                  <div className="mt-1 font-medium text-gray-800 dark:text-gray-100">
+                    {item.questionIds.length} 题{index === batches.length - 1 ? ` + ${outputPrompts.length} 句输出` : ''}
+                  </div>
+                  <div className="mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400">{item.title.replace(/^第 \d+ 组 · /, '')}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 rounded-2xl border border-amber-100 bg-amber-50 p-5 text-sm leading-6 text-amber-800 dark:border-amber-900 dark:bg-amber-950/30 dark:text-amber-300">
+              核心提醒：<strong>{topic.reminder}</strong>
             </div>
 
             <button type="button" onClick={startSession} className="my-btn-primary mt-8 px-8 py-3 text-base">
@@ -294,21 +312,13 @@ export default function GrammarSessionPage() {
   if (status === 'finished') {
     return (
       <Layout>
-        <Header>
-          <NavLink
-            to="/"
-            className="flex items-center gap-1 rounded-lg px-3 py-1 text-sm text-gray-600 hover:bg-indigo-100 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-gray-700"
-          >
-            <IconArrowLeft />
-            返回练习
-          </NavLink>
-        </Header>
+        <Header />
 
         <main className="container mx-auto flex flex-1 items-center justify-center px-4 pb-10 sm:px-6 lg:px-10">
-          <section className="my-card w-full max-w-3xl rounded-3xl bg-white p-5 sm:p-10 dark:bg-gray-800">
+          <section className="my-card w-full max-w-3xl rounded-3xl bg-white p-5 dark:bg-gray-800 sm:p-10">
             <div className="text-sm font-medium text-indigo-500">本次 30 分钟训练完成</div>
-            <h1 className="mt-3 text-3xl font-semibold sm:text-4xl text-gray-900 dark:text-white">
-              {score} / {passeComposeVsImparfaitScenarios.length}
+            <h1 className="mt-3 text-3xl font-semibold text-gray-900 dark:text-white sm:text-4xl">
+              {score} / {scenarios.length}
             </h1>
             <p className="mt-4 leading-7 text-gray-600 dark:text-gray-300">
               分数只是参考。更重要的是你每一题都先写了“为什么”，然后才对照解释。这个过程比单纯把 A/B 选对更接近真正掌握。
@@ -316,10 +326,7 @@ export default function GrammarSessionPage() {
 
             <div className="mt-7 rounded-2xl bg-indigo-50 p-6 dark:bg-indigo-950/30">
               <div className="font-semibold text-gray-900 dark:text-white">把规则压成一句</div>
-              <p className="mt-2 text-lg leading-8 text-gray-700 dark:text-gray-200">
-                <strong>imparfait</strong> = 当时是什么样 / 正在干什么 / 以前经常干什么；
-                <strong> passé composé</strong> = 发生了什么 / 完成了什么。
-              </p>
+              <p className="mt-2 text-lg leading-8 text-gray-700 dark:text-gray-200">{topic.rule}</p>
             </div>
 
             <div className="mt-7">
@@ -334,10 +341,17 @@ export default function GrammarSessionPage() {
               </div>
             </div>
 
-            <div className="mt-8 flex gap-3">
+            <div className="mt-8 flex flex-wrap gap-3">
               <button type="button" onClick={startSession} className="my-btn-primary flex gap-2 px-6 py-2 text-base">
                 <IconRefresh />
                 再练一轮
+              </button>
+              <button
+                type="button"
+                onClick={() => setStatus('intro')}
+                className="rounded-lg border border-gray-200 px-5 py-2 text-gray-600 hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-300"
+              >
+                换一个专题
               </button>
               <NavLink
                 to="/conjugation"
@@ -352,13 +366,13 @@ export default function GrammarSessionPage() {
     )
   }
 
-  const isLastBatch = currentBatch === grammarBatches.length - 1
+  const isLastBatch = currentBatch === batches.length - 1
 
   return (
     <Layout>
       <Header>
         <NavLink
-          to="/"
+          to="/study-plan"
           className="flex items-center gap-1 rounded-lg px-3 py-1 text-sm text-gray-600 hover:bg-indigo-100 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-gray-700"
         >
           <IconArrowLeft />
@@ -374,25 +388,25 @@ export default function GrammarSessionPage() {
         </div>
       </Header>
 
-      <main className="container mx-auto w-full max-w-5xl flex-1 px-10 pb-12">
+      <main className="container mx-auto w-full max-w-5xl flex-1 px-4 pb-12 sm:px-10">
         <div className="mb-6 flex items-end justify-between gap-6">
           <div>
             <div className="text-sm font-medium text-indigo-500">
-              Passé composé vs imparfait · 第 {currentBatch + 1} / {grammarBatches.length} 组
+              {topic.title} · 第 {currentBatch + 1} / {batches.length} 组
             </div>
             <h1 className="mt-2 text-3xl font-semibold text-gray-900 dark:text-white">{batch.title}</h1>
             <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">先选，再解释为什么。提交本组之后才看答案。</p>
           </div>
           <div className="flex gap-2">
-            {grammarBatches.map((item, index) => (
+            {batches.map((item, index) => (
               <div
                 key={item.title}
                 className={`h-2 w-16 rounded-full ${
                   index < currentBatch || submittedBatches[index]
                     ? 'bg-green-400'
                     : index === currentBatch
-                      ? 'bg-indigo-400'
-                      : 'bg-gray-200 dark:bg-gray-700'
+                    ? 'bg-indigo-400'
+                    : 'bg-gray-200 dark:bg-gray-700'
                 }`}
               />
             ))}
@@ -414,7 +428,7 @@ export default function GrammarSessionPage() {
               <section key={question.id} className="my-card rounded-2xl bg-white p-6 dark:bg-gray-800">
                 <div className="flex gap-4">
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-indigo-50 font-medium text-indigo-600 dark:bg-indigo-950">
-                    {question.id}
+                    {scenarios.indexOf(question) + 1}
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="text-xl font-medium leading-8 text-gray-900 dark:text-white">{question.prompt}</div>
@@ -435,10 +449,10 @@ export default function GrammarSessionPage() {
                               showCorrect
                                 ? 'border-green-400 bg-green-50 dark:bg-green-950/30'
                                 : showWrong
-                                  ? 'border-red-400 bg-red-50 dark:bg-red-950/30'
-                                  : chosen
-                                    ? 'border-indigo-400 bg-indigo-50 dark:bg-indigo-950/30'
-                                    : 'border-gray-100 hover:border-indigo-200 dark:border-gray-700'
+                                ? 'border-red-400 bg-red-50 dark:bg-red-950/30'
+                                : chosen
+                                ? 'border-indigo-400 bg-indigo-50 dark:bg-indigo-950/30'
+                                : 'border-gray-100 hover:border-indigo-200 dark:border-gray-700'
                             }`}
                           >
                             <span className="mr-2 font-semibold">{option.label}.</span>
@@ -454,7 +468,7 @@ export default function GrammarSessionPage() {
                         value={reasons[question.id] ?? ''}
                         disabled={batchSubmitted}
                         onChange={(event) => setReasons((old) => ({ ...old, [question.id]: event.target.value }))}
-                        placeholder="例如：前面是在描述正在进行的背景，后面是突然发生的事件……"
+                        placeholder={topic.reasonPlaceholder}
                         rows={2}
                         className="mt-2 w-full resize-none rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none focus:border-indigo-400 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                       />
@@ -504,9 +518,7 @@ export default function GrammarSessionPage() {
 
         {!batchSubmitted ? (
           <div className="mt-7 flex items-center justify-between">
-            <p className="text-sm text-gray-500">
-              {!canSubmitBatch ? '每题都要选择答案，并写一句理由后才能提交。' : '这一组可以提交了。'}
-            </p>
+            <p className="text-sm text-gray-500">{!canSubmitBatch ? '每题都要选择答案，并写一句理由后才能提交。' : '这一组可以提交了。'}</p>
             <button
               type="button"
               disabled={!canSubmitBatch}
@@ -526,9 +538,7 @@ export default function GrammarSessionPage() {
           <section className="my-card mt-8 rounded-2xl bg-white p-7 dark:bg-gray-800">
             <div className="text-sm font-medium text-indigo-500">最后一步 · 不再做选择题</div>
             <h2 className="mt-2 text-2xl font-semibold text-gray-900 dark:text-white">自己造 3 个句子</h2>
-            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-              这里不自动判分。目标是把刚才的判断真正变成输出。
-            </p>
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">这里不自动判分。目标是把刚才的判断真正变成输出。</p>
 
             <div className="mt-6 space-y-5">
               {outputPrompts.map((prompt, index) => (
@@ -551,7 +561,9 @@ export default function GrammarSessionPage() {
             </div>
 
             <div className="mt-7 flex items-center justify-between">
-              <div className="text-sm text-gray-500">选择题当前：{score} / 10。不要为了这个数字重做答案。</div>
+              <div className="text-sm text-gray-500">
+                选择题当前：{score} / {scenarios.length}。不要为了这个数字重做答案。
+              </div>
               <button
                 type="button"
                 disabled={!allOutputsFilled}

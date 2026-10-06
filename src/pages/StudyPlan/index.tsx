@@ -53,12 +53,13 @@ import {
   requestStudyReminderPermission,
   saveStudyReminderPreferences,
 } from '@/services/studyReminder'
+import { customDictsAtom } from '@/store/customDict'
 import { db } from '@/utils/db'
 import { wordListFetcher } from '@/utils/wordListFetcher'
+import { useAtomValue } from 'jotai'
 import { type ChangeEvent, useEffect, useMemo, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import useSWR from 'swr'
-import IconArrowLeft from '~icons/tabler/arrow-left'
 import IconCalendar from '~icons/tabler/calendar'
 import IconCheck from '~icons/tabler/check'
 import IconClock from '~icons/tabler/clock'
@@ -540,7 +541,9 @@ export default function StudyPlanPage() {
     previewWeek === currentWeek && todayVocabularyTask && !focusOwnsTodayVocabulary
       ? `&studyDate=${todayKey}&studyTask=${todayVocabularyTask.id}`
       : ''
-  const previewPracticeHref = previewDictionary ? `/?dict=${encodeURIComponent(previewDictionary.id)}${previewTrackingQuery}` : '/'
+  const previewPracticeHref = previewDictionary
+    ? `/typing?dict=${encodeURIComponent(previewDictionary.id)}${previewTrackingQuery}`
+    : '/typing'
   const selectedMistakeChapterIndex = selectedMistakeChapter !== null ? selectedMistakeChapter - 1 : null
   const selectedMistakeChapterPracticeHref =
     isMistakeChapterFilterActive &&
@@ -940,10 +943,11 @@ export default function StudyPlanPage() {
   }
 
   const smartToday = analytics?.today
+  const customWordLists = useAtomValue(customDictsAtom)
 
   const smartTaskHref = (task: NonNullable<StudyAnalytics['today']>['tasks'][number]) => {
     if (task.kind === 'vocabulary' && targetDictionary)
-      return `/?dict=${encodeURIComponent(targetDictionary.id)}&studyDate=${todayKey}&studyTask=${task.id}`
+      return `/typing?dict=${encodeURIComponent(targetDictionary.id)}&studyDate=${todayKey}&studyTask=${task.id}`
     if (task.kind === 'grammar') return `/grammar-session?studyDate=${todayKey}&studyTask=${task.id}`
     if (task.kind === 'conjugation') {
       const separator = task.href.includes('?') ? '&' : '?'
@@ -961,10 +965,12 @@ export default function StudyPlanPage() {
 
     if (task.kind === 'vocabulary' && task.href === '/gallery' && targetDictionary) {
       const focusOwnsTask = Boolean(focusSnapshot && focusSnapshot.day === dateKey && focusSnapshot.taskId === task.id)
-      taskHref = focusOwnsTask ? `/?dict=${targetDictionary.id}` : `/?dict=${targetDictionary.id}&studyDate=${dateKey}&studyTask=${task.id}`
+      taskHref = focusOwnsTask
+        ? `/typing?dict=${targetDictionary.id}`
+        : `/typing?dict=${targetDictionary.id}&studyDate=${dateKey}&studyTask=${task.id}`
       actionLabel = `练 ${targetDictionary.name}`
     } else if (task.href === '/grammar-session') {
-      actionLabel = '练 Passé composé vs imparfait'
+      actionLabel = '练语法专题'
     } else if (task.href === '/conjugation') {
       taskHref = conjugationHref
       actionLabel = phase.id === 1 ? '练 prendre · Passé composé' : '开始核心动词练习'
@@ -1054,33 +1060,7 @@ export default function StudyPlanPage() {
 
   return (
     <Layout>
-      <Header>
-        <NavLink
-          to="/"
-          className="flex items-center gap-1 rounded-lg px-3 py-1 text-sm text-gray-600 hover:bg-indigo-100 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-gray-700"
-        >
-          <IconArrowLeft />
-          返回练习
-        </NavLink>
-        <NavLink
-          to="/grammar-session"
-          className="rounded-lg px-3 py-1 text-sm text-gray-600 hover:bg-indigo-100 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-gray-700"
-        >
-          30分钟语法
-        </NavLink>
-        <NavLink
-          to="/conjugation"
-          className="rounded-lg px-3 py-1 text-sm text-gray-600 hover:bg-indigo-100 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-gray-700"
-        >
-          动词变位
-        </NavLink>
-        <NavLink
-          to="/error-book"
-          className="rounded-lg px-3 py-1 text-sm text-gray-600 hover:bg-indigo-100 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-gray-700"
-        >
-          错题本
-        </NavLink>
-      </Header>
+      <Header />
 
       <main className="container mx-auto w-full max-w-6xl flex-1 px-4 pb-12 sm:px-6 lg:px-10">
         <section className="my-card rounded-3xl bg-white p-4 dark:bg-gray-800 sm:p-7">
@@ -1096,7 +1076,7 @@ export default function StudyPlanPage() {
               <p className="mt-2 text-gray-500 dark:text-gray-400">{phase.goal}</p>
               {targetDictionary && (
                 <NavLink
-                  to={`/?dict=${encodeURIComponent(targetDictionary.id)}${
+                  to={`/typing?dict=${encodeURIComponent(targetDictionary.id)}${
                     todayVocabularyTask && !focusOwnsTodayVocabulary ? `&studyDate=${todayKey}&studyTask=${todayVocabularyTask.id}` : ''
                   }`}
                   onClick={todayVocabularyTask ? () => saveStorage(storage) : undefined}
@@ -1121,145 +1101,6 @@ export default function StudyPlanPage() {
             </div>
 
             <div className="flex flex-col items-end gap-2">
-              <div
-                data-testid="study-plan-settings"
-                className="w-full max-w-md rounded-xl border border-gray-100 bg-gray-50 p-3 text-left dark:border-gray-700 dark:bg-gray-900"
-              >
-                <div className="text-xs font-medium text-gray-500 dark:text-gray-300">学习计划设置</div>
-                <div className="mt-2 grid gap-2 sm:grid-cols-2">
-                  <label className="text-xs text-gray-500 dark:text-gray-400">
-                    考试日期
-                    <input
-                      type="date"
-                      value={storage.settings.examDate}
-                      onChange={(event) => changeExamDate(event.target.value)}
-                      aria-label="考试日期"
-                      className="mt-1 w-full rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-sm text-gray-700 outline-none focus:border-indigo-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-                    />
-                  </label>
-                  <label className="text-xs text-gray-500 dark:text-gray-400">
-                    每天目标分钟
-                    <input
-                      type="number"
-                      min={20}
-                      max={240}
-                      step={5}
-                      value={dailyTargetInput}
-                      onChange={(event) => setDailyTargetInput(event.target.value)}
-                      onBlur={commitDailyTarget}
-                      onKeyDown={(event) => {
-                        if (event.key === 'Enter') event.currentTarget.blur()
-                      }}
-                      placeholder="留空＝原计划"
-                      aria-label="每天目标分钟"
-                      className="mt-1 w-full rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-sm text-gray-700 outline-none focus:border-indigo-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-                    />
-                  </label>
-                </div>
-                <div className="mt-2">
-                  <div className="text-xs text-gray-500 dark:text-gray-400">每周学习日</div>
-                  <div className="mt-1 flex flex-wrap gap-1">
-                    {[
-                      [1, '一'],
-                      [2, '二'],
-                      [3, '三'],
-                      [4, '四'],
-                      [5, '五'],
-                      [6, '六'],
-                      [0, '日'],
-                    ].map(([weekday, label]) => {
-                      const active = storage.settings.studyDays.includes(Number(weekday))
-                      return (
-                        <button
-                          key={weekday}
-                          type="button"
-                          aria-pressed={active}
-                          aria-label={`周${label}学习`}
-                          onClick={() => toggleStudyDay(Number(weekday))}
-                          className={`rounded-md px-2 py-1 text-xs ${
-                            active
-                              ? 'bg-indigo-500 text-white'
-                              : 'border border-gray-200 bg-white text-gray-400 dark:border-gray-700 dark:bg-gray-800'
-                          }`}
-                        >
-                          周{label}
-                        </button>
-                      )
-                    })}
-                  </div>
-                </div>
-                <div className="mt-2 text-[11px] leading-5 text-gray-400">
-                  26 周会按考试日重新排期：{storage.startDate} → {storage.settings.examDate}
-                  。调整只改变计划日期和目标，已有实际分钟与练习记录不会删除。
-                </div>
-              </div>
-
-              <div className="w-full max-w-md rounded-xl border border-gray-100 bg-gray-50 p-3 text-left dark:border-gray-700 dark:bg-gray-900">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div>
-                    <div className="text-xs font-medium text-gray-500 dark:text-gray-300">提醒与离线安装</div>
-                    <div className="mt-0.5 text-[11px] text-gray-400">
-                      浏览器/PWA 运行时可按时提醒；完全关闭后，系统不会保证纯网页定时唤醒。
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={toggleReminder}
-                    aria-pressed={reminderPreferences.enabled}
-                    className={`rounded-lg px-2.5 py-1 text-xs font-medium ${
-                      reminderPreferences.enabled
-                        ? 'bg-indigo-500 text-white'
-                        : 'border border-gray-200 bg-white text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'
-                    }`}
-                  >
-                    {reminderPreferences.enabled ? '提醒已开启' : '开启提醒'}
-                  </button>
-                </div>
-                <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
-                  <label className="text-gray-500 dark:text-gray-400">
-                    提醒时间
-                    <input
-                      type="time"
-                      value={reminderPreferences.time}
-                      onChange={(event) => changeReminderTime(event.target.value)}
-                      aria-label="学习提醒时间"
-                      className="ml-2 rounded-lg border border-gray-200 bg-white px-2 py-1 text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
-                    />
-                  </label>
-                  {pwaState.installed ? (
-                    <span className="ml-auto text-green-600 dark:text-green-300">已安装为 PWA</span>
-                  ) : pwaState.canInstall ? (
-                    <button
-                      type="button"
-                      onClick={installPwa}
-                      className="ml-auto rounded-lg border border-gray-200 bg-white px-2.5 py-1 font-medium text-gray-600 hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
-                    >
-                      安装到设备
-                    </button>
-                  ) : (
-                    <span className="ml-auto text-gray-400">{pwaState.serviceWorkerReady ? '离线缓存已就绪' : '浏览器暂不支持安装'}</span>
-                  )}
-                </div>
-              </div>
-
-              <div className="flex flex-wrap justify-end gap-2">
-                <button
-                  type="button"
-                  onClick={exportStudyPlan}
-                  className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300"
-                >
-                  导出 JSON
-                </button>
-                <button
-                  type="button"
-                  onClick={() => importInputRef.current?.click()}
-                  className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300"
-                >
-                  导入 JSON
-                </button>
-                <input ref={importInputRef} type="file" accept="application/json,.json" onChange={importStudyPlan} className="hidden" />
-              </div>
-
               <div
                 data-testid="focus-timer-setup"
                 className="w-full max-w-md rounded-xl border border-gray-100 bg-gray-50 p-3 text-left dark:border-gray-700 dark:bg-gray-900"
@@ -1330,179 +1171,13 @@ export default function StudyPlanPage() {
                   <span className="ml-auto text-[11px] text-gray-400">暂停/继续/结束可在右下角计时器操作</span>
                 </div>
               </div>
-
-              <div
-                data-testid="passkey-account"
-                className="w-full max-w-md rounded-xl border border-gray-100 bg-gray-50 p-3 text-left dark:border-gray-700 dark:bg-gray-900"
+              <button
+                type="button"
+                onClick={() => document.getElementById('study-settings')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                className="text-sm text-gray-500 underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-300"
               >
-                <div className="flex flex-wrap items-start justify-between gap-2">
-                  <div>
-                    <div className="text-xs font-medium text-gray-600 dark:text-gray-200">Passkey 账户 · 可选</div>
-                    <div className="mt-0.5 text-[11px] leading-5 text-gray-500 dark:text-gray-400">
-                      不创建账户也可继续匿名使用。Passkey 只绑定当前 learner，换设备登录后直接恢复同一份进度。
-                    </div>
-                  </div>
-                  <span className={`text-[11px] ${accountInfo.registered ? 'text-green-600 dark:text-green-300' : 'text-gray-400'}`}>
-                    {accountInfo.registered
-                      ? `${accountInfo.passkeyCount} 个 Passkey · ${accountInfo.signedIn ? '已登录' : '已绑定'}`
-                      : '匿名模式'}
-                  </span>
-                </div>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  <button
-                    type="button"
-                    onClick={() => void createPasskey()}
-                    disabled={!passkeyAvailable()}
-                    className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white outline-none hover:bg-indigo-700 focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-40"
-                  >
-                    {accountInfo.registered ? '添加另一个 Passkey' : '创建 Passkey'}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => void loginPasskey()}
-                    disabled={!passkeyAvailable()}
-                    className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 outline-none hover:border-indigo-300 hover:text-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-                  >
-                    使用 Passkey 登录
-                  </button>
-                  {!passkeyAvailable() && (
-                    <span className="self-center text-[11px] text-amber-600 dark:text-amber-300">此浏览器不支持 Passkey</span>
-                  )}
-                </div>
-              </div>
-
-              <div className="w-full max-w-md rounded-xl border border-gray-100 bg-gray-50 p-3 text-left dark:border-gray-700 dark:bg-gray-900">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div>
-                    <div className="text-xs font-medium text-gray-500 dark:text-gray-300">跨设备同步</div>
-                    <div className="mt-0.5 text-[11px] text-gray-400">同步码等同账号密码；轮换后旧码失效，其他设备需要用新码重新绑定。</div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={generateSyncKey}
-                    disabled={syncInfo.bound}
-                    className="rounded-lg border border-gray-200 bg-white px-2.5 py-1 text-xs font-medium text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
-                  >
-                    {syncKey ? '轮换同步码' : '生成同步码'}
-                  </button>
-                </div>
-
-                {syncKey && (
-                  <div className="mt-2 flex gap-2">
-                    <input
-                      type="password"
-                      readOnly
-                      value={syncKey}
-                      aria-label="当前学习进度同步码"
-                      className="min-w-0 flex-1 rounded-lg border border-gray-200 bg-white px-2 py-1.5 font-mono text-xs text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
-                    />
-                    <button
-                      type="button"
-                      onClick={copySyncKey}
-                      className="rounded-lg bg-indigo-500 px-3 py-1.5 text-xs font-medium text-white hover:bg-indigo-600"
-                    >
-                      复制
-                    </button>
-                  </div>
-                )}
-
-                <div className="mt-2 flex gap-2">
-                  <input
-                    type="password"
-                    value={syncKeyInput}
-                    onChange={(event) => setSyncKeyInput(event.target.value)}
-                    placeholder="在新设备粘贴 64 位同步码"
-                    aria-label="连接已有学习进度的同步码"
-                    className="min-w-0 flex-1 rounded-lg border border-gray-200 bg-white px-2 py-1.5 font-mono text-xs text-gray-600 outline-none focus:border-indigo-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
-                  />
-                  <button
-                    type="button"
-                    onClick={connectWithSyncKey}
-                    disabled={!/^[a-fA-F0-9]{64}$/.test(syncKeyInput.trim())}
-                    className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
-                  >
-                    绑定
-                  </button>
-                </div>
-
-                <div className="mt-2 flex flex-wrap items-center gap-2 border-t border-gray-200 pt-2 text-[11px] dark:border-gray-700">
-                  <span className={syncInfo.bound ? 'text-indigo-600 dark:text-indigo-300' : 'text-gray-400'}>
-                    {syncInfo.bound ? '此设备已通过同步码绑定' : '此设备使用独立会话'}
-                  </span>
-                  <span className="text-gray-400">有效同步码 {syncInfo.activeKeys}</span>
-                  <span className={syncStatus.pending > 0 ? 'text-amber-600 dark:text-amber-300' : 'text-green-600 dark:text-green-300'}>
-                    {syncStatus.pending > 0 ? `${syncStatus.pending} 条待同步` : syncStatus.message}
-                  </span>
-                  {syncInfo.bound && (
-                    <button
-                      type="button"
-                      onClick={disconnectSync}
-                      className="ml-auto rounded-md border border-gray-200 bg-white px-2 py-1 text-gray-500 hover:border-amber-300 hover:text-amber-600 dark:border-gray-700 dark:bg-gray-800"
-                    >
-                      解绑此设备
-                    </button>
-                  )}
-                  {syncKey && !syncInfo.bound && (
-                    <button
-                      type="button"
-                      onClick={revokeSyncCode}
-                      className="ml-auto rounded-md border border-gray-200 bg-white px-2 py-1 text-gray-500 hover:border-red-300 hover:text-red-600 dark:border-gray-700 dark:bg-gray-800"
-                    >
-                      撤销同步码
-                    </button>
-                  )}
-                </div>
-                <div className="mt-3 border-t border-red-100 pt-3 dark:border-red-950">
-                  <button
-                    type="button"
-                    onClick={() => void deleteAllData()}
-                    className="rounded-md border border-red-200 bg-white px-2.5 py-1 text-xs text-red-600 hover:bg-red-50 dark:border-red-900 dark:bg-gray-800 dark:text-red-300"
-                  >
-                    删除我的全部学习数据
-                  </button>
-                  <div className="mt-1 text-[11px] text-gray-400">会同时删除服务端进度、错题本、打卡、成就、周报、同步码与审计记录。</div>
-                </div>
-              </div>
-
-              {pendingImport && (
-                <div className="w-full max-w-md rounded-2xl border border-amber-200 bg-amber-50 p-4 text-left dark:border-amber-900 dark:bg-amber-950/30">
-                  <div className="text-sm font-semibold text-amber-800 dark:text-amber-200">确认覆盖现有学习计划？</div>
-                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                    <div className="rounded-xl bg-white/80 p-3 dark:bg-gray-900/70">
-                      <div className="text-xs font-medium text-gray-400">现有计划</div>
-                      <div className="mt-1 text-sm font-medium text-gray-800 dark:text-gray-100">开始日：{storage.startDate}</div>
-                      <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                        {countRecordedMinuteDays(storage.minutes)} 天记录了分钟
-                      </div>
-                    </div>
-                    <div className="rounded-xl bg-white/80 p-3 dark:bg-gray-900/70">
-                      <div className="text-xs font-medium text-gray-400">导入文件</div>
-                      <div className="mt-1 text-sm font-medium text-gray-800 dark:text-gray-100">开始日：{pendingImport.startDate}</div>
-                      <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                        {countRecordedMinuteDays(pendingImport.minutes)} 天记录了分钟
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mt-4 flex justify-end gap-2">
-                    <button
-                      type="button"
-                      onClick={cancelImportStudyPlan}
-                      className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800"
-                    >
-                      取消
-                    </button>
-                    <button
-                      type="button"
-                      onClick={confirmImportStudyPlan}
-                      className="rounded-lg bg-amber-600 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-amber-700"
-                    >
-                      确认导入
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {importMessage && <div className="max-w-sm text-right text-xs text-gray-500 dark:text-gray-400">{importMessage}</div>}
+                计划设置、提醒、账户与同步 ↓
+              </button>
             </div>
           </div>
 
@@ -1655,6 +1330,40 @@ export default function StudyPlanPage() {
                 {item}
               </span>
             ))}
+          </div>
+        </section>
+
+        <section
+          aria-labelledby="my-word-lists-title"
+          data-testid="home-word-lists"
+          className="my-card mt-7 flex flex-wrap items-center gap-x-6 gap-y-3 rounded-3xl bg-white p-4 dark:bg-gray-800 sm:px-7 sm:py-5"
+        >
+          <div className="min-w-[12rem] flex-1">
+            <h2 id="my-word-lists-title" className="text-lg font-semibold text-gray-900 dark:text-white">
+              我的词表
+            </h2>
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+              {customWordLists.length > 0
+                ? `${customWordLists.length} 个自定义词表，点名字直接开始跟打。`
+                : '把模考和阅读里遇到的生词做成自己的词表，用「单词跟打」背。'}
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            {customWordLists.slice(0, 4).map((list) => (
+              <NavLink
+                key={list.id}
+                to={`/typing?dict=${encodeURIComponent(list.id)}`}
+                className="max-w-[14rem] truncate rounded-xl bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 no-underline transition hover:bg-indigo-100 hover:no-underline dark:bg-indigo-950/40 dark:text-indigo-300"
+              >
+                {list.name} · {list.words.length} 词
+              </NavLink>
+            ))}
+            <NavLink
+              to="/word-lists"
+              className="rounded-xl bg-indigo-500 px-4 py-2 text-sm font-medium text-white no-underline transition hover:bg-indigo-600 hover:no-underline"
+            >
+              {customWordLists.length > 0 ? '管理词表' : '＋ 新建词表'}
+            </NavLink>
           </div>
         </section>
 
@@ -2272,7 +1981,7 @@ export default function StudyPlanPage() {
                       const isCurrentWeek = week === currentWeek
                       const trackingQuery =
                         isCurrentWeek && todayVocabularyTask ? `&studyDate=${todayKey}&studyTask=${todayVocabularyTask.id}` : ''
-                      const weekHref = dictionary ? `/?dict=${encodeURIComponent(dictionary.id)}${trackingQuery}` : '/'
+                      const weekHref = dictionary ? `/typing?dict=${encodeURIComponent(dictionary.id)}${trackingQuery}` : '/typing'
                       const roadmapWeekStart = addDays(startDate, (week - 1) * 7)
                       const roadmapWeekEnd = addDays(roadmapWeekStart, 6)
 
@@ -2375,6 +2084,331 @@ export default function StudyPlanPage() {
                 </div>
               )
             })}
+          </div>
+        </section>
+
+        <section
+          id="study-settings"
+          aria-labelledby="study-settings-title"
+          className="my-card mt-10 scroll-mt-6 rounded-3xl bg-white p-4 dark:bg-gray-800 sm:p-7"
+        >
+          <h2 id="study-settings-title" className="text-2xl font-semibold text-gray-900 dark:text-white">
+            设置与同步
+          </h2>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            考试日期与每日目标、学习提醒、数据导入导出、Passkey 账户和跨设备同步。
+          </p>
+          <div className="mt-5 grid items-start gap-4 lg:grid-cols-2 [&>*]:max-w-none">
+            <div
+              data-testid="study-plan-settings"
+              className="w-full max-w-md rounded-xl border border-gray-100 bg-gray-50 p-3 text-left dark:border-gray-700 dark:bg-gray-900"
+            >
+              <div className="text-xs font-medium text-gray-500 dark:text-gray-300">学习计划设置</div>
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                <label className="text-xs text-gray-500 dark:text-gray-400">
+                  考试日期
+                  <input
+                    type="date"
+                    value={storage.settings.examDate}
+                    onChange={(event) => changeExamDate(event.target.value)}
+                    aria-label="考试日期"
+                    className="mt-1 w-full rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-sm text-gray-700 outline-none focus:border-indigo-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                  />
+                </label>
+                <label className="text-xs text-gray-500 dark:text-gray-400">
+                  每天目标分钟
+                  <input
+                    type="number"
+                    min={20}
+                    max={240}
+                    step={5}
+                    value={dailyTargetInput}
+                    onChange={(event) => setDailyTargetInput(event.target.value)}
+                    onBlur={commitDailyTarget}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter') event.currentTarget.blur()
+                    }}
+                    placeholder="留空＝原计划"
+                    aria-label="每天目标分钟"
+                    className="mt-1 w-full rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-sm text-gray-700 outline-none focus:border-indigo-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                  />
+                </label>
+              </div>
+              <div className="mt-2">
+                <div className="text-xs text-gray-500 dark:text-gray-400">每周学习日</div>
+                <div className="mt-1 flex flex-wrap gap-1">
+                  {[
+                    [1, '一'],
+                    [2, '二'],
+                    [3, '三'],
+                    [4, '四'],
+                    [5, '五'],
+                    [6, '六'],
+                    [0, '日'],
+                  ].map(([weekday, label]) => {
+                    const active = storage.settings.studyDays.includes(Number(weekday))
+                    return (
+                      <button
+                        key={weekday}
+                        type="button"
+                        aria-pressed={active}
+                        aria-label={`周${label}学习`}
+                        onClick={() => toggleStudyDay(Number(weekday))}
+                        className={`rounded-md px-2 py-1 text-xs ${
+                          active
+                            ? 'bg-indigo-500 text-white'
+                            : 'border border-gray-200 bg-white text-gray-400 dark:border-gray-700 dark:bg-gray-800'
+                        }`}
+                      >
+                        周{label}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+              <div className="mt-2 text-[11px] leading-5 text-gray-400">
+                26 周会按考试日重新排期：{storage.startDate} → {storage.settings.examDate}
+                。调整只改变计划日期和目标，已有实际分钟与练习记录不会删除。
+              </div>
+            </div>
+
+            <div className="w-full max-w-md rounded-xl border border-gray-100 bg-gray-50 p-3 text-left dark:border-gray-700 dark:bg-gray-900">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <div className="text-xs font-medium text-gray-500 dark:text-gray-300">提醒与离线安装</div>
+                  <div className="mt-0.5 text-[11px] text-gray-400">
+                    浏览器/PWA 运行时可按时提醒；完全关闭后，系统不会保证纯网页定时唤醒。
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={toggleReminder}
+                  aria-pressed={reminderPreferences.enabled}
+                  className={`rounded-lg px-2.5 py-1 text-xs font-medium ${
+                    reminderPreferences.enabled
+                      ? 'bg-indigo-500 text-white'
+                      : 'border border-gray-200 bg-white text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'
+                  }`}
+                >
+                  {reminderPreferences.enabled ? '提醒已开启' : '开启提醒'}
+                </button>
+              </div>
+              <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
+                <label className="text-gray-500 dark:text-gray-400">
+                  提醒时间
+                  <input
+                    type="time"
+                    value={reminderPreferences.time}
+                    onChange={(event) => changeReminderTime(event.target.value)}
+                    aria-label="学习提醒时间"
+                    className="ml-2 rounded-lg border border-gray-200 bg-white px-2 py-1 text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                  />
+                </label>
+                {pwaState.installed ? (
+                  <span className="ml-auto text-green-600 dark:text-green-300">已安装为 PWA</span>
+                ) : pwaState.canInstall ? (
+                  <button
+                    type="button"
+                    onClick={installPwa}
+                    className="ml-auto rounded-lg border border-gray-200 bg-white px-2.5 py-1 font-medium text-gray-600 hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                  >
+                    安装到设备
+                  </button>
+                ) : (
+                  <span className="ml-auto text-gray-400">{pwaState.serviceWorkerReady ? '离线缓存已就绪' : '浏览器暂不支持安装'}</span>
+                )}
+              </div>
+            </div>
+
+            <div className="flex flex-wrap justify-end gap-2">
+              <button
+                type="button"
+                onClick={exportStudyPlan}
+                className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300"
+              >
+                导出 JSON
+              </button>
+              <button
+                type="button"
+                onClick={() => importInputRef.current?.click()}
+                className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300"
+              >
+                导入 JSON
+              </button>
+              <input ref={importInputRef} type="file" accept="application/json,.json" onChange={importStudyPlan} className="hidden" />
+            </div>
+            <div
+              data-testid="passkey-account"
+              className="w-full max-w-md rounded-xl border border-gray-100 bg-gray-50 p-3 text-left dark:border-gray-700 dark:bg-gray-900"
+            >
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div>
+                  <div className="text-xs font-medium text-gray-600 dark:text-gray-200">Passkey 账户 · 可选</div>
+                  <div className="mt-0.5 text-[11px] leading-5 text-gray-500 dark:text-gray-400">
+                    不创建账户也可继续匿名使用。Passkey 只绑定当前 learner，换设备登录后直接恢复同一份进度。
+                  </div>
+                </div>
+                <span className={`text-[11px] ${accountInfo.registered ? 'text-green-600 dark:text-green-300' : 'text-gray-400'}`}>
+                  {accountInfo.registered
+                    ? `${accountInfo.passkeyCount} 个 Passkey · ${accountInfo.signedIn ? '已登录' : '已绑定'}`
+                    : '匿名模式'}
+                </span>
+              </div>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => void createPasskey()}
+                  disabled={!passkeyAvailable()}
+                  className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white outline-none hover:bg-indigo-700 focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  {accountInfo.registered ? '添加另一个 Passkey' : '创建 Passkey'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => void loginPasskey()}
+                  disabled={!passkeyAvailable()}
+                  className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 outline-none hover:border-indigo-300 hover:text-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                >
+                  使用 Passkey 登录
+                </button>
+                {!passkeyAvailable() && (
+                  <span className="self-center text-[11px] text-amber-600 dark:text-amber-300">此浏览器不支持 Passkey</span>
+                )}
+              </div>
+            </div>
+
+            <div className="w-full max-w-md rounded-xl border border-gray-100 bg-gray-50 p-3 text-left dark:border-gray-700 dark:bg-gray-900">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <div className="text-xs font-medium text-gray-500 dark:text-gray-300">跨设备同步</div>
+                  <div className="mt-0.5 text-[11px] text-gray-400">同步码等同账号密码；轮换后旧码失效，其他设备需要用新码重新绑定。</div>
+                </div>
+                <button
+                  type="button"
+                  onClick={generateSyncKey}
+                  disabled={syncInfo.bound}
+                  className="rounded-lg border border-gray-200 bg-white px-2.5 py-1 text-xs font-medium text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                >
+                  {syncKey ? '轮换同步码' : '生成同步码'}
+                </button>
+              </div>
+
+              {syncKey && (
+                <div className="mt-2 flex gap-2">
+                  <input
+                    type="password"
+                    readOnly
+                    value={syncKey}
+                    aria-label="当前学习进度同步码"
+                    className="min-w-0 flex-1 rounded-lg border border-gray-200 bg-white px-2 py-1.5 font-mono text-xs text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                  />
+                  <button
+                    type="button"
+                    onClick={copySyncKey}
+                    className="rounded-lg bg-indigo-500 px-3 py-1.5 text-xs font-medium text-white hover:bg-indigo-600"
+                  >
+                    复制
+                  </button>
+                </div>
+              )}
+
+              <div className="mt-2 flex gap-2">
+                <input
+                  type="password"
+                  value={syncKeyInput}
+                  onChange={(event) => setSyncKeyInput(event.target.value)}
+                  placeholder="在新设备粘贴 64 位同步码"
+                  aria-label="连接已有学习进度的同步码"
+                  className="min-w-0 flex-1 rounded-lg border border-gray-200 bg-white px-2 py-1.5 font-mono text-xs text-gray-600 outline-none focus:border-indigo-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                />
+                <button
+                  type="button"
+                  onClick={connectWithSyncKey}
+                  disabled={!/^[a-fA-F0-9]{64}$/.test(syncKeyInput.trim())}
+                  className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                >
+                  绑定
+                </button>
+              </div>
+
+              <div className="mt-2 flex flex-wrap items-center gap-2 border-t border-gray-200 pt-2 text-[11px] dark:border-gray-700">
+                <span className={syncInfo.bound ? 'text-indigo-600 dark:text-indigo-300' : 'text-gray-400'}>
+                  {syncInfo.bound ? '此设备已通过同步码绑定' : '此设备使用独立会话'}
+                </span>
+                <span className="text-gray-400">有效同步码 {syncInfo.activeKeys}</span>
+                <span className={syncStatus.pending > 0 ? 'text-amber-600 dark:text-amber-300' : 'text-green-600 dark:text-green-300'}>
+                  {syncStatus.pending > 0 ? `${syncStatus.pending} 条待同步` : syncStatus.message}
+                </span>
+                {syncInfo.bound && (
+                  <button
+                    type="button"
+                    onClick={disconnectSync}
+                    className="ml-auto rounded-md border border-gray-200 bg-white px-2 py-1 text-gray-500 hover:border-amber-300 hover:text-amber-600 dark:border-gray-700 dark:bg-gray-800"
+                  >
+                    解绑此设备
+                  </button>
+                )}
+                {syncKey && !syncInfo.bound && (
+                  <button
+                    type="button"
+                    onClick={revokeSyncCode}
+                    className="ml-auto rounded-md border border-gray-200 bg-white px-2 py-1 text-gray-500 hover:border-red-300 hover:text-red-600 dark:border-gray-700 dark:bg-gray-800"
+                  >
+                    撤销同步码
+                  </button>
+                )}
+              </div>
+              <div className="mt-3 border-t border-red-100 pt-3 dark:border-red-950">
+                <button
+                  type="button"
+                  onClick={() => void deleteAllData()}
+                  className="rounded-md border border-red-200 bg-white px-2.5 py-1 text-xs text-red-600 hover:bg-red-50 dark:border-red-900 dark:bg-gray-800 dark:text-red-300"
+                >
+                  删除我的全部学习数据
+                </button>
+                <div className="mt-1 text-[11px] text-gray-400">会同时删除服务端进度、错题本、打卡、成就、周报、同步码与审计记录。</div>
+              </div>
+            </div>
+
+            {pendingImport && (
+              <div className="w-full max-w-md rounded-2xl border border-amber-200 bg-amber-50 p-4 text-left dark:border-amber-900 dark:bg-amber-950/30">
+                <div className="text-sm font-semibold text-amber-800 dark:text-amber-200">确认覆盖现有学习计划？</div>
+                <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-xl bg-white/80 p-3 dark:bg-gray-900/70">
+                    <div className="text-xs font-medium text-gray-400">现有计划</div>
+                    <div className="mt-1 text-sm font-medium text-gray-800 dark:text-gray-100">开始日：{storage.startDate}</div>
+                    <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                      {countRecordedMinuteDays(storage.minutes)} 天记录了分钟
+                    </div>
+                  </div>
+                  <div className="rounded-xl bg-white/80 p-3 dark:bg-gray-900/70">
+                    <div className="text-xs font-medium text-gray-400">导入文件</div>
+                    <div className="mt-1 text-sm font-medium text-gray-800 dark:text-gray-100">开始日：{pendingImport.startDate}</div>
+                    <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                      {countRecordedMinuteDays(pendingImport.minutes)} 天记录了分钟
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4 flex justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={cancelImportStudyPlan}
+                    className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800"
+                  >
+                    取消
+                  </button>
+                  <button
+                    type="button"
+                    onClick={confirmImportStudyPlan}
+                    className="rounded-lg bg-amber-600 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-amber-700"
+                  >
+                    确认导入
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {importMessage && <div className="max-w-sm text-right text-xs text-gray-500 dark:text-gray-400">{importMessage}</div>}
           </div>
         </section>
       </main>

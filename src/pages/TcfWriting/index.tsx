@@ -1,3 +1,4 @@
+import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { type TcfEeScores, calculateEeTotalScore, countFrenchWords, estimateTcfEeNclc } from '@/resources/tcfEvaluation'
 import { TCF_WRITING_PROMPTS_BY_TASK, type TcfWritingPrompt } from '@/resources/tcfWritingData'
@@ -291,20 +292,17 @@ export default function TcfWritingPage() {
 
   return (
     <Layout>
+      {mode !== 'writing' && <Header />}
       <div className="flex w-full flex-1 flex-col overflow-y-auto px-4 py-4 sm:px-6 lg:px-8">
         <div className={`mx-auto w-full ${mode !== 'intro' ? 'max-w-7xl' : 'max-w-5xl'}`}>
           {/* Header navigation & status */}
-          {mode !== 'writing' ? (
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <NavLink to="/study-plan" className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-indigo-600">
-                <IconArrowLeft className="h-4 w-4" />
-                返回学习计划
-              </NavLink>
-            </div>
-          ) : (
+          {mode === 'writing' && (
             <div className="sticky top-0 z-20 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-gray-200/90 bg-white/95 px-4 py-2.5 shadow-sm backdrop-blur dark:border-gray-700 dark:bg-gray-800/95">
               <div className="flex items-center gap-3">
-                <NavLink to="/study-plan" className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-indigo-600">
+                <NavLink
+                  to="/study-plan"
+                  className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-indigo-600"
+                >
                   <IconArrowLeft className="h-3.5 w-3.5" />
                   退出
                 </NavLink>
@@ -328,9 +326,11 @@ export default function TcfWritingPage() {
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300'
                         }`}
                       >
-                        <span>Tâche {t} ({limits}词)</span>
+                        <span>
+                          Tâche {t} ({limits}词)
+                        </span>
                         <span
-                          className={`rounded-full px-1.5 py-0.5 text-[11px] font-mono ${
+                          className={`rounded-full px-1.5 py-0.5 font-mono text-[11px] ${
                             isActive ? 'bg-indigo-700 text-white' : 'bg-white/80 text-gray-600 dark:bg-gray-800 dark:text-gray-300'
                           }`}
                         >
@@ -505,9 +505,7 @@ export default function TcfWritingPage() {
                     </span>
                   </div>
 
-                  <h2 className="mt-3 text-lg font-bold text-gray-950 dark:text-white leading-snug">
-                    {activePrompt.title}
-                  </h2>
+                  <h2 className="mt-3 text-lg font-bold leading-snug text-gray-950 dark:text-white">{activePrompt.title}</h2>
 
                   <div className="mt-3 whitespace-pre-line text-sm leading-relaxed text-gray-700 dark:text-gray-200">
                     {activePrompt.prompt}
@@ -590,9 +588,7 @@ export default function TcfWritingPage() {
                       </button>
                     </div>
 
-                    <div className="text-xs text-gray-400">
-                      自动实时保存 · 支持随时切换题目
-                    </div>
+                    <div className="text-xs text-gray-400">自动实时保存 · 支持随时切换题目</div>
                   </div>
                 </div>
               </div>
@@ -811,7 +807,9 @@ export default function TcfWritingPage() {
                       <div>
                         <div className="flex items-center justify-between text-xs font-semibold text-indigo-600 dark:text-indigo-400">
                           <span>官方高分参考范文：</span>
-                          <span>建议 {prompt.minWords}–{prompt.maxWords} 词</span>
+                          <span>
+                            建议 {prompt.minWords}–{prompt.maxWords} 词
+                          </span>
                         </div>
                         <div className="mt-1.5 h-64 overflow-y-auto whitespace-pre-wrap rounded-xl border border-indigo-100 bg-indigo-50/50 p-4 text-sm leading-relaxed text-gray-800 dark:border-indigo-900/60 dark:bg-indigo-950/30 dark:text-gray-200">
                           {prompt.sampleAnswer}

@@ -1,4 +1,3 @@
-import { addStudyMinutes, flushStudyProgress } from '@/services/studyPlanSync'
 import Layout from '../../components/Layout'
 import { DictChapterButton } from './components/DictChapterButton'
 import PronunciationSwitcher from './components/PronunciationSwitcher'
@@ -13,15 +12,16 @@ import { useWordList } from './hooks/useWordList'
 import { TypingContext, TypingStateActionType, initialState, typingReducer } from './store'
 import Header from '@/components/Header'
 import Tooltip from '@/components/Tooltip'
-import { idDictionaryMap } from '@/resources/dictionary'
+import { addStudyMinutes, flushStudyProgress } from '@/services/studyPlanSync'
 import { currentChapterAtom, currentDictIdAtom, isReviewModeAtom, randomConfigAtom, reviewModeInfoAtom } from '@/store'
+import { customDictionariesAtom, findDictionary } from '@/store/customDict'
 import { IsDesktop, isLegal } from '@/utils'
 import { useSaveChapterRecord } from '@/utils/db'
 import { useMixPanelChapterLogUploader } from '@/utils/mixpanel'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
-import { NavLink, useSearchParams } from 'react-router-dom'
 import type React from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { useImmerReducer } from 'use-immer'
 
 const studyVocabularyTaskIds = new Set(['mon-vocab', 'fri-vocab', 'minimum-vocab', 'smart-vocab'])
@@ -53,6 +53,7 @@ const App: React.FC = () => {
   const recordedStudyPlanChapter = useRef(false)
   const flushedFinishedChapter = useRef(false)
   const randomConfig = useAtomValue(randomConfigAtom)
+  const customDictionaries = useAtomValue(customDictionariesAtom)
   const chapterLogUploader = useMixPanelChapterLogUploader(state)
   const saveChapterRecord = useSaveChapterRecord()
 
@@ -60,15 +61,12 @@ const App: React.FC = () => {
   const isReviewMode = useAtomValue(isReviewModeAtom)
 
   useEffect(() => {
-    if (!requestedDictId || !(requestedDictId in idDictionaryMap)) return
+    const requestedDictionary = findDictionary(requestedDictId, customDictionaries)
+    if (!requestedDictId || !requestedDictionary) return
 
-    const requestedDictionary = idDictionaryMap[requestedDictId]
-    const parsedChapter =
-      requestedChapter !== null && /^\d+$/.test(requestedChapter) ? Number(requestedChapter) : -1
+    const parsedChapter = requestedChapter !== null && /^\d+$/.test(requestedChapter) ? Number(requestedChapter) : -1
     const nextChapter =
-      Number.isSafeInteger(parsedChapter) && parsedChapter >= 0 && parsedChapter < requestedDictionary.chapterCount
-        ? parsedChapter
-        : 0
+      Number.isSafeInteger(parsedChapter) && parsedChapter >= 0 && parsedChapter < requestedDictionary.chapterCount ? parsedChapter : 0
 
     setCurrentDictId(requestedDictId)
     setCurrentChapter(nextChapter)
@@ -89,6 +87,7 @@ const App: React.FC = () => {
     nextSearchParams.delete('studyTask')
     setSearchParams(nextSearchParams, { replace: true })
   }, [
+    customDictionaries,
     requestedDictId,
     requestedChapter,
     requestedStudyDate,
@@ -104,9 +103,7 @@ const App: React.FC = () => {
     // 检测用户设备
     if (!IsDesktop()) {
       setTimeout(() => {
-        alert(
-          ' Qwerty Learner 目的为帮助键盘学习者练习法语输入，目前暂未适配移动端，希望您使用桌面端浏览器访问。如您使用的是 Ipad 等平板电脑设备，可以使用外接键盘使用本软件。',
-        )
+        alert('单词跟打需要实体键盘。请在电脑上使用；平板可以接上外接键盘后再练习。')
       }, 500)
     }
   }, [])
@@ -114,12 +111,12 @@ const App: React.FC = () => {
   // 在组件挂载和currentDictId改变时，检查当前字典是否存在，如果不存在，则将其重置为默认值
   useEffect(() => {
     const id = currentDictId
-    if (!(id in idDictionaryMap)) {
+    if (!findDictionary(id, customDictionaries)) {
       setCurrentDictId('tcf-canada-foundation-01')
       setCurrentChapter(0)
       return
     }
-  }, [currentDictId, setCurrentChapter, setCurrentDictId])
+  }, [currentDictId, customDictionaries, setCurrentChapter, setCurrentDictId])
 
   const skipWord = useCallback(() => {
     dispatch({ type: TypingStateActionType.SKIP_WORD })
@@ -216,38 +213,6 @@ const App: React.FC = () => {
       <Layout>
         <Header>
           <DictChapterButton />
-          <Tooltip content="26 周 TCF Canada 学习计划与今日任务">
-            <NavLink
-              to="/study-plan"
-              className="block rounded-lg px-3 py-1 text-base transition-colors duration-300 ease-in-out hover:bg-indigo-400 hover:text-white focus:outline-none dark:text-white dark:text-opacity-60 dark:hover:text-opacity-100"
-            >
-              学习计划
-            </NavLink>
-          </Tooltip>
-          <Tooltip content="30 分钟：passé composé vs imparfait">
-            <NavLink
-              to="/grammar-session"
-              className="block rounded-lg px-3 py-1 text-base transition-colors duration-300 ease-in-out hover:bg-indigo-400 hover:text-white focus:outline-none dark:text-white dark:text-opacity-60 dark:hover:text-opacity-100"
-            >
-              30分钟语法
-            </NavLink>
-          </Tooltip>
-          <Tooltip content="按动词学习 Présent / Passé composé / Imparfait">
-            <NavLink
-              to="/conjugation"
-              className="block rounded-lg px-3 py-1 text-base transition-colors duration-300 ease-in-out hover:bg-indigo-400 hover:text-white focus:outline-none dark:text-white dark:text-opacity-60 dark:hover:text-opacity-100"
-            >
-              动词变位
-            </NavLink>
-          </Tooltip>
-          <Tooltip content="统一查看词汇、语法和动词变位错题">
-            <NavLink
-              to="/error-book"
-              className="block rounded-lg px-3 py-1 text-base transition-colors duration-300 ease-in-out hover:bg-indigo-400 hover:text-white focus:outline-none dark:text-white dark:text-opacity-60 dark:hover:text-opacity-100"
-            >
-              错题本
-            </NavLink>
-          </Tooltip>
           <PronunciationSwitcher />
           <Switcher />
           <StartButton isLoading={isLoading} />

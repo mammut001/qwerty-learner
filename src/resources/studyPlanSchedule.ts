@@ -1,4 +1,4 @@
-import { weeklyStudyPlan, type DayPlan, type StudyTask } from './studyPlan'
+import { type DayPlan, type StudyTask, weeklyStudyPlan } from './studyPlan'
 
 export type StudyPlanSettings = {
   examDate: string
@@ -44,10 +44,7 @@ export const defaultStudyPlanSettings = (startDate: string): StudyPlanSettings =
   studyDays: [...DEFAULT_STUDY_DAYS],
 })
 
-export const normalizeStudyPlanSettings = (
-  value: Partial<StudyPlanSettings> | null | undefined,
-  startDate: string,
-): StudyPlanSettings => {
+export const normalizeStudyPlanSettings = (value: Partial<StudyPlanSettings> | null | undefined, startDate: string): StudyPlanSettings => {
   const fallback = defaultStudyPlanSettings(startDate)
   const requestedStudyDays = value?.studyDays
   const requestedTarget = value?.dailyTargetMinutes
@@ -59,18 +56,14 @@ export const normalizeStudyPlanSettings = (
     examDate: validDateKey(requestedExamDate) ? requestedExamDate : fallback.examDate,
     dailyTargetMinutes:
       requestedTarget === null ||
-      (typeof requestedTarget === 'number' &&
-        Number.isInteger(requestedTarget) &&
-        requestedTarget >= 20 &&
-        requestedTarget <= 240)
+      (typeof requestedTarget === 'number' && Number.isInteger(requestedTarget) && requestedTarget >= 20 && requestedTarget <= 240)
         ? requestedTarget
         : fallback.dailyTargetMinutes,
     studyDays: studyDays.length ? studyDays : fallback.studyDays,
   }
 }
 
-export const isConfiguredStudyDay = (settings: StudyPlanSettings, weekday: number) =>
-  settings.studyDays.includes(weekday)
+export const isConfiguredStudyDay = (settings: StudyPlanSettings, weekday: number) => settings.studyDays.includes(weekday)
 
 export function scaleStudyTasks(tasks: StudyTask[], targetMinutes: number | null): StudyTask[] {
   if (targetMinutes === null || tasks.length === 0) return tasks
@@ -136,14 +129,8 @@ export function getConfiguredDayTasks(
   return scaleStudyTasks(redistributedTasksForWeekday(dayPlan.weekday, settings), settings.dailyTargetMinutes)
 }
 
-export const configuredWeeklyTargetMinutes = (
-  plans: DayPlan[],
-  settings: StudyPlanSettings,
-  minimumTasks: StudyTask[] = [],
-) =>
+export const configuredWeeklyTargetMinutes = (plans: DayPlan[], settings: StudyPlanSettings, minimumTasks: StudyTask[] = []) =>
   plans.reduce(
-    (total, plan) =>
-      total +
-      getConfiguredDayTasks(plan, settings, false, minimumTasks).reduce((sum, task) => sum + task.minutes, 0),
+    (total, plan) => total + getConfiguredDayTasks(plan, settings, false, minimumTasks).reduce((sum, task) => sum + task.minutes, 0),
     0,
   )
