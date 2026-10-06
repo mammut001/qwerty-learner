@@ -19,6 +19,7 @@ const TcfListeningPage = lazy(() => import('./pages/TcfListening'))
 const TcfReadingPage = lazy(() => import('./pages/TcfReading'))
 const TcfWritingPage = lazy(() => import('./pages/TcfWriting'))
 const TcfSpeakingPage = lazy(() => import('./pages/TcfSpeaking'))
+const DictionaryPage = lazy(() => import('./pages/Dictionary'))
 const CustomDictPage = lazy(() => import('./pages/CustomDict'))
 const KeyboardRequiredPage = lazy(() => import('./pages/KeyboardRequired'))
 const ErrorBookPage = lazy(() => import('./pages/ErrorBook').then((module) => ({ default: module.ErrorBook })))
@@ -86,6 +87,7 @@ function Root() {
             <Route index element={<HomeRedirect />} />
             <Route path="/typing" element={isMobile ? <KeyboardRequiredPage /> : <TypingPage />} />
             <Route path="/gallery" element={isMobile ? <KeyboardRequiredPage /> : <GalleryPage />} />
+            <Route path="/dictionary" element={<DictionaryPage />} />
             <Route path="/word-lists" element={<CustomDictPage />} />
             <Route path="/conjugation" element={<ConjugationPage />} />
             <Route path="/grammar-session" element={<GrammarSessionPage />} />

@@ -12,6 +12,7 @@ const navItems = [
   { to: '/study-plan', label: '学习计划' },
   { to: '/typing', label: '单词跟打' },
   { to: '/word-lists', label: '我的词表' },
+  { to: '/dictionary', label: '查词' },
   { to: '/grammar-session', label: '语法' },
   { to: '/conjugation', label: '动词变位' },
   { to: '/error-book', label: '错题本' },
@@ -63,7 +64,7 @@ const Header: React.FC<PropsWithChildren> = ({ children }) => {
           {menuOpen ? <IconX className="h-6 w-6" /> : <IconMenu className="h-6 w-6" />}
         </button>
         <nav className="hidden items-center justify-end gap-1 lg:flex" aria-label="主导航">
-          {navItems.slice(0, 3).map((item) => (
+          {navItems.slice(0, 4).map((item) => (
             <NavLink key={item.to} to={item.to} end className={({ isActive }) => navItemClass(isActive)}>
               {item.label}
             </NavLink>
@@ -111,7 +112,7 @@ const Header: React.FC<PropsWithChildren> = ({ children }) => {
               </Menu.Items>
             </Transition>
           </Menu>
-          {navItems.slice(3).map((item) => (
+          {navItems.slice(4).map((item) => (
             <NavLink key={item.to} to={item.to} end className={({ isActive }) => navItemClass(isActive)}>
               {item.label}
             </NavLink>
