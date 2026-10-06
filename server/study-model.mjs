@@ -893,7 +893,7 @@ function todayPlanForState(state, today) {
       kind: 'vocabulary',
       title: '新词与错词巩固',
       minutes: vocabularyMinutes,
-      href: '/',
+      href: '/typing',
       reason: errorCounts.vocabulary
         ? `当前有 ${errorCounts.vocabulary} 个 active 错词，先巩固再推进新词。`
         : '当前词汇错题压力较低，继续推进新词。',

@@ -1,3 +1,4 @@
+import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { type TcfEoScores, calculateEoTotalScore, estimateTcfEoNclc } from '@/resources/tcfEvaluation'
 import {
@@ -303,20 +304,17 @@ export default function TcfSpeakingPage() {
 
   return (
     <Layout>
+      {mode !== 'speaking' && <Header />}
       <div className="flex w-full flex-1 flex-col overflow-y-auto px-4 py-4 sm:px-6 lg:px-8">
         <div className={`mx-auto w-full ${mode !== 'intro' ? 'max-w-7xl' : 'max-w-5xl'}`}>
           {/* Header navigation & status */}
-          {mode !== 'speaking' ? (
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <NavLink to="/study-plan" className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-indigo-600">
-                <IconArrowLeft className="h-4 w-4" />
-                返回学习计划
-              </NavLink>
-            </div>
-          ) : (
+          {mode === 'speaking' && (
             <div className="sticky top-0 z-20 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-gray-200/90 bg-white/95 px-4 py-2.5 shadow-sm backdrop-blur dark:border-gray-700 dark:bg-gray-800/95">
               <div className="flex items-center gap-3">
-                <NavLink to="/study-plan" className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-indigo-600">
+                <NavLink
+                  to="/study-plan"
+                  className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-indigo-600"
+                >
                   <IconArrowLeft className="h-3.5 w-3.5" />
                   退出
                 </NavLink>
@@ -341,9 +339,7 @@ export default function TcfSpeakingPage() {
                         }`}
                       >
                         <span>{label}</span>
-                        {hasAudio && (
-                          <span className="flex h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-white dark:ring-gray-900" />
-                        )}
+                        {hasAudio && <span className="flex h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-white dark:ring-gray-900" />}
                       </button>
                     )
                   })}
@@ -475,7 +471,7 @@ export default function TcfSpeakingPage() {
                       </span>
                       <span className="text-xs text-gray-500">约 2 分钟 · 无准备时间</span>
                     </div>
-                    <h2 className="mt-3 text-lg font-bold text-gray-950 dark:text-white leading-snug">{prompt1.title}</h2>
+                    <h2 className="mt-3 text-lg font-bold leading-snug text-gray-950 dark:text-white">{prompt1.title}</h2>
                     <p className="mt-2 text-sm leading-relaxed text-gray-700 dark:text-gray-200">{prompt1.intro}</p>
 
                     <div className="mt-4 rounded-xl border border-indigo-100 bg-indigo-50/60 p-4 dark:border-indigo-900/60 dark:bg-indigo-950/40">
@@ -506,7 +502,7 @@ export default function TcfSpeakingPage() {
                       </span>
                       <span className="text-xs text-gray-500">2 分钟准备 + 约 3.5 分钟作答</span>
                     </div>
-                    <h2 className="mt-3 text-lg font-bold text-gray-950 dark:text-white leading-snug">{prompt2.title}</h2>
+                    <h2 className="mt-3 text-lg font-bold leading-snug text-gray-950 dark:text-white">{prompt2.title}</h2>
 
                     <div className="mt-3 grid gap-3 sm:grid-cols-2">
                       <div className="rounded-xl border border-indigo-100 bg-indigo-50/60 p-3 text-xs leading-relaxed text-gray-800 dark:border-indigo-900/60 dark:bg-indigo-950/40 dark:text-gray-200">
@@ -515,16 +511,17 @@ export default function TcfSpeakingPage() {
                       </div>
                       <div className="rounded-xl border border-purple-100 bg-purple-50/60 p-3 text-xs leading-relaxed text-gray-800 dark:border-purple-900/60 dark:bg-purple-950/40 dark:text-gray-200">
                         <strong className="text-purple-700 dark:text-purple-300">角色扮演：</strong>
-                        <div className="mt-1">考官为【{prompt2.examinerRole}】，您为【{prompt2.examineeRole}】。</div>
+                        <div className="mt-1">
+                          考官为【{prompt2.examinerRole}】，您为【{prompt2.examineeRole}】。
+                        </div>
                       </div>
                     </div>
 
-                    <div className="mt-3 text-sm leading-relaxed text-gray-800 dark:text-gray-200">
-                      {prompt2.instructions}
-                    </div>
+                    <div className="mt-3 text-sm leading-relaxed text-gray-800 dark:text-gray-200">{prompt2.instructions}</div>
 
                     <div className="mt-4 rounded-xl bg-gray-50 p-3 text-xs leading-5 text-gray-500 dark:bg-gray-900/50">
-                      💡 <strong>互动提示</strong>：主动向考官提问获取详细信息，使用多种疑问句型（Est-ce que... / Pourriez-vous me dire si... / Quels sont...）。
+                      💡 <strong>互动提示</strong>：主动向考官提问获取详细信息，使用多种疑问句型（Est-ce que... / Pourriez-vous me dire
+                      si... / Quels sont...）。
                     </div>
                   </div>
                 )}
@@ -537,14 +534,13 @@ export default function TcfSpeakingPage() {
                       </span>
                       <span className="text-xs text-gray-500">约 4.5 分钟自由阐述 · 无准备时间</span>
                     </div>
-                    <h2 className="mt-3 text-lg font-bold text-gray-950 dark:text-white leading-snug">{prompt3.title}</h2>
-                    <div className="mt-2 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
-                      辩论主题：{prompt3.topic}
-                    </div>
+                    <h2 className="mt-3 text-lg font-bold leading-snug text-gray-950 dark:text-white">{prompt3.title}</h2>
+                    <div className="mt-2 text-xs font-semibold text-indigo-600 dark:text-indigo-400">辩论主题：{prompt3.topic}</div>
                     <p className="mt-3 text-sm leading-relaxed text-gray-800 dark:text-gray-200">{prompt3.prompt}</p>
 
                     <div className="mt-4 rounded-xl bg-gray-50 p-3 text-xs leading-5 text-gray-500 dark:bg-gray-900/50">
-                      💡 <strong>结构提示</strong>：遵循"引入话题 → 阐述正反观点 → 表达个人明确立场 → 总结"的标准论辩框架，运用连接词展开论据。
+                      💡 <strong>结构提示</strong>：遵循「引入话题 → 阐述正反观点 → 表达个人明确立场 →
+                      总结」的标准论辩框架，运用连接词展开论据。
                     </div>
                   </div>
                 )}
@@ -554,9 +550,7 @@ export default function TcfSpeakingPage() {
               <div className="flex flex-col space-y-4 lg:col-span-5">
                 <div className="flex flex-1 flex-col rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
                   <div className="flex items-center justify-between border-b border-gray-100 pb-3 dark:border-gray-700">
-                    <span className="text-sm font-bold text-gray-900 dark:text-white">
-                      考场录音工作台
-                    </span>
+                    <span className="text-sm font-bold text-gray-900 dark:text-white">考场录音工作台</span>
                     <span
                       className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
                         taskPhases[activeTask] === 'recording'
@@ -746,9 +740,7 @@ export default function TcfSpeakingPage() {
                       </button>
                     </div>
 
-                    <div className="text-xs text-gray-400">
-                      纯本地录音 · 不占云端
-                    </div>
+                    <div className="text-xs text-gray-400">纯本地录音 · 不占云端</div>
                   </div>
                 </div>
               </div>

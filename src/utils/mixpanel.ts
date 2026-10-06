@@ -1,3 +1,6 @@
+// Analytics is disabled in this fork; these no-op stubs keep the call sites unchanged.
+
+/* eslint-disable @typescript-eslint/no-empty-function */
 import type { TypingState } from '@/pages/Typing/store/type'
 import type { PronunciationType } from '@/typings'
 
@@ -61,19 +64,21 @@ export type ChapterLogUpload = ModeInfo & {
 }
 
 export function useMixPanelWordLogUploader(_typingState: TypingState) {
-  return (_wordLog: { headword: string; timeStart: string; timeEnd: string; countInput: number; countCorrect: number; countTypo: number }) => {}
+  return (_wordLog: {
+    headword: string
+    timeStart: string
+    timeEnd: string
+    countInput: number
+    countCorrect: number
+    countTypo: number
+  }) => {}
 }
 
 export function useMixPanelChapterLogUploader(_typingState: TypingState) {
   return () => {}
 }
 
-export function recordDataAction(_info: {
-  type: 'export' | 'import'
-  size: number
-  wordCount: number
-  chapterCount: number
-}) {}
+export function recordDataAction(_info: { type: 'export' | 'import'; size: number; wordCount: number; chapterCount: number }) {}
 
 export function getUtcStringForMixpanel() {
   const now = new Date()

@@ -1,6 +1,9 @@
+import { CUSTOM_DICT_URL_PREFIX, loadCustomDictWords } from '@/store/customDict'
 import type { Word } from '@/typings'
 
 export async function wordListFetcher(url: string): Promise<Word[]> {
+  if (url.startsWith(CUSTOM_DICT_URL_PREFIX)) return loadCustomDictWords(url)
+
   const prefix = REACT_APP_DEPLOY_ENV === 'pages' ? '/qwerty-learner' : ''
   const cleanPath = url.replace(/^\.\//, '').replace(/^\//, '')
   const requestUrl = `${prefix}/${cleanPath}`

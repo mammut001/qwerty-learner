@@ -1,9 +1,9 @@
+import Header from '@/components/Header'
 import Layout from '@/components/Layout'
-import { loadErrorBook, type ErrorBookItem, type ReviewKind } from '@/services/studyPlanSync'
+import { type ErrorBookItem, type ReviewKind, loadErrorBook } from '@/services/studyPlanSync'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import IconX from '~icons/tabler/x'
 
 type StatusFilter = 'active' | 'mastered' | 'all'
 type TypeFilter = ReviewKind | ''
@@ -50,11 +50,8 @@ export function ErrorBook() {
   const retry = (item: ErrorBookItem) => {
     if (item.kind === 'vocabulary') {
       const dict = typeof item.context.dict === 'string' ? item.context.dict : ''
-      const chapter =
-        typeof item.context.chapter === 'number' && Number.isInteger(item.context.chapter)
-          ? item.context.chapter
-          : 0
-      navigate(`/?dict=${encodeURIComponent(dict)}&chapter=${chapter}`)
+      const chapter = typeof item.context.chapter === 'number' && Number.isInteger(item.context.chapter) ? item.context.chapter : 0
+      navigate(`/typing?dict=${encodeURIComponent(dict)}&chapter=${chapter}`)
       return
     }
     if (item.kind === 'grammar') {
@@ -63,38 +60,26 @@ export function ErrorBook() {
     }
     const verb = typeof item.context.verb === 'string' ? item.context.verb : item.sourceId.split('|')[0]
     const tense = typeof item.context.tense === 'string' ? item.context.tense : item.sourceId.split('|')[1]
-    navigate(
-      `/conjugation?verb=${encodeURIComponent(verb)}&tense=${encodeURIComponent(tense)}&mode=practice&scope=current`,
-    )
+    navigate(`/conjugation?verb=${encodeURIComponent(verb)}&tense=${encodeURIComponent(tense)}&mode=practice&scope=current`)
   }
 
   return (
     <Layout>
-      <div className="relative flex w-full flex-1 flex-col overflow-hidden px-4 pb-10 pt-14 sm:px-6 lg:px-16 lg:pt-16">
-        <button
-          type="button"
-          aria-label="关闭错题本"
-          onClick={() => navigate('/')}
-          className="absolute right-4 top-3 rounded-lg p-2 text-gray-500 outline-none hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-indigo-500 sm:right-6 lg:right-16 lg:top-6 dark:text-gray-300 dark:hover:bg-gray-800"
-        >
-          <IconX className="h-7 w-7" />
-        </button>
-
+      <Header />
+      <div className="flex w-full flex-1 flex-col overflow-hidden px-4 pb-6 pt-2 sm:px-6 lg:px-16">
         <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col overflow-hidden">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <div className="text-sm font-medium text-indigo-500">服务端统一错题本</div>
               <h1 className="mt-1 text-3xl font-semibold text-gray-900 dark:text-white">词汇 · 语法 · 动词变位</h1>
-              <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                答错自动进入；连续答对 3 次自动标记掌握并退出今日 SM-2 复习。
-              </p>
+              <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">答错自动进入；连续答对 3 次自动标记掌握并退出今日 SM-2 复习。</p>
             </div>
             <div className="rounded-xl bg-indigo-50 px-4 py-3 text-sm text-indigo-700 dark:bg-indigo-950/30 dark:text-indigo-300">
               当前列表 {items.length} 项 · 未掌握 {activeCount} 项
             </div>
           </div>
 
-          <div className="mt-6 grid gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm md:grid-cols-4 dark:border-gray-700 dark:bg-gray-800">
+          <div className="mt-6 grid gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:grid-cols-4">
             <label className="text-xs text-gray-500">
               类型
               <select

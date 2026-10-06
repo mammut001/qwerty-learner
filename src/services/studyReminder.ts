@@ -1,9 +1,5 @@
 import { getDayPlan, minimumModeTasks } from '../resources/studyPlan'
-import {
-  getConfiguredDayTasks,
-  normalizeStudyPlanSettings,
-  type StudyPlanSettings,
-} from '../resources/studyPlanSchedule'
+import { type StudyPlanSettings, getConfiguredDayTasks, normalizeStudyPlanSettings } from '../resources/studyPlanSchedule'
 import type { StudyPlanStorage } from './studyPlanSync'
 
 export type StudyReminderPreferences = {

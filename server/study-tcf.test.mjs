@@ -2,9 +2,13 @@ import { createStudyServer } from './study-plan.mjs'
 import {
   TCF_CONFIG,
   TCF_LISTENING_QUESTIONS,
+  TCF_MIXED_SET_ID,
+  TCF_QUESTION_SETS,
   TCF_READING_QUESTIONS,
   estimateTcfNclc,
   estimateTcfScaledScore,
+  pickTcfQuestions,
+  shuffleTcfChoiceOrder,
 } from '../src/resources/tcfMock.ts'
 import assert from 'node:assert/strict'
 import { randomUUID } from 'node:crypto'
@@ -13,6 +17,31 @@ import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { test } from 'node:test'
+
+test('every TCF CO/CE question set is a valid 39-question paper', () => {
+  for (const skill of ['listening', 'reading']) {
+    const prefix = skill === 'listening' ? 'co-' : 'ce-'
+    const allIds = new Set()
+    assert.ok(TCF_QUESTION_SETS[skill].length >= 2)
+    for (const set of TCF_QUESTION_SETS[skill]) {
+      assert.equal(set.questions.length, 39, `${skill} ${set.id}`)
+      for (const question of set.questions) {
+        assert.ok(question.id.startsWith(prefix) && !allIds.has(question.id), question.id)
+        allIds.add(question.id)
+        assert.equal(new Set(question.choices).size, 4, question.id)
+        assert.ok(Number.isInteger(question.answer) && question.answer >= 0 && question.answer <= 3, question.id)
+        assert.ok(question.prompt && question.explanation && (skill === 'listening' ? question.audioText : question.passage), question.id)
+      }
+    }
+    const mixed = pickTcfQuestions(skill, TCF_MIXED_SET_ID)
+    assert.equal(mixed.length, 39)
+    assert.equal(new Set(mixed.map((item) => item.id)).size, 39)
+    mixed.forEach((item, index) => assert.ok(TCF_QUESTION_SETS[skill].some((set) => set.questions[index] === item)))
+    assert.equal(pickTcfQuestions(skill, 'b'), TCF_QUESTION_SETS[skill][1].questions)
+    assert.equal(pickTcfQuestions(skill, 'unknown'), TCF_QUESTION_SETS[skill][0].questions)
+  }
+  assert.deepEqual([...shuffleTcfChoiceOrder()].sort(), [0, 1, 2, 3])
+})
 
 test('TCF CO/CE content has 39 questions and NCLC 7 targets', () => {
   assert.equal(TCF_LISTENING_QUESTIONS.length, 39)

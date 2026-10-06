@@ -6,7 +6,7 @@ import { useAtomValue } from 'jotai'
 import React, { Suspense, lazy, useEffect, useState } from 'react'
 import 'react-app-polyfill/stable'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
 const TypingPage = lazy(() => import('./pages/Typing'))
 const AnalysisPage = lazy(() => import('./pages/Analysis'))
@@ -18,10 +18,16 @@ const TcfListeningPage = lazy(() => import('./pages/TcfListening'))
 const TcfReadingPage = lazy(() => import('./pages/TcfReading'))
 const TcfWritingPage = lazy(() => import('./pages/TcfWriting'))
 const TcfSpeakingPage = lazy(() => import('./pages/TcfSpeaking'))
-const MobilePage = lazy(() => import('./pages/Mobile'))
+const CustomDictPage = lazy(() => import('./pages/CustomDict'))
+const KeyboardRequiredPage = lazy(() => import('./pages/KeyboardRequired'))
 const ErrorBookPage = lazy(() => import('./pages/ErrorBook').then((module) => ({ default: module.ErrorBook })))
-const FriendLinksPage = lazy(() => import('./pages/FriendLinks').then((module) => ({ default: module.FriendLinks })))
 const FocusTimerDock = lazy(() => import('./components/FocusTimerDock'))
+
+// The study plan is the home page; old `/?dict=…` practice links keep working by forwarding to the typing page.
+function HomeRedirect() {
+  const { search } = useLocation()
+  return <Navigate to={search ? `/typing${search}` : '/study-plan'} replace />
+}
 
 async function migrateExistingStudyData() {
   try {
@@ -76,8 +82,10 @@ function Root() {
       <BrowserRouter basename={REACT_APP_DEPLOY_ENV === 'pages' ? '/qwerty-learner' : ''}>
         <Suspense fallback={<Loading />}>
           <Routes>
-            <Route index element={isMobile ? <MobilePage /> : <TypingPage />} />
-            <Route path="/gallery" element={isMobile ? <MobilePage /> : <GalleryPage />} />
+            <Route index element={<HomeRedirect />} />
+            <Route path="/typing" element={isMobile ? <KeyboardRequiredPage /> : <TypingPage />} />
+            <Route path="/gallery" element={isMobile ? <KeyboardRequiredPage /> : <GalleryPage />} />
+            <Route path="/word-lists" element={<CustomDictPage />} />
             <Route path="/conjugation" element={<ConjugationPage />} />
             <Route path="/grammar-session" element={<GrammarSessionPage />} />
             <Route path="/study-plan" element={<StudyPlanPage />} />
@@ -87,9 +95,7 @@ function Root() {
             <Route path="/tcf-speaking" element={<TcfSpeakingPage />} />
             <Route path="/analysis" element={<AnalysisPage />} />
             <Route path="/error-book" element={<ErrorBookPage />} />
-            <Route path="/friend-links" element={<FriendLinksPage />} />
-            <Route path="/mobile" element={<MobilePage />} />
-            <Route path="/*" element={<Navigate to={isMobile ? '/study-plan' : '/'} />} />
+            <Route path="/*" element={<Navigate to="/study-plan" />} />
           </Routes>
           <FocusTimerDock />
         </Suspense>

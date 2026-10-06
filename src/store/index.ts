@@ -1,4 +1,5 @@
 import atomForConfig from './atomForConfig'
+import { customDictionariesAtom, findDictionary } from './customDict'
 import { reviewInfoAtom } from './reviewInfoAtom'
 import { DISMISS_START_CARD_DATE_KEY, defaultFontSizeConfig } from '@/constants'
 import { idDictionaryMap } from '@/resources/dictionary'
@@ -19,7 +20,7 @@ import { atomWithStorage } from 'jotai/utils'
 export const currentDictIdAtom = atomWithStorage('currentDict', 'tcf-canada-foundation-01')
 export const currentDictInfoAtom = atom<Dictionary>((get) => {
   const id = get(currentDictIdAtom)
-  let dict = idDictionaryMap[id]
+  let dict = findDictionary(id, get(customDictionariesAtom))
   // 如果本地缓存的词库已不存在，则回退到默认 TCF Canada 法语词库
   if (!dict) {
     dict = idDictionaryMap['tcf-canada-foundation-01']

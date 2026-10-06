@@ -1,25 +1,23 @@
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import {
-  conjugationTenseLabels,
-  defaultConjugationVerb,
-  frenchVerbs,
   type ConjugationRow,
   type ConjugationTense,
   type FrenchVerbConjugation,
+  conjugationTenseLabels,
+  defaultConjugationVerb,
+  frenchVerbs,
 } from '@/resources/conjugation'
 import {
+  type ConjugationStats,
+  type TenseStat,
   addStudyMinutes,
   flushStudyProgress,
   getLearningProgress,
   recordConjugationAttempt,
-  type ConjugationStats,
-  type TenseStat,
 } from '@/services/studyPlanSync'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { NavLink, useSearchParams } from 'react-router-dom'
-import IconArrowLeft from '~icons/tabler/arrow-left'
-import IconBook from '~icons/tabler/book'
+import { useSearchParams } from 'react-router-dom'
 import IconRefresh from '~icons/tabler/refresh'
 
 type PracticeScope = 'current' | 'mixed'
@@ -36,12 +34,7 @@ const STATS_KEY = 'qwerty-fr-conjugation-stats-v1'
 const tenses: ConjugationTense[] = ['present', 'passeCompose', 'imparfait']
 const accentChars = ['é', 'è', 'ê', 'ë', 'à', 'â', 'ù', 'û', 'ô', 'ö', 'î', 'ï', 'ç', 'œ', 'æ']
 
-const normalizeAnswer = (value: string) =>
-  value
-    .trim()
-    .toLowerCase()
-    .replace(/’/g, "'")
-    .replace(/\s+/g, ' ')
+const normalizeAnswer = (value: string) => value.trim().toLowerCase().replace(/’/g, "'").replace(/\s+/g, ' ')
 
 const loadStats = (): ConjugationStats => {
   try {
@@ -103,9 +96,7 @@ export default function ConjugationPage() {
   const requestedStudyTask = searchParams.get('studyTask')
   const initialVerb = frenchVerbs.find((verb) => verb.infinitive === requestedVerb) ?? defaultConjugationVerb
   const initialTense: ConjugationTense =
-    requestedTense && tenses.includes(requestedTense as ConjugationTense)
-      ? (requestedTense as ConjugationTense)
-      : 'passeCompose'
+    requestedTense && tenses.includes(requestedTense as ConjugationTense) ? (requestedTense as ConjugationTense) : 'passeCompose'
   const initialMode: 'study' | 'practice' = requestedMode === 'practice' ? 'practice' : 'study'
   const initialScope: PracticeScope = requestedScope === 'mixed' ? 'mixed' : 'current'
 
@@ -157,8 +148,6 @@ export default function ConjugationPage() {
         }
         return
       }
-
-
     })
 
     return () => {
@@ -169,9 +158,7 @@ export default function ConjugationPage() {
   const filteredVerbs = useMemo(() => {
     const needle = query.trim().toLowerCase()
     if (!needle) return frenchVerbs
-    return frenchVerbs.filter(
-      (verb) => verb.infinitive.toLowerCase().includes(needle) || verb.translation.toLowerCase().includes(needle),
-    )
+    return frenchVerbs.filter((verb) => verb.infinitive.toLowerCase().includes(needle) || verb.translation.toLowerCase().includes(needle))
   }, [query])
 
   const currentRows = selectedVerb.tenses[selectedTense]
@@ -279,31 +266,10 @@ export default function ConjugationPage() {
 
   return (
     <Layout>
-      <Header>
-        <NavLink
-          to="/"
-          className="flex items-center gap-1 rounded-lg px-3 py-1 text-sm text-gray-600 hover:bg-indigo-100 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-gray-700"
-        >
-          <IconArrowLeft />
-          返回练习
-        </NavLink>
-        <NavLink
-          to="/grammar-session"
-          className="rounded-lg px-3 py-1 text-sm text-gray-600 hover:bg-indigo-100 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-gray-700"
-        >
-          30分钟语法
-        </NavLink>
-        <NavLink
-          to="/gallery"
-          className="flex items-center gap-1 rounded-lg px-3 py-1 text-sm text-gray-600 hover:bg-indigo-100 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-gray-700"
-        >
-          <IconBook />
-          词库
-        </NavLink>
-      </Header>
+      <Header />
 
-      <main className="container mx-auto flex min-h-0 flex-1 gap-6 overflow-hidden px-10 pb-6">
-        <aside className="my-card flex w-72 shrink-0 flex-col overflow-hidden rounded-2xl bg-white p-4 dark:bg-gray-800">
+      <main className="container mx-auto flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-4 pb-6 sm:px-10 lg:flex-row lg:gap-6 lg:overflow-hidden">
+        <aside className="my-card flex max-h-64 w-full shrink-0 flex-col overflow-hidden rounded-2xl bg-white p-4 dark:bg-gray-800 lg:max-h-none lg:w-72">
           <div className="mb-3">
             <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Conjugaison</h2>
             <p className="text-xs text-gray-500 dark:text-gray-400">30 个核心动词</p>
@@ -323,9 +289,7 @@ export default function ConjugationPage() {
                   type="button"
                   onClick={() => setSelectedVerb(verb)}
                   className={`w-full rounded-lg px-3 py-2 text-left transition ${
-                    active
-                      ? 'bg-indigo-500 text-white'
-                      : 'text-gray-700 hover:bg-indigo-50 dark:text-gray-200 dark:hover:bg-gray-700'
+                    active ? 'bg-indigo-500 text-white' : 'text-gray-700 hover:bg-indigo-50 dark:text-gray-200 dark:hover:bg-gray-700'
                   }`}
                 >
                   <div className="font-medium">{verb.infinitive}</div>
@@ -336,7 +300,7 @@ export default function ConjugationPage() {
           </div>
         </aside>
 
-        <section className="customized-scrollbar flex min-w-0 flex-1 flex-col overflow-y-auto rounded-2xl bg-white p-6 shadow-sm dark:bg-gray-800">
+        <section className="customized-scrollbar flex min-w-0 shrink-0 flex-col rounded-2xl bg-white p-4 shadow-sm dark:bg-gray-800 sm:p-6 lg:flex-1 lg:shrink lg:overflow-y-auto">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <div className="flex items-baseline gap-3">
@@ -408,10 +372,7 @@ export default function ConjugationPage() {
                 <div>{conjugationTenseLabels[selectedTense]}</div>
               </div>
               {currentRows.map((row) => (
-                <div
-                  key={row.subject}
-                  className="grid grid-cols-[180px_1fr] border-t border-gray-100 px-5 py-4 dark:border-gray-700"
-                >
+                <div key={row.subject} className="grid grid-cols-[180px_1fr] border-t border-gray-100 px-5 py-4 dark:border-gray-700">
                   <div className="text-sm font-medium text-gray-500 dark:text-gray-400">{row.subject}</div>
                   <div>
                     <div className="text-lg text-gray-900 dark:text-gray-100">{row.display}</div>
@@ -486,8 +447,8 @@ export default function ConjugationPage() {
                       result === 'correct'
                         ? 'border-green-400'
                         : result === 'wrong'
-                          ? 'border-red-400'
-                          : 'border-gray-200 focus:border-indigo-400 dark:border-gray-700'
+                        ? 'border-red-400'
+                        : 'border-gray-200 focus:border-indigo-400 dark:border-gray-700'
                     }`}
                   />
 
@@ -518,7 +479,7 @@ export default function ConjugationPage() {
                     </div>
                   )}
 
-                  <button type="submit" className="my-btn-primary mt-5 min-w-32 py-2 text-base">
+                  <button type="submit" className="my-btn-primary min-w-32 mt-5 py-2 text-base">
                     {result ? '下一题（Enter）' : '检查（Enter）'}
                   </button>
                 </form>

@@ -1,10 +1,10 @@
 import {
+  type PasskeyAccountInfo,
+  type StudyServerState,
   beginPasskeyLogin,
   beginPasskeyRegistration,
   finishPasskeyLogin,
   finishPasskeyRegistration,
-  type PasskeyAccountInfo,
-  type StudyServerState,
 } from './studyPlanSync'
 
 type RegistrationOptionsJson = {
@@ -47,11 +47,8 @@ const encodeBase64url = (value: ArrayBuffer) => {
 }
 
 const requireWebAuthn = () => {
-  if (
-    typeof window === 'undefined' ||
-    typeof PublicKeyCredential === 'undefined' ||
-    !navigator.credentials
-  ) throw new Error('PASSKEY_UNSUPPORTED')
+  if (typeof window === 'undefined' || typeof PublicKeyCredential === 'undefined' || !navigator.credentials)
+    throw new Error('PASSKEY_UNSUPPORTED')
 }
 
 const registrationOptions = (input: Record<string, unknown>): PublicKeyCredentialCreationOptions => {
@@ -80,8 +77,7 @@ const serializeRegistration = (credential: PublicKeyCredential) => {
   const authenticatorData = response.getAuthenticatorData?.()
   const publicKey = response.getPublicKey?.()
   const publicKeyAlgorithm = response.getPublicKeyAlgorithm?.()
-  if (!authenticatorData || !publicKey || typeof publicKeyAlgorithm !== 'number')
-    throw new Error('PASSKEY_BROWSER_UNSUPPORTED')
+  if (!authenticatorData || !publicKey || typeof publicKeyAlgorithm !== 'number') throw new Error('PASSKEY_BROWSER_UNSUPPORTED')
   return {
     id: encodeBase64url(credential.rawId),
     rawId: encodeBase64url(credential.rawId),

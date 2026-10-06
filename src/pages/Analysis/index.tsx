@@ -1,4 +1,5 @@
 import LineCharts from './components/LineCharts'
+import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import {
   type ReviewQueueItem,
@@ -29,7 +30,6 @@ import { useAtom } from 'jotai'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import IconX from '~icons/tabler/x'
 
 type TrendScale = 'daily' | 'weekly' | 'monthly'
 
@@ -107,7 +107,7 @@ const Analysis = () => {
   const hadPendingSync = useRef(false)
 
   const onBack = useCallback(() => {
-    navigate('/')
+    navigate('/study-plan')
   }, [navigate])
 
   useHotkeys(
@@ -288,15 +288,8 @@ const Analysis = () => {
 
   return (
     <Layout>
-      <div className="flex w-full flex-1 flex-col overflow-y-auto px-4 pt-12 sm:px-6 lg:px-20 lg:pt-20">
-        <button
-          type="button"
-          aria-label="关闭统计页"
-          onClick={onBack}
-          className="absolute right-4 top-4 rounded-lg p-2 text-gray-500 outline-none hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-indigo-500 dark:text-gray-300 dark:hover:bg-gray-800 sm:right-6 lg:right-20 lg:top-10"
-        >
-          <IconX className="h-7 w-7" />
-        </button>
+      <Header />
+      <div className="flex w-full flex-1 flex-col overflow-y-auto px-4 pt-2 sm:px-6 lg:px-20">
         <ScrollArea.Root className="flex-1 overflow-y-auto">
           <ScrollArea.Viewport className="h-full w-auto pb-[20rem] [&>div]:!block">
             <section
@@ -328,7 +321,7 @@ const Analysis = () => {
               {dashboard ? (
                 <>
                   <div className="mt-5 grid gap-4 lg:grid-cols-[1.5fr_1fr]">
-                    <div className="rounded-xl border border-gray-200 p-4 dark:border-gray-700">
+                    <div className="min-w-0 rounded-xl border border-gray-200 p-4 dark:border-gray-700">
                       <div className="flex items-center justify-between gap-3">
                         <h2 className="font-semibold text-gray-900 dark:text-white">每日学习分钟热力图</h2>
                         <span className="text-xs text-gray-500 dark:text-gray-400">最近 90 天</span>
@@ -336,7 +329,7 @@ const Analysis = () => {
                       <div
                         role="img"
                         aria-label="最近 90 天每日学习分钟热力图"
-                        className="grid-rows-7 mt-4 grid grid-flow-col gap-1 overflow-x-auto pb-2"
+                        className="mt-4 grid w-fit max-w-full grid-flow-col grid-rows-[repeat(7,minmax(0,1fr))] gap-1 overflow-x-auto pb-2"
                       >
                         {dashboard.heatmap.map((item) => (
                           <div

@@ -1,4 +1,5 @@
 import {
+  type FocusTimerSnapshot,
   clearFocusTimer,
   finishFocusTimer,
   focusTimerRecordedMinutes,
@@ -6,7 +7,6 @@ import {
   pauseFocusTimer,
   resumeFocusTimer,
   subscribeFocusTimer,
-  type FocusTimerSnapshot,
 } from '@/services/focusTimer'
 import { useEffect, useState } from 'react'
 
@@ -38,9 +38,7 @@ export default function FocusTimerDock() {
         <div className="min-w-0 flex-1">
           <div className="text-xs font-medium text-indigo-600 dark:text-indigo-300">专注计时</div>
           <div className="mt-1 truncate font-semibold text-gray-950 dark:text-white">{snapshot.title}</div>
-          <div className="mt-2 font-mono text-3xl tabular-nums text-gray-950 dark:text-white">
-            {timeLabel(snapshot.remainingMs)}
-          </div>
+          <div className="mt-2 font-mono text-3xl tabular-nums text-gray-950 dark:text-white">{timeLabel(snapshot.remainingMs)}</div>
           <div className="mt-1 text-xs text-gray-500 dark:text-gray-300">
             有效专注 {Math.floor(snapshot.activeMs / 60000)} min
             {snapshot.status === 'paused' && snapshot.pauseReason ? ` · ${pauseLabel[snapshot.pauseReason]}` : ''}
