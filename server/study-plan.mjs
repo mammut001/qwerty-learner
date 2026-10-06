@@ -34,11 +34,84 @@ import {
   deleteNodeLearnerData,
 } from './study-node-features.mjs'
 import { randomBytes, createHash } from 'node:crypto'
-import { mkdirSync } from 'node:fs'
+import { mkdirSync, statSync, createReadStream } from 'node:fs'
 import { createServer } from 'node:http'
-import { dirname, resolve } from 'node:path'
+import { dirname, resolve, extname, join, normalize } from 'node:path'
 import { DatabaseSync } from 'node:sqlite'
 import { pathToFileURL } from 'node:url'
+
+const MIME_TYPES = {
+  '.html': 'text/html; charset=utf-8',
+  '.js': 'application/javascript; charset=utf-8',
+  '.mjs': 'application/javascript; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
+  '.svg': 'image/svg+xml',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.gif': 'image/gif',
+  '.webp': 'image/webp',
+  '.ico': 'image/x-icon',
+  '.mp3': 'audio/mpeg',
+  '.wav': 'audio/wav',
+  '.ogg': 'audio/ogg',
+  '.woff': 'font/woff',
+  '.woff2': 'font/woff2',
+  '.ttf': 'font/ttf',
+  '.txt': 'text/plain; charset=utf-8',
+}
+
+function serveStatic(req, res, staticDir) {
+  if (req.method !== 'GET' && req.method !== 'HEAD') {
+    res.writeHead(405, { 'Content-Type': 'text/plain; charset=utf-8', Allow: 'GET, HEAD' })
+    return res.end('Method Not Allowed')
+  }
+
+  const parsedUrl = new URL(req.url, 'http://localhost')
+  const pathname = decodeURIComponent(parsedUrl.pathname)
+  const safePath = normalize(pathname).replace(/^(\.\.[/\\])+/, '')
+  let filePath = join(resolve(staticDir), safePath)
+
+  let stat
+  try {
+    stat = statSync(filePath)
+    if (stat.isDirectory()) {
+      filePath = join(filePath, 'index.html')
+      stat = statSync(filePath)
+    }
+  } catch {
+    filePath = join(resolve(staticDir), 'index.html')
+    try {
+      stat = statSync(filePath)
+    } catch {
+      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' })
+      return res.end('Not Found')
+    }
+  }
+
+  const ext = extname(filePath).toLowerCase()
+  const contentType = MIME_TYPES[ext] || 'application/octet-stream'
+  const isHashedAsset = pathname.startsWith('/assets/')
+
+  const headers = {
+    'Content-Type': contentType,
+    'Content-Length': stat.size,
+    'Last-Modified': stat.mtime.toUTCString(),
+    'Cache-Control': isHashedAsset ? 'public, max-age=31536000, immutable' : 'no-cache',
+    'X-Content-Type-Options': 'nosniff',
+  }
+
+  const ims = req.headers['if-modified-since']
+  if (ims && new Date(ims) >= stat.mtime) {
+    res.writeHead(304, headers)
+    return res.end()
+  }
+
+  res.writeHead(200, headers)
+  if (req.method === 'HEAD') return res.end()
+  createReadStream(filePath).pipe(res)
+}
 
 const hash = (value) => createHash('sha256').update(value).digest('hex')
 const MAX_BODY_BYTES = 1700000
@@ -68,6 +141,7 @@ export function createStudyServer({
   trustProxyIp = process.env.STUDY_TRUST_PROXY_IP === 'true',
   metricsToken = process.env.STUDY_METRICS_TOKEN || '',
   slowRequestMs = Number(process.env.STUDY_SLOW_REQUEST_MS || 1000),
+  staticDir = process.env.STUDY_STATIC_DIR || '',
 } = {}) {
   mkdirSync(dirname(resolve(database)), { recursive: true })
   const db = new DatabaseSync(database)
@@ -198,8 +272,12 @@ export function createStudyServer({
     if (!health && !importing && !exporting && !analytics && !syncKey && !revokeSyncKey && !linking && !unlinking &&
         !syncInfo && !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData &&
         !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
-        !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts && !plan)
+        !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts && !plan) {
+      if (staticDir && !path.startsWith('/api/')) {
+        return serveStatic(req, res, staticDir)
+      }
       return sendError(404, 'NOT_FOUND', 'Not found')
+    }
 
     const policy = studyPolicy({ origin, secure, sameSite }, { method: req.method, headers: new Headers(req.headers) }, health)
     for (const [key, value] of Object.entries(policy.headers)) res.setHeader(key, value)
