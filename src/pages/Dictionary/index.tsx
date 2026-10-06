@@ -172,7 +172,7 @@ export default function DictionaryPage() {
 
           <p className="mt-4 text-xs leading-5 text-gray-400">
             释义来自英文与中文维基词典（Wiktionary），经 kaikki.org / wiktextract 提取并裁剪，按 CC BY-SA
-            许可使用；「本站词库」是本项目自己整理的释义。有中文释义的词条优先显示中文，其余显示英文。
+            许可使用；「本站词库」是本项目自己整理的释义。有中文释义的词条优先显示中文，其余显示英文；设备在线时，未收录离线中文释义的词条会自动从中文维基词典在线补全，中文维基词典没有时再用法语维基词典的翻译表补全。
           </p>
         </div>
       </main>

@@ -133,7 +133,9 @@ function QuestionContent({
           {/* Prompt and choices */}
           <div className="space-y-4 lg:col-span-7">
             <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-              <h2 className="text-lg font-bold leading-snug text-gray-950 dark:text-white">{question.prompt}</h2>
+              <h2 className="text-lg font-bold leading-snug text-gray-950 dark:text-white">
+                {reviewing ? <LookupText text={question.prompt} /> : question.prompt}
+              </h2>
 
               <div className="mt-4 grid gap-2.5">
                 {order.map((index, position) => {
@@ -148,11 +150,19 @@ function QuestionContent({
                     : isSelected
                     ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-950/40'
                     : 'border-gray-200 bg-white hover:border-indigo-300 hover:bg-gray-50/50 dark:border-gray-700 dark:bg-gray-800'
-                  return (
+                  return reviewing ? (
+                    <div key={choice} className={`flex w-full items-start gap-3 rounded-xl border p-3.5 text-left transition ${tone}`}>
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-100 text-xs font-bold text-gray-700 dark:bg-gray-700 dark:text-gray-200">
+                        {answerLetters[position]}
+                      </span>
+                      <span className="pt-0.5 text-sm text-gray-800 dark:text-gray-100">
+                        <LookupText text={choice} />
+                      </span>
+                    </div>
+                  ) : (
                     <button
                       key={choice}
                       type="button"
-                      disabled={reviewing}
                       onClick={() => onSelect(index)}
                       className={`flex w-full items-start gap-3 rounded-xl border p-3.5 text-left transition ${tone}`}
                     >
@@ -171,7 +181,7 @@ function QuestionContent({
                   className="mt-4 rounded-xl bg-gray-100 p-4 text-sm leading-relaxed text-gray-700 dark:bg-gray-900 dark:text-gray-200"
                 >
                   <strong className="text-gray-900 dark:text-white">解析：</strong>
-                  {question.explanation}
+                  <LookupText text={question.explanation} />
                 </div>
               )}
             </div>
@@ -195,7 +205,9 @@ function QuestionContent({
           <div className="space-y-4 lg:col-span-5">
             <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
               <div className="mb-2 text-xs font-bold uppercase tracking-wider text-indigo-500">Question / 问题</div>
-              <h2 className="text-base font-bold leading-snug text-gray-950 dark:text-white sm:text-lg">{question.prompt}</h2>
+              <h2 className="text-base font-bold leading-snug text-gray-950 dark:text-white sm:text-lg">
+                {reviewing ? <LookupText text={question.prompt} /> : question.prompt}
+              </h2>
 
               <div className="mt-4 grid gap-2.5">
                 {order.map((index, position) => {
@@ -210,11 +222,19 @@ function QuestionContent({
                     : isSelected
                     ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-950/40'
                     : 'border-gray-200 bg-white hover:border-indigo-300 hover:bg-gray-50/50 dark:border-gray-700 dark:bg-gray-800'
-                  return (
+                  return reviewing ? (
+                    <div key={choice} className={`flex w-full items-start gap-3 rounded-xl border p-3 text-left transition ${tone}`}>
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gray-100 text-xs font-bold text-gray-700 dark:bg-gray-700 dark:text-gray-200">
+                        {answerLetters[position]}
+                      </span>
+                      <span className="pt-0.5 text-xs font-medium text-gray-800 dark:text-gray-100 sm:text-sm">
+                        <LookupText text={choice} />
+                      </span>
+                    </div>
+                  ) : (
                     <button
                       key={choice}
                       type="button"
-                      disabled={reviewing}
                       onClick={() => onSelect(index)}
                       className={`flex w-full items-start gap-3 rounded-xl border p-3 text-left transition ${tone}`}
                     >
@@ -233,7 +253,7 @@ function QuestionContent({
                   className="mt-4 rounded-xl bg-gray-100 p-4 text-xs leading-5 text-gray-700 dark:bg-gray-900 dark:text-gray-200 sm:text-sm sm:leading-6"
                 >
                   <strong className="text-gray-900 dark:text-white">解析：</strong>
-                  {question.explanation}
+                  <LookupText text={question.explanation} />
                 </div>
               )}
             </div>

@@ -1,4 +1,5 @@
 import { type DictionaryResult, type DictionaryWord, GENDER_LABELS, POS_LABELS, briefMeaning, speakFrench } from '@/services/dictionary'
+import { type OnlineChineseSource, loadOnlineChinese, needsOnlineChinese } from '@/services/dictionaryOnline'
 import { CUSTOM_DICT_LIMITS, type CustomDict, customDictsAtom } from '@/store/customDict'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
@@ -97,7 +98,44 @@ function AddToWordList({ word, meaning }: { word: string; meaning: string }) {
   )
 }
 
-function WordBlock({ item, compact }: { item: DictionaryWord; compact: boolean }) {
+function OnlineMeanings({ meanings, source, compact }: { meanings: string[]; source: OnlineChineseSource; compact: boolean }) {
+  if (meanings.length === 0) return null
+  const label = source === 'fr-wiktionary' ? '法语维基词典译表 · 在线' : '中文维基词典 · 在线'
+  return (
+    <div
+      data-testid="dictionary-online"
+      className="mt-2 rounded-xl bg-indigo-50 px-3 py-2 text-sm text-indigo-800 dark:bg-indigo-950/40 dark:text-indigo-200"
+    >
+      {compact ? (
+        <>
+          <span className="mr-2 text-xs font-semibold text-indigo-500">{label}</span>
+          {meanings.join('；')}
+        </>
+      ) : (
+        <>
+          <div className="text-xs font-semibold text-indigo-500">{label}</div>
+          <ol className="mt-1 list-inside list-decimal space-y-0.5 text-sm leading-6">
+            {meanings.map((meaning) => (
+              <li key={meaning}>{meaning}</li>
+            ))}
+          </ol>
+        </>
+      )}
+    </div>
+  )
+}
+
+function WordBlock({
+  item,
+  compact,
+  onlineMeanings = [],
+  onlineSource,
+}: {
+  item: DictionaryWord
+  compact: boolean
+  onlineMeanings?: string[]
+  onlineSource: OnlineChineseSource
+}) {
   const ipa = item.entries.find((entry) => entry.ipa)?.ipa
   return (
     <div>
@@ -115,6 +153,8 @@ function WordBlock({ item, compact }: { item: DictionaryWord; compact: boolean }
           <IconVolume className="h-5 w-5" />
         </button>
       </div>
+
+      <OnlineMeanings meanings={onlineMeanings} source={onlineSource} compact={compact} />
 
       {item.site.length > 0 && (
         <div className="mt-2 rounded-xl bg-indigo-50 px-3 py-2 text-sm text-indigo-800 dark:bg-indigo-950/40 dark:text-indigo-200">
@@ -155,8 +195,56 @@ function WordBlock({ item, compact }: { item: DictionaryWord; compact: boolean }
 }
 
 export default function DictionaryCard({ result, compact = false }: { result: DictionaryResult; compact?: boolean }) {
+  const [onlineMeanings, setOnlineMeanings] = useState<string[]>([])
+  const [onlineSource, setOnlineSource] = useState<OnlineChineseSource>('zh-wiktionary')
+
+  useEffect(() => {
+    setOnlineMeanings([])
+    setOnlineSource('zh-wiktionary')
+    const target = needsOnlineChinese(result)
+    if (!target || (typeof navigator !== 'undefined' && navigator.onLine === false)) {
+      return
+    }
+    let cancelled = false
+    loadOnlineChinese(target)
+      .then((outcome) => {
+        if (!cancelled && outcome.zh.length > 0 && outcome.source) {
+          setOnlineMeanings(outcome.zh)
+          setOnlineSource(outcome.source)
+        }
+      })
+      .catch(() => undefined)
+    return () => {
+      cancelled = true
+    }
+  }, [result])
+
   const primary = result.words[0] ?? result.lemmas[0]
   if (!primary) {
+    if (onlineMeanings.length > 0) {
+      return (
+        <div data-testid="dictionary-result" className={compact ? 'space-y-3' : 'space-y-6'}>
+          <div>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+              <span className={`${compact ? 'text-xl' : 'text-3xl'} font-semibold text-gray-950 dark:text-white`} lang="fr">
+                {result.query}
+              </span>
+              <button
+                type="button"
+                onClick={() => speakFrench(result.query)}
+                aria-label={`朗读 ${result.query}`}
+                className="rounded-lg p-1.5 text-indigo-500 hover:bg-indigo-50 dark:hover:bg-gray-700"
+              >
+                <IconVolume className="h-5 w-5" />
+              </button>
+            </div>
+            <OnlineMeanings meanings={onlineMeanings} source={onlineSource} compact={compact} />
+          </div>
+          <AddToWordList word={result.query} meaning={onlineMeanings.slice(0, 3).join('；')} />
+        </div>
+      )
+    }
+
     return (
       <p data-testid="dictionary-empty" className="text-sm leading-6 text-gray-500 dark:text-gray-400">
         离线词典里没有找到「{result.query}」。检查一下拼写，或者试试它的原形。
@@ -164,10 +252,19 @@ export default function DictionaryCard({ result, compact = false }: { result: Di
     )
   }
 
+  const hasOfflineChinese = primary.site.length > 0 || primary.entries.some((entry) => entry.zh.length > 0)
+  const meaning = !hasOfflineChinese && onlineMeanings.length > 0 ? onlineMeanings.slice(0, 3).join('；') : briefMeaning(result)
+
   return (
     <div data-testid="dictionary-result" className={compact ? 'space-y-3' : 'space-y-6'}>
-      {result.words.map((item) => (
-        <WordBlock key={item.word} item={item} compact={compact} />
+      {result.words.map((item, index) => (
+        <WordBlock
+          key={item.word}
+          item={item}
+          compact={compact}
+          onlineMeanings={index === 0 ? onlineMeanings : undefined}
+          onlineSource={onlineSource}
+        />
       ))}
       {result.lemmas.length > 0 && (
         <div className={result.words.length > 0 ? 'border-t border-gray-100 pt-4 dark:border-gray-700' : ''}>
@@ -175,13 +272,19 @@ export default function DictionaryCard({ result, compact = false }: { result: Di
             「{result.query}」是 {result.lemmas.map((item) => item.word).join('、')} 的变化形式
           </div>
           <div className={compact ? 'space-y-3' : 'space-y-6'}>
-            {result.lemmas.map((item) => (
-              <WordBlock key={item.word} item={item} compact={compact} />
+            {result.lemmas.map((item, index) => (
+              <WordBlock
+                key={item.word}
+                item={item}
+                compact={compact}
+                onlineMeanings={result.words.length === 0 && index === 0 ? onlineMeanings : undefined}
+                onlineSource={onlineSource}
+              />
             ))}
           </div>
         </div>
       )}
-      <AddToWordList word={primary.word} meaning={briefMeaning(result)} />
+      <AddToWordList word={primary.word} meaning={meaning} />
     </div>
   )
 }
