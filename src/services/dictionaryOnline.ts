@@ -276,19 +276,23 @@ export async function loadOnlineChinese(word: string): Promise<OnlineChineseResu
   if (pending) return pending
 
   const lookup = (async (): Promise<OnlineChineseResult> => {
+    let zhOk = false
     try {
       const zh = await fetchOnlineChinese(normalized)
+      zhOk = true
       if (zh.length > 0) {
         const outcome: OnlineChineseResult = { zh, source: 'zh-wiktionary' }
         setCached(normalized, outcome)
         return outcome
       }
     } catch {
-      // Chinese Wiktionary failed; still try French Wiktionary below.
+      // Chinese Wiktionary failed; still try French Wiktionary below, but do not cache an empty outcome.
     }
     const fr = await fetchFrenchWiktionaryChinese(normalized)
     const outcome: OnlineChineseResult = fr.length > 0 ? { zh: fr, source: 'fr-wiktionary' } : { zh: [], source: null }
-    setCached(normalized, outcome)
+    if (fr.length > 0 || zhOk) {
+      setCached(normalized, outcome)
+    }
     return outcome
   })()
 

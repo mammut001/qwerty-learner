@@ -139,11 +139,12 @@ test('French Wiktionary translation tables as second online source, with empty-o
       body: MISSING_BODY,
     })
   })
+  const frBefore = frCount
   await page.goto('/dictionary?q=remboursement')
   const result = page.getByTestId('dictionary-result')
   await expect(result).toBeVisible()
   await expect(result).toContainText('reimbursement')
-  await page.waitForResponse('https://fr.wiktionary.org/**')
+  await expect.poll(() => frCount).toBe(frBefore + 1)
   await expect(page.getByTestId('dictionary-online')).toHaveCount(0)
   const zhAfter = zhCount
   const frAfter = frCount
@@ -153,4 +154,34 @@ test('French Wiktionary translation tables as second online source, with empty-o
   await expect(page.getByTestId('dictionary-online')).toHaveCount(0)
   expect(zhCount).toBe(zhAfter)
   expect(frCount).toBe(frAfter)
+})
+
+test('failed Chinese Wiktionary request does not cache the empty outcome', async ({ page }) => {
+  let zhCount = 0
+  let frCount = 0
+  await page.route('https://zh.wiktionary.org/**', (route) => {
+    zhCount += 1
+    void route.abort()
+  })
+  await page.route('https://fr.wiktionary.org/**', (route) => {
+    frCount += 1
+    void route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ error: { code: 'missingtitle' } }),
+    })
+  })
+
+  await page.goto('/dictionary?q=trottoir')
+  const result = page.getByTestId('dictionary-result')
+  await expect(result).toBeVisible()
+  await expect(result).toContainText('sidewalk')
+  await expect.poll(() => frCount).toBe(1)
+  await expect(page.getByTestId('dictionary-online')).toHaveCount(0)
+
+  // The failed request was not cached: revisiting fetches the Chinese Wiktionary again.
+  const zhAfter = zhCount
+  await page.goto('/dictionary?q=trottoir')
+  await expect(page.getByTestId('dictionary-result')).toBeVisible()
+  await expect.poll(() => zhCount).toBe(zhAfter + 1)
 })
