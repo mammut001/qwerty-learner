@@ -56,7 +56,7 @@ export async function smokeCors(base, frontend, { crossSite = false } = {}) {
   const backup = await exportedResponse.json()
   assert.equal(backup.format, 'qwerty-study-plan')
   assert.equal(backup.version, 5)
-  assert.equal(backup.schemaVersion, 7)
+  assert.equal(backup.schemaVersion, 8)
   assert.deepEqual(backup.state, normalizedState)
   const importId = crypto.randomUUID()
   const changed = {

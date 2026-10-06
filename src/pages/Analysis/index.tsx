@@ -1,27 +1,27 @@
 import LineCharts from './components/LineCharts'
 import Layout from '@/components/Layout'
 import {
+  type ReviewQueueItem,
+  type StudyAchievement,
+  type StudyAnalytics,
+  type StudyCheckinSummary,
+  type StudyCsvKind,
+  type StudySyncStatus,
+  type TrendPoint,
+  type WeeklyStudyReport,
   addStudyMinutes,
+  applyStudyMakeup,
+  downloadStudyCsv,
+  exportWeeklyStudyReports,
   flushStudyProgress,
   getStudySyncSnapshot,
   loadReviewQueue,
+  loadStudyAchievements,
   loadStudyAnalytics,
   loadStudyCheckins,
-  applyStudyMakeup,
-  loadStudyAchievements,
   loadWeeklyStudyReports,
-  exportWeeklyStudyReports,
-  downloadStudyCsv,
   submitReviewResult,
   subscribeStudySyncStatus,
-  type ReviewQueueItem,
-  type StudyAnalytics,
-  type StudySyncStatus,
-  type TrendPoint,
-  type StudyCheckinSummary,
-  type StudyAchievement,
-  type StudyCsvKind,
-  type WeeklyStudyReport,
 } from '@/services/studyPlanSync'
 import { isOpenDarkModeAtom } from '@/store'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
@@ -64,11 +64,7 @@ const heatmapCellClass = (minutes: number, maxMinutes: number) => {
   return 'bg-indigo-200 dark:bg-indigo-900'
 }
 
-const rankingCard = (
-  title: string,
-  items: StudyAnalytics['rankings']['vocabulary'],
-  emptyText: string,
-) => (
+const rankingCard = (title: string, items: StudyAnalytics['rankings']['vocabulary'], emptyText: string) => (
   <div className="rounded-xl border border-gray-100 p-4 dark:border-gray-700">
     <div className="text-sm font-semibold text-gray-800 dark:text-gray-100">{title}</div>
     {items.length === 0 ? (
@@ -239,11 +235,7 @@ const Analysis = () => {
 
   const reviewResult = async (item: ReviewQueueItem, quality: number) => {
     submitReviewResult(item, quality)
-    if (
-      requestedStudyTask === 'smart-review' &&
-      requestedStudyDate &&
-      /^\d{4}-\d{2}-\d{2}$/.test(requestedStudyDate)
-    ) {
+    if (requestedStudyTask === 'smart-review' && requestedStudyDate && /^\d{4}-\d{2}-\d{2}$/.test(requestedStudyDate)) {
       try {
         addStudyMinutes(requestedStudyDate, requestedStudyTask, 2)
       } catch {
@@ -259,8 +251,8 @@ const Analysis = () => {
     syncStatus.phase === 'offline' || syncStatus.phase === 'error'
       ? 'text-amber-600 dark:text-amber-300'
       : syncStatus.pending > 0 || syncStatus.phase === 'syncing' || syncStatus.phase === 'queued'
-        ? 'text-indigo-600 dark:text-indigo-300'
-        : 'text-green-600 dark:text-green-300'
+      ? 'text-indigo-600 dark:text-indigo-300'
+      : 'text-green-600 dark:text-green-300'
 
   const points = analytics?.trends[trendScale] ?? []
   const minutesData = points.map<[string, number]>((point) => [point.startDate, point.minutes])
@@ -279,6 +271,20 @@ const Analysis = () => {
     new Date(item.finishedAt).toISOString(),
     item.score,
   ])
+  const tcfWritingData = (analytics?.tcf?.writing?.trend ?? []).map<[string, number]>((item) => [
+    new Date(item.finishedAt).toISOString(),
+    item.score,
+  ])
+  const tcfSpeakingData = (analytics?.tcf?.speaking?.trend ?? []).map<[string, number]>((item) => [
+    new Date(item.finishedAt).toISOString(),
+    item.score,
+  ])
+  const allFourReachedNclc7 = Boolean(
+    analytics?.tcf?.listening?.gapToTarget === 0 &&
+      analytics?.tcf?.reading?.gapToTarget === 0 &&
+      analytics?.tcf?.writing?.gapToTarget === 0 &&
+      analytics?.tcf?.speaking?.gapToTarget === 0,
+  )
 
   return (
     <Layout>
@@ -287,7 +293,7 @@ const Analysis = () => {
           type="button"
           aria-label="关闭统计页"
           onClick={onBack}
-          className="absolute right-4 top-4 rounded-lg p-2 text-gray-500 outline-none hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-indigo-500 sm:right-6 lg:right-20 lg:top-10 dark:text-gray-300 dark:hover:bg-gray-800"
+          className="absolute right-4 top-4 rounded-lg p-2 text-gray-500 outline-none hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-indigo-500 dark:text-gray-300 dark:hover:bg-gray-800 sm:right-6 lg:right-20 lg:top-10"
         >
           <IconX className="h-7 w-7" />
         </button>
@@ -296,7 +302,7 @@ const Analysis = () => {
             <section
               aria-labelledby="learning-dashboard-title"
               data-testid="learning-dashboard"
-              className="mx-0 my-6 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm sm:mx-4 sm:my-8 sm:p-6 dark:border-gray-700 dark:bg-gray-900"
+              className="mx-0 my-6 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-900 sm:mx-4 sm:my-8 sm:p-6"
             >
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
@@ -311,9 +317,7 @@ const Analysis = () => {
                 {projection && (
                   <div className="rounded-xl border border-indigo-100 bg-indigo-50 px-4 py-3 text-sm text-indigo-900 dark:border-indigo-900 dark:bg-indigo-950/70 dark:text-indigo-100">
                     <div className="text-xs font-medium">按近 28 天速度预测</div>
-                    <div className="mt-1 text-lg font-semibold">
-                      {projection.predictedCompletionDate ?? '数据不足'}
-                    </div>
+                    <div className="mt-1 text-lg font-semibold">{projection.predictedCompletionDate ?? '数据不足'}</div>
                     <div className="mt-1 text-xs text-indigo-700 dark:text-indigo-300">
                       当前 {projection.averageDailyMinutes} min/天 · 计划 {projection.scheduledCompletionDate}
                     </div>
@@ -332,7 +336,7 @@ const Analysis = () => {
                       <div
                         role="img"
                         aria-label="最近 90 天每日学习分钟热力图"
-                        className="mt-4 grid grid-flow-col grid-rows-7 gap-1 overflow-x-auto pb-2"
+                        className="grid-rows-7 mt-4 grid grid-flow-col gap-1 overflow-x-auto pb-2"
                       >
                         {dashboard.heatmap.map((item) => (
                           <div
@@ -372,18 +376,29 @@ const Analysis = () => {
                             aria-valuenow={projection.progressPercent}
                             className="h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700"
                           >
-                            <div className="h-full rounded-full bg-indigo-600 dark:bg-indigo-400" style={{ width: `${projection.progressPercent}%` }} />
+                            <div
+                              className="h-full rounded-full bg-indigo-600 dark:bg-indigo-400"
+                              style={{ width: `${projection.progressPercent}%` }}
+                            />
                           </div>
                           <div className="flex items-center justify-between gap-3">
                             <span className="text-gray-600 dark:text-gray-300">已完成分钟</span>
-                            <span className="text-gray-900 dark:text-gray-100">{projection.completedMinutes} / {projection.totalPlannedMinutes}</span>
+                            <span className="text-gray-900 dark:text-gray-100">
+                              {projection.completedMinutes} / {projection.totalPlannedMinutes}
+                            </span>
                           </div>
                           <div className="flex items-center justify-between gap-3">
                             <span className="text-gray-600 dark:text-gray-300">预计完成</span>
                             <span className="text-gray-900 dark:text-gray-100">{projection.predictedCompletionDate ?? '数据不足'}</span>
                           </div>
                           {projection.deltaDays !== null && (
-                            <div className={`rounded-lg px-3 py-2 text-xs ${projection.deltaDays <= 0 ? 'bg-green-50 text-green-800 dark:bg-green-950/50 dark:text-green-200' : 'bg-amber-50 text-amber-800 dark:bg-amber-950/50 dark:text-amber-200'}`}>
+                            <div
+                              className={`rounded-lg px-3 py-2 text-xs ${
+                                projection.deltaDays <= 0
+                                  ? 'bg-green-50 text-green-800 dark:bg-green-950/50 dark:text-green-200'
+                                  : 'bg-amber-50 text-amber-800 dark:bg-amber-950/50 dark:text-amber-200'
+                              }`}
+                            >
                               {projection.deltaDays <= 0
                                 ? `按当前速度预计可提前 ${Math.abs(projection.deltaDays)} 天完成。`
                                 : `按当前速度预计比计划晚 ${projection.deltaDays} 天，建议提高每日有效学习分钟。`}
@@ -397,11 +412,13 @@ const Analysis = () => {
                   </div>
 
                   <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                    {([
-                      ['词汇', mastery?.vocabulary],
-                      ['语法', mastery?.grammar],
-                      ['变位', mastery?.conjugation],
-                    ] as const).map(([label, value]) => (
+                    {(
+                      [
+                        ['词汇', mastery?.vocabulary],
+                        ['语法', mastery?.grammar],
+                        ['变位', mastery?.conjugation],
+                      ] as const
+                    ).map(([label, value]) => (
                       <div key={label} className="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800">
                         <div className="flex items-center justify-between gap-3">
                           <span className="font-medium text-gray-900 dark:text-gray-100">{label}掌握度</span>
@@ -415,7 +432,10 @@ const Analysis = () => {
                           aria-valuenow={value?.percent ?? 0}
                           className="mt-3 h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700"
                         >
-                          <div className="h-full rounded-full bg-indigo-600 dark:bg-indigo-400" style={{ width: `${value?.percent ?? 0}%` }} />
+                          <div
+                            className="h-full rounded-full bg-indigo-600 dark:bg-indigo-400"
+                            style={{ width: `${value?.percent ?? 0}%` }}
+                          />
                         </div>
                         <div className="mt-2 text-xs text-gray-600 dark:text-gray-300">
                           已掌握 {value?.mastered ?? 0} / 已接触 {value?.known ?? 0} · active 错项 {value?.activeErrors ?? 0}
@@ -431,7 +451,7 @@ const Analysis = () => {
               )}
             </section>
 
-            <section className="mx-0 my-6 rounded-2xl sm:mx-4 sm:my-8 border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+            <section className="mx-0 my-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:mx-4 sm:my-8">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <div className="text-sm font-medium text-indigo-500">今日复习 · 间隔重复</div>
@@ -446,7 +466,7 @@ const Analysis = () => {
                 <button
                   type="button"
                   onClick={() => void refreshAll()}
-                  className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 text-gray-500 hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-300"
+                  className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-500 outline-none hover:border-indigo-300 hover:text-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 dark:border-gray-700 dark:text-gray-300"
                 >
                   刷新数据
                 </button>
@@ -491,14 +511,16 @@ const Analysis = () => {
               )}
             </section>
 
-            <section className="mx-0 my-6 rounded-2xl sm:mx-4 sm:my-8 border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+            <section className="mx-0 my-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:mx-4 sm:my-8">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <div className="text-sm font-medium text-indigo-500">打卡与成就</div>
                   <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">
                     连续 {checkins.streak.current} 天 · 最长 {checkins.streak.longest} 天
                   </h2>
-                  <p className="mt-1 text-sm text-gray-500">正常完成目标自动打卡；最近 7 天可补签，每周最多 2 次，且当天至少学习 10 分钟。</p>
+                  <p className="mt-1 text-sm text-gray-500">
+                    正常完成目标自动打卡；最近 7 天可补签，每周最多 2 次，且当天至少学习 10 分钟。
+                  </p>
                 </div>
                 <div className="rounded-xl bg-indigo-50 px-4 py-3 text-sm text-indigo-700 dark:bg-indigo-950/30 dark:text-indigo-300">
                   已解锁 {achievements.length} 个成就
@@ -515,25 +537,22 @@ const Analysis = () => {
                 <div className="rounded-xl border border-gray-100 p-4 dark:border-gray-700">
                   <div className="text-sm font-semibold text-gray-800 dark:text-gray-100">每日目标完成情况</div>
                   <div className="mt-3 grid gap-2">
-                    {checkins.daily.slice(-7).reverse().map((day) => (
-                      <div key={day.day} className="rounded-lg bg-gray-50 px-3 py-2 text-sm dark:bg-gray-900">
-                        <div className="flex items-center gap-2">
-                          <span className="flex-1 text-gray-600 dark:text-gray-300">{day.day}</span>
-                          <span className={day.complete ? 'text-green-600' : day.active ? 'text-amber-600' : 'text-gray-400'}>
-                            {day.checkinStatus === 'makeup'
-                              ? '补签'
-                              : day.complete
-                                ? '完成'
-                                : day.active
-                                  ? '未完成'
-                                  : '休息日'}
-                          </span>
+                    {checkins.daily
+                      .slice(-7)
+                      .reverse()
+                      .map((day) => (
+                        <div key={day.day} className="rounded-lg bg-gray-50 px-3 py-2 text-sm dark:bg-gray-900">
+                          <div className="flex items-center gap-2">
+                            <span className="flex-1 text-gray-600 dark:text-gray-300">{day.day}</span>
+                            <span className={day.complete ? 'text-green-600' : day.active ? 'text-amber-600' : 'text-gray-400'}>
+                              {day.checkinStatus === 'makeup' ? '补签' : day.complete ? '完成' : day.active ? '未完成' : '休息日'}
+                            </span>
+                          </div>
+                          <div className="mt-1 text-xs text-gray-400">
+                            {day.actualMinutes} / {day.plannedMinutes} min
+                          </div>
                         </div>
-                        <div className="mt-1 text-xs text-gray-400">
-                          {day.actualMinutes} / {day.plannedMinutes} min
-                        </div>
-                      </div>
-                    ))}
+                      ))}
                   </div>
                 </div>
 
@@ -584,7 +603,7 @@ const Analysis = () => {
 
             <section
               data-print-weekly-reports
-              className="mx-0 my-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm sm:mx-4 sm:my-8 dark:border-gray-700 dark:bg-gray-800"
+              className="mx-0 my-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:mx-4 sm:my-8"
             >
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
@@ -643,16 +662,15 @@ const Analysis = () => {
                     >
                       <summary className="cursor-pointer list-none">
                         <div className="flex flex-wrap items-center gap-3">
-                          <span className="font-medium text-gray-900 dark:text-white">{report.weekStart} → {report.weekEnd}</span>
+                          <span className="font-medium text-gray-900 dark:text-white">
+                            {report.weekStart} → {report.weekEnd}
+                          </span>
                           <span className="text-sm text-indigo-600">{minutesLabel(report.minutes)}</span>
                           <span className="text-sm text-gray-500">完成率 {report.completionPercent}%</span>
                           <span className="ml-auto text-xs text-gray-400">{report.finalized ? '已归档' : '本周更新中'}</span>
                         </div>
                       </summary>
-                      <div
-                        data-testid={`weekly-report-body-${report.weekStart}`}
-                        className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-4"
-                      >
+                      <div data-testid={`weekly-report-body-${report.weekStart}`} className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                         <div className="rounded-lg bg-gray-50 p-3 text-sm dark:bg-gray-900">
                           <div className="text-xs text-gray-400">本周活动时长</div>
                           <div className="mt-2 space-y-1 text-gray-700 dark:text-gray-200">
@@ -673,15 +691,23 @@ const Analysis = () => {
                         <div className="rounded-lg bg-gray-50 p-3 text-sm dark:bg-gray-900">
                           <div className="text-xs text-gray-400">薄弱点</div>
                           <div className="mt-2 space-y-1 text-gray-700 dark:text-gray-200">
-                            {report.weakPoints.length ? report.weakPoints.slice(0, 4).map((item) => (
-                              <div key={`${item.kind}-${item.label}`} className="truncate">{item.label} · {item.errors} 错</div>
-                            )) : <div>本周没有明显薄弱点</div>}
+                            {report.weakPoints.length ? (
+                              report.weakPoints.slice(0, 4).map((item) => (
+                                <div key={`${item.kind}-${item.label}`} className="truncate">
+                                  {item.label} · {item.errors} 错
+                                </div>
+                              ))
+                            ) : (
+                              <div>本周没有明显薄弱点</div>
+                            )}
                           </div>
                         </div>
                         <div className="rounded-lg bg-gray-50 p-3 text-sm dark:bg-gray-900">
                           <div className="text-xs text-gray-400">下周建议</div>
                           <div className="mt-2 space-y-1 text-gray-700 dark:text-gray-200">
-                            {report.suggestions.map((suggestion) => <div key={suggestion}>{suggestion}</div>)}
+                            {report.suggestions.map((suggestion) => (
+                              <div key={suggestion}>{suggestion}</div>
+                            ))}
                           </div>
                         </div>
                       </div>
@@ -691,7 +717,7 @@ const Analysis = () => {
               )}
             </section>
 
-            <section className="mx-0 my-6 rounded-2xl sm:mx-4 sm:my-8 border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+            <section className="mx-0 my-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:mx-4 sm:my-8">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <div className="text-sm font-medium text-indigo-500">服务端学习统计</div>
@@ -748,21 +774,47 @@ const Analysis = () => {
                     </div>
                   </div>
 
-                  <section data-testid="tcf-score-trends" className="mt-5 rounded-xl border border-indigo-100 bg-indigo-50/40 p-4 dark:border-indigo-900 dark:bg-indigo-950/20">
+                  <section
+                    data-testid="tcf-score-trends"
+                    className="mt-5 rounded-xl border border-indigo-100 bg-indigo-50/40 p-4 dark:border-indigo-900 dark:bg-indigo-950/20"
+                  >
+                    {allFourReachedNclc7 && (
+                      <div
+                        data-testid="tcf-all-targets-reached"
+                        className="mb-4 rounded-xl border border-green-200 bg-green-50 p-4 text-green-900 dark:border-green-800 dark:bg-green-950/40 dark:text-green-200"
+                      >
+                        <div className="flex items-center gap-2 text-base font-bold sm:text-lg">
+                          <span>🎉</span> 恭喜！四项技能（CO / CE / EE / EO）均已达到 NCLC 7 目标！
+                        </div>
+                        <p className="mt-1 text-xs text-green-700 dark:text-green-300 sm:text-sm">
+                          听力、阅读、写作与口语均已达到加拿大移民局 NCLC 7 对应基准分数，保持手感，冲刺正式考试！
+                        </p>
+                      </div>
+                    )}
+
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <div>
                         <div className="text-sm font-semibold text-indigo-700 dark:text-indigo-300">TCF Canada 模考趋势</div>
-                        <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">按技能分别统计服务端已同步的完整模考；虚线为 NCLC 7 目标。</div>
+                        <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                          按技能分别统计服务端已同步的完整模考；虚线为 NCLC 7 目标。
+                        </div>
                       </div>
                       <div className="flex flex-wrap gap-2 text-xs">
                         <span className="rounded-full bg-white px-3 py-1.5 dark:bg-gray-900">CO 目标 458</span>
                         <span className="rounded-full bg-white px-3 py-1.5 dark:bg-gray-900">CE 目标 453</span>
+                        <span className="rounded-full bg-white px-3 py-1.5 dark:bg-gray-900">EE 目标 10/20</span>
+                        <span className="rounded-full bg-white px-3 py-1.5 dark:bg-gray-900">EO 目标 10/20</span>
                       </div>
                     </div>
 
-                    <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                    <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                       <div className="rounded-lg bg-white p-3 dark:bg-gray-900">
-                        <div className="text-xs text-gray-400">听力 CO</div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-gray-400">听力 CO</span>
+                          {analytics.tcf?.listening?.bestScore !== null && analytics.tcf?.listening?.bestScore !== undefined && (
+                            <span className="text-xs text-indigo-600 dark:text-indigo-400">最高 {analytics.tcf.listening.bestScore}</span>
+                          )}
+                        </div>
                         <div className="mt-1 text-lg font-semibold text-gray-900 dark:text-white">
                           {analytics.tcf?.listening?.latestScore ?? '—'}
                         </div>
@@ -771,12 +823,18 @@ const Analysis = () => {
                           {analytics.tcf?.listening?.gapToTarget === null || analytics.tcf?.listening?.gapToTarget === undefined
                             ? ' 尚无成绩'
                             : analytics.tcf.listening.gapToTarget === 0
-                              ? ' 已达到 NCLC 7 目标'
-                              : ` 距目标 ${analytics.tcf.listening.gapToTarget} 分`}
+                            ? ' 已达到 NCLC 7 目标'
+                            : ` 距目标 ${analytics.tcf.listening.gapToTarget} 分`}
                         </div>
                       </div>
+
                       <div className="rounded-lg bg-white p-3 dark:bg-gray-900">
-                        <div className="text-xs text-gray-400">阅读 CE</div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-gray-400">阅读 CE</span>
+                          {analytics.tcf?.reading?.bestScore !== null && analytics.tcf?.reading?.bestScore !== undefined && (
+                            <span className="text-xs text-indigo-600 dark:text-indigo-400">最高 {analytics.tcf.reading.bestScore}</span>
+                          )}
+                        </div>
                         <div className="mt-1 text-lg font-semibold text-gray-900 dark:text-white">
                           {analytics.tcf?.reading?.latestScore ?? '—'}
                         </div>
@@ -785,18 +843,92 @@ const Analysis = () => {
                           {analytics.tcf?.reading?.gapToTarget === null || analytics.tcf?.reading?.gapToTarget === undefined
                             ? ' 尚无成绩'
                             : analytics.tcf.reading.gapToTarget === 0
-                              ? ' 已达到 NCLC 7 目标'
-                              : ` 距目标 ${analytics.tcf.reading.gapToTarget} 分`}
+                            ? ' 已达到 NCLC 7 目标'
+                            : ` 距目标 ${analytics.tcf.reading.gapToTarget} 分`}
+                        </div>
+                      </div>
+
+                      <div className="rounded-lg bg-white p-3 dark:bg-gray-900">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-gray-400">写作 EE</span>
+                          {analytics.tcf?.writing?.bestScore !== null && analytics.tcf?.writing?.bestScore !== undefined && (
+                            <span className="text-xs text-indigo-600 dark:text-indigo-400">最高 {analytics.tcf.writing.bestScore}</span>
+                          )}
+                        </div>
+                        <div className="mt-1 text-lg font-semibold text-gray-900 dark:text-white">
+                          {analytics.tcf?.writing?.latestScore !== null && analytics.tcf?.writing?.latestScore !== undefined
+                            ? `${analytics.tcf.writing.latestScore} / 20`
+                            : '—'}
+                        </div>
+                        <div className="mt-1 text-xs text-gray-500">
+                          {analytics.tcf?.writing?.attempts ?? 0} 次 ·
+                          {analytics.tcf?.writing?.gapToTarget === null || analytics.tcf?.writing?.gapToTarget === undefined
+                            ? ' 尚无成绩'
+                            : analytics.tcf.writing.gapToTarget === 0
+                            ? ' 已达到 NCLC 7 目标'
+                            : ` 距目标 ${analytics.tcf.writing.gapToTarget} 分`}
+                        </div>
+                      </div>
+
+                      <div className="rounded-lg bg-white p-3 dark:bg-gray-900">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-gray-400">口语 EO</span>
+                          {analytics.tcf?.speaking?.bestScore !== null && analytics.tcf?.speaking?.bestScore !== undefined && (
+                            <span className="text-xs text-indigo-600 dark:text-indigo-400">最高 {analytics.tcf.speaking.bestScore}</span>
+                          )}
+                        </div>
+                        <div className="mt-1 text-lg font-semibold text-gray-900 dark:text-white">
+                          {analytics.tcf?.speaking?.latestScore !== null && analytics.tcf?.speaking?.latestScore !== undefined
+                            ? `${analytics.tcf.speaking.latestScore} / 20`
+                            : '—'}
+                        </div>
+                        <div className="mt-1 text-xs text-gray-500">
+                          {analytics.tcf?.speaking?.attempts ?? 0} 次 ·
+                          {analytics.tcf?.speaking?.gapToTarget === null || analytics.tcf?.speaking?.gapToTarget === undefined
+                            ? ' 尚无成绩'
+                            : analytics.tcf.speaking.gapToTarget === 0
+                            ? ' 已达到 NCLC 7 目标'
+                            : ` 距目标 ${analytics.tcf.speaking.gapToTarget} 分`}
                         </div>
                       </div>
                     </div>
 
                     <div className="mt-4 grid gap-4 xl:grid-cols-2">
                       <div className="h-72 rounded-xl border border-indigo-100 bg-white p-4 dark:border-indigo-900 dark:bg-gray-900">
-                        <LineCharts title="听力 CO 历次模考分数" name="CO 分数" data={tcfListeningData} target={458} targetLabel="NCLC 7 · 458" />
+                        <LineCharts
+                          title="听力 CO 历次模考分数"
+                          name="CO 分数"
+                          data={tcfListeningData}
+                          target={458}
+                          targetLabel="NCLC 7 · 458"
+                        />
                       </div>
                       <div className="h-72 rounded-xl border border-indigo-100 bg-white p-4 dark:border-indigo-900 dark:bg-gray-900">
-                        <LineCharts title="阅读 CE 历次模考分数" name="CE 分数" data={tcfReadingData} target={453} targetLabel="NCLC 7 · 453" />
+                        <LineCharts
+                          title="阅读 CE 历次模考分数"
+                          name="CE 分数"
+                          data={tcfReadingData}
+                          target={453}
+                          targetLabel="NCLC 7 · 453"
+                        />
+                      </div>
+                      <div className="h-72 rounded-xl border border-indigo-100 bg-white p-4 dark:border-indigo-900 dark:bg-gray-900">
+                        <LineCharts
+                          title="写作 EE 历次模考分数"
+                          name="EE 分数"
+                          data={tcfWritingData}
+                          target={10}
+                          targetLabel="NCLC 7 · 10/20"
+                        />
+                      </div>
+                      <div className="h-72 rounded-xl border border-indigo-100 bg-white p-4 dark:border-indigo-900 dark:bg-gray-900">
+                        <LineCharts
+                          title="口语 EO 历次模考分数"
+                          name="EO 分数"
+                          data={tcfSpeakingData}
+                          target={10}
+                          targetLabel="NCLC 7 · 10/20"
+                        />
                       </div>
                     </div>
                   </section>

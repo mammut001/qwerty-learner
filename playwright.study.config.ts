@@ -18,6 +18,7 @@ export default defineConfig({
       name: 'chromium-study',
       use: {
         ...devices['Desktop Chrome'],
+        channel: process.env.PLAYWRIGHT_CHROMIUM_CHANNEL || undefined,
         permissions: ['notifications'],
       },
     },

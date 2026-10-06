@@ -5,7 +5,7 @@ import { join } from 'node:path'
 import { DatabaseSync } from 'node:sqlite'
 import { test } from 'node:test'
 
-test('D1 migration chain 0001 through 0007 applies cleanly and lands on schema v7', () => {
+test('D1 migration chain 0001 through 0008 applies cleanly and lands on schema v8', () => {
   const dir = mkdtempSync(join(tmpdir(), 'study-migrations-'))
   const database = join(dir, 'migrations.sqlite')
   const db = new DatabaseSync(database)
@@ -17,7 +17,7 @@ test('D1 migration chain 0001 through 0007 applies cleanly and lands on schema v
 
     assert.deepEqual(
       files.map((name) => Number(name.slice(0, 4))),
-      [1, 2, 3, 4, 5, 6, 7],
+      [1, 2, 3, 4, 5, 6, 7, 8],
       'migration numbers must stay contiguous and ordered',
     )
 
@@ -30,7 +30,7 @@ test('D1 migration chain 0001 through 0007 applies cleanly and lands on schema v
     const schemaVersion = Number(
       db.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").get()?.value,
     )
-    assert.equal(schemaVersion, 7)
+    assert.equal(schemaVersion, 8)
 
     const requiredTables = [
       'learners',
@@ -41,6 +41,9 @@ test('D1 migration chain 0001 through 0007 applies cleanly and lands on schema v
       'achievements',
       'weekly_reports',
       'tcf_attempts',
+      'tcf_ee_drafts',
+      'tcf_ee_attempts',
+      'tcf_eo_attempts',
       'rate_limits',
       'audit_log',
       'schema_meta',
@@ -60,6 +63,24 @@ test('D1 migration chain 0001 through 0007 applies cleanly and lands on schema v
     const passkeyColumns = new Set(db.prepare('PRAGMA table_info(passkeys)').all().map((row) => row.name))
     for (const column of ['credential_id', 'account_id', 'public_key', 'algorithm', 'sign_count'])
       assert.ok(passkeyColumns.has(column), `missing passkey column: ${column}`)
+
+    // Verify v7 39-question constraint on QCM tcf_attempts is preserved
+    const qcmTableSql = db.prepare("SELECT sql FROM sqlite_master WHERE type='table' AND name='tcf_attempts'").get()?.sql ?? ''
+    assert.ok(qcmTableSql.includes('question_count = 39'), 'QCM 39 questions constraint must be preserved')
+    assert.ok(qcmTableSql.includes("'listening','reading'"), 'QCM skills listening and reading must be preserved')
+
+    // Verify v8 EE/EO tables
+    const eeDraftCols = new Set(db.prepare('PRAGMA table_info(tcf_ee_drafts)').all().map((row) => row.name))
+    for (const col of ['learner', 'draft_id', 'task1_response', 'task2_response', 'task3_response', 'remaining_seconds'])
+      assert.ok(eeDraftCols.has(col), `missing tcf_ee_drafts column: ${col}`)
+
+    const eeAttemptCols = new Set(db.prepare('PRAGMA table_info(tcf_ee_attempts)').all().map((row) => row.name))
+    for (const col of ['learner', 'attempt_id', 'total_score', 'nclc', 'task1_response'])
+      assert.ok(eeAttemptCols.has(col), `missing tcf_ee_attempts column: ${col}`)
+
+    const eoAttemptCols = new Set(db.prepare('PRAGMA table_info(tcf_eo_attempts)').all().map((row) => row.name))
+    for (const col of ['learner', 'attempt_id', 'total_score', 'nclc', 'recordings_meta'])
+      assert.ok(eoAttemptCols.has(col), `missing tcf_eo_attempts column: ${col}`)
   } finally {
     db.close()
     rmSync(dir, { recursive: true, force: true })

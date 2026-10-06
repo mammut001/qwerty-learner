@@ -1,18 +1,6 @@
 import Layout from '@/components/Layout'
-import {
-  addStudyMinutes,
-  flushStudyProgress,
-  recordTcfAttempt,
-  type TcfAttemptRecord,
-} from '@/services/studyPlanSync'
-import {
-  TCF_CONFIG,
-  TCF_QUESTIONS,
-  estimateTcfNclc,
-  estimateTcfScaledScore,
-  type TcfQuestion,
-  type TcfSkill,
-} from '@/resources/tcfMock'
+import { TCF_CONFIG, TCF_QUESTIONS, type TcfQcmSkill, type TcfQuestion, estimateTcfNclc, estimateTcfScaledScore } from '@/resources/tcfMock'
+import { type TcfAttemptRecord, addStudyMinutes, flushStudyProgress, recordTcfAttempt } from '@/services/studyPlanSync'
 import { useEffect, useMemo, useState } from 'react'
 import { NavLink, useSearchParams } from 'react-router-dom'
 import IconArrowLeft from '~icons/tabler/arrow-left'
@@ -22,8 +10,7 @@ import IconPlayerPlay from '~icons/tabler/player-play'
 type ExamMode = 'intro' | 'running' | 'review'
 const answerLetters = ['A', 'B', 'C', 'D'] as const
 
-const formatClock = (seconds: number) =>
-  `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`
+const formatClock = (seconds: number) => `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`
 
 const nclcLabel = (value: number) => (value >= 4 ? `NCLC ${value}` : 'NCLC < 4')
 
@@ -37,7 +24,7 @@ function QuestionContent({
   onSelect,
 }: {
   question: TcfQuestion
-  skill: TcfSkill
+  skill: TcfQcmSkill
   mode: ExamMode
   selected: number | undefined
   played: boolean
@@ -62,9 +49,7 @@ function QuestionContent({
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <div className="font-medium text-gray-900 dark:text-white">音频只可播放一次</div>
-                <div className="mt-1 text-sm text-gray-500">
-                  {played ? '本题播放机会已使用。' : '准备好后再点击播放；点击后不能重播。'}
-                </div>
+                <div className="mt-1 text-sm text-gray-500">{played ? '本题播放机会已使用。' : '准备好后再点击播放；点击后不能重播。'}</div>
               </div>
               <button
                 type="button"
@@ -95,10 +80,10 @@ function QuestionContent({
             const tone = isCorrect
               ? 'border-green-500 bg-green-50 dark:bg-green-950/40'
               : isWrong
-                ? 'border-red-400 bg-red-50 dark:bg-red-950/30'
-                : isSelected
-                  ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-950/40'
-                  : 'border-gray-200 bg-white hover:border-indigo-300 dark:border-gray-700 dark:bg-gray-800'
+              ? 'border-red-400 bg-red-50 dark:bg-red-950/30'
+              : isSelected
+              ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-950/40'
+              : 'border-gray-200 bg-white hover:border-indigo-300 dark:border-gray-700 dark:bg-gray-800'
             return (
               <button
                 key={choice}
@@ -118,15 +103,19 @@ function QuestionContent({
       </div>
 
       {reviewing && (
-        <div data-testid="tcf-explanation" className="rounded-xl bg-gray-100 p-4 text-sm leading-6 text-gray-700 dark:bg-gray-900 dark:text-gray-200">
-          <strong>解析：</strong>{question.explanation}
+        <div
+          data-testid="tcf-explanation"
+          className="rounded-xl bg-gray-100 p-4 text-sm leading-6 text-gray-700 dark:bg-gray-900 dark:text-gray-200"
+        >
+          <strong>解析：</strong>
+          {question.explanation}
         </div>
       )}
     </div>
   )
 }
 
-export default function TcfMockExamPage({ skill }: { skill: TcfSkill }) {
+export default function TcfMockExamPage({ skill }: { skill: TcfQcmSkill }) {
   const config = TCF_CONFIG[skill]
   const questions = TCF_QUESTIONS[skill]
   const [searchParams] = useSearchParams()
@@ -144,10 +133,7 @@ export default function TcfMockExamPage({ skill }: { skill: TcfSkill }) {
 
   const question = questions[currentIndex]
   const answeredCount = Object.keys(answers).length
-  const targetGap = useMemo(
-    () => (result ? Math.max(0, config.targetScore - result.scaledScore) : null),
-    [config.targetScore, result],
-  )
+  const targetGap = useMemo(() => (result ? Math.max(0, config.targetScore - result.scaledScore) : null), [config.targetScore, result])
 
   useEffect(() => {
     if (mode !== 'running') return
@@ -202,10 +188,7 @@ export default function TcfMockExamPage({ skill }: { skill: TcfSkill }) {
     const correctCount = responseItems.filter((item) => item.correct).length
     const scaledScore = estimateTcfScaledScore(correctCount)
     const nclc = estimateTcfNclc(skill, scaledScore)
-    const durationSeconds = Math.max(
-      0,
-      Math.min(config.minutes * 60, Math.round((finishedAt - startedAt) / 1000)),
-    )
+    const durationSeconds = Math.max(0, Math.min(config.minutes * 60, Math.round((finishedAt - startedAt) / 1000)))
     try {
       const saved = recordTcfAttempt({
         skill,
@@ -221,12 +204,7 @@ export default function TcfMockExamPage({ skill }: { skill: TcfSkill }) {
       setResult(saved)
       setMode('review')
       setCurrentIndex(0)
-      if (
-        studyDate &&
-        studyTask &&
-        /^\d{4}-\d{2}-\d{2}$/.test(studyDate) &&
-        /^[a-z][a-z0-9-]{0,79}$/.test(studyTask)
-      ) {
+      if (studyDate && studyTask && /^\d{4}-\d{2}-\d{2}$/.test(studyDate) && /^[a-z][a-z0-9-]{0,79}$/.test(studyTask)) {
         addStudyMinutes(studyDate, studyTask, Math.max(1, Math.ceil(durationSeconds / 60)))
       }
       await flushStudyProgress()
@@ -248,7 +226,10 @@ export default function TcfMockExamPage({ skill }: { skill: TcfSkill }) {
               返回学习计划
             </NavLink>
             {mode !== 'intro' && (
-              <div data-testid="tcf-timer" className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-4 py-2 font-mono text-sm text-gray-700 dark:bg-gray-800 dark:text-gray-200">
+              <div
+                data-testid="tcf-timer"
+                className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-4 py-2 font-mono text-sm text-gray-700 dark:bg-gray-800 dark:text-gray-200"
+              >
                 <IconClock className="h-4 w-4" />
                 {formatClock(remainingSeconds)}
               </div>
@@ -264,9 +245,15 @@ export default function TcfMockExamPage({ skill }: { skill: TcfSkill }) {
                 : '60 分钟。覆盖通知、短文、实用文本、文章与观点类材料，四选一；交卷后逐题复盘。'}
             </p>
             <div className="mt-5 flex flex-wrap gap-3 text-sm">
-              <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">目标 NCLC 7</span>
-              <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">目标分数 {config.targetScore}</span>
-              <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">{config.minutes} 分钟</span>
+              <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
+                目标 NCLC 7
+              </span>
+              <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
+                目标分数 {config.targetScore}
+              </span>
+              <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
+                {config.minutes} 分钟
+              </span>
             </div>
           </header>
 
@@ -279,32 +266,65 @@ export default function TcfMockExamPage({ skill }: { skill: TcfSkill }) {
                 <li>• 分数为训练估算；真实 TCF Canada 使用官方加权换算。</li>
                 <li>• 结果会保存作答、用时、估算分数和 NCLC，并通过现有同步机制跨设备恢复。</li>
               </ul>
-              <button type="button" data-testid="tcf-start-exam" onClick={startExam} className="mt-6 rounded-xl bg-indigo-600 px-6 py-3 font-semibold text-white hover:bg-indigo-700">
+              <button
+                type="button"
+                data-testid="tcf-start-exam"
+                onClick={startExam}
+                className="mt-6 rounded-xl bg-indigo-600 px-6 py-3 font-semibold text-white hover:bg-indigo-700"
+              >
                 开始完整模考
               </button>
             </section>
           ) : (
             <>
               {result && (
-                <section data-testid="tcf-result" className="mt-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                <section
+                  data-testid="tcf-result"
+                  className="mt-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+                >
                   <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                    <div><div className="text-xs text-gray-400">答对</div><div className="mt-1 text-2xl font-bold text-gray-950 dark:text-white">{result.correctCount} / 39</div></div>
-                    <div><div className="text-xs text-gray-400">估算分数</div><div className="mt-1 text-2xl font-bold text-indigo-600">{result.scaledScore} / 699</div></div>
-                    <div><div className="text-xs text-gray-400">估算等级</div><div className="mt-1 text-2xl font-bold text-gray-950 dark:text-white">{nclcLabel(result.nclc)}</div></div>
-                    <div><div className="text-xs text-gray-400">距 NCLC 7</div><div className="mt-1 text-2xl font-bold text-gray-950 dark:text-white">{targetGap === 0 ? '已达到' : `还差 ${targetGap} 分`}</div></div>
+                    <div>
+                      <div className="text-xs text-gray-400">答对</div>
+                      <div className="mt-1 text-2xl font-bold text-gray-950 dark:text-white">{result.correctCount} / 39</div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-gray-400">估算分数</div>
+                      <div className="mt-1 text-2xl font-bold text-indigo-600">{result.scaledScore} / 699</div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-gray-400">估算等级</div>
+                      <div className="mt-1 text-2xl font-bold text-gray-950 dark:text-white">{nclcLabel(result.nclc)}</div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-gray-400">距 NCLC 7</div>
+                      <div className="mt-1 text-2xl font-bold text-gray-950 dark:text-white">
+                        {targetGap === 0 ? '已达到' : `还差 ${targetGap} 分`}
+                      </div>
+                    </div>
                   </div>
-                  <p className="mt-4 text-xs leading-5 text-gray-500">训练分数采用 0–699 线性估算，仅用于趋势与目标差距，不代替官方成绩单。</p>
+                  <p className="mt-4 text-xs leading-5 text-gray-500">
+                    训练分数采用 0–699 线性估算，仅用于趋势与目标差距，不代替官方成绩单。
+                  </p>
                 </section>
               )}
 
               <section className="mt-6 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-7">
                 <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
                   <div>
-                    <div className="text-sm font-medium text-indigo-600">第 {currentIndex + 1} / {questions.length} 题</div>
-                    {mode === 'running' && <div className="mt-1 text-xs text-gray-400">已作答 {answeredCount} / {questions.length}</div>}
+                    <div className="text-sm font-medium text-indigo-600">
+                      第 {currentIndex + 1} / {questions.length} 题
+                    </div>
+                    {mode === 'running' && (
+                      <div className="mt-1 text-xs text-gray-400">
+                        已作答 {answeredCount} / {questions.length}
+                      </div>
+                    )}
                   </div>
                   <div className="h-2 w-40 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700">
-                    <div className="h-full rounded-full bg-indigo-600 transition-all" style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }} />
+                    <div
+                      className="h-full rounded-full bg-indigo-600 transition-all"
+                      style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
+                    />
                   </div>
                 </div>
 
@@ -319,16 +339,32 @@ export default function TcfMockExamPage({ skill }: { skill: TcfSkill }) {
                 />
 
                 <div className="mt-7 flex flex-wrap items-center justify-between gap-3">
-                  <button type="button" disabled={currentIndex === 0} onClick={() => setCurrentIndex((old) => Math.max(0, old - 1))} className="rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-600 disabled:opacity-40 dark:border-gray-600 dark:text-gray-200">
+                  <button
+                    type="button"
+                    disabled={currentIndex === 0}
+                    onClick={() => setCurrentIndex((old) => Math.max(0, old - 1))}
+                    className="rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-600 disabled:opacity-40 dark:border-gray-600 dark:text-gray-200"
+                  >
                     上一题
                   </button>
                   <div className="flex gap-2">
                     {mode === 'running' && (
-                      <button type="button" data-testid="tcf-submit-exam" disabled={submitting} onClick={() => void finishExam()} className="rounded-lg border border-red-200 px-4 py-2 text-sm font-medium text-red-600 disabled:opacity-50 dark:border-red-900">
+                      <button
+                        type="button"
+                        data-testid="tcf-submit-exam"
+                        disabled={submitting}
+                        onClick={() => void finishExam()}
+                        className="rounded-lg border border-red-200 px-4 py-2 text-sm font-medium text-red-600 disabled:opacity-50 dark:border-red-900"
+                      >
                         {submitting ? '正在保存…' : '交卷'}
                       </button>
                     )}
-                    <button type="button" disabled={currentIndex === questions.length - 1} onClick={() => setCurrentIndex((old) => Math.min(questions.length - 1, old + 1))} className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white disabled:opacity-40">
+                    <button
+                      type="button"
+                      disabled={currentIndex === questions.length - 1}
+                      onClick={() => setCurrentIndex((old) => Math.min(questions.length - 1, old + 1))}
+                      className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
+                    >
                       下一题
                     </button>
                   </div>
@@ -345,7 +381,9 @@ export default function TcfMockExamPage({ skill }: { skill: TcfSkill }) {
                         type="button"
                         onClick={() => setCurrentIndex(index)}
                         aria-label={`复盘第 ${index + 1} 题`}
-                        className={`h-9 rounded-lg text-xs font-semibold ${currentIndex === index ? 'ring-2 ring-indigo-500' : ''} ${correct ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}
+                        className={`h-9 rounded-lg text-xs font-semibold ${currentIndex === index ? 'ring-2 ring-indigo-500' : ''} ${
+                          correct ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                        }`}
                       >
                         {index + 1}
                       </button>
@@ -356,7 +394,9 @@ export default function TcfMockExamPage({ skill }: { skill: TcfSkill }) {
             </>
           )}
 
-          {message && <div className="mt-5 rounded-xl bg-gray-100 px-4 py-3 text-sm text-gray-600 dark:bg-gray-800 dark:text-gray-300">{message}</div>}
+          {message && (
+            <div className="mt-5 rounded-xl bg-gray-100 px-4 py-3 text-sm text-gray-600 dark:bg-gray-800 dark:text-gray-300">{message}</div>
+          )}
         </div>
       </div>
     </Layout>

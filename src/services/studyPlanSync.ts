@@ -24,13 +24,9 @@ const shiftStudyDateKey = (key: string, amount: number) => {
   return `${nextYear}-${nextMonth}-${nextDay}`
 }
 
-const startDateFromExamDate = (examDate: string) =>
-  shiftStudyDateKey(examDate, -(STUDY_PLAN_DAY_COUNT - 1))
+const startDateFromExamDate = (examDate: string) => shiftStudyDateKey(examDate, -(STUDY_PLAN_DAY_COUNT - 1))
 
-const normalizeStudyPlanSettings = (
-  value: Partial<StudyPlanSettings> | null | undefined,
-  startDate: string,
-): StudyPlanSettings => {
+const normalizeStudyPlanSettings = (value: Partial<StudyPlanSettings> | null | undefined, startDate: string): StudyPlanSettings => {
   const fallback: StudyPlanSettings = {
     examDate: shiftStudyDateKey(startDate, STUDY_PLAN_DAY_COUNT - 1),
     dailyTargetMinutes: null,
@@ -46,10 +42,7 @@ const normalizeStudyPlanSettings = (
     examDate: validStudyDateKey(requestedExamDate) ? requestedExamDate : fallback.examDate,
     dailyTargetMinutes:
       requestedTarget === null ||
-      (typeof requestedTarget === 'number' &&
-        Number.isInteger(requestedTarget) &&
-        requestedTarget >= 20 &&
-        requestedTarget <= 240)
+      (typeof requestedTarget === 'number' && Number.isInteger(requestedTarget) && requestedTarget >= 20 && requestedTarget <= 240)
         ? requestedTarget
         : fallback.dailyTargetMinutes,
     studyDays: studyDays.length ? studyDays : fallback.studyDays,
@@ -153,7 +146,7 @@ export type FocusSessionRecord = {
   endedAt: number
 }
 
-export type TcfSkill = 'listening' | 'reading'
+export type TcfSkill = 'listening' | 'reading' | 'writing' | 'speaking'
 export type TcfAttemptAnswer = {
   questionId: string
   choice: number | null
@@ -163,9 +156,101 @@ export type TcfAttemptRecord = {
   id: string
   skill: TcfSkill
   questionCount: number
-  answers: TcfAttemptAnswer[]
-  correctCount: number
+  answers?: TcfAttemptAnswer[]
+  correctCount?: number | null
   scaledScore: number
+  score?: number
+  nclc: number
+  durationSeconds: number
+  startedAt: number
+  finishedAt: number
+  day: string
+  writingDetails?: {
+    task1Id: string
+    task1Response: string
+    task2Id: string
+    task2Response: string
+    task3Id: string
+    task3Response: string
+    wordCounts: { task1: number; task2: number; task3: number }
+    scores: { taskCompletion: number; coherence: number; vocabulary: number; grammar: number }
+  }
+  speakingDetails?: {
+    task1Id: string
+    task1Duration: number
+    task2Id: string
+    task2Duration: number
+    task3Id: string
+    task3Duration: number
+    recordingsMeta: Record<string, unknown>
+    scores: { fluency: number; pronunciation: number; vocabulary: number; grammar: number; taskCompletion: number }
+  }
+}
+
+export type TcfEeDraft = {
+  draftId: string
+  task1Id: string
+  task1Response: string
+  task2Id: string
+  task2Response: string
+  task3Id: string
+  task3Response: string
+  remainingSeconds: number
+  currentTask: number
+  startedAt: number
+  updatedAt: number
+}
+
+export type TcfEeAttempt = {
+  id: string
+  skill?: 'writing'
+  task1Id: string
+  task1Response: string
+  task2Id: string
+  task2Response: string
+  task3Id: string
+  task3Response: string
+  wordCounts: { task1: number; task2: number; task3: number }
+  scores: { taskCompletion: number; coherence: number; vocabulary: number; grammar: number }
+  totalScore: number
+  scaledScore?: number
+  score?: number
+  nclc: number
+  durationSeconds: number
+  startedAt: number
+  finishedAt: number
+  day: string
+}
+
+export type TcfEoRecordingMeta = {
+  recorded: boolean
+  duration: number
+}
+
+export type TcfEoAttempt = {
+  id: string
+  skill?: 'speaking'
+  task1Id: string
+  task1Duration: number
+  task2Id: string
+  task2Duration: number
+  task3Id: string
+  task3Duration: number
+  recordingsMeta: {
+    task1?: TcfEoRecordingMeta
+    task2?: TcfEoRecordingMeta
+    task3?: TcfEoRecordingMeta
+  }
+  scores: {
+    fluency: number
+    pronunciation: number
+    vocabulary: number
+    grammar: number
+    taskCompletion: number
+  }
+  totalScore: number
+  scaledScore?: number
+  score?: number
   nclc: number
   durationSeconds: number
   startedAt: number
@@ -428,6 +513,8 @@ export type StudyAnalytics = {
   tcf: {
     listening: TcfSkillAnalytics
     reading: TcfSkillAnalytics
+    writing?: TcfSkillAnalytics
+    speaking?: TcfSkillAnalytics
   }
   trends: { daily: TrendPoint[]; weekly: TrendPoint[]; monthly: TrendPoint[] }
   rankings: {
@@ -641,7 +728,7 @@ async function api(method: string, path = '', body?: unknown, unauthorized = 'ST
       method,
       credentials: 'include',
       signal: controller.signal,
-      headers: body === undefined ? undefined : { 'Content-Type': 'application/json' },
+      headers: method === 'GET' && body === undefined ? undefined : { 'Content-Type': 'application/json' },
       body: body === undefined ? undefined : JSON.stringify(body),
     })
     if (response.status === 401) throw new Error(unauthorized)
@@ -789,9 +876,11 @@ export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Pr
   }
   if (running) return running
 
-  const locks = (navigator as Navigator & {
-    locks?: { request: (name: string, callback: () => Promise<void>) => Promise<void> }
-  }).locks
+  const locks = (
+    navigator as Navigator & {
+      locks?: { request: (name: string, callback: () => Promise<void>) => Promise<void> }
+    }
+  ).locks
   running = (locks ? locks.request('qwerty-study-plan', drain) : drain())
     .catch((error: Error) => {
       const sessionBlocked = error.message === 'STUDY_SESSION_BLOCKED'
@@ -801,8 +890,8 @@ export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Pr
         sessionBlocked
           ? '浏览器未保留学习会话。记录仍保留在本机，允许 Cookie 后会继续同步。'
           : offline
-            ? '当前离线：学习记录已保存在本机，联网后会按最新时间戳自动合并。'
-            : '服务端暂不可用，记录保留在本机，将自动重试。',
+          ? '当前离线：学习记录已保存在本机，联网后会按最新时间戳自动合并。'
+          : '服务端暂不可用，记录保留在本机，将自动重试。',
       )
       if (!retry)
         retry = setTimeout(() => {
@@ -828,10 +917,7 @@ function enqueue(operations: Operation[]) {
       .map((key) => Number(key.slice(PENDING.length).split(':')[0])),
   )
   const order = Math.max(Date.now() * 1000, last + 1)
-  localStorage.setItem(
-    `${PENDING}${order.toString().padStart(16, '0')}:${id}`,
-    JSON.stringify({ id, operations }),
-  )
+  localStorage.setItem(`${PENDING}${order.toString().padStart(16, '0')}:${id}`, JSON.stringify({ id, operations }))
   emitSyncStatus('queued', '已先保存在本机，正在同步…')
   void syncStudyPlan()
   return id
@@ -875,12 +961,7 @@ export function saveStudyPlan(previous: StudyPlanStorage, next: StudyPlanStorage
   }
   const current = ensureFallback(previous)
   enqueue(operations)
-  publish(
-    applyStudyPlanClocks(
-      { ...current, startDate: next.startDate, minutes: next.minutes, minimumMode: next.minimumMode },
-      operations,
-    ),
-  )
+  publish(applyStudyPlanClocks({ ...current, startDate: next.startDate, minutes: next.minutes, minimumMode: next.minimumMode }, operations))
 }
 
 export function saveStudyPlanSettings(settings: StudyPlanSettings) {
@@ -910,10 +991,8 @@ export function recordFocusSession(input: Omit<FocusSessionRecord, 'id'> & { id?
   if (!/^\d{4}-\d{2}-\d{2}$/.test(input.day)) throw new Error('INVALID_FOCUS_DAY')
   if (!/^[a-z][a-z0-9-]{0,79}$/.test(input.taskId)) throw new Error('INVALID_FOCUS_TASK')
   if (!input.title.trim() || input.title.length > 160) throw new Error('INVALID_FOCUS_TITLE')
-  if (!Number.isInteger(input.minutes) || input.minutes < 1 || input.minutes > 240)
-    throw new Error('INVALID_FOCUS_MINUTES')
-  if (!Number.isSafeInteger(input.endedAt) || input.endedAt < 0 || input.endedAt > 9999999999999)
-    throw new Error('INVALID_FOCUS_TIMESTAMP')
+  if (!Number.isInteger(input.minutes) || input.minutes < 1 || input.minutes > 240) throw new Error('INVALID_FOCUS_MINUTES')
+  if (!Number.isSafeInteger(input.endedAt) || input.endedAt < 0 || input.endedAt > 9999999999999) throw new Error('INVALID_FOCUS_TIMESTAMP')
 
   const session: FocusSessionRecord = {
     id: input.id ?? crypto.randomUUID(),
@@ -930,10 +1009,7 @@ export function recordFocusSession(input: Omit<FocusSessionRecord, 'id'> & { id?
     { kind: 'focusSession', value: session },
   ]
   enqueue(operations)
-  const focusSessions = [
-    ...current.learning.focusSessions.filter((item) => item.id !== session.id),
-    session,
-  ].slice(-MAX_FOCUS_SESSIONS)
+  const focusSessions = [...current.learning.focusSessions.filter((item) => item.id !== session.id), session].slice(-MAX_FOCUS_SESSIONS)
   publish({
     ...current,
     minutes: {
@@ -948,27 +1024,38 @@ export function recordFocusSession(input: Omit<FocusSessionRecord, 'id'> & { id?
   return session
 }
 
-export function recordTcfAttempt(
-  input: Omit<TcfAttemptRecord, 'id' | 'day'> & { id?: string; day?: string },
-) {
+export function recordTcfAttempt(input: Omit<TcfAttemptRecord, 'id' | 'day'> & { id?: string; day?: string }) {
   if (!['listening', 'reading'].includes(input.skill)) throw new Error('INVALID_TCF_SKILL')
   if (!Number.isInteger(input.questionCount) || input.questionCount !== 39) throw new Error('INVALID_TCF_QUESTION_COUNT')
   if (!Array.isArray(input.answers) || input.answers.length !== input.questionCount) throw new Error('INVALID_TCF_ANSWERS')
-  if (input.answers.some((answer) =>
-    !answer ||
-    typeof answer.questionId !== 'string' ||
-    answer.questionId.length > 80 ||
-    !(answer.choice === null || (Number.isInteger(answer.choice) && answer.choice >= 0 && answer.choice <= 3)) ||
-    typeof answer.correct !== 'boolean'
-  )) throw new Error('INVALID_TCF_ANSWERS')
-  if (!Number.isInteger(input.correctCount) || input.correctCount < 0 || input.correctCount > input.questionCount)
+  if (
+    input.answers.some(
+      (answer) =>
+        !answer ||
+        typeof answer.questionId !== 'string' ||
+        answer.questionId.length > 80 ||
+        !(answer.choice === null || (Number.isInteger(answer.choice) && answer.choice >= 0 && answer.choice <= 3)) ||
+        typeof answer.correct !== 'boolean',
+    )
+  )
+    throw new Error('INVALID_TCF_ANSWERS')
+  if (
+    typeof input.correctCount !== 'number' ||
+    !Number.isInteger(input.correctCount) ||
+    input.correctCount < 0 ||
+    input.correctCount > input.questionCount
+  )
     throw new Error('INVALID_TCF_SCORE')
-  if (!Number.isInteger(input.scaledScore) || input.scaledScore < 0 || input.scaledScore > 699)
-    throw new Error('INVALID_TCF_SCORE')
+  if (!Number.isInteger(input.scaledScore) || input.scaledScore < 0 || input.scaledScore > 699) throw new Error('INVALID_TCF_SCORE')
   if (!Number.isInteger(input.nclc) || input.nclc < 0 || input.nclc > 10) throw new Error('INVALID_TCF_NCLC')
   if (!Number.isInteger(input.durationSeconds) || input.durationSeconds < 0 || input.durationSeconds > 3600)
     throw new Error('INVALID_TCF_DURATION')
-  if (!Number.isSafeInteger(input.startedAt) || !Number.isSafeInteger(input.finishedAt) || input.startedAt < 0 || input.finishedAt < input.startedAt)
+  if (
+    !Number.isSafeInteger(input.startedAt) ||
+    !Number.isSafeInteger(input.finishedAt) ||
+    input.startedAt < 0 ||
+    input.finishedAt < input.startedAt
+  )
     throw new Error('INVALID_TCF_TIMESTAMP')
 
   const attempt: TcfAttemptRecord = {
@@ -978,10 +1065,7 @@ export function recordTcfAttempt(
     answers: input.answers.map((answer) => ({ ...answer })),
   }
   optimisticOperation({ kind: 'tcfAttempt', value: attempt }, (state) => {
-    const attempts = [
-      ...state.learning.tcfAttempts.filter((item) => item.id !== attempt.id),
-      attempt,
-    ]
+    const attempts = [...state.learning.tcfAttempts.filter((item) => item.id !== attempt.id), attempt]
       .sort((a, b) => a.finishedAt - b.finishedAt || a.id.localeCompare(b.id))
       .slice(-MAX_TCF_ATTEMPTS)
     return { ...state, learning: { ...state.learning, tcfAttempts: attempts } }
@@ -1033,7 +1117,6 @@ export function migrateVocabularyHistory(records: VocabularyProgressInput[]) {
   })
 }
 
-
 const stableLegacyUuid = (value: string) => {
   const seeds = [2166136261, 2246822519, 3266489917, 668265263]
   const chunks = seeds.map((seed) => {
@@ -1060,8 +1143,9 @@ const sanitizeLegacyGrammarHistory = (value: unknown): GrammarSessionRecord[] =>
     if (finishedAt <= 0 || score < 0 || total < score || total > 10000) return []
 
     const answers = Object.fromEntries(
-      Object.entries(row.answers && typeof row.answers === 'object' && !Array.isArray(row.answers) ? row.answers : {})
-        .filter(([key, answer]) => /^\d{1,4}$/.test(key) && (answer === 'A' || answer === 'B')),
+      Object.entries(row.answers && typeof row.answers === 'object' && !Array.isArray(row.answers) ? row.answers : {}).filter(
+        ([key, answer]) => /^\d{1,4}$/.test(key) && (answer === 'A' || answer === 'B'),
+      ),
     ) as Record<string, GrammarChoice>
     const reasons = Object.fromEntries(
       Object.entries(row.reasons && typeof row.reasons === 'object' && !Array.isArray(row.reasons) ? row.reasons : {})
@@ -1070,23 +1154,28 @@ const sanitizeLegacyGrammarHistory = (value: unknown): GrammarSessionRecord[] =>
     )
 
     const topic = typeof row.topic === 'string' ? row.topic.slice(0, 200) : 'passé composé vs imparfait'
-    return [{
-      id: stableLegacyUuid(`grammar|${finishedAt}|${topic}|${score}|${total}|${index}`),
-      topic,
-      score,
-      total,
-      elapsedSeconds:
-        typeof row.elapsedSeconds === 'number' && Number.isFinite(row.elapsedSeconds)
-          ? Math.max(0, Math.min(86400, Math.round(row.elapsedSeconds)))
-          : 0,
-      finishedAt,
-      day: localDay(finishedAt),
-      answers,
-      reasons,
-      outputAnswers: Array.isArray(row.outputAnswers)
-        ? row.outputAnswers.filter((entry): entry is string => typeof entry === 'string').slice(0, 20).map((entry) => entry.slice(0, 6000))
-        : [],
-    }]
+    return [
+      {
+        id: stableLegacyUuid(`grammar|${finishedAt}|${topic}|${score}|${total}|${index}`),
+        topic,
+        score,
+        total,
+        elapsedSeconds:
+          typeof row.elapsedSeconds === 'number' && Number.isFinite(row.elapsedSeconds)
+            ? Math.max(0, Math.min(86400, Math.round(row.elapsedSeconds)))
+            : 0,
+        finishedAt,
+        day: localDay(finishedAt),
+        answers,
+        reasons,
+        outputAnswers: Array.isArray(row.outputAnswers)
+          ? row.outputAnswers
+              .filter((entry): entry is string => typeof entry === 'string')
+              .slice(0, 20)
+              .map((entry) => entry.slice(0, 6000))
+          : [],
+      },
+    ]
   })
 }
 
@@ -1105,7 +1194,8 @@ const sanitizeLegacyConjugation = (value: unknown): ConjugationStats => {
         typeof stat.total !== 'number' ||
         !Number.isInteger(stat.correct) ||
         !Number.isInteger(stat.total)
-      ) continue
+      )
+        continue
       const correct = stat.correct
       const total = stat.total
       if (correct < 0 || total < correct || total > 10000000) continue
@@ -1116,11 +1206,7 @@ const sanitizeLegacyConjugation = (value: unknown): ConjugationStats => {
   return result
 }
 
-export function migrateLegacyStudyData(input: {
-  vocabulary?: VocabularyProgressInput[]
-  grammarHistory?: unknown
-  conjugation?: unknown
-}) {
+export function migrateLegacyStudyData(input: { vocabulary?: VocabularyProgressInput[]; grammarHistory?: unknown; conjugation?: unknown }) {
   if (legacyMigrationRunning) return legacyMigrationRunning
   legacyMigrationRunning = runLegacyStudyMigration(input).finally(() => {
     legacyMigrationRunning = undefined
@@ -1128,11 +1214,7 @@ export function migrateLegacyStudyData(input: {
   return legacyMigrationRunning
 }
 
-async function runLegacyStudyMigration(input: {
-  vocabulary?: VocabularyProgressInput[]
-  grammarHistory?: unknown
-  conjugation?: unknown
-}) {
+async function runLegacyStudyMigration(input: { vocabulary?: VocabularyProgressInput[]; grammarHistory?: unknown; conjugation?: unknown }) {
   try {
     if (localStorage.getItem(LEGACY_MIGRATION_KEY) === 'done') return true
     await syncStudyPlan()
@@ -1149,14 +1231,19 @@ async function runLegacyStudyMigration(input: {
       const signature = [item.word, item.dict, item.chapter ?? -1, item.timeStamp, item.wrongCount].join('|')
       if (existingVocabulary.has(signature)) return []
       existingVocabulary.add(signature)
-      return [{
-        ...item,
-        id: item.id ?? stableLegacyUuid(`vocabulary|${signature}|${index}`),
-        day: item.day ?? localDay(item.timeStamp * 1000),
-        durationMs: Math.max(0, Math.min(86400000, Math.round(item.durationMs))),
-        wrongCount: Math.max(0, Math.min(10000, Math.round(item.wrongCount))),
-        wrongKeys: item.wrongKeys.filter((key) => typeof key === 'string').slice(0, 200).map((key) => key.slice(0, 20)),
-      } satisfies VocabularyProgressRecord]
+      return [
+        {
+          ...item,
+          id: item.id ?? stableLegacyUuid(`vocabulary|${signature}|${index}`),
+          day: item.day ?? localDay(item.timeStamp * 1000),
+          durationMs: Math.max(0, Math.min(86400000, Math.round(item.durationMs))),
+          wrongCount: Math.max(0, Math.min(10000, Math.round(item.wrongCount))),
+          wrongKeys: item.wrongKeys
+            .filter((key) => typeof key === 'string')
+            .slice(0, 200)
+            .map((key) => key.slice(0, 20)),
+        } satisfies VocabularyProgressRecord,
+      ]
     })
     if (vocabulary.length) operations.push({ kind: 'vocabularyRecords', value: vocabulary })
 
@@ -1181,8 +1268,7 @@ async function runLegacyStudyMigration(input: {
       (sum, byTense) => sum + Object.values(byTense).reduce((inner, stat) => inner + (stat?.total ?? 0), 0),
       0,
     )
-    if (remoteConjugationTotal === 0 && legacyConjugationTotal > 0)
-      operations.push({ kind: 'conjugationSeed', value: legacyConjugation })
+    if (remoteConjugationTotal === 0 && legacyConjugationTotal > 0) operations.push({ kind: 'conjugationSeed', value: legacyConjugation })
 
     if (operations.length) {
       const current = ensureFallback()
@@ -1205,8 +1291,7 @@ async function runLegacyStudyMigration(input: {
           },
         }
       }
-      if (remoteConjugationTotal === 0 && legacyConjugationTotal > 0)
-        learning = { ...learning, conjugation: legacyConjugation }
+      if (remoteConjugationTotal === 0 && legacyConjugationTotal > 0) learning = { ...learning, conjugation: legacyConjugation }
       publish({ ...current, learning })
     }
 
@@ -1219,7 +1304,6 @@ async function runLegacyStudyMigration(input: {
   } catch {
     return false
   }
-
 }
 
 export function saveGrammarDraft(draft: GrammarDraft | null) {
@@ -1286,12 +1370,7 @@ export function seedConjugationStats(stats: ConjugationStats) {
   publish({ ...state, learning: { ...state.learning, conjugation: stats } })
 }
 
-export function recordConjugationAttempt(
-  verb: string,
-  tense: ConjugationTense,
-  correct: boolean,
-  day = localDay(),
-) {
+export function recordConjugationAttempt(verb: string, tense: ConjugationTense, correct: boolean, day = localDay()) {
   const occurredAt = Date.now()
   const attempt: ConjugationAttempt = {
     id: crypto.randomUUID(),
@@ -1399,10 +1478,7 @@ export async function flushStudyProgress(): Promise<StudySyncStatus> {
   return getStudySyncSnapshot()
 }
 
-export function subscribeStudyPlan(
-  listener: (state: StudyPlanStorage) => void,
-  status: (message: string) => void,
-) {
+export function subscribeStudyPlan(listener: (state: StudyPlanStorage) => void, status: (message: string) => void) {
   const wrapped = (state: StudyServerState) => listener(state)
   listeners.add(wrapped)
   statuses.add(status)
@@ -1484,9 +1560,7 @@ export async function loadReviewQueue(): Promise<ReviewQueueItem[]> {
 }
 
 const normalizePasskeyAccount = (value: unknown): PasskeyAccountInfo => {
-  const source = value && typeof value === 'object' && !Array.isArray(value)
-    ? (value as Record<string, unknown>)
-    : {}
+  const source = value && typeof value === 'object' && !Array.isArray(value) ? (value as Record<string, unknown>) : {}
   return {
     registered: source.registered === true,
     signedIn: source.signedIn === true,
@@ -1631,13 +1705,15 @@ export async function revokeStudySyncKey(key = getStoredStudySyncKey()) {
   return true
 }
 
-export async function loadErrorBook(filters: {
-  type?: ReviewKind | ''
-  status?: 'active' | 'mastered' | 'all'
-  from?: string
-  to?: string
-  limit?: number
-} = {}): Promise<ErrorBookItem[]> {
+export async function loadErrorBook(
+  filters: {
+    type?: ReviewKind | ''
+    status?: 'active' | 'mastered' | 'all'
+    from?: string
+    to?: string
+    limit?: number
+  } = {},
+): Promise<ErrorBookItem[]> {
   await syncStudyPlan()
   const params = new URLSearchParams()
   if (filters.type) params.set('type', filters.type)
@@ -1656,9 +1732,7 @@ export async function loadStudyCheckins(today = localDay()): Promise<StudyChecki
     items: Array.isArray(payload.items) ? (payload.items as StudyCheckin[]) : [],
     daily: Array.isArray(payload.daily) ? (payload.daily as StudyCheckinDay[]) : [],
     streak:
-      payload.streak && typeof payload.streak === 'object'
-        ? (payload.streak as StudyCheckinSummary['streak'])
-        : { current: 0, longest: 0 },
+      payload.streak && typeof payload.streak === 'object' ? (payload.streak as StudyCheckinSummary['streak']) : { current: 0, longest: 0 },
   }
 }
 
@@ -1670,9 +1744,7 @@ export async function applyStudyMakeup(day: string): Promise<StudyCheckinSummary
     items: Array.isArray(payload.items) ? (payload.items as StudyCheckin[]) : [],
     daily: Array.isArray(payload.daily) ? (payload.daily as StudyCheckinDay[]) : [],
     streak:
-      payload.streak && typeof payload.streak === 'object'
-        ? (payload.streak as StudyCheckinSummary['streak'])
-        : { current: 0, longest: 0 },
+      payload.streak && typeof payload.streak === 'object' ? (payload.streak as StudyCheckinSummary['streak']) : { current: 0, longest: 0 },
   }
 }
 
@@ -1707,6 +1779,155 @@ export async function exportWeeklyStudyReports() {
   }>
 }
 
+export const TCF_EE_DRAFT_KEY = 'qwerty-tcf-ee-draft'
+export const TCF_EE_ATTEMPTS_KEY = 'qwerty-tcf-ee-attempts'
+export const TCF_EO_ATTEMPTS_KEY = 'qwerty-tcf-eo-attempts'
+
+export async function loadTcfEeDraft(): Promise<TcfEeDraft | null> {
+  try {
+    const payload = await api('GET', '/tcf-writing/draft')
+    if (payload.draft) {
+      localStorage.setItem(TCF_EE_DRAFT_KEY, JSON.stringify(payload.draft))
+      return payload.draft as TcfEeDraft
+    }
+  } catch {
+    // Fall back to local draft
+  }
+  try {
+    const cached = localStorage.getItem(TCF_EE_DRAFT_KEY)
+    return cached ? (JSON.parse(cached) as TcfEeDraft) : null
+  } catch {
+    return null
+  }
+}
+
+export async function saveTcfEeDraft(draft: TcfEeDraft): Promise<void> {
+  try {
+    localStorage.setItem(TCF_EE_DRAFT_KEY, JSON.stringify(draft))
+  } catch {
+    void 0
+  }
+  try {
+    await api('POST', '/tcf-writing/draft', { draft })
+  } catch {
+    // Offline auto-save fallback
+  }
+}
+
+export async function deleteTcfEeDraft(): Promise<void> {
+  try {
+    localStorage.removeItem(TCF_EE_DRAFT_KEY)
+  } catch {
+    void 0
+  }
+  try {
+    await api('DELETE', '/tcf-writing/draft')
+  } catch {
+    void 0
+  }
+}
+
+export async function submitTcfEeAttempt(attempt: TcfEeAttempt): Promise<TcfEeAttempt> {
+  try {
+    localStorage.removeItem(TCF_EE_DRAFT_KEY)
+  } catch {
+    void 0
+  }
+  try {
+    const listRaw = localStorage.getItem(TCF_EE_ATTEMPTS_KEY)
+    const list = listRaw ? (JSON.parse(listRaw) as TcfEeAttempt[]) : []
+    const updated = [attempt, ...list.filter((item) => item.id !== attempt.id)].slice(0, 50)
+    localStorage.setItem(TCF_EE_ATTEMPTS_KEY, JSON.stringify(updated))
+  } catch {
+    void 0
+  }
+  try {
+    const res = await api('POST', '/tcf-writing', attempt)
+    return (res.attempt as TcfEeAttempt) ?? attempt
+  } catch {
+    return attempt
+  }
+}
+
+export async function loadTcfEeAttempts(limit = 100): Promise<TcfEeAttempt[]> {
+  try {
+    const payload = await api('GET', `/tcf-writing?limit=${Math.min(100, Math.max(1, limit))}`)
+    if (Array.isArray(payload.items)) {
+      try {
+        localStorage.setItem(TCF_EE_ATTEMPTS_KEY, JSON.stringify(payload.items))
+      } catch {
+        void 0
+      }
+      return payload.items as TcfEeAttempt[]
+    }
+  } catch {
+    void 0
+  }
+  try {
+    const cached = localStorage.getItem(TCF_EE_ATTEMPTS_KEY)
+    return cached ? (JSON.parse(cached) as TcfEeAttempt[]) : []
+  } catch {
+    return []
+  }
+}
+
+export async function saveTcfEoAttempt(attempt: TcfEoAttempt): Promise<TcfEoAttempt> {
+  try {
+    const listRaw = localStorage.getItem(TCF_EO_ATTEMPTS_KEY)
+    const list = listRaw ? (JSON.parse(listRaw) as TcfEoAttempt[]) : []
+    const updated = [attempt, ...list.filter((item) => item.id !== attempt.id)].slice(0, 50)
+    localStorage.setItem(TCF_EO_ATTEMPTS_KEY, JSON.stringify(updated))
+  } catch {
+    void 0
+  }
+  try {
+    const res = await api('POST', '/tcf-speaking', attempt)
+    return (res.attempt as TcfEoAttempt) ?? attempt
+  } catch {
+    return attempt
+  }
+}
+
+export async function loadTcfEoAttempts(limit = 100): Promise<TcfEoAttempt[]> {
+  try {
+    const payload = await api('GET', `/tcf-speaking?limit=${Math.min(100, Math.max(1, limit))}`)
+    if (Array.isArray(payload.items)) {
+      try {
+        localStorage.setItem(TCF_EO_ATTEMPTS_KEY, JSON.stringify(payload.items))
+      } catch {
+        void 0
+      }
+      return payload.items as TcfEoAttempt[]
+    }
+  } catch {
+    void 0
+  }
+  try {
+    const cached = localStorage.getItem(TCF_EO_ATTEMPTS_KEY)
+    return cached ? (JSON.parse(cached) as TcfEoAttempt[]) : []
+  } catch {
+    return []
+  }
+}
+
+export async function deleteTcfEoAttempt(id: string): Promise<boolean> {
+  try {
+    const listRaw = localStorage.getItem(TCF_EO_ATTEMPTS_KEY)
+    if (listRaw) {
+      const list = (JSON.parse(listRaw) as TcfEoAttempt[]).filter((item) => item.id !== id)
+      localStorage.setItem(TCF_EO_ATTEMPTS_KEY, JSON.stringify(list))
+    }
+  } catch {
+    void 0
+  }
+  try {
+    await api('DELETE', `/tcf-speaking?id=${encodeURIComponent(id)}`)
+    return true
+  } catch {
+    return false
+  }
+}
+
 export async function deleteAllStudyData() {
   await syncStudyPlan()
   if (pending().length) throw new Error('PENDING_MUTATIONS')
@@ -1719,6 +1940,9 @@ export async function deleteAllStudyData() {
       key === SYNC_KEY ||
       key === LEGACY_MIGRATION_KEY ||
       key === SEED ||
+      key === TCF_EE_DRAFT_KEY ||
+      key === TCF_EE_ATTEMPTS_KEY ||
+      key === TCF_EO_ATTEMPTS_KEY ||
       isPendingKey(key)
     ) {
       localStorage.removeItem(key)
@@ -1728,4 +1952,3 @@ export async function deleteAllStudyData() {
   emitSyncStatus('idle', '学习数据已删除')
   return true
 }
-

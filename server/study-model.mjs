@@ -114,7 +114,17 @@ function validateFocusSession(value) {
     throw new Error('Invalid focus session')
 }
 
-function expectedTcfNclc(skill, score) {
+export function expectedTcfNclc(skill, score) {
+  if (skill === 'writing' || skill === 'speaking') {
+    if (score >= 16) return 10
+    if (score >= 14) return 9
+    if (score >= 12) return 8
+    if (score >= 10) return 7
+    if (score >= 7) return 6
+    if (score >= 6) return 5
+    if (score >= 4) return 4
+    return 0
+  }
   if (score >= 549) return 10
   if (skill === 'listening') {
     if (score >= 523) return 9
@@ -936,29 +946,34 @@ export function buildTodayTaskPlan(input, today = toKey(new Date())) {
   return todayPlanForState(state, today)
 }
 
-function tcfSkillAnalytics(state, skill, targetScore) {
-  const attempts = state.learning.tcfAttempts
-    .filter((item) => item.skill === skill)
-    .sort((a, b) => a.finishedAt - b.finishedAt)
-  const latest = attempts.length ? attempts[attempts.length - 1] : null
-  const bestScore = attempts.length ? Math.max(...attempts.map((item) => item.scaledScore)) : null
+export function buildTcfSkillAnalytics(attempts, targetScore) {
+  const sorted = [...attempts].sort((a, b) => a.finishedAt - b.finishedAt)
+  const latest = sorted.length ? sorted[sorted.length - 1] : null
+  const bestScore = sorted.length ? Math.max(...sorted.map((item) => (item.scaledScore ?? item.totalScore ?? item.total_score ?? item.score))) : null
+  const latestScore = latest ? (latest.scaledScore ?? latest.totalScore ?? latest.total_score ?? latest.score) : null
   return {
-    attempts: attempts.length,
-    latestScore: latest?.scaledScore ?? null,
+    attempts: sorted.length,
+    latestScore,
     bestScore,
     targetScore,
-    gapToTarget: latest ? Math.max(0, targetScore - latest.scaledScore) : null,
+    gapToTarget: latestScore !== null ? Math.max(0, targetScore - latestScore) : null,
     latestNclc: latest?.nclc ?? null,
-    trend: attempts.slice(-20).map((item) => ({
-      id: item.id,
-      finishedAt: item.finishedAt,
-      score: item.scaledScore,
+    trend: sorted.slice(-20).map((item) => ({
+      id: item.id || item.attemptId || item.attempt_id,
+      finishedAt: item.finishedAt || item.finished_at,
+      score: item.scaledScore ?? item.totalScore ?? item.total_score ?? item.score,
       nclc: item.nclc,
     })),
   }
 }
 
-export function studyAnalytics(input, now = new Date()) {
+function tcfSkillAnalytics(state, skill, targetScore) {
+  const attempts = (state.learning.tcfAttempts ?? [])
+    .filter((item) => item.skill === skill)
+  return buildTcfSkillAnalytics(attempts, targetScore)
+}
+
+export function studyAnalytics(input, now = new Date(), extra = {}) {
   const state = normalizeState(input)
   const today = toKey(now)
   const rawWeek = Math.floor(diffDays(state.startDate, today) / 7) + 1
@@ -1081,6 +1096,8 @@ export function studyAnalytics(input, now = new Date()) {
     tcf: {
       listening: tcfSkillAnalytics(state, 'listening', 458),
       reading: tcfSkillAnalytics(state, 'reading', 453),
+      writing: buildTcfSkillAnalytics(extra.writingAttempts ?? [], 10),
+      speaking: buildTcfSkillAnalytics(extra.speakingAttempts ?? [], 10),
     },
     trends: trendBuckets(state, today),
     rankings: rankings(state),
@@ -1096,5 +1113,5 @@ export function importOperations(backup) {
   return [{ kind: 'replace', value: backup.state }]
 }
 export function exportPlan(state) {
-  return { format: 'qwerty-study-plan', version: 5, schemaVersion: 7, exportedAt: new Date().toISOString(), state: normalizeState(state) }
+  return { format: 'qwerty-study-plan', version: 5, schemaVersion: 8, exportedAt: new Date().toISOString(), state: normalizeState(state) }
 }

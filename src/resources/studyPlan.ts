@@ -1,13 +1,4 @@
-export type StudyTaskKind =
-  | 'grammar'
-  | 'listening'
-  | 'vocabulary'
-  | 'reading'
-  | 'writing'
-  | 'speaking'
-  | 'pronunciation'
-  | 'tcf'
-  | 'review'
+export type StudyTaskKind = 'grammar' | 'listening' | 'vocabulary' | 'reading' | 'writing' | 'speaking' | 'pronunciation' | 'tcf' | 'review'
 
 export type StudyTask = {
   id: string
@@ -142,6 +133,8 @@ export const weeklyStudyPlan: DayPlan[] = [
         minutes: 40,
         kind: 'writing',
         description: '完成一个短写作任务，优先保证结构完整。',
+        href: '/tcf-writing',
+        actionLabel: '打开 EE 模考',
       },
       {
         id: 'tue-correction',
@@ -172,6 +165,8 @@ export const weeklyStudyPlan: DayPlan[] = [
         minutes: 40,
         kind: 'speaking',
         description: '围绕一个话题连续说，重点是完整表达而不是零错误。',
+        href: '/tcf-speaking',
+        actionLabel: '打开 EO 模考',
       },
       {
         id: 'wed-pronunciation',
@@ -253,6 +248,8 @@ export const weeklyStudyPlan: DayPlan[] = [
         minutes: 10,
         kind: 'speaking',
         description: '用法语连续复述 2–3 分钟，不查词也先说完。',
+        href: '/tcf-speaking',
+        actionLabel: '打开 EO 模考',
       },
     ],
   },

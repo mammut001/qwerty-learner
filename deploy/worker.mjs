@@ -18,13 +18,21 @@ import {
   listWorkerAchievements,
   listWorkerWeeklyReports,
   listWorkerTcfAttempts,
+  getWorkerTcfEeDraft,
+  saveWorkerTcfEeDraft,
+  deleteWorkerTcfEeDraft,
+  saveWorkerTcfEeAttempt,
+  listWorkerTcfEeAttempts,
+  saveWorkerTcfEoAttempt,
+  listWorkerTcfEoAttempts,
+  deleteWorkerTcfEoAttempt,
   consumeWorkerRateLimit,
   writeWorkerAudit,
   deleteWorkerLearnerData,
 } from './study-worker-features.mjs'
 
 const MAX_BODY_BYTES = 1700000
-const STUDY_SCHEMA_VERSION = 7
+const STUDY_SCHEMA_VERSION = 8
 const metrics = createStudyMetrics()
 const json = (status, data, headers = {}) => new Response(JSON.stringify(data), {
   status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', ...headers },
@@ -96,6 +104,9 @@ export async function studyApi(request, env) {
       await env.DB.prepare('SELECT learner,achievement_id FROM achievements LIMIT 1').all()
       await env.DB.prepare('SELECT learner,week_start FROM weekly_reports LIMIT 1').all()
       await env.DB.prepare('SELECT learner,attempt_id,skill FROM tcf_attempts LIMIT 1').all()
+      await env.DB.prepare('SELECT learner,draft_id FROM tcf_ee_drafts LIMIT 1').all()
+      await env.DB.prepare('SELECT learner,attempt_id FROM tcf_ee_attempts LIMIT 1').all()
+      await env.DB.prepare('SELECT learner,attempt_id FROM tcf_eo_attempts LIMIT 1').all()
       await env.DB.prepare('SELECT scope,action FROM rate_limits LIMIT 1').all()
       await env.DB.prepare('SELECT id,action FROM audit_log LIMIT 1').all()
       await env.DB.prepare('SELECT id,learner,user_handle FROM accounts LIMIT 1').all()
@@ -135,12 +146,15 @@ export async function studyApi(request, env) {
   const recordsCsv = path === '/api/study-plan/records.csv'
   const errorCsv = path === '/api/study-plan/error-book.csv'
   const reportsCsv = path === '/api/study-plan/weekly-reports.csv'
+  const tcfWritingDraft = path === '/api/study-plan/tcf-writing/draft'
+  const tcfWriting = path === '/api/study-plan/tcf-writing'
+  const tcfSpeaking = path === '/api/study-plan/tcf-speaking'
   const tcfAttempts = path === '/api/study-plan/tcf-attempts'
   const plan = path === '/api/study-plan'
   if (!importing && !exporting && !analytics && !syncKey && !revokeSyncKey && !linking && !unlinking && !syncInfo &&
       !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData &&
       !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
-      !recordsCsv && !errorCsv && !reportsCsv && !tcfAttempts && !plan)
+      !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts && !plan)
     return jsonError(404, 'NOT_FOUND', 'Not found')
   if ((importing || syncKey || revokeSyncKey || linking || unlinking || makeup || passkeyRegisterOptions ||
       passkeyRegisterVerify || passkeyLoginOptions || passkeyLoginVerify) && request.method !== 'POST')
@@ -148,6 +162,9 @@ export async function studyApi(request, env) {
   if ((exporting || analytics || syncInfo || review || errorBook || checkins || achievements || reports || reportExport ||
       account || recordsCsv || errorCsv || reportsCsv || tcfAttempts) && request.method !== 'GET')
     return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+  if (tcfWritingDraft && !['GET', 'POST', 'PUT', 'DELETE'].includes(request.method)) return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+  if (tcfWriting && !['GET', 'POST'].includes(request.method)) return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+  if (tcfSpeaking && !['GET', 'POST', 'DELETE'].includes(request.method)) return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
   if (deleteData && request.method !== 'DELETE') return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
   if (plan && !['GET', 'POST', 'PATCH'].includes(request.method)) return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
 
@@ -469,12 +486,147 @@ export async function studyApi(request, env) {
     return json(200, { items }, headers)
   }
 
+  if (tcfWritingDraft) {
+    if (request.method === 'GET') {
+      return json(200, { draft: await getWorkerTcfEeDraft(db, learner) }, headers)
+    }
+    if (request.method === 'DELETE') {
+      await deleteWorkerTcfEeDraft(db, learner)
+      return json(200, { ok: true, deleted: true }, headers)
+    }
+    try {
+      const input = await readBody(request)
+      const draft = input?.draft ?? input
+      if (
+        !record(draft) ||
+        typeof draft.draftId !== 'string' ||
+        typeof draft.task1Id !== 'string' ||
+        typeof draft.task2Id !== 'string' ||
+        typeof draft.task3Id !== 'string' ||
+        typeof (draft.task1Response ?? '') !== 'string' ||
+        typeof (draft.task2Response ?? '') !== 'string' ||
+        typeof (draft.task3Response ?? '') !== 'string' ||
+        (draft.task1Response ?? '').length > 10000 ||
+        (draft.task2Response ?? '').length > 10000 ||
+        (draft.task3Response ?? '').length > 10000 ||
+        !Number.isInteger(draft.remainingSeconds) ||
+        draft.remainingSeconds < 0 ||
+        draft.remainingSeconds > 3600 ||
+        !Number.isInteger(draft.startedAt)
+      ) {
+        return jsonError(400, 'INVALID_DRAFT_PAYLOAD', 'Invalid draft payload', {}, headers)
+      }
+      await saveWorkerTcfEeDraft(db, learner, draft)
+      return json(200, { ok: true, draft }, headers)
+    } catch (error) {
+      return jsonError(error instanceof RangeError ? 413 : 400, 'SAVE_DRAFT_FAILED', 'Unable to save draft', {}, headers)
+    }
+  }
+
+  if (tcfWriting) {
+    if (request.method === 'GET') {
+      const limit = Math.min(100, Math.max(1, Number(requestUrl.searchParams.get('limit') || 100)))
+      return json(200, { items: await listWorkerTcfEeAttempts(db, learner, limit) }, headers)
+    }
+    try {
+      const input = await readBody(request)
+      if (
+        !record(input) ||
+        typeof input.id !== 'string' ||
+        typeof input.task1Id !== 'string' ||
+        typeof input.task1Response !== 'string' ||
+        typeof input.task2Id !== 'string' ||
+        typeof input.task2Response !== 'string' ||
+        typeof input.task3Id !== 'string' ||
+        typeof input.task3Response !== 'string' ||
+        input.task1Response.length > 20000 ||
+        input.task2Response.length > 20000 ||
+        input.task3Response.length > 20000 ||
+        !record(input.wordCounts) ||
+        !record(input.scores) ||
+        !Number.isInteger(input.totalScore) ||
+        input.totalScore < 0 ||
+        input.totalScore > 20 ||
+        !Number.isInteger(input.nclc) ||
+        input.nclc < 0 ||
+        input.nclc > 10 ||
+        !Number.isInteger(input.durationSeconds) ||
+        input.durationSeconds < 0 ||
+        input.durationSeconds > 3600 ||
+        !Number.isInteger(input.startedAt) ||
+        !Number.isInteger(input.finishedAt) ||
+        typeof input.day !== 'string' ||
+        !/^\d{4}-\d{2}-\d{2}$/.test(input.day)
+      ) {
+        return jsonError(400, 'INVALID_EE_ATTEMPT', 'Invalid EE attempt payload', {}, headers)
+      }
+      await saveWorkerTcfEeAttempt(db, learner, input)
+      await audit(learner, 'tcf_writing_submit', 'success', { id: input.id, totalScore: input.totalScore, nclc: input.nclc })
+      return json(200, { ok: true, attempt: input }, headers)
+    } catch (error) {
+      return jsonError(error instanceof RangeError ? 413 : 400, 'SAVE_EE_FAILED', 'Unable to submit writing exam', {}, headers)
+    }
+  }
+
+  if (tcfSpeaking) {
+    if (request.method === 'GET') {
+      const limit = Math.min(100, Math.max(1, Number(requestUrl.searchParams.get('limit') || 100)))
+      return json(200, { items: await listWorkerTcfEoAttempts(db, learner, limit) }, headers)
+    }
+    if (request.method === 'DELETE') {
+      let id = requestUrl.searchParams.get('id')
+      if (!id) {
+        try {
+          const body = await readBody(request)
+          id = body?.id
+        } catch {}
+      }
+      if (!id || typeof id !== 'string') return jsonError(400, 'INVALID_ATTEMPT_ID', 'Invalid attempt ID', {}, headers)
+      await deleteWorkerTcfEoAttempt(db, learner, id)
+      return json(200, { ok: true, deleted: true }, headers)
+    }
+    try {
+      const input = await readBody(request)
+      const recordingsMetaJson = JSON.stringify(input?.recordingsMeta ?? {})
+      if (recordingsMetaJson.length > 4000 || recordingsMetaJson.includes('data:audio') || recordingsMetaJson.includes('base64,')) {
+        return jsonError(400, 'RECORDING_PAYLOAD_TOO_LARGE', 'Recordings metadata exceeds size limit; audio must be stored locally in IndexedDB', {}, headers)
+      }
+      if (
+        !record(input) ||
+        typeof input.id !== 'string' ||
+        typeof input.task1Id !== 'string' ||
+        typeof input.task2Id !== 'string' ||
+        typeof input.task3Id !== 'string' ||
+        !record(input.scores) ||
+        !Number.isInteger(input.totalScore) ||
+        input.totalScore < 0 ||
+        input.totalScore > 20 ||
+        !Number.isInteger(input.nclc) ||
+        input.nclc < 0 ||
+        input.nclc > 10 ||
+        !Number.isInteger(input.durationSeconds) ||
+        input.durationSeconds < 0 ||
+        input.durationSeconds > 3600 ||
+        !Number.isInteger(input.startedAt) ||
+        !Number.isInteger(input.finishedAt) ||
+        typeof input.day !== 'string' ||
+        !/^\d{4}-\d{2}-\d{2}$/.test(input.day)
+      ) {
+        return jsonError(400, 'INVALID_EO_ATTEMPT', 'Invalid EO attempt payload', {}, headers)
+      }
+      await saveWorkerTcfEoAttempt(db, learner, input)
+      await audit(learner, 'tcf_speaking_save', 'success', { id: input.id, totalScore: input.totalScore, nclc: input.nclc })
+      return json(200, { ok: true, attempt: input }, headers)
+    } catch (error) {
+      return jsonError(error instanceof RangeError ? 413 : 400, 'SAVE_EO_FAILED', 'Unable to save speaking exam', {}, headers)
+    }
+  }
+
   if (tcfAttempts) {
     const skill = requestUrl.searchParams.get('skill') || ''
     const limitValue = Number(requestUrl.searchParams.get('limit') || 100)
-    if ((skill && !['listening', 'reading'].includes(skill)) || !Number.isFinite(limitValue))
+    if ((skill && !['listening', 'reading', 'writing', 'speaking'].includes(skill)) || !Number.isFinite(limitValue))
       return jsonError(400, 'INVALID_TCF_FILTER', 'Invalid TCF attempt filter', {}, headers)
-    if (!row.state) return json(200, { items: [] }, headers)
     const limit = Math.min(120, Math.max(1, Math.round(limitValue)))
     return json(200, { items: await listWorkerTcfAttempts(db, learner, { skill, limit }) }, headers)
   }
@@ -506,7 +658,9 @@ export async function studyApi(request, env) {
     const now = today && /^\d{4}-\d{2}-\d{2}$/.test(today) && !Number.isNaN(Date.parse(`${today}T12:00:00.000Z`))
       ? new Date(`${today}T12:00:00.000Z`)
       : new Date()
-    return json(200, { analytics: studyAnalytics(JSON.parse(row.state), now) }, headers)
+    const writingAttempts = await listWorkerTcfEeAttempts(db, learner, 100)
+    const speakingAttempts = await listWorkerTcfEoAttempts(db, learner, 100)
+    return json(200, { analytics: studyAnalytics(JSON.parse(row.state), now, { writingAttempts, speakingAttempts }) }, headers)
   }
 
   if (request.method === 'GET') return json(200, { state: row.state ? normalizeState(JSON.parse(row.state)) : null }, headers)

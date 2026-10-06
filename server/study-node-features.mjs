@@ -7,7 +7,7 @@ const parseJson = (value, fallback = null) => {
   try { return JSON.parse(value) } catch { return fallback }
 }
 
-export const STUDY_SCHEMA_VERSION = 7
+export const STUDY_SCHEMA_VERSION = 8
 
 export function ensureNodeFeatureSchema(db) {
   db.exec(`
@@ -39,6 +39,27 @@ export function ensureNodeFeatureSchema(db) {
       day TEXT NOT NULL, answers TEXT NOT NULL, PRIMARY KEY (learner,attempt_id)
     );
     CREATE INDEX IF NOT EXISTS tcf_attempts_history ON tcf_attempts(learner,skill,finished_at DESC);
+    CREATE TABLE IF NOT EXISTS tcf_ee_drafts (
+      learner TEXT NOT NULL PRIMARY KEY, draft_id TEXT NOT NULL, task1_id TEXT NOT NULL, task1_response TEXT NOT NULL DEFAULT '',
+      task2_id TEXT NOT NULL, task2_response TEXT NOT NULL DEFAULT '', task3_id TEXT NOT NULL, task3_response TEXT NOT NULL DEFAULT '',
+      remaining_seconds INTEGER NOT NULL, current_task INTEGER NOT NULL DEFAULT 0, started_at INTEGER NOT NULL, updated_at INTEGER NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS tcf_ee_attempts (
+      learner TEXT NOT NULL, attempt_id TEXT NOT NULL, task1_id TEXT NOT NULL, task1_response TEXT NOT NULL,
+      task2_id TEXT NOT NULL, task2_response TEXT NOT NULL, task3_id TEXT NOT NULL, task3_response TEXT NOT NULL,
+      word_counts TEXT NOT NULL, scores TEXT NOT NULL, total_score INTEGER NOT NULL, nclc INTEGER NOT NULL,
+      duration_seconds INTEGER NOT NULL, started_at INTEGER NOT NULL, finished_at INTEGER NOT NULL,
+      day TEXT NOT NULL, PRIMARY KEY (learner,attempt_id)
+    );
+    CREATE INDEX IF NOT EXISTS tcf_ee_attempts_history ON tcf_ee_attempts(learner,finished_at DESC);
+    CREATE TABLE IF NOT EXISTS tcf_eo_attempts (
+      learner TEXT NOT NULL, attempt_id TEXT NOT NULL, task1_id TEXT NOT NULL, task1_duration INTEGER NOT NULL DEFAULT 0,
+      task2_id TEXT NOT NULL, task2_duration INTEGER NOT NULL DEFAULT 0, task3_id TEXT NOT NULL, task3_duration INTEGER NOT NULL DEFAULT 0,
+      recordings_meta TEXT NOT NULL, scores TEXT NOT NULL, total_score INTEGER NOT NULL, nclc INTEGER NOT NULL,
+      duration_seconds INTEGER NOT NULL, started_at INTEGER NOT NULL, finished_at INTEGER NOT NULL,
+      day TEXT NOT NULL, PRIMARY KEY (learner,attempt_id)
+    );
+    CREATE INDEX IF NOT EXISTS tcf_eo_attempts_history ON tcf_eo_attempts(learner,finished_at DESC);
     CREATE TABLE IF NOT EXISTS rate_limits (
       scope TEXT NOT NULL, action TEXT NOT NULL, window_start INTEGER NOT NULL, count INTEGER NOT NULL,
       blocked_until INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (scope,action)
@@ -285,24 +306,249 @@ export function listNodeWeeklyReports(db, learner, limit = 26) {
   }))
 }
 
-export function listNodeTcfAttempts(db, learner, { skill = '', limit = 100 } = {}) {
-  const clauses = ['learner=?']
-  const args = [learner]
-  if (skill) {
-    clauses.push('skill=?')
-    args.push(skill)
+export function getNodeTcfEeDraft(db, learner) {
+  const row = db.prepare(`
+    SELECT draft_id, task1_id, task1_response, task2_id, task2_response, task3_id, task3_response,
+           remaining_seconds, current_task, started_at, updated_at
+    FROM tcf_ee_drafts WHERE learner=?
+  `).get(learner)
+  if (!row) return null
+  return {
+    draftId: row.draft_id,
+    task1Id: row.task1_id,
+    task1Response: row.task1_response,
+    task2Id: row.task2_id,
+    task2Response: row.task2_response,
+    task3Id: row.task3_id,
+    task3Response: row.task3_response,
+    remainingSeconds: row.remaining_seconds,
+    currentTask: row.current_task,
+    startedAt: row.started_at,
+    updatedAt: row.updated_at,
   }
+}
+
+export function saveNodeTcfEeDraft(db, learner, draft) {
+  db.prepare(`
+    INSERT INTO tcf_ee_drafts(
+      learner, draft_id, task1_id, task1_response, task2_id, task2_response, task3_id, task3_response,
+      remaining_seconds, current_task, started_at, updated_at
+    ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)
+    ON CONFLICT(learner) DO UPDATE SET
+      draft_id=excluded.draft_id,
+      task1_id=excluded.task1_id,
+      task1_response=excluded.task1_response,
+      task2_id=excluded.task2_id,
+      task2_response=excluded.task2_response,
+      task3_id=excluded.task3_id,
+      task3_response=excluded.task3_response,
+      remaining_seconds=excluded.remaining_seconds,
+      current_task=excluded.current_task,
+      started_at=excluded.started_at,
+      updated_at=excluded.updated_at
+  `).run(
+    learner,
+    draft.draftId,
+    draft.task1Id,
+    draft.task1Response ?? '',
+    draft.task2Id,
+    draft.task2Response ?? '',
+    draft.task3Id,
+    draft.task3Response ?? '',
+    draft.remainingSeconds,
+    draft.currentTask ?? 0,
+    draft.startedAt,
+    draft.updatedAt ?? Date.now(),
+  )
+}
+
+export function deleteNodeTcfEeDraft(db, learner) {
+  db.prepare('DELETE FROM tcf_ee_drafts WHERE learner=?').run(learner)
+}
+
+export function saveNodeTcfEeAttempt(db, learner, attempt) {
+  db.prepare(`
+    INSERT INTO tcf_ee_attempts(
+      learner, attempt_id, task1_id, task1_response, task2_id, task2_response, task3_id, task3_response,
+      word_counts, scores, total_score, nclc, duration_seconds, started_at, finished_at, day
+    ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+    ON CONFLICT(learner, attempt_id) DO UPDATE SET
+      task1_id=excluded.task1_id,
+      task1_response=excluded.task1_response,
+      task2_id=excluded.task2_id,
+      task2_response=excluded.task2_response,
+      task3_id=excluded.task3_id,
+      task3_response=excluded.task3_response,
+      word_counts=excluded.word_counts,
+      scores=excluded.scores,
+      total_score=excluded.total_score,
+      nclc=excluded.nclc,
+      duration_seconds=excluded.duration_seconds,
+      started_at=excluded.started_at,
+      finished_at=excluded.finished_at,
+      day=excluded.day
+  `).run(
+    learner,
+    attempt.id,
+    attempt.task1Id,
+    attempt.task1Response,
+    attempt.task2Id,
+    attempt.task2Response,
+    attempt.task3Id,
+    attempt.task3Response,
+    safeJson(attempt.wordCounts),
+    safeJson(attempt.scores),
+    attempt.totalScore,
+    attempt.nclc,
+    attempt.durationSeconds,
+    attempt.startedAt,
+    attempt.finishedAt,
+    attempt.day,
+  )
+  deleteNodeTcfEeDraft(db, learner)
+}
+
+export function listNodeTcfEeAttempts(db, learner, limit = 100) {
   return db.prepare(`
+    SELECT attempt_id, task1_id, task1_response, task2_id, task2_response, task3_id, task3_response,
+           word_counts, scores, total_score, nclc, duration_seconds, started_at, finished_at, day
+    FROM tcf_ee_attempts WHERE learner=?
+    ORDER BY finished_at DESC LIMIT ?
+  `).all(learner, limit).map((row) => ({
+    id: row.attempt_id,
+    skill: 'writing',
+    task1Id: row.task1_id,
+    task1Response: row.task1_response,
+    task2Id: row.task2_id,
+    task2Response: row.task2_response,
+    task3Id: row.task3_id,
+    task3Response: row.task3_response,
+    wordCounts: parseJson(row.word_counts, {}),
+    scores: parseJson(row.scores, {}),
+    totalScore: row.total_score,
+    scaledScore: row.total_score,
+    score: row.total_score,
+    nclc: row.nclc,
+    durationSeconds: row.duration_seconds,
+    startedAt: row.started_at,
+    finishedAt: row.finished_at,
+    day: row.day,
+  }))
+}
+
+export function saveNodeTcfEoAttempt(db, learner, attempt) {
+  db.prepare(`
+    INSERT INTO tcf_eo_attempts(
+      learner, attempt_id, task1_id, task1_duration, task2_id, task2_duration, task3_id, task3_duration,
+      recordings_meta, scores, total_score, nclc, duration_seconds, started_at, finished_at, day
+    ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+    ON CONFLICT(learner, attempt_id) DO UPDATE SET
+      task1_id=excluded.task1_id,
+      task1_duration=excluded.task1_duration,
+      task2_id=excluded.task2_id,
+      task2_duration=excluded.task2_duration,
+      task3_id=excluded.task3_id,
+      task3_duration=excluded.task3_duration,
+      recordings_meta=excluded.recordings_meta,
+      scores=excluded.scores,
+      total_score=excluded.total_score,
+      nclc=excluded.nclc,
+      duration_seconds=excluded.duration_seconds,
+      started_at=excluded.started_at,
+      finished_at=excluded.finished_at,
+      day=excluded.day
+  `).run(
+    learner,
+    attempt.id,
+    attempt.task1Id,
+    attempt.task1Duration ?? 0,
+    attempt.task2Id,
+    attempt.task2Duration ?? 0,
+    attempt.task3Id,
+    attempt.task3Duration ?? 0,
+    safeJson(attempt.recordingsMeta),
+    safeJson(attempt.scores),
+    attempt.totalScore,
+    attempt.nclc,
+    attempt.durationSeconds,
+    attempt.startedAt,
+    attempt.finishedAt,
+    attempt.day,
+  )
+}
+
+export function listNodeTcfEoAttempts(db, learner, limit = 100) {
+  return db.prepare(`
+    SELECT attempt_id, task1_id, task1_duration, task2_id, task2_duration, task3_id, task3_duration,
+           recordings_meta, scores, total_score, nclc, duration_seconds, started_at, finished_at, day
+    FROM tcf_eo_attempts WHERE learner=?
+    ORDER BY finished_at DESC LIMIT ?
+  `).all(learner, limit).map((row) => ({
+    id: row.attempt_id,
+    skill: 'speaking',
+    task1Id: row.task1_id,
+    task1Duration: row.task1_duration,
+    task2Id: row.task2_id,
+    task2Duration: row.task2_duration,
+    task3Id: row.task3_id,
+    task3Duration: row.task3_duration,
+    recordingsMeta: parseJson(row.recordings_meta, {}),
+    scores: parseJson(row.scores, {}),
+    totalScore: row.total_score,
+    scaledScore: row.total_score,
+    score: row.total_score,
+    nclc: row.nclc,
+    durationSeconds: row.duration_seconds,
+    startedAt: row.started_at,
+    finishedAt: row.finished_at,
+    day: row.day,
+  }))
+}
+
+export function deleteNodeTcfEoAttempt(db, learner, attemptId) {
+  db.prepare('DELETE FROM tcf_eo_attempts WHERE learner=? AND attempt_id=?').run(learner, attemptId)
+}
+
+export function listNodeTcfAttempts(db, learner, { skill = '', limit = 100 } = {}) {
+  if (skill === 'writing') {
+    return listNodeTcfEeAttempts(db, learner, limit)
+  }
+  if (skill === 'speaking') {
+    return listNodeTcfEoAttempts(db, learner, limit)
+  }
+  if (skill === 'listening' || skill === 'reading') {
+    return db.prepare(`
+      SELECT attempt_id,skill,question_count,correct_count,scaled_score,nclc,duration_seconds,
+             started_at,finished_at,day,answers
+      FROM tcf_attempts WHERE learner=? AND skill=?
+      ORDER BY finished_at DESC LIMIT ?
+    `).all(learner, skill, limit).map((row) => ({
+      id: row.attempt_id,
+      skill: row.skill,
+      questionCount: row.question_count,
+      correctCount: row.correct_count,
+      scaledScore: row.scaled_score,
+      score: row.scaled_score,
+      nclc: row.nclc,
+      durationSeconds: row.duration_seconds,
+      startedAt: row.started_at,
+      finishedAt: row.finished_at,
+      day: row.day,
+      answers: parseJson(row.answers, []),
+    }))
+  }
+  const qcm = db.prepare(`
     SELECT attempt_id,skill,question_count,correct_count,scaled_score,nclc,duration_seconds,
            started_at,finished_at,day,answers
-    FROM tcf_attempts WHERE ${clauses.join(' AND ')}
+    FROM tcf_attempts WHERE learner=?
     ORDER BY finished_at DESC LIMIT ?
-  `).all(...args, limit).map((row) => ({
+  `).all(learner, limit).map((row) => ({
     id: row.attempt_id,
     skill: row.skill,
     questionCount: row.question_count,
     correctCount: row.correct_count,
     scaledScore: row.scaled_score,
+    score: row.scaled_score,
     nclc: row.nclc,
     durationSeconds: row.duration_seconds,
     startedAt: row.started_at,
@@ -310,6 +556,11 @@ export function listNodeTcfAttempts(db, learner, { skill = '', limit = 100 } = {
     day: row.day,
     answers: parseJson(row.answers, []),
   }))
+  const ee = listNodeTcfEeAttempts(db, learner, limit)
+  const eo = listNodeTcfEoAttempts(db, learner, limit)
+  return [...qcm, ...ee, ...eo]
+    .sort((a, b) => b.finishedAt - a.finishedAt)
+    .slice(0, limit)
 }
 
 export function consumeNodeRateLimit(db, scope, action, {
@@ -347,7 +598,19 @@ export function deleteNodeLearnerData(db, learner) {
     db.prepare('DELETE FROM accounts WHERE id=?').run(account.id)
   }
   db.prepare('DELETE FROM passkey_challenges WHERE learner=?').run(learner)
-  const tables = ['mutations','sync_keys','error_book','checkins','achievements','weekly_reports','tcf_attempts','audit_log']
+  const tables = [
+    'mutations',
+    'sync_keys',
+    'error_book',
+    'checkins',
+    'achievements',
+    'weekly_reports',
+    'tcf_attempts',
+    'tcf_ee_drafts',
+    'tcf_ee_attempts',
+    'tcf_eo_attempts',
+    'audit_log',
+  ]
   for (const table of tables) db.prepare(`DELETE FROM ${table} WHERE learner=?`).run(learner)
   db.prepare('DELETE FROM rate_limits WHERE scope=?').run('learner:' + learner)
   db.prepare('DELETE FROM learners WHERE id=?').run(learner)

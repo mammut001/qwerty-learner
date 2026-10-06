@@ -1,55 +1,7 @@
-import {
-  createStudySyncKey,
-  deleteAllStudyData,
-  exportRemoteStudyPlan,
-  getLearningProgress,
-  getStoredStudySyncKey,
-  importRemoteStudyPlan,
-  linkStudyDevice,
-  loadStudyAnalytics,
-  loadStudySyncInfo,
-  loadPasskeyAccount,
-  revokeStudySyncKey,
-  saveStudyPlan,
-  saveStudyPlanSettings,
-  subscribeLearningProgress,
-  subscribeStudyPlan,
-  subscribeStudySyncStatus,
-  syncStudyPlan,
-  unlinkStudyDevice,
-  type LearningProgress,
-  type PasskeyAccountInfo,
-  type StudyAnalytics,
-  type StudyPlanStorage,
-  type StudyServerState,
-  type StudySyncInfo,
-  type StudySyncStatus,
-} from '@/services/studyPlanSync'
-import { loginWithStudyPasskey, passkeyAvailable, registerStudyPasskey } from '@/services/passkey'
-import {
-  getFocusTimerSnapshot,
-  startFocusTimer,
-  subscribeFocusTimer,
-  type FocusTimerSnapshot,
-} from '@/services/focusTimer'
-import {
-  getPwaInstallState,
-  installStudyPwa,
-  subscribePwaInstallState,
-  type PwaInstallState,
-} from '@/services/pwa'
-import {
-  getStudyReminderPreferences,
-  requestStudyReminderPermission,
-  saveStudyReminderPreferences,
-  type StudyReminderPreferences,
-} from '@/services/studyReminder'
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { CHAPTER_LENGTH } from '@/constants'
 import { idDictionaryMap } from '@/resources/dictionary'
-import { db } from '@/utils/db'
-import { wordListFetcher } from '@/utils/wordListFetcher'
 import {
   type StudyTask,
   type StudyTaskKind,
@@ -60,11 +12,49 @@ import {
   weeklyStudyPlan,
 } from '@/resources/studyPlan'
 import {
+  type StudyPlanSettings,
   configuredWeeklyTargetMinutes,
   getConfiguredDayTasks,
   normalizeStudyPlanSettings,
-  type StudyPlanSettings,
 } from '@/resources/studyPlanSchedule'
+import { type FocusTimerSnapshot, getFocusTimerSnapshot, startFocusTimer, subscribeFocusTimer } from '@/services/focusTimer'
+import { loginWithStudyPasskey, passkeyAvailable, registerStudyPasskey } from '@/services/passkey'
+import { type PwaInstallState, getPwaInstallState, installStudyPwa, subscribePwaInstallState } from '@/services/pwa'
+import {
+  type LearningProgress,
+  type PasskeyAccountInfo,
+  type StudyAnalytics,
+  type StudyPlanStorage,
+  type StudyServerState,
+  type StudySyncInfo,
+  type StudySyncStatus,
+  createStudySyncKey,
+  deleteAllStudyData,
+  exportRemoteStudyPlan,
+  getLearningProgress,
+  getStoredStudySyncKey,
+  importRemoteStudyPlan,
+  linkStudyDevice,
+  loadPasskeyAccount,
+  loadStudyAnalytics,
+  loadStudySyncInfo,
+  revokeStudySyncKey,
+  saveStudyPlan,
+  saveStudyPlanSettings,
+  subscribeLearningProgress,
+  subscribeStudyPlan,
+  subscribeStudySyncStatus,
+  syncStudyPlan,
+  unlinkStudyDevice,
+} from '@/services/studyPlanSync'
+import {
+  type StudyReminderPreferences,
+  getStudyReminderPreferences,
+  requestStudyReminderPermission,
+  saveStudyReminderPreferences,
+} from '@/services/studyReminder'
+import { db } from '@/utils/db'
+import { wordListFetcher } from '@/utils/wordListFetcher'
 import { type ChangeEvent, useEffect, useMemo, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import useSWR from 'swr'
@@ -167,7 +157,14 @@ function parseImportedStorage(value: unknown): StudyPlanStorage | StudyServerSta
 
     const dayMinutes: Record<string, number> = {}
     for (const [taskId, minuteValue] of Object.entries(dayValue)) {
-      if (!/^[a-z][a-z0-9-]{0,79}$/.test(taskId) || typeof minuteValue !== 'number' || !Number.isFinite(minuteValue) || minuteValue < 0 || minuteValue > 1000000) return null
+      if (
+        !/^[a-z][a-z0-9-]{0,79}$/.test(taskId) ||
+        typeof minuteValue !== 'number' ||
+        !Number.isFinite(minuteValue) ||
+        minuteValue < 0 ||
+        minuteValue > 1000000
+      )
+        return null
       dayMinutes[taskId] = minuteValue
     }
     minutes[dateKey] = dayMinutes
@@ -272,9 +269,7 @@ export default function StudyPlanPage() {
   const [dailyTargetInput, setDailyTargetInput] = useState(
     storage.settings.dailyTargetMinutes === null ? '' : String(storage.settings.dailyTargetMinutes),
   )
-  const [reminderPreferences, setReminderPreferences] = useState<StudyReminderPreferences>(() =>
-    getStudyReminderPreferences(),
-  )
+  const [reminderPreferences, setReminderPreferences] = useState<StudyReminderPreferences>(() => getStudyReminderPreferences())
   const [pwaState, setPwaState] = useState<PwaInstallState>(() => getPwaInstallState())
 
   useEffect(() => {
@@ -283,8 +278,12 @@ export default function StudyPlanPage() {
     const unsubscribeStatus = subscribeStudySyncStatus(setSyncStatus)
     void syncStudyPlan(loadStorage(todayKey)).then(() => {
       void getLearningProgress().then(setLearning)
-      void loadStudySyncInfo().then(setSyncInfo).catch(() => undefined)
-      void loadPasskeyAccount().then(setAccountInfo).catch(() => undefined)
+      void loadStudySyncInfo()
+        .then(setSyncInfo)
+        .catch(() => undefined)
+      void loadPasskeyAccount()
+        .then(setAccountInfo)
+        .catch(() => undefined)
     })
     return () => {
       unsubscribe()
@@ -294,9 +293,7 @@ export default function StudyPlanPage() {
   }, [todayKey])
 
   useEffect(() => {
-    setDailyTargetInput(
-      storage.settings.dailyTargetMinutes === null ? '' : String(storage.settings.dailyTargetMinutes),
-    )
+    setDailyTargetInput(storage.settings.dailyTargetMinutes === null ? '' : String(storage.settings.dailyTargetMinutes))
   }, [storage.settings.dailyTargetMinutes])
 
   useEffect(() => {
@@ -368,9 +365,7 @@ export default function StudyPlanPage() {
 
   const normalizedPreviewFilter = previewFilter.trim().toLocaleLowerCase()
   const previewFilterCount =
-    Number(Boolean(normalizedPreviewFilter)) +
-    Number(onlyMistakenPreviewWords) +
-    Number(selectedMistakeChapter !== null)
+    Number(Boolean(normalizedPreviewFilter)) + Number(onlyMistakenPreviewWords) + Number(selectedMistakeChapter !== null)
   const hasPreviewFilters = previewFilterCount > 0
   const clearPreviewFilters = () => {
     setPreviewFilter('')
@@ -380,11 +375,9 @@ export default function StudyPlanPage() {
   }
   const filteredPreviewWords = normalizedPreviewFilter
     ? (previewWordList ?? []).filter((word) =>
-        [word.name, word.notation ?? '', ...word.trans].some((value) =>
-          value.toLocaleLowerCase().includes(normalizedPreviewFilter),
-        ),
+        [word.name, word.notation ?? '', ...word.trans].some((value) => value.toLocaleLowerCase().includes(normalizedPreviewFilter)),
       )
-    : (previewWordList ?? [])
+    : previewWordList ?? []
 
   useEffect(() => {
     setPreviewWeek(currentWeek)
@@ -422,9 +415,7 @@ export default function StudyPlanPage() {
         dictId,
         status: 'ready',
         words: new Set(
-          learning.vocabulary.records
-            .filter((record) => record.dict === dictId && record.wrongCount > 0)
-            .map((record) => record.word),
+          learning.vocabulary.records.filter((record) => record.dict === dictId && record.wrongCount > 0).map((record) => record.word),
         ),
         error: '',
       })
@@ -462,15 +453,10 @@ export default function StudyPlanPage() {
     }
   }, [learning, previewDictionary?.id, previewWeek])
 
-  const previewErrorWordsStatus =
-    previewErrorWordsState.dictId === previewDictionary?.id ? previewErrorWordsState.status : 'loading'
-  const previewErrorWords =
-    previewErrorWordsStatus === 'ready' ? previewErrorWordsState.words : new Set<string>()
+  const previewErrorWordsStatus = previewErrorWordsState.dictId === previewDictionary?.id ? previewErrorWordsState.status : 'loading'
+  const previewErrorWords = previewErrorWordsStatus === 'ready' ? previewErrorWordsState.words : new Set<string>()
   const previewMistakeSummary =
-    previewErrorWordsStatus === 'ready' &&
-    !isPreviewWordListLoading &&
-    !previewWordListError &&
-    previewWordList
+    previewErrorWordsStatus === 'ready' && !isPreviewWordListLoading && !previewWordListError && previewWordList
       ? (() => {
           const seenWordNames = new Set<string>()
           const chapterCounts = new Map<number, number>()
@@ -505,9 +491,7 @@ export default function StudyPlanPage() {
 
     if (!previewMistakeSummary) return
 
-    const selectedChapterStillExists = previewMistakeSummary.chapters.some(
-      ({ chapter }) => chapter === selectedMistakeChapter,
-    )
+    const selectedChapterStillExists = previewMistakeSummary.chapters.some(({ chapter }) => chapter === selectedMistakeChapter)
     if (!selectedChapterStillExists) {
       setSelectedMistakeChapter(null)
       setPreviewPage(1)
@@ -537,9 +521,7 @@ export default function StudyPlanPage() {
   const previewWords = matchedPreviewWords.slice(previewPageStart, previewPageStart + PREVIEW_PAGE_SIZE)
 
   const conjugationHref =
-    phase.id === 1
-      ? '/conjugation?verb=prendre&tense=passeCompose&mode=practice&scope=current'
-      : '/conjugation?mode=practice&scope=mixed'
+    phase.id === 1 ? '/conjugation?verb=prendre&tense=passeCompose&mode=practice&scope=current' : '/conjugation?mode=practice&scope=mixed'
   const todayPlan = getDayPlan(today.getDay())
   const minimumMode = Boolean(storage.minimumMode[todayKey])
   const todayTasks = getConfiguredDayTasks(todayPlan, storage.settings, minimumMode, minimumModeTasks)
@@ -552,20 +534,14 @@ export default function StudyPlanPage() {
   }, [focusTaskId, todayTasks])
   const todayVocabularyTask = todayTasks.find((task) => task.kind === 'vocabulary' && task.href === '/gallery')
   const focusOwnsTodayVocabulary = Boolean(
-    focusSnapshot &&
-    focusSnapshot.day === todayKey &&
-    todayVocabularyTask &&
-    focusSnapshot.taskId === todayVocabularyTask.id,
+    focusSnapshot && focusSnapshot.day === todayKey && todayVocabularyTask && focusSnapshot.taskId === todayVocabularyTask.id,
   )
   const previewTrackingQuery =
     previewWeek === currentWeek && todayVocabularyTask && !focusOwnsTodayVocabulary
       ? `&studyDate=${todayKey}&studyTask=${todayVocabularyTask.id}`
       : ''
-  const previewPracticeHref = previewDictionary
-    ? `/?dict=${encodeURIComponent(previewDictionary.id)}${previewTrackingQuery}`
-    : '/'
-  const selectedMistakeChapterIndex =
-    selectedMistakeChapter !== null ? selectedMistakeChapter - 1 : null
+  const previewPracticeHref = previewDictionary ? `/?dict=${encodeURIComponent(previewDictionary.id)}${previewTrackingQuery}` : '/'
+  const selectedMistakeChapterIndex = selectedMistakeChapter !== null ? selectedMistakeChapter - 1 : null
   const selectedMistakeChapterPracticeHref =
     isMistakeChapterFilterActive &&
     selectedMistakeChapterIndex !== null &&
@@ -588,8 +564,7 @@ export default function StudyPlanPage() {
   const weeklyPlannedMinutes = configuredWeeklyTargetMinutes(weeklyStudyPlan, storage.settings, minimumModeTasks)
   const actualMinutesForTasks = (dateKey: string, tasks: StudyTask[]) =>
     tasks.reduce((sum, task) => sum + (storage.minutes[dateKey]?.[task.id] ?? 0), 0)
-  const recordedMinutesForDay = (dateKey: string) =>
-    Object.values(storage.minutes[dateKey] ?? {}).reduce((sum, value) => sum + value, 0)
+  const recordedMinutesForDay = (dateKey: string) => Object.values(storage.minutes[dateKey] ?? {}).reduce((sum, value) => sum + value, 0)
 
   const weeklyActualMinutes = currentPlanWeekDays.reduce((total, item) => total + recordedMinutesForDay(item.key), 0)
   const weeklyCompletedDays = currentPlanWeekDays.filter((item) => {
@@ -614,8 +589,7 @@ export default function StudyPlanPage() {
     if (!missed) return earliest
     return earliest === null || item.key < earliest ? item.key : earliest
   }, null)
-  const earliestMissedDayName =
-    currentPlanWeekDays.find((item) => item.key === earliestMissedDayKey)?.day.name ?? null
+  const earliestMissedDayName = currentPlanWeekDays.find((item) => item.key === earliestMissedDayKey)?.day.name ?? null
   const earliestMissedDayRemainingMinutes = (() => {
     const item = currentPlanWeekDays.find((dayItem) => dayItem.key === earliestMissedDayKey)
     if (!item) return null
@@ -781,8 +755,8 @@ export default function StudyPlanPage() {
         code === 'PASSKEY_UNSUPPORTED' || code === 'PASSKEY_BROWSER_UNSUPPORTED'
           ? '当前浏览器或系统不支持所需的 Passkey API。'
           : code === 'PENDING_MUTATIONS'
-            ? '请等待待同步记录保存完成后再创建 Passkey。'
-            : 'Passkey 创建未完成；现有匿名学习进度没有变化。',
+          ? '请等待待同步记录保存完成后再创建 Passkey。'
+          : 'Passkey 创建未完成；现有匿名学习进度没有变化。',
       )
     }
   }
@@ -804,8 +778,8 @@ export default function StudyPlanPage() {
         code === 'PASSKEY_UNSUPPORTED'
           ? '当前浏览器不支持 Passkey。'
           : code === 'PENDING_MUTATIONS'
-            ? '请先等待本机待同步记录保存完成，再切换到账户进度。'
-            : 'Passkey 登录失败或已取消；当前匿名进度保持不变。',
+          ? '请先等待本机待同步记录保存完成，再切换到账户进度。'
+          : 'Passkey 登录失败或已取消；当前匿名进度保持不变。',
       )
     }
   }
@@ -956,7 +930,8 @@ export default function StudyPlanPage() {
         'qwerty-fr-grammar-server-migration-v1',
         'qwerty-fr-conjugation-stats-v1',
         'qwerty-fr-vocabulary-server-migration-v1',
-      ]) window.localStorage.removeItem(key)
+      ])
+        window.localStorage.removeItem(key)
       setImportMessage('服务端与本机学习数据都已删除，页面将重新初始化。')
       window.setTimeout(() => window.location.reload(), 300)
     } catch {
@@ -969,14 +944,12 @@ export default function StudyPlanPage() {
   const smartTaskHref = (task: NonNullable<StudyAnalytics['today']>['tasks'][number]) => {
     if (task.kind === 'vocabulary' && targetDictionary)
       return `/?dict=${encodeURIComponent(targetDictionary.id)}&studyDate=${todayKey}&studyTask=${task.id}`
-    if (task.kind === 'grammar')
-      return `/grammar-session?studyDate=${todayKey}&studyTask=${task.id}`
+    if (task.kind === 'grammar') return `/grammar-session?studyDate=${todayKey}&studyTask=${task.id}`
     if (task.kind === 'conjugation') {
       const separator = task.href.includes('?') ? '&' : '?'
       return `${task.href}${separator}studyDate=${todayKey}&studyTask=${task.id}`
     }
-    if (task.kind === 'review')
-      return `/analysis?studyDate=${todayKey}&studyTask=${task.id}`
+    if (task.kind === 'review') return `/analysis?studyDate=${todayKey}&studyTask=${task.id}`
     return task.href
   }
 
@@ -987,21 +960,20 @@ export default function StudyPlanPage() {
     let actionLabel = task.actionLabel
 
     if (task.kind === 'vocabulary' && task.href === '/gallery' && targetDictionary) {
-      const focusOwnsTask = Boolean(
-        focusSnapshot &&
-        focusSnapshot.day === dateKey &&
-        focusSnapshot.taskId === task.id,
-      )
-      taskHref = focusOwnsTask
-        ? `/?dict=${targetDictionary.id}`
-        : `/?dict=${targetDictionary.id}&studyDate=${dateKey}&studyTask=${task.id}`
+      const focusOwnsTask = Boolean(focusSnapshot && focusSnapshot.day === dateKey && focusSnapshot.taskId === task.id)
+      taskHref = focusOwnsTask ? `/?dict=${targetDictionary.id}` : `/?dict=${targetDictionary.id}&studyDate=${dateKey}&studyTask=${task.id}`
       actionLabel = `练 ${targetDictionary.name}`
     } else if (task.href === '/grammar-session') {
       actionLabel = '练 Passé composé vs imparfait'
     } else if (task.href === '/conjugation') {
       taskHref = conjugationHref
       actionLabel = phase.id === 1 ? '练 prendre · Passé composé' : '开始核心动词练习'
-    } else if (task.href === '/tcf-listening' || task.href === '/tcf-reading') {
+    } else if (
+      task.href === '/tcf-listening' ||
+      task.href === '/tcf-reading' ||
+      task.href === '/tcf-writing' ||
+      task.href === '/tcf-speaking'
+    ) {
       taskHref = `${task.href}?studyDate=${dateKey}&studyTask=${task.id}`
     }
 
@@ -1022,9 +994,7 @@ export default function StudyPlanPage() {
               </span>
               <h3 className="font-semibold text-gray-900 dark:text-white">{task.title}</h3>
               <span className="text-xs text-gray-400">目标 {task.minutes} min</span>
-              {actual > task.minutes && (
-                <span className="text-xs text-gray-400">超出 {actual - task.minutes} min</span>
-              )}
+              {actual > task.minutes && <span className="text-xs text-gray-400">超出 {actual - task.minutes} min</span>}
             </div>
             {!compact && <p className="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">{task.description}</p>}
           </div>
@@ -1113,7 +1083,7 @@ export default function StudyPlanPage() {
       </Header>
 
       <main className="container mx-auto w-full max-w-6xl flex-1 px-4 pb-12 sm:px-6 lg:px-10">
-        <section className="my-card rounded-3xl bg-white p-4 sm:p-7 dark:bg-gray-800">
+        <section className="my-card rounded-3xl bg-white p-4 dark:bg-gray-800 sm:p-7">
           <div className="flex flex-wrap items-start justify-between gap-6">
             <div>
               <div className="flex items-center gap-2 text-sm font-medium text-indigo-500">
@@ -1132,20 +1102,20 @@ export default function StudyPlanPage() {
                   onClick={todayVocabularyTask ? () => saveStorage(storage) : undefined}
                   className="mt-1 block text-sm text-gray-500 underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-300"
                 >
-                  本周词库：{targetDictionary.name} · {targetDictionary.length} 词 · 共 {Math.ceil(targetDictionary.length / CHAPTER_LENGTH)} 章
+                  本周词库：{targetDictionary.name} · {targetDictionary.length} 词 · 共{' '}
+                  {Math.ceil(targetDictionary.length / CHAPTER_LENGTH)} 章
                 </NavLink>
               )}
               {previewWeek !== currentWeek && previewDictionary && (
                 <button
                   type="button"
                   onClick={() =>
-                    document
-                      .getElementById('study-dictionary-preview')
-                      ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                    document.getElementById('study-dictionary-preview')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
                   }
                   className="mt-1 block text-sm text-gray-500 underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-300"
                 >
-                  正在预览第 {previewWeek} 周：{previewDictionary.name} · {previewDictionary.length} 词 · 共 {Math.ceil(previewDictionary.length / CHAPTER_LENGTH)} 章
+                  正在预览第 {previewWeek} 周：{previewDictionary.name} · {previewDictionary.length} 词 · 共{' '}
+                  {Math.ceil(previewDictionary.length / CHAPTER_LENGTH)} 章
                 </button>
               )}
             </div>
@@ -1219,7 +1189,8 @@ export default function StudyPlanPage() {
                   </div>
                 </div>
                 <div className="mt-2 text-[11px] leading-5 text-gray-400">
-                  26 周会按考试日重新排期：{storage.startDate} → {storage.settings.examDate}。调整只改变计划日期和目标，已有实际分钟与练习记录不会删除。
+                  26 周会按考试日重新排期：{storage.startDate} → {storage.settings.examDate}
+                  。调整只改变计划日期和目标，已有实际分钟与练习记录不会删除。
                 </div>
               </div>
 
@@ -1266,9 +1237,7 @@ export default function StudyPlanPage() {
                       安装到设备
                     </button>
                   ) : (
-                    <span className="ml-auto text-gray-400">
-                      {pwaState.serviceWorkerReady ? '离线缓存已就绪' : '浏览器暂不支持安装'}
-                    </span>
+                    <span className="ml-auto text-gray-400">{pwaState.serviceWorkerReady ? '离线缓存已就绪' : '浏览器暂不支持安装'}</span>
                   )}
                 </div>
               </div>
@@ -1288,13 +1257,7 @@ export default function StudyPlanPage() {
                 >
                   导入 JSON
                 </button>
-                <input
-                  ref={importInputRef}
-                  type="file"
-                  accept="application/json,.json"
-                  onChange={importStudyPlan}
-                  className="hidden"
-                />
+                <input ref={importInputRef} type="file" accept="application/json,.json" onChange={importStudyPlan} className="hidden" />
               </div>
 
               <div
@@ -1322,9 +1285,15 @@ export default function StudyPlanPage() {
                     disabled={!todayTasks.length || Boolean(focusSnapshot && focusSnapshot.status !== 'finished')}
                     className="min-w-0 rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-xs text-gray-700 outline-none focus:border-indigo-400 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                   >
-                    {todayTasks.length ? todayTasks.map((task) => (
-                      <option key={task.id} value={task.id}>{task.title}</option>
-                    )) : <option value="">今天是休息日</option>}
+                    {todayTasks.length ? (
+                      todayTasks.map((task) => (
+                        <option key={task.id} value={task.id}>
+                          {task.title}
+                        </option>
+                      ))
+                    ) : (
+                      <option value="">今天是休息日</option>
+                    )}
                   </select>
                   <input
                     type="number"
@@ -1396,7 +1365,9 @@ export default function StudyPlanPage() {
                   >
                     使用 Passkey 登录
                   </button>
-                  {!passkeyAvailable() && <span className="self-center text-[11px] text-amber-600 dark:text-amber-300">此浏览器不支持 Passkey</span>}
+                  {!passkeyAvailable() && (
+                    <span className="self-center text-[11px] text-amber-600 dark:text-amber-300">此浏览器不支持 Passkey</span>
+                  )}
                 </div>
               </div>
 
@@ -1538,7 +1509,9 @@ export default function StudyPlanPage() {
           <div className="mt-6 h-2 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700">
             <div className="h-full rounded-full bg-indigo-500 transition-all" style={{ width: `${phaseProgress}%` }} />
           </div>
-          <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">整体进度 {phaseProgress}% · 还剩 {26 - currentWeek} 周</div>
+          <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            整体进度 {phaseProgress}% · 还剩 {26 - currentWeek} 周
+          </div>
 
           <div className="mt-5 grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl bg-indigo-50 p-4 dark:bg-indigo-950/30">
@@ -1546,9 +1519,7 @@ export default function StudyPlanPage() {
               <button
                 type="button"
                 onClick={() =>
-                  document
-                    .getElementById(`study-roadmap-phase-${phase.id}`)
-                    ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  document.getElementById(`study-roadmap-phase-${phase.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
                 }
                 className="mt-1 font-semibold text-gray-900 underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:text-white dark:hover:text-indigo-300"
               >
@@ -1558,13 +1529,16 @@ export default function StudyPlanPage() {
                 {toDateKey(phaseStartDate)} · {toDateKey(phaseEndDate)}
               </div>
               <div className="mt-1 flex flex-wrap items-center gap-2 text-sm text-indigo-400">
-                <span>本阶段第 {currentWeek - phase.weeks[0] + 1} / {phase.weeks[1] - phase.weeks[0] + 1} 周</span>
+                <span>
+                  本阶段第 {currentWeek - phase.weeks[0] + 1} / {phase.weeks[1] - phase.weeks[0] + 1} 周
+                </span>
                 <span>本阶段还剩 {phase.weeks[1] - currentWeek} 周</span>
               </div>
               <div className="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-300">{phase.state}</div>
               {analytics && (
                 <div className="mt-2 text-xs text-indigo-400">
-                  服务端阶段完成 {analytics.plan.phase.completionPercent}% · {analytics.plan.phase.completedDays} / {analytics.plan.phase.elapsedDays} 个已到日期完成
+                  服务端阶段完成 {analytics.plan.phase.completionPercent}% · {analytics.plan.phase.completedDays} /{' '}
+                  {analytics.plan.phase.elapsedDays} 个已到日期完成
                 </div>
               )}
             </div>
@@ -1585,7 +1559,9 @@ export default function StudyPlanPage() {
                 )}
               </div>
               <div className="mt-1 text-sm text-gray-500">计划约 {minutesLabel(weeklyPlannedMinutes)}</div>
-              <div className="mt-1 text-sm text-gray-500">完成 {weeklyCompletedDays} / {storage.settings.studyDays.length} 个学习日</div>
+              <div className="mt-1 text-sm text-gray-500">
+                完成 {weeklyCompletedDays} / {storage.settings.studyDays.length} 个学习日
+              </div>
               {analytics && (
                 <div className="mt-1 text-xs text-gray-400">
                   服务端累计 {minutesLabel(analytics.plan.totalMinutes)} · 本周完成度 {analytics.plan.weekCompletionPercent}%
@@ -1605,7 +1581,9 @@ export default function StudyPlanPage() {
                   >
                     未完成 {weeklyMissedDays} 天
                   </button>
-                  <span className="text-gray-400">最早是{earliestMissedDayName} · {earliestMissedDayKey}</span>
+                  <span className="text-gray-400">
+                    最早是{earliestMissedDayName} · {earliestMissedDayKey}
+                  </span>
                   {earliestMissedDayRemainingMinutes !== null && earliestMissedDayRemainingMinutes > 0 && (
                     <span className="text-gray-400">还差 {earliestMissedDayRemainingMinutes} min</span>
                   )}
@@ -1630,9 +1608,7 @@ export default function StudyPlanPage() {
                       key={item.key}
                       type="button"
                       onClick={() =>
-                        document
-                          .getElementById(`study-week-day-${item.key}`)
-                          ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                        document.getElementById(`study-week-day-${item.key}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
                       }
                       className="block text-left underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:hover:text-indigo-300"
                     >
@@ -1654,15 +1630,28 @@ export default function StudyPlanPage() {
 
           {analytics && (
             <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 rounded-xl bg-gray-50 px-4 py-3 text-xs text-gray-500 dark:bg-gray-900 dark:text-gray-400">
-              <span>词汇：{analytics.vocabulary.attempts} 次 · {analytics.vocabulary.uniqueWords} 个词 · {analytics.vocabulary.wrongWords} 个错词</span>
-              <span>语法：{analytics.grammar.sessions} 次{analytics.grammar.accuracy === null ? '' : ` · ${analytics.grammar.accuracy}%`}{analytics.grammar.hasDraft ? ' · 有未完成练习' : ''}</span>
-              <span>变位：{analytics.conjugation.attempts} 题{analytics.conjugation.accuracy === null ? '' : ` · ${analytics.conjugation.accuracy}%`} · {analytics.conjugation.practicedVerbs} 个动词</span>
+              <span>
+                词汇：{analytics.vocabulary.attempts} 次 · {analytics.vocabulary.uniqueWords} 个词 · {analytics.vocabulary.wrongWords}{' '}
+                个错词
+              </span>
+              <span>
+                语法：{analytics.grammar.sessions} 次{analytics.grammar.accuracy === null ? '' : ` · ${analytics.grammar.accuracy}%`}
+                {analytics.grammar.hasDraft ? ' · 有未完成练习' : ''}
+              </span>
+              <span>
+                变位：{analytics.conjugation.attempts} 题
+                {analytics.conjugation.accuracy === null ? '' : ` · ${analytics.conjugation.accuracy}%`} ·{' '}
+                {analytics.conjugation.practicedVerbs} 个动词
+              </span>
             </div>
           )}
 
           <div className="mt-5 flex flex-wrap gap-2">
             {phase.focus.map((item) => (
-              <span key={item} className="rounded-full bg-white px-3 py-1 text-xs text-gray-500 shadow-sm dark:bg-gray-800 dark:text-gray-300">
+              <span
+                key={item}
+                className="rounded-full bg-white px-3 py-1 text-xs text-gray-500 shadow-sm dark:bg-gray-800 dark:text-gray-300"
+              >
                 {item}
               </span>
             ))}
@@ -1672,7 +1661,7 @@ export default function StudyPlanPage() {
         <section
           aria-labelledby="smart-today-title"
           data-testid="smart-today-plan"
-          className="mt-7 rounded-3xl border border-indigo-200 bg-indigo-50/70 p-4 sm:p-6 dark:border-indigo-900 dark:bg-indigo-950/50"
+          className="mt-7 rounded-3xl border border-indigo-200 bg-indigo-50/70 p-4 dark:border-indigo-900 dark:bg-indigo-950/50 sm:p-6"
         >
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
@@ -1696,7 +1685,11 @@ export default function StudyPlanPage() {
               {smartToday.tasks.map((task) => (
                 <article
                   key={task.id}
-                  className={`rounded-2xl border p-4 ${task.complete ? 'border-green-300 bg-green-50 dark:border-green-800 dark:bg-green-950/40' : 'border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900'}`}
+                  className={`rounded-2xl border p-4 ${
+                    task.complete
+                      ? 'border-green-300 bg-green-50 dark:border-green-800 dark:bg-green-950/40'
+                      : 'border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900'
+                  }`}
                 >
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="rounded-full bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-800 dark:bg-indigo-900 dark:text-indigo-100">
@@ -1709,7 +1702,9 @@ export default function StudyPlanPage() {
                   <div className="mt-3 flex items-center gap-3">
                     <div className="min-w-0 flex-1">
                       <div className="flex justify-between text-xs text-gray-600 dark:text-gray-300">
-                        <span>{task.actualMinutes} / {task.minutes} min</span>
+                        <span>
+                          {task.actualMinutes} / {task.minutes} min
+                        </span>
                         <span>{Math.min(100, Math.round((task.actualMinutes / Math.max(1, task.minutes)) * 100))}%</span>
                       </div>
                       <div
@@ -1755,9 +1750,7 @@ export default function StudyPlanPage() {
                 <button
                   type="button"
                   onClick={() =>
-                    document
-                      .getElementById(`study-roadmap-week-${previewWeek}`)
-                      ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                    document.getElementById(`study-roadmap-week-${previewWeek}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
                   }
                   className="rounded-lg border border-gray-200 bg-white px-2.5 py-1 text-xs font-medium text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:hover:text-indigo-300"
                 >
@@ -1778,7 +1771,8 @@ export default function StudyPlanPage() {
                   {getStudyPhase(previewWeek).name}
                 </button>
                 <span className="text-xs font-normal text-gray-400">
-                  在阶段里第 {previewWeek - getStudyPhase(previewWeek).weeks[0] + 1} / {getStudyPhase(previewWeek).weeks[1] - getStudyPhase(previewWeek).weeks[0] + 1} 周
+                  在阶段里第 {previewWeek - getStudyPhase(previewWeek).weeks[0] + 1} /{' '}
+                  {getStudyPhase(previewWeek).weeks[1] - getStudyPhase(previewWeek).weeks[0] + 1} 周
                 </span>
                 <span className="text-xs font-normal text-gray-400">
                   这一阶段还剩 {getStudyPhase(previewWeek).weeks[1] - previewWeek} 周
@@ -1800,9 +1794,7 @@ export default function StudyPlanPage() {
                 {previewDictionary ? (
                   <NavLink
                     to={previewPracticeHref}
-                    onClick={
-                      previewWeek === currentWeek && todayVocabularyTask ? () => saveStorage(storage) : undefined
-                    }
+                    onClick={previewWeek === currentWeek && todayVocabularyTask ? () => saveStorage(storage) : undefined}
                     className="underline decoration-gray-300 underline-offset-4 hover:text-indigo-600 dark:hover:text-indigo-300"
                   >
                     {previewDictionary.name}
@@ -1822,8 +1814,8 @@ export default function StudyPlanPage() {
                     {normalizedPreviewFilter || isMistakeFilterActive || isMistakeChapterFilterActive
                       ? `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 显示了 ${previewWords.length} 个`
                       : previewWordList.length < PREVIEW_PAGE_SIZE
-                        ? `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 已全部显示`
-                        : `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 显示了 ${previewWords.length} 个`}
+                      ? `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 已全部显示`
+                      : `匹配了 ${matchedPreviewWords.length} 个 · 第 ${currentPreviewPage} 页 / 共 ${previewTotalPages} 页 · 显示了 ${previewWords.length} 个`}
                   </span>
                   {isMistakeChapterFilterActive && selectedMistakeChapter !== null && (
                     <>
@@ -1831,9 +1823,7 @@ export default function StudyPlanPage() {
                       {selectedMistakeChapterPracticeHref && (
                         <NavLink
                           to={selectedMistakeChapterPracticeHref}
-                          onClick={
-                            previewWeek === currentWeek && todayVocabularyTask ? () => saveStorage(storage) : undefined
-                          }
+                          onClick={previewWeek === currentWeek && todayVocabularyTask ? () => saveStorage(storage) : undefined}
                           className="font-medium text-indigo-600 underline decoration-indigo-300 underline-offset-2 hover:text-indigo-700 dark:text-indigo-300 dark:hover:text-indigo-200"
                         >
                           去练这一章
@@ -1948,45 +1938,42 @@ export default function StudyPlanPage() {
               <div>
                 <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
                   {previewWords.map((word, index) => {
-                  const fullWordIndex = previewWordList?.indexOf(word) ?? -1
-                  const chapterIndex = fullWordIndex >= 0 ? Math.floor(fullWordIndex / CHAPTER_LENGTH) : null
-                  const chapter = chapterIndex !== null ? chapterIndex + 1 : null
-                  const wordPracticeHref =
-                    chapterIndex !== null ? `${previewPracticeHref}&chapter=${chapterIndex}` : previewPracticeHref
+                    const fullWordIndex = previewWordList?.indexOf(word) ?? -1
+                    const chapterIndex = fullWordIndex >= 0 ? Math.floor(fullWordIndex / CHAPTER_LENGTH) : null
+                    const chapter = chapterIndex !== null ? chapterIndex + 1 : null
+                    const wordPracticeHref = chapterIndex !== null ? `${previewPracticeHref}&chapter=${chapterIndex}` : previewPracticeHref
 
-                  return (
-                    <NavLink
-                      key={`${word.name}-${index}`}
-                      to={wordPracticeHref}
-                      onClick={
-                        previewWeek === currentWeek && todayVocabularyTask ? () => saveStorage(storage) : undefined
-                      }
-                      className="rounded-xl bg-gray-50 px-3 py-2 transition hover:bg-indigo-50 dark:bg-gray-900 dark:hover:bg-gray-700"
-                    >
-                      <div className="flex items-start justify-between gap-2">
-                        <div className="font-medium text-gray-900 dark:text-gray-100">{word.name}</div>
-                        <div className="flex shrink-0 flex-wrap justify-end gap-1">
-                          {previewErrorWordsStatus === 'ready' && previewErrorWords.has(word.name) && (
-                            <span className="rounded-full bg-red-100 px-2 py-0.5 text-[11px] font-medium text-red-700 dark:bg-red-950 dark:text-red-300">
-                              错过
-                            </span>
-                          )}
-                          {chapter !== null && (
-                            <span className="rounded-full bg-white px-2 py-0.5 text-[11px] font-medium text-gray-500 shadow-sm dark:bg-gray-800 dark:text-gray-300">
-                              第 {chapter} 章
-                            </span>
-                          )}
+                    return (
+                      <NavLink
+                        key={`${word.name}-${index}`}
+                        to={wordPracticeHref}
+                        onClick={previewWeek === currentWeek && todayVocabularyTask ? () => saveStorage(storage) : undefined}
+                        className="rounded-xl bg-gray-50 px-3 py-2 transition hover:bg-indigo-50 dark:bg-gray-900 dark:hover:bg-gray-700"
+                      >
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="font-medium text-gray-900 dark:text-gray-100">{word.name}</div>
+                          <div className="flex shrink-0 flex-wrap justify-end gap-1">
+                            {previewErrorWordsStatus === 'ready' && previewErrorWords.has(word.name) && (
+                              <span className="rounded-full bg-red-100 px-2 py-0.5 text-[11px] font-medium text-red-700 dark:bg-red-950 dark:text-red-300">
+                                错过
+                              </span>
+                            )}
+                            {chapter !== null && (
+                              <span className="rounded-full bg-white px-2 py-0.5 text-[11px] font-medium text-gray-500 shadow-sm dark:bg-gray-800 dark:text-gray-300">
+                                第 {chapter} 章
+                              </span>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                      {word.notation && (
-                        <div className="mt-1 text-xs font-medium text-indigo-500 dark:text-indigo-300">{word.notation}</div>
-                      )}
-                      {word.trans.length > 0 && (
-                        <div className="mt-1 line-clamp-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
-                          {word.trans.slice(0, 2).join('；')}
-                        </div>
-                      )}
-                    </NavLink>
+                        {word.notation && (
+                          <div className="mt-1 text-xs font-medium text-indigo-500 dark:text-indigo-300">{word.notation}</div>
+                        )}
+                        {word.trans.length > 0 && (
+                          <div className="mt-1 line-clamp-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
+                            {word.trans.slice(0, 2).join('；')}
+                          </div>
+                        )}
+                      </NavLink>
                     )
                   })}
                 </div>
@@ -2020,8 +2007,8 @@ export default function StudyPlanPage() {
                 {isMistakeChapterFilterActive
                   ? '这一章没有匹配的错过词'
                   : normalizedPreviewFilter || isMistakeFilterActive
-                    ? '没有匹配的词。'
-                    : '这个词库没有可显示的词。'}
+                  ? '没有匹配的词。'
+                  : '这个词库没有可显示的词。'}
               </div>
             )}
           </div>
@@ -2034,27 +2021,27 @@ export default function StudyPlanPage() {
                 <button
                   type="button"
                   onClick={() =>
-                    document
-                      .getElementById(`study-week-day-${todayKey}`)
-                      ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                    document.getElementById(`study-week-day-${todayKey}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
                   }
                   className="text-sm font-medium text-indigo-500 underline decoration-indigo-300 underline-offset-2 hover:text-indigo-600 dark:hover:text-indigo-300"
                 >
                   今日计划 · {todayPlan.name} · {todayKey}
                 </button>
               ) : (
-                <div className="text-sm font-medium text-indigo-500">今日计划 · {todayPlan.name} · {todayKey}</div>
+                <div className="text-sm font-medium text-indigo-500">
+                  今日计划 · {todayPlan.name} · {todayKey}
+                </div>
               )}
               <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">
                 {todayTasks.length === 0
                   ? '休息日（按设置）'
                   : minimumMode
-                    ? '10 分钟最低模式'
-                    : storage.settings.dailyTargetMinutes
-                      ? `${storage.settings.dailyTargetMinutes} min 目标`
-                      : storage.settings.studyDays.length < 7
-                        ? `${todayPlannedMinutes} min 目标`
-                        : todayPlan.totalLabel}
+                  ? '10 分钟最低模式'
+                  : storage.settings.dailyTargetMinutes
+                  ? `${storage.settings.dailyTargetMinutes} min 目标`
+                  : storage.settings.studyDays.length < 7
+                  ? `${todayPlannedMinutes} min 目标`
+                  : todayPlan.totalLabel}
               </h2>
               {todayPlan.note && <p className="mt-1 text-sm text-gray-500">{todayPlan.note}</p>}
             </div>
@@ -2090,9 +2077,7 @@ export default function StudyPlanPage() {
                   {minimumMode ? '恢复正常计划' : '今天太累了 → 10 分钟模式'}
                 </button>
               ) : (
-                <span className="rounded-xl bg-gray-100 px-4 py-2 text-sm text-gray-400 dark:bg-gray-900">
-                  今天不安排计划任务
-                </span>
+                <span className="rounded-xl bg-gray-100 px-4 py-2 text-sm text-gray-400 dark:bg-gray-900">今天不安排计划任务</span>
               )}
             </div>
           </div>
@@ -2165,12 +2150,12 @@ export default function StudyPlanPage() {
                         {dayTasks.length === 0
                           ? '休息日（按设置）'
                           : dayMinimumMode
-                            ? '10 分钟最低模式'
-                            : storage.settings.dailyTargetMinutes
-                              ? `${storage.settings.dailyTargetMinutes} min 目标`
-                              : storage.settings.studyDays.length < 7
-                                ? `${dayPlannedMinutes} min 目标`
-                                : day.totalLabel}
+                          ? '10 分钟最低模式'
+                          : storage.settings.dailyTargetMinutes
+                          ? `${storage.settings.dailyTargetMinutes} min 目标`
+                          : storage.settings.studyDays.length < 7
+                          ? `${dayPlannedMinutes} min 目标`
+                          : day.totalLabel}
                         {day.note && dayTasks.length > 0 ? ` · ${day.note}` : ''}
                       </div>
                     </div>
@@ -2196,9 +2181,7 @@ export default function StudyPlanPage() {
                   </div>
 
                   {dayTasks.length > 0 ? (
-                    <div className="mt-4 grid gap-3 lg:grid-cols-3">
-                      {dayTasks.map((task) => renderTask(task, key, true))}
-                    </div>
+                    <div className="mt-4 grid gap-3 lg:grid-cols-3">{dayTasks.map((task) => renderTask(task, key, true))}</div>
                   ) : (
                     <div className="mt-4 rounded-xl bg-gray-50 px-4 py-3 text-sm text-gray-400 dark:bg-gray-900">
                       这一天按当前设置不安排计划任务；已有历史分钟仍保留。
@@ -2217,9 +2200,7 @@ export default function StudyPlanPage() {
             <button
               type="button"
               onClick={() =>
-                document
-                  .getElementById(`study-roadmap-week-${currentWeek}`)
-                  ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                document.getElementById(`study-roadmap-week-${currentWeek}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
               }
               className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:hover:text-indigo-300"
             >
@@ -2245,24 +2226,18 @@ export default function StudyPlanPage() {
                   }`}
                 >
                   <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-indigo-500">
-                    <span>第 {item.weeks[0]}–{item.weeks[1]} 周 {active ? '· 当前阶段' : ''}</span>
-                    <span className="font-normal text-gray-400 dark:text-gray-500">
-                      共 {item.weeks[1] - item.weeks[0] + 1} 周
+                    <span>
+                      第 {item.weeks[0]}–{item.weeks[1]} 周 {active ? '· 当前阶段' : ''}
                     </span>
-                    {item.weeks[1] < currentWeek && (
-                      <span className="font-normal text-gray-400 dark:text-gray-500">已过</span>
-                    )}
-                    {item.weeks[0] > currentWeek && (
-                      <span className="font-normal text-gray-400 dark:text-gray-500">未到</span>
-                    )}
+                    <span className="font-normal text-gray-400 dark:text-gray-500">共 {item.weeks[1] - item.weeks[0] + 1} 周</span>
+                    {item.weeks[1] < currentWeek && <span className="font-normal text-gray-400 dark:text-gray-500">已过</span>}
+                    {item.weeks[0] > currentWeek && <span className="font-normal text-gray-400 dark:text-gray-500">未到</span>}
                     {active && (
                       <>
                         <span className="font-normal text-gray-400 dark:text-gray-500">
                           本阶段第 {currentWeek - item.weeks[0] + 1} / {item.weeks[1] - item.weeks[0] + 1} 周
                         </span>
-                        <span className="font-normal text-gray-400 dark:text-gray-500">
-                          本阶段还剩 {item.weeks[1] - currentWeek} 周
-                        </span>
+                        <span className="font-normal text-gray-400 dark:text-gray-500">本阶段还剩 {item.weeks[1] - currentWeek} 周</span>
                       </>
                     )}
                     {!active && previewWeek >= item.weeks[0] && previewWeek <= item.weeks[1] && (
@@ -2275,7 +2250,12 @@ export default function StudyPlanPage() {
                         }
                         className="font-normal text-gray-400 underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:text-gray-500 dark:hover:text-indigo-300"
                       >
-                        正在预览第 {previewWeek} 周{previewDictionary ? ` · ${previewDictionary.name} · ${previewDictionary.length} 词 · 共 ${Math.ceil(previewDictionary.length / CHAPTER_LENGTH)} 章` : ''}
+                        正在预览第 {previewWeek} 周
+                        {previewDictionary
+                          ? ` · ${previewDictionary.name} · ${previewDictionary.length} 词 · 共 ${Math.ceil(
+                              previewDictionary.length / CHAPTER_LENGTH,
+                            )} 章`
+                          : ''}
                       </button>
                     )}
                     <span className="font-normal text-gray-400 dark:text-gray-500">
@@ -2291,9 +2271,7 @@ export default function StudyPlanPage() {
                       const dictionary = idDictionaryMap[weekDictionaryIds[week]]
                       const isCurrentWeek = week === currentWeek
                       const trackingQuery =
-                        isCurrentWeek && todayVocabularyTask
-                          ? `&studyDate=${todayKey}&studyTask=${todayVocabularyTask.id}`
-                          : ''
+                        isCurrentWeek && todayVocabularyTask ? `&studyDate=${todayKey}&studyTask=${todayVocabularyTask.id}` : ''
                       const weekHref = dictionary ? `/?dict=${encodeURIComponent(dictionary.id)}${trackingQuery}` : '/'
                       const roadmapWeekStart = addDays(startDate, (week - 1) * 7)
                       const roadmapWeekEnd = addDays(roadmapWeekStart, 6)
@@ -2323,7 +2301,9 @@ export default function StudyPlanPage() {
                                   第 {week} 周
                                 </NavLink>
                                 {week === previewWeek && !isCurrentWeek && (
-                                  <span className="rounded-full bg-indigo-50 px-1.5 py-0.5 text-xs text-indigo-600 dark:bg-indigo-950 dark:text-indigo-300">预览</span>
+                                  <span className="rounded-full bg-indigo-50 px-1.5 py-0.5 text-xs text-indigo-600 dark:bg-indigo-950 dark:text-indigo-300">
+                                    预览
+                                  </span>
                                 )}
                                 <NavLink
                                   to={weekHref}
@@ -2362,9 +2342,7 @@ export default function StudyPlanPage() {
                                       <span>还差 {weeklyPlannedMinutes - weeklyActualMinutes} min</span>
                                     )}
                                     {weeklyPlannedMinutes > 0 && weeklyActualMinutes >= weeklyPlannedMinutes && (
-                                      <span className="rounded-full bg-white/20 px-2 py-0.5 font-medium text-white">
-                                        完成
-                                      </span>
+                                      <span className="rounded-full bg-white/20 px-2 py-0.5 font-medium text-white">完成</span>
                                     )}
                                   </div>
                                 )}
@@ -2376,9 +2354,7 @@ export default function StudyPlanPage() {
                             onClick={() => {
                               setSelectedMistakeChapter(null)
                               setPreviewWeek(week)
-                              document
-                                .getElementById('study-dictionary-preview')
-                                ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                              document.getElementById('study-dictionary-preview')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
                             }}
                             className={`shrink-0 rounded-lg px-2.5 text-xs font-medium transition ${
                               previewWeek === week
@@ -2386,8 +2362,8 @@ export default function StudyPlanPage() {
                                   ? 'bg-white text-indigo-600'
                                   : 'bg-indigo-500 text-white'
                                 : isCurrentWeek
-                                  ? 'bg-white/15 text-white hover:bg-white/25'
-                                  : 'bg-white text-indigo-600 hover:bg-indigo-100 dark:bg-gray-800 dark:text-indigo-300 dark:hover:bg-gray-700'
+                                ? 'bg-white/15 text-white hover:bg-white/25'
+                                : 'bg-white text-indigo-600 hover:bg-indigo-100 dark:bg-gray-800 dark:text-indigo-300 dark:hover:bg-gray-700'
                             }`}
                           >
                             {previewWeek === week ? '预览中' : '预览'}

@@ -228,26 +228,255 @@ export async function listWorkerWeeklyReports(db, learner, limit = 26) {
   }))
 }
 
-export async function listWorkerTcfAttempts(db, learner, { skill = '', limit = 100 } = {}) {
-  const clauses = ['learner=?']
-  const args = [learner]
-  if (skill) {
-    clauses.push('skill=?')
-    args.push(skill)
+export async function getWorkerTcfEeDraft(db, learner) {
+  const row = await db.prepare(`
+    SELECT draft_id, task1_id, task1_response, task2_id, task2_response, task3_id, task3_response,
+           remaining_seconds, current_task, started_at, updated_at
+    FROM tcf_ee_drafts WHERE learner=?
+  `).bind(learner).first()
+  if (!row) return null
+  return {
+    draftId: row.draft_id,
+    task1Id: row.task1_id,
+    task1Response: row.task1_response,
+    task2Id: row.task2_id,
+    task2Response: row.task2_response,
+    task3Id: row.task3_id,
+    task3Response: row.task3_response,
+    remainingSeconds: row.remaining_seconds,
+    currentTask: row.current_task,
+    startedAt: row.started_at,
+    updatedAt: row.updated_at,
   }
-  args.push(limit)
+}
+
+export async function saveWorkerTcfEeDraft(db, learner, draft) {
+  await db.prepare(`
+    INSERT INTO tcf_ee_drafts(
+      learner, draft_id, task1_id, task1_response, task2_id, task2_response, task3_id, task3_response,
+      remaining_seconds, current_task, started_at, updated_at
+    ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)
+    ON CONFLICT(learner) DO UPDATE SET
+      draft_id=excluded.draft_id,
+      task1_id=excluded.task1_id,
+      task1_response=excluded.task1_response,
+      task2_id=excluded.task2_id,
+      task2_response=excluded.task2_response,
+      task3_id=excluded.task3_id,
+      task3_response=excluded.task3_response,
+      remaining_seconds=excluded.remaining_seconds,
+      current_task=excluded.current_task,
+      started_at=excluded.started_at,
+      updated_at=excluded.updated_at
+  `).bind(
+    learner,
+    draft.draftId,
+    draft.task1Id,
+    draft.task1Response ?? '',
+    draft.task2Id,
+    draft.task2Response ?? '',
+    draft.task3Id,
+    draft.task3Response ?? '',
+    draft.remainingSeconds,
+    draft.currentTask ?? 0,
+    draft.startedAt,
+    draft.updatedAt ?? Date.now(),
+  ).run()
+}
+
+export async function deleteWorkerTcfEeDraft(db, learner) {
+  await db.prepare('DELETE FROM tcf_ee_drafts WHERE learner=?').bind(learner).run()
+}
+
+export async function saveWorkerTcfEeAttempt(db, learner, attempt) {
+  await db.batch([
+    db.prepare(`
+      INSERT INTO tcf_ee_attempts(
+        learner, attempt_id, task1_id, task1_response, task2_id, task2_response, task3_id, task3_response,
+        word_counts, scores, total_score, nclc, duration_seconds, started_at, finished_at, day
+      ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+      ON CONFLICT(learner, attempt_id) DO UPDATE SET
+        task1_id=excluded.task1_id,
+        task1_response=excluded.task1_response,
+        task2_id=excluded.task2_id,
+        task2_response=excluded.task2_response,
+        task3_id=excluded.task3_id,
+        task3_response=excluded.task3_response,
+        word_counts=excluded.word_counts,
+        scores=excluded.scores,
+        total_score=excluded.total_score,
+        nclc=excluded.nclc,
+        duration_seconds=excluded.duration_seconds,
+        started_at=excluded.started_at,
+        finished_at=excluded.finished_at,
+        day=excluded.day
+    `).bind(
+      learner,
+      attempt.id,
+      attempt.task1Id,
+      attempt.task1Response,
+      attempt.task2Id,
+      attempt.task2Response,
+      attempt.task3Id,
+      attempt.task3Response,
+      safeJson(attempt.wordCounts),
+      safeJson(attempt.scores),
+      attempt.totalScore,
+      attempt.nclc,
+      attempt.durationSeconds,
+      attempt.startedAt,
+      attempt.finishedAt,
+      attempt.day,
+    ),
+    db.prepare('DELETE FROM tcf_ee_drafts WHERE learner=?').bind(learner),
+  ])
+}
+
+export async function listWorkerTcfEeAttempts(db, learner, limit = 100) {
   const result = await db.prepare(`
+    SELECT attempt_id, task1_id, task1_response, task2_id, task2_response, task3_id, task3_response,
+           word_counts, scores, total_score, nclc, duration_seconds, started_at, finished_at, day
+    FROM tcf_ee_attempts WHERE learner=?
+    ORDER BY finished_at DESC LIMIT ?
+  `).bind(learner, limit).all()
+  return (result.results ?? []).map((row) => ({
+    id: row.attempt_id,
+    skill: 'writing',
+    task1Id: row.task1_id,
+    task1Response: row.task1_response,
+    task2Id: row.task2_id,
+    task2Response: row.task2_response,
+    task3Id: row.task3_id,
+    task3Response: row.task3_response,
+    wordCounts: parseJson(row.word_counts, {}),
+    scores: parseJson(row.scores, {}),
+    totalScore: row.total_score,
+    scaledScore: row.total_score,
+    score: row.total_score,
+    nclc: row.nclc,
+    durationSeconds: row.duration_seconds,
+    startedAt: row.started_at,
+    finishedAt: row.finished_at,
+    day: row.day,
+  }))
+}
+
+export async function saveWorkerTcfEoAttempt(db, learner, attempt) {
+  await db.prepare(`
+    INSERT INTO tcf_eo_attempts(
+      learner, attempt_id, task1_id, task1_duration, task2_id, task2_duration, task3_id, task3_duration,
+      recordings_meta, scores, total_score, nclc, duration_seconds, started_at, finished_at, day
+    ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+    ON CONFLICT(learner, attempt_id) DO UPDATE SET
+      task1_id=excluded.task1_id,
+      task1_duration=excluded.task1_duration,
+      task2_id=excluded.task2_id,
+      task2_duration=excluded.task2_duration,
+      task3_id=excluded.task3_id,
+      task3_duration=excluded.task3_duration,
+      recordings_meta=excluded.recordings_meta,
+      scores=excluded.scores,
+      total_score=excluded.total_score,
+      nclc=excluded.nclc,
+      duration_seconds=excluded.duration_seconds,
+      started_at=excluded.started_at,
+      finished_at=excluded.finished_at,
+      day=excluded.day
+  `).bind(
+    learner,
+    attempt.id,
+    attempt.task1Id,
+    attempt.task1Duration ?? 0,
+    attempt.task2Id,
+    attempt.task2Duration ?? 0,
+    attempt.task3Id,
+    attempt.task3Duration ?? 0,
+    safeJson(attempt.recordingsMeta),
+    safeJson(attempt.scores),
+    attempt.totalScore,
+    attempt.nclc,
+    attempt.durationSeconds,
+    attempt.startedAt,
+    attempt.finishedAt,
+    attempt.day,
+  ).run()
+}
+
+export async function listWorkerTcfEoAttempts(db, learner, limit = 100) {
+  const result = await db.prepare(`
+    SELECT attempt_id, task1_id, task1_duration, task2_id, task2_duration, task3_id, task3_duration,
+           recordings_meta, scores, total_score, nclc, duration_seconds, started_at, finished_at, day
+    FROM tcf_eo_attempts WHERE learner=?
+    ORDER BY finished_at DESC LIMIT ?
+  `).bind(learner, limit).all()
+  return (result.results ?? []).map((row) => ({
+    id: row.attempt_id,
+    skill: 'speaking',
+    task1Id: row.task1_id,
+    task1Duration: row.task1_duration,
+    task2Id: row.task2_id,
+    task2Duration: row.task2_duration,
+    task3Id: row.task3_id,
+    task3Duration: row.task3_duration,
+    recordingsMeta: parseJson(row.recordings_meta, {}),
+    scores: parseJson(row.scores, {}),
+    totalScore: row.total_score,
+    scaledScore: row.total_score,
+    score: row.total_score,
+    nclc: row.nclc,
+    durationSeconds: row.duration_seconds,
+    startedAt: row.started_at,
+    finishedAt: row.finished_at,
+    day: row.day,
+  }))
+}
+
+export async function deleteWorkerTcfEoAttempt(db, learner, attemptId) {
+  await db.prepare('DELETE FROM tcf_eo_attempts WHERE learner=? AND attempt_id=?').bind(learner, attemptId).run()
+}
+
+export async function listWorkerTcfAttempts(db, learner, { skill = '', limit = 100 } = {}) {
+  if (skill === 'writing') {
+    return listWorkerTcfEeAttempts(db, learner, limit)
+  }
+  if (skill === 'speaking') {
+    return listWorkerTcfEoAttempts(db, learner, limit)
+  }
+  if (skill === 'listening' || skill === 'reading') {
+    const result = await db.prepare(`
+      SELECT attempt_id,skill,question_count,correct_count,scaled_score,nclc,duration_seconds,
+             started_at,finished_at,day,answers
+      FROM tcf_attempts WHERE learner=? AND skill=?
+      ORDER BY finished_at DESC LIMIT ?
+    `).bind(learner, skill, limit).all()
+    return (result.results ?? []).map((row) => ({
+      id: row.attempt_id,
+      skill: row.skill,
+      questionCount: row.question_count,
+      correctCount: row.correct_count,
+      scaledScore: row.scaled_score,
+      score: row.scaled_score,
+      nclc: row.nclc,
+      durationSeconds: row.duration_seconds,
+      startedAt: row.started_at,
+      finishedAt: row.finished_at,
+      day: row.day,
+      answers: parseJson(row.answers, []),
+    }))
+  }
+  const qcmResult = await db.prepare(`
     SELECT attempt_id,skill,question_count,correct_count,scaled_score,nclc,duration_seconds,
            started_at,finished_at,day,answers
-    FROM tcf_attempts WHERE ${clauses.join(' AND ')}
+    FROM tcf_attempts WHERE learner=?
     ORDER BY finished_at DESC LIMIT ?
-  `).bind(...args).all()
-  return (result.results ?? []).map((row) => ({
+  `).bind(learner, limit).all()
+  const qcm = (qcmResult.results ?? []).map((row) => ({
     id: row.attempt_id,
     skill: row.skill,
     questionCount: row.question_count,
     correctCount: row.correct_count,
     scaledScore: row.scaled_score,
+    score: row.scaled_score,
     nclc: row.nclc,
     durationSeconds: row.duration_seconds,
     startedAt: row.started_at,
@@ -255,6 +484,11 @@ export async function listWorkerTcfAttempts(db, learner, { skill = '', limit = 1
     day: row.day,
     answers: parseJson(row.answers, []),
   }))
+  const ee = await listWorkerTcfEeAttempts(db, learner, limit)
+  const eo = await listWorkerTcfEoAttempts(db, learner, limit)
+  return [...qcm, ...ee, ...eo]
+    .sort((a, b) => b.finishedAt - a.finishedAt)
+    .slice(0, limit)
 }
 
 export async function consumeWorkerRateLimit(db, scope, action, {
@@ -295,6 +529,9 @@ export async function deleteWorkerLearnerData(db, learner) {
     db.prepare('DELETE FROM achievements WHERE learner=?').bind(learner),
     db.prepare('DELETE FROM weekly_reports WHERE learner=?').bind(learner),
     db.prepare('DELETE FROM tcf_attempts WHERE learner=?').bind(learner),
+    db.prepare('DELETE FROM tcf_ee_drafts WHERE learner=?').bind(learner),
+    db.prepare('DELETE FROM tcf_ee_attempts WHERE learner=?').bind(learner),
+    db.prepare('DELETE FROM tcf_eo_attempts WHERE learner=?').bind(learner),
     db.prepare('DELETE FROM audit_log WHERE learner=?').bind(learner),
     db.prepare('DELETE FROM rate_limits WHERE scope=?').bind('learner:' + learner),
     db.prepare('DELETE FROM passkey_challenges WHERE learner=?').bind(learner),

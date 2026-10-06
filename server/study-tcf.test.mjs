@@ -106,8 +106,10 @@ test('TCF attempts persist, materialize and restore through a linked device', as
     assert.equal(analytics.data.analytics.tcf.listening.latestScore, scaledScore)
     assert.equal(analytics.data.analytics.tcf.listening.targetScore, 458)
     assert.equal(analytics.data.analytics.tcf.reading.attempts, 0)
+    assert.equal(analytics.data.analytics.tcf.writing.attempts, 0)
+    assert.equal(analytics.data.analytics.tcf.speaking.attempts, 0)
 
-    const invalidFilter = await call('GET', '/tcf-attempts?skill=speaking', cookie)
+    const invalidFilter = await call('GET', '/tcf-attempts?skill=invalid', cookie)
     assert.equal(invalidFilter.response.status, 400)
     assert.equal(invalidFilter.data.code, 'INVALID_TCF_FILTER')
 
@@ -132,7 +134,7 @@ test('TCF attempts persist, materialize and restore through a linked device', as
 
     const inspect = new DatabaseSync(database)
     assert.equal(inspect.prepare('SELECT COUNT(*) AS count FROM tcf_attempts').get().count, 1)
-    assert.equal(Number(inspect.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").get().value), 7)
+    assert.equal(Number(inspect.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").get().value), 8)
     inspect.close()
 
     await stop()

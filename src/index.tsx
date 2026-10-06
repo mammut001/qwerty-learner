@@ -16,6 +16,8 @@ const GrammarSessionPage = lazy(() => import('./pages/GrammarSession'))
 const StudyPlanPage = lazy(() => import('./pages/StudyPlan'))
 const TcfListeningPage = lazy(() => import('./pages/TcfListening'))
 const TcfReadingPage = lazy(() => import('./pages/TcfReading'))
+const TcfWritingPage = lazy(() => import('./pages/TcfWriting'))
+const TcfSpeakingPage = lazy(() => import('./pages/TcfSpeaking'))
 const MobilePage = lazy(() => import('./pages/Mobile'))
 const ErrorBookPage = lazy(() => import('./pages/ErrorBook').then((module) => ({ default: module.ErrorBook })))
 const FriendLinksPage = lazy(() => import('./pages/FriendLinks').then((module) => ({ default: module.FriendLinks })))
@@ -23,10 +25,7 @@ const FocusTimerDock = lazy(() => import('./components/FocusTimerDock'))
 
 async function migrateExistingStudyData() {
   try {
-    const [{ migrateLegacyStudyData }, { db }] = await Promise.all([
-      import('@/services/studyPlanSync'),
-      import('@/utils/db'),
-    ])
+    const [{ migrateLegacyStudyData }, { db }] = await Promise.all([import('@/services/studyPlanSync'), import('@/utils/db')])
     const records = (await db.wordRecords.orderBy('timeStamp').reverse().limit(3000).toArray()).reverse()
     const grammarHistory = JSON.parse(window.localStorage.getItem('qwerty-fr-grammar-session-history-v1') ?? '[]')
     const conjugation = JSON.parse(window.localStorage.getItem('qwerty-fr-conjugation-stats-v1') ?? '{}')
@@ -38,7 +37,10 @@ async function migrateExistingStudyData() {
         timeStamp: record.timeStamp,
         durationMs: record.timing.reduce((total, value) => total + value, 0),
         wrongCount: record.wrongCount,
-        wrongKeys: Object.values(record.mistakes ?? {}).flat().map(String).slice(0, 200),
+        wrongKeys: Object.values(record.mistakes ?? {})
+          .flat()
+          .map(String)
+          .slice(0, 200),
       })),
       grammarHistory,
       conjugation,
@@ -81,6 +83,8 @@ function Root() {
             <Route path="/study-plan" element={<StudyPlanPage />} />
             <Route path="/tcf-listening" element={<TcfListeningPage />} />
             <Route path="/tcf-reading" element={<TcfReadingPage />} />
+            <Route path="/tcf-writing" element={<TcfWritingPage />} />
+            <Route path="/tcf-speaking" element={<TcfSpeakingPage />} />
             <Route path="/analysis" element={<AnalysisPage />} />
             <Route path="/error-book" element={<ErrorBookPage />} />
             <Route path="/friend-links" element={<FriendLinksPage />} />
