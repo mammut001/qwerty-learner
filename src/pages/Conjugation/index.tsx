@@ -8,16 +8,22 @@ import {
   type ConjugationTense,
   type FrenchVerbConjugation,
 } from '@/resources/conjugation'
+import {
+  addStudyMinutes,
+  flushStudyProgress,
+  getLearningProgress,
+  recordConjugationAttempt,
+  type ConjugationStats,
+  type TenseStat,
+} from '@/services/studyPlanSync'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useSearchParams } from 'react-router-dom'
 import IconArrowLeft from '~icons/tabler/arrow-left'
 import IconBook from '~icons/tabler/book'
 import IconRefresh from '~icons/tabler/refresh'
 
 type PracticeScope = 'current' | 'mixed'
 type PracticeResult = 'correct' | 'wrong' | null
-type TenseStat = { correct: number; total: number }
-type ConjugationStats = Record<string, Partial<Record<ConjugationTense, TenseStat>>>
 
 type PracticeQuestion = {
   tense: ConjugationTense
@@ -88,16 +94,77 @@ const buildQuestion = (verb: FrenchVerbConjugation, selectedTense: ConjugationTe
 }
 
 export default function ConjugationPage() {
+  const [searchParams] = useSearchParams()
+  const requestedVerb = searchParams.get('verb')
+  const requestedTense = searchParams.get('tense')
+  const requestedMode = searchParams.get('mode')
+  const requestedScope = searchParams.get('scope')
+  const requestedStudyDate = searchParams.get('studyDate')
+  const requestedStudyTask = searchParams.get('studyTask')
+  const initialVerb = frenchVerbs.find((verb) => verb.infinitive === requestedVerb) ?? defaultConjugationVerb
+  const initialTense: ConjugationTense =
+    requestedTense && tenses.includes(requestedTense as ConjugationTense)
+      ? (requestedTense as ConjugationTense)
+      : 'passeCompose'
+  const initialMode: 'study' | 'practice' = requestedMode === 'practice' ? 'practice' : 'study'
+  const initialScope: PracticeScope = requestedScope === 'mixed' ? 'mixed' : 'current'
+
   const [query, setQuery] = useState('')
-  const [selectedVerb, setSelectedVerb] = useState<FrenchVerbConjugation>(defaultConjugationVerb)
-  const [selectedTense, setSelectedTense] = useState<ConjugationTense>('passeCompose')
-  const [mode, setMode] = useState<'study' | 'practice'>('study')
-  const [practiceScope, setPracticeScope] = useState<PracticeScope>('current')
-  const [question, setQuestion] = useState<PracticeQuestion>(() => buildQuestion(defaultConjugationVerb, 'passeCompose', 'current'))
+  const [selectedVerb, setSelectedVerb] = useState<FrenchVerbConjugation>(initialVerb)
+  const [selectedTense, setSelectedTense] = useState<ConjugationTense>(initialTense)
+  const [mode, setMode] = useState<'study' | 'practice'>(initialMode)
+  const [practiceScope, setPracticeScope] = useState<PracticeScope>(initialScope)
+  const [question, setQuestion] = useState<PracticeQuestion>(() => buildQuestion(initialVerb, initialTense, initialScope))
   const [answer, setAnswer] = useState('')
   const [result, setResult] = useState<PracticeResult>(null)
   const [stats, setStats] = useState<ConjugationStats>(() => loadStats())
   const inputRef = useRef<HTMLInputElement>(null)
+  const trackedPracticeStartedAt = useRef<number | null>(null)
+
+  const recordTrackedPracticeMinutes = useCallback(() => {
+    if (
+      requestedStudyTask !== 'smart-conjugation' ||
+      !requestedStudyDate ||
+      !/^\d{4}-\d{2}-\d{2}$/.test(requestedStudyDate) ||
+      trackedPracticeStartedAt.current === null
+    ) {
+      return
+    }
+    const elapsedMinutes = Math.max(1, Math.ceil((Date.now() - trackedPracticeStartedAt.current) / 60000))
+    trackedPracticeStartedAt.current = null
+    try {
+      addStudyMinutes(requestedStudyDate, requestedStudyTask, elapsedMinutes)
+    } catch {
+      // Individual conjugation attempts still persist even if smart-task minute tracking cannot be queued.
+    }
+  }, [requestedStudyDate, requestedStudyTask])
+
+  useEffect(() => {
+    let cancelled = false
+    void getLearningProgress().then((learning) => {
+      if (cancelled) return
+      const remote = learning.conjugation
+      const remoteTotal = Object.values(remote).reduce(
+        (sum, byTense) => sum + Object.values(byTense).reduce((inner, stat) => inner + (stat?.total ?? 0), 0),
+        0,
+      )
+      if (remoteTotal > 0) {
+        setStats(remote)
+        try {
+          window.localStorage.setItem(STATS_KEY, JSON.stringify(remote))
+        } catch {
+          // Server state remains available even when localStorage is blocked.
+        }
+        return
+      }
+
+
+    })
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   const filteredVerbs = useMemo(() => {
     const needle = query.trim().toLowerCase()
@@ -122,6 +189,20 @@ export default function ConjugationPage() {
     }
   }, [selectedVerb, selectedTense, practiceScope, mode, startNextQuestion])
 
+  useEffect(() => {
+    if (mode === 'practice' && requestedStudyTask === 'smart-conjugation' && trackedPracticeStartedAt.current === null)
+      trackedPracticeStartedAt.current = Date.now()
+    if (mode !== 'practice') recordTrackedPracticeMinutes()
+  }, [mode, recordTrackedPracticeMinutes, requestedStudyTask])
+
+  useEffect(
+    () => () => {
+      recordTrackedPracticeMinutes()
+      void flushStudyProgress()
+    },
+    [recordTrackedPracticeMinutes],
+  )
+
   const updateStat = useCallback(
     (tense: ConjugationTense, isCorrect: boolean) => {
       setStats((old) => {
@@ -139,6 +220,11 @@ export default function ConjugationPage() {
         window.localStorage.setItem(STATS_KEY, JSON.stringify(next))
         return next
       })
+      try {
+        recordConjugationAttempt(selectedVerb.infinitive, tense, isCorrect)
+      } catch {
+        // Keep local practice responsive; the local stats above remain available.
+      }
     },
     [selectedVerb.infinitive],
   )
@@ -271,7 +357,10 @@ export default function ConjugationPage() {
             <div className="flex rounded-xl bg-gray-100 p-1 dark:bg-gray-900">
               <button
                 type="button"
-                onClick={() => setMode('study')}
+                onClick={() => {
+                  if (mode === 'practice') void flushStudyProgress()
+                  setMode('study')
+                }}
                 className={`rounded-lg px-4 py-2 text-sm ${
                   mode === 'study' ? 'bg-white font-medium text-indigo-600 shadow dark:bg-gray-700' : 'text-gray-500'
                 }`}

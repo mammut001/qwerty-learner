@@ -205,3 +205,55 @@ body,
     background-position: 0% 50%;
   }
 }
+
+
+@media print {
+  @page {
+    margin: 14mm;
+  }
+
+  body {
+    background: #fff !important;
+    color: #111827 !important;
+    user-select: text;
+  }
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  [data-print-weekly-reports],
+  [data-print-weekly-reports] * {
+    visibility: visible !important;
+  }
+
+  [data-print-weekly-reports] {
+    position: absolute !important;
+    inset: 0 auto auto 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: #fff !important;
+    color: #111827 !important;
+  }
+
+  [data-print-hidden] {
+    display: none !important;
+  }
+
+  [data-print-weekly-reports] details {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border-color: #d1d5db !important;
+  }
+
+  [data-print-weekly-reports] details > :not(summary) {
+    display: block !important;
+  }
+
+  [data-print-weekly-reports] .dark\:bg-gray-900,
+  [data-print-weekly-reports] .dark\:bg-gray-800 {
+    background: #fff !important;
+  }
+}

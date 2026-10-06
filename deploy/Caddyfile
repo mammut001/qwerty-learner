@@ -1,0 +1,9 @@
+{
+    email {$ACME_EMAIL}
+}
+{$STUDY_DOMAIN} {
+    encode zstd gzip
+    reverse_proxy qwertylearner:5173 {
+        header_up X-Study-Client-IP {http.request.remote.host}
+    }
+}

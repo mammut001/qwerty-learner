@@ -1,135 +1,198 @@
-import DropdownExport from './DropdownExport'
-import ErrorRow from './ErrorRow'
-import type { ISortType } from './HeadWrongNumber'
-import HeadWrongNumber from './HeadWrongNumber'
-import Pagination, { ITEM_PER_PAGE } from './Pagination'
-import RowDetail from './RowDetail'
-import { currentRowDetailAtom } from './store'
-import type { groupedWordRecords } from './type'
-import { db, useDeleteWordRecord } from '@/utils/db'
-import type { WordRecord } from '@/utils/db/record'
+import Layout from '@/components/Layout'
+import { loadErrorBook, type ErrorBookItem, type ReviewKind } from '@/services/studyPlanSync'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
-import { useAtomValue } from 'jotai'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import IconX from '~icons/tabler/x'
 
+type StatusFilter = 'active' | 'mastered' | 'all'
+type TypeFilter = ReviewKind | ''
+
+const typeLabel: Record<ReviewKind, string> = {
+  vocabulary: '词汇',
+  grammar: '语法',
+  conjugation: '动词变位',
+}
+
+const timeLabel = (value: number | null) => {
+  if (!value) return '历史记录'
+  return new Date(value).toLocaleString()
+}
+
 export function ErrorBook() {
-  const [groupedRecords, setGroupedRecords] = useState<groupedWordRecords[]>([])
-  const [currentPage, setCurrentPage] = useState(1)
-  const totalPages = useMemo(() => Math.ceil(groupedRecords.length / ITEM_PER_PAGE), [groupedRecords.length])
-  const [sortType, setSortType] = useState<ISortType>('asc')
   const navigate = useNavigate()
-  const currentRowDetail = useAtomValue(currentRowDetailAtom)
-  const { deleteWordRecord } = useDeleteWordRecord()
-  const [reload, setReload] = useState(false)
+  const [items, setItems] = useState<ErrorBookItem[]>([])
+  const [type, setType] = useState<TypeFilter>('')
+  const [status, setStatus] = useState<StatusFilter>('active')
+  const [from, setFrom] = useState('')
+  const [to, setTo] = useState('')
+  const [loading, setLoading] = useState(true)
+  const [message, setMessage] = useState('')
 
-  const onBack = useCallback(() => {
-    navigate('/')
-  }, [navigate])
-
-  const setPage = useCallback(
-    (page: number) => {
-      if (page < 1 || page > totalPages) return
-      setCurrentPage(page)
-    },
-    [totalPages],
-  )
-
-  const setSort = useCallback(
-    (sortType: ISortType) => {
-      setSortType(sortType)
-      setPage(1)
-    },
-    [setPage],
-  )
-
-  const sortedRecords = useMemo(() => {
-    if (sortType === 'none') return groupedRecords
-    return [...groupedRecords].sort((a, b) => {
-      if (sortType === 'asc') {
-        return a.wrongCount - b.wrongCount
-      } else {
-        return b.wrongCount - a.wrongCount
-      }
-    })
-  }, [groupedRecords, sortType])
-
-  const renderRecords = useMemo(() => {
-    const start = (currentPage - 1) * ITEM_PER_PAGE
-    const end = start + ITEM_PER_PAGE
-    return sortedRecords.slice(start, end)
-  }, [currentPage, sortedRecords])
+  const refresh = useCallback(async () => {
+    setLoading(true)
+    setMessage('')
+    try {
+      setItems(await loadErrorBook({ type, status, from: from || undefined, to: to || undefined }))
+    } catch {
+      setMessage('错题本暂时读取失败；如果当前离线，联网后会自动恢复。')
+    } finally {
+      setLoading(false)
+    }
+  }, [from, status, to, type])
 
   useEffect(() => {
-    db.wordRecords
-      .where('wrongCount')
-      .above(0)
-      .toArray()
-      .then((records) => {
-        const groups: groupedWordRecords[] = []
+    void refresh()
+  }, [refresh])
 
-        records.forEach((record) => {
-          let group = groups.find((g) => g.word === record.word && g.dict === record.dict)
-          if (!group) {
-            group = { word: record.word, dict: record.dict, records: [], wrongCount: 0 }
-            groups.push(group)
-          }
-          group.records.push(record as WordRecord)
-        })
+  const activeCount = useMemo(() => items.filter((item) => !item.mastered).length, [items])
 
-        groups.forEach((group) => {
-          group.wrongCount = group.records.reduce((acc, cur) => {
-            acc += cur.wrongCount
-            return acc
-          }, 0)
-        })
-
-        setGroupedRecords(groups)
-      })
-  }, [reload])
-
-  const handleDelete = async (word: string, dict: string) => {
-    await deleteWordRecord(word, dict)
-    setReload((prev) => !prev)
+  const retry = (item: ErrorBookItem) => {
+    if (item.kind === 'vocabulary') {
+      const dict = typeof item.context.dict === 'string' ? item.context.dict : ''
+      const chapter =
+        typeof item.context.chapter === 'number' && Number.isInteger(item.context.chapter)
+          ? item.context.chapter
+          : 0
+      navigate(`/?dict=${encodeURIComponent(dict)}&chapter=${chapter}`)
+      return
+    }
+    if (item.kind === 'grammar') {
+      navigate('/grammar-session')
+      return
+    }
+    const verb = typeof item.context.verb === 'string' ? item.context.verb : item.sourceId.split('|')[0]
+    const tense = typeof item.context.tense === 'string' ? item.context.tense : item.sourceId.split('|')[1]
+    navigate(
+      `/conjugation?verb=${encodeURIComponent(verb)}&tense=${encodeURIComponent(tense)}&mode=practice&scope=current`,
+    )
   }
 
   return (
-    <>
-      <div className={`relative flex h-screen w-full flex-col items-center pb-4 ease-in ${currentRowDetail && 'blur-sm'}`}>
-        <div className="mr-8 mt-4 flex w-auto items-center justify-center self-end">
-          <h1 className="font-lighter mr-4 w-auto self-end text-gray-500 opacity-70">Tip: 点击错误单词查看详细信息 </h1>
-          <IconX className="h-7 w-7 cursor-pointer text-gray-400" onClick={onBack} />
-        </div>
+    <Layout>
+      <div className="relative flex w-full flex-1 flex-col overflow-hidden px-4 pb-10 pt-14 sm:px-6 lg:px-16 lg:pt-16">
+        <button
+          type="button"
+          aria-label="关闭错题本"
+          onClick={() => navigate('/')}
+          className="absolute right-4 top-3 rounded-lg p-2 text-gray-500 outline-none hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-indigo-500 sm:right-6 lg:right-16 lg:top-6 dark:text-gray-300 dark:hover:bg-gray-800"
+        >
+          <IconX className="h-7 w-7" />
+        </button>
 
-        <div className="flex w-full flex-1 select-text items-start justify-center overflow-hidden">
-          <div className="flex h-full w-5/6 flex-col pt-10">
-            <div className="flex w-full justify-between rounded-lg bg-white px-6 py-5 text-lg text-black shadow-lg dark:bg-gray-800 dark:text-white">
-              <span className="basis-2/12">单词</span>
-              <span className="basis-6/12">释义</span>
-              <HeadWrongNumber className="basis-1/12" sortType={sortType} setSortType={setSort} />
-              <span className="basis-1/12">词典</span>
-              <DropdownExport renderRecords={sortedRecords} />
+        <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col overflow-hidden">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <div className="text-sm font-medium text-indigo-500">服务端统一错题本</div>
+              <h1 className="mt-1 text-3xl font-semibold text-gray-900 dark:text-white">词汇 · 语法 · 动词变位</h1>
+              <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                答错自动进入；连续答对 3 次自动标记掌握并退出今日 SM-2 复习。
+              </p>
             </div>
-            <ScrollArea.Root className="flex-1 overflow-y-auto pt-5">
-              <ScrollArea.Viewport className="h-full  ">
-                <div className="flex flex-col gap-3">
-                  {renderRecords.map((record) => (
-                    <ErrorRow
-                      key={`${record.dict}-${record.word}`}
-                      record={record}
-                      onDelete={() => handleDelete(record.word, record.dict)}
-                    />
+            <div className="rounded-xl bg-indigo-50 px-4 py-3 text-sm text-indigo-700 dark:bg-indigo-950/30 dark:text-indigo-300">
+              当前列表 {items.length} 项 · 未掌握 {activeCount} 项
+            </div>
+          </div>
+
+          <div className="mt-6 grid gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm md:grid-cols-4 dark:border-gray-700 dark:bg-gray-800">
+            <label className="text-xs text-gray-500">
+              类型
+              <select
+                aria-label="错题类型"
+                value={type}
+                onChange={(event) => setType(event.target.value as TypeFilter)}
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100"
+              >
+                <option value="">全部</option>
+                <option value="vocabulary">词汇</option>
+                <option value="grammar">语法</option>
+                <option value="conjugation">动词变位</option>
+              </select>
+            </label>
+            <label className="text-xs text-gray-500">
+              状态
+              <select
+                aria-label="错题状态"
+                value={status}
+                onChange={(event) => setStatus(event.target.value as StatusFilter)}
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100"
+              >
+                <option value="active">待掌握</option>
+                <option value="mastered">已掌握</option>
+                <option value="all">全部</option>
+              </select>
+            </label>
+            <label className="text-xs text-gray-500">
+              从
+              <input
+                aria-label="错题开始日期"
+                type="date"
+                value={from}
+                onChange={(event) => setFrom(event.target.value)}
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100"
+              />
+            </label>
+            <label className="text-xs text-gray-500">
+              到
+              <input
+                aria-label="错题结束日期"
+                type="date"
+                value={to}
+                onChange={(event) => setTo(event.target.value)}
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100"
+              />
+            </label>
+          </div>
+
+          {message && <div className="mt-4 rounded-xl bg-amber-50 p-3 text-sm text-amber-700 dark:bg-amber-950/30">{message}</div>}
+
+          <ScrollArea.Root className="mt-5 flex-1 overflow-hidden" aria-label="错题列表">
+            <ScrollArea.Viewport className="h-full w-full pb-16">
+              {loading ? (
+                <div className="rounded-2xl bg-gray-50 p-8 text-center text-sm text-gray-400 dark:bg-gray-900">正在读取错题本…</div>
+              ) : items.length === 0 ? (
+                <div className="rounded-2xl bg-green-50 p-8 text-center text-sm text-green-700 dark:bg-green-950/30 dark:text-green-300">
+                  当前筛选下没有错题。
+                </div>
+              ) : (
+                <div className="grid gap-3">
+                  {items.map((item) => (
+                    <div
+                      key={item.itemId}
+                      data-testid="error-book-item"
+                      className="flex flex-wrap items-center gap-4 rounded-2xl border border-gray-100 bg-white px-5 py-4 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+                    >
+                      <span className="rounded-full bg-indigo-50 px-2.5 py-1 text-xs text-indigo-600 dark:bg-indigo-950 dark:text-indigo-300">
+                        {typeLabel[item.kind]}
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <div className="truncate font-medium text-gray-900 dark:text-white">{item.label}</div>
+                        <div className="mt-1 text-xs text-gray-400">
+                          错误 {item.errorCount} 次 · 连续答对 {item.correctStreak}/3 · 最近错误 {timeLabel(item.lastWrongAt)}
+                        </div>
+                        {item.kind === 'grammar' && typeof item.context.prompt === 'string' && item.context.prompt && (
+                          <div className="mt-1 truncate text-xs text-gray-500">{item.context.prompt}</div>
+                        )}
+                      </div>
+                      <span className={item.mastered ? 'text-sm text-green-600' : 'text-sm text-amber-600'}>
+                        {item.mastered ? '已掌握' : '待重练'}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => retry(item)}
+                        className="rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white outline-none hover:bg-indigo-700 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 dark:bg-indigo-500 dark:hover:bg-indigo-400"
+                      >
+                        一键重练
+                      </button>
+                    </div>
                   ))}
                 </div>
-              </ScrollArea.Viewport>
-              <ScrollArea.Scrollbar className="flex touch-none select-none bg-transparent" orientation="vertical"></ScrollArea.Scrollbar>
-            </ScrollArea.Root>
-          </div>
+              )}
+            </ScrollArea.Viewport>
+            <ScrollArea.Scrollbar orientation="vertical" className="flex touch-none select-none bg-transparent" />
+          </ScrollArea.Root>
         </div>
-        <Pagination className="pt-3" page={currentPage} setPage={setPage} totalPages={totalPages} />
       </div>
-      {currentRowDetail && <RowDetail currentRowDetail={currentRowDetail} allRecords={sortedRecords} />}
-    </>
+    </Layout>
   )
 }

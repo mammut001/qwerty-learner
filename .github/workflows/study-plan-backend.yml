@@ -1,0 +1,126 @@
+name: Study plan persistence
+on:
+  pull_request:
+    paths:
+      - 'server/**'
+      - 'deploy/**'
+      - 'scripts/*study*'
+      - 'scripts/*deploy*'
+      - 'scripts/check-bundle-budget.mjs'
+      - 'scripts/backup-restore-drill.mjs'
+      - 'src/services/studyPlanSync.ts'
+      - 'src/services/focusTimer.ts'
+      - 'src/services/passkey.ts'
+      - 'src/components/FocusTimerDock.tsx'
+      - 'src/utils/trackEvent.ts'
+      - 'src/services/studyReminder.ts'
+      - 'src/services/pwa.ts'
+      - 'src/resources/studyPlanSchedule.ts'
+      - 'tests/e2e-study/**'
+      - 'playwright.study.config.ts'
+      - 'public/sw.js'
+      - 'public/manifest.json'
+      - 'src/pages/StudyPlan/**'
+      - 'src/pages/Typing/index.tsx'
+      - 'src/pages/GrammarSession/**'
+      - 'src/pages/Conjugation/**'
+      - 'src/pages/Analysis/**'
+      - 'src/pages/ErrorBook/**'
+      - 'src/pages/TcfMockExam/**'
+      - 'src/pages/TcfListening/**'
+      - 'src/pages/TcfReading/**'
+      - 'src/pages/TcfWriting/**'
+      - 'src/pages/TcfSpeaking/**'
+      - 'src/resources/tcfMock.ts'
+      - 'src/resources/tcfEvaluation.ts'
+      - 'src/resources/tcfWritingData.ts'
+      - 'src/resources/tcfSpeakingData.ts'
+      - 'src/services/tcfAudioStorage.ts'
+      - 'src/utils/db/**'
+      - 'src/index.tsx'
+      - 'index.html'
+      - 'vite.config.ts'
+      - 'package.json'
+      - 'Dockerfile'
+      - 'docker-compose*.yaml'
+      - 'public/default.conf'
+      - '.dockerignore'
+      - '.github/workflows/study-plan-backend.yml'
+concurrency:
+  group: study-plan-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+jobs:
+  persistence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm run test:backend
+      - name: SQLite online backup and restore drill
+        run: npm run test:backup-drill
+      - run: npm ci --prefix deploy --no-audit --no-fund
+      - run: npx --yes yarn@1.22.22 install --frozen-lockfile
+      - name: Build with a separate remote API origin
+        run: |
+          npm run build -- --base=/
+          grep -R -q -F 'https://study-api.example.invalid' build/assets
+        env:
+          VITE_STUDY_API_BASE_URL: https://study-api.example.invalid
+      - run: npm run build -- --base=/
+      - name: Real Worker and D1 smoke, including process restart
+        run: npm run test:cloud
+  node-production-images:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validate HTTPS production overlay
+        run: docker compose -f docker-compose.yaml -f docker-compose.production.yaml config --quiet
+        env:
+          STUDY_DOMAIN: study.example.invalid
+          ACME_EMAIL: ci@example.invalid
+      - name: Build the actual frontend and Node SQLite images
+        run: docker compose build
+      - name: Start Nginx-to-Node stack and prove API persistence
+        run: |
+          docker compose up -d
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://localhost:8990/api/health; then break; fi
+            sleep 2
+          done
+          node scripts/smoke-study.mjs http://localhost:8990 --save-session "$RUNNER_TEMP/study-session.json"
+          docker compose restart study-api
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://localhost:8990/api/health; then break; fi
+            sleep 2
+          done
+          node scripts/smoke-study.mjs http://localhost:8990 --resume-session "$RUNNER_TEMP/study-session.json"
+      - if: failure()
+        run: docker compose logs --no-color --tail 100
+      - if: always()
+        run: docker compose down
+
+  study-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npx --yes yarn@1.22.22 install --frozen-lockfile
+      - run: npx playwright install chromium
+      - name: End-to-end study flow
+        run: |
+          rm -rf .tmp
+          mkdir -p .tmp
+          npm run test:e2e:study

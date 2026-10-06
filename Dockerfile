@@ -1,14 +1,12 @@
-FROM node:20 AS build
-
-# 设置工作目录
+FROM node:24 AS build
 WORKDIR /app
-
+COPY package.json yarn.lock .yarnrc ./
+RUN corepack enable && corepack prepare yarn@1.22.22 --activate && yarn install --frozen-lockfile --ignore-scripts
 COPY . .
-RUN npm config set registry  https://registry.npmmirror.com  
-RUN npm install
-RUN npm run build
+ARG VITE_STUDY_API_BASE_URL=
+ENV VITE_STUDY_API_BASE_URL=$VITE_STUDY_API_BASE_URL
+RUN npm run build -- --base=/
 
-# 将构建好的 React 应用复制到 Nginx 容器的默认站点目录
 FROM nginx:alpine
 COPY ./public/default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/build /app

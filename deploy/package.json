@@ -1,0 +1,6 @@
+{
+  "name": "qwerty-study-plan-deploy",
+  "private": true,
+  "type": "module",
+  "devDependencies": { "wrangler": "4.147.0" }
+}

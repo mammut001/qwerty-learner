@@ -34,3 +34,25 @@ stats.html
 /blob-report/
 /playwright/.cache/
 playwright-report
+# Local study-plan database
+/data/
+
+# Free-tier deployment local credentials and generated account config
+/deploy/.env
+/deploy/.wrangler/
+/deploy/wrangler.production.json
+/deploy/node_modules/
+/deploy/deployment.json
+!/deploy/package-lock.json
+/deploy/.env.production
+
+.env.local
+.env.*.local
+/deploy/wrangler.restore.json
+/study-backup*.sqlite*
+/study-backup*.sql
+/build-check.log
+/cloud-check.log
+
+# Local study-plan E2E database
+/.tmp/

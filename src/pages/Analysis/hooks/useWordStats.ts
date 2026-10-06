@@ -1,8 +1,16 @@
+import { getLearningProgress } from '@/services/studyPlanSync'
 import { db } from '@/utils/db'
-import type { IWordRecord } from '@/utils/db/record'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import type { Activity } from 'react-activity-calendar'
+
+type WordStatsRecord = {
+  word: string
+  timeStamp: number
+  durationMs: number
+  wrongCount: number
+  wrongKeys: string[]
+}
 
 interface IWordStats {
   isEmpty?: boolean
@@ -57,8 +65,32 @@ export function useWordStats(startTimeStamp: number, endTimeStamp: number) {
 }
 
 async function getChapterStats(startTimeStamp: number, endTimeStamp: number): Promise<IWordStats> {
-  // indexedDB查找某个数字范围内的数据
-  const records: IWordRecord[] = await db.wordRecords.where('timeStamp').between(startTimeStamp, endTimeStamp).toArray()
+  let records: WordStatsRecord[] = []
+  try {
+    const learning = await getLearningProgress()
+    records = learning.vocabulary.records
+      .filter((record) => record.timeStamp >= startTimeStamp && record.timeStamp <= endTimeStamp)
+      .map((record) => ({
+        word: record.word,
+        timeStamp: record.timeStamp,
+        durationMs: record.durationMs,
+        wrongCount: record.wrongCount,
+        wrongKeys: record.wrongKeys,
+      }))
+  } catch {
+    // Fall back to the legacy IndexedDB below while offline or before migration finishes.
+  }
+
+  if (records.length === 0) {
+    const localRecords = await db.wordRecords.where('timeStamp').between(startTimeStamp, endTimeStamp).toArray()
+    records = localRecords.map((record) => ({
+      word: record.word,
+      timeStamp: record.timeStamp,
+      durationMs: record.timing.reduce((total, value) => total + value, 0),
+      wrongCount: record.wrongCount,
+      wrongKeys: Object.values(record.mistakes ?? {}).flat().map(String),
+    }))
+  }
 
   if (records.length === 0) {
     return { isEmpty: true, exerciseRecord: [], wordRecord: [], wpmRecord: [], accuracyRecord: [], wrongTimeRecord: [] }
@@ -84,9 +116,9 @@ async function getChapterStats(startTimeStamp: number, endTimeStamp: number): Pr
 
     data[date].exerciseTime = data[date].exerciseTime + 1
     data[date].words = [...data[date].words, records[i].word]
-    data[date].totalTime = data[date].totalTime + records[i].timing.reduce((acc, curr) => acc + curr, 0)
+    data[date].totalTime = data[date].totalTime + records[i].durationMs
     data[date].wrongCount = data[date].wrongCount + records[i].wrongCount
-    data[date].wrongKeys = [...(data[date].wrongKeys || []), ...(Object.values(records[i].mistakes).flat() || [])]
+    data[date].wrongKeys = [...(data[date].wrongKeys || []), ...records[i].wrongKeys]
   }
 
   const RecordArray = Object.entries(data)

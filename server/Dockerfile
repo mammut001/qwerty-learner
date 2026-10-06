@@ -1,0 +1,7 @@
+FROM node:24-alpine
+WORKDIR /app
+COPY server/study-plan.mjs server/study-model.mjs server/study-features.mjs server/study-node-features.mjs server/study-http.mjs server/study-csv.mjs server/study-observability.mjs server/study-node-passkey.mjs server/study-passkey.mjs server/sqlite-backup.mjs ./server/
+RUN mkdir /data && chown node:node /data
+USER node
+EXPOSE 8787
+CMD ["node", "server/study-plan.mjs"]

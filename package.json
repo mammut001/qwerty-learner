@@ -59,13 +59,23 @@
   },
   "scripts": {
     "dev": "vite",
+    "server": "node server/study-plan.mjs",
+    "deploy:free": "node --env-file-if-exists=deploy/.env scripts/deploy-free.mjs",
+    "smoke:study": "node scripts/smoke-study.mjs",
+    "test:cloud": "node scripts/test-cloud-deploy.mjs",
+    "test:backend": "node --experimental-loader ./server/ts-extension-loader.mjs --test server/*.test.mjs",
     "start": "vite",
     "build": "cross-env CI=false vite build --base=./",
     "test": "echo \"No tests\"",
     "test:e2e": "playwright test",
+    "test:e2e:study": "playwright test --config=playwright.study.config.ts",
     "lint": "eslint .",
     "prettier": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "preview:study": "node scripts/preview-study.mjs",
+    "typecheck": "tsc --noEmit",
+    "check:bundle": "node scripts/check-bundle-budget.mjs",
+    "test:backup-drill": "node scripts/backup-restore-drill.mjs"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
