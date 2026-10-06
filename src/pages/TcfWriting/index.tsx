@@ -291,16 +291,57 @@ export default function TcfWritingPage() {
 
   return (
     <Layout>
-      <div className="flex w-full flex-1 flex-col overflow-y-auto px-4 py-8 sm:px-8 lg:px-20">
-        <div className="mx-auto w-full max-w-5xl">
-          {/* Header navigation & timer */}
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <NavLink to="/study-plan" className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-indigo-600">
-              <IconArrowLeft className="h-4 w-4" />
-              返回学习计划
-            </NavLink>
+      <div className="flex w-full flex-1 flex-col overflow-y-auto px-4 py-4 sm:px-6 lg:px-8">
+        <div className={`mx-auto w-full ${mode !== 'intro' ? 'max-w-7xl' : 'max-w-5xl'}`}>
+          {/* Header navigation & status */}
+          {mode !== 'writing' ? (
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <NavLink to="/study-plan" className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-indigo-600">
+                <IconArrowLeft className="h-4 w-4" />
+                返回学习计划
+              </NavLink>
+            </div>
+          ) : (
+            <div className="sticky top-0 z-20 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-gray-200/90 bg-white/95 px-4 py-2.5 shadow-sm backdrop-blur dark:border-gray-700 dark:bg-gray-800/95">
+              <div className="flex items-center gap-3">
+                <NavLink to="/study-plan" className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-indigo-600">
+                  <IconArrowLeft className="h-3.5 w-3.5" />
+                  退出
+                </NavLink>
+                <span className="h-4 w-px bg-gray-200 dark:bg-gray-700" />
+                {/* Task switcher tabs */}
+                <div className="flex items-center gap-1.5">
+                  {[1, 2, 3].map((taskNum) => {
+                    const t = taskNum as 1 | 2 | 3
+                    const count = t === 1 ? wordCount1 : t === 2 ? wordCount2 : wordCount3
+                    const limits = t === 1 ? '60–120' : t === 2 ? '120–150' : '120–180'
+                    const isActive = activeTask === t
+                    return (
+                      <button
+                        key={t}
+                        type="button"
+                        data-testid={`tcf-writing-task-tab-${t}`}
+                        onClick={() => setActiveTask(t)}
+                        className={`flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs font-semibold transition ${
+                          isActive
+                            ? 'bg-indigo-600 text-white shadow-sm'
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300'
+                        }`}
+                      >
+                        <span>Tâche {t} ({limits}词)</span>
+                        <span
+                          className={`rounded-full px-1.5 py-0.5 text-[11px] font-mono ${
+                            isActive ? 'bg-indigo-700 text-white' : 'bg-white/80 text-gray-600 dark:bg-gray-800 dark:text-gray-300'
+                          }`}
+                        >
+                          {count}
+                        </span>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
 
-            {mode === 'writing' && (
               <div className="flex items-center gap-3">
                 {saveStatus && (
                   <span
@@ -313,38 +354,48 @@ export default function TcfWritingPage() {
                 )}
                 <div
                   data-testid="tcf-writing-timer"
-                  className={`inline-flex items-center gap-2 rounded-full px-4 py-2 font-mono text-sm ${
+                  className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-1.5 font-mono text-sm font-bold shadow-inner ${
                     remainingSeconds < 300
                       ? 'animate-pulse bg-red-100 text-red-700 dark:bg-red-950/60 dark:text-red-300'
-                      : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200'
+                      : 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100'
                   }`}
                 >
                   <IconClock className="h-4 w-4" />
                   {formatClock(remainingSeconds)}
                 </div>
+                <button
+                  type="button"
+                  data-testid="tcf-writing-submit"
+                  onClick={enterAssessment}
+                  className="rounded-xl bg-indigo-600 px-4 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-indigo-700"
+                >
+                  交卷自评
+                </button>
               </div>
-            )}
-          </div>
-
-          {/* Banner */}
-          <header className="mt-8 rounded-2xl bg-gradient-to-br from-indigo-50 to-white p-6 dark:from-indigo-950/40 dark:to-gray-900 sm:p-8">
-            <div className="text-sm font-semibold text-indigo-600">TCF Canada · Expression Écrite</div>
-            <h1 className="mt-2 text-3xl font-bold text-gray-950 dark:text-white">写作 3 任务完整模拟</h1>
-            <p className="mt-3 max-w-3xl leading-7 text-gray-600 dark:text-gray-300">
-              60 分钟完成 3 个写作任务。实时统计法语词数，断网与跨设备草稿自动保存；交卷后按 4 维度对照范文与连接词自评换算 NCLC 等级。
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3 text-sm">
-              <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
-                目标 NCLC 7
-              </span>
-              <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
-                目标 10/20 分
-              </span>
-              <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
-                总时长 60 分钟
-              </span>
             </div>
-          </header>
+          )}
+
+          {/* Banner: Only show in intro mode */}
+          {mode === 'intro' && (
+            <header className="mt-8 rounded-2xl bg-gradient-to-br from-indigo-50 to-white p-6 dark:from-indigo-950/40 dark:to-gray-900 sm:p-8">
+              <div className="text-sm font-semibold text-indigo-600">TCF Canada · Expression Écrite</div>
+              <h1 className="mt-2 text-3xl font-bold text-gray-950 dark:text-white">写作 3 任务完整模拟</h1>
+              <p className="mt-3 max-w-3xl leading-7 text-gray-600 dark:text-gray-300">
+                60 分钟完成 3 个写作任务。实时统计法语词数，断网与跨设备草稿自动保存；交卷后按 4 维度对照范文与连接词自评换算 NCLC 等级。
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3 text-sm">
+                <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
+                  目标 NCLC 7
+                </span>
+                <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
+                  目标 10/20 分
+                </span>
+                <span className="rounded-full bg-white px-3 py-1.5 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
+                  总时长 60 分钟
+                </span>
+              </div>
+            </header>
+          )}
 
           {/* Intro mode */}
           {mode === 'intro' && (
@@ -439,164 +490,110 @@ export default function TcfWritingPage() {
             </section>
           )}
 
-          {/* Writing mode */}
+          {/* Writing mode: Realistic Two-Column Split Layout */}
           {mode === 'writing' && (
-            <section className="mt-6 space-y-6">
-              {/* Task switcher tabs */}
-              <div className="flex flex-wrap items-center gap-2 border-b border-gray-200 pb-3 dark:border-gray-700">
-                <button
-                  type="button"
-                  data-testid="tcf-writing-task-tab-1"
-                  onClick={() => setActiveTask(1)}
-                  className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition ${
-                    activeTask === 1
-                      ? 'bg-indigo-600 text-white shadow-sm'
-                      : 'bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300'
-                  }`}
-                >
-                  <span>任务 1 (60–120词)</span>
-                  <span
-                    className={`rounded-full px-2 py-0.5 text-xs ${
-                      activeTask === 1 ? 'bg-indigo-700 text-white' : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'
-                    }`}
-                  >
-                    {wordCount1} 词
-                  </span>
-                </button>
-
-                <button
-                  type="button"
-                  data-testid="tcf-writing-task-tab-2"
-                  onClick={() => setActiveTask(2)}
-                  className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition ${
-                    activeTask === 2
-                      ? 'bg-indigo-600 text-white shadow-sm'
-                      : 'bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300'
-                  }`}
-                >
-                  <span>任务 2 (120–150词)</span>
-                  <span
-                    className={`rounded-full px-2 py-0.5 text-xs ${
-                      activeTask === 2 ? 'bg-indigo-700 text-white' : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'
-                    }`}
-                  >
-                    {wordCount2} 词
-                  </span>
-                </button>
-
-                <button
-                  type="button"
-                  data-testid="tcf-writing-task-tab-3"
-                  onClick={() => setActiveTask(3)}
-                  className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition ${
-                    activeTask === 3
-                      ? 'bg-indigo-600 text-white shadow-sm'
-                      : 'bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300'
-                  }`}
-                >
-                  <span>任务 3 (120–180词)</span>
-                  <span
-                    className={`rounded-full px-2 py-0.5 text-xs ${
-                      activeTask === 3 ? 'bg-indigo-700 text-white' : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'
-                    }`}
-                  >
-                    {wordCount3} 词
-                  </span>
-                </button>
-              </div>
-
-              {/* Active Prompt Box */}
-              <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div className="text-xs font-semibold uppercase tracking-wider text-indigo-500">
-                    Tâche {activeTask} · {activePrompt.category}
+            <section className="mt-4 grid grid-cols-1 gap-6 lg:grid-cols-12">
+              {/* Left Column: Task Prompt & Materials (5 cols on lg) */}
+              <div className="space-y-4 lg:col-span-5">
+                <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                  <div className="flex items-center justify-between border-b border-gray-100 pb-3 dark:border-gray-700">
+                    <span className="rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-bold text-indigo-600 dark:bg-indigo-950 dark:text-indigo-300">
+                      Tâche {activeTask} · {activePrompt.category}
+                    </span>
+                    <span className="text-xs font-medium text-gray-500">
+                      建议词数：{activePrompt.minWords}–{activePrompt.maxWords} 词
+                    </span>
                   </div>
-                  <div className="text-xs text-gray-500">
-                    目标字数：{activePrompt.minWords}–{activePrompt.maxWords} 词
+
+                  <h2 className="mt-3 text-lg font-bold text-gray-950 dark:text-white leading-snug">
+                    {activePrompt.title}
+                  </h2>
+
+                  <div className="mt-3 whitespace-pre-line text-sm leading-relaxed text-gray-700 dark:text-gray-200">
+                    {activePrompt.prompt}
+                  </div>
+
+                  {/* Task 3 Documents */}
+                  {activeTask === 3 && (activePrompt.docA || activePrompt.docB) && (
+                    <div className="mt-4 space-y-3">
+                      {activePrompt.docA && (
+                        <div className="rounded-xl border border-indigo-100 bg-indigo-50/60 p-3.5 text-xs leading-relaxed text-gray-800 dark:border-indigo-900/60 dark:bg-indigo-950/40 dark:text-gray-200">
+                          <div className="mb-1 font-bold text-indigo-700 dark:text-indigo-300">Document A</div>
+                          {activePrompt.docA}
+                        </div>
+                      )}
+                      {activePrompt.docB && (
+                        <div className="rounded-xl border border-purple-100 bg-purple-50/60 p-3.5 text-xs leading-relaxed text-gray-800 dark:border-purple-900/60 dark:bg-purple-950/40 dark:text-gray-200">
+                          <div className="mb-1 font-bold text-purple-700 dark:text-purple-300">Document B</div>
+                          {activePrompt.docB}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  <div className="mt-4 rounded-xl bg-gray-50 p-3 text-xs leading-5 text-gray-500 dark:bg-gray-900/50">
+                    💡 <strong>要求提示</strong>：请使用清晰的段落结构与准确的法语语法。字数不足或超出均会受到考官扣分。
                   </div>
                 </div>
-
-                <h2 className="mt-2 text-xl font-bold text-gray-950 dark:text-white">{activePrompt.title}</h2>
-                <p className="mt-3 leading-7 text-gray-700 dark:text-gray-200">{activePrompt.prompt}</p>
-
-                {/* If Task 3, show Doc A & Doc B */}
-                {activeTask === 3 && (activePrompt.docA || activePrompt.docB) && (
-                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                    {activePrompt.docA && (
-                      <div className="rounded-xl border border-indigo-100 bg-indigo-50/50 p-3.5 text-xs leading-5 text-gray-800 dark:border-indigo-900/60 dark:bg-indigo-950/30 dark:text-gray-200">
-                        {activePrompt.docA}
-                      </div>
-                    )}
-                    {activePrompt.docB && (
-                      <div className="rounded-xl border border-purple-100 bg-purple-50/50 p-3.5 text-xs leading-5 text-gray-800 dark:border-purple-900/60 dark:bg-purple-950/30 dark:text-gray-200">
-                        {activePrompt.docB}
-                      </div>
-                    )}
-                  </div>
-                )}
               </div>
 
-              {/* Editor area */}
-              <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <label htmlFor="writing-textarea" className="text-sm font-semibold text-gray-900 dark:text-white">
-                    您的作答 (Réponse de la tâche {activeTask})
-                  </label>
-                  {/* Real-time word count badge */}
-                  {(() => {
-                    const status = wordCountStatus(activeWordCount, activePrompt.minWords, activePrompt.maxWords)
-                    return (
-                      <div
-                        data-testid="tcf-writing-word-count"
-                        className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium ${status.color}`}
+              {/* Right Column: Editor Workspace (7 cols on lg) */}
+              <div className="flex flex-col space-y-3 lg:col-span-7">
+                <div className="flex flex-1 flex-col rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                  <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 pb-3 dark:border-gray-700">
+                    <label htmlFor="writing-textarea" className="text-sm font-bold text-gray-900 dark:text-white">
+                      作答区域 (Réponse de la tâche {activeTask})
+                    </label>
+                    {(() => {
+                      const status = wordCountStatus(activeWordCount, activePrompt.minWords, activePrompt.maxWords)
+                      return (
+                        <div
+                          data-testid="tcf-writing-word-count"
+                          className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold ${status.color}`}
+                        >
+                          {status.text}
+                        </div>
+                      )
+                    })()}
+                  </div>
+
+                  <textarea
+                    id="writing-textarea"
+                    data-testid="tcf-writing-editor"
+                    rows={16}
+                    value={activeText}
+                    onChange={(e) => {
+                      const val = e.target.value
+                      setResponses((old) => ({ ...old, [activeTask]: val }))
+                    }}
+                    placeholder="Rédigez votre réponse en français ici..."
+                    className="mt-3 min-h-[460px] w-full flex-1 resize-y rounded-xl border border-gray-200 p-4 font-sans text-base leading-relaxed text-gray-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                  />
+
+                  <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-gray-100 pt-3 dark:border-gray-700">
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        disabled={activeTask === 1}
+                        onClick={() => setActiveTask((old) => (old === 3 ? 2 : 1))}
+                        className="rounded-lg border border-gray-300 px-3.5 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50 disabled:opacity-40 dark:border-gray-600 dark:text-gray-300"
                       >
-                        {status.text}
-                      </div>
-                    )
-                  })()}
-                </div>
+                        ← 上一题
+                      </button>
+                      <button
+                        type="button"
+                        disabled={activeTask === 3}
+                        onClick={() => setActiveTask((old) => (old === 1 ? 2 : 3))}
+                        className="rounded-lg border border-gray-300 px-3.5 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50 disabled:opacity-40 dark:border-gray-600 dark:text-gray-300"
+                      >
+                        下一题 →
+                      </button>
+                    </div>
 
-                <textarea
-                  id="writing-textarea"
-                  data-testid="tcf-writing-editor"
-                  rows={14}
-                  value={activeText}
-                  onChange={(e) => {
-                    const val = e.target.value
-                    setResponses((old) => ({ ...old, [activeTask]: val }))
-                  }}
-                  placeholder="Rédigez votre réponse en français ici..."
-                  className="mt-4 w-full resize-y rounded-xl border border-gray-300 p-4 font-sans text-base leading-7 text-gray-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100"
-                />
-
-                <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-gray-100 pt-4 dark:border-gray-700">
-                  <div className="flex gap-2">
-                    <button
-                      type="button"
-                      disabled={activeTask === 1}
-                      onClick={() => setActiveTask((old) => (old === 3 ? 2 : 1))}
-                      className="rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-600 disabled:opacity-40 dark:border-gray-600 dark:text-gray-300"
-                    >
-                      上一题
-                    </button>
-                    <button
-                      type="button"
-                      disabled={activeTask === 3}
-                      onClick={() => setActiveTask((old) => (old === 1 ? 2 : 3))}
-                      className="rounded-lg bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 disabled:opacity-40 dark:bg-indigo-950 dark:text-indigo-300"
-                    >
-                      下一题
-                    </button>
+                    <div className="text-xs text-gray-400">
+                      自动实时保存 · 支持随时切换题目
+                    </div>
                   </div>
-
-                  <button
-                    type="button"
-                    data-testid="tcf-writing-submit"
-                    onClick={enterAssessment}
-                    className="rounded-xl bg-indigo-600 px-6 py-2.5 font-semibold text-white hover:bg-indigo-700"
-                  >
-                    完成作答，进入自评
-                  </button>
                 </div>
               </div>
             </section>
@@ -799,19 +796,26 @@ export default function TcfWritingPage() {
                       </div>
                     </div>
 
-                    {/* User's response */}
-                    <div className="mt-4">
-                      <div className="text-xs font-semibold text-gray-400">您的提交文本：</div>
-                      <div className="mt-1.5 whitespace-pre-wrap rounded-xl bg-gray-50 p-4 text-sm leading-6 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
-                        {response.trim() || '（未输入作答内容）'}
+                    {/* Comparison grid: User response vs Reference sample answer */}
+                    <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+                      <div>
+                        <div className="flex items-center justify-between text-xs font-semibold text-gray-500">
+                          <span>您的提交作答：</span>
+                          <span>{count} 词</span>
+                        </div>
+                        <div className="mt-1.5 h-64 overflow-y-auto whitespace-pre-wrap rounded-xl bg-gray-50 p-4 text-sm leading-relaxed text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+                          {response.trim() || '（未输入作答内容）'}
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Reference sample answer */}
-                    <div className="mt-4">
-                      <div className="text-xs font-semibold text-indigo-600 dark:text-indigo-400">官方高分参考范文：</div>
-                      <div className="mt-1.5 whitespace-pre-wrap rounded-xl border border-indigo-100 bg-indigo-50/50 p-4 text-sm leading-6 text-gray-800 dark:border-indigo-900/60 dark:bg-indigo-950/30 dark:text-gray-200">
-                        {prompt.sampleAnswer}
+                      <div>
+                        <div className="flex items-center justify-between text-xs font-semibold text-indigo-600 dark:text-indigo-400">
+                          <span>官方高分参考范文：</span>
+                          <span>建议 {prompt.minWords}–{prompt.maxWords} 词</span>
+                        </div>
+                        <div className="mt-1.5 h-64 overflow-y-auto whitespace-pre-wrap rounded-xl border border-indigo-100 bg-indigo-50/50 p-4 text-sm leading-relaxed text-gray-800 dark:border-indigo-900/60 dark:bg-indigo-950/30 dark:text-gray-200">
+                          {prompt.sampleAnswer}
+                        </div>
                       </div>
                     </div>
 
