@@ -19,6 +19,7 @@ const navItems = [
 ]
 
 const examItems = [
+  { to: '/tcf', label: '总览', code: 'NCLC 7', detail: '四项差距' },
   { to: '/tcf-listening', label: '听力', code: 'CO', detail: '35 分钟 · 39 题' },
   { to: '/tcf-reading', label: '阅读', code: 'CE', detail: '60 分钟 · 39 题' },
   { to: '/tcf-writing', label: '写作', code: 'EE', detail: '60 分钟 · 3 任务' },
@@ -34,7 +35,7 @@ const navItemClass = (isActive: boolean) =>
 
 const Header: React.FC<PropsWithChildren> = ({ children }) => {
   const { pathname } = useLocation()
-  const isExamActive = examItems.some((item) => pathname.startsWith(item.to))
+  const isExamActive = pathname.startsWith('/tcf')
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
@@ -93,7 +94,7 @@ const Header: React.FC<PropsWithChildren> = ({ children }) => {
                       <NavLink
                         to={item.to}
                         className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm no-underline hover:no-underline ${
-                          active || pathname.startsWith(item.to)
+                          active || pathname === item.to
                             ? 'bg-indigo-50 text-indigo-600 dark:bg-gray-700 dark:text-white'
                             : 'text-gray-700 dark:text-gray-200'
                         }`}
@@ -129,7 +130,7 @@ const Header: React.FC<PropsWithChildren> = ({ children }) => {
             </NavLink>
           ))}
           {examItems.map((item) => (
-            <NavLink key={item.to} to={item.to} className={({ isActive }) => `${navItemClass(isActive)} justify-center py-2.5`}>
+            <NavLink key={item.to} to={item.to} end className={({ isActive }) => `${navItemClass(isActive)} justify-center py-2.5`}>
               模考 · {item.label}
               <span className="text-xs opacity-70">{item.code}</span>
             </NavLink>
