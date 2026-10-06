@@ -289,6 +289,10 @@ export function createStudyServer({
           policy.status === 503 ? 'Invalid server configuration' : 'Request rejected',
         )
 
+    const originList = String(origin || '').split(',').map((s) => s.trim()).filter(Boolean)
+    const reqOrigin = typeof req.headers['origin'] === 'string' ? req.headers['origin'] : null
+    const effectiveOrigin = (reqOrigin && originList.includes(reqOrigin)) ? reqOrigin : originList[0]
+
     if (health) {
       try {
         db.prepare('SELECT id,state FROM learners LIMIT 1').get()
@@ -340,11 +344,11 @@ export function createStudyServer({
         const input = await readBody(req)
         if (passkeyLoginOptions) {
           if (!hasExactKeys(input, [])) return sendError(400, 'PASSKEY_REQUEST_INVALID', 'Invalid passkey request')
-          return send(200, { options: createNodePasskeyLoginOptions(db, origin) })
+          return send(200, { options: createNodePasskeyLoginOptions(db, effectiveOrigin) })
         }
         if (!hasExactKeys(input, ['credential'], ['credential']))
           return sendError(400, 'PASSKEY_REQUEST_INVALID', 'Invalid passkey request')
-        const result = await verifyNodePasskeyLogin(db, origin, input.credential)
+        const result = await verifyNodePasskeyLogin(db, effectiveOrigin, input.credential)
         res.setHeader('Set-Cookie', sessionCookie(result.sessionToken, { secure, sameSite }))
         audit(result.learner, 'passkey_login', 'success')
         return send(200, {
@@ -440,11 +444,11 @@ export function createStudyServer({
         const input = await readBody(req)
         if (passkeyRegisterOptions) {
           if (!hasExactKeys(input, [])) return sendError(400, 'PASSKEY_REQUEST_INVALID', 'Invalid passkey request')
-          return send(200, { options: createNodePasskeyRegistrationOptions(db, learner, origin) })
+          return send(200, { options: createNodePasskeyRegistrationOptions(db, learner, effectiveOrigin) })
         }
         if (!hasExactKeys(input, ['credential'], ['credential']))
           return sendError(400, 'PASSKEY_REQUEST_INVALID', 'Invalid passkey request')
-        const result = await verifyNodePasskeyRegistration(db, learner, origin, input.credential)
+        const result = await verifyNodePasskeyRegistration(db, learner, effectiveOrigin, input.credential)
         res.setHeader('Set-Cookie', sessionCookie(result.sessionToken, { secure, sameSite }))
         viaAccount = true
         audit(learner, 'passkey_register', 'success')
