@@ -47,7 +47,7 @@ const Header: React.FC<PropsWithChildren> = ({ children }) => {
   }, [pathname])
 
   return (
-    <header className="container z-20 mx-auto w-full px-4 py-4 sm:px-10">
+    <header className="container sticky top-0 z-30 mx-auto w-full bg-[#f7f7fb]/90 px-4 py-4 backdrop-blur-md dark:bg-[#0b0d14]/90 sm:px-10">
       <div className="flex w-full items-center justify-between gap-3">
         <NavLink className="group flex shrink-0 items-center gap-3 whitespace-nowrap no-underline hover:no-underline" to="/study-plan">
           <span className="relative flex h-10 w-10 items-center justify-center rounded-2xl bg-white shadow-[0_1px_2px_rgba(17,24,39,0.06),0_0_0_1px_rgba(17,24,39,0.05),0_8px_20px_-8px_rgba(79,70,229,0.45)] transition-transform duration-200 group-hover:-translate-y-px dark:bg-white/[0.06] dark:shadow-none dark:ring-1 dark:ring-white/10 sm:h-11 sm:w-11">
@@ -76,7 +76,7 @@ const Header: React.FC<PropsWithChildren> = ({ children }) => {
           {menuOpen ? <IconX className="h-6 w-6" /> : <IconMenu className="h-6 w-6" />}
         </button>
         <nav
-          className="hidden items-center justify-end gap-0.5 rounded-full bg-gray-900/[0.035] p-1 ring-1 ring-inset ring-gray-900/[0.05] backdrop-blur-md dark:bg-white/[0.04] dark:ring-white/[0.06] lg:flex"
+          className="relative z-40 hidden items-center justify-end gap-0.5 rounded-full bg-gray-900/[0.035] p-1 ring-1 ring-inset ring-gray-900/[0.05] backdrop-blur-md dark:bg-white/[0.04] dark:ring-white/[0.06] lg:flex"
           aria-label="主导航"
         >
           {navItems.slice(0, 5).map((item) => (
@@ -103,7 +103,7 @@ const Header: React.FC<PropsWithChildren> = ({ children }) => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Menu.Items className="absolute left-1/2 z-30 mt-3 w-64 -translate-x-1/2 rounded-2xl bg-white/95 p-1.5 shadow-[0_24px_48px_-16px_rgba(30,27,75,0.25)] ring-1 ring-gray-900/[0.06] backdrop-blur-xl focus:outline-none dark:bg-gray-900/95 dark:ring-white/10">
+              <Menu.Items className="absolute left-1/2 z-50 mt-3 w-80 -translate-x-1/2 rounded-2xl bg-white p-1.5 shadow-[0_24px_48px_-16px_rgba(30,27,75,0.25)] ring-1 ring-gray-900/[0.06] focus:outline-none dark:bg-gray-900 dark:ring-white/10">
                 <div className="px-3 pb-1.5 pt-2 text-[10.5px] font-semibold uppercase tracking-[0.16em] text-gray-400">
                   TCF Canada 模考
                 </div>
@@ -121,9 +121,9 @@ const Header: React.FC<PropsWithChildren> = ({ children }) => {
                         <span className="flex h-7 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-900/[0.04] font-mono text-[11px] font-semibold text-gray-500 dark:bg-white/[0.06] dark:text-gray-300">
                           {item.code === 'NCLC 7' ? '∑' : item.code}
                         </span>
-                        <span className="flex flex-1 items-baseline justify-between gap-2">
-                          <span className="font-medium">{item.label}</span>
-                          <span className="text-[11px] text-gray-400">{item.detail}</span>
+                        <span className="flex min-w-0 flex-1 items-center justify-between gap-3">
+                          <span className="shrink-0 font-medium">{item.label}</span>
+                          <span className="whitespace-nowrap text-[11px] text-gray-400">{item.detail}</span>
                         </span>
                       </NavLink>
                     )}
@@ -132,7 +132,7 @@ const Header: React.FC<PropsWithChildren> = ({ children }) => {
               </Menu.Items>
             </Transition>
           </Menu>
-          {navItems.slice(4).map((item) => (
+          {navItems.slice(5).map((item) => (
             <NavLink key={item.to} to={item.to} end className={({ isActive }) => navItemClass(isActive)}>
               {item.label}
             </NavLink>

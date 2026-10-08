@@ -1,4 +1,5 @@
 import EchelleAiEvaluation from '@/components/EchelleAiEvaluation'
+import Header from '@/components/Header'
 import useFrenchSpeechRecognition from '@/hooks/useFrenchSpeechRecognition'
 import useSpeech from '@/hooks/useSpeech'
 import {
@@ -134,12 +135,15 @@ export default function LevelDetailPage() {
 
   if (!validLevel) {
     return (
-      <div className="container mx-auto max-w-4xl px-4 py-10">
-        <Link to="/levels" className="ui-btn-secondary">
-          返回等级课程
-        </Link>
-        <p className="mt-6 text-gray-600">无效的等级参数。</p>
-      </div>
+      <>
+        <Header />
+        <div className="container mx-auto max-w-4xl px-4 py-10">
+          <Link to="/levels" className="ui-btn-secondary">
+            返回等级课程
+          </Link>
+          <p className="mt-6 text-gray-600">无效的等级参数。</p>
+        </div>
+      </>
     )
   }
 
@@ -158,119 +162,122 @@ export default function LevelDetailPage() {
   const percent = total ? Math.round((mastered / total) * 100) : 0
 
   return (
-    <div className="container mx-auto max-w-5xl px-4 py-6 sm:px-6">
-      <div className="mb-6 flex flex-wrap items-center gap-3">
-        <Link to="/levels" className="ui-btn-secondary flex items-center gap-1">
-          <IconChevronLeft className="h-4 w-4" />
-          全部等级
-        </Link>
-        <div>
-          <div className="text-xs font-semibold uppercase tracking-wider text-gray-400">{getEchelleStage(level).labelFr}</div>
-          <h1 className="ui-title">Niveau {level}</h1>
+    <>
+      <Header />
+      <div className="container mx-auto max-w-5xl px-4 pb-6 sm:px-6">
+        <div className="mb-6 flex flex-wrap items-center gap-3">
+          <Link to="/levels" className="ui-btn-secondary flex items-center gap-1">
+            <IconChevronLeft className="h-4 w-4" />
+            全部等级
+          </Link>
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-wider text-gray-400">{getEchelleStage(level).labelFr}</div>
+            <h1 className="ui-title">Niveau {level}</h1>
+          </div>
+          {passed && (
+            <span className="ui-chip-accent flex items-center gap-1">
+              <IconCheck className="h-4 w-4" /> 已达标
+            </span>
+          )}
+          <nav aria-label="相邻等级" className="ml-auto flex gap-2 text-sm">
+            {level > 1 && (
+              <Link to={`/levels/${level - 1}`} className="ui-btn-secondary flex items-center gap-1 px-3 py-1.5">
+                <IconChevronLeft className="h-4 w-4" /> Niveau {level - 1}
+              </Link>
+            )}
+            {level < 12 && (
+              <Link to={`/levels/${level + 1}`} className="ui-btn-secondary flex items-center gap-1 px-3 py-1.5">
+                Niveau {level + 1} <IconChevronRight className="h-4 w-4" />
+              </Link>
+            )}
+          </nav>
         </div>
+
+        <div className="mb-6 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-900/[0.05] dark:bg-white/[0.04] dark:ring-white/[0.06]">
+          <div className="mb-2 flex items-center justify-between text-sm">
+            <span className="text-gray-600 dark:text-gray-400">总进度</span>
+            <span className="font-semibold text-gray-900 dark:text-white" data-testid="level-progress">
+              {mastered} / {total}
+            </span>
+          </div>
+          <div
+            className="ui-progress-track h-3"
+            role="progressbar"
+            aria-label={`Niveau ${level} 进度`}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={percent}
+          >
+            <div className={`ui-progress-bar h-3 ${passed ? 'bg-emerald-500' : ''}`} style={{ width: `${percent}%` }} />
+          </div>
+          <div className="mt-3 flex flex-wrap gap-2 text-xs">
+            {Array.from(grouped.entries()).map(([skill, list]) => (
+              <span key={skill} className="ui-chip">
+                {skillLabels[skill]} {list.filter((item) => itemStates[item.id]?.mastered).length}/{list.length}
+              </span>
+            ))}
+            {dueCount > 0 && (
+              <span data-testid="level-due-count" className="ui-chip flex items-center gap-1 text-amber-700 dark:text-amber-300">
+                <IconClock className="h-3.5 w-3.5" /> 待复习 {dueCount}
+              </span>
+            )}
+          </div>
+          {nextItem && (
+            <button type="button" onClick={() => openItem(nextItem.id, setActiveItemId)} className="ui-btn-primary mt-4 text-sm">
+              {itemStates[nextItem.id]?.mastered ? '复习' : '继续学习'}：{skillLabels[nextItem.skill]} · {nextItem.titleZh}
+            </button>
+          )}
+          <p className="mt-3 text-xs text-gray-500">
+            按遗忘曲线安排复习：通过后 1、2、4、7、15、30、60、120 天各复习一次；复习没通过即视为遗忘，需要重新掌握，等级达标也会随之取消。
+          </p>
+        </div>
+
         {passed && (
-          <span className="ui-chip-accent flex items-center gap-1">
-            <IconCheck className="h-4 w-4" /> 已达标
-          </span>
+          <div
+            data-testid="level-passed-banner"
+            className="mb-8 rounded-2xl bg-emerald-50 p-5 text-emerald-800 ring-1 ring-emerald-200 dark:bg-emerald-900/20 dark:text-emerald-200 dark:ring-emerald-800/40"
+          >
+            恭喜！你已经掌握 Niveau {level} 的全部知识点。
+            {level < 12 ? (
+              <Link to={`/levels/${level + 1}`} className="ml-2 font-semibold underline">
+                进入 Niveau {level + 1}
+              </Link>
+            ) : (
+              <span className="ml-2 font-semibold">你已完成量表的全部 12 个等级。</span>
+            )}
+          </div>
         )}
-        <nav aria-label="相邻等级" className="ml-auto flex gap-2 text-sm">
-          {level > 1 && (
-            <Link to={`/levels/${level - 1}`} className="ui-btn-secondary flex items-center gap-1 px-3 py-1.5">
-              <IconChevronLeft className="h-4 w-4" /> Niveau {level - 1}
-            </Link>
-          )}
-          {level < 12 && (
-            <Link to={`/levels/${level + 1}`} className="ui-btn-secondary flex items-center gap-1 px-3 py-1.5">
-              Niveau {level + 1} <IconChevronRight className="h-4 w-4" />
-            </Link>
-          )}
-        </nav>
-      </div>
 
-      <div className="mb-6 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-900/[0.05] dark:bg-white/[0.04] dark:ring-white/[0.06]">
-        <div className="mb-2 flex items-center justify-between text-sm">
-          <span className="text-gray-600 dark:text-gray-400">总进度</span>
-          <span className="font-semibold text-gray-900 dark:text-white" data-testid="level-progress">
-            {mastered} / {total}
-          </span>
-        </div>
-        <div
-          className="ui-progress-track h-3"
-          role="progressbar"
-          aria-label={`Niveau ${level} 进度`}
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-valuenow={percent}
-        >
-          <div className={`ui-progress-bar h-3 ${passed ? 'bg-emerald-500' : ''}`} style={{ width: `${percent}%` }} />
-        </div>
-        <div className="mt-3 flex flex-wrap gap-2 text-xs">
+        <div className="space-y-8">
           {Array.from(grouped.entries()).map(([skill, list]) => (
-            <span key={skill} className="ui-chip">
-              {skillLabels[skill]} {list.filter((item) => itemStates[item.id]?.mastered).length}/{list.length}
-            </span>
+            <section key={skill} data-testid={`level-skill-${skill}`}>
+              <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-white">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300">
+                  {skillIcons[skill]}
+                </span>
+                {skillLabels[skill]}
+                <span className="ml-2 text-sm font-normal text-gray-500">
+                  {list.filter((item) => itemStates[item.id]?.mastered).length} / {list.length}
+                </span>
+              </h2>
+              <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2">
+                {list.map((item) => (
+                  <ItemCard
+                    key={item.id}
+                    item={item}
+                    now={now}
+                    aiStatus={aiStatus}
+                    state={itemStates[item.id]}
+                    isOpen={activeItemId === item.id}
+                    onToggle={() => setActiveItemId(activeItemId === item.id ? null : item.id)}
+                  />
+                ))}
+              </div>
+            </section>
           ))}
-          {dueCount > 0 && (
-            <span data-testid="level-due-count" className="ui-chip flex items-center gap-1 text-amber-700 dark:text-amber-300">
-              <IconClock className="h-3.5 w-3.5" /> 待复习 {dueCount}
-            </span>
-          )}
         </div>
-        {nextItem && (
-          <button type="button" onClick={() => openItem(nextItem.id, setActiveItemId)} className="ui-btn-primary mt-4 text-sm">
-            {itemStates[nextItem.id]?.mastered ? '复习' : '继续学习'}：{skillLabels[nextItem.skill]} · {nextItem.titleZh}
-          </button>
-        )}
-        <p className="mt-3 text-xs text-gray-500">
-          按遗忘曲线安排复习：通过后 1、2、4、7、15、30、60、120 天各复习一次；复习没通过即视为遗忘，需要重新掌握，等级达标也会随之取消。
-        </p>
       </div>
-
-      {passed && (
-        <div
-          data-testid="level-passed-banner"
-          className="mb-8 rounded-2xl bg-emerald-50 p-5 text-emerald-800 ring-1 ring-emerald-200 dark:bg-emerald-900/20 dark:text-emerald-200 dark:ring-emerald-800/40"
-        >
-          恭喜！你已经掌握 Niveau {level} 的全部知识点。
-          {level < 12 ? (
-            <Link to={`/levels/${level + 1}`} className="ml-2 font-semibold underline">
-              进入 Niveau {level + 1}
-            </Link>
-          ) : (
-            <span className="ml-2 font-semibold">你已完成量表的全部 12 个等级。</span>
-          )}
-        </div>
-      )}
-
-      <div className="space-y-8">
-        {Array.from(grouped.entries()).map(([skill, list]) => (
-          <section key={skill} data-testid={`level-skill-${skill}`}>
-            <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-white">
-              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300">
-                {skillIcons[skill]}
-              </span>
-              {skillLabels[skill]}
-              <span className="ml-2 text-sm font-normal text-gray-500">
-                {list.filter((item) => itemStates[item.id]?.mastered).length} / {list.length}
-              </span>
-            </h2>
-            <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2">
-              {list.map((item) => (
-                <ItemCard
-                  key={item.id}
-                  item={item}
-                  now={now}
-                  aiStatus={aiStatus}
-                  state={itemStates[item.id]}
-                  isOpen={activeItemId === item.id}
-                  onToggle={() => setActiveItemId(activeItemId === item.id ? null : item.id)}
-                />
-              ))}
-            </div>
-          </section>
-        ))}
-      </div>
-    </div>
+    </>
   )
 }
 
