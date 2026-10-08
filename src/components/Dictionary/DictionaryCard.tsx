@@ -1,5 +1,6 @@
 import { type DictionaryResult, type DictionaryWord, GENDER_LABELS, POS_LABELS, briefMeaning, speakFrench } from '@/services/dictionary'
 import { type OnlineChineseSource, loadOnlineChinese, needsOnlineChinese } from '@/services/dictionaryOnline'
+import { type YoudaoFrench, loadYoudaoFrench, youdaoQuery } from '@/services/dictionaryYoudao'
 import { CUSTOM_DICT_LIMITS, type CustomDict, customDictsAtom } from '@/store/customDict'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
@@ -98,6 +99,62 @@ function AddToWordList({ word, meaning }: { word: string; meaning: string }) {
   )
 }
 
+const YOUDAO_POS: Record<string, string> = {
+  'm.': '阳性名词',
+  'n.m.': '阳性名词',
+  'f.': '阴性名词',
+  'n.f.': '阴性名词',
+  'v.t.': '及物动词',
+  'v.i.': '不及物动词',
+  'v.pr.': '代词式动词',
+  'v.': '动词',
+  'adj.': '形容词',
+  'adv.': '副词',
+  'prép.': '介词',
+  'prep.': '介词',
+  'conj.': '连词',
+  'interj.': '感叹词',
+  'loc.': '短语',
+}
+
+function YoudaoBlock({ entry, compact }: { entry: YoudaoFrench; compact: boolean }) {
+  if (entry.senses.length === 0 && entry.examples.length === 0) return null
+  const examples = entry.examples.slice(0, compact ? 1 : 2)
+  return (
+    <div data-testid="dictionary-youdao" className="mt-3 border-l-2 border-indigo-400 pl-3">
+      <div className="text-xs font-semibold text-indigo-500">
+        {entry.senses.length > 0 ? `有道 · ${entry.source || '法汉词典'}` : '有道例句'}
+      </div>
+      {entry.senses.length > 0 && (
+        <div className="mt-1 space-y-1.5">
+          {entry.senses.map((sense) => (
+            <div key={`${sense.pos}-${sense.gloss}`} className="text-base leading-7 text-gray-950 dark:text-gray-100">
+              {sense.pos && (
+                <span className="mr-2 rounded bg-indigo-50 px-1.5 py-0.5 align-middle text-xs font-semibold text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-300">
+                  {YOUDAO_POS[sense.pos] ?? sense.pos}
+                </span>
+              )}
+              {sense.gloss}
+            </div>
+          ))}
+        </div>
+      )}
+      {examples.length > 0 && (
+        <div className="mt-2 space-y-2">
+          {examples.map((example) => (
+            <div key={example.fr}>
+              <div lang="fr" className="text-sm leading-6 text-gray-800 dark:text-gray-200">
+                {example.fr}
+              </div>
+              <div className="text-sm leading-6 text-gray-500 dark:text-gray-400">{example.zh}</div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 function OnlineMeanings({ meanings, source, compact }: { meanings: string[]; source: OnlineChineseSource; compact: boolean }) {
   if (meanings.length === 0) return null
   const label = source === 'fr-wiktionary' ? '法语维基词典译表 · 在线' : '中文维基词典 · 在线'
@@ -130,11 +187,13 @@ function WordBlock({
   compact,
   onlineMeanings = [],
   onlineSource,
+  youdao = null,
 }: {
   item: DictionaryWord
   compact: boolean
   onlineMeanings?: string[]
   onlineSource: OnlineChineseSource
+  youdao?: YoudaoFrench | null
 }) {
   const ipa = item.entries.find((entry) => entry.ipa)?.ipa
   return (
@@ -154,6 +213,8 @@ function WordBlock({
         </button>
       </div>
 
+      {youdao && <YoudaoBlock entry={youdao} compact={compact} />}
+
       <OnlineMeanings meanings={onlineMeanings} source={onlineSource} compact={compact} />
 
       {item.site.length > 0 && (
@@ -163,33 +224,35 @@ function WordBlock({
         </div>
       )}
 
-      <div className={`mt-3 ${compact ? 'space-y-2' : 'space-y-4'}`}>
-        {item.entries.slice(0, compact ? 3 : undefined).map((entry, index) => (
-          <div key={`${entry.pos}-${index}`}>
-            <div className="flex items-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400">
-              <span className="rounded bg-gray-100 px-1.5 py-0.5 dark:bg-gray-700">{POS_LABELS[entry.pos] ?? entry.pos}</span>
-              {entry.gender && <span>{GENDER_LABELS[entry.gender]}</span>}
-            </div>
-            {entry.zh.length > 0 && (
-              <ol className="mt-1.5 list-inside list-decimal space-y-0.5 text-sm leading-6 text-gray-900 dark:text-gray-100">
-                {entry.zh.slice(0, compact ? 3 : undefined).map((gloss) => (
+      {!youdao?.senses.length && (
+        <div className={`mt-3 ${compact ? 'space-y-2' : 'space-y-4'}`}>
+          {item.entries.slice(0, compact ? 3 : undefined).map((entry, index) => (
+            <div key={`${entry.pos}-${index}`}>
+              <div className="flex items-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400">
+                <span className="rounded bg-gray-100 px-1.5 py-0.5 dark:bg-gray-700">{POS_LABELS[entry.pos] ?? entry.pos}</span>
+                {entry.gender && <span>{GENDER_LABELS[entry.gender]}</span>}
+              </div>
+              {entry.zh.length > 0 && (
+                <ol className="mt-1.5 list-inside list-decimal space-y-0.5 text-sm leading-6 text-gray-900 dark:text-gray-100">
+                  {entry.zh.slice(0, compact ? 3 : undefined).map((gloss) => (
+                    <li key={gloss}>{gloss}</li>
+                  ))}
+                </ol>
+              )}
+              <ol
+                className={`mt-1.5 list-inside list-decimal space-y-0.5 text-sm leading-6 ${
+                  entry.zh.length > 0 ? 'text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-gray-100'
+                }`}
+                lang="en"
+              >
+                {entry.en.slice(0, compact ? (entry.zh.length > 0 ? 1 : 3) : undefined).map((gloss) => (
                   <li key={gloss}>{gloss}</li>
                 ))}
               </ol>
-            )}
-            <ol
-              className={`mt-1.5 list-inside list-decimal space-y-0.5 text-sm leading-6 ${
-                entry.zh.length > 0 ? 'text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-gray-100'
-              }`}
-              lang="en"
-            >
-              {entry.en.slice(0, compact ? (entry.zh.length > 0 ? 1 : 3) : undefined).map((gloss) => (
-                <li key={gloss}>{gloss}</li>
-              ))}
-            </ol>
-          </div>
-        ))}
-      </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
@@ -197,50 +260,69 @@ function WordBlock({
 export default function DictionaryCard({ result, compact = false }: { result: DictionaryResult; compact?: boolean }) {
   const [onlineMeanings, setOnlineMeanings] = useState<string[]>([])
   const [onlineSource, setOnlineSource] = useState<OnlineChineseSource>('zh-wiktionary')
+  const [youdao, setYoudao] = useState<YoudaoFrench | null>(null)
 
   useEffect(() => {
     setOnlineMeanings([])
     setOnlineSource('zh-wiktionary')
-    const target = needsOnlineChinese(result)
-    if (!target || (typeof navigator !== 'undefined' && navigator.onLine === false)) {
-      return
-    }
+    setYoudao(null)
+    const target = youdaoQuery(result)
+    const wikiTarget = needsOnlineChinese(result)
+    if ((typeof navigator !== 'undefined' && navigator.onLine === false) || (!target && !wikiTarget)) return
     let cancelled = false
-    loadOnlineChinese(target)
-      .then((outcome) => {
+    const run = async () => {
+      let found: YoudaoFrench | null = null
+      if (target) {
+        found = await loadYoudaoFrench(target)
+        if (cancelled) return
+        if (found && (found.senses.length > 0 || found.examples.length > 0)) setYoudao(found)
+      }
+      if (!wikiTarget || (found && found.senses.length > 0)) return
+      try {
+        const outcome = await loadOnlineChinese(wikiTarget)
         if (!cancelled && outcome.zh.length > 0 && outcome.source) {
           setOnlineMeanings(outcome.zh)
           setOnlineSource(outcome.source)
         }
-      })
-      .catch(() => undefined)
+      } catch {
+        // Wiktionary only fills in when Youdao has no Chinese gloss.
+      }
+    }
+    void run()
     return () => {
       cancelled = true
     }
   }, [result])
 
   const primary = result.words[0] ?? result.lemmas[0]
+  const youdaoGloss =
+    youdao?.senses
+      .slice(0, 2)
+      .map((sense) => sense.gloss)
+      .join('；') ?? ''
   if (!primary) {
-    if (onlineMeanings.length > 0) {
+    if (youdao || onlineMeanings.length > 0) {
+      const meaning = youdaoGloss || onlineMeanings.slice(0, 3).join('；')
       return (
         <div data-testid="dictionary-result" className={compact ? 'space-y-3' : 'space-y-6'}>
           <div>
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
               <span className={`${compact ? 'text-xl' : 'text-3xl'} font-semibold text-gray-950 dark:text-white`} lang="fr">
-                {result.query}
+                {youdao?.word || result.query}
               </span>
               <button
                 type="button"
-                onClick={() => speakFrench(result.query)}
-                aria-label={`朗读 ${result.query}`}
+                onClick={() => speakFrench(youdao?.word || result.query)}
+                aria-label={`朗读 ${youdao?.word || result.query}`}
                 className="rounded-lg p-1.5 text-indigo-500 hover:bg-indigo-50 dark:hover:bg-gray-700"
               >
                 <IconVolume className="h-5 w-5" />
               </button>
             </div>
+            {youdao && <YoudaoBlock entry={youdao} compact={compact} />}
             <OnlineMeanings meanings={onlineMeanings} source={onlineSource} compact={compact} />
           </div>
-          <AddToWordList word={result.query} meaning={onlineMeanings.slice(0, 3).join('；')} />
+          <AddToWordList word={youdao?.word || result.query} meaning={meaning} />
         </div>
       )
     }
@@ -253,7 +335,8 @@ export default function DictionaryCard({ result, compact = false }: { result: Di
   }
 
   const hasOfflineChinese = primary.site.length > 0 || primary.entries.some((entry) => entry.zh.length > 0)
-  const meaning = !hasOfflineChinese && onlineMeanings.length > 0 ? onlineMeanings.slice(0, 3).join('；') : briefMeaning(result)
+  const meaning =
+    youdaoGloss || (!hasOfflineChinese && onlineMeanings.length > 0 ? onlineMeanings.slice(0, 3).join('；') : briefMeaning(result))
 
   return (
     <div data-testid="dictionary-result" className={compact ? 'space-y-3' : 'space-y-6'}>
@@ -262,8 +345,9 @@ export default function DictionaryCard({ result, compact = false }: { result: Di
           key={item.word}
           item={item}
           compact={compact}
-          onlineMeanings={index === 0 ? onlineMeanings : undefined}
+          onlineMeanings={index === 0 && !youdao?.senses.length ? onlineMeanings : undefined}
           onlineSource={onlineSource}
+          youdao={index === 0 ? youdao : null}
         />
       ))}
       {result.lemmas.length > 0 && (
@@ -277,8 +361,9 @@ export default function DictionaryCard({ result, compact = false }: { result: Di
                 key={item.word}
                 item={item}
                 compact={compact}
-                onlineMeanings={result.words.length === 0 && index === 0 ? onlineMeanings : undefined}
+                onlineMeanings={result.words.length === 0 && index === 0 && !youdao?.senses.length ? onlineMeanings : undefined}
                 onlineSource={onlineSource}
+                youdao={result.words.length === 0 && index === 0 ? youdao : null}
               />
             ))}
           </div>

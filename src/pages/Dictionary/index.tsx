@@ -91,7 +91,7 @@ export default function DictionaryPage() {
     <Layout>
       <main className="w-full flex-1 overflow-y-auto px-4 pb-8 sm:px-6">
         <div className="mx-auto w-full max-w-3xl">
-          <div className="ui-eyebrow">离线法语词典</div>
+          <div className="ui-eyebrow">法语词典</div>
           <h1 className="ui-title mt-3">查词</h1>
 
           <form
@@ -169,8 +169,8 @@ export default function DictionaryPage() {
           </section>
 
           <p className="mt-4 text-xs leading-5 text-gray-400">
-            释义来自英文与中文维基词典（Wiktionary），经 kaikki.org / wiktextract 提取并裁剪，按 CC BY-SA
-            许可使用；「本站词库」是本项目自己整理的释义。有中文释义的词条优先显示中文，其余显示英文；设备在线时，未收录离线中文释义的词条会自动从中文维基词典在线补全，中文维基词典没有时再用法语维基词典的翻译表补全。
+            在线时，中文释义优先来自有道《现代法汉汉法词典》，查不到再由维基词典补全。离线词条来自英文与中文维基词典（Wiktionary），经
+            kaikki.org / wiktextract 提取并裁剪，按 CC BY-SA 许可使用；「本站词库」是本项目自己整理的释义。
           </p>
         </div>
       </main>

@@ -48,6 +48,7 @@ import {
   writeNodeAudit,
   deleteNodeLearnerData,
 } from './study-node-features.mjs'
+import { createYoudaoCache, frenchQueryKey, lookupYoudaoFrench, normalizeFrenchQuery } from './youdao-fr.mjs'
 import { randomBytes, createHash, createHmac, timingSafeEqual } from 'node:crypto'
 import { mkdirSync, statSync, createReadStream } from 'node:fs'
 import { createServer } from 'node:http'
@@ -161,6 +162,7 @@ export function createStudyServer({
   adminToken = process.env.STUDY_ADMIN_TOKEN || '',
   aiProvider = createAiProvider(process.env),
   aiLimits = aiRateLimits(process.env),
+  youdaoLookup = null,
 } = {}) {
   mkdirSync(dirname(resolve(database)), { recursive: true })
   const db = new DatabaseSync(database)
@@ -203,6 +205,9 @@ export function createStudyServer({
       ? { ...accountSession, viaSyncKey: false, viaAccount: true }
       : null
   }
+
+  const youdaoCache = createYoudaoCache()
+  const lookupFrench = youdaoLookup || ((query) => lookupYoudaoFrench(query, { cache: youdaoCache }))
 
   const handler = async (req, res) => {
     const requestStarted = performance.now()
@@ -311,9 +316,10 @@ export function createStudyServer({
     const cohortJoin = path === '/api/study-plan/cohort/join'
     const echelleAi = path === '/api/study-plan/echelle/ai'
     const echelleEvaluate = path === '/api/study-plan/echelle/evaluate'
+    const dictionary = path === '/api/study-plan/dictionary'
     const plan = path === '/api/study-plan'
     if (!health && !importing && !exporting && !analytics && !syncKey && !revokeSyncKey && !linking && !unlinking &&
-        !echelleAi && !echelleEvaluate &&
+        !echelleAi && !echelleEvaluate && !dictionary &&
         !syncInfo && !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData &&
         !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
         !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts && !access &&
@@ -468,6 +474,39 @@ export function createStudyServer({
     }
 
     if (!accessGranted(req.headers.cookie)) return sendError(401, 'ACCESS_REQUIRED', 'Access password required')
+
+    if (dictionary) {
+      if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      const query = normalizeFrenchQuery(requestUrl.searchParams.get('q') || '')
+      if (!query) return sendError(400, 'DICTIONARY_QUERY_INVALID', 'Invalid dictionary query')
+      const cacheKey = frenchQueryKey(query)
+      const cached = youdaoCache.get(cacheKey, Date.now())
+      if (cached) return send(200, cached)
+      const limit = consumeNodeRateLimit(db, 'actor:' + actorHash, 'dictionary', {
+        limit: 120,
+        windowMs: 10 * 60_000,
+        blockMs: 60_000,
+      })
+      if (!limit.allowed) {
+        return sendError(
+          429,
+          'DICTIONARY_RATE_LIMITED',
+          'Too many dictionary lookups. Try again later.',
+          { retryAfterSeconds: Math.ceil(limit.retryAfterMs / 1000) },
+          { 'Retry-After': String(Math.ceil(limit.retryAfterMs / 1000)) },
+        )
+      }
+      let outcome
+      try {
+        outcome = await lookupFrench(query)
+      } catch {
+        return sendError(502, 'DICTIONARY_UNAVAILABLE', 'Dictionary is temporarily unavailable')
+      }
+      if (!outcome || outcome.error || !outcome.value) {
+        return sendError(502, 'DICTIONARY_UNAVAILABLE', 'Dictionary is temporarily unavailable')
+      }
+      return send(200, outcome.value)
+    }
 
     if (echelleAi) {
       if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')

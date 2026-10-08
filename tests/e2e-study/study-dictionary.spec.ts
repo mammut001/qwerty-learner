@@ -1,6 +1,17 @@
-import { expect, test } from '@playwright/test'
+import { type Page, expect, test } from '@playwright/test'
+
+async function stubYoudaoEmpty(page: Page) {
+  await page.route('**/api/study-plan/dictionary**', (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ query: '', word: '', phone: '', source: '', senses: [], examples: [] }),
+    }),
+  )
+}
 
 test('the offline dictionary resolves accents, inflections and elisions, and feeds the word lists', async ({ page }) => {
+  await stubYoudaoEmpty(page)
   await page.goto('/dictionary')
 
   // Typing without accents still finds the headword, with the curated Chinese meaning first.

@@ -1,5 +1,15 @@
 const { expect, test } = require('@playwright/test')
 
+async function stubYoudaoEmpty(page) {
+  await page.route('**/api/study-plan/dictionary**', (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ query: '', word: '', phone: '', source: '', senses: [], examples: [] }),
+    }),
+  )
+}
+
 const CANNED_BODY = JSON.stringify({
   parse: {
     text: '<div class="mw-heading mw-heading2"><h2 id="法語">法語</h2></div><ol><li>住所，住處<dl><dd>example</dd></dl></li><li>住宅</li></ol><div class="mw-heading mw-heading2"><h2 id="英语">英语</h2></div><ol><li>不应出现</li></ol>',
@@ -7,6 +17,7 @@ const CANNED_BODY = JSON.stringify({
 })
 
 test('online Chinese fallback from Wiktionary with caching and error handling, plus grammar prompt lookup', async ({ page }) => {
+  await stubYoudaoEmpty(page)
   let requestCount = 0
   await page.route('https://zh.wiktionary.org/**', (route) => {
     requestCount += 1
@@ -89,6 +100,7 @@ test('online Chinese fallback from Wiktionary with caching and error handling, p
 })
 
 test('French Wiktionary translation tables as second online source, with empty-outcome caching', async ({ page }) => {
+  await stubYoudaoEmpty(page)
   const MISSING_BODY = JSON.stringify({ error: { code: 'missingtitle' } })
   const FR_BODY = JSON.stringify({
     parse: {
@@ -157,6 +169,7 @@ test('French Wiktionary translation tables as second online source, with empty-o
 })
 
 test('failed Chinese Wiktionary request does not cache the empty outcome', async ({ page }) => {
+  await stubYoudaoEmpty(page)
   let zhCount = 0
   let frCount = 0
   await page.route('https://zh.wiktionary.org/**', (route) => {
