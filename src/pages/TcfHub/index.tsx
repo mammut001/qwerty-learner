@@ -1,4 +1,3 @@
-import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { ECHELLE_TARGET_LEVEL, getEchelleLevel } from '@/resources/echelleQuebecoise'
 import { TCF_CONFIG, type TcfSkill } from '@/resources/tcfMock'
@@ -47,7 +46,6 @@ export default function TcfHubPage() {
 
   return (
     <Layout>
-      <Header />
       <main className="w-full flex-1 overflow-y-auto px-4 pb-8 sm:px-6 lg:px-8">
         <div className="mx-auto w-full max-w-5xl">
           <header className="my-card relative overflow-hidden rounded-[28px] bg-white p-6 dark:bg-gray-800 sm:p-9">

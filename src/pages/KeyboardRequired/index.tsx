@@ -1,4 +1,3 @@
-import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { NavLink } from 'react-router-dom'
 import IconKeyboard from '~icons/tabler/keyboard'
@@ -16,7 +15,6 @@ const alternatives = [
 export default function KeyboardRequiredPage() {
   return (
     <Layout>
-      <Header />
       <main className="w-full flex-1 overflow-y-auto px-4 pb-6">
         <section className="my-card mx-auto max-w-md rounded-3xl bg-white p-6 dark:bg-gray-800">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-500 dark:bg-indigo-950/50">

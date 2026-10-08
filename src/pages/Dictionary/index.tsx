@@ -1,5 +1,4 @@
 import DictionaryCard from '@/components/Dictionary/DictionaryCard'
-import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { type DictionaryResult, cleanDictionaryQuery, lookupDictionary, suggestDictionaryWords } from '@/services/dictionary'
 import { useEffect, useState } from 'react'
@@ -90,7 +89,6 @@ export default function DictionaryPage() {
 
   return (
     <Layout>
-      <Header />
       <main className="w-full flex-1 overflow-y-auto px-4 pb-8 sm:px-6">
         <div className="mx-auto w-full max-w-3xl">
           <div className="ui-eyebrow">离线法语词典</div>

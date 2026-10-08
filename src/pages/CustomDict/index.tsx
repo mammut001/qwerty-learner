@@ -1,4 +1,3 @@
-import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { CHAPTER_LENGTH } from '@/constants'
 import { currentChapterAtom, currentDictIdAtom, reviewModeInfoAtom } from '@/store'
@@ -132,7 +131,6 @@ export default function CustomDictPage() {
 
   return (
     <Layout>
-      <Header />
       <main className="container mx-auto w-full max-w-6xl flex-1 overflow-y-auto px-4 pb-10 sm:px-10">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>

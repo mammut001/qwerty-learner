@@ -10,7 +10,7 @@ import WordPanel from './components/WordPanel'
 import { useConfetti } from './hooks/useConfetti'
 import { useWordList } from './hooks/useWordList'
 import { TypingContext, TypingStateActionType, initialState, typingReducer } from './store'
-import Header from '@/components/Header'
+import PageToolbar from '@/components/PageToolbar'
 import Tooltip from '@/components/Tooltip'
 import { addStudyMinutes, flushStudyProgress } from '@/services/studyPlanSync'
 import { currentChapterAtom, currentDictIdAtom, isReviewModeAtom, randomConfigAtom, reviewModeInfoAtom } from '@/store'
@@ -211,7 +211,7 @@ const App: React.FC = () => {
     <TypingContext.Provider value={{ state: state, dispatch }}>
       {state.isFinished && <ResultScreen />}
       <Layout>
-        <Header>
+        <PageToolbar>
           <DictChapterButton />
           <PronunciationSwitcher />
           <Switcher />
@@ -226,7 +226,7 @@ const App: React.FC = () => {
               Skip
             </button>
           </Tooltip>
-        </Header>
+        </PageToolbar>
         <div className="container mx-auto flex h-full flex-1 flex-col items-center justify-center pb-5">
           <div className="container relative mx-auto flex h-full flex-col items-center">
             <div className="container flex flex-grow items-center justify-center">

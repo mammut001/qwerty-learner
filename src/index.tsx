@@ -1,10 +1,12 @@
 import AccessGate from './components/AccessGate'
-import Loading from './components/Loading'
+import Header from './components/Header'
+import { LoadingUI } from './components/Loading'
+import { ShellHeaderProvider } from './components/ShellHeader'
 import './index.css'
 import { isOpenDarkModeAtom } from '@/store'
 import 'animate.css'
 import { useAtomValue } from 'jotai'
-import React, { Suspense, lazy, useEffect, useState } from 'react'
+import React, { Suspense, lazy, useEffect, useRef, useState } from 'react'
 import 'react-app-polyfill/stable'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
@@ -65,6 +67,29 @@ async function migrateExistingStudyData() {
   }
 }
 
+function OutletFallback() {
+  return (
+    <div className="flex h-full min-h-[12rem] items-center justify-center">
+      <LoadingUI />
+    </div>
+  )
+}
+
+function ShellOutlet({ children }: { children: React.ReactNode }) {
+  const { pathname, search } = useLocation()
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    ref.current?.scrollTo(0, 0)
+  }, [pathname, search])
+
+  return (
+    <div ref={ref} data-testid="app-shell-outlet" className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+      {children}
+    </div>
+  )
+}
+
 function Root() {
   const darkMode = useAtomValue(isOpenDarkModeAtom)
   useEffect(() => {
@@ -90,33 +115,42 @@ function Root() {
     <React.StrictMode>
       <BrowserRouter basename={REACT_APP_DEPLOY_ENV === 'pages' ? '/qwerty-learner' : ''}>
         <AccessGate>
-          <Suspense fallback={<Loading />}>
-            <Routes>
-              <Route index element={<HomeRedirect />} />
-              <Route path="/typing" element={isMobile ? <KeyboardRequiredPage /> : <TypingPage />} />
-              <Route path="/gallery" element={isMobile ? <KeyboardRequiredPage /> : <GalleryPage />} />
-              <Route path="/dictionary" element={<DictionaryPage />} />
-              <Route path="/word-lists" element={<CustomDictPage />} />
-              <Route path="/conjugation" element={<ConjugationPage />} />
-              <Route path="/grammar-session" element={<GrammarSessionPage />} />
-              <Route path="/study-plan" element={<StudyPlanPage />} />
-              <Route path="/placement-test" element={<PlacementTestPage />} />
-              <Route path="/admin/placement" element={<AdminPlacementPage />} />
-              <Route path="/tcf" element={<TcfHubPage />} />
-              <Route path="/echelle" element={<EchelleQuebecoisePage />} />
-              <Route path="/levels" element={<LevelsPage />} />
-              <Route path="/levels/review" element={<LevelReviewPage />} />
-              <Route path="/levels/:level" element={<LevelDetailPage />} />
-              <Route path="/tcf-listening" element={<TcfListeningPage />} />
-              <Route path="/tcf-reading" element={<TcfReadingPage />} />
-              <Route path="/tcf-writing" element={<TcfWritingPage />} />
-              <Route path="/tcf-speaking" element={<TcfSpeakingPage />} />
-              <Route path="/analysis" element={<AnalysisPage />} />
-              <Route path="/error-book" element={<ErrorBookPage />} />
-              <Route path="/*" element={<Navigate to="/study-plan" />} />
-            </Routes>
-            <FocusTimerDock />
-          </Suspense>
+          <ShellHeaderProvider>
+            <div className="flex h-screen w-full flex-col overflow-hidden">
+              <Header />
+              <ShellOutlet>
+                <Suspense fallback={<OutletFallback />}>
+                  <Routes>
+                    <Route index element={<HomeRedirect />} />
+                    <Route path="/typing" element={isMobile ? <KeyboardRequiredPage /> : <TypingPage />} />
+                    <Route path="/gallery" element={isMobile ? <KeyboardRequiredPage /> : <GalleryPage />} />
+                    <Route path="/dictionary" element={<DictionaryPage />} />
+                    <Route path="/word-lists" element={<CustomDictPage />} />
+                    <Route path="/conjugation" element={<ConjugationPage />} />
+                    <Route path="/grammar-session" element={<GrammarSessionPage />} />
+                    <Route path="/study-plan" element={<StudyPlanPage />} />
+                    <Route path="/placement-test" element={<PlacementTestPage />} />
+                    <Route path="/admin/placement" element={<AdminPlacementPage />} />
+                    <Route path="/tcf" element={<TcfHubPage />} />
+                    <Route path="/echelle" element={<EchelleQuebecoisePage />} />
+                    <Route path="/levels" element={<LevelsPage />} />
+                    <Route path="/levels/review" element={<LevelReviewPage />} />
+                    <Route path="/levels/:level" element={<LevelDetailPage />} />
+                    <Route path="/tcf-listening" element={<TcfListeningPage />} />
+                    <Route path="/tcf-reading" element={<TcfReadingPage />} />
+                    <Route path="/tcf-writing" element={<TcfWritingPage />} />
+                    <Route path="/tcf-speaking" element={<TcfSpeakingPage />} />
+                    <Route path="/analysis" element={<AnalysisPage />} />
+                    <Route path="/error-book" element={<ErrorBookPage />} />
+                    <Route path="/*" element={<Navigate to="/study-plan" />} />
+                  </Routes>
+                </Suspense>
+              </ShellOutlet>
+            </div>
+            <Suspense fallback={null}>
+              <FocusTimerDock />
+            </Suspense>
+          </ShellHeaderProvider>
         </AccessGate>
       </BrowserRouter>
     </React.StrictMode>

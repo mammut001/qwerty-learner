@@ -1,6 +1,6 @@
 import LookupText from '@/components/Dictionary/LookupText'
-import Header from '@/components/Header'
 import Layout from '@/components/Layout'
+import PageToolbar from '@/components/PageToolbar'
 import { defaultGrammarTopic, findGrammarTopic, grammarTopicForQuestionIds, grammarTopics } from '@/resources/grammarTopics'
 import {
   type GrammarSessionRecord,
@@ -176,7 +176,7 @@ export default function GrammarSessionPage() {
   const nextBatch = () => {
     if (currentBatch < batches.length - 1) {
       setCurrentBatch((old) => old + 1)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      document.querySelector('[data-testid="app-shell-outlet"]')?.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
 
@@ -230,7 +230,7 @@ export default function GrammarSessionPage() {
     setDeadline(null)
     setStatus('finished')
     void flushStudyProgress()
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    document.querySelector('[data-testid="app-shell-outlet"]')?.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   const allOutputsFilled = outputAnswers.every((answer) => answer.trim().length >= 3)
@@ -238,8 +238,6 @@ export default function GrammarSessionPage() {
   if (status === 'intro') {
     return (
       <Layout>
-        <Header />
-
         <main className="container mx-auto flex flex-1 items-center justify-center px-4 pb-10 sm:px-6 lg:px-10">
           <section className="my-card w-full max-w-3xl rounded-3xl bg-white p-5 dark:bg-gray-800 sm:p-10">
             <div className="flex items-center gap-3 text-indigo-500">
@@ -313,8 +311,6 @@ export default function GrammarSessionPage() {
   if (status === 'finished') {
     return (
       <Layout>
-        <Header />
-
         <main className="container mx-auto flex flex-1 items-center justify-center px-4 pb-10 sm:px-6 lg:px-10">
           <section className="my-card w-full max-w-3xl rounded-3xl bg-white p-5 dark:bg-gray-800 sm:p-10">
             <div className="ui-eyebrow">本次 30 分钟训练完成</div>
@@ -371,7 +367,7 @@ export default function GrammarSessionPage() {
 
   return (
     <Layout>
-      <Header>
+      <PageToolbar>
         <NavLink
           to="/study-plan"
           className="flex items-center gap-1 rounded-lg px-3 py-1 text-sm text-gray-600 hover:bg-indigo-100 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-gray-700"
@@ -387,7 +383,7 @@ export default function GrammarSessionPage() {
           <IconClock />
           {formatTime(secondsLeft)}
         </div>
-      </Header>
+      </PageToolbar>
 
       <main className="container mx-auto w-full max-w-5xl flex-1 px-4 pb-12 sm:px-10">
         <div className="mb-6 flex items-end justify-between gap-6">

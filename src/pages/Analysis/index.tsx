@@ -1,5 +1,4 @@
 import LineCharts from './components/LineCharts'
-import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { placementSectionLabel } from '@/resources/placementTest'
 import {
@@ -289,7 +288,6 @@ const Analysis = () => {
 
   return (
     <Layout>
-      <Header />
       <div className="flex w-full flex-1 flex-col overflow-y-auto px-4 pt-2 sm:px-6 lg:px-20">
         <ScrollArea.Root className="flex-1 overflow-y-auto">
           <ScrollArea.Viewport className="h-full w-auto pb-[20rem] [&>div]:!block">

@@ -1,5 +1,4 @@
 import EchelleAiEvaluation from '@/components/EchelleAiEvaluation'
-import Header from '@/components/Header'
 import useFrenchSpeechRecognition from '@/hooks/useFrenchSpeechRecognition'
 import useSpeech from '@/hooks/useSpeech'
 import {
@@ -136,7 +135,6 @@ export default function LevelDetailPage() {
   if (!validLevel) {
     return (
       <>
-        <Header />
         <div className="container mx-auto max-w-4xl px-4 py-10">
           <Link to="/levels" className="ui-btn-secondary">
             返回等级课程
@@ -163,7 +161,6 @@ export default function LevelDetailPage() {
 
   return (
     <>
-      <Header />
       <div className="container mx-auto max-w-5xl px-4 pb-6 sm:px-6">
         <div className="mb-6 flex flex-wrap items-center gap-3">
           <Link to="/levels" className="ui-btn-secondary flex items-center gap-1">

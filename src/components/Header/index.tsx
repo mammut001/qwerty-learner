@@ -1,6 +1,6 @@
 import logo from '@/assets/logo.svg'
+import { useShellHeaderHidden } from '@/components/ShellHeader'
 import { Menu, Transition } from '@headlessui/react'
-import type { PropsWithChildren } from 'react'
 import type React from 'react'
 import { Fragment, useEffect, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
@@ -37,8 +37,9 @@ const navItemClass = (isActive: boolean) =>
       : 'text-gray-600 hover:bg-white/70 hover:text-gray-950 dark:text-gray-400 dark:hover:bg-white/[0.06] dark:hover:text-white'
   }`
 
-const Header: React.FC<PropsWithChildren> = ({ children }) => {
+const Header: React.FC = () => {
   const { pathname } = useLocation()
+  const shellHidden = useShellHeaderHidden()
   const isExamActive = pathname.startsWith('/tcf') || pathname.startsWith('/echelle')
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -47,7 +48,12 @@ const Header: React.FC<PropsWithChildren> = ({ children }) => {
   }, [pathname])
 
   return (
-    <header className="container sticky top-0 z-30 mx-auto w-full bg-[#f7f7fb]/90 px-4 py-4 backdrop-blur-md dark:bg-[#0b0d14]/90 sm:px-10">
+    <header
+      data-testid="app-shell-header"
+      className={`container sticky top-0 z-30 mx-auto w-full shrink-0 bg-[#f7f7fb]/90 px-4 py-4 backdrop-blur-md dark:bg-[#0b0d14]/90 sm:px-10 ${
+        shellHidden ? 'hidden' : ''
+      }`}
+    >
       <div className="flex w-full items-center justify-between gap-3">
         <NavLink className="group flex shrink-0 items-center gap-3 whitespace-nowrap no-underline hover:no-underline" to="/study-plan">
           <span className="relative flex h-10 w-10 items-center justify-center rounded-2xl bg-white shadow-[0_1px_2px_rgba(17,24,39,0.06),0_0_0_1px_rgba(17,24,39,0.05),0_8px_20px_-8px_rgba(79,70,229,0.45)] transition-transform duration-200 group-hover:-translate-y-px dark:bg-white/[0.06] dark:shadow-none dark:ring-1 dark:ring-white/10 sm:h-11 sm:w-11">
@@ -157,13 +163,6 @@ const Header: React.FC<PropsWithChildren> = ({ children }) => {
             </NavLink>
           ))}
         </nav>
-      )}
-      {children && (
-        <div className="mt-3 flex justify-center lg:justify-end">
-          <div className="my-card flex max-w-full flex-wrap items-center justify-center gap-x-3 gap-y-2 whitespace-nowrap rounded-2xl bg-white/90 px-4 py-2.5 backdrop-blur-xl transition-colors duration-300 dark:bg-gray-900/80">
-            {children}
-          </div>
-        </div>
       )}
     </header>
   )

@@ -1,7 +1,7 @@
 import LookupText from '@/components/Dictionary/LookupText'
 import EchelleGoalCard from '@/components/EchelleGoalCard'
-import Header from '@/components/Header'
 import Layout from '@/components/Layout'
+import { useHideShellHeader } from '@/components/ShellHeader'
 import { type TcfEeScores, calculateEeTotalScore, countFrenchWords, estimateTcfEeNclc } from '@/resources/tcfEvaluation'
 import { TCF_WRITING_PROMPTS_BY_TASK, type TcfWritingPrompt } from '@/resources/tcfWritingData'
 import {
@@ -46,6 +46,7 @@ export default function TcfWritingPage() {
   const prompt3 = TCF_WRITING_PROMPTS_BY_TASK[3][task3Index] ?? TCF_WRITING_PROMPTS_BY_TASK[3][0]
 
   const [mode, setMode] = useState<ExamMode>('intro')
+  useHideShellHeader(mode === 'writing')
   const [activeTask, setActiveTask] = useState<1 | 2 | 3>(1)
   const [responses, setResponses] = useState<{ 1: string; 2: string; 3: string }>({
     1: '',
@@ -294,7 +295,6 @@ export default function TcfWritingPage() {
 
   return (
     <Layout>
-      {mode !== 'writing' && <Header />}
       <div className="flex w-full flex-1 flex-col overflow-y-auto px-4 py-4 sm:px-6 lg:px-8">
         <div className={`mx-auto w-full ${mode !== 'intro' ? 'max-w-7xl' : 'max-w-5xl'}`}>
           {/* Header navigation & status */}

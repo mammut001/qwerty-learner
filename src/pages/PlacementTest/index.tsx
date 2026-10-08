@@ -1,4 +1,3 @@
-import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { CEFR_TO_ECHELLE, COMMUNICATION_TYPES, ECHELLE_SKILLS, getEchelleLevel } from '@/resources/echelleQuebecoise'
 import {
@@ -130,7 +129,6 @@ export default function PlacementTestPage() {
 
   return (
     <Layout>
-      <Header />
       <main className="w-full flex-1 overflow-y-auto px-4 pb-10 sm:px-6 lg:px-8">
         <div className="mx-auto w-full max-w-3xl">
           <NavLink

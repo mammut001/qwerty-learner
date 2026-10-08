@@ -1,4 +1,3 @@
-import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { CHAPTER_LENGTH } from '@/constants'
 import { idDictionaryMap } from '@/resources/dictionary'
@@ -23,6 +22,7 @@ import { type FocusTimerSnapshot, getFocusTimerSnapshot, startFocusTimer, subscr
 import { loginWithStudyPasskey, passkeyAvailable, registerStudyPasskey } from '@/services/passkey'
 import { type PwaInstallState, getPwaInstallState, installStudyPwa, subscribePwaInstallState } from '@/services/pwa'
 import {
+  type LearnerCohortBinding,
   type LearningProgress,
   type PasskeyAccountInfo,
   type StudyAnalytics,
@@ -37,7 +37,6 @@ import {
   getStoredStudySyncKey,
   importRemoteStudyPlan,
   joinCohort,
-  type LearnerCohortBinding,
   linkStudyDevice,
   loadLearnerCohort,
   loadPasskeyAccount,
@@ -1152,8 +1151,6 @@ export default function StudyPlanPage() {
 
   return (
     <Layout>
-      <Header />
-
       <main className="container mx-auto w-full max-w-6xl flex-1 px-4 pb-12 sm:px-6 lg:px-10">
         <section className="my-card relative overflow-hidden rounded-[28px] bg-white p-5 dark:bg-gray-800 sm:p-8">
           <div

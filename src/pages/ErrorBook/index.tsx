@@ -1,4 +1,3 @@
-import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { type ErrorBookItem, type ReviewKind, loadErrorBook } from '@/services/studyPlanSync'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
@@ -65,7 +64,6 @@ export function ErrorBook() {
 
   return (
     <Layout>
-      <Header />
       <div className="flex w-full flex-1 flex-col overflow-hidden px-4 pb-6 pt-2 sm:px-6 lg:px-16">
         <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col overflow-hidden">
           <div className="flex flex-wrap items-end justify-between gap-4">

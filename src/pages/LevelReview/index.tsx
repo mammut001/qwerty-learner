@@ -1,4 +1,3 @@
-import Header from '@/components/Header'
 import { DAY_MS, estimateRetention } from '@/resources/echelleMemory'
 import { type EchelleReviewEntry, echelleReviewQueue, formatDue } from '@/resources/echelleReview'
 import type { LearningProgress } from '@/services/studyPlanSync'
@@ -67,7 +66,6 @@ export default function LevelReviewPage() {
 
   return (
     <>
-      <Header />
       <div className="container mx-auto max-w-3xl px-4 pb-8 sm:px-6">
         <Link to="/levels" className="ui-btn-secondary inline-flex items-center gap-1">
           <IconChevronLeft className="h-4 w-4" /> 全部等级

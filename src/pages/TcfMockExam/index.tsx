@@ -1,7 +1,7 @@
 import LookupText from '@/components/Dictionary/LookupText'
 import EchelleGoalCard from '@/components/EchelleGoalCard'
-import Header from '@/components/Header'
 import Layout from '@/components/Layout'
+import { useHideShellHeader } from '@/components/ShellHeader'
 import {
   TCF_CONFIG,
   TCF_MIXED_SET_ID,
@@ -274,6 +274,7 @@ export default function TcfMockExamPage({ skill }: { skill: TcfQcmSkill }) {
   const studyDate = searchParams.get('studyDate')
   const studyTask = searchParams.get('studyTask')
   const [mode, setMode] = useState<ExamMode>('intro')
+  useHideShellHeader(mode === 'running')
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answers, setAnswers] = useState<Record<string, number>>({})
   const [played, setPlayed] = useState<Record<string, boolean>>({})
@@ -446,7 +447,6 @@ export default function TcfMockExamPage({ skill }: { skill: TcfQcmSkill }) {
 
   return (
     <Layout>
-      {mode !== 'running' && <Header />}
       <div className="flex w-full flex-1 flex-col overflow-y-auto px-4 py-4 sm:px-6 lg:px-8">
         <div className={`mx-auto w-full ${mode !== 'intro' ? 'max-w-7xl' : 'max-w-5xl'}`}>
           {/* Header navigation & status */}

@@ -1,7 +1,7 @@
 import LookupText from '@/components/Dictionary/LookupText'
 import EchelleGoalCard from '@/components/EchelleGoalCard'
-import Header from '@/components/Header'
 import Layout from '@/components/Layout'
+import { useHideShellHeader } from '@/components/ShellHeader'
 import { type TcfEoScores, calculateEoTotalScore, estimateTcfEoNclc } from '@/resources/tcfEvaluation'
 import {
   TCF_SPEAKING_PROMPTS_BY_TASK,
@@ -43,6 +43,7 @@ export default function TcfSpeakingPage() {
   const prompt3 = (TCF_SPEAKING_PROMPTS_BY_TASK[3][task3Index] ?? TCF_SPEAKING_PROMPTS_BY_TASK[3][0]) as TcfSpeakingTask3Prompt
 
   const [mode, setMode] = useState<ExamMode>('intro')
+  useHideShellHeader(mode === 'speaking')
   const [activeTask, setActiveTask] = useState<1 | 2 | 3>(1)
   const [attemptId, setAttemptId] = useState<string>(() => `eo-attempt-${Date.now()}`)
   const [micAvailable, setMicAvailable] = useState<boolean | null>(null)
@@ -306,7 +307,6 @@ export default function TcfSpeakingPage() {
 
   return (
     <Layout>
-      {mode !== 'speaking' && <Header />}
       <div className="flex w-full flex-1 flex-col overflow-y-auto px-4 py-4 sm:px-6 lg:px-8">
         <div className={`mx-auto w-full ${mode !== 'intro' ? 'max-w-7xl' : 'max-w-5xl'}`}>
           {/* Header navigation & status */}
