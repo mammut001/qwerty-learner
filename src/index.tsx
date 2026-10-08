@@ -16,6 +16,12 @@ const ConjugationPage = lazy(() => import('./pages/Conjugation'))
 const GrammarSessionPage = lazy(() => import('./pages/GrammarSession'))
 const StudyPlanPage = lazy(() => import('./pages/StudyPlan'))
 const TcfHubPage = lazy(() => import('./pages/TcfHub'))
+const PlacementTestPage = lazy(() => import('./pages/PlacementTest'))
+const AdminPlacementPage = lazy(() => import('./pages/AdminPlacement'))
+const EchelleQuebecoisePage = lazy(() => import('./pages/EchelleQuebecoise'))
+const LevelsPage = lazy(() => import('./pages/Levels'))
+const LevelDetailPage = lazy(() => import('./pages/LevelDetail'))
+const LevelReviewPage = lazy(() => import('./pages/LevelReview'))
 const TcfListeningPage = lazy(() => import('./pages/TcfListening'))
 const TcfReadingPage = lazy(() => import('./pages/TcfReading'))
 const TcfWritingPage = lazy(() => import('./pages/TcfWriting'))
@@ -94,7 +100,13 @@ function Root() {
               <Route path="/conjugation" element={<ConjugationPage />} />
               <Route path="/grammar-session" element={<GrammarSessionPage />} />
               <Route path="/study-plan" element={<StudyPlanPage />} />
+              <Route path="/placement-test" element={<PlacementTestPage />} />
+              <Route path="/admin/placement" element={<AdminPlacementPage />} />
               <Route path="/tcf" element={<TcfHubPage />} />
+              <Route path="/echelle" element={<EchelleQuebecoisePage />} />
+              <Route path="/levels" element={<LevelsPage />} />
+              <Route path="/levels/review" element={<LevelReviewPage />} />
+              <Route path="/levels/:level" element={<LevelDetailPage />} />
               <Route path="/tcf-listening" element={<TcfListeningPage />} />
               <Route path="/tcf-reading" element={<TcfReadingPage />} />
               <Route path="/tcf-writing" element={<TcfWritingPage />} />

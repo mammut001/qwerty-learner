@@ -1,6 +1,7 @@
 import LineCharts from './components/LineCharts'
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
+import { placementSectionLabel } from '@/resources/placementTest'
 import {
   type ReviewQueueItem,
   type StudyAchievement,
@@ -29,7 +30,7 @@ import * as ScrollArea from '@radix-ui/react-scroll-area'
 import { useAtom } from 'jotai'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { NavLink, useNavigate, useSearchParams } from 'react-router-dom'
 
 type TrendScale = 'daily' | 'weekly' | 'monthly'
 
@@ -318,6 +319,56 @@ const Analysis = () => {
                 )}
               </div>
 
+              {analytics?.placement ? (
+                <section
+                  data-testid="analysis-placement"
+                  className="mt-5 rounded-xl border border-violet-200 bg-violet-50/70 p-4 dark:border-violet-900 dark:bg-violet-950/40"
+                >
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <h2 className="text-lg font-semibold text-gray-950 dark:text-white">
+                        定级画像 · CEFR {analytics.placement.cefrLevel}
+                      </h2>
+                      <p className="mt-1 text-sm text-gray-700 dark:text-gray-200">
+                        推荐从 Week {analytics.placement.suggestedStartWeek} 的内容密度练起；弱项优先{' '}
+                        <strong>{analytics.placement.weakestSection}</strong>
+                        {analytics.placement.secondWeakestSection ? ` / ${analytics.placement.secondWeakestSection}` : ''}。 下方 TCF 趋势与
+                        26 周日历进度可对照使用。
+                      </p>
+                      {analytics.placement.ranked?.length ? (
+                        <ul className="mt-3 flex flex-wrap gap-2 text-xs">
+                          {analytics.placement.ranked.map((row) => (
+                            <li
+                              key={row.section}
+                              className="rounded-full bg-white px-2.5 py-1 text-violet-800 dark:bg-gray-900 dark:text-violet-200"
+                            >
+                              {placementSectionLabel(row.section)} {Math.round(row.ratio * 100)}%
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
+                    </div>
+                    <NavLink
+                      to="/placement-test"
+                      className="shrink-0 rounded-lg bg-violet-600 px-3 py-2 text-sm font-semibold text-white hover:bg-violet-500"
+                    >
+                      查看 / 复测
+                    </NavLink>
+                  </div>
+                </section>
+              ) : (
+                <section
+                  data-testid="analysis-placement-prompt"
+                  className="mt-5 rounded-xl border border-dashed border-gray-300 p-4 text-sm text-gray-600 dark:border-gray-600 dark:text-gray-300"
+                >
+                  尚未完成入学定级。
+                  <NavLink to="/placement-test" className="ml-2 font-semibold text-indigo-600 dark:text-indigo-400">
+                    去做 Placement Test
+                  </NavLink>
+                  ，统计页会在此显示分项弱项与推荐周次。
+                </section>
+              )}
+
               {dashboard ? (
                 <>
                   <div className="mt-5 grid gap-4 lg:grid-cols-[1.5fr_1fr]">
@@ -367,12 +418,9 @@ const Analysis = () => {
                             aria-valuemin={0}
                             aria-valuemax={100}
                             aria-valuenow={projection.progressPercent}
-                            className="h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700"
+                            className="ui-progress-track"
                           >
-                            <div
-                              className="h-full rounded-full bg-indigo-600 dark:bg-indigo-400"
-                              style={{ width: `${projection.progressPercent}%` }}
-                            />
+                            <div className="ui-progress-bar" style={{ width: `${projection.progressPercent}%` }} />
                           </div>
                           <div className="flex items-center justify-between gap-3">
                             <span className="text-gray-600 dark:text-gray-300">已完成分钟</span>
@@ -423,12 +471,9 @@ const Analysis = () => {
                           aria-valuemin={0}
                           aria-valuemax={100}
                           aria-valuenow={value?.percent ?? 0}
-                          className="mt-3 h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700"
+                          className="ui-progress-track mt-3"
                         >
-                          <div
-                            className="h-full rounded-full bg-indigo-600 dark:bg-indigo-400"
-                            style={{ width: `${value?.percent ?? 0}%` }}
-                          />
+                          <div className="ui-progress-bar" style={{ width: `${value?.percent ?? 0}%` }} />
                         </div>
                         <div className="mt-2 text-xs text-gray-600 dark:text-gray-300">
                           已掌握 {value?.mastered ?? 0} / 已接触 {value?.known ?? 0} · active 错项 {value?.activeErrors ?? 0}
@@ -447,7 +492,7 @@ const Analysis = () => {
             <section className="mx-0 my-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:mx-4 sm:my-8">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
-                  <div className="text-sm font-medium text-indigo-500">今日复习 · 间隔重复</div>
+                  <div className="ui-eyebrow">今日复习 · 间隔重复</div>
                   <h1 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">
                     {reviewLoading ? '正在生成复习队列…' : `今天有 ${reviewQueue.length} 项`}
                   </h1>
@@ -507,7 +552,7 @@ const Analysis = () => {
             <section className="mx-0 my-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:mx-4 sm:my-8">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
-                  <div className="text-sm font-medium text-indigo-500">打卡与成就</div>
+                  <div className="ui-eyebrow">打卡与成就</div>
                   <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">
                     连续 {checkins.streak.current} 天 · 最长 {checkins.streak.longest} 天
                   </h2>
@@ -600,7 +645,7 @@ const Analysis = () => {
             >
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
-                  <div className="text-sm font-medium text-indigo-500">学习周报</div>
+                  <div className="ui-eyebrow">学习周报</div>
                   <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">每周总结与下周建议</h2>
                   <p className="mt-1 text-sm text-gray-500">周报由后端根据真实学习记录自动生成并保存历史版本。</p>
                 </div>
@@ -713,7 +758,7 @@ const Analysis = () => {
             <section className="mx-0 my-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:mx-4 sm:my-8">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
-                  <div className="text-sm font-medium text-indigo-500">服务端学习统计</div>
+                  <div className="ui-eyebrow">服务端学习统计</div>
                   <h2 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">学习趋势与错误画像</h2>
                 </div>
                 <div className="flex rounded-lg bg-gray-100 p-1 dark:bg-gray-900">

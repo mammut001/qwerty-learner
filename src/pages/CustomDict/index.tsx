@@ -136,8 +136,8 @@ export default function CustomDictPage() {
       <main className="container mx-auto w-full max-w-6xl flex-1 overflow-y-auto px-4 pb-10 sm:px-10">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <div className="text-sm font-medium text-indigo-500">自定义背单词</div>
-            <h1 className="mt-1 text-3xl font-semibold text-gray-900 dark:text-white">我的词表</h1>
+            <div className="ui-eyebrow">自定义背单词</div>
+            <h1 className="ui-title mt-3">我的词表</h1>
             <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
               把自己整理的生词做成词表，用「单词跟打」练习。词表只保存在这台设备的浏览器里，换设备请用导出 / 导入。
             </p>

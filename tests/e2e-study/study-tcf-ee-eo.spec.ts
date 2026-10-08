@@ -140,6 +140,7 @@ test('TCF Canada Writing (EE) and Speaking (EO) mock exams and 4-skill target an
   await expect(page.getByTestId('tcf-writing-assessment')).toBeVisible()
   await expect(page.getByText('四维度自评清单')).toBeVisible()
   await expect(page.getByText('⚠️ 训练估分，非官方评分')).toBeVisible()
+  await expect(page.getByTestId('echelle-goal-card')).toContainText('魁北克能力量表对照 · 书面表达')
 
   // Submit final assessment
   await page.getByRole('button', { name: '提交自评并保存模考记录' }).click()
@@ -184,6 +185,7 @@ test('TCF Canada Writing (EE) and Speaking (EO) mock exams and 4-skill target an
   await expect(page.getByTestId('tcf-speaking-assessment')).toBeVisible()
   await expect(page.getByText('五维度自评清单')).toBeVisible()
   await expect(page.getByText('⚠️ 训练估分，非官方评分')).toBeVisible()
+  await expect(page.getByTestId('echelle-goal-card')).toContainText('魁北克能力量表对照 · 口语表达')
 
   // Submit speaking self-assessment
   await page.getByRole('button', { name: '提交自评并保存模考记录' }).click()

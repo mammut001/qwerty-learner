@@ -1,4 +1,18 @@
 import { activeErrorBookCandidates } from './study-features.mjs'
+import {
+  MAX_PLACEMENT_HISTORY,
+  analyzePlacementWeakness,
+  buildPlacementDailyBoost,
+  mergePlacementHistory,
+  validatePlacementResult,
+} from './placement-data.mjs'
+import {
+  ECHELLE_ITEM_CATALOG,
+  ECHELLE_ITEM_ID_REGEX,
+  scoreEchelleItem,
+  summarizeEchelleProgress,
+} from './echelle-curriculum.mjs'
+import { MAX_MEMORY_STAGE, memoryStatus, nextMemory, withMemoryDefaults } from './echelle-memory.mjs'
 const date = (v) =>
   typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(v)) && new Date(v).toISOString().slice(0, 10) === v
 export const record = (v) => v !== null && typeof v === 'object' && !Array.isArray(v)
@@ -40,7 +54,9 @@ export function emptyLearningProgress() {
     conjugationAttempts: [],
     focusSessions: [],
     tcfAttempts: [],
+    placement: { latest: null, history: [] },
     reviews: { items: {} },
+    echelle: { items: {} },
   }
 }
 
@@ -176,6 +192,60 @@ function validateReviewState(value) {
     throw new Error('Invalid review state')
 }
 
+function validateEchelleResponse(response) {
+  if (response === undefined) return
+  if (Array.isArray(response)) {
+    if (response.some((answer) => !text(answer, 500))) throw new Error('Invalid echelle response')
+  } else if (record(response)) {
+    if (response.selfChecks !== undefined && (!Array.isArray(response.selfChecks) || response.selfChecks.some((v) => typeof v !== 'boolean')))
+      throw new Error('Invalid echelle production selfChecks')
+    if (response.wordCount !== undefined && !integer(response.wordCount, 0, 100000))
+      throw new Error('Invalid echelle wordCount')
+    if (response.seconds !== undefined && !integer(response.seconds, 0, 100000))
+      throw new Error('Invalid echelle seconds')
+  } else {
+    throw new Error('Invalid echelle response')
+  }
+}
+
+function validateEchelleMemory(item) {
+  if (item.stage === undefined) return
+  if (!integer(item.stage, 0, MAX_MEMORY_STAGE) || !(item.dueAt === null || timestamp(item.dueAt)) ||
+      !(item.lastPassedAt === null || timestamp(item.lastPassedAt)) || !integer(item.lapses, 0, 1000000) ||
+      (item.mastered && (item.stage < 1 || item.dueAt === null)))
+    throw new Error('Invalid echelle memory')
+}
+
+function validateEchelleAi(ai) {
+  if (ai === undefined) return
+  if (!record(ai) || typeof ai.passed !== 'boolean' || !record(ai.scores) || !number(ai.mean, 0, 4) ||
+      !integer(ai.estimatedLevel, 1, 12) || !text(ai.feedbackZh, 1200) || !text(ai.provider, 60) ||
+      !text(ai.model, 120) || !text(ai.rubricVersion, 40) || !timestamp(ai.evaluatedAt) ||
+      !Array.isArray(ai.corrections) || ai.corrections.length > 8)
+    throw new Error('Invalid echelle evaluation')
+  for (const [key, value] of Object.entries(ai.scores))
+    if (!/^[a-z]{1,20}$/.test(key) || !integer(value, 0, 4)) throw new Error('Invalid echelle evaluation')
+  for (const correction of ai.corrections)
+    if (!record(correction) || !text(correction.original, 300) || !text(correction.suggestion, 300) ||
+        !text(correction.explanationZh, 300))
+      throw new Error('Invalid echelle evaluation')
+}
+
+function validateEchelle(value) {
+  if (!record(value)) throw new Error('Invalid echelle progress')
+  value.items ??= {}
+  if (!record(value.items)) throw new Error('Invalid echelle progress')
+  for (const [id, item] of Object.entries(value.items)) {
+    if (!ECHELLE_ITEM_ID_REGEX.test(id) || !record(item) || typeof item.mastered !== 'boolean' ||
+        !number(item.score, 0, 1) || !integer(item.attempts, 0, 1000000) || !timestamp(item.updatedAt))
+      throw new Error('Invalid echelle item')
+    if (item.method !== undefined && !['check', 'self', 'ai'].includes(item.method)) throw new Error('Invalid echelle item')
+    validateEchelleResponse(item.response)
+    validateEchelleMemory(item)
+    validateEchelleAi(item.ai)
+  }
+}
+
 function validateSyncMeta(value) {
   if (!record(value) || !timestamp(value.startDateUpdatedAt) ||
       !timestamp(value.settingsUpdatedAt ?? 0) || !record(value.minimumModeUpdatedAt) ||
@@ -214,11 +284,16 @@ function validateLearning(value) {
   const conjugationAttempts = value.conjugationAttempts ?? []
   const focusSessions = value.focusSessions ?? []
   const tcfAttempts = value.tcfAttempts ?? []
+  const placement = value.placement ?? { latest: null, history: [] }
   const reviews = value.reviews ?? { items: {} }
+  const echelle = value.echelle ?? { items: {} }
   if (!Array.isArray(conjugationAttempts) || conjugationAttempts.length > MAX_CONJUGATION_ATTEMPTS ||
       !Array.isArray(focusSessions) || focusSessions.length > MAX_FOCUS_SESSIONS ||
       !Array.isArray(tcfAttempts) || tcfAttempts.length > MAX_TCF_ATTEMPTS ||
-      !record(reviews) || !record(reviews.items) || Object.keys(reviews.items).length > MAX_REVIEW_ITEMS)
+      !record(placement) || !(placement.latest === null || record(placement.latest)) ||
+      !Array.isArray(placement.history) || placement.history.length > MAX_PLACEMENT_HISTORY ||
+      !record(reviews) || !record(reviews.items) || Object.keys(reviews.items).length > MAX_REVIEW_ITEMS ||
+      !record(echelle) || Object.keys(echelle.items).length > 1000)
     throw new Error('Invalid learning progress')
   value.vocabulary.records.forEach(validateVocabularyRecord)
   validateGrammarDraft(value.grammar.draft)
@@ -231,6 +306,9 @@ function validateLearning(value) {
   conjugationAttempts.forEach(validateConjugationAttempt)
   focusSessions.forEach(validateFocusSession)
   tcfAttempts.forEach(validateTcfAttempt)
+  if (placement.latest !== null) validatePlacementResult(placement.latest)
+  placement.history.forEach(validatePlacementResult)
+  validateEchelle(echelle)
   for (const [id, item] of Object.entries(reviews.items)) {
     if (!text(id, 500)) throw new Error('Invalid review ID')
     validateReviewState(item)
@@ -261,8 +339,14 @@ export function normalizeState(state) {
   next.learning.conjugationAttempts ??= []
   next.learning.focusSessions ??= []
   next.learning.tcfAttempts ??= []
+  next.learning.placement ??= { latest: null, history: [] }
+  next.learning.placement.history ??= []
   next.learning.reviews ??= { items: {} }
   next.learning.reviews.items ??= {}
+  next.learning.echelle ??= { items: {} }
+  next.learning.echelle.items = Object.fromEntries(
+    Object.entries(next.learning.echelle.items).map(([id, item]) => [id, withMemoryDefaults(item)]),
+  )
   next.syncMeta ??= emptySyncMeta()
   next.syncMeta.settingsUpdatedAt ??= 0
   validate(next)
@@ -365,7 +449,11 @@ function scheduleReview(previous, op) {
   }
 }
 
-export function apply(state, operations) {
+/**
+ * `trusted` allows server-originated operations (AI evaluations); client mutations never set it.
+ * `selfAssessProduction: false` means writing/speaking items can only be mastered through AI scoring.
+ */
+export function apply(state, operations, { trusted = false, selfAssessProduction = true } = {}) {
   state = normalizeState(state)
   if (!Array.isArray(operations) || operations.length > 10000) throw new Error('Invalid operations')
   for (const op of operations) {
@@ -466,6 +554,46 @@ export function apply(state, operations) {
     } else if (op.kind === 'tcfAttempt' && record(op.value)) {
       validateTcfAttempt(op.value)
       state.learning.tcfAttempts = mergeTcfAttempts(state.learning.tcfAttempts, [op.value])
+    } else if (op.kind === 'placementResult' && record(op.value)) {
+      validatePlacementResult(op.value)
+      const history = mergePlacementHistory(state.learning.placement?.history ?? [], op.value)
+      state.learning.placement = { latest: structuredClone(op.value), history }
+    } else if (op.kind === 'echelleCheck' && ECHELLE_ITEM_ID_REGEX.test(op.itemId) && timestamp(op.updatedAt) &&
+               (op.answers === undefined || (Array.isArray(op.answers) && op.answers.length <= 20))) {
+      const item = ECHELLE_ITEM_CATALOG[op.itemId]
+      if (!item) throw new Error('Invalid operation')
+      const updatedAt = op.updatedAt
+      const existing = state.learning.echelle.items[op.itemId]
+      if (!existing || updatedAt > existing.updatedAt) {
+        const response = structuredClone(op.response ?? op.answers ?? [])
+        const result = scoreEchelleItem(op.itemId, Array.isArray(response) ? response : undefined, Array.isArray(response) ? {} : response)
+        const production = item.kind === 'production'
+        const passed = result.mastered && (!production || selfAssessProduction)
+        state.learning.echelle.items[op.itemId] = {
+          ...nextMemory(existing, passed, updatedAt),
+          score: production && !selfAssessProduction ? 0 : result.score,
+          attempts: (existing?.attempts ?? 0) + 1,
+          updatedAt,
+          method: production ? 'self' : 'check',
+          response,
+        }
+      }
+    } else if (op.kind === 'echelleEvaluation' && trusted && ECHELLE_ITEM_ID_REGEX.test(op.itemId) &&
+               timestamp(op.updatedAt) && ECHELLE_ITEM_CATALOG[op.itemId]?.kind === 'production') {
+      validateEchelleAi(op.evaluation)
+      const existing = state.learning.echelle.items[op.itemId]
+      const updatedAt = Math.max(op.updatedAt, (existing?.updatedAt ?? 0) + 1)
+      const response = { selfChecks: [], ...(typeof op.wordCount === 'number' ? { wordCount: op.wordCount } : {}),
+        ...(typeof op.seconds === 'number' ? { seconds: op.seconds } : {}) }
+      state.learning.echelle.items[op.itemId] = {
+        ...nextMemory(existing, op.evaluation.passed, updatedAt),
+        score: Math.round((op.evaluation.mean / 4) * 100) / 100,
+        attempts: (existing?.attempts ?? 0) + 1,
+        updatedAt,
+        method: 'ai',
+        response,
+        ai: structuredClone(op.evaluation),
+      }
     } else if (op.kind === 'reviewResult' && text(op.itemId, 500) && reviewKind(op.reviewKind) &&
                text(op.sourceId, 400) && text(op.label, 500) && integer(op.quality, 0, 5) &&
                timestamp(op.reviewedAt) && date(op.day)) {
@@ -859,6 +987,8 @@ function todayPlanForState(state, today) {
   const activeErrors = activeErrorBookCandidates(state)
   const plannedToday = sum(Object.values(targetsFor(state, today)))
   const targetMinutes = state.settings.dailyTargetMinutes ?? (plannedToday > 0 ? plannedToday : 60)
+  const placementLatest = state.learning.placement?.latest ?? null
+  const placementBoost = placementLatest ? buildPlacementDailyBoost(placementLatest) : null
   const errorCounts = {
     vocabulary: activeErrors.filter((item) => item.kind === 'vocabulary').length,
     grammar: activeErrors.filter((item) => item.kind === 'grammar').length,
@@ -868,12 +998,27 @@ function todayPlanForState(state, today) {
   const reviewMinutes = due.length
     ? Math.min(Math.max(2, due.length * 2), Math.max(2, Math.round(targetMinutes * 0.45)))
     : 0
-  const remainder = Math.max(0, targetMinutes - reviewMinutes)
-  const weights = [
-    4 + Math.min(4, errorCounts.vocabulary),
-    3 + Math.min(4, errorCounts.grammar),
-    3 + Math.min(4, errorCounts.conjugation),
-  ]
+  const placementFocusMinutes = placementBoost
+    ? Math.max(6, Math.round(targetMinutes * placementBoost.focusMinutesRatio))
+    : 0
+  const placementSecondaryMinutes = placementBoost
+    ? Math.max(4, Math.round(targetMinutes * placementBoost.secondaryMinutesRatio))
+    : 0
+  const remainder = Math.max(
+    0,
+    targetMinutes - reviewMinutes - placementFocusMinutes - placementSecondaryMinutes,
+  )
+  const weights = placementBoost
+    ? [
+        placementBoost.weightBias.vocabulary + Math.min(4, errorCounts.vocabulary),
+        placementBoost.weightBias.grammar + Math.min(4, errorCounts.grammar),
+        placementBoost.weightBias.conjugation + Math.min(4, errorCounts.conjugation),
+      ]
+    : [
+        4 + Math.min(4, errorCounts.vocabulary),
+        3 + Math.min(4, errorCounts.grammar),
+        3 + Math.min(4, errorCounts.conjugation),
+      ]
   const [vocabularyMinutes, grammarMinutes, conjugationMinutes] = allocateWeightedMinutes(remainder, weights)
   const actual = state.minutes[today] ?? {}
 
@@ -888,25 +1033,41 @@ function todayPlanForState(state, today) {
           reason: `${due.length} 项 SM-2 到期复习，优先清空遗留记忆负债。`,
         }]
       : []),
+    ...(placementBoost
+      ? [
+          {
+            ...placementBoost.focusTask,
+            minutes: placementFocusMinutes,
+          },
+          {
+            ...placementBoost.secondaryTask,
+            minutes: placementSecondaryMinutes,
+          },
+        ]
+      : []),
     {
       id: 'smart-vocab',
       kind: 'vocabulary',
-      title: '新词与错词巩固',
+      title: placementBoost ? '路线图词汇 · 错词巩固' : '新词与错词巩固',
       minutes: vocabularyMinutes,
-      href: '/typing',
+      href: placementBoost?.vocabHref ?? '/typing',
       reason: errorCounts.vocabulary
         ? `当前有 ${errorCounts.vocabulary} 个 active 错词，先巩固再推进新词。`
-        : '当前词汇错题压力较低，继续推进新词。',
+        : placementBoost
+          ? `定级 ${placementBoost.cefrLevel}：词汇块与日历周并行，推荐词库已单独占定级主线分钟。`
+          : '当前词汇错题压力较低，继续推进新词。',
     },
     {
       id: 'smart-grammar',
       kind: 'grammar',
       title: '语法训练',
       minutes: grammarMinutes,
-      href: '/grammar-session',
+      href: placementBoost?.grammarHref ?? '/grammar-session',
       reason: errorCounts.grammar
         ? `当前有 ${errorCounts.grammar} 个 active 语法错点。`
-        : '保持语法训练占比，避免只刷词汇。',
+        : placementBoost
+          ? `定级弱项「${placementBoost.weakestSection}」已加权；语法链向 ${placementBoost.grammarTopicId}。`
+          : '保持语法训练占比，避免只刷词汇。',
     },
     {
       id: 'smart-conjugation',
@@ -929,6 +1090,19 @@ function todayPlanForState(state, today) {
     }
   })
 
+  const placementSummary = placementBoost
+    ? {
+        cefrLevel: placementBoost.cefrLevel,
+        suggestedStartWeek: placementBoost.suggestedStartWeek,
+        studyPhaseId: placementBoost.studyPhaseId,
+        weakestSection: placementBoost.weakestSection,
+        secondWeakestSection: placementBoost.secondWeakestSection,
+        primaryDictId: placementBoost.primaryDictId,
+        grammarTopicId: placementBoost.grammarTopicId,
+        tcfBoostHref: placementBoost.tcfBoostHref,
+      }
+    : null
+
   return {
     day: today,
     targetMinutes,
@@ -936,6 +1110,7 @@ function todayPlanForState(state, today) {
     dueReviews: due.length,
     activeErrors: activeErrors.length,
     completedMinutes: sum(tasks.map((item) => Math.min(item.minutes, item.actualMinutes))),
+    placement: placementSummary,
     tasks,
   }
 }
@@ -975,6 +1150,7 @@ function tcfSkillAnalytics(state, skill, targetScore) {
 
 export function studyAnalytics(input, now = new Date(), extra = {}) {
   const state = normalizeState(input)
+  const placementLatest = state.learning.placement?.latest ?? null
   const today = toKey(now)
   const rawWeek = Math.floor(diffDays(state.startDate, today) / 7) + 1
   const currentWeek = Math.max(1, Math.min(26, rawWeek))
@@ -1102,6 +1278,37 @@ export function studyAnalytics(input, now = new Date(), extra = {}) {
     trends: trendBuckets(state, today),
     rankings: rankings(state),
     reviewDue: buildReviewQueue(state, today).length,
+    placement: placementLatest
+      ? (() => {
+          const analysis = analyzePlacementWeakness(placementLatest)
+          return {
+            cefrLevel: placementLatest.cefrLevel,
+            suggestedStartWeek: placementLatest.recommendations.suggestedStartWeek,
+            studyPhaseId: placementLatest.recommendations.studyPhaseId,
+            weakestSection: analysis.weakest,
+            secondWeakestSection: analysis.secondWeakest,
+            ranked: analysis.ranked,
+          }
+        })()
+      : null,
+    echelle: (() => {
+      const masteredIds = Object.entries(state.learning.echelle.items)
+        .filter(([, item]) => item.mastered)
+        .map(([id]) => id)
+      const progress = summarizeEchelleProgress(masteredIds)
+      const totalItems = progress.levels.reduce((sum, level) => sum + level.total, 0)
+      const masteredItems = progress.levels.reduce((sum, level) => sum + level.mastered, 0)
+      const dueItems = Object.values(state.learning.echelle.items)
+        .filter((item) => memoryStatus(item, now.getTime()) === 'due').length
+      return {
+        currentLevel: progress.currentLevel,
+        passedLevels: progress.levels.filter((level) => level.passed).map((level) => level.level),
+        totalItems,
+        masteredItems,
+        dueItems,
+        levels: progress.levels,
+      }
+    })(),
     dashboard: dashboardForState(state, today),
     today: todayPlanForState(state, today),
   }
@@ -1113,5 +1320,5 @@ export function importOperations(backup) {
   return [{ kind: 'replace', value: backup.state }]
 }
 export function exportPlan(state) {
-  return { format: 'qwerty-study-plan', version: 5, schemaVersion: 8, exportedAt: new Date().toISOString(), state: normalizeState(state) }
+  return { format: 'qwerty-study-plan', version: 5, schemaVersion: 9, exportedAt: new Date().toISOString(), state: normalizeState(state) }
 }

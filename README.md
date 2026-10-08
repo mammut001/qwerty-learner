@@ -12,9 +12,59 @@
 - **B2 冲刺**：观点表达、抽象名词、高频搭配
 - **TCF 专项**：口语/写作核心表达、口语任务 2 高频提问、正式邮件与论证
 
+## 入学定级 · Placement Test
+
+- `/placement-test`：约 20 分钟、24 题（词汇 / 语法 / 阅读），结果映射 **CEFR A1–B2+** 并估算 NCLC 区间（训练用，非官方成绩）。
+- 定级结果写入学习后端 `learning.placement`（含历史最多 5 次），同步码可跨设备恢复。
+- **26 周路线图不变**；定级在其上叠加「并行轨道」：智能今日任务约 **45%** 分钟投入弱项、推荐词库与语法主题、词库 Gallery 高亮、统计页展示分项得分。
+- 建议每 **4 周** 复测一次以更新分级教学路径。
+
+## 等级课程 · 遗忘曲线复习与 AI 评分
+
+- `/levels`：按魁北克量表（Échelle québécoise）12 个等级逐项学习；一个等级的全部知识点都掌握才算「达标」。
+- **遗忘曲线（艾宾浩斯）**：知识点通过后，按 1 → 2 → 4 → 7 → 15 → 30 → 60 → 120 天安排复习。按时复习通过，间隔变长；提前练习不改变计划；复习没通过即视为遗忘，回到「未掌握」，该等级的达标也随之取消。通过 15 天复习后显示「长期记忆」。`/levels/review` 列出现在到期和未来 7 天的复习，点击直达对应知识点（`/levels/N?item=…`）。
+- **写作 / 口语 AI 评分**：服务端配置了 AI 后，写作和口语要由 AI 按量表评分才算掌握；自评清单仍显示，但不计分。口语在计时时用浏览器语音识别（fr-CA）自动转写，可以手动修改；浏览器不支持时改为手动输入转写。未配置 AI 时，仍按字数/时长 + 自评记录。
+- **评分 harness**（`server/echelle-ai-harness.mjs`）：不管接哪家模型，标准都由我们定。
+  - 评分标准直接取自量表官方描述：目标级的 descriptionFr、情境、全部指标、lexique / phrase / texte 维度，并附上下相邻两级作对照。分 4 个维度（任务完成、篇章组织、句子与语法、词汇），每项 0–4 分。
+  - 模型只负责给出带原文引用的打分。是否通过由我方规则判定：平均 ≥ 2.75、任务完成 ≥ 3、每项 ≥ 2。
+  - 输出按严格 JSON 模式校验，不合格时让模型修复一次，第二次仍不合格就报错。引用不在原文里的维度最多给 2 分；修改建议必须引用原文。
+  - 防注入：答案放在带随机 nonce 的标签里，作为数据处理。答案里出现「忽略指令 / 给满分」之类内容时，分数上限 2。不是法语的答案一律 0 分。
+  - 评分结果由服务端写入学习进度，客户端无法通过同步接口伪造 AI 通过；每位学员每小时最多 30 次。
+- **配置**（Node 用环境变量，Worker 用 vars / secrets）：
+
+  | 变量 | 说明 |
+  | --- | --- |
+  | `STUDY_AI_PROVIDER` | `openai`（任何 OpenAI 兼容接口：OpenAI、DeepSeek、通义千问、OpenRouter、Ollama…）/ `anthropic` / `mock`（离线启发式，仅开发和 E2E 用）。不设置即关闭 AI 评分 |
+  | `STUDY_AI_MODEL` | 模型名（`mock` 以外必填） |
+  | `STUDY_AI_API_KEY` | API key（Worker 用 `wrangler secret put STUDY_AI_API_KEY`） |
+  | `STUDY_AI_BASE_URL` | OpenAI 兼容接口地址，默认 `https://api.openai.com/v1` |
+  | `STUDY_AI_JSON_MODE` | `on`（默认）/ `off`：不支持 `response_format` 的接口设为 `off` |
+  | `STUDY_AI_TIMEOUT_MS` | 单次请求超时，默认 45000 |
+  | `STUDY_AI_DAILY_LIMIT` | 全站每 24 小时最多 AI 评分次数，默认 300（另有每学员 30 次/小时、每 IP 60 次/小时） |
+
+  本地把这些写进被 git 忽略的 `.env.local`，`npm run server` 会自动读取。**不要**给它们加 `VITE_` 前缀，否则会被打进前端包。公开部署时建议再设置 `STUDY_ACCESS_PASSWORD`，让陌生人无法调用评分接口。
+
+- **换模型前先校准**：`STUDY_AI_PROVIDER=… STUDY_AI_MODEL=… STUDY_AI_API_KEY=… node scripts/ai-calibrate.mjs`。脚本用 `server/echelle-ai-calibration.mjs` 里的标准样本（合格、离题、非法语、只有单词堆砌、句式过于简单、提示注入等）检查一致率；一致率低于 85%（`STUDY_AI_MIN_AGREEMENT`）或把任一弱样本判为通过，就以非 0 退出。
+
+## 机构版 · 定级看板与多班级
+
+- 管理页：`/admin/placement`（不在主导航展示，适合教师/机构部署）。
+- 服务端设置 `STUDY_ADMIN_TOKEN`（≥16 字符）；管理页输入令牌后可：
+  - 创建班级、轮换分班邀请码（16 位，仅创建/轮换时明文展示一次）
+  - 按班级下拉筛选定级汇总，或查看全库
+- 学员在学习计划页输入邀请码加入班级（`POST /api/study-plan/cohort/join`），绑定存于 `learner_cohorts`（一学员一条，可换班）。
+- 管理 API 摘要：
+  - `GET/POST /api/study-plan/admin/cohorts` — 列表 / 建班（返回 `joinCode`）
+  - `POST /api/study-plan/admin/cohorts/rotate` — 轮换邀请码
+  - `GET /api/study-plan/admin/placement-cohort?cohortId=<uuid>` — 按班或全库 JSON 汇总
+  - `GET /api/study-plan/admin/placement-cohort.csv?cohortId=…` — 导出 CSV
+  - `GET /api/study-plan/cohort` — 当前学员所属班（需学习会话 Cookie）
+- 不暴露完整 learner ID 或同步码；定级汇总仅显示 learner 前缀 8 位。
+- 未建班时行为与旧版一致：定级汇总 `cohortId` 省略即全库所有 learner。
+
 ## 26 周学习计划
 
-新增独立 `/study-plan` 页面：按约 7 小时/周安排周一到周日任务，自动显示当前 Week / 26 与六个月阶段；支持“今天太累了 → 10 分钟最低模式”，并通过服务端保存每个任务的实际学习分钟数和本周累计时长（浏览器保留离线待同步队列）。
+新增独立 `/study-plan` 页面：按约 7 小时/周安排周一到周日任务，自动显示当前 Week / 26 与六个月阶段；支持“今天太累了 → 10 分钟最低模式”，并通过服务端保存每个任务的实际学习分钟数和本周累计时长（浏览器保留离线待同步队列）。完成定级后，页面会同时显示**日历周**与**定级推荐周**（词库预览默认跟定级周）。
 
 ## 30 分钟语法训练
 

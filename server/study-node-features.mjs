@@ -7,7 +7,7 @@ const parseJson = (value, fallback = null) => {
   try { return JSON.parse(value) } catch { return fallback }
 }
 
-export const STUDY_SCHEMA_VERSION = 8
+export const STUDY_SCHEMA_VERSION = 9
 
 export function ensureNodeFeatureSchema(db) {
   db.exec(`
@@ -90,6 +90,15 @@ export function ensureNodeFeatureSchema(db) {
       token_hash TEXT PRIMARY KEY, account_id TEXT NOT NULL, created_at INTEGER NOT NULL, expires_at INTEGER NOT NULL
     );
     CREATE INDEX IF NOT EXISTS account_sessions_account ON account_sessions(account_id,expires_at);
+    CREATE TABLE IF NOT EXISTS cohorts (
+      id TEXT NOT NULL PRIMARY KEY, name TEXT NOT NULL, join_code_hash TEXT NOT NULL UNIQUE,
+      created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS cohorts_created ON cohorts(created_at DESC);
+    CREATE TABLE IF NOT EXISTS learner_cohorts (
+      learner TEXT NOT NULL PRIMARY KEY, cohort_id TEXT NOT NULL, joined_at INTEGER NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS learner_cohorts_cohort ON learner_cohorts(cohort_id,joined_at DESC);
   `)
   const existingVersion = Number(
     db.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").get()?.value ?? 0,

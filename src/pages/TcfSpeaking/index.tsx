@@ -1,4 +1,5 @@
 import LookupText from '@/components/Dictionary/LookupText'
+import EchelleGoalCard from '@/components/EchelleGoalCard'
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { type TcfEoScores, calculateEoTotalScore, estimateTcfEoNclc } from '@/resources/tcfEvaluation'
@@ -788,6 +789,8 @@ export default function TcfSpeakingPage() {
                   本评估依据 5 维度对照标准估算，仅供备考冲刺与阶段性自查，正式成绩以官方评分单为准。
                 </div>
               </div>
+
+              <EchelleGoalCard skill="speaking" currentLevel={estimatedNclc} />
 
               {/* Rubric evaluation form */}
               <div

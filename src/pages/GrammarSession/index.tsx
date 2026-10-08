@@ -248,7 +248,7 @@ export default function GrammarSessionPage() {
                 30 分钟 · {topic.tagline} · {topic.level}
               </span>
             </div>
-            <h1 className="mt-4 text-3xl font-semibold text-gray-900 dark:text-white sm:text-4xl">{topic.title}</h1>
+            <h1 className="ui-title mt-4">{topic.title}</h1>
             <p className="mt-4 text-lg leading-8 text-gray-600 dark:text-gray-300">
               这不是刷分模式。每一道题都要先选答案，再用中文或法语写一句“为什么”。提交之后才会看到标准解释。
             </p>
@@ -317,8 +317,8 @@ export default function GrammarSessionPage() {
 
         <main className="container mx-auto flex flex-1 items-center justify-center px-4 pb-10 sm:px-6 lg:px-10">
           <section className="my-card w-full max-w-3xl rounded-3xl bg-white p-5 dark:bg-gray-800 sm:p-10">
-            <div className="text-sm font-medium text-indigo-500">本次 30 分钟训练完成</div>
-            <h1 className="mt-3 text-3xl font-semibold text-gray-900 dark:text-white sm:text-4xl">
+            <div className="ui-eyebrow">本次 30 分钟训练完成</div>
+            <h1 className="ui-title mt-3">
               {score} / {scenarios.length}
             </h1>
             <p className="mt-4 leading-7 text-gray-600 dark:text-gray-300">
@@ -392,10 +392,10 @@ export default function GrammarSessionPage() {
       <main className="container mx-auto w-full max-w-5xl flex-1 px-4 pb-12 sm:px-10">
         <div className="mb-6 flex items-end justify-between gap-6">
           <div>
-            <div className="text-sm font-medium text-indigo-500">
+            <div className="ui-eyebrow">
               {topic.title} · 第 {currentBatch + 1} / {batches.length} 组
             </div>
-            <h1 className="mt-2 text-3xl font-semibold text-gray-900 dark:text-white">{batch.title}</h1>
+            <h1 className="ui-title mt-3">{batch.title}</h1>
             <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">先选，再解释为什么。提交本组之后才看答案。</p>
           </div>
           <div className="flex gap-2">
@@ -539,7 +539,7 @@ export default function GrammarSessionPage() {
           </div>
         ) : (
           <section className="my-card mt-8 rounded-2xl bg-white p-7 dark:bg-gray-800">
-            <div className="text-sm font-medium text-indigo-500">最后一步 · 不再做选择题</div>
+            <div className="ui-eyebrow">最后一步 · 不再做选择题</div>
             <h2 className="mt-2 text-2xl font-semibold text-gray-900 dark:text-white">自己造 3 个句子</h2>
             <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">这里不自动判分。目标是把刚才的判断真正变成输出。</p>
 

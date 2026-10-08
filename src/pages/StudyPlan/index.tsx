@@ -2,6 +2,8 @@ import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { CHAPTER_LENGTH } from '@/constants'
 import { idDictionaryMap } from '@/resources/dictionary'
+import { COMMUNICATION_TYPES, ECHELLE_TARGET_LEVEL, PHASE_ECHELLE_TARGET, getEchelleLevel } from '@/resources/echelleQuebecoise'
+import { placementRetestDue } from '@/resources/placementHelpers'
 import {
   type StudyTask,
   type StudyTaskKind,
@@ -34,7 +36,10 @@ import {
   getLearningProgress,
   getStoredStudySyncKey,
   importRemoteStudyPlan,
+  joinCohort,
+  type LearnerCohortBinding,
   linkStudyDevice,
+  loadLearnerCohort,
   loadPasskeyAccount,
   loadStudyAnalytics,
   loadStudySyncInfo,
@@ -105,12 +110,15 @@ const weekDictionaryIds: Record<number, string> = {
   26: 'tcf-b2-collocations',
 }
 
-const smartKindLabels = {
+const smartKindLabels: Record<string, string> = {
   review: '复习',
   vocabulary: '词汇',
   grammar: '语法',
   conjugation: '变位',
-} as const
+  placement: '定级',
+  reading: '阅读',
+  listening: '听力',
+}
 
 const kindLabels: Record<StudyTaskKind, string> = {
   grammar: '语法',
@@ -234,6 +242,51 @@ function calendarDayNumber(date: Date) {
   return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / DAY_MS
 }
 
+function PhaseEchelleTarget({ phaseId }: { phaseId: number }) {
+  const level = PHASE_ECHELLE_TARGET[phaseId] ?? ECHELLE_TARGET_LEVEL
+  const speaking = getEchelleLevel('speaking', level)
+  const grammar = Array.from(new Set([...speaking.dimensions.phrase, ...getEchelleLevel('writing', level).dimensions.phrase])).slice(0, 5)
+  return (
+    <NavLink
+      to={`/echelle?skill=speaking&level=${level}`}
+      data-testid="study-phase-echelle"
+      className="mt-4 block rounded-2xl border border-gray-200/70 bg-white/70 p-4 text-sm no-underline transition hover:border-indigo-200 hover:no-underline dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-indigo-400/30"
+    >
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="ui-chip-accent">量表目标 Niveau {level}</span>
+        <span className="text-xs text-gray-500 dark:text-gray-400">
+          {speaking.type} · {COMMUNICATION_TYPES[speaking.type]?.zh}交流 · 本阶段要稳定的语法
+        </span>
+      </div>
+      <div className="mt-2.5 flex flex-wrap gap-1.5">
+        {grammar.map((item) => (
+          <span key={item} className="ui-chip text-[11px]">
+            {item}
+          </span>
+        ))}
+      </div>
+    </NavLink>
+  )
+}
+
+function LevelsLink() {
+  return (
+    <NavLink
+      to="/levels"
+      data-testid="study-levels-link"
+      className="mt-3 block rounded-2xl border border-indigo-200/60 bg-indigo-50/40 p-4 text-sm no-underline transition hover:border-indigo-300 hover:bg-indigo-50/70 hover:no-underline dark:border-indigo-400/20 dark:bg-indigo-900/10 dark:hover:border-indigo-400/40"
+    >
+      <div className="flex items-center justify-between">
+        <span className="font-medium text-indigo-700 dark:text-indigo-300">按等级课程逐项学习</span>
+        <span className="text-indigo-600 dark:text-indigo-300">→</span>
+      </div>
+      <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+        Niveau 1–12 听力、阅读、书面表达、口语表达、词汇、语法/篇章知识点，逐级达标。
+      </div>
+    </NavLink>
+  )
+}
+
 function minutesLabel(minutes: number) {
   if (minutes < 60) return `${minutes} min`
   const hours = Math.floor(minutes / 60)
@@ -272,6 +325,10 @@ export default function StudyPlanPage() {
   )
   const [reminderPreferences, setReminderPreferences] = useState<StudyReminderPreferences>(() => getStudyReminderPreferences())
   const [pwaState, setPwaState] = useState<PwaInstallState>(() => getPwaInstallState())
+  const [placementPreviewAppliedId, setPlacementPreviewAppliedId] = useState<string | null>(null)
+  const [learnerCohort, setLearnerCohort] = useState<LearnerCohortBinding | null>(null)
+  const [cohortJoinInput, setCohortJoinInput] = useState('')
+  const [cohortJoinMessage, setCohortJoinMessage] = useState('')
 
   useEffect(() => {
     const unsubscribe = subscribeStudyPlan(setStorage, setImportMessage)
@@ -284,6 +341,9 @@ export default function StudyPlanPage() {
         .catch(() => undefined)
       void loadPasskeyAccount()
         .then(setAccountInfo)
+        .catch(() => undefined)
+      void loadLearnerCohort()
+        .then(setLearnerCohort)
         .catch(() => undefined)
     })
     return () => {
@@ -344,7 +404,20 @@ export default function StudyPlanPage() {
   const phaseEndDate = addDays(startDate, phase.weeks[1] * 7 - 1)
   const phaseProgress = Math.min(100, Math.round((currentWeek / 26) * 100))
   const targetDictionary = idDictionaryMap[weekDictionaryIds[currentWeek]]
+  const placementRecommendedDictionary = useMemo(() => {
+    const dictId = learning?.placement?.latest?.recommendations.vocabularyDictIds[0]
+    return dictId ? idDictionaryMap[dictId] : undefined
+  }, [learning])
   const [previewWeek, setPreviewWeek] = useState(currentWeek)
+  const placementGrammarTopicId = learning?.placement?.latest?.recommendations.grammarTopicIds[0]
+
+  useEffect(() => {
+    const latest = learning?.placement?.latest
+    if (!latest || placementPreviewAppliedId === latest.id) return
+    setPreviewWeek(latest.recommendations.suggestedStartWeek)
+    setPlacementPreviewAppliedId(latest.id)
+  }, [learning?.placement?.latest, placementPreviewAppliedId])
+
   const [previewFilter, setPreviewFilter] = useState('')
   const [onlyMistakenPreviewWords, setOnlyMistakenPreviewWords] = useState(false)
   const [selectedMistakeChapter, setSelectedMistakeChapter] = useState<number | null>(null)
@@ -946,16 +1019,28 @@ export default function StudyPlanPage() {
   const customWordLists = useAtomValue(customDictsAtom)
 
   const smartTaskHref = (task: NonNullable<StudyAnalytics['today']>['tasks'][number]) => {
-    if (task.kind === 'vocabulary' && targetDictionary)
-      return `/typing?dict=${encodeURIComponent(targetDictionary.id)}&studyDate=${todayKey}&studyTask=${task.id}`
-    if (task.kind === 'grammar') return `/grammar-session?studyDate=${todayKey}&studyTask=${task.id}`
-    if (task.kind === 'conjugation') {
-      const separator = task.href.includes('?') ? '&' : '?'
-      return `${task.href}${separator}studyDate=${todayKey}&studyTask=${task.id}`
+    const withStudy = (href: string) => {
+      const separator = href.includes('?') ? '&' : '?'
+      return `${href}${separator}studyDate=${todayKey}&studyTask=${task.id}`
     }
-    if (task.kind === 'review') return `/analysis?studyDate=${todayKey}&studyTask=${task.id}`
+    if (task.kind === 'placement' || task.kind === 'reading' || task.kind === 'listening') return withStudy(task.href)
+    if (task.kind === 'vocabulary') {
+      if (task.href.includes('dict=')) return withStudy(task.href)
+      if (placementRecommendedDictionary) return withStudy(`/typing?dict=${encodeURIComponent(placementRecommendedDictionary.id)}`)
+      if (targetDictionary) return withStudy(`/typing?dict=${encodeURIComponent(targetDictionary.id)}`)
+      return withStudy('/typing')
+    }
+    if (task.kind === 'grammar') {
+      if (task.href.includes('topic=')) return withStudy(task.href)
+      return withStudy('/grammar-session')
+    }
+    if (task.kind === 'conjugation') return withStudy(task.href)
+    if (task.kind === 'review') return withStudy('/analysis')
     return task.href
   }
+
+  const personalizedWeek = analytics?.placement?.suggestedStartWeek ?? learning?.placement?.latest?.recommendations.suggestedStartWeek
+  const personalizedPhase = personalizedWeek ? getStudyPhase(personalizedWeek) : null
 
   const renderTask = (task: StudyTask, dateKey: string, compact = false) => {
     const actual = storage.minutes[dateKey]?.[task.id] ?? 0
@@ -963,14 +1048,21 @@ export default function StudyPlanPage() {
     let taskHref = task.href
     let actionLabel = task.actionLabel
 
-    if (task.kind === 'vocabulary' && task.href === '/gallery' && targetDictionary) {
+    const roadmapVocabDict = placementRecommendedDictionary ?? targetDictionary
+    if (task.kind === 'vocabulary' && task.href === '/gallery' && roadmapVocabDict) {
       const focusOwnsTask = Boolean(focusSnapshot && focusSnapshot.day === dateKey && focusSnapshot.taskId === task.id)
       taskHref = focusOwnsTask
-        ? `/typing?dict=${targetDictionary.id}`
-        : `/typing?dict=${targetDictionary.id}&studyDate=${dateKey}&studyTask=${task.id}`
-      actionLabel = `练 ${targetDictionary.name}`
+        ? `/typing?dict=${roadmapVocabDict.id}`
+        : `/typing?dict=${roadmapVocabDict.id}&studyDate=${dateKey}&studyTask=${task.id}`
+      actionLabel =
+        placementRecommendedDictionary && placementRecommendedDictionary.id !== targetDictionary?.id
+          ? `定级词库 · ${placementRecommendedDictionary.name}`
+          : `练 ${roadmapVocabDict.name}`
     } else if (task.href === '/grammar-session') {
-      actionLabel = '练语法专题'
+      if (placementGrammarTopicId) {
+        taskHref = `/grammar-session?topic=${encodeURIComponent(placementGrammarTopicId)}&studyDate=${dateKey}&studyTask=${task.id}`
+      }
+      actionLabel = placementGrammarTopicId ? '定级语法专题' : '练语法专题'
     } else if (task.href === '/conjugation') {
       taskHref = conjugationHref
       actionLabel = phase.id === 1 ? '练 prendre · Passé composé' : '开始核心动词练习'
@@ -1063,17 +1155,65 @@ export default function StudyPlanPage() {
       <Header />
 
       <main className="container mx-auto w-full max-w-6xl flex-1 px-4 pb-12 sm:px-6 lg:px-10">
-        <section className="my-card rounded-3xl bg-white p-4 dark:bg-gray-800 sm:p-7">
-          <div className="flex flex-wrap items-start justify-between gap-6">
-            <div>
-              <div className="flex items-center gap-2 text-sm font-medium text-indigo-500">
+        <section className="my-card relative overflow-hidden rounded-[28px] bg-white p-5 dark:bg-gray-800 sm:p-8">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-gradient-to-br from-indigo-400/20 via-violet-400/10 to-transparent blur-3xl"
+          />
+          <div className="relative flex flex-wrap items-start justify-between gap-6">
+            <div className="min-w-0 flex-1 basis-[26rem]">
+              <div className="ui-eyebrow">
                 <IconCalendar />
                 TCF Canada · 26 周学习计划
               </div>
-              <h1 className="mt-2 text-3xl font-semibold text-gray-900 dark:text-white">
-                Week {currentWeek} / 26 · {phase.name}
+              <h1 className="ui-title mt-3">
+                <span className="tabular-nums text-gray-400 dark:text-gray-500">Week</span>{' '}
+                <span className="tabular-nums">{currentWeek}</span>
+                <span className="text-gray-300 dark:text-gray-600"> / 26</span>
+                <span className="text-gray-300 dark:text-gray-600"> · </span>
+                {phase.name}
               </h1>
+              {personalizedWeek && personalizedPhase && personalizedWeek !== currentWeek && (
+                <p data-testid="placement-personalized-week" className="mt-2 text-sm font-medium text-indigo-700 dark:text-indigo-300">
+                  定级并行轨道：Week {personalizedWeek} · {personalizedPhase.name}（日历仍按 Week {currentWeek}{' '}
+                  推进，词库预览已默认切到定级周）
+                </p>
+              )}
               <p className="mt-2 text-gray-500 dark:text-gray-400">{phase.goal}</p>
+              {!learning?.placement?.latest ? (
+                <div
+                  data-testid="placement-prompt"
+                  className="mt-5 flex flex-wrap items-center gap-4 rounded-2xl border border-indigo-200/70 bg-gradient-to-r from-indigo-50 via-white to-violet-50 p-4 text-sm leading-6 text-indigo-950 dark:border-indigo-400/20 dark:from-indigo-500/10 dark:via-transparent dark:to-violet-500/10 dark:text-indigo-100"
+                >
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-base font-bold text-indigo-600 shadow-sm ring-1 ring-indigo-100 dark:bg-white/10 dark:text-indigo-200 dark:ring-white/10">
+                    A→B
+                  </div>
+                  <div className="min-w-[14rem] flex-1">
+                    <div className="font-semibold">还没做过入学定级？</div>
+                    <p className="mt-0.5 text-indigo-900/70 dark:text-indigo-200/80">
+                      约 20 分钟的 Placement Test 会给出 CEFR 等级，并推荐应从哪一周、哪些词库与模考开始，方便后续分级教学。
+                    </p>
+                  </div>
+                  <NavLink to="/placement-test" className="ui-btn-primary">
+                    开始定级测试 →
+                  </NavLink>
+                </div>
+              ) : (
+                <div
+                  data-testid="placement-summary"
+                  className="mt-4 flex flex-wrap items-center gap-2 text-sm text-gray-600 dark:text-gray-300"
+                >
+                  <span>当前定级</span>
+                  <span className="ui-chip-accent">{learning.placement.latest.cefrLevel}</span>
+                  <span className="text-gray-400">·</span>
+                  <NavLink to="/placement-test" className="text-indigo-600 underline-offset-2 hover:underline dark:text-indigo-400">
+                    查看详情或重新测试
+                  </NavLink>
+                  {placementRetestDue(learning.placement.latest.finishedAt) && (
+                    <span className="text-amber-600 dark:text-amber-400">· 已超过 4 周，建议复测定级</span>
+                  )}
+                </div>
+              )}
               {targetDictionary && (
                 <NavLink
                   to={`/typing?dict=${encodeURIComponent(targetDictionary.id)}${
@@ -1082,8 +1222,17 @@ export default function StudyPlanPage() {
                   onClick={todayVocabularyTask ? () => saveStorage(storage) : undefined}
                   className="mt-1 block text-sm text-gray-500 underline decoration-gray-300 underline-offset-2 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-300"
                 >
-                  本周词库：{targetDictionary.name} · {targetDictionary.length} 词 · 共{' '}
+                  本周词库（26 周路线）：{targetDictionary.name} · {targetDictionary.length} 词 · 共{' '}
                   {Math.ceil(targetDictionary.length / CHAPTER_LENGTH)} 章
+                </NavLink>
+              )}
+              {placementRecommendedDictionary && placementRecommendedDictionary.id !== targetDictionary?.id && (
+                <NavLink
+                  data-testid="placement-recommended-dict"
+                  to={`/typing?dict=${encodeURIComponent(placementRecommendedDictionary.id)}`}
+                  className="mt-1 block text-sm text-indigo-600 underline decoration-indigo-300 underline-offset-2 hover:text-indigo-500 dark:text-indigo-400"
+                >
+                  定级推荐词库：{placementRecommendedDictionary.name} · 与当前周次不同，适合按水平补强
                 </NavLink>
               )}
               {previewWeek !== currentWeek && previewDictionary && (
@@ -1100,11 +1249,8 @@ export default function StudyPlanPage() {
               )}
             </div>
 
-            <div className="flex flex-col items-end gap-2">
-              <div
-                data-testid="focus-timer-setup"
-                className="w-full max-w-md rounded-xl border border-gray-100 bg-gray-50 p-3 text-left dark:border-gray-700 dark:bg-gray-900"
-              >
+            <div className="flex w-full max-w-md flex-col items-end gap-2">
+              <div data-testid="focus-timer-setup" className="ui-panel w-full p-3.5 text-left">
                 <div className="flex flex-wrap items-start justify-between gap-2">
                   <div>
                     <div className="text-xs font-medium text-gray-600 dark:text-gray-200">专注计时 · 可选</div>
@@ -1151,7 +1297,7 @@ export default function StudyPlanPage() {
                     type="button"
                     onClick={startFocus}
                     disabled={!todayTasks.length || Boolean(focusSnapshot && focusSnapshot.status !== 'finished')}
-                    className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white outline-none hover:bg-indigo-700 focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-40"
+                    className="ui-btn-primary px-3 py-1.5 text-xs"
                   >
                     开始专注
                   </button>
@@ -1181,16 +1327,19 @@ export default function StudyPlanPage() {
             </div>
           </div>
 
-          <div className="mt-6 h-2 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700">
-            <div className="h-full rounded-full bg-indigo-500 transition-all" style={{ width: `${phaseProgress}%` }} />
+          <div className="relative mt-7 flex items-center justify-between text-xs font-medium text-gray-500 dark:text-gray-400">
+            <span>整体进度</span>
+            <span className="tabular-nums">
+              <span className="text-gray-900 dark:text-white">{phaseProgress}%</span> · 还剩 {26 - currentWeek} 周
+            </span>
           </div>
-          <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-            整体进度 {phaseProgress}% · 还剩 {26 - currentWeek} 周
+          <div className="ui-progress-track relative mt-2">
+            <div className="ui-progress-bar" style={{ width: `${Math.max(phaseProgress, 1.5)}%` }} />
           </div>
 
-          <div className="mt-5 grid gap-4 md:grid-cols-3">
-            <div className="rounded-2xl bg-indigo-50 p-4 dark:bg-indigo-950/30">
-              <div className="text-xs text-indigo-500">当前阶段</div>
+          <div className="relative mt-6 grid gap-4 md:grid-cols-3">
+            <div className="rounded-2xl border border-indigo-100 bg-gradient-to-b from-indigo-50/90 to-white p-4 dark:border-indigo-400/20 dark:from-indigo-500/10 dark:to-transparent">
+              <div className="ui-stat-label text-indigo-500 dark:text-indigo-300">当前阶段</div>
               <button
                 type="button"
                 onClick={() =>
@@ -1217,10 +1366,10 @@ export default function StudyPlanPage() {
                 </div>
               )}
             </div>
-            <div className="rounded-2xl bg-gray-50 p-4 dark:bg-gray-900">
-              <div className="text-xs text-gray-400">本周实际</div>
+            <div className="ui-stat">
+              <div className="ui-stat-label">本周实际</div>
               <div className="mt-1 flex items-center gap-2">
-                <div className="text-2xl font-semibold text-gray-900 dark:text-white">{minutesLabel(weeklyActualMinutes)}</div>
+                <div className="ui-stat-value mt-0">{minutesLabel(weeklyActualMinutes)}</div>
                 {weeklyPlannedMinutes > 0 && weeklyActualMinutes > weeklyPlannedMinutes && (
                   <span className="text-sm text-gray-400">超出 {weeklyActualMinutes - weeklyPlannedMinutes} min</span>
                 )}
@@ -1267,10 +1416,10 @@ export default function StudyPlanPage() {
                 <div className="mt-1 text-sm text-gray-500">未完成 {weeklyMissedDays} 天</div>
               )}
             </div>
-            <div className="rounded-2xl bg-gray-50 p-4 dark:bg-gray-900">
-              <div className="text-xs text-gray-400">连续性</div>
+            <div className="ui-stat">
+              <div className="ui-stat-label">连续性</div>
               <div className="mt-1 flex flex-wrap items-center gap-2">
-                <div className="text-2xl font-semibold text-gray-900 dark:text-white">{activeRecentDays} / 3 天有学习</div>
+                <div className="ui-stat-value mt-0">{activeRecentDays} / 3 天有学习</div>
                 {activeRecentDays === 0 && <span className="text-sm text-gray-400">这三天都没学</span>}
               </div>
               <div className="mt-2 space-y-1 text-sm text-gray-500">
@@ -1331,7 +1480,46 @@ export default function StudyPlanPage() {
               </span>
             ))}
           </div>
+          <PhaseEchelleTarget phaseId={phase.id} />
+          <LevelsLink />
         </section>
+
+        {analytics?.placement && (
+          <section
+            data-testid="placement-personalized-track"
+            className="my-card mt-7 rounded-3xl border border-violet-200 bg-violet-50/60 p-5 dark:border-violet-900 dark:bg-violet-950/30 sm:p-7"
+          >
+            <div className="text-sm font-semibold text-violet-700 dark:text-violet-300">定级个性化轨道（与 26 周日历并行）</div>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-gray-700 dark:text-gray-200">
+              当前 CEFR <strong>{analytics.placement.cefrLevel}</strong>，系统推荐从 Week {analytics.placement.suggestedStartWeek}{' '}
+              的内容密度练起，并优先补 <strong>{analytics.placement.weakestSection}</strong> /{' '}
+              <strong>{analytics.placement.secondWeakestSection}</strong>。 下方日历仍按考试倒计时走 Week {currentWeek}，方便你对照官方 26
+              周大纲。
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <NavLink
+                to="/placement-test"
+                className="rounded-lg bg-violet-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-violet-500"
+              >
+                查看定级详情
+              </NavLink>
+              {smartToday?.placement?.tcfBoostHref && (
+                <NavLink
+                  to={smartToday.placement.tcfBoostHref}
+                  className="rounded-lg border border-violet-300 px-3 py-1.5 text-xs font-semibold text-violet-800 dark:border-violet-700 dark:text-violet-200"
+                >
+                  今日推荐模考入口
+                </NavLink>
+              )}
+              <NavLink
+                to="/admin/placement"
+                className="rounded-lg border border-violet-300 px-3 py-1.5 text-xs font-semibold text-violet-800 dark:border-violet-700 dark:text-violet-200"
+              >
+                机构定级看板
+              </NavLink>
+            </div>
+          </section>
+        )}
 
         <section
           aria-labelledby="my-word-lists-title"
@@ -1379,12 +1567,20 @@ export default function StudyPlanPage() {
                 {smartToday ? `${smartToday.completedMinutes} / ${smartToday.targetMinutes} min` : '正在读取今日组合…'}
               </h2>
               <p className="mt-2 max-w-3xl text-sm leading-6 text-gray-700 dark:text-gray-200">
-                根据 SM-2 到期量、active 错题和每天目标分钟动态分配。路线图本身不变，这一层只决定今天先做什么。
+                根据 SM-2 到期量、active 错题和每天目标分钟动态分配。
+                {smartToday?.placement
+                  ? ` 已定级 ${smartToday.placement.cefrLevel}：今日约 45% 分钟强制投入定级弱项（${smartToday.placement.weakestSection} / ${smartToday.placement.secondWeakestSection}），26 周路线图任务仍保留在下方日历。`
+                  : ' 完成定级测试后，这一层会按 CEFR 弱项加权；路线图本身不变。'}
               </p>
             </div>
             {smartToday && (
               <div className="rounded-xl border border-indigo-200 bg-white px-4 py-3 text-sm text-gray-700 dark:border-indigo-800 dark:bg-gray-900 dark:text-gray-200">
                 到期复习 {smartToday.dueReviews} · active 错题 {smartToday.activeErrors}
+                {smartToday.placement && (
+                  <div className="mt-1 text-xs text-indigo-700 dark:text-indigo-300">
+                    定级 {smartToday.placement.cefrLevel} · 推荐周 {smartToday.placement.suggestedStartWeek}
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -1422,10 +1618,10 @@ export default function StudyPlanPage() {
                         aria-valuemin={0}
                         aria-valuemax={100}
                         aria-valuenow={Math.min(100, Math.round((task.actualMinutes / Math.max(1, task.minutes)) * 100))}
-                        className="mt-1 h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700"
+                        className="ui-progress-track mt-1.5"
                       >
                         <div
-                          className="h-full rounded-full bg-indigo-600 dark:bg-indigo-400"
+                          className="ui-progress-bar"
                           style={{ width: `${Math.min(100, Math.round((task.actualMinutes / Math.max(1, task.minutes)) * 100))}%` }}
                         />
                       </div>
@@ -1737,7 +1933,7 @@ export default function StudyPlanPage() {
                   今日计划 · {todayPlan.name} · {todayKey}
                 </button>
               ) : (
-                <div className="text-sm font-medium text-indigo-500">
+                <div className="ui-eyebrow">
                   今日计划 · {todayPlan.name} · {todayKey}
                 </div>
               )}
@@ -1802,7 +1998,7 @@ export default function StudyPlanPage() {
 
         <section className="mt-10">
           <div>
-            <div className="text-sm font-medium text-indigo-500">
+            <div className="ui-eyebrow">
               每周 {storage.settings.studyDays.length} 个学习日 · 计划 {minutesLabel(weeklyPlannedMinutes)}
             </div>
             <div className="mt-1 flex flex-wrap items-baseline gap-2">
@@ -1903,7 +2099,7 @@ export default function StudyPlanPage() {
         </section>
 
         <section className="mt-10">
-          <div className="text-sm font-medium text-indigo-500">六个月路线</div>
+          <div className="ui-eyebrow">六个月路线</div>
           <div className="mt-1 flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">26 周怎么推进</h2>
             <button
@@ -2071,7 +2267,7 @@ export default function StudyPlanPage() {
                                   ? 'bg-white text-indigo-600'
                                   : 'bg-indigo-500 text-white'
                                 : isCurrentWeek
-                                ? 'bg-white/15 text-white hover:bg-white/25'
+                                ? 'bg-white/20 text-white hover:bg-white/25'
                                 : 'bg-white text-indigo-600 hover:bg-indigo-100 dark:bg-gray-800 dark:text-indigo-300 dark:hover:bg-gray-700'
                             }`}
                           >
@@ -2275,6 +2471,50 @@ export default function StudyPlanPage() {
                   <span className="self-center text-[11px] text-amber-600 dark:text-amber-300">此浏览器不支持 Passkey</span>
                 )}
               </div>
+            </div>
+
+            <div
+              data-testid="learner-cohort-panel"
+              className="w-full max-w-md rounded-xl border border-violet-100 bg-violet-50/50 p-3 text-left dark:border-violet-900 dark:bg-violet-950/30"
+            >
+              <div className="text-xs font-medium text-violet-800 dark:text-violet-200">机构班级</div>
+              <div className="mt-0.5 text-[11px] text-violet-700/80 dark:text-violet-300/80">
+                教师提供的分班邀请码（16 位）用于把本设备学习进度计入该班定级汇总；换班会覆盖原绑定。
+              </div>
+              {learnerCohort ? (
+                <p className="mt-2 text-xs text-violet-900 dark:text-violet-100">
+                  已加入：<strong>{learnerCohort.name}</strong>
+                </p>
+              ) : (
+                <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">尚未加入班级。</p>
+              )}
+              <div className="mt-2 flex gap-2">
+                <input
+                  type="text"
+                  value={cohortJoinInput}
+                  onChange={(event) => setCohortJoinInput(event.target.value)}
+                  placeholder="XXXX-XXXX-XXXX-XXXX"
+                  aria-label="分班邀请码"
+                  className="min-w-0 flex-1 rounded-lg border border-violet-200 bg-white px-2 py-1.5 font-mono text-xs uppercase tracking-wide text-gray-700 outline-none focus:border-violet-400 dark:border-violet-800 dark:bg-gray-900 dark:text-gray-200"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    void joinCohort(cohortJoinInput.trim())
+                      .then((cohort) => {
+                        setLearnerCohort(cohort)
+                        setCohortJoinInput('')
+                        setCohortJoinMessage('已加入班级。')
+                      })
+                      .catch(() => setCohortJoinMessage('邀请码无效，请向教师确认后重试。'))
+                  }}
+                  disabled={cohortJoinInput.replace(/[\s-]/g, '').length < 16}
+                  className="rounded-lg bg-violet-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-violet-500 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  加入
+                </button>
+              </div>
+              {cohortJoinMessage && <p className="mt-1 text-[11px] text-violet-800 dark:text-violet-200">{cohortJoinMessage}</p>}
             </div>
 
             <div className="w-full max-w-md rounded-xl border border-gray-100 bg-gray-50 p-3 text-left dark:border-gray-700 dark:bg-gray-900">

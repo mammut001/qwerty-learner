@@ -25,7 +25,9 @@ export default defineConfig({
   ],
   webServer: [
     {
-      command: 'node server/study-plan.mjs',
+      // A fresh database per run keeps actor-level rate limits from earlier runs out of the sync tests.
+      command:
+        "node -e \"for (const s of ['', '-wal', '-shm']) require('fs').rmSync('.tmp/study-e2e.sqlite' + s, { force: true })\" && node server/study-plan.mjs",
       url: 'http://127.0.0.1:8787/api/health',
       reuseExistingServer: !process.env.CI,
       timeout: 30_000,
@@ -35,6 +37,7 @@ export default defineConfig({
         PORT: '8787',
         STUDY_ORIGIN: 'http://localhost:4173',
         STUDY_DB_PATH: '.tmp/study-e2e.sqlite',
+        STUDY_AI_PROVIDER: 'mock',
       },
     },
     {

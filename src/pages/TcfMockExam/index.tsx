@@ -1,4 +1,5 @@
 import LookupText from '@/components/Dictionary/LookupText'
+import EchelleGoalCard from '@/components/EchelleGoalCard'
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import {
@@ -635,6 +636,7 @@ export default function TcfMockExamPage({ skill }: { skill: TcfQcmSkill }) {
                   </p>
                 </section>
               )}
+              {result && <EchelleGoalCard skill={skill} currentLevel={result.nclc} className="mt-4" />}
 
               {(mode === 'running' || mode === 'practice') && (
                 <nav

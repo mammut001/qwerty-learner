@@ -2,13 +2,14 @@ import DictionaryGroup from './CategoryDicts'
 import { LanguageTabSwitcher } from './LanguageTabSwitcher'
 import Layout from '@/components/Layout'
 import { dictionaries } from '@/resources/dictionary'
+import { getLearningProgress } from '@/services/studyPlanSync'
 import { currentDictInfoAtom } from '@/store'
 import { customDictionariesAtom, findDictionary } from '@/store/customDict'
 import type { Dictionary, LanguageCategoryType } from '@/typings'
 import groupBy from '@/utils/groupBy'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import { useAtomValue } from 'jotai'
-import { createContext, useCallback, useEffect, useMemo } from 'react'
+import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { NavLink, useNavigate, useSearchParams } from 'react-router-dom'
 import type { Updater } from 'use-immer'
@@ -35,6 +36,13 @@ export default function GalleryPage() {
   const currentDictInfo = useAtomValue(currentDictInfoAtom)
   const customDictionaries = useAtomValue(customDictionariesAtom)
   const targetDictionary = findDictionary(searchParams.get('dict'), customDictionaries)
+  const [placementDictIds, setPlacementDictIds] = useState<string[]>([])
+
+  useEffect(() => {
+    void getLearningProgress()
+      .then((learning) => setPlacementDictIds(learning.placement?.latest?.recommendations.vocabularyDictIds ?? []))
+      .catch(() => undefined)
+  }, [])
 
   const groupedByCategory = useMemo(() => {
     const currentLanguageCategoryDicts = [...customDictionaries, ...dictionaries].filter(
@@ -76,6 +84,13 @@ export default function GalleryPage() {
                 <LanguageTabSwitcher />
                 <div className="flex gap-2">
                   <NavLink
+                    to="/placement-test"
+                    data-testid="gallery-placement-link"
+                    className="rounded-xl bg-violet-50 px-4 py-2 text-sm font-medium text-violet-800 transition hover:bg-violet-100 dark:bg-violet-950/50 dark:text-violet-200"
+                  >
+                    定级测试
+                  </NavLink>
+                  <NavLink
                     to="/word-lists"
                     data-testid="gallery-word-lists"
                     className="rounded-xl bg-indigo-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-600"
@@ -102,6 +117,14 @@ export default function GalleryPage() {
                   </NavLink>
                 </div>
               </div>
+              {placementDictIds.length > 0 && (
+                <div
+                  data-testid="gallery-placement-hint"
+                  className="mb-6 mr-20 rounded-xl border border-violet-200 bg-violet-50/80 px-4 py-3 text-sm text-violet-950 dark:border-violet-800 dark:bg-violet-950/40 dark:text-violet-100"
+                >
+                  定级推荐词库已高亮；26 周大纲仍按学习计划日历推进，词库区按你的 CEFR 水平优先展示。
+                </div>
+              )}
               <ScrollArea.Root className="flex-1 overflow-y-auto">
                 <ScrollArea.Viewport className="h-full w-full ">
                   <div className="mr-4 flex flex-1 flex-col items-start justify-start gap-14 overflow-y-auto">
@@ -111,6 +134,7 @@ export default function GalleryPage() {
                         category={category}
                         dictionaries={categoryDictionaries}
                         targetDictionaryId={targetDictionary?.id}
+                        placementRecommendedDictIds={placementDictIds}
                       />
                     ))}
                   </div>

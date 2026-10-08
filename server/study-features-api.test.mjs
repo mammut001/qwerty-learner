@@ -181,7 +181,7 @@ test('error book, checkins, achievements, reports, rate limits, audit and delete
     assert.equal(syncKey.response.status, 200)
 
     const inspect = new DatabaseSync(database)
-    assert.equal(Number(inspect.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").get().value), 8)
+    assert.equal(Number(inspect.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").get().value), 9)
     assert.ok(inspect.prepare("SELECT COUNT(*) AS count FROM audit_log WHERE action='sync_key_create'").get().count >= 1)
     assert.ok(inspect.prepare("SELECT COUNT(*) AS count FROM audit_log WHERE action='checkin_makeup'").get().count >= 1)
     inspect.close()

@@ -1,4 +1,5 @@
 import LookupText from '@/components/Dictionary/LookupText'
+import EchelleGoalCard from '@/components/EchelleGoalCard'
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
 import { type TcfEeScores, calculateEeTotalScore, countFrenchWords, estimateTcfEeNclc } from '@/resources/tcfEvaluation'
@@ -633,6 +634,8 @@ export default function TcfWritingPage() {
                   本评估依据 4 维度对照标准估算，仅供备考冲刺与阶段性自查，正式成绩以官方评分单为准。
                 </div>
               </div>
+
+              <EchelleGoalCard skill="writing" currentLevel={estimatedNclc} />
 
               {/* Rubric evaluation form */}
               <div

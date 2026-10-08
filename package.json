@@ -60,7 +60,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "server": "node server/study-plan.mjs",
+    "server": "node --env-file-if-exists=.env.local server/study-plan.mjs",
     "deploy:free": "node --env-file-if-exists=deploy/.env scripts/deploy-free.mjs",
     "smoke:study": "node scripts/smoke-study.mjs",
     "test:cloud": "node scripts/test-cloud-deploy.mjs",

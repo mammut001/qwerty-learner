@@ -242,7 +242,7 @@ test('client offline queue, LWW merge, review scheduling and sync bind/unbind', 
     cookie = ownerCookie
     const backup = await reloaded.exportRemoteStudyPlan(initial)
     assert.equal(backup.version, 5)
-    assert.equal(backup.schemaVersion, 8)
+    assert.equal(backup.schemaVersion, 9)
     const imported = {
       ...backup.state,
       startDate: '2026-09-01',

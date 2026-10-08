@@ -93,8 +93,8 @@ export default function DictionaryPage() {
       <Header />
       <main className="w-full flex-1 overflow-y-auto px-4 pb-8 sm:px-6">
         <div className="mx-auto w-full max-w-3xl">
-          <div className="text-sm font-medium text-indigo-500">离线法语词典</div>
-          <h1 className="mt-1 text-3xl font-semibold text-gray-900 dark:text-white">查词</h1>
+          <div className="ui-eyebrow">离线法语词典</div>
+          <h1 className="ui-title mt-3">查词</h1>
 
           <form
             role="search"

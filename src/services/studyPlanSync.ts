@@ -1,3 +1,8 @@
+import { computePlacementResult } from '../../server/placement-data.mjs'
+import { scoreEchelleItem } from '../resources/echelleCurriculum'
+import { nextMemory } from '../resources/echelleMemory'
+import type { PlacementProfile, PlacementResult } from '../resources/placementTest'
+
 type StudyPlanSettings = {
   examDate: string
   dailyTargetMinutes: number | null
@@ -294,6 +299,44 @@ export type SyncMeta = {
   grammarDraftUpdatedAt: number
 }
 
+export type EchelleCorrection = { original: string; suggestion: string; explanationZh: string }
+
+export type EchelleStoredEvaluation = {
+  passed: boolean
+  scores: Record<string, number>
+  mean: number
+  estimatedLevel: number
+  feedbackZh: string
+  provider: string
+  model: string
+  rubricVersion: string
+  evaluatedAt: number
+  corrections: EchelleCorrection[]
+}
+
+export type EchelleEvaluation = EchelleStoredEvaluation & {
+  criteria: { id: string; labelZh: string; score: number; evidence: string; commentZh: string }[]
+  strengthsZh: string[]
+  requiredMean: number
+  warnings: string[]
+}
+
+export type EchelleAiStatus = { enabled: boolean; provider: string | null; model: string | null; rubricVersion: string }
+
+export type EchelleItemRecord = {
+  mastered: boolean
+  score: number
+  attempts: number
+  updatedAt: number
+  stage?: number
+  dueAt?: number | null
+  lastPassedAt?: number | null
+  lapses?: number
+  method?: 'check' | 'self' | 'ai'
+  ai?: EchelleStoredEvaluation
+  response?: string[] | { selfChecks?: boolean[]; wordCount?: number; seconds?: number }
+}
+
 export type LearningProgress = {
   vocabulary: { records: VocabularyProgressRecord[] }
   grammar: { draft: GrammarDraft | null; history: GrammarSessionRecord[] }
@@ -302,7 +345,9 @@ export type LearningProgress = {
   conjugationAttempts: ConjugationAttempt[]
   focusSessions: FocusSessionRecord[]
   tcfAttempts: TcfAttemptRecord[]
+  placement: PlacementProfile
   reviews: { items: Record<string, ReviewState> }
+  echelle: { items: Record<string, EchelleItemRecord> }
 }
 
 export type StudyServerState = StudyPlanStorage & {
@@ -439,14 +484,26 @@ export type StudyDashboard = {
 }
 
 export type SmartTodayTask = {
-  id: 'smart-review' | 'smart-vocab' | 'smart-grammar' | 'smart-conjugation'
-  kind: 'review' | ReviewKind
+  id: 'smart-review' | 'smart-vocab' | 'smart-grammar' | 'smart-conjugation' | 'smart-placement-focus' | 'smart-placement-secondary'
+  kind: 'review' | ReviewKind | 'placement' | 'reading' | 'listening'
   title: string
   minutes: number
   href: string
   reason: string
   actualMinutes: number
   complete: boolean
+}
+
+export type PlacementAnalyticsSummary = {
+  cefrLevel: string
+  suggestedStartWeek: number
+  studyPhaseId?: number
+  weakestSection: string
+  secondWeakestSection?: string
+  primaryDictId?: string
+  grammarTopicId?: string
+  tcfBoostHref?: string
+  ranked?: Array<{ section: string; ratio: number }>
 }
 
 export type SmartTodayPlan = {
@@ -456,6 +513,7 @@ export type SmartTodayPlan = {
   dueReviews: number
   activeErrors: number
   completedMinutes: number
+  placement: PlacementAnalyticsSummary | null
   tasks: SmartTodayTask[]
 }
 
@@ -524,6 +582,20 @@ export type StudyAnalytics = {
   }
   reviewDue: number
   dashboard: StudyDashboard
+  placement: PlacementAnalyticsSummary | null
+  echelle: {
+    currentLevel: number
+    passedLevels: number[]
+    totalItems: number
+    masteredItems: number
+    levels: Array<{
+      level: number
+      passed: boolean
+      total: number
+      mastered: number
+      skills: Record<string, { total: number; mastered: number }>
+    }>
+  }
   today: SmartTodayPlan
 }
 
@@ -542,6 +614,14 @@ type Operation =
   | { kind: 'conjugationAttempt'; value: ConjugationAttempt }
   | { kind: 'focusSession'; value: FocusSessionRecord }
   | { kind: 'tcfAttempt'; value: TcfAttemptRecord }
+  | { kind: 'placementResult'; value: PlacementResult }
+  | {
+      kind: 'echelleCheck'
+      itemId: string
+      answers?: string[]
+      response?: { selfChecks: boolean[]; wordCount?: number; seconds?: number }
+      updatedAt: number
+    }
   | {
       kind: 'reviewResult'
       itemId: string
@@ -631,7 +711,9 @@ export function emptyLearningProgress(): LearningProgress {
     conjugationAttempts: [],
     focusSessions: [],
     tcfAttempts: [],
+    placement: { latest: null, history: [] },
     reviews: { items: {} },
+    echelle: { items: {} },
   }
 }
 
@@ -655,7 +737,9 @@ function withLearning(state: StudyPlanStorage | StudyServerState): StudyServerSt
           conjugationAttempts: learning.conjugationAttempts ?? [],
           focusSessions: learning.focusSessions ?? [],
           tcfAttempts: learning.tcfAttempts ?? [],
+          placement: learning.placement ?? { latest: null, history: [] },
           reviews: { items: learning.reviews?.items ?? {} },
+          echelle: learning.echelle ?? { items: {} },
         }
       : emptyLearningProgress(),
     syncMeta: source.syncMeta
@@ -1071,6 +1155,114 @@ export function recordTcfAttempt(input: Omit<TcfAttemptRecord, 'id' | 'day'> & {
     return { ...state, learning: { ...state.learning, tcfAttempts: attempts } }
   })
   return attempt
+}
+
+const MAX_PLACEMENT_HISTORY = 5
+
+export type PlacementResultInput = {
+  id?: string
+  startedAt: number
+  finishedAt: number
+  day?: string
+  durationSeconds: number
+  answers: { questionId: string; choiceIndex: number }[]
+}
+
+export function recordPlacementResult(input: PlacementResultInput): PlacementResult {
+  if (!Array.isArray(input.answers) || input.answers.length === 0) throw new Error('INVALID_PLACEMENT_ANSWERS')
+  const result = computePlacementResult({
+    ...input,
+    id: input.id ?? crypto.randomUUID(),
+    day: input.day ?? localDay(input.finishedAt),
+  }) as PlacementResult
+
+  optimisticOperation({ kind: 'placementResult', value: result }, (state) => {
+    const history = [...state.learning.placement.history.filter((item) => item.id !== result.id), result]
+      .sort((a, b) => a.finishedAt - b.finishedAt || a.id.localeCompare(b.id))
+      .slice(-MAX_PLACEMENT_HISTORY)
+    return {
+      ...state,
+      learning: {
+        ...state.learning,
+        placement: { latest: result, history },
+      },
+    }
+  })
+  return result
+}
+
+export type EchelleCheckInput = {
+  itemId: string
+  answers?: string[]
+  response?: { selfChecks: boolean[]; wordCount?: number; seconds?: number }
+  /** When the server has AI scoring enabled, a self-assessment is recorded but never counts as mastery. */
+  aiRequired?: boolean
+}
+
+export function recordEchelleMastery(input: EchelleCheckInput) {
+  const result = scoreEchelleItem(input.itemId, input.answers, input.response)
+  if (!result) throw new Error('UNKNOWN_ECHELLE_ITEM')
+  // The server keeps the newest attempt only, so retries within one millisecond must still move forward.
+  const previous = ensureFallback().learning.echelle.items[input.itemId]
+  const updatedAt = Math.max(Date.now(), (previous?.updatedAt ?? 0) + 1)
+  const operation: Operation = {
+    kind: 'echelleCheck',
+    itemId: input.itemId,
+    updatedAt,
+    ...(input.answers ? { answers: input.answers } : {}),
+    ...(input.response ? { response: input.response } : {}),
+  }
+
+  const production = result.kind === 'production'
+  const selfAssess = !(production && input.aiRequired)
+  optimisticOperation(operation, (state) => {
+    const existing = state.learning.echelle.items[input.itemId]
+    const record: EchelleItemRecord = {
+      ...nextMemory(existing, result.mastered && selfAssess, updatedAt),
+      score: selfAssess ? result.score : 0,
+      attempts: (existing?.attempts ?? 0) + 1,
+      updatedAt,
+      method: production ? 'self' : 'check',
+      response: input.answers ?? input.response,
+    }
+    return {
+      ...state,
+      learning: {
+        ...state.learning,
+        echelle: { items: { ...state.learning.echelle.items, [input.itemId]: record } },
+      },
+    }
+  })
+  return { ...result, mastered: result.mastered && selfAssess }
+}
+
+let echelleAiStatus: Promise<EchelleAiStatus> | undefined
+
+export function loadEchelleAiStatus(): Promise<EchelleAiStatus> {
+  echelleAiStatus ??= api('GET', '/echelle/ai')
+    .then((payload) => payload as unknown as EchelleAiStatus)
+    .catch(() => {
+      echelleAiStatus = undefined
+      return { enabled: false, provider: null, model: null, rubricVersion: '' }
+    })
+  return echelleAiStatus
+}
+
+export type EchelleEvaluationInput = {
+  itemId: string
+  text: string
+  seconds?: number
+  inputMode?: 'typed' | 'speech' | 'manual-transcript'
+}
+
+/** Scores a writing/speaking answer on the server; the server writes the result into the learner's state. */
+export async function evaluateEchelleProduction(input: EchelleEvaluationInput): Promise<EchelleEvaluation> {
+  await syncStudyPlan()
+  if (pending().length) throw new Error('PENDING_MUTATIONS')
+  const payload = await api('POST', '/echelle/evaluate', input)
+  const state = payload.state as StudyServerState | undefined
+  if (state) publish(withLearning(state))
+  return payload.evaluation as EchelleEvaluation
 }
 
 export function recordVocabularyProgress(input: VocabularyProgressInput) {
@@ -1926,6 +2118,23 @@ export async function deleteTcfEoAttempt(id: string): Promise<boolean> {
   } catch {
     return false
   }
+}
+
+export type LearnerCohortBinding = {
+  cohortId: string
+  name: string
+  joinedAt: number
+}
+
+export async function loadLearnerCohort(): Promise<LearnerCohortBinding | null> {
+  const payload = await api('GET', '/cohort')
+  const cohort = payload.cohort as LearnerCohortBinding | null
+  return cohort ?? null
+}
+
+export async function joinCohort(code: string): Promise<LearnerCohortBinding> {
+  const payload = await api('POST', '/cohort/join', { code })
+  return payload.cohort as LearnerCohortBinding
 }
 
 export async function deleteAllStudyData() {

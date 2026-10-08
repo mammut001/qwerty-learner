@@ -1,5 +1,20 @@
 import { studyPolicy, sessionCookie } from './study-http.mjs'
 import { errorBookCsv, learningRecordsCsv, weeklyReportsCsv } from './study-csv.mjs'
+import {
+  adminApiEnabled,
+  authorizeAdminRequest,
+  loadPlacementCohortReportFromDb,
+  placementCohortCsv,
+} from './study-admin.mjs'
+import {
+  createCohort,
+  getLearnerCohort,
+  joinLearnerToCohort,
+  listCohorts,
+  rotateCohortJoinCode,
+} from './study-cohorts.mjs'
+import { EchelleAiError, RUBRIC_VERSION, evaluateProduction, evaluationOperation, validateSubmission } from './echelle-ai-harness.mjs'
+import { aiRateLimits, aiStatus, createAiProvider } from './echelle-ai-providers.mjs'
 import { bearerMatches, createStudyMetrics, logStudyRequest, loopbackAddress, studyRequestId } from './study-observability.mjs'
 import {
   createNodePasskeyLoginOptions,
@@ -143,6 +158,9 @@ export function createStudyServer({
   slowRequestMs = Number(process.env.STUDY_SLOW_REQUEST_MS || 1000),
   staticDir = process.env.STUDY_STATIC_DIR || '',
   accessPassword = process.env.STUDY_ACCESS_PASSWORD || '',
+  adminToken = process.env.STUDY_ADMIN_TOKEN || '',
+  aiProvider = createAiProvider(process.env),
+  aiLimits = aiRateLimits(process.env),
 } = {}) {
   mkdirSync(dirname(resolve(database)), { recursive: true })
   const db = new DatabaseSync(database)
@@ -284,11 +302,23 @@ export function createStudyServer({
     const tcfSpeaking = path === '/api/study-plan/tcf-speaking'
     const tcfAttempts = path === '/api/study-plan/tcf-attempts'
     const access = path === '/api/study-plan/access'
+    const adminConfig = path === '/api/study-plan/admin/config'
+    const adminPlacementCohort = path === '/api/study-plan/admin/placement-cohort'
+    const adminPlacementCsv = path === '/api/study-plan/admin/placement-cohort.csv'
+    const adminCohorts = path === '/api/study-plan/admin/cohorts'
+    const adminCohortRotate = path === '/api/study-plan/admin/cohorts/rotate'
+    const cohortInfo = path === '/api/study-plan/cohort'
+    const cohortJoin = path === '/api/study-plan/cohort/join'
+    const echelleAi = path === '/api/study-plan/echelle/ai'
+    const echelleEvaluate = path === '/api/study-plan/echelle/evaluate'
     const plan = path === '/api/study-plan'
     if (!health && !importing && !exporting && !analytics && !syncKey && !revokeSyncKey && !linking && !unlinking &&
+        !echelleAi && !echelleEvaluate &&
         !syncInfo && !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData &&
         !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
-        !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts && !access && !plan) {
+        !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts && !access &&
+        !adminConfig && !adminPlacementCohort && !adminPlacementCsv && !adminCohorts && !adminCohortRotate &&
+        !cohortInfo && !cohortJoin && !plan) {
       if (staticDir && !path.startsWith('/api/')) {
         return serveStatic(req, res, staticDir)
       }
@@ -328,6 +358,8 @@ export function createStudyServer({
         db.prepare('SELECT credential_id,account_id FROM passkeys LIMIT 1').get()
         db.prepare('SELECT challenge,purpose FROM passkey_challenges LIMIT 1').get()
         db.prepare('SELECT token_hash,account_id FROM account_sessions LIMIT 1').get()
+        db.prepare('SELECT id,name FROM cohorts LIMIT 1').get()
+        db.prepare('SELECT learner,cohort_id FROM learner_cohorts LIMIT 1').get()
         const schemaVersion = getNodeSchemaVersion(db)
         if (schemaVersion !== STUDY_SCHEMA_VERSION) throw new Error('Schema version mismatch')
         return send(200, { ok: true, storage: 'sqlite', schemaVersion })
@@ -370,14 +402,86 @@ export function createStudyServer({
         'Set-Cookie': accessCookie(`${expires}.${signAccess(expires).toString('hex')}`, Math.floor(ACCESS_TTL_MS / 1000)),
       })
     }
+    if (adminConfig) {
+      if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      return send(200, { enabled: adminApiEnabled(adminToken) })
+    }
+
+    if (adminPlacementCohort || adminPlacementCsv) {
+      if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      const auth = authorizeAdminRequest(req.headers.authorization, adminToken)
+      if (!auth.ok) {
+        audit(null, 'admin_placement_cohort', auth.status === 401 ? 'denied' : 'disabled')
+        return sendError(auth.status, auth.code, auth.message)
+      }
+      const cohortId = requestUrl.searchParams.get('cohortId') || null
+      const report = loadPlacementCohortReportFromDb(db, cohortId)
+      audit(null, 'admin_placement_cohort', 'success', {
+        learners: report.totalLearners,
+        completed: report.placementCompleted,
+        cohortId: report.cohortId,
+      })
+      if (adminPlacementCsv) return sendCsv('placement-cohort.csv', placementCohortCsv(report))
+      return send(200, { report })
+    }
+
+    if (adminCohorts || adminCohortRotate) {
+      const auth = authorizeAdminRequest(req.headers.authorization, adminToken)
+      if (!auth.ok) return sendError(auth.status, auth.code, auth.message)
+      if (adminCohorts) {
+        if (req.method === 'GET') return send(200, { cohorts: listCohorts(db) })
+        if (req.method === 'POST') {
+          let input
+          try {
+            input = await readBody(req)
+          } catch {
+            return sendError(400, 'COHORT_REQUEST_INVALID', 'Invalid cohort request')
+          }
+          if (!hasExactKeys(input, ['name'], ['name']) || typeof input.name !== 'string')
+            return sendError(400, 'COHORT_REQUEST_INVALID', 'Invalid cohort request')
+          try {
+            const cohort = createCohort(db, input.name)
+            audit(null, 'admin_cohort_create', 'success', { cohortId: cohort.id })
+            return send(200, { cohort })
+          } catch {
+            return sendError(400, 'COHORT_REQUEST_INVALID', 'Invalid cohort name')
+          }
+        }
+        return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      }
+      if (req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      let input
+      try {
+        input = await readBody(req)
+      } catch {
+        return sendError(400, 'COHORT_REQUEST_INVALID', 'Invalid cohort request')
+      }
+      if (!hasExactKeys(input, ['cohortId'], ['cohortId']) || typeof input.cohortId !== 'string')
+        return sendError(400, 'COHORT_REQUEST_INVALID', 'Invalid cohort request')
+      try {
+        const rotated = rotateCohortJoinCode(db, input.cohortId)
+        audit(null, 'admin_cohort_rotate', 'success', { cohortId: rotated.cohortId })
+        return send(200, { cohort: rotated })
+      } catch {
+        return sendError(404, 'COHORT_NOT_FOUND', 'Cohort not found')
+      }
+    }
+
     if (!accessGranted(req.headers.cookie)) return sendError(401, 'ACCESS_REQUIRED', 'Access password required')
+
+    if (echelleAi) {
+      if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      return send(200, aiStatus(aiProvider, RUBRIC_VERSION))
+    }
+    if (echelleEvaluate && req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
 
     if ((importing || syncKey || revokeSyncKey || linking || unlinking || makeup || passkeyRegisterOptions ||
         passkeyRegisterVerify || passkeyLoginOptions || passkeyLoginVerify) && req.method !== 'POST')
       return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if ((exporting || analytics || syncInfo || review || errorBook || checkins || achievements || reports || reportExport ||
-        account || recordsCsv || errorCsv || reportsCsv || tcfAttempts) && req.method !== 'GET')
+        account || recordsCsv || errorCsv || reportsCsv || tcfAttempts || cohortInfo) && req.method !== 'GET')
       return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+    if (cohortJoin && req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if (tcfWritingDraft && !['GET', 'POST', 'PUT', 'DELETE'].includes(req.method)) return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if (tcfWriting && !['GET', 'POST'].includes(req.method)) return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if (tcfSpeaking && !['GET', 'POST', 'DELETE'].includes(req.method)) return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
@@ -480,6 +584,81 @@ export function createStudyServer({
       viaSyncKey = false
       viaAccount = false
       res.setHeader('Set-Cookie', sessionCookie(next, { secure, sameSite }))
+    }
+
+    if (cohortInfo && req.method === 'GET') return send(200, { cohort: getLearnerCohort(db, learner) })
+
+    if (echelleEvaluate) {
+      if (!aiProvider) return sendError(503, 'AI_DISABLED', 'AI scoring is not configured')
+      if (!row.state) return sendError(409, 'PLAN_UNINITIALIZED', 'Initialize plan first')
+      let input
+      let submission
+      try {
+        input = await readBody(req)
+        submission = validateSubmission(input).submission
+      } catch (error) {
+        if (error instanceof EchelleAiError)
+          return sendError(400, error.code, 'Invalid evaluation request', error.details)
+        return sendError(error instanceof RangeError ? 413 : 400, 'EVALUATION_INVALID', 'Invalid evaluation request')
+      }
+      for (const { scope, ...window } of aiLimits) {
+        const key = scope === 'learner' ? 'learner:' + learner : scope === 'actor' ? 'actor:' + actorHash : 'global'
+        const limit = consumeNodeRateLimit(db, key, 'ai-eval', window)
+        if (!limit.allowed) {
+          audit(learner, 'echelle_ai_evaluate', 'rate_limited', { scope })
+          return sendError(429, 'AI_RATE_LIMITED', 'Too many AI evaluations. Try again later.', {
+            scope,
+            retryAfterSeconds: Math.ceil(limit.retryAfterMs / 1000),
+          })
+        }
+      }
+      let evaluation
+      try {
+        evaluation = await evaluateProduction(input, aiProvider)
+      } catch (error) {
+        const code = error instanceof EchelleAiError ? error.code : 'AI_UNAVAILABLE'
+        audit(learner, 'echelle_ai_evaluate', 'error', { code, itemId: submission.itemId })
+        return sendError(502, code, 'AI scoring failed; retry later')
+      }
+      db.exec('BEGIN IMMEDIATE')
+      try {
+        const current = db.prepare('SELECT state FROM learners WHERE id=?').get(learner)
+        const state = apply(normalizeState(JSON.parse(current.state)), [evaluationOperation(evaluation, submission, Date.now())], { trusted: true })
+        db.prepare('UPDATE learners SET state=? WHERE id=?').run(JSON.stringify(state), learner)
+        materializeNodeFeatures(db, learner, state)
+        db.exec('COMMIT')
+        audit(learner, 'echelle_ai_evaluate', 'success', { itemId: submission.itemId, passed: evaluation.passed, mean: evaluation.mean })
+        return send(200, { evaluation, state })
+      } catch (error) {
+        db.exec('ROLLBACK')
+        throw error
+      }
+    }
+
+    if (cohortJoin) {
+      const limit = consumeNodeRateLimit(db, 'actor:' + actorHash, 'cohort-join', {
+        limit: 12,
+        windowMs: 10 * 60_000,
+        blockMs: 15 * 60_000,
+      })
+      if (!limit.allowed)
+        return sendError(429, 'COHORT_JOIN_RATE_LIMITED', 'Too many join attempts. Try again later.')
+      let input
+      try {
+        input = await readBody(req)
+      } catch {
+        return sendError(400, 'COHORT_JOIN_INVALID', 'Invalid join request')
+      }
+      if (!hasExactKeys(input, ['code'], ['code']) || typeof input.code !== 'string' || input.code.length > 40)
+        return sendError(400, 'COHORT_JOIN_INVALID', 'Invalid join request')
+      try {
+        const cohort = joinLearnerToCohort(db, learner, input.code)
+        audit(learner, 'cohort_join', 'success', { cohortId: cohort.cohortId })
+        return send(200, { cohort })
+      } catch {
+        audit(learner, 'cohort_join', 'denied')
+        return sendError(400, 'COHORT_JOIN_INVALID', 'Invalid or expired class join code')
+      }
     }
 
     if (account) return send(200, nodePasskeyAccountInfo(db, learner, viaAccount))
@@ -883,7 +1062,7 @@ export function createStudyServer({
           const seen = db.prepare('SELECT payload FROM mutations WHERE learner=? AND id=?').get(learner, input.id)
           if (seen && seen.payload !== payload) throw new Error('Mutation ID reused')
           if (!seen) {
-            state = apply(state, input.operations)
+            state = apply(state, input.operations, { selfAssessProduction: !aiProvider })
             db.prepare('INSERT INTO mutations VALUES(?,?,?)').run(learner, input.id, payload)
           }
         }

@@ -14,9 +14,10 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 interface Props {
   dictionary: Dictionary
   autoOpen?: boolean
+  placementRecommended?: boolean
 }
 
-export default function DictionaryComponent({ dictionary, autoOpen = false }: Props) {
+export default function DictionaryComponent({ dictionary, autoOpen = false, placementRecommended = false }: Props) {
   const currentDictID = useAtomValue(currentDictIdAtom)
   const [open, setOpen] = useState(false)
 
@@ -41,8 +42,12 @@ export default function DictionaryComponent({ dictionary, autoOpen = false }: Pr
         ref={buttonRef}
         type="button"
         onClick={() => setOpen(true)}
-        className={`group flex h-36 w-80 cursor-pointer items-center justify-center overflow-hidden rounded-lg p-4 text-left shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 ${
-          isSelected ? 'bg-indigo-400' : 'bg-zinc-50 hover:bg-white dark:bg-gray-800 dark:hover:bg-gray-700'
+        className={`group relative flex h-36 w-80 cursor-pointer items-center justify-center overflow-hidden rounded-lg p-4 text-left shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 ${
+          placementRecommended
+            ? 'bg-violet-50 ring-2 ring-violet-400 hover:bg-violet-100 dark:bg-violet-950/40 dark:hover:bg-violet-900/50'
+            : isSelected
+            ? 'bg-indigo-400'
+            : 'bg-zinc-50 hover:bg-white dark:bg-gray-800 dark:hover:bg-gray-700'
         }`}
         aria-label={`打开词库：${dictionary.name}`}
       >
@@ -54,6 +59,11 @@ export default function DictionaryComponent({ dictionary, autoOpen = false }: Pr
           >
             {dictionary.name}
           </h1>
+          {placementRecommended && (
+            <span className="mb-1 inline-block rounded-full bg-violet-600 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
+              定级推荐
+            </span>
+          )}
 
           <TooltipProvider>
             <Tooltip delayDuration={400}>
@@ -72,18 +82,14 @@ export default function DictionaryComponent({ dictionary, autoOpen = false }: Pr
             </Tooltip>
           </TooltipProvider>
 
-          <p className={`mb-0.5 font-bold ${isSelected ? 'text-white' : 'text-gray-600 dark:text-gray-200'}`}>
-            {dictionary.length} 词
-          </p>
+          <p className={`mb-0.5 font-bold ${isSelected ? 'text-white' : 'text-gray-600 dark:text-gray-200'}`}>{dictionary.length} 词</p>
 
           <div className="flex w-full items-center pt-2">
             {progress > 0 && (
               <Progress.Root
                 value={progress}
                 max={100}
-                className={`mr-4 h-2 w-full rounded-full border bg-white ${
-                  isSelected ? 'border-indigo-600' : 'border-indigo-400'
-                }`}
+                className={`mr-4 h-2 w-full rounded-full border bg-white ${isSelected ? 'border-indigo-600' : 'border-indigo-400'}`}
               >
                 <Progress.Indicator
                   className={`h-full rounded-full pl-0 ${isSelected ? 'bg-indigo-600' : 'bg-indigo-400'}`}

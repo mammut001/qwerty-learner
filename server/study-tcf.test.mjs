@@ -163,7 +163,7 @@ test('TCF attempts persist, materialize and restore through a linked device', as
 
     const inspect = new DatabaseSync(database)
     assert.equal(inspect.prepare('SELECT COUNT(*) AS count FROM tcf_attempts').get().count, 1)
-    assert.equal(Number(inspect.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").get().value), 8)
+    assert.equal(Number(inspect.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").get().value), 9)
     inspect.close()
 
     await stop()

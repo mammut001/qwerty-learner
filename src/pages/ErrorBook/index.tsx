@@ -70,23 +70,30 @@ export function ErrorBook() {
         <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col overflow-hidden">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <div className="text-sm font-medium text-indigo-500">服务端统一错题本</div>
-              <h1 className="mt-1 text-3xl font-semibold text-gray-900 dark:text-white">词汇 · 语法 · 动词变位</h1>
-              <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">答错自动进入；连续答对 3 次自动标记掌握并退出今日 SM-2 复习。</p>
+              <div className="ui-eyebrow">服务端统一错题本</div>
+              <h1 className="ui-title mt-3">词汇 · 语法 · 动词变位</h1>
+              <p className="ui-subtle mt-2">答错自动进入；连续答对 3 次自动标记掌握并退出今日 SM-2 复习。</p>
             </div>
-            <div className="rounded-xl bg-indigo-50 px-4 py-3 text-sm text-indigo-700 dark:bg-indigo-950/30 dark:text-indigo-300">
-              当前列表 {items.length} 项 · 未掌握 {activeCount} 项
+            <div className="flex gap-2">
+              <div className="ui-stat min-w-[7rem] py-3">
+                <div className="ui-stat-label">当前列表</div>
+                <div className="ui-stat-value text-xl">{items.length}</div>
+              </div>
+              <div className="ui-stat min-w-[7rem] py-3">
+                <div className="ui-stat-label">未掌握</div>
+                <div className="ui-stat-value text-xl text-amber-600 dark:text-amber-400">{activeCount}</div>
+              </div>
             </div>
           </div>
 
-          <div className="mt-6 grid gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:grid-cols-4">
-            <label className="text-xs text-gray-500">
+          <div className="my-card mt-6 grid gap-4 rounded-3xl bg-white p-5 dark:bg-gray-800 md:grid-cols-4">
+            <label className="ui-stat-label">
               类型
               <select
                 aria-label="错题类型"
                 value={type}
                 onChange={(event) => setType(event.target.value as TypeFilter)}
-                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100"
+                className="ui-input mt-1.5 w-full"
               >
                 <option value="">全部</option>
                 <option value="vocabulary">词汇</option>
@@ -94,37 +101,37 @@ export function ErrorBook() {
                 <option value="conjugation">动词变位</option>
               </select>
             </label>
-            <label className="text-xs text-gray-500">
+            <label className="ui-stat-label">
               状态
               <select
                 aria-label="错题状态"
                 value={status}
                 onChange={(event) => setStatus(event.target.value as StatusFilter)}
-                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100"
+                className="ui-input mt-1.5 w-full"
               >
                 <option value="active">待掌握</option>
                 <option value="mastered">已掌握</option>
                 <option value="all">全部</option>
               </select>
             </label>
-            <label className="text-xs text-gray-500">
+            <label className="ui-stat-label">
               从
               <input
                 aria-label="错题开始日期"
                 type="date"
                 value={from}
                 onChange={(event) => setFrom(event.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100"
+                className="ui-input mt-1.5 w-full"
               />
             </label>
-            <label className="text-xs text-gray-500">
+            <label className="ui-stat-label">
               到
               <input
                 aria-label="错题结束日期"
                 type="date"
                 value={to}
                 onChange={(event) => setTo(event.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100"
+                className="ui-input mt-1.5 w-full"
               />
             </label>
           </div>
@@ -134,10 +141,14 @@ export function ErrorBook() {
           <ScrollArea.Root className="mt-5 flex-1 overflow-hidden" aria-label="错题列表">
             <ScrollArea.Viewport className="h-full w-full pb-16">
               {loading ? (
-                <div className="rounded-2xl bg-gray-50 p-8 text-center text-sm text-gray-400 dark:bg-gray-900">正在读取错题本…</div>
+                <div className="ui-panel p-10 text-center text-sm text-gray-400">正在读取错题本…</div>
               ) : items.length === 0 ? (
-                <div className="rounded-2xl bg-green-50 p-8 text-center text-sm text-green-700 dark:bg-green-950/30 dark:text-green-300">
-                  当前筛选下没有错题。
+                <div className="ui-panel flex flex-col items-center gap-2 p-12 text-center">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 text-lg text-emerald-600 ring-1 ring-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-400/20">
+                    ✓
+                  </span>
+                  <div className="text-sm font-medium text-gray-800 dark:text-gray-100">当前筛选下没有错题。</div>
+                  <div className="text-xs text-gray-400">答错的词汇、语法与变位会自动出现在这里</div>
                 </div>
               ) : (
                 <div className="grid gap-3">
@@ -145,11 +156,9 @@ export function ErrorBook() {
                     <div
                       key={item.itemId}
                       data-testid="error-book-item"
-                      className="flex flex-wrap items-center gap-4 rounded-2xl border border-gray-100 bg-white px-5 py-4 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+                      className="flex flex-wrap items-center gap-4 rounded-2xl border border-gray-200/70 bg-white px-5 py-4 transition-all hover:-translate-y-px hover:shadow-md dark:border-white/[0.06] dark:bg-gray-800"
                     >
-                      <span className="rounded-full bg-indigo-50 px-2.5 py-1 text-xs text-indigo-600 dark:bg-indigo-950 dark:text-indigo-300">
-                        {typeLabel[item.kind]}
-                      </span>
+                      <span className="ui-chip-accent">{typeLabel[item.kind]}</span>
                       <div className="min-w-0 flex-1">
                         <div className="truncate font-medium text-gray-900 dark:text-white">{item.label}</div>
                         <div className="mt-1 text-xs text-gray-400">
@@ -159,14 +168,14 @@ export function ErrorBook() {
                           <div className="mt-1 truncate text-xs text-gray-500">{item.context.prompt}</div>
                         )}
                       </div>
-                      <span className={item.mastered ? 'text-sm text-green-600' : 'text-sm text-amber-600'}>
+                      <span
+                        className={
+                          item.mastered ? 'ui-chip text-emerald-600 dark:text-emerald-300' : 'ui-chip text-amber-600 dark:text-amber-300'
+                        }
+                      >
                         {item.mastered ? '已掌握' : '待重练'}
                       </span>
-                      <button
-                        type="button"
-                        onClick={() => retry(item)}
-                        className="rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white outline-none hover:bg-indigo-700 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 dark:bg-indigo-500 dark:hover:bg-indigo-400"
-                      >
+                      <button type="button" onClick={() => retry(item)} className="ui-btn-primary">
                         一键重练
                       </button>
                     </div>
