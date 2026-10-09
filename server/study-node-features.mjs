@@ -7,7 +7,7 @@ const parseJson = (value, fallback = null) => {
   try { return JSON.parse(value) } catch { return fallback }
 }
 
-export const STUDY_SCHEMA_VERSION = 9
+export const STUDY_SCHEMA_VERSION = 10
 
 export function ensureNodeFeatureSchema(db) {
   db.exec(`
@@ -99,6 +99,18 @@ export function ensureNodeFeatureSchema(db) {
       learner TEXT NOT NULL PRIMARY KEY, cohort_id TEXT NOT NULL, joined_at INTEGER NOT NULL
     );
     CREATE INDEX IF NOT EXISTS learner_cohorts_cohort ON learner_cohorts(cohort_id,joined_at DESC);
+    CREATE TABLE IF NOT EXISTS account_identities (
+      provider TEXT NOT NULL,
+      subject TEXT NOT NULL,
+      account_id TEXT NOT NULL,
+      email TEXT NOT NULL,
+      display_name TEXT NOT NULL DEFAULT '',
+      picture TEXT NOT NULL DEFAULT '',
+      created_at INTEGER NOT NULL,
+      last_login_at INTEGER NOT NULL,
+      PRIMARY KEY (provider, subject)
+    );
+    CREATE INDEX IF NOT EXISTS account_identities_account ON account_identities(account_id);
   `)
   const existingVersion = Number(
     db.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").get()?.value ?? 0,
@@ -602,6 +614,7 @@ export function writeNodeAudit(db, { id, learner = null, action, status, actorHa
 export function deleteNodeLearnerData(db, learner) {
   const account = db.prepare('SELECT id FROM accounts WHERE learner=?').get(learner)
   if (account?.id) {
+    db.prepare('DELETE FROM account_identities WHERE account_id=?').run(account.id)
     db.prepare('DELETE FROM passkeys WHERE account_id=?').run(account.id)
     db.prepare('DELETE FROM account_sessions WHERE account_id=?').run(account.id)
     db.prepare('DELETE FROM accounts WHERE id=?').run(account.id)

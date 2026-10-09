@@ -1,3 +1,4 @@
+import GuestProgressPrompt from '@/components/GuestProgressPrompt'
 import Layout from '@/components/Layout'
 import {
   type ConjugationRow,
@@ -340,7 +341,9 @@ export default function ConjugationPage() {
             </div>
           </div>
 
-          <div className="mt-7 flex flex-wrap gap-2">
+          <GuestProgressPrompt className="mt-4 justify-start" />
+
+          <div className="mt-6 flex flex-wrap gap-2">
             {tenses.map((tense) => {
               const stat = getStat(stats, selectedVerb.infinitive, tense)
               const accuracy = getAccuracy(stat)

@@ -1,7 +1,9 @@
+import GuestProgressPrompt from '@/components/GuestProgressPrompt'
 import LookupText from '@/components/Dictionary/LookupText'
 import EchelleGoalCard from '@/components/EchelleGoalCard'
 import Layout from '@/components/Layout'
 import { useHideShellHeader } from '@/components/ShellHeader'
+import { isGuestMode } from '@/services/guestMode'
 import {
   TCF_CONFIG,
   TCF_MIXED_SET_ID,
@@ -437,9 +439,13 @@ export default function TcfMockExamPage({ skill }: { skill: TcfQcmSkill }) {
       }
       await flushStudyProgress()
       void refreshPracticePool()
-      setMessage('模考结果已保存；断网时会先留在本机队列，恢复网络后自动同步。')
+      if (!isGuestMode()) {
+        setMessage('模考结果已保存；断网时会先留在本机队列，恢复网络后自动同步。')
+      }
     } catch {
-      setMessage('结果暂时无法保存，请保留本页并稍后重试。')
+      if (!isGuestMode()) {
+        setMessage('结果暂时无法保存，请保留本页并稍后重试。')
+      }
     } finally {
       setSubmitting(false)
     }
@@ -585,6 +591,7 @@ export default function TcfMockExamPage({ skill }: { skill: TcfQcmSkill }) {
               >
                 开始完整模考
               </button>
+              <GuestProgressPrompt className="mt-4 justify-start" />
               {practicePool.length > 0 && (
                 <div className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-900/60 dark:bg-amber-950/30">
                   <div>
@@ -637,6 +644,7 @@ export default function TcfMockExamPage({ skill }: { skill: TcfQcmSkill }) {
                 </section>
               )}
               {result && <EchelleGoalCard skill={skill} currentLevel={result.nclc} className="mt-4" />}
+              {result && <GuestProgressPrompt className="mt-4" />}
 
               {(mode === 'running' || mode === 'practice') && (
                 <nav

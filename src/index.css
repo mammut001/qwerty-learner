@@ -66,6 +66,14 @@ html.dark .dark\:bg-gray-800.my-card {
   background-color: rgba(23, 26, 38, 0.92);
 }
 
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
+  display: none;
+  -webkit-appearance: none;
+}
+
 /* Well, TailwindCSS does’t have `text-shadow` classes. */
 .text-shadow {
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);

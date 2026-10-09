@@ -1,10 +1,21 @@
 import logo from '@/assets/logo.svg'
 import { useShellHeaderHidden } from '@/components/ShellHeader'
+import {
+  authErrorMessage,
+  logout,
+  preloadFirebaseSdk,
+  signInWithGoogle,
+} from '@/services/auth'
+import { switchLocalProfile } from '@/services/localProfile'
+import { authStatusAtom } from '@/store/auth'
 import { Menu, Transition } from '@headlessui/react'
+import { useAtomValue } from 'jotai'
 import type React from 'react'
 import { Fragment, useEffect, useState } from 'react'
+import { isGuestMode, isPathGated } from '@/services/guestMode'
 import { NavLink, useLocation } from 'react-router-dom'
 import IconChevronDown from '~icons/tabler/chevron-down'
+import IconLock from '~icons/tabler/lock'
 import IconMenu from '~icons/tabler/menu-2'
 import IconX from '~icons/tabler/x'
 
@@ -42,6 +53,45 @@ const Header: React.FC = () => {
   const shellHidden = useShellHeaderHidden()
   const isExamActive = pathname.startsWith('/tcf') || pathname.startsWith('/echelle')
   const [menuOpen, setMenuOpen] = useState(false)
+  const authStatus = useAtomValue(authStatusAtom)
+  const isGuest = authStatus ? (authStatus.enabled && authStatus.required && !authStatus.signedIn) : isGuestMode()
+  const [loginError, setLoginError] = useState('')
+  const [isSigningIn, setIsSigningIn] = useState(false)
+  const [isSigningOut, setIsSigningOut] = useState(false)
+  const warmSdk = () => void preloadFirebaseSdk().catch(() => undefined)
+
+  const handleSignIn = async () => {
+    if (isSigningIn) return
+    setIsSigningIn(true)
+    setLoginError('')
+    try {
+      const result = await signInWithGoogle()
+      const target = `acct:${result.user.id}`
+      const mode = result.created || result.adopted || result.linked ? 'keep' : 'swap'
+      switchLocalProfile(target, mode)
+      sessionStorage.removeItem('qfp:reconciled')
+      window.location.reload()
+    } catch (error) {
+      const code = error instanceof Error ? error.message : 'UNKNOWN_ERROR'
+      setLoginError(authErrorMessage(code))
+      setIsSigningIn(false)
+    }
+  }
+
+  const handleSignOut = async () => {
+    if (isSigningOut) return
+    setIsSigningOut(true)
+    try {
+      await logout()
+      switchLocalProfile('anon', 'swap')
+      sessionStorage.removeItem('qfp:reconciled')
+      window.location.reload()
+    } catch {
+      switchLocalProfile('anon', 'swap')
+      sessionStorage.removeItem('qfp:reconciled')
+      window.location.reload()
+    }
+  }
 
   useEffect(() => {
     setMenuOpen(false)
@@ -87,7 +137,10 @@ const Header: React.FC = () => {
         >
           {navItems.slice(0, 5).map((item) => (
             <NavLink key={item.to} to={item.to} end className={({ isActive }) => navItemClass(isActive)}>
-              {item.label}
+              <span>{item.label}</span>
+              {isGuest && isPathGated(item.to) && (
+                <IconLock className="h-3 w-3 shrink-0 text-gray-400 dark:text-gray-500" aria-label="需要登录" />
+              )}
             </NavLink>
           ))}
           <Menu as="div" className="relative">
@@ -128,7 +181,12 @@ const Header: React.FC = () => {
                           {item.code === 'NCLC 7' ? '∑' : item.code}
                         </span>
                         <span className="flex min-w-0 flex-1 items-center justify-between gap-3">
-                          <span className="shrink-0 font-medium">{item.label}</span>
+                          <span className="inline-flex items-center gap-1.5 font-medium">
+                            {item.label}
+                            {isGuest && isPathGated(item.to) && (
+                              <IconLock className="h-3 w-3 shrink-0 text-gray-400 dark:text-gray-500" aria-label="需要登录" />
+                            )}
+                          </span>
                           <span className="whitespace-nowrap text-[11px] text-gray-400">{item.detail}</span>
                         </span>
                       </NavLink>
@@ -140,9 +198,110 @@ const Header: React.FC = () => {
           </Menu>
           {navItems.slice(5).map((item) => (
             <NavLink key={item.to} to={item.to} end className={({ isActive }) => navItemClass(isActive)}>
-              {item.label}
+              <span>{item.label}</span>
+              {isGuest && isPathGated(item.to) && (
+                <IconLock className="h-3 w-3 shrink-0 text-gray-400 dark:text-gray-500" aria-label="需要登录" />
+              )}
             </NavLink>
           ))}
+          {authStatus?.enabled && (
+            authStatus.signedIn ? (
+              <Menu as="div" className="relative ml-1">
+                <Menu.Button
+                  className="flex h-7 w-7 items-center justify-center overflow-hidden rounded-full ring-1 ring-gray-200 transition-all hover:ring-indigo-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:ring-white/20"
+                  aria-label="账号菜单"
+                >
+                  {authStatus.user?.picture ? (
+                    <img
+                      src={authStatus.user.picture}
+                      alt=""
+                      referrerPolicy="no-referrer"
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <span className="flex h-full w-full items-center justify-center bg-indigo-100 text-xs font-semibold text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-200">
+                      {((authStatus.user?.name || authStatus.user?.email || 'U')[0] || 'U').toUpperCase()}
+                    </span>
+                  )}
+                </Menu.Button>
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="opacity-0 -translate-y-1"
+                  enterTo="opacity-100 translate-y-0"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+                >
+                  <Menu.Items className="absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-2xl bg-white p-1.5 shadow-[0_20px_40px_-12px_rgba(30,27,75,0.2)] ring-1 ring-gray-900/[0.06] focus:outline-none dark:bg-gray-900 dark:ring-white/10">
+                    <div className="border-b border-gray-100 px-3 py-2 dark:border-white/10">
+                      {authStatus.user?.name && (
+                        <div className="truncate text-sm font-semibold text-gray-900 dark:text-white">
+                          {authStatus.user.name}
+                        </div>
+                      )}
+                      {authStatus.user?.email && (
+                        <div className="truncate text-xs text-gray-500 dark:text-gray-400">
+                          {authStatus.user.email}
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-1">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <button
+                            type="button"
+                            data-testid="header-sign-out"
+                            onClick={handleSignOut}
+                            disabled={isSigningOut}
+                            className={`flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm transition-colors ${
+                              active
+                                ? 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400'
+                                : 'text-gray-700 dark:text-gray-300'
+                            }`}
+                          >
+                            <span>{isSigningOut ? '正在退出…' : '退出登录'}</span>
+                          </button>
+                        )}
+                      </Menu.Item>
+                    </div>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
+            ) : (
+              <div className="relative ml-1">
+                <button
+                  type="button"
+                  data-testid="header-sign-in"
+                  onClick={handleSignIn}
+                  onMouseEnter={warmSdk}
+                  onFocus={warmSdk}
+                  disabled={isSigningIn}
+                  className="flex items-center whitespace-nowrap rounded-full bg-indigo-600 px-2.5 py-1 text-[12px] font-medium text-white shadow-sm transition-all hover:bg-indigo-700 disabled:opacity-50"
+                >
+                  <span>{isSigningIn ? '登录中…' : '登录'}</span>
+                </button>
+                {loginError && (
+                  <div
+                    role="alert"
+                    className="absolute right-0 top-full z-50 mt-2 w-52 rounded-2xl bg-white p-3 text-xs text-red-600 shadow-xl ring-1 ring-black/5 dark:bg-gray-800 dark:text-red-400 dark:ring-white/10"
+                  >
+                    <div className="flex items-start justify-between gap-1">
+                      <span>{loginError}</span>
+                      <button
+                        type="button"
+                        onClick={() => setLoginError('')}
+                        className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                        aria-label="关闭"
+                      >
+                        <IconX className="h-3 w-3" />
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )
+          )}
         </nav>
       </div>
       {menuOpen && (
@@ -153,15 +312,85 @@ const Header: React.FC = () => {
         >
           {navItems.map((item) => (
             <NavLink key={item.to} to={item.to} end className={({ isActive }) => `${navItemClass(isActive)} justify-center py-2.5`}>
-              {item.label}
+              <span>{item.label}</span>
+              {isGuest && isPathGated(item.to) && (
+                <IconLock className="h-3 w-3 shrink-0 text-gray-400 dark:text-gray-500" aria-label="需要登录" />
+              )}
             </NavLink>
           ))}
           {examItems.map((item) => (
             <NavLink key={item.to} to={item.to} end className={({ isActive }) => `${navItemClass(isActive)} justify-center py-2.5`}>
-              模考 · {item.label}
+              <span>模考 · {item.label}</span>
+              {isGuest && isPathGated(item.to) && (
+                <IconLock className="h-3 w-3 shrink-0 text-gray-400 dark:text-gray-500" aria-label="需要登录" />
+              )}
               <span className="text-xs opacity-70">{item.code}</span>
             </NavLink>
           ))}
+          {authStatus?.enabled && (
+            <div className="col-span-2 mt-2 border-t border-gray-100 p-2 dark:border-white/10 sm:col-span-3">
+              {authStatus.signedIn ? (
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex min-w-0 items-center gap-2.5">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full ring-1 ring-gray-200 dark:ring-white/20">
+                      {authStatus.user?.picture ? (
+                        <img
+                          src={authStatus.user.picture}
+                          alt=""
+                          referrerPolicy="no-referrer"
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <span className="flex h-full w-full items-center justify-center bg-indigo-100 text-xs font-semibold text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-200">
+                          {((authStatus.user?.name || authStatus.user?.email || 'U')[0] || 'U').toUpperCase()}
+                        </span>
+                      )}
+                    </span>
+                    <div className="min-w-0">
+                      {authStatus.user?.name && (
+                        <div className="truncate text-xs font-semibold text-gray-900 dark:text-white">
+                          {authStatus.user.name}
+                        </div>
+                      )}
+                      {authStatus.user?.email && (
+                        <div className="truncate text-[11px] text-gray-500 dark:text-gray-400">
+                          {authStatus.user.email}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    data-testid="header-sign-out"
+                    onClick={handleSignOut}
+                    disabled={isSigningOut}
+                    className="shrink-0 rounded-xl px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-500/10"
+                  >
+                    {isSigningOut ? '退出中…' : '退出登录'}
+                  </button>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-1.5">
+                  <button
+                    type="button"
+                    data-testid="header-sign-in"
+                    onClick={handleSignIn}
+                    onMouseEnter={warmSdk}
+                    onFocus={warmSdk}
+                    disabled={isSigningIn}
+                    className="my-btn-primary flex w-full items-center justify-center gap-2 py-2 text-sm"
+                  >
+                    <span>{isSigningIn ? '正在登录…' : '登录'}</span>
+                  </button>
+                  {loginError && (
+                    <div role="alert" className="text-center text-xs text-red-600 dark:text-red-400">
+                      {loginError}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
         </nav>
       )}
     </header>

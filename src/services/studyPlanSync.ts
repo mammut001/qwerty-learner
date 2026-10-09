@@ -2,6 +2,7 @@ import { computePlacementResult } from '../../server/placement-data.mjs'
 import { scoreEchelleItem } from '../resources/echelleCurriculum'
 import { nextMemory } from '../resources/echelleMemory'
 import type { PlacementProfile, PlacementResult } from '../resources/placementTest'
+import { isGuestMode } from './guestMode'
 
 type StudyPlanSettings = {
   examDate: string
@@ -805,6 +806,9 @@ const publish = (input: StudyPlanStorage | StudyServerState) => {
 }
 
 async function api(method: string, path = '', body?: unknown, unauthorized = 'STUDY_SESSION_BLOCKED') {
+  if (isGuestMode()) {
+    throw new Error(unauthorized)
+  }
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), 10000)
   try {
@@ -815,7 +819,17 @@ async function api(method: string, path = '', body?: unknown, unauthorized = 'ST
       headers: method === 'GET' && body === undefined ? undefined : { 'Content-Type': 'application/json' },
       body: body === undefined ? undefined : JSON.stringify(body),
     })
-    if (response.status === 401) throw new Error(unauthorized)
+    if (response.status === 401) {
+      try {
+        const data = (await response.clone().json()) as { code?: string }
+        if (data?.code === 'LOGIN_REQUIRED' && typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('qwerty-auth-required'))
+        }
+      } catch {
+        // Ignore response parse errors
+      }
+      throw new Error(unauthorized)
+    }
     if (!response.ok) {
       const data = (await response.json().catch(() => ({}))) as { error?: string; code?: string }
       const error = new Error(data.code || data.error || `Study API: ${response.status}`)
@@ -830,6 +844,9 @@ async function api(method: string, path = '', body?: unknown, unauthorized = 'ST
 }
 
 async function apiText(method: string, path: string) {
+  if (isGuestMode()) {
+    throw new Error('STUDY_SESSION_BLOCKED')
+  }
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), 10000)
   try {
@@ -838,7 +855,17 @@ async function apiText(method: string, path: string) {
       credentials: 'include',
       signal: controller.signal,
     })
-    if (response.status === 401) throw new Error('STUDY_SESSION_BLOCKED')
+    if (response.status === 401) {
+      try {
+        const data = (await response.clone().json()) as { code?: string }
+        if (data?.code === 'LOGIN_REQUIRED' && typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('qwerty-auth-required'))
+        }
+      } catch {
+        // Ignore response parse errors
+      }
+      throw new Error('STUDY_SESSION_BLOCKED')
+    }
     if (!response.ok) {
       const text = await response.text().catch(() => '')
       throw new Error(text || `Study API: ${response.status}`)
@@ -950,6 +977,13 @@ async function drain() {
 }
 
 export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Promise<void> {
+  if (isGuestMode()) {
+    if (retry) {
+      clearTimeout(retry)
+      retry = undefined
+    }
+    return Promise.resolve()
+  }
   ensureAutoSyncListeners()
   try {
     ensureFallback(initial)
@@ -990,7 +1024,7 @@ export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Pr
 }
 
 function enqueue(operations: Operation[]) {
-  if (!operations.length) return
+  if (isGuestMode() || !operations.length) return
   ensureAutoSyncListeners()
   ensureFallback()
   const id = crypto.randomUUID()
@@ -1399,6 +1433,7 @@ const sanitizeLegacyConjugation = (value: unknown): ConjugationStats => {
 }
 
 export function migrateLegacyStudyData(input: { vocabulary?: VocabularyProgressInput[]; grammarHistory?: unknown; conjugation?: unknown }) {
+  if (isGuestMode()) return Promise.resolve(false)
   if (legacyMigrationRunning) return legacyMigrationRunning
   legacyMigrationRunning = runLegacyStudyMigration(input).finally(() => {
     legacyMigrationRunning = undefined

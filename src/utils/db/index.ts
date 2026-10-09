@@ -4,6 +4,7 @@ import { TypingContext, TypingStateActionType } from '@/pages/Typing/store'
 import type { TypingState } from '@/pages/Typing/store/type'
 import { currentChapterAtom, currentDictIdAtom, isReviewModeAtom } from '@/store'
 import { recordVocabularyProgress } from '@/services/studyPlanSync'
+import { recordDbName } from '@/services/localProfile'
 import type { Table } from 'dexie'
 import Dexie from 'dexie'
 import { useAtomValue } from 'jotai'
@@ -18,7 +19,7 @@ class RecordDB extends Dexie {
   revisionWordRecords!: Table<IWordRecord, number>
 
   constructor() {
-    super('RecordDB')
+    super(recordDbName())
     this.version(1).stores({
       wordRecords: '++id,word,timeStamp,dict,chapter,errorCount,[dict+chapter]',
       chapterRecords: '++id,timeStamp,dict,chapter,time,[dict+chapter]',

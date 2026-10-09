@@ -17,6 +17,7 @@ import { EchelleAiError, RUBRIC_VERSION, evaluateProduction, evaluationOperation
 import { aiRateLimits, aiStatus, createAiProvider } from './echelle-ai-providers.mjs'
 import { bearerMatches, createStudyMetrics, logStudyRequest, loopbackAddress, studyRequestId } from './study-observability.mjs'
 import {
+  createAccountSession,
   createNodePasskeyLoginOptions,
   createNodePasskeyRegistrationOptions,
   nodePasskeyAccountInfo,
@@ -24,6 +25,8 @@ import {
   verifyNodePasskeyLogin,
   verifyNodePasskeyRegistration,
 } from './study-node-passkey.mjs'
+import { randomPasskeyValue } from './study-passkey.mjs'
+import { createFirebaseVerifier } from './study-firebase.mjs'
 import { apply, record, validate, importOperations, exportPlan, normalizeState, studyAnalytics, buildReviewQueue } from './study-model.mjs'
 import {
   ensureNodeFeatureSchema,
@@ -48,7 +51,7 @@ import {
   writeNodeAudit,
   deleteNodeLearnerData,
 } from './study-node-features.mjs'
-import { createYoudaoCache, frenchQueryKey, lookupYoudaoFrench, normalizeFrenchQuery } from './youdao-fr.mjs'
+import { createYoudaoCache, fetchYoudaoFrenchVoice, frenchQueryKey, lookupYoudaoFrench, normalizeFrenchQuery } from './youdao-fr.mjs'
 import { randomBytes, createHash, createHmac, timingSafeEqual } from 'node:crypto'
 import { mkdirSync, statSync, createReadStream } from 'node:fs'
 import { createServer } from 'node:http'
@@ -130,6 +133,7 @@ function serveStatic(req, res, staticDir) {
 }
 
 const hash = (value) => createHash('sha256').update(value).digest('hex')
+const accountProfileId = (accountId) => createHash('sha256').update('account:' + accountId).digest('hex').slice(0, 16)
 const MAX_BODY_BYTES = 1700000
 const ALLOWED_ERROR_TYPES = new Set(['vocabulary', 'grammar', 'conjugation'])
 const hasExactKeys = (value, allowed, required = []) => {
@@ -163,6 +167,12 @@ export function createStudyServer({
   aiProvider = createAiProvider(process.env),
   aiLimits = aiRateLimits(process.env),
   youdaoLookup = null,
+  firebaseProjectId = process.env.STUDY_FIREBASE_PROJECT_ID || '',
+  firebaseVerifier = null,
+  authRequired = process.env.STUDY_AUTH_REQUIRED === 'true',
+  allowedEmails = process.env.STUDY_ALLOWED_EMAILS || '',
+  maxNewAccountsPerDay = Number(process.env.STUDY_MAX_NEW_ACCOUNTS_PER_DAY || 200),
+  youdaoVoice = null,
 } = {}) {
   mkdirSync(dirname(resolve(database)), { recursive: true })
   const db = new DatabaseSync(database)
@@ -175,6 +185,15 @@ export function createStudyServer({
   ensureNodeFeatureSchema(db)
   const metrics = createStudyMetrics()
   const slowThresholdMs = Number.isFinite(slowRequestMs) && slowRequestMs >= 0 ? slowRequestMs : 1000
+
+  const verifier = firebaseVerifier || (firebaseProjectId ? createFirebaseVerifier({ projectId: firebaseProjectId }) : null)
+  const authEnabled = Boolean(verifier)
+  const loginRequired = Boolean(authRequired && authEnabled)
+  const allowedEmailList = Array.isArray(allowedEmails)
+    ? allowedEmails
+    : String(allowedEmails || '').split(',').map((s) => s.trim().toLowerCase()).filter(Boolean)
+  const allowedEmailSet = allowedEmailList.length > 0 ? new Set(allowedEmailList) : null
+  const maxSignupsDaily = Number.isFinite(Number(maxNewAccountsPerDay)) && Number(maxNewAccountsPerDay) > 0 ? Number(maxNewAccountsPerDay) : 200
 
   // Optional site-wide gate for a personal deployment: with STUDY_ACCESS_PASSWORD set, every data route needs a
   // signed access cookie. The signing key is derived from the password, so changing it revokes every device.
@@ -206,8 +225,17 @@ export function createStudyServer({
       : null
   }
 
+  const ensureAccount = (req) => {
+    if (!loginRequired) return true
+    const token = /(?:^|;\s*)study_session=([a-f0-9]{64})(?:;|$)/.exec(req.headers.cookie || '')?.[1]
+    const resolved = resolveLearner(token)
+    return Boolean(resolved?.viaAccount)
+  }
+
   const youdaoCache = createYoudaoCache()
   const lookupFrench = youdaoLookup || ((query) => lookupYoudaoFrench(query, { cache: youdaoCache }))
+  const youdaoVoiceCache = createYoudaoCache(300)
+  const lookupVoice = youdaoVoice || ((query) => fetchYoudaoFrenchVoice(query))
 
   const handler = async (req, res) => {
     const requestStarted = performance.now()
@@ -240,6 +268,16 @@ export function createStudyServer({
       res.writeHead(status, {
         'Content-Type': contentType,
         'Cache-Control': 'no-store',
+        'X-Content-Type-Options': 'nosniff',
+        ...extraHeaders,
+      })
+      res.end(body)
+    }
+    const sendBinary = (status, body, contentType, extraHeaders = {}) => {
+      res.writeHead(status, {
+        'Content-Type': contentType,
+        'Content-Length': Buffer.isBuffer(body) ? body.length : Buffer.byteLength(body),
+        'Cache-Control': 'private, max-age=604800',
         'X-Content-Type-Options': 'nosniff',
         ...extraHeaders,
       })
@@ -317,9 +355,14 @@ export function createStudyServer({
     const echelleAi = path === '/api/study-plan/echelle/ai'
     const echelleEvaluate = path === '/api/study-plan/echelle/evaluate'
     const dictionary = path === '/api/study-plan/dictionary'
+    const dictionaryVoice = path === '/api/study-plan/dictionary/voice'
+    const authRoute = path === '/api/study-plan/auth'
+    const authFirebase = path === '/api/study-plan/auth/firebase'
+    const authLogout = path === '/api/study-plan/auth/logout'
     const plan = path === '/api/study-plan'
     if (!health && !importing && !exporting && !analytics && !syncKey && !revokeSyncKey && !linking && !unlinking &&
-        !echelleAi && !echelleEvaluate && !dictionary &&
+        !echelleAi && !echelleEvaluate && !dictionary && !dictionaryVoice &&
+        !authRoute && !authFirebase && !authLogout &&
         !syncInfo && !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData &&
         !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
         !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts && !access &&
@@ -366,6 +409,7 @@ export function createStudyServer({
         db.prepare('SELECT token_hash,account_id FROM account_sessions LIMIT 1').get()
         db.prepare('SELECT id,name FROM cohorts LIMIT 1').get()
         db.prepare('SELECT learner,cohort_id FROM learner_cohorts LIMIT 1').get()
+        db.prepare('SELECT provider,subject FROM account_identities LIMIT 1').get()
         const schemaVersion = getNodeSchemaVersion(db)
         if (schemaVersion !== STUDY_SCHEMA_VERSION) throw new Error('Schema version mismatch')
         return send(200, { ok: true, storage: 'sqlite', schemaVersion })
@@ -475,8 +519,46 @@ export function createStudyServer({
 
     if (!accessGranted(req.headers.cookie)) return sendError(401, 'ACCESS_REQUIRED', 'Access password required')
 
+    if (dictionaryVoice) {
+      if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      if (!ensureAccount(req)) return sendError(401, 'LOGIN_REQUIRED', 'Sign-in required')
+      const query = normalizeFrenchQuery(requestUrl.searchParams.get('q') || '')
+      if (!query) return sendError(400, 'DICTIONARY_QUERY_INVALID', 'Invalid dictionary query')
+      const cacheKey = frenchQueryKey(query)
+      const cached = youdaoVoiceCache.get(cacheKey, Date.now())
+      if (cached) return sendBinary(200, cached, 'audio/mpeg')
+      const limit = consumeNodeRateLimit(db, 'actor:' + actorHash, 'dictionary-voice', {
+        limit: 240,
+        windowMs: 10 * 60_000,
+        blockMs: 60_000,
+      })
+      if (!limit.allowed) {
+        return sendError(
+          429,
+          'DICTIONARY_VOICE_RATE_LIMITED',
+          'Too many dictionary voice requests. Try again later.',
+          { retryAfterSeconds: Math.ceil(limit.retryAfterMs / 1000) },
+          { 'Retry-After': String(Math.ceil(limit.retryAfterMs / 1000)) },
+        )
+      }
+      let outcome
+      try {
+        outcome = await lookupVoice(query)
+      } catch {
+        return sendError(502, 'DICTIONARY_VOICE_UNAVAILABLE', 'Dictionary voice is temporarily unavailable')
+      }
+      const raw = outcome?.buffer || outcome?.value || (Buffer.isBuffer(outcome) || outcome instanceof Uint8Array ? outcome : null)
+      if (!raw || outcome?.error || raw.length < 200 || raw.length > 512 * 1024) {
+        return sendError(502, 'DICTIONARY_VOICE_UNAVAILABLE', 'Dictionary voice is temporarily unavailable')
+      }
+      const buffer = Buffer.isBuffer(raw) ? raw : Buffer.from(raw)
+      youdaoVoiceCache.set(cacheKey, buffer, 7 * 24 * 60 * 60 * 1000, Date.now())
+      return sendBinary(200, buffer, 'audio/mpeg')
+    }
+
     if (dictionary) {
       if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      if (!ensureAccount(req)) return sendError(401, 'LOGIN_REQUIRED', 'Sign-in required')
       const query = normalizeFrenchQuery(requestUrl.searchParams.get('q') || '')
       if (!query) return sendError(400, 'DICTIONARY_QUERY_INVALID', 'Invalid dictionary query')
       const cacheKey = frenchQueryKey(query)
@@ -510,10 +592,13 @@ export function createStudyServer({
 
     if (echelleAi) {
       if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      if (!ensureAccount(req)) return sendError(401, 'LOGIN_REQUIRED', 'Sign-in required')
       return send(200, aiStatus(aiProvider, RUBRIC_VERSION))
     }
     if (echelleEvaluate && req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
 
+    if (authRoute && req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+    if ((authFirebase || authLogout) && req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if ((importing || syncKey || revokeSyncKey || linking || unlinking || makeup || passkeyRegisterOptions ||
         passkeyRegisterVerify || passkeyLoginOptions || passkeyLoginVerify) && req.method !== 'POST')
       return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
@@ -526,6 +611,234 @@ export function createStudyServer({
     if (tcfSpeaking && !['GET', 'POST', 'DELETE'].includes(req.method)) return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if (deleteData && req.method !== 'DELETE') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if (plan && !['GET', 'POST', 'PATCH'].includes(req.method)) return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+
+    if (authRoute) {
+      const token = /(?:^|;\s*)study_session=([a-f0-9]{64})(?:;|$)/.exec(req.headers.cookie || '')?.[1]
+      let signedIn = false
+      let user = null
+      if (token) {
+        const session = resolveNodeAccountSession(db, hash(token))
+        if (session) {
+          signedIn = true
+          const identity = db.prepare(`
+            SELECT email, display_name, picture
+            FROM account_identities
+            WHERE account_id=? AND provider='google'
+          `).get(session.accountId)
+          const userId = accountProfileId(session.accountId)
+          if (identity) {
+            user = {
+              id: userId,
+              email: identity.email,
+              name: identity.display_name,
+              picture: identity.picture,
+            }
+          } else {
+            user = {
+              id: userId,
+              email: '',
+              name: '',
+              picture: '',
+            }
+          }
+        }
+      }
+      return send(200, {
+        enabled: authEnabled,
+        required: loginRequired,
+        signedIn,
+        user,
+      })
+    }
+
+    if (authLogout) {
+      let input
+      try {
+        input = await readBody(req)
+      } catch (error) {
+        return sendError(error instanceof RangeError ? 413 : 400, 'LOGOUT_REQUEST_INVALID', 'Invalid logout request')
+      }
+      if (!hasExactKeys(input, []))
+        return sendError(400, 'LOGOUT_REQUEST_INVALID', 'Invalid logout request')
+      const token = /(?:^|;\s*)study_session=([a-f0-9]{64})(?:;|$)/.exec(req.headers.cookie || '')?.[1]
+      if (token) {
+        const session = resolveNodeAccountSession(db, hash(token))
+        if (session) {
+          db.prepare('DELETE FROM account_sessions WHERE token_hash=?').run(hash(token))
+          const clearCookie = `study_session=; Path=/api; HttpOnly; SameSite=${sameSite === 'none' ? 'None' : 'Strict'}; Max-Age=0${secure ? '; Secure' : ''}`
+          return send(200, { signedIn: false }, { 'Set-Cookie': clearCookie })
+        }
+      }
+      return send(200, { signedIn: false })
+    }
+
+    if (authFirebase) {
+      if (!authEnabled) return sendError(404, 'AUTH_DISABLED', 'Authentication is disabled')
+      const limit = consumeNodeRateLimit(db, 'actor:' + actorHash, 'auth-login', {
+        limit: 10,
+        windowMs: 5 * 60_000,
+        blockMs: 10 * 60_000,
+      })
+      if (!limit.allowed) {
+        return sendError(429, 'AUTH_RATE_LIMITED', 'Too many login attempts. Try again later.', {
+          retryAfterSeconds: Math.ceil(limit.retryAfterMs / 1000),
+        })
+      }
+      let input
+      try {
+        input = await readBody(req)
+      } catch (error) {
+        return sendError(error instanceof RangeError ? 413 : 400, 'AUTH_REQUEST_INVALID', 'Invalid authentication request')
+      }
+      if (!hasExactKeys(input, ['idToken'], ['idToken']) || typeof input.idToken !== 'string' || !input.idToken) {
+        return sendError(400, 'AUTH_REQUEST_INVALID', 'Invalid authentication request')
+      }
+
+      let user
+      try {
+        user = await verifier.verify(input.idToken)
+      } catch (error) {
+        const code = error instanceof Error ? error.message : 'FIREBASE_TOKEN_INVALID'
+        audit(null, 'google_login', 'denied', { code })
+        if (code === 'FIREBASE_KEYS_UNAVAILABLE') {
+          return sendError(503, 'FIREBASE_KEYS_UNAVAILABLE', 'Authentication service unavailable')
+        }
+        return sendError(401, code, 'Authentication failed')
+      }
+
+      if (allowedEmailSet && !allowedEmailSet.has(user.email.toLowerCase())) {
+        audit(null, 'google_login', 'denied', { code: 'EMAIL_NOT_ALLOWED' })
+        return sendError(403, 'EMAIL_NOT_ALLOWED', 'Email not allowed')
+      }
+
+      const now = Date.now()
+      const oldToken = /(?:^|;\s*)study_session=([a-f0-9]{64})(?:;|$)/.exec(req.headers.cookie || '')?.[1]
+
+      db.exec('BEGIN IMMEDIATE')
+      try {
+        let existingIdentity = db.prepare('SELECT account_id FROM account_identities WHERE provider=? AND subject=?').get('google', user.uid)
+        if (existingIdentity) {
+          db.prepare(`
+            UPDATE account_identities
+            SET email=?, display_name=?, picture=?, last_login_at=?
+            WHERE provider=? AND subject=?
+          `).run(user.email, user.name, user.picture, now, 'google', user.uid)
+          const sessionToken = createAccountSession(db, existingIdentity.account_id, now)
+          if (oldToken) {
+            db.prepare('DELETE FROM account_sessions WHERE token_hash=?').run(hash(oldToken))
+          }
+          db.exec('COMMIT')
+          const accountRow = db.prepare('SELECT learner FROM accounts WHERE id=?').get(existingIdentity.account_id)
+          audit(accountRow?.learner, 'google_login', 'success', { created: false, adopted: false })
+          const userId = accountProfileId(existingIdentity.account_id)
+          res.setHeader('Set-Cookie', sessionCookie(sessionToken, { secure, sameSite }))
+          return send(200, {
+            signedIn: true,
+            created: false,
+            adopted: false,
+            linked: false,
+            user: { id: userId, email: user.email, name: user.name, picture: user.picture },
+          })
+        }
+
+        const signupLimit = consumeNodeRateLimit(db, 'global', 'auth-signup-daily', {
+          limit: maxSignupsDaily,
+          windowMs: 24 * 60 * 60_000,
+          blockMs: 60 * 60_000,
+        })
+        if (!signupLimit.allowed) {
+          db.exec('ROLLBACK')
+          audit(null, 'google_login', 'denied', { code: 'SIGNUP_LIMIT_REACHED' })
+          return sendError(429, 'SIGNUP_LIMIT_REACHED', 'Daily signup limit reached')
+        }
+
+        const currentSession = oldToken ? resolveLearner(oldToken) : null
+        let accountId = null
+        let targetLearner = null
+        let created = true
+        let adopted = false
+        let linked = false
+
+        if (currentSession?.viaAccount && currentSession.accountId) {
+          const hasGoogle = db.prepare('SELECT subject FROM account_identities WHERE account_id=? AND provider=?').get(currentSession.accountId, 'google')
+          if (!hasGoogle) {
+            accountId = currentSession.accountId
+            targetLearner = currentSession.learner
+            created = false
+            adopted = false
+            linked = true
+          }
+        }
+
+        if (!accountId) {
+          const accountForLearner = currentSession?.learner
+            ? db.prepare('SELECT id FROM accounts WHERE learner=?').get(currentSession.learner)
+            : null
+          if (currentSession && !currentSession.viaAccount && !accountForLearner && currentSession.row?.state != null) {
+            adopted = true
+            targetLearner = currentSession.learner
+            db.prepare('UPDATE sync_keys SET revoked=1 WHERE learner=? AND revoked=0').run(targetLearner)
+          } else {
+            targetLearner = hash(randomBytes(32).toString('hex'))
+            db.prepare('INSERT INTO learners(id, state) VALUES(?, NULL)').run(targetLearner)
+          }
+          accountId = randomBytes(16).toString('hex')
+          const userHandle = randomPasskeyValue(32)
+          db.prepare('INSERT INTO accounts(id, learner, user_handle, created_at) VALUES(?,?,?,?)')
+            .run(accountId, targetLearner, userHandle, now)
+        }
+
+        db.prepare(`
+          INSERT INTO account_identities(provider, subject, account_id, email, display_name, picture, created_at, last_login_at)
+          VALUES(?,?,?,?,?,?,?,?)
+        `).run('google', user.uid, accountId, user.email, user.name, user.picture, now, now)
+
+        const sessionToken = createAccountSession(db, accountId, now)
+        if (oldToken) {
+          db.prepare('DELETE FROM account_sessions WHERE token_hash=?').run(hash(oldToken))
+        }
+        db.exec('COMMIT')
+
+        const userId = accountProfileId(accountId)
+        audit(targetLearner, 'google_login', 'success', { created, adopted })
+        res.setHeader('Set-Cookie', sessionCookie(sessionToken, { secure, sameSite }))
+        return send(200, {
+          signedIn: true,
+          created,
+          adopted,
+          linked,
+          user: { id: userId, email: user.email, name: user.name, picture: user.picture },
+        })
+      } catch (error) {
+        db.exec('ROLLBACK')
+        if (String(error?.message).includes('UNIQUE constraint failed')) {
+          const existing = db.prepare('SELECT account_id FROM account_identities WHERE provider=? AND subject=?').get('google', user.uid)
+          if (existing) {
+            db.prepare(`
+              UPDATE account_identities
+              SET email=?, display_name=?, picture=?, last_login_at=?
+              WHERE provider=? AND subject=?
+            `).run(user.email, user.name, user.picture, now, 'google', user.uid)
+            const sessionToken = createAccountSession(db, existing.account_id, now)
+            if (oldToken) {
+              db.prepare('DELETE FROM account_sessions WHERE token_hash=?').run(hash(oldToken))
+            }
+            const accountRow = db.prepare('SELECT learner FROM accounts WHERE id=?').get(existing.account_id)
+            const userId = accountProfileId(existing.account_id)
+            audit(accountRow?.learner, 'google_login', 'success', { created: false, adopted: false })
+            res.setHeader('Set-Cookie', sessionCookie(sessionToken, { secure, sameSite }))
+            return send(200, {
+              signedIn: true,
+              created: false,
+              adopted: false,
+              linked: false,
+              user: { id: userId, email: user.email, name: user.name, picture: user.picture },
+            })
+          }
+        }
+        throw error
+      }
+    }
 
     if (passkeyLoginOptions || passkeyLoginVerify) {
       const limit = consumeNodeRateLimit(db, 'actor:' + actorHash, 'passkey-login', {
@@ -562,6 +875,7 @@ export function createStudyServer({
     }
 
     if (linking) {
+      if (loginRequired) return sendError(403, 'SYNC_LINK_DISABLED', 'Sync link is disabled when login is required')
       const limit = consumeNodeRateLimit(db, 'actor:' + actorHash, 'sync-link', {
         limit: 6,
         windowMs: 5 * 60_000,
@@ -614,6 +928,7 @@ export function createStudyServer({
     let viaAccount = resolved?.viaAccount ?? false
 
     if (!row) {
+      if (loginRequired) return sendError(401, 'LOGIN_REQUIRED', 'Sign-in required')
       if (req.method !== 'GET' || exporting || errorBook || checkins || achievements || reports || reportExport || deleteData)
         return sendError(401, 'SESSION_REQUIRED', 'Load plan first')
       const next = randomBytes(32).toString('hex')
@@ -623,6 +938,8 @@ export function createStudyServer({
       viaSyncKey = false
       viaAccount = false
       res.setHeader('Set-Cookie', sessionCookie(next, { secure, sameSite }))
+    } else if (loginRequired && !viaAccount) {
+      return sendError(401, 'LOGIN_REQUIRED', 'Sign-in required')
     }
 
     if (cohortInfo && req.method === 'GET') return send(200, { cohort: getLearnerCohort(db, learner) })

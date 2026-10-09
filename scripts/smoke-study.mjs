@@ -19,7 +19,7 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   }
   const health = await fetch(`${origin}/api/health`, { signal: AbortSignal.timeout(20000) })
   assert.equal(health.status, 200, 'D1 health check')
-  assert.equal((await health.clone().json()).schemaVersion, 9, 'schema migration version is current')
+  assert.equal((await health.clone().json()).schemaVersion, 10, 'schema migration version is current')
   const alias = await fetch(`${origin}/health`, { signal: AbortSignal.timeout(20000) })
   assert.equal(alias.status, 200, '/health is API readiness, not SPA HTML')
   assert.equal((await alias.json()).ok, true)
