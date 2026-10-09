@@ -128,7 +128,9 @@ test('First sign-in adopts initialized anonymous learner; second sign-in returns
     assert.equal(loginAlice.data.created, true)
     assert.equal(loginAlice.data.adopted, true)
     assert.equal(loginAlice.data.linked, false)
+    assert.match(loginAlice.data.user.id, /^[0-9a-f]{16}$/)
     assert.deepEqual(loginAlice.data.user, {
+      id: loginAlice.data.user.id,
       email: 'alice@example.com',
       name: 'Alice',
       picture: 'https://pic/a',
@@ -145,6 +147,7 @@ test('First sign-in adopts initialized anonymous learner; second sign-in returns
     const aliceAuth = await call('GET', '/api/study-plan/auth', { cookie: aliceCookie })
     assert.equal(aliceAuth.data.signedIn, true)
     assert.deepEqual(aliceAuth.data.user, {
+      id: loginAlice.data.user.id,
       email: 'alice@example.com',
       name: 'Alice',
       picture: 'https://pic/a',
@@ -221,6 +224,7 @@ test('Logout clears session cookie and deletes account session', async () => {
     'token-alice': { uid: 'alice-uid', email: 'alice@example.com' },
   })
 
+  // 1. Account session logout deletes account session and sends clearing Set-Cookie
   await withServer({ firebaseVerifier: verifier, authRequired: true }, async (call) => {
     const login = await call('POST', '/api/study-plan/auth/firebase', {
       body: { idToken: 'token-alice' },
@@ -241,6 +245,25 @@ test('Logout clears session cookie and deletes account session', async () => {
     const planAfterLogout = await call('GET', '/api/study-plan', { cookie })
     assert.equal(planAfterLogout.response.status, 401)
     assert.equal(planAfterLogout.data.code, 'LOGIN_REQUIRED')
+  })
+
+  // 2. Anonymous learner token calling logout must NOT clear cookie
+  await withServer({ firebaseVerifier: verifier, authRequired: false }, async (call) => {
+    const anon = await call('GET', '/api/study-plan')
+    const anonCookie = anon.cookieToken
+    assert.ok(anonCookie.startsWith('study_session='))
+
+    const anonLogout = await call('POST', '/api/study-plan/auth/logout', {
+      cookie: anonCookie,
+      body: {},
+    })
+    assert.equal(anonLogout.response.status, 200)
+    assert.deepEqual(anonLogout.data, { signedIn: false })
+    assert.equal(anonLogout.setCookie, '', 'must not clear anonymous session cookie')
+
+    // Anonymous session remains valid and active
+    const planAfterAnon = await call('GET', '/api/study-plan', { cookie: anonCookie })
+    assert.equal(planAfterAnon.response.status, 200)
   })
 })
 
@@ -345,11 +368,14 @@ test('Login-required mode gates all data routes and third-party cost routes', as
   }
   const verifier = createMockVerifier(users)
   const youdaoLookup = async (q) => ({ value: { word: q, explanation: 'bonjour' } })
+  const dummyAudio = Buffer.alloc(300, 0x42)
+  const youdaoVoice = async () => ({ buffer: dummyAudio })
 
   await withServer({
     firebaseVerifier: verifier,
     authRequired: true,
     youdaoLookup,
+    youdaoVoice,
   }, async (call) => {
     // Anonymous GET of plan -> 401 LOGIN_REQUIRED, NO Set-Cookie
     const anonPlan = await call('GET', '/api/study-plan')
@@ -361,6 +387,11 @@ test('Login-required mode gates all data routes and third-party cost routes', as
     const anonDict = await call('GET', '/api/study-plan/dictionary?q=bonjour')
     assert.equal(anonDict.response.status, 401)
     assert.equal(anonDict.data.code, 'LOGIN_REQUIRED')
+
+    // Dictionary voice when anonymous -> 401 LOGIN_REQUIRED
+    const anonVoice = await call('GET', '/api/study-plan/dictionary/voice?q=bonjour')
+    assert.equal(anonVoice.response.status, 401)
+    assert.equal(anonVoice.data.code, 'LOGIN_REQUIRED')
 
     // Echelle evaluate when anonymous -> 401 LOGIN_REQUIRED
     const anonEval = await call('POST', '/api/study-plan/echelle/evaluate', {
@@ -395,6 +426,10 @@ test('Login-required mode gates all data routes and third-party cost routes', as
     const signedInDict = await call('GET', '/api/study-plan/dictionary?q=bonjour', { cookie })
     assert.equal(signedInDict.response.status, 200)
     assert.equal(signedInDict.data.word, 'bonjour')
+
+    // Signed in: dictionary voice is reachable
+    const signedInVoice = await call('GET', '/api/study-plan/dictionary/voice?q=bonjour', { cookie })
+    assert.equal(signedInVoice.response.status, 200)
   })
 })
 
@@ -476,10 +511,16 @@ test('Linking Google identity to existing passkey account', async () => {
     assert.equal(verifyPasskey.response.status, 200)
     const passkeyCookie = verifyPasskey.cookieToken
 
-    // Verify GET /api/study-plan/auth with passkey session: signedIn: true, user: null
+    // Verify GET /api/study-plan/auth with passkey session: signedIn: true, user with id
     const authPasskeyOnly = await call('GET', '/api/study-plan/auth', { cookie: passkeyCookie })
     assert.equal(authPasskeyOnly.data.signedIn, true)
-    assert.equal(authPasskeyOnly.data.user, null, 'passkey-only session has user: null')
+    assert.match(authPasskeyOnly.data.user.id, /^[0-9a-f]{16}$/)
+    assert.deepEqual(authPasskeyOnly.data.user, {
+      id: authPasskeyOnly.data.user.id,
+      email: '',
+      name: '',
+      picture: '',
+    })
 
     // Now sign in with Google presenting the passkey account session
     const googleLogin = await call('POST', '/api/study-plan/auth/firebase', {
@@ -490,11 +531,13 @@ test('Linking Google identity to existing passkey account', async () => {
     assert.equal(googleLogin.data.created, false)
     assert.equal(googleLogin.data.adopted, false)
     assert.equal(googleLogin.data.linked, true, 'linked Google identity to existing passkey account')
+    assert.equal(googleLogin.data.user.id, authPasskeyOnly.data.user.id)
     const linkedCookie = googleLogin.cookieToken
 
-    // GET /api/study-plan/auth now shows signedIn: true, user: Alice
+    // GET /api/study-plan/auth now shows signedIn: true, user: Alice with same id
     const authLinked = await call('GET', '/api/study-plan/auth', { cookie: linkedCookie })
     assert.equal(authLinked.data.signedIn, true)
+    assert.equal(authLinked.data.user.id, authPasskeyOnly.data.user.id)
     assert.equal(authLinked.data.user.email, 'alice@example.com')
 
     // Account still retains passkey count

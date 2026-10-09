@@ -133,6 +133,7 @@ function serveStatic(req, res, staticDir) {
 }
 
 const hash = (value) => createHash('sha256').update(value).digest('hex')
+const accountProfileId = (accountId) => createHash('sha256').update('account:' + accountId).digest('hex').slice(0, 16)
 const MAX_BODY_BYTES = 1700000
 const ALLOWED_ERROR_TYPES = new Set(['vocabulary', 'grammar', 'conjugation'])
 const hasExactKeys = (value, allowed, required = []) => {
@@ -520,6 +521,7 @@ export function createStudyServer({
 
     if (dictionaryVoice) {
       if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      if (!ensureAccount(req)) return sendError(401, 'LOGIN_REQUIRED', 'Sign-in required')
       const query = normalizeFrenchQuery(requestUrl.searchParams.get('q') || '')
       if (!query) return sendError(400, 'DICTIONARY_QUERY_INVALID', 'Invalid dictionary query')
       const cacheKey = frenchQueryKey(query)
@@ -623,11 +625,20 @@ export function createStudyServer({
             FROM account_identities
             WHERE account_id=? AND provider='google'
           `).get(session.accountId)
+          const userId = accountProfileId(session.accountId)
           if (identity) {
             user = {
+              id: userId,
               email: identity.email,
               name: identity.display_name,
               picture: identity.picture,
+            }
+          } else {
+            user = {
+              id: userId,
+              email: '',
+              name: '',
+              picture: '',
             }
           }
         }
@@ -651,10 +662,14 @@ export function createStudyServer({
         return sendError(400, 'LOGOUT_REQUEST_INVALID', 'Invalid logout request')
       const token = /(?:^|;\s*)study_session=([a-f0-9]{64})(?:;|$)/.exec(req.headers.cookie || '')?.[1]
       if (token) {
-        db.prepare('DELETE FROM account_sessions WHERE token_hash=?').run(hash(token))
+        const session = resolveNodeAccountSession(db, hash(token))
+        if (session) {
+          db.prepare('DELETE FROM account_sessions WHERE token_hash=?').run(hash(token))
+          const clearCookie = `study_session=; Path=/api; HttpOnly; SameSite=${sameSite === 'none' ? 'None' : 'Strict'}; Max-Age=0${secure ? '; Secure' : ''}`
+          return send(200, { signedIn: false }, { 'Set-Cookie': clearCookie })
+        }
       }
-      const clearCookie = `study_session=; Path=/api; HttpOnly; SameSite=${sameSite === 'none' ? 'None' : 'Strict'}; Max-Age=0${secure ? '; Secure' : ''}`
-      return send(200, { signedIn: false }, { 'Set-Cookie': clearCookie })
+      return send(200, { signedIn: false })
     }
 
     if (authFirebase) {
@@ -715,13 +730,14 @@ export function createStudyServer({
           db.exec('COMMIT')
           const accountRow = db.prepare('SELECT learner FROM accounts WHERE id=?').get(existingIdentity.account_id)
           audit(accountRow?.learner, 'google_login', 'success', { created: false, adopted: false })
+          const userId = accountProfileId(existingIdentity.account_id)
           res.setHeader('Set-Cookie', sessionCookie(sessionToken, { secure, sameSite }))
           return send(200, {
             signedIn: true,
             created: false,
             adopted: false,
             linked: false,
-            user: { email: user.email, name: user.name, picture: user.picture },
+            user: { id: userId, email: user.email, name: user.name, picture: user.picture },
           })
         }
 
@@ -783,6 +799,7 @@ export function createStudyServer({
         }
         db.exec('COMMIT')
 
+        const userId = accountProfileId(accountId)
         audit(targetLearner, 'google_login', 'success', { created, adopted })
         res.setHeader('Set-Cookie', sessionCookie(sessionToken, { secure, sameSite }))
         return send(200, {
@@ -790,7 +807,7 @@ export function createStudyServer({
           created,
           adopted,
           linked,
-          user: { email: user.email, name: user.name, picture: user.picture },
+          user: { id: userId, email: user.email, name: user.name, picture: user.picture },
         })
       } catch (error) {
         db.exec('ROLLBACK')
@@ -807,6 +824,7 @@ export function createStudyServer({
               db.prepare('DELETE FROM account_sessions WHERE token_hash=?').run(hash(oldToken))
             }
             const accountRow = db.prepare('SELECT learner FROM accounts WHERE id=?').get(existing.account_id)
+            const userId = accountProfileId(existing.account_id)
             audit(accountRow?.learner, 'google_login', 'success', { created: false, adopted: false })
             res.setHeader('Set-Cookie', sessionCookie(sessionToken, { secure, sameSite }))
             return send(200, {
@@ -814,7 +832,7 @@ export function createStudyServer({
               created: false,
               adopted: false,
               linked: false,
-              user: { email: user.email, name: user.name, picture: user.picture },
+              user: { id: userId, email: user.email, name: user.name, picture: user.picture },
             })
           }
         }

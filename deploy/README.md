@@ -226,3 +226,8 @@ Backend configuration options / environment variables:
 - `STUDY_ALLOWED_EMAILS`: Comma-separated list of allowed emails (case-insensitive). Default is empty (any Google account).
 - `STUDY_MAX_NEW_ACCOUNTS_PER_DAY`: Global daily limit on newly created accounts via Google sign-in (default `200`).
 
+Auth endpoints:
+- `GET /api/study-plan/auth`: Returns `{ enabled, required, signedIn, user: { id, email, name, picture } | null }`. When signed in, `user.id` is the stable 16-hex account profile key (first 16 hex chars of `sha256('account:' + accounts.id)`). For passkey-only accounts, `user` is `{ id, email: '', name: '', picture: '' }`.
+- `POST /api/study-plan/auth/firebase`: Body `{"idToken":"..."}`. Verifies ID token, sets HttpOnly `study_session` cookie, and returns `{ signedIn: true, created, adopted, linked, user: { id, email, name, picture } }`.
+- `POST /api/study-plan/auth/logout`: Body `{}`. Deletes the account session row and clears the cookie when signed into an account session; anonymous sessions return `{ signedIn: false }` leaving the anonymous session cookie intact.
+
