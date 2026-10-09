@@ -1,3 +1,4 @@
+import GuestProgressPrompt from '@/components/GuestProgressPrompt'
 import LookupText from '@/components/Dictionary/LookupText'
 import Layout from '@/components/Layout'
 import PageToolbar from '@/components/PageToolbar'
@@ -302,6 +303,7 @@ export default function GrammarSessionPage() {
             <button type="button" onClick={startSession} className="my-btn-primary mt-8 px-8 py-3 text-base">
               开始 30 分钟
             </button>
+            <GuestProgressPrompt className="mt-4 justify-start" />
           </section>
         </main>
       </Layout>
@@ -357,6 +359,7 @@ export default function GrammarSessionPage() {
                 去练动词变位
               </NavLink>
             </div>
+            <GuestProgressPrompt className="mt-6" />
           </section>
         </main>
       </Layout>

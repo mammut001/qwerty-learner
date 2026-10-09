@@ -1,3 +1,5 @@
+import { isGuestMode } from './guestMode'
+
 export type PlayFrenchVoiceResult = 'played' | 'superseded' | 'unavailable'
 
 export type PlayFrenchVoiceOptions = {
@@ -39,6 +41,7 @@ type AvailabilityListener = (available: boolean) => void
 const availabilityListeners = new Set<AvailabilityListener>()
 
 export function isFrenchVoiceAvailable(): boolean {
+  if (isGuestMode()) return false
   return !proxyUnavailable
 }
 
@@ -57,6 +60,7 @@ function setProxyUnavailable() {
 }
 
 export async function loadFrenchVoice(text: string): Promise<AudioBuffer> {
+  if (isGuestMode()) throw new Error('Voice proxy unavailable in guest mode')
   const query = text.trim()
   if (!query) throw new Error('Query is empty')
   const key = query.toLowerCase()

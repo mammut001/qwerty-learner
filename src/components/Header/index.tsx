@@ -12,8 +12,10 @@ import { Menu, Transition } from '@headlessui/react'
 import { useAtomValue } from 'jotai'
 import type React from 'react'
 import { Fragment, useEffect, useState } from 'react'
+import { isGuestMode, isPathGated } from '@/services/guestMode'
 import { NavLink, useLocation } from 'react-router-dom'
 import IconChevronDown from '~icons/tabler/chevron-down'
+import IconLock from '~icons/tabler/lock'
 import IconMenu from '~icons/tabler/menu-2'
 import IconX from '~icons/tabler/x'
 
@@ -52,6 +54,7 @@ const Header: React.FC = () => {
   const isExamActive = pathname.startsWith('/tcf') || pathname.startsWith('/echelle')
   const [menuOpen, setMenuOpen] = useState(false)
   const authStatus = useAtomValue(authStatusAtom)
+  const isGuest = authStatus ? (authStatus.enabled && authStatus.required && !authStatus.signedIn) : isGuestMode()
   const [loginError, setLoginError] = useState('')
   const [isSigningIn, setIsSigningIn] = useState(false)
   const [isSigningOut, setIsSigningOut] = useState(false)
@@ -134,7 +137,10 @@ const Header: React.FC = () => {
         >
           {navItems.slice(0, 5).map((item) => (
             <NavLink key={item.to} to={item.to} end className={({ isActive }) => navItemClass(isActive)}>
-              {item.label}
+              <span>{item.label}</span>
+              {isGuest && isPathGated(item.to) && (
+                <IconLock className="h-3 w-3 shrink-0 text-gray-400 dark:text-gray-500" aria-label="需要登录" />
+              )}
             </NavLink>
           ))}
           <Menu as="div" className="relative">
@@ -175,7 +181,12 @@ const Header: React.FC = () => {
                           {item.code === 'NCLC 7' ? '∑' : item.code}
                         </span>
                         <span className="flex min-w-0 flex-1 items-center justify-between gap-3">
-                          <span className="shrink-0 font-medium">{item.label}</span>
+                          <span className="inline-flex items-center gap-1.5 font-medium">
+                            {item.label}
+                            {isGuest && isPathGated(item.to) && (
+                              <IconLock className="h-3 w-3 shrink-0 text-gray-400 dark:text-gray-500" aria-label="需要登录" />
+                            )}
+                          </span>
                           <span className="whitespace-nowrap text-[11px] text-gray-400">{item.detail}</span>
                         </span>
                       </NavLink>
@@ -187,7 +198,10 @@ const Header: React.FC = () => {
           </Menu>
           {navItems.slice(5).map((item) => (
             <NavLink key={item.to} to={item.to} end className={({ isActive }) => navItemClass(isActive)}>
-              {item.label}
+              <span>{item.label}</span>
+              {isGuest && isPathGated(item.to) && (
+                <IconLock className="h-3 w-3 shrink-0 text-gray-400 dark:text-gray-500" aria-label="需要登录" />
+              )}
             </NavLink>
           ))}
           {authStatus?.enabled && (
@@ -298,12 +312,18 @@ const Header: React.FC = () => {
         >
           {navItems.map((item) => (
             <NavLink key={item.to} to={item.to} end className={({ isActive }) => `${navItemClass(isActive)} justify-center py-2.5`}>
-              {item.label}
+              <span>{item.label}</span>
+              {isGuest && isPathGated(item.to) && (
+                <IconLock className="h-3 w-3 shrink-0 text-gray-400 dark:text-gray-500" aria-label="需要登录" />
+              )}
             </NavLink>
           ))}
           {examItems.map((item) => (
             <NavLink key={item.to} to={item.to} end className={({ isActive }) => `${navItemClass(isActive)} justify-center py-2.5`}>
-              模考 · {item.label}
+              <span>模考 · {item.label}</span>
+              {isGuest && isPathGated(item.to) && (
+                <IconLock className="h-3 w-3 shrink-0 text-gray-400 dark:text-gray-500" aria-label="需要登录" />
+              )}
               <span className="text-xs opacity-70">{item.code}</span>
             </NavLink>
           ))}

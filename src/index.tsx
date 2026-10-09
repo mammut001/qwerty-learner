@@ -3,6 +3,7 @@ import AccessGate from './components/AccessGate'
 import AuthGate from './components/AuthGate'
 import Header from './components/Header'
 import { LoadingUI } from './components/Loading'
+import RequireAccount from './components/RequireAccount'
 import { ShellHeaderProvider } from './components/ShellHeader'
 import './index.css'
 import { isOpenDarkModeAtom } from '@/store'
@@ -131,20 +132,20 @@ function Root() {
                       <Route path="/word-lists" element={<CustomDictPage />} />
                       <Route path="/conjugation" element={<ConjugationPage />} />
                       <Route path="/grammar-session" element={<GrammarSessionPage />} />
-                      <Route path="/study-plan" element={<StudyPlanPage />} />
-                      <Route path="/placement-test" element={<PlacementTestPage />} />
+                      <Route path="/study-plan" element={<RequireAccount pageName="学习计划"><StudyPlanPage /></RequireAccount>} />
+                      <Route path="/placement-test" element={<RequireAccount pageName="定级测试"><PlacementTestPage /></RequireAccount>} />
                       <Route path="/admin/placement" element={<AdminPlacementPage />} />
-                      <Route path="/tcf" element={<TcfHubPage />} />
-                      <Route path="/echelle" element={<EchelleQuebecoisePage />} />
-                      <Route path="/levels" element={<LevelsPage />} />
-                      <Route path="/levels/review" element={<LevelReviewPage />} />
-                      <Route path="/levels/:level" element={<LevelDetailPage />} />
+                      <Route path="/tcf" element={<RequireAccount pageName="TCF 总览"><TcfHubPage /></RequireAccount>} />
+                      <Route path="/echelle" element={<RequireAccount pageName="能力量表"><EchelleQuebecoisePage /></RequireAccount>} />
+                      <Route path="/levels" element={<RequireAccount pageName="等级课程"><LevelsPage /></RequireAccount>} />
+                      <Route path="/levels/review" element={<RequireAccount pageName="课程复习"><LevelReviewPage /></RequireAccount>} />
+                      <Route path="/levels/:level" element={<RequireAccount pageName="等级课程"><LevelDetailPage /></RequireAccount>} />
                       <Route path="/tcf-listening" element={<TcfListeningPage />} />
                       <Route path="/tcf-reading" element={<TcfReadingPage />} />
-                      <Route path="/tcf-writing" element={<TcfWritingPage />} />
-                      <Route path="/tcf-speaking" element={<TcfSpeakingPage />} />
-                      <Route path="/analysis" element={<AnalysisPage />} />
-                      <Route path="/error-book" element={<ErrorBookPage />} />
+                      <Route path="/tcf-writing" element={<RequireAccount pageName="TCF 写作"><TcfWritingPage /></RequireAccount>} />
+                      <Route path="/tcf-speaking" element={<RequireAccount pageName="TCF 口语"><TcfSpeakingPage /></RequireAccount>} />
+                      <Route path="/analysis" element={<RequireAccount pageName="统计"><AnalysisPage /></RequireAccount>} />
+                      <Route path="/error-book" element={<RequireAccount pageName="错题本"><ErrorBookPage /></RequireAccount>} />
                       <Route path="/*" element={<Navigate to="/study-plan" />} />
                     </Routes>
                   </Suspense>

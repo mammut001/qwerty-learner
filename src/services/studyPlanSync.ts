@@ -2,6 +2,7 @@ import { computePlacementResult } from '../../server/placement-data.mjs'
 import { scoreEchelleItem } from '../resources/echelleCurriculum'
 import { nextMemory } from '../resources/echelleMemory'
 import type { PlacementProfile, PlacementResult } from '../resources/placementTest'
+import { isGuestMode } from './guestMode'
 
 type StudyPlanSettings = {
   examDate: string
@@ -805,6 +806,9 @@ const publish = (input: StudyPlanStorage | StudyServerState) => {
 }
 
 async function api(method: string, path = '', body?: unknown, unauthorized = 'STUDY_SESSION_BLOCKED') {
+  if (isGuestMode()) {
+    throw new Error(unauthorized)
+  }
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), 10000)
   try {
@@ -840,6 +844,9 @@ async function api(method: string, path = '', body?: unknown, unauthorized = 'ST
 }
 
 async function apiText(method: string, path: string) {
+  if (isGuestMode()) {
+    throw new Error('STUDY_SESSION_BLOCKED')
+  }
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), 10000)
   try {
@@ -970,6 +977,13 @@ async function drain() {
 }
 
 export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Promise<void> {
+  if (isGuestMode()) {
+    if (retry) {
+      clearTimeout(retry)
+      retry = undefined
+    }
+    return Promise.resolve()
+  }
   ensureAutoSyncListeners()
   try {
     ensureFallback(initial)
@@ -1010,7 +1024,7 @@ export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Pr
 }
 
 function enqueue(operations: Operation[]) {
-  if (!operations.length) return
+  if (isGuestMode() || !operations.length) return
   ensureAutoSyncListeners()
   ensureFallback()
   const id = crypto.randomUUID()
@@ -1419,6 +1433,7 @@ const sanitizeLegacyConjugation = (value: unknown): ConjugationStats => {
 }
 
 export function migrateLegacyStudyData(input: { vocabulary?: VocabularyProgressInput[]; grammarHistory?: unknown; conjugation?: unknown }) {
+  if (isGuestMode()) return Promise.resolve(false)
   if (legacyMigrationRunning) return legacyMigrationRunning
   legacyMigrationRunning = runLegacyStudyMigration(input).finally(() => {
     legacyMigrationRunning = undefined

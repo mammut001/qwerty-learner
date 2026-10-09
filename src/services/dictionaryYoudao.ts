@@ -1,4 +1,5 @@
 import type { DictionaryResult } from './dictionary'
+import { isGuestMode } from './guestMode'
 
 export type YoudaoSense = { pos: string; gloss: string }
 export type YoudaoExample = { fr: string; zh: string }
@@ -89,6 +90,7 @@ async function fetchYoudao(query: string): Promise<YoudaoFrench | null> {
 
 /** Chinese explanation for a French headword. Null means the lookup failed; an empty sense list is a real miss. */
 export async function loadYoudaoFrench(word: string): Promise<YoudaoFrench | null> {
+  if (isGuestMode()) return null
   const query = word.trim()
   if (!query) return null
   const cached = memory.get(query)

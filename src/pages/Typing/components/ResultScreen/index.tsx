@@ -2,6 +2,7 @@ import { TypingContext, TypingStateActionType } from '../../store'
 import ConclusionBar from './ConclusionBar'
 import RemarkRing from './RemarkRing'
 import WordChip from './WordChip'
+import GuestProgressPrompt from '@/components/GuestProgressPrompt'
 import Tooltip from '@/components/Tooltip'
 import {
   currentChapterAtom,
@@ -289,6 +290,7 @@ const ResultScreen = () => {
                 </button>
               )}
             </div>
+            <GuestProgressPrompt className="mt-4" />
           </div>
         </div>
       </Transition>
