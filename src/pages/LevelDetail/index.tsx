@@ -8,10 +8,11 @@ import {
   type EchelleProductionItem,
   type EchelleQuizItem,
   getEchelleLevelItems,
+  getEchelleProductionTaskPool,
   scoreEchelleItem,
 } from '@/resources/echelleCurriculum'
 import { estimateRetention } from '@/resources/echelleMemory'
-import { getEchelleStage } from '@/resources/echelleQuebecoise'
+import { DISCOURSE_TYPE_META, getEchelleStage } from '@/resources/echelleQuebecoise'
 import { countDue, memoryLabel } from '@/resources/echelleReview'
 import type { EchelleAiStatus, EchelleEvaluation, EchelleItemRecord, LearningProgress } from '@/services/studyPlanSync'
 import {
@@ -265,6 +266,7 @@ export default function LevelDetailPage() {
                     now={now}
                     aiStatus={aiStatus}
                     state={itemStates[item.id]}
+                    itemStates={itemStates}
                     isOpen={activeItemId === item.id}
                     onToggle={() => setActiveItemId(activeItemId === item.id ? null : item.id)}
                   />
@@ -283,6 +285,7 @@ function ItemCard({
   now,
   aiStatus,
   state,
+  itemStates,
   isOpen,
   onToggle,
 }: {
@@ -290,6 +293,7 @@ function ItemCard({
   now: number
   aiStatus: EchelleAiStatus | null
   state?: EchelleItemRecord
+  itemStates?: Record<string, EchelleItemRecord>
   isOpen: boolean
   onToggle: () => void
 }) {
@@ -297,6 +301,7 @@ function ItemCard({
   const memory = memoryLabel(state, now)
   const retention = isMastered ? Math.round(estimateRetention(state, now) * 100) : null
   const subtitle = item.kind === 'indicator' ? item.descriptionFr : item.kind === 'production' ? item.promptZh : undefined
+  const discourseType = item.typeDeDiscours ? DISCOURSE_TYPE_META[item.typeDeDiscours] : null
   return (
     <div
       className={`ui-panel overflow-hidden p-0 transition-all ${isOpen ? 'ring-1 ring-indigo-400/60 sm:col-span-2' : ''}`}
@@ -319,7 +324,14 @@ function ItemCard({
             {isMastered ? <IconCheck className="h-4 w-4" /> : <span className="h-2 w-2 rounded-full bg-current" />}
           </span>
           <span className="min-w-0">
-            <span className="block font-medium text-gray-900 dark:text-white">{item.titleZh}</span>
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="font-medium text-gray-900 dark:text-white">{item.titleZh}</span>
+              {discourseType && (
+                <span className={`inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-medium ${discourseType.badgeClass}`}>
+                  {discourseType.zh}
+                </span>
+              )}
+            </div>
             {subtitle && <span className="mt-0.5 line-clamp-2 block text-xs text-gray-500 dark:text-gray-400">{subtitle}</span>}
           </span>
         </div>
@@ -333,7 +345,11 @@ function ItemCard({
         </span>
       </button>
       {isOpen &&
-        (item.kind === 'production' ? <ProductionPanel item={item} state={state} aiStatus={aiStatus} /> : <QuizPanel item={item} />)}
+        (item.kind === 'production' ? (
+          <ProductionPanel item={item} state={state} aiStatus={aiStatus} itemStates={itemStates} />
+        ) : (
+          <QuizPanel item={item} />
+        ))}
     </div>
   )
 }
@@ -495,23 +511,39 @@ function ProductionPanel({
   item,
   state,
   aiStatus,
+  itemStates,
 }: {
   item: EchelleProductionItem
   state?: EchelleItemRecord
   aiStatus: EchelleAiStatus | null
+  itemStates?: Record<string, EchelleItemRecord>
 }) {
   const isWriting = item.skill === 'writing'
   const aiEnabled = aiStatus?.enabled ?? false
+
+  const pool = useMemo(() => {
+    return getEchelleProductionTaskPool(item.skill, item.level)
+  }, [item.skill, item.level])
+
+  const allTasks = useMemo(() => {
+    return pool.length > 0 ? [item, ...pool] : [item]
+  }, [pool, item])
+
+  const [activeTaskIndex, setActiveTaskIndex] = useState(0)
+  const activeTask = allTasks[activeTaskIndex] ?? item
+  const activeRecord = (itemStates && itemStates[activeTask.id]) ?? (activeTask.id === item.id ? state : undefined)
+
   const [text, setText] = useState('')
   const [seconds, setSeconds] = useState(0)
   const [isRecording, setIsRecording] = useState(false)
   const [usedSpeech, setUsedSpeech] = useState(false)
-  const [selfChecks, setSelfChecks] = useState<boolean[]>(() => item.selfChecks.map(() => false))
+  const [selfChecks, setSelfChecks] = useState<boolean[]>(() => activeTask.selfChecks.map(() => false))
   const [saved, setSaved] = useState(false)
   const [evaluating, setEvaluating] = useState(false)
   const [evaluation, setEvaluation] = useState<EchelleEvaluation | null>(null)
   const [aiError, setAiError] = useState<string | null>(null)
   const timerRef = useRef<number | null>(null)
+
   const speech = useFrenchSpeechRecognition((phrase) => {
     if (!phrase) return
     setText((current) => (current ? `${current} ${phrase}` : phrase))
@@ -524,6 +556,22 @@ function ProductionPanel({
   }
 
   useEffect(() => stopTimer, [])
+
+  const switchTask = (index: number) => {
+    if (index === activeTaskIndex) return
+    setActiveTaskIndex(index)
+    setText('')
+    setSeconds(0)
+    setIsRecording(false)
+    setUsedSpeech(false)
+    const targetTask = allTasks[index] ?? item
+    setSelfChecks(targetTask.selfChecks.map(() => false))
+    setSaved(false)
+    setEvaluation(null)
+    setAiError(null)
+    stopTimer()
+    speech.stop()
+  }
 
   const toggleRecording = () => {
     if (isRecording) {
@@ -539,13 +587,15 @@ function ProductionPanel({
   }
 
   const wc = wordCount(text)
-  const meetsLength = isWriting ? wc >= (item.wordMin ?? 0) : seconds >= (item.secondsMin ?? 0)
+  const targetWords = activeTask.wordMin ?? item.wordMin ?? 0
+  const targetSeconds = activeTask.secondsMin ?? item.secondsMin ?? 0
+  const meetsLength = isWriting ? wc >= targetWords : seconds >= targetSeconds
   const canSelfMaster = meetsLength && selfChecks.every(Boolean) && !isRecording
   const canEvaluate = meetsLength && (isWriting || wc >= 3) && !isRecording && !evaluating
 
   const handleSelfMaster = () => {
     recordEchelleMastery({
-      itemId: item.id,
+      itemId: activeTask.id,
       response: isWriting ? { selfChecks, wordCount: wc } : { selfChecks, seconds },
     })
     setSaved(true)
@@ -557,7 +607,7 @@ function ProductionPanel({
     try {
       setEvaluation(
         await evaluateEchelleProduction({
-          itemId: item.id,
+          itemId: activeTask.id,
           text,
           ...(isWriting ? {} : { seconds, inputMode: usedSpeech ? 'speech' : 'manual-transcript' }),
         }),
@@ -583,17 +633,82 @@ function ProductionPanel({
 
   return (
     <div className="border-t border-gray-100 p-4 dark:border-white/[0.06]">
+      {pool.length > 0 && (
+        <div className="mb-4 rounded-xl bg-gradient-to-r from-indigo-50/70 via-blue-50/40 to-slate-50 p-3 ring-1 ring-indigo-100 dark:from-indigo-950/30 dark:via-blue-950/20 dark:to-slate-900/40 dark:ring-indigo-900/40">
+          <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-indigo-900 dark:text-indigo-200">
+              <IconSparkles className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400" />
+              <span>官方行动导向情境题库（MIFI 2023 典型情境池 · {pool.length} 题）</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                const next = (activeTaskIndex + 1) % allTasks.length
+                switchTask(next)
+              }}
+              className="inline-flex items-center gap-1 rounded-md bg-white px-2 py-1 text-xs font-medium text-indigo-700 shadow-sm ring-1 ring-indigo-200 hover:bg-indigo-50 dark:bg-white/[0.08] dark:text-indigo-300 dark:ring-white/10 dark:hover:bg-white/[0.12]"
+            >
+              <IconRefresh className="h-3 w-3" /> 换一题 / 随机情境
+            </button>
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {allTasks.map((t, idx) => {
+              const discourse = t.typeDeDiscours ? DISCOURSE_TYPE_META[t.typeDeDiscours] : null
+              const isSelected = idx === activeTaskIndex
+              const isPoolItem = idx > 0
+              return (
+                <button
+                  key={t.id}
+                  type="button"
+                  onClick={() => switchTask(idx)}
+                  className={`inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs transition-colors ${
+                    isSelected
+                      ? 'bg-indigo-600 font-semibold text-white shadow-sm'
+                      : 'bg-white text-gray-700 ring-1 ring-gray-200 hover:bg-gray-100 dark:bg-white/[0.06] dark:text-gray-300 dark:ring-white/10 dark:hover:bg-white/[0.1]'
+                  }`}
+                >
+                  <span>{isPoolItem ? `情境 ${idx}` : '标准任务'}</span>
+                  {discourse && <span className={`text-[10px] ${isSelected ? 'text-indigo-100' : 'text-gray-500'}`}>· {discourse.zh}</span>}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
       <div className="mb-3 text-sm text-gray-600 dark:text-gray-400">
-        <span className="font-medium text-gray-900 dark:text-white">题目：</span>
-        {item.promptZh}
+        <div className="mb-1 flex flex-wrap items-center gap-2">
+          <span className="font-medium text-gray-900 dark:text-white">题目：{activeTask.titleZh}</span>
+          {activeTask.typeDeDiscours && (
+            <span
+              className={`inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium ${
+                DISCOURSE_TYPE_META[activeTask.typeDeDiscours].badgeClass
+              }`}
+            >
+              {DISCOURSE_TYPE_META[activeTask.typeDeDiscours].zh}
+            </span>
+          )}
+        </div>
+        <p className="mt-1 leading-relaxed text-gray-800 dark:text-gray-200">{activeTask.promptZh}</p>
       </div>
-      <div className="mb-4 text-sm italic text-gray-500">{item.promptFr}</div>
+      <div className="mb-4 text-xs italic text-gray-500">{activeTask.promptFr}</div>
+
+      {activeTask.situations && activeTask.situations.length > 0 && (
+        <div className="mb-4 rounded-xl bg-amber-50/70 p-3 text-xs ring-1 ring-amber-200/60 dark:bg-amber-950/20 dark:ring-amber-900/40">
+          <div className="font-semibold text-amber-900 dark:text-amber-200">官方典型行动情境（MIFI Situations types 真实范例）：</div>
+          <ul className="mt-1.5 list-disc space-y-1 pl-4 text-amber-800 dark:text-amber-300">
+            {activeTask.situations.map((sit, idx) => (
+              <li key={idx}>{sit}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {isWriting ? (
         <>
           {textArea}
           <div className={`mt-2 text-xs ${meetsLength ? 'text-emerald-600' : 'text-gray-500'}`}>
-            当前 {wc} 词 / 目标 {item.wordMin} 词
+            当前 {wc} 词 / 目标 {targetWords} 词
           </div>
         </>
       ) : (
@@ -602,7 +717,7 @@ function ProductionPanel({
             <div className="text-3xl font-bold text-gray-900 dark:text-white" data-testid="speaking-seconds">
               {seconds}s
             </div>
-            <div className="mt-1 text-xs text-gray-500">大声说出你的回答；目标：至少 {item.secondsMin} 秒</div>
+            <div className="mt-1 text-xs text-gray-500">大声说出你的回答；目标：至少 {targetSeconds} 秒</div>
             <button
               type="button"
               onClick={toggleRecording}
@@ -638,11 +753,14 @@ function ProductionPanel({
 
       <div className="mt-4 space-y-2">
         {aiEnabled && <div className="text-xs font-medium text-gray-500">自查清单（不计分，AI 评分决定是否掌握）</div>}
-        {item.selfChecks.map((label, index) => (
-          <label key={label} className="flex cursor-pointer items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+        {activeTask.selfChecks.map((label, index) => (
+          <label
+            key={`${activeTask.id}-${index}`}
+            className="flex cursor-pointer items-start gap-2 text-sm text-gray-700 dark:text-gray-300"
+          >
             <input
               type="checkbox"
-              checked={selfChecks[index]}
+              checked={selfChecks[index] ?? false}
               onChange={(e) => setSelfChecks((current) => current.map((value, i) => (i === index ? e.target.checked : value)))}
               className="mt-0.5 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
             />
@@ -687,12 +805,12 @@ function ProductionPanel({
       </div>
 
       {evaluation ? (
-        <EchelleAiEvaluation evaluation={evaluation} level={item.level} />
+        <EchelleAiEvaluation evaluation={evaluation} level={activeTask.level} />
       ) : (
-        state?.ai && (
+        activeRecord?.ai && (
           <>
             <div className="mt-4 text-xs text-gray-500">上次 AI 评分</div>
-            <EchelleAiEvaluation evaluation={state.ai} level={item.level} />
+            <EchelleAiEvaluation evaluation={activeRecord.ai} level={activeTask.level} />
           </>
         )
       )}

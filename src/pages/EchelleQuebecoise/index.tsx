@@ -11,6 +11,11 @@ import {
   type EchelleLevel,
   type EchelleSkill,
   PHONOLOGY_DEGREES,
+  DISCOURSE_TYPE_META,
+  parseDimensionItem,
+  SUJETS_ZH,
+  CONTENU_ZH,
+  ETENDUE_ZH,
   getEchelleLevel,
   getEchelleStage,
   isEchelleSkill,
@@ -258,45 +263,140 @@ function LevelDetail({ skillLabel, detail, currentLevel }: { skillLabel: string;
       </div>
 
       <div className="mt-5 rounded-2xl bg-gray-50 p-4 dark:bg-white/[0.04]">
-        <p className="text-[15px] leading-7 text-gray-800 dark:text-gray-100">{detail.descriptionZh}</p>
-        <p className="mt-2 text-sm italic leading-6 text-gray-500 dark:text-gray-400">{detail.descriptionFr}</p>
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {detail.context.map((item) => (
-            <span key={item} className="ui-chip text-[11px]" title={item}>
-              {CONTEXT_ZH[item] ?? item}
-            </span>
-          ))}
+        <div className="text-xs font-semibold text-gray-500 dark:text-gray-400">总体描述 · Description générale</div>
+        <p className="mt-1.5 text-[15px] leading-7 text-gray-800 dark:text-gray-100">{detail.descriptionZh}</p>
+        <p className="mt-1 text-sm italic leading-6 text-gray-500 dark:text-gray-400">{detail.descriptionFr}</p>
+      </div>
+
+      {/* 官方演进参数矩阵 (Paramètres de progression) */}
+      <div className="mt-6 rounded-2xl border border-gray-200/80 bg-white p-5 dark:border-white/10 dark:bg-gray-900/40">
+        <div className="flex items-center justify-between">
+          <h3 className="text-sm font-semibold text-gray-950 dark:text-white">演进参数矩阵 · Paramètres de progression</h3>
+          <span className="text-xs font-medium text-indigo-600 dark:text-indigo-400">官方 6 维宏观标准</span>
+        </div>
+        <div className="mt-4 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="rounded-xl bg-gray-50 p-3.5 dark:bg-white/[0.04]">
+            <div className="text-xs font-medium text-gray-500 dark:text-gray-400">沟通模式 · Communication</div>
+            <div className="mt-1 text-sm font-semibold text-gray-900 dark:text-white">
+              {detail.type} ({type?.zh ?? ''})
+            </div>
+            <div className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">{type?.definition}</div>
+          </div>
+
+          <div className="rounded-xl bg-gray-50 p-3.5 dark:bg-white/[0.04]">
+            <div className="text-xs font-medium text-gray-500 dark:text-gray-400">话题范围 · Sujets</div>
+            <div className="mt-1 text-sm font-semibold text-gray-900 dark:text-white">
+              {detail.sujets ? SUJETS_ZH[detail.sujets] ?? detail.sujets : '日常生活'}
+            </div>
+            {detail.sujets && <div className="mt-0.5 text-xs italic text-gray-500 dark:text-gray-400">{detail.sujets}</div>}
+          </div>
+
+          <div className="rounded-xl bg-gray-50 p-3.5 dark:bg-white/[0.04]">
+            <div className="text-xs font-medium text-gray-500 dark:text-gray-400">篇幅与语篇广度 · Étendue</div>
+            <div className="mt-1 text-sm font-semibold text-gray-900 dark:text-white">
+              {detail.etendue ? ETENDUE_ZH[detail.etendue] ?? detail.etendue : '常规篇幅'}
+            </div>
+            {detail.etendue && <div className="mt-0.5 text-xs italic text-gray-500 dark:text-gray-400">{detail.etendue}</div>}
+          </div>
+
+          <div className="rounded-xl bg-gray-50 p-3.5 dark:bg-white/[0.04] sm:col-span-2 lg:col-span-2">
+            <div className="text-xs font-medium text-gray-500 dark:text-gray-400">内容特质 · Contenu</div>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {(detail.contenu && detail.contenu.length > 0 ? detail.contenu : ['Factuel', 'Concret']).map((c) => (
+                <span
+                  key={c}
+                  className="inline-flex items-center rounded-lg bg-indigo-50 px-2.5 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-600/20 dark:bg-indigo-900/30 dark:text-indigo-300"
+                >
+                  {CONTENU_ZH[c] ?? c}
+                  <span className="ml-1 text-[10px] italic opacity-75">({c})</span>
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-xl bg-gray-50 p-3.5 dark:bg-white/[0.04]">
+            <div className="text-xs font-medium text-gray-500 dark:text-gray-400">语言综合 · Composantes</div>
+            <div className="mt-1 text-xs leading-5 text-gray-800 dark:text-gray-200">
+              {detail.composantesLinguistiques || '基础词汇与句式'}
+            </div>
+          </div>
+
+          <div className="rounded-xl bg-gray-50 p-3.5 dark:bg-white/[0.04] sm:col-span-2 lg:col-span-3">
+            <div className="text-xs font-medium text-gray-500 dark:text-gray-400">语境特征与支持 · Contexte</div>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {detail.context.map((item) => (
+                <span key={item} className="ui-chip text-xs" title={item}>
+                  {CONTEXT_ZH[item] ?? item}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
-      <h3 className="mt-7 text-sm font-semibold text-gray-950 dark:text-white">能力指标 · Indicateurs</h3>
+      <h3 className="mt-8 text-sm font-semibold text-gray-950 dark:text-white">
+        能力指标与真实情境 · Indicateurs ({detail.indicators.length} 条)
+      </h3>
+      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+        指标按 8 大语篇类型分类；附带的示例为魁省官方行动导向典型情境（Situations types）。
+      </p>
       <ol className="mt-3 space-y-3">
-        {detail.indicators.map((indicator, index) => (
-          <li key={indicator.fr} data-testid="echelle-indicator" className="rounded-2xl border border-gray-200/80 p-4 dark:border-white/10">
-            <div className="flex gap-3">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-indigo-50 text-xs font-semibold tabular-nums text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-200">
-                {index + 1}
-              </span>
-              <div className="min-w-0">
-                <div className="text-sm font-medium text-gray-950 dark:text-white">{indicator.zh}</div>
-                <div className="mt-0.5 text-sm text-gray-600 dark:text-gray-300">{indicator.fr}</div>
-                <ul className="mt-2 space-y-1">
-                  {indicator.examples.map((example) => (
-                    <li key={example} className="text-xs italic leading-5 text-gray-500 dark:text-gray-400">
-                      — {example}
-                    </li>
-                  ))}
-                </ul>
+        {detail.indicators.map((indicator, index) => {
+          const dt = indicator.typeDeDiscours && DISCOURSE_TYPE_META[indicator.typeDeDiscours]
+          return (
+            <li
+              key={indicator.fr}
+              data-testid="echelle-indicator"
+              className="rounded-2xl border border-gray-200/80 p-4 transition-colors hover:border-gray-300 dark:border-white/10 dark:hover:border-white/20"
+            >
+              <div className="flex items-start gap-3">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-indigo-50 text-xs font-semibold tabular-nums text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-200">
+                  {index + 1}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    {dt && (
+                      <span
+                        className={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium ${dt.badgeClass}`}
+                        title={dt.descriptionZh}
+                      >
+                        {dt.zh} · {dt.fr}
+                      </span>
+                    )}
+                    <span className="text-sm font-medium text-gray-950 dark:text-white">{indicator.zh}</span>
+                  </div>
+                  <div className="mt-1 text-sm text-gray-600 dark:text-gray-300">{indicator.fr}</div>
+                  <div className="mt-2.5 rounded-xl bg-gray-50/70 p-2.5 dark:bg-white/[0.02]">
+                    <div className="text-[11px] font-medium text-gray-400">官方行动情境（Situations types）：</div>
+                    <ul className="mt-1 space-y-1">
+                      {indicator.examples.map((example) => (
+                        <li key={example} className="text-xs leading-5 text-gray-600 dark:text-gray-300">
+                          • {example}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
-            </div>
-          </li>
-        ))}
+            </li>
+          )
+        })}
       </ol>
 
-      <h3 className="mt-7 text-sm font-semibold text-gray-950 dark:text-white">本级语言点 · Dimensions linguistiques</h3>
+      <h3 className="mt-8 text-sm font-semibold text-gray-950 dark:text-white">本级语言掌握维度 · Dimensions linguistiques</h3>
       <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-        只列本级新出现的要点，低级已掌握的不再重复。
-        {ECHELLE_PROGRESSION_MARKERS.map((marker) => `「${marker.fr}」= ${marker.zh}`).join('；')}。
+        只列本级新出现的语言点（低级已掌握的累积继承）；每个要点均解析出官方掌握阶段：
+        <span className="ml-1 inline-flex items-center gap-1">
+          <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">
+            初学萌芽 (Quelques)
+          </span>
+          <span className="rounded bg-indigo-100 px-1.5 py-0.5 text-[10px] font-medium text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-300">
+            多样熟练 (Une variété)
+          </span>
+          <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-medium text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300">
+            巩固掌握 (Maitrise)
+          </span>
+        </span>
       </p>
       <div className="mt-3 grid gap-3 md:grid-cols-3">
         {(Object.keys(DIMENSION_LABELS) as (keyof EchelleLevel['dimensions'])[]).map((key) => (
@@ -306,12 +406,18 @@ function LevelDetail({ skillLabel, detail, currentLevel }: { skillLabel: string;
             {detail.dimensions[key].length === 0 ? (
               <p className="mt-2 text-xs text-gray-400">本级无新增</p>
             ) : (
-              <ul className="mt-2 space-y-1.5">
-                {detail.dimensions[key].map((item) => (
-                  <li key={item} className="text-sm leading-6 text-gray-700 dark:text-gray-200">
-                    {item}
-                  </li>
-                ))}
+              <ul className="mt-2.5 space-y-2">
+                {detail.dimensions[key].map((item) => {
+                  const parsed = parseDimensionItem(item)
+                  return (
+                    <li key={item} className="flex items-start gap-1.5 text-xs leading-5 text-gray-700 dark:text-gray-200">
+                      <span className={`shrink-0 rounded px-1.5 py-0.5 text-[10px] font-medium leading-none ${parsed.stageBadgeClass}`}>
+                        {parsed.stageLabelZh}
+                      </span>
+                      <span>{parsed.cleanText}</span>
+                    </li>
+                  )
+                })}
               </ul>
             )}
           </div>

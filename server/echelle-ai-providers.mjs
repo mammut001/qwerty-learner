@@ -101,19 +101,21 @@ export function mockProvider({ model = 'mock-heuristic-1' } = {}) {
       const minimum = rubric.task.wordMin ?? Math.max(3, Math.round((rubric.task.secondsMin ?? 10) / 4))
       const injected = /ignore|oublie|donne-moi|score\s*[:=]/i.test(text)
       const base = !french ? 0 : words >= minimum ? 3 : 2
+      const expectedIds = rubric?.criteria ? rubric.criteria.map((c) => c.id) : CRITERION_IDS
       const scores = {
         tache: base,
         texte: !french ? 0 : rubric.level <= 2 || connectors >= Math.min(3, Math.ceil(rubric.level / 3)) ? base : 2,
         phrase: !french ? 0 : sentences.length >= Math.min(3, rubric.level) ? base : 2,
         lexique: !french ? 0 : distinct >= Math.min(words, 4 + rubric.level * 4) * 0.6 ? base : 2,
+        phonologie: !french ? 0 : words >= minimum ? base : 2,
       }
       const evidence = (sentences[0] ?? text).slice(0, 120)
       return JSON.stringify({
-        criteria: CRITERION_IDS.map((id) => ({
+        criteria: expectedIds.map((id) => ({
           id,
-          score: scores[id],
-          evidence: scores[id] ? evidence : '',
-          commentZh: scores[id] >= 3 ? '达到本级要求。' : '尚未达到本级要求。',
+          score: scores[id] ?? base,
+          evidence: (scores[id] ?? base) ? evidence : '',
+          commentZh: (scores[id] ?? base) >= 3 ? '达到本级要求。' : '尚未达到本级要求。',
         })),
         estimatedLevel: Math.max(1, Math.min(12, rubric.level + (Object.values(scores).every((score) => score >= 3) ? 0 : -1))),
         feedbackZh: french ? '内容基本完成任务，继续加强连接词与句式变化。' : '请用法语完成任务。',

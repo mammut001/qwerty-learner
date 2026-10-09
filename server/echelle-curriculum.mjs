@@ -4,7 +4,7 @@ import { TEXT_GRAMMAR } from './echelle-texte-bank.mjs'
 import { LEXIQUE_TOPICS } from './echelle-lexique-bank.mjs'
 import { LISTENING_CHECKS } from './echelle-listening-bank.mjs'
 import { READING_CHECKS } from './echelle-reading-bank.mjs'
-import { WRITING_TASKS, SPEAKING_TASKS } from './echelle-production-bank.mjs'
+import { WRITING_TASKS, SPEAKING_TASKS, WRITING_TASK_POOLS, SPEAKING_TASK_POOLS, getProductionTaskPool } from './echelle-production-bank.mjs'
 
 // Utilities ------------------------------------------------------------------
 function djb2(str) {
@@ -216,6 +216,7 @@ function addIndicatorItems(catalog, levelItems) {
           kind: 'indicator',
           titleZh: (indicator ? `指标 ${i + 1}` : `练习 ${i + 1}`),
           descriptionFr: indicator?.fr,
+          typeDeDiscours: indicator?.typeDeDiscours,
           text: check.text,
           audioText: skill === 'listening' ? check.text : undefined,
           questions: toQuestions(id, check.questions),
@@ -258,6 +259,39 @@ function addProductionItems(catalog, levelItems) {
       selfChecks: task.selfChecks,
     }
     levelItems[task.level].push(id)
+  }
+  // Register full authentic task pools from official Échelle situations types
+  for (let lvl = 1; lvl <= 12; lvl++) {
+    for (const poolTask of (WRITING_TASK_POOLS[lvl] || [])) {
+      catalog[poolTask.id] = {
+        id: poolTask.id,
+        level: poolTask.level,
+        skill: 'writing',
+        kind: 'production',
+        titleZh: poolTask.titleZh,
+        promptZh: poolTask.promptZh,
+        promptFr: poolTask.promptFr,
+        wordMin: poolTask.wordMin,
+        selfChecks: poolTask.selfChecks,
+        typeDeDiscours: poolTask.typeDeDiscours,
+        situations: poolTask.situations,
+      }
+    }
+    for (const poolTask of (SPEAKING_TASK_POOLS[lvl] || [])) {
+      catalog[poolTask.id] = {
+        id: poolTask.id,
+        level: poolTask.level,
+        skill: 'speaking',
+        kind: 'production',
+        titleZh: poolTask.titleZh,
+        promptZh: poolTask.promptZh,
+        promptFr: poolTask.promptFr,
+        secondsMin: poolTask.secondsMin,
+        selfChecks: poolTask.selfChecks,
+        typeDeDiscours: poolTask.typeDeDiscours,
+        situations: poolTask.situations,
+      }
+    }
   }
 }
 
@@ -377,3 +411,5 @@ export function summarizeEchelleProgress(masteredIds) {
   }
   return { levels, currentLevel: Math.min(currentLevel, 12) }
 }
+
+export const getEchelleProductionTaskPool = getProductionTaskPool

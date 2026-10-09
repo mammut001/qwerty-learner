@@ -2,7 +2,13 @@ import type { EchelleEvaluation, EchelleStoredEvaluation } from '@/services/stud
 import IconCheck from '~icons/tabler/check'
 import IconX from '~icons/tabler/x'
 
-const CRITERION_LABELS: Record<string, string> = { tache: '任务完成', texte: '篇章组织', phrase: '句子与语法', lexique: '词汇' }
+const CRITERION_LABELS: Record<string, string> = {
+  tache: '任务完成',
+  texte: '篇章组织',
+  phrase: '句子与语法',
+  lexique: '词汇',
+  phonologie: '语音与可懂度',
+}
 const SCORE_LABELS = ['无法评估', '明显低于本级', '接近本级', '符合本级', '高于本级']
 
 const warningText = (warning: string) => {

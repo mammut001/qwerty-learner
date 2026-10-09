@@ -632,9 +632,12 @@ export function createStudyServer({
       if (!row.state) return sendError(409, 'PLAN_UNINITIALIZED', 'Initialize plan first')
       let input
       let submission
+      let targetItem
       try {
         input = await readBody(req)
-        submission = validateSubmission(input).submission
+        const validated = validateSubmission(input)
+        submission = validated.submission
+        targetItem = validated.item
       } catch (error) {
         if (error instanceof EchelleAiError)
           return sendError(400, error.code, 'Invalid evaluation request', error.details)
@@ -662,7 +665,13 @@ export function createStudyServer({
       db.exec('BEGIN IMMEDIATE')
       try {
         const current = db.prepare('SELECT state FROM learners WHERE id=?').get(learner)
-        const state = apply(normalizeState(JSON.parse(current.state)), [evaluationOperation(evaluation, submission, Date.now())], { trusted: true })
+        const now = Date.now()
+        const ops = [evaluationOperation(evaluation, submission, now)]
+        const primaryId = `n${targetItem.level}-${targetItem.skill}-production`
+        if (submission.itemId !== primaryId) {
+          ops.push(evaluationOperation(evaluation, { ...submission, itemId: primaryId }, now + 1))
+        }
+        const state = apply(normalizeState(JSON.parse(current.state)), ops, { trusted: true })
         db.prepare('UPDATE learners SET state=? WHERE id=?').run(JSON.stringify(state), learner)
         materializeNodeFeatures(db, learner, state)
         db.exec('COMMIT')
