@@ -1,6 +1,12 @@
 import DictionaryCard from '@/components/Dictionary/DictionaryCard'
 import Layout from '@/components/Layout'
-import { type DictionaryResult, cleanDictionaryQuery, lookupDictionary, suggestDictionaryWords } from '@/services/dictionary'
+import {
+  type DictionaryResult,
+  cleanDictionaryQuery,
+  findAccentedVariants,
+  lookupDictionary,
+  suggestDictionaryWords,
+} from '@/services/dictionary'
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import IconSearch from '~icons/tabler/search'
@@ -23,11 +29,13 @@ export default function DictionaryPage() {
   const [input, setInput] = useState(query)
   const [result, setResult] = useState<DictionaryResult | null>(null)
   const [suggestions, setSuggestions] = useState<string[]>([])
+  const [accentedVariants, setAccentedVariants] = useState<string[]>([])
   const [error, setError] = useState('')
   const [history, setHistory] = useState(readHistory)
 
   useEffect(() => {
     setInput(query)
+    setAccentedVariants([])
     if (!query) {
       setResult(null)
       return
@@ -53,6 +61,11 @@ export default function DictionaryPage() {
       .catch((reason: unknown) => {
         if (!cancelled) setError(reason instanceof Error ? reason.message : '词典数据加载失败')
       })
+
+    void findAccentedVariants(query).then((variants) => {
+      if (!cancelled) setAccentedVariants(variants)
+    })
+
     return () => {
       cancelled = true
     }
@@ -85,7 +98,7 @@ export default function DictionaryPage() {
   }
 
   const chipClass =
-    'rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700 hover:bg-indigo-100 hover:text-indigo-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600'
+    'ui-chip hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600 dark:hover:border-indigo-400/40 dark:hover:bg-indigo-950/40 dark:hover:text-indigo-300 transition-colors'
 
   return (
     <Layout>
@@ -114,11 +127,11 @@ export default function DictionaryPage() {
               autoCapitalize="none"
               spellCheck={false}
               lang="fr"
-              className="my-card w-full rounded-2xl border border-transparent bg-white py-3.5 pl-12 pr-24 text-lg outline-none focus:border-indigo-400 dark:bg-gray-800 dark:text-gray-100"
+              className="my-card w-full rounded-2xl border border-transparent bg-white py-3.5 pl-12 pr-24 text-base text-gray-900 shadow-sm outline-none transition placeholder:text-gray-400 focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/10 dark:border-white/10 dark:bg-gray-800 dark:text-gray-100 dark:focus:border-indigo-400/80 sm:text-lg [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
             />
             <button
               type="submit"
-              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl bg-indigo-500 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-600"
+              className="ui-btn-primary absolute right-2 top-1/2 -translate-y-1/2 rounded-xl px-4 py-2 text-sm font-medium"
             >
               查询
             </button>
@@ -145,11 +158,16 @@ export default function DictionaryPage() {
 
           <section className="my-card mt-6 rounded-2xl bg-white p-5 dark:bg-gray-800 sm:p-7">
             {error ? (
-              <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+              <div className="rounded-xl bg-red-50/70 p-4 text-sm text-red-600 dark:bg-red-950/30 dark:text-red-400">
+                {error}
+              </div>
             ) : result && query ? (
               <DictionaryCard result={result} />
             ) : query ? (
-              <p className="text-sm text-gray-400">正在查「{query}」…</p>
+              <div className="flex items-center gap-2.5 py-4 text-sm text-gray-400 dark:text-gray-500">
+                <span className="inline-block h-2 w-2 animate-ping rounded-full bg-indigo-400 opacity-75" />
+                <span>正在查「{query}」…</span>
+              </div>
             ) : (
               <div className="space-y-4 text-sm text-gray-600 dark:text-gray-300">
                 <p>
@@ -168,7 +186,24 @@ export default function DictionaryPage() {
             )}
           </section>
 
-          <p className="mt-4 text-xs leading-5 text-gray-400">
+          {accentedVariants.length > 0 && query && (
+            <div className="mt-4 flex flex-wrap items-center gap-2 px-1 text-xs text-gray-500 dark:text-gray-400 sm:text-sm">
+              <span>你要找的可能是：</span>
+              {accentedVariants.map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  onClick={() => search(item)}
+                  lang="fr"
+                  className={chipClass}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+          )}
+
+          <p className="mx-auto mt-6 max-w-prose text-center text-xs leading-5 text-gray-400/90 dark:text-gray-500">
             在线时，中文释义优先来自有道《现代法汉汉法词典》，查不到再由维基词典补全。离线词条来自英文与中文维基词典（Wiktionary），经
             kaikki.org / wiktextract 提取并裁剪，按 CC BY-SA 许可使用；「本站词库」是本项目自己整理的释义。
           </p>
