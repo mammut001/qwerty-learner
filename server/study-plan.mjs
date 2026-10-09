@@ -51,7 +51,7 @@ import {
   writeNodeAudit,
   deleteNodeLearnerData,
 } from './study-node-features.mjs'
-import { createYoudaoCache, frenchQueryKey, lookupYoudaoFrench, normalizeFrenchQuery } from './youdao-fr.mjs'
+import { createYoudaoCache, fetchYoudaoFrenchVoice, frenchQueryKey, lookupYoudaoFrench, normalizeFrenchQuery } from './youdao-fr.mjs'
 import { randomBytes, createHash, createHmac, timingSafeEqual } from 'node:crypto'
 import { mkdirSync, statSync, createReadStream } from 'node:fs'
 import { createServer } from 'node:http'
@@ -171,6 +171,7 @@ export function createStudyServer({
   authRequired = process.env.STUDY_AUTH_REQUIRED === 'true',
   allowedEmails = process.env.STUDY_ALLOWED_EMAILS || '',
   maxNewAccountsPerDay = Number(process.env.STUDY_MAX_NEW_ACCOUNTS_PER_DAY || 200),
+  youdaoVoice = null,
 } = {}) {
   mkdirSync(dirname(resolve(database)), { recursive: true })
   const db = new DatabaseSync(database)
@@ -232,6 +233,8 @@ export function createStudyServer({
 
   const youdaoCache = createYoudaoCache()
   const lookupFrench = youdaoLookup || ((query) => lookupYoudaoFrench(query, { cache: youdaoCache }))
+  const youdaoVoiceCache = createYoudaoCache(300)
+  const lookupVoice = youdaoVoice || ((query) => fetchYoudaoFrenchVoice(query))
 
   const handler = async (req, res) => {
     const requestStarted = performance.now()
@@ -264,6 +267,16 @@ export function createStudyServer({
       res.writeHead(status, {
         'Content-Type': contentType,
         'Cache-Control': 'no-store',
+        'X-Content-Type-Options': 'nosniff',
+        ...extraHeaders,
+      })
+      res.end(body)
+    }
+    const sendBinary = (status, body, contentType, extraHeaders = {}) => {
+      res.writeHead(status, {
+        'Content-Type': contentType,
+        'Content-Length': Buffer.isBuffer(body) ? body.length : Buffer.byteLength(body),
+        'Cache-Control': 'private, max-age=604800',
         'X-Content-Type-Options': 'nosniff',
         ...extraHeaders,
       })
@@ -341,12 +354,13 @@ export function createStudyServer({
     const echelleAi = path === '/api/study-plan/echelle/ai'
     const echelleEvaluate = path === '/api/study-plan/echelle/evaluate'
     const dictionary = path === '/api/study-plan/dictionary'
+    const dictionaryVoice = path === '/api/study-plan/dictionary/voice'
     const authRoute = path === '/api/study-plan/auth'
     const authFirebase = path === '/api/study-plan/auth/firebase'
     const authLogout = path === '/api/study-plan/auth/logout'
     const plan = path === '/api/study-plan'
     if (!health && !importing && !exporting && !analytics && !syncKey && !revokeSyncKey && !linking && !unlinking &&
-        !echelleAi && !echelleEvaluate && !dictionary &&
+        !echelleAi && !echelleEvaluate && !dictionary && !dictionaryVoice &&
         !authRoute && !authFirebase && !authLogout &&
         !syncInfo && !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData &&
         !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
@@ -503,6 +517,42 @@ export function createStudyServer({
     }
 
     if (!accessGranted(req.headers.cookie)) return sendError(401, 'ACCESS_REQUIRED', 'Access password required')
+
+    if (dictionaryVoice) {
+      if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      const query = normalizeFrenchQuery(requestUrl.searchParams.get('q') || '')
+      if (!query) return sendError(400, 'DICTIONARY_QUERY_INVALID', 'Invalid dictionary query')
+      const cacheKey = frenchQueryKey(query)
+      const cached = youdaoVoiceCache.get(cacheKey, Date.now())
+      if (cached) return sendBinary(200, cached, 'audio/mpeg')
+      const limit = consumeNodeRateLimit(db, 'actor:' + actorHash, 'dictionary-voice', {
+        limit: 240,
+        windowMs: 10 * 60_000,
+        blockMs: 60_000,
+      })
+      if (!limit.allowed) {
+        return sendError(
+          429,
+          'DICTIONARY_VOICE_RATE_LIMITED',
+          'Too many dictionary voice requests. Try again later.',
+          { retryAfterSeconds: Math.ceil(limit.retryAfterMs / 1000) },
+          { 'Retry-After': String(Math.ceil(limit.retryAfterMs / 1000)) },
+        )
+      }
+      let outcome
+      try {
+        outcome = await lookupVoice(query)
+      } catch {
+        return sendError(502, 'DICTIONARY_VOICE_UNAVAILABLE', 'Dictionary voice is temporarily unavailable')
+      }
+      const raw = outcome?.buffer || outcome?.value || (Buffer.isBuffer(outcome) || outcome instanceof Uint8Array ? outcome : null)
+      if (!raw || outcome?.error || raw.length < 200 || raw.length > 512 * 1024) {
+        return sendError(502, 'DICTIONARY_VOICE_UNAVAILABLE', 'Dictionary voice is temporarily unavailable')
+      }
+      const buffer = Buffer.isBuffer(raw) ? raw : Buffer.from(raw)
+      youdaoVoiceCache.set(cacheKey, buffer, 7 * 24 * 60 * 60 * 1000, Date.now())
+      return sendBinary(200, buffer, 'audio/mpeg')
+    }
 
     if (dictionary) {
       if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
