@@ -189,7 +189,7 @@ export async function playFrenchVoice(
 
   currentPlayId += 1
   const thisPlayId = currentPlayId
-  const thisToken = token ?? thisPlayId
+  const thisToken = token ?? createPlaybackToken()
   currentPlaybackToken = thisToken
 
   if (currentPlayback) {

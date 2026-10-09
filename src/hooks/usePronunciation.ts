@@ -129,9 +129,9 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
         }).then((result) => {
           if (result === 'superseded') {
             if (activeTokenRef.current === myToken) {
+              setIsPlaying(false)
               activeTokenRef.current = null
             }
-            setIsPlaying(false)
             return
           }
 
