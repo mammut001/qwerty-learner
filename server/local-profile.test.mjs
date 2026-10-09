@@ -174,3 +174,146 @@ test('db-name mapping rules: legacy name reused once, fresh names afterwards, ke
   // Alice's mapping was never touched by Bob
   assert.equal(recordDbName('acct:alice', storage), 'RecordDB')
 })
+
+class LimitedStorage {
+  constructor(byteLimit) {
+    this.map = new Map()
+    this.limit = byteLimit
+  }
+
+  _currentSize() {
+    let size = 0
+    for (const [k, v] of this.map.entries()) {
+      size += k.length + v.length
+    }
+    return size
+  }
+
+  getItem(key) {
+    return this.map.get(key) ?? null
+  }
+
+  setItem(key, value) {
+    const strVal = String(value)
+    const existing = this.map.get(key)
+    const currentSize = this._currentSize()
+    const addedSize = (key.length + strVal.length) - (existing ? (key.length + existing.length) : 0)
+    if (currentSize + addedSize > this.limit) {
+      const err = new Error('QuotaExceededError')
+      err.name = 'QuotaExceededError'
+      throw err
+    }
+    this.map.set(key, strVal)
+  }
+
+  removeItem(key) {
+    this.map.delete(key)
+  }
+
+  key(index) {
+    const keys = Array.from(this.map.keys())
+    return index >= 0 && index < keys.length ? keys[index] : null
+  }
+
+  get length() {
+    return this.map.size
+  }
+}
+
+test('storage fake quota limit: swap hitting limit never loses data', () => {
+  const storage = new LimitedStorage(200)
+  storage.setItem('qfp:current', 'anon')
+  storage.setItem('dict', 'dict-v1')
+  storage.setItem('plan', 'plan-content-123456789012345678901234567890')
+  storage.setItem('stats', 'stats-val')
+
+  const initialPlanVal = storage.getItem('plan')
+  const initialDictVal = storage.getItem('dict')
+  const initialStatsVal = storage.getItem('stats')
+
+  // Set the limit strictly just above initial size so stashing larger keys fails
+  storage.limit = storage._currentSize() + 15
+
+  const result = switchLocalProfile('acct:bob', 'swap', storage)
+
+  assert.equal(typeof result, 'object')
+  assert.ok(Array.isArray(result.failedKeys))
+
+  // No value is lost: every original value is still readable in place or in stash
+  const planVal = storage.getItem('plan') || storage.getItem('qfp:data:anon:plan')
+  const dictVal = storage.getItem('dict') || storage.getItem('qfp:data:anon:dict')
+  const statsVal = storage.getItem('stats') || storage.getItem('qfp:data:anon:stats')
+
+  assert.equal(planVal, initialPlanVal, 'plan was not lost')
+  assert.equal(dictVal, initialDictVal, 'dict was not lost')
+  assert.equal(statsVal, initialStatsVal, 'stats was not lost')
+})
+
+test('interruption during restore phase does not mix profiles upon recovery', () => {
+  const storage = createMemoryStorage()
+
+  // Setup mid-restore state manually:
+  // Alice stashed all keys
+  storage.setItem('qfp:current', 'acct:alice')
+  storage.setItem('qfp:data:acct:alice:plan', 'alice-plan')
+  storage.setItem('qfp:data:acct:alice:dict', 'alice-dict')
+
+  // Bob was partially restored: 'plan' already restored to root, 'dict' still in stash
+  storage.setItem('plan', 'bob-plan')
+  storage.setItem('qfp:data:acct:bob:dict', 'bob-dict')
+
+  // Switching state recorded in 'restore' phase
+  storage.setItem(
+    'qfp:switching',
+    JSON.stringify({ from: 'acct:alice', to: 'acct:bob', phase: 'restore' }),
+  )
+
+  // Repair
+  const repairResult = repairInterruptedSwitch(storage)
+  assert.equal(repairResult.switched, true)
+  assert.equal(repairResult.failedKeys.length, 0)
+
+  // Alice's data must NOT have received Bob's 'bob-plan'
+  assert.equal(storage.getItem('qfp:data:acct:alice:plan'), 'alice-plan')
+  assert.equal(storage.getItem('qfp:data:acct:alice:dict'), 'alice-dict')
+
+  // Bob's data must now be fully in root
+  assert.equal(storage.getItem('plan'), 'bob-plan')
+  assert.equal(storage.getItem('dict'), 'bob-dict')
+  assert.equal(storage.getItem('qfp:data:acct:bob:dict'), null)
+
+  // Active profile is bob
+  assert.equal(getCurrentProfile(storage), 'acct:bob')
+  assert.equal(storage.getItem('qfp:switching'), null)
+})
+
+test('repair is idempotent when run twice and never overwrites existing non-empty stash', () => {
+  const storage = createMemoryStorage()
+
+  storage.setItem('qfp:current', 'acct:alice')
+  storage.setItem('plan', 'new-plan-in-root')
+  storage.setItem('qfp:data:acct:alice:plan', 'original-stashed-plan')
+  storage.setItem('qfp:data:acct:bob:dict', 'bob-dict')
+
+  storage.setItem(
+    'qfp:switching',
+    JSON.stringify({ from: 'acct:alice', to: 'acct:bob', phase: 'stash' }),
+  )
+
+  // First repair run
+  const res1 = repairInterruptedSwitch(storage)
+  assert.equal(storage.getItem('qfp:data:acct:alice:plan'), 'original-stashed-plan')
+  assert.equal(storage.getItem('dict'), 'bob-dict')
+  assert.equal(getCurrentProfile(storage), 'acct:bob')
+  assert.equal(storage.getItem('qfp:switching'), null)
+
+  // Second repair run (idempotent)
+  const res2 = repairInterruptedSwitch(storage)
+  assert.equal(res2.switched, true)
+  assert.equal(res2.failedKeys.length, 0)
+  assert.equal(storage.getItem('qfp:data:acct:alice:plan'), 'original-stashed-plan')
+  assert.equal(storage.getItem('dict'), 'bob-dict')
+  assert.equal(getCurrentProfile(storage), 'acct:bob')
+  assert.equal(storage.getItem('qfp:switching'), null)
+})
+

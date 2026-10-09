@@ -192,7 +192,7 @@ export default function AuthGate({ children }: { children: React.ReactNode }) {
           onMouseEnter={warmSdk}
           onFocus={warmSdk}
           disabled={submitting}
-          className="my-btn-primary mt-6 flex w-full items-center justify-center gap-3 py-2.5 text-base disabled:cursor-not-allowed disabled:opacity-40"
+          className="mt-6 flex w-full items-center justify-center gap-3 rounded-2xl border border-gray-300 bg-white py-2.5 text-base font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600"
         >
           <GoogleIcon className="h-5 w-5 shrink-0" />
           <span>{submitting ? '正在登录…' : '使用 Google 账号登录'}</span>

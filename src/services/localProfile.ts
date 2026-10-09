@@ -110,6 +110,65 @@ function getAllKeys(storage: StorageLike): string[] {
   return keys
 }
 
+export type ProfileSwitchResult = {
+  switched: boolean
+  failedKeys: string[]
+}
+
+function safeMove(
+  storage: StorageLike,
+  fromKey: string,
+  toKey: string,
+  options?: { preventOverwrite?: boolean },
+): boolean {
+  const val = safeGet(storage, fromKey)
+  if (val === null) return true
+
+  if (options?.preventOverwrite ?? true) {
+    const existing = safeGet(storage, toKey)
+    if (existing !== null && existing !== '') {
+      if (existing === val) {
+        // Destination already holds identical value; safe to remove source key
+        safeRemove(storage, fromKey)
+        return true
+      }
+      // Different non-empty value exists; do not overwrite, keep destination and leave source
+      return false
+    }
+  }
+
+  // Safe move algorithm:
+  // read value -> remove source -> set destination -> if destination does not read back equal, put value back under source key
+  safeRemove(storage, fromKey)
+  let success = false
+  try {
+    storage.setItem(toKey, val)
+    success = storage.getItem(toKey) === val
+  } catch {
+    success = false
+  }
+
+  if (success) {
+    return true
+  }
+
+  // Rollback on failure: clean up partially written destination and restore source
+  try {
+    if (storage.getItem(toKey) !== null && storage.getItem(toKey) !== val) {
+      storage.removeItem(toKey)
+    }
+  } catch {
+    // Ignore cleanup error
+  }
+
+  try {
+    storage.setItem(fromKey, val)
+  } catch {
+    // Best effort restore
+  }
+  return false
+}
+
 export function getCurrentProfile(storage: StorageLike = getDefaultStorage()): string {
   return safeGet(storage, 'qfp:current') || 'anon'
 }
@@ -119,39 +178,49 @@ export function hasStash(profile: string, storage: StorageLike = getDefaultStora
   return getAllKeys(storage).some((k) => k.startsWith(prefix))
 }
 
-export function repairInterruptedSwitch(storage: StorageLike = getDefaultStorage()): void {
+export function repairInterruptedSwitch(
+  storage: StorageLike = getDefaultStorage(),
+): ProfileSwitchResult {
   const switchingRaw = safeGet(storage, 'qfp:switching')
-  if (!switchingRaw) return
+  if (!switchingRaw) return { switched: true, failedKeys: [] }
+
+  const failedKeys: string[] = []
 
   try {
-    const switching = JSON.parse(switchingRaw) as { from?: string; to?: string }
+    const switching = JSON.parse(switchingRaw) as {
+      from?: string
+      to?: string
+      phase?: 'stash' | 'restore'
+    }
     if (switching && typeof switching.from === 'string' && typeof switching.to === 'string') {
       const from = switching.from
       const to = switching.to
+      const phase = switching.phase === 'restore' ? 'restore' : 'stash'
 
-      // Complete stashing for any user keys belonging to 'from' still in root
-      const keys = getAllKeys(storage)
-      for (const k of keys) {
-        if (!isDeviceLevelKey(k)) {
-          const val = safeGet(storage, k)
-          if (val !== null && val !== '') {
+      if (phase === 'stash') {
+        // Complete stashing for any user keys belonging to 'from' still in root
+        const keys = getAllKeys(storage)
+        for (const k of keys) {
+          if (!isDeviceLevelKey(k)) {
             const stashKey = `qfp:data:${from}:${k}`
-            safeSet(storage, stashKey, val)
-            safeRemove(storage, k)
+            const ok = safeMove(storage, k, stashKey, { preventOverwrite: true })
+            if (!ok) {
+              failedKeys.push(k)
+            }
           }
         }
+        safeSet(storage, 'qfp:switching', JSON.stringify({ from, to, phase: 'restore' }))
       }
 
-      // Restore keys for 'to' into place
+      // In phase 'restore' ONLY restore
       const prefix = `qfp:data:${to}:`
       const allStashKeys = getAllKeys(storage)
       for (const stashKey of allStashKeys) {
         if (stashKey.startsWith(prefix)) {
           const origKey = stashKey.slice(prefix.length)
-          const val = safeGet(storage, stashKey)
-          if (val !== null) {
-            safeSet(storage, origKey, val)
-            safeRemove(storage, stashKey)
+          const ok = safeMove(storage, stashKey, origKey, { preventOverwrite: true })
+          if (!ok) {
+            failedKeys.push(origKey)
           }
         }
       }
@@ -163,65 +232,67 @@ export function repairInterruptedSwitch(storage: StorageLike = getDefaultStorage
   } finally {
     safeRemove(storage, 'qfp:switching')
   }
+
+  return { switched: failedKeys.length === 0, failedKeys }
 }
 
 export function switchLocalProfile(
   next: string,
   mode: 'keep' | 'swap',
   storage: StorageLike = getDefaultStorage(),
-): void {
-  repairInterruptedSwitch(storage)
+): ProfileSwitchResult {
+  const repairRes = repairInterruptedSwitch(storage)
 
   const current = getCurrentProfile(storage)
-  if (next === current) return
+  if (next === current) return repairRes
 
   if (mode === 'keep') {
     // Keep: in-place data becomes 'next' data
     const recordDb = safeGet(storage, `qfp:db:${current}`)
     if (recordDb) {
-      safeSet(storage, `qfp:db:${next}`, recordDb)
-      safeRemove(storage, `qfp:db:${current}`)
+      safeMove(storage, `qfp:db:${current}`, `qfp:db:${next}`, { preventOverwrite: true })
     }
     const tcfDb = safeGet(storage, `qfp:db:tcfAudio:${current}`)
     if (tcfDb) {
-      safeSet(storage, `qfp:db:tcfAudio:${next}`, tcfDb)
-      safeRemove(storage, `qfp:db:tcfAudio:${current}`)
+      safeMove(storage, `qfp:db:tcfAudio:${current}`, `qfp:db:tcfAudio:${next}`, { preventOverwrite: true })
     }
     safeSet(storage, 'qfp:current', next)
     safeRemove(storage, 'qfp:switching')
-    return
+    return { switched: true, failedKeys: [] }
   }
 
   // Swap: stash current user-scoped data, restore next user-scoped data
-  safeSet(storage, 'qfp:switching', JSON.stringify({ from: current, to: next, phase: 'swap' }))
+  const failedKeys: string[] = [...repairRes.failedKeys]
+  safeSet(storage, 'qfp:switching', JSON.stringify({ from: current, to: next, phase: 'stash' }))
 
   const keys = getAllKeys(storage)
   for (const k of keys) {
     if (!isDeviceLevelKey(k)) {
-      const val = safeGet(storage, k)
-      if (val !== null) {
-        const stashKey = `qfp:data:${current}:${k}`
-        safeSet(storage, stashKey, val)
-        safeRemove(storage, k)
+      const stashKey = `qfp:data:${current}:${k}`
+      const ok = safeMove(storage, k, stashKey, { preventOverwrite: true })
+      if (!ok) {
+        failedKeys.push(k)
       }
     }
   }
+
+  safeSet(storage, 'qfp:switching', JSON.stringify({ from: current, to: next, phase: 'restore' }))
 
   const prefix = `qfp:data:${next}:`
   const allStashKeys = getAllKeys(storage)
   for (const stashKey of allStashKeys) {
     if (stashKey.startsWith(prefix)) {
       const origKey = stashKey.slice(prefix.length)
-      const val = safeGet(storage, stashKey)
-      if (val !== null) {
-        safeSet(storage, origKey, val)
-        safeRemove(storage, stashKey)
+      const ok = safeMove(storage, stashKey, origKey, { preventOverwrite: true })
+      if (!ok) {
+        failedKeys.push(origKey)
       }
     }
   }
 
   safeSet(storage, 'qfp:current', next)
   safeRemove(storage, 'qfp:switching')
+  return { switched: failedKeys.length === 0, failedKeys }
 }
 
 export function recordDbName(profile?: string, storage: StorageLike = getDefaultStorage()): string {

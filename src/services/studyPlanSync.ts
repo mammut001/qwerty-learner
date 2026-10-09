@@ -816,11 +816,15 @@ async function api(method: string, path = '', body?: unknown, unauthorized = 'ST
       body: body === undefined ? undefined : JSON.stringify(body),
     })
     if (response.status === 401) {
-      const data = (await response.json().catch(() => ({}))) as { error?: string; code?: string }
-      if (data.code === 'LOGIN_REQUIRED') {
-        if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('qwerty-auth-required'))
+      try {
+        const data = (await response.clone().json()) as { code?: string }
+        if (data?.code === 'LOGIN_REQUIRED' && typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('qwerty-auth-required'))
+        }
+      } catch {
+        // Ignore response parse errors
       }
-      throw new Error(data.code || unauthorized)
+      throw new Error(unauthorized)
     }
     if (!response.ok) {
       const data = (await response.json().catch(() => ({}))) as { error?: string; code?: string }
@@ -845,7 +849,14 @@ async function apiText(method: string, path: string) {
       signal: controller.signal,
     })
     if (response.status === 401) {
-      if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('qwerty-auth-required'))
+      try {
+        const data = (await response.clone().json()) as { code?: string }
+        if (data?.code === 'LOGIN_REQUIRED' && typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('qwerty-auth-required'))
+        }
+      } catch {
+        // Ignore response parse errors
+      }
       throw new Error('STUDY_SESSION_BLOCKED')
     }
     if (!response.ok) {
