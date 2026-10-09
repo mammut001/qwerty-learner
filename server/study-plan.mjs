@@ -759,6 +759,10 @@ export function createStudyServer({
         let adopted = false
         let linked = false
 
+        const accountForLearner = currentSession?.learner
+          ? db.prepare('SELECT id FROM accounts WHERE learner=?').get(currentSession.learner)
+          : null
+
         if (currentSession?.viaAccount && currentSession.accountId) {
           const hasGoogle = db.prepare('SELECT subject FROM account_identities WHERE account_id=? AND provider=?').get(currentSession.accountId, 'google')
           if (!hasGoogle) {
@@ -768,12 +772,19 @@ export function createStudyServer({
             adopted = false
             linked = true
           }
+        } else if (currentSession && !currentSession.viaAccount && accountForLearner) {
+          const hasGoogle = db.prepare('SELECT subject FROM account_identities WHERE account_id=? AND provider=?').get(accountForLearner.id, 'google')
+          if (!hasGoogle) {
+            accountId = accountForLearner.id
+            targetLearner = currentSession.learner
+            created = false
+            adopted = false
+            linked = true
+            db.prepare('UPDATE sync_keys SET revoked=1 WHERE learner=? AND revoked=0').run(targetLearner)
+          }
         }
 
         if (!accountId) {
-          const accountForLearner = currentSession?.learner
-            ? db.prepare('SELECT id FROM accounts WHERE learner=?').get(currentSession.learner)
-            : null
           if (currentSession && !currentSession.viaAccount && !accountForLearner && currentSession.row?.state != null) {
             adopted = true
             targetLearner = currentSession.learner
