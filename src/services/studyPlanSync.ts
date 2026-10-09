@@ -1,5 +1,5 @@
 import { computePlacementResult } from '../../server/placement-data.mjs'
-import { scoreEchelleItem } from '../resources/echelleCurriculum'
+import { parseEchelleItemId, scoreEchelleItem } from '../resources/echelleCurriculum'
 import { nextMemory } from '../resources/echelleMemory'
 import type { PlacementProfile, PlacementResult } from '../resources/placementTest'
 import { isGuestMode } from './guestMode'
@@ -1267,6 +1267,13 @@ export function recordEchelleMastery(input: EchelleCheckInput) {
       },
     }
   })
+  const parsed = parseEchelleItemId(input.itemId)
+  if (parsed && (parsed.skill === 'writing' || parsed.skill === 'speaking')) {
+    const primaryId = `n${parsed.level}-${parsed.skill}-production`
+    if (input.itemId !== primaryId) {
+      recordEchelleMastery({ ...input, itemId: primaryId })
+    }
+  }
   return { ...result, mastered: result.mastered && selfAssess }
 }
 

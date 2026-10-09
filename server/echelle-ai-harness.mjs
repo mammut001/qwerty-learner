@@ -24,29 +24,43 @@ const CRITERIA = [
   {
     id: 'tache',
     labelZh: '任务完成',
+    skills: ['writing', 'speaking'],
     fr: (skill) =>
       `Réalisation de la tâche : ${skill === 'speaking' ? 'le discours' : 'le texte'} répond à la consigne et correspond à la description et aux indicateurs du niveau visé (type de contenu, longueur, degré de détail, contexte).`,
   },
   {
     id: 'texte',
     labelZh: { writing: '篇章组织', speaking: '语篇组织' },
+    skills: ['writing', 'speaking'],
     fr: (skill, dims) =>
       `Organisation ${skill === 'speaking' ? 'du discours' : 'du texte'} : enchaînement des idées, cohérence et marqueurs attendus au niveau visé${dims.texte.length ? ` (${dims.texte.join(' ; ')})` : ''}.`,
   },
   {
     id: 'phrase',
     labelZh: '句子与语法',
+    skills: ['writing', 'speaking'],
     fr: (_skill, dims) =>
       `Construction des phrases : structures, temps et accords attendus au niveau visé${dims.phrase.length ? ` (${dims.phrase.join(' ; ')})` : ''}. Les erreurs ne sont pénalisées que si elles dépassent ce qui est acceptable à ce niveau.`,
   },
   {
     id: 'lexique',
     labelZh: '词汇',
+    skills: ['writing', 'speaking'],
     fr: (_skill, dims) =>
       `Lexique : étendue et précision du vocabulaire attendu au niveau visé${dims.lexique.length ? ` (thèmes : ${dims.lexique.join(' ; ')})` : ''}.`,
   },
+  {
+    id: 'phonologie',
+    labelZh: '语音与可懂度',
+    skills: ['speaking'],
+    fr: (_skill) =>
+      `Maîtrise phonologique et intelligibilité (Échelle québécoise p. 54) : prononciation, prosodie, rythme et clarté. Évaluez l’effort de décodage nécessaire pour l’interlocuteur (Maitrise partielle : interférence gênante ; Maitrise suffisante : affecte peu l'intelligibilité ; Maitrise assurée : discours clair et naturel sans entrave).`,
+  },
 ]
-export const CRITERION_IDS = Object.freeze(CRITERIA.map((criterion) => criterion.id))
+export const WRITING_CRITERION_IDS = Object.freeze(['tache', 'texte', 'phrase', 'lexique'])
+export const SPEAKING_CRITERION_IDS = Object.freeze(['tache', 'texte', 'phrase', 'lexique', 'phonologie'])
+export const CRITERION_IDS = WRITING_CRITERION_IDS
+export const ALL_CRITERION_IDS = Object.freeze(['tache', 'texte', 'phrase', 'lexique', 'phonologie'])
 
 const criterionLabel = (criterion, skill) =>
   typeof criterion.labelZh === 'string' ? criterion.labelZh : criterion.labelZh[skill]
@@ -90,17 +104,19 @@ export function buildRubric(itemId) {
       below: below ? { level: below.level, descriptionFr: below.descriptionFr } : null,
       above: above ? { level: above.level, descriptionFr: above.descriptionFr } : null,
     },
-    criteria: CRITERIA.map((criterion) => ({
-      id: criterion.id,
-      labelZh: criterionLabel(criterion, item.skill),
-      descriptionFr: criterion.fr(item.skill, dims),
-    })),
+    criteria: CRITERIA
+      .filter((criterion) => !criterion.skills || criterion.skills.includes(item.skill))
+      .map((criterion) => ({
+        id: criterion.id,
+        labelZh: criterionLabel(criterion, item.skill),
+        descriptionFr: criterion.fr(item.skill, dims),
+      })),
     scale: SCORE_SCALE,
   }
 }
 
 const OUTPUT_SHAPE = `{
-  "criteria": [{ "id": "tache" | "texte" | "phrase" | "lexique", "score": 0-4, "evidence": "citation exacte, copiée mot pour mot du texte de la personne apprenante (max. 120 caractères)", "commentZh": "简体中文评语（不超过 120 字）" }],
+  "criteria": [{ "id": "tache" | "texte" | "phrase" | "lexique" | "phonologie", "score": 0-4, "evidence": "citation exacte, copiée mot pour mot du texte de la personne apprenante (max. 120 caractères)", "commentZh": "简体中文评语（不超过 120 字）" }],
   "estimatedLevel": 1-12,
   "feedbackZh": "简体中文总评与下一步建议（不超过 300 字）",
   "strengthsZh": ["最多 3 条优点"],
@@ -152,17 +168,19 @@ const isText = (value, max) => typeof value === 'string' && value.trim().length 
 const isInt = (value, min, max) => Number.isInteger(value) && value >= min && value <= max
 
 /** Strict schema check of the provider output. Returns the parsed value or a list of problems for the repair round. */
-export function parseModelOutput(raw) {
+export function parseModelOutput(raw, expectedCriterionIds = null) {
   const value = extractJson(raw)
   if (!value || typeof value !== 'object' || Array.isArray(value)) return { ok: false, errors: ['La réponse doit être un seul objet JSON.'] }
   const errors = []
   const criteria = Array.isArray(value.criteria) ? value.criteria : []
   if (!Array.isArray(value.criteria)) errors.push('"criteria" doit être un tableau.')
-  for (const id of CRITERION_IDS) {
+  const targetIds = expectedCriterionIds ||
+    (criteria.some((c) => c && c.id === 'phonologie') ? SPEAKING_CRITERION_IDS : WRITING_CRITERION_IDS)
+  for (const id of targetIds) {
     const matches = criteria.filter((entry) => entry && entry.id === id)
     if (matches.length !== 1) errors.push(`Le critère "${id}" doit apparaître exactement une fois.`)
   }
-  if (criteria.length !== CRITERION_IDS.length) errors.push(`"criteria" doit contenir ${CRITERION_IDS.length} éléments.`)
+  if (criteria.length !== targetIds.length) errors.push(`"criteria" doit contenir ${targetIds.length} éléments.`)
   for (const entry of criteria) {
     if (!entry || typeof entry !== 'object') { errors.push('Chaque critère doit être un objet.'); continue }
     if (!isInt(entry.score, 0, 4)) errors.push(`Le score de "${entry.id}" doit être un entier de 0 à 4.`)
@@ -254,9 +272,9 @@ export function finalizeEvaluation(rubric, submission, output, meta) {
   const notFrench = submission.words >= 6 && frenchRatio(submission.text) < 0.12
   if (notFrench) warnings.push('NOT_FRENCH')
 
-  const criteria = CRITERION_IDS.map((id) => {
+  const criteria = rubric.criteria.map((definition) => {
+    const id = definition.id
     const entry = output.criteria.find((candidate) => candidate.id === id)
-    const definition = rubric.criteria.find((candidate) => candidate.id === id)
     let score = entry.score
     const evidence = entry.evidence.trim()
     if (score >= 1 && !evidenceFound(evidence, submission.text)) {
@@ -330,8 +348,9 @@ export async function evaluateProduction(input, provider, { now = Date.now(), no
     }
   }
 
+  const expectedIds = rubric.criteria.map((c) => c.id)
   let raw = await call()
-  let parsed = parseModelOutput(raw)
+  let parsed = parseModelOutput(raw, expectedIds)
   if (!parsed.ok) {
     messages.push(
       { role: 'assistant', content: String(raw ?? '').slice(0, 8000) },
@@ -341,7 +360,7 @@ export async function evaluateProduction(input, provider, { now = Date.now(), no
       },
     )
     raw = await call()
-    parsed = parseModelOutput(raw)
+    parsed = parseModelOutput(raw, expectedIds)
     if (!parsed.ok) throw new EchelleAiError('AI_INVALID_OUTPUT', 'Provider output failed validation twice', { errors: parsed.errors.slice(0, 5) })
   }
   return finalizeEvaluation(rubric, submission, parsed.value, { provider: provider.name, model: provider.model, evaluatedAt: now })

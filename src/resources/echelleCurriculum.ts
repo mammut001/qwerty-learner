@@ -1,4 +1,5 @@
 import * as raw from '../../server/echelle-curriculum.mjs'
+import type { EchelleDiscourseType } from './echelleQuebecoise'
 
 export type EchelleItemSkill = 'listening' | 'reading' | 'writing' | 'speaking' | 'lex' | 'gr'
 
@@ -16,6 +17,7 @@ export type EchelleQuizItem = EchelleItemBase & {
   descriptionFr?: string
   text?: string
   audioText?: string
+  typeDeDiscours?: EchelleDiscourseType
 }
 
 export type EchelleProductionItem = EchelleItemBase & {
@@ -26,6 +28,8 @@ export type EchelleProductionItem = EchelleItemBase & {
   wordMin?: number
   secondsMin?: number
   selfChecks: string[]
+  typeDeDiscours?: EchelleDiscourseType
+  situations?: string[]
 }
 
 export type EchelleCatalogItem = EchelleQuizItem | EchelleProductionItem
@@ -64,3 +68,8 @@ export const summarizeEchelleLevel = raw.summarizeEchelleLevel as (
   level: number,
   masteredIds: string[] | Set<string>,
 ) => EchelleLevelSummary
+
+export const getEchelleProductionTaskPool = raw.getEchelleProductionTaskPool as (
+  skill: 'writing' | 'speaking',
+  level: number,
+) => EchelleProductionItem[]
