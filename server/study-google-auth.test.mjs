@@ -588,3 +588,270 @@ test('DELETE /api/study-plan/data cleans up account_identities and account data'
   })
 })
 
+test('Anonymous learner with passkey-style account links Google identity using anonymous cookie and retains state', async () => {
+  const users = {
+    'token-alice': { uid: 'alice-uid', email: 'alice@example.com', name: 'Alice' },
+  }
+  const verifier = createMockVerifier(users)
+
+  await withServer({ firebaseVerifier: verifier }, async (call, { database }) => {
+    // 1. Anonymous learner writes state
+    const initial = await call('GET', '/api/study-plan')
+    const anonCookie = initial.cookieToken
+    assert.ok(anonCookie.startsWith('study_session='))
+    const state = {
+      startDate: '2026-10-01',
+      minutes: { '2026-10-05': { 'sat-retell': 45 } },
+      minimumMode: {},
+    }
+    await call('POST', '/api/study-plan', { cookie: anonCookie, body: { state } })
+
+    // Create sync key to verify it is revoked upon linking
+    const syncRes = await call('POST', '/api/study-plan/sync-key', { cookie: anonCookie, body: {} })
+    assert.equal(syncRes.response.status, 200)
+    const syncKey = syncRes.data.key
+
+    // 2. Registers passkey-style account
+    const regOpts = await call('POST', '/api/study-plan/passkey/register/options', { cookie: anonCookie, body: {} })
+    assert.equal(regOpts.response.status, 200)
+
+    const { createPasskeyFixture } = await import('./study-passkey-test-helper.mjs')
+    const fixture = await createPasskeyFixture(ORIGIN)
+    const registration = await fixture.registration(regOpts.data.options.challenge)
+
+    const verifyPasskey = await call('POST', '/api/study-plan/passkey/register/verify', {
+      cookie: anonCookie,
+      body: { credential: registration },
+    })
+    assert.equal(verifyPasskey.response.status, 200)
+
+    // 3. Keeps using the original anonymous cookie and signs in with Google
+    const googleLogin = await call('POST', '/api/study-plan/auth/firebase', {
+      cookie: anonCookie,
+      body: { idToken: 'token-alice' },
+    })
+    assert.equal(googleLogin.response.status, 200)
+    assert.equal(googleLogin.data.signedIn, true)
+    assert.equal(googleLogin.data.created, false)
+    assert.equal(googleLogin.data.adopted, false)
+    assert.equal(googleLogin.data.linked, true)
+    assert.equal(googleLogin.data.user.email, 'alice@example.com')
+
+    // Returned cookie shows the same plan state
+    const linkedCookie = googleLogin.cookieToken
+    assert.ok(linkedCookie.startsWith('study_session='))
+    const linkedPlan = await call('GET', '/api/study-plan', { cookie: linkedCookie })
+    assert.equal(linkedPlan.response.status, 200)
+    assert.equal(linkedPlan.data.state.minutes['2026-10-05']['sat-retell'], 45)
+
+    // Verify sync key was revoked upon linking
+    const { DatabaseSync } = await import('node:sqlite')
+    const { createHash } = await import('node:crypto')
+    const db = new DatabaseSync(database)
+    const keyHash = createHash('sha256').update(syncKey).digest('hex')
+    const syncRow = db.prepare('SELECT revoked FROM sync_keys WHERE key_hash=?').get(keyHash)
+    assert.equal(syncRow.revoked, 1, 'sync key is revoked like the adopt path')
+    db.close()
+
+    // 4. A later Google sign-in from a clean browser reaches the same state
+    const cleanLogin = await call('POST', '/api/study-plan/auth/firebase', {
+      body: { idToken: 'token-alice' },
+    })
+    assert.equal(cleanLogin.response.status, 200)
+    assert.equal(cleanLogin.data.signedIn, true)
+    assert.equal(cleanLogin.data.created, false)
+    assert.equal(cleanLogin.data.adopted, false)
+    assert.equal(cleanLogin.data.linked, false)
+    const cleanCookie = cleanLogin.cookieToken
+
+    const cleanPlan = await call('GET', '/api/study-plan', { cookie: cleanCookie })
+    assert.equal(cleanPlan.response.status, 200)
+    assert.equal(cleanPlan.data.state.minutes['2026-10-05']['sat-retell'], 45)
+  })
+})
+
+test('Anonymous cookie for account with existing Google identity creates fresh learner and does not merge', async () => {
+  const users = {
+    'token-alice': { uid: 'alice-uid', email: 'alice@example.com', name: 'Alice' },
+    'token-bob': { uid: 'bob-uid', email: 'bob@example.com', name: 'Bob' },
+  }
+  const verifier = createMockVerifier(users)
+
+  await withServer({ firebaseVerifier: verifier }, async (call, { database }) => {
+    // 1. Anonymous learner writes state
+    const initial = await call('GET', '/api/study-plan')
+    const anonCookie = initial.cookieToken
+    assert.ok(anonCookie.startsWith('study_session='))
+    const state = {
+      startDate: '2026-10-01',
+      minutes: { '2026-10-05': { 'sat-retell': 45 } },
+      minimumMode: {},
+    }
+    await call('POST', '/api/study-plan', { cookie: anonCookie, body: { state } })
+
+    // 2. Registers passkey-style account
+    const regOpts = await call('POST', '/api/study-plan/passkey/register/options', { cookie: anonCookie, body: {} })
+    assert.equal(regOpts.response.status, 200)
+
+    const { createPasskeyFixture } = await import('./study-passkey-test-helper.mjs')
+    const fixture = await createPasskeyFixture(ORIGIN)
+    const registration = await fixture.registration(regOpts.data.options.challenge)
+
+    const verifyPasskey = await call('POST', '/api/study-plan/passkey/register/verify', {
+      cookie: anonCookie,
+      body: { credential: registration },
+    })
+    assert.equal(verifyPasskey.response.status, 200)
+
+    // 3. The account is linked to Alice's Google identity
+    const aliceLogin = await call('POST', '/api/study-plan/auth/firebase', {
+      cookie: verifyPasskey.cookieToken,
+      body: { idToken: 'token-alice' },
+    })
+    assert.equal(aliceLogin.response.status, 200)
+    assert.equal(aliceLogin.data.linked, true)
+
+    // 4. Bob presents the original anonymous cookie and signs in with Google
+    const bobLogin = await call('POST', '/api/study-plan/auth/firebase', {
+      cookie: anonCookie,
+      body: { idToken: 'token-bob' },
+    })
+    assert.equal(bobLogin.response.status, 200)
+    assert.equal(bobLogin.data.signedIn, true)
+    assert.equal(bobLogin.data.created, true)
+    assert.equal(bobLogin.data.adopted, false)
+    assert.equal(bobLogin.data.linked, false)
+    assert.equal(bobLogin.data.user.email, 'bob@example.com')
+
+    // 5. Bob gets a fresh empty learner and cannot see the state
+    const bobCookie = bobLogin.cookieToken
+    const bobPlan = await call('GET', '/api/study-plan', { cookie: bobCookie })
+    assert.equal(bobPlan.response.status, 200)
+    assert.equal(bobPlan.data.state, null, 'Bob gets fresh empty learner and cannot see state')
+
+    // Bob signing in again from a clean browser reaches Bob's own empty state
+    const bobCleanLogin = await call('POST', '/api/study-plan/auth/firebase', {
+      body: { idToken: 'token-bob' },
+    })
+    assert.equal(bobCleanLogin.response.status, 200)
+    const bobCleanPlan = await call('GET', '/api/study-plan', { cookie: bobCleanLogin.cookieToken })
+    assert.equal(bobCleanPlan.response.status, 200)
+    assert.equal(bobCleanPlan.data.state, null)
+
+    // Alice's data is still intact
+    const aliceCleanLogin = await call('POST', '/api/study-plan/auth/firebase', {
+      body: { idToken: 'token-alice' },
+    })
+    assert.equal(aliceCleanLogin.response.status, 200)
+    const alicePlan = await call('GET', '/api/study-plan', { cookie: aliceCleanLogin.cookieToken })
+    assert.equal(alicePlan.response.status, 200)
+    assert.equal(alicePlan.data.state.minutes['2026-10-05']['sat-retell'], 45)
+  })
+})
+
+test('Anonymous cookie for account with null state links Google identity', async () => {
+  const users = {
+    'token-alice': { uid: 'alice-uid', email: 'alice@example.com', name: 'Alice' },
+  }
+  const verifier = createMockVerifier(users)
+
+  await withServer({ firebaseVerifier: verifier }, async (call, { database }) => {
+    // Visitor loads plan (creates anonymous learner row with state=null)
+    const initial = await call('GET', '/api/study-plan')
+    const anonCookie = initial.cookieToken
+    assert.ok(anonCookie.startsWith('study_session='))
+
+    // Directly insert an accounts row for this learner (passkey-style account with state=null)
+    const { DatabaseSync } = await import('node:sqlite')
+    const { createHash, randomBytes } = await import('node:crypto')
+    const hash = (v) => createHash('sha256').update(v).digest('hex')
+    const token = anonCookie.replace('study_session=', '')
+    const learnerId = hash(token)
+    const accountId = 'acc-' + randomBytes(8).toString('hex')
+
+    const db = new DatabaseSync(database)
+    db.prepare('INSERT INTO accounts(id, learner, user_handle, created_at) VALUES(?,?,?,?)')
+      .run(accountId, learnerId, 'handle-' + randomBytes(8).toString('hex'), Date.now())
+    db.close()
+
+    // Sign in with Google using anonCookie: should link even though state is null
+    const login = await call('POST', '/api/study-plan/auth/firebase', {
+      cookie: anonCookie,
+      body: { idToken: 'token-alice' },
+    })
+    assert.equal(login.response.status, 200)
+    assert.equal(login.data.signedIn, true)
+    assert.equal(login.data.created, false)
+    assert.equal(login.data.adopted, false)
+    assert.equal(login.data.linked, true)
+    assert.equal(login.data.user.email, 'alice@example.com')
+  })
+})
+
+test('Device presenting sync-key link cookie links to existing passkey account and revokes sync keys', async () => {
+  const users = {
+    'token-alice': { uid: 'alice-uid', email: 'alice@example.com', name: 'Alice' },
+  }
+  const verifier = createMockVerifier(users)
+
+  await withServer({ firebaseVerifier: verifier }, async (call, { database }) => {
+    // 1. Initial learner with state and sync key
+    const initial = await call('GET', '/api/study-plan')
+    const anonCookie = initial.cookieToken
+    const state = {
+      startDate: '2026-10-01',
+      minutes: { '2026-10-05': { 'sat-retell': 45 } },
+      minimumMode: {},
+    }
+    await call('POST', '/api/study-plan', { cookie: anonCookie, body: { state } })
+
+    const syncKeyRes = await call('POST', '/api/study-plan/sync-key', { cookie: anonCookie, body: {} })
+    assert.equal(syncKeyRes.response.status, 200)
+    const syncKey = syncKeyRes.data.key
+
+    // 2. Register passkey account for this learner
+    const regOpts = await call('POST', '/api/study-plan/passkey/register/options', { cookie: anonCookie, body: {} })
+    const { createPasskeyFixture } = await import('./study-passkey-test-helper.mjs')
+    const fixture = await createPasskeyFixture(ORIGIN)
+    const registration = await fixture.registration(regOpts.data.options.challenge)
+    await call('POST', '/api/study-plan/passkey/register/verify', {
+      cookie: anonCookie,
+      body: { credential: registration },
+    })
+
+    // 3. Second device links with sync key (cookie is study_session=<syncKey>)
+    const linkDevice = await call('POST', '/api/study-plan/link', { body: { key: syncKey } })
+    assert.equal(linkDevice.response.status, 200)
+    const syncDeviceCookie = linkDevice.cookieToken
+    assert.ok(syncDeviceCookie.startsWith('study_session='))
+
+    // 4. Second device signs in with Google using sync-key cookie
+    const googleLogin = await call('POST', '/api/study-plan/auth/firebase', {
+      cookie: syncDeviceCookie,
+      body: { idToken: 'token-alice' },
+    })
+    assert.equal(googleLogin.response.status, 200)
+    assert.equal(googleLogin.data.signedIn, true)
+    assert.equal(googleLogin.data.created, false)
+    assert.equal(googleLogin.data.adopted, false)
+    assert.equal(googleLogin.data.linked, true)
+
+    // Plan state is visible with new session cookie
+    const accountCookie = googleLogin.cookieToken
+    const plan = await call('GET', '/api/study-plan', { cookie: accountCookie })
+    assert.equal(plan.response.status, 200)
+    assert.equal(plan.data.state.minutes['2026-10-05']['sat-retell'], 45)
+
+    // Sync key is now revoked
+    const { DatabaseSync } = await import('node:sqlite')
+    const { createHash } = await import('node:crypto')
+    const db = new DatabaseSync(database)
+    const keyHash = createHash('sha256').update(syncKey).digest('hex')
+    const syncRow = db.prepare('SELECT revoked FROM sync_keys WHERE key_hash=?').get(keyHash)
+    assert.equal(syncRow.revoked, 1, 'sync key was revoked')
+    db.close()
+  })
+})
+
+
+
