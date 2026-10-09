@@ -78,9 +78,16 @@ export async function loadFrenchVoice(text: string): Promise<AudioBuffer> {
     const url = `${apiBase()}/api/study-plan/dictionary/voice?q=${encodeURIComponent(query)}`
     const response = await fetch(url, { credentials: 'include' })
     if (!response.ok) {
-      // Only disable proxy permanently for the session if route itself is missing/forbidden (401, 403, 404, 405).
-      // 502, 429, 5xx are transient or per-word; keep proxy enabled.
-      if ([401, 403, 404, 405].includes(response.status)) {
+      if (response.status === 401) {
+        const data = (await response.clone().json().catch(() => ({}))) as { code?: string }
+        if (data.code === 'LOGIN_REQUIRED') {
+          if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('qwerty-auth-required'))
+        } else {
+          setProxyUnavailable()
+        }
+      } else if ([403, 404, 405].includes(response.status)) {
+        // Only disable proxy permanently for the session if route itself is missing/forbidden (403, 404, 405).
+        // 502, 429, 5xx are transient or per-word; keep proxy enabled.
         setProxyUnavailable()
       }
       throw new Error(`Voice proxy error: ${response.status}`)

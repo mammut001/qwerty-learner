@@ -815,7 +815,13 @@ async function api(method: string, path = '', body?: unknown, unauthorized = 'ST
       headers: method === 'GET' && body === undefined ? undefined : { 'Content-Type': 'application/json' },
       body: body === undefined ? undefined : JSON.stringify(body),
     })
-    if (response.status === 401) throw new Error(unauthorized)
+    if (response.status === 401) {
+      const data = (await response.json().catch(() => ({}))) as { error?: string; code?: string }
+      if (data.code === 'LOGIN_REQUIRED') {
+        if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('qwerty-auth-required'))
+      }
+      throw new Error(data.code || unauthorized)
+    }
     if (!response.ok) {
       const data = (await response.json().catch(() => ({}))) as { error?: string; code?: string }
       const error = new Error(data.code || data.error || `Study API: ${response.status}`)
@@ -838,7 +844,10 @@ async function apiText(method: string, path: string) {
       credentials: 'include',
       signal: controller.signal,
     })
-    if (response.status === 401) throw new Error('STUDY_SESSION_BLOCKED')
+    if (response.status === 401) {
+      if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('qwerty-auth-required'))
+      throw new Error('STUDY_SESSION_BLOCKED')
+    }
     if (!response.ok) {
       const text = await response.text().catch(() => '')
       throw new Error(text || `Study API: ${response.status}`)

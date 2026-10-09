@@ -1,4 +1,5 @@
-const DB_NAME = 'qwerty-tcf-eo-audio-db'
+import { tcfAudioDbName } from './localProfile'
+
 const DB_VERSION = 1
 const STORE_NAME = 'recordings'
 
@@ -15,7 +16,7 @@ function openDb(): Promise<IDBDatabase> {
     if (typeof indexedDB === 'undefined') {
       return reject(new Error('IndexedDB is not available in this environment.'))
     }
-    const request = indexedDB.open(DB_NAME, DB_VERSION)
+    const request = indexedDB.open(tcfAudioDbName(), DB_VERSION)
     request.onupgradeneeded = () => {
       const db = request.result
       if (!db.objectStoreNames.contains(STORE_NAME)) {

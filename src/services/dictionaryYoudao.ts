@@ -70,7 +70,15 @@ async function fetchYoudao(query: string): Promise<YoudaoFrench | null> {
       credentials: 'include',
       signal: controller.signal,
     })
-    if (!response.ok) return null
+    if (!response.ok) {
+      if (response.status === 401) {
+        const data = (await response.clone().json().catch(() => ({}))) as { code?: string }
+        if (data.code === 'LOGIN_REQUIRED') {
+          if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('qwerty-auth-required'))
+        }
+      }
+      return null
+    }
     return asYoudao(await response.json(), query)
   } catch {
     return null
