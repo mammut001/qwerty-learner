@@ -1,3 +1,11 @@
+import {
+  isFrenchVoiceAvailable,
+  playFrenchVoice,
+  prefetchFrenchVoice,
+  setFrenchVoiceLoop,
+  stopFrenchVoice,
+  subscribeFrenchVoiceAvailability,
+} from '@/services/frenchVoice'
 import { pronunciationConfigAtom } from '@/store'
 import type { PronunciationType } from '@/typings'
 import { addHowlListener } from '@/utils'
@@ -5,7 +13,7 @@ import { romajiToHiragana } from '@/utils/kana'
 import noop from '@/utils/noop'
 import type { Howl } from 'howler'
 import { useAtomValue } from 'jotai'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import useSound from 'use-sound'
 import type { HookOptions } from 'use-sound/dist/types'
 
@@ -40,8 +48,20 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
   const pronunciationConfig = useAtomValue(pronunciationConfigAtom)
   const loop = useMemo(() => (typeof isLoop === 'boolean' ? isLoop : pronunciationConfig.isLoop), [isLoop, pronunciationConfig.isLoop])
   const [isPlaying, setIsPlaying] = useState(false)
+  const [proxyAvailable, setProxyAvailable] = useState(isFrenchVoiceAvailable)
 
-  const [play, { stop, sound }] = useSound(generateWordSoundSrc(word, pronunciationConfig.type), {
+  useEffect(() => {
+    return subscribeFrenchVoiceAvailability(setProxyAvailable)
+  }, [])
+
+  const soundSrc = useMemo(() => {
+    if (pronunciationConfig.type === 'fr' && proxyAvailable) {
+      return ''
+    }
+    return generateWordSoundSrc(word, pronunciationConfig.type)
+  }, [pronunciationConfig.type, proxyAvailable, word])
+
+  const [playSound, { stop: stopSound, sound }] = useSound(soundSrc, {
     html5: true,
     format: ['mp3'],
     loop,
@@ -50,10 +70,13 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
   } as HookOptions)
 
   useEffect(() => {
+    if (pronunciationConfig.type === 'fr') {
+      setFrenchVoiceLoop(loop)
+    }
     if (!sound) return
     sound.loop(loop)
     return noop
-  }, [loop, sound])
+  }, [loop, pronunciationConfig.type, sound])
 
   useEffect(() => {
     if (!sound) return
@@ -71,6 +94,42 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
     }
   }, [sound])
 
+  const play = useCallback(
+    (options?: Parameters<typeof playSound>[0]) => {
+      if (pronunciationConfig.type === 'fr') {
+        void playFrenchVoice(word, {
+          volume: pronunciationConfig.volume,
+          rate: pronunciationConfig.rate,
+          loop,
+          onStart: () => setIsPlaying(true),
+          onEnd: () => setIsPlaying(false),
+        }).then((success) => {
+          if (!success) {
+            playSound(options)
+          }
+        })
+        return
+      }
+      playSound(options)
+    },
+    [loop, playSound, pronunciationConfig.rate, pronunciationConfig.type, pronunciationConfig.volume, word],
+  )
+
+  const stop = useCallback(
+    (id?: string) => {
+      stopFrenchVoice()
+      stopSound(id)
+      setIsPlaying(false)
+    },
+    [stopSound],
+  )
+
+  useEffect(() => {
+    return () => {
+      stopFrenchVoice()
+    }
+  }, [])
+
   return { play, stop, isPlaying }
 }
 
@@ -79,6 +138,11 @@ export function usePrefetchPronunciationSound(word: string | undefined) {
 
   useEffect(() => {
     if (!word) return
+
+    if (pronunciationConfig.type === 'fr' && isFrenchVoiceAvailable()) {
+      prefetchFrenchVoice(word)
+      return
+    }
 
     const soundUrl = generateWordSoundSrc(word, pronunciationConfig.type)
     if (soundUrl === '') return

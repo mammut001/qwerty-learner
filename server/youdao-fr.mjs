@@ -137,3 +137,38 @@ export async function lookupYoudaoFrench(query, { fetchImpl = globalThis.fetch, 
   cache?.set(key, value, ttl, now)
   return { value, cached: false }
 }
+
+const VOICE_URL = 'https://dict.youdao.com/dictvoice'
+
+export async function fetchYoudaoFrenchVoice(query, { fetchImpl = globalThis.fetch, timeoutMs = 4500 } = {}) {
+  const normalized = normalizeFrenchQuery(query)
+  if (!normalized) return { error: 'invalid' }
+  const url = `${VOICE_URL}?audio=${encodeURIComponent(normalized)}&le=fr`
+  let response
+  try {
+    response = await fetchImpl(url, {
+      headers: { 'User-Agent': 'Mozilla/5.0' },
+      signal: AbortSignal.timeout(timeoutMs),
+    })
+  } catch {
+    return { error: 'upstream' }
+  }
+  if (!response?.ok || response.status !== 200) return { error: 'upstream' }
+  const rawContentType = (typeof response.headers?.get === 'function' ? response.headers.get('content-type') : response.headers?.['content-type']) || ''
+  if (!rawContentType.toLowerCase().startsWith('audio/')) return { error: 'upstream' }
+  let buffer
+  try {
+    if (typeof response.arrayBuffer === 'function') {
+      const arrayBuffer = await response.arrayBuffer()
+      buffer = Buffer.from(arrayBuffer)
+    } else if (typeof response.buffer === 'function') {
+      buffer = await response.buffer()
+    } else if (typeof response.text === 'function') {
+      buffer = Buffer.from(await response.text())
+    }
+  } catch {
+    return { error: 'upstream' }
+  }
+  if (!buffer || buffer.length < 200 || buffer.length > 512 * 1024) return { error: 'upstream' }
+  return { buffer, value: buffer }
+}
