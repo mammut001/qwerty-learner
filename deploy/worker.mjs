@@ -53,7 +53,7 @@ import {
 } from './study-worker-features.mjs'
 
 const MAX_BODY_BYTES = 1700000
-const STUDY_SCHEMA_VERSION = 9
+const STUDY_SCHEMA_VERSION = 10
 const metrics = createStudyMetrics()
 const json = (status, data, headers = {}) => new Response(JSON.stringify(data), {
   status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', ...headers },

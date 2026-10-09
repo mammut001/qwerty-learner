@@ -20,14 +20,14 @@ const cleanup = (db, now) => {
 export function resolveNodeAccountSession(db, credentialHash, now = Date.now()) {
   cleanup(db, now)
   const session = db.prepare(`
-    SELECT accounts.learner AS learner
+    SELECT accounts.learner AS learner, accounts.id AS account_id
     FROM account_sessions
     JOIN accounts ON accounts.id=account_sessions.account_id
     WHERE account_sessions.token_hash=? AND account_sessions.expires_at>?
   `).get(credentialHash, now)
   if (!session?.learner) return null
   const row = db.prepare('SELECT id,state FROM learners WHERE id=?').get(session.learner)
-  return row ? { learner: session.learner, row, viaAccount: true } : null
+  return row ? { learner: session.learner, accountId: session.account_id, row, viaAccount: true } : null
 }
 
 export function nodePasskeyAccountInfo(db, learner, signedIn = false) {
@@ -55,7 +55,7 @@ export function createNodePasskeyRegistrationOptions(db, learner, origin, now = 
   return passkeyRegistrationOptions({ challenge, rpId, userHandle })
 }
 
-const createAccountSession = (db, accountId, now) => {
+export const createAccountSession = (db, accountId, now) => {
   const sessionToken = randomBytes(32).toString('hex')
   db.prepare(`
     INSERT INTO account_sessions(token_hash,account_id,created_at,expires_at)

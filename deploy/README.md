@@ -203,7 +203,7 @@ For Docker deployments, `STUDY_TRUST_PROXY_IP=true` is enabled only behind the s
 
 ## Schema migration 0005 and analytics v5
 
-Apply every checked-in D1 migration in order. The current chain is `0001` through `0007`; `0007_tcf_attempts.sql` adds materialized TCF CO/CE attempt history and records `schema_version=7`. The Node SQLite backend creates/upgrades the equivalent table at startup. Both health aliases verify the current schema version before reporting readiness.
+Apply every checked-in D1 migration in order. The current chain is `0001` through `0010`; `0010_account_identities.sql` adds Google account identities and records `schema_version=10`. The Node SQLite backend creates/upgrades the equivalent table at startup. Both health aliases verify the current schema version before reporting readiness.
 
 Backup envelopes emitted by v5 include `version:5` and `schemaVersion:5`; imports intentionally continue accepting versions 1 through 5. The frontend's first-sync migration consolidates legacy IndexedDB vocabulary history plus grammar/conjugation localStorage into the durable server queue and marks migration complete only after the queue drains.
 
@@ -215,3 +215,14 @@ Backup envelopes emitted by v5 include `version:5` and `schemaVersion:5`; import
 - `today`: deterministic smart-task allocation constrained to the configured daily target.
 
 These are derived from learner state rather than separate client-side calculations, so linked devices receive the same planning/statistics model.
+
+## Google sign-in and account isolation
+
+Google sign-in verifies Firebase ID tokens against Google JWKS public keys directly using WebCrypto (`node:crypto` / SubtleCrypto), without external JWT dependencies.
+
+Backend configuration options / environment variables:
+- `STUDY_FIREBASE_PROJECT_ID`: Firebase project ID (e.g. `tcf-canada-5b8c2`). Default is empty (Google sign-in disabled).
+- `STUDY_AUTH_REQUIRED`: Set to `'true'` to require sign-in. When true, anonymous access is blocked (returns 401 `LOGIN_REQUIRED`), sync-code linking is disabled, and all data routes as well as dictionary / AI evaluation routes require an account session. Ignored when sign-in is disabled.
+- `STUDY_ALLOWED_EMAILS`: Comma-separated list of allowed emails (case-insensitive). Default is empty (any Google account).
+- `STUDY_MAX_NEW_ACCOUNTS_PER_DAY`: Global daily limit on newly created accounts via Google sign-in (default `200`).
+
