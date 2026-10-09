@@ -1,9 +1,12 @@
+export type PlayFrenchVoiceResult = 'played' | 'superseded' | 'unavailable'
+
 export type PlayFrenchVoiceOptions = {
   volume?: number
   rate?: number
   loop?: boolean
   onStart?: () => void
   onEnd?: () => void
+  token?: number
 }
 
 let audioContext: AudioContext | null = null
@@ -73,15 +76,13 @@ export async function loadFrenchVoice(text: string): Promise<AudioBuffer> {
 
   const fetchPromise = (async () => {
     const url = `${apiBase()}/api/study-plan/dictionary/voice?q=${encodeURIComponent(query)}`
-    let response: Response
-    try {
-      response = await fetch(url, { credentials: 'include' })
-    } catch (err) {
-      setProxyUnavailable()
-      throw err
-    }
+    const response = await fetch(url, { credentials: 'include' })
     if (!response.ok) {
-      setProxyUnavailable()
+      // Only disable proxy permanently for the session if route itself is missing/forbidden (401, 403, 404, 405).
+      // 502, 429, 5xx are transient or per-word; keep proxy enabled.
+      if ([401, 403, 404, 405].includes(response.status)) {
+        setProxyUnavailable()
+      }
       throw new Error(`Voice proxy error: ${response.status}`)
     }
     const arrayBuffer = await response.arrayBuffer()
@@ -111,6 +112,7 @@ export function prefetchFrenchVoice(text: string): void {
 type ActivePlayback = {
   source: AudioBufferSourceNode
   gainNode: GainNode
+  token: number
   onEnd?: () => void
   stopped: boolean
   stopTimer?: number
@@ -119,13 +121,17 @@ type ActivePlayback = {
 
 let currentPlayback: ActivePlayback | null = null
 let currentPlayId = 0
+let currentPlaybackToken: number | null = null
 
-export function stopFrenchVoice(): void {
-  currentPlayId += 1
-  if (!currentPlayback || currentPlayback.stopped) return
-  const active = currentPlayback
+let nextToken = 0
+export function createPlaybackToken(): number {
+  nextToken += 1
+  return nextToken
+}
+
+function stopActive(active: ActivePlayback) {
+  if (active.stopped) return
   active.stopped = true
-  currentPlayback = null
 
   const ctx = getAudioContext()
   if (ctx && ctx.state !== 'closed') {
@@ -149,7 +155,26 @@ export function stopFrenchVoice(): void {
   }, 35)
 }
 
-export function setFrenchVoiceLoop(loop: boolean): void {
+export function stopFrenchVoice(token?: number): void {
+  // If token is provided, only stop if it matches the current active token
+  if (token !== undefined && token !== currentPlaybackToken) {
+    return
+  }
+
+  currentPlayId += 1
+  currentPlaybackToken = null
+
+  if (currentPlayback) {
+    const active = currentPlayback
+    currentPlayback = null
+    stopActive(active)
+  }
+}
+
+export function setFrenchVoiceLoop(loop: boolean, token?: number): void {
+  if (token !== undefined && token !== currentPlaybackToken) {
+    return
+  }
   if (currentPlayback && !currentPlayback.stopped) {
     currentPlayback.source.loop = loop
   }
@@ -157,23 +182,31 @@ export function setFrenchVoiceLoop(loop: boolean): void {
 
 export async function playFrenchVoice(
   text: string,
-  { volume = 1, rate = 1, loop = false, onStart, onEnd }: PlayFrenchVoiceOptions = {},
-): Promise<boolean> {
+  { volume = 1, rate = 1, loop = false, onStart, onEnd, token }: PlayFrenchVoiceOptions = {},
+): Promise<PlayFrenchVoiceResult> {
   const ctx = getAudioContext()
-  if (!ctx) return false
+  if (!ctx) return 'unavailable'
 
-  stopFrenchVoice()
+  currentPlayId += 1
   const thisPlayId = currentPlayId
+  const thisToken = token ?? thisPlayId
+  currentPlaybackToken = thisToken
+
+  if (currentPlayback) {
+    const prev = currentPlayback
+    currentPlayback = null
+    stopActive(prev)
+  }
 
   let buffer: AudioBuffer
   try {
     buffer = await loadFrenchVoice(text)
   } catch {
-    return false
+    return 'unavailable'
   }
 
   if (thisPlayId !== currentPlayId) {
-    return false
+    return 'superseded'
   }
 
   try {
@@ -181,11 +214,11 @@ export async function playFrenchVoice(
       await ctx.resume()
     }
   } catch {
-    return false
+    return 'unavailable'
   }
 
   if (thisPlayId !== currentPlayId) {
-    return false
+    return 'superseded'
   }
 
   try {
@@ -224,6 +257,7 @@ export async function playFrenchVoice(
     const active: ActivePlayback = {
       source,
       gainNode,
+      token: thisToken,
       onEnd,
       stopped: false,
       fireEnd,
@@ -233,14 +267,17 @@ export async function playFrenchVoice(
     source.onended = () => {
       if (currentPlayback === active) {
         currentPlayback = null
+        if (currentPlaybackToken === thisToken) {
+          currentPlaybackToken = null
+        }
       }
       fireEnd()
     }
 
     source.start(now)
     onStart?.()
-    return true
+    return 'played'
   } catch {
-    return false
+    return 'unavailable'
   }
 }

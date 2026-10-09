@@ -178,21 +178,29 @@ export function briefMeaning(result: DictionaryResult): string {
     .join('; ')
 }
 
-/** Find existing dictionary entries that differ from `text` only by accents (e.g. ca → ça). */
+/** Find existing dictionary entries that differ from `text` by diacritics (e.g. ca → ça). */
 export async function findAccentedVariants(text: string): Promise<string[]> {
   const query = cleanDictionaryQuery(text)
   const normalized = normalizeDictionaryKey(query)
   if (normalized.length < 2) return []
+  const queryLower = query.toLowerCase()
   try {
     const shard = await loadShard(dictionaryShard(normalized))
     const allKeys = new Set([...Object.keys(shard.e), ...Object.keys(shard.s)])
-    const variants = new Set<string>()
+    const seenLower = new Set<string>()
+    const variants: string[] = []
     allKeys.forEach((key) => {
-      if (key !== query && normalizeDictionaryKey(key) === normalized) {
-        variants.add(key)
+      const keyLower = key.toLowerCase()
+      if (
+        normalizeDictionaryKey(key) === normalized &&
+        keyLower !== queryLower &&
+        !seenLower.has(keyLower)
+      ) {
+        seenLower.add(keyLower)
+        variants.push(key)
       }
     })
-    return Array.from(variants).slice(0, 5)
+    return variants.slice(0, 5)
   } catch {
     return []
   }
@@ -205,8 +213,10 @@ export async function speakFrench(
   const cleaned = text.trim()
   if (!cleaned) return false
   try {
-    const played = await playFrenchVoice(cleaned, options)
-    if (played) return true
+    const result = await playFrenchVoice(cleaned, options)
+    if (result === 'played' || result === 'superseded') {
+      return result === 'played'
+    }
   } catch {
     // Fall back to speechSynthesis below
   }

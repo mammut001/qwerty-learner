@@ -1,4 +1,5 @@
 import {
+  createPlaybackToken,
   isFrenchVoiceAvailable,
   playFrenchVoice,
   prefetchFrenchVoice,
@@ -13,7 +14,7 @@ import { romajiToHiragana } from '@/utils/kana'
 import noop from '@/utils/noop'
 import type { Howl } from 'howler'
 import { useAtomValue } from 'jotai'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import useSound from 'use-sound'
 import type { HookOptions } from 'use-sound/dist/types'
 
@@ -49,6 +50,8 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
   const loop = useMemo(() => (typeof isLoop === 'boolean' ? isLoop : pronunciationConfig.isLoop), [isLoop, pronunciationConfig.isLoop])
   const [isPlaying, setIsPlaying] = useState(false)
   const [proxyAvailable, setProxyAvailable] = useState(isFrenchVoiceAvailable)
+  const activeTokenRef = useRef<number | null>(null)
+  const fallbackAudioRef = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
     return subscribeFrenchVoiceAvailability(setProxyAvailable)
@@ -70,8 +73,11 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
   } as HookOptions)
 
   useEffect(() => {
-    if (pronunciationConfig.type === 'fr') {
-      setFrenchVoiceLoop(loop)
+    if (pronunciationConfig.type === 'fr' && activeTokenRef.current !== null) {
+      setFrenchVoiceLoop(loop, activeTokenRef.current)
+    }
+    if (fallbackAudioRef.current) {
+      fallbackAudioRef.current.loop = loop
     }
     if (!sound) return
     sound.loop(loop)
@@ -97,27 +103,97 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
   const play = useCallback(
     (options?: Parameters<typeof playSound>[0]) => {
       if (pronunciationConfig.type === 'fr') {
+        if (fallbackAudioRef.current) {
+          fallbackAudioRef.current.pause()
+          fallbackAudioRef.current = null
+        }
+        const myToken = createPlaybackToken()
+        activeTokenRef.current = myToken
+
         void playFrenchVoice(word, {
           volume: pronunciationConfig.volume,
           rate: pronunciationConfig.rate,
           loop,
-          onStart: () => setIsPlaying(true),
-          onEnd: () => setIsPlaying(false),
-        }).then((success) => {
-          if (!success) {
-            playSound(options)
+          token: myToken,
+          onStart: () => {
+            if (activeTokenRef.current === myToken) {
+              setIsPlaying(true)
+            }
+          },
+          onEnd: () => {
+            if (activeTokenRef.current === myToken) {
+              activeTokenRef.current = null
+              setIsPlaying(false)
+            }
+          },
+        }).then((result) => {
+          if (result === 'superseded') {
+            if (activeTokenRef.current === myToken) {
+              activeTokenRef.current = null
+            }
+            setIsPlaying(false)
+            return
+          }
+
+          if (result === 'unavailable') {
+            if (activeTokenRef.current !== myToken) {
+              return
+            }
+            if (!soundSrc) {
+              const fallbackAudio = new Audio(generateWordSoundSrc(word, 'fr'))
+              fallbackAudio.volume = pronunciationConfig.volume
+              fallbackAudio.playbackRate = pronunciationConfig.rate
+              fallbackAudio.loop = loop
+              fallbackAudioRef.current = fallbackAudio
+              fallbackAudio.onplay = () => {
+                if (activeTokenRef.current === myToken) {
+                  setIsPlaying(true)
+                }
+              }
+              fallbackAudio.onended = () => {
+                if (activeTokenRef.current === myToken) {
+                  activeTokenRef.current = null
+                }
+                fallbackAudioRef.current = null
+                setIsPlaying(false)
+              }
+              fallbackAudio.onerror = () => {
+                if (activeTokenRef.current === myToken) {
+                  activeTokenRef.current = null
+                }
+                fallbackAudioRef.current = null
+                setIsPlaying(false)
+              }
+              void fallbackAudio.play().catch(() => {
+                if (activeTokenRef.current === myToken) {
+                  activeTokenRef.current = null
+                }
+                fallbackAudioRef.current = null
+                setIsPlaying(false)
+              })
+            } else {
+              playSound(options)
+            }
           }
         })
         return
       }
+
       playSound(options)
     },
-    [loop, playSound, pronunciationConfig.rate, pronunciationConfig.type, pronunciationConfig.volume, word],
+    [loop, playSound, pronunciationConfig.rate, pronunciationConfig.type, pronunciationConfig.volume, soundSrc, word],
   )
 
   const stop = useCallback(
     (id?: string) => {
-      stopFrenchVoice()
+      if (activeTokenRef.current !== null) {
+        stopFrenchVoice(activeTokenRef.current)
+        activeTokenRef.current = null
+      }
+      if (fallbackAudioRef.current) {
+        fallbackAudioRef.current.pause()
+        fallbackAudioRef.current = null
+      }
       stopSound(id)
       setIsPlaying(false)
     },
@@ -126,7 +202,14 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
 
   useEffect(() => {
     return () => {
-      stopFrenchVoice()
+      if (activeTokenRef.current !== null) {
+        stopFrenchVoice(activeTokenRef.current)
+        activeTokenRef.current = null
+      }
+      if (fallbackAudioRef.current) {
+        fallbackAudioRef.current.pause()
+        fallbackAudioRef.current = null
+      }
     }
   }, [])
 
