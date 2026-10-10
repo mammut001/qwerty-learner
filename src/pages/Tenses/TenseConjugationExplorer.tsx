@@ -81,6 +81,7 @@ export default function TenseConjugationExplorer({
             <IconSearch className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
             <input
               type="text"
+              data-testid="explorer-verb-input"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="输入或搜索动词..."
@@ -90,6 +91,7 @@ export default function TenseConjugationExplorer({
           {query !== selectedVerb && (
             <button
               type="submit"
+              data-testid="explorer-submit-btn"
               className="ml-2 rounded-xl bg-indigo-600 px-3 py-2 text-xs font-medium text-white transition hover:bg-indigo-700 active:scale-95"
             >
               变位
@@ -194,6 +196,7 @@ export default function TenseConjugationExplorer({
                   return (
                     <tr
                       key={index}
+                      data-testid={`explorer-cell-${form.person}`}
                       className="transition hover:bg-indigo-50/30 dark:hover:bg-gray-700/40"
                     >
                       <td className="py-2.5 pl-4 pr-3 text-xs font-medium text-gray-500 dark:text-gray-400">

@@ -18,14 +18,15 @@ test('Tenses and conjugation topic section flows smoothly', async ({ page }) => 
     page.getByRole('heading', { name: '全部时态一览 (Tableau récapitulatif des temps)' }),
   ).toBeVisible()
   // Check that multiple tenses render in cheat sheet
-  await expect(page.getByText('Présent', { exact: true }).first()).toBeVisible()
-  await expect(page.getByText('Conditionnel présent', { exact: true }).first()).toBeVisible()
-  await expect(page.getByText('Subjonctif présent', { exact: true }).first()).toBeVisible()
+  await expect(page.getByTestId('cheatsheet-tense-present')).toBeVisible()
+  await expect(page.getByTestId('cheatsheet-tense-conditionnelPresent')).toBeVisible()
+  await expect(page.getByTestId('cheatsheet-tense-subjonctifPresent')).toBeVisible()
+  await expect(page.getByTestId('cheatsheet-cell-present-1s')).toBeVisible()
 
   // Switch verb in cheat sheet
   await page.getByRole('button', { name: 'faire', exact: true }).click()
-  await expect(page.getByRole('heading', { name: 'faire' })).toBeVisible()
-  await expect(page.getByText('je fais')).toBeVisible()
+  await expect(page.getByTestId('cheatsheet-infinitive-title')).toHaveText('faire')
+  await expect(page.getByTestId('cheatsheet-cell-present-1s')).toContainText('je fais')
 
   // 3. Navigate into a single tense lesson (/tenses/present)
   await page.goto('/tenses/present')
@@ -37,30 +38,29 @@ test('Tenses and conjugation topic section flows smoothly', async ({ page }) => 
 
   // Verify table explorer exists and can switch verbs
   await expect(page.getByText('变位速查表 (直陈式现在时)')).toBeVisible()
-  await expect(page.getByText('je parle')).toBeVisible()
+  await expect(page.getByTestId('explorer-cell-1s')).toContainText('je parle')
 
   // Switch verb in table explorer
   await page.getByRole('button', { name: 'aller', exact: true }).click()
-  await expect(page.getByText('je vais')).toBeVisible()
+  await expect(page.getByTestId('explorer-cell-1s')).toContainText('je vais')
 
   // Typing an unsupported verb in explorer shows unsupported error message
-  const verbInput = page.locator('input[placeholder="输入或搜索动词..."]')
+  const verbInput = page.getByTestId('explorer-verb-input')
   await verbInput.fill('xyz')
-  await page.getByRole('button', { name: '变位' }).click()
-  await expect(page.getByText('暂不支持这个动词')).toBeVisible()
+  await page.getByTestId('explorer-submit-btn').click()
+  await expect(page.getByTestId('unsupported-verb-error')).toBeVisible()
 
   // Switch back to a valid verb
   await page.getByRole('button', { name: 'parler', exact: true }).click()
-  await expect(page.getByText('je parle')).toBeVisible()
+  await expect(page.getByTestId('explorer-cell-1s')).toContainText('je parle')
 
   // Verify example sentences with audio button and lookup wrapper
-  const speakButtons = page.getByRole('button', { name: '朗读例句' })
-  await expect(speakButtons.first()).toBeVisible()
+  await expect(page.getByTestId('example-speak-0')).toBeVisible()
 
   // Verify interactive practice section and answer a question deterministically
   await expect(page.getByText('互动课后练习')).toBeVisible()
-  await page.locator('[data-testid="choice-option-0"]').click()
-  await expect(page.locator('[data-testid="question-feedback"]')).toBeVisible()
+  await page.getByTestId('choice-option-0').click()
+  await expect(page.getByTestId('question-feedback')).toBeVisible()
 
   // Verify localStorage contains updated progress
   const progressRaw = await page.evaluate(() =>

@@ -9,7 +9,7 @@ export interface ExampleItemProps {
   index?: number
 }
 
-export default function ExampleItem({ example }: ExampleItemProps) {
+export default function ExampleItem({ example, index }: ExampleItemProps) {
   const { fr, zh, highlight } = example
   const idx = highlight ? fr.indexOf(highlight) : -1
 
@@ -53,6 +53,7 @@ export default function ExampleItem({ example }: ExampleItemProps) {
           onClick={handleSpeak}
           title="朗读法语例句 (魁北克/标准发音)"
           aria-label="朗读例句"
+          data-testid={index !== undefined ? `example-speak-${index}` : undefined}
           className="shrink-0 rounded-lg p-1.5 text-gray-400 transition hover:bg-indigo-50 hover:text-indigo-600 active:scale-95 dark:text-gray-500 dark:hover:bg-gray-700 dark:hover:text-indigo-300"
         >
           <IconVolume className="h-4 w-4" />

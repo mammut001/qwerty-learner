@@ -169,7 +169,10 @@ export default function TenseCheatSheet() {
       <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-xs dark:border-gray-800 dark:bg-gray-800/90 sm:p-6 print:border-none print:p-0 print:shadow-none">
         <div className="flex flex-wrap items-baseline justify-between gap-4 border-b border-gray-100 pb-4 dark:border-gray-700/80">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white print:text-2xl">
+            <h1
+              data-testid="cheatsheet-infinitive-title"
+              className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white print:text-2xl"
+            >
               {meta.infinitive}
             </h1>
             <div className="mt-1 flex flex-wrap items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
@@ -204,6 +207,7 @@ export default function TenseCheatSheet() {
             return (
               <div
                 key={id}
+                data-testid={`cheatsheet-tense-${id}`}
                 className="flex flex-col rounded-xl border border-gray-100 bg-gray-50/70 p-4 transition dark:border-gray-700/60 dark:bg-gray-900/40 print:border print:border-gray-300 print:bg-white"
               >
                 <div className="flex items-start justify-between gap-2 border-b border-gray-200/60 pb-2 dark:border-gray-800">
@@ -224,6 +228,7 @@ export default function TenseCheatSheet() {
                   {data.forms.map((f, fIdx) => (
                     <div
                       key={fIdx}
+                      data-testid={`cheatsheet-cell-${id}-${f.person}`}
                       className="group flex items-center justify-between gap-2 text-xs"
                     >
                       <span className="font-mono text-gray-400 dark:text-gray-500 w-16 shrink-0 truncate">
