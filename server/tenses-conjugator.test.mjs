@@ -6,6 +6,8 @@ import {
   conjugateAll,
   crossCuttingLessons,
   getSupportedVerbs,
+  getWordingSkills,
+  hasWording,
   isSupportedVerb,
   singleTenseLessons,
   UnsupportedVerbError,
@@ -966,6 +968,44 @@ describe('French Tenses Conjugation Engine & Content Suite', () => {
               assert.ok(!CJK_REGEX.test(opt), `CJK in question option [${lesson.id} / ${q.id}]: "${opt}"`)
               assert.ok(!opt.includes('→'), `Arrow in question option [${lesson.id} / ${q.id}]: "${opt}"`)
               assert.ok(!opt.includes('（') && !opt.includes('）'), `Full-width parens in question option [${lesson.id} / ${q.id}]`)
+            }
+          }
+        }
+      }
+    })
+
+    test('Section 3: Scale citations consistency — every cited wording exists verbatim in Quebec Scale dimensions and cited niveaux are authentic', () => {
+      for (const lesson of allTenseLessons) {
+        assert.ok(lesson.echelleSources && lesson.echelleSources.length > 0, `echelleSources present for [${lesson.id}]`)
+        for (const source of lesson.echelleSources) {
+          const match = source.match(/^(?:Niveau\s+(\d+)(?:\s+\(([^)]+)\))?(?:\s+·\s+Niveau\s+(\d+)(?:\s+\(([^)]+)\))?)?)\s*—\s*(.+)$/)
+          assert.ok(match, `echelleSource matches expected format in [${lesson.id}]: "${source}"`)
+
+          const wording = match[5].trim()
+          assert.ok(hasWording(wording), `Wording "${wording}" must exist verbatim in Quebec Scale dimensions [${lesson.id}]`)
+
+          const skills = getWordingSkills(wording)
+          assert.ok(skills, `Skills found for "${wording}"`)
+
+          // Check first cited level
+          const lvl1 = parseInt(match[1], 10)
+          const skillType1 = match[2]
+          if (skillType1 === 'compréhension') {
+            assert.ok(skills.listening === lvl1 || skills.reading === lvl1, `Level ${lvl1} comprehension must match listening/reading for "${wording}"`)
+          } else if (skillType1 === 'production') {
+            assert.ok(skills.writing === lvl1 || skills.speaking === lvl1, `Level ${lvl1} production must match writing/speaking for "${wording}"`)
+          } else {
+            assert.ok(Object.values(skills).includes(lvl1), `Level ${lvl1} must appear in skills for "${wording}"`)
+          }
+
+          // Check second cited level if present
+          if (match[3]) {
+            const lvl2 = parseInt(match[3], 10)
+            const skillType2 = match[4]
+            if (skillType2 === 'production') {
+              assert.ok(skills.writing === lvl2 || skills.speaking === lvl2, `Level ${lvl2} production must match writing/speaking for "${wording}"`)
+            } else {
+              assert.ok(Object.values(skills).includes(lvl2), `Level ${lvl2} must appear in skills for "${wording}"`)
             }
           }
         }
