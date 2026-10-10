@@ -60,6 +60,21 @@ export const conditionnelPasseLesson: TenseLesson = {
           zh: '他们当时是多么希望能和家人在魁北克一起共度元旦啊！',
           highlight: 'auraient tellement souhaité',
         },
+        {
+          fr: 'J’aurais tant aimé visiter la Gaspésie avec vous l’automne dernier.',
+          zh: '去年秋天我本多么希望能与您一同游览加斯佩半岛啊。',
+          highlight: 'aurais tant aimé',
+        },
+        {
+          fr: 'Vous auriez préféré louer un logement tout meublé lors de votre première année ?',
+          zh: '在抵达的第一年里，您当时本来更倾向于租一套带全套家具的公寓吗？',
+          highlight: 'auriez préféré',
+        },
+        {
+          fr: '— Tu n’aurais pas voulu étudier le droit plutôt que le commerce ? — Si, j’y avais pensé.',
+          zh: '——你当初难道不想学法律而不是学商科吗？——想过的，我曾考虑过。',
+          highlight: 'n’aurais pas voulu',
+        },
       ],
     },
     {
@@ -86,6 +101,21 @@ export const conditionnelPasseLesson: TenseLesson = {
           fr: 'Vous n’auriez pas dû signer ce bail sans avoir lu attentivement toutes les conditions.',
           zh: '在仔细阅读全部条款之前，你们当时真不应该签下这份租约的。',
           highlight: 'n’auriez pas dû',
+        },
+        {
+          fr: 'Tu aurais dû avertir le propriétaire de la fuite d’eau avant qu’elle ne s’aggrave !',
+          zh: '在漏水情况恶化之前，你当时本该立刻通知房东的！',
+          highlight: 'aurais dû',
+        },
+        {
+          fr: 'Vous auriez pu au moins nous envoyer un court courriel pour confirmer votre absence.',
+          zh: '您当时至少本可以给我们发一封简短邮件确认您的缺席。',
+          highlight: 'auriez pu',
+        },
+        {
+          fr: 'Ils n’auraient pas dû s’engager sur cette route forestière sans pneus d’hiver.',
+          zh: '没有安装冬季轮胎，他们当时真不应该贸然驶上那条林间公路。',
+          highlight: 'n’auraient pas dû',
         },
       ],
     },
@@ -114,6 +144,21 @@ export const conditionnelPasseLesson: TenseLesson = {
           zh: '要是他们当时抓紧一点，他们本来就不会在 TCF 考试中迟到了。',
           highlight: 'seraient pas arrivés',
         },
+        {
+          fr: 'Si vous aviez consulté un conseiller budgétaire, vous auriez évité ces pénalités financières.',
+          zh: '如果您当时咨询了预算顾问，您本可以避免这些财务罚金的。',
+          highlight: 'auriez évité',
+        },
+        {
+          fr: 'Si le train avait été ponctuel, nous serions arrivés à temps pour l’allocution d’ouverture.',
+          zh: '要是列车当时准点，我们本能赶在开幕致辞前准时到达的。',
+          highlight: 'serions arrivés',
+        },
+        {
+          fr: '— Qu’aurais-tu fait si l’ambassade avait rejeté ta demande ? — J’aurais déposé un recours.',
+          zh: '——如果大使馆当时驳回了你的申请你会怎样？——我本会提出申诉的。',
+          highlight: 'aurais-tu fait',
+        },
       ],
     },
     {
@@ -140,6 +185,21 @@ export const conditionnelPasseLesson: TenseLesson = {
           fr: 'L’entreprise aurait dissimulé des informations importantes lors de l’enquête environnementale.',
           zh: '那家企业据称在环境调查过程中隐瞒了重要信息。',
           highlight: 'aurait dissimulé',
+        },
+        {
+          fr: 'Le cyclone tropical aurait détruit des centaines d’habitations sur la côte atlantique.',
+          zh: '据报道，热带气旋据称在受灾大西洋沿岸摧毁了数百栋住宅。',
+          highlight: 'aurait détruit',
+        },
+        {
+          fr: 'Selon les rumeurs syndicales, le comité de négociation aurait rejeté la dernière proposition patronale.',
+          zh: '根据工会内部传闻，劳资谈判委员会据称已驳回了资方的最新提议。',
+          highlight: 'aurait rejeté',
+        },
+        {
+          fr: 'Les voleurs se seraient introduits par le sous-sol au milieu de la nuit selon les voisins.',
+          zh: '据邻居反映，窃贼据称是在半夜时分由地下室潜入大楼的。',
+          highlight: 'se seraient introduits',
         },
       ],
     },
@@ -168,6 +228,21 @@ export const conditionnelPasseLesson: TenseLesson = {
           zh: '要不是有政府的这份奖学金，我本绝不可能付得起麦吉尔大学的学费。',
           highlight: 'n’aurais jamais pu',
         },
+        {
+          fr: 'Sans le déneigement rapide de la voirie, la ville entière aurait été complètement paralysée.',
+          zh: '要不是市政公路局的迅速清雪作业，整座城市本会陷入彻底瘫痪。',
+          highlight: 'aurait été',
+        },
+        {
+          fr: 'Une seconde d’hésitation et le skieur aurait manqué la bifurcation vers le refuge de montagne.',
+          zh: '稍稍犹豫一秒钟，滑雪者本就会错过通往高山庇护所的岔道。',
+          highlight: 'aurait manqué',
+        },
+        {
+          fr: 'Sans vos encouragements chaleureux, j’aurais abandonné mes cours intensifs de français.',
+          zh: '要不是有您热忱的鼓励，我当初本会中途放弃我的强化法语课程的。',
+          highlight: 'j’aurais abandonné',
+        },
       ],
     },
     {
@@ -195,6 +270,46 @@ export const conditionnelPasseLesson: TenseLesson = {
           zh: '你当时能料想到你的第一个冬天会有这么冷吗？',
           highlight: 'te serais douté',
         },
+        {
+          fr: 'Vous vous seriez levé plus tôt si le réveil avait fonctionné correctement ce matin-là.',
+          zh: '如果那天早晨闹钟运转正常，您当时本会起得更早一些的。',
+          highlight: 'vous seriez levé',
+        },
+        {
+          fr: 'Elles se seraient souvenues de cette vieille chanson si tu en avais chanté le refrain.',
+          zh: '如果你当时唱了副歌，她们本来是会回忆起这首老歌的。',
+          highlight: 'se seraient souvenues',
+        },
+        {
+          fr: 'Je me serais trompé d’itinéraire sans les indications détaillées fournies par le gardien.',
+          zh: '要不是门卫提供的详细路线指引，我当时本来就走错路线了。',
+          highlight: 'me serais trompé',
+        },
+      ],
+    },
+  ],
+  miniTexts: [
+    {
+      titleFr: 'Le voyage manqué à Percé',
+      titleZh: '错失的皮尔斯之行',
+      fr: 'L’été dernier, François et sa famille auraient voulu visiter le rocher Percé au lever du jour. S’ils avaient réservé leur hébergement dès le mois de janvier, ils auraient trouvé une jolie auberge côtière sans difficulté. Malheureusement, ils ont attendu la dernière minute et tous les établissements affichaient complet. Sans cette erreur de prévoyance, ils auraient admiré les oiseaux marins de l’île Bonaventure. François aurait dû écouter les conseils avisés de ses collègues québécois bien avant les départs de vacances.',
+      zh: '去年夏天，弗朗索瓦一家本想在清晨日出时分游览皮尔斯巨岩。如果他们一月份就预订好住宿，本能轻而易举找到一家漂亮的沿海客栈。遗憾的是，他们拖延到了最后一刻，所有酒店均告客满。若非这种缺乏远见的疏忽，他们本能在博纳旺蒂尔岛观赏海鸟。弗朗索瓦在假期出发前本该认真听取魁北克同事的中肯建议的。',
+      highlights: [
+        'auraient voulu',
+        'auraient trouvé',
+        'auraient admiré',
+        'aurait dû',
+      ],
+    },
+    {
+      titleFr: 'L’incident évité de justesse',
+      titleZh: '侥幸避免的意外险情',
+      fr: 'Mardi soir, un automobiliste distrait roulait trop vite sur la route provinciale enneigée. Une plaque de verglas a soudain fait déraper son véhicule vers le fossé. Sans le réflexe rapide du conducteur qui le suivait, une collision majeure aurait eu lieu en pleine tempête. Le conducteur fautif aurait pu causer des blessures graves à d’autres usagers innocents. Selon la police, les deux véhicules se seraient immobilisés à quelques centimètres seulement l’un de l’autre, évitant ainsi un drame routier tragique.',
+      zh: '周二晚上，一名心不在焉的司机在积雪的省道公路上超速行驶。一处暗冰突然让他的车辆向路沟打滑失控。若非后方跟车司机敏捷的避险反应，一场重大追尾碰撞本在暴风雪中不可避免。肇事司机本可能给其他无辜的过路人造成重伤。据警方称，两辆车据报道在仅相距数厘米处紧急刹停，从而避免了一场惨烈的公路悲剧。',
+      highlights: [
+        'aurait eu lieu',
+        'aurait pu',
+        'se seraient immobilisés',
       ],
     },
   ],
@@ -235,6 +350,42 @@ export const conditionnelPasseLesson: TenseLesson = {
         highlight: 'aurait perdu',
       },
     },
+    {
+      word: 'sans cela',
+      meaningZh: '要不是那样的话',
+      example: {
+        fr: 'Sans cela, l’entreprise aurait fait faillite dès sa première année d’exploitation.',
+        zh: '要不是那样的话，企业在其运营的第一年本就会破产的。',
+        highlight: 'aurait fait',
+      },
+    },
+    {
+      word: 'autrement',
+      meaningZh: '否则的话 / 要不然',
+      example: {
+        fr: 'J’ai pris le métro ce matin, autrement je serais arrivé avec une heure de retard.',
+        zh: '我今天早晨坐了地铁，要不然我本会迟到一个小时的。',
+        highlight: 'serais arrivé',
+      },
+    },
+    {
+      word: 'au cas où + PQP',
+      meaningZh: '万一当时……的话',
+      example: {
+        fr: 'Nous avions pris une assurance au cas où le vol aurait été annulé.',
+        zh: '我们买了保险，以防万一当时航班被取消。',
+        highlight: 'aurait été annulé',
+      },
+    },
+    {
+      word: 'd’après les témoins',
+      meaningZh: '据目击者称',
+      example: {
+        fr: 'D’après les témoins, le suspect se serait enfui par l’escalier de secours.',
+        zh: '据目击者称，嫌疑人据称是走消防应急楼梯逃跑的。',
+        highlight: 'se serait enfui',
+      },
+    },
   ],
   commonMistakes: [
     {
@@ -257,6 +408,16 @@ export const conditionnelPasseLesson: TenseLesson = {
       wrong: 'Ils se auraient disputés.',
       right: 'Ils se seraient disputés.',
       explanationZh: '代词动词的助动词必须使用 être（seraient），不能使用 avoir（auraient）。',
+    },
+    {
+      wrong: 'Nous aurions partis plus tôt si nous avions su.',
+      right: 'Nous serions partis plus tôt si nous avions su.',
+      explanationZh: '动词 partir 在复合时态中必须一律使用 être 作为助动词：nous serions partis。',
+    },
+    {
+      wrong: 'Elles se seraient trompé de direction dans la tempête.',
+      right: 'Elles se seraient trompées de direction dans la tempête.',
+      explanationZh: '代词动词使用 être 作助动词，主语 elles 为阴性复数，过去分词必须配合加 -es：se seraient trompées。',
     },
   ],
   questions: [
@@ -387,6 +548,70 @@ export const conditionnelPasseLesson: TenseLesson = {
       options: ['auriez dû', 'aviez dû', 'auriez du', 'seriez dû'],
       correctAnswer: 'auriez dû',
       explanationZh: '对过去的善意责备与提醒：vous auriez dû。',
+    },
+    {
+      id: 'cpa-q17',
+      type: 'fill',
+      prompt: 'Si vous aviez lu attentivement la consigne, vous (ne pas faire) ___ cette erreur.（填入条件式否定助动词+分词，如 n’auriez pas fait）',
+      correctAnswer: 'n’auriez pas fait',
+      acceptedAnswers: ['n’auriez pas fait'],
+      explanationZh: 'faire 的条件式过去时否定式为 n’auriez pas fait。',
+    },
+    {
+      id: 'cpa-q18',
+      type: 'choice',
+      prompt: 'À ta place, je (refuser) ___ cette offre d’emploi sans hésiter.',
+      options: ['aurais refusé', 'avais refusé', 'refuserais', 'aurais refuser'],
+      correctAnswer: 'aurais refusé',
+      explanationZh: '表达对过去已发生事件的假设建议：j’aurais refusé。',
+    },
+    {
+      id: 'cpa-q19',
+      type: 'choice',
+      prompt: 'Selon le porte-parole municipal, la fuite d’eau (être) ___ colmatée avant minuit.',
+      options: ['aurait été', 'avait été', 'serait été', 'sera été'],
+      correctAnswer: 'aurait été',
+      explanationZh: 'être 的条件式过去时使用 avoir 作助动词：aurait été。',
+    },
+    {
+      id: 'cpa-q20',
+      type: 'choice',
+      prompt: 'Sans le travail acharné des bénévoles, le festival (ne pas pouvoir) ___ avoir lieu.',
+      options: ['n’aurait pas pu', 'n’avait pas pu', 'ne pouvait pas', 'ne serait pas pu'],
+      correctAnswer: 'n’aurait pas pu',
+      explanationZh: 'pouvoir 的条件式过去时为 aurait pu，否定形式为 n’aurait pas pu。',
+    },
+    {
+      id: 'cpa-q21',
+      type: 'choice',
+      prompt: 'Si elle s’était couchée plus tôt, elle ne (se réveiller) ___ pas en retard ce matin.',
+      options: ['se serait réveillée', 's’auraient réveillée', 'se serait réveillé', 'serait réveillée'],
+      correctAnswer: 'se serait réveillée',
+      explanationZh: '代词动词使用 être 作助动词，主语 elle 配合加 -e：se serait réveillée。',
+    },
+    {
+      id: 'cpa-q22',
+      type: 'fill',
+      prompt: 'Nous (vouloir) ___ vous remercier chaleureusement pour votre accueil québécois.（填入条件式助动词+分词）',
+      correctAnswer: 'aurions voulu',
+      acceptedAnswers: ['aurions voulu'],
+      explanationZh: 'vouloir 的条件式过去时 nous 人称为 aurions voulu。',
+    },
+    {
+      id: 'cpa-q23',
+      type: 'choice',
+      prompt: 'Tu (devoir) ___ renouveler ton passeport six mois avant sa date d’expiration !',
+      options: ['aurais dû', 'avais dû', 'aurais du', 'serais dû'],
+      correctAnswer: 'aurais dû',
+      explanationZh: '对过去的责备，devoir 过去分词带长音符：tu aurais dû。',
+    },
+    {
+      id: 'cpa-q24',
+      type: 'fill',
+      prompt: 'Elles (partir) ___ dès l’aube si le chasse-neige était passé à l’heure.（主语 elles，填入助动词+分词）',
+      correctAnswer: 'seraient parties',
+      acceptedAnswers: ['seraient parties'],
+      explanationZh: 'partir 用 être 作助动词，主语 elles 配合加 -es：seraient parties。',
     },
   ],
 }
