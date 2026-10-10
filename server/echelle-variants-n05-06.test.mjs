@@ -12,6 +12,30 @@ function djb2(str) {
   return hash >>> 0
 }
 
+function normalizeWords(str) {
+  return str
+    .toLowerCase()
+    .replace(/[’']/g, ' ')
+    .replace(/[^a-zà-ÿ0-9\s]/gi, ' ')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+}
+
+function hasCommon6WordSeq(text, ans) {
+  const tw = normalizeWords(text)
+  const aw = normalizeWords(ans)
+  if (aw.length < 6) return false
+  const tSet = new Set()
+  for (let i = 0; i <= tw.length - 6; i++) {
+    tSet.add(tw.slice(i, i + 6).join(' '))
+  }
+  for (let i = 0; i <= aw.length - 6; i++) {
+    if (tSet.has(aw.slice(i, i + 6).join(' '))) return true
+  }
+  return false
+}
+
 const EXPECTED_INDICATOR_IDS = [
   'n5-listening-0', 'n5-listening-1', 'n5-listening-2', 'n5-listening-3', 'n5-listening-4', 'n5-listening-5',
   'n5-reading-0', 'n5-reading-1', 'n5-reading-2', 'n5-reading-3', 'n5-reading-4', 'n5-reading-5',
@@ -230,6 +254,89 @@ describe('Échelle québécoise Niveaux 5–6 Scenarios and Banks', () => {
         assert.ok(q[1] && q[2] && q[3], `Choices must be non-empty in texte concept ${concept}`)
         const choices = new Set([q[1], q[2], q[3]])
         assert.strictEqual(choices.size, 3, `Choices must be 3 distinct values in texte concept ${concept}`)
+      }
+    }
+  })
+
+  it('satisfies Section B question quality invariants across 40 seeds per scenario', () => {
+    for (const [id, scenarios] of Object.entries(N05_06_SCENARIOS)) {
+      let strictlyLongestCount = 0
+      let totalQ = 0
+
+      for (let sIdx = 0; sIdx < scenarios.length; sIdx++) {
+        const sc = scenarios[sIdx]
+        for (let seed = 0; seed < 40; seed++) {
+          const rand = mulberry32(djb2(`${id}:${sIdx}:${seed}`))
+          const inst = typeof sc === 'function' ? sc(rand) : sc
+          const text = inst.text
+
+          for (let qIdx = 0; qIdx < inst.questions.length; qIdx++) {
+            totalQ++
+            const [prompt, ans, dist1, dist2] = inst.questions[qIdx]
+
+            // 1. Longest check
+            if (ans.length > dist1.length && ans.length > dist2.length) {
+              strictlyLongestCount++
+            }
+
+            // 2. Length deviation: no option differs from average option length by > 60%
+            const avgLen = (ans.length + dist1.length + dist2.length) / 3
+            for (const opt of [ans, dist1, dist2]) {
+              const diff = Math.abs(opt.length - avgLen)
+              assert.ok(
+                diff / avgLen <= 0.60,
+                `Option length deviation ${(diff / avgLen).toFixed(2)} exceeds 60% for option "${opt}" in ${id} sc ${sIdx} q ${qIdx}`
+              )
+            }
+
+            // 3. Paraphrase check: correct answer shares no 6-word sequence with the text
+            assert.ok(
+              !hasCommon6WordSeq(text, ans),
+              `Correct answer shares a 6-word sequence with text in ${id} sc ${sIdx} q ${qIdx}: "${ans}"`
+            )
+          }
+        }
+      }
+
+      // Correct answer is the strictly longest option in at most 40% of questions per indicator
+      const longestPct = strictlyLongestCount / totalQ
+      assert.ok(
+        longestPct <= 0.40,
+        `Indicator ${id} has ${(longestPct * 100).toFixed(1)}% strictly longest answers, expected <= 40%`
+      )
+    }
+  })
+
+  it('satisfies slot grammar scan patterns without invalid contractions or elisions', () => {
+    const p1 = /\b(de le|à le|de les|à les)\b/i
+    const p2 = /\ben (le|la|les|l[’'])\s?\w+/i
+    const p3 = /\bentre [^.;,]{3,40} à /i
+    const p4 = /\b(de|que|je|ne|me|te|se)\s+[aeiouéèêàâîôû]\w{2,}/i
+    const allowedP2 = [
+      'en l’absence de', "en l'absence de",
+      'en la matière', 'en la matiere',
+      'en l’occurrence', "en l'occurrence",
+      'en l’air', "en l'air",
+    ]
+
+    for (const [id, scenarios] of Object.entries(N05_06_SCENARIOS)) {
+      for (let sIdx = 0; sIdx < scenarios.length; sIdx++) {
+        const sc = scenarios[sIdx]
+        for (let seed = 0; seed < 40; seed++) {
+          const rand = mulberry32(djb2(`${id}:${sIdx}:${seed}`))
+          const inst = typeof sc === 'function' ? sc(rand) : sc
+          const items = [inst.text]
+          for (const q of inst.questions) items.push(q[0], q[1], q[2], q[3])
+
+          for (const str of items) {
+            assert.ok(!p1.test(str), `P1 contraction hit in ${id} sc ${sIdx}: "${str}"`)
+            let cleanP2 = str
+            for (const al of allowedP2) cleanP2 = cleanP2.replaceAll(al, '___')
+            assert.ok(!p2.test(cleanP2), `P2 article after en hit in ${id} sc ${sIdx}: "${cleanP2}"`)
+            assert.ok(!p3.test(str), `P3 entre ... à hit in ${id} sc ${sIdx}: "${str}"`)
+            assert.ok(!p4.test(str), `P4 missing elision hit in ${id} sc ${sIdx}: "${str}"`)
+          }
+        }
       }
     }
   })
