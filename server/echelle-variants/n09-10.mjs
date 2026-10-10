@@ -1954,5 +1954,371 @@ export const N09_10_SCENARIOS = {
               ]
           ]
       }
+  ],
+  "n10-reading-1": [
+      {
+          "situation": 0,
+          "text": "Extrait d’une épopée médiévale en prose, « La Geste du chevalier Aléran ». Au plus noir de la nuit d’hiver, alors que le vent glacé soufflait en rafales sur la crête des monts sauvages, le seigneur Aléran se tenait seul devant l’étroit défilé des Brumes. Son heaume était bosselé par les coups d’estoc, et sa cotte de mailles laissait suinter un sang lourd, mais son bras ne faiblissait point sous l’assaut répété des lances ennemies. Derrière lui, au fond de la gorge escarpée, son suzerain blessé et les derniers archers épuisés gagnaient la sécurité du château fort, pas à pas, dans la neige épaisse. Devant Aléran se pressait la horde des assaillants, aguerris et nombreux comme les épines de la lande, dont les torches enflammées trouaient les ténèbres boréales. Le chevalier planta son étendard dans la terre gelée et leva haut sa lourde épée à deux mains, offrant son corps en rempart inviolable face au destin funeste. Il savait qu’aucun renfort ne franchirait la combe avant l’aube et que cette veillée d’armes marquerait le terme de ses jours terrestres. Pourtant, nulle ombre de crainte n’effleurait son âme sereine : en cet instant tragique, la fidélité au serment prêté transcendait la douleur de la chair et l’inévitabilité du trépas. Sa bravoure solitaire devint ainsi la matière d’un chant éternel que les ménestrels répéteraient de château en village durant des siècles entiers pour exalter l’honneur chevaleresque.",
+          "questions": [
+              [
+                  "Quel exploit héroïque est magnifié dans ce passage de geste chevaleresque ?",
+                  "La défense solitaire d’un passage escarpé au péril de sa vie pour permettre le salut des siens",
+                  "La conquête glorieuse et sans effusion de sang d’une vaste province étrangère au printemps fleuri",
+                  "La fuite secrète et précipitée d’un guerrier apeuré abandonnant son chef blessé aux mains adverses"
+              ],
+              [
+                  "Comment l’écriture épique valorise-t-elle la grandeur morale du protagoniste ?",
+                  "L’opposition saisissante entre le corps meurtri du chevalier et son inaltérable fermeté spirituelle",
+                  "Une longue énumération détaillée et fastidieuse des richesses accumulées par le seigneur en campagne",
+                  "Un dialogue comique et burlesque entre Aléran et les assaillants massés au pied de la colline sombre"
+              ],
+              [
+                  "Quel sentiment domine l’état d’esprit d’Aléran face à l’issue fatale du combat ?",
+                  "Une acceptation lucide et paisible guidée par le respect absolu de sa parole d’honneur féodale",
+                  "Une terreur panique et incontrôlable qui le pousse à supplier les ennemis d’épargner ses jours terrestres",
+                  "Une amertume haineuse envers son suzerain coupable de l’avoir envoyé à une mort certaine et sans gloire"
+              ],
+              [
+                  "Dans ce récit chevaleresque, que signifie le mot « trépas » ?",
+                  "La mort ou le décès héroïque survenant au terme d’une existence vouée au combat",
+                  "Une trahison infâme commise contre un compagnon d’armes en pleine bataille rangée sur le pré",
+                  "Un banquet d’apparat organisé pour célébrer la signature d’une trêve formelle entre deux armées"
+              ]
+          ]
+      },
+      {
+          "situation": 1,
+          "text": "Conte philosophique extrait du recueil « Les Fables du temps suspendu ». Le savant voyageur Zénon aborda un matin sur les rivages brumeux de Chronopolis, la célèbre cité des Horlogers. Dans cette contrée étrange, chaque citoyen portait au poignet trois cadrans mécaniques réglés au centième de seconde près, et des cloches d’airain retentissaient à chaque carrefour pour dicter le rythme des respirations, des pas et des repas quotidiens. Nul n’avait le loisir d’admirer la floraison des amandiers ni d’écouter le bruissement des fontaines, car s’arrêter ne fût-ce qu’un souffle était tenu pour un sacrilège envers la déesse Productivité. Zénon rencontra le grand maître de la guilde, vieillard au regard hagard dont les doigts tremblants polissaient sans relâche une montre d’or ornée de diamants précieux. « Pourquoi accumuler tant d’instruments de mesure si vous n’avez plus une heure à consacrer à la joie de vivre ? » demanda l’étranger avec douceur. Le vieil homme contempla son chef-d’œuvre d’engrenages complexes, puis une larme solitaire coula sur sa joue ridée. « Nous avons appris à découper le temps avec une rigueur mathématique admirable, soupira-t-il, mais dans notre course affolée, nous avons oublié d’exister. » En quittant la cité, Zénon comprit que mesurer l’existence n’est rien sans la liberté de la savourer pleinement dans la quiétude féconde de l’instant présent. Les heures vécues avec authenticité valent bien plus que tous les siècles mesurés par des rouages mécaniques.",
+          "questions": [
+              [
+                  "Quelle est la leçon philosophique centrale formulée à travers cette allégorie ?",
+                  "L’obsession moderne du rendement et de l’efficacité détruit la capacité authentique de vivre",
+                  "La fabrication manuelle de montres précieuses constitue le sommet absolu des arts mécaniques humains",
+                  "L’absence d’horloges publiques dans une ville provoque immanquablement le désordre civique général"
+              ],
+              [
+                  "Quelle démarche narrative le conteur emploie-t-il pour faire émerger la vérité morale ?",
+                  "La confrontation philosophique entre un voyageur lucide et un artisan vieillissant consumé par sa tâche",
+                  "Un traité d’ingénierie mathématique décrivant avec minutie le fonctionnement des rouages d’acier trempé",
+                  "Une satire violente réclamant la destruction immédiate de tous les édifices publics de la région entière"
+              ],
+              [
+                  "Quel aveu poignant la réponse du grand maître d’horlogerie contient-elle implicitement ?",
+                  "La tristesse de constater que toute une vie vouée au calcul méticuleux a débouché sur le vide spirituel",
+                  "La rancœur contre les habitants de la ville qui refusent d’acheter ses montres les plus chères et rares",
+                  "Le regret de ne pas avoir inventé d’engrenages assez solides pour mesurer les millisecondes avec exactitude"
+              ],
+              [
+                  "Dans ce conte d’idées, quel est le sens du terme « sacrilège » ?",
+                  "Une faute grave, inadmissible et choquante commise contre une valeur tenue pour sacrée",
+                  "Un vol de biens précieux perpétré durant la nuit dans les ateliers de la corporation des orfèvres réputés",
+                  "Une maladie contagieuse mystérieuse frappant les ouvriers travaillant dans les fonderies de cloches d’airain"
+              ]
+          ]
+      },
+      {
+          "situation": 0,
+          "text": "Second extrait de geste chevaleresque, « La Chevaleresse d’Aquitaine ». Dame Guibourc ceignit l’épée d’acier trempé de son père et monta d’un pas assuré sur le rempart calciné de la poterne ouest. L’avant-garde adverse avait franchi les douves au crépuscule, et les échelles de siège commençaient déjà à racler la pierre froide sous une pluie drue de flèches incendiaires. Tous les capitaines du château avaient péri ou gisaient sans connaissance dans la cour basse, laissant la défense du logis à une poignée de serviteurs et d’écuyers terrifiés par le fracas assourdissant des béliers. Loin de céder à l’épouvante, Guibourc fit sonner l’olifant d’un souffle puissant qui résonna dans toute la vallée, annonçant aux assaillants que la place forte ne capitulerait jamais sans un combat impitoyable. Brandissant une javeline enflammée, elle repoussa elle-même les premières échelles d’assaut, ranimant par sa seule présence le courage défaillant des derniers défenseurs réunis autour d’elle. Les assaillants durent reculer sous les blocs de granit précipités depuis les mâchicoulis, stupéfaits par la fougue de cette dame qui incarnait l’indomptable fierté de son illustre lignage. À l’aube naissante, les trompettes de l’armée royale de secours s’élevaient au loin sur les collines environnantes : la forteresse était sauvée grâce à l’héroïque résistance d’une femme dont l’histoire célébrerait la gloire à travers les âges futurs. La mémoire de ce haut fait d’armes demeurera gravée à tout jamais dans la pierre du pays.",
+          "questions": [
+              [
+                  "Quel acte de bravoure fonde le récit épique consacré à dame Guibourc ?",
+                  "La résistance héroïque sur les remparts menée par une femme face à un assaut réputé invincible",
+                  "La négociation habile d’une reddition avantageuse permettant de sauver les richesses du château fort féodal",
+                  "La capture traîtresse d’un roi rival lors d’une fête princière organisée en l’honneur d’un mariage royal"
+              ],
+              [
+                  "De quelle façon le texte héroïque dépeint-il l’intervention de la châtelaine ?",
+                  "Par des gestes d’éclat et une détermination sans faille qui transforment la panique en sursaut victorieux",
+                  "En décrivant longuement ses remords secrets et son refus catégorique d’employer la force contre l’ennemi",
+                  "Par un monologue comique soulignant l’impréparation ridicule des jeunes écuyers de la forteresse assiégée"
+              ],
+              [
+                  "Quelle transformation morale s’opère chez les défenseurs sous l’impulsion de Guibourc ?",
+                  "Leur terreur initiale se métamorphose en une résolution inébranlable à repousser l’assaut ennemi avec vigueur",
+                  "Ils décident d’abandonner leurs armes pour s’enfuir par des galeries souterraines dissimulées sous le donjon",
+                  "Ils refusent d’obéir aux ordres d’une femme et tentent de livrer les clefs de la poterne aux troupes rivales"
+              ],
+              [
+                  "Dans ce récit médiéval guerrier, que désigne le mot « poterne » ?",
+                  "Une petite porte dérobée ménagée dans la muraille d’une forteresse pour des sorties discrètes",
+                  "Une machine de guerre lourde utilisée par les assiégeants pour projeter des boulets de pierre calcaire",
+                  "Une salle de banquet voûtée située au cœur du donjon où se réunissent les seigneurs de la cour féodale"
+              ]
+          ]
+      },
+      {
+          "situation": 1,
+          "text": "Second conte philosophique, « Le Palais aux mille miroirs ». Le roi Alcandre, monarque universellement redouté pour sa soif insatiable de grandeur, fit ériger sur le plus haut sommet de son royaume un édifice somptueux entièrement tapissé de glaces de cristal de Bohême. Chaque pièce, chaque couloir, chaque plafond renvoyait à l’infini sa silhouette parée d’hermine et sa couronne constellée de saphirs étincelants. Persuadé d’avoir ainsi trouvé la compagnie parfaite de son propre génie, le souverain congédia ses conseillers les plus sages, ses amis d’enfance et jusqu’à son vieux fou de cour, ne supportant plus qu’une voix étrangère vienne troubler la contemplation béate de son image royale. Durant des mois, il erra seul dans ce labyrinthe étincelant, saluant ses reflets complaisants qui lui rendaient docilement ses sourires et ses gestes d’autorité souveraine. Mais au fil des semaines, l’angoisse d’un silence sépulcral envahit les galeries de verre : aucun écho ne répondait à ses questions, aucune main de chair ne venait serrer la sienne lorsqu’il chancelait d’épuisement. Le souverain réalisa avec effroi que le pouvoir solitaire n’est qu’une prison dorée où l’orgueil se nourrit de sa propre inanité. Saisissant un lourd candélabre de bronze, il brisa le miroir central pour laisser enfin entrer le vent libre et le chant des oiseaux de la forêt montagnarde. En retrouvant la lumière du jour, l’homme réapprenait enfin la véritable saveur de la vie en société.",
+          "questions": [
+              [
+                  "Quelle vérité sur la nature humaine ce conte allégorique illustre-t-il ?",
+                  "L’enfermement narcissique et l’exercice solitaire du pouvoir conduisent inéluctablement au vide existentiel",
+                  "L’aménagement architectural d’un château royal exige la consultation préalable d’artisans verriers réputés",
+                  "La possession de pierres précieuses rares est la seule source véritable de souveraineté durable et juste"
+              ],
+              [
+                  "Comment l’auteur met-il en scène la désillusion progressive du souverain ?",
+                  "L’émerveillement initial devant sa propre image s’efface peu à peu devant la torture de la solitude absolue",
+                  "Une révolte armée de paysans en colère vient chasser le roi de son palais lors d’une fête somptueuse et vaine",
+                  "Un différend juridique entre les maîtres verriers et le trésorier royal ruine les finances du monarque régnant"
+              ],
+              [
+                  "Quel geste final symbolise la délivrance spirituelle d’Alcandre dans le récit ?",
+                  "La destruction délibérée des parois réfléchissantes pour renouer avec la vie réelle et la nature vivante",
+                  "La commande de miroirs encore plus grands pour éliminer les dernières ombres des salles de réception dorées",
+                  "La signature précipitée d’un traité de guerre contre les royaumes voisins pour étendre les frontières du pays"
+              ],
+              [
+                  "Dans ce contexte philosophique, que signifie le mot « inanité » ?",
+                  "Le caractère de ce qui est sans valeur réelle, vain, illusoire et dépourvu de sens profond",
+                  "Une faiblesse corporelle soudaine causée par un manque prolongé de sommeil réparateur ou de nourriture saine",
+                  "Une habileté politique remarquable permettant de déjouer les complots tramés au sein des cours princières"
+              ]
+          ]
+      }
+  ],
+  "n10-reading-2": [
+      {
+          "situation": 0,
+          "text": "Éditorial paru dans le quotidien Le Devoir. La ratification en catimini du traité d’échanges transatlantique lors du sommet de Genève illustre une fois encore l’inquiétante dérive démocratique des négociations commerciales contemporaines. Sous couvert de fluidifier les échanges et d’abaisser des barrières tarifaires déjà résiduelles, ce texte de deux mille pages consacre en réalité l’hégémonie de tribunaux d’arbitrage privés chargés de trancher les litiges entre multinationales et États souverains. En accordant aux investisseurs étrangers le pouvoir exorbitant de poursuivre financièrement des gouvernements dont les réglementations sanitaires ou écologiques menaceraient leurs profits anticipés, ce traité institue une justice d’exception à sens unique. Comment pouvons-nous sérieusement exhorter nos sociétés à accélérer la transition énergétique si chaque moratoire sur les forages polluants expose le trésor public à des pénalités compensatoires se chiffrant en milliards de dollars ? Les chefs d’État réunis en Suisse ont beau parer leur communiqué final de déclarations lénifiantes sur la durabilité et le progrès partagé, la réalité est que ce pacte verrouille les politiques publiques dans un carcan néolibéral rigide. Nos parlements élus ne sauraient abdiquer leurs prérogatives fondamentales sans trahir le mandat civique qui leur a été confié par les peuples. L’avenir de notre modèle social et de notre souveraineté législative exige un sursaut démocratique sans compromis face aux pressions corporatives internationales. Les générations à venir jugeront sévèrement cette démission politique face aux intérêts marchands mondialisés.",
+          "questions": [
+              [
+                  "Quelle dérive majeure l’éditorialiste fustige-t-il dans son analyse du traité commercial ?",
+                  "La soumission des politiques environnementales souveraines à des cours d’arbitrage privées partiales",
+                  "L’augmentation brutale et généralisée des droits de douane appliqués aux produits de première nécessité vitale",
+                  "L’interdiction formelle faite aux entreprises d’exporter des biens manufacturés vers les pays signataires du pacte"
+              ],
+              [
+                  "Comment l’auteur déconstruit-il le discours officiel des dirigeants réunis à Genève ?",
+                  "Il confronte les nobles déclarations sur le climat aux clauses réelles protégeant les profits des investisseurs",
+                  "Il met en doute la légitimité des chefs d’État en prétendant que leur sommet n’a jamais eu lieu en réalité historique",
+                  "Il préconise l’abolition immédiate de tous les tribunaux civils afin de simplifier les procédures judiciaires locales"
+              ],
+              [
+                  "Quelle menace concrète ce type de traité fait-il peser sur les finances des gouvernements nationaux ?",
+                  "Le risque de sanctions pécuniaires astronomiques en cas d’adoption de mesures de protection écologique",
+                  "L’obligation pour les ministères de verser un salaire fixe annuel à tous les avocats d’affaires étrangers au pays",
+                  "Une diminution automatique des recettes fiscales issues de l’impôt foncier perçu sur les logements privés urbains"
+              ],
+              [
+                  "Dans ce texte d’opinion politique, que connote le terme « lénifiantes » ?",
+                  "Qui vise à apaiser trompeusement les inquiétudes sans apporter de réponse réelle aux problèmes soulevés",
+                  "Qui exprime une agressivité guerrière sans retenue destinée à intimider les diplomates adverses lors des séances",
+                  "Qui relève d’une démonstration mathématique incontestable appuyée sur des données chiffrées particulièrement précises"
+              ]
+          ]
+      },
+      {
+          "situation": 1,
+          "text": "Mémoire déposé à la Commission des institutions de l’Assemblée nationale du Québec par le Collectif citoyen pour une démocratie renouvelée. Le mode de scrutin uninominal majoritaire à un tour, héritage désuet du parlementarisme britannique du dix-neuvième siècle, est aujourd’hui la source principale de la défiance civique et du désenchantement électoral qui minent notre vie publique. En fabricant artificiellement des majorités parlementaires écrasantes avec parfois moins de quarante pour cent des suffrages exprimés, notre système actuel déforme systématiquement la volonté populaire et condamne à l’insignifiance les votes de centaines de milliers de citoyens québécois qui soutiennent des formations politiques émergentes. Cette distorsion n’est plus tolérable à une époque où la complexité des défis sociétaux et climatiques exige des délibérations pluralistes et des compromis transpartisans fondés sur l’adhésion réelle de la population. L’instauration d’un système électoral proportionnel mixte avec compensation régionale, modèle largement éprouvé dans de nombreuses démocraties occidentales stables, permettrait de concilier une représentation fidèle des tendances politiques et la préservation d’un lien territorial fort entre les élus et leurs électeurs. Il est impératif que les députés transcendent leurs intérêts partisans immédiats pour moderniser nos institutions démocratiques avant que l’abstention ne devienne le choix majoritaire de nos concitoyens lors des scrutins généraux. Refonder notre contrat démocratique sur la confiance et l’équité électorale constitue l’impératif civique absolu de notre siècle. Il y va de la crédibilité de notre démocratie.",
+          "questions": [
+              [
+                  "Quelle réforme institutionnelle est ardemment préconisée par les auteurs de ce mémoire ?",
+                  "Le passage à une formule électorale compensatoire régionale pour refléter fidèlement le vote citoyen",
+                  "Le remplacement pur et simple de l’Assemblée nationale par un conseil consultatif de hauts fonctionnaires d’État",
+                  "L’interdiction pour les partis d’opposition de présenter des candidats dans les circonscriptions régionales éloignées"
+              ],
+              [
+                  "Quelle logique argumentative structure le plaidoyer des représentants citoyens ?",
+                  "Ils démontrent la distorsion démocratique du système actuel avant d’avancer une solution éprouvée",
+                  "Ils accusent tous les électeurs d’irresponsabilité civique avant de proposer un tirage au sort des députés en chambre",
+                  "Ils analysent les coûts d’impression des bulletins de vote pour justifier la suppression des élections provinciales"
+              ],
+              [
+                  "Quel travers principal du système électoral actuel ce mémoire met-il en évidence ?",
+                  "L’attribution de majorités législatives absolues à des partis qui n’ont obtenu qu’une minorité de voix",
+                  "L’obligation constitutionnelle d’organiser des élections générales tous les six mois dans la province de Québec",
+                  "L’impossibilité absolue pour les résidents des régions éloignées de se rendre dans les bureaux de vote électoraux"
+              ],
+              [
+                  "Dans ce contexte de droit électoral, que signifie l’expression « proportionnel mixte » ?",
+                  "Un système combinant l’élection locale de députés et des sièges de compensation fondés sur le vote global",
+                  "Une méthode de dépouillement électronique des suffrages réservée aux électeurs voyageant à l’étranger en vacances",
+                  "Un tirage au sort paritaire désignant la moitié des ministres parmi les membres de la fonction publique provinciale"
+              ]
+          ]
+      },
+      {
+          "situation": 0,
+          "text": "Second éditorial économique paru dans Le Devoir. Les négociations commerciales multilatérales entourant le nouveau pacte économique pan-pacifique révèlent une hypocrisie devenue coutumière dans la gouvernance mondiale des échanges. Alors que les chancelleries occidentales célèbrent avec emphase l’insertion de chapitres prétendument contraignants sur les normes de travail et la préservation de la biodiversité, un examen scrupuleux du texte juridique dissipe toute illusion. Ces dispositions environnementales sont reléguées dans des protocoles annexes dépourvus du moindre mécanisme de sanction commerciale en cas de non-respect avéré, contrairement aux clauses protégeant les droits de propriété intellectuelle des conglomérats pharmaceutiques qui bénéficient d’un arsenal répressif immédiat. Ce deux poids, deux mesures consacre la primauté absolue du commerce dérégulé sur les impératifs écologiques les plus pressants de notre siècle. En feignant de croire que des déclarations de bonnes intentions suffiront à freiner la déforestation tropicale ou la surpêche industrielle provoquées par l’essor des flux de marchandises, nos gouvernements se rendent complices d’une vaste opération de blanchiment écologique. Un traité commercial digne de notre époque devrait au contraire subordonner chaque avantage tarifaire au respect rigoureux et vérifiable des engagements climatiques de l’accord de Paris. L’ouverture commerciale ne peut plus faire l’impasse sur la sauvegarde de la planète. Il est plus que temps d’accorder à la vie et aux écosystèmes le même respect juridique qu’aux capitaux marchands internationaux. C’est une condition sine qua non de notre avenir.",
+          "questions": [
+              [
+                  "Quelle est la critique centrale formulée par l’éditorialiste envers le traité économique ?",
+                  "Le contraste choquant entre des règles écologiques sans portée et des protections commerciales impératives",
+                  "La baisse excessive des droits de douane accordée aux médicaments génériques fabriqués à l’étranger lointain",
+                  "Le refus formel des gouvernements signataires de commercer avec les pays membres de la Francophonie institutionnelle"
+              ],
+              [
+                  "De quelle manière l’auteur appuie-t-il sa dénonciation du texte juridique ?",
+                  "En comparant l’absence de pénalités environnementales avec l’arsenal juridique protégeant les brevets privés",
+                  "En affirmant que les diplomates signataires ignoraient tous le contenu exact du traité lors du vote final en plénière",
+                  "En proposant de supprimer l’ensemble des échanges maritimes internationaux pour sauver les écosystèmes des océans"
+              ],
+              [
+                  "Quelle conséquence l’inefficacité des clauses écologiques risque-t-elle d’engendrer selon le texte ?",
+                  "Une aggravation de la dégradation environnementale masquée par une rhétorique verte superficielle",
+                  "La fermeture immédiate de tous les laboratoires de recherche pharmaceutique situés sur le territoire du Canada",
+                  "Une flambée incontrôlable des cours mondiaux de l’or et des métaux précieux sur les marchés financiers internationaux"
+              ],
+              [
+                  "Dans ce commentaire engagé, que connote l’expression « blanchiment écologique » ?",
+                  "Une tentative trompeuse de donner une image écoresponsable à des pratiques essentiellement destructrices",
+                  "Une méthode industrielle novatrice de recyclage chimique des plastiques usagés récoltés en mer par des bénévoles",
+                  "Un protocole scientifique rigoureux certifiant la pureté absolue des cours d’eau en milieu boréal et montagnard"
+              ]
+          ]
+      },
+      {
+          "situation": 1,
+          "text": "Second extrait d’un mémoire parlementaire déposé par la Coalition québécoise pour la réforme démocratique. Notre système électoral uninominal à un tour produit une distorsion géographique perverse qui polarise inutilement notre communauté politique. En concentrant la représentation des différentes sensibilités idéologiques dans des forteresses régionales artificielles, il prive nos concitoyens de la diversité de points de vue qui existe pourtant au sein de chaque coin de notre territoire. Combien d’électeurs de nos circonscriptions rurales partagent des idéaux progressistes sans jamais trouver d’écho à l’Assemblée nationale, et combien de résidents des grands centres urbains votent pour des partis conservateurs en sachant pertinemment que leur suffrage sera jeté aux poubelles de l’histoire électorale ? Cette polarisation factice nourrit un cynisme délétère et fracture le sentiment d’appartenance collective indispensable à la cohésion nationale québécoise. L’introduction d’une dose substantielle de proportionnelle régionale permettrait à chaque vote de compter réellement, indépendamment du code postal de l’électeur, tout en favorisant l’émergence d’une culture de coalition et de dialogue parlementaire mature. Il est temps d’entendre la volonté citoyenne qui réclame depuis des décennies un système électoral moderne où chaque voix s’exprime avec la même force et la même dignité civique. La vitalité de notre démocratie en dépend pour les générations futures. La justice électorale demeure le socle inébranlable sur lequel repose l’adhésion de tous les citoyens aux décisions collectives.",
+          "questions": [
+              [
+                  "Quel effet pervers du mode de scrutin actuel ce mémoire dénonce-t-il avec force ?",
+                  "Une polarisation géographique artificielle qui efface la pluralité des opinions réelles dans les régions",
+                  "Une obligation pour chaque électeur de voter exclusivement pour un candidat désigné par tirage au sort civique",
+                  "L’exclusion définitive des zones rurales de tout financement public pour leurs infrastructures de voirie locale"
+              ],
+              [
+                  "Comment les auteurs de la coalition construisent-ils leur plaidoyer pour la réforme ?",
+                  "En montrant que des millions de voix minoritaires sont ignorées dans les circonscriptions urbaines et rurales",
+                  "En menaçant les députés d’une grève générale des contribuables s’ils refusent de modifier la loi électorale actuelle",
+                  "En recommandant de remplacer le parlement par des sondages téléphoniques automatisés hebdomadaires sans valeur"
+              ],
+              [
+                  "Quel bénéfice politique majeur l’instauration de la proportionnelle régionale apporterait-elle ?",
+                  "L’émergence d’une culture démocratique de compromis et la valorisation équitable de chaque suffrage civique",
+                  "La réduction de moitié du nombre total de députés siégeant au sein de l’Assemblée nationale de la province",
+                  "La suppression des partis politiques traditionnels au profit d’associations d’affaires locales et patronales"
+              ],
+              [
+                  "Dans ce contexte d’analyse politique, que signifie l’adjectif « délétère » ?",
+                  "Qui exerce une influence profondément néfaste, pernicieuse et destructrice sur le climat social",
+                  "Qui suscite un enthousiasme collectif spontané et bienveillant parmi les membres d’une assemblée délibérante",
+                  "Qui relève d’une procédure d’urgence prévue par les règlements intérieurs d’un parlement d’État souverain"
+              ]
+          ]
+      }
+  ],
+  "n10-reading-3": [
+      {
+          "situation": 0,
+          "text": "Chronique satirique parue dans un hebdomadaire québécois. Gloire soit rendue aux pontifes du marketing technologique : nous venons d’atteindre le zénith du progrès humain grâce au lancement du tout nouveau Téléphone Apex Pro Max Ultime ! Ses concepteurs ont accompli le prodige d’arrondir les coins de l’appareil de trois degrés supplémentaires et d’ajouter un objectif optique capable de photographier les cratères lunaires avec une netteté renversante, ce dont chacun de nous avait évidemment un besoin viscéral pour envoyer des photos de son sandwich sur les réseaux sociaux. Que le modèle de l’année passée voie sa batterie s’essouffler mystérieusement dès la première mise à jour logicielle automnale ne doit surtout pas vous inquiéter : c’est une marque de délicatesse de la firme pour vous épargner l’humiliation de posséder un objet datant déjà d’un an. Et comment ne pas applaudir ce trait de génie consistant à supprimer le port de recharge pour vous vendre séparément un adaptateur à induction vendu au prix d’un meuble de salon ? Précipitez-vous donc dans les boutiques pour contracter un prêt sur trente-six mois, chers amis consommateurs : la planète vous remerciera chaleureusement de remplir ses décharges de métaux rares pour satisfaire votre soif intarissable de nouveauté futile. C’est le couronnement sublime de la civilisation marchande. Mais rassurez-vous : dans douze mois exactement, un nouveau modèle viendra opportunément combler vos insatisfactions artificiellement créées.",
+          "questions": [
+              [
+                  "Quelle cible la verve satirique de l’auteur vise-t-elle dans cette chronique humoristique ?",
+                  "L’obsolescence programmée et la futilité du consumérisme technologique alimenté par le marketing",
+                  "La mauvaise qualité optique des télescopes astronomiques fabriqués par les universités de recherche scientifique",
+                  "Le prix excessif du mobilier artisanal québécois vendu dans les boutiques de décoration intérieure de quartier"
+              ],
+              [
+                  "Par quel procédé stylistique principal le chroniqueur construit-il son propos critique ?",
+                  "L’utilisation constante d’une ironie mordante louant de façon antiphrastique des détails insignifiants",
+                  "Une démonstration scientifique austère s’appuyant sur des équations physiques de batteries au lithium ternaire",
+                  "Un hommage solennel et sincère adressé aux ingénieurs informatiques pour leur apport exceptionnel à l’humanité"
+              ],
+              [
+                  "Que dénonce implicitement l’allusion à la planète et aux décharges de métaux rares ?",
+                  "Le coût écologique dévastateur et irresponsable engendré par le renouvellement incessant des appareils",
+                  "L’absence d’aires de recyclage municipales réservées aux cartons d’emballage dans les grands centres urbains",
+                  "L’interdiction faite aux consommateurs de revendre leurs anciens téléphones sur les marchés d’occasion en ligne"
+              ],
+              [
+                  "Dans ce texte ironique, quel est le sens du terme « zénith » ?",
+                  "Le point culminant ou le plus haut degré atteint par un phénomène, employé ici de façon railleuse",
+                  "Un instrument scientifique de mesure utilisé par les marins pour calculer la profondeur des fleuves navigables",
+                  "Une panne informatique générale paralysant les serveurs d’une grande entreprise multinationale de télécoms"
+              ]
+          ]
+      },
+      {
+          "situation": 1,
+          "text": "Extrait d’un roman psychologique contemporain, « Les Battures de Kamouraska ». Clara contempla le vieux poêle à bois éteint au milieu de la cuisine familiale, où flottait encore l’odeur d’épinette et de thé noir qui avait bercé son enfance. Vingt années d’exil urbain s’effaçaient d’un coup devant la morsure glaciale de cette maison vide, léguée par une mère dont les derniers mots étaient restés suspendus dans le silence d’un corridor d’hôpital. Une vague d’amertume lui serra la gorge : que de reproches étouffés, que d’attentes déçues dans cette pièce où l’on avait préféré ravaler ses larmes plutôt que de prononcer le moindre aveu de tendresse fraternelle ! Pourtant, en s’approchant de la fenêtre qui donnait sur les grèves du fleuve, la fureur amère qui grondait en elle commença lentement à refluer sous la lumière dorée du couchant. Le Saint-Laurent étalait ses eaux calmes jusqu’aux crêtes mauves des montagnes de Charlevoix, indifférent aux tourments des vivants et à la poussière des rancœurs passées. Dans cette immensité dépouillée, Clara sentit pour la première fois que le pardon n’était pas un effacement lâche de la douleur, mais un consentement lucide à la fin des rancunes stériles. Une paix inattendue, fragile comme une première gelée d’automne mais infiniment douce, s’installa doucement en son âme réconciliée avec le cours de la vie. Le silence de la maison ne pesait plus comme un fardeau, mais comme une promesse de renouveau intime.",
+          "questions": [
+              [
+                  "Quelle évolution émotionnelle la protagoniste traverse-t-elle dans ce passage romanesque ?",
+                  "Elle passe du ressentiment étouffé de l’enfance à une sérénité nouvelle inspirée par le paysage",
+                  "Elle sombre dans un désespoir incurable qui la pousse à fuir la maison familiale dès le crépuscule naissant",
+                  "Elle éprouve une colère grandissante contre les voisins du village coupables d’avoir pillé ses biens personnels"
+              ],
+              [
+                  "Comment l’écriture romanesque traduit-elle le bouleversement intérieur de Clara ?",
+                  "Par une correspondance poétique entre les blessures intimes du passé et la majesté apaisante du fleuve",
+                  "En insérant des coupures de journaux d’époque pour relater les événements historiques de Kamouraska autrefois",
+                  "Par un dialogue vif et agressif entre Clara et son frère aîné venu contester le testament légal de la mère défunte"
+              ],
+              [
+                  "Que comprend intimement la jeune femme à travers sa contemplation des battures au couchant ?",
+                  "Que renoncer à la rancœur est une libération personnelle nécessaire pour habiter le présent en paix",
+                  "Qu’elle doit immédiatement vendre la demeure ancestrale à un promoteur de la région pour tourner la page vite",
+                  "Que sa mère l’avait délibérément déshéritée au profit d’une congrégation religieuse active de la paroisse locale"
+              ],
+              [
+                  "Dans ce contexte littéraire psychologique, que connote le mot « refluer » ?",
+                  "Reculer graduellement et s’apaiser, comme la marée qui se retire de la grève après la tempête",
+                  "Exploser avec une violence destructrice incontrôlable qui balaie tous les obstacles sur son passage obscur",
+                  "S’infiltrer clandestinement à travers les fentes d’une porte fermée lors d’une violente bourrasque de neige"
+              ]
+          ]
+      },
+      {
+          "situation": 0,
+          "text": "Second billet d’humeur caustique, « L’épopée du grille-pain connecté ». Rendons grâce au génie des départements de recherche appliquée : il est enfin possible de synchroniser son grille-pain avec une montre intelligente et la station spatiale internationale ! À quoi bon se contenter d’un appareil mécanique rustique qui dora le pain de mie pendant trente ans sans broncher, quand on peut s’offrir pour le triple du prix un bijou cybernétique qui refuse obstinément de griller votre tartine tant que vous n’avez pas téléchargé la version 4.12 de son système d’exploitation ? Quel bonheur ineffable de contempler l’écran tactile de son appareil afficher un message d’erreur critique à sept heures du matin parce que le routeur de votre cuisine a connu une micro-coupure de trois secondes ! Et réjouissons-nous surtout de la bienveillance prévoyante du manufacturier, qui a judicieusement scellé le boîtier métallique avec des vis triangulaires propriétaires, afin d’éviter qu’un bricoleur téméraire ne commette l’imprudence sacrilège de remplacer un fusible à deux dollars au lieu d’envoyer l’ensemble de l’appareil au rebut après dix-huit mois d’usage. C’est véritablement le triomphe absolu de l’ingénierie moderne au service de notre bien-être matinal, pour la plus grande joie des actionnaires des conglomérats d’électroménager. Après tout, pourquoi faire simple et durable quand la rentabilité financière exige de faire compliqué et périssable ? Les utilisateurs apprécieront sans nul doute cet hommage au progrès technologique moderne.",
+          "questions": [
+              [
+                  "Quel travers de la technologie moderne l’auteur raille-t-il à travers l’exemple du grille-pain ?",
+                  "La complexification absurde et la fragilité délibérée d’objets usuels conçus pour être vite jetés",
+                  "La lenteur insupportable des connexions Internet par fibre optique dans les quartiers résidentiels de banlieue",
+                  "La piètre qualité nutritionnelle du pain de mie industriel vendu dans les supermarchés d’alimentation de province"
+              ],
+              [
+                  "Par quel procédé rhétorique la satire gagne-t-elle toute sa force comique ?",
+                  "Par l’éloge faussement admiratif de dysfonctionnements grotesques qui exaspèrent l’usager au quotidien",
+                  "Par une enquête policière minutieuse révélant des fraudes comptables au sein du conseil d’administration fédéral",
+                  "Par une série d’entretiens sociologiques austères avec des fabricants d’électroménagers traditionnels de la région"
+              ],
+              [
+                  "Que dénonce en creux la mention des vis propriétaires scellant le boîtier de l’appareil ?",
+                  "L’entrave délibérée et organisée par les fabricants au droit élémentaire à la réparation des biens",
+                  "Le manque d’outils de bricolage adaptés vendus dans les quincailleries traditionnelles québécoises de quartier",
+                  "Le danger mortel d’électrocution que courent tous les utilisateurs qui ouvrent un appareil ménager branché"
+              ],
+              [
+                  "Dans ce texte satirique, quel est le sens de l’expression « propriétaire » appliquée aux vis ?",
+                  "Dont la forme exclusive brevetée par une marque empêche l’utilisation de tournevis standardisés",
+                  "Qui appartient légalement au locataire d’un logement en vertu d’un bail commercial dûment signé et notarié",
+                  "Qui présente une grande valeur marchande en raison de l’or massif utilisé lors de son usinage en atelier"
+              ]
+          ]
+      },
+      {
+          "situation": 1,
+          "text": "Second extrait de fiction, « Les Cendres du laboratoire ». Julien contempla les décombres fumants du pavillon des sciences de l’Université Laval, où une défaillance électrique venait d’anéantir en quelques heures dix années de recherches fondamentales sur les cellules souches. Les classeurs métalliques calcinés, les congélateurs cryogéniques détruits et les carnets d’expériences réduits en poussière noire formaient un charnier scientifique où gisaient tous ses espoirs de carrière académique. Une stupeur glacée l’écrasait de tout son poids : comment admettre que des milliers d’heures d’efforts méticuleux, de nuits blanches passées devant l’oculaire du microscope et de doutes surmontés puissent être effacés par un simple court-circuit ? Une fureur sourde contre le destin cruel lui montait aux tempes, prête à se transformer en un abattement désespéré et définitif. Mais alors que ses étudiants de doctorat s’approchaient timidement de lui avec des larmes dans les yeux, Julien redressa la tête avec fierté. Il vit dans leurs regards effrayés la même flamme scientifique qui l’avait guidé depuis sa première jeunesse d’étudiant. La matière avait brûlé, certes, mais le savoir, la méthode et la passion collective demeuraient intacts au plus profond de leurs esprits. « Nous recommençons demain matin », murmura-t-il d’une voix tremblante mais inébranlable qui ranima l’espoir de l’équipe. Les braises du laboratoire devenaient ainsi le creuset inattendu d’une aventure humaine et intellectuelle encore plus féconde.",
+          "questions": [
+              [
+                  "Quel basculement d’attitude mentale s’opère chez le chercheur face au désastre subi ?",
+                  "Il surmonte la sidération et la colère pour réaffirmer sa détermination à reconstruire ses travaux",
+                  "Il renonce définitivement à toute activité scientifique pour se réfugier dans l’isolement complet de la retraite",
+                  "Il accuse ses étudiants de négligence criminelle avant de porter plainte formelle auprès des autorités civiles"
+              ],
+              [
+                  "De quelle manière l’auteur dramatise-t-il la scène du sinistre dans son récit ?",
+                  "En décrivant avec réalisme l’anéantissement matériel pour mieux faire jaillir le sursaut humain final",
+                  "En insérant un rapport technique exhaustif rédigé par les experts en incendie de la municipalité de Québec",
+                  "En racontant avec ironie les erreurs de manipulation commises par les techniciens la veille au soir du drame"
+              ],
+              [
+                  "Quelle conviction profonde pousse Julien à ne pas s’abandonner au désespoir ?",
+                  "La certitude que l’intelligence collective et l’esprit scientifique survivent à la destruction matérielle",
+                  "L’assurance d’être entièrement remboursé de ses pertes par une police d’assurance privée particulièrement avantageuse",
+                  "La promesse reçue du recteur d’être automatiquement promu à un poste de direction sans publier d’article de fond"
+              ],
+              [
+                  "Dans ce contexte romanesque dramatique, que désigne le mot « sidération » ?",
+                  "Un état de stupeur et de paralysie émotionnelle extrême provoqué par un choc traumatique imprévu",
+                  "Une observation attentive des constellations astrales effectuée à l’aide d’un télescope de nuit en montagne",
+                  "Une procédure d’évacuation ordonnée déclenchée par les pompiers lors d’une alerte de sécurité d’incendie"
+              ]
+          ]
+      }
   ]
 };
