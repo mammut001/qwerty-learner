@@ -106,6 +106,14 @@ export type IrregularStemEntry = {
   notes?: string
 }
 
+export type MiniText = {
+  titleFr: string
+  titleZh: string
+  fr: string
+  zh: string
+  highlights: string[]
+}
+
 export type TenseLesson = {
   id: string
   titleFr: string
@@ -121,6 +129,7 @@ export type TenseLesson = {
   irregularStems?: IrregularStemEntry[]
   pronunciationNotes?: string[]
   usages: LessonUsage[]
+  miniTexts?: MiniText[]
   signalWords: SignalWord[]
   commonMistakes: CommonMistake[]
   questions: TenseQuestion[]

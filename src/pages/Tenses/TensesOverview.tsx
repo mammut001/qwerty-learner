@@ -19,6 +19,10 @@ export default function TensesOverview() {
   )
 
   const totalQuestions = allTenseLessons.reduce((sum, l) => sum + l.questions.length, 0)
+  const totalMiniTexts = allTenseLessons.reduce(
+    (sum, l) => sum + (l.miniTexts ? l.miniTexts.length : 0),
+    0,
+  )
 
   return (
     <div className="space-y-6">
@@ -38,14 +42,19 @@ export default function TensesOverview() {
             </p>
             <div className="flex flex-wrap items-center gap-3 pt-1 text-xs font-medium text-gray-500 dark:text-gray-400">
               <span className="flex items-center gap-1 rounded-md bg-white/70 px-2.5 py-1 dark:bg-gray-800/80">
-                📚 <strong>25</strong> 个专项深度课程
+                📚 <strong>{allTenseLessons.length}</strong> 个专项深度课程
               </span>
               <span className="flex items-center gap-1 rounded-md bg-white/70 px-2.5 py-1 dark:bg-gray-800/80">
-                💬 <strong>{totalExamples}+</strong> 条地道例句
+                💬 <strong>{totalExamples}</strong> 条地道例句
               </span>
               <span className="flex items-center gap-1 rounded-md bg-white/70 px-2.5 py-1 dark:bg-gray-800/80">
-                ✍️ <strong>{totalQuestions}+</strong> 道互动精选习题
+                ✍️ <strong>{totalQuestions}</strong> 道互动精选习题
               </span>
+              {totalMiniTexts > 0 && (
+                <span className="flex items-center gap-1 rounded-md bg-white/70 px-2.5 py-1 dark:bg-gray-800/80">
+                  📖 <strong>{totalMiniTexts}</strong> 篇语境短文
+                </span>
+              )}
             </div>
           </div>
 

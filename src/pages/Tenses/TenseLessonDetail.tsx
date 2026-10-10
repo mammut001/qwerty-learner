@@ -4,12 +4,71 @@ import { allTenseLessons } from '@/resources/tenses/data'
 import ExampleItem from './ExampleItem'
 import TenseConjugationExplorer from './TenseConjugationExplorer'
 import TensePractice from './TensePractice'
+import LookupText from '@/components/Dictionary/LookupText'
+import { safeSpeak } from '@/utils/speechSynthesis'
+import IconVolume from '~icons/tabler/volume'
 import IconArrowLeft from '~icons/tabler/arrow-left'
 import IconChevronLeft from '~icons/tabler/chevron-left'
 import IconChevronRight from '~icons/tabler/chevron-right'
 import IconSparkles from '~icons/tabler/sparkles'
 import IconCheck from '~icons/tabler/check'
 import IconX from '~icons/tabler/x'
+
+function renderHighlightedText(text: string, highlights: string[]) {
+  if (!highlights || highlights.length === 0) {
+    return <LookupText text={text} className="inline" />
+  }
+
+  type MatchSpan = { start: number; end: number; str: string }
+  const matches: MatchSpan[] = []
+
+  for (const h of highlights) {
+    if (!h) continue
+    let startIdx = 0
+    while ((startIdx = text.indexOf(h, startIdx)) !== -1) {
+      matches.push({ start: startIdx, end: startIdx + h.length, str: h })
+      startIdx += h.length
+    }
+  }
+
+  matches.sort((a, b) => a.start - b.start || (b.end - b.start) - (a.end - a.start))
+
+  const nonOverlapping: MatchSpan[] = []
+  let lastEnd = 0
+  for (const m of matches) {
+    if (m.start >= lastEnd) {
+      nonOverlapping.push(m)
+      lastEnd = m.end
+    }
+  }
+
+  const nodes: React.ReactNode[] = []
+  let cursor = 0
+  nonOverlapping.forEach((span, i) => {
+    if (span.start > cursor) {
+      nodes.push(
+        <LookupText key={`txt-${i}`} text={text.slice(cursor, span.start)} className="inline" />,
+      )
+    }
+    nodes.push(
+      <mark
+        key={`hl-${i}`}
+        className="rounded bg-indigo-100/90 px-1 py-0.5 font-bold text-indigo-700 underline decoration-indigo-400 underline-offset-2 dark:bg-indigo-950/80 dark:text-indigo-300 dark:decoration-indigo-600"
+      >
+        <LookupText text={span.str} className="inline font-bold" />
+      </mark>,
+    )
+    cursor = span.end
+  })
+
+  if (cursor < text.length) {
+    nodes.push(
+      <LookupText key="txt-end" text={text.slice(cursor)} className="inline" />,
+    )
+  }
+
+  return nodes
+}
 
 export interface TenseLessonDetailProps {
   lesson: TenseLesson
@@ -267,6 +326,61 @@ export default function TenseLessonDetail({ lesson }: TenseLessonDetailProps) {
           ))}
         </div>
       </div>
+
+      {/* Mini-Texts in Context */}
+      {lesson.miniTexts && lesson.miniTexts.length > 0 && (
+        <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-xs dark:border-gray-800 dark:bg-gray-800/90 sm:p-6 space-y-4">
+          <div>
+            <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">
+              语境连贯短文 (Textes en contexte)
+            </h2>
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              置于真实魁北克日常与职场语境中的连贯段落，高亮时态变位形式并配备纯正发音
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            {lesson.miniTexts.map((textItem, tIdx) => (
+              <div
+                key={tIdx}
+                data-testid={`mini-text-card-${tIdx}`}
+                className="flex flex-col justify-between rounded-xl border border-gray-100 bg-gray-50/70 p-4 dark:border-gray-700/60 dark:bg-gray-900/40"
+              >
+                <div>
+                  <div className="flex items-start justify-between gap-2 border-b border-gray-200/60 pb-2 dark:border-gray-800">
+                    <div>
+                      <h4 className="text-sm font-bold text-gray-900 dark:text-gray-100">
+                        {textItem.titleFr}
+                      </h4>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">
+                        {textItem.titleZh}
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => safeSpeak(textItem.fr, { lang: 'fr-CA' })}
+                      title="朗读语境短文 (魁北克/标准发音)"
+                      aria-label="朗读短文"
+                      data-testid={`mini-text-speak-${tIdx}`}
+                      className="shrink-0 rounded-lg p-1.5 text-gray-400 transition hover:bg-indigo-50 hover:text-indigo-600 active:scale-95 dark:text-gray-500 dark:hover:bg-gray-700 dark:hover:text-indigo-300"
+                    >
+                      <IconVolume className="h-4 w-4" />
+                    </button>
+                  </div>
+
+                  <div className="mt-3 text-[14px] leading-relaxed text-gray-800 dark:text-gray-200">
+                    {renderHighlightedText(textItem.fr, textItem.highlights)}
+                  </div>
+                </div>
+
+                <div className="mt-4 border-t border-gray-200/50 pt-2.5 text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+                  {textItem.zh}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Section 4: 信号词 (Signal Words) */}
       {lesson.signalWords && lesson.signalWords.length > 0 && (
