@@ -1948,194 +1948,349 @@ export const N04_L_3 = [
   },
 ]
 
-const N4_LEAK_PARTS = [
-  { desc: 'd’un tuyau usé sous le bain', short: 'un tuyau sous le bain' },
-  { desc: 'du joint du chauffe-eau', short: 'le joint du chauffe-eau' },
-  { desc: 'de la tuyauterie de cuisine', short: 'la tuyauterie de cuisine' },
-  { desc: 'd’une valve de radiateur', short: 'une valve de radiateur' },
-]
-const N4_LEAK_FLOORS = ['au dernier niveau', 'à l’étage supérieur', 'dans le logement du haut', 'à l’étage du milieu']
-const N4_LEAK_ACTIONS = [
-  'coupé l’arrivée d’eau principale sans tarder',
-  'fermé la valve de sécurité immédiatement',
-  'stoppé l’écoulement général dès ce matin',
-  'fermé le robinet d’isolement d’urgence',
-]
-const N4_LEAK_REPAIRS = [
-  'un plombier qualifié viendra changer la pièce demain matin',
-  'l’artisan certifié viendra poser un raccord neuf vendredi',
-  'l’équipe d’entretien remplacera le joint défectueux jeudi',
-  'le spécialiste en plomberie passera dès 8 h demain matin',
+// ---------------------------------------------------------------------------
+// n4-listening-4
+// ---------------------------------------------------------------------------
+const N4_CONCIERGES = ['madame Tremblay', 'monsieur Gagnon', 'madame Roy', 'monsieur Bouchard']
+const N4_LEAK_FLOORS = ['au deuxième niveau', 'au troisième niveau', 'au quatrième niveau', 'au dernier étage']
+const N4_LEAK_HOURS = ['dès 8 h demain matin', 'vers 10 h demain matin', 'dès 14 h cet après-midi', 'vers 15 h cet après-midi']
+const N4_LEAK_BUNDLES = [
+  {
+    part: 'd’un tuyau usé sous la baignoire',
+    causeOpt: 'du tuyau de baignoire du voisin',
+    action: 'coupé l’arrivée d’eau locale sans tarder',
+    repair: 'un plombier certifié viendra changer la pièce',
+    repOpt: 'un plombier viendra changer la pièce',
+  },
+  {
+    part: 'du joint du chauffe-eau central',
+    causeOpt: 'du joint de chauffe-eau du palier',
+    action: 'fermé la valve de sécurité du réservoir',
+    repair: 'l’artisan qualifié viendra poser un raccord neuf',
+    repOpt: 'un artisan posera un raccord neuf',
+  },
+  {
+    part: 'de la canalisation sous l’évier',
+    causeOpt: 'de la canalisation du logement voisin',
+    action: 'stoppé l’alimentation principale ce matin',
+    repair: 'un technicien de service posera un tuyau neuf',
+    repOpt: 'un technicien posera un tuyau neuf',
+  },
+  {
+    part: 'd’une valve défectueuse de radiateur',
+    causeOpt: 'd’une valve de radiateur de l’étage',
+    action: 'isolé le circuit de chauffage immédiatement',
+    repair: 'un chauffagiste d’urgence viendra réparer le bris',
+    repOpt: 'un chauffagiste viendra réparer le bris',
+  },
 ]
 
-const N4_TRAFFIC_HIGHWAYS = [
-  'sur le pont Pierre-Laporte en direction nord',
-  'sur l’autoroute 40 près de l’échangeur Décarie',
-  'sur le pont Samuel-De Champlain vers Montréal',
-  'sur l’autoroute 20 à la hauteur de Lévis',
-  'sur l’autoroute 15 nord près de Laval',
+const N4_RADIO_STATIONS = ['Radio-Circulation', 'Info-Trafic Québec', 'Le bulletin matinal', 'La météo et circulation']
+const N4_RADIO_HOURS = ['de 7 h 30', 'de 8 h 15', 'de 16 h 45', 'de 17 h 20']
+const N4_RADIO_TIPS = [
+  'Soyez prudents sur la route.',
+  'Ralentissez dans ce secteur.',
+  'Prenez votre mal en patience.',
+  'Prévoyez vos déplacements d’avance.',
 ]
-const N4_TRAFFIC_CAUSES = [
-  'une camionnette en panne bloque la voie de droite',
-  'des travaux d’urgence obligent la fermeture de deux voies',
-  'un accrochage entre deux voitures ralentit la circulation',
-  'un camion de transport a perdu une partie de son chargement',
+const N4_TRAFFIC_BUNDLES = [
+  {
+    hwy: 'sur le pont Pierre-Laporte',
+    cause: 'une camionnette en panne bloque la voie droite',
+    causeOpt: 'une camionnette en panne sur la voie droite',
+    delay: 'vingt-cinq minutes de retard',
+    delayOpt: 'environ vingt-cinq minutes de retard',
+    alt: 'd’emprunter le pont de Québec',
+  },
+  {
+    hwy: 'sur l’autoroute 40 vers l’est',
+    cause: 'des travaux de voirie occupent deux voies',
+    causeOpt: 'des travaux d’asphaltage sur deux voies',
+    delay: 'trente minutes de ralentissement',
+    delayOpt: 'environ trente minutes de retard',
+    alt: 'de passer par le boulevard Métropolitain',
+  },
+  {
+    hwy: 'sur le pont Samuel-De Champlain',
+    cause: 'un accrochage entre deux voitures ralentit la voie',
+    causeOpt: 'un accrochage entre deux voitures sur le pont',
+    delay: 'vingt minutes d’attente',
+    delayOpt: 'environ vingt minutes de retard',
+    alt: 'de prendre le pont Jacques-Cartier',
+  },
+  {
+    hwy: 'sur l’autoroute 20 à Lévis',
+    cause: 'un camion de livraison a perdu des cartons',
+    causeOpt: 'des cartons de livraison tombés sur la route',
+    delay: 'trente-cinq minutes de bouchon',
+    delayOpt: 'environ trente-cinq minutes de retard',
+    alt: 'de suivre la route du bord de l’eau',
+  },
 ]
-const N4_TRAFFIC_DELAYS = [
-  'un retard d’au moins vingt-cinq minutes',
-  'un ralentissement de trente minutes pour les usagers',
-  'une attente supplémentaire de vingt minutes au total',
-  'un bouchon majeur étiré sur plusieurs kilomètres',
+
+const N4_HEATING_MANAGERS = ['du bureau syndical', 'de la conciergerie', 'du comité de gestion', 'de l’administration locale']
+const N4_HEATING_HOURS = ['dès treize heures cet après-midi', 'vers quatorze heures aujourd’hui', 'd’ici la fin de la journée', 'en début d’après-midi']
+const N4_HEATING_BUNDLES = [
+  {
+    cause: 'd’un bris sur la pompe de circulation d’eau',
+    causeOpt: 'une défaillance sur la pompe d’eau',
+    impact: 'les radiateurs sont restés froids dans tous les appartements',
+    repair: 'un réparateur certifié viendra poser une pièce neuve',
+    repOpt: 'un artisan posera une pièce neuve rapidement',
+  },
+  {
+    cause: 'd’une coupure du brûleur principal au sous-sol',
+    causeOpt: 'l’arrêt soudain du brûleur de la chaudière',
+    impact: 'la température a chuté de quelques degrés dans les logements',
+    repair: 'l’équipe d’entretien remplacera le filtre à gaz',
+    repOpt: 'l’équipe changera le filtre dans la journée',
+  },
+  {
+    cause: 'd’une panne électrique sur le thermostat central',
+    causeOpt: 'un défaut électrique au niveau du thermostat',
+    impact: 'la chaudière s’est coupée tout de suite par sécurité',
+    repair: 'un électricien qualifié viendra réparer l’installation',
+    repOpt: 'un électricien remettra le système en marche',
+  },
+  {
+    cause: 'd’une fuite mineure sur le conduit de vapeur',
+    causeOpt: 'un écoulement léger sur la ligne de vapeur',
+    impact: 'la pression a diminué dans les étages supérieurs du bâtiment',
+    repair: 'un technicien de garde changera le joint d’étanchéité',
+    repOpt: 'un technicien remplacera le joint défectueux',
+  },
+]
+
+const N4_TRANSIT_AGENCIES = ['de la société de transport', 'du réseau métropolitain', 'du service d’autobus et métro', 'du centre de mobilité urbaine']
+const N4_TRANSIT_LINES = ['la ligne orange du métro', 'le train de banlieue nord', 'la ligne verte du métro', 'le circuit d’autobus express']
+const N4_TRANSIT_BUNDLES = [
+  {
+    cause: 'une panne de signalisation près de la station Berri-UQAM',
+    causeOpt: 'une panne de signalisation sur les voies de métro',
+    delay: 'un arrêt de service d’environ trente minutes',
+    delayOpt: 'une interruption de trente minutes sur la ligne',
+    measure: 'des autobus de relève ont été déployés le long du boulevard',
+    measOpt: 'des autobus de relève déployés en surface',
+  },
+  {
+    cause: 'un problème d’aiguillage gelé à l’entrée de la gare',
+    causeOpt: 'un problème d’aiguillage gelé à l’entrée de gare',
+    delay: 'un retard estimé à quarante minutes au terminus',
+    delayOpt: 'un retard estimé à quarante minutes au terminus',
+    measure: 'les usagers sont invités à monter dans les navettes locales',
+    measOpt: 'des navettes d’urgence mises à disposition',
+  },
+  {
+    cause: 'un ennui mécanique sur une rame immobilisée en station',
+    causeOpt: 'un ennui mécanique sur un train en station',
+    delay: 'une attente supplémentaire de vingt-cinq minutes',
+    delayOpt: 'une attente prolongée de vingt-cinq minutes',
+    measure: 'les techniciens remorquent la rame vers le garage d’urgence',
+    measOpt: 'le remorquage du train vers un atelier voisin',
+  },
+  {
+    cause: 'la fermeture temporaire d’une bretelle d’accès par la police',
+    causeOpt: 'la fermeture d’une bretelle d’accès par la police',
+    delay: 'un ralentissement de trente-cinq minutes sur le trajet',
+    delayOpt: 'un ralentissement de trente-cinq minutes au total',
+    measure: 'les chauffeurs empruntent une voie de contournement balisée',
+    measOpt: 'un détour par des rues secondaires balisées',
+  },
 ]
 
 export const N04_L_4 = [
-  // Scenario 1 (Template, situation: 0)
+  // Scenario 1 (Template, situation: 0) - Fuite d'eau dans un immeuble résidentiel
   Object.assign(
     (rand) => {
-      const part = pick(N4_LEAK_PARTS, rand)
+      const conc = pick(N4_CONCIERGES, rand)
       const floor = pick(N4_LEAK_FLOORS, rand)
-      const act = pick(N4_LEAK_ACTIONS, rand)
-      const rep = pick(N4_LEAK_REPAIRS, rand)
-      const text = `— Bonjour monsieur, c’est le concierge de l’immeuble. Je vous appelle pour vous rassurer au sujet de l’infiltration d’eau sur votre plafond. La fuite provient ${part.desc} ${floor}. J’ai personnellement ${act} pour stopper le dégât. Rassurez-vous, ${rep}. Nous vérifierons ensuite que tout est bien sec.`
+      const time = pick(N4_LEAK_HOURS, rand)
+      const b = pick(N4_LEAK_BUNDLES, rand)
+      const others = sample(N4_LEAK_BUNDLES.filter((x) => x.causeOpt !== b.causeOpt), 2, rand)
+      const text = `— Bonjour monsieur, c’est ${conc}, le concierge de l’immeuble. Je vous appelle pour vous rassurer au sujet de l’eau sur votre plafond. La fuite provient ${b.part} ${floor}. J’ai personnellement ${b.action}. Rassurez-vous, ${b.repair} ${time}. Nous vérifierons ensuite que tout est bien sec.`
       return {
         text,
         questions: [
-          ['D’où provient l’écoulement d’eau selon le concierge ?', `${part.short} ${floor}`, 'une infiltration par une fenêtre mal fermée du salon', 'un débordement dans la buanderie collective du sous-sol'],
-          ['Quelle mesure immédiate le concierge a-t-il prise ?', act, 'il a évacué tous les locataires de l’immeuble dehors', 'il a repeint le plafond sans attendre la fin des travaux'],
+          ['D’où provient l’écoulement d’eau dans le logement ?', b.causeOpt, others[0].causeOpt, others[1].causeOpt],
+          ['Quelle solution est prévue pour réparer la fuite ?', b.repOpt, others[0].repOpt, others[1].repOpt],
         ],
       }
     },
-    { situation: 0, capacity: N4_LEAK_PARTS.length * N4_LEAK_FLOORS.length * N4_LEAK_ACTIONS.length * N4_LEAK_REPAIRS.length }
+    { situation: 0, capacity: N4_CONCIERGES.length * N4_LEAK_FLOORS.length * N4_LEAK_HOURS.length * N4_LEAK_BUNDLES.length }
   ),
-  // Scenario 2 (Template, situation: 1)
+  // Scenario 2 (Template, situation: 1) - Bouchon de circulation routière
   Object.assign(
     (rand) => {
-      const hwy = pick(N4_TRAFFIC_HIGHWAYS, rand)
-      const cause = pick(N4_TRAFFIC_CAUSES, rand)
-      const delay = pick(N4_TRAFFIC_DELAYS, rand)
-      const text = `— Bulletin de circulation routière en direct. Un bouchon majeur paralyse actuellement les automobilistes ${hwy}. La cause principale : ${cause}. Les services de remorquage s’activent sur place, mais les usagers doivent prévoir ${delay}. Si possible, évitez ce secteur et empruntez un itinéraire secondaire.`
+      const station = pick(N4_RADIO_STATIONS, rand)
+      const hour = pick(N4_RADIO_HOURS, rand)
+      const tip = pick(N4_RADIO_TIPS, rand)
+      const b = pick(N4_TRAFFIC_BUNDLES, rand)
+      const others = sample(N4_TRAFFIC_BUNDLES.filter((x) => x.causeOpt !== b.causeOpt), 2, rand)
+      const text = `— Ici ${station} pour le point de ${hour}. Un bouchon important paralyse les automobilistes ${b.hwy}. La cause : ${b.cause}. Les patrouilleurs dégagent la voie, mais les usagers doivent prévoir ${b.delay}. Si possible, nous vous recommandons ${b.alt}. ${tip}`
       return {
         text,
         questions: [
-          ['Quel incident cause ce ralentissement de la circulation ?', cause, 'une grande manifestation piétonne autorisée occupant toute la chaussée', 'la traversée d’un très long troupeau d’animaux sur les voies rapides'],
-          ['Quel temps d’attente supplémentaire doit-on anticiper ?', delay, 'un arrêt complet et indéterminé jusqu’au milieu de la nuit prochaine', 'une fermeture totale de l’axe routier durant plus de cinq heures'],
+          ['Quelle est la cause de ce bouchon de circulation ?', b.causeOpt, others[0].causeOpt, others[1].causeOpt],
+          ['Quel retard les automobilistes doivent-ils anticiper ?', b.delayOpt, others[0].delayOpt, others[1].delayOpt],
         ],
       }
     },
-    { situation: 1, capacity: N4_TRAFFIC_HIGHWAYS.length * N4_TRAFFIC_CAUSES.length * N4_TRAFFIC_DELAYS.length }
+    { situation: 1, capacity: N4_RADIO_STATIONS.length * N4_RADIO_HOURS.length * N4_RADIO_TIPS.length * N4_TRAFFIC_BUNDLES.length }
   ),
-  // Scenario 3 (Template, situation: 0 variant)
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Panne de chauffage dans l'immeuble)
   Object.assign(
     (rand) => {
-      const part = pick(N4_LEAK_PARTS, rand)
-      const floor = pick(N4_LEAK_FLOORS, rand)
-      const act = pick(N4_LEAK_ACTIONS, rand)
-      const rep = pick(N4_LEAK_REPAIRS, rand)
-      const text = `— Allô madame, ici le responsable d’entretien de la copropriété. Je fais suite à votre signalement d’eau dans la salle de bain. Le bris découle ${part.desc} ${floor}. De notre côté, nous avons ${act}. Soyez sans inquiétude, ${rep} afin de régler définitivement la situation.`
+      const mgr = pick(N4_HEATING_MANAGERS, rand)
+      const hour = pick(N4_HEATING_HOURS, rand)
+      const b = pick(N4_HEATING_BUNDLES, rand)
+      const others = sample(N4_HEATING_BUNDLES.filter((x) => x.causeOpt !== b.causeOpt), 2, rand)
+      const text = `— Bonjour chers résidents, ici un message ${mgr}. Le chauffage central s’est arrêté ce matin en raison ${b.cause}. En conséquence, ${b.impact}. Notre fournisseur a été avisé et ${b.repair} ${hour}. Nous nous excusons pour ce désagrément temporaire.`
       return {
         text,
         questions: [
-          ['D’où provient le problème d’eau dans le bâtiment ?', `${part.short} ${floor}`, 'du système de climatisation fixé sur le toit de l’édifice', 'd’un robinet d’arrosage resté ouvert dans la cour extérieure'],
-          ['Quelle intervention de réparation spécialisée est programmée ?', rep, 'la démolition complète de l’ensemble du bâtiment résidentiel', 'l’installation de nouveaux panneaux solaires sur la toiture'],
+          ['Quelle est la cause de l’arrêt du chauffage central ?', b.causeOpt, others[0].causeOpt, others[1].causeOpt],
+          ['Quelle réparation est prévue pour rétablir la chaleur ?', b.repOpt, others[0].repOpt, others[1].repOpt],
         ],
       }
     },
-    { situation: 0, capacity: N4_LEAK_PARTS.length * N4_LEAK_FLOORS.length * N4_LEAK_ACTIONS.length * N4_LEAK_REPAIRS.length }
+    { situation: 0, capacity: N4_HEATING_MANAGERS.length * N4_HEATING_HOURS.length * N4_HEATING_BUNDLES.length }
   ),
-  // Scenario 4 (Template, situation: 1 variant)
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Perturbation de transport collectif)
   Object.assign(
     (rand) => {
-      const hwy = pick(N4_TRAFFIC_HIGHWAYS, rand)
-      const cause = pick(N4_TRAFFIC_CAUSES, rand)
-      const delay = pick(N4_TRAFFIC_DELAYS, rand)
-      const radio = pick(['Radio-Circulation', 'Info-Trafic Québec', 'Le bulletin matinal'], rand)
-      const text = `— Ici ${radio}. Prenez note d’une congestion importante ${hwy}. Un incident est survenu : ${cause}. Les policiers dirigent les voies disponibles, mais vous subirez ${delay}. Nous vous suggérons d’écouter nos mises à jour régulières.`
+      const agency = pick(N4_TRANSIT_AGENCIES, rand)
+      const line = pick(N4_TRANSIT_LINES, rand)
+      const b = pick(N4_TRANSIT_BUNDLES, rand)
+      const others = sample(N4_TRANSIT_BUNDLES.filter((x) => x.causeOpt !== b.causeOpt), 2, rand)
+      const text = `— Avis aux usagers ${agency}. Une perturbation majeure touche actuellement ${line}. Cet incident découle ${de(b.cause)}. Les voyageurs doivent composer avec ${b.delay}. Pour faciliter vos déplacements, ${b.measure}. Nous vous remercions pour votre patience.`
       return {
         text,
         questions: [
-          ['Sur quelle route le bouchon de circulation est-il signalé ?', hwy, 'sur une piste cyclable municipale d’un quartier très tranquille', 'dans le stationnement souterrain réservé d’un grand centre commercial'],
-          ['Quelle est la cause de ce bouchon expliquée à la radio ?', cause, 'la chute accidentelle d’un grand pylône électrique haute tension', 'une course automobile nocturne totalement interdite en centre-ville'],
+          ['Quelle est la cause de ce retard de transport collectif ?', b.causeOpt, others[0].causeOpt, others[1].causeOpt],
+          ['Quelle mesure d’aide a été déployée pour les usagers ?', b.measOpt, others[0].measOpt, others[1].measOpt],
         ],
       }
     },
-    { situation: 1, capacity: N4_TRAFFIC_HIGHWAYS.length * N4_TRAFFIC_CAUSES.length * N4_TRAFFIC_DELAYS.length * 3 }
+    { situation: 1, capacity: N4_TRANSIT_AGENCIES.length * N4_TRANSIT_LINES.length * N4_TRANSIT_BUNDLES.length }
   ),
-  // Scenario 5 (Static, situation: 0)
+  // Scenario 5 (Static, situation: 0) - Fuite d'eau à la conciergerie
   {
     situation: 0,
-    text: '— Allô, c’est Robert, le syndic de l’immeuble. Pour la fuite dans l’entrée commune, le plombier a découvert qu’un raccord sous l’évier de la conciergerie avait cédé sous la pression. L’eau a coulé dans le faux plafond. Le robinet d’isolement a été fermé et la tuyauterie sera remplacée dès 14 h cet après-midi.',
+    text: '— Allô, c’est Robert, le concierge de l’immeuble. Pour la fuite dans l’entrée commune, le plombier a découvert qu’un raccord sous l’évier de la conciergerie avait cédé sous la pression. L’eau a coulé dans le plafond. Le robinet d’isolement a été fermé et la tuyauterie sera remplacée dès 14 h cet après-midi.',
     questions: [
-      ['Quelle pièce de plomberie avait cédé selon le syndic ?', 'un raccord sous l’évier de la conciergerie', 'une canalisation d’égout municipale', 'un tuyau d’arrosage extérieur'],
-      ['Quand la tuyauterie défectueuse sera-t-elle changée ?', 'dès 14 h cet après-midi', 'dans trois semaines au plus tôt', 'l’an prochain après l’hiver'],
+      ['Quelle pièce défectueuse a causé la fuite d’eau ?', 'un joint brisé sous l’évier du concierge', 'une conduite percée dans la cave commune', 'un robinet d’arrosage dans la cour externe'],
+      ['Quand la tuyauterie brisée sera-t-elle changée ?', 'en milieu d’après-midi par le réparateur', 'dans trois semaines après les vérifications', 'au début du mois prochain avec l’artisan'],
     ],
   },
-  // Scenario 6 (Static, situation: 1)
+  // Scenario 6 (Static, situation: 1) - Pont de Québec et chargement perdu
   {
     situation: 1,
-    text: '— Chronique routière de 8 h 15. La circulation est lourdement perturbée sur le pont de Québec en direction de la rive nord. Une perte de chargement de planches de bois encombre deux voies sur trois depuis une demi-heure. Les patrouilleurs nettoient la chaussée, mais comptez quarante minutes de retard.',
+    text: '— Chronique routière de 8 h 15. La circulation est ralentie sur le pont de Québec en direction nord. Une perte de chargement de planches de bois encombre deux voies sur trois depuis vingt minutes. Les patrouilleurs nettoient la chaussée, mais prévoyez quarante minutes de retard pour votre trajet.',
     questions: [
-      ['Quel obstacle imprévu bloque les voies sur le pont ?', 'une perte de chargement de planches de bois', 'un camion citerne en panne de carburant', 'une tempête de grêle localisée'],
-      ['Combien de voies sont encombrées par les débris ?', 'deux voies sur trois', 'toutes les voies de secours', 'une seule voie piétonne'],
+      ['Quel obstacle imprévu encombre les voies sur le pont ?', 'des planches de bois tombées d’un chargement', 'un camion de transport en panne de batterie', 'un panneau de signalisation plié par le vent'],
+      ['Combien de voies sont actuellement bloquées sur l’axe ?', 'deux voies de circulation sur trois', 'toutes les voies rapides du viaduc', 'une seule voie réservée aux autobus'],
     ],
   },
 ]
 
+// ---------------------------------------------------------------------------
+// n4-listening-5
+// ---------------------------------------------------------------------------
 const N4_VOICEMAIL_DIGITS = ['la touche 1', 'le chiffre 2', 'la touche 8', 'le numéro 5']
 const N4_VOICEMAIL_PASSWORDS = [
-  'définis un code secret personnel à quatre chiffres',
-  'entre un mot de passe temporaire fourni par le commis',
-  'choisis une nouvelle combinaison sécurisée de chiffres',
-  'compose ton code confidentiel à six chiffres',
+  { text: 'définis un code secret à quatre chiffres', opt: 'définir un code secret personnel' },
+  { text: 'entre un mot de passe temporaire à six chiffres', opt: 'entrer un mot de passe temporaire' },
+  { text: 'choisis une combinaison confidentielle de chiffres', opt: 'choisir une combinaison chiffrée' },
+  { text: 'compose ton nouveau code d’accès personnel', opt: 'composer son nouveau code d’accès' },
 ]
 const N4_VOICEMAIL_GREETINGS = [
-  'enregistre ton message d’accueil après le bip sonore',
-  'dicte ton prénom et ton nom distinctement au micro',
+  'enregistre ton message d’accueil après le bip',
+  'dicte ton prénom et ton nom au microphone',
   'lis ton annonce personnalisée dans le combiné',
   'énonce tes heures de disponibilité après la tonalité',
 ]
 const N4_VOICEMAIL_FINISHES = [
-  'la touche dièse pour sauvegarder',
-  'la touche étoile pour confirmer',
-  'le bouton carré pour enregistrer',
-  'la commande neuf pour finaliser',
+  { text: 'la touche dièse', opt: 'appuyer sur la touche dièse' },
+  { text: 'la touche étoile', opt: 'appuyer sur la touche étoile' },
+  { text: 'le chiffre 9', opt: 'appuyer sur le chiffre neuf' },
+  { text: 'la touche carré', opt: 'appuyer sur la touche carré' },
 ]
 
-const N4_GPS_PLACES = ['l’aréna municipal', 'le centre récréatif', 'le complexe aquatique', 'le centre communautaire', 'la bibliothèque municipale']
-const N4_GPS_DISTS = ['cinq cents mètres', 'trois cents mètres', 'quatre cents mètres', 'six cents mètres']
+const N4_GPS_PLACES = [
+  { name: 'l’aréna municipal', opt: 'vers l’aréna municipal' },
+  { name: 'le centre récréatif', opt: 'vers le centre récréatif' },
+  { name: 'le complexe aquatique', opt: 'vers le complexe aquatique' },
+  { name: 'la bibliothèque municipale', opt: 'vers la bibliothèque municipale' },
+  { name: 'la maison de quartier', opt: 'vers la maison de quartier' },
+]
+const N4_GPS_DISTS = ['trois cents mètres', 'cinq cents mètres', 'quatre cents mètres', 'six cents mètres']
 const N4_GPS_STREETS = ['le boulevard Laurier', 'l’avenue Royale', 'le chemin Sainte-Foy', 'la route de l’Église']
 const N4_GPS_TURNS = [
-  'tournez à gauche sur la rue des Érables',
-  'tournez à droite sur la rue Principale',
-  'prenez la deuxième sortie au rond-point',
-  'serrez à droite avant le grand viaduc',
+  { text: 'tournez à droite sur la rue des Érables', opt: 'tourner à droite sur les Érables' },
+  { text: 'tournez à gauche sur la rue Principale', opt: 'tourner à gauche sur la Principale' },
+  { text: 'prenez la deuxième sortie au rond-point', opt: 'prendre la seconde sortie au carrefour' },
+  { text: 'serrez à droite avant le grand viaduc', opt: 'serrer à droite avant le viaduc' },
 ]
-const N4_GPS_FINALS = [
-  'deux kilomètres sur votre droite',
-  'un kilomètre et demi sur votre gauche',
-  'trois kilomètres juste en face du parc',
-  'huit cents mètres sur votre gauche',
+const N4_GPS_FINALS = ['un kilomètre sur votre gauche', 'deux kilomètres sur votre droite', 'cinq cents mètres devant le parc', 'huit cents mètres sur votre gauche']
+
+const N4_CLOSING_ROOMS = ['du bureau de consultation', 'du centre de documentation', 'de la clinique médicale', 'de l’atelier communautaire']
+const N4_CLOSING_STEPS = [
+  { text: 'fermer les fenêtres et éteindre les écrans', opt: 'fermer fenêtres et écrans' },
+  { text: 'ranger les dossiers et fermer les stores', opt: 'ranger dossiers et stores' },
+  { text: 'verrouiller les armoires et éteindre les feux', opt: 'verrouiller les armoires' },
+  { text: 'débrancher les outils et ranger les établis', opt: 'débrancher tous les outils' },
+]
+const N4_CLOSING_CODES = ['le code 4521', 'le code 7832', 'le code 3194', 'le code 6052']
+const N4_CLOSING_FINALS = [
+  { text: 'verrouillez la porte d’entrée avec la clé noire', opt: 'verrouiller la porte à clé' },
+  { text: 'barrez la porte arrière avec le cadenas bleu', opt: 'barrer la porte au cadenas' },
+  { text: 'fermez la grille de sécurité devant l’entrée', opt: 'fermer la grille métallique' },
+  { text: 'tournez la poignée à double tour avant de partir', opt: 'verrouiller à double tour' },
+]
+
+const N4_TRANSIT_DESTS = [
+  { name: 'au centre commercial régional', opt: 'vers le grand centre commercial' },
+  { name: 'à l’hôpital général du quartier', opt: 'vers l’hôpital du quartier' },
+  { name: 'au centre sportif de la ville', opt: 'vers le centre sportif urbain' },
+  { name: 'au grand parc de la nature', opt: 'vers le grand parc naturel' },
+]
+const N4_TRANSIT_BUSES = [
+  { bus: 'l’autobus 80 à l’arrêt du coin', opt: 'l’autobus 80 à l’arrêt du coin' },
+  { bus: 'la ligne 165 devant la pharmacie', opt: 'la ligne 165 devant la pharmacie' },
+  { bus: 'l’autobus 24 sur la rue Sherbrooke', opt: 'l’autobus 24 sur Sherbrooke' },
+  { bus: 'l’autobus 55 vers le nord', opt: 'l’autobus 55 en direction nord' },
+]
+const N4_TRANSIT_TRANSFERS = ['la station Jean-Talon', 'la station Côte-des-Neiges', 'la station Papineau', 'la station Henri-Bourassa']
+const N4_TRANSIT_LINES_SUB = ['la ligne orange', 'la ligne bleue', 'la ligne verte', 'la navette locale']
+const N4_TRANSIT_EXITS = [
+  { text: 'à la station Crémazie', opt: 'descendre à Crémazie' },
+  { text: 'à la station Université', opt: 'descendre à Université' },
+  { text: 'à la station Pie-IX', opt: 'descendre à la station Pie-IX' },
+  { text: 'au terminus de la Gouin', opt: 'descendre au terminus Gouin' },
 ]
 
 export const N04_L_5 = [
-  // Scenario 1 (Template, situation: 0)
+  // Scenario 1 (Template, situation: 0) - Configuration de la boîte vocale d'un cellulaire
   Object.assign(
     (rand) => {
       const digit = pick(N4_VOICEMAIL_DIGITS, rand)
       const pass = pick(N4_VOICEMAIL_PASSWORDS, rand)
       const greet = pick(N4_VOICEMAIL_GREETINGS, rand)
       const fin = pick(N4_VOICEMAIL_FINISHES, rand)
-      const text = `— Pour activer et personnaliser ta messagerie vocale sur ton nouveau cellulaire, voici la marche à suivre. D’abord, maintiens enfoncée ${digit} sur le pavé d’appel. Lorsque la voix automatisée t’y invite, ${pass}. Ensuite, ${greet}. Pour terminer la configuration, appuie sur ${fin}. Tes messages vocaux seront alors prêts.`
+      const othersPass = sample(N4_VOICEMAIL_PASSWORDS.filter((p) => p.opt !== pass.opt), 2, rand)
+      const othersFin = sample(N4_VOICEMAIL_FINISHES.filter((f) => f.opt !== fin.opt), 2, rand)
+      const text = `— Pour activer et personnaliser la messagerie vocale de ton cellulaire, voici la méthode. D’abord, appuie longuement sur ${digit} sur le pavé d’appel. Lorsque la voix automatique te le demande, ${pass.text}. Ensuite, ${greet}. Pour terminer la configuration, appuie sur ${fin.text}. Ton profil sera prêt.`
       return {
         text,
         questions: [
-          ['Quelle étape doit être effectuée après l’invite vocale ?', pass, 'éteindre complètement le téléphone portable durant une heure', 'retirer définitivement la carte mémoire de l’appareil mobile'],
-          ['Sur quelle touche faut-il appuyer pour terminer la configuration ?', fin, 'sur le bouton de réglage du volume sonore sur le côté', 'sur la commande d’arrêt d’urgence située à l’arrière'],
+          ['Quelle étape doit être effectuée après l’invite vocale ?', pass.opt, othersPass[0].opt, othersPass[1].opt],
+          ['Sur quelle touche faut-il appuyer pour enregistrer la configuration ?', fin.opt, othersFin[0].opt, othersFin[1].opt],
         ],
       }
     },
     { situation: 0, capacity: N4_VOICEMAIL_DIGITS.length * N4_VOICEMAIL_PASSWORDS.length * N4_VOICEMAIL_GREETINGS.length * N4_VOICEMAIL_FINISHES.length }
   ),
-  // Scenario 2 (Template, situation: 1)
+  // Scenario 2 (Template, situation: 1) - Instructions de guidage GPS vers un lieu
   Object.assign(
     (rand) => {
       const place = pick(N4_GPS_PLACES, rand)
@@ -2143,215 +2298,281 @@ export const N04_L_5 = [
       const street = pick(N4_GPS_STREETS, rand)
       const turn = pick(N4_GPS_TURNS, rand)
       const finDist = pick(N4_GPS_FINALS, rand)
-      const text = `— Instructions de navigation en direct. Dans ${dist}, quittez la voie principale et empruntez ${street}. Au prochain carrefour avec feux de signalisation, ${turn}. Poursuivez ensuite tout droit sur environ ${finDist}. Votre destination, ${place}, apparaîtra clairement avec son stationnement public gratuit.`
+      const othersPlace = sample(N4_GPS_PLACES.filter((p) => p.opt !== place.opt), 2, rand)
+      const othersTurn = sample(N4_GPS_TURNS.filter((t) => t.opt !== turn.opt), 2, rand)
+      const text = `— Instructions de navigation routière. Dans ${dist}, quittez la route principale et prenez ${street}. Au prochain carrefour avec feux, ${turn.text}. Poursuivez tout droit sur ${finDist}. Votre destination, ${place.name}, sera bien visible avec son stationnement public gratuit.`
       return {
         text,
         questions: [
-          ['Vers quel lieu le géonavigateur guide-t-il l’automobiliste ?', `vers ${place}`, 'vers une base militaire secrète située en forêt dense', 'vers un port maritime industriel réservé aux conteneurs'],
-          ['Quelle manœuvre routière le système ordonne-t-il au feu ?', turn, 'faire demi-tour immédiatement en plein milieu de la voie', 'couper le contact du moteur et attendre l’arrivée d’aide'],
+          ['Vers quel endroit le système GPS guide-t-il l’automobiliste ?', place.opt, othersPlace[0].opt, othersPlace[1].opt],
+          ['Quelle manœuvre routière est ordonnée au carrefour ?', turn.opt, othersTurn[0].opt, othersTurn[1].opt],
         ],
       }
     },
     { situation: 1, capacity: N4_GPS_PLACES.length * N4_GPS_DISTS.length * N4_GPS_STREETS.length * N4_GPS_TURNS.length * N4_GPS_FINALS.length }
   ),
-  // Scenario 3 (Template, situation: 0 variant)
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Consignes de fermeture du lieu de travail)
   Object.assign(
     (rand) => {
-      const digit = pick(N4_VOICEMAIL_DIGITS, rand)
-      const pass = pick(N4_VOICEMAIL_PASSWORDS, rand)
-      const greet = pick(N4_VOICEMAIL_GREETINGS, rand)
-      const fin = pick(N4_VOICEMAIL_FINISHES, rand)
-      const text = `— Tu as du mal à configurer ta boîte vocale ? Écoute bien les consignes du fournisseur. Pour commencer, appuie longuement sur ${digit}. Au signal, ${pass}. Après le bip, ${greet}. N’oublie pas de presser ${fin} pour sauvegarder ton profil. Voilà, c’est réglé !`
+      const room = pick(N4_CLOSING_ROOMS, rand)
+      const step1 = pick(N4_CLOSING_STEPS, rand)
+      const code = pick(N4_CLOSING_CODES, rand)
+      const stepFinal = pick(N4_CLOSING_FINALS, rand)
+      const othersStep1 = sample(N4_CLOSING_STEPS.filter((s) => s.opt !== step1.opt), 2, rand)
+      const othersFinal = sample(N4_CLOSING_FINALS.filter((f) => f.opt !== stepFinal.opt), 2, rand)
+      const text = `— Voici la marche à suivre pour la fermeture ${room} ce soir. Tout d’abord, il faut ${step1.text}. Ensuite, composez ${code} sur le panneau mural. Enfin, ${stepFinal.text}. Assurez-vous que les serrures sont bien enclenchées avant votre départ.`
       return {
         text,
         questions: [
-          ['Comment lance-t-on le service de boîte vocale au tout début ?', `appuyer longuement sur ${digit}`, 'redémarrer l’ordinateur familial portable du salon', 'retirer complètement la batterie de l’appareil mobile'],
-          ['Quelle consigne est donnée pour personnaliser le message ?', greet, 'chanter une longue chanson dans une langue étrangère', 'taper plusieurs fois sur l’écran tactile avec un crayon'],
+          ['Quelle est la première étape à faire avant de quitter les lieux ?', step1.opt, othersStep1[0].opt, othersStep1[1].opt],
+          ['Quelle dernière consigne permet de clore l’accès pour la nuit ?', stepFinal.opt, othersFinal[0].opt, othersFinal[1].opt],
         ],
       }
     },
-    { situation: 0, capacity: N4_VOICEMAIL_DIGITS.length * N4_VOICEMAIL_PASSWORDS.length * N4_VOICEMAIL_GREETINGS.length * N4_VOICEMAIL_FINISHES.length }
+    { situation: 0, capacity: N4_CLOSING_ROOMS.length * N4_CLOSING_STEPS.length * N4_CLOSING_CODES.length * N4_CLOSING_FINALS.length }
   ),
-  // Scenario 4 (Template, situation: 1 variant)
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Itinéraire en transport en commun)
   Object.assign(
     (rand) => {
-      const place = pick(N4_GPS_PLACES, rand)
-      const dist = pick(N4_GPS_DISTS, rand)
-      const street = pick(N4_GPS_STREETS, rand)
-      const turn = pick(N4_GPS_TURNS, rand)
-      const finDist = pick(N4_GPS_FINALS, rand)
-      const text = `— Guidage assisté par satellite. Continuez tout droit sur ${street}. Dans ${dist}, préparez-vous à tourner : ${turn}. Roulez ensuite sur ${finDist}. Vous arriverez à ${place} qui sera bien visible sur votre trajectoire. Le stationnement est situé à l’arrière.`
+      const dest = pick(N4_TRANSIT_DESTS, rand)
+      const bus = pick(N4_TRANSIT_BUSES, rand)
+      const transfer = pick(N4_TRANSIT_TRANSFERS, rand)
+      const sub = pick(N4_TRANSIT_LINES_SUB, rand)
+      const exit = pick(N4_TRANSIT_EXITS, rand)
+      const othersBus = sample(N4_TRANSIT_BUSES.filter((b) => b.opt !== bus.opt), 2, rand)
+      const othersExit = sample(N4_TRANSIT_EXITS.filter((e) => e.opt !== exit.opt), 2, rand)
+      const text = `— Pour te rendre ${dest.name} en transport en commun, c’est très simple. Prends ${bus.bus}. Descends à ${transfer}, puis prends ${sub}. Sors du train ${exit.text} et marche deux minutes. Le bâtiment se trouvera juste en face de la sortie.`
       return {
         text,
         questions: [
-          ['Quelle rue ou route le conducteur suit-il présentement ?', street, 'une voie ferrée désaffectée traversant la banlieue', 'un sentier pédestre forestier interdit aux véhicules'],
-          ['Où se trouve le stationnement à l’arrivée de la destination ?', 'le stationnement est situé à l’arrière', 'il n’existe aucun stationnement disponible dans le secteur', 'le stationnement est réservé aux camions de transport lourd'],
+          ['Quel moyen de transport faut-il prendre pour débuter le trajet ?', bus.opt, othersBus[0].opt, othersBus[1].opt],
+          ['À quel arrêt précis le voyageur doit-il descendre du train ?', exit.opt, othersExit[0].opt, othersExit[1].opt],
         ],
       }
     },
-    { situation: 1, capacity: N4_GPS_PLACES.length * N4_GPS_DISTS.length * N4_GPS_STREETS.length * N4_GPS_TURNS.length * N4_GPS_FINALS.length }
+    { situation: 1, capacity: N4_TRANSIT_DESTS.length * N4_TRANSIT_BUSES.length * N4_TRANSIT_TRANSFERS.length * N4_TRANSIT_LINES_SUB.length * N4_TRANSIT_EXITS.length }
   ),
-  // Scenario 5 (Static, situation: 0)
+  // Scenario 5 (Static, situation: 0) - Écoute des messages vocaux de l'extérieur
   {
     situation: 0,
-    text: '— Pour écouter tes nouveaux messages vocaux de l’extérieur, compose d’abord ton propre numéro de cellulaire. Pendant la sonnerie, appuie sur la touche étoile, puis saisis ton mot de passe confidentiel à quatre chiffres. Choisis l’option 1 pour réécouter le message ou l’option 3 pour l’effacer définitivement.',
+    text: '— Pour écouter tes nouveaux messages vocaux de l’extérieur, compose d’abord ton propre numéro de cellulaire. Pendant la sonnerie, appuie sur la touche étoile, puis saisis ton mot de passe confidentiel à quatre chiffres. Choisis l’option 1 pour réécouter le message ou l’option 3 pour l’effacer.',
     questions: [
-      ['Quelle touche faut-il presser pendant la sonnerie pour accéder aux messages ?', 'la touche étoile pendant la sonnerie', 'le bouton de volume sur le combiné', 'la touche zéro pendant dix secondes'],
-      ['Quelle option permet d’effacer définitivement un message ?', 'l’option 3 pour l’effacer', 'l’option 9 pour le transférer', 'l’option 7 pour le sauvegarder'],
+      ['Quelle touche faut-il presser pendant la sonnerie pour se connecter ?', 'la touche étoile pendant la sonnerie', 'le bouton de volume sur le combiné', 'la touche zéro pendant dix secondes'],
+      ['Quelle option permet de supprimer définitivement un message ?', 'l’option 3 pour effacer le message', 'l’option 9 pour le transférer ailleurs', 'l’option 7 pour le sauvegarder au profil'],
     ],
   },
-  // Scenario 6 (Static, situation: 1)
+  // Scenario 6 (Static, situation: 1) - Rampe d'accès et pont Champlain vers l'aréna
   {
     situation: 1,
-    text: '— Guidage GPS : dans deux cents mètres, serrez à droite pour prendre la rampe d’accès vers le pont Champlain. Restez dans la voie de droite sur un kilomètre, puis prenez la première sortie vers le boulevard René-Lévesque. L’aréna se dressera sur votre gauche après le grand feu.',
+    text: '— Guidage GPS : dans deux cents mètres, serrez à droite pour prendre la rampe vers le pont Champlain. Restez dans la voie de droite sur un kilomètre, puis prenez la première sortie vers le boulevard René-Lévesque. L’aréna se trouvera sur votre gauche après le feu.',
     questions: [
-      ['Quelle rampe d’accès le système indique-t-il d’emprunter ?', 'la rampe vers le pont Champlain', 'l’entrée vers l’autoroute des Laurentides', 'le tunnel sous-marin réservé au train'],
-      ['De quel côté l’aréna apparaîtra-t-il après le grand feu ?', 'l’aréna se dressera sur la gauche', 'le complexe sera caché derrière un bois', 'le bâtiment se situera tout droit en haut'],
+      ['Quelle rampe d’accès le système indique-t-il d’emprunter ?', 'la rampe d’accès vers le pont Champlain', 'l’entrée vers l’autoroute des Laurentides', 'la sortie menant à la route des Rivières'],
+      ['De quel côté l’aréna apparaîtra-t-il après le carrefour ?', 'l’aréna apparaîtra sur votre gauche', 'l’édifice se situera sur votre droite', 'le complexe sera tout droit en arrière'],
     ],
   },
 ]
 
+// ---------------------------------------------------------------------------
+// n4-listening-6
+// ---------------------------------------------------------------------------
 const N4_OUTDOOR_ACTS = [
-  { act: 'la descente en kayak sur la rivière', short: 'le kayak sur la rivière' },
-  { act: 'la randonnée en raquettes dans la forêt', short: 'la raquette dans la forêt' },
-  { act: 'le ski de fond dans les sentiers balisés', short: 'le ski de fond en sentier' },
-  { act: 'le canot sur le lac au coucher du soleil', short: 'le canot sur le grand lac' },
+  { act: 'la descente en kayak sur la rivière', short: 'le kayak sur la rivière en été' },
+  { act: 'la randonnée en raquettes dans la forêt', short: 'la raquette dans les sous-bois' },
+  { act: 'le ski de fond dans les sentiers balisés', short: 'le ski de fond sur sentier balisé' },
+  { act: 'le canot sur le lac au coucher du soleil', short: 'le canot sur le lac en fin de jour' },
 ]
 const N4_OUTDOOR_REASONS = [
-  'le calme apaisant de l’eau',
-  'le silence reposant des sapins',
-  'l’exercice régulier à l’air pur',
-  'les superbes paysages québécois',
-]
-const N4_OUTDOOR_DISLIKES = [
-  'le vélo de montagne salissant',
-  'le patinage sur patinoire bondée',
-  'la planche à neige trop fatigante',
-  'la baignade en eau trop glacée',
+  { text: 'le calme de l’eau au matin', opt: 'le calme apaisant au bord de l’eau' },
+  { text: 'le silence reposant sous les sapins', opt: 'le silence reposant dans les bois' },
+  { text: 'l’exercice physique à l’air pur', opt: 'l’exercice physique en plein air' },
+  { text: 'la beauté des paysages québécois', opt: 'la beauté naturelle des paysages' },
 ]
 const N4_OUTDOOR_TIMES = ['ce samedi matin', 'dimanche prochain', 'la fin de semaine prochaine', 'samedi après-midi']
+const N4_OUTDOOR_DISLIKES = [
+  'le vélo sur les sentiers de boue',
+  'le patinage sur patinoire bondée',
+  'la glissade sur pente encombrée',
+  'la baignade dans une eau trop froide',
+]
 
 const N4_BISTRO_PLACES = [
-  'le bistro Chez Boulay sur la rue Saint-Jean',
-  'le restaurant Le Cartet dans le Vieux-Montréal',
-  'la brasserie artisanale Archibald à Sainte-Foy',
-  'le café Le Torréfacteur sur l’avenue Maguire',
+  { name: 'le bistro Chez Boulay sur la rue Saint-Jean', opt: 'le bistro Chez Boulay du quartier' },
+  { name: 'le restaurant Le Cartet dans le Vieux-Montréal', opt: 'le restaurant Le Cartet au centre' },
+  { name: 'la brasserie Archibald à Sainte-Foy', opt: 'l’établissement Archibald à Sainte-Foy' },
+  { name: 'le café Maguire sur la promenade Maguire', opt: 'le café Maguire sur la promenade' },
 ]
 const N4_BISTRO_FOODS = [
-  'des plats du terroir québécois de saison',
-  'des brunchs gourmands et des salades fraîches',
+  'des plats du terroir et des soupes chaudes',
+  'des brunchs copieux et des salades fraîches',
   'des pizzas au four à bois et des burgers',
   'des sandwichs artisanaux et de bons cafés',
 ]
 const N4_BISTRO_VIBES = [
-  'l’accueil très chaleureux du personnel',
-  'l’ambiance conviviale et lumineuse',
-  'la musique québécoise entraînante',
-  'le décor en bois chaleureux et reposant',
+  { text: 'l’accueil très chaleureux du personnel', opt: 'l’accueil chaleureux du personnel' },
+  { text: 'l’ambiance conviviale et lumineuse', opt: 'l’ambiance conviviale et lumineuse' },
+  { text: 'la musique acoustique entraînante', opt: 'la musique acoustique entraînante' },
+  { text: 'le décor en bois chaleureux et reposant', opt: 'le décor en bois chaud et reposant' },
 ]
 const N4_BISTRO_PRICES = [
-  'tout à fait raisonnable pour la qualité',
-  'vraiment honnête pour les portions servies',
-  'parfaitement adapté pour un groupe d’amis',
-  'très économique pour un dîner complet',
+  'tout à fait raisonnable pour le menu',
+  'très économique pour un groupe d’amis',
+  'vraiment honnête pour de belles portions',
+  'très abordable pour un dîner complet',
 ]
+
+const N4_CLOTHING_ITEMS = [
+  { item: 'un manteau long en duvet d’hiver', opt: 'un grand manteau d’hiver en duvet' },
+  { item: 'des bottes chaudes avec semelles solides', opt: 'des bottes chaudes antidérapantes' },
+  { item: 'une tuque doublée en laine polaire', opt: 'un bonnet chaud doublé en polaire' },
+  { item: 'des gants de cuir avec doublure chaude', opt: 'des gants de cuir à doublure chaude' },
+]
+const N4_CLOTHING_REASONS = [
+  { text: 'il protège beaucoup mieux du grand froid', opt: 'une protection supérieure au froid' },
+  { text: 'elles empêchent de glisser sur la glace', opt: 'une bonne adhérence sur la glace' },
+  { text: 'elle garde les oreilles bien au chaud', opt: 'garder les oreilles bien au chaud' },
+  { text: 'ils permettent de conduire confortablement', opt: 'conduire sa voiture confortablement' },
+]
+const N4_CLOTHING_COLORS = [
+  'en bleu marin avec de grandes poches',
+  'en cuir noir de qualité imperméable',
+  'de couleur vert forêt et bien épaisse',
+  'en cuir brun foncé très souple',
+]
+const N4_CLOTHING_DISLIKES = [
+  'une veste courte sans capuchon',
+  'des souliers légers de marche',
+  'une casquette de sport ordinaire',
+  'des mitaines en laine tricotée',
+]
+
+const N4_MOVIE_SHOWS = [
+  { name: 'une comédie québécoise au cinéma local', opt: 'une comédie québécoise au cinéma' },
+  { name: 'un documentaire sur les parcs du nord', opt: 'un documentaire sur les parcs' },
+  { name: 'un film d’aventure pour toute la famille', opt: 'un film d’aventure pour la famille' },
+  { name: 'un spectacle d’humour au festival d’été', opt: 'un spectacle d’humour au festival' },
+]
+const N4_MOVIE_HIGHS = [
+  { text: 'le jeu drôle et touchant des comédiens', opt: 'le jeu drôle et touchant d’acteurs' },
+  { text: 'la beauté spectaculaire des images de forêt', opt: 'les superbes images de la nature' },
+  { text: 'l’histoire passionnante pleine de surprises', opt: 'une intrigue dynamique pour enfants' },
+  { text: 'les histoires amusantes sur la vie quotidienne', opt: 'des sketchs comiques du quotidien' },
+]
+const N4_MOVIE_SOUNDS = [
+  'la salle était propre et le son parfait',
+  'les explications du guide étaient très claires',
+  'les enfants ont ri du début à la fin',
+  'le public a applaudi chaleureusement',
+]
+const N4_MOVIE_DAYS = ['Vendredi passé', 'Samedi dernier', 'Hier soir', 'La semaine dernière']
 
 export const N04_L_6 = [
-  // Scenario 1 (Template, situation: 0)
+  // Scenario 1 (Template, situation: 0) - Préférences pour les activités de plein air
   Object.assign(
     (rand) => {
       const act = pick(N4_OUTDOOR_ACTS, rand)
       const reason = pick(N4_OUTDOOR_REASONS, rand)
-      const dis = pick(N4_OUTDOOR_DISLIKES, rand)
       const time = pick(N4_OUTDOOR_TIMES, rand)
-      const text = `— Tu sais, pour notre escapade de fin de semaine au parc naturel, j’aime beaucoup mieux ${act.act}. Certaines personnes aiment ${dis}, mais moi je préfère de loin ${reason}. Si tu es partant pour qu’on parte ${time}, qu’est-ce que tu dirais qu’on loue cet équipement au centre récréatif ?`
-      return {
-        text,
-        questions: [
-          ['Quelle activité de plein air l’amie préfère-t-elle pour la sortie ?', act.short, 'le saut acrobatique en parachute au-dessus des montagnes', 'la plongée en scaphandre autonome au fond de l’océan'],
-          ['Pourquoi cette activité a-t-elle sa nette préférence ?', `elle apprécie ${reason}`, 'ce loisir est totalement gratuit tout au long de l’année', 'l’activité se déroule dans une salle fermée et chauffée'],
-        ],
-      }
-    },
-    { situation: 0, capacity: N4_OUTDOOR_ACTS.length * N4_OUTDOOR_REASONS.length * N4_OUTDOOR_DISLIKES.length * N4_OUTDOOR_TIMES.length }
-  ),
-  // Scenario 2 (Template, situation: 1)
-  Object.assign(
-    (rand) => {
-      const bistro = pick(N4_BISTRO_PLACES, rand)
-      const food = pick(N4_BISTRO_FOODS, rand)
-      const vibe = pick(N4_BISTRO_VIBES, rand)
-      const price = pick(N4_BISTRO_PRICES, rand)
-      const text = `— Dis, hier midi j’ai enfin testé ${bistro} avec mes collègues de bureau. Franchement, nous avons été conquis ! On y sert ${food}. J’ai tout particulièrement apprécié ${vibe}. En plus, le montant de l’addition était ${price}. Je te conseille vraiment de réserver une table pour cette fin de semaine.`
-      return {
-        text,
-        questions: [
-          ['Quel établissement de restauration le collègue a-t-il expérimenté ?', bistro, 'une cantine scolaire réservée aux élèves du primaire', 'un comptoir de restauration rapide le long d’une autoroute'],
-          ['Qu’est-ce qui a particulièrement retenu son attention positivement ?', vibe, 'la lenteur tout à fait remarquable du service en cuisine', 'l’absence complète de chaises et de tables pour s’asseoir'],
-        ],
-      }
-    },
-    { situation: 1, capacity: N4_BISTRO_PLACES.length * N4_BISTRO_FOODS.length * N4_BISTRO_VIBES.length * N4_BISTRO_PRICES.length }
-  ),
-  // Scenario 3 (Template, situation: 0 variant)
-  Object.assign(
-    (rand) => {
-      const act = pick(N4_OUTDOOR_ACTS, rand)
-      const reason = pick(N4_OUTDOOR_REASONS, rand)
       const dis = pick(N4_OUTDOOR_DISLIKES, rand)
-      const text = `— Pour notre sortie en nature avec le groupe, mon premier choix demeure sans hésiter ${act.act}. C’est certain que d’autres préfèrent d’autres sports, mais pour ma part je recherche avant tout ${reason}. En revanche, je refuse de faire ${dis}. On pourrait réserver nos places ensemble dès ce soir.`
+      const othersAct = sample(N4_OUTDOOR_ACTS.filter((a) => a.short !== act.short), 2, rand)
+      const othersReason = sample(N4_OUTDOOR_REASONS.filter((r) => r.opt !== reason.opt), 2, rand)
+      const text = `— Tu sais, pour notre sortie de fin de semaine en nature, j’aime beaucoup mieux ${act.act}. Plusieurs amis aiment ${dis}, mais moi je recherche avant tout ${reason.text}. Si tu es partant pour qu’on parte ${time}, on pourrait louer notre équipement ce soir.`
       return {
         text,
         questions: [
-          ['Quel loisir en plein air correspond le mieux aux goûts de la personne ?', act.short, 'la pêche sportive sur glace au sommet d’une haute montagne', 'l’escalade sur des parois de falaise sans aucun équipement'],
-          ['Quelle activité sportive la personne rejette-t-elle expressément ?', dis, 'la marche tranquille sur le trottoir du quartier résidentiel', 'une séance de gymnastique douce au bord de l’eau en plein air'],
+          ['Quelle activité de loisir la personne préfère-t-elle ?', act.short, othersAct[0].short, othersAct[1].short],
+          ['Pourquoi cette activité a-t-elle sa nette préférence ?', reason.opt, othersReason[0].opt, othersReason[1].opt],
         ],
       }
     },
-    { situation: 0, capacity: N4_OUTDOOR_ACTS.length * N4_OUTDOOR_REASONS.length * N4_OUTDOOR_DISLIKES.length }
+    { situation: 0, capacity: N4_OUTDOOR_ACTS.length * N4_OUTDOOR_REASONS.length * N4_OUTDOOR_TIMES.length * N4_OUTDOOR_DISLIKES.length }
   ),
-  // Scenario 4 (Template, situation: 1 variant)
+  // Scenario 2 (Template, situation: 1) - Appréciation positive d'un restaurant local
   Object.assign(
     (rand) => {
-      const bistro = pick(N4_BISTRO_PLACES, rand)
+      const b = pick(N4_BISTRO_PLACES, rand)
       const food = pick(N4_BISTRO_FOODS, rand)
       const vibe = pick(N4_BISTRO_VIBES, rand)
       const price = pick(N4_BISTRO_PRICES, rand)
-      const text = `— Si tu cherches un endroit sympa pour souper vendredi, je te suggère les yeux fermés ${bistro}. Nous y avons passé une superbe soirée. Le menu propose ${food}. Ce qui nous a le plus charmés, c’est ${vibe}. Côté budget, le coût moyen était ${price}. C’est vraiment une excellente découverte !`
+      const othersPlace = sample(N4_BISTRO_PLACES.filter((p) => p.opt !== b.opt), 2, rand)
+      const othersVibe = sample(N4_BISTRO_VIBES.filter((v) => v.opt !== vibe.opt), 2, rand)
+      const text = `— Hier midi, j’ai enfin dîné avec des collègues à ${b.name}. Nous avons passé un très bon moment ! Le menu met en valeur ${food}. J’ai particulièrement apprécié ${vibe.text}. En plus, le montant de l’addition était ${price}. Je te conseille d’y faire un tour.`
       return {
         text,
         questions: [
-          ['Quels types de mets sont servis dans ce restaurant recommandé ?', food, 'des conserves froides importées par avion depuis un autre pays', 'uniquement des soupes en poudre déshydratées servies tièdes'],
-          ['Quel jugement global la personne porte-t-elle sur les tarifs ?', `le tarif était ${price}`, 'l’établissement pratique des tarifs exorbitants pour ces plats', 'la direction impose un paiement en devises étrangères rares'],
+          ['Quel établissement de restauration la personne a-t-elle essayé ?', b.opt, othersPlace[0].opt, othersPlace[1].opt],
+          ['Quel point fort du restaurant est particulièrement souligné ?', vibe.opt, othersVibe[0].opt, othersVibe[1].opt],
         ],
       }
     },
     { situation: 1, capacity: N4_BISTRO_PLACES.length * N4_BISTRO_FOODS.length * N4_BISTRO_VIBES.length * N4_BISTRO_PRICES.length }
   ),
-  // Scenario 5 (Static, situation: 0)
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Préférences pour un vêtement d'hiver)
+  Object.assign(
+    (rand) => {
+      const item = pick(N4_CLOTHING_ITEMS, rand)
+      const reason = pick(N4_CLOTHING_REASONS, rand)
+      const color = pick(N4_CLOTHING_COLORS, rand)
+      const dis = pick(N4_CLOTHING_DISLIKES, rand)
+      const othersItem = sample(N4_CLOTHING_ITEMS.filter((i) => i.opt !== item.opt), 2, rand)
+      const othersReason = sample(N4_CLOTHING_REASONS.filter((r) => r.opt !== reason.opt), 2, rand)
+      const text = `— Pour cet hiver, mon choix s’arrête sur ${item.item}. C’est certain que d’autres préfèrent ${dis}, mais je préfère mon modèle parce qu’${reason.text}. J’aimerais trouver un article ${color}. On pourrait aller voir au centre commercial samedi.`
+      return {
+        text,
+        questions: [
+          ['Quel vêtement d’hiver la personne préfère-t-elle se procurer ?', item.opt, othersItem[0].opt, othersItem[1].opt],
+          ['Pour quel motif pratique la personne choisit-elle ce vêtement ?', reason.opt, othersReason[0].opt, othersReason[1].opt],
+        ],
+      }
+    },
+    { situation: 0, capacity: N4_CLOTHING_ITEMS.length * N4_CLOTHING_REASONS.length * N4_CLOTHING_COLORS.length * N4_CLOTHING_DISLIKES.length }
+  ),
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Appréciation d'une sortie culturelle)
+  Object.assign(
+    (rand) => {
+      const show = pick(N4_MOVIE_SHOWS, rand)
+      const high = pick(N4_MOVIE_HIGHS, rand)
+      const sound = pick(N4_MOVIE_SOUNDS, rand)
+      const day = pick(N4_MOVIE_DAYS, rand)
+      const othersShow = sample(N4_MOVIE_SHOWS.filter((s) => s.opt !== show.opt), 2, rand)
+      const othersHigh = sample(N4_MOVIE_HIGHS.filter((h) => h.opt !== high.opt), 2, rand)
+      const text = `— ${day}, nous sommes allés voir ${show.name}. Nous avons beaucoup apprécié cette représentation ! Ce qui nous a le plus plu, c’est ${high.text}. Dans la salle, ${sound}. Je te recommande chaleureusement d’y assister avec des proches.`
+      return {
+        text,
+        questions: [
+          ['Quelle sortie culturelle la personne a-t-elle particulièrement aimée ?', show.opt, othersShow[0].opt, othersShow[1].opt],
+          ['Quel aspect du spectacle a retenu l’attention des spectateurs ?', high.opt, othersHigh[0].opt, othersHigh[1].opt],
+        ],
+      }
+    },
+    { situation: 1, capacity: N4_MOVIE_SHOWS.length * N4_MOVIE_HIGHS.length * N4_MOVIE_SOUNDS.length * N4_MOVIE_DAYS.length }
+  ),
+  // Scenario 5 (Static, situation: 0) - Camping sauvage au bord du lac vs hôtel bondé
   {
     situation: 0,
-    text: '— Pour les vacances d’été en famille, je préfère le camping sauvage au bord d’un lac tranquille plutôt qu’un hôtel tout compris bondé. Ce que j’aime, c’est le feu de camp le soir sous les étoiles et la baignade dès le réveil. La ville est bruyante toute l’année, j’ai besoin de calme et d’air frais.',
+    text: '— Pour les vacances d’été en famille, je préfère le camping sous la tente au bord d’un lac calme plutôt qu’un hôtel bondé en ville. Ce que j’aime le plus, c’est le feu de camp le soir sous les étoiles et la baignade matinale. La routine est bruyante toute l’année, j’ai besoin d’air frais.',
     questions: [
-      ['Quel style de vacances la personne privilégie-t-elle en été ?', 'le camping sauvage au bord d’un lac', 'un hôtel de luxe avec centre commercial', 'un séjour dans une grande métropole'],
-      ['Qu’apprécie-t-elle particulièrement lors de ce séjour ?', 'le feu de camp et la baignade matinale', 'la climatisation et la télévision par câble', 'les visites de discothèques en soirée'],
+      ['Quel genre de vacances la personne privilégie-t-elle en été ?', 'dormir sous la tente au bord du lac', 'loger dans un grand complexe hôtelier', 'séjourner dans un appartement très animé'],
+      ['Qu’apprécie-t-elle tout spécialement lors de ce séjour ?', 'la baignade au réveil et le feu de camp', 'la climatisation et la télévision moderne', 'les galeries marchandes et les boutiques'],
     ],
   },
-  // Scenario 6 (Static, situation: 1)
+  // Scenario 6 (Static, situation: 1) - Crêperie bretonne de la rue Saint-Denis
   {
     situation: 1,
-    text: '— J’ai dîné à la nouvelle crêperie bretonne de la rue Saint-Denis hier avec ma cousine. Les galettes de sarrasin sont croustillantes et généreusement garnies de fromage québécois et de jambon artisanal. Le cidre artisanal local est excellent et la serveuse a été très attentionnée. Une adresse formidable à découvrir !',
+    text: '— J’ai dîné à la nouvelle crêperie de la rue Saint-Denis hier midi avec ma cousine. Les galettes de sarrasin sont croustillantes et généreusement garnies de fromage et de jambon de chez nous. Le cidre local est excellent et la serveuse a été très gentille. Une bonne adresse à découvrir !',
     questions: [
-      ['Quelle spécialité culinaire est mise à l’honneur dans cette critique ?', 'des galettes de sarrasin croustillantes', 'des sushis japonais au poisson cru', 'des tacos mexicains au bœuf piquant'],
-      ['Quel élément du service a été particulièrement souligné ?', 'une serveuse très attentionnée', 'un chef cuisinier venu chanter en salle', 'une commande livrée par un robot'],
+      ['Quelle spécialité culinaire est appréciée dans ce restaurant ?', 'des galettes de sarrasin bien garnies', 'des soupes de légumes servies froides', 'des sandwichs au pain blanc réchauffés'],
+      ['Quelle appréciation est formulée au sujet du service ?', 'une serveuse souriante et très gentille', 'une équipe de serveurs distante et froide', 'un personnel débordé par la forte affluence'],
     ],
   },
 ]
 
-// -------------------------------------------------------------
-// N04 READING TABLES & SCENARIOS
-// -------------------------------------------------------------
+// ===========================================================================
+// NIVEAU 4 READING SCENARIOS
+// ===========================================================================
 
+// ---------------------------------------------------------------------------
+// n4-reading-0
+// ---------------------------------------------------------------------------
 const N4_LEASE_ADDRS = [
   '450, rue Cartier, appartement 3',
   '1280, avenue Maguire, logement 2',
@@ -2361,36 +2582,82 @@ const N4_LEASE_ADDRS = [
 ]
 const N4_LEASE_RENTS = ['1 120 dollars', '1 350 dollars', '980 dollars', '1 240 dollars']
 const N4_LEASE_PERIODS = [
-  'du 1er juillet 2025 au 30 juin 2026',
-  'du 1er août 2025 au 31 juillet 2026',
-  'du 1er septembre 2025 au 31 août 2026',
-  'du 1er octobre 2025 au 30 septembre 2026',
+  { text: 'du premier juillet au trente juin', opt: 'une année complète à partir de juillet' },
+  { text: 'du premier août au trente et un juillet', opt: 'une année complète à compter d’août' },
+  { text: 'du premier septembre au trente et un août', opt: 'un an complet à partir de septembre' },
+  { text: 'du premier octobre au trente septembre', opt: 'un an complet à compter d’octobre' },
 ]
 const N4_LEASE_HEATS = [
-  'à la charge du locataire',
-  'inclus dans le montant du loyer',
-  'non compris dans la mensualité',
-  'assuré par un système central inclus',
+  { text: 'à la charge du locataire', opt: 'aux frais directs du locataire' },
+  { text: 'inclus dans le montant du loyer', opt: 'compris dans le montant du loyer' },
+  { text: 'non compris dans la mensualité', opt: 'non inclus dans la mensualité' },
+  { text: 'assuré par un système central inclus', opt: 'fourni par le système central' },
 ]
 const N4_LEASE_PETS = [
-  'les chats calmes sont acceptés',
-  'aucun animal domestique n’est permis',
-  'un petit chien de moins de dix kilos est toléré',
-  'seuls les animaux en cage sont admis',
+  { text: 'les chats calmes sont acceptés', opt: 'les chats calmes sont permis' },
+  { text: 'aucun animal domestique n’est permis', opt: 'aucun animal n’est autorisé' },
+  { text: 'un petit chien de moins de dix kilos est toléré', opt: 'les petits chiens sont tolérés' },
+  { text: 'seuls les animaux en cage sont admis', opt: 'les animaux en cage sont admis' },
 ]
 
-const N4_FESTIVAL_NAMES = ['le Festival d’été de Québec', 'les Francos de Montréal', 'le FestiVoix de Trois-Rivières', 'le Festival de montgolfières de Gatineau']
-const N4_FESTIVAL_CROWDS = ['plus de cent mille spectateurs', 'près de quatre-vingt mille mélomanes', 'plus de soixante mille visiteurs', 'environ soixante-quinze mille personnes']
-const N4_FESTIVAL_DAYS = ['dix jours consécutifs de festivités', 'huit journées de spectacles en plein air', 'neuf soirs de concerts sur les berges', 'cinq jours d’activités familiales']
+const N4_FESTIVAL_NAMES = [
+  { name: 'le Festival d’été de Québec', opt: 'le Festival d’été de Québec' },
+  { name: 'les Francos de Montréal', opt: 'les Francos de Montréal au centre' },
+  { name: 'le FestiVoix de Trois-Rivières', opt: 'le FestiVoix de Trois-Rivières' },
+  { name: 'le Festival de montgolfières de Gatineau', opt: 'le Festival de Gatineau au parc' },
+]
+const N4_FESTIVAL_CROWDS = [
+  { text: 'plus de cent mille spectateurs', opt: 'plus de cent mille festivaliers' },
+  { text: 'près de quatre-vingt mille personnes', opt: 'environ quatre-vingt mille personnes' },
+  { text: 'plus de soixante mille visiteurs', opt: 'plus de soixante mille visiteurs' },
+  { text: 'environ soixante-quinze mille personnes', opt: 'environ soixante-quinze mille personnes' },
+]
+const N4_FESTIVAL_DAYS = ['dix jours de festivités en ville', 'huit journées de spectacles dehors', 'neuf soirs de concerts sur le fleuve', 'cinq jours d’activités familiales']
 const N4_FESTIVAL_HIGHS = [
-  'la diversité remarquable des artistes québécois',
-  'la gratuité de nombreuses scènes extérieures',
-  'l’ambiance chaleureuse au bord du fleuve',
-  'la qualité des prestations musicales offertes',
+  'la grande diversité des artistes d’ici',
+  'la gratuité de plusieurs scènes publiques',
+  'l’ambiance chaleureuse au bord de l’eau',
+  'la haute qualité des prestations musicales',
+]
+
+const N4_DIRECT_DEPOSIT_DEPTS = ['au service de la paie', 'à la direction des ressources humaines', 'au bureau de la comptabilité générale', 'au secrétariat des avantages sociaux']
+const N4_DIRECT_DEPOSIT_DOCS = [
+  { text: 'un spécimen de chèque de votre compte', opt: 'un spécimen de chèque bancaire' },
+  { text: 'un document de confirmation bancaire officiel', opt: 'une confirmation bancaire officielle' },
+  { text: 'un formulaire de prélèvement avec signature', opt: 'un formulaire bancaire signé' },
+  { text: 'une attestation de dépôt fournie par la caisse', opt: 'une attestation de compte bancaire' },
+]
+const N4_DIRECT_DEPOSIT_DELAYS = [
+  { text: 'deux semaines après la réception', opt: 'environ deux semaines de délai' },
+  { text: 'dix jours ouvrables suivant l’envoi', opt: 'dix jours ouvrables après envoi' },
+  { text: 'quinze jours avant le prochain paiement', opt: 'quinze jours avant le paiement' },
+  { text: 'environ trois semaines pour le traitement', opt: 'trois semaines complètes de délai' },
+]
+const N4_DIRECT_DEPOSIT_BENEFITS = [
+  { text: 'recevoir son salaire sans aucun déplacement', opt: 'recevoir son salaire sans déplacement' },
+  { text: 'sécuriser le versement automatique de l’argent', opt: 'sécuriser les versements réguliers' },
+  { text: 'éviter tout retard lors des jours fériés', opt: 'éviter les retards des jours fériés' },
+  { text: 'bénéficier d’un dépôt rapide sur le compte', opt: 'bénéficier d’un dépôt direct rapide' },
+]
+
+const N4_ECOCENTER_CITIES = ['de la Ville de Québec', 'de l’agglomération de Longueuil', 'de la municipalité de Lévis', 'de la ville de Gatineau']
+const N4_ECOCENTER_PERIODS = ['du premier mai au trente et un octobre', 'du premier avril au quinze novembre', 'du quinze mai au trente septembre', 'du premier juin au trente et un août']
+const N4_ECOCENTER_HOURS = ['du mardi au dimanche de 8 h à 18 h', 'du mercredi au dimanche de 9 h à 17 h', 'du jeudi au lundi de 8 h 30 à 16 h 30', 'du mardi au samedi de 10 h à 18 h']
+const N4_ECOCENTER_ACCEPTED = [
+  { text: 'des résidus de rénovation et des branches', opt: 'des résidus de bois et des branches' },
+  { text: 'des appareils ménagers et des métaux', opt: 'des vieux appareils et des métaux' },
+  { text: 'des cartons pliés et des pots de peinture', opt: 'des cartons et des restes de peinture' },
+  { text: 'des appareils électroniques et vieux câbles', opt: 'du matériel électronique et des fils' },
+]
+const N4_ECOCENTER_REQUIRED = [
+  { text: 'une preuve de résidence avec adresse locale', opt: 'une preuve de résidence municipale' },
+  { text: 'un permis de conduire avec adresse à jour', opt: 'un permis de conduire à bonne adresse' },
+  { text: 'un compte de taxes ou facture municipale', opt: 'un compte de taxes ou reçu municipal' },
+  { text: 'une carte de citoyen délivrée par la mairie', opt: 'une carte citoyenne de la mairie' },
 ]
 
 export const N04_R_0 = [
-  // Scenario 1 (Template, situation: 0)
+  // Scenario 1 (Template, situation: 0) - Extrait officiel d'un bail résidentiel
   Object.assign(
     (rand) => {
       const addr = pick(N4_LEASE_ADDRS, rand)
@@ -2398,88 +2665,96 @@ export const N04_R_0 = [
       const period = pick(N4_LEASE_PERIODS, rand)
       const heat = pick(N4_LEASE_HEATS, rand)
       const pets = pick(N4_LEASE_PETS, rand)
-      const text = `Extrait de bail résidentiel - Tribunal du logement. Adresse : ${addr}. Durée : ${period}. Loyer fixé à ${rent} par mois, payable le premier du mois. Chauffage et électricité ${heat}. Règle sur les animaux : ${pets}. Cession de bail sur accord écrit du propriétaire.`
+      const othersRent = sample(N4_LEASE_RENTS.filter((r) => r !== rent), 2, rand)
+      const othersPeriod = sample(N4_LEASE_PERIODS.filter((p) => p.opt !== period.opt), 2, rand)
+      const text = `Extrait de bail résidentiel - Tribunal du logement. Logement situé au ${addr}. Période de location : ${period.text}. Loyer mensuel fixé à ${rent}, payable le premier du mois. Chauffage et électricité : ${heat.text}. Animaux : ${pets.text}. Toute cession de bail requiert un accord écrit du propriétaire.`
       return {
         text,
         questions: [
-          ['Combien le locataire doit-il payer chaque mois ?', `${rent} par mois`, 'six cents dollars par mois', 'deux mille cinq cents dollars par mois'],
-          ['Quelle clause est inscrite au sujet des animaux ?', pets, 'la présence d’animaux est strictement obligatoire dans chaque pièce', 'les gros animaux d’élevage sont acceptés dans le salon principal'],
+          ['Combien le locataire doit-il payer chaque mois ?', `${rent} par mois`, `${othersRent[0]} par mois`, `${othersRent[1]} par mois`],
+          ['Quelle est la période de location couverte par ce bail ?', period.opt, othersPeriod[0].opt, othersPeriod[1].opt],
         ],
       }
     },
     { situation: 0, capacity: N4_LEASE_ADDRS.length * N4_LEASE_RENTS.length * N4_LEASE_PERIODS.length * N4_LEASE_HEATS.length * N4_LEASE_PETS.length }
   ),
-  // Scenario 2 (Template, situation: 1)
+  // Scenario 2 (Template, situation: 1) - Bilan d'un festival culturel urbain
   Object.assign(
     (rand) => {
       const fest = pick(N4_FESTIVAL_NAMES, rand)
       const crowd = pick(N4_FESTIVAL_CROWDS, rand)
       const days = pick(N4_FESTIVAL_DAYS, rand)
       const high = pick(N4_FESTIVAL_HIGHS, rand)
-      const text = `Journal Le Soleil. Bilan éclatant pour ${fest} : ${crowd} ont vibré au son des scènes pendant ${days}. Malgré des averses en début de semaine, l’organisation souligne un succès populaire. Les festivaliers ont salué ${high}. Les retombées économiques sont estimées à plusieurs millions.`
+      const othersFest = sample(N4_FESTIVAL_NAMES.filter((f) => f.opt !== fest.opt), 2, rand)
+      const othersCrowd = sample(N4_FESTIVAL_CROWDS.filter((c) => c.opt !== crowd.opt), 2, rand)
+      const text = `Journal local. Bilan très positif pour ${fest.name} : ${crowd.text} ont assisté aux concerts durant ${days}. Malgré quelques averses en milieu de semaine, l’organisation souligne un grand succès populaire. Les festivaliers ont salué ${high}. Les retombées économiques sont excellentes pour les commerçants.`
       return {
         text,
         questions: [
-          ['Combien de spectateurs ont pris part à cet évènement ?', crowd, 'seulement trois cents curieux au total sur l’ensemble du site', 'une cinquantaine de résidents du quartier venus à pied'],
-          ['Quel point fort a été particulièrement mis en valeur ?', high, 'l’interdiction d’utiliser les transports en commun municipaux', 'l’imposition de tarifs exorbitants sur tous les repas vendus'],
+          ['Quelle manifestation culturelle fait l’objet de cet article ?', fest.opt, othersFest[0].opt, othersFest[1].opt],
+          ['Combien de spectateurs ont pris part à cet évènement ?', crowd.opt, othersCrowd[0].opt, othersCrowd[1].opt],
         ],
       }
     },
     { situation: 1, capacity: N4_FESTIVAL_NAMES.length * N4_FESTIVAL_CROWDS.length * N4_FESTIVAL_DAYS.length * N4_FESTIVAL_HIGHS.length }
   ),
-  // Scenario 3 (Template, situation: 0 variant)
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Formulaire de dépôt direct de la paie)
   Object.assign(
     (rand) => {
-      const addr = pick(N4_LEASE_ADDRS, rand)
-      const rent = pick(N4_LEASE_RENTS, rand)
-      const period = pick(N4_LEASE_PERIODS, rand)
-      const heat = pick(N4_LEASE_HEATS, rand)
-      const pets = pick(N4_LEASE_PETS, rand)
-      const text = `Formulaire officiel de bail à loyer. Localisation : ${addr}. Période : ${period}. Montant exigible : ${rent} par mois. Les coûts d’énergie sont ${heat}. Présence d’animaux : ${pets}. Le locataire s’engage à maintenir les lieux en bon état de propreté.`
+      const dept = pick(N4_DIRECT_DEPOSIT_DEPTS, rand)
+      const doc = pick(N4_DIRECT_DEPOSIT_DOCS, rand)
+      const delay = pick(N4_DIRECT_DEPOSIT_DELAYS, rand)
+      const benefit = pick(N4_DIRECT_DEPOSIT_BENEFITS, rand)
+      const othersDoc = sample(N4_DIRECT_DEPOSIT_DOCS.filter((d) => d.opt !== doc.opt), 2, rand)
+      const othersDelay = sample(N4_DIRECT_DEPOSIT_DELAYS.filter((d) => d.opt !== delay.opt), 2, rand)
+      const text = `Adhésion au dépôt direct de la paie. Pour recevoir vos versements sur votre compte courant, remplissez ce formulaire d’autorisation et joignez ${doc.text}. Retournez l’ensemble ${dept}. Le traitement administratif s’effectue en ${delay.text}. Ce service permet ${de(benefit.text)}.`
       return {
         text,
         questions: [
-          ['Quelle est la durée couverte par ce contrat de bail ?', period, 'cinq années consécutives sans aucun droit de renouvellement', 'une fin de semaine d’été seulement pendant les vacances scolaires'],
-          ['Comment les frais d’énergie sont-ils gérés selon le bail ?', `les coûts d’énergie sont ${heat}`, 'la municipalité finance l’ensemble des factures d’électricité', 'les voisins du palier se partagent les paiements de l’immeuble'],
+          ['Quel document financier faut-il joindre au formulaire ?', doc.opt, othersDoc[0].opt, othersDoc[1].opt],
+          ['Quel est le délai prévu pour la mise en place du service ?', delay.opt, othersDelay[0].opt, othersDelay[1].opt],
         ],
       }
     },
-    { situation: 0, capacity: N4_LEASE_ADDRS.length * N4_LEASE_RENTS.length * N4_LEASE_PERIODS.length * N4_LEASE_HEATS.length * N4_LEASE_PETS.length }
+    { situation: 0, capacity: N4_DIRECT_DEPOSIT_DEPTS.length * N4_DIRECT_DEPOSIT_DOCS.length * N4_DIRECT_DEPOSIT_DELAYS.length * N4_DIRECT_DEPOSIT_BENEFITS.length }
   ),
-  // Scenario 4 (Template, situation: 1 variant)
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Horaires et services de l'écocentre municipal)
   Object.assign(
     (rand) => {
-      const fest = pick(N4_FESTIVAL_NAMES, rand)
-      const crowd = pick(N4_FESTIVAL_CROWDS, rand)
-      const days = pick(N4_FESTIVAL_DAYS, rand)
-      const high = pick(N4_FESTIVAL_HIGHS, rand)
-      const text = `Chronique culturelle. Succès retentissant pour ${fest} qui s’est achevé dimanche. Au cours de ${days}, ${crowd} se sont déplacées pour applaudir les artistes. Les organisateurs dressent un bilan très positif en insistant sur ${high}. La sécurité a été exemplaire.`
+      const city = pick(N4_ECOCENTER_CITIES, rand)
+      const period = pick(N4_ECOCENTER_PERIODS, rand)
+      const hours = pick(N4_ECOCENTER_HOURS, rand)
+      const accepted = pick(N4_ECOCENTER_ACCEPTED, rand)
+      const req = pick(N4_ECOCENTER_REQUIRED, rand)
+      const othersAccept = sample(N4_ECOCENTER_ACCEPTED.filter((a) => a.opt !== accepted.opt), 2, rand)
+      const othersReq = sample(N4_ECOCENTER_REQUIRED.filter((r) => r.opt !== req.opt), 2, rand)
+      const text = `Avis municipal - Écocentre ${city}. Durant la période estivale, ${period}, le site accueille les citoyens ${hours}. Les résidents peuvent y déposer sans frais ${accepted.text}. L’accès est gratuit sur présentation obligatoire d’${req.text}. Merci de trier vos matières avant l’arrivée sur place.`
       return {
         text,
         questions: [
-          ['Quelle manifestation culturelle fait l’objet du compte rendu ?', fest, 'une foire agricole annuelle présentant du matériel de récolte', 'une exposition muséale sur des instruments scientifiques anciens'],
-          ['Quelle durée les festivités ont-elles couverte cette année ?', days, 'deux petites heures seulement avant le coucher du soleil', 'trois mois complets répartis sur toute la saison hivernale'],
+          ['Quelles matières les citoyens peuvent-ils apporter sans frais ?', accepted.opt, othersAccept[0].opt, othersAccept[1].opt],
+          ['Quel document officiel faut-il présenter pour entrer sur le site ?', req.opt, othersReq[0].opt, othersReq[1].opt],
         ],
       }
     },
-    { situation: 1, capacity: N4_FESTIVAL_NAMES.length * N4_FESTIVAL_CROWDS.length * N4_FESTIVAL_DAYS.length * N4_FESTIVAL_HIGHS.length }
+    { situation: 1, capacity: N4_ECOCENTER_CITIES.length * N4_ECOCENTER_PERIODS.length * N4_ECOCENTER_HOURS.length * N4_ECOCENTER_ACCEPTED.length * N4_ECOCENTER_REQUIRED.length }
   ),
-  // Scenario 5 (Static, situation: 0)
+  // Scenario 5 (Static, situation: 0) - Avis de renouvellement de bail
   {
     situation: 0,
-    text: 'Avis officiel de renouvellement de bail. Madame Bergeron vous informe que le loyer de votre trois et demie au 820 rue Saint-Vallier sera majoré de trente dollars pour atteindre 950 dollars dès le premier juillet. Vous disposez d’un délai d’un mois après réception pour accepter ou refuser cette hausse par écrit.',
+    text: 'Avis officiel de renouvellement de bail. Madame Bergeron vous informe que le loyer de votre trois et demie au 820 rue Saint-Vallier sera ajusté de trente dollars pour atteindre 950 dollars dès le premier juillet. Vous disposez d’un délai d’un mois après réception pour accepter ou refuser cette hausse par écrit.',
     questions: [
-      ['De combien le montant du loyer sera-t-il augmenté ?', 'de trente dollars par mois', 'de deux cents dollars par mois', 'd’aucun montant supplémentaire'],
-      ['Quel délai le locataire a-t-il pour signifier sa décision ?', 'un délai d’un mois après réception', 'six mois après la date de renouvellement', 'trois jours ouvrables seulement'],
+      ['De quel montant le loyer sera-t-il augmenté selon cet avis ?', 'de trente dollars de plus par mois', 'de quatre-vingts dollars de plus par mois', 'de quinze dollars de plus chaque mois'],
+      ['Quel délai le locataire a-t-il pour envoyer sa réponse ?', 'trente jours pour transmettre sa décision', 'trois mois complets pour donner une réponse', 'deux semaines ouvrables après la réception'],
     ],
   },
-  // Scenario 6 (Static, situation: 1)
+  // Scenario 6 (Static, situation: 1) - Bilan de la Fête des neiges au parc Jean-Drapeau
   {
     situation: 1,
-    text: 'Revue municipale : bilan de la Fête des neiges. Plus de quarante-cinq mille personnes se sont rassemblées au parc Jean-Drapeau durant trois fins de semaine d’hiver. Les glissades sur tube géantes, les ateliers de sculpture sur glace et la distribution de chocolat chaud ont fait le bonheur des petits et grands.',
+    text: 'Revue municipale : bilan de la Fête des neiges. Plus de quarante-cinq mille personnes se sont rassemblées au parc Jean-Drapeau durant trois fins de semaine d’hiver. Les glissades sur tube, les ateliers de sculpture sur neige et la distribution de chocolat chaud ont fait la joie des petits et des grands.',
     questions: [
-      ['Où cette fête hivernale s’est-elle déroulée à Montréal ?', 'au parc Jean-Drapeau', 'sur le toit d’un gratte-ciel', 'dans le port de marchandises'],
-      ['Quelles attractions ont notamment diverti les participants ?', 'les glissades sur tube et sculptures sur glace', 'des courses de chevaux sur la plage', 'des concours d’avions téléguidés'],
+      ['Où cette fête d’hiver populaire s’est-elle tenue à Montréal ?', 'au parc Jean-Drapeau', 'au parc La Fontaine', 'au parc du Mont-Royal'],
+      ['Quelles attractions hivernales ont notamment diverti le public ?', 'des glissades et des sculptures sur neige', 'des courses de traîneaux à chiens rapides', 'des tournois de hockey sur patinoire couverte'],
     ],
   },
 ]
