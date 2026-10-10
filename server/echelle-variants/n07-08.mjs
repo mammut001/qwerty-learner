@@ -1262,9 +1262,477 @@ export const N07_08_SCENARIOS = {
   // ===========================================================================
   // NIVEAU 8 - SCENARIOS TO BE IMPLEMENTED IN NEXT BATCH
   // ===========================================================================
-  'n8-listening-0': [],
-  'n8-listening-1': [],
-  'n8-listening-2': [],
+  // ===========================================================================
+  // n8-listening-0 (informatif)
+  // Ex 0: Enquête de satisfaction réalisée auprès de la clientèle
+  // Ex 1: Tâches du poste souhaité lors d’un entretien d’embauche
+  // ===========================================================================
+  'n8-listening-0': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "Bonjour à toute l’équipe. Je vous présente ce matin la synthèse de notre grande enquête de satisfaction annuelle menée auprès de mille deux cents clients de nos succursales de quincaillerie de l’Estrie. Globalement, l’indice global de recommandation atteint soixante-dix-huit pour cent, ce qui constitue une progression notable de quatre points par rapport à l’exercice précédent. Les répondants ont particulièrement vanté la courtoisie de notre personnel de plancher et l’expertise technique offerte au comptoir des matériaux lourds. Néanmoins, deux irritants récurrents ressortent clairement des commentaires qualitatifs. Tout d’abord, plus de quarante pour cent des usagers déplorent le temps d’attente aux caisses lors des périodes de pointe du samedi matin. Ensuite, le système de commande en ligne pour cueillette à l’auto souffre d’erreurs récurrentes d’inventaire dans plusieurs commerces. Afin de corriger ces lacunes d’ici l’automne, la direction générale a prévu d’accélérer la formation des préposés saisonniers et de déployer un tout nouveau logiciel de gestion des stocks dès le mois prochain.",
+      questions: [
+        [
+          "Quel aspect du service a été le plus favorablement accueilli par la clientèle ?",
+          "L’accompagnement compétent des employés en magasin",
+          "La rapidité exceptionnelle du passage aux caisses le samedi",
+          "La grande disponibilité du stationnement réservé à l’auto",
+        ],
+        [
+          "Que peut-on déduire sur l’attitude de la direction face aux faiblesses signalées ?",
+          "Elle réagit promptement en allouant des ressources ciblées",
+          "Elle préfère minimiser les plaintes en attendant la saison d’hiver",
+          "Elle rejette toute la faute sur les fournisseurs externes",
+        ],
+        [
+          "Quel problème logistique précis les répondants ont-ils souligné ?",
+          "Des écarts fréquents dans l’état réel des marchandises disponibles",
+          "Une rupture totale dans l’approvisionnement en matériaux lourds",
+          "Un manque chronique de camions pour assurer la livraison à domicile",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "Merci d’être là. Voici les faits saillants de l’étude de satisfaction réalisée par notre firme indépendante auprès des usagers de la traverse maritime de Rivière-du-Loup. Sur un échantillon représentatif de huit cents passagers interrogés au cours de la saison estivale, quatre-vingt-cinq pour cent se disent très satisfaits de la ponctualité des départs et des normes de sécurité appliquées à bord des traversiers. En revanche, le volet des réservations numériques essuie des critiques sévères : les pannes répétées du site Web lors de l’ouverture des plages horaires ont suscité une vive frustration chez les familles et les transporteurs routiers. De surcroît, la signalétique à l’embarcadère pour orienter les véhicules récréatifs a été jugée confuse par près de la moitié des conducteurs étrangers à la région. Face à ces constats, nous recommandons de moderniser l’infrastructure d’hébergement web avant la haute saison et de clarifier le balisage routier aux abords immédiats des quais de chargement afin de fluidifier les opérations d’embarquement.",
+      questions: [
+        [
+          "Quelle force principale de la traverse ressort avec clarté du sondage ?",
+          "Le respect scrupuleux des horaires annoncés pour les départs",
+          "L’accessibilité exemplaire de la nouvelle plateforme de réservation",
+          "La clarté parfaite des panneaux routiers à l’embarcadère",
+        ],
+        [
+          "Quelle réaction des voyageurs la défaillance informatique a-t-elle provoquée ?",
+          "Un mécontentement marqué face aux blocages numériques",
+          "Une annulation massive de toutes les traversées prévues",
+          "Un refus catégorique de respecter les consignes à bord",
+        ],
+        [
+          "Quelle intention anime la direction dans les changements recommandés ?",
+          "Prévenir les engorgements et fiabiliser les outils en ligne",
+          "Augmenter les tarifs de passage pour financer les travaux",
+          "Réduire la cadence des traversées en basse saison hivernale",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "Chers collègues, j’ai analysé les résultats du sondage mené auprès des trois mille abonnés de notre réseau d’espaces de travail partagés à Montréal et à Laval. Le niveau de fidélité demeure robuste avec une cote de satisfaction de quatre étoiles et demie sur cinq. Les membres apprécient tout particulièrement la luminosité des bureaux individuels, l’insonorisation des cabines téléphoniques et la vitesse de la connexion à fibre optique. Toutefois, l’enquête révèle un mécontentement grandissant concernant la gestion des aires communes de restauration : le manque de propreté des réfrigérateurs et la pénurie d’ustensiles aux heures du dîner alimentent les frictions quotidiennes. Par ailleurs, plusieurs télétravailleurs estiment que les tarifs mensuels ont progressé plus vite que la qualité globale des équipements ergonomiques fournis. Pour consolider la confiance de notre communauté, nous allons instaurer un protocole de nettoyage renforcé deux fois par jour et réviser les forfaits de location longue durée d’ici le prochain trimestre d’exploitation.",
+      questions: [
+        [
+          "Quel atout matériel recueille un assentiment massif auprès des membres ?",
+          "L’efficacité des cloisons acoustiques dans les cabines privées",
+          "La gratuité complète de tous les repas servis dans l’espace cafétéria",
+          "La baisse continue des frais d’adhésion pour les entreprises",
+        ],
+        [
+          "Que peut-on déduire quant à l’effet des désagréments observés dans la cuisine ?",
+          "Ils nuisent à la convivialité et créent des tensions réelles",
+          "Ils incitent la majorité des membres à rompre leur contrat",
+          "Ils contraignent les usagers à télétravailler depuis leur résidence",
+        ],
+        [
+          "Quelle mesure corrective immédiate l’équipe de gestion compte-t-elle implanter ?",
+          "Un accroissement de la fréquence d’entretien des espaces partagés",
+          "La fermeture définitive des aires de restauration pour le dîner",
+          "L’acquisition immédiate de nouveaux ordinateurs portables pour chacun",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "— Bonjour, monsieur Bélanger. Permettez-moi de vous préciser les responsabilités quotidiennes du poste de coordonnateur en développement durable pour lequel vous postulez. Au sein de notre municipalité régionale de comté dans Lanaudière, votre mandat consistera principalement à accompagner seize municipalités dans l’élaboration de leur plan climat territorial. Vous rédigerez les devis techniques des projets de transition énergétique, vous animerez des séances de consultation publique en soirée auprès des citoyens et vous préparerez les demandes d’aide financière auprès des ministères provinciaux. Le rythme de travail exige une grande polyvalence et une solide aisance relationnelle, notamment lorsqu’il s’agit de concilier des visions divergentes entre les agriculteurs, les commerçants et les groupes écologistes locaux. Nous accordons deux jours de télétravail par semaine, mais vous devrez vous déplacer fréquemment sur le territoire lors des réunions de conseil. Si cette charge de travail s’avère exigeante sur le plan logistique, elle offre une autonomie décisionnelle rare pour une entrée en fonction dans notre organisation municipale.",
+      questions: [
+        [
+          "En quoi consiste la tâche principale liée au mandat proposé ?",
+          "Guider les villes locales dans la conception de stratégies climatiques",
+          "Assurer la maintenance mécanique des installations solaires municipales",
+          "Gérer exclusivement le budget annuel des travaux d’asphaltage urbain",
+        ],
+        [
+          "Quelle exigence particulière découle implicitement de l’animation des réunions citoyennes ?",
+          "Savoir négocier avec tact entre des interlocuteurs opposés",
+          "Imposer unilatéralement les directives de l’administration",
+          "Refuser la parole aux groupes qui contestent les mesures",
+        ],
+        [
+          "Quelle modalité d’organisation du travail est garantie dans ce poste ?",
+          "La possibilité d’exercer ses fonctions à distance à temps partiel",
+          "L’interdiction absolue de tout déplacement hors du bureau central",
+          "Une présence obligatoire au siège régional cinq jours par semaine",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "— Bienvenue, madame Roy. Pour cette fonction d’analyste en cybersécurité au sein de notre coopérative financière à Lévis, vos missions s’articuleront autour de trois axes majeurs. D’abord, vous assurerez la surveillance active des journaux d’événements afin de détecter les anomalies réseau et les tentatives d’intrusion sur nos serveurs transactionnels. Ensuite, vous concevrez des simulations internes d’hameçonnage pour évaluer la vigilance de nos six cents employés et adapter nos ateliers de formation continue. Enfin, en cas de faille avérée, vous rédigerez les rapports post-incident destinés aux autorités réglementaires financières et au comité de direction. Ce rôle nécessite une capacité d’analyse rigoureuse sous pression, car vous participerez à une rotation d’astreinte téléphonique une fin de semaine par mois pour intervenir en cas d’alerte critique. Même si notre environnement technologique est hautement complexe, vous intégrerez une équipe chevronnée qui valorise le partage des connaissances et accorde un budget généreux pour l’obtention de certifications spécialisées chaque année.",
+      questions: [
+        [
+          "Quelle mission préventive figure parmi les tâches de l’analyste ?",
+          "Organiser des tests d’attaque fictifs pour former le personnel",
+          "Remplacer tous les terminaux de paiement des succursales locales",
+          "Installer manuellement les logiciels comptables de la direction",
+        ],
+        [
+          "Quelle attitude est implicitement requise lors des périodes d’astreinte ?",
+          "Une disponibilité réactive doublée d’un grand sang-froid",
+          "Une indifférence sereine envers l’ensemble des alertes logicielles",
+          "Une tendance à déléguer systématiquement aux stagiaires",
+        ],
+        [
+          "Quel avantage professionnel l’institution propose-t-elle à la candidate ?",
+          "Un financement régulier pour perfectionner ses compétences",
+          "Une dispense totale de toute formation au cours de l’année",
+          "Un horaire de travail fixe sans aucune contrainte d’urgence",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "— Bonjour, monsieur Da Silva. Installez-vous confortablement. Comme vous le savez, le poste de gestionnaire de communauté pour notre festival de théâtre émergent à Trois-Rivières requiert un profil dynamique et polyvalent. Votre mandat englobe la gestion quotidienne de nos plateformes numériques, la rédaction d’infolettres percutantes pour nos abonnés et la création de capsules vidéo en coulisses avec les troupes invitées. En période estivale, l’intensité grimpe d’un cran : vous coordonnerez une équipe de huit bénévoles affectés à l’accueil des médias culturels et à la captation des spectacles en plein air. Vous aurez également la responsabilité d’assurer un service à la clientèle courtois en répondant rapidement aux messages du public, y compris en soirée pendant la quinzaine du festival. Nous cherchons quelqu’un doté d’une plume impeccable en français, créatif et capable de conserver son calme en situation d’imprévu technique. En contrepartie, vous jouirez d’une liberté artistique substantielle et d’un accès privilégié à toutes les résidences artistiques de l’année.",
+      questions: [
+        [
+          "Quelle responsabilité directe incombe au candidat durant la période du festival ?",
+          "Encadrer un groupe de bénévoles pour appuyer les journalistes",
+          "Concevoir la programmation théâtrale complète de la prochaine édition",
+          "Négocier les cachets financiers des comédiens internationaux",
+        ],
+        [
+          "Que peut-on déduire sur les contraintes horaires liées à cet emploi ?",
+          "Les journées de travail s’étirent souvent lors des représentations",
+          "L’horaire s’arrête strictement à dix-sept heures chaque jour ouvrable",
+          "Le travail s’effectue uniquement les fins de semaine durant l’automne",
+        ],
+        [
+          "Quel bénéfice d’ordre culturel le poste offre-t-il au gestionnaire engagé ?",
+          "Une immersion au cœur des ateliers de création théâtrale",
+          "Une gratuité totale pour assister à des concerts de musique pop",
+          "Un voyage culturel entièrement défrayé dans une capitale d’Europe",
+        ],
+      ],
+    },
+  ],
+  // ===========================================================================
+  // n8-listening-1 (narratif)
+  // Ex 0: Rétrospective du mandat d’un gouvernement sortant lors de la soirée électorale
+  // Ex 1: Long-métrage de fiction sur la vie sentimentale de jeunes adultes
+  // ===========================================================================
+  'n8-listening-1': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "— Bonsoir à tous. À l’occasion de cette soirée électorale palpitante, dressons le bilan des quatre années de mandat du gouvernement sortant à l’Assemblée nationale. Arrivée au pouvoir avec la promesse d’un virage audacieux en santé, la coalition ministérielle peut se targuer d’avoir augmenté considérablement le nombre d’infirmières praticiennes spécialisées dans les CLSC et d’avoir enfin décentralisé la gestion des hôpitaux régionaux. Toutefois, la promesse phare d’éliminer l’attente aux urgences urbaines s’est heurtée à une pénurie sans précédent de préposés aux bénéficiaires, provoquant de vives tensions avec les fédérations de médecins. Sur le plan économique, le premier ministre a réussi à attirer des investissements substantiels dans la filière des batteries pour véhicules écologiques à Bécancour. Mais cette réussite industrielle est assombrie par le déficit budgétaire record accumulé, que l’opposition qualifie de dérive gestionnaire. Alors que les premiers bureaux de vote ferment leurs portes, les analystes s’accordent pour dire que l’électorat hésite encore entre la continuité des chantiers entamés et un désir palpable de renouveau démocratique.",
+      questions: [
+        [
+          "Quel accomplissement concret le bilan gouvernemental met-il en lumière en santé ?",
+          "Le renforcement du rôle des infirmières spécialisées en clinique",
+          "La suppression définitive de tout délai d’attente dans les urgences",
+          "La fermeture de plusieurs centres de soins dans les régions éloignées",
+        ],
+        [
+          "Quelle réaction critique des adversaires politiques la gestion financière suscite-t-elle ?",
+          "Un reproche véhément visant l’ampleur du déséquilibre des finances",
+          "Une contestation légale de l’installation d’usines à Bécancour",
+          "Une accusation de fraude électorale envers les membres du conseil",
+        ],
+        [
+          "Quel sentiment général émerge implicitement chez les électeurs à l’heure du scrutin ?",
+          "Un tiraillement entre la stabilité acquise et la volonté de changement",
+          "Une certitude absolue de reconduire massivement l’équipe en place",
+          "Un désintérêt complet pour les questions de santé et d’économie",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "— Nous retrouvons notre correspondant parlementaire pour analyser la trajectoire de l’administration municipale sortante lors de ce scrutin local. Il y a quatre ans, la mairesse avait promis une transformation écologique ambitieuse de la métropole. Les réalisations sont indéniables dans le domaine du transport actif, avec plus de soixante kilomètres de voies cyclables sécurisées aménagées et l’acquisition d’autobus entièrement électriques pour la société de transport. Cependant, le mandat a été durement secoué par la crise du logement abordable, qui a jeté une lumière crue sur la lenteur des chantiers communautaires et la flambée des loyers. De surcroît, la réfection interminable des conduites d’aqueduc au centre-ville a provoqué l’ire des commerçants indépendants, dont plusieurs ont dû déclarer faillite faute d’achalandage piétonnier. Alors que le dépouillement commence, la mairesse sortante joue son avenir politique sur sa capacité à convaincre la population que les perturbations subies portaient la promesse d’une métropole plus résiliente pour les générations à venir.",
+      questions: [
+        [
+          "Quel succès majeur l’administration municipale peut-elle revendiquer ?",
+          "L’agrandissement notable du réseau de circulation pour vélos",
+          "L’éradication complète de la crise du logement dans la ville",
+          "L’achèvement précoce des réparations d’aqueduc au centre-ville",
+        ],
+        [
+          "Que peut-on déduire sur l’attitude des commerçants face aux travaux de réfection ?",
+          "Ils nourrissent une rancœur vive nourrie par leurs pertes d’argent",
+          "Ils applaudissent la métamorphose paysagère de leurs artères piétonnes",
+          "Ils refusent catégoriquement d’accepter les usagers du vélo en magasin",
+        ],
+        [
+          "Quel argument la mairesse tente-t-elle de faire valoir pour persuader les votants ?",
+          "Les perturbations subies étaient nécessaires pour préparer l’avenir",
+          "Les travaux routiers n’ont occasionné aucun dérangement pour quiconque",
+          "Le réseau de transport public sera dorénavant privatisé sans délai",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "— Mesdames et messieurs, bienvenue à notre rétrospective politique consacrée au mandat du gouvernement sortant en matière d’éducation et de culture. Durant les quatre dernières années, l’équipe au pouvoir a injecté des sommes historiques pour moderniser les écoles vétustes et réduire le nombre d’élèves par classe au premier cycle du primaire. Les milieux culturels saluent également l’instauration d’un passeport culturel pour les adolescents, qui a stimulé la fréquentation des musées et des théâtres régionaux. En contrepartie, le déploiement chaotique de la plateforme numérique des services scolaires a suscité une vive fronde des enseignants, dénonçant un outil déficient imposé sans consultation préalable. Sur le front des négociations salariales, la grève historique du personnel de soutien l’automne dernier a laissé des cicatrices profondes dans les communautés scolaires. Au moment où les électeurs rendent leur verdict, le bilan gouvernemental apparaît contrasté : une volonté réformatrice indéniable sur le plan matériel, mais fragilisée par un dialogue social laborieux et souvent conflictuel.",
+      questions: [
+        [
+          "Quelle mesure a été favorablement accueillie dans le secteur de l’enseignement ?",
+          "La baisse des effectifs d’enfants dans les classes débutantes",
+          "La suppression de toute aide financière aux établissements culturels",
+          "L’instauration obligatoire d’un examen unique à l’échelle nationale",
+        ],
+        [
+          "Quel sentiment les enseignants ont-ils exprimé face au nouvel outil informatique ?",
+          "Une exaspération partagée causée par un manque de concertation",
+          "Une satisfaction enthousiaste devant la simplicité du programme",
+          "Une indifférence passive liée à l’utilisation d’autres logiciels",
+        ],
+        [
+          "Que déduit implicitement le journaliste au sujet des relations de travail ?",
+          "Les conflits syndicaux ont entamé la confiance du corps professoral",
+          "Les augmentations de salaire ont dissipé toute tension avec les écoles",
+          "Les écoles ont refusé de fermer leurs portes pendant les mobilisations",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "Dans sa chronique culturelle, Félix commente la sortie en salle du nouveau long-métrage québécois « L’Écho des Marées ». Cette œuvre dramatique met en scène Juliette, une jeune architecte de Rimouski, et Antoine, un photographe animalier revenant d’un long séjour sur la Côte-Nord. Réunis par le mandat de rénover une maison ancestrale au bord du Saint-Laurent, les deux protagonistes nouent une complicité lumineuse qui bascule progressivement vers une liaison passionnée. Cependant, l’intrigue évite habilement les clichés de la romance convenue : la réalisatrice explore avec finesse la peur de l’engagement d’Antoine, hanté par l’échec d’une relation antérieure, et les ambitions professionnelles divergentes de Juliette, tentée par une offre d’emploi prestigieuse à Montréal. Le film captive par son authenticité psychologique, montrant comment les non-dits et le déracinement géographique pèsent sur l’amour à l’aube de la trentaine. La scène culminante sur les battures au crépuscule livre une réflexion poignante sur la nécessité de renoncer à certaines illusions pour grandir ensemble sans étouffer la liberté de l’autre.",
+      questions: [
+        [
+          "Quel prétexte professionnel réunit les deux personnages principaux au début du récit ?",
+          "Le projet de restauration d’une demeure patrimoniale sur la rive",
+          "L’organisation conjointe d’une exposition de photos à Montréal",
+          "L’achat d’un commerce de pêche dans un village de la Côte-Nord",
+        ],
+        [
+          "Quel obstacle personnel freine Antoine dans sa relation naissante avec Juliette ?",
+          "Les blessures non résolues laissées par une rupture passée",
+          "Le rejet catégorique du milieu de vie maritime de la jeune femme",
+          "Le manque d’intérêt total pour les projets d’architecture de celle-ci",
+        ],
+        [
+          "Que peut-on déduire sur l’intention de la cinéaste à travers ce long-métrage ?",
+          "Dépeindre les compromis affectifs sans verser dans la facilité romanesque",
+          "Présenter une vision idyllique où l’amour triomphe sans aucun sacrifice",
+          "Dénoncer l’exode rural des jeunes talents vers les grands centres urbains",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "Ce matin, notre critique cinéma revient sur le long-métrage indépendant « Les Soleils d’Automne », réalisé par une jeune créatrice de Sherbrooke. L’histoire suit trois amis d’enfance, Clara, Samuel et Vincent, qui partagent un appartement dans le quartier ouvrier de Saint-Roch à Québec. Alors que leur groupe paraissait soudé par les souvenirs du cégep et un amour partagé pour la musique indie, l’arrivée inattendue d’un sentiment amoureux vient bouleverser leur bel équilibre. Samuel et Vincent tombent tous deux amoureux de Clara, tandis que cette dernière, tiraillée entre son affection fraternelle pour l’un et son attirance vertigineuse pour l’autre, s’enferme dans le silence pour préserver leur colocation. La caméra capte avec une pudeur remarquable les regards fuyants, les soupers partagés où s’accumulent les malaises et la lente dégradation d’une complicité jadis inaltérable. La fin, tout en nuances et sans dénouement mélodramatique, laisse le spectateur songeur face à cette étape charnière où l’amitié inconditionnelle de la jeunesse doit s’effacer devant les vérités du cœur et les choix d’adultes.",
+      questions: [
+        [
+          "Quel événement déclencheur vient fissurer la cohésion des trois colocataires ?",
+          "La naissance de sentiments amoureux rivaux envers leur amie commune",
+          "Une dispute financière grave liée au paiement du loyer mensuel",
+          "La décision soudaine de Vincent de partir étudier à l’étranger",
+        ],
+        [
+          "Quelle attitude Clara adopte-t-elle face à la tension naissante entre ses amis ?",
+          "Elle choisit de se taire pour éviter d’aggraver les divisions",
+          "Elle force ses camarades à quitter immédiatement l’appartement",
+          "Elle met fin sur-le-champ à toute relation avec les deux garçons",
+        ],
+        [
+          "Que sous-entend la conclusion du film quant au passage à l’âge adulte ?",
+          "Les amitiés de jeunesse doivent composer avec des dilemmes sentimentaux",
+          "La rupture des liens fraternels découle toujours d’un manque de loyauté",
+          "Les relations sentimentales demeurent toujours futiles et secondaires",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "Au microphone de l’émission artistique, nous découvrons aujourd’hui le film « Lignes de Fuite », primé au festival de cinéma de Rouyn-Noranda. Le récit met en scène Sandrine, une traductrice méticuleuse de Gatineau, et Maxime, un paysagiste rêveur rencontré par hasard lors d’un concert dans le Vieux-Hull. Dès leurs premiers rendez-vous, une alchimie singulière opère entre leurs personnalités contrastées : elle incarne la prévoyance et l’organisation rationnelle, tandis qu’il vit au jour le jour, sans plan de carrière ni attache financière. Au fil des saisons, leur union se heurte aux réalités concrètes de la cohabitation et au projet de fonder un foyer. Le cinéaste signe une œuvre vibrante et drôle sur la vulnérabilité émotionnelle, explorant comment deux êtres aux rythmes biologiques et mentaux discordants tentent de négocier un espace commun sans renier leur identité profonde. Porté par des interprètes d’un naturel désarmant, le long-métrage illustre avec justesse les doutes existentiels d’une génération qui refuse de sacrifier ses idéaux personnels au conformisme social.",
+      questions: [
+        [
+          "Quelle différence fondamentale caractérise les deux protagonistes de cette comédie dramatique ?",
+          "Leurs rapports diamétralement opposés à la prévoyance quotidienne",
+          "Leurs opinions politiques incompatibles lors des élections locales",
+          "Leurs désaccords irréconciliables sur l’importance des études d’art",
+        ],
+        [
+          "Quel sentiment les personnages éprouvent-ils au fil de leur cohabitation ?",
+          "Une insécurité grandissante face à l’avenir et aux projets communs",
+          "Une certitude absolue que leurs différences renforceront leur foyer",
+          "Un profond mépris l’un pour l’autre après la première dispute vécue",
+        ],
+        [
+          "Que déduit le chroniqueur au sujet de la génération dépeinte dans cette œuvre ?",
+          "Elle cherche à s’épanouir amoureusement sans subir les modèles traditionnels",
+          "Elle privilégie systématiquement l’enrichissement matériel avant l’amour",
+          "Elle évite toute relation durable afin de préserver une solitude choisie",
+        ],
+      ],
+    },
+  ],
+  // ===========================================================================
+  // n8-listening-2 (explicatif)
+  // Ex 0: Explications d’une journaliste sur les enjeux de main-d’œuvre et les solutions des élus
+  // Ex 1: Explications d’un gestionnaire sur les causes d’une mésentente avec un client
+  // ===========================================================================
+  'n8-listening-2': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "Ici Isabelle Roy en direct de Roberval pour Le bulletin régional. La pénurie de main-d’œuvre frappe de plein fouet les secteurs manufacturier et forestier du Saguenay–Lac-Saint-Jean, où plus de deux mille postes demeurent vacants. Plusieurs petites entreprises familiales doivent même refuser des commandes lucratives faute d’opérateurs de machinerie lourde et de mécaniciens industriels. Pour freiner cette hémorragie économique, la table des préfets et les mairesses de la région ont dévoilé ce matin un plan d’action concerté comportant trois mesures phares. Premièrement, une enveloppe de trois millions de dollars financera des bourses incitatives destinées aux étudiants collégiaux s’engageant à occuper un emploi dans la région pendant au moins trois ans après leur diplomation. Deuxièmement, les élus s’associent avec Francisation Québec pour offrir des cours de langue sur mesure directement dans les usines aux travailleurs immigrants temporaires. Enfin, un projet pilote de transport collectif intermunicipal reliera les zones industrielles aux municipalités environnantes pour faciliter les déplacements des travailleurs sans permis de conduire.",
+      questions: [
+        [
+          "Quel impact direct le manque de personnel a-t-il sur les entreprises locales ?",
+          "L’obligation de décliner des contrats d’affaires rentables",
+          "L’arrêt définitif de toutes les activités de coupe en forêt",
+          "La faillite immédiate de la majorité des petites usines du coin",
+        ],
+        [
+          "À quelle condition un étudiant peut-il toucher la bourse financière régionale ?",
+          "Demeurer en poste sur le territoire pendant une période de trois ans",
+          "S’engager à travailler sans rémunération pendant son stage pratique",
+          "Obtenir obligatoirement la première place de sa cohorte collégiale",
+        ],
+        [
+          "Quelle intention anime les élus en implantant des cours de français en entreprise ?",
+          "Favoriser l’enracinement durable des travailleurs issus de l’immigration",
+          "Remplacer le personnel syndiqué par des stagiaires venus de l’étranger",
+          "Réduire les salaires octroyés aux personnes qui ne parlent pas la langue",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "Bienvenue à notre dossier économique en direct de Sherbrooke. Dans les Cantons-de-l’Est, c’est le secteur des soins de santé et des services de garde éducatifs qui subit les contrecoups les plus sévères de la pénurie d’employés qualifiés. Près de six cents places en centre de la petite enfance restent fermées, empêchant de nombreux parents, en particulier des mères de famille, de réintégrer le marché du travail. Face à cette impasse, les élus municipaux de la MRC de Memphrémagog ont présenté une stratégie novatrice en collaboration avec le cégep local. D’une part, ils proposent une formation intensive rémunérée en alternance travail-études, permettant aux nouvelles recrues d’acquérir leurs compétences tout en exerçant en salle de classe. D’autre part, pour surmonter l’obstacle majeur de la crise du logement, les municipalités céderont des terrains à prix symbolique afin de construire des coopératives d’habitation réservées en priorité aux travailleurs des services essentiels. Ces initiatives visent à redonner un souffle durable aux familles et aux institutions du réseau.",
+      questions: [
+        [
+          "Quelle conséquence sociale la pénurie d’éducatrices entraîne-t-elle dans la région ?",
+          "Le maintien forcé de parents hors de la vie professionnelle",
+          "La fermeture complète de tous les centres pédiatriques de l’Estrie",
+          "L’expulsion massive des enfants inscrits dans les garderies privées",
+        ],
+        [
+          "Comment le programme collégial facilite-t-il l’apprentissage du métier d’éducatrice ?",
+          "En combinant un salaire régulier avec l’acquisition théorique en classe",
+          "En exigeant un diplôme collégial de niveau supérieur avant l’embauche",
+          "En supprimant tout stage pratique au contact des tout-petits en centre",
+        ],
+        [
+          "Que déduit-on quant à l’attitude des municipalités envers la crise de l’habitation ?",
+          "Elles agissent concrètement pour lever le frein lié au coût du logement",
+          "Elles refusent d’intervenir dans un secteur relevant du domaine privé",
+          "Elles considèrent que le marché immobilier finira par s’ajuster seul",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "À l’antenne régionale de Trois-Rivières, nous faisons le point sur la filière bioalimentaire en Mauricie. Malgré une demande vigoureuse pour les produits du terroir, les maraîchers et les transformateurs laitiers peinent à trouver des journaliers et des techniciens de ligne. La concurrence féroce des grandes usines urbaines, qui offrent des salaires horaires plus élevés, prive les exploitations agricoles de main-d’œuvre locale. Pour inverser la vapeur, les maires des municipalités rurales ont annoncé un partenariat inédit avec la Société de développement économique. Leur plan prévoit des incitations fiscales pour les exploitations qui automatisent les tâches les plus physiques, telles que le tri et l’emballage des récoltes, afin de rehausser l’attrait des postes restants. Parallèlement, un service d’accompagnement clé en main sera offert aux exploitants pour faciliter l’accueil des travailleurs étrangers temporaires, en prenant en charge les démarches administratives de visa et la recherche d’hébergement salubre dans les villages environnants.",
+      questions: [
+        [
+          "Quel facteur nuit particulièrement au recrutement dans le milieu agricole ?",
+          "L’attractivité des salaires versés par les usines des grands centres",
+          "La chute continue de la demande pour les aliments issus du terroir",
+          "L’interdiction légale d’embaucher des employés saisonniers en région",
+        ],
+        [
+          "Quel objectif vise l’automatisation des tâches de conditionnement selon le reportage ?",
+          "Alléger la pénibilité du travail pour séduire de nouveaux candidats",
+          "Éliminer tous les emplois humains dans les entreprises de Mauricie",
+          "Accélérer la vente de produits importés au détriment des récoltes",
+        ],
+        [
+          "Quelle intention se dégage du soutien administratif accordé aux producteurs ?",
+          "Simplifier l’embauche internationale pour combler les postes vacants",
+          "Bloquer l’arrivée de travailleurs temporaires dans les villages ruraux",
+          "Transférer l’entière gestion des fermes sous l’autorité des municipalités",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "— Bonjour à toute l’équipe projet. Je vous ai réunis pour faire le point sur le différend qui nous oppose à notre client, le ministère des Transports, concernant la refonte du portail des usagers. Plusieurs d’entre vous s’interrogent sur les tensions ressenties lors du dernier comité de pilotage. La cause fondamentale de cette mésentente réside dans un écart d’interprétation sur le devis initial. De notre côté, nous avons livré les modules de consultation des horaires conformément au calendrier convenu. En revanche, le client s’attendait à ce que la fonctionnalité de géolocalisation en temps réel des autobus soit incluse dans cette première phase, alors qu’elle ne figurait que dans les options de la deuxième phase contractuelle. De plus, nos retards d’échanges de courriels le mois dernier ont alimenté chez eux le sentiment d’un manque de transparence. Pour désamorcer le litige, j’ai proposé au sous-ministre adjoint d’intégrer un prototype simplifié de géolocalisation sans frais supplémentaires, à condition qu’ils valident sans délai les livrables déjà complétés.",
+      questions: [
+        [
+          "Quelle est l’origine principale du désaccord survenu avec le ministère ?",
+          "Une lecture divergente des fonctionnalités prévues dans le premier contrat",
+          "Un refus systématique de l’équipe de livrer le moindre module informatique",
+          "Une faille de sécurité majeure ayant entraîné la fuite de données d’usagers",
+        ],
+        [
+          "Que peut-on déduire quant à l’attitude du client avant cette mise au point ?",
+          "Il éprouvait une méfiance accrue en raison d’un manque de communication",
+          "Il était entièrement satisfait de la tournure prise par le développement",
+          "Il cherchait délibérément un prétexte pour annuler le projet de portail",
+        ],
+        [
+          "Quelle concession le gestionnaire a-t-il proposée pour régler le litige ?",
+          "L’ajout gratuit d’un premier modèle de la fonction de repérage en direct",
+          "Le remboursement complet des sommes perçues depuis le lancement des travaux",
+          "La prolongation indéfinie du calendrier sans aucune validation du ministère",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "— Merci d’être venus. Comme vous le savez, notre relation d’affaires avec la chaîne de supermarchés Bio-Marché traverse une passe délicate après l’annulation partielle de leur commande de contenants compostables. Je tiens à clarifier ce qui s’est passé. Le nœud du problème découle d’un changement inopiné de fournisseur pour notre résine végétale au mois de mai. Cette matière première de substitution présentait une rigidité légèrement inférieure aux normes spécifiées, ce qui a causé des déformations lors de l’empilement des barquettes dans leurs entrepôts réfrigérés. Au lieu d’aviser nos interlocuteurs immédiatement dès nos premiers essais de moulage, nous avons présumé que la différence demeurerait imperceptible. Le client a naturellement perçu ce silence comme une tentative de dissimulation lorsque leurs gérants de succursale ont signalé les défauts. J’assume pleinement la responsabilité de cette erreur de jugement managériale. Pour réparer le lien de confiance, nous avons réexpédié un lot conforme à nos frais et nous avons instauré un protocole d’inspection tripartite avant toute future expédition.",
+      questions: [
+        [
+          "Quelle défaillance matérielle a causé l’insatisfaction du distributeur ?",
+          "Une résistance mécanique insuffisante des barquettes lors du stockage",
+          "Une coloration non conforme des emballages lors de la mise en rayon",
+          "Une contamination chimique avérée de la résine végétale de base",
+        ],
+        [
+          "Quel comportement de notre direction a suscité la réaction outrée du partenaire ?",
+          "L’absence de communication spontanée lors du constat de la variation",
+          "Le refus d’utiliser des matières écologiques pour fabriquer les contenants",
+          "L’exigence unilatérale d’un paiement anticipé pour toute la production",
+        ],
+        [
+          "Que déduit-on sur la volonté du gestionnaire dans le règlement de la crise ?",
+          "Il privilégie la transparence et assume financièrement la réparation",
+          "Il rejette l’entière responsabilité sur les employés de l’entrepôt froid",
+          "Il menace d’intenter des poursuites en justice contre la chaîne de magasins",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "— Prenez place, collègues. Je souhaite débriefer avec vous l’incident survenu hier avec notre client d’Hydro-Québec à propos de la livraison du rapport d’impact environnemental pour le chantier de La Romaine. La tension a culminé lorsque leur directrice adjointe a menacé de résilier notre contrat de consultation. En fait, le malentendu découle de notre décision unilatérale de modifier l’échéancier pour intégrer des données acoustiques supplémentaires sur la faune aviaire. Si notre intention scientifique était irréprochable, nous avons omis de valider cet ajustement avec leur comité technique. Pour eux, ce retard de trois semaines compromet le dépôt de leur dossier légal auprès du ministère de l’Environnement avant l’ajournement des travaux parlementaires. Ils ont donc interprété notre perfectionnisme méthodologique comme un mépris de leurs impératifs légaux. J’ai rencontré leur équipe ce matin pour leur présenter nos excuses formelles et leur remettre une version préliminaire certifiée qui sécurise leurs démarches réglementaires tout en préservant la rigueur de notre mandat.",
+      questions: [
+        [
+          "Quelle décision de l’équipe a déclenché le conflit avec le donneur d’ordre ?",
+          "Le report unilatéral de la date de remise pour ajouter des analyses",
+          "La publication non autorisée de photos du chantier sur les réseaux sociaux",
+          "La falsification intentionnelle des relevés acoustiques sur les oiseaux",
+        ],
+        [
+          "Pourquoi le retard causé plaçait-il le client dans une situation critique ?",
+          "Il menaçait la transmission d’un dossier officiel aux autorités de l’État",
+          "Il empêchait l’embauche définitive des ingénieurs affectés aux turbines",
+          "Il annulait les subventions fédérales déjà promises pour les chantiers",
+        ],
+        [
+          "Quel sous-entendu implicite le gestionnaire formule-t-il sur l’origine de l’erreur ?",
+          "L’excellence technique a primé au détriment de l’écoute des contraintes client",
+          "Le client manquait de compétence technique pour comprendre les rapports fournis",
+          "L’équipe d’écologistes a volontairement cherché à saboter le projet énergétique",
+        ],
+      ],
+    },
+  ],
   'n8-listening-3': [],
   'n8-listening-4': [],
   'n8-reading-0': [],

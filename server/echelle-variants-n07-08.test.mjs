@@ -1,7 +1,8 @@
 import test, { describe, it } from 'node:test'
 import assert from 'node:assert'
-import { mulberry32, shuffle, ECHELLE_ITEM_CATALOG } from './server/echelle-curriculum.mjs'
-import { N07_08_SCENARIOS } from './server/echelle-variants/n07-08.mjs'
+import { mulberry32, shuffle, ECHELLE_ITEM_CATALOG } from './echelle-curriculum.mjs'
+import { N07_08_SCENARIOS } from './echelle-variants/n07-08.mjs'
+
 
 const N7_INDICATORS = [
   'n7-listening-0', 'n7-listening-1', 'n7-listening-2', 'n7-listening-3',
