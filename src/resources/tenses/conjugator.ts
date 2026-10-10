@@ -3,6 +3,7 @@ import type {
   ConjugationResult,
   TenseId,
 } from './types'
+import { UnsupportedVerbError } from './types'
 
 export const TENSE_LABELS: Record<TenseId, { fr: string; zh: string }> = {
   present: { fr: 'Présent de l’indicatif', zh: '直陈式现在时' },
@@ -43,7 +44,7 @@ const ETRE_VERBS = new Set([
   'passer',
 ])
 
-// Dual auxiliary verbs: take être when intransitive (movement/state), avoir when transitive (COD)
+// Dual auxiliary verbs: default to être, take avoir with direct object (COD)
 const DUAL_AUXILIARY_VERBS = new Set([
   'monter',
   'descendre',
@@ -54,6 +55,76 @@ const DUAL_AUXILIARY_VERBS = new Set([
 ])
 
 const IMPERSONAL_VERBS = new Set(['falloir', 'pleuvoir'])
+
+export const SECOND_GROUP_VERBS = new Set([
+  'finir',
+  'choisir',
+  'réussir',
+  'grandir',
+  'réfléchir',
+  'remplir',
+  'obéir',
+  'agir',
+  'réagir',
+  'bâtir',
+  'guérir',
+  'punir',
+  'rougir',
+  'vieillir',
+  'maigrir',
+  'grossir',
+  'applaudir',
+  'établir',
+  'fournir',
+  'investir',
+  'nourrir',
+  'ralentir',
+  'saisir',
+  'définir',
+  'démolir',
+  'réunir',
+  'garantir',
+])
+
+const REGULAR_DRE_VERBS = new Set([
+  'vendre',
+  'attendre',
+  'répondre',
+  'entendre',
+  'perdre',
+  'rendre',
+  'descendre',
+  'confondre',
+  'correspondre',
+  'défendre',
+  'dépendre',
+  'détendre',
+  'fendre',
+  'fondre',
+  'mordre',
+  'pendre',
+  'prétendre',
+  'suspendre',
+  'tendre',
+  'tondre',
+  'tordre',
+])
+
+const ACHETER_PELER_SET = new Set([
+  'acheter',
+  'racheter',
+  'geler',
+  'dégeler',
+  'surgeler',
+  'congeler',
+  'peler',
+  'remouler',
+  'modeler',
+  'ciseler',
+  'marteler',
+  'crocheter',
+  'fileter',
+])
 
 type IrregularVerbDef = {
   participePresent: string
@@ -126,7 +197,7 @@ const IRREGULAR_VERBS: Record<string, IrregularVerbDef> = {
     futurSimple: ['pourrai', 'pourras', 'pourra', 'pourrons', 'pourrez', 'pourront'],
     conditionnelPresent: ['pourrais', 'pourrais', 'pourrait', 'pourrions', 'pourriez', 'pourraient'],
     subjonctifPresent: ['puisse', 'puisses', 'puisse', 'puissions', 'puissiez', 'puissent'],
-    imperatif: ['puisse', 'puissions', 'puissez'],
+    imperatif: undefined,
     passeSimple: ['pus', 'pus', 'put', 'pûmes', 'pûtes', 'purent'],
   },
   vouloir: {
@@ -201,30 +272,6 @@ const IRREGULAR_VERBS: Record<string, IrregularVerbDef> = {
     imperatif: ['prends', 'prenons', 'prenez'],
     passeSimple: ['pris', 'pris', 'prit', 'prîmes', 'prîtes', 'prirent'],
   },
-  apprendre: {
-    participePresent: 'apprenant',
-    participePasse: 'appris',
-    auxiliary: 'avoir',
-    present: ['apprends', 'apprends', 'apprend', 'apprenons', 'apprenez', 'apprennent'],
-    imparfait: ['apprenais', 'apprenais', 'apprenait', 'apprenions', 'appreniez', 'apprenaient'],
-    futurSimple: ['apprendrai', 'apprendras', 'apprendra', 'apprendrons', 'apprendrez', 'apprendront'],
-    conditionnelPresent: ['apprendrais', 'apprendrais', 'apprendrait', 'apprendrions', 'apprendriez', 'apprendraient'],
-    subjonctifPresent: ['apprenne', 'apprennes', 'apprenne', 'apprenions', 'appreniez', 'apprennent'],
-    imperatif: ['apprends', 'apprenons', 'apprenez'],
-    passeSimple: ['appris', 'appris', 'apprit', 'apprîmes', 'apprîtes', 'apprirent'],
-  },
-  comprendre: {
-    participePresent: 'comprenant',
-    participePasse: 'compris',
-    auxiliary: 'avoir',
-    present: ['comprends', 'comprends', 'comprend', 'comprenons', 'comprenez', 'comprennent'],
-    imparfait: ['comprenais', 'comprenais', 'comprenait', 'comprenions', 'compreniez', 'comprenaient'],
-    futurSimple: ['comprendrai', 'comprendras', 'comprendra', 'comprendrons', 'comprendrez', 'comprendront'],
-    conditionnelPresent: ['comprendrais', 'comprendrais', 'comprendrait', 'comprendrions', 'comprendriez', 'comprendraient'],
-    subjonctifPresent: ['comprenne', 'comprennes', 'comprenne', 'comprenions', 'compreniez', 'comprennent'],
-    imperatif: ['comprends', 'comprenons', 'comprenez'],
-    passeSimple: ['compris', 'compris', 'comprit', 'comprîmes', 'comprîtes', 'comprirent'],
-  },
   mettre: {
     participePresent: 'mettant',
     participePasse: 'mis',
@@ -292,7 +339,7 @@ const IRREGULAR_VERBS: Record<string, IrregularVerbDef> = {
     present: ['dors', 'dors', 'dort', 'dormons', 'dormez', 'dorment'],
     imparfait: ['dormais', 'dormais', 'dormait', 'dormions', 'dormiez', 'dormaient'],
     futurSimple: ['dormirai', 'dormiras', 'dormira', 'dormirons', 'dormirez', 'dormiront'],
-    conditionnelPresent: ['dormirais', 'dormirais', 'dormirait', 'dormirions', 'dormriez', 'dormiraient'],
+    conditionnelPresent: ['dormirais', 'dormirais', 'dormirait', 'dormirions', 'dormiriez', 'dormiraient'],
     subjonctifPresent: ['dorme', 'dormes', 'dorme', 'dormions', 'dormiez', 'dorment'],
     imperatif: ['dors', 'dormons', 'dormez'],
     passeSimple: ['dormis', 'dormis', 'dormit', 'dormîmes', 'dormîtes', 'dormirent'],
@@ -412,7 +459,7 @@ const IRREGULAR_VERBS: Record<string, IrregularVerbDef> = {
     present: ['offre', 'offres', 'offre', 'offrons', 'offrez', 'offrent'],
     imparfait: ['offrais', 'offrais', 'offrait', 'offrions', 'offriez', 'offraient'],
     futurSimple: ['offrirai', 'offriras', 'offrira', 'offrirons', 'offrirez', 'offriront'],
-    conditionnelPresent: ['offrirais', 'offrirais', 'offrirait', 'offririons', 'offriez', 'offriraient'],
+    conditionnelPresent: ['offrirais', 'offrirais', 'offrirait', 'offririons', 'offririez', 'offriraient'],
     subjonctifPresent: ['offre', 'offres', 'offre', 'offrions', 'offriez', 'offrent'],
     imperatif: ['offre', 'offrons', 'offrez'],
     passeSimple: ['offris', 'offris', 'offrit', 'offrîmes', 'offrîtes', 'offrirent'],
@@ -462,6 +509,7 @@ const IRREGULAR_VERBS: Record<string, IrregularVerbDef> = {
     futurSimple: ['faudra'],
     conditionnelPresent: ['faudrait'],
     subjonctifPresent: ['faille'],
+    imperatif: undefined,
     passeSimple: ['fallut'],
   },
   pleuvoir: {
@@ -473,6 +521,7 @@ const IRREGULAR_VERBS: Record<string, IrregularVerbDef> = {
     futurSimple: ['pleuvra'],
     conditionnelPresent: ['pleuvrait'],
     subjonctifPresent: ['pleuve'],
+    imperatif: undefined,
     passeSimple: ['plut'],
   },
   valoir: {
@@ -571,7 +620,7 @@ const IRREGULAR_VERBS: Record<string, IrregularVerbDef> = {
     imperatif: ['envoie', 'envoyons', 'envoyez'],
     passeSimple: ['envoyai', 'envoyas', 'envoya', 'envoyâmes', 'envoyâtes', 'envoyèrent'],
   },
-  "s'asseoir": {
+  's’asseoir': {
     participePresent: 'asseyant',
     participePasse: 'assis',
     auxiliary: 'être',
@@ -655,10 +704,436 @@ const IRREGULAR_VERBS: Record<string, IrregularVerbDef> = {
     imperatif: ['rends', 'rendons', 'rendez'],
     passeSimple: ['rendis', 'rendis', 'rendit', 'rendîmes', 'rendîtes', 'rendirent'],
   },
+
+  // Additional high-frequency irregular verbs (Section A.12)
+  sentir: {
+    participePresent: 'sentant',
+    participePasse: 'senti',
+    auxiliary: 'avoir',
+    present: ['sens', 'sens', 'sent', 'sentons', 'sentez', 'sentent'],
+    imparfait: ['sentais', 'sentais', 'sentait', 'sentions', 'sentiez', 'sentaient'],
+    futurSimple: ['sentirai', 'sentiras', 'sentira', 'sentirons', 'sentirez', 'sentiront'],
+    conditionnelPresent: ['sentirais', 'sentirais', 'sentirait', 'sentirions', 'sentiriez', 'sentiraient'],
+    subjonctifPresent: ['sente', 'sentes', 'sente', 'sentions', 'sentiez', 'sentent'],
+    imperatif: ['sens', 'sentons', 'sentez'],
+    passeSimple: ['sentis', 'sentis', 'sentit', 'sentîmes', 'sentîtes', 'sentirent'],
+  },
+  servir: {
+    participePresent: 'servant',
+    participePasse: 'servi',
+    auxiliary: 'avoir',
+    present: ['sers', 'sers', 'sert', 'servons', 'servez', 'servent'],
+    imparfait: ['servais', 'servais', 'servait', 'servions', 'serviez', 'servaient'],
+    futurSimple: ['servirai', 'serviras', 'servira', 'servirons', 'servirez', 'serviront'],
+    conditionnelPresent: ['servirais', 'servirais', 'servirait', 'servirions', 'serviriez', 'serviraient'],
+    subjonctifPresent: ['serve', 'serves', 'serve', 'servions', 'serviez', 'servent'],
+    imperatif: ['sers', 'servons', 'servez'],
+    passeSimple: ['servis', 'servis', 'servit', 'servîmes', 'servîtes', 'servirent'],
+  },
+  mentir: {
+    participePresent: 'mentant',
+    participePasse: 'menti',
+    auxiliary: 'avoir',
+    present: ['mens', 'mens', 'ment', 'mentons', 'mentez', 'mentent'],
+    imparfait: ['mentais', 'mentais', 'mentait', 'mentions', 'mentiez', 'mentaient'],
+    futurSimple: ['mentirai', 'mentiras', 'mentira', 'mentirons', 'mentirez', 'mentiront'],
+    conditionnelPresent: ['mentirais', 'mentirais', 'mentirait', 'mentirions', 'mentiriez', 'mentiraient'],
+    subjonctifPresent: ['mente', 'mentes', 'mente', 'mentions', 'mentiez', 'mentent'],
+    imperatif: ['mens', 'mentons', 'mentez'],
+    passeSimple: ['mentis', 'mentis', 'mentit', 'mentîmes', 'mentîtes', 'mentirent'],
+  },
+  découvrir: {
+    participePresent: 'découvrant',
+    participePasse: 'découvert',
+    auxiliary: 'avoir',
+    present: ['découvre', 'découvres', 'découvre', 'découvrons', 'découvrez', 'découvrent'],
+    imparfait: ['découvrais', 'découvrais', 'découvrait', 'découvrions', 'découvriez', 'découvraient'],
+    futurSimple: ['découvrirai', 'découvriras', 'découvrira', 'découvrirons', 'découvrirez', 'découvriront'],
+    conditionnelPresent: ['découvrirais', 'découvrirais', 'découvrirait', 'découvririons', 'découvririez', 'découvriraient'],
+    subjonctifPresent: ['découvre', 'découvres', 'découvre', 'découvrions', 'découvriez', 'découvrent'],
+    imperatif: ['découvre', 'découvrons', 'découvrez'],
+    passeSimple: ['découvris', 'découvris', 'découvrit', 'découvrîmes', 'découvrîtes', 'découvrirent'],
+  },
+  souffrir: {
+    participePresent: 'souffrant',
+    participePasse: 'souffert',
+    auxiliary: 'avoir',
+    present: ['souffre', 'souffres', 'souffre', 'souffrons', 'souffrez', 'souffrent'],
+    imparfait: ['souffrais', 'souffrais', 'souffrait', 'souffrions', 'souffriez', 'souffraient'],
+    futurSimple: ['souffrirai', 'souffriras', 'souffrira', 'souffrirons', 'souffrirez', 'souffriront'],
+    conditionnelPresent: ['souffrirais', 'souffrirais', 'souffrirait', 'souffririons', 'souffririez', 'souffriraient'],
+    subjonctifPresent: ['souffre', 'souffres', 'souffre', 'souffrions', 'souffriez', 'souffrent'],
+    imperatif: ['souffre', 'souffrons', 'souffrez'],
+    passeSimple: ['souffris', 'souffris', 'souffrit', 'souffrîmes', 'souffrîtes', 'souffrirent'],
+  },
+  produire: {
+    participePresent: 'produisant',
+    participePasse: 'produit',
+    auxiliary: 'avoir',
+    present: ['produis', 'produis', 'produit', 'produisons', 'produisez', 'produisent'],
+    imparfait: ['produisais', 'produisais', 'produisait', 'produisions', 'produisiez', 'produisaient'],
+    futurSimple: ['produirai', 'produiras', 'produira', 'produirons', 'produirez', 'produiront'],
+    conditionnelPresent: ['produirais', 'produirais', 'produirait', 'produirions', 'produiriez', 'produiraient'],
+    subjonctifPresent: ['produise', 'produises', 'produise', 'produisions', 'produisiez', 'produisent'],
+    imperatif: ['produis', 'produisons', 'produisez'],
+    passeSimple: ['produisis', 'produisis', 'produisit', 'produisîmes', 'produisîtes', 'produisirent'],
+  },
+  construire: {
+    participePresent: 'construisant',
+    participePasse: 'construit',
+    auxiliary: 'avoir',
+    present: ['construis', 'construis', 'construit', 'construisons', 'construisez', 'construisent'],
+    imparfait: ['construisais', 'construisais', 'construisait', 'construisions', 'construisiez', 'construisaient'],
+    futurSimple: ['construirai', 'construiras', 'construira', 'construirons', 'construirez', 'construiront'],
+    conditionnelPresent: ['construirais', 'construirais', 'construirait', 'construirions', 'construiriez', 'construiraient'],
+    subjonctifPresent: ['construise', 'construises', 'construise', 'construisions', 'construisiez', 'construisent'],
+    imperatif: ['construis', 'construisons', 'construisez'],
+    passeSimple: ['construisis', 'construisis', 'construisit', 'construisîmes', 'construisîtes', 'construisirent'],
+  },
+  traduire: {
+    participePresent: 'traduisant',
+    participePasse: 'traduit',
+    auxiliary: 'avoir',
+    present: ['traduis', 'traduis', 'traduit', 'traduisons', 'traduisez', 'traduisent'],
+    imparfait: ['traduisais', 'traduisais', 'traduisait', 'traduisions', 'traduisiez', 'traduisaient'],
+    futurSimple: ['traduirai', 'traduiras', 'traduira', 'traduirons', 'traduirez', 'traduiront'],
+    conditionnelPresent: ['traduirais', 'traduirais', 'traduirait', 'traduirions', 'traduiriez', 'traduiraient'],
+    subjonctifPresent: ['traduise', 'traduises', 'traduise', 'traduisions', 'traduisiez', 'traduisent'],
+    imperatif: ['traduis', 'traduisons', 'traduisez'],
+    passeSimple: ['traduisis', 'traduisis', 'traduisit', 'traduisîmes', 'traduisîtes', 'traduisirent'],
+  },
+  détruire: {
+    participePresent: 'détruisant',
+    participePasse: 'détruit',
+    auxiliary: 'avoir',
+    present: ['détruis', 'détruis', 'détruit', 'détruisons', 'détruisez', 'détruisent'],
+    imparfait: ['détruisais', 'détruisais', 'détruisait', 'détruisions', 'détruisiez', 'détruisaient'],
+    futurSimple: ['détruirai', 'détruiras', 'détruira', 'détruirons', 'détruirez', 'détruiront'],
+    conditionnelPresent: ['détruirais', 'détruirais', 'détruirait', 'détruirions', 'détruiriez', 'détruiraient'],
+    subjonctifPresent: ['détruise', 'détruises', 'détruise', 'détruisions', 'détruisiez', 'détruisent'],
+    imperatif: ['détruis', 'détruisons', 'détruisez'],
+    passeSimple: ['détruisis', 'détruisis', 'détruisit', 'détruisîmes', 'détruisîtes', 'détruisirent'],
+  },
+  apparaître: {
+    participePresent: 'apparaissant',
+    participePasse: 'apparu',
+    auxiliary: 'avoir / être',
+    present: ['apparais', 'apparais', 'apparaît', 'apparaissons', 'apparaissez', 'apparaissent'],
+    imparfait: ['apparaissais', 'apparaissais', 'apparaissait', 'apparaissions', 'apparaissiez', 'apparaissaient'],
+    futurSimple: ['apparaîtrai', 'apparaîtras', 'apparaîtra', 'apparaîtrons', 'apparaîtrez', 'apparaîtront'],
+    conditionnelPresent: ['apparaîtrais', 'apparaîtrais', 'apparaîtrait', 'apparaîtrions', 'apparaîtriez', 'apparaîtraient'],
+    subjonctifPresent: ['apparaisse', 'apparaisses', 'apparaisse', 'apparaissions', 'apparaissiez', 'apparaissent'],
+    imperatif: ['apparais', 'apparaissons', 'apparaissez'],
+    passeSimple: ['apparus', 'apparus', 'apparut', 'apparûmes', 'apparûtes', 'apparurent'],
+  },
+  disparaître: {
+    participePresent: 'disparaissant',
+    participePasse: 'disparu',
+    auxiliary: 'avoir',
+    present: ['disparais', 'disparais', 'disparaît', 'disparaissons', 'disparaissez', 'disparaissent'],
+    imparfait: ['disparaissais', 'disparaissais', 'disparaissait', 'disparaissions', 'disparaissiez', 'disparaissaient'],
+    futurSimple: ['disparaîtrai', 'disparaîtras', 'disparaîtra', 'disparaîtrons', 'disparaîtrez', 'disparaîtront'],
+    conditionnelPresent: ['disparaîtrais', 'disparaîtrais', 'disparaîtrait', 'disparaîtrions', 'disparaîtriez', 'disparaîtraient'],
+    subjonctifPresent: ['disparaisse', 'disparaisses', 'disparaisse', 'disparaissions', 'disparaissiez', 'disparaissent'],
+    imperatif: ['disparais', 'disparaissons', 'disparaissez'],
+    passeSimple: ['disparus', 'disparus', 'disparut', 'disparûmes', 'disparûtes', 'disparurent'],
+  },
+  reconnaître: {
+    participePresent: 'reconnaissant',
+    participePasse: 'reconnu',
+    auxiliary: 'avoir',
+    present: ['reconnais', 'reconnais', 'reconnaît', 'reconnaissons', 'reconnaissez', 'reconnaissent'],
+    imparfait: ['reconnaissais', 'reconnaissais', 'reconnaissait', 'reconnaissions', 'reconnaissiez', 'reconnaissaient'],
+    futurSimple: ['reconnaîtrai', 'reconnaîtras', 'reconnaîtra', 'reconnaîtrons', 'reconnaîtrez', 'reconnaîtront'],
+    conditionnelPresent: ['reconnaîtrais', 'reconnaîtrais', 'reconnaîtrait', 'reconnaîtrions', 'reconnaîtriez', 'reconnaîtraient'],
+    subjonctifPresent: ['reconnaisse', 'reconnaisses', 'reconnaisse', 'reconnaissions', 'reconnaissiez', 'reconnaissent'],
+    imperatif: ['reconnais', 'reconnaissons', 'reconnaissez'],
+    passeSimple: ['reconnus', 'reconnus', 'reconnut', 'reconnûmes', 'reconnûtes', 'reconnurent'],
+  },
+  permettre: {
+    participePresent: 'permettant',
+    participePasse: 'permis',
+    auxiliary: 'avoir',
+    present: ['permets', 'permets', 'permet', 'permettons', 'permettez', 'permettent'],
+    imparfait: ['permettais', 'permettais', 'permettait', 'permettions', 'permettiez', 'permettaient'],
+    futurSimple: ['permettrai', 'permettras', 'permettra', 'permettrons', 'permettrez', 'permettront'],
+    conditionnelPresent: ['permettrais', 'permettrais', 'permettrait', 'permettrions', 'permettriez', 'permettraient'],
+    subjonctifPresent: ['permette', 'permettes', 'permette', 'permettions', 'permettiez', 'permettent'],
+    imperatif: ['permets', 'permettons', 'permettez'],
+    passeSimple: ['permis', 'permis', 'permit', 'permîmes', 'permîtes', 'permirent'],
+  },
+  promettre: {
+    participePresent: 'promettant',
+    participePasse: 'promis',
+    auxiliary: 'avoir',
+    present: ['promets', 'promets', 'promet', 'promettons', 'promettez', 'promettent'],
+    imparfait: ['promettais', 'promettais', 'promettait', 'promettions', 'promettiez', 'promettaient'],
+    futurSimple: ['promettrai', 'promettras', 'promettra', 'promettrons', 'promettrez', 'promettront'],
+    conditionnelPresent: ['promettrais', 'promettrais', 'promettrait', 'promettrions', 'promettriez', 'promettraient'],
+    subjonctifPresent: ['promette', 'promettes', 'promette', 'promettions', 'promettiez', 'promettent'],
+    imperatif: ['promets', 'promettons', 'promettez'],
+    passeSimple: ['promis', 'promis', 'promit', 'promîmes', 'promîtes', 'promirent'],
+  },
+  battre: {
+    participePresent: 'battant',
+    participePasse: 'battu',
+    auxiliary: 'avoir',
+    present: ['bats', 'bats', 'bat', 'battons', 'battez', 'battent'],
+    imparfait: ['battais', 'battais', 'battait', 'battions', 'battiez', 'battaient'],
+    futurSimple: ['battrai', 'battras', 'battra', 'battrons', 'battrez', 'battront'],
+    conditionnelPresent: ['battrais', 'battrais', 'battrait', 'battrions', 'battriez', 'battraient'],
+    subjonctifPresent: ['batte', 'battes', 'batte', 'battions', 'battiez', 'battent'],
+    imperatif: ['bats', 'battons', 'battez'],
+    passeSimple: ['battis', 'battis', 'battit', 'battîmes', 'battîtes', 'battirent'],
+  },
+  vaincre: {
+    participePresent: 'vainquant',
+    participePasse: 'vaincu',
+    auxiliary: 'avoir',
+    present: ['vaincs', 'vaincs', 'vainc', 'vainquons', 'vainquez', 'vainquent'],
+    imparfait: ['vainquais', 'vainquais', 'vainquait', 'vainquions', 'vainquiez', 'vainquaient'],
+    futurSimple: ['vaincrai', 'vaincras', 'vaincra', 'vaincrons', 'vaincrez', 'vaincront'],
+    conditionnelPresent: ['vaincrais', 'vaincrais', 'vaincrait', 'vaincrions', 'vaincriez', 'vaincraient'],
+    subjonctifPresent: ['vainque', 'vainques', 'vainque', 'vainquions', 'vainquiez', 'vainquent'],
+    imperatif: ['vaincs', 'vainquons', 'vainquez'],
+    passeSimple: ['vainquis', 'vainquis', 'vainquit', 'vainquîmes', 'vainquîtes', 'vainquirent'],
+  },
+  résoudre: {
+    participePresent: 'résolvant',
+    participePasse: 'résolu',
+    auxiliary: 'avoir',
+    present: ['résous', 'résous', 'résout', 'résolvons', 'résolvez', 'résolvent'],
+    imparfait: ['résolvais', 'résolvais', 'résolvait', 'résolvions', 'résolviez', 'résolvaient'],
+    futurSimple: ['résoudrai', 'résoudras', 'résoudra', 'résoudrons', 'résoudrez', 'résoudront'],
+    conditionnelPresent: ['résoudrais', 'résoudrais', 'résoudrait', 'résoudrions', 'résoudriez', 'résoudraient'],
+    subjonctifPresent: ['résolve', 'résolves', 'résolve', 'résolvions', 'résolviez', 'résolvent'],
+    imperatif: ['résous', 'résolvons', 'résolvez'],
+    passeSimple: ['résolus', 'résolus', 'résolut', 'résolûmes', 'résolûtes', 'résolurent'],
+  },
+  éteindre: {
+    participePresent: 'éteignant',
+    participePasse: 'éteint',
+    auxiliary: 'avoir',
+    present: ['éteins', 'éteins', 'éteint', 'éteignons', 'éteignez', 'éteignent'],
+    imparfait: ['éteignais', 'éteignais', 'éteignait', 'éteignions', 'éteigniez', 'éteignaient'],
+    futurSimple: ['éteindrai', 'éteindras', 'éteindra', 'éteindrons', 'éteindrez', 'éteindront'],
+    conditionnelPresent: ['éteindrais', 'éteindrais', 'éteindrait', 'éteindrions', 'éteindriez', 'éteindraient'],
+    subjonctifPresent: ['éteigne', 'éteignes', 'éteigne', 'éteignions', 'éteigniez', 'éteignent'],
+    imperatif: ['éteins', 'éteignons', 'éteignez'],
+    passeSimple: ['éteignis', 'éteignis', 'éteignit', 'éteignîmes', 'éteignîtes', 'éteignirent'],
+  },
+  atteindre: {
+    participePresent: 'atteignant',
+    participePasse: 'atteint',
+    auxiliary: 'avoir',
+    present: ['atteins', 'atteins', 'atteint', 'atteignons', 'atteignez', 'atteignent'],
+    imparfait: ['atteignais', 'atteignais', 'atteignait', 'atteignions', 'atteigniez', 'atteignaient'],
+    futurSimple: ['atteindrai', 'atteindras', 'atteindra', 'atteindrons', 'atteindrez', 'atteindront'],
+    conditionnelPresent: ['atteindrais', 'atteindrais', 'atteindrait', 'atteindrions', 'atteindriez', 'atteindraient'],
+    subjonctifPresent: ['atteigne', 'atteignes', 'atteigne', 'atteignions', 'atteigniez', 'atteignent'],
+    imperatif: ['atteins', 'atteignons', 'atteignez'],
+    passeSimple: ['atteignis', 'atteignis', 'atteignit', 'atteignîmes', 'atteignîtes', 'atteignirent'],
+  },
+  plaindre: {
+    participePresent: 'plaignant',
+    participePasse: 'plaint',
+    auxiliary: 'avoir',
+    present: ['plains', 'plains', 'plaint', 'plaignons', 'plaignez', 'plaignent'],
+    imparfait: ['plaignais', 'plaignais', 'plaignait', 'plaignions', 'plaigniez', 'plaignaient'],
+    futurSimple: ['plaindrai', 'plaindras', 'plaindra', 'plaindrons', 'plaindrez', 'plaindront'],
+    conditionnelPresent: ['plaindrais', 'plaindrais', 'plaindrait', 'plaindrions', 'plaindriez', 'plaindraient'],
+    subjonctifPresent: ['plaigne', 'plaignes', 'plaigne', 'plaignions', 'plaigniez', 'plaignent'],
+    imperatif: ['plains', 'plaignons', 'plaignez'],
+    passeSimple: ['plaignis', 'plaignis', 'plaignit', 'plaignîmes', 'plaignîtes', 'plaignirent'],
+  },
+  apercevoir: {
+    participePresent: 'apercevant',
+    participePasse: 'aperçu',
+    auxiliary: 'avoir',
+    present: ['aperçois', 'aperçois', 'aperçoit', 'apercevons', 'apercevez', 'aperçoivent'],
+    imparfait: ['apercevais', 'apercevais', 'apercevait', 'apercevions', 'aperceviez', 'apercevaient'],
+    futurSimple: ['apercevrai', 'apercevras', 'apercevra', 'apercevrons', 'apercevrez', 'apercevront'],
+    conditionnelPresent: ['apercevrais', 'apercevrais', 'apercevrait', 'apercevrions', 'apercevriez', 'apercevraient'],
+    subjonctifPresent: ['aperçoive', 'aperçoives', 'aperçoive', 'apercevions', 'aperceviez', 'aperçoivent'],
+    imperatif: ['aperçois', 'apercevons', 'apercevez'],
+    passeSimple: ['aperçus', 'aperçus', 'aperçut', 'aperçûmes', 'aperçûtes', 'aperçurent'],
+  },
+  décevoir: {
+    participePresent: 'décevant',
+    participePasse: 'déçu',
+    auxiliary: 'avoir',
+    present: ['déçois', 'déçois', 'déçoit', 'décevons', 'décevez', 'déçoivent'],
+    imparfait: ['décevais', 'décevais', 'décevait', 'décevions', 'déceviez', 'décevaient'],
+    futurSimple: ['décevrai', 'décevras', 'décevra', 'décevrons', 'décevrez', 'décevront'],
+    conditionnelPresent: ['décevrais', 'décevrais', 'décevrait', 'décevrions', 'décevriez', 'décevraient'],
+    subjonctifPresent: ['déçoive', 'déçoives', 'déçoive', 'décevions', 'déceviez', 'déçoivent'],
+    imperatif: ['déçois', 'décevons', 'décevez'],
+    passeSimple: ['déçus', 'déçus', 'déçut', 'déçûmes', 'déçûtes', 'déçurent'],
+  },
+  sourire: {
+    participePresent: 'souriant',
+    participePasse: 'souri',
+    auxiliary: 'avoir',
+    present: ['souris', 'souris', 'sourit', 'sourions', 'souriez', 'sourient'],
+    imparfait: ['souriais', 'souriais', 'souriait', 'souriions', 'souriiez', 'souriaient'],
+    futurSimple: ['sourirai', 'souriras', 'sourira', 'sourirons', 'sourirez', 'souriront'],
+    conditionnelPresent: ['sourirais', 'sourirais', 'sourirait', 'souririons', 'souririez', 'souriraient'],
+    subjonctifPresent: ['sourie', 'souries', 'sourie', 'souriions', 'souriez', 'sourient'],
+    imperatif: ['souris', 'sourions', 'souriez'],
+    passeSimple: ['souris', 'souris', 'sourit', 'sourîmes', 'sourîtes', 'sourirent'],
+  },
+  interdire: {
+    participePresent: 'interdisant',
+    participePasse: 'interdit',
+    auxiliary: 'avoir',
+    present: ['interdis', 'interdis', 'interdit', 'interdisons', 'interdisez', 'interdisent'],
+    imparfait: ['interdisais', 'interdisais', 'interdisait', 'interdisions', 'interdisiez', 'interdisaient'],
+    futurSimple: ['interdirai', 'interdiras', 'interdira', 'interdirons', 'interdirez', 'interdiront'],
+    conditionnelPresent: ['interdirais', 'interdirais', 'interdirait', 'interdirions', 'interdiriez', 'interdiraient'],
+    subjonctifPresent: ['interdise', 'interdises', 'interdise', 'interdisions', 'interdisiez', 'interdisent'],
+    imperatif: ['interdis', 'interdisons', 'interdisez'],
+    passeSimple: ['interdis', 'interdis', 'interdit', 'interdîmes', 'interdîtes', 'interdirent'],
+  },
+  prédire: {
+    participePresent: 'prédisant',
+    participePasse: 'prédit',
+    auxiliary: 'avoir',
+    present: ['prédis', 'prédis', 'prédit', 'prédisons', 'prédisez', 'prédisent'],
+    imparfait: ['prédisais', 'prédisais', 'prédisait', 'prédisions', 'prédisiez', 'prédisaient'],
+    futurSimple: ['prédirai', 'prédiras', 'prédira', 'prédirons', 'prédirez', 'prédiront'],
+    conditionnelPresent: ['prédirais', 'prédirais', 'prédirait', 'prédirions', 'prédiriez', 'prédiraient'],
+    subjonctifPresent: ['prédise', 'prédises', 'prédise', 'prédisions', 'prédisiez', 'prédisent'],
+    imperatif: ['prédis', 'prédisons', 'prédisez'],
+    passeSimple: ['prédis', 'prédis', 'prédit', 'prédisîmes', 'prédisîtes', 'prédirent'],
+  },
+  élire: {
+    participePresent: 'élisant',
+    participePasse: 'élu',
+    auxiliary: 'avoir',
+    present: ['élis', 'élis', 'élit', 'élisons', 'élisez', 'élisent'],
+    imparfait: ['élisais', 'élisais', 'élisait', 'élisions', 'élisiez', 'élisaient'],
+    futurSimple: ['élirai', 'éliras', 'élira', 'élirons', 'élirez', 'éliront'],
+    conditionnelPresent: ['élirais', 'élirais', 'élirait', 'élirions', 'éliriez', 'éliraient'],
+    subjonctifPresent: ['élise', 'élises', 'élise', 'élisions', 'élisiez', 'élisent'],
+    imperatif: ['élis', 'élisons', 'élisez'],
+    passeSimple: ['élus', 'élus', 'élut', 'élûmes', 'élûtes', 'élurent'],
+  },
+  décrire: {
+    participePresent: 'décrivant',
+    participePasse: 'décrit',
+    auxiliary: 'avoir',
+    present: ['décris', 'décris', 'décrit', 'décrivons', 'décrivez', 'décrivent'],
+    imparfait: ['décrivais', 'décrivais', 'décrivait', 'décrivions', 'décriviez', 'décrivaient'],
+    futurSimple: ['décrirai', 'décriras', 'décrira', 'décrirons', 'décrirez', 'décriront'],
+    conditionnelPresent: ['décrirais', 'décrirais', 'décrirait', 'décririons', 'décririez', 'décriraient'],
+    subjonctifPresent: ['décrive', 'décrives', 'décrive', 'décrivions', 'décriviez', 'décrivent'],
+    imperatif: ['décris', 'décrivons', 'décrivez'],
+    passeSimple: ['décrivis', 'décrivis', 'décrivit', 'décrivîmes', 'décrivîtes', 'décrivirent'],
+  },
+  inscrire: {
+    participePresent: 'inscrivant',
+    participePasse: 'inscrit',
+    auxiliary: 'avoir',
+    present: ['inscris', 'inscris', 'inscrit', 'inscrivons', 'inscrivez', 'inscrivent'],
+    imparfait: ['inscrivais', 'inscrivais', 'inscrivait', 'inscrivions', 'inscriviez', 'inscrivaient'],
+    futurSimple: ['inscrirai', 'inscriras', 'inscrira', 'inscrirons', 'inscrirez', 'inscriront'],
+    conditionnelPresent: ['inscrirais', 'inscrirais', 'inscrirait', 'inscririons', 'inscririez', 'inscriraient'],
+    subjonctifPresent: ['inscrive', 'inscrives', 'inscrive', 'inscrivions', 'inscriviez', 'inscrivent'],
+    imperatif: ['inscris', 'inscrivons', 'inscrivez'],
+    passeSimple: ['inscrivis', 'inscrivis', 'inscrivit', 'inscrivîmes', 'inscrivîtes', 'inscrivirent'],
+  },
+  poursuivre: {
+    participePresent: 'poursuivant',
+    participePasse: 'poursuivi',
+    auxiliary: 'avoir',
+    present: ['poursuis', 'poursuis', 'poursuit', 'poursuivons', 'poursuivez', 'poursuivent'],
+    imparfait: ['poursuivais', 'poursuivais', 'poursuivait', 'poursuivions', 'poursuiviez', 'poursuivaient'],
+    futurSimple: ['poursuivrai', 'poursuivras', 'poursuivra', 'poursuivrons', 'poursuivrez', 'poursuivront'],
+    conditionnelPresent: ['poursuivrais', 'poursuivrais', 'poursuivrait', 'poursuivrions', 'poursuivriez', 'poursuivraient'],
+    subjonctifPresent: ['poursuive', 'poursuives', 'poursuive', 'poursuivions', 'poursuiviez', 'poursuivent'],
+    imperatif: ['poursuis', 'poursuivons', 'poursuivez'],
+    passeSimple: ['poursuivis', 'poursuivis', 'poursuivit', 'poursuivîmes', 'poursuivîtes', 'poursuivirent'],
+  },
+  survivre: {
+    participePresent: 'survivant',
+    participePasse: 'survécu',
+    auxiliary: 'avoir',
+    present: ['survis', 'survis', 'survit', 'survivons', 'survivez', 'survivent'],
+    imparfait: ['survivais', 'survivais', 'survivait', 'survivions', 'surviviez', 'survivaient'],
+    futurSimple: ['survivrai', 'survivras', 'survivra', 'survivrons', 'survivrez', 'survivront'],
+    conditionnelPresent: ['survivrais', 'survivrais', 'survivrait', 'survivrions', 'survivriez', 'survivraient'],
+    subjonctifPresent: ['survive', 'survives', 'survive', 'survivions', 'surviviez', 'survivent'],
+    imperatif: ['survis', 'survivons', 'survivez'],
+    passeSimple: ['survécus', 'survécus', 'survécut', 'survécûmes', 'survécûtes', 'survécurent'],
+  },
+  cueillir: {
+    participePresent: 'cueillant',
+    participePasse: 'cueilli',
+    auxiliary: 'avoir',
+    present: ['cueille', 'cueilles', 'cueille', 'cueillons', 'cueillez', 'cueillent'],
+    imparfait: ['cueillais', 'cueillais', 'cueillait', 'cueillions', 'cueilliez', 'cueillaient'],
+    futurSimple: ['cueillerai', 'cueilleras', 'cueillera', 'cueillerons', 'cueillerez', 'cueilleront'],
+    conditionnelPresent: ['cueillerais', 'cueillerais', 'cueillerait', 'cueillerions', 'cueilleriez', 'cueilleraient'],
+    subjonctifPresent: ['cueille', 'cueilles', 'cueille', 'cueillions', 'cueilliez', 'cueillent'],
+    imperatif: ['cueille', 'cueillons', 'cueillez'],
+    passeSimple: ['cueillis', 'cueillis', 'cueillit', 'cueillîmes', 'cueillîtes', 'cueillirent'],
+  },
+  accueillir: {
+    participePresent: 'accueillant',
+    participePasse: 'accueilli',
+    auxiliary: 'avoir',
+    present: ['accueille', 'accueilles', 'accueille', 'accueillons', 'accueillez', 'accueillent'],
+    imparfait: ['accueillais', 'accueillais', 'accueillait', 'accueillions', 'accueilliez', 'accueillaient'],
+    futurSimple: ['accueillerai', 'accueilleras', 'accueillera', 'accueillerons', 'accueillerez', 'accueilleront'],
+    conditionnelPresent: ['accueillerais', 'accueillerais', 'accueillerait', 'accueillerions', 'accueilleriez', 'accueilleraient'],
+    subjonctifPresent: ['accueille', 'accueilles', 'accueille', 'accueillions', 'accueilliez', 'accueillent'],
+    imperatif: ['accueille', 'accueillons', 'accueillez'],
+    passeSimple: ['accueillis', 'accueillis', 'accueillit', 'accueillîmes', 'accueillîtes', 'accueillirent'],
+  },
+  fuir: {
+    participePresent: 'fuyant',
+    participePasse: 'fui',
+    auxiliary: 'avoir',
+    present: ['fuis', 'fuis', 'fuit', 'fuyons', 'fuyez', 'fuient'],
+    imparfait: ['fuyais', 'fuyais', 'fuyait', 'fuyions', 'fuyiez', 'fuyaient'],
+    futurSimple: ['fuirai', 'fuiras', 'fuira', 'fuirons', 'fuirez', 'fuiront'],
+    conditionnelPresent: ['fuirais', 'fuirais', 'fuirait', 'fuirions', 'fuiriez', 'fuiraient'],
+    subjonctifPresent: ['fuie', 'fuies', 'fuie', 'fuyions', 'fuyiez', 'fuient'],
+    imperatif: ['fuis', 'fuyons', 'fuyez'],
+    passeSimple: ['fuis', 'fuis', 'fuit', 'fuîmes', 'fuîtes', 'fuirent'],
+  },
+  haïr: {
+    participePresent: 'haïssant',
+    participePasse: 'haï',
+    auxiliary: 'avoir',
+    present: ['hais', 'hais', 'hait', 'haïssons', 'haïssez', 'haïssent'],
+    imparfait: ['haïssais', 'haïssais', 'haïssait', 'haïssions', 'haïssiez', 'haïssaient'],
+    futurSimple: ['haïrai', 'haïras', 'haïra', 'haïrons', 'haïrez', 'haïront'],
+    conditionnelPresent: ['haïrais', 'haïrais', 'haïrait', 'haïrions', 'haïriez', 'haïraient'],
+    subjonctifPresent: ['haïsse', 'haïsses', 'haïsse', 'haïssions', 'haïssiez', 'haïssent'],
+    imperatif: ['hais', 'haïssons', 'haïssez'],
+    passeSimple: ['haïs', 'haïs', 'haït', 'haïmes', 'haïtes', 'haïrent'],
+  },
+  acquérir: {
+    participePresent: 'acquérant',
+    participePasse: 'acquis',
+    auxiliary: 'avoir',
+    present: ['acquiers', 'acquiers', 'acquiert', 'acquérons', 'acquérez', 'acquièrent'],
+    imparfait: ['acquérais', 'acquérais', 'acquérait', 'acquérions', 'acquériez', 'acquéraient'],
+    futurSimple: ['acquerrai', 'acquerras', 'acquerra', 'acquerrons', 'acquerrez', 'acquerront'],
+    conditionnelPresent: ['acquerrais', 'acquerrais', 'acquerrait', 'acquerrions', 'acquerriez', 'acquerraient'],
+    subjonctifPresent: ['acquière', 'acquières', 'acquière', 'acquérions', 'acquériez', 'acquièrent'],
+    imperatif: ['acquiers', 'acquérons', 'acquérez'],
+    passeSimple: ['acquis', 'acquis', 'acquit', 'acquîmes', 'acquîtes', 'acquirent'],
+  },
 }
 
-// Support typographic apostrophe variant
-IRREGULAR_VERBS['s’asseoir'] = IRREGULAR_VERBS["s'asseoir"]
+// Fix prédire passé simple in French
+IRREGULAR_VERBS['prédire'].passeSimple = ['prédis', 'prédis', 'prédit', 'prédîmes', 'prédîtes', 'prédirent']
+IRREGULAR_VERBS['sourire'].subjonctifPresent = ['sourie', 'souries', 'sourie', 'souriions', 'souriiez', 'sourient']
+
+// Alias base asseoir to s’asseoir
+IRREGULAR_VERBS['asseoir'] = IRREGULAR_VERBS['s’asseoir']
 
 export const startsWithVowel = (text: string): boolean =>
   /^[aeiouyhàâäéèêëîïôöùûü]/i.test(text.trim())
@@ -671,11 +1146,15 @@ const elideSubject = (subject: string, verbForm: string): string => {
   return `${normSubject} ${verbForm}`
 }
 
-const elideQue = (subjectPhrase: string): string =>
-  startsWithVowel(subjectPhrase) ? `qu’${subjectPhrase}` : `que ${subjectPhrase}`
+export const elideQue = (subjectPhrase: string): string => {
+  const trimmed = subjectPhrase.trim()
+  return startsWithVowel(trimmed) ? `qu’${trimmed}` : `que ${trimmed}`
+}
 
-const elideDe = (target: string): string =>
-  startsWithVowel(target) ? `d’${target}` : `de ${target}`
+export const elideDe = (target: string): string => {
+  const trimmed = target.trim()
+  return startsWithVowel(trimmed) ? `d’${trimmed}` : `de ${trimmed}`
+}
 
 const reflexivePronoun = (person: string, verbForm: string): string => {
   const vowel = startsWithVowel(verbForm)
@@ -715,28 +1194,94 @@ const reflexiveImperatif = (person: string, verbForm: string): string => {
 /** Compute past participle agreement endings */
 export const computeAgreement = (participle: string) => {
   const base = participle.trim()
-  const feminine = base.endsWith('e') ? `${base}e` : `${base}e`
-  const plural = base.endsWith('s') ? base : `${base}s`
-  const femininePlural = base.endsWith('s') ? `${base.slice(0, -1)}es` : `${feminine}s`
-  return { masculine: base, feminine, pluralMasc: plural, pluralFem: femininePlural }
+  let masculine = base
+  let feminine: string
+  let pluralMasc: string
+  let pluralFem: string
+
+  if (base.endsWith('s')) {
+    masculine = base
+    feminine = `${base}e`
+    pluralMasc = base
+    pluralFem = `${base}es`
+  } else if (base.endsWith('e')) {
+    feminine = base
+    pluralMasc = `${base}s`
+    pluralFem = `${base}s`
+  } else {
+    feminine = `${base}e`
+    pluralMasc = `${base}s`
+    pluralFem = `${base}es`
+  }
+  return { masculine, feminine, pluralMasc, pluralFem }
+}
+
+/** Derive verbs following known models (venir/tenir, etc.) */
+function deriveFromModel(verb: string): IrregularVerbDef | null {
+  const v = verb.toLowerCase()
+  if (v.endsWith('venir') && v !== 'venir') {
+    const prefix = v.slice(0, -5)
+    const base = IRREGULAR_VERBS['venir']
+    const aux =
+      v === 'devenir' || v === 'revenir' || v === 'parvenir' || v === 'intervenir'
+        ? 'être'
+        : 'avoir'
+    return {
+      participePresent: `${prefix}${base.participePresent}`,
+      participePasse: `${prefix}${base.participePasse}`,
+      auxiliary: aux,
+      present: base.present.map((f) => `${prefix}${f}`) as unknown as IrregularVerbDef['present'],
+      imparfait: base.imparfait.map((f) => `${prefix}${f}`) as unknown as IrregularVerbDef['imparfait'],
+      futurSimple: base.futurSimple.map((f) => `${prefix}${f}`) as unknown as IrregularVerbDef['futurSimple'],
+      conditionnelPresent: base.conditionnelPresent.map((f) => `${prefix}${f}`) as unknown as IrregularVerbDef['conditionnelPresent'],
+      subjonctifPresent: base.subjonctifPresent.map((f) => `${prefix}${f}`) as unknown as IrregularVerbDef['subjonctifPresent'],
+      imperatif: base.imperatif ? (base.imperatif.map((f) => `${prefix}${f}`) as unknown as NonNullable<IrregularVerbDef['imperatif']>) : undefined,
+      passeSimple: base.passeSimple.map((f) => `${prefix}${f}`) as unknown as IrregularVerbDef['passeSimple'],
+    }
+  }
+
+  if (v.endsWith('tenir') && v !== 'tenir') {
+    const prefix = v.slice(0, -5)
+    const base = IRREGULAR_VERBS['tenir']
+    return {
+      participePresent: `${prefix}${base.participePresent}`,
+      participePasse: `${prefix}${base.participePasse}`,
+      auxiliary: 'avoir',
+      present: base.present.map((f) => `${prefix}${f}`) as unknown as IrregularVerbDef['present'],
+      imparfait: base.imparfait.map((f) => `${prefix}${f}`) as unknown as IrregularVerbDef['imparfait'],
+      futurSimple: base.futurSimple.map((f) => `${prefix}${f}`) as unknown as IrregularVerbDef['futurSimple'],
+      conditionnelPresent: base.conditionnelPresent.map((f) => `${prefix}${f}`) as unknown as IrregularVerbDef['conditionnelPresent'],
+      subjonctifPresent: base.subjonctifPresent.map((f) => `${prefix}${f}`) as unknown as IrregularVerbDef['subjonctifPresent'],
+      imperatif: base.imperatif ? (base.imperatif.map((f) => `${prefix}${f}`) as unknown as NonNullable<IrregularVerbDef['imperatif']>) : undefined,
+      passeSimple: base.passeSimple.map((f) => `${prefix}${f}`) as unknown as IrregularVerbDef['passeSimple'],
+    }
+  }
+
+  return null
+}
+
+/** Check whether a verb infinitive is supported */
+export function isSupportedVerb(rawInfinitive: string): boolean {
+  const norm = rawInfinitive
+    .trim()
+    .toLowerCase()
+    .replace(/['’]/g, '’')
+  const base = norm.replace(/^(se\s+|s’)/i, '')
+
+  if (!base) return false
+  if (base.endsWith('er')) return true
+  if (IRREGULAR_VERBS[base] || IRREGULAR_VERBS[norm]) return true
+  if (SECOND_GROUP_VERBS.has(base)) return true
+  if (REGULAR_DRE_VERBS.has(base)) return true
+  if (base.endsWith('venir') || base.endsWith('tenir')) return true
+  return false
 }
 
 /** Conjugate regular verbs based on French 3 groups and spelling rules */
 function conjugateRegular(
   infinitive: string,
   isReflexive: boolean,
-): {
-  participePresent: string
-  participePasse: string
-  auxiliary: 'avoir' | 'être' | 'avoir / être'
-  present: [string, string, string, string, string, string]
-  imparfait: [string, string, string, string, string, string]
-  futurSimple: [string, string, string, string, string, string]
-  conditionnelPresent: [string, string, string, string, string, string]
-  subjonctifPresent: [string, string, string, string, string, string]
-  imperatif: [string, string, string]
-  passeSimple: [string, string, string, string, string, string]
-} {
+): IrregularVerbDef {
   const verb = infinitive.trim().toLowerCase()
   const aux: 'avoir' | 'être' | 'avoir / être' = isReflexive
     ? 'être'
@@ -760,31 +1305,45 @@ function conjugateRegular(
 
     // -yer: payer / nettoyer / essuyer
     const isYer = verb.endsWith('yer')
-    const yerRootI = isYer ? `${root.slice(0, -1)}i` : root // 'nettoi'
 
-    // -eler / -eter doubling (appeler -> appelle, jeter -> jette)
-    const isAppelerLike = verb === 'appeler' || verb.endsWith('appeler')
-    const isJeterLike = verb === 'jeter' || verb.endsWith('jeter')
-    const doubleConsonantRoot = isAppelerLike
-      ? `${root}l`
-      : isJeterLike
-        ? `${root}t`
-        : null
+    const isEler = verb.endsWith('eler')
+    const isEter = verb.endsWith('eter')
+    const isAcheterPeler = ACHETER_PELER_SET.has(verb)
 
-    // e/é + consonne + er (acheter -> achète, lever -> lève, préférer -> préfère)
-    const isAcheter = verb === 'acheter' || verb.endsWith('acheter')
-    const isLever = verb === 'lever' || verb.endsWith('lever') || verb.endsWith('mener')
-    const isPreferer = verb.endsWith('érer') || verb.endsWith('éter') || verb.endsWith('éser')
+    let stemSil = root
+    let futStem = verb
 
-    const graveRoot = isAcheter
-      ? `${root.slice(0, -2)}èt`
-      : isLever
-        ? `${root.slice(0, -2)}è${root.slice(-1)}`
-        : isPreferer
-          ? `${root.slice(0, -2)}è${root.slice(-1)}`
-          : null
+    if (isAcheterPeler) {
+      const m = root.match(/^(.*)e([^eéèêëaiouy\s]+)$/)
+      if (m) {
+        stemSil = `${m[1]}è${m[2]}`
+        futStem = `${stemSil}er`
+      }
+    } else if (isEler) {
+      stemSil = `${root}l`
+      futStem = `${stemSil}er`
+    } else if (isEter) {
+      stemSil = `${root}t`
+      futStem = `${stemSil}er`
+    } else if (/^(.*)e([bcdfghjklmnpqrstvwxz]|vr)er$/.test(verb)) {
+      // e + consonne(s) + er: peser, mener, lever, achever, promener, enlever, semer
+      const m = verb.match(/^(.*)e([bcdfghjklmnpqrstvwxz]|vr)er$/)
+      if (m) {
+        stemSil = `${m[1]}è${m[2]}`
+        futStem = `${stemSil}er`
+      }
+    } else if (/^(.*)é([bcdfghjklmnpqrstvwxz]|br|cl|cr|dr|fr|gr|pr|tr|vr)er$/.test(verb)) {
+      // é + consonne(s) + er: protéger, espérer, répéter, compléter, célébrer, posséder
+      const m = verb.match(/^(.*)é([bcdfghjklmnpqrstvwxz]|br|cl|cr|dr|fr|gr|pr|tr|vr)er$/)
+      if (m) {
+        stemSil = `${m[1]}è${m[2]}`
+        futStem = verb // traditional spelling keeps é in futur and conditionnel
+      }
+    } else if (isYer) {
+      stemSil = `${root.slice(0, -1)}i`
+      futStem = `${stemSil}er`
+    }
 
-    const stemSil = doubleConsonantRoot ?? graveRoot ?? (isYer ? yerRootI : root)
     const stemNous = isGer ? `${gerPrefix}ons` : isCer ? `${cerPrefix}ons` : `${root}ons`
     const stemVous = `${root}ez`
 
@@ -806,16 +1365,6 @@ function conjugateRegular(
       `${root}iez`,
       `${impfStem}aient`,
     ]
-
-    const futStem = isAppelerLike
-      ? `${root}ler`
-      : isJeterLike
-        ? `${root}ter`
-        : isAcheter || isLever
-          ? `${graveRoot}er`
-          : isYer
-            ? `${yerRootI}er`
-            : verb
 
     const futurSimple: [string, string, string, string, string, string] = [
       `${futStem}ai`,
@@ -846,14 +1395,15 @@ function conjugateRegular(
 
     const imperatif: [string, string, string] = [`${stemSil}e`, stemNous, stemVous]
 
-    const psStem = isGer ? gerPrefix : isCer ? cerPrefix : root
+    // Passé simple: -ger and -cer use e / ç before a, but 3rd plural uses -èrent without extra e or ç
+    const psStemA = isGer ? gerPrefix : isCer ? cerPrefix : root
     const passeSimple: [string, string, string, string, string, string] = [
-      `${psStem}ai`,
-      `${psStem}as`,
-      `${psStem}a`,
-      `${psStem}âmes`,
-      `${psStem}âtes`,
-      `${psStem}èrent`,
+      `${psStemA}ai`,
+      `${psStemA}as`,
+      `${psStemA}a`,
+      `${psStemA}âmes`,
+      `${psStemA}âtes`,
+      `${root}èrent`,
     ]
 
     const participePresent = `${isGer ? gerPrefix : isCer ? cerPrefix : root}ant`
@@ -873,7 +1423,7 @@ function conjugateRegular(
     }
   }
 
-  // Group 2: -ir (finir, choisir, réussir)
+  // Group 2: -ir (finir, choisir, réussir...)
   if (verb.endsWith('ir')) {
     const root = verb.slice(0, -2)
     const present: [string, string, string, string, string, string] = [
@@ -1006,48 +1556,49 @@ function conjugateRegular(
 
 /** Main conjugation entry point */
 export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationResult {
-  const trimmed = rawInfinitive.trim()
+  const trimmed = rawInfinitive
+    .trim()
+    .toLowerCase()
+    .replace(/['’]/g, '’')
+
   const isReflexive =
     trimmed.startsWith('se ') ||
-    trimmed.startsWith("s'") ||
     trimmed.startsWith('s’')
 
   const baseInfinitive = isReflexive
-    ? trimmed.replace(/^(se\s+|s'|s’)/i, '')
+    ? trimmed.replace(/^(se\s+|s’)/i, '')
     : trimmed
+
+  if (!isSupportedVerb(trimmed)) {
+    throw new UnsupportedVerbError(rawInfinitive)
+  }
 
   const isImpersonal = IMPERSONAL_VERBS.has(baseInfinitive)
 
-  // Lookup in irregular table or fall back to regular models
-  const irregularKey = isReflexive
-    ? trimmed.startsWith("s'") || trimmed.startsWith('s’')
-      ? "s'asseoir"
-      : baseInfinitive
-    : baseInfinitive
-
   const def: IrregularVerbDef =
-    IRREGULAR_VERBS[irregularKey] ??
     IRREGULAR_VERBS[baseInfinitive] ??
+    IRREGULAR_VERBS[trimmed] ??
+    deriveFromModel(baseInfinitive) ??
     conjugateRegular(baseInfinitive, isReflexive)
 
   const auxiliary: 'avoir' | 'être' | 'avoir / être' = isReflexive
     ? 'être'
-    : (def.auxiliary ??
-      (DUAL_AUXILIARY_VERBS.has(baseInfinitive)
-        ? 'avoir / être'
-        : ETRE_VERBS.has(baseInfinitive)
+    : (DUAL_AUXILIARY_VERBS.has(baseInfinitive)
+      ? 'avoir / être'
+      : (def.auxiliary ??
+        (ETRE_VERBS.has(baseInfinitive)
           ? 'être'
-          : 'avoir'))
+          : 'avoir')))
 
   const notes: string[] = []
   if (DUAL_AUXILIARY_VERBS.has(baseInfinitive) && !isReflexive) {
     notes.push(
-      "Ce verbe utilise l’auxiliaire « être » dans l’emploi intransitif (mouvement/changement d’état) et « avoir » dans l’emploi transitif direct avec COD (ex. « il est sorti » vs « il a sorti son passeport »).",
+      'Ce verbe utilise l’auxiliaire « être » par défaut (emploi intransitif de déplacement ou de changement d’état : « je suis descendu(e) ») et l’auxiliaire « avoir » lorsqu’il a un objet direct (COD transitif, ex. « j’ai descendu les valises »).',
     )
   }
   if (isReflexive) {
     notes.push(
-      "Tous les verbes pronominaux se conjuguent avec l’auxiliaire « être » aux temps composés.",
+      'Tous les verbes pronominaux se conjuguent avec l’auxiliaire « être » aux temps composés.',
     )
   }
 
@@ -1055,22 +1606,24 @@ export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationR
   const partPres = def.participePresent
   const agreement = computeAgreement(pp)
 
+  const usesEtre = auxiliary === 'être' || auxiliary === 'avoir / être'
+
   const buildCompoundForms = (
     auxForms: [string, string, string, string, string, string] | [string],
     moodPrefix = '',
   ): ConjugatedPersonForm[] => {
     if (isImpersonal) {
-      const auxVal = auxForms[0]
+      const auxVal = auxForms[2] ?? auxForms[0]
       const verb = `${auxVal} ${pp}`
       const subject = 'il'
-      const display = `${moodPrefix ? `${moodPrefix} ` : ''}il ${verb}`
+      const display = moodPrefix ? `${elideQue('il')} ${verb}` : `il ${verb}`
       return [
         {
           person: '3s',
           subject,
           verb,
           display,
-          answers: [display, `il ${verb}`, verb],
+          answers: [display, `qu’il ${verb}`, `qu'il ${verb}`, `il ${verb}`, verb],
         },
       ]
     }
@@ -1084,7 +1637,6 @@ export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationR
       const sub = subjects[idx]
 
       if (isReflexive) {
-        // e.g. me suis levé(e)
         const refl = reflexivePronoun(p, auxVal)
         const baseVerb = `${refl}${auxVal} ${pp}`
 
@@ -1098,45 +1650,113 @@ export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationR
         }
 
         if (p === '1s') {
-          display = `${moodPrefix ? `${moodPrefix} ` : ''}je ${refl}${auxVal} ${pp}(e)`
-          answers.push(
-            `je ${refl}${auxVal} ${agreement.masculine}`,
-            `je ${refl}${auxVal} ${agreement.feminine}`,
-          )
+          if (moodPrefix) {
+            display = `que je ${refl}${auxVal} ${pp}(e)`
+            answers.push(
+              `que je ${refl}${auxVal} ${agreement.masculine}`,
+              `que je ${refl}${auxVal} ${agreement.feminine}`,
+              `je ${refl}${auxVal} ${agreement.masculine}`,
+              `je ${refl}${auxVal} ${agreement.feminine}`,
+            )
+          } else {
+            display = `je ${refl}${auxVal} ${pp}(e)`
+            answers.push(
+              `je ${refl}${auxVal} ${agreement.masculine}`,
+              `je ${refl}${auxVal} ${agreement.feminine}`,
+            )
+          }
         } else if (p === '2s') {
-          display = `${moodPrefix ? `${moodPrefix} ` : ''}tu ${refl}${auxVal} ${pp}(e)`
-          answers.push(
-            `tu ${refl}${auxVal} ${agreement.masculine}`,
-            `tu ${refl}${auxVal} ${agreement.feminine}`,
-          )
+          if (moodPrefix) {
+            display = `que tu ${refl}${auxVal} ${pp}(e)`
+            answers.push(
+              `que tu ${refl}${auxVal} ${agreement.masculine}`,
+              `que tu ${refl}${auxVal} ${agreement.feminine}`,
+              `tu ${refl}${auxVal} ${agreement.masculine}`,
+              `tu ${refl}${auxVal} ${agreement.feminine}`,
+            )
+          } else {
+            display = `tu ${refl}${auxVal} ${pp}(e)`
+            answers.push(
+              `tu ${refl}${auxVal} ${agreement.masculine}`,
+              `tu ${refl}${auxVal} ${agreement.feminine}`,
+            )
+          }
         } else if (p === '3s') {
-          display = `${moodPrefix ? `${moodPrefix} ` : ''}il ${refl}${auxVal} ${agreement.masculine} / elle ${refl}${auxVal} ${agreement.feminine} / on ${refl}${auxVal} ${pp}(e)`
-          answers.push(
-            `il ${refl}${auxVal} ${agreement.masculine}`,
-            `elle ${refl}${auxVal} ${agreement.feminine}`,
-            `on ${refl}${auxVal} ${agreement.masculine}`,
-            `on ${refl}${auxVal} ${agreement.feminine}`,
-          )
+          if (moodPrefix) {
+            display = `qu’il ${refl}${auxVal} ${agreement.masculine} / qu’elle ${refl}${auxVal} ${agreement.feminine} / qu’on ${refl}${auxVal} ${pp}(e)`
+            answers.push(
+              `qu’il ${refl}${auxVal} ${agreement.masculine}`,
+              `qu’elle ${refl}${auxVal} ${agreement.feminine}`,
+              `qu’on ${refl}${auxVal} ${agreement.masculine}`,
+              `qu’on ${refl}${auxVal} ${agreement.feminine}`,
+              `il ${refl}${auxVal} ${agreement.masculine}`,
+              `elle ${refl}${auxVal} ${agreement.feminine}`,
+              `on ${refl}${auxVal} ${agreement.masculine}`,
+              `on ${refl}${auxVal} ${agreement.feminine}`,
+            )
+          } else {
+            display = `il ${refl}${auxVal} ${agreement.masculine} / elle ${refl}${auxVal} ${agreement.feminine} / on ${refl}${auxVal} ${pp}(e)`
+            answers.push(
+              `il ${refl}${auxVal} ${agreement.masculine}`,
+              `elle ${refl}${auxVal} ${agreement.feminine}`,
+              `on ${refl}${auxVal} ${agreement.masculine}`,
+              `on ${refl}${auxVal} ${agreement.feminine}`,
+            )
+          }
         } else if (p === '1p') {
-          display = `${moodPrefix ? `${moodPrefix} ` : ''}nous ${refl}${auxVal} ${agreement.pluralMasc} / ${agreement.pluralFem}`
-          answers.push(
-            `nous ${refl}${auxVal} ${agreement.pluralMasc}`,
-            `nous ${refl}${auxVal} ${agreement.pluralFem}`,
-          )
+          if (moodPrefix) {
+            display = `que nous ${refl}${auxVal} ${agreement.pluralMasc} / ${agreement.pluralFem}`
+            answers.push(
+              `que nous ${refl}${auxVal} ${agreement.pluralMasc}`,
+              `que nous ${refl}${auxVal} ${agreement.pluralFem}`,
+              `nous ${refl}${auxVal} ${agreement.pluralMasc}`,
+              `nous ${refl}${auxVal} ${agreement.pluralFem}`,
+            )
+          } else {
+            display = `nous ${refl}${auxVal} ${agreement.pluralMasc} / ${agreement.pluralFem}`
+            answers.push(
+              `nous ${refl}${auxVal} ${agreement.pluralMasc}`,
+              `nous ${refl}${auxVal} ${agreement.pluralFem}`,
+            )
+          }
         } else if (p === '2p') {
-          display = `${moodPrefix ? `${moodPrefix} ` : ''}vous ${refl}${auxVal} ${pp}(e)(s)`
-          answers.push(
-            `vous ${refl}${auxVal} ${agreement.masculine}`,
-            `vous ${refl}${auxVal} ${agreement.feminine}`,
-            `vous ${refl}${auxVal} ${agreement.pluralMasc}`,
-            `vous ${refl}${auxVal} ${agreement.pluralFem}`,
-          )
+          if (moodPrefix) {
+            display = `que vous ${refl}${auxVal} ${pp}(e)(s)`
+            answers.push(
+              `que vous ${refl}${auxVal} ${agreement.masculine}`,
+              `que vous ${refl}${auxVal} ${agreement.feminine}`,
+              `que vous ${refl}${auxVal} ${agreement.pluralMasc}`,
+              `que vous ${refl}${auxVal} ${agreement.pluralFem}`,
+              `vous ${refl}${auxVal} ${agreement.masculine}`,
+              `vous ${refl}${auxVal} ${agreement.feminine}`,
+              `vous ${refl}${auxVal} ${agreement.pluralMasc}`,
+              `vous ${refl}${auxVal} ${agreement.pluralFem}`,
+            )
+          } else {
+            display = `vous ${refl}${auxVal} ${pp}(e)(s)`
+            answers.push(
+              `vous ${refl}${auxVal} ${agreement.masculine}`,
+              `vous ${refl}${auxVal} ${agreement.feminine}`,
+              `vous ${refl}${auxVal} ${agreement.pluralMasc}`,
+              `vous ${refl}${auxVal} ${agreement.pluralFem}`,
+            )
+          }
         } else {
-          display = `${moodPrefix ? `${moodPrefix} ` : ''}ils ${refl}${auxVal} ${agreement.pluralMasc} / elles ${refl}${auxVal} ${agreement.pluralFem}`
-          answers.push(
-            `ils ${refl}${auxVal} ${agreement.pluralMasc}`,
-            `elles ${refl}${auxVal} ${agreement.pluralFem}`,
-          )
+          if (moodPrefix) {
+            display = `qu’ils ${refl}${auxVal} ${agreement.pluralMasc} / qu’elles ${refl}${auxVal} ${agreement.pluralFem}`
+            answers.push(
+              `qu’ils ${refl}${auxVal} ${agreement.pluralMasc}`,
+              `qu’elles ${refl}${auxVal} ${agreement.pluralFem}`,
+              `ils ${refl}${auxVal} ${agreement.pluralMasc}`,
+              `elles ${refl}${auxVal} ${agreement.pluralFem}`,
+            )
+          } else {
+            display = `ils ${refl}${auxVal} ${agreement.pluralMasc} / elles ${refl}${auxVal} ${agreement.pluralFem}`
+            answers.push(
+              `ils ${refl}${auxVal} ${agreement.pluralMasc}`,
+              `elles ${refl}${auxVal} ${agreement.pluralFem}`,
+            )
+          }
         }
 
         return {
@@ -1149,8 +1769,7 @@ export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationR
         }
       }
 
-      if (auxiliary === 'être') {
-        // Être agreement
+      if (usesEtre) {
         const verbMasc = `${auxVal} ${agreement.masculine}`
         const verbFem = `${auxVal} ${agreement.feminine}`
         const verbPlMasc = `${auxVal} ${agreement.pluralMasc}`
@@ -1166,41 +1785,105 @@ export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationR
         const answers: string[] = []
 
         if (p === '1s') {
-          const prefix = elideSubject(moodPrefix ? `${moodPrefix} je` : 'je', auxVal)
-          display = `${prefix} ${pp}(e)`
-          answers.push(`${prefix} ${agreement.masculine}`, `${prefix} ${agreement.feminine}`)
+          if (moodPrefix) {
+            display = `que je ${auxVal} ${pp}(e)`
+            answers.push(
+              `que je ${auxVal} ${agreement.masculine}`,
+              `que je ${auxVal} ${agreement.feminine}`,
+              `je ${auxVal} ${agreement.masculine}`,
+              `je ${auxVal} ${agreement.feminine}`,
+            )
+          } else {
+            const prefix = elideSubject('je', auxVal)
+            display = `${prefix} ${pp}(e)`
+            answers.push(
+              `${prefix} ${agreement.masculine}`,
+              `${prefix} ${agreement.feminine}`,
+            )
+          }
         } else if (p === '2s') {
-          const prefix = moodPrefix ? `${moodPrefix} tu` : 'tu'
-          display = `${prefix} ${auxVal} ${pp}(e)`
-          answers.push(`${prefix} ${verbMasc}`, `${prefix} ${verbFem}`)
+          if (moodPrefix) {
+            display = `que tu ${auxVal} ${pp}(e)`
+            answers.push(
+              `que tu ${verbMasc}`,
+              `que tu ${verbFem}`,
+              `tu ${verbMasc}`,
+              `tu ${verbFem}`,
+            )
+          } else {
+            display = `tu ${auxVal} ${pp}(e)`
+            answers.push(`tu ${verbMasc}`, `tu ${verbFem}`)
+          }
         } else if (p === '3s') {
-          display = moodPrefix
-            ? `${moodPrefix} il ${verbMasc} / ${moodPrefix} elle ${verbFem} / ${moodPrefix} on ${auxVal} ${pp}(e)`
-            : `il ${verbMasc} / elle ${verbFem} / on ${auxVal} ${pp}(e)`
-          answers.push(
-            `il ${verbMasc}`,
-            `elle ${verbFem}`,
-            `on ${verbMasc}`,
-            `on ${verbFem}`,
-          )
+          if (moodPrefix) {
+            display = `qu’il ${verbMasc} / qu’elle ${verbFem} / qu’on ${auxVal} ${pp}(e)`
+            answers.push(
+              `qu’il ${verbMasc}`,
+              `qu’elle ${verbFem}`,
+              `qu’on ${verbMasc}`,
+              `qu’on ${verbFem}`,
+              `il ${verbMasc}`,
+              `elle ${verbFem}`,
+              `on ${verbMasc}`,
+              `on ${verbFem}`,
+            )
+          } else {
+            display = `il ${verbMasc} / elle ${verbFem} / on ${auxVal} ${pp}(e)`
+            answers.push(
+              `il ${verbMasc}`,
+              `elle ${verbFem}`,
+              `on ${verbMasc}`,
+              `on ${verbFem}`,
+            )
+          }
         } else if (p === '1p') {
-          const prefix = moodPrefix ? `${moodPrefix} nous` : 'nous'
-          display = `${prefix} ${auxVal} ${agreement.pluralMasc} / ${agreement.pluralFem}`
-          answers.push(`${prefix} ${verbPlMasc}`, `${prefix} ${verbPlFem}`)
+          if (moodPrefix) {
+            display = `que nous ${auxVal} ${agreement.pluralMasc} / ${agreement.pluralFem}`
+            answers.push(
+              `que nous ${verbPlMasc}`,
+              `que nous ${verbPlFem}`,
+              `nous ${verbPlMasc}`,
+              `nous ${verbPlFem}`,
+            )
+          } else {
+            display = `nous ${auxVal} ${agreement.pluralMasc} / ${agreement.pluralFem}`
+            answers.push(`nous ${verbPlMasc}`, `nous ${verbPlFem}`)
+          }
         } else if (p === '2p') {
-          const prefix = moodPrefix ? `${moodPrefix} vous` : 'vous'
-          display = `${prefix} ${auxVal} ${pp}(e)(s)`
-          answers.push(
-            `${prefix} ${verbMasc}`,
-            `${prefix} ${verbFem}`,
-            `${prefix} ${verbPlMasc}`,
-            `${prefix} ${verbPlFem}`,
-          )
+          if (moodPrefix) {
+            display = `que vous ${auxVal} ${pp}(e)(s)`
+            answers.push(
+              `que vous ${verbMasc}`,
+              `que vous ${verbFem}`,
+              `que vous ${verbPlMasc}`,
+              `que vous ${verbPlFem}`,
+              `vous ${verbMasc}`,
+              `vous ${verbFem}`,
+              `vous ${verbPlMasc}`,
+              `vous ${verbPlFem}`,
+            )
+          } else {
+            display = `vous ${auxVal} ${pp}(e)(s)`
+            answers.push(
+              `vous ${verbMasc}`,
+              `vous ${verbFem}`,
+              `vous ${verbPlMasc}`,
+              `vous ${verbPlFem}`,
+            )
+          }
         } else {
-          display = moodPrefix
-            ? `${moodPrefix} ils ${verbPlMasc} / ${moodPrefix} elles ${verbPlFem}`
-            : `ils ${verbPlMasc} / elles ${verbPlFem}`
-          answers.push(`ils ${verbPlMasc}`, `elles ${verbPlFem}`)
+          if (moodPrefix) {
+            display = `qu’ils ${verbPlMasc} / qu’elles ${verbPlFem}`
+            answers.push(
+              `qu’ils ${verbPlMasc}`,
+              `qu’elles ${verbPlFem}`,
+              `ils ${verbPlMasc}`,
+              `elles ${verbPlFem}`,
+            )
+          } else {
+            display = `ils ${verbPlMasc} / elles ${verbPlFem}`
+            answers.push(`ils ${verbPlMasc}`, `elles ${verbPlFem}`)
+          }
         }
 
         return {
@@ -1219,23 +1902,75 @@ export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationR
       const answers: string[] = []
 
       if (p === '1s') {
-        const sub1 = moodPrefix ? `${moodPrefix} je` : 'je'
-        display = elideSubject(sub1, verb)
-        answers.push(display)
+        if (moodPrefix) {
+          display = startsWithVowel(auxVal) ? `que j’${verb}` : `que je ${verb}`
+          answers.push(
+            display,
+            startsWithVowel(auxVal) ? `que j'${verb}` : display,
+            elideSubject('je', verb),
+            `j'${verb}`,
+          )
+        } else {
+          display = elideSubject('je', verb)
+          answers.push(display, `j'${verb}`)
+        }
+      } else if (p === '2s') {
+        if (moodPrefix) {
+          display = `que tu ${verb}`
+          answers.push(display, `tu ${verb}`)
+        } else {
+          display = `tu ${verb}`
+          answers.push(display)
+        }
       } else if (p === '3s') {
-        display = moodPrefix
-          ? `${moodPrefix} il / elle / on ${verb}`
-          : `il / elle / on ${verb}`
-        answers.push(`il ${verb}`, `elle ${verb}`, `on ${verb}`)
-      } else if (p === '3p') {
-        display = moodPrefix
-          ? `${moodPrefix} ils / elles ${verb}`
-          : `ils / elles ${verb}`
-        answers.push(`ils ${verb}`, `elles ${verb}`)
+        if (moodPrefix) {
+          display = `qu’il / elle / on ${verb}`
+          answers.push(
+            `qu’il ${verb}`,
+            `qu'il ${verb}`,
+            `qu’elle ${verb}`,
+            `qu'elle ${verb}`,
+            `qu’on ${verb}`,
+            `qu'on ${verb}`,
+            `il ${verb}`,
+            `elle ${verb}`,
+            `on ${verb}`,
+          )
+        } else {
+          display = `il / elle / on ${verb}`
+          answers.push(`il ${verb}`, `elle ${verb}`, `on ${verb}`)
+        }
+      } else if (p === '1p') {
+        if (moodPrefix) {
+          display = `que nous ${verb}`
+          answers.push(display, `nous ${verb}`)
+        } else {
+          display = `nous ${verb}`
+          answers.push(display)
+        }
+      } else if (p === '2p') {
+        if (moodPrefix) {
+          display = `que vous ${verb}`
+          answers.push(display, `vous ${verb}`)
+        } else {
+          display = `vous ${verb}`
+          answers.push(display)
+        }
       } else {
-        const fullSub = moodPrefix ? `${moodPrefix} ${sub}` : sub
-        display = `${fullSub} ${verb}`
-        answers.push(display)
+        if (moodPrefix) {
+          display = `qu’ils / elles ${verb}`
+          answers.push(
+            `qu’ils ${verb}`,
+            `qu'ils ${verb}`,
+            `qu’elles ${verb}`,
+            `qu'elles ${verb}`,
+            `ils ${verb}`,
+            `elles ${verb}`,
+          )
+        } else {
+          display = `ils / elles ${verb}`
+          answers.push(`ils ${verb}`, `elles ${verb}`)
+        }
       }
 
       return {
@@ -1256,14 +1991,14 @@ export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationR
   ): ConjugatedPersonForm[] => {
     if (isImpersonal) {
       const v = rawForms[0]
-      const display = options.isSubjunctive ? `qu’il ${v}` : `il ${v}`
+      const display = options.isSubjunctive ? `${elideQue('il')} ${v}` : `il ${v}`
       return [
         {
           person: '3s',
           subject: 'il',
           verb: v,
           display,
-          answers: [display, `il ${v}`, v],
+          answers: [display, `qu’il ${v}`, `qu'il ${v}`, `il ${v}`, v],
         },
       ]
     }
@@ -1289,10 +2024,8 @@ export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationR
         if (p === '1s') {
           display = startsWithVowel(fullVerb)
             ? `que j’${fullVerb}`
-            : isReflexive
-              ? `que je ${fullVerb}`
-              : `que je ${fullVerb}`
-          answers.push(display)
+            : `que je ${fullVerb}`
+          answers.push(display, startsWithVowel(fullVerb) ? `que j'${fullVerb}` : display)
         } else if (p === '2s') {
           display = `que tu ${fullVerb}`
           answers.push(display)
@@ -1300,8 +2033,11 @@ export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationR
           display = `qu’il / elle / on ${fullVerb}`
           answers.push(
             `qu’il ${fullVerb}`,
+            `qu'il ${fullVerb}`,
             `qu’elle ${fullVerb}`,
+            `qu'elle ${fullVerb}`,
             `qu’on ${fullVerb}`,
+            `qu'on ${fullVerb}`,
           )
         } else if (p === '1p') {
           display = `que nous ${fullVerb}`
@@ -1311,12 +2047,17 @@ export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationR
           answers.push(display)
         } else {
           display = `qu’ils / elles ${fullVerb}`
-          answers.push(`qu’ils ${fullVerb}`, `qu’elles ${fullVerb}`)
+          answers.push(
+            `qu’ils ${fullVerb}`,
+            `qu'ils ${fullVerb}`,
+            `qu’elles ${fullVerb}`,
+            `qu'elles ${fullVerb}`,
+          )
         }
       } else {
         if (p === '1s') {
           display = elideSubject('je', fullVerb)
-          answers.push(display)
+          answers.push(display, display.replace(/’/g, "'"))
         } else if (p === '3s') {
           display = `il / elle / on ${fullVerb}`
           answers.push(`il ${fullVerb}`, `elle ${fullVerb}`, `on ${fullVerb}`)
@@ -1366,7 +2107,7 @@ export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationR
 
     case 'passeCompose':
       forms = buildCompoundForms(
-        auxiliary === 'être'
+        usesEtre
           ? ['suis', 'es', 'est', 'sommes', 'êtes', 'sont']
           : ['ai', 'as', 'a', 'avons', 'avez', 'ont'],
       )
@@ -1378,7 +2119,7 @@ export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationR
 
     case 'plusQueParfait':
       forms = buildCompoundForms(
-        auxiliary === 'être'
+        usesEtre
           ? ['étais', 'étais', 'était', 'étions', 'étiez', 'étaient']
           : ['avais', 'avais', 'avait', 'avions', 'aviez', 'avaient'],
       )
@@ -1440,7 +2181,7 @@ export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationR
 
     case 'futurAnterieur':
       forms = buildCompoundForms(
-        auxiliary === 'être'
+        usesEtre
           ? ['serai', 'seras', 'sera', 'serons', 'serez', 'seront']
           : ['aurai', 'auras', 'aura', 'aurons', 'aurez', 'auront'],
       )
@@ -1448,7 +2189,7 @@ export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationR
 
     case 'passeRecent': {
       if (isImpersonal) {
-        const dePhrase = startsWithVowel(baseInfinitive) ? `d’${baseInfinitive}` : `de ${baseInfinitive}`
+        const dePhrase = elideDe(baseInfinitive)
         const display = `il vient ${dePhrase}`
         forms = [
           {
@@ -1471,7 +2212,7 @@ export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationR
             const refl = reflexivePronoun(p, baseInfinitive)
             verb = `${venirForm} de ${refl}${baseInfinitive}`
           } else {
-            const dePhrase = startsWithVowel(baseInfinitive) ? `d’${baseInfinitive}` : `de ${baseInfinitive}`
+            const dePhrase = elideDe(baseInfinitive)
             verb = `${venirForm} ${dePhrase}`
           }
 
@@ -1504,7 +2245,7 @@ export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationR
 
     case 'conditionnelPasse':
       forms = buildCompoundForms(
-        auxiliary === 'être'
+        usesEtre
           ? ['serais', 'serais', 'serait', 'serions', 'seriez', 'seraient']
           : ['aurais', 'aurais', 'aurait', 'aurions', 'auriez', 'auraient'],
       )
@@ -1516,7 +2257,7 @@ export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationR
 
     case 'subjonctifPasse':
       forms = buildCompoundForms(
-        auxiliary === 'être'
+        usesEtre
           ? ['sois', 'sois', 'soit', 'soyons', 'soyez', 'soient']
           : ['aie', 'aies', 'ait', 'ayons', 'ayez', 'aient'],
         'que',
@@ -1524,8 +2265,13 @@ export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationR
       break
 
     case 'imperatif': {
-      if (isImpersonal) {
+      if (isImpersonal || baseInfinitive === 'pouvoir') {
         forms = []
+        if (baseInfinitive === 'pouvoir') {
+          notes.push('pouvoir n’a pas d’impératif')
+        } else {
+          notes.push(`${baseInfinitive} n’a pas d’impératif`)
+        }
       } else {
         const impRaw: string[] = def.imperatif ?? [
           def.present[1] ?? '',
@@ -1558,21 +2304,31 @@ export function conjugate(rawInfinitive: string, tenseId: TenseId): ConjugationR
       break
 
     case 'gerondif': {
-      const verb = isReflexive
-        ? `se ${partPres}`
-        : partPres
-      const display = isReflexive
-        ? `en se ${partPres}`
-        : `en ${partPres}`
-      forms = [
-        {
-          person: 'gerondif',
-          subject: '',
-          verb,
-          display,
-          answers: [display, verb],
-        },
-      ]
+      if (isImpersonal) {
+        forms = []
+        if (baseInfinitive === 'falloir') {
+          notes.push('falloir n’a pas de gérondif')
+        } else {
+          notes.push('pleuvoir n’a pas de gérondif (« pleuvant » existe uniquement comme participe présent)')
+        }
+      } else {
+        const reflG = startsWithVowel(partPres) ? 's’' : 'se '
+        const verb = isReflexive
+          ? `${reflG}${partPres}`
+          : partPres
+        const display = isReflexive
+          ? `en ${reflG}${partPres}`
+          : `en ${partPres}`
+        forms = [
+          {
+            person: 'gerondif',
+            subject: '',
+            verb,
+            display,
+            answers: [display, verb],
+          },
+        ]
+      }
       break
     }
   }
@@ -1623,7 +2379,7 @@ export function conjugateAll(infinitive: string): Record<TenseId, ConjugationRes
 
 /** Return list of high-frequency and regular model verbs supported by the engine */
 export function getSupportedVerbs(): string[] {
-  const irregulars = Object.keys(IRREGULAR_VERBS)
+  const irregulars = Object.keys(IRREGULAR_VERBS).filter((k) => k !== 'asseoir')
   const models = [
     'parler',
     'aimer',
@@ -1638,12 +2394,48 @@ export function getSupportedVerbs(): string[] {
     'se lever',
     's’appeler',
     'se souvenir',
-    'finir',
-    'choisir',
-    'réussir',
+    'se plaindre',
+    'devenir',
+    'revenir',
+    'obtenir',
+    'sentir',
+    'servir',
+    'mentir',
+    'découvrir',
+    'souffrir',
+    'produire',
+    'construire',
+    'traduire',
+    'détruire',
+    'apparaître',
+    'disparaître',
+    'reconnaître',
+    'permettre',
+    'promettre',
+    'battre',
+    'vaincre',
+    'résoudre',
+    'éteindre',
+    'atteindre',
+    'apercevoir',
+    'décevoir',
+    'sourire',
+    'interdire',
+    'prédire',
+    'élire',
+    'décrire',
+    'inscrire',
+    'poursuivre',
+    'survivre',
+    'cueillir',
+    'accueillir',
+    'fuir',
+    'haïr',
+    'acquérir',
     'vendre',
     'attendre',
     'répondre',
+    ...Array.from(SECOND_GROUP_VERBS),
   ]
   return Array.from(new Set(irregulars.concat(models))).sort((a, b) => a.localeCompare(b, 'fr'))
 }
