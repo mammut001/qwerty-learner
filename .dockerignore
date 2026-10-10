@@ -8,6 +8,8 @@ stats.html
 **/.dev.vars*
 **/.wrangler
 **/data
+# Do not exclude source code directories named data under src
+!src/**/data
 **/*.sqlite*
 deploy/wrangler.production.json
 deploy/deployment.json
