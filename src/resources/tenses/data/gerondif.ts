@@ -8,8 +8,8 @@ export const gerondifLesson: TenseLesson = {
   cefrLevel: 'A2-B1',
   echelleNiveau: [3, 5],
   echelleSources: [
-    'n3-gr-gerondif: 副动词 en + -ant',
-    'n5-gr-gerondif-avance: 副动词 en + -ant（深入）',
+    'Niveau 3 · Quelques verbes au gérondif',
+    'Niveau 5 · Des verbes au gérondif',
   ],
   summaryZh: '由介词 en + 现在分词（participe présent）构成；表达与主句主语同时进行的动作，兼表方式手段、原因、条件或让步。',
   timelinePosition: 'overview',
@@ -238,14 +238,16 @@ export const gerondifLesson: TenseLesson = {
   ],
   commonMistakes: [
     {
-      wrong: 'En marchant dans la rue, mon chapeau s’est envolé. (主语不一致病句)',
+      wrong: 'En marchant dans la rue, mon chapeau s’est envolé.',
       right: 'En marchant dans la rue, j’ai perdu mon chapeau.',
       explanationZh: '语法铁律：副动词的逻辑主语必须是主句的主语！如果说 mon chapeau s’est envolé，就变成了“帽子在街上走路”，属于典型逻辑悬空病句。',
+      noteZh: '主语不一致病句',
     },
     {
-      wrong: 'Je mange parlant au téléphone. (漏掉了介词 en)',
+      wrong: 'Je mange parlant au téléphone.',
       right: 'Je mange en parlant au téléphone.',
       explanationZh: '副动词必须由介词 en + 现在分词构成，如果省略 en，就变成了现在分词短语，通常不能表达方式或伴随。',
+      noteZh: '漏掉了介词 en',
     },
     {
       wrong: 'Elle est tombée en se promener.',
@@ -253,9 +255,10 @@ export const gerondifLesson: TenseLesson = {
       explanationZh: '介词 en 后面必须接现在分词（-ant：se promenant），不能接原形动词。',
     },
     {
-      wrong: 'En étendant le linge, il fait beau. (主语悬空)',
+      wrong: 'En étendant le linge, il fait beau.',
       right: 'En étendant le linge, elle profitait du beau temps.',
       explanationZh: '副动词绝不能与无人称动词 il fait beau 搭配，主语必须是具体执行该动作的人。',
+      noteZh: '主语悬空病句',
     },
   ],
   questions: [
@@ -309,7 +312,7 @@ export const gerondifLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Elle est restée très calme tout (être) ___ surprise par la nouvelle.（填入 en + 不规则分词）',
       correctAnswer: 'en étant',
-      acceptedAnswers: ['en étant', 'en etant'],
+      acceptedAnswers: ['en étant'],
       explanationZh: 'être 的副动词不规则形式为 en étant。',
     },
     {
@@ -381,7 +384,7 @@ export const gerondifLesson: TenseLesson = {
       type: 'fill',
       prompt: 'C’est (écrire) ___ régulièrement qu’on développe un style fluide.（填入 en + 现在分词）',
       correctAnswer: 'en écrivant',
-      acceptedAnswers: ['en écrivant', 'en ecrivant'],
+      acceptedAnswers: ['en écrivant'],
       explanationZh: 'écrire 的副动词形式为 en écrivant。',
     },
     {

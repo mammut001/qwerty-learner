@@ -8,9 +8,8 @@ export const conditionnelPresentLesson: TenseLesson = {
   cefrLevel: 'B1-B2',
   echelleNiveau: [3, 7],
   echelleSources: [
-    'n3-gr-conditionnel-politesse: 条件式表礼貌',
-    'n7-gr-conditionnel-present: 条件式现在时（建议、假设、未证实消息）',
-    'n7-gr-conditionnel-present-avance: 条件式现在时（深入）',
+    'Niveau 4 · Quelques verbes au conditionnel présent comme forme de politesse',
+    'Niveau 7 · Une variété de verbes au conditionnel présent',
   ],
   summaryZh: '表达礼貌客气的请求、给予真诚建议、探讨与现在事实相反的假设推论、转述媒体未证实的传闻，以及过去视角中的将来。',
   timelinePosition: 'hypothetical',
@@ -252,14 +251,16 @@ export const conditionnelPresentLesson: TenseLesson = {
       explanationZh: 'je voudrais 表达愿望，que 引导的宾语从句动词必须用虚拟式（tu viennes），不能用直陈式。',
     },
     {
-      wrong: 'Pourriez-vous m’aider ? (写成 Pouvez-vous pour être très poli)',
+      wrong: 'Pouvez-vous m’aider, s’il vous plaît ?',
       right: 'Pourriez-vous m’aider, s’il vous plaît ?',
       explanationZh: '在需要非常礼貌客气的场合，优先使用条件式 pourriez-vous，比直陈式 pouvez-vous 更加谦逊得体。',
+      noteZh: '礼貌请求建议使用条件式 Pourriez-vous',
     },
     {
-      wrong: 'Demain je parlerais au directeur. (将来确定的事误用条件式)',
+      wrong: 'Demain je parlerais au directeur.',
       right: 'Demain je parlerai au directeur.',
       explanationZh: '明天确定要做的事是简单将来时（parlerai，发音 /e/），不要误用表假设的条件式（parlerais，发音 /ɛ/）。',
+      noteZh: '确定将来发生的事误用条件式',
     },
   ],
   questions: [

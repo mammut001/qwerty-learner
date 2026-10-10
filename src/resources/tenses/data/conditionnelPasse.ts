@@ -8,8 +8,8 @@ export const conditionnelPasseLesson: TenseLesson = {
   cefrLevel: 'B2',
   echelleNiveau: [8, 9],
   echelleSources: [
-    'n8-gr-conditionnel-passe: 条件式过去时',
-    'n9-gr-conditionnel-passe-avance: 条件式过去时（深入）',
+    'Niveau 8 · Quelques verbes au conditionnel passé',
+    'Niveau 9 · Une variété de verbes au conditionnel passé',
   ],
   summaryZh: '表达对过去已发生或未发生事情的遗憾懊悔、对他人过去的责备批评、与过去事实相反的虚拟结果，以及转述未经核实的过去新闻。',
   timelinePosition: 'hypothetical',
@@ -248,9 +248,10 @@ export const conditionnelPasseLesson: TenseLesson = {
       explanationZh: '动词 venir 在复合时态中一律使用 être 作助动词，条件式过去时为 elle serait venue。',
     },
     {
-      wrong: 'Tu aurais du m’appeler. (缺少长音符)',
+      wrong: 'Tu aurais du m’appeler.',
       right: 'Tu aurais dû m’appeler.',
       explanationZh: 'devoir 的阳性单数过去分词必须带长音符（dû），以与不定冠词/介词 du 区分。',
+      noteZh: 'dû 遗漏长音符',
     },
     {
       wrong: 'Ils se auraient disputés.',
@@ -296,7 +297,7 @@ export const conditionnelPasseLesson: TenseLesson = {
       type: 'fill',
       prompt: 'J’ (aimer) ___ être présent à votre cérémonie de citoyenneté canadienne.（填入条件式助动词+分词）',
       correctAnswer: 'aurais aimé',
-      acceptedAnswers: ['aurais aimé', 'aurais aime'],
+      acceptedAnswers: ['aurais aimé'],
       explanationZh: '表达过去未实现的愿望：j’aurais aimé。',
     },
     {

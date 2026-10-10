@@ -7,7 +7,7 @@ export const passeRecentLesson: TenseLesson = {
   category: 'indicatif',
   cefrLevel: 'A2',
   echelleNiveau: 5,
-  echelleSources: ['n5-gr-action-recente: 刚刚完成 / 正在进行'],
+  echelleSources: ['Niveau 5 · L’expression d’une action récente ou en cours'],
   summaryZh: '由 venir de + 原形动词构成；用于表达说话前一刻“刚刚”完成的动作，或交代刚刚发生的新鲜资讯。',
   timelinePosition: 'past',
   defaultVerb: 'parler',
@@ -235,9 +235,10 @@ export const passeRecentLesson: TenseLesson = {
   ],
   commonMistakes: [
     {
-      wrong: 'Je viens manger. (丢失介词 de，变成了来做某事)',
+      wrong: 'Je viens manger.',
       right: 'Je viens de manger.',
       explanationZh: '最近过去时必须包含介词 de（je viens de manger = 我刚吃完）；如果不带 de（je viens manger = 我来吃饭了），意思完全变了！',
+      noteZh: '丢失介词 de，变成了来做某事',
     },
     {
       wrong: 'Je me viens de réveiller.',
@@ -363,7 +364,7 @@ export const passeRecentLesson: TenseLesson = {
     {
       id: 'pr-q14',
       type: 'choice',
-      prompt: 'Mon ami (ne pas venir d’arriver) ___, cela fait une heure qu’il est là.',
+      prompt: 'Mon ami ___, cela fait une heure qu’il est là.',
       options: ['ne vient pas d’arriver', 'ne vient d’arriver pas', 'ne viens pas d’arriver', 'vient ne pas d’arriver'],
       correctAnswer: 'ne vient pas d’arriver',
       explanationZh: '否定副词 ne... pas 夹住 vient：ne vient pas d’arriver。',

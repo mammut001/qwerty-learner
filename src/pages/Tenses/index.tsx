@@ -1,5 +1,4 @@
-import React from 'react'
-import { useParams, NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import Layout from '@/components/Layout'
 import { getLessonById } from '@/resources/tenses/data'
 import TensesOverview from './TensesOverview'

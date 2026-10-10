@@ -8,8 +8,8 @@ export const subjonctifPasseLesson: TenseLesson = {
   cefrLevel: 'B2-C1',
   echelleNiveau: [8, 9],
   echelleSources: [
-    'n8-gr-subjonctif-passe: 虚拟式过去时',
-    'n9-gr-subjonctif-passe-avance: 虚拟式过去时（深入）',
+    'Niveau 8 · Quelques verbes au subjonctif passé',
+    'Niveau 9 · Des verbes au subjonctif passé',
   ],
   summaryZh: '在需要使用虚拟式的语境下（必要、情感、怀疑、从属连词），表达该动作在主句之前就已经完成或发生过。',
   timelinePosition: 'hypothetical',
@@ -253,9 +253,10 @@ export const subjonctifPasseLesson: TenseLesson = {
       explanationZh: '让步连词 bien que 后面强制使用虚拟式：ils soient partis。',
     },
     {
-      wrong: 'Elle est fière que son fils ait fini ses devoirs. (写成 soit fini)',
+      wrong: 'Elle est fière que son fils soit fini ses devoirs.',
       right: 'Elle est fière que son fils ait fini ses devoirs.',
       explanationZh: '动词 finir 的复合形式助动词是 avoir，因此虚拟式过去时为 ait fini，不是 soit fini。',
+      noteZh: '写成 soit fini',
     },
   ],
   questions: [
@@ -286,8 +287,8 @@ export const subjonctifPasseLesson: TenseLesson = {
     {
       id: 'sbpa-q4',
       type: 'choice',
-      prompt: 'Le directeur regrette que nous (ne pas pouvoir) ___ assister à la conférence.',
-      options: ['n’ayons pas pu', 'ne pouvons pas pu', 'n’ayons pas pouvoir', 'ne soyons pas pu'],
+      prompt: 'Le directeur regrette que nous ___ assister à la conférence.',
+      options: ['n’ayons pas pu', 'n’avons pas pu', 'n’ayons pas pouvoir', 'ne soyons pas pu'],
       correctAnswer: 'n’ayons pas pu',
       explanationZh: 'regretter que 接虚拟式过去时，pouvoir 的过去分词是 pu，助动词为 avoir：n’ayons pas pu。',
     },
@@ -304,7 +305,7 @@ export const subjonctifPasseLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Nous sommes ravis que tu (réussir) ___ ton test du TCF.（填入虚拟式助动词+分词）',
       correctAnswer: 'aies réussi',
-      acceptedAnswers: ['aies réussi', 'aies reussi'],
+      acceptedAnswers: ['aies réussi'],
       explanationZh: 'tu 对应的虚拟式过去时为 tu aies réussi。',
     },
     {
@@ -328,7 +329,7 @@ export const subjonctifPasseLesson: TenseLesson = {
       type: 'fill',
       prompt: 'C’est une chance que nous (trouver) ___ un logement abordable à Montréal.（填入虚拟式助动词+分词）',
       correctAnswer: 'ayons trouvé',
-      acceptedAnswers: ['ayons trouvé', 'ayons trouve'],
+      acceptedAnswers: ['ayons trouvé'],
       explanationZh: 'nous 对应的虚拟式过去时为 nous ayons trouvé。',
     },
     {
@@ -352,7 +353,7 @@ export const subjonctifPasseLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Elle est soulagée que son passeport (être) ___ renouvelé à temps.（填入虚拟式助动词+分词）',
       correctAnswer: 'ait été',
-      acceptedAnswers: ['ait été', 'ait ete'],
+      acceptedAnswers: ['ait été'],
       explanationZh: 'être 的复合形式使用 avoir 作助动词，虚拟式过去时为 ait été。',
     },
     {

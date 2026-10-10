@@ -9,8 +9,8 @@ export const indicatifVsSubjonctifLesson: TenseLesson = {
   cefrLevel: 'B2-C1',
   echelleNiveau: 10,
   echelleSources: [
-    'n10-gr-indicatif-subjonctif: 直陈式还是虚拟式',
-    'n4-gr-subjonctif-present: 虚拟式现在时',
+    'Niveau 10 · Les règles d’emploi du mode indicatif ou subjonctif',
+    'Niveau 7 · Quelques verbes au subjonctif présent',
   ],
   summaryZh: '法语语式决断核心：直陈式表达“客观事实、肯定判断与确凿现实”；虚拟式表达“主观情感、意愿、义务、怀疑与心理投射”。掌握核心动词与连词的开关转换。',
   timelinePosition: 'overview',
@@ -27,14 +27,16 @@ export const indicatifVsSubjonctifLesson: TenseLesson = {
       descriptionZh: 'penser, croire, trouver, sembler 在肯定句与否定句中的语式两极反转。',
       examples: [
         {
-          fr: 'Je pense que le candidat réussira son test de français sans problème (肯定确信 → indicatif).',
+          fr: 'Je pense que le candidat réussira son test de français sans problème.',
           zh: '我认为这位候选人能顺利通过法语测试。',
           highlight: 'réussira',
+          noteZh: '肯定确信接直陈式',
         },
         {
-          fr: 'Je ne pense pas que le candidat puisse réussir sans une préparation rigoureuse (否定怀疑 → subjonctif).',
+          fr: 'Je ne pense pas que le candidat puisse réussir sans une préparation rigoureuse.',
           zh: '我不认为候选人在没有严格准备的情况下能够通过。',
           highlight: 'puisse',
+          noteZh: '否定怀疑接虚拟式',
         },
         {
           fr: 'Nous croyons que cette mesure économique est efficace pour contrer l’inflation.',
@@ -81,14 +83,16 @@ export const indicatifVsSubjonctifLesson: TenseLesson = {
       descriptionZh: 'il est certain que, il est vrai que vs il est douteux que, il se peut que...',
       examples: [
         {
-          fr: 'Il est certain que les hivers québécois exigent des vêtements très chauds (客观确凿).',
+          fr: 'Il est certain que les hivers québécois exigent des vêtements très chauds.',
           zh: '魁北克的严冬无疑需要非常保暖的衣物。',
           highlight: 'exigent',
+          noteZh: '客观确凿接直陈式',
         },
         {
-          fr: 'Il est peu probable que la température monte au-dessus de zéro cette semaine (极其存疑).',
+          fr: 'Il est peu probable que la température monte au-dessus de zéro cette semaine.',
           zh: '本周气温升到零度以上的可能性微乎其微。',
           highlight: 'monte',
+          noteZh: '极其存疑接虚拟式',
         },
         {
           fr: 'Il est clair que vous avez fait de grands progrès en français oral.',
@@ -108,24 +112,28 @@ export const indicatifVsSubjonctifLesson: TenseLesson = {
       descriptionZh: '因果与时间连词根据客观性还是目的性决定语式。',
       examples: [
         {
-          fr: 'Nous partons parce que la tempête de neige commence (客观原因 → indicatif).',
+          fr: 'Nous partons parce que la tempête de neige commence.',
           zh: '我们离开了，因为暴风雪正在开始。',
           highlight: 'commence',
+          noteZh: '客观原因接直陈式',
         },
         {
-          fr: 'Nous partons pour que nous arrivions à la maison avant la tempête (主观目的 → subjonctif).',
+          fr: 'Nous partons pour que nous arrivions à la maison avant la tempête.',
           zh: '我们离开，是为了在暴风雪前赶到家里。',
           highlight: 'arrivions',
+          noteZh: '主观目的接虚拟式',
         },
         {
-          fr: 'Dès que le soleil se lèvera, nous irons marcher sur le mont Royal (时间确定将来).',
+          fr: 'Dès que le soleil se lèvera, nous irons marcher sur le mont Royal.',
           zh: '太阳一旦升起，我们就去皇家山上漫步。',
           highlight: 'se lèvera',
+          noteZh: '时间确定将来接直陈式',
         },
         {
-          fr: 'Partons avant que la pluie ne commence à tomber sur la ville (尚未发生的时间终点).',
+          fr: 'Partons avant que la pluie ne commence à tomber sur la ville.',
           zh: '在大雨开始倾泻在城市上空之前，咱们出发吧。',
           highlight: 'commence',
+          noteZh: '尚未发生的时间终点接虚拟式',
         },
       ],
     },
@@ -135,19 +143,22 @@ export const indicatifVsSubjonctifLesson: TenseLesson = {
       descriptionZh: '寻找一个确实存在的公寓 vs 寻找任何符合条件的理想公寓。',
       examples: [
         {
-          fr: 'Je cherche un appartement qui a trois chambres et qui donne sur le parc (我已知这套房存在).',
+          fr: 'Je cherche un appartement qui a trois chambres et qui donne sur le parc.',
           zh: '我正在寻找那套有三间卧室且朝向公园的公寓。',
           highlight: 'a',
+          noteZh: '已确知存在的房源接直陈式',
         },
         {
-          fr: 'Je cherche un appartement qui ait trois chambres et qui soit abordable (无论哪套，只要符合条件，属于寻觅设想).',
+          fr: 'Je cherche un appartement qui ait trois chambres et qui soit abordable.',
           zh: '我正在物色一套能有三居室且价格实惠的房子（虚拟愿景）。',
           highlight: 'ait',
+          noteZh: '寻觅设想中的理想房源接虚拟式',
         },
         {
-          fr: 'Connaissez-vous quelqu’un qui parle couramment le cri ou l’inuktitut ? (询问是否存在).',
+          fr: 'Connaissez-vous quelqu’un qui parle couramment le cri ou l’inuktitut ?',
           zh: '您认识能够流利说克里语或因纽特语的人吗？',
           highlight: 'parle',
+          noteZh: '询问客观存在的事实',
         },
         {
           fr: 'C’est le seul restaurant qui serve une authentique poutine traditionnelle dans ce secteur.',
@@ -202,13 +213,15 @@ export const indicatifVsSubjonctifLesson: TenseLesson = {
       explanationZh: '动词 espérer 绝不能接虚拟式！从句必须用直陈式（将来时 viendras 或现在时 viens）。',
     },
     {
-      wrong: 'Je pense qu’il soit gentil. (肯定句中误用虚拟式)',
+      wrong: 'Je pense qu’il soit gentil.',
       right: 'Je pense qu’il est très gentil.',
+      noteZh: '肯定句中误用虚拟式',
       explanationZh: 'penser que 肯定句表示自己持有的客观见解，用直陈式 est；只有在否定或倒装疑问句中才用虚拟式。',
     },
     {
-      wrong: 'Après qu’il soit parti, nous avons fermé la porte. (口语常见但规范语法严禁)',
+      wrong: 'Après qu’il soit parti, nous avons fermé la porte.',
       right: 'Après qu’il est parti, nous avons fermé la porte.',
+      noteZh: '口语常见但规范语法严禁',
       explanationZh: '规范法语中：après que 后面事件已成事实，必须接直陈式（après qu’il est parti），而 avant que 后面事件尚未发生接虚拟式。',
     },
     {
@@ -326,8 +339,8 @@ export const auxiliaireEtAccordLesson: TenseLesson = {
   cefrLevel: 'B2',
   echelleNiveau: 10,
   echelleSources: [
-    'n10-gr-accord-pp: 过去分词的配合',
-    'n4-gr-passe-compose: 复合过去时',
+    'Niveau 10 · Les règles d’accord des participes passés',
+    'Niveau 5 · Une variété de verbes au passé composé',
   ],
   summaryZh: '所有复合时态的基石：avoir 还是 être？及物 vs 不及物动词（双重助动词）；与主语配合还是与前置直接宾语（COD）配合？代词动词的自反配合规律。',
   timelinePosition: 'past',
@@ -345,14 +358,16 @@ export const auxiliaireEtAccordLesson: TenseLesson = {
       descriptionZh: 'monter, descendre, sortir, passer, rentrer, retourner 在及物与不及物下的助动词切换。',
       examples: [
         {
-          fr: 'Elle est sortie sur le balcon pour respirer l’air frais (不及物位移 → être).',
+          fr: 'Elle est sortie sur le balcon pour respirer l’air frais.',
           zh: '她走到阳台上呼吸新鲜空气。',
           highlight: 'est sortie',
+          noteZh: '不及物位移用 être',
         },
         {
-          fr: 'Elle a sorti les bacs de recyclage sur le trottoir (及物直接宾语 les bacs → avoir).',
+          fr: 'Elle a sorti les bacs de recyclage sur le trottoir.',
           zh: '她把可回收垃圾桶推放到了人行道上。',
           highlight: 'a sorti',
+          noteZh: '及物直接宾语 les bacs 用 avoir',
         },
         {
           fr: 'Nous sommes montés au sommet du mont Royal pour voir le coucher du soleil.',
@@ -372,14 +387,16 @@ export const auxiliaireEtAccordLesson: TenseLesson = {
       descriptionZh: '由 que 代表先行词，或宾语代词 le/la/les 置于助动词前时的配合。',
       examples: [
         {
-          fr: 'Les lettres officielles que j’ai reçues étaient très encourageantes (COD que = les lettres [阴复] → reçues).',
+          fr: 'Les lettres officielles que j’ai reçues étaient très encourageantes.',
           zh: '我收到的那些官方信件非常鼓舞人心。',
           highlight: 'ai reçues',
+          noteZh: 'COD que = les lettres (阴复) 配合 reçues',
         },
         {
-          fr: 'Cette magnifique maison centenaire ? Nous l’avons achetée en 2021 (COD l’ = cette maison [阴单] → achetée).',
+          fr: 'Cette magnifique maison centenaire ? Nous l’avons achetée en 2021.',
           zh: '那栋漂亮的百年老宅？我们是在2021年买下它的。',
           highlight: 'avons achetée',
+          noteZh: 'COD l’ = cette maison (阴单) 配合 achetée',
         },
         {
           fr: 'Combien de bouteilles de sirop d’érable as-tu achetées à la cabane ?',
@@ -387,9 +404,10 @@ export const auxiliaireEtAccordLesson: TenseLesson = {
           highlight: 'as-tu achetées',
         },
         {
-          fr: 'J’ai acheté trois bouteilles de sirop d’érable (COD 在动词后 → acheté 不配合).',
+          fr: 'J’ai acheté trois bouteilles de sirop d’érable.',
           zh: '我买了三瓶枫糖浆。',
           highlight: 'ai acheté',
+          noteZh: 'COD 在动词后，acheté 不配合',
         },
       ],
     },
@@ -399,24 +417,28 @@ export const auxiliaireEtAccordLesson: TenseLesson = {
       descriptionZh: '分析主语对自己发出动作时，动作直接承受者到底是谁。',
       examples: [
         {
-          fr: 'Marie s’est lavée soigneusement avant de s’habiller (se 是直接宾语 COD → 配合 levée).',
+          fr: 'Marie s’est lavée soigneusement avant de s’habiller.',
           zh: '玛丽在穿衣服前把自己洗得干干净净。',
           highlight: 's’est lavée',
+          noteZh: 'se 是直接宾语 COD，配合 lavée',
         },
         {
-          fr: 'Marie s’est lavé les mains avec de l’eau chaude et du savon (les mains 是 COD 在后，se 是间接宾语 COI → lavé 不配合！).',
+          fr: 'Marie s’est lavé les mains avec de l’eau chaude et du savon.',
           zh: '玛丽用温水和肥皂洗了手。',
           highlight: 's’est lavé',
+          noteZh: 'les mains 是 COD 在后，se 是间接宾语 COI，lavé 不配合',
         },
         {
-          fr: 'Elles se sont parlé longuement au téléphone hier soir (parler à qqn → se 是 COI，parlé 永不配合！).',
+          fr: 'Elles se sont parlé longuement au téléphone hier soir.',
           zh: '昨晚她们在电话里聊了很久。',
           highlight: 'se sont parlé',
+          noteZh: 'parler à qqn : se 是 COI，parlé 永不配合',
         },
         {
-          fr: 'Elles se sont rencontrées lors de la séance d’accueil des nouveaux arrivants (rencontrer qqn → se 是 COD，配合 rencontrées).',
+          fr: 'Elles se sont rencontrées lors de la séance d’accueil des nouveaux arrivants.',
           zh: '她们是在新移民迎新会上相识的。',
           highlight: 'se sont rencontrées',
+          noteZh: 'rencontrer qqn : se 是 COD，配合 rencontrées',
         },
       ],
     },
@@ -426,19 +448,22 @@ export const auxiliaireEtAccordLesson: TenseLesson = {
       descriptionZh: '当先行代词是 en 时，分词永远不配合；无人称动词（il a fallu, il a fait chaud）永远不配合。',
       examples: [
         {
-          fr: 'Des pommes fraîches du verger ? J’en ai mangé trois (代词 en 永远不引发分词配合 → mangé).',
+          fr: 'Des pommes fraîches du verger ? J’en ai mangé trois.',
           zh: '果园的新鲜苹果？我吃了三个。',
           highlight: 'ai mangé',
+          noteZh: '代词 en 永远不引发分词配合',
         },
         {
-          fr: 'Les chaleurs accablantes qu’il a fait cet été ont battu tous les records (无人称动词 il a fait 绝不配合).',
+          fr: 'Les chaleurs accablantes qu’il a fait cet été ont battu tous les records.',
           zh: '今年夏天经历的酷暑天气打破了所有纪录。',
           highlight: 'a fait',
+          noteZh: '无人称动词 il a fait 绝不配合',
         },
         {
-          fr: 'Les démarches administratives qu’il a fallu accomplir étaient complexes (无人称 il a fallu 永不配合).',
+          fr: 'Les démarches administratives qu’il a fallu accomplir étaient complexes.',
           zh: '必须完成的行政手续十分繁杂。',
           highlight: 'a fallu',
+          noteZh: '无人称 il a fallu 永不配合',
         },
         {
           fr: 'Des bagels chauds de la rue Saint-Viateur ? Nous en avons acheté une douzaine.',
@@ -573,7 +598,7 @@ export const auxiliaireEtAccordLesson: TenseLesson = {
       type: 'fill',
       prompt: 'La lettre que le ministère m’a (envoyer) ___ contenait une bonne nouvelle.（填入过去分词）',
       correctAnswer: 'envoyée',
-      acceptedAnswers: ['envoyée', 'envoyee'],
+      acceptedAnswers: ['envoyée'],
       explanationZh: 'que 代表 la lettre（阴性单数）前置，分词配合加 -e：envoyée。',
     },
     {
@@ -581,7 +606,7 @@ export const auxiliaireEtAccordLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Elles sont (arriver) ___ par le premier train du matin.（填入过去分词）',
       correctAnswer: 'arrivées',
-      acceptedAnswers: ['arrivées', 'arrivees'],
+      acceptedAnswers: ['arrivées'],
       explanationZh: 'arriver 用 être 作助动词，主语 elles 阴性复数配合加 -es：arrivées。',
     },
     {
@@ -605,7 +630,7 @@ export const auxiliaireEtAccordLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Ces maisons anciennes ? Les constructeurs les ont (démolir) ___ le mois dernier.（填入过去分词）',
       correctAnswer: 'démolies',
-      acceptedAnswers: ['démolies', 'demolies'],
+      acceptedAnswers: ['démolies'],
       explanationZh: '直接宾语代词 les 代表 ces maisons anciennes（阴性复数）前置，分词配合加 -es：démolies。',
     },
     {
@@ -644,9 +669,9 @@ export const concordanceDiscoursLesson: TenseLesson = {
   cefrLevel: 'B2-C1',
   echelleNiveau: [9, 10],
   echelleSources: [
-    'n9-gr-discours-indirect: 间接引语',
-    'n10-gr-concordance: 时态配合',
-    'n10-gr-coherence-temporelle: 时态与语式的连贯',
+    'Niveau 9 · Le discours indirect',
+    'Niveau 10 · Les règles de concordance des temps',
+    'Niveau 10 · Les modes et les temps verbaux pour assurer la cohérence temporelle',
   ],
   summaryZh: '当主句引语动词为过去时（a dit, affirmait, a promis）时，从句时态全部后移一步：现在时 → 未完成过去时；复合过去时 → 愈过去时；简单将来时 → 条件式现在时。',
   timelinePosition: 'overview',
@@ -666,24 +691,28 @@ export const concordanceDiscoursLesson: TenseLesson = {
       descriptionZh: '说话时正在进行的事，在事后转述时必须后移为未完成过去时。',
       examples: [
         {
-          fr: '« Je cherche un appartement à Montréal » → Elle a dit qu’elle cherchait un appartement à Montréal.',
+          fr: 'Elle a dit qu’elle cherchait un appartement à Montréal.',
           zh: '“我正在蒙特利尔找房子” → 她说她当时正在蒙特利尔找房子。',
           highlight: 'cherchait',
+          noteZh: 'Direct : « Je cherche un appartement à Montréal »',
         },
         {
-          fr: '« Nous sommes très occupés aujourd’hui » → Ils ont expliqué qu’ils étaient très occupés ce jour-là.',
+          fr: 'Ils ont expliqué qu’ils étaient très occupés ce jour-là.',
           zh: '“我们今天非常忙碌” → 他们解释说他们那天非常忙碌。',
           highlight: 'étaient',
+          noteZh: 'Direct : « Nous sommes très occupés aujourd’hui »',
         },
         {
-          fr: '« Mon frère habite à Québec » → Elle m’a confié que son frère habitait à Québec.',
+          fr: 'Elle m’a confié que son frère habitait à Québec.',
           zh: '“我弟弟住在魁北克市” → 她悄悄告诉我她弟弟当时住在魁北克城。',
           highlight: 'habitait',
+          noteZh: 'Direct : « Mon frère habite à Québec »',
         },
         {
-          fr: '« Il fait un froid de canard dehors » → Le passant a remarqué qu’il faisait un froid de canard dehors.',
+          fr: 'Le passant a remarqué qu’il faisait un froid de canard dehors.',
           zh: '“外面冷得刺骨” → 路人当时说外面冷得刺骨。',
           highlight: 'faisait',
+          noteZh: 'Direct : « Il fait un froid de canard dehors »',
         },
       ],
     },
@@ -693,24 +722,28 @@ export const concordanceDiscoursLesson: TenseLesson = {
       descriptionZh: '原话中已经发生过的事情，转述时必须后移为愈过去时。',
       examples: [
         {
-          fr: '« J’ai envoyé ma déclaration d’impôts hier » → Il a affirmé qu’il avait envoyé sa déclaration la veille.',
+          fr: 'Il a affirmé qu’il avait envoyé sa déclaration la veille.',
           zh: '“我昨天寄出了税单” → 他声称他前一天已经寄出了税单。',
           highlight: 'avait envoyé',
+          noteZh: 'Direct : « J’ai envoyé ma déclaration d’impôts hier »',
         },
         {
-          fr: '« Nous sommes arrivés en retard à cause du trafic » → Ils ont justifié qu’ils étaient arrivés en retard.',
+          fr: 'Ils ont justifié qu’ils étaient arrivés en retard.',
           zh: '“我们因为堵车迟到了” → 他们解释说他们此前因为堵车迟到了。',
           highlight: 'étaient arrivés',
+          noteZh: 'Direct : « Nous sommes arrivés en retard à cause du trafic »',
         },
         {
-          fr: '« Elle a déjà réussi son examen » → Le professeur a confirmé qu’elle avait déjà réussi son examen.',
+          fr: 'Le professeur a confirmé qu’elle avait déjà réussi son examen.',
           zh: '“她已经考过了” → 老师证实她此前就已经考过了。',
           highlight: 'avait déjà réussi',
+          noteZh: 'Direct : « Elle a déjà réussi son examen »',
         },
         {
-          fr: '« J’ai perdu ma carte OPUS dans l’autobus » → L’étudiant a déclaré qu’il avait perdu sa carte dans l’autobus.',
+          fr: 'L’étudiant a déclaré qu’il avait perdu sa carte dans l’autobus.',
           zh: '“我在公交车上弄丢了交通卡” → 学生声明他在公交车上弄丢了卡。',
           highlight: 'avait perdu',
+          noteZh: 'Direct : « J’ai perdu ma carte OPUS dans l’autobus »',
         },
       ],
     },
@@ -720,24 +753,28 @@ export const concordanceDiscoursLesson: TenseLesson = {
       descriptionZh: '在过去视角中指向未来的动作，后移为条件式现在时（过去视角中的将来）。',
       examples: [
         {
-          fr: '« Je déménagerai à Laval le mois prochain » → Elle a annoncé qu’elle déménagerait à Laval le mois suivant.',
+          fr: 'Elle a annoncé qu’elle déménagerait à Laval le mois suivant.',
           zh: '“我下个月将搬到拉瓦尔” → 她宣布她次月将搬去拉瓦尔。',
           highlight: 'déménagerait',
+          noteZh: 'Direct : « Je déménagerai à Laval le mois prochain »',
         },
         {
-          fr: '« Le gouvernement publiera les nouveaux règlements demain » → Le porte-parole a assuré qu’il publierait les règlements le lendemain.',
+          fr: 'Le porte-parole a assuré qu’il publierait les règlements le lendemain.',
           zh: '“政府明天将公布新规” → 发言人保证次日将公布规定。',
           highlight: 'publierait',
+          noteZh: 'Direct : « Le gouvernement publiera les nouveaux règlements demain »',
         },
         {
-          fr: '« Nous serons toujours là pour vous soutenir » → Mes parents m’ont promis qu’ils seraient toujours là pour me soutenir.',
+          fr: 'Mes parents m’ont promis qu’ils seraient toujours là pour me soutenir.',
           zh: '“我们永远都会在这里支持你” → 父母向我承诺他们永远都会支持我。',
           highlight: 'seraient',
+          noteZh: 'Direct : « Nous serons toujours là pour vous soutenir »',
         },
         {
-          fr: '« Tu obtiendras ton certificat sous peu » → L’agente m’a dit que j’obtiendrais mon certificat sous peu.',
+          fr: 'L’agente m’a dit que j’obtiendrais mon certificat sous peu.',
           zh: '“你不久就会拿到证书” → 办事官员告诉我我不久就会拿到证书。',
           highlight: 'obtiendrais',
+          noteZh: 'Direct : « Tu obtiendras ton certificat sous peu »',
         },
       ],
     },
@@ -747,24 +784,28 @@ export const concordanceDiscoursLesson: TenseLesson = {
       descriptionZh: 'est-ce que → si；qu’est-ce que → ce que；qu’est-ce qui → ce qui，同时配合时态后移。',
       examples: [
         {
-          fr: '« Est-ce que tu es prêt pour l’examen ? » → Il m’a demandé si j’étais prêt pour l’examen.',
+          fr: 'Il m’a demandé si j’étais prêt pour l’examen.',
           zh: '“你准备好考试了吗？” → 他问我当时是否准备好了考试。',
           highlight: 'étais',
+          noteZh: 'Direct : « Est-ce que tu es prêt pour l’examen ? »',
         },
         {
-          fr: '« Qu’est-ce que vous ferez après vos études ? » → Le conseiller a demandé ce que nous ferions après nos études.',
+          fr: 'Le conseiller a demandé ce que nous ferions après nos études.',
           zh: '“你们毕业后打算做什么？” → 顾问询问我们毕业后打算做什么。',
           highlight: 'ferions',
+          noteZh: 'Direct : « Qu’est-ce que vous ferez après vos études ? »',
         },
         {
-          fr: '« Quand partirez-vous en vacances ? » → Mes voisins ont voulu savoir quand nous partirions en vacances.',
+          fr: 'Mes voisins ont voulu savoir quand nous partirions en vacances.',
           zh: '“你们什么时候去度假？” → 邻居们想知道我们什么时候启程去度假。',
           highlight: 'partirions',
+          noteZh: 'Direct : « Quand partirez-vous en vacances ? »',
         },
         {
-          fr: '« Où as-tu acheté ces délicieux bagels ? » → Elle m’a demandé où j’avais acheté ces délicieux bagels.',
+          fr: 'Elle m’a demandé où j’avais acheté ces délicieux bagels.',
           zh: '“你在哪儿买的这些美味贝果？” → 她问我是在哪儿买的那些美味贝果。',
           highlight: 'avais acheté',
+          noteZh: 'Direct : « Où as-tu acheté ces délicieux bagels ? »',
         },
       ],
     },
@@ -774,24 +815,28 @@ export const concordanceDiscoursLesson: TenseLesson = {
       descriptionZh: '转述过去话语时，时间副词必须以过去那天为参照物。',
       examples: [
         {
-          fr: '« Je viendrai demain » → Il a dit qu’il viendrait le lendemain (demain 变为 le lendemain).',
+          fr: 'Il a dit qu’il viendrait le lendemain.',
           zh: '“我明天来” → 他说他次日会来。',
           highlight: 'viendrait',
+          noteZh: 'Direct : « Je viendrai demain » (demain → le lendemain)',
         },
         {
-          fr: '« J’ai déposé ma demande hier » → Elle a précisé qu’elle avait déposé sa demande la veille (hier 变为 la veille).',
+          fr: 'Elle a précisé qu’elle avait déposé sa demande la veille.',
           zh: '“我昨天提交了申请” → 她说明她前一天已经提交了申请。',
           highlight: 'avait déposé',
+          noteZh: 'Direct : « J’ai déposé ma demande hier » (hier → la veille)',
         },
         {
-          fr: '« Le bureau ferme aujourd’hui » → Le gardien a averti que le bureau fermait ce jour-là (aujourd’hui 变为 ce jour-là).',
+          fr: 'Le gardien a averti que le bureau fermait ce jour-là.',
           zh: '“办公室今天关门” → 警卫提醒说办公室在那天关门。',
           highlight: 'fermait',
+          noteZh: 'Direct : « Le bureau ferme aujourd’hui » (aujourd’hui → ce jour-là)',
         },
         {
-          fr: '« Nous signerons le contrat ici la semaine prochaine » → Ils ont convenu qu’ils signeraient le contrat là la semaine suivante.',
+          fr: 'Ils ont convenu qu’ils signeraient le contrat là la semaine suivante.',
           zh: '“我们下周在这里签合同” → 他们商定次周在那儿签合同。',
           highlight: 'signeraient',
+          noteZh: 'Direct : « Nous signerons le contrat ici la semaine prochaine »',
         },
       ],
     },
@@ -836,8 +881,9 @@ export const concordanceDiscoursLesson: TenseLesson = {
   ],
   commonMistakes: [
     {
-      wrong: 'Il a dit qu’il viendra demain. (主句为过去时，从句将来时未后移)',
+      wrong: 'Il a dit qu’il viendra demain.',
       right: 'Il a dit qu’il viendrait le lendemain.',
+      noteZh: '主句为过去时，从句将来时未后移',
       explanationZh: '主句动词为过去时 a dit，从句将来时 viendra 必须后移为条件式现在时 viendrait，demain 后移为 le lendemain。',
     },
     {
@@ -894,7 +940,7 @@ export const concordanceDiscoursLesson: TenseLesson = {
       type: 'fill',
       prompt: 'L’agent a confirmé que le dossier (être) ___ conforme aux exigences.（原为 est conforme，填入后移时态）',
       correctAnswer: 'était',
-      acceptedAnswers: ['était', 'etait'],
+      acceptedAnswers: ['était'],
       explanationZh: '原直陈式现在时 est 后移为未完成过去时：était。',
     },
     {
@@ -917,7 +963,7 @@ export const concordanceDiscoursLesson: TenseLesson = {
       id: 'conc-q8',
       type: 'choice',
       prompt: 'Le météorologue a annoncé qu’une violente tempête de neige (frapper) ___ la métropole.',
-      options: ['frapperait', 'frappera', 'frappe', 'frapperait-elle'],
+      options: ['frapperait', 'frappera', 'frappe', 'frappait'],
       correctAnswer: 'frapperait',
       explanationZh: '主句动词为 a annoncé，将来预报后移为条件式现在时：frapperait。',
     },
@@ -970,8 +1016,8 @@ export const voixPassiveLesson: TenseLesson = {
   cefrLevel: 'B1-B2',
   echelleNiveau: 6,
   echelleSources: [
-    'n6-gr-passif: 被动语态',
-    'n10-gr-accord-pp: 过去分词的配合',
+    'Niveau 6 · La forme passive',
+    'Niveau 10 · Les règles d’accord des participes passés',
   ],
   summaryZh: '由助动词 être（在相应时态变位）+ 过去分词（与主语性数完全一致）构成，施动者由 par（或 de）引出。官方通告、新闻事件与学术严谨写作的必考结构。',
   timelinePosition: 'overview',
@@ -1163,18 +1209,21 @@ export const voixPassiveLesson: TenseLesson = {
   ],
   commonMistakes: [
     {
-      wrong: 'Les décisions a été prises. (助动词未与主语一致)',
+      wrong: 'Les décisions a été prises.',
       right: 'Les décisions ont été prises.',
+      noteZh: '助动词未与主语一致',
       explanationZh: '主语 les décisions 是复数，助动词 avoir 必须用 ont：ont été prises。',
     },
     {
-      wrong: 'La maison a été vendu hier. (分词未配合)',
+      wrong: 'La maison a été vendu hier.',
       right: 'La maison a été vendue hier.',
+      noteZh: '分词未配合',
       explanationZh: '被动语态中，过去分词必须与被动主语（la maison，阴性单数）严格配合：vendue。',
     },
     {
-      wrong: 'Il a été aimé par tout le monde. (情感动词介词偏好)',
+      wrong: 'Il a été aimé par tout le monde.',
       right: 'Il était aimé de tout le monde.',
+      noteZh: '情感动词介词偏好',
       explanationZh: '表示情感、尊重或评价的被动动词（aimé, respecté, estimé），施动者传统上规范搭配介词 de。',
     },
     {
@@ -1229,7 +1278,7 @@ export const voixPassiveLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Ces vieux bâtiments industriels ont été (démolir) ___ l’été dernier.（填入配合后的过去分词）',
       correctAnswer: 'démolis',
-      acceptedAnswers: ['démolis', 'demolis'],
+      acceptedAnswers: ['démolis'],
       explanationZh: '主语 ces vieux bâtiments 是阳性复数，démolir 过去分词配合加 -s：démolis。',
     },
     {
@@ -1277,7 +1326,7 @@ export const voixPassiveLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Les deux coupables ont été (arrêter) ___ par les policiers à la frontière.（填入配合后的过去分词）',
       correctAnswer: 'arrêtés',
-      acceptedAnswers: ['arrêtés', 'arretes'],
+      acceptedAnswers: ['arrêtés'],
       explanationZh: '主语 les deux coupables 是阳性复数，分词配合为 arrêtés。',
     },
   ],
@@ -1292,9 +1341,9 @@ export const ligneDuTempsLesson: TenseLesson = {
   cefrLevel: 'A1-C1',
   echelleNiveau: [2, 10],
   echelleSources: [
-    'n5-gr-chronologie-present: 以现在为参照的时间顺序',
-    'n8-gr-chronologie-complexe: 跨过去、现在、将来的时间顺序',
-    'n10-gr-coherence-temporelle: 时态与语式的连贯',
+    'Niveau 5 · Les temps de verbe et une variété de connecteurs temporels pour marquer la chronologie des actions par rapport au présent',
+    'Niveau 8 · Les temps de verbe et une variété de connecteurs temporels pour marquer la chronologie des actions par rapport au passé, au présent, au futur',
+    'Niveau 10 · Les modes et les temps verbaux pour assurer la cohérence temporelle',
   ],
   summaryZh: '将法语全部直陈式时态放在同一根时间轴（Ligne du temps）上横向对比：从过去的过去（PQP）、过去完成（PC）、过去背景（Imparfait）、刚刚完成（Passé récent），到当下此刻（Présent），再到马上发生（Futur proche）、将来完成（Futur antérieur）与长远将来（Futur simple）。',
   timelinePosition: 'overview',
@@ -1318,24 +1367,28 @@ export const ligneDuTempsLesson: TenseLesson = {
       descriptionZh: '一段连贯的移民生活自述，同时串联全部时态坐标。',
       examples: [
         {
-          fr: 'J’avais déjà étudié un an à Paris avant de décider d’immigrer au Québec (Plus-que-parfait : 过去的过去).',
+          fr: 'J’avais déjà étudié un an à Paris avant de décider d’immigrer au Québec.',
           zh: '在决定移民魁北克之前，我此前已经在巴黎留学了一年。',
           highlight: 'avais déjà étudié',
+          noteZh: 'Plus-que-parfait : 过去的过去',
         },
         {
-          fr: 'En 2022, je suis arrivé à Montréal sous un soleil radieux de juillet (Passé composé : 过去明确事件).',
+          fr: 'En 2022, je suis arrivé à Montréal sous un soleil radieux de juillet.',
           zh: '2022年，我在七月明媚灿烂的阳光下抵达了蒙特利尔。',
           highlight: 'suis arrivé',
+          noteZh: 'Passé composé : 过去明确事件',
         },
         {
-          fr: 'À cette époque-là, je ne connaissais presque personne dans la métropole (Imparfait : 过去背景状态).',
+          fr: 'À cette époque-là, je ne connaissais presque personne dans la métropole.',
           zh: '在那个时候，我在大都市里几乎一个人都不认识。',
           highlight: 'connaissais',
+          noteZh: 'Imparfait : 过去背景状态',
         },
         {
-          fr: 'Je viens de signer mon bail et je suis maintenant en train de m’installer (Passé récent & progressif : 紧邻此刻).',
+          fr: 'Je viens de signer mon bail et je suis maintenant en train de m’installer.',
           zh: '我刚刚签下了租约，此刻正在紧锣密鼓地布置新家。',
           highlight: 'viens de signer',
+          noteZh: 'Passé récent & progressif : 紧邻此刻',
         },
       ],
     },
@@ -1345,19 +1398,22 @@ export const ligneDuTempsLesson: TenseLesson = {
       descriptionZh: '从几分钟后的动作推进到数年后的宏伟目标。',
       examples: [
         {
-          fr: 'Je vais d’abord réussir mon épreuve de français ce samedi matin (Futur proche : 即将面对).',
+          fr: 'Je vais d’abord réussir mon épreuve de français ce samedi matin.',
           zh: '我这周六早晨首先要考过我的法语考试。',
           highlight: 'vais d’abord réussir',
+          noteZh: 'Futur proche : 即将面对',
         },
         {
-          fr: 'Dès que j’aurai obtenu mes résultats officiels, je déposerai ma demande de sélection (Futur antérieur : 将来先时).',
+          fr: 'Dès que j’aurai obtenu mes résultats officiels, je déposerai ma demande de sélection.',
           zh: '一旦拿到了正式成绩单，我就将提交选拔申请。',
           highlight: 'aurai obtenu',
+          noteZh: 'Futur antérieur : 将来先时',
         },
         {
-          fr: 'Dans cinq ans, j’achèterai une propriété et je fonderai mon entreprise au Québec (Futur simple : 远景规划).',
+          fr: 'Dans cinq ans, j’achèterai une propriété et je fonderai mon entreprise au Québec.',
           zh: '五年之后，我将在魁北克购置房产并开创自己的企业。',
           highlight: 'achèterai',
+          noteZh: 'Futur simple : 远景规划',
         },
         {
           fr: 'À ce moment-là, je serai pleinement épanoui dans ma nouvelle patrie d’adoption.',
@@ -1426,24 +1482,27 @@ export const ligneDuTempsLesson: TenseLesson = {
       descriptionZh: '听力、阅读、写作与口语中的四项时态分布策略。',
       examples: [
         {
-          fr: 'Tâche 1 EE : Raconter un événement passé → Passé composé (actions) + Imparfait (décor et sentiments).',
+          fr: 'Pour raconter un événement passé, on combine le passé composé et l’imparfait.',
           zh: '写作任务1（记事述怀）：复合过去时记述主线事件，未完成过去时渲染背景心情。',
-          highlight: 'Passé composé',
+          highlight: 'passé composé',
+          noteZh: 'Passé composé (actions) + Imparfait (décor et sentiments)',
         },
         {
-          fr: 'Tâche 2 EE : Raconter son parcours d’intégration → Alterner PQP, Passé composé, Présent et Futur.',
+          fr: 'Pour raconter son parcours d’intégration, on alterne le plus-que-parfait, le passé composé, le présent et le futur.',
           zh: '写作任务2（经验历程）：巧妙穿插愈过去时、复合过去时、现在时与将来时展现时间纵深。',
-          highlight: 'Alterner PQP',
+          highlight: 'plus-que-parfait',
+          noteZh: 'Alterner PQP, Passé composé, Présent et Futur',
         },
         {
-          fr: 'Tâche 3 EE : Exprimer son opinion argumentée → Présent de vérité générale + Subjonctif + Conditionnel.',
+          fr: 'Pour exprimer son opinion argumentée, on utilise le présent de vérité générale, le subjonctif et le conditionnel.',
           zh: '写作任务3（议论辩驳）：用现在时阐述客观论据，用虚拟式和条件式展现论证严密性。',
-          highlight: 'Présent de vérité',
+          highlight: 'présent',
+          noteZh: 'Présent de vérité générale + Subjonctif + Conditionnel',
         },
         {
-          fr: 'Compréhension écrite : Reconnaître le Passé simple dans les textes historiques et littéraires.',
+          fr: 'Pour la compréhension écrite, il faut reconnaître le passé simple dans les textes historiques et littéraires.',
           zh: '阅读理解：在历史与文学文本中快速识别简单过去时动词。',
-          highlight: 'Passé simple',
+          highlight: 'passé simple',
         },
       ],
     },
@@ -1488,23 +1547,27 @@ export const ligneDuTempsLesson: TenseLesson = {
   ],
   commonMistakes: [
     {
-      wrong: 'J’ai arrivé en 2020 et je vis ici depuis 2020. (逻辑表达单一重复)',
+      wrong: 'J’ai arrivé en 2020 et je vis ici depuis 2020.',
       right: 'Je suis arrivé en 2020 et j’habite ici depuis trois ans.',
+      noteZh: '逻辑表达单一重复',
       explanationZh: 'arrivée 是到达那一瞬（passé composé），habite 是至今持续的居住状态（présent + depuis）。',
     },
     {
-      wrong: 'Hier j’avais mangé une poutine. (没有过去参照点却单用 PQP)',
+      wrong: 'Hier j’avais mangé une poutine.',
       right: 'Hier j’ai mangé une poutine.',
+      noteZh: '没有过去参照点却单用 PQP',
       explanationZh: '愈过去时不能在没有“过去基准点”的情况下独立作为单纯过去动作使用！昨天发生的事直接用 passé composé。',
     },
     {
-      wrong: 'Dès que je vais finir, je vais partir. (双重最近将来时在主从句中累赘失范)',
+      wrong: 'Dès que je vais finir, je vais partir.',
       right: 'Dès que j’aurai fini, je partirai.',
+      noteZh: '双重最近将来时在主从句中累赘失范',
       explanationZh: '书面或规范表达中，时间从句用先将来时（aurai fini），主句用简单将来时（partirai），体现精妙的先时层次。',
     },
     {
-      wrong: 'Il a dit qu’il viendra demain. (时态轴后移脱节)',
+      wrong: 'Il a dit qu’il viendra demain.',
       right: 'Il a dit qu’il viendrait le lendemain.',
+      noteZh: '时态轴后移脱节',
       explanationZh: '时间轴平移原则：主句一旦锚定在过去（a dit），从句的整个将来视线必须相应转化为条件式（viendrait）。',
     },
   ],
@@ -1576,9 +1639,9 @@ export const ligneDuTempsLesson: TenseLesson = {
     {
       id: 'axe-q9',
       type: 'fill',
-      prompt: 'Le conditionnel passé exprime souvent un ___ ou un reproche concernant un fait passé.（填入中文或法文，如 regret / 遗憾）',
+      prompt: 'Le conditionnel passé exprime souvent un ___ ou un reproche concernant un fait passé.（填入法文词汇，如 regret）',
       correctAnswer: 'regret',
-      acceptedAnswers: ['regret', '遗憾'],
+      acceptedAnswers: ['regret'],
       explanationZh: '条件式过去时常用于表达对过去的遗憾（regret）或责备。',
     },
     {
@@ -1607,7 +1670,7 @@ export const ligneDuTempsLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Sur l’axe du temps, le point central par rapport auquel tout s’organise est le ___ de l’indicatif.（填入 présent 或 futur）',
       correctAnswer: 'présent',
-      acceptedAnswers: ['présent', 'present'],
+      acceptedAnswers: ['présent'],
       explanationZh: '整个时间轴的核心绝对锚点是直陈式现在时（présent de l’indicatif）。',
     },
   ],

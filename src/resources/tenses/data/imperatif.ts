@@ -8,8 +8,8 @@ export const imperatifLesson: TenseLesson = {
   cefrLevel: 'A1-A2',
   echelleNiveau: [2, 4],
   echelleSources: [
-    'n2-gr-imperatif: 命令式',
-    'n4-gr-imperatif-avance: 命令式（深入）',
+    'Niveau 2 · Quelques verbes à l’impératif présent',
+    'Niveau 4 · Une variété de verbes à l’impératif présent',
   ],
   summaryZh: '用于发出指令、命令、禁止、忠告建议或热情邀请；仅有三个直接面对的人称（tu, nous, vous），省略主语人称代词。',
   timelinePosition: 'present',
@@ -241,24 +241,28 @@ export const imperatifLesson: TenseLesson = {
   ],
   commonMistakes: [
     {
-      wrong: 'Parles français ! (第一组动词单数错误加了 s)',
+      wrong: 'Parles français !',
       right: 'Parle français !',
       explanationZh: '第一组动词（-er）及 ouvrir 等的 tu 人称命令式绝对不带 s：Parle !（只有在后接 y 或 en 时才加 s 连读：Parles-en !）。',
+      noteZh: '第一组动词单数错误加了 s',
     },
     {
-      wrong: 'Tu lève-toi ! (保留了主语代词)',
+      wrong: 'Tu lève-toi !',
       right: 'Lève-toi !',
       explanationZh: '命令式必须省略主语人称代词 tu，不能说 Tu lève-toi。',
+      noteZh: '保留了主语代词',
     },
     {
-      wrong: 'Ne lève-toi pas ! (否定命令式代词放错位置)',
+      wrong: 'Ne lève-toi pas !',
       right: 'Ne te lève pas !',
       explanationZh: '在否定命令式中，代词恢复前置，toi 恢复为 te：Ne te lève pas !',
+      noteZh: '否定命令式代词放错位置',
     },
     {
-      wrong: 'Va-y ! (缺少联诵 s)',
+      wrong: 'Va-y !',
       right: 'Vas-y !',
       explanationZh: 'aller 的 tu 命令式虽为 va，但在 y 前为了发音连读必须加 s 并加连字符：Vas-y !',
+      noteZh: '缺少联诵 s',
     },
   ],
   questions: [
@@ -346,7 +350,7 @@ export const imperatifLesson: TenseLesson = {
       id: 'imp-q11',
       type: 'choice',
       prompt: '(S’asseoir) ___, monsieur, l’agent va vous recevoir dans un instant.',
-      options: ['Asseyez-vous', 'Vous asseyez', 'Asseyez', 'Assieds-vous'],
+      options: ['Asseyez-vous', 'Vous asseyez', 'Asseyez', 'Assieds-toi'],
       correctAnswer: 'Asseyez-vous',
       explanationZh: '代词动词针对 vous 的肯定命令式：Asseyez-vous !',
     },

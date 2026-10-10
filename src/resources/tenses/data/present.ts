@@ -8,8 +8,8 @@ export const presentLesson: TenseLesson = {
   cefrLevel: 'A1',
   echelleNiveau: [2, 5],
   echelleSources: [
-    'n2-gr-present: 直陈式现在时',
-    'n5-gr-present-avance: 直陈式现在时（深入）',
+    'Niveau 3 · Quelques verbes à l’indicatif présent',
+    'Niveau 6 · Une variété de verbes à l’indicatif présent',
   ],
   summaryZh: '描述说话当下的状态与动作、日常生活习惯、客观规律，以及口语中确定即将发生的事。',
   timelinePosition: 'present',
@@ -242,19 +242,22 @@ export const presentLesson: TenseLesson = {
   ],
   commonMistakes: [
     {
-      wrong: 'Je parle anglais et français. (当主语是 nous 时写成 Nous parle)',
+      wrong: 'Nous parle français et anglais au travail.',
       right: 'Nous parlons français et anglais au travail.',
       explanationZh: '第一人称复数 nous 的词尾绝大多数动词都是 -ons，不能把 je 的词尾套给 nous。',
+      noteZh: '当主语是 nous 时写成 Nous parle',
     },
     {
-      wrong: 'Ils mangent beaucoup. (写成 Ils mange)',
+      wrong: 'Ils mange à la cafétéria.',
       right: 'Ils mangent à la cafétéria.',
       explanationZh: '第三人称复数 ils/elles 的词尾是 -ent（不发音），虽然读音与单数相同，但书写必须加上 -ent。',
+      noteZh: '写成 Ils mange',
     },
     {
-      wrong: 'Vous faites du sport. (写成 Vous faisez)',
+      wrong: 'Vous faisez du vélo le long du canal de Lachine.',
       right: 'Vous faites du vélo le long du canal de Lachine.',
       explanationZh: '动词 faire 在 vous 人称下的变位是 faites，类似还有 dire → vous dites，不是规则的 -ez。',
+      noteZh: '写成 Vous faisez',
     },
     {
       wrong: 'Nous mangons une soupe chaude.',
@@ -332,7 +335,7 @@ export const presentLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Nous (commencer) ___ le travail à neuf heures.（填入动词变位）',
       correctAnswer: 'commençons',
-      acceptedAnswers: ['commençons', 'commencons'],
+      acceptedAnswers: ['commençons'],
       explanationZh: '-cer 动词在 o 前变为软音符号 ç：nous commençons。',
     },
     {
@@ -347,7 +350,7 @@ export const presentLesson: TenseLesson = {
       id: 'pres-q11',
       type: 'choice',
       prompt: 'Je (pouvoir) ___ vous aider avec votre dossier.',
-      options: ['peux', 'peut', 'pouvons', 'puis-je'],
+      options: ['peux', 'peut', 'pouvons', 'peus'],
       correctAnswer: 'peux',
       explanationZh: 'pouvoir 的第一人称现在时标准为 je peux（倒装时可用 puis-je）。',
     },

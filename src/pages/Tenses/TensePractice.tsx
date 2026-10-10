@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { TenseQuestion } from '@/resources/tenses/types'
-import { loadLessonProgress, saveQuestionResult, resetLessonProgress } from './storage'
+import { loadLessonProgress, resetLessonProgress, saveQuestionResult } from './storage'
 import IconCheck from '~icons/tabler/check'
 import IconX from '~icons/tabler/x'
 import IconRefresh from '~icons/tabler/refresh'
@@ -172,6 +172,7 @@ export default function TensePractice({ lessonId, questions }: TensePracticeProp
             <span>第 {currentIndex + 1} / {totalCount} 题 ({currentQ.type === 'choice' ? '选择题' : '拼写填空'})</span>
             {submitted && (
               <span
+                data-testid="question-feedback"
                 className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold ${
                   currentIsCorrect
                     ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300'
@@ -217,6 +218,7 @@ export default function TensePractice({ lessonId, questions }: TensePracticeProp
                   <button
                     key={oIdx}
                     type="button"
+                    data-testid={`choice-option-${oIdx}`}
                     disabled={submitted}
                     onClick={() => handleSelectOption(opt)}
                     className={`flex items-center justify-between rounded-xl border p-3.5 text-left text-sm font-medium transition ${optClass}`}
@@ -241,6 +243,7 @@ export default function TensePractice({ lessonId, questions }: TensePracticeProp
                 <input
                   ref={inputRef}
                   type="text"
+                  data-testid="fill-input"
                   value={inputAnswer}
                   onChange={(e) => setInputAnswer(e.target.value)}
                   placeholder="在此输入动词变位答案..."
@@ -256,6 +259,7 @@ export default function TensePractice({ lessonId, questions }: TensePracticeProp
                 {!submitted && (
                   <button
                     type="submit"
+                    data-testid="fill-submit"
                     disabled={!inputAnswer.trim()}
                     className="rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-xs transition hover:bg-indigo-700 disabled:opacity-50"
                   >

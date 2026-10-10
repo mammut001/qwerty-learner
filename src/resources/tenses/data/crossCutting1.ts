@@ -9,8 +9,8 @@ export const pcVsImparfaitLesson: TenseLesson = {
   cefrLevel: 'B1',
   echelleNiveau: 6,
   echelleSources: [
-    'n6-gr-pc-imparfait: 复合过去时与未完成过去时的搭配',
-    'n5-gr-chronologie-present: 以现在为参照的时间顺序',
+    'Niveau 6 · L’emploi conjoint du passé composé et de l’imparfait',
+    'Niveau 5 · Les temps de verbe et une variété de connecteurs temporels pour marquer la chronologie des actions par rapport au présent',
   ],
   summaryZh: '法语过去时态的核心两难：背景描述、持续状态与习惯用未完成过去时；突发事件、具体动作与时间界限明确的事件用复合过去时。',
   timelinePosition: 'past',
@@ -207,14 +207,16 @@ export const pcVsImparfaitLesson: TenseLesson = {
       explanationZh: 'quand j’étais jeune 加上 souvent 表示过去长期习惯，必须用未完成过去时 je voyageais。',
     },
     {
-      wrong: 'J’ai attendu pendant que tu cuisinais. (主句与从句同时进行混淆)',
+      wrong: 'J’ai attendu pendant que tu cuisinais.',
       right: 'J’attendais pendant que tu cuisinais.',
       explanationZh: '两个动作在过去同时展开且无明确截止点，两者都用未完成过去时。',
+      noteZh: '主句与从句同时进行混淆',
     },
     {
-      wrong: 'Il a été fatigué toute la journée hier. (状态描写误用)',
+      wrong: 'Il a été fatigué toute la journée hier.',
       right: 'Il était fatigué toute la journée hier.',
       explanationZh: '持续的生理或心理感受属于状态描写，通常优先使用 imparfait：il était fatigué。',
+      noteZh: '状态描写误用',
     },
   ],
   questions: [
@@ -260,7 +262,7 @@ export const pcVsImparfaitLesson: TenseLesson = {
       type: 'fill',
       prompt: 'J’ (habiter) ___ trois ans à Gatineau avant de déménager à Montréal.（表示已终结的闭合时长，填入助动词+分词）',
       correctAnswer: 'ai habité',
-      acceptedAnswers: ['ai habité', 'ai habite'],
+      acceptedAnswers: ['ai habité'],
       explanationZh: '有明确闭合时长（trois ans）且已彻底结束，使用复合过去时：ai habité。',
     },
     {
@@ -308,7 +310,7 @@ export const pcVsImparfaitLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Il (être) ___ minuit passé quand les invités sont partis.（交代时间背景，填入 imparfait）',
       correctAnswer: 'était',
-      acceptedAnswers: ['était', 'etait'],
+      acceptedAnswers: ['était'],
       explanationZh: '表达过去的时间钟点背景，使用未完成过去时 était。',
     },
     {
@@ -331,8 +333,8 @@ export const impVsPqpLesson: TenseLesson = {
   cefrLevel: 'B2',
   echelleNiveau: 7,
   echelleSources: [
-    'n7-gr-plus-que-parfait: 愈过去时',
-    'n5-gr-imparfait: 未完成过去时',
+    'Niveau 7 · Des verbes au plus-que-parfait',
+    'Niveau 5 · Des verbes à l’imparfait',
   ],
   summaryZh: '区分过去基准点上的“当时正在进行/当时处于的状态”（imparfait）与在过去基准点之前就“已经完成完毕”（plus-que-parfait）。',
   timelinePosition: 'past',
@@ -349,14 +351,16 @@ export const impVsPqpLesson: TenseLesson = {
       descriptionZh: '对比动作是与过去的基准点同步并存，还是在基准点前就已画上句号。',
       examples: [
         {
-          fr: 'Quand je suis entré, le professeur effaçait le tableau (动作正在进行中).',
+          fr: 'Quand je suis entré, le professeur effaçait le tableau.',
           zh: '当我进门时，老师正在擦黑板（当时正在进行）。',
           highlight: 'effaçait',
+          noteZh: '动作正在进行中',
         },
         {
-          fr: 'Quand je suis entré, le professeur avait déjà effacé le tableau (动作早已完毕).',
+          fr: 'Quand je suis entré, le professeur avait déjà effacé le tableau.',
           zh: '当我进门时，老师早已把黑板擦干净了（过去的过去）。',
           highlight: 'avait déjà effacé',
+          noteZh: '动作早已完毕',
         },
         {
           fr: 'Il pleuvait toujours quand nous avons quitté la maison pour le travail.',
@@ -430,24 +434,28 @@ export const impVsPqpLesson: TenseLesson = {
       descriptionZh: '主句动词为过去时时，从句时态依据时间纵深后移。',
       examples: [
         {
-          fr: 'Il a dit : « Je suis fatigué » → Il a dit qu’il était fatigué (同时状态用 imparfait).',
+          fr: 'Au discours direct : « Je suis fatigué ». Au discours indirect : il a dit qu’il était fatigué.',
           zh: '他说：“我很累” → 他说他当时很累。',
           highlight: 'était',
+          noteZh: '同时状态用 imparfait',
         },
         {
-          fr: 'Il a dit : « J’ai fini » → Il a dit qu’il avait fini (先时完成用 PQP).',
+          fr: 'Au discours direct : « J’ai fini ». Au discours indirect : il a dit qu’il avait fini.',
           zh: '他说：“我完成了” → 他说他此前已经完成了。',
           highlight: 'avait fini',
+          noteZh: '先时完成用 PQP',
         },
         {
-          fr: 'Elle m’a expliqué qu’elle cherchait un emploi à Québec (当时正在寻找).',
+          fr: 'Elle m’a expliqué qu’elle cherchait un emploi à Québec.',
           zh: '她向我解释说，她当时正在魁北克市找工作。',
           highlight: 'cherchait',
+          noteZh: '当时正在寻找',
         },
         {
-          fr: 'Elle m’a expliqué qu’elle avait déjà trouvé un emploi à Québec (此前已经找到).',
+          fr: 'Elle m’a expliqué qu’elle avait déjà trouvé un emploi à Québec.',
           zh: '她向我解释说，她此前已经在魁北克市找到了工作。',
           highlight: 'avait déjà trouvé',
+          noteZh: '此前已经找到',
         },
       ],
     },
@@ -457,14 +465,16 @@ export const impVsPqpLesson: TenseLesson = {
       descriptionZh: '现在虚拟假设 vs 过去虚拟假设。',
       examples: [
         {
-          fr: 'Si j’avais le temps aujourd’hui, je t’aiderais (与现在事实相反：现在没时间).',
+          fr: 'Si j’avais le temps aujourd’hui, je t’aiderais.',
           zh: '如果我现在有时间，我就会帮你。',
           highlight: 'avais',
+          noteZh: '与现在事实相反：现在没时间',
         },
         {
-          fr: 'Si j’avais eu le temps hier, je t’aurais aidé (与过去事实相反：昨天没时间).',
+          fr: 'Si j’avais eu le temps hier, je t’aurais aidé.',
           zh: '如果我昨天有时间，我昨天本来就会帮你的。',
           highlight: 'avais eu',
+          noteZh: '与过去事实相反：昨天没时间',
         },
         {
           fr: 'Si nous étions riches, nous achèterions cette maison sur la montagne.',
@@ -519,9 +529,10 @@ export const impVsPqpLesson: TenseLesson = {
   ],
   commonMistakes: [
     {
-      wrong: 'Quand je suis arrivé, il partait. (想表达“已经开走了”却误用 imparfait)',
+      wrong: 'Quand je suis arrivé, il partait déjà.',
       right: 'Quand je suis arrivé, il était déjà parti.',
       explanationZh: '如果说 il partait，意味着你刚好看到火车正在启动缓缓开出；如果人到时车已经没影了，必须用愈过去时 était parti。',
+      noteZh: '想表达“已经开走了”却误用 imparfait',
     },
     {
       wrong: 'Si j’avais su hier, je viendrais.',
@@ -601,7 +612,7 @@ export const impVsPqpLesson: TenseLesson = {
       type: 'fill',
       prompt: 'La route était bloquée parce qu’un arbre centenaire (tomber) ___ pendant la nuit.（填入助动词+分词）',
       correctAnswer: 'était tombé',
-      acceptedAnswers: ['était tombé', 'etait tombe'],
+      acceptedAnswers: ['était tombé'],
       explanationZh: '倒伏发生在封路之前，tomber 使用 être 作助动词：était tombé。',
     },
     {
@@ -625,7 +636,7 @@ export const impVsPqpLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Le spectacle (déjà se terminer) ___ quand les retardataires sont arrivés.（填入代词+助动词+déjà+分词）',
       correctAnswer: 's’était déjà terminé',
-      acceptedAnswers: ['s’était déjà terminé', 's etait deja termine'],
+      acceptedAnswers: ['s’était déjà terminé'],
       explanationZh: '代词动词使用 être，演出在迟到者到达前已结束：s’était déjà terminé。',
     },
     {
@@ -648,9 +659,9 @@ export const troisFutursLesson: TenseLesson = {
   cefrLevel: 'B1',
   echelleNiveau: 5,
   echelleSources: [
-    'n3-gr-futur-proche: 最近将来时 aller + 不定式',
-    'n4-gr-futur-simple: 简单将来时',
-    'n5-gr-futur-simple-avance: 简单将来时（深入）',
+    'Niveau 3 · Des verbes au futur proche',
+    'Niveau 5 · Quelques verbes au futur simple',
+    'Niveau 7 · Une variété de verbes au futur simple',
   ],
   summaryZh: '法语表达将来的三驾马车：口语即时打算与当下线索推论用 futur proche；书面、中远期、官方规章与条件从句用 futur simple；确定日程安排用 présent。',
   timelinePosition: 'future',
@@ -667,19 +678,22 @@ export const troisFutursLesson: TenseLesson = {
       descriptionZh: '对比几分钟后、几个月后与数年后的选择倾向。',
       examples: [
         {
-          fr: 'Le train de banlieue va partir dans trois minutes (即刻就要出发，用 futur proche).',
+          fr: 'Le train de banlieue va partir dans trois minutes.',
           zh: '郊区火车三分钟后就要开出了。',
           highlight: 'va partir',
+          noteZh: '即刻就要出发，用 futur proche',
         },
         {
-          fr: 'Dans cinq ans, nous construirons une maison écoénergétique (远期宏伟规划，用 futur simple).',
+          fr: 'Dans cinq ans, nous construirons une maison écoénergétique.',
           zh: '五年之后，我们将建一座节能环保房屋。',
           highlight: 'construirons',
+          noteZh: '远期宏伟规划，用 futur simple',
         },
         {
-          fr: 'Demain matin, je prends le premier vol pour Sept-Îles (已订妥机票的确定行程，用 présent).',
+          fr: 'Demain matin, je prends le premier vol pour Sept-Îles.',
           zh: '明天早晨，我乘坐第一班航班飞往七岛市。',
           highlight: 'prends',
+          noteZh: '已订妥机票的确定行程，用 présent',
         },
         {
           fr: 'Attention ! Tu vas faire tomber cette tasse de café chaud sur ton clavier !',
@@ -694,24 +708,28 @@ export const troisFutursLesson: TenseLesson = {
       descriptionZh: '口语中绝大多数偏好 aller + inf；广播与正式公文偏好简单将来时。',
       examples: [
         {
-          fr: 'On va se voir au café du coin après le cours de français (魁北克日常口语).',
+          fr: 'On va se voir au café du coin après le cours de français.',
           zh: '法语课下课后咱们去街角咖啡馆见个面吧。',
           highlight: 'va se voir',
+          noteZh: '魁北克日常口语',
         },
         {
-          fr: 'Le premier ministre prononcera une allocution solennelle à dix-huit heures (官方新闻报道).',
+          fr: 'Le premier ministre prononcera une allocution solennelle à dix-huit heures.',
           zh: '省长将于下午六点发表庄严电视讲话。',
           highlight: 'prononcera',
+          noteZh: '官方新闻报道',
         },
         {
-          fr: 'Une perturbation atmosphérique entraînera de la pluie verglaçante cette nuit (天气预报).',
+          fr: 'Une perturbation atmosphérique entraînera de la pluie verglaçante cette nuit.',
           zh: '一股大气扰动将于今夜带来冻雨天气。',
           highlight: 'entraînera',
+          noteZh: '天气预报',
         },
         {
-          fr: 'Je vais t’envoyer le lien par texto tout de suite (口语即时动作).',
+          fr: 'Je vais t’envoyer le lien par texto tout de suite.',
           zh: '我马上把链接通过短信发给你。',
           highlight: 'vais t’envoyer',
+          noteZh: '口语即时动作',
         },
       ],
     },
@@ -721,9 +739,10 @@ export const troisFutursLesson: TenseLesson = {
       descriptionZh: '在从句中表达未来的完成或发生时，语法上严格禁止使用最近将来时。',
       examples: [
         {
-          fr: 'Quand vous arriverez à l’accueil, l’agente vous remettra votre dossier (从句必须用 futur simple).',
+          fr: 'Quand vous arriverez à l’accueil, l’agente vous remettra votre dossier.',
           zh: '当您到达接待处时，工作人员会把档案交给您。',
           highlight: 'arriverez',
+          noteZh: '从句必须用 futur simple',
         },
         {
           fr: 'Dès que le soleil se lèvera, nous irons marcher dans la forêt boréale.',
@@ -748,14 +767,16 @@ export const troisFutursLesson: TenseLesson = {
       descriptionZh: '对比主观的计划意向与客观的法律规律。',
       examples: [
         {
-          fr: 'Je vais faire de mon mieux pour réussir mon examen d’intégration (个人下定决心).',
+          fr: 'Je vais faire de mon mieux pour réussir mon examen d’intégration.',
           zh: '我将竭尽全力通过我的融合评估考试。',
           highlight: 'vais faire',
+          noteZh: '个人下定决心',
         },
         {
-          fr: 'Tout contrevenant paiera une amende de cent dollars (法律规章的客观强制).',
+          fr: 'Tout contrevenant paiera une amende de cent dollars.',
           zh: '任何违规者将支付一百加元罚金。',
           highlight: 'paiera',
+          noteZh: '法律规章的客观强制',
         },
         {
           fr: 'Les prix des denrées alimentaires augmenteront inévitablement avec l’inflation.',
@@ -837,9 +858,10 @@ export const troisFutursLesson: TenseLesson = {
   ],
   commonMistakes: [
     {
-      wrong: 'Quand je vais avoir mon visa, je vais acheter un billet. (从句误用最近将来时)',
+      wrong: 'Quand je vais avoir mon visa, je vais acheter un billet.',
       right: 'Quand j’aurai mon visa, j’achèterai un billet.',
       explanationZh: '在 quand, dès que 引导的时间从句中，表达将来必须严格使用简单将来时（j’aurai），不能用 aller + inf。',
+      noteZh: '从句误用最近将来时',
     },
     {
       wrong: 'Si tu vas venir, on va être contents.',
@@ -847,14 +869,16 @@ export const troisFutursLesson: TenseLesson = {
       explanationZh: 'si 从句中绝对不能出现任何将来时！只能用现在时：si tu viens。',
     },
     {
-      wrong: 'Ce soir je partirai au cinéma. (日常近事在口语中显得死板过分正式)',
-      right: 'Ce soir je vais aller au cinéma (ou je vais au cinéma).',
+      wrong: 'Ce soir je partirai au cinéma.',
+      right: 'Ce soir je vais aller au cinéma.',
       explanationZh: '今晚去看电影这种日常即刻打算，口语中优先使用最近将来时或现在时，用简单将来时显得像宣读法令一样生硬。',
+      noteZh: '日常近事在口语中显得死板过分正式',
     },
     {
-      wrong: 'Regarde le ciel : il neigera ! (根据眼前乌云预判)',
+      wrong: 'Regarde le ciel : il neigera !',
       right: 'Regarde le ciel : il va neiger !',
       explanationZh: '根据眼前显而易见的客观迹象（乌云密布）作出的即时预判，必须使用最近将来时 il va neiger！',
+      noteZh: '根据眼前乌云预判',
     },
   ],
   questions: [
@@ -966,8 +990,8 @@ export const actionsImmediatesLesson: TenseLesson = {
   cefrLevel: 'A2-B1',
   echelleNiveau: 5,
   echelleSources: [
-    'n5-gr-action-recente: 刚刚完成 / 正在进行',
-    'n3-gr-futur-proche: 最近将来时 aller + 不定式',
+    'Niveau 5 · L’expression d’une action récente ou en cours',
+    'Niveau 3 · Des verbes au futur proche',
   ],
   summaryZh: '紧紧围绕“此刻（maintenant）”的紧邻时间三兄弟：刚刚完成（venir de）、正在进行（être en train de）、马上发生（aller + inf）。日常办事与口语交流最生动高频的核心工具。',
   timelinePosition: 'overview',
@@ -1212,7 +1236,7 @@ export const actionsImmediatesLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Elle (se préparer) ___ dans sa chambre, elle arrive dans cinq minutes !（填入 est en train de + 代词 + 原形）',
       correctAnswer: 'est en train de se préparer',
-      acceptedAnswers: ['est en train de se préparer', 'est en train de se preparer'],
+      acceptedAnswers: ['est en train de se préparer'],
       explanationZh: '正在梳妆准备：est en train de se préparer。',
     },
     {
@@ -1220,7 +1244,7 @@ export const actionsImmediatesLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Le train (entrer) ___ en gare à l’instant même.（填入 vient d’ + 原形）',
       correctAnswer: 'vient d’entrer',
-      acceptedAnswers: ['vient d’entrer', 'vient d entrer', 'vient d\'entrer'],
+      acceptedAnswers: ['vient d’entrer', 'vient d\'entrer'],
       explanationZh: '刚刚那一刻进站：vient d’entrer。',
     },
     {
@@ -1244,7 +1268,7 @@ export const actionsImmediatesLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Je (s’habiller) ___ chaudement pour affronter le froid du dehors.（填入 vais + 代词 + 原形）',
       correctAnswer: 'vais m’habiller',
-      acceptedAnswers: ['vais m’habiller', 'vais m habiller', 'vais m\'habiller'],
+      acceptedAnswers: ['vais m’habiller', 'vais m\'habiller'],
       explanationZh: '我马上要把自己裹得暖暖和和：vais m’habiller。',
     },
     {
@@ -1268,7 +1292,7 @@ export const actionsImmediatesLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Quand le facteur a sonné, j’ (prendre) ___ ma douche.（填入 était/étais en train de + 原形）',
       correctAnswer: 'étais en train de prendre',
-      acceptedAnswers: ['étais en train de prendre', 'etais en train de prendre'],
+      acceptedAnswers: ['étais en train de prendre'],
       explanationZh: '当时正冲着澡：étais en train de prendre。',
     },
   ],
@@ -1283,10 +1307,10 @@ export const phrasesAvecSiLesson: TenseLesson = {
   cefrLevel: 'A2-B2',
   echelleNiveau: [3, 6, 7, 8],
   echelleSources: [
-    'n3-gr-si-condition: si 引导的条件',
-    'n6-gr-si-realiste: 现实假设 si + 现在时',
-    'n7-gr-si-irreel-present: 与现在事实相反的假设',
-    'n8-gr-si-irreel-passe: 与过去事实相反的假设',
+    'Niveau 3 · La condition introduite par si',
+    'Niveau 6 · Des hypothèses réalistes sur un fait présent ou futur avec si',
+    'Niveau 7 · Des hypothèses irréelles sur un fait présent ou futur avec si',
+    'Niveau 8 · Des hypothèses irréelles au passé avec si',
   ],
   summaryZh: '法语条件句三大不可动摇的黄金法则：现实假设（si + présent → futur / impératif）；与现在相反（si + imparfait → conditionnel présent）；与过去相反（si + plus-que-parfait → conditionnel passé）。',
   timelinePosition: 'hypothetical',
@@ -1488,8 +1512,9 @@ export const phrasesAvecSiLesson: TenseLesson = {
       explanationZh: '对过去的虚拟结果，主句必须用条件式过去时（serais venu），不能用条件式现在时。',
     },
     {
-      wrong: 'S’il fait beau, nous allions à la plage. (主从句时态错配)',
+      wrong: 'S’il fait beau, nous allions à la plage.',
       right: 'S’il fait beau, nous irons à la plage.',
+      noteZh: '主从句时态错配',
       explanationZh: 'si + présent 对应的是将来的结果，主句必须用简单将来时 irons，不能错用过去时 allions。',
     },
   ],
@@ -1545,9 +1570,9 @@ export const phrasesAvecSiLesson: TenseLesson = {
     {
       id: 'si-q7',
       type: 'choice',
-      prompt: 'Si elle avait suivi mes conseils, elle n’ (pas perdre) ___ ses documents dans le métro.',
-      options: ['aurait pas perdu', 'avait pas perdu', 'aurait pas perdue', 'serait pas perdue'],
-      correctAnswer: 'aurait pas perdu',
+      prompt: 'Si elle avait suivi mes conseils, elle ___ ses documents dans le métro.',
+      options: ['n’aurait pas perdu', 'n’avait pas perdu', 'n’aurait pas perdue', 'ne serait pas perdue'],
+      correctAnswer: 'n’aurait pas perdu',
       explanationZh: 'si + plus-que-parfait，主句用条件式过去时：elle n’aurait pas perdu。',
     },
     {

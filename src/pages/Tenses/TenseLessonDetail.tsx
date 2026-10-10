@@ -1,6 +1,5 @@
-import React from 'react'
 import { NavLink } from 'react-router-dom'
-import type { TenseLesson, TenseId } from '@/resources/tenses/types'
+import type { TenseId, TenseLesson } from '@/resources/tenses/types'
 import { allTenseLessons } from '@/resources/tenses/data'
 import ExampleItem from './ExampleItem'
 import TenseConjugationExplorer from './TenseConjugationExplorer'
@@ -339,6 +338,12 @@ export default function TenseLessonDetail({ lesson }: TenseLessonDetailProps) {
                     {mistake.right}
                   </span>
                 </div>
+
+                {mistake.noteZh && (
+                  <p className="text-xs italic text-gray-400 dark:text-gray-500 pl-7">
+                    {mistake.noteZh}
+                  </p>
+                )}
 
                 <p className="mt-1 text-xs leading-relaxed text-gray-600 dark:text-gray-300 pl-7">
                   {mistake.explanationZh}

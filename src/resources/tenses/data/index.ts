@@ -1,4 +1,4 @@
-import type { TenseLesson, TenseCategory } from '../types'
+import type { TenseCategory, TenseLesson } from '../types'
 import { presentLesson } from './present'
 import { passeComposeLesson } from './passeCompose'
 import { imparfaitLesson } from './imparfait'
@@ -15,18 +15,18 @@ import { imperatifLesson } from './imperatif'
 import { passeSimpleLesson } from './passeSimple'
 import { gerondifLesson } from './gerondif'
 import {
-  pcVsImparfaitLesson,
-  impVsPqpLesson,
-  troisFutursLesson,
   actionsImmediatesLesson,
+  impVsPqpLesson,
+  pcVsImparfaitLesson,
   phrasesAvecSiLesson,
+  troisFutursLesson,
 } from './crossCutting1'
 import {
-  indicatifVsSubjonctifLesson,
   auxiliaireEtAccordLesson,
   concordanceDiscoursLesson,
-  voixPassiveLesson,
+  indicatifVsSubjonctifLesson,
   ligneDuTempsLesson,
+  voixPassiveLesson,
 } from './crossCutting2'
 
 export {

@@ -55,6 +55,7 @@ export type LessonExample = {
   fr: string
   zh: string
   highlight: string
+  noteZh?: string
 }
 
 export type LessonUsage = {
@@ -74,6 +75,14 @@ export type CommonMistake = {
   wrong: string
   right: string
   explanationZh: string
+  noteZh?: string
+}
+
+export class UnsupportedVerbError extends Error {
+  constructor(verb: string) {
+    super(`Verbe non supporté : ${verb}`)
+    this.name = 'UnsupportedVerbError'
+  }
 }
 
 export type TenseQuestion = {

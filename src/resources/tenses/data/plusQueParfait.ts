@@ -7,7 +7,7 @@ export const plusQueParfaitLesson: TenseLesson = {
   category: 'indicatif',
   cefrLevel: 'B2',
   echelleNiveau: 7,
-  echelleSources: ['n7-gr-plus-que-parfait: 愈过去时'],
+  echelleSources: ['Niveau 7 · Des verbes au plus-que-parfait'],
   summaryZh: '用于表达“过去的过去”——在过去某个参照点之前就已经发生并完成的动作，或与过去事实相反的假设。',
   timelinePosition: 'past',
   defaultVerb: 'parler',
@@ -301,7 +301,7 @@ export const plusQueParfaitLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Nous (déjà voir) ___ ce film au festival du cinéma.（填入助动词+déjà+分词，如 avions déjà vu）',
       correctAnswer: 'avions déjà vu',
-      acceptedAnswers: ['avions déjà vu', 'avions deja vu'],
+      acceptedAnswers: ['avions déjà vu'],
       explanationZh: 'voir 的愈过去时第一人称复数：nous avions déjà vu。',
     },
     {
@@ -325,7 +325,7 @@ export const plusQueParfaitLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Le train (entrer) ___ en gare quand les passagers se sont levés.（填入助动词+分词）',
       correctAnswer: 'était entré',
-      acceptedAnswers: ['était entré', 'etait entre'],
+      acceptedAnswers: ['était entré'],
       explanationZh: 'entrer 使用 être 作助动词，阳性单数分词为 entré：était entré。',
     },
     {
@@ -339,9 +339,9 @@ export const plusQueParfaitLesson: TenseLesson = {
     {
       id: 'pqp-q11',
       type: 'choice',
-      prompt: 'Il a avoué qu’il n’ (jamais prendre) ___ de cours de français auparavant.',
-      options: ['avait jamais pris', 'a jamais pris', 'était jamais pris', 'aurait jamais pris'],
-      correctAnswer: 'avait jamais pris',
+      prompt: 'Il a avoué qu’il ___ de cours de français auparavant.',
+      options: ['n’avait jamais pris', 'n’a jamais pris', 'ne s’était jamais pris', 'n’aurait jamais pris'],
+      correctAnswer: 'n’avait jamais pris',
       explanationZh: '间接引语转述过去先时性动作，否定副词夹在助动词和分词之间：n’avait jamais pris。',
     },
     {

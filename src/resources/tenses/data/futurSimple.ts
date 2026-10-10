@@ -8,8 +8,8 @@ export const futurSimpleLesson: TenseLesson = {
   cefrLevel: 'A2-B1',
   echelleNiveau: [4, 5],
   echelleSources: [
-    'n4-gr-futur-simple: 简单将来时',
-    'n5-gr-futur-simple-avance: 简单将来时（深入）',
+    'Niveau 5 · Quelques verbes au futur simple',
+    'Niveau 7 · Une variété de verbes au futur simple',
   ],
   summaryZh: '表达中远期规划、天气预报、官方制度与法令规定、正式承诺，以及在 quand / dès que 从句中对未来的确切表述。',
   timelinePosition: 'future',
@@ -242,9 +242,10 @@ export const futurSimpleLesson: TenseLesson = {
   ],
   commonMistakes: [
     {
-      wrong: 'Quand je vais arriver, je te téléphonerai. (在时间状语从句中用错)',
+      wrong: 'Quand je vais arriver, je te téléphonerai.',
       right: 'Quand j’arriverai, je te téléphonerai.',
       explanationZh: '在 quand, dès que, lorsque 引导的时间状语从句中，表达未来时必须严格使用简单将来时（j’arriverai），不能用最近将来时或现在时。',
+      noteZh: '在时间状语从句中用错',
     },
     {
       wrong: 'Si j’étudierai, je réussirai.',
@@ -252,14 +253,16 @@ export const futurSimpleLesson: TenseLesson = {
       explanationZh: '法语三大铁律之一：si 从句中绝对不能使用将来时（si + présent → futur），将来时只能出现在主句中。',
     },
     {
-      wrong: 'Je serai à l’heure. (写成 J’irai être à l’heure)',
+      wrong: 'J’irai être à l’heure pour mon entrevue.',
       right: 'Je serai à l’heure pour mon entrevue.',
       explanationZh: 'être 的简单将来时变位是 je serai，词干是 ser-。',
+      noteZh: '写成 J’irai être à l’heure',
     },
     {
-      wrong: 'Ils prendront le train. (写成 Ils prenderont)',
+      wrong: 'Ils prenderont le train de banlieue.',
       right: 'Ils prendront le train de banlieue.',
       explanationZh: '第三组以 -re 结尾的动词去 e 加词尾：prendre → prendr- → ils prendront。',
+      noteZh: '写成 Ils prenderont',
     },
   ],
   questions: [

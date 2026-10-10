@@ -1,6 +1,6 @@
-import React, { useState, useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { conjugate, getSupportedVerbs } from '@/resources/tenses/conjugator'
-import type { TenseId, ConjugationResult } from '@/resources/tenses/types'
+import type { ConjugationResult, TenseId } from '@/resources/tenses/types'
 import { safeSpeak } from '@/utils/speechSynthesis'
 import IconVolume from '~icons/tabler/volume'
 import IconSearch from '~icons/tabler/search'

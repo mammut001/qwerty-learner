@@ -8,8 +8,8 @@ export const subjonctifPresentLesson: TenseLesson = {
   cefrLevel: 'A2-B2',
   echelleNiveau: [4, 7],
   echelleSources: [
-    'n4-gr-subjonctif-present: 虚拟式现在时',
-    'n7-gr-subjonctif-present-avance: 虚拟式现在时（深入）',
+    'Niveau 7 · Quelques verbes au subjonctif présent',
+    'Niveau 8 · Une variété de verbes au subjonctif présent',
   ],
   summaryZh: '用于表达主观态度（义务、愿望、情感、怀疑、评价）以及特定从属连词（pour que, bien que, avant que）之后的情态语式。',
   timelinePosition: 'hypothetical',
@@ -99,9 +99,9 @@ export const subjonctifPresentLesson: TenseLesson = {
       descriptionZh: '表达高兴、遗憾、害怕、惊奇等主观心理：content que, triste que, avoir peur que, dommage que...',
       examples: [
         {
-          fr: 'Je suis très heureux que tu aies réussi ton épreuve de français du TCF Canada !',
-          zh: '我真为你通过了 TCF Canada 法语考试感到由衷的高兴！',
-          highlight: 'aies réussi',
+          fr: 'Je suis très heureux que tu sois parmi nous à Montréal !',
+          zh: '我真为你来到蒙特利尔和我们在一起感到高兴！',
+          highlight: 'sois',
         },
         {
           fr: 'Il est dommage que le centre de francisation ferme ses portes pendant les vacances d’été.',
@@ -247,9 +247,10 @@ export const subjonctifPresentLesson: TenseLesson = {
       explanationZh: '动词 espérer que 绝不接虚拟式！espérer 表达具有实现信心的预期，后接直陈式（通常为简单将来时 seras 或现在时 es）。',
     },
     {
-      wrong: 'Je pense qu’il vienne. (肯定句中误用虚拟式)',
+      wrong: 'Je pense qu’il vienne demain.',
       right: 'Je pense qu’il vient demain.',
       explanationZh: 'penser que / croire que 在肯定句中表达观点，必须接直陈式（vient）；只有在否定句（je ne pense pas qu’il vienne）或疑问倒装中才接虚拟式！',
+      noteZh: '肯定句中误用虚拟式',
     },
     {
       wrong: 'Il faut que nous prenons le métro.',
@@ -323,7 +324,7 @@ export const subjonctifPresentLesson: TenseLesson = {
       id: 'sbp-q8',
       type: 'choice',
       prompt: 'Le médecin veut que les patients (prendre) ___ leurs médicaments avec de l’eau.',
-      options: ['prennent', 'prenent', 'prennent-ils', 'prenions'],
+      options: ['prennent', 'prenent', 'prenne', 'prenions'],
       correctAnswer: 'prennent',
       explanationZh: 'vouloir que 接虚拟式，ils 对应靴子词干 prennent。',
     },
@@ -387,7 +388,7 @@ export const subjonctifPresentLesson: TenseLesson = {
       id: 'sbp-q16',
       type: 'choice',
       prompt: 'Je suis ravi que vous (choisir) ___ le Québec comme terre d’accueil.',
-      options: ['choisissiez', 'choisissez', 'choisissez-vous', 'avez choisi'],
+      options: ['choisissiez', 'choisissez', 'choisirez', 'avez choisi'],
       correctAnswer: 'choisissiez',
       explanationZh: 'être ravi que 表达欣喜情感，接虚拟式，第二组动词 vous 人称含有 -issiez：choisissiez。',
     },

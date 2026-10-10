@@ -7,7 +7,7 @@ export const futurProcheLesson: TenseLesson = {
   category: 'indicatif',
   cefrLevel: 'A1-A2',
   echelleNiveau: 3,
-  echelleSources: ['n3-gr-futur-proche: 最近将来时 aller + 不定式'],
+  echelleSources: ['Niveau 4 · Des verbes au futur proche'],
   summaryZh: '由 aller 的直陈式现在时 + 不定式构成；用于表达即将发生的事、明确的近期计划或据当下迹象判断的必然结果。',
   timelinePosition: 'future',
   defaultVerb: 'parler',

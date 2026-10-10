@@ -8,8 +8,8 @@ export const imparfaitLesson: TenseLesson = {
   cefrLevel: 'B1',
   echelleNiveau: [5, 6],
   echelleSources: [
-    'n5-gr-imparfait: 未完成过去时',
-    'n6-gr-pc-imparfait: 复合过去时与未完成过去时的搭配',
+    'Niveau 5 · Des verbes à l’imparfait',
+    'Niveau 6 · L’emploi conjoint du passé composé et de l’imparfait',
   ],
   summaryZh: '用于描绘过去的背景画面、持续状态、人物心理外貌、日常习惯，以及委婉礼貌请求。',
   timelinePosition: 'past',
@@ -255,9 +255,10 @@ export const imparfaitLesson: TenseLesson = {
       explanationZh: 'tout à coup 引出突然发生的新动作，推进情节，必须使用复合过去时 a commencé，不能用 imparfait。',
     },
     {
-      wrong: 'Nous mangions (写成 nous mangons à l’imparfait)',
+      wrong: 'Nous mangons de la tarte au sucre.',
       right: 'Nous mangions de la tarte au sucre.',
       explanationZh: '第一人称复数未完成过去时词尾是 -ions：nous mangions（含有 i）。',
+      noteZh: '写成 nous mangons à l’imparfait',
     },
   ],
   questions: [

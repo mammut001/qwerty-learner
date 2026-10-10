@@ -8,8 +8,8 @@ export const passeComposeLesson: TenseLesson = {
   cefrLevel: 'A2',
   echelleNiveau: [4, 5],
   echelleSources: [
-    'n4-gr-passe-compose: 复合过去时',
-    'n5-gr-passe-compose-avance: 复合过去时（深入）',
+    'Niveau 4 · Quelques verbes au passé composé',
+    'Niveau 5 · Une variété de verbes au passé composé',
   ],
   summaryZh: '描述过去发生并已彻底完结的具体事件、突发动作，或在时间上有明确起止界限的过去行为。',
   timelinePosition: 'past',
@@ -291,8 +291,8 @@ export const passeComposeLesson: TenseLesson = {
     {
       id: 'pc-q4',
       type: 'choice',
-      prompt: 'Je (ne pas comprendre) ___ la question de l’agent d’immigration.',
-      options: ['n’ai pas compris', 'ne suis pas compris', 'n’ai pas comprendre', 'n’ai pas comprenez'],
+      prompt: 'Je ___ la question de l’agent d’immigration.',
+      options: ['n’ai pas compris', 'ne suis pas compris', 'n’ai pas comprenu', 'n’ai pas comprendre'],
       correctAnswer: 'n’ai pas compris',
       explanationZh: 'comprendre 用 avoir，过去分词为 compris，否定词夹住助动词：n’ai pas compris。',
     },
@@ -333,7 +333,7 @@ export const passeComposeLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Nous (arriver) ___ à Montréal à minuit passé.（主语为阳性复数，填入助动词+分词）',
       correctAnswer: 'sommes arrivés',
-      acceptedAnswers: ['sommes arrivés', 'sommes arrives'],
+      acceptedAnswers: ['sommes arrivés'],
       explanationZh: 'arriver 用 être 作助动词，阳性复数分词加 -s：sommes arrivés。',
     },
     {
@@ -357,7 +357,7 @@ export const passeComposeLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Elle (naître) ___ à Sherbrooke en 1995.（填入助动词+分词）',
       correctAnswer: 'est née',
-      acceptedAnswers: ['est née', 'est nee'],
+      acceptedAnswers: ['est née'],
       explanationZh: 'naître 使用 être 作助动词，主语 elle 配合加 -e：est née。',
     },
     {

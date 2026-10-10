@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { lessonGroups, allTenseLessons } from '@/resources/tenses/data'
+import { allTenseLessons, lessonGroups } from '@/resources/tenses/data'
 import { loadAllProgress } from './storage'
 import TensesTimeline from './TensesTimeline'
 import TenseCheatSheet from './TenseCheatSheet'

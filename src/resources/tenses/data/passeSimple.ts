@@ -8,8 +8,8 @@ export const passeSimpleLesson: TenseLesson = {
   cefrLevel: 'B1-B2',
   echelleNiveau: [6, 8],
   echelleSources: [
-    'n6-gr-passe-simple: 简单过去时（阅读识别）',
-    'n8-gr-passe-simple-avance: 简单过去时（阅读识别）（深入）',
+    'Niveau 6 · Quelques verbes au passé simple',
+    'Niveau 8 · Une variété de verbes au passé simple',
   ],
   summaryZh: '纯书面语与文学历史时态，口语中完全不使用；相当于书面语中的复合过去时，备考重点在于阅读识别（尤其是 il/elle 和 ils/elles 形式）。',
   timelinePosition: 'past',
@@ -244,24 +244,28 @@ export const passeSimpleLesson: TenseLesson = {
   ],
   commonMistakes: [
     {
-      wrong: '口语中说：Hier, je parlai avec mon ami. (口语误用简单过去时)',
+      wrong: 'Hier, je parlai avec mon ami.',
       right: 'Hier, j’ai parlé avec mon ami.',
       explanationZh: '极其关键：现代法语口语中绝对不使用简单过去时！日常对话一律使用复合过去时（j’ai parlé）。简单过去时只存在于书面文学和历史文献中。',
+      noteZh: '日常口语误用简单过去时',
     },
     {
-      wrong: 'Il fut un médecin. (不认得 fut 是 être)',
+      wrong: 'Il fit un grand défenseur des droits linguistiques au Québec.',
       right: 'Il fut un grand défenseur des droits linguistiques au Québec.',
       explanationZh: 'fut 是动词 être 的简单过去时单数第三人称（等同于 il a été / il était）。',
+      noteZh: '混淆 être (fut) 与 faire (fit)',
     },
     {
-      wrong: 'Ils eurent peur. (不认得 eurent 是 avoir)',
+      wrong: 'Ils furent très peur devant la bête sauvage.',
       right: 'Ils eurent très peur devant la bête sauvage.',
       explanationZh: 'eurent 是动词 avoir 的简单过去时复数第三人称（等同于 ils ont eu），读作 /yʁ/。',
+      noteZh: '误用 être (furent) 代替 avoir (eurent)',
     },
     {
-      wrong: 'Il venait de partir quand il vit un ami. (误以为 vit 是 vivre)',
+      wrong: 'Il vécut son ami sur le quai de la gare.',
       right: 'Il vit son ami sur le quai de la gare.',
       explanationZh: 'vit 是 voir（看见）的简单过去时（il vit）；而 vivre（生活）的简单过去时是 il vécut。千万不要混淆！',
+      noteZh: '混淆 voir (vit) 与 vivre (vécut)',
     },
   ],
   questions: [
@@ -334,7 +338,7 @@ export const passeSimpleLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Les délégués (arriver) ___ à Québec pour le grand congrès.（填入简单过去时）',
       correctAnswer: 'arrivèrent',
-      acceptedAnswers: ['arrivèrent', 'arriverent'],
+      acceptedAnswers: ['arrivèrent'],
       explanationZh: '-er 动词的第三人称复数简单过去时词尾是 -èrent：arrivèrent。',
     },
     {
@@ -382,7 +386,7 @@ export const passeSimpleLesson: TenseLesson = {
       type: 'fill',
       prompt: 'La reine (écrire) ___ une longue lettre de félicitations au gouverneur.（填入简单过去时）',
       correctAnswer: 'écrivit',
-      acceptedAnswers: ['écrivit', 'ecrivit'],
+      acceptedAnswers: ['écrivit'],
       explanationZh: 'écrire 的简单过去时第三人称单数是 écrivit。',
     },
     {

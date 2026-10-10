@@ -7,7 +7,7 @@ export const futurAnterieurLesson: TenseLesson = {
   category: 'indicatif',
   cefrLevel: 'B2',
   echelleNiveau: 7,
-  echelleSources: ['n7-gr-futur-anterieur: 先将来时'],
+  echelleSources: ['Niveau 8 · Des verbes au futur antérieur'],
   summaryZh: '用于表达在未来某个参照点或另一将来动作之前就已经完成的事情，或对刚发生事件作出的合理推测。',
   timelinePosition: 'future',
   defaultVerb: 'parler',
@@ -293,7 +293,7 @@ export const futurAnterieurLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Quand j’ (terminer) ___ ce projet, je prendrai une semaine de vacances.（填入将来时助动词+分词）',
       correctAnswer: 'aurai terminé',
-      acceptedAnswers: ['aurai terminé', 'aurai termine'],
+      acceptedAnswers: ['aurai terminé'],
       explanationZh: '第一人称单数先将来时为 j’aurai terminé。',
     },
     {
@@ -325,7 +325,7 @@ export const futurAnterieurLesson: TenseLesson = {
       type: 'fill',
       prompt: 'Le train (entrer) ___ en gare avant notre arrivée sur le quai.（填入助动词+分词）',
       correctAnswer: 'sera entré',
-      acceptedAnswers: ['sera entré', 'sera entre'],
+      acceptedAnswers: ['sera entré'],
       explanationZh: 'entrer 使用 être 作助动词，单数阳性分词为 entré：sera entré。',
     },
     {

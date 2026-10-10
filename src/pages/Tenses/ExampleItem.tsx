@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import LookupText from '@/components/Dictionary/LookupText'
 import { safeSpeak } from '@/utils/speechSynthesis'
 import type { LessonExample } from '@/resources/tenses/types'
@@ -9,7 +9,7 @@ export interface ExampleItemProps {
   index?: number
 }
 
-export default function ExampleItem({ example, index }: ExampleItemProps) {
+export default function ExampleItem({ example }: ExampleItemProps) {
   const { fr, zh, highlight } = example
   const idx = highlight ? fr.indexOf(highlight) : -1
 
@@ -42,6 +42,11 @@ export default function ExampleItem({ example, index }: ExampleItemProps) {
           <div className="mt-1.5 text-xs text-gray-500 dark:text-gray-400 leading-normal">
             {zh}
           </div>
+          {example.noteZh && (
+            <div className="mt-1 text-xs text-gray-400 dark:text-gray-500 italic">
+              {example.noteZh}
+            </div>
+          )}
         </div>
         <button
           type="button"
