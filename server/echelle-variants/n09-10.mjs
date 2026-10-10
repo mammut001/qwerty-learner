@@ -1518,253 +1518,253 @@ export const N09_10_SCENARIOS = {
   "n10-listening-2": [
     {
       "situation": 0,
-      "text": "— Mesdames et messieurs les membres du conseil municipal, chers concitoyens de Saint-Hyacinthe, je prends la parole ce soir avec solennité au sujet de la demande de dézonage de cinquante hectares de terres arables au sud de notre périmètre urbain. La proposition de convertir ces parcelles fertiles en parc logistique d’entrepôts frigorifiques est présentée par certains promoteurs comme une opportunité économique inestimable pour nos finances locales. On nous fait miroiter des retombées fiscales substantielles et la création de dizaines d’emplois manuels dans un secteur névralgique de notre économie régionale. Or, je vous invite à regarder au-delà des bilans comptables à court terme : nous parlons ici de sols de classe un, parmi les plus riches et les plus résilients de toute la vallée du Richelieu, formés au cours de millénaires et indispensables à notre souveraineté alimentaire québécoise. L’étalement urbain ne peut continuer de grignoter inexorablement notre patrimoine nourricier sous le seul prétexte de faciliter le transit de marchandises importées par camion. Une fois coulée sous le béton bitumineux, une terre agricole est perdue pour toujours, et aucune compensation pécuniaire ne saurait restaurer sa fertilité biologique. Si notre municipalité veut véritablement incarner le leadership de la transition écologique, nous devons plutôt orienter ces projets logistiques vers nos friches industrielles désaffectées et refuser catégoriquement de sacrifier nos emblavures sur l’autel de la spéculation foncière éphémère.",
+      "frame": "exposé de colloque — phénomène migratoire climatique côtier",
+      "text": "— Chers collègues, dans cette communication au colloque de géographie humaine de Rimouski, nous analysons les ressorts du phénomène migratoire environnemental qui frappe les communautés côtières de l’estuaire du Saint-Laurent. Contrairement aux migrations économiques spontanées qui répondent à des signaux de marché ponctuels, les flux observés ici découlent de l’érosion côtière accélérée et de la multiplication des surcotes hivernales. L’amenuisement du couvert de glace marine laisse désormais le littoral exposé sans défense aux tempêtes de noroît, détruisant progressivement les routes riveraines et les réseaux d’assainissement. Le mécanisme de départ s’opère par vagues successives : les ménages les plus vulnérables quittent d’abord les zones de basse altitude sous la pression d’assurances devenues inabordables, provoquant une dépréciation brutale du parc immobilier résiduel. Ce dépeuplement entraîne ensuite une contraction des services publics essentiels de proximité, tels que les écoles et les dispensaires, ce qui contraint à terme les familles actives à rallier les centres urbains intérieurs. Cette dynamique migratoire centrifuge ne relève donc pas d’un choix de mobilité individuel, mais d’un processus d’éviction territoriale systémique. En observant la trajectoire de relocalisation de ces réfugiés climatiques régionaux, nous constatons que les municipalités d’accueil de l’arrière-pays peinent à absorber cette demande soudaine en logements sans un soutien financier coordonné de l’État.",
       "questions": [
         [
-          "Quelle est la position défendue avec fermeté par l’élue municipale ?",
-          "Le refus de sacrifier des sols nourriciers exceptionnels au profit d’installations d’entreposage",
-          "L’approbation enthousiaste du projet immobilier afin de regarnir durablement les caisses publiques locales",
-          "Le déplacement planifié des résidents des vieux quartiers urbains vers les zones de culture maraîchère"
+          "Quel est l’objet fondamental de cette communication scientifique ?",
+          "L’explication des causes environnementales et sociales d’un exode côtier",
+          "La présentation d’un plan d’assainissement des eaux usées en milieu urbain",
+          "L’analyse des rendements touristiques estivaux des localités de l’estuaire"
         ],
         [
-          "Quelle stratégie argumentative la conseillère emploie-t-elle pour convaincre son auditoire ?",
-          "Elle oppose la valeur irremplaçable du patrimoine agricole nourricier aux mirages financiers à court terme",
-          "Elle met en cause la moralité des représentants des promoteurs sans formuler la moindre observation technique",
-          "Elle préconise d’ajourner le vote jusqu’à la prochaine élection générale sans exprimer d’avis sur le fond"
+          "Comment la dynamique migratoire est-elle expliquée par le chercheur ?",
+          "La dégradation physique du rivage déclenche un engrenage économique et social inéluctable",
+          "Une crise politique locale est suivie d’une vague d’émigration vers d’autres provinces",
+          "Les hausses d’impôts fonciers poussent les propriétaires à vendre à des promoteurs hôteliers"
         ],
         [
-          "Quelle alternative concrète l’oratrice suggère-t-elle pour accueillir ces nouvelles installations ?",
-          "La revitalisation ciblée d’anciennes zones industrielles délaissées situées au sein de la municipalité",
-          "L’expropriation d’habitations riveraines pour dégager l’espace nécessaire aux transporteurs routiers",
-          "L’envoi immédiat de ces activités logistiques vers des collectivités voisines d’une autre province"
+          "Quel facteur précipite le départ des ménages les plus démunis ?",
+          "L’impossibilité financière de continuer à assurer leurs résidences menacées",
+          "La fermeture administrative de l’ensemble des voies de circulation provinciales",
+          "L’obligation légale imposée par les tribunaux d’évacuer immédiatement les lieux"
         ],
         [
-          "Dans ce discours politique, que désigne le terme « emblavures » ?",
-          "Des terres arables labourées et ensemencées portant des récoltes destinées à l’alimentation",
-          "Des parcelles forestières isolées dont l’accès est strictement réservé aux entreprises d’abattage",
-          "Des voies carrossables non goudronnées reliant directement les exploitations aux grands axes routiers"
+          "Que connote l’expression « éviction territoriale systémique » dans ce contexte ?",
+          "Un départ forcé résultant d’une dégradation conjointe du milieu naturel et des infrastructures",
+          "Une expulsion de locataires ordonnée par des propriétaires de complexes immobiliers privés",
+          "Un transfert planifié de populations orchestré unilatéralement par les forces de sécurité publique"
         ]
-      ],
-      "frame": "discours politique — conseil municipal"
+      ]
     },
     {
       "situation": 1,
-      "text": "— Collègues étudiantes et étudiants de l’Université Laval, l’heure n’est plus aux demi-mesures ni aux pétitions symboliques qui finissent oubliées au fond d’un tiroir ministériel. Nous sommes réunis en assemblée générale souveraine pour voter sur un mandat de grève reconductible de trois jours afin de dénoncer l’inaction flagrante de notre administration et du gouvernement face à la précarité qui nous asphyxie. Comment pouvons-nous tolérer qu’en 2026, des centaines de stagiaires en enseignement, en soins infirmiers et en travail social continuent d’accomplir quarante heures par semaine de labeur essentiel sans percevoir un seul sou de compensation financière ? Cette injustice institutionnalisée est d’autant plus révoltante que le coût du loyer et des denrées alimentaires de base a grimpé en flèche dans la capitale, forçant bon nombre d’entre nous à choisir entre manger à leur faim et acheter leurs manuels scolaires obligatoires. On tentera de vous effrayer en affirmant qu’un arrêt de cours compromettra la validation de votre trimestre ou alourdira votre charge d’étude printanière. Ce discours culpabilisant vise uniquement à briser notre cohésion de groupe. L’histoire des mouvements sociaux québécois nous enseigne que nous n’avons jamais rien obtenu sans un rapport de force organisé et solidaire. En votant massivement pour ce mandat aujourd’hui, nous refusons d’être la variable d’ajustement budgétaire du système d’éducation et nous affirmons la dignité inaliénable de notre travail d’étudiants face aux décideurs politiques.",
+      "frame": "émission scientifique — principe mathématique du chaos déterministe",
+      "text": "— Bienvenue à notre magazine scientifique hebdomadaire. Ce soir, nous explorons le fascinant principe mathématique du chaos déterministe dans les systèmes dynamiques non linéaires, popularisé sous le concept de l’effet papillon. Pendant des siècles, le déterminisme classique de Laplace postulait que la connaissance exacte des conditions initiales d’un système physique permettait d’en prédire infailliblement la trajectoire jusqu’à la fin des temps. Or, les travaux pionniers du météorologue et mathématicien Edward Lorenz sur la convection atmosphérique ont démontré qu’une classe universelle d’équations différentielles déterministes engendre des comportements intrinsèquement imprévisibles. Dès lors que deux trajectoires démarrent avec une divergence infinitésimale de l’ordre d’un milliardième, leurs courbes de phase s’écartent de manière exponentielle, rendant caduque toute extrapolation au-delà d’un horizon temporel strict appelé temps de Liapounov. Pour autant, ce chaos apparent n’équivaut pas à un désordre aléatoire complet : dans l’espace des phases, les orbites convergent vers une structure géométrique fractale d’une infinie complexité appelée attracteur étrange. Cet objet mathématique borne les états possibles du système sans jamais se recouper. Comprendre ce principe transforme notre regard sur les phénomènes complexes, de la prévision météorologique à la turbulence hydrodynamique, en révélant qu’un ordre géométrique sous-jacent peut coexister harmonieusement avec une imprédictibilité temporelle fondamentale.",
       "questions": [
         [
-          "Quelle est la revendication centrale portée par le porte-parole étudiant lors de l’assemblée ?",
-          "La rémunération systématique et décente des stages de formation pratique exigés dans les cursus",
-          "La suppression de l’évaluation finale dans l’ensemble des départements pour diminuer l’anxiété des pairs",
-          "L’obtention de rabais commerciaux exclusifs auprès des grandes enseignes de distribution alimentaire"
+          "Quelle est l’idée directrice exposée par le vulgarisateur scientifique ?",
+          "Des lois mathématiques déterministes peuvent générer une imprévisibilité dynamique totale",
+          "La physique quantique a définitivement réfuté la validité du calcul infinitésimal classique",
+          "Les modèles météorologiques actuels permettent des prédictions infaillibles sur plusieurs années"
         ],
         [
-          "Par quel procédé rhétorique l’orateur cherche-t-il à mobiliser les membres de l’association ?",
-          "Il lie la précarité vécue par les étudiants à la nécessité historique d’une action syndicale unie",
-          "Il dissimule les contraintes financières de ses camarades pour préserver le prestige de l’institution",
-          "Il annonce l’éviction des adhérents qui refuseraient d’adopter les propositions de la table syndicale"
+          "Comment la réflexion mathématique progresse-t-elle dans cette chronique ?",
+          "La remise en cause du dogme prédictif ancien ouvre sur la modélisation géométrique du chaos",
+          "Une biographie d’Edward Lorenz est suivie d’une critique des instruments de mesure météorologique",
+          "L’inventaire des erreurs de prévision de la semaine sert d’introduction à une querelle universitaire"
         ],
         [
-          "Quel contre-argument de la direction l’orateur s’efforce-t-il de neutraliser auprès des étudiants ?",
-          "La menace qu’une interruption des enseignements ne retarde l’obtention des crédits du trimestre",
-          "L’allégation voulant que le programme d’aide financière gouvernemental comble déjà tous les besoins",
-          "L’engagement formel d’une réduction automatique des frais institutionnels consentie par le rectorat"
+          "Que garantit l’existence d’un attracteur étrange au sein du système dynamique ?",
+          "Une délimitation géométrique précise des états possibles malgré l’absence de périodicité",
+          "Le retour cyclique et parfaitement synchronisé à la configuration de départ après chaque rotation",
+          "La stabilisation rapide et définitive de toutes les variables physiques vers une constante fixe"
         ],
         [
-          "Dans ce plaidoyer engagé, quel est le sens de l’expression « rapport de force » ?",
-          "Un équilibre de pression stratégique bâti collectivement pour infléchir une prise de décision",
-          "Un affrontement corporel violent opposant deux fractions adverses au sein d’une enceinte sportive",
-          "Un bilan statistique dressé unilatéralement par les cadres d’une administration d’enseignement"
+          "Dans ce contexte, que connote le terme « temps de Liapounov » ?",
+          "La limite temporelle au-delà de laquelle toute prédiction calculée perd toute fiabilité",
+          "La durée exacte requise par un supercalculateur pour intégrer les équations de convection",
+          "L’intervalle régulier séparant deux observations météorologiques successives sur le terrain"
         ]
-      ],
-      "frame": "assemblée générale — grève étudiante"
+      ]
     },
     {
       "situation": 0,
-      "text": "— Chers collègues du conseil de la MRC de Matawinie, prenons un instant pour mesurer la portée de la résolution inscrite à l’ordre du jour concernant l’autorisation d’un vaste complexe villégiatureux sur les hauteurs boisées de Saint-Côme. On nous assure que ce projet récréotouristique apportera une manne économique sans précédent en attirant des résidents fortunés désireux de s’établir en villégiature permanente. Cependant, ce développement effréné sur les crêtes rocheuses menace de morceler irréversiblement l’un des derniers corridors écologiques continus qui permettent aux grands mammifères de migrer entre nos parcs régionaux. Ouvrir ces massifs à une densification résidentielle, c’est également imposer à notre communauté une explosion des dépenses publiques pour le déneigement, l’entretien des chemins de montagne et la gestion des eaux usées en terrain escarpé, des coûts récurrents qui dépasseront rapidement les maigres revenus de taxation promis par les promoteurs. Est-ce véritablement le modèle de développement territorial que nous voulons léguer à nos enfants ? Un modèle où l’on privatise les paysages emblématiques au bénéfice d’une minorité en reportant le fardeau des infrastructures sur l’ensemble des contribuables ? Je vous exhorte à faire preuve de clairvoyance en rejetant cette modification du schéma d’aménagement pour privilégier une conservation intégrale de nos massifs forestiers les plus vulnérables et les plus précieux de notre patrimoine régional.",
+      "frame": "exposé de colloque — phénomène migratoire de l’exode des cerveaux",
+      "text": "— Chers congressistes réunis à ce colloque international de sociologie économique, notre exposé porte sur les dynamiques migratoires hautement qualifiées, communément désignées sous le vocable d’exode des cerveaux, observées entre les régions périphériques et les métropoles québécoises. Contrairement à l’hypothèse classique selon laquelle les écarts de rémunération nominale suffiraient à expliquer les déplacements des jeunes diplômés, nos données longitudinales démontrent le rôle déterminant des effets d’agglomération de compétences et de capital relationnel. Lorsqu’un pôle métropolitain concentre des grappes d’innovation technologique et des laboratoires de recherche appliquée, il engendre une externalité d’échelle qui aspire irrésistiblement les talents spécialisés en quête de trajectoires de carrière transversales. Dans les municipalités régionales d’origine, cette ponction démographique sélective engendre un cercle vicieux : la perte de professionnels qualifiés prive les entreprises locales des compétences requises pour diversifier le tissu industriel, renforçant la dépendance envers l’extraction brute de ressources naturelles. Néanmoins, nos travaux mettent en lumière un contre-mouvement migratoire émergent, favorisé par le travail à distance et la recherche d’une meilleure qualité de vie. Ce retour au pays demeure toutefois conditionné à l’existence d’écosystèmes d’accueil ouverts et de réseaux de transport fiables, faute de quoi ces flux de retour s’épuisent rapidement au profit d’une reconcentration métropolitaine accrue.",
       "questions": [
         [
-          "Quelle est la thèse soutenue par l’élue régionale devant le conseil de MRC ?",
-          "Le refus d’approuver un complexe récréatif pour protéger la faune et éviter des dépenses publiques",
-          "La multiplication des chantiers de résidences secondaires en vue d’attirer de riches investisseurs",
-          "La concession de parcelles boisées à un consortium international pour apurer les dettes de la MRC"
+          "Quelle est la thèse principale défendue par la chercheuse lors de ce colloque ?",
+          "L’exode des diplômés répond à des synergies métropolitaines plutôt qu’au seul attrait salarial",
+          "Les régions périphériques attirent spontanément les cadres supérieurs grâce à des impôts plus faibles",
+          "La fermeture des universités régionales est la cause unique de la fuite des jeunes professionnels"
         ],
         [
-          "De quelle manière l’élue construit-elle son argumentation environnementale et financière ?",
-          "Elle oppose aux mirages des rentrées fiscales les charges pérennes d’entretien et la rupture des habitats",
-          "Elle remet en cause la compétence des habitants de la région en affirmant qu’ils ignorent l’écologie",
-          "Elle suggère d’ouvrir un tracé autoroutier au cœur du massif avant de consulter les experts forestiers"
+          "De quelle façon l’analyse socio-économique est-elle articulée dans cet extrait ?",
+          "L’explication du pouvoir d’attraction métropolitain précède l’analyse des impacts locaux et du reflux",
+          "Une attaque contre la bureaucratie gouvernementale est suivie d’un appel à fermer les frontières régionales",
+          "Un réquisitoire contre les diplômés ingrats débouche sur une demande de remboursement des bourses publiques"
         ],
         [
-          "Quelle conséquence pernicieuse de l’étalement en montagne l’intervenante souligne-t-elle ?",
-          "La charge budgétaire récurrente liée à la voirie et à l’assainissement qui pèsera sur les citoyens",
-          "L’interdiction définitive prononcée contre les randonneurs de parcourir les sentiers du parc en hiver",
-          "La faillite inéluctable des gîtes et des installations de ski déjà implantés au bas des pentes"
+          "Quel cercle vicieux découle de la perte continue de diplômés en région ?",
+          "Le tissu industriel local s’enferme dans des activités de rente faute d’expertise pour innover",
+          "Les banques centrales régionales augmentent automatiquement les taux d’intérêt sur les prêts hypothécaires",
+          "Les municipalités rurales sont contraintes de fusionner de force avec les centres urbains limitrophes"
         ],
         [
-          "Dans ce contexte d’urbanisme rural, que désigne un « corridor écologique » ?",
-          "Une zone naturelle ininterrompue permettant le déplacement sécuritaire de la faune sauvage",
-          "Une piste asphaltée et réservée aux patrouilles municipales lors des tournées d’inspection",
-          "Un droit de passage consenti aux engins de terrassement durant les opérations de construction"
+          "Que désigne précisément l’expression « effets d’agglomération » dans cette communication ?",
+          "Les gains mutuels de productivité et d’apprentissage générés par la concentration spatiale d’experts",
+          "La densification anarchique des banlieues pavillonnaires autour des grandes artères de circulation",
+          "Le regroupement forcé de petites entreprises manufacturières sous l’égide d’un monopole d’État"
         ]
-      ],
-      "frame": "discours politique — conseil régional"
+      ]
     },
     {
       "situation": 1,
-      "text": "— Camarades du cégep de Sherbrooke, notre présence massive dans ce gymnase démontre à quel point la dégradation de nos conditions d’apprentissage est devenue insoutenable pour nous tous. Le projet de réforme de l’aide financière aux études que le ministre tente d’imposer à la sauvette transformera une grande partie de nos bourses en prêts remboursables avec intérêts, nous condamnant à débuter notre vie adulte avec un fardeau de dettes qui hypothéquera notre liberté d’action professionnelle. Pourquoi les générations qui ont bâti la prospérité du Québec et qui ont bénéficié de la gratuité relative de l’éducation supérieure exigent-elles aujourd’hui que la jeunesse porte seule le poids des déficits publics ? C’est un pacte intergénérationnel fondamental qui est ainsi foulé aux pieds. Les partisans du statu quo prétendent que la grève pénalisera les étudiants sérieux et nuira à la réputation d’excellence de notre établissement d’enseignement. C’est exactement le contraire : refuser la lutte, ce serait accepter passivement que l’université et le cégep deviennent des privilèges réservés aux héritiers fortunés, au détriment des talents issus des classes populaires. En votant pour cette grève générale illimitée aujourd’hui, nous prenons nos responsabilités historiques pour défendre une éducation publique, universelle et véritablement accessible à tous les jeunes du Québec sans exclusion.",
+      "frame": "émission scientifique — principe mathématique de cryptographie asymétrique",
+      "text": "— Bonsoir à tous les curieux de la science. Dans notre volet mathématique de ce soir, nous vous expliquons le principe fondamental de la cryptographie asymétrique à clé publique, qui sécurise la quasi-totalité des transactions bancaires et des échanges numériques planétaires. Longtemps, le chiffrement des messages reposait sur un secret partagé unique : l’expéditeur et le destinataire devaient préalablement convenir d’une même clé de déchiffrement, ce qui posait un risque critique lors de sa transmission initiale. La percée mathématique réalisée par les concepteurs du protocole RSA a consisté à exploiter des fonctions dites à sens unique avec brèche secrète, fondées sur l’arithmétique modulaire des nombres premiers. Concrètement, s’il est enfantin pour un ordinateur de multiplier deux gigantesques nombres premiers de plusieurs centaines de chiffres pour obtenir un produit composite, l’opération inverse — consistant à retrouver ces deux facteurs premiers à partir du seul produit public — est d’une complexité algorithmique exponentielle, dépassant la capacité de calcul des plus puissants supercalculateurs. Le destinataire peut ainsi diffuser publiquement son produit pour que chacun chiffre un message à son intention, tout en conservant secrètement les deux facteurs initiaux qui seuls permettent de décoder le texte. Ce principe élégant réconcilie l’ouverture totale d’Internet avec la confidentialité absolue de nos données.",
       "questions": [
         [
-          "Quel est le motif fondamental de l’appel à la grève lancé par la représentante étudiante ?",
-          "La contestation d’un projet gouvernemental alourdissant l’endettement et limitant l’accès aux études",
-          "La demande de prolongation des vacances d’hiver en raison de la rigueur exceptionnelle de la météo",
-          "L’annulation de tous les cours obligatoires de littérature pour alléger la grille des programmes"
+          "Quel principe mathématique fondamental cette émission télévisuelle vulgarise-t-elle ?",
+          "L’asymétrie algorithmique entre la multiplication d’entiers premiers et leur factorisation",
+          "L’utilisation de séries statistiques aléatoires pour brouiller les transmissions hertziennes militaires",
+          "L’intégration continue de fonctions trigonométriques pour crypter des signaux acoustiques sous-marins"
         ],
         [
-          "Comment l’oratrice réfute-t-elle l’argument de ceux qui s’opposent au débrayage étudiant ?",
-          "Elle montre que le renoncement accentuerait l’élitisme au lieu de préserver l’égalité des chances",
-          "Elle admet que l’action collective handicape les meilleurs étudiants mais juge le tribut inévitable",
-          "Elle promet des dédommagements financiers individuels aux étudiants acceptant de tenir les piquets"
+          "Comment le vulgarisateur structure-t-il son explication didactique ?",
+          "Il rappelle la vulnérabilité historique de la clé unique avant d’exposer le ressort du chiffrement moderne",
+          "Il compare le prix de divers ordinateurs avant de déconseiller l’utilisation des cartes bancaires à puce",
+          "Il énumère les fraudes informatiques récentes avant de mettre en doute la fiabilité des mathématiques pures"
         ],
         [
-          "Quel principe social l’oratrice invoque-t-elle pour justifier la solidarité de la société envers sa jeunesse ?",
-          "La préservation du pacte intergénérationnel assurant l’accessibilité aux études supérieures pour tous",
-          "Le droit garanti pour chaque jeune de percevoir une rémunération substantielle dès la fin des études",
-          "L’engagement du ministère de financer l’intégralité des sorties culturelles organisées par l’école"
+          "Pourquoi est-il sans danger de rendre publique la clé issue du calcul initial ?",
+          "La décomposition en facteurs premiers exigerait un temps de calcul inaccessible aux machines actuelles",
+          "Le protocole efface immédiatement les données sensibles dès qu’un intrus cherche à en percer le secret",
+          "Les banques commerciales modifient les chiffres de la clé toutes les trois secondes par satellite"
         ],
         [
-          "Dans ce contexte syndical étudiant, que signifie l’expression « à la sauvette » ?",
-          "De façon précipitée et dissimulée, en esquivant le débat démocratique et l’examen attentif des citoyens",
-          "En stricte conformité avec les usages parlementaires au terme de nombreuses consultations en commission",
-          "Grâce à un accord parfait et unanime obtenu auprès de tous les groupes siégeant à l’Assemblée nationale"
+          "Dans ce contexte, que qualifie-t-on de « fonction à sens unique avec brèche secrète » ?",
+          "Une opération mathématique aisée à réaliser dans un sens mais impossible à inverser sans information privilégiée",
+          "Un virus informatique conçu pour pénétrer discrètement dans les serveurs informatiques des gouvernements",
+          "Une passerelle réseau privée réservée exclusivement aux échanges de devises entre banques centrales mondiales"
         ]
-      ],
-      "frame": "assemblée collégiale — grève étudiante"
+      ]
     }
   ],
   "n10-listening-3": [
     {
       "situation": 0,
-      "text": "— Bonsoir Montréal. Écoutez le souffle rauque de ma ville qui tremble sous les bourrasques de novembre. Quand nous avons débarqué à Dorval par un mardi de tempête, mes valises débordaient de senteurs de fleur d’oranger et de pierres chaudes de Beyrouth, mais mes mains n’étaient pas prêtes pour la morsure du verglas qui brûle la peau sans prévenir. On nous disait de sourire, de nous fondre dans le décor, d’avaler notre nostalgie comme une gorgée d’eau tiède pour ne pas déranger les certitudes de ceux qui nous accueillaient avec politesse. Pendant dix ans, j’ai ravalé ma colère, j’ai poli mes voyelles, j’ai gommé les aspérités de mon accent pour mériter une place discrète au bout de la table. Mais ce soir, au fond de cette salle obscure du Lion d’Or, je refuse cette paix silencieuse qui ressemble à une reddition consentie. Mes racines ne sont pas des fardeaux que l’on dissimule sous un manteau d’hiver trop lourd, elles sont la sève battante qui m’empêche de plier quand le blizzard souffle sur mes doutes. Je ne vous demande pas votre compassion polie ni vos applaudissements rassurants ; je viens simplement proclamer que la douleur de l’exil peut fleurir au milieu du bitume gelé sans jamais renier la lumière d’où elle est née. Regardez mes poings ouverts : ils ne portent plus la rancœur, ils offrent un espoir indomptable.",
+      "frame": "directives de sécurité — conception d’un plan d’évacuation industriel",
+      "text": "— Bonjour à toute l’équipe d’ingénierie de sécurité. Voici les directives impératives que vous devez appliquer pour concevoir le nouveau plan d’évacuation de notre complexe pétrochimique. Premièrement, cartographiez les cheminements d’évacuation en réservant prioritairement les coursives sud au personnel des ateliers de raffinage, avec obligation stricte de dédoubler les issues de secours dès qu’un secteur accueille plus de cinquante travailleurs. Deuxièmement, si l’alarme sonore indique un dégagement toxique plutôt qu’un incendie thermique, vous devez ordonner le confinement immédiat dans les abris pressurisés au lieu de l’évacuation à l’air libre ; cette consigne ne souffre aucune dérogation sans avis du poste central. Troisièmement, le technicien en prévention des sinistres assume la responsabilité d’installer l’interphonie d’urgence dans chaque sas étanche, mais l’approbation définitive du plan de cheminement relève exclusivement de la directrice de la santé environnementale. Quatrièmement, dans l’hypothèse exceptionnelle où les voies d’accès carrossables seraient coupées par un sinistre majeur, appliquez le protocole de repli vers la plateforme maritime nord après avoir obtenu l’accord verbal du capitaine de port. Enfin, cinquièmement, avant toute diffusion du document aux employés de quart, le coordonnateur logistique doit obligatoirement faire valider les scénarios de simulation par le service municipal de protection contre les incendies. Veillez à respecter scrupuleusement cet ordonnancement afin de garantir une conformité sans faille lors de l’audit de conformité prévu le mois prochain.",
       "questions": [
         [
-          "Quel sentiment dominant traverse la performance poétique de la slameuse ?",
-          "Une affirmation fière de son identité métissée après des années d’effacement silencieux",
-          "Une tristesse désespérée et résignée devant l’impossibilité absolue de s’intégrer socialement",
-          "Une gratitude inconditionnelle et naïve envers les personnes qui l’ont accueillie à son arrivée"
+          "Quelle opération préliminaire l’équipe doit-elle obligatoirement effectuer au début de la démarche ?",
+          "Cartographier les parcours en doublant les sorties si l’effectif d’une zone excède cinquante personnes",
+          "Acheminer l’ensemble du personnel vers la plateforme maritime nord pour réaliser un premier comptage",
+          "Diffuser immédiatement les consignes d’urgence auprès des employés de quart sans attendre l’audit"
         ],
         [
-          "Comment la progression affective du slam est-elle construite par l’artiste ?",
-          "Elle passe du dépaysement douloureux de l’arrivée à la revendication lumineuse de sa dignité",
-          "Elle commence par un rire moqueur avant de prononcer un réquisitoire virulent contre le climat",
-          "Elle livre un compte rendu chronologique neutre de ses démarches auprès des services d’immigration"
+          "Quelle directive spécifique s’applique si l’alarme signale une fuite toxique plutôt qu’un feu ?",
+          "Se calfeutrer sans délai dans les abris pressurisés plutôt que de tenter une sortie à l’extérieur",
+          "Regagner immédiatement son véhicule personnel garé sur les voies d’accès carrossables de l’usine",
+          "Monter sur le toit des ateliers de raffinage pour attendre l’arrivée des hélicoptères de secours"
         ],
         [
-          "Que dénonce implicitement l’artiste lorsqu’elle évoque le fait d’avoir poli ses voyelles ?",
-          "La pression sociale subtile qui incite les nouveaux arrivants à effacer leurs particularités",
-          "La difficulté d’apprendre la prononciation correcte du français dans les écoles de quartier de la ville",
-          "L’absence totale de professeurs de théâtre compétents pour guider les jeunes artistes de la relève"
+          "À qui revient la responsabilité exclusive de valider officiellement le plan de cheminement conçu ?",
+          "À la responsable exécutive veillant sur la salubrité environnementale",
+          "Au technicien en prévention des sinistres chargé de l’interphonie d’urgence",
+          "Au coordonnateur logistique responsable de l’impression des cartes pour les ateliers"
         ],
         [
-          "Dans ce contexte poétique, que connote l’expression « reddition consentie » ?",
-          "Un abandon tragique de son authenticité personnelle pour acheter une tranquillité illusoire",
-          "Un armistice formel et officiel conclu au terme d’un long conflit armé destructeur entre deux nations",
-          "Une transaction financière convenue entre des associés pour mettre fin à un différend commercial"
+          "À quelle condition expresse le repli d’urgence vers la plateforme maritime nord est-il autorisé ?",
+          "Si les voies terrestres sont coupées et que le capitaine de port a donné son aval verbal",
+          "Dès que la sonnerie d’incendie retentit pendant plus de deux minutes consécutives dans l’aile sud",
+          "Lorsque le service municipal des incendies refuse de se déplacer sur le site industriel sinistré"
         ]
-      ],
-      "frame": "déclamation poétique — scène urbaine"
+      ]
     },
     {
       "situation": 1,
-      "text": "— Mesdames et messieurs, quel immense honneur de monter sur cette scène du Club Soda pour célébrer le départ à la retraite de notre cher maestro Robert Gagnon, l’homme qui a dirigé l’Orchestre métropolitain de chambre pendant trente-cinq ans avec la poigne d’un adjudant et la sensibilité d’une violette ! Robert, rassure-toi, nous n’allons pas étaler ici tes légendaires colères en répétition, comme cette mémorable répétition générale de Mahler où tu as brisé trois baguettes consécutives parce que le deuxième hautbois avait osé respirer à contretemps. Nous ne rappellerons pas non plus ton horreur viscérale des partitions contemporaines, que tu qualifiais affectueusement de tintamarre d’électroménagers en panne. Mais derrière ces accès de fureur théâtrale qui faisaient trembler les pupitres de cordes, chacun de nous savait quelle dévotion infinie tu vouais à la beauté sonore de notre ensemble. Tu exigeais la perfection parce que tu nous aimais plus que nous ne nous aimions nous-mêmes, et tu savais arracher des étincelles de grâce aux musiciens les plus intimidés. Te voir quitter cette tribune nous brise le cœur, même si nos tympans vont enfin connaître un repos bien mérité. Tu laisses un vide immense que personne ne pourra combler, et si nous nous moquons gentiment de tes manies ce soir, c’est pour retenir les larmes qui nous montent aux yeux en te disant merci pour tout ce que tu nous as donné.",
+      "frame": "directives de direction — négociation d’un partenariat public-privé",
+      "text": "— Marc, prends note des directives hiérarchiques indispensables pour finaliser notre partenariat public-privé relatif au nouveau centre de radiothérapie régionale. Tout d’abord, étape un : tu dois exiger du consortium privé l’audit financier certifié de ses sous-traitants d’ingénierie avant d’ouvrir les discussions sur la matrice de partage des risques opérationnels. Deuxièmement, condition incontournable : si le taux d’endettement à long terme du promoteur franchit le seuil critique de soixante pour cent, tu exigeras sur-le-champ une lettre de garantie bancaire irrévocable couvrant l’intégralité des coûts de construction ; sans cette garantie, interromps immédiatement la séance de travail. Troisièmement, en ce qui a trait aux responsabilités, notre juriste principal rédige seul les clauses de pénalités relatives aux retards de livraison, mais la validation finale de l’échéancier de redevances annuelles revient obligatoirement au sous-ministre adjoint aux finances. Quatrièmement, exception expresse : si le partenaire demande une modification mineure de l’implantation des équipements biomédicaux, tu peux l’autoriser par écrit, pourvu que le surcoût n’excède pas deux cent mille dollars et qu’aucun délai supplémentaire ne soit consenti. Enfin, cinquièmement, ne paraphe aucun protocole d’entente préliminaire avant que le vérificateur général n’ait rendu son avis de conformité réglementaire. Je compte sur toi pour faire preuve d’une intransigeance absolue sur ces paramètres de négociation tout au long de cette semaine décisive.",
       "questions": [
         [
-          "Quelle intention principale anime le discours d’hommage prononcé par le musicien ?",
-          "Exprimer une profonde affection et une gratitude sincère dissimulées sous des taquineries",
-          "Régler des rancunes professionnelles tenaces devant l’ensemble des membres de l’orchestre réuni",
-          "Annoncer sa propre candidature pour remplacer le chef d’orchestre sur le podium désormais vacant"
+          "Quelle démarche Marc doit-il obligatoirement accomplir avant toute discussion sur les risques ?",
+          "Réclamer le rapport de vérification financière certifié portant sur les sous-traitants techniques",
+          "Faire approuver le barème tarifaire de l’hôpital par le sous-ministre adjoint aux finances publiques",
+          "Signer immédiatement le protocole d’entente préliminaire avec les mandataires du consortium privé"
         ],
         [
-          "Quel procédé humoristique l’orateur privilégie-t-il tout au long de son allocution ?",
-          "L’exagération affectueuse des travers du chef d’orchestre contrastée avec sa grandeur artistique",
-          "L’imitation grotesque de la voix des compositeurs classiques pour amuser l’auditoire présent dans la salle",
-          "Une série d’attaques personnelles blessantes visant les musiciens les plus jeunes de la formation musicale"
+          "Que doit faire Marc si le taux d’endettement du partenaire privé dépasse soixante pour cent ?",
+          "Exiger une garantie bancaire irrévocable sur les travaux ou suspendre sur-le-champ les pourparlers",
+          "Prendre en charge la moitié des emprunts du promoteur par le biais d’une subvention gouvernementale",
+          "Résoudre unilatéralement le partenariat et transférer le projet à une régie publique hospitalière"
         ],
         [
-          "Quelle émotion véritable transparaît derrière la plaisanterie sur le repos des tympans ?",
-          "La nostalgie et le chagrin sincère provoqués par le départ d’un guide artistique d’exception",
-          "Le soulagement authentique et immédiat de ne plus jamais devoir jouer de musique symphonique difficile",
-          "L’agacement persistant causé par le volume excessif des instruments de percussion lors des répétitions"
+          "Qui détient l’autorité requise pour approuver l’échéancier des redevances annuelles de l’entente ?",
+          "Le sous-ministre adjoint aux finances du gouvernement provincial",
+          "Le juriste principal chargé de rédiger les clauses de pénalités contractuelles",
+          "Marc lui-même en sa qualité de gestionnaire de projet désigné par la direction"
         ],
         [
-          "Dans ce discours de bien-cuit, que signifie l’expression « poigne d’un adjudant » ?",
-          "Une autorité rigide, exigeante et sans concession exercée sur les membres de l’équipe",
-          "Une blessure musculaire handicapante contractée lors d’un exercice d’entraînement physique intensif",
-          "Une technique particulière de battue de mesure utilisée dans les œuvres musicales de l’époque baroque"
+          "À quelle double condition Marc peut-il autoriser par écrit un ajustement des équipements biomédicaux ?",
+          "Si la dépense additionnelle reste sous deux cent mille dollars et n’engendre aucun retard d’échéancier",
+          "Si le consortium privé assume seul le paiement de l’ensemble des frais notariés de la transaction",
+          "Si le ministre de la Santé signe un décret d’urgence sanitaire autorisant la dérogation financière"
         ]
-      ],
-      "frame": "hommage théâtral — discours public"
+      ]
     },
     {
       "situation": 0,
-      "text": "— Silence dans le hangar maritime de Sainte-Flavie. Laissez entrer le gémissement du Saint-Laurent qui vient frapper les rochers noirs sous la brume d’octobre. Mon grand-père disait toujours que l’estuaire ne pardonne pas les imprudents, mais qu’il console les cœurs brisés si on sait écouter la clameur des bélugas au large. Aujourd’hui, les quais de bois où s’amarraient les chaloupes de pêche côtière pourrissent sous le ressac, abandonnés par les enfants du village qui sont tous partis vers les tours de verre de Montréal pour trouver du travail de bureau. Chaque automne, quand la marée monte et envahit les grèves désertes, je ressens ce vide immense comme une coupure vive qui ne cicatrise jamais tout à fait. On nous répète que c’est le progrès inévitable, que notre littoral n’est plus rentable, que nous devrions nous réjouir des nouveaux complexes hôteliers pour touristes qui défigurent nos anses natales. Mais sous mon calme apparent coule une révolte silencieuse contre l’oubli organisé de notre mémoire maritime. Nos aïeux n’ont pas dompté ces eaux glacées pour que notre histoire devienne une simple carte postale folklorique vendue dans les dépanneurs de bord de route. Tant que j’aurai un souffle de voix, je chanterai le courage de ceux qui bravaient les tempêtes, non par nostalgie stérile, mais pour rappeler aux vivants que notre terre a une âme que l’argent ne pourra jamais acheter.",
+      "frame": "directives de sécurité — mise à jour d’un plan d’évacuation hospitalier",
+      "text": "— Chers responsables d’étage, écoutez attentivement les directives de notre direction de la sécurité pour la révision du plan d’évacuation de l’hôpital mère-enfant. En premier lieu, vous devez procéder au recensement exhaustif des patients alités par unité de soins afin de déterminer les besoins en matelas d’évacuation coulissants dans chaque aile. En deuxième lieu, l’évacuation doit impérativement respecter une séquence horizontale par compartimentage coupe-feu : vous transférez les résidents vers la zone refuge adjacente de même niveau avant d’envisager toute descente par les cages d’escalier pressurisé. Troisièmement, condition critique : si la concentration de fumée dans les couloirs dépasse le seuil d’alerte optique, vous devez déclencher le confinement hermétique des sas de soins intensifs et attendre l’intervention de la brigade de pompiers hospitalière. Pour ce qui est de l’attribution des rôles, l’infirmière-chef de chaque unité est la seule autorisée à ordonner le déplacement des incubateurs néonataux, tandis que le responsable des installations matérielles supervise l’abaissement automatique des portes coupe-feu. À titre d’exception, si le monte-charge médical d’urgence demeure sous alimentation sécurisée d’Hydro-Québec, son utilisation est permise pour les civières lourdes sous l’escorte directe d’un technicien certifié. Enfin, transmettez vos fiches de pointage complétées au coordonnateur des urgences dans les quarante-huit heures suivant chaque exercice de simulation.",
       "questions": [
         [
-          "Quel sentiment anime en profondeur le slam poétique prononcé au bord du fleuve ?",
-          "Un deuil lucide du monde maritime traditionnel allié au refus farouche de la résignation",
-          "Une joie exubérante provoquée par l’arrivée massive de vacanciers estivaux dans le village côtier",
-          "Un mépris affiché envers les coutumes ancestrales jugées définitivement dépassées par la modernité urbaine"
+          "Quelle tâche initiale les responsables d’étage doivent-ils exécuter lors de la mise à jour du plan ?",
+          "Dénombrer précisément les personnes grabataires pour évaluer le nombre de matelas de secours requis",
+          "Faire descendre l’ensemble des patients au rez-de-chaussée par les escaliers de secours extérieurs",
+          "Fermer manuellement les disjoncteurs électriques principaux de toutes les unités de soins intensifs"
         ],
         [
-          "Comment la progression poétique s’articule-t-elle au fil des vers déclamés ?",
-          "Elle évoque le paysage côtier en déclin avant de transformer la tristesse en serment de résistance",
-          "Elle dresse un bilan comptable des pêcheries régionales avant de vanter les mérites de l’industrie nouvelle",
-          "Elle se moque ouvertement des anciens navigateurs avant de réclamer la construction d’une usine côtière"
+          "Quel principe séquentiel doit être obligatoirement respecté lors du transfert des patients ?",
+          "Réaliser un déplacement horizontal vers le compartiment voisin avant toute évacuation verticale",
+          "Évacuer en priorité les étages supérieurs avant de porter assistance aux personnes du rez-de-chaussée",
+          "Regrouper tous les malades dans le hall d’accueil central avant d’ouvrir les portes coupe-feu"
         ],
         [
-          "Que traduit la critique formulée à l’encontre des nouveaux complexes touristiques ?",
-          "Le refus de voir son patrimoine vivant réduit à une marchandise superficielle et dénaturée",
-          "Le désir d’interdire définitivement l’accès du littoral à toute personne étrangère au village gaspésien",
-          "La crainte que les vacanciers ne fassent baisser la valeur marchande des maisons ancestrales de la grève"
+          "Quelle personne est formellement habilitée à autoriser le déplacement des incubateurs néonataux ?",
+          "L’infirmière-chef responsable de l’unité de soins néonatals concernée",
+          "Le technicien d’astreinte chargé de la maintenance des monte-charges d’urgence",
+          "Le coordonnateur des urgences supervisant les exercices de simulation semestriels"
         ],
         [
-          "Dans ce contexte poétique, que connote le terme « carte postale folklorique » ?",
-          "Une image clichée, édulcorée et dénuée de substance réelle vendue pour plaire aux passants",
-          "Un document d’archives précieux conservé dans les collections spéciales d’une grande bibliothèque publique",
-          "Une correspondance officielle envoyée par les ministères pour annoncer de nouvelles subventions régionales"
+          "Sous quelle condition le recours au monte-charge médical est-il exceptionnellement autorisé ?",
+          "S’il bénéficie d’une alimentation électrique secourue et qu’un technicien certifié assure l’escorte",
+          "Dès lors que les ascenseurs pour visiteurs sont occupés par le personnel soignant de garde",
+          "Uniquement si les pompiers municipaux ont déjà quitté les abords de l’établissement hospitalier"
         ]
-      ],
-      "frame": "lecture poétique — scène maritime"
+      ]
     },
     {
       "situation": 1,
-      "text": "— Chers amis du milieu du livre, bienvenue à cette soirée amicale en l’honneur de notre illustre directrice éditoriale, Hélène Vachon, qui prend ce soir un congé sabbatique bien mérité après avoir relu l’équivalent de trois fois la bibliothèque nationale du Québec. Hélène, nous t’aimons infiniment, mais nous devons avouer publiquement que travailler sous ta férule relève parfois d’un stage de survie en forêt boréale. Qui d’autre que toi oserait renvoyer un manuscrit de cinq cents pages à un auteur couronné de prestigieux prix en écrivant en marge : « Roman brillant, mais supprimez quatre-vingts adjectifs superflus si vous voulez être publié » ? Tu as fait pleurer les plus grands poètes de la province avec tes crayons rouges impitoyables, traquant sans pitié les pléonasmes vicieux et les accords fautifs de participes passés jusqu’à trois heures du matin. Pourtant, aucun écrivain n’a jamais claqué la porte de la maison d’édition, car tous savaient que ton intransigeance grammaticale était le plus bel acte d’amour qu’un texte puisse recevoir. Grâce à ton œil d’aigle, nos publications ont acquis une pureté de style admirée partout dans la francophonie. Nous allons terriblement nous ennuyer de tes soupirs exaspérés lors des comités de lecture, et nous te promettons solennellement de ne pas publier un seul anglicisme en ton absence, du moins jusqu’à lundi prochain !",
+      "frame": "directives hiérarchiques — conclusion d’un partenariat public-privé de transport",
+      "text": "— Chantal, voici les consignes formelles du bureau de la présidence pour mener à bien la conclusion du partenariat public-privé pour le réseau de navettes fluviales électriques. En premier lieu, tu dois soumettre l’ébauche de convention à l’analyste financier en chef afin de confirmer que le coût net de location des embarcations ne dépasse pas le plafond subventionnable fixé par le ministère. En deuxième lieu, règle impérative : si le concessionnaire exige une clause d’exclusivité commerciale sur les quais municipaux, refuse catégoriquement cette prétention et subordonne la suite des négociations au maintien d’un accès universel pour les transporteurs publics régionaux. En troisième lieu, la répartition des rôles est stricte : l’avocate externe négocie les garanties de performance environnementale des batteries marines, mais l’approbation de la formule tarifaire applicable aux usagers appartient exclusivement au comité exécutif de la communauté métropolitaine. En quatrième lieu, exceptionnellement, si les essais d’amarrage automatisé révèlent des retards techniques d’au plus trente jours, tu es habilitée à prolonger la période d’homologation préliminaire sans en référer à la commission des transports. Enfin, ne signe l’acte de clôture financière qu’après avoir reçu la confirmation notariée des baux d’exploitation des infrastructures portuaires. Reste intraitable sur ces exigences fondamentales lors de ta rencontre bilatérale de demain avec les administrateurs du consortium privé.",
       "questions": [
         [
-          "Quel sentiment fondamental se dégage de cette allocution de bien-cuit professionnel ?",
-          "Une admiration affectueuse teintée d’humour pour la rigueur éditoriale intransigeante d’une collègue",
-          "Un ressentiment professionnel refoulé contre une supérieure accusée d’abus de pouvoir manifeste en comité",
-          "Une impatience non dissimulée à l’idée de pouvoir enfin embaucher une nouvelle équipe de direction éditoriale"
+          "Quelle étape préalable Chantal doit-elle franchir avant de poursuivre les négociations du projet ?",
+          "Faire valider par l’analyste financier que le montant des loyers respecte les plafonds gouvernementaux",
+          "Signer immédiatement l’acte de clôture financière auprès des notaires du consortium maritime privé",
+          "Attribuer une concession commerciale exclusive sur l’ensemble des quais fluviaux au partenaire privé"
         ],
         [
-          "Comment l’intervenante équilibre-t-elle son éloge tout au long de son intervention ?",
-          "Elle énumère les manies perfectionnistes de la directrice pour mieux faire ressortir sa dévotion au texte",
-          "Elle critique vertement les choix littéraires de la maison avant d’adresser des excuses embarrassées et confuses",
-          "Elle lit des extraits de correspondances privées sans aucun rapport avec la carrière remarquable de l’éditrice"
+          "Quelle conduite Chantal doit-elle impérativement adopter si le consortium réclame l’exclusivité des quais ?",
+          "Rejeter formellement la demande et faire du libre accès public une condition préalable aux discussions",
+          "Accorder l’exclusivité demandée en échange d’une remise de dix pour cent sur le prix des navettes fluviales",
+          "Suspendre définitivement toute démarche et dissoudre la société de transport métropolitaine de passagers"
         ],
         [
-          "Pourquoi les auteurs acceptaient-ils docilement les corrections sévères de la directrice ?",
-          "Ils comprenaient que cette exigence sans compromis servait la beauté et la renommée de leur œuvre",
-          "Ils étaient contractuellement contraints d’obéir sous peine de lourdes pénalités financières prévues à l’entente",
-          "Ils ignoraient totalement les annotations portées sur leurs manuscrits lors du processus d’impression finale"
+          "Quelle instance détient l’autorité requise pour approuver la grille tarifaire imposée aux voyageurs ?",
+          "L’organe exécutif de l’autorité organisatrice métropolitaine",
+          "L’avocate externe mandatée pour négocier la garantie environnementale des batteries",
+          "Chantal elle-même après concertation avec les représentants syndicaux des matelots"
         ],
         [
-          "Dans ce contexte de bien-cuit, que signifie l’expression « sous ta férule » ?",
-          "Sous une direction particulièrement stricte, exigeante et méthodique dans le travail quotidien",
-          "Dans une situation d’isolement géographique extrême au milieu d’un campement de bûcherons en forêt boréale",
-          "Sous la protection bienveillante et désintéressée d’un mécène fortuné grand amateur de littérature québécoise"
+          "Quelle dérogation Chantal peut-elle accorder de sa propre initiative lors des tests techniques ?",
+          "Étendre la phase d’homologation d’un mois au plus si des aléas affectent l’amarrage automatisé",
+          "Autoriser le partenaire à naviguer avec des moteurs diesel polluants sans permis environnemental",
+          "Modifier le tracé des navettes pour éviter de desservir les municipalités riveraines éloignées"
         ]
-      ],
-      "frame": "hommage éditorial — soirée littéraire"
+      ]
     }
   ],
   "n10-listening-4": [
