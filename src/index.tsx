@@ -19,6 +19,7 @@ const AnalysisPage = lazy(() => import('./pages/Analysis'))
 const GalleryPage = lazy(() => import('./pages/Gallery-N'))
 const ConjugationPage = lazy(() => import('./pages/Conjugation'))
 const GrammarSessionPage = lazy(() => import('./pages/GrammarSession'))
+const TensesPage = lazy(() => import('./pages/Tenses'))
 const StudyPlanPage = lazy(() => import('./pages/StudyPlan'))
 const TcfHubPage = lazy(() => import('./pages/TcfHub'))
 const PlacementTestPage = lazy(() => import('./pages/PlacementTest'))
@@ -132,6 +133,8 @@ function Root() {
                       <Route path="/word-lists" element={<CustomDictPage />} />
                       <Route path="/conjugation" element={<ConjugationPage />} />
                       <Route path="/grammar-session" element={<GrammarSessionPage />} />
+                      <Route path="/tenses" element={<TensesPage />} />
+                      <Route path="/tenses/:lessonId" element={<TensesPage />} />
                       <Route path="/study-plan" element={<RequireAccount pageName="学习计划"><StudyPlanPage /></RequireAccount>} />
                       <Route path="/placement-test" element={<RequireAccount pageName="定级测试"><PlacementTestPage /></RequireAccount>} />
                       <Route path="/admin/placement" element={<AdminPlacementPage />} />

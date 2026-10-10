@@ -28,6 +28,7 @@ const navItems = [
   { to: '/dictionary', label: '查词' },
   { to: '/grammar-session', label: '语法' },
   { to: '/conjugation', label: '动词变位' },
+  { to: '/tenses', label: '时态专题' },
   { to: '/error-book', label: '错题本' },
   { to: '/analysis', label: '统计' },
 ]
