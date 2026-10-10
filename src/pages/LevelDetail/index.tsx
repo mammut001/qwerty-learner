@@ -359,7 +359,7 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
   const [submitted, setSubmitted] = useState(false)
   const [showTranscript, setShowTranscript] = useState(false)
   const isListening = item.skill === 'listening'
-  const { speak } = useSpeech(item.audioText ?? item.text ?? '', FRENCH_SPEECH)
+  const { speak, cancel, speaking } = useSpeech(item.audioText ?? item.text ?? '', FRENCH_SPEECH)
 
   const complete = answers.every((answer): answer is string => answer !== null)
   const result = submitted && complete ? scoreEchelleItem(item.id, answers) : null
@@ -383,10 +383,15 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
           <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
-              onClick={() => speak(true)}
-              className="inline-flex items-center gap-1 rounded-lg bg-white px-3 py-1.5 text-xs font-medium text-indigo-600 shadow-sm ring-1 ring-gray-200 dark:bg-white/[0.06] dark:text-indigo-300 dark:ring-white/10"
+              onClick={() => {
+                if (speaking) cancel()
+                else speak(true)
+              }}
+              className="inline-flex items-center gap-1 rounded-lg bg-white px-3 py-1.5 text-xs font-medium text-indigo-600 shadow-sm ring-1 ring-gray-200 hover:bg-gray-50 dark:bg-white/[0.06] dark:text-indigo-300 dark:ring-white/10 dark:hover:bg-white/[0.1]"
+              title={speaking ? '点击停止播放' : '点击播放录音'}
             >
-              <IconVolume className="h-3.5 w-3.5" /> 播放录音
+              <IconVolume className={`h-3.5 w-3.5 ${speaking ? 'animate-pulse text-indigo-500' : ''}`} />
+              {speaking ? '停止播放' : '播放录音'}
             </button>
             <button
               type="button"

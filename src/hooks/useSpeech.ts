@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
+import { safeSpeak, stopSpeechSynthesis, type SafeSpeakOptions } from '@/utils/speechSynthesis'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 export type UseSpeechResult = {
   /**
@@ -26,57 +27,54 @@ export type UseSpeechResult = {
  */
 export default function useSpeech(text: string, option?: Partial<SpeechSynthesisUtterance>): UseSpeechResult {
   const [speaking, setSpeaking] = useState(false)
-  const [utterance, setUtterance] = useState<SpeechSynthesisUtterance | null>(null)
+  const isMountedRef = useRef(true)
+  const textRef = useRef(text)
+  const optionRef = useRef(option)
+
+  textRef.current = text
+  optionRef.current = option
 
   useEffect(() => {
-    const synth = window.speechSynthesis
-    if (!synth || typeof SpeechSynthesisUtterance === 'undefined') {
-      console.error('SpeechSynthesis API is not supported in this browser')
-      return
-    }
-
-    const newUtterance = new SpeechSynthesisUtterance(text)
-    Object.assign(newUtterance, option)
-    setUtterance(newUtterance)
-
+    isMountedRef.current = true
     return () => {
-      synth.cancel()
+      isMountedRef.current = false
+      stopSpeechSynthesis()
       setSpeaking(false)
     }
-  }, [option, text])
-
-  useEffect(() => {
-    if (utterance) {
-      const onend = () => {
-        setSpeaking(false)
-      }
-      utterance.addEventListener('end', onend)
-      return () => {
-        utterance.removeEventListener('end', onend)
-      }
-    }
-  }, [utterance])
-
-  const speak = useCallback(
-    (abort = false) => {
-      if (utterance) {
-        const synth = window.speechSynthesis
-        if (abort && synth.speaking) {
-          synth.cancel()
-        }
-        setSpeaking(true)
-        synth.speak(utterance)
-      }
-    },
-    [utterance],
-  )
+  }, [])
 
   const cancel = useCallback(() => {
-    const synth = window.speechSynthesis
-    if (speaking) {
-      synth.cancel()
+    stopSpeechSynthesis()
+    if (isMountedRef.current) {
+      setSpeaking(false)
     }
-  }, [speaking])
+  }, [])
+
+  const speak = useCallback((_abort = false) => {
+    const currentText = textRef.current
+    if (!currentText) return
+
+    const speakOptions: SafeSpeakOptions = {
+      ...optionRef.current,
+      onStart: () => {
+        if (isMountedRef.current) {
+          setSpeaking(true)
+        }
+      },
+      onEnd: () => {
+        if (isMountedRef.current) {
+          setSpeaking(false)
+        }
+      },
+      onError: () => {
+        if (isMountedRef.current) {
+          setSpeaking(false)
+        }
+      },
+    }
+
+    safeSpeak(currentText, speakOptions)
+  }, [])
 
   return {
     speak,
