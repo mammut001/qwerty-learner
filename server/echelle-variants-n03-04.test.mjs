@@ -43,6 +43,56 @@ const badFrenchRegexes = [
   { re: /\b(Les|Des) \S+ (se trouve|est)\b/, name: 'agreement' },
 ]
 
+const ABSURDITY_TERMS = [
+  'lion',
+  'manchot',
+  'tornade',
+  "piste d'atterrissage",
+  'ile inhabitee',
+  'cinq etoiles',
+  'demolir',
+]
+
+function normalizeForSearch(str) {
+  return String(str)
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[’']/g, "'")
+}
+
+function checkAbsurdity(choice) {
+  const norm = normalizeForSearch(choice)
+  for (const term of ABSURDITY_TERMS) {
+    if (term.includes(' ')) {
+      if (norm.includes(term)) return term
+    } else {
+      const re = new RegExp(`\\b${term}s?\\b`, 'i')
+      if (re.test(norm)) return term
+    }
+  }
+  return null
+}
+
+function extract6Grams(text) {
+  const words = normalizeForSearch(text).split(/[^a-z0-9]+/).filter(Boolean)
+  const grams = new Set()
+  for (let i = 0; i <= words.length - 6; i++) {
+    grams.add(words.slice(i, i + 6).join(' '))
+  }
+  return grams
+}
+
+function has6GramOverlap(text, choice) {
+  const textGrams = extract6Grams(text)
+  if (textGrams.size === 0) return false
+  const choiceWords = normalizeForSearch(choice).split(/[^a-z0-9]+/).filter(Boolean)
+  for (let i = 0; i <= choiceWords.length - 6; i++) {
+    if (textGrams.has(choiceWords.slice(i, i + 6).join(' '))) return true
+  }
+  return false
+}
+
 describe('Échelle québécoise Niveaux 3 & 4 practice scenarios (n03-04)', () => {
   it('covers all 23 expected listening and reading indicators and all exist in ECHELLE_ITEM_CATALOG', () => {
     assert.strictEqual(Object.keys(N03_04_SCENARIOS).length, 23)
@@ -77,6 +127,7 @@ describe('Échelle québécoise Niveaux 3 & 4 practice scenarios (n03-04)', () =
         const distinctTexts = new Set()
         let longestAnswerCount = 0
         let totalQuestions = 0
+        let verbatimBuildCount = 0
 
         for (let seed = 1; seed <= 300; seed++) {
           // Determinism check: building twice with identical seed produces identical output
@@ -142,6 +193,7 @@ describe('Échelle québécoise Niveaux 3 & 4 practice scenarios (n03-04)', () =
 
           // Questions check
           assert.ok(Array.isArray(res1.questions) && res1.questions.length === 2, `Expected 2 questions in ${itemId}`)
+          let buildHasOverlap = false
           for (const q of res1.questions) {
             totalQuestions++
             const [prompt, correct, d1, d2] = q
@@ -163,6 +215,31 @@ describe('Échelle québécoise Niveaux 3 & 4 practice scenarios (n03-04)', () =
               `Unresolved marker in question row for ${itemId}: "${prompt}"`
             )
 
+            // Absurdity blacklist check: options contain no absurdity terms
+            for (const choice of [correct, d1, d2]) {
+              const hit = checkAbsurdity(choice)
+              assert.strictEqual(
+                hit,
+                null,
+                `Absurd choice found ("${hit}") in ${itemId} seed ${seed}: "${choice}"`
+              )
+            }
+
+            // Option lengths within ±40% of their mean
+            const meanLen = (correct.length + d1.length + d2.length) / 3
+            for (const choice of [correct, d1, d2]) {
+              const diff = Math.abs(choice.length - meanLen)
+              assert.ok(
+                diff <= meanLen * 0.40,
+                `Option length ${choice.length} out of ±40% mean (${meanLen.toFixed(1)}) in ${itemId} seed ${seed}: "${choice}"`
+              )
+            }
+
+            // Verbatim 6-word run check: correct answer vs text
+            if (has6GramOverlap(res1.text, correct)) {
+              buildHasOverlap = true
+            }
+
             // Ratio check: correct length <= 1.6 * average distractor length
             const avgDist = (d1.length + d2.length) / 2
             assert.ok(
@@ -173,6 +250,9 @@ describe('Échelle québécoise Niveaux 3 & 4 practice scenarios (n03-04)', () =
             if (correct.length > d1.length && correct.length > d2.length) {
               longestAnswerCount++
             }
+          }
+          if (buildHasOverlap) {
+            verbatimBuildCount++
           }
         }
 
@@ -187,6 +267,13 @@ describe('Échelle québécoise Niveaux 3 & 4 practice scenarios (n03-04)', () =
         assert.ok(
           longestPct <= 40,
           `Correct answer is longest choice ${longestPct.toFixed(1)}% of the time (> 40% allowed) for ${itemId}`
+        )
+
+        // Verbatim frequency check (<= 15% of builds)
+        const verbatimPct = (verbatimBuildCount / 300) * 100
+        assert.ok(
+          verbatimPct <= 15,
+          `Correct answer shares 6-word run with text in ${verbatimPct.toFixed(1)}% of builds (> 15% allowed) for ${itemId}`
         )
       })
     })

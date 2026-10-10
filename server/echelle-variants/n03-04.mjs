@@ -1603,7 +1603,12 @@ export const N04_L_1 = [
 // n4-listening-2
 // ---------------------------------------------------------------------------
 const N4_HOCKEY_TEAMS = ['Toronto', 'Boston', 'Ottawa', 'Vancouver', 'New York']
-const N4_HOCKEY_SHOTS = ['trente-cinq tirs difficiles', 'quarante tirs dangereux', 'vingt-huit lancers précis', 'trente-deux tirs au but']
+const N4_HOCKEY_SHOTS = [
+  { text: 'trente-cinq tirs difficiles', opt: 'il a arrêté trente-cinq lancers difficiles' },
+  { text: 'quarante tirs dangereux', opt: 'il a bloqué quarante rondelles dangereuses' },
+  { text: 'vingt-huit lancers précis', opt: 'il a stoppé vingt-huit lancers au filet' },
+  { text: 'trente-deux tirs au but', opt: 'il a repoussé plus de trente rondelles' },
+]
 const N4_HOCKEY_PERIODS = ['en fin de troisième période', 'au milieu de la deuxième période', 'durant la première période', 'au début du dernier tiers']
 const N4_HOCKEY_OUTCOMES = ['le but gagnant en prolongation', 'la victoire avec deux buts d’avance', 'un superbe but en avantage numérique', 'le filet décisif en fin de partie']
 
@@ -1701,11 +1706,11 @@ export const N04_L_2 = [
       const shots = pick(N4_HOCKEY_SHOTS, rand)
       const period = pick(N4_HOCKEY_PERIODS, rand)
       const outcome = pick(N4_HOCKEY_OUTCOMES, rand)
-      const text = `— Tu as vu le match du Canadien hier soir contre ${team} ? C’était tout un spectacle ! Notre gardien a repoussé ${shots}. On a eu deux punitions ${period}, mais nos attaquants ont tenu bon et ont marqué ${outcome}. Tous les supporters fêtaient la victoire à la sortie de l’aréna.`
+      const text = `— Tu as vu le match du Canadien hier soir contre ${team} ? C’était tout un spectacle ! Notre gardien a repoussé ${shots.text}. On a eu deux punitions ${period}, mais nos attaquants ont tenu bon et ont marqué ${outcome}. Tous les supporters fêtaient la victoire à la sortie de l’aréna.`
       return {
         text,
         questions: [
-          ['Quelle performance remarquable le gardien a-t-il réalisée ?', `il a repoussé ${shots}`, 'il a concédé cinq buts rapides', 'il a été expulsé dès le début'],
+          ['Quelle performance remarquable le gardien a-t-il réalisée ?', shots.opt, 'il a concédé cinq buts rapides', 'il a été expulsé dès le début'],
           ['Quelle équipe affrontait les Montréalais lors de ce match ?', `l’équipe ${de(team)}`, 'la sélection de Philadelphie', 'la formation de Détroit'],
         ],
       }
@@ -1777,7 +1782,7 @@ export const N04_L_2 = [
     situation: 1,
     text: '— À la suite de votre piqûre d’insecte, une rougeur locale et une démangeaison modérée sont normales pendant deux jours. Appliquez de la glace enveloppée dans un linge propre. Par contre, si vous observez un gonflement du visage ou une difficulté à respirer, appelez sans tarder le 911.',
     questions: [
-      ['Quelle réaction cutanée est jugée normale au départ ?', 'une rougeur locale et une démangeaison', 'une perte temporaire de la vision nette', 'un engourdissement total du bras entier'],
+      ['Quelle réaction cutanée est jugée normale au départ ?', 'une rougeur cutanée avec démangeaison', 'une perte temporaire de la vision nette', 'un engourdissement total du bras entier'],
       ['Dans quelle situation faut-il composer immédiatement le 911 ?', 'si le visage gonfle ou la respiration bloque', 'si la démangeaison continue pendant une heure', 'si la trace rouge reste visible en surface'],
     ],
   },
@@ -1797,11 +1802,11 @@ const N4_AIRPORT_RESOLUTIONS = [
 ]
 
 const N4_FAMILY_PARKS = [
-  'au parc national de la Jacques-Cartier',
-  'au parc national du Mont-Orford',
-  'au parc national de la Mauricie',
-  'au parc d’Oka près du grand lac',
-  'au parc national du Fjord-du-Saguenay',
+  { text: 'au parc national de la Jacques-Cartier', opt: 'dans la vallée de la Jacques-Cartier' },
+  { text: 'au parc national du Mont-Orford', opt: 'dans les sentiers du Mont-Orford' },
+  { text: 'au parc national de la Mauricie', opt: 'dans la forêt de la Mauricie' },
+  { text: 'au parc d’Oka près du grand lac', opt: 'près des rives du parc d’Oka' },
+  { text: 'au parc national du Fjord-du-Saguenay', opt: 'dans le secteur du Fjord-du-Saguenay' },
 ]
 const N4_FAMILY_ACTS = [
   { act: 'louer un grand canot familial pour explorer la rivière', short: 'du canot sur la rivière en famille' },
@@ -1852,10 +1857,10 @@ const N4_TRANSIT_MISHAPS = [
 ]
 
 const N4_ORCHARDS = [
-  { region: 'à Rougemont', fruit: 'des pommes Cortland fraîches', dessert: 'du jus de pomme chaud avec des beignes', fruitOpt: 'cueillir des pommes dans les arbres', snackOpt: 'du jus de pomme chaud et des beignes' },
-  { region: 'à Saint-Joseph-du-Lac', fruit: 'des pommes McIntosh croquantes', dessert: 'une tarte aux pommes et du cidre doux', fruitOpt: 'cueillir des pommes dans le verger', snackOpt: 'de la tarte aux pommes et du cidre doux' },
-  { region: 'près de l’île d’Orléans', fruit: 'des pommes Honeycrisp bien mûres', dessert: 'des chaussons aux pommes et du lait', fruitOpt: 'ramasser des pommes bien mûres', snackOpt: 'des chaussons aux pommes et du lait' },
-  { region: 'dans les Cantons-de-l’Est', fruit: 'des pommes Gala très sucrées', dessert: 'du moût de pomme et du pain doré', fruitOpt: 'récolter des pommes très sucrées', snackOpt: 'du moût de pomme et du pain doré' },
+  { region: 'à Rougemont', fruit: 'des pommes Cortland fraîches', dessert: 'du jus de pomme chaud avec des beignes', fruitOpt: 'cueillir des pommes dans les arbres', snackOpt: 'du jus chaud accompagné de beignes' },
+  { region: 'à Saint-Joseph-du-Lac', fruit: 'des pommes McIntosh croquantes', dessert: 'une tarte aux pommes et du cidre doux', fruitOpt: 'cueillir des pommes dans le verger', snackOpt: 'une part de tarte avec du cidre' },
+  { region: 'près de l’île d’Orléans', fruit: 'des pommes Honeycrisp bien mûres', dessert: 'des chaussons aux pommes et du lait', fruitOpt: 'ramasser des pommes bien mûres', snackOpt: 'des friandises aux fruits et du lait' },
+  { region: 'dans les Cantons-de-l’Est', fruit: 'des pommes Gala très sucrées', dessert: 'du moût de pomme et du pain doré', fruitOpt: 'récolter des pommes très sucrées', snackOpt: 'du pain doré avec du moût frais' },
 ]
 
 export const N04_L_3 = [
@@ -1884,14 +1889,14 @@ export const N04_L_3 = [
       const park = pick(N4_FAMILY_PARKS, rand)
       const act = pick(N4_FAMILY_ACTS, rand)
       const det = pick(N4_FAMILY_DETAILS, rand)
-      const othersPark = sample(N4_FAMILY_PARKS.filter((p) => p !== park), 2, rand)
+      const othersPark = sample(N4_FAMILY_PARKS.filter((p) => p.opt !== park.opt), 2, rand)
       const othersAct = sample(N4_FAMILY_ACTS.filter((a) => a.short !== act.short), 2, rand)
-      const text = `— Samedi passé, nous avons passé une très belle journée en famille ${park}. Le matin était ensoleillé et nous avons pu ${act.act}. Les enfants ont beaucoup aimé ${det.text}. C’est vraiment un endroit idéal pour profiter du plein air en toute tranquillité.`
+      const text = `— Samedi passé, nous avons passé une très belle journée en famille ${park.text}. Le matin était ensoleillé et nous avons pu ${act.act}. Les enfants ont beaucoup aimé ${det.text}. C’est vraiment un endroit idéal pour profiter du plein air en toute tranquillité.`
       return {
         text,
         questions: [
           ['Quelle activité de plein air cette famille a-t-elle pratiquée ?', act.short, othersAct[0].short, othersAct[1].short],
-          ['Dans quel cadre naturel cette sortie s’est-elle déroulée ?', park, othersPark[0], othersPark[1]],
+          ['Dans quel cadre naturel cette sortie s’est-elle déroulée ?', park.opt, othersPark[0].opt, othersPark[1].opt],
         ],
       }
     },
@@ -2819,7 +2824,7 @@ const N4_FAIR_EVENTS = [
   {
     name: 'le Salon des métiers d’art régionaux',
     craft: 'des céramiques faites à la main',
-    craftOpt: 'des céramiques faites à la main',
+    craftOpt: 'de la poterie façonnée à la main',
     time: 'de dix heures à dix-huit heures',
     bonus: 'des démonstrations gratuites de tournage',
     bonOpt: 'des démonstrations d’artisans sur place',
@@ -2872,9 +2877,9 @@ const N4_TOUR_SITES = [
   {
     site: 'du moulin à farine historique',
     item: 'la mouture du blé avec la roue à eau',
-    itemOpt: 'la mouture du blé avec la roue à eau',
+    itemOpt: 'la fabrication de farine au moulin à eau',
     taste: 'du pain chaud sorti du fournil',
-    tasteOpt: 'du pain chaud sorti du fournil',
+    tasteOpt: 'une miche de pain tout juste cuite',
   },
   {
     site: 'de la ferme maraîchère biologique',
@@ -2948,9 +2953,9 @@ const N4_SPORT_CLUBS = [
   {
     club: 'l’atelier collectif de mise en forme',
     act: 'des étirements et du renforcement léger',
-    actOpt: 'des étirements et du renforcement léger',
+    actOpt: 'des étirements doux et du renforcement',
     sched: 'le mercredi soir à dix-huit heures',
-    schedOpt: 'le mercredi soir à dix-huit heures',
+    schedOpt: 'le mercredi en début de soirée',
     ben: 'de garder la forme entre collègues',
     benOpt: 'maintenir sa forme physique en groupe',
   },
@@ -3134,7 +3139,7 @@ const N4_NEIGH_INCIDENTS = [
     imp: 'le courant a été coupé pour plusieurs résidences',
     impOpt: 'une coupure de courant dans plusieurs résidences',
     sol: 'les équipes d’Hydro-Québec ont dégagé la rue et réparé les câbles',
-    solOpt: 'Hydro-Québec a dégagé la rue et réparé les fils',
+    solOpt: 'les équipes d’urgence ont rétabli les câbles',
   },
   {
     cause: 'une canalisation d’eau a éclaté sous le trottoir',
@@ -3183,7 +3188,7 @@ const N4_NEIGH_THANKINGS_2 = [
 const N4_MOVE_BUNDLES = [
   {
     help: 'mon cousin et deux amis d’enfance',
-    helpOpt: 'son cousin et deux amis d’enfance du quartier',
+    helpOpt: 'un cousin et des amis proches du quartier',
     load: 'chargé le camion de boîtes et de meubles',
     loadOpt: 'remplir le camion de meubles et de boîtes',
     meal: 'partagé une bonne pizza assis sur des cartons',
@@ -3369,7 +3374,7 @@ export const N04_R_2 = [
     text: 'Anecdote de famille. Dimanche passé, je suis allé à la plage du parc avec les enfants. Le soleil était magnifique, mais l’eau du lac était encore un peu froide. On a quand même passé une très belle journée. Les enfants ont bâti un grand château de sable et ramassé de petits coquillages. Nous avons terminé l’après-midi avec une bonne crème glacée à la vanille.',
     questions: [
       ['Quelle activité les enfants ont-ils faite au bord de l’eau ?', 'construire un château de sable sur la plage', 'faire une promenade en chaloupe sur les vagues', 'pêcher tranquillement des poissons sur le quai'],
-      ['Quelle gourmandise ont-ils savourée avant de partir ?', 'une bonne crème glacée à la vanille', 'un sac de friandises acheté au dépanneur', 'un chocolat chaud dans un café voisin'],
+      ['Quelle gourmandise ont-ils savourée avant de partir ?', 'une glace rafraîchissante à la vanille', 'un sac de friandises acheté au dépanneur', 'un chocolat chaud dans un café voisin'],
     ],
   },
   // Scenario 6 (Static, situation: 1) - Bris d'aqueduc devant l'école
@@ -3430,7 +3435,7 @@ const N4_WORK_INCIDENTS = [
     imp: 'l’accès au portail interne a été ralenti durant une heure',
     impOpt: 'un ralentissement du portail durant une heure',
     sol: 'les techniciens ont rétabli la ventilation et tout fonctionne',
-    solOpt: 'les techniciens ont rétabli la ventilation normale',
+    solOpt: 'les équipes ont remis la ventilation en marche',
   },
   {
     place: 'dans l’atelier d’emballage du centre de tri',
@@ -3453,7 +3458,7 @@ const N4_WORK_INCIDENTS = [
   {
     place: 'dans l’entrepôt principal de notre succursale',
     cause: 'la panne d’un chariot élévateur bloquant l’allée centrale',
-    causeOpt: 'la panne d’un chariot élévateur dans l’allée centrale',
+    causeOpt: 'un bris de chariot élévateur dans l’allée',
     imp: 'la préparation des commandes a pris quarante-cinq minutes de retard',
     impOpt: 'un retard de quarante-cinq minutes sur les commandes',
     sol: 'les caristes ont déplacé le véhicule et dégagé le passage',
@@ -3530,7 +3535,7 @@ const N4_FACILITY_BUNDLES = [
   {
     place: 'la piscine municipale du quartier',
     cause: 'la réfection des filtres de traitement d’eau',
-    causeOpt: 'le remplacement des filtres de traitement d’eau',
+    causeOpt: 'changer les filtres du circuit d’eau',
     dur: 'du lundi douze au vendredi seize novembre',
     durOpt: 'une fermeture du lundi au vendredi inclus',
     alt: 'au centre aquatique de l’Est situé à deux kilomètres',
@@ -3561,7 +3566,7 @@ const N4_FACILITY_BUNDLES = [
     dur: 'pour toute la fin de semaine à venir',
     durOpt: 'un arrêt des services pour la fin de semaine',
     alt: 'au pavillon des loisirs pour les ateliers habituels',
-    altOpt: 'au pavillon des loisirs pour les activités',
+    altOpt: 'dans la salle polyvalente du secteur',
   },
 ]
 const N4_FACILITY_HEADS = [
@@ -3919,140 +3924,334 @@ export const N04_R_4 = [
   },
 ]
 
-const N4_SNACK_FRIENDS = ['Valérie', 'Sophie', 'Mélanie', 'Camille']
-const N4_SNACK_ITEMS = [
-  'de petits muffins maison aux bananes et graines de chia',
-  'des bâtonnets de carottes et concombres avec du houmous',
-  'des boules d’énergie à l’avoine et canneberges séchées',
-  'des cubes de fromage québécois avec des tranches de pomme',
+const N4_CHALET_INTROS = [
+  'Salut ! Pour notre fin de semaine en nature',
+  'Bonjour ! Concernant notre séjour au vert',
+  'Allô ! Pour notre sortie de quelques jours',
+  'Salut ! Au sujet de notre projet de repos',
 ]
-const N4_SNACK_PREPS = [
-  'le dimanche après-midi pour toute la semaine d’école',
-  'la veille au soir dans des contenants hermétiques',
-  'en bonne quantité pour pouvoir les congeler au besoin',
-  'en portions individuelles prêtes pour la boîte à lunch',
+const N4_CHALET_WHOS = [
+  'avec mes deux enfants',
+  'avec ma conjointe',
+  'avec deux collègues',
+  'avec toute la famille',
 ]
-const N4_SNACK_WHYS = [
-  'c’est nourrissant, peu sucré et très aimé des enfants',
-  'c’est croquant, plein de vitamines et facile à emporter',
-  'cela donne une bonne dose d’énergie sans allergène',
-  'c’est riche en protéines et les enfants ne s’en lassent pas',
+const N4_CHALET_DESTS = [
+  {
+    place: 'un chalet au bord d’un lac tranquille',
+    prefer: 'un quai privé pour faire du canot',
+    hate: 'la présence de voisins trop bruyants',
+    paraphrasePrefer: 'un quai privé au bord du lac',
+    paraphraseHate: 'le bruit de voisins trop proches',
+    distPrefer1: 'une salle de jeux au sous-sol',
+    distPrefer2: 'un sauna chaud dans la cour',
+    distHate1: 'la présence de moustiques le soir',
+    distHate2: 'le manque de bois pour le feu',
+  },
+  {
+    place: 'un camp rustique dans les Laurentides',
+    prefer: 'un sentier direct vers la montagne',
+    hate: 'les trajets de plus de deux heures',
+    paraphrasePrefer: 'un accès rapide aux sentiers',
+    paraphraseHate: 'faire une route trop longue',
+    distPrefer1: 'une piscine creusée chauffée',
+    distPrefer2: 'un grand balcon avec barbecue',
+    distHate1: 'le manque de réseau cellulaire',
+    distHate2: 'l’eau froide dans la cuisine',
+  },
+  {
+    place: 'un terrain de camping en Mauricie',
+    prefer: 'un grand emplacement bien ombragé',
+    hate: 'payer des frais pour les douches',
+    paraphrasePrefer: 'un espace de camping ombragé',
+    paraphraseHate: 'payer pour utiliser la douche',
+    distPrefer1: 'un terrain de soccer éclairé',
+    distPrefer2: 'une épicerie sur le camping',
+    distHate1: 'la proximité de la grand-route',
+    distHate2: 'l’absence d’arbres sur le site',
+  },
+  {
+    place: 'une maisonnette dans les Cantons-de-l’Est',
+    prefer: 'un foyer extérieur pour les soirées',
+    hate: 'les chemins de terre mal entretenus',
+    paraphrasePrefer: 'un foyer extérieur en pierre',
+    paraphraseHate: 'une mauvaise route de terre',
+    distPrefer1: 'un garage fermé pour l’auto',
+    distPrefer2: 'une cuisine moderne bien équipée',
+    distHate1: 'les frais de ménage élevés',
+    distHate2: 'l’arrivée avant midi pile',
+  },
+]
+const N4_CHALET_CLOSINGS = [
+  'Dis-moi ce que tu en penses ce soir.',
+  'Écris-moi si cela te convient aussi.',
+  'Fais-moi signe si tu aimes cette idée.',
+  'On réserve dès que tu me donnes ton avis.',
 ]
 
-const N4_SAVER_ITEMS = [
-  'une pomme de douche certifiée à débit réduit WaterSense',
-  'des aérateurs de robinet modernes pour la cuisine et le bain',
-  'un mitigeur thermostatique muni d’un bouton écologique',
-  'une couverture isolante thermique pour réservoir d’eau',
+const N4_PLAN_INTROS = [
+  'Avis de notre client : J’utilise depuis six mois',
+  'Commentaire de l’usager : J’ai pris il y a six mois',
+  'Témoignage reçu du client : J’ai choisi récemment',
+  'Retour d’expérience d’un abonné : J’ai souscrit',
 ]
-const N4_SAVER_BENEFITS = [
-  'quarante pour cent d’eau chaude sans rogner sur le confort',
-  'trente pour cent sur la facture de chauffage d’eau',
-  'de précieuses minutes d’eau gaspillée lors des réglages',
-  'les pertes de chaleur passives durant les mois d’hiver',
+const N4_PLAN_SUBS = [
+  {
+    service: 'le forfait internet intermédiaire à haute vitesse',
+    like: 'le service à la clientèle rapide au téléphone',
+    dislike: 'la hausse des tarifs après la première année',
+    paraphraseLike: 'le bon soutien par téléphone',
+    paraphraseDislike: 'l’augmentation du tarif annuel',
+    distLike1: 'la gratuité de la borne sans fil',
+    distLike2: 'la facture mensuelle par courriel',
+    distDislike1: 'la lenteur du téléchargement',
+    distDislike2: 'les frais fixes pour le modem',
+  },
+  {
+    service: 'l’abonnement cellulaire avec données partagées',
+    like: 'la couverture réseau stable sur la route',
+    dislike: 'les frais imprévus pour les textos au loin',
+    paraphraseLike: 'la bonne qualité du signal réseau',
+    paraphraseDislike: 'les coûts pour les messages externes',
+    distLike1: 'les appels illimités le soir',
+    distLike2: 'la messagerie vocale comprise',
+    distDislike1: 'le blocage des données le soir',
+    distDislike2: 'la perte fréquente de connexion',
+  },
+  {
+    service: 'le forfait combiné pour la télévision et internet',
+    like: 'le grand choix de chaînes locales de nouvelles',
+    dislike: 'l’engagement obligatoire de deux ans imposé',
+    paraphraseLike: 'la variété des chaînes locales',
+    paraphraseDislike: 'le contrat imposé de deux ans',
+    distLike1: 'la qualité de l’image numérique',
+    distLike2: 'l’enregistrement des émissions',
+    distDislike1: 'le retard du technicien à midi',
+    distDislike2: 'les frais de branchement initiaux',
+  },
+  {
+    service: 'l’offre de téléphonie résidentielle avec internet',
+    like: 'l’installation gratuite assurée par l’agent',
+    dislike: 'la boîte vocale difficile à régler au début',
+    paraphraseLike: 'la pose sans frais par l’agent',
+    paraphraseDislike: 'le réglage de la messagerie',
+    distLike1: 'la clarté de la ligne au salon',
+    distLike2: 'le rabais postal de bienvenue',
+    distDislike1: 'la coupure du signal la nuit',
+    distDislike2: 'le paiement exigé par chèque',
+  },
 ]
-const N4_SAVER_COSTS = [
-  'un achat modique rentabilisé dès les premières semaines',
-  'un coût minime de quelques dollars en quincaillerie',
-  'une réduction durable sur votre compte d’Hydro-Québec',
-  'une dépense modeste qui prolonge la vie du chauffe-eau',
+const N4_PLAN_RECOMMENDS = [
+  'Dans l’ensemble, je recommande cette formule à mes proches.',
+  'C’est une offre convenable malgré ce petit désagrément.',
+  'Je reste satisfait de ce choix pour mon travail à la maison.',
+  'Je donne une note générale très positive à cette compagnie.',
 ]
-const N4_SAVER_INSTALLS = [
-  'elle se visse simplement à la main sans outil lourd',
-  'ils s’installent en quelques secondes au bec du robinet',
-  'il stabilise la température en évitant les brûlures',
-  'elle s’enroule autour du cylindre avec des bandes fournies',
+
+const N4_RENT_INTROS = [
+  'Message pour une recherche de logement.',
+  'Courriel envoyé au propriétaire de l’immeuble :',
+  'Note pour ma future colocation en ville :',
+  'Annonce publiée pour louer un appartement :',
+]
+const N4_RENT_APTS = [
+  {
+    quarter: 'le quartier Rosemont',
+    prefer: 'un grand balcon privé au dernier étage',
+    hate: 'les rues avec beaucoup de circulation',
+    paraphrasePrefer: 'un balcon calme en hauteur',
+    paraphraseHate: 'le passage régulier de voitures',
+    distPrefer1: 'une place de stationnement couverte',
+    distPrefer2: 'un casier de rangement au sous-sol',
+    distHate1: 'la présence de petits commerces',
+    distHate2: 'les marches d’escalier raides',
+  },
+  {
+    quarter: 'le quartier Villeray',
+    prefer: 'une salle de bain rénovée avec fenêtre',
+    hate: 'les appartements mal isolés du froid',
+    paraphrasePrefer: 'une pièce d’eau refaite à neuf',
+    paraphraseHate: 'un logement mal chauffé l’hiver',
+    distPrefer1: 'une cuisine avec comptoir en bois',
+    distPrefer2: 'des planchers en bois franc vernis',
+    distHate1: 'un plancher qui craque un peu',
+    distHate2: 'l’eau tiède dans la baignoire',
+  },
+  {
+    quarter: 'le Vieux-Longueuil',
+    prefer: 'une buanderie commune propre dans l’immeuble',
+    hate: 'les animaux bruyants dans les corridors',
+    paraphrasePrefer: 'des laveuses propres sur place',
+    paraphraseHate: 'les bêtes bruyantes dans le couloir',
+    distPrefer1: 'un système de sécurité à l’entrée',
+    distPrefer2: 'un support pour vélos dans la cour',
+    distHate1: 'la peinture foncée des murs',
+    distHate2: 'les couloirs sans éclairage',
+  },
+  {
+    quarter: 'la basse-ville de Québec',
+    prefer: 'la proximité des autobus et du marché',
+    hate: 'les plafonds bas qui manquent de lumière',
+    paraphrasePrefer: 'l’accès facile aux transports',
+    paraphraseHate: 'les pièces sombres sans clarté',
+    distPrefer1: 'une entrée privée sur le côté',
+    distPrefer2: 'une cour partagée avec verdure',
+    distHate1: 'le bruit lointain des cloches',
+    distHate2: 'la couleur des portes en bois',
+  },
+]
+const N4_RENT_CLOSINGS = [
+  'Mon budget est prêt et je peux visiter dès vendredi.',
+  'Je suis disponible pour une visite en fin de journée.',
+  'N’hésitez pas à m’appeler pour fixer un rendez-vous.',
+  'Je cherche pour le premier juillet avec de bonnes références.',
+]
+
+const N4_SNACK_INTROS = [
+  'Courriel aux parents d’élèves de l’école.',
+  'Message pour les collations du groupe scolaire.',
+  'Note partagée entre parents bénévoles de la classe :',
+  'Conseil d’une maman pour la boîte à lunch des enfants :',
+]
+const N4_SNACK_PICKS = [
+  {
+    item: 'des muffins maison aux carottes et raisins',
+    like: 'ce goûter donne une bonne énergie sans excès de sucre',
+    dislike: 'les barres tendres du commerce remplies de caramel',
+    paraphraseLikeItem: 'des muffins aux carottes maison',
+    paraphraseDislike: 'les barres sucrées du commerce',
+    distItem1: 'des barres aux fruits séchés',
+    distItem2: 'une compote de poires fraîches',
+    distDislike1: 'les jus de fruits en carton',
+    distDislike2: 'les biscuits à la confiture',
+  },
+  {
+    item: 'des bâtonnets de céleri avec du fromage doux',
+    like: 'cette formule apporte des vitamines et du croquant',
+    dislike: 'les croustilles très grasses vendues en sac',
+    paraphraseLikeItem: 'des légumes coupés en bâtonnets',
+    paraphraseDislike: 'les croustilles grasses en sac',
+    distItem1: 'du pain grillé avec du fromage',
+    distItem2: 'des quartiers d’oranges douces',
+    distDislike1: 'les bonbons gélifiés colorés',
+    distDislike2: 'les sachets de maïs soufflé',
+  },
+  {
+    item: 'des galettes à l’avoine préparées avec des graines',
+    like: 'ces galettes coupent la faim sans donner de fatigue',
+    dislike: 'les brioches au chocolat qui fondent dans le sac',
+    paraphraseLikeItem: 'des galettes avec de l’avoine',
+    paraphraseDislike: 'les brioches grasses au chocolat',
+    distItem1: 'des crêpes avec de la confiture',
+    distItem2: 'des carrés de céréales au miel',
+    distDislike1: 'les tartes sucrées aux pommes',
+    distDislike2: 'les pâtisseries à la crème',
+  },
+  {
+    item: 'des tranches de fromage avec des quartiers de pomme',
+    like: 'ce duo reste frais, nourrissant et très rapide',
+    dislike: 'les desserts industriels avec beaucoup de sucre',
+    paraphraseLikeItem: 'des morceaux de pomme et fromage',
+    paraphraseDislike: 'les desserts trop industriels',
+    distItem1: 'des craquelins au blé complet',
+    distItem2: 'un petit pot de yaourt crémeux',
+    distDislike1: 'les boissons gazeuses sucrées',
+    distDislike2: 'les gâteaux emballés d’avance',
+  },
+]
+const N4_SNACK_CLOSINGS = [
+  'C’est parfait pour la récréation du matin.',
+  'Les élèves terminent toujours leur portion.',
+  'On peut préparer les portions la veille au soir.',
+  'Ça évite le gaspillage pendant la pause.',
 ]
 
 export const N04_R_5 = [
-  // Scenario 1 (Template, situation: 0)
+  // Scenario 1 (Template, situation: 0) - Location de chalet ou camp en plein air
   Object.assign(
     (rand) => {
-      const friend = pick(N4_SNACK_FRIENDS, rand)
-      const snack = pick(N4_SNACK_ITEMS, rand)
-      const prep = pick(N4_SNACK_PREPS, rand)
-      const why = pick(N4_SNACK_WHYS, rand)
-      const text = `Courriel de ton amie ${friend}. Allô ! Tu me demandais des suggestions de collations santé pour les boîtes à lunch des enfants. Je te conseille vivement de cuisiner ${snack}. Je prépare cela ${prep}. Le grand avantage, c’est que ${why}. Mes enfants adorent en emporter à la récréation. Essaie cette recette !`
+      const intro = pick(N4_CHALET_INTROS, rand)
+      const who = pick(N4_CHALET_WHOS, rand)
+      const dest = pick(N4_CHALET_DESTS, rand)
+      const closing = pick(N4_CHALET_CLOSINGS, rand)
+      const text = `${intro} ${who}, je préfère réserver ${dest.place}. Le point essentiel pour moi, c’est ${dest.prefer}. Par contre, je déteste ${dest.hate}. C’est important d’être au calme pour bien relaxer. ${closing}`
       return {
         text,
         questions: [
-          ['Quelle idée de collation santé l’amie suggère-t-elle ?', snack, 'de grands sacs de croustilles salées achetés au dépanneur du coin', 'des barres chocolatées industrielles très riches en sucre et en gras'],
-          ['Pourquoi cette option est-elle particulièrement recommandée ?', why, 'cette collation occasionne une dépense de cent dollars chaque semaine', 'les enfants ont l’obligation stricte de la jeter à la poubelle en arrivant'],
+          ['Quel critère le message privilégie-t-il pour le séjour ?', dest.paraphrasePrefer, dest.distPrefer1, dest.distPrefer2],
+          ['Quel inconvénient l’auteur souhaite-t-il absolument éviter ?', dest.paraphraseHate, dest.distHate1, dest.distHate2],
         ],
       }
     },
-    { situation: 0, capacity: N4_SNACK_FRIENDS.length * N4_SNACK_ITEMS.length * N4_SNACK_PREPS.length * N4_SNACK_WHYS.length }
+    { situation: 0, capacity: N4_CHALET_INTROS.length * N4_CHALET_WHOS.length * N4_CHALET_DESTS.length * N4_CHALET_CLOSINGS.length }
   ),
-  // Scenario 2 (Template, situation: 1)
+  // Scenario 2 (Template, situation: 1) - Évaluation d'un abonnement internet ou cellulaire
   Object.assign(
     (rand) => {
-      const item = pick(N4_SAVER_ITEMS, rand)
-      const benefit = pick(N4_SAVER_BENEFITS, rand)
-      const cost = pick(N4_SAVER_COSTS, rand)
-      const inst = pick(N4_SAVER_INSTALLS, rand)
-      const text = `Page Web d’efficacité énergétique - Éco-Habitation Québec. Vous souhaitez diminuer vos factures sans réduire votre confort ? Nous vous recommandons d’installer ${item}. Cet équipement permet d’économiser ${benefit}. De plus, c’est ${cost}. Sur le plan pratique, ${inst}. Un geste écologique simple et rentable pour toute la maison.`
+      const intro = pick(N4_PLAN_INTROS, rand)
+      const sub = pick(N4_PLAN_SUBS, rand)
+      const rec = pick(N4_PLAN_RECOMMENDS, rand)
+      const text = `${intro} ${sub.service}. Ce que j’apprécie le plus, c’est ${sub.like}. Par contre, je regrette ${sub.dislike}. ${rec}`
       return {
         text,
         questions: [
-          ['Quel produit économiseur d’eau est conseillé sur cette page Web ?', item, 'une grande piscine extérieure chauffée installée dans le jardin', 'une imposante machine à laver industrielle alimentée au mazout'],
-          ['Quel bénéfice concret l’usager retire-t-il de cette installation ?', `d’économiser ${benefit}`, 'de doubler la consommation quotidienne d’eau potable de la maison', 'de faire grimper les coûts annuels de facturation d’électricité'],
+          ['Quel point positif l’usager souligne-t-il dans son avis ?', sub.paraphraseLike, sub.distLike1, sub.distLike2],
+          ['Quel point faible est mentionné au sujet de ce forfait ?', sub.paraphraseDislike, sub.distDislike1, sub.distDislike2],
         ],
       }
     },
-    { situation: 1, capacity: N4_SAVER_ITEMS.length * N4_SAVER_BENEFITS.length * N4_SAVER_COSTS.length * N4_SAVER_INSTALLS.length }
+    { situation: 1, capacity: N4_PLAN_INTROS.length * N4_PLAN_SUBS.length * N4_PLAN_RECOMMENDS.length }
   ),
-  // Scenario 3 (Template, situation: 0 variant)
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Recherche d'appartement calme)
   Object.assign(
     (rand) => {
-      const friend = pick(N4_SNACK_FRIENDS, rand)
-      const snack = pick(N4_SNACK_ITEMS, rand)
-      const prep = pick(N4_SNACK_PREPS, rand)
-      const why = pick(N4_SNACK_WHYS, rand)
-      const text = `Message amical de ${friend} pour les collations d’école. Coucou ! Si tu cherches une collation nutritive qui change de la routine, pense à ${snack}. C’est super pratique à préparer ${prep}. C’est vraiment formidable parce que ${why}. Ça dépanne tellement les matins pressés ! Donne-moi des nouvelles.`
+      const intro = pick(N4_RENT_INTROS, rand)
+      const apt = pick(N4_RENT_APTS, rand)
+      const closing = pick(N4_RENT_CLOSINGS, rand)
+      const text = `${intro} Bonjour, je cherche un logement dans ${apt.quarter}. Pour moi, l’élément prioritaire reste ${apt.prefer}. En revanche, je refuse ${apt.hate}. J’aime avoir un endroit paisible pour étudier le soir. ${closing}`
       return {
         text,
         questions: [
-          ['Quand est-il suggéré de confectionner cette collation ?', prep, 'au milieu de la nuit entre deux et trois heures du matin', 'au moment où la sonnerie des cours retentit dans l’école'],
-          ['Quel type d’aliment maison est proposé dans ce message ?', snack, 'une portion de frites grasses réchauffées de la veille', 'des sucreries très colorées vendues dans les kermesses'],
+          ['Quelle caractéristique du logement est prioritaire pour la personne ?', apt.paraphrasePrefer, apt.distPrefer1, apt.distPrefer2],
+          ['Quel désagrément la personne refuse-t-elle absolument ?', apt.paraphraseHate, apt.distHate1, apt.distHate2],
         ],
       }
     },
-    { situation: 0, capacity: N4_SNACK_FRIENDS.length * N4_SNACK_ITEMS.length * N4_SNACK_PREPS.length * N4_SNACK_WHYS.length }
+    { situation: 0, capacity: N4_RENT_INTROS.length * N4_RENT_APTS.length * N4_RENT_CLOSINGS.length }
   ),
-  // Scenario 4 (Template, situation: 1 variant)
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Préférences de collations d'école)
   Object.assign(
     (rand) => {
-      const item = pick(N4_SAVER_ITEMS, rand)
-      const benefit = pick(N4_SAVER_BENEFITS, rand)
-      const cost = pick(N4_SAVER_COSTS, rand)
-      const inst = pick(N4_SAVER_INSTALLS, rand)
-      const text = `Guide conseils pour réduire sa facture d’électricité. Pour diminuer la consommation d’eau chaude d’un ménage québécois, songez à poser ${item}. En adoptant cet accessoire, vous pouvez gagner ${benefit}. C’est ${cost}. Du point de vue pratique, ${inst}. Un choix avantageux pour votre budget.`
+      const intro = pick(N4_SNACK_INTROS, rand)
+      const snack = pick(N4_SNACK_PICKS, rand)
+      const closing = pick(N4_SNACK_CLOSINGS, rand)
+      const text = `${intro} Pour les collations de l’école, je préfère cuisiner ${snack.item}. Le grand avantage, c’est que ${snack.like}. Par contre, j’évite toujours ${snack.dislike}. C’est bien plus sain pour les enfants. ${closing}`
       return {
         text,
         questions: [
-          ['Comment s’effectue l’installation de cet accessoire écoénergétique ?', inst, 'en faisant obligatoirement appel à une équipe d’ingénieurs', 'en coupant le courant électrique général durant six semaines'],
-          ['Quel bénéfice financier ce dispositif procure-t-il au ménage ?', cost, 'il entraîne un endettement lourd pour toute la famille', 'il fait augmenter de moitié le tarif des assurances maison'],
+          ['Quelle collation maison la personne conseille-t-elle de préparer ?', snack.paraphraseLikeItem, snack.distItem1, snack.distItem2],
+          ['Que cherche-t-elle à éviter dans la boîte à lunch ?', snack.paraphraseDislike, snack.distDislike1, snack.distDislike2],
         ],
       }
     },
-    { situation: 1, capacity: N4_SAVER_ITEMS.length * N4_SAVER_BENEFITS.length * N4_SAVER_COSTS.length * N4_SAVER_INSTALLS.length }
+    { situation: 1, capacity: N4_SNACK_INTROS.length * N4_SNACK_PICKS.length * N4_SNACK_CLOSINGS.length }
   ),
-  // Scenario 5 (Static, situation: 0)
+  // Scenario 5 (Static, situation: 0) - Recherche de camping familial pour la Saint-Jean
   {
     situation: 0,
-    text: 'Courriel de Chloé : idées de collations pour le groupe de soccer. Bonjour les parents ! Pour la mi-temps de samedi, évitons les jus industriels et les biscuits trop sucrés. Je propose d’apporter des quartiers d’oranges fraîches et des morceaux de melon d’eau bien juteux. C’est parfait pour réhydrater les jeunes coureurs sous le soleil !',
+    text: 'Message de Marc pour le camping de la Saint-Jean. Pour notre fin de semaine en famille, je préfère réserver un terrain paisible avec une grande piscine et un accès autorisé aux chiens. Par contre, je n’aime pas quand le trajet en auto dépasse deux heures depuis Montréal. On veut arriver tôt le vendredi soir pour monter la tente sans stress.',
     questions: [
-      ['Quels fruits rafraîchissants Chloé propose-t-elle pour les enfants ?', 'des quartiers d’oranges et melon d’eau', 'des bananes flambées au caramel', 'des pommes frites dans l’huile'],
-      ['Quels produits déconseille-t-elle pour la mi-temps du match ?', 'les jus industriels et biscuits trop sucrés', 'l’eau minérale et les fruits frais coupés', 'les tranches de pain complet sans sel'],
+      ['Qu’est-ce que Marc préfère pour ce séjour de camping ?', 'une piscine et les animaux admis', 'un grand lac avec location de canots', 'un terrain de sport avec éclairage'],
+      ['Quel inconvénient cherche-t-il absolument à éviter ?', 'un trajet de route trop long en auto', 'les frais supplémentaires pour le bois', 'l’absence d’eau courante sur le site'],
     ],
   },
-  // Scenario 6 (Static, situation: 1)
+  // Scenario 6 (Static, situation: 1) - Sondage de satisfaction sur le transport en commun
   {
     situation: 1,
-    text: 'Conseils pratiques - Société d’habitation du Québec. Réduire la température de votre chauffe-eau à soixante degrés Celsius permet de faire des économies d’énergie appréciables tout en éliminant les risques de brûlure pour les enfants. C’est la température idéale recommandée pour concilier sécurité et hygiène dans la maison.',
+    text: 'Sondage de satisfaction - Transport collectif urbain. Pour mes déplacements quotidiens vers le travail, je préfère acheter l’abonnement mensuel sur carte à puce parce que le tarif est avantageux. Par contre, je n’aime pas du tout les retards fréquents des autobus sur la ligne centrale le matin. Cela me fait parfois manquer le début de mes réunions.',
     questions: [
-      ['À quelle température idéale est-il conseillé de régler le chauffe-eau ?', 'à soixante degrés Celsius', 'à quatre-vingt-dix degrés Celsius', 'à vingt degrés Celsius seulement'],
-      ['Quel double bénéfice ce réglage de température procure-t-il ?', 'économies d’énergie et prévention des brûlures', 'doublement de la facture d’électricité', 'baisse de la pression de l’eau dans les tuyaux'],
+      ['Pourquoi cette usagère préfère-t-elle l’abonnement mensuel ?', 'pour le coût avantageux de ce forfait', 'pour la rapidité du service en soirée', 'pour la gratuité du réseau la fin de semaine'],
+      ['Quel point négatif déplore-t-elle au sujet du transport ?', 'les retards d’autobus en début de journée', 'le manque de propreté dans les véhicules', 'la difficulté de recharger la carte au guichet'],
     ],
   },
 ]
