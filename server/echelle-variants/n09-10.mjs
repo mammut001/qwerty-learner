@@ -1588,5 +1588,371 @@ export const N09_10_SCENARIOS = {
               ]
           ]
       }
+  ],
+  "n10-listening-3": [
+      {
+          "situation": 0,
+          "text": "— Bonsoir Montréal. Écoutez le souffle rauque de ma ville qui tremble sous les bourrasques de novembre. Quand nous avons débarqué à Dorval par un mardi de tempête, mes valises débordaient de senteurs de fleur d’oranger et de pierres chaudes de Beyrouth, mais mes mains n’étaient pas prêtes pour la morsure du verglas qui brûle la peau sans prévenir. On nous disait de sourire, de nous fondre dans le décor, d’avaler notre nostalgie comme une gorgée d’eau tiède pour ne pas déranger les certitudes de ceux qui nous accueillaient avec politesse. Pendant dix ans, j’ai ravalé ma colère, j’ai poli mes voyelles, j’ai gommé les aspérités de mon accent pour mériter une place discrète au bout de la table. Mais ce soir, au fond de cette salle obscure du Lion d’Or, je refuse cette paix silencieuse qui ressemble à une reddition consentie. Mes racines ne sont pas des fardeaux que l’on dissimule sous un manteau d’hiver trop lourd, elles sont la sève battante qui m’empêche de plier quand le blizzard souffle sur mes doutes. Je ne vous demande pas votre compassion polie ni vos applaudissements rassurants ; je viens simplement proclamer que la douleur de l’exil peut fleurir au milieu du bitume gelé sans jamais renier la lumière d’où elle est née. Regardez mes poings ouverts : ils ne portent plus la rancœur, ils offrent un espoir indomptable.",
+          "questions": [
+              [
+                  "Quel sentiment dominant traverse la performance poétique de la slameuse ?",
+                  "Une affirmation fière de son identité métissée après des années d’effacement silencieux",
+                  "Une tristesse désespérée et résignée devant l’impossibilité absolue de s’intégrer socialement",
+                  "Une gratitude inconditionnelle et naïve envers les personnes qui l’ont accueillie à son arrivée"
+              ],
+              [
+                  "Comment la progression affective du slam est-elle construite par l’artiste ?",
+                  "Elle passe du dépaysement douloureux de l’arrivée à la revendication lumineuse de sa dignité",
+                  "Elle commence par un rire moqueur avant de prononcer un réquisitoire virulent contre le climat",
+                  "Elle livre un compte rendu chronologique neutre de ses démarches auprès des services d’immigration"
+              ],
+              [
+                  "Que dénonce implicitement l’artiste lorsqu’elle évoque le fait d’avoir poli ses voyelles ?",
+                  "La pression sociale subtile qui incite les nouveaux arrivants à effacer leurs particularités",
+                  "La difficulté d’apprendre la prononciation correcte du français dans les écoles de quartier de la ville",
+                  "L’absence totale de professeurs de théâtre compétents pour guider les jeunes artistes de la relève"
+              ],
+              [
+                  "Dans ce contexte poétique, que connote l’expression « reddition consentie » ?",
+                  "Un abandon tragique de son authenticité personnelle pour acheter une tranquillité illusoire",
+                  "Un armistice formel et officiel conclu au terme d’un long conflit armé destructeur entre deux nations",
+                  "Une transaction financière convenue entre des associés pour mettre fin à un différend commercial"
+              ]
+          ]
+      },
+      {
+          "situation": 1,
+          "text": "— Mesdames et messieurs, quel immense honneur de monter sur cette scène du Club Soda pour célébrer le départ à la retraite de notre cher maestro Robert Gagnon, l’homme qui a dirigé l’Orchestre métropolitain de chambre pendant trente-cinq ans avec la poigne d’un adjudant et la sensibilité d’une violette ! Robert, rassure-toi, nous n’allons pas étaler ici tes légendaires colères en répétition, comme cette mémorable répétition générale de Mahler où tu as brisé trois baguettes consécutives parce que le deuxième hautbois avait osé respirer à contretemps. Nous ne rappellerons pas non plus ton horreur viscérale des partitions contemporaines, que tu qualifiais affectueusement de tintamarre d’électroménagers en panne. Mais derrière ces accès de fureur théâtrale qui faisaient trembler les pupitres de cordes, chacun de nous savait quelle dévotion infinie tu vouais à la beauté sonore de notre ensemble. Tu exigeais la perfection parce que tu nous aimais plus que nous ne nous aimions nous-mêmes, et tu savais arracher des étincelles de grâce aux musiciens les plus intimidés. Te voir quitter cette tribune nous brise le cœur, même si nos tympans vont enfin connaître un repos bien mérité. Tu laisses un vide immense que personne ne pourra combler, et si nous nous moquons gentiment de tes manies ce soir, c’est pour retenir les larmes qui nous montent aux yeux en te disant merci pour tout ce que tu nous as donné.",
+          "questions": [
+              [
+                  "Quelle intention principale anime le discours d’hommage prononcé par le musicien ?",
+                  "Exprimer une profonde affection et une gratitude sincère dissimulées sous des taquineries",
+                  "Régler des rancunes professionnelles tenaces devant l’ensemble des membres de l’orchestre réuni",
+                  "Annoncer sa propre candidature pour remplacer le chef d’orchestre sur le podium désormais vacant"
+              ],
+              [
+                  "Quel procédé humoristique l’orateur privilégie-t-il tout au long de son allocution ?",
+                  "L’exagération affectueuse des travers du chef d’orchestre contrastée avec sa grandeur artistique",
+                  "L’imitation grotesque de la voix des compositeurs classiques pour amuser l’auditoire présent dans la salle",
+                  "Une série d’attaques personnelles blessantes visant les musiciens les plus jeunes de la formation musicale"
+              ],
+              [
+                  "Quelle émotion véritable transparaît derrière la plaisanterie sur le repos des tympans ?",
+                  "La nostalgie et le chagrin sincère provoqués par le départ d’un guide artistique d’exception",
+                  "Le soulagement authentique et immédiat de ne plus jamais devoir jouer de musique symphonique difficile",
+                  "L’agacement persistant causé par le volume excessif des instruments de percussion lors des répétitions"
+              ],
+              [
+                  "Dans ce discours de bien-cuit, que signifie l’expression « poigne d’un adjudant » ?",
+                  "Une autorité rigide, exigeante et sans concession exercée sur les membres de l’équipe",
+                  "Une blessure musculaire handicapante contractée lors d’un exercice d’entraînement physique intensif",
+                  "Une technique particulière de battue de mesure utilisée dans les œuvres musicales de l’époque baroque"
+              ]
+          ]
+      },
+      {
+          "situation": 0,
+          "text": "— Silence dans le hangar maritime de Sainte-Flavie. Laissez entrer le gémissement du Saint-Laurent qui vient frapper les rochers noirs sous la brume d’octobre. Mon grand-père disait toujours que l’estuaire ne pardonne pas les imprudents, mais qu’il console les cœurs brisés si on sait écouter la clameur des bélugas au large. Aujourd’hui, les quais de bois où s’amarraient les chaloupes de pêche côtière pourrissent sous le ressac, abandonnés par les enfants du village qui sont tous partis vers les tours de verre de Montréal pour trouver du travail de bureau. Chaque automne, quand la marée monte et envahit les grèves désertes, je ressens ce vide immense comme une coupure vive qui ne cicatrise jamais tout à fait. On nous répète que c’est le progrès inévitable, que notre littoral n’est plus rentable, que nous devrions nous réjouir des nouveaux complexes hôteliers pour touristes qui défigurent nos anses natales. Mais sous mon calme apparent coule une révolte silencieuse contre l’oubli organisé de notre mémoire maritime. Nos aïeux n’ont pas dompté ces eaux glacées pour que notre histoire devienne une simple carte postale folklorique vendue dans les dépanneurs de bord de route. Tant que j’aurai un souffle de voix, je chanterai le courage de ceux qui bravaient les tempêtes, non par nostalgie stérile, mais pour rappeler aux vivants que notre terre a une âme que l’argent ne pourra jamais acheter.",
+          "questions": [
+              [
+                  "Quel sentiment anime en profondeur le slam poétique prononcé au bord du fleuve ?",
+                  "Un deuil lucide du monde maritime traditionnel allié au refus farouche de la résignation",
+                  "Une joie exubérante provoquée par l’arrivée massive de vacanciers estivaux dans le village côtier",
+                  "Un mépris affiché envers les coutumes ancestrales jugées définitivement dépassées par la modernité urbaine"
+              ],
+              [
+                  "Comment la progression poétique s’articule-t-elle au fil des vers déclamés ?",
+                  "Elle évoque le paysage côtier en déclin avant de transformer la tristesse en serment de résistance",
+                  "Elle dresse un bilan comptable des pêcheries régionales avant de vanter les mérites de l’industrie nouvelle",
+                  "Elle se moque ouvertement des anciens navigateurs avant de réclamer la construction d’une usine côtière"
+              ],
+              [
+                  "Que traduit la critique formulée à l’encontre des nouveaux complexes touristiques ?",
+                  "Le refus de voir son patrimoine vivant réduit à une marchandise superficielle et dénaturée",
+                  "Le désir d’interdire définitivement l’accès du littoral à toute personne étrangère au village gaspésien",
+                  "La crainte que les vacanciers ne fassent baisser la valeur marchande des maisons ancestrales de la grève"
+              ],
+              [
+                  "Dans ce contexte poétique, que connote le terme « carte postale folklorique » ?",
+                  "Une image clichée, édulcorée et dénuée de substance réelle vendue pour plaire aux passants",
+                  "Un document d’archives précieux conservé dans les collections spéciales d’une grande bibliothèque publique",
+                  "Une correspondance officielle envoyée par les ministères pour annoncer de nouvelles subventions régionales"
+              ]
+          ]
+      },
+      {
+          "situation": 1,
+          "text": "— Chers amis du milieu du livre, bienvenue à cette soirée amicale en l’honneur de notre illustre directrice éditoriale, Hélène Vachon, qui prend ce soir un congé sabbatique bien mérité après avoir relu l’équivalent de trois fois la bibliothèque nationale du Québec. Hélène, nous t’aimons infiniment, mais nous devons avouer publiquement que travailler sous ta férule relève parfois d’un stage de survie en forêt boréale. Qui d’autre que toi oserait renvoyer un manuscrit de cinq cents pages à un auteur couronné de prestigieux prix en écrivant en marge : « Roman brillant, mais supprimez quatre-vingts adjectifs superflus si vous voulez être publié » ? Tu as fait pleurer les plus grands poètes de la province avec tes crayons rouges impitoyables, traquant sans pitié les pléonasmes vicieux et les accords fautifs de participes passés jusqu’à trois heures du matin. Pourtant, aucun écrivain n’a jamais claqué la porte de la maison d’édition, car tous savaient que ton intransigeance grammaticale était le plus bel acte d’amour qu’un texte puisse recevoir. Grâce à ton œil d’aigle, nos publications ont acquis une pureté de style admirée partout dans la francophonie. Nous allons terriblement nous ennuyer de tes soupirs exaspérés lors des comités de lecture, et nous te promettons solennellement de ne pas publier un seul anglicisme en ton absence, du moins jusqu’à lundi prochain !",
+          "questions": [
+              [
+                  "Quel sentiment fondamental se dégage de cette allocution de bien-cuit professionnel ?",
+                  "Une admiration affectueuse teintée d’humour pour la rigueur éditoriale intransigeante d’une collègue",
+                  "Un ressentiment professionnel refoulé contre une supérieure accusée d’abus de pouvoir manifeste en comité",
+                  "Une impatience non dissimulée à l’idée de pouvoir enfin embaucher une nouvelle équipe de direction éditoriale"
+              ],
+              [
+                  "Comment l’intervenante équilibre-t-elle son éloge tout au long de son intervention ?",
+                  "Elle énumère les manies perfectionnistes de la directrice pour mieux faire ressortir sa dévotion au texte",
+                  "Elle critique vertement les choix littéraires de la maison avant d’adresser des excuses embarrassées et confuses",
+                  "Elle lit des extraits de correspondances privées sans aucun rapport avec la carrière remarquable de l’éditrice"
+              ],
+              [
+                  "Pourquoi les auteurs acceptaient-ils docilement les corrections sévères de la directrice ?",
+                  "Ils comprenaient que cette exigence sans compromis servait la beauté et la renommée de leur œuvre",
+                  "Ils étaient contractuellement contraints d’obéir sous peine de lourdes pénalités financières prévues à l’entente",
+                  "Ils ignoraient totalement les annotations portées sur leurs manuscrits lors du processus d’impression finale"
+              ],
+              [
+                  "Dans ce contexte de bien-cuit, que signifie l’expression « sous ta férule » ?",
+                  "Sous une direction particulièrement stricte, exigeante et méthodique dans le travail quotidien",
+                  "Dans une situation d’isolement géographique extrême au milieu d’un campement de bûcherons en forêt boréale",
+                  "Sous la protection bienveillante et désintéressée d’un mécène fortuné grand amateur de littérature québécoise"
+              ]
+          ]
+      }
+  ],
+  "n10-listening-4": [
+      {
+          "situation": 0,
+          "text": "— Chers membres de la Chambre de commerce du Montréal métropolitain, je sollicite toute votre attention sur un déséquilibre fiscal criant qui menace le cœur même de notre tissu économique urbain. Alors que nos commerçants de détail paient scrupuleusement des taxes foncières élevées, des loyers commerciaux prohibitifs et des cotisations patronales indispensables à nos régimes sociaux, les géants transnationaux du commerce électronique rapatrient leurs profits faramineux dans des paradis fiscaux grâce à des artifices de comptabilité agressive. Certes, certains analystes soutiennent que ces plateformes numériques démocratisent l’accès aux biens de consommation en offrant des prix attractifs aux familles modestes. Mais cet argument à court terme élude le coût sociétal faramineux de cette concurrence asymétrique : pour chaque entrepôt robotisé qui s’implante en banlieue éloignée, ce sont trois boutiques de quartier qui ferment leurs portes sur la rue Sainte-Catherine ou l’avenue du Mont-Royal, laissant derrière elles des artères dévitalisées et des pertes de revenus fonciers pour notre ville. Il est grand temps d’instaurer une équité fiscale réelle en taxant les flux de données et le chiffre d’affaires réel généré sur notre territoire, plutôt que de continuer à pénaliser les commerces qui investissent ici et créent des emplois locaux non délocalisables. La vitalité de nos collectivités ne peut être sacrifiée sur l’autel de la commodité algorithmique. En nous mobilisant dès aujourd’hui pour une réelle équité territoriale, nous assurons l’avenir de nos artères commerciales.",
+          "questions": [
+              [
+                  "Quelle est la thèse centrale défendue avec vigueur par l’orateur économique ?",
+                  "La nécessité de rétablir une justice fiscale pour protéger les commerces locaux face aux multinationales du web",
+                  "L’interdiction complète de toute transaction commerciale effectuée par le biais d’ordinateurs ou de téléphones portables",
+                  "La fermeture des commerces de centre-ville afin de concentrer toutes les activités dans des parcs industriels en périphérie"
+              ],
+              [
+                  "Quelle méthode argumentative le conférencier emploie-t-il pour convaincre les marchands ?",
+                  "Il concède l’attrait des prix en ligne pour mieux dénoncer le coût social caché de la dévitalisation urbaine",
+                  "Il accuse directement les consommateurs locaux de trahir l’économie québécoise en commandant sur des sites marchands",
+                  "Il recommande d’abolir l’impôt sur le revenu des particuliers avant de réformer en profondeur la fiscalité commerciale"
+              ],
+              [
+                  "Quel impact néfaste de l’hégémonie des plateformes numériques est mis en lumière ?",
+                  "L’affaiblissement du dynamisme communautaire et l’érosion des revenus fiscaux des villes québécoises",
+                  "L’obligation contraignante pour les municipalités de financer l’achat d’ordinateurs pour tous les résidents âgés du quartier",
+                  "La hausse brutale et inattendue du coût global des transports ferroviaires de marchandises lourdes au pays tout entier"
+              ],
+              [
+                  "Dans ce plaidoyer économique, que connote l’expression « commodité algorithmique » ?",
+                  "Le confort superficiel offert par des plateformes numériques qui dissimule des ravages économiques durables",
+                  "Un outil informatique novateur permettant de calculer sans la moindre erreur la taxe sur les produits manufacturés",
+                  "Une procédure administrative simplifiée adoptée par les tribunaux pour accélérer le règlement des litiges commerciaux"
+              ]
+          ]
+      },
+      {
+          "situation": 1,
+          "text": "— Bonjour à tous les auditeurs de notre tribune d’urbanisme. Aujourd’hui, face aux sempiternelles promesses électorales d’élargissement autoroutier pour décongestionner la région métropolitaine, il convient d’opposer les enseignements rigoureux de la science de la mobilité. Toutes les données empiriques accumulées depuis un demi-siècle démontrent le phénomène implacable du trafic induit : ajouter des voies de circulation automobile sur nos autoroutes n’a jamais résolu les bouchons, cela n’a fait qu’encourager l’étalement urbain et saturer les nouveaux tronçons en moins de quatre ans. Continuer à engloutir des milliards de fonds publics dans le bitume alors que nous faisons face à l’urgence climatique relève d’un anachronisme coupable. La véritable solution réside dans un réinvestissement massif et prioritaire dans les infrastructures de transport collectif lourd, telles que le prolongement des lignes de métro et le réseau express métropolitain. Pour financer durablement ce virage sans surcharger les contribuables, nous devons instaurer le principe de l’utilisateur-payeur par une tarification kilométrique intelligente modulée selon l’empreinte carbone des véhicules et l’accès effectif à des services de substitution. Ce n’est pas en facilitant les trajets en automobile individuelle que nous bâtirons un Québec sobre en carbone, mais en offrant des alternatives collectives si rapides, fiables et confortables qu’aucun banlieusard n’aura plus envie de conduire pour se rendre au travail. Choisir la mobilité collective structurante, c’est bâtir une métropole résiliente et véritablement solidaire pour les décennies à venir.",
+          "questions": [
+              [
+                  "Quelle orientation stratégique l’urbaniste préconise-t-il pour la mobilité régionale ?",
+                  "Privilégier les investissements dans le transport collectif lourd plutôt que l’élargissement des voies routières",
+                  "Construire des autoroutes à péage à double étage afin de doubler la capacité de circulation des automobiles de banlieue",
+                  "Interdire totalement l’accès des véhicules motorisés aux ponts reliant les deux rives durant les heures d’affluence"
+              ],
+              [
+                  "De quelle manière l’expert démonte-t-il l’efficacité des élargissements autoroutiers ?",
+                  "Il s’appuie sur le concept éprouvé de trafic induit pour prouver l’inutilité à long terme des nouvelles voies",
+                  "Il affirme que les automobilistes québécois refusent par principe d’emprunter les autoroutes récemment rénovées",
+                  "Il compare le prix du carburant au Québec avec celui des pays scandinaves sans étudier la structure du réseau routier"
+              ],
+              [
+                  "Quel mécanisme de financement novateur l’orateur propose-t-il pour soutenir les réseaux publics ?",
+                  "Une redevance kilométrique ajustée selon le niveau de pollution et l’offre de transport disponible",
+                  "Une taxe spéciale obligatoire prélevée directement sur l’achat de bicyclettes et d’équipements de loisir sportif",
+                  "Une diminution automatique et drastique des budgets d’entretien alloués aux rames de métro du centre-ville métropolitain"
+              ],
+              [
+                  "Dans ce contexte d’analyse des transports, que désigne le terme « trafic induit » ?",
+                  "L’augmentation mécanique du volume de véhicules engendrée par la création de nouvelles capacités routières",
+                  "Une panne générale du système de feux de signalisation informatisés paralysant les carrefours d’une grande ville",
+                  "Le détournement forcé des camions vers des voies résidentielles étroites lors de travaux de voirie imprévus"
+              ]
+          ]
+      },
+      {
+          "situation": 0,
+          "text": "— Chers congressistes réunis au Centre des congrès de Québec, nous devons aujourd’hui affronter sans détour la question de l’autonomie de nos artisans et producteurs régionaux face aux circuits de distribution centralisés. Trop souvent, on nous présente l’adhésion aux grandes galeries marchandes numériques comme une formidable vitrine promotionnelle qui ouvrirait instantanément les marchés mondiaux à notre savoir-faire local. La réalité du terrain est infiniment plus amère pour nos membres : ces intermédiaires technologiques exercent un quasi-monopole sur le référencement et prélèvent des commissions exorbitantes pouvant atteindre trente pour cent sur chaque commande. Plus pernicieux encore, ils s’approprient les données de nos clients pour concevoir leurs propres produits concurrents sous marque blanche, reléguant les créateurs originaux au bas des pages de résultats de recherche s’ils ne paient pas pour des campagnes de visibilité ruineuses. Les producteurs du terroir québécois ne peuvent accepter d’être réduits à de simples exécutants dépendants du bon vouloir d’algorithmes opaques programmés en Californie. Nous devons collectivement reprendre le contrôle de nos destinées commerciales en fédérant nos forces autour de plateformes coopératives régionales, détenues par et pour les artisans d’ici. C’est la seule avenue viable pour préserver notre souveraineté artisanale et garantir que la valeur créée dans nos terroirs demeure véritablement entre les mains de ceux qui la produisent avec passion. L’essor de notre terroir dépend de cette mobilisation concertée de tous les créateurs d’ici face aux géants du commerce en ligne.",
+          "questions": [
+              [
+                  "Quel appel pressant le responsable lance-t-il aux artisans et créateurs régionaux ?",
+                  "S’unir au sein de coopératives indépendantes pour échapper à la mainmise des grandes plateformes de vente",
+                  "Cesser immédiatement toute production artisanale pour se consacrer exclusivement à l’importation de produits finis",
+                  "Signer des ententes d’exclusivité avec des entreprises étrangères pour accroître rapidement leurs ventes annuelles"
+              ],
+              [
+                  "Quelle progression argumentative l’orateur adopte-t-il pour convaincre l’auditoire ?",
+                  "Il confronte les promesses illusoires des vitrines en ligne aux mécanismes concrets d’exploitation commerciale",
+                  "Il accuse les artisans d’incompétence technologique avant de leur imposer un barème de prix contraignant et rigide",
+                  "Il déplore la qualité des créations du terroir québécois avant de proposer des cours du soir de comptabilité générale"
+              ],
+              [
+                  "Quelle pratique des plateformes numériques est particulièrement dénoncée par le conférencier ?",
+                  "La captation des informations d’achat des consommateurs pour fabriquer des articles rivaux à bas coût",
+                  "L’obligation faite aux artisans de livrer personnellement chaque colis au domicile des acheteurs de la province",
+                  "Le refus catégorique d’accepter les cartes bancaires lors des transactions commerciales effectuées sur Internet"
+              ],
+              [
+                  "Dans ce contexte économique, que signifie l’expression « sous marque blanche » ?",
+                  "La vente d’articles fabriqués par des tiers sous le propre nom commercial du distributeur numérique",
+                  "Une exonération fiscale temporaire accordée aux nouvelles entreprises du secteur des métiers d’art régionaux",
+                  "Un label de qualité officiel certifiant l’origine biologique et écologique d’un aliment transformé localement"
+              ]
+          ]
+      },
+      {
+          "situation": 1,
+          "text": "— Collègues ingénieurs et décideurs réunis à Trois-Rivières, l’électrification des transports routiers de marchandises est sur toutes les lèvres, mais nous devons nous garder de céder au mirage technologique simpliste. Remplacer un demi-million de camions à moteur diesel par des camions à batterie lithium-ion sans repenser l’organisation spatiale de notre chaîne logistique n’est pas une solution écologique viable. L’extraction minière des métaux rares requis pour ces batteries géantes, combinée à la pression phénoménale que leur recharge rapide fera peser sur la puissance de pointe du réseau d’Hydro-Québec lors des grands froids, démontre les limites physiques de cette stratégie unilatérale. La véritable rupture écologique réside dans le report modal massif vers le réseau ferroviaire pour tous les trajets interurbains de plus de deux cents kilomètres. Le train transporte une tonne de fret avec un quart de l’énergie nécessaire à un camion lourd et sans aucune émission directe si la ligne est électrifiée par caténaire. Nous devons réinvestir massivement dans la rénovation de nos embranchements ferroviaires régionaux et réserver les camions électriques aux seuls kilomètres de livraison finale entre les gares de triage et les commerces de destination. Sans cette articulation multimodale intelligente, nous ne ferons que déplacer nos impacts environnementaux sans jamais parvenir à décarboner durablement notre économie. La décarbonation de nos transports lourds exige cette cohérence logistique d’ensemble pour porter des fruits durables dans nos régions.",
+          "questions": [
+              [
+                  "Quelle est la thèse centrale défendue par l’ingénieur spécialisé lors du congrès ?",
+                  "Combiner le transport ferroviaire interurbain et le camionnage électrique local pour décarboner le fret",
+                  "Interdire définitivement tout déplacement ferroviaire de marchandises sur l’ensemble du territoire provincial",
+                  "Conserver les moteurs diesel traditionnels pour tous les véhicules lourds afin d’économiser l’électricité produite"
+              ],
+              [
+                  "Comment l’intervenant construit-il son analyse technique et énergétique ?",
+                  "Il souligne les limites physiques des batteries de camions avant de démontrer l’efficacité supérieure du rail",
+                  "Il met en doute la compétence des ingénieurs d’Hydro-Québec avant de réclamer la privatisation du réseau public",
+                  "Il énumère les retards répétés des trains de passagers sans aborder la question du fret commercial et industriel"
+              ],
+              [
+                  "Quel risque majeur lié à l’électrification exclusive des poids lourds est expressément mentionné ?",
+                  "La surcharge critique de la capacité de pointe du réseau électrique lors des vagues de froid hivernales",
+                  "La pénurie immédiate de chauffeurs routiers causée par la complexité technique des nouveaux véhicules lourds",
+                  "L’usure prématurée des rails de chemin de fer due au passage incessant de convois ferroviaires de marchandises"
+              ],
+              [
+                  "Dans ce discours sur la logistique, que désigne l’expression « report modal » ?",
+                  "Le transfert volontaire du transport de biens ou de passagers d’un mode vers un mode plus écologique",
+                  "Une grève concertée des employés des chemins de fer pour réclamer une revalorisation des salaires horaires",
+                  "Le remplacement annuel des wagons de marchandises par des modèles plus spacieux et aérodynamiques sur le réseau"
+              ]
+          ]
+      }
+  ],
+  "n10-reading-0": [
+      {
+          "situation": 0,
+          "text": "Extrait d’un ouvrage collectif de recherche en psychologie du développement de l’enfant, publié sous la direction du laboratoire des sciences cognitives de l’Université de Montréal. La construction de l’estime de soi chez le jeune enfant ne saurait être assimilée à une accumulation passive de compliments parentaux ou à une quête d’approbation sociale permanente. Les recherches empiriques longitudinales démontrent au contraire que le sentiment de valeur personnelle s’enracine dans l’expérience précoce de l’auto-efficacité, c’est-à-dire dans la perception intime par l’enfant de sa capacité réelle à agir sur son environnement immédiat et à surmonter des obstacles à sa mesure. Lorsque les adultes encadrants s’évertuent à devancer chaque difficulté, à aplanir systématiquement les épreuves ou à dispenser des louanges excessives et déconnectées de l’effort consenti, ils nourrissent sans le vouloir une fragilité narcissique qui rend le sujet particulièrement vulnérable au moindre revers futur. À l’inverse, les contextes de jeu libre et non structuré, où l’enfant expérimente le tâtonnement expérimental, l’erreur constructive et la résolution autonome de conflits mineurs avec ses pairs, constituent le terreau le plus fertile pour l’éclosion d’une sécurité affective pérenne. En apprenant à tolérer la frustration inhérente à l’apprentissage sans y voir une négation de sa valeur intrinsèque, l’enfant développe un locus de contrôle interne qui le préservera des dépendances affectives ultérieures et stimulera sa curiosité exploratoire tout au long de son parcours scolaire et personnel.",
+          "questions": [
+              [
+                  "Quel est le postulat fondamental défendu par les auteurs de cet ouvrage scientifique ?",
+                  "L’estime de soi découle de l’expérience autonome de surmonter des obstacles plutôt que des éloges continus",
+                  "Les parents doivent protéger l’enfant de tout échec potentiel pour lui garantir un équilibre psychologique sain",
+                  "Le jeu libre entre camarades devrait être strictement interdit en garderie pour éviter les querelles violentes"
+              ],
+              [
+                  "Comment la réflexion théorique est-elle développée dans ce passage d’analyse clinique ?",
+                  "L’illusion des compliments systématiques est contrastée avec les bienfaits prouvés de l’auto-efficacité",
+                  "Une série de tests standardisés de quotient intellectuel est prescrite pour évaluer tous les jeunes écoliers",
+                  "Les pratiques éducatives des générations précédentes sont présentées comme absolument exemplaires et parfaites"
+              ],
+              [
+                  "Quel effet indésirable une surprotection parentale bienveillante risque-t-elle de provoquer chez l’enfant ?",
+                  "Une vulnérabilité émotionnelle marquée dès que le jeune individu se heurte à une contrariété réelle",
+                  "Une agressivité physique permanente et incontrôlable tournée contre les éducatrices de son groupe de jeu",
+                  "Un refus catégorique de participer à toute activité sportive ou récréative organisée à l’extérieur des classes"
+              ],
+              [
+                  "Dans ce contexte de psychologie cognitive, que signifie le terme « locus de contrôle interne » ?",
+                  "La conviction profonde qu’un individu est le principal artisan de ses réussites et de ses échecs",
+                  "Un test neurologique informatisé mesurant la rapidité des réflexes visuels chez les enfants d’âge préscolaire",
+                  "Une zone précise du cerveau humain responsable de la mémorisation des règles grammaticales complexes en bas âge"
+              ]
+          ]
+      },
+      {
+          "situation": 1,
+          "text": "Article paru dans la revue professionnelle Gestion de HEC Montréal. Les transformations organisationnelles contemporaines achoppent bien souvent sur un écueil managérial récurrent : l’illusion qu’une refonte des structures peut être imposée par de simples directives descendantes et l’adoption frénétique de nouveaux outils logiciels. Trop de directions générales conçoivent le changement comme un plan d’ingénierie rigide, décliné en calendriers stricts et en indicateurs de performance quantitatifs, tout en négligeant la dimension humaine et relationnelle qui conditionne l’adhésion des équipes sur le plancher. Or, les études de cas menées auprès d’entreprises québécoises performantes révèlent que la réussite d’une transition d’envergure repose avant tout sur la création d’un espace de sécurité psychologique où les employés peuvent exprimer librement leurs appréhensions sans craindre de représailles professionnelles. Plutôt que de contraindre les collaborateurs à adopter des méthodes prédéfinies conçues par des cabinets d’experts externes, les gestionnaires avisés délèguent une véritable marge d’autonomie décisionnelle aux équipes opérationnelles, leur permettant d’adapter les processus à leurs réalités concrètes. Cette approche participative, loin d’affaiblir l’autorité de la direction, instaure une dynamique de coresponsabilité qui transforme la résistance passive en un puissant moteur d’innovation collective. Les gains de productivité ne découlent pas de la conformité aveugle à des manuels de procédures, mais de la capacité d’une organisation à valoriser l’intelligence pratique de ceux qui font le travail au quotidien. C’est dans cette confiance mutuelle que se forgent les réussites durables des organisations modernes.",
+          "questions": [
+              [
+                  "Quel enseignement principal cet article de gestion tire-t-il des transformations réussies ?",
+                  "La réussite durable du changement exige l’autonomie des équipes et un climat de sécurité psychologique",
+                  "L’application stricte de directives descendantes sans consultation constitue la seule garantie d’efficacité",
+                  "L’achat immédiat de logiciels informatiques de pointe suffit à garantir la rentabilité financière d’une entreprise"
+              ],
+              [
+                  "De quelle manière l’auteur structure-t-il son analyse des pratiques de gestion modernes ?",
+                  "Il confronte l’échec des approches rigides et autoritaires aux bénéfices prouvés d’une gestion participative",
+                  "Il fait l’éloge des cabinets de consultation externes avant de recommander le licenciement des cadres récalcitrants",
+                  "Il énumère les ratios financiers des banques de la métropole sans examiner les méthodes de travail concrètes"
+              ],
+              [
+                  "Quel écueil les gestionnaires risquent-ils de rencontrer s’ils négligent l’avis du personnel de terrain ?",
+                  "Une résistance passive des employés qui neutralise les objectifs poursuivis par la transformation",
+                  "Une augmentation instantanée et incontrôlable du budget consacré aux sorties récréatives de l’entreprise locale",
+                  "L’obligation légale de rembourser l’ensemble des subventions publiques perçues au cours de l’exercice financier"
+              ],
+              [
+                  "Dans ce contexte d’analyse managériale, que connote le terme « sécurité psychologique » ?",
+                  "Un climat de travail bienveillant où chacun peut partager ses doutes et idées sans craindre de jugement négatif",
+                  "Un dispositif d’alarme électronique sophistiqué installé dans les couloirs pour protéger le personnel de nuit",
+                  "Une assurance médicale privée facultative remboursant les consultations auprès d’un psychologue du travail"
+              ]
+          ]
+      },
+      {
+          "situation": 0,
+          "text": "Chapitre issu d’un ouvrage universitaire québécois en psychoéducation portant sur l’enfance et la résilience scolaire. L’évaluation continue des compétences chez les élèves du premier cycle du primaire met en évidence le rôle déterminant des rétroactions pédagogiques différenciées dans la consolidation du sentiment d’efficacité personnelle. Contrairement à une idée répandue, féliciter systématiquement un élève pour son intelligence innée ou ses dons supposés tend à instaurer chez lui un état d’esprit figé, où chaque difficulté ultérieure est perçue comme la preuve irrémédiable d’une insuffisance personnelle qu’il ne pourra jamais combler. À l’inverse, lorsque l’enseignant dirige délibérément ses commentaires sur les stratégies cognitives mobilisées, l’effort déployé et la persévérance face à l’énoncé complexe, l’enfant intériorise l’idée que l’habileté intellectuelle est malléable et susceptible de se développer par la pratique soutenue. Les observations en classe démontrent en outre que les comparaisons publiques entre pairs constituent un puissant inhibiteur de motivation, accentuant l’anxiété d’évaluation chez les élèves vulnérables sans pour autant stimuler les éléments les plus avancés du groupe. Pour favoriser une saine émulation exempte de rivalité stérile, le milieu scolaire doit instaurer des référentiels d’auto-évaluation où chaque jeune mesure ses progrès par rapport à son point de départ personnel plutôt que par rapport à une moyenne de classe abstraite et démotivante. Cette bienveillance éducative permet à chaque apprenant de construire une trajectoire scolaire sereine et pleinement épanouissante.",
+          "questions": [
+              [
+                  "Quelle idée maîtresse est développée par les chercheurs dans ce chapitre psychoéducatif ?",
+                  "Valoriser l’effort et les démarches plutôt que des dons innés favorise la persévérance scolaire",
+                  "Attribuer des notes publiques hebdomadaires aux élèves est indispensable pour stimuler leur compétitivité",
+                  "Supprimer toute forme d’évaluation des apprentissages permet d’éliminer définitivement l’échec scolaire précoce"
+              ],
+              [
+                  "Comment l’argumentation pédagogique s’élabore-t-elle dans ce texte académique ?",
+                  "Les méfaits des éloges sur l’intelligence sont contrastés avec l’impact formateur des retours sur l’effort",
+                  "Une critique virulente du corps enseignant québécois est dressée avant d’exiger la fermeture des écoles primaires",
+                  "Une description exhaustive du mobilier scolaire est proposée pour expliquer le manque de concentration des jeunes"
+              ],
+              [
+                  "Quel danger l’évaluation comparative entre élèves présente-t-elle selon l’étude ?",
+                  "Elle nourrit une anxiété contre-productive qui bloque l’apprentissage chez les élèves les plus fragiles",
+                  "Elle incite les parents d’élèves à retirer immédiatement leurs enfants du système d’enseignement public régional",
+                  "Elle force les directions d’école à doubler le nombre d’heures de récréation accordées chaque après-midi de semaine"
+              ],
+              [
+                  "Dans ce passage didactique, que désigne l’expression « état d’esprit figé » ?",
+                  "La croyance limitante voulant que les aptitudes intellectuelles soient définitives et immuables dès la naissance",
+                  "Une fatigue passagère ressentie par un jeune écolier après une longue séance de devoirs accomplie à la maison",
+                  "Un protocole d’examen médical obligatoire imposé aux élèves avant leur entrée en première année du primaire régulier"
+              ]
+          ]
+      },
+      {
+          "situation": 1,
+          "text": "Étude de cas publiée dans une revue québécoise de gestion des ressources humaines, analysant la modernisation d’une coopérative de services financiers établie dans le Bas-Saint-Laurent. Confrontée à l’irruption des technologies bancaires numériques et à la désaffection des jeunes sociétaires pour les succursales traditionnelles de village, la coopérative a amorcé une transformation globale de ses modes d’opération sans recourir à un seul licenciement forcé. La direction a fait le pari courageux de l’accompagnement personnalisé et du rehaussement des compétences à l’interne, en offrant à chaque conseiller au guichet des parcours de requalification professionnelle étalés sur dix-huit mois d’apprentissage continu. Consciente que l’inconnu suscite de légitimes résistances, l’organisation a mis en place des cercles d’innovation locaux où les employés de longue date ont été invités à repenser eux-mêmes l’aménagement de leurs agences pour en faire des carrefours de conseil patrimonial et d’animation communautaire. Ce projet de métamorphose coopérative a prouvé qu’il était possible de concilier la modernisation des outils numériques et la préservation de liens humains authentiques dans nos régions. En associant étroitement le personnel à chaque étape du déploiement, la coopérative a non seulement préservé son capital de confiance historique auprès des citoyens locaux, mais elle a également enregistré un taux de fidélisation de ses salariés largement supérieur aux moyennes observées dans le secteur financier concurrentiel. Cette expérience démontre que la technologie doit demeurer au service de l’humain et du développement régional.",
+          "questions": [
+              [
+                  "Quel est le résultat remarquable de la démarche de changement analysée dans cette étude ?",
+                  "La réussite d’une transition technologique fondée sur la requalification et la participation des équipes",
+                  "La fermeture rapide et définitive de tous les comptoirs physiques pour réaliser des économies de loyer commercial",
+                  "La vente de la coopérative à une grande banque étrangère pour faire face aux difficultés de gestion financière"
+              ],
+              [
+                  "Quelle méthode d’exposition l’auteur de l’article privilégie-t-il pour décrire cette transition ?",
+                  "Il décrit les défis initiaux puis détaille la méthode inclusive de formation avant d’en mesurer les bénéfices",
+                  "Il formule des reproches sévères aux usagers qui refusent les applications mobiles de la coopérative financière",
+                  "Il analyse les taux de change internationaux avant de conclure par une anecdote personnelle sans portée pratique"
+              ],
+              [
+                  "Quel facteur clé a permis de désamorcer les appréhensions des conseillers face au changement ?",
+                  "Leur implication active dans la conception des nouveaux services et la garantie de maintien de l’emploi",
+                  "L’octroi d’une prime de départ substantielle pour inciter les plus réticents à quitter l’institution bancaire",
+                  "La menace d’une baisse de salaire pour quiconque refuserait d’utiliser les nouveaux outils informatiques internes"
+              ],
+              [
+                  "Dans ce contexte professionnel, que signifie le terme « requalification » ?",
+                  "L’apprentissage de nouvelles compétences permettant d’exercer un métier différent ou modernisé",
+                  "La révision juridique des statuts d’une entreprise pour changer de forme sociale devant le notaire instrumentant",
+                  "Le reclassement automatique des dossiers des clients dont les revenus ont diminué durant l’année financière"
+              ]
+          ]
+      }
   ]
 };
