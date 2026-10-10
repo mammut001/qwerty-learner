@@ -35,25 +35,25 @@ export function cap(str) {
 // Personas: first name, gender ('m' | 'f'), paired with plausible origins and nationalities.
 // Reflects diverse origins of Québec newcomers (Latin America, Maghreb, West Africa, Haiti, Asia, Europe).
 export const PERSONAS = [
-  { name: 'Ana', gender: 'f', country: 'le Chili', countryPrep: 'du Chili', natM: 'chilien', natF: 'chilienne', natZh: '智利人' },
-  { name: 'Lucia', gender: 'f', country: 'la Colombie', countryPrep: 'de Colombie', natM: 'colombien', natF: 'colombienne', natZh: '哥伦比亚人' },
-  { name: 'Sofia', gender: 'f', country: 'le Brésil', countryPrep: 'du Brésil', natM: 'brésilien', natF: 'brésilienne', natZh: '巴西人' },
-  { name: 'Carlos', gender: 'm', country: 'le Mexique', countryPrep: 'du Mexique', natM: 'mexicain', natF: 'mexicaine', natZh: '墨西哥人' },
-  { name: 'Mateo', gender: 'm', country: 'la Colombie', countryPrep: 'de Colombie', natM: 'colombien', natF: 'colombienne', natZh: '哥伦比亚人' },
-  { name: 'Fatima', gender: 'f', country: 'le Maroc', countryPrep: 'du Maroc', natM: 'marocain', natF: 'marocaine', natZh: '摩洛哥人' },
-  { name: 'Amina', gender: 'f', country: 'l’Algérie', countryPrep: 'd’Algérie', natM: 'algérien', natF: 'algérienne', natZh: '阿尔及利亚人' },
-  { name: 'Youssef', gender: 'm', country: 'le Maroc', countryPrep: 'du Maroc', natM: 'marocain', natF: 'marocaine', natZh: '摩洛哥人' },
-  { name: 'Karim', gender: 'm', country: 'l’Algérie', countryPrep: 'd’Algérie', natM: 'algérien', natF: 'algérienne', natZh: '阿尔及利亚人' },
-  { name: 'Amadou', gender: 'm', country: 'le Sénégal', countryPrep: 'du Sénégal', natM: 'sénégalais', natF: 'sénégalaise', natZh: '塞内加尔人' },
-  { name: 'Mariam', gender: 'f', country: 'le Cameroun', countryPrep: 'du Cameroun', natM: 'camerounais', natF: 'camerounaise', natZh: '喀麦隆人' },
-  { name: 'Jean-Baptiste', gender: 'm', country: 'Haïti', countryPrep: 'd’Haïti', natM: 'haïtien', natF: 'haïtienne', natZh: '海地人' },
-  { name: 'Daphnée', gender: 'f', country: 'Haïti', countryPrep: 'd’Haïti', natM: 'haïtien', natF: 'haïtienne', natZh: '海地人' },
-  { name: 'Jin', gender: 'm', country: 'la Chine', countryPrep: 'de Chine', natM: 'chinois', natF: 'chinoise', natZh: '中国人' },
-  { name: 'Mei', gender: 'f', country: 'la Chine', countryPrep: 'de Chine', natM: 'chinois', natF: 'chinoise', natZh: '中国人' },
-  { name: 'Tariq', gender: 'm', country: 'le Liban', countryPrep: 'du Liban', natM: 'libanais', natF: 'libanaise', natZh: '黎巴嫩人' },
-  { name: 'Priya', gender: 'f', country: 'l’Inde', countryPrep: 'd’Inde', natM: 'indien', natF: 'indienne', natZh: '印度人' },
-  { name: 'Marc', gender: 'm', country: 'la France', countryPrep: 'de France', natM: 'français', natF: 'française', natZh: '法国人' },
-  { name: 'Émilie', gender: 'f', country: 'la France', countryPrep: 'de France', natM: 'français', natF: 'française', natZh: '法国人' },
+  { name: 'Ana', gender: 'f', country: 'le Chili', countryPrep: 'du Chili', natM: 'chilien', natF: 'chilienne', natZh: '智利人', langFr: 'espagnol', langZh: '西班牙语' },
+  { name: 'Lucia', gender: 'f', country: 'la Colombie', countryPrep: 'de Colombie', natM: 'colombien', natF: 'colombienne', natZh: '哥伦比亚人', langFr: 'espagnol', langZh: '西班牙语' },
+  { name: 'Sofia', gender: 'f', country: 'le Brésil', countryPrep: 'du Brésil', natM: 'brésilien', natF: 'brésilienne', natZh: '巴西人', langFr: 'portugais', langZh: '葡萄牙语' },
+  { name: 'Carlos', gender: 'm', country: 'le Mexique', countryPrep: 'du Mexique', natM: 'mexicain', natF: 'mexicaine', natZh: '墨西哥人', langFr: 'espagnol', langZh: '西班牙语' },
+  { name: 'Mateo', gender: 'm', country: 'la Colombie', countryPrep: 'de Colombie', natM: 'colombien', natF: 'colombienne', natZh: '哥伦比亚人', langFr: 'espagnol', langZh: '西班牙语' },
+  { name: 'Fatima', gender: 'f', country: 'le Maroc', countryPrep: 'du Maroc', natM: 'marocain', natF: 'marocaine', natZh: '摩洛哥人', langFr: 'arabe', langZh: '阿拉伯语' },
+  { name: 'Amina', gender: 'f', country: 'l’Algérie', countryPrep: 'd’Algérie', natM: 'algérien', natF: 'algérienne', natZh: '阿尔及利亚人', langFr: 'arabe', langZh: '阿拉伯语' },
+  { name: 'Youssef', gender: 'm', country: 'le Maroc', countryPrep: 'du Maroc', natM: 'marocain', natF: 'marocaine', natZh: '摩洛哥人', langFr: 'arabe', langZh: '阿拉伯语' },
+  { name: 'Karim', gender: 'm', country: 'l’Algérie', countryPrep: 'd’Algérie', natM: 'algérien', natF: 'algérienne', natZh: '阿尔及利亚人', langFr: 'arabe', langZh: '阿拉伯语' },
+  { name: 'Amadou', gender: 'm', country: 'le Sénégal', countryPrep: 'du Sénégal', natM: 'sénégalais', natF: 'sénégalaise', natZh: '塞内加尔人', langFr: 'wolof', langZh: '沃洛夫语' },
+  { name: 'Mariam', gender: 'f', country: 'le Cameroun', countryPrep: 'du Cameroun', natM: 'camerounais', natF: 'camerounaise', natZh: '喀麦隆人', langFr: 'fulfulde', langZh: '富拉语' },
+  { name: 'Jean-Baptiste', gender: 'm', country: 'Haïti', countryPrep: 'd’Haïti', natM: 'haïtien', natF: 'haïtienne', natZh: '海地人', langFr: 'créole haïtien', langZh: '海地克里奥尔语' },
+  { name: 'Daphnée', gender: 'f', country: 'Haïti', countryPrep: 'd’Haïti', natM: 'haïtien', natF: 'haïtienne', natZh: '海地人', langFr: 'créole haïtien', langZh: '海地克里奥尔语' },
+  { name: 'Jin', gender: 'm', country: 'la Chine', countryPrep: 'de Chine', natM: 'chinois', natF: 'chinoise', natZh: '中国人', langFr: 'mandarin', langZh: '中文普通话' },
+  { name: 'Mei', gender: 'f', country: 'la Chine', countryPrep: 'de Chine', natM: 'chinois', natF: 'chinoise', natZh: '中国人', langFr: 'mandarin', langZh: '中文普通话' },
+  { name: 'Tariq', gender: 'm', country: 'le Liban', countryPrep: 'du Liban', natM: 'libanais', natF: 'libanaise', natZh: '黎巴嫩人', langFr: 'arabe', langZh: '阿拉伯语' },
+  { name: 'Priya', gender: 'f', country: 'l’Inde', countryPrep: 'd’Inde', natM: 'indien', natF: 'indienne', natZh: '印度人', langFr: 'hindi', langZh: '印地语' },
+  { name: 'Marc', gender: 'm', country: 'la France', countryPrep: 'de France', natM: 'français', natF: 'française', natZh: '法国人', langFr: 'français', langZh: '法语' },
+  { name: 'Émilie', gender: 'f', country: 'la France', countryPrep: 'de France', natM: 'français', natF: 'française', natZh: '法国人', langFr: 'français', langZh: '法语' },
 ]
 
 // Countries table with proper French prepositions (du / de / d’ / des)
@@ -445,3 +445,124 @@ export const SYMBOLS_ABBREVIATIONS = [
   { abbr: 'boul.', meaningFr: 'boulevard', meaningZh: '大道' },
   { abbr: 'av.', meaningFr: 'avenue', meaningZh: '大街' },
 ]
+
+// Elision helpers (handles de, que, le, la, je, ne, se, me, te)
+const NON_ELIDABLE_PATTERN = /^(?:8\b|11\b|8\s|11\s|8h|11h|huit|onze|oui|yaourt|yoga|youssef|hockey|halte|hall)\b/i
+const ELIDABLE_VOWEL_PATTERN = /^[aeiouyàâäéèêëîïôöùûüÿ]/i
+const MUTE_H_PATTERN = /^h[eéèaouiy]/i
+
+export function isElidable(word) {
+  if (!word) return false
+  const s = String(word).trim()
+  if (!s) return false
+  const clean = s.replace(/^['"«\s]+/, '')
+  if (NON_ELIDABLE_PATTERN.test(clean)) return false
+  if (MUTE_H_PATTERN.test(clean)) return true
+  return ELIDABLE_VOWEL_PATTERN.test(clean)
+}
+
+export function elide(prefix, word) {
+  if (!word) return prefix
+  const w = String(word)
+  if (isElidable(w)) {
+    const p = prefix.toLowerCase()
+    if (p === 'de') return `d’${w}`
+    if (p === 'que') return `qu’${w}`
+    if (p === 'le' || p === 'la') return `l’${w}`
+    if (p === 'je') return `j’${w}`
+    if (p === 'ne') return `n’${w}`
+    if (p === 'se') return `s’${w}`
+    if (p === 'me') return `m’${w}`
+    if (p === 'te') return `t’${w}`
+    if (p === 'ce') return `c’${w}`
+    return `${prefix.slice(0, -1)}’${w}`
+  }
+  return `${prefix} ${w}`
+}
+
+export function de(word) {
+  return elide('de', word)
+}
+
+export function que(word) {
+  return elide('que', word)
+}
+
+export function le(word) {
+  return elide('le', word)
+}
+
+export function la(word) {
+  return elide('la', word)
+}
+
+export function l(word) {
+  return elide('le', word)
+}
+
+export function je(word) {
+  return elide('je', word)
+}
+
+export function ne(word) {
+  return elide('ne', word)
+}
+
+export function se(word) {
+  return elide('se', word)
+}
+
+export function me(word) {
+  return elide('me', word)
+}
+
+export function te(word) {
+  return elide('te', word)
+}
+
+// Gratitude helper for "merci de / merci d’avoir / merci pour + nom"
+export function merciDe(target) {
+  if (!target) return ''
+  const s = String(target)
+  if (/^avoir\b/i.test(s)) return `d’${s}`
+  if (/^m’avoir\b/i.test(s)) return `de ${s}`
+  if (/^être\b/i.test(s)) return `d’${s}`
+  return `pour ${s}`
+}
+
+// Prepositions for institutions & organisations (gender-aware: un CPE, un Service de garde, une Clinique, etc.)
+export function auOrg(org) {
+  if (typeof org === 'object' && org?.au) return org.au
+  const name = typeof org === 'object' ? org.name : String(org)
+  const gender = typeof org === 'object' && org.gender ? org.gender : (/^(CPE|Centre|Service|CLSC)\b/i.test(name) ? 'm' : 'f')
+  if (isElidable(name)) return `à l’${name}`
+  return gender === 'm' ? `au ${name}` : `à la ${name}`
+}
+
+export function deOrg(org) {
+  if (typeof org === 'object' && org?.du) return org.du
+  const name = typeof org === 'object' ? org.name : String(org)
+  const gender = typeof org === 'object' && org.gender ? org.gender : (/^(CPE|Centre|Service|CLSC)\b/i.test(name) ? 'm' : 'f')
+  if (isElidable(name)) return `d’${name}`
+  return gender === 'm' ? `du ${name}` : `de la ${name}`
+}
+
+// Agreement helpers for slot nouns
+export function verbSeTrouver(noun) {
+  return noun?.number === 'p' ? 'se trouvent' : 'se trouve'
+}
+
+export function verbEtre(noun) {
+  return noun?.number === 'p' ? 'sont' : 'est'
+}
+
+export function pronSujet(noun) {
+  if (noun?.number === 'p') return noun?.gender === 'f' ? 'elles' : 'ils'
+  return noun?.gender === 'f' ? 'elle' : 'il'
+}
+
+export function adjSitue(noun) {
+  if (noun?.number === 'p') return noun?.gender === 'f' ? 'situées' : 'situés'
+  return noun?.gender === 'f' ? 'située' : 'situé'
+}
+

@@ -31,6 +31,14 @@ import {
   artDef,
   aCoteDe,
   numberToFrench,
+  de,
+  que,
+  le,
+  la,
+  merciDe,
+  auOrg,
+  deOrg,
+  verbSeTrouver,
 } from './shared.mjs'
 
 // Format integer with spaces as thousands separator (e.g. 2500 -> '2 500')
@@ -176,7 +184,7 @@ export const N01_02_SCENARIOS = {
         const phone = pick(PHONE_NUMBERS, rand)
         const otherPhones = sample(PHONE_NUMBERS.filter((p) => p.fr !== phone.fr), 2, rand)
         return {
-          text: `Bonjour ${persona.name}. Pour finaliser votre inscription au cours de ${course.fr}, quel est votre numéro de téléphone ?`,
+          text: `Bonjour ${persona.name}. Pour finaliser votre inscription au cours ${de(course.fr)}, quel est votre numéro de téléphone ?`,
           questions: [
             [
               '面对工作人员询问电话号码，合适的回答是：',
@@ -237,16 +245,10 @@ export const N01_02_SCENARIOS = {
     Object.assign(
       (rand) => {
         const persona = pick(PERSONAS, rand)
-        const langs = [
-          { fr: 'l’espagnol', zh: '西班牙语' },
-          { fr: 'l’arabe', zh: '阿拉伯语' },
-          { fr: 'le mandarin', zh: '中文普通话' },
-          { fr: 'le portugais', zh: '葡萄牙语' },
-          { fr: 'le vietnamien', zh: '越南语' },
-        ]
-        const l = pick(langs, rand)
+        const distinctLangs = [...new Set(PERSONAS.map((p) => p.langZh))].filter((zh) => zh !== persona.langZh)
+        const otherLangs = sample(distinctLangs, 2, rand)
         return {
-          text: `Bonjour ! Je m’appelle ${persona.name}. Dans ma famille, nous parlons ${l.fr}. Quelle est votre langue maternelle ?`,
+          text: `Bonjour ! Je m’appelle ${persona.name}. Dans ma famille, nous parlons ${persona.langFr}. Quelle est votre langue maternelle ?`,
           questions: [
             [
               '面对提问“Quelle est votre langue maternelle ?”，合适的回答是：',
@@ -254,11 +256,11 @@ export const N01_02_SCENARIOS = {
               'Je pars demain matin.',
               'Mon père est médecin.',
             ],
-            [`${persona.name} 在家庭中使用的语言是：`, l.zh, '德语', '日语'],
+            [`${persona.name} 在家庭中使用的语言是：`, persona.langZh, otherLangs[0], otherLangs[1]],
           ],
         }
       },
-      { capacity: PERSONAS.length * 5, situation: 0 }
+      { capacity: PERSONAS.length * 28, situation: 0 }
     ),
   ],
 
@@ -370,7 +372,7 @@ export const N01_02_SCENARIOS = {
         const otherMonths = sample(MONTHS.filter((m) => m.num !== month.num), 2, rand)
         const otherTimes = sample(CLOCK_TIMES.filter((t) => t.hour !== time.hour), 2, rand)
         return {
-          text: `La fête d’anniversaire de ${persona.name}, c’est le ${day.fr} ${date.dayText} ${month.fr}, à ${time.frDisplay}.`,
+          text: `La fête d’anniversaire ${de(persona.name)}, c’est le ${day.fr} ${date.dayText} ${month.fr}, à ${time.frDisplay}.`,
           questions: [
             ['派对是哪一天？', `${month.num} 月 ${date.dayNum} 日`, `${otherMonths[0].num} 月 ${date.dayNum} 日`, `${otherMonths[1].num} 月 2 日`],
             ['派对几点开始？', time.zh, otherTimes[0].zh, otherTimes[1].zh],
@@ -423,7 +425,7 @@ export const N01_02_SCENARIOS = {
         const otherDays = sample(DAYS.filter((d) => d.zh !== day.zh), 2, rand)
         const otherTimes = sample(CLOCK_TIMES.filter((t) => t.hour !== time.hour), 2, rand)
         return {
-          text: `L’heure du conte à la bibliothèque aura lieu le ${day.fr} matin à ${time.frDisplay}.`,
+          text: `L’heure du conte à la bibliothèque, c’est le ${day.fr} matin à ${time.frDisplay}.`,
           questions: [
             ['图书馆故事会在星期几？', day.zh, otherDays[0].zh, otherDays[1].zh],
             ['活动几点开始？', time.zh, otherTimes[0].zh, otherTimes[1].zh],
@@ -442,7 +444,7 @@ export const N01_02_SCENARIOS = {
         const otherDays = sample(DAYS.filter((d) => d.zh !== day.zh), 2, rand)
         const otherTimes = sample(CLOCK_TIMES.filter((t) => t.hour !== time.hour), 2, rand)
         return {
-          text: `La fête de famille aura lieu le ${day.fr} ${date.dayText} ${month.fr} à ${time.frDisplay}.`,
+          text: `La fête de famille, c’est le ${day.fr} ${date.dayText} ${month.fr} à ${time.frDisplay}.`,
           questions: [
             ['家庭聚会是星期几？', day.zh, otherDays[0].zh, otherDays[1].zh],
             ['聚会几点开始？', time.zh, otherTimes[0].zh, otherTimes[1].zh],
@@ -604,7 +606,7 @@ export const N01_02_SCENARIOS = {
         const cherFr = g(persona, 'Cher', 'Chère')
         const gentilFr = g(persona, 'gentil', 'gentille')
         return {
-          text: `Bonjour ${persona.name} ! ${cherFr} voisin${g(persona, '', 'e')}, merci mille fois pour ${fav.fr}. Tu es vraiment très ${gentilFr} !`,
+          text: `Bonjour ${persona.name} ! ${cherFr} voisin${g(persona, '', 'e')}, merci mille fois ${merciDe(fav.fr)}. Tu es vraiment très ${gentilFr} !`,
           questions: [
             [`邻居感谢 ${persona.name} 是因为：`, fav.zh, otherFavors[0].zh, otherFavors[1].zh],
             ['邻居使用的致谢语句是：', '万分感谢', '请您多关照', '祝您一路顺风'],
@@ -640,7 +642,7 @@ export const N01_02_SCENARIOS = {
           { fr: 'ta pelle à neige', zh: '你的雪铲' },
           { fr: 'tes outils de jardin', zh: '你的园艺工具' },
           { fr: 'ton échelle', zh: '你的梯子' },
-          { fr: 'ta boîte à outils', zh: '你的工具箱' },
+          { fr: 'ton coffre à outils', zh: '你的工具箱' },
         ]
         const it = pick(items, rand)
         const otherItems = items.filter((x) => x.zh !== it.zh)
@@ -737,7 +739,7 @@ export const N01_02_SCENARIOS = {
         const n2 = pick([550, 680, 740, 890], rand)
         const others = sample(PLACES_SERVICES.filter((x) => !p.includes(x)), 2, rand)
         return {
-          text: `Guide des commerces : ${cap(p[0].fr)} au numéro ${n1}. ${cap(p[1].fr)} au numéro ${n2}.`,
+          text: `Guide des commerces : ${cap(p[0].fr)} se situe au numéro ${n1}. ${cap(p[1].fr)} se situe au numéro ${n2}.`,
           questions: [
             [`门牌号 ${n1} 是什么机构？`, p[0].zh, others[0].zh, others[1].zh],
             [`门牌号 ${n2} 是什么机构？`, p[1].zh, others[0].zh, others[1].zh],
@@ -1208,7 +1210,7 @@ export const N01_02_SCENARIOS = {
         const time = pick(['14 h 00', '15 h 30', '18 h 00'], rand)
         const otherDays = sample(DAYS.filter((d) => d.zh !== day.zh), 2, rand)
         return {
-          text: `Texto de ${persona.name} : « ${greeting} ! J’espère que tu vas bien. On se retrouve ${day.fr} à ${time} pour notre projet ? Confirme-moi dès que tu peux ! »`,
+          text: `Texto ${de(persona.name)} : « ${greeting} ! J’espère que tu vas bien. On se retrouve ${day.fr} à ${time} pour notre projet ? Confirme-moi dès que tu peux ! »`,
           questions: [
             ['是谁发送了这条短信？', persona.name, 'David', 'Christine'],
             [`${g(persona, '发信人（l’expéditeur）', '发信人（l’expéditrice）')}想确认哪一天的碰面？`, day.zh, otherDays[0].zh, otherDays[1].zh],
@@ -1232,7 +1234,7 @@ export const N01_02_SCENARIOS = {
         const cherFr = g(persona, 'Cher', 'Chère')
         const amiFr = g(persona, 'ami', 'amie')
         return {
-          text: `Courriel de ${persona.name} : « ${cherFr} collègue, un grand merci pour ${fav.fr}. Ton aide m’a été indispensable. Amitiés, ton ${amiFr} ${persona.name}. »`,
+          text: `Courriel ${de(persona.name)} : « ${cherFr} collègue, un grand merci ${merciDe(fav.fr)}. Ton aide m’a été indispensable. Amitiés, ton ${amiFr} ${persona.name}. »`,
           questions: [
             [`${persona.name} 写这封邮件的目的是：`, `感谢${fav.zh}`, `请求借款`, `请假缺勤`],
             [`发信人（${g(persona, 'l’expéditeur', 'l’expéditrice')}）是：`, persona.name, 'Luc', 'Valérie'],
@@ -1250,7 +1252,7 @@ export const N01_02_SCENARIOS = {
         const otherDays = sample(DAYS.filter((d) => d.zh !== day.zh), 2, rand)
         const otherPersonas = sample(PERSONAS.filter((p) => p.name !== persona.name), 2, rand)
         return {
-          text: `Texto de ${persona.name} : « Bonjour ! Il fait très beau ce ${day.fr}. Veux-tu aller marcher au parc à ${time} ? Réponds-moi si tu es libre ! »`,
+          text: `Texto ${de(persona.name)} : « Bonjour ! Il fait très beau ce ${day.fr}. Veux-tu aller marcher au parc à ${time} ? Réponds-moi si tu es libre ! »`,
           questions: [
             ['发信人提议在星期几去散步？', day.zh, otherDays[0].zh, otherDays[1].zh],
             ['短信的发信人是谁？', persona.name, otherPersonas[0].name, otherPersonas[1].name],
@@ -1272,7 +1274,7 @@ export const N01_02_SCENARIOS = {
         const otherTasks = tasks.filter((x) => x.zh !== t.zh)
         const voisinFr = g(persona, 'ton voisin', 'ta voisine')
         return {
-          text: `Message de ${persona.name} : « Bonjour ! Merci mille fois pour ton aide avec ${t.fr} ce matin. ${cap(voisinFr)}, ${persona.name}. »`,
+          text: `Message ${de(persona.name)} : « Bonjour ! Merci mille fois pour ton aide avec ${t.fr} ce matin. ${cap(voisinFr)}, ${persona.name}. »`,
           questions: [
             ['发信人感谢邻居的：', t.zh, otherTasks[0].zh, otherTasks[1].zh],
             ['发信人是收信人的：', g(persona, '男邻居', '女邻居'), '房东', '医生'],
@@ -1286,7 +1288,7 @@ export const N01_02_SCENARIOS = {
       (rand) => {
         const persona = pick(PERSONAS, rand)
         return {
-          text: `Texto de ${persona.name} : « Bonsoir ! Merci pour le café cet après-midi, c’était un plaisir de te voir. Passe une très bonne soirée ! »`,
+          text: `Texto ${de(persona.name)} : « Bonsoir ! Merci pour le café cet après-midi, c’était un plaisir de te voir. Passe une très bonne soirée ! »`,
           questions: [
             [`${persona.name} 在短信结尾送上了什么祝愿？`, '晚上愉快', '生日快乐', '节日愉快'],
             ['两人今天下午一起做了什么？', '喝了咖啡', '看了电影', '去了医院'],
@@ -1403,7 +1405,7 @@ export const N01_02_SCENARIOS = {
         const otherRels = sample(FAMILY_RELATIONS.filter((r) => r.zh !== rel.zh), 2, rand)
         const clinic = pick(['Clinique Laurier', 'Clinique Saint-Denis', 'Centre médical du Parc', 'Clinique Santé Plus'], rand)
         return {
-          text: `Bonjour ! À la ${clinic}, la personne qui vous accompagne aujourd’hui, c’est ${persona.name} ? Quel est votre lien de parenté avec ${g(persona, 'lui', 'elle')} ?`,
+          text: `Bonjour ! ${cap(auOrg(clinic))}, la personne qui vous accompagne aujourd’hui, c’est ${persona.name} ? Quel est votre lien de parenté avec ${g(persona, 'lui', 'elle')} ?`,
           questions: [
             [
               '面对医护人员询问亲属关系，合适的回答是：',
@@ -1421,7 +1423,8 @@ export const N01_02_SCENARIOS = {
     Object.assign(
       (rand) => {
         const persona = pick(PERSONAS, rand)
-        const pay = sample(PAYMENT_METHODS, 2, rand)
+        const payRaw = sample(PAYMENT_METHODS, 2, rand)
+        const pay = payRaw[0].fr === 'par chèque' ? [payRaw[1], payRaw[0]] : payRaw
         const food = pick([
           { fr: 'le repas du midi', zh: '午餐套餐' },
           { fr: 'ce sandwich frais', zh: '新鲜三明治' },
@@ -1435,7 +1438,7 @@ export const N01_02_SCENARIOS = {
               '面对同事询问食堂支付方式，合适的回答是：',
               `Vous pouvez payer ${pay[0].fr} ou ${pay[1].fr}.`,
               'Le repas coûte quinze dollars.',
-              'La cafétéria est au deuxième étage.',
+              'La cafétéria est au 2e étage.',
             ],
             ['同事询问想购买的是什么食物？', food.zh, '整箱苹果', '生日大蛋糕'],
           ],
@@ -1451,7 +1454,7 @@ export const N01_02_SCENARIOS = {
         const rel = pick(FAMILY_RELATIONS, rand)
         const otherRels = sample(FAMILY_RELATIONS.filter((r) => r.zh !== rel.zh), 2, rand)
         return {
-          text: `Bonjour ! Vous venez chercher l’enfant ${child} à la ${daycare}. Quel est votre lien de parenté avec l’enfant ?`,
+          text: `Bonjour ! Vous venez chercher l’enfant ${child} ${auOrg(daycare)}. Quel est votre lien de parenté avec l’enfant ?`,
           questions: [
             [
               '面对幼教人员询问亲属关系，合适的回答是：',
@@ -1468,7 +1471,8 @@ export const N01_02_SCENARIOS = {
     // Scenario 4 (Ex 1): Community counter payment methods
     Object.assign(
       (rand) => {
-        const pay = sample(PAYMENT_METHODS, 2, rand)
+        const payRaw = sample(PAYMENT_METHODS, 2, rand)
+        const pay = payRaw[0].fr === 'par chèque' ? [payRaw[1], payRaw[0]] : payRaw
         const service = pick([
           { fr: 'l’atelier de francisation', zh: '法语培训班' },
           { fr: 'l’accès à la piscine', zh: '游泳馆门票' },
@@ -1656,7 +1660,7 @@ export const N01_02_SCENARIOS = {
         const floor1 = pick(['la salle de sport', 'la halte-garderie', 'le vestiaire'], rand)
         const floor1Zh = floor1.includes('sport') ? '体育活动厅' : floor1.includes('garde') ? '临时日托所' : '更衣区'
         return {
-          text: `Voici notre centre communautaire : ${floor1} est au rez-de-chaussée, et les classes de francisation sont au deuxième étage.`,
+          text: `Voici notre centre communautaire : ${floor1} est au rez-de-chaussée, et les classes de francisation sont au 2e étage.`,
           questions: [
             ['哪个设施位于一楼？', floor1Zh, '屋顶花园', '地下车库'],
             ['法语培训教室在几楼？', '二楼', '一楼', '地下室'],
@@ -1672,7 +1676,7 @@ export const N01_02_SCENARIOS = {
         const food2 = pick(FOOD_ITEMS.filter((f) => f.base !== food1.base), rand)
         const aisle = pick([1, 4, 7, 10], rand)
         return {
-          text: `${cap(artDef(food1))} se trouve dans l’allée ${aisle}, juste ${aCoteDe(food2)}.`,
+          text: `${cap(artDef(food1))} ${food1.number === 'p' ? 'se trouvent' : 'se trouve'} dans l’allée ${aisle}, juste ${aCoteDe(food2)}.`,
           questions: [
             ['该商品位于几号通道？', `${aisle} 号通道`, '15 号通道', '20 号通道'],
             ['它摆放在什么货品旁边？', `在${food2.zh}旁边`, '在收银台前', '在卫生间旁'],
@@ -1760,7 +1764,7 @@ export const N01_02_SCENARIOS = {
         const i = sample(instrs, 2, rand)
         const alt = sample(instrs.filter((x) => !i.includes(x)), 2, rand)
         return {
-          text: `Avis aux parents de la ${daycare} : n’oubliez pas de ${i[0].fr} et de ${i[1].fr} avant de quitter les lieux.`,
+          text: `Avis aux parents ${deOrg(daycare)} : n’oubliez pas de ${i[0].fr} et de ${i[1].fr} avant de quitter les lieux.`,
           questions: [
             ['离园前要求完成的第一件事是：', i[0].zh, alt[0].zh, alt[1].zh],
             ['第二项要求是：', i[1].zh, alt[0].zh, alt[1].zh],
@@ -1781,7 +1785,7 @@ export const N01_02_SCENARIOS = {
         const w = pick(warnings, rand)
         const alt = warnings.filter((x) => x.zh !== w.zh)
         return {
-          text: `Message de la STM (${station}) : ${w.fr}. Les contrevenants s’exposent à une amende.`,
+          text: `Message de la STM (${station}) : ${w.fr}. Attention : amende de 100 dollars.`,
           questions: [
             ['广播播报的安全警示是：', w.zh, alt[0].zh, alt[1].zh],
             ['违规者将面临什么后果：', '被处以罚款', '被口头表扬', '免费乘车一日'],
@@ -1802,7 +1806,7 @@ export const N01_02_SCENARIOS = {
         const i = sample(instrs, 2, rand)
         const alt = instrs.filter((x) => !i.includes(x))
         return {
-          text: `À la ${daycare} : veuillez ${i[0].fr}, puis ${i[1].fr}. Bonne journée !`,
+          text: `${cap(auOrg(daycare))} : veuillez ${i[0].fr}, puis ${i[1].fr}. Bonne journée !`,
           questions: [
             ['早晨入园时第一步要求是：', i[0].zh, alt[0].zh, '在院子里奔跑'],
             ['随后的卫生或登记要求是：', i[1].zh, alt[0].zh, '直接离开'],
@@ -1949,7 +1953,7 @@ export const N01_02_SCENARIOS = {
         const p1 = pick(['1,49 $', '2,29 $', '3,19 $'], rand)
         const limit = pick([2, 4, 6], rand)
         return {
-          text: `Circulaire IGA : ${cap(f1.base)} à ${p1}. Limite de ${limit} articles par client. Deuxième article à moitié prix.`,
+          text: `Circulaire IGA : ${cap(f1.base)} à ${p1}. Limite de ${limit} articles par client. Le 2e article à moitié prix.`,
           questions: [
             [`${f1.zh}的促销价格是？`, p1, '10,00 $', '免费'],
             ['每位顾客限购多少件？', `${limit} 件`, '10 件', '不限量'],
@@ -2092,19 +2096,21 @@ export const N01_02_SCENARIOS = {
     Object.assign(
       (rand) => {
         const city = pick(['Montréal', 'Québec', 'Gatineau', 'Sherbrooke', 'Trois-Rivières'], rand)
-        const d1 = pick(DAYS.slice(0, 2), rand)
-        const d2 = pick(DAYS.slice(2, 4), rand)
+        const dayIndices = sample([0, 1, 2, 3, 4, 5, 6], 4, rand).sort((a, b) => a - b)
+        const [d1, d2, d3, d4] = dayIndices.map((i) => DAYS[i])
         const t1 = pick([18, 20, 22], rand)
         const t2 = pick([12, 14, 15], rand)
+        const t3 = pick([-2, -4, 0], rand)
+        const t4 = pick([6, 8, 10], rand)
         return {
-          text: `Prévisions météo pour ${city} : ${d1.fr} ☀️ (${t1} °C) ; ${d2.fr} 🌧️ (${t2} °C) ; jeudi ❄️ (-2 °C) ; vendredi 🌬️ (8 °C).`,
+          text: `Prévisions météo pour ${city} : ${d1.fr} ☀️ (${t1} °C) ; ${d2.fr} 🌧️ (${t2} °C) ; ${d3.fr} ❄️ (${t3} °C) ; ${d4.fr} 🌬️ (${t4} °C).`,
           questions: [
             [`根据气象带，${d2.fr}显示的图标 🌧️ 代表什么天气？`, '降雨天气', '晴朗天气', '降雪天气'],
             ['温度符号“°C”代表的含义是：', '摄氏度（温度单位）', '厘米（长度单位）', '分（货币单位）'],
           ],
         }
       },
-      { capacity: 5 * 2 * 2 * 3 * 3, situation: 0 }
+      { capacity: 5 * 35 * 3 * 3 * 3 * 3, situation: 0 }
     ),
     // Scenario 2 (Ex 2): Meat counter abbreviations ($, ¢, kg, g, lb)
     Object.assign(
@@ -2227,7 +2233,7 @@ export const N01_02_SCENARIOS = {
         const correctDigits = `${formatDigits(amt)} $`
         const otherDigits = amounts.filter((a) => a !== amt).map((a) => `${formatDigits(a)} $`)
         return {
-          text: `Reçu officiel de formation : Reçu de ${persona.name} la somme de ${words} dollars pour les cours de francisation.`,
+          text: `Reçu officiel de formation : Reçu ${de(persona.name)} la somme ${de(words)} dollars pour les cours de francisation.`,
           questions: [
             ['收据上确认的收款金额阿拉伯数字是：', correctDigits, otherDigits[0], otherDigits[1]],
             ['该收据开具的用途是：', '法语课程学费', '购买办公桌', '租车押金'],
@@ -2409,7 +2415,7 @@ export const N01_02_SCENARIOS = {
         const cherFr = g(persona, 'Cher', 'Chère')
         const toucheFr = g(persona, 'touché', 'touchée')
         return {
-          text: `Message de ${persona.name} : « ${cherFr} collègue, un grand merci pour ${serv.fr}. Ta disponibilité m’a beaucoup ${toucheFr}. Amitiés, ${persona.name}. »`,
+          text: `Message ${de(persona.name)} : « ${cherFr} collègue, un grand merci pour ${serv.fr}. Ta disponibilité m’a beaucoup ${toucheFr}. Amitiés, ${persona.name}. »`,
           questions: [
             [`${persona.name} 表达感谢是因为同事帮忙做了什么？`, serv.zh, otherServs[0].zh, otherServs[1].zh],
             ['该信函的主要情感基调是：', '真诚致谢', '愤怒投诉', '索取退款'],
@@ -2432,7 +2438,7 @@ export const N01_02_SCENARIOS = {
         const wish = pick(wishes, rand)
         const otherWishes = sample(wishes.filter((w) => w.zh !== wish.zh), 2, rand)
         return {
-          text: `Carte de souhaits de la part de ${persona.name} : « ${wish.fr} ! Que cette occasion vous apporte joie et santé. Bien cordialement, ${persona.name}. »`,
+          text: `Carte de souhaits de la part ${de(persona.name)} : « ${wish.fr} ! Que cette occasion vous apporte joie et santé. Bien cordialement, ${persona.name}. »`,
           questions: [
             ['这张贺卡表达的核心祝愿是：', wish.zh, otherWishes[0].zh, otherWishes[1].zh],
             ['寄送这张贺卡的人是：', persona.name, 'Simon', 'Isabelle'],
@@ -2448,13 +2454,13 @@ export const N01_02_SCENARIOS = {
         const favors = [
           { fr: 'avoir arrosé mes fleurs pendant mes vacances', zh: '休假期间帮忙浇花' },
           { fr: 'avoir pris soin de mon chat la semaine dernière', zh: '上周帮忙喂养照看猫咪' },
-          { fr: 'avoir récupéré mon courrier dans la boîte aux lettres', zh: '帮忙收取信箱邮件' },
+          { fr: 'avoir récupéré mon courrier dans mon casier postal', zh: '帮忙收取信箱邮件' },
           { fr: 'avoir surveillé mon appartement pendant mon absence', zh: '外出期间照料公寓' },
         ]
         const fav = pick(favors, rand)
         const otherFavs = sample(favors.filter((f) => f.zh !== fav.zh), 2, rand)
         return {
-          text: `Mot laissé par ${persona.name} : « Merci infiniment pour ${fav.fr}. Tout était parfait à mon retour ! Amitiés, ${persona.name}. »`,
+          text: `Mot laissé par ${persona.name} : « Merci infiniment ${merciDe(fav.fr)}. Tout était parfait à mon retour ! Amitiés, ${persona.name}. »`,
           questions: [
             ['留言便条感谢邻居的是：', fav.zh, otherFavs[0].zh, otherFavs[1].zh],
             ['便条的留信人是：', persona.name, 'Jean', 'Monique'],
@@ -2482,7 +2488,7 @@ export const N01_02_SCENARIOS = {
       (rand) => {
         const persona = pick(PERSONAS, rand)
         return {
-          text: `Carte des Fêtes : « Joyeuses Fêtes et heureuse nouvelle année de la part de ${persona.name} et de toute sa famille ! Paix, amour et santé chez vous. »`,
+          text: `Carte des Fêtes : « Joyeuses Fêtes et heureuse nouvelle année de la part ${de(persona.name)} et de toute sa famille ! Paix, amour et santé chez vous. »`,
           questions: [
             ['贺卡送出的节日祝愿是：', '节日快乐与新年祝愿', '生日快乐', '早日康复'],
             ['这份祝愿来自谁和家人？', persona.name, 'Banque de Montréal', 'Centre d’achats'],

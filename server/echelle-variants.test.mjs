@@ -372,4 +372,87 @@ describe('Échelle item variant engine', () => {
       )
     }
   })
+
+  it('satisfies second review round French rules across 600 seeds for all N1-N2 listening and reading indicators', () => {
+    const indicatorItems = getN12QuizItems().filter((id) => id.includes('listening') || id.includes('reading'))
+    assert.strictEqual(indicatorItems.length, 24)
+
+    const elisionRegex = /\b(de|que|le|la|je|ne|me|te|se)\s+([aeiouyéèêàâîôûAEIOUYÉÈÊÀÂÎÔÛ]\S*)/g
+    const merciRegex = /merci[^.!?]*\bpour (avoir|être)\b/i
+    const pluralAgreementRegex = /\b(Les|Des) \S+ (se trouve|est situé|est)\b/
+    const instGenderRegex = /\bde la (Service|Centre|CPE|CLSC)\b|\b[Àà] la (CPE|CLSC|Service|Centre)\b/
+    const weatherDays = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']
+    const futurN1Regex = /\b(aura|auront|sera|seront|ira|iront)\b/
+
+    const ELISION_ALLOW_LIST = new Set([
+      'onze', 'onzième', 'oui', 'yaourt', 'yoga', 'youssef',
+      'huit', 'huitième', 'hockey', 'halte', 'hall',
+    ])
+
+    for (const itemId of indicatorItems) {
+      for (let seed = 1; seed <= 600; seed++) {
+        const v = getEchelleItemVariant(itemId, seed)
+        const texts = [v.text]
+        if (v.questions) {
+          for (const q of v.questions) {
+            texts.push(q.prompt)
+            if (q.choices) texts.push(...q.choices)
+          }
+        }
+
+        for (const text of texts) {
+          if (!text) continue
+
+          let m
+          while ((m = elisionRegex.exec(text)) !== null) {
+            if (m.index > 0 && /[a-zA-ZàâäéèêëîïôöùûüÿœçÀÂÄÉÈÊËÎÏÔÖÙÛÜŸŒÇ]/.test(text[m.index - 1])) {
+              continue
+            }
+            const cleanWord = m[2].toLowerCase().replace(/[^a-zàâçéèêëîïôöùûüÿœ]/g, '')
+            if (ELISION_ALLOW_LIST.has(cleanWord)) {
+              continue
+            }
+            assert.fail(`Elision error in ${itemId} seed ${seed}: "${m[0]}" in "${text}"`)
+          }
+
+          assert.strictEqual(
+            merciRegex.test(text),
+            false,
+            `"merci pour avoir/être" error in ${itemId} seed ${seed}: "${text}"`,
+          )
+
+          assert.strictEqual(
+            pluralAgreementRegex.test(text),
+            false,
+            `Plural agreement error in ${itemId} seed ${seed}: "${text}"`,
+          )
+
+          assert.strictEqual(
+            instGenderRegex.test(text),
+            false,
+            `Institution gender error in ${itemId} seed ${seed}: "${text}"`,
+          )
+
+          if (itemId.startsWith('n1-')) {
+            assert.strictEqual(
+              futurN1Regex.test(text),
+              false,
+              `Futur simple found in Niveau 1 item ${itemId} seed ${seed}: "${text}"`,
+            )
+          }
+        }
+
+        if (v.text && (v.text.includes('☀️') || v.text.includes('🌧️') || v.text.includes('❄️') || v.text.includes('🌬️'))) {
+          const lowerText = v.text.toLowerCase()
+          for (const day of weatherDays) {
+            const dayMatches = lowerText.match(new RegExp(`\\b${day}\\b`, 'g')) || []
+            assert.ok(
+              dayMatches.length <= 1,
+              `Day "${day}" appears multiple times in weather strip for ${itemId} seed ${seed}: "${v.text}"`,
+            )
+          }
+        }
+      }
+    }
+  })
 })
