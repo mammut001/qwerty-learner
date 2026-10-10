@@ -2204,8 +2204,476 @@ export const N07_08_SCENARIOS = {
       ],
     },
   ],
-  'n8-reading-1': [],
-  'n8-reading-2': [],
-  'n8-reading-3': [],
+  // ===========================================================================
+  // n8-reading-1 (narratif)
+  // Ex 0: Déroulement des aventures tragiques de la protagoniste d’une nouvelle littéraire
+  // Ex 1: Déroulement des péripéties dans une bande dessinée
+  // ===========================================================================
+  'n8-reading-1': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "Extrait de la nouvelle « L’Hiver de Gabrielle »\n\nInstallée dans une mansarde mal chauffée du faubourg Saint-Jean-Baptiste à Québec, Gabrielle consacrait chaque minute de son existence au violoncelle. L’audition annuelle de l’Orchestre symphonique représentait son unique chance d’échapper à la précarité financière qui l’étouffait depuis son départ de la Gaspésie. Obsédée par la perfection technique du concerto de Dvořák, la jeune musicienne s’imposait dix heures de répétition quotidienne, sautant les repas et négligeant une fièvre tenace qui faisait trembler ses doigts fébriles.\n\nLe soir tant redouté, sous les projecteurs brûlants du Grand Théâtre, la salle comble retenait son souffle. Mais dès les premières mesures de la cadence finale, le corps épuisé de Gabrielle refusa d’obéir. Sa vision se brouilla, son archet glissa brutalement sur la touche dans un crissement déchirant, et la soliste s’effondra inanimée sur les planches cirées de la scène, son instrument brisé à ses côtés dans un silence de cathédrale.",
+      questions: [
+        [
+          "Quel enjeu vital l’audition musicale représentait-elle pour la jeune artiste ?",
+          "L’opportunité décisive de surmonter une situation matérielle précaire",
+          "La promesse d’obtenir une bourse pour étudier la musique en Europe",
+          "Le moyen d’honorer une promesse solennelle faite à ses vieux parents malades",
+        ],
+        [
+          "Que peut-on déduire sur l’attitude de Gabrielle face aux signaux d’alerte de son corps ?",
+          "Elle faisait preuve d’un déni obstiné dicté par une exigence démesurée",
+          "Elle écoutait scrupuleusement les conseils préventifs de son médecin",
+          "Elle cherchait délibérément un prétexte crédible pour fuir l’audition publique",
+        ],
+        [
+          "Quel dénouement tragique vient sceller la tentative de la protagoniste ?",
+          "Une perte de conscience sur le plancher causant le bris de son instrument",
+          "Une interruption du concert causée par un malaise cardiaque du chef",
+          "Le refus du jury de l’entendre jouer en raison de son retard à l’entrée",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "Extrait de la nouvelle « Le Dernier Vol d’Évelyne »\n\nPilote de brousse chevronnée établie à Havre-Saint-Pierre, Évelyne connaissait les humeurs impétueuses du golfe du Saint-Laurent mieux que quiconque. Lorsque l’alerte radio signala qu’un prospecteur blessé agonisait dans un campement minier isolé de la Côte-Nord, elle refusa d’attendre l’accalmie météo promise pour le lendemain. Défiant les avertissements du chef de base qui lui déconseillait formellement de décoller en plein blizzard boréal, elle prit les commandes de son hydravion sous un ciel d’encre.\n\nÀ mi-parcours, au-dessus des forêts d’épinettes noires battues par des rafales violentes, le givre alourdit inexorablement les gouvernes de direction. Malgré toute son audace de pilote d’élite, l’appareil devint incontrôlable. Après un dernier message haché annonçant une descente d’urgence sur un lac gelé inconnu, les radars de Kuujjuaq perdirent son signal, ensevelissant son destin courageux sous un linceul de neige tourbillonnante.",
+      questions: [
+        [
+          "Quel motif pressant pousse Évelyne à entreprendre ce vol périlleux ?",
+          "Secourir sans attendre un travailleur blessé en forêt éloignée",
+          "Rapporter des échantillons de minéraux précieux pour la compagnie",
+          "Rejoindre sa famille pour célébrer le réveillon du premier janvier",
+        ],
+        [
+          "Quelle réaction caractérise la protagoniste face aux consignes de prudence de sa hiérarchie ?",
+          "Une insoumission téméraire motivée par son devoir moral d’assistance",
+          "Une hésitation anxieuse prolongée avant de monter dans son appareil",
+          "Une acceptation immédiate d’annuler la mission jusqu’au lendemain midi",
+        ],
+        [
+          "Que peut-on déduire quant au sort final de l’aviatrice dans la tourmente hivernale ?",
+          "Son hydravion a été englouti par le mauvais temps sans issue favorable",
+          "Elle a réussi à amerrir sans dommage près du port de Havre-Saint-Pierre",
+          "Elle a trouvé refuge dans une pourvoirie de chasseurs en attendant l’été",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "Extrait de la nouvelle « L’Atelier de Clara »\n\nRestauratrice d’art au musée régional de Rimouski, Clara vivait recluse dans son atelier sous les combles depuis la réception d’une toile maritime anonyme du dix-neuvième siècle. Convaincue que cette peinture dissimulait un portrait secret sous ses couches de vernis jauni, elle s’acharnait jour et nuit à décaper la surface à l’aide de solvants chimiques hautement corrosifs. Refusant d’aérer la pièce pour empêcher la poussière du fleuve de se déposer sur le chef-d’œuvre, elle inhalait sans précaution les émanations nocives qui engourdissaient son esprit.\n\nLe jour même où l’exposition inaugurale devait s’ouvrir au public, son directeur découvrit la porte de l’atelier verrouillée de l’intérieur. Lorsqu’on força la serrure, Clara gisait inanimée devant son chevalet. Sur la toile entièrement restaurée resplendissait le visage radieux d’une jeune femme du siècle passé, contemplant d’un regard d’or la restauratrice vaincue par son propre dévouement artistique.",
+      questions: [
+        [
+          "Quelle conviction profonde pousse Clara à s’enfermer des semaines entières dans sa pièce de travail ?",
+          "La certitude qu’une œuvre cachée se trouve sous les couches anciennes",
+          "La volonté de vendre la toile à un riche collectionneur de l’étranger",
+          "L’obligation de rembourser une dette contractée auprès de la direction",
+        ],
+        [
+          "Quel comportement imprudent précipite la fin tragique de la restauratrice ?",
+          "Le confinement prolongé dans un espace saturé de vapeurs toxiques",
+          "L’utilisation de bougies allumées près de bouteilles de solvant pur",
+          "La manipulation d’outils tranchants sans aucune protection aux doigts",
+        ],
+        [
+          "Que peut-on déduire sur le sentiment qui se dégage du contraste final de la scène ?",
+          "Une cruelle ironie où la beauté révélée triomphe au prix d’une vie humaine",
+          "Une satisfaction joyeuse partagée par l’ensemble des membres de l’équipe",
+          "Un soulagement général devant la destruction définitive de la toile peinte",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "Analyse narrative de la bande dessinée « Chroniques du Dôme de verre »\n\nDans cette dystopie graphique se déroulant sur la Côte-Nord, deux adolescents intrépides, Félix et Maya, survivent sous une immense cloche protectrice censée isoler la population d’une atmosphère extérieure prétendument irrespirable. Soupçonnant un mensonge d’État après avoir découvert un journal intime oublié, le duo s’infiltre dans les galeries de ventilation industrielle du secteur minier. Traqués par des escouades de drones sentinelles, ils parviennent à franchir le sas de décontamination scellé en provoquant un court-circuit dans l’ordinateur central.\n\nSautant sur le toit d’un convoi ferroviaire automatisé filant dans la nuit boréale, Félix et Maya traversent la muraille d’acier. Dans la spectaculaire double page centrale, ils émergent à l’air libre : loin de la terre morte promise par la propagande, ils découvrent une toundra florissante baignée d’aurores boréales, révélant la machination des dirigeants qui maintenaient la cité captive sous le joug de la terreur.",
+      questions: [
+        [
+          "Quel indice met les jeunes protagonistes sur la piste d’une supercherie collective ?",
+          "La consultation clandestine d’un vieux carnet intime trouvé par hasard",
+          "L’interception d’un appel téléphonique entre des dirigeants de la mine",
+          "La vue directe d’animaux sauvages se promenant sur le dôme de verre",
+        ],
+        [
+          "Comment les fugitifs réussissent-ils à déjouer la surveillance des machines de sécurité ?",
+          "En causant une panne électrique majeure pour ouvrir la porte de sortie",
+          "En piratant les caméras vidéo pour projeter de fausses images en boucle",
+          "En se cachant dans des caisses de minerai destinées à la refonte locale",
+        ],
+        [
+          "Quelle réaction stupéfaite les héros éprouvent-ils en découvrant l’environnement extérieur ?",
+          "Un choc salutaire face à une nature bien vivante contredisant les récits officiels",
+          "Une panique incontrôlable causée par la présence d’air toxique et étouffant",
+          "Une déception immense devant un désert de glace froid et totalement inhabité",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "Compte rendu de l’album illustré « Le Sceau de Champlain »\n\nCette bande dessinée d’aventures entraîne les lecteurs dans une course folle à travers les rues enneigées du Vieux-Québec. Julien, un jeune stagiaire en archivistique au Musée de la civilisation, met la main sur un parchemin codé révélant l’emplacement de la sépulture secrète du fondateur de Québec. Très vite, une confrérie de trafiquants d’antiquités prend Julien en chasse pour lui dérober l’inestimable document historique.\n\nLa traque atteint son apogée lors du défilé nocturne du Carnaval de Québec. Usant des ruelles escarpées et se fondant parmi les milliers de festivaliers costumés, Julien déjoue ses assaillants sur la terrasse Dufferin en sautant sur la glissade de glace historique. Après une folle descente sous les feux d’artifice, il trouve refuge au monastère des Ursulines où une conservatrice bienveillante l’aide à dissimuler la relique avant l’arrivée des policiers, sauvant ainsi ce pan inestimable du patrimoine national québécois.",
+      questions: [
+        [
+          "Quelle trouvaille historique exceptionnelle déclenche les péripéties vécues par Julien ?",
+          "Un texte ancien codé indiquant le lieu secret d’une tombe historique",
+          "Une épée de cérémonie forgée au dix-septième siècle trouvée dans le fleuve",
+          "Une carte manuscrite indiquant une cachette de pièces d’or sous la falaise",
+        ],
+        [
+          "Quelle astuce permet à Julien d’échapper à ses poursuivants au cœur de la haute-ville ?",
+          "Se fondre habilement au sein de la foule rassemblée pour la fête carnavalesque",
+          "Voler une motoneige de patrouille stationnée devant l’hôtel de ville de Québec",
+          "Menacer les malfaiteurs avec une arme à feu factice achetée dans un dépanneur",
+        ],
+        [
+          "Que peut-on déduire quant à l’intention de la conservatrice du couvent des Ursulines ?",
+          "Elle protège un trésor collectif contre l’avidité de marchands sans scrupules",
+          "Elle désire vendre discrètement le document pour enrichir sa communauté",
+          "Elle cherche à remettre immédiatement Julien aux mains de ses ravisseurs",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "Trame narrative du roman graphique « Le Spectre du canal de Lachine »\n\nAu cœur de Montréal, cette bande dessinée fantastique suit Sarah, une détective privée hantée par la disparition inexpliquée de plusieurs archéologues industriels dans le quartier Saint-Henri. Suivant la piste d’inscriptions mystérieuses gravées le long des écluses centenaires du canal, l’enquêtrice découvre une entrée submergée dissimulée derrière une vanne de régulation d’eau abandonnée.\n\nÉquipée d’une lampe étanche, Sarah s’aventure dans un dédale de galeries hydrauliques victoriennes oubliées sous la ville. Alors qu’une tempête printanière fait monter dangereusement le niveau des eaux fluviales, menaçant d’inonder le réseau sous-terrain, elle affronte une silhouette spectrale qui protégeait les archives secrètes de la première manufacture textile de la métropole. En déchiffrant une énigme mécanique sculptée dans une roue à aubes, Sarah parvient à rouvrir une vanne d’évacuation, sauvant de la noyade un chercheur séquestré avant de regagner la surface au lever du jour.",
+      questions: [
+        [
+          "Quel mystère urbain pousse la détective privée à explorer les abords du canal montréalais ?",
+          "La disparition soudaine de plusieurs spécialistes en archéologie industrielle",
+          "Une série de vols commis dans les luxueux appartements du quartier Saint-Henri",
+          "La découverte d’un chargement d’armes anciennes caché dans un navire marchand",
+        ],
+        [
+          "Quel danger naturel imminent met la vie de Sarah en péril dans les sous-sols ?",
+          "Une subversion des galeries souterraines causée par les pluies torrentielles",
+          "Un effondrement brutal des voûtes en briques provoqué par un tremblement de terre",
+          "Une explosion accidentelle de gaz de schiste due à l’usage de sa torche étanche",
+        ],
+        [
+          "Quelle réaction courageuse permet à l’héroïne de sauver le captif de la noyade ?",
+          "Résoudre avec sang-froid un mécanisme hydraulique pour faire baisser le niveau d’eau",
+          "Neutraliser la créature en lui tirant dessus à l’aide de balles en argent massif",
+          "Téléphoner aux plongeurs de la Sûreté du Québec pour obtenir un secours d’urgence",
+        ],
+      ],
+    },
+  ],
+  // ===========================================================================
+  // n8-reading-2 (explicatif)
+  // Ex 0: Explications dans un courriel de la direction sur la réorganisation des équipes
+  // Ex 1: Explications concernant une fonctionnalité d’un logiciel dans un forum
+  // ===========================================================================
+  'n8-reading-2': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "De : Direction générale — CIUSSS de la Mauricie-et-du-Centre-du-Québec\nÀ : Tout le personnel des services de proximité\nObjet : Optimisation et regroupement de nos équipes cliniques ambulatoires\n\nChères collaboratrices, chers collaborateurs,\n\nÀ la suite de notre consultation organisationnelle menée cet hiver, nous vous présentons aujourd’hui les fondements de la restructuration de nos services ambulatoires qui entrera en vigueur le premier novembre prochain. La pénurie aiguë d’infirmières cliniciennes et de travailleuses sociales nous contraint à dépasser le modèle actuel en silos par établissement.\n\nDès l’automne, les équipes de vaccination préventive et de dépistage scolaire seront regroupées au sein d’un pôle d’intervention mobile unique. Cette synergie permettra de déployer nos effectifs là où les besoins sont les plus criants sur le territoire, sans multiplier les démarches administratives redondantes. Deux coordonnateurs cliniques issus du terrain assureront la supervision hebdomadaire pour garantir l’équité des charges de travail.\n\nSoyez assurés que cette transition respectera les préférences géographiques exprimées par les agents dans leur formulaire d’affectation, tout en consolidant notre offre de soins aux familles vulnérables.",
+      questions: [
+        [
+          "Quel motif structurel fondamental justifie le regroupement des services ambulatoires ?",
+          "Le manque prononcé de professionnelles de santé exigeant une réorganisation",
+          "La volonté d’augmenter les tarifs facturés aux patients lors des consultations",
+          "L’obligation de fermer tous les centres locaux de santé communautaire en région",
+        ],
+        [
+          "Quel fonctionnement novateur caractérisera le nouveau pôle créé à l’automne ?",
+          "Une équipe d’intervention itinérante répondant aux besoins de l’ensemble du secteur",
+          "Une division réservée uniquement au traitement hospitalier des maladies chroniques",
+          "Un service exclusivement téléphonique géré par des assistants virtuels automatisés",
+        ],
+        [
+          "Quelle intention bienveillante la direction exprime-t-elle envers ses équipes de terrain ?",
+          "Prendre en compte les souhaits individuels de localisation des professionnels",
+          "Offrir une prime financière extraordinaire à chaque personne acceptant le poste",
+          "Dispenser l’ensemble des soignants de tout rapport d’évaluation pendant une année",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "De : Présidence — Coopérative forestière Boréale (Saguenay)\nÀ : Membres sociétaires et équipes de terrain\nObjet : Modernisation de notre chaîne logistique et redéploiement des brigades\n\nChers collègues sociétaires,\n\nL’intégration de notre nouvelle flotte d’abatteuses multifonctionnelles téléguidées transforme en profondeur nos méthodes sylvicoles. Pour rentabiliser ces équipements de pointe et atténuer la pénibilité des quarts de travail en forêt, le conseil d’administration a entériné une réorganisation complète de nos brigades de récolte et de reboisement.\n\nÀ compter du quinze septembre, les équipes de coupe et les techniciens d’entretien ne seront plus rattachés à des chantiers fixes mais à deux cellules régionales polyvalentes. Cette flexibilité permettra de mutualiser les pièces de rechange et de synchroniser les opérations selon les conditions météorologiques en direct. Chaque travailleur bénéficiera d’un calendrier rotatif de quatre jours de travail suivis de trois jours de congé consécutifs.\n\nUne période d’adaptation de trois mois est prévue avec des ateliers de perfectionnement rémunérés dispensés au centre de formation professionnelle de Dolbeau. Nous comptons sur l’engagement solidaire de chacun pour faire de ce virage un succès coopératif.",
+      questions: [
+        [
+          "Quelle transformation technologique a impulsé cette refonte de l’organisation du travail ?",
+          "L’arrivée d’engins forestiers sophistiqués nécessitant de nouvelles compétences",
+          "L’abandon total de l’informatique au profit de méthodes manuelles traditionnelles",
+          "La fermeture des scieries locales obligeant à exporter les troncs sans découpe",
+        ],
+        [
+          "Quel aménagement du temps de travail a été négocié pour les salariés des brigades ?",
+          "Une alternance fixe de quatre journées d’activité et de trois jours de repos",
+          "Une semaine de travail obligatoire de sept jours continus en forêt boréale",
+          "La suppression de tout congé annuel pendant les mois de récolte automnale",
+        ],
+        [
+          "Que peut-on déduire quant à l’attitude de la coopérative face aux compétences requises ?",
+          "Elle investit dans la formation continue de ses membres pour faciliter l’adaptation",
+          "Elle prévoit de remplacer les sociétaires actuels par des sous-traitants temporaires",
+          "Elle refuse d’accorder le moindre temps d’apprentissage sur les nouveaux outils",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "De : Direction des affaires étudiantes — Cégep du Vieux Montréal\nÀ : Communauté enseignante et personnel professionnel\nObjet : Mise en place du Guichet unique d’accompagnement à la réussite\n\nChères et chers collègues,\n\nFace à la diversification des besoins de notre population collégiale, notre organisation interne doit évoluer pour offrir un soutien plus cohérent et rapide. Dès la rentrée d’automne, nous fusionnons l’accueil du service d’orientation, le bureau de l’aide financière et le centre d’aide à l’apprentissage sous la bannière d’un Guichet unique interdisciplinaire.\n\nCette refonte vise à éliminer le parcours du combattant imposé aux étudiants en difficulté, qui devaient jusqu’ici naviguer entre plusieurs pavillons pour obtenir de l’aide. Désormais, chaque nouvel inscrit rencontrera un conseiller pivot qui coordonnera l’ensemble de ses rendez-vous psychosociaux et scolaires. Les intervenants travailleront dans un espace partagé favorisant les échanges rapides de dossiers dans le respect absolu de la confidentialité.\n\nNous vous invitons à une séance d’information hybride jeudi prochain à midi afin de répondre à toutes vos interrogations sur la répartition des bureaux et la nouvelle plateforme de prise de rendez-vous.",
+      questions: [
+        [
+          "Quel irritant majeur pour les étudiants le projet de fusion vise-t-il à éliminer ?",
+          "La multiplication des démarches morcelées à travers différents pavillons",
+          "L’obligation de payer des droits d’inscription supplémentaires pour être guidé",
+          "L’absence totale de professeurs d’aide aux devoirs pendant les fins de semaine",
+        ],
+        [
+          "Quel rôle central le conseiller pivot jouera-t-il auprès de chaque collégien ?",
+          "Coordonner de manière personnalisée l’ensemble des services dont il a besoin",
+          "Décider unilatéralement de l’exclusion définitive des jeunes en situation d’échec",
+          "Remplacer les professeurs lors des cours magistraux de formation générale commune",
+        ],
+        [
+          "Que peut-on déduire sur la volonté de la direction dans la gestion de ce changement ?",
+          "Elle favorise un dialogue ouvert et transparent pour rassurer son personnel",
+          "Elle impose la réorganisation sans accorder aucun moment d’échange aux équipes",
+          "Elle cherche à réduire le nombre global de conseillers d’orientation en poste",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "Forum des utilisateurs ComptaPlus Pro Québec\nSujet : Comprendre le module de conciliation bancaire automatisée par IA\nAuteur : Martin_Tech (Modérateur certifié)\n\nBonjour à la communauté,\n\nPlusieurs d’entre vous ont exprimé des doutes sur le fonctionnement du nouveau module de conciliation bancaire introduit dans la mise à jour 6.4. Contrairement à l’ancienne méthode qui comparait uniquement les montants bruts, ce moteur d’intelligence artificielle analyse simultanément le libellé de la transaction, le numéro de taxe TPS/TVQ et l’historique des factures de chaque fournisseur.\n\nSi une écriture bancaire n’est pas reconnue automatiquement, cela provient généralement d’un écart de date supérieur à sept jours entre le virement et l’émission de la facture. Pour résoudre ce blocage, ouvrez l’onglet « Règles personnalisées », sélectionnez le compte Desjardins concerné et élargissez la fenêtre de tolérance chronologique à quatorze jours. De plus, prenez garde à ne pas forcer manuellement une ligne d’écriture si un voyant orange clignote : ce signal indique une divergence de devise qui nécessite une conversion préalable dans le registre des devises étrangères.\n\nN’hésitez pas à consigner vos retours pour notre prochain comité de développement.",
+      questions: [
+        [
+          "Quelle amélioration technique majeure distingue le nouveau moteur de conciliation bancaire ?",
+          "L’analyse conjointe des numéros fiscaux, des libellés et des historiques de facturation",
+          "La suppression complète de l’obligation de payer les taxes de vente provinciales",
+          "L’envoi automatique des déclarations fiscales d’impôt au ministère du Revenu",
+        ],
+        [
+          "Quelle manipulation précise est conseillée lorsque des transactions ne s’associent pas ?",
+          "Augmenter l’intervalle de temps toléré entre la facture et le transfert d’argent",
+          "Supprimer définitivement le compte bancaire de l’entreprise pour recommencer",
+          "Désactiver l’ensemble des fonctionnalités de sécurité du logiciel d’exploitation",
+        ],
+        [
+          "Quelle attitude le modérateur préconise-t-il face au voyant d’alerte orange ?",
+          "Une prudence rigoureuse en évitant toute validation hâtive avant vérification",
+          "Un mépris total du signal d’alarme puisqu’il s’agit d’une anomalie sans conséquence",
+          "Une fermeture immédiate du programme informatique pour effacer les données de calcul",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "Forum d’entraide ÉcoPlan 3D — Conception bioclimatique\nSujet : Paramétrer l’analyse d’ensoleillement et le calcul thermique passif\nAuteur : Geneviève_Archi (Experte LEED)\n\nChers confrères,\n\nÀ la suite de nombreuses questions sur le forum, voici comment exploiter pleinement le module d’ensoleillement de la version Pro. Pour obtenir des simulations fiables conformes au Code de construction du Québec, vous devez impérativement charger le fichier météo officiel de votre municipalité disponible sur le portail d’Environnement Canada.\n\nUne fois la maquette 3D géoréférencée, activez la fonction « Masque d’ombrage solaire ». L’outil modélisera l’impact des bâtiments voisins et du couvert végétal existant sur vos baies vitrées au solstice d’hiver et au solstice d’été. Si le calcul du coefficient de déperdition thermique renvoie un message d’erreur critique, vérifiez que chaque ouverture a bien été assignée à un mur extérieur et non à une cloison mitoyenne. Enfin, pour exporter le bordereau énergétique au format exigé par les inspecteurs municipaux, cochez l’option « Bilan normatif provincial » dans le menu d’impression PDF.\n\nCe protocole vous évitera des allers-retours fastidieux avec les bureaux d’urbanisme lors des demandes de permis de construire.",
+      questions: [
+        [
+          "Quelle exigence préalable conditionne la validité des calculs thermiques de l’édifice ?",
+          "L’importation des données météorologiques officielles de la localité visée",
+          "La présence obligatoire d’un garage chauffé dans la modélisation spatiale",
+          "L’achat d’un ordinateur de bureau certifié par l’Ordre des architectes",
+        ],
+        [
+          "Quelle maladresse fréquente de modélisation provoque l’apparition d’un bogue système ?",
+          "L’affectation erronée d’une fenêtre vitrée à une séparation intérieure mitoyenne",
+          "Le choix d’une orientation cardinale tournée en direction de la lumière solaire",
+          "La fixation d’une toiture isolée au-dessus du dernier étage de la construction",
+        ],
+        [
+          "Que peut-on déduire quant à l’intérêt pratique de l’exportation au format normatif provincial ?",
+          "Accélérer la délivrance des autorisations administratives auprès des villes",
+          "Éviter de devoir payer des honoraires professionnels aux inspecteurs du bâtiment",
+          "Permettre de modifier les dimensions réelles de la bâtisse sans permis officiel",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "Forum LibreArt Québec — Création graphique open-source\nSujet : Maîtriser les masques vectoriels non destructifs en prépresse\nAuteur : David_Designer (Graphiste indépendant)\n\nSalut tout le monde !\n\nSi vous préparez des affiches grand format destinées à l’impression sérigraphique, la version 4.2 apporte une avancée majeure avec les masques vectoriels dynamiques. Auparavant, découper une forme complexe détruisait les nœuds sous-jacents, rendant toute retouche de dernière minute impossible sans recommencer le travail à zéro.\n\nPour activer cette fonction, sélectionnez votre illustration, cliquez sur le menu Objet puis choisissez « Appliquer le masque sans aplatissement ». Vous pouvez ensuite éditer le contour à volonté sans altérer les couleurs pantone sous-jacentes. Attention toutefois lors de la préparation du fichier d’impression pour l’imprimeur commercial : n’oubliez pas de convertir les textes en courbes vectorielles et de définir le fond perdu à trois millimètres sur tout le pourtour du document. Dans le cas contraire, les massicots d’atelier risquent de laisser un liseré blanc inesthétique sur la bordure de vos affiches.\n\nN’hésitez pas à partager vos gabarits d’exportation pour enrichir la bibliothèque communautaire.",
+      questions: [
+        [
+          "Quel bénéfice créatif essentiel les nouveaux masques dynamiques procurent-ils aux artistes ?",
+          "La possibilité de remanier les tracés sans anéantir les éléments d’origine",
+          "L’effacement automatique de toutes les fautes d’orthographe dans les titres",
+          "La baisse du coût d’achat des encres chez les imprimeurs de la région",
+        ],
+        [
+          "Quelle négligence de mise en page risque de dégrader la qualité visuelle du produit fini ?",
+          "L’omission d’ajouter une marge de fond perdu pour sécuriser la coupe au massicot",
+          "La sélection de couleurs trop vives pour les arrière-plans des affiches urbaines",
+          "L’utilisation de polices de caractères créées par des typographes québécois",
+        ],
+        [
+          "Que peut-on déduire sur l’esprit qui anime la communauté LibreArt à travers ce message ?",
+          "Une volonté de solidarité professionnelle axée sur le partage libre des savoirs",
+          "Un refus d’aider les designers débutants qui n’ont pas suivi de formation d’art",
+          "Une interdiction formelle de collaborer avec des imprimeurs commerciaux locaux",
+        ],
+      ],
+    },
+  ],
+  // ===========================================================================
+  // n8-reading-3 (injonctif)
+  // Ex 0: Procédure d’adhésion à un ordre professionnel
+  // Ex 1: Procédure pour déposer une plainte auprès d’un organisme public
+  // ===========================================================================
+  'n8-reading-3': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "Guide officiel — Demande d’admission à l’Ordre des ingénieurs du Québec\n\nPour exercer légalement la profession d’ingénieur au Québec et porter le titre réservé, tout candidat doit franchir les étapes obligatoires du processus d’admission régi par le Code des professions.\n\nTout d’abord, créez votre profil sur le portail en ligne de l’Ordre et téléversez une copie certifiée de votre diplôme de baccalauréat en ingénierie décerné par un établissement agréé, accompagnée d’une preuve de citoyenneté ou de résidence permanente. Si vos études ont été complétées à l’extérieur du Canada, vous devrez préalablement soumettre une demande d’équivalence de formation assortie des relevés de notes officiels.\n\nEnsuite, acquittez les droits d’ouverture de dossier par carte de crédit ou virement bancaire sécurisé. Une fois votre admissibilité confirmée, vous devez réussir l’examen professionnel portant sur la déontologie, l’éthique et les normes environnementales québécoises. Enfin, vous devez justifier de vingt-quatre mois d’expérience pratique supervisée sous la tutelle d’un ingénieur d’expérience inscrit au tableau avant d’obtenir votre permis d’exercice de plein droit.",
+      questions: [
+        [
+          "Quelle exigence spécifique s’applique aux candidats formés dans une université étrangère ?",
+          "Faire évaluer la reconnaissance officielle de leur cursus pédagogique",
+          "Reprendre l’intégralité de leurs études dans une faculté universitaire d’ici",
+          "Obtenir le parrainage écrit de trois membres honoraires de l’Assemblée nationale",
+        ],
+        [
+          "Sur quel domaine de compétences porte l’épreuve écrite obligatoire d’évaluation ?",
+          "Les règles morales de déontologie et le cadre réglementaire du milieu",
+          "La résolution de problèmes complexes de mathématiques théoriques pures",
+          "La négociation commerciale de contrats de fournitures métallurgiques lourdes",
+        ],
+        [
+          "Que peut-on déduire quant à l’obligation de mentorat durant le parcours probatoire ?",
+          "Elle garantit l’encadrement pratique des novices par des pairs expérimentés",
+          "Elle permet aux grandes firmes de génie d’embaucher des ingénieurs sans salaire",
+          "Elle dispense les nouveaux diplômés de payer leur cotisation corporative annuelle",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "Protocole d’obtention du permis d’exercice — Ordre des infirmières et infirmiers du Québec\n\nL’accès à la pratique infirmière en milieu hospitalier et communautaire exige l’obtention d’un permis délivré par l’OIIQ, garant de la protection du public et de la qualité des actes médicaux délégués.\n\nLa première démarche consiste à transmettre votre dossier de candidature comprenant l’attestation de réussite d’un diplôme d’études collégiales ou d’un baccalauréat en sciences infirmières reconnu. Vous devez également joindre une attestation officielle de maîtrise de la langue française délivrée par l’Office québécois de la langue française si votre scolarité secondaire n’a pas été suivie en français.\n\nAprès paiement des frais d’inscription, vous recevrez une autorisation d’exercer à titre de candidate à l’exercice de la profession infirmière. Ce statut temporaire vous permet de travailler sous supervision clinique en attendant la tenue de l’examen d’admission de l’Ordre, qui se déroule deux fois l’an. La réussite de cette épreuve pratique et la signature de la déclaration d’adhésion au code de déontologie vous confèrent le permis régulier.",
+      questions: [
+        [
+          "Quelle obligation linguistique particulière les personnes formées hors réseau francophone doivent-elles satisfaire ?",
+          "Démontrer officiellement leur compétence de communication en français",
+          "Suivre deux années de cours de littérature dans une université montréalaise",
+          "Présenter une lettre d’approbation de leur employeur certifiant leur bilinguisme",
+        ],
+        [
+          "Quelle prérogative le statut temporaire de candidate accorde-t-il avant l’examen final ?",
+          "Exercer des tâches soignantes sous la responsabilité d’infirmières chevronnées",
+          "Prescrire de manière totalement autonome tous les médicaments hospitaliers majeurs",
+          "Diriger un département d’urgences pédiatriques sans aucune tutelle hiérarchique",
+        ],
+        [
+          "Que peut-on déduire sur la mission première de cet ordre professionnel à travers ces exigences ?",
+          "Protéger la sécurité des usagers en garantissant la compétence rigoureuse du corps soignant",
+          "Limiter arbitrairement le nombre de candidates pour maintenir des rémunérations élevées",
+          "Favoriser l’embauche exclusive d’étudiantes issues des grands centres urbains de la province",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "Conditions d’inscription au tableau — Ordre des agronomes du Québec\n\nPour poser des diagnostics agronomiques, recommander des plans de fertilisation des sols ou conseiller les exploitations agricoles sur l’usage des produits phytosanitaires, l’inscription au tableau de l’Ordre est obligatoire en vertu de la législation québécoise.\n\nLe postulant doit d’abord compléter le formulaire électronique sur l’espace membre sécurisé et fournir le relevé de notes certifié attestant de l’obtention d’un diplôme reconnu en agronomie. Les détenteurs de diplômes connexes en sciences des sols ou en agroéconomie doivent joindre un descriptif détaillé de leurs cours pour l’analyse des crédits par le comité d’admission.\n\nUne fois l’admissibilité déclarée, le candidat acquitte la cotisation professionnelle annuelle et suit la formation obligatoire en ligne consacrée aux responsabilités légales de l’agronome face à la protection de l’environnement. Enfin, il doit prêter serment par écrit de respecter les normes de pratique et souscrire l’assurance responsabilité professionnelle collective de l’Ordre avant d’émettre ses premières ordonnances agronomiques certifiées.",
+      questions: [
+        [
+          "Quels actes techniques essentiels requièrent obligatoirement le statut d’agronome certifié ?",
+          "La prescription de plans d’amendement des terres et le conseil sur les intrants",
+          "La vente exclusive d’engrais minéraux dans les coopératives agricoles du terroir",
+          "La conduite de moissonneuses-batteuses lors des récoltes intensives d’automne",
+        ],
+        [
+          "Quelle étape pédagogique obligatoire fait suite à la validation des diplômes universitaires ?",
+          "Le suivi d’un programme en ligne sur les obligations légales envers l’écologie",
+          "Un séjour d’immersion de six mois dans une ferme laitière de l’Ouest canadien",
+          "La rédaction d’un mémoire de recherche fondamentale sur l’histoire rurale",
+        ],
+        [
+          "Que peut-on déduire quant à l’obligation de souscrire une assurance responsabilité collective ?",
+          "Elle protège les agriculteurs et le public contre les conséquences d’erreurs de conseil",
+          "Elle enrichit les caisses financières de l’Ordre au détriment des jeunes professionnels",
+          "Elle annule toute possibilité de recours en justice contre les membres de la corporation",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "Déposer une plainte — Bureau du Protecteur du citoyen du Québec\n\nLe Protecteur du citoyen intervient comme ombudsman impartial pour corriger les situations injustes vécues par les citoyennes et citoyens dans leurs relations avec les ministères, sociétés d’État et organismes du réseau public québécois.\n\nAvant de soumettre une plainte, vous devez impérativement avoir tenté de résoudre le litige auprès du responsable des plaintes du ministère ou de l’organisme concerné. Si cette démarche initiale n’a pas abouti ou si la réponse reçue vous semble insatisfaisante, vous pouvez alors vous adresser au Protecteur du citoyen au moyen du formulaire sécurisé en ligne ou par téléphone.\n\nDans votre exposé des faits, décrivez avec précision la chronologie des événements, identifiez les fonctionnaires rencontrés et joignez des copies numériques de vos correspondances antérieures. Ne transmettez jamais vos documents originaux. Dès réception, un accusé de réception comportant un numéro de dossier unique vous sera transmis sous cinq jours ouvrables, et un délégué communiquera avec vous pour amorcer l’enquête en toute confidentialité.",
+      questions: [
+        [
+          "Quelle démarche préalable obligatoire conditionne la recevabilité de la demande citoyenne ?",
+          "Avoir épuisé les recours de règlement direct auprès de l’entité administrative en cause",
+          "Avoir obtenu une décision formelle d’un juge de la Cour supérieure de la province",
+          "Avoir sollicité l’autorisation écrite de son député régional avant tout dépôt officiel",
+        ],
+        [
+          "Quelle précaution matérielle importante l’organisme demande-t-il d’observer pour les pièces jointes ?",
+          "Ne faire parvenir que des reproductions sans jamais se départir des documents originaux",
+          "Faire traduire l’intégralité des courriels par un notaire assermenté de la région",
+          "Envoyer tous les éléments de preuve sur une clé USB scellée par les autorités postales",
+        ],
+        [
+          "Que peut-on déduire quant au statut du Protecteur du citoyen dans le règlement des différends ?",
+          "Il agit comme un arbitre indépendant cherchant à rétablir une équité dans le service public",
+          "Il représente systématiquement les ministères pour défendre la régularité de leurs décisions",
+          "Il inflige des peines d’emprisonnement aux administrateurs jugés coupables de négligence",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "Procédure de recours pour congédiement sans cause juste — CNESST\n\nSi vous comptez au moins deux années de service continu au sein de la même compagnie et estimez avoir fait l’objet d’un congédiement sans motif valable, vous bénéficiez d’un recours légal encadré par la Loi sur les normes du travail.\n\nVous disposez d’un délai strict et non négociable de quarante-cinq jours civils suivant la date de votre renvoi effectif pour déposer votre plainte. Rendez-vous sur le portail monEspace de la CNESST et complétez le formulaire de plainte pour congédiement injustifié. Vous devrez y consigner vos coordonnées professionnelles, les arguments invoqués par votre ancien employeur et votre version factuelle des circonstances du départ.\n\nUne fois la plainte enregistrée, un médiateur chevronné de la Commission communiquera avec les deux parties afin de proposer une séance de médiation volontaire et gratuite. Si aucun accord amiable n’intervient pour une réintégration ou une indemnité financière, le dossier sera transféré au Tribunal administratif du travail, où un juge entendra les témoignages sous serment pour trancher le litige.",
+      questions: [
+        [
+          "Quel impératif de calendrier strict régit le dépôt de ce recours selon les dispositions légales ?",
+          "L’obligation de transmettre la réclamation dans un intervalle n’excédant pas quarante-cinq jours",
+          "La possibilité d’intenter des poursuites sans aucune limite de temps durant les dix années suivantes",
+          "L’obligation d’attendre au minimum six mois après le départ pour déposer un formulaire de plainte",
+        ],
+        [
+          "Quelle étape préliminaire de conciliation est systématiquement proposée par l’organisme ?",
+          "Une rencontre de médiation bénévole et sans frais pour rechercher une entente à l’amiable",
+          "Un arbitrage payant dont les frais sont entièrement assumés par le travailleur requérant",
+          "Une confrontation obligatoire dans les locaux de l’entreprise devant l’ensemble du personnel",
+        ],
+        [
+          "Que peut-on déduire sur l’intention de la loi en prévoyant le recours au Tribunal administratif ?",
+          "Garantir un arbitrage judiciaire équitable en dernier ressort si le dialogue direct échoue",
+          "Interdire définitivement aux entreprises québécoises de se séparer d’employés indisciplinés",
+          "Forcer les plaignants à abandonner leurs demandes financières pour éviter les procès longs",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "Formuler une plainte — Commissariat aux plaintes et à la qualité des services\n\nToute personne qui reçoit des soins dans un centre hospitalier, un CLSC ou un centre d’hébergement de soins de longue durée a le droit fondamental d’exprimer son insatisfaction s’il estime que ses droits n’ont pas été respectés ou que la qualité des services était déficiente.\n\nPour entamer la démarche, communiquez directement avec le bureau du Commissaire aux plaintes du réseau territorial concerné. Votre plainte peut être transmise par écrit, par courrier électronique ou verbalement lors d’un entretien privé avec un préposé à l’assistance. Vous devez préciser la date et l’établissement où l’événement est survenu, détailler les faits reprochés au personnel ou à l’organisation et mentionner les conséquences néfastes subies.\n\nLe Commissaire accusera réception de votre demande sous deux jours ouvrables. Il réalisera une investigation indépendante en consultant votre dossier médical avec votre consentement exprès et en recueillant les explications des équipes soignantes. Ses conclusions motivées vous seront communiquées par écrit dans un délai maximal de quarante-cinq jours.",
+      questions: [
+        [
+          "Quelles modalités d’expression sont offertes aux usagers pour consigner leur mécontentement ?",
+          "La liberté de déposer sa déclaration sous forme écrite ou de vive voix lors d’un entretien",
+          "L’obligation de mandater un avocat spécialisé pour rédiger une mise en demeure formelle",
+          "L’exigence de publier d’abord sa requête sur les plateformes communautaires du réseau",
+        ],
+        [
+          "Quelle formalité essentielle autorise le Commissaire à examiner les antécédents médicaux ?",
+          "L’accord formel et consenti du patient concerné par les soins reçus",
+          "Une ordonnance spéciale délivrée par un juge de la cour criminelle",
+          "L’approbation conjointe de tous les médecins du centre hospitalier",
+        ],
+        [
+          "Que peut-on déduire quant à l’engagement temporel pris par le Commissariat dans le traitement du dossier ?",
+          "Il s’engage sur une échéance encadrée pour rendre un avis écrit et argumenté",
+          "Il refuse de fixer la moindre date pour finaliser ses analyses cliniques approfondies",
+          "Il exige que les plaignants attendent un an avant de recevoir le moindre retour d’information",
+        ],
+      ],
+    },
+  ],
   'n8-reading-4': [],
 }
