@@ -125,6 +125,7 @@ export default function TenseConjugationExplorer({
             <button
               key={v}
               type="button"
+              data-testid={`explorer-quick-verb-${v}`}
               onClick={() => handleSelectVerb(v)}
               className={`rounded-lg px-2.5 py-1 text-xs font-medium transition ${
                 isActive

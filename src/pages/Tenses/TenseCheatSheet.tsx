@@ -151,6 +151,7 @@ export default function TenseCheatSheet() {
               <button
                 key={v}
                 type="button"
+                data-testid={`cheatsheet-quick-verb-${v}`}
                 onClick={() => handleSelectVerb(v)}
                 className={`rounded-lg px-2.5 py-1 text-xs font-medium transition ${
                   active

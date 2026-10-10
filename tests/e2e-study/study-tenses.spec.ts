@@ -24,7 +24,7 @@ test('Tenses and conjugation topic section flows smoothly', async ({ page }) => 
   await expect(page.getByTestId('cheatsheet-cell-present-1s')).toBeVisible()
 
   // Switch verb in cheat sheet
-  await page.getByRole('button', { name: 'faire', exact: true }).click()
+  await page.getByTestId('cheatsheet-quick-verb-faire').click()
   await expect(page.getByTestId('cheatsheet-infinitive-title')).toHaveText('faire')
   await expect(page.getByTestId('cheatsheet-cell-present-1s')).toContainText('je fais')
 
@@ -33,15 +33,15 @@ test('Tenses and conjugation topic section flows smoothly', async ({ page }) => 
   await expect(
     page.getByRole('heading', { name: 'Présent de l’indicatif', exact: true }),
   ).toBeVisible()
-  await expect(page.getByText('直陈式现在时')).toBeVisible()
+  await expect(page.getByTestId('lesson-title-zh')).toHaveText('直陈式现在时')
   await expect(page.getByText('一句话定位与核心思维')).toBeVisible()
 
   // Verify table explorer exists and can switch verbs
-  await expect(page.getByText('变位速查表 (直陈式现在时)')).toBeVisible()
+  await expect(page.getByRole('heading', { name: '变位速查表 (直陈式现在时)' })).toBeVisible()
   await expect(page.getByTestId('explorer-cell-1s')).toContainText('je parle')
 
   // Switch verb in table explorer
-  await page.getByRole('button', { name: 'aller', exact: true }).click()
+  await page.getByTestId('explorer-quick-verb-aller').click()
   await expect(page.getByTestId('explorer-cell-1s')).toContainText('je vais')
 
   // Typing an unsupported verb in explorer shows unsupported error message
@@ -51,7 +51,7 @@ test('Tenses and conjugation topic section flows smoothly', async ({ page }) => 
   await expect(page.getByTestId('unsupported-verb-error')).toBeVisible()
 
   // Switch back to a valid verb
-  await page.getByRole('button', { name: 'parler', exact: true }).click()
+  await page.getByTestId('explorer-quick-verb-parler').click()
   await expect(page.getByTestId('explorer-cell-1s')).toContainText('je parle')
 
   // Verify example sentences with audio button and lookup wrapper
@@ -74,5 +74,7 @@ test('Tenses and conjugation topic section flows smoothly', async ({ page }) => 
   await expect(
     page.getByRole('heading', { name: 'Passé composé vs Imparfait', exact: true }),
   ).toBeVisible()
-  await expect(page.getByText('复合过去时 vs 未完成过去时')).toBeVisible()
+  await expect(page.getByTestId('lesson-title-zh')).toHaveText(
+    '复合过去时与未完成过去时的辨析与搭配',
+  )
 })

@@ -153,7 +153,7 @@ export default function TenseLessonDetail({ lesson }: TenseLessonDetailProps) {
           <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
             {lesson.titleFr}
           </h1>
-          <div className="mt-1 text-lg font-semibold text-gray-500 dark:text-gray-400">
+          <div data-testid="lesson-title-zh" className="mt-1 text-lg font-semibold text-gray-500 dark:text-gray-400">
             {lesson.titleZh}
           </div>
         </div>
@@ -297,33 +297,37 @@ export default function TenseLessonDetail({ lesson }: TenseLessonDetailProps) {
         </div>
 
         <div className="space-y-6">
-          {lesson.usages.map((usage, uIdx) => (
-            <div
-              key={usage.id}
-              className="rounded-2xl border border-gray-100 bg-gray-50/40 p-4 dark:border-gray-700/70 dark:bg-gray-900/30 space-y-3"
-            >
-              <div className="flex items-baseline gap-2">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-indigo-100 text-xs font-bold text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
-                  {uIdx + 1}
-                </span>
-                <div>
-                  <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100">
-                    {usage.titleZh}
-                  </h3>
-                  <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
-                    {usage.descriptionZh}
-                  </p>
+          {(() => {
+            let globalExIndex = 0
+            return lesson.usages.map((usage, uIdx) => (
+              <div
+                key={usage.id}
+                className="rounded-2xl border border-gray-100 bg-gray-50/40 p-4 dark:border-gray-700/70 dark:bg-gray-900/30 space-y-3"
+              >
+                <div className="flex items-baseline gap-2">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-indigo-100 text-xs font-bold text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
+                    {uIdx + 1}
+                  </span>
+                  <div>
+                    <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100">
+                      {usage.titleZh}
+                    </h3>
+                    <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+                      {usage.descriptionZh}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Examples Grid */}
+                <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                  {usage.examples.map((ex) => {
+                    const idx = globalExIndex++
+                    return <ExampleItem key={idx} example={ex} index={idx} />
+                  })}
                 </div>
               </div>
-
-              {/* Examples Grid */}
-              <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-                {usage.examples.map((ex, exIdx) => (
-                  <ExampleItem key={exIdx} example={ex} index={exIdx} />
-                ))}
-              </div>
-            </div>
-          ))}
+            ))
+          })()}
         </div>
       </div>
 
