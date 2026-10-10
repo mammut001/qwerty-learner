@@ -1014,8 +1014,9 @@ describe('French Tenses Conjugation Engine & Content Suite', () => {
 
     for (const lesson of allTenseLessons) {
       const isCross = lesson.category === 'cross-cutting'
-      const minEx = isCross ? 20 : 24
-      const minQ = isCross ? 12 : 16
+      const minEx = isCross ? 32 : 40
+      const minQ = isCross ? 18 : 24
+      const minFill = isCross ? 6 : 8
 
       test(`Lesson [${lesson.id}] satisfies all invariants`, () => {
         // 1. Basic metadata
@@ -1024,7 +1025,7 @@ describe('French Tenses Conjugation Engine & Content Suite', () => {
         assert.ok(lesson.cefrLevel.length > 0, 'cefrLevel present')
         assert.ok(lesson.summaryZh.length > 0, 'summaryZh present')
 
-        // 2. Examples invariant
+        // 2. Examples invariant: tense >= 40, cross-cutting >= 32; every usage >= 6
         const totalExamples = lesson.usages.reduce((s, u) => s + u.examples.length, 0)
         assert.ok(
           totalExamples >= minEx,
@@ -1036,8 +1037,8 @@ describe('French Tenses Conjugation Engine & Content Suite', () => {
           assert.ok(usage.titleZh.length > 0, 'usage titleZh present')
           assert.ok(usage.descriptionZh.length > 0, 'usage descriptionZh present')
           assert.ok(
-            usage.examples.length >= 4,
-            `Usage ${usage.id} in ${lesson.id} has ${usage.examples.length} >= 4 examples`,
+            usage.examples.length >= 6,
+            `Usage ${usage.id} in ${lesson.id} has ${usage.examples.length} >= 6 examples`,
           )
 
           for (const ex of usage.examples) {
@@ -1051,31 +1052,36 @@ describe('French Tenses Conjugation Engine & Content Suite', () => {
           }
         }
 
-        // 3. Signal words
-        if (!isCross) {
-          assert.ok(lesson.signalWords.length >= 4, `Signal words count >= 4 in ${lesson.id}`)
-          for (const sw of lesson.signalWords) {
-            assert.ok(sw.word.length > 0, 'word present')
-            assert.ok(sw.meaningZh.length > 0, 'meaningZh present')
-            assert.ok(
-              sw.example.fr.includes(sw.example.highlight),
-              `Signal word highlight in fr for ${sw.word}`,
-            )
-          }
+        // 3. Signal words: all lessons >= 8 with authentic examples
+        assert.ok(lesson.signalWords && lesson.signalWords.length >= 8, `Signal words count >= 8 in ${lesson.id}`)
+        for (const sw of lesson.signalWords) {
+          assert.ok(sw.word.length > 0, 'word present')
+          assert.ok(sw.meaningZh.length > 0, 'meaningZh present')
+          assert.ok(sw.example, `Signal word example present for ${sw.word}`)
+          assert.ok(
+            sw.example.fr.includes(sw.example.highlight),
+            `Signal word highlight in fr for ${sw.word}`,
+          )
         }
 
-        // 4. Common mistakes
-        assert.ok(lesson.commonMistakes.length >= 4, `Common mistakes >= 4 in ${lesson.id}`)
+        // 4. Common mistakes: all lessons >= 6
+        assert.ok(lesson.commonMistakes && lesson.commonMistakes.length >= 6, `Common mistakes >= 6 in ${lesson.id}`)
         for (const cm of lesson.commonMistakes) {
           assert.ok(cm.wrong.length > 0, 'wrong present')
           assert.ok(cm.right.length > 0, 'right present')
           assert.ok(cm.explanationZh.length > 0, 'explanationZh present')
         }
 
-        // 5. Questions invariant
+        // 5. Questions invariant: tense >= 24, cross-cutting >= 18; >= 1/3 fill questions
         assert.ok(
           lesson.questions.length >= minQ,
           `Total questions ${lesson.questions.length} >= ${minQ} in ${lesson.id}`,
+        )
+
+        const fillQuestions = lesson.questions.filter((q) => q.type === 'fill')
+        assert.ok(
+          fillQuestions.length >= minFill,
+          `Fill questions ${fillQuestions.length} >= ${minFill} in ${lesson.id}`,
         )
 
         for (const q of lesson.questions) {
@@ -1089,6 +1095,24 @@ describe('French Tenses Conjugation Engine & Content Suite', () => {
               q.options.some((opt) => opt.trim().toLowerCase() === q.correctAnswer.trim().toLowerCase()),
               `correctAnswer "${q.correctAnswer}" in options for ${q.id}`,
             )
+          }
+        }
+
+        // 6. Mini texts: exactly 2 for every tense lesson, with valid highlights
+        if (!isCross) {
+          assert.ok(lesson.miniTexts && lesson.miniTexts.length === 2, `miniTexts length === 2 in ${lesson.id}`)
+          for (const mt of lesson.miniTexts) {
+            assert.ok(mt.titleFr && mt.titleFr.length > 0, 'miniText titleFr present')
+            assert.ok(mt.titleZh && mt.titleZh.length > 0, 'miniText titleZh present')
+            assert.ok(mt.fr && mt.fr.length > 0, 'miniText fr present')
+            assert.ok(mt.zh && mt.zh.length > 0, 'miniText zh present')
+            assert.ok(mt.highlights && mt.highlights.length > 0, 'miniText highlights present')
+            for (const hl of mt.highlights) {
+              assert.ok(
+                mt.fr.includes(hl),
+                `Mini text highlight "${hl}" must be substring of "${mt.fr}" in lesson ${lesson.id}`,
+              )
+            }
           }
         }
       })
