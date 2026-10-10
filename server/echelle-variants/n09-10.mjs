@@ -2022,253 +2022,253 @@ export const N09_10_SCENARIOS = {
   "n10-reading-1": [
     {
       "situation": 0,
-      "text": "Extrait d’une épopée médiévale en prose, « La Geste du chevalier Aléran ». Au plus noir de la nuit d’hiver, alors que le vent glacé soufflait en rafales sur la crête des monts sauvages, le seigneur Aléran se tenait seul devant l’étroit défilé des Brumes. Son heaume était bosselé par les coups d’estoc, et sa cotte de mailles laissait suinter un sang lourd, mais son bras ne faiblissait point sous l’assaut répété des lances ennemies. Derrière lui, au fond de la gorge escarpée, son suzerain blessé et les derniers archers épuisés gagnaient la sécurité du château fort, pas à pas, dans la neige épaisse. Devant Aléran se pressait la horde des assaillants, aguerris et nombreux comme les épines de la lande, dont les torches enflammées trouaient les ténèbres boréales. Le chevalier planta son étendard dans la terre gelée et leva haut sa lourde épée à deux mains, offrant son corps en rempart inviolable face au destin funeste. Il savait qu’aucun renfort ne franchirait la combe avant l’aube et que cette veillée d’armes marquerait le terme de ses jours terrestres. Pourtant, aucun voile de crainte n’effleurait son âme sereine : en cet instant tragique, la fidélité au serment prêté transcendait la douleur de la chair et l’inévitabilité du trépas. Sa bravoure solitaire devint ainsi la matière d’un chant éternel que les ménestrels répéteraient de château en village durant des siècles entiers pour exalter l’honneur chevaleresque.",
+      "text": "Revue québécoise de géophysique boréale. Les aurores polaires constituent la manifestation visuelle la plus spectaculaire des interactions électrodynamiques entre le vent solaire et la magnétosphère terrestre. Ce flux continu de plasma hautement ionisé, éjecté par la couronne solaire à des vitesses atteignant souvent plusieurs centaines de kilomètres par seconde, transporte avec lui le champ magnétique interplanétaire. Lorsque ce vecteur magnétique présente une orientation vers le sud, opposée à celle du bouclier terrestre, un phénomène de reconnexion magnétique se déclenche dans la magnétopause diurne. Cette rupture réorganise violemment la topologie du champ géomagnétique et transfère une énergie considérable vers la queue magnétique nocturne de notre planète. À la suite d’une instabilité plasmique soudaine, des myriades d’électrons et de protons sont précipités à très grande vitesse le long des lignes de force convergentes vers les régions de haute latitude. En pénétrant dans la haute atmosphère, entre quatre-vingts et cinq cents kilomètres d’altitude, ces particules chargées entrent en collision inélastique avec les atomes et molécules de gaz neutres. La désexcitation radiative de l’oxygène atomique engendre la fameuse lueur verte à 557 nanomètres à basse altitude et des teintes rougeoyantes à 630 nanomètres aux confins supérieurs de la thermosphère. Quant à l’azote moléculaire ionisé, il émet des teintes violettes et pourpres caractéristiques lors des sous-orages les plus intenses. Ainsi, ces draperies lumineuses ne sont pas un simple caprice céleste, mais la signature directe d’une chaîne complexe de transferts énergétiques cosmiques reliant l’activité solaire aux couches ténues de notre atmosphère polaire.",
       "questions": [
         [
-          "Quel exploit héroïque est magnifié dans ce passage de geste chevaleresque ?",
-          "La défense solitaire d’un passage escarpé au péril de sa vie pour permettre le salut des siens",
-          "La conquête glorieuse et sans effusion de sang d’une vaste province étrangère au printemps fleuri",
-          "La fuite secrète et précipitée d’un guerrier apeuré abandonnant son chef blessé aux mains adverses"
+          "Quel processus physique fondamental est expliqué dans cet extrait de revue scientifique ?",
+          "La chaîne d’interactions entre particules cosmiques et magnétosphère créant des émissions lumineuses",
+          "La mesure des perturbations acoustiques causées par les marées océaniques sur les côtes arctiques du globe",
+          "L’impact des variations de la gravité lunaire sur la trajectoire des satellites météorologiques en orbite"
         ],
         [
-          "Comment l’écriture épique valorise-t-elle la grandeur morale du protagoniste ?",
-          "L’opposition saisissante entre le corps meurtri du chevalier et son inaltérable fermeté spirituelle",
-          "Une longue énumération détaillée et fastidieuse des richesses accumulées par le seigneur en campagne",
-          "Un dialogue comique et burlesque entre Aléran et les assaillants massés au pied de la colline sombre"
+          "De quelle manière l’auteur structure-t-il l’explication du phénomène polaire ?",
+          "En décrivant la trajectoire de l’énergie depuis l’expulsion solaire jusqu’aux collisions atomiques",
+          "En opposant les croyances mythologiques anciennes aux premières observations télescopiques du dix-neuvième siècle",
+          "En comparant la rentabilité financière des observatoires nordiques avec celle des stations spatiales orbitales"
         ],
         [
-          "Quel sentiment domine l’état d’esprit d’Aléran face à l’issue fatale du combat ?",
-          "Une acceptation lucide et paisible guidée par le respect absolu de sa parole d’honneur féodale",
-          "Une terreur panique et incontrôlable qui le pousse à supplier les ennemis d’épargner ses jours terrestres",
-          "Une amertume haineuse envers son suzerain coupable de l’avoir envoyé à une mort certaine et sans gloire"
+          "Quelle condition géophysique détermine l’amorce de la reconnexion magnétique du côté diurne ?",
+          "L’alignement inverse du champ magnétique solaire par rapport à celui de la planète",
+          "La disparition complète de toute trace d’oxygène gazeux dans les strates supérieures de l’atmosphère",
+          "Une chute brutale de la température nocturne en dessous du point de condensation des vapeurs polaires"
         ],
         [
-          "Dans ce récit chevaleresque, que signifie le mot « trépas » ?",
-          "La mort ou le décès héroïque survenant au terme d’une existence vouée au combat",
-          "Une trahison infâme commise contre un compagnon d’armes en pleine bataille rangée sur le pré",
-          "Un banquet d’apparat organisé pour célébrer la signature d’une trêve formelle entre deux armées"
+          "Dans ce texte scientifique, que désigne précisément la « désexcitation radiative » ?",
+          "La libération spontanée de photons lorsqu’un atome retrouve son niveau énergétique d’origine",
+          "L’évaporation instantanée des molécules d’eau sous l’effet d’un faisceau d’électrons accélérés",
+          "La désintégration radioactive définitive des noyaux lourds sous l’effet du rayonnement cosmique"
         ]
       ],
-      "frame": "épopée médiévale — geste chevaleresque"
+      "frame": "revue de géophysique — mécanisme des aurores boréales"
     },
     {
       "situation": 1,
-      "text": "Conte philosophique extrait du recueil « Les Fables du temps suspendu ». Le savant voyageur Zénon aborda un matin sur les rivages brumeux de Chronopolis, la célèbre cité des Horlogers. Dans cette contrée étrange, chaque citoyen portait au poignet trois cadrans mécaniques réglés au centième de seconde près, et des cloches d’airain retentissaient à chaque carrefour pour dicter le rythme des respirations, des pas et des repas quotidiens. Nul n’avait le loisir d’admirer la floraison des amandiers ni d’écouter le bruissement des fontaines, car s’arrêter ne fût-ce qu’un souffle était tenu pour un sacrilège envers la déesse Productivité. Zénon rencontra le grand maître de la guilde, vieillard au regard hagard dont les doigts tremblants polissaient sans relâche une montre d’or ornée de diamants précieux. « Pourquoi accumuler tant d’instruments de mesure si vous n’avez plus une heure à consacrer à la joie de vivre ? » demanda l’étranger avec douceur. Le vieil homme contempla son chef-d’œuvre d’engrenages complexes, puis une larme solitaire coula sur sa joue ridée. « Nous avons appris à découper le temps avec une rigueur mathématique admirable, soupira-t-il, mais dans notre course affolée, nous avons oublié d’exister. » En quittant la cité, Zénon comprit que mesurer l’existence n’est rien sans la liberté de la savourer pleinement dans la quiétude féconde de l’instant présent. Les heures vécues avec authenticité valent bien plus que tous les siècles mesurés par des rouages mécaniques.",
+      "text": "Rapport de gestion trimestriel de Plastiques Mauricie. L’analyse comparative des états financiers intermédiaires pour le second trimestre met en lumière des écarts budgétaires significatifs qui méritent une attention managériale rigoureuse. Alors que le chiffre d’affaires consolidé affiche une hausse modeste de deux pour cent par rapport aux prévisions annuelles, la marge d’exploitation nette s’est contractée de près de quatre cent cinquante mille dollars. Cette détérioration de la rentabilité provient essentiellement de deux facteurs opérationnels distincts. D’une part, un écart défavorable sur le coût direct des matières premières découle de la flambée imprévue des résines de polyéthylène sur les marchés nord-américains à la suite d’arrêts de production prolongés chez nos fournisseurs du golfe du Mexique. Nos contrats d’approvisionnement indexés n’ayant pas permis un report immédiat de cette surtaxe sur notre clientèle industrielle sans compromettre nos volumes contractuels, l’entreprise a dû absorber cette charge nette. D’autre part, un écart de rendement énergétique défavorable a été relevé sur la chaîne d’extrusion numéro trois du complexe de Shawinigan. L’introduction d’une nouvelle gamme de polymères recyclés a entraîné des temps de chauffe plus longs et une consommation électrique accrue de dix-huit pour cent lors des phases de calibration thermique. Les gains d’efficacité anticipés lors de la mise en service des régulateurs automatisés n’ont été que partiellement concrétisés en raison de retards dans la formation des opérateurs de quart. Des ajustements tarifaires sélectifs et une révision complète des paramètres de thermoformage permettront toutefois de stabiliser la structure de coûts d’ici le prochain trimestre.",
       "questions": [
         [
-          "Quelle est la leçon philosophique centrale formulée à travers cette allégorie ?",
-          "L’obsession moderne du rendement et de l’efficacité détruit la capacité authentique de vivre",
-          "La fabrication manuelle de montres précieuses constitue le sommet absolu des arts mécaniques humains",
-          "L’absence d’horloges publiques dans une ville provoque immanquablement le désordre civique général"
+          "Quelle situation financière ce rapport de gestion trimestriel cherche-t-il à expliquer ?",
+          "Le recul de la marge d’exploitation malgré une légère progression des ventes globales",
+          "L’augmentation subite des dividendes versés aux actionnaires majoritaires de l’entreprise industrielle",
+          "La faillite imminente d’un partenaire commercial stratégique basé sur les marchés européens du Sud"
         ],
         [
-          "Quelle démarche narrative le conteur emploie-t-il pour faire émerger la vérité morale ?",
-          "La confrontation philosophique entre un voyageur lucide et un artisan vieillissant consumé par sa tâche",
-          "Un traité d’ingénierie mathématique décrivant avec minutie le fonctionnement des rouages d’acier trempé",
-          "Une satire violente réclamant la destruction immédiate de tous les édifices publics de la région entière"
+          "Comment la direction justifie-t-elle l’écart négatif observé sur les matières premières ?",
+          "Par une hausse imprévue des résines que les contrats n’ont pas permis de répercuter immédiatement",
+          "Par des erreurs de saisie comptable commises lors de la clôture des registres de paie des employés",
+          "Par une taxe douanière exceptionnelle imposée sur toutes les importations d’acier inoxydable brut"
         ],
         [
-          "Quel aveu poignant la réponse du grand maître d’horlogerie contient-elle implicitement ?",
-          "La tristesse de constater que toute une vie vouée au calcul méticuleux a débouché sur le vide spirituel",
-          "La rancœur contre les habitants de la ville qui refusent d’acheter ses montres les plus chères et rares",
-          "Le regret de ne pas avoir inventé d’engrenages assez solides pour mesurer les millisecondes avec exactitude"
+          "Quel problème d’organisation a accentué le surcoût énergétique sur la chaîne d’extrusion ?",
+          "Le manque de qualification initiale du personnel face aux réglages des nouveaux équipements",
+          "Une coupure d’électricité généralisée ayant paralysé l’ensemble du parc industriel pendant un mois",
+          "La détérioration irréversible des moteurs thermiques par suite d’une inondation des sous-sols de l’usine"
         ],
         [
-          "Dans ce conte d’idées, quel est le sens du terme « sacrilège » ?",
-          "Une faute grave, inadmissible et choquante commise contre une valeur tenue pour sacrée",
-          "Un vol de biens précieux perpétré durant la nuit dans les ateliers de la corporation des orfèvres réputés",
-          "Une maladie contagieuse mystérieuse frappant les ouvriers travaillant dans les fonderies de cloches d’airain"
+          "Dans ce contexte de gestion budgétaire, que qualifie un « écart défavorable » ?",
+          "Un dépassement effectif des charges réelles par rapport aux projections de dépenses initiales",
+          "Une divergence d’opinion entre deux administrateurs quant au choix du vérificateur externe indépendant",
+          "Un retard administratif dans le dépôt des déclarations fiscales auprès du ministère du Revenu provincial"
         ]
       ],
-      "frame": "conte philosophique — fable morale"
+      "frame": "rapport de gestion — analyse des écarts budgétaires"
     },
     {
       "situation": 0,
-      "text": "Second extrait de geste chevaleresque, « La Chevaleresse d’Aquitaine ». Dame Guibourc ceignit l’épée d’acier trempé de son père et monta d’un pas assuré sur le rempart calciné de la poterne ouest. L’avant-garde adverse avait franchi les douves au crépuscule, et les échelles de siège commençaient déjà à racler la pierre froide sous une pluie drue de flèches incendiaires. Tous les capitaines du château avaient péri ou gisaient sans connaissance dans la cour basse, laissant la défense du logis à une poignée de serviteurs et d’écuyers terrifiés par le fracas assourdissant des béliers. Loin de céder à l’épouvante, Guibourc fit sonner l’olifant d’un souffle puissant qui résonna dans toute la vallée, annonçant aux assaillants que la place forte ne capitulerait jamais sans un combat impitoyable. Brandissant une javeline enflammée, elle repoussa elle-même les premières échelles d’assaut, ranimant par sa seule présence le courage défaillant des derniers défenseurs réunis autour d’elle. Les assaillants durent reculer sous les blocs de granit précipités depuis les mâchicoulis, stupéfaits par la fougue de cette dame qui incarnait l’indomptable fierté de son illustre lignage. À l’aube naissante, les trompettes de l’armée royale de secours s’élevaient au loin sur les collines environnantes : la forteresse était sauvée grâce à l’héroïque résistance d’une femme dont l’histoire célébrerait la gloire à travers les âges futurs. La mémoire de ce haut fait d’armes demeurera gravée à tout jamais dans la pierre du pays.",
+      "text": "Revue canadienne d’astrophysique appliquée. L’intensité et la dynamique spatio-temporelle des aurores boréales dépendent étroitement de l’activité éruptive du cycle magnétique solaire. Lors des éjections de masse coronale majeures, des milliards de tonnes de gaz ionisé sont projetées dans l’espace interplanétaire avec une énergie cinétique colossale. Lorsque ces nuages d’ondes de choc percutent le champ géomagnétique terrestre, la compression brutale de la magnétosphère déclenche un orage géomagnétique global. Les perturbations du champ de surface génèrent alors de puissants courants électriques telluriques dans les hautes couches de l’ionosphère, tandis que la calotte aurorale s’élargit considérablement vers les moyennes latitudes tempérées. Dans ce régime hautement perturbé, les processus d’accélération particulaire s’intensifient au cœur des lignes magnétiques étirées. Les flux d’électrons relativistes heurtent violemment les couches ionosphériques inférieures, provoquant une excitation moléculaire intense qui colore le ciel nocturne de lueurs cramoisies et de reflets émeraude mouvants. Les instruments de détection optique installés dans le Grand Nord québécois révèlent que la vitesse d’ondulation des draperies aurorales est corrélée aux fluctuations rapides des micro-ondes du champ de plasma. L’étude fine de ces émissions spectroscopiques permet aux physiciens de cartographier la densité thermique des gaz raréfiés et d’anticiper les perturbations radioélectriques qui menacent les réseaux de communication satellitaires. Ainsi, les manifestations aurorales s’avèrent être un laboratoire naturel irremplaçable pour décrypter les lois fondamentales de la physique des plasmas cosmiques et la météo spatiale.",
       "questions": [
         [
-          "Quel acte de bravoure fonde le récit épique consacré à dame Guibourc ?",
-          "La résistance héroïque sur les remparts menée par une femme face à un assaut réputé invincible",
-          "La négociation habile d’une reddition avantageuse permettant de sauver les richesses du château fort féodal",
-          "La capture traîtresse d’un roi rival lors d’une fête princière organisée en l’honneur d’un mariage royal"
+          "Quel phénomène d’astrophysique ce texte spécialisé décrit-il en détail ?",
+          "La répercussion des éjections coronales sur la magnétosphère et la haute atmosphère",
+          "Le risque de collision imminente entre un astéroïde géocroiseur et les anneaux de Saturne",
+          "La formation des cratères d’impact météoritique sur la surface glacée des lunes de Jupiter"
         ],
         [
-          "De quelle façon le texte héroïque dépeint-il l’intervention de la châtelaine ?",
-          "Par des gestes d’éclat et une détermination sans faille qui transforment la panique en sursaut victorieux",
-          "En décrivant longuement ses remords secrets et son refus catégorique d’employer la force contre l’ennemi",
-          "Par un monologue comique soulignant l’impréparation ridicule des jeunes écuyers de la forteresse assiégée"
+          "Comment l’auteur relie-t-il l’activité solaire aux manifestations visibles du ciel boréal ?",
+          "En retraçant l’onde de choc depuis l’expulsion de plasma jusqu’aux excitations ionosphériques",
+          "En calculant le budget nécessaire à la construction de nouveaux radiotélescopes dans les Rocheuses",
+          "En réfutant les thèses des météorologues partisans d’une origine purement océanique des vents polaires"
         ],
         [
-          "Quelle transformation morale s’opère chez les défenseurs sous l’impulsion de Guibourc ?",
-          "Leur terreur initiale se métamorphose en une résolution inébranlable à repousser l’assaut ennemi avec vigueur",
-          "Ils décident d’abandonner leurs armes pour s’enfuir par des galeries souterraines dissimulées sous le donjon",
-          "Ils refusent d’obéir aux ordres d’une femme et tentent de livrer les clefs de la poterne aux troupes rivales"
+          "Selon l’article, quelle information les variations rapides des draperies aurorales fournissent-elles ?",
+          "Elles traduisent les oscillations micro-ondes et la dynamique thermique des gaz de haute altitude",
+          "Elles signalent l’épuisement imminent des réserves de lithium présentes dans le manteau terrestre profond",
+          "Elles prédisent l’arrivée de précipitations neigeuses torrentielles sur les centres urbains du Saint-Laurent"
         ],
         [
-          "Dans ce récit médiéval guerrier, que désigne le mot « poterne » ?",
-          "Une petite porte dérobée ménagée dans la muraille d’une forteresse pour des sorties discrètes",
-          "Une machine de guerre lourde utilisée par les assiégeants pour projeter des boulets de pierre calcaire",
-          "Une salle de banquet voûtée située au cœur du donjon où se réunissent les seigneurs de la cour féodale"
+          "Dans cette étude de physique des plasmas, que représente la « météo spatiale » ?",
+          "L’état dynamique des conditions environnementales entre le Soleil et l’espace circumterrestre",
+          "La prévision des cyclones tropicaux marins fondée sur des relevés barométriques côtiers d’époque",
+          "La température moyenne relevée au sol dans les stations d’échantillonnage de l’archipel arctique"
         ]
       ],
-      "frame": "geste chevaleresque — épopée en prose"
+      "frame": "revue d’astrophysique — tempêtes solaires et aurores"
     },
     {
       "situation": 1,
-      "text": "Second conte philosophique, « Le Palais aux mille miroirs ». Le roi Alcandre, monarque universellement redouté pour sa soif insatiable de grandeur, fit ériger sur le plus haut sommet de son royaume un édifice somptueux entièrement tapissé de glaces de cristal de Bohême. Chaque pièce, chaque couloir, chaque plafond renvoyait à l’infini sa silhouette parée d’hermine et sa couronne constellée de saphirs étincelants. Persuadé d’avoir ainsi trouvé la compagnie parfaite de son propre génie, le souverain congédia ses conseillers les plus sages, ses amis d’enfance et jusqu’à son vieux fou de cour, ne supportant plus qu’une voix étrangère vienne troubler la contemplation béate de son image royale. Durant des mois, il erra seul dans ce labyrinthe étincelant, saluant ses reflets complaisants qui lui rendaient docilement ses sourires et ses gestes d’autorité souveraine. Mais au fil des semaines, l’angoisse d’un silence sépulcral envahit les galeries de verre : aucun écho ne répondait à ses questions, aucune main de chair ne venait serrer la sienne lorsqu’il chancelait d’épuisement. Le souverain réalisa avec effroi que le pouvoir solitaire n’est qu’une prison dorée où l’orgueil se nourrit de sa propre inanité. Saisissant un lourd candélabre de bronze, il brisa le miroir central pour laisser enfin entrer le vent libre et le chant des oiseaux de la forêt montagnarde. En retrouvant la lumière du jour, l’homme réapprenait enfin la véritable saveur de la vie en société.",
+      "text": "Rapport annuel de gestion de la Scierie Boréale de Roberval. L’examen des résultats d’exploitation pour l’exercice clos le trente et un décembre indique un écart financier défavorable de six cent vingt mille dollars entre les coûts de transformation réels et les budgets prévisionnels approuvés par le conseil d’administration. Cette variation négative découle principalement de distorsions survenues dans l’approvisionnement en billes d’épinette noire et de surcoûts logistiques imprévus au cours de la saison automnale. En premier lieu, les intempéries exceptionnelles et le dégel précoce des chemins forestiers ont restreint l’accès aux chantiers de coupe de la région du lac Saint-Jean, forçant la direction à s’approvisionner auprès de producteurs indépendants à des tarifs spot supérieurs de vingt-deux pour cent aux prévisions contractuelles. En second lieu, un écart sur volume de production a lourdement pesé sur la rentabilité unitaire. La mise en service de la nouvelle ligne de sciage automatisée a accusé un décalage technique de six semaines en raison d’un retard de livraison de pièces hydrauliques importées d’Europe. Durant cette phase de transition, les heures supplémentaires rémunérées aux équipes de maintenance et le recours temporaire à l’ancienne machinerie plus énergivore ont fait bondir les charges d’amortissement et les frais de main-d’œuvre directe. Néanmoins, l’amélioration graduelle de la cadence d’usinage constatée en fin d’année et l’optimisation des barèmes de sciage laissent présager un rattrapage substantiel de la marge bénéficiaire au cours des deux prochains trimestres d’activité.",
       "questions": [
         [
-          "Quelle vérité sur la nature humaine ce conte allégorique illustre-t-il ?",
-          "L’enfermement narcissique et l’exercice solitaire du pouvoir conduisent inéluctablement au vide existentiel",
-          "L’aménagement architectural d’un château royal exige la consultation préalable d’artisans verriers réputés",
-          "La possession de pierres précieuses rares est la seule source véritable de souveraineté durable et juste"
+          "Quel constat financier majeur fait l’objet de cette explication managériale ?",
+          "Une dérive négative importante des coûts opérationnels par rapport aux prévisions établies",
+          "Une fraude comptable interne commise par les responsables des approvisionnements forestiers locaux",
+          "Une chute catastrophique du cours mondial du bois d’œuvre ayant entraîné la fermeture des ateliers"
         ],
         [
-          "Comment l’auteur met-il en scène la désillusion progressive du souverain ?",
-          "L’émerveillement initial devant sa propre image s’efface peu à peu devant la torture de la solitude absolue",
-          "Une révolte armée de paysans en colère vient chasser le roi de son palais lors d’une fête somptueuse et vaine",
-          "Un différend juridique entre les maîtres verriers et le trésorier royal ruine les finances du monarque régnant"
+          "Quels sont les deux déterminants principaux invoqués pour expliquer la variation budgétaire ?",
+          "Le surcoût d’approvisionnement causé par le climat et les retards techniques d’une chaîne automatisée",
+          "La hausse générale des taux d’intérêt bancaires et un différend syndical prolongé dans les forêts de l’Ouest",
+          "L’amende environnementale imposée pour pollution des cours d’eau et la dévaluation de la monnaie nationale"
         ],
         [
-          "Quel geste final symbolise la délivrance spirituelle d’Alcandre dans le récit ?",
-          "La destruction délibérée des parois réfléchissantes pour renouer avec la vie réelle et la nature vivante",
-          "La commande de miroirs encore plus grands pour éliminer les dernières ombres des salles de réception dorées",
-          "La signature précipitée d’un traité de guerre contre les royaumes voisins pour étendre les frontières du pays"
+          "Pourquoi le retard de la nouvelle ligne de sciage a-t-il alourdi les charges de main-d’œuvre ?",
+          "L’utilisation prolongée d’anciennes machines a nécessité le paiement d’heures supplémentaires aux équipes",
+          "Le constructeur étranger a exigé le paiement immédiat d’une pénalité de résiliation de bail commercial",
+          "L’entreprise a dû embaucher des gardiens de sécurité supplémentaires pour surveiller les hangars de stockage"
         ],
         [
-          "Dans ce contexte philosophique, que signifie le mot « inanité » ?",
-          "Le caractère de ce qui est sans valeur réelle, vain, illusoire et dépourvu de sens profond",
-          "Une faiblesse corporelle soudaine causée par un manque prolongé de sommeil réparateur ou de nourriture saine",
-          "Une habileté politique remarquable permettant de déjouer les complots tramés au sein des cours princières"
+          "Dans ce contexte d’exploitation industrielle, que désigne l’expression « tarifs spot » ?",
+          "Des prix d’achat fixés immédiatement sur le marché au comptant selon l’offre et la demande",
+          "Des remises commerciales accordées aux acheteurs de gros lors de ventes promotionnelles d’hiver",
+          "Des tarifs douaniers préférentiels négociés dans le cadre d’un accord commercial bilatéral d’État"
         ]
       ],
-      "frame": "conte philosophique — allégorie morale"
+      "frame": "rapport de gestion — écarts de coûts manufacturiers"
     }
   ],
   "n10-reading-2": [
     {
       "situation": 0,
-      "text": "Éditorial paru dans le quotidien Le Devoir. La ratification en catimini du traité d’échanges transatlantique lors du sommet de Genève illustre une fois encore l’inquiétante dérive démocratique des négociations commerciales contemporaines. Sous couvert de fluidifier les échanges et d’abaisser des barrières tarifaires déjà résiduelles, ce texte de deux mille pages consacre en réalité l’hégémonie de tribunaux d’arbitrage privés chargés de trancher les litiges entre multinationales et États souverains. En accordant aux investisseurs étrangers le pouvoir exorbitant de poursuivre financièrement des gouvernements dont les réglementations sanitaires ou écologiques menaceraient leurs profits anticipés, ce traité institue une justice d’exception à sens unique. Comment pouvons-nous sérieusement exhorter nos sociétés à accélérer la transition énergétique si chaque moratoire sur les forages polluants expose le trésor public à des pénalités compensatoires se chiffrant en milliards de dollars ? Les chefs d’État réunis en Suisse ont beau parer leur communiqué final de déclarations lénifiantes sur la durabilité et le progrès partagé, la réalité est que ce pacte verrouille les politiques publiques dans un carcan néolibéral rigide. Nos parlements élus ne sauraient abdiquer leurs prérogatives fondamentales sans trahir le mandat civique qui leur a été confié par les peuples. L’avenir de notre modèle social et de notre souveraineté législative exige un sursaut démocratique sans compromis face aux pressions corporatives internationales. Les générations à venir jugeront sévèrement cette démission politique face aux intérêts marchands mondialisés.",
+      "text": "Directives administratives de NorMécanique concernant les communications avec les médias.\n1. Principe d’exclusivité et canalisation. Tout employé sollicité par un représentant de la presse écrite, radiophonique ou numérique doit s’abstenir de tout commentaire spontané et rediriger sans délai la demande vers le bureau des relations publiques. Seuls les porte-paroles désignés par la présidence sont habilités à s’exprimer au nom de l’entreprise.\n2. Préparation du projet d’allocution. Si la demande médiatique concerne un projet technique ou un contrat commercial en cours, le gestionnaire de projet doit rédiger une note d’information factuelle dans un délai de vingt-quatre heures. Cette note doit préciser les enjeux stratégiques, les partenaires impliqués et les éléments confidentiels à préserver.\n3. Approbation hiérarchique et juridique. Avant toute diffusion de communiqué ou tenue d’entrevue, la note doit obtenir l’aval préalable du conseiller juridique corporatif, suivi de l’approbation finale du directeur général des communications. Exceptionnellement, pour les déclarations d’urgence liées à la sécurité des usines, le directeur du site peut autoriser un point de presse préliminaire, à condition d’en aviser le siège social dans les trente minutes.\n4. Enregistrement et archivage. À l’issue de chaque interaction médiatique, une copie intégrale des propos tenus et des documents remis doit être consignée au registre central des communications par le coordonnateur de quart sous quarante-huit heures.\n5. Manquements et sanctions. Toute divulgation non autorisée sur les réseaux sociaux personnels expose son auteur à des sanctions disciplinaires pouvant aller jusqu’au congédiement pour faute lourde.",
       "questions": [
         [
-          "Quelle dérive majeure l’éditorialiste fustige-t-il dans son analyse du traité commercial ?",
-          "La soumission des politiques environnementales souveraines à des cours d’arbitrage privées partiales",
-          "L’augmentation brutale et généralisée des droits de douane appliqués aux produits de première nécessité vitale",
-          "L’interdiction formelle faite aux entreprises d’exporter des biens manufacturés vers les pays signataires du pacte"
+          "Quelle consigne immédiate un employé ordinaire doit-il appliquer s’il est abordé par un journaliste ?",
+          "Refuser tout commentaire personnel et orienter le reporter vers le service des relations publiques",
+          "Répondre brièvement aux questions techniques en exigeant l’anonymat complet dans le reportage à paraître",
+          "Convoquer immédiatement une conférence de presse au siège social de l’entreprise avec les gestionnaires"
         ],
         [
-          "Comment l’auteur déconstruit-il le discours officiel des dirigeants réunis à Genève ?",
-          "Il confronte les nobles déclarations sur le climat aux clauses réelles protégeant les profits des investisseurs",
-          "Il met en doute la légitimité des chefs d’État en prétendant que leur sommet n’a jamais eu lieu en réalité historique",
-          "Il préconise l’abolition immédiate de tous les tribunaux civils afin de simplifier les procédures judiciaires locales"
+          "Quel est l’ordre des étapes préalables obligatoires avant la publication d’un communiqué d’entreprise ?",
+          "L’examen par le conseiller juridique précède la validation finale du directeur des communications",
+          "L’autorisation de la présidence doit intervenir avant toute rédaction de la fiche technique de base",
+          "La diffusion sur les réseaux sociaux personnels devance l’archivage au registre central des dossiers"
         ],
         [
-          "Quelle menace concrète ce type de traité fait-il peser sur les finances des gouvernements nationaux ?",
-          "Le risque de sanctions pécuniaires astronomiques en cas d’adoption de mesures de protection écologique",
-          "L’obligation pour les ministères de verser un salaire fixe annuel à tous les avocats d’affaires étrangers au pays",
-          "Une diminution automatique des recettes fiscales issues de l’impôt foncier perçu sur les logements privés urbains"
+          "À quelle condition dérogatoire le directeur de site peut-il autoriser une prise de parole hâtive ?",
+          "En cas d’urgence touchant la sécurité de l’usine et avec notification du siège dans les trente minutes",
+          "Dès lors qu’un journaliste régional accrédité en formule la demande écrite au moins une semaine à l’avance",
+          "Si le projet commercial en cours a déjà généré des retombées positives dans les médias financiers"
         ],
         [
-          "Dans ce texte d’opinion politique, que connote le terme « lénifiantes » ?",
-          "Qui vise à apaiser trompeusement les inquiétudes sans apporter de réponse réelle aux problèmes soulevés",
-          "Qui exprime une agressivité guerrière sans retenue destinée à intimider les diplomates adverses lors des séances",
-          "Qui relève d’une démonstration mathématique incontestable appuyée sur des données chiffrées particulièrement précises"
+          "Qui a la responsabilité de consigner l’historique des échanges médiatiques au registre central ?",
+          "Le coordonnateur de quart doit archiver les déclarations dans les quarante-huit heures suivant l’événement",
+          "Le conseiller juridique externe mandaté pour réviser les clauses de confidentialité des contrats commerciaux",
+          "L’employé ayant initialement transmis les coordonnées du journaliste au service des communications"
         ]
       ],
-      "frame": "éditorial de presse — traité commercial"
+      "frame": "directives d’entreprise — relations avec les médias"
     },
     {
       "situation": 1,
-      "text": "Mémoire déposé à la Commission des institutions de l’Assemblée nationale du Québec par le Collectif citoyen pour une démocratie renouvelée. Le mode de scrutin uninominal majoritaire à un tour, héritage désuet du parlementarisme britannique du dix-neuvième siècle, est aujourd’hui la source principale de la défiance civique et du désenchantement électoral qui minent notre vie publique. En fabricant artificiellement des majorités parlementaires écrasantes avec parfois moins de quarante pour cent des suffrages exprimés, notre système actuel déforme systématiquement la volonté populaire et condamne à l’insignifiance les votes de centaines de milliers de citoyens québécois qui soutiennent des formations politiques émergentes. Cette distorsion n’est plus tolérable à une époque où la complexité des défis sociétaux et climatiques exige des délibérations pluralistes et des compromis transpartisans fondés sur l’adhésion réelle de la population. L’instauration d’un système électoral proportionnel mixte avec compensation régionale, modèle largement éprouvé dans de nombreuses démocraties occidentales stables, permettrait de concilier une représentation fidèle des tendances politiques et la préservation d’un lien territorial fort entre les élus et leurs électeurs. Il est impératif que les députés transcendent leurs intérêts partisans immédiats pour moderniser nos institutions démocratiques avant que l’abstention ne devienne le choix majoritaire de nos concitoyens lors des scrutins généraux. Refonder notre contrat démocratique sur la confiance et l’équité électorale constitue l’impératif civique absolu de notre siècle. Il y va de la crédibilité de notre démocratie.",
+      "text": "Directives administratives du Collège Mont-Royal sur l’application du droit d’auteur et de l’utilisation équitable.\n1. Champ d’application et règle générale. Tout membre du corps professoral ou du personnel de recherche désirant reproduire ou diffuser des extraits d’œuvres protégées doit se conformer rigoureusement aux dispositions de la Loi sur le droit d’auteur et aux ententes conclues avec la société de gestion Copibec. La reproduction intégrale d’un manuel ou d’un ouvrage commercial est strictement interdite sans licence préalable écrite.\n2. Seuils d’utilisation équitable à des fins d’enseignement. La reproduction sans frais d’un extrait d’œuvre littéraire ou scientifique est autorisée uniquement si l’extrait ne dépasse pas dix pour cent de l’ouvrage total, ou un chapitre complet d’un livre collectif. L’enseignant responsable doit obligatoirement mentionner la source bibliographique complète et le nom des auteurs sur chaque copie numérique ou imprimée.\n3. Procédure pour les œuvres hors entente. Si l’œuvre ciblée fait partie de la liste des exclusions de Copibec ou dépasse les seuils prescrits, l’enseignant doit transmettre une demande d’autorisation formelle au coordonnateur du service des bibliothèques au moins trois semaines avant le début de la session.\n4. Numérisation et plateformes d’apprentissage. Les extraits numériques doivent être hébergés exclusivement sur le portail intranet sécurisé de l’établissement, avec un accès restreint aux seuls étudiants inscrits au cours concerné. Le service des technologies de l’information doit veiller à la désactivation automatique des liens de téléchargement à la fin de chaque trimestre académique.\n5. Surveillance et conformité institutionnelle. L’agent de conformité institutionnelle effectue un audit annuel aléatoire des recueils de textes. Toute infraction délibérée entraîne le retrait immédiat des supports litigieux et engage la responsabilité administrative de l’employé contrevenant.",
       "questions": [
         [
-          "Quelle réforme institutionnelle est ardemment préconisée par les auteurs de ce mémoire ?",
-          "Le passage à une formule électorale compensatoire régionale pour refléter fidèlement le vote citoyen",
-          "Le remplacement pur et simple de l’Assemblée nationale par un conseil consultatif de hauts fonctionnaires d’État",
-          "L’interdiction pour les partis d’opposition de présenter des candidats dans les circonscriptions régionales éloignées"
+          "Que doit obligatoirement faire un professeur lors de la reproduction d’un chapitre conforme aux seuils ?",
+          "Indiquer la source bibliographique intégrale et le nom des créateurs sur l’ensemble des exemplaires",
+          "Faire signer un engagement de confidentialité à tous les étudiants inscrits à son cours collégial",
+          "Vendre les photocopies au prix coûtant afin de compenser les dépenses de reprographie de l’établissement"
         ],
         [
-          "Quelle logique argumentative structure le plaidoyer des représentants citoyens ?",
-          "Ils démontrent la distorsion démocratique du système actuel avant d’avancer une solution éprouvée",
-          "Ils accusent tous les électeurs d’irresponsabilité civique avant de proposer un tirage au sort des députés en chambre",
-          "Ils analysent les coûts d’impression des bulletins de vote pour justifier la suppression des élections provinciales"
+          "Quelle démarche doit précéder l’utilisation d’un document dépassant le seuil des dix pour cent autorisés ?",
+          "La transmission d’une demande écrite au responsable des bibliothèques trois semaines avant le trimestre",
+          "L’achat préalable d’exemplaires originaux par les étudiants doit être validé par le syndicat des professeurs",
+          "L’accord verbal du directeur du collège doit survenir avant toute consultation des bases de données"
         ],
         [
-          "Quel travers principal du système électoral actuel ce mémoire met-il en évidence ?",
-          "L’attribution de majorités législatives absolues à des partis qui n’ont obtenu qu’une minorité de voix",
-          "L’obligation constitutionnelle d’organiser des élections générales tous les six mois dans la province de Québec",
-          "L’impossibilité absolue pour les résidents des régions éloignées de se rendre dans les bureaux de vote électoraux"
+          "Sous quelle condition technique des extraits numérisés peuvent-ils être mis à la disposition des étudiants ?",
+          "En étant réservés aux inscrits sur l’intranet avec désactivation des liens au terme du trimestre d’études",
+          "En étant mis en libre accès sur le site internet public du collège pendant une période indéterminée",
+          "À condition que le fichier soit imprimé en un seul exemplaire scellé conservé sous clé dans le bureau du doyen"
         ],
         [
-          "Dans ce contexte de droit électoral, que signifie l’expression « proportionnel mixte » ?",
-          "Un système combinant l’élection locale de députés et des sièges de compensation fondés sur le vote global",
-          "Une méthode de dépouillement électronique des suffrages réservée aux électeurs voyageant à l’étranger en vacances",
-          "Un tirage au sort paritaire désignant la moitié des ministres parmi les membres de la fonction publique provinciale"
+          "À quelle instance incombe la surveillance périodique de la conformité des recueils de textes ?",
+          "L’agent de conformité mène des vérifications inopinées et ordonne le retrait des éléments non conformes",
+          "Le représentant régional de Copibec qui inspecte chaque salle de classe au début de la rentrée scolaire",
+          "L’association étudiante qui valide la pertinence pédagogique des documents distribués aux cours"
         ]
       ],
-      "frame": "mémoire parlementaire — institutions démocratiques"
+      "frame": "directives administratives — droit d’auteur et utilisation équitable"
     },
     {
       "situation": 0,
-      "text": "Second éditorial économique paru dans Le Devoir. Les négociations commerciales multilatérales entourant le nouveau pacte économique pan-pacifique révèlent une hypocrisie devenue coutumière dans la gouvernance mondiale des échanges. Alors que les chancelleries occidentales célèbrent avec emphase l’insertion de chapitres prétendument contraignants sur les normes de travail et la préservation de la biodiversité, un examen scrupuleux du texte juridique dissipe toute illusion. Ces dispositions environnementales sont reléguées dans des protocoles annexes dépourvus du moindre mécanisme de sanction commerciale en cas de non-respect avéré, contrairement aux clauses protégeant les droits de propriété intellectuelle des conglomérats pharmaceutiques qui bénéficient d’un arsenal répressif immédiat. Ce deux poids, deux mesures consacre la primauté absolue du commerce dérégulé sur les impératifs écologiques les plus pressants de notre siècle. En feignant de croire que des déclarations de bonnes intentions suffiront à freiner la déforestation tropicale ou la surpêche industrielle provoquées par l’essor des flux de marchandises, nos gouvernements se rendent complices d’une vaste opération de blanchiment écologique. Un traité commercial digne de notre époque devrait au contraire subordonner chaque avantage tarifaire au respect rigoureux et vérifiable des engagements climatiques de l’accord de Paris. L’ouverture commerciale ne peut plus faire l’impasse sur la sauvegarde de la planète. Il est plus que temps d’accorder à la vie et aux écosystèmes le même respect juridique qu’aux capitaux marchands internationaux. C’est une condition sine qua non de notre avenir.",
+      "text": "Protocole opérationnel d’Énergie Saguenay relatif aux communications médiatiques en cas d’incident industriel.\n1. Alerte initiale et premier contact. Dès la survenue d’un incident technique ou environnemental de niveau deux ou supérieur sur une installation du réseau, tout employé témoin d’une présence médiatique sur les lieux doit immédiatement référer les journalistes à la zone d’accueil sécurisée et contacter la cellule de crise sous quinze minutes. Aucune entrevue improvisée n’est tolérée sous peine de sanctions disciplinaires.\n2. Élaboration du point de situation. Le chef des opérations du site sinistré rédige un compte rendu technique initial précisant l’état des lieux, les mesures de confinement déployées et l’absence ou la présence de victimes. Ce document doit être transmis par liaison chiffrée à la direction générale et au responsable des affaires publiques avant toute prise de parole.\n3. Autorisation et chaîne d’approbation. Le directeur des communications rédige la déclaration officielle en concertation étroite avec le directeur de la conformité réglementaire. Si l’événement implique des interventions des services d’urgence municipaux, la déclaration conjointe doit obligatoirement recevoir l’approbation préalable du maire ou du coordonnateur des secours avant sa lecture aux médias.\n4. Prise de parole et porte-parole officiel. Seul le porte-parole désigné par le comité de crise est mandaté pour lire la déclaration et répondre aux questions de la presse. Les ingénieurs et techniciens spécialistes ne peuvent intervenir qu’en soutien technique, sur autorisation expresse du président du comité de crise.\n5. Suivi post-incident. L’analyste des médias sociaux consigne les retombées de presse et rédige une synthèse médiatique quotidienne transmise au conseil d’administration jusqu’à la clôture officielle du dossier.",
       "questions": [
         [
-          "Quelle est la critique centrale formulée par l’éditorialiste envers le traité économique ?",
-          "Le contraste choquant entre des règles écologiques sans portée et des protections commerciales impératives",
-          "La baisse excessive des droits de douane accordée aux médicaments génériques fabriqués à l’étranger lointain",
-          "Le refus formel des gouvernements signataires de commercer avec les pays membres de la Francophonie institutionnelle"
+          "Quelle action un témoin de la présence de journalistes lors d’un incident doit-il poser immédiatement ?",
+          "Guider la presse vers le point de rassemblement dédié tout en joignant la cellule d’urgence sans tarder",
+          "Prendre des photographies des installations endommagées pour les diffuser sans délai sur les réseaux sociaux",
+          "Répondre spontanément aux questions des reporters pour rassurer la population locale du secteur"
         ],
         [
-          "De quelle manière l’auteur appuie-t-il sa dénonciation du texte juridique ?",
-          "En comparant l’absence de pénalités environnementales avec l’arsenal juridique protégeant les brevets privés",
-          "En affirmant que les diplomates signataires ignoraient tous le contenu exact du traité lors du vote final en plénière",
-          "En proposant de supprimer l’ensemble des échanges maritimes internationaux pour sauver les écosystèmes des océans"
+          "Quel document doit impérativement être acheminé avant toute prise de parole officielle ?",
+          "Le rapport technique initial rédigé par le chef des opérations précisant la situation et les secours",
+          "Le compte rendu financier des réparations signé conjointement par le trésorier de l’entreprise énergétique",
+          "La synthèse de presse hebdomadaire élaborée par l’équipe de surveillance des réseaux sociaux"
         ],
         [
-          "Quelle conséquence l’inefficacité des clauses écologiques risque-t-elle d’engendrer selon le texte ?",
-          "Une aggravation de la dégradation environnementale masquée par une rhétorique verte superficielle",
-          "La fermeture immédiate de tous les laboratoires de recherche pharmaceutique situés sur le territoire du Canada",
-          "Une flambée incontrôlable des cours mondiaux de l’or et des métaux précieux sur les marchés financiers internationaux"
+          "Quelle condition préalable s’impose si les services d’urgence de la ville participent à l’intervention ?",
+          "L’aval exprès du maire ou du responsable des secours avant la diffusion de la déclaration publique",
+          "L’approbation d’un comité citoyen de quartier convoqué en assemblée générale extraordinaire d’urgence",
+          "L’obtention d’un mandat de comparution délivré par un juge de paix de la Cour supérieure de justice"
         ],
         [
-          "Dans ce commentaire engagé, que connote l’expression « blanchiment écologique » ?",
-          "Une tentative trompeuse de donner une image écoresponsable à des pratiques essentiellement destructrices",
-          "Une méthode industrielle novatrice de recyclage chimique des plastiques usagés récoltés en mer par des bénévoles",
-          "Un protocole scientifique rigoureux certifiant la pureté absolue des cours d’eau en milieu boréal et montagnard"
+          "Qui détient l’autorité exclusive pour s’exprimer devant les journalistes lors de l’incident ?",
+          "Le porte-parole désigné par la cellule de crise avec l’appui technique encadré des ingénieurs",
+          "Le technicien supérieur présent sur le chantier au moment où la première alerte a été déclenchée",
+          "L’agent de sécurité chargé du filtrage des entrées de véhicules au poste d’accès principal de l’usine"
         ]
       ],
-      "frame": "éditorial économique — commerce international"
+      "frame": "directives d’entreprise — communication en situation d’incident"
     },
     {
       "situation": 1,
-      "text": "Second extrait d’un mémoire parlementaire déposé par la Coalition québécoise pour la réforme démocratique. Notre système électoral uninominal à un tour produit une distorsion géographique perverse qui polarise inutilement notre communauté politique. En concentrant la représentation des différentes sensibilités idéologiques dans des forteresses régionales artificielles, il prive nos concitoyens de la diversité de points de vue qui existe pourtant au sein de chaque coin de notre territoire. Combien d’électeurs de nos circonscriptions rurales partagent des idéaux progressistes sans jamais trouver d’écho à l’Assemblée nationale, et combien de résidents des grands centres urbains votent pour des partis conservateurs en sachant pertinemment que leur suffrage sera jeté aux poubelles de l’histoire électorale ? Cette polarisation factice nourrit un cynisme délétère et fracture le sentiment d’appartenance collective indispensable à la cohésion nationale québécoise. L’introduction d’une dose substantielle de proportionnelle régionale permettrait à chaque vote de compter réellement, indépendamment du code postal de l’électeur, tout en favorisant l’émergence d’une culture de coalition et de dialogue parlementaire mature. Il est temps d’entendre la volonté citoyenne qui réclame depuis des décennies un système électoral moderne où chaque voix s’exprime avec la même force et la même dignité civique. La vitalité de notre démocratie en dépend pour les générations futures. La justice électorale demeure le socle inébranlable sur lequel repose l’adhésion de tous les citoyens aux décisions collectives.",
+      "text": "Directives de l’Université des Laurentides sur la reproduction numérique et le droit d’auteur.\n1. Principes directeurs de l’utilisation équitable. La numérisation et le téléversement de documents protégés par le droit d’auteur pour les cours universitaires s’inscrivent dans le cadre strict de l’exception d’utilisation équitable de la loi canadienne. Tout usage à des fins commerciales ou sans lien direct avec un programme d’études accrédité demeure strictement prohibé.\n2. Limites quantitatives autorisées. Un professeur ou un auxiliaire d’enseignement est autorisé à reproduire sans redevance jusqu’à dix pour cent d’une monographie, un poème isolé d’un recueil, ou un article complet tiré d’un numéro de revue scientifique. Toute reproduction excédant cette limite quantitative requiert l’achat d’une licence d’exploitation ponctuelle auprès de Copibec ou de l’éditeur titulaire.\n3. Démarche d’autorisation préalable. Lorsque les extraits souhaités dépassent les limites autorisées ou figurent sur la liste d’exclusion de la société de gestion, le chargé de cours doit soumettre le formulaire de demande de droits au bureau du droit d’auteur au moins quatre semaines avant le début du trimestre. Le bureau assume la négociation tarifaire et l’acquisition des autorisations écrites nécessaires.\n4. Protection des fichiers et accès technologique. Les fichiers numérisés doivent intégrer un filigrane institutionnel et être stockés sur le serveur pédagogique sécurisé. Le gestionnaire des systèmes informatiques doit configurer l’accès de façon à ce que seuls les étudiants immatriculés puissent télécharger les documents, et les liens doivent être révoqués automatiquement trente jours après la fin des examens finaux.\n5. Responsabilité et vérification périodique. Le bibliothécaire en chef réalise des contrôles trimestriels inopinés pour certifier la conformité des banques de cours. Tout manquement répété expose le département concerné au remboursement des redevances exigées par les ayants droit.",
       "questions": [
         [
-          "Quel effet pervers du mode de scrutin actuel ce mémoire dénonce-t-il avec force ?",
-          "Une polarisation géographique artificielle qui efface la pluralité des opinions réelles dans les régions",
-          "Une obligation pour chaque électeur de voter exclusivement pour un candidat désigné par tirage au sort civique",
-          "L’exclusion définitive des zones rurales de tout financement public pour leurs infrastructures de voirie locale"
+          "Quelle démarche un enseignant doit-il engager pour diffuser un chapitre représentant le quart d’un livre ?",
+          "Remplir un formulaire de droits auprès du bureau spécialisé au moins quatre semaines avant la session",
+          "Acheter vingt exemplaires du volume en librairie pour les déposer à la réserve de la faculté des lettres",
+          "Demander aux étudiants d’imprimer individuellement les chapitres à leurs frais dans un centre privé"
         ],
         [
-          "Comment les auteurs de la coalition construisent-ils leur plaidoyer pour la réforme ?",
-          "En montrant que des millions de voix minoritaires sont ignorées dans les circonscriptions urbaines et rurales",
-          "En menaçant les députés d’une grève générale des contribuables s’ils refusent de modifier la loi électorale actuelle",
-          "En recommandant de remplacer le parlement par des sondages téléphoniques automatisés hebdomadaires sans valeur"
+          "Quand la désactivation des accès aux fichiers numérisés doit-elle intervenir sur le serveur ?",
+          "Trente jours après la conclusion définitive des examens de la session académique correspondante",
+          "Dès le lendemain du premier cours magistral dispensé devant les étudiants de premier cycle universitaire",
+          "Au terme d’un délai de douze mois consécutifs suivant l’approbation du plan de cours par le doyen"
         ],
         [
-          "Quel bénéfice politique majeur l’instauration de la proportionnelle régionale apporterait-elle ?",
-          "L’émergence d’une culture démocratique de compromis et la valorisation équitable de chaque suffrage civique",
-          "La réduction de moitié du nombre total de députés siégeant au sein de l’Assemblée nationale de la province",
-          "La suppression des partis politiques traditionnels au profit d’associations d’affaires locales et patronales"
+          "À quelle exigence technique la mise en ligne des extraits autorisés est-elle soumise ?",
+          "L’apposition d’un filigrane de l’université et la limitation stricte de l’accès aux seuls étudiants inscrits",
+          "L’insertion obligatoire d’une annonce publicitaire commerciale au début et à la fin de chaque document téléversé",
+          "Le cryptage des fichiers au moyen d’une clé biométrique renouvelée toutes les quarante-huit heures"
         ],
         [
-          "Dans ce contexte d’analyse politique, que signifie l’adjectif « délétère » ?",
-          "Qui exerce une influence profondément néfaste, pernicieuse et destructrice sur le climat social",
-          "Qui suscite un enthousiasme collectif spontané et bienveillant parmi les membres d’une assemblée délibérante",
-          "Qui relève d’une procédure d’urgence prévue par les règlements intérieurs d’un parlement d’État souverain"
+          "Quelle autorité est chargée des contrôles inopinés et du respect des règles par les départements ?",
+          "Le bibliothécaire en chef vérifie les banques de cours et engage la responsabilité du département",
+          "L’association des éditeurs scolaires qui procède à des saisies de documents dans les salles de cours",
+          "Le technicien du laboratoire informatique responsable de l’installation des systèmes d’exploitation"
         ]
       ],
-      "frame": "mémoire parlementaire — réforme démocratique"
+      "frame": "directives institutionnelles — reproduction et droit d’auteur"
     }
   ],
   "n10-reading-3": [
