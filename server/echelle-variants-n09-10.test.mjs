@@ -108,15 +108,33 @@ describe('Échelle québécoise Niveaux 9–10 Scenarios and Banks', () => {
     }
   })
 
-  it('provides at least 4 scenarios per indicator, with both official situation types (0 and 1)', () => {
+  it('provides at least 4 scenarios per indicator, with both official situation types (0 and 1) and valid frames', () => {
     for (const [id, scenarios] of Object.entries(N09_10_SCENARIOS)) {
       assert.ok(
         scenarios.length >= 4,
         `Expected >= 4 scenarios for ${id}, found ${scenarios.length}`
       )
-      const situations = new Set(scenarios.map((s) => s.situation))
-      assert.ok(situations.has(0), `Indicator ${id} missing situation: 0`)
-      assert.ok(situations.has(1), `Indicator ${id} missing situation: 1`)
+      const count0 = scenarios.filter((s) => s.situation === 0).length
+      const count1 = scenarios.filter((s) => s.situation === 1).length
+      assert.ok(count0 >= 2, `Indicator ${id} missing >= 2 scenarios for situation 0 (got ${count0})`)
+      assert.ok(count1 >= 2, `Indicator ${id} missing >= 2 scenarios for situation 1 (got ${count1})`)
+
+      for (let sIdx = 0; sIdx < scenarios.length; sIdx++) {
+        const sc = scenarios[sIdx]
+        assert.ok(
+          sc.situation === 0 || sc.situation === 1,
+          `Indicator ${id} scenario ${sIdx} has invalid situation: ${sc.situation}`
+        )
+        assert.ok(
+          typeof sc.frame === 'string' && sc.frame.trim().length > 0,
+          `Indicator ${id} scenario ${sIdx} missing non-empty frame string`
+        )
+        const frameWords = sc.frame.trim().split(/\s+/).filter(Boolean)
+        assert.ok(
+          frameWords.length <= 12,
+          `Indicator ${id} scenario ${sIdx} frame "${sc.frame}" exceeds 12 words (${frameWords.length})`
+        )
+      }
     }
   })
 
