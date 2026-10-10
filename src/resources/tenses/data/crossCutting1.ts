@@ -1,0 +1,1594 @@
+import type { TenseLesson } from '../types'
+
+// 1. Passé composé vs imparfait
+export const pcVsImparfaitLesson: TenseLesson = {
+  id: 'passeCompose-vs-imparfait',
+  titleFr: 'Passé composé vs Imparfait',
+  titleZh: '复合过去时与未完成过去时的辨析与搭配',
+  category: 'cross-cutting',
+  cefrLevel: 'B1',
+  echelleNiveau: 6,
+  echelleSources: [
+    'n6-gr-pc-imparfait: 复合过去时与未完成过去时的搭配',
+    'n5-gr-chronologie-present: 以现在为参照的时间顺序',
+  ],
+  summaryZh: '法语过去时态的核心两难：背景描述、持续状态与习惯用未完成过去时；突发事件、具体动作与时间界限明确的事件用复合过去时。',
+  timelinePosition: 'past',
+  formationSteps: [
+    '电影胶卷法则：未完成过去时（imparfait）是电影的“布景与光线”（天气、心情、正在发生的事、老习惯）；复合过去时（passé composé）是电影里的“具体故事情节”（突然开门、电话响起、完成了某事）。',
+    '动作相交法则：一个动作正在进行时（imparfait），另一个突发动作介入打断它（passé composé）。常见标志词：quand, lorsque, tout à coup。',
+    '时间跨度法则：即便动作持续很长时间，但如果有明确起止标志（pendant trois ans, de 2018 à 2022），表明动作已经彻底结束，必须用 passé composé！',
+    '习惯 vs 单次：souvent, tous les jours 表示过去习惯，用 imparfait；hier, ce matin 表示单次事件，用 passé composé。',
+  ],
+  usages: [
+    {
+      id: 'decor-vs-evenement',
+      titleZh: '背景状态（Imparfait） vs 突发事件（Passé composé）',
+      descriptionZh: '正在描绘环境与状态时，突然发生了一起新事件。',
+      examples: [
+        {
+          fr: 'Je regardais tranquillement un documentaire quand mon ami m’a téléphoné.',
+          zh: '我当时正在安静地看一部纪录片，这时我的朋友给我打了电话。',
+          highlight: 'a téléphoné',
+        },
+        {
+          fr: 'Il faisait très froid sur le quai, alors nous avons décidé d’attendre le métro à l’intérieur.',
+          zh: '站台上当时非常冷，所以我们决定到室内去等地铁。',
+          highlight: 'avons décidé',
+        },
+        {
+          fr: 'Elle dormait profondément lorsque l’alarme d’incendie s’est déclenchée dans l’immeuble.',
+          zh: '火警警报在大楼里拉响时，她正沉沉熟睡着。',
+          highlight: 's’est déclenchée',
+        },
+        {
+          fr: 'Nous marchions sur la rue Sainte-Catherine quand une violente averse a éclaté.',
+          zh: '我们正走在圣凯瑟琳街上，突然间倾盆大雨呼啸而至。',
+          highlight: 'a éclaté',
+        },
+      ],
+    },
+    {
+      id: 'habitude-vs-rupture',
+      titleZh: '过去的习惯（Imparfait） vs 打破习惯的事件（Passé composé）',
+      descriptionZh: '过去一直经常做某事，但在某一天发生了一件打破常规的事。',
+      examples: [
+        {
+          fr: 'D’habitude, je prenais le métro, mais ce matin-là, j’ai marché jusqu’au travail.',
+          zh: '平常我都是坐地铁，但那天早晨，我步行去上班了。',
+          highlight: 'ai marché',
+        },
+        {
+          fr: 'Quand j’étais étudiant, je cuisinais tous les soirs, mais un jour, j’ai commandé une pizza.',
+          zh: '我当学生时每天晚上都自己做饭，但有一天，我订了一份披萨外卖。',
+          highlight: 'ai commandé',
+        },
+        {
+          fr: 'Chaque hiver, il déneigeait son entrée à la pelle, mais hier, il a acheté une souffleuse.',
+          zh: '每年冬天他都用铁锹铲雪，但昨天，他买了一台扫雪机。',
+          highlight: 'a acheté',
+        },
+        {
+          fr: 'Elle portait toujours des vêtements sombres, mais ce jour-là, elle a mis une robe rouge.',
+          zh: '她过去总穿深色衣服，但那一天，她穿了一件红裙子。',
+          highlight: 'a mis',
+        },
+      ],
+    },
+    {
+      id: 'duree-close-vs-etat',
+      titleZh: '有明确起止边界的动作（Passé composé） vs 无边界状态（Imparfait）',
+      descriptionZh: '由 pendant, de... à... 标明闭合起止点的动作必须用 passé composé。',
+      examples: [
+        {
+          fr: 'J’ai habité à Québec pendant cinq ans, c’était une période inoubliable de ma vie.',
+          zh: '我在魁北克市住了五年（动作已彻底结束），那是我人生中一段难忘的时光。',
+          highlight: 'ai habité',
+        },
+        {
+          fr: 'Il a neigé sans arrêt durant quarante-huit heures, la ville était paralysée.',
+          zh: '大雪整整下了四十八小时（闭合时长），整座城市都陷入瘫痪。',
+          highlight: 'a neigé',
+        },
+        {
+          fr: 'Mon grand-père a travaillé quarante ans dans cette usine, il était très respecté de tous.',
+          zh: '我祖父在那家工厂工作了四十年，他当时深受所有人爱戴。',
+          highlight: 'a travaillé',
+        },
+        {
+          fr: 'Nous avons attendu l’autobus pendant quarante minutes parce qu’il y avait une tempête.',
+          zh: '我们等了四十分钟公交车，因为当时有暴风雪。',
+          highlight: 'avons attendu',
+        },
+      ],
+    },
+    {
+      id: 'succession-recit',
+      titleZh: '连贯推进的情节（Passé composé） vs 背景环境描写（Imparfait）',
+      descriptionZh: '故事里连贯推进的动作链用 passé composé，插叙的描写用 imparfait。',
+      examples: [
+        {
+          fr: 'Le candidat est entré dans la salle, s’est assis, a ouvert sa serviette et a regardé l’examinateur.',
+          zh: '考生走进考场，坐下，打开公文包，注视着考官。',
+          highlight: 's’est assis',
+        },
+        {
+          fr: 'Le vent hurlait dans les arbres, mais le trappeur a allumé le feu et a bu sa tisane.',
+          zh: '寒风在树梢呼啸，但捕猎者点燃了火堆，喝下了草本热茶。',
+          highlight: 'a allumé',
+        },
+        {
+          fr: 'Elle a éteint la lumière, a fermé la porte à clé et est descendue dans la rue.',
+          zh: '她关了灯，锁上门，走到了街上。',
+          highlight: 'a éteint',
+        },
+        {
+          fr: 'Le fleuve était calme, les enfants ont sauté dans l’eau et ont nagé jusqu’au ponton.',
+          zh: '江面风平浪静，孩子们跃入水中，游向了浮桥。',
+          highlight: 'ont sauté',
+        },
+      ],
+    },
+    {
+      id: 'changement-sens',
+      titleZh: '同一动词在两个时态下的不同词义细微差别',
+      descriptionZh: '如 savoir（savait = 当时知道状态；a su = 当时得知了消息），connaître（connaissait = 认识某人；a connu = 结识/遭遇了）。',
+      examples: [
+        {
+          fr: 'Je savais qu’il était malade, mais j’ai su hier qu’il était hospitalisé.',
+          zh: '我本来就知道他生病了，但我昨天才得知他住院的消息。',
+          highlight: 'ai su',
+        },
+        {
+          fr: 'Elle connaissait bien Montréal, mais c’est l’été dernier qu’elle a connu son futur conjoint.',
+          zh: '她很熟悉蒙特利尔，但她是去年夏天才结识她未来的配偶的。',
+          highlight: 'a connu',
+        },
+        {
+          fr: 'Il voulait partir en voyage, mais quand il a vu le prix des billets, il a renoncé.',
+          zh: '他本来想去旅行，但当他看到机票价格时，他放弃了。',
+          highlight: 'voulait',
+        },
+        {
+          fr: 'J’avais très faim, alors j’ai mangé deux bagels chauds au sésame.',
+          zh: '我当时非常饥饿（状态），所以我吃了两个刚出炉的芝麻贝果。',
+          highlight: 'ai mangé',
+        },
+      ],
+    },
+  ],
+  signalWords: [
+    {
+      word: 'quand + passé composé (interruption)',
+      meaningZh: '当正在进行时突然发生……',
+      example: {
+        fr: 'Je marchais dans le Vieux-Port quand j’ai aperçu un voilier majestueux.',
+        zh: '我正在老港散步时，突然瞥见了一艘壮丽的帆船。',
+        highlight: 'ai aperçu',
+      },
+    },
+    {
+      word: 'pendant trois ans (clôture)',
+      meaningZh: '持续了三年（已彻底结束）',
+      example: {
+        fr: 'Elle a étudié le droit pendant trois ans à l’Université Laval.',
+        zh: '她在拉瓦尔大学学了三年法律。',
+        highlight: 'a étudié',
+      },
+    },
+    {
+      word: 'tous les soirs (habitude)',
+      meaningZh: '每晚（过去习惯）',
+      example: {
+        fr: 'Tous les soirs, il lisait un conte à ses enfants avant de dormir.',
+        zh: '每天晚上，他在睡前都会给孩子们读一则童话。',
+        highlight: 'lisait',
+      },
+    },
+    {
+      word: 'soudain (déclencheur)',
+      meaningZh: '突然（推进情节）',
+      example: {
+        fr: 'Soudain, un grand coup de tonnerre a secoué les fenêtres du chalet.',
+        zh: '突然，一声巨雷震颤了小木屋的窗户。',
+        highlight: 'a secoué',
+      },
+    },
+  ],
+  commonMistakes: [
+    {
+      wrong: 'Hier, il faisait beau quand tout à coup il commençait à neiger.',
+      right: 'Hier, il faisait beau quand tout à coup il a commencé à neiger.',
+      explanationZh: 'tout à coup 是明确的突发事件标志词，必须使用复合过去时 a commencé。',
+    },
+    {
+      wrong: 'Quand j’étais jeune, j’ai souvent voyagé en Gaspésie.',
+      right: 'Quand j’étais jeune, je voyageais souvent en Gaspésie.',
+      explanationZh: 'quand j’étais jeune 加上 souvent 表示过去长期习惯，必须用未完成过去时 je voyageais。',
+    },
+    {
+      wrong: 'J’ai attendu pendant que tu cuisinais. (主句与从句同时进行混淆)',
+      right: 'J’attendais pendant que tu cuisinais.',
+      explanationZh: '两个动作在过去同时展开且无明确截止点，两者都用未完成过去时。',
+    },
+    {
+      wrong: 'Il a été fatigué toute la journée hier. (状态描写误用)',
+      right: 'Il était fatigué toute la journée hier.',
+      explanationZh: '持续的生理或心理感受属于状态描写，通常优先使用 imparfait：il était fatigué。',
+    },
+  ],
+  questions: [
+    {
+      id: 'pc-imp-q1',
+      type: 'choice',
+      prompt: 'Hier soir, je (regarder) ___ la télévision quand mon ami m’a téléphoné.',
+      options: ['regardais', 'ai regardé', 'regardai', 'regardé'],
+      correctAnswer: 'regardais',
+      explanationZh: '当时正在进行的背景动作使用未完成过去时：regardais。',
+    },
+    {
+      id: 'pc-imp-q2',
+      type: 'choice',
+      prompt: 'Pendant qu’elle (dormir) ___, le facteur a déposé le colis devant sa porte.',
+      options: ['dormait', 'a dormi', 'dort', 'dormira'],
+      correctAnswer: 'dormait',
+      explanationZh: 'pendant que 引出的背景动作使用未完成过去时：dormait。',
+    },
+    {
+      id: 'pc-imp-q3',
+      type: 'choice',
+      prompt: 'Il ___ très froid, alors nous ___ un taxi pour rentrer à la maison.',
+      options: [
+        'faisait / avons pris',
+        'a fait / prenions',
+        'faisait / prenions',
+        'a fait / avons pris',
+      ],
+      correctAnswer: 'faisait / avons pris',
+      explanationZh: '天气背景用 imparfait（faisait froid），随后的应对决定与完成动作用 passé composé（avons pris）。',
+    },
+    {
+      id: 'pc-imp-q4',
+      type: 'choice',
+      prompt: 'Quand j’étais enfant, nous (passer) ___ tous nos étés au bord du lac Saint-Jean.',
+      options: ['passions', 'avons passé', 'passerions', 'passâmes'],
+      correctAnswer: 'passions',
+      explanationZh: '表达童年反复的习惯用未完成过去时：passions。',
+    },
+    {
+      id: 'pc-imp-q5',
+      type: 'fill',
+      prompt: 'J’ (habiter) ___ trois ans à Gatineau avant de déménager à Montréal.（表示已终结的闭合时长，填入助动词+分词）',
+      correctAnswer: 'ai habité',
+      acceptedAnswers: ['ai habité', 'ai habite'],
+      explanationZh: '有明确闭合时长（trois ans）且已彻底结束，使用复合过去时：ai habité。',
+    },
+    {
+      id: 'pc-imp-q6',
+      type: 'choice',
+      prompt: 'Tout à coup, une alarme (sonner) ___ et tout le monde a quitté le bureau.',
+      options: ['a sonné', 'sonnait', 'sonne', 'avait sonné'],
+      correctAnswer: 'a sonné',
+      explanationZh: 'tout à coup 是标志性突发事件触发词，使用复合过去时 a sonné。',
+    },
+    {
+      id: 'pc-imp-q7',
+      type: 'choice',
+      prompt: 'Il marchait tranquillement dans la rue quand il (glisser) ___ sur une plaque de glace.',
+      options: ['a glissé', 'glissait', 'glisse', 'avait glissé'],
+      correctAnswer: 'a glissé',
+      explanationZh: '打断正在走路背景的突发动作，使用复合过去时 a glissé。',
+    },
+    {
+      id: 'pc-imp-q8',
+      type: 'fill',
+      prompt: 'La maison (avoir) ___ un grand jardin fleuri.（描绘静态外貌特征，填入 imparfait）',
+      correctAnswer: 'avait',
+      acceptedAnswers: ['avait'],
+      explanationZh: '描绘房屋的客观特征与背景，使用未完成过去时 avait。',
+    },
+    {
+      id: 'pc-imp-q9',
+      type: 'choice',
+      prompt: 'L’année dernière, j’ (aller) ___ skier au mont Tremblant deux fois.',
+      options: ['suis allé', 'allais', 'ai allé', 'étais allé'],
+      correctAnswer: 'suis allé',
+      explanationZh: '明确计算了次数（deux fois）的完成事件，使用复合过去时：suis allé。',
+    },
+    {
+      id: 'pc-imp-q10',
+      type: 'choice',
+      prompt: 'Elle est entrée, (poser) ___ son manteau et a salué ses collègues.',
+      options: ['a posé', 'posait', 'posera', 'avait posé'],
+      correctAnswer: 'a posé',
+      explanationZh: '连续动作链推进情节，全部使用复合过去时：a posé。',
+    },
+    {
+      id: 'pc-imp-q11',
+      type: 'fill',
+      prompt: 'Il (être) ___ minuit passé quand les invités sont partis.（交代时间背景，填入 imparfait）',
+      correctAnswer: 'était',
+      acceptedAnswers: ['était', 'etait'],
+      explanationZh: '表达过去的时间钟点背景，使用未完成过去时 était。',
+    },
+    {
+      id: 'pc-imp-q12',
+      type: 'choice',
+      prompt: 'Je (savoir) ___ hier soir qu’il avait obtenu sa résidence permanente.',
+      options: ['ai su', 'savais', 'sais', 'suis su'],
+      correctAnswer: 'ai su',
+      explanationZh: 'hier soir 表示在那一刻“获知/得知”新消息，用复合过去时 ai su。',
+    },
+  ],
+}
+
+// 2. Imparfait vs Plus-que-parfait
+export const impVsPqpLesson: TenseLesson = {
+  id: 'imparfait-vs-plus-que-parfait',
+  titleFr: 'Imparfait vs Plus-que-parfait',
+  titleZh: '未完成过去时与愈过去时的纵深对比',
+  category: 'cross-cutting',
+  cefrLevel: 'B2',
+  echelleNiveau: 7,
+  echelleSources: [
+    'n7-gr-plus-que-parfait: 愈过去时',
+    'n5-gr-imparfait: 未完成过去时',
+  ],
+  summaryZh: '区分过去基准点上的“当时正在进行/当时处于的状态”（imparfait）与在过去基准点之前就“已经完成完毕”（plus-que-parfait）。',
+  timelinePosition: 'past',
+  formationSteps: [
+    '时间层级定位：故事的当下基准点通常在过去（如 passé composé 或 imparfait）。如果动作与该基准点同时展开，用 imparfait；如果动作在基准点之前就已经彻底发生或结束，用 plus-que-parfait！',
+    '标志词识别：déjà（已经）、la veille（前一天）、auparavant（在此之前）常引导愈过去时。',
+    '原因与后果结构：当前结果是过去时（Elle pleurait / elle a pleuré），原因发生在更早之前（parce qu’elle avait perdu son emploi），原因用 plus-que-parfait。',
+    'si 假设句层级：si + imparfait 针对“现在事实”假设；si + plus-que-parfait 针对“过去事实”假设。',
+  ],
+  usages: [
+    {
+      id: 'simultane-vs-anterieur',
+      titleZh: '过去同时展开（Imparfait） vs 过去之前已完成（Plus-que-parfait）',
+      descriptionZh: '对比动作是与过去的基准点同步并存，还是在基准点前就已画上句号。',
+      examples: [
+        {
+          fr: 'Quand je suis entré, le professeur effaçait le tableau (动作正在进行中).',
+          zh: '当我进门时，老师正在擦黑板（当时正在进行）。',
+          highlight: 'effaçait',
+        },
+        {
+          fr: 'Quand je suis entré, le professeur avait déjà effacé le tableau (动作早已完毕).',
+          zh: '当我进门时，老师早已把黑板擦干净了（过去的过去）。',
+          highlight: 'avait déjà effacé',
+        },
+        {
+          fr: 'Il pleuvait toujours quand nous avons quitté la maison pour le travail.',
+          zh: '当我们出门去上班时，天还在下着雨（雨在持续）。',
+          highlight: 'pleuvait',
+        },
+        {
+          fr: 'La pluie s’était arrêtée quand nous sommes sortis sur le balcon.',
+          zh: '当我们走到阳台上时，雨之前就已经停了（雨已结束）。',
+          highlight: 's’était arrêtée',
+        },
+      ],
+    },
+    {
+      id: 'cause-retro',
+      titleZh: '过去状态的原因（PQP） vs 过去的持续感受（Imparfait）',
+      descriptionZh: '用愈过去时解释过去的某种感受或状况为何存在。',
+      examples: [
+        {
+          fr: 'Elle était très fatiguée parce qu’elle avait déneigé son allée pendant deux heures la veille.',
+          zh: '她感到非常疲惫（状态），因为前一天她铲了两个小时雪（更早的动作）。',
+          highlight: 'avait déneigé',
+        },
+        {
+          fr: 'Nous n’avions pas faim au souper car nous avions mangé de copieux bagels dans l’après-midi.',
+          zh: '我们吃晚饭时不觉得饿，因为下午我们吃了份量十足的贝果。',
+          highlight: 'avions mangé',
+        },
+        {
+          fr: 'Le sol était glissant parce qu’une pluie verglaçante était tombée pendant la nuit.',
+          zh: '地面很滑，因为夜里下了冻雨。',
+          highlight: 'était tombée',
+        },
+        {
+          fr: 'Il connaissait déjà bien la ville car il y avait habité quelques années plus tôt.',
+          zh: '他很熟悉这座城市，因为几年之前他在那里居住过。',
+          highlight: 'avait habité',
+        },
+      ],
+    },
+    {
+      id: 'objets-perdus-retrouves',
+      titleZh: '失物与寻回（寻回是过去事件，丢失是更早的动作）',
+      descriptionZh: '关系从句中经常使用愈过去时交代过去的先时动作。',
+      examples: [
+        {
+          fr: 'J’ai enfin retrouvé la carte OPUS que j’avais égarée la semaine dernière.',
+          zh: '我终于找到了我上周弄丢的那张交通卡（OPUS）。',
+          highlight: 'avais égarée',
+        },
+        {
+          fr: 'Elle a relu avec émotion la lettre que son grand-père lui avait écrite autrefois.',
+          zh: '她动情地重读了祖父从前写给她的那封信。',
+          highlight: 'avait écrite',
+        },
+        {
+          fr: 'Nous avons acheté le chalet que nous avions visité en automne.',
+          zh: '我们买下了秋天时曾经去参观过的那栋木屋。',
+          highlight: 'avions visité',
+        },
+        {
+          fr: 'Le garagiste a réparé la pièce mécanique qui s’était brisée pendant le trajet.',
+          zh: '修车师傅修好了旅途中坏掉的那个机械零件。',
+          highlight: 's’était brisée',
+        },
+      ],
+    },
+    {
+      id: 'discours-indirect-comparaison',
+      titleZh: '间接引语中的层级递进（原现在时转为 Imparfait，原过去时转为 PQP）',
+      descriptionZh: '主句动词为过去时时，从句时态依据时间纵深后移。',
+      examples: [
+        {
+          fr: 'Il a dit : « Je suis fatigué » → Il a dit qu’il était fatigué (同时状态用 imparfait).',
+          zh: '他说：“我很累” → 他说他当时很累。',
+          highlight: 'était',
+        },
+        {
+          fr: 'Il a dit : « J’ai fini » → Il a dit qu’il avait fini (先时完成用 PQP).',
+          zh: '他说：“我完成了” → 他说他此前已经完成了。',
+          highlight: 'avait fini',
+        },
+        {
+          fr: 'Elle m’a expliqué qu’elle cherchait un emploi à Québec (当时正在寻找).',
+          zh: '她向我解释说，她当时正在魁北克市找工作。',
+          highlight: 'cherchait',
+        },
+        {
+          fr: 'Elle m’a expliqué qu’elle avait déjà trouvé un emploi à Québec (此前已经找到).',
+          zh: '她向我解释说，她此前已经在魁北克市找到了工作。',
+          highlight: 'avait déjà trouvé',
+        },
+      ],
+    },
+    {
+      id: 'hypothese-si-comparaison',
+      titleZh: 'si 从句的虚拟级别对比（si + imparfait vs si + PQP）',
+      descriptionZh: '现在虚拟假设 vs 过去虚拟假设。',
+      examples: [
+        {
+          fr: 'Si j’avais le temps aujourd’hui, je t’aiderais (与现在事实相反：现在没时间).',
+          zh: '如果我现在有时间，我就会帮你。',
+          highlight: 'avais',
+        },
+        {
+          fr: 'Si j’avais eu le temps hier, je t’aurais aidé (与过去事实相反：昨天没时间).',
+          zh: '如果我昨天有时间，我昨天本来就会帮你的。',
+          highlight: 'avais eu',
+        },
+        {
+          fr: 'Si nous étions riches, nous achèterions cette maison sur la montagne.',
+          zh: '如果我们现在很有钱，我们就会买下山上的那套房子。',
+          highlight: 'étions',
+        },
+        {
+          fr: 'Si nous avions été prévenus plus tôt, nous serions venus vous aider à déneiger.',
+          zh: '要是我们当时更早得到通知，我们本来会来帮你铲雪的。',
+          highlight: 'avions été',
+        },
+      ],
+    },
+  ],
+  signalWords: [
+    {
+      word: 'la veille',
+      meaningZh: '前一天（先时标志）',
+      example: {
+        fr: 'Il a réparé la fuite d’eau qui s’était déclarée la veille.',
+        zh: '他修好了前一天发生的漏水。',
+        highlight: 's’était déclarée',
+      },
+    },
+    {
+      word: 'déjà au passé',
+      meaningZh: '在过去之前已经……',
+      example: {
+        fr: 'Le train était déjà parti quand nous sommes arrivés en courant.',
+        zh: '当我们飞奔赶到时，火车已经开走了。',
+        highlight: 'était déjà parti',
+      },
+    },
+    {
+      word: 'à cette époque (imparfait)',
+      meaningZh: '在那个时代（当时状态）',
+      example: {
+        fr: 'À cette époque, les communications étaient beaucoup plus lentes.',
+        zh: '在那个时代，通信联络要慢得多。',
+        highlight: 'étaient',
+      },
+    },
+    {
+      word: 'auparavant (PQP)',
+      meaningZh: '在此之前（先时完成）',
+      example: {
+        fr: 'Elle a réussi l’examen parce qu’elle avait étudié assidûment auparavant.',
+        zh: '她通过了考试，因为此前她勤勉地学习过。',
+        highlight: 'avait étudié',
+      },
+    },
+  ],
+  commonMistakes: [
+    {
+      wrong: 'Quand je suis arrivé, il partait. (想表达“已经开走了”却误用 imparfait)',
+      right: 'Quand je suis arrivé, il était déjà parti.',
+      explanationZh: '如果说 il partait，意味着你刚好看到火车正在启动缓缓开出；如果人到时车已经没影了，必须用愈过去时 était parti。',
+    },
+    {
+      wrong: 'Si j’avais su hier, je viendrais.',
+      right: 'Si j’avais su hier, je serais venu.',
+      explanationZh: 'si + plus-que-parfait 对应的是过去的虚拟结果，主句必须用条件式过去时（serais venu），不能用现在时。',
+    },
+    {
+      wrong: 'J’ai perdu le livre que j’achetais.',
+      right: 'J’ai perdu le livre que j’avais acheté.',
+      explanationZh: '书肯定是买好了（完成的动作）之后才丢的，所以买书属于过去的过去，必须用愈过去时 avais acheté。',
+    },
+    {
+      wrong: 'Elle disait qu’elle avait faim parce qu’elle mangeait rien.',
+      right: 'Elle disait qu’elle avait faim parce qu’elle n’avait rien mangé.',
+      explanationZh: '没吃东西发生在挨饿之前，原因必须用愈过去时 n’avait rien mangé。',
+    },
+  ],
+  questions: [
+    {
+      id: 'imp-pqp-q1',
+      type: 'choice',
+      prompt: 'Quand nous sommes arrivés au chalet, les lumières (déjà s’éteindre) ___.',
+      options: ['s’étaient déjà éteintes', 's’éteignaient', 'se sont éteintes', 's’éteignent'],
+      correctAnswer: 's’étaient déjà éteintes',
+      explanationZh: '到达之前已经熄灭，用愈过去时：s’étaient déjà éteintes。',
+    },
+    {
+      id: 'imp-pqp-q2',
+      type: 'choice',
+      prompt: 'Il était trempé parce qu’il (marcher) ___ sous la pluie battante sans parapluie.',
+      options: ['avait marché', 'marchait', 'a marché', 'marcherait'],
+      correctAnswer: 'avait marché',
+      explanationZh: '淋湿是当时状态，淋雨步行是此前发生的动作（原因），用愈过去时 avait marché。',
+    },
+    {
+      id: 'imp-pqp-q3',
+      type: 'choice',
+      prompt: 'Si j’ (avoir) ___ du temps aujourd’hui, j’irais patiner au parc.',
+      options: ['avais', 'avais eu', 'ai', 'aurais'],
+      correctAnswer: 'avais',
+      explanationZh: 'aujourd’hui 表明这是与现在事实相反的假设，si 后面接未完成过去时：si j’avais。',
+    },
+    {
+      id: 'imp-pqp-q4',
+      type: 'choice',
+      prompt: 'Si j’ (avoir) ___ du temps hier, je serais allé patiner au parc.',
+      options: ['avais eu', 'avais', 'ai eu', 'aurais eu'],
+      correctAnswer: 'avais eu',
+      explanationZh: 'hier 表明这是与过去事实相反的假设，si 后面接愈过去时：si j’avais eu。',
+    },
+    {
+      id: 'imp-pqp-q5',
+      type: 'fill',
+      prompt: 'J’ai retrouvé les clés que j’ (perdre) ___ deux jours plus tôt.（填入愈过去时助动词+分词）',
+      correctAnswer: 'avais perdues',
+      acceptedAnswers: ['avais perdues', 'avais perdu'],
+      explanationZh: '在找到之前丢失，用愈过去时；que 代替 les clés（阴性复数），分词配合为 avais perdues。',
+    },
+    {
+      id: 'imp-pqp-q6',
+      type: 'choice',
+      prompt: 'Quand l’alarme a sonné, ils (dormir) ___ encore profondément.',
+      options: ['dormaient', 'avaient dormi', 'ont dormi', 'dorment'],
+      correctAnswer: 'dormaient',
+      explanationZh: '警报拉响时他们当时正处于熟睡状态（同时背景），使用未完成过去时 dormaient。',
+    },
+    {
+      id: 'imp-pqp-q7',
+      type: 'choice',
+      prompt: 'Elle a avoué qu’elle (ne jamais voir) ___ un hiver aussi rude auparavant.',
+      options: ['n’avait jamais vu', 'ne voyait jamais', 'n’a jamais vu', 'ne verrait jamais'],
+      correctAnswer: 'n’avait jamais vu',
+      explanationZh: 'auparavant 明确提示先时性，间接引语从句用愈过去时 n’avait jamais vu。',
+    },
+    {
+      id: 'imp-pqp-q8',
+      type: 'fill',
+      prompt: 'La route était bloquée parce qu’un arbre centenaire (tomber) ___ pendant la nuit.（填入助动词+分词）',
+      correctAnswer: 'était tombé',
+      acceptedAnswers: ['était tombé', 'etait tombe'],
+      explanationZh: '倒伏发生在封路之前，tomber 使用 être 作助动词：était tombé。',
+    },
+    {
+      id: 'imp-pqp-q9',
+      type: 'choice',
+      prompt: 'L’agent nous a demandé si nous (recevoir) ___ l’avis officiel la veille.',
+      options: ['avions reçu', 'recevions', 'avons reçu', 'aurions reçu'],
+      correctAnswer: 'avions reçu',
+      explanationZh: 'la veille（前一天）属于过去之前的时间标志，使用愈过去时 avions reçu。',
+    },
+    {
+      id: 'imp-pqp-q10',
+      type: 'choice',
+      prompt: 'Autrefois, mon père (travailler) ___ dans la construction navale.',
+      options: ['travaillait', 'avait travaillé', 'a travaillé', 'travailla'],
+      correctAnswer: 'travaillait',
+      explanationZh: 'autrefois 描述过去的常规职业与习惯状态，使用未完成过去时 travaillait。',
+    },
+    {
+      id: 'imp-pqp-q11',
+      type: 'fill',
+      prompt: 'Le spectacle (déjà se terminer) ___ quand les retardataires sont arrivés.（填入代词+助动词+déjà+分词）',
+      correctAnswer: 's’était déjà terminé',
+      acceptedAnswers: ['s’était déjà terminé', 's etait deja termine'],
+      explanationZh: '代词动词使用 être，演出在迟到者到达前已结束：s’était déjà terminé。',
+    },
+    {
+      id: 'imp-pqp-q12',
+      type: 'choice',
+      prompt: 'Il m’a assuré qu’il (comprendre) ___ la règle après mes explications.',
+      options: ['avait compris', 'comprenait', 'a compris', 'comprendrait'],
+      correctAnswer: 'avait compris',
+      explanationZh: '在作出保证之前已经完全理解了规则，用愈过去时 avait compris。',
+    },
+  ],
+}
+
+// 3. Futur proche vs Futur simple vs Présent à valeur de futur
+export const troisFutursLesson: TenseLesson = {
+  id: 'futurProche-vs-futurSimple-vs-present',
+  titleFr: 'Futur proche vs Futur simple vs Présent à valeur de futur',
+  titleZh: '表达将来的三种形态：即时、长远与当下确定',
+  category: 'cross-cutting',
+  cefrLevel: 'B1',
+  echelleNiveau: 5,
+  echelleSources: [
+    'n3-gr-futur-proche: 最近将来时 aller + 不定式',
+    'n4-gr-futur-simple: 简单将来时',
+    'n5-gr-futur-simple-avance: 简单将来时（深入）',
+  ],
+  summaryZh: '法语表达将来的三驾马车：口语即时打算与当下线索推论用 futur proche；书面、中远期、官方规章与条件从句用 futur simple；确定日程安排用 présent。',
+  timelinePosition: 'future',
+  formationSteps: [
+    '直陈式现在时（présent à valeur de futur）：有明确时间状语时，表达日程已定、雷打不动的即刻将来（如 Je pars demain）。',
+    '最近将来时（aller + infinitif）：强调动作与说话当下存在直接连系（马上就要发生、个人的近期打算、口语最常见表达）。',
+    '简单将来时（futur simple）：强调与当下的距离感，用于中远期规划、天气预报、法律规约、正式书面承诺，以及 quand / dès que / lorsque 从句。',
+    'si 条件句中的专属：si + présent → 主句必须使用 futur simple（或 impératif），绝不能在 si 从句中使用将来时！',
+  ],
+  usages: [
+    {
+      id: 'degre-certitude-delai',
+      titleZh: '时间跨度与确定性：马上发生 vs 远期规划',
+      descriptionZh: '对比几分钟后、几个月后与数年后的选择倾向。',
+      examples: [
+        {
+          fr: 'Le train de banlieue va partir dans trois minutes (即刻就要出发，用 futur proche).',
+          zh: '郊区火车三分钟后就要开出了。',
+          highlight: 'va partir',
+        },
+        {
+          fr: 'Dans cinq ans, nous construirons une maison écoénergétique (远期宏伟规划，用 futur simple).',
+          zh: '五年之后，我们将建一座节能环保房屋。',
+          highlight: 'construirons',
+        },
+        {
+          fr: 'Demain matin, je prends le premier vol pour Sept-Îles (已订妥机票的确定行程，用 présent).',
+          zh: '明天早晨，我乘坐第一班航班飞往七岛市。',
+          highlight: 'prends',
+        },
+        {
+          fr: 'Attention ! Tu vas faire tomber cette tasse de café chaud sur ton clavier !',
+          zh: '当心！你马上要把这杯热咖啡打翻在键盘上了！',
+          highlight: 'vas faire tomber',
+        },
+      ],
+    },
+    {
+      id: 'oral-vs-ecrit-officiel',
+      titleZh: '日常口语对话 vs 正式官方文体与新闻预报',
+      descriptionZh: '口语中绝大多数偏好 aller + inf；广播与正式公文偏好简单将来时。',
+      examples: [
+        {
+          fr: 'On va se voir au café du coin après le cours de français (魁北克日常口语).',
+          zh: '法语课下课后咱们去街角咖啡馆见个面吧。',
+          highlight: 'va se voir',
+        },
+        {
+          fr: 'Le premier ministre prononcera une allocution solennelle à dix-huit heures (官方新闻报道).',
+          zh: '省长将于下午六点发表庄严电视讲话。',
+          highlight: 'prononcera',
+        },
+        {
+          fr: 'Une perturbation atmosphérique entraînera de la pluie verglaçante cette nuit (天气预报).',
+          zh: '一股大气扰动将于今夜带来冻雨天气。',
+          highlight: 'entraînera',
+        },
+        {
+          fr: 'Je vais t’envoyer le lien par texto tout de suite (口语即时动作).',
+          zh: '我马上把链接通过短信发给你。',
+          highlight: 'vais t’envoyer',
+        },
+      ],
+    },
+    {
+      id: 'conjonctions-temps-regle',
+      titleZh: '时间连词（quand, dès que...）的强制选择：必用 Futur simple',
+      descriptionZh: '在从句中表达未来的完成或发生时，语法上严格禁止使用最近将来时。',
+      examples: [
+        {
+          fr: 'Quand vous arriverez à l’accueil, l’agente vous remettra votre dossier (从句必须用 futur simple).',
+          zh: '当您到达接待处时，工作人员会把档案交给您。',
+          highlight: 'arriverez',
+        },
+        {
+          fr: 'Dès que le soleil se lèvera, nous irons marcher dans la forêt boréale.',
+          zh: '太阳一旦升起，我们就去北方森林里徒步。',
+          highlight: 'se lèvera',
+        },
+        {
+          fr: 'Lorsque vous recevrez votre carte d’assurance maladie, vous choisirez une clinique.',
+          zh: '当您收到太阳卡时，您就可以挑选诊所了。',
+          highlight: 'recevrez',
+        },
+        {
+          fr: 'Aussitôt que la neige fondra, nous commencerons les travaux de jardinage.',
+          zh: '积雪一旦融化，我们就开始打理花园。',
+          highlight: 'fondra',
+        },
+      ],
+    },
+    {
+      id: 'nuance-volonte-vs-destin',
+      titleZh: '个人意志打算（Futur proche） vs 制度规章与必然规律（Futur simple）',
+      descriptionZh: '对比主观的计划意向与客观的法律规律。',
+      examples: [
+        {
+          fr: 'Je vais faire de mon mieux pour réussir mon examen d’intégration (个人下定决心).',
+          zh: '我将竭尽全力通过我的融合评估考试。',
+          highlight: 'vais faire',
+        },
+        {
+          fr: 'Tout contrevenant paiera une amende de cent dollars (法律规章的客观强制).',
+          zh: '任何违规者将支付一百加元罚金。',
+          highlight: 'paiera',
+        },
+        {
+          fr: 'Les prix des denrées alimentaires augmenteront inévitablement avec l’inflation.',
+          zh: '随着通货膨胀，食品物价将不可避免地上涨。',
+          highlight: 'augmenteront',
+        },
+        {
+          fr: 'Nous allons fêter ça dignement avec toute la famille ce soir !',
+          zh: '今晚我们打算和全家人好好庆祝一番！',
+          highlight: 'allons fêter',
+        },
+      ],
+    },
+    {
+      id: 'alternance-stylistique',
+      titleZh: '同一篇章中的交替使用（避免单调，富于层次）',
+      descriptionZh: '在描述未来事件时，通过交替运用不同时态体现近与远的逻辑层次。',
+      examples: [
+        {
+          fr: 'Nous allons d’abord signer le bail ce matin, puis nous déménagerons officiellement le mois prochain.',
+          zh: '我们今天早晨先去签租约，然后下个月正式搬家。',
+          highlight: 'allons d’abord signer',
+        },
+        {
+          fr: 'Je vais étudier assidûment pendant six mois, et je passerai mon test du TCF à l’automne.',
+          zh: '我先认真攻读六个月，秋天时去参加 TCF 考试。',
+          highlight: 'vais étudier',
+        },
+        {
+          fr: 'L’équipe va se réunir cet après-midi et elle adoptera le plan stratégique pour l’année à venir.',
+          zh: '团队今天下午先行开会，并将在会上通过来年的战略规划。',
+          highlight: 'va se réunir',
+        },
+        {
+          fr: 'Je pars demain pour Montréal, où je vais chercher un logement et où je m’établirai à long terme.',
+          zh: '我明天出发去蒙特利尔，在那里找房子，并在那里长期定居。',
+          highlight: 'm’établirai',
+        },
+      ],
+    },
+  ],
+  signalWords: [
+    {
+      word: 'dans un instant (futur proche)',
+      meaningZh: '片刻之后（即时）',
+      example: {
+        fr: 'Le médecin va vous recevoir dans un instant.',
+        zh: '医生片刻之后就会接诊您。',
+        highlight: 'va vous recevoir',
+      },
+    },
+    {
+      word: 'quand + futur (futur simple)',
+      meaningZh: '当……（时间从句中强制用简单将来时）',
+      example: {
+        fr: 'Quand tu comprendras le système québécois, tout deviendra plus simple.',
+        zh: '当你理解了魁北克的体制，一切都会变得更加简单。',
+        highlight: 'comprendras',
+      },
+    },
+    {
+      word: 'demain matin (présent)',
+      meaningZh: '明早（确定日程安排）',
+      example: {
+        fr: 'Je commence mon nouveau travail demain matin à huit heures.',
+        zh: '我明天早晨八点开始我的新工作。',
+        highlight: 'commence',
+      },
+    },
+    {
+      word: 'dans dix ans (futur simple)',
+      meaningZh: '十年之后（远期规划）',
+      example: {
+        fr: 'Dans dix ans, cette région connaîtra un essor technologique majeur.',
+        zh: '十年之后，这个地区将迎来重大的科技繁荣。',
+        highlight: 'connaîtra',
+      },
+    },
+  ],
+  commonMistakes: [
+    {
+      wrong: 'Quand je vais avoir mon visa, je vais acheter un billet. (从句误用最近将来时)',
+      right: 'Quand j’aurai mon visa, j’achèterai un billet.',
+      explanationZh: '在 quand, dès que 引导的时间从句中，表达将来必须严格使用简单将来时（j’aurai），不能用 aller + inf。',
+    },
+    {
+      wrong: 'Si tu vas venir, on va être contents.',
+      right: 'Si tu viens, nous serons très contents.',
+      explanationZh: 'si 从句中绝对不能出现任何将来时！只能用现在时：si tu viens。',
+    },
+    {
+      wrong: 'Ce soir je partirai au cinéma. (日常近事在口语中显得死板过分正式)',
+      right: 'Ce soir je vais aller au cinéma (ou je vais au cinéma).',
+      explanationZh: '今晚去看电影这种日常即刻打算，口语中优先使用最近将来时或现在时，用简单将来时显得像宣读法令一样生硬。',
+    },
+    {
+      wrong: 'Regarde le ciel : il neigera ! (根据眼前乌云预判)',
+      right: 'Regarde le ciel : il va neiger !',
+      explanationZh: '根据眼前显而易见的客观迹象（乌云密布）作出的即时预判，必须使用最近将来时 il va neiger！',
+    },
+  ],
+  questions: [
+    {
+      id: 'trois-f-q1',
+      type: 'choice',
+      prompt: 'Regarde ce petit garçon qui court sur la glace : il (tomber) ___ !',
+      options: ['va tomber', 'tombera', 'tombe', 'tombait'],
+      correctAnswer: 'va tomber',
+      explanationZh: '基于眼前可见危险迹象作出的即时预判，必须使用最近将来时：va tomber。',
+    },
+    {
+      id: 'trois-f-q2',
+      type: 'choice',
+      prompt: 'Quand nous (être) ___ installés dans notre nouvelle maison, nous vous inviterons.',
+      options: ['serons', 'allons être', 'sommes', 'serions'],
+      correctAnswer: 'serons',
+      explanationZh: 'quand 引导时间状语从句表将来，必须使用简单将来时：serons。',
+    },
+    {
+      id: 'trois-f-q3',
+      type: 'choice',
+      prompt: 'Dès que la neige (fondre) ___, les ouvriers répareront les nids-de-poule sur la route.',
+      options: ['fondra', 'va fondre', 'fond', 'fondrait'],
+      correctAnswer: 'fondra',
+      explanationZh: 'dès que 引导时间从句表将来，强制使用简单将来时：fondra。',
+    },
+    {
+      id: 'trois-f-q4',
+      type: 'choice',
+      prompt: 'Ce soir, on (manger) ___ une bonne fondue au fromage chez des amis.',
+      options: ['va manger', 'mangera', 'a mangé', 'mangeait'],
+      correctAnswer: 'va manger',
+      explanationZh: '今晚朋友聚会的日常口语安排，最地道自然的形式是最近将来时：va manger。',
+    },
+    {
+      id: 'trois-f-q5',
+      type: 'fill',
+      prompt: 'Dans vingt ans, l’intelligence artificielle (transformer) ___ tous les métiers.（远期宏观预言，填入简单将来时）',
+      correctAnswer: 'transformera',
+      acceptedAnswers: ['transformera'],
+      explanationZh: '长远宏观预言使用简单将来时：transformera。',
+    },
+    {
+      id: 'trois-f-q6',
+      type: 'fill',
+      prompt: 'Attention, le train (partir) ___ d’une seconde à l’autre !（填入 va + 原形）',
+      correctAnswer: 'va partir',
+      acceptedAnswers: ['va partir'],
+      explanationZh: '即时马上发生，使用 va partir。',
+    },
+    {
+      id: 'trois-f-q7',
+      type: 'choice',
+      prompt: 'Le train pour Québec (partir) ___ demain à six heures trente précises.',
+      options: ['part', 'partira', 'va partir', 'partait'],
+      correctAnswer: 'part',
+      explanationZh: '时刻表上雷打不动的确定时刻，法语口语中最精炼地道的是直陈式现在时：part。',
+    },
+    {
+      id: 'trois-f-q8',
+      type: 'choice',
+      prompt: 'Si vous étudiez avec rigueur, vous (obtenir) ___ une excellente note au test.',
+      options: ['obtiendrez', 'allez obtenir', 'obtenez', 'obtiendriez'],
+      correctAnswer: 'obtiendrez',
+      explanationZh: 'si + présent，主句标准搭配是简单将来时：obtiendrez。',
+    },
+    {
+      id: 'trois-f-q9',
+      type: 'fill',
+      prompt: 'Dès que j’ (avoir) ___ mon permis, je louerai une voiture pour visiter Charlevoix.（填入简单将来时）',
+      correctAnswer: 'aurai',
+      acceptedAnswers: ['aurai'],
+      explanationZh: 'dès que 引导从句，使用 avoir 的简单将来时：aurai。',
+    },
+    {
+      id: 'trois-f-q10',
+      type: 'choice',
+      prompt: 'Tout contrevenant (devoir) ___ acquitter le montant de la contravention dans les trente jours.',
+      options: ['devra', 'va devoir', 'doit', 'devrait'],
+      correctAnswer: 'devra',
+      explanationZh: '官方规章与法律指令具有客观庄重性，使用简单将来时：devra。',
+    },
+    {
+      id: 'trois-f-q11',
+      type: 'choice',
+      prompt: 'Je t’assure que je (faire) ___ tout mon possible pour t’aider dans tes démarches.',
+      options: ['ferai', 'vais faire', 'fais', 'ferais'],
+      correctAnswer: 'ferai',
+      explanationZh: '庄重正式的承诺，书面与诚恳表达中首选简单将来时：ferai。',
+    },
+    {
+      id: 'trois-f-q12',
+      type: 'fill',
+      prompt: 'Le ciel s’assombrit : il (pleuvoir) ___ dans quelques minutes !（填入 va + 原形）',
+      correctAnswer: 'va pleuvoir',
+      acceptedAnswers: ['va pleuvoir'],
+      explanationZh: '根据乌云作出的即刻预判：va pleuvoir。',
+    },
+  ],
+}
+
+// 4. Passé récent / présent progressif / futur proche
+export const actionsImmediatesLesson: TenseLesson = {
+  id: 'actionRecente-progressif-futurProche',
+  titleFr: 'Passé récent, Présent progressif et Futur proche',
+  titleZh: '时间微距三部曲：刚刚、正在与马上',
+  category: 'cross-cutting',
+  cefrLevel: 'A2-B1',
+  echelleNiveau: 5,
+  echelleSources: [
+    'n5-gr-action-recente: 刚刚完成 / 正在进行',
+    'n3-gr-futur-proche: 最近将来时 aller + 不定式',
+  ],
+  summaryZh: '紧紧围绕“此刻（maintenant）”的紧邻时间三兄弟：刚刚完成（venir de）、正在进行（être en train de）、马上发生（aller + inf）。日常办事与口语交流最生动高频的核心工具。',
+  timelinePosition: 'overview',
+  formationSteps: [
+    '最近过去时（Passé récent）：venir de + infinitif（刚发生几秒/几分钟的事，如 Je viens de recevoir le courriel）。',
+    '现在进行时（Présent progressif）：être en train de + infinitif（强调动作正分秒必争地处于进行中，不能被打扰，如 Je suis en train de conduire）。',
+    '最近将来时（Futur proche）：aller + infinitif（马上就要发生、正有此打算，如 Je vais répondre dans un instant）。',
+    '三者代词位置完全相同：自反代词或宾语代词一律紧贴在最后面的原形动词之前（如 Je viens de me lever / Je suis en train de me préparer / Je vais m’habiller）。',
+  ],
+  usages: [
+    {
+      id: 'trois-moments-continuum',
+      titleZh: '时间微距连续体：刚才完成了、正在做着、马上要做',
+      descriptionZh: '把同一事件在三个紧邻时刻的不同形态生动连贯展现。',
+      examples: [
+        {
+          fr: 'Je viens de lire le message, je suis en train d’y réfléchir et je vais y répondre sous peu.',
+          zh: '我刚读完信息，我现在正在认真琢磨，我马上就会回复。',
+          highlight: 'suis en train d’y réfléchir',
+        },
+        {
+          fr: 'Le train vient d’entrer en gare, les passagers sont en train de descendre et d’autres vont monter.',
+          zh: '火车刚进站，乘客们正在下车，其他乘客马上就要上车了。',
+          highlight: 'sont en train de descendre',
+        },
+        {
+          fr: 'Elle vient de sortir du bureau, elle est en train de marcher vers l’arrêt d’autobus et elle va arriver chez elle dans vingt minutes.',
+          zh: '她刚刚走出办公室，她正在朝公交车站走，二十分钟后就会到家。',
+          highlight: 'est en train de marcher',
+        },
+        {
+          fr: 'Nous venons de terminer le dîner, nous sommes en train de ranger la cuisine et nous allons regarder les nouvelles.',
+          zh: '我们刚吃完晚饭，正在收拾厨房，马上就要看新闻了。',
+          highlight: 'sommes en train de ranger',
+        },
+      ],
+    },
+    {
+      id: 'disponibilite-refus',
+      titleZh: '日常推脱、忙碌与解释当前空闲状态',
+      descriptionZh: '向他人解释为什么此刻不能接电话、不能打扰或刚好有空。',
+      examples: [
+        {
+          fr: 'Ne me dérange pas maintenant, s’il te plaît : je suis en train de passer une entrevue en ligne.',
+          zh: '请现在别打扰我：我正在进行一场线上面试。',
+          highlight: 'suis en train de passer',
+        },
+        {
+          fr: 'Je ne peux pas te parler au téléphone, je suis en train de déneiger le pare-brise de mon auto.',
+          zh: '我没法和你通电话，我正在清理汽车挡风玻璃上的积雪。',
+          highlight: 'suis en train de déneiger',
+        },
+        {
+          fr: 'Tu tombes à pic ! Je viens de préparer une cafetière de café bien chaud.',
+          zh: '你来得真巧！我刚好刚煮好了一整壶热气腾腾的咖啡。',
+          highlight: 'viens de préparer',
+        },
+        {
+          fr: 'Rappelle-moi dans cinq minutes : je vais monter dans le métro et la connexion va couper.',
+          zh: '过五分钟打给我：我马上要进地铁了，信号马上会断掉。',
+          highlight: 'vais monter',
+        },
+      ],
+    },
+    {
+      id: 'au-passe-micro-temps',
+      titleZh: '微距时态在过去的平移（venait de / était en train de / allait）',
+      descriptionZh: '当叙述过去故事时，三个半助动词全部平移变为未完成过去时（imparfait）。',
+      examples: [
+        {
+          fr: 'Quand le tonnerre a grondé, les enfants étaient en train de jouer sur la galerie.',
+          zh: '雷声轰鸣时，孩子们当时正坐在走廊外廊上玩耍。',
+          highlight: 'étaient en train de jouer',
+        },
+        {
+          fr: 'Il venait de fermer la porte à clé lorsqu’il s’est rendu compte qu’il avait oublié son portefeuille.',
+          zh: '他当时刚把门反锁上，就猛然意识到自己把钱包忘在屋里了。',
+          highlight: 'venait de fermer',
+        },
+        {
+          fr: 'Nous allions sortir de la maison quand la tempête de verglas a débuté.',
+          zh: '我们当时正准备踏出家门，冰暴就爆发了。',
+          highlight: 'allions sortir',
+        },
+        {
+          fr: 'L’agente était en train de vérifier mes documents quand le système informatique a planté.',
+          zh: '官员当时正核对我的材料，就在这时电脑系统崩溃了。',
+          highlight: 'était en train de vérifier',
+        },
+      ],
+    },
+    {
+      id: 'pronominaux-trois-formes',
+      titleZh: '代词动词与代词位置在三结构中的高度统一',
+      descriptionZh: '代词 me/te/se/le/lui 一律稳坐原形动词之前，绝不跑到前面去。',
+      examples: [
+        {
+          fr: 'Je viens de me réveiller après une courte sieste réparatrice.',
+          zh: '小睡片刻恢复精力后，我刚刚醒来。',
+          highlight: 'viens de me réveiller',
+        },
+        {
+          fr: 'Elle est en train de se préparer pour sa cérémonie de remise des diplômes.',
+          zh: '她正在为毕业典礼梳妆准备。',
+          highlight: 'est en train de se préparer',
+        },
+        {
+          fr: 'Nous allons nous coucher tôt pour être en pleine forme demain matin.',
+          zh: '我们马上要去睡觉了，为了明天早晨精神饱满。',
+          highlight: 'allons nous coucher',
+        },
+        {
+          fr: 'Ils sont en train de se disputer à propos du partage des tâches ménagères.',
+          zh: '他们此刻正为分担家务琐事激烈争吵着。',
+          highlight: 'sont en train de se disputer',
+        },
+      ],
+    },
+    {
+      id: 'urgence-secours-quebec',
+      titleZh: '办事急件与紧急情境下的地道口语对答',
+      descriptionZh: '在就医、租房、抢修时的典型场景。',
+      examples: [
+        {
+          fr: 'Le plombier est en train de réparer la fuite d’eau dans le sous-sol de l’immeuble.',
+          zh: '水管工此刻正在大楼地下室抢修漏水。',
+          highlight: 'est en train de réparer',
+        },
+        {
+          fr: 'Ne vous inquiétez pas, l’ambulance vient d’arriver au coin de la rue.',
+          zh: '请别担心，救护车刚刚到达街角。',
+          highlight: 'vient d’arriver',
+        },
+        {
+          fr: 'Le médecin va vous voir d’une seconde à l’autre, veuillez patienter dans la cabine.',
+          zh: '医生马上就会过来给您看诊，请在诊间稍候。',
+          highlight: 'va vous voir',
+        },
+        {
+          fr: 'Je suis en train de remplir la déclaration de sinistre pour mon assurance habitation.',
+          zh: '我此刻正在填写房屋保险理赔申报单。',
+          highlight: 'suis en train de remplir',
+        },
+      ],
+    },
+  ],
+  signalWords: [
+    {
+      word: 'en ce moment même',
+      meaningZh: '就在此时此刻（正在进行）',
+      example: {
+        fr: 'Je suis en train de rédiger mon courriel de motivation en ce moment même.',
+        zh: '我此时此刻正在起草我的求职自荐信。',
+        highlight: 'suis en train de rédiger',
+      },
+    },
+    {
+      word: 'à l’instant',
+      meaningZh: '刚才那一秒（刚刚完成）',
+      example: {
+        fr: 'Mon colocataire vient de franchir la porte à l’instant.',
+        zh: '我室友刚才那一瞬间刚踏进家门。',
+        highlight: 'vient de franchir',
+      },
+    },
+    {
+      word: 'd’une minute à l’autre',
+      meaningZh: '马上/随时（即将发生）',
+      example: {
+        fr: 'L’autobus va passer d’une minute à l’autre, préparons nos cartes de transport.',
+        zh: '公交车随时就要开过来了，咱们准备好公交卡。',
+        highlight: 'va passer',
+      },
+    },
+    {
+      word: 'pendant que',
+      meaningZh: '当……正进行时',
+      example: {
+        fr: 'Pendant que je suis en train de cuisiner, mets la table s’il te plaît.',
+        zh: '趁我正在做饭，请把餐桌摆好吧。',
+        highlight: 'suis en train de cuisiner',
+      },
+    },
+  ],
+  commonMistakes: [
+    {
+      wrong: 'Je suis en train de manger une pomme hier.',
+      right: 'J’étais en train de manger une pomme quand tu as appelé.',
+      explanationZh: '时间在过去时，être 必须变为未完成过去时 j’étais en train de，不能用现在时 suis。',
+    },
+    {
+      wrong: 'Je me viens de lever.',
+      right: 'Je viens de me lever.',
+      explanationZh: '自反代词严格紧随介词 de 之后，附着在原形动词前：je viens de me lever。',
+    },
+    {
+      wrong: 'Je suis en train de me coucher maintenant.',
+      right: 'Je vais me coucher maintenant.',
+      explanationZh: '如果要表达“我现在打算去睡觉了”，用 aller + inf（马上做），而不是“我正在躺倒过程中”。',
+    },
+    {
+      wrong: 'Il vient d’arrivé il y a cinq minutes.',
+      right: 'Il vient d’arriver il y a cinq minutes.',
+      explanationZh: 'venir de 后面必须接原形动词 arriver，绝对不能接过去分词 arrivé！',
+    },
+  ],
+  questions: [
+    {
+      id: 'immed-q1',
+      type: 'choice',
+      prompt: 'Silence s’il vous plaît ! Le conférencier (commencer) ___ son exposé.',
+      options: ['va commencer', 'vient de commencer', 'commençait', 'a commencé'],
+      correctAnswer: 'va commencer',
+      explanationZh: '请大家安静，主讲人“马上就要开讲了”，用最近将来时 va commencer。',
+    },
+    {
+      id: 'immed-q2',
+      type: 'choice',
+      prompt: 'Je ne peux pas répondre au téléphone : je (conduire) ___ sur l’autoroute métropolitaine.',
+      options: ['suis en train de conduire', 'viens de conduire', 'vais conduire', 'conduirais'],
+      correctAnswer: 'suis en train de conduire',
+      explanationZh: '正在驾驶过程中无法分心，强调动作进行中：suis en train de conduire。',
+    },
+    {
+      id: 'immed-q3',
+      type: 'choice',
+      prompt: 'Non merci, je n’ai pas faim : je (manger) ___ une grosse collation.',
+      options: ['viens de manger', 'suis en train de manger', 'vais manger', 'mangerai'],
+      correctAnswer: 'viens de manger',
+      explanationZh: '不觉得饿是因为“刚刚吃过了”，交代现状的直接原因：viens de manger。',
+    },
+    {
+      id: 'immed-q4',
+      type: 'choice',
+      prompt: 'Quand l’orage a éclaté, nous (se promener) ___ le long du fleuve Saint-Laurent.',
+      options: ['étions en train de nous promener', 'sommes en train de nous promener', 'allions nous promener', 'venions de nous promener'],
+      correctAnswer: 'étions en train de nous promener',
+      explanationZh: '过去突发事件发生时，我们当时“正处于散步进行中”：étions en train de nous promener。',
+    },
+    {
+      id: 'immed-q5',
+      type: 'fill',
+      prompt: 'Elle (se préparer) ___ dans sa chambre, elle arrive dans cinq minutes !（填入 est en train de + 代词 + 原形）',
+      correctAnswer: 'est en train de se préparer',
+      acceptedAnswers: ['est en train de se préparer', 'est en train de se preparer'],
+      explanationZh: '正在梳妆准备：est en train de se préparer。',
+    },
+    {
+      id: 'immed-q6',
+      type: 'fill',
+      prompt: 'Le train (entrer) ___ en gare à l’instant même.（填入 vient d’ + 原形）',
+      correctAnswer: 'vient d’entrer',
+      acceptedAnswers: ['vient d’entrer', 'vient d entrer', 'vient d\'entrer'],
+      explanationZh: '刚刚那一刻进站：vient d’entrer。',
+    },
+    {
+      id: 'immed-q7',
+      type: 'choice',
+      prompt: 'Attention à la marche ! Tu (glisser) ___ sur le trottoir verglacé !',
+      options: ['vas glisser', 'viens de glisser', 'es en train de glisser', 'glisserais'],
+      correctAnswer: 'vas glisser',
+      explanationZh: '当心台阶，你“马上就要滑倒了”：vas glisser。',
+    },
+    {
+      id: 'immed-q8',
+      type: 'choice',
+      prompt: 'Je vous rappelle plus tard : nous (délibérer) ___ en comité de sélection.',
+      options: ['sommes en train de délibérer', 'venons de délibérer', 'allons délibérer', 'délibérons-nous'],
+      correctAnswer: 'sommes en train de délibérer',
+      explanationZh: '正在委员会闭门商议中：sommes en train de délibérer。',
+    },
+    {
+      id: 'immed-q9',
+      type: 'fill',
+      prompt: 'Je (s’habiller) ___ chaudement pour affronter le froid du dehors.（填入 vais + 代词 + 原形）',
+      correctAnswer: 'vais m’habiller',
+      acceptedAnswers: ['vais m’habiller', 'vais m habiller', 'vais m\'habiller'],
+      explanationZh: '我马上要把自己裹得暖暖和和：vais m’habiller。',
+    },
+    {
+      id: 'immed-q10',
+      type: 'choice',
+      prompt: 'Il est encore tout essoufflé car il (monter) ___ quatre étages à pied avec ses valises.',
+      options: ['vient de monter', 'va monter', 'est en train de monter', 'montait'],
+      correctAnswer: 'vient de monter',
+      explanationZh: '还在喘粗气是因为刚才爬了楼梯：vient de monter。',
+    },
+    {
+      id: 'immed-q11',
+      type: 'choice',
+      prompt: 'Attends deux minutes, je (payer) ___ mon stationnement à la borne et j’arrive !',
+      options: ['suis en train de payer', 'viens de payer', 'vais payer', 'payais'],
+      correctAnswer: 'suis en train de payer',
+      explanationZh: '此刻正在缴费机前刷卡付款：suis en train de payer。',
+    },
+    {
+      id: 'immed-q12',
+      type: 'fill',
+      prompt: 'Quand le facteur a sonné, j’ (prendre) ___ ma douche.（填入 était/étais en train de + 原形）',
+      correctAnswer: 'étais en train de prendre',
+      acceptedAnswers: ['étais en train de prendre', 'etais en train de prendre'],
+      explanationZh: '当时正冲着澡：étais en train de prendre。',
+    },
+  ],
+}
+
+// 5. Les phrases avec « si »
+export const phrasesAvecSiLesson: TenseLesson = {
+  id: 'phrases-avec-si',
+  titleFr: 'Les phrases avec « si »',
+  titleZh: 'si 条件假设句全系统：现实、虚拟与过去懊悔',
+  category: 'cross-cutting',
+  cefrLevel: 'A2-B2',
+  echelleNiveau: [3, 6, 7, 8],
+  echelleSources: [
+    'n3-gr-si-condition: si 引导的条件',
+    'n6-gr-si-realiste: 现实假设 si + 现在时',
+    'n7-gr-si-irreel-present: 与现在事实相反的假设',
+    'n8-gr-si-irreel-passe: 与过去事实相反的假设',
+  ],
+  summaryZh: '法语条件句三大不可动摇的黄金法则：现实假设（si + présent → futur / impératif）；与现在相反（si + imparfait → conditionnel présent）；与过去相反（si + plus-que-parfait → conditionnel passé）。',
+  timelinePosition: 'hypothetical',
+  formationSteps: [
+    '第一类：现实可能假设（Hypothèse réelle / réalisable）：si + présent → 主句使用 futur simple（或 impératif，或 présent）。例：S’il fait beau demain, nous irons au parc.',
+    '第二类：与现在事实相反（Irréel du présent / imaginaire）：si + imparfait → 主句使用 conditionnel présent。例：Si j’avais plus d’argent, j’achèterais ce condo.',
+    '第三类：与过去事实相反（Irréel du passé / regret）：si + plus-que-parfait → 主句使用 conditionnel passé。例：Si j’avais su la vérité, je ne serais pas venu.',
+    '黄金禁律：绝对不能在 si 从句中直接使用将来时或条件式（« Les si n’aiment pas les -rais »）！即永远没有 *si j’aurai 或 *si j’aurais。',
+  ],
+  usages: [
+    {
+      id: 'si-realiste-usage',
+      titleZh: '第一类：现实可能假设（si + présent → futur / impératif）',
+      descriptionZh: '只要前提条件得到满足，结果完全可能或必然成真。',
+      examples: [
+        {
+          fr: 'Si vous réussissez le test du TCF avec un niveau 7, vous obtiendrez votre certificat de sélection.',
+          zh: '如果您 TCF 考到7级，您就将拿到您的魁省甄选证书。',
+          highlight: 'obtiendrez',
+        },
+        {
+          fr: 'S’il neige abondamment ce soir, ralentissez votre vitesse sur l’autoroute.',
+          zh: '如果今晚大雪纷飞，请在高速公路上放慢车速（主句用命令式）。',
+          highlight: 'ralentissez',
+        },
+        {
+          fr: 'Si tu as froid dehors, mets ton bonnet et tes mitaines en laine.',
+          zh: '如果你在外面觉得冷，把你的毛线帽和羊毛连指手套戴上。',
+          highlight: 'mets',
+        },
+        {
+          fr: 'Si le train a du retard, je prendrai le métro pour arriver à l’heure au bureau.',
+          zh: '如果火车晚点，我就坐地铁以便准时到达办公室。',
+          highlight: 'prendrai',
+        },
+      ],
+    },
+    {
+      id: 'si-irreel-present-usage',
+      titleZh: '第二类：与现在事实相反的假设（si + imparfait → conditionnel présent）',
+      descriptionZh: '目前并不具备这种条件，纯属假设性设想、建议或幻想。',
+      examples: [
+        {
+          fr: 'Si j’avais une voiture à quatre roues motrices, je voyagerais plus souvent en région l’hiver.',
+          zh: '如果我有一辆四驱车，我冬天就会更经常去偏远地区旅行。',
+          highlight: 'voyagerais',
+        },
+        {
+          fr: 'Si nous habitions près du travail, nous n’aurions pas besoin de passer deux heures dans le trafic.',
+          zh: '如果我们住得离单位近，我们就用不着把两小时耗在堵车上了。',
+          highlight: 'n’aurions pas besoin',
+        },
+        {
+          fr: 'Si elle connaissait la réponse, elle la donnerait sans aucune hésitation.',
+          zh: '如果她知道答案，她就会毫不犹豫地说出来。',
+          highlight: 'donnerait',
+        },
+        {
+          fr: 'À votre place, si j’étais convoqué à l’entrevue, je me préparerais minutieusement.',
+          zh: '换作我是您，如果我被通知去面试，我就会细致周密地准备。',
+          highlight: 'me préparerais',
+        },
+      ],
+    },
+    {
+      id: 'si-irreel-passe-usage',
+      titleZh: '第三类：与过去事实相反的假设（si + plus-que-parfait → conditionnel passé）',
+      descriptionZh: '过去发生过的事已经定格不可更改，表达事后的假设、后悔或庆幸。',
+      examples: [
+        {
+          fr: 'Si j’avais renouvelé mes pneus d’hiver à temps, je n’aurais pas dérapé sur la glace noire.',
+          zh: '要是我当时按时换了雪胎，我本来就不会在黑冰上打滑了。',
+          highlight: 'n’aurais pas dérapé',
+        },
+        {
+          fr: 'Si nous avions postulé deux semaines plus tôt, nous aurions obtenu ce poste convoité.',
+          zh: '要是我们当时早两周申请，我们本来就会拿到那个令人垂涎的岗位了。',
+          highlight: 'aurions obtenu',
+        },
+        {
+          fr: 'Si elle avait écouté les avertissements de la météo, elle ne serait pas partie en plein blizzard.',
+          zh: '要是她当时听了气象预警，她本来就不会在狂暴风雪中出发了。',
+          highlight: 'ne serait pas partie',
+        },
+        {
+          fr: 'Si vous nous aviez prévenus de votre arrivée tardive, nous vous aurions attendus à la gare.',
+          zh: '要是您当时告知了我们会晚到，我们本来会在车站等您的。',
+          highlight: 'aurions attendus',
+        },
+      ],
+    },
+    {
+      id: 'si-suggestion-polie',
+      titleZh: '独立句提议与感叹（Si on... + imparfait ? / Si seulement...）',
+      descriptionZh: '没有主句的独立 si 句式：提议去玩，或感叹要是……就好了。',
+      examples: [
+        {
+          fr: 'Si on allait faire une promenade en raquettes dans la forêt ce week-end ?',
+          zh: '咱们这周末去森林里穿大雪鞋漫步怎么样？',
+          highlight: 'allait',
+        },
+        {
+          fr: 'Si nous prenions un bon chocolat chaud pour nous réchauffer après le ski ?',
+          zh: '滑完雪后咱们喝杯香浓热巧克力暖暖身子怎么样？',
+          highlight: 'prenions',
+        },
+        {
+          fr: 'Ah, si seulement j’avais appris le français plus jeune lors de mes études primaires !',
+          zh: '哎，要是我在小学读书时更年轻就学了法语该多好啊！',
+          highlight: 'avais appris',
+        },
+        {
+          fr: 'Si seulement le printemps pouvait arriver plus vite cette année !',
+          zh: '要是今年春天能来得更快一些该多好啊！',
+          highlight: 'pouvait',
+        },
+      ],
+    },
+    {
+      id: 'si-mixte-temporel',
+      titleZh: '混合条件句（过去原因影响现在状态：si + PQP → conditionnel présent）',
+      descriptionZh: '“如果过去做了某事，现在就不会是这个结果”。',
+      examples: [
+        {
+          fr: 'Si j’avais réussi mon examen l’an dernier, je serais déjà résident permanent aujourd’hui.',
+          zh: '如果我去年通过了考试，我现在今天就已经是永久居民了。',
+          highlight: 'serais',
+        },
+        {
+          fr: 'Si nous avions acheté cette maison il y a dix ans, nous serions propriétaires sans hypothèque à présent.',
+          zh: '如果我们十年前买下了那套房子，我们现在就是无房贷的业主了。',
+          highlight: 'serions',
+        },
+        {
+          fr: 'Si elle n’avait pas suivi cette formation de francisation, elle ne parlerait pas aussi couramment aujourd’hui.',
+          zh: '要是她当年没有上沉浸课程，她今天就不会说得如此流利。',
+          highlight: 'ne parlerait pas',
+        },
+        {
+          fr: 'Si tu avais économisé davantage l’été passé, tu aurais plus d’argent de côté en ce moment.',
+          zh: '要是你去年夏天多攒了些钱，你此刻手头就会有更多积蓄。',
+          highlight: 'aurais',
+        },
+      ],
+    },
+  ],
+  signalWords: [
+    {
+      word: 'si + présent',
+      meaningZh: '如果（现实条件）',
+      example: {
+        fr: 'Si tu viens ce soir, apporte du dessert.',
+        zh: '如果你今晚过来，带点甜品吧。',
+        highlight: 'apporte',
+      },
+    },
+    {
+      word: 'si + imparfait',
+      meaningZh: '如果（与现在相反）',
+      example: {
+        fr: 'Si j’étais libre, je t’accompagnerais au consulat.',
+        zh: '如果我现在有空，我就会陪你去领事馆。',
+        highlight: 'accompagnerais',
+      },
+    },
+    {
+      word: 'si + plus-que-parfait',
+      meaningZh: '如果当时（与过去相反）',
+      example: {
+        fr: 'Si nous avions su, nous ne serions pas allés là-bas.',
+        zh: '要是我当时知道，我们本来就不会去那里的。',
+        highlight: 'serions pas allés',
+      },
+    },
+    {
+      word: 'si on + imparfait ?',
+      meaningZh: '咱们……怎么样？（提议）',
+      example: {
+        fr: 'Si on s’arrêtait pour prendre un café ?',
+        zh: '咱们停下来喝杯咖啡怎么样？',
+        highlight: 's’arrêtait',
+      },
+    },
+  ],
+  commonMistakes: [
+    {
+      wrong: 'Si j’aurais de l’argent, j’achèterais une auto.',
+      right: 'Si j’avais de l’argent, j’achèterais une auto.',
+      explanationZh: '全法语最臭名昭著的错误！si 从句中绝对不能出现条件式（-rais），只能用 imparfait：si j’avais。',
+    },
+    {
+      wrong: 'Si tu viendras demain, nous irons au parc.',
+      right: 'Si tu viens demain, nous irons au parc.',
+      explanationZh: 'si 从句中不能出现简单将来时！即便时间是明天，si 从句也必须用直陈式现在时：si tu viens。',
+    },
+    {
+      wrong: 'Si j’avais su, je viendrais hier.',
+      right: 'Si j’avais su, je serais venu hier.',
+      explanationZh: '对过去的虚拟结果，主句必须用条件式过去时（serais venu），不能用条件式现在时。',
+    },
+    {
+      wrong: 'S’il fait beau, nous allions à la plage. (主从句时态错配)',
+      right: 'S’il fait beau, nous irons à la plage.',
+      explanationZh: 'si + présent 对应的是将来的结果，主句必须用简单将来时 irons，不能错用过去时 allions。',
+    },
+  ],
+  questions: [
+    {
+      id: 'si-q1',
+      type: 'choice',
+      prompt: 'Si vous (étudier) ___ régulièrement chaque jour, vous réussirez le test du TCF.',
+      options: ['étudiez', 'étudierez', 'étudiiez', 'étudieriez'],
+      correctAnswer: 'étudiez',
+      explanationZh: 'si 从句接直陈式现在时（主句为将来时 réussirez）：si vous étudiez。',
+    },
+    {
+      id: 'si-q2',
+      type: 'choice',
+      prompt: 'Si j’ (avoir) ___ assez d’argent, j’achèterais ce joli chalet dans les Laurentides.',
+      options: ['avais', 'aurais', 'ai', 'avais eu'],
+      correctAnswer: 'avais',
+      explanationZh: '主句为条件式现在时 achèterais，si 从句必须接未完成过去时：si j’avais。',
+    },
+    {
+      id: 'si-q3',
+      type: 'choice',
+      prompt: 'Si nous avions su que la tempête arrivait, nous (rester) ___ à la maison.',
+      options: ['serions restés', 'étions restés', 'resterions', 'sommes restés'],
+      correctAnswer: 'serions restés',
+      explanationZh: 'si + plus-que-parfait，主句接条件式过去时：nous serions restés。',
+    },
+    {
+      id: 'si-q4',
+      type: 'choice',
+      prompt: 'Si on (aller) ___ voir les baleines à Tadoussac la fin de semaine prochaine ?',
+      options: ['allait', 'va', 'irait', 'est allé'],
+      correctAnswer: 'allait',
+      explanationZh: '« Si on + imparfait ? » 用于提出建议：si on allait。',
+    },
+    {
+      id: 'si-q5',
+      type: 'fill',
+      prompt: 'S’il (neiger) ___ trop fort demain, les écoles fermeront leurs portes.（填入直陈式现在时）',
+      correctAnswer: 'neige',
+      acceptedAnswers: ['neige'],
+      explanationZh: 'si + présent（主句用将来时 fermeront）：s’il neige。',
+    },
+    {
+      id: 'si-q6',
+      type: 'fill',
+      prompt: 'Si tu (pouvoir) ___ m’aider, ce serait vraiment formidable !（填入未完成过去时）',
+      correctAnswer: 'pouvais',
+      acceptedAnswers: ['pouvais'],
+      explanationZh: '主句为 ce serait，si 从句用未完成过去时：si tu pouvais。',
+    },
+    {
+      id: 'si-q7',
+      type: 'choice',
+      prompt: 'Si elle avait suivi mes conseils, elle n’ (pas perdre) ___ ses documents dans le métro.',
+      options: ['aurait pas perdu', 'avait pas perdu', 'aurait pas perdue', 'serait pas perdue'],
+      correctAnswer: 'aurait pas perdu',
+      explanationZh: 'si + plus-que-parfait，主句用条件式过去时：elle n’aurait pas perdu。',
+    },
+    {
+      id: 'si-q8',
+      type: 'choice',
+      prompt: 'Si tu as froid, (mettre) ___ ton manteau et ton foulard.',
+      options: ['mets', 'mettras', 'mettais', 'mettes'],
+      correctAnswer: 'mets',
+      explanationZh: 'si + présent 之后，主句可用命令式给出直接指示：mets ton manteau。',
+    },
+    {
+      id: 'si-q9',
+      type: 'fill',
+      prompt: 'Si j’ (faire) ___ attention sur la glace, je ne serais pas tombé hier !（填入愈过去时）',
+      correctAnswer: 'avais fait',
+      acceptedAnswers: ['avais fait'],
+      explanationZh: '主句为 serais tombé，si 从句必须用愈过去时：si j’avais fait。',
+    },
+    {
+      id: 'si-q10',
+      type: 'choice',
+      prompt: 'À votre place, si j’étais convoqué à l’entrevue, je (se préparer) ___ avec soin.',
+      options: ['me préparerais', 'me préparerai', 'me préparais', 'm’étais préparé'],
+      correctAnswer: 'me préparerais',
+      explanationZh: 'si + imparfait（j’étais convoqué），主句接条件式现在时：je me préparerais。',
+    },
+    {
+      id: 'si-q11',
+      type: 'choice',
+      prompt: 'Si vous (vouloir) ___ améliorer votre prononciation, écoutez la radio québécoise.',
+      options: ['voulez', 'voudrez', 'vouliez', 'voudriez'],
+      correctAnswer: 'voulez',
+      explanationZh: '主句为命令式 écoutez，si 从句用直陈式现在时：si vous voulez。',
+    },
+    {
+      id: 'si-q12',
+      type: 'fill',
+      prompt: 'Si nous avions obtenu notre visa l’an passé, nous (être) ___ déjà à Montréal aujourd’hui.（填入条件式现在时）',
+      correctAnswer: 'serions',
+      acceptedAnswers: ['serions'],
+      explanationZh: '混合条件句：过去假设（si + PQP）影响现在状态（aujourd’hui），主句用条件式现在时：serions。',
+    },
+  ],
+}

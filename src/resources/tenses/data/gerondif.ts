@@ -1,0 +1,396 @@
+import type { TenseLesson } from '../types'
+
+export const gerondifLesson: TenseLesson = {
+  id: 'gerondif',
+  titleFr: 'Gérondif',
+  titleZh: '副动词',
+  category: 'non-finite',
+  cefrLevel: 'A2-B1',
+  echelleNiveau: [3, 5],
+  echelleSources: [
+    'n3-gr-gerondif: 副动词 en + -ant',
+    'n5-gr-gerondif-avance: 副动词 en + -ant（深入）',
+  ],
+  summaryZh: '由介词 en + 现在分词（participe présent）构成；表达与主句主语同时进行的动作，兼表方式手段、原因、条件或让步。',
+  timelinePosition: 'overview',
+  defaultVerb: 'parler',
+  formationSteps: [
+    '第一步：取该动词在直陈式现在时第一人称复数 nous 的变位形式（如 nous parlons, nous finissons, nous prenons）。',
+    '第二步：去掉词尾 -ons，换上现在分词词尾 -ant（parlant, finissant, prenant）。',
+    '第三步：在现在分词前面加上介词 en，构成副动词（en parlant, en finissant, en prenant）。副动词永不发生性数变化！',
+    '三大不规则词干：être → en étant；avoir → en ayant；savoir → en sachant。',
+    '铁律规则：副动词的逻辑主语必须与主句的主语严格完全一致！',
+  ],
+  endingsTable: [
+    { label: '构词方式', endings: ['介词 en + 动词现在分词 (-ant)'] },
+    { label: '三大不规则形式', endings: ['en étant (être)', 'en ayant (avoir)', 'en sachant (savoir)'] },
+  ],
+  irregularStems: [
+    { verb: 'être', stem: 'en étant', notes: '词干 ét-' },
+    { verb: 'avoir', stem: 'en ayant', notes: '词干 ay-' },
+    { verb: 'savoir', stem: 'en sachant', notes: '词干 sach-' },
+  ],
+  pronunciationNotes: [
+    '现在分词词尾 -ant 发鼻化元音 /ɑ̃/（parlant 读作 /paʁ.lɑ̃/）。',
+    'en 与后续元音开头的分词必须连音 /n/：en_ayant（/ɑ̃.nɛ.jɑ̃/）、en_étant（/ɑ̃.ne.tɑ̃/）。',
+  ],
+  usages: [
+    {
+      id: 'simultaneite',
+      titleZh: '时间的同时性（一边……一边……）',
+      descriptionZh: '两个动作由同一主语在同一时间共同完成。',
+      examples: [
+        {
+          fr: 'J’écoute les bulletins de nouvelles de Radio-Canada en préparant le souper.',
+          zh: '我一边做晚饭，一边收听加拿大广播电台的新闻简报。',
+          highlight: 'en préparant',
+        },
+        {
+          fr: 'Elle révise ses fiches de vocabulaire français en prenant le métro chaque matin.',
+          zh: '她每天早晨乘地铁时一边复习法语词汇卡片。',
+          highlight: 'en prenant',
+        },
+        {
+          fr: 'Les Québécois discutent chaleureusement en buvant un café réconfortant au chalet.',
+          zh: '大家在小木屋里一边喝着暖心咖啡，一边热烈地聊天。',
+          highlight: 'en buvant',
+        },
+        {
+          fr: 'Mon colocataire chante à tue-tête en déneigeant l’allée devant la maison.',
+          zh: '我室友一边清理屋门前的积雪，一边放声高歌。',
+          highlight: 'en déneigeant',
+        },
+      ],
+    },
+    {
+      id: 'maniere-moyen',
+      titleZh: '动作的方式、手段与实现途径（通过……方法）',
+      descriptionZh: '回答“如何做到主句动作”的问题（Comment ? Par quel moyen ?）。',
+      examples: [
+        {
+          fr: 'Il a considérablement enrichi son vocabulaire en lisant des romans d’auteurs québécois.',
+          zh: '通过阅读魁北克作家的长篇小说，他极大地丰富了自己的词汇量。',
+          highlight: 'en lisant',
+        },
+        {
+          fr: 'Vous obtiendrez des points supplémentaires en attestant d’un niveau 7 au test du TCF.',
+          zh: '通过在 TCF 考试中证明达到7级水平，您将获得额外的移民加分。',
+          highlight: 'en attestant',
+        },
+        {
+          fr: 'On économise beaucoup d’argent en cuisinant soi-même ses repas quotidiens.',
+          zh: '通过自己动手烹制日常三餐，人们可以省下一大笔钱。',
+          highlight: 'en cuisinant',
+        },
+        {
+          fr: 'Elle a trouvé un bel appartement abordable en consultant régulièrement les annonces locales.',
+          zh: '通过经常查阅当地租房启事，她找到了一套实惠的好公寓。',
+          highlight: 'en consultant',
+        },
+      ],
+    },
+    {
+      id: 'condition-hypothese',
+      titleZh: '表示前提条件与假设（如果……的话）',
+      descriptionZh: '相当于一个由 si 引导的条件从句（en faisant... = si on fait...）。',
+      examples: [
+        {
+          fr: 'En t’exerçant trente minutes par jour sur l’application, tu progresseras rapidement.',
+          zh: '如果你每天在软件上练习三十分钟，你就会进步飞快。',
+          highlight: 'En t’exerçant',
+        },
+        {
+          fr: 'En respectant scrupuleusement la limite de vitesse, vous éviterez de glisser sur la glace noire.',
+          zh: '如果严格遵守限速规定，您就能避免在黑冰上打滑。',
+          highlight: 'En respectant',
+        },
+        {
+          fr: 'En soumettant votre dossier avant le 31 mai, vous bénéficierez du tarif d’inscription réduit.',
+          zh: '如果您在5月31日前提交材料，您就能享受减免的注册优惠价。',
+          highlight: 'En soumettant',
+        },
+        {
+          fr: 'En restant calme et concentré pendant l’épreuve, tu réussiras sans difficulté.',
+          zh: '如果考试时保持冷静专注，你就能毫不费力地通过。',
+          highlight: 'En restant',
+        },
+      ],
+    },
+    {
+      id: 'cause-raison',
+      titleZh: '交代原因与理由（因为做某事而导致……）',
+      descriptionZh: '相当于一个由 parce que 或 comme 引出的原因从句。',
+      examples: [
+        {
+          fr: 'Il s’est foulé la cheville en glissant sur une plaque de verglas devant l’épicerie.',
+          zh: '因为在杂货店门前的一块坚冰上滑倒，他扭伤了脚踝。',
+          highlight: 'en glissant',
+        },
+        {
+          fr: 'En oubliant de fermer hermétiquement la fenêtre, ils ont laissé entrer l’air glacial dans le salon.',
+          zh: '因为忘了把窗户严密关好，他们让刺骨冷风灌进了客厅。',
+          highlight: 'En oubliant',
+        },
+        {
+          fr: 'Elle s’est fait remarquer par le recruteur en posant des questions très pertinentes lors du salon.',
+          zh: '因为在招聘会上提出了非常中肯深刻的问题，她引起了招聘官的关注。',
+          highlight: 'en posant',
+        },
+        {
+          fr: 'En travaillant d’arrache-pied durant six mois, ils ont terminé le projet avant l’échéance.',
+          zh: '因为六个月来夜以继日地奋战，他们提前完成了该项目。',
+          highlight: 'En travaillant',
+        },
+      ],
+    },
+    {
+      id: 'opposition-concession',
+      titleZh: '让步与对立转折（tout en + gérondif，尽管……却……）',
+      descriptionZh: '前面加上强调副词 tout，表达两个相互矛盾但同时并存的动作（一边强调……却一边……）。',
+      examples: [
+        {
+          fr: 'Tout en reconnaissant les difficultés d’adaptation, elle adore sa nouvelle vie au Québec.',
+          zh: '尽管承认适应期存在种种困难，但她依然深爱在魁北克的新生活。',
+          highlight: 'Tout en reconnaissant',
+        },
+        {
+          fr: 'Il continue de faire du vélo d’hiver tout en sachant que les rues sont particulièrement glissantes.',
+          zh: '尽管深知路面极其湿滑，但他依然坚持冬日骑车通勤。',
+          highlight: 'tout en sachant',
+        },
+        {
+          fr: 'Tout en étant très occupée par ses études, elle trouve le temps de faire du bénévolat le samedi.',
+          zh: '尽管学业十分繁重，她周六依然抽得出时间去做义工志愿服务。',
+          highlight: 'Tout en étant',
+        },
+        {
+          fr: 'Le candidat reste très modeste tout en ayant obtenu le score le plus élevé de la session.',
+          zh: '尽管拿下了当期最高分，这位候选人依然保持着谦逊低调。',
+          highlight: 'tout en ayant',
+        },
+      ],
+    },
+    {
+      id: 'pronominaux-gerondif',
+      titleZh: '代词动词的副动词形式',
+      descriptionZh: '自反代词位于 en 与分词之间，并根据逻辑主语的人称配合（en me levant, en vous inscrivant）。',
+      examples: [
+        {
+          fr: 'En me promenant le long du canal de Lachine, j’ai aperçu plusieurs hérons cendrés.',
+          zh: '在沿着拉辛运河漫步时，我瞥见了数只苍鹭。',
+          highlight: 'En me promenant',
+        },
+        {
+          fr: 'C’est en s’entraidant entre voisins qu’on traverse plus facilement les rudes hivers.',
+          zh: '正是通过邻里守望相助，人们才能更轻松地度过严冬。',
+          highlight: 'en s’entraidant',
+        },
+        {
+          fr: 'En vous inscrivant à cet atelier municipal, vous ferez de nombreuses connaissances.',
+          zh: '通过报名参加这个市政工作坊，您将结识许多新朋友。',
+          highlight: 'En vous inscrivant',
+        },
+        {
+          fr: 'Elle a découvert ce magnifique quartier historique en se perdant dans les ruelles.',
+          zh: '她是在小巷里迷路漫游时，偶然发现了这个壮丽的历史街区。',
+          highlight: 'en se perdant',
+        },
+      ],
+    },
+  ],
+  signalWords: [
+    {
+      word: 'en + participe présent',
+      meaningZh: '一边……一边…… / 通过……',
+      example: {
+        fr: 'C’est en forgeant qu’on devient forgeron.',
+        zh: '熟能生巧（法国经典谚语：通过打铁人们才能成为铁匠）。',
+        highlight: 'en forgeant',
+      },
+    },
+    {
+      word: 'tout en + gérondif',
+      meaningZh: '尽管……同时却……（让步兼同时）',
+      example: {
+        fr: 'Elle écoute attentivement tout en prenant des notes rapides sur son calepin.',
+        zh: '她聚精会神地听着，同时在随身笔记本上飞快做着笔记。',
+        highlight: 'tout en prenant',
+      },
+    },
+    {
+      word: 'en faisant attention',
+      meaningZh: '通过当心注意',
+      example: {
+        fr: 'Vous marcherez sans danger sur le trottoir en faisant attention aux plaques de glace.',
+        zh: '通过注意避开冰块，您在人行道上行走就不会有危险。',
+        highlight: 'en faisant',
+      },
+    },
+    {
+      word: 'en pratique',
+      meaningZh: '在实操中（词根拓展）',
+      example: {
+        fr: 'C’est en pratiquant tous les jours que votre prononciation deviendra naturelle.',
+        zh: '只有通过每天实操练习，您的发音才会变得自然地道。',
+        highlight: 'en pratiquant',
+      },
+    },
+  ],
+  commonMistakes: [
+    {
+      wrong: 'En marchant dans la rue, mon chapeau s’est envolé. (主语不一致病句)',
+      right: 'En marchant dans la rue, j’ai perdu mon chapeau.',
+      explanationZh: '语法铁律：副动词的逻辑主语必须是主句的主语！如果说 mon chapeau s’est envolé，就变成了“帽子在街上走路”，属于典型逻辑悬空病句。',
+    },
+    {
+      wrong: 'Je mange parlant au téléphone. (漏掉了介词 en)',
+      right: 'Je mange en parlant au téléphone.',
+      explanationZh: '副动词必须由介词 en + 现在分词构成，如果省略 en，就变成了现在分词短语，通常不能表达方式或伴随。',
+    },
+    {
+      wrong: 'Elle est tombée en se promener.',
+      right: 'Elle est tombée en se promenant.',
+      explanationZh: '介词 en 后面必须接现在分词（-ant：se promenant），不能接原形动词。',
+    },
+    {
+      wrong: 'En étendant le linge, il fait beau. (主语悬空)',
+      right: 'En étendant le linge, elle profitait du beau temps.',
+      explanationZh: '副动词绝不能与无人称动词 il fait beau 搭配，主语必须是具体执行该动作的人。',
+    },
+  ],
+  questions: [
+    {
+      id: 'ger-q1',
+      type: 'choice',
+      prompt: 'J’écoute des balados français (faire) ___ la vaisselle dans la cuisine.',
+      options: ['en faisant', 'faisant', 'en fait', 'en faire'],
+      correctAnswer: 'en faisant',
+      explanationZh: '表达一边洗碗一边听广播，使用副动词 en faisant。',
+    },
+    {
+      id: 'ger-q2',
+      type: 'choice',
+      prompt: 'C’est (pratiquer) ___ tous les jours que vous améliorerez votre expression orale.',
+      options: ['en pratiquant', 'pratiquant', 'en pratiquez', 'en pratiquer'],
+      correctAnswer: 'en pratiquant',
+      explanationZh: '表达方式手段“通过练习”，使用副动词 en pratiquant。',
+    },
+    {
+      id: 'ger-q3',
+      type: 'choice',
+      prompt: 'Il s’est blessé au genou (glisser) ___ sur une plaque de glace.',
+      options: ['en glissant', 'glissant', 'en glissé', 'en glisse'],
+      correctAnswer: 'en glissant',
+      explanationZh: '表达受伤的原因“因为滑倒”，使用副动词 en glissant。',
+    },
+    {
+      id: 'ger-q4',
+      type: 'choice',
+      prompt: 'Quel énoncé respecte la règle d’or du sujet identique en français ?',
+      options: [
+        'En marchant dans le parc, j’ai croisé mon voisin.',
+        'En marchant dans le parc, le chien m’a mordu.',
+        'En marchant dans le parc, la pluie a commencé.',
+        'En marchant dans le parc, mon écharpe est tombée.',
+      ],
+      correctAnswer: 'En marchant dans le parc, j’ai croisé mon voisin.',
+      explanationZh: '副动词的逻辑主语（走路的人）必须是主句的主语（je）。其他三个选项主语分别是狗、雨、围巾，均属于逻辑主语悬空病句。',
+    },
+    {
+      id: 'ger-q5',
+      type: 'fill',
+      prompt: 'Il a trouvé un emploi (consulter) ___ les offres en ligne.（填入 en + 现在分词）',
+      correctAnswer: 'en consultant',
+      acceptedAnswers: ['en consultant'],
+      explanationZh: 'consulter 的副动词形式为 en consultant。',
+    },
+    {
+      id: 'ger-q6',
+      type: 'fill',
+      prompt: 'Elle est restée très calme tout (être) ___ surprise par la nouvelle.（填入 en + 不规则分词）',
+      correctAnswer: 'en étant',
+      acceptedAnswers: ['en étant', 'en etant'],
+      explanationZh: 'être 的副动词不规则形式为 en étant。',
+    },
+    {
+      id: 'ger-q7',
+      type: 'choice',
+      prompt: 'Tout (savoir) ___ que la tâche était ardue, les pionniers ont persévéré.',
+      options: ['en sachant', 'en savant', 'sachant', 'en su'],
+      correctAnswer: 'en sachant',
+      explanationZh: 'savoir 的副动词不规则形式是 en sachant。',
+    },
+    {
+      id: 'ger-q8',
+      type: 'choice',
+      prompt: 'Vous ferez de belles rencontres (s’inscrire) ___ à ce club de plein air.',
+      options: ['en vous inscrivant', 'en s’inscrivant', 'vous inscrivant', 'en vous inscrire'],
+      correctAnswer: 'en vous inscrivant',
+      explanationZh: '代词动词副动词自反代词依主语 vous 变为 vous：en vous inscrivant。',
+    },
+    {
+      id: 'ger-q9',
+      type: 'fill',
+      prompt: 'C’est (prendre) ___ le temps de réfléchir qu’on prend les meilleures décisions.（填入 en + 现在分词）',
+      correctAnswer: 'en prenant',
+      acceptedAnswers: ['en prenant'],
+      explanationZh: 'prendre 的副动词形式为 en prenant。',
+    },
+    {
+      id: 'ger-q10',
+      type: 'choice',
+      prompt: 'Il a réussi l’examen tout (avoir) ___ peu de temps pour réviser.',
+      options: ['en ayant', 'en avouant', 'ayant', 'en eu'],
+      correctAnswer: 'en ayant',
+      explanationZh: 'avoir 的副动词不规则形式为 en ayant。',
+    },
+    {
+      id: 'ger-q11',
+      type: 'choice',
+      prompt: 'Faites attention (traverser) ___ le boulevard René-Lévesque !',
+      options: ['en traversant', 'traversant', 'en traversez', 'en traverser'],
+      correctAnswer: 'en traversant',
+      explanationZh: '在过马路时当心，伴随副动词为 en traversant。',
+    },
+    {
+      id: 'ger-q12',
+      type: 'fill',
+      prompt: 'Elle a appris le français (parler) ___ quotidiennement avec ses voisins québécois.（填入 en + 现在分词）',
+      correctAnswer: 'en parlant',
+      acceptedAnswers: ['en parlant'],
+      explanationZh: 'parler 的副动词形式为 en parlant。',
+    },
+    {
+      id: 'ger-q13',
+      type: 'choice',
+      prompt: 'Mon ami est tombé (se dépêcher) ___ pour attraper le métro.',
+      options: ['en se dépêchant', 'en te dépêchant', 'se dépêchant', 'en se dépêché'],
+      correctAnswer: 'en se dépêchant',
+      explanationZh: '主语 mon ami 为单数第三人称，自反代词为 se：en se dépêchant。',
+    },
+    {
+      id: 'ger-q14',
+      type: 'choice',
+      prompt: '(Attendre) ___ le médecin, elle a feuilleté un magazine de décoration.',
+      options: ['En attendant', 'Attendant', 'En attendu', 'En attendre'],
+      correctAnswer: 'En attendant',
+      explanationZh: '一边等待一边翻杂志，句首副动词为 En attendant。',
+    },
+    {
+      id: 'ger-q15',
+      type: 'fill',
+      prompt: 'C’est (écrire) ___ régulièrement qu’on développe un style fluide.（填入 en + 现在分词）',
+      correctAnswer: 'en écrivant',
+      acceptedAnswers: ['en écrivant', 'en ecrivant'],
+      explanationZh: 'écrire 的副动词形式为 en écrivant。',
+    },
+    {
+      id: 'ger-q16',
+      type: 'choice',
+      prompt: 'Il a salué chaleureusement l’assemblée (sourire) ___.',
+      options: ['en souriant', 'souriant', 'en souri', 'en sourit'],
+      correctAnswer: 'en souriant',
+      explanationZh: '微笑着向全场致意，伴随副动词为 en souriant。',
+    },
+  ],
+}

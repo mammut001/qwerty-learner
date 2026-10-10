@@ -1,0 +1,388 @@
+import type { TenseLesson } from '../types'
+
+export const plusQueParfaitLesson: TenseLesson = {
+  id: 'plusQueParfait',
+  titleFr: 'Plus-que-parfait de l’indicatif',
+  titleZh: '愈过去时',
+  category: 'indicatif',
+  cefrLevel: 'B2',
+  echelleNiveau: 7,
+  echelleSources: ['n7-gr-plus-que-parfait: 愈过去时'],
+  summaryZh: '用于表达“过去的过去”——在过去某个参照点之前就已经发生并完成的动作，或与过去事实相反的假设。',
+  timelinePosition: 'past',
+  defaultVerb: 'parler',
+  formationSteps: [
+    '第一步：选择助动词 avoir 或 être，将其变位为未完成过去时（imparfait）。',
+    '助动词 avoir 的未完成过去时：j’avais, tu avais, il avait, nous avions, vous aviez, ils avaient。',
+    '助动词 être 的未完成过去时：j’étais, tu étais, il était, nous étions, vous étiez, ils étaient。',
+    '第二步：加上主动态动词的过去分词（participe passé）。使用 être 的动词（DR MRS VANDERTRAMP 及代词动词）必须与主语进行性数配合。',
+  ],
+  endingsTable: [
+    { label: '助动词 avoir + participe passé', endings: ['avais', 'avais', 'avait', 'avions', 'aviez', 'avaient'] },
+    { label: '助动词 être + participe passé (配合性数)', endings: ['étais', 'étais', 'était', 'étions', 'étiez', 'étaient'] },
+  ],
+  irregularStems: [
+    { verb: 'avoir eu', stem: 'j’avais eu', notes: '助动词 avais + 分词 eu' },
+    { verb: 'être été', stem: 'j’avais été', notes: '助动词 avais + 分词 été' },
+    { verb: 'aller', stem: 'j’étais allé(e)', notes: '使用 être 未完成过去时' },
+    { verb: 'venir', stem: 'j’étais venu(e)', notes: '使用 être 未完成过去时' },
+  ],
+  pronunciationNotes: [
+    '注意 j’avais（/ʒavɛ/）与 j’étais（/ʒetɛ/）的元音发音区别，词尾辅音在元音开头分词前连诵（例如 j’avais_appris 读 /ʒavɛ zapʁi/）。',
+    'nous avions / vous aviez 中有半元音 /j/，发音清晰连贯。',
+  ],
+  usages: [
+    {
+      id: 'anteriorite-recul',
+      titleZh: '过去的过去（相对于过去基准点的时间先时性）',
+      descriptionZh: '当叙述过去的一件事时，用愈过去时交代在这件事之前就已经完成的动作。',
+      examples: [
+        {
+          fr: 'Quand je suis arrivé à la gare centrale, le train était déjà parti.',
+          zh: '当我到达中央火车站时，火车已经开走了。',
+          highlight: 'était déjà parti',
+        },
+        {
+          fr: 'Elle a retrouvé les clés qu’elle avait perdues la veille dans le métro.',
+          zh: '她找到了前一天在地铁里丢失的钥匙。',
+          highlight: 'avait perdues',
+        },
+        {
+          fr: 'Nous avions déjà envoyé notre dossier de parrainage avant le changement de loi.',
+          zh: '在法律变更之前，我们已经递交了团聚移民材料。',
+          highlight: 'avions déjà envoyé',
+        },
+        {
+          fr: 'Le propriétaire m’a confirmé qu’il avait déjà loué l’appartement à un autre candidat.',
+          zh: '房东向我证实，他此前已经把那套公寓租给了另一位求租者。',
+          highlight: 'avait déjà loué',
+        },
+      ],
+    },
+    {
+      id: 'explication-cause',
+      titleZh: '为过去的事件提供原因与背景解释',
+      descriptionZh: '说明某件过去的事情之所以发生，是因为在此前发生了另一件事。',
+      examples: [
+        {
+          fr: 'Il était épuisé ce matin parce qu’il avait déneigé son entrée toute la soirée.',
+          zh: '他今天早晨精疲力竭，因为他前一天晚上清理了一整晚车道积雪。',
+          highlight: 'avait déneigé',
+        },
+        {
+          fr: 'Elle a facilement réussi l’entrevue de sélection car elle s’était bien préparée.',
+          zh: '她顺利通过了选拔面试，因为此前她做了充分的准备。',
+          highlight: 's’était bien préparée',
+        },
+        {
+          fr: 'Nous n’avions pas faim au souper parce que nous avions mangé une grosse collation à seize heures.',
+          zh: '我们晚饭时不觉得饿，因为下午四点我们吃了大量点心。',
+          highlight: 'avions mangé',
+        },
+        {
+          fr: 'L’école était fermée parce qu’une tempête de verglas s’était abattue sur la région la nuit précédente.',
+          zh: '学校关停了，因为前一天夜里一场冰暴袭击了该地区。',
+          highlight: 's’était abattue',
+        },
+      ],
+    },
+    {
+      id: 'si-irreel-passe',
+      titleZh: 'si 引导的与过去事实相反的假设前提',
+      descriptionZh: '与条件式过去时搭配：« Si + plus-que-parfait, conditionnel passé »（如果当时……本来就会……）。',
+      examples: [
+        {
+          fr: 'Si j’avais su que la tempête arrivait, je serais resté à la maison.',
+          zh: '如果我当时知道暴风雪要来，我本就会待在家里的。',
+          highlight: 'avais su',
+        },
+        {
+          fr: 'Si nous avions pris le pont Champlain plus tôt, nous n’aurions pas manqué le vol.',
+          zh: '如果我们早一点走香普兰大桥，我们本不会错过航班的。',
+          highlight: 'avions pris',
+        },
+        {
+          fr: 'Si elle avait obtenu son certificat de sélection du Québec plus vite, elle aurait acheté cette maison.',
+          zh: '如果她当时更快拿到魁省甄选证书，她本就会买下那套房子的。',
+          highlight: 'avait obtenu',
+        },
+        {
+          fr: 'Si vous m’aviez prévenu de votre retard, je vous aurais attendu au bureau.',
+          zh: '要是您当时提前告知我您会迟到，我本来会在办公室等您的。',
+          highlight: 'aviez prévenu',
+        },
+      ],
+    },
+    {
+      id: 'regret-reproche',
+      titleZh: '独立句中表达对过去的遗憾、后悔或责备',
+      descriptionZh: '常以 « Ah, si seulement... ! » 开头，感叹过去未能如愿。',
+      examples: [
+        {
+          fr: 'Ah, si seulement j’avais commencé à étudier le français plus jeune !',
+          zh: '哎，要是我年轻时就早点开始学法语该多好啊！',
+          highlight: 'avais commencé',
+        },
+        {
+          fr: 'Si seulement nous avions conservé tous les reçus de nos dépenses de garderie !',
+          zh: '要是我们当时把托儿费用的所有收据都保存好就好了！',
+          highlight: 'avions conservé',
+        },
+        {
+          fr: 'Si vous aviez vu son visage quand il a reçu la réponse positive d’immigration !',
+          zh: '您要是当时看到了他收到移民获批信时的表情该多好啊！',
+          highlight: 'aviez vu',
+        },
+        {
+          fr: 'Si elle n’avait pas hésité si longtemps avant de postuler à cet emploi à Hydro-Québec !',
+          zh: '要是她当时没有在申请魁北克水电公司这份工作前犹豫那么久就好了！',
+          highlight: 'n’avait pas hésité',
+        },
+      ],
+    },
+    {
+      id: 'discours-indirect-pqp',
+      titleZh: '过去时态下的间接引语（转述原本的复合过去时）',
+      descriptionZh: '主句动词为过去时时，直接引语中的复合过去时转为间接引语必须变成愈过去时。',
+      examples: [
+        {
+          fr: 'Il m’a raconté qu’il avait vécu plusieurs années à Val-d’Or avant de s’installer à Laval.',
+          zh: '他跟我讲起过，在定居拉瓦尔之前，他在瓦尔多尔住过好几年。',
+          highlight: 'avait vécu',
+        },
+        {
+          fr: 'L’agente nous a informé que le ministère avait reçu tous les documents requis.',
+          zh: '官员通知我们，移民部此前已收到了所有要求的材料。',
+          highlight: 'avait reçu',
+        },
+        {
+          fr: 'Le mécanicien m’a expliqué qu’un capteur électronique avait cessé de fonctionner.',
+          zh: '修车师傅向我解释说，是一个电子传感器此前停止了工作。',
+          highlight: 'avait cessé',
+        },
+        {
+          fr: 'Elle a déclaré qu’elle n’avait jamais vu un hiver aussi froid au Québec.',
+          zh: '她声称，她此前从未在魁北克见过这么冷的冬天。',
+          highlight: 'n’avait jamais vu',
+        },
+      ],
+    },
+    {
+      id: 'pronominaux-pqp',
+      titleZh: '代词动词的愈过去时（助动词为 être 的未完成过去时）',
+      descriptionZh: '所有代词动词在愈过去时中使用 étais/était 并遵守配合规则。',
+      examples: [
+        {
+          fr: 'Elle s’était levée à cinq heures du matin pour attraper le premier autobus.',
+          zh: '为了赶上首班公交车，她早晨五点就已起床了。',
+          highlight: 's’était levée',
+        },
+        {
+          fr: 'Nous nous étions perdus dans les ruelles du Vieux-Montréal avant de trouver le restaurant.',
+          zh: '在找到那家餐馆之前，我们在蒙特利尔老城的小巷里迷失了方向。',
+          highlight: 'nous étions perdus',
+        },
+        {
+          fr: 'Ils s’étaient disputés la semaine précédente, mais ils se sont réconciliés hier.',
+          zh: '他们前一周吵过架，但昨天和好了。',
+          highlight: 's’étaient disputés',
+        },
+        {
+          fr: 'Est-ce que tu t’étais déjà inscrit sur la liste d’attente pour une place en garderie ?',
+          zh: '你之前就已经在托儿所排队候补名单上登记过了吗？',
+          highlight: 't’étais déjà inscrit',
+        },
+      ],
+    },
+  ],
+  signalWords: [
+    {
+      word: 'déjà',
+      meaningZh: '已经（在过去某时之前已……）',
+      example: {
+        fr: 'Quand le cours a commencé, le professeur avait déjà effacé le tableau.',
+        zh: '当课程开始时，老师已经擦掉了黑板。',
+        highlight: 'avait déjà effacé',
+      },
+    },
+    {
+      word: 'la veille',
+      meaningZh: '前一天',
+      example: {
+        fr: 'J’ai acheté le manteau que j’avais repéré la veille en magasin.',
+        zh: '我买下了前一天在店里看中的那件大衣。',
+        highlight: 'avais repéré',
+      },
+    },
+    {
+      word: 'avant de + infinitif',
+      meaningZh: '在做某事之前（前面动词用PQP强调先时性）',
+      example: {
+        fr: 'Il avait bien vérifié son véhicule avant de prendre la route d’hiver.',
+        zh: '在踏上冬日公路旅程之前，他此前已仔细检查了车辆。',
+        highlight: 'avait bien vérifié',
+      },
+    },
+    {
+      word: 'si seulement',
+      meaningZh: '要是当时……就好了',
+      example: {
+        fr: 'Si seulement nous avions lu les petits caractères du contrat d’assurance !',
+        zh: '要是我们当时读了保险合同上的细则该多好啊！',
+        highlight: 'avions lu',
+      },
+    },
+  ],
+  commonMistakes: [
+    {
+      wrong: 'Quand je suis arrivé, il a déjà parti.',
+      right: 'Quand je suis arrivé, il était déjà parti.',
+      explanationZh: '在“到达”这个过去动作之前已经开走，必须用愈过去时，且 partir 用 être 作助动词：il était déjà parti。',
+    },
+    {
+      wrong: 'Si j’aurais su, je ne serais pas venu.',
+      right: 'Si j’avais su, je ne serais pas venu.',
+      explanationZh: '法语经典法则：si 从句中绝不直接使用条件式（« Les si n’aiment pas les -rais »），必须用愈过去时 si j’avais su。',
+    },
+    {
+      wrong: 'Elle s’a été réveillée tôt.',
+      right: 'Elle s’était réveillée tôt.',
+      explanationZh: '代词动词的愈过去时结构是“自反代词 + être 的未完成过去时 + 过去分词”：elle s’était réveillée。',
+    },
+    {
+      wrong: 'Nous avions arrivés à l’heure.',
+      right: 'Nous étions arrivés à l’heure.',
+      explanationZh: '动词 arriver 属于必须用 être 的动词，愈过去时助动词是 étions，不能用 avions。',
+    },
+  ],
+  questions: [
+    {
+      id: 'pqp-q1',
+      type: 'choice',
+      prompt: 'Quand nous sommes arrivés au bureau, la réunion (déjà commencer) ___.',
+      options: ['a déjà commencé', 'avait déjà commencé', 'était déjà commencée', 'commençait déjà'],
+      correctAnswer: 'avait déjà commencé',
+      explanationZh: '在“到达”之前已开始，用愈过去时，commencer 用 avoir：avait déjà commencé。',
+    },
+    {
+      id: 'pqp-q2',
+      type: 'choice',
+      prompt: 'Si tu m’ (dire) ___ la vérité plus tôt, nous aurions évité ce malentendu.',
+      options: ['avais dit', 'aurais dit', 'as dit', 'disais'],
+      correctAnswer: 'avais dit',
+      explanationZh: 'si 引出的过去虚拟条件句从句使用愈过去时：si tu m’avais dit。',
+    },
+    {
+      id: 'pqp-q3',
+      type: 'choice',
+      prompt: 'Elle ne retrouvait plus le document qu’elle (imprimer) ___ le matin même.',
+      options: ['a imprimé', 'avait imprimé', 'imprimait', 'aurait imprimé'],
+      correctAnswer: 'avait imprimé',
+      explanationZh: '在找不到之前已经打印好的动作，属于过去的过去，用愈过去时 avait imprimé。',
+    },
+    {
+      id: 'pqp-q4',
+      type: 'choice',
+      prompt: 'Ils (partir) ___ avant que la tempête de neige ne commence.',
+      options: ['étaient partis', 'avaient parti', 'sont partis', 'partaient'],
+      correctAnswer: 'étaient partis',
+      explanationZh: 'partir 用 être 作助动词，主语 ils 配合复数加 -s：ils étaient partis。',
+    },
+    {
+      id: 'pqp-q5',
+      type: 'fill',
+      prompt: 'Si j’ (savoir) ___ cela, je n’aurais pas signé ce bail !（填入助动词+分词）',
+      correctAnswer: 'avais su',
+      acceptedAnswers: ['avais su'],
+      explanationZh: 'si + plus-que-parfait：j’avais su。',
+    },
+    {
+      id: 'pqp-q6',
+      type: 'fill',
+      prompt: 'Nous (déjà voir) ___ ce film au festival du cinéma.（填入助动词+déjà+分词，如 avions déjà vu）',
+      correctAnswer: 'avions déjà vu',
+      acceptedAnswers: ['avions déjà vu', 'avions deja vu'],
+      explanationZh: 'voir 的愈过去时第一人称复数：nous avions déjà vu。',
+    },
+    {
+      id: 'pqp-q7',
+      type: 'choice',
+      prompt: 'Elle était furieuse parce que son vol (être) ___ annulé par la compagnie.',
+      options: ['avait été', 'était été', 'a été', 'serait été'],
+      correctAnswer: 'avait été',
+      explanationZh: 'être 的复合形式使用 avoir 作助动词，愈过去时为 avait été。',
+    },
+    {
+      id: 'pqp-q8',
+      type: 'choice',
+      prompt: 'Marie (se lever) ___ avant tout le monde pour réviser son examen.',
+      options: ['s’avait levée', 's’était levée', 's’était levé', 's’est été levée'],
+      correctAnswer: 's’était levée',
+      explanationZh: '代词动词使用 être，主语 Marie 配合加 -e：s’était levée。',
+    },
+    {
+      id: 'pqp-q9',
+      type: 'fill',
+      prompt: 'Le train (entrer) ___ en gare quand les passagers se sont levés.（填入助动词+分词）',
+      correctAnswer: 'était entré',
+      acceptedAnswers: ['était entré', 'etait entre'],
+      explanationZh: 'entrer 使用 être 作助动词，阳性单数分词为 entré：était entré。',
+    },
+    {
+      id: 'pqp-q10',
+      type: 'choice',
+      prompt: 'Si seulement nous (faire) ___ plus attention aux prévisions météorologiques !',
+      options: ['avions fait', 'aurions fait', 'avons fait', 'faisions'],
+      correctAnswer: 'avions fait',
+      explanationZh: 'si seulement 表达对过去的悔恨，接愈过去时：avions fait。',
+    },
+    {
+      id: 'pqp-q11',
+      type: 'choice',
+      prompt: 'Il a avoué qu’il n’ (jamais prendre) ___ de cours de français auparavant.',
+      options: ['avait jamais pris', 'a jamais pris', 'était jamais pris', 'aurait jamais pris'],
+      correctAnswer: 'avait jamais pris',
+      explanationZh: '间接引语转述过去先时性动作，否定副词夹在助动词和分词之间：n’avait jamais pris。',
+    },
+    {
+      id: 'pqp-q12',
+      type: 'fill',
+      prompt: 'Vous (finir) ___ vos études universitaires avant d’immigrer au Canada ?（填入助动词+分词）',
+      correctAnswer: 'aviez fini',
+      acceptedAnswers: ['aviez fini'],
+      explanationZh: 'finir 的愈过去时 vous 人称为 aviez fini。',
+    },
+    {
+      id: 'pqp-q13',
+      type: 'choice',
+      prompt: 'Les enfants étaient sales parce qu’ils (jouer) ___ dans la boue fondue.',
+      options: ['avaient joué', 'ont joué', 'étaient joués', 'jouaient'],
+      correctAnswer: 'avaient joué',
+      explanationZh: '为过去的脏提供原因，玩耍发生在之前：avaient joué。',
+    },
+    {
+      id: 'pqp-q14',
+      type: 'choice',
+      prompt: 'Quand l’inspecteur est arrivé, les voleurs (déjà s’enfuir) ___.',
+      options: ['s’étaient déjà enfuis', 's’avaient déjà enfui', 's’ont déjà enfuis', 'étaient déjà enfuis'],
+      correctAnswer: 's’étaient déjà enfuis',
+      explanationZh: 's’enfuir 是代词动词，助动词用 être，复数配合加 -s：s’étaient déjà enfuis。',
+    },
+    {
+      id: 'pqp-q15',
+      type: 'fill',
+      prompt: 'J’ (perdre) ___ mon portefeuille, heureusement un passant l’a rapporté.（填入助动词+分词，如 avais perdu）',
+      correctAnswer: 'avais perdu',
+      acceptedAnswers: ['avais perdu'],
+      explanationZh: 'perdre 使用 avoir，第一人称单数愈过去时为 j’avais perdu。',
+    },
+    {
+      id: 'pqp-q16',
+      type: 'choice',
+      prompt: 'Si elle (venir) ___ avec nous, elle aurait adoré le festival de jazz de Montréal.',
+      options: ['était venue', 'avait venu', 'serait venue', 'est venue'],
+      correctAnswer: 'était venue',
+      explanationZh: 'venir 用 être，主语 elle 配合加 -e：si elle était venue。',
+    },
+  ],
+}

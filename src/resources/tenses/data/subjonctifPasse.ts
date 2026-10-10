@@ -1,0 +1,391 @@
+import type { TenseLesson } from '../types'
+
+export const subjonctifPasseLesson: TenseLesson = {
+  id: 'subjonctifPasse',
+  titleFr: 'Subjonctif passé',
+  titleZh: '虚拟式过去时',
+  category: 'subjonctif',
+  cefrLevel: 'B2-C1',
+  echelleNiveau: [8, 9],
+  echelleSources: [
+    'n8-gr-subjonctif-passe: 虚拟式过去时',
+    'n9-gr-subjonctif-passe-avance: 虚拟式过去时（深入）',
+  ],
+  summaryZh: '在需要使用虚拟式的语境下（必要、情感、怀疑、从属连词），表达该动作在主句之前就已经完成或发生过。',
+  timelinePosition: 'hypothetical',
+  defaultVerb: 'parler',
+  formationSteps: [
+    '第一步：选择助动词 avoir 或 être，将其变位为虚拟式现在时（subjonctif présent）。',
+    '助动词 avoir 的虚拟式现在时：que j’aie, que tu aies, qu’il ait, que nous ayons, que vous ayez, qu’ils aient。',
+    '助动词 être 的虚拟式现在时：que je sois, que tu sois, qu’il soit, que nous soyons, que vous soyez, qu’ils soient。',
+    '第二步：加上实义动词的过去分词（participe passé）。用 être 作助动词的动词及代词动词，分词须与主语进行性数配合。',
+  ],
+  endingsTable: [
+    { label: '助动词 avoir 的虚拟式', endings: ['aie', 'aies', 'ait', 'ayons', 'ayez', 'aient'] },
+    { label: '助动词 être 的虚拟式 (配合性数)', endings: ['sois', 'sois', 'soit', 'soyons', 'soyez', 'soient'] },
+  ],
+  irregularStems: [
+    { verb: 'avoir eu', stem: 'que j’aie eu', notes: '助动词 aie + 分词 eu' },
+    { verb: 'être été', stem: 'que j’aie été', notes: '助动词 aie + 分词 été' },
+    { verb: 'aller', stem: 'que je sois allé(e)', notes: '使用 être 虚拟式' },
+    { verb: 'venir', stem: 'que je sois venu(e)', notes: '使用 être 虚拟式' },
+  ],
+  pronunciationNotes: [
+    'que j’aie / que tu aies / qu’il ait / qu’ils aient 发音完全一致，均读作 /ɛ/。',
+    'que nous ayons（/kə nu zɛ.jɔ̃/）与 que vous ayez（/kə vu zɛ.je/）有半元音 /j/。',
+  ],
+  usages: [
+    {
+      id: 'anteriorite-subjonctif',
+      titleZh: '虚拟式语境下的时间先时性（动作已完成）',
+      descriptionZh: '当从句中的动作发生在主句判断之前或到某一时刻已结束时使用。',
+      examples: [
+        {
+          fr: 'Il est nécessaire que vous ayez complété votre dossier avant la date limite.',
+          zh: '在截止日期之前，您必须已经完成了您的申请材料。',
+          highlight: 'ayez complété',
+        },
+        {
+          fr: 'Je doute que l’agent d’immigration ait reçu notre lettre recommandée hier.',
+          zh: '我怀疑移民官员昨天是否真的收到了我们的挂号信。',
+          highlight: 'ait reçu',
+        },
+        {
+          fr: 'Il est surprenant qu’elle soit arrivée à l’heure malgré la tempête de verglas.',
+          zh: '尽管遇到冰暴，她居然准时赶到了，这真令人惊喜。',
+          highlight: 'soit arrivée',
+        },
+        {
+          fr: 'Le directeur exige que les techniciens aient terminé les réparations avant la réouverture.',
+          zh: '主管要求技术人员在重新开放前必须已经完成了维修工作。',
+          highlight: 'aient terminé',
+        },
+      ],
+    },
+    {
+      id: 'sentiment-retrospectif',
+      titleZh: '对过去发生之事的喜怒哀乐与主观评价',
+      descriptionZh: '表达“对你过去做过/经历过的事情感到高兴、遗憾或骄傲”。',
+      examples: [
+        {
+          fr: 'Je suis très fier que mon fils ait obtenu son diplôme d’études collégiales (DEC) avec mention.',
+          zh: '我儿子以优异成绩获得了大专毕业文凭（DEC），我为此感到非常自豪。',
+          highlight: 'ait obtenu',
+        },
+        {
+          fr: 'Nous regrettons sincèrement que vous ayez eu une mauvaise expérience avec ce propriétaire.',
+          zh: '我们真诚地对您与那个房东之间的糟糕经历表示遗憾。',
+          highlight: 'ayez eu',
+        },
+        {
+          fr: 'Elle est soulagée que les résultats de son examen médical soient sortis normaux.',
+          zh: '体检结果出来显示一切正常，她终于松了一口气。',
+          highlight: 'soient sortis',
+        },
+        {
+          fr: 'C’est une bonne nouvelle que le gouvernement ait prolongé le programme d’aide au logement.',
+          zh: '政府此前延长了住房补贴计划，这真是一个好消息。',
+          highlight: 'ait prolongé',
+        },
+      ],
+    },
+    {
+      id: 'avant-que-echeance',
+      titleZh: '由 avant que 或 jusqu’à ce que 引导的截止节点',
+      descriptionZh: '强调在某事发生之前，另一件事必须已经完成。',
+      examples: [
+        {
+          fr: 'Nous devons soumettre nos formulaires fiscaux avant que l’Agence du revenu n’ait fermé la période des déclarations.',
+          zh: '在税务局关闭报税申报期之前，我们必须已经提交了税表。',
+          highlight: 'n’ait fermé',
+        },
+        {
+          fr: 'Attendez ici jusqu’à ce que l’infirmière soit venue vous appeler dans la salle d’attente.',
+          zh: '请在这里等候，直到护士到候诊区叫了您的名字。',
+          highlight: 'soit venue',
+        },
+        {
+          fr: 'Il faut que le déneigement soit fait avant que les écoliers ne soient sortis des classes.',
+          zh: '在小学生放学走出教室之前，清雪工作必须已经完成。',
+          highlight: 'soit fait',
+        },
+        {
+          fr: 'Je veux vérifier le véhicule avant que nous soyons partis pour les Laurentides.',
+          zh: '在我们启程前往洛朗蒂德区之前，我想把车辆检查一遍。',
+          highlight: 'soyons partis',
+        },
+      ],
+    },
+    {
+      id: 'doute-passe',
+      titleZh: '对过去事实的怀疑、否定或不可信判断',
+      descriptionZh: '说话人对过去发生过某事持怀疑态度（douter que / ne pas croire que...）。',
+      examples: [
+        {
+          fr: 'Je ne crois pas qu’il ait fait exprès de bloquer l’entrée de garage avec sa voiture.',
+          zh: '我不相信他是故意用车堵住车库入口的。',
+          highlight: 'ait fait',
+        },
+        {
+          fr: 'Le juge doute fort que le témoin ait dit toute la vérité lors de l’audience.',
+          zh: '法官非常怀疑证人在听证会上是否说了全部实话。',
+          highlight: 'ait dit',
+        },
+        {
+          fr: 'Il n’est pas prouvé que la fuite d’eau ait endommagé la structure du plafond.',
+          zh: '漏水是否已经损坏了天花板的承重结构，目前尚未得到证实。',
+          highlight: 'ait endommagé',
+        },
+        {
+          fr: 'Pensez-vous vraiment qu’elle ait pu apprendre le français en seulement six mois ?',
+          zh: '您真觉得她可能只用了六个月就学会了法语吗？',
+          highlight: 'ait pu',
+        },
+      ],
+    },
+    {
+      id: 'pronominaux-sp',
+      titleZh: '代词动词的虚拟式过去时',
+      descriptionZh: '自反代词位于 être 虚拟式（sois/soit）之前，过去分词严格配合主语性数。',
+      examples: [
+        {
+          fr: 'Je suis ravi que vous vous soyez bien adaptés au climat montréalais.',
+          zh: '看到你们很好地适应了蒙特利尔的气候，我由衷感到欣喜。',
+          highlight: 'vous soyez bien adaptés',
+        },
+        {
+          fr: 'Il est dommage qu’elle se soit blessée à la cheville en glissant sur le trottoir.',
+          zh: '很遗憾她在人行道滑倒扭伤了脚踝。',
+          highlight: 'se soit blessée',
+        },
+        {
+          fr: 'Il est important qu’ils se soient inscrits sur les listes électorales avant le scrutin.',
+          zh: '在投票之前，他们此前已经在选民名单上登了记，这很重要。',
+          highlight: 'se soient inscrits',
+        },
+        {
+          fr: 'Bien que nous nous soyons levés très tôt, le stationnement de la station de ski était déjà complet.',
+          zh: '尽管我们起得很早，滑雪场的停车场却早已停满了。',
+          highlight: 'nous soyons levés',
+        },
+      ],
+    },
+    {
+      id: 'conjonctions-concession',
+      titleZh: '让步连词（bien que / quoique）之后的过去动作',
+      descriptionZh: '虽然过去曾经发生过某事，但主句仍然出现了意料之外的结果。',
+      examples: [
+        {
+          fr: 'Bien qu’il ait neigé toute la nuit, les autobus circulent normalement ce matin.',
+          zh: '尽管雪下了一整夜，今早的公交车依然正常通行。',
+          highlight: 'ait neigé',
+        },
+        {
+          fr: 'Quoiqu’elle ait étudié le droit en France, elle a dû suivre des cours d’équivalence au Barreau du Québec.',
+          zh: '尽管她曾在法国学过法律，她还是必须在魁北克律师公会修读同等学历课程。',
+          highlight: 'ait étudié',
+        },
+        {
+          fr: 'Bien que nous ayons soumis notre dossier à la dernière minute, l’agent l’a accepté sans pénalité.',
+          zh: '尽管我们在最后一刻才提交材料，办事员依然予以受理且未收滞纳金。',
+          highlight: 'ayons soumis',
+        },
+        {
+          fr: 'Bien qu’ils soient arrivés en retard, la séance d’information n’avait pas encore commencé.',
+          zh: '尽管他们迟到了，宣讲会当时其实还没开场。',
+          highlight: 'soient arrivés',
+        },
+      ],
+    },
+  ],
+  signalWords: [
+    {
+      word: 'bien que + PQP/passé',
+      meaningZh: '尽管（过去动作）',
+      example: {
+        fr: 'Bien qu’il ait réussi son test, il continue d’assister aux ateliers de conversation.',
+        zh: '尽管他考过了测试，但他依然继续参加口语工作坊。',
+        highlight: 'ait réussi',
+      },
+    },
+    {
+      word: 'regretter que',
+      meaningZh: '遗憾/后悔（对过去发生的事）',
+      example: {
+        fr: 'Je regrette que nous n’ayons pas visité les Chutes Montmorency cet été.',
+        zh: '我很遗憾我们今年夏天没能去游览蒙莫朗西瀑布。',
+        highlight: 'n’ayons pas visité',
+      },
+    },
+    {
+      word: 'il est heureux que',
+      meaningZh: '庆幸/幸好……（过去完成事实）',
+      example: {
+        fr: 'Il est heureux que le chasse-neige soit passé avant notre départ au travail.',
+        zh: '幸好扫雪车在我们出门上班前已经开过了。',
+        highlight: 'soit passé',
+      },
+    },
+    {
+      word: 'pourvu que',
+      meaningZh: '但愿……（过去先时完成）',
+      example: {
+        fr: 'Pourvu que le colis soit bien arrivé sans dommage à destination !',
+        zh: '但愿包裹已经完好无损地送达目的地！',
+        highlight: 'soit bien arrivé',
+      },
+    },
+  ],
+  commonMistakes: [
+    {
+      wrong: 'Je suis content que tu as venu.',
+      right: 'Je suis content que tu sois venu.',
+      explanationZh: 'content que 表达主观情感，从句必须使用虚拟式（tu sois venu），不能用直陈式复合过去时（tu es venu），且 venir 用 être 作助动词。',
+    },
+    {
+      wrong: 'Il est triste qu’elle a perdu ses clés.',
+      right: 'Il est triste qu’elle ait perdu ses clés.',
+      explanationZh: 'triste que 表达情感，从句必须用虚拟式过去时（qu’elle ait perdu）。',
+    },
+    {
+      wrong: 'Bien qu’ils sont partis tôt.',
+      right: 'Bien qu’ils soient partis tôt.',
+      explanationZh: '让步连词 bien que 后面强制使用虚拟式：ils soient partis。',
+    },
+    {
+      wrong: 'Elle est fière que son fils ait fini ses devoirs. (写成 soit fini)',
+      right: 'Elle est fière que son fils ait fini ses devoirs.',
+      explanationZh: '动词 finir 的复合形式助动词是 avoir，因此虚拟式过去时为 ait fini，不是 soit fini。',
+    },
+  ],
+  questions: [
+    {
+      id: 'sbpa-q1',
+      type: 'choice',
+      prompt: 'Je suis très heureux que vous (obtenir) ___ votre certificat de sélection du Québec.',
+      options: ['ayez obtenu', 'avez obtenu', 'obteniez', 'soyez obtenu'],
+      correctAnswer: 'ayez obtenu',
+      explanationZh: 'heureux que 表达欣喜情感，且动作在说话前已完成，使用虚拟式过去时：vous ayez obtenu。',
+    },
+    {
+      id: 'sbpa-q2',
+      type: 'choice',
+      prompt: 'Il est surprenant qu’elle (arriver) ___ à l’heure malgré la tempête de neige.',
+      options: ['soit arrivée', 'ait arrivé', 'est arrivée', 'soit arrivé'],
+      correctAnswer: 'soit arrivée',
+      explanationZh: 'arriver 用 être 作助动词，主语 elle 配合加 -e：qu’elle soit arrivée。',
+    },
+    {
+      id: 'sbpa-q3',
+      type: 'choice',
+      prompt: 'Bien qu’il (neiger) ___ toute la matinée, les routes principales sont déneigées.',
+      options: ['ait neigé', 'a neigé', 'neigeait', 'soit neigé'],
+      correctAnswer: 'ait neigé',
+      explanationZh: 'bien que 接虚拟式，表达过去已下过雪，使用虚拟式过去时：ait neigé。',
+    },
+    {
+      id: 'sbpa-q4',
+      type: 'choice',
+      prompt: 'Le directeur regrette que nous (ne pas pouvoir) ___ assister à la conférence.',
+      options: ['n’ayons pas pu', 'ne pouvons pas pu', 'n’ayons pas pouvoir', 'ne soyons pas pu'],
+      correctAnswer: 'n’ayons pas pu',
+      explanationZh: 'regretter que 接虚拟式过去时，pouvoir 的过去分词是 pu，助动词为 avoir：n’ayons pas pu。',
+    },
+    {
+      id: 'sbpa-q5',
+      type: 'fill',
+      prompt: 'Je doute qu’il (faire) ___ exprès de bloquer la circulation.（填入虚拟式助动词+分词）',
+      correctAnswer: 'ait fait',
+      acceptedAnswers: ['ait fait'],
+      explanationZh: 'douter que 表怀疑，faire 的虚拟式过去时为 ait fait。',
+    },
+    {
+      id: 'sbpa-q6',
+      type: 'fill',
+      prompt: 'Nous sommes ravis que tu (réussir) ___ ton test du TCF.（填入虚拟式助动词+分词）',
+      correctAnswer: 'aies réussi',
+      acceptedAnswers: ['aies réussi', 'aies reussi'],
+      explanationZh: 'tu 对应的虚拟式过去时为 tu aies réussi。',
+    },
+    {
+      id: 'sbpa-q7',
+      type: 'choice',
+      prompt: 'Il est dommage qu’ils (se disputer) ___ pour une question aussi futile.',
+      options: ['se soient disputés', 's’aient disputé', 'se sont disputés', 'soient disputés'],
+      correctAnswer: 'se soient disputés',
+      explanationZh: '代词动词使用 être，主语 ils 配合加 -s：se soient disputés。',
+    },
+    {
+      id: 'sbpa-q8',
+      type: 'choice',
+      prompt: 'Je ne pense pas que la lettre (arriver) ___ avant demain matin.',
+      options: ['soit arrivée', 'ait arrivé', 'est arrivée', 'arrive'],
+      correctAnswer: 'soit arrivée',
+      explanationZh: 'arriver 用 être 作助动词，la lettre 为阴性单数配合加 -e：soit arrivée。',
+    },
+    {
+      id: 'sbpa-q9',
+      type: 'fill',
+      prompt: 'C’est une chance que nous (trouver) ___ un logement abordable à Montréal.（填入虚拟式助动词+分词）',
+      correctAnswer: 'ayons trouvé',
+      acceptedAnswers: ['ayons trouvé', 'ayons trouve'],
+      explanationZh: 'nous 对应的虚拟式过去时为 nous ayons trouvé。',
+    },
+    {
+      id: 'sbpa-q10',
+      type: 'choice',
+      prompt: 'Le juge doute fort que le suspect (dire) ___ toute la vérité aux enquêteurs.',
+      options: ['ait dit', 'a dit', 'dise', 'ait dire'],
+      correctAnswer: 'ait dit',
+      explanationZh: 'dire 的过去分词是 dit，虚拟式过去时为 ait dit。',
+    },
+    {
+      id: 'sbpa-q11',
+      type: 'choice',
+      prompt: 'Bien que vous (terminer) ___ tard hier soir, vous êtes très en forme ce matin.',
+      options: ['ayez terminé', 'avez terminé', 'soyez terminé', 'terminiez'],
+      correctAnswer: 'ayez terminé',
+      explanationZh: 'bien que 接虚拟式，vous 人称对应 ayez terminé。',
+    },
+    {
+      id: 'sbpa-q12',
+      type: 'fill',
+      prompt: 'Elle est soulagée que son passeport (être) ___ renouvelé à temps.（填入虚拟式助动词+分词）',
+      correctAnswer: 'ait été',
+      acceptedAnswers: ['ait été', 'ait ete'],
+      explanationZh: 'être 的复合形式使用 avoir 作助动词，虚拟式过去时为 ait été。',
+    },
+    {
+      id: 'sbpa-q13',
+      type: 'choice',
+      prompt: 'Il est incroyable que les pompiers (éteindre) ___ l’incendie si rapidement.',
+      options: ['aient éteint', 'ont éteint', 'soient éteints', 'éteignent'],
+      correctAnswer: 'aient éteint',
+      explanationZh: 'éteindre 的过去分词为 éteint，虚拟式过去时复数为 aient éteint。',
+    },
+    {
+      id: 'sbpa-q14',
+      type: 'choice',
+      prompt: 'Nous sommes heureux que les enfants (se faire) ___ de nouveaux amis à l’école.',
+      options: ['se soient fait', 's’aient fait', 'se sont fait', 'soient fait'],
+      correctAnswer: 'se soient fait',
+      explanationZh: '代词动词使用 être：se soient fait（直接宾语 de nouveaux amis 在后，分词不配合）。',
+    },
+    {
+      id: 'sbpa-q15',
+      type: 'fill',
+      prompt: 'Je regrette que tu (perdre) ___ tes clés dans le métro.（填入虚拟式助动词+分词）',
+      correctAnswer: 'aies perdu',
+      acceptedAnswers: ['aies perdu'],
+      explanationZh: 'tu 对应的虚拟式过去时为 tu aies perdu。',
+    },
+    {
+      id: 'sbpa-q16',
+      type: 'choice',
+      prompt: 'Bien qu’elles (partir) ___ de bonne heure, elles ont été bloquées par les embouteillages.',
+      options: ['soient parties', 'aient parti', 'sont parties', 'soient partis'],
+      correctAnswer: 'soient parties',
+      explanationZh: 'partir 用 être 作助动词，elles 为阴性复数配合加 -es：soient parties。',
+    },
+  ],
+}

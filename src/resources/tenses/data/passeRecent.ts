@@ -1,0 +1,388 @@
+import type { TenseLesson } from '../types'
+
+export const passeRecentLesson: TenseLesson = {
+  id: 'passeRecent',
+  titleFr: 'Passé récent',
+  titleZh: '最近过去时',
+  category: 'indicatif',
+  cefrLevel: 'A2',
+  echelleNiveau: 5,
+  echelleSources: ['n5-gr-action-recente: 刚刚完成 / 正在进行'],
+  summaryZh: '由 venir de + 原形动词构成；用于表达说话前一刻“刚刚”完成的动作，或交代刚刚发生的新鲜资讯。',
+  timelinePosition: 'past',
+  defaultVerb: 'parler',
+  formationSteps: [
+    '第一步：将半助动词 venir 变位为直陈式现在时：je viens, tu viens, il/elle/on vient, nous venons, vous venez, ils/elles viennent。',
+    '第二步：加上介词 de（在元音或哑音 h 开头的动词前省音为 d’，如 d’arriver, d’entrer）。',
+    '第三步：后接实义动词的原形（infinitif）：parler, finir, recevoir, signer...',
+    '代词位置：自反代词或宾语代词紧贴在不定式原形动词之前（例如：Je viens de me réveiller / Il vient de lui téléphoner）。',
+    '过去视角延展：当叙述过去的场景时，可用 venir 的未完成过去时（venait de + infinitif）表达“当时刚刚发生”。',
+  ],
+  endingsTable: [
+    { label: 'venir 直陈式现在时', endings: ['viens', 'viens', 'vient', 'venons', 'venez', 'viennent'] },
+    { label: '介词与原形', endings: ['+ de / d’ + 原形动词 (infinitif)'] },
+  ],
+  irregularStems: [
+    { verb: 'venir de venir', stem: 'je viens de venir', notes: '极少见但语法上允许' },
+    { verb: 'venir d’avoir', stem: 'il vient d’avoir', notes: '如：il vient d’avoir dix-huit ans' },
+    { verb: 'venir d’être', stem: 'elle vient d’être', notes: '如：elle vient d’être embauchée' },
+  ],
+  pronunciationNotes: [
+    '介词 de 在遇到元音开头的动词时必须连读省音，发音变为 /d/，例如 d’arriver（/da.ʁi.ve/）。',
+    'ils viennent（/il vjɛn/）与 il vient（/il vjɛ̃/）的发音有清晰的鼻化元音与口元音加鼻音的区别。',
+  ],
+  usages: [
+    {
+      id: 'tout-juste-accompli',
+      titleZh: '说话前一刻刚刚完成的即时动作',
+      descriptionZh: '动作通常在几秒钟或几分钟前才刚告一段落。',
+      examples: [
+        {
+          fr: 'Le facteur vient de déposer un pli recommandé dans notre boîte aux lettres.',
+          zh: '邮递员刚刚在我们信箱里投递了一封挂号信。',
+          highlight: 'vient de déposer',
+        },
+        {
+          fr: 'Je viens d’arriver à la gare Centrale après un long trajet en train.',
+          zh: '经过长途火车旅行，我刚刚到达中央火车站。',
+          highlight: 'viens d’arriver',
+        },
+        {
+          fr: 'Les techniciens viennent de rétablir le courant électrique dans tout le quartier.',
+          zh: '技术人员刚刚恢复了整个街区的电力供应。',
+          highlight: 'viennent de rétablir',
+        },
+        {
+          fr: 'Est-ce que le cours de francisation vient de commencer ?',
+          zh: '法语沉浸课程刚刚开始吗？',
+          highlight: 'vient de commencer',
+        },
+      ],
+    },
+    {
+      id: 'nouvelle-fraiche',
+      titleZh: '发布刚刚发生的重磅或新鲜消息',
+      descriptionZh: '日常交谈或工作中宣布刚刚发生的重要决定与变动。',
+      examples: [
+        {
+          fr: 'Ma sœur vient de recevoir une offre d’emploi formidable au CHUM.',
+          zh: '我姐姐刚刚收到了蒙特利尔大学超级医院（CHUM）的一份绝佳工作录用信。',
+          highlight: 'vient de recevoir',
+        },
+        {
+          fr: 'Le premier ministre du Québec vient d’annoncer de nouvelles mesures économiques.',
+          zh: '魁北克省长刚刚宣布了新的经济举措。',
+          highlight: 'vient d’annoncer',
+        },
+        {
+          fr: 'Nous venons de signer l’acte de vente de notre premier condo à Longueuil.',
+          zh: '我们刚刚在朗格伊签署了我们第一套公寓的买卖契约。',
+          highlight: 'venons de signer',
+        },
+        {
+          fr: 'Mon conjoint vient d’obtenir sa confirmation de résidence permanente (CRP).',
+          zh: '我的配偶刚刚拿到了他的永久居民确认函（COPR/CRP）。',
+          highlight: 'vient d’obtenir',
+        },
+      ],
+    },
+    {
+      id: 'explication-etat-present',
+      titleZh: '作为当前身体或心理状态的直接原因',
+      descriptionZh: '解释为什么此刻饱了、累了、没有空等现状。',
+      examples: [
+        {
+          fr: 'Non merci pour le dîner, je viens de manger une grosse poutine.',
+          zh: '不用了谢谢，我吃晚饭前刚刚吃了一大份普丁薯条。',
+          highlight: 'viens de manger',
+        },
+        {
+          fr: 'Elle est encore essoufflée car elle vient de monter quatre étages à pied.',
+          zh: '她还在大口喘气，因为她刚刚步行爬了四层楼。',
+          highlight: 'vient de monter',
+        },
+        {
+          fr: 'Nous ne pouvons pas vous recevoir immédiatement, nous venons d’entamer une réunion confidentielle.',
+          zh: '我们现在无法接待您，我们刚刚开始一个保密会议。',
+          highlight: 'venons d’entamer',
+        },
+        {
+          fr: 'Les enfants dorment profondément parce qu’ils viennent de passer trois heures à glisser sur la neige.',
+          zh: '孩子们睡得很香，因为他们刚刚在雪地里滑了三个小时雪橇。',
+          highlight: 'viennent de passer',
+        },
+      ],
+    },
+    {
+      id: 'passe-dans-le-passe',
+      titleZh: '过去基准点上的“当时刚刚”（venait de + infinitif）',
+      descriptionZh: '在讲述过去故事时，将 venir 变为未完成过去时，表达“在那个过去时刻刚刚发生”。',
+      examples: [
+        {
+          fr: 'Quand la police est arrivée sur les lieux, le suspect venait de s’enfuir.',
+          zh: '当警察赶到现场时，嫌疑人当时刚刚逃之夭夭。',
+          highlight: 'venait de s’enfuir',
+        },
+        {
+          fr: 'J’ai rencontré Julie au moment précis où elle venait de quitter son ancien travail.',
+          zh: '我遇见朱莉的时候，她当时恰好刚刚离职。',
+          highlight: 'venait de quitter',
+        },
+        {
+          fr: 'Nous venions de nous asseoir à la table du restaurant quand le serveur a apporté le menu.',
+          zh: '我们当时刚在餐馆餐桌旁坐下，服务员就送来了菜单。',
+          highlight: 'venions de nous asseoir',
+        },
+        {
+          fr: 'Le chasse-neige venait de dégager la rue principale lorsque la nouvelle averse a débuté.',
+          zh: '扫雪车当时刚清理完主干道，新的一轮暴雪就又开始了。',
+          highlight: 'venait de dégager',
+        },
+      ],
+    },
+    {
+      id: 'pronominaux-pr',
+      titleZh: '代词动词与宾语代词位置（紧随 de 之后、不定式之前）',
+      descriptionZh: '代词置于 de 与原形动词之间，并根据主语变形。',
+      examples: [
+        {
+          fr: 'Je viens de me réveiller et je prépare mon premier café de la journée.',
+          zh: '我刚刚醒来，正煮着我今天的第一杯咖啡。',
+          highlight: 'viens de me réveiller',
+        },
+        {
+          fr: 'Tu viens de te couper avec une feuille de papier, va mettre un pansement !',
+          zh: '你刚才被纸张划破了手指，快去贴个创可贴！',
+          highlight: 'viens de te couper',
+        },
+        {
+          fr: 'Ils viennent de se fiancer lors d’un voyage romantique à Québec.',
+          zh: '他们刚刚在魁北克城浪漫旅行期间订了婚。',
+          highlight: 'viennent de se fiancer',
+        },
+        {
+          fr: 'Nous venons de nous rendre compte d’une petite erreur dans notre rapport fiscal.',
+          zh: '我们刚刚察觉到我们税务报告中的一个小错误。',
+          highlight: 'venons de nous rendre compte',
+        },
+      ],
+    },
+    {
+      id: 'negation-interrogation-pr',
+      titleZh: '最近过去时的否定句与疑问句结构',
+      descriptionZh: 'ne... pas 包围变位动词 venir，de + 不定式紧随其后。',
+      examples: [
+        {
+          fr: 'Il ne vient pas d’arriver, cela fait déjà deux heures qu’il attend dans la salle.',
+          zh: '他可不是刚到，他已经在这个大厅里等了两个小时了。',
+          highlight: 'ne vient pas d’arriver',
+        },
+        {
+          fr: 'Venez-vous de déposer votre dossier auprès du ministère de l’Immigration ?',
+          zh: '您是刚刚向移民部提交了您的申请材料吗？',
+          highlight: 'Venez-vous de déposer',
+        },
+        {
+          fr: 'Pourquoi ne viens-tu pas de vérifier l’état de la circulation sur Google Maps ?',
+          zh: '你刚才怎么没有在谷歌地图上核对一下路况信息呢？',
+          highlight: 'ne viens-tu pas de vérifier',
+        },
+        {
+          fr: 'Elle ne vient pas de terminer ses études, elle travaille depuis déjà trois ans.',
+          zh: '她不是刚刚毕业，她已经工作整整三年了。',
+          highlight: 'ne vient pas de terminer',
+        },
+      ],
+    },
+  ],
+  signalWords: [
+    {
+      word: 'à l’instant',
+      meaningZh: '就在刚才 / 刚才那一瞬间',
+      example: {
+        fr: 'Le courriel de confirmation vient d’arriver à l’instant dans ma boîte de réception.',
+        zh: '确认邮件刚才那一瞬间刚刚到达我的收件箱。',
+        highlight: 'vient d’arriver',
+      },
+    },
+    {
+      word: 'tout juste',
+      meaningZh: '刚刚才 / 恰好刚',
+      example: {
+        fr: 'Le magasin vient tout juste d’ouvrir ses portes pour la période des soldes.',
+        zh: '商店刚好才开门迎接打折季。',
+        highlight: 'vient tout juste d’ouvrir',
+      },
+    },
+    {
+      word: 'il y a quelques minutes',
+      meaningZh: '几分钟前',
+      example: {
+        fr: 'Mon colocataire vient de sortir il y a quelques minutes pour attraper son autobus.',
+        zh: '我室友几分钟前刚出门去赶公交车。',
+        highlight: 'vient de sortir',
+      },
+    },
+    {
+      word: 'fraîchement',
+      meaningZh: '刚崭新地……',
+      example: {
+        fr: 'Ces immigrants viennent d’arriver fraîchement dans la belle province.',
+        zh: '这些移民刚刚崭新地踏上这片美丽的省份。',
+        highlight: 'viennent d’arriver',
+      },
+    },
+  ],
+  commonMistakes: [
+    {
+      wrong: 'Je viens manger. (丢失介词 de，变成了来做某事)',
+      right: 'Je viens de manger.',
+      explanationZh: '最近过去时必须包含介词 de（je viens de manger = 我刚吃完）；如果不带 de（je viens manger = 我来吃饭了），意思完全变了！',
+    },
+    {
+      wrong: 'Je me viens de réveiller.',
+      right: 'Je viens de me réveiller.',
+      explanationZh: '自反代词必须放在介词 de 之后、不定式原形动词之前：je viens de me réveiller。',
+    },
+    {
+      wrong: 'Il vient d’arrivé.',
+      right: 'Il vient d’arriver.',
+      explanationZh: '介词 de 后面必须接动词原形（arriver），不能接过去分词（arrivé）。',
+    },
+    {
+      wrong: 'Nous venons de fini.',
+      right: 'Nous venons de finir.',
+      explanationZh: '同样，de 后面必须接原形动词 finir，而不是过去分词 fini。',
+    },
+  ],
+  questions: [
+    {
+      id: 'pr-q1',
+      type: 'choice',
+      prompt: 'Je (venir de terminer) ___ mon quart de travail à l’hôpital.',
+      options: ['viens de terminer', 'vient de terminer', 'viens de terminé', 'viens terminer'],
+      correctAnswer: 'viens de terminer',
+      explanationZh: 'je 对应的 venir 变位是 viens，后接 de + 原形动词 terminer：viens de terminer。',
+    },
+    {
+      id: 'pr-q2',
+      type: 'choice',
+      prompt: 'Nous (venir de signer) ___ le bail pour notre nouvel appartement.',
+      options: ['venons de signer', 'venez de signer', 'venons de signé', 'venons signer'],
+      correctAnswer: 'venons de signer',
+      explanationZh: 'nous 对应 venons，加 de + 原形动词 signer：venons de signer。',
+    },
+    {
+      id: 'pr-q3',
+      type: 'choice',
+      prompt: 'Elle (venir de se réveiller) ___ et elle boit un verre d’eau.',
+      options: ['vient de se réveiller', 'se vient de réveiller', 'vient de réveiller', 'vient de se réveillé'],
+      correctAnswer: 'vient de se réveiller',
+      explanationZh: '自反代词 se 位于 de 和原形动词 réveiller 之间：vient de se réveiller。',
+    },
+    {
+      id: 'pr-q4',
+      type: 'choice',
+      prompt: 'L’autobus (venir de passer) ___ il y a seulement deux minutes.',
+      options: ['vient de passer', 'viens de passer', 'vient passer', 'vient de passé'],
+      correctAnswer: 'vient de passer',
+      explanationZh: '主语 l’autobus 为第三人称单数，变位为 vient de passer。',
+    },
+    {
+      id: 'pr-q5',
+      type: 'fill',
+      prompt: 'Ils (venir) ___ de recevoir leur nouvelle carte d’assurance maladie.（填入 venir 的变位）',
+      correctAnswer: 'viennent',
+      acceptedAnswers: ['viennent'],
+      explanationZh: 'ils 对应的 venir 直陈式现在时变位是 viennent。',
+    },
+    {
+      id: 'pr-q6',
+      type: 'fill',
+      prompt: 'Tu (venir) ___ d’arriver à Montréal ? Bienvenue !（填入 venir 的变位）',
+      correctAnswer: 'viens',
+      acceptedAnswers: ['viens'],
+      explanationZh: 'tu 对应的 venir 直陈式现在时变位是 viens。',
+    },
+    {
+      id: 'pr-q7',
+      type: 'choice',
+      prompt: 'Le médecin (venir de quitter) ___ son bureau pour une urgence.',
+      options: ['vient de quitter', 'viens de quitter', 'vient de quitté', 'vient quitter'],
+      correctAnswer: 'vient de quitter',
+      explanationZh: 'le médecin 对应 il vient de quitter。',
+    },
+    {
+      id: 'pr-q8',
+      type: 'choice',
+      prompt: 'Quand je suis entré, le professeur (venir de) ___ effacer le tableau.',
+      options: ['venait d’', 'vient d’', 'venait de', 'a venu d’'],
+      correctAnswer: 'venait d’',
+      explanationZh: '配合过去基准点用未完成过去时 venait，在元音开头动词 effacer 前省音为 d’：venait d’。',
+    },
+    {
+      id: 'pr-q9',
+      type: 'fill',
+      prompt: 'Vous (venir) ___ de déposer votre demande de citoyenneté ?（填入 venir 的变位）',
+      correctAnswer: 'venez',
+      acceptedAnswers: ['venez'],
+      explanationZh: 'vous 对应的 venir 直陈式现在时变位是 venez。',
+    },
+    {
+      id: 'pr-q10',
+      type: 'choice',
+      prompt: 'Attention ! Le plancher (venir d’être) ___ lavé, ne glissez pas !',
+      options: ['vient d’être', 'vient d’été', 'viens d’être', 'vient être'],
+      correctAnswer: 'vient d’être',
+      explanationZh: '被动语态的原形是 être，在 de 后省音为 d’être：vient d’être lavé。',
+    },
+    {
+      id: 'pr-q11',
+      type: 'choice',
+      prompt: 'Non merci, je n’ai pas soif : je (venir de boire) ___ un grand verre de jus.',
+      options: ['viens de boire', 'viens de bu', 'viens boire', 'vient de boire'],
+      correctAnswer: 'viens de boire',
+      explanationZh: 'je 人称下变位为 je viens de boire。',
+    },
+    {
+      id: 'pr-q12',
+      type: 'fill',
+      prompt: 'Nous (venir) ___ de recevoir une confirmation positive.（填入 venir 的变位）',
+      correctAnswer: 'venons',
+      acceptedAnswers: ['venons'],
+      explanationZh: 'nous 对应的变位是 venons。',
+    },
+    {
+      id: 'pr-q13',
+      type: 'choice',
+      prompt: 'Elles (venir de s’installer) ___ dans leur nouveau condo sur la Rive-Sud.',
+      options: ['viennent de s’installer', 'se viennent d’installer', 'viennent de installées', 'viennent d’installer'],
+      correctAnswer: 'viennent de s’installer',
+      explanationZh: '自反代词 s’ 位于 de 之后、原形动词 installer 之前：viennent de s’installer。',
+    },
+    {
+      id: 'pr-q14',
+      type: 'choice',
+      prompt: 'Mon ami (ne pas venir d’arriver) ___, cela fait une heure qu’il est là.',
+      options: ['ne vient pas d’arriver', 'ne vient d’arriver pas', 'ne viens pas d’arriver', 'vient ne pas d’arriver'],
+      correctAnswer: 'ne vient pas d’arriver',
+      explanationZh: '否定副词 ne... pas 夹住 vient：ne vient pas d’arriver。',
+    },
+    {
+      id: 'pr-q15',
+      type: 'fill',
+      prompt: 'Je (venir de voir) ___ ton message sur mon cellulaire.（填入 viens de + 原形）',
+      correctAnswer: 'viens de voir',
+      acceptedAnswers: ['viens de voir'],
+      explanationZh: '第一人称单数最近过去时为 viens de voir。',
+    },
+    {
+      id: 'pr-q16',
+      type: 'choice',
+      prompt: 'Les pompiers (venir de maîtriser) ___ le feu dans l’entrepôt.',
+      options: ['viennent de maîtriser', 'viennent de maîtrisé', 'vient de maîtriser', 'venons de maîtriser'],
+      correctAnswer: 'viennent de maîtriser',
+      explanationZh: '主语 les pompiers 为复数，对应 viennent de maîtriser。',
+    },
+  ],
+}

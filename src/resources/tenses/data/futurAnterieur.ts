@@ -1,0 +1,388 @@
+import type { TenseLesson } from '../types'
+
+export const futurAnterieurLesson: TenseLesson = {
+  id: 'futurAnterieur',
+  titleFr: 'Futur antérieur de l’indicatif',
+  titleZh: '先将来时',
+  category: 'indicatif',
+  cefrLevel: 'B2',
+  echelleNiveau: 7,
+  echelleSources: ['n7-gr-futur-anterieur: 先将来时'],
+  summaryZh: '用于表达在未来某个参照点或另一将来动作之前就已经完成的事情，或对刚发生事件作出的合理推测。',
+  timelinePosition: 'future',
+  defaultVerb: 'parler',
+  formationSteps: [
+    '第一步：选择助动词 avoir 或 être，将其变位为简单将来时（futur simple）。',
+    '助动词 avoir 的简单将来时：j’aurai, tu auras, il aura, nous aurons, vous aurez, ils auront。',
+    '助动词 être 的简单将来时：je serai, tu seras, il sera, nous serons, vous serez, ils seront。',
+    '第二步：加上实义动词的过去分词（participe passé）。使用 être 作助动词的动词及代词动词，分词须与主语进行性数配合。',
+  ],
+  endingsTable: [
+    { label: '助动词 avoir 的简单将来时', endings: ['aurai', 'auras', 'aura', 'aurons', 'aurez', 'auront'] },
+    { label: '助动词 être 的简单将来时 (配合性数)', endings: ['serai', 'seras', 'sera', 'serons', 'serez', 'seront'] },
+  ],
+  irregularStems: [
+    { verb: 'avoir eu', stem: 'j’aurai eu', notes: '助动词 aurai + 分词 eu' },
+    { verb: 'être été', stem: 'j’aurai été', notes: '助动词 aurai + 分词 été' },
+    { verb: 'aller', stem: 'je serai allé(e)', notes: '使用 être 将来时' },
+    { verb: 'partir', stem: 'je serai parti(e)', notes: '使用 être 将来时' },
+  ],
+  pronunciationNotes: [
+    '注意 j’aurai（/ʒo.ʁe/）与 j’aurais（/ʒo.ʁɛ/）的区别。先将来时第一人称词尾发闭元音 /e/。',
+    '助动词与以元音开头的过去分词之间有联诵，例如 « nous aurons_appris »（/nu zo.ʁɔ̃ za.pʁi/）。',
+  ],
+  usages: [
+    {
+      id: 'anteriorite-futur',
+      titleZh: '在未来另一动作之前已经完成的先时动作',
+      descriptionZh: '主从句都指向未来，但先将来时的动作发生在前，简单将来时的动作发生在后。',
+      examples: [
+        {
+          fr: 'Quand j’aurai obtenu mon CSQ, je déposerai ma demande de résidence permanente auprès du gouvernement fédéral.',
+          zh: '当我拿到了魁省甄选证书（CSQ）后，我就会向联邦政府递交永久居民申请。',
+          highlight: 'aurai obtenu',
+        },
+        {
+          fr: 'Dès que nous aurons signé le bail, nous commanderons nos nouveaux meubles.',
+          zh: '我们一旦签完租约，就会订购我们的新家具。',
+          highlight: 'aurons signé',
+        },
+        {
+          fr: 'Aussitôt que vous serez arrivé à l’hôtel de ville, l’agent vous remettra le certificat.',
+          zh: '您一到达市政厅，工作人员就会把证书交给您。',
+          highlight: 'serez arrivé',
+        },
+        {
+          fr: 'Lorsque les enfants auront terminé leurs devoirs, ils pourront regarder un film.',
+          zh: '当孩子们做完家庭作业后，他们就可以看一部电影。',
+          highlight: 'auront terminé',
+        },
+      ],
+    },
+    {
+      id: 'echeance-future',
+      titleZh: '在未来某个具体时间节点前必定完成的承诺与交代',
+      descriptionZh: '与 d’ici là, avant demain, dans un an 等时间短语连用，表示到时肯定已完成。',
+      examples: [
+        {
+          fr: 'D’ici la fin du mois de juin, nous aurons complété toutes les démarches d’inscription scolaire.',
+          zh: '在六月底之前，我们将彻底完成所有的入学注册手续。',
+          highlight: 'aurons complété',
+        },
+        {
+          fr: 'Dans deux ans, elle aura remboursé la totalité de son prêt étudiant.',
+          zh: '两年之内，她将还清她的全部学生贷款。',
+          highlight: 'aura remboursé',
+        },
+        {
+          fr: 'Le déneigement de la métropole aura coûté plusieurs millions de dollars d’ici le printemps.',
+          zh: '到春天之前，大都市的清雪工作将已耗资数百万加元。',
+          highlight: 'aura coûté',
+        },
+        {
+          fr: 'Avant la tombée de la nuit, les ouvriers auront réparé la conduite d’eau brisée.',
+          zh: '夜幕降临之前，工人们将已修好了破裂的水管。',
+          highlight: 'auront réparé',
+        },
+      ],
+    },
+    {
+      id: 'supposition-probabilite',
+      titleZh: '对已发生的过去事件的合理推断或猜测',
+      descriptionZh: '用于解释某件刚刚发生的怪事或缺席，相当于“他大概是……了吧”。',
+      examples: [
+        {
+          fr: 'Marc n’est pas encore arrivé au bureau : il aura manqué son autobus à cause du trafic.',
+          zh: '马克还没到办公室：他大概是因为堵车错过了公交车吧。',
+          highlight: 'aura manqué',
+        },
+        {
+          fr: 'Le téléphone ne répond pas, ils seront déjà partis pour leur chalet dans les Laurentides.',
+          zh: '电话没人接，他们想必已经出发去洛朗蒂德区的木屋了吧。',
+          highlight: 'seront déjà partis',
+        },
+        {
+          fr: 'Vous aurez sans doute remarqué le nouveau système de tri sélectif dans l’immeuble.',
+          zh: '您想必已经注意到大楼里新的垃圾分类系统了吧。',
+          highlight: 'aurez sans doute remarqué',
+        },
+        {
+          fr: 'Elle aura oublié de renouveler sa carte d’assurance maladie avant son expiration.',
+          zh: '她大概是忘了在太阳卡（RAMQ）过期前去更新了吧。',
+          highlight: 'aura oublié',
+        },
+      ],
+    },
+    {
+      id: 'discours-formel-bilan',
+      titleZh: '正式总结、法律文书与长远历史展望',
+      descriptionZh: '在回顾未来历史或立誓保证时，展现完成的必然性。',
+      examples: [
+        {
+          fr: 'Dans cinquante ans, les historiens auront documenté l’impact des changements climatiques au Québec.',
+          zh: '五十年后，历史学家们将已记录下气候变化对魁北克的影响。',
+          highlight: 'auront documenté',
+        },
+        {
+          fr: 'Nous aurons surmonté ensemble toutes les épreuves de l’immigration.',
+          zh: '我们终将一起克服移民路上的所有艰难险阻。',
+          highlight: 'aurons surmonté',
+        },
+        {
+          fr: 'Le Québec aura atteint ses objectifs de réduction des gaz à effet de serre d’ici 2030.',
+          zh: '到2030年，魁北克将已达成其温室气体减排目标。',
+          highlight: 'aura atteint',
+        },
+        {
+          fr: 'D’ici votre retraite, vous aurez accumulé une belle épargne dans votre REER.',
+          zh: '到您退休之时，您将在您的注册退休储蓄计划（REER）中积攒下一笔可观的积蓄。',
+          highlight: 'aurez accumulé',
+        },
+      ],
+    },
+    {
+      id: 'pronominaux-fa',
+      titleZh: '代词动词的先将来时',
+      descriptionZh: '自反代词位于将来时助动词 serai/sera 之前，过去分词严格配合主语性数。',
+      examples: [
+        {
+          fr: 'Quand elle se sera habituée au froid canadien, elle appréciera les joies du patinage.',
+          zh: '当她习惯了加拿大的寒冷之后，她就会体会到滑冰的乐趣。',
+          highlight: 'se sera habituée',
+        },
+        {
+          fr: 'Dès que nous nous serons installés à Gatineau, nous vous inviterons à souper.',
+          zh: '我们一旦在加蒂诺安顿下来，就会邀请您来吃晚饭。',
+          highlight: 'nous serons installés',
+        },
+        {
+          fr: 'Aussitôt que tu te seras inscrit au guichet d’accès aux médecins, tu attendras leur appel.',
+          zh: '你一旦在家庭医生登记窗口完成注册，就等待他们的来电。',
+          highlight: 'te seras inscrit',
+        },
+        {
+          fr: 'Ils se seront réconciliés avant la fête de Noël en famille.',
+          zh: '在家庭圣诞聚会之前，他们一定已经和解了。',
+          highlight: 'se seront réconciliés',
+        },
+      ],
+    },
+    {
+      id: 'negation-interrogation-fa',
+      titleZh: '先将来时的否定句与疑问句句型',
+      descriptionZh: '否定词 ne... pas 夹住将来时助动词；倒装疑问句由助动词与主语代词倒装。',
+      examples: [
+        {
+          fr: 'Je n’aurai pas terminé la traduction de ce document avant dix-sept heures.',
+          zh: '在下午五点之前，我将无法完成这份文件的翻译。',
+          highlight: 'n’aurai pas terminé',
+        },
+        {
+          fr: 'Aurez-vous reçu votre permis de travail avant l’expiration de votre statut de visiteur ?',
+          zh: '在您的访客身份过期之前，您能收到您的工签吗？',
+          highlight: 'Aurez-vous reçu',
+        },
+        {
+          fr: 'Elle ne sera pas encore rentrée de son voyage d’affaires jeudi prochain.',
+          zh: '下周四她大概还没从商务出差中返回呢。',
+          highlight: 'ne sera pas encore rentrée',
+        },
+        {
+          fr: 'Pourquoi n’aura-t-il pas déposé sa demande avant la date limite d’admission ?',
+          zh: '他为什么没有在录取截止日期前递交申请呢？',
+          highlight: 'n’aura-t-il pas déposé',
+        },
+      ],
+    },
+  ],
+  signalWords: [
+    {
+      word: 'dès que',
+      meaningZh: '一旦……（将来先时动作）',
+      example: {
+        fr: 'Dès que j’aurai reçu mon avis de cotisation, je planifierai mon budget.',
+        zh: '我一旦收到税单评估通知，就会规划我的预算。',
+        highlight: 'aurai reçu',
+      },
+    },
+    {
+      word: 'd’ici là',
+      meaningZh: '在那之前 / 到那时',
+      example: {
+        fr: 'Le comité aura rendu sa décision finale d’ici là.',
+        zh: '在那之前，委员会将已作出最终裁决。',
+        highlight: 'aura rendu',
+      },
+    },
+    {
+      word: 'quand',
+      meaningZh: '当……（将来先时动作）',
+      example: {
+        fr: 'Quand le soleil se sera levé, la glace sur le pare-brise commencera à fondre.',
+        zh: '当太阳升起之后，挡风玻璃上的薄冰就会开始融化。',
+        highlight: 'se sera levé',
+      },
+    },
+    {
+      word: 'aussitôt que',
+      meaningZh: '一……就……（将来先时动作）',
+      example: {
+        fr: 'Aussitôt que nous aurons vendu notre voiture, nous prendrons un abonnement d’autopartage.',
+        zh: '我们一把旧车卖掉，就会购买共享汽车的会员服务。',
+        highlight: 'aurons vendu',
+      },
+    },
+  ],
+  commonMistakes: [
+    {
+      wrong: 'Quand j’aurai finir mes études, je trouverai un emploi.',
+      right: 'Quand j’aurai fini mes études, je trouverai un emploi.',
+      explanationZh: '助动词后面必须接过去分词（fini），不能接动词原形 finir。',
+    },
+    {
+      wrong: 'Dès que je vais avoir terminé, je t’appelle.',
+      right: 'Dès que j’aurai terminé, je t’appellerai.',
+      explanationZh: '在 dès que 引导的时间从句中，表达在未来之前完成的动作必须使用规范的先将来时（j’aurai terminé），主句配合简单将来时（t’appellerai）。',
+    },
+    {
+      wrong: 'Quand elle aura partie, la maison sera vide.',
+      right: 'Quand elle sera partie, la maison sera vide.',
+      explanationZh: 'partir 必须使用 être 作为助动词，将来时助动词是 sera，且分词须配合阴性加 -e：elle sera partie。',
+    },
+    {
+      wrong: 'Ils auront allés à la banque.',
+      right: 'Ils seront allés à la banque.',
+      explanationZh: 'aller 使用 être 作为助动词，复数必须为 ils seront allés。',
+    },
+  ],
+  questions: [
+    {
+      id: 'fa-q1',
+      type: 'choice',
+      prompt: 'Dès que vous (remplir) ___ ce formulaire, veuillez le remettre à la réception.',
+      options: ['aurez rempli', 'remplirez', 'avez rempli', 'aurez remplir'],
+      correctAnswer: 'aurez rempli',
+      explanationZh: 'dès que 从句表示将来先时动作，使用先将来时：vous aurez rempli。',
+    },
+    {
+      id: 'fa-q2',
+      type: 'choice',
+      prompt: 'Quand elle (arriver) ___ à destination, elle nous enverra un message texte.',
+      options: ['sera arrivée', 'aura arrivé', 'arrivera', 'est arrivée'],
+      correctAnswer: 'sera arrivée',
+      explanationZh: 'arriver 用 être 作助动词，主语 elle 配合加 -e：sera arrivée。',
+    },
+    {
+      id: 'fa-q3',
+      type: 'choice',
+      prompt: 'Marc n’est pas à son poste : il (oublier) ___ notre réunion d’équipe.',
+      options: ['aura oublié', 'a oublié', 'oubliera', 'aurait oublié'],
+      correctAnswer: 'aura oublié',
+      explanationZh: '用于对已发生事件的推测或合理解释，使用先将来时：aura oublié。',
+    },
+    {
+      id: 'fa-q4',
+      type: 'choice',
+      prompt: 'D’ici la fin de l’année, nous (économiser) ___ assez d’argent pour notre mise de fonds.',
+      options: ['aurons économisé', 'économiserons', 'avons économisé', 'aurons économiser'],
+      correctAnswer: 'aurons économisé',
+      explanationZh: 'd’ici la fin de l’année 标明将来截止期限前必定完成，使用先将来时：aurons économisé。',
+    },
+    {
+      id: 'fa-q5',
+      type: 'fill',
+      prompt: 'Quand j’ (terminer) ___ ce projet, je prendrai une semaine de vacances.（填入将来时助动词+分词）',
+      correctAnswer: 'aurai terminé',
+      acceptedAnswers: ['aurai terminé', 'aurai termine'],
+      explanationZh: '第一人称单数先将来时为 j’aurai terminé。',
+    },
+    {
+      id: 'fa-q6',
+      type: 'fill',
+      prompt: 'Aussitôt qu’ils (partir) ___, nous pourrons faire le grand ménage.（主语 ils，填入助动词+分词）',
+      correctAnswer: 'seront partis',
+      acceptedAnswers: ['seront partis'],
+      explanationZh: 'partir 用 être 作助动词，阳性复数配合加 -s：ils seront partis。',
+    },
+    {
+      id: 'fa-q7',
+      type: 'choice',
+      prompt: 'Elle (se réveiller) ___ avant que le cadran ne sonne.',
+      options: ['se sera réveillée', 's’aura réveillé', 'se sera réveillé', 'sera réveillée'],
+      correctAnswer: 'se sera réveillée',
+      explanationZh: '代词动词用 être，主语 elle 配合加 -e：elle se sera réveillée。',
+    },
+    {
+      id: 'fa-q8',
+      type: 'choice',
+      prompt: 'Lorsque vous (lire) ___ ce rapport, vous comprendrez mieux notre stratégie.',
+      options: ['aurez lu', 'lirez', 'avez lu', 'aurez lire'],
+      correctAnswer: 'aurez lu',
+      explanationZh: 'lire 的先将来时 vous 人称为 vous aurez lu。',
+    },
+    {
+      id: 'fa-q9',
+      type: 'fill',
+      prompt: 'Le train (entrer) ___ en gare avant notre arrivée sur le quai.（填入助动词+分词）',
+      correctAnswer: 'sera entré',
+      acceptedAnswers: ['sera entré', 'sera entre'],
+      explanationZh: 'entrer 使用 être 作助动词，单数阳性分词为 entré：sera entré。',
+    },
+    {
+      id: 'fa-q10',
+      type: 'choice',
+      prompt: 'Pourquoi le patron n’a-t-il pas répondu ? Il (ne pas voir) ___ le courriel urgent.',
+      options: ['aura pas vu', 'n’aura pas vu', 'ne verra pas', 'n’a pas vu'],
+      correctAnswer: 'n’aura pas vu',
+      explanationZh: '推测过去原因，先将来时否定形式：il n’aura pas vu。',
+    },
+    {
+      id: 'fa-q11',
+      type: 'choice',
+      prompt: 'D’ici cinq ans, les chercheurs (découvrir) ___ de nouvelles thérapies prometteuses.',
+      options: ['auront découvert', 'découvriront', 'ont découvert', 'auront découvré'],
+      correctAnswer: 'auront découvert',
+      explanationZh: 'découvrir 的过去分词是 découvert，复数助动词为 auront：auront découvert。',
+    },
+    {
+      id: 'fa-q12',
+      type: 'fill',
+      prompt: 'Nous (vendre) ___ notre condo avant de déménager à Québec.（填入助动词+分词）',
+      correctAnswer: 'aurons vendu',
+      acceptedAnswers: ['aurons vendu'],
+      explanationZh: 'vendre 的过去分词为 vendu，第一人称复数助动词为 aurons：aurons vendu。',
+    },
+    {
+      id: 'fa-q13',
+      type: 'choice',
+      prompt: 'Dès que tu (obtenir) ___ ton permis de conduire, tu pourras louer une auto.',
+      options: ['auras obtenu', 'obtiendras', 'as obtenu', 'auras obtenir'],
+      correctAnswer: 'auras obtenu',
+      explanationZh: 'obtenir 用 avoir 作助动词，tu 人称先将来时为 tu auras obtenu。',
+    },
+    {
+      id: 'fa-q14',
+      type: 'choice',
+      prompt: 'Les ouvriers (finir) ___ les travaux de voirie avant la rentrée scolaire.',
+      options: ['auront fini', 'finiront', 'ont fini', 'seront finis'],
+      correctAnswer: 'auront fini',
+      explanationZh: 'finir 的先将来时复数形式为 ils auront fini。',
+    },
+    {
+      id: 'fa-q15',
+      type: 'fill',
+      prompt: 'Quand vous (apprendre) ___ la nouvelle, vous serez très fiers de lui.（填入助动词+分词）',
+      correctAnswer: 'aurez appris',
+      acceptedAnswers: ['aurez appris'],
+      explanationZh: 'apprendre 的过去分词是 appris，vous 人称先将来时为 vous aurez appris。',
+    },
+    {
+      id: 'fa-q16',
+      type: 'choice',
+      prompt: 'Elle (recevoir) ___ sa confirmation d’ici demain après-midi sans aucun doute.',
+      options: ['aura reçu', 'recevra', 'a reçu', 'aurait reçu'],
+      correctAnswer: 'aura reçu',
+      explanationZh: 'recevoir 的先将来时第三人称单数形式为 elle aura reçu。',
+    },
+  ],
+}

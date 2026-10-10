@@ -1,0 +1,391 @@
+import type { TenseLesson } from '../types'
+
+export const conditionnelPasseLesson: TenseLesson = {
+  id: 'conditionnelPasse',
+  titleFr: 'Conditionnel passé',
+  titleZh: '条件式过去时',
+  category: 'conditionnel',
+  cefrLevel: 'B2',
+  echelleNiveau: [8, 9],
+  echelleSources: [
+    'n8-gr-conditionnel-passe: 条件式过去时',
+    'n9-gr-conditionnel-passe-avance: 条件式过去时（深入）',
+  ],
+  summaryZh: '表达对过去已发生或未发生事情的遗憾懊悔、对他人过去的责备批评、与过去事实相反的虚拟结果，以及转述未经核实的过去新闻。',
+  timelinePosition: 'hypothetical',
+  defaultVerb: 'parler',
+  formationSteps: [
+    '第一步：选择助动词 avoir 或 être，将其变位为条件式现在时（conditionnel présent）。',
+    '助动词 avoir 的条件式现在时：j’aurais, tu aurais, il aurait, nous aurions, vous auriez, ils auraient。',
+    '助动词 être 的条件式现在时：je serais, tu serais, il serait, nous serions, vous seriez, ils seraient。',
+    '第二步：加上实义动词的过去分词（participe passé）。用 être 作助动词的动词及代词动词，分词须与主语进行性数配合。',
+  ],
+  endingsTable: [
+    { label: '助动词 avoir 的条件式现在时', endings: ['aurais', 'aurais', 'aurait', 'aurions', 'auriez', 'auraient'] },
+    { label: '助动词 être 的条件式现在时 (配合性数)', endings: ['serais', 'serais', 'serait', 'serions', 'seriez', 'seraient'] },
+  ],
+  irregularStems: [
+    { verb: 'avoir eu', stem: 'j’aurais eu', notes: '助动词 aurais + 分词 eu' },
+    { verb: 'être été', stem: 'j’aurais été', notes: '助动词 aurais + 分词 été' },
+    { verb: 'aller', stem: 'je serais allé(e)', notes: '使用 être 条件式' },
+    { verb: 'venir', stem: 'je serais venu(e)', notes: '使用 être 条件式' },
+  ],
+  pronunciationNotes: [
+    '注意 j’aurais（/ʒo.ʁɛ/）中词尾为开元音 /ɛ/，与简单将来时 j’aurai（/ʒo.ʁe/）区别。',
+    '助动词与分词之间可以发生联诵，例如 « nous aurions_aimé »（/nu zo.ʁjɔ̃ zɛ.me/）。',
+  ],
+  usages: [
+    {
+      id: 'regret-passe',
+      titleZh: '对过去未完成之事的遗憾与懊悔',
+      descriptionZh: '表达“我本来应该/本想做某事，但可惜当时没能做成”。',
+      examples: [
+        {
+          fr: 'J’aurais voulu assister au concert de l’Orchestre symphonique de Montréal, mais il n’y avait plus de billets.',
+          zh: '我本来很想去听蒙特利尔交响乐团的音乐会，但当时票已经卖光了。',
+          highlight: 'aurais voulu',
+        },
+        {
+          fr: 'Nous aurions aimé vous rencontrer lors de votre séjour à Québec.',
+          zh: '您在魁北克市逗留期间，我们本很希望能与您见上一面。',
+          highlight: 'aurions aimé',
+        },
+        {
+          fr: 'Elle aurait préféré rester dans son ancien appartement, mais le propriétaire reprenait le logement.',
+          zh: '她本来更想留住在原来的公寓里，但房东当时要收回房子自住。',
+          highlight: 'aurait préféré',
+        },
+        {
+          fr: 'Ils auraient tellement souhaité fêter le jour de l’An en famille au Québec !',
+          zh: '他们当时是多么希望能和家人在魁北克一起共度元旦啊！',
+          highlight: 'auraient tellement souhaité',
+        },
+      ],
+    },
+    {
+      id: 'reproche-critique',
+      titleZh: '对他人过去的行为表达责备、批评或遗憾',
+      descriptionZh: 'tu aurais dû / vous auriez pu 是法语中表达责备的经典句型（“你当时本应该……”）。',
+      examples: [
+        {
+          fr: 'Tu aurais dû m’avertir de ton retard avant la fermeture du bureau de l’immigration.',
+          zh: '在移民办公室下班关门之前，你当时本应该通知我你会迟到的。',
+          highlight: 'aurais dû',
+        },
+        {
+          fr: 'Vous auriez pu vérifier l’état des routes sur Québec 511 avant de partir en pleine tempête !',
+          zh: '在冒着大风雪出发前，您当时本可以在魁北克511路况官网上查查路况的！',
+          highlight: 'auriez pu',
+        },
+        {
+          fr: 'Il aurait dû faire inspecter cette maison centenaire avant de déposer une offre d’achat.',
+          zh: '在下购房要约（offer）之前，他当时本应该让人验一下这栋百年老宅的。',
+          highlight: 'aurait dû',
+        },
+        {
+          fr: 'Vous n’auriez pas dû signer ce bail sans avoir lu attentivement toutes les conditions.',
+          zh: '在仔细阅读全部条款之前，你们当时真不应该签下这份租约的。',
+          highlight: 'n’auriez pas dû',
+        },
+      ],
+    },
+    {
+      id: 'si-irreel-passe-consequence',
+      titleZh: '与过去事实相反的假设推论（si + plus-que-parfait → conditionnel passé）',
+      descriptionZh: '如果过去发生过某件事（事实上并未发生），过去本来就会产生某种不同结果。',
+      examples: [
+        {
+          fr: 'Si j’avais su que le pont était bloqué, j’aurais pris le métro pour aller au travail.',
+          zh: '要是我当时知道大桥被封堵了，我本来就会坐地铁去上班的。',
+          highlight: 'aurais pris',
+        },
+        {
+          fr: 'Si nous avions postulé plus tôt, nous aurions obtenu cette bourse d’excellence d’études.',
+          zh: '要是我们当时更早申请，我们本来就会拿到那份优秀奖学金的。',
+          highlight: 'aurions obtenu',
+        },
+        {
+          fr: 'Si elle avait eu ses pneus d’hiver, elle n’aurait pas glissé sur la chaussée verglacée.',
+          zh: '要是她当时换了雪胎，她本来就不会在结冰的路面上打滑了。',
+          highlight: 'n’aurait pas glissé',
+        },
+        {
+          fr: 'S’ils s’étaient dépêchés, ils ne seraient pas arrivés en retard à l’épreuve du TCF.',
+          zh: '要是他们当时抓紧一点，他们本来就不会在 TCF 考试中迟到了。',
+          highlight: 'seraient pas arrivés',
+        },
+      ],
+    },
+    {
+      id: 'nouvelle-non-confirmee-passe',
+      titleZh: '新闻媒体对过去事件的未证实传闻报道',
+      descriptionZh: '« L’accident aurait fait trois blessés »（据称造成了三人受伤）。',
+      examples: [
+        {
+          fr: 'Selon un premier bilan de la Sûreté du Québec, la collision aurait fait deux blessés légers.',
+          zh: '据魁北克省警（SQ）的初步统计，那起碰撞事故据称造成两人轻伤。',
+          highlight: 'aurait fait',
+        },
+        {
+          fr: 'Le ministre aurait pris sa décision finale en fin de semaine dernière, selon des sources anonymes.',
+          zh: '据匿名消息人士透露，厅长据称在上周末就已经作出了最终决定。',
+          highlight: 'aurait pris',
+        },
+        {
+          fr: 'La panne générale de courant aurait été causée par la chute d’un pylône électrique sous le verglas.',
+          zh: '大面积停电事故据称是由冰暴压垮一座输电铁塔所引发的。',
+          highlight: 'aurait été causée',
+        },
+        {
+          fr: 'L’entreprise aurait dissimulé des informations importantes lors de l’enquête environnementale.',
+          zh: '那家企业据称在环境调查过程中隐瞒了重要信息。',
+          highlight: 'aurait dissimulé',
+        },
+      ],
+    },
+    {
+      id: 'action-manquee',
+      titleZh: '本该发生或险些发生的事情（错失的动作）',
+      descriptionZh: '描述某种原本差一点就成为现实、但最终由于意外未成真的一幕。',
+      examples: [
+        {
+          fr: 'Sans ton intervention rapide, la casserole aurait débordé sur la cuisinière.',
+          zh: '要不是你快速处理，锅里的汤本来就要溢到炉子上了。',
+          highlight: 'aurait débordé',
+        },
+        {
+          fr: 'Dix minutes de plus et nous aurions manqué notre correspondance à la gare.',
+          zh: '再晚十分钟的话，我们本来就会错过火车站的中转联程车了。',
+          highlight: 'aurions manqué',
+        },
+        {
+          fr: 'Un instant d’inattention et le conducteur aurait heurté le banc de neige.',
+          zh: '稍一走神，司机本来就会撞上路边的雪堆了。',
+          highlight: 'aurait heurté',
+        },
+        {
+          fr: 'Sans cette bourse gouvernementale, je n’aurais jamais pu payer mes frais de scolarité à McGill.',
+          zh: '要不是有政府的这份奖学金，我本绝不可能付得起麦吉尔大学的学费。',
+          highlight: 'n’aurais jamais pu',
+        },
+      ],
+    },
+    {
+      id: 'pronominaux-cp',
+      titleZh: '代词动词的条件式过去时',
+      descriptionZh: '助动词必须为 être 的条件式（serais/serait），过去分词依主语进行性数配合。',
+      examples: [
+        {
+          fr: 'Elle se serait inscrite au cours de francisation si le centre avait été plus près de chez elle.',
+          zh: '如果沉浸中心离她家更近一点，她当时本来就会报名的。',
+          highlight: 'se serait inscrite',
+        },
+        {
+          fr: 'Nous nous serions perdus sans l’application GPS sur notre téléphone intelligent.',
+          zh: '要不是智能手机上的 GPS 软件，我们当时本来会在蒙特利尔迷路的。',
+          highlight: 'nous serions perdus',
+        },
+        {
+          fr: 'Ils se seraient réconciliés plus tôt si quelqu’un avait fait le premier pas.',
+          zh: '如果当时有人迈出第一步，他们本来早就和好了。',
+          highlight: 'se seraient réconciliés',
+        },
+        {
+          fr: 'Est-ce que tu te serais douté qu’il ferait aussi froid pour ton premier hiver ?',
+          zh: '你当时能料想到你的第一个冬天会有这么冷吗？',
+          highlight: 'te serais douté',
+        },
+      ],
+    },
+  ],
+  signalWords: [
+    {
+      word: 'si + plus-que-parfait',
+      meaningZh: '如果当时……（与过去相反假设）',
+      example: {
+        fr: 'Si j’avais su, je serais venu en métro au lieu de prendre ma voiture.',
+        zh: '要是我当时知道，我本来就会坐地铁来而不是开车。',
+        highlight: 'serais venu',
+      },
+    },
+    {
+      word: 'tu aurais dû / vous auriez dû',
+      meaningZh: '你/您当时本该……（责备）',
+      example: {
+        fr: 'Tu aurais dû demander conseil à ton enseignant de français.',
+        zh: '你当时本应该向你的法语老师请教的。',
+        highlight: 'aurais dû',
+      },
+    },
+    {
+      word: 'sans + nom',
+      meaningZh: '要不是因为…… / 没有……的话',
+      example: {
+        fr: 'Sans cette tempête, l’avion aurait atterri à l’heure à Montréal.',
+        zh: '要不是因为这场风暴，飞机本来会准点降落在蒙特利尔的。',
+        highlight: 'aurait atterri',
+      },
+    },
+    {
+      word: 'selon la police / les médias',
+      meaningZh: '据警方/媒体报道（未证实过去消息）',
+      example: {
+        fr: 'Selon les témoins, le conducteur aurait perdu le contrôle de son véhicule sur la glace noire.',
+        zh: '据目击者称，司机当时据称是在黑冰上失控了。',
+        highlight: 'aurait perdu',
+      },
+    },
+  ],
+  commonMistakes: [
+    {
+      wrong: 'Si j’aurais su, je ne serais pas venu.',
+      right: 'Si j’avais su, je ne serais pas venu.',
+      explanationZh: '绝对禁止在 si 从句中使用条件式！si 后面必须使用愈过去时（si j’avais su），条件式过去时（serais venu）只能出现在主句中。',
+    },
+    {
+      wrong: 'Elle aurait venue avec nous.',
+      right: 'Elle serait venue avec nous.',
+      explanationZh: '动词 venir 在复合时态中一律使用 être 作助动词，条件式过去时为 elle serait venue。',
+    },
+    {
+      wrong: 'Tu aurais du m’appeler. (缺少长音符)',
+      right: 'Tu aurais dû m’appeler.',
+      explanationZh: 'devoir 的阳性单数过去分词必须带长音符（dû），以与不定冠词/介词 du 区分。',
+    },
+    {
+      wrong: 'Ils se auraient disputés.',
+      right: 'Ils se seraient disputés.',
+      explanationZh: '代词动词的助动词必须使用 être（seraient），不能使用 avoir（auraient）。',
+    },
+  ],
+  questions: [
+    {
+      id: 'cpa-q1',
+      type: 'choice',
+      prompt: 'Si j’avais su qu’il ferait si froid, je (mettre) ___ une veste plus chaude.',
+      options: ['aurais mis', 'avais mis', 'mettrais', 'aurais mettre'],
+      correctAnswer: 'aurais mis',
+      explanationZh: 'si + plus-que-parfait，主句使用条件式过去时：j’aurais mis。',
+    },
+    {
+      id: 'cpa-q2',
+      type: 'choice',
+      prompt: 'Tu (devoir) ___ me prévenir que tu ne venais pas au souper !',
+      options: ['aurais dû', 'avais dû', 'aurais du', 'devrais dû'],
+      correctAnswer: 'aurais dû',
+      explanationZh: '表达对过去的责备：tu aurais dû（dû 带长音符）。',
+    },
+    {
+      id: 'cpa-q3',
+      type: 'choice',
+      prompt: 'Sans ton aide, nous ne (jamais réussir) ___ à remplir tous ces formulaires.',
+      options: ['n’aurions jamais réussi', 'n’avions jamais réussi', 'ne serions jamais réussis', 'n’aurions jamais réussir'],
+      correctAnswer: 'n’aurions jamais réussi',
+      explanationZh: '表达错失动作的否定形式：nous n’aurions jamais réussi。',
+    },
+    {
+      id: 'cpa-q4',
+      type: 'choice',
+      prompt: 'Si elle avait eu le temps, elle (venir) ___ nous saluer à la gare Centrale.',
+      options: ['serait venue', 'aurait venu', 'serait venu', 'avait venue'],
+      correctAnswer: 'serait venue',
+      explanationZh: 'venir 使用 être 作助动词，主语 elle 配合加 -e：elle serait venue。',
+    },
+    {
+      id: 'cpa-q5',
+      type: 'fill',
+      prompt: 'J’ (aimer) ___ être présent à votre cérémonie de citoyenneté canadienne.（填入条件式助动词+分词）',
+      correctAnswer: 'aurais aimé',
+      acceptedAnswers: ['aurais aimé', 'aurais aime'],
+      explanationZh: '表达过去未实现的愿望：j’aurais aimé。',
+    },
+    {
+      id: 'cpa-q6',
+      type: 'fill',
+      prompt: 'Vous (pouvoir) ___ me téléphoner au lieu de m’attendre dans le froid !（填入条件式助动词+分词）',
+      correctAnswer: 'auriez pu',
+      acceptedAnswers: ['auriez pu'],
+      explanationZh: '表达责备：vous auriez pu。',
+    },
+    {
+      id: 'cpa-q7',
+      type: 'choice',
+      prompt: 'Selon les journaux de Montréal, le voleur (entrer) ___ par la porte arrière.',
+      options: ['serait entré', 'aurait entré', 'était entré', 'sera entré'],
+      correctAnswer: 'serait entré',
+      explanationZh: 'entrer 使用 être 作助动词，转述未证实事件使用条件式过去时：serait entré。',
+    },
+    {
+      id: 'cpa-q8',
+      type: 'choice',
+      prompt: 'Si nous avions pris la route 138, nous (admirer) ___ les paysages côtiers.',
+      options: ['aurions admiré', 'avions admiré', 'admirerions', 'aurions admirer'],
+      correctAnswer: 'aurions admiré',
+      explanationZh: 'si + plus-que-parfait，主句动词为 nous aurions admiré。',
+    },
+    {
+      id: 'cpa-q9',
+      type: 'fill',
+      prompt: 'Elle (vouloir) ___ faire ses études à l’Université de Montréal.（填入条件式助动词+分词）',
+      correctAnswer: 'aurait voulu',
+      acceptedAnswers: ['aurait voulu'],
+      explanationZh: 'vouloir 的条件式过去时为 elle aurait voulu。',
+    },
+    {
+      id: 'cpa-q10',
+      type: 'choice',
+      prompt: 'Ils (se perdre) ___ dans la forêt boréale sans leur guide d’expédition.',
+      options: ['se seraient perdus', 's’auraient perdu', 'se seraient perdu', 'seraient perdus'],
+      correctAnswer: 'se seraient perdus',
+      explanationZh: '代词动词使用 être，主语 ils 配合加 -s：ils se seraient perdus。',
+    },
+    {
+      id: 'cpa-q11',
+      type: 'choice',
+      prompt: 'Dix minutes de retard et le candidat (rater) ___ l’enregistrement de son examen TCF.',
+      options: ['aurait raté', 'avait raté', 'raterait', 'aura raté'],
+      correctAnswer: 'aurait raté',
+      explanationZh: '险些发生的事情，使用条件式过去时：aurait raté。',
+    },
+    {
+      id: 'cpa-q12',
+      type: 'fill',
+      prompt: 'Tu (faire) ___ exactement la même chose à ma place !（填入条件式助动词+分词）',
+      correctAnswer: 'aurais fait',
+      acceptedAnswers: ['aurais fait'],
+      explanationZh: 'faire 的条件式过去时 tu 人称为 tu aurais fait。',
+    },
+    {
+      id: 'cpa-q13',
+      type: 'choice',
+      prompt: 'Si les pompiers n’étaient pas intervenus, l’incendie (détruire) ___ tout le bâtiment.',
+      options: ['aurait détruit', 'avait détruit', 'détruirait', 'aurait détruisé'],
+      correctAnswer: 'aurait détruit',
+      explanationZh: 'détruire 的过去分词是 détruit，条件式过去时为 aurait détruit。',
+    },
+    {
+      id: 'cpa-q14',
+      type: 'choice',
+      prompt: 'La compagnie aérienne (annuler) ___ plus de cinquante vols en raison du blizzard.',
+      options: ['aurait annulé', 'avait annulé', 'annulerait', 'serait annulé'],
+      correctAnswer: 'aurait annulé',
+      explanationZh: '新闻中报道未经官方完全最终确认的过去数据：aurait annulé。',
+    },
+    {
+      id: 'cpa-q15',
+      type: 'fill',
+      prompt: 'Nous (partir) ___ plus tôt si la météo avait été plus clémente.（阳性复数，填入助动词+分词）',
+      correctAnswer: 'serions partis',
+      acceptedAnswers: ['serions partis'],
+      explanationZh: 'partir 用 être 作助动词，阳性复数配合加 -s：serions partis。',
+    },
+    {
+      id: 'cpa-q16',
+      type: 'choice',
+      prompt: 'Vous (devoir) ___ conserver une copie numérique de tous vos reçus de loyer.',
+      options: ['auriez dû', 'aviez dû', 'auriez du', 'seriez dû'],
+      correctAnswer: 'auriez dû',
+      explanationZh: '对过去的善意责备与提醒：vous auriez dû。',
+    },
+  ],
+}

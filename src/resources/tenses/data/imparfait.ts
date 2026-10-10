@@ -1,0 +1,393 @@
+import type { TenseLesson } from '../types'
+
+export const imparfaitLesson: TenseLesson = {
+  id: 'imparfait',
+  titleFr: 'Imparfait de l’indicatif',
+  titleZh: '未完成过去时',
+  category: 'indicatif',
+  cefrLevel: 'B1',
+  echelleNiveau: [5, 6],
+  echelleSources: [
+    'n5-gr-imparfait: 未完成过去时',
+    'n6-gr-pc-imparfait: 复合过去时与未完成过去时的搭配',
+  ],
+  summaryZh: '用于描绘过去的背景画面、持续状态、人物心理外貌、日常习惯，以及委婉礼貌请求。',
+  timelinePosition: 'past',
+  defaultVerb: 'parler',
+  formationSteps: [
+    '第一步：取该动词在直陈式现在时第一人称复数 nous 的变位形式（例如 nous parlons, nous finissons, nous prenons）。',
+    '第二步：去掉人称词尾 -ons，得到未完成过去时的通用词干（parl-, finiss-, pren-）。',
+    '第三步：无论第几组动词，所有动词一律加上统一的六个人称词尾：-ais, -ais, -ait, -ions, -iez, -aient。',
+    '全法语唯一的词干例外：动词 être 的 nous 形式为 sommes，其未完成过去时词干为 ét-（j’étais, tu étais, il était, nous étions, vous étiez, ils étaient）。',
+  ],
+  endingsTable: [
+    { label: '所有动词统一人称词尾', endings: ['-ais', '-ais', '-ait', '-ions', '-iez', '-aient'] },
+    { label: '发音规律', endings: ['/ɛ/', '/ɛ/', '/ɛ/', '/jɔ̃/', '/je/', '/ɛ/'] },
+  ],
+  irregularStems: [
+    { verb: 'être', stem: 'ét- (j’étais, nous étions)', notes: '全法语唯一的未完成过去时不规则词干' },
+    { verb: 'avoir', stem: 'av- (nous avons → j’avais)', notes: '规则遵循 nous 形式' },
+    { verb: 'faire', stem: 'fais- (nous faisons → je faisais)', notes: '发音读作 /fəzɛ/（中元音 /ə/）' },
+    { verb: 'falloir', stem: 'fall- (il fallait)', notes: '无人称动词，仅有第三人称单数' },
+    { verb: 'pleuvoir', stem: 'pleuv- (il pleuvait)', notes: '无人称动词，仅有第三人称单数' },
+  ],
+  pronunciationNotes: [
+    '词尾 -ais, -ait, -aient 发音完全相同，统一发开元音 /ɛ/（parlais, parlait, parlaient 听起来毫无区别）。',
+    '第一人称复数 -ions（/jɔ̃/）与第二人称复数 -iez（/je/）带有半元音 /j/，注意与现在时（-ons, -ez）的音节节奏区分。',
+    '动词 rire 的 nous/vous 形式有两个 i：nous riions（/ʁijɔ̃/）、vous riiez（/ʁije/）。',
+  ],
+  usages: [
+    {
+      id: 'decor-description',
+      titleZh: '过去的背景画面、环境与人物状态描写',
+      descriptionZh: '描绘故事发生的舞台背景、天气、风景、人物年龄、心情与外貌。',
+      examples: [
+        {
+          fr: 'Il faisait très froid et le vent soufflait fort sur le mont Royal.',
+          zh: '当时天气非常冷，皇家山顶的风刮得很猛烈。',
+          highlight: 'faisait',
+        },
+        {
+          fr: 'La maison avait de grandes fenêtres qui donnaient sur le fleuve.',
+          zh: '那栋房子有几扇大窗户，正对着圣劳伦斯河。',
+          highlight: 'avait',
+        },
+        {
+          fr: 'J’étais fatigué après une longue journée à la clinique.',
+          zh: '在诊所度过了漫长的一天后，我感到很疲惫。',
+          highlight: 'étais',
+        },
+        {
+          fr: 'Les rues de Québec étaient couvertes d’une épaisse couche de neige blanche.',
+          zh: '魁北克市的街道覆盖着一层厚厚的白雪。',
+          highlight: 'étaient',
+        },
+      ],
+    },
+    {
+      id: 'habitude-passe',
+      titleZh: '过去的反复习惯与生活日常',
+      descriptionZh: '描述在过去一段时期内经常做、重复发生的事，常与 autrefois, quand j’étais jeune, chaque été 连用。',
+      examples: [
+        {
+          fr: 'Quand j’étais enfant, nous passions toutes nos vacances d’été en Gaspésie.',
+          zh: '我小的时候，我们每年暑假都在加斯佩半岛度过。',
+          highlight: 'passions',
+        },
+        {
+          fr: 'Mon grand-père prenait toujours son café noir en lisant le journal Le Devoir.',
+          zh: '我祖父总是边喝黑咖啡边读《责任报》（Le Devoir）。',
+          highlight: 'prenait',
+        },
+        {
+          fr: 'Chaque hiver, ils patinaient sur le lac des Castors avec leurs amis.',
+          zh: '每年冬天，他们都会和朋友们在海狸湖上滑冰。',
+          highlight: 'patinaient',
+        },
+        {
+          fr: 'Est-ce que tu faisais du ski de fond régulièrement dans ce parc ?',
+          zh: '你过去经常在这个公园里滑越野滑雪吗？',
+          highlight: 'faisais',
+        },
+      ],
+    },
+    {
+      id: 'action-en-cours',
+      titleZh: '过去正在进行中并作为背景的动作（被突发事件打断）',
+      descriptionZh: '当一个动作正在展开时，另一个事件突然发生（背景用未完成过去时，突发事件用复合过去时）。',
+      examples: [
+        {
+          fr: 'Je préparais le souper quand le téléphone a sonné.',
+          zh: '我正在做晚饭时，电话响了。',
+          highlight: 'préparais',
+        },
+        {
+          fr: 'Nous marchions sur la rue Saint-Denis quand une averse a éclaté.',
+          zh: '我们正走在圣丹尼街上，突然倾盆大雨倾泻而下。',
+          highlight: 'marchions',
+        },
+        {
+          fr: 'Elle dormait profondément lorsque l’alarme d’incendie s’est déclenchée.',
+          zh: '当火警警报拉响时，她正沉睡着。',
+          highlight: 'dormait',
+        },
+        {
+          fr: 'Les techniciens réparaient la ligne de métro quand la panne générale est survenue.',
+          zh: '技术人员正在抢修地铁线路时，发生了大面积停电故障。',
+          highlight: 'réparaient',
+        },
+      ],
+    },
+    {
+      id: 'politesse',
+      titleZh: '委婉客气语气与礼貌请求',
+      descriptionZh: '在口语和日常办事中，用未完成过去时弱化要求的突兀感，显得非常谦和有礼貌。',
+      examples: [
+        {
+          fr: 'Bonjour, je voulais savoir si vous aviez des logements disponibles pour juillet.',
+          zh: '您好，我想了解一下您这里七月份是否有空置的房源出租。',
+          highlight: 'voulais',
+        },
+        {
+          fr: 'Je venais vous demander un renseignement au sujet de la demande de permis d’études.',
+          zh: '我来是想向您咨询一个关于学习许可申请的信息。',
+          highlight: 'venais',
+        },
+        {
+          fr: 'Nous pensions organiser une petite fête de quartier samedi prochain.',
+          zh: '我们想着下周六组织一次街区小型聚会。',
+          highlight: 'pensions',
+        },
+        {
+          fr: 'Excusez-moi, j’espérais pouvoir rencontrer le conseiller d’orientation aujourd’hui.',
+          zh: '打扰一下，我原本希望能今天见到升学就业指导顾问。',
+          highlight: 'espérais',
+        },
+      ],
+    },
+    {
+      id: 'si-suggestion',
+      titleZh: '由 si 引导的建议、提议或假设愿望',
+      descriptionZh: '« Si on... + imparfait ? » 是法语中极其地道、高频的提议句式（相当于英语 "How about...?"）。',
+      examples: [
+        {
+          fr: 'Si on allait manger dans une cabane à sucre ce week-end ?',
+          zh: '咱们这周末去枫糖小屋吃顿饭怎么样？',
+          highlight: 'allait',
+        },
+        {
+          fr: 'Si nous prenions une pause de dix minutes avant de continuer ?',
+          zh: '在继续之前，我们先休息十分钟怎么样？',
+          highlight: 'prenions',
+        },
+        {
+          fr: 'Ah, si seulement j’avais plus de temps pour visiter les Laurentides !',
+          zh: '哎，如果我有更多时间去游览洛朗蒂德区就好了！',
+          highlight: 'avais',
+        },
+        {
+          fr: 'Si on s’inscrivait à cet atelier de conversation française à la bibliothèque ?',
+          zh: '咱们报名参加图书馆的这个法语交流工作坊怎么样？',
+          highlight: 's’inscrivait',
+        },
+      ],
+    },
+    {
+      id: 'discours-indirect',
+      titleZh: '过去时态下的间接引语（时态配合）',
+      descriptionZh: '当主句动词为过去时（a dit, affirmait），宾语从句中原本同时发生的事实必须变为未完成过去时。',
+      examples: [
+        {
+          fr: 'L’agente a expliqué que le dossier était complet et conforme aux exigences.',
+          zh: '官员解释说道，申请材料当时已经齐全并且符合要求。',
+          highlight: 'était',
+        },
+        {
+          fr: 'Il m’a assuré qu’il comprenait parfaitement ma situation familiale.',
+          zh: '他向我保证说，他完全理解我的家庭处境。',
+          highlight: 'comprenait',
+        },
+        {
+          fr: 'Le médecin a confirmé que l’enfant souffrait d’une simple grippe hivernale.',
+          zh: '医生证实说，孩子当时只是患了普通冬季流感。',
+          highlight: 'souffrait',
+        },
+        {
+          fr: 'Ils disaient qu’ils voulaient s’établir définitivement à Trois-Rivières.',
+          zh: '他们当时说，他们打算在三河城永久定居。',
+          highlight: 'voulaient',
+        },
+      ],
+    },
+  ],
+  signalWords: [
+    {
+      word: 'autrefois',
+      meaningZh: '从前 / 过去',
+      example: {
+        fr: 'Autrefois, le chauffage au bois était le seul moyen de survivre à l’hiver québécois.',
+        zh: '从前，柴火取暖是度过魁北克严冬的唯一手段。',
+        highlight: 'était',
+      },
+    },
+    {
+      word: 'pendant que',
+      meaningZh: '当……正进行的时候',
+      example: {
+        fr: 'Pendant que les enfants jouaient dehors dans la neige, les parents discutaient au salon.',
+        zh: '当孩子们在外面雪地里玩耍时，家长们在客厅里聊着天。',
+        highlight: 'jouaient',
+      },
+    },
+    {
+      word: 'à cette époque-là',
+      meaningZh: '在那个时代 / 那时',
+      example: {
+        fr: 'À cette époque-là, je ne parlais presque pas un mot de français.',
+        zh: '在那个时代，我几乎一句法语都不会说。',
+        highlight: 'parlais',
+      },
+    },
+    {
+      word: 'tous les soirs',
+      meaningZh: '每晚（表示过去习惯）',
+      example: {
+        fr: 'Tous les soirs, elle écoutait la radio de Radio-Canada pour s’entraîner.',
+        zh: '每天晚上，她都会收听加拿大广播电台来练习听力。',
+        highlight: 'écoutait',
+      },
+    },
+  ],
+  commonMistakes: [
+    {
+      wrong: 'J’étais avoir faim hier soir.',
+      right: 'J’avais faim hier soir.',
+      explanationZh: '饥饿在法语中用动词 avoir faim 表达，未完成过去时直接变位 avoir → j’avais faim，不能生造 j’étais avoir。',
+    },
+    {
+      wrong: 'Quand j’étais jeune, j’ai joué au hockey tous les samedis.',
+      right: 'Quand j’étais jeune, je jouais au hockey tous les samedis.',
+      explanationZh: 'tous les samedis 表示过去反复发生的习惯，必须使用未完成过去时 je jouais，不能用复合过去时。',
+    },
+    {
+      wrong: 'Il faisait beau quand tout à coup il commençait à pleuvoir.',
+      right: 'Il faisait beau quand tout à coup il a commencé à pleuvoir.',
+      explanationZh: 'tout à coup 引出突然发生的新动作，推进情节，必须使用复合过去时 a commencé，不能用 imparfait。',
+    },
+    {
+      wrong: 'Nous mangions (写成 nous mangons à l’imparfait)',
+      right: 'Nous mangions de la tarte au sucre.',
+      explanationZh: '第一人称复数未完成过去时词尾是 -ions：nous mangions（含有 i）。',
+    },
+  ],
+  questions: [
+    {
+      id: 'impf-q1',
+      type: 'choice',
+      prompt: 'Quand j’ (être) ___ étudiant, j’habitais dans un studio près de l’UdeM.',
+      options: ['étais', 'ai été', 'fus', 'sois'],
+      correctAnswer: 'étais',
+      explanationZh: '描绘过去的一段持续时期与身份状态，使用未完成过去时：j’étais。',
+    },
+    {
+      id: 'impf-q2',
+      type: 'choice',
+      prompt: 'Chaque matin, mon voisin (déneiger) ___ son allée avec énergie.',
+      options: ['a déneigé', 'déneigeait', 'déneigera', 'déneige'],
+      correctAnswer: 'déneigeait',
+      explanationZh: 'chaque matin 明确指示过去持续习惯动作，使用未完成过去时：déneigeait。',
+    },
+    {
+      id: 'impf-q3',
+      type: 'choice',
+      prompt: 'Pendant que nous (dormir) ___, la tempête a soufflé violemment.',
+      options: ['avons dormi', 'dormions', 'dorment', 'dormirons'],
+      correctAnswer: 'dormions',
+      explanationZh: 'pendant que 引出当时正在展开的背景动作，使用未完成过去时 nous dormions。',
+    },
+    {
+      id: 'impf-q4',
+      type: 'choice',
+      prompt: 'Si on (prendre) ___ le métro plutôt que la voiture ce matin ?',
+      options: ['prenait', 'prend', 'a pris', 'prendrait'],
+      correctAnswer: 'prenait',
+      explanationZh: '« Si on + imparfait ? » 用于提出建议：si on prenait le métro。',
+    },
+    {
+      id: 'impf-q5',
+      type: 'fill',
+      prompt: 'Il (faire) ___ très froid ce jour-là à Montréal.（填入未完成过去时变位）',
+      correctAnswer: 'faisait',
+      acceptedAnswers: ['faisait'],
+      explanationZh: 'faire 的 nous 形式为 faisons，词干为 fais-，加 -ait 得到 faisait。',
+    },
+    {
+      id: 'impf-q6',
+      type: 'fill',
+      prompt: 'Nous (vouloir) ___ savoir si le bureau d’accueil était ouvert.（填入未完成过去时变位）',
+      correctAnswer: 'voulions',
+      acceptedAnswers: ['voulions'],
+      explanationZh: 'vouloir 的未完成过去时 nous 人称为 voulions。',
+    },
+    {
+      id: 'impf-q7',
+      type: 'choice',
+      prompt: 'Autrefois, les gens (écrire) ___ des lettres à la main pour communiquer.',
+      options: ['ont écrit', 'écrivaient', 'écriront', 'écrivent'],
+      correctAnswer: 'écrivaient',
+      explanationZh: 'autrefois 提示过去的历史性常规状态，使用未完成过去时 écrivaient。',
+    },
+    {
+      id: 'impf-q8',
+      type: 'choice',
+      prompt: 'Je (lire) ___ un roman québécois quand mon ami a frappé à la porte.',
+      options: ['lisais', 'ai lu', 'lus', 'lirais'],
+      correctAnswer: 'lisais',
+      explanationZh: '正在看书是背景（imparfait），朋友敲门是打断背景的突发动作（passé composé）：je lisais。',
+    },
+    {
+      id: 'impf-q9',
+      type: 'fill',
+      prompt: 'Ils (avoir) ___ toujours le sourire malgré les difficultés.（填入未完成过去时变位）',
+      correctAnswer: 'avaient',
+      acceptedAnswers: ['avaient'],
+      explanationZh: 'avoir 的未完成过去时 ils 人称为 avaient。',
+    },
+    {
+      id: 'impf-q10',
+      type: 'choice',
+      prompt: 'Vous (savoir) ___ déjà parler un peu français avant votre arrivée à Montréal ?',
+      options: ['saviez', 'avez su', 'sachiez', 'saurez'],
+      correctAnswer: 'saviez',
+      explanationZh: '表示过去长期的知识或认知状态，使用未完成过去时 vous saviez。',
+    },
+    {
+      id: 'impf-q11',
+      type: 'choice',
+      prompt: 'Le ciel (être) ___ gris et une pluie fine tombait sans cesse.',
+      options: ['était', 'a été', 'fût', 'serait'],
+      correctAnswer: 'était',
+      explanationZh: '描绘天空的景象和氛围背景，使用未完成过去时 il était。',
+    },
+    {
+      id: 'impf-q12',
+      type: 'fill',
+      prompt: 'Elle (se souvenir) ___ encore des paroles de cette vieille chanson.（填入代词+未完成过去时）',
+      correctAnswer: 'se souvenait',
+      acceptedAnswers: ['se souvenait'],
+      explanationZh: 'se souvenir 在 elle 下未完成过去时为 elle se souvenait。',
+    },
+    {
+      id: 'impf-q13',
+      type: 'choice',
+      prompt: 'Pardonnez-moi, je (venir) ___ chercher mon passeport renouvelé.',
+      options: ['viens', 'venais', 'suis venu', 'viendrais'],
+      correctAnswer: 'venais',
+      explanationZh: '在柜台委婉客气说明来意，常用未完成过去时 je venais chercher...。',
+    },
+    {
+      id: 'impf-q14',
+      type: 'choice',
+      prompt: 'Nous (commencer) ___ nos cours à huit heures tous les matins.',
+      options: ['commencions', 'commençons', 'avons commencé', 'commencerons'],
+      correctAnswer: 'commencions',
+      explanationZh: 'commencer 在 nous 未完成过去时中直接加 -ions：nous commencions（无需 ç，因为 i 前面 c 自然发 /s/）。',
+    },
+    {
+      id: 'impf-q15',
+      type: 'fill',
+      prompt: 'Tu (finir) ___ toujours tes devoirs avant d’aller jouer au parc.（填入未完成过去时变位）',
+      correctAnswer: 'finissais',
+      acceptedAnswers: ['finissais'],
+      explanationZh: '第二组动词 finir 的词干为 finiss-，第二人称单数词尾为 -ais：tu finissais。',
+    },
+    {
+      id: 'impf-q16',
+      type: 'choice',
+      prompt: 'L’agent m’a dit que le délai de traitement (prendre) ___ environ six mois.',
+      options: ['prenait', 'a pris', 'prend', 'prendra'],
+      correctAnswer: 'prenait',
+      explanationZh: '主句动词为过去时 a dit，间接引语从句时态后移为未完成过去时 prenait。',
+    },
+  ],
+}

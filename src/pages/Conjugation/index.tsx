@@ -17,7 +17,7 @@ import {
   recordConjugationAttempt,
 } from '@/services/studyPlanSync'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { NavLink, useSearchParams } from 'react-router-dom'
 import IconRefresh from '~icons/tabler/refresh'
 
 type PracticeScope = 'current' | 'mixed'
@@ -272,6 +272,13 @@ export default function ConjugationPage() {
             <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Conjugaison</h2>
             <p className="text-xs text-gray-500 dark:text-gray-400">30 个核心动词</p>
           </div>
+          <NavLink
+            to="/tenses"
+            className="mb-3 flex items-center justify-between gap-1 rounded-xl border border-indigo-200/80 bg-indigo-50/70 px-2.5 py-2 text-xs font-semibold text-indigo-700 transition hover:bg-indigo-100 dark:border-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-300 dark:hover:bg-indigo-900"
+          >
+            <span>时态专题 (15大时态)</span>
+            <span>→</span>
+          </NavLink>
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
