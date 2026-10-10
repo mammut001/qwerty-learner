@@ -5,9 +5,10 @@ import { LEXIQUE_TOPICS } from './echelle-lexique-bank.mjs'
 import { LISTENING_CHECKS } from './echelle-listening-bank.mjs'
 import { READING_CHECKS } from './echelle-reading-bank.mjs'
 import { WRITING_TASKS, SPEAKING_TASKS, WRITING_TASK_POOLS, SPEAKING_TASK_POOLS, getProductionTaskPool } from './echelle-production-bank.mjs'
+import { getIndicatorScenarios } from './echelle-variants/index.mjs'
 
 // Utilities ------------------------------------------------------------------
-function djb2(str) {
+export function djb2(str) {
   let hash = 5381
   for (let i = 0; i < str.length; i++) {
     hash = ((hash << 5) + hash) + str.charCodeAt(i)
@@ -16,7 +17,7 @@ function djb2(str) {
   return Math.abs(hash)
 }
 
-function mulberry32(seed) {
+export function mulberry32(seed) {
   return function () {
     let t = (seed += 0x6D2B79F5)
     t = Math.imul(t ^ (t >>> 15), t | 1)
@@ -25,7 +26,7 @@ function mulberry32(seed) {
   }
 }
 
-function shuffle(array, seed) {
+export function shuffle(array, seed) {
   const rand = mulberry32(seed)
   const out = array.slice()
   for (let i = out.length - 1; i > 0; i--) {
@@ -89,7 +90,7 @@ function addGrammarItems(catalog, levelItems) {
           titleZh: g.titleZh,
           explanationZh: concept.explanationZh,
           examples: concept.examples,
-          questions: toQuestions(baseId, concept.questions),
+          questions: toQuestions(baseId, concept.questions.slice(0, 4)),
           threshold: 0.75,
         }
         levelItems[level].push(baseId)
@@ -105,7 +106,7 @@ function addGrammarItems(catalog, levelItems) {
           titleZh: g.titleZh + '（深入）',
           explanationZh: concept.explanationZh,
           examples: concept.examples,
-          questions: toQuestions(advId, concept.questions),
+          questions: toQuestions(advId, concept.questions.slice(0, 4)),
           threshold: 1,
         }
         levelItems[level].push(advId)
@@ -131,13 +132,14 @@ for (const topic of LEXIQUE_TOPICS) {
 function buildLexiqueQuestions(itemId, topic) {
   const seed = djb2(itemId)
   const rand = mulberry32(seed)
-  const allZh = topic.words.map(w => w[1])
-  const allFr = topic.words.map(w => w[0])
+  const words = topic.words.slice(0, 6)
+  const allZh = words.map(w => w[1])
+  const allFr = words.map(w => w[0])
   const questions = []
   // 4 questions per topic, alternating FR→ZH and ZH→FR.
   for (let i = 0; i < 4; i++) {
-    const wordIndex = i % topic.words.length
-    const [fr, zh] = topic.words[wordIndex]
+    const wordIndex = i % words.length
+    const [fr, zh] = words[wordIndex]
     const isFrPrompt = i % 2 === 0
     const prompt = isFrPrompt ? `${fr} 的意思是？` : `${zh} 对应的法语是？`
     const correct = isFrPrompt ? zh : fr
@@ -329,9 +331,160 @@ export function getEchelleItem(itemId) {
   return ECHELLE_ITEM_CATALOG[itemId] || null
 }
 
+function combinations(n, k) {
+  if (k < 0 || k > n) return 0
+  if (k === 0 || k === n) return 1
+  let c = 1
+  for (let i = 1; i <= k; i++) {
+    c = (c * (n - i + 1)) / i
+  }
+  return c
+}
+
+export function countEchelleItemVariants(itemId) {
+  const item = getEchelleItem(itemId)
+  if (!item || item.kind === 'production') return 1
+
+  if (item.kind === 'indicator') {
+    const scenarios = getIndicatorScenarios(itemId)
+    if (!scenarios || scenarios.length === 0) return 1
+    return 1 + scenarios.reduce((acc, sc) => {
+      const cap = sc.capacity || (typeof sc === 'function' && sc.capacity ? sc.capacity : 1)
+      return acc + cap
+    }, 0)
+  }
+
+  if (item.kind === 'lexique') {
+    const topicId = itemId.replace(/^n\d{1,2}-lex-/, '').replace(/-avance$/, '')
+    const topic = LEXIQUE_TOPICS.find((t) => t.id === topicId)
+    if (!topic || topic.words.length <= 6) return 1
+    return combinations(topic.words.length, 4)
+  }
+
+  if (item.kind === 'grammar') {
+    const conceptId = itemId.replace(/^n\d{1,2}-gr-/, '').replace(/-avance$/, '')
+    const concept = findGrammarConcept(conceptId)
+    if (!concept || !concept.questions || concept.questions.length <= 4) return 1
+    return combinations(concept.questions.length, 4)
+  }
+
+  return 1
+}
+
+export function getEchelleItemVariant(itemId, variant) {
+  const item = getEchelleItem(itemId)
+  if (!item) return null
+
+  // Variant 0 or invalid/absent variant returns the catalog item directly
+  if (
+    variant === undefined ||
+    variant === 0 ||
+    typeof variant !== 'number' ||
+    !Number.isInteger(variant) ||
+    variant < 0 ||
+    variant > 0x7fffffff
+  ) {
+    return item
+  }
+
+  // Production items ignore the variant and return the catalog item
+  if (item.kind === 'production') {
+    return item
+  }
+
+  const seed = djb2(`${itemId}#variant#${variant}`)
+  const rand = mulberry32(seed)
+
+  if (item.kind === 'indicator') {
+    const scenarios = getIndicatorScenarios(itemId)
+    if (!scenarios || scenarios.length === 0) {
+      return item
+    }
+    const scIdx = Math.floor(rand() * scenarios.length)
+    const sc = scenarios[scIdx]
+    const raw = typeof sc === 'function' ? sc(rand) : (typeof sc.build === 'function' ? sc.build(rand) : sc)
+    const questions = raw.questions.map(([prompt, correct, ...distractors]) => ({
+      prompt,
+      choices: shuffle([correct, ...distractors], Math.floor(rand() * 0x7fffffff)),
+      answer: correct,
+    }))
+    const text = raw.text
+    const audioText = item.skill === 'listening' ? text : undefined
+    return {
+      ...item,
+      text,
+      audioText,
+      questions,
+      variant,
+    }
+  }
+
+  if (item.kind === 'lexique') {
+    const topicId = itemId.replace(/^n\d{1,2}-lex-/, '').replace(/-avance$/, '')
+    const topic = LEXIQUE_TOPICS.find((t) => t.id === topicId)
+    if (!topic || topic.words.length === 0) return item
+
+    const indices = Array.from({ length: topic.words.length }, (_, i) => i)
+    for (let i = indices.length - 1; i > 0; i--) {
+      const j = Math.floor(rand() * (i + 1))
+      ;[indices[i], indices[j]] = [indices[j], indices[i]]
+    }
+    const chosenIndices = indices.slice(0, 4)
+    const allZh = topic.words.map((w) => w[1])
+    const allFr = topic.words.map((w) => w[0])
+    const questions = []
+    for (let i = 0; i < chosenIndices.length; i++) {
+      const [fr, zh] = topic.words[chosenIndices[i]]
+      const isFrPrompt = i % 2 === 0
+      const prompt = isFrPrompt ? `${fr} 的意思是？` : `${zh} 对应的法语是？`
+      const correct = isFrPrompt ? zh : fr
+      const pool = isFrPrompt ? allZh : allFr
+      const distractors = pool.filter((w) => w !== correct)
+      const shuffledDistractors = shuffle(distractors, Math.floor(rand() * 0x7fffffff)).slice(0, 3)
+      const choices = shuffle([correct, ...shuffledDistractors], Math.floor(rand() * 0x7fffffff))
+      questions.push({ prompt, choices, answer: correct })
+    }
+    return {
+      ...item,
+      variant,
+      questions,
+    }
+  }
+
+  if (item.kind === 'grammar') {
+    const conceptId = itemId.replace(/^n\d{1,2}-gr-/, '').replace(/-avance$/, '')
+    const concept = findGrammarConcept(conceptId)
+    if (!concept || !concept.questions || concept.questions.length <= 4) {
+      return item
+    }
+    const indices = Array.from({ length: concept.questions.length }, (_, i) => i)
+    for (let i = indices.length - 1; i > 0; i--) {
+      const j = Math.floor(rand() * (i + 1))
+      ;[indices[i], indices[j]] = [indices[j], indices[i]]
+    }
+    const chosen = indices.slice(0, 4).map((idx) => concept.questions[idx])
+    const questions = chosen.map(([prompt, correct, ...distractors]) => ({
+      prompt,
+      choices: shuffle([correct, ...distractors], Math.floor(rand() * 0x7fffffff)),
+      answer: correct,
+    }))
+    return {
+      ...item,
+      variant,
+      questions,
+    }
+  }
+
+  return item
+}
+
 // Scoring ---------------------------------------------------------------------
 export function scoreEchelleItem(itemId, answers, meta = {}) {
-  const item = getEchelleItem(itemId)
+  const variant = meta?.variant
+  const item =
+    typeof variant === 'number' && Number.isInteger(variant) && variant > 0
+      ? getEchelleItemVariant(itemId, variant)
+      : getEchelleItem(itemId)
   if (!item) return null
 
   if (item.kind === 'production') {

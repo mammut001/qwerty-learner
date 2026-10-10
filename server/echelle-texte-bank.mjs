@@ -15,6 +15,12 @@ export const TEXT_GRAMMAR = [
       ['Mes parents arrivent demain. ___ restent une semaine.', 'Ils', 'Elles', 'Eux'],
       ['Paul et toi, ___ venez ce soir ?', 'vous', 'tu', 'nous'],
       ['Ma sœur et moi, ___ partons en vacances.', 'nous', 'ils', 'vous'],
+      ['Pierre est à la maison. ___ prépare le souper.', 'Il', 'Elle', 'Lui'],
+      ['Les filles sont dans le parc. ___ jouent au soccer.', 'Elles', 'Ils', 'Eux'],
+      ['Marc et Jean sont voisins. ___ prennent le même bus.', 'Ils', 'Elles', 'Lui'],
+      ['Mon amie et moi, ___ allons au dépanneur.', 'nous', 'vous', 'ils'],
+      ['Sophie et toi, ___ avez les clés ?', 'vous', 'ils', 'nous'],
+      ['La voiture est en panne. ___ est chez le mécanicien.', 'Elle', 'Il', 'Lui'],
     ],
   },
   {

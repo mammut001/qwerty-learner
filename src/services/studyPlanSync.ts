@@ -329,6 +329,7 @@ export type EchelleItemRecord = {
   score: number
   attempts: number
   updatedAt: number
+  variant?: number
   stage?: number
   dueAt?: number | null
   lastPassedAt?: number | null
@@ -621,6 +622,7 @@ type Operation =
       itemId: string
       answers?: string[]
       response?: { selfChecks: boolean[]; wordCount?: number; seconds?: number }
+      variant?: number
       updatedAt: number
     }
   | {
@@ -1229,12 +1231,17 @@ export type EchelleCheckInput = {
   itemId: string
   answers?: string[]
   response?: { selfChecks: boolean[]; wordCount?: number; seconds?: number }
+  variant?: number
   /** When the server has AI scoring enabled, a self-assessment is recorded but never counts as mastery. */
   aiRequired?: boolean
 }
 
 export function recordEchelleMastery(input: EchelleCheckInput) {
-  const result = scoreEchelleItem(input.itemId, input.answers, input.response)
+  const meta = {
+    ...(input.response ?? {}),
+    ...(typeof input.variant === 'number' && input.variant > 0 ? { variant: input.variant } : {}),
+  }
+  const result = scoreEchelleItem(input.itemId, input.answers, meta)
   if (!result) throw new Error('UNKNOWN_ECHELLE_ITEM')
   // The server keeps the newest attempt only, so retries within one millisecond must still move forward.
   const previous = ensureFallback().learning.echelle.items[input.itemId]
@@ -1245,6 +1252,7 @@ export function recordEchelleMastery(input: EchelleCheckInput) {
     updatedAt,
     ...(input.answers ? { answers: input.answers } : {}),
     ...(input.response ? { response: input.response } : {}),
+    ...(typeof input.variant === 'number' && input.variant > 0 ? { variant: input.variant } : {}),
   }
 
   const production = result.kind === 'production'
@@ -1258,6 +1266,7 @@ export function recordEchelleMastery(input: EchelleCheckInput) {
       updatedAt,
       method: production ? 'self' : 'check',
       response: input.answers ?? input.response,
+      ...(typeof input.variant === 'number' && input.variant > 0 ? { variant: input.variant } : {}),
     }
     return {
       ...state,

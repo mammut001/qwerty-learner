@@ -21,6 +21,7 @@ const DAY_MS = 24 * 60 * 60 * 1000
 /** No real audio in CI: speech output is silenced and speech recognition "hears" SPOKEN once per session. */
 async function installBrowserFakes(context: BrowserContext) {
   await context.addInitScript((spoken) => {
+    localStorage.setItem('echelle:fixedVariant', '0')
     Object.defineProperty(window, 'speechSynthesis', { configurable: true, value: { cancel() {}, speak() {} } })
     class FakeRecognition {
       lang = ''

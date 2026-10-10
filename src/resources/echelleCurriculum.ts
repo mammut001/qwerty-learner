@@ -18,6 +18,7 @@ export type EchelleQuizItem = EchelleItemBase & {
   text?: string
   audioText?: string
   typeDeDiscours?: EchelleDiscourseType
+  variant?: number
 }
 
 export type EchelleProductionItem = EchelleItemBase & {
@@ -58,11 +59,22 @@ export const getEchelleLevelItems = raw.getEchelleLevelItems as (level: number) 
 
 export const parseEchelleItemId = raw.parseEchelleItemId as (itemId: string) => { level: number; skill: EchelleItemSkill } | null
 
+export type EchelleScoreMeta = Partial<EchelleProductionResponse> & {
+  variant?: number
+}
+
 export const scoreEchelleItem = raw.scoreEchelleItem as (
   itemId: string,
   answers?: string[],
-  meta?: Partial<EchelleProductionResponse>,
+  meta?: EchelleScoreMeta,
 ) => EchelleScore | null
+
+export const getEchelleItemVariant = raw.getEchelleItemVariant as (
+  itemId: string,
+  variant?: number,
+) => EchelleCatalogItem | null
+
+export const countEchelleItemVariants = raw.countEchelleItemVariants as (itemId: string) => number
 
 export const summarizeEchelleLevel = raw.summarizeEchelleLevel as (
   level: number,
