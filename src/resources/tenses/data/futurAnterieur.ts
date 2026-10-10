@@ -57,6 +57,21 @@ export const futurAnterieurLesson: TenseLesson = {
           zh: '当孩子们做完家庭作业后，他们就可以看一部电影。',
           highlight: 'auront terminé',
         },
+        {
+          fr: 'Quand tu auras validé ton niveau B2 au test TCF, ton dossier sera complet.',
+          zh: '当你在 TCF 考试中通过了 B2 等级，你的申请档案就完整了。',
+          highlight: 'auras validé',
+        },
+        {
+          fr: 'Dès qu’elle sera rentrée de son quart de nuit à l’hôpital, elle ira se coucher.',
+          zh: '她一旦从医院的值夜班回家，就会立刻去睡觉。',
+          highlight: 'sera rentrée',
+        },
+        {
+          fr: '— Quand nous reverrons-nous pour discuter du budget ? — Dès que j’aurai compilé tous les chiffres.',
+          zh: '——我们何时再见来讨论预算？——一旦我汇总完所有数据我们就碰头。',
+          highlight: 'aurai compilé',
+        },
       ],
     },
     {
@@ -84,6 +99,21 @@ export const futurAnterieurLesson: TenseLesson = {
           zh: '夜幕降临之前，工人们将已修好了破裂的水管。',
           highlight: 'auront réparé',
         },
+        {
+          fr: 'D’ici la fin de la semaine, le garagiste aura posé tous vos pneus d’hiver.',
+          zh: '在周末之前，修车师傅将已为您装好所有的雪地胎。',
+          highlight: 'aura posé',
+        },
+        {
+          fr: 'Vous aurez obtenu votre carte de sécurité sociale avant le début de votre emploi.',
+          zh: '在您入职开始工作之前，您将已经取得了您的社保卡。',
+          highlight: 'aurez obtenu',
+        },
+        {
+          fr: 'Dans trois mois, mon frère aura réussi tous ses examens de qualification professionnelle.',
+          zh: '三个月内，我哥哥将已通过他的所有专业资格考评。',
+          highlight: 'aura réussi',
+        },
       ],
     },
     {
@@ -109,6 +139,21 @@ export const futurAnterieurLesson: TenseLesson = {
         {
           fr: 'Elle aura oublié de renouveler sa carte d’assurance maladie avant son expiration.',
           zh: '她大概是忘了在太阳卡（RAMQ）过期前去更新了吧。',
+          highlight: 'aura oublié',
+        },
+        {
+          fr: 'Les enfants ne sont pas encore rentrés de l’école : ils se seront attardés au parc.',
+          zh: '孩子们放学还没回家：他们大概是在公园里玩得耽搁了吧。',
+          highlight: 'se seront attardés',
+        },
+        {
+          fr: 'Le colis n’est pas là, le facteur aura sans doute sonné pendant notre absence.',
+          zh: '包裹没在这儿，邮递员想必是在我们不在家时按过门铃了吧。',
+          highlight: 'aura sans doute sonné',
+        },
+        {
+          fr: 'Elle n’a pas répondu à mon appel téléphonique, elle aura oublié de charger son cellulaire.',
+          zh: '她没有回复我的电话，她大概是忘记给手机充电了吧。',
           highlight: 'aura oublié',
         },
       ],
@@ -138,6 +183,21 @@ export const futurAnterieurLesson: TenseLesson = {
           zh: '到您退休之时，您将在您的注册退休储蓄计划（REER）中积攒下一笔可观的积蓄。',
           highlight: 'aurez accumulé',
         },
+        {
+          fr: 'À la fin de cette décennie, la province aura modernisé l’ensemble de ses infrastructures routières.',
+          zh: '在本年代结束时，该省将已实现其全部公路交通基础设施的现代化。',
+          highlight: 'aura modernisé',
+        },
+        {
+          fr: 'Vous aurez acquis une précieuse expérience pratique au terme de ce stage clinique.',
+          zh: '在这段临床实习期满后，您将已掌握宝贵的实践经验。',
+          highlight: 'aurez acquis',
+        },
+        {
+          fr: 'D’ici dix ans, nos enfants auront grandi et auront choisi leur propre voie professionnelle.',
+          zh: '十年之内，我们的孩子们将已长大成人，并选择好各自的职业道路。',
+          highlight: 'auront grandi',
+        },
       ],
     },
     {
@@ -164,6 +224,21 @@ export const futurAnterieurLesson: TenseLesson = {
           fr: 'Ils se seront réconciliés avant la fête de Noël en famille.',
           zh: '在家庭圣诞聚会之前，他们一定已经和解了。',
           highlight: 'se seront réconciliés',
+        },
+        {
+          fr: 'Dès qu’ils se seront inscrits à la bibliothèque municipale, ils pourront emprunter des livres numériques.',
+          zh: '他们一旦在市立图书馆完成了借阅注册，便能借阅电子书籍。',
+          highlight: 'se seront inscrits',
+        },
+        {
+          fr: 'Quand vous vous serez habitué aux rigueurs de l’hiver québécois, vous adorerez la saison blanche.',
+          zh: '当您适应了魁北克冬天的严寒之后，您便会爱上这个银白的世界。',
+          highlight: 'vous serez habitué',
+        },
+        {
+          fr: 'Elle se sera levée bien avant l’aube pour préparer les victuailles de la cabane à sucre.',
+          zh: '她想必在天亮前很久就已起床，为枫糖小屋准备吃食了。',
+          highlight: 'se sera levée',
         },
       ],
     },
@@ -192,6 +267,47 @@ export const futurAnterieurLesson: TenseLesson = {
           zh: '他为什么没有在录取截止日期前递交申请呢？',
           highlight: 'n’aura-t-il pas déposé',
         },
+        {
+          fr: 'Nous n’aurons rien négligé dans la constitution minutieuse de ce dossier d’immigration.',
+          zh: '在这一移民档案的严谨组卷过程中，我们将做到毫无疏漏。',
+          highlight: 'n’aurons rien négligé',
+        },
+        {
+          fr: 'Est-ce qu’ils n’auront pas compris l’importance capitale de ce rendez-vous consulaire ?',
+          zh: '难道他们未曾领会此次领事预约面谈的至关重要性吗？',
+          highlight: 'n’auront pas compris',
+        },
+        {
+          fr: '— Aurez-vous fini de repeindre la cuisine avant vendredi soir ? — Non, je n’aurai pas encore terminé.',
+          zh: '——周五晚上之前您能刷完厨房的油漆吗？——不行，我还完不成。',
+          highlight: 'n’aurai pas encore terminé',
+        },
+      ],
+    },
+  ],
+  miniTexts: [
+    {
+      titleFr: 'Le plan de carrière de Valérie',
+      titleZh: '瓦莱丽的职业生涯规划',
+      fr: 'Dans un an jour pour jour, Valérie aura terminé sa maîtrise en sciences infirmières à l’Université de Montréal. Dès qu’elle aura soutenu son mémoire devant le jury académique, elle postulera pour un poste de cadre de santé dans un centre hospitalier universitaire. Ses collègues actuels auront sans doute préparé une petite réception surprise pour célébrer sa réussite éclatante. D’ici là, elle aura surmonté de nombreuses épreuves exigeantes avec une remarquable persévérance. Elle sera ainsi devenue un modèle inspirant pour toute sa communauté.',
+      zh: '从今天算起的整整一年后，瓦莱丽将在蒙特利尔大学完成护理学硕士学业。一旦她在学术评审团面前答辩完论文，她就将申请大学附属医院的护士长管理岗位。她现在的同事们想必会悄悄筹备一场小型惊喜招待会，以庆祝她卓越的成就。在那之前，她将以坚韧不拔的毅力克服诸多严苛考验，从而成为整个社区令人振奋的榜样。',
+      highlights: [
+        'aura terminé',
+        'aura soutenu',
+        'auront sans doute préparé',
+        'aura surmonté',
+        'sera ainsi devenue',
+      ],
+    },
+    {
+      titleFr: 'La livraison avant la tempête',
+      titleZh: '暴风雪前的运输使命',
+      fr: 'Le chauffeur de camion de livraison roule à vive allure sur l’autoroute transcanadienne. Les prévisions météorologiques annoncent un blizzard majeur pour le milieu de l’après-midi. Le transporteur aura déchargé toutes ses cargaisons d’équipements d’urgence avant que les routes ne soient fermées par la police provinciale. Ses clients en région éloignée auront reçu leurs génératrices et leurs réserves de vivres d’ici la fin de la journée. Le chauffeur se sera alors mis à l’abri dans un motel routier sécuritaire avant le début des hostilités climatiques.',
+      zh: '送货卡车司机正在泛加高速公路上快速行驶。天气预报通报午后将有一场强暴风雪。在省警察局封闭道路之前，货运司机将已卸下所有紧急救援设备货物。偏远地区的客户们在今天结束之前将已收到他们的发电机和食品储备。司机本人随后也将在极端恶劣天气全面肆虐之前，在一家安全的公路汽车旅馆里避险安顿。',
+      highlights: [
+        'aura déchargé',
+        'auront reçu',
+        'se sera alors mis',
       ],
     },
   ],
@@ -232,6 +348,42 @@ export const futurAnterieurLesson: TenseLesson = {
         highlight: 'aurons vendu',
       },
     },
+    {
+      word: 'avant demain',
+      meaningZh: '在明天之前',
+      example: {
+        fr: 'Avant demain midi, le facteur aura livré toutes les lettres recommandées dans le quartier.',
+        zh: '在明天中午之前，邮递员将已把街区所有的挂号信送达完毕。',
+        highlight: 'aura livré',
+      },
+    },
+    {
+      word: 'd’ici la fin du mois',
+      meaningZh: '在本月底之前',
+      example: {
+        fr: 'D’ici la fin du mois, nous aurons réglé l’ensemble des formalités d’assurance collective.',
+        zh: '在本月底之前，我们将已办结团体保险的所有手续。',
+        highlight: 'aurons réglé',
+      },
+    },
+    {
+      word: 'lorsque',
+      meaningZh: '当……（将来先时动作）',
+      example: {
+        fr: 'Lorsque vous aurez envoyé votre candidature, vous recevrez un courriel d’accusé de réception.',
+        zh: '当您发送了求职申请后，您就会收到一封确认回执邮件。',
+        highlight: 'aurez envoyé',
+      },
+    },
+    {
+      word: 'sans doute',
+      meaningZh: '想必 / 大概（表推测）',
+      example: {
+        fr: 'Il ne vient pas au rendez-vous, il aura sans doute manqué sa correspondance de métro.',
+        zh: '他没有来赴约，想必是错过了地铁换乘吧。',
+        highlight: 'aura sans doute manqué',
+      },
+    },
   ],
   commonMistakes: [
     {
@@ -253,6 +405,16 @@ export const futurAnterieurLesson: TenseLesson = {
       wrong: 'Ils auront allés à la banque.',
       right: 'Ils seront allés à la banque.',
       explanationZh: 'aller 使用 être 作为助动词，复数必须为 ils seront allés。',
+    },
+    {
+      wrong: 'Dès qu’il sera fini de souper, il nous rejoindra.',
+      right: 'Dès qu’il aura fini de souper, il nous rejoindra.',
+      explanationZh: '动词 finir 使用 avoir 作为助动词，第三人称单数先将来时是 aura fini，不能错用 sera fini。',
+    },
+    {
+      wrong: 'Elle se sera trompé d’adresse en venant ici.',
+      right: 'Elle se sera trompée d’adresse en venant ici.',
+      explanationZh: '代词动词 se tromper 使用 être 作为助动词，主语 elle 为阴性，过去分词必须配合加 -e：se sera trompée。',
     },
   ],
   questions: [
@@ -383,6 +545,70 @@ export const futurAnterieurLesson: TenseLesson = {
       options: ['aura reçu', 'recevra', 'a reçu', 'aurait reçu'],
       correctAnswer: 'aura reçu',
       explanationZh: 'recevoir 的先将来时第三人称单数形式为 elle aura reçu。',
+    },
+    {
+      id: 'fa-q17',
+      type: 'fill',
+      prompt: 'Dès que tu (obtenir) ___ ta confirmation d’inscription, préviens ton employeur.（填入将来时助动词+分词）',
+      correctAnswer: 'auras obtenu',
+      acceptedAnswers: ['auras obtenu'],
+      explanationZh: 'tu 对应的先将来时形式为 auras obtenu。',
+    },
+    {
+      id: 'fa-q18',
+      type: 'choice',
+      prompt: 'D’ici l’été prochain, les ouvriers (reconstruire) ___ entièrement le pont endommagé.',
+      options: ['auront reconstruit', 'reconstruiront', 'ont reconstruit', 'seront reconstruits'],
+      correctAnswer: 'auront reconstruit',
+      explanationZh: 'd’ici l’été prochain 表示在未来截点前完成，使用先将来时：auront reconstruit。',
+    },
+    {
+      id: 'fa-q19',
+      type: 'choice',
+      prompt: 'Quand nous (vendre) ___ notre maison de banlieue, nous nous installerons en ville.',
+      options: ['aurons vendu', 'vendrons', 'avons vendu', 'aurions vendu'],
+      correctAnswer: 'aurons vendu',
+      explanationZh: 'quand 从句表达将来先时动作：aurons vendu。',
+    },
+    {
+      id: 'fa-q20',
+      type: 'choice',
+      prompt: 'Pourquoi Marc n’est-il pas venu ? Il (oublier) ___ l’heure exacte du rendez-vous.',
+      options: ['aura oublié', 'a oublié', 'oubliera', 'aurait oublié'],
+      correctAnswer: 'aura oublié',
+      explanationZh: '推测过去原因，使用先将来时：aura oublié。',
+    },
+    {
+      id: 'fa-q21',
+      type: 'choice',
+      prompt: 'Dès qu’elles (arriver) ___ à l’aéroport, elles passeront le contrôle des douanes.',
+      options: ['seront arrivées', 'auront arrivé', 'seront arrivés', 'arriveront'],
+      correctAnswer: 'seront arrivées',
+      explanationZh: 'arriver 用 être 作助动词，主语 elles 配合加 -es：seront arrivées。',
+    },
+    {
+      id: 'fa-q22',
+      type: 'fill',
+      prompt: 'Aussitôt que vous (déposer) ___ votre demande, vous recevrez un numéro de suivi.（填入将来时助动词+分词）',
+      correctAnswer: 'aurez déposé',
+      acceptedAnswers: ['aurez déposé'],
+      explanationZh: 'vous 人称先将来时为 aurez déposé。',
+    },
+    {
+      id: 'fa-q23',
+      type: 'choice',
+      prompt: 'Elle ne répond plus : elle (s’endormir) ___ devant son écran d’ordinateur.',
+      options: ['se sera endormie', 's’aura endormie', 'se sera endormi', 'sera endormie'],
+      correctAnswer: 'se sera endormie',
+      explanationZh: '代词动词使用 être，主语 elle 配合加 -e：se sera endormie。',
+    },
+    {
+      id: 'fa-q24',
+      type: 'fill',
+      prompt: 'D’ici la fin de l’hiver, la ville (dépenser) ___ tout son budget de déneigement.（填入将来时助动词+分词）',
+      correctAnswer: 'aura dépensé',
+      acceptedAnswers: ['aura dépensé'],
+      explanationZh: '第三人称单数先将来时为 aura dépensé。',
     },
   ],
 }
