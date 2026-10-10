@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react'
-import { conjugate, getSupportedVerbs } from '@/resources/tenses/conjugator'
-import type { ConjugationResult, TenseId } from '@/resources/tenses/types'
+import { TENSE_LABELS, conjugate, getSupportedVerbs } from '@/resources/tenses/conjugator'
+import type { TenseId } from '@/resources/tenses/types'
 import { safeSpeak } from '@/utils/speechSynthesis'
-import IconVolume from '~icons/tabler/volume'
 import IconSearch from '~icons/tabler/search'
+import IconVolume from '~icons/tabler/volume'
 
 const QUICK_VERBS = [
   'parler',
@@ -43,12 +43,12 @@ export default function TenseConjugationExplorer({
     return supportedVerbs.filter((v) => v.toLowerCase().includes(q)).slice(0, 8)
   }, [query, supportedVerbs])
 
-  const conjugationResult: ConjugationResult = useMemo(() => {
+  const { conjugationResult, error } = useMemo(() => {
     const verbToConjugate = selectedVerb.trim() || 'parler'
     try {
-      return conjugate(verbToConjugate, tenseId)
+      return { conjugationResult: conjugate(verbToConjugate, tenseId), error: null }
     } catch {
-      return conjugate('parler', tenseId)
+      return { conjugationResult: null, error: '暂不支持这个动词' }
     }
   }, [selectedVerb, tenseId])
 
@@ -69,7 +69,7 @@ export default function TenseConjugationExplorer({
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-            变位速查表 ({conjugationResult.tenseLabelZh})
+            变位速查表 ({conjugationResult ? conjugationResult.tenseLabelZh : TENSE_LABELS[tenseId]?.zh || '动词变位'})
           </h3>
           <p className="text-xs text-gray-500 dark:text-gray-400">
             支持所有常用动词、不规则动词及自反动词，点击喇叭即可发音
@@ -136,79 +136,98 @@ export default function TenseConjugationExplorer({
         })}
       </div>
 
-      {/* Verb Info Summary */}
-      <div className="mt-4 flex flex-wrap items-center gap-3 rounded-xl bg-indigo-50/60 p-3 text-xs dark:bg-indigo-950/40">
-        <div className="font-semibold text-indigo-950 dark:text-indigo-200">
-          原形: <span className="font-mono text-sm text-indigo-700 dark:text-indigo-300">{conjugationResult.infinitive}</span>
-        </div>
-        <div className="text-gray-600 dark:text-gray-300">
-          助动词: <span className="font-semibold text-gray-900 dark:text-white">{conjugationResult.auxiliary}</span>
-        </div>
-        <div className="text-gray-600 dark:text-gray-300">
-          过去分词: <span className="font-mono font-medium text-gray-900 dark:text-white">{conjugationResult.participePasse}</span>
-        </div>
-        <div className="text-gray-600 dark:text-gray-300">
-          现在分词: <span className="font-mono font-medium text-gray-900 dark:text-white">{conjugationResult.participePresent}</span>
-        </div>
-      </div>
-
-      {conjugationResult.notes && conjugationResult.notes.length > 0 && (
-        <div className="mt-2 space-y-1">
-          {conjugationResult.notes.map((note, idx) => (
-            <div key={idx} className="rounded-lg bg-amber-50 px-3 py-1.5 text-xs text-amber-800 dark:bg-amber-950/50 dark:text-amber-200">
-              💡 {note}
-            </div>
-          ))}
+      {/* Unsupported Verb Error */}
+      {error && (
+        <div
+          data-testid="unsupported-verb-error"
+          className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-6 text-center dark:border-amber-900/60 dark:bg-amber-950/40"
+        >
+          <p className="text-sm font-semibold text-amber-800 dark:text-amber-200">
+            {error}
+          </p>
+          <p className="mt-1 text-xs text-amber-600 dark:text-amber-400">
+            仅支持常见法语规则动词（-er及部分第二组-ir）与常用不规则动词。请尝试上方推荐常用动词。
+          </p>
         </div>
       )}
 
-      {/* Forms Table */}
-      <div className="mt-4 overflow-hidden rounded-xl border border-gray-100 dark:border-gray-700/80">
-        <table className="w-full text-left text-sm">
-          <thead>
-            <tr className="border-b border-gray-100 bg-gray-50/90 text-xs font-medium text-gray-500 dark:border-gray-700/80 dark:bg-gray-900/60 dark:text-gray-400">
-              <th className="py-2.5 pl-4 pr-3">人称 (Personne)</th>
-              <th className="py-2.5 px-3">变位形式 (Forme conjuguée)</th>
-              <th className="py-2.5 px-3 text-right pr-4">发音</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
-            {conjugationResult.forms.map((form, index) => {
-              return (
-                <tr
-                  key={index}
-                  className="transition hover:bg-indigo-50/30 dark:hover:bg-gray-700/40"
-                >
-                  <td className="py-2.5 pl-4 pr-3 text-xs font-medium text-gray-500 dark:text-gray-400">
-                    {form.subject || '—'}
-                  </td>
-                  <td className="py-2.5 px-3">
-                    <span className="font-medium text-gray-900 dark:text-gray-100">
-                      {form.display}
-                    </span>
-                    {form.agreementVariants && (
-                      <span className="ml-2 text-xs text-indigo-600 dark:text-indigo-400">
-                        {form.agreementVariants.feminine && `(♀ ${form.agreementVariants.feminine})`}
-                        {form.agreementVariants.pluralMasc && `(pl: ${form.agreementVariants.pluralMasc})`}
-                      </span>
-                    )}
-                  </td>
-                  <td className="py-2.5 px-3 text-right pr-4">
-                    <button
-                      type="button"
-                      onClick={() => safeSpeak(form.display, { lang: 'fr-CA' })}
-                      title={`朗读 ${form.display}`}
-                      className="inline-flex items-center justify-center rounded-lg p-1 text-gray-400 transition hover:bg-indigo-100 hover:text-indigo-600 active:scale-95 dark:text-gray-500 dark:hover:bg-gray-700 dark:hover:text-indigo-300"
-                    >
-                      <IconVolume className="h-4 w-4" />
-                    </button>
-                  </td>
+      {conjugationResult && (
+        <>
+          {/* Verb Info Summary */}
+          <div className="mt-4 flex flex-wrap items-center gap-3 rounded-xl bg-indigo-50/60 p-3 text-xs dark:bg-indigo-950/40">
+            <div className="font-semibold text-indigo-950 dark:text-indigo-200">
+              原形: <span className="font-mono text-sm text-indigo-700 dark:text-indigo-300">{conjugationResult.infinitive}</span>
+            </div>
+            <div className="text-gray-600 dark:text-gray-300">
+              助动词: <span className="font-semibold text-gray-900 dark:text-white">{conjugationResult.auxiliary}</span>
+            </div>
+            <div className="text-gray-600 dark:text-gray-300">
+              过去分词: <span className="font-mono font-medium text-gray-900 dark:text-white">{conjugationResult.participePasse}</span>
+            </div>
+            <div className="text-gray-600 dark:text-gray-300">
+              现在分词: <span className="font-mono font-medium text-gray-900 dark:text-white">{conjugationResult.participePresent}</span>
+            </div>
+          </div>
+
+          {conjugationResult.notes && conjugationResult.notes.length > 0 && (
+            <div className="mt-2 space-y-1">
+              {conjugationResult.notes.map((note, idx) => (
+                <div key={idx} className="rounded-lg bg-amber-50 px-3 py-1.5 text-xs text-amber-800 dark:bg-amber-950/50 dark:text-amber-200">
+                  💡 {note}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Forms Table */}
+          <div className="mt-4 overflow-hidden rounded-xl border border-gray-100 dark:border-gray-700/80">
+            <table className="w-full text-left text-sm">
+              <thead>
+                <tr className="border-b border-gray-100 bg-gray-50/90 text-xs font-medium text-gray-500 dark:border-gray-700/80 dark:bg-gray-900/60 dark:text-gray-400">
+                  <th className="py-2.5 pl-4 pr-3">人称 (Personne)</th>
+                  <th className="py-2.5 px-3">变位形式 (Forme conjuguée)</th>
+                  <th className="py-2.5 px-3 text-right pr-4">发音</th>
                 </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      </div>
+              </thead>
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                {conjugationResult.forms.map((form, index) => {
+                  return (
+                    <tr
+                      key={index}
+                      className="transition hover:bg-indigo-50/30 dark:hover:bg-gray-700/40"
+                    >
+                      <td className="py-2.5 pl-4 pr-3 text-xs font-medium text-gray-500 dark:text-gray-400">
+                        {form.subject || '—'}
+                      </td>
+                      <td className="py-2.5 px-3">
+                        <span className="font-medium text-gray-900 dark:text-gray-100">
+                          {form.display}
+                        </span>
+                        {form.agreementVariants && (
+                          <span className="ml-2 text-xs text-indigo-600 dark:text-indigo-400">
+                            {form.agreementVariants.feminine && `(♀ ${form.agreementVariants.feminine})`}
+                            {form.agreementVariants.pluralMasc && `(pl: ${form.agreementVariants.pluralMasc})`}
+                          </span>
+                        )}
+                      </td>
+                      <td className="py-2.5 px-3 text-right pr-4">
+                        <button
+                          type="button"
+                          onClick={() => safeSpeak(form.display, { lang: 'fr-CA' })}
+                          title={`朗读 ${form.display}`}
+                          className="inline-flex items-center justify-center rounded-lg p-1 text-gray-400 transition hover:bg-indigo-100 hover:text-indigo-600 active:scale-95 dark:text-gray-500 dark:hover:bg-gray-700 dark:hover:text-indigo-300"
+                        >
+                          <IconVolume className="h-4 w-4" />
+                        </button>
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
     </div>
   )
 }
