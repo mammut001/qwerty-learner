@@ -2274,127 +2274,127 @@ export const N09_10_SCENARIOS = {
   "n10-reading-3": [
     {
       "situation": 0,
-      "text": "Chronique satirique parue dans un hebdomadaire québécois. Gloire soit rendue aux pontifes du marketing technologique : nous venons d’atteindre le zénith du progrès humain grâce au lancement du tout nouveau Téléphone Apex Pro Max Ultime ! Ses concepteurs ont accompli le prodige d’arrondir les coins de l’appareil de trois degrés supplémentaires et d’ajouter un objectif optique capable de photographier les cratères lunaires avec une netteté renversante, ce dont chacun de nous avait évidemment un besoin viscéral pour envoyer des photos de son sandwich sur les réseaux sociaux. Que le modèle de l’année passée voie sa batterie s’essouffler mystérieusement dès la première mise à jour logicielle automnale ne doit surtout pas vous inquiéter : c’est une marque de délicatesse de la firme pour vous épargner l’humiliation de posséder un objet datant déjà d’un an. Et comment ne pas applaudir ce trait de génie consistant à supprimer le port de recharge pour vous vendre séparément un adaptateur à induction vendu au prix d’un meuble de salon ? Précipitez-vous donc dans les boutiques pour contracter un prêt sur trente-six mois, chers amis consommateurs : la planète vous remerciera chaleureusement de remplir ses décharges de métaux rares pour satisfaire votre soif intarissable de nouveauté futile. C’est le couronnement sublime de la civilisation marchande. Mais rassurez-vous : dans douze mois exactement, un nouveau modèle viendra opportunément combler vos insatisfactions artificiellement créées.",
+      "text": "Cour supérieure du Québec, district de Québec. Ordonnance finale rendue à l’issue du procès opposant la Municipalité de Saint-Émile à la société Chimie Boréale ltée. Le Tribunal conclut que la demanderesse a amplement satisfait à son fardeau de preuve quant à la responsabilité civile de la défenderesse dans la contamination prolongée de la nappe phréatique municipale. Pour écarter sa responsabilité, l’entreprise soutenait que les infiltrations de solvants chlorés provenaient d’un phénomène d’écoulement karstique imprévisible constituant une force majeure exonératoire. Cette prétention ne saurait être retenue. Il ressort des expertises hydrogéologiques concordantes que la perméabilité du sous-sol était documentée dès les études d’impact initiales, de sorte que la migration souterraine des polluants était hautement prévisible. En omettant de doubler les géomembranes de rétention et en négligeant de réparer les fissures des bassins de décantation signalées par ses propres ingénieurs dès l’automne deux mille vingt-deux, la défenderesse a commis une faute lourde directe ayant entraîné la dégradation irréversible de l’aquifère potable. Par conséquent, le Tribunal rejette l’ensemble des moyens de défense préliminaires, ordonne à Chimie Boréale ltée de procéder à la décontamination complète du secteur sous la surveillance d’un mandataire indépendant, et enjoint à la société de consigner une sûreté financière de cinq millions de dollars dans un délai péremptoire de trente jours, sous peine d’astreinte de cinquante mille dollars par jour de retard.",
       "questions": [
         [
-          "Quelle cible la verve satirique de l’auteur vise-t-elle dans cette chronique humoristique ?",
-          "L’obsolescence programmée et la futilité du consumérisme technologique alimenté par le marketing",
-          "La mauvaise qualité optique des télescopes astronomiques fabriqués par les universités de recherche scientifique",
-          "Le prix excessif du mobilier artisanal québécois vendu dans les boutiques de décoration intérieure de quartier"
+          "Quelle décision centrale l’ordonnance du tribunal consacre-t-elle à l’issue de ce procès ?",
+          "La condamnation d’une entreprise pour pollution fautive et l’obligation de restaurer l’aquifère",
+          "L’autorisation accordée à l’usine d’enfouir des résidus toxiques dans les formations rocheuses voisines",
+          "L’annulation définitive des poursuites municipales en raison d’un vice de forme dans le dépôt initial"
         ],
         [
-          "Par quel procédé stylistique principal le chroniqueur construit-il son propos critique ?",
-          "L’utilisation constante d’une ironie mordante louant de façon antiphrastique des détails insignifiants",
-          "Une démonstration scientifique austère s’appuyant sur des équations physiques de batteries au lithium ternaire",
-          "Un hommage solennel et sincère adressé aux ingénieurs informatiques pour leur apport exceptionnel à l’humanité"
+          "Sur quel motif le juge écarte-t-il l’argument de la force majeure invoqué par la compagnie ?",
+          "La prévisibilité avérée du risque d’infiltration dès les premières études géologiques du terrain",
+          "L’absence totale de solvants chimiques dans les échantillons prélevés par les inspecteurs du gouvernement",
+          "L’aveu écrit du président du groupe reconnaissant un acte de sabotage commis par des employés démissionnaires"
         ],
         [
-          "Que dénonce implicitement l’allusion à la planète et aux décharges de métaux rares ?",
-          "Le coût écologique dévastateur et irresponsable engendré par le renouvellement incessant des appareils",
-          "L’absence d’aires de recyclage municipales réservées aux cartons d’emballage dans les grands centres urbains",
-          "L’interdiction faite aux consommateurs de revendre leurs anciens téléphones sur les marchés d’occasion en ligne"
+          "Quel fait prouve de manière décisive la négligence délibérée de la partie défenderesse ?",
+          "Le refus de réparer des défectuosités structurelles déjà relevées par ses propres spécialistes",
+          "La tenue d’une conférence de presse non autorisée par le maire de la ville avant l’audition des témoins",
+          "Le versement de pots-de-vin à des fonctionnaires provinciaux chargés d’évaluer la salubrité de l’eau"
         ],
         [
-          "Dans ce texte ironique, quel est le sens du terme « zénith » ?",
-          "Le point culminant ou le plus haut degré atteint par un phénomène, employé ici de façon railleuse",
-          "Un instrument scientifique de mesure utilisé par les marins pour calculer la profondeur des fleuves navigables",
-          "Une panne informatique générale paralysant les serveurs d’une grande entreprise multinationale de télécoms"
+          "Dans cette ordonnance judiciaire, que désigne l’expression « délai péremptoire » ?",
+          "Un intervalle de temps rigoureusement obligatoire au-delà duquel aucun acte ne peut plus être accompli",
+          "Une période de suspension temporaire des débats judiciaires décidée d’un commun accord entre les parties",
+          "Un calendrier prévisionnel indicatif pouvant être modifié à tout moment sans autorisation du tribunal"
         ]
       ],
-      "frame": "chronique satirique — société de consommation"
+      "frame": "ordonnance judiciaire — responsabilité environnementale et procès"
     },
     {
       "situation": 1,
-      "text": "Extrait d’un roman psychologique contemporain, « Les Battures de Kamouraska ». Clara contempla le vieux poêle à bois éteint au milieu de la cuisine familiale, où flottait encore l’odeur d’épinette et de thé noir qui avait bercé son enfance. Vingt années d’exil urbain s’effaçaient d’un coup devant la morsure glaciale de cette maison vide, léguée par une mère dont les derniers mots étaient restés suspendus dans le silence d’un corridor d’hôpital. Une vague d’amertume lui serra la gorge : que de reproches étouffés, que d’attentes déçues dans cette pièce où l’on avait préféré ravaler ses larmes plutôt que de prononcer le moindre aveu de tendresse fraternelle ! Pourtant, en s’approchant de la fenêtre qui donnait sur les grèves du fleuve, la fureur amère qui grondait en elle commença lentement à refluer sous la lumière dorée du couchant. Le Saint-Laurent étalait ses eaux calmes jusqu’aux crêtes mauves des montagnes de Charlevoix, indifférent aux tourments des vivants et à la poussière des rancœurs passées. Dans cette immensité dépouillée, Clara sentit pour la première fois que le pardon n’était pas un effacement lâche de la douleur, mais un consentement lucide à la fin des rancunes stériles. Une paix inattendue, fragile comme une première gelée d’automne mais infiniment douce, s’installa doucement en son âme réconciliée avec le cours de la vie. Le silence de la maison ne pesait plus comme un fardeau, mais comme une promesse de renouveau intime.",
+      "text": "Lettre ouverte publiée dans les pages Idées du quotidien Le Devoir. Le rétablissement de la gratuité universelle des traitements de procréation médicalement assistée au Québec ne relève pas d’un simple arbitrage budgétaire, mais d’un impératif catégorique de justice sociale et de santé publique. Depuis l’instauration d’un régime de crédits d’impôt régressif, l’infertilité est redevenue une pathologie discriminatoire dont la prise en charge médicale dépend scandaleusement de la fortune personnelle des couples. Réduire le désir légitime d’enfanter à un privilège marchand constitue une régression éthique inacceptable pour une société qui se targue de défendre l’équité universelle des soins. Les arguments comptables brandis par les opposants à la couverture publique intégrale ne résistent d’ailleurs à aucun examen économique sérieux. En incitant les patientes financièrement contraintes à transférer simultanément plusieurs embryons afin de maximiser leurs chances lors d’un cycle payant unique, le désengagement de l’État engendre une hausse spectaculaire des grossesses multiples, dont les complications obstétricales et néonatales coûtent au trésor public des millions de dollars en hospitalisations pédiatriques prolongées. À l’inverse, un programme public encadré imposant le transfert d’un embryon unique garantit des naissances sécuritaires tout en favorisant le renouvellement des générations dans une province confrontée à un déclin démographique historique. Il est urgent que le gouvernement québécois cesse de considérer la fertilité humaine comme un luxe de consommation et réintègre sans réserve ces soins essentiels dans le panier de services de la Régie de l’assurance maladie.",
       "questions": [
         [
-          "Quelle évolution émotionnelle la protagoniste traverse-t-elle dans ce passage romanesque ?",
-          "Elle passe du ressentiment étouffé de l’enfance à une sérénité nouvelle inspirée par le paysage",
-          "Elle sombre dans un désespoir incurable qui la pousse à fuir la maison familiale dès le crépuscule naissant",
-          "Elle éprouve une colère grandissante contre les voisins du village coupables d’avoir pillé ses biens personnels"
+          "Quelle est la revendication fondamentale défendue par l’auteur de cette lettre ouverte ?",
+          "La réintégration de la procréation médicalement assistée au sein du régime public gratuit",
+          "La fermeture définitive de tous les départements d’obstétrique et de gynécologie des hôpitaux publics",
+          "L’interdiction complète des traitements de fertilité pour toutes les personnes âgées de plus de trente ans"
         ],
         [
-          "Comment l’écriture romanesque traduit-elle le bouleversement intérieur de Clara ?",
-          "Par une correspondance poétique entre les blessures intimes du passé et la majesté apaisante du fleuve",
-          "En insérant des coupures de journaux d’époque pour relater les événements historiques de Kamouraska autrefois",
-          "Par un dialogue vif et agressif entre Clara et son frère aîné venu contester le testament légal de la mère défunte"
+          "Comment la lettre déconstruit-elle l’argument selon lequel la gratuité ruinerait l’État ?",
+          "En démontrant que les transferts d’embryons multiples payants entraînent des coûts néonatals supérieurs",
+          "En proposant d’utiliser les surplus des caisses de retraite provinciales pour bâtir de nouvelles cliniques privées",
+          "En affirmant que les compagnies d’assurance privées prendront automatiquement en charge tous les soins futurs"
         ],
         [
-          "Que comprend intimement la jeune femme à travers sa contemplation des battures au couchant ?",
-          "Que renoncer à la rancœur est une libération personnelle nécessaire pour habiter le présent en paix",
-          "Qu’elle doit immédiatement vendre la demeure ancestrale à un promoteur de la région pour tourner la page vite",
-          "Que sa mère l’avait délibérément déshéritée au profit d’une congrégation religieuse active de la paroisse locale"
+          "Quelle conséquence inique du régime actuel de crédits d’impôt le texte dénonce-t-il ?",
+          "L’exclusion de facto des familles modestes incapables d’avancer les sommes requises pour les traitements",
+          "La baisse généralisée des salaires des infirmières travaillant dans les centres de santé communautaires",
+          "L’obligation pour les couples de déménager dans une autre province pour adopter légalement un enfant mineur"
         ],
         [
-          "Dans ce contexte littéraire psychologique, que connote le mot « refluer » ?",
-          "Reculer graduellement et s’apaiser, comme la marée qui se retire de la grève après la tempête",
-          "Exploser avec une violence destructrice incontrôlable qui balaie tous les obstacles sur son passage obscur",
-          "S’infiltrer clandestinement à travers les fentes d’une porte fermée lors d’une violente bourrasque de neige"
+          "Dans ce plaidoyer en santé publique, que signifie l’expression « impératif catégorique » ?",
+          "Une exigence morale inconditionnelle qui s’impose d’elle-même sans dépendre de considérations opportunistes",
+          "Une recommandation technique facultative formulée par un comité d’experts indépendants lors d’une consultation",
+          "Un protocole médical expérimental réservé exclusivement aux patients hospitalisés dans un état critique"
         ]
       ],
-      "frame": "roman psychologique — extrait narratif"
+      "frame": "lettre ouverte — gratuité de la procréation assistée"
     },
     {
       "situation": 0,
-      "text": "Second billet d’humeur caustique, « L’épopée du grille-pain connecté ». Rendons grâce au génie des départements de recherche appliquée : il est enfin possible de synchroniser son grille-pain avec une montre intelligente et la station spatiale internationale ! À quoi bon se contenter d’un appareil mécanique rustique qui dora le pain de mie pendant trente ans sans broncher, quand on peut s’offrir pour le triple du prix un bijou cybernétique qui refuse obstinément de griller votre tartine tant que vous n’avez pas téléchargé la version 4.12 de son système d’exploitation ? Quel bonheur ineffable de contempler l’écran tactile de son appareil afficher un message d’erreur critique à sept heures du matin parce que le routeur de votre cuisine a connu une micro-coupure de trois secondes ! Et réjouissons-nous surtout de la bienveillance prévoyante du manufacturier, qui a judicieusement scellé le boîtier métallique avec des vis triangulaires propriétaires, afin d’éviter qu’un bricoleur téméraire ne commette l’imprudence sacrilège de remplacer un fusible à deux dollars au lieu d’envoyer l’ensemble de l’appareil au rebut après dix-huit mois d’usage. C’est véritablement le triomphe absolu de l’ingénierie moderne au service de notre bien-être matinal, pour la plus grande joie des actionnaires des conglomérats d’électroménager. Après tout, pourquoi faire simple et durable quand la rentabilité financière exige de faire compliqué et périssable ? Les utilisateurs apprécieront sans nul doute cet hommage au progrès technologique moderne.",
+      "text": "Cour supérieure du Québec, chambre commerciale de Montréal. Ordonnance de jugement rendue à l’issue du procès au fond opposant Biopharm Innovations à Consortium Pharma Global. Le Tribunal accueille l’action principale de la demanderesse et rejette la demande reconventionnelle formulée par la société défenderesse. L’analyse attentive de la preuve testimoniale et documentaire démontre que la rupture unilatérale de l’entente de co-développement de biocapteurs n’était motivée par aucun manquement technique de la demanderesse, contrairement aux allégations tardives des représentants du consortium. Les motifs réels de cette résiliation précipitée résident dans la décision interne et secrète de la défenderesse de développer en interne une technologie concurrente en s’appropriant les résultats cliniques obtenus durant la phase d’essais pilotes préliminaires. En agissant de la sorte, Consortium Pharma Global a contrevenu délibérément à son obligation fondamentale d’exécuter les conventions de bonne foi, énoncée à l’article mille trois cent soixante-quinze du Code civil du Québec. Les arguments tirés d’un retard prétendument injustifiable dans l’homologation réglementaire ne sont qu’un prétexte a posteriori, la défenderesse ayant elle-même ralenti les démarches auprès des autorités sanitaires pour faciliter son désengagement contractuel. En conséquence, le Tribunal enjoint à la défenderesse de cesser immédiatement l’utilisation des données cliniques litigieuses, ordonne la restitution sous pli scellé de l’ensemble des prototypes dans les quinze jours ouvrables, et condamne l’entreprise à verser huit millions de dollars à titre de dommages compensatoires pour perte d’opportunité commerciale.",
       "questions": [
         [
-          "Quel travers de la technologie moderne l’auteur raille-t-il à travers l’exemple du grille-pain ?",
-          "La complexification absurde et la fragilité délibérée d’objets usuels conçus pour être vite jetés",
-          "La lenteur insupportable des connexions Internet par fibre optique dans les quartiers résidentiels de banlieue",
-          "La piètre qualité nutritionnelle du pain de mie industriel vendu dans les supermarchés d’alimentation de province"
+          "Sur quel fondement juridique principal le tribunal sanctionne-t-il la rupture de l’entente ?",
+          "Le manquement manifeste de la multinationale à son obligation légale de bonne foi contractuelle",
+          "L’absence d’homologation internationale des capteurs électroniques par l’agence de santé mondiale",
+          "L’invalidation rétroactive du contrat en raison d’un vice de consentement commis lors de sa signature notariale"
         ],
         [
-          "Par quel procédé rhétorique la satire gagne-t-elle toute sa force comique ?",
-          "Par l’éloge faussement admiratif de dysfonctionnements grotesques qui exaspèrent l’usager au quotidien",
-          "Par une enquête policière minutieuse révélant des fraudes comptables au sein du conseil d’administration fédéral",
-          "Par une série d’entretiens sociologiques austères avec des fabricants d’électroménagers traditionnels de la région"
+          "Comment le jugement démontre-t-il la mauvaise foi du consortium défendeur ?",
+          "En révélant que les prétextes de retard cachaient le développement parallèle d’un outil concurrent",
+          "En produisant des enregistrements clandestins de conversations privées obtenues illégalement par la police",
+          "En soulignant que la société étrangère n’avait jamais déposé ses états financiers auprès du registraire d’État"
         ],
         [
-          "Que dénonce en creux la mention des vis propriétaires scellant le boîtier de l’appareil ?",
-          "L’entrave délibérée et organisée par les fabricants au droit élémentaire à la réparation des biens",
-          "Le manque d’outils de bricolage adaptés vendus dans les quincailleries traditionnelles québécoises de quartier",
-          "Le danger mortel d’électrocution que courent tous les utilisateurs qui ouvrent un appareil ménager branché"
+          "Quelle finalité pratique sous-tend l’ordonnance de restitution des prototypes sous scellés ?",
+          "Empêcher la partie adverse d’exploiter indûment les innovations protégées conçues par son ancien partenaire",
+          "Permettre aux journalistes scientifiques d’analyser les composantes chimiques lors d’une démonstration publique",
+          "Faciliter la vente aux enchères des équipements industriels afin de rembourser les créanciers bancaires locaux"
         ],
         [
-          "Dans ce texte satirique, quel est le sens de l’expression « propriétaire » appliquée aux vis ?",
-          "Dont la forme exclusive brevetée par une marque empêche l’utilisation de tournevis standardisés",
-          "Qui appartient légalement au locataire d’un logement en vertu d’un bail commercial dûment signé et notarié",
-          "Qui présente une grande valeur marchande en raison de l’or massif utilisé lors de son usinage en atelier"
+          "Dans le cadre de cette décision civile, que recouvre le terme « demande reconventionnelle » ?",
+          "Une réclamation formulée en retour par le défendeur contre la partie qui l’a initialement assigné en justice",
+          "Un appel formel interjeté devant la Cour suprême pour contester la compétence territoriale d’un tribunal",
+          "Une requête déposée par un témoin expert pour obtenir le remboursement de ses frais de déplacement professionnel"
         ]
       ],
-      "frame": "billet d’humeur — technologie connectée"
+      "frame": "ordonnance du tribunal — litige contractuel biomédical"
     },
     {
       "situation": 1,
-      "text": "Second extrait de fiction, « Les Cendres du laboratoire ». Julien contempla les décombres fumants du pavillon des sciences de l’Université Laval, où une défaillance électrique venait d’anéantir en quelques heures dix années de recherches fondamentales sur les cellules souches. Les classeurs métalliques calcinés, les congélateurs cryogéniques détruits et les carnets d’expériences réduits en poussière noire formaient un charnier scientifique où gisaient tous ses espoirs de carrière académique. Une stupeur glacée l’écrasait de tout son poids : comment admettre que des milliers d’heures d’efforts méticuleux, de nuits blanches passées devant l’oculaire du microscope et de doutes surmontés puissent être effacés par un simple court-circuit ? Une fureur sourde contre le destin cruel lui montait aux tempes, prête à se transformer en un abattement désespéré et définitif. Mais alors que ses étudiants de doctorat s’approchaient timidement de lui avec des larmes dans les yeux, Julien redressa la tête avec fierté. Il vit dans leurs regards effrayés la même flamme scientifique qui l’avait guidé depuis sa première jeunesse d’étudiant. La matière avait brûlé, certes, mais le savoir, la méthode et la passion collective demeuraient intacts au plus profond de leurs esprits. « Nous recommençons demain matin », murmura-t-il d’une voix tremblante mais inébranlable qui ranima l’espoir de l’équipe. Les braises du laboratoire devenaient ainsi le creuset inattendu d’une aventure humaine et intellectuelle encore plus féconde.",
+      "text": "Tribune collective parue dans La Presse et signée par le Collectif des professionnels de la reproduction humaine du Québec. L’inaccessibilité financière de la procréation médicalement assistée constitue une tache sombre sur notre régime universel de santé. En abandonnant la gratuité au profit d’allègements fiscaux qui profitent de manière disproportionnée aux ménages les plus nantis, l’État a instauré une médecine reproductive à deux vitesses profondément inique. L’argument selon lequel les finances publiques ne sauraient financer un projet parental relevant du choix personnel procède d’une méconnaissance coupable de la médecine contemporaine. L’Organisation mondiale de la santé reconnaît formellement l’infertilité comme une affection du système reproducteur justifiant un traitement médical approprié, au même titre que toute maladie chronique. Pourquoi tolérerions-nous que des citoyens soient exclus de soins thérapeutiques essentiels pour la seule raison qu’ils n’ont pas les vingt mille dollars exigés d’avance par des cliniques privées à but lucratif ? Cette barrière tarifaire pousse des milliers de Québécoises et de Québécois de la classe moyenne et des régions éloignées à renoncer à fonder une famille, ou à s’endetter dramatiquement auprès d’institutions financières. En outre, financer intégralement la fécondation in vitro permet d’imposer des protocoles médicaux rigoureux qui éliminent le recours aux cliniques étrangères clandestines et réduisent drastiquement les hospitalisations néonatales à risque. Assurer la gratuité de la procréation assistée relève donc du devoir civique le plus élémentaire envers la santé des femmes et l’avenir de notre communauté politique.",
       "questions": [
         [
-          "Quel basculement d’attitude mentale s’opère chez le chercheur face au désastre subi ?",
-          "Il surmonte la sidération et la colère pour réaffirmer sa détermination à reconstruire ses travaux",
-          "Il renonce définitivement à toute activité scientifique pour se réfugier dans l’isolement complet de la retraite",
-          "Il accuse ses étudiants de négligence criminelle avant de porter plainte formelle auprès des autorités civiles"
+          "Quelle thèse directrice les professionnels de la santé soutiennent-ils dans cette tribune ?",
+          "L’infertilité est une affection légitime dont la prise en charge relève du droit fondamental aux soins",
+          "La médecine reproductive doit être confiée en exclusivité à des entreprises commerciales à capital de risque",
+          "Le financement public doit être conditionné à la réussite garantie d’une première insémination artificielle"
         ],
         [
-          "De quelle manière l’auteur dramatise-t-il la scène du sinistre dans son récit ?",
-          "En décrivant avec réalisme l’anéantissement matériel pour mieux faire jaillir le sursaut humain final",
-          "En insérant un rapport technique exhaustif rédigé par les experts en incendie de la municipalité de Québec",
-          "En racontant avec ironie les erreurs de manipulation commises par les techniciens la veille au soir du drame"
+          "Quel argument médical majeur les signataires opposent-ils au refus de financement public ?",
+          "La reconnaissance formelle de l’infertilité comme une pathologie véritable par les instances de santé mondiales",
+          "La publication de sondages d’opinion montrant le désintérêt croissant des citoyens pour les questions d’éthique",
+          "L’affirmation selon laquelle les pays voisins ont tous aboli les impôts sur le revenu des jeunes ménages"
         ],
         [
-          "Quelle conviction profonde pousse Julien à ne pas s’abandonner au désespoir ?",
-          "La certitude que l’intelligence collective et l’esprit scientifique survivent à la destruction matérielle",
-          "L’assurance d’être entièrement remboursé de ses pertes par une police d’assurance privée particulièrement avantageuse",
-          "La promesse reçue du recteur d’être automatiquement promu à un poste de direction sans publier d’article de fond"
+          "Quel risque sanitaire grave la gratuité encadrée des traitements permet-elle d’écarter ?",
+          "Le recours dangereux à des établissements clandestins non réglementés et les grossesses à risque élevé",
+          "La surpopulation soudaine des services d’urgence pédiatrique causée par des infections infantiles bénignes",
+          "La disparition programmée des facultés de médecine générale en raison du manque de candidats qualifiés"
         ],
         [
-          "Dans ce contexte romanesque dramatique, que désigne le mot « sidération » ?",
-          "Un état de stupeur et de paralysie émotionnelle extrême provoqué par un choc traumatique imprévu",
-          "Une observation attentive des constellations astrales effectuée à l’aide d’un télescope de nuit en montagne",
-          "Une procédure d’évacuation ordonnée déclenchée par les pompiers lors d’une alerte de sécurité d’incendie"
+          "Dans cette prise de position engagée, que qualifie l’adjectif « inique » ?",
+          "Qui est profondément injuste, partial, et contraire à l’équité fondamentale entre les membres d’une société",
+          "Qui présente un caractère insolite et surprenant suscitant l’admiration unanime des observateurs contemporains",
+          "Qui découle d’une application trop rigide et tatillonne des règles de procédure administrative courante"
         ]
       ],
-      "frame": "roman dramatique — extrait de fiction"
+      "frame": "tribune d’opinion — accès public à la procréation assistée"
     }
   ]
 };
