@@ -8,6 +8,8 @@ import {
   scoreEchelleItem,
 } from './echelle-curriculum.mjs'
 import { LEXIQUE_TOPICS } from './echelle-lexique-bank.mjs'
+import { N01_02_SCENARIOS } from './echelle-variants/n01-02.mjs'
+import { PERSONAS, numberToFrench } from './echelle-variants/shared.mjs'
 import { apply, emptyLearningProgress, normalizeState } from './study-model.mjs'
 
 const baseState = (echelleItems = {}) =>
@@ -84,7 +86,22 @@ describe('Échelle item variant engine', () => {
     }
   })
 
-  it('yields ≥ 12 distinct texts and non-constant answer positions across 300 seeds for every N1-N2 listening and reading indicator', () => {
+  it('every N1-N2 listening and reading indicator has ≥ 5 scenarios and represents both situation 0 and 1', () => {
+    const indicatorItems = getN12QuizItems().filter((id) => id.includes('listening') || id.includes('reading'))
+    assert.strictEqual(indicatorItems.length, 24)
+
+    for (const itemId of indicatorItems) {
+      const scenarios = N01_02_SCENARIOS[itemId]
+      assert.ok(Array.isArray(scenarios), `Missing scenarios for ${itemId}`)
+      assert.ok(scenarios.length >= 5, `Expected ≥ 5 scenarios for ${itemId}, got ${scenarios.length}`)
+
+      const situations = new Set(scenarios.map((s) => s.situation))
+      assert.ok(situations.has(0), `Missing situation 0 in ${itemId}`)
+      assert.ok(situations.has(1), `Missing situation 1 in ${itemId}`)
+    }
+  })
+
+  it('yields ≥ 60 distinct texts and non-constant answer positions across 400 seeds for every N1-N2 listening and reading indicator', () => {
     const indicatorItems = getN12QuizItems().filter((id) => id.includes('listening') || id.includes('reading'))
     assert.strictEqual(indicatorItems.length, 24)
 
@@ -92,7 +109,7 @@ describe('Échelle item variant engine', () => {
       const texts = new Set()
       const answerPositions = new Set()
 
-      for (let seed = 1; seed <= 300; seed++) {
+      for (let seed = 1; seed <= 400; seed++) {
         const v = getEchelleItemVariant(itemId, seed)
         texts.add(v.text)
         for (const q of v.questions) {
@@ -101,14 +118,136 @@ describe('Échelle item variant engine', () => {
       }
 
       assert.ok(
-        texts.size >= 12,
-        `Expected ≥ 12 distinct texts for indicator ${itemId}, got ${texts.size}`,
+        texts.size >= 60,
+        `Expected ≥ 60 distinct texts for indicator ${itemId}, got ${texts.size}`,
       )
       assert.ok(
         answerPositions.size > 1,
         `Answer position is constant for indicator ${itemId}: only seen indices ${[...answerPositions].join(', ')}`,
       )
     }
+  })
+
+  it('passes French agreement, contraction, capitalization, and Chinese choice regressions across 400 seeds for all N1-N2 quiz items', () => {
+    const quizItems = getN12QuizItems()
+    const maleNames = PERSONAS.filter((p) => p.gender === 'm').map((p) => p.name)
+    const chereMaleRegex = new RegExp(`\\bChère\\s+(${maleNames.join('|')})\\b`)
+    const contractionRegex = /\b(du pâtes|de le\b|à le\b|de les\b|à les\b)/i
+    const ABBRS = ['app.', 'boul.', 'av.', 'tél.', 'p. ex.', 'M.', 'Mme.', 'Mlle.', 'ch.', 'bur.', 'no.', 'nº.', 'approx.', 'min.', 'etc.']
+    const ALLOWED_PROPER_NOUNS = new Set(['INTERAC', 'RAMQ', 'STM', 'A', 'B', 'C', 'D', 'B-12', 'A-20', 'NIP', 'RDV', 'IGA', 'HQ', 'WIFI', 'GPS', 'SIN', 'NAS'])
+
+    for (const itemId of quizItems) {
+      for (let seed = 1; seed <= 400; seed++) {
+        const v = getEchelleItemVariant(itemId, seed)
+        if (v.text) {
+          assert.strictEqual(
+            chereMaleRegex.test(v.text),
+            false,
+            `Found "Chère <MaleName>" agreement error in ${itemId} seed ${seed}: ${v.text}`,
+          )
+          assert.strictEqual(
+            contractionRegex.test(v.text),
+            false,
+            `Found contraction error in ${itemId} seed ${seed}: ${v.text}`,
+          )
+
+          // Capitalization after full stop
+          const fullStopMatches = [...v.text.matchAll(/(?:(\S+)\s+)?(\S+)\.\s+([a-zàâçéèêëîïôûùüÿœ])/g)]
+          for (const m of fullStopMatches) {
+            const preceding = (m[1] ? m[1] + ' ' : '') + m[2] + '.'
+            const endsWithAbbr = ABBRS.some((a) => preceding.toLowerCase().endsWith(a.toLowerCase()))
+            assert.ok(
+              endsWithAbbr,
+              `Found lowercase after full stop in ${itemId} seed ${seed}: "${m[0]}" in "${v.text}"`,
+            )
+          }
+        }
+
+        // Chinese-only answer options must not contain Latin letters except allow-listed proper nouns
+        for (const q of v.questions) {
+          for (const choice of q.choices) {
+            if (/[\u4e00-\u9fa5]/.test(choice)) {
+              const latinWords = choice.match(/[a-zA-ZÀ-ÿ]+/g) || []
+              for (const w of latinWords) {
+                assert.ok(
+                  ALLOWED_PROPER_NOUNS.has(w.toUpperCase()),
+                  `Unexpected Latin word "${w}" in Chinese option "${choice}" in ${itemId} seed ${seed}`,
+                )
+              }
+            }
+          }
+        }
+      }
+    }
+  })
+
+  it('correctly converts numbers 0–9999 to French words with correct hyphens and plural rules', () => {
+    const KNOWN_SPELLINGS = [
+      [0, 'zéro'],
+      [1, 'un'],
+      [16, 'seize'],
+      [20, 'vingt'],
+      [21, 'vingt et un'],
+      [35, 'trente-cinq'],
+      [50, 'cinquante'],
+      [60, 'soixante'],
+      [70, 'soixante-dix'],
+      [71, 'soixante et onze'],
+      [75, 'soixante-quinze'],
+      [80, 'quatre-vingts'],
+      [81, 'quatre-vingt-un'],
+      [89, 'quatre-vingt-neuf'],
+      [90, 'quatre-vingt-dix'],
+      [91, 'quatre-vingt-onze'],
+      [99, 'quatre-vingt-dix-neuf'],
+      [100, 'cent'],
+      [101, 'cent un'],
+      [200, 'deux cents'],
+      [203, 'deux cent trois'],
+      [280, 'deux cent quatre-vingts'],
+      [500, 'cinq cents'],
+      [999, 'neuf cent quatre-vingt-dix-neuf'],
+      [1000, 'mille'],
+      [1001, 'mille un'],
+      [1200, 'mille deux cents'],
+      [1205, 'mille deux cent cinq'],
+      [2000, 'deux mille'],
+      [2500, 'deux mille cinq cents'],
+      [3080, 'trois mille quatre-vingts'],
+      [8000, 'huit mille'],
+    ]
+
+    for (const [n, expected] of KNOWN_SPELLINGS) {
+      assert.strictEqual(numberToFrench(n), expected, `Mismatch for number ${n}`)
+    }
+  })
+
+  it('items without scenarios reshuffle choices and set variant for non-zero seeds while count remains 1 and variant 0 equals catalog', () => {
+    const nonScenarioItem = 'n3-listening-0'
+    const catalogItem = ECHELLE_ITEM_CATALOG[nonScenarioItem]
+
+    assert.strictEqual(countEchelleItemVariants(nonScenarioItem), 1)
+
+    const v0 = getEchelleItemVariant(nonScenarioItem, 0)
+    assert.deepStrictEqual(v0, catalogItem)
+
+    const seenPositions = new Set()
+    for (let seed = 1; seed <= 20; seed++) {
+      const v = getEchelleItemVariant(nonScenarioItem, seed)
+      assert.strictEqual(v.variant, seed)
+      assert.strictEqual(v.text, catalogItem.text)
+      assert.strictEqual(v.questions.length, catalogItem.questions.length)
+      for (let i = 0; i < v.questions.length; i++) {
+        assert.strictEqual(v.questions[i].prompt, catalogItem.questions[i].prompt)
+        assert.strictEqual(v.questions[i].answer, catalogItem.questions[i].answer)
+        assert.strictEqual(new Set(v.questions[i].choices).size, catalogItem.questions[i].choices.length)
+        if (i === 0) {
+          seenPositions.add(v.questions[i].choices.indexOf(v.questions[i].answer))
+        }
+      }
+    }
+
+    assert.ok(seenPositions.size > 1, `Answer positions were not reshuffled across seeds: seen ${[...seenPositions]}`)
   })
 
   it('tests every word in the topic at least once across 300 seeds for every N1-N2 lexique topic', () => {

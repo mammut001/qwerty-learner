@@ -398,7 +398,15 @@ export function getEchelleItemVariant(itemId, variant) {
   if (item.kind === 'indicator') {
     const scenarios = getIndicatorScenarios(itemId)
     if (!scenarios || scenarios.length === 0) {
-      return item
+      const questions = (item.questions || []).map((q) => ({
+        ...q,
+        choices: shuffle(q.choices, Math.floor(rand() * 0x7fffffff)),
+      }))
+      return {
+        ...item,
+        variant,
+        questions,
+      }
     }
     const scIdx = Math.floor(rand() * scenarios.length)
     const sc = scenarios[scIdx]
@@ -455,7 +463,15 @@ export function getEchelleItemVariant(itemId, variant) {
     const conceptId = itemId.replace(/^n\d{1,2}-gr-/, '').replace(/-avance$/, '')
     const concept = findGrammarConcept(conceptId)
     if (!concept || !concept.questions || concept.questions.length <= 4) {
-      return item
+      const questions = (item.questions || []).map((q) => ({
+        ...q,
+        choices: shuffle(q.choices, Math.floor(rand() * 0x7fffffff)),
+      }))
+      return {
+        ...item,
+        variant,
+        questions,
+      }
     }
     const indices = Array.from({ length: concept.questions.length }, (_, i) => i)
     for (let i = indices.length - 1; i > 0; i--) {
@@ -467,6 +483,18 @@ export function getEchelleItemVariant(itemId, variant) {
       prompt,
       choices: shuffle([correct, ...distractors], Math.floor(rand() * 0x7fffffff)),
       answer: correct,
+    }))
+    return {
+      ...item,
+      variant,
+      questions,
+    }
+  }
+
+  if (item.questions && Array.isArray(item.questions)) {
+    const questions = item.questions.map((q) => ({
+      ...q,
+      choices: shuffle(q.choices, Math.floor(rand() * 0x7fffffff)),
     }))
     return {
       ...item,

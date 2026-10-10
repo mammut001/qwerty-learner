@@ -374,10 +374,8 @@ function pickQuizVariant(itemId: string, avoidVariant?: number): number {
       // localStorage may fail in restricted/sandboxed environments
     }
   }
-  const count = countEchelleItemVariants(itemId)
-  if (count <= 1) return 0
   let next = Math.floor(Math.random() * 0x7ffffffe) + 1
-  if (avoidVariant !== undefined && next === avoidVariant && count > 1) {
+  if (avoidVariant !== undefined && next === avoidVariant) {
     next = (next % 0x7ffffffe) + 1
   }
   return next

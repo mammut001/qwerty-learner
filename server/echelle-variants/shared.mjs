@@ -16,28 +16,67 @@ export function sample(array, count, rand) {
   return copy.slice(0, count)
 }
 
-// Personas: first name, gender ('m' | 'f').
+// Gender agreement helper: returns masc if persona is male, fem if female
+export function g(persona, masc, fem) {
+  const gender = typeof persona === 'string' ? persona : persona?.gender
+  return gender === 'f' ? fem : masc
+}
+
+// Capitalisation helper: capitalises first letter, handling l’ and d’ prefixes
+export function cap(str) {
+  if (!str) return ''
+  const s = String(str)
+  if (/^[ld][\'’]/i.test(s)) {
+    return s.charAt(0).toUpperCase() + s.slice(1)
+  }
+  return s.charAt(0).toUpperCase() + s.slice(1)
+}
+
+// Personas: first name, gender ('m' | 'f'), paired with plausible origins and nationalities.
 // Reflects diverse origins of Québec newcomers (Latin America, Maghreb, West Africa, Haiti, Asia, Europe).
 export const PERSONAS = [
-  { name: 'Ana', gender: 'f' },
-  { name: 'Lucia', gender: 'f' },
-  { name: 'Sofia', gender: 'f' },
-  { name: 'Carlos', gender: 'm' },
-  { name: 'Mateo', gender: 'm' },
-  { name: 'Fatima', gender: 'f' },
-  { name: 'Amina', gender: 'f' },
-  { name: 'Youssef', gender: 'm' },
-  { name: 'Karim', gender: 'm' },
-  { name: 'Amadou', gender: 'm' },
-  { name: 'Mariam', gender: 'f' },
-  { name: 'Jean-Baptiste', gender: 'm' },
-  { name: 'Daphnée', gender: 'f' },
-  { name: 'Jin', gender: 'm' },
-  { name: 'Mei', gender: 'f' },
-  { name: 'Tariq', gender: 'm' },
-  { name: 'Priya', gender: 'f' },
-  { name: 'Marc', gender: 'm' },
-  { name: 'Émilie', gender: 'f' },
+  { name: 'Ana', gender: 'f', country: 'le Chili', countryPrep: 'du Chili', natM: 'chilien', natF: 'chilienne', natZh: '智利人' },
+  { name: 'Lucia', gender: 'f', country: 'la Colombie', countryPrep: 'de Colombie', natM: 'colombien', natF: 'colombienne', natZh: '哥伦比亚人' },
+  { name: 'Sofia', gender: 'f', country: 'le Brésil', countryPrep: 'du Brésil', natM: 'brésilien', natF: 'brésilienne', natZh: '巴西人' },
+  { name: 'Carlos', gender: 'm', country: 'le Mexique', countryPrep: 'du Mexique', natM: 'mexicain', natF: 'mexicaine', natZh: '墨西哥人' },
+  { name: 'Mateo', gender: 'm', country: 'la Colombie', countryPrep: 'de Colombie', natM: 'colombien', natF: 'colombienne', natZh: '哥伦比亚人' },
+  { name: 'Fatima', gender: 'f', country: 'le Maroc', countryPrep: 'du Maroc', natM: 'marocain', natF: 'marocaine', natZh: '摩洛哥人' },
+  { name: 'Amina', gender: 'f', country: 'l’Algérie', countryPrep: 'd’Algérie', natM: 'algérien', natF: 'algérienne', natZh: '阿尔及利亚人' },
+  { name: 'Youssef', gender: 'm', country: 'le Maroc', countryPrep: 'du Maroc', natM: 'marocain', natF: 'marocaine', natZh: '摩洛哥人' },
+  { name: 'Karim', gender: 'm', country: 'l’Algérie', countryPrep: 'd’Algérie', natM: 'algérien', natF: 'algérienne', natZh: '阿尔及利亚人' },
+  { name: 'Amadou', gender: 'm', country: 'le Sénégal', countryPrep: 'du Sénégal', natM: 'sénégalais', natF: 'sénégalaise', natZh: '塞内加尔人' },
+  { name: 'Mariam', gender: 'f', country: 'le Cameroun', countryPrep: 'du Cameroun', natM: 'camerounais', natF: 'camerounaise', natZh: '喀麦隆人' },
+  { name: 'Jean-Baptiste', gender: 'm', country: 'Haïti', countryPrep: 'd’Haïti', natM: 'haïtien', natF: 'haïtienne', natZh: '海地人' },
+  { name: 'Daphnée', gender: 'f', country: 'Haïti', countryPrep: 'd’Haïti', natM: 'haïtien', natF: 'haïtienne', natZh: '海地人' },
+  { name: 'Jin', gender: 'm', country: 'la Chine', countryPrep: 'de Chine', natM: 'chinois', natF: 'chinoise', natZh: '中国人' },
+  { name: 'Mei', gender: 'f', country: 'la Chine', countryPrep: 'de Chine', natM: 'chinois', natF: 'chinoise', natZh: '中国人' },
+  { name: 'Tariq', gender: 'm', country: 'le Liban', countryPrep: 'du Liban', natM: 'libanais', natF: 'libanaise', natZh: '黎巴嫩人' },
+  { name: 'Priya', gender: 'f', country: 'l’Inde', countryPrep: 'd’Inde', natM: 'indien', natF: 'indienne', natZh: '印度人' },
+  { name: 'Marc', gender: 'm', country: 'la France', countryPrep: 'de France', natM: 'français', natF: 'française', natZh: '法国人' },
+  { name: 'Émilie', gender: 'f', country: 'la France', countryPrep: 'de France', natM: 'français', natF: 'française', natZh: '法国人' },
+]
+
+// Countries table with proper French prepositions (du / de / d’ / des)
+export const COUNTRIES = [
+  { name: 'le Mexique', prep: 'du Mexique', prepEn: 'au Mexique', zh: '墨西哥', natM: 'mexicain', natF: 'mexicaine', natZh: '墨西哥人' },
+  { name: 'la Chine', prep: 'de Chine', prepEn: 'en Chine', zh: '中国', natM: 'chinois', natF: 'chinoise', natZh: '中国人' },
+  { name: 'l’Algérie', prep: 'd’Algérie', prepEn: 'en Algérie', zh: '阿尔及利亚', natM: 'algérien', natF: 'algérienne', natZh: '阿尔及利亚人' },
+  { name: 'le Liban', prep: 'du Liban', prepEn: 'au Liban', zh: '黎巴嫩', natM: 'libanais', natF: 'libanaise', natZh: '黎巴嫩人' },
+  { name: 'la Tunisie', prep: 'de Tunisie', prepEn: 'en Tunisie', zh: '突尼斯', natM: 'tunisien', natF: 'tunisienne', natZh: '突尼斯人' },
+  { name: 'les Philippines', prep: 'des Philippines', prepEn: 'aux Philippines', zh: '菲律宾', natM: 'philippin', natF: 'philippine', natZh: '菲律宾人' },
+  { name: 'le Brésil', prep: 'du Brésil', prepEn: 'au Brésil', zh: '巴西', natM: 'brésilien', natF: 'brésilienne', natZh: '巴西人' },
+  { name: 'l’Inde', prep: 'd’Inde', prepEn: 'en Inde', zh: '印度', natM: 'indien', natF: 'indienne', natZh: '印度人' },
+  { name: 'la Colombie', prep: 'de Colombie', prepEn: 'en Colombie', zh: '哥伦比亚', natM: 'colombien', natF: 'colombienne', natZh: '哥伦比亚人' },
+  { name: 'le Sénégal', prep: 'du Sénégal', prepEn: 'au Sénégal', zh: '塞内加尔', natM: 'sénégalais', natF: 'sénégalaise', natZh: '塞内加尔人' },
+  { name: 'le Cameroun', prep: 'du Cameroun', prepEn: 'au Cameroun', zh: '喀麦隆', natM: 'camerounais', natF: 'camerounaise', natZh: '喀麦隆人' },
+  { name: 'Haïti', prep: 'd’Haïti', prepEn: 'en Haïti', zh: '海地', natM: 'haïtien', natF: 'haïtienne', natZh: '海地人' },
+  { name: 'le Maroc', prep: 'du Maroc', prepEn: 'au Maroc', zh: '摩洛哥', natM: 'marocain', natF: 'marocaine', natZh: '摩洛哥人' },
+  { name: 'la Syrie', prep: 'de Syrie', prepEn: 'en Syrie', zh: '叙利亚', natM: 'syrien', natF: 'syrienne', natZh: '叙利亚人' },
+  { name: 'l’Ukraine', prep: 'd’Ukraine', prepEn: 'en Ukraine', zh: '乌克兰', natM: 'ukrainien', natF: 'ukrainienne', natZh: '乌克兰人' },
+  { name: 'le Vietnam', prep: 'du Vietnam', prepEn: 'au Vietnam', zh: '越南', natM: 'vietnamien', natF: 'vietnamienne', natZh: '越南人' },
+  { name: 'la France', prep: 'de France', prepEn: 'en France', zh: '法国', natM: 'français', natF: 'française', natZh: '法国人' },
+  { name: 'le Chili', prep: 'du Chili', prepEn: 'au Chili', zh: '智利', natM: 'chilien', natF: 'chilienne', natZh: '智利人' },
+  { name: 'le Pérou', prep: 'du Pérou', prepEn: 'au Pérou', zh: '秘鲁', natM: 'péruvien', natF: 'péruvienne', natZh: '秘鲁人' },
 ]
 
 // Nationalities with masculine, feminine, and Chinese gloss
@@ -197,20 +236,82 @@ export const CLASSROOM_INSTRUCTIONS = [
   { fr: 'Travaillez à deux', zh: '两人一组合作' },
 ]
 
-// Places, shops and services
+// Helpers for article contractions and prepositions
+// Works with objects having { base, gender, number, vowel }
+export function prepDe(noun) {
+  if (noun.number === 'p') return `des ${noun.base}`
+  if (noun.vowel) return `de l’${noun.base}`
+  if (noun.gender === 'f') return `de la ${noun.base}`
+  return `du ${noun.base}`
+}
+
+export function prepA(noun) {
+  if (noun.number === 'p') return `aux ${noun.base}`
+  if (noun.vowel) return `à l’${noun.base}`
+  if (noun.gender === 'f') return `à la ${noun.base}`
+  return `au ${noun.base}`
+}
+
+export function artDef(noun) {
+  if (noun.number === 'p') return `les ${noun.base}`
+  if (noun.vowel) return `l’${noun.base}`
+  if (noun.gender === 'f') return `la ${noun.base}`
+  return `le ${noun.base}`
+}
+
+export function artIndef(noun) {
+  if (noun.number === 'p') return `des ${noun.base}`
+  if (noun.gender === 'f') return `une ${noun.base}`
+  return `un ${noun.base}`
+}
+
+export function aCoteDe(noun) {
+  return `à côté ${prepDe(noun)}`
+}
+
+export function presDe(noun) {
+  return `près ${prepDe(noun)}`
+}
+
+export function enFaceDe(noun) {
+  return `en face ${prepDe(noun)}`
+}
+
+// Food items with grammatical gender, number, vowel flag, and Chinese gloss
+export const FOOD_ITEMS = [
+  { base: 'café', gender: 'm', number: 's', vowel: false, zh: '咖啡' },
+  { base: 'farine', gender: 'f', number: 's', vowel: false, zh: '面粉' },
+  { base: 'huile', gender: 'f', number: 's', vowel: true, zh: '油' },
+  { base: 'pâtes', gender: 'f', number: 'p', vowel: false, zh: '意面' },
+  { base: 'pommes', gender: 'f', number: 'p', vowel: true, zh: '苹果' },
+  { base: 'lait', gender: 'm', number: 's', vowel: false, zh: '牛奶' },
+  { base: 'riz', gender: 'm', number: 's', vowel: false, zh: '大米' },
+  { base: 'pain', gender: 'm', number: 's', vowel: false, zh: '面包' },
+  { base: 'œufs', gender: 'm', number: 'p', vowel: true, zh: '鸡蛋' },
+  { base: 'fromage', gender: 'm', number: 's', vowel: false, zh: '奶酪' },
+  { base: 'sucre', gender: 'm', number: 's', vowel: false, zh: '糖' },
+  { base: 'beurre', gender: 'm', number: 's', vowel: false, zh: '黄油' },
+  { base: 'tomates', gender: 'f', number: 'p', vowel: false, zh: '西红柿' },
+  { base: 'bananes', gender: 'f', number: 'p', vowel: false, zh: '香蕉' },
+  { base: 'oranges', gender: 'f', number: 'p', vowel: true, zh: '橙子' },
+  { base: 'muffins', gender: 'm', number: 'p', vowel: false, zh: '松饼' },
+  { base: 'jus d’orange', gender: 'm', number: 's', vowel: false, zh: '橙汁' },
+]
+
+// Places, shops and services with grammatical gender and contractions
 export const PLACES_SERVICES = [
-  { fr: 'l’épicerie', zh: '杂货店' },
-  { fr: 'la pharmacie', zh: '药店' },
-  { fr: 'le dépanneur', zh: '便利店' },
-  { fr: 'la bibliothèque', zh: '图书馆' },
-  { fr: 'la caisse populaire', zh: '信用合作社' },
-  { fr: 'le bureau de poste', zh: '邮局' },
-  { fr: 'le centre communautaire', zh: '社区中心' },
-  { fr: 'l’hôpital', zh: '医院' },
-  { fr: 'la clinique médicale', zh: '诊所' },
-  { fr: 'le supermarché', zh: '超市' },
-  { fr: 'la boulangerie', zh: '面包店' },
-  { fr: 'la piscine municipale', zh: '市政游泳池' },
+  { fr: 'l’épicerie', base: 'épicerie', gender: 'f', number: 's', vowel: true, au: 'à l’épicerie', du: 'de l’épicerie', zh: '杂货店' },
+  { fr: 'la pharmacie', base: 'pharmacie', gender: 'f', number: 's', vowel: false, au: 'à la pharmacie', du: 'de la pharmacie', zh: '药店' },
+  { fr: 'le dépanneur', base: 'dépanneur', gender: 'm', number: 's', vowel: false, au: 'au dépanneur', du: 'du dépanneur', zh: '便利店' },
+  { fr: 'la bibliothèque', base: 'bibliothèque', gender: 'f', number: 's', vowel: false, au: 'à la bibliothèque', du: 'de la bibliothèque', zh: '图书馆' },
+  { fr: 'la caisse populaire', base: 'caisse populaire', gender: 'f', number: 's', vowel: false, au: 'à la caisse populaire', du: 'de la caisse populaire', zh: '信用合作社' },
+  { fr: 'le bureau de poste', base: 'bureau de poste', gender: 'm', number: 's', vowel: false, au: 'au bureau de poste', du: 'du bureau de poste', zh: '邮局' },
+  { fr: 'le centre communautaire', base: 'centre communautaire', gender: 'm', number: 's', vowel: false, au: 'au centre communautaire', du: 'du centre communautaire', zh: '社区中心' },
+  { fr: 'l’hôpital', base: 'hôpital', gender: 'm', number: 's', vowel: true, au: 'à l’hôpital', du: 'de l’hôpital', zh: '医院' },
+  { fr: 'la clinique médicale', base: 'clinique médicale', gender: 'f', number: 's', vowel: false, au: 'à la clinique médicale', du: 'de la clinique médicale', zh: '诊所' },
+  { fr: 'le supermarché', base: 'supermarché', gender: 'm', number: 's', vowel: false, au: 'au supermarché', du: 'du supermarché', zh: '超市' },
+  { fr: 'la boulangerie', base: 'boulangerie', gender: 'f', number: 's', vowel: false, au: 'à la boulangerie', du: 'de la boulangerie', zh: '面包店' },
+  { fr: 'la piscine municipale', base: 'piscine municipale', gender: 'f', number: 's', vowel: false, au: 'à la piscine municipale', du: 'de la piscine municipale', zh: '市政游泳池' },
 ]
 
 // Family relations
@@ -249,4 +350,98 @@ export const SIMPLE_DIRECTIONS = [
   { fr: 'au rez-de-chaussée', zh: '在一楼', shortFr: 'au rez-de-chaussée' },
   { fr: 'au sous-sol', zh: '在地下室', shortFr: 'au sous-sol' },
   { fr: 'au coin de la rue', zh: '在街角', shortFr: 'au coin' },
+]
+
+// Number formatting to French in words (0 - 9999) with grammatical hyphens and plural rules
+export function numberToFrench(n) {
+  if (n === 0) return 'zéro'
+  const UNITS = ['', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix', 'onze', 'douze', 'treize', 'quatorze', 'quinze', 'seize', 'dix-sept', 'dix-huit', 'dix-neuf']
+  const TENS = ['', '', 'vingt', 'trente', 'quarante', 'cinquante', 'soixante']
+
+  function under100(num) {
+    if (num === 0) return ''
+    if (num < 20) return UNITS[num]
+    if (num < 70) {
+      const ten = Math.floor(num / 10)
+      const rem = num % 10
+      if (rem === 0) return TENS[ten]
+      if (rem === 1) return `${TENS[ten]} et un`
+      return `${TENS[ten]}-${UNITS[rem]}`
+    }
+    if (num < 80) {
+      const rem = num - 60
+      if (rem === 11) return 'soixante et onze'
+      return `soixante-${under100(rem)}`
+    }
+    if (num === 80) return 'quatre-vingts'
+    if (num < 100) {
+      const rem = num - 80
+      return `quatre-vingt-${under100(rem)}`
+    }
+    return ''
+  }
+
+  function under1000(num) {
+    if (num === 0) return ''
+    if (num < 100) return under100(num)
+    const h = Math.floor(num / 100)
+    const rem = num % 100
+    const prefix = h === 1 ? 'cent' : `${UNITS[h]} cent`
+    if (rem === 0) {
+      return h === 1 ? 'cent' : `${UNITS[h]} cents`
+    }
+    return `${prefix} ${under100(rem)}`
+  }
+
+  if (n < 1000) return under1000(n)
+
+  const m = Math.floor(n / 1000)
+  const rem = n % 1000
+  const mPrefix = m === 1 ? 'mille' : `${under1000(m)} mille`
+  if (rem === 0) return mPrefix
+  return `${mPrefix} ${under1000(rem)}`
+}
+
+// Authentic pictograms with emoji for n1-reading-3
+export const PICTOGRAMS = [
+  { emoji: '🚻', fr: 'toilettes', zh: '洗手间 / 厕所' },
+  { emoji: '🚪', fr: 'sortie', zh: '出口' },
+  { emoji: '🚌', fr: 'arrêt d’autobus', zh: '公交车站' },
+  { emoji: '💊', fr: 'pharmacie', zh: '药店' },
+  { emoji: '🚭', fr: 'défense de fumer', zh: '禁止吸烟' },
+  { emoji: '♿', fr: 'accès fauteuil roulant', zh: '无障碍通道' },
+  { emoji: '☎️', fr: 'téléphone', zh: '电话' },
+  { emoji: '🅿️', fr: 'stationnement', zh: '停车场' },
+  { emoji: '🚇', fr: 'métro', zh: '地铁' },
+  { emoji: '🏥', fr: 'hôpital', zh: '医院' },
+  { emoji: '🍴', fr: 'cafétéria', zh: '餐厅 / 咖啡厅' },
+  { emoji: 'ℹ️', fr: 'information', zh: '问讯处 / 信息台' },
+  { emoji: '🛗', fr: 'ascenseur', zh: '电梯' },
+  { emoji: '⚠️', fr: 'danger', zh: '危险' },
+  { emoji: '🔥', fr: 'sortie de secours', zh: '紧急安全出口' },
+  { emoji: '📵', fr: 'cellulaire interdit', zh: '禁止使用手机' },
+  { emoji: '🗑️', fr: 'poubelle', zh: '垃圾桶' },
+  { emoji: '♻️', fr: 'recyclage', zh: '回收' },
+]
+
+// Symbols and abbreviations for n2-reading-2
+export const SYMBOLS_ABBREVIATIONS = [
+  { abbr: '$', meaningFr: 'dollar', meaningZh: '元 / 加元' },
+  { abbr: '¢', meaningFr: 'cent', meaningZh: '分' },
+  { abbr: '°C', meaningFr: 'degré Celsius', meaningZh: '摄氏度' },
+  { abbr: 'kg', meaningFr: 'kilogramme', meaningZh: '千克 / 公斤' },
+  { abbr: 'g', meaningFr: 'gramme', meaningZh: '克' },
+  { abbr: 'lb', meaningFr: 'livre (poids)', meaningZh: '磅（重量单位）' },
+  { abbr: 'L', meaningFr: 'litre', meaningZh: '升' },
+  { abbr: 'ml', meaningFr: 'millilitre', meaningZh: '毫升' },
+  { abbr: 'km', meaningFr: 'kilomètre', meaningZh: '千米 / 公里' },
+  { abbr: 'h', meaningFr: 'heure', meaningZh: '小时' },
+  { abbr: 'min', meaningFr: 'minute', meaningZh: '分钟' },
+  { abbr: 'tél.', meaningFr: 'téléphone', meaningZh: '电话' },
+  { abbr: 'RDV', meaningFr: 'rendez-vous', meaningZh: '预约 / 约会' },
+  { abbr: 'p. ex.', meaningFr: 'par exemple', meaningZh: '例如' },
+  { abbr: 'no', meaningFr: 'numéro', meaningZh: '号码 / 门牌号' },
+  { abbr: 'app.', meaningFr: 'appartement', meaningZh: '公寓号' },
+  { abbr: 'boul.', meaningFr: 'boulevard', meaningZh: '大道' },
+  { abbr: 'av.', meaningFr: 'avenue', meaningZh: '大街' },
 ]
