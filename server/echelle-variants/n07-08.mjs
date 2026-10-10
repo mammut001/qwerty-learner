@@ -1733,9 +1733,477 @@ export const N07_08_SCENARIOS = {
       ],
     },
   ],
-  'n8-listening-3': [],
-  'n8-listening-4': [],
-  'n8-reading-0': [],
+  // ===========================================================================
+  // n8-listening-3 (injonctif)
+  // Ex 0: Procédure au téléphone par sa cheffe d’équipe (problème technique peu courant)
+  // Ex 1: Procédure expliquée dans un balado pour installer un potager sur son balcon
+  // ===========================================================================
+  'n8-listening-3': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "— Allô Nicolas ? Écoute-moi attentivement. Le serveur de messagerie interne vient de se figer à la suite de la dernière mise à jour de sécurité. Surtout, ne redémarre pas l’appareil de manière forcée, sinon nous risquons de corrompre la base de données transactionnelle. Ouvre la console d’administration réseau sur ton poste et bascule immédiatement le routeur en mode d’isolation locale. Ensuite, consulte le journal des événements pour repérer le code d’anomalie principal. Si tu constates une erreur de dépassement de mémoire tampon, désactive temporairement le filtre antipourriel en ligne de commande. Une fois cette étape franchie, purge le répertoire temporaire avant de relancer les services de distribution un à un. Prends soin de vérifier que la file d’attente des messages sortants se vide sans blocage avant de reconnecter le serveur au réseau externe. Dès que tout sera stabilisé, envoie-moi un compte rendu abrégé par message texte pour confirmer le retour à la normale.",
+      questions: [
+        [
+          "Quelle consigne d’interdiction formelle la responsable formule-t-elle au début ?",
+          "S’abstenir d’effectuer une réinitialisation brutale de la machine",
+          "Refuser systématiquement toute mise à jour logicielle sur le réseau",
+          "Bloquer les accès physiques des employés à la salle des serveurs",
+        ],
+        [
+          "Que doit-on déduire sur l’intention de la cheffe en exigeant une relance graduelle des services ?",
+          "S’assurer de la stabilité du système sans provoquer une nouvelle panne",
+          "Permettre aux employés de quitter le travail plus rapidement le soir",
+          "Tester la résistance électrique des répartiteurs face aux surtensions",
+        ],
+        [
+          "Quel indicateur atteste que la situation technique est revenue à la normale ?",
+          "L’évacuation fluide des courriels placés dans la file d’envoi",
+          "La disparition complète de tous les anciens comptes usagers",
+          "L’apparition d’un voyant lumineux rouge sur la tour centrale",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "— Allô Nadine ? Je sais que le calibrage de l’analyseur d’hématologie est bloqué, mais pas de panique. Pour rétablir l’appareil sans perdre la série d’échantillons matinaux, commence par suspendre le cycle en appuyant sur la touche pause du panneau latéral. Ensuite, ouvre le capot protecteur et examine la pipette de prélèvement. Si tu remarques une bulle d’air dans la tubulure d’aspiration, utilise la seringue de purge stérile située dans le tiroir bleu pour chasser le liquide stagnant. Ne force jamais le mécanisme d’aiguille métallique. Après avoir aspiré le solvant résiduel, lance la séquence de nettoyage enzymatique automatique depuis le menu de maintenance. Patiente quatre minutes complètes jusqu’à ce que le signal sonore confirme la fin du rinçage. À ce moment seulement, réinsère la cartouche de contrôle standard et valide la mesure témoin. Si l’écart type demeure inférieur à deux pour cent, tu pourras reprendre les analyses cliniques régulières.",
+      questions: [
+        [
+          "Quelle manœuvre initiale l’employée doit-elle exécuter pour sécuriser le matériel ?",
+          "Mettre le processus en arrêt temporaire au moyen du clavier",
+          "Vidanger l’intégralité des réactifs chimiques dans l’évier",
+          "Changer immédiatement la lampe optique du compartiment central",
+        ],
+        [
+          "Quelle réaction prudente la superviseure préconise-t-elle face au mécanisme d’aspiration ?",
+          "Manipuler les pièces délicates avec douceur sans exercer de contrainte",
+          "Démonter entièrement la pompe hydraulique sans attendre de secours",
+          "Remplacer le tuyau souple par une conduite métallique rigide",
+        ],
+        [
+          "À quelle condition précise le traitement des échantillons cliniques peut-il redémarrer ?",
+          "L’obtention d’une marge d’erreur très faible lors du test étalon",
+          "L’approbation écrite d’un médecin biologiste de garde sur place",
+          "Le remplacement complet des cartouches de contrôle par du neuf",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "— Mathieu, c’est Geneviève. Le transstockeur de l’allée quatre s’est immobilisé à mi-hauteur avec une palette de boîtes de conserve. Reste très calme et applique scrupuleusement la consigne de sécurité. Rends-toi d’abord à l’armoire sectionnelle située en bout de rangée et coupe le disjoncteur principal pour isoler le circuit de traction. Enfile ton harnais antichute avant d’accéder à la passerelle de service intermédiaire. Une fois sur la plateforme, insère la clé de déverrouillage manuel pour relâcher les mâchoires de freinage sur le rail supérieur. Fais descendre le chariot de levage à l’aide du treuil à manivelle jusqu’au niveau du sol sans aucun à-coup. Vérifie visuellement qu’aucun colis ne dépasse de la palette avant d’extraire la charge. Seulement après avoir sécurisé le périmètre au sol, réenclenche le coupe-circuit et initialise le cycle d’étalonnage automatique depuis le pupitre de commande de l’opérateur.",
+      questions: [
+        [
+          "Quelle opération prioritaire permet d’écarter tout risque pour l’intervenant ?",
+          "Interrompre le courant électrique au niveau du coffret mural",
+          "Retirer les colis les plus lourds directement depuis l’échelle",
+          "Appeler immédiatement les pompiers de la ville de Trois-Rivières",
+        ],
+        [
+          "Que peut-on déduire quant à l’attitude requise pour faire descendre la charge suspendue ?",
+          "Agir avec une lenteur méthodique pour prévenir tout balancement",
+          "Accélérer la rotation de la manivelle afin de gagner du temps",
+          "Secouer le mât vertical pour détacher les fixations grippées",
+        ],
+        [
+          "Quelle vérification finale s’impose avant de relancer la machine industrielle ?",
+          "Contrôler le parfait alignement des colis sur leur support de bois",
+          "Peindre des bandes jaunes sur l’ensemble du sol de l’allée centrale",
+          "Remplacer toutes les palettes en bois par des modèles en plastique",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "Bienvenue aux passionnés d’agriculture citoyenne ! Dans cet épisode, je vous guide pas à pas pour créer un potager productif sur votre balcon montréalais. Avant de planter quoi que ce soit, assurez-vous de la capacité portante de votre structure : un bac de terre humide pèse facilement quarante kilos. Choisissez des contenants en géotextile ou en plastique percé dans le fond pour garantir une bonne aération des racines. Déposez une couche de cinq centimètres de billes d’argile au fond de chaque bac pour faciliter l’écoulement de l’eau d’arrosage, puis complétez avec un terreau biologique enrichi de compost marin. Pour les légumes gourmands en soleil comme les tomates cerises et les poivrons, installez des tuteurs solides dès la plantation afin d’éviter d’endommager les racines plus tard. Enfin, disposez une couche protectrice de paille de chanvre à la surface de la terre : cette astuce simple limite l’évaporation lors des canicules estivales et empêche la prolifération des mauvaises herbes.",
+      questions: [
+        [
+          "Quelle précaution structurelle l’animatrice conseille-t-elle de vérifier avant l’aménagement ?",
+          "La résistance maximale de la dalle face au poids des contenants",
+          "La conformité de la peinture extérieure du bâtiment résidentiel",
+          "La présence d’une prise électrique extérieure sur la galerie",
+        ],
+        [
+          "Quel sous-entendu implicite justifie l’installation précoce des tuteurs de bois ?",
+          "Planter un piquet dans un sol mature risque de blesser le plant",
+          "Les tuteurs coûtent beaucoup plus cher au milieu de la belle saison",
+          "Le vent printanier souffle toujours plus fort que les brises d’été",
+        ],
+        [
+          "Quel bénéfice écologique procure l’épandage de paille sur le terreau du potager ?",
+          "Conserver la fraîcheur du substrat durant les chaleurs de l’été",
+          "Accélérer artificiellement la coloration des tomates suspendues",
+          "Attirer les insectes pollinisateurs dès les premières semaines",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "Chers jardiniers urbains, cultiver ses propres aromates sur une terrasse étroite à Québec est un projet accessible à tous. Pour réussir vos jardinières suspendues, commencez par fixer solidement des crochets en acier galvanisé sur la balustrade, en veillant à orienter vos bacs vers le sud-ouest pour capter au moins six heures de lumière directe par jour. Tapissez l’intérieur de vos jardinières d’une membrane perméable qui retiendra la terre tout en laissant circuler l’oxygène. Versez ensuite un mélange équilibré composé de deux tiers de terreau horticole allégé et d’un tiers de turricompost. Repiquez vos semis de basilic, de persil et de coriandre en espaçant les mottes d’au moins dix centimètres pour favoriser leur croissance. Arrosez généreusement le matin au pied des plantes plutôt que sur le feuillage pour prévenir l’apparition de moisissures. Pour prolonger la production jusqu’aux premières gelées d’octobre, pincez régulièrement les têtes fleuries : cette taille stimulera le développement constant de nouvelles pousses tendres et parfumées.",
+      questions: [
+        [
+          "Quelle orientation géographique est recommandée pour maximiser l’ensoleillement des herbes ?",
+          "Un alignement plein sud-ouest pour profiter du soleil d’après-midi",
+          "Une orientation dirigée vers le nord pour préserver la fraîcheur",
+          "Un emplacement à l’ombre totale pour éviter les brûlures solaires",
+        ],
+        [
+          "Quelle intention motive le conseil d’arroser directement à la base des végétaux ?",
+          "Éviter la stagnation de l’humidité propice aux champignons foliaires",
+          "Économiser l’eau du robinet en réduisant les débits de distribution",
+          "Chasser les oiseaux friands des graines d’aromates fraîchement semées",
+        ],
+        [
+          "Quel geste d’entretien régulier garantit une cueillette continue d’aromates frais ?",
+          "Retirer avec les doigts les boutons floraux dès leur apparition",
+          "Ajouter de l’engrais chimique liquide deux fois chaque après-midi",
+          "Couvrir les bacs d’une bâche sombre pendant les heures de clarté",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "Bienvenue au balado Vert l’Avenir en direct de l’Outaouais. Aujourd’hui, nous découvrons comment bâtir un mur végétal comestible sur un balcon exigu. Pour commencer, procurez-vous des planches de cèdre naturel résistant à l’humidité et assemblez un cadre vertical muni d’équerres métalliques robustes. Fixez ce cadre au mur porteur à l’aide de chevilles adaptées à la maçonnerie pour résister aux rafales de vent. Emboîtez ensuite des gouttières de culture inclinées, percées de trous de drainage reliés par un petit tuyau souple qui évacuera les surplus vers un seau au sol. Remplissez chaque niveau de terreau enrichi de perlite pour assurer un drainage optimal. Plantez les fraisiers et les salades aux étages supérieurs, et réservez les étages du bas aux légumes racines comme les radis. Pour nourrir vos plants sans pesticide, pulvérisez une macération d’ortie diluée tous les quinze jours : cette préparation naturelle fortifie les tissus cellulaires des feuilles et repousse efficacement les pucerons nuisibles.",
+      questions: [
+        [
+          "Pourquoi le cèdre naturel est-il privilégié pour fabriquer la structure verticale ?",
+          "Pour sa capacité intrinsèque à tolérer l’humidité sans pourrir",
+          "Pour son prix d’achat inférieur à tous les bois de charpente",
+          "Pour sa coloration foncée qui attire davantage la chaleur solaire",
+        ],
+        [
+          "Que peut-on déduire quant à l’utilité du tuyau reliant les gouttières du potager ?",
+          "Il évite que l’eau sale ne dégouline sur les galeries des voisins",
+          "Il sert à distiller des boissons aromatisées à base de racines",
+          "Il chauffe l’eau d’irrigation grâce à la lumière du soleil estival",
+        ],
+        [
+          "Quel effet bénéfique le purin végétal produit-il sur les plantes selon l’animateur ?",
+          "Il renforce les défenses naturelles des feuilles contre les ravageurs",
+          "Il supprime l’obligation d’arroser le potager vertical en plein soleil",
+          "Il permet de cueillir des radis mûrs en moins de quarante-huit heures",
+        ],
+      ],
+    },
+  ],
+  // ===========================================================================
+  // n8-listening-4 (argumentatif)
+  // Ex 0: Opinion d’une chroniqueuse sur la règlementation de l’utilisation des pesticides
+  // Ex 1: Opinion de collègues sur l’implantation d’un nouveau système informatique
+  // ===========================================================================
+  'n8-listening-4': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "— À notre micro ce matin, la chroniqueuse environnementale Hélène Mercier se prononce sur le débat entourant les pesticides agricoles au Québec. Selon elle, les appels à un bannissement aveugle de tous les produits chimiques d’ici deux ans relèvent de la naïveté politique : une telle mesure ruinerait nos producteurs horticoles face à la concurrence des denrées importées des États-Unis. En revanche, elle fustige la passivité complaisante des pouvoirs publics face aux néonicotinoïdes et aux fongicides épandus à proximité immédiate des bassins versants. Pour la spécialiste, le gouvernement doit instaurer d’urgence des zones tampons obligatoires d’au moins cinquante mètres le long des cours d’eau et tripler les redevances sur les molécules les plus toxiques afin de financer la recherche agronomique. Hélène Mercier conclut qu’il est temps d’abandonner les postures partisanes stériles pour adopter une politique lucide fondée sur des données scientifiques solides et des compensations financières généreuses pour les agriculteurs engagés dans la transition.",
+      questions: [
+        [
+          "Quelle position modérée la chroniqueuse défend-elle sur l’interdiction totale des pesticides ?",
+          "Un refus d’une mesure brutale qui désavantagerait l’agriculture locale",
+          "Un accord enthousiaste pour supprimer tous les traitements chimiques",
+          "Une demande d’autorisation de vente libre de tous les produits toxiques",
+        ],
+        [
+          "Quelle critique sévère formule-t-elle envers l’action gouvernementale actuelle ?",
+          "Elle dénonce le laxisme des autorités près des rivières et des lacs",
+          "Elle accuse les ministères de persécuter injustement les cultivateurs",
+          "Elle reproche aux scientifiques de publier des études contradictoires",
+        ],
+        [
+          "Que peut-on déduire sur son sentiment face au débat public contemporain ?",
+          "Elle regrette la simplification excessive et le manque de nuance rationnelle",
+          "Elle admire le climat de collaboration harmonieuse entre les partis politiques",
+          "Elle estime que les citoyens accordent trop d’importance aux questions d’écologie",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "— Dans son éditorial hebdomadaire sur les ondes de CKRL à Québec, Sophie Lamoureux interpelle les maires des banlieues sur l’usage des pesticides d’ordre esthétique et agricole en zone périurbaine. Elle rappelle que des dizaines d’études médicales récentes associent l’exposition chronique aux insecticides à une hausse des troubles neurodéveloppementaux chez les tout-petits et à l’effondrement dramatique des colonies d’abeilles indigènes. Elle trouve inacceptable que certaines municipalités continuent de tolérer l’épandage de produits de synthèse pour préserver la verdure des pelouses de golfs ou des parcs publics. Bien que les associations professionnelles d’horticulture brandissent la menace de pertes économiques pour s’opposer à tout règlement contraignant, l’éditorialiste martèle que le droit à la santé environnementale doit primer sur les impératifs commerciaux. Elle exhorte les conseils municipaux à adopter le principe de précaution en bannissant sans exception les substances de synthèse dans tous les périmètres habités avant le prochain printemps.",
+      questions: [
+        [
+          "Quel constat sanitaire alarmant l’éditorialiste met-elle en avant dans son plaidoyer ?",
+          "La multiplication des troubles neurologiques infantiles liés aux toxiques",
+          "L’apparition de nouvelles allergies cutanées chez les golfeurs du secteur",
+          "L’augmentation des intoxications alimentaires dans les cantines scolaires",
+        ],
+        [
+          "Quelle attitude des lobbyistes horticoles l’intervenante fustige-t-elle avec vigueur ?",
+          "Leur recours constant aux arguments financiers pour bloquer les lois",
+          "Leur volonté d’imposer des produits naturels dans tous les jardins",
+          "Leur refus de dialoguer avec les associations de protection de l’eau",
+        ],
+        [
+          "Quel sous-entendu implicite découle de son appel au principe de précaution ?",
+          "La protection de la vie citoyenne doit surpasser les profits privés",
+          "Les municipalités manquent cruellement de fonds pour payer des désherbants bio",
+          "Les citoyens de banlieue préfèrent les pelouses jaunies en été",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "— Au micro de l’émission Midi-Info en Montérégie, l’agronome et chroniqueuse Valérie Côté apporte un éclairage nuancé sur les cibles provinciales de réduction des intrants chimiques. Tout en reconnaissant la nécessité environnementale de réduire l’empreinte des nitrates et des herbicides sur les sols québécois, elle met en garde contre une vision punitive de la réglementation. Selon elle, imposer des amendes salées aux exploitants agricoles sans leur offrir de solutions de rechange éprouvées, comme le désherbage mécanique robotisé ou la lutte biologique par insectes prédateurs, mènera droit à la faillite de dizaines de fermes familiales. Valérie Côté soutient que la vraie solution réside dans un pacte financier où les contribuables partagent le fardeau des risques économiques avec les agriculteurs. Elle plaide pour un fonds de garantie des récoltes qui indemniserait les fermiers subissant des pertes de rendement durant leurs premières années d’adoption des pratiques agroécologiques.",
+      questions: [
+        [
+          "Pourquoi l’agronome s’oppose-t-elle à une politique axée sur les pénalités financières ?",
+          "Elle pénalise lourdement les fermiers sans offrir d’alternatives viables",
+          "Les produits phytosanitaires chimiques sont devenus entièrement inoffensifs",
+          "Parce que le sol québécois ne contient plus aucun résidu d’azote toxique",
+        ],
+        [
+          "Quelle solution technique concrète propose-t-elle pour remplacer les désherbants ?",
+          "Le déploiement de technologies mécaniques autonomes sur les parcelles",
+          "L’abandon complet de toute forme de culture céréalière dans toute la province",
+          "L’importation massive d’herbicides expérimentaux venus de l’étranger",
+        ],
+        [
+          "Que peut-on déduire sur son sentiment concernant la responsabilité de la société ?",
+          "Elle estime équitable que la collectivité assume une part du risque financier",
+          "Elle considère que seuls les citadins doivent payer pour les dépenses de santé",
+          "Elle pense que les agriculteurs doivent assumer seuls toutes les pertes futures",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "— Dans la cafétéria de notre organisme public à Québec, Martin et Dominique confrontent vivement leurs points de vue sur le nouveau progiciel de gestion intégrée déployé ce lundi. Martin défend vigoureusement le système : pour lui, la centralisation des dossiers d’usagers sur une plateforme unique réduira les doublons administratifs et permettra un traitement beaucoup plus rapide des demandes de permis. Il souligne que l’interface moderne élimine enfin la paperasse manuelle qui encombrait les classeurs. Dominique, pour sa part, ne décolère pas. Elle juge la transition précipitée et mal encadrée : le logiciel plante dès que plusieurs agents se connectent simultanément, les temps de saisie ont triplé à cause de menus déroulants interminables, et le service d’assistance informatique met des heures à répondre aux courriels d’urgence. Selon elle, la direction a privilégié l’image d’une modernisation technologique tape-à-l’œil au détriment de l’efficacité quotidienne des préposés de première ligne.",
+      questions: [
+        [
+          "Quel avantage majeur Martin attribue-t-il à la nouvelle plateforme informatique ?",
+          "La simplification du suivi des dossiers et la diminution des démarches papier",
+          "La possibilité pour les agents d’effectuer des semaines de travail très réduites",
+          "La baisse automatique du tarif des permis octroyés aux citoyens inscrits",
+        ],
+        [
+          "Quelle critique fondamentale Dominique adresse-t-elle aux choix de la gestion ?",
+          "Avoir imposé un outil dysfonctionnel sans soutien pour flatter son image",
+          "Avoir refusé de moderniser les vieux ordinateurs portables de l’équipe",
+          "Avoir supprimé le télétravail pour forcer les employés à venir au bureau",
+        ],
+        [
+          "Quel sentiment domine chez Dominique lors de cette discussion entre collègues ?",
+          "Une profonde frustration causée par les lourdeurs de la nouvelle interface",
+          "Un enthousiasme débordant devant les perspectives futures d’évolution de carrière",
+          "Une indifférence totale envers les choix d’organisation de la direction",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "— Lors d’une pause pédagogique dans une école secondaire de Montréal, deux enseignants, Antoine et Chantal, débattent de l’implantation du portail numérique pour la gestion des notes et des communications avec les parents. Antoine se montre enthousiaste : il trouve formidable de pouvoir inscrire les résultats des examens en temps réel sur sa tablette et apprécie la traduction automatisée des messages envoyés aux familles allophones. Pour lui, cet outil favorise un partenariat transparent avec les tuteurs légaux. Chantal, en revanche, exprime de vives réserves éthiques et professionnelles. Elle déplore que ce logiciel incite les parents à envoyer des messages d’injonction à toute heure du jour et de la nuit, brouillant la frontière entre vie professionnelle et vie privée. Elle ajoute que le minutage précis exigé pour chaque saisie transforme les professeurs en simples exécutants comptables, grugeant le temps précieux consacré à la préparation pédagogique des cours.",
+      questions: [
+        [
+          "Quelle fonctionnalité novatrice Antoine valorise-t-il dans son utilisation quotidienne ?",
+          "La transcription instantanée facilitant le dialogue avec les parents allophones",
+          "La correction automatique de toutes les dissertations littéraires des étudiants",
+          "L’interdiction aux parents d’adresser des requêtes écrites aux professeurs",
+        ],
+        [
+          "Quel effet pervers de l’outil numérique Chantal dénonce-t-elle avec vigueur ?",
+          "L’invasion constante de la sphère personnelle par des sollicitations tardives",
+          "La baisse catastrophique du taux de réussite des élèves dans les sciences pures",
+          "L’obligation d’acheter son propre matériel informatique sur ses deniers",
+        ],
+        [
+          "Que peut-on déduire quant à l’attitude de Chantal envers le rôle de l’enseignant ?",
+          "Elle refuse la dérive bureaucratique au détriment de la vocation pédagogique",
+          "Elle préfère supprimer définitivement toute communication avec les familles d’élèves",
+          "Elle réclame l’abandon pur et simple des examens trimestriels dans l’école",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "— Dans les couloirs d’une firme de génie-conseil à Laval, Stéphane et Karine échangent sur la migration vers un logiciel infonuagique de modélisation 3D imposé par le siège social. Stéphane est conquis par la performance collaborative : les ingénieurs sur le terrain peuvent annoter les plans en direct depuis leur cellulaire, ce qui évite les malentendus avec les contremaîtres de chantier et accélère la validation des devis structuraux. Mais Karine rejette catégoriquement cet enthousiasme qu’elle qualifie d’aveugle. Elle souligne que la dépendance envers une connexion Internet sans faille paralyse le travail lors des visites de chantiers en région éloignée, où le réseau cellulaire reste défaillant. De surcroît, elle s’inquiète de la souveraineté des données confidentielles hébergées sur des serveurs situés à l’extérieur du pays. Elle craint qu’en cas de panne prolongée ou de litige commercial avec le fournisseur américain, l’entreprise ne perde l’accès à ses propres archives de conception.",
+      questions: [
+        [
+          "Quel gain opérationnel Stéphane met-il de l’avant pour justifier cette transition logicielle ?",
+          "L’actualisation instantanée des schémas techniques entre bureaux et chantiers",
+          "L’élimination de toute obligation de se déplacer sur les sites de construction",
+          "La baisse automatique du coût des matériaux d’armature pour les clients",
+        ],
+        [
+          "Quelle vulnérabilité technique majeure Karine soulève-t-elle pour les missions en région ?",
+          "Le blocage des activités lors des pertes de couverture réseau sur le terrain",
+          "L’incompatibilité des téléphones intelligents avec les casques de chantier",
+          "L’interdiction légale d’utiliser des données virtuelles lors des inspections",
+        ],
+        [
+          "Que peut-on déduire sur la réaction de Karine face à l’hébergement des plans à l’étranger ?",
+          "Elle redoute une perte de contrôle juridique et sécuritaire sur leur patrimoine",
+          "Elle souhaite transférer l’ensemble des serveurs dans une grande filiale canadienne",
+          "Elle juge que les plans d’ingénierie n’ont aucune valeur commerciale secrète",
+        ],
+      ],
+    },
+  ],
+  // ===========================================================================
+  // n8-reading-0 (informatif)
+  // Ex 0: Informations sur une entreprise, ses activités et son historique sur son site Web
+  // Ex 1: Article de vulgarisation scientifique présentant des initiatives climatiques
+  // ===========================================================================
+  'n8-reading-0': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "Boréal-Technologies — Profil corporatif et historique\n\nFondée en 2008 au cœur du parc technologique du Québec métropolitain, Boréal-Technologies est un chef de file canadien dans la conception de capteurs photoniques de haute précision pour les environnements extrêmes. Issue d’un essaimage de l’Université Laval, notre société s’est d’abord fait connaître en mettant au point des fibres optiques spécialisées pour l’exploration minière dans le Grand Nord québécois.\n\nAu fil des ans, l’entreprise a diversifié ses créneaux d’excellence vers la surveillance des structures de génie civil, notamment les barrages hydroélectriques et les ponts suspendus. Aujourd’hui, Boréal-Technologies emploie plus de cent quarante ingénieurs, physiciens et techniciens répartis entre son siège social de Québec et son laboratoire de fabrication de Lévis. Nos solutions de détection laser sont exportées dans vingt-deux pays, garantissant la sécurité d’infrastructures critiques à travers le monde.\n\nFidèle à ses racines boréales, notre firme réinvestit chaque année quinze pour cent de son chiffre d’affaires en recherche et développement. Elle soutient également la relève scientifique par l’attribution annuelle de bourses d’études collégiales et universitaires en physique appliquée.",
+      questions: [
+        [
+          "Dans quel contexte institutionnel précis l’entreprise a-t-elle vu le jour en 2008 ?",
+          "Comme projet d’essaimage issu des laboratoires universitaires",
+          "Comme filiale commerciale créée par une grande compagnie minière",
+          "Comme agence publique rattachée au ministère des Transports",
+        ],
+        [
+          "Vers quel secteur industriel majeur la société a-t-elle élargi ses activités par la suite ?",
+          "La surveillance continue des grands ouvrages d’art et barrages",
+          "La confection d’écrans tactiles pour des téléphones cellulaires",
+          "L’assemblage mécanique de véhicules lourds destinés aux mines",
+        ],
+        [
+          "Que peut-on déduire quant à l’attitude corporative de la compagnie envers la relève étudiante ?",
+          "Elle consacre des ressources financières ciblées pour appuyer les talents",
+          "Elle exige que tous les stagiaires signent un contrat d’embauche à vie",
+          "Elle limite ses partenariats aux seules écoles professionnelles de Lévis",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "Ferme-Nordique Bio — Notre histoire et nos engagements\n\nÉtablie en 1994 à Saint-Félicien au Saguenay–Lac-Saint-Jean, Ferme-Nordique Bio est née du regroupement solidaire de sept familles de producteurs de petits fruits boréaux. Constatant l’engouement grandissant des consommateurs pour les aliments sains et non transformés, la coopérative s’est donné pour mission de valoriser le bleuet sauvage biologique et la canneberge nordique sans recours aux engrais chimiques.\n\nEn 2005, la coopérative a franchi une étape charnière en inaugurant un complexe de surgélation rapide par flux d’air froid, permettant de préserver les qualités antioxydantes des baies sans additif de conservation. Grâce à cette technologie novatrice, nos récoltes approvisionnent désormais les chaînes d’épiceries québécoises ainsi que les marchés spécialisés d’Europe et d’Asie sous l’appellation d’origine contrôlée.\n\nAujourd’hui forte de cinquante-cinq membres sociétaires et de deux cents travailleurs saisonniers, Ferme-Nordique Bio consacre cinq pour cent de ses excédents à la restauration des tourbières régionales et applique des normes strictes de recyclage des eaux de lavage sur l’ensemble de ses installations agricoles.",
+      questions: [
+        [
+          "Quel principe fondamental a guidé la création de la coopérative en 1994 ?",
+          "L’association solidaire de plusieurs familles agricoles de la région",
+          "La nationalisation de terres abandonnées par de grandes corporations",
+          "L’obligation légale d’exporter des fruits vers les marchés asiatiques",
+        ],
+        [
+          "Quelle avancée technologique a permis d’accélérer le développement de l’entreprise en 2005 ?",
+          "L’implantation d’installations de congélation préservant les nutriments",
+          "L’invention d’un tracteur entièrement automatisé pour récolter le bleuet",
+          "L’utilisation de conservateurs chimiques autorisés pour le transport marin",
+        ],
+        [
+          "Que peut-on déduire sur la philosophie environnementale de cette coopérative agricole ?",
+          "Elle intègre la protection des écosystèmes locaux au cœur de sa pratique",
+          "Elle refuse d’investir ses profits dans des projets en dehors de ses terres",
+          "Elle cherche à assécher les tourbières pour étendre ses champs de culture",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "Sol-Éco Innovations — Bilan et réalisations\n\nFondée en 2012 à Sherbrooke par un groupe d’ingénieures civiles et de biochimistes, Sol-Éco Innovations s’est imposée comme une référence dans la décontamination écologique des friches industrielles. Plutôt que d’évacuer les terres polluées vers des sites d’enfouissement par camionnage lourd, notre firme privilégie des procédés de phytoremédiation in situ : des plantations ciblées de saules et de peupliers hybrides qui absorbent naturellement les métaux lourds et dégradent les hydrocarbures présents dans le sol.\n\nDepuis ses débuts modestes dans un parc d’affaires estrien, l’entreprise a réhabilité plus de soixante-dix anciens sites manufacturiers et dépôts ferroviaires à travers le Québec et le Nouveau-Brunswick. Sol-Éco compte aujourd’hui une cinquantaine d’employés permanents et dispose de son propre laboratoire d’analyses pédologiques mobiles.\n\nEn collaboration avec l’Université de Sherbrooke, nos chercheurs peaufinent actuellement des consortiums bactériens capables d’accélérer la biodégradation des composés plastiques récalcitrants. Sol-Éco Innovations poursuit ainsi son ambition : rendre aux communautés urbaines des espaces verts dépollués propices à l’aménagement de parcs et de logements sociaux abordables.",
+      questions: [
+        [
+          "Quelle méthode écologique novatrice distingue cette entreprise des pratiques classiques ?",
+          "L’utilisation de végétaux adaptés pour assainir les terres sur place",
+          "L’acheminement des terres souillées vers des dépotoirs d’outre-mer",
+          "Le recouvrement de tous les terrains par une épaisse dalle de béton",
+        ],
+        [
+          "Quelle expansion territoriale la firme a-t-elle concrétisée au fil des années ?",
+          "Elle a étendu ses chantiers de réhabilitation jusqu’au Nouveau-Brunswick",
+          "Elle a transféré l’ensemble de ses activités de recherche aux États-Unis",
+          "Elle a limité ses contrats au seul périmètre urbain de la ville de Sherbrooke",
+        ],
+        [
+          "Quelle intention sociale transparaît dans la finalité des projets menés par Sol-Éco ?",
+          "Transformer les friches réhabilitées en espaces communautaires et logements",
+          "Vendre les terrains dépollués au plus offrant pour bâtir des centres d’achat",
+          "Fermer définitivement l’accès public aux anciens sites industriels traités",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "Décarboner le béton : la révolution des liants minéraux québécois\n\nResponsable de près de huit pour cent des émissions mondiales de gaz à effet de serre, la fabrication du ciment traditionnel nécessite la calcination du calcaire à plus de mille quatre cents degrés Celsius. Pour réduire cette empreinte désastreuse, des chercheurs québécois de l’Université de Sherbrooke et des cimenteries de Lanaudière ont mis au point une formulation novatrice de béton bas carbone.\n\nLe principe consiste à substituer jusqu’à quarante pour cent du clinker ordinaire par de la poudre de verre récupérée dans les centres de tri municipaux et des argiles locales calcinées à basse température. Non seulement cette recette valorise un résidu domestique abondant longtemps enfoui sans issue, mais elle améliore également l’imperméabilité et la durabilité du matériau face aux cycles de gel et de dégel caractéristiques des hivers québécois.\n\nPlusieurs municipalités ont déjà franchi le pas en testant ce béton vert sur des trottoirs et des piliers de viaducs autoroutiers. Les relevés confirment une diminution de trente-cinq pour cent des émissions de carbone intrinsèque sans perte de résistance mécanique.",
+      questions: [
+        [
+          "Quelle matière résiduelle québécoise est valorisée pour remplacer le ciment usuel ?",
+          "La poussière de verre issue des filières de tri des matières recyclables",
+          "Les résidus de pneus broyés provenant des décharges automobiles du sud",
+          "Les cendres toxiques des incinérateurs municipaux de la région de Québec",
+        ],
+        [
+          "Quel avantage physique notable ce nouveau béton présente-t-il pour le climat local ?",
+          "Une résistance renforcée face aux variations répétées de température hivernale",
+          "Une capacité à fondre spontanément la glace sans ajout de sel de déglaçage",
+          "Une élasticité exceptionnelle empêchant toute déformation en cas de séisme",
+        ],
+        [
+          "Que peut-on déduire quant à l’attitude des municipalités envers cette innovation technologique ?",
+          "Elles font preuve d’audace en intégrant le produit dans leurs infrastructures réelles",
+          "Elles attendent des directives obligatoires du gouvernement avant d’essayer le matériau",
+          "Elles préfèrent importer des dalles préfabriquées pour éviter les risques de chantier",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "Les tourbières québécoises : des sentinelles climatiques sous surveillance\n\nBien qu’elles ne couvrent que trois pour cent de la surface terrestre mondiale, les tourbières emmagasinent deux fois plus de carbone que l’ensemble des forêts de la planète. Au Québec, ces immenses zones humides boréales jouent un rôle de stabilisateur thermique inestimable. Toutefois, des décennies d’exploitation commerciale de la tourbe horticole et le drainage agricole ont laissé des cicatrices béantes, libérant des tonnes de dioxyde de carbone dans l’atmosphère.\n\nPour inverser ce phénomène, une équipe multidisciplinaire de l’Université Laval déploie une méthode éprouvée de réhumidification dans le Bas-Saint-Laurent. La technique repose sur le bouchage des canaux de drainage artificiels à l’aide de digues d’argile et l’ensemencement manuel de sphaignes vivantes protégées par un paillis de paille. En moins de cinq ans, la nappe phréatique remonte, la végétation pionnière recolonise le milieu et la tourbière redevient un puits de carbone actif.\n\nGrâce à des balises de télédétection satellitaire, les scientifiques mesurent désormais en continu les flux de méthane et confirment que la restauration écologique permet de freiner durablement le réchauffement global.",
+      questions: [
+        [
+          "Quelle importance capitale les tourbières revêtent-elles pour l’équilibre de la planète ?",
+          "Elles retiennent davantage de carbone que la totalité des forêts mondiales",
+          "Elles procurent la totalité de l’eau douce consommée par les grandes villes",
+          "Elles éliminent les risques de tempêtes hivernales sur la plaine côtière",
+        ],
+        [
+          "Quelle opération concrète permet de restaurer le régime hydrique des tourbières dégradées ?",
+          "L’obturation des fossés de drainage au moyen de barrages d’argile étanches",
+          "L’arrosage artificiel permanent par des avions-citernes de la sécurité civile",
+          "Le pompage intensif des eaux profondes pour assécher la surface des mousses",
+        ],
+        [
+          "Quelle intention anime les chercheurs en combinant travail de terrain et télédétection ?",
+          "Valider scientifiquement l’efficacité réelle de la régénération écologique",
+          "Trouver de nouvelles zones de coupe pour rentabiliser l’exploitation de tourbe",
+          "Démontrer que les zones humides accélèrent la diffusion des gaz de serre",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "Virage énergétique dans le Grand Nord : les microréseaux hybrides au Nunavik\n\nIsolées du réseau interconnecté d’Hydro-Québec par des milliers de kilomètres de toundra, les quatorze communautés inuites du Nunavik dépendent historiquement de centrales thermiques alimentées au mazout lourd pour leur électricité et leur chauffage. Cette logistique maritime vulnérable génère des émissions massives de particules fines et expose les côtes arctiques à des risques constants de déversement d’hydrocarbures.\n\nPour rompre cette dépendance fossile, un projet pilote pionnier a été inauguré dans le village de Kuujjuaq. Il combine deux éoliennes adaptées au froid extrême, un parc de panneaux solaires bifaciaux captant la réverbération de la neige et une batterie stationnaire au lithium-fer-phosphate. Un contrôleur numérique intelligent gère en temps réel les fluctuations météo, stockant les surplus estivaux sous forme d’eau chaude dans un réseau de chaleur urbain.\n\nCe système hybride permet de réduire de plus de quarante pour cent la consommation annuelle de diesel dans la communauté. Fort de ce succès, les dirigeants inuits travaillent désormais à transférer la propriété et la maintenance de ces installations vertes aux coopératives locales.",
+      questions: [
+        [
+          "Quelle contrainte géographique majeure oblige les villages du Nunavik à produire leur propre énergie ?",
+          "L’absence totale de raccordement physique au réseau d’électricité de la province",
+          "L’interdiction légale de transporter des carburants liquides en bateau dans le Nord",
+          "L’altitude trop élevée des villages qui empêche la circulation de l’air éolien",
+        ],
+        [
+          "Comment l’énergie solaire est-elle maximisée durant les longs mois d’ensoleillement arctique ?",
+          "Grâce à des capteurs solaires double face tirant profit de la clarté du manteau blanc",
+          "En concentrant la lumière du soleil sur des miroirs chauffants orientés vers le ciel",
+          "Par l’installation de serres en verre géantes au-dessus de chaque maison du village",
+        ],
+        [
+          "Que peut-on déduire quant à l’ambition des dirigeants inuits pour la suite du déploiement énergétique ?",
+          "Ils souhaitent que les communautés assument elles-mêmes la gestion de leurs infrastructures",
+          "Ils demandent à fermer les centrales vertes pour revenir au chauffage traditionnel au bois",
+          "Ils prévoient de revendre l’électricité excédentaire aux centres urbains du sud québécois",
+        ],
+      ],
+    },
+  ],
   'n8-reading-1': [],
   'n8-reading-2': [],
   'n8-reading-3': [],
