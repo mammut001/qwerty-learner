@@ -668,6 +668,59 @@ describe('French Tenses Conjugation Engine & Content Suite', () => {
       }
     })
 
+    test('Section 1: s’en aller, spaces after reflexive pronoun, and non-conjugable reflexive bases are cleanly rejected as unsupported', () => {
+      // s'en aller and typographical variants
+      const enAllerVariants = ['s’en aller', "s'en aller", '  s’en aller  ', 'S’EN ALLER']
+      for (const v of enAllerVariants) {
+        assert.equal(isSupportedVerb(v), false, `${v} must not be supported`)
+        assert.throws(() => conjugate(v, 'present'), UnsupportedVerbError, `${v} must throw UnsupportedVerbError`)
+        assert.throws(() => conjugate(v, 'imparfait'), UnsupportedVerbError, `${v} must throw UnsupportedVerbError`)
+      }
+
+      // Inputs containing a space after the reflexive pronoun
+      const spacedReflexives = [
+        'se brosser les dents',
+        'se coucher tard',
+        'se faire du souci',
+        'se rendre compte',
+        'se laisser aller',
+        's’envoler au loin',
+      ]
+      for (const v of spacedReflexives) {
+        assert.equal(isSupportedVerb(v), false, `${v} must not be supported`)
+        assert.throws(() => conjugate(v, 'present'), UnsupportedVerbError, `${v} must throw UnsupportedVerbError`)
+      }
+
+      // Non-reflexive multi-word phrases
+      const multiWordPhrases = ['parler français', 'aller au cinéma', 'manger une pomme']
+      for (const v of multiWordPhrases) {
+        assert.equal(isSupportedVerb(v), false, `${v} must not be supported`)
+        assert.throws(() => conjugate(v, 'present'), UnsupportedVerbError, `${v} must throw UnsupportedVerbError`)
+      }
+
+      // Reflexive whose base verb is not conjugable
+      const nonConjugableReflexives = ['se xyz', 'se table', 'se pomme', 's’impossible', 's’inconnu', 'se 123']
+      for (const v of nonConjugableReflexives) {
+        assert.equal(isSupportedVerb(v), false, `${v} must not be supported`)
+        assert.throws(() => conjugate(v, 'present'), UnsupportedVerbError, `${v} must throw UnsupportedVerbError`)
+      }
+
+      // Degenerate inputs
+      const degenerate = ['', '   ', 'se', 'se ', 's’', 's\'']
+      for (const v of degenerate) {
+        assert.equal(isSupportedVerb(v), false, `"${v}" must not be supported`)
+        assert.throws(() => conjugate(v, 'present'), UnsupportedVerbError, `"${v}" must throw UnsupportedVerbError`)
+      }
+
+      // Valid reflexive verbs must still succeed
+      const validReflexives = ['se laver', 'se souvenir', 's’habiller', "s'habiller", 's’asseoir', 'se lever']
+      for (const v of validReflexives) {
+        assert.equal(isSupportedVerb(v), true, `${v} must be supported`)
+        const res = conjugate(v, 'present')
+        assert.ok(res.forms.length > 0, `${v} should produce forms`)
+      }
+    })
+
     test('A.12: High-frequency irregular verbs complete in every tense', () => {
       const a12Verbs = [
         'devenir',

@@ -1266,14 +1266,23 @@ export function isSupportedVerb(rawInfinitive: string): boolean {
     .trim()
     .toLowerCase()
     .replace(/['’]/g, '’')
-  const base = norm.replace(/^(se\s+|s’)/i, '')
+  const isReflexive = norm.startsWith('se ') || norm.startsWith('s’')
+  const base = isReflexive ? norm.replace(/^(se\s+|s’)/i, '') : norm
 
   if (!base) return false
-  if (base.endsWith('er')) return true
-  if (IRREGULAR_VERBS[base] || IRREGULAR_VERBS[norm]) return true
-  if (SECOND_GROUP_VERBS.has(base)) return true
-  if (REGULAR_DRE_VERBS.has(base)) return true
-  if (base.endsWith('venir') || base.endsWith('tenir')) return true
+  // Reject multi-word verb phrases or spaces after reflexive pronoun (e.g. s’en aller, se laver les mains)
+  if (/\s/.test(base)) return false
+
+  const baseSupported =
+    (base.length >= 3 && base.endsWith('er')) ||
+    Boolean(IRREGULAR_VERBS[base]) ||
+    SECOND_GROUP_VERBS.has(base) ||
+    REGULAR_DRE_VERBS.has(base) ||
+    base.endsWith('venir') ||
+    base.endsWith('tenir')
+
+  if (baseSupported) return true
+  if (IRREGULAR_VERBS[norm]) return true
   return false
 }
 
