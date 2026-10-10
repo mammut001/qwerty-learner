@@ -22,122 +22,537 @@ export function a(word) {
 }
 
 // ===========================================================================
-// NIVEAU 3 - LISTENING
+// NIVEAU 3 SCENARIOS IMPLEMENTATION
 // ===========================================================================
 
-const QUEBEC_SUPERMARKETS = [
+// ---------------------------------------------------------------------------
+// n3-listening-0
+// ---------------------------------------------------------------------------
+const N3_SUPERMARKETS = [
   { name: 'Metro', fee: '50 dollars', minZh: '50 加元' },
   { name: 'IGA', fee: '60 dollars', minZh: '60 加元' },
   { name: 'Maxi', fee: '45 dollars', minZh: '45 加元' },
   { name: 'Super C', fee: '55 dollars', minZh: '55 加元' },
   { name: 'Provigo', fee: '65 dollars', minZh: '65 加元' },
 ]
-
-const DELIVERY_SCHEDULES = [
+const N3_SUPERMARKET_SCHEDS = [
   { daysFr: 'le mardi et le jeudi', daysZh: '周二和周四', hoursFr: 'entre 13 h et 17 h' },
   { daysFr: 'le lundi et le mercredi', daysZh: '周一和周三', hoursFr: 'entre 10 h et 14 h' },
   { daysFr: 'le mercredi et le vendredi', daysZh: '周三和周五', hoursFr: 'entre 14 h et 18 h' },
   { daysFr: 'le vendredi et le samedi', daysZh: '周五和周六', hoursFr: 'entre 9 h et 13 h' },
 ]
-
-const TRANSIT_AGENCIES = [
-  { agency: 'de la STM à Montréal', card: 'carte OPUS', fareZh: '3,75 加元', fareFr: '3 dollars 75' },
-  { agency: 'du RTC à Québec', card: 'carte OPUS', fareZh: '3,50 加元', fareFr: '3 dollars 50' },
-  { agency: 'de la STL à Laval', card: 'carte Horizon', fareZh: '3,50 加元', fareFr: '3 dollars 50' },
-  { agency: 'de la STS à Sherbrooke', card: 'carte La Vermeille', fareZh: '3,30 加元', fareFr: '3 dollars 30' },
+const N3_TRANSIT_NETS = [
+  { agency: 'de la STM à Montréal', card: 'carte OPUS', fareFr: '3 dollars 75', fareZh: '3,75 加元' },
+  { agency: 'du RTC à Québec', card: 'carte OPUS', fareFr: '3 dollars 50', fareZh: '3,50 加元' },
+  { agency: 'de la STL à Laval', card: 'carte Horizon', fareFr: '3 dollars 50', fareZh: '3,50 加元' },
+  { agency: 'de la STS à Sherbrooke', card: 'carte La Vermeille', fareFr: '3 dollars 30', fareZh: '3,30 加元' },
+]
+const N3_TRANSIT_PASS_LIST = [
+  { passFr: 'soirée illimitée', passZh: '晚间通票', priceFr: '6 dollars' },
+  { passFr: 'fin de semaine', passZh: '周末通票', priceFr: '15 dollars' },
+  { passFr: 'mensuel régulier', passZh: '月度通票', priceFr: '94 dollars' },
+  { passFr: 'une journée', passZh: '单日通票', priceFr: '11 dollars' },
+]
+const N3_PHARMACY_DELIVERIES = [
+  { name: 'Jean Coutu', minFr: '40 dollars', minZh: '40 加元', daysFr: 'le mardi et le jeudi', daysZh: '周二和周四' },
+  { name: 'Pharmaprix', minFr: '50 dollars', minZh: '50 加元', daysFr: 'le lundi et le mercredi', daysZh: '周一和周三' },
+  { name: 'Brunet', minFr: '35 dollars', minZh: '35 加元', daysFr: 'le mercredi et le vendredi', daysZh: '周三和周五' },
+  { name: 'Familiprix', minFr: '45 dollars', minZh: '45 加元', daysFr: 'le vendredi et le samedi', daysZh: '周五和周六' },
+  { name: 'Uniprix', minFr: '30 dollars', minZh: '30 加元', daysFr: 'le mardi et le vendredi', daysZh: '周二和周五' },
+]
+const N3_LIBRARY_MEMBERSHIPS = [
+  { city: 'de Longueuil', feeFr: '15 dollars', feeZh: '15 加元', limitFr: 'dix livres', limitZh: '10 本图书' },
+  { city: 'de Lévis', feeFr: '20 dollars', feeZh: '20 加元', limitFr: 'quinze livres', limitZh: '15 本图书' },
+  { city: 'de Gatineau', feeFr: '25 dollars', feeZh: '25 加元', limitFr: 'douze livres', limitZh: '12 本图书' },
+  { city: 'de Laval', feeFr: '10 dollars', feeZh: '10 加元', limitFr: 'huit livres', limitZh: '8 本图书' },
+  { city: 'de Sherbrooke', feeFr: '12 dollars', feeZh: '12 加元', limitFr: 'six livres', limitZh: '6 本图书' },
 ]
 
-const PASS_OPTIONS = [
-  { passFr: 'mensuel', passZh: '月票', priceFr: '94 dollars', priceZh: '94 加元' },
-  { passFr: 'hebdomadaire', passZh: '周票', priceFr: '30 dollars', priceZh: '30 加元' },
-  { passFr: 'soirée illimitée', passZh: '晚间通票', priceFr: '6 dollars', priceZh: '6 加元' },
-  { passFr: 'fin de semaine', passZh: '周末票', priceFr: '15 dollars', priceZh: '15 加元' },
+export const N03_L_0 = [
+  // Scenario 1 (Template, situation: 0) - Livraison d'épicerie en ligne
+  Object.assign(
+    (rand) => {
+      const store = pick(N3_SUPERMARKETS, rand)
+      const sched = pick(N3_SUPERMARKET_SCHEDS, rand)
+      const othersFee = sample(N3_SUPERMARKETS.filter(s => s.minZh !== store.minZh), 2, rand)
+      const othersSched = sample(N3_SUPERMARKET_SCHEDS.filter(s => s.daysZh !== sched.daysZh), 2, rand)
+      const text = `Pour la livraison à domicile avec ${store.name}, le service est gratuit à partir de ${store.fee}. Le chauffeur passe ${sched.daysFr}, habituellement ${sched.hoursFr}.`
+      return {
+        text,
+        questions: [
+          ['满多少金额可以享受免费送货？', store.minZh, othersFee[0].minZh, othersFee[1].minZh],
+          ['超市在哪几天安排送货？', sched.daysZh, othersSched[0].daysZh, othersSched[1].daysZh],
+        ],
+      }
+    },
+    { situation: 0, capacity: N3_SUPERMARKETS.length * N3_SUPERMARKET_SCHEDS.length }
+  ),
+  // Scenario 2 (Template, situation: 1) - Titres et tarifs de transport urbain
+  Object.assign(
+    (rand) => {
+      const transit = pick(N3_TRANSIT_NETS, rand)
+      const pass = pick(N3_TRANSIT_PASS_LIST, rand)
+      const othersFare = sample(['3,00 加元', '4,25 加元', '2,75 加元', '3,90 加元'].filter(f => f !== transit.fareZh), 2, rand)
+      const othersPass = sample(N3_TRANSIT_PASS_LIST.filter(p => p.passZh !== pass.passZh), 2, rand)
+      const text = `Pour utiliser le réseau ${transit.agency}, un passage unitaire coûte ${transit.fareFr}. Le titre ${pass.passFr} coûte ${pass.priceFr}. N’oubliez pas de valider votre carte sur la borne.`
+      return {
+        text,
+        questions: [
+          ['单程车票的价格是多少？', transit.fareZh, othersFare[0], othersFare[1]],
+          ['被介绍的通票类型是？', pass.passZh, othersPass[0].passZh, othersPass[1].passZh],
+        ],
+      }
+    },
+    { situation: 1, capacity: N3_TRANSIT_NETS.length * N3_TRANSIT_PASS_LIST.length }
+  ),
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Pharmacie à domicile)
+  Object.assign(
+    (rand) => {
+      const pharm = pick(N3_PHARMACY_DELIVERIES, rand)
+      const othersMin = sample(N3_PHARMACY_DELIVERIES.filter(p => p.minZh !== pharm.minZh), 2, rand)
+      const othersDays = sample(N3_PHARMACY_DELIVERIES.filter(p => p.daysZh !== pharm.daysZh), 2, rand)
+      const text = `À la pharmacie ${pharm.name}, la livraison des ordonnances à domicile est sans frais dès ${pharm.minFr} d’achats. Le commis livre ${pharm.daysFr} en après-midi.`
+      return {
+        text,
+        questions: [
+          ['药房满多少金额免收配送费？', pharm.minZh, othersMin[0].minZh, othersMin[1].minZh],
+          ['送药上门服务安排在哪几天？', pharm.daysZh, othersDays[0].daysZh, othersDays[1].daysZh],
+        ],
+      }
+    },
+    { situation: 0, capacity: N3_PHARMACY_DELIVERIES.length }
+  ),
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Bibliothèque municipale)
+  Object.assign(
+    (rand) => {
+      const lib = pick(N3_LIBRARY_MEMBERSHIPS, rand)
+      const othersFee = sample(N3_LIBRARY_MEMBERSHIPS.filter(l => l.feeZh !== lib.feeZh), 2, rand)
+      const othersLimit = sample(N3_LIBRARY_MEMBERSHIPS.filter(l => l.limitZh !== lib.limitZh), 2, rand)
+      const text = `À la bibliothèque municipale ${lib.city}, l’abonnement annuel coûte ${lib.feeFr} par adulte. La carte permet d’emprunter jusqu’à ${lib.limitFr} pour trois semaines complètes.`
+      return {
+        text,
+        questions: [
+          ['居民办理图书借阅的年费是？', lib.feeZh, othersFee[0].feeZh, othersFee[1].feeZh],
+          ['读者一次最多可以借多少书？', lib.limitZh, othersLimit[0].limitZh, othersLimit[1].limitZh],
+        ],
+      }
+    },
+    { situation: 1, capacity: N3_LIBRARY_MEMBERSHIPS.length }
+  ),
+  // Scenario 5 (Static, situation: 0) - Supermarché Provigo
+  {
+    situation: 0,
+    text: 'Bienvenue chez Provigo. Pour faire livrer votre épicerie chez vous, le panier d’achats doit atteindre au moins 60 dollars. Nous livrons du lundi au vendredi jusqu’à 19 heures.',
+    questions: [
+      ['最低购物金额是多少才能送货？', '60 加元', '40 加元', '80 加元'],
+      ['超市哪几天提供送货服务？', '周一至周五', '周二至周六', '仅限双休日'],
+    ],
+  },
+  // Scenario 6 (Static, situation: 1) - Titres de transport autobus et métro
+  {
+    situation: 1,
+    text: 'Bonjour madame. Pour circuler dans l’autobus et le métro, vous pouvez acheter un titre de deux passages à sept dollars. C’est valide durant deux heures après la première validation.',
+    questions: [
+      ['购买两次票的价格是多少？', '7,00 加元', '5,00 加元', '9,00 加元'],
+      ['车票验证后的有效时长是？', '2 个小时', '4 个小时', '1 个小时'],
+    ],
+  },
 ]
 
+// ---------------------------------------------------------------------------
+// n3-listening-1
+// ---------------------------------------------------------------------------
 const N3_FORMS = [
   { name: 'la demande d’allocation familiale', topicZh: '家庭津贴申请表', field: '« revenu net »' },
   { name: 'le renouvellement de la carte d’assurance maladie', topicZh: '医保卡更新表', field: '« numéro de référence »' },
-  { name: 'l’inscription à la garderie municipale', topicZh: '日托报名表', field: '« contact d’urgence »' },
-  { name: 'le formulaire d’admission au cégep', topicZh: '学院入学申请表', field: '« code permanent »' },
+  { name: 'l’inscription à la garderie municipale', topicZh: '日托报名表格', field: '« contact d’urgence »' },
+  { name: 'le formulaire d’admission au cégep', topicZh: '学院申请表格', field: '« code permanent »' },
 ]
-
-const N3_WEEKEND_PLANS = [
+const N3_WEEKENDS = [
   { act: 'au parc Jean-Drapeau pour faire du vélo', actZh: '去公园骑行', day: 'samedi' },
   { act: 'au Musée national des beaux-arts à Québec', actZh: '去美术馆参观', day: 'dimanche' },
   { act: 'à la cabane à sucre avec ma cousine', actZh: '去枫糖小屋', day: 'samedi' },
   { act: 'en randonnée sur le mont Saint-Hilaire', actZh: '去徒步登山', day: 'dimanche' },
-  { act: 'patiner à la patinoire extérieure du quartier', actZh: '去户外滑冰', day: 'samedi' },
+  { act: 'à la patinoire extérieure du quartier', actZh: '去户外滑冰', day: 'samedi' },
+]
+const N3_OFFICE_CLOSINGS = [
+  { place: 'le secrétariat des cours', hour: 'dix-sept heures', placeZh: '课程秘书处' },
+  { place: 'le bureau des admissions', hour: 'seize heures', placeZh: '入学招生处' },
+  { place: 'la clinique universitaire', hour: 'dix-huit heures', placeZh: '校医务诊所' },
+  { place: 'le centre de services aux étudiants', hour: 'dix-sept heures trente', placeZh: '学生服务处' },
+  { place: 'le guichet des permis municipaux', hour: 'seize heures trente', placeZh: '市政服务处' },
+]
+const N3_LUNCH_INVITES = [
+  { place: 'au bistro du coin', placeZh: '街角的小餐馆' },
+  { place: 'à la pizzeria de la rue Principale', placeZh: '主街的披萨店' },
+  { place: 'au café près de la gare', placeZh: '车站旁咖啡厅' },
+  { place: 'au restaurant libanais du quartier', placeZh: '社区风味餐馆' },
+  { place: 'à la boulangerie artisanale', placeZh: '手作面包餐厅' },
 ]
 
+export const N03_L_1 = [
+  // Scenario 1 (Template, situation: 0) - Demande d'aide pour remplir un formulaire
+  Object.assign(
+    (rand) => {
+      const form = pick(N3_FORMS, rand)
+      const friend = pick(['Julie', 'Fatima', 'Carlos', 'Youssef'], rand)
+      const othersForm = sample(N3_FORMS.filter(f => f.topicZh !== form.topicZh), 2, rand)
+      const text = `— Salut ${friend} ! Est-ce que tu pourrais m’aider avec ${form.name} ? Je ne comprends pas bien la case ${form.field}. Tu as deux minutes ?`
+      return {
+        text,
+        questions: [
+          ['朋友需要什么方面的帮助？', `协助填写${form.topicZh}`, `协助填写${othersForm[0].topicZh}`, `协助填写${othersForm[1].topicZh}`],
+          ['面对求助，合适的回答是：', 'Oui, je peux regarder avec toi.', 'Merci pour cette belle invitation.', 'Enchanté de faire votre rencontre.'],
+        ],
+      }
+    },
+    { situation: 0, capacity: N3_FORMS.length * 4 }
+  ),
+  // Scenario 2 (Template, situation: 1) - Question sur les projets de fin de semaine
+  Object.assign(
+    (rand) => {
+      const plan = pick(N3_WEEKENDS, rand)
+      const name = pick(['Antoine', 'Chloé', 'Maxime', 'Amina'], rand)
+      const othersPlan = sample(N3_WEEKENDS.filter(p => p.actZh !== plan.actZh), 2, rand)
+      const text = `— Bonjour ${name} ! Qu’est-ce que tu as prévu pour la fin de semaine ? — Je vais aller ${plan.act} ce ${plan.day}. Et toi, est-ce que tu fais quelque chose de spécial ?`
+      return {
+        text,
+        questions: [
+          ['同事计划在周末做什么？', plan.actZh, othersPlan[0].actZh, othersPlan[1].actZh],
+          ['面对询问，合适的回答是：', 'Moi, je vais me reposer à la maison.', 'À mon avis, ce projet coûte trop cher.', 'S’il vous plaît, où est la réception ?'],
+        ],
+      }
+    },
+    { situation: 1, capacity: N3_WEEKENDS.length * 4 }
+  ),
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Horaire de fermeture d'un bureau)
+  Object.assign(
+    (rand) => {
+      const off = pick(N3_OFFICE_CLOSINGS, rand)
+      const name = pick(['Sophie', 'Mei', 'Karim', 'Amadou'], rand)
+      const othersOff = sample(N3_OFFICE_CLOSINGS.filter(o => o.placeZh !== off.placeZh), 2, rand)
+      const text = `— Excuse-moi ${name}, est-ce que tu sais à quelle heure ferme ${off.place} aujourd’hui ? Je dois déposer une feuille importante avant mon départ.`
+      return {
+        text,
+        questions: [
+          ['说话人想打听哪个部门的下班时间？', off.placeZh, othersOff[0].placeZh, othersOff[1].placeZh],
+          ['面对询问，合适的回答是：', 'Le bureau ferme à dix-sept heures.', 'Je prends un café sans sucre, merci.', 'Félicitations pour ton bon travail.'],
+        ],
+      }
+    },
+    { situation: 0, capacity: N3_OFFICE_CLOSINGS.length * 4 }
+  ),
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Invitation d'un collègue pour dîner)
+  Object.assign(
+    (rand) => {
+      const lunch = pick(N3_LUNCH_INVITES, rand)
+      const colleague = pick(['Jean', 'Émilie', 'Valérie', 'Simon'], rand)
+      const othersLunch = sample(N3_LUNCH_INVITES.filter(l => l.placeZh !== lunch.placeZh), 2, rand)
+      const text = `— Salut ${colleague} ! Est-ce que ça te tente de venir dîner avec nous ${lunch.place} ce midi ? On part ensemble du bureau vers midi et quart.`
+      return {
+        text,
+        questions: [
+          ['同事邀请对方去哪里用餐？', lunch.placeZh, othersLunch[0].placeZh, othersLunch[1].placeZh],
+          ['面对邀请，合适的回答是：', 'Avec plaisir, j’arrive dans cinq minutes.', 'Bonjour, je cherche l’arrêt d’autobus.', 'Prenez deux comprimés avant le souper.'],
+        ],
+      }
+    },
+    { situation: 1, capacity: N3_LUNCH_INVITES.length * 4 }
+  ),
+  // Scenario 5 (Static, situation: 0) - Formulaire de bourse d'études
+  {
+    situation: 0,
+    text: '— Excuse-moi Carlos, est-ce que tu as rempli la demande d’aide financière pour les cours ? Je ne comprends pas où écrire mon numéro d’assurance sociale.',
+    questions: [
+      ['朋友在咨询关于什么的疑问？', '助学贷款申请表格', '租房合同续约条款', '驾照更新体检证明'],
+      ['面对求助，合适的回答是：', 'Viens, je vais te montrer la case.', 'Merci beaucoup pour ce beau cadeau.', 'Je prends mon manteau et je sors.'],
+    ],
+  },
+  // Scenario 6 (Static, situation: 1) - Sortie de camping dans Charlevoix
+  {
+    situation: 1,
+    text: '— Salut Martin ! Tu as des projets pour la longue fin de semaine ? Nous partons deux jours en camping dans Charlevoix s’il fait beau. Tu viens avec nous ?',
+    questions: [
+      ['马丁被邀请参加什么活动？', '去夏勒瓦地区露营', '在市中心商场购物', '去市立图书馆复习'],
+      ['面对邀请，合适的回答是：', 'Merci, mais j’ai déjà un engagement.', 'Le dossier est prêt sur votre bureau.', 'Prenez à droite après le feu rouge.'],
+    ],
+  },
+]
+
+// ---------------------------------------------------------------------------
+// n3-listening-2
+// ---------------------------------------------------------------------------
 const N3_CLOTHES = [
   { item: 'un manteau d’hiver', colorM: 'bleu marine', colorZh: '深蓝色', feature: 'très chaud avec un capuchon', discount: 'à moitié prix', reasonZh: '半价特惠' },
-  { item: 'une veste imperméable', colorM: 'noire', colorZh: '黑色', feature: 'avec de grandes poches', discount: 'en liquidation', reasonZh: '清仓特惠' },
-  { item: 'un chandail de laine', colorM: 'vert foncé', colorZh: '深绿色', feature: 'doux et très confortable', discount: 'avec un bon rabais', reasonZh: '特价优惠' },
-  { item: 'un pantalon chaud', colorM: 'gris foncé', colorZh: '深灰色', feature: 'parfait pour le froid', discount: 'en solde de saison', reasonZh: '季末打折' },
-  { item: 'une belle tuque', colorM: 'rouge foncé', colorZh: '深红色', feature: 'doublée en laine polaire', discount: 'à moitié prix', reasonZh: '半价特惠' },
+  { item: 'une veste imperméable', colorM: 'noire', colorZh: '深黑色', feature: 'avec de grandes poches', discount: 'en liquidation', reasonZh: '清仓特卖' },
+  { item: 'un chandail de laine', colorM: 'vert foncé', colorZh: '墨绿色', feature: 'doux et très confortable', discount: 'avec un bon rabais', reasonZh: '特价优惠' },
+  { item: 'un pantalon chaud', colorM: 'gris foncé', colorZh: '深灰色', feature: 'parfait pour le froid', discount: 'en solde de saison', reasonZh: '季末折扣' },
+  { item: 'un blouson d’automne', colorM: 'brun foncé', colorZh: '深棕色', feature: 'doublé en polaire douce', discount: 'avec un bon rabais', reasonZh: '换季让利' },
 ]
+const N3_CLOTH_STORES = ['chez Simons', 'au magasin Winners', 'au centre commercial', 'à la boutique locale', 'chez Aubainerie']
 
-const N3_CLOTH_STORES = [
-  'chez Simons',
-  'au magasin Winners',
-  'au centre commercial',
-  'à la boutique locale',
-  'chez Aubainerie',
-]
-
-// All sick names start with consonants so "que + Name" never violates elision
-const N3_SICK_PEOPLE = [
+const N3_SICK_LIST = [
   { name: 'Karim', absent: 's’est absenté ce matin', pronoun: 'Il', prep: 'd’un gros rhume avec un peu de fièvre', sympZh: '重感冒伴有低烧' },
   { name: 'Sarah', absent: 's’est absentée ce matin', pronoun: 'Elle', prep: 'd’un mal de gorge très persistant', sympZh: '严重喉咙疼痛' },
   { name: 'Patrick', absent: 's’est absenté ce matin', pronoun: 'Il', prep: 'd’une vilaine grippe saisonnière', sympZh: '患季节性流感' },
   { name: 'Lucia', absent: 's’est absentée ce matin', pronoun: 'Elle', prep: 'd’une migraine intense et de fatigue', sympZh: '偏头痛伴随疲劳' },
   { name: 'David', absent: 's’est absenté ce matin', pronoun: 'Il', prep: 'd’une bronchite assez douloureuse', sympZh: '患急性支气管炎' },
-  { name: 'Fatima', absent: 's’est absentée ce matin', pronoun: 'Elle', prep: 'd’un problème d’estomac passager', sympZh: '急性胃部不适' },
 ]
-
-const N3_CLINICS = [
-  { clinic: 'au CLSC du quartier', clinicZh: '社区诊所（CLSC）' },
-  { clinic: 'à la clinique sans rendez-vous', clinicZh: '免预约家庭门诊' },
-  { clinic: 'chez son médecin de famille', clinicZh: '家庭医生诊所' },
+const N3_CLINIC_LIST = [
+  { clinic: 'au CLSC du quartier', clinicZh: '社区综合门诊CLSC' },
+  { clinic: 'à la clinique sans rendez-vous', clinicZh: '免预约家庭门诊部' },
+  { clinic: 'chez son médecin de famille', clinicZh: '家庭医生私人诊所' },
   { clinic: 'au centre médical local', clinicZh: '本地综合医疗中心' },
 ]
 
-const N3_MED_DOSAGES = [
-  { med: 'ce sirop pour la toux', dose: 'une cuillère', freq: 'deux fois par jour', freqZh: '每天 2 次', moment: 'après le déjeuner et le souper', momentZh: '早晚餐后服用', dur: 'pendant cinq jours', durZh: '连续 5 天' },
-  { med: 'ces comprimés blancs', dose: 'un comprimé', freq: 'trois fois par jour', freqZh: '每天 3 次', moment: 'avec un grand verre d’eau', momentZh: '大杯温水送服', dur: 'pendant sept jours', durZh: '连续 7 天' },
-  { med: 'ces gélules de vitamines', dose: 'deux gélules', freq: 'chaque matin', freqZh: '每天早晨', moment: 'avant le premier repas', momentZh: '空腹早餐前服', dur: 'pendant dix jours', durZh: '连续 10 天' },
-  { med: 'ces gouttes pour les yeux', dose: 'trois gouttes', freq: 'deux fois par jour', freqZh: '每天 2 次', moment: 'le matin et le soir', momentZh: '早晚各服一次', dur: 'pendant une semaine', durZh: '连续 1 周' },
+const N3_APPLIANCES = [
+  { item: 'une cafetière programmable', colorZh: '黑色机身', feat: 'compacte avec une verseuse en verre', useZh: '快速煮制新鲜咖啡' },
+  { item: 'un grille-pain électrique', colorZh: '银灰机身', feat: 'muni de fentes très larges', useZh: '均匀烘烤各种面包' },
+  { item: 'un four à micro-ondes', colorZh: '白色机身', feat: 'doté d’un affichage numérique clair', useZh: '快速加热便当餐食' },
+  { item: 'un mélangeur de cuisine', colorZh: '深红机身', feat: 'équipé de lames solides en acier', useZh: '轻松搅拌新鲜果汁' },
+]
+const N3_APPLIANCE_STORES = ['au magasin Walmart', 'chez Canadian Tire', 'au magasin Best Buy', 'au centre d’achats']
+
+const N3_PETS = [
+  { type: 'chaton très affectueux', furZh: '灰色条纹', featZh: '活泼好动爱玩耍' },
+  { type: 'chiot très énergique', furZh: '棕褐毛色', featZh: '热情开朗喜奔跑' },
+  { type: 'jeune chat curieux', furZh: '黑白相间', featZh: '机警温和喜安静' },
+  { type: 'petit chien joueur', furZh: '纯白毛色', featZh: '乖巧亲人爱撒娇' },
+]
+const N3_SHELTER_LOCS = ['de Québec', 'de Montréal', 'de Laval', 'de Sherbrooke']
+
+export const N03_L_2 = [
+  // Scenario 1 (Template, situation: 0) - Achat de vêtement chaud en solde
+  Object.assign(
+    (rand) => {
+      const c = pick(N3_CLOTHES, rand)
+      const store = pick(N3_CLOTH_STORES, rand)
+      const othersColor = sample(N3_CLOTHES.filter(x => x.colorZh !== c.colorZh), 2, rand)
+      const othersReason = sample(N3_CLOTHES.filter(x => x.reasonZh !== c.reasonZh), 2, rand)
+      const text = `Regarde, je viens d’acheter ${c.item} ${c.colorM}. C’est ${c.feature}, parfait pour l’hiver au Québec. En plus, c’était ${c.discount} ${store}.`
+      return {
+        text,
+        questions: [
+          ['购买的衣物是什么颜色？', c.colorZh, othersColor[0].colorZh, othersColor[1].colorZh],
+          ['为什么这次购物很划算？', c.reasonZh, othersReason[0].reasonZh, othersReason[1].reasonZh],
+        ],
+      }
+    },
+    { situation: 0, capacity: N3_CLOTHES.length * N3_CLOTH_STORES.length }
+  ),
+  // Scenario 2 (Template, situation: 1) - Collègue malade absent
+  Object.assign(
+    (rand) => {
+      const p = pick(N3_SICK_LIST, rand)
+      const clinic = pick(N3_CLINIC_LIST, rand)
+      const othersSymp = sample(N3_SICK_LIST.filter(x => x.sympZh !== p.sympZh), 2, rand)
+      const othersClinic = sample(N3_CLINIC_LIST.filter(x => x.clinicZh !== clinic.clinicZh), 2, rand)
+      const text = `Notre collègue ${p.name} ne sera pas là aujourd’hui. ${p.pronoun} souffre ${p.prep}. Le médecin consulté ${clinic.clinic} lui a recommandé trois jours de repos complet au lit.`
+      return {
+        text,
+        questions: [
+          ['生病的同事出现了什么症状？', p.sympZh, othersSymp[0].sympZh, othersSymp[1].sympZh],
+          ['同事去哪里看了医生？', clinic.clinicZh, othersClinic[0].clinicZh, othersClinic[1].clinicZh],
+        ],
+      }
+    },
+    { situation: 1, capacity: N3_SICK_LIST.length * N3_CLINIC_LIST.length }
+  ),
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Nouvel appareil de cuisine)
+  Object.assign(
+    (rand) => {
+      const app = pick(N3_APPLIANCES, rand)
+      const st = pick(N3_APPLIANCE_STORES, rand)
+      const othersColor = sample(N3_APPLIANCES.filter(x => x.colorZh !== app.colorZh), 2, rand)
+      const othersUse = sample(N3_APPLIANCES.filter(x => x.useZh !== app.useZh), 2, rand)
+      const text = `J’ai acheté ${app.item} en solde ${st}. L’appareil est ${app.feat}. Il est très pratique pour la cuisine de tous les jours.`
+      return {
+        text,
+        questions: [
+          ['买到的厨房电器外观颜色是？', app.colorZh, othersColor[0].colorZh, othersColor[1].colorZh],
+          ['这款电器的主要实用功能是？', app.useZh, othersUse[0].useZh, othersUse[1].useZh],
+        ],
+      }
+    },
+    { situation: 0, capacity: N3_APPLIANCES.length * N3_APPLIANCE_STORES.length }
+  ),
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Animal de compagnie adopté)
+  Object.assign(
+    (rand) => {
+      const pet = pick(N3_PETS, rand)
+      const loc = pick(N3_SHELTER_LOCS, rand)
+      const othersFur = sample(N3_PETS.filter(x => x.furZh !== pet.furZh), 2, rand)
+      const othersFeat = sample(N3_PETS.filter(x => x.featZh !== pet.featZh), 2, rand)
+      const text = `Au refuge pour animaux ${loc}, nous avons choisi un ${pet.type}. Il a un beau pelage et des yeux vifs. Nous sommes ravis de l’accueillir à la maison.`
+      return {
+        text,
+        questions: [
+          ['在收容所挑选的动物毛色是？', pet.furZh, othersFur[0].furZh, othersFur[1].furZh],
+          ['这只小动物表现出的性格是？', pet.featZh, othersFeat[0].featZh, othersFeat[1].featZh],
+        ],
+      }
+    },
+    { situation: 1, capacity: N3_PETS.length * N3_SHELTER_LOCS.length }
+  ),
+  // Scenario 5 (Static, situation: 0) - Écharpe en laine et mitaines
+  {
+    situation: 0,
+    text: 'J’ai acheté une écharpe en laine brune et des mitaines épaisses. Les deux articles étaient en solde à vingt dollars seulement au magasin de la rue Saint-Denis.',
+    questions: [
+      ['买到的围巾是什么颜色？', '棕色毛线', '黑色毛线', '深蓝毛线'],
+      ['购买这两样物品共花了多少钱？', '20 加元', '35 加元', '50 加元'],
+    ],
+  },
+  // Scenario 6 (Static, situation: 1) - Collègue atteint d'une laryngite
+  {
+    situation: 1,
+    text: 'Marc nous a écrit ce matin. Il a une laryngite et a complètement perdu sa voix. Le médecin lui a prescrit du repos et des tisanes chaudes pour toute la semaine.',
+    questions: [
+      ['马克身体有什么具体不适？', '得了喉炎并且失声', '偏头痛伴随有低烧', '扭伤手腕无法写字'],
+      ['医生给马克的治疗建议是？', '充分休息并喝热茶', '按时服用消炎胶囊', '佩戴护具卧床静养'],
+    ],
+  },
 ]
 
+// ---------------------------------------------------------------------------
+// n3-listening-3
+// ---------------------------------------------------------------------------
+const N3_MED_DOSAGES = [
+  { med: 'ce sirop pour la toux', dose: 'une cuillère', freq: 'deux fois par jour', freqZh: '每天 2 次', moment: 'après le déjeuner et le souper', dur: 'pendant cinq jours' },
+  { med: 'ces comprimés blancs', dose: 'un comprimé', freq: 'trois fois par jour', freqZh: '每天 3 次', moment: 'avec un grand verre d’eau', dur: 'pendant sept jours' },
+  { med: 'ces gélules de vitamines', dose: 'deux gélules', freq: 'chaque matin', freqZh: '每天早晨', moment: 'avant le premier repas', dur: 'pendant dix jours' },
+  { med: 'ces gouttes pour les yeux', dose: 'trois gouttes', freq: 'au coucher', freqZh: '每晚睡前', moment: 'le soir au coucher', dur: 'pendant une semaine' },
+]
 const N3_MED_ADVICES = [
   { fr: 'Buvez beaucoup d’eau dans la journée.', zh: '白天多喝温水补充水分' },
   { fr: 'Reposez-vous bien pour vite récupérer.', zh: '充分卧床休息加快恢复' },
   { fr: 'Ne dépassez jamais la dose recommandée.', zh: '严格按医嘱剂量切勿过量' },
   { fr: 'Gardez ce flacon dans un endroit frais.', zh: '将药瓶放置阴凉干燥处' },
 ]
-
 const N3_IT_DEVICES = [
   { dev: 'l’ordinateur du bureau', step1: 'd’abord allumer l’écran puis le boîtier central', step1Zh: '先开显示器再开机箱主机', step2: 'taper ton mot de passe d’employé', step2Zh: '输入员工个人密码' },
   { dev: 'la session de travail', step1: 'd’abord brancher la clé sur le port USB', step1Zh: '先将优盘插在USB接口', step2: 'cliquer sur l’icône bleue du réseau', step2Zh: '点击内部网络的蓝色图标' },
   { dev: 'le poste informatique', step1: 'd’abord appuyer sur le gros bouton noir', step1Zh: '先按下机箱上的黑色大按钮', step2: 'inscrire ton identifiant temporaire', step2Zh: '输入系统临时工号' },
   { dev: 'la tablette de vente', step1: 'd’abord déverrouiller l’écran d’accueil', step1Zh: '先在屏幕主页解锁按键', step2: 'lancer le logiciel de la caisse', step2Zh: '打开门店的收银系统软件' },
 ]
-
-const N3_IT_FOLLOWUPS = [
+const N3_IT_FOLLOWS = [
   'Ensuite, ouvre ta boîte de courriels.',
   'Puis, vérifie tes tâches du jour.',
   'Après, confirme ta présence sur le portail.',
   'Ensuite, regarde les messages urgents.',
 ]
 
+const N3_WASH_MACHINES = [
+  { machine: 'la laveuse frontale', soapSlot: 'le petit bac de gauche', cycle: 'délicat', soapZh: '左侧的小储液槽', cycleZh: '温和轻柔洗涤程序' },
+  { machine: 'la machine à laver', soapSlot: 'le compartiment supérieur', cycle: 'coton rapide', soapZh: '顶部的小分配格槽', cycleZh: '快速棉质清洗程序' },
+  { machine: 'le lave-linge moderne', soapSlot: 'le tiroir central gradué', cycle: 'éco à l’eau froide', soapZh: '中间带刻度的小槽', cycleZh: '冷水节能环保程序' },
+]
+const N3_WASH_TEMPS = ['à l’eau tiède', 'à l’eau froide', 'à basse température']
+
+const N3_WORKSHOP_AREAS = [
+  { area: 'à l’atelier de menuiserie', gear: 'des lunettes de sécurité transparentes', gearZh: '透明护目安全眼镜', placeZh: '员工更衣室存物柜' },
+  { area: 'au laboratoire de mécanique', gear: 'des gants de protection renforcés', gearZh: '加厚耐磨防护手套', placeZh: '车间进门处的置物台' },
+  { area: 'dans la zone d’usinage', gear: 'un casque de protection antibruit', gearZh: '专用防噪安全耳罩', placeZh: '指定员工个人存物箱' },
+]
+
+export const N03_L_3 = [
+  // Scenario 1 (Template, situation: 0) - Posologie de médicaments
+  Object.assign(
+    (rand) => {
+      const med = pick(N3_MED_DOSAGES, rand)
+      const adv = pick(N3_MED_ADVICES, rand)
+      const othersFreq = sample(N3_MED_DOSAGES.filter(m => m.freqZh !== med.freqZh), 2, rand)
+      const othersAdv = sample(N3_MED_ADVICES.filter(a => a.zh !== adv.zh), 2, rand)
+      const text = `À la pharmacie, on m’a bien expliqué comment prendre ${med.med}. Prenez ${med.dose} ${med.freq}, ${med.moment}, ${med.dur}. ${adv.fr}`
+      return {
+        text,
+        questions: [
+          ['这种药品的服用频率是？', med.freqZh, othersFreq[0].freqZh, othersFreq[1].freqZh],
+          ['药剂师给出的健康建议是？', adv.zh, othersAdv[0].zh, othersAdv[1].zh],
+        ],
+      }
+    },
+    { situation: 0, capacity: N3_MED_DOSAGES.length * N3_MED_ADVICES.length }
+  ),
+  // Scenario 2 (Template, situation: 1) - Poste informatique de bureau
+  Object.assign(
+    (rand) => {
+      const dev = pick(N3_IT_DEVICES, rand)
+      const follow = pick(N3_IT_FOLLOWS, rand)
+      const othersStep1 = sample(N3_IT_DEVICES.filter(d => d.step1Zh !== dev.step1Zh), 2, rand)
+      const othersStep2 = sample(N3_IT_DEVICES.filter(d => d.step2Zh !== dev.step2Zh), 2, rand)
+      const text = `Pour ouvrir ${dev.dev}, écoute bien les étapes. Tu dois ${dev.step1}. Dès que la lumière verte clignote, il faut ${dev.step2}. ${follow}`
+      return {
+        text,
+        questions: [
+          ['开启工作设备的第一步是？', dev.step1Zh, othersStep1[0].step1Zh, othersStep1[1].step1Zh],
+          ['开机后应如何登录系统？', dev.step2Zh, othersStep2[0].step2Zh, othersStep2[1].step2Zh],
+        ],
+      }
+    },
+    { situation: 1, capacity: N3_IT_DEVICES.length * N3_IT_FOLLOWS.length }
+  ),
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Lave-linge de buanderie)
+  Object.assign(
+    (rand) => {
+      const wm = pick(N3_WASH_MACHINES, rand)
+      const temp = pick(N3_WASH_TEMPS, rand)
+      const text = `Pour faire fonctionner ${wm.machine}, place d’abord ton linge dans le tambour. Verse une mesure de détergent dans ${wm.soapSlot}, puis tourne le bouton vers le cycle ${wm.cycle} ${temp}.`
+      return {
+        text,
+        questions: [
+          ['洗衣液应倒在哪个具体位置？', wm.soapZh, '洗衣机机身排水管道', '直接倒入滚筒的最底部'],
+          ['建议选择哪一种洗涤程序？', wm.cycleZh, '高温强力除污清洗程序', '超高速甩干脱水程序'],
+        ],
+      }
+    },
+    { situation: 0, capacity: N3_WASH_MACHINES.length * N3_WASH_TEMPS.length }
+  ),
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Consignes atelier)
+  Object.assign(
+    (rand) => {
+      const ws = pick(N3_WORKSHOP_AREAS, rand)
+      const text = `Avant de commencer le travail ${ws.area}, enfile ${ws.gear}. Dépose ton sac dans le vestiaire des employés et lace bien tes bottes de protection.`
+      return {
+        text,
+        questions: [
+          ['进入工作区域前必须佩戴什么？', ws.gearZh, '轻便普通防尘棉纱口罩', '耐磨防刮保暖皮质手套'],
+          ['随身背包应当放在什么地方？', ws.placeZh, '靠近生产机床的物料架', '车间大门口右侧木长椅'],
+        ],
+      }
+    },
+    { situation: 1, capacity: N3_WORKSHOP_AREAS.length }
+  ),
+  // Scenario 5 (Static, situation: 0) - Sachet de poudre pour la toux
+  {
+    situation: 0,
+    text: 'Pour votre toux, dissolvez un sachet de poudre dans un verre d’eau tiède chaque matin. Ne dépassez pas deux sachets par jour et buvez beaucoup d’eau fraîche.',
+    questions: [
+      ['这种止咳冲剂应该在什么时候服用？', '每天早晨起床后', '每晚睡前空腹时', '午餐正餐进食前'],
+      ['冲剂每天的最高限量是多少？', '每天最多两小包', '每天最多四小包', '每天最多一整盒'],
+    ],
+  },
+  // Scenario 6 (Static, situation: 1) - Imprimante partagée
+  {
+    situation: 1,
+    text: 'Pour lancer l’imprimante partagée, appuie sur le bouton vert situé sur le côté droit. Attends que le voyant bleu devienne fixe avant d’envoyer ton premier document.',
+    questions: [
+      ['开启打印机应按下哪个按钮？', '右侧的绿色按钮', '左侧的红色开关', '顶部的黄色旋钮'],
+      ['什么时候才可以发送打印文件？', '蓝色指示灯常亮时', '黄色警报灯闪烁时', '红色按键弹起之后'],
+    ],
+  },
+]
+
+// ---------------------------------------------------------------------------
+// n3-listening-4
+// ---------------------------------------------------------------------------
 const N3_COMPLIMENTS = [
   { item: 'ton veston bleu', adj: 'très élégant', itemZh: '蓝色外套', effectZh: '显得大方得体' },
   { item: 'ta chemise blanche', adj: 'vraiment impeccable', itemZh: '白色衬衫', effectZh: '显得干净整洁' },
   { item: 'ta belle veste', adj: 'très soignée', itemZh: '漂亮的夹克', effectZh: '很有职业精神' },
-  { item: 'ton joli foulard', adj: 'superbe', itemZh: '好看的围巾', effectZh: '颜色搭配极佳' },
-  { item: 'ton pull en laine', adj: 'très chic', itemZh: '羊毛毛衣', effectZh: '款式现代时尚' },
+  { item: 'ton joli foulard', adj: 'superbe', itemZh: '好看的围巾', effectZh: '显得现代大方' },
+  { item: 'ton pull en laine', adj: 'très chic', itemZh: '羊毛毛衣', effectZh: '款式大方端庄' },
 ]
-
 const N3_MEETINGS = [
   'pour la réunion de ce matin',
   'pour notre rencontre d’équipe',
@@ -152,487 +567,114 @@ const N3_CHEERS = [
   { condition: 'tes douleurs au dos', conditionZh: '背部肌肉拉伤酸痛', wish: 'beaucoup de repos', wishZh: '祝好好放松休息' },
 ]
 
-const N3_CHEER_ADVICES = [
-  'Prends tout ton temps pour te soigner.',
-  'Ne te soucie pas des dossiers du travail.',
-  'Dors beaucoup et bois des tisanes chaudes.',
-  'Toute l’équipe au bureau t’envoie du courage.',
+const N3_EXAM_SUCCESSES = [
+  { exam: 'pratique de conduite', task: 'les manœuvres de stationnement', passZh: '通过了路考拿到驾照' },
+  { exam: 'de français professionnel', task: 'la compréhension orale', passZh: '通过了职业法语考试' },
+  { exam: 'd’admission au cégep', task: 'toutes les épreuves écrites', passZh: '顺利通过了学院统考' },
+  { exam: 'de certification comptable', task: 'les exercices financiers', passZh: '考取了专业资格证书' },
 ]
 
-export const N03_L_0 = [
-  // Scenario 1 (Template, situation: 0)
-  Object.assign(
-    (rand) => {
-      const store = pick(QUEBEC_SUPERMARKETS, rand)
-      const sched = pick(DELIVERY_SCHEDULES, rand)
-      const text = `Pour la livraison à domicile avec ${store.name}, le service est gratuit à partir de ${store.fee}. Le chauffeur passe ${sched.daysFr}, habituellement ${sched.hoursFr}.`
-      return {
-        text,
-        questions: [
-          ['满多少金额可以享受免费送货？', store.minZh, '20 加元', '100 加元'],
-          ['超市在哪几天安排送货？', sched.daysZh, '周末两天', '仅限周日'],
-        ],
-      }
-    },
-    { situation: 0, capacity: QUEBEC_SUPERMARKETS.length * DELIVERY_SCHEDULES.length }
-  ),
-  // Scenario 2 (Template, situation: 1)
-  Object.assign(
-    (rand) => {
-      const transit = pick(TRANSIT_AGENCIES, rand)
-      const pass = pick(PASS_OPTIONS, rand)
-      const text = `Pour utiliser le réseau ${transit.agency}, un passage unitaire coûte ${transit.fareFr}. Le titre ${pass.passFr} coûte ${pass.priceFr}. N’oubliez pas de valider votre carte sur la borne.`
-      return {
-        text,
-        questions: [
-          ['单程车票的价格是多少？', transit.fareZh, '5,00 加元', '1,50 加元'],
-          ['被介绍的通票类型是？', pass.passZh, '年票', '学生特惠票'],
-        ],
-      }
-    },
-    { situation: 1, capacity: TRANSIT_AGENCIES.length * PASS_OPTIONS.length }
-  ),
-  // Scenario 3 (Template, situation: 0 variant)
-  Object.assign(
-    (rand) => {
-      const store = pick(QUEBEC_SUPERMARKETS, rand)
-      const sched = pick(DELIVERY_SCHEDULES, rand)
-      const text = `À l’épicerie ${store.name}, la livraison coûte cinq dollars, mais elle devient gratuite dès ${store.fee} d’achats. Nos commis préparent les commandes pour ${sched.daysFr} matin.`
-      return {
-        text,
-        questions: [
-          ['达到多少消费金额可免送货费？', store.minZh, '25 加元', '90 加元'],
-          ['订单将在哪几天准备好？', sched.daysZh, '周末两天', '仅限周三'],
-        ],
-      }
-    },
-    { situation: 0, capacity: QUEBEC_SUPERMARKETS.length * DELIVERY_SCHEDULES.length }
-  ),
-  // Scenario 4 (Template, situation: 1 variant)
-  Object.assign(
-    (rand) => {
-      const transit = pick(TRANSIT_AGENCIES, rand)
-      const pass = pick(PASS_OPTIONS, rand)
-      const text = `Au guichet ${transit.agency}, vous pouvez charger un titre ${pass.passFr} sur votre ${transit.card}. Le prix est de ${pass.priceFr}. Le paiement s’effectue par carte ou comptant.`
-      return {
-        text,
-        questions: [
-          ['乘客可以在服务窗口办理什么？', `购买${pass.passZh}`, '补办身份证件', '预约入职面试'],
-          ['购买该车票的费用是多少？', pass.priceZh, '120 加元', '10 加元'],
-        ],
-      }
-    },
-    { situation: 1, capacity: TRANSIT_AGENCIES.length * PASS_OPTIONS.length }
-  ),
-  // Scenario 5 (Static, situation: 0)
-  {
-    situation: 0,
-    text: 'Bienvenue chez Provigo. Pour faire livrer votre épicerie chez vous, le panier d’achats doit atteindre au moins 60 dollars. Nous livrons du lundi au vendredi jusqu’à 19 heures.',
-    questions: [
-      ['最低购物金额是多少才能送货？', '60 加元', '30 加元', '100 加元'],
-      ['超市哪几天提供送货服务？', '周一至周五', '仅限周末', '仅限周六'],
-    ],
-  },
-  // Scenario 6 (Static, situation: 1)
-  {
-    situation: 1,
-    text: 'Bonjour madame. Pour circuler dans l’autobus et le métro, vous pouvez acheter un titre de deux passages à sept dollars. C’est valide durant deux heures après la première validation.',
-    questions: [
-      ['购买两次票的价格是多少？', '7 加元', '12 加元', '3 加元'],
-      ['每次乘车后车票的有效期是多久？', '2 小时', '24 小时', '半小时'],
-    ],
-  },
-]
-
-export const N03_L_1 = [
-  // Scenario 1 (Template, situation: 0)
-  Object.assign(
-    (rand) => {
-      const form = pick(N3_FORMS, rand)
-      const friend = pick(['Julie', 'Fatima', 'Carlos', 'Youssef'], rand)
-      const text = `— Salut ${friend} ! Est-ce que tu pourrais m’aider avec ${form.name} ? Je ne comprends pas la case ${form.field}. — Oui, bien sûr ! Regarde, tu dois simplement écrire ton information personnelle ici.`
-      return {
-        text,
-        questions: [
-          ['朋友需要什么帮助？', `协助填写${form.topicZh}`, '借用办公笔记本电脑', '帮忙搬家到新公寓'],
-          ['面对求助，合适的回答是：', 'Oui, on va regarder ça ensemble.', 'Non, je vais manger à la cafétéria.', 'Je dois partir tout de suite au bureau.'],
-        ],
-      }
-    },
-    { situation: 0, capacity: N3_FORMS.length * 4 }
-  ),
-  // Scenario 2 (Template, situation: 1)
-  Object.assign(
-    (rand) => {
-      const plan = pick(N3_WEEKEND_PLANS, rand)
-      const name = pick(['Antoine', 'Chloé', 'Maxime', 'Amina'], rand)
-      const text = `— Bonjour ${name} ! Qu’est-ce que tu as prévu pour la fin de semaine ? — Je vais aller ${plan.act} ce ${plan.day}. Et toi, est-ce que tu fais quelque chose de spécial ?`
-      return {
-        text,
-        questions: [
-          ['同事计划在周末做什么？', plan.actZh, '在公司加班处理文件', '在家修理老旧的汽车'],
-          ['面对询问，合适的回答是：', 'Moi, je vais relaxer à la maison avec un livre.', 'Je prévois repeindre le salon de mon logement.', 'Nous allons visiter notre grand-mère samedi.'],
-        ],
-      }
-    },
-    { situation: 1, capacity: N3_WEEKEND_PLANS.length * 4 }
-  ),
-  // Scenario 3 (Template, situation: 0 variant)
-  Object.assign(
-    (rand) => {
-      const form = pick(N3_FORMS, rand)
-      const name = pick(['Sophie', 'Mei', 'Karim', 'Amadou'], rand)
-      const text = `— Dis-moi ${name}, tu as deux minutes ? Je dois envoyer ${form.name} avant vendredi, mais la section ${form.field} me semble compliquée. — Pas de problème, voyons ça tranquillement ensemble.`
-      return {
-        text,
-        questions: [
-          ['说话人遇到了什么问题？', `不理解${form.topicZh}的一项内容`, '错过了报名参加培训班的时间', '丢失了钱包里的两张有效证件'],
-          ['面对询问，合适的回答是：', 'D’accord, montre-moi ton document.', 'Je vais préparer un café au lait chaud.', 'Mon adresse de courriel est inscrite ici.'],
-        ],
-      }
-    },
-    { situation: 0, capacity: N3_FORMS.length * 4 }
-  ),
-  // Scenario 4 (Template, situation: 1 variant)
-  Object.assign(
-    (rand) => {
-      const plan = pick(N3_WEEKEND_PLANS, rand)
-      const colleague = pick(['Jean', 'Émilie', 'Valérie', 'Simon'], rand)
-      const text = `— Salut ${colleague} ! Tu as des projets intéressants pour samedi ou dimanche ? — Oui, nous partons ${plan.act} ce ${plan.day} si la météo reste clémente. Tu aimerais venir avec nous ?`
-      return {
-        text,
-        questions: [
-          ['对方提出了什么周末安排？', plan.actZh, '去超市采购一周的日常杂货', '留在家里彻底打扫房间卫生'],
-          ['面对邀请，合适的回答是：', 'Avec grand plaisir, merci pour l’invitation !', 'Je regrette, j’ai déjà une autre activité.', 'C’est une très bonne idée pour la sortie !'],
-        ],
-      }
-    },
-    { situation: 1, capacity: N3_WEEKEND_PLANS.length * 4 }
-  ),
-  // Scenario 5 (Static, situation: 0)
-  {
-    situation: 0,
-    text: '— Excuse-moi, est-ce que tu as rempli la demande de bourse d’études ? Je bloque sur la deuxième page. — Oui, je l’ai déjà envoyée hier. Viens à mon bureau, je vais t’expliquer.',
-    questions: [
-      ['朋友在咨询关于什么的疑问？', '奖学金申请表格内容', '租房合同的重要条款', '护照签证的办理流程'],
-      ['面对求助，合适的回答是：', 'Je viens tout de suite à ton bureau.', 'La pluie tombe très fort dehors.', 'J’ai acheté du fromage à l’épicerie.'],
-    ],
-  },
-  // Scenario 6 (Static, situation: 1)
-  {
-    situation: 1,
-    text: '— Salut Martin ! Tu as des projets pour la longue fin de semaine ? — Oui, nous partons faire du camping dans Charlevoix avec des amis. Et toi, tu restes en ville ?',
-    questions: [
-      ['马丁在长周末有什么打算？', '去夏勒瓦地区户外露营', '在市中心商场疯狂购物', '去市立图书馆复习功课'],
-      ['面对提问，合适的回答是：', 'Oui, je reste ici pour visiter des musées.', 'Ma voiture a quatre roues entièrement neuves.', 'Le pain frais coûte trois dollars cinquante.'],
-    ],
-  },
-]
-
-export const N03_L_2 = [
-  // Scenario 1 (Template, situation: 0)
-  Object.assign(
-    (rand) => {
-      const c = pick(N3_CLOTHES, rand)
-      const store = pick(N3_CLOTH_STORES, rand)
-      const text = `Regarde, je viens d’acheter ${c.item} ${c.colorM}. C’est ${c.feature}, parfait pour l’hiver au Québec. En plus, c’était ${c.discount} ${store}.`
-      return {
-        text,
-        questions: [
-          ['购买的衣物是什么颜色？', c.colorZh, '纯黄色', '纯白色'],
-          ['为什么这次购物很划算？', c.reasonZh, '抽奖免费赠送', '二手旧物交换'],
-        ],
-      }
-    },
-    { situation: 0, capacity: N3_CLOTHES.length * N3_CLOTH_STORES.length }
-  ),
-  // Scenario 2 (Template, situation: 1)
-  Object.assign(
-    (rand) => {
-      const p = pick(N3_SICK_PEOPLE, rand)
-      const clinic = pick(N3_CLINICS, rand)
-      const text = `Notre collègue ${p.name} ne sera pas là aujourd’hui. ${p.pronoun} souffre ${p.prep}. Le médecin consulté ${clinic.clinic} lui a recommandé trois jours de repos complet au lit.`
-      return {
-        text,
-        questions: [
-          ['生病的同事出现了什么症状？', p.sympZh, '扭伤了右脚脚踝', '皮肤对花粉过敏'],
-          ['同事去哪里看了医生？', clinic.clinicZh, '省会大型综合医院', '私立牙科专门诊所'],
-        ],
-      }
-    },
-    { situation: 1, capacity: N3_SICK_PEOPLE.length * N3_CLINICS.length }
-  ),
-  // Scenario 3 (Template, situation: 0 variant)
-  Object.assign(
-    (rand) => {
-      const c = pick(N3_CLOTHES, rand)
-      const store = pick(N3_CLOTH_STORES, rand)
-      const text = `Hier, j’ai trouvé ${c.item} ${c.colorM} ${store}. Le tissu est très chaud et ${c.feature}. C’était une excellente affaire parce que l’article était ${c.discount}.`
-      return {
-        text,
-        questions: [
-          ['买到的衣服是什么颜色？', c.colorZh, '浅灰色', '粉红色'],
-          ['说话人为什么认为买得很值？', c.reasonZh, '积分卡免费换领', '朋友赠送的礼物'],
-        ],
-      }
-    },
-    { situation: 0, capacity: N3_CLOTHES.length * N3_CLOTH_STORES.length }
-  ),
-  // Scenario 4 (Template, situation: 1 variant)
-  Object.assign(
-    (rand) => {
-      const p = pick(N3_SICK_PEOPLE, rand)
-      const clinic = pick(N3_CLINICS, rand)
-      const text = `Je t’informe que ${p.name} ${p.absent}. ${p.pronoun} souffre ${p.prep}. Le personnel soignant consulté ${clinic.clinic} lui a ordonné un arrêt de travail jusqu’à lundi.`
-      return {
-        text,
-        questions: [
-          ['请假同事的身体健康问题是？', p.sympZh, '眼睛发炎看不清', '摔跤擦伤了手臂'],
-          ['同事是在何处接受医疗检查的？', clinic.clinicZh, '远程视频电话问诊', '药房日常咨询窗口'],
-        ],
-      }
-    },
-    { situation: 1, capacity: N3_SICK_PEOPLE.length * N3_CLINICS.length }
-  ),
-  // Scenario 5 (Static, situation: 0)
-  {
-    situation: 0,
-    text: 'J’ai acheté une écharpe en laine brune et des mitaines épaisses. Les deux articles étaient en solde à vingt dollars seulement au magasin de la rue Saint-Denis.',
-    questions: [
-      ['买到的围巾是什么颜色？', '棕色', '黑色', '蓝色'],
-      ['购买这两样物品共花了多少钱？', '20 加元', '50 加元', '80 加元'],
-    ],
-  },
-  // Scenario 6 (Static, situation: 1)
-  {
-    situation: 1,
-    text: 'Marc nous a écrit ce matin. Il a une laryngite et a complètement perdu sa voix. Le médecin lui a prescrit du repos et des tisanes chaudes pour toute la semaine.',
-    questions: [
-      ['马克身体有什么具体不适？', '得了喉炎并且失声', '胃痛无法进食消化', '突发高烧剧烈抽搐'],
-      ['医生给马克的治疗建议是？', '多休息并喝热茶', '立即进行微创手术', '去健身房跑步锻炼'],
-    ],
-  },
-]
-
-export const N03_L_3 = [
-  // Scenario 1 (Template, situation: 0)
-  Object.assign(
-    (rand) => {
-      const med = pick(N3_MED_DOSAGES, rand)
-      const adv = pick(N3_MED_ADVICES, rand)
-      const text = `À la pharmacie, on m’a bien expliqué comment prendre ${med.med}. Prenez ${med.dose} ${med.freq}, ${med.moment}, ${med.dur}. ${adv.fr}`
-      return {
-        text,
-        questions: [
-          ['这种药品的服用频率是？', med.freqZh, '每隔两周定期服用一次', '每个月末必须服用一次'],
-          ['药剂师给出的健康建议是？', adv.zh, '连续三天停止所有的正常进食', '立即乘坐救护车去医院急诊室'],
-        ],
-      }
-    },
-    { situation: 0, capacity: N3_MED_DOSAGES.length * N3_MED_ADVICES.length }
-  ),
-  // Scenario 2 (Template, situation: 1)
-  Object.assign(
-    (rand) => {
-      const dev = pick(N3_IT_DEVICES, rand)
-      const f = pick(N3_IT_FOLLOWUPS, rand)
-      const text = `Pour ouvrir ${dev.dev}, écoute bien les étapes. Tu dois ${dev.step1}. Dès que la lumière verte clignote, il faut ${dev.step2}. ${f}`
-      return {
-        text,
-        questions: [
-          ['开启工作设备的第一步是？', dev.step1Zh, '拔掉设备机箱后面的电源线', '直接用力拍打前面的液晶屏幕'],
-          ['开机后应如何登录系统？', dev.step2Zh, '重新下载并安装全部应用软件', '拨打电话联系部门经理来处理'],
-        ],
-      }
-    },
-    { situation: 1, capacity: N3_IT_DEVICES.length * N3_IT_FOLLOWUPS.length }
-  ),
-  // Scenario 3 (Template, situation: 0 variant)
-  Object.assign(
-    (rand) => {
-      const med = pick(N3_MED_DOSAGES, rand)
-      const adv = pick(N3_MED_ADVICES, rand)
-      const text = `Voici les consignes du pharmacien pour ${med.med}. Il faut avaler ${med.dose} ${med.freq}, surtout ${med.moment}, ${med.dur}. ${adv.fr}`
-      return {
-        text,
-        questions: [
-          ['药物需要在什么时间服用？', med.momentZh, '剧烈体育运动之后立即服用', '晚上洗热水澡之前空腹服用'],
-          ['药物建议的连续服用时长是？', med.durZh, '整整三个月时间', '连续六十天时间'],
-        ],
-      }
-    },
-    { situation: 0, capacity: N3_MED_DOSAGES.length * N3_MED_ADVICES.length }
-  ),
-  // Scenario 4 (Template, situation: 1 variant)
-  Object.assign(
-    (rand) => {
-      const dev = pick(N3_IT_DEVICES, rand)
-      const f = pick(N3_IT_FOLLOWUPS, rand)
-      const text = `Voici comment allumer ${dev.dev}. Il faut ${dev.step1}. Ensuite, sur l’écran de démarrage, pense à ${dev.step2}. ${f}`
-      return {
-        text,
-        questions: [
-          ['同事提醒的第一步操作是？', dev.step1Zh, '关闭办公室房间的所有主照明', '拉下墙壁上的红色紧急报警电闸'],
-          ['在登录页面需要执行的操作是？', dev.step2Zh, '格式化电脑主机里的全部硬盘', '长按设备电源关机按键十秒钟'],
-        ],
-      }
-    },
-    { situation: 1, capacity: N3_IT_DEVICES.length * N3_IT_FOLLOWUPS.length }
-  ),
-  // Scenario 5 (Static, situation: 0)
-  {
-    situation: 0,
-    text: 'Pour votre toux, dissolvez un sachet de poudre dans un verre d’eau tiède chaque matin. Ne dépassez pas deux sachets par jour et buvez beaucoup d’eau fraîche.',
-    questions: [
-      ['这种止咳冲剂应该在什么时候服用？', '每天早晨', '每天晚上临睡前', '午饭正餐进食时'],
-      ['冲剂每天的最高限量是多少？', '每天不超过两包', '每天可以吃五大包', '每次只能喝半小包'],
-    ],
-  },
-  // Scenario 6 (Static, situation: 1)
-  {
-    situation: 1,
-    text: 'Pour lancer l’imprimante partagée, appuie sur le bouton vert situé sur le côté droit. Attends que le voyant bleu devienne fixe avant d’envoyer ton premier document.',
-    questions: [
-      ['开启打印机应按下哪个按钮？', '右侧的绿色按钮', '左侧机身上的红色开关', '正前方最下方的黄色按键'],
-      ['什么时候才可以发送打印文件？', '蓝灯常亮稳定时', '机器红灯闪烁报警时', '机器蜂鸣声响三次后'],
-    ],
-  },
+const N3_NEWCOMERS = [
+  { name: 'Antoine', dept: 'de service', deptZh: '热烈欢迎加入工作团队' },
+  { name: 'Thomas', dept: 'des finances', deptZh: '热烈欢迎加入财务团队' },
+  { name: 'Nicolas', dept: 'des admissions', deptZh: '热烈欢迎加入招生团队' },
+  { name: 'Gabriel', dept: 'de la logistique', deptZh: '热烈欢迎加入后勤团队' },
 ]
 
 export const N03_L_4 = [
-  // Scenario 1 (Template, situation: 0)
+  // Scenario 1 (Template, situation: 0) - Compliment tenue
   Object.assign(
     (rand) => {
       const c = pick(N3_COMPLIMENTS, rand)
       const m = pick(N3_MEETINGS, rand)
+      const othersItem = sample(N3_COMPLIMENTS.filter(x => x.itemZh !== c.itemZh), 2, rand)
+      const othersEffect = sample(N3_COMPLIMENTS.filter(x => x.effectZh !== c.effectZh), 2, rand)
       const text = `Wow, ${c.item} est ${c.adj} ! Cela te va à merveille ${m}. Tu fais une excellente impression auprès de toute l’équipe aujourd’hui.`
       return {
         text,
         questions: [
-          ['说话人赞赏了对方的什么穿着？', c.itemZh, '新买的皮质公文包', '手腕上戴的手表品牌'],
-          ['同事表达的核心赞赏意思是？', c.effectZh, '请你快点出发走吧', '买这件衣服太昂贵了'],
+          ['说话人赞赏了对方的什么穿着？', c.itemZh, othersItem[0].itemZh, othersItem[1].itemZh],
+          ['同事表达的核心赞赏意思是？', c.effectZh, othersEffect[0].effectZh, othersEffect[1].effectZh],
         ],
       }
     },
     { situation: 0, capacity: N3_COMPLIMENTS.length * N3_MEETINGS.length }
   ),
-  // Scenario 2 (Template, situation: 1)
+  // Scenario 2 (Template, situation: 1) - Vœux de bon rétablissement
   Object.assign(
     (rand) => {
+      const ch = pick(N3_CHEERS, rand)
       const p = pick(['Mélanie', 'Amadou', 'Sofia', 'Émile', 'Karim', 'Lucia'], rand)
-      const ch = pick(N3_CHEERS, rand)
-      const adv = pick(N3_CHEER_ADVICES, rand)
-      const text = `Chère ${p}, j’ai appris que tu avais ${ch.condition}. Je te souhaite ${ch.wish}. Surtout, ${adv} Reviens-nous en pleine forme !`
+      const othersWish = sample(N3_CHEERS.filter(x => x.wishZh !== ch.wishZh), 2, rand)
+      const othersCond = sample(N3_CHEERS.filter(x => x.conditionZh !== ch.conditionZh), 2, rand)
+      const text = `Chère ${p}, j’ai appris pour ${ch.condition}. Je te souhaite ${ch.wish}. Prends tout ton temps pour te soigner. Reviens-nous en pleine forme !`
       return {
         text,
         questions: [
-          ['朋友发来这段关怀的主要内容是？', ch.wishZh, '催促按时提交业务报告', '祝贺考取专业职业证书'],
-          ['朋友得知对方出现了什么状况？', ch.conditionZh, '刚从国外旅游度假回来', '准备跳槽去其他新公司'],
-        ],
-      }
-    },
-    { situation: 1, capacity: 6 * N3_CHEERS.length * N3_CHEER_ADVICES.length }
-  ),
-  // Scenario 3 (Template, situation: 0 variant)
-  Object.assign(
-    (rand) => {
-      const c = pick(N3_COMPLIMENTS, rand)
-      const m = pick(N3_MEETINGS, rand)
-      const text = `Dis donc, ${c.item} est ${c.adj} ! Cela donne un style très professionnel ${m}. Honnêtement, cela te met beaucoup en valeur.`
-      return {
-        text,
-        questions: [
-          ['同事称赞了什么随身物品或着装？', c.itemZh, '办公桌上的精致摆设', '手写的会议重要记录本'],
-          ['同事表达的赞赏评价是？', c.effectZh, '衣物质地比较轻薄透气', '款式看起来十分陈旧过时'],
-        ],
-      }
-    },
-    { situation: 0, capacity: N3_COMPLIMENTS.length * N3_MEETINGS.length }
-  ),
-  // Scenario 4 (Template, situation: 1 variant)
-  Object.assign(
-    (rand) => {
-      const p = pick(['Karim', 'Lucia', 'Jin', 'Fatima', 'Patrick', 'Sarah'], rand)
-      const ch = pick(N3_CHEERS, rand)
-      const text = `Salut ${p} ! J’ai su pour ${ch.condition}. Ne t’en fais pas pour les dossiers du bureau, nous prenons le relais. Prends le temps de guérir complètement.`
-      return {
-        text,
-        questions: [
-          ['同事发来这段问候的目的是？', '表达关怀并让其安心养病', '询问借调外地出差的意向', '商量周末换班调班的事情'],
-          ['关于办公室的工作，同事说了什么？', '大家会分担，不必操心', '必须按期自己远程做完', '所有项目暂停等待返回'],
+          ['朋友发来这段问候的主要内容是？', ch.wishZh, othersWish[0].wishZh, othersWish[1].wishZh],
+          ['朋友得知对方出现了什么状况？', ch.conditionZh, othersCond[0].conditionZh, othersCond[1].conditionZh],
         ],
       }
     },
     { situation: 1, capacity: 6 * N3_CHEERS.length }
   ),
-  // Scenario 5 (Static, situation: 0)
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Examen réussi)
+  Object.assign(
+    (rand) => {
+      const ex = pick(N3_EXAM_SUCCESSES, rand)
+      const othersPass = sample(N3_EXAM_SUCCESSES.filter(x => x.passZh !== ex.passZh), 2, rand)
+      const text = `Bravo pour ton examen ${ex.exam} ! Tu as tellement pratiqué ${ex.task} ces dernières semaines. Je suis vraiment fier de ton beau succès.`
+      return {
+        text,
+        questions: [
+          ['朋友发来祝贺的具体事情是？', ex.passZh, othersPass[0].passZh, othersPass[1].passZh],
+          ['说话人对这个结果有什么评价？', '对努力付出的认可', '靠运气通过的侥幸', '过程准备得太匆忙'],
+        ],
+      }
+    },
+    { situation: 0, capacity: N3_EXAM_SUCCESSES.length }
+  ),
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Bienvenue nouveau collègue)
+  Object.assign(
+    (rand) => {
+      const newcomer = pick(N3_NEWCOMERS, rand)
+      const othersDept = sample(N3_NEWCOMERS.filter(x => x.deptZh !== newcomer.deptZh), 2, rand)
+      const text = `Bienvenue dans notre équipe, ${newcomer.name} ! Nous sommes tous très heureux de t’accueillir dans la division ${newcomer.dept}. Prends bien tes repères et passe une agréable première journée.`
+      return {
+        text,
+        questions: [
+          ['同事向新员工表达了什么心意？', newcomer.deptZh, othersDept[0].deptZh, othersDept[1].deptZh],
+          ['同事希望对方在第一天怎样？', '轻松适应新的工作环境', '立即起草一份业务方案', '独立处理客户投诉案件'],
+        ],
+      }
+    },
+    { situation: 1, capacity: N3_NEWCOMERS.length }
+  ),
+  // Scenario 5 (Static, situation: 0) - Félicitations promotion & veston
   {
     situation: 0,
     text: 'Félicitations pour ta promotion ! Ton nouveau veston bleu marine est très classe et s’accorde parfaitement à tes nouvelles fonctions. Tu as fière allure !',
     questions: [
-      ['说话人称赞了同事的什么着装？', '深蓝色西装外套', '白色运动慢跑鞋', '冬天防寒厚手套'],
-      ['« Tu as fière allure » 的意思是：', '你看起来气派精神', '你走路走得太快了', '你感到非常骄傲自大'],
+      ['说话人称赞了同事的什么着装？', '深蓝色的西装外套', '质地轻薄的长袖衫', '剪裁合身的长裤子'],
+      ['« Tu as fière allure » 的意思是：', '你看起来气派精神', '你走起路来很迅速', '你穿着打扮太随意'],
     ],
   },
-  // Scenario 6 (Static, situation: 1)
+  // Scenario 6 (Static, situation: 1) - Vœux après opération du genou
   {
     situation: 1,
     text: 'Coucou Julie ! Je viens aux nouvelles après ton opération du genou. J’espère que tu as moins mal. Reste bien tranquille à la maison et reviens en pleine forme !',
     questions: [
-      ['朋友为什么发来这段慰问？', '得知对方刚做了膝盖手术', '庆祝对方搬入了新公寓', '祝贺对方喜添新生宝宝'],
-      ['朋友希望朱莉怎样休养？', '安心静养，等完全康复再回', '每天多出门散步慢跑', '尽快回单位报到工作'],
+      ['朋友为什么发来这段慰问？', '得知对方刚做膝盖手术', '听说对方准备外出旅行', '祝贺对方喜迁全新住所'],
+      ['朋友希望朱莉怎样休养？', '安心在家休养到康复', '每天坚持在户外快走', '尽快回单位报到上班'],
     ],
   },
 ]
 
-// -------------------------------------------------------------
-// N03 READING
-// -------------------------------------------------------------
-
-const N3_JOBS = [
-  'commis à la caisse',
-  'vendeur au rayon vêtements',
-  'commis d’épicerie',
-  'associé au service à la clientèle',
-  'aide-magasinier en réserve',
-]
-
-const N3_SHIFTS = [
-  'en semaine et les fins de semaine',
-  'du jeudi au samedi inclusivement',
-  'sur les quarts de soir en semaine',
-  'de jour du lundi au mercredi',
-]
-
-const N3_ATTACHMENTS = [
-  'votre curriculum vitæ complet',
-  'vos disponibilités de travail écrites',
-  'deux références professionnelles vérifiables',
-  'une copie de votre diplôme secondaire',
-]
-
-const N3_SCHOOLS = [
-  'Saint-Jean-Baptiste',
-  'Marguerite-Bourgeoys',
-  'Marie-Victorin',
-  'Jacques-Cartier',
-]
-
-const N3_CARE_HOURS = [
-  'dès 7 h le matin et après les cours jusqu’à 18 h',
-  'sur la période du midi et après la classe',
-  'le matin à 7 h 30 et en fin de journée',
-]
-
-const N3_MED_INFOS = [
-  'les allergies alimentaires connues',
-  'les vaccins obligatoires reçus',
-  'les problèmes de santé particuliers',
-  'les contacts du médecin de famille',
-]
-
+// ---------------------------------------------------------------------------
+// n3-reading-0
+// ---------------------------------------------------------------------------
 export const N03_R_0 = [
-  // Scenario 1 (Template, situation: 0)
+  // Scenario 1 (Template, situation: 0) - Rencontre parents-enseignant
   Object.assign(
     (rand) => {
       const school = pick(['Saint-Jean-Baptiste', 'Marguerite-Bourgeoys', 'Jacques-Cartier', 'Sainte-Bernadette'], rand)
@@ -642,14 +684,14 @@ export const N03_R_0 = [
       return {
         text,
         questions: [
-          ['De quel évènement s’agit-il dans cet avis ?', 'une rencontre individuelle parents-enseignants', 'un concert de musique de fin d’année', 'une foire du livre organisée par la ville'],
-          ['Avant quelle date doit-on confirmer sa venue ?', rsvp, 'le 30 décembre', 'le premier septembre'],
+          ['De quel évènement s’agit-il dans cet avis ?', 'la rencontre parents-enseignant', 'la sortie scolaire au grand musée', 'la fête de quartier pour l’école'],
+          ['Avant quelle date doit-on confirmer sa venue ?', `avant ${rsvp}`, 'avant le trente décembre prochain', 'avant le premier septembre entier'],
         ],
       }
     },
-    { situation: 0, capacity: 16 }
+    { situation: 0, capacity: 64 }
   ),
-  // Scenario 2 (Template, situation: 1)
+  // Scenario 2 (Template, situation: 1) - Marché public municipal
   Object.assign(
     (rand) => {
       const market = pick(['du Vieux-Port', 'de Limoilou', 'de Rosemont', 'de Sainte-Foy'], rand)
@@ -658,347 +700,377 @@ export const N03_R_0 = [
       return {
         text,
         questions: [
-          ['Quelle annonce municipale est présentée dans le texte ?', 'l’ouverture d’un marché public de quartier', 'la fermeture temporaire d’une piscine publique', 'des travaux majeurs de voirie dans les rues'],
-          ['Quels jours le marché accueille-t-il le public ?', 'tous les samedis et dimanches', 'uniquement le mercredi après-midi', 'tous les soirs après dix-neuf heures'],
+          ['Quelle annonce municipale est présentée dans le texte ?', 'le lancement d’un marché local', 'la fermeture d’un parc aquatique', 'des travaux dans le quartier est'],
+          ['Quels jours le marché accueille-t-il le public ?', 'les samedis et les dimanches', 'tous les mercredis après-midi', 'chaque vendredi soir seulement'],
         ],
       }
     },
     { situation: 1, capacity: 16 }
   ),
-  // Scenario 3 (Template, situation: 0 variant)
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Piscine municipale)
   Object.assign(
     (rand) => {
-      const school = pick(['Monseigneur-Parent', 'Paul-Gérin-Lajoie', 'Joseph-François-Perrault'], rand)
-      const text = `École secondaire ${school}. Réunion d’information de début d’année le jeudi 25 septembre à 18 h 30 à l’auditorium. Les parents d’élèves recevront l’agenda scolaire et le calendrier des examens. Inscription obligatoire par courriel avant mardi.`
+      const pool = pick(['Saint-Roch', 'du Plateau', 'Saint-Henri', 'de Sainte-Foy'], rand)
+      const text = `Piscine municipale ${pool}. Horaires des bains libres d’automne : du mardi au vendredi de 12 h à 14 h et de 18 h à 20 h. Bonnet de bain obligatoire. Tarif d’entrée : quatre dollars par adulte, gratuit pour les enfants.`
       return {
         text,
         questions: [
-          ['Où aura lieu cette réunion d’information ?', 'à l’auditorium de l’école secondaire', 'dans la cour de récréation extérieure', 'à la mairie de l’arrondissement voisin'],
-          ['Comment les parents doivent-ils s’inscrire ?', 'par courriel avant mardi', 'par la poste avec un chèque', 'en venant sans prévenir'],
+          ['Quel équipement est obligatoire pour nager ?', 'un bonnet de bain', 'des lunettes de plongée', 'un maillot avec dossard'],
+          ['Quel est le tarif d’entrée pour un adulte ?', 'quatre dollars par personne', 'dix dollars pour une personne', 'huit dollars pour une personne'],
         ],
       }
     },
-    { situation: 0, capacity: 3 }
+    { situation: 0, capacity: 4 }
   ),
-  // Scenario 4 (Template, situation: 1 variant)
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Centre communautaire)
   Object.assign(
     (rand) => {
-      const city = pick(['Laval', 'Longueuil', 'Sherbrooke', 'Trois-Rivières'], rand)
-      const text = `Ville de ${city}. Marché champêtre d’été au parc central. Venez déguster nos produits du terroir, fleurs coupées et pains frais chaque dimanche de juin à septembre, de 9 h à 15 h. Entrée libre et aire de jeux pour enfants disponible.`
+      const center = pick(['Saint-Michel', 'du Vieux-Longueuil', 'de Rosemont', 'de Limoilou'], rand)
+      const text = `Centre communautaire ${center}. Inscription aux ateliers d’artisanat le samedi 18 octobre dès 9 h dans la salle polyvalente. Les ateliers débutent en novembre. Activité gratuite pour les familles résidant dans le quartier.`
       return {
         text,
         questions: [
-          ['Quel est le lieu de tenue de ce marché champêtre ?', 'au parc central', 'au centre hospitalier', 'dans le sous-sol de l’église'],
-          ['Combien coûte l’entrée pour les visiteurs ?', 'l’entrée est libre et gratuite', 'l’entrée coûte vingt dollars', 'l’entrée exige un achat'],
+          ['Quel est le sujet de cette annonce de quartier ?', 'des ateliers d’artisanat gratuits', 'un grand festival de musique payant', 'une exposition d’œuvres d’art locales'],
+          ['Où se déroulent les inscriptions le 18 octobre ?', 'dans la salle polyvalente', 'au secrétariat de l’établissement', 'dans la grande cour extérieure'],
         ],
       }
     },
     { situation: 1, capacity: 4 }
   ),
-  // Scenario 5 (Static, situation: 0)
+  // Scenario 5 (Static, situation: 0) - Garderie Les Petits Lutins
   {
     situation: 0,
     text: 'Garderie Les Petits Lutins. Convocation à l’assemblée générale annuelle des parents : mardi 14 octobre à 19 h dans la salle communautaire. Nous élirons les représentants au conseil d’administration. Confirmez votre participation auprès de l’éducatrice avant vendredi.',
     questions: [
-      ['Quel est le but de cette assemblée générale ?', 'élire les représentants au conseil d’administration', 'organiser une collecte de vieux jouets d’enfants', 'annoncer la fermeture définitive de la garderie'],
-      ['À quelle heure débute la rencontre ?', 'à 19 heures', 'à midi pile', 'à 8 heures le matin'],
+      ['Quel est le but de cette assemblée générale ?', 'choisir les membres du conseil', 'organiser une fête de quartier animée', 'présenter les comptes financiers annuels'],
+      ['À quelle heure débute la rencontre ?', 'à dix-neuf heures précises', 'à midi exactement sur place', 'à vingt heures de la soirée'],
     ],
   },
-  // Scenario 6 (Static, situation: 1)
+  // Scenario 6 (Static, situation: 1) - Dépliant marché artisanal d'automne
   {
     situation: 1,
     text: 'Ville de Montréal. Dépliant de quartier : le grand marché artisanal d’automne s’installe sur la place Simon-Valois le 20 septembre de 10 h à 17 h. Venez encourager nos artisans et créateurs québécois. Kiosques d’artisanat, musique et café chaud.',
     questions: [
-      ['Quel évènement ce dépliant présente-t-il ?', 'le grand marché artisanal d’automne', 'un match de hockey sur glace junior', 'un défilé de voitures anciennes en ville'],
-      ['Sur quelle place publique l’évènement a-t-il lieu ?', 'sur la place Simon-Valois', 'sur le pont Jacques-Cartier', 'dans le métro Berri-UQAM'],
+      ['Quel évènement ce dépliant présente-t-il ?', 'une foire d’artisans locaux', 'un concert de musique rock', 'une course sportive à pied'],
+      ['Sur quel lieu public l’évènement s’installe-t-il ?', 'sur la place Simon-Valois', 'dans la cour fermée d’une école', 'au parc public du Mont-Royal'],
     ],
   },
 ]
 
+// ---------------------------------------------------------------------------
+// n3-reading-1
+// ---------------------------------------------------------------------------
+const N3_JOBS_LIST = [
+  { job: 'commis à la caisse', short: 'commis de caisse' },
+  { job: 'vendeur au rayon vêtements', short: 'vendeur en rayon' },
+  { job: 'commis d’épicerie', short: 'commis d’épicerie' },
+  { job: 'associé au service à la clientèle', short: 'agent de service' },
+]
+const N3_ATTACHMENTS_LIST = [
+  { att: 'votre curriculum vitæ complet', p: 'son curriculum vitæ récent' },
+  { att: 'vos disponibilités de travail écrites', p: 'ses plages de travail écrites' },
+  { att: 'deux références professionnelles vérifiables', p: 'deux références vérifiables' },
+  { att: 'une copie de votre diplôme secondaire', p: 'la copie de son diplôme' },
+]
+
 export const N03_R_1 = [
-  // Scenario 1 (Template, situation: 0)
+  // Scenario 1 (Template, situation: 0) - Formulaire d'embauche commerce
   Object.assign(
     (rand) => {
-      const job = pick(N3_JOBS, rand)
-      const shift = pick(N3_SHIFTS, rand)
-      const att = pick(N3_ATTACHMENTS, rand)
-      const text = `Formulaire d’embauche - Commerce de détail. Poste convoité : ${job}. Nom : … Prénom : … Téléphone : … Disponibilités : ${shift}. Expérience dans le domaine : oui / non. Veuillez joindre ${att} à votre demande.`
+      const job = pick(N3_JOBS_LIST, rand)
+      const att = pick(N3_ATTACHMENTS_LIST, rand)
+      const shift = pick(['en semaine et les fins de semaine', 'du jeudi au samedi inclusivement', 'sur les quarts de soir en semaine'], rand)
+      const text = `Formulaire d’embauche - Commerce de détail. Poste convoité : ${job.job}. Nom : … Prénom : … Téléphone : … Disponibilités : ${shift}. Expérience dans le domaine : oui / non. Veuillez joindre ${att.att} à votre demande.`
       return {
         text,
         questions: [
-          ['Quel document le candidat remplit-il ici ?', 'un formulaire d’embauche pour un emploi', 'une facture d’électricité résidentielle', 'une contravention pour mauvais stationnement'],
-          ['Quel document d’accompagnement est exigé ?', att, 'un acte de vente notarié pour une maison', 'un carnet de vaccination pour animal de compagnie'],
+          ['Quel document le candidat remplit-il ici ?', 'une demande d’emploi en magasin', 'un contrat de location de local', 'une facture d’électricité du mois'],
+          ['Quel document d’accompagnement est exigé ?', att.p, 'un acte de vente pour un bien', 'un carnet de santé pour animal'],
         ],
       }
     },
-    { situation: 0, capacity: N3_JOBS.length * N3_SHIFTS.length * N3_ATTACHMENTS.length }
+    { situation: 0, capacity: N3_JOBS_LIST.length * N3_ATTACHMENTS_LIST.length * 3 }
   ),
-  // Scenario 2 (Template, situation: 1)
+  // Scenario 2 (Template, situation: 1) - Inscription service de garde scolaire
   Object.assign(
     (rand) => {
-      const school = pick(N3_SCHOOLS, rand)
-      const hours = pick(N3_CARE_HOURS, rand)
-      const med = pick(N3_MED_INFOS, rand)
-      const text = `École primaire ${school}. Inscription au service de garde scolaire. Nom de l’enfant : … Année scolaire en cours : … Horaires demandés : ${hours}. Information médicale à préciser : ${med}. Téléphone d’urgence des parents : …`
+      const school = pick(['Saint-Jean-Baptiste', 'Marguerite-Bourgeoys', 'Marie-Victorin', 'Jacques-Cartier'], rand)
+      const text = `École primaire ${school}. Inscription au service de garde scolaire. Nom de l’enfant : … Année scolaire en cours : … Horaires demandés : dès 7 h le matin et après la classe. Information médicale à préciser : allergies alimentaires. Téléphone d’urgence : …`
       return {
         text,
         questions: [
-          ['À quel service scolaire ce formulaire sert-il ?', 'au service de garde de l’école primaire', 'au club de ski alpin de la région voisine', 'aux cours de natation sportive en piscine'],
-          ['Quelle information sur l’enfant doit être indiquée ?', med, 'la pointure exacte de ses souliers de course', 'le titre de son jeu vidéo favori à la maison'],
+          ['À quel service scolaire ce formulaire sert-il ?', 'au service de garde des élèves', 'au club sportif de fin d’année', 'aux sorties scolaires du vendredi'],
+          ['Quelle information sur l’enfant doit être indiquée ?', 'les allergies alimentaires', 'la pointure exacte des souliers', 'le titre du jeu vidéo préféré'],
         ],
       }
     },
-    { situation: 1, capacity: N3_SCHOOLS.length * N3_CARE_HOURS.length * N3_MED_INFOS.length }
+    { situation: 1, capacity: 4 }
   ),
-  // Scenario 3 (Template, situation: 0 variant)
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Adhésion bibliothèque)
   Object.assign(
     (rand) => {
-      const store = pick(['Pharmaprix', 'Jean Coutu', 'Canadian Tire', 'Walmart', 'Bureau en Gros'], rand)
-      const job = pick(N3_JOBS, rand)
-      const shift = pick(N3_SHIFTS, rand)
-      const text = `Candidature spontanée chez ${store}. Poste souhaité : ${job}. Nom et prénom : … Adresse : … Disponibilité demandée : ${shift}. Avez-vous un permis valide : oui / non. Date d’entrée en fonction souhaitée : …`
+      const branch = pick(['Centrale', 'du Vieux-Nord', 'de Saint-Sauveur', 'du Plateau'], rand)
+      const text = `Bibliothèque municipale - Succursale ${branch}. Formulaire d’adhésion pour adulte. Nom et prénom : … Adresse : … Courriel : … Veuillez présenter une preuve de résidence récente et une pièce d’identité pour recevoir votre carte de membre.`
       return {
         text,
         questions: [
-          ['Dans quel établissement ce poste est-il offert ?', `dans un magasin de la chaîne ${store}`, 'dans un centre hospitalier universitaire', 'dans un bureau d’avocats spécialistes'],
-          ['Quel renseignement de travail le candidat donne-t-il ?', `sa disponibilité : ${shift}`, 'son nombre moyen d’heures de sommeil chaque nuit', 'la date de ses prochaines vacances d’été au bord de la mer'],
+          ['Pour quel service ce document est-il utilisé ?', 'l’adhésion à la bibliothèque', 'l’abonnement au centre de gym', 'l’accès à la piscine municipale'],
+          ['Quelle pièce justificative doit-on présenter ?', 'une preuve d’adresse récente', 'un relevé de notes scolaires', 'une attestation d’employeur'],
         ],
       }
     },
-    { situation: 0, capacity: 5 * N3_JOBS.length * N3_SHIFTS.length }
+    { situation: 0, capacity: 4 }
   ),
-  // Scenario 4 (Template, situation: 1 variant)
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Club sportif)
   Object.assign(
     (rand) => {
-      const school = pick(N3_SCHOOLS, rand)
-      const hours = pick(N3_CARE_HOURS, rand)
-      const text = `Service de garde de l’école ${school}. Fiche annuelle de fréquentation. Prénom de l’enfant : … Groupe-classe : … Périodes d’accueil retenues : ${hours}. Autorisation de départ autonome : oui / non. Signature du parent responsable : …`
+      const sport = pick(['de soccer', 'de basketball', 'de badminton', 'de gymnastique'], rand)
+      const text = `Club de loisirs sportifs. Fiche d’inscription annuelle pour l’équipe ${sport}. Prénom de l’enfant : … Âge : … Numéro d’assurance maladie : … Personne à joindre en cas d’urgence : … Signature du parent responsable : …`
       return {
         text,
         questions: [
-          ['Que doivent signer les parents en bas de la fiche ?', 'la signature du parent responsable', 'un contrat de prêt bancaire personnel', 'une autorisation de voyage à l’étranger'],
-          ['Quel choix d’horaires est proposé sur la fiche ?', hours, 'uniquement le samedi matin de 9 h à 12 h pour des cours', 'les nuits complètes durant toutes les fins de semaine'],
+          ['Quel type d’inscription cette fiche permet-elle ?', 'une activité sportive pour enfant', 'un voyage scolaire à l’étranger', 'un cours de musique pour adulte'],
+          ['Quel renseignement d’urgence est demandé ?', 'le contact d’un proche responsable', 'le numéro de permis de conduire', 'le groupe sanguin des parents'],
         ],
       }
     },
-    { situation: 1, capacity: N3_SCHOOLS.length * N3_CARE_HOURS.length }
+    { situation: 1, capacity: 4 }
   ),
-  // Scenario 5 (Static, situation: 0)
+  // Scenario 5 (Static, situation: 0) - Supermarché Metro
   {
     situation: 0,
     text: 'Formulaire de demande d’emploi - Supermarché Metro. Postes disponibles : commis d’emballage, caissière, poissonnier. Avez-vous de l’expérience avec le public ? Êtes-vous étudiant ? Indiquez vos heures de cours du lundi au vendredi.',
     questions: [
-      ['Pour quel type de commerce ce formulaire est-il conçu ?', 'un supermarché d’alimentation générale', 'un cabinet de dentistes spécialisés', 'un atelier de mécanique automobile'],
-      ['Que doivent préciser les candidats qui étudient ?', 'leurs heures de cours du lundi au vendredi', 'leurs résultats aux examens universitaires', 'le titre des livres scolaires achetés'],
+      ['Pour quel type de commerce ce formulaire est-il conçu ?', 'un supermarché d’alimentation', 'une pharmacie de quartier', 'une quincaillerie de banlieue'],
+      ['Que doivent préciser les candidats qui étudient ?', 'leurs heures de cours la semaine', 'leurs résultats aux examens', 'la liste des livres achetés'],
     ],
   },
-  // Scenario 6 (Static, situation: 1)
+  // Scenario 6 (Static, situation: 1) - Camp de jour estival
   {
     situation: 1,
     text: 'Service des loisirs municipaux. Formulaire de camp de jour estival. Prénom et nom du jeune : … Âge : … Allergies aux piqûres d’insectes : … Prise de médicaments pendant le séjour : oui / non. Contact d’urgence et numéro de cellulaire : …',
     questions: [
-      ['Pour quelle activité estivale ce formulaire est-il requis ?', 'le camp de jour municipal pour les jeunes', 'l’inscription à l’école secondaire pour adultes', 'l’achat d’un permis de pêche en rivière'],
-      ['Quelle information médicale particulière est relevée ?', 'les allergies aux piqûres d’insectes', 'le type de brosse à dents utilisée', 'le groupe sanguin des voisins de palier'],
+      ['Pour quelle activité estivale ce formulaire est-il requis ?', 'le camp de jour municipal', 'les cours de natation d’été', 'la sortie au parc d’attractions'],
+      ['Quelle information médicale particulière est relevée ?', 'la réaction aux piqûres d’insectes', 'le type de brosse à dents utilisée', 'le groupe sanguin des voisins'],
     ],
   },
 ]
 
+// ---------------------------------------------------------------------------
+// n3-reading-2
+// ---------------------------------------------------------------------------
 export const N03_R_2 = [
-  // Scenario 1 (Template, situation: 0)
+  // Scenario 1 (Template, situation: 0) - Offre d'emploi commis / adjoint
   Object.assign(
     (rand) => {
-      const role = pick(['Commis d’entrepôt', 'Adjoint administratif', 'Préposé à l’accueil', 'Aide-cuisinier'], rand)
+      const role = pick(['Commis d’entrepôt', 'Adjoint de bureau', 'Préposé à l’accueil'], rand)
       const req = pick([
-        { skill: 'excellente ponctualité et esprit d’équipe', exp: 'une année d’expérience souhaitée' },
-        { skill: 'bon entregent et souci du détail', exp: 'aucune expérience requise, formation offerte' },
-        { skill: 'bonne forme physique et autonomie', exp: 'expérience en manutention un atout' },
-        { skill: 'maîtrise du français parlé et rigueur', exp: 'diplôme d’études secondaires demandé' },
+        { skill: 'ponctualité et esprit d’équipe', exp: 'une année d’expérience souhaitée' },
+        { skill: 'bon entregent et rigueur', exp: 'aucune expérience requise' },
+        { skill: 'bonne forme et autonomie', exp: 'expérience en manutention un atout' },
       ], rand)
       const text = `Offre d’emploi. Titre du poste : ${role}. Profil recherché : personne dynamique démontrant ${req.skill}. Exigences : ${req.exp}. Disponibilité demandée du lundi au vendredi, 35 heures par semaine. Envoyez votre candidature à rh@entreprise.ca.`
       return {
         text,
         questions: [
-          ['Quel est le poste proposé dans cette annonce ?', role, 'comptable certifié de l’entreprise', 'directeur des ressources humaines'],
-          ['Quelle qualité essentielle est recherchée pour ce rôle ?', req.skill, 'connaissance approfondie du droit fiscal', 'expérience de dix ans comme gestionnaire'],
+          ['Quel est le poste proposé dans cette annonce ?', role, 'Comptable d’entreprise', 'Directeur du personnel'],
+          ['Quelle qualité essentielle est recherchée pour ce rôle ?', req.skill, 'connaissance du droit fiscal', 'expérience de dix ans'],
         ],
       }
     },
-    { situation: 0, capacity: 16 }
+    { situation: 0, capacity: 9 }
   ),
-  // Scenario 2 (Template, situation: 1)
+  // Scenario 2 (Template, situation: 1) - Appartement à louer
   Object.assign(
     (rand) => {
       const type = pick(['Beau quatre et demie', 'Grand trois et demie', 'Spacieux cinq et demie'], rand)
       const area = pick(['dans Rosemont', 'à Sainte-Foy', 'dans Saint-Sauveur', 'près du métro Jarry'], rand)
-      const rent = pick(['1 180 $ par mois', '950 $ par mois', '1 350 $ par mois', '1 050 $ par mois'], rand)
+      const rent = pick(['1 180 $ par mois', '1 250 $ par mois', '1 350 $ par mois', '1 050 $ par mois'], rand)
       const text = `À louer : ${type} ensoleillé ${area}. Loyer de ${rent}. Deux chambres fermées, planchers de bois franc, salle de bain rénovée et balcon privé. Entrée laveuse-sécheuse incluse. Chauffage non inclus. Chats acceptés, non-fumeur. Disponible dès le 1er juillet.`
       return {
         text,
         questions: [
-          ['Combien coûte le loyer de ce logement ?', rent, '2 500 $ par mois', '400 $ par mois'],
+          ['Combien coûte le loyer de ce logement ?', rent, '2 500 $ par mois', '450 $ par mois'],
           ['Quelle caractéristique intérieure est mentionnée ?', 'planchers en bois et balcon privé', 'cour arrière avec deux piscines', 'salle de cinéma au sous-sol'],
         ],
       }
     },
     { situation: 1, capacity: 48 }
   ),
-  // Scenario 3 (Template, situation: 0 variant)
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Vente d'un vélo d'occasion)
   Object.assign(
     (rand) => {
-      const job = pick(['Caissier à temps partiel', 'Commis de pharmacie', 'Préposé au service client'], rand)
-      const qual = pick(['courtoisie et rigueur au comptoir', 'sens de l’organisation et entregent', 'ponctualité et entregent avec le public'], rand)
-      const text = `Pharmacie du quartier cherche ${job} pour les soirs et fins de semaine. Profil : ${qual}. Environnement agréable et rabais aux employés sur place. Déposez votre curriculum vitæ directement au comptoir de vente.`
+      const color = pick(['bleu nuit', 'rouge vif', 'noir mat', 'gris argenté'], rand)
+      const price = pick(['180 $', '160 $', '190 $', '175 $'], rand)
+      const text = `À vendre : vélo de route pour adulte en excellent état. Utilisé seulement une saison, couleur ${color}, cadre en aluminium léger. Vendu avec un casque et un antivol solide pour ${price}. À récupérer sur place près du métro.`
       return {
         text,
         questions: [
-          ['Quel poste cette pharmacie souhaite-t-elle pourvoir ?', job, 'médecin spécialiste de garde', 'directeur financier régional'],
-          ['Quel avantage est expressément accordé au personnel ?', 'des rabais aux employés sur place', 'une voiture de fonction neuve offerte', 'des voyages annuels payés en Floride'],
+          ['Quel article d’occasion est proposé à la vente ?', 'un vélo de route pour adulte', 'une trottinette tout-terrain', 'un appareil de musculation'],
+          ['Quel accessoire est inclus avec l’article vendu ?', 'un casque et un antivol solide', 'une pompe et deux sacoches', 'un phare avant et un compteur'],
         ],
       }
     },
-    { situation: 0, capacity: 9 }
+    { situation: 0, capacity: 16 }
   ),
-  // Scenario 4 (Template, situation: 1 variant)
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Recherche de colocataire)
   Object.assign(
     (rand) => {
-      const city = pick(['Sherbrooke', 'Trois-Rivières', 'Gatineau', 'Laval'], rand)
-      const rent = pick(['720 dollars', '840 dollars', '790 dollars', '890 dollars'], rand)
-      const text = `Logement à louer : deux et demie meublé au centre-ville de ${city}. Loyer à ${rent} tout compris (chauffage, électricité et internet haute vitesse inclus). Parfait pour étudiant ou travailleur seul. Buanderie payante dans l’immeuble. Libre immédiatement.`
+      const q = pick(['dans Rosemont', 'dans Limoilou', 'sur le Plateau', 'près du métro Jarry'], rand)
+      const rent = pick(['650 $ par mois', '680 $ par mois', '620 $ par mois', '700 $ par mois'], rand)
+      const text = `Recherche colocataire pour grand appartement ${q}. Chambre privée lumineuse avec placard, cuisine tout équipée et salon partagé. Ambiance calme et respectueuse. Loyer de ${rent} tout compris. Libre dès le mois prochain.`
       return {
         text,
         questions: [
-          ['Que comprend le montant du loyer mensuel ?', 'chauffage, électricité et internet', 'seulement les repas du midi et du soir', 'uniquement le nettoyage des vêtements'],
-          ['À quel public ce logement s’adresse-t-il idéalement ?', 'à un étudiant ou travailleur seul', 'à une grande famille de six enfants', 'à un groupe de touristes en vacances'],
+          ['Que propose l’annonceur de ce message ?', 'une chambre privée en colocation', 'un studio meublé pour famille', 'un bureau commercial partagé'],
+          ['Quel type d’ambiance est recherché dans le logement ?', 'un milieu calme et respectueux', 'des fêtes chaque fin de semaine', 'un atelier ouvert aux clients'],
         ],
       }
     },
     { situation: 1, capacity: 16 }
   ),
-  // Scenario 5 (Static, situation: 0)
+  // Scenario 5 (Static, situation: 0) - CPE Les Petits Soleils
   {
     situation: 0,
     text: 'CPE Les Petits Soleils recrute une éducatrice à la petite enfance remplaçante. Profil attendu : diplôme reconnu ou attestation en garderie, patience, esprit créatif et certificat de premiers soins valide. Salaire selon l’échelle officielle du ministère de la Famille.',
     questions: [
-      ['Dans quel organisme ce poste est-il offert ?', 'dans un centre de la petite enfance (CPE)', 'dans une usine de transformation du bois', 'dans une station de radio communautaire'],
-      ['Quelle attestation médicale est formellement exigée ?', 'un certificat de premiers soins valide', 'un diplôme de médecine générale', 'un certificat de pilote d’avion privé'],
+      ['Dans quel organisme ce poste est-il offert ?', 'dans un service de garde d’enfants', 'dans une école secondaire publique', 'dans une clinique médicale de jour'],
+      ['Quelle attestation médicale est formellement exigée ?', 'une formation en premiers soins', 'un permis de conduire camion', 'un brevet de pilote d’avion'],
     ],
   },
-  // Scenario 6 (Static, situation: 1)
+  // Scenario 6 (Static, situation: 1) - Annonce immobilière Limoilou
   {
     situation: 1,
     text: 'Annonce immobilière : superbe quatre et demie rénové dans Limoilou au rez-de-chaussée d’un triplex paisible. Grande cour arrière clôturée, cuisine moderne avec lave-vaisselle fourni, stationnement déneigé en hiver. Loyer de 1 290 dollars. Dossier de crédit demandé.',
     questions: [
-      ['Quel équipement ménager est fourni dans la cuisine ?', 'un lave-vaisselle moderne', 'un four à pizza commercial', 'une machine à crème glacée'],
-      ['Quel aménagement extérieur est mentionné pour l’hiver ?', 'un stationnement déneigé', 'une patinoire privée', 'une serre chauffée'],
+      ['Quel équipement ménager est fourni dans la cuisine ?', 'un lave-vaisselle moderne', 'un four à micro-ondes neuf', 'une cafetière programmable'],
+      ['Quel aménagement extérieur est mentionné pour l’hiver ?', 'un stationnement déneigé', 'une patinoire privée en bois', 'une terrasse chauffée fermée'],
     ],
   },
 ]
 
-const N3_CLEANERS = [
-  { name: 'Nettoyant multi-surfaces écologique', action: 'Vaporiser à vingt centimètres de la surface.', wait: 'Laisser agir deux minutes sans frotter.', wipe: 'Essuyer avec un chiffon sec en microfibre.', warn: 'Ne jamais mélanger avec de l’eau de Javel.' },
-  { name: 'Désinfectant doux pour la cuisine', action: 'Appliquer sur une éponge propre et humide.', wait: 'Laisser reposer pendant trois minutes.', wipe: 'Rincer ensuite abondamment à l’eau claire.', warn: 'Conserver hors de portée des jeunes enfants.' },
-  { name: 'Dégraissant puissant pour cuisinière', action: 'Verser quelques gouttes directement sur la tache.', wait: 'Attendre cinq minutes avant de nettoyer.', wipe: 'Frotter doucement avec un linge doux.', warn: 'Éviter tout contact direct avec les yeux.' },
-  { name: 'Savon liquide pour planchers de bois', action: 'Diluer deux bouchons dans un seau d’eau tiède.', wait: 'Passer une vadrouille bien essorée.', wipe: 'Laisser sécher à l’air libre sans rincer.', warn: 'Ne jamais appliquer sur du bois non verni.' },
-  { name: 'Nettoyant vitres et miroirs sans traces', action: 'Pulvériser uniformément sur la vitre sèche.', wait: 'Laisser agir quelques secondes seulement.', wipe: 'Passer une raclette en caoutchouc propre.', warn: 'Ne pas inhaler les vapeurs de produit.' },
+// ---------------------------------------------------------------------------
+// n3-reading-3
+// ---------------------------------------------------------------------------
+const N3_CLEANERS_DATA = [
+  { name: 'Nettoyant multi-surfaces écologique', action: 'Vaporiser à vingt centimètres.', actP: 'vaporiser à courte distance', wait: 'Laisser agir deux minutes.', wipe: 'Essuyer avec un chiffon en microfibre.', warn: 'Ne jamais mélanger avec de la Javel.', warnP: 'ne pas mélanger avec la Javel' },
+  { name: 'Désinfectant doux pour la cuisine', action: 'Appliquer sur une éponge propre.', actP: 'mettre le produit sur l’éponge', wait: 'Laisser reposer trois minutes.', wipe: 'Rincer ensuite à l’eau claire.', warn: 'Conserver hors de portée des enfants.', warnP: 'garder hors de portée des petits' },
+  { name: 'Dégraissant puissant pour cuisinière', action: 'Verser quelques gouttes sur la tache.', actP: 'verser le produit sur la tache', wait: 'Attendre cinq minutes.', wipe: 'Frotter avec un linge doux.', warn: 'Éviter tout contact avec les yeux.', warnP: 'ne pas mettre dans les yeux' },
+  { name: 'Savon liquide pour planchers', action: 'Diluer deux bouchons dans de l’eau.', actP: 'diluer la dose dans de l’eau', wait: 'Passer une vadrouille bien essorée.', wipe: 'Laisser sécher à l’air libre.', warn: 'Ne pas appliquer sur du bois brut.', warnP: 'ne pas mettre sur du bois brut' },
 ]
+const N3_CLEANER_BRANDS = ['Éco-Ménage', 'Net-Maison', 'Pur-Québec', 'Bio-Propre']
 
-const N3_PHARMA = [
-  { med: 'Comprimés contre le rhume', dose: 'Prendre un comprimé toutes les six heures.', max: 'Ne pas dépasser quatre prises par jour.', dur: 'cinq jours consécutifs', store: 'Garder dans un endroit sec à température ambiante.' },
-  { med: 'Sirop contre la toux sèche', dose: 'Prendre une cuillère le matin et le soir.', max: 'Ne pas dépasser deux cuillères en 24 heures.', dur: 'sept jours au besoin', store: 'Conserver la bouteille bien fermée après usage.' },
-  { med: 'Gélules pour la digestion', dose: 'Prendre deux gélules au milieu du repas.', max: 'Ne pas prendre plus de quatre gélules par jour.', dur: 'dix jours consécutifs', store: 'Mettre à l’abri de l’humidité et du soleil.' },
-  { med: 'Pastilles pour la gorge', dose: 'Sucer lentement une pastille aux quatre heures.', max: 'Maximum strict de six pastilles par journée.', dur: 'trois jours au besoin', store: 'Tenir hors de la portée des jeunes enfants.' },
-  { med: 'Gouttes nasales décongestionnantes', dose: 'Mettre deux gouttes dans chaque narine.', max: 'Ne pas utiliser plus de trois fois par jour.', dur: 'quatre jours consécutifs', store: 'Ranger au frais après chaque utilisation.' },
+const N3_PHARMA_DATA = [
+  { med: 'Comprimés contre le rhume', dose: 'Prendre un comprimé aux six heures.', doseP: 'un comprimé toutes les six heures', max: 'Ne pas dépasser quatre prises par jour.', dur: 'cinq jours consécutifs', store: 'Garder dans un endroit sec.', storeP: 'garder au sec et loin du soleil' },
+  { med: 'Sirop contre la toux sèche', dose: 'Prendre une cuillère matin et soir.', doseP: 'une dose le matin et le soir', max: 'Ne pas dépasser deux cuillères en 24 heures.', dur: 'sept jours au besoin', store: 'Conserver la bouteille bien fermée.', storeP: 'bien fermer la bouteille au sec' },
+  { med: 'Gélules pour la digestion', dose: 'Prendre deux gélules au milieu du repas.', doseP: 'avaler deux capsules en mangeant', max: 'Ne pas prendre plus de quatre gélules par jour.', dur: 'dix jours consécutifs', store: 'Mettre à l’abri de l’humidité.', storeP: 'garder au sec et à l’abri du jour' },
 ]
+const N3_PHARMA_DURS = ['trois jours consécutifs', 'cinq jours complets', 'sept jours ouvrables', 'dix jours de suite']
+
+const N3_APPLIANCE_CARE = [
+  { app: 'cafetière électrique', product: 'vinaigre blanc', prodP: 'du vinaigre blanc ordinaire' },
+  { app: 'bouilloire en inox', product: 'jus de citron dilué', prodP: 'du jus de citron naturel' },
+  { app: 'fer à repasser à vapeur', product: 'eau déminéralisée', prodP: 'de l’eau déminéralisée' },
+]
+const N3_APPLIANCE_CARE_CYCLES = ['deux cycles complets', 'trois cycles consécutifs', 'un cycle prolongé']
+
+const N3_RECYCLE_AREAS = ['Ville de Québec', 'Ville de Montréal', 'Ville de Laval', 'Ville de Sherbrooke']
+const N3_RECYCLE_ITEMS = ['les cartons pliés', 'les bouteilles de plastique', 'les emballages métalliques']
 
 export const N03_R_3 = [
-  // Scenario 1 (Template, situation: 0)
+  // Scenario 1 (Template, situation: 0) - Nettoyant ménager
   Object.assign(
     (rand) => {
-      const c = pick(N3_CLEANERS, rand)
-      const text = `${c.name}. Mode d’emploi : ${c.action} ${c.wait} ${c.wipe} Mise en garde de sécurité : ${c.warn} Fabriqué au Québec.`
+      const c = pick(N3_CLEANERS_DATA, rand)
+      const b = pick(N3_CLEANER_BRANDS, rand)
+      const text = `Produit ${b} : ${c.name}. Mode d’emploi : ${c.action} ${c.wait} ${c.wipe} Mise en garde de sécurité : ${c.warn} Fabriqué au Québec.`
       return {
         text,
         questions: [
-          ['Quelle est la première étape d’utilisation indiquée ?', c.action, 'Faire bouillir le liquide dans une grande casserole sur le feu', 'Mettre tout le produit directement dans la machine à laver'],
-          ['Quelle consigne de sécurité doit-on respecter ?', c.warn, 'Changer les piles de l’appareil de nettoyage chaque mois', 'Verser la totalité de la bouteille en une seule utilisation'],
+          ['Quelle est la première action à réaliser ?', c.actP, 'verser dans une bouilloire avec de l’huile', 'appliquer avec force sur des habits en soie'],
+          ['Quelle consigne de prudence doit-on observer ?', c.warnP, 'changer les piles chaque mois sans tarder', 'verser la bouteille entière en une fois'],
         ],
       }
     },
-    { situation: 0, capacity: N3_CLEANERS.length }
+    { situation: 0, capacity: N3_CLEANERS_DATA.length * N3_CLEANER_BRANDS.length }
   ),
-  // Scenario 2 (Template, situation: 1)
+  // Scenario 2 (Template, situation: 1) - Notice médicale
   Object.assign(
     (rand) => {
-      const p = pick(N3_PHARMA, rand)
-      const text = `Notice médicale - ${p.med}. Posologie recommandée : ${p.dose} ${p.max} Durée prévue : ${p.dur}. Précaution : ${p.store} En cas de doute, consultez un pharmacien.`
+      const p = pick(N3_PHARMA_DATA, rand)
+      const dur = pick(N3_PHARMA_DURS, rand)
+      const text = `Notice médicale - ${p.med}. Posologie recommandée : ${p.dose} ${p.max} Durée prévue : ${dur}. Précaution : ${p.store} En cas de doute, consultez un pharmacien.`
       return {
         text,
         questions: [
-          ['À quelle fréquence ce médicament doit-il être pris ?', p.dose, 'Prendre toute la boîte de médicaments en une seule fois', 'Prendre une dose complète toutes les demi-heures en journée'],
-          ['Quelle limite de sécurité est précisée dans la notice ?', p.max, 'Boire deux litres de café très chaud chaque matin au lever', 'Arrêter complètement de manger pendant trois jours entiers'],
+          ['À quelle fréquence ce médicament doit-il être pris ?', p.doseP, 'prendre toute la boîte en une seule fois', 'prendre une pleine dose chaque quart d’heure'],
+          ['Quelle consigne de conservation est indiquée ?', p.storeP, 'garder le paquet sous la pluie au jardin', 'mettre les comprimés dans un four très chaud'],
         ],
       }
     },
-    { situation: 1, capacity: N3_PHARMA.length }
+    { situation: 1, capacity: N3_PHARMA_DATA.length * N3_PHARMA_DURS.length }
   ),
-  // Scenario 3 (Template, situation: 0 variant)
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Entretien cafetière)
   Object.assign(
     (rand) => {
-      const c = pick(N3_CLEANERS, rand)
-      const brand = pick(['Éco-Ménage', 'Net-Maison', 'Pur-Québec', 'Bio-Propre'], rand)
-      const text = `Produit d’entretien ${brand} : ${c.name.toLowerCase()}. Conseils pratiques : ${c.action} ${c.wait} Ensuite, ${c.wipe.toLowerCase()} Attention : ${c.warn.toLowerCase()}`
+      const care = pick(N3_APPLIANCE_CARE, rand)
+      const cyc = pick(N3_APPLIANCE_CARE_CYCLES, rand)
+      const text = `Guide d’entretien : ${care.app}. Pour détartrer, versez un mélange d’eau et ${de(care.product)} dans le réservoir. Lancez un cycle complet. Rincez ensuite en faisant fonctionner ${cyc} avec de l’eau claire.`
       return {
         text,
         questions: [
-          ['Comment doit-on appliquer ce produit d’entretien ?', c.action, 'Le verser dans une bouilloire électrique avec de l’huile', 'L’appliquer avec vigueur sur des vêtements fragiles en soie'],
-          ['Quelle mise en garde importante figure sur le flacon ?', c.warn, 'Garder la bouteille au congélateur pendant toute la semaine', 'Remplacer le bouchon après chaque minute d’utilisation'],
+          ['Quel produit doit-on mélanger avec de l’eau ?', care.prodP, 'du savon liquide pour vaisselle', 'du bicarbonate de soude pur'],
+          ['Que faut-il faire pour bien rincer l’appareil ?', 'lancer des cycles à l’eau claire', 'essuyer l’intérieur avec un linge', 'laisser tremper pendant une journée'],
         ],
       }
     },
-    { situation: 0, capacity: N3_CLEANERS.length * 4 }
+    { situation: 0, capacity: N3_APPLIANCE_CARE.length * N3_APPLIANCE_CARE_CYCLES.length }
   ),
-  // Scenario 4 (Template, situation: 1 variant)
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Consignes recyclage)
   Object.assign(
     (rand) => {
-      const p = pick(N3_PHARMA, rand)
-      const dur = pick(['trois jours consécutifs', 'cinq jours complets', 'sept jours ouvrables', 'dix jours de suite'], rand)
-      const text = `Pharmacie du quartier. Posologie pour ${p.med.toLowerCase()} : ${p.dose} Durée : ${dur}. ${p.max} Rangement : ${p.store.toLowerCase()} Respectez bien les doses.`
+      const city = pick(N3_RECYCLE_AREAS, rand)
+      const item = pick(N3_RECYCLE_ITEMS, rand)
+      const text = `${city}. Consignes municipales de recyclage. Déposez ${item} et les contenants en plastique propres dans le bac bleu. Rincez bien vos boîtes avant le dépôt. Les résidus alimentaires doivent être placés dans le bac brun.`
       return {
         text,
         questions: [
-          ['Quelle posologie le pharmacien a-t-il inscrite ?', p.dose, 'Une seule cuillère par mois au coucher pour un adulte', 'Quatre prises par heure sans arrêt pendant deux semaines'],
-          ['Quelle consigne de rangement est recommandée ?', p.store, 'Laisser le médicament sous la pluie dans le jardin public', 'Mettre la boîte de médicaments dans le four très chaud'],
+          ['Que doit-on mettre dans le bac bleu ?', 'les cartons et plastiques propres', 'les déchets alimentaires des repas', 'les vieux habits et souliers usés'],
+          ['Quelle consigne s’applique aux boîtes de conserve ?', 'bien rincer avant le dépôt', 'les écraser avec un outil lourd', 'les envelopper dans du plastique'],
         ],
       }
     },
-    { situation: 1, capacity: N3_PHARMA.length * 4 }
+    { situation: 1, capacity: N3_RECYCLE_AREAS.length * N3_RECYCLE_ITEMS.length }
   ),
-  // Scenario 5 (Static, situation: 0)
+  // Scenario 5 (Static, situation: 0) - Nettoyant vitres et miroirs
   {
     situation: 0,
     text: 'Nettoyant pour vitres et miroirs. Mode d’emploi : vaporiser sur une vitre propre et sèche à quinze centimètres. Essuyer avec du papier absorbant ou un chiffon non pelucheux. Ne pas avaler. Tenir à l’écart des flammes.',
     questions: [
-      ['Sur quelle surface ce produit s’applique-t-il ?', 'sur une vitre propre et sèche', 'sur un tapis de salon très humide et sale', 'sur des ustensiles de cuisine en aluminium'],
-      ['Quel chiffon est recommandé pour essuyer ?', 'du papier absorbant ou un chiffon sec', 'une serviette de bain épaisse très mouillée', 'une éponge abrasive en métal pour plancher'],
+      ['Sur quelle surface ce produit s’applique-t-il ?', 'sur une vitre propre et bien sèche', 'sur un tapis de salon très humide', 'sur des casseroles en aluminium'],
+      ['Quel chiffon est recommandé pour essuyer ?', 'du papier absorbant ou un linge sec', 'une serviette de bain très mouillée', 'une éponge abrasive pour plancher'],
     ],
   },
-  // Scenario 6 (Static, situation: 1)
+  // Scenario 6 (Static, situation: 1) - Posologie sirop pour enfants
   {
     situation: 1,
     text: 'Posologie - Sirop pour enfants de plus de six ans. Prendre une cuillère à thé toutes les huit heures après les repas. Ne pas dépasser trois prises par 24 heures. Bien agiter le flacon avant l’usage.',
     questions: [
-      ['Quel est le nombre maximal de prises autorisées par jour ?', 'trois prises par 24 heures', 'dix prises complètes par journée de classe', 'une seule cuillère par semaine au coucher'],
-      ['Que faut-il faire avec le flacon avant l’usage ?', 'bien agiter le flacon', 'chauffer le flacon au four à micro-ondes', 'laisser le flacon ouvert toute la nuit dehors'],
+      ['Quel est le nombre maximal de prises par jour ?', 'au maximum trois prises par jour', 'dix cuillères par journée d’école', 'une seule cuillère par fin de semaine'],
+      ['Que faut-il faire avec le flacon avant l’usage ?', 'remuer la bouteille avant l’emploi', 'chauffer le liquide au micro-ondes', 'laisser la bouteille ouverte dehors'],
     ],
   },
 ]
 
-const N3_TEXTO_PRAISE = [
-  { friend: 'Camille', topic: 'ta présentation orale de ce matin', topicZh: 'présentation orale', detail: 'Tu as parlé avec beaucoup de calme et d’assurance', detailZh: 'assurance et clarté' },
-  { friend: 'Valérie', topic: 'ton nouveau manteau d’automne', topicZh: 'nouveau manteau', detail: 'La couleur te donne une mine vraiment éclatante', detailZh: 'couleur éclatante' },
-  { friend: 'Mélanie', topic: 'tes photos de notre randonnée', topicZh: 'photos de randonnée', detail: 'Les paysages des montagnes sont magnifiques', detailZh: 'beauté des paysages' },
-  { friend: 'Sophie', topic: 'ton délicieux gâteau aux pommes', topicZh: 'gâteau aux pommes', detail: 'Toute la famille a adoré ta recette maison', detailZh: 'recette très appréciée' },
-  { friend: 'Chloé', topic: 'ton beau dessin pour l’exposition', topicZh: 'dessin d’exposition', detail: 'Les couleurs vives attirent tout de suite le regard', detailZh: 'belles couleurs vives' },
+// ---------------------------------------------------------------------------
+// n3-reading-4
+// ---------------------------------------------------------------------------
+const N3_TEXTO_DATA = [
+  { friend: 'Camille', topic: 'ta présentation orale de ce matin', topicP: 'la présentation orale du matin', detail: 'Tu as parlé avec beaucoup de calme et d’assurance', detailP: 'le calme et la clarté des propos' },
+  { friend: 'Valérie', topic: 'ton nouveau manteau d’automne', topicP: 'ton nouveau manteau d’automne', detail: 'La couleur te donne une mine vraiment éclatante', detailP: 'la belle couleur éclatante du tissu' },
+  { friend: 'Mélanie', topic: 'tes photos de notre randonnée', topicP: 'tes jolies photos de randonnée', detail: 'Les paysages des montagnes sont magnifiques', detailP: 'les superbes vues sur la montagne' },
+  { friend: 'Sophie', topic: 'ton délicieux gâteau aux pommes', topicP: 'ton bon gâteau fait maison', detail: 'Toute la famille a adoré ta recette maison', detailP: 'la recette appréciée de la famille' },
+  { friend: 'Chloé', topic: 'ton joli dessin pour l’exposition', topicP: 'ton beau dessin pour l’exposition', detail: 'Les couleurs vives attirent tout de suite le regard', detailP: 'les couleurs vives qui attirent l’œil' },
 ]
 
 const N3_TEXTO_CLOSINGS = [
@@ -1008,107 +1080,119 @@ const N3_TEXTO_CLOSINGS = [
   'Prends bien soin de toi aujourd’hui !',
 ]
 
-const N3_BIRTHDAY_GREETINGS = [
-  { colleague: 'Émile', wish: 'un très joyeux anniversaire', wishDetail: 'beaucoup de bonheur et une excellente santé', note: 'Profite bien de cette journée festive avec tes proches.' },
-  { colleague: 'Karim', wish: 'une merveilleuse journée de fête', wishDetail: 'la réussite dans tous tes beaux projets', note: 'Ne pense pas aux dossiers du bureau aujourd’hui.' },
-  { colleague: 'Martin', wish: 'un superbe anniversaire', wishDetail: 'des moments inoubliables en famille', note: 'Toute l’équipe a hâte de célébrer cela avec toi demain.' },
-  { colleague: 'Sébastien', wish: 'une très belle fête', wishDetail: 'de la joie et de beaux succès personnels', note: 'Prends le temps de savourer chaque instant de fête.' },
-  { colleague: 'Alexandre', wish: 'un chaleureux anniversaire', wishDetail: 'une année pleine de santé et d’énergie', note: 'Nous serons ravis de trinquer à ta santé sous peu.' },
+const N3_BIRTHDAY_DATA = [
+  { colleague: 'Émile', wish: 'un très joyeux anniversaire', wishP: 'beaucoup de bonheur et une bonne santé', note: 'Profite bien de cette journée festive avec tes proches.' },
+  { colleague: 'Karim', wish: 'une merveilleuse journée de fête', wishP: 'la réussite dans tous tes beaux projets', note: 'Ne pense pas aux dossiers du bureau aujourd’hui.' },
+  { colleague: 'Martin', wish: 'un superbe anniversaire', wishP: 'de beaux souvenirs en famille réunis', note: 'Toute l’équipe a hâte de célébrer cela avec toi demain.' },
+  { colleague: 'Sébastien', wish: 'une très belle fête', wishP: 'de la joie et de beaux succès personnels', note: 'Prends le temps de savourer chaque instant de fête.' },
+  { colleague: 'Alexandre', wish: 'un chaleureux anniversaire', wishP: 'une année pleine de santé et d’énergie', note: 'Nous serons ravis de trinquer à ta santé sous peu.' },
+]
+const N3_BIRTHDAY_SIGNOFFS = [
+  'Passe une excellente soirée !',
+  'À très bientôt au bureau !',
+  'Au plaisir de fêter cela ensemble !',
 ]
 
-const N3_BIRTHDAY_SIGNOFFS = [
-  'À très bientôt au bureau !',
-  'Passe une excellente soirée !',
-  'Au plaisir de fêter cela ensemble !',
-  'Bien cordialement de la part de l’équipe !',
+const N3_MOVE_HELPERS = ['Félix', 'David', 'Mathieu', 'Samuel']
+const N3_MOVE_TASKS = [
+  { day: 'samedi', task: 'notre déménagement en appartement', traitZh: '热情开朗且充满干劲' },
+  { day: 'dimanche', task: 'la peinture de notre salon', traitZh: '做事细致且充满耐心' },
+  { day: 'vendredi', task: 'l’installation de nos meubles', traitZh: '勤劳能干且乐于助人' },
 ]
+
+const N3_PROMOTIONS = [
+  { name: 'Marianne', role: 'responsable d’équipe', roleP: 'une promotion comme chef d’équipe' },
+  { name: 'Isabelle', role: 'coordonnatrice de projet', roleP: 'une nomination de coordinatrice' },
+  { name: 'Béatrice', role: 'directrice adjointe', roleP: 'un poste de directrice adjointe' },
+]
+const N3_DIVISIONS = ['notre division de service', 'le département des ventes', 'la direction des ressources humaines']
 
 export const N03_R_4 = [
-  // Scenario 1 (Template, situation: 0)
+  // Scenario 1 (Template, situation: 0) - Compliment texto
   Object.assign(
     (rand) => {
-      const t = pick(N3_TEXTO_PRAISE, rand)
+      const t = pick(N3_TEXTO_DATA, rand)
       const cl = pick(N3_TEXTO_CLOSINGS, rand)
       const text = `Coucou ! Je voulais te féliciter pour ${t.topic}. ${t.detail}. Tu as vraiment beaucoup de talent. ${cl}`
       return {
         text,
         questions: [
-          ['Sur quoi porte le compliment reçu dans ce message ?', `sur ${t.topic}`, 'sur l’achat d’une nouvelle voiture familiale pour l’hiver', 'sur une réservation de billets de train pour voyager loin'],
-          ['Quelle appréciation positive l’amie formule-t-elle ?', t.detail, 'le prix très bas des magasins du centre commercial', 'la rapidité d’expédition du colis postal prioritaire'],
+          ['Sur quoi porte le compliment reçu dans ce message ?', t.topicP, 'l’achat d’un camion d’occasion révisé', 'un contrat de location longue durée'],
+          ['Quelle appréciation positive l’amie formule-t-elle ?', t.detailP, 'le bas prix trouvé au centre commercial', 'la rapidité d’envoi du paquet postal'],
         ],
       }
     },
-    { situation: 0, capacity: N3_TEXTO_PRAISE.length * N3_TEXTO_CLOSINGS.length }
+    { situation: 0, capacity: N3_TEXTO_DATA.length * N3_TEXTO_CLOSINGS.length }
   ),
-  // Scenario 2 (Template, situation: 1)
+  // Scenario 2 (Template, situation: 1) - Courriel anniversaire
   Object.assign(
     (rand) => {
-      const b = pick(N3_BIRTHDAY_GREETINGS, rand)
+      const b = pick(N3_BIRTHDAY_DATA, rand)
       const sign = pick(N3_BIRTHDAY_SIGNOFFS, rand)
-      const text = `Bonjour ! De la part de toute l’équipe, je te souhaite ${b.wish}. Nous te souhaitons ${b.wishDetail}. ${b.note} ${sign}`
+      const text = `Bonjour ! De la part de toute l’équipe, je te souhaite ${b.wish}. Nous te souhaitons beaucoup de bonheur. ${b.note} ${sign}`
       return {
         text,
         questions: [
-          ['Quel est le but principal de ce courriel ?', 'souhaiter un joyeux anniversaire', 'demander un rapport de travail très urgent', 'annoncer une réunion de crise du personnel'],
-          ['Quels vœux bienveillants le collègue exprime-t-il ?', b.wishDetail, 'un contrat d’achat d’un camion d’occasion révisé', 'un déménagement dans une autre province canadienne'],
+          ['Quel est le but principal de ce courriel ?', 'souhaiter un joyeux anniversaire', 'demander un rapport de travail urgent', 'annoncer une réunion de crise d’équipe'],
+          ['Quels vœux bienveillants le collègue exprime-t-il ?', b.wishP, 'des heures de travail en plus le samedi', 'une baisse importante des congés payés'],
         ],
       }
     },
-    { situation: 1, capacity: N3_BIRTHDAY_GREETINGS.length * N3_BIRTHDAY_SIGNOFFS.length }
+    { situation: 1, capacity: N3_BIRTHDAY_DATA.length * N3_BIRTHDAY_SIGNOFFS.length }
   ),
-  // Scenario 3 (Template, situation: 0 variant)
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Remerciement aide)
   Object.assign(
     (rand) => {
-      const t = pick(N3_TEXTO_PRAISE, rand)
-      const cl = pick(N3_TEXTO_CLOSINGS, rand)
-      const text = `Salut ! Un petit mot pour te dire que j’ai adoré ${t.topic}. ${t.detail}. C’est vraiment très réussi. ${cl}`
+      const h = pick(N3_MOVE_HELPERS, rand)
+      const m = pick(N3_MOVE_TASKS, rand)
+      const text = `Salut ${h} ! Un grand merci pour ton aide précieuse lors de ${m.task} ${m.day}. Grâce à ton énergie et ta bonne humeur, tout s’est très bien passé. On t’invite à souper bientôt pour fêter ça !`
       return {
         text,
         questions: [
-          ['De quoi parle l’amie dans ce texto amical ?', `de ${t.topic}`, 'd’une facture d’électricité résidentielle imprévue', 'd’un vol d’avion retardé de nuit par mauvais temps'],
-          ['Quel commentaire appréciatif l’amie ajoute-t-elle ?', t.detail, 'une plainte sur la météo pluvieuse de la semaine', 'une demande de remboursement d’argent emprunté'],
+          ['Pourquoi l’expéditeur envoie-t-il ce message ?', 'pour remercier un ami de son aide', 'pour inviter des voisins à un concert', 'pour demander de prêter une remorque'],
+          ['Quelle qualité de l’ami est soulignée dans le texte ?', 'sa bonne humeur et son dynamisme', 'sa ponctualité aux réunions du matin', 'sa connaissance des routes de la ville'],
         ],
       }
     },
-    { situation: 0, capacity: N3_TEXTO_PRAISE.length * N3_TEXTO_CLOSINGS.length }
+    { situation: 0, capacity: N3_MOVE_HELPERS.length * N3_MOVE_TASKS.length }
   ),
-  // Scenario 4 (Template, situation: 1 variant)
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Félicitations promotion)
   Object.assign(
     (rand) => {
-      const b = pick(N3_BIRTHDAY_GREETINGS, rand)
-      const sign = pick(N3_BIRTHDAY_SIGNOFFS, rand)
-      const text = `Cher collègue, je tiens à te souhaiter ${b.wish}. Pour cette nouvelle année, je te souhaite ${b.wishDetail}. ${b.note} ${sign}`
+      const p = pick(N3_PROMOTIONS, rand)
+      const div = pick(N3_DIVISIONS, rand)
+      const text = `Chère ${p.name}, toute ${div} tient à te féliciter chaleureusement pour ta nomination comme ${p.role}. C’est une reconnaissance pleinement méritée pour ton travail. Nous te souhaitons beaucoup de succès !`
       return {
         text,
         questions: [
-          ['Pour quelle occasion ce courriel est-il rédigé ?', 'l’anniversaire d’un membre de l’équipe', 'le départ à la retraite du directeur général', 'l’embauche d’un nouveau stagiaire d’été'],
-          ['Que souhaite l’expéditeur pour la nouvelle année ?', b.wishDetail, 'des heures supplémentaires obligatoires le samedi', 'une réduction importante des congés payés annuels'],
+          ['Quel évènement professionnel est célébré ici ?', p.roleP, 'le départ d’une collègue en voyage', 'l’arrivée d’un nouveau directeur'],
+          ['Quel sentiment l’équipe exprime-t-elle dans ce message ?', 'une grande fierté et de la joie', 'une inquiétude face aux changements', 'une surprise devant cette annonce'],
         ],
       }
     },
-    { situation: 1, capacity: N3_BIRTHDAY_GREETINGS.length * N3_BIRTHDAY_SIGNOFFS.length }
+    { situation: 1, capacity: N3_PROMOTIONS.length * N3_DIVISIONS.length }
   ),
-  // Scenario 5 (Static, situation: 0)
+  // Scenario 5 (Static, situation: 0) - Manteau d'hiver Marc
   {
     situation: 0,
     text: 'Allô Marc ! Ton nouveau manteau d’hiver te va super bien. La couleur bleue et la coupe moderne sont parfaites pour toi. Belle trouvaille pour la saison !',
     questions: [
-      ['Quel article fait l’objet de ce compliment ?', 'un nouveau manteau d’hiver', 'une paire de bottes de ski alpin neuves', 'un sac à dos d’école en toile épaisse'],
-      ['Qu’est-ce qui est particulièrement apprécié ?', 'la couleur bleue et la coupe moderne', 'le prix d’achat très bon marché en solde', 'la marque de fabrication européenne réputée'],
+      ['Quel article fait l’objet de ce compliment ?', 'un manteau bien adapté à la saison', 'une paire de bottes de ski alpin neuves', 'un sac à dos d’école en toile épaisse'],
+      ['Qu’est-ce qui est particulièrement apprécié ?', 'la coupe moderne et la belle couleur', 'le tissu imperméable et les poches', 'la fermeture éclair solide et le col'],
     ],
   },
-  // Scenario 6 (Static, situation: 1)
+  // Scenario 6 (Static, situation: 1) - Anniversaire Sophie
   {
     situation: 1,
     text: 'Bonjour Sophie ! Toute l’équipe du bureau te souhaite un joyeux anniversaire. Que cette journée t’apporte joie, repos et sourires avec ta famille. On t’attend demain avec le gâteau !',
     questions: [
-      ['Quelle fête les collègues célèbrent-ils par courriel ?', 'l’anniversaire de naissance de Sophie', 'l’arrivée d’un nouveau client important', 'la fin des examens de fin d’année'],
-      ['Qu’est-ce qui est prévu au bureau pour le lendemain ?', 'partager un gâteau avec l’équipe', 'participer à une réunion de crise urgente', 'faire des heures supplémentaires de soir'],
+      ['Quelle fête les collègues célèbrent-ils par courriel ?', 'l’anniversaire de naissance de Sophie', 'la fin d’un projet important au bureau', 'le départ en vacances de leur collègue'],
+      ['Qu’est-ce qui est prévu au bureau pour le lendemain ?', 'partager un gâteau avec les collègues', 'assister à une réunion de crise urgente', 'faire des heures supplémentaires le soir'],
     ],
   },
 ]
 
-// Registry export for Niveaux 3 & 4
+// -------------------------------------------------------------
 
 // N04 LISTENING TABLES & SCENARIOS
 // -------------------------------------------------------------
