@@ -946,6 +946,12 @@ export const SENTENCE_GRAMMAR = [
       ['« Peut-être viendra-t-il. » En tête de phrase, « peut-être » entraîne :', 'l’inversion du sujet', 'la négation', 'le subjonctif'],
       ['« Quoi qu’il dise, je ne changerai pas d’avis. » signifie :', 'peu importe ce qu’il dit', 'parce qu’il parle', 'dès qu’il parle'],
       ['« Pour peu qu’on l’encourage, il réussira. » exprime :', 'une condition minimale', 'une cause', 'un but'],
+      ['C’est précisément ce problème ___ nous devions examiner en priorité.', 'que', 'qui', 'dont'],
+      ['Quoi qu’il en ___, la décision finale sera prise demain matin.', 'soit', 'est', 'sera'],
+      ['Pour autant que je me ___, le rapport a déjà été transmis au ministre.', 'souvienne', 'souviens', 'souviendrai'],
+      ['Si compétent qu’il ___, il ne pourra pas régler ce différend tout seul.', 'soit', 'est', 'serait'],
+      ['À supposer que le budget ___ approuvé, les embauches commenceront en juin.', 'soit', 'est', 'sera'],
+      ['Bien loin qu’il ___ renoncé, le chercheur a poursuivi ses travaux.', 'ait', 'a', 'aura'],
     ],
   },
 ]
