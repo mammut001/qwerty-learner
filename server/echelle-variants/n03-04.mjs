@@ -2759,539 +2759,1162 @@ export const N04_R_0 = [
   },
 ]
 
-const N4_REG_NAMES = ['la Gaspésie', 'les Cantons-de-l’Est', 'la région de Charlevoix', 'le Saguenay-Lac-Saint-Jean']
-const N4_REG_FEATS = [
-  'les majestueuses falaises et le rocher Percé',
-  'les collines verdoyantes et les vergers réputés',
-  'les paysages entre le fleuve et les montagnes',
-  'le fjord impressionnant et ses parois de roc',
+// ---------------------------------------------------------------------------
+// n4-reading-1
+// ---------------------------------------------------------------------------
+const N4_CRAFT_WORKSHOPS = [
+  {
+    name: 'un cours de menuiserie pour débutants',
+    topic: 'la fabrication d’objets simples en bois',
+    topicOpt: 'la menuiserie et le travail du bois',
+    dur: 'six semaines en soirée',
+    req: 'le matériel et les outils sont fournis',
+    reqOpt: 'les outils sont fournis sur place',
+  },
+  {
+    name: 'un atelier de couture et retouche',
+    topic: 'la réparation de vêtements et le tricot',
+    topicOpt: 'la couture et la retouche de vêtements',
+    dur: 'cinq semaines le samedi matin',
+    req: 'les machines à coudre sont prêtées',
+    reqOpt: 'les machines sont prêtées sur place',
+  },
+  {
+    name: 'un cours de poterie artisanale',
+    topic: 'le modelage de l’argile et la cuisson',
+    topicOpt: 'la poterie et le modelage de l’argile',
+    dur: 'quatre semaines le mardi soir',
+    req: 'toute la terre glaise est comprise',
+    reqOpt: 'l’argile est incluse dans l’atelier',
+  },
+  {
+    name: 'un atelier de photographie numérique',
+    topic: 'les réglages de base et le cadrage',
+    topicOpt: 'la photographie et les prises de vue',
+    dur: 'trois semaines le jeudi soir',
+    req: 'un appareil photo est mis à disposition',
+    reqOpt: 'un appareil photo est prêté au groupe',
+  },
 ]
-const N4_REG_ACTS = [
-  'des sorties en bateau pour voir les baleines',
-  'des parcours cyclables reliant de beaux villages',
-  'des sentiers pédestres avec vue sur le fleuve',
-  'des randonnées en kayak le long des falaises',
+const N4_CRAFT_CENTERS = [
+  'au centre communautaire Saint-Michel',
+  'au pavillon des loisirs du quartier',
+  'à la maison de quartier Jacques-Cartier',
+  'au centre culturel du Vieux-Moulin',
 ]
-const N4_REG_FOODS = [
-  'du homard frais et des poissons du fleuve',
-  'des fromages artisanaux et des vins locaux',
-  'des viandes fumées et des produits fermiers',
-  'de la tourtière et de la tarte aux bleuets',
+const N4_CRAFT_LEVELS = [
+  'Aucune expérience préalable n’est demandée.',
+  'Ce cours s’adresse aux grands débutants.',
+  'Les novices sont particulièrement bienvenus.',
+  'Le formateur guide chacun pas à pas.',
+]
+const N4_CRAFT_LIMITS = [
+  'Le groupe est limité à dix participants.',
+  'Les places sont limitées à huit personnes.',
+  'Le nombre de places est fixé à douze.',
+  'Un groupe restreint permet un bon suivi.',
 ]
 
-const N4_WEDDINGS = [
-  { celeb: 'la comédienne Julie Roy et Marc Gagnon', short: 'de Julie Roy et Marc Gagnon', place: 'au manoir de Stoneham dans un décor enchanteur', guests: 'cent vingt invités intimes', dress: 'une longue robe blanche de dentelle raffinée' },
-  { celeb: 'la chanteuse Sarah Tremblay et David Bouchard', short: 'de Sarah Tremblay et David Bouchard', place: 'dans les jardins de l’Île d’Orléans au bord de l’eau', guests: 'quatre-vingts proches et amis', dress: 'une tenue fluide ornée de perles délicates' },
-  { celeb: 'l’écrivaine Clara Côté et Patrick Morin', short: 'de Clara Côté et Patrick Morin', place: 'dans un domaine champêtre des Cantons-de-l’Est', guests: 'cent cinquante convives réunis', dress: 'une élégante robe ivoire faite sur mesure' },
+const N4_FAIR_EVENTS = [
+  {
+    name: 'le Salon des métiers d’art régionaux',
+    craft: 'des céramiques faites à la main',
+    craftOpt: 'des céramiques faites à la main',
+    time: 'de dix heures à dix-huit heures',
+    bonus: 'des démonstrations gratuites de tournage',
+    bonOpt: 'des démonstrations d’artisans sur place',
+  },
+  {
+    name: 'la Foire d’automne des artisans locaux',
+    craft: 'des confections en laine du pays',
+    craftOpt: 'des tricots en laine et tissus locaux',
+    time: 'de neuf heures à dix-sept heures',
+    bonus: 'des dégustations de confitures maison',
+    bonOpt: 'des dégustations de produits maison',
+  },
+  {
+    name: 'le Marché des créateurs indépendants',
+    craft: 'des bijoux en bois sculpté et cuir',
+    craftOpt: 'des bijoux et objets en bois sculpté',
+    time: 'entre onze heures et dix-neuf heures',
+    bonus: 'des activités de fabrication pour enfants',
+    bonOpt: 'des activités manuelles pour enfants',
+  },
+  {
+    name: 'l’Exposition annuelle du terroir québécois',
+    craft: 'des savons naturels et produits doux',
+    craftOpt: 'des savons naturels et soins corporels',
+    time: 'de dix heures à dix-sept heures',
+    bonus: 'des échanges avec les artisans d’ici',
+    bonOpt: 'des échanges avec les artisans locaux',
+  },
+]
+const N4_FAIR_LOCS = [
+  'dans le hall de l’édifice municipal',
+  'au gymnase du collège communautaire',
+  'sur la grande place des citoyens',
+  'au centre récréatif de l’arrondissement',
+]
+const N4_FAIR_ENTRIES = [
+  'L’entrée est libre pour toute la famille.',
+  'L’accès est gratuit pour les résidents.',
+  'Aucun droit d’entrée n’est demandé.',
+  'L’événement accueille le public sans frais.',
+]
+const N4_FAIR_PARKINGS = [
+  'Un stationnement gratuit se trouve derrière.',
+  'Le lieu est accessible en transport en commun.',
+  'Des espaces pour voitures sont réservés.',
+  'Des supports à vélos sont disponibles.',
+]
+
+const N4_TOUR_SITES = [
+  {
+    site: 'du moulin à farine historique',
+    item: 'la mouture du blé avec la roue à eau',
+    itemOpt: 'la mouture du blé avec la roue à eau',
+    taste: 'du pain chaud sorti du fournil',
+    tasteOpt: 'du pain chaud sorti du fournil',
+  },
+  {
+    site: 'de la ferme maraîchère biologique',
+    item: 'la récolte de légumes sans produits chimiques',
+    itemOpt: 'la récolte écologique de légumes frais',
+    taste: 'du jus de légumes fraîchement pressé',
+    tasteOpt: 'du jus frais préparé sur place',
+  },
+  {
+    site: 'du verger éducatif familial',
+    item: 'la taille et la culture des pommiers',
+    itemOpt: 'la culture et la récolte des pommes',
+    taste: 'du jus de pomme chaud et des beignes',
+    tasteOpt: 'du jus de pomme chaud avec des beignes',
+  },
+  {
+    site: 'de la miellerie artisanale de la vallée',
+    item: 'le travail quotidien autour des ruches',
+    itemOpt: 'le travail d’apiculture avec les ruches',
+    taste: 'différentes variétés de miel local',
+    tasteOpt: 'plusieurs sortes de miel de la ferme',
+  },
+]
+const N4_TOUR_DAYS = [
+  'chaque dimanche après-midi',
+  'tous les samedis d’automne',
+  'les fins de semaine ensoleillées',
+  'du vendredi au dimanche',
+]
+const N4_TOUR_GUIDES = [
+  'Un guide passionné explique chaque étape.',
+  'La visite guidée dure environ une heure.',
+  'Un animateur accompagne tout le parcours.',
+  'Le circuit est conçu pour toute la famille.',
+]
+const N4_TOUR_TIPS = [
+  'Pensez à porter de bonnes chaussures.',
+  'Prévoyez des vêtements confortables.',
+  'Apportez une bouteille d’eau pour le trajet.',
+  'La réservation préalable est suggérée.',
+]
+
+const N4_SPORT_CLUBS = [
+  {
+    club: 'le club de marche nordique du parc',
+    act: 'des promenades toniques avec des bâtons',
+    actOpt: 'la marche rapide avec des bâtons',
+    sched: 'le mardi et le jeudi à dix heures',
+    schedOpt: 'deux matinées par semaine à dix heures',
+    ben: 'de renforcer son endurance en douceur',
+    benOpt: 'renforcer son endurance en douceur',
+  },
+  {
+    club: 'le groupe d’initiation à la course à pied',
+    act: 'des séances progressives sur sentier',
+    actOpt: 'la course à pied par étapes faciles',
+    sched: 'le samedi matin dès neuf heures',
+    schedOpt: 'chaque samedi matin dès neuf heures',
+    ben: 'd’atteindre cinq kilomètres sans fatigue',
+    benOpt: 'progresser vers cinq kilomètres de course',
+  },
+  {
+    club: 'les cours de yoga doux en plein air',
+    act: 'des postures simples et de la respiration',
+    actOpt: 'le yoga doux et des respirations',
+    sched: 'le dimanche matin à dix heures',
+    schedOpt: 'le dimanche matin dès dix heures',
+    ben: 'de réduire les tensions accumulées',
+    benOpt: 'diminuer les tensions de la semaine',
+  },
+  {
+    club: 'l’atelier collectif de mise en forme',
+    act: 'des étirements et du renforcement léger',
+    actOpt: 'des étirements et du renforcement léger',
+    sched: 'le mercredi soir à dix-huit heures',
+    schedOpt: 'le mercredi soir à dix-huit heures',
+    ben: 'de garder la forme entre collègues',
+    benOpt: 'maintenir sa forme physique en groupe',
+  },
+]
+const N4_SPORT_PARKS = [
+  'au parc municipal de l’Est',
+  'sur les sentiers du parc des Moulins',
+  'près du grand lac de la ville',
+  'autour du terrain des sports',
+]
+const N4_SPORT_COSTS = [
+  'L’activité est entièrement gratuite.',
+  'Une contribution volontaire est suggérée.',
+  'L’inscription se fait sans aucun frais.',
+  'Le premier cours d’essai est offert.',
+]
+const N4_SPORT_BRINGS = [
+  'Apportez simplement un tapis de sol.',
+  'Venez avec une tenue de sport souple.',
+  'Une gourde d’eau suffit pour participer.',
+  'Munissez-vous de souliers de marche.',
 ]
 
 export const N04_R_1 = [
-  // Scenario 1 (Template, situation: 0)
+  // Scenario 1 (Template, situation: 0) - Atelier pratique de loisirs
   Object.assign(
     (rand) => {
-      const reg = pick(N4_REG_NAMES, rand)
-      const feat = pick(N4_REG_FEATS, rand)
-      const act = pick(N4_REG_ACTS, rand)
-      const food = pick(N4_REG_FOODS, rand)
-      const text = `Brochure touristique. Venez découvrir ${reg}, un trésor naturel d’exception. Cette région séduit les voyageurs par ${feat}. Les amateurs d’aventure profiteront de ${act}. En soirée, dégustez ${food}. Des hébergements confortables en bord de mer et en forêt vous attendent pour des vacances au Québec.`
+      const w = pick(N4_CRAFT_WORKSHOPS, rand)
+      const center = pick(N4_CRAFT_CENTERS, rand)
+      const lvl = pick(N4_CRAFT_LEVELS, rand)
+      const lim = pick(N4_CRAFT_LIMITS, rand)
+      const others = sample(N4_CRAFT_WORKSHOPS.filter((x) => x.topicOpt !== w.topicOpt), 2, rand)
+      const text = `Atelier de quartier. Rejoignez ${w.name} ${center}. Durant cet atelier, vous découvrirez ${w.topic}. La session s’étend sur ${w.dur}. Rassurez-vous, ${w.req}. ${lvl} ${lim} Inscrivez-vous dès maintenant au secrétariat des loisirs pour réserver votre place.`
       return {
         text,
         questions: [
-          ['Quelle région est mise à l’honneur dans cette brochure ?', reg, 'les îles tropicales bordées de coraux', 'un désert de sable chaud du continent'],
-          ['Quels délices culinaires sont proposés aux touristes ?', food, 'des repas déshydratés achetés en magasin', 'des conserves industrielles sans saveur'],
+          ['Quel apprentissage pratique est présenté dans cette annonce ?', w.topicOpt, others[0].topicOpt, others[1].topicOpt],
+          ['Quel avantage matériel est offert aux personnes inscrites ?', w.reqOpt, others[0].reqOpt, others[1].reqOpt],
         ],
       }
     },
-    { situation: 0, capacity: N4_REG_NAMES.length * N4_REG_FEATS.length * N4_REG_ACTS.length * N4_REG_FOODS.length }
+    { situation: 0, capacity: N4_CRAFT_WORKSHOPS.length * N4_CRAFT_CENTERS.length * N4_CRAFT_LEVELS.length * N4_CRAFT_LIMITS.length }
   ),
-  // Scenario 2 (Template, situation: 1)
+  // Scenario 2 (Template, situation: 1) - Foire artisanale locale
   Object.assign(
     (rand) => {
-      const w = pick(N4_WEDDINGS, rand)
-      const text = `Magazine Vedettes du Québec. Un mariage de rêve pour ${w.celeb} ! C’est ${w.place} que le couple a prononcé ses vœux devant ${w.guests}. La mariée était resplendissante dans ${w.dress}. La cérémonie a ému l’assemblée avant de laisser place à un banquet gastronomique servi au coucher du soleil.`
+      const f = pick(N4_FAIR_EVENTS, rand)
+      const loc = pick(N4_FAIR_LOCS, rand)
+      const entry = pick(N4_FAIR_ENTRIES, rand)
+      const pkg = pick(N4_FAIR_PARKINGS, rand)
+      const others = sample(N4_FAIR_EVENTS.filter((x) => x.craftOpt !== f.craftOpt), 2, rand)
+      const text = `Événement culturel. Venez visiter ${f.name} ${loc}. Vous y découvrirez ${f.craft}. L’événement est ouvert ${f.time}. Vous pourrez aussi apprécier ${f.bonus}. ${entry} ${pkg} Venez encourager le savoir-faire de notre région cette fin de semaine.`
       return {
         text,
         questions: [
-          ['De quel évènement mondain cet article de presse parle-t-il ?', `du mariage ${w.short}`, 'd’une remise solennelle de diplômes à l’université', 'd’une conférence syndicale de travailleurs d’usine'],
-          ['Où cette fête prestigieuse s’est-elle déroulée ?', w.place, 'au sous-sol d’un centre de tri postal de banlieue', 'dans une station de métro fermée pour la nuitée'],
+          ['Quels produits artisanaux sont mis en valeur à cet événement ?', f.craftOpt, others[0].craftOpt, others[1].craftOpt],
+          ['Quelle animation spéciale est proposée aux visiteurs sur place ?', f.bonOpt, others[0].bonOpt, others[1].bonOpt],
         ],
       }
     },
-    { situation: 1, capacity: N4_WEDDINGS.length }
+    { situation: 1, capacity: N4_FAIR_EVENTS.length * N4_FAIR_LOCS.length * N4_FAIR_ENTRIES.length * N4_FAIR_PARKINGS.length }
   ),
-  // Scenario 3 (Template, situation: 0 variant)
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Visite d'un site agrotouristique)
   Object.assign(
     (rand) => {
-      const reg = pick(N4_REG_NAMES, rand)
-      const feat = pick(N4_REG_FEATS, rand)
-      const act = pick(N4_REG_ACTS, rand)
-      const food = pick(N4_REG_FOODS, rand)
-      const text = `Guide escapades au Québec. Laissez-vous charmer par ${reg} ! Vous tomberez sous le charme en contemplant ${feat}. Tout au long de l’année, pratiquez ${act}. N’oubliez pas de goûter ${food}. Une destination rêvée pour reconnecter avec la beauté brute des grands espaces.`
+      const t = pick(N4_TOUR_SITES, rand)
+      const day = pick(N4_TOUR_DAYS, rand)
+      const guide = pick(N4_TOUR_GUIDES, rand)
+      const tip = pick(N4_TOUR_TIPS, rand)
+      const others = sample(N4_TOUR_SITES.filter((x) => x.itemOpt !== t.itemOpt), 2, rand)
+      const text = `Découverte du patrimoine. Profitez d’une visite commentée ${t.site} ${day}. Vous comprendrez ${t.item}. À la fin du parcours, vous dégusterez ${t.taste}. ${guide} ${tip} Une belle sortie pour apprendre et partager un moment convivial.`
       return {
         text,
         questions: [
-          ['Quels attraits paysagers majeurs sont décrits dans ce texte ?', feat, 'des gratte-ciel modernes en verre de soixante étages', 'des usines de métallurgie bordant une zone portuaire'],
-          ['Quelle activité de plein air est recommandée aux visiteurs ?', act, 'la pratique du patin à roulettes dans un tunnel obscur', 'la participation à une vente aux enchères de machinerie'],
+          ['Quel aspect du site les visiteurs vont-ils explorer lors du tour ?', t.itemOpt, others[0].itemOpt, others[1].itemOpt],
+          ['Quelle dégustation conclut la visite commentée pour le groupe ?', t.tasteOpt, others[0].tasteOpt, others[1].tasteOpt],
         ],
       }
     },
-    { situation: 0, capacity: N4_REG_NAMES.length * N4_REG_FEATS.length * N4_REG_ACTS.length * N4_REG_FOODS.length }
+    { situation: 0, capacity: N4_TOUR_SITES.length * N4_TOUR_DAYS.length * N4_TOUR_GUIDES.length * N4_TOUR_TIPS.length }
   ),
-  // Scenario 4 (Template, situation: 1 variant)
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Club sportif et plein air)
   Object.assign(
     (rand) => {
-      const w = pick(N4_WEDDINGS, rand)
-      const text = `Revue Échos des Célébrités. Tous nos vœux de bonheur à ${w.celeb} qui se sont dit oui pour la vie ! La célébration intime s’est tenue ${w.place} en présence de ${w.guests}. Tous les regards étaient tournés vers la mariée vêtue d’${w.dress}. La soirée a continué au son d’un orchestre.`
+      const s = pick(N4_SPORT_CLUBS, rand)
+      const park = pick(N4_SPORT_PARKS, rand)
+      const cost = pick(N4_SPORT_COSTS, rand)
+      const bring = pick(N4_SPORT_BRINGS, rand)
+      const others = sample(N4_SPORT_CLUBS.filter((x) => x.actOpt !== s.actOpt), 2, rand)
+      const text = `Santé et plein air. Rejoignez ${s.club} ${park}. Cette activité propose ${s.act}. Les rencontres ont lieu ${s.sched}. Ces séances permettent ${s.ben}. ${cost} ${bring} N’hésitez pas à venir bouger avec nous pour garder la forme.`
       return {
         text,
         questions: [
-          ['Quelle tenue la mariée portait-elle lors de son union ?', `vêtue d’${w.dress}`, 'd’un pantalon d’équitation avec une veste en cuir usé', 'd’un ensemble de ski très épais pour le grand froid'],
-          ['Combien d’invités ont pris part à la célébration intime ?', w.guests, 'cinq mille personnes inconnues invitées par tirage au sort', 'deux témoins officiels seulement sans aucun proche parent'],
+          ['Quelle pratique physique ce club propose-t-il aux participants ?', s.actOpt, others[0].actOpt, others[1].actOpt],
+          ['À quel moment les participants se rassemblent-ils pour l’activité ?', s.schedOpt, others[0].schedOpt, others[1].schedOpt],
         ],
       }
     },
-    { situation: 1, capacity: N4_WEDDINGS.length }
+    { situation: 1, capacity: N4_SPORT_CLUBS.length * N4_SPORT_PARKS.length * N4_SPORT_COSTS.length * N4_SPORT_BRINGS.length }
   ),
-  // Scenario 5 (Static, situation: 0)
+  // Scenario 5 (Static, situation: 0) - Atelier d'initiation à la poterie
   {
     situation: 0,
-    text: 'Guide vacances : les Laurentides vous invitent au dépaysement à une heure de Montréal. Découvrez des sommets montagneux recouverts d’érables, des centaines de lacs paisibles et des sentiers de villégiature très bien entretenus. Profitez des auberges champêtres pour relaxer dans les bains scandinaves et déguster les produits des vergers locaux.',
+    text: 'Atelier de loisirs créatifs. Le centre communautaire propose un cours d’initiation à la poterie traditionnelle cet automne. Les participants découvrent le modelage de la terre glaise, le façonnage sur tour électrique et la cuisson des pièces au four. Le matériel et l’argile sont entièrement fournis. La session dure six semaines, à raison d’une heure et demie par semaine.',
     questions: [
-      ['À quelle distance de Montréal les Laurentides sont-elles situées ?', 'à une heure de Montréal seulement', 'à quinze heures de vol par avion', 'à trois jours de route par autobus'],
-      ['Quels hébergements touristiques sont mis en avant pour relaxer ?', 'des auberges champêtres avec bains scandinaves', 'des dortoirs militaires sans eau chaude', 'des conteneurs en métal le long des voies'],
+      ['Quelle activité manuelle est présentée dans ce descriptif ?', 'un cours pratique de poterie traditionnelle', 'un cours théorique de dessin industriel', 'un atelier d’ébénisterie et de menuiserie'],
+      ['Quelle condition matérielle s’applique aux personnes inscrites ?', 'les outils et l’argile sont fournis au centre', 'chacun doit acheter son propre tour de potier', 'il faut obligatoirement apporter son matériel'],
     ],
   },
-  // Scenario 6 (Static, situation: 1)
+  // Scenario 6 (Static, situation: 1) - Marché fermier hebdomadaire
   {
     situation: 1,
-    text: 'Magazine Gala Québec : le mariage grandiose de l’animatrice Catherine Dion. Entourée de sa famille et de ses collègues du petit écran, la vedette a épousé le réalisateur Martin Lepage dans une chapelle historique de la vieille capitale. Les deux cent cinquante convives ont ensuite dansé jusqu’aux petites heures du matin.',
+    text: 'Vie de quartier. Le marché fermier du Vieux-Port revient chaque dimanche sur la place centrale. Une quinzaine de maraîchers de la région y vendent des légumes biologiques, des petits fruits frais, du pain artisanal et des fromages fermiers. Des musiciens locaux animent les allées entre dix heures et quatorze heures. L’accès est ouvert à tous.',
     questions: [
-      ['Dans quel lieu patrimonial la cérémonie de mariage a-t-elle eu lieu ?', 'dans une chapelle historique de Québec', 'dans un hangar d’aviation commerciale', 'dans un gymnase scolaire de banlieue'],
-      ['Qui étaient les deux personnes qui unissaient leur destinée ?', 'l’animatrice Catherine Dion et Martin Lepage', 'deux ministres du gouvernement provincial', 'deux pilotes de course automobile'],
+      ['Quel genre d’événement hebdomadaire ce texte décrit-il ?', 'un marché fermier de produits du terroir', 'une compétition sportive intercollégiale', 'un salon professionnel de l’automobile'],
+      ['Quelle animation accompagne les emplettes des visiteurs ?', 'des musiciens locaux jouant dans les allées', 'des feux d’artifice tirés en plein jour', 'des conférences données par des experts'],
     ],
   },
 ]
 
-const N4_TRIP_DESTS = [
-  'le long de la Côte-Nord jusqu’à Natashquan',
-  'autour de la Gaspésie en véhicule récréatif',
-  'à travers les forêts du parc de la Mauricie',
-  'sur les routes des îles de la Madeleine',
+// ---------------------------------------------------------------------------
+// n4-reading-2
+// ---------------------------------------------------------------------------
+const N4_CAMP_DESTS = [
+  {
+    place: 'au parc national du Mont-Tremblant',
+    lodging: 'dans une tente près de la rivière',
+    act: 'fait une belle randonnée pédestre dans la forêt',
+    actOpt: 'une longue marche en forêt le long des sentiers',
+    eve: 'partagé un repas chaud autour du feu de camp',
+    eveOpt: 'un repas très chaud partagé autour du feu',
+  },
+  {
+    place: 'au parc de la Jacques-Cartier',
+    lodging: 'dans un petit chalet en bois rond',
+    act: 'pagayé en canot sur les eaux calmes de la vallée',
+    actOpt: 'une sortie en canot sur la rivière calme',
+    eve: 'admiré les étoiles sous un ciel très dégagé',
+    eveOpt: 'l’observation des étoiles dans le ciel nocturne',
+  },
+  {
+    place: 'au bord du grand lac Saint-Jean',
+    lodging: 'au camping municipal sur la berge',
+    act: 'roulé à bicyclette le long de la piste cyclable',
+    actOpt: 'une promenade à bicyclette sur la piste',
+    eve: 'grillé des guimauves en écoutant de la musique',
+    eveOpt: 'des guimauves grillées au son de la musique',
+  },
+  {
+    place: 'dans les collines de Charlevoix',
+    lodging: 'dans un refuge perché dans les arbres',
+    act: 'marché jusqu’au belvédère pour voir le fleuve',
+    actOpt: 'une montée au belvédère surplombant le fleuve',
+    eve: 'joué à des jeux de société dans le salon',
+    eveOpt: 'des parties de jeux de société en famille',
+  },
 ]
-const N4_TRIP_CAMPS = [
-  'sur des plages sauvages au bord du golfe',
-  'dans des parcs naturels face aux falaises',
-  'sous la tente sur les berges d’un lac pur',
-  'près des dunes de sable au son des marées',
+const N4_CAMP_WEATHERS = [
+  'La météo était magnifique tout le samedi.',
+  'Le soleil a brillé durant tout notre séjour.',
+  'Le ciel est resté clair et la brise douce.',
+  'La fin de semaine a été très ensoleillée.',
 ]
-const N4_TRIP_ENCS = [
-  'des pêcheurs passionnés partageant du poisson frais',
-  'des artisans locaux qui sculptent le bois de grève',
-  'des biologistes dévoués observant la faune marine',
-  'des producteurs locaux élevant des moules de mer',
+const N4_CAMP_MORNINGS = [
+  'Le matin, le chant des oiseaux nous réveillait.',
+  'Nous nous sommes levés tôt pour voir l’aube.',
+  'L’air frais du matin nous a fait grand bien.',
+  'Nous avons bu notre café face aux arbres.',
 ]
-const N4_TRIP_FAVS = [
-  'le spectacle des aurores boréales dans la nuit',
-  'le coucher de soleil flamboyant sur la mer',
-  'la descente paisible de la rivière en canot',
-  'la lumière dorée sur les maisons de pêcheurs',
+const N4_CAMP_CLOSINGS = [
+  'C’était une fin de semaine simple et très reposante.',
+  'Nous sommes rentrés chez nous avec le sourire.',
+  'Cette sortie en nature nous a redonné de l’énergie.',
+  'Nous pensons déjà à y retourner l’été prochain.',
 ]
 
-const N4_NEIGH_AREAS = [
+const N4_NEIGH_INCIDENTS = [
+  {
+    cause: 'une grosse branche d’arbre a cédé sous le vent fort',
+    causeOpt: 'une branche d’arbre tombée sur la voie',
+    imp: 'le courant a été coupé pour plusieurs résidences',
+    impOpt: 'une coupure de courant dans plusieurs résidences',
+    sol: 'les équipes d’Hydro-Québec ont dégagé la rue et réparé les câbles',
+    solOpt: 'Hydro-Québec a dégagé la rue et réparé les fils',
+  },
+  {
+    cause: 'une canalisation d’eau a éclaté sous le trottoir',
+    causeOpt: 'une fuite d’eau sous le trottoir du quartier',
+    imp: 'l’eau a été fermée pendant deux heures dans la rue',
+    impOpt: 'une interruption d’eau durant deux heures',
+    sol: 'les ouvriers municipaux ont réparé la conduite d’eau sans tarder',
+    solOpt: 'les ouvriers ont colmaté la conduite d’eau',
+  },
+  {
+    cause: 'un camion de livraison est tombé en panne au carrefour',
+    causeOpt: 'un camion de livraison immobilisé au carrefour',
+    imp: 'les autobus ont dû faire un détour par une autre rue',
+    impOpt: 'un détour obligatoire pour les autobus',
+    sol: 'les agents de circulation ont dirigé les voitures et dégagé la voie',
+    solOpt: 'les agents ont fait circuler les véhicules',
+  },
+  {
+    cause: 'un conteneur de recyclage s’est renversé sur la route',
+    causeOpt: 'des boîtes de recyclage renversées par le vent',
+    imp: 'des cartons et papiers se sont éparpillés sur l’asphalte',
+    impOpt: 'des cartons dispersés sur toute la chaussée',
+    sol: 'les voisins se sont rassemblés pour tout ramasser avec des balais',
+    solOpt: 'les voisins ont nettoyé la chaussée ensemble',
+  },
+]
+const N4_NEIGH_AREAS_2 = [
   'dans Limoilou sur la 3e Avenue',
   'dans Saint-Sauveur près du parc Victoria',
   'dans Rosemont à l’angle de la rue Masson',
   'dans Montcalm sur le boulevard René-Lévesque',
 ]
-const N4_NEIGH_CAUSES = [
-  'une branche d’arbre imposante est tombée sur des fils',
-  'une conduite d’eau principale a éclaté sous la chaussée',
-  'un bris d’aqueduc a inondé partiellement la chaussée',
-  'un poteau de télécommunication a été brisé par le vent',
+const N4_NEIGH_TIMES_2 = [
+  'Hier vers quinze heures',
+  'Vendredi en fin d’après-midi',
+  'Hier matin vers dix heures',
+  'Jeudi vers seize heures trente',
 ]
-const N4_NEIGH_DURS = [
-  'trois heures d’obscurité pour cinquante résidents',
-  'une coupure temporaire d’eau pour tout le secteur',
-  'la fermeture de la circulation pendant quatre heures',
-  'l’interruption du réseau internet jusqu’en soirée',
+const N4_NEIGH_THANKINGS_2 = [
+  'Personne n’a été blessé lors de cet incident.',
+  'Le calme est revenu rapidement dans le secteur.',
+  'Les résidents ont salué la rapidité de la réaction.',
+  'La vie de quartier a repris son cours normal.',
 ]
-const N4_NEIGH_SOLS = [
-  'les équipes d’Hydro-Québec ont rétabli le courant',
-  'les cols bleus municipaux ont colmaté la fuite d’eau',
-  'les pompiers ont pompé l’eau et sécurisé les commerces',
-  'les techniciens ont réparé le matériel sans tarder',
+
+const N4_MOVE_BUNDLES = [
+  {
+    help: 'mon cousin et deux amis d’enfance',
+    helpOpt: 'son cousin et deux amis d’enfance du quartier',
+    load: 'chargé le camion de boîtes et de meubles',
+    loadOpt: 'remplir le camion de meubles et de boîtes',
+    meal: 'partagé une bonne pizza assis sur des cartons',
+    mealOpt: 'manger de la bonne pizza assis sur les boîtes',
+  },
+  {
+    help: 'trois collègues de travail très serviables',
+    helpOpt: 'trois collègues de bureau très serviables',
+    load: 'descendu les lits et le réfrigérateur au bas de l’édifice',
+    loadOpt: 'descendre les gros meubles par l’escalier',
+    meal: 'dégusté des sandwichs frais avec du jus',
+    mealOpt: 'déguster des sandwichs avec des jus de fruits',
+  },
+  {
+    help: 'mes deux frères et une voisine sympathique',
+    helpOpt: 'ses deux frères et une voisine serviable',
+    load: 'transporté la vaisselle et les armoires en bois',
+    loadOpt: 'transporter les armoires et la vaisselle',
+    meal: 'mangé des salades préparées à la maison',
+    mealOpt: 'partager de bonnes salades fraîches maison',
+  },
+  {
+    help: 'des compagnons de mon club de sport',
+    helpOpt: 'des amis sportifs rencontrés au club local',
+    load: 'rempli la remorque avec tous les appareils ménagers',
+    loadOpt: 'charger les appareils ménagers dans la remorque',
+    meal: 'commandé des poutines chaudes au restaurant',
+    mealOpt: 'manger une poutine chaude au casse-croûte',
+  },
+]
+const N4_MOVE_APTS = [
+  'dans mon nouvel appartement de Limoilou',
+  'vers notre nouveau logement à Verdun',
+  'dans une maisonnette à Sainte-Foy',
+  'dans un logement lumineux à Rosemont',
+]
+const N4_MOVE_STAIRS = [
+  'Il a fallu monter trois étages à pied.',
+  'L’escalier était étroit mais tout s’est bien passé.',
+  'Tout a été monté au deuxième niveau sans bris.',
+  'Les gros meubles sont entrés sans problème.',
+]
+const N4_MOVE_THANKS = [
+  'Tout le monde a gardé sa bonne humeur.',
+  'Une belle journée d’entraide entre proches.',
+  'Je suis très reconnaissant pour leur aide précieuse.',
+  'Nous avons fini d’installer les lits avant le coucher.',
+]
+
+const N4_SNOW_BUNDLES = [
+  {
+    drop: 'trente centimètres de neige poudreuse',
+    dropOpt: 'une accumulation de trente centimètres de neige',
+    trouble: 'ma voiture est restée coincée dans l’entrée',
+    troubOpt: 'sa voiture est restée prise dans l’entrée',
+    helper: 'mon voisin est venu avec sa souffleuse à neige',
+    helpOpt: 'un voisin avec sa souffleuse à neige',
+  },
+  {
+    drop: 'une importante chute de neige et des rafales',
+    dropOpt: 'une tempête de neige aux vents violents',
+    trouble: 'un épais banc de neige bloquait notre porte de cour',
+    troubOpt: 'un banc de neige bloquant la porte de cour',
+    helper: 'deux jeunes du quartier sont arrivés avec des pelles',
+    helpOpt: 'deux jeunes du quartier avec de grandes pelles',
+  },
+  {
+    drop: 'vingt-cinq centimètres tombés pendant la nuit',
+    dropOpt: 'vingt-cinq centimètres de neige fraîche',
+    trouble: 'les roues de mon véhicule patinaient sur la glace',
+    troubOpt: 'les roues de son auto patinant sur la glace',
+    helper: 'une passante m’a prêté un sac de sel et de sable',
+    helpOpt: 'une passante lui prêtant du sable et du sel',
+  },
+  {
+    drop: 'un blizzard intense durant la matinée',
+    dropOpt: 'un blizzard intense durant la matinée',
+    trouble: 'le stationnement était complètement recouvert de blanc',
+    troubOpt: 'le stationnement couvert d’une épaisse couche',
+    helper: 'le concierge est venu déblayer l’accès avec son tracteur',
+    helpOpt: 'le concierge avec son petit tracteur à neige',
+  },
+]
+const N4_SNOW_CITIES = [
+  'à Québec hier matin',
+  'à Sherbrooke lundi dernier',
+  'à Trois-Rivières mardi passé',
+  'à Montréal ce mercredi',
+]
+const N4_SNOW_TIMES = [
+  'Le réveil a été surprenant.',
+  'Dès six heures, la rue était toute blanche.',
+  'Les flocons continuaient de tourbillonner dehors.',
+  'La ville semblait marcher au ralenti.',
+]
+const N4_SNOW_OUTCOMES = [
+  'J’ai pu arriver à mon travail avec un petit retard.',
+  'Tout était propre avant le passage de l’autobus.',
+  'Nous avons partagé un café chaud pour nous réchauffer.',
+  'La solidarité d’hiver rend les journées plus faciles.',
 ]
 
 export const N04_R_2 = [
-  // Scenario 1 (Template, situation: 0)
+  // Scenario 1 (Template, situation: 0) - Récit de séjour en plein air
   Object.assign(
     (rand) => {
-      const dest = pick(N4_TRIP_DESTS, rand)
-      const camp = pick(N4_TRIP_CAMPS, rand)
-      const enc = pick(N4_TRIP_ENCS, rand)
-      const fav = pick(N4_TRIP_FAVS, rand)
-      const text = `Blogue Deux sacs à dos sur la route. Notre voyage ${dest} reste une expérience inoubliable. Nous avons campé ${camp}. En chemin, nous avons rencontré ${enc}. Notre plus grand souvenir demeure ${fav}. Le Québec offre tant d’horizons sauvages à explorer avec émerveillement !`
+      const d = pick(N4_CAMP_DESTS, rand)
+      const weather = pick(N4_CAMP_WEATHERS, rand)
+      const morning = pick(N4_CAMP_MORNINGS, rand)
+      const closing = pick(N4_CAMP_CLOSINGS, rand)
+      const others = sample(N4_CAMP_DESTS.filter((x) => x.actOpt !== d.actOpt), 2, rand)
+      const text = `Journal personnel. La fin de semaine passée, nous sommes allés ${d.place}. Nous avons logé ${d.lodging}. ${weather} ${morning} Dans la journée, nous avons ${d.act}. En soirée, nous avons ${d.eve}. ${closing}`
       return {
         text,
         questions: [
-          ['Où les auteurs de ce carnet de voyage ont-ils campé ?', camp, 'dans le vaste stationnement souterrain d’un centre hospitalier', 'dans un hangar métallique désaffecté près d’une voie ferrée'],
-          ['Quelle rencontre enrichissante ont-ils faite en chemin ?', enc, 'des agents de sécurité refusant l’accès aux voies publiques', 'des employés de bureau en grève devant le siège de l’entreprise'],
+          ['Quelle activité de jour les vacanciers ont-ils pratiquée ?', d.actOpt, others[0].actOpt, others[1].actOpt],
+          ['Comment le groupe a-t-il passé sa soirée en plein air ?', d.eveOpt, others[0].eveOpt, others[1].eveOpt],
         ],
       }
     },
-    { situation: 0, capacity: N4_TRIP_DESTS.length * N4_TRIP_CAMPS.length * N4_TRIP_ENCS.length * N4_TRIP_FAVS.length }
+    { situation: 0, capacity: N4_CAMP_DESTS.length * N4_CAMP_WEATHERS.length * N4_CAMP_MORNINGS.length * N4_CAMP_CLOSINGS.length }
   ),
-  // Scenario 2 (Template, situation: 1)
+  // Scenario 2 (Template, situation: 1) - Récit d'un incident de quartier
   Object.assign(
     (rand) => {
-      const area = pick(N4_NEIGH_AREAS, rand)
-      const cause = pick(N4_NEIGH_CAUSES, rand)
-      const dur = pick(N4_NEIGH_DURS, rand)
-      const sol = pick(N4_NEIGH_SOLS, rand)
-      const text = `Page communautaire du quartier. Hier vers 16 h 30 ${area}, un incident est survenu : ${cause}. Cet évènement a entraîné ${dur}. Heureusement, personne n’a été blessé. Grâce à une intervention rapide, ${sol}. La ville remercie les résidents pour leur patience.`
+      const b = pick(N4_NEIGH_INCIDENTS, rand)
+      const area = pick(N4_NEIGH_AREAS_2, rand)
+      const time = pick(N4_NEIGH_TIMES_2, rand)
+      const thanks = pick(N4_NEIGH_THANKINGS_2, rand)
+      const others = sample(N4_NEIGH_INCIDENTS.filter((x) => x.causeOpt !== b.causeOpt), 2, rand)
+      const text = `Page communautaire du quartier. ${time} ${area}, un incident est survenu : ${b.cause}. En conséquence, ${b.imp}. Heureusement, ${b.sol}. ${thanks} Merci à tous pour votre civisme et votre collaboration.`
       return {
         text,
         questions: [
-          ['Quel incident s’est produit dans les rues du quartier ?', cause, 'la construction non autorisée d’une piste d’atterrissage en ville', 'une tornade violente emportant des toitures de résidences privées'],
-          ['Quelle conséquence les citoyens ont-ils subie temporairement ?', dur, 'l’évacuation forcée de l’ensemble de la ville pendant trois mois', 'l’interdiction permanente d’utiliser des appareils électroniques'],
+          ['Quel problème a perturbé la vie normale du quartier ?', b.causeOpt, others[0].causeOpt, others[1].causeOpt],
+          ['Comment les intervenants ont-ils réglé cette situation ?', b.solOpt, others[0].solOpt, others[1].solOpt],
         ],
       }
     },
-    { situation: 1, capacity: N4_NEIGH_AREAS.length * N4_NEIGH_CAUSES.length * N4_NEIGH_DURS.length * N4_NEIGH_SOLS.length }
+    { situation: 1, capacity: N4_NEIGH_INCIDENTS.length * N4_NEIGH_AREAS_2.length * N4_NEIGH_TIMES_2.length * N4_NEIGH_THANKINGS_2.length }
   ),
-  // Scenario 3 (Template, situation: 0 variant)
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Déménagement entre amis)
   Object.assign(
     (rand) => {
-      const dest = pick(N4_TRIP_DESTS, rand)
-      const camp = pick(N4_TRIP_CAMPS, rand)
-      const enc = pick(N4_TRIP_ENCS, rand)
-      const fav = pick(N4_TRIP_FAVS, rand)
-      const text = `Récit de voyage partagé en ligne. Après deux semaines ${dest}, nous revenons transformés. Nous nous sommes endormis ${camp}. Nous avons croisé ${enc}. Ce qui nous a le plus charmés, c’est ${fav}. Nous recommandons ce circuit aux amoureux du grand air.`
+      const m = pick(N4_MOVE_BUNDLES, rand)
+      const apt = pick(N4_MOVE_APTS, rand)
+      const stair = pick(N4_MOVE_STAIRS, rand)
+      const thank = pick(N4_MOVE_THANKS, rand)
+      const others = sample(N4_MOVE_BUNDLES.filter((x) => x.helpOpt !== m.helpOpt), 2, rand)
+      const text = `Récit personnel. Samedi passé, j’ai enfin déménagé ${apt}. Pour m’aider, ${m.help} sont venus dès huit heures le matin. Ensemble, nous avons ${m.load}. ${stair} À midi, nous avons ${m.meal}. ${thank} Une journée fatigante mais pleine de solidarité.`
       return {
         text,
         questions: [
-          ['Quelle destination routière les voyageurs ont-ils explorée ?', dest, 'les banlieues d’usines chimiques de grandes villes étrangères', 'les zones minières fermées au public dans le grand nord éloigné'],
-          ['Quel moment privilégié a particulièrement marqué leur séjour ?', fav, 'l’achat de pièces de quincaillerie usagées dans un garage', 'la perte de leurs bagages personnels dans un marécage boueux'],
+          ['Qui est venu prêter main-forte pour ce déménagement ?', m.helpOpt, others[0].helpOpt, others[1].helpOpt],
+          ['Quel repas réconfortant le groupe a-t-il partagé à midi ?', m.mealOpt, others[0].mealOpt, others[1].mealOpt],
         ],
       }
     },
-    { situation: 0, capacity: N4_TRIP_DESTS.length * N4_TRIP_CAMPS.length * N4_TRIP_ENCS.length * N4_TRIP_FAVS.length }
+    { situation: 0, capacity: N4_MOVE_BUNDLES.length * N4_MOVE_APTS.length * N4_MOVE_STAIRS.length * N4_MOVE_THANKS.length }
   ),
-  // Scenario 4 (Template, situation: 1 variant)
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Bordée de neige et entraide)
   Object.assign(
     (rand) => {
-      const area = pick(N4_NEIGH_AREAS, rand)
-      const cause = pick(N4_NEIGH_CAUSES, rand)
-      const dur = pick(N4_NEIGH_DURS, rand)
-      const sol = pick(N4_NEIGH_SOLS, rand)
-      const text = `Avis aux citoyens du secteur. Une interruption de service a touché notre communauté ${area}. En effet, ${cause}. Cela a occasionné ${dur}. Dès le signalement d’urgence, ${sol}. N’hésitez pas à composer le 311 si vous constatez d’autres anomalies.`
+      const s = pick(N4_SNOW_BUNDLES, rand)
+      const city = pick(N4_SNOW_CITIES, rand)
+      const time = pick(N4_SNOW_TIMES, rand)
+      const outcome = pick(N4_SNOW_OUTCOMES, rand)
+      const others = sample(N4_SNOW_BUNDLES.filter((x) => x.troubOpt !== s.troubOpt), 2, rand)
+      const text = `Anecdote d’hiver. Nous avons reçu ${s.drop} ${city}. ${time} En voulant partir au travail, ${s.trouble}. Heureusement, ${s.helper} pour m’aider à dégager l’espace. ${outcome} C’est dans ces moments qu’on apprécie l’entraide entre voisins.`
       return {
         text,
         questions: [
-          ['Dans quel secteur précis cet évènement municipal s’est-il déroulé ?', area, 'dans un champ de culture situé à plus de cent kilomètres de là', 'sur une île inhabitée située au large du golfe Saint-Laurent'],
-          ['Comment les équipes d’urgence ont-elles résolu la situation ?', sol, 'en démolissant l’ensemble des habitations situées à proximité', 'en laissant les débris sur place sans aucune intervention humaine'],
+          ['Quel désagrément hivernal la personne a-t-elle vécu le matin ?', s.troubOpt, others[0].troubOpt, others[1].troubOpt],
+          ['Qui est intervenu pour aider à déneiger le secteur ?', s.helpOpt, others[0].helpOpt, others[1].helpOpt],
         ],
       }
     },
-    { situation: 1, capacity: N4_NEIGH_AREAS.length * N4_NEIGH_CAUSES.length * N4_NEIGH_DURS.length * N4_NEIGH_SOLS.length }
+    { situation: 1, capacity: N4_SNOW_BUNDLES.length * N4_SNOW_CITIES.length * N4_SNOW_TIMES.length * N4_SNOW_OUTCOMES.length }
   ),
-  // Scenario 5 (Static, situation: 0)
+  // Scenario 5 (Static, situation: 0) - Plage avec les enfants
   {
     situation: 0,
-    text: 'Carnet de route : notre traversée du parc national de la Gaspésie en randonnée autonome restera gravée dans nos mémoires. Pendant quatre jours de marche avec nos sacs sur le dos, nous avons croisé des caribous au sommet du mont Albert et dormi dans des refuges en bois chauffés au poêle. Une déconnexion totale !',
+    text: 'Anecdote de famille. Dimanche passé, je suis allé à la plage du parc avec les enfants. Le soleil était magnifique, mais l’eau du lac était encore un peu froide. On a quand même passé une très belle journée. Les enfants ont bâti un grand château de sable et ramassé de petits coquillages. Nous avons terminé l’après-midi avec une bonne crème glacée à la vanille.',
     questions: [
-      ['Quels animaux sauvages les randonneurs ont-ils observés au sommet ?', 'des caribous au sommet du mont Albert', 'des lions d’Afrique en liberté surveillée', 'des manchots empereurs sur la glace'],
-      ['Où les marcheurs passaient-ils leurs nuits pendant le trek ?', 'dans des refuges en bois chauffés au poêle', 'dans des suites d’hôtels cinq étoiles', 'dans les sièges de leur véhicule arrêté'],
+      ['Quelle activité les enfants ont-ils faite au bord de l’eau ?', 'construire un château de sable sur la plage', 'faire une promenade en chaloupe sur les vagues', 'pêcher tranquillement des poissons sur le quai'],
+      ['Quelle gourmandise ont-ils savourée avant de partir ?', 'une bonne crème glacée à la vanille', 'un sac de friandises acheté au dépanneur', 'un chocolat chaud dans un café voisin'],
     ],
   },
-  // Scenario 6 (Static, situation: 1)
+  // Scenario 6 (Static, situation: 1) - Bris d'aqueduc devant l'école
   {
     situation: 1,
-    text: 'Alerte de quartier : hier matin dans Hochelaga, un camion de livraison a heurté un poteau d’incendie à l’intersection des rues Ontario et Pie-IX. Un geyser d’eau impressionnant a inondé le carrefour pendant quarante-cinq minutes. Les pompiers et les employés de la ville ont rapidement coupé la vanne sans aucun blessé.',
+    text: 'Nouvelle locale. Hier matin vers huit heures, un bris d’aqueduc est survenu sur la rue devant l’école primaire. L’eau s’est rapidement écoulée sur la chaussée et le trottoir. Par mesure de prudence, la directrice a demandé aux élèves de passer par la porte arrière. Les ouvriers municipaux sont arrivés en vingt minutes pour couper la valve d’eau et réparer la canalisation. Tout est rentré dans l’ordre avant midi.',
     questions: [
-      ['Quel équipement urbain a été heurté par le camion de livraison ?', 'un poteau d’incendie à l’intersection', 'une statue en bronze d’un monument public', 'un abribus vitré pour les passagers'],
-      ['Quel effet l’accident a-t-il provoqué sur la rue avant la réparation ?', 'un geyser d’eau inondant le carrefour', 'un incendie majeur embrasant tout le quartier', 'l’effondrement d’un pont pour trains'],
+      ['Quel problème municipal a perturbé l’accès à l’école ?', 'un bris d’aqueduc provoquant une fuite d’eau', 'une panne générale de courant dans les locaux', 'une chute importante de verglas sur la toiture'],
+      ['Quelle consigne temporaire la directrice a-t-elle donnée ?', 'faire entrer les élèves par la porte arrière', 'fermer complètement l’établissement scolaire', 'déplacer toutes les classes dans une autre école'],
     ],
   },
 ]
 
-const N4_BANKS = ['Desjardins', 'la Banque Nationale', 'la Banque Royale', 'la Banque Scotia']
-const N4_BANK_FRAUDS = [
-  'des courriels demandant vos identifiants',
-  'des messages annonçant un faux virement d’argent',
-  'des alertes signalant un prétendu blocage de carte',
-  'des formulaires réclamant votre numéro d’assurance',
+// ---------------------------------------------------------------------------
+// n4-reading-3
+// ---------------------------------------------------------------------------
+const N4_BANK_NAMES = ['Desjardins', 'la Banque Nationale', 'la Banque Royale', 'la Banque Scotia']
+const N4_BANK_FRAUD_BUNDLES = [
+  {
+    trick: 'des textos affirmant que votre carte est bloquée',
+    trickOpt: 'des textos annonçant un faux blocage de carte',
+    trap: 'un faux lien vers une page demandant votre mot de passe',
+  },
+  {
+    trick: 'des courriels signalant un faux virement en attente',
+    trickOpt: 'des courriels mentionnant un virement en attente',
+    trap: 'un formulaire vous réclamant votre numéro d’assurance',
+  },
+  {
+    trick: 'des appels automatiques demandant de rappeler d’urgence',
+    trickOpt: 'des appels automatiques exigeant un rappel rapide',
+    trap: 'un répondeur vous invitant à taper votre code secret',
+  },
+  {
+    trick: 'des messages prétextant une mise à jour obligatoire',
+    trickOpt: 'des messages exigeant une mise à jour immédiate',
+    trap: 'un bouton pour saisir vos coordonnées bancaires',
+  },
 ]
 const N4_BANK_RULES = [
-  'ne cliquez jamais sur les liens suspects reçus',
-  'évitez d’entrer votre mot de passe sur un site inconnu',
-  'ne donnez aucun code de sécurité reçu par texto',
-  'sachez que votre banque n’exige aucun mot de passe par texto',
+  'Ne cliquez sur aucun lien contenu dans ces messages.',
+  'Supprimez immédiatement ce type de notification.',
+  'N’entrez jamais vos identifiants sur un site non sécurisé.',
+  'Ignorez ces demandes inhabituelles sans y répondre.',
 ]
-const N4_BANK_ACTIONS = [
-  'composez le numéro au dos de votre carte de débit',
-  'utilisez seulement l’application mobile officielle',
-  'communiquez avec le service antifraude de l’institution',
-  'transférez le message à notre équipe de sécurité',
+const N4_BANK_CONTACTS = [
+  { act: 'appelez le numéro officiel au verso de votre carte', actOpt: 'appeler le numéro officiel au dos de sa carte' },
+  { act: 'joignez le service à la clientèle par l’application', actOpt: 'utiliser l’application officielle de la banque' },
+  { act: 'rendez-vous directement à votre succursale locale', actOpt: 'se présenter en succursale auprès d’un conseiller' },
+  { act: 'écrivez au bureau de sécurité de votre institution', actOpt: 'signaler le message au bureau de sécurité' },
 ]
 
-const N4_WORK_LOCS = [
-  'dans la salle des serveurs informatiques au 2e étage',
-  'dans l’atelier d’emballage de notre centre de tri',
-  'au comptoir de la cafétéria centrale du personnel',
-  'dans l’entrepôt principal de notre succursale locale',
+const N4_WORK_INCIDENTS = [
+  {
+    place: 'dans la salle des serveurs au deuxième niveau',
+    cause: 'une surchauffe temporaire du système de climatisation',
+    causeOpt: 'une surchauffe de la climatisation des serveurs',
+    imp: 'l’accès au portail interne a été ralenti durant une heure',
+    impOpt: 'un ralentissement du portail durant une heure',
+    sol: 'les techniciens ont rétabli la ventilation et tout fonctionne',
+    solOpt: 'les techniciens ont rétabli la ventilation normale',
+  },
+  {
+    place: 'dans l’atelier d’emballage du centre de tri',
+    cause: 'le blocage mécanique d’un rouleau sur la chaîne de tri',
+    causeOpt: 'un blocage mécanique sur la chaîne d’emballage',
+    imp: 'le traitement des colis a été suspendu pendant quarante minutes',
+    impOpt: 'une interruption de quarante minutes au tri des colis',
+    sol: 'l’équipe de maintenance a remplacé la courroie et relancé l’atelier',
+    solOpt: 'l’équipe a remplacé la courroie défectueuse',
+  },
+  {
+    place: 'au comptoir de la cafétéria du personnel',
+    cause: 'une fuite d’eau sous un appareil de cuisson ce matin',
+    causeOpt: 'une fuite d’eau sous un équipement de cuisson',
+    imp: 'le service du repas chaud a été retardé d’une demi-heure',
+    impOpt: 'un retard d’une demi-heure pour le repas du midi',
+    sol: 'le plombier a colmaté la conduite et le dîner a pu être servi',
+    solOpt: 'le plombier a colmaté la conduite d’eau rapidement',
+  },
+  {
+    place: 'dans l’entrepôt principal de notre succursale',
+    cause: 'la panne d’un chariot élévateur bloquant l’allée centrale',
+    causeOpt: 'la panne d’un chariot élévateur dans l’allée centrale',
+    imp: 'la préparation des commandes a pris quarante-cinq minutes de retard',
+    impOpt: 'un retard de quarante-cinq minutes sur les commandes',
+    sol: 'les caristes ont déplacé le véhicule et dégagé le passage',
+    solOpt: 'les employés ont déplacé l’appareil en panne',
+  },
 ]
-const N4_WORK_CAUSES = [
-  'une surchauffe due à l’arrêt de la ventilation',
-  'un convoyeur s’est bloqué après un bourrage',
-  'un bris de tuyau d’eau sous un équipement',
-  'un chariot a heurté une rangée de matériel',
+const N4_WORK_NOTES = [
+  'Nous vous informons de la situation.',
+  'Voici un point sur les opérations ce matin.',
+  'La direction partage ce mot de suivi.',
+  'Voici les détails concernant cet incident.',
 ]
-const N4_WORK_DURS = [
-  'une panne de trente minutes sur le portail interne',
-  'l’arrêt de la chaîne durant quarante minutes',
-  'la fermeture du service pour l’heure du midi',
-  'le blocage d’une allée pendant une heure de travail',
+const N4_WORK_THANKS = [
+  'Merci à chacun pour votre calme habituel.',
+  'Nous saluons la réactivité de nos équipes.',
+  'Toutes les activités se poursuivent normalement.',
+  'Merci pour votre compréhension et votre professionnalisme.',
 ]
-const N4_WORK_SOLS = [
-  'la ventilation a été réparée et les données sont intactes',
-  'les techniciens ont changé la pièce et relancé le tri',
-  'la plomberie a été réparée et un traiteur a été offert',
-  'le secteur a été nettoyé et les stocks ont été remis en place',
+
+const N4_SNOW_ALERT_BUNDLES = [
+  {
+    city: 'de la Ville de Québec',
+    trigger: 'le déclenchement des gyrophares de nuit',
+    rule: 'stationnez uniquement du côté des numéros pairs',
+    ruleOpt: 'se garer seulement du côté des numéros pairs',
+    penalty: 'le remorquage du véhicule et une amende',
+    penOpt: 'le remorquage du véhicule avec une amende',
+  },
+  {
+    city: 'de l’arrondissement de Rosemont',
+    trigger: 'le retentissement de la sirène de déneigement',
+    rule: 'libérez complètement le côté de la rue indiqué',
+    ruleOpt: 'libérer totalement le côté de rue indiqué',
+    penalty: 'un constat d’infraction déposé sur le pare-brise',
+    penOpt: 'un constat d’infraction sur le pare-brise',
+  },
+  {
+    city: 'de la municipalité de Lévis',
+    trigger: 'l’affichage des feux clignotants orange',
+    rule: 'utilisez les stationnements municipaux gratuits',
+    ruleOpt: 'utiliser les espaces municipaux sans frais',
+    penalty: 'un déplacement du véhicule vers une autre rue',
+    penOpt: 'le déplacement forcé du véhicule par dépanneuse',
+  },
+  {
+    city: 'de la ville de Gatineau',
+    trigger: 'l’annonce d’une opération de chargement de neige',
+    rule: 'garez votre auto du côté impair de la chaussée',
+    ruleOpt: 'stationner son auto du côté impair seulement',
+    penalty: 'des frais de remorquage imposés au propriétaire',
+    penOpt: 'des frais de remorquage facturés au propriétaire',
+  },
+]
+const N4_SNOW_ALERT_HOURS = [
+  'entre vingt-trois heures et sept heures',
+  'durant toute la nuit de minuit à sept heures',
+  'dès vingt-deux heures jusqu’au petit matin',
+  'pendant les opérations nocturnes de voirie',
+]
+const N4_SNOW_ALERT_ADVICES = [
+  'Vérifiez les panneaux de signalisation temporaires.',
+  'Consultez la carte en ligne avant de vous garer.',
+  'Téléchargez l’application municipale pour les avis.',
+  'Des alertes par texto sont aussi transmises aux résidents.',
+]
+const N4_SNOW_ALERT_REASONS = [
+  'Cette consigne permet le passage rapide des déneigeuses.',
+  'Cette mesure facilite le dégagement de la chaussée.',
+  'Ce règlement assure la sécurité de tous sur la route.',
+  'Cette règle permet de nettoyer les rues avant le matin.',
+]
+
+const N4_FACILITY_BUNDLES = [
+  {
+    place: 'la piscine municipale du quartier',
+    cause: 'la réfection des filtres de traitement d’eau',
+    causeOpt: 'le remplacement des filtres de traitement d’eau',
+    dur: 'du lundi douze au vendredi seize novembre',
+    durOpt: 'une fermeture du lundi au vendredi inclus',
+    alt: 'au centre aquatique de l’Est situé à deux kilomètres',
+    altOpt: 'au centre aquatique voisin à deux kilomètres',
+  },
+  {
+    place: 'la bibliothèque centrale de la ville',
+    cause: 'le vernissage et la rénovation des planchers de bois',
+    causeOpt: 'la rénovation des planchers dans les salles',
+    dur: 'du trois au huit octobre inclusivement',
+    durOpt: 'une période de fermeture de six jours complets',
+    alt: 'à la bibliothèque de quartier pour emprunter des livres',
+    altOpt: 'à la succursale de quartier pour les prêts',
+  },
+  {
+    place: 'l’aréna communautaire des sports',
+    cause: 'l’entretien planifié du compresseur de la glace',
+    causeOpt: 'la maintenance annuelle sur la machinerie de glace',
+    dur: 'pendant quatre jours à compter de mercredi',
+    durOpt: 'un arrêt temporaire de quatre journées de travail',
+    alt: 'sur la patinoire extérieure du grand parc',
+    altOpt: 'sur l’anneau de glace extérieur du grand parc',
+  },
+  {
+    place: 'la maison de quartier Saint-Roch',
+    cause: 'la mise aux normes du tableau électrique principal',
+    causeOpt: 'la mise aux normes de l’installation électrique',
+    dur: 'pour toute la fin de semaine à venir',
+    durOpt: 'un arrêt des services pour la fin de semaine',
+    alt: 'au pavillon des loisirs pour les ateliers habituels',
+    altOpt: 'au pavillon des loisirs pour les activités',
+  },
+]
+const N4_FACILITY_HEADS = [
+  'Information aux usagers.',
+  'Avis officiel aux citoyens.',
+  'Communiqué de la direction des loisirs.',
+  'Message important de la municipalité.',
+]
+const N4_FACILITY_REOPENS = [
+  'Les portes rouvriront dès le samedi matin.',
+  'La reprise des activités aura lieu dès le lundi suivant.',
+  'Le public sera accueilli normalement après les travaux.',
+  'Les horaires réguliers reprendront dès la réouverture.',
+]
+const N4_FACILITY_THANKS = [
+  'Nous vous remercions pour votre précieuse compréhension.',
+  'Merci de votre patience pendant ces améliorations nécessaires.',
+  'Ces travaux permettent d’offrir un meilleur service à tous.',
+  'Nous nous excusons pour ce désagrément temporaire.',
 ]
 
 export const N04_R_3 = [
-  // Scenario 1 (Template, situation: 0)
+  // Scenario 1 (Template, situation: 0) - Sécurité bancaire
   Object.assign(
     (rand) => {
-      const bank = pick(N4_BANKS, rand)
-      const fraud = pick(N4_BANK_FRAUDS, rand)
+      const bank = pick(N4_BANK_NAMES, rand)
+      const f = pick(N4_BANK_FRAUD_BUNDLES, rand)
       const rule = pick(N4_BANK_RULES, rand)
-      const act = pick(N4_BANK_ACTIONS, rand)
-      const text = `Dépliant de sécurité de ${bank}. Protégez vos données personnelles face aux fraudeurs. Méfiez-vous particulièrement de ${fraud}. Règle essentielle : ${rule}. Votre institution financière ne réclame aucun renseignement confidentiel par courriel. En cas de doute, ${act}. La vigilance en ligne assure votre sécurité.`
+      const c = pick(N4_BANK_CONTACTS, rand)
+      const othersF = sample(N4_BANK_FRAUD_BUNDLES.filter((x) => x.trickOpt !== f.trickOpt), 2, rand)
+      const othersC = sample(N4_BANK_CONTACTS.filter((x) => x.actOpt !== c.actOpt), 2, rand)
+      const text = `Avis de sécurité publié par ${bank}. Attention aux tentatives de fraude en ligne. Des personnes malveillantes envoient actuellement ${f.trick}. Ces messages contiennent souvent ${f.trap}. Règle de prudence essentielle : ${rule} En cas d’hésitation, ${c.act}. Notre institution protège vos données en tout temps.`
       return {
         text,
         questions: [
-          ['Quelle tentative de fraude ce dépliant bancaire dénonce-t-il ?', fraud, 'des offres d’emploi légitimes publiées dans la presse régionale', 'des factures d’énergie officielles envoyées sous pli postal'],
-          ['Quelle consigne de prudence essentielle est formulée ici ?', rule, 'inscrire son mot de passe en gros caractères sur une affiche publique', 'partager immédiatement ses codes bancaires avec des inconnus croisés'],
+          ['Quel stratagème frauduleux est dénoncé dans cet avis bancaire ?', f.trickOpt, othersF[0].trickOpt, othersF[1].trickOpt],
+          ['Quelle consigne est recommandée au client en cas d’hésitation ?', c.actOpt, othersC[0].actOpt, othersC[1].actOpt],
         ],
       }
     },
-    { situation: 0, capacity: N4_BANKS.length * N4_BANK_FRAUDS.length * N4_BANK_RULES.length * N4_BANK_ACTIONS.length }
+    { situation: 0, capacity: N4_BANK_NAMES.length * N4_BANK_FRAUD_BUNDLES.length * N4_BANK_RULES.length * N4_BANK_CONTACTS.length }
   ),
-  // Scenario 2 (Template, situation: 1)
+  // Scenario 2 (Template, situation: 1) - Incident matériel au travail
   Object.assign(
     (rand) => {
-      const loc = pick(N4_WORK_LOCS, rand)
-      const cause = pick(N4_WORK_CAUSES, rand)
-      const dur = pick(N4_WORK_DURS, rand)
-      const sol = pick(N4_WORK_SOLS, rand)
-      const text = `Note de service interne. Nous vous informons qu’un incident mineur est survenu ce matin ${loc}. L’origine du problème : ${cause}. Cet évènement a entraîné ${dur}. Heureusement, ${sol}. Nous remercions l’ensemble du personnel pour son calme et son professionnalisme.`
+      const b = pick(N4_WORK_INCIDENTS, rand)
+      const note = pick(N4_WORK_NOTES, rand)
+      const thank = pick(N4_WORK_THANKS, rand)
+      const others = sample(N4_WORK_INCIDENTS.filter((x) => x.causeOpt !== b.causeOpt), 2, rand)
+      const text = `Note de service interne. ${note} Un problème technique s’est produit ${b.place}. L’origine : ${b.cause}. En conséquence, ${b.imp}. Grâce à une intervention rapide, ${b.sol}. ${thank}`
       return {
         text,
         questions: [
-          ['Où cet incident de travail a-t-il pris naissance ce matin ?', loc, 'dans la cabine de pilotage d’un avion de ligne en plein vol', 'au milieu d’un champ de maïs loué par l’entreprise pour l’été'],
-          ['Quelle a été la cause exacte du problème matériel signalé ?', cause, 'la fermeture définitive de la compagnie en raison d’une faillite', 'une tempête de neige majeure détruisant les toitures de l’usine'],
+          ['Quelle a été la cause de cet incident au travail ce matin ?', b.causeOpt, others[0].causeOpt, others[1].causeOpt],
+          ['Comment le problème matériel a-t-il été résolu par l’équipe ?', b.solOpt, others[0].solOpt, others[1].solOpt],
         ],
       }
     },
-    { situation: 1, capacity: N4_WORK_LOCS.length * N4_WORK_CAUSES.length * N4_WORK_DURS.length * N4_WORK_SOLS.length }
+    { situation: 1, capacity: N4_WORK_INCIDENTS.length * N4_WORK_NOTES.length * N4_WORK_THANKS.length }
   ),
-  // Scenario 3 (Template, situation: 0 variant)
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Déneigement municipal)
   Object.assign(
     (rand) => {
-      const bank = pick(N4_BANKS, rand)
-      const fraud = pick(N4_BANK_FRAUDS, rand)
-      const rule = pick(N4_BANK_RULES, rand)
-      const act = pick(N4_BANK_ACTIONS, rand)
-      const text = `Avis de sécurité publié par ${bank}. Soyez attentifs à ${fraud}. Pour protéger vos finances, ${rule}. Aucun employé de banque ne sollicite de mot de passe par message. Si vous pensez avoir été ciblé, ${act}. Votre prudence demeure votre meilleure protection.`
+      const a = pick(N4_SNOW_ALERT_BUNDLES, rand)
+      const hour = pick(N4_SNOW_ALERT_HOURS, rand)
+      const advice = pick(N4_SNOW_ALERT_ADVICES, rand)
+      const reason = pick(N4_SNOW_ALERT_REASONS, rand)
+      const others = sample(N4_SNOW_ALERT_BUNDLES.filter((x) => x.ruleOpt !== a.ruleOpt), 2, rand)
+      const text = `Avis municipal - Opérations de déneigement ${a.city}. Dès ${a.trigger}, des règles spéciales s’appliquent ${hour}. Consigne obligatoire : ${a.rule}. Tout véhicule en infraction risque ${a.penalty}. ${advice} ${reason}`
       return {
         text,
         questions: [
-          ['Quelle démarche préventive est conseillée en cas de doute ?', act, 'transférer immédiatement de l’argent comptant à un tiers inconnu', 'publier ses identifiants confidentiels sur les réseaux sociaux'],
-          ['Quel type d’arnaque financière est expressément mentionné ?', fraud, 'la distribution gratuite de journaux quotidiens devant les gares', 'l’encaissement d’un chèque de paie par son employeur habituel'],
+          ['Quelle consigne de stationnement doit être appliquée la nuit ?', a.ruleOpt, others[0].ruleOpt, others[1].ruleOpt],
+          ['Quel risque encourent les automobilistes qui ne respectent pas l’avis ?', a.penOpt, others[0].penOpt, others[1].penOpt],
         ],
       }
     },
-    { situation: 0, capacity: N4_BANKS.length * N4_BANK_FRAUDS.length * N4_BANK_RULES.length * N4_BANK_ACTIONS.length }
+    { situation: 0, capacity: N4_SNOW_ALERT_BUNDLES.length * N4_SNOW_ALERT_HOURS.length * N4_SNOW_ALERT_ADVICES.length * N4_SNOW_ALERT_REASONS.length }
   ),
-  // Scenario 4 (Template, situation: 1 variant)
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Fermeture exceptionnelle d'équipement)
   Object.assign(
     (rand) => {
-      const loc = pick(N4_WORK_LOCS, rand)
-      const cause = pick(N4_WORK_CAUSES, rand)
-      const dur = pick(N4_WORK_DURS, rand)
-      const sol = pick(N4_WORK_SOLS, rand)
-      const text = `Communication interne de la direction. Concernant la perturbation survenue ${loc}, nous confirmons qu’${cause}. Cette interruption a causé ${dur}. Grâce à une intervention rapide, ${sol}. Toutes les opérations se poursuivent normalement aujourd’hui.`
+      const fac = pick(N4_FACILITY_BUNDLES, rand)
+      const head = pick(N4_FACILITY_HEADS, rand)
+      const reopen = pick(N4_FACILITY_REOPENS, rand)
+      const thank = pick(N4_FACILITY_THANKS, rand)
+      const others = sample(N4_FACILITY_BUNDLES.filter((x) => x.causeOpt !== fac.causeOpt), 2, rand)
+      const text = `${head} Veuillez noter que ${fac.place} fermera temporairement ses portes pour ${fac.cause}. L’interruption est prévue ${fac.dur}. Durant cette période, les usagers peuvent se rendre ${fac.alt}. ${reopen} ${thank}`
       return {
         text,
         questions: [
-          ['Quelle conséquence concrète a résulté de cette interruption ?', dur, 'la mise à pied définitive de l’ensemble des ouvriers de la région', 'la fermeture complète du complexe commercial pendant deux années'],
-          ['Comment la situation matérielle a-t-elle été résolue ?', sol, 'en vendant aux enchères tous les équipements de l’entreprise', 'en abandonnant totalement les locaux de travail sans personnel'],
+          ['Pour quel motif cette installation publique ferme-t-elle temporairement ?', fac.causeOpt, others[0].causeOpt, others[1].causeOpt],
+          ['Quelle alternative de proximité est suggérée aux usagers ?', fac.altOpt, others[0].altOpt, others[1].altOpt],
         ],
       }
     },
-    { situation: 1, capacity: N4_WORK_LOCS.length * N4_WORK_CAUSES.length * N4_WORK_DURS.length * N4_WORK_SOLS.length }
+    { situation: 1, capacity: N4_FACILITY_BUNDLES.length * N4_FACILITY_HEADS.length * N4_FACILITY_REOPENS.length * N4_FACILITY_THANKS.length }
   ),
-  // Scenario 5 (Static, situation: 0)
+  // Scenario 5 (Static, situation: 0) - Alerte de sécurité bancaire Desjardins
   {
     situation: 0,
-    text: 'Alerte fraude - Mouvement Desjardins. Des malfaiteurs utilisent actuellement de faux messages texte au nom de notre institution affirmant que votre accès en ligne a été suspendu pour activité inhabituelle. Ne cliquez sur aucun hyperlien contenu dans ces messages. Nous ne demandons jamais de déverrouiller un compte par simple texto.',
+    text: 'Message de sécurité de votre caisse. Des courriels frauduleux circulent actuellement au nom de notre institution. Ces messages vous demandent de confirmer votre mot de passe pour débloquer votre accès en ligne. Sachez que notre institution ne demande jamais vos identifiants par courriel. Ne cliquez sur aucun hyperlien suspect. En cas de doute, composez directement le numéro inscrit au dos de votre carte de débit.',
     questions: [
-      ['Quel faux prétexte est invoqué dans les messages frauduleux ?', 'un accès prétendument suspendu pour activité inhabituelle', 'un gain d’un million de dollars à la loterie nationale', 'une offre de réduction sur des abonnements de gymnase'],
-      ['Quel réflexe de sécurité est fermement recommandé aux usagers ?', 'ne cliquer sur aucun lien contenu dans le message', 'répondre avec son numéro de carte de crédit', 'transmettre son adresse résidentielle complète'],
+      ['Quel faux prétexte est utilisé par les fraudeurs ?', 'demander un mot de passe pour débloquer l’accès', 'proposer un prêt à taux réduit pour l’achat d’auto', 'offrir un remboursement pour des frais d’assurance'],
+      ['Quel bon réflexe est recommandé aux clients en cas de doute ?', 'appeler le numéro figurant au verso de la carte', 'envoyer une capture d’écran à ses collègues', 'changer immédiatement de téléphone cellulaire'],
     ],
   },
-  // Scenario 6 (Static, situation: 1)
+  // Scenario 6 (Static, situation: 1) - Panne d'ascenseur dans l'immeuble
   {
     situation: 1,
-    text: 'Note de service interne : déclenchement de l’alarme d’incendie. L’évacuation survenue hier à 11 h dans l’édifice central a été provoquée par de la fumée dense issue d’un grille-pain défectueux à la cafétéria du troisième niveau. Les pompiers ont inspecté les conduits et ventilé les couloirs. Le retour au travail s’est fait en toute sécurité.',
+    text: 'Avis aux résidents de l’immeuble. L’ascenseur principal est temporairement hors service depuis ce matin en raison d’une surchauffe du moteur de levage. Le technicien de la compagnie d’entretien est sur place pour changer la pièce endommagée. Nous prévoyons une remise en marche complète vers dix-sept heures. Pour les personnes à mobilité réduite, le monte-charge de service reste accessible avec l’aide du concierge.',
     questions: [
-      ['Quel appareil a déclenché l’alarme d’incendie et l’évacuation ?', 'un grille-pain défectueux à la cafétéria', 'une chaudière de chauffage au sous-sol', 'un ordinateur portable surchauffé dans un bureau'],
-      ['Comment l’incident a-t-il été maîtrisé par les intervenants ?', 'les pompiers ont inspecté et ventilé les lieux', 'tous les murs de l’édifice ont été repeints', 'l’électricité a été coupée pour une semaine'],
+      ['Quelle pièce mécanique a causé l’arrêt de l’ascenseur ?', 'une surchauffe sur le moteur de levage', 'un bris de câble au niveau du sous-sol', 'un bouton de commande cassé au rez-de-chaussée'],
+      ['Quelle solution d’aide est offerte aux personnes à mobilité réduite ?', 'utiliser le monte-charge avec le concierge', 'attendre dans le hall jusqu’à la fin des travaux', 'demander aux voisins de porter leurs sacs'],
     ],
   },
 ]
 
-const N4_TASKS_1 = [
-  'répondre aux courriels urgents des clients reçus depuis hier',
-  'vérifier les commandes en attente d’expédition dans le logiciel',
-  'traiter les demandes d’inscription prioritaires du secrétariat',
-  'compléter la révision des fiches de paie pour l’administration',
+// ---------------------------------------------------------------------------
+// n4-reading-4
+// ---------------------------------------------------------------------------
+const N4_WORK_TASKS_1 = [
+  { text: 'traiter les courriels prioritaires des clients', opt: 'gérer les messages urgents de la clientèle' },
+  { text: 'vérifier les commandes en attente d’envoi', opt: 'contrôler les commandes prêtes à livrer' },
+  { text: 'mettre à jour le tableau des présences', opt: 'noter les présences du personnel du jour' },
+  { text: 'imprimer les bordereaux de livraison du jour', opt: 'éditer les feuilles de route de livraison' },
 ]
-const N4_TASKS_2 = [
-  'finaliser l’inventaire des stocks de la réserve avant midi',
-  'imprimer les bordereaux de livraison pour les camionneurs',
-  'mettre à jour le tableau des présences pour la directrice',
-  'confirmer les rendez-vous des clients de l’après-midi',
+const N4_WORK_TASKS_2 = [
+  { text: 'confirmer les rendez-vous de l’après-midi', opt: 'valider les rencontres prévues plus tard' },
+  { text: 'classer les factures dans le classeur vert', opt: 'ranger les factures dans le bon classeur' },
+  { text: 'finaliser le compte rendu de la rencontre', opt: 'rédiger la synthèse finale de la réunion' },
+  { text: 'compter les fournitures de papeterie', opt: 'faire l’inventaire complet du matériel' },
 ]
-const N4_TASKS_3 = [
-  'préparer les dossiers papier pour la rencontre d’équipe',
-  'classer les factures fournisseurs dans les chemises prévues',
-  'accueillir les stagiaires dans la salle de conférence',
-  'ranger le matériel informatique dans l’armoire fermée',
+const N4_WORK_TASKS_3 = [
+  { text: 'ranger les dossiers confidentiels sous clé', opt: 'fermer à clé l’armoire des dossiers privés' },
+  { text: 'éteindre les imprimantes et les écrans', opt: 'mettre tous les ordinateurs hors tension' },
+  { text: 'verrouiller les armoires de matériel', opt: 'sécuriser les placards de fournitures' },
+  { text: 'déposer le courrier du jour à la réception', opt: 'porter les lettres au comptoir d’accueil' },
 ]
-const N4_TASKS_SIGNS = [
-  'N’hésitez pas à me joindre en cas de question.',
-  'Venez me voir à mon bureau si vous avez un doute.',
-  'Je reste joignable sur mon cellulaire si besoin.',
+const N4_WORK_HEADS = [
+  'Consignes de la superviseuse pour la journée.',
+  'Plan de travail transmis par la directrice.',
+  'Organisation des priorités pour notre équipe.',
+  'Instructions journalières pour le bureau.',
+]
+const N4_WORK_SIGNOFFS = [
   'Merci de votre rigueur et bon travail à tous.',
+  'N’hésitez pas à me joindre en cas de question.',
+  'Je reste disponible à mon bureau si besoin.',
+  'Merci de respecter cet ordre pour la journée.',
 ]
 
 const N4_DRIVE_FOLDERS = [
-  'dans le dossier partagé des ventes',
-  'sur le portail des ressources humaines',
-  'dans l’espace sécurisé des projets',
-  'sur le disque réseau de la comptabilité',
+  { folder: 'dans le dossier partagé des ventes', opt: 'dans le répertoire commun des ventes' },
+  { folder: 'sur le portail des ressources humaines', opt: 'dans l’espace réservé aux employés' },
+  { folder: 'dans l’espace sécurisé des projets', opt: 'au sein du dossier protégé des projets' },
+  { folder: 'sur le disque réseau de la comptabilité', opt: 'sur le serveur partagé des finances' },
 ]
 const N4_DRIVE_SUBS = [
-  'le sous-dossier de l’année courante',
-  'la section des rapports hebdomadaires',
-  'le répertoire des documents finaux',
-  'le dossier des factures approuvées',
+  { sub: 'le sous-dossier de l’année courante', opt: 'le sous-dossier de l’année courante' },
+  { sub: 'la section des rapports hebdomadaires', opt: 'la section des rapports hebdomadaires' },
+  { sub: 'le répertoire des documents finaux', opt: 'le répertoire des documents finaux' },
+  { sub: 'le dossier des formulaires approuvés', opt: 'le dossier des formulaires approuvés' },
 ]
 const N4_DRIVE_FORMATS = [
-  'au format PDF haute résolution',
-  'en format Word ou PDF standard',
-  'en document numérique lisible',
-  'sous la forme d’un fichier compressé',
+  { fmt: 'en format PDF haute résolution', opt: 'au format PDF haute résolution' },
+  { fmt: 'en format Word ou PDF standard', opt: 'en document Word ou PDF standard' },
+  { fmt: 'en fichier texte lisible', opt: 'sous forme de document texte lisible' },
+  { fmt: 'sous la forme d’un fichier compressé', opt: 'sous forme de fichier compressé' },
 ]
 const N4_DRIVE_BUTTONS = [
-  'appuyez sur le bouton vert Téléverser',
-  'cliquez sur le bouton Enregistrer le fichier',
-  'validez votre dépôt avec la touche Confirmer',
-  'pressez la commande Déposer pour finaliser',
+  { btn: 'appuyez sur le bouton vert Téléverser', opt: 'appuyer sur le bouton Téléverser' },
+  { btn: 'cliquez sur la commande Enregistrer', opt: 'cliquer sur la commande Enregistrer' },
+  { btn: 'validez avec la touche Confirmer l’envoi', opt: 'valider avec la touche Confirmer' },
+  { btn: 'cliquez sur le bouton Déposer le fichier', opt: 'cliquer sur Déposer le fichier' },
+]
+const N4_DRIVE_STEPS = [
+  'Procédure de classement informatique.',
+  'Guide de dépôt de document sur le réseau.',
+  'Instructions pour archiver un fichier en ligne.',
+  'Marche à suivre pour transmettre un compte rendu.',
+]
+const N4_DRIVE_CONFS = [
+  'Un accusé de réception vert apparaîtra.',
+  'Le système vous enverra un courriel de validation.',
+  'Un message de succès confirmera votre dépôt.',
+  'Un code de confirmation s’affichera à l’écran.',
+]
+
+const N4_ROOM_SETUPS = [
+  { text: 'disposer vingt chaises autour de la grande table', opt: 'placer vingt chaises autour de la table' },
+  { text: 'installer les tables en cercle pour l’atelier', opt: 'disposer les tables en demi-cercle' },
+  { text: 'aligner les rangées de sièges face à l’écran', opt: 'aligner les sièges face à l’écran' },
+  { text: 'préparer les tables d’accueil à l’entrée', opt: 'installer les tables d’accueil à l’entrée' },
+]
+const N4_ROOM_TECHS = [
+  { text: 'brancher le projecteur et tester le micro sans fil', opt: 'brancher le projecteur et le micro sans fil' },
+  { text: 'allumer l’ordinateur central et vérifier l’écran', opt: 'allumer l’ordinateur et l’écran central' },
+  { text: 'connecter l’appareil audio au réseau sans fil', opt: 'connecter l’appareil de son au réseau' },
+  { text: 'tester la caméra vidéo pour les participants en ligne', opt: 'tester la caméra pour les gens à distance' },
+]
+const N4_ROOM_REFRESHS = [
+  { text: 'placer des bouteilles d’eau et des verres propres', opt: 'installer les carafes et les verres à eau' },
+  { text: 'déposer les blocs-notes et les stylos devant chaque place', opt: 'distribuer feuilles blanches et crayons' },
+  { text: 'remplir la cafetière et sortir les tasses en carton', opt: 'préparer le café et disposer les gobelets' },
+  { text: 'distribuer les dépliants du programme sur les tables', opt: 'mettre les guides de la rencontre en place' },
+]
+const N4_ROOM_HEADS = [
+  'Consignes pour la réunion de service.',
+  'Préparation de la salle de conférence.',
+  'Instructions pour l’accueil des invités.',
+  'Directives pour la séance d’information.',
+]
+const N4_ROOM_TIMES = [
+  'Cette préparation doit être finie pour treize heures.',
+  'Assurez-vous que tout est prêt pour quatorze heures.',
+  'Le local doit être impeccable trente minutes avant.',
+  'Vérifiez chaque détail avant l’arrivée des collègues.',
+]
+
+const N4_RECYCLE_STEPS = [
+  { text: 'déposer les cartons plats et journaux dans le bac bleu', opt: 'mettre cartons et journaux dans le bac bleu' },
+  { text: 'placer les boîtes en carton pliées dans le bac de tri', opt: 'ranger les cartons pliés dans le bac de tri' },
+  { text: 'jeter les feuilles de papier usagées dans le bac bleu', opt: 'déposer le papier de bureau dans le bac bleu' },
+  { text: 'regrouper les revues et circulaires dans le bac prévu', opt: 'mettre revues et circulaires au bac bleu' },
+]
+const N4_RECYCLE_WASHES = [
+  { text: 'rincer les contenants en plastique et boîtes de conserve', opt: 'rincer boîtes de conserve et plastiques' },
+  { text: 'laver brièvement les bouteilles en verre avant le dépôt', opt: 'rincer les bouteilles en verre d’avance' },
+  { text: 'enlever les bouchons et vider les pots de plastique', opt: 'vider et déboucher les pots de plastique' },
+  { text: 'nettoyer les barquettes en aluminium avant le recyclage', opt: 'nettoyer les barquettes en aluminium' },
+]
+const N4_RECYCLE_WASTES = [
+  { text: 'fermer hermétiquement le sac noir de déchets ménagers', opt: 'fermer le sac noir de déchets ménagers' },
+  { text: 'déposer les restes alimentaires dans le petit bac brun', opt: 'mettre les restes dans le bac de compost' },
+  { text: 'jeter les serviettes souillées à la poubelle ordinaire', opt: 'jeter les papiers souillés à la poubelle' },
+  { text: 'attacher le sac poubelle avant la descente au local', opt: 'attacher le sac poubelle avant la descente' },
+]
+const N4_RECYCLE_HEADS = [
+  'Guide du tri des matières résiduelles.',
+  'Consignes écologiques de l’immeuble.',
+  'Règles de recyclage pour les résidents.',
+  'Avis concernant la gestion des déchets.',
+]
+const N4_RECYCLE_DAYS = [
+  'Le ramassage municipal a lieu le jeudi matin.',
+  'Les bacs doivent être sortis le mercredi soir.',
+  'La collecte se déroule tôt chaque vendredi.',
+  'Sortez vos matières avant sept heures le matin.',
 ]
 
 export const N04_R_4 = [
-  // Scenario 1 (Template, situation: 0)
+  // Scenario 1 (Template, situation: 0) - Tâches de travail journalières
   Object.assign(
     (rand) => {
-      const p1 = pick(N4_TASKS_1, rand)
-      const p2 = pick(N4_TASKS_2, rand)
-      const p3 = pick(N4_TASKS_3, rand)
-      const sign = pick(N4_TASKS_SIGNS, rand)
-      const text = `Consignes de la superviseuse pour la journée de travail. Bonjour à l’équipe ! Voici vos priorités : premièrement, ${p1}. Deuxièmement, ${p2}. Troisièmement, ${p3}. Merci de respecter cet ordre pour assurer la fluidité de nos opérations. ${sign}`
+      const t1 = pick(N4_WORK_TASKS_1, rand)
+      const t2 = pick(N4_WORK_TASKS_2, rand)
+      const t3 = pick(N4_WORK_TASKS_3, rand)
+      const head = pick(N4_WORK_HEADS, rand)
+      const signoff = pick(N4_WORK_SIGNOFFS, rand)
+      const others1 = sample(N4_WORK_TASKS_1.filter((x) => x.opt !== t1.opt), 2, rand)
+      const others2 = sample(N4_WORK_TASKS_2.filter((x) => x.opt !== t2.opt), 2, rand)
+      const text = `${head} Bonjour à tous. Voici vos priorités aujourd’hui : premièrement, ${t1.text}. Deuxièmement, avant midi, ${t2.text}. Troisièmement, en fin de journée, ${t3.text}. ${signoff}`
       return {
         text,
         questions: [
-          ['Quelle est la première tâche urgente à accomplir le matin ?', p1, 'partir en pause dîner prolongée dès l’arrivée au travail', 'téléphoner à des connaissances pour organiser le week-end'],
-          ['Quelle obligation doit être finalisée en fin de matinée ?', p2, 'quitter définitivement l’entreprise sans en informer personne', 'nettoyer l’ensemble du stationnement extérieur avec un balai'],
+          ['Quelle est la première tâche urgente à accomplir le matin ?', t1.opt, others1[0].opt, others1[1].opt],
+          ['Quelle obligation doit être finalisée avant la pause de midi ?', t2.opt, others2[0].opt, others2[1].opt],
         ],
       }
     },
-    { situation: 0, capacity: N4_TASKS_1.length * N4_TASKS_2.length * N4_TASKS_3.length * N4_TASKS_SIGNS.length }
+    { situation: 0, capacity: N4_WORK_TASKS_1.length * N4_WORK_TASKS_2.length * N4_WORK_TASKS_3.length * N4_WORK_HEADS.length * N4_WORK_SIGNOFFS.length }
   ),
-  // Scenario 2 (Template, situation: 1)
+  // Scenario 2 (Template, situation: 1) - Procédure de téléversement en ligne
   Object.assign(
     (rand) => {
-      const folder = pick(N4_DRIVE_FOLDERS, rand)
+      const f = pick(N4_DRIVE_FOLDERS, rand)
       const sub = pick(N4_DRIVE_SUBS, rand)
-      const format = pick(N4_DRIVE_FORMATS, rand)
+      const fmt = pick(N4_DRIVE_FORMATS, rand)
       const btn = pick(N4_DRIVE_BUTTONS, rand)
-      const text = `Procédure informatique : comment déposer un document en ligne. Tout d’abord, connectez-vous avec vos identifiants d’employé. Dirigez-vous ${folder}. Ensuite, ouvrez ${sub}. Glissez votre fichier ${format}. Pour clore l’envoi avec succès, ${btn}. Une confirmation apparaîtra à l’écran.`
+      const step = pick(N4_DRIVE_STEPS, rand)
+      const conf = pick(N4_DRIVE_CONFS, rand)
+      const othersF = sample(N4_DRIVE_FOLDERS.filter((x) => x.opt !== f.opt), 2, rand)
+      const othersB = sample(N4_DRIVE_BUTTONS.filter((x) => x.opt !== btn.opt), 2, rand)
+      const text = `${step} Connectez-vous d’abord avec vos identifiants d’employé. Dirigez-vous ${f.folder}. Ensuite, ouvrez ${sub.sub}. Glissez votre fichier ${fmt.fmt}. Pour finaliser votre transmission, ${btn.btn}. ${conf}`
       return {
         text,
         questions: [
-          ['Dans quel répertoire principal faut-il classer le document ?', folder, 'sur une clé USB personnelle conservée à domicile', 'dans la corbeille de recyclage d’un collègue absent'],
-          ['Sous quel format le document doit-il être déposé ?', format, 'en dessin manuscrit pris en photo avec un téléphone', 'en enregistrement vocal récité au combiné du bureau'],
+          ['Dans quel répertoire principal faut-il classer le document ?', f.opt, othersF[0].opt, othersF[1].opt],
+          ['Quelle action finale permet de valider le téléversement ?', btn.opt, othersB[0].opt, othersB[1].opt],
         ],
       }
     },
-    { situation: 1, capacity: N4_DRIVE_FOLDERS.length * N4_DRIVE_SUBS.length * N4_DRIVE_FORMATS.length * N4_DRIVE_BUTTONS.length }
+    { situation: 1, capacity: N4_DRIVE_FOLDERS.length * N4_DRIVE_SUBS.length * N4_DRIVE_FORMATS.length * N4_DRIVE_BUTTONS.length * N4_DRIVE_STEPS.length * N4_DRIVE_CONFS.length }
   ),
-  // Scenario 3 (Template, situation: 0 variant)
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Préparation de salle de réunion)
   Object.assign(
     (rand) => {
-      const p1 = pick(N4_TASKS_1, rand)
-      const p2 = pick(N4_TASKS_2, rand)
-      const p3 = pick(N4_TASKS_3, rand)
-      const sign = pick(N4_TASKS_SIGNS, rand)
-      const text = `Plan de travail journalier envoyé par la gestionnaire. Bon matin ! Afin de respecter nos engagements auprès de la clientèle, veuillez procéder ainsi : d’abord, ${p1}. Avant midi, assurez-vous ${de(p2)}. Enfin, consacrez votre après-midi à ${p3}. ${sign}`
+      const r = pick(N4_ROOM_SETUPS, rand)
+      const tech = pick(N4_ROOM_TECHS, rand)
+      const ref = pick(N4_ROOM_REFRESHS, rand)
+      const head = pick(N4_ROOM_HEADS, rand)
+      const time = pick(N4_ROOM_TIMES, rand)
+      const othersT = sample(N4_ROOM_TECHS.filter((x) => x.opt !== tech.opt), 2, rand)
+      const othersR = sample(N4_ROOM_REFRESHS.filter((x) => x.opt !== ref.opt), 2, rand)
+      const text = `${head} Bonjour. Pour préparer la salle de rencontre ce midi, voici la marche à suivre : premièrement, il faut ${r.text}. Deuxièmement, ${tech.text}. Troisièmement, ${ref.text}. ${time} Merci pour votre aide précieuse.`
       return {
         text,
         questions: [
-          ['À quelle tâche les employés doivent-ils consacrer l’après-midi ?', p3, 'à se reposer dans les fauteuils de la salle d’attente', 'à confectionner des décorations festives pour Noël'],
-          ['Dans quel but cette planification de travail est-elle établie ?', 'respecter les engagements envers la clientèle', 'permettre aux employés de quitter le travail à midi', 'organiser une compétition de jeux de société sur place'],
+          ['Quelle tâche technique doit être effectuée dans la pièce ?', tech.opt, othersT[0].opt, othersT[1].opt],
+          ['Quel matériel d’accueil faut-il installer sur les tables ?', ref.opt, othersR[0].opt, othersR[1].opt],
         ],
       }
     },
-    { situation: 0, capacity: N4_TASKS_1.length * N4_TASKS_2.length * N4_TASKS_3.length * N4_TASKS_SIGNS.length }
+    { situation: 0, capacity: N4_ROOM_SETUPS.length * N4_ROOM_TECHS.length * N4_ROOM_REFRESHS.length * N4_ROOM_HEADS.length * N4_ROOM_TIMES.length }
   ),
-  // Scenario 4 (Template, situation: 1 variant)
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Consignes de tri et recyclage)
   Object.assign(
     (rand) => {
-      const folder = pick(N4_DRIVE_FOLDERS, rand)
-      const sub = pick(N4_DRIVE_SUBS, rand)
-      const format = pick(N4_DRIVE_FORMATS, rand)
-      const btn = pick(N4_DRIVE_BUTTONS, rand)
-      const text = `Guide d’archivage numérique à l’interne. Pour archiver votre compte rendu annuel, connectez-vous à la plateforme sécurisée. Accédez au répertoire ${folder}, puis choisissez ${sub}. Téléversez votre travail ${format}. Dès que l’importation est prête, ${btn}. Un reçu sera généré.`
+      const rec = pick(N4_RECYCLE_STEPS, rand)
+      const w = pick(N4_RECYCLE_WASHES, rand)
+      const waste = pick(N4_RECYCLE_WASTES, rand)
+      const head = pick(N4_RECYCLE_HEADS, rand)
+      const day = pick(N4_RECYCLE_DAYS, rand)
+      const othersW = sample(N4_RECYCLE_WASHES.filter((x) => x.opt !== w.opt), 2, rand)
+      const othersR = sample(N4_RECYCLE_STEPS.filter((x) => x.opt !== rec.opt), 2, rand)
+      const text = `${head} Pour assurer la propreté des lieux et respecter l’environnement, suivez ces étapes : d’abord, ${rec.text}. Ensuite, pensez à ${w.text}. Enfin, ${waste.text}. ${day} Merci de votre participation pour une ville plus verte.`
       return {
         text,
         questions: [
-          ['Quelle action finale permet de valider l’archivage numérique ?', btn, 'redémarrer immédiatement le serveur central du bureau', 'actionner le disjoncteur électrique général de l’étage'],
-          ['Dans quelle section spécifique l’archive doit-elle être placée ?', sub, 'dans le répertoire des jeux vidéo personnels téléchargés', 'sur un profil de réseau social accessible à tout le public'],
+          ['Que faut-il faire avec les contenants réutilisables ou recyclables ?', w.opt, othersW[0].opt, othersW[1].opt],
+          ['Où les matières en papier et carton doivent-elles être déposées ?', rec.opt, othersR[0].opt, othersR[1].opt],
         ],
       }
     },
-    { situation: 1, capacity: N4_DRIVE_FOLDERS.length * N4_DRIVE_SUBS.length * N4_DRIVE_FORMATS.length * N4_DRIVE_BUTTONS.length }
+    { situation: 1, capacity: N4_RECYCLE_STEPS.length * N4_RECYCLE_WASHES.length * N4_RECYCLE_WASTES.length * N4_RECYCLE_HEADS.length * N4_RECYCLE_DAYS.length }
   ),
-  // Scenario 5 (Static, situation: 0)
+  // Scenario 5 (Static, situation: 0) - Priorités pour vendredi
   {
     situation: 0,
-    text: 'Courriel de la responsable de service : organisation de la journée de vendredi. 1. Classer tous les dossiers clients de la semaine avant 11 h. 2. Participer à la réunion d’équipe de midi dans la grande salle. 3. Finaliser l’inventaire des fournitures de bureau avant votre départ à 16 h 30.',
+    text: 'Liste des priorités pour la journée de vendredi. 1. Répondre aux courriels prioritaires des clients avant dix heures. 2. Téléphoner à madame Roy pour confirmer la réunion de quatorze heures. 3. Déposer les contrats signés dans le classeur de la comptabilité avant seize heures. Merci de suivre cet ordre pour respecter nos échéances.',
     questions: [
-      ['Quelle tâche doit être terminée avant 11 h le matin ?', 'classer les dossiers clients de la semaine', 'participer à la fête d’anniversaire du directeur', 'commander les billets d’avion pour les vacances'],
-      ['Où la rencontre d’équipe aura-t-elle lieu à midi ?', 'dans la grande salle de réunion', 'au restaurant à l’extérieur du centre-ville', 'dans le stationnement sous-sol de l’édifice'],
+      ['Quelle tâche précise doit être exécutée avant dix heures ?', 'traiter les courriels urgents de la clientèle', 'téléphoner à madame Roy pour sa confirmation', 'classer les contrats dans le bureau comptable'],
+      ['Pour quel motif cette liste de priorités est-elle communiquée ?', 'respecter les échéances prévues avec les clients', 'organiser un dîner de fin de semaine au bureau', 'attribuer les congés payés de la saison estivale'],
     ],
   },
-  // Scenario 6 (Static, situation: 1)
+  // Scenario 6 (Static, situation: 1) - Réservation d'un véhicule de service
   {
     situation: 1,
-    text: 'Guide de mise à jour des coordonnées personnelles au gouvernement. Connectez-vous à votre dossier en ligne avec votre numéro d’assurance maladie. Cliquez sur l’onglet « Profil », modifiez votre adresse postale, puis joignez une preuve de résidence récente. Cliquez sur « Confirmer » pour recevoir votre accusé.',
+    text: 'Guide de réservation d’un véhicule de service. Étape 1 : Ouvrez l’application mobile et choisissez la date souhaitée. Étape 2 : Sélectionnez une voiture disponible au stationnement principal. Étape 3 : Récupérez la clé dans le boîtier mural à l’aide de votre code d’employé. Étape 4 : Notez le kilométrage sur la fiche de bord au retour.',
     questions: [
-      ['Quel renseignement permet d’ouvrir la session en ligne ?', 'le numéro d’assurance maladie officiel', 'le mot de passe de sa boîte de courriel personnelle', 'le nom complet de son ancien employeur'],
-      ['Quelle pièce justificative faut-il joindre au dossier ?', 'une preuve de résidence récente', 'une photo de sa maison de vacances', 'une lettre de recommandation d’un voisin'],
+      ['Où l’employé doit-il récupérer la clé de la voiture ?', 'au coffret mural en saisissant son code', 'au guichet de sécurité à l’entrée du garage', 'auprès du directeur du département de gestion'],
+      ['Quelle consigne finale faut-il respecter à la fin du déplacement ?', 'inscrire la distance parcourue sur le carnet', 'nettoyer la carrosserie du véhicule à la main', 'remplir le réservoir d’essence au maximum'],
     ],
   },
 ]
