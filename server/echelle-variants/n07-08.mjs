@@ -2675,5 +2675,161 @@ export const N07_08_SCENARIOS = {
       ],
     },
   ],
-  'n8-reading-4': [],
+  // ===========================================================================
+  // n8-reading-4 (argumentatif)
+  // Ex 0: Position d’une chroniqueuse concernant une loi adoptée par l’Assemblée nationale
+  // Ex 1: Opinion d’un éditorialiste concernant les droits des animaux
+  // ===========================================================================
+  'n8-reading-4': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "Chronique politique — Réforme de l’accès à l’information : un trompe-l’œil démocratique\nPar Martine Beaudoin\n\nL’adoption sous le bâillon du projet de loi modernisant l’accès aux documents des organismes publics laisse un goût amer à quiconque chérit la transparence de l’État. Certes, le ministre peut se féliciter d’avoir instauré des délais de réponse maximaux de vingt jours civils et d’avoir aboli les frais de reproduction papier au profit du numérique. Ces ajustements administratifs répondent à des doléances légitimes exprimées depuis une décennie.\n\nToutefois, l’arbre des gains procéduraux ne doit pas cacher la forêt des reculs démocratiques. En élargissant considérablement la définition des avis préliminaires soustraits à la consultation publique, le législateur offre aux cabinets ministériels un bouclier juridique commode pour dissimuler leurs arbitrages politiques les plus controversés.\n\nSous le prétexte louable de protéger la franchise des délibérations internes, cette loi affaiblit le travail d’enquête des journalistes et prive les citoyens d’un regard critique sur les décisions publiques. En prétendant fluidifier l’accès aux données de l’État, le gouvernement a en réalité consolidé la culture du secret au sommet de l’appareil étatique.",
+      questions: [
+        [
+          "Quel aspect positif de la nouvelle loi la chroniqueuse reconnaît-elle volontiers ?",
+          "La fixation d’une limite temporelle contraignante et la fin des frais de copie",
+          "La fermeture définitive et complète de tous les services de relations avec les médias",
+          "L’interdiction aux fonctionnaires de refuser la moindre demande citoyenne",
+        ],
+        [
+          "Quel recul démocratique majeur dénonce-t-elle avec véhémence ?",
+          "L’élargissement des exceptions légales permettant de cacher des dossiers clés",
+          "La suppression totale de toute consultation des députés élus à l’Assemblée nationale",
+          "L’obligation pour les journalistes de payer une taxe spéciale pour enquêter",
+        ],
+        [
+          "Que peut-on déduire sur son sentiment face à la communication gouvernementale ?",
+          "Elle perçoit une contradiction flagrante entre le discours officiel et la réalité",
+          "Elle approuve sans réserve la volonté ministérielle d’accélérer les débats en chambre",
+          "Elle considère que la presse locale exagère systématiquement la portée des textes de loi",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "Point de vue — Hébergement touristique : une loi nécessaire mais sans dents\nPar Julie Desrochers\n\nL’Assemblée nationale a enfin adopté la loi resserrant l’encadrement des résidences de tourisme louées sur les plateformes numériques. Saluons d’emblée le courage politique d’imposer l’enregistrement obligatoire auprès de la Corporation de l’industrie touristique du Québec et de rendre les plateformes transactionnelles solidairement responsables des annonces illégales sous peine d’amendes substantielles. Dans les arrondissements montréalais où la crise du logement frappe de plein fouet les familles, cette mesure était réclamée depuis longtemps.\n\nNéanmoins, la portée concrète de cette législation risque d’être neutralisée par une faille organisationnelle majeure : l’absence d’un corps d’inspecteurs provinciaux dotés de pouvoirs d’investigation étendus. Confier l’application des règlements aux seules municipalités sans leur accorder de budgets dédiés relève de l’illusion gestionnaire.\n\nTant que les propriétaires délinquants sauront que les contrôles inopinés demeurent rarissimes, les profits générés par la location illégale continueront de surpasser le risque d’une sanction pécuniaire. Une loi sans moyens réels d’application n’est qu’un vœu pieux.",
+      questions: [
+        [
+          "Quelle mesure forte introduite par la loi la chroniqueuse juge-t-elle bénéfique ?",
+          "La responsabilité financière directe des plateformes en cas de publicité frauduleuse",
+          "L’interdiction complète de toute visite de touristes étrangers dans les grandes villes",
+          "L’obligation pour chaque voyageur de loger exclusivement dans des hôtels de luxe",
+        ],
+        [
+          "Quelle lacune cruciale risque selon elle de compromettre l’efficacité du règlement ?",
+          "Le manque criant de personnel de surveillance pour effectuer des vérifications sur place",
+          "L’opposition unanime et déterminée de l’ensemble des locataires québécois à ces règles",
+          "L’annulation de tous les contrats de location par les tribunaux civils de la région",
+        ],
+        [
+          "Que peut-on déduire quant à l’attitude de l’auteure envers les promesses des élus ?",
+          "Elle affiche un scepticisme lucide devant une réforme dénuée de moyens logistiques",
+          "Elle manifeste une confiance aveugle dans la capacité des mairies à agir sans argent",
+          "Elle accuse les députés d’avoir voulu ruiner le secteur hôtelier traditionnel d’ici",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "Chronique sociale — La modernisation du droit du travail face à l’écran de maison\nPar Caroline Gagnon\n\nLa sanction royale accordée à la loi modernisant le régime de santé et de sécurité du travail marque une étape historique pour le Québec contemporain. En inscrivant formellement les risques psychosociaux et l’ergonomie du télétravail dans le corpus législatif, l’Assemblée nationale prend acte de la transformation irréversible des modes de vie professionnels depuis les récentes crises sanitaires. Les employeurs ne pourront plus se laver les mains des blessures musculosquelettiques ou de l’épuisement professionnel subis à domicile.\n\nPour autant, la chroniqueuse ne saurait taire les ambiguïtés juridiques vertigineuses que soulève ce texte. Comment la commission provinciale peut-elle enquêter sur un poste de travail domestique sans porter atteinte à l’inviolabilité du domicile privé des salariés ? Le compromis adopté par les parlementaires laisse planer un vide inquiétant quant au partage des responsabilités entre la direction et l’employé en cas d’accident domestique durant les heures rémunérées.\n\nEn voulant tout régenter sans tracer de frontières claires, le législateur a créé un nid à litiges qui engorgera les tribunaux du travail pour des années.",
+      questions: [
+        [
+          "Quelle avancée légale remarquable la journaliste souligne-t-elle dans cette réforme ?",
+          "La prise en compte officielle des troubles physiques et mentaux liés au travail à distance",
+          "L’obligation stricte d’interdire définitivement tout usage d’écrans dans les résidences",
+          "Le versement obligatoire d’un salaire doublé pour toutes les heures passées chez soi",
+        ],
+        [
+          "Quelle difficulté d’application majeure suscite les plus vives inquiétudes juridiques ?",
+          "Le respect de la vie intime lors des contrôles de sécurité dans l’habitat personnel",
+          "Le refus unanime des entreprises d’assumer les fournitures de papeterie courante",
+          "L’absence d’ordinateurs portables chez la majorité des salariés de la province",
+        ],
+        [
+          "Que peut-on déduire sur la prédiction formulée par Caroline Gagnon concernant l’avenir de la loi ?",
+          "Elle anticipe une multiplication des différends judiciaires devant les cours de justice",
+          "Elle prévoit une harmonisation pacifique, rapide et durable des relations professionnelles",
+          "Elle imagine que les tribunaux administratifs fermeront faute de dossiers à entendre",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "Éditorial — Au-delà des symboles : reconnaître la dignité animale\nPar Jean-François Cloutier\n\nLorsque l’Assemblée nationale a modifié le Code civil pour stipuler que les animaux ne sont plus des biens meubles mais des êtres doués de sensibilité ayant des impératifs biologiques, une vague d’enthousiasme a traversé la société québécoise. Dix ans plus tard, l’éditorialiste dresse un constat impitoyable : cette proclamation philosophique est restée largement lettre morte dans les fermes industrielles de notre territoire.\n\nComment concilier cette dignité proclamée avec le confinement à perpétuité des truies reproductrices dans des stalles d’acier où elles ne peuvent même pas se retourner ? Comment tolérer que les amendes pour cruauté ou négligence grave soient encore traitées comme de simples coûts d’exploitation par des abattoirs récidivistes ?\n\nIl est temps que nos lois dépassent la posture morale pour imposer des normes contraignantes : interdiction des cages de gestation, limitation stricte du temps de transport des bêtes vivantes par temps de canicule et création d’un protecteur indépendant du bien-être animal. La sensibilité animale ne peut pas demeurer un vœu juridique commode pendant que l’industrie perpétue des souffrances intolérables.",
+      questions: [
+        [
+          "Quel décalage choquant l’éditorialiste dénonce-t-il entre la loi et la pratique réelle ?",
+          "La persistance de mauvais traitements dans les élevages intensifs malgré le statut civil",
+          "La multiplication injustifiée des poursuites criminelles contre les propriétaires de chats",
+          "L’interdiction aux vétérinaires de soigner les bêtes sans autorisation gouvernementale",
+        ],
+        [
+          "Quelle réforme législative concrète réclame-t-il pour transformer durablement les pratiques ?",
+          "La suppression des cages de confinement et la mise en place d’un protecteur neutre",
+          "La fermeture immédiate et sans compensation de toutes les exploitations maraîchères",
+          "L’obligation pour chaque citoyen québécois d’adopter un chien abandonné en refuge",
+        ],
+        [
+          "Que peut-on déduire sur son sentiment face au bilan de la décennie écoulée ?",
+          "Une grande amertume devant des déclarations de principe jamais suivies d’effets réels",
+          "Un optimisme radieux quant à l’évolution naturelle des méthodes d’élevage intensif",
+          "Une indifférence sereine face aux conditions de vie des bêtes dans les fermes locales",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "Éditorial — Cerfs de Virginie : pour une éthique de la coexistence animale\nPar Alexandre Tremblay\n\nLe débat passionné entourant la surpopulation de cerfs de Virginie dans nos parcs périurbains, notamment sur la Rive-Sud de Montréal, met en lumière notre incapacité collective à penser notre rapport au vivant. Face à la dégradation de la flore forestière et aux risques de collisions routières, le réflexe primaire des gestionnaires municipaux a trop souvent été d’ordonner des battues d’abattage au fusil ou à l’arbalète. Cette approche expéditive heurte à juste titre la conscience d’un nombre croissant de citoyens attachés à la protection de la faune.\n\nL’éditorialiste soutient que la réduction des troupeaux ne doit pas être guidée par la seule logique du moindre coût financier. Des avenues respectueuses existent : la contraception chimique par fléchettes, le reboisement d’essences moins appétentes et l’aménagement de corridors biologiques permettant aux animaux de migrer vers des massifs forestiers plus vastes.\n\nConsidérer les cerfs comme de simples nuisibles à éliminer au gré de nos convenances urbaines trahit une vision passéiste de la nature. Il appartient aux villes modernes d’inventer les voies d’une cohabitation harmonieuse avec la faune qui partage notre territoire.",
+      questions: [
+        [
+          "Quelle décision expéditive prise par les autorités locales suscite l’indignation du journaliste ?",
+          "L’organisation de chasses d’éradication pour régler le surplus de bêtes à bas prix",
+          "La clôture intégrale de tous les parcs municipaux pour empêcher les promenades",
+          "L’obligation pour les automobilistes de rouler à moins de dix kilomètres à l’heure",
+        ],
+        [
+          "Quelle solution éthique alternative l’auteur suggère-t-il pour gérer la harde sans cruauté ?",
+          "Le recours à la stérilisation ciblée et le maintien de corridors de passage naturels",
+          "L’introduction de meutes de loups sauvages au cœur des zones résidentielles de la banlieue",
+          "Le transfert forcé de l’ensemble des cerfs dans des zoos payants du nord québécois",
+        ],
+        [
+          "Que peut-on déduire quant à l’attitude préconisée par l’éditorialiste envers la faune urbaine ?",
+          "Privilégier un partage respectueux de l’espace plutôt qu’une domination destructrice",
+          "Chasser les animaux dès qu’ils s’approchent des plates-bandes privées des maisons",
+          "Détruire les espaces boisés pour supprimer définitivement l’habitat des grands mammifères",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "Éditorial — Recherche médicale : l’impératif moral de dépasser l’expérimentation animale\nPar Sophie Bérubé\n\nChaque année, plus de trois millions d’animaux sont utilisés dans les laboratoires universitaires et privés du pays pour tester des médicaments ou des composés cosmétiques. Pendant des décennies, la communauté biomédicale a justifié ce sacrifice au nom du progrès thérapeutique humain. Or, l’éditorialiste soutient qu’au vingt-et-unième siècle, cet argument moralement discutable s’effondre devant les percées spectaculaires de la biotechnologie moderne.\n\nLes cultures de tissus humains en trois dimensions, les modèles sur puce microfluidique et la modélisation informatique avancée reproduisent désormais les réactions métaboliques avec une fidélité souvent supérieure à celle des modèles rongeurs traditionnels. Pourquoi s’obstiner à infliger la captivité, la douleur et la mort à des êtres sensibles quand la science propose des méthodes substitutives plus prédictives et dénuées de cruauté ?\n\nLe refus d’amorcer une transition méthodique vers le bannissement des tests animaux relève de l’inertie financière et de l’habitude routinière des subventions publiques. Les gouvernements doivent réorienter leurs fonds de recherche vers les technologies substitutives pour clore enfin cette ère de souffrance animale.",
+      questions: [
+        [
+          "Quelle justification traditionnelle de la science la journaliste remet-elle en question ?",
+          "L’obligation morale d’utiliser des animaux pour valider les avancées de la santé",
+          "La nécessité absolue d’enseigner les sciences de la nature dans les écoles secondaires",
+          "L’interdiction formelle de vendre des médicaments sans ordonnance de médecin",
+        ],
+        [
+          "Quelle innovation biomédicale contemporaine permet d’éviter la souffrance des bêtes ?",
+          "Le développement de tissus humains miniaturisés et la simulation informatique",
+          "L’arrêt total et immédiat de la recherche sur les traitements des maladies infectieuses",
+          "L’obligation de tester directement les vaccins sur des populations humaines",
+        ],
+        [
+          "Que peut-on déduire sur la cause principale du blocage selon l’éditorialiste ?",
+          "La force des habitudes acquises et la répartition conservatrice des subventions",
+          "L’absence totale de chercheurs compétents dans les universités de la province",
+          "Le coût prohibitif des rongeurs de laboratoire par rapport aux puces virtuelles",
+        ],
+      ],
+    },
+  ],
 }
