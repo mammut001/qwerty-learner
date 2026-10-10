@@ -46,6 +46,21 @@ export const pcVsImparfaitLesson: TenseLesson = {
           zh: '我们正走在圣凯瑟琳街上，突然间倾盆大雨呼啸而至。',
           highlight: 'a éclaté',
         },
+        {
+          fr: 'Le soleil brillait sur le fleuve quand un bateau de croisière est apparu au loin.',
+          zh: '太阳照耀在江面上，这时远处出现了一艘游轮。',
+          highlight: 'est apparu',
+        },
+        {
+          fr: 'J’attendais le bus à l’abri quand mon parapluie s’est envolé sous une rafale.',
+          zh: '我正在避雨亭等车，突然一阵强风把我的雨伞吹飞了。',
+          highlight: 's’est envolé',
+        },
+        {
+          fr: 'Les enfants jouaient tranquillement dans le parc quand le tonnerre a grondé.',
+          zh: '孩子们正在公园里安静玩耍，这时雷声轰隆隆响起。',
+          highlight: 'a grondé',
+        },
       ],
     },
     {
@@ -72,6 +87,21 @@ export const pcVsImparfaitLesson: TenseLesson = {
           fr: 'Elle portait toujours des vêtements sombres, mais ce jour-là, elle a mis une robe rouge.',
           zh: '她过去总穿深色衣服，但那一天，她穿了一件红裙子。',
           highlight: 'a mis',
+        },
+        {
+          fr: 'Nous prenions toujours nos vacances en Gaspésie, mais cet été-là, nous sommes allés aux Îles de la Madeleine.',
+          zh: '过去我们总去加斯佩度假，但那个夏天，我们去了马德莱娜群岛。',
+          highlight: 'sommes allés',
+        },
+        {
+          fr: 'Le professeur parlait toujours d’une voix posée, mais ce jour-là, il a haussé le ton.',
+          zh: '老师平时说话总是和风细雨，但那天他提高了嗓门。',
+          highlight: 'a haussé',
+        },
+        {
+          fr: 'Il buvait toujours du café noir, mais ce matin, il a commandé un chocolat chaud.',
+          zh: '他过去总是喝黑咖啡，但今天早晨他点了一杯热巧克力。',
+          highlight: 'a commandé',
         },
       ],
     },
@@ -100,6 +130,21 @@ export const pcVsImparfaitLesson: TenseLesson = {
           zh: '我们等了四十分钟公交车，因为当时有暴风雪。',
           highlight: 'avons attendu',
         },
+        {
+          fr: 'Elle a suivi des cours de francisation de septembre à décembre avec beaucoup d’assiduité.',
+          zh: '从九月到十二月，她非常勤勉地参加了法语强化课（闭合时间）。',
+          highlight: 'a suivi',
+        },
+        {
+          fr: 'L’équipe a travaillé sur cette proposition pendant trois semaines intensives.',
+          zh: '团队在这个提案上紧锣密鼓地工作了整整三周。',
+          highlight: 'a travaillé',
+        },
+        {
+          fr: 'Il a neigé de six heures du matin à midi, puis le ciel s’est dégagé.',
+          zh: '从早上六点到中午一直在下雪，随后天空放晴了。',
+          highlight: 'a neigé',
+        },
       ],
     },
     {
@@ -127,6 +172,21 @@ export const pcVsImparfaitLesson: TenseLesson = {
           zh: '江面风平浪静，孩子们跃入水中，游向了浮桥。',
           highlight: 'ont sauté',
         },
+        {
+          fr: 'L’automobiliste a freiné brusquement, a tourné à droite et a évité l’obstacle sur la chaussée.',
+          zh: '司机紧急刹车，向右打方向盘，避开了路面障碍。',
+          highlight: 'a tourné',
+        },
+        {
+          fr: 'Marc a enfilé son manteau, a salué ses colocataires et est parti attraper l’autobus.',
+          zh: '马克套上大衣，向室友道别，然后出门去赶公交车。',
+          highlight: 'est parti',
+        },
+        {
+          fr: 'Nous avons franchi la porte d’embarquement, avons montré nos billets et avons pris nos sièges.',
+          zh: '我们走过登机口，出示了机票，然后在座位上就坐。',
+          highlight: 'avons montré',
+        },
       ],
     },
     {
@@ -153,6 +213,21 @@ export const pcVsImparfaitLesson: TenseLesson = {
           fr: 'J’avais très faim, alors j’ai mangé deux bagels chauds au sésame.',
           zh: '我当时非常饥饿（状态），所以我吃了两个刚出炉的芝麻贝果。',
           highlight: 'ai mangé',
+        },
+        {
+          fr: 'Je ne voulais pas déranger mon propriétaire, mais quand le tuyau a fui, j’ai dû l’appeler.',
+          zh: '我原本不想打扰房东，但当水管漏水时，我只得给他打了电话。',
+          highlight: 'ai dû',
+        },
+        {
+          fr: 'Nous savions que le sentier était escarpé, mais nous avons su en arrivant qu’il était fermé.',
+          zh: '我们知道那条步道很陡，但到达时才得知它已被封闭。',
+          highlight: 'avons su',
+        },
+        {
+          fr: 'Elle avait peur du verglas, alors elle a renoncé à prendre sa voiture.',
+          zh: '她当时害怕路面结冰，于是放弃了开车。',
+          highlight: 'a renoncé',
         },
       ],
     },
@@ -194,6 +269,42 @@ export const pcVsImparfaitLesson: TenseLesson = {
         highlight: 'a secoué',
       },
     },
+    {
+      word: 'd’habitude (imparfait)',
+      meaningZh: '通常（过去习惯）',
+      example: {
+        fr: 'D’habitude, nous déjeunions sur le pouce à la cafétéria.',
+        zh: '平常我们都在食堂匆匆扒两口午饭。',
+        highlight: 'déjeunions',
+      },
+    },
+    {
+      word: 'tout à coup (passé composé)',
+      meaningZh: '猛然间（突发动作）',
+      example: {
+        fr: 'Tout à coup, les lumières de la rue se sont éteintes dans le quartier.',
+        zh: '猛然间，街区的路灯全部熄灭了。',
+        highlight: 'se sont éteintes',
+      },
+    },
+    {
+      word: 'autrefois (imparfait)',
+      meaningZh: '从前 / 往昔（历史背景）',
+      example: {
+        fr: 'Autrefois, le vieux phare guidait tous les navires dans le brouillard.',
+        zh: '从前，老灯塔在大雾中为所有船只指引航向。',
+        highlight: 'guidait',
+      },
+    },
+    {
+      word: 'ce jour-là (passé composé)',
+      meaningZh: '在那一天（打破常规的具体事件）',
+      example: {
+        fr: 'Ce jour-là, elle a pris une grande décision pour son avenir professionnel.',
+        zh: '在那一天，她为自己的职业前景做出了重大决定。',
+        highlight: 'a pris',
+      },
+    },
   ],
   commonMistakes: [
     {
@@ -217,6 +328,16 @@ export const pcVsImparfaitLesson: TenseLesson = {
       right: 'Il était fatigué toute la journée hier.',
       explanationZh: '持续的生理或心理感受属于状态描写，通常优先使用 imparfait：il était fatigué。',
       noteZh: '状态描写误用',
+    },
+    {
+      wrong: 'Pendant qu’il cuisinait, le téléphone sonnait.',
+      right: 'Pendant qu’il cuisinait, le téléphone a sonné.',
+      explanationZh: '电话突发铃响打断做饭背景，必须使用复合过去时 a sonné。',
+    },
+    {
+      wrong: 'Hier soir, j’ai mangé quand soudain mon frère arrivait.',
+      right: 'Hier soir, je mangeais quand soudain mon frère est arrivé.',
+      explanationZh: 'quand soudain 引出突发事件用 passé composé（est arrivé），主句正在吃饭是背景用 imparfait（je mangeais）。',
     },
   ],
   questions: [
@@ -321,6 +442,54 @@ export const pcVsImparfaitLesson: TenseLesson = {
       correctAnswer: 'ai su',
       explanationZh: 'hier soir 表示在那一刻“获知/得知”新消息，用复合过去时 ai su。',
     },
+    {
+      id: 'pc-imp-q13',
+      type: 'fill',
+      prompt: 'Pendant que les enfants (regarder) ___ un dessin animé, leur mère préparait le goûter.（两个动作平行进行，填入 imparfait）',
+      correctAnswer: 'regardaient',
+      acceptedAnswers: ['regardaient'],
+      explanationZh: '两个动作在过去同时进行，使用未完成过去时 regardaient。',
+    },
+    {
+      id: 'pc-imp-q14',
+      type: 'choice',
+      prompt: 'Ce matin-là, il ___ très beau, mais vers midi une tempête de grêle ___ soudainement.',
+      options: ['faisait / a éclaté', 'a fait / éclatait', 'faisait / éclatait', 'a fait / a éclaté'],
+      correctAnswer: 'faisait / a éclaté',
+      explanationZh: '天气背景用 faisait，突发风暴推进情节用 a éclaté。',
+    },
+    {
+      id: 'pc-imp-q15',
+      type: 'choice',
+      prompt: 'Autrefois, les habitants du village (se chauffer) ___ principalement au bois de chauffage.',
+      options: ['se chauffaient', 'se sont chauffés', 'se chauffent', 'se chauffèrent'],
+      correctAnswer: 'se chauffaient',
+      explanationZh: 'autrefois 交代过去的习惯与生活状态，用 imparfait：se chauffaient。',
+    },
+    {
+      id: 'pc-imp-q16',
+      type: 'fill',
+      prompt: 'Hier après-midi, nous (marcher) ___ pendant deux heures dans le parc Mont-Royal.（明确闭合时长，填入复合过去时）',
+      correctAnswer: 'avons marché',
+      acceptedAnswers: ['avons marché'],
+      explanationZh: '有明确闭合时长 pendant deux heures，用复合过去时 avons marché。',
+    },
+    {
+      id: 'pc-imp-q17',
+      type: 'choice',
+      prompt: 'Je dormais paisiblement quand l’alarme du détecteur de fumée ___.',
+      options: ['a retenti', 'retentissait', 'retentit', 'avait retenti'],
+      correctAnswer: 'a retenti',
+      explanationZh: '打断睡眠背景的突发动作，使用复合过去时 a retenti。',
+    },
+    {
+      id: 'pc-imp-q18',
+      type: 'fill',
+      prompt: 'Elle a éteint son ordinateur, a ramassé ses dossiers et (quitter) ___ le bureau.（连贯动作链，填入复合过去时）',
+      correctAnswer: 'a quitté',
+      acceptedAnswers: ['a quitté'],
+      explanationZh: '连续动作链用复合过去时：a quitté。',
+    },
   ],
 }
 
@@ -372,6 +541,21 @@ export const impVsPqpLesson: TenseLesson = {
           zh: '当我们走到阳台上时，雨之前就已经停了（雨已结束）。',
           highlight: 's’était arrêtée',
         },
+        {
+          fr: 'Les musiciens accordaient leurs instruments quand le public a pris place dans la salle.',
+          zh: '当观众在音乐厅就座时，乐手们正在调试乐器。',
+          highlight: 'accordaient',
+        },
+        {
+          fr: 'Les musiciens avaient déjà accordé leurs instruments quand les portes se sont ouvertes.',
+          zh: '当大门打开时，乐手们早已调试好了乐器。',
+          highlight: 'avaient déjà accordé',
+        },
+        {
+          fr: 'Mon colocataire préparait le café quand mon réveil a sonné ce matin.',
+          zh: '今天早晨我的闹钟响起时，我的室友正在煮咖啡。',
+          highlight: 'préparait',
+        },
       ],
     },
     {
@@ -399,6 +583,21 @@ export const impVsPqpLesson: TenseLesson = {
           zh: '他很熟悉这座城市，因为几年之前他在那里居住过。',
           highlight: 'avait habité',
         },
+        {
+          fr: 'Le moteur refusait de démarrer parce que la batterie s’était complètement déchargée par grand froid.',
+          zh: '发动机发动不起来，因为电池在极寒天气下彻底跑电了。',
+          highlight: 's’était complètement déchargée',
+        },
+        {
+          fr: 'Julien souriait fièrement car il avait réussi son examen de conduite du premier coup.',
+          zh: '朱利安骄傲地微笑着，因为他一次就通过了驾照路考。',
+          highlight: 'avait réussi',
+        },
+        {
+          fr: 'Les randonneurs grelottaient parce qu’ils n’avaient pas emporté de vêtements chauds.',
+          zh: '徒步者们瑟瑟发抖，因为他们此前没有带保暖衣物。',
+          highlight: 'n’avaient pas emporté',
+        },
       ],
     },
     {
@@ -425,6 +624,21 @@ export const impVsPqpLesson: TenseLesson = {
           fr: 'Le garagiste a réparé la pièce mécanique qui s’était brisée pendant le trajet.',
           zh: '修车师傅修好了旅途中坏掉的那个机械零件。',
           highlight: 's’était brisée',
+        },
+        {
+          fr: 'L’étudiant a rendu à la bibliothèque les livres qu’il avait empruntés le mois précédent.',
+          zh: '学生把上个月借的书归还给了图书馆。',
+          highlight: 'avait empruntés',
+        },
+        {
+          fr: 'Nous avons finalement adopté le chaton que les bénévoles avaient recueilli dans la ruelle.',
+          zh: '我们最终领养了志愿者在小巷里救助的那只小猫。',
+          highlight: 'avaient recueilli',
+        },
+        {
+          fr: 'J’ai effacé par mégarde le courriel officiel que le ministère m’avait envoyé le matin même.',
+          zh: '我不小心删掉了部门当天上午发给我的官方邮件。',
+          highlight: 'avait envoyé',
         },
       ],
     },
@@ -457,6 +671,23 @@ export const impVsPqpLesson: TenseLesson = {
           highlight: 'avait déjà trouvé',
           noteZh: '此前已经找到',
         },
+        {
+          fr: 'Le médecin a confirmé que le patient se remettait bien de son intervention chirurgicale.',
+          zh: '医生证实，病人当时手术后的恢复情况良好。',
+          highlight: 'se remettait',
+          noteZh: '当时处于恢复状态（imparfait）',
+        },
+        {
+          fr: 'Le médecin a confirmé que le patient s’était complètement rétabli avant sa sortie.',
+          zh: '医生证实，病人在出院前就已经彻底康复了。',
+          highlight: 's’était complètement rétabli',
+          noteZh: '此前已康复（plus-que-parfait）',
+        },
+        {
+          fr: 'Le contremaître nous a affirmé que l’équipe avait terminé les travaux de rénovation.',
+          zh: '工头向我们保证，施工队此前已经完成了装修工程。',
+          highlight: 'avait terminé',
+        },
       ],
     },
     {
@@ -485,6 +716,23 @@ export const impVsPqpLesson: TenseLesson = {
           fr: 'Si nous avions été prévenus plus tôt, nous serions venus vous aider à déneiger.',
           zh: '要是我们当时更早得到通知，我们本来会来帮你铲雪的。',
           highlight: 'avions été',
+        },
+        {
+          fr: 'Si mon passeport était valide, je voyagerais sans attendre vers l’Europe.',
+          zh: '如果我的护照现在有效，我就会立刻动身去欧洲旅行。',
+          highlight: 'était',
+          noteZh: '现在假设（imparfait）',
+        },
+        {
+          fr: 'Si mon passeport avait été renouvelé à temps, j’aurais pris ce vol pour Paris.',
+          zh: '如果我的护照当时及时换发好了，我就会坐上那趟飞往巴黎的航班了。',
+          highlight: 'avait été renouvelé',
+          noteZh: '过去假设（plus-que-parfait）',
+        },
+        {
+          fr: 'Si nous avions réservé plus tôt, nous aurions payé nos billets deux fois moins cher.',
+          zh: '要是我们早点预订，我们的机票价格本来只要现在的一半。',
+          highlight: 'avions réservé',
         },
       ],
     },
@@ -526,6 +774,42 @@ export const impVsPqpLesson: TenseLesson = {
         highlight: 'avait étudié',
       },
     },
+    {
+      word: 'le mois précédent (PQP)',
+      meaningZh: '前一个月（交代先时动作）',
+      example: {
+        fr: 'Elle a emménagé dans l’appartement qu’elle avait loué le mois précédent.',
+        zh: '她搬进了前一个月租下的公寓。',
+        highlight: 'avait loué',
+      },
+    },
+    {
+      word: 'en ce temps-là (imparfait)',
+      meaningZh: '在那个时候（交代往昔时代背景）',
+      example: {
+        fr: 'En ce temps-là, les enfants marchaient deux kilomètres pour aller à l’école.',
+        zh: '在那个年代，孩子们步行两公里去上学。',
+        highlight: 'marchaient',
+      },
+    },
+    {
+      word: 'quelques jours plus tôt (PQP)',
+      meaningZh: '几天之前（过去的过去）',
+      example: {
+        fr: 'Il a retrouvé le trousseau de clés qu’il avait égaré quelques jours plus tôt.',
+        zh: '他找到了几天前弄丢的那串钥匙。',
+        highlight: 'avait égaré',
+      },
+    },
+    {
+      word: 'toujours en cours (imparfait)',
+      meaningZh: '仍在进行当中（与基准点同时）',
+      example: {
+        fr: 'Le concert continuait toujours quand nous avons quitté discrètement la salle.',
+        zh: '当我们悄悄离开大厅时，音乐会仍在继续。',
+        highlight: 'continuait',
+      },
+    },
   ],
   commonMistakes: [
     {
@@ -548,6 +832,18 @@ export const impVsPqpLesson: TenseLesson = {
       wrong: 'Elle disait qu’elle avait faim parce qu’elle mangeait rien.',
       right: 'Elle disait qu’elle avait faim parce qu’elle n’avait rien mangé.',
       explanationZh: '没吃东西发生在挨饿之前，原因必须用愈过去时 n’avait rien mangé。',
+    },
+    {
+      wrong: 'Hier, quand je suis rentré, mes enfants dormaient déjà depuis deux heures parce qu’ils étaient fatigués, mais ils s’endormaient à huit heures.',
+      right: 'Hier, quand je suis rentré, mes enfants dormaient déjà depuis deux heures parce qu’ils étaient fatigués, mais ils s’étaient endormis à huit heures.',
+      explanationZh: '“入睡”（s’endormir）是瞬时动作，发生在回家之前，交代其先时完成必须用愈过去时 s’étaient endormis。',
+      noteZh: '瞬时动作先时性误用 imparfait',
+    },
+    {
+      wrong: 'Elle a refusé le dessert car elle mangeait trop à midi.',
+      right: 'Elle a refusé le dessert car elle avait trop mangé à midi.',
+      explanationZh: '午饭吃得过多发生在拒绝甜点之前，解释过去决定的早前原因用 plus-que-parfait：avait trop mangé。',
+      noteZh: '解释过去原因误用未完成过去时',
     },
   ],
   questions: [
@@ -647,6 +943,54 @@ export const impVsPqpLesson: TenseLesson = {
       correctAnswer: 'avait compris',
       explanationZh: '在作出保证之前已经完全理解了规则，用愈过去时 avait compris。',
     },
+    {
+      id: 'imp-pqp-q13',
+      type: 'fill',
+      prompt: 'Le patron était satisfait parce que l’équipe (terminer) ___ le rapport avant l’échéance.（解释过去原因，填入愈过去时）',
+      correctAnswer: 'avait terminé',
+      acceptedAnswers: ['avait terminé'],
+      explanationZh: '提交报告发生在老板满意之前，解释过去状态的原因使用愈过去时 avait terminé。',
+    },
+    {
+      id: 'imp-pqp-q14',
+      type: 'choice',
+      prompt: 'Quand l’orage a éclaté, les campeurs (déjà ranger) ___ leurs tentes.',
+      options: ['avaient déjà rangé', 'rangeaient', 'ont rangé', 'rangeraient'],
+      correctAnswer: 'avaient déjà rangé',
+      explanationZh: '暴风雨爆发前帐篷早已收好，表示过去的过去使用愈过去时 avaient déjà rangé。',
+    },
+    {
+      id: 'imp-pqp-q15',
+      type: 'fill',
+      prompt: 'Si nous (écouter) ___ les prévisions météo hier soir, nous n’aurions pas pris cette route enneigée.（过去虚拟假设，填入愈过去时）',
+      correctAnswer: 'avions écouté',
+      acceptedAnswers: ['avions écouté'],
+      explanationZh: 'si 引出与过去事实相反的假设，使用愈过去时 avions écouté。',
+    },
+    {
+      id: 'imp-pqp-q16',
+      type: 'choice',
+      prompt: 'Pendant que son frère préparait le souper, Marianne (lire) ___ tranquillement sur le canapé.',
+      options: ['lisait', 'avait lu', 'a lu', 'lira'],
+      correctAnswer: 'lisait',
+      explanationZh: '两个动作在过去平行同步发生（同时背景），使用未完成过去时 lisait。',
+    },
+    {
+      id: 'imp-pqp-q17',
+      type: 'fill',
+      prompt: 'Elle m’a rendu le roman que je lui (prêter) ___ le mois dernier.（过去动作之前借出的书，填入愈过去时）',
+      correctAnswer: 'avais prêté',
+      acceptedAnswers: ['avais prêté'],
+      explanationZh: '借书发生在还书之前，关系从句交代过去的过去使用愈过去时 avais prêté。',
+    },
+    {
+      id: 'imp-pqp-q18',
+      type: 'choice',
+      prompt: 'L’automobiliste a expliqué aux policiers qu’il (ne pas remarquer) ___ le panneau d’arrêt obligatoire.',
+      options: ['n’avait pas remarqué', 'ne remarquait pas', 'n’a pas remarqué', 'ne remarquerait pas'],
+      correctAnswer: 'n’avait pas remarqué',
+      explanationZh: '未注意停车牌发生在向警察解释之前，间接引语表达先时性使用愈过去时 n’avait pas remarqué。',
+    },
   ],
 }
 
@@ -700,6 +1044,21 @@ export const troisFutursLesson: TenseLesson = {
           zh: '当心！你马上要把这杯热咖啡打翻在键盘上了！',
           highlight: 'vas faire tomber',
         },
+        {
+          fr: 'Fais attention sur la glace noire, tu vas glisser si tu cours !',
+          zh: '在黑冰上当心点，你要是跑的话马上就会滑倒！',
+          highlight: 'vas glisser',
+        },
+        {
+          fr: 'D’ici dix ans, la ville de Montréal inaugurera une nouvelle ligne de tramway.',
+          zh: '在未来的十年内，蒙特利尔市将开通一条新的有轨电车线路。',
+          highlight: 'inaugurera',
+        },
+        {
+          fr: 'Ce soir à vingt heures, nous avons notre réunion de copropriété dans le hall.',
+          zh: '今晚八点，我们在大堂举行业主大会。',
+          highlight: 'avons',
+        },
       ],
     },
     {
@@ -731,6 +1090,21 @@ export const troisFutursLesson: TenseLesson = {
           highlight: 'vais t’envoyer',
           noteZh: '口语即时动作',
         },
+        {
+          fr: 'On va faire l’épicerie ensemble vers dix-sept heures si tu as fini tes cours.',
+          zh: '如果你下课了，咱们下午五点左右一起去超市买菜吧。',
+          highlight: 'va faire',
+        },
+        {
+          fr: 'Le comité de sélection publiera la liste des candidats retenus vendredi prochain.',
+          zh: '评选委员会将于下周五公布入围候选人名单。',
+          highlight: 'publiera',
+        },
+        {
+          fr: 'La société de transport ajustera la fréquence des autobus dès le premier novembre.',
+          zh: '公交客运公司将从十一月一日起调整公共汽车的发车频次。',
+          highlight: 'ajustera',
+        },
       ],
     },
     {
@@ -758,6 +1132,21 @@ export const troisFutursLesson: TenseLesson = {
           fr: 'Aussitôt que la neige fondra, nous commencerons les travaux de jardinage.',
           zh: '积雪一旦融化，我们就开始打理花园。',
           highlight: 'fondra',
+        },
+        {
+          fr: 'Tant que les températures resteront sous zéro, les patinoires extérieures demeureront ouvertes.',
+          zh: '只要气温保持在零度以下，室外滑冰场就会继续保持开放。',
+          highlight: 'resteront',
+        },
+        {
+          fr: 'Dès que vous signerez le contrat d’embauche, la responsable des ressources humaines vous donnera votre badge.',
+          zh: '您一旦签署雇佣合同，人力资源主管就会发放您的工作证卡。',
+          highlight: 'signerez',
+        },
+        {
+          fr: 'Quand nous recevrons la confirmation de livraison, nous irons chercher le colis au point relais.',
+          zh: '当我们收到派送确认时，我们就会去驿站提取包裹。',
+          highlight: 'recevrons',
         },
       ],
     },
@@ -788,6 +1177,21 @@ export const troisFutursLesson: TenseLesson = {
           zh: '今晚我们打算和全家人好好庆祝一番！',
           highlight: 'allons fêter',
         },
+        {
+          fr: 'Je vais m’inscrire à des cours de perfectionnement linguistique dès lundi.',
+          zh: '我打算下周一开始报名参加语言进阶强化课程。',
+          highlight: 'vais m’inscrire',
+        },
+        {
+          fr: 'Les résidents du quartier respecteront scrupuleusement le calendrier de collecte des matières recyclables.',
+          zh: '小区居民须严格遵守可回收物分类收集日程。',
+          highlight: 'respecteront',
+        },
+        {
+          fr: 'Le soleil se couchera à dix-sept heures quarante-cinq ce soir selon les éphémérides.',
+          zh: '根据天文历推算，今晚太阳将在十七点四十五分下落。',
+          highlight: 'se couchera',
+        },
       ],
     },
     {
@@ -814,6 +1218,21 @@ export const troisFutursLesson: TenseLesson = {
           fr: 'Je pars demain pour Montréal, où je vais chercher un logement et où je m’établirai à long terme.',
           zh: '我明天出发去蒙特利尔，在那里找房子，并在那里长期定居。',
           highlight: 'm’établirai',
+        },
+        {
+          fr: 'Je vais passer à la banque ce midi, puis je réglerai la facture d’électricité sur le portail en ligne ce soir.',
+          zh: '我今天中午去一趟银行，然后今晚在网络门户上支付电费账单。',
+          highlight: 'vais passer',
+        },
+        {
+          fr: 'Nous allons visiter trois appartements ce samedi et nous choisirons notre nouveau logement avant la fin du mois.',
+          zh: '我们这周六去看三套公寓，然后在月底之前敲定我们的新住所。',
+          highlight: 'allons visiter',
+        },
+        {
+          fr: 'Le médecin va examiner vos radiographies cet après-midi et il vous transmettra son diagnostic définitif demain matin.',
+          zh: '医生今天下午会先查看您的拍片结果，明早会向您出具最终诊断。',
+          highlight: 'va examiner',
         },
       ],
     },
@@ -855,6 +1274,42 @@ export const troisFutursLesson: TenseLesson = {
         highlight: 'connaîtra',
       },
     },
+    {
+      word: 'dès que + futur simple',
+      meaningZh: '一……就……（从句强制简单将来时）',
+      example: {
+        fr: 'Dès que tu arriveras à l’aéroport, envoie-moi un message texte.',
+        zh: '你一到达机场，就给我发个短信。',
+        highlight: 'arriveras',
+      },
+    },
+    {
+      word: 'sous peu (futur proche)',
+      meaningZh: '不久 / 片刻之内（口语即时）',
+      example: {
+        fr: 'Le facteur va sonner à votre porte sous peu pour le colis.',
+        zh: '邮递员片刻后就会敲您的门派送包裹。',
+        highlight: 'va sonner',
+      },
+    },
+    {
+      word: 'l’année prochaine (futur simple)',
+      meaningZh: '明年（中长期明确规划）',
+      example: {
+        fr: 'L’année prochaine, elle commencera ses études universitaires à McGill.',
+        zh: '明年，她将在麦吉尔大学开始大学学业。',
+        highlight: 'commencera',
+      },
+    },
+    {
+      word: 'ce soir (présent avec horaire)',
+      meaningZh: '今晚（已确定的日程安排）',
+      example: {
+        fr: 'Ce soir, nous prenons le souper chez nos grands-parents à dix-neuf heures.',
+        zh: '今晚七点我们在祖父母家吃晚饭。',
+        highlight: 'prenons',
+      },
+    },
   ],
   commonMistakes: [
     {
@@ -879,6 +1334,18 @@ export const troisFutursLesson: TenseLesson = {
       right: 'Regarde le ciel : il va neiger !',
       explanationZh: '根据眼前显而易见的客观迹象（乌云密布）作出的即时预判，必须使用最近将来时 il va neiger！',
       noteZh: '根据眼前乌云预判',
+    },
+    {
+      wrong: 'Lorsque le train va arriver, nous monterons à bord.',
+      right: 'Lorsque le train arrivera, nous monterons à bord.',
+      explanationZh: 'lorsque 引导的将来时间状语从句中，语法上强制使用简单将来时（arrivera），不可使用最近将来时。',
+      noteZh: 'lorsque 从句误用最近将来时',
+    },
+    {
+      wrong: 'S’il fera beau demain, nous ferons un pique-nique.',
+      right: 'S’il fait beau demain, nous ferons un pique-nique.',
+      explanationZh: 'si 表示假设时，从句绝不能用将来时，必须用直陈式现在时：s’il fait beau。',
+      noteZh: 'si 从句误用简单将来时',
     },
   ],
   questions: [
@@ -978,6 +1445,54 @@ export const troisFutursLesson: TenseLesson = {
       acceptedAnswers: ['va pleuvoir'],
       explanationZh: '根据乌云作出的即刻预判：va pleuvoir。',
     },
+    {
+      id: 'trois-f-q13',
+      type: 'choice',
+      prompt: 'Lorsque les résultats (être) ___ officiellement proclamés, nous fêterons la nouvelle ensemble.',
+      options: ['seront', 'vont être', 'sont', 'seraient'],
+      correctAnswer: 'seront',
+      explanationZh: 'lorsque 引导的将来时间从句中，必须使用简单将来时：seront。',
+    },
+    {
+      id: 'trois-f-q14',
+      type: 'fill',
+      prompt: 'Ce soir, je (aller + préparer) ___ une délicieuse tourtière pour nos invités québécois.（填入最近将来时）',
+      correctAnswer: 'vais préparer',
+      acceptedAnswers: ['vais préparer'],
+      explanationZh: '今晚的个人近期待办事项，使用最近将来时：vais préparer。',
+    },
+    {
+      id: 'trois-f-q15',
+      type: 'choice',
+      prompt: 'Si le verglas persiste sur les trottoirs, la ville (répandre) ___ du sel dans toutes les rues.',
+      options: ['répandra', 'va répandre', 'répand', 'répandrait'],
+      correctAnswer: 'répandra',
+      explanationZh: 'si + présent，主句标准对应简单将来时：répandra。',
+    },
+    {
+      id: 'trois-f-q16',
+      type: 'fill',
+      prompt: 'Dès que nous (recevoir) ___ notre bail signé, nous irons chercher les clés de l’appartement.（填入简单将来时）',
+      correctAnswer: 'recevrons',
+      acceptedAnswers: ['recevrons'],
+      explanationZh: 'dès que 引导的时间从句表将来，使用简单将来时 recevrons。',
+    },
+    {
+      id: 'trois-f-q17',
+      type: 'choice',
+      prompt: 'Prends ton parapluie : regarde le ciel noir, il (pleuvoir) ___ à coup sûr !',
+      options: ['va pleuvoir', 'pleuvra', 'pleut', 'pleuvait'],
+      correctAnswer: 'va pleuvoir',
+      explanationZh: '眼见黑云即将下雨的客观直接迹象，使用最近将来时 va pleuvoir。',
+    },
+    {
+      id: 'trois-f-q18',
+      type: 'fill',
+      prompt: 'Dans vingt ans, cette métropole (accueillir) ___ plus de trois millions d’habitants.（长远宏观展望，填入简单将来时）',
+      correctAnswer: 'accueillera',
+      acceptedAnswers: ['accueillera'],
+      explanationZh: '长远宏观规划预测使用简单将来时：accueillera。',
+    },
   ],
 }
 
@@ -1027,6 +1542,21 @@ export const actionsImmediatesLesson: TenseLesson = {
           zh: '我们刚吃完晚饭，正在收拾厨房，马上就要看新闻了。',
           highlight: 'sommes en train de ranger',
         },
+        {
+          fr: 'Le médecin vient de poser son stéthoscope, il est en train d’écrire l’ordonnance et il va vous l’expliquer.',
+          zh: '医生刚放下听诊器，正在开处方，马上会向您解释用法。',
+          highlight: 'est en train d’écrire',
+        },
+        {
+          fr: 'Les déménageurs viennent de charger le camion, ils sont en train de rouler vers notre nouvelle adresse et ils vont arriver dans une heure.',
+          zh: '搬家师傅们刚装完车，正在赶往我们的新住址，一小时后就会到达。',
+          highlight: 'viennent de charger',
+        },
+        {
+          fr: 'Mon frère vient de réussir son entrevue, il est en train de fêter ça au restaurant et il va signer son contrat demain.',
+          zh: '我哥哥刚通过面试，正在餐馆庆祝，明天马上就要签合同了。',
+          highlight: 'va signer',
+        },
       ],
     },
     {
@@ -1053,6 +1583,21 @@ export const actionsImmediatesLesson: TenseLesson = {
           fr: 'Rappelle-moi dans cinq minutes : je vais monter dans le métro et la connexion va couper.',
           zh: '过五分钟打给我：我马上要进地铁了，信号马上会断掉。',
           highlight: 'vais monter',
+        },
+        {
+          fr: 'Laisse-moi terminer ma phrase : je suis en train d’enregistrer un message vocal important.',
+          zh: '让我把这句话讲完：我正在录制一条重要的语音留言。',
+          highlight: 'suis en train d’enregistrer',
+        },
+        {
+          fr: 'Ne viens pas tout de suite à la cuisine : je viens de nettoyer le carrelage et le sol est très glissant.',
+          zh: '先别进厨房：我刚拖完地砖，地面非常滑。',
+          highlight: 'viens de nettoyer',
+        },
+        {
+          fr: 'Éteins la télévision deux minutes : le livreur va sonner à l’interphone.',
+          zh: '把电视关两分钟：送货员马上要按对讲门铃了。',
+          highlight: 'va sonner',
         },
       ],
     },
@@ -1081,6 +1626,21 @@ export const actionsImmediatesLesson: TenseLesson = {
           zh: '官员当时正核对我的材料，就在这时电脑系统崩溃了。',
           highlight: 'était en train de vérifier',
         },
+        {
+          fr: 'Le facteur venait de déposer le paquet sur le perron quand notre gros chien s’est mis à aboyer.',
+          zh: '邮递员刚把包裹放在门廊台阶上，我们的大狗就叫了起来。',
+          highlight: 'venait de déposer',
+        },
+        {
+          fr: 'Le garagiste était en train de vérifier les freins quand le propriétaire du véhicule est arrivé à l’atelier.',
+          zh: '修车师傅正在检查刹车系统时，车主来到了车间。',
+          highlight: 'était en train de vérifier',
+        },
+        {
+          fr: 'Nous allions éteindre les lumières du salon quand nous avons entendu frapper à la porte d’entrée.',
+          zh: '我们正打算关客厅的灯，就听到有人敲大门。',
+          highlight: 'allions éteindre',
+        },
       ],
     },
     {
@@ -1108,6 +1668,21 @@ export const actionsImmediatesLesson: TenseLesson = {
           zh: '他们此刻正为分担家务琐事激烈争吵着。',
           highlight: 'sont en train de se disputer',
         },
+        {
+          fr: 'Elle vient de se laver les mains avec du savon désinfectant avant de passer à table.',
+          zh: '在就餐前，她刚用消毒皂洗过手。',
+          highlight: 'vient de se laver',
+        },
+        {
+          fr: 'Les enfants sont en train de s’amuser paisiblement dans la cour de l’école de quartier.',
+          zh: '孩子们正在街区学校的操场上安安静静地玩耍。',
+          highlight: 'sont en train de s’amuser',
+        },
+        {
+          fr: 'Nous allons nous renseigner auprès du comptoir d’accueil pour obtenir le bon formulaire.',
+          zh: '我们马上就去接待柜台咨询，以领取正确的表格。',
+          highlight: 'allons nous renseigner',
+        },
       ],
     },
     {
@@ -1134,6 +1709,21 @@ export const actionsImmediatesLesson: TenseLesson = {
           fr: 'Je suis en train de remplir la déclaration de sinistre pour mon assurance habitation.',
           zh: '我此刻正在填写房屋保险理赔申报单。',
           highlight: 'suis en train de remplir',
+        },
+        {
+          fr: 'Les pompiers viennent de maîtriser le début d’incendie dans le bâtiment voisin.',
+          zh: '消防队员刚刚控制住了隔壁大楼的初起火情。',
+          highlight: 'viennent de maîtriser',
+        },
+        {
+          fr: 'L’électricien est en train de remplacer le disjoncteur défectueux dans le panneau principal.',
+          zh: '电工师傅正在配电箱主板上更换有故障的断路器。',
+          highlight: 'est en train de remplacer',
+        },
+        {
+          fr: 'La déneigeuse municipale va déblayer notre ruelle dans moins de dix minutes.',
+          zh: '市政扫雪车不到十分钟内就会来清理我们的小巷。',
+          highlight: 'va déblayer',
         },
       ],
     },
@@ -1175,6 +1765,42 @@ export const actionsImmediatesLesson: TenseLesson = {
         highlight: 'suis en train de cuisiner',
       },
     },
+    {
+      word: 'tout juste (passé récent)',
+      meaningZh: '刚刚 / 恰好（强调刚完成）',
+      example: {
+        fr: 'L’avion vient tout juste d’atterrir sur la piste de Dorval.',
+        zh: '飞机刚才恰好降落在多瓦尔机场的跑道上。',
+        highlight: 'vient tout juste d’atterrir',
+      },
+    },
+    {
+      word: 'actuellement (présent progressif)',
+      meaningZh: '当前 / 正在（强调动作正在发生）',
+      example: {
+        fr: 'Les techniciens sont actuellement en train d’installer la fibre optique.',
+        zh: '技术人员当前正在安装光纤网络。',
+        highlight: 'sont actuellement en train d’installer',
+      },
+    },
+    {
+      word: 'incessamment (futur proche)',
+      meaningZh: '即刻 / 马上（近未来发生）',
+      example: {
+        fr: 'Le directeur va ouvrir la séance incessamment, veuillez vous asseoir.',
+        zh: '主任马上就会宣布开会，请各位就座。',
+        highlight: 'va ouvrir',
+      },
+    },
+    {
+      word: 'au même moment (progressif au passé)',
+      meaningZh: '在同一时刻（过去正在进行）',
+      example: {
+        fr: 'Au même moment, elle était en train de taper son rapport de fin d’études.',
+        zh: '在同一时刻，她正忙着敲打她的毕业设计报告。',
+        highlight: 'était en train de taper',
+      },
+    },
   ],
   commonMistakes: [
     {
@@ -1196,6 +1822,18 @@ export const actionsImmediatesLesson: TenseLesson = {
       wrong: 'Il vient d’arrivé il y a cinq minutes.',
       right: 'Il vient d’arriver il y a cinq minutes.',
       explanationZh: 'venir de 后面必须接原形动词 arriver，绝对不能接过去分词 arrivé！',
+    },
+    {
+      wrong: 'Nous sommes en train de se reposer après le voyage.',
+      right: 'Nous sommes en train de nous reposer après le voyage.',
+      explanationZh: '自反代词必须与主语人称一致：nous 对应 nous，不能用 se：nous sommes en train de nous reposer。',
+      noteZh: '代词动词人称不一致',
+    },
+    {
+      wrong: 'Ils allaient de partir quand le coursier est arrivé.',
+      right: 'Ils allaient partir quand le coursier est arrivé.',
+      explanationZh: 'aller 表将来时后面直接接动词原形，绝不能加介词 de：ils allaient partir。',
+      noteZh: 'aller 后多加了 de',
     },
   ],
   questions: [
@@ -1295,6 +1933,54 @@ export const actionsImmediatesLesson: TenseLesson = {
       acceptedAnswers: ['étais en train de prendre'],
       explanationZh: '当时正冲着澡：étais en train de prendre。',
     },
+    {
+      id: 'immed-q13',
+      type: 'choice',
+      prompt: 'Ne faites pas de bruit : le bébé (s’endormir) ___ dans son berceau.',
+      options: ['vient de s’endormir', 'va s’endormir', 'est en train de s’endormir', 's’endormira'],
+      correctAnswer: 'vient de s’endormir',
+      explanationZh: '请别出声，婴儿刚刚在摇篮里睡着：vient de s’endormir。',
+    },
+    {
+      id: 'immed-q14',
+      type: 'fill',
+      prompt: 'Nous (se dépêcher) ___ pour ne pas rater le dernier métro de la soirée !（填入 allons + 代词 + 原形）',
+      correctAnswer: 'allons nous dépêcher',
+      acceptedAnswers: ['allons nous dépêcher'],
+      explanationZh: '我们马上得抓紧赶路：allons nous dépêcher。',
+    },
+    {
+      id: 'immed-q15',
+      type: 'choice',
+      prompt: 'Quand l’inspecteur est entré dans l’atelier, les mécaniciens (vérifier) ___ le moteur d’un camion.',
+      options: ['étaient en train de vérifier', 'sont en train de vérifier', 'viennent de vérifier', 'allaient vérifier'],
+      correctAnswer: 'étaient en train de vérifier',
+      explanationZh: '检查官进车间时，机械师们当时正在检查发动机：étaient en train de vérifier。',
+    },
+    {
+      id: 'immed-q16',
+      type: 'fill',
+      prompt: 'Le médecin (examiner) ___ un autre patient pour le moment ; prenez place dans la salle d’attente.（填入 est en train d’ + 原形）',
+      correctAnswer: 'est en train d’examiner',
+      acceptedAnswers: ['est en train d’examiner', 'est en train d\'examiner'],
+      explanationZh: '医生目前正给另一位患者检查：est en train d’examiner。',
+    },
+    {
+      id: 'immed-q17',
+      type: 'choice',
+      prompt: 'La cloche a sonné : les élèves (ranger) ___ leurs cahiers dans leurs sacs à dos.',
+      options: ['sont en train de ranger', 'viennent de ranger', 'allaient ranger', 'rangeraient'],
+      correctAnswer: 'sont en train de ranger',
+      explanationZh: '下课铃响了，学生们此刻正在把本子收进书包：sont en train de ranger。',
+    },
+    {
+      id: 'immed-q18',
+      type: 'fill',
+      prompt: 'Je (poser) ___ ma démission ce matin ; je vais commencer une nouvelle aventure professionnelle.（填入 vient de / viens de + 原形）',
+      correctAnswer: 'viens de poser',
+      acceptedAnswers: ['viens de poser'],
+      explanationZh: '我今天早晨刚刚递交了辞呈：viens de poser。',
+    },
   ],
 }
 
@@ -1346,6 +2032,21 @@ export const phrasesAvecSiLesson: TenseLesson = {
           zh: '如果火车晚点，我就坐地铁以便准时到达办公室。',
           highlight: 'prendrai',
         },
+        {
+          fr: 'Si vous déménagez à Montréal, vous découvrirez une vie culturelle très vibrante.',
+          zh: '如果您搬到蒙特利尔，您就会发现这里极为丰富多元的文化生活。',
+          highlight: 'découvrirez',
+        },
+        {
+          fr: 'Si les enfants ont faim en rentrant de l’école, donne-leur une pomme ou du fromage.',
+          zh: '如果孩子们放学回家觉得饿，给他们一个苹果或奶酪。',
+          highlight: 'donne-leur',
+        },
+        {
+          fr: 'Si le garagiste termine la vidange avant midi, nous partirons immédiatement vers Québec.',
+          zh: '如果修车师傅中午前换完机油，我们立刻动身去魁北克市。',
+          highlight: 'partirons',
+        },
       ],
     },
     {
@@ -1372,6 +2073,21 @@ export const phrasesAvecSiLesson: TenseLesson = {
           fr: 'À votre place, si j’étais convoqué à l’entrevue, je me préparerais minutieusement.',
           zh: '换作我是您，如果我被通知去面试，我就会细致周密地准备。',
           highlight: 'me préparerais',
+        },
+        {
+          fr: 'Si mon horaire de travail était plus flexible, je ferais du bénévolat dans un refuge animalier.',
+          zh: '如果我的工作时间更灵活一些，我就会去动物收容所做义工。',
+          highlight: 'ferais',
+        },
+        {
+          fr: 'Si nous avions un grand balcon ensoleillé, nous ferions pousser des herbes aromatiques et des tomates.',
+          zh: '如果我们有一个阳光充沛的大阳台，我们就会种些香草和西红柿。',
+          highlight: 'ferions pousser',
+        },
+        {
+          fr: 'Si vous connaissiez son adresse exacte à Sherbrooke, vous pourriez lui envoyer ce colis postal.',
+          zh: '要是您知道他在舍布鲁克的准确地址，您就能把这个邮包寄给他了。',
+          highlight: 'pourriez',
         },
       ],
     },
@@ -1400,6 +2116,21 @@ export const phrasesAvecSiLesson: TenseLesson = {
           zh: '要是您当时告知了我们会晚到，我们本来会在车站等您的。',
           highlight: 'aurions attendus',
         },
+        {
+          fr: 'Si le train n’avait pas été retardé par la tempête, les conférenciers seraient arrivés à l’heure.',
+          zh: '如果火车当时没有因风暴延误，主讲人们本来会准时到达的。',
+          highlight: 'seraient arrivés',
+        },
+        {
+          fr: 'Si j’avais su que ce restaurant servait une si bonne poutine, je l’aurais commandée.',
+          zh: '要是我早知道这家餐馆提供这么地道的肉汁奶酪薯条，我本来就会点一份的。',
+          highlight: 'aurais commandée',
+        },
+        {
+          fr: 'Si nous n’avions pas oublié notre glacière au chalet, nous aurions pique-niqué au bord du lac.',
+          zh: '要是我们当时没把保温箱忘在木屋里，我们本来会在湖边野餐的。',
+          highlight: 'aurions pique-niqué',
+        },
       ],
     },
     {
@@ -1427,6 +2158,21 @@ export const phrasesAvecSiLesson: TenseLesson = {
           zh: '要是今年春天能来得更快一些该多好啊！',
           highlight: 'pouvait',
         },
+        {
+          fr: 'Si on réservait nos places pour le festival de jazz avant que tous les billets soient vendus ?',
+          zh: '咱们赶在门票售罄前把爵士节的座位预订了怎么样？',
+          highlight: 'réservait',
+        },
+        {
+          fr: 'Si on demandait des conseils au conseiller d’orientation professionnelle du collège ?',
+          zh: '咱们去向学院的职业指导顾问咨询一下怎么样？',
+          highlight: 'demandait',
+        },
+        {
+          fr: 'Si seulement nous avions un peu plus de temps pour visiter le musée des beaux-arts !',
+          zh: '要是我们能有再多一点时间参观美术馆该多好啊！',
+          highlight: 'avions',
+        },
       ],
     },
     {
@@ -1453,6 +2199,21 @@ export const phrasesAvecSiLesson: TenseLesson = {
           fr: 'Si tu avais économisé davantage l’été passé, tu aurais plus d’argent de côté en ce moment.',
           zh: '要是你去年夏天多攒了些钱，你此刻手头就会有更多积蓄。',
           highlight: 'aurais',
+        },
+        {
+          fr: 'Si j’avais appris à patiner dès mon enfance, je glisserais avec assurance sur la glace aujourd’hui.',
+          zh: '如果我从小就学会了滑冰，我现在在冰面上滑行就会自信自如。',
+          highlight: 'glisserais',
+        },
+        {
+          fr: 'Si l’ingénieur avait accepté ce poste l’an dernier, il dirigerait le département aujourd’hui.',
+          zh: '如果那位工程师去年接受了这个职位，他今天就已经在领导这个部门了。',
+          highlight: 'dirigerait',
+        },
+        {
+          fr: 'Si nous n’avions pas signé ce bail avantageux il y a deux ans, nous paierions un loyer bien plus élevé aujourd’hui.',
+          zh: '要是我们两年前没有签下这份优惠的租约，我们现在每个月要付高得多的房租。',
+          highlight: 'paierions',
         },
       ],
     },
@@ -1494,6 +2255,42 @@ export const phrasesAvecSiLesson: TenseLesson = {
         highlight: 's’arrêtait',
       },
     },
+    {
+      word: 'si seulement + plus-que-parfait',
+      meaningZh: '要是当时……就好了（过去遗憾叹息）',
+      example: {
+        fr: 'Si seulement nous avions réservé plus tôt notre traversier pour Tadoussac !',
+        zh: '要是我们当时早点预订去塔杜萨克的轮渡该多好啊！',
+        highlight: 'avions réservé',
+      },
+    },
+    {
+      word: 'si + présent -> impératif',
+      meaningZh: '如果……就……（直接指示/建议）',
+      example: {
+        fr: 'Si vous avez des questions sur le formulaire, appelez sans tarder notre ligne d’aide.',
+        zh: '如果您对表格有疑问，请立刻拨打我们的求助热线。',
+        highlight: 'appelez',
+      },
+    },
+    {
+      word: 'si + PQP -> conditionnel présent',
+      meaningZh: '混合条件句（过去原因影响现在状态）',
+      example: {
+        fr: 'Si tu avais validé ton diplôme à temps, tu travaillerais comme ingénieur à présent.',
+        zh: '如果你当时按时完成了文凭认证，你现在就已经在做工程师了。',
+        highlight: 'travaillerais',
+      },
+    },
+    {
+      word: 'si seulement + imparfait',
+      meaningZh: '要是现在……该多好（现实愿望）',
+      example: {
+        fr: 'Si seulement il faisait un peu plus chaud dans cet appartement ancien !',
+        zh: '要是这套老房子里能再暖和一点该多好啊！',
+        highlight: 'faisait',
+      },
+    },
   ],
   commonMistakes: [
     {
@@ -1516,6 +2313,18 @@ export const phrasesAvecSiLesson: TenseLesson = {
       right: 'S’il fait beau, nous irons à la plage.',
       noteZh: '主从句时态错配',
       explanationZh: 'si + présent 对应的是将来的结果，主句必须用简单将来时 irons，不能错用过去时 allions。',
+    },
+    {
+      wrong: 'Si nous aurions le temps, nous ferions une randonnée.',
+      right: 'Si nous avions le temps, nous ferions une randonnée.',
+      explanationZh: '“si 从句绝不带 -rais”！与现在相反假设中，si 从句必须用未完成过去时：si nous avions le temps。',
+      noteZh: 'si 从句误用条件式现在时',
+    },
+    {
+      wrong: 'Si tu avais faim tout à l’heure, mange quelque chose.',
+      right: 'Si tu as faim tout de suite, mange quelque chose.',
+      explanationZh: '主句用命令式表示当下指令，si 从句必须用直陈式现在时：si tu as faim。',
+      noteZh: '现在指示误配过去从句',
     },
   ],
   questions: [
@@ -1614,6 +2423,54 @@ export const phrasesAvecSiLesson: TenseLesson = {
       correctAnswer: 'serions',
       acceptedAnswers: ['serions'],
       explanationZh: '混合条件句：过去假设（si + PQP）影响现在状态（aujourd’hui），主句用条件式现在时：serions。',
+    },
+    {
+      id: 'si-q13',
+      type: 'choice',
+      prompt: 'Si vous trouvez un portefeuille égaré dans l’autobus, (remettre) ___-le au chauffeur.',
+      options: ['remettez', 'remettrez', 'remettiez', 'remettriez'],
+      correctAnswer: 'remettez',
+      explanationZh: 'si + présent 后面的主句，直接指令使用命令式：remettez-le。',
+    },
+    {
+      id: 'si-q14',
+      type: 'fill',
+      prompt: 'Si j’ (avoir) ___ son numéro de téléphone, je lui téléphonerais dès maintenant.（与现在事实相反假设，填入未完成过去时）',
+      correctAnswer: 'avais',
+      acceptedAnswers: ['avais'],
+      explanationZh: '主句为 téléphonerais，si 从句使用未完成过去时：si j’avais。',
+    },
+    {
+      id: 'si-q15',
+      type: 'choice',
+      prompt: 'Si on (faire) ___ une pause café de dix minutes avant d’attaquer la seconde partie du travail ?',
+      options: ['faisait', 'fait', 'ferait', 'fera'],
+      correctAnswer: 'faisait',
+      explanationZh: '« Si on + imparfait ? » 用于提出温和友善的提议：si on faisait。',
+    },
+    {
+      id: 'si-q16',
+      type: 'fill',
+      prompt: 'Si nous (partir) ___ dix minutes plus tôt ce matin, nous n’aurions pas raté la correspondance.（与过去事实相反，填入愈过去时）',
+      correctAnswer: 'étions partis',
+      acceptedAnswers: ['étions partis'],
+      explanationZh: 'partir 用 être 作助动词，主句为 n’aurions pas raté，si 从句用愈过去时：étions partis。',
+    },
+    {
+      id: 'si-q17',
+      type: 'choice',
+      prompt: 'Si tu n’avais pas manqué ton vol de correspondance hier, tu (être) ___ avec nous à Québec aujourd’hui.',
+      options: ['serais', 'aurais été', 'étais', 'seras'],
+      correctAnswer: 'serais',
+      explanationZh: '混合条件句：过去没赶上飞机影响现在的状态（aujourd’hui），主句用条件式现在时：serais。',
+    },
+    {
+      id: 'si-q18',
+      type: 'fill',
+      prompt: 'Si les conditions routières sont dangereuses sur l’autoroute, (ralentir) ___ votre vitesse.（主句发出直接指示，填入命令式 vous）',
+      correctAnswer: 'ralentissez',
+      acceptedAnswers: ['ralentissez'],
+      explanationZh: 'si + présent 之后给出安全提醒指令，使用命令式：ralentissez。',
     },
   ],
 }
