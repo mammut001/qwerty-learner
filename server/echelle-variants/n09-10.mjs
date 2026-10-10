@@ -1,0 +1,1226 @@
+// Échelle québécoise scenarios for Niveau 9 and Niveau 10 indicators.
+// Covers both official situations types (examples) for every listening and reading indicator.
+// Content batch for Niveau 9 and Niveau 10.
+
+export const N09_10_SCENARIOS = {
+  "n9-listening-0": [
+    {
+      "situation": 0,
+      "text": "Bienvenue à notre segment économique hebdomadaire. Ce matin, nous nous penchons sur la trajectoire des finances publiques du Québec, à la suite du dépôt du dernier rapport du vérificateur général. Contrairement aux discours enthousiastes entendus lors du dévoilement budgétaire, les prévisions de surplus semblent reposer sur des hypothèses de croissance particulièrement généreuses. Certes, les recettes fiscales ont progressé de manière notable au cours des deux derniers trimestres, notamment sous l’effet de la consommation soutenue des ménages. Toutefois, la facture du service de la dette s’alourdit rapidement sous la pression des taux d’intérêt élevés, ce qui rogne la marge de manœuvre gouvernementale. Dès lors, si un ralentissement économique devait survenir d’ici la fin de l’exercice, l’État se trouverait contraint d’arbitrer entre le report de chantiers routiers majeurs et une révision de ses engagements financiers en santé. Cette équation complexe met en lumière la fragilité d’un équilibre budgétaire dopé par l’inflation récente. De surcroît, les négociations salariales dans le secteur public ajouteront une pression structurelle permanente sur les dépenses de fonctionnement de l’appareil étatique. Dans ce contexte mouvant, plusieurs économistes réputés s’interrogent sur la pertinence de maintenir les baisses d’impôt annoncées l’an dernier.",
+      "questions": [
+        [
+          "Quelle est la préoccupation centrale soulevée par le chroniqueur ?",
+          "La vulnérabilité des prévisions budgétaires face aux aléas de la conjoncture",
+          "L’interruption immédiate des chantiers autoroutiers sur l’ensemble du territoire",
+          "La réduction historique et inédite des impôts accordée à tous les contribuables"
+        ],
+        [
+          "Comment la réflexion économique progresse-t-elle dans cette chronique ?",
+          "Une apparente réussite fiscale est contrastée avec des risques financiers profonds",
+          "Un succès budgétaire éclatant est défendu contre des attaques politiques partisanes",
+          "Une liste de coupures drastiques est annoncée avant tout examen des comptes publics"
+        ],
+        [
+          "Quel constat implicite découle des propos sur les baisses d’impôt ?",
+          "Ce choix politique prive l’État de revenus précieux pour ses services essentiels",
+          "Cette stratégie fiscale garantit une relance spectaculaire des investissements privés",
+          "Cette baisse fiscale a déjà réglé l’ensemble des litiges avec le secteur public"
+        ],
+        [
+          "Que connote le terme « enthousiastes » dans ce contexte précis ?",
+          "Un optimisme officiel excessif masquant les faiblesses réelles du cadre financier",
+          "Une victoire diplomatique majeure remportée face aux partenaires de la fédération",
+          "Un accord parfait et unanime conclu entre les ministères et les syndicats"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "Vous pénétrez maintenant dans la salle dédiée à l’effervescence musicale des années 1970 au Québec. À cette époque charnière, un véritable renouveau esthétique s’opère dans le paysage sonore québécois. Délaissant les formats traditionnels de la chansonnette de variétés, les créateurs s’approprient les codes du rock progressif et du jazz fusion pour bâtir une couleur acoustique singulière. L’utilisation pionnière de synthétiseurs analogiques, combinée aux envolées de guitares électriques et aux percussions traditionnelles de chez nous, crée une texture sonore inédite. Cette hybridité stylistique s’est largement forgée au mythique studio de Morin-Heights, perché dans les Laurentides, devenu un haut lieu d’expérimentation technique internationale. Les ingénieurs du son y repoussaient les limites de l’enregistrement multipiste en plaçant des microphones dans des cages d’escalier pour capter une réverbération naturelle. Pourtant, loin de n’être qu’une prouesse technique, ce mouvement traduisait surtout une recherche identitaire collective et une volonté d’affirmation culturelle. En écoutant l’extrait diffusé à votre droite, remarquez la complexité des métriques asymétriques qui défiaient les règles commerciales des radios grand public de l’époque, marquant un tournant décisif dans l’histoire de notre chanson.",
+      "questions": [
+        [
+          "Quel est le propos fondamental de cette étape de la visite audioguidée ?",
+          "L’émancipation esthétique et culturelle de la musique québécoise des années 1970",
+          "L’échec commercial retentissant des albums expérimentaux sur le marché des radios",
+          "Le retour exclusif aux instruments folkloriques acoustiques d’avant la modernité"
+        ],
+        [
+          "De quelle manière l’explication technique est-elle articulée dans l’extrait ?",
+          "Les innovations de studio sont reliées à un mouvement d’affirmation socioculturelle",
+          "La technologie audio est présentée comme un simple divertissement sans portée sociale",
+          "Une querelle entre producteurs new-yorkais et musiciens québécois est décrite en détail"
+        ],
+        [
+          "Que laisse entendre le commentaire sur les métriques asymétriques ?",
+          "Les créateurs privilégiaient l’intégrité artistique plutôt que les passages radiophoniques",
+          "Les artistes cherchaient absolument à concevoir des succès faciles pour les boîtes de nuit",
+          "Les stations radiophoniques refusaient systématiquement de diffuser des chansons en français"
+        ],
+        [
+          "Dans cet extrait, quel est le sens du terme « renouveau » ?",
+          "Une transformation profonde rompant avec les conventions musicales établies",
+          "Une séparation conflictuelle entre des compositeurs et leurs compagnies de disques",
+          "Une dégradation matérielle irrémédiable des bandes magnétiques dans les archives"
+        ]
+      ]
+    },
+    {
+      "situation": 0,
+      "text": "Revenons à l’actualité municipale dans notre bulletin économique régional. Plusieurs grandes villes québécoises ont récemment affiché des surplus financiers considérables à la clôture de leurs états financiers annuels. Si certains élus municipaux s’empressent de vanter une gestion rigoureuse des deniers publics, les spécialistes des finances locales invitent plutôt à la plus grande prudence. En réalité, une part substantielle de ces excédents découle de l’incapacité administrative à concrétiser les investissements prévus dans les infrastructures d’eau potable et de voirie urbaine. Faute de main-d’œuvre qualifiée et devant la flambée des coûts des soumissions dans le domaine de la construction, de nombreux chantiers urgents ont été reportés sine die. Autrement dit, ce surplus temporaire constitue la contrepartie comptable d’un déficit d’entretien bien tangible qui ne manquera pas de resurgir avec acuité au cours des prochaines années. Si les canalisations souterraines continuent de se détériorer sans intervention majeure, les réparations d’urgence coûteront considérablement plus cher aux contribuables québécois. Les experts recommandent donc de mettre ces sommes en réserve plutôt que d’envisager des allégements fiscaux électoralistes à court terme.",
+      "questions": [
+        [
+          "Quelle analyse centrale le chroniqueur présente-t-il au sujet des surplus municipaux ?",
+          "Ces excédents masquent un retard dangereux dans la rénovation des infrastructures",
+          "Ces sommes démontrent l’efficacité remarquable des nouvelles méthodes administratives",
+          "Ces surplus permettront de réduire durablement le fardeau fiscal des ménages québécois"
+        ],
+        [
+          "Quelle démarche argumentative soutient cette chronique économique ?",
+          "La déconstruction d’une apparence positive à la lumière des défaillances concrètes",
+          "Une condamnation morale sans nuance de l’ensemble des entrepreneurs en construction",
+          "Un éloge enthousiaste des gels de taxes foncières appliqués dans les grandes villes"
+        ],
+        [
+          "Que sous-entend la mise en garde concernant la dégradation des canalisations ?",
+          "Reporter les investissements engendre des dépenses futures beaucoup plus lourdes",
+          "Les municipalités québécoises ne disposent d’aucun réseau d’approvisionnement en eau",
+          "Les ingénieurs municipaux refusent désormais de travailler sur les chantiers publics"
+        ],
+        [
+          "Dans ce contexte, que signifie l’expression « contrepartie comptable » ?",
+          "Le reflet purement chiffré dissimulant une accumulation de dégradations réelles",
+          "Une amende financière imposée par le gouvernement pour sanctionner un retard injustifié",
+          "Un dividende généreux versé aux contribuables sous la forme d’un crédit d’impôt"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "Poursuivons notre parcours audioguidé en explorant l’essor de la musique électroacoustique à l’Université de Montréal durant les années 1960. À cette époque d’intense bouillonnement académique, une poignée de compositeurs visionnaires décident d’abandonner la notation musicale conventionnelle pour sculpter directement la matière sonore à partir de générateurs de fréquences et de bandes magnétiques. En découpant manuellement des rubans et en modifiant les vitesses de défilement, ces créateurs inventent des univers acoustiques déroutants où le bruit industriel se métamorphose en poésie sonore. Les studios universitaires montréalais deviennent ainsi des laboratoires de recherche sonore de réputation internationale, attirant des compositeurs européens et latino-américains. Cette démarche d’avant-garde ne visait pas à séduire les foules, mais à redéfinir la perception auditive du public en pulvérisant les cadres spatiaux traditionnels du concert classique. Grâce à la spatialisation du son sur plusieurs haut-parleurs disposés autour de la salle, l’auditeur se trouvait littéralement enveloppé au cœur du phénomène vibratoire. Prenez un instant pour écouter le court extrait qui illustre cette déconstruction audacieuse du timbre instrumental conventionnel.",
+      "questions": [
+        [
+          "Quel est le propos fondamental développé dans cette étape guidée ?",
+          "L’émergence d’une pratique sonore novatrice redéfinissant l’acte d’écoute musical",
+          "Le rejet définitif de toute forme d’art musical par les institutions universitaires",
+          "La supériorité absolue des orchestres symphoniques classiques sur les technologies modernes"
+        ],
+        [
+          "Sur quel contraste repose la présentation de ces recherches musicales ?",
+          "La rupture technique avec la tradition musicale pour renouveler l’expérience sensorielle",
+          "L’opposition irréconciliable entre les étudiants montréalais et leurs professeurs étrangers",
+          "La comparaison technique entre les microphones japonais et les magnétophones allemands"
+        ],
+        [
+          "Quel élément implicite ressort de l’utilisation de haut-parleurs multiples ?",
+          "L’auditeur cesse d’être un témoin passif pour faire partie intégrante de l’espace sonore",
+          "Les salles de concert traditionnelles devaient être immédiatement fermées au public",
+          "Les créateurs voulaient simplement masquer les bruits désagréables de la rue extérieure"
+        ],
+        [
+          "Que désigne le verbe « métamorphoser » dans ce passage audioguidé ?",
+          "Transformer une matière banale pour lui conférer une valeur artistique inédite",
+          "Détruire involontairement un enregistrement sonore lors d’une fausse manœuvre technique",
+          "Vendre des droits d’auteur à des maisons de disques commerciales pour faire fortune"
+        ]
+      ]
+    }
+  ],
+  "n9-listening-1": [
+    {
+      "situation": 0,
+      "text": "— Bonjour docteure Vachon. Vos récentes fouilles à Pointe-aux-Cascades, au confluent du fleuve Saint-Laurent et de la rivière des Outaouais, ont captivé la communauté scientifique. Racontez-nous cette découverte.\n— Bonjour. Tout a commencé par une opération de sauvetage archéologique préalable à la réfection d’une digue. Dès les premiers coups de truelle sous la couche sédimentaire du dix-neuvième siècle, notre équipe est tombée sur des éclats de poterie dont les motifs cordés ne laissaient aucun doute : nous touchions à un campement saisonnier iroquoien datant de plus de six cents ans. Ce qui nous a frappés au fil des jours, c’est la densité des foyers de cuisson et la présence d’arêtes de poisson fossilisées, révélant une organisation logistique remarquable pour le fumage du poisson lors des migrations printanières. Nous avons ensuite mis au jour des pointes de flèche taillées dans un quartzite provenant du Bouclier canadien, ce qui atteste l’existence de réseaux d’échanges commerciaux sur des centaines de kilomètres. Cependant, la montée rapide des eaux printanières nous a obligés à travailler jour et nuit pour préserver ces vestiges fragiles avant l’inondation du site. Ce fut une course contre la montre éprouvante, mais nous avons réussi à documenter un pan méconnu des occupations riveraines précoloniales.",
+      "questions": [
+        [
+          "Quel est le récit principal livré par l’archéologue durant cette entrevue ?",
+          "La mise au jour inattendue et l’excavation urgente d’un campement saisonnier ancien",
+          "L’échec des fouilles archéologiques en raison de la destruction complète des digues",
+          "La découverte fortuite d’une forteresse militaire coloniale du dix-huitième siècle"
+        ],
+        [
+          "Comment la narration des fouilles est-elle construite par la chercheuse ?",
+          "Une découverte initiale mène à des constats scientifiques puis à une tension finale",
+          "Une série de reproches administratifs est adressée aux responsables de la digue",
+          "Un exposé théorique abstrait est prononcé sans aucune référence au travail de terrain"
+        ],
+        [
+          "Que révèle implicitement la provenance du quartzite utilisé pour les pointes de flèche ?",
+          "Les populations autochtones entretenaient des contacts étendus bien au-delà de leur région",
+          "Les occupants du campement ignoraient complètement l’art de tailler la pierre locale",
+          "Les fouilleurs ont confondu des outils anciens avec des débris de construction récents"
+        ],
+        [
+          "Dans ce témoignage, que qualifie l’expression « course contre la montre » ?",
+          "L’urgence dramatique dictée par la menace imminente d’une montée soudaine des eaux",
+          "Une compétition amicale organisée entre différentes équipes universitaires en présence",
+          "Un calendrier imposé par les médias pour diffuser le reportage avant la fin du mois"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "À l’automne 2008, lorsque l’onde de choc de la tourmente financière planétaire a déferlé sur l’économie mondiale, la Mauricie s’est retrouvée aux premières loges du bouleversement. En l’espace de quelques mois, la chute brutale de la demande américaine pour le papier journal, conjuguée à la vigueur du dollar canadien, a précipité la fermeture en cascade des usines centenaires qui bordaient la rivière Saint-Maurice. Ce documentaire retrace le parcours de ces papetières légendaires où des générations d’ouvriers avaient forgé la fierté régionale. Dans les rues de Shawinigan et de Grand-Mère, le silence des sirènes d’usine résonnait comme un deuil collectif. Les commerces de détail voyaient leur chiffre d’affaires s’effondrer tandis que les jeunes diplômés songeaient massivement à quitter la région pour trouver du travail dans les grands centres urbains. Pourtant, face au désarroi, la communauté a refusé la fatalité du déclin. Des comités de diversification économique se sont constitués pour reconvertir les friches industrielles en centres d’innovation numérique et en ateliers d’usinage vert. Ce récit poignant montre comment une secousse économique dévastatrice est devenue le catalyseur d’une laborieuse renaissance industrielle qui a transformé le visage socioéconomique de toute une région québécoise.",
+      "questions": [
+        [
+          "Quel est le fil conducteur narratif de ce documentaire radiophonique ?",
+          "L’effondrement d’un secteur industriel traditionnel suivi d’un renouveau collectif",
+          "La prospérité ininterrompue des usines de pâtes et papiers au fil des décennies passées",
+          "L’exode définitif et irréversible de l’ensemble des citoyens vers les métropoles voisines"
+        ],
+        [
+          "De quelle façon le documentaire structure-t-il l’évolution de la crise régionale ?",
+          "Le choc externe initial débouche sur une détresse locale puis sur une mobilisation civique",
+          "Une analyse purement mathématique des taux bancaires est exposée sans regard humain",
+          "Un débat politique partisan oppose les ministres fédéraux aux dirigeants municipaux"
+        ],
+        [
+          "Que symbolise implicitement le silence des sirènes d’usine dans la narration ?",
+          "La fin brutale d’un mode de vie industriel qui structurait le quotidien des résidents",
+          "Une panne électrique généralisée causée par une tempête de verglas imprévue",
+          "L’adoption de nouvelles normes environnementales limitant les bruits de voisinage"
+        ],
+        [
+          "Quel sens précis revêt le mot « catalyseur » dans la conclusion du reportage ?",
+          "Un facteur déclencheur qui accélère une transformation économique inévitable",
+          "Un produit chimique dangereux responsable de la pollution des cours d’eau locaux",
+          "Un obstacle insurmontable empêchant la concrétisation des projets de reconversion"
+        ]
+      ]
+    },
+    {
+      "situation": 0,
+      "text": "— Capitaine et archéologue Renaud Beaulieu, vous revenez d’une mission subaquatique au large de Restigouche, dans la baie des Chaleurs. Quelles traces du passé avez-vous retrouvées au fond des eaux ?\n— Bonjour. Notre expédition visait à cartographier les vestiges d’un navire de ravitaillement sabordé lors de la bataille de la Ristigouche en 1760. Dès que nos plongeurs ont atteint l’épave ensevelie sous les alluvions, l’émotion était palpable à bord du bateau. Sous une visibilité quasi nulle due au courant marin, nous avons palpé la membrure de chêne remarquablement conservée grâce à l’absence d’oxygène dans la vase. En dégageant précautionneusement un secteur de la cale, nous avons extrait des caisses de fusils encore munies de leurs garnitures en laiton, ainsi que des bouteilles cachetées renfermant des huiles médicinales destinées aux troupes de la Nouvelle-France. Chaque objet remonté à la surface représentait une pièce d’un casse-tête dramatique, car cet équipage savait qu’il s’agissait du dernier convoi envoyé pour briser le blocus naval britannique. La dégradation accélérée par le réchauffement des eaux et l’érosion côtière nous imposait d’agir sans délai. Ces artefacts exceptionnels permettront de reconstituer les ultimes semaines de résistance avant la capitulation finale, apportant un éclairage intime et poignant sur cet épisode méconnu de notre histoire.",
+      "questions": [
+        [
+          "Quel est le sujet central du témoignage livré par l’archéologue sous-marin ?",
+          "L’exploration émouvante d’une épave historique et le sauvetage de son précieux chargement",
+          "La découverte d’un sous-marin moderne coulé pendant un entraînement militaire régulier",
+          "Le refus catégorique des autorités maritimes de financer les opérations de plongée"
+        ],
+        [
+          "Comment l’intervenant raconte-t-il sa descente sous l’eau dans cet échange ?",
+          "Les difficultés techniques de la plongée cèdent le pas à la portée historique des trouvailles",
+          "Une série de plaintes logistiques est formulée contre le manque d’équipement adéquat",
+          "Un cours de chimie marine sur la salinité est donné sans référence à l’épave explorée"
+        ],
+        [
+          "Que souligne implicitement le bon état de conservation de la membrure de chêne ?",
+          "L’environnement vaseux et anoxique du fond marin a protégé le bois durant des siècles",
+          "Les constructeurs navals du dix-huitième siècle utilisaient des vernis chimiques modernes",
+          "Le navire avait été coulé seulement quelques années avant le début des recherches"
+        ],
+        [
+          "Dans ce contexte de fouilles sous-marines, que signifie le terme « sabordé » ?",
+          "Coulé volontairement par son propre équipage pour empêcher sa capture par l’ennemi",
+          "Détruit accidentellement par un incendie incontrôlable survenu dans la salle des machines",
+          "Vendu clandestinement à des marchands étrangers pour réaliser un profit financier personnel"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "Au début des années 1970, Montréal vivait au rythme d’une expansion autoroutière sans précédent, façonnée par le rêve de l’automobile toute-puissante. Pourtant, à l’automne 1973, l’embrasement géopolitique au Proche-Orient provoque une flambée spectaculaire des cours du brut, précipitant le premier choc pétrolier de l’histoire moderne. Ce documentaire sonore se plonge dans les archives de cette période de fébrilité où le prix du carburant a quadruplé en quelques semaines à peine. Du jour au lendemain, le modèle du banlieusard motorisé s’est heurté à la réalité des pénuries et des files d’attente interminables aux stations-service. Les décideurs publics montréalais, jusqu’alors hésitants, ont dû revoir de fond en comble leurs priorités d’aménagement urbain. Le projet d’extension du réseau de métro, dont certaines lignes étaient remises en question pour des raisons budgétaires, est subitement devenu une priorité nationale absolue pour désenclaver les quartiers populaires. Les autobus au diesel ont été réorganisés en couloirs réservés afin d’accueillir un afflux inédit d’usagers délaissant leur voiture personnelle. Ce tournant historique illustre comment une crise d’approvisionnement internationale a contraint une société à redécouvrir les vertus indispensables de ses réseaux de transport collectif urbains.",
+      "questions": [
+        [
+          "Quel est le récit historique déployé tout au long de ce documentaire ?",
+          "La mutation forcée des transports montréalais sous l’impact d’une crise énergétique",
+          "L’abandon définitif des transports en commun au profit des autoroutes suburbaines",
+          "La création des premières stations-service automatiques dans les quartiers de la métropole"
+        ],
+        [
+          "De quelle manière la trame historique est-elle organisée dans cette narration ?",
+          "Un modèle urbain vulnérable est bouleversé par un choc externe entraînant des réformes durables",
+          "Une polémique municipale sans issue s’éternise sans qu’aucune décision concrète ne soit prise",
+          "Une célébration inconditionnelle de l’industrie automobile américaine est présentée au public"
+        ],
+        [
+          "Que déduit-on implicitement du changement d’attitude envers l’extension du métro ?",
+          "L’urgence de la crise a balayé les réticences financières qui bloquaient les investissements",
+          "Le réseau de métro était devenu entièrement gratuit pour l’ensemble des citoyens montréalais",
+          "Les ingénieurs municipaux préconisaient l’arrêt définitif de tout chantier souterrain"
+        ],
+        [
+          "Dans ce passage, quelle nuance porte le terme « désenclaver » ?",
+          "Relier des secteurs mal desservis pour faciliter les déplacements de leur population",
+          "Construire des murs d’insonorisation le long des autoroutes traversant les banlieues",
+          "Interdire la circulation des camions de marchandises dans les ruelles résidentielles"
+        ]
+      ]
+    }
+  ],
+  "n9-listening-2": [
+    {
+      "situation": 0,
+      "text": "Bienvenue à cette séance de formation obligatoire sur l’intégrité corporative et la gestion préventive des conflits d’intérêts. En tant que gestionnaires de projets au sein de notre société parapublique québécoise, vous êtes régulièrement appelés à participer à des comités de sélection de fournisseurs et à octroyer des mandats de sous-traitance d’envergure. Il est impératif de comprendre qu’un conflit d’intérêts ne se limite pas à un gain financier direct ou illicite. La réglementation encadre également les situations de conflit apparent ou potentiel, c’est-à-dire toute circonstance où un observateur raisonnable et impartial pourrait légitimement douter de votre neutralité décisionnelle. Par exemple, si une firme candidate emploie un membre de votre famille immédiate ou une relation personnelle étroite, votre obligation légale consiste à divulguer immédiatement ce lien à votre direction et à vous récuser formellement du processus de délibération. L’omission de déclaration, même de bonne foi, constitue un manquement déontologique passible de sanctions disciplinaires sévères pouvant mener jusqu’au congédiement immédiat. Cette rigueur n’a pas pour but de sanctionner nos équipes, mais de préserver la confiance du public et la transparence de nos processus d’adjudication publique.",
+      "questions": [
+        [
+          "Quel est l’objectif fondamental poursuivi par cette formation en entreprise ?",
+          "Expliciter les obligations de neutralité et les procédures de récusation pour les gestionnaires",
+          "Interdire définitivement l’embauche de tout consultant externe pour l’ensemble des projets publics de l’État",
+          "Encourager les employés à négocier des ententes financières informelles avec leurs proches"
+        ],
+        [
+          "Comment le formateur développe-t-il la notion de conflit d’intérêts ?",
+          "Il élargit la définition au-delà du délit financier pour inclure l’apparence de partialité",
+          "Il affirme que seuls les pots-de-vin en espèces sont considérés comme des fautes graves",
+          "Il compare minutieusement les codes d’éthique de dix pays étrangers sans lien avec le Québec"
+        ],
+        [
+          "Quelle conséquence découle implicitement de l’obligation de se récuser ?",
+          "Le processus décisionnel doit se poursuivre sans aucune participation du cadre concerné",
+          "L’entreprise candidate appartenant à un proche est automatiquement disqualifiée de tous les appels d’offres",
+          "L’entreprise candidate appartenant à un proche est automatiquement disqualifiée à vie"
+        ],
+        [
+          "Dans ce contexte réglementaire, que signifie précisément le verbe « se récuser » ?",
+          "Se retirer volontairement d’une décision pour garantir l’impartialité du jugement",
+          "Contester publiquement les directives données par les avocats et les conseillers juridiques de l’entreprise",
+          "Démissionner sur-le-champ de son poste sans préavis ni compensation financière"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "Dans ce nouvel épisode de notre série documentaire sur les neurosciences de l’enfance, les chercheurs nous convient à observer les étapes charnières du développement cognitif chez les tout-petits. Dès l’âge de neuf mois, un phénomène déterminant apparaît dans les interactions quotidiennes : l’attention conjointe. Ce mécanisme correspond à la capacité du nourrisson de coordonner son regard avec celui d’un adulte vers un objet tiers, par exemple lorsqu’un parent pointe du doigt un oiseau perché sur une branche. Bien plus qu’un geste anodin, cette synchronisation visuelle marque l’entrée de l’enfant dans l’univers des symboles et de la communication intentionnelle. Des études longitudinales menées à l’Université Laval démontrent que la fréquence de ces épisodes d’attention partagée prédit avec une grande précision l’étendue du vocabulaire à l’âge de deux ans. En effet, lorsque l’adulte nomme l’objet au moment exact où l’enfant le regarde, le cerveau de ce dernier associe le son au concept visuel avec une efficacité maximale. À l’inverse, une rareté persistante de l’attention conjointe constitue souvent l’un des premiers indicateurs de fragilités dans le développement socio-émotionnel ou de particularités neurodéveloppementales nécessitant un accompagnement adapté.",
+      "questions": [
+        [
+          "Quel est le propos explicatif central de cet extrait documentaire ?",
+          "Le rôle fondamental de l’attention conjointe dans l’émergence du langage et de la cognition",
+          "La nécessité d’enseigner l’écriture formelle aux nourrissons bien avant l’âge de dix-huit mois révolus",
+          "L’inutilité des interactions verbales précoces entre les parents et leurs jeunes enfants"
+        ],
+        [
+          "Comment les spécialistes articulent-ils leur raisonnement scientifique ?",
+          "Un comportement observable chez l’enfant est relié à des apprentissages cognitifs ultérieurs",
+          "Une critique sévère et sans appel des méthodes pédagogiques traditionnelles appliquées en garderie éducative",
+          "Les résultats de tests de quotient intellectuel pour bébés sont énumérés sans explication"
+        ],
+        [
+          "Que déduit-on implicitement de l’importance du pointage parental ?",
+          "La réactivité de l’adulte joue un rôle déterminant dans la construction du lexique enfantin",
+          "Les enfants apprennent à parler de manière optimale en regardant seuls des vidéos éducatives",
+          "Le geste de pointer doit être corrigé par les éducatrices pour éviter de mauvaises habitudes"
+        ],
+        [
+          "Dans cet extrait, que désigne une « étude longitudinale » ?",
+          "Une recherche qui suit les mêmes participants sur une longue période chronologique",
+          "Une analyse de laboratoire mesurant la taille géométrique du cerveau des nourrissons",
+          "Une enquête d’opinion menée auprès d’échantillons aléatoires de parents en garderie"
+        ]
+      ]
+    },
+    {
+      "situation": 0,
+      "text": "Poursuivons notre formation corporative en abordant le volet délicat de la réception de marques d’hospitalité et de gratifications professionnelles. En ingénierie de consultation, les relations avec les fournisseurs de matériaux et les sous-traitants d’équipements spécialisés s’inscrivent souvent dans une collaboration de longue date. Pourtant, les balises édictées par l’Ordre des ingénieurs du Québec et notre politique interne sont formelles : l’acceptation d’un cadeau de valeur supérieure à un montant symbolique est strictement proscrite. Même lorsqu’un fournisseur propose d’assumer vos frais d’hébergement lors d’une conférence technique, cette libéralité peut vicier votre jugement technique lors des soumissions ultérieures. La frontière entre la courtoisie d’affaires et la tentative d’influence indue est ténue, et c’est précisément pourquoi la transparence absolue demeure votre meilleur bouclier protecteur. Tout avantage offert par un tiers dans le cadre d’un projet doit être consigné dans le registre public des déclarations de notre département de conformité dans un délai maximal de quarante-huit heures ouvrables. Les manquements à ces dispositions engagent non seulement votre responsabilité civile personnelle, mais ternissent durablement la réputation d’intégrité de notre cabinet.",
+      "questions": [
+        [
+          "Quelle directive principale est explicitée dans cette séance de déontologie ?",
+          "L’interdiction des cadeaux significatifs et l’obligation d’enregistrer toute offre d’avantage",
+          "L’autorisation sans aucune limite des voyages d’affaires financés par des partenaires industriels de longue date",
+          "Le refus de participer à toute conférence technique organisée en dehors du bureau"
+        ],
+        [
+          "De quelle manière l’exposé juridique est-il structuré par l’intervenant ?",
+          "Les règles professionnelles sont présentées en insistant sur le risque d’influence indirecte",
+          "Un bilan statistique complet des sanctions disciplinaires prononcées par les tribunaux criminels de la province",
+          "Un plaidoyer passionné pour la liberté totale de négociation commerciale est prononcé"
+        ],
+        [
+          "Quel présupposé sous-tend l’inscription au registre dans les quarante-huit heures ?",
+          "La traçabilité immédiate empêche la dissimulation et démontre la bonne foi du professionnel",
+          "Le département de conformité souhaite redistribuer tous les cadeaux reçus aux autres employés de l’entreprise",
+          "Les formulaires papier doivent être envoyés par courrier recommandé à l’Ordre chaque jour"
+        ],
+        [
+          "Dans ce contexte, que signifie le terme « proscrite » ?",
+          "Formellement interdite par une disposition réglementaire impérative et contraignante",
+          "Fortement encouragée par les superviseurs pour stimuler les partenariats d’affaires",
+          "Réservée exclusivement aux gestionnaires ayant plus de dix ans d’ancienneté au cabinet"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "Dans ce segment de notre documentaire scientifique, des neuropsychologues de l’Université de Sherbrooke nous expliquent le rôle méconnu des fonctions exécutives dans la réussite scolaire des élèves de l’école primaire. Lorsque nous parlons de fonctions exécutives, nous faisons référence à un ensemble d’aptitudes cognitives supérieures coordonnées par le cortex préfrontal : l’inhibition des impulsions, la flexibilité mentale et la mémoire de travail. Contrairement à une idée répandue qui réduit les difficultés scolaires à un simple manque de motivation ou de discipline, les données d’imagerie cérébrale démontrent que les habiletés d’inhibition se développent à des rythmes très variables selon les enfants. Un élève qui éprouve de la peine à rester assis ou qui interrompt constamment ses camarades ne fait pas nécessairement preuve de mauvaise volonté ; son cerveau peut peiner à inhiber les stimuli distrayants de son environnement immédiat. Les chercheurs mettent en lumière des protocoles pédagogiques simples, tels que des jeux de rôle et des pauses actives structurées, qui permettent d’entraîner ces habiletés d’autorégulation avec des gains mesurables sur l’attention et les compétences mathématiques.",
+      "questions": [
+        [
+          "Quelle idée maîtresse est développée par les experts dans ce reportage ?",
+          "L’importance déterminante de la maturation des fonctions exécutives pour l’apprentissage",
+          "L’inutilité de l’entraînement attentionnel pour les élèves en difficulté d’adaptation",
+          "La suprématie des méthodes d’enseignement autoritaires pour maintenir le calme en classe"
+        ],
+        [
+          "Comment la démonstration des neuropsychologues s’articule-t-elle ?",
+          "Un décalage biologique est opposé aux préjugés moraux pour proposer des pistes éducatives",
+          "Une série d’accusations est lancée contre les enseignants qui ne comprennent pas le cerveau",
+          "Une liste de médicaments stimulants est vantée comme unique solution aux troubles d’attention"
+        ],
+        [
+          "Que déduit-on implicitement de la variabilité du développement cérébral ?",
+          "L’évaluation des comportements des élèves exige de tenir compte de leur rythme neurologique",
+          "Tous les enfants de huit ans devraient obligatoirement être soumis à des examens d’imagerie cérébrale poussés",
+          "L’apprentissage des mathématiques ne dépend d’aucune habileté cognitive préalable"
+        ],
+        [
+          "Dans cet extrait, que désigne le mot « inhibition » ?",
+          "La capacité cognitive de freiner volontairement un réflexe ou une réponse automatique",
+          "Une diminution anormale et prolongée du débit sanguin dans les zones postérieures de l’encéphale humain",
+          "Une diminution anormale du débit sanguin dans les zones postérieures de l’encéphale"
+        ]
+      ]
+    }
+  ],
+  "n9-listening-3": [
+    {
+      "situation": 0,
+      "text": "— Bonjour à toute l’équipe. Rassemblez-vous s’il vous plaît pour la réunion de coordination hebdomadaire de notre laboratoire d’essais pharmacologiques. Étant donné l’inspection réglementaire de Santé Canada prévue mardi prochain, nous devons réorganiser l’attribution des tâches sans attendre. Maxime, vous prendrez en charge l’inventaire complet des molécules réfrigérées ; assurez-vous de vérifier chaque date de péremption et de consigner les numéros de lots dans le registre numérique sécurisé. Ne laissez aucun flacon sans étiquetage bilingue conforme. Sophie, je vous confie la validation des courbes d’étalonnage des spectromètres de masse. Vous devrez consigner les résultats dans les cahiers de laboratoire électroniques avant vendredi seize heures, sans aucune exception. Pour les étudiants au doctorat, veuillez suspendre temporairement vos manipulations individuelles pour assister Sophie dans le nettoyage et la stérilisation des hottes à flux laminaire. Enfin, rappelez-vous que tout incident technique, même minime, doit faire l’objet d’une fiche de non-conformité rédigée sur-le-champ et transmise à mon bureau. Nous ne tolérerons aucun écart par rapport à nos protocoles opérationnels normalisés. À vos postes, et merci pour votre diligence habituelle.",
+      "questions": [
+        [
+          "Quel est le but impératif des consignes transmises par la directrice de laboratoire ?",
+          "Mobiliser l’équipe et redistribuer les responsabilités en vue d’une inspection officielle",
+          "Annoncer l’annulation pure et simple de l’ensemble des recherches pharmacologiques en cours dans l’institut",
+          "Recruter de nouveaux chercheurs pour combler des départs imprévus à la retraite"
+        ],
+        [
+          "De quelle façon les directives sont-elles formulées par la responsable ?",
+          "Des tâches précises et nominatives sont assignées avec des délais de rigueur stricts",
+          "Une suggestion générale est soumise au vote démocratique des étudiants du laboratoire",
+          "Une critique sévère du travail passé est formulée sans proposer de nouvelles consignes"
+        ],
+        [
+          "Que sous-entend l’obligation de suspendre les manipulations individuelles pour les doctorants ?",
+          "La préparation de l’audit réglementaire prime sur l’avancement des projets personnels",
+          "Les doctorants ne possèdent pas les compétences nécessaires pour manipuler les réactifs",
+          "Le laboratoire ne dispose plus des ressources matérielles pour poursuivre les thèses"
+        ],
+        [
+          "Que signifie l’expression « à vos postes » dans cette intervention orale ?",
+          "Un signal invitant chacun à retourner immédiatement exécuter son travail assigné",
+          "Une invitation cordiale à postuler pour des postes de direction au sein de l’institut",
+          "Une consigne ordonnant d’éteindre les ordinateurs avant de quitter définitivement les lieux"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "— Écoutez-moi bien, toute l’équipe technique et scénographique. À quarante-huit heures de la première de notre pièce au Théâtre du Rideau Vert, nous devons impérativement corriger le calage des décors mobiles de l’acte deux. Les changements de plateau entre la scène du salon et celle de la cour intérieure prennent actuellement près de deux minutes, ce qui casse complètement le rythme dramatique de la pièce. Antoine, avec votre équipe de machinistes, vous allez repositionner les coulisses latérales de deux mètres vers le lointain afin de dégager un corridor de circulation fluide pour les comédiens. Lors du noir scène, personne ne déplace les praticables en bois avant que le signal lumineux vert ne soit activé par la régie générale. C’est une consigne de sécurité absolue sur laquelle je ne transigerai sous aucun prétexte. Julie, concernant les rideaux de velours, vérifiez la tension des filins d’acier pour éviter les ondulations disgracieuses sous les projecteurs zénithaux. Dès que ces ajustements mécaniques seront complétés, nous ferons deux filages complets avec les comédiens en costumes pour chronométrer chaque transition. Nous devons atteindre une fluidité irréprochable.",
+      "questions": [
+        [
+          "Quel impératif motive les directives formulées par le metteur en scène ?",
+          "Accélérer et sécuriser les transitions scéniques avant la représentation inaugurale",
+          "Remplacer immédiatement les comédiens principaux qui n’arrivent plus à mémoriser leurs répliques sur scène",
+          "Remplacer les comédiens principaux qui n’arrivent pas à mémoriser leurs répliques"
+        ],
+        [
+          "Comment le metteur en scène organise-t-il la transmission de ses ordres ?",
+          "Il identifie les défaillances de rythme, attribue les correctifs et impose des répétitions",
+          "Il demande l’avis des spectateurs dans la salle avant de modifier la disposition des décors",
+          "Il délègue l’ensemble des choix artistiques et techniques à la direction du théâtre"
+        ],
+        [
+          "Que déduit-on implicitement de l’interdiction de bouger avant le signal vert ?",
+          "Le travail dans l’obscurité comporte des risques graves d’accidents matériels ou corporels",
+          "Les machinistes ne savent pas compter le temps sans l’aide d’un chronomètre sonore",
+          "Le metteur en scène souhaite simplement vérifier le fonctionnement des ampoules de couleur"
+        ],
+        [
+          "Dans le vocabulaire théâtral, que désigne le mot « praticable » ?",
+          "Une plateforme mobile en bois conçue pour supporter le jeu des acteurs sur scène",
+          "Un livret de répétition détaillé contenant les annotations de mise en scène manuscrites du dramaturge",
+          "Un costume léger porté par les doublures durant les raccords de maquillage"
+        ]
+      ]
+    },
+    {
+      "situation": 0,
+      "text": "— Merci d’être là. Notre unité de bio-informatique entame la phase critique de traitement des séquences génomiques pour le consortium pancanadien. Nous devons suivre à la lettre le protocole de manipulation des données sensibles afin de respecter nos engagements éthiques. Julien, vous superviserez la migration des fichiers bruts vers les serveurs cryptés sécurisés de Calcul Québec ; assurez-vous qu’aucune copie non chiffrée ne demeure sur les disques durs locaux des postes de travail. Cette opération doit être finalisée avant dix-sept heures aujourd’hui. Amélie, vous vous occuperez de calibrer les filtres de contrôle de qualité sur les séquences d’acide nucléique ; si le taux d’erreur par base dépasse le seuil de zéro virgule un pour cent, isolez immédiatement les lots suspects et informez-en l’équipe d’extraction par écrit. Enfin, pour tous les analystes juniors, je vous demande d’interrompre l’entraînement de vos algorithmes prédictifs pour consigner vos scripts dans le dépôt de contrôle de version institutionnel. Tout code source non documenté sera rejeté de la publication finale. Je compte sur votre professionnalisme sans faille.",
+      "questions": [
+        [
+          "Quel est l’enjeu prioritaire énoncé dans les consignes de la directrice de recherche ?",
+          "La sécurisation rigoureuse et le contrôle de qualité des données génomiques traitées",
+          "L’achat immédiat de nouveaux ordinateurs portables performants pour l’ensemble des étudiants et chercheurs",
+          "La fermeture définitive des serveurs universitaires pour des raisons d’économies"
+        ],
+        [
+          "Quelle méthode de gestion du travail transparaît dans ces instructions verbales ?",
+          "Une répartition claire des responsabilités techniques assortie de critères de conformité",
+          "Une distribution totalement aléatoire des tâches sans aucune vérification ultérieure des résultats obtenus",
+          "Une discussion philosophique informelle sur les limites de l’intelligence artificielle"
+        ],
+        [
+          "Quel constat découle implicitement du rejet des codes non documentés ?",
+          "La reproductibilité scientifique dépend de la traçabilité complète des outils informatiques",
+          "Les doctorants doivent obligatoirement rédiger tous leurs programmes à la main sur du papier quadrillé",
+          "Le consortium refuse catégoriquement d’utiliser des ordinateurs pour la recherche"
+        ],
+        [
+          "Que signifie le terme « crypter » dans cette consigne technologique ?",
+          "Encoder les données numériques pour les rendre illisibles sans clé d’accès autorisée",
+          "Effacer définitivement un ensemble de fichiers sans laisser aucune archive résiduelle",
+          "Imprimer les documents confidentiels sur du papier sécurisé avec filigrane officiel"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "— Prenez note de ces consignes essentielles avant le raccord d’orchestre de ce soir à la Place des Arts. Nous devons impérativement résoudre le problème de franchissement des passerelles métalliques du troisième acte. Laurent, avec les techniciens du cintre, vous devez rééquilibrer les contrepoids de la structure suspendue ; la descente doit s’effectuer en silence absolu en quarante secondes précises, sans à-coups perceptibles. Si la vitesse dépasse cette limite, le système de freinage de secours s’enclenchera et interrompra la musique, ce qui serait désastreux en représentation publique. Karine, vos accessoiristes devront fixer au sol les chandeliers d’époque à l’aide d’adhésif invisible haute résistance dès la fin de la pause de midi, afin d’éviter tout basculement lors des déplacements rapides des membres du chœur. Enfin, pour l’ensemble des régisseurs de plateau, le port du casque de protection et de chaussures de sécurité demeure obligatoire jusqu’à ce que la passerelle soit totalement verrouillée en position basse. Aucun manquement à cette consigne ne sera toléré en coulisses. Mettons-nous au travail pour que tout soit impeccable.",
+      "questions": [
+        [
+          "Quelle est la préoccupation immédiate guidant les directives de la metteuse en scène ?",
+          "L’ajustement mécanique et la sécurisation des décors suspendus avant la répétition générale",
+          "L’annulation pure et simple de la présence des musiciens de l’orchestre pour réduire les frais de location",
+          "La modification intégrale du texte du livret d’opéra à quelques heures du spectacle"
+        ],
+        [
+          "Comment les consignes techniques sont-elles agencées dans ce discours ?",
+          "Des paramètres temporels et physiques précis sont énoncés avec des règles de protection",
+          "Un blâme collectif particulièrement sévère est adressé aux chanteurs du chœur pour leur manque de rigueur",
+          "Un blâme collectif est adressé aux chanteurs du chœur pour leur manque de ponctualité"
+        ],
+        [
+          "Que sous-entend la remarque sur le système de freinage de secours de la passerelle ?",
+          "Une anomalie dans la manipulation de la structure gâcherait irrémédiablement la performance",
+          "La Place des Arts ne dispose d’aucun dispositif technique de secours en cas d’urgence sur la scène",
+          "La Place des Arts ne possède aucun dispositif de secours en cas de problème technique"
+        ],
+        [
+          "Dans le vocabulaire de la scène, que désigne le terme « cintre » ?",
+          "La partie supérieure d’une cage de scène où sont logées les poulies et les machineries",
+          "Un accessoire en fil de fer servant à suspendre les costumes d’époque en loge",
+          "Un instrument de percussion utilisé par l’orchestre pour marquer le début du spectacle"
+        ]
+      ]
+    }
+  ],
+  "n9-listening-4": [
+    {
+      "situation": 0,
+      "text": "— Dis-moi, Caroline, tu as lu la note de service de la direction générale concernant le retour obligatoire à trois jours de présence physique par semaine au bureau ? Qu’en penses-tu honnêtement ?\n— Écoute, Marc, je comprends parfaitement la volonté de consolider la culture d’entreprise et d’encourager la collaboration informelle autour de la machine à café. Cependant, imposer un calendrier rigide sans tenir compte des réalités des équipes me paraît contre-productif. Nos employés ont démontré une productivité exemplaire en télétravail complet pendant deux ans. En leur retirant cette flexibilité sans concertation préalable, la direction risque de susciter du ressentiment et de provoquer des démissions chez nos meilleurs analystes, qui se feront recruter par des firmes plus flexibles.\n— Je partage tes inquiétudes sur la rétention des talents, mais permets-moi de nuancer. Depuis six mois, nous constatons que l’intégration des nouvelles recrues et des stagiaires est devenue nettement plus ardue à distance. Ils manquent de repères implicites et n’osent pas poser des questions par messagerie instantanée. Une formule hybride structurée permettrait au moins de garantir des plages communes de mentorat.\n— Peut-être, mais à condition que ce soit l’équipe qui définisse ses journées de présence selon ses livrables, plutôt qu’une règle mur à mur imposée d’en haut. La confiance doit primer sur le contrôle pointilleux.",
+      "questions": [
+        [
+          "Sur quel enjeu principal porte l’échange d’opinions entre les deux collègues ?",
+          "La pertinence d’imposer des journées fixes de présence au bureau pour l’ensemble du personnel",
+          "L’obligation d’acheter de nouveaux ordinateurs performants pour améliorer la communication quotidienne à distance",
+          "L’obligation d’acheter de nouveaux ordinateurs pour améliorer la communication à distance"
+        ],
+        [
+          "Quelle est la divergence de fond qui oppose les perspectives de Caroline et de Marc ?",
+          "L’autonomie accordée aux équipes face aux impératifs d’encadrement des nouveaux arrivants",
+          "La fermeture définitive des bureaux physiques contre le maintien d’un siège corporatif luxueux",
+          "Le montant des indemnités kilométriques à verser aux employés résidant en banlieue éloignée"
+        ],
+        [
+          "Que déduit-on implicitement de la mise en garde de Caroline sur la rétention des talents ?",
+          "Les professionnels qualifiés accordent une grande valeur à la flexibilité de leurs horaires",
+          "Les analystes prévoient tous de quitter le marché du travail pour prendre leur retraite anticipée",
+          "Les employeurs concurrents offrent systématiquement des salaires deux fois plus élevés"
+        ],
+        [
+          "Dans cet échange, que qualifie l’expression « règle mur à mur » ?",
+          "Une directive uniforme et rigide appliquée indistinctement à tous sans nuance contextuelle",
+          "Une politique visant à repeindre les cloisons intérieures des aires de travail ouvertes",
+          "Un protocole d’insonorisation acoustique destiné à limiter le bruit entre les bureaux fermés"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "— As-tu suivi les débats houleux au conseil d’arrondissement hier soir à propos de la piétonnisation permanente de l’avenue du Mont-Royal ?\n— Oui, absolument, et je dois t’avouer que je trouve les réactions des commerçants particulièrement contrastées. D’un côté, les propriétaires de cafés, de librairies et de restaurants constatent une hausse spectaculaire de leur achalandage dès que les terrasses s’installent et que les familles s’approprient la chaussée. Pour eux, l’aménagement piétonnier crée une ambiance conviviale qui incite les gens à flâner et à dépenser localement dans un cadre sécuritaire et agréable.\n— Certes, mais as-tu écouté les arguments des marchands d’équipements lourds, des quincailleries et des pharmaciens ? Eux font face à des défis logistiques considérables. Leurs clients réguliers, souvent des personnes âgées ou des résidents venant des quartiers voisins, ont besoin de leur véhicule pour transporter des achats encombrants. Avec la disparition des places de stationnement et les restrictions draconiennes sur les heures de livraison pour les camionneurs, certains commerces de proximité voient leurs marges fondre et craignent la faillite.\n— C’est vrai, mais le statu quo automobile n’est plus viable sur le plan écologique. Il faudrait plutôt imaginer des compromis, comme des zones de débarcadère réservées et des navettes électriques de quartier, pour concilier la vitalité économique de tous les commerces avec la transition écologique urbaine.",
+      "questions": [
+        [
+          "Quel est l’objet central de la controverse discutée par les deux connaissances ?",
+          "Les répercussions économiques et sociales de la piétonnisation complète d’une grande artère",
+          "La démolition planifiée d’immeubles patrimoniaux anciens pour construire un vaste centre commercial moderne",
+          "La démolition d’immeubles patrimoniaux pour construire un centre commercial moderne"
+        ],
+        [
+          "De quelle manière les interlocuteurs structurent-ils leur confrontation de points de vue ?",
+          "Les bénéfices de la convivialité urbaine sont confrontés aux contraintes d’accessibilité commerciale",
+          "Une apologie exclusive du commerce électronique est présentée au détriment des boutiques traditionnelles de quartier",
+          "Une apologie exclusive du commerce en ligne est présentée au détriment des boutiques locales"
+        ],
+        [
+          "Quel compromis implicite émerge de la conclusion de la discussion ?",
+          "La piétonnisation doit s’accompagner d’aménagements logistiques adaptés aux besoins variés",
+          "La circulation automobile devrait être rétablie sans aucune restriction sur toute l’avenue",
+          "Tous les commerces spécialisés devraient déménager dans des parcs industriels périphériques"
+        ],
+        [
+          "Dans ce dialogue, quel est le sens du terme « achalandage » ?",
+          "Le nombre de clients ou de visiteurs fréquentant un lieu commercial donné",
+          "La quantité de marchandises entreposées dans les réserves arrière d’un magasin",
+          "Le coût des permis municipaux exigés pour l’installation de terrasses estivales"
+        ]
+      ]
+    },
+    {
+      "situation": 0,
+      "text": "— Simon, nous devons trancher lors du prochain conseil de direction sur le plan de modernisation de notre coopérative laitière du Bas-Saint-Laurent.\n— Je sais bien, Hélène, mais la proposition d’investir quinze millions de dollars dans une ligne d’embouteillage entièrement robotisée soulève de vives inquiétudes chez nos membres. Si nous éliminons cinquante postes de travail manuel dans une petite municipalité rurale, nous affaiblissons directement le tissu social qui soutient notre propre modèle coopératif depuis trois générations. Les familles de ces travailleurs sont des clients de nos sociétaires.\n— Je comprends ton attachement viscéral à notre ancrage communautaire, Simon, mais regarde les bilans financiers avec lucidité. Nous faisons face à une pénurie chronique de main-d’œuvre qui nous oblige à tourner au ralenti un jour sur deux. Les jeunes ne veulent plus accomplir des tâches physiques éprouvantes dans le froid. Si nous n’automatisons pas nos opérations pour abaisser nos coûts unitaires, nos concurrents privés prendront le marché québécois et c’est l’ensemble de notre coopérative qui périclitera d’ici cinq ans.\n— L’automatisation est sans doute inévitable, mais elle ne doit pas se faire au détriment des humains. Nous devons intégrer un programme de requalification professionnelle pour former nos employés actuels à la maintenance des robots avant d’installer la moindre machine.",
+      "questions": [
+        [
+          "Quelle question stratégique oppose les deux gestionnaires de la coopérative ?",
+          "La conciliation entre la robotisation indispensable et la responsabilité envers l’emploi local",
+          "La vente immédiate et intégrale de la coopérative agricole régionale à une grande multinationale étrangère",
+          "L’interdiction définitive de toute technologie informatique dans les usines de transformation"
+        ],
+        [
+          "Comment l’argumentation d’Hélène répond-elle aux objections de Simon ?",
+          "Elle invoque la pénurie d’employés et la compétitivité pour justifier la modernisation",
+          "Elle affirme que les travailleurs manuels ne méritent aucune compensation salariale décente",
+          "Elle propose de transférer l’ensemble des activités de transformation dans une province voisine"
+        ],
+        [
+          "Quel constat découle implicitement de la suggestion finale de formation de Simon ?",
+          "Le progrès technologique peut être accepté s’il s’accompagne d’une transition pour le personnel",
+          "Les robots industriels tombent systématiquement en panne sans intervention humaine manuelle",
+          "La coopérative dispose de surplus budgétaires illimités pour financer tous les projets imaginables"
+        ],
+        [
+          "Dans ce contexte économique, que signifie le verbe « péricliter » ?",
+          "Décliner progressivement et risquer de disparaître faute de compétitivité suffisante",
+          "Accroître subitement son chiffre d’affaires grâce à une demande imprévue du marché",
+          "Fusionner avec succès avec des partenaires commerciaux au sein d’une nouvelle entité"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "— As-tu lu l’article ce matin au sujet du projet pilote de tarification dynamique d’Hydro-Québec pour l’électricité résidentielle en période de grand froid ?\n— Oui, et les réactions citoyennes sont particulièrement passionnées sur les réseaux sociaux. D’un côté, les partisans de la mesure font valoir que surtaxer les kilowattheures consommés pendant les pointes hivernales de sept heures à neuf heures du matin est le seul moyen rationnel d’éviter de construire de nouvelles centrales hydroélectriques coûteuses. Si chaque foyer décalait l’usage de sa laveuse ou baissait son chauffage de deux degrés, nous pourrions libérer des mégawatts précieux sans détruire de nouvelles vallées vierges.\n— C’est séduisant en théorie, mais sur le plan social, cette formule pénalise injustement les ménages à faible revenu et les familles vivant dans des logements mal isolés. Un locataire précaire qui habite un appartement mal calfeutré ne peut pas simplement décider de couper le chauffage quand le thermomètre frôle les moins vingt-cinq degrés sous peine de geler chez lui. Pendant ce temps, les propriétaires fortunés équipés de maisons solaires intelligentes et de thermopompes haut de gamme encaisseront les crédits de réduction sans réel effort d’adaptation.\n— C’est un point tout à fait légitime. Pour que cette tarification soit équitable, elle devrait obligatoirement s’accompagner de subventions d’urgence pour la rénovation énergétique des appartements locatifs les plus énergivores.",
+      "questions": [
+        [
+          "Quel est le cœur du débat soulevé par la tarification dynamique de l’électricité ?",
+          "L’équilibre entre l’efficacité énergétique environnementale et la justice sociale pour les ménages",
+          "L’interdiction absolue et définitive d’utiliser des appareils de chauffage durant l’ensemble de la période hivernale",
+          "La privatisation imminente du réseau public de distribution d’électricité québécois"
+        ],
+        [
+          "De quelle manière les deux interlocuteurs confrontent-ils leurs visions ?",
+          "Les arguments de sobriété collective sont mis en balance avec le fardeau des personnes vulnérables",
+          "Une condamnation sans appel de toutes les formes d’énergies renouvelables est prononcée par les intervenants",
+          "Un consensus parfait sur l’inutilité des programmes d’efficacité énergétique est vite atteint"
+        ],
+        [
+          "Que déduit-on implicitement de la remarque sur les logements mal isolés ?",
+          "Le prix de l’énergie expose les ménages modestes à des difficultés sans amélioration du bâti",
+          "Les locataires québécois refusent par principe de payer leurs factures mensuelles d’énergie",
+          "L’isolation des logements privés ne relève en aucun cas des politiques environnementales"
+        ],
+        [
+          "Dans cette discussion, que désigne l’expression « heures de pointe » ?",
+          "Les périodes de forte demande où la consommation globale du réseau atteint son maximum",
+          "Les moments où les réparateurs d’urgence interviennent sur les lignes à haute tension",
+          "Les créneaux horaires où l’accès au service à la clientèle téléphonique est indisponible"
+        ]
+      ]
+    }
+  ],
+  "n9-reading-0": [
+    {
+      "situation": 0,
+      "text": "Dans les secteurs manufacturiers lourds et les ateliers d’usinage métallurgique au Québec, l’exposition chronique au bruit industriel constitue l’un des facteurs étiologiques prépondérants des surdités professionnelles irréversibles. La lésion caractéristique, désignée sous le terme de surdité neurosensorielle bilatérale, résulte de la destruction progressive des cellules ciliées de l’oreille interne sous l’effet de pressions acoustiques répétées excédant le seuil de dangerosité de quatre-vingt-cinq décibels sur une journée de travail de huit heures. Contrairement aux traumatismes aigus provoqués par une déflagration soudaine qui déchire le tympan, cette altération insidieuse s’installe à l’insu du travailleur, débutant classiquement sur la fréquence des quatre mille hertz avant de s’étendre aux plages fréquentielles indispensables à la discrimination de la parole humaine. Les données épidémiologiques de l’Institut national de santé publique du Québec soulignent que le port intermittent de protecteurs auditifs coquilles ou moulés offre une protection très illusoire si les ouvriers les retirent même pour de courtes durées pour communiquer. Une politique de prévention efficace exige donc une réduction à la source par l’encoffrement acoustique des machines vibrantes et l’aménagement de cabines de repos insonorisées, combinée à une surveillance audiométrique annuelle rigoureuse de tout le personnel exposé.",
+      "questions": [
+        [
+          "Quelle information médicale essentielle cet ouvrage spécialisé met-il en évidence ?",
+          "La nature progressive et irréversible de la surdité induite par le bruit en milieu industriel",
+          "L’efficacité absolue et permanente du port occasionnel de simples bouchons de mousse jetables en atelier",
+          "L’absence totale de risque auditif pour les travailleurs des ateliers de métallurgie lourde"
+        ],
+        [
+          "Comment l’exposé scientifique structure-t-il la description du danger acoustique ?",
+          "Les mécanismes physiologiques de destruction cellulaire sont décrits avant les stratégies de prévention",
+          "Une condamnation judiciaire systématique et sans appel de tous les employeurs de la province québécoise",
+          "Un comparatif financier des coûts de réparation des tympans artificiels est détaillé"
+        ],
+        [
+          "Que déduit-on implicitement de la remarque sur le retrait temporaire des protecteurs ?",
+          "Une interruption même brève de la protection compromet l’efficacité globale de la mesure",
+          "Les ouvriers d’usine refusent toujours par principe de respecter les normes élémentaires de santé au travail",
+          "Les protecteurs auditifs empêchent complètement de respirer convenablement en atelier"
+        ],
+        [
+          "Dans ce contexte clinique, que qualifie l’adjectif « insidieuse » ?",
+          "Une dégradation auditive lente et discrète qui progresse sans douleur apparente immédiate",
+          "Une maladie contagieuse qui se transmet rapidement d’un travailleur à un autre par contact",
+          "Une réaction allergique foudroyante nécessitant une hospitalisation d’urgence en réanimation"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "Au cours des deux dernières décennies, la recherche en psychologie organisationnelle a profondément renouvelé notre compréhension des déterminants de la santé psychologique au travail dans les institutions québécoises. Longtemps reléguée au rang de simple politesse managériale sans impact réel, la reconnaissance professionnelle s’avère désormais un puissant levier de protection contre l’épuisement professionnel et le désengagement des équipes. Les enquêtes récentes menées auprès du personnel de première ligne du réseau de la santé révèlent que la valorisation des compétences par les pairs et la direction stimule directement le sentiment d’efficacité personnelle et consolide l’estime de soi. De plus, lorsqu’elle s’enracine dans un climat organisationnel favorisant la coopération horizontale plutôt que la mise en rivalité stérile des employés, cette reconnaissance fortifie le sentiment d’appartenance et atténue considérablement l’anxiété liée à la performance. Les collectifs de travail caractérisés par une entraide spontanée démontrent une plus grande résilience face aux surcharges imprévues de travail. À l’opposé, l’absence prolongée de considération pour les efforts fournis engendre un sentiment d’injustice distributive hautement toxique pour le climat de travail, multipliant par trois le taux d’absentéisme pour cause de détresse psychologique dans les milieux hospitaliers.",
+      "questions": [
+        [
+          "Quel est l’enseignement majeur transmis par cet article en psychologie du travail ?",
+          "L’impact salutaire déterminant de la valorisation mutuelle et de la collaboration sur la santé mentale",
+          "La nécessité d’éliminer toute communication informelle entre collègues pour maximiser le rendement quotidien",
+          "La supériorité absolue de la compétition interne entre salariés pour réduire les congés de maladie"
+        ],
+        [
+          "De quelle manière l’analyse psychologique organise-t-elle ses constats ?",
+          "Les effets bénéfiques de la reconnaissance sont détaillés avant d’être opposés aux méfaits de son absence",
+          "Une série de reproches virulents adressée aux syndicats hospitaliers sans aucune donnée probante à l’appui",
+          "Un protocole mathématique de calcul des primes de fin d’année est proposé aux gestionnaires"
+        ],
+        [
+          "Quel constat découle implicitement du rôle de la « coopération horizontale » ?",
+          "Le soutien mutuel entre collègues protège mieux les équipes que la simple hiérarchie verticale",
+          "Les gestionnaires hospitaliers ne devraient plus jamais intervenir auprès du personnel soignant",
+          "Tous les employés de la santé souhaitent travailler de manière totalement isolée et autonome"
+        ],
+        [
+          "Que désigne l’expression « injustice distributive » dans ce cadre d’analyse ?",
+          "Le déséquilibre ressenti entre les efforts personnels investis et les marques de reconnaissance reçues",
+          "L’interdiction légale absolue pour les infirmières de distribuer des médicaments sans prescription écrite préalable",
+          "Une répartition inégale des fournitures de bureau et des uniformes entre les services cliniques"
+        ]
+      ]
+    },
+    {
+      "situation": 0,
+      "text": "Le présent guide technique s’adresse aux conseillers en hygiène industrielle chargés d’évaluer la pénibilité sonore dans les usines d’emboutissage du secteur manufacturier québécois. L’utilisation de presses mécaniques à haute cadence génère des niveaux de pression acoustique caractérisés par des bruits d’impact répétés atteignant couramment cent dix décibels de niveau de crête. L’évaluation de l’exposition ne peut reposer sur de simples sonomètres instantanés, mais requiert l’emploi de dosimètres individuels portés par les opérateurs durant la totalité de leur quart de travail. Ces appareils mesurent la dose cumulée d’énergie acoustique en intégrant les fluctuations de l’environnement sonore selon les critères normalisés de la Commission des normes, de l’équité, de la santé et de la sécurité du travail. Au-delà des répercussions cochléaires classiques, l’exposition à ces impulsions brutales provoque des dérèglements végétatifs mesurables, notamment une hausse de la fréquence cardiaque et une constriction des vaisseaux sanguins périphériques qui aggravent la fatigue générale de l’ouvrier. Les mesures d’atténuation doivent prioriser la pose d’écrans absorbants composites et l’insonorisation des goulottes d’évacuation des pièces métalliques avant d’envisager la rotation du personnel sur les postes les plus exposés.",
+      "questions": [
+        [
+          "Quel est l’objet technique central documenté dans cette fiche professionnelle ?",
+          "La méthodologie rigoureuse de mesure et les risques globaux liés aux bruits d’impact industriels",
+          "La fabrication artisanale de casques de protection auditive en matériaux recyclés locaux",
+          "L’interdiction définitive d’utiliser des presses mécaniques dans l’ensemble des usines québécoises"
+        ],
+        [
+          "Comment l’exposé technique articule-t-il les exigences de sécurité au travail ?",
+          "La nécessité d’une dosimétrie continue est justifiée par les effets auditifs et physiologiques du bruit",
+          "Un réquisitoire virulent contre l’achat de tout matériel électronique de mesure moderne présenté aux employeurs",
+          "Une comparaison tarifaire entre différentes marques de dosimètres étrangers est dressée"
+        ],
+        [
+          "Que laisse entendre la remarque sur les réactions du système cardiovasculaire ?",
+          "Le bruit industriel altère la santé globale du travailleur bien au-delà de sa seule audition",
+          "Les ouvriers souffrant de surdité ne ressentent aucune fatigue physique au cours de leur journée",
+          "Les dosimètres individuels émettent des ondes magnétiques dangereuses pour le cœur des porteurs"
+        ],
+        [
+          "Dans ce texte normatif, qu’est-ce qu’un « bruit d’impact » ?",
+          "Une impulsion sonore brève et violente causée par le choc brutal de deux masses solides",
+          "Un sifflement continu et régulier produit par la circulation de vapeur dans les conduits",
+          "Un bruit de fond modéré généré par la ventilation mécanique générale du bâtiment"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "Dans un mémoire de recherche publié par l’École de relations industrielles de l’Université de Montréal, les auteurs examinent les mécanismes par lesquels la marge de manœuvre décisionnelle et la solidarité d’équipe modèrent les répercussions du stress au travail. À partir d’un échantillon représentatif de cadres et de professionnels du secteur des technologies de l’information, les chercheurs mettent en relief un paradoxe frappant de l’ère numérique. Bien que la flexibilité des horaires et le travail nomade soient couramment présentés comme des facteurs d’épanouissement, ils se traduisent fréquemment par une porosité excessive entre vie professionnelle et sphère personnelle. Dans ce contexte d’effritement des frontières temporelles, la présence de pratiques formalisées de reconnaissance réciproque au sein des équipes constitue un garde-fou indispensable contre le surmenage. Lorsque les gestionnaires prennent le temps d’expliciter la contribution unique de chaque collaborateur à la réussite collective et encouragent la résolution conjointe des problèmes techniques complexes, les salariés développent un sentiment de maîtrise qui neutralise la détresse cognitive. L’autonomie accordée ne produit ses bienfaits que si elle s’accompagne d’un soutien social tangible et d’une validation explicite des efforts accomplis, dissipant le sentiment d’isolement inhérent aux environnements dématérialisés.",
+      "questions": [
+        [
+          "Quelle thèse principale cette recherche en relations industrielles défend-elle ?",
+          "La flexibilité professionnelle nécessite un soutien social et une reconnaissance solide pour être saine",
+          "Le télétravail devrait être immédiatement et définitivement aboli pour tous les professionnels de l’informatique",
+          "L’autonomie accordée aux travailleurs suffit à éliminer tout risque d’épuisement professionnel"
+        ],
+        [
+          "De quelle manière la démonstration des chercheurs progresse-t-elle dans le texte ?",
+          "Un paradoxe moderne est soulevé avant de proposer des remèdes relationnels et managériaux éprouvés",
+          "Une apologie aveugle du travail à toute heure du jour et de la nuit présentée sans la moindre réserve critique",
+          "Une critique virulente des compétences informatiques des jeunes diplômés est exposée en détail"
+        ],
+        [
+          "Quel risque implicite est associé à la « porosité excessive » entre vie privée et travail ?",
+          "L’incapacité psychologique de décrocher mentalement favorise l’usure précoce des travailleurs",
+          "Les employeurs risquent de voir tous leurs secrets d’affaires confidentiels divulgués aux membres des familles",
+          "Les employés refusent de consacrer du temps à leurs enfants en fin de semaine"
+        ],
+        [
+          "Que désigne l’expression « garde-fou » dans ce contexte organisationnel ?",
+          "Un mécanisme protecteur destiné à prévenir un dérapage ou une dégradation de la santé mentale",
+          "Une grille métallique de sécurité installée sur les toits des édifices pour éviter les chutes",
+          "Un règlement intérieur draconien interdisant formellement l’usage des téléphones cellulaires"
+        ]
+      ]
+    }
+  ],
+  "n9-reading-1": [
+    {
+      "situation": 0,
+      "text": "Extrait de mes mémoires politiques. Lorsque la porte capitonnée de mon bureau ministériel s’est refermée pour la dernière fois ce funeste soir d’octobre, un silence de plomb est tombé sur la pièce. Dans les couloirs du Parlement de Québec, les rumeurs de remaniement allaient bon train et les journalistes faisaient le pied de grue devant les ascenseurs, avides de capter la moindre défaillance sur mon visage. On me reprochait d’avoir imposé avec une poigne de fer une restructuration budgétaire impopulaire, d’avoir refusé les demi-mesures et d’avoir bousculé les corporatismes établis qui paralysaient notre appareil étatique depuis un quart de siècle. Certes, j’avais commis des maladresses stratégiques et heurté des sensibilités légitimes par mon franc-parler légendaire ; je ne m’en cache pas dans ces pages. Mais rétrospectivement, mes détracteurs les plus acharnés savaient pertinemment que la rigueur imposée était la seule voie possible pour rétablir la solvabilité de nos régimes d’assurance publique. Tandis que je rassemblais mes effets personnels dans un carton anonyme, je songeais avec une certaine amertume à l’ingratitude de la chose publique, où le courage de déplaire est si promptement assimilé à de l’arrogance par ceux-là mêmes qui profiteront plus tard des fruits de votre impopularité passagère.",
+      "questions": [
+        [
+          "Quel sentiment dominant se dégage de cette évocation autobiographique ?",
+          "Une lucidité teintée d’amertume face aux sacrifices consentis pour l’intérêt de l’État",
+          "Un repentir total et une demande publique de pardon adressée à l’ensemble des citoyens",
+          "Une joie exubérante à l’idée de quitter définitivement le monde de la politique provinciale"
+        ],
+        [
+          "Comment la narration de ce départ politique est-elle construite par l’auteur ?",
+          "La description du moment de solitude encadre une justification rétrospective de ses choix",
+          "Une liste chronologique de toutes les élections remportées dans sa carrière est détaillée",
+          "Une polémique violente est engagée directement contre le premier ministre de l’époque"
+        ],
+        [
+          "Que déduit-on implicitement de la formule « le courage de déplaire » ?",
+          "L’ancien élu estime avoir agi par devoir d’État plutôt que par calcul électoraliste facile",
+          "Le politicien admet avoir délibérément et constamment cherché à provoquer la colère de ses concitoyens",
+          "Les ministres doivent systématiquement insulter les journalistes pour se faire respecter"
+        ],
+        [
+          "Dans ce récit personnel, que signifie l’expression « faire le pied de grue » ?",
+          "Attendre patiemment et longuement debout à un endroit précis dans l’espoir d’une nouvelle",
+          "Danser sur place pour tenter de se réchauffer lors des rigueurs de l’hiver québécois",
+          "Protester violemment en bloquant les accès d’un édifice public avec des pancartes syndicales"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "Extrait du roman policier « Les Ombres du Bic ». L’inspecteur Tremblay frotta ses yeux brûlés par des heures de lecture attentive sous la lampe d’appoint de la société d’histoire régionale de Rimouski. La mort suspecte du vieux notaire Bérubé, retrouvé gisant au bas de la falaise du cap Enragé, semblait au départ n’être qu’un tragique faux pas dans le brouillard marin. Cependant, l’examen minutieux des minutes notariales des années 1980 venait de révéler une troublante anomalie dans la succession terrienne des seigneuries riveraines. En confrontant les signatures des actes d’arpentage originaux aux photocopies déposées au bureau d’enregistrement de Rimouski, Tremblay constata que le paraphe de la dernière héritière directe avait été habilement contrefait à l’aide d’une encre ferrugineuse dont la composition chimique ne correspondait pas aux normes de l’époque. Quelqu’un avait patiemment orchestré la spoliation de terres convoitées pour le tracé de la future autoroute vingt, générant des plus-values clandestines astronomiques pour des promoteurs sans scrupules. Le meurtrier ne cherchait pas à régler une dette de jeu ou une vengeance passionnelle comme la rumeur de village le murmurait ; il avait supprimé le notaire au moment exact où ce dernier, rongé par le remords à l’approche de sa mort, s’apprêtait à déposer ces pièces compromettantes au greffe de la cour supérieure.",
+      "questions": [
+        [
+          "Quel tournant narratif majeur cet extrait de roman policier relate-t-il ?",
+          "La requalification d’une mort accidentelle en meurtre calculé lié à une fraude foncière",
+          "L’arrestation immédiate et spectaculaire du maire de Rimouski en plein milieu de son bureau à l’hôtel de ville",
+          "La fermeture définitive de la société d’histoire régionale en raison d’un cambriolage"
+        ],
+        [
+          "De quelle manière l’intrigue progresse-t-elle à travers les découvertes de Tremblay ?",
+          "L’indice matériel de l’encre falsifiée permet de dévoiler un mobile financier d’envergure",
+          "Une course-poursuite en automobile sur l’autoroute vingt s’engage contre le suspect principal",
+          "Un dialogue philosophique sur la nature humaine oppose l’inspecteur à son supérieur immédiat"
+        ],
+        [
+          "Que comprend-on implicitement sur le rôle du notaire défunt avant son décès ?",
+          "Le notaire avait été complice de la spoliation mais menaçait de révéler la vérité par remords",
+          "Le notaire ignorait complètement l’existence des terres seigneuriales historiques le long du fleuve Saint-Laurent",
+          "Le notaire avait légué toute sa fortune personnelle à l’orphelinat du village voisin"
+        ],
+        [
+          "Dans ce contexte d’enquête, que désigne le mot « paraphe » ?",
+          "Une signature abrégée manuscrite apposée pour valider une page ou un document notarié",
+          "Un sceau en cire rouge utilisé autrefois pour cacheter solennellement le testament officiel des seigneurs",
+          "Un instrument d’arpentage optique permettant de mesurer avec précision les parcelles"
+        ]
+      ]
+    },
+    {
+      "situation": 0,
+      "text": "Extrait de mes mémoires d’affaires. L’histoire retiendra sans doute de mon passage à la présidence de Norcan Aluminium la violence médiatique de la bataille boursière de l’hiver 2012. Pendant quarante jours, les manchettes des journaux économiques m’ont dépeint comme un flibustier sans foi ni loi, prêt à démanteler le fleuron industriel du Saguenay pour enrichir un syndicat de financiers new-yorkais. Ce que les éditorialistes confortablement installés dans leurs bureaux montréalais feignaient d’ignorer, c’est que sans cette injection massive de capitaux étrangers et cette intégration à une filière globale, nos alumineries étaient condamnées à une obsolescence technologique inéluctable d’ici dix ans. Les cours mondiaux des métaux s’effondraient, nos installations vieillissaient et les coûts de l’hydroélectricité augmentaient. J’ai sciemment accepté de porter le chapeau de l’ennemi public numéro un et de subir les insultes à l’assemblée générale des actionnaires, car je savais que la modernisation des cuves d’électrolyse garantirait au final trois mille emplois de qualité pour les ouvriers de la région. On ne mène pas une restructuration industrielle majeure pour récolter des lauriers de popularité éphémères, mais pour assurer la survie pérenne d’un outil de production irremplaçable face à une concurrence impitoyable venue d’Asie.",
+      "questions": [
+        [
+          "Quel est le plaidoyer fondamental formulé par le dirigeant dans ce passage autobiographique ?",
+          "La justification de décisions impopulaires au nom de la sauvegarde industrielle à long terme",
+          "L’aveu d’une faillite frauduleuse planifiée pour fuir ses créanciers dans un paradis fiscal",
+          "La dénonciation de tous les ouvriers de l’aluminium québécois jugés paresseux et incompétents"
+        ],
+        [
+          "Comment l’auteur articule-t-il sa défense contre ses détracteurs médiatiques ?",
+          "Il oppose la superficialité des critiques de presse aux dures réalités économiques de la filière",
+          "Il accuse ses propres enfants d’avoir comploté pour lui voler la présidence du conseil d’administration",
+          "Il réclame l’intervention militaire du gouvernement fédéral pour disperser les manifestants syndicaux"
+        ],
+        [
+          "Que signifie implicitement l’expression « porter le chapeau » dans le récit ?",
+          "Assumer publiquement l’entière responsabilité d’une décision contestée pour protéger le projet",
+          "Acheter des vêtements de grand luxe pour soigner son apparence publique lors des galas de charité montréalais",
+          "Refuser systématiquement de répondre aux questions posées par les juges de la cour"
+        ],
+        [
+          "Dans ce texte de gestion de crise, que désigne le mot « flibustier » ?",
+          "Un aventurier sans scrupules menant des opérations financières agressives et prédatrices",
+          "Un capitaine de navire marchand assurant le transport maritime du minerai de bauxite",
+          "Un inspecteur assermenté du fisc chargé de vérifier les déclarations de revenus des entreprises"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "Extrait du roman noir « Les Ruelles du crépuscule ». La détective Rachel Côté gara sa berline banalisée à l’angle des rues Saint-Viateur et Waverly, sous une pluie battante d’avril. La mort suspecte de l’antiquaire Samuel Rosner, retrouvé assassiné dans son arrière-boutique trois nuits plus tôt, piétinait faute de mobile tangible. Le suspect principal, un jeune restaurateur de meubles anciens sans casier judiciaire, jurait avoir passé toute la nuit fatidique à inventorier des commodes dans son atelier du sous-sol. Pourtant, en examinant la vidéo de surveillance de la boulangerie adjacente, Rachel releva un détail discordant qui fit voler l’alibi en éclats. Sur l’enregistrement horodaté à deux heures dix-sept du matin, on apercevait la silhouette fugitive d’un homme franchissant la clôture de la ruelle en brandissant un parapluie noir cassé à l’armature argentée. Or, ce modèle rarissime, fabriqué sur mesure par un artisan vénitien, avait été retrouvé détrempé le lendemain matin dans l’entrée de service de l’atelier du suspect. La confrontation avec les relevés de géolocalisation de son téléphone cellulaire confirma que son appareil avait borné sur l’antenne de la rue Clark au moment précis où le coup de feu étouffé avait retenti. Le restaurateur n’avait pas tué pour voler de l’argent, mais pour récupérer une lettre autographe cachée dans le double fond d’un secrétaire Louis-Quinze.",
+      "questions": [
+        [
+          "Quel dénouement partiel de l’enquête est raconté dans cet extrait de roman noir ?",
+          "L’effondrement de l’alibi du suspect grâce à la convergence d’indices matériels précis",
+          "L’arrestation par erreur d’un touriste étranger égaré dans les ruelles du quartier montréalais",
+          "La découverte fortuite d’un coffre-fort rempli de lingots d’or dans une boulangerie voisine"
+        ],
+        [
+          "De quelle manière la détective parvient-elle à percer le mystère de l’emploi du temps ?",
+          "L’analyse visuelle d’une caméra et la géolocalisation téléphonique démentent les déclarations",
+          "Les aveux complets et spontanés du suspect sont recueillis sans aucune preuve matérielle préalable",
+          "Un témoin anonyme téléphone au poste de police pour dénoncer son propre frère jumeau"
+        ],
+        [
+          "Que révèle implicitement la nature de l’objet recherché par le criminel ?",
+          "Le crime était guidé par la dissimulation d’un secret compromettant plutôt que par le gain pécuniaire",
+          "L’antiquaire assassiné ne possédait absolument aucun meuble de valeur marchande dans son arrière-boutique du quartier",
+          "La détective ignorait totalement la valeur historique des meubles d’époque française du dix-huitième"
+        ],
+        [
+          "Dans le jargon policier et judiciaire québécois, que signifie le verbe « borner » ?",
+          "Se connecter automatiquement à une antenne de relais cellulaire permettant d’établir une position",
+          "Délimiter physiquement le périmètre étendu d’une scène de crime à l’aide d’un ruban jaune officiel de la police",
+          "Fixer des bornes kilométriques le long des trottoirs municipaux pour réguler le stationnement"
+        ]
+      ]
+    }
+  ],
+  "n9-reading-2": [
+    {
+      "situation": 0,
+      "text": "Dans sa plus récente note de conjoncture économique, l’Institut de la statistique du Québec décortique les forces sous-jacentes qui ont propulsé l’indice des prix à la consommation à son plus haut niveau en trois décennies. Contrairement à une croyance tenace qui attribue l’inflation globale à la seule envolée des cours internationaux du baril de pétrole, les données ventilées révèlent une dynamique beaucoup plus complexe et enracinée dans l’économie intérieure. En premier lieu, la composante du logement pèse pour près du tiers de la poussée inflationniste globale, stimulée par la répercussion directe des hausses des taux d’intérêt directeurs sur le coût du service de la dette hypothécaire des propriétaires et sur les loyers du marché privé. En second lieu, le panier d’épicerie subit les effets combinés des perturbations climatiques sur les récoltes maraîchères et des coûts accrus d’emballage et de transport routier réfrigéré, ce qui empêche toute baisse significative des prix de détail. Dès lors, même lorsque le coût des carburants à la pompe se stabilise temporairement, l’inertie des prix des services et de l’alimentation continue d’éroder le pouvoir d’achat des ménages québécois à revenu fixe, contraignant la Banque du Canada à maintenir une posture monétaire restrictive pour éviter l’ancrage des anticipations d’inflation.",
+      "questions": [
+        [
+          "Quelle explication économique centrale cet article spécialisé fournit-il aux lecteurs ?",
+          "La persistance de l’inflation est tirée par les coûts structurels du logement et de l’alimentation",
+          "La baisse généralisée des prix de détail soulagera immédiatement l’ensemble des ménages québécois",
+          "Le prix de l’essence à la pompe est le seul et unique responsable de la hausse de l’indice général"
+        ],
+        [
+          "Comment l’argumentation économique est-elle agencée dans cette analyse ?",
+          "Une simplification populaire est démentie avant de détailler les composantes clés de la hausse des prix",
+          "Une critique partisane virulente des choix politiques du gouvernement fédéral formulée sans aucune nuance",
+          "Un plaidoyer enthousiaste pour la suppression totale des impôts sur le revenu est proposé"
+        ],
+        [
+          "Que déduit-on implicitement du maintien d’une politique monétaire restrictive ?",
+          "La banque centrale accepte de freiner l’activité économique pour empêcher les prix de s’emballer",
+          "Les institutions financières prévoient de distribuer des prêts hypothécaires avantageux sans aucun intérêt",
+          "L’inflation disparaîtra d’elle-même sans aucune intervention sur les taux d’intérêt directeurs"
+        ],
+        [
+          "Dans ce contexte économique, que désigne le terme « inertie » ?",
+          "La tendance des prix de certains biens et services à demeurer élevés malgré l’évolution conjoncturelle",
+          "L’incapacité totale des ordinateurs de l’institut statistique officiel à calculer les moyennes mensuelles fiables",
+          "Le refus catégorique des consommateurs d’acheter des produits alimentaires locaux et de saison"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "Guide psychoéducatif pour les familles. L’anxiété chez l’enfant d’âge préscolaire ou primaire ne doit pas être confondue avec un caprice passager ou un simple refus d’obéissance. Lorsqu’un jeune enfant anticipe la séparation d’avec ses parents à la porte de la garderie ou de l’école, son cerveau émotionnel, dominé par l’amygdale, perçoit cette transition comme une menace vitale bien réelle. Cette activation physiologique déclenche la libération immédiate d’hormones de stress comme le cortisol et l’adrénaline, provoquant des manifestations physiques bien documentées : maux de ventre récurrents, nausées matinales, tensions musculaires et pleurs incontrôlables. Il est capital pour les parents de comprendre que rationaliser excessivement ou tenter de convaincre l’enfant que sa peur est absurde s’avère totalement inopérant à ce stade d’activation neurobiologique intense. La première étape consiste plutôt à valider l’émotion ressentie par une écoute calme et chaleureuse, puis à mettre en place une routine de transition prévisible et rassurante, comprenant un rituel d’au revoir bref et sans hésitation. En évitant les départs furtifs qui nourrissent l’angoisse de l’abandon et en valorisant chaque petite victoire d’autonomie, les parents aident le cortex préfrontal de leur enfant à reprendre progressivement le contrôle sur ses réactions de panique.",
+      "questions": [
+        [
+          "Quelle orientation éducative majeure ce guide prodigue-t-il aux parents désemparés ?",
+          "La compréhension biologique de l’anxiété et l’adoption de rituels stables pour sécuriser l’enfant",
+          "La punition sévère et immédiate de toute manifestation de tristesse lors de l’arrivée matinale à l’école",
+          "Le retrait définitif de l’enfant du milieu scolaire pour le garder en permanence à la maison"
+        ],
+        [
+          "Comment l’explication psychoéducative est-elle ordonnée pour convaincre les familles ?",
+          "Les bases physiologiques de l’émotion sont clarifiées avant de proposer des attitudes bienveillantes",
+          "Une série de reproches excessivement culpabilisants adressée aux parents qui travaillent beaucoup à l’extérieur",
+          "Une prescription de somnifères pédiatriques est recommandée dès l’apparition des premiers pleurs"
+        ],
+        [
+          "Pourquoi le guide déconseille-t-il formellement les départs furtifs en cachette ?",
+          "Parce que disparaître sans prévenir détruit le sentiment de sécurité et accroît la peur de l’abandon",
+          "Parce que les éducatrices de garderie n’ont pas le temps matériel de surveiller les portes d’entrée du local",
+          "Parce que les règlements municipaux imposent la signature d’un registre à chaque départ matinal"
+        ],
+        [
+          "Dans ce contexte pédiatrique, que signifie l’expression « valider l’émotion » ?",
+          "Reconnaître et accueillir ce que l’enfant ressent sans le juger ni minimiser sa souffrance",
+          "Signer une attestation médicale certifiant que l’élève est temporairement inapte à l’apprentissage",
+          "Exiger que l’enfant explique par écrit et en phrases complètes les raisons logiques de sa colère"
+        ]
+      ]
+    },
+    {
+      "situation": 0,
+      "text": "Dans un article de fond paru dans la Revue d’économie financière du Québec, des spécialistes en commerce international décortiquent la transmission des chocs de transport maritime à l’indice des prix à la consommation. À la suite des goulets d’étranglement observés dans les grands ports de conteneurs de la côte ouest et des perturbations des voies navigables stratégiques, le coût d’affrètement d’un conteneur standard de quarante pieds a connu des hausses vertigineuses avant de se répercuter sur toute la chaîne d’approvisionnement manufacturière. Pour les importateurs et grossistes québécois, cette envolée des frais de fret ne pouvait être entièrement absorbée par les marges bénéficiaires, déjà comprimées par les hausses salariales locales. Les entreprises ont donc progressivement transféré ces surcoûts logistiques sur leurs prix de gros, puis sur les étiquettes des détaillants de biens durables tels que les électroménagers, les meubles et les matériaux de rénovation. L’article démontre que ce décalage temporel entre la hausse des tarifs portuaires et leur répercussion finale sur l’IPC s’étend sur une période moyenne de six à neuf mois, créant une onde d’inflation différée qui persiste bien après que les tensions maritimes initiales se sont résorbées dans les terminaux maritimes mondiaux.",
+      "questions": [
+        [
+          "Quel phénomène logistique et économique cet article universitaire explique-t-il ?",
+          "La transmission retardée des hausses des coûts du fret maritime sur les prix de consommation",
+          "La fermeture définitive et sans préavis de tous les ports fluviaux majeurs situés le long du fleuve Saint-Laurent",
+          "La baisse spectaculaire et immédiate des prix des meubles et des électroménagers importés"
+        ],
+        [
+          "De quelle manière les économistes articulent-ils la chaîne de répercussion des coûts ?",
+          "Les hausses maritimes sont tracées des transporteurs aux grossistes puis aux étiquettes des magasins",
+          "Une dénonciation exclusive et virulente de la cupidité des petits commerçants de détail locaux est exposée",
+          "Un plaidoyer pour le retour aux navires à voile traditionnels est défendu comme solution d’avenir"
+        ],
+        [
+          "Que déduit-on implicitement du décalage de six à neuf mois mis en lumière ?",
+          "L’inflation peut continuer de progresser en magasin même si les frais de transport ont déjà diminué",
+          "Les commerçants de détail changent leurs prix chaque matin en fonction directe de la météo océanique globale",
+          "Les navires marchands mettent près d’une année complète pour traverser l’océan Pacifique nord"
+        ],
+        [
+          "Dans le vocabulaire du transport de marchandises, que signifie le mot « affrètement » ?",
+          "La location contractuelle d’un navire ou d’un espace de chargement pour transporter des biens",
+          "Le déchargement manuel et pénible de marchandises avariées sur les quais venteux d’un port de transit régional",
+          "L’amende douanière imposée aux compagnies maritimes transportant des produits non déclarés"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "Guide pratique pour les équipes éducatives et les parents d’adolescents. L’anxiété de performance scolaire, qui touche une proportion croissante d’élèves au secondaire au Québec, se caractérise par une appréhension disproportionnée de l’échec et une quête pathologique de perfectionnisme. Contrairement à un stress ponctuel d’examen qui stimule la concentration, cette forme d’anxiété paralyse les ressources cognitives du jeune. Lorsqu’un élève est submergé par la peur de décevoir ses parents ou d’obtenir une note inférieure à ses attentes, son esprit est envahi de pensées catastrophiques automatiques telles que la certitude d’échouer ou de ruiner son avenir académique. Sur le plan comportemental, cette souffrance se traduit par deux profils opposés mais tout aussi révélateurs : soit un surinvestissement épuisant conduisant l’adolescent à réviser jusqu’à l’épuisement physique complet, soit un évitement anxieux qui ressemble trompeusement à de la paresse ou à de la procrastination. Le guide insiste sur l’importance d’aider le jeune à dissocier sa valeur personnelle de son rendement chiffré, en valorisant la démarche d’apprentissage et la persévérance plutôt que la seule note finale sur le bulletin scolaire officiel.",
+      "questions": [
+        [
+          "Quelle idée directrice ce guide clinique avance-t-il sur l’anxiété de performance scolaire ?",
+          "La distinction entre le trac stimulant et une angoisse paralysante fondée sur la peur d’échouer",
+          "L’obligation légale d’éliminer l’ensemble des examens écrits pour supprimer tout sentiment d’angoisse scolaire",
+          "La certitude que les élèves stressés manquent tous de discipline et de compétences académiques"
+        ],
+        [
+          "Comment l’explication psychologique met-elle en lumière la complexité du problème ?",
+          "Deux comportements en apparence contraires sont montrés comme étant les reflets d’une même peur",
+          "Une attaque en règle contre le ministère de l’Éducation est lancée sans analyse comportementale",
+          "Une série de sanctions disciplinaires est prescrite contre les adolescents qui procrastinent"
+        ],
+        [
+          "Que sous-entend la recommandation de dissocier la valeur personnelle des résultats ?",
+          "Fonder l’estime de soi uniquement sur les notes rend l’adolescent vulnérable à la dépression",
+          "Les notes scolaires ne reflètent aucune compétence réelle et devraient être supprimées à jamais",
+          "Les parents ne doivent accorder aucun intérêt aux bulletins transmis par les enseignants"
+        ],
+        [
+          "Dans ce contexte scolaire, que désigne l’expression « évitement anxieux » ?",
+          "Le réflexe de fuir une tâche difficile pour échapper temporairement à la détresse qu’elle génère",
+          "L’absence non justifiée d’un professeur lors de la correction des épreuves ministérielles de fin d’année",
+          "Une dispense médicale définitive accordée à un élève pour l’ensemble des cours d’éducation physique"
+        ]
+      ]
+    }
+  ],
+  "n9-reading-3": [
+    {
+      "situation": 0,
+      "text": "Politique de gouvernance financière et directives de trésorerie pour le Club de patinage de vitesse de Sherbrooke. Le présent protocole administratif a pour objet d’assurer la saine gestion des deniers de l’association et de préserver la confiance de nos membres bénévoles et bailleurs de fonds municipaux. Tout décaissement supérieur au seuil de deux cent cinquante dollars exige obligatoirement l’approbation conjointe et la signature manuscrite ou numérique de deux administrateurs autorisés, dont le trésorier en titre. L’utilisation de fonds en espèces pour le règlement de fournitures ou d’honoraires d’entraîneurs est formellement proscrite ; tous les paiements doivent s’effectuer par virement bancaire sécurisé ou par chèque au nom d’un bénéficiaire clairement identifié. Chaque fin de mois, le trésorier doit procéder à la conciliation bancaire complète en rapprochant les relevés de compte officiels des pièces justificatives correspondantes. Tout écart non élucidé excédant cinquante dollars doit immédiatement faire l’objet d’un rapport écrit soumis au conseil d’administration dans les cinq jours ouvrables. Enfin, une réserve d’exploitation équivalente à quinze pour cent du budget annuel doit être sanctuarisée sur un compte distinct afin de pallier d’éventuels retards dans le versement des subventions gouvernementales québécoises.",
+      "questions": [
+        [
+          "Quel est l’objectif réglementaire visé par ces directives de trésorerie sportive ?",
+          "Encadrer rigoureusement les dépenses et imposer des mécanismes stricts de double contrôle",
+          "Autoriser les entraîneurs sportifs à utiliser l’argent liquide pour leurs achats personnels",
+          "Supprimer définitivement l’ensemble des cotisations demandées aux familles de l’association"
+        ],
+        [
+          "De quelle manière les exigences de contrôle financier sont-elles présentées ?",
+          "Des seuils de dépenses, des méthodes de paiement et des délais de justification sont prescrits",
+          "Une invitation cordiale à faire confiance à chacun sans garder de reçus est formulée",
+          "Une série de reproches sans fondement est adressée aux anciens gestionnaires bénévoles du club"
+        ],
+        [
+          "Pourquoi le règlement impose-t-il la sanctuarisation d’un fonds de réserve de quinze pour cent ?",
+          "Pour garantir la continuité des activités en cas de versement tardif des aides financières de l’État",
+          "Pour financer un voyage récréatif annuel pour l’ensemble des membres du conseil d’administration de l’organisme",
+          "Pour payer d’avance la construction d’une nouvelle patinoire municipale dans un quartier voisin"
+        ],
+        [
+          "Dans ce contexte administratif, que désigne une « conciliation bancaire » ?",
+          "La vérification détaillée de la concordance parfaite entre les registres comptables et la banque",
+          "Une médiation juridique complexe entre une association sportive amateur et ses créanciers financiers en litige",
+          "Une demande formelle de prêt d’urgence déposée auprès d’une caisse d’économie solidaire locale"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "Protocole clinique hospitalier — Administration intraveineuse continue d’un nouvel anticoagulant de synthèse. Ce document s’adresse exclusivement au personnel infirmier autorisé des unités de soins intensifs et de cardiologie du Centre hospitalier de l’Université de Montréal. Avant d’entamer toute perfusion du produit, l’infirmière responsable doit impérativement vérifier la présence d’un bilan d’hémostase récent datant de moins de six heures et s’assurer de l’absence d’antécédents d’hémorragie intracrânienne documentée. La solution doit être diluée exclusivement dans du soluté salin isotonique à zéro virgule neuf pour cent à l’aide d’une pompe volumétrique électronique munie d’un dispositif anti-débit libre. La posologie initiale est calculée en fonction du poids réel du patient selon la formule de dix microgrammes par kilogramme par heure, sans excéder la dose maximale de huit cents microgrammes par heure. Un prélèvement sanguin pour la mesure du temps de céphaline activée doit obligatoirement être effectué à la quatrième heure suivant le début du traitement, puis toutes les quatre heures jusqu’à stabilisation de la cible thérapeutique. En cas de chute brutale de la pression artérielle ou de signes visibles de saignement digestif, interrompez immédiatement la perfusion, avisez le médecin de garde sans délai et préparez l’antidote spécifique selon les directives de l’annexe deux.",
+      "questions": [
+        [
+          "Quel est le but clinique impératif décrit dans ce protocole de soins hospitaliers ?",
+          "Établir les étapes de sécurité strictes pour administrer et surveiller une thérapie anticoagulante",
+          "Permettre aux patients d’ajuster eux-mêmes en direct le débit de leur pompe à perfusion intraveineuse continue",
+          "Interdire l’usage des anticoagulants pour l’ensemble des personnes hospitalisées en cardiologie"
+        ],
+        [
+          "Comment la démarche d’administration du médicament est-elle structurée dans le texte ?",
+          "Les prérequis médicaux sont posés avant le calcul posologique et les consignes d’urgence vitale",
+          "Une discussion purement théorique sur les étapes de synthèse chimique complexe de la molécule en laboratoire",
+          "Une comparaison purement commerciale entre les prix de trois anticoagulants est dressée"
+        ],
+        [
+          "Que déduit-on implicitement de l’obligation de mesurer le temps de céphaline activée ?",
+          "Le niveau d’anticoagulation doit être calibré avec une extrême précision pour éviter l’hémorragie",
+          "Le personnel soignant ne sait pas si le médicament a été injecté dans la bonne veine superficielle du bras",
+          "Les bilans sanguins réguliers ne servent qu’à vérifier le taux de cholestérol dans le sang"
+        ],
+        [
+          "Dans ce protocole médical, que signifie le terme « antidote » ?",
+          "Une substance thérapeutique capable de neutraliser rapidement les effets nocifs d’un médicament",
+          "Un calmant puissant destiné à soulager les céphalées particulièrement sévères chez les malades hospitalisés",
+          "Un désinfectant chirurgical appliqué sur la peau avant l’insertion d’un cathéter intraveineux"
+        ]
+      ]
+    },
+    {
+      "situation": 0,
+      "text": "Directives opérationnelles pour la gestion des comptes et la reddition financière de l’Association de soccer mineur de Charlesbourg. Le conseil d’administration exige que tous les intervenants respectent scrupuleusement les présentes consignes afin de garantir l’intégrité financière de notre organisation communautaire. Toute demande de remboursement pour des frais de transport ou d’hébergement liés à un tournoi provincial doit être accompagnée des reçus fiscaux originaux détaillés et soumise dans les quatorze jours suivant l’événement. Les déclarations sur l’honneur pour dépenses sans reçu ne seront acceptées qu’à titre tout à fait exceptionnel pour des montants inférieurs à vingt dollars. Les honoraires des arbitres officiels doivent obligatoirement être versés par transfert bancaire électronique direct après validation de la feuille de match officielle par le directeur technique ; aucun versement en argent comptant n’est autorisé sur les terrains de jeu. De surcroît, le trésorier doit présenter un état comparatif des revenus et dépenses lors de chaque réunion mensuelle ordinaire du conseil. Enfin, lors des campagnes annuelles de souscription, les dons de commanditaires privés doivent être déposés dans le compte bancaire de l’association dans un délai maximal de quarante-huit heures après réception, avec émission immédiate d’un reçu pour don conforme aux exigences de Revenu Québec.",
+      "questions": [
+        [
+          "Quelle consigne administrative fondamentale ce règlement financier impose-t-il ?",
+          "La justification systématique des dépenses par des pièces originales et l’interdiction de l’argent liquide",
+          "Le paiement en argent liquide de tous les arbitres directement sur les terrains municipaux après chaque match officiel",
+          "L’autorisation d’accumuler des dépenses non déclarées jusqu’à la fin complète de la saison sportive"
+        ],
+        [
+          "De quelle manière ces directives de bonne gouvernance sont-elles organisées ?",
+          "Les délais de soumission, les modalités de paiement et les devoirs de rapportage sont explicités",
+          "Une polémique acerbe contre les arbitres sportifs régionaux est alimentée sans proposer de directives utiles",
+          "Une dispense totale de justificatifs est accordée aux membres de l’équipe de direction du club"
+        ],
+        [
+          "Quel risque implicite l’interdiction de l’argent liquide cherche-t-elle à neutraliser ?",
+          "Le risque de détournement de fonds ou de contestation sur les montants réellement versés",
+          "La possibilité que les billets de banque québécois perdent subitement toute valeur marchande",
+          "L’obligation légale pour les arbitres de transporter des coffres-forts lourds dans leur sac de sport"
+        ],
+        [
+          "Que désigne l’expression « pièce justificative » dans ce texte de réglementation ?",
+          "Un document officiel ou une facture attestant la réalité et la conformité d’une dépense engagée",
+          "Une carte d’identité avec photo récente requise pour assister aux réunions du conseil d’administration du club",
+          "Une lettre d’excuses signée par un joueur ayant reçu un carton rouge durant une rencontre"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "Protocole d’administration hospitalière pour la perfusion sous-cutanée et intraveineuse d’un anticorps monoclonal thérapeutique. À l’attention des équipes de soins infirmiers de l’Institut universitaire de cardiologie et de pneumologie de Québec. En raison du risque documenté de réactions anaphylactiques graves lors des premières expositions au produit, l’administration doit obligatoirement avoir lieu dans une salle de soins équipée d’un chariot de réanimation complet et fonctionnel. Trente minutes avant le début de la perfusion, administrez la prémédication prescrite comprenant un antihistaminique par voie orale et un antipyrétique pour prévenir les réactions fébriles. Le médicament, conservé entre deux et huit degrés Celsius, doit être sorti de l’enceinte frigorifique exactement quarante-cinq minutes avant reconstitution afin d’atteindre la température ambiante sans réchauffement artificiel. Inspectez visuellement la fiole pour détecter la présence éventuelle de particules en suspension ou d’opalescence anormale ; jetez tout flacon altéré. Débutez l’injection au débit lent de vingt millilitres par heure sous surveillance hémodynamique continue. Si aucun signe d’intolérance cutanée, respiratoire ou tensionnelle n’apparaît après trente minutes, augmentez le débit par paliers réguliers de vingt millilitres par heure jusqu’au débit cible. Gardez le patient sous observation clinique rigoureuse pendant au moins deux heures après l’arrêt de la perfusion.",
+      "questions": [
+        [
+          "Quelle est la directive médicale prioritaire formulée dans ce protocole de perfusion ?",
+          "La prévention stricte des réactions allergiques majeures et la surveillance graduelle du débit",
+          "L’injection ultra-rapide du médicament pour écourter la durée de présence du malade en clinique",
+          "L’abandon de toute surveillance cardiaque dès que la perfusion intraveineuse est entamée"
+        ],
+        [
+          "Comment la progression du protocole clinique est-elle planifiée dans les consignes ?",
+          "La préparation du patient et du produit précède une injection progressive sous observation soutenue",
+          "Les étapes médicales sont laissées à la libre improvisation du patient selon son humeur fluctuante du jour",
+          "Une série d’arguments publicitaires vantant l’efficacité miraculeuse de la molécule est exposée"
+        ],
+        [
+          "Pourquoi le protocole impose-t-il une observation prolongée de deux heures après l’arrêt ?",
+          "Des réactions indésirables d’hypersensibilité retardée peuvent survenir après la fin de la perfusion",
+          "Les infirmières doivent obligatoirement terminer de remplir leurs dossiers médicaux avant de libérer le lit de soins",
+          "Le médicament ne commence à agir dans le sang qu’après cent vingt minutes d’attente passive"
+        ],
+        [
+          "Dans ce contexte hospitalier, que signifie le terme « prémédication » ?",
+          "Un traitement préventif administré avant une thérapie lourde pour en atténuer les effets secondaires",
+          "Une consultation psychologique préalable pour convaincre un malade récalcitrant d’accepter de se faire soigner",
+          "Une décharge de responsabilité légale que le patient doit signer avant d’entrer dans la clinique"
+        ]
+      ]
+    }
+  ],
+  "n9-reading-4": [
+    {
+      "situation": 0,
+      "text": "Tribune sociologique parue dans la revue syndicale Convergence. Face aux discours insidieux qui présentent le recours accru au secteur privé comme l’unique remède miracle à l’engorgement de nos urgences québécoises, il est urgent de rétablir la vérité sociologique et économique. Loin de désengorger le réseau public, la multiplication des cliniques privées à but lucratif et des agences de placement infirmier agit comme une pompe aspirante sur les ressources humaines du système de santé. En captant des médecins et des infirmières formés à grands frais par les universités publiques pour traiter des actes chirurgicaux rentables et sans risque, le privé laisse au secteur public le fardeau des cas complexes, des malades chroniques et des aînés vulnérables. Cette dynamique pernicieuse creuse inexorablement une médecine à deux vitesses où la rapidité de prise en charge dépend désormais de la taille du compte bancaire plutôt que de la gravité médicale. Défendre l’universalité et l’intégrité du régime public de santé n’est pas un réflexe corporatiste dépassé, mais le garant fondamental de notre cohésion sociale et de l’égalité civique devant la vulnérabilité humaine. Renoncer à ce pilier de la Révolution tranquille reviendrait à transformer un droit humain inaliénable en une banale marchandise commerciale soumise aux lois impitoyables du marché.",
+      "questions": [
+        [
+          "Quelle thèse principale le sociologue soutient-il avec vigueur dans sa tribune ?",
+          "La préservation du système public de santé comme rempart indispensable contre l’iniquité sociale",
+          "L’accélération de la privatisation de tous les hôpitaux pour régler définitivement les listes d’attente",
+          "La fermeture des facultés universitaires de médecine qui coûtent trop cher aux contribuables québécois"
+        ],
+        [
+          "Comment l’argumentation sociologique est-elle construite pour convaincre le lectorat ?",
+          "Une promesse fallacieuse du privé est démontée en exposant le siphonage des ressources publiques",
+          "Une série d’attaques personnelles diffamatoires est dirigée contre les directeurs d’hôpitaux généraux",
+          "Un éloge nostalgique des institutions médicales religieuses d’avant les années 1960 est prononcé"
+        ],
+        [
+          "Que sous-entend la métaphore de la « pompe aspirante » utilisée par l’auteur ?",
+          "Le secteur privé s’approprie les soignants formés par l’État au détriment des hôpitaux publics",
+          "Les cliniques privées utilisent des aspirateurs chirurgicaux plus perfectionnés que les hôpitaux",
+          "Les agences de placement manquent d’équipements mécaniques pour nettoyer les blocs opératoires"
+        ],
+        [
+          "Dans ce texte engagé, que connote l’expression « médecine à deux vitesses » ?",
+          "Un système injuste offrant des soins rapides aux riches et abandonnant les pauvres à l’attente",
+          "Un réseau ambulancier moderne équipé de véhicules d’urgence particulièrement rapides et efficaces",
+          "Une méthode clinique novatrice permettant de doubler la vitesse des interventions chirurgicales"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "Article d’opinion paru dans le quotidien Le Devoir. À l’heure où les défis climatiques et les crises du logement hypothèquent lourdement l’avenir des prochaines générations, le maintien de la majorité électorale à dix-huit ans constitue une anomalie démocratique injustifiable. Dès l’âge de seize ans, les jeunes québécois occupent des emplois d’été, paient des impôts sur le revenu ainsi que la taxe de vente sur leurs achats quotidiens, et conduisent des automobiles sur le réseau routier en répondant de leurs actes devant le système de justice. Comment peut-on légitimement leur refuser le droit de choisir leurs représentants politiques alors qu’ils subissent de plein fouet les décisions législatives relatives à l’éducation, à l’environnement et aux finances publiques pour les cinq prochaines décennies ? L’argument paternaliste brandi par les adversaires de la mesure, affirmant que les adolescents manqueraient de maturité politique, ne résiste pas à l’examen empirique des juridictions étrangères comme l’Autriche, où le vote à seize ans a accru la participation citoyenne durable sans déstabiliser les institutions. Élargir le suffrage universel aux jeunes de seize ans ne relève pas d’un caprice idéologique, mais d’un impératif de justice intergénérationnelle indispensable pour redynamiser notre démocratie représentative vieillissante et redonner une voix légitime à ceux qui hériteront des conséquences de nos choix collectifs actuels.",
+      "questions": [
+        [
+          "Quelle revendication démocratique majeure cet article d’opinion défend-il avec force ?",
+          "L’abaissement de l’âge légal du droit de vote à seize ans au nom de l’équité civique et fiscale",
+          "L’interdiction formelle faite aux adolescents de travailler avant leur majorité légale à dix-huit ans",
+          "La suppression définitive de l’impôt sur le revenu pour l’ensemble des citoyens âgés de moins de trente ans"
+        ],
+        [
+          "Quelle démarche argumentative l’auteur privilégie-t-il pour réfuter les objections ?",
+          "Il confronte les responsabilités réelles des jeunes de seize ans aux préjugés paternalistes de leurs détracteurs",
+          "Il insulte délibérément l’ensemble des électeurs aînés québécois en les accusant d’égoïsme générationnel",
+          "Il exige la dissolution immédiate de l’Assemblée nationale du Québec sans attendre les prochaines élections"
+        ],
+        [
+          "Que déduit-on implicitement de la référence à l’expérience démocratique en Autriche ?",
+          "Accorder le droit de vote aux jeunes adolescents ne présente aucun danger d’instabilité politique pour l’État",
+          "Les jeunes Autrichiens sont beaucoup plus intelligents et instruits que l’ensemble des élèves québécois",
+          "L’Autriche envisage de rétablir la majorité électorale à vingt-et-un ans lors de son prochain scrutin"
+        ],
+        [
+          "Dans ce débat civique, que désigne l’expression « justice intergénérationnelle » ?",
+          "L’obligation morale et politique d’intégrer équitablement les intérêts des générations montantes dans les lois",
+          "L’institution de tribunaux d’arbitrage familiaux spéciaux pour régler les conflits entre parents et adolescents",
+          "Une loi obligeant les personnes retraitées à partager équitablement leurs pensions avec leurs petits-enfants"
+        ]
+      ]
+    },
+    {
+      "situation": 0,
+      "text": "Extrait d’un essai en politiques publiques de santé. L’explosion des dépenses consacrées aux agences de placement privées de personnel soignant dans les centres hospitaliers québécois représente l’une des dérives les plus coûteuses de la gestion publique contemporaine. Ce phénomène, initialement présenté comme un expédient temporaire pour combler des vacances de postes dans les régions éloignées de la Côte-Nord ou de l’Abitibi, s’est mué en une industrie lucrative qui déstabilise profondément le fonctionnement ordinaire des équipes soignantes. En offrant des primes mirobolantes et la liberté totale de refuser les quarts de travail de nuit ou de fin de semaine, les agences privées créent une iniquité flagrante au sein même des unités de soins, où les infirmières régulières du réseau public se retrouvent à porter seules le fardeau des tâches ingrates pour un salaire inférieur. Cette hémorragie de talents coûte des centaines de millions de dollars aux contribuables québécois chaque année, enrichissant des intermédiaires mercantiles sans ajouter un seul soignant supplémentaire à l’effectif global de la province. La restauration d’un réseau public solidaire exige une interdiction légale stricte du recours à la main-d’œuvre indépendante dans les hôpitaux, doublée d’une amélioration substantielle et pérenne des conditions d’exercice des professionnels dévoués qui forment l’ossature de nos services de santé.",
+      "questions": [
+        [
+          "Quelle dénonciation principale l’auteur de cet essai formule-t-il au sujet des agences privées ?",
+          "L’effet pervers des agences privées qui coûtent une fortune et déstabilisent les équipes régulières",
+          "Le refus de soigner les patients hospitalisés dans les régions éloignées du nord québécois",
+          "L’interdiction totale faite aux infirmières québécoises de travailler durant les fins de semaine"
+        ],
+        [
+          "Comment l’essai démontre-t-il l’inefficacité structurelle du modèle des agences de placement ?",
+          "Il montre que les agences siphonnent l’argent public et créent des disparités sans créer de nouveaux soignants",
+          "Il affirme sans preuve que les infirmières d’agence commettent toutes des erreurs médicales criminelles",
+          "Il demande la fermeture pure et simple de tous les hôpitaux régionaux situés hors de l’île de Montréal"
+        ],
+        [
+          "Quel sous-entendu émane de la mention du refus des quarts de nuit par les soignants d’agence ?",
+          "La flexibilité offerte aux uns fait peser une charge de travail insoutenable sur les épaules des autres",
+          "Les hôpitaux du Québec ne fonctionnent plus du tout durant la nuit et les jours fériés officiels",
+          "Les infirmières du réseau public refusent par principe d’accueillir les nouveaux malades après vingt heures"
+        ],
+        [
+          "Dans ce contexte d’économie de la santé, que signifie le mot « expédient » ?",
+          "Une solution de dépannage provisoire et imparfaite adoptée pour faire face à une difficulté urgente",
+          "Un produit pharmaceutique dangereux retiré du marché par les autorités réglementaires sanitaires",
+          "Un protocole d’évacuation médicale aérienne réservé aux cas d’extrême urgence en forêt boréale"
+        ]
+      ]
+    },
+    {
+      "situation": 1,
+      "text": "Tribune libre sur la démocratie et la transition écologique. Alors que les rapports scientifiques du groupe d’experts intergouvernemental sur l’évolution du climat s’accumulent et dressent un tableau alarmant des bouleversements environnementaux à venir, les jeunes générations se heurtent à un mur de déni politique institutionnalisé. En privant les jeunes de seize et dix-sept ans du droit de vote, notre système électoral consacre une distorsion démocratique majeure : le pouvoir de décision demeure concentré entre les mains de cohortes d’électeurs plus âgés dont les horizons temporels sont naturellement plus courts, alors que les adolescents subiront les conséquences concrètes des choix énergétiques d’aujourd’hui pendant plus de six décennies. Partout au Québec, ces mêmes adolescents descendent massivement dans la rue lors des grèves pour le climat, participent activement aux corvées de reboisement et font preuve d’une lucidité écologique qui fait souvent cruellement défaut à leurs aînés. Leur refuser l’accès aux urnes sous prétexte d’un manque d’expérience civique relève d’une hypocrisie intenable à l’ère des bouleversements climatiques majeurs. Ouvrir le scrutin dès seize ans constituerait le plus puissant levier d’accélération de la transition écologique en forçant les partis politiques à inscrire enfin l’habitabilité future de notre planète au sommet absolu de leurs programmes électoraux.",
+      "questions": [
+        [
+          "Quel argument central est déployé dans cette tribune pour soutenir le vote à seize ans ?",
+          "La légitimité des jeunes à peser sur les décisions écologiques dont ils subiront l’impact toute leur vie",
+          "L’obligation légale pour tous les élèves du secondaire de militer dans un parti politique enregistré",
+          "La proposition de remplacer les députés de l’Assemblée nationale par des collégiens tirés au sort"
+        ],
+        [
+          "De quelle manière l’auteur appuie-t-il son raisonnement sur la réalité sociale québécoise ?",
+          "L’engagement environnemental concret des adolescents est mis en contraste avec leur exclusion politique",
+          "Une accusation d’ignorance généralisée est portée contre l’ensemble des scientifiques et des climatologues",
+          "Un appel à boycotter définitivement toutes les futures élections provinciales est lancé aux électeurs"
+        ],
+        [
+          "Que déduit-on implicitement de la remarque sur l’horizon temporel des aînés ?",
+          "Les générations plus âgées sont moins directement menacées par les effets à long terme du réchauffement",
+          "Les citoyens retraités ne devraient plus avoir le droit d’exprimer leur vote lors des scrutins généraux",
+          "Les personnes âgées au Québec refusent catégoriquement de recycler leurs déchets ménagers quotidiens"
+        ],
+        [
+          "Dans ce passage d’actualité politique, que désigne le mot « cohorte » ?",
+          "Un groupe d’individus partageant une même tranche d’âge ou une expérience historique commune",
+          "Une organisation paramilitaire clandestine cherchant à renverser les institutions démocratiques",
+          "Un rassemblement spontané de manifestants écologistes bloquant un pont autoroutier à l’heure de pointe"
+        ]
+      ]
+    }
+  ]
+}
