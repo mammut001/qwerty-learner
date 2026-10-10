@@ -342,7 +342,7 @@ export const futurSimpleLesson: TenseLesson = {
       id: 'fs-q10',
       type: 'choice',
       prompt: 'Elle (s’installer) ___ dans un appartement près de la station Berri-UQAM.',
-      options: ['s’installera', 's’installer', 'installera', 's’installera-t-elle'],
+      options: ['s’installera', 's’installer', 'installera', 's’installeras'],
       correctAnswer: 's’installera',
       explanationZh: '代词动词在 elle 人称下为 elle s’installera。',
     },
