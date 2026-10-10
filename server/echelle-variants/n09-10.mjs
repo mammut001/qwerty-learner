@@ -1222,5 +1222,371 @@ export const N09_10_SCENARIOS = {
         ]
       ]
     }
+  ],
+  "n10-listening-0": [
+      {
+          "situation": 0,
+          "text": "— Chers collègues, bienvenue à cette plénière du Sommet climatique de Montréal consacrée aux nouvelles filières de stockage thermique. Dans notre laboratoire de l’Université du Québec en Abitibi-Témiscamingue, nous avons développé un procédé novateur exploitant la porosité des anciennes galeries minières ennoyées pour emmagasiner l’énergie calorifique excédentaire. Lors des pointes de production hydroélectrique ou éolienne, l’eau tiède industrielle est acheminée à quatre cents mètres de profondeur, où l’inertie rocheuse préserve la chaleur avec un taux de déperdition inférieur à cinq pour cent sur trois mois. Nos simulations numériques, validées par des carottages thermiques répétés sur le site pilote de Val-d’Or, démontrent qu’une seule cavité souterraine peut chauffer durablement un quartier résidentiel de deux mille foyers durant les grands froids de janvier. Cependant, la transposition industrielle exige une vigilance géochimique constante : la dissolution potentielle de sulfures métalliques au contact d’eaux réchauffées pourrait déstabiliser les aquifères superficiels si le pH n’était pas régulé en temps réel par des biofilms neutralisants. Ce défi environnemental ne doit pas freiner nos ambitions, car ce modèle d’économie circulaire transforme un passif minier historique en un levier stratégique de résilience énergétique. Nous amorçons la phase deux avec les spécialistes du ministère de l’Environnement afin d’établir un cadre réglementaire rigoureux qui guidera les municipalités nordiques vers cette autonomie thermique pérenne et sécuritaire.",
+          "questions": [
+              [
+                  "Quelle est la proposition principale avancée par la chercheuse lors de cette plénière ?",
+                  "La conversion de cavités souterraines en accumulateurs de chaleur pour le réseau urbain",
+                  "La fermeture immédiate et définitive de tous les forages miniers nordiques pour protéger l’eau",
+                  "L’abandon complet de la filière hydroélectrique au profit d’une production éolienne exclusive"
+              ],
+              [
+                  "Comment la conférencière structure-t-elle la présentation de ses résultats scientifiques ?",
+                  "Elle décrit le principe physique et les gains attendus avant d’aborder les contraintes chimiques",
+                  "Elle dénonce d’abord la passivité des autorités publiques avant d’exposer une méthode contestée",
+                  "Elle énumère les dépenses initiales du projet avant de solliciter des subventions privées d’urgence"
+              ],
+              [
+                  "Quel impératif technique sous-tend la réussite du déploiement à grande échelle ?",
+                  "Le maintien rigoureux de l’équilibre physico-chimique de l’eau injectée dans le sous-sol",
+                  "Une surveillance permanente et exhaustive de la pureté de l’eau pour éviter toute contamination",
+                  "Une augmentation sensible de la consommation d’électricité fossile dans les résidences du secteur"
+              ],
+              [
+                  "Dans ce contexte géologique, que désigne l’expression « passif minier » ?",
+                  "L’ensemble des séquelles environnementales et cavités abandonnées issues d’anciennes exploitations",
+                  "Une dette financière colossale et persistante contractée auprès de banques internationales",
+                  "L’absence totale de rentabilité commerciale constatée chez une entreprise manufacturière déchue"
+              ]
+          ]
+      },
+      {
+          "situation": 1,
+          "text": "— Bonjour à tous. Au cours de cette table ronde consacrée à la modernisation de la Loi sur la protection du consommateur, nous devons examiner avec minutie les nouvelles dispositions relatives à l’obsolescence programmée et au droit à la réparation. Le projet de loi québécois impose désormais aux fabricants d’appareils électroniques une garantie de disponibilité des pièces de rechange et des manuels techniques à un coût raisonnable pendant une durée proportionnelle à la valeur du bien. Pour les associations de consommateurs, cette avancée met un terme à une asymétrie contractuelle inique où le citoyen était systématiquement contraint de remplacer un appareil défectueux au lieu d’en confier la remise en état à un atelier de quartier. Toutefois, les représentants de l’industrie manufacturière soulignent les écueils logistiques d’une telle obligation, affirmant que le stockage prolongé de composants miniaturisés pourrait entraîner une hausse disproportionnée des prix de vente au détail sur les marchés locaux. Selon les juristes spécialisés entendus ce matin, l’enjeu fondamental réside dans le renversement du fardeau de la preuve : désormais, dès lors qu’une mise à jour logicielle altère de manière irréversible le fonctionnement d’un appareil, c’est au concepteur de prouver l’absence de dessein dommageable. Cette règle probatoire novatrice pourrait transformer durablement les pratiques commerciales au pays et inciter les géants technologiques à concevoir des produits véritablement réparables, modulaires et respectueux du pouvoir d’achat citoyen.",
+          "questions": [
+              [
+                  "Quel est l’objet central des discussions de cette table ronde juridique ?",
+                  "L’encadrement légal de la durabilité et de la réparabilité des appareils électroniques",
+                  "L’interdiction formelle et définitive de toute publicité commerciale visant le jeune public",
+                  "La réduction générale et concertée des taxes de vente sur les composants informatiques importés"
+              ],
+              [
+                  "Comment l’intervenant expose-t-il les différentes positions en présence ?",
+                  "Il confronte les attentes des usagers aux réserves industrielles avant d’analyser le cadre de preuve",
+                  "Il prend vigoureusement parti pour les manufacturiers en contestant les orientations gouvernementales",
+                  "Il récapitule les arrêts de tribunaux internationaux sans considérer les réalités du marché intérieur"
+              ],
+              [
+                  "Quelle conséquence concrète découle du renversement de la charge de la preuve ?",
+                  "Le fabricant doit établir qu’une mise à jour logicielle n’avait aucun but préjudiciable",
+                  "L’acheteur doit assumer les frais d’une expertise technique complexe avant de pouvoir déposer plainte",
+                  "Les marchands de détail doivent dédommager sur-le-champ tout client signalant une panne d’appareil"
+              ],
+              [
+                  "Dans ce débat réglementaire, que signifie l’expression « fardeau de la preuve » ?",
+                  "L’obligation légale incombant à une partie de démontrer la réalité de ses allégations en justice",
+                  "Une pénalité financière forfaitaire et dissuasive infligée aux sociétés récalcitrantes lors du procès",
+                  "La masse globale de justificatifs administratifs requise pour obtenir une certification officielle"
+              ]
+          ]
+      },
+      {
+          "situation": 0,
+          "text": "— Merci de votre présence. Dans le cadre de ce colloque sur les innovations écologiques appliquées, notre équipe de recherche de Trois-Rivières présente les conclusions d’un programme pilote sur la séquestration du carbone par le biocharbon forestier. En valorisant les écorces et les sciures issues de nos scieries boréales par un procédé de pyrolyse à haute température sans combustion, nous produisons une matière poreuse d’une remarquable stabilité géochimique. Incorporé aux sols agricoles de la plaine du Saint-Laurent, ce substrat carboné y emprisonne le carbone organique pendant plusieurs siècles, tout en augmentant la rétention hydrique des sols sablonneux de près de trente pour cent. Les données de terrain recueillies auprès de quinze fermes partenaires révèlent une diminution marquée du ruissellement des nitrates vers les cours d’eau adjacents et un allègement significatif des besoins en engrais de synthèse pour les exploitants régionaux. Néanmoins, l’acceptabilité économique de cette filière demeure fragile face aux fluctuations du marché. Tant que le système québécois des crédits de compensation carbone ne valorisera pas pleinement la permanence du stockage dans les sols vivants, les producteurs agricoles hésiteront à absorber les coûts d’épandage. Les autorités provinciales doivent donc instaurer des incitatifs ciblés afin de consolider la viabilité financière de cette pratique agronomique régénératrice avant qu’elle ne puisse être déployée à l’échelle nationale avec un soutien logistique sans faille.",
+          "questions": [
+              [
+                  "Quel est le but poursuivi par le projet présenté par le chercheur ?",
+                  "La valorisation de résidus de bois pour capter le carbone et enrichir les sols agricoles",
+                  "L’exploitation industrielle de massifs forestiers boréaux pour créer de vastes zones de coupe",
+                  "La substitution totale des cultures maraîchères régionales par des plantations d’arbres résineux"
+              ],
+              [
+                  "Quelle démarche argumentative l’orateur adopte-t-il au fil de son allocution ?",
+                  "Il détaille le procédé technique et ses gains écologiques avant d’exposer un frein financier",
+                  "Il met en doute le dévouement des agriculteurs avant de vanter la profitabilité immédiate du plan",
+                  "Il recommande une hausse des taxes rurales avant d’aborder les propriétés chimiques du biocharbon"
+              ],
+              [
+                  "Quel élément conditionne l’adoption généralisée de cette innovation par les fermiers ?",
+                  "La reconnaissance financière pérenne du stockage de carbone par des mesures incitatives adaptées",
+                  "La mise à disposition sans frais d’engrais minéraux importés pour combler les baisses de productivité",
+                  "La cession contractuelle et obligatoire de parcelles agricoles à des groupes industriels de pointe"
+              ],
+              [
+                  "Que connote le terme « régénératrice » appliqué à cette pratique agronomique ?",
+                  "Une méthode qui rétablit la vitalité des écosystèmes sans en épuiser les ressources",
+                  "Une procédure industrielle d’assainissement rapide déployée après un grave déversement toxique",
+                  "Un protocole d’enrichissement artificiel qui accélère la croissance d’espèces hybrides créées en serre"
+              ]
+          ]
+      },
+      {
+          "situation": 1,
+          "text": "— Chers auditeurs, poursuivons notre tribune spéciale sur la consommation responsable avec l’examen des contrats de financement à l’achat d’appareils ménagers. Les modifications apportées par le législateur visent à endiguer les pratiques trompeuses entourant le crédit variable et les garanties supplémentaires systématiquement offertes en magasin. Jusqu’à récemment, de nombreux consommateurs signaient des ententes de versement sans saisir l’impact cumulatif des taux d’intérêt différés, croyant bénéficier d’une gratuité totale durant la première année d’utilisation du bien. La loi révisée impose dorénavant une obligation expresse de divulgation précontractuelle : le commerçant doit présenter un tableau clair comparant le coût réel de l’article payé comptant avec le montant total déboursé au terme de l’échéancier de crédit. De plus, il lui est formellement interdit de vanter une garantie payante sans avoir préalablement informé l’acheteur de la portée de la garantie légale de durabilité assurée par l’État québécois. Les associations de défense des droits constatent un recul bienvenu des abus, mais déplorent que les pénalités financières imposées aux récidivistes demeurent trop modestes pour dissuader les grandes chaînes de distribution. Pour que cette réforme atteigne sa pleine portée, il faudra intensifier les inspections inopinées sur les planchers de vente et faire preuve d’une fermeté exemplaire lors de l’application des sanctions administratives et pénales.",
+          "questions": [
+              [
+                  "Quel est l’objectif principal des nouvelles dispositions commentées à l’antenne ?",
+                  "Accroître la transparence financière et encadrer le recours au crédit et aux garanties payantes",
+                  "Autoriser les commerces de détail à prélever des frais supplémentaires pour chaque achat par carte",
+                  "Interdire la vente d’appareils électroménagers conçus ou assemblés en dehors du territoire national"
+              ],
+              [
+                  "Comment l’argumentation de la chroniqueuse progresse-t-elle ?",
+                  "Elle expose les dérives passées et les nouvelles règles avant d’évoquer la faiblesse des sanctions",
+                  "Elle appelle au démantèlement des organismes de contrôle avant d’applaudir la conduite des marchands",
+                  "Elle confronte le prix des meubles en ligne et celui des magasins physiques sur un ton anecdotique"
+              ],
+              [
+                  "Quel devoir spécifique le commerçant doit-il dorénavant accomplir avant de proposer une garantie prolongée ?",
+                  "Mentionner explicitement à l’acheteur la protection de base déjà accordée sans frais par la loi",
+                  "Obtenir l’assentiment préalable et écrit des autorités judiciaires pour chaque transaction conclue",
+                  "Exiger du consommateur un dépôt bancaire substantiel bloqué auprès d’une institution financière"
+              ],
+              [
+                  "Dans ce texte, quel est le sens du terme « précontractuelle » ?",
+                  "Qui doit obligatoirement intervenir avant la conclusion formelle d’un contrat",
+                  "Qui suspend les responsabilités juridiques souscrites lors des échanges préliminaires",
+                  "Qui s’applique exclusivement aux conventions conclues entre professionnels d’un même secteur"
+              ]
+          ]
+      }
+  ],
+  "n10-listening-1": [
+      {
+          "situation": 0,
+          "text": "— Bonsoir et bienvenue à ce septième épisode de notre série balado « L’Empire assiégé ». Ce soir, nous analysons les coulisses de l’effondrement du groupe médiatique Lafrance, qui régnait sans partage sur la presse écrite et radiophonique des régions du Québec depuis un demi-siècle. Tout a basculé lorsque le patriarche fondateur, refusant d’admettre la transition irrémédiable du lectorat vers les plateformes numériques, a continué d’investir des millions de dollars dans l’achat de rotatives géantes et de centres de tri postal. Pendant que les revenus publicitaires traditionnels s’effondraient sous l’effet de la concurrence internationale, les tensions au sein du conseil d’administration atteignaient un point de non-retour. Les héritiers, divisés entre partisans d’une vente à un fonds d’investissement torontois et défenseurs d’une recapitalisation locale, se sont livrés une guerre intestine impitoyable par communiqués interposés. Au lieu d’adapter la stratégie éditoriale et de moderniser le site web, la direction s’est embourbée dans des litiges d’actionnaires interminables devant les tribunaux civils. Lorsque les créanciers ont finalement exigé le remboursement des marges de crédit, la direction a été contrainte de déclarer faillite, laissant des centaines de journalistes sur le carreau et créant un désert d’information locale dans dix municipalités. Cette saga tragique illustre avec acuité comment l’aveuglement stratégique et les querelles dynastiques peuvent anéantir un pilier de la mémoire collective en l’espace de quelques saisons seulement.",
+          "questions": [
+              [
+                  "Quelle est la cause principale de la chute du conglomérat de presse analysée dans le balado ?",
+                  "Le refus d’embrasser l’ère numérique combiné à d’inextricables querelles successorales",
+                  "Un débrayage massif et prolongé des techniciens d’imprimerie durant plus d’une décennie entière",
+                  "Une décision réglementaire fédérale ordonnant le démantèlement immédiat de tout monopole d’antenne"
+              ],
+              [
+                  "Comment le narrateur organise-t-il la trame de son récit documentaire ?",
+                  "Il relate les placements anachroniques avant de détailler les déchirements familiaux et la faillite",
+                  "Il tresse des louanges au fondateur avant de reprocher aux lecteurs leur absence de fidélité au titre",
+                  "Il dévoile les déclarations de revenus des reporters avant d’esquisser une relance par voie syndicale"
+              ],
+              [
+                  "Quelle répercussion majeure la disparition du consortium a-t-elle eue sur les régions desservies ?",
+                  "Un affaiblissement drastique de la couverture des enjeux municipaux dans plusieurs localités",
+                  "L’obligation légale imposée aux ménages de s’abonner à des organes de presse unilingues anglophones",
+                  "L’ouverture spontanée de stations radiophoniques indépendantes animées par d’anciens salariés syndiqués"
+              ],
+              [
+                  "Dans ce compte rendu, que connote l’expression « désert d’information » ?",
+                  "La raréfaction préoccupante de sources d’information indépendantes dans une zone géographique",
+                  "Une pénurie passagère de pâte à papier paralysant l’activité des rotatives dans les imprimeries locales",
+                  "Une censure étatique délibérée empêchant la parution de toute nouvelle politique durant un scrutin"
+              ]
+          ]
+      },
+      {
+          "situation": 1,
+          "text": "— Bonjour aux passionnés de scène. Ce midi à la tribune culturelle de Radio-Canada, nous nous entretenons avec le metteur en scène Maxime Tremblay à propos de sa relecture audacieuse de la pièce « Le Misanthrope » de Molière, actuellement présentée au Théâtre du Nouveau Monde. Dans cette version résolument contemporaine, la cour d’Alceste et de Célimène est transposée dans l’univers feutré d’une firme de relations publiques du centre-ville de Montréal, où les flatteries baroques cèdent la place aux algorithmes d’influence et aux stratégies de réputation sur les réseaux sociaux. Alceste n’y apparaît plus seulement comme un puriste de la vérité morale, mais plutôt comme un directeur de création désabusé, incapable de composer avec l’hypocrisie marchande d’un milieu où chaque compliment est monnayé au centime près. Selon plusieurs critiques, ce parti pris dramaturgique met brillamment en lumière la cruauté psychologique de l’œuvre originelle : en substituant les gazouillis viraux aux billets doux cachetés, le spectacle souligne comment la quête effrénée d’approbation sociale broie l’authenticité des sentiments. Certains spectateurs traditionnels ont pu s’émouvoir de l’absence des costumes d’époque et de l’intégration d’écrans géants en fond de scène, mais cette audace scénographique revitalise le chef-d’œuvre sans en altérer la force verbale. C’est une réflexion percutante sur notre vanité collective qui résonne avec une troublante actualité dans notre ère de mise en scène permanente de soi et de marchandisation des rapports humains.",
+          "questions": [
+              [
+                  "Quel est le parti pris artistique central de cette nouvelle adaptation théâtrale ?",
+                  "Replacer le dilemme moral classique au cœur du monde moderne des communications et de l’image",
+                  "Substituer au texte original un dialogue entièrement improvisé en argot de la métropole montréalaise",
+                  "Éliminer la figure centrale d’Alceste afin de concentrer les scènes sur les personnages secondaires"
+              ],
+              [
+                  "Comment la critique culturelle structure-t-elle son appréciation de la pièce ?",
+                  "Elle expose le contexte scénique contemporain avant d’en justifier l’acuité psychologique et morale",
+                  "Elle fustige sans appel le jeu des interprètes avant de déplorer le tarif excessif des places de parterre",
+                  "Elle mentionne le calendrier des représentations régionales avant de livrer un résumé exhaustif de l’acte"
+              ],
+              [
+                  "Quel effet produit l’utilisation des technologies numériques sur la scène contemporaine ?",
+                  "Elle accentue la critique de l’hypocrisie sociale et de la quête permanente de validation externe",
+                  "Elle distrait sans cesse l’assistance en estompant les maladresses d’élocution de la jeune troupe",
+                  "Elle sert à diffuser des messages publicitaires commandités durant les entractes techniques du drame"
+              ],
+              [
+                  "Dans ce compte rendu, que signifie l’expression « parti pris » ?",
+                  "Une orientation esthétique délibérée guidant l’interprétation et la mise en scène d’une pièce",
+                  "Une maladresse de distribution commise par la régie au cours des dernières séances de répétition",
+                  "Une exigence contractuelle impérative formulée par les héritiers de l’auteur pour autoriser la pièce"
+              ]
+          ]
+      },
+      {
+          "situation": 0,
+          "text": "— Bienvenue au dernier volet de notre enquête audio sur la dislocation de l’empire médiatique Lafrance. Aujourd’hui, nous nous penchons sur l’ultime tentative de sauvetage menée par une coalition de reporters aguerris et d’artisans de l’information. Face à la liquidation imminente ordonnée par le tribunal de commerce, une quarantaine d’employés ont refusé de voir disparaître la voix historique de leur région et ont tenté de transformer les actifs résiduels en coopérative de travail solidaire. Durant des semaines fébriles, ils ont parcouru les chambres de commerce régionales, sollicitant le soutien des caisses populaires et des petites entreprises locales pour réunir le capital initial indispensable à la relance. Leurs efforts ont suscité un élan de sympathie populaire sans précédent : des milliers de citoyens ont souscrit des parts privilégiées pour défendre le pluralisme des médias en région. Toutefois, le montage financier s’est heurté à l’intransigeance des banques créancières, qui exigeaient des garanties immobilières immédiates sur les bâtisses industrielles du groupe déchu. Faute de temps pour boucler le tour de table, la coopérative n’a pu racheter qu’une fraction des titres régionaux, laissant le reste du réseau aux mains d’un agrégateur numérique étranger qui en a licencié les trois quarts des effectifs dès la première semaine. Ce dénouement en demi-teinte rappelle que la volonté démocratique se heurte souvent aux impératifs impitoyables de la finance spéculative lorsque le tissu économique local n’est pas adéquatement protégé par des lois préventives.",
+          "questions": [
+              [
+                  "Quelle initiative civique fait l’objet de ce reportage d’investigation audio ?",
+                  "Le projet de reprise collective des publications par les artisans de la rédaction et du personnel",
+                  "La constitution d’une fondation privée vouée à indemniser les membres influents de la famille fondatrice",
+                  "Le blocage prolongé des ateliers d’impression par des comités exigeant l’arrêt de la distribution papier"
+              ],
+              [
+                  "Quelle est la trame directrice adoptée par la journaliste dans son compte rendu ?",
+                  "Elle décrit le sursaut solidaire avant d’analyser le refus bancaire qui a précipité le dénouement",
+                  "Elle brocarde l’impréparation des rédacteurs avant d’en appeler à une nationalisation autoritaire des titres",
+                  "Elle compare les tarifs d’insertion publicitaire des concurrents avant de manifester un parfait détachement"
+              ],
+              [
+                  "Quel obstacle a empêché la coopérative de racheter la totalité du groupe médiatique ?",
+                  "L’obligation de fournir des cautions patrimoniales immédiates imposée par les créanciers bancaires",
+                  "L’indifférence totale manifestée par le public régional qui s’est abstenu d’acquérir la moindre action",
+                  "Une règle juridique provinciale interdisant à des journalistes en exercice d’administrer une société de presse"
+              ],
+              [
+                  "Dans ce contexte financier, que signifie l’expression « boucler le tour de table » ?",
+                  "Rassembler l’ensemble des fonds nécessaires auprès des bailleurs de capitaux avant l’échéance",
+                  "Convier l’ensemble des maires des municipalités avoisinantes à une réception civique protocolaire",
+                  "Aplanir les différends personnels divisant les membres du conseil consultatif d’une entreprise régionale"
+              ]
+          ]
+      },
+      {
+          "situation": 1,
+          "text": "— Bonjour. À notre micro aujourd’hui, la dramaturge et directrice artistique Nadia Bélanger commente son adaptation remarquée d’« Antigone » de Sophocle au Théâtre Périscope de Québec. En transposant le dilemme tragique de l’héroïne grecque dans une réserve faunique fictive du Nord-du-Québec en proie à un conflit minier d’envergure, le spectacle confronte le devoir moral envers les ancêtres aux impératifs d’une raison d’État modernisée. Créon n’est plus un tyran d’opérette, mais un haut fonctionnaire pragmatique, persuadé que le bien-être économique de sa communauté dépend de la signature rapide d’une entente de développement minier avec un consortium étranger. Face à lui, Antigone incarne la mémoire intransigeante du territoire, prête à braver l’opprobre institutionnel pour honorer les sépultures profanées par les excavatrices industrielles sous les yeux de la police. La scénographie, dominée par des parois d’épinettes calcinées et des projections vidéo de toundra battue par les vents, immerge le spectateur dans une atmosphère de deuil écologique et de tension sourde. Ce parti pris de mise en scène permet d’échapper aux pièges du manichéisme : le public se trouve pris en étau entre la légitimité démocratique des institutions et l’inviolabilité des impératifs éthiques ancestraux. Les dialogues, resserrés en un acte unique d’une heure et demie sans entracte, maintiennent un rythme suffocant jusqu’au dénouement inéluctable qui laisse la salle bouleversée.",
+          "questions": [
+              [
+                  "Quel est le propos central de la mise en scène présentée par Nadia Bélanger ?",
+                  "Explorer le tiraillement entre l’impératif de développement économique et les exigences sacrées de l’éthique",
+                  "Tresser des éloges appuyés aux sociétés minières pour leur contribution au dynamisme des territoires éloignés",
+                  "Livrer une comédie légère et parodique inspirée des mythes antiques dans l’espoir d’amuser les collégiens"
+              ],
+              [
+                  "Comment l’analyse dramaturgique met-elle en valeur la confrontation des personnages ?",
+                  "Elle confère à Créon et à Antigone une cohérence morale propre qui évite toute opposition binaire simpliste",
+                  "Elle dépeint Créon sous les traits d’un despote violent et cruel face à une opposante entièrement angélique",
+                  "Elle passe sous silence les motivations politiques des deux figures pour s’attarder sur les jeux d’éclairage"
+              ],
+              [
+                  "Quel rôle la scénographie épurée joue-t-elle dans la perception du drame par le public ?",
+                  "Elle instaure un climat de gravité visuelle qui intensifie le dilemme éthique vécu par les protagonistes",
+                  "Elle reconstitue dans les moindres détails les ruines d’une cité antique pour respecter la vérité historique",
+                  "Elle offre un dispositif d’arrière-scène standardisé conçu pour limiter les frais de déplacement de la troupe"
+              ],
+              [
+                  "Dans ce commentaire de critique, que connote le terme « manichéisme » ?",
+                  "Une interprétation réductrice divisant artificiellement le monde entre un bien parfait et un mal absolu",
+                  "Une ancienne pratique rituelle méditerranéenne reprise fidèlement dans les chœurs du théâtre athénien",
+                  "Un procédé de versification alternant strophes rimées et prose poétique au sein d’une tragédie moderne"
+              ]
+          ]
+      }
+  ],
+  "n10-listening-2": [
+      {
+          "situation": 0,
+          "text": "— Mesdames et messieurs les membres du conseil municipal, chers concitoyens de Saint-Hyacinthe, je prends la parole ce soir avec solennité au sujet de la demande de dézonage de cinquante hectares de terres arables au sud de notre périmètre urbain. La proposition de convertir ces parcelles fertiles en parc logistique d’entrepôts frigorifiques est présentée par certains promoteurs comme une opportunité économique inestimable pour nos finances locales. On nous fait miroiter des retombées fiscales substantielles et la création de dizaines d’emplois manuels dans un secteur névralgique de notre économie régionale. Or, je vous invite à regarder au-delà des bilans comptables à court terme : nous parlons ici de sols de classe un, parmi les plus riches et les plus résilients de toute la vallée du Richelieu, formés au cours de millénaires et indispensables à notre souveraineté alimentaire québécoise. L’étalement urbain ne peut continuer de grignoter inexorablement notre patrimoine nourricier sous le seul prétexte de faciliter le transit de marchandises importées par camion. Une fois coulée sous le béton bitumineux, une terre agricole est perdue pour toujours, et aucune compensation pécuniaire ne saurait restaurer sa fertilité biologique. Si notre municipalité veut véritablement incarner le leadership de la transition écologique, nous devons plutôt orienter ces projets logistiques vers nos friches industrielles désaffectées et refuser catégoriquement de sacrifier nos emblavures sur l’autel de la spéculation foncière éphémère.",
+          "questions": [
+              [
+                  "Quelle est la position défendue avec fermeté par l’élue municipale ?",
+                  "Le refus de sacrifier des sols nourriciers exceptionnels au profit d’installations d’entreposage",
+                  "L’approbation enthousiaste du projet immobilier afin de regarnir durablement les caisses publiques locales",
+                  "Le déplacement planifié des résidents des vieux quartiers urbains vers les zones de culture maraîchère"
+              ],
+              [
+                  "Quelle stratégie argumentative la conseillère emploie-t-elle pour convaincre son auditoire ?",
+                  "Elle oppose la valeur irremplaçable du patrimoine agricole nourricier aux mirages financiers à court terme",
+                  "Elle met en cause la moralité des représentants des promoteurs sans formulter la moindre observation technique",
+                  "Elle préconise d’ajourner le vote jusqu’à la prochaine élection générale sans exprimer d’avis sur le fond"
+              ],
+              [
+                  "Quelle alternative concrète l’oratrice suggère-t-elle pour accueillir ces nouvelles installations ?",
+                  "La revitalisation ciblée d’anciennes zones industrielles délaissées situées au sein de la municipalité",
+                  "L’expropriation d’habitations riveraines pour dégager l’espace nécessaire aux transporteurs routiers",
+                  "L’envoi immédiat de ces activités logistiques vers des collectivités voisines d’une autre province"
+              ],
+              [
+                  "Dans ce discours politique, que désigne le terme « emblavures » ?",
+                  "Des terres arables labourées et ensemencées portant des récoltes destinées à l’alimentation",
+                  "Des parcelles forestières isolées dont l’accès est strictement réservé aux entreprises d’abattage",
+                  "Des voies carrossables non goudronnées reliant directement les exploitations aux grands axes routiers"
+              ]
+          ]
+      },
+      {
+          "situation": 1,
+          "text": "— Collègues étudiantes et étudiants de l’Université Laval, l’heure n’est plus aux demi-mesures ni aux pétitions symboliques qui finissent oubliées au fond d’un tiroir ministériel. Nous sommes réunis en assemblée générale souveraine pour voter sur un mandat de grève reconductible de trois jours afin de dénoncer l’inaction flagrante de notre administration et du gouvernement face à la précarité qui nous asphyxie. Comment pouvons-nous tolérer qu’en 2026, des centaines de stagiaires en enseignement, en soins infirmiers et en travail social continuent d’accomplir quarante heures par semaine de labeur essentiel sans percevoir un seul sou de compensation financière ? Cette injustice institutionnalisée est d’autant plus révoltante que le coût du loyer et des denrées alimentaires de base a grimpé en flèche dans la capitale, forçant bon nombre d’entre nous à choisir entre manger à leur faim et acheter leurs manuels scolaires obligatoires. On tentera de vous effrayer en affirmant qu’un arrêt de cours compromettra la validation de votre trimestre ou alourdira votre charge d’étude printanière. Ce discours culpabilisant vise uniquement à briser notre cohésion de groupe. L’histoire des mouvements sociaux québécois nous enseigne que nous n’avons jamais rien obtenu sans un rapport de force organisé et solidaire. En votant massivement pour ce mandat aujourd’hui, nous refusons d’être la variable d’ajustement budgétaire du système d’éducation et nous affirmons la dignité inaliénable de notre travail d’étudiants face aux décideurs politiques.",
+          "questions": [
+              [
+                  "Quelle est la revendication centrale portée par le porte-parole étudiant lors de l’assemblée ?",
+                  "La rémunération systématique et décente des stages de formation pratique exigés dans les cursus",
+                  "La suppression de l’évaluation finale dans l’ensemble des départements pour diminuer l’anxiété des pairs",
+                  "L’obtention de rabais commerciaux exclusifs auprès des grandes enseignes de distribution alimentaire"
+              ],
+              [
+                  "Par quel procédé rhétorique l’orateur cherche-t-il à mobiliser les membres de l’association ?",
+                  "Il lie la précarité vécue par les étudiants à la nécessité historique d’une action syndicale unie",
+                  "Il dissimule les contraintes financières de ses camarades pour préserver le prestige de l’institution",
+                  "Il annonce l’éviction des adhérents qui refuseraient d’adopter les propositions de la table syndicale"
+              ],
+              [
+                  "Quel contre-argument de la direction l’orateur s’efforce-t-il de neutraliser auprès des étudiants ?",
+                  "La menace qu’une interruption des enseignements ne retarde l’obtention des crédits du trimestre",
+                  "L’allégation voulant que le programme d’aide financière gouvernemental comble déjà tous les besoins",
+                  "L’engagement formel d’une réduction automatique des frais institutionnels consentie par le rectorat"
+              ],
+              [
+                  "Dans ce plaidoyer engagé, quel est le sens de l’expression « rapport de force » ?",
+                  "Un équilibre de pression stratégique bâti collectivement pour infléchir une prise de décision",
+                  "Un affrontement corporel violent opposant deux fractions adverses au sein d’une enceinte sportive",
+                  "Un bilan statistique dressé unilatéralement par les cadres d’une administration d’enseignement"
+              ]
+          ]
+      },
+      {
+          "situation": 0,
+          "text": "— Chers collègues du conseil de la MRC de Matawinie, prenons un instant pour mesurer la portée de la résolution inscrite à l’ordre du jour concernant l’autorisation d’un vaste complexe villégiatureux sur les hauteurs boisées de Saint-Côme. On nous assure que ce projet récréotouristique apportera une manne économique sans précédent en attirant des résidents fortunés désireux de s’établir en villégiature permanente. Cependant, ce développement effréné sur les crêtes rocheuses menace de morceler irréversiblement l’un des derniers corridors écologiques continus qui permettent aux grands mammifères de migrer entre nos parcs régionaux. Ouvrir ces massifs à une densification résidentielle, c’est également imposer à notre communauté une explosion des dépenses publiques pour le déneigement, l’entretien des chemins de montagne et la gestion des eaux usées en terrain escarpé, des coûts récurrents qui dépasseront rapidement les maigres revenus de taxation promis par les promoteurs. Est-ce véritablement le modèle de développement territorial que nous voulons léguer à nos enfants ? Un modèle où l’on privatise les paysages emblématiques au bénéfice d’une minorité en reportant le fardeau des infrastructures sur l’ensemble des contribuables ? Je vous exhorte à faire preuve de clairvoyance en rejetant cette modification du schéma d’aménagement pour privilégier une conservation intégrale de nos massifs forestiers les plus vulnérables et les plus précieux de notre patrimoine régional.",
+          "questions": [
+              [
+                  "Quelle est la thèse soutenue par l’élue régionale devant le conseil de MRC ?",
+                  "Le refus d’approuver un complexe récréatif pour protéger la faune et éviter des dépenses publiques",
+                  "La multiplication des chantiers de résidences secondaires en vue d’attirer de riches investisseurs",
+                  "La concession de parcelles boisées à un consortium international pour apurer les dettes de la MRC"
+              ],
+              [
+                  "De quelle manière l’élue construit-elle son argumentation environnementale et financière ?",
+                  "Elle oppose aux mirages des rentrées fiscales les charges pérennes d’entretien et la rupture des habitats",
+                  "Elle remet en cause la compétence des habitants de la région en affirmant qu’ils ignorent l’écologie",
+                  "Elle suggère d’ouvrir un tracé autoroutier au cœur du massif avant de consulter les experts forestiers"
+              ],
+              [
+                  "Quelle conséquence pernicieuse de l’étalement en montagne l’intervenante souligne-t-elle ?",
+                  "La charge budgétaire récurrente liée à la voirie et à l’assainissement qui pèsera sur les citoyens",
+                  "L’interdiction définitive prononcée contre les randonneurs de parcourir les sentiers du parc en hiver",
+                  "La faillite inéluctable des gîtes et des installations de ski déjà implantés au bas des pentes"
+              ],
+              [
+                  "Dans ce contexte d’urbanisme rural, que désigne un « corridor écologique » ?",
+                  "Une zone naturelle ininterrompue permettant le déplacement sécuritaire de la faune sauvage",
+                  "Une piste asphaltée et réservée aux patrouilles municipales lors des tournées d’inspection",
+                  "Un droit de passage consenti aux engins de terrassement durant les opérations de construction"
+              ]
+          ]
+      },
+      {
+          "situation": 1,
+          "text": "— Camarades du cégep de Sherbrooke, notre présence massive dans ce gymnase démontre à quel point la dégradation de nos conditions d’apprentissage est devenue insoutenable pour nous tous. Le projet de réforme de l’aide financière aux études que le ministre tente d’imposer à la sauvette transformera une grande partie de nos bourses en prêts remboursables avec intérêts, nous condamnant à débuter notre vie adulte avec un fardeau de dettes qui hypothéquera notre liberté d’action professionnelle. Pourquoi les générations qui ont bâti la prospérité du Québec et qui ont bénéficié de la gratuité relative de l’éducation supérieure exigent-elles aujourd’hui que la jeunesse porte seule le poids des déficits publics ? C’est un pacte intergénérationnel fondamental qui est ainsi foulé aux pieds. Les partisans du statu quo prétendent que la grève pénalisera les étudiants sérieux et nuira à la réputation d’excellence de notre établissement d’enseignement. C’est exactement le contraire : refuser la lutte, ce serait accepter passivement que l’université et le cégep deviennent des privilèges réservés aux héritiers fortunés, au détriment des talents issus des classes populaires. En votant pour cette grève générale illimitée aujourd’hui, nous prenons nos responsabilités historiques pour défendre une éducation publique, universelle et véritablement accessible à tous les jeunes du Québec sans exclusion.",
+          "questions": [
+              [
+                  "Quel est le motif fondamental de l’appel à la grève lancé par la représentante étudiante ?",
+                  "La contestation d’un projet gouvernemental alourdissant l’endettement et limitant l’accès aux études",
+                  "La demande de prolongation des vacances d’hiver en raison de la rigueur exceptionnelle de la météo",
+                  "L’annulation de tous les cours obligatoires de littérature pour alléger la grille des programmes"
+              ],
+              [
+                  "Comment l’oratrice réfute-t-elle l’argument de ceux qui s’opposent au débrayage étudiant ?",
+                  "Elle montre que le renoncement accentuerait l’élitisme au lieu de préserver l’égalité des chances",
+                  "Elle admet que l’action collective handicape les meilleurs étudiants mais juge le tribut inévitable",
+                  "Elle promet des dédommagements financiers individuels aux étudiants acceptant de tenir les piquets"
+              ],
+              [
+                  "Quel principe social l’oratrice invoque-t-elle pour justifier la solidarité de la société envers sa jeunesse ?",
+                  "La préservation du pacte intergénérationnel assurant l’accessibilité aux études supérieures pour tous",
+                  "Le droit garanti pour chaque jeune de percevoir une rémunération substantielle dès la fin des études",
+                  "L’engagement du ministère de financer l’intégralité des sorties culturelles organisées par l’école"
+              ],
+              [
+                  "Dans ce contexte syndical étudiant, que signifie l’expression « à la sauvette » ?",
+                  "De façon précipitée et dissimulée, en esquivant le débat démocratique et l’examen attentif des citoyens",
+                  "En stricte conformité avec les usages parlementaires au terme de nombreuses consultations en commission",
+                  "Grâce à un accord parfait et unanime obtenu auprès de tous les groupes siégeant à l’Assemblée nationale"
+              ]
+          ]
+      }
   ]
-}
+};
