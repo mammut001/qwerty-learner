@@ -425,6 +425,12 @@ export const TEXT_GRAMMAR = [
       ['« Certes, c’est cher ; il n’en demeure pas moins que c’est nécessaire. » exprime :', 'une concession suivie d’une réfutation', 'une cause', 'une chronologie'],
       ['« Le moins qu’on puisse dire, c’est que la réunion fut animée. » signifie :', 'la réunion a été très agitée', 'la réunion était calme', 'la réunion a été annulée'],
       ['« Ce projet nous unit. Ce projet nous oblige. Ce projet nous dépasse. » La répétition sert à :', 'insister', 'conclure', 'poser une question'],
+      ['Certes, la proposition est attrayante ; il n’en demeure pas ___ qu’elle comporte des risques.', 'moins', 'plus', 'mieux'],
+      ['« Nous agirons ensemble. Nous bâtirons ensemble. Nous vaincrons ensemble. » Ce procédé de répétition est :', 'une anaphore', 'une métaphore', 'une litote'],
+      ['« Ce résultat n’est pas mal du tout pour une première tentative. » L’expression « pas mal du tout » est :', 'une litote pour exprimer un franc succès', 'une critique sévère du travail accompli', 'une marque de désintérêt total'],
+      ['En conclusion d’un long plaidoyer, le connecteur « En somme, » sert à :', 'récapituler les points essentiels', 'introduire un contre-exemple', 'marquer une rupture temporelle'],
+      ['« D’un côté, les investissements augmentent ; de l’autre, la précarité persiste. » Cette structure souligne :', 'un contraste marqué', 'une relation de cause à effet', 'une suite chronologique'],
+      ['Quand un auteur écrit « Félicitations pour ce fiasco mémorable ! », il utilise :', 'de l’ironie', 'un compliment sincère', 'une interrogation polie'],
     ],
   },
 ]
