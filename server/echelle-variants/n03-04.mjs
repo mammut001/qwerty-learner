@@ -1197,6 +1197,13 @@ export const N03_R_4 = [
 // N04 LISTENING TABLES & SCENARIOS
 // -------------------------------------------------------------
 
+// ===========================================================================
+// NIVEAU 4 SCENARIOS IMPLEMENTATION
+// ===========================================================================
+
+// ---------------------------------------------------------------------------
+// n4-listening-0
+// ---------------------------------------------------------------------------
 const N4_APTS = [
   { type: 'quatre et demie', street: 'sur la rue Saint-Denis', city: 'à Montréal', num: '514 555-0145' },
   { type: 'trois et demie', street: 'sur la 3e Avenue', city: 'dans Limoilou', num: '418 555-0164' },
@@ -1204,7 +1211,6 @@ const N4_APTS = [
   { type: 'trois et demie rénové', street: 'près de la station Cartier', city: 'à Laval', num: '450 555-0134' },
   { type: 'quatre et demie ensoleillé', street: 'sur la rue King Ouest', city: 'à Sherbrooke', num: '819 555-0177' },
 ]
-
 const N4_RENTS = ['1 150 dollars', '1 280 dollars', '980 dollars', '1 340 dollars', '1 050 dollars']
 const N4_AVIALS = ['le premier juillet', 'le premier juin', 'le premier août', 'le quinze juillet']
 const N4_LANDLORDS = ['madame Tremblay', 'monsieur Gagnon', 'madame Roy', 'monsieur Bouchard']
@@ -1219,205 +1225,383 @@ const N4_APPLIANCES = [
 const N4_APPLIANCE_YEARS = ['trois années complètes', 'deux années complètes', 'quatre années complètes', 'cinq années complètes']
 const N4_APPLIANCE_PRICES = ['149 dollars', '119 dollars', '129 dollars', '179 dollars', '139 dollars']
 const N4_APPLIANCE_COVS = [
-  'les pièces et la main-d’œuvre à domicile',
-  'le moteur électrique et les réparations urgentes',
-  'toutes les pannes mécaniques imprévues sur place',
-  'le remplacement complet en cas de bris majeur',
-  'les fuites internes et les pièces électroniques',
+  { text: 'les pièces et la main-d’œuvre à domicile', opt: 'les pièces et la main-d’œuvre' },
+  { text: 'le moteur électrique et les réparations urgentes', opt: 'le moteur et les réparations' },
+  { text: 'toutes les pannes mécaniques imprévues sur place', opt: 'les pannes mécaniques courantes' },
+  { text: 'les fuites internes et les pièces électroniques', opt: 'les fuites et les pièces électriques' },
+]
+
+const N4_STORAGE_UNITS = [
+  { size: 'de six mètres carrés', street: 'sur le boulevard Saint-Laurent', city: 'à Montréal', fee: '85 dollars' },
+  { size: 'de huit mètres carrés', street: 'sur le boulevard Charest', city: 'à Québec', fee: '95 dollars' },
+  { size: 'de dix mètres carrés', street: 'près du boulevard Curé-Labelle', city: 'à Laval', fee: '110 dollars' },
+  { size: 'de quatre mètres carrés', street: 'sur la rue King Ouest', city: 'à Sherbrooke', fee: '75 dollars' },
+  { size: 'de sept mètres carrés', street: 'sur le boulevard des Forges', city: 'à Trois-Rivières', fee: '90 dollars' },
+]
+const N4_STORAGE_DATES = [
+  'le premier mai',
+  'le quinze mai',
+  'le premier juin',
+  'le quinze juin',
+]
+
+const N4_FURNITURE_DELIVERIES = [
+  { item: 'votre table de cuisine en bois', fee: '69 dollars', feeOpt: '69 dollars pour le transport' },
+  { item: 'votre meuble de salon en chêne', fee: '89 dollars', feeOpt: '89 dollars pour le transport' },
+  { item: 'votre bibliothèque moderne', fee: '59 dollars', feeOpt: '59 dollars pour le transport' },
+  { item: 'votre canapé trois places', fee: '79 dollars', feeOpt: '79 dollars pour le transport' },
+  { item: 'votre ensemble de chambre', fee: '99 dollars', feeOpt: '99 dollars pour le transport' },
+]
+const N4_DELIVERY_SLOTS = [
+  { slot: 'vendredi prochain en après-midi', opt: 'vendredi en après-midi' },
+  { slot: 'samedi prochain dans la matinée', opt: 'samedi dans la matinée' },
+  { slot: 'mardi prochain en début de soirée', opt: 'mardi en début de soirée' },
+  { slot: 'jeudi prochain en après-midi', opt: 'jeudi en après-midi' },
 ]
 
 export const N04_L_0 = [
-  // Scenario 1 (Template, situation: 0)
+  // Scenario 1 (Template, situation: 0) - Location d'un logement
   Object.assign(
     (rand) => {
       const apt = pick(N4_APTS, rand)
       const rent = pick(N4_RENTS, rand)
       const avail = pick(N4_AVIALS, rand)
       const land = pick(N4_LANDLORDS, rand)
+      const othersRent = sample(N4_RENTS.filter((r) => r !== rent), 2, rand)
+      const othersAvail = sample(N4_AVIALS.filter((a) => a !== avail), 2, rand)
       const text = `Bonjour, ici ${land}. Je vous rappelle pour le logement ${apt.type} ${apt.street} ${apt.city}. Le loyer est fixé à ${rent} par mois, chauffé et éclairé. Le bail débute ${avail}. L’appartement comprend une entrée laveuse-sécheuse et un grand balcon. Rappelez-moi au ${apt.num} pour planifier une visite ce samedi.`
       return {
         text,
         questions: [
-          ['Combien coûte le loyer mensuel de ce logement ?', `${rent} par mois`, '800 dollars par mois', '2 100 dollars par mois'],
-          ['Quand le logement est-il disponible pour le locataire ?', avail, 'le premier janvier', 'dès ce soir sans délai'],
+          ['Combien coûte le loyer mensuel de ce logement ?', `${rent} par mois`, `${othersRent[0]} par mois`, `${othersRent[1]} par mois`],
+          ['À quelle date le contrat de location débute-t-il ?', avail, othersAvail[0], othersAvail[1]],
         ],
       }
     },
     { situation: 0, capacity: N4_APTS.length * N4_RENTS.length * N4_AVIALS.length * N4_LANDLORDS.length }
   ),
-  // Scenario 2 (Template, situation: 1)
+  // Scenario 2 (Template, situation: 1) - Garantie prolongée d'un appareil
   Object.assign(
     (rand) => {
       const app = pick(N4_APPLIANCES, rand)
       const years = pick(N4_APPLIANCE_YEARS, rand)
       const price = pick(N4_APPLIANCE_PRICES, rand)
       const cov = pick(N4_APPLIANCE_COVS, rand)
-      const text = `Pour la garantie prolongée ${app.itemFr}, notre magasin propose une protection de ${years} pour seulement ${price}. Ce contrat avantageux couvre ${cov}. Si un technicien certifié ne peut pas réparer l’appareil à domicile, le commerçant s’engage à vous fournir un appareil entièrement neuf.`
+      const othersPrice = sample(N4_APPLIANCE_PRICES.filter((p) => p !== price), 2, rand)
+      const othersCov = sample(N4_APPLIANCE_COVS.filter((c) => c.opt !== cov.opt), 2, rand)
+      const text = `Pour la garantie prolongée ${app.itemFr}, notre magasin propose une protection de ${years} pour seulement ${price}. Ce contrat couvre ${cov.text}. Si un technicien certifié ne peut pas réparer l’appareil à domicile, le commerçant vous fournit un appareil neuf.`
       return {
         text,
         questions: [
-          ['Combien coûte cette protection supplémentaire ?', price, '45 dollars', '350 dollars'],
-          ['Que comprend la couverture de ce contrat de garantie ?', cov, 'uniquement les frais de livraison initiaux du meuble', 'seulement le manuel d’instruction traduit en trois langues'],
+          ['Combien coûte cette protection supplémentaire ?', price, othersPrice[0], othersPrice[1]],
+          ['Que comprend la couverture de ce contrat ?', cov.opt, othersCov[0].opt, othersCov[1].opt],
         ],
       }
     },
     { situation: 1, capacity: N4_APPLIANCES.length * N4_APPLIANCE_YEARS.length * N4_APPLIANCE_PRICES.length * N4_APPLIANCE_COVS.length }
   ),
-  // Scenario 3 (Template, situation: 0 variant)
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Location d'un espace d'entreposage)
   Object.assign(
     (rand) => {
-      const apt = pick(N4_APTS, rand)
-      const rent = pick(N4_RENTS, rand)
-      const avail = pick(N4_AVIALS, rand)
-      const land = pick(N4_LANDLORDS, rand)
-      const text = `Bonjour, c’est ${land}, le propriétaire de l’immeuble. Notre ${apt.type} situé ${apt.street} est libre pour ${avail}. Le prix convenu est de ${rent} chaque mois, avec eau chaude et stationnement extérieur inclus. L’endroit est paisible. Vous pouvez me joindre au ${apt.num} en début de soirée.`
+      const unit = pick(N4_STORAGE_UNITS, rand)
+      const date = pick(N4_STORAGE_DATES, rand)
+      const othersUnit = sample(N4_STORAGE_UNITS.filter((u) => u.fee !== unit.fee), 2, rand)
+      const othersDate = sample(N4_STORAGE_DATES.filter((d) => d !== date), 2, rand)
+      const text = `Bonjour, ici Martin du centre Mini-Entrepôt. Je vous appelle pour le local de rangement ${unit.size} situé ${unit.street} ${unit.city}. Le coût est de ${unit.fee} par mois avec accès sécurisé tous les jours. L’espace est libre pour ${date}. Rappelez-moi au 514 555-0122 pour confirmer votre réservation de casier.`
       return {
         text,
         questions: [
-          ['Quel est le montant du loyer mensuel demandé ?', `${rent} chaque mois`, '650 dollars chaque mois', '1 900 dollars chaque mois'],
-          ['À quelle date le contrat de location débute-t-il ?', avail, 'au milieu de l’automne', 'dès la fin décembre'],
+          ['Quel est le tarif mensuel pour ce local de rangement ?', `${unit.fee} par mois`, `${othersUnit[0].fee} par mois`, `${othersUnit[1].fee} par mois`],
+          ['À quelle date cet espace de stockage est-il libre ?', date, othersDate[0], othersDate[1]],
         ],
       }
     },
-    { situation: 0, capacity: N4_APTS.length * N4_RENTS.length * N4_AVIALS.length * N4_LANDLORDS.length }
+    { situation: 0, capacity: N4_STORAGE_UNITS.length * N4_STORAGE_DATES.length }
   ),
-  // Scenario 4 (Template, situation: 1 variant)
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Forfait de livraison de meubles)
   Object.assign(
     (rand) => {
-      const app = pick(N4_APPLIANCES, rand)
-      const years = pick(N4_APPLIANCE_YEARS, rand)
-      const price = pick(N4_APPLIANCE_PRICES, rand)
-      const cov = pick(N4_APPLIANCE_COVS, rand)
-      const text = `— Bonjour ! En achetant ${app.item}, la garantie de base du fabricant ne dure qu’une seule année. Je vous conseille d’ajouter notre plan de ${years} au coût de ${price}. Ce contrat prévoit ${cov}. En cas de pépin mécanique, vous n’avez aucuns frais imprévus à débourser.`
+      const furn = pick(N4_FURNITURE_DELIVERIES, rand)
+      const slot = pick(N4_DELIVERY_SLOTS, rand)
+      const othersFurn = sample(N4_FURNITURE_DELIVERIES.filter((f) => f.feeOpt !== furn.feeOpt), 2, rand)
+      const othersSlot = sample(N4_DELIVERY_SLOTS.filter((s) => s.opt !== slot.opt), 2, rand)
+      const text = `Pour la livraison et l’assemblage de ${furn.item}, notre magasin propose un forfait complet à ${furn.fee}. Le transporteur monte les boîtes dans la bonne pièce et reprend les emballages vides. Le rendez-vous est prévu ${slot.slot}. Merci de confirmer votre présence par téléphone avant demain midi.`
       return {
         text,
         questions: [
-          ['Quelle est la durée de la garantie offerte au client ?', years, 'dix années de garantie', 'six mois de protection'],
-          ['Quel est le prix demandé pour ce contrat avantageux ?', price, '75 dollars', '500 dollars'],
+          ['Combien coûte le forfait proposé pour ce meuble ?', furn.feeOpt, othersFurn[0].feeOpt, othersFurn[1].feeOpt],
+          ['À quel moment la livraison aura-t-elle lieu ?', slot.opt, othersSlot[0].opt, othersSlot[1].opt],
         ],
       }
     },
-    { situation: 1, capacity: N4_APPLIANCES.length * N4_APPLIANCE_YEARS.length * N4_APPLIANCE_PRICES.length * N4_APPLIANCE_COVS.length }
+    { situation: 1, capacity: N4_FURNITURE_DELIVERIES.length * N4_DELIVERY_SLOTS.length }
   ),
-  // Scenario 5 (Static, situation: 0)
+  // Scenario 5 (Static, situation: 0) - Logement trois et demie à Limoilou
   {
     situation: 0,
-    text: 'Bonjour, ici la propriétaire du triplex de la 8e Avenue à Limoilou. Notre trois et demie au rez-de-chaussée est prêt pour une sous-location dès le 1er mai. Le loyer est de 890 dollars par mois, comprenant le chauffage et une cour arrière clôturée. Contactez-moi au 418 555-0112.',
+    text: 'Bonjour, ici la propriétaire du triplex de la 8e Avenue à Limoilou. Notre trois et demie au rez-de-chaussée est prêt pour une sous-location dès le premier mai. Le loyer est de 890 dollars par mois, comprenant le chauffage et une cour arrière clôturée. Contactez-moi au 418 555-0112.',
     questions: [
-      ['Quel est le loyer mensuel du trois et demie ?', '890 dollars par mois', '1 500 dollars par mois', '450 dollars par mois'],
-      ['Quel aménagement extérieur est inclus avec le logement ?', 'une cour arrière clôturée', 'une piscine creusée chauffée', 'un garage double intérieur'],
+      ['Quel est le loyer mensuel du trois et demie ?', '890 dollars par mois', '940 dollars par mois', '820 dollars par mois'],
+      ['Quel aménagement extérieur est inclus avec le logis ?', 'une cour arrière clôturée', 'une terrasse sur le toit', 'un grand balcon privé'],
     ],
   },
-  // Scenario 6 (Static, situation: 1)
+  // Scenario 6 (Static, situation: 1) - Service d'entretien de climatiseur
   {
     situation: 1,
     text: 'Pour votre nouveau climatiseur portatif, nous recommandons le plan de service de trois ans à 99 dollars. Cette garantie couvre le compresseur, la main-d’œuvre et un entretien gratuit chaque printemps. En cas de bris l’été, un technicien intervient en 48 heures ouvrables.',
     questions: [
-      ['Quel est le tarif de ce plan de service ?', '99 dollars', '250 dollars', '30 dollars'],
-      ['Quel entretien gratuit est prévu par le contrat ?', 'un entretien chaque printemps', 'un nettoyage chaque semaine', 'un filtre neuf chaque jour'],
+      ['Quel est le tarif de ce plan de service ?', '99 dollars au total', '129 dollars au total', '79 dollars au total'],
+      ['Quel entretien gratuit est prévu par le contrat ?', 'un entretien chaque printemps', 'une inspection chaque automne', 'un nettoyage chaque hiver'],
     ],
   },
 ]
 
+// ---------------------------------------------------------------------------
+// n4-listening-1
+// ---------------------------------------------------------------------------
 const N4_DISPENSERS = [
-  { machine: 'la distributrice de boissons chaudes', slot: 'dans la fente à gauche', step2: 'choisis ta boisson sur l’écran tactile', product: 'café filtre, thé chaud ou chocolat', button: 'le bouton vert pour valider' },
-  { machine: 'la distributrice de collations santé', slot: 'au lecteur de cartes du haut', step2: 'tape le numéro de ton choix sur le clavier', product: 'barres tendres, noix et fruits secs', button: 'la touche étoile pour confirmer' },
-  { machine: 'la borne de recharge pour cartes repas', slot: 'dans le boîtier lumineux', step2: 'indique le montant souhaité sur le pavé', product: 'virements directs ou paiements comptant', button: 'le bouton bleu pour obtenir le reçu' },
+  {
+    machine: 'la distributrice de café',
+    card: 'ta carte d’employé',
+    step2: 'choisis ta boisson sur l’écran tactile',
+    button: 'sur le bouton vert pour valider',
+    validOpt: 'choisir sa boisson et valider avec le bouton vert',
+    otherOpt1: 'insérer une pièce de monnaie dans le panneau arrière',
+    otherOpt2: 'appuyer sur la commande rouge d’arrêt d’urgence',
+  },
+  {
+    machine: 'la distributrice de collations',
+    card: 'ta carte magnétique',
+    step2: 'tape le numéro de ton choix sur le clavier',
+    button: 'sur la touche étoile pour confirmer',
+    validOpt: 'taper le bon numéro et confirmer avec l’étoile',
+    otherOpt1: 'redémarrer l’interrupteur général de l’appareil',
+    otherOpt2: 'demander une autorisation au service technique',
+  },
+  {
+    machine: 'la borne de recharge pour repas',
+    card: 'ta carte de cantine',
+    step2: 'indique le montant souhaité sur le pavé',
+    button: 'sur le bouton bleu pour terminer',
+    validOpt: 'indiquer le montant voulu et appuyer sur le bleu',
+    otherOpt1: 'changer le câble d’alimentation de la borne',
+    otherOpt2: 'laisser la carte dans le lecteur toute la nuit',
+  },
+  {
+    machine: 'l’imprimante réseau de l’étage',
+    card: 'ton badge de travail',
+    step2: 'sélectionne tes documents en attente',
+    button: 'sur le bouton de départ pour imprimer',
+    validOpt: 'sélectionner ses documents puis lancer l’impression',
+    otherOpt1: 'ouvrir le capot supérieur pour vérifier l’encre',
+    otherOpt2: 'éteindre le boîtier avant chaque nouvelle page',
+  },
 ]
-
 const N4_COLLEAGUES = ['Sophie', 'Carlos', 'Youssef', 'Chloé', 'Amadou', 'Valérie']
 
-const N4_EVENING_PLANS = [
-  { friend: 'Carlos', reason: 'aider mon frère à déménager ses meubles', whyZh: 'déménager des meubles avec son frère', time: 'dès 18 h 00', nextDay: 'vendredi en fin de journée' },
-  { friend: 'Youssef', reason: 'suivre mon cours de perfectionnement au cégep', whyZh: 'suivre un cours du soir au cégep', time: 'dès 18 h 30', nextDay: 'jeudi après les cours' },
-  { friend: 'Sophie', reason: 'assister à la réunion des parents de l’école', whyZh: 'participer à la réunion des parents', time: 'dès 19 h 00', nextDay: 'samedi en début d’après-midi' },
-  { friend: 'Chloé', reason: 'garder les enfants de ma sœur aînée', whyZh: 'garder les jeunes enfants de sa sœur', time: 'dès 17 h 30', nextDay: 'dimanche avant le souper' },
+const N4_DESK_REQUESTS = [
+  {
+    lost: 'ma carte d’accès au stationnement',
+    topicOpt: 'la procédure pour remplacer sa carte d’accès',
+    otherTopic1: 'le tarif mensuel pour garer son véhicule',
+    otherTopic2: 'l’emplacement des bornes de recharge privées',
+    answerGood: 'Remplissez ce formulaire et montrez une pièce d’identité.',
+    answerWrong1: 'Merci beaucoup pour cette invitation très sympathique.',
+    answerWrong2: 'Je prends un café noir sans sucre, s’il vous plaît.',
+  },
+  {
+    lost: 'mon mot de passe pour le portail du personnel',
+    topicOpt: 'la démarche pour réinitialiser son mot de passe',
+    otherTopic1: 'la liste des nouveaux ordinateurs de l’entreprise',
+    otherTopic2: 'l’horaire de fermeture de la salle informatique',
+    answerGood: 'Entrez votre matricule et cliquez sur Réinitialiser ici.',
+    answerWrong1: 'Félicitations pour votre promotion dans l’équipe.',
+    answerWrong2: 'Le restaurant italien du coin est excellent le midi.',
+  },
+  {
+    lost: 'ma carte de bibliothèque municipale',
+    topicOpt: 'la marche à suivre pour obtenir une nouvelle carte',
+    otherTopic1: 'le nombre de livres disponibles pour les enfants',
+    otherTopic2: 'la date de la prochaine exposition de peinture',
+    answerGood: 'Présentez une preuve d’adresse au bureau d’accueil.',
+    answerWrong1: 'Désolé, je ne peux pas venir souper ce samedi soir.',
+    answerWrong2: 'Il fait vraiment un temps magnifique aujourd’hui.',
+  },
+  {
+    lost: 'mon formulaire d’assurance collective',
+    topicOpt: 'la méthode pour envoyer son dossier d’assurance',
+    otherTopic1: 'le montant total des primes versées cette année',
+    otherTopic2: 'le nom du nouveau responsable du personnel',
+    answerGood: 'Téléversez le document signé sur le site internet.',
+    answerWrong1: 'Je vous remercie de m’avoir prêté votre parapluie.',
+    answerWrong2: 'Nous pouvons aller prendre une marche après le dîner.',
+  },
+]
+
+const N4_PORTAL_TASKS = [
+  {
+    task: 'déposer une demande de congés d’été',
+    topicOpt: 'la façon d’enregistrer une demande de vacances',
+    otherTopic1: 'l’horaire de travail prévu pour le mois prochain',
+    otherTopic2: 'le compte rendu officiel de la dernière assemblée',
+    answerGood: 'Ouvre l’onglet Calendrier puis clique sur Nouveau.',
+    answerWrong1: 'J’ai déjà réservé ma table pour le souper d’hier.',
+    answerWrong2: 'Enchanté de faire votre connaissance ce matin.',
+  },
+  {
+    task: 'soumettre une note de frais de déplacement',
+    topicOpt: 'la méthode pour déclarer des dépenses de voyage',
+    otherTopic1: 'le choix du moyen de transport pour la formation',
+    otherTopic2: 'l’adresse exacte de l’hôtel réservé par l’agence',
+    answerGood: 'Ajoute tes reçus en photo et valide le total en bas.',
+    answerWrong1: 'Bonne fin de semaine et repose-toi bien surtout.',
+    answerWrong2: 'Je préfère manger une salade verte pour le repas.',
+  },
+  {
+    task: 'changer mes coordonnées bancaires pour la paie',
+    topicOpt: 'la procédure pour mettre à jour ses données bancaires',
+    otherTopic1: 'la date de versement de la prochaine prime annuelle',
+    otherTopic2: 'le nom de l’institution financière de l’employeur',
+    answerGood: 'Dépose un document bancaire dans la section Mon profil.',
+    answerWrong1: 'Ce dossier volumineux est déjà prêt pour la poste.',
+    answerWrong2: 'Il pleut assez fort dehors depuis ce matin tôt.',
+  },
+  {
+    task: 'réserver une salle pour la réunion de service',
+    topicOpt: 'la démarche pour réserver un local de réunion',
+    otherTopic1: 'le compte rendu rédigé par la secrétaire adjointe',
+    otherTopic2: 'la liste des invités présents au colloque annuel',
+    answerGood: 'Choisis la plage libre sur l’agenda partagé du groupe.',
+    answerWrong1: 'Merci pour ce joli cadeau offert à mon anniversaire.',
+    answerWrong2: 'Le café sans caféine est disponible au distributeur.',
+  },
+]
+
+const N4_COMMUNITY_COURSES = [
+  {
+    course: 'aux ateliers de conversation en français',
+    topicOpt: 'comment participer aux ateliers de français',
+    otherTopic1: 'les horaires de la piscine pour la fin de semaine',
+    otherTopic2: 'les tarifs de location de la salle des fêtes',
+    answerGood: 'Remplissez la fiche jaune au secrétariat avec votre carte.',
+    answerWrong1: 'J’ai acheté du pain et du lait à l’épicerie ce midi.',
+    answerWrong2: 'Le train de banlieue arrive sur la voie numéro trois.',
+  },
+  {
+    course: 'aux séances de gymnastique douce pour adultes',
+    topicOpt: 'la procédure pour s’inscrire aux cours de gymnastique',
+    otherTopic1: 'le règlement concernant les casiers du vestiaire',
+    otherTopic2: 'la date de la fête annuelle des bénévoles du centre',
+    answerGood: 'Présentez un certificat médical au comptoir de sports.',
+    answerWrong1: 'Je vous envoie le rapport dès demain matin sans faute.',
+    answerWrong2: 'Cette veste noire me semble un peu trop petite pour moi.',
+  },
+  {
+    course: 'aux cours de dessin pour débutants le samedi',
+    topicOpt: 'les étapes pour réserver une place en cours de dessin',
+    otherTopic1: 'le nom de l’artiste invité pour l’exposition d’art',
+    otherTopic2: 'le programme de musique offert durant le festival',
+    answerGood: 'Inscrivez votre nom sur la liste à l’entrée de l’atelier.',
+    answerWrong1: 'Prenez soin de vous et à la semaine prochaine, salut.',
+    answerWrong2: 'Ma voiture est garée juste devant la porte de sortie.',
+  },
+  {
+    course: 'aux ateliers de cuisine collective du mardi',
+    topicOpt: 'la façon d’intégrer les ateliers de cuisine du centre',
+    otherTopic1: 'le menu de la cantine scolaire pour la semaine',
+    otherTopic2: 'l’horaire d’ouverture de la pharmacie du quartier',
+    answerGood: 'Venez rencontrer l’animatrice demain entre dix et midi.',
+    answerWrong1: 'Très bonne idée, je vais commander un thé glacé aussi.',
+    answerWrong2: 'La station de métro la plus proche est à deux coins.',
+  },
 ]
 
 export const N04_L_1 = [
-  // Scenario 1 (Template, situation: 0)
+  // Scenario 1 (Template, situation: 0) - Fonctionnement d'un appareil partagé au travail
   Object.assign(
     (rand) => {
       const d = pick(N4_DISPENSERS, rand)
       const col = pick(N4_COLLEAGUES, rand)
-      const text = `— Dis ${col}, tu sais comment fonctionne ${d.machine} ? — Oui, c’est très facile ! D’abord, tu insères ta carte d’employé ${d.slot}. Ensuite, ${d.step2}. La machine propose ${d.product}. Enfin, tu appuies sur ${d.button} pour compléter ta commande. Ton article sort immédiatement.`
+      const text = `— Dis ${col}, tu sais comment fonctionne ${d.machine} dans la salle de pause ? Je viens d’arriver dans l’équipe et je ne l’ai jamais utilisée. J’ai ma carte en main, mais je ne sais pas sur quoi appuyer pour commander.`
       return {
         text,
         questions: [
-          ['Que demande la collègue au début de la conversation ?', 'comment se servir d’un appareil partagé', 'où se trouve la cafétéria du personnel', 'le prix d’un repas chaud à emporter'],
-          ['Où faut-il insérer la carte d’employé au départ ?', d.slot, 'dans le bac à papier sous l’imprimante', 'derrière la porte de l’ascenseur principal'],
+          ['Que demande le collègue au début de la conversation ?', 'comment se servir d’un appareil partagé', 'à quelle heure commence la réunion d’équipe', 'où se trouve la salle de pause des employés'],
+          ['Quelle consigne permet d’utiliser correctement l’appareil ?', d.validOpt, d.otherOpt1, d.otherOpt2],
         ],
       }
     },
     { situation: 0, capacity: N4_DISPENSERS.length * N4_COLLEAGUES.length }
   ),
-  // Scenario 2 (Template, situation: 1)
+  // Scenario 2 (Template, situation: 1) - Demande de renseignements au comptoir de services
   Object.assign(
     (rand) => {
-      const p = pick(N4_EVENING_PLANS, rand)
-      const text = `— Allô ${p.friend} ! Je t’appelle rapidement pour savoir si tu as envie qu’on aille prendre un verre ce soir après le bureau ? — Salut ! J’aimerais beaucoup, mais j’ai déjà promis d’${p.reason} ${p.time}. Par contre, est-ce que tu serais disponible ${p.nextDay} pour qu’on se voie tranquillement ?`
+      const req = pick(N4_DESK_REQUESTS, rand)
+      const text = `— Bonjour madame, excusez-moi de vous déranger à l’accueil. J’ai égaré ${req.lost} ce matin en venant au bureau. Est-ce que vous pourriez m’expliquer la marche à suivre pour régler cette situation rapidement aujourd’hui ?`
       return {
         text,
         questions: [
-          ['Quelle sortie l’ami propose-t-il pour la soirée ?', 'prendre un verre après le bureau', 'faire un grand voyage en train', 'participer à une course sportive'],
-          ['Pourquoi l’interlocuteur décline-t-il l’invitation ?', p.whyZh, 'il a égaré son portefeuille en ville', 'il doit réparer sa bicyclette brisée'],
+          ['Quel renseignement le visiteur demande-t-il au comptoir ?', req.topicOpt, req.otherTopic1, req.otherTopic2],
+          ['Quelle réponse donnée par l’agente est appropriée ?', req.answerGood, req.answerWrong1, req.answerWrong2],
         ],
       }
     },
-    { situation: 1, capacity: N4_EVENING_PLANS.length }
+    { situation: 1, capacity: N4_DESK_REQUESTS.length }
   ),
-  // Scenario 3 (Template, situation: 0 variant)
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Démarche sur le portail d'entreprise)
   Object.assign(
     (rand) => {
-      const d = pick(N4_DISPENSERS, rand)
+      const item = pick(N4_PORTAL_TASKS, rand)
       const col = pick(N4_COLLEAGUES, rand)
-      const text = `— Excuse-moi ${col}, je n’arrive pas à faire marcher ${d.machine}. — Ne t’inquiète pas, regarde. Dépose ta carte ${d.slot}, puis ${d.step2}. Tu peux obtenir ${d.product}. Il suffit ensuite de presser ${d.button}. C’est prêt en quelques secondes.`
+      const text = `— Salut ${col} ! Est-ce que tu pourrais m’expliquer comment ${item.task} sur le portail interne ? Je cherche depuis dix minutes dans tous les menus sans succès, et j’aimerais terminer cette démarche avant de quitter le bureau.`
       return {
         text,
         questions: [
-          ['Quelle action permet de finaliser la commande ?', `presser ${d.button}`, 'redémarrer l’électricité du local', 'appeler le directeur des finances'],
-          ['Quel type d’articles cet équipement distribue-t-il ?', d.product, 'des chaussures de travail en cuir brun', 'des dictionnaires de langue française'],
+          ['Sur quel point le collègue demande-t-il des explications ?', item.topicOpt, item.otherTopic1, item.otherTopic2],
+          ['Quelle réponse de la collègue est adaptée à la demande ?', item.answerGood, item.answerWrong1, item.answerWrong2],
         ],
       }
     },
-    { situation: 0, capacity: N4_DISPENSERS.length * N4_COLLEAGUES.length }
+    { situation: 0, capacity: N4_PORTAL_TASKS.length * N4_COLLEAGUES.length }
   ),
-  // Scenario 4 (Template, situation: 1 variant)
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Inscription aux activités d'un centre de quartier)
   Object.assign(
     (rand) => {
-      const p = pick(N4_EVENING_PLANS, rand)
-      const caller = pick(['Marc', 'Lucas', 'Antoine', 'Félix'], rand)
-      const text = `— Salut ${p.friend}, c’est ${caller} ! Tu as du temps libre ce soir pour aller au cinéma du quartier ? — Coucou ! Ce soir c’est impossible, car je dois ${p.reason} ${p.time}. Mais si tu es libre ${p.nextDay}, on pourrait se faire une belle sortie ensemble.`
+      const item = pick(N4_COMMUNITY_COURSES, rand)
+      const text = `— Bonjour monsieur. Je viens tout juste d’emménager dans le quartier avec ma famille. Pouvez-vous m’expliquer comment s’inscrire ${item.course} ? J’ai vu l’affiche à l’entrée, mais je ne connais pas du tout les démarches.`
       return {
         text,
         questions: [
-          ['Quelle activité de loisir est initialement suggérée ?', 'aller au cinéma du quartier ce soir', 'faire une randonnée en forêt samedi', 'acheter des meubles dans un magasin'],
-          ['À quel moment l’ami se dit-il disponible pour se voir ?', p.nextDay, 'dans deux mois après les vacances', 'tard dans la nuit de dimanche'],
+          ['Quel renseignement le citoyen demande-t-il au centre ?', item.topicOpt, item.otherTopic1, item.otherTopic2],
+          ['Quelle réponse de l’employé est adaptée à la situation ?', item.answerGood, item.answerWrong1, item.answerWrong2],
         ],
       }
     },
-    { situation: 1, capacity: N4_EVENING_PLANS.length * 4 }
+    { situation: 1, capacity: N4_COMMUNITY_COURSES.length }
   ),
-  // Scenario 5 (Static, situation: 0)
+  // Scenario 5 (Static, situation: 0) - Utilisation du numériseur de la réception
   {
     situation: 0,
-    text: '— Peux-tu m’aider avec le photocopieur de la réception ? — Bien sûr. Tu ouvres le bac à papier, tu places tes feuilles dans le bon sens, puis tu choisis le nombre de copies sur l’écran tactile. Appuie enfin sur la touche de départ bleue pour démarrer l’impression.',
+    text: '— Bonjour Sylvain. Peux-tu m’expliquer comment utiliser le numériseur de la réception ? Je veux envoyer un contrat signé à la direction par courriel aujourd’hui. J’ai placé le document sur la vitre, mais je ne sais pas quoi choisir sur l’écran.',
     questions: [
-      ['De quel appareil de bureau s’agit-il dans l’extrait ?', 'du photocopieur de la réception', 'du système de climatisation centrale', 'du broyeur de déchets alimentaires'],
-      ['Sur quelle touche faut-il appuyer pour lancer la copie ?', 'sur la touche de départ bleue', 'sur le bouton d’alarme rouge', 'sur la manette de gauche'],
+      ['Que cherche à savoir la personne au début du message ?', 'la marche à suivre pour numériser un document', 'le prix d’une cartouche d’encre pour l’appareil', 'l’heure de ramassage du courrier par la poste'],
+      ['Quelle consigne du collègue est appropriée ?', 'Sélectionne Envoi courriel et appuie sur Départ.', 'Je serais ravi de venir dîner avec vous demain.', 'Désolé, mais j’ai un rendez-vous chez le médecin.'],
     ],
   },
-  // Scenario 6 (Static, situation: 1)
+  // Scenario 6 (Static, situation: 1) - Remplacement d'une carte de transport défectueuse
   {
     situation: 1,
-    text: '— Allô Maxime ! On va manger une pizza au restaurant italien ce soir avec l’équipe, tu te joins à nous ? — Malheureusement non, je dois préparer mon appartement pour l’arrivée de mes parents dès 19 h 00. Mais je serai libre demain midi pour dîner avec vous.',
+    text: '— Excusez-moi monsieur, ma carte d’autobus mensuelle ne fonctionne plus quand je la passe sur la borne ce matin. Est-ce que vous pourriez m’expliquer la procédure pour régler ce problème ? Je dois prendre l’autobus tous les jours.',
     questions: [
-      ['Pourquoi Maxime ne peut-il pas venir au restaurant ?', 'il prépare son logis pour ses parents', 'il doit faire des heures supplémentaires', 'il a un rendez-vous chez le dentiste'],
-      ['Quelle autre proposition Maxime fait-il à son collègue ?', 'dîner ensemble demain midi', 'reporter la rencontre à l’année prochaine', 'annuler définitivement le projet'],
+      ['Quelle explication l’usager demande-t-il au commis ?', 'la façon de remplacer une carte défectueuse', 'le tarif d’un billet unitaire pour le métro', 'l’horaire de passage du prochain autobus rapide'],
+      ['Quelle réponse du commis est adaptée à cette situation ?', 'Montrez votre carte au guichet avec votre reçu.', 'Félicitations pour votre nouvelle maison en ville.', 'Je prends un thé à la menthe avec un peu de sucre.'],
     ],
   },
 ]
 
+// ---------------------------------------------------------------------------
+// n4-listening-2
+// ---------------------------------------------------------------------------
 const N4_HOCKEY_TEAMS = ['Toronto', 'Boston', 'Ottawa', 'Vancouver', 'New York']
 const N4_HOCKEY_SHOTS = ['trente-cinq tirs difficiles', 'quarante tirs dangereux', 'vingt-huit lancers précis', 'trente-deux tirs au but']
 const N4_HOCKEY_PERIODS = ['en fin de troisième période', 'au milieu de la deuxième période', 'durant la première période', 'au début du dernier tiers']
@@ -1436,111 +1620,180 @@ const N4_CLINIC_SYMPTOMS = [
   { fr: 'des courbatures intenses, de la fièvre et un mal de gorge', zh: 'courbatures, fièvre et mal de gorge' },
 ]
 const N4_CLINIC_WARNINGS = [
-  'ressentez des difficultés respiratoires',
-  'avez des signes de déshydratation sévère',
-  'constatez une enflure autour des yeux',
-  'observez une baisse soudaine de tension',
+  { text: 'ressentez de la difficulté à respirer', short: 'une difficulté respiratoire importante' },
+  { text: 'avez des signes de déshydratation nette', short: 'des signes de déshydratation nette' },
+  { text: 'constatez une forte enflure au visage', short: 'une forte enflure au visage' },
+  { text: 'observez une hausse subite de fièvre', short: 'une hausse subite de la fièvre' },
+]
+
+const N4_SOCCER_PARKS = [
+  { park: 'au parc Maisonneuve', city: 'à Montréal' },
+  { park: 'sur le terrain des Plaines', city: 'à Québec' },
+  { park: 'au parc de la Rivière', city: 'à Laval' },
+  { park: 'au parc Jacques-Cartier', city: 'à Sherbrooke' },
+  { park: 'près de l’école secondaire', city: 'à Trois-Rivières' },
+]
+const N4_SOCCER_SCORES = [
+  { scoreFr: 'trois à deux', opt: 'une victoire serrée par trois à deux' },
+  { scoreFr: 'quatre à trois', opt: 'une victoire serrée par quatre à trois' },
+  { scoreFr: 'deux à un', opt: 'une victoire serrée par deux à un' },
+  { scoreFr: 'trois à un', opt: 'une victoire nette par trois à un' },
+]
+const N4_SOCCER_HIGHLIGHTS = [
+  { text: 'un superbe but de la tête à la fin', opt: 'un superbe but marqué de la tête' },
+  { text: 'un tir précis dans le coin du filet', opt: 'un tir très précis au fond du filet' },
+  { text: 'un bel arrêt de notre gardien au penalty', opt: 'un bel arrêt sur un tir de penalty' },
+  { text: 'une passe décisive de notre capitaine', opt: 'une passe parfaite de notre capitaine' },
+]
+
+const N4_PLUMBING_PROBLEMS = [
+  {
+    room: 'dans la cuisine',
+    issue: 'le robinet de l’évier coule sans arrêt',
+    measure: 'placé une grande bassine sous le meuble',
+    probOpt: 'une fuite continue sous l’évier de la cuisine',
+    measOpt: 'installer une bassine sous le tuyau d’eau',
+    otherProb1: 'une panne de courant dans les chambres',
+    otherProb2: 'une porte de balcon difficile à verrouiller',
+    otherMeas1: 'laisser la fenêtre du salon grande ouverte',
+    otherMeas2: 'couper l’accès à l’ascenseur de l’immeuble',
+  },
+  {
+    room: 'dans la salle de bain',
+    issue: 'le tuyau sous le lavabo fuit goutte à goutte',
+    measure: 'fermé la petite valve d’arrivée d’eau',
+    probOpt: 'un écoulement d’eau sous le lavabo du bain',
+    measOpt: 'fermer la valve locale d’arrivée d’eau',
+    otherProb1: 'une poignée d’entrée complètement bloquée',
+    otherProb2: 'un rideau de douche déchiré par le vent',
+    otherMeas1: 'allumer le chauffage d’appoint au maximum',
+    otherMeas2: 'nettoyer le carrelage avec du savon noir',
+  },
+  {
+    room: 'près de la laveuse',
+    issue: 'le tuyau de vidange déborde sur le plancher',
+    measure: 'épongé le sol et arrêté la machine',
+    probOpt: 'un débordement du tuyau de vidange d’eau',
+    measOpt: 'éponger le sol et éteindre l’appareil',
+    otherProb1: 'un bruit de grincement dans le plancher',
+    otherProb2: 'une prise murale sans tension électrique',
+    otherMeas1: 'laisser tourner la machine toute la soirée',
+    otherMeas2: 'ouvrir le robinet extérieur du jardinier',
+  },
+  {
+    room: 'au sous-sol du bâtiment',
+    issue: 'le chauffe-eau présente une fuite à la base',
+    measure: 'déposé des linges secs autour du réservoir',
+    probOpt: 'une fuite d’eau à la base du chauffe-eau',
+    measOpt: 'poser des linges autour du réservoir d’eau',
+    otherProb1: 'un verrou de porte rouillé par l’humidité',
+    otherProb2: 'un escalier de secours difficile à monter',
+    otherMeas1: 'remplir le réservoir avec de l’eau chaude',
+    otherMeas2: 'déplacer la chaudière dans la cour arrière',
+  },
 ]
 
 export const N04_L_2 = [
-  // Scenario 1 (Template, situation: 0)
+  // Scenario 1 (Template, situation: 0) - Match de hockey du Canadien
   Object.assign(
     (rand) => {
       const team = pick(N4_HOCKEY_TEAMS, rand)
       const shots = pick(N4_HOCKEY_SHOTS, rand)
       const period = pick(N4_HOCKEY_PERIODS, rand)
       const outcome = pick(N4_HOCKEY_OUTCOMES, rand)
-      const text = `— Tu as vu le match du Canadien hier soir contre ${team} ? C’était tout un spectacle ! Notre gardien a bloqué ${shots} avec une efficacité remarquable. On a eu deux punitions ${period}, mais les joueurs ont tenu le coup et ont inscrit ${outcome}. Tous les spectateurs criaient de joie dans les estrades !`
+      const text = `— Tu as vu le match du Canadien hier soir contre ${team} ? C’était tout un spectacle ! Notre gardien a repoussé ${shots}. On a eu deux punitions ${period}, mais nos attaquants ont tenu bon et ont marqué ${outcome}. Tous les supporters fêtaient la victoire à la sortie de l’aréna.`
       return {
         text,
         questions: [
-          ['De quel évènement sportif les deux collègues discutent-ils ?', 'd’une partie de hockey sur glace disputée', 'd’un match très disputé de tennis en salle', 'd’une compétition de natation en plein air'],
-          ['Quelle performance du gardien de but est soulignée ?', `il a bloqué ${shots}`, 'il a marqué trois buts lui-même en attaque', 'il est resté assis sur le banc des remplaçants'],
+          ['Quelle performance remarquable le gardien a-t-il réalisée ?', `il a repoussé ${shots}`, 'il a concédé cinq buts rapides', 'il a été expulsé dès le début'],
+          ['Quelle équipe affrontait les Montréalais lors de ce match ?', `l’équipe ${de(team)}`, 'la sélection de Philadelphie', 'la formation de Détroit'],
         ],
       }
     },
     { situation: 0, capacity: N4_HOCKEY_TEAMS.length * N4_HOCKEY_SHOTS.length * N4_HOCKEY_PERIODS.length * N4_HOCKEY_OUTCOMES.length }
   ),
-  // Scenario 2 (Template, situation: 1)
+  // Scenario 2 (Template, situation: 1) - Conseils médicaux et symptômes d'une maladie
   Object.assign(
     (rand) => {
       const ill = pick(N4_CLINIC_ILLNESSES, rand)
       const symp = pick(N4_CLINIC_SYMPTOMS, rand)
       const warn = pick(N4_CLINIC_WARNINGS, rand)
-      const text = `— Bonjour. Pour soigner ${ill.name}, les symptômes habituels comprennent ${symp.fr}. Buvez beaucoup de liquides tièdes et gardez le lit au moins trois jours. En revanche, si vous ${warn}, contactez sans délai le service Info-Santé 811 ou rendez-vous au centre médical le plus proche.`
+      const othersWarn = sample(N4_CLINIC_WARNINGS.filter((w) => w.short !== warn.short), 2, rand)
+      const text = `— Bonjour monsieur. Pour traiter ${ill.name}, les symptômes habituels sont ${symp.fr}. Buvez beaucoup d’eau tiède et reposez-vous au lit pendant trois jours. En revanche, si vous ${warn.text}, appelez sans tarder le service Info-Santé 811 ou venez à la clinique d’urgence.`
       return {
         text,
         questions: [
-          ['Quels symptômes initiaux sont décrits par le soignant ?', symp.zh, 'une entorse à la cheville et de légères rougeurs', 'une coupure superficielle et des douleurs au bras'],
-          ['Dans quelle situation faut-il consulter immédiatement ?', `si vous ${warn}`, 'si vous ressentez une simple fatigue passagère en soirée', 'si la température extérieure baisse légèrement en ville'],
+          ['Quel conseil de base le soignant donne-t-il au patient ?', 'se reposer au lit et boire de l’eau', 'reprendre le sport de haute intensité', 'partir en long voyage dès le lendemain'],
+          ['Quel signe doit pousser le patient à consulter d’urgence ?', warn.short, othersWarn[0].short, othersWarn[1].short],
         ],
       }
     },
     { situation: 1, capacity: N4_CLINIC_ILLNESSES.length * N4_CLINIC_SYMPTOMS.length * N4_CLINIC_WARNINGS.length }
   ),
-  // Scenario 3 (Template, situation: 0 variant)
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Match amical de soccer au parc)
   Object.assign(
     (rand) => {
-      const team = pick(N4_HOCKEY_TEAMS, rand)
-      const shots = pick(N4_HOCKEY_SHOTS, rand)
-      const period = pick(N4_HOCKEY_PERIODS, rand)
-      const outcome = pick(N4_HOCKEY_OUTCOMES, rand)
-      const text = `— Quelle victoire pour le Canadien face à ${team} ! Le match a été très serré jusqu’à la toute fin. En défense, le gardien a repoussé ${shots}. Malgré une punition sévère ${period}, notre équipe a décroché ${outcome}. Toute la ville en parle ce matin à la radio !`
+      const loc = pick(N4_SOCCER_PARKS, rand)
+      const sc = pick(N4_SOCCER_SCORES, rand)
+      const high = pick(N4_SOCCER_HIGHLIGHTS, rand)
+      const othersHigh = sample(N4_SOCCER_HIGHLIGHTS.filter((h) => h.opt !== high.opt), 2, rand)
+      const text = `— Hier après-midi, notre club de quartier a joué un match amical de soccer ${loc.park} ${loc.city}. Il faisait beau et l’ambiance était très amicale. Notre équipe l’a emporté ${sc.scoreFr} grâce à ${high.text}. Nous avons fêté ce bon résultat en buvant un jus frais avec les voisins.`
       return {
         text,
         questions: [
-          ['Quelle équipe le Canadien affrontait-il hier soir ?', `l’équipe de ${team}`, 'une formation de soccer professionnel', 'un club de baseball américain amateur'],
-          ['Quel dénouement a marqué la fin de cette rencontre ?', outcome, 'une prolongation complète sans aucun but marqué', 'une défaite par quatre points d’écart à la fin'],
+          ['Quel a été le résultat final de cette partie amicale ?', sc.opt, 'une égalité d’un but partout', 'une défaite nette par quatre buts'],
+          ['Quel fait de jeu marquant a assuré le succès de l’équipe ?', high.opt, othersHigh[0].opt, othersHigh[1].opt],
         ],
       }
     },
-    { situation: 0, capacity: N4_HOCKEY_TEAMS.length * N4_HOCKEY_SHOTS.length * N4_HOCKEY_PERIODS.length * N4_HOCKEY_OUTCOMES.length }
+    { situation: 0, capacity: N4_SOCCER_PARKS.length * N4_SOCCER_SCORES.length * N4_SOCCER_HIGHLIGHTS.length }
   ),
-  // Scenario 4 (Template, situation: 1 variant)
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Problème de plomberie signalé au propriétaire)
   Object.assign(
     (rand) => {
-      const ill = pick(N4_CLINIC_ILLNESSES, rand)
-      const symp = pick(N4_CLINIC_SYMPTOMS, rand)
-      const warn = pick(N4_CLINIC_WARNINGS, rand)
-      const text = `— Bonjour madame. Dans le cas ${ill.elide}, il est fréquent de ressentir ${symp.fr}. Prenez le traitement prescrit et évitez tout effort physique cette semaine. Cependant, si vous constatez que vous ${warn}, rendez-vous sans attendre à la clinique d’urgence.`
+      const p = pick(N4_PLUMBING_PROBLEMS, rand)
+      const text = `— Bonjour monsieur Tremblay. C’est le locataire du numéro quatre. Je vous contacte pour un problème de plomberie ${p.room}. Depuis ce matin, ${p.issue}. J’ai tout de suite ${p.measure}. Est-ce qu’un plombier pourrait passer aujourd’hui pour réparer le bris ? Merci de me rappeler rapidement.`
       return {
         text,
         questions: [
-          ['Quel problème médical est analysé lors de cette consultation ?', ill.zh, 'une brûlure modérée au deuxième degré', 'une douleur temporaire à une dent de sagesse'],
-          ['Quelle consigne de repos le professionnel transmet-il ?', 'éviter tout effort physique cette semaine', 'courir un long marathon dès le lendemain', 'partir en voyage d’affaires à l’étranger'],
+          ['Quel problème domestique le locataire signale-t-il ?', p.probOpt, p.otherProb1, p.otherProb2],
+          ['Quelle précaution le locataire a-t-il prise immédiatement ?', p.measOpt, p.otherMeas1, p.otherMeas2],
         ],
       }
     },
-    { situation: 1, capacity: N4_CLINIC_ILLNESSES.length * N4_CLINIC_SYMPTOMS.length * N4_CLINIC_WARNINGS.length }
+    { situation: 1, capacity: N4_PLUMBING_PROBLEMS.length }
   ),
-  // Scenario 5 (Static, situation: 0)
+  // Scenario 5 (Static, situation: 0) - Match de hockey Montréal contre Ottawa
   {
     situation: 0,
     text: '— Quel beau match de hockey hier entre Montréal et Ottawa ! Après un début difficile où nous tirions de l’arrière par deux buts, les attaquants ont marqué trois fois en troisième période. Le Centre Bell était en fête et l’ambiance était formidable pour les supporters québécois.',
     questions: [
-      ['Quelle remontée sportive est décrite par le témoin ?', 'trois buts marqués en troisième période', 'un abandon rapide de l’équipe adverse', 'une annulation de la partie à la demie'],
-      ['Quel sentiment régnait chez les partisans à la fin ?', 'une ambiance joyeuse et festive', 'une profonde déception générale', 'une grande colère envers les arbitres'],
+      ['Quelle remontée sportive est décrite par le témoin ?', 'trois buts marqués en troisième période', 'deux pénalités évitées en fin de partie', 'un arrêt du match à cause de la glace'],
+      ['Quelle ambiance régnait dans l’aréna à la fin ?', 'une ambiance formidable et très joyeuse', 'une tension inquiétante parmi la foule', 'un silence complet après la défaite locale'],
     ],
   },
-  // Scenario 6 (Static, situation: 1)
+  // Scenario 6 (Static, situation: 1) - Réaction cutanée après une piqûre d'insecte
   {
     situation: 1,
-    text: '— À la suite de votre piqûre d’insecte, une rougeur locale et une démangeaison modérée sont normales pendant deux jours. Appliquez de la glace enveloppée dans un linge propre. Par contre, si vous observez un gonflement du visage ou une difficulté à avaler, appelez sans tarder le 911.',
+    text: '— À la suite de votre piqûre d’insecte, une rougeur locale et une démangeaison modérée sont normales pendant deux jours. Appliquez de la glace enveloppée dans un linge propre. Par contre, si vous observez un gonflement du visage ou une difficulté à respirer, appelez sans tarder le 911.',
     questions: [
-      ['Quelle réaction est considérée comme normale au début ?', 'une rougeur locale et une démangeaison', 'une perte complète de motricité', 'une forte fièvre durant deux semaines'],
-      ['Quel symptôme grave impose d’appeler le 911 ?', 'gonflement du visage ou difficulté à avaler', 'léger picotement sans gravité sur le bras', 'envie passagère de faire une petite sieste'],
+      ['Quelle réaction cutanée est jugée normale au départ ?', 'une rougeur locale et une démangeaison', 'une perte temporaire de la vision nette', 'un engourdissement total du bras entier'],
+      ['Dans quelle situation faut-il composer immédiatement le 911 ?', 'si le visage gonfle ou la respiration bloque', 'si la démangeaison continue pendant une heure', 'si la trace rouge reste visible en surface'],
     ],
   },
 ]
 
+// ---------------------------------------------------------------------------
+// n4-listening-3
+// ---------------------------------------------------------------------------
 const N4_AIRPORT_CITIES = ['de Paris', 'de Vancouver', 'de Sept-Îles', 'de Halifax', 'de Calgary']
 const N4_AIRPORT_WAITS = ['pendant plus d’une heure au carrousel', 'pendant quarante-cinq minutes au débarcadère', 'pendant près d’une heure à l’arrivée', 'pendant plus d’une heure et demie']
 const N4_AIRPORT_BAGS = ['ma grosse valise rouge', 'mon sac de voyage noir', 'ma valise bleue à roulettes', 'mon sac à dos vert foncé']
 const N4_AIRPORT_RESOLUTIONS = [
-  'la compagnie me l’a livrée le lendemain midi',
-  'un livreur est passé chez moi deux jours plus tard',
-  'l’agente m’a appelé le lendemain matin pour la récupérer',
-  'le service des bagages l’a déposée à ma porte mardi',
+  { text: 'la compagnie me l’a livrée le lendemain midi', opt: 'la compagnie lui a livré le lendemain midi' },
+  { text: 'un livreur est passé chez moi deux jours après', opt: 'un livreur est passé à sa maison deux jours après' },
+  { text: 'l’agente m’a appelé le lendemain pour la récupérer', opt: 'l’agente l’a rappelé pour la récupérer' },
+  { text: 'le service des bagages l’a déposée à ma porte mardi', opt: 'le service l’a déposée à sa porte mardi' },
 ]
 
 const N4_FAMILY_PARKS = [
@@ -1554,102 +1807,143 @@ const N4_FAMILY_ACTS = [
   { act: 'louer un grand canot familial pour explorer la rivière', short: 'du canot sur la rivière en famille' },
   { act: 'faire une belle randonnée pédestre jusqu’au sommet', short: 'une randonnée pédestre jusqu’au sommet' },
   { act: 'partir en kayak de mer le long des berges rocheuses', short: 'du kayak de mer près des berges rocheuses' },
-  { act: 'rouler en vélo le long des plages sablonneuses', short: 'du vélo sur les sentiers de sable fin' },
+  { act: 'rouler en vélo le long des sentiers de plage', short: 'du vélo sur les sentiers de la plage' },
 ]
 const N4_FAMILY_DETAILS = [
-  'd’observer des canards sauvages et marcher en forêt',
-  'd’admirer la vue panoramique sur les lacs étincelants',
-  'de pique-niquer tranquillement au bord des cascades',
-  'de se baigner et savourer de la crème glacée au soleil',
+  { text: 'd’observer des canards sauvages et de marcher en forêt', short: 'marcher en forêt et voir des oiseaux' },
+  { text: 'd’admirer la vue panoramique sur les lacs étincelants', short: 'admirer le panorama sur les lacs' },
+  { text: 'de pique-niquer tranquillement au bord des cascades', short: 'manger au bord des cascades d’eau' },
+  { text: 'de se baigner et de savourer de la crème glacée au soleil', short: 'se baigner et manger une glace' },
+]
+
+const N4_TRANSIT_MISHAPS = [
+  {
+    dest: 'au centre-ville de Montréal',
+    bus: 'le mauvais autobus de banlieue',
+    help: 'une chauffeuse bienveillante m’a indiqué la bonne correspondance',
+    helpOpt: 'une chauffeuse lui a indiqué la correspondance',
+    otherHelp1: 'un agent de police l’a reconduit en patrouille',
+    otherHelp2: 'un passant lui a vendu un vieux plan de ville',
+  },
+  {
+    dest: 'au campus de l’Université Laval',
+    bus: 'le circuit d’autobus express dans la mauvaise direction',
+    help: 'un étudiant sympathique m’a guidé jusqu’au bon quai',
+    helpOpt: 'un étudiant l’a guidé vers le bon quai',
+    otherHelp1: 'le chauffeur l’a forcé à marcher trois heures',
+    otherHelp2: 'une patrouille municipale a bloqué la route',
+  },
+  {
+    dest: 'au bureau d’accueil des nouveaux arrivants',
+    bus: 'la mauvaise ligne de métro lors du transfert',
+    help: 'une agente au guichet m’a imprimé le trajet complet',
+    helpOpt: 'une agente lui a imprimé le bon trajet',
+    otherHelp1: 'un passant l’a envoyé vers une fausse adresse',
+    otherHelp2: 'le train a été annulé pour tout le reste du jour',
+  },
+  {
+    dest: 'à mon premier appartement à Longueuil',
+    bus: 'un autobus de nuit qui allait vers le terminus nord',
+    help: 'un voisin de siège m’a prêté son téléphone pour m’orienter',
+    helpOpt: 'un passager lui a prêté son téléphone',
+    otherHelp1: 'un contrôleur lui a confisqué sa valise rouge',
+    otherHelp2: 'le véhicule est tombé en panne sur l’autoroute',
+  },
+]
+
+const N4_ORCHARDS = [
+  { region: 'à Rougemont', fruit: 'des pommes Cortland fraîches', dessert: 'du jus de pomme chaud avec des beignes', fruitOpt: 'cueillir des pommes dans les arbres', snackOpt: 'du jus de pomme chaud et des beignes' },
+  { region: 'à Saint-Joseph-du-Lac', fruit: 'des pommes McIntosh croquantes', dessert: 'une tarte aux pommes et du cidre doux', fruitOpt: 'cueillir des pommes dans le verger', snackOpt: 'de la tarte aux pommes et du cidre doux' },
+  { region: 'près de l’île d’Orléans', fruit: 'des pommes Honeycrisp bien mûres', dessert: 'des chaussons aux pommes et du lait', fruitOpt: 'ramasser des pommes bien mûres', snackOpt: 'des chaussons aux pommes et du lait' },
+  { region: 'dans les Cantons-de-l’Est', fruit: 'des pommes Gala très sucrées', dessert: 'du moût de pomme et du pain doré', fruitOpt: 'récolter des pommes très sucrées', snackOpt: 'du moût de pomme et du pain doré' },
 ]
 
 export const N04_L_3 = [
-  // Scenario 1 (Template, situation: 0)
+  // Scenario 1 (Template, situation: 0) - Mésaventure de valise retardée à l'aéroport
   Object.assign(
     (rand) => {
       const city = pick(N4_AIRPORT_CITIES, rand)
       const wait = pick(N4_AIRPORT_WAITS, rand)
       const bag = pick(N4_AIRPORT_BAGS, rand)
       const res = pick(N4_AIRPORT_RESOLUTIONS, rand)
-      const text = `— Tu ne devineras jamais ce qui m’est arrivé à l’aéroport de Montréal en rentrant ${city} ! En débarquant du vol, j’ai attendu ${bag} ${wait}. Le carrousel s’est arrêté et il n’y avait plus rien. J’ai rempli une réclamation au comptoir. Heureusement, ${res} !`
+      const othersRes = sample(N4_AIRPORT_RESOLUTIONS.filter((r) => r.opt !== res.opt), 2, rand)
+      const text = `— Tu ne devineras jamais ce qui m’est arrivé à l’aéroport de Montréal en rentrant ${city} ! En débarquant de l’avion, j’ai guetté ${bag} ${wait}. Le carrousel s’est arrêté et elle n’est jamais sortie. J’ai fait une déclaration au comptoir. Heureusement, ${res.text} !`
       return {
         text,
         questions: [
-          ['Quel incident de voyage la personne raconte-t-elle ?', 'la perte temporaire de son bagage à l’aéroport', 'l’annulation définitive de son vol international', 'le vol de ses documents d’identité dans un hôtel'],
-          ['Comment cette mésaventure s’est-elle finalement terminée ?', res, 'le bagage a été confisqué et détruit par la douane', 'le passager a dû racheter toute sa garde-robe d’hiver'],
+          ['Quel incident de voyage la personne raconte-t-elle ?', 'la perte temporaire de son bagage à l’aéroport', 'l’annulation soudaine de son vol de retour', 'un oubli de portefeuille dans la salle d’attente'],
+          ['Comment cette mésaventure s’est-elle finalement terminée ?', res.opt, othersRes[0].opt, othersRes[1].opt],
         ],
       }
     },
     { situation: 0, capacity: N4_AIRPORT_CITIES.length * N4_AIRPORT_WAITS.length * N4_AIRPORT_BAGS.length * N4_AIRPORT_RESOLUTIONS.length }
   ),
-  // Scenario 2 (Template, situation: 1)
+  // Scenario 2 (Template, situation: 1) - Sortie en plein air dans un parc national
   Object.assign(
     (rand) => {
       const park = pick(N4_FAMILY_PARKS, rand)
       const act = pick(N4_FAMILY_ACTS, rand)
       const det = pick(N4_FAMILY_DETAILS, rand)
-      const text = `— Samedi passé, nous avons passé une merveilleuse journée en famille ${park}. Le matin était ensoleillé et nous avons pu ${act.act}. Les enfants étaient enchantés ${det}. C’est vraiment un endroit parfait pour déconnecter de la routine urbaine et respirer l’air pur.`
+      const othersPark = sample(N4_FAMILY_PARKS.filter((p) => p !== park), 2, rand)
+      const othersAct = sample(N4_FAMILY_ACTS.filter((a) => a.short !== act.short), 2, rand)
+      const text = `— Samedi passé, nous avons passé une très belle journée en famille ${park}. Le matin était ensoleillé et nous avons pu ${act.act}. Les enfants ont beaucoup aimé ${det.text}. C’est vraiment un endroit idéal pour profiter du plein air en toute tranquillité.`
       return {
         text,
         questions: [
-          ['Où cette famille a-t-elle passé sa fin de semaine ?', park, 'dans un vaste centre d’achats souterrain fermé', 'dans une salle de cinéma climatisée du centre-ville'],
-          ['Quelle activité de plein air ont-ils réalisée ensemble ?', act.short, 'une visite guidée de monuments historiques anciens', 'un atelier payant de cuisine traditionnelle en salle'],
+          ['Quelle activité de plein air cette famille a-t-elle pratiquée ?', act.short, othersAct[0].short, othersAct[1].short],
+          ['Dans quel cadre naturel cette sortie s’est-elle déroulée ?', park, othersPark[0], othersPark[1]],
         ],
       }
     },
     { situation: 1, capacity: N4_FAMILY_PARKS.length * N4_FAMILY_ACTS.length * N4_FAMILY_DETAILS.length }
   ),
-  // Scenario 3 (Template, situation: 0 variant)
+  // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Erreur d'autobus lors de l'arrivée)
   Object.assign(
     (rand) => {
-      const city = pick(N4_AIRPORT_CITIES, rand)
-      const wait = pick(N4_AIRPORT_WAITS, rand)
-      const bag = pick(N4_AIRPORT_BAGS, rand)
-      const res = pick(N4_AIRPORT_RESOLUTIONS, rand)
-      const text = `— Figure-toi qu’en revenant de mon voyage d’affaires ${city}, j’ai vécu une vraie péripétie à l’aéroport. J’ai guetté ${bag} ${wait}, mais elle n’est jamais apparue. Après avoir signalé la disparition au personnel, je suis rentré chez moi sans affaires. Par chance, ${res}.`
+      const item = pick(N4_TRANSIT_MISHAPS, rand)
+      const text = `— Lors de ma première semaine au Québec, j’ai vécu une vraie mésaventure en voulant me rendre ${item.dest}. J’ai pris ${item.bus} sans regarder l’affiche. Je me suis retrouvé loin sous la pluie. Heureusement, ${item.help}. Je suis arrivé à destination avec un petit retard mais sain et sauf !`
       return {
         text,
         questions: [
-          ['Quel objet manquait à l’arrivée du voyageur ?', bag, 'sa pochette contenant son passeport officiel', 'son ordinateur portable de travail flambant neuf'],
-          ['Combien de temps le voyageur a-t-il attendu au carrousel ?', wait, 'cinq petites minutes seulement avant de partir', 'toute la nuit jusqu’au lendemain après-midi'],
+          ['Quelle mésaventure la personne raconte-t-elle sur son trajet ?', 'une erreur de ligne de transport en commun', 'un bris mécanique de sa voiture personnelle', 'une perte de son billet dans la station de train'],
+          ['Comment la personne a-t-elle finalement trouvé son chemin ?', item.helpOpt, item.otherHelp1, item.otherHelp2],
         ],
       }
     },
-    { situation: 0, capacity: N4_AIRPORT_CITIES.length * N4_AIRPORT_WAITS.length * N4_AIRPORT_BAGS.length * N4_AIRPORT_RESOLUTIONS.length }
+    { situation: 0, capacity: N4_TRANSIT_MISHAPS.length }
   ),
-  // Scenario 4 (Template, situation: 1 variant)
+  // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Cueillette de pommes au verger)
   Object.assign(
     (rand) => {
-      const park = pick(N4_FAMILY_PARKS, rand)
-      const act = pick(N4_FAMILY_ACTS, rand)
-      const day = pick(['Dimanche dernier', 'En fin de semaine dernière', 'La semaine passée'], rand)
-      const text = `— ${day}, nous avons organisé une escapade mémorable avec les enfants ${park}. Nous avions réservé pour ${act.act}. Tout le monde a adoré l’expérience. Nous sommes rentrés le soir fatigués mais ravis de cette belle journée en nature québécoise.`
+      const orchard = pick(N4_ORCHARDS, rand)
+      const othersOrchard = sample(N4_ORCHARDS.filter((o) => o.snackOpt !== orchard.snackOpt), 2, rand)
+      const text = `— La fin de semaine passée, nous sommes allés dans un beau verger ${orchard.region} avec les enfants. Il faisait un soleil radieux d’automne. Nous avons cueilli ${orchard.fruit} pendant plus de deux heures. Avant de partir, nous avons dégusté ${orchard.dessert}. C’était une sortie simple et vraiment agréable pour toute la famille.`
       return {
         text,
         questions: [
-          ['Quelle activité a particulièrement plu aux participants ?', act.short, 'la réparation d’un véhicule automobile en panne', 'l’achat de billets de loterie dans un kiosque'],
-          ['Dans quel cadre naturel cette sortie s’est-elle déroulée ?', park, 'au rez-de-chaussée d’une tour à bureaux moderne', 'au bord d’une autoroute très achalandée le soir'],
+          ['Quelle activité de saison la famille a-t-elle pratiquée ?', orchard.fruitOpt, 'une randonnée pédestre sur une montagne', 'une excursion de pêche sur une chaloupe'],
+          ['Quelle collation ont-ils partagée à la fin de la visite ?', orchard.snackOpt, othersOrchard[0].snackOpt, othersOrchard[1].snackOpt],
         ],
       }
     },
-    { situation: 1, capacity: N4_FAMILY_PARKS.length * N4_FAMILY_ACTS.length * 3 }
+    { situation: 1, capacity: N4_ORCHARDS.length }
   ),
-  // Scenario 5 (Static, situation: 0)
+  // Scenario 5 (Static, situation: 0) - Valise envoyée à Halifax par erreur
   {
     situation: 0,
     text: '— Je reviens tout juste de Toronto. Tout allait bien jusqu’à ce que je réalise que ma valise avait été envoyée par erreur à Halifax ! L’agente au comptoir a été très gentille : elle m’a donné une trousse de toilette de secours. Mon sac m’a finalement été livré à mon hôtel vingt-quatre heures plus tard.',
     questions: [
-      ['Dans quelle ville la valise avait-elle été expédiée par erreur ?', 'à Halifax par mégarde', 'à Paris en Europe', 'à Calgary dans l’Ouest'],
-      ['Qu’a remis l’agente au voyageur pour le dépanner ?', 'une trousse de toilette de secours', 'un nouveau billet d’avion gratuit', 'une valise de marque neuve'],
+      ['Dans quelle ville le bagage avait-il été acheminé par erreur ?', 'à Halifax au lieu de la destination', 'à Vancouver dans l’Ouest canadien', 'à Winnipeg près des grands lacs'],
+      ['Quel dépannage immédiat l’agente a-t-elle fourni au passager ?', 'une trousse de toilette de dépannage', 'un remboursement complet de son billet', 'un bon de repas pour le restaurant voisin'],
     ],
   },
-  // Scenario 6 (Static, situation: 1)
+  // Scenario 6 (Static, situation: 1) - Sortie à la cabane à sucre
   {
     situation: 1,
-    text: '— On a fait une magnifique sortie à la cabane à sucre avec les enfants et les grands-parents samedi midi. On a mangé un repas traditionnel copieux : soupe aux pois, tourtière et crêpes au sirop d’érable chaud. Ensuite, les petits ont fait une promenade en traîneau dans la forêt enneigée.',
+    text: '— On a fait une belle sortie à la cabane à sucre avec les enfants samedi midi. On a mangé un repas traditionnel copieux : soupe aux pois, tourtière et crêpes au sirop d’érable chaud. Ensuite, les petits ont fait une promenade en traîneau dans la forêt enneigée.',
     questions: [
-      ['Quel type d’endroit la famille a-t-elle visité ?', 'une cabane à sucre traditionnelle', 'une usine de transformation du verre', 'un musée des beaux-arts en ville'],
-      ['Quelle activité extérieure a réjoui les enfants après le repas ?', 'une promenade en traîneau dans la forêt', 'une baignade en eau profonde glacée', 'une course de bicyclettes sur route'],
+      ['Quel lieu traditionnel la famille a-t-elle visité ?', 'une cabane à sucre en forêt', 'une fromagerie artisanale de ferme', 'une boulangerie de quartier réputée'],
+      ['Quelle activité les enfants ont-ils faite après le repas ?', 'une promenade en traîneau dans le bois', 'un cours de patinage sur l’étang gelé', 'une course en raquettes sur la montagne'],
     ],
   },
 ]
