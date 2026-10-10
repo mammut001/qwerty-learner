@@ -282,6 +282,15 @@ export default function GrammarSessionPage() {
                   )
                 })}
               </div>
+              <div className="mt-3">
+                <NavLink
+                  to="/tenses"
+                  className="flex items-center justify-between rounded-xl border border-indigo-200/80 bg-indigo-50/70 p-3 text-xs font-semibold text-indigo-700 transition hover:bg-indigo-100 hover:text-indigo-800 dark:border-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-300 dark:hover:bg-indigo-900"
+                >
+                  <span>✨ 需要系统学习时态与变位？前往「时态专题」探索全部15大时态与25门深度课程</span>
+                  <span>→</span>
+                </NavLink>
+              </div>
             </div>
 
             <div className="mt-6 grid gap-4 md:grid-cols-3">
