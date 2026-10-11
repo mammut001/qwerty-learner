@@ -2,7 +2,7 @@ import { computePlacementResult } from '../../server/placement-data.mjs'
 import { parseEchelleItemId, scoreEchelleItem } from '../resources/echelleCurriculum'
 import { nextMemory } from '../resources/echelleMemory'
 import type { PlacementProfile, PlacementResult } from '../resources/placementTest'
-import { isGuestMode, onGuestModeChange } from './guestMode'
+import { isGuestMode, onGuestModeChange, setGuestMode } from './guestMode'
 
 type StudyPlanSettings = {
   examDate: string
@@ -690,15 +690,6 @@ onGuestModeChange((enabled) => {
   }
 })
 
-if (typeof window !== 'undefined') {
-  const onLogin = () => {
-    authBlocked = false
-    void syncStudyPlan()
-  }
-  window.addEventListener('qwerty-auth-login', onLogin)
-  window.addEventListener('qwerty-login', onLogin)
-}
-
 const localDay = (timestampMs = Date.now()) => {
   const date = new Date(timestampMs)
   const year = date.getFullYear()
@@ -825,7 +816,7 @@ const publish = (input: StudyPlanStorage | StudyServerState) => {
   listeners.forEach((listener) => listener(state))
 }
 
-const isPublicAuthPath = (path: string) => path.startsWith('/passkey/login') || path === '/link'
+const isPublicAuthPath = (path: string) => path.startsWith('/passkey/') || path === '/link'
 
 async function api(method: string, path = '', body?: unknown, unauthorized = 'STUDY_SESSION_BLOCKED') {
   if ((isGuestMode() || authBlocked) && !isPublicAuthPath(path)) {
@@ -935,14 +926,8 @@ function ensureAutoSyncListeners() {
       // Browser storage may be unavailable; the next explicit save will surface the error.
     }
   }
-  const onLogin = () => {
-    authBlocked = false
-    void syncStudyPlan()
-  }
   window.addEventListener('online', resume)
   window.addEventListener('focus', resume)
-  window.addEventListener('qwerty-auth-login', onLogin)
-  window.addEventListener('qwerty-login', onLogin)
   if (typeof document !== 'undefined') {
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') resume()
@@ -1866,6 +1851,8 @@ export async function finishPasskeyRegistration(credential: unknown): Promise<Pa
   const payload = await api('POST', '/passkey/register/verify', { credential })
   const account = normalizePasskeyAccount(payload.account)
   if (!account.registered) throw new Error('PASSKEY_REGISTRATION_FAILED')
+  authBlocked = false
+  setGuestMode(false)
   localStorage.removeItem(SYNC_KEY)
   return account
 }
@@ -1892,6 +1879,8 @@ export async function finishPasskeyLogin(credential: unknown): Promise<{
   const state = payload.state as StudyPlanStorage | StudyServerState | undefined
   if (!state) throw new Error('PASSKEY_LOGIN_FAILED')
   const normalized = withLearning(state)
+  authBlocked = false
+  setGuestMode(false)
   localStorage.removeItem(SYNC_KEY)
   localStorage.removeItem(SEED)
   publish(normalized)
@@ -1953,6 +1942,8 @@ export async function linkStudyDevice(key: string): Promise<StudyServerState> {
   const payload = await api('POST', '/link', { key: normalized }, 'INVALID_SYNC_KEY')
   const state = payload.state as StudyServerState | undefined
   if (!state) throw new Error('INVALID_SYNC_KEY_RESPONSE')
+  authBlocked = false
+  setGuestMode(false)
   localStorage.removeItem(SEED)
   localStorage.setItem(SYNC_KEY, normalized)
   publish(withLearning(state))

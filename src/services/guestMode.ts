@@ -46,6 +46,7 @@ export function onGuestModeChange(listener: (enabled: boolean) => void): () => v
 }
 
 export function setGuestMode(enabled: boolean): void {
+  if (guestMode === enabled) return
   guestMode = enabled
   listeners.forEach((listener) => {
     try {
@@ -54,7 +55,4 @@ export function setGuestMode(enabled: boolean): void {
       // Storage or listener errors
     }
   })
-  if (typeof window !== 'undefined') {
-    window.dispatchEvent(new CustomEvent('qwerty-guest-mode-change', { detail: { guestMode: enabled } }))
-  }
 }
