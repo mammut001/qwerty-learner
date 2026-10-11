@@ -1435,18 +1435,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 0 (Template, Ex 0): Règlements du CPE / service de garde
     Object.assign(
       (rand) => {
-        const slots = [
-          { cpe: 'au Centre de la petite enfance Les Petits Écureuils', accueil: 'entre sept heures et neuf heures', retard: 'huit heures trente', allergie: 'les arachides ou les noix', allPara: 'des arachides ou de diverses noix' },
-          { cpe: 'au service de garde Les Petits Explorateurs', accueil: 'entre sept heures et huit heures quarante-cinq', retard: 'huit heures quinze', allergie: 'les fruits à coque ou le sésame', allPara: 'des graines de sésame ou fruits à coque' },
-          { cpe: 'à la garderie subventionnée Le Jardin Fleuri', accueil: 'entre sept heures quinze et neuf heures', retard: 'huit heures quarante-cinq', allergie: 'les amandes ou les graines', allPara: 'des amandes ou de quelconques graines' },
+        const tuples = [
+          {
+            cpe: 'au Centre de la petite enfance Les Petits Écureuils',
+            accueil: 'entre sept heures et neuf heures',
+            retard: 'huit heures trente',
+            allergie: 'les arachides ou les noix',
+            retardAns: 'Signaler le retard avant huit heures trente auprès de l’accueil sur l’application',
+            retardDist1: 'Déposer un mot manuscrit d’explication directement au secrétariat avant neuf heures',
+            retardDist2: 'Téléphoner au responsable du centre éducatif après dix heures lors de la pause du matin',
+            allergieAns: 'Bannir des repas tout ingrédient comprenant des arachides ou des noix',
+            allergieDist1: 'Obliger les familles à fournir un repas chaud préparé par un traiteur externe certifié',
+            allergieDist2: 'Interdire formellement tout produit laitier ou contenant du gluten lors du dîner',
+            evidenceRetard: ['huit', 'heures', 'trente'],
+            evidenceAllergie: ['arachides', 'noix'],
+          },
+          {
+            cpe: 'au service de garde Les Petits Explorateurs',
+            accueil: 'entre sept heures et huit heures quarante-cinq',
+            retard: 'huit heures quinze',
+            allergie: 'les graines de sésame et les fruits à coque',
+            retardAns: 'Prévenir le personnel avant huit heures quinze grâce à l’outil mobile',
+            retardDist1: 'Inscrire l’absence sur le registre papier officiel auprès du concierge à neuf heures',
+            retardDist2: 'Transmettre un message téléphonique d’urgence à la direction après dix heures trente',
+            allergieAns: 'Proscrire des lunchs les graines de sésame ainsi que les fruits à coque',
+            allergieDist1: 'Exiger une attestation médicale délivrée par un pédiatre pour chaque aliment',
+            allergieDist2: 'Fournir uniquement des collations surgelées préemballées achetées en pharmacie',
+            evidenceRetard: ['huit', 'heures', 'quinze'],
+            evidenceAllergie: ['graines', 'sésame', 'coque'],
+          },
+          {
+            cpe: 'à la garderie subventionnée Le Jardin Fleuri',
+            accueil: 'entre sept heures quinze et neuf heures',
+            retard: 'huit heures quarante-cinq',
+            allergie: 'les amandes et les dérivés de soja',
+            retardAns: 'Transmettre le signalement avant huit heures quarante-cinq en ligne',
+            retardDist1: 'Faire signer un formulaire imprimé au concierge du bâtiment à neuf heures quinze',
+            retardDist2: 'Avertir les responsables après midi par un courriel personnel adressé au directeur',
+            allergieAns: 'Refuser formellement tout aliment comportant des amandes ou du soja',
+            allergieDist1: 'Imposer un menu entièrement biologique et végétarien fourni par la garderie',
+            allergieDist2: 'Supprimer l’ensemble des collations nutritives prises au cours de l’après-midi',
+            evidenceRetard: ['huit', 'heures', 'quarante-cinq'],
+            evidenceAllergie: ['amandes', 'soja'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Bonjour à tous les parents ! Avant d’entamer cette nouvelle année ${s.cpe}, je désire vous rappeler quelques règlements essentiels pour la sécurité et le bien-être de vos enfants. L’accueil du matin s’effectue ${s.accueil}. Si votre enfant doit arriver en retard ou s’absenter pour des motifs médicaux, vous devez obligatoirement aviser la réception avant ${s.retard} par l’application mobile. En raison d’allergies sévères parmi nos enfants, nous appliquons une politique stricte : aucun aliment contenant ${s.allergie} n’est admis dans les boîtes à lunch. Enfin, n’oubliez pas d’apporter deux ensembles de vêtements de rechange étiquetés au nom de votre enfant pour les jeux extérieurs. Merci de votre précieuse collaboration !`,
+          text: `— Bonjour à tous les parents ! Avant d’entamer cette nouvelle année ${t.cpe}, je désire vous rappeler quelques règlements essentiels pour la sécurité et le bien-être de vos enfants. L’accueil du matin s’effectue ${t.accueil}. Si votre enfant doit arriver en retard ou s’absenter pour des motifs médicaux, vous devez obligatoirement aviser la réception avant ${t.retard} par l’application mobile. En raison d’allergies sévères parmi nos enfants, nous appliquons une politique stricte : aucun aliment contenant ${t.allergie} n’est admis dans les boîtes à lunch. Enfin, n’oubliez pas d’apporter deux ensembles de vêtements de rechange étiquetés au nom de votre enfant pour les jeux extérieurs. Merci de votre précieuse collaboration !`,
           questions: [
-            ['Quel est l’objet de cette communication de la directrice ?', 'Rappeler les consignes d’accueil et les règles de vie du groupe', 'Présenter l’ensemble des nouveaux éducateurs embauchés pour l’année', 'Annoncer la révision des tarifs de garde'],
-            ['Avant quelle heure les parents doivent-ils obligatoirement signaler une absence ?', `Signaler son absence avant ${s.retard} sur l’application`, 'Avertir la direction au cours de l’après-midi', 'Remplir obligatoirement une fiche imprimée directement au bureau d’accueil'],
-            ['Quelle exigence stricte concerne la sécurité alimentaire des enfants ?', `Interdire au repas tout aliment qui comporte ${s.allPara}`, 'Exiger des repas préparés par un traiteur externe certifié', 'Imposer un menu végétarien identique pour tous les enfants'],
+            makeQuestion('Quel est l’objet principal de cette communication de la directrice ?', 'Rappeler les consignes d’accueil et les règles de vie du groupe', 'Présenter l’ensemble des nouveaux éducateurs embauchés pour l’année', 'Annoncer la révision annuelle des tarifs du service de garde', ['règlements', 'sécurité']),
+            makeQuestion('Avant quelle heure les parents doivent-ils obligatoirement signaler une absence ?', t.retardAns, t.retardDist1, t.retardDist2, t.evidenceRetard),
+            makeQuestion('Quelle exigence stricte concerne la sécurité alimentaire des enfants ?', t.allergieAns, t.allergieDist1, t.allergieDist2, t.evidenceAllergie),
           ],
         }
       },
@@ -1455,18 +1494,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 1 (Template, Ex 0): Fonctionnement du service de garde scolaire
     Object.assign(
       (rand) => {
-        const slots = [
-          { ecole: 'de l’école primaire Saint-Barthélemy', fermeture: 'dix-huit heures précises', penalite: 'des frais de retard d’un dollar la minute', sortie: 'une autorisation écrite datée et signée' },
-          { ecole: 'de l’école primaire de l’Étoile-du-Nord', fermeture: 'dix-sept heures quarante-cinq', penalite: 'une pénalité financière de dix dollars par tranche de dix minutes', sortie: 'une procuration officielle enregistrée au secrétariat' },
-          { ecole: 'du pavillon primaire Saint-Viateur', fermeture: 'dix-huit heures', penalite: 'une tarification spéciale exigible dès la fermeture', sortie: 'une confirmation électronique sur le portail sécurisé' },
+        const tuples = [
+          {
+            ecole: 'de l’école primaire Saint-Barthélemy',
+            fermeture: 'dix-huit heures précises',
+            penalite: 'des frais de retard d’un dollar pour chaque minute',
+            penaliteAns: 'Le paiement d’un dollar par minute excédentaire auprès du responsable',
+            penaliteDist1: 'Une suspension immédiate et sans appel de la garde pour toute la semaine',
+            penaliteDist2: 'Une exclusion définitive du service de garde sans aucun préavis écrit',
+            sortie: 'une autorisation écrite datée et signée par les parents',
+            sortieAns: 'La présentation d’une autorisation écrite signée avec pièce d’identité',
+            sortieDist1: 'Un message téléphonique circonstancié enregistré sur le répondeur de l’école',
+            sortieDist2: 'Un simple accord verbal exprimé spontanément par l’élève lors du départ',
+            evidencePenalite: ['dollar', 'minute'],
+            evidenceSortie: ['autorisation', 'écrite', 'signée'],
+          },
+          {
+            ecole: 'de l’école primaire de l’Étoile-du-Nord',
+            fermeture: 'dix-sept heures quarante-cinq',
+            penalite: 'une pénalité financière de dix dollars par tranche de dix minutes',
+            penaliteAns: 'Le règlement d’une pénalité de dix dollars par bloc de dix minutes',
+            penaliteDist1: 'L’obligation de rencontrer la direction de l’établissement scolaire le lendemain',
+            penaliteDist2: 'Une retenue automatique sur le versement mensuel de l’allocation familiale',
+            sortie: 'une procuration officielle enregistrée au préalable au secrétariat',
+            sortieAns: 'Le dépôt préalable d’une procuration officielle auprès du secrétariat',
+            sortieDist1: 'Une note manuscrite rédigée à la hâte sur la première page d’un cahier de classe',
+            sortieDist2: 'La présentation d’un reçu officiel attestant le paiement de tous les frais scolaires',
+            evidencePenalite: ['pénalité', 'dix', 'dollars'],
+            evidenceSortie: ['procuration', 'secrétariat'],
+          },
+          {
+            ecole: 'du pavillon primaire Saint-Viateur',
+            fermeture: 'dix-huit heures',
+            penalite: 'une tarification spéciale forfaitaire de vingt dollars dès le premier retard',
+            penaliteAns: 'La facturation d’un montant forfaitaire de vingt dollars dès la fermeture',
+            penaliteDist1: 'Une convocation immédiate des parents devant le conseil d’établissement scolaire',
+            penaliteDist2: 'La confiscation temporaire du dossier d’inscription de l’enfant jusqu’au lundi',
+            sortie: 'une confirmation électronique validée sur le portail sécurisé',
+            sortieAns: 'Une validation électronique formelle effectuée sur le portail sécurisé',
+            sortieDist1: 'Une photographie couleur récente de l’accompagnateur envoyée par texto',
+            sortieDist2: 'Un appel téléphonique en direct avec un témoin du voisinage de l’école',
+            evidencePenalite: ['tarification', 'vingt', 'dollars'],
+            evidenceSortie: ['confirmation', 'électronique', 'portail'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Chers parents des élèves ${s.ecole}, voici les consignes relatives au service de garde pour les journées de classe et les journées pédagogiques. Notre service ferme ses portes à ${s.fermeture}. Tout retard le soir entraînera ${s.penalite}, payable directement auprès du responsable de garde. Si une personne autre que les parents désignés vient chercher votre enfant en fin de journée, nous exigeons ${s.sortie} accompagnée d’une pièce d’identité avec photo. Pour les journées de formation des enseignants, l’inscription doit être complétée dix jours à l’avance afin de prévoir le nombre adéquat d’éducateurs pour les sorties récréatives. Nous comptons sur votre ponctualité pour faciliter le bon déroulement de nos activités quotidiennes.`,
+          text: `— Chers parents des élèves ${t.ecole}, voici les consignes relatives au service de garde pour les journées de classe et les journées pédagogiques. Notre service ferme ses portes à ${t.fermeture}. Tout retard le soir entraînera ${t.penalite}, payable directement auprès du responsable de garde. Si une personne autre que les parents désignés vient chercher votre enfant en fin de journée, nous exigeons ${t.sortie} accompagnée d’une pièce d’identité avec photo. Pour les journées de formation des enseignants, l’inscription doit être complétée dix jours à l’avance afin de prévoir le nombre adéquat d’éducateurs pour les sorties récréatives. Nous comptons sur votre ponctualité pour faciliter le bon déroulement de nos activités quotidiennes.`,
           questions: [
-            ['Quel sujet administratif la responsable du service de garde aborde-t-elle ?', 'Les horaires habituels et les formalités du service de garde', 'L’achat du matériel requis pour les projets d’arts plastiques de l’école', 'Le calendrier des examens du trimestre'],
-            ['Quelle conséquence découle d’un retard des parents après la fermeture ?', 'Le règlement d’un montant compensatoire pour chaque minute', 'Une suspension immédiate pour la semaine', 'L’obligation de rencontrer la direction de l’établissement scolaire'],
-            ['Que faut-il présenter si une tierce personne vient chercher l’enfant ?', 'La remise d’une autorisation écrite formelle avec pièce d’identité', 'Un appel téléphonique logé au secrétariat de l’école', 'Une confirmation verbale donnée par l’enfant'],
+            makeQuestion('Quel sujet administratif la responsable du service de garde aborde-t-elle ?', 'Les horaires habituels et les formalités du service de garde', 'L’achat du matériel requis pour les projets artistiques de l’école primaire', 'Le calendrier détaillé des examens et évaluations de la session scolaire', ['garde', 'consignes']),
+            makeQuestion('Quelle conséquence découle d’un retard des parents après la fermeture ?', t.penaliteAns, t.penaliteDist1, t.penaliteDist2, t.evidencePenalite),
+            makeQuestion('Que faut-il présenter si une tierce personne vient chercher l’enfant ?', t.sortieAns, t.sortieDist1, t.sortieDist2, t.evidenceSortie),
           ],
         }
       },
@@ -1475,18 +1553,45 @@ export const N05_06_SCENARIOS = {
     // Scenario 2 (Template, Ex 1): Propriétaire annonçant des travaux de toiture et balcons
     Object.assign(
       (rand) => {
-        const slots = [
-          { proprio: 'Madame Tremblay', date: 'lundi le quinze avril', duree: 'trois semaines complètes', restriction: 'retirer tous vos meubles des balcons et fermer les fenêtres' },
-          { proprio: 'Madame Bouchard', date: 'mardi le deux mai', duree: 'quatre semaines de travaux', restriction: 'libérer entièrement les coursives et stationner sur la rue' },
-          { proprio: 'Madame Mercier', date: 'le premier juin', duree: 'deux semaines intensives', restriction: 'couvrir vos objets fragiles et garder les stores baissés' },
+        const tuples = [
+          {
+            proprio: 'Madame Tremblay',
+            date: 'lundi le quinze avril',
+            duree: 'trois semaines complètes',
+            restriction: 'retirer tous vos meubles des balcons et fermer les fenêtres',
+            restrictionAns: 'Dégager entièrement les balcons et maintenir les fenêtres closes',
+            restrictionDist1: 'Quitter le logement familial durant toute la durée des rénovations prévues',
+            restrictionDist2: 'Installer des planches en bois clouées sur toutes les vitres de l’appartement',
+            evidenceRestriction: ['meubles', 'balcons', 'fenêtres'],
+          },
+          {
+            proprio: 'Madame Bouchard',
+            date: 'mardi le deux mai',
+            duree: 'quatre semaines de travaux',
+            restriction: 'libérer entièrement les coursives et stationner sur la rue',
+            restrictionAns: 'Laisser les coursives libres et garer les voitures sur la rue',
+            restrictionDist1: 'Couper l’alimentation électrique principale de l’appartement durant le jour',
+            restrictionDist2: 'Ranger tous les appareils ménagers volumineux dans la cave commune fermée',
+            evidenceRestriction: ['coursives', 'stationner', 'rue'],
+          },
+          {
+            proprio: 'Madame Mercier',
+            date: 'le premier juin',
+            duree: 'deux semaines intensives',
+            restriction: 'couvrir vos objets fragiles et garder les stores baissés',
+            restrictionAns: 'Protéger les biens délicats et conserver les stores baissés',
+            restrictionDist1: 'Nettoyer chaque soir la cage d’escalier avec de l’eau savonneuse tiède',
+            restrictionDist2: 'Déménager l’ensemble des lits dans les pièces centrales de l’immeuble',
+            evidenceRestriction: ['fragiles', 'stores', 'baissés'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Bonjour à tous les résidents de l’immeuble. C’est votre propriétaire, ${s.proprio}. Je vous appelle pour vous transmettre des informations détaillées concernant les travaux de rénovation de notre toiture et de nos balcons extérieurs. Le chantier débutera ${s.date} et s’échelonnera sur ${s.duree}. Les ouvriers travailleront du lundi au vendredi, entre sept heures trente et dix-sept heures. Durant cette période, il y aura du bruit et de la poussière. Vous devez impérativement ${s.restriction} dès ce week-end. L’accès à la cour arrière sera également interdit pour des raisons de sécurité pendant les manœuvres. Je vous remercie pour votre patience et votre coopération !`,
+          text: `— Bonjour à tous les résidents de l’immeuble. C’est votre propriétaire, ${t.proprio}. Je vous appelle pour vous transmettre des informations détaillées concernant les travaux de rénovation de notre toiture et de nos balcons extérieurs. Le chantier débutera ${t.date} et s’échelonnera sur ${t.duree}. Les ouvriers travailleront du lundi au vendredi, entre sept heures trente et dix-sept heures. Durant cette période, il y aura du bruit et de la poussière. Vous devez impérativement ${t.restriction} dès ce week-end. L’accès à la cour arrière sera également interdit pour des raisons de sécurité pendant les manœuvres. Je vous remercie pour votre patience et votre coopération !`,
           questions: [
-            ['Quelle annonce majeure la propriétaire communique-t-elle aux locataires ?', 'La tenue prochaine de réparations sur le toit et les balcons', 'La hausse annuelle des loyers pour l’ensemble des locataires du bloc', 'Le remplacement de toutes les serrures de porte'],
-            ['Quels horaires de travail les entrepreneurs respecteront-ils sur place ?', 'En semaine durant les heures régulières de travail', 'Les soirs de semaine après dix-huit heures', 'Les fins de semaine complètes afin d’éviter le trafic dans le quartier'],
-            ['Quelle consigne obligatoire les locataires doivent-ils appliquer chez eux ?', 'Dégager leurs espaces extérieurs et garder leurs ouvertures fermées', 'Quitter leur logement durant toute la durée des rénovations', 'Protéger les portes avec des toiles étanches'],
+            makeQuestion('Quelle annonce majeure la propriétaire communique-t-elle aux locataires ?', 'La tenue prochaine de réparations sur le toit et les balcons', 'La hausse annuelle des loyers pour l’ensemble des logements de l’immeuble', 'Le remplacement intégral de toutes les serrures des portes palières', ['travaux', 'rénovation']),
+            makeQuestion('Quels horaires de travail les ouvriers respecteront-ils sur place ?', 'Du lundi au vendredi sur le chantier de sept heures trente jusqu’en fin d’après-midi', 'Uniquement en soirée de dix-huit heures à minuit du lundi au vendredi pour éviter le bruit', 'Les fins de semaine complètes du samedi matin au dimanche soir pour accélérer la livraison', ['lundi', 'vendredi', 'heures']),
+            makeQuestion('Quelle consigne obligatoire les locataires doivent-ils appliquer chez eux ?', t.restrictionAns, t.restrictionDist1, t.restrictionDist2, t.evidenceRestriction),
           ],
         }
       },
@@ -1495,18 +1600,54 @@ export const N05_06_SCENARIOS = {
     // Scenario 3 (Template, Ex 1): Gestionnaire annonçant le remplacement de la plomberie
     Object.assign(
       (rand) => {
-        const slots = [
-          { batiment: 'du complexe résidentiel Le Saint-Laurent', coupure: 'les mardis et jeudis de neuf heures à seize heures', acces: 'permettre aux plombiers d’accéder aux tuyaux sous votre évier' },
-          { batiment: 'de la coopérative d’habitation Les Pins', coupure: 'les lundis et mercredis de huit heures à quinze heures', acces: 'libérer l’espace autour du chauffe-eau dans votre buanderie' },
-          { batiment: 'des appartements du Manoir Mont-Royal', coupure: 'tous les matins de cette semaine entre huit heures et midi', acces: 'dégager complètement l’accès aux conduites de la salle de bain' },
+        const tuples = [
+          {
+            batiment: 'du complexe résidentiel Le Saint-Laurent',
+            coupure: 'les mardis et jeudis de neuf heures à seize heures',
+            coupureAns: 'Les mardis et jeudis entre neuf heures et seize heures',
+            coupureDist1: 'Les vendredis soirs de dix-huit heures à minuit de manière continue',
+            coupureDist2: 'Chaque nuit de la semaine entre deux heures et six heures du matin',
+            acces: 'permettre aux plombiers d’accéder aux tuyaux sous votre évier',
+            accesAns: 'Donner accès aux canalisations situées sous l’évier de la cuisine',
+            accesDist1: 'Acheter à ses frais des raccords de plomberie neufs dans une quincaillerie',
+            accesDist2: 'Purger soi-même le compteur d’eau principal situé au sous-sol du bâtiment',
+            evidenceCoupure: ['mardis', 'jeudis', 'seize'],
+            evidenceAcces: ['tuyaux', 'évier'],
+          },
+          {
+            batiment: 'de la coopérative d’habitation Les Pins',
+            coupure: 'les lundis et mercredis de huit heures à quinze heures',
+            coupureAns: 'Les lundis et mercredis entre huit heures et quinze heures',
+            coupureDist1: 'Les fins de semaine complètes du samedi matin jusqu’au dimanche soir',
+            coupureDist2: 'Uniquement les mercredis soirs après dix-neuf heures jusqu’à minuit',
+            acces: 'libérer l’espace autour du chauffe-eau dans votre buanderie',
+            accesAns: 'Dégager entièrement le pourtour du chauffe-eau situé dans la buanderie',
+            accesDist1: 'Vidanger complètement le réservoir d’eau chaude la veille de l’intervention',
+            accesDist2: 'Démonter tous les robinets de la baignoire avant l’arrivée des plombiers',
+            evidenceCoupure: ['lundis', 'mercredis', 'quinze'],
+            evidenceAcces: ['chauffe-eau', 'buanderie'],
+          },
+          {
+            batiment: 'des appartements du Manoir Mont-Royal',
+            coupure: 'tous les matins de cette semaine entre huit heures et midi',
+            coupureAns: 'Tous les matins de la semaine en cours de huit heures à midi',
+            coupureDist1: 'Une journée entière sans aucun préavis au milieu du mois courant',
+            coupureDist2: 'Les samedis après-midi entre treize heures et dix-huit heures trente',
+            acces: 'dégager complètement l’accès aux conduites de la salle de bain',
+            accesAns: 'Dégager les canalisations situées dans la salle de bain pour les ouvriers',
+            accesDist1: 'Remplacer le rideau de douche par une cloison étanche aux normes sanitaires',
+            accesDist2: 'Couper le chauffage central de l’appartement pendant trois jours consécutifs',
+            evidenceCoupure: ['matins', 'huit', 'midi'],
+            evidenceAcces: ['conduites', 'salle', 'bain'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Avis important à l’intention de tous les locataires ${s.batiment}. Notre syndicat de gestion entreprendra dès la semaine prochaine le remplacement complet de la tuyauterie d’eau potable de tout l’immeuble. Cette mise aux normes entraînera des coupures d’eau régulières ${s.coupure}. Nous vous conseillons de remplir des récipients d’eau la veille pour vos besoins essentiels. Chaque locataire doit obligatoirement être présent ou confier ses clés au concierge pour ${s.acces}. Des points de distribution d’eau embouteillée seront installés dans le hall d’entrée pour dépanner les familles. Nous regrettons ces inconvénients temporaires qui garantiront toutefois la qualité de notre réseau pour de nombreuses années.`,
+          text: `— Avis important à l’intention de tous les locataires ${t.batiment}. Notre syndicat de gestion entreprendra dès la semaine prochaine le remplacement complet de la tuyauterie d’eau potable de tout l’immeuble. Cette mise aux normes entraînera des coupures d’eau régulières ${t.coupure}. Nous vous conseillons de remplir des récipients d’eau la veille pour vos besoins essentiels. Chaque locataire doit obligatoirement être présent ou confier ses clés au concierge pour ${t.acces}. Des points de distribution d’eau embouteillée seront installés dans le hall d’entrée pour dépanner les familles. Nous regrettons ces inconvénients temporaires qui garantiront toutefois la qualité de notre réseau pour de nombreuses années.`,
           questions: [
-            ['Quel projet de rénovation technique est présenté dans ce message vocal ?', 'Le renouvellement complet des conduites d’eau de la bâtisse', 'La rénovation des tapis et la pose de peinture fraîche dans le hall', 'L’installation de nouvelles caméras de sécurité'],
-            ['Quand les coupures d’eau potable auront-elles lieu dans le complexe ?', 'Durant des plages horaires régulières fixées en journée ouvrable', 'Des coupures nocturnes chaque fin de semaine', 'Des arrêts continus durant toute la fin de semaine sans eau potable'],
-            ['Quelle obligation incombe à chaque occupant du logement pour les travaux ?', 'Faciliter l’accès aux tuyaux par une présence ou un double de clé', 'Fournir des raccords de plomberie pour son logement', 'Nettoyer le couloir après le départ des ouvriers'],
+            makeQuestion('Quel projet de rénovation technique est présenté dans ce message vocal ?', 'Le renouvellement complet des conduites d’eau de la bâtisse', 'La réfection des tapis et la pose de peinture fraîche dans le hall d’entrée', 'L’installation de nouvelles caméras de sécurité dans l’ensemble du complexe', ['tuyauterie', 'potable']),
+            makeQuestion('Quand les coupures d’eau potable auront-elles lieu dans le complexe ?', t.coupureAns, t.coupureDist1, t.coupureDist2, t.evidenceCoupure),
+            makeQuestion('Quelle obligation incombe à chaque occupant du logement pour les travaux ?', t.accesAns, t.accesDist1, t.accesDist2, t.evidenceAcces),
           ],
         }
       },
@@ -1515,18 +1656,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 4 (Template, Ex 0): Règlements d'une garderie en milieu familial
     Object.assign(
       (rand) => {
-        const slots = [
-          { responsable: 'Madame Chantal Roy', fermeture: 'dix-sept heures trente', signature: 'la feuille de présence officielle du ministère', vaccin: 'le carnet de vaccination à jour de votre tout-petit' },
-          { responsable: 'Madame Sylvie Lavoie', fermeture: 'dix-sept heures quinze', signature: 'le registre d’émargement quotidien', vaccin: 'la fiche médicale annuelle remplie par votre médecin' },
-          { responsable: 'Madame Josée Gagnon', fermeture: 'dix-sept heures quarante-cinq', signature: 'le formulaire électronique sur tablette à l’entrée', vaccin: 'la confirmation d’inscription avec antécédents médicaux' },
+        const tuples = [
+          {
+            responsable: 'Madame Chantal Roy',
+            fermeture: 'dix-sept heures trente',
+            signature: 'la feuille de présence officielle du ministère',
+            vaccin: 'le carnet de vaccination à jour de votre tout-petit',
+            signatureAns: 'Apposer sa signature sur le document de présence émis par le ministère',
+            signatureDist1: 'Remettre une somme d’argent comptant directement à la responsable le soir',
+            signatureDist2: 'Enregistrer un message vocal de confirmation sur le répondeur de la garde',
+            vaccinAns: 'Fournir le livret de vaccination actualisé pour son enfant avant vendredi',
+            vaccinDist1: 'Fournir un extrait officiel de naissance notarié délivré par une cour de justice',
+            vaccinDist2: 'Faire certifier le passeport de l’enfant par un avocat spécialisé en droit civil',
+            evidenceSignature: ['feuille', 'présence', 'ministère'],
+            evidenceVaccin: ['carnet', 'vaccination'],
+          },
+          {
+            responsable: 'Madame Sylvie Lavoie',
+            fermeture: 'dix-sept heures quinze',
+            signature: 'le registre d’émargement quotidien',
+            vaccin: 'la fiche médicale annuelle remplie par votre médecin',
+            signatureAns: 'Compléter par sa signature le document quotidien d’émargement à la sortie',
+            signatureDist1: 'Déposer une pièce d’identité avec photo dans un casier sécurisé et fermé',
+            signatureDist2: 'Envoyer un courriel officiel de confirmation avant de quitter les lieux',
+            vaccinAns: 'Remettre la fiche médicale annuelle complétée par le médecin traitant',
+            vaccinDist1: 'Présenter une facture d’achat de médicaments délivrée par un pharmacien agréé',
+            vaccinDist2: 'Faire signer une déclaration d’assurance responsabilité civile pour la saison',
+            evidenceSignature: ['registre', 'émargement'],
+            evidenceVaccin: ['fiche', 'médicale', 'médecin'],
+          },
+          {
+            responsable: 'Madame Josée Gagnon',
+            fermeture: 'dix-sept heures quarante-cinq',
+            signature: 'le formulaire électronique sur tablette à l’entrée',
+            vaccin: 'la confirmation d’inscription avec antécédents médicaux',
+            signatureAns: 'Valider le formulaire électronique sur la tablette installée à l’entrée',
+            signatureDist1: 'Montrer une photo de famille récente imprimée sur du papier cartonné',
+            signatureDist2: 'Laisser une note écrite dans le casier extérieur réservé à la garderie',
+            vaccinAns: 'Donner la confirmation d’inscription mentionnant les antécédents médicaux',
+            vaccinDist1: 'Produire un bilan radiologique complet du thorax délivré par un spécialiste',
+            vaccinDist2: 'Faire approuver le dossier médical de l’enfant par la commission scolaire',
+            evidenceSignature: ['formulaire', 'électronique', 'tablette'],
+            evidenceVaccin: ['confirmation', 'inscription', 'antécédents'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Bonjour chers parents. C’est ${s.responsable}, responsable du service de garde éducatif en milieu familial. Je tiens à préciser quelques consignes d’organisation pour que tout le monde passe une excellente session. Veuillez noter que notre journée se termine à ${s.fermeture} précises. Le soir, prenez deux minutes pour signer ${s.signature} avant de quitter avec votre enfant, car cette démarche est vérifiée lors des contrôles. Si votre enfant présente de la fièvre supérieure à trente-huit degrés ou des symptômes contagieux, il doit demeurer à la maison jusqu’à disparition complète des symptômes pendant vingt-quatre heures. Enfin, n’oubliez pas de me remettre ${s.vaccin} avant vendredi prochain. Je vous remercie pour votre belle collaboration !`,
+          text: `— Bonjour chers parents. C’est ${t.responsable}, responsable du service de garde éducatif en milieu familial. Je tiens à préciser quelques consignes d’organisation pour que tout le monde passe une excellente session. Veuillez noter que notre journée se termine à ${t.fermeture} précises. Le soir, prenez deux minutes pour signer ${t.signature} avant de quitter avec votre enfant, car cette démarche est vérifiée lors des contrôles. Si votre enfant présente de la fièvre supérieure à trente-huit degrés ou des symptômes contagieux, il doit demeurer à la maison jusqu’à disparition complète des symptômes pendant vingt-quatre heures. Enfin, n’oubliez pas de me remettre ${t.vaccin} avant vendredi prochain. Je vous remercie pour votre belle collaboration !`,
           questions: [
-            ['Quel cadre éducatif fait l’objet de cette mise au point de règlements ?', 'Une garderie éducative en résidence familiale privée', 'Une garderie municipale subventionnée installée dans un grand cégep', 'Un camp de vacances pour enfants d’âge scolaire'],
-            ['Quelle formalité administrative obligatoire les parents doivent-ils faire le soir ?', 'Valider et signer le registre officiel de présence quotidienne', 'Payer la garde en argent liquide à la responsable', 'Laisser un message téléphonique confirmant le retour au foyer le soir'],
-            ['Quelle règle sanitaire stricte s’applique en cas de fièvre de l’enfant ?', 'Garder son enfant chez soi durant une journée complète sans fièvre', 'Consulter immédiatement un médecin à la clinique pédiatrique', 'Faire réaliser un test rapide à la pharmacie'],
+            makeQuestion('Quel cadre éducatif fait l’objet de cette mise au point de règlements ?', 'Une garderie éducative en milieu familial', 'Un centre de garde rattaché à un cégep de grande taille', 'Un camp de vacances de plein air pour enfants d’âge scolaire', ['garde', 'familial']),
+            makeQuestion('Quelle formalité administrative obligatoire les parents doivent-ils faire le soir ?', t.signatureAns, t.signatureDist1, t.signatureDist2, t.evidenceSignature),
+            makeQuestion('Quel document médical obligatoire doit être transmis d’ici vendredi ?', t.vaccinAns, t.vaccinDist1, t.vaccinDist2, t.evidenceVaccin),
           ],
         }
       },
@@ -1541,18 +1721,45 @@ export const N05_06_SCENARIOS = {
     // Scenario 0 (Template, Ex 0): Cérémonie d'ouverture à la radio - Championnat mondial
     Object.assign(
       (rand) => {
-        const slots = [
-          { competition: 'des Championnats mondiaux d’athlétisme', ville: 'de Montréal', porte_drapeau: 'la sprinteuse québécoise', foule: 'quarante mille spectateurs enthousiastes' },
-          { competition: 'des Jeux mondiaux universitaires', ville: 'de Québec', porte_drapeau: 'le champion canadien de plongeon', foule: 'trente-cinq mille personnes réunies' },
-          { competition: 'du Grand Prix cycliste international', ville: 'de Gatineau', porte_drapeau: 'la cycliste chevronnée médaillée d’or', foule: 'vingt-cinq mille amateurs réunis' },
+        const tuples = [
+          {
+            competition: 'des Championnats mondiaux d’athlétisme',
+            ville: 'de Montréal',
+            porte_drapeau: 'la sprinteuse québécoise',
+            foule: 'quarante mille spectateurs enthousiastes',
+            drapeauAns: 'La sprinteuse québécoise acclamée par la foule rassemblée',
+            drapeauDist1: 'Le ministre responsable des sports du gouvernement fédéral',
+            drapeauDist2: 'Le maire honoraire de la ville hôte de la compétition',
+            evidenceDrapeau: ['sprinteuse', 'québécoise'],
+          },
+          {
+            competition: 'des Jeux mondiaux universitaires',
+            ville: 'de Québec',
+            porte_drapeau: 'le champion canadien de plongeon',
+            foule: 'trente-cinq mille personnes réunies',
+            drapeauAns: 'Le plongeur champion canadien sous les applaudissements du public',
+            drapeauDist1: 'Le doyen principal de la faculté régionale d’éducation physique et sportive',
+            drapeauDist2: 'Un groupe d’entraîneurs retraités de haut niveau',
+            evidenceDrapeau: ['champion', 'canadien', 'plongeon'],
+          },
+          {
+            competition: 'du Grand Prix cycliste international',
+            ville: 'de Gatineau',
+            porte_drapeau: 'la cycliste chevronnée médaillée d’or',
+            foule: 'vingt-cinq mille amateurs réunis',
+            drapeauAns: 'La coureuse cycliste médaillée d’or saluée par les spectateurs',
+            drapeauDist1: 'Le président de la fédération internationale de cyclisme',
+            drapeauDist2: 'Le chef de police de la municipalité hôte',
+            evidenceDrapeau: ['cycliste', 'médaillée', 'or'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `Bienvenue sur nos ondes pour cette émission spéciale consacrée à la cérémonie d’ouverture ${s.competition}, qui s’est tenue hier soir dans le grand stade ${s.ville}. Le spectacle a débuté par un hommage touchant aux Premières Nations, suivi d’une chorégraphie dynamique alliant danses traditionnelles et projections lumineuses sur une gigantesque surface de glace. L’émotion a atteint son comble lors du défilé des délégations, lorsque ${s.porte_drapeau} a franchi la scène centrale sous les ovations de ${s.foule}. La flamme officielle a ensuite été allumée par deux jeunes athlètes de la relève locale au milieu d’un impressionnant feu d’artifice. Les compétitions s’amorceront dès ce matin avec les premières rondes éliminatoires.`,
+          text: `Bienvenue sur nos ondes pour cette émission spéciale consacrée à la cérémonie d’ouverture ${t.competition}, qui s’est tenue hier soir dans le grand stade ${t.ville}. Le spectacle a débuté par un hommage touchant aux Premières Nations, suivi d’une chorégraphie dynamique alliant danses traditionnelles et projections lumineuses sur une gigantesque surface de glace. L’émotion a atteint son comble lors du défilé des délégations, lorsque ${t.porte_drapeau} a franchi la scène centrale sous les ovations de ${t.foule}. La flamme officielle a ensuite été allumée par deux jeunes athlètes de la relève locale au milieu d’un impressionnant feu d’artifice. Les compétitions s’amorceront dès ce matin avec les premières rondes éliminatoires.`,
           questions: [
-            ['Quel événement festif et sportif est décrit par le journaliste à la radio ?', 'Le lancement festif d’une grande rencontre sportive mondiale', 'La remise des prix clôturant une compétition provinciale annuelle', 'La conférence annonçant l’annulation d’épreuves'],
-            ['Par quoi le spectacle inaugural a-t-il débuté ?', 'Un hommage aux Premières Nations suivi de projections visuelles', 'Une joute amicale entre deux équipes rivales', 'Une longue allocution officielle prononcée par les bailleurs de fonds'],
-            ['Qui a eu l’honneur d’allumer la flamme officielle de la compétition ?', 'Deux jeunes espoirs sportifs incarnant la relève locale de la région', 'Les anciens organisateurs de la compétition sportive', 'Les directeurs généraux des commanditaires officiels'],
+            makeQuestion('Quel événement festif et sportif est décrit par le journaliste à la radio ?', 'Le lancement festif d’une grande rencontre sportive internationale', 'La remise officielle des prix clôturant une compétition provinciale annuelle', 'La conférence de presse matinale annonçant l’annulation de tournois', ['cérémonie', 'ouverture', 'sportive']),
+            makeQuestion('Par quoi le spectacle inaugural a-t-il débuté ?', 'Un hommage aux Premières Nations suivi de projections visuelles', 'Une joute amicale entre deux équipes rivales régionales', 'Une longue allocution officielle prononcée par les commanditaires', ['hommage', 'nations', 'projections']),
+            makeQuestion('Quelle personnalité sportive a suscité l’enthousiasme lors du défilé ?', t.drapeauAns, t.drapeauDist1, t.drapeauDist2, t.evidenceDrapeau),
           ],
         }
       },
@@ -1561,58 +1768,190 @@ export const N05_06_SCENARIOS = {
     // Scenario 1 (Template, Ex 0): Cérémonie d'ouverture - Jeux d'hiver internationaux
     Object.assign(
       (rand) => {
-        const slots = [
-          { jeu: 'des Jeux internationaux d’hiver de la jeunesse', region: 'dans les Laurentides', spectacle: 'un conte musical poétique inspiré des légendes boréales', serment: 'une jeune patineuse de vitesse de la région' },
-          { jeu: 'des Championnats mondiaux de ski nordique', region: 'au Mont-Sainte-Anne', spectacle: 'une fresque visuelle retraçant l’histoire des coureurs des bois', serment: 'un fondeur québécois sélectionné pour la première fois' },
-          { jeu: 'du Festival international des sports de neige', region: 'au Saguenay', spectacle: 'une symphonie de percussions jouée sur des blocs de glace sculptés', serment: 'une skieuse acrobatique acclamée par la foule' },
+        const tuples = [
+          {
+            jeu: 'des Jeux internationaux d’hiver de la jeunesse',
+            region: 'dans les Laurentides',
+            spectacle: 'un conte musical poétique inspiré des légendes boréales, interprété par trois cents artistes',
+            spectacleAns: 'Un conte musical inspiré de légendes nordiques joué par des artistes',
+            spectacleDist1: 'Une parade mécanique de motoneiges anciennes le long des pistes de ski',
+            spectacleDist2: 'Une démonstration d’escalade sur parois rocheuses artificielles',
+            serment: 'une jeune patineuse de vitesse de la région',
+            sermentAns: 'Une jeune patineuse de vitesse originaire de la région d’accueil',
+            sermentDist1: 'Le ministre responsable du tourisme accompagné de délégués municipaux',
+            sermentDist2: 'L’arbitre en chef désigné pour les épreuves de bobsleigh',
+            evidenceSpectacle: ['conte', 'musical', 'boréales'],
+            evidenceSerment: ['patineuse', 'vitesse'],
+          },
+          {
+            jeu: 'des Championnats mondiaux de ski nordique',
+            region: 'au Mont-Sainte-Anne',
+            spectacle: 'une fresque visuelle retraçant l’histoire des coureurs des bois, interprétée par trois cents artistes',
+            spectacleAns: 'Une fresque visuelle historique évoquant le passé des coureurs des bois',
+            spectacleDist1: 'Un tournoi amical de hockey sur une patinoire improvisée',
+            spectacleDist2: 'Un concert symphonique classique prestigieux donné dans une église du village',
+            serment: 'un fondeur québécois sélectionné pour la première fois',
+            sermentAns: 'Un fondeur d’ici sélectionné pour la première fois aux championnats',
+            sermentDist1: 'Le président du comité général d’organisation de la compétition sportive',
+            sermentDist2: 'Un ancien médaillé olympique venu assister en simple spectateur',
+            evidenceSpectacle: ['fresque', 'visuelle', 'bois'],
+            evidenceSerment: ['fondeur', 'sélectionné'],
+          },
+          {
+            jeu: 'du Festival international des sports de neige',
+            region: 'au Saguenay',
+            spectacle: 'une symphonie de percussions jouée sur des blocs de glace sculptés par trois cents artistes',
+            spectacleAns: 'Une symphonie percussive résonnant sur d’immenses blocs de glace sculptés',
+            spectacleDist1: 'Un grand défilé de traîneaux à chiens traversant la place publique principale',
+            spectacleDist2: 'Une compétition culinaire de mets traditionnels du terroir boréal',
+            serment: 'une skieuse acrobatique acclamée par la foule',
+            sermentAns: 'Une spécialiste du ski acrobatique chaudement acclamée par le public',
+            sermentDist1: 'Le préfet de la municipalité régionale de comté hôte',
+            sermentDist2: 'Un représentant de la ligue provinciale de patinage artistique',
+            evidenceSpectacle: ['symphonie', 'percussions', 'glace'],
+            evidenceSerment: ['skieuse', 'acrobatique'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `Ici Radio-Canada en direct de la soirée inaugurale ${s.jeu}, organisée cette semaine ${s.region}. Malgré un vent glacial qui soufflait sur la place des festivals, les spectateurs ont assisté à un déploiement artistique remarquable. La mise en scène proposait ${s.spectacle}, interprété par plus de trois cents artistes bénévoles. Après le salut des dignitaires, ${s.serment} a prononcé le serment des athlètes au nom de tous les participants, promettant loyauté et esprit d’équipe. La soirée s’est conclue dans une ambiance chaleureuse avec un concert de musique traditionnelle où le public s’est mis à chanter et danser pour braver le froid.`,
+          text: `Ici Radio-Canada en direct de la soirée inaugurale ${t.jeu}, organisée cette semaine ${t.region}. Malgré un vent glacial qui soufflait sur la place des festivals, les spectateurs ont assisté à un déploiement artistique remarquable. La mise en scène proposait ${t.spectacle}. Après le salut des dignitaires, ${t.serment} a prononcé le serment des athlètes au nom de tous les participants, promettant loyauté et esprit d’équipe. La soirée s’est conclue dans une ambiance chaleureuse avec un concert de musique traditionnelle où le public s’est mis à chanter et danser pour braver le froid.`,
           questions: [
-            ['Quel événement culturel et sportif radiodiffusé ce reportage fait-il revivre ?', 'L’inauguration officielle d’un tournoi hivernal international', 'Une levée de fonds pour financer la rénovation d’un aréna municipal', 'Une compétition de patinage réservée aux étudiants'],
-            ['Quelle œuvre originale a constitué le cœur du spectacle d’ouverture ?', 'Une fresque vivante interprétée par de nombreux artistes bénévoles', 'Une parade de véhicules anciens sur le site', 'Un défilé de vêtements d’hiver anciens le long des pistes de ski alpin'],
-            ['Comment s’est clôturée la cérémonie d’ouverture ?', 'Un concert chaleureux où la foule a bravé le froid en chantant', 'Une évacuation rapide des gradins en raison du vent', 'La distribution hâtive des médailles d’honneur'],
+            makeQuestion('Quel événement culturel et sportif radiodiffusé ce reportage fait-il revivre ?', 'L’inauguration officielle d’un tournoi hivernal international', 'Une grande levée de fonds communautaire pour rénover un aréna municipal', 'Une compétition locale de patinage artistique réservée aux écoliers', ['inaugurale', 'artistique']),
+            makeQuestion('Quelle œuvre artistique a constitué le cœur du spectacle d’ouverture ?', t.spectacleAns, t.spectacleDist1, t.spectacleDist2, t.evidenceSpectacle),
+            makeQuestion('Qui a prononcé le serment officiel au nom des sportifs réunis ?', t.sermentAns, t.sermentDist1, t.sermentDist2, t.evidenceSerment),
           ],
         }
       },
       { situation: 0, capacity: 3 }
     ),
-    // Scenario 2 (Template, Ex 1): Profil d'une experte en cybersécurité invitée
+    // Scenario 2 (Template, Ex 1): Profil d'une experte invitée pour donner une formation
     Object.assign(
       (rand) => {
-        const slots = [
-          { nom: 'Docteure Nadia Belkacem', domaine: 'la cybersécurité et la protection des données gouvernementales', firme: 'pendant dix ans pour l’Agence spatiale canadienne', publication: 'd’un guide pratique sur la sécurité informatique' },
-          { nom: 'Docteure Valérie Côté', domaine: 'l’intelligence artificielle appliquée aux réseaux financiers', firme: 'au sein d’une grande banque québécoise comme directrice', publication: 'de deux livres de référence traduits à l’étranger' },
-          { nom: 'Docteure Amina Traoré', domaine: 'la gouvernance technologique et la gestion des risques numériques', firme: 'comme consultante stratégique pour des ministères fédéraux', publication: 'd’une série d’articles spécialisés sur l’éthique numérique' },
+        const tuples = [
+          {
+            nom: 'Docteure Nadia Belkacem',
+            domaine: 'la cybersécurité et la protection des données gouvernementales',
+            firme: 'pendant dix ans pour l’Agence spatiale canadienne',
+            publication: 'd’un guide pratique sur la sécurité informatique',
+            mission: 'identifier les vulnérabilités de nos systèmes internes et sécuriser nos échanges de courriels',
+            domaineAns: 'La sécurité informatique et la protection des renseignements numériques',
+            domaineDist1: 'La comptabilité analytique et l’optimisation des portefeuilles boursiers',
+            domaineDist2: 'L’aménagement paysager et la gestion durable des espaces verts',
+            firmeAns: 'Une décennie d’expérience au service de l’Agence spatiale canadienne',
+            firmeDist1: 'La gestion administrative d’un grand magasin de fournitures électroniques',
+            firmeDist2: 'L’enseignement primaire dans une petite commission scolaire',
+            missionAns: 'Détecter les faiblesses logicielles et sécuriser les courriels internes',
+            missionDist1: 'Apprendre à concevoir des applications informatiques ludiques pour téléphones',
+            missionDist2: 'Négocier de nouveaux contrats commerciaux avec les fournisseurs',
+            evidenceDomaine: ['cybersécurité', 'données'],
+            evidenceFirme: ['spatiale', 'canadienne'],
+            evidenceMission: ['vulnérabilités', 'systèmes', 'courriels'],
+          },
+          {
+            nom: 'Docteure Valérie Côté',
+            domaine: 'l’intelligence artificielle appliquée aux réseaux financiers',
+            firme: 'au sein d’une grande banque québécoise comme directrice de l’innovation',
+            publication: 'de deux livres de référence traduits à l’étranger',
+            mission: 'automatiser l’analyse des risques de crédit et repérer les anomalies transactionnelles',
+            domaineAns: 'L’intelligence artificielle appliquée à la gestion des flux financiers',
+            domaineDist1: 'La production audiovisuelle pour les chaînes de télévision locales',
+            domaineDist2: 'La révision des lois électorales pour les partis provinciaux',
+            firmeAns: 'Un poste de direction de l’innovation dans une grande banque québécoise',
+            firmeDist1: 'L’animation d’émissions radiophoniques consacrées à la vie communautaire',
+            firmeDist2: 'La coordination d’un service de livraison de colis urbains',
+            missionAns: 'Automatiser le suivi du risque et dépister les transactions anormales',
+            missionDist1: 'Créer un site Internet promotionnel d’envergure pour attirer de jeunes clients',
+            missionDist2: 'Rédiger le manuel d’accueil destiné aux stagiaires administratifs',
+            evidenceDomaine: ['intelligence', 'artificielle', 'financiers'],
+            evidenceFirme: ['banque', 'québécoise', 'directrice'],
+            evidenceMission: ['analyse', 'risques', 'anomalies'],
+          },
+          {
+            nom: 'Docteure Amina Traoré',
+            domaine: 'la gouvernance technologique et la gestion des risques numériques',
+            firme: 'comme consultante stratégique pour plusieurs ministères fédéraux',
+            publication: 'd’une série d’articles spécialisés sur l’éthique numérique',
+            mission: 'baliser les pratiques éthiques en technologies et assurer la conformité réglementaire',
+            domaineAns: 'La gouvernance numérique et le contrôle des risques technologiques',
+            domaineDist1: 'Le stylisme vestimentaire et la mise en marché dans la mode',
+            domaineDist2: 'La logistique portuaire pour les navires de transport de marchandises',
+            firmeAns: 'Une pratique de conseil stratégique auprès de plusieurs ministères fédéraux',
+            firmeDist1: 'La gérance d’un café associatif situé dans un quartier étudiant très animé',
+            firmeDist2: 'La vente d’espaces publicitaires pour un journal régional d’annonces',
+            missionAns: 'Encadrer les règles éthiques et garantir la conformité aux normes',
+            missionDist1: 'Rénover le réseau électrique et la plomberie de la cafétéria de l’entreprise',
+            missionDist2: 'Organiser une journée festive pour célébrer les anniversaires de service',
+            evidenceDomaine: ['gouvernance', 'risques', 'numériques'],
+            evidenceFirme: ['consultante', 'ministères', 'fédéraux'],
+            evidenceMission: ['éthiques', 'conformité', 'réglementaire'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Bonjour chers collègues. C’est un grand plaisir de vous présenter notre formatrice invitée pour cette journée de perfectionnement professionnel, ${s.nom}. Diplômée de Polytechnique Montréal et titulaire d’un doctorat en génie informatique, elle est une spécialiste réputée dans le secteur de ${s.domaine}. Avant de fonder son propre cabinet de consultation, elle a œuvré ${s.firme}. Elle est également l’auteure ${s.publication}. Aujourd’hui, elle partagera avec notre équipe des méthodes concrètes pour identifier les vulnérabilités de nos systèmes internes et sécuriser nos échanges de courriels. Je vous invite à lui réserver un accueil chaleureux et à préparer vos questions pour la période d’échange finale.`,
+          text: `— Bonjour chers collègues. C’est un grand plaisir de vous présenter notre formatrice invitée pour cette journée de perfectionnement professionnel, ${t.nom}. Diplômée de Polytechnique Montréal et titulaire d’un doctorat en génie informatique, elle est une spécialiste réputée dans le secteur de ${t.domaine}. Avant de fonder son propre cabinet de consultation, elle a œuvré ${t.firme}. Elle est également l’auteure ${t.publication}. Aujourd’hui, elle partagera avec notre équipe des méthodes concrètes pour ${t.mission}. Je vous invite à lui réserver un accueil chaleureux et à préparer vos questions pour la période d’échange finale.`,
           questions: [
-            ['Quel est le profil de la personne invitée dans l’entreprise ?', 'Une spécialiste du secteur informatique venue former le personnel', 'Une inspectrice gouvernementale chargée d’évaluer la rentabilité interne', 'Une nouvelle directrice financière permanente'],
-            ['Quelle expérience professionnelle significative a-t-elle acquise par le passé ?', 'Une carrière remarquable accomplie auprès d’institutions majeures', 'La direction d’un commerce de fournitures', 'L’enseignement du français écrit au sein d’établissements scolaires'],
-            ['Quel objectif principal poursuit cette session de formation pour les employés ?', 'Repérer les failles logicielles et mieux protéger les courriels internes', 'Apprendre à programmer des applications pour téléphones intelligents', 'Régler les conditions financières des contrats passés avec les clients'],
+            makeQuestion('Dans quel secteur précis la formatrice invitée s’est-elle spécialisée ?', t.domaineAns, t.domaineDist1, t.domaineDist2, t.evidenceDomaine),
+            makeQuestion('Quelle fonction majeure a-t-elle exercée avant de créer son propre cabinet ?', t.firmeAns, t.firmeDist1, t.firmeDist2, t.evidenceFirme),
+            makeQuestion('Quel objectif opérationnel cette session de formation vise-t-elle pour l’équipe ?', t.missionAns, t.missionDist1, t.missionDist2, t.evidenceMission),
           ],
         }
       },
       { situation: 1, capacity: 3 }
     ),
-    // Scenario 3 (Template, Ex 1): Profil d'une experte en gestion de la diversité et climat de travail
+    // Scenario 3 (Template, Ex 1): Profil d'une experte en diversité et climat de travail
     Object.assign(
       (rand) => {
-        const slots = [
-          { nom: 'Madame Sophie Desrosiers', expertise: 'la médiation organisationnelle et la diversité en milieu de travail', etudes: 'à l’École nationale d’administration publique', mandat: 'auprès d’hôpitaux publics et de cégeps de la province' },
-          { nom: 'Madame Monique Baril', expertise: 'la santé psychologique au travail et la prévention du harcèlement', etudes: 'à l’Université de Montréal en psychologie industrielle', mandat: 'pour de grandes coopératives financières et des municipalités' },
-          { nom: 'Madame Diane Beaulieu', expertise: 'le leadership inclusif et la conciliation travail-famille', etudes: 'à l’Université Laval en relations industrielles', mandat: 'au sein de sociétés d’État et d’organismes communautaires' },
+        const tuples = [
+          {
+            nom: 'Madame Sophie Desrosiers',
+            expertise: 'la médiation organisationnelle et la diversité en milieu de travail',
+            etudes: 'à l’École nationale d’administration publique',
+            mandat: 'auprès d’hôpitaux publics et de cégeps de la province',
+            expertiseAns: 'La médiation en entreprise et la promotion de la diversité au travail',
+            expertiseDist1: 'La vérification comptable et fiscale des grandes entreprises multinationales du secteur',
+            expertiseDist2: 'L’entretien mécanique régulier de flottes de véhicules municipaux et industriels lourds',
+            mandatAns: 'Des interventions dans des hôpitaux publics et des cégeps provinciaux',
+            mandatDist1: 'La gestion quotidienne de commerces spécialisés de prêt-à-porter en banlieue',
+            mandatDist2: 'La surveillance de sentiers pédestres dans des réserves naturelles',
+            evidenceExpertise: ['médiation', 'diversité'],
+            evidenceMandat: ['hôpitaux', 'cégeps'],
+          },
+          {
+            nom: 'Madame Monique Baril',
+            expertise: 'la santé psychologique au travail et la prévention du harcèlement',
+            etudes: 'à l’Université de Montréal en psychologie industrielle',
+            mandat: 'pour de grandes coopératives financières et des municipalités',
+            expertiseAns: 'Le bien-être psychologique en milieu professionnel et la lutte contre le harcèlement',
+            expertiseDist1: 'Le génie civil et structural appliqué à la construction de grands viaducs routiers régionaux',
+            expertiseDist2: 'La négociation de baux commerciaux complexes pour de vastes entrepôts portuaires industriels',
+            mandatAns: 'Des missions auprès de coopératives financières et de villes d’ici',
+            mandatDist1: 'L’approvisionnement en pièces de rechange pour de grandes usines textiles',
+            mandatDist2: 'La confection d’uniformes pour des équipes sportives régionales',
+            evidenceExpertise: ['santé', 'psychologique', 'harcèlement'],
+            evidenceMandat: ['coopératives', 'municipalités'],
+          },
+          {
+            nom: 'Madame Diane Beaulieu',
+            expertise: 'le leadership inclusif et la conciliation entre le travail et la famille',
+            etudes: 'à l’Université Laval en relations industrielles',
+            mandat: 'au sein de sociétés d’État et d’organismes communautaires',
+            expertiseAns: 'Les pratiques de gestion inclusive et l’équilibre entre travail et obligations familiales',
+            expertiseDist1: 'La gestion des stocks de marchandises périssables dans un vaste supermarché régional',
+            expertiseDist2: 'L’arpentage géométrique de grands terrains forestiers éloignés des centres urbains',
+            mandatAns: 'Des interventions ciblées dans des sociétés publiques et communautaires',
+            mandatDist1: 'La restauration rapide dans plusieurs centres commerciaux de quartier',
+            mandatDist2: 'L’exploitation de carrières de gravier dans les régions du nord du Québec',
+            evidenceExpertise: ['leadership', 'conciliation', 'famille'],
+            evidenceMandat: ['sociétés', 'organismes', 'communautaires'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Bienvenue à notre atelier annuel sur le bien-être au travail. Nous avons le privilège d’accueillir aujourd’hui ${s.nom}, une spécialiste reconnue pour son travail sur ${s.expertise}. Formée ${s.etudes}, elle cumule plus de quinze années d’expérience sur le terrain. Elle a piloté des mandats de transformation remarquables ${s.mandat}. Son approche pratique repose sur des ateliers interactifs, des mises en situation réalistes et le dialogue constructif entre gestionnaires et équipes de travail. Cet après-midi, elle nous outillera pour désamorcer les conflits d’équipe et cultiver un climat de travail sain et respectueux. N’hésitez pas à participer activement à ses exercices en petits groupes pour en tirer le maximum de bénéfices !`,
+          text: `— Bienvenue à notre atelier annuel sur le bien-être au travail. Nous avons le privilège d’accueillir aujourd’hui ${t.nom}, une spécialiste reconnue pour son travail sur ${t.expertise}. Formée ${t.etudes}, elle cumule plus de quinze années d’expérience sur le terrain. Elle a piloté des mandats de transformation remarquables ${t.mandat}. Son approche pratique repose sur des ateliers interactifs, des mises en situation réalistes et le dialogue constructif entre gestionnaires et équipes de travail. Cet après-midi, elle nous outillera pour désamorcer les conflits d’équipe et cultiver un climat de travail sain et respectueux. N’hésitez pas à participer activement à ses exercices en petits groupes pour en tirer le maximum de bénéfices !`,
           questions: [
-            ['Dans quel domaine précis la conférencière possède-t-elle une grande expertise ?', 'La concertation interne et le respect des diversités professionnelles', 'L’optimisation comptable des investissements financiers de l’entreprise', 'La maintenance technique des équipements d’usine'],
-            ['Auprès de quels milieux a-t-elle notamment réalisé des mandats par le passé ?', 'Au sein de divers organismes publics et de grandes coopératives', 'Des commerces de vente au détail de quartier', 'Des ateliers de mécanique automobile et de grands garages régionaux'],
-            ['Quelle méthode pédagogique privilégie-t-elle pour son atelier ?', 'Des échanges interactifs et des exercices pratiques en petits groupes', 'Un exposé magistral sans aucune intervention possible des participants', 'Un test écrit individuel administré en fin de journée'],
+            makeQuestion('Dans quel domaine d’intervention la spécialiste possède-t-elle une solide réputation ?', t.expertiseAns, t.expertiseDist1, t.expertiseDist2, t.evidenceExpertise),
+            makeQuestion('Auprès de quels milieux a-t-elle notamment réalisé des mandats d’envergure ?', t.mandatAns, t.mandatDist1, t.mandatDist2, t.evidenceMandat),
+            makeQuestion('Quelle démarche pédagogique privilégie-t-elle pour outiller les participants ?', 'Des mises en situation interactives et des exercices en sous-groupes', 'Une conférence magistrale théorique sans aucune prise de parole permise', 'Un examen écrit individuel noté administré à la fin de la séance', ['ateliers', 'interactifs', 'exercices']),
           ],
         }
       },
@@ -1621,18 +1960,54 @@ export const N05_06_SCENARIOS = {
     // Scenario 4 (Template, Ex 0): Cérémonie d'ouverture - Compétition aquatique internationale
     Object.assign(
       (rand) => {
-        const slots = [
-          { bassin: 'au Parc olympique de Montréal', epreuve: 'du plongeon et de la natation artistique', honneur: 'une nageuse autochtone championne panaméricaine' },
-          { bassin: 'au Centre sportif de Gatineau', epreuve: 'du water-polo et de la nage en eau libre', honneur: 'un paralympien médaillé d’or en papillon' },
-          { bassin: 'au complexe Aquatique de Laval', epreuve: 'de la natation de vitesse et du plongeon synchronisé', honneur: 'une jeune prodige locale détenant un record canadien' },
+        const tuples = [
+          {
+            bassin: 'au Parc olympique de Montréal',
+            epreuve: 'du plongeon et de la natation artistique',
+            honneur: 'une nageuse autochtone championne panaméricaine',
+            epreuveAns: 'Des épreuves internationales de plongeon et de natation artistique',
+            epreuveDist1: 'Des tournois majeurs de hockey sur glace disputés dans un aréna fermé',
+            epreuveDist2: 'Des compétitions de course d’endurance sur piste synthétique',
+            honneurAns: 'Une nageuse autochtone sacrée championne panaméricaine',
+            honneurDist1: 'Le chef du protocole du comité international des juges',
+            honneurDist2: 'Le constructeur des installations aquatiques du complexe',
+            evidenceEpreuve: ['plongeon', 'natation', 'artistique'],
+            evidenceHonneur: ['nageuse', 'autochtone', 'panaméricaine'],
+          },
+          {
+            bassin: 'au Centre sportif de Gatineau',
+            epreuve: 'du water-polo et de la nage en eau libre',
+            honneur: 'un paralympien médaillé d’or en papillon',
+            epreuveAns: 'Des confrontations de water-polo et des épreuves en eau libre',
+            epreuveDist1: 'Des matches de soccer intérieur disputés en gymnase',
+            epreuveDist2: 'Des concours de saut à ski acrobatique tenus sur un tremplin extérieur',
+            honneurAns: 'Un athlète paralympique ayant décroché l’or en style papillon',
+            honneurDist1: 'Le maire adjoint délégué aux loisirs et aux sports de la municipalité',
+            honneurDist2: 'Un animateur de radio locale invité pour l’animation',
+            evidenceEpreuve: ['water-polo', 'eau', 'libre'],
+            evidenceHonneur: ['paralympien', 'médaillé', 'papillon'],
+          },
+          {
+            bassin: 'au complexe Aquatique de Laval',
+            epreuve: 'de la natation de vitesse et du plongeon synchronisé',
+            honneur: 'une jeune prodige locale détenant un record canadien',
+            epreuveAns: 'Des courses de natation rapide et des plongeons synchronisés',
+            epreuveDist1: 'Des rencontres de curling sur glace balayée à la main',
+            epreuveDist2: 'Des épreuves de vélo acrobatique sur de grandes rampes intérieures en bois',
+            honneurAns: 'Une jeune sportive locale titulaire d’un record canadien',
+            honneurDist1: 'Le responsable de l’entretien technique et mécanique de la machinerie',
+            honneurDist2: 'Le fournisseur des tenues de bain des athlètes',
+            evidenceEpreuve: ['natation', 'vitesse', 'plongeon'],
+            evidenceHonneur: ['prodige', 'record', 'canadien'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `Vous écoutez Radio-Canada Sports pour la retransmission de la cérémonie d’ouverture de la Coupe internationale des sports aquatiques, présentée ce soir ${s.bassin}. Les gradins étaient remplis pour accueillir les représentants de plus de quarante nations qui s’affronteront dans les épreuves ${s.epreuve}. Le moment fort de la soirée est survenu lorsqu’un spectacle acrobatique aérien a surplombé le bassin principal, illuminé d’effets visuels aquatiques impressionnants. C’est ${s.honneur} qui a officiellement déclaré les jeux ouverts, saluée par un tonnerre d’applaudissements de la part des délégations étrangères. Les premières courses débutent demain dès huit heures trente, et nous serons en ondes pour vous faire vivre chaque seconde de cette fin de semaine captivante.`,
+          text: `Vous écoutez Radio-Canada Sports pour la retransmission de la cérémonie d’ouverture de la Coupe internationale des sports aquatiques, présentée ce soir ${t.bassin}. Les gradins étaient remplis pour accueillir les représentants de plus de quarante nations qui s’affronteront dans les épreuves ${t.epreuve}. Le moment fort de la soirée est survenu lorsqu’un spectacle acrobatique aérien a surplombé le bassin principal, illuminé d’effets visuels impressionnants. C’est ${t.honneur} qui a officiellement déclaré les jeux ouverts, saluée par un tonnerre d’applaudissements de la part des délégations étrangères. Les premières courses débutent demain dès huit heures trente, et nous serons en ondes pour vous faire vivre chaque seconde de cette compétition captivante.`,
           questions: [
-            ['Quelle compétition sportive d’envergure s’ouvre officiellement dans ce reportage ?', 'Un tournoi international consacré à des épreuves nautiques', 'Un championnat provincial de tennis disputé sur terre battue en été', 'Une compétition estivale d’athlétisme au collège'],
-            ['Quel spectacle artistique a impressionné le public au-dessus du bassin ?', 'Des prouesses acrobatiques enrichies d’effets lumineux sur le bassin', 'Une parade d’animaux marins dressés pour la fête', 'Une démonstration musicale surprise organisée directement sur la rive opposée'],
-            ['Quand débuteront les premières courses éliminatoires officielles ?', 'Dès huit heures trente demain matin pour les qualifications sportives', 'Ce soir même à minuit aussitôt après les discours officiels', 'La semaine prochaine une fois les entraînements terminés'],
+            makeQuestion('Quelles disciplines sportives figurent au programme de cet événement international ?', t.epreuveAns, t.epreuveDist1, t.epreuveDist2, t.evidenceEpreuve),
+            makeQuestion('Quelle personnalité a eu le privilège d’inaugurer officiellement les compétitions ?', t.honneurAns, t.honneurDist1, t.honneurDist2, t.evidenceHonneur),
+            makeQuestion('Quand débuteront les premières courses officielles sur le site ?', 'Dès huit heures trente demain matin pour les éliminatoires', 'Ce soir à minuit après la fin des discours des dignitaires', 'La fin de semaine prochaine après les derniers entraînements libres', ['huit', 'heures', 'trente']),
           ],
         }
       },
@@ -1644,21 +2019,60 @@ export const N05_06_SCENARIOS = {
   // Ex 0: Suivre le déroulement d’un film relatant la vie d’une sportive.
   // Ex 1: Suivre le déroulement des évènements ayant mené à un accident de la route relaté à la radio.
   'n6-listening-2': [
-    // Scenario 0 (Template, Ex 0): Critique / résumé de film sur une patineuse québécoise (fictional)
+    // Scenario 0 (Template, Ex 0): Critique / résumé de film sur une sportive québécoise (fictional)
     Object.assign(
       (rand) => {
-        const slots = [
-          { film: '« L’Or sur glace »', sportive: 'la patineuse Émilie Vachon', blessure: 'une fracture à la cheville à la veille des sélections', finale: 'une médaille historique remportée avec courage aux Jeux d’hiver' },
-          { film: '« La Traversée du courage »', sportive: 'la fondeuse Sandrine Gagnon', blessure: 'une pneumonie sévère qui a paralysé sa saison', finale: 'une remontée spectaculaire sur le podium lors du cinquante kilomètres' },
-          { film: '« Seule contre le vent »', sportive: 'la cycliste Karine Simard', blessure: 'une déchirure musculaire douloureuse après une chute en peloton', finale: 'un triomphe émouvant lors du contre-la-montre des championnats mondiaux' },
+        const tuples = [
+          {
+            film: '« L’Or sur glace »',
+            sportive: 'la patineuse Émilie Vachon',
+            blessure: 'une fracture sévère à la cheville à la veille des sélections',
+            finale: 'une médaille historique remportée avec courage aux Jeux d’hiver',
+            blessureAns: 'Une sévère fracture de la cheville subie juste avant les sélections',
+            blessureDist1: 'La perte soudaine et inattendue de l’ensemble de ses commanditaires majeurs',
+            blessureDist2: 'Le refus de son club de lui accorder une dispense scolaire',
+            finaleAns: 'La conquête historique d’une médaille olympique couronnant sa réadaptation',
+            finaleDist1: 'L’abandon complet de toute compétition sportive pour ouvrir une boutique de sport',
+            finaleDist2: 'Une retraite précipitée annoncée au cours d’un point de presse',
+            evidenceBlessure: ['fracture', 'cheville', 'sélections'],
+            evidenceFinale: ['médaille', 'jeux', 'hiver'],
+          },
+          {
+            film: '« La Traversée du courage »',
+            sportive: 'la fondeuse Sandrine Gagnon',
+            blessure: 'une pneumonie sévère qui a paralysé sa préparation hivernale',
+            finale: 'une remontée spectaculaire sur le podium lors du cinquante kilomètres',
+            blessureAns: 'Une violente pneumonie venue interrompre sa préparation en plein hiver',
+            blessureDist1: 'Un vol complet de matériel sportif survenu la veille même du grand départ officiel',
+            blessureDist2: 'Une dispute avec la fédération sportive sur le choix de son équipement',
+            finaleAns: 'Une remontée mémorable vers les marches du podium au cinquante kilomètres',
+            finaleDist1: 'Une réorientation professionnelle vers l’enseignement universitaire en kinésiologie',
+            finaleDist2: 'La signature d’un contrat d’entraîneuse dans un club européen',
+            evidenceBlessure: ['pneumonie', 'préparation'],
+            evidenceFinale: ['podium', 'cinquante', 'kilomètres'],
+          },
+          {
+            film: '« Seule contre le vent »',
+            sportive: 'la cycliste Karine Simard',
+            blessure: 'une déchirure musculaire douloureuse après une chute en peloton',
+            finale: 'un triomphe émouvant lors du contre-la-montre des championnats mondiaux',
+            blessureAns: 'Une déchirure musculaire douloureuse occasionnée par une chute collective',
+            blessureDist1: 'Une série de pannes mécaniques répétées lors de chaque course préliminaire du circuit',
+            blessureDist2: 'Une annulation des épreuves en raison de fortes tempêtes de pluie',
+            finaleAns: 'Une victoire touchante remportée sur l’épreuve individuelle du contre-la-montre',
+            finaleDist1: 'La création d’une école de formation pour de jeunes cyclistes de quartier défavorisé',
+            finaleDist2: 'Un refus obstiné de participer aux épreuves internationales suivantes',
+            evidenceBlessure: ['déchirure', 'musculaire', 'peloton'],
+            evidenceFinale: ['triomphe', 'contre-la-montre', 'mondiaux'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `Dans notre chronique cinéma de ce midi, nous nous penchons sur le long-métrage biographique ${s.film}, qui retrace la vie marquante de ${s.sportive}. Le film débute dans un petit village du Québec où l’on voit la jeune fille s’entraîner à l’aube sur des patinoires extérieures par des froids polaires. Le récit prend ensuite un tournant dramatique au milieu du film lorsqu’elle subit ${s.blessure}. Alors que tous les spécialistes prédisent la fin de sa carrière, elle entreprend une réadaptation rigoureuse avec l’aide de son entraîneur de toujours. La scène culminante du film montre ${s.finale}, un moment d’une grande intensité émotionnelle qui a profondément touché les spectateurs lors de la première montréalaise.`,
+          text: `Dans notre chronique cinéma de ce midi, nous nous penchons sur le long-métrage biographique ${t.film}, qui retrace la vie marquante de ${t.sportive}. Le film débute dans un petit village du Québec où l’on voit la jeune fille s’entraîner à l’aube sur des patinoires extérieures sous des froids polaires. Le récit prend ensuite un tournant dramatique au milieu du film lorsqu’elle subit ${t.blessure}. Alors que tous les spécialistes prédisent la fin de sa carrière, elle entreprend une réadaptation rigoureuse avec l’aide de son entraîneur de toujours. La scène culminante du film montre ${t.finale}, un moment d’une grande intensité émotionnelle qui a profondément touché les spectateurs lors de la première montréalaise.`,
           questions: [
-            ['Quel type d’œuvre cinématographique le critique commente-t-il à la radio ?', 'Une biographie filmée racontant la carrière d’une athlète d’ici', 'Une série dramatique portant sur la politique provinciale des années 80', 'Une comédie légère tournée dans un collège privé'],
-            ['Quelle épreuve dramatique menace de mettre fin à la carrière de la sportive ?', 'Un grave problème de santé survenu au pire moment de sa préparation', 'La perte soudaine de ses partenaires de commandite', 'Le refus persistant de son entraîneur de lui accorder des pauses durant l’été'],
-            ['Comment se conclut le point culminant du scénario du film ?', 'La conquête triomphale d’un podium couronnant sa persévérance sportive', 'L’abandon complet de la compétition pour ouvrir un commerce', 'Une retraite sportive précipitée annoncée lors d’un point de presse'],
+            makeQuestion('Quel genre d’œuvre cinématographique le critique commente-t-il à la radio ?', 'Une biographie filmée retraçant le destin d’une sportive québécoise', 'Une comédie d’intrigue amoureuse et burlesque qui se déroule dans une grande université', 'Un grand documentaire historique sur la fondation des premiers cinémas de quartier', ['biographique', 'film']),
+            makeQuestion('Quelle épreuve dramatique compromet temporairement le parcours de l’athlète ?', t.blessureAns, t.blessureDist1, t.blessureDist2, t.evidenceBlessure),
+            makeQuestion('Quel accomplissement majeur couronne le dénouement victorieux du long-métrage ?', t.finaleAns, t.finaleDist1, t.finaleDist2, t.evidenceFinale),
           ],
         }
       },
@@ -1667,38 +2081,116 @@ export const N05_06_SCENARIOS = {
     // Scenario 1 (Template, Ex 0): Résumé d'un documentaire sur une nageuse de marathon (fictional)
     Object.assign(
       (rand) => {
-        const slots = [
-          { titre: '« Vaincre le Saint-Laurent »', nageuse: 'l’athlète d’endurance Audrey Morin', defi: 'la traversée en solitaire d’un grand bras de mer à la rame', epreuve: 'trois chavirages successifs au milieu d’une tempête de vagues géantes' },
-          { titre: '« Les Eaux boréales »', nageuse: 'la spécialiste des longues distances Sandrine Pelletier', defi: 'la double traversée du lac Saint-Jean à la nage', epreuve: 'des crampes paralysantes causées par une eau à treize degrés' },
-          { titre: '« Le Fleuve au cœur »', nageuse: 'la nageuse en eau libre Geneviève Fabre', defi: 'la descente de trois cents kilomètres du fleuve Saint-Laurent', epreuve: 'de puissants courants de marée qui la repoussaient vers le large' },
+        const tuples = [
+          {
+            titre: '« Vaincre le Saint-Laurent »',
+            nageuse: 'l’athlète d’endurance Audrey Morin',
+            defi: 'la traversée en solitaire d’un grand bras de mer à la rame',
+            epreuve: 'trois chavirages successifs au milieu d’une tempête de vagues géantes',
+            defiAns: 'Traverser en solitaire un large bras de mer en ramant sans relâche',
+            defiDist1: 'Courir un marathon complet sur un parcours accidenté dans les ruelles du Vieux-Québec',
+            defiDist2: 'Escalader sans corde un sommet rocheux dans les Rocheuses',
+            epreuveAns: 'Trois retournements d’embarcation subis au cœur de vagues monstrueuses',
+            epreuveDist1: 'Une panne complète et soudaine de tous les instruments électroniques du voilier suiveur',
+            epreuveDist2: 'La perte accidentelle des réserves de vivres tombées à la mer',
+            evidenceDefi: ['traversée', 'solitaire', 'rame'],
+            evidenceEpreuve: ['chavirages', 'tempête', 'vagues'],
+          },
+          {
+            titre: '« Les Eaux boréales »',
+            nageuse: 'la spécialiste des longues distances Sandrine Pelletier',
+            defi: 'la double traversée du lac Saint-Jean à la nage sans combinaison néoprène',
+            epreuve: 'des crampes paralysantes causées par une eau glaciale à treize degrés',
+            defiAns: 'Franchir deux fois ce grand lac à la seule force de ses bras',
+            defiDist1: 'Descendre des rapides tumultueux en kayak biplace avec un guide expérimenté',
+            defiDist2: 'Participer à une épreuve de vitesse sur cinquante mètres en bassin intérieur',
+            epreuveAns: 'Des crampes douloureuses et paralysantes dues à une eau à treize degrés',
+            epreuveDist1: 'La rencontre imprévue et effrayante avec une meute de chiens errants sur la berge',
+            epreuveDist2: 'Une rupture prématurée de sa combinaison thermique de rechange',
+            evidenceDefi: ['traversée', 'lac', 'nage'],
+            evidenceEpreuve: ['crampes', 'eau', 'treize'],
+          },
+          {
+            titre: '« Le Fleuve au cœur »',
+            nageuse: 'la nageuse en eau libre Geneviève Fabre',
+            defi: 'la descente de trois cents kilomètres du fleuve Saint-Laurent sur cinq jours',
+            epreuve: 'de puissants courants de marée qui la repoussaient obstinément vers le large',
+            defiAns: 'Nager trois cents kilomètres au fil du fleuve Saint-Laurent en cinq journées',
+            defiDist1: 'Faire le tour complet de l’île d’Orléans en planche à voile par grand vent',
+            defiDist2: 'Franchir un parcours d’obstacles balisé dans le bassin portuaire',
+            epreuveAns: 'Des forces de marée contraires qui l’entraînaient malgré elle vers le large',
+            epreuveDist1: 'Une rupture imprévue d’approvisionnement en eau potable à bord du bateau suiveur',
+            epreuveDist2: 'Un épais brouillard l’empêchant de distinguer la côte pendant des heures',
+            evidenceDefi: ['descente', 'trois', 'cents', 'fleuve'],
+            evidenceEpreuve: ['courants', 'marée', 'large'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `Le nouveau documentaire ${s.titre} captive actuellement le public dans les cinémas du Québec. Ce film poignant raconte l’histoire de ${s.nageuse}. Dans la première partie, on découvre son entraînement régulier dans les eaux froides pour préparer son plus grand rêve : ${s.defi}. Le réalisateur montre avec sincérité les moments de doute et la fatigue physique lorsque surviennent ${s.epreuve}. Mais guidée par une volonté remarquable et le soutien de son équipe sur le bateau suiveur, elle persévère jour après jour. Les images finales de son arrivée au quai, accueillie par des centaines de personnes émues au crépuscule, livrent un magnifique témoignage de persévérance.`,
+          text: `Le nouveau documentaire ${t.titre} captive actuellement le public dans les cinémas du Québec. Ce film poignant raconte l’histoire de ${t.nageuse}. Dans la première partie, on découvre son entraînement régulier dans les eaux froides pour préparer son plus grand rêve : ${t.defi}. Le réalisateur montre avec sincérité les moments de doute et la fatigue physique lorsque surviennent ${t.epreuve}. Mais guidée par une volonté remarquable et le soutien de son équipe sur le bateau suiveur, elle persévère jour après jour. Les images finales de son arrivée au quai, accueillie par des centaines de personnes émues au crépuscule, livrent un magnifique témoignage de persévérance.`,
           questions: [
-            ['Quelle histoire vraie ce film documentaire fait-il revivre aux spectateurs ?', 'Le parcours d’une sportive réalisant une traversée aquatique exigeante', 'Une longue expédition de canot-camping menée par un groupe d’amis en pleine forêt', 'La conquête pédestre d’un sommet rocheux isolé'],
-            ['Quel moment d’épreuve extrême menace la réussite de son expédition ?', 'Des obstacles physiques majeurs surmontés avec l’aide de son équipe', 'Une panne de moteur du bateau accompagnateur', 'L’usage exclusif d’une combinaison thermique fournie par des commanditaires'],
-            ['Quelle ambiance règne lors de l’arrivée finale au quai ?', 'Un accueil chaleureux rassemblant un public particulièrement ému et fier', 'Une arrivée discrète tard dans la nuit sans aucun comité d’accueil', 'Un arrêt d’urgence imposé par des sauveteurs en mer'],
+            makeQuestion('Quel défi exceptionnel constitue l’objectif central de cette athlète d’endurance ?', t.defiAns, t.defiDist1, t.defiDist2, t.evidenceDefi),
+            makeQuestion('Quelle épreuve naturelle extrême menace la réalisation de son exploit sportif ?', t.epreuveAns, t.epreuveDist1, t.epreuveDist2, t.evidenceEpreuve),
+            makeQuestion('Quelle atmosphère caractérise l’arrivée finale au quai montrée au dénouement ?', 'Un accueil populaire très émouvant rassemblant une foule enthousiaste', 'Un débarquement solitaire et silencieux en pleine nuit sans aucun accueil public prévu', 'Une intervention médicale d’urgence de secouristes interrompant brutalement l’événement', ['arrivée', 'quai', 'émues']),
           ],
         }
       },
       { situation: 0, capacity: 3 }
     ),
-    // Scenario 2 (Template, Ex 1): Accident sur l'autoroute 20 relaté à la radio
+    // Scenario 2 (Template, Ex 1): Accident sur l'autoroute relaté à la radio
     Object.assign(
       (rand) => {
-        const slots = [
-          { autoroute: 'sur l’autoroute 20 en direction est, près de Saint-Hyacinthe', cause: 'une soudaine averse de pluie verglaçante créant une chaussée glissante', vehicules: 'un semi-remorque et quatre voitures de tourisme', etat: 'trois blessés légers transportés par précaution à l’hôpital' },
-          { autoroute: 'sur l’autoroute 40 près de Trois-Rivières', cause: 'une bourrasque de neige réduisant la visibilité à zéro', vehicules: 'un camion de livraison et trois camionnettes', etat: 'deux conducteurs traités sur place pour des coupures mineures' },
-          { autoroute: 'sur l’autoroute 15 nord à la hauteur de Mirabel', cause: 'une nappe de brouillard givrant dense sur le pont routier', vehicules: 'cinq véhicules immobilisés en portefeuille', etat: 'des dégâts matériels importants mais aucun blessé grave' },
+        const tuples = [
+          {
+            autoroute: 'sur l’autoroute 20 en direction est, près de Saint-Hyacinthe',
+            cause: 'une soudaine averse de pluie verglaçante créant une chaussée glissante',
+            vehicules: 'un semi-remorque et quatre voitures de tourisme',
+            etat: 'trois blessés légers transportés par précaution à l’hôpital',
+            causeAns: 'Un épisode imprévu de pluie verglaçante rendant la chaussée très glissante',
+            causeDist1: 'Un bris mécanique soudain sur l’éclairage de sécurité des lampadaires autoroutiers',
+            causeDist2: 'Une traversée imprévue d’animaux sauvages sur les voies rapides',
+            etatAns: 'Trois personnes légèrement blessées et transférées vers l’hôpital voisin',
+            etatDist1: 'Aucun blessé physique mais dix automobilistes gardés en observation préventive',
+            etatDist2: 'Plusieurs victimes dans un état critique héliportées d’urgence',
+            evidenceCause: ['pluie', 'verglaçante', 'chaussée'],
+            evidenceEtat: ['blessés', 'légers', 'hôpital'],
+          },
+          {
+            autoroute: 'sur l’autoroute 40 près de Trois-Rivières',
+            cause: 'une bourrasque de neige réduisant la visibilité à zéro',
+            vehicules: 'un camion de livraison et trois camionnettes',
+            etat: 'deux conducteurs traités sur place pour des coupures mineures',
+            causeAns: 'Une violente bourrasque de neige ayant totalement masqué la visibilité',
+            causeDist1: 'Un nid-de-poule d’une profondeur exceptionnelle apparu au milieu de la voie centrale',
+            causeDist2: 'Une défaillance de la signalisation lumineuse à l’échangeur',
+            etatAns: 'Deux automobilistes soignés sur les lieux mêmes pour de petites coupures',
+            etatDist1: 'Un carambolage sans aucun dommage corporel ni matériel nécessitant une indemnisation',
+            etatDist2: 'Une vingtaine de personnes admises aux soins intensifs de la région',
+            evidenceCause: ['bourrasque', 'neige', 'visibilité'],
+            evidenceEtat: ['conducteurs', 'traités', 'coupures'],
+          },
+          {
+            autoroute: 'sur l’autoroute 15 nord à la hauteur de Mirabel',
+            cause: 'une nappe de brouillard givrant dense sur le pont routier',
+            vehicules: 'cinq véhicules immobilisés en portefeuille',
+            etat: 'dégâts matériels importants sans aucun blessé grave à déplorer',
+            causeAns: 'Une nappe de brouillard givrant particulièrement dense sur le viaduc',
+            causeDist1: 'Une flaque d’huile moteur déversée accidentellement par une dépanneuse municipale',
+            causeDist2: 'Des débris de construction éparpillés par un convoi exceptionnel',
+            etatAns: 'D’importants dégâts matériels sur les véhicules mais aucun blessé sérieux',
+            etatDist1: 'La destruction totale d’une glissière de pont avec plusieurs blessures très graves',
+            etatDist2: 'Le transport immédiat de tous les conducteurs vers un centre de traumatologie',
+            evidenceCause: ['brouillard', 'givrant', 'pont'],
+            evidenceEtat: ['dégâts', 'matériels', 'blessé'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `Bulletin d’information routière d’urgence sur les ondes d’Info-Circulation. Un carambolage important perturbe actuellement la circulation ${s.autoroute}. Selon les policiers de la Sûreté du Québec dépêchés sur les lieux, la suite d’événements a débuté vers sept heures dix avec ${s.cause}. Un premier véhicule a perdu l’adhérence lors d’un changement de voie, heurtant la glissière de sécurité centrale. Incapables de freiner à temps sur la chaussée, ${s.vehicules} sont entrés en collision successive. Les services d’urgence font état de ${s.etat}. Les remorqueuses sont à l’œuvre pour dégager les voies obstruées, mais un bouchon de dix kilomètres s’est formé. Les automobilistes doivent privilégier la route secondaire 116 pour contourner le secteur.`,
+          text: `Bulletin d’information routière d’urgence sur les ondes d’Info-Circulation. Un carambolage important perturbe actuellement la circulation ${t.autoroute}. Selon les policiers de la Sûreté du Québec dépêchés sur les lieux, la suite d’événements a débuté vers sept heures dix avec ${t.cause}. Un premier véhicule a perdu l’adhérence lors d’un changement de voie, heurtant la glissière de sécurité centrale. Incapables de freiner à temps sur la chaussée, ${t.vehicules} sont entrés en collision successive. Les services d’urgence font état de : ${t.etat}. Les remorqueuses sont à l’œuvre pour dégager les voies obstruées, mais un bouchon de dix kilomètres s’est formé. Les automobilistes doivent privilégier la route secondaire 116 pour contourner le secteur.`,
           questions: [
-            ['Quel événement de la circulation routière est rapporté dans ce flash d’information ?', 'Un carambolage sérieux dû à la chaussée glissante et à la brume', 'Un incident minime entre deux autobus urbains sans conséquence sur la voie', 'Une opération policière de contrôle de vitesse'],
-            ['Quel facteur météorologique a déclenché le dérapage du premier véhicule ?', 'Une dégradation soudaine de la route liée au verglas ou à la neige', 'Une panne générale d’éclairage sur les voies', 'L’arrêt imprévu de l’ensemble des transports collectifs de la métropole'],
-            ['Quelle recommandation d’itinéraire les autorités formulent-elles aux usagers ?', 'Emprunter le réseau routier secondaire pour contourner le secteur congestionné', 'Patienter sur le bas-côté jusqu’à la réouverture complète de la voie', 'Garder leurs feux de détresse allumés en tout temps'],
+            makeQuestion('Quel événement de la circulation routière est rapporté dans ce flash d’information ?', 'Un carambolage sérieux survenu sur une chaussée autoroutière glissante', 'Une poursuite policière à grande vitesse sur plusieurs voies rapides de la région', 'Une inspection de routine des pneus d’hiver organisée par le ministère des Transports', ['carambolage', 'circulation']),
+            makeQuestion('Quel phénomène météorologique a causé la perte de maîtrise du premier véhicule ?', t.causeAns, t.causeDist1, t.causeDist2, t.evidenceCause),
+            makeQuestion('Quel est le bilan humain établi par les équipes de secours sur les lieux ?', t.etatAns, t.etatDist1, t.etatDist2, t.evidenceEtat),
           ],
         }
       },
@@ -1707,18 +2199,60 @@ export const N05_06_SCENARIOS = {
     // Scenario 3 (Template, Ex 1): Accident sur un pont métropolitain relaté à la radio
     Object.assign(
       (rand) => {
-        const slots = [
-          { pont: 'le pont Jacques-Cartier vers Montréal', incident: 'l’éclatement d’un pneu sur une camionnette chargée d’outils', impact: 'un ralentissement s’étirant jusqu’à Longueuil', remorquage: 'la fermeture de deux voies sur trois pendant deux heures' },
-          { pont: 'le pont Pierre-Laporte en direction de Québec', incident: 'une panne mécanique soudaine sur un autobus de transport', impact: 'une congestion monstre sur l’autoroute Henri-IV', remorquage: 'l’intervention délicate d’une dépanneuse lourde spécialisée' },
-          { pont: 'le pont Champlain en direction de la Rive-Sud', incident: 'la perte d’un chargement de planches de bois sur la voie du centre', impact: 'un blocage quasi total de la circulation matinale', remorquage: 'le nettoyage complet de la chaussée par les équipes du ministère' },
+        const tuples = [
+          {
+            pont: 'le pont Jacques-Cartier vers Montréal',
+            incident: 'l’éclatement d’un pneu sur une camionnette chargée d’outils',
+            remorquage: 'la fermeture de deux voies sur trois pendant deux heures',
+            impact: 'un ralentissement s’étirant jusqu’à Longueuil',
+            attente: 'quarante-cinq minutes',
+            incidentAns: 'La crevaison subite d’un pneu sur un véhicule utilitaire lourdement chargé',
+            incidentDist1: 'Un refus d’obtempérer avec délit de fuite lors d’un contrôle de police au péage',
+            incidentDist2: 'Un bris de câble électrique pendant sous la structure métallique',
+            attenteAns: 'Près de trois quarts d’heure avant la dispersion complète des files d’attente',
+            attenteDist1: 'Au moins quatre heures entières d’interruption complète de l’ensemble du trafic routier',
+            attenteDist2: 'Moins de cinq minutes grâce à la réouverture immédiate de toutes les voies',
+            evidenceIncident: ['éclatement', 'pneu', 'camionnette'],
+            evidenceAttente: ['quarante-cinq', 'minutes'],
+          },
+          {
+            pont: 'le pont Pierre-Laporte en direction de Québec',
+            incident: 'une panne de moteur soudaine sur un autobus de transport urbain',
+            remorquage: 'l’intervention délicate d’une dépanneuse lourde spécialisée',
+            impact: 'une congestion monstre sur l’autoroute Henri-IV',
+            attente: 'cinquante minutes',
+            incidentAns: 'Une panne mécanique subite immobilisant un autobus de transport urbain',
+            incidentDist1: 'La perte accidentelle d’un chargement de gravier sur l’ensemble de la voie de dépassement',
+            incidentDist2: 'L’incendie complet d’une remorque de camping sur le tablier',
+            attenteAns: 'Environ cinquante minutes pour que le flot de véhicules se normalise',
+            attenteDist1: 'Deux jours ouvrables complets pour consolider les glissières de sécurité endommagées',
+            attenteDist2: 'Une quinzaine de minutes au maximum selon les prévisions policières',
+            evidenceIncident: ['panne', 'moteur', 'autobus'],
+            evidenceAttente: ['cinquante', 'minutes'],
+          },
+          {
+            pont: 'le pont Champlain en direction de la Rive-Sud',
+            incident: 'la chute d’un chargement de planches de bois sur la voie du centre',
+            remorquage: 'le nettoyage complet de la chaussée par les équipes du ministère',
+            impact: 'un blocage quasi total de la circulation matinale',
+            attente: 'une heure',
+            incidentAns: 'L’éparpillement accidentel de matériaux en bois encombrant la voie centrale',
+            incidentDist1: 'Un tête-à-queue spectaculaire provoqué par une flaque de carburant répandu sur la voie',
+            incidentDist2: 'Une collision entre deux motocyclistes roulant entre les files',
+            attenteAns: 'Une bonne heure d’attente pour résorber l’engorgement de la circulation',
+            attenteDist1: 'Une fermeture complète de la travée principale pendant vingt-quatre heures complètes',
+            attenteDist2: 'À peine quelques minutes une fois les planches déplacées',
+            evidenceIncident: ['chargement', 'planches', 'bois'],
+            evidenceAttente: ['heure', 'résorber'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `Ici le point sur la circulation métropolitaine de huit heures quinze. La circulation est particulièrement difficile ce matin sur ${s.pont}. Tout a commencé vers sept heures quarante avec ${s.incident}. Le conducteur a réussi à manœuvrer vers le bas-côté, mais deux automobilistes qui le suivaient de trop près se sont emboutis en tentant de l’éviter. Cet incident a entraîné ${s.remorquage}, provoquant ${s.impact}. Les ambulanciers arrivés rapidement confirment qu’aucun conducteur n’a subi de blessure grave. Le ministère des Transports annonce que toutes les voies seront rouvertes sous peu, mais il faudra au moins quarante-cinq minutes pour résorber complètement le refoulement des véhicules.`,
+          text: `Ici le point sur la circulation métropolitaine de huit heures quinze. La circulation est particulièrement difficile ce matin sur ${t.pont}. Tout a commencé vers sept heures quarante avec ${t.incident}. Le conducteur a réussi à manœuvrer vers le bas-côté, mais deux automobilistes qui le suivaient de trop près se sont emboutis en tentant de l’éviter. Cet incident a entraîné ${t.remorquage}, provoquant ${t.impact}. Les ambulanciers arrivés rapidement confirment qu’aucun conducteur n’a subi de blessure grave. Le ministère des Transports annonce que toutes les voies seront rouvertes sous peu, mais il faudra au moins ${t.attente} pour résorber complètement le refoulement des véhicules.`,
           questions: [
-            ['Quelle situation d’entrave routière est analysée par le chroniqueur ?', 'Un accident sur une travée de pont bloquant la circulation automobile', 'Des travaux majeurs de pavage planifiés durant la fin de semaine en banlieue', 'La fermeture préventive de la voie ferrée'],
-            ['Quel événement initial a déclenché les collisions secondaires ?', 'Un bris matériel soudain ayant forcé un premier véhicule à se ranger', 'Un demi-tour interdit opéré sur la travée centrale', 'Une congestion temporaire qui sera entièrement résorbée dans le quart d’heure'],
-            ['Combien de temps faudra-t-il environ pour rétablir une circulation fluide ?', 'Environ trois quarts d’heure pour évacuer l’ensemble des bouchons accumulés', 'Plusieurs journées complètes en raison de réparations sur la structure', 'Quelques minutes à peine grâce à l’intervention policière'],
+            makeQuestion('Quelle situation d’entrave routière est analysée par le chroniqueur ?', 'Un incident sur un pont métropolitain paralysant la circulation automobile', 'Des travaux de réfection du tablier programmés pour toute la fin de semaine en banlieue', 'La fermeture préventive d’une station de métro en raison d’un dégât d’eau important', ['circulation', 'pont']),
+            makeQuestion('Quel événement initial a provoqué les collisions secondaires sur le pont ?', t.incidentAns, t.incidentDist1, t.incidentDist2, t.evidenceIncident),
+            makeQuestion('Combien de temps faudra-t-il environ pour rétablir une circulation fluide ?', t.attenteAns, t.attenteDist1, t.attenteDist2, t.evidenceAttente),
           ],
         }
       },
@@ -1727,18 +2261,69 @@ export const N05_06_SCENARIOS = {
     // Scenario 4 (Template, Ex 0): Récit de film sur une championne de ski acrobatique (fictional)
     Object.assign(
       (rand) => {
-        const slots = [
-          { film: '« Les Sœurs volantes »', soeurs: 'les sœurs Léa et Chloé Vachon', podium: 'leur doublé historique sur le podium mondial', epreuve: 'la pression médiatique continue et les sacrifices de l’entraînement quotidien' },
-          { film: '« Piste noire »', soeurs: 'la championne de bosses Laurie Mercier', podium: 'sa médaille d’or conquise sous une pluie battante', epreuve: 'des blessures répétées aux genoux nécessitant plusieurs interventions de réadaptation' },
-          { film: '« L’Envol de Chloé »', soeurs: 'la skieuse acrobatique Camille Fortin', podium: 'sa victoire remarquable lors d’une épreuve internationale en snowboard', epreuve: 'une violente commotion survenue lors d’un saut d’entraînement' },
+        const tuples = [
+          {
+            film: '« Les Sœurs volantes »',
+            sujet: 'les sœurs Léa et Chloé Vachon ont atteint les sommets du ski acrobatique',
+            epreuve: 'la pression médiatique continue et les sacrifices de l’entraînement quotidien',
+            podium: 'leur doublé historique sur le podium mondial',
+            sujetAns: 'Deux sœurs québécoises atteignant ensemble l’élite mondiale du ski acrobatique',
+            sujetDist1: 'Une formation régionale de hockey féminin mobilisée pour sauver son aréna municipal',
+            sujetDist2: 'Des alpinistes chevronnés explorant les glaciers du Grand Nord',
+            epreuveAns: 'La constante pression des médias et la dureté des entraînements de tous les jours',
+            epreuveDist1: 'Le refus obstiné de leurs proches de comprendre les sacrifices du sport de haut niveau',
+            epreuveDist2: 'Le manque d’équipements adéquats dans l’ensemble de la région',
+            podiumAns: 'Leur doublé historique célébré sur les marches du podium mondial',
+            podiumDist1: 'Leur décision concertée de renoncer à la haute compétition pour fonder une entreprise',
+            podiumDist2: 'Leur départ vers l’étranger pour fonder une chaîne d’hôtels de luxe',
+            evidenceSujet: ['sœurs', 'sommets', 'acrobatique'],
+            evidenceEpreuve: ['pression', 'médiatique', 'sacrifices'],
+            evidencePodium: ['doublé', 'podium', 'mondial'],
+          },
+          {
+            film: '« Piste noire »',
+            sujet: 'la championne Laurie Mercier a atteint les sommets du ski acrobatique',
+            epreuve: 'des blessures répétées aux genoux nécessitant plusieurs chirurgies délicates',
+            podium: 'sa médaille d’or conquise sous une pluie battante lors de la manche finale',
+            sujetAns: 'Une skieuse solitaire qui gravit les échelons du ski de bosses international',
+            sujetDist1: 'Une patineuse artistique s’exilant à l’étranger pour changer de nationalité sportive',
+            sujetDist2: 'Un groupe de monitrices de ski ouvrant une école privée en montagne',
+            epreuveAns: 'Des atteintes sérieuses aux genoux ayant nécessité plusieurs chirurgies délicates',
+            epreuveDist1: 'Une suspension injustifiée et prolongée infligée par la commission antidopage mondiale',
+            epreuveDist2: 'La faillite inattendue de son club d’entraînement d’origine',
+            podiumAns: 'Sa conquête héroïque de la médaille d’or sous des trombes d’eau',
+            podiumDist1: 'Une disqualification de dernière minute pour utilisation d’un équipement non conforme',
+            podiumDist2: 'L’annonce surprise de sa retraite pour devenir commentatrice télévisée',
+            evidenceSujet: ['championne', 'sommets', 'acrobatique'],
+            evidenceEpreuve: ['blessures', 'genoux', 'chirurgies'],
+            evidencePodium: ['médaille', 'or', 'pluie'],
+          },
+          {
+            film: '« L’Envol de Chloé »',
+            sujet: 'la skieuse Camille Fortin a atteint les sommets du ski acrobatique',
+            epreuve: 'une violente commotion cérébrale survenue lors d’un saut d’entraînement périlleux',
+            podium: 'sa victoire remarquable lors de la Coupe des nations en ski acrobatique',
+            sujetAns: 'Le parcours inspirant d’une athlète au sommet du ski acrobatique international',
+            sujetDist1: 'L’histoire d’une nageuse de vitesse tentant une reconversion difficile dans le water-polo',
+            sujetDist2: 'Les débuts hésitants d’une arbitre de gymnastique dans un collège',
+            epreuveAns: 'Une commotion cérébrale aiguë subie après un saut d’entraînement dangereux',
+            epreuveDist1: 'L’annulation imprévue de toutes les bourses gouvernementales consacrées à cette discipline',
+            epreuveDist2: 'Une querelle familiale étalée dans la presse à sensations',
+            podiumAns: 'Son éclatant triomphe lors de la prestigieuse Coupe des nations',
+            podiumDist1: 'Un abandon volontaire au beau milieu de la finale pour protester contre l’arbitrage',
+            podiumDist2: 'La remise d’un prix d’honneur posthume par la fédération sportive',
+            evidenceSujet: ['skieuse', 'sommets', 'acrobatique'],
+            evidenceEpreuve: ['commotion', 'cérébrale', 'entraînement'],
+            evidencePodium: ['victoire', 'coupe', 'acrobatique'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `Nous terminons notre tour d’horizon culturel avec le drame sportif ${s.film}, qui connaît un beau succès en salle. Le scénario retrace le parcours où ${s.soeurs} ont atteint les sommets du ski acrobatique. Dès les premières scènes, la caméra montre le quotidien de cette famille québécoise engagée dans le sport de compétition. Le film présente avec réalisme ${s.epreuve}. La solidarité entre les proches leur permet toutefois de surmonter les moments de doute. Le point fort du film reconstitue ${s.podium}, un moment marquant de leur parcours sportif. Une œuvre touchante et accessible que nous vous recommandons de voir en famille ce week-end.`,
+          text: `Nous terminons notre tour d’horizon culturel avec le drame sportif ${t.film}, qui connaît un beau succès en salle. Le scénario retrace le parcours où ${t.sujet}. Dès les premières scènes, la caméra montre le quotidien de cette famille québécoise engagée dans le sport de compétition. Le film présente avec réalisme ${t.epreuve}. La solidarité entre les proches leur permet toutefois de surmonter les moments de doute. Le point fort du film reconstitue ${t.podium}, un moment marquant de leur parcours sportif. Une œuvre touchante et accessible que nous vous recommandons de voir en famille ce week-end.`,
           questions: [
-            ['Quel aspect de la vie des sportives le film met-il particulièrement en relief ?', 'La complicité et l’entraide familiale dans le sport de haut niveau', 'La rivalité acharnée menant à la rupture entre deux sœurs sportives d’élite', 'Le rôle des écoles privées dans le sport'],
-            ['Quelle difficulté inhérente au sport d’élite le film dépeint-il ?', 'L’intensité des sacrifices physiques et la lourdeur des attentes', 'Le manque complet de pistes pour s’exercer', 'Le refus des organisateurs de valider les pointages accordés aux participantes'],
-            ['Quel moment glorieux constitue la scène majeure de la conclusion du film ?', 'L’accès mémorable aux plus hautes marches du podium lors d’une épreuve majeure', 'L’annonce inattendue d’une réorientation vers le milieu des affaires', 'Leur décision de s’installer définitivement à l’étranger'],
+            makeQuestion('Quelle histoire humaine et sportive ce long-métrage met-il à l’honneur ?', t.sujetAns, t.sujetDist1, t.sujetDist2, t.evidenceSujet),
+            makeQuestion('Quelle difficulté majeure inhérente au sport d’élite le film dépeint-il ?', t.epreuveAns, t.epreuveDist1, t.epreuveDist2, t.evidenceEpreuve),
+            makeQuestion('Quel événement mémorable clôt le parcours de la sportive à la fin du film ?', t.podiumAns, t.podiumDist1, t.podiumDist2, t.evidencePodium),
           ],
         }
       },
@@ -1753,18 +2338,60 @@ export const N05_06_SCENARIOS = {
     // Scenario 0 (Template, Ex 0): Changement d'études vers la santé
     Object.assign(
       (rand) => {
-        const slots = [
-          { amie: 'Sophie', ancien: 'la comptabilité financière au cégep', nouveau: 'techniques de soins infirmiers', motif: 'le désir sincère d’aider concrètement les patients', stage: 'les stages cliniques en milieu hospitalier dès la première session' },
-          { amie: 'Marianne', ancien: 'les sciences de la nature théoriques', nouveau: 'inhalothérapie et assistance respiratoire', motif: 'la volonté d’exercer un métier utile et actif en santé', stage: 'les séances de pratique avec des simulateurs haute fidélité' },
-          { amie: 'Camille', ancien: 'l’administration des affaires de bureau', nouveau: 'travail social et relation d’aide', motif: 'le souhait profond d’accompagner des personnes vulnérables', stage: 'les interventions directes auprès des organismes communautaires' },
+        const tuples = [
+          {
+            amie: 'Sophie',
+            ancien: 'la comptabilité financière au cégep',
+            nouveau: 'techniques de soins infirmiers',
+            motif: 'le désir sincère d’aider concrètement les patients',
+            stage: 'les stages cliniques en milieu hospitalier dès la première session',
+            nouveauAns: 'Rejoindre une formation collégiale en soins infirmiers',
+            nouveauDist1: 'Poursuivre un certificat de perfectionnement en fiscalité des entreprises',
+            nouveauDist2: 'Quitter définitivement toute formation pour voyager à l’étranger',
+            stageAns: 'La réalisation de stages cliniques à l’hôpital dès le début du parcours',
+            stageDist1: 'L’assurance d’éviter tout horaire de travail de nuit ou de fin de semaine',
+            stageDist2: 'La distribution sans frais de tous les manuels scolaires requis',
+            evidenceNouveau: ['soins', 'infirmiers'],
+            evidenceStage: ['stages', 'cliniques', 'hospitalier'],
+          },
+          {
+            amie: 'Marianne',
+            ancien: 'les sciences de la nature théoriques',
+            nouveau: 'inhalothérapie et assistance respiratoire',
+            motif: 'la volonté d’exercer un métier utile et actif en santé',
+            stage: 'les séances de pratique avec des simulateurs haute fidélité',
+            nouveauAns: 'Bifurquer vers les études en inhalothérapie et soins respiratoires',
+            nouveauDist1: 'S’inscrire en chimie pure pour faire de la recherche dans un laboratoire',
+            nouveauDist2: 'Prendre une année de congé sabbatique sans étudier',
+            stageAns: 'Les ateliers pratiques réguliers réalisés sur des simulateurs de pointe',
+            stageDist1: 'La dispense complète d’effectuer des gardes hospitalières de fin de semaine',
+            stageDist2: 'L’obtention automatique d’une bourse d’excellence gouvernementale',
+            evidenceNouveau: ['inhalothérapie', 'respiratoire'],
+            evidenceStage: ['simulateurs', 'haute', 'fidélité'],
+          },
+          {
+            amie: 'Camille',
+            ancien: 'l’administration des affaires de bureau',
+            nouveau: 'travail social et relation d’aide',
+            motif: 'le souhait profond d’accompagner des personnes vulnérables',
+            stage: 'les interventions directes auprès des organismes communautaires',
+            nouveauAns: 'Choisir la filière du travail social et de l’intervention d’aide',
+            nouveauDist1: 'Ouvrir son propre cabinet privé de gestion d’immeubles locatifs',
+            nouveauDist2: 'Intégrer une école de commerce privée haut de gamme',
+            stageAns: 'L’action directe sur le terrain auprès d’organismes communautaires',
+            stageDist1: 'L’accès garanti à un bureau individuel fermé pour ses devoirs',
+            stageDist2: 'Le remboursement intégral des frais de transport en commun',
+            evidenceNouveau: ['travail', 'social', 'aide'],
+            evidenceStage: ['organismes', 'communautaires'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Salut Julie ! Je voulais te parler de ma grande décision scolaire. J’ai officiellement quitté ${s.ancien} pour m’inscrire en ${s.nouveau}. J’ai réfléchi pendant des mois avant de faire le saut. Même si mon ancien programme m’offrait de bons débouchés de bureau, je me sentais isolée et je m’ennuyais devant mes tableaux de calculs toute la journée. Ce qui a motivé mon changement, c’est ${s.motif}. Dans ma nouvelle filière, ce qui me stimule par-dessus tout, ce sont ${s.stage}. J’ai l’impression que chaque heure de cours a enfin un sens pratique pour mon avenir. Mes parents étaient un peu inquiets au début en raison des horaires parfois exigeants, mais ils voient bien que j’ai retrouvé ma motivation et mon énergie !`,
+          text: `— Salut Julie ! Je voulais te parler de ma grande décision scolaire. J’ai officiellement quitté ${t.ancien} pour m’inscrire en ${t.nouveau}. J’ai réfléchi pendant des mois avant de faire le saut. Même si mon ancien programme m’offrait de bons débouchés de bureau, je me sentais isolée et je m’ennuyais devant mes tableaux de calculs toute la journée. Ce qui a motivé mon changement, c’est ${t.motif}. Dans ma nouvelle filière, ce qui me stimule par-dessus tout, ce sont ${t.stage}. J’ai l’impression que chaque heure de cours a enfin un sens pratique pour mon avenir. Mes parents étaient un peu inquiets au début en raison des horaires parfois exigeants, mais ils voient bien que j’ai retrouvé ma motivation et mon énergie !`,
           questions: [
-            ['Quelle décision scolaire majeure l’amie justifie-t-elle dans cette conversation ?', 'Son choix de bifurquer vers une formation en soins et en santé', 'Son inscription dans une filière théorique en administration publique au cégep', 'L’abandon complet de ses études collégiales'],
-            ['Quelle lacune ressentait-elle dans son ancien programme d’études ?', 'L’isolement quotidien et le sentiment de tourner en rond au bureau', 'Des frais de scolarité trop onéreux pour son budget', 'La recherche d’un emploi permettant de voyager constamment vers l’étranger'],
-            ['Quelle composante de sa nouvelle formation la motive le plus particulièrement ?', 'La mise en pratique concrète de ses apprentissages sur le terrain de travail', 'L’assurance d’éviter tout quart de travail en soirée', 'La gratuité complète de tout le matériel de cours'],
+            makeQuestion('Quelle réorientation d’études collégiales l’amie annonce-t-elle ?', t.nouveauAns, t.nouveauDist1, t.nouveauDist2, t.evidenceNouveau),
+            makeQuestion('Quelle frustration éprouvait-elle dans son ancienne formation collégiale ?', 'Le sentiment de solitude et l’ennui causé par des tâches de bureau', 'Des échecs répétés aux évaluations académiques qui risquaient de freiner ses études', 'Des droits de scolarité annuels beaucoup trop pesants pour son budget d’étudiante', ['isolée', 'ennuyais', 'tableaux']),
+            makeQuestion('Quel volet pratique de son nouveau programme stimule le plus son enthousiasme ?', t.stageAns, t.stageDist1, t.stageDist2, t.evidenceStage),
           ],
         }
       },
@@ -1773,18 +2400,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 1 (Template, Ex 0): Changement d'études vers l'informatique ou le design
     Object.assign(
       (rand) => {
-        const slots = [
-          { amie: 'Nadia', depart: 'le droit à l’université', arrivee: 'développement Web et création d’applications', raison: 'la créativité et les horaires flexibles de travail à distance' },
-          { amie: 'Mélanie', depart: 'la littérature comparée', arrivee: 'design graphique et communication visuelle', raison: 'la possibilité de concevoir des projets visuels concrets' },
-          { amie: 'Valérie', depart: 'les sciences politiques', arrivee: 'analyse de données et cybersécurité', raison: 'la forte demande de spécialistes et les salaires d’entrée motivants' },
+        const tuples = [
+          {
+            amie: 'Nadia',
+            depart: 'le droit à l’université',
+            arrivee: 'développement Web et création d’applications',
+            raison: 'la créativité et les horaires flexibles de travail à distance',
+            arriveeAns: 'La programmation Web et le développement d’applications interactives',
+            arriveeDist1: 'La comptabilité publique appliquée aux municipalités régionales de comté',
+            arriveeDist2: 'L’enseignement du latin et du grec ancien au niveau collégial',
+            raisonAns: 'Le volet créatif des projets et la flexibilité du télétravail',
+            raisonDist1: 'L’obligation de voyager chaque semaine dans des congrès internationaux',
+            raisonDist2: 'La gratuité de tous les équipements informatiques fournis d’office',
+            evidenceArrivee: ['développement', 'applications'],
+            evidenceRaison: ['créativité', 'horaires', 'distance'],
+          },
+          {
+            amie: 'Mélanie',
+            depart: 'la littérature comparée',
+            arrivee: 'design graphique et communication visuelle',
+            raison: 'la possibilité de concevoir des projets visuels concrets',
+            arriveeAns: 'Le design graphique et la conception de projets visuels',
+            arriveeDist1: 'La gestion spécialisée de documents d’archives dans un ministère gouvernemental',
+            arriveeDist2: 'La traduction littéraire de poèmes du dix-neuvième siècle',
+            raisonAns: 'L’opportunité stimulante de réaliser des créations visuelles palpables',
+            raisonDist1: 'La promesse d’une bourse d’excellence annuelle sans condition d’assiduité',
+            raisonDist2: 'La dispense totale de réussir des cours généraux de français',
+            evidenceArrivee: ['design', 'graphique', 'communication'],
+            evidenceRaison: ['concevoir', 'projets', 'visuels'],
+          },
+          {
+            amie: 'Valérie',
+            depart: 'les sciences politiques',
+            arrivee: 'analyse de données et cybersécurité',
+            raison: 'la forte demande de spécialistes et les salaires d’entrée motivants',
+            arriveeAns: 'L’analyse de mégadonnées et les techniques de cybersécurité',
+            arriveeDist1: 'L’histoire médiévale et la conservation de manuscrits anciens en bibliothèque',
+            arriveeDist2: 'La rédaction d’éditoriaux pour des publications syndicales',
+            raisonAns: 'Les débouchés professionnels nombreux et une rémunération de départ attractive',
+            raisonDist1: 'La suppression complète des épreuves et examens de mi-session',
+            raisonDist2: 'La possibilité de terminer l’ensemble du cursus en six semaines',
+            evidenceArrivee: ['données', 'cybersécurité'],
+            evidenceRaison: ['spécialistes', 'salaires'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Tu as l’air rayonnante ce matin, Nadia ! — Oui, et pour cause ! J’ai enfin osé faire ma demande pour changer de programme. J’abandonne ${s.depart} pour m’inscrire en ${s.arrivee}. Pendant deux sessions, j’ai essayé de me convaincre que mon premier choix me plairait, mais l’apprentissage théorique me demandait trop d’énergie sans m’allumer. J’ai découvert que ce qui me passionne réellement, c’est ${s.raison}. Dans mon nouveau département, on travaille régulièrement en équipe sur des projets pratiques et les enseignants sont très disponibles. C’est tellement plus concret et stimulant ! Mes cours généraux réussis sont reconnus, alors je ne perds aucun trimestre. C’est la meilleure décision que j’aie prise !`,
+          text: `— Tu as l’air rayonnante ce matin, ${t.amie} ! — Oui, et pour cause ! J’ai enfin osé faire ma demande pour changer de programme. J’abandonne ${t.depart} pour m’inscrire en ${t.arrivee}. Pendant deux sessions, j’ai essayé de me convaincre que mon premier choix me plairait, mais l’apprentissage théorique me demandait trop d’énergie sans m’allumer. J’ai découvert que ce qui me passionne réellement, c’est ${t.raison}. Dans mon nouveau département, on travaille régulièrement en équipe sur des projets pratiques et les enseignants sont très disponibles. C’est tellement plus concret et stimulant ! Mes cours généraux réussis sont reconnus, alors je ne perds aucun trimestre. C’est la meilleure décision que j’aie prise !`,
           questions: [
-            ['Pourquoi l’étudiante a-t-elle décidé de quitter son programme d’origine ?', 'La lassitude causée par des cours trop abstraits et déconnectés', 'Une exclusion administrative consécutive à des notes non satisfaisantes', 'Des difficultés régulières de transport urbain'],
-            ['Quel avantage principal son nouveau programme lui apporte-t-il ?', 'L’opportunité de travailler en équipe sur des réalisations utiles', 'Une dispense totale pour les examens terminaux', 'Une formation accélérée en gestion des risques financiers internationaux'],
-            ['Qu’arrive-t-il à ses cours généraux déjà réussis ?', 'La reconnaissance officielle de ses crédits pour éviter de perdre du temps', 'Tous les cours précédents doivent être repris depuis le départ', 'Une pénalité monétaire est requise pour valider ses crédits'],
+            makeQuestion('Vers quelle nouvelle orientation professionnelle l’étudiante a-t-elle choisi de s’engager ?', t.arriveeAns, t.arriveeDist1, t.arriveeDist2, t.evidenceArrivee),
+            makeQuestion('Quel attrait principal motive son nouvel enthousiasme pour cette discipline ?', t.raisonAns, t.raisonDist1, t.raisonDist2, t.evidenceRaison),
+            makeQuestion('Qu’advient-il des cours généraux déjà complétés avec succès par l’étudiante ?', 'Leurs crédits sont pleinement validés afin d’éviter tout retard dans le cursus', 'Tous les cours généraux précédents doivent impérativement être repris depuis le début', 'Une pénalité financière importante est imposée pour faire reconnaître chaque cours réussi', ['cours', 'généraux', 'reconnus']),
           ],
         }
       },
@@ -1793,18 +2459,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 2 (Template, Ex 1): Collègue expliquant son choix de voiture électrique
     Object.assign(
       (rand) => {
-        const slots = [
-          { collegue: 'Marc', modele: 'une berline cent pour cent électrique', subvention: 'douze mille dollars en rabais gouvernementaux combinés', borne: 'une borne de recharge installée dans mon entrée de garage' },
-          { collegue: 'Patrick', modele: 'un petit véhicule multisegment électrique', subvention: 'neuf mille dollars d’incitatifs provincial et fédéral', borne: 'la recharge nocturne sur mon circuit électrique résidentiel' },
-          { collegue: 'Simon', modele: 'une voiture compacte à batterie longue autonomie', subvention: 'dix mille dollars de subventions écologiques à l’achat', borne: 'l’accès à des bornes rapides le long de mon trajet quotidien' },
+        const tuples = [
+          {
+            collegue: 'Marc',
+            modele: 'une berline cent pour cent électrique',
+            subvention: 'douze mille dollars en rabais gouvernementaux combinés',
+            borne: 'une borne de recharge installée dans mon entrée de garage',
+            subventionAns: 'L’obtention de douze mille dollars de rabais publics cumulés',
+            subventionDist1: 'La promesse d’une avance salariale versée par l’employeur',
+            subventionDist2: 'L’exonération complète de l’essence sur présentation du reçu',
+            borneAns: 'La recharge sur borne privée dans l’entrée de son propre garage',
+            borneDist1: 'L’accès réservé à la station-service la plus proche du travail',
+            borneDist2: 'Le branchement d’appoint sur une prise publique payante au centre-ville',
+            evidenceSubvention: ['douze', 'mille', 'rabais'],
+            evidenceBorne: ['borne', 'entrée', 'garage'],
+          },
+          {
+            collegue: 'Patrick',
+            modele: 'un petit véhicule multisegment électrique',
+            subvention: 'neuf mille dollars d’incitatifs provinciaux et fédéraux',
+            borne: 'la recharge nocturne sur mon circuit électrique résidentiel',
+            subventionAns: 'Une remise de neuf mille dollars en incitatifs provinciaux et fédéraux',
+            subventionDist1: 'Le paiement de la totalité des mensualités par le comité social de l’usine',
+            subventionDist2: 'Une subvention versée par la compagnie d’assurances de l’auto',
+            borneAns: 'La recharge durant la nuit sur son circuit électrique de maison',
+            borneDist1: 'L’utilisation d’un générateur au propane installé dans le coffre',
+            borneDist2: 'L’arrêt obligatoire dans des haltes routières de l’autoroute',
+            evidenceSubvention: ['neuf', 'mille', 'incitatifs'],
+            evidenceBorne: ['recharge', 'nocturne', 'résidentiel'],
+          },
+          {
+            collegue: 'Simon',
+            modele: 'une voiture compacte à batterie longue autonomie',
+            subvention: 'dix mille dollars de subventions écologiques à l’achat',
+            borne: 'l’accès à des bornes rapides le long de mon trajet quotidien',
+            subventionAns: 'Une aide financière de dix mille dollars en subventions écologiques',
+            subventionDist1: 'Un rabais consenti par le fabricant en échange d’actions en bourse',
+            subventionDist2: 'Un prêt sans intérêt accordé par un organisme caritatif local',
+            borneAns: 'La disponibilité de bornes rapides situées sur son parcours de tous les jours',
+            borneDist1: 'Le rechargement d’urgence effectué par une remorqueuse municipale',
+            borneDist2: 'Le prêt d’une batterie de rechange à chaque passage au bureau',
+            evidenceSubvention: ['dix', 'mille', 'subventions'],
+            evidenceBorne: ['bornes', 'rapides', 'trajet'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Tu as vu le nouveau véhicule dans le stationnement des employés ? C’est le mien ! J’ai finalement fait le saut et choisi ${s.modele}. Je faisais soixante kilomètres par jour pour venir au bureau et je dépensais près de quatre cents dollars d’essence chaque mois. En faisant mes calculs financiers, j’ai réalisé qu’avec ${s.subvention}, le paiement mensuel était comparable à mon ancien véhicule à essence. En plus, grâce à ${s.borne}, faire le plein d’énergie me coûte à peine trois dollars par nuit d’électricité. L’entretien est minime : plus de vidange d’huile, moins d’usure des freins grâce au système régénératif, et une conduite silencieuse dans la circulation dense. Je ne regrette absolument pas mon choix !`,
+          text: `— Tu as vu le nouveau véhicule dans le stationnement des employés ? C’est le mien ! J’ai finalement fait le saut et choisi ${t.modele}. Je faisais soixante kilomètres par jour pour venir au bureau et je dépensais près de quatre cents dollars d’essence chaque mois. En faisant mes calculs financiers, j’ai réalisé qu’avec ${t.subvention}, le paiement mensuel était comparable à mon ancien véhicule à essence. En plus, grâce à ${t.borne}, faire le plein d’énergie me coûte à peine trois dollars par nuit d’électricité. L’entretien est minime : plus de vidange d’huile, moins d’usure des freins grâce au système régénératif, et une conduite silencieuse dans la circulation dense. Je ne regrette absolument pas mon choix !`,
           questions: [
-            ['Quel achat personnel majeur le collègue explique-t-il avec enthousiasme ?', 'Le passage à une voiture tout électrique pour ses déplacements', 'L’achat d’un grand véhicule utilitaire d’occasion à moteur diesel polluant', 'La signature d’un bail pour une camionnette'],
-            ['Quel facteur économique a rendu cet achat particulièrement avantageux ?', 'L’octroi de crédits publics significatifs réduisant le coût total', 'La prise en charge des assurances par la compagnie', 'Profiter d’un rabais gouvernemental important sur l’immatriculation annuelle'],
-            ['Quel avantage mécanique et d’entretien le conducteur souligne-t-il ?', 'L’absence de changements d’huile et une moindre détérioration des freins', 'La dispense complète d’installer des pneus d’hiver réglementaires', 'Une garantie de remplacement sans limite pour toutes les pièces'],
+            makeQuestion('Quel achat personnel majeur le collègue explique-t-il avec fierté ?', 'L’acquisition d’une automobile entièrement électrique pour ses trajets', 'L’achat d’un grand véhicule utilitaire familial d’occasion à motorisation diesel', 'La souscription d’un contrat de location longue durée pour une camionnette lourde', ['véhicule', 'électrique']),
+            makeQuestion('Quel coup de pouce financier public a pesé dans sa décision d’achat ?', t.subventionAns, t.subventionDist1, t.subventionDist2, t.evidenceSubvention),
+            makeQuestion('Quelle solution de recharge pratique lui assure de faire le plein à peu de frais ?', t.borneAns, t.borneDist1, t.borneDist2, t.evidenceBorne),
           ],
         }
       },
@@ -1813,18 +2518,60 @@ export const N05_06_SCENARIOS = {
     // Scenario 3 (Template, Ex 1): Choix d'une voiture électrique pour la famille
     Object.assign(
       (rand) => {
-        const slots = [
-          { nom: 'François', autonomie: 'quatre cent cinquante kilomètres avec une pleine recharge', epargne: 'économiser plus de trois mille dollars par an en carburant', avantage: 'l’accès aux voies réservées lors des heures de pointe' },
-          { nom: 'Benoît', autonomie: 'quatre cents kilomètres d’autonomie même en période hivernale', epargne: 'réduire nos coûts de transport familial de moitié chaque mois', avantage: 'la gratuité sur certains ponts à péage de la région' },
-          { nom: 'Guillaume', autonomie: 'cinq cents kilomètres d’autonomie pour les trajets interurbains', epargne: 'rentabiliser la borne de recharge en moins de six mois', avantage: 'la réduction marquée de notre consommation d’énergie fossile' },
+        const tuples = [
+          {
+            nom: 'François',
+            autonomie: 'quatre cent cinquante kilomètres avec une pleine recharge',
+            epargne: 'économiser plus de trois mille dollars par an en carburant',
+            avantage: 'l’accès aux voies réservées qui nous fait gagner vingt minutes chaque matin',
+            autonomieAns: 'Une portée de quatre cent cinquante kilomètres sur une seule recharge',
+            autonomieDist1: 'Une batterie limitée à cent kilomètres obligeant à recharger à chaque sortie',
+            autonomieDist2: 'Une autonomie de plus de huit cents kilomètres sans aucun arrêt',
+            avantageQ: 'Quel gain de temps appréciable ce véhicule procure-t-il le matin ?',
+            avantageAns: 'L’emprunt des voies réservées faisant épargner vingt minutes chaque matin',
+            avantageDist1: 'Une vitesse de pointe autorisée plus élevée sur les ponts urbains',
+            avantageDist2: 'Le droit de stationner gratuitement devant tous les commerces de quartier',
+            evidenceAutonomie: ['quatre', 'cent', 'cinquante'],
+            evidenceAvantage: ['voies', 'réservées', 'minutes'],
+          },
+          {
+            nom: 'Benoît',
+            autonomie: 'quatre cents kilomètres d’autonomie même en période hivernale',
+            epargne: 'réduire nos coûts de transport familial de moitié chaque mois',
+            avantage: 'la gratuité complète sur certains ponts à péage de la région',
+            autonomieAns: 'Une autonomie de quatre cents kilomètres même sous les rigueurs du froid',
+            autonomieDist1: 'Une capacité restreinte à cinquante kilomètres dès qu’apparaissent les premières neiges',
+            autonomieDist2: 'Une réserve inépuisable sans jamais recourir à une borne en hiver',
+            avantageQ: 'Quel allègement financier routier fort appréciable la famille obtient-elle ?',
+            avantageAns: 'La gratuité accordée lors de la traversée de certains ponts à péage',
+            avantageDist1: 'Une déduction directe sur l’impôt foncier de leur maison unifamiliale',
+            avantageDist2: 'La gratuité totale de tous les péages autoroutiers à travers le pays',
+            evidenceAutonomie: ['quatre', 'cents', 'hivernale'],
+            evidenceAvantage: ['gratuité', 'ponts', 'péage'],
+          },
+          {
+            nom: 'Guillaume',
+            autonomie: 'cinq cents kilomètres d’autonomie pour les trajets interurbains',
+            epargne: 'rentabiliser la borne de recharge en moins de six mois',
+            avantage: 'la réduction marquée de soixante-dix pour cent de notre consommation d’énergie fossile',
+            autonomieAns: 'Une distance franchissable de cinq cents kilomètres lors des trajets interurbains',
+            autonomieDist1: 'Une autonomie de deux cents kilomètres réservée aux parcours de quartier',
+            autonomieDist2: 'Une possibilité de rouler mille kilomètres sans brancher le véhicule',
+            avantageQ: 'Quel impact environnemental direct ce choix procure-t-il au ménage ?',
+            avantageAns: 'Un recul de soixante-dix pour cent dans leurs besoins en énergie fossile',
+            avantageDist1: 'Une production d’électricité verte nettement supérieure aux besoins du foyer',
+            avantageDist2: 'L’élimination de tous les déchets recyclables générés par la maisonnée',
+            evidenceAutonomie: ['cinq', 'cents', 'interurbains'],
+            evidenceAvantage: ['soixante-dix', 'énergie', 'fossile'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Salut Sylvain ! Tu me demandais pourquoi on avait opté pour un modèle électrique familial. Avec les enfants qui font des activités sportives aux quatre coins de la région chaque fin de semaine, on passait notre vie à la station d’essence. Notre nouvelle voiture nous offre ${s.autonomie}, ce qui élimine notre inquiétude sur l’autoroute. Au niveau du budget familial, les calculs sont clairs : nous allons ${s.epargne}. Mais au-delà de l’aspect financier, il y a un privilège quotidien fort appréciable : ${s.avantage}. Le véhicule est spacieux, confortable, et les enfants adorent le toit vitré panoramique. Pour notre famille, c’est une excellente formule de déplacement au quotidien !`,
+          text: `— Salut Sylvain ! Tu me demandais pourquoi on avait opté pour un modèle électrique familial. Avec les enfants qui font des activités sportives aux quatre coins de la région chaque fin de semaine, on passait notre vie à la station d’essence. Notre nouvelle voiture nous offre ${t.autonomie}, ce qui élimine notre inquiétude sur l’autoroute. Au niveau du budget familial, les calculs sont clairs : nous allons ${t.epargne}. Mais au-delà de l’aspect financier, il y a un privilège quotidien fort appréciable : ${t.avantage}. Le véhicule est spacieux, confortable, et les enfants adorent le toit vitré panoramique. Pour notre famille, c’est une excellente formule de déplacement au quotidien !`,
           questions: [
-            ['Pourquoi cette famille a-t-elle choisi de passer au véhicule électrique ?', 'Le choix d’une auto électrique répondant aux besoins de la famille', 'L’abandon complet de tout moyen de transport individuel au foyer familial', 'La vente de leur maison pour acheter une auto'],
-            ['Quelle performance d’autonomie rassure les parents sur les longs trajets ?', 'Une autonomie de batterie suffisante pour circuler sans inquiétude', 'Des recharges forcées à chaque étape du parcours', 'Une hausse imprévue des primes d’assurance automobile pour leur véhicule'],
-            ['Quel avantage pratique sur la route leur fait gagner du temps le matin ?', 'L’utilisation des voies prioritaires aux heures de grande affluence routière', 'Une priorité de passage accordée à toutes les intersections urbaines', 'Un tarif réduit sur les réparations mécaniques en atelier'],
+            makeQuestion('Pourquoi cette famille a-t-elle décidé d’adopter une voiture électrique ?', 'Choisir un mode de transport familial économique et adapté à leurs sorties', 'Remplacer leurs bicyclettes par une voiture haut de gamme réservée aux grandes vacances', 'Acquérir un minibus utilitaire d’occasion pour transporter du matériel de construction', ['voiture', 'familial']),
+            makeQuestion('Quelle autonomie rassurante ce modèle offre-t-il sur la route ?', t.autonomieAns, t.autonomieDist1, t.autonomieDist2, t.evidenceAutonomie),
+            makeQuestion(t.avantageQ, t.avantageAns, t.avantageDist1, t.avantageDist2, t.evidenceAvantage),
           ],
         }
       },
@@ -1833,18 +2580,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 4 (Template, Ex 0): Changement d'études vers l'enseignement primaire
     Object.assign(
       (rand) => {
-        const slots = [
-          { collegue: 'Élodie', passe: 'le marketing publicitaire en agence', avenir: 'enseignement préscolaire et primaire', vocation: 'transmettre le goût d’apprendre et voir grandir les enfants' },
-          { collegue: 'Isabelle', passe: 'les relations publiques corporatives', avenir: 'adaptation scolaire pour élèves en difficulté', vocation: 'soutenir les élèves pour surmonter leurs difficultés' },
-          { collegue: 'Stéphanie', passe: 'la gestion commerciale et vente', avenir: 'enseignement du français langue seconde', vocation: 'favoriser l’apprentissage des jeunes arrivant au pays' },
+        const tuples = [
+          {
+            collegue: 'Élodie',
+            passe: 'le marketing publicitaire en agence',
+            avenir: 'enseignement préscolaire et primaire',
+            vocation: 'transmettre le goût d’apprendre et voir grandir les enfants',
+            avenirAns: 'L’enseignement auprès des élèves du préscolaire et du primaire',
+            avenirDist1: 'La comptabilité notariale spécialisée au sein d’un grand cabinet d’avocats',
+            avenirDist2: 'La gestion de stocks dans un entrepôt de vente au détail',
+            vocationAns: 'Développer le goût du savoir et accompagner l’épanouissement des enfants',
+            vocationDist1: 'Organiser de grandes réceptions mondaines pour des personnalités publiques du milieu',
+            vocationDist2: 'Négocier des campagnes de promotion avec des commanditaires',
+            evidenceAvenir: ['préscolaire', 'primaire'],
+            evidenceVocation: ['apprendre', 'grandir', 'enfants'],
+          },
+          {
+            collegue: 'Isabelle',
+            passe: 'les relations publiques corporatives',
+            avenir: 'adaptation scolaire pour élèves en difficulté',
+            vocation: 'soutenir les jeunes pour surmonter leurs difficultés d’apprentissage',
+            avenirAns: 'L’adaptation scolaire destinée aux enfants présentant des difficultés',
+            avenirDist1: 'Le courtage immobilier commercial pour des immeubles de bureaux prestigieux',
+            avenirDist2: 'La programmation informatique pour des banques d’investissement',
+            vocationAns: 'Aider les enfants vulnérables à franchir leurs défis scolaires',
+            vocationDist1: 'Gérer la communication de crise pour de grands groupes industriels',
+            vocationDist2: 'Accroître les rendements financiers d’un portefeuille d’actions',
+            evidenceAvenir: ['adaptation', 'scolaire', 'difficulté'],
+            evidenceVocation: ['soutenir', 'difficultés', 'apprentissage'],
+          },
+          {
+            collegue: 'Stéphanie',
+            passe: 'la gestion commerciale et vente',
+            avenir: 'enseignement du français langue seconde',
+            vocation: 'favoriser l’apprentissage des jeunes qui arrivent au pays',
+            avenirAns: 'L’enseignement du français comme langue seconde dans les classes',
+            avenirDist1: 'La vente automobile dans une concession de véhicules neufs',
+            avenirDist2: 'La gestion du personnel dans une chaîne hôtelière internationale',
+            vocationAns: 'Faciliter l’intégration linguistique des jeunes nouvellement installés',
+            vocationDist1: 'Décrocher des commissions de vente en signant des contrats de gros',
+            vocationDist2: 'Rédiger des manuels d’utilisation pour de l’outillage mécanique',
+            evidenceAvenir: ['français', 'langue', 'seconde'],
+            evidenceVocation: ['apprentissage', 'arrivent', 'pays'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Je dois te raconter mon grand virage professionnel ! J’ai remis ma démission de mon emploi dans ${s.passe} pour retourner sur les bancs d’école en ${s.avenir}. Dans mon ancien travail, je passais mes journées sur des dossiers commerciaux et je ne trouvais plus de sens à mon quotidien. Ma véritable vocation est de ${s.vocation}. Le baccalauréat dure quatre ans, mais dès l’automne, je serai en stage d’observation dans une classe d’école de quartier. Le gouvernement offre d’ailleurs de bonnes bourses d’études pour encourager la relève dans le réseau scolaire. C’est un grand changement dans ma vie, mais pour la première fois, je me sens à ma place !`,
+          text: `— Je dois te raconter mon grand virage professionnel ! J’ai remis ma démission de mon emploi dans ${t.passe} pour retourner sur les bancs d’école en ${t.avenir}. Dans mon ancien travail, je passais mes journées sur des dossiers commerciaux et je ne trouvais plus de sens à mon quotidien. Ma véritable vocation est de ${t.vocation}. Le baccalauréat dure quatre ans, mais dès l’automne, je serai en stage d’observation dans une classe d’école de quartier. Le gouvernement offre d’ailleurs de bonnes bourses d’études pour encourager la relève dans le réseau scolaire. C’est un grand changement dans ma vie, mais pour la première fois, je me sens à ma place !`,
           questions: [
-            ['Quel changement de vie radical l’interlocutrice annonce-t-elle avec émotion ?', 'Un retour aux études pour enseigner au préscolaire et au primaire', 'Une démission pour démarrer une entreprise de distribution de logiciels', 'Un départ en retraite anticipé à l’étranger'],
-            ['Quel sentiment d’insatisfaction l’a poussée à quitter son ancien travail ?', 'Le manque de sens ressenti au contact de dossiers trop mercantiles', 'La contrainte d’un horaire rigide sans pauses', 'Une rémunération nettement plus élevée dès la première année d’enseignement'],
-            ['Quelle aide financière facilite son retour sur les bancs d’école ?', 'L’attribution de bourses publiques visant à stimuler la relève enseignante', 'Un don notarié accordé par des proches pour payer ses études', 'Un emprunt commercial souscrit auprès d’une banque privée'],
+            makeQuestion('Quel virage d’études universitaires la collègue annonce-t-elle ?', t.avenirAns, t.avenirDist1, t.avenirDist2, t.evidenceAvenir),
+            makeQuestion('Quelle vocation profonde l’anime dans ce nouveau choix de carrière ?', t.vocationAns, t.vocationDist1, t.vocationDist2, t.evidenceVocation),
+            makeQuestion('Quelle mesure financière publique soutient sa reconversion professionnelle ?', 'Des bourses gouvernementales instituées pour soutenir la relève scolaire', 'Un prêt commercial avec intérêts accordé par une institution financière privée de quartier', 'Un important héritage familial notarié couvrant la totalité des droits de scolarité annuels', ['bourses', 'relève', 'scolaire']),
           ],
         }
       },
@@ -1859,18 +2645,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 0 (Template, Ex 0): Formatrice atelier vélo - Réparation d'une crevaison
     Object.assign(
       (rand) => {
-        const slots = [
-          { formatrice: 'Karine', outil: 'des démonte-pneus souples pour ne pas pincer la jante', methode: 'plonger la chambre à air gonflée dans un bac d’eau claire', sechage: 'frotter la zone avec du papier abrasif avant de poser la colle' },
-          { formatrice: 'Laurence', outil: 'deux leviers en plastique pour déloger la tringle du pneu', methode: 'repérer attentivement le sifflement d’air en approchant l’oreille', sechage: 'nettoyer la surface avec un linge propre et attendre deux minutes' },
-          { formatrice: 'Julie', outil: 'une clé plate pour dévisser l’axe de la roue sans forcer', methode: 'passer doucement les mains le long de la chambre à air', sechage: 'appliquer une fine couche de dissolvant sur la zone poncée' },
+        const tuples = [
+          {
+            formatrice: 'Karine',
+            outil: 'des démonte-pneus souples pour ne pas pincer la jante',
+            methode: 'plonger la chambre à air gonflée dans un bac d’eau claire',
+            sechage: 'frotter la zone avec du papier abrasif avant de poser la colle',
+            methodeAns: 'Immerger le tube gonflé dans une cuvette d’eau propre',
+            methodeDist1: 'Passer une flamme de briquet le long du caoutchouc noir',
+            methodeDist2: 'Remplir le pneu d’air comprimé jusqu’à entendre une détonation',
+            sechageAns: 'Frotter la surface au papier abrasif avant d’enduire de colle',
+            sechageDist1: 'Enduire l’ensemble de la chambre à air de graisse mécanique épaisse et visqueuse',
+            sechageDist2: 'Laisser tremper la pièce dans un solvant industriel pendant une heure',
+            evidenceMethode: ['chambre', 'bac', 'eau'],
+            evidenceSechage: ['frotter', 'papier', 'abrasif'],
+          },
+          {
+            formatrice: 'Laurence',
+            outil: 'deux leviers en plastique pour déloger la tringle du pneu',
+            methode: 'repérer attentivement le sifflement d’air en approchant l’oreille',
+            sechage: 'nettoyer la surface avec un linge sec et attendre deux minutes',
+            methodeAns: 'Déceler le bruit de fuite d’air en approchant son oreille de la paroi',
+            methodeDist1: 'Percer plusieurs petits trous pour égaliser la pression interne',
+            methodeDist2: 'Faire rouler le vélo à plat sur du gravier pour tester la jante',
+            sechageAns: 'Essuyer la zone avec un chiffon propre et patienter deux minutes',
+            sechageDist1: 'Chauffer le caoutchouc au séchoir thermique jusqu’à observer une déformation',
+            sechageDist2: 'Rincer le pneu avec un puissant détergent moussant pour vaisselle',
+            evidenceMethode: ['sifflement', 'air', 'oreille'],
+            evidenceSechage: ['linge', 'attendre', 'minutes'],
+          },
+          {
+            formatrice: 'Julie',
+            outil: 'une clé plate pour dévisser l’axe de la roue sans forcer',
+            methode: 'passer doucement les doigts le long de la chambre à air gonflée',
+            sechage: 'appliquer une fine couche de dissolvant sur la zone poncée',
+            methodeAns: 'Glisser délicatement ses doigts le long du tube pour sentir le flux d’air',
+            methodeDist1: 'Frotter vigoureusement avec une brosse métallique rugueuse',
+            methodeDist2: 'Verser de la cire chaude sur tout le pourtour de la tringle',
+            sechageAns: 'Étaler une mince couche de dissolvant sur la surface préalablement poncée',
+            sechageDist1: 'Coller immédiatement la rustine sans aucune préparation de surface préalable',
+            sechageDist2: 'Saupoudrer du sable fin pour sécher rapidement la colle liquide',
+            evidenceMethode: ['doigts', 'chambre', 'air'],
+            evidenceSechage: ['dissolvant', 'zone', 'poncée'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Bonjour à tous les participants de notre atelier de mécanique vélo. Je suis ${s.formatrice} et je vais vous guider pas à pas pour réparer une crevaison de pneu comme des professionnels. Première étape : retirez la roue du cadre et utilisez ${s.outil} afin de sortir délicatement la chambre à air sans l’abîmer. Seconde étape : pour localiser la fuite avec précision, le moyen recommandé consiste à ${s.methode}. Dès que vous voyez des bulles, marquez l’endroit avec une craie. Troisième phase : il faut impérativement ${s.sechage}. Ensuite seulement, collez fermement la rustine en pressant pendant trois minutes sans bouger. Dernière étape : avant de tout remonter, vérifiez soigneusement l’intérieur du pneu avec vos doigts pour retirer l’épine ou le bout de verre qui a causé la crevaison.`,
+          text: `— Bonjour à tous les participants de notre atelier de mécanique vélo. Je suis ${t.formatrice} et je vais vous guider pas à pas pour réparer une crevaison de pneu comme des professionnels. Première étape : retirez la roue du cadre et utilisez ${t.outil} afin de sortir délicatement la chambre à air sans l’abîmer. Seconde étape : pour localiser la fuite avec précision, le moyen recommandé consiste à ${t.methode}. Dès que vous voyez des bulles, marquez l’endroit avec une craie. Troisième phase : il faut impérativement ${t.sechage}. Ensuite seulement, collez fermement la rustine en pressant pendant trois minutes sans bouger. Dernière étape : avant de tout remonter, vérifiez soigneusement l’intérieur du pneu avec vos doigts pour retirer l’épine ou le bout de verre qui a causé la crevaison.`,
           questions: [
-            ['Quelle réparation courante de bicyclette la formatrice enseigne-t-elle ?', 'Le repérage de la fuite d’air et la pose soignée d’une rustine', 'Le remplacement intégral de la chaîne de transmission et des pignons', 'Le centrage des rayons de la roue arrière'],
-            ['Quelle méthode est recommandée pour localiser précisément la fuite d’air ?', 'Repérer la fuite en observant les bulles ou le bruit d’échappement', 'Remplir le pneu d’air sous pression jusqu’au bout', 'Plonger l’ensemble de la roue et du cadre dans un grand bassin d’eau tiède'],
-            ['Quelle précaution essentielle doit-on prendre avant de remonter la roue ?', 'Palper l’intérieur du pneu pour éliminer tout résidu tranchant ou perforant', 'Rincer les rayons et le moyeu avec un produit moussant puissant', 'Appliquer une couche de cire sur toute la jante'],
+            makeQuestion('Quelle réparation de vélo la formatrice enseigne-t-elle avec méthode ?', 'Le repérage d’une crevaison et la pose rigoureuse d’une rustine', 'Le changement complet de tous les câbles de freins et du guidon de course', 'Le dévoilage des rayons métalliques et l’alignement de la roue arrière', ['crevaison', 'rustine']),
+            makeQuestion('Quel moyen est enseigné pour identifier précisément l’emplacement de la fuite ?', t.methodeAns, t.methodeDist1, t.methodeDist2, t.evidenceMethode),
+            makeQuestion('Quelle étape de préparation de surface doit-on réaliser avant de coller la rustine ?', t.sechageAns, t.sechageDist1, t.sechageDist2, t.evidenceSechage),
           ],
         }
       },
@@ -1879,18 +2704,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 1 (Template, Ex 0): Formatrice atelier vélo - Remplacement d'un câble de frein
     Object.assign(
       (rand) => {
-        const slots = [
-          { animatrice: 'Sonia', etape1: 'desserrer l’écrou du serre-câble avec une clé de cinq millimètres', gaine: 'vérifier l’état de la gaine noire pour voir si elle est bien droite', embout: 'sertir un petit embout en aluminium pour protéger les brins du câble' },
-          { animatrice: 'Émilie', etape1: 'dévisser la vis de serrage principale au niveau de l’étrier de frein', gaine: 'huiler légèrement l’intérieur du conduit avec un lubrifiant', embout: 'pincer fermement une capsule de finition avec une pince coupante' },
-          { animatrice: 'Audrey', etape1: 'dégager la tête de câble de son logement dans le levier au guidon', gaine: 'contrôler les deux extrémités de la gaine dans leurs logements', embout: 'couper l’excédent de fil d’acier à deux centimètres du point d’attache' },
+        const tuples = [
+          {
+            animatrice: 'Sonia',
+            etape1: 'desserrer l’écrou du serre-câble avec une clé de cinq millimètres',
+            gaine: 'vérifier l’état de la gaine noire pour vous assurer qu’elle est bien droite',
+            embout: 'sertir un petit embout en aluminium pour protéger les brins du câble',
+            gaineAns: 'Contrôler l’état et la rectitude de la gaine noire protectrice',
+            gaineDist1: 'Couper la gaine protectrice en plusieurs tronçons de taille rigoureusement égale',
+            gaineDist2: 'Remplir le conduit de colle à bois pour immobiliser la pièce',
+            emboutAns: 'Sertir une cosse d’aluminium pour préserver les fils d’acier',
+            emboutDist1: 'Nouer le fil d’acier souple autour du rayon métallique le plus proche de la jante',
+            emboutDist2: 'Enrouler dix couches de ruban adhésif d’écolier sur le bout',
+            evidenceGaine: ['gaine', 'droite'],
+            evidenceEmbout: ['embout', 'aluminium', 'brins'],
+          },
+          {
+            animatrice: 'Émilie',
+            etape1: 'dévisser la vis de serrage principale au niveau de l’étrier de frein',
+            gaine: 'huiler légèrement l’intérieur du conduit avec un lubrifiant adapté',
+            embout: 'pincer fermement une capsule de finition avec une pince plate',
+            gaineAns: 'Lubrifier délicatement la paroi intérieure du passage de câble',
+            gaineDist1: 'Rincer le tuyau intérieur à grande eau puis l’abandonner directement à l’humidité',
+            gaineDist2: 'Chauffer la pièce de plastique pour ramollir le passage',
+            emboutAns: 'Serrer solidement une capsule de finition à l’aide d’une pince plate',
+            emboutDist1: 'Brûler l’extrémité du câble avec une flamme vive pour en faire fondre le métal',
+            emboutDist2: 'Torsader le câble à mains nues jusqu’à ce qu’il casse sous tension',
+            evidenceGaine: ['huiler', 'conduit', 'lubrifiant'],
+            evidenceEmbout: ['capsule', 'finition', 'pince'],
+          },
+          {
+            animatrice: 'Audrey',
+            etape1: 'dégager la tête de câble de son logement dans le levier au guidon',
+            gaine: 'contrôler la propreté des deux extrémités de la gaine dans leurs butées',
+            embout: 'couper l’excédent de fil d’acier à deux centimètres du point d’attache',
+            gaineAns: 'Vérifier la propreté des embouchures de la gaine insérées dans les butées',
+            gaineDist1: 'Remplacer immédiatement l’ensemble de la potence par un guidon de course neuf',
+            gaineDist2: 'Vernir l’extérieur de la gaine avec une peinture laquée colorée',
+            emboutAns: 'Sectionner nettement le bout excédentaire à une distance de deux centimètres',
+            emboutDist1: 'Laisser pendre négligemment le fil d’acier le long de la chaîne sans y toucher',
+            emboutDist2: 'Tresser le bout du fil dans les maillons du dérailleur arrière',
+            evidenceGaine: ['propreté', 'extrémités', 'gaine'],
+            evidenceEmbout: ['centimètres', 'attache'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Bienvenue au cours d’ajustement des freins de vélo. C’est ${s.animatrice} qui vous accompagne aujourd’hui. Quand votre levier touche presque le guidon, il est temps de remplacer le câble d’acier. Voici la séquence obligatoire. D’abord, vous devez ${s.etape1}. Ensuite, retirez l’ancien câble rouillé. Avant d’insérer le nouveau câble neuf, prenez soin de ${s.gaine}. Faites coulisser le fil métallique jusqu’au frein. Tendez le câble fermement avec une pince tout en resserrant la vis de fixation. Pour finir, il est essentiel de ${s.embout}. Testez le freinage à l’arrêt en pressant vigoureusement le levier dix fois de suite pour vérifier qu’il n’y a aucun glissement. Votre sécurité sur la route en dépend directement !`,
+          text: `— Bienvenue au cours d’ajustement des freins de vélo. C’est ${t.animatrice} qui vous accompagne aujourd’hui. Quand votre levier touche presque le guidon, il est temps de remplacer le câble d’acier. Voici la séquence obligatoire. D’abord, vous devez ${t.etape1}. Ensuite, retirez l’ancien câble rouillé. Avant d’insérer le nouveau câble neuf, prenez soin de ${t.gaine}. Faites coulisser le fil métallique jusqu’au frein. Tendez le câble fermement avec une pince tout en resserrant la vis de fixation. Pour finir, il est essentiel de ${t.embout}. Testez le freinage à l’arrêt en pressant vigoureusement le levier dix fois de suite pour vérifier qu’il n’y a aucun glissement. Votre sécurité sur la route en dépend directement !`,
           questions: [
-            ['Quelle procédure d’entretien sécuritaire est démontrée dans cet atelier ?', 'Le changement et l’ajustement précis d’un nouveau câble de frein', 'La lubrification des roulements internes du pédalier de la bicyclette', 'Le montage d’un porte-bagages métallique'],
-            ['Quelle vérification de la gaine doit-on effectuer avant d’enfiler le câble neuf ?', 'Contrôler la propreté et la courbure du conduit pour faciliter le passage', 'Sectionner la pièce protectrice en plusieurs morceaux', 'Utiliser une pince coupante émoussée pour éviter de sectionner les fils'],
-            ['Quelle manipulation finale empêche le câble d’acier de s’abîmer ?', 'Fixer solidement un embout de finition métallique sur le bout du câble', 'Faire deux boucles serrées à la main sur la partie restante', 'Coller plusieurs tours de ruban de bureau sur le bout'],
+            makeQuestion('Quelle procédure mécanique sécuritaire cet atelier enseigne-t-il ?', 'Le remplacement méthodique et l’ajustement d’un nouveau câble de frein', 'La révision générale de tous les engrenages internes du boîtier de pédalier', 'L’installation fixe d’un grand porte-bagages métallique à l’arrière du vélo', ['câble', 'frein']),
+            makeQuestion('Quelle précaution concernant la gaine doit être accomplie avant d’enfiler le câble ?', t.gaineAns, t.gaineDist1, t.gaineDist2, t.evidenceGaine),
+            makeQuestion('Quelle opération de finition permet de finaliser l’ajustement du câble ?', t.emboutAns, t.emboutDist1, t.emboutDist2, t.evidenceEmbout),
           ],
         }
       },
@@ -1899,18 +2763,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 2 (Template, Ex 1): Gestionnaire expliquant la régularisation d'une erreur de paie
     Object.assign(
       (rand) => {
-        const slots = [
-          { chef: 'Benoît Gagnon', motif: 'les quinze heures supplémentaires de la semaine dernière qui n’ont pas été comptabilisées', portail: 'le portail libre-service RH sous l’onglet des réclamations salariales', delai: 'avant jeudi midi' },
-          { chef: 'François Tremblay', motif: 'la prime de quart de soir du mois dernier qui a été omise sur votre talon', portail: 'la section intranet des paies en choisissant le formulaire P-102', delai: 'avant mercredi dix-sept heures' },
-          { chef: 'Marc Lavoie', motif: 'l’erreur d’échelon salarial consécutive à votre promotion du premier mars', portail: 'le logiciel de gestion des ressources humaines avec votre code d’employé', delai: 'au plus tard vendredi matin' },
+        const tuples = [
+          {
+            chef: 'Benoît Gagnon',
+            motif: 'les quinze heures supplémentaires de la semaine dernière qui n’ont pas été comptabilisées',
+            portail: 'le portail libre-service RH sous l’onglet des réclamations salariales',
+            delai: 'avant jeudi midi',
+            motifAns: 'L’omission de quinze heures supplémentaires travaillées la semaine précédente',
+            motifDist1: 'Un prélèvement abusif au titre des cotisations syndicales de l’ensemble de l’usine',
+            motifDist2: 'Le refus de verser le remboursement de frais de déplacement professionnel',
+            delaiAns: 'Déposer la réclamation sur le portail d’entreprise avant jeudi midi',
+            delaiDist1: 'Faire parvenir une lettre recommandée postale avant la fin du trimestre en cours',
+            delaiDist2: 'Prendre rendez-vous avec le directeur général le mois prochain',
+            evidenceMotif: ['heures', 'supplémentaires', 'comptabilisées'],
+            evidenceDelai: ['jeudi', 'midi'],
+          },
+          {
+            chef: 'François Tremblay',
+            motif: 'la prime de quart de soir du mois dernier qui a été omise sur votre talon',
+            portail: 'la section intranet des paies en choisissant le formulaire P-102',
+            delai: 'avant mercredi dix-sept heures',
+            motifAns: 'L’oubli de la prime liée aux quarts de travail en soirée du mois passé',
+            motifDist1: 'Une diminution arbitraire du salaire de base fixée par avenant contractuel',
+            motifDist2: 'L’absence d’indemnisation pour un arrêt de travail pour maladie',
+            delaiAns: 'Compléter l’envoi des pièces justificatives avant mercredi dix-sept heures',
+            delaiDist1: 'Attendre passivement la révision générale des contrats annuels en décembre',
+            delaiDist2: 'Transmettre un message vocal au superviseur d’ici deux semaines',
+            evidenceMotif: ['prime', 'quart', 'omise'],
+            evidenceDelai: ['mercredi', 'dix-sept', 'heures'],
+          },
+          {
+            chef: 'Marc Lavoie',
+            motif: 'l’erreur d’échelon salarial consécutive à votre promotion du premier mars',
+            portail: 'le logiciel de gestion des ressources humaines avec votre code d’employé',
+            delai: 'au plus tard vendredi matin',
+            motifAns: 'Une mauvaise attribution d’échelon salarial intervenue suite à sa promotion',
+            motifDist1: 'Une retenue salariale injustifiée sur l’ensemble des indemnités de repas du midi',
+            motifDist2: 'Un désaccord sur le calcul des vacances annuelles accumulées',
+            delaiAns: 'Enregistrer la requête dans le système au plus tard vendredi matin',
+            delaiDist1: 'Faire viser l’ensemble du dossier par un notaire assermenté dans les trente jours',
+            delaiDist2: 'Reporter la correction salariale au prochain exercice financier',
+            evidenceMotif: ['échelon', 'salarial', 'promotion'],
+            evidenceDelai: ['vendredi', 'matin'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Bonjour Martin. J’ai bien reçu ton courriel au sujet de ton dernier talon de paie. Je comprends tout à fait ta frustration concernant ${s.motif}. Ne t’en fais pas, c’est une simple erreur de saisie du système et voici la procédure officielle pour régler la situation rapidement. Connecte-toi d’abord sur ${s.portail}. Tu dois y joindre une copie de tes feuilles de temps signées ainsi qu’une capture d’écran de ton relevé bancaire démontrant le manque à gagner. Dès que tu as soumis le dossier en ligne, envoie-moi le numéro de billet de confirmation par messagerie interne. J’approuverai la demande immédiatement en tant que superviseur. Si tout est fait ${s.delai}, les ressources humaines feront un virement correctif direct dans ton compte.`,
+          text: `— Bonjour Martin. J’ai bien reçu ton courriel au sujet de ton dernier talon de paie. Je comprends tout à fait ta frustration concernant ${t.motif}. Ne t’en fais pas, c’est une simple erreur de saisie du système et voici la procédure officielle pour régler la situation rapidement. Connecte-toi d’abord sur ${t.portail}. Tu dois y joindre une copie de tes feuilles de temps signées ainsi qu’une capture d’écran de ton relevé bancaire démontrant le manque à gagner. Dès que tu as soumis le dossier en ligne, envoie-moi le numéro de billet de confirmation par messagerie interne. J’approuverai la demande immédiatement en tant que superviseur. Si tout est fait ${t.delai}, les ressources humaines feront un virement correctif direct dans ton compte.`,
           questions: [
-            ['Quel litige administratif le superviseur aide-t-il son employé à résoudre ?', 'Une omission dans le décompte des heures sur le dernier salaire', 'Une contestation du montant d’une prime annuelle accordée à un autre cadre', 'Le refus d’une demande de congé sans solde'],
-            ['Quel document justificatif l’employé doit-il joindre sur le portail ?', 'La feuille de temps signée accompagnée du relevé de versement reçu', 'Une attestation syndicale certifiée par un représentant officiel', 'Une copie conforme de l’ensemble des évaluations de rendement antérieures'],
-            ['Quelle est l’échéance impérative pour soumettre la demande de correction ?', 'Transmettre l’ensemble des éléments dans le portail avant la fin de semaine', 'Attendre la prochaine révision générale des salaires en fin d’année', 'Prendre rendez-vous avec la direction dans les douze prochains mois'],
+            makeQuestion('Quel différend salarial le superviseur aide-t-il son collaborateur à régulariser ?', t.motifAns, t.motifDist1, t.motifDist2, t.evidenceMotif),
+            makeQuestion('Quels justificatifs officiels l’employé doit-il joindre à sa demande numérique ?', 'Ses relevés d’heures approuvés ainsi qu’une copie de son relevé bancaire', 'Une déclaration sous serment formulée devant un représentant des ressources humaines', 'Une attestation médicale confirmant son aptitude au travail en entreprise', ['feuilles', 'temps', 'bancaire']),
+            makeQuestion('Quelle échéance doit être respectée pour que le virement correctif soit émis rapidement ?', t.delaiAns, t.delaiDist1, t.delaiDist2, t.evidenceDelai),
           ],
         }
       },
@@ -1919,18 +2822,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 3 (Template, Ex 1): Gestionnaire aidant à corriger une retenue salariale indue
     Object.assign(
       (rand) => {
-        const slots = [
-          { gestionnaire: 'Diane Roy', probleme: 'une double retenue d’assurance collective prélevée par erreur sur votre chèque', preuve: 'votre formulaire d’adhésion original confirmant le régime individuel', conseiller: 'Chantal Lévesque au poste téléphonique 412' },
-          { gestionnaire: 'Monique Bélanger', probleme: 'une déduction incorrecte pour les cotisations au régime de retraite volontaire', preuve: 'votre relevé d’emploi et votre lettre d’embauche mentionnant le taux exact', conseiller: 'Patrick Simard à la division des avantages sociaux' },
-          { gestionnaire: 'Carole Fortin', probleme: 'une retenue fiscale provinciale calculée avec un mauvais code de déduction', preuve: 'le formulaire officiel de déclaration des crédits d’impôt TP-1015', conseiller: 'l’agent de paie de garde au centre d’aide aux employés' },
+        const tuples = [
+          {
+            gestionnaire: 'Diane Roy',
+            probleme: 'une double retenue d’assurance collective prélevée par erreur sur votre chèque',
+            preuve: 'votre formulaire d’adhésion original confirmant le régime individuel choisi',
+            conseillerTexte: 'la conseillère attitrée, Chantal Lévesque, au poste téléphonique 412',
+            problemeAns: 'Un prélèvement dédoublé au titre du régime d’assurance collective',
+            problemeDist1: 'Une saisie sur salaire ordonnée formellement par une cour de justice municipale',
+            problemeDist2: 'Un défaut de versement de la prime de fin d’année convenue',
+            preuveAns: 'Le formulaire d’adhésion original certifiant la couverture individuelle retenue',
+            preuveDist1: 'Un extrait complet du casier judiciaire vierge remis par les services de police',
+            preuveDist2: 'Une copie du certificat de qualification professionnelle du travailleur',
+            evidenceProbleme: ['double', 'retenue', 'assurance'],
+            evidencePreuve: ['adhésion', 'individuel'],
+          },
+          {
+            gestionnaire: 'Monique Bélanger',
+            probleme: 'une déduction incorrecte pour les cotisations au régime de retraite volontaire',
+            preuve: 'votre contrat d’embauche mentionnant expressément le taux de cotisation retenu',
+            conseillerTexte: 'le conseiller attitré, Patrick Simard, à la division des avantages sociaux',
+            problemeAns: 'Une retenue excessive appliquée aux cotisations de retraite volontaire',
+            problemeDist1: 'Une retenue erronée d’impôt fédéral calculée sur la base d’un salaire fictif',
+            problemeDist2: 'L’annulation imprévue de ses jours de congés parentaux accumulés',
+            preuveAns: 'Le contrat d’embauche mentionnant le taux de déduction de retraite convenu',
+            preuveDist1: 'Une longue lettre d’appui rédigée par un ancien collègue d’une autre entreprise',
+            preuveDist2: 'Un relevé de kilométrage parcouru au volant de son véhicule privé',
+            evidenceProbleme: ['déduction', 'retraite', 'volontaire'],
+            evidencePreuve: ['contrat', 'embauche', 'cotisation'],
+          },
+          {
+            gestionnaire: 'Carole Fortin',
+            probleme: 'une retenue fiscale provinciale calculée avec un mauvais code de déduction',
+            preuve: 'le formulaire officiel de déclaration des crédits d’impôt TP-1015 signé',
+            conseillerTexte: 'le conseiller attitré, Marc Bédard, au bureau de paie',
+            problemeAns: 'Une retenue d’impôt provincial erronée causée par un code fiscal inadéquat',
+            problemeDist1: 'Une déduction financière injustifiée pour un repas pris à la cantine d’entreprise',
+            problemeDist2: 'Une suspension de salaire liée à une absence pour motifs syndicaux',
+            preuveAns: 'Le formulaire fiscal provincial TP-1015 attestant des crédits d’impôt applicables',
+            preuveDist1: 'Un reçu officiel de paiement de taxes municipales sur sa résidence personnelle',
+            preuveDist2: 'Une attestation de domicile délivrée par le bureau de poste du quartier',
+            evidenceProbleme: ['retenue', 'fiscale', 'déduction'],
+            evidencePreuve: ['crédits', 'impôt', 'TP-1015'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Bonjour Alexandre. Je viens de vérifier les montants avec le service de paie concernant ${s.probleme}. C’est fâcheux, mais nous avons une démarche bien balisée pour rembourser le montant perçu en trop. Première étape : remplis la demande de redressement de paie disponible sur notre portail intranet d’entreprise. Seconde étape : joins en pièce jointe ${s.preuve}. Troisième phase : transmets le tout directement à la conseillère attitrée, ${s.conseiller}, en me mettant en copie conforme pour que j’appose ma validation. Le service financier s’est engagé à émettre un paiement correctif d’ici vendredi si le dossier est complet avant midi demain. Passe à mon bureau si tu as besoin d’aide pour remplir les sections du formulaire.`,
+          text: `— Bonjour Alexandre. Je viens de vérifier les montants avec le service de paie concernant ${t.probleme}. C’est fâcheux, mais nous avons une démarche bien balisée pour rembourser le montant perçu en trop. Première étape : remplis la demande de redressement de paie disponible sur notre portail intranet d’entreprise. Seconde étape : joins en pièce jointe ${t.preuve}. Troisième phase : transmets le tout directement à ${t.conseillerTexte}, en me mettant en copie conforme pour que j’appose ma validation. Le service financier s’est engagé à émettre un paiement correctif d’ici vendredi si le dossier est complet avant midi demain. Passe à mon bureau si tu as besoin d’aide pour remplir les sections du formulaire.`,
           questions: [
-            ['Quel problème de rémunération fait l’objet de cette explication étape par étape ?', 'La correction d’un prélèvement indu effectué sur le salaire', 'La demande d’un prêt d’urgence auprès de la division des ressources humaines', 'Le calcul d’une indemnité de départ négociée'],
-            ['Quelle pièce justificative officielle doit impérativement être fournie ?', 'Le document formel attestant les taux ou régimes convenus', 'Un certificat notarié attestant l’absence de dettes', 'Une attestation médicale confirmant l’aptitude physique de l’employé en poste'],
-            ['Quelle mesure financière exceptionnelle le service des finances promet-il ?', 'L’émission rapide d’un versement direct correctif d’ici la fin de semaine', 'L’attribution d’une demi-journée de congé payé en compensation', 'Une majoration temporaire du taux horaire durant le prochain mois'],
+            makeQuestion('Quel prélèvement indu sur la paie cette démarche vise-t-elle à régulariser ?', t.problemeAns, t.problemeDist1, t.problemeDist2, t.evidenceProbleme),
+            makeQuestion('Quelle pièce justificative officielle doit impérativement accompagner la demande ?', t.preuveAns, t.preuveDist1, t.preuveDist2, t.evidencePreuve),
+            makeQuestion('À quelle condition le service des finances promet-il un paiement correctif d’ici vendredi ?', 'La transmission du dossier complet avant midi le lendemain', 'La démission immédiate de l’employé avec renonciation aux indemnités', 'L’approbation formelle de l’assemblée générale des actionnaires', ['midi', 'demain', 'vendredi']),
           ],
         }
       },
@@ -1939,18 +2881,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 4 (Template, Ex 0): Formatrice atelier vélo - Réglage des vitesses et de la transmission
     Object.assign(
       (rand) => {
-        const slots = [
-          { animatrice: 'Isabelle', etape: 'positionner la chaîne sur le plus petit pignon de la roue', outil: 'un tournevis cruciforme pour ajuster avec précision les vis de butée', verification: 'faire tourner le pédalier à la main tout en passant les vitesses' },
-          { animatrice: 'Geneviève', etape: 'relâcher la tension du câble en plaçant la manette au repos', outil: 'une clé hexagonale de quatre millimètres pour aligner le dérailleur', verification: 'contrôler l’alignement visuel entre le galet et chaque pignon' },
-          { animatrice: 'Christine', etape: 'passer un chiffon dégraissant pour nettoyer les maillons de chaîne', outil: 'la molette de tension située à l’extrémité du levier au guidon', verification: 'tendre l’oreille pour détecter tout frottement métallique gênant' },
+        const tuples = [
+          {
+            animatrice: 'Isabelle',
+            etape: 'positionner la chaîne sur le plus petit pignon de la roue arrière',
+            outil: 'un tournevis cruciforme pour ajuster avec précision les vis de butée',
+            verification: 'faire tourner le pédalier à la main tout en montant les vitesses',
+            etapeAns: 'Placer la chaîne sur le pignon le plus étroit de la roue arrière',
+            etapeDist1: 'Démonter entièrement les deux roues ainsi que le plateau avant du pédalier',
+            etapeDist2: 'Tordre la patte de fixation vers l’extérieur avec un levier en fer',
+            verifAns: 'Actionner le pédalier à la main en passant une par une les vitesses',
+            verifDist1: 'Rouler à vive allure dans une pente très abrupte sans tenir le guidon du vélo',
+            verifDist2: 'Secouer vigoureusement le cadre pour vérifier la solidité de la selle',
+            evidenceEtape: ['chaîne', 'petit', 'pignon'],
+            evidenceVerif: ['pédalier', 'vitesses'],
+          },
+          {
+            animatrice: 'Geneviève',
+            etape: 'relâcher la tension du câble en plaçant la manette au repos complet',
+            outil: 'une clé hexagonale de quatre millimètres pour aligner le dérailleur',
+            verification: 'contrôler l’alignement visuel entre le galet et chaque pignon',
+            etapeAns: 'Placer la manette au repos afin de libérer toute la tension du câble',
+            etapeDist1: 'Tendre au maximum le câble métallique jusqu’à frôler la limite de rupture nette',
+            etapeDist2: 'Retirer les patins de frein pour faire de la place autour de la jante',
+            verifAns: 'Vérifier visuellement l’alignement parfait du galet sous chaque pignon',
+            verifDist1: 'Laisser le vélo entièrement immergé dans un ruisseau pour en rincer la mécanique',
+            verifDist2: 'Frapper sur les pignons avec une massette pour tester leur dureté',
+            evidenceEtape: ['relâcher', 'tension', 'manette'],
+            evidenceVerif: ['alignement', 'galet', 'pignon'],
+          },
+          {
+            animatrice: 'Christine',
+            etape: 'nettoyer soigneusement les maillons de la chaîne pour enlever toute saleté',
+            outil: 'la molette de tension située à l’extrémité du levier au guidon',
+            verification: 'tendre l’oreille pour détecter tout frottement métallique anormal',
+            etapeAns: 'Nettoyer méticuleusement chaque maillon métallique pour retirer la crasse',
+            etapeDist1: 'Recouvrir les maillons métalliques d’un enduit étanche sans retirer la saleté',
+            etapeDist2: 'Scier un maillon sur deux pour alléger le poids de la transmission',
+            verifAns: 'Écouter attentivement pour s’assurer de l’absence de frottement métallique',
+            verifDist1: 'Mesurer avec précision la température de la jante après un freinage prolongé',
+            verifDist2: 'Compter le nombre de dents de chaque plateau avec une loupe',
+            evidenceEtape: ['maillons', 'chaîne'],
+            evidenceVerif: ['oreille', 'frottement', 'métallique'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Bonjour chers cyclistes ! Dans cet atelier consacré au réglage de la transmission, je vous montre la méthode exacte pour éliminer les sauts de chaîne désagréables. Étape numéro un : commencez par ${s.etape}. Étape numéro deux : utilisez ${s.outil}. En tournant d’un quart de tour à la fois, vous devez éliminer l’espace qui provoque le déraillement. Étape numéro trois : tournez la molette de tension du câble d’un demi-tour dans le sens antihoraire si la chaîne hésite à monter. Étape numéro quatre : pour la vérification finale, prenez soin de ${s.verification}. Si chaque changement de vitesse s’opère avec fluidité et silence, votre transmission est parfaitement synchronisée. Rangez vos outils et venez faire un tour d’essai dans la cour !`,
+          text: `— Bonjour chers cyclistes ! Dans cet atelier consacré au réglage de la transmission, je vous montre la méthode exacte pour éliminer les sauts de chaîne désagréables. Étape numéro un : commencez par ${t.etape}. Étape numéro deux : utilisez ${t.outil}. En tournant d’un quart de tour à la fois, vous devez éliminer l’espace qui provoque le déraillement. Étape numéro trois : tournez la molette de tension du câble d’un demi-tour dans le sens antihoraire si la chaîne hésite à monter. Étape numéro quatre : pour la vérification finale, prenez soin de ${t.verification}. Si chaque changement de vitesse s’opère avec fluidité et silence, votre transmission est parfaitement synchronisée. Rangez vos outils et venez faire un tour d’essai dans la cour !`,
           questions: [
-            ['Quel composant mécanique de la bicyclette cet atelier apprend-il à ajuster ?', 'L’alignement des vitesses et le réglage de la tension du dérailleur', 'Le remplacement de la selle et l’ajustement de l’inclinaison du guidon', 'Le regraissage complet des axes de pédales'],
-            ['Quelle première manipulation mécanique faut-il accomplir au début ?', 'Préparer le système en plaçant la chaîne ou la manette au bon niveau', 'Démonter les pédales à l’aide d’une clé plate de grand format', 'Tendre au maximum les câbles métalliques avant de placer la chaîne en place'],
-            ['Comment doit-on procéder pour le test de validation finale ?', 'Faire tourner le mécanisme à la main en passant chaque palier avec douceur', 'Laisser reposer le vélo à l’extérieur sous une forte pluie', 'Taper fermement sur les rayons métalliques avec une massette'],
+            makeQuestion('Quel composant mécanique de la bicyclette cet atelier apprend-il à régler ?', 'Le mécanisme de transmission et le passage des vitesses du vélo', 'L’ajustement complet de la selle et l’inclinaison du guidon de course', 'La pression d’air optimale recommandée pour les pneus tout-terrain', ['transmission', 'vitesses']),
+            makeQuestion('Quelle première intervention concrète faut-il exécuter au début de la manœuvre ?', t.etapeAns, t.etapeDist1, t.etapeDist2, t.evidenceEtape),
+            makeQuestion('Quelle vérification finale permet de valider le bon fonctionnement de la transmission ?', t.verifAns, t.verifDist1, t.verifDist2, t.evidenceVerif),
           ],
         }
       },
@@ -1965,18 +2946,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 0 (Template, Ex 0): Discours de satisfaction de la directrice lors du bilan trimestriel
     Object.assign(
       (rand) => {
-        const slots = [
-          { directrice: 'Madame Thériault', taux: 'cent vingt pour cent de nos objectifs de vente', defi: 'le manque ponctuel de personnel et les délais d’approvisionnement', cadeau: 'un vendredi après-midi de repos payé pour toute l’équipe' },
-          { directrice: 'Madame Bélanger', taux: 'cent quinze pour cent des cibles de fidélisation clientèle', defi: 'la période d’adaptation liée à notre nouvelle plateforme informatique', cadeau: 'une prime de reconnaissance versée avec le prochain salaire' },
-          { directrice: 'Madame Bouchard', taux: 'l’ensemble des livrables demandés avec deux semaines d’avance', defi: 'les échéances très serrées imposées sur ce contrat d’envergure', cadeau: 'un repas convivial de célébration pris en charge par l’entreprise' },
+        const tuples = [
+          {
+            directrice: 'Madame Thériault',
+            taux: 'cent vingt pour cent de nos objectifs de vente',
+            defi: 'le manque ponctuel de personnel et les contraintes d’approvisionnement',
+            cadeau: 'un vendredi après-midi de repos payé pour toute l’équipe',
+            defiAns: 'Le manque temporaire de personnel combiné aux lenteurs de livraison',
+            defiDist1: 'Une grève générale imprévue ayant interrompu les transports dans toute la ville',
+            defiDist2: 'Une cyberattaque ayant détruit l’ensemble des données comptables',
+            cadeauAns: 'Une demi-journée de congé payée accordée à tous le vendredi',
+            cadeauDist1: 'L’obligation d’effectuer des heures de nuit durant trois semaines',
+            cadeauDist2: 'La suspension des augmentations pour absorber les surcoûts récents',
+            evidenceDefi: ['personnel', 'approvisionnement'],
+            evidenceCadeau: ['vendredi', 'repos', 'payé'],
+          },
+          {
+            directrice: 'Madame Bélanger',
+            taux: 'cent quinze pour cent des cibles de fidélisation de la clientèle',
+            defi: 'la période d’adaptation exigeante liée à notre nouvelle plateforme informatique',
+            cadeau: 'une prime de reconnaissance exceptionnelle versée avec le prochain salaire',
+            defiAns: 'La transition complexe vers le nouveau logiciel informatique de travail',
+            defiDist1: 'La démission soudaine et imprévue de la totalité des cadres supérieurs de la boîte',
+            defiDist2: 'Un incendie survenu dans les bureaux du siège social en janvier',
+            cadeauAns: 'Une prime exceptionnelle de reconnaissance accordée sur le prochain salaire',
+            cadeauDist1: 'Une diminution imposée du nombre de semaines de congés payés autorisées cet été',
+            cadeauDist2: 'L’imposition d’une tenue uniforme achetée aux frais des salariés',
+            evidenceDefi: ['adaptation', 'plateforme', 'informatique'],
+            evidenceCadeau: ['prime', 'reconnaissance', 'salaire'],
+          },
+          {
+            directrice: 'Madame Bouchard',
+            taux: 'l’ensemble des livrables demandés avec deux semaines d’avance',
+            defi: 'les échéances très serrées imposées pour achever ce contrat d’envergure',
+            cadeau: 'un repas convivial de célébration entièrement pris en charge par l’entreprise',
+            defiAns: 'Le calendrier extrêmement serré imparti pour mener à bien le contrat',
+            defiDist1: 'La perte définitive des accès téléphoniques pendant un mois complet',
+            defiDist2: 'Une annulation du projet décidée par le client avant la reprise',
+            cadeauAns: 'Un repas convivial et festif pris en charge par la direction',
+            cadeauDist1: 'L’obligation de travailler tous les samedis jusqu’à la fin du trimestre',
+            cadeauDist2: 'Le retrait des pauses de travail quotidiennes durant deux mois',
+            evidenceDefi: ['échéances', 'serrées', 'contrat'],
+            evidenceCadeau: ['repas', 'convivial', 'célébration'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Bonjour à toute l’équipe ! Je tenais à vous réunir aujourd’hui pour faire le bilan de notre troisième trimestre, et je dois vous dire que je suis immensément fière de chacun d’entre vous. Les chiffres viennent de tomber : nous avons atteint ${s.taux} ! Compte tenu des défis importants auxquels nous avons fait face ces derniers mois, notamment ${s.defi}, ce résultat est tout simplement remarquable. Votre solidarité, vos efforts continus et votre créativité ont fait toute la différence. Je tiens à vous exprimer ma plus sincère reconnaissance. Pour souligner cette belle réussite collective comme il se doit, la direction générale a approuvé ${s.cadeau}. Prenez ce temps pour vous reposer et célébrer, vous l’avez amplement mérité ! Félicitations à tous !`,
+          text: `— Bonjour à toute l’équipe ! Je tenais à vous réunir aujourd’hui pour faire le bilan de notre troisième trimestre, et je dois vous dire que je suis immensément fière de chacun d’entre vous. Les chiffres viennent de tomber : nous avons atteint ${t.taux} ! Compte tenu des défis importants auxquels nous avons fait face ces derniers mois, notamment ${t.defi}, ce résultat est tout simplement remarquable. Votre solidarité, vos efforts continus et votre créativité ont fait toute la différence. Je tiens à vous exprimer ma plus sincère reconnaissance. Pour souligner cette belle réussite collective comme il se doit, la direction générale a approuvé ${t.cadeau}. Prenez ce temps pour vous reposer et célébrer, vous l’avez amplement mérité ! Félicitations à tous !`,
           questions: [
-            ['Quel sentiment dominant la directrice exprime-t-elle avec enthousiasme ?', 'Une grande fierté devant l’atteinte des objectifs de l’équipe', 'Une vive inquiétude quant à la rentabilité globale des opérations à venir', 'Un mécontentement lié au non-respect des échéances'],
-            ['Quelle difficulté majeure l’équipe a-t-elle surmontée au cours du trimestre ?', 'Composer avec des effectifs réduits et des contraintes d’approvisionnement', 'Gérer une grève générale touchant l’ensemble de la ville', 'Surmonter une panne informatique majeure ayant détruit toutes les données'],
-            ['Quelle récompense concrète la supérieure annonce-t-elle à ses employés ?', 'Un congé payé le vendredi après-midi offert à tous les membres de l’équipe', 'L’attribution de quarts de nuit obligatoires durant trois semaines', 'La suspension temporaire des primes annuelles pour financer les coûts'],
+            makeQuestion('Quel sentiment dominant la directrice exprime-t-elle avec chaleur ?', 'Une grande fierté devant l’atteinte des objectifs collectifs de l’équipe', 'Une vive inquiétude financière quant à la rentabilité future de l’ensemble de l’organisation', 'Un vif mécontentement causé par le non-respect répété des délais convenus initialement', ['fière', 'bilan', 'objectifs']),
+            makeQuestion('Quelle difficulté majeure l’équipe est-elle parvenue à surmonter ?', t.defiAns, t.defiDist1, t.defiDist2, t.evidenceDefi),
+            makeQuestion('Quelle marque de reconnaissance concrète la direction générale accorde-t-elle ?', t.cadeauAns, t.cadeauDist1, t.cadeauDist2, t.evidenceCadeau),
           ],
         }
       },
@@ -1985,58 +3005,166 @@ export const N05_06_SCENARIOS = {
     // Scenario 1 (Template, Ex 0): Satisfaction de la cheffe de projet après un audit réussi
     Object.assign(
       (rand) => {
-        const slots = [
-          { cheffe: 'Chantal', audit: 'l’audit de conformité aux normes environnementales', note: 'une note excellente sans aucun manquement relevé', reconfort: 'des cartes-cadeaux de détente et un après-midi festif au bureau' },
-          { cheffe: 'Monique', audit: 'l’inspection provinciale de qualité des services aux usagers', note: 'les félicitations officielles du comité d’inspection pour nos dossiers', reconfort: 'une journée complète de ressourcement pour tous les départements' },
-          { cheffe: 'Isabelle', audit: 'l’évaluation externe de sécurité informatique de nos serveurs', note: 'la mention d’excellence la plus haute jamais décernée à notre firme', reconfort: 'une enveloppe budgétaire spéciale pour rénover notre salle de pause' },
+        const tuples = [
+          {
+            cheffe: 'Chantal',
+            audit: 'l’audit de conformité aux normes environnementales',
+            note: 'une note excellente sans aucun manquement relevé par les inspecteurs',
+            reconfort: 'des cartes-cadeaux de détente et un après-midi festif au bureau',
+            noteAns: 'Une note exemplaire attribuée sans aucune défaillance constatée',
+            noteDist1: 'Un avertissement sévère exigeant une remise aux normes sous trente jours',
+            noteDist2: 'Une mise en demeure officielle pour pollution de l’environnement',
+            reconfortAns: 'Des cartes-cadeaux de détente accompagnées d’un après-midi festif au travail',
+            reconfortDist1: 'Une réduction drastique de moitié des journées de télétravail hebdomadaires autorisées',
+            reconfortDist2: 'Une pénalité financière retenue sur la rémunération mensuelle',
+            evidenceNote: ['excellente', 'manquement', 'inspecteurs'],
+            evidenceReconfort: ['cartes-cadeaux', 'détente', 'festif'],
+          },
+          {
+            cheffe: 'Monique',
+            audit: 'l’inspection provinciale de qualité des services aux usagers',
+            note: 'les félicitations officielles du comité d’inspection pour nos dossiers',
+            reconfort: 'une journée complète de ressourcement pour tous les départements',
+            noteAns: 'Les félicitations formelles du comité saluant la rigueur des dossiers',
+            noteDist1: 'Un blâme public adressé à la direction pour mauvaise gestion des usagers',
+            noteDist2: 'Une recommandation de fermer temporairement le service d’accueil',
+            reconfortAns: 'L’attribution d’une journée entière de ressourcement à tout le personnel',
+            reconfortDist1: 'L’obligation stricte de suivre des cours magistraux du soir chaque semaine ouvrable',
+            reconfortDist2: 'Le gel complet des embauches pour l’année à venir',
+            evidenceNote: ['félicitations', 'comité', 'dossiers'],
+            evidenceReconfort: ['journée', 'ressourcement', 'départements'],
+          },
+          {
+            cheffe: 'Isabelle',
+            audit: 'l’évaluation externe de sécurité informatique de nos serveurs',
+            note: 'la mention d’excellence la plus haute jamais décernée à notre firme',
+            reconfort: 'une enveloppe budgétaire spéciale pour rénover notre salle de pause',
+            noteAns: 'La distinction d’excellence maximale octroyée pour la première fois à la firme',
+            noteDist1: 'Un rapport critique pointant d’innombrables failles de sécurité',
+            noteDist2: 'Une amende forfaitaire imposée pour non-respect des protocoles de sécurité',
+            reconfortAns: 'Un budget dédié au réaménagement complet de la salle de pause de l’équipe',
+            reconfortDist1: 'Le remplacement forcé de l’ensemble du matériel informatique aux frais des salariés',
+            reconfortDist2: 'L’interdiction formelle d’utiliser Internet pour le travail quotidien',
+            evidenceNote: ['excellence', 'haute', 'firme'],
+            evidenceReconfort: ['enveloppe', 'budgétaire', 'pause'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Merci à tous d’être venus. J’ai les résultats officiels de ${s.audit}, et je ne peux cacher ma fierté. Nous avons obtenu ${s.note} ! Lorsque nous avons commencé ce chantier il y a six mois, plusieurs personnes doutaient de notre capacité à réussir dans des délais aussi courts. Vous avez fait preuve d’une rigueur remarquable, en révisant chaque procédure et en vous entraidant sans compter vos heures. Je suis touchée par votre dévouement constant. Pour souligner cette très belle réussite qui met en valeur notre équipe, j’ai le plaisir de vous annoncer ${s.reconfort}. Merci sincèrement pour votre excellent travail !`,
+          text: `— Merci à tous d’être venus. J’ai les résultats officiels de ${t.audit}, et je ne peux cacher ma fierté. Nous avons obtenu ${t.note} ! Lorsque nous avons commencé ce chantier il y a six mois, plusieurs personnes doutaient de notre capacité à réussir dans des délais aussi courts. Vous avez fait preuve d’une rigueur remarquable, en révisant chaque procédure et en vous entraidant sans compter vos heures. Je suis touchée par votre dévouement constant. Pour souligner cette très belle réussite qui met en valeur notre équipe, j’ai le plaisir de vous annoncer ${t.reconfort}. Merci sincèrement pour votre excellent travail !`,
           questions: [
-            ['Pourquoi la cheffe d’équipe convoque-t-elle ses collègues avec enthousiasme ?', 'Souligner la réussite collective lors de la vérification externe', 'Annoncer la réorganisation de certains départements déficitaires du réseau', 'Présenter de nouveaux indicateurs de performance stricts'],
-            ['Quelle mention ou performance l’équipe a-t-elle décrochée lors de l’audit ?', 'Une note exemplaire attribuée sans aucun manquement majeur constaté', 'Un avertissement formel exigeant la révision complète du protocole', 'Une mise sous tutelle temporaire de l’équipe par la direction régionale'],
-            ['Quel geste de reconnaissance la supérieure partage-t-elle avec son équipe ?', 'L’octroi de bons-cadeaux pour se détendre et un moment festif partagé', 'Une note de réprimande générale déposée dans les dossiers du personnel', 'L’obligation de reprendre les audits chaque mois sans préavis'],
+            makeQuestion('Pourquoi la cheffe d’équipe convoque-t-elle ses collègues avec enthousiasme ?', 'Pour souligner le succès éclatant obtenu lors de l’audit externe', 'Pour planifier le licenciement économique de plusieurs employés', 'Pour dénoncer les retards accumulés dans la livraison des dossiers', ['audit', 'résultats', 'fierté']),
+            makeQuestion('Quel résultat remarquable l’équipe a-t-elle décroché lors de cette vérification ?', t.noteAns, t.noteDist1, t.noteDist2, t.evidenceNote),
+            makeQuestion('Quel geste de reconnaissance la gestionnaire annonce-t-elle pour récompenser l’effort ?', t.reconfortAns, t.reconfortDist1, t.reconfortDist2, t.evidenceReconfort),
           ],
         }
       },
       { situation: 0, capacity: 3 }
     ),
-    // Scenario 2 (Template, Ex 1): Déception d'un ami refusé en techniques policières
+    // Scenario 2 (Template, Ex 1): Déception d'un ami refusé dans un programme d'études
     Object.assign(
       (rand) => {
-        const slots = [
-          { ami: 'Félix', programme: 'en techniques policières au collège d’Alma', cause: 'ma note au test de sélection était un peu sous le seuil requis', soutien: 'prendre quelques jours de repos avant de penser à une autre demande' },
-          { ami: 'Samuel', programme: 'en techniques de réadaptation physique au cégep', cause: 'le grand nombre de candidatures pour très peu de places disponibles', soutien: 'suivre des cours de perfectionnement pour bonifier ma candidature' },
-          { ami: 'Mathieu', programme: 'en soins préhospitaliers d’urgence pour ambulanciers', cause: 'le stress de l’entrevue m’a fait perdre mes repères devant le comité', soutien: 'consulter un conseiller en orientation pour explorer d’autres voies' },
+        const tuples = [
+          {
+            ami: 'Félix',
+            programme: 'en techniques policières au collège d’Alma',
+            cause: 'ma note au test de sélection était un peu sous le seuil requis',
+            soutien: 'prendre quelques jours de repos avant de penser à une autre demande',
+            causeAns: 'Un résultat légèrement inférieur à la note minimale fixée au test de sélection',
+            causeDist1: 'Un manquement disciplinaire très grave figurant au dossier scolaire de l’étudiant',
+            causeDist2: 'L’omission d’envoyer son certificat de naissance avec la demande',
+            soutienAns: 'S’accorder quelques journées de repos pour accuser le coup avant d’agir',
+            soutienDist1: 'S’expatrier immédiatement vers un autre pays pour renoncer à tout travail au Québec',
+            soutienDist2: 'Déposer une plainte au tribunal contre la direction du collège',
+            evidenceCause: ['test', 'sélection', 'seuil'],
+            evidenceSoutien: ['jours', 'repos', 'demande'],
+          },
+          {
+            ami: 'Samuel',
+            programme: 'en techniques de réadaptation physique au cégep',
+            cause: 'le grand nombre de candidatures pour très peu de places disponibles',
+            soutien: 'suivre des cours de perfectionnement pour bonifier ma candidature future',
+            causeAns: 'La forte concurrence générée par un nombre très restreint de places offertes',
+            causeDist1: 'L’absence remarquée d’une lettre de recommandation signée par un ancien enseignant',
+            causeDist2: 'Une mauvaise note obtenue à un test de dépistage physique obligatoire',
+            soutienAns: 'Suivre des cours de perfectionnement en vue d’enrichir un futur dossier',
+            soutienDist1: 'Cesser définitivement toute activité scolaire pour chercher un emploi non qualifié',
+            soutienDist2: 'Boycotter l’ensemble des institutions d’enseignement collégial de la province',
+            evidenceCause: ['candidatures', 'places', 'disponibles'],
+            evidenceSoutien: ['perfectionnement', 'candidature', 'future'],
+          },
+          {
+            ami: 'Mathieu',
+            programme: 'en soins préhospitaliers d’urgence pour ambulanciers',
+            cause: 'le stress de l’entrevue m’a fait perdre mes repères devant le comité',
+            soutien: 'consulter un conseiller en orientation pour explorer d’autres voies',
+            causeAns: 'La perte de moyens liée à l’anxiété ressentie lors de l’entrevue de sélection',
+            causeDist1: 'Le rejet automatique de son permis de conduire pour cause d’infraction',
+            causeDist2: 'L’impossibilité de fournir un relevé médical certifié par un médecin',
+            soutienAns: 'Consulter un professionnel de l’orientation pour analyser d’autres options',
+            soutienDist1: 'S’inscrire sans attendre à un concours d’officier de l’armée étrangère',
+            soutienDist2: 'Exiger une révision judiciaire immédiate de la décision du comité',
+            evidenceCause: ['stress', 'entrevue', 'repères'],
+            evidenceSoutien: ['conseiller', 'orientation', 'voies'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Allô Jean... C’est ${s.ami}. Je t’appelle parce que j’ai reçu la réponse ce matin et je suis vraiment découragé. J’ai été refusé ${s.programme}. C’est difficile à encaisser après avoir passé tout mon hiver à réviser et à me préparer chaque fin de semaine. La lettre de refus indique que ${s.cause}. J’ai l’impression que mes efforts n’ont pas suffi et j’ai le moral à plat depuis deux heures. Je ne sais plus trop comment envisager la suite pour le moment. Mon père me dit que ce n’est pas la fin du monde et qu’il existe d’autres avenues, mais là, j’ai surtout besoin de ${s.soutien}. Merci d’être là pour m’écouter sans me juger, ça me fait du bien d’en parler avec toi.`,
+          text: `— Allô Jean... C’est ${t.ami}. Je t’appelle parce que j’ai reçu la réponse ce matin et je suis vraiment découragé. J’ai été refusé ${t.programme}. C’est difficile à encaisser après avoir passé tout mon hiver à réviser et à me préparer chaque fin de semaine. La lettre de refus indique que ${t.cause}. J’ai l’impression que mes efforts n’ont pas suffi et j’ai le moral à plat depuis deux heures. Je ne sais plus trop comment envisager la suite pour le moment. Mon père me dit que ce n’est pas la fin du monde et qu’il existe d’autres avenues, mais là, j’ai surtout besoin de ${t.soutien}. Merci d’être là pour m’écouter sans me juger, ça me fait du bien d’en parler avec toi.`,
           questions: [
-            ['Quelle émotion pénible l’ami exprime-t-il au téléphone ?', 'Une vive déception et du découragement après une réponse négative', 'Une grande satisfaction d’avoir franchi la première étape de sélection', 'Une indifférence marquée face au verdict du comité'],
-            ['Quelle explication officielle lui a été transmise dans la lettre de refus ?', 'Un résultat légèrement inférieur au seuil requis lors de l’examen', 'Un oubli administratif dans la transmission du certificat d’études', 'Une recommandation défavorable formulée par un ancien employeur mécontent'],
-            ['De quoi l’ami ressent-il le plus grand besoin dans l’immédiat ?', 'S’accorder quelques jours de repos pour digérer la nouvelle avant d’agir', 'Partir vivre à l’autre bout du pays sans donner de nouvelles', 'Cesser définitivement toute démarche d’apprentissage professionnel'],
+            makeQuestion('Quel état d’esprit douloureux l’ami partage-t-il au téléphone ?', 'Un profond découragement consécutif au refus de son admission', 'Une grande joie d’avoir réussi la première épreuve éliminatoire', 'Une indifférence totale envers la décision rendue par le collège', ['découragé', 'refusé']),
+            makeQuestion('Quel motif officiel la lettre de refus invoque-t-elle pour motiver cette décision ?', t.causeAns, t.causeDist1, t.causeDist2, t.evidenceCause),
+            makeQuestion('De quoi le jeune homme éprouve-t-il le plus grand besoin dans l’immédiat ?', t.soutienAns, t.soutienDist1, t.soutienDist2, t.evidenceSoutien),
           ],
         }
       },
       { situation: 1, capacity: 3 }
     ),
-    // Scenario 3 (Template, Ex 1): Déception d'une amie refusée en médecine vétérinaire
+    // Scenario 3 (Template, Ex 1): Déception d'une amie refusée en programme universitaire
     Object.assign(
       (rand) => {
-        const slots = [
-          { amie: 'Ariane', universite: 'à l’Université de Montréal en médecine vétérinaire', reve: 'soigner les animaux en région depuis mon enfance', alternative: 'faire une année en sciences biomédicales pour hausser mes notes' },
-          { amie: 'Mélissa', universite: 'en pharmacie clinique à l’Université Laval', reve: 'travailler en milieu hospitalier auprès des aînés', alternative: 'suivre un certificat complémentaire pour enrichir mes compétences' },
-          { amie: 'Laurence', universite: 'en physiothérapie à l’Université de Sherbrooke', reve: 'soutenir les personnes blessées pour retrouver leur mobilité', alternative: 'm’inscrire dans une filière voisine pour faire une nouvelle demande' },
+        const tuples = [
+          {
+            amie: 'Ariane',
+            universite: 'à l’Université de Montréal en médecine vétérinaire',
+            reve: 'soigner les animaux en région rurale depuis mon enfance',
+            alternative: 'faire une année en sciences biomédicales pour hausser mes notes',
+            altAns: 'Entreprendre une année préparatoire en sciences biomédicales pour améliorer ses notes',
+            altDist1: 'Renoncer définitivement aux études supérieures pour travailler comme aide-animalière non qualifiée',
+            altDist2: 'Tenter sa chance dans un conservatoire de musique sans préparation',
+            evidenceReve: ['soigner', 'animaux', 'enfance'],
+            evidenceAlt: ['sciences', 'biomédicales', 'notes'],
+          },
+          {
+            amie: 'Mélissa',
+            universite: 'en pharmacie clinique à l’Université Laval',
+            reve: 'travailler en milieu hospitalier auprès des aînés',
+            alternative: 'suivre un certificat universitaire complémentaire pour enrichir mes compétences',
+            altAns: 'Compléter un certificat universitaire pour renforcer la valeur de son profil',
+            altDist1: 'Ouvrir sans diplôme requis un petit commerce indépendant de vente de produits naturels',
+            altDist2: 'Partir vivre dans un pays étranger sans donner d’explications',
+            evidenceReve: ['hospitalier', 'aînés'],
+            evidenceAlt: ['certificat', 'complémentaire', 'compétences'],
+          },
+          {
+            amie: 'Laurence',
+            universite: 'en physiothérapie à l’Université de Sherbrooke',
+            reve: 'soutenir les personnes blessées pour retrouver leur mobilité',
+            alternative: 'm’inscrire dans une filière voisine pour faire une nouvelle demande l’an prochain',
+            altAns: 'Intégrer une filière connexe afin de retenter sa chance l’année suivante',
+            altDist1: 'Déposer une poursuite judiciaire contre le doyen de la faculté de médecine',
+            altDist2: 'Abandonner toute ambition dans le secteur des soins de santé',
+            evidenceReve: ['personnes', 'blessées', 'mobilité'],
+            evidenceAlt: ['filière', 'voisine', 'demande'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Salut Julie... Je t’écris avec le cœur gros. Je viens d’ouvrir le portail d’admission ${s.universite} et ma candidature n’a pas été retenue. Je me sens vraiment triste et déçue. Tu sais à quel point c’était mon rêve de ${s.reve}. J’ai maintenu de très bonnes notes pendant tout mon parcours collégial et j’ai fait du bénévolat pour consolider mon dossier. Voir une lettre impersonnelle écarter mes projets après tant d’efforts, c’est dur à accepter. Pour l’instant, j’ai de la difficulté à voir le côté positif. Quand le choc sera passé, j’envisagerai probablement de ${s.alternative}. Mais pour aujourd’hui, j’ai simplement besoin d’en parler avec une amie et de souffler un peu.`,
+          text: `— Salut Julie... Je t’écris avec le cœur gros. Je viens d’ouvrir le portail d’admission ${t.universite} et ma candidature n’a pas été retenue. Je me sens vraiment triste et déçue. Tu sais à quel point c’était mon rêve de ${t.reve}. J’ai maintenu de très bonnes notes pendant tout mon parcours collégial et j’ai fait du bénévolat pour consolider mon dossier. Voir une lettre impersonnelle écarter mes projets après tant d’efforts, c’est dur à accepter. Pour l’instant, j’ai de la difficulté à voir le côté positif. Quand le choc sera passé, j’envisagerai probablement de ${t.alternative}. Mais pour aujourd’hui, j’ai simplement besoin d’en parler avec une amie et de souffler un peu.`,
           questions: [
-            ['Quel sentiment douloureux l’amie confie-t-elle par écrit ?', 'Une profonde tristesse face au refus de sa candidature au programme', 'La colère envers le coût trop élevé des droits de scolarité universitaire', 'Le soulagement d’éviter un déménagement coûteux'],
-            ['Quel engagement bénévole avait-elle pris pour maximiser ses chances ?', 'Un excellent dossier académique doublé d’un engagement bénévole actif', 'Le versement d’un don important à la fondation du campus', 'La participation à un programme d’échange étudiant de longue durée en Europe'],
-            ['Quelle option constructive envisage-t-elle lorsque le choc sera atténué ?', 'Suivre une passerelle dans une discipline connexe afin de hausser sa moyenne', 'Quitter les études pour occuper un emploi de bureau non spécialisé', 'Renoncer totalement à œuvrer dans le domaine de la santé humaine'],
+            makeQuestion('Quelle triste nouvelle l’amie partage-t-elle avec émotion ?', 'Le refus de son admission dans le programme universitaire souhaité', 'La perte inattendue de son emploi à temps partiel à la clinique', 'L’annulation de son stage d’observation auprès d’une équipe sportive', ['admission', 'candidature', 'retenue']),
+            makeQuestion('Quelle aspiration de longue date motivait particulièrement son projet d’études ?', 'Le souhait profond de concrétiser une vocation née dès l’enfance', 'Le désir de percevoir un salaire très élevé dès la fin du baccalauréat', 'La volonté de diriger un département sans jamais être en contact avec le public', ['rêve', 'efforts']),
+            makeQuestion('Quelle stratégie académique constructive envisage-t-elle après le choc de l’annonce ?', t.altAns, t.altDist1, t.altDist2, t.evidenceAlt),
           ],
         }
       },
@@ -2045,18 +3173,60 @@ export const N05_06_SCENARIOS = {
     // Scenario 4 (Template, Ex 0): Satisfaction du gestionnaire pour l'ouverture d'un nouveau magasin
     Object.assign(
       (rand) => {
-        const slots = [
-          { gestionnaire: 'Patrick Roy', commerce: 'de notre succursale d’alimentation biologique', affluence: 'plus de deux mille clients franchir nos portes', fete: 'un cinq à sept chaleureux avec bouchées locales' },
-          { gestionnaire: 'Luc Tremblay', commerce: 'de notre nouvelle librairie indépendante de quartier', affluence: 'une file ininterrompue de lecteurs passionnés', fete: 'un déjeuner convivial aux viennoiseries offert à tous' },
-          { gestionnaire: 'Simon Bouchard', commerce: 'de notre boutique coopérative d’articles de plein air', affluence: 'un niveau élevé de ventes pour un jour inaugural', fete: 'une soirée de reconnaissance avec tirage de prix' },
+        const tuples = [
+          {
+            gestionnaire: 'Patrick Roy',
+            commerce: 'de notre succursale d’alimentation biologique',
+            affluence: 'plus de deux mille clients franchir nos portes avec curiosité',
+            remarque: 'la fraîcheur exceptionnelle de nos produits maraîchers et la propreté impeccable des rayons',
+            fete: 'un cinq à sept chaleureux avec dégustation de produits du terroir',
+            remarqueAns: 'La propreté exemplaire des allées et la grande fraîcheur des produits maraîchers',
+            remarqueDist1: 'Les rabais massifs et exceptionnels accordés sur les produits périmés de la semaine',
+            remarqueDist2: 'La présence d’une aire de stationnement souterrain entièrement gratuite',
+            feteAns: 'Un rassemblement de cinq à sept offrant des bouchées de produits du terroir',
+            feteDist1: 'Une garde de nuit obligatoire imposée à tous les employés pour effectuer le grand ménage',
+            feteDist2: 'Une formation disciplinaire sur le maniement des caisses enregistreuses',
+            evidenceRemarque: ['fraîcheur', 'produits', 'propreté'],
+            evidenceFete: ['cinq', 'sept', 'terroir'],
+          },
+          {
+            gestionnaire: 'Luc Tremblay',
+            commerce: 'de notre nouvelle librairie indépendante de quartier',
+            affluence: 'une file ininterrompue de lecteurs passionnés tout au long de la journée',
+            remarque: 'la grande disponibilité de nos conseillers et la sélection originale de nos ouvrages',
+            fete: 'un déjeuner convivial garni de viennoiseries offert à tous les employés',
+            remarqueAns: 'L’écoute attentionnée des libraires et le choix original des titres proposés',
+            remarqueDist1: 'La gratuité complète de l’ensemble des bandes dessinées et albums pour les jeunes enfants',
+            remarqueDist2: 'L’ouverture continue du commerce vingt-quatre heures sur vingt-quatre',
+            feteAns: 'Un déjeuner matinal d’équipe garni de viennoiseries offert par la gérance',
+            feteDist1: 'Une corvée dominicale fastidieuse d’inventaire manuel réalisée dans l’arrière-boutique',
+            feteDist2: 'Un avertissement collectif sur les risques de vol à l’étalage',
+            evidenceRemarque: ['disponibilité', 'conseillers', 'ouvrages'],
+            evidenceFete: ['déjeuner', 'viennoiseries', 'employés'],
+          },
+          {
+            gestionnaire: 'Simon Bouchard',
+            commerce: 'de notre boutique coopérative d’articles de plein air',
+            affluence: 'un volume record de ventes dès cette première journée inaugurale',
+            remarque: 'l’expertise technique de nos vendeurs et leurs conseils personnalisés très avisés',
+            fete: 'une soirée festive de remerciements assortie d’un tirage de cartes-cadeaux',
+            remarqueAns: 'Les compétences techniques des vendeurs et la justesse de leurs conseils',
+            remarqueDist1: 'La distribution d’échantillons de tentes sans aucune contrepartie',
+            remarqueDist2: 'La reprise sans limite de vieux équipements de sport usagés',
+            feteAns: 'Une soirée de célébration amicale incluant un tirage de cartes-cadeaux',
+            feteDist1: 'Une inspection surprise des casiers personnels par les services de sécurité',
+            feteDist2: 'Une retenue sur salaire pour compenser les pertes de lancement',
+            evidenceRemarque: ['expertise', 'vendeurs', 'conseils'],
+            evidenceFete: ['soirée', 'festive', 'cartes-cadeaux'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Chère équipe, rassemblez-vous deux minutes avant la fermeture ! Je ne pouvais pas vous laisser partir ce soir sans vous féliciter chaleureusement pour l’inauguration ${s.commerce}. Cette journée a dépassé nos prévisions les plus optimistes : nous avons vu ${s.affluence} ! Malgré la foule importante et le rythme soutenu à la caisse, vous avez conservé votre calme, votre sourire et votre professionnalisme. Plusieurs clients m’ont fait part de leur appréciation devant la qualité de notre accueil. Je suis très fier de diriger une équipe aussi engagée et efficace. Demain soir, la direction vous convie à ${s.fete}. Merci du fond du cœur pour votre belle énergie aujourd’hui !`,
+          text: `— Chère équipe, rassemblez-vous deux minutes avant la fermeture ! Je ne pouvais pas vous laisser partir ce soir sans vous féliciter chaleureusement pour l’inauguration ${t.commerce}. Cette journée a dépassé nos prévisions les plus optimistes : nous avons vu ${t.affluence} ! Malgré la foule importante et le rythme soutenu à la caisse, vous avez conservé votre calme, votre sourire et votre professionnalisme. Plusieurs clients m’ont fait part de leur appréciation devant ${t.remarque}. Je suis très fier de diriger une équipe aussi engagée et efficace. Demain soir, la direction vous convie à ${t.fete}. Merci du fond du cœur pour votre belle énergie aujourd’hui !`,
           questions: [
-            ['Quel bilan chaleureux le gérant partage-t-il lors du rassemblement d’équipe ?', 'Une grande fierté devant l’accueil chaleureux réservé par les clients', 'Une vive inquiétude quant à la rentabilité immédiate des investissements', 'Le regret d’avoir ouvert les portes trop tôt en saison'],
-            ['Quelle remarque élogieuse des clients a particulièrement touché le gestionnaire ?', 'La courtoisie du personnel et la mise en valeur soignée des produits', 'Les rabais massifs accordés sur l’ensemble des articles', 'La superficie exceptionnelle des aires de stationnement souterraines gratuites'],
-            ['Quelle activité de célébration conviviale est organisée pour remercier l’équipe ?', 'Un rassemblement festif réunissant l’équipe autour de bouchées régionales', 'Une période de travail nocturne consacrée au rangement des rayons', 'Une séance de formation obligatoire portant sur les règles d’inventaire'],
+            makeQuestion('Quel bilan gratifiant le responsable partage-t-il lors du rassemblement d’équipe ?', 'Une immense fierté devant l’accueil chaleureux réservé par le public', 'Une vive inquiétude face au déficit d’exploitation dès le premier jour', 'Le regret amer d’avoir ouvert les portes trop tôt dans la saison', ['inauguration', 'féliciter', 'journée']),
+            makeQuestion('Quel compliment formulé par la clientèle a particulièrement touché le gestionnaire ?', t.remarqueAns, t.remarqueDist1, t.remarqueDist2, t.evidenceRemarque),
+            makeQuestion('Quelle célébration conviviale est organisée le lendemain pour remercier le personnel ?', t.feteAns, t.feteDist1, t.feteDist2, t.evidenceFete),
           ],
         }
       },
