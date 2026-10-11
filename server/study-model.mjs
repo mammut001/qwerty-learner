@@ -216,6 +216,29 @@ function validateEchelleMemory(item) {
     throw new Error('Invalid echelle memory')
 }
 
+function validateEchelleSpeech(speech) {
+  if (speech === undefined) return
+  if (!record(speech) ||
+      !integer(speech.wordCount, 0, 100000) ||
+      !number(speech.speechSeconds, 0, 86400) ||
+      !number(speech.wordsPerMinute, 0, 10000) ||
+      !number(speech.articulationRate, 0, 10000) ||
+      !integer(speech.pauseCount, 0, 100000) ||
+      !integer(speech.longPauseCount, 0, 100000) ||
+      !number(speech.longestPauseSeconds, 0, 86400) ||
+      !number(speech.pauseRatio, 0, 1) ||
+      !integer(speech.fillerCount, 0, 100000) ||
+      !number(speech.meanConfidence, 0, 1) ||
+      !number(speech.lowConfidenceRatio, 0, 1) ||
+      !['clear', 'mostly-clear', 'unclear'].includes(speech.intelligibility) ||
+      !Array.isArray(speech.lowConfidenceWords) || speech.lowConfidenceWords.length > 12)
+    throw new Error('Invalid echelle evaluation speech metrics')
+  for (const w of speech.lowConfidenceWords) {
+    if (!record(w) || !text(w.word, 100) || !number(w.start, 0, 86400) || !number(w.end, 0, 86400) || !number(w.confidence, 0, 1))
+      throw new Error('Invalid echelle evaluation low confidence word')
+  }
+}
+
 function validateEchelleAi(ai) {
   if (ai === undefined) return
   if (!record(ai) || typeof ai.passed !== 'boolean' || !record(ai.scores) || !number(ai.mean, 0, 4) ||
@@ -229,6 +252,7 @@ function validateEchelleAi(ai) {
     if (!record(correction) || !text(correction.original, 300) || !text(correction.suggestion, 300) ||
         !text(correction.explanationZh, 300))
       throw new Error('Invalid echelle evaluation')
+  validateEchelleSpeech(ai.speech)
 }
 
 function validateEchelle(value) {

@@ -125,9 +125,36 @@ const OUTPUT_SHAPE = `{
 }`
 
 export function buildMessages(rubric, submission, nonce) {
-  const medium = rubric.skill === 'speaking'
-    ? `Il s’agit de la transcription d’une production orale de ${submission.seconds ?? '?'} secondes${submission.inputMode === 'speech' ? ', obtenue par reconnaissance vocale' : ''}. Ne pénalisez ni la ponctuation, ni les majuscules, ni les erreurs typiques de transcription automatique.`
-    : 'Il s’agit d’une production écrite.'
+  let medium = 'Il s’agit d’une production écrite.'
+  let speechFactualBlock = ''
+
+  if (rubric.skill === 'speaking') {
+    medium = `Il s’agit de la transcription d’une production orale de ${submission.seconds ?? '?'} secondes${submission.inputMode === 'speech' || submission.inputMode === 'asr' ? ', obtenue par reconnaissance vocale' : ''}. Ne pénalisez ni la ponctuation, ni les majuscules, ni les erreurs typiques de transcription automatique.`
+    if (submission.speech) {
+      const s = submission.speech
+      const lowWords = s.lowConfidenceWords.length > 0
+        ? s.lowConfidenceWords.map((w) => `"${w.word}" (confiance ${w.confidence})`).join(', ')
+        : 'aucun mot incertain'
+      speechFactualBlock = [
+        'Mesures acoustiques et reconnaissance vocale (Deepgram) :',
+        `- Durée totale : ${submission.seconds ?? s.speechSeconds} s (temps de parole effectif : ${s.speechSeconds} s)`,
+        `- Débit : ${s.wordsPerMinute} mots/min (taux d'articulation : ${s.articulationRate} mots/min)`,
+        `- Pauses : ${s.pauseCount} pause(s) >= 0.4s, ${s.longPauseCount} pause(s) longue(s) >= 1.5s (pause la plus longue : ${s.longestPauseSeconds} s, ratio de pause : ${s.pauseRatio})`,
+        `- Mots de remplissage (fillers) : ${s.fillerCount}`,
+        `- Indice d'intelligibilité : ${s.intelligibility} (confiance moyenne de reconnaissance : ${s.meanConfidence}, proportion de mots incertains : ${s.lowConfidenceRatio})`,
+        `- Mots à faible confiance (< 0.6) : ${lowWords}`,
+        'Instruction obligatoire pour le critère "phonologie" :',
+        'Ce critère doit impérativement être fondé sur ces mesures objectives (fluidité, pauses, débit, fillers) et sur l’indice d’intelligibilité. Notez que la confiance de reconnaissance vocale est un indicateur indirect de clarté/intelligibilité, et non une note phonétique absolue.',
+      ].join('\n')
+    } else {
+      speechFactualBlock = [
+        'Mesures audio non disponibles (mode transcription manuelle ou saisie sans mesures acoustiques).',
+        'Instruction obligatoire pour le critère "phonologie" :',
+        'La prononciation réelle n’ayant pas pu être mesurée, indiquez obligatoirement dans votre commentaire que la prononciation n’a pas pu être évaluée, et attribuez une note neutre de 3 à "phonologie".',
+      ].join('\n')
+    }
+  }
+
   const system = [
     'Vous êtes évaluatrice ou évaluateur certifié selon l’Échelle québécoise des niveaux de compétence en français des personnes immigrantes adultes (ministère de l’Immigration, de la Francisation et de l’Intégration du Québec).',
     'Vous évaluez UNE production par rapport au niveau visé décrit dans la grille fournie, critère par critère, avec l’échelle de notes 0 à 4 fournie.',
@@ -143,6 +170,7 @@ export function buildMessages(rubric, submission, nonce) {
     'Grille d’évaluation (JSON) :',
     JSON.stringify(rubric),
     medium,
+    ...(speechFactualBlock ? [speechFactualBlock] : []),
     `<production-${nonce}>`,
     submission.text,
     `</production-${nonce}>`,
@@ -240,19 +268,64 @@ export function frenchRatio(text) {
   return hits / tokens.length
 }
 
+export function clampSpeechMetrics(raw, text) {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) throw new EchelleAiError('EVALUATION_INVALID')
+  const num = (v, min, max, dflt = 0) => {
+    if (typeof v !== 'number' || !Number.isFinite(v)) return dflt
+    return Math.max(min, Math.min(max, v))
+  }
+  const int = (v, min, max, dflt = 0) => Math.round(num(v, min, max, dflt))
+
+  const VALID_BANDS = ['clear', 'mostly-clear', 'unclear']
+  const intelligibility = VALID_BANDS.includes(raw.intelligibility) ? raw.intelligibility : 'unclear'
+
+  const rawLowWords = Array.isArray(raw.lowConfidenceWords) ? raw.lowConfidenceWords : []
+  const lowConfidenceWords = []
+  for (const entry of rawLowWords) {
+    if (!entry || typeof entry !== 'object') continue
+    const word = String(entry.word || '').trim().slice(0, 50)
+    // Restricted to words that actually occur in the submitted transcript
+    if (!word || !appearsIn(word, text)) continue
+    lowConfidenceWords.push({
+      word,
+      start: Math.round(num(entry.start, 0, 3600) * 100) / 100,
+      end: Math.round(num(entry.end, 0, 3600) * 100) / 100,
+      confidence: Math.round(num(entry.confidence, 0, 1) * 100) / 100,
+    })
+    if (lowConfidenceWords.length >= 12) break
+  }
+
+  return {
+    wordCount: int(raw.wordCount, 0, 10000),
+    speechSeconds: Math.round(num(raw.speechSeconds, 0, 3600) * 100) / 100,
+    wordsPerMinute: Math.round(num(raw.wordsPerMinute, 0, 1000) * 10) / 10,
+    articulationRate: Math.round(num(raw.articulationRate, 0, 1000) * 10) / 10,
+    pauseCount: int(raw.pauseCount, 0, 1000),
+    longPauseCount: int(raw.longPauseCount, 0, 1000),
+    longestPauseSeconds: Math.round(num(raw.longestPauseSeconds, 0, 3600) * 100) / 100,
+    pauseRatio: Math.round(num(raw.pauseRatio, 0, 1) * 100) / 100,
+    fillerCount: int(raw.fillerCount, 0, 1000),
+    meanConfidence: Math.round(num(raw.meanConfidence, 0, 1) * 100) / 100,
+    lowConfidenceWords,
+    lowConfidenceRatio: Math.round(num(raw.lowConfidenceRatio, 0, 1) * 100) / 100,
+    intelligibility,
+  }
+}
+
 export function validateSubmission(input) {
   if (!input || typeof input !== 'object' || Array.isArray(input)) throw new EchelleAiError('EVALUATION_INVALID')
-  const allowed = ['itemId', 'text', 'seconds', 'inputMode']
+  const allowed = ['itemId', 'text', 'seconds', 'inputMode', 'speech']
   if (Object.keys(input).some((key) => !allowed.includes(key))) throw new EchelleAiError('EVALUATION_INVALID')
   const item = ECHELLE_ITEM_CATALOG[input.itemId]
   if (typeof input.itemId !== 'string' || !item || item.kind !== 'production') throw new EchelleAiError('UNKNOWN_PRODUCTION_ITEM')
   if (typeof input.text !== 'string') throw new EchelleAiError('EVALUATION_INVALID')
   const text = input.text.replace(/\r\n?/g, '\n').trim()
   if (!text || text.length > MAX_SUBMISSION_CHARS) throw new EchelleAiError('EVALUATION_INVALID')
-  if (input.inputMode !== undefined && !['typed', 'speech', 'manual-transcript'].includes(input.inputMode))
+  if (input.inputMode !== undefined && !['typed', 'speech', 'manual-transcript', 'asr'].includes(input.inputMode))
     throw new EchelleAiError('EVALUATION_INVALID')
   const words = countWords(text)
   if (item.skill === 'writing') {
+    if (input.speech !== undefined) throw new EchelleAiError('EVALUATION_INVALID')
     if (words < item.wordMin) throw new EchelleAiError('PRODUCTION_TOO_SHORT', 'Not enough words', { wordMin: item.wordMin, words })
     return { item, submission: { itemId: item.id, text, words, inputMode: 'typed' } }
   }
@@ -261,7 +334,20 @@ export function validateSubmission(input) {
   const seconds = Math.floor(input.seconds)
   if (seconds < item.secondsMin || words < 3)
     throw new EchelleAiError('PRODUCTION_TOO_SHORT', 'Not long enough', { secondsMin: item.secondsMin, seconds, words })
-  return { item, submission: { itemId: item.id, text, words, seconds, inputMode: input.inputMode ?? 'manual-transcript' } }
+
+  const speech = input.speech !== undefined ? clampSpeechMetrics(input.speech, text) : undefined
+  const inputMode = input.inputMode ?? (speech ? 'asr' : 'manual-transcript')
+  return {
+    item,
+    submission: {
+      itemId: item.id,
+      text,
+      words,
+      seconds,
+      inputMode,
+      ...(speech ? { speech } : {}),
+    },
+  }
 }
 
 /** Applies our checks and pass rule to an already schema-valid provider output. */
@@ -272,11 +358,29 @@ export function finalizeEvaluation(rubric, submission, output, meta) {
   const notFrench = submission.words >= 6 && frenchRatio(submission.text) < 0.12
   if (notFrench) warnings.push('NOT_FRENCH')
 
+  const isSpeaking = rubric.skill === 'speaking'
+  const hasMeasurements = Boolean(submission.speech)
+
   const criteria = rubric.criteria.map((definition) => {
     const id = definition.id
     const entry = output.criteria.find((candidate) => candidate.id === id)
     let score = entry.score
     const evidence = entry.evidence.trim()
+
+    if (id === 'phonologie' && isSpeaking && !hasMeasurements) {
+      // Without acoustic measurements, phonologie cannot be evaluated objectively.
+      // Give a neutral score of 3 so it neither helps nor hurts, with no evidence penalty.
+      score = 3
+      return {
+        id,
+        labelZh: definition.labelZh,
+        score,
+        evidence: '',
+        commentZh: '未提供录音声学测量数据，发音与语音未进行直接评估（中立评分，不影响达标判定）。',
+        unmeasured: true,
+      }
+    }
+
     if (score >= 1 && !evidenceFound(evidence, submission.text)) {
       warnings.push(`EVIDENCE_NOT_FOUND:${id}`)
       score = Math.min(score, 2)
@@ -286,10 +390,16 @@ export function finalizeEvaluation(rubric, submission, output, meta) {
     return { id, labelZh: definition.labelZh, score, evidence: evidence.slice(0, 200), commentZh: entry.commentZh.trim().slice(0, 300) }
   })
   const scores = Object.fromEntries(criteria.map((criterion) => [criterion.id, criterion.score]))
-  const mean = Math.round((criteria.reduce((sum, criterion) => sum + criterion.score, 0) / criteria.length) * 100) / 100
+
+  // When speaking without acoustic measurements, phonologie is excluded from the mean and pass rule.
+  const measurableCriteria = (isSpeaking && !hasMeasurements)
+    ? criteria.filter((c) => c.id !== 'phonologie')
+    : criteria
+
+  const mean = Math.round((measurableCriteria.reduce((sum, c) => sum + c.score, 0) / measurableCriteria.length) * 100) / 100
   const passed =
     mean >= PASS_RULE.requiredMean &&
-    criteria.every((criterion) => criterion.score >= PASS_RULE.minimumPerCriterion) &&
+    measurableCriteria.every((criterion) => criterion.score >= PASS_RULE.minimumPerCriterion) &&
     scores.tache >= PASS_RULE.minimumTask
   const estimatedLevel = passed
     ? Math.max(rubric.level, output.estimatedLevel)
@@ -320,6 +430,7 @@ export function finalizeEvaluation(rubric, submission, output, meta) {
     model: meta.model,
     rubricVersion: rubric.version,
     evaluatedAt: meta.evaluatedAt,
+    ...(submission.speech ? { speech: submission.speech } : {}),
   }
 }
 
@@ -379,6 +490,7 @@ export function storedEvaluation(evaluation) {
     rubricVersion: evaluation.rubricVersion,
     evaluatedAt: evaluation.evaluatedAt,
     corrections: evaluation.corrections,
+    ...(evaluation.speech ? { speech: evaluation.speech } : {}),
   }
 }
 

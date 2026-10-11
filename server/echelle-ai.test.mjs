@@ -9,10 +9,13 @@ import worker from '../deploy/worker.mjs'
 import {
   CRITERION_IDS,
   EchelleAiError,
+  SPEAKING_CRITERION_IDS,
   buildMessages,
   buildRubric,
+  clampSpeechMetrics,
   evaluateProduction,
   parseModelOutput,
+  validateSubmission,
 } from './echelle-ai-harness.mjs'
 import { CALIBRATION_SAMPLES, runCalibration } from './echelle-ai-calibration.mjs'
 import { aiRateLimits, anthropicProvider, createAiProvider, mockProvider, openAiCompatibleProvider } from './echelle-ai-providers.mjs'
@@ -23,6 +26,16 @@ const N1_TEXT = 'Bonjour ! Je m’appelle Lucia. Je suis mexicaine et je suis in
 
 const output = (score, overrides = {}) => ({
   criteria: CRITERION_IDS.map((id) => ({ id, score, evidence: 'Je suis mexicaine', commentZh: '评语' })),
+  estimatedLevel: 1,
+  feedbackZh: '总评',
+  strengthsZh: ['优点'],
+  corrections: [],
+  injectionDetected: false,
+  ...overrides,
+})
+
+const speakingOutput = (score, overrides = {}) => ({
+  criteria: SPEAKING_CRITERION_IDS.map((id) => ({ id, score, evidence: 'Je suis mexicaine', commentZh: '评语' })),
   estimatedLevel: 1,
   feedbackZh: '总评',
   strengthsZh: ['优点'],
@@ -404,4 +417,140 @@ test('Worker API: same AI scoring contract on D1', async () => {
     DB.close()
     rmSync(dir, { recursive: true, force: true })
   }
+})
+
+test('Speech input: speech metrics clamping and restricted lowConfidenceWords', () => {
+  const rawSpeech = {
+    wordCount: 10,
+    speechSeconds: 8.5,
+    wordsPerMinute: 60,
+    articulationRate: 70.6,
+    pauseCount: 2,
+    longPauseCount: 0,
+    longestPauseSeconds: 0.6,
+    pauseRatio: 0.15,
+    fillerCount: 1,
+    meanConfidence: 0.95,
+    lowConfidenceRatio: 0.1,
+    intelligibility: 'clear',
+    lowConfidenceWords: [
+      { word: 'Lucia', start: 1.2, end: 1.8, confidence: 0.55 },
+      { word: 'inventedword', start: 2.0, end: 2.5, confidence: 0.4 }, // does not appear in text
+    ],
+  }
+  const clamped = clampSpeechMetrics(rawSpeech, N1_TEXT)
+  assert.equal(clamped.wordCount, 10)
+  assert.equal(clamped.intelligibility, 'clear')
+  assert.equal(clamped.lowConfidenceWords.length, 1)
+  assert.equal(clamped.lowConfidenceWords[0].word, 'Lucia')
+
+  // Writing item rejects speech object
+  assert.throws(() => validateSubmission({ itemId: 'n1-writing-production', text: N1_TEXT, speech: rawSpeech }), /EVALUATION_INVALID/)
+})
+
+test('Oral criteria neutrality: without speech measurements, phonologie is neutral and excluded from mean/pass rule', async () => {
+  // Provider returns phonologie: 1 (which would normally fail pass rule), but others are 3
+  const outputWithLowPhono = speakingOutput(3, {
+    criteria: [
+      { id: 'tache', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+      { id: 'texte', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+      { id: 'phrase', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+      { id: 'lexique', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+      { id: 'phonologie', score: 1, evidence: 'Je suis mexicaine', commentZh: '发音不佳' },
+    ],
+  })
+
+  const resultWithoutSpeech = await evaluateProduction(
+    { itemId: 'n1-speaking-production', text: N1_TEXT, seconds: 12, inputMode: 'manual-transcript' },
+    scripted(outputWithLowPhono),
+  )
+
+  // phonologie is given neutral score 3 with unmeasured comment
+  const phonoCriterion = resultWithoutSpeech.criteria.find((c) => c.id === 'phonologie')
+  assert.equal(phonoCriterion.score, 3)
+  assert.equal(phonoCriterion.unmeasured, true)
+  // Mean is calculated over the 4 measurable criteria (3+3+3+3)/4 = 3.0, and passed is true
+  assert.equal(resultWithoutSpeech.mean, 3)
+  assert.equal(resultWithoutSpeech.passed, true)
+
+  // Conversely, high phonologie score 4 does not boost mean or pass a failing attempt
+  const outputWithWeakTask = speakingOutput(2, {
+    criteria: [
+      { id: 'tache', score: 2, evidence: 'Je suis mexicaine', commentZh: '弱' },
+      { id: 'texte', score: 2, evidence: 'Je suis mexicaine', commentZh: '弱' },
+      { id: 'phrase', score: 2, evidence: 'Je suis mexicaine', commentZh: '弱' },
+      { id: 'lexique', score: 2, evidence: 'Je suis mexicaine', commentZh: '弱' },
+      { id: 'phonologie', score: 4, evidence: 'Je suis mexicaine', commentZh: '好' },
+    ],
+  })
+  const failingWithoutSpeech = await evaluateProduction(
+    { itemId: 'n1-speaking-production', text: N1_TEXT, seconds: 12, inputMode: 'manual-transcript' },
+    scripted(outputWithWeakTask),
+  )
+  assert.equal(failingWithoutSpeech.mean, 2)
+  assert.equal(failingWithoutSpeech.passed, false)
+})
+
+test('Oral criteria grounding: with speech measurements, phonologie is included in scoring and stored in state', async () => {
+  const validSpeech = {
+    wordCount: 14,
+    speechSeconds: 10.2,
+    wordsPerMinute: 70,
+    articulationRate: 82.3,
+    pauseCount: 2,
+    longPauseCount: 0,
+    longestPauseSeconds: 0.8,
+    pauseRatio: 0.15,
+    fillerCount: 0,
+    meanConfidence: 0.96,
+    lowConfidenceRatio: 0,
+    intelligibility: 'clear',
+    lowConfidenceWords: [],
+  }
+
+  // When speech measurements are provided, phonologie is scored normally
+  const outputPassed = speakingOutput(3)
+  const resultWithSpeech = await evaluateProduction(
+    { itemId: 'n1-speaking-production', text: N1_TEXT, seconds: 12, inputMode: 'asr', speech: validSpeech },
+    scripted(outputPassed),
+  )
+  assert.equal(resultWithSpeech.passed, true)
+  assert.equal(resultWithSpeech.speech.intelligibility, 'clear')
+
+  // When phonologie score is low (e.g. 1), it fails the attempt because phonologie is included in pass rule
+  const outputPhonoFail = speakingOutput(3, {
+    criteria: [
+      { id: 'tache', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+      { id: 'texte', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+      { id: 'phrase', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+      { id: 'lexique', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+      { id: 'phonologie', score: 1, evidence: 'Je suis mexicaine', commentZh: '发音不佳' },
+    ],
+  })
+  const failingWithSpeech = await evaluateProduction(
+    { itemId: 'n1-speaking-production', text: N1_TEXT, seconds: 12, inputMode: 'asr', speech: validSpeech },
+    scripted(outputPhonoFail),
+  )
+  assert.equal(failingWithSpeech.passed, false)
+  // Mean is (3+3+3+3+1)/5 = 2.6
+  assert.equal(failingWithSpeech.mean, 2.6)
+
+  // Node API persists speech metrics in learner state
+  await withNodeServer(scripted(outputPassed), async (call) => {
+    const scored = await call('POST', '/echelle/evaluate', {
+      itemId: 'n1-speaking-production',
+      text: N1_TEXT,
+      seconds: 12,
+      inputMode: 'asr',
+      speech: validSpeech,
+    })
+    assert.equal(scored.status, 200)
+    assert.equal(scored.data.evaluation.passed, true)
+    assert.equal(scored.data.evaluation.speech.intelligibility, 'clear')
+
+    const item = scored.data.state.learning.echelle.items['n1-speaking-production']
+    assert.equal(item.mastered, true)
+    assert.equal(item.ai.speech.intelligibility, 'clear')
+    assert.equal(item.ai.speech.wordCount, 14)
+  })
 })
