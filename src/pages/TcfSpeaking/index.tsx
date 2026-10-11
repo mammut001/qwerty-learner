@@ -2,6 +2,8 @@ import LookupText from '@/components/Dictionary/LookupText'
 import EchelleGoalCard from '@/components/EchelleGoalCard'
 import Layout from '@/components/Layout'
 import { useHideShellHeader } from '@/components/ShellHeader'
+import SpeechMetricsCard from '@/components/SpeechMetricsCard'
+import { getSupportedAudioMimeType } from '@/hooks/useAudioRecorder'
 import { type TcfEoScores, calculateEoTotalScore, estimateTcfEoNclc } from '@/resources/tcfEvaluation'
 import {
   TCF_SPEAKING_PROMPTS_BY_TASK,
@@ -9,8 +11,17 @@ import {
   type TcfSpeakingTask2Prompt,
   type TcfSpeakingTask3Prompt,
 } from '@/resources/tcfSpeakingData'
-import { type TcfEoAttempt, addStudyMinutes, flushStudyProgress, saveTcfEoAttempt } from '@/services/studyPlanSync'
-import { deleteAudioRecording, saveAudioRecording } from '@/services/tcfAudioStorage'
+import {
+  type SpeechTranscriptionResult,
+  type TcfEoAttempt,
+  addStudyMinutes,
+  flushStudyProgress,
+  hasAsrConsent,
+  saveTcfEoAttempt,
+  setAsrConsent,
+  transcribeSpeech,
+} from '@/services/studyPlanSync'
+import { deleteAudioRecording, getAudioRecording, saveAudioRecording } from '@/services/tcfAudioStorage'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { NavLink, useSearchParams } from 'react-router-dom'
 import IconArrowLeft from '~icons/tabler/arrow-left'
@@ -19,6 +30,7 @@ import IconClock from '~icons/tabler/clock'
 import IconMicrophone from '~icons/tabler/microphone'
 import IconPlayerStop from '~icons/tabler/player-stop'
 import IconRefresh from '~icons/tabler/refresh'
+import IconSparkles from '~icons/tabler/sparkles'
 import IconTrash from '~icons/tabler/trash'
 
 type ExamMode = 'intro' | 'speaking' | 'assessment' | 'review'
@@ -78,6 +90,17 @@ export default function TcfSpeakingPage() {
   const recordedChunksRef = useRef<Blob[]>([])
   const recordingStartRef = useRef<number>(0)
 
+  // ASR states
+  const [taskBlobs, setTaskBlobs] = useState<Record<1 | 2 | 3, Blob | null>>({ 1: null, 2: null, 3: null })
+  const [taskTranscriptions, setTaskTranscriptions] = useState<Record<1 | 2 | 3, SpeechTranscriptionResult | null>>({
+    1: null,
+    2: null,
+    3: null,
+  })
+  const [taskTranscribing, setTaskTranscribing] = useState<Record<1 | 2 | 3, boolean>>({ 1: false, 2: false, 3: false })
+  const [taskAsrErrors, setTaskAsrErrors] = useState<Record<1 | 2 | 3, string | null>>({ 1: null, 2: null, 3: null })
+  const [asrConsent, setAsrConsentState] = useState(() => hasAsrConsent())
+
   // Self assessment state
   const [scores, setScores] = useState<TcfEoScores>({
     fluency: 2,
@@ -93,6 +116,14 @@ export default function TcfSpeakingPage() {
   const totalScore = useMemo(() => calculateEoTotalScore(scores), [scores])
   const estimatedNclc = useMemo(() => estimateTcfEoNclc(totalScore), [totalScore])
   const targetGap = useMemo(() => Math.max(0, 10 - totalScore), [totalScore])
+  const hasAnyAcousticEvidence = useMemo(
+    () => Boolean(taskTranscriptions[1] || taskTranscriptions[2] || taskTranscriptions[3]),
+    [taskTranscriptions],
+  )
+  const activeTranscription = taskTranscriptions[activeTask]
+  const t1Transcription = taskTranscriptions[1]
+  const t2Transcription = taskTranscriptions[2]
+  const t3Transcription = taskTranscriptions[3]
 
   // Cleanup object URLs on unmount
   useEffect(() => {
@@ -168,6 +199,10 @@ export default function TcfSpeakingPage() {
       3: prompt3.durationSeconds,
     })
     setTaskDurations({ 1: 0, 2: 0, 3: 0 })
+    setTaskBlobs({ 1: null, 2: null, 3: null })
+    setTaskTranscriptions({ 1: null, 2: null, 3: null })
+    setTaskTranscribing({ 1: false, 2: false, 3: false })
+    setTaskAsrErrors({ 1: null, 2: null, 3: null })
     setResult(null)
     setMessage('')
 
@@ -191,7 +226,8 @@ export default function TcfSpeakingPage() {
 
     if (stream && typeof MediaRecorder !== 'undefined') {
       try {
-        const recorder = new MediaRecorder(stream)
+        const pickedMime = getSupportedAudioMimeType()
+        const recorder = pickedMime ? new MediaRecorder(stream, { mimeType: pickedMime }) : new MediaRecorder(stream)
         recordedChunksRef.current = []
         recorder.ondataavailable = (e) => {
           if (e.data && e.data.size > 0) {
@@ -202,9 +238,10 @@ export default function TcfSpeakingPage() {
           const duration = Math.round((Date.now() - recordingStartRef.current) / 1000)
           setTaskDurations((old) => ({ ...old, [task]: duration }))
           if (recordedChunksRef.current.length > 0) {
-            const blob = new Blob(recordedChunksRef.current, { type: recorder.mimeType || 'audio/webm' })
+            const blob = new Blob(recordedChunksRef.current, { type: recorder.mimeType || pickedMime || 'audio/webm' })
+            setTaskBlobs((old) => ({ ...old, [task]: blob }))
             const recKey = `${attemptId}-t${task}`
-            void saveAudioRecording(recKey, blob, recorder.mimeType || 'audio/webm', duration)
+            void saveAudioRecording(recKey, blob, recorder.mimeType || pickedMime || 'audio/webm', duration)
             const url = URL.createObjectURL(blob)
             setAudioUrls((old) => {
               const prevUrl = old[task]
@@ -242,12 +279,48 @@ export default function TcfSpeakingPage() {
       if (prevUrl) URL.revokeObjectURL(prevUrl)
       return { ...old, [task]: null }
     })
+    setTaskBlobs((old) => ({ ...old, [task]: null }))
+    setTaskTranscriptions((old) => ({ ...old, [task]: null }))
+    setTaskTranscribing((old) => ({ ...old, [task]: false }))
+    setTaskAsrErrors((old) => ({ ...old, [task]: null }))
     setTaskPhases((old) => ({ ...old, [task]: 'idle' }))
     setTaskRemaining((old) => ({
       ...old,
       [task]: task === 1 ? prompt1.durationSeconds : task === 2 ? prompt2.prepSeconds : prompt3.durationSeconds,
     }))
     setTaskDurations((old) => ({ ...old, [task]: 0 }))
+  }
+
+  const handleTranscribeTask = async (task: 1 | 2 | 3) => {
+    let blob = taskBlobs[task]
+    if (!blob) {
+      const recKey = `${attemptId}-t${task}`
+      const rec = await getAudioRecording(recKey)
+      if (rec?.blob) {
+        blob = rec.blob
+        setTaskBlobs((old) => ({ ...old, [task]: blob }))
+      }
+    }
+    if (!blob) {
+      setTaskAsrErrors((old) => ({ ...old, [task]: '未找到录音音频数据，请重新录制。' }))
+      return
+    }
+    if (!asrConsent) {
+      setTaskAsrErrors((old) => ({ ...old, [task]: '请先勾选同意语音识别服务隐私说明。' }))
+      return
+    }
+
+    setTaskTranscribing((old) => ({ ...old, [task]: true }))
+    setTaskAsrErrors((old) => ({ ...old, [task]: null }))
+    try {
+      const res = await transcribeSpeech(blob)
+      setTaskTranscriptions((old) => ({ ...old, [task]: res }))
+    } catch (err) {
+      const msg = (err as Error).message
+      setTaskAsrErrors((old) => ({ ...old, [task]: msg }))
+    } finally {
+      setTaskTranscribing((old) => ({ ...old, [task]: false }))
+    }
   }
 
   const enterAssessment = () => {
@@ -696,29 +769,76 @@ export default function TcfSpeakingPage() {
 
                     {/* Finished recording display */}
                     {taskPhases[activeTask] === 'finished' && (
-                      <div className="rounded-xl border border-gray-100 bg-gray-50/60 p-4 dark:border-gray-700 dark:bg-gray-900/60">
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
-                            录音已就绪 (用时 {taskDurations[activeTask]} 秒)
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => void resetTask(activeTask)}
-                            className="inline-flex items-center gap-1 text-xs text-rose-600 hover:text-rose-700 dark:text-rose-400"
-                          >
-                            <IconTrash className="h-3.5 w-3.5" />
-                            重新录制
-                          </button>
-                        </div>
-                        {audioUrls[activeTask] && (
-                          <div className="mt-3">
-                            <audio
-                              data-testid={`tcf-audio-player-${activeTask}`}
-                              controls
-                              src={audioUrls[activeTask] ?? undefined}
-                              className="h-10 w-full"
-                            />
+                      <div className="space-y-3">
+                        <div className="rounded-xl border border-gray-100 bg-gray-50/60 p-4 dark:border-gray-700 dark:bg-gray-900/60">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                              录音已就绪 (用时 {taskDurations[activeTask]} 秒)
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => void resetTask(activeTask)}
+                              className="inline-flex items-center gap-1 text-xs text-rose-600 hover:text-rose-700 dark:text-rose-400"
+                            >
+                              <IconTrash className="h-3.5 w-3.5" />
+                              重新录制
+                            </button>
                           </div>
+                          {audioUrls[activeTask] && (
+                            <div className="mt-3">
+                              <audio
+                                data-testid={`tcf-audio-player-${activeTask}`}
+                                controls
+                                src={audioUrls[activeTask] ?? undefined}
+                                className="h-10 w-full"
+                              />
+                            </div>
+                          )}
+
+                          <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50/70 p-2.5 text-xs text-amber-900 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-amber-200">
+                            <label className="flex cursor-pointer items-start gap-2">
+                              <input
+                                type="checkbox"
+                                data-testid="tcf-asr-consent-checkbox"
+                                checked={asrConsent}
+                                onChange={(e) => {
+                                  setAsrConsent(e.target.checked)
+                                  setAsrConsentState(e.target.checked)
+                                }}
+                                className="mt-0.5 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                              />
+                              <span>
+                                隐私说明：录音将发送至服务器及语音识别服务商（Deepgram）转写，不作云端存储。勾选即表示同意。
+                              </span>
+                            </label>
+                          </div>
+
+                          <div className="mt-3 flex flex-wrap items-center gap-2">
+                            <button
+                              type="button"
+                              data-testid={`tcf-transcribe-btn-${activeTask}`}
+                              disabled={!asrConsent || taskTranscribing[activeTask]}
+                              onClick={() => void handleTranscribeTask(activeTask)}
+                              className="ui-btn-primary flex items-center gap-1 text-xs disabled:cursor-not-allowed disabled:opacity-50"
+                            >
+                              <IconSparkles className="h-3.5 w-3.5" />
+                              {taskTranscribing[activeTask] ? '正在转写录音…' : '转写录音'}
+                            </button>
+                          </div>
+
+                          {taskAsrErrors[activeTask] && (
+                            <p className="mt-2 text-xs text-rose-600" data-testid={`tcf-asr-error-${activeTask}`}>
+                              {taskAsrErrors[activeTask]}
+                            </p>
+                          )}
+                        </div>
+
+                        {activeTranscription && (
+                          <SpeechMetricsCard
+                            metrics={activeTranscription.metrics}
+                            transcript={activeTranscription.transcript}
+                            title={`Tâche ${activeTask} 声学测量指标`}
+                          />
                         )}
                       </div>
                     )}
@@ -808,6 +928,39 @@ export default function TcfSpeakingPage() {
                       <div className="font-mono text-sm font-bold text-indigo-600">{scores.fluency} / 4 分</div>
                     </div>
                     <p className="mt-1 text-xs text-gray-500">语流是否自然顺畅，有无长时间停顿或卡壳，话语组织是否自然连贯。</p>
+
+                    {hasAnyAcousticEvidence && (
+                      <div
+                        className="mt-3 rounded-xl border border-indigo-100 bg-indigo-50/60 p-3 text-xs dark:border-indigo-900/60 dark:bg-indigo-950/30"
+                        data-testid="fluency-evidence"
+                      >
+                        <div className="font-semibold text-indigo-950 dark:text-indigo-200">📊 声学客观参考数据（流利度依据）：</div>
+                        <div className="mt-2 grid gap-2 sm:grid-cols-3">
+                          {([1, 2, 3] as const).map((t) => {
+                            const m = taskTranscriptions[t]?.metrics
+                            if (!m) return null
+                            return (
+                              <div key={t} className="rounded-lg bg-white/90 p-2.5 shadow-xs dark:bg-white/[0.04]">
+                                <div className="font-semibold text-gray-800 dark:text-gray-200">Tâche {t}</div>
+                                <div className="mt-1 text-gray-600 dark:text-gray-400">
+                                  语速：<b className="text-gray-900 dark:text-white">{m.wordsPerMinute}</b> 词/分
+                                </div>
+                                <div className="mt-0.5 text-gray-600 dark:text-gray-400">
+                                  停顿：<b className="text-gray-900 dark:text-white">{m.pauseCount}</b> 次（长停顿 {m.longPauseCount} 次）
+                                </div>
+                                <div className="mt-0.5 text-gray-600 dark:text-gray-400">
+                                  填充词：<b className="text-gray-900 dark:text-white">{m.fillerCount}</b> 次
+                                </div>
+                              </div>
+                            )
+                          })}
+                        </div>
+                        <div className="mt-1.5 text-[11px] text-gray-500">
+                          💡 提示：以上为自动测算的语速、停顿及迟疑词数据，仅作为自评流利度的客观依据，未自动预填任何自评分数。
+                        </div>
+                      </div>
+                    )}
+
                     <div className="mt-3 flex gap-2">
                       {[0, 1, 2, 3, 4].map((val) => (
                         <button
@@ -836,6 +989,41 @@ export default function TcfSpeakingPage() {
                     <p className="mt-1 text-xs text-gray-500">
                       元音鼻化音准确度，连读（liaison）与联诵（enchaînement），升降调与重音节奏。
                     </p>
+
+                    {hasAnyAcousticEvidence && (
+                      <div
+                        className="mt-3 rounded-xl border border-indigo-100 bg-indigo-50/60 p-3 text-xs dark:border-indigo-900/60 dark:bg-indigo-950/30"
+                        data-testid="pronunciation-evidence"
+                      >
+                        <div className="font-semibold text-indigo-950 dark:text-indigo-200">📊 语音识别置信度（发音清晰度参考）：</div>
+                        <div className="mt-2 grid gap-2 sm:grid-cols-3">
+                          {([1, 2, 3] as const).map((t) => {
+                            const res = taskTranscriptions[t]
+                            if (!res) return null
+                            const m = res.metrics
+                            const label = m.intelligibility === 'clear' ? '清晰' : m.intelligibility === 'mostly-clear' ? '基本清晰' : '不清晰'
+                            return (
+                              <div key={t} className="rounded-lg bg-white/90 p-2.5 shadow-xs dark:bg-white/[0.04]">
+                                <div className="font-semibold text-gray-800 dark:text-gray-200">Tâche {t}</div>
+                                <div className="mt-1 text-gray-600 dark:text-gray-400">
+                                  清晰度：<b className="text-gray-900 dark:text-white">{label}</b> (置信度 {Math.round(m.meanConfidence * 100)}%)
+                                </div>
+                                {m.lowConfidenceWords.length > 0 && (
+                                  <div className="mt-0.5 text-[11px] text-amber-700 dark:text-amber-300">
+                                    不确定词：{m.lowConfidenceWords.slice(0, 4).map((w) => w.word).join(', ')}
+                                    {m.lowConfidenceWords.length > 4 ? '…' : ''}
+                                  </div>
+                                )}
+                              </div>
+                            )
+                          })}
+                        </div>
+                        <div className="mt-1.5 text-[11px] text-gray-500">
+                          💡 提示：清晰度基于语音识别置信度估算，作为发音清晰度参考，非音素级发音评分。未自动预填任何自评分数。
+                        </div>
+                      </div>
+                    )}
+
                     <div className="mt-3 flex gap-2">
                       {[0, 1, 2, 3, 4].map((val) => (
                         <button
@@ -966,6 +1154,28 @@ export default function TcfSpeakingPage() {
                   {audioUrls[1] && (
                     <div className="mt-3">
                       <audio controls src={audioUrls[1]} className="h-9 w-full max-w-md" />
+                      {!taskTranscriptions[1] && (
+                        <div className="mt-2">
+                          <button
+                            type="button"
+                            disabled={!asrConsent || taskTranscribing[1]}
+                            onClick={() => void handleTranscribeTask(1)}
+                            className="ui-btn-secondary flex items-center gap-1 text-xs"
+                          >
+                            <IconSparkles className="h-3.5 w-3.5" />
+                            {taskTranscribing[1] ? '正在转写…' : '转写本任务录音'}
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {t1Transcription && (
+                    <div className="mt-3">
+                      <SpeechMetricsCard
+                        metrics={t1Transcription.metrics}
+                        transcript={t1Transcription.transcript}
+                        title="Tâche 1 转写与声学指标"
+                      />
                     </div>
                   )}
                   <div className="mt-4">
@@ -991,6 +1201,28 @@ export default function TcfSpeakingPage() {
                   {audioUrls[2] && (
                     <div className="mt-3">
                       <audio controls src={audioUrls[2]} className="h-9 w-full max-w-md" />
+                      {!t2Transcription && (
+                        <div className="mt-2">
+                          <button
+                            type="button"
+                            disabled={!asrConsent || taskTranscribing[2]}
+                            onClick={() => void handleTranscribeTask(2)}
+                            className="ui-btn-secondary flex items-center gap-1 text-xs"
+                          >
+                            <IconSparkles className="h-3.5 w-3.5" />
+                            {taskTranscribing[2] ? '正在转写…' : '转写本任务录音'}
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {t2Transcription && (
+                    <div className="mt-3">
+                      <SpeechMetricsCard
+                        metrics={t2Transcription.metrics}
+                        transcript={t2Transcription.transcript}
+                        title="Tâche 2 转写与声学指标"
+                      />
                     </div>
                   )}
                   <div className="mt-4">
@@ -1016,6 +1248,28 @@ export default function TcfSpeakingPage() {
                   {audioUrls[3] && (
                     <div className="mt-3">
                       <audio controls src={audioUrls[3]} className="h-9 w-full max-w-md" />
+                      {!t3Transcription && (
+                        <div className="mt-2">
+                          <button
+                            type="button"
+                            disabled={!asrConsent || taskTranscribing[3]}
+                            onClick={() => void handleTranscribeTask(3)}
+                            className="ui-btn-secondary flex items-center gap-1 text-xs"
+                          >
+                            <IconSparkles className="h-3.5 w-3.5" />
+                            {taskTranscribing[3] ? '正在转写…' : '转写本任务录音'}
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {t3Transcription && (
+                    <div className="mt-3">
+                      <SpeechMetricsCard
+                        metrics={t3Transcription.metrics}
+                        transcript={t3Transcription.transcript}
+                        title="Tâche 3 转写与声学指标"
+                      />
                     </div>
                   )}
 

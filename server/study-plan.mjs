@@ -15,6 +15,7 @@ import {
 } from './study-cohorts.mjs'
 import { EchelleAiError, RUBRIC_VERSION, evaluateProduction, evaluationOperation, validateSubmission } from './echelle-ai-harness.mjs'
 import { aiRateLimits, aiStatus, createAiProvider } from './echelle-ai-providers.mjs'
+import { ALLOWED_AUDIO_TYPES, MAX_AUDIO_BYTES, asrRateLimits, transcribeSpeech } from './speech-asr.mjs'
 import { bearerMatches, createStudyMetrics, logStudyRequest, loopbackAddress, studyRequestId } from './study-observability.mjs'
 import {
   createAccountSession,
@@ -153,6 +154,69 @@ async function readBody(req) {
   return input
 }
 
+function readAudioBuffer(req, limit = MAX_AUDIO_BYTES) {
+  return new Promise((resolve, reject) => {
+    const chunks = []
+    let totalBytes = 0
+    let exceeded = false
+
+    const onData = (chunk) => {
+      if (exceeded) return
+      const buf = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)
+      totalBytes += buf.length
+      if (totalBytes > limit) {
+        exceeded = true
+        req.off('data', onData)
+        req.off('end', onEnd)
+        req.off('error', onError)
+        reject(new RangeError('Audio too large'))
+        return
+      }
+      chunks.push(buf)
+    }
+
+    const onEnd = () => {
+      if (!exceeded) resolve(Buffer.concat(chunks, totalBytes))
+    }
+
+    const onError = (err) => {
+      if (!exceeded) reject(err)
+    }
+
+    req.on('data', onData)
+    req.on('end', onEnd)
+    req.on('error', onError)
+  })
+}
+
+// Discards the rest of a rejected request body, then calls respond() exactly once. Stops early when the
+// body ends, the byte bound is exceeded, or the time bound elapses (Node then closes the socket itself).
+function drainRequestBody(req, respond, { maxBytes = 32 * 1024 * 1024, timeoutMs = 10000 } = {}) {
+  if (req.readableEnded) return respond()
+  let seen = 0
+  let finished = false
+  let timer = null
+  const finish = () => {
+    if (finished) return
+    finished = true
+    clearTimeout(timer)
+    req.off('data', onData)
+    req.off('end', finish)
+    req.off('close', finish)
+    respond()
+  }
+  const onData = (chunk) => {
+    seen += chunk.length
+    if (seen > maxBytes) finish()
+  }
+  timer = setTimeout(finish, timeoutMs)
+  timer.unref?.()
+  req.on('data', onData)
+  req.on('end', finish)
+  req.on('close', finish)
+  req.resume()
+}
+
 export function createStudyServer({
   database = process.env.STUDY_DB_PATH || './data/study-plan.sqlite',
   origin = process.env.STUDY_ORIGIN || 'http://localhost:5173',
@@ -166,6 +230,9 @@ export function createStudyServer({
   adminToken = process.env.STUDY_ADMIN_TOKEN || '',
   aiProvider = createAiProvider(process.env),
   aiLimits = aiRateLimits(process.env),
+  deepgramApiKey = process.env.DEEPGRAM_API_KEY || '',
+  asrLimits = asrRateLimits(process.env),
+  asrFetchImpl = globalThis.fetch,
   youdaoLookup = null,
   firebaseProjectId = process.env.STUDY_FIREBASE_PROJECT_ID || '',
   firebaseVerifier = null,
@@ -264,6 +331,20 @@ export function createStudyServer({
     }
     const sendError = (status, code, message, extra = {}, headers = {}) =>
       send(status, { error: message, code, ...extra }, headers)
+    const sendPendingBodyError = (status, code, message, extra = {}) => {
+      req.on('error', () => {})
+      // Answer only after the unread body is consumed (bounded): Node closes the socket as soon as a
+      // Connection: close response is flushed, which resets a client that is still uploading.
+      drainRequestBody(req, () => {
+        res.writeHead(status, {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-store',
+          'X-Content-Type-Options': 'nosniff',
+          Connection: 'close',
+        })
+        res.end(JSON.stringify({ error: message, code, ...extra }))
+      })
+    }
     const sendText = (status, body, contentType, extraHeaders = {}) => {
       res.writeHead(status, {
         'Content-Type': contentType,
@@ -354,6 +435,7 @@ export function createStudyServer({
     const cohortJoin = path === '/api/study-plan/cohort/join'
     const echelleAi = path === '/api/study-plan/echelle/ai'
     const echelleEvaluate = path === '/api/study-plan/echelle/evaluate'
+    const speechTranscribe = path === '/api/study-plan/speech/transcribe'
     const dictionary = path === '/api/study-plan/dictionary'
     const dictionaryVoice = path === '/api/study-plan/dictionary/voice'
     const authRoute = path === '/api/study-plan/auth'
@@ -361,7 +443,7 @@ export function createStudyServer({
     const authLogout = path === '/api/study-plan/auth/logout'
     const plan = path === '/api/study-plan'
     if (!health && !importing && !exporting && !analytics && !syncKey && !revokeSyncKey && !linking && !unlinking &&
-        !echelleAi && !echelleEvaluate && !dictionary && !dictionaryVoice &&
+        !echelleAi && !echelleEvaluate && !speechTranscribe && !dictionary && !dictionaryVoice &&
         !authRoute && !authFirebase && !authLogout &&
         !syncInfo && !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData &&
         !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
@@ -374,7 +456,11 @@ export function createStudyServer({
       return sendError(404, 'NOT_FOUND', 'Not found')
     }
 
-    const policy = studyPolicy({ origin, secure, sameSite }, { method: req.method, headers: new Headers(req.headers) }, health)
+    const policy = studyPolicy(
+      { origin, secure, sameSite },
+      { method: req.method, headers: new Headers(req.headers) },
+      health ? true : { allowBinary: speechTranscribe },
+    )
     for (const [key, value] of Object.entries(policy.headers)) res.setHeader(key, value)
     if (policy.status) return policy.status === 204
       ? send(204, null)
@@ -593,9 +679,10 @@ export function createStudyServer({
     if (echelleAi) {
       if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
       if (!ensureAccount(req)) return sendError(401, 'LOGIN_REQUIRED', 'Sign-in required')
-      return send(200, aiStatus(aiProvider, RUBRIC_VERSION))
+      return send(200, aiStatus(aiProvider, RUBRIC_VERSION, Boolean(deepgramApiKey)))
     }
     if (echelleEvaluate && req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+    if (speechTranscribe && req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
 
     if (authRoute && req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if ((authFirebase || authLogout) && req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
@@ -1009,6 +1096,58 @@ export function createStudyServer({
         db.exec('ROLLBACK')
         throw error
       }
+    }
+
+    if (speechTranscribe) {
+      if (!deepgramApiKey) return sendPendingBodyError(503, 'ASR_NOT_CONFIGURED', 'Speech recognition is not configured')
+      if (!row.state) return sendError(409, 'PLAN_UNINITIALIZED', 'Initialize plan first')
+
+      const rawType = String(req.headers['content-type'] || '').toLowerCase().trim()
+      const baseMime = rawType.split(';')[0].trim()
+      if (!ALLOWED_AUDIO_TYPES.has(baseMime)) {
+        return sendPendingBodyError(415, 'UNSUPPORTED_MEDIA_TYPE', 'Unsupported audio content type')
+      }
+
+      let audioBuffer
+      try {
+        audioBuffer = await readAudioBuffer(req)
+      } catch (error) {
+        return sendPendingBodyError(error instanceof RangeError ? 413 : 400, 'REQUEST_TOO_LARGE', 'Audio too large')
+      }
+      if (audioBuffer.length === 0) {
+        return sendError(400, 'AUDIO_EMPTY', 'Audio payload is empty')
+      }
+
+      for (const { scope, ...window } of asrLimits) {
+        const key = scope === 'actor' ? 'actor:' + actorHash : 'global'
+        const limit = consumeNodeRateLimit(db, key, 'asr-transcribe', window)
+        if (!limit.allowed) {
+          audit(learner, 'speech_transcribe', 'rate_limited', { scope })
+          return sendError(429, 'ASR_RATE_LIMITED', 'Too many speech transcriptions. Try again later.', {
+            scope,
+            retryAfterSeconds: Math.ceil(limit.retryAfterMs / 1000),
+          })
+        }
+      }
+
+      let result
+      try {
+        result = await transcribeSpeech({
+          audio: audioBuffer,
+          mimeType: baseMime,
+          apiKey: deepgramApiKey,
+          fetchImpl: asrFetchImpl,
+        })
+      } catch {
+        audit(learner, 'speech_transcribe', 'error', { code: 'ASR_UPSTREAM_FAILED' })
+        return sendError(502, 'ASR_UPSTREAM_FAILED', 'Speech recognition failed; retry later')
+      }
+
+      audit(learner, 'speech_transcribe', 'success', {
+        durationSeconds: result.durationSeconds,
+        bytes: audioBuffer.length,
+      })
+      return send(200, result)
     }
 
     if (cohortJoin) {
