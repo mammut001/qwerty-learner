@@ -2,7 +2,7 @@ import { computePlacementResult } from '../../server/placement-data.mjs'
 import { parseEchelleItemId, scoreEchelleItem } from '../resources/echelleCurriculum'
 import { nextMemory } from '../resources/echelleMemory'
 import type { PlacementProfile, PlacementResult } from '../resources/placementTest'
-import { isGuestMode } from './guestMode'
+import { isGuestMode, onGuestModeChange } from './guestMode'
 
 type StudyPlanSettings = {
   examDate: string
@@ -674,10 +674,30 @@ export type StudyCsvKind = 'records' | 'error-book' | 'weekly-reports'
 const syncStatusListeners = new Set<(status: StudySyncStatus) => void>()
 let syncStatus: StudySyncStatus = { phase: 'idle', pending: 0, message: '尚未同步' }
 let autoSyncInstalled = false
+let authBlocked = false
 let running: Promise<void> | undefined
 let retry: ReturnType<typeof setTimeout> | undefined
 let fallback: StudyServerState | undefined
 let legacyMigrationRunning: Promise<boolean> | undefined
+
+onGuestModeChange((enabled) => {
+  if (!enabled) {
+    authBlocked = false
+    void syncStudyPlan()
+  } else if (retry) {
+    clearTimeout(retry)
+    retry = undefined
+  }
+})
+
+if (typeof window !== 'undefined') {
+  const onLogin = () => {
+    authBlocked = false
+    void syncStudyPlan()
+  }
+  window.addEventListener('qwerty-auth-login', onLogin)
+  window.addEventListener('qwerty-login', onLogin)
+}
 
 const localDay = (timestampMs = Date.now()) => {
   const date = new Date(timestampMs)
@@ -805,8 +825,10 @@ const publish = (input: StudyPlanStorage | StudyServerState) => {
   listeners.forEach((listener) => listener(state))
 }
 
+const isPublicAuthPath = (path: string) => path.startsWith('/passkey/login') || path === '/link'
+
 async function api(method: string, path = '', body?: unknown, unauthorized = 'STUDY_SESSION_BLOCKED') {
-  if (isGuestMode()) {
+  if ((isGuestMode() || authBlocked) && !isPublicAuthPath(path)) {
     throw new Error(unauthorized)
   }
   const controller = new AbortController()
@@ -820,6 +842,7 @@ async function api(method: string, path = '', body?: unknown, unauthorized = 'ST
       body: body === undefined ? undefined : JSON.stringify(body),
     })
     if (response.status === 401) {
+      authBlocked = true
       try {
         const data = (await response.clone().json()) as { code?: string }
         if (data?.code === 'LOGIN_REQUIRED' && typeof window !== 'undefined') {
@@ -844,7 +867,7 @@ async function api(method: string, path = '', body?: unknown, unauthorized = 'ST
 }
 
 async function apiText(method: string, path: string) {
-  if (isGuestMode()) {
+  if (isGuestMode() || authBlocked) {
     throw new Error('STUDY_SESSION_BLOCKED')
   }
   const controller = new AbortController()
@@ -856,6 +879,7 @@ async function apiText(method: string, path: string) {
       signal: controller.signal,
     })
     if (response.status === 401) {
+      authBlocked = true
       try {
         const data = (await response.clone().json()) as { code?: string }
         if (data?.code === 'LOGIN_REQUIRED' && typeof window !== 'undefined') {
@@ -906,13 +930,19 @@ function ensureAutoSyncListeners() {
   autoSyncInstalled = true
   const resume = () => {
     try {
-      if (pending().length > 0) void syncStudyPlan()
+      if (!isGuestMode() && !authBlocked && pending().length > 0) void syncStudyPlan()
     } catch {
       // Browser storage may be unavailable; the next explicit save will surface the error.
     }
   }
+  const onLogin = () => {
+    authBlocked = false
+    void syncStudyPlan()
+  }
   window.addEventListener('online', resume)
   window.addEventListener('focus', resume)
+  window.addEventListener('qwerty-auth-login', onLogin)
+  window.addEventListener('qwerty-login', onLogin)
   if (typeof document !== 'undefined') {
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') resume()
@@ -973,11 +1003,12 @@ async function drain() {
     clearTimeout(retry)
     retry = undefined
   }
+  authBlocked = false
   emitSyncStatus('saved', '已与服务端合并并保存')
 }
 
 export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Promise<void> {
-  if (isGuestMode()) {
+  if (isGuestMode() || authBlocked) {
     if (retry) {
       clearTimeout(retry)
       retry = undefined
@@ -1002,6 +1033,13 @@ export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Pr
   running = (locks ? locks.request('qwerty-study-plan', drain) : drain())
     .catch((error: Error) => {
       const sessionBlocked = error.message === 'STUDY_SESSION_BLOCKED'
+      if (sessionBlocked) {
+        authBlocked = true
+        if (retry) {
+          clearTimeout(retry)
+          retry = undefined
+        }
+      }
       const offline = typeof navigator !== 'undefined' && navigator.onLine === false
       emitSyncStatus(
         offline ? 'offline' : 'error',
@@ -1011,7 +1049,7 @@ export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Pr
           ? '当前离线：学习记录已保存在本机，联网后会按最新时间戳自动合并。'
           : '服务端暂不可用，记录保留在本机，将自动重试。',
       )
-      if (!retry)
+      if (!sessionBlocked && !isGuestMode() && !authBlocked && !retry)
         retry = setTimeout(() => {
           retry = undefined
           void syncStudyPlan()
@@ -1025,6 +1063,7 @@ export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Pr
 
 function enqueue(operations: Operation[]) {
   if (isGuestMode() || !operations.length) return
+  authBlocked = false
   ensureAutoSyncListeners()
   ensureFallback()
   const id = crypto.randomUUID()
@@ -1708,6 +1747,7 @@ export async function getLearningProgress(): Promise<LearningProgress> {
 }
 
 export async function flushStudyProgress(): Promise<StudySyncStatus> {
+  authBlocked = false
   await syncStudyPlan()
   return getStudySyncSnapshot()
 }
@@ -1716,7 +1756,9 @@ export function subscribeStudyPlan(listener: (state: StudyPlanStorage) => void, 
   const wrapped = (state: StudyServerState) => listener(state)
   listeners.add(wrapped)
   statuses.add(status)
-  const refresh = () => void syncStudyPlan()
+  const refresh = () => {
+    if (!isGuestMode() && !authBlocked) void syncStudyPlan()
+  }
   window.addEventListener('online', refresh)
   window.addEventListener('focus', refresh)
   return () => {
@@ -1734,6 +1776,7 @@ export function subscribeLearningProgress(listener: (learning: LearningProgress)
 }
 
 export async function exportRemoteStudyPlan(initial: StudyPlanStorage) {
+  authBlocked = false
   await syncStudyPlan(initial)
   if (pending().length) throw new Error('请等待待保存记录同步后再导出。')
   const payload = await api('GET', '/export')
@@ -2202,4 +2245,13 @@ export async function deleteAllStudyData() {
   fallback = undefined
   emitSyncStatus('idle', '学习数据已删除')
   return true
+}
+
+export function isStudySyncBlocked(): boolean {
+  return authBlocked
+}
+
+export function resumeStudyPlanSync(): Promise<void> {
+  authBlocked = false
+  return syncStudyPlan()
 }

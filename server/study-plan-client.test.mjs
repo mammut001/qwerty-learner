@@ -2,9 +2,16 @@ import { createStudyServer } from './study-plan.mjs'
 import assert from 'node:assert/strict'
 import { randomUUID } from 'node:crypto'
 import { mkdtempSync, rmSync } from 'node:fs'
+import { register } from 'node:module'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { test } from 'node:test'
+
+try {
+  register('./ts-extension-loader.mjs', import.meta.url)
+} catch {
+  // Already registered or unsupported
+}
 
 test('client offline queue, LWW merge, review scheduling and sync bind/unbind', async () => {
   const dir = mkdtempSync(join(tmpdir(), 'study-client-'))
@@ -16,8 +23,16 @@ test('client offline queue, LWW merge, review scheduling and sync bind/unbind', 
   const storage = {}
   Object.defineProperties(storage, {
     getItem: { value: (key) => storage[key] ?? null },
-    setItem: { value: (key, value) => { storage[key] = value } },
-    removeItem: { value: (key) => { delete storage[key] } },
+    setItem: {
+      value: (key, value) => {
+        storage[key] = value
+      },
+    },
+    removeItem: {
+      value: (key) => {
+        delete storage[key]
+      },
+    },
   })
   globalThis.localStorage = storage
   globalThis.window = new EventTarget()
@@ -53,12 +68,7 @@ test('client offline queue, LWW merge, review scheduling and sync bind/unbind', 
       studyDays: [1, 3, 5],
     }
     const redistributed = redistributedSettings.studyDays.flatMap((weekday) =>
-      schedule.getConfiguredDayTasks(
-        studyPlan.getDayPlan(weekday),
-        redistributedSettings,
-        false,
-        studyPlan.minimumModeTasks,
-      ),
+      schedule.getConfiguredDayTasks(studyPlan.getDayPlan(weekday), redistributedSettings, false, studyPlan.minimumModeTasks),
     )
     assert.deepEqual(
       new Set(redistributed.map((task) => task.id)),
@@ -66,12 +76,7 @@ test('client offline queue, LWW merge, review scheduling and sync bind/unbind', 
       'custom study days redistribute the whole weekly task set rather than dropping content',
     )
     assert.equal(
-      schedule.getConfiguredDayTasks(
-        studyPlan.getDayPlan(2),
-        redistributedSettings,
-        false,
-        studyPlan.minimumModeTasks,
-      ).length,
+      schedule.getConfiguredDayTasks(studyPlan.getDayPlan(2), redistributedSettings, false, studyPlan.minimumModeTasks).length,
       0,
       'unselected weekday is a planned rest day',
     )
@@ -82,7 +87,10 @@ test('client offline queue, LWW merge, review scheduling and sync bind/unbind', 
       ],
       45,
     )
-    assert.equal(scaled.reduce((sum, task) => sum + task.minutes, 0), 45)
+    assert.equal(
+      scaled.reduce((sum, task) => sum + task.minutes, 0),
+      45,
+    )
     assert.equal(schedule.startDateFromExamDate('2027-03-31'), '2026-10-01')
     assert.equal(client.studyApiBase('https://study.example.invalid/'), 'https://study.example.invalid')
     assert.equal(client.studyApiBase(''), '')
@@ -190,7 +198,10 @@ test('client offline queue, LWW merge, review scheduling and sync bind/unbind', 
     assert.equal(analytics.rankings.grammar[0].label, '过去习惯')
     assert.equal(analytics.rankings.conjugation[0].label, 'prendre')
     assert.equal(analytics.dashboard.heatmap.length, 90)
-    assert.equal(analytics.today.tasks.reduce((total, task) => total + task.minutes, 0), analytics.today.targetMinutes)
+    assert.equal(
+      analytics.today.tasks.reduce((total, task) => total + task.minutes, 0),
+      analytics.today.targetMinutes,
+    )
 
     const beforeAnalyticsFailure = globalThis.fetch
     globalThis.fetch = async (path, options) => {
@@ -216,7 +227,10 @@ test('client offline queue, LWW merge, review scheduling and sync bind/unbind', 
       await new Promise((resolve) => setTimeout(resolve, 20))
     assert.equal(reloaded.getStudySyncSnapshot().pending, 0)
     reviewQueue = await reloaded.loadReviewQueue()
-    assert.equal(reviewQueue.some((item) => item.itemId === vocabReview.itemId), false)
+    assert.equal(
+      reviewQueue.some((item) => item.itemId === vocabReview.itemId),
+      false,
+    )
 
     const syncKey = await reloaded.createStudySyncKey()
     assert.equal((await reloaded.loadStudySyncInfo()).bound, false)
