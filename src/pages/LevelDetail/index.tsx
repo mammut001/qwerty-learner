@@ -15,6 +15,7 @@ import {
   getEchelleProductionTaskPool,
   scoreEchelleItem,
 } from '@/resources/echelleCurriculum'
+import { ensureItemBatchLoaded, isItemBatchLoaded } from '@/resources/echelleBatchLoader'
 import { estimateRetention } from '@/resources/echelleMemory'
 import { DISCOURSE_TYPE_META, getEchelleStage } from '@/resources/echelleQuebecoise'
 import { countDue, memoryLabel } from '@/resources/echelleReview'
@@ -389,9 +390,33 @@ function pickQuizVariant(itemId: string, avoidVariant?: number): number {
 
 function QuizPanel({ item }: { item: EchelleQuizItem }) {
   const [variant, setVariant] = useState<number>(() => pickQuizVariant(item.id))
+  const [loading, setLoading] = useState<boolean>(() => {
+    return item.kind === 'indicator' && !isItemBatchLoaded(item.id)
+  })
+
+  useEffect(() => {
+    let cancelled = false
+    if (item.kind === 'indicator' && !isItemBatchLoaded(item.id)) {
+      setLoading(true)
+      ensureItemBatchLoaded(item.id).then((ok) => {
+        if (cancelled) return
+        if (!ok) {
+          setVariant(0)
+        }
+        setLoading(false)
+      })
+    } else {
+      setLoading(false)
+    }
+    return () => {
+      cancelled = true
+    }
+  }, [item.id, item.kind])
+
   const activeItem = useMemo(() => {
+    if (loading) return item
     return (getEchelleItemVariant(item.id, variant) as EchelleQuizItem) ?? item
-  }, [item, variant])
+  }, [item, variant, loading])
 
   const [answers, setAnswers] = useState<(string | null)[]>(() => activeItem.questions.map(() => null))
   const [submitted, setSubmitted] = useState(false)
@@ -403,23 +428,46 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
     cancel()
   }, [variant, cancel])
 
+  useEffect(() => {
+    setAnswers(activeItem.questions.map(() => null))
+  }, [activeItem])
+
   const complete = answers.every((answer): answer is string => answer !== null)
-  const result = submitted && complete ? scoreEchelleItem(activeItem.id, answers, { variant }) : null
+  const result =
+    submitted && complete && !(variant > 0 && item.kind === 'indicator' && !isItemBatchLoaded(item.id))
+      ? scoreEchelleItem(activeItem.id, answers, { variant })
+      : null
 
   const handleSubmit = () => {
     if (!complete) return
+    if (variant > 0 && item.kind === 'indicator' && !isItemBatchLoaded(item.id)) {
+      console.error(`[QuizPanel] Cannot submit variant ${variant} for ${item.id} before batch is loaded`)
+      return
+    }
     recordEchelleMastery({ itemId: activeItem.id, answers, variant })
     setSubmitted(true)
   }
 
-  const reroll = () => {
+  const reroll = async () => {
     cancel()
     const nextVariant = pickQuizVariant(item.id, variant)
-    setVariant(nextVariant)
-    const nextItem = (getEchelleItemVariant(item.id, nextVariant) as EchelleQuizItem) ?? item
-    setAnswers(nextItem.questions.map(() => null))
-    setSubmitted(false)
-    setShowTranscript(false)
+    if (nextVariant > 0 && item.kind === 'indicator' && !isItemBatchLoaded(item.id)) {
+      setLoading(true)
+      const ok = await ensureItemBatchLoaded(item.id)
+      const actualVariant = ok ? nextVariant : 0
+      setVariant(actualVariant)
+      const nextItem = (getEchelleItemVariant(item.id, actualVariant) as EchelleQuizItem) ?? item
+      setAnswers(nextItem.questions.map(() => null))
+      setSubmitted(false)
+      setShowTranscript(false)
+      setLoading(false)
+    } else {
+      setVariant(nextVariant)
+      const nextItem = (getEchelleItemVariant(item.id, nextVariant) as EchelleQuizItem) ?? item
+      setAnswers(nextItem.questions.map(() => null))
+      setSubmitted(false)
+      setShowTranscript(false)
+    }
   }
 
   const handleRetry = () => {
@@ -427,6 +475,15 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
   }
 
   const hasVariants = countEchelleItemVariants(item.id) > 1
+
+  if (loading) {
+    return (
+      <div className="border-t border-gray-100 p-8 text-center text-sm text-gray-500 dark:border-white/[0.06] dark:text-gray-400">
+        <div className="inline-block h-6 w-6 animate-spin rounded-full border-2 border-indigo-500 border-t-transparent" />
+        <p className="mt-2 text-xs">正在载入题目…</p>
+      </div>
+    )
+  }
 
   return (
     <div className="border-t border-gray-100 p-4 dark:border-white/[0.06]">

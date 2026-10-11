@@ -1,4 +1,4 @@
-import * as raw from '../../server/echelle-curriculum.mjs'
+import * as raw from '../../server/echelle-curriculum-core.mjs'
 import type { EchelleDiscourseType } from './echelleQuebecoise'
 
 export type EchelleItemSkill = 'listening' | 'reading' | 'writing' | 'speaking' | 'lex' | 'gr'
@@ -53,15 +53,15 @@ export type EchelleLevelSummary = {
   skills: Partial<Record<EchelleItemSkill, { total: number; mastered: number }>>
 }
 
+export type EchelleScoreMeta = Partial<EchelleProductionResponse> & {
+  variant?: number
+}
+
 export const ECHELLE_ITEM_CATALOG = raw.ECHELLE_ITEM_CATALOG as Readonly<Record<string, EchelleCatalogItem>>
 
 export const getEchelleLevelItems = raw.getEchelleLevelItems as (level: number) => string[]
 
 export const parseEchelleItemId = raw.parseEchelleItemId as (itemId: string) => { level: number; skill: EchelleItemSkill } | null
-
-export type EchelleScoreMeta = Partial<EchelleProductionResponse> & {
-  variant?: number
-}
 
 export const scoreEchelleItem = raw.scoreEchelleItem as (
   itemId: string,
@@ -85,3 +85,12 @@ export const getEchelleProductionTaskPool = raw.getEchelleProductionTaskPool as 
   skill: 'writing' | 'speaking',
   level: number,
 ) => EchelleProductionItem[]
+
+export const registerIndicatorScenarios = raw.registerIndicatorScenarios as (
+  scenariosMap: Record<string, unknown>,
+) => void
+
+export const getIndicatorScenarios = raw.getIndicatorScenarios as (
+  itemId: string,
+) => unknown
+
