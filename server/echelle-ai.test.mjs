@@ -284,7 +284,7 @@ const selfCheck = (itemId = 'n1-writing-production') => ({
 
 test('Node API: AI scoring writes a trusted result and self-assessment no longer masters production', async () => {
   await withNodeServer(scripted(output(3)), async (call) => {
-    assert.deepEqual((await call('GET', '/echelle/ai')).data, { enabled: true, provider: 'scripted', model: 'scripted-1', rubricVersion: 'echelle-prod-v1' })
+    assert.deepEqual((await call('GET', '/echelle/ai')).data, { enabled: true, provider: 'scripted', model: 'scripted-1', rubricVersion: 'echelle-prod-v1', asr: false })
 
     const self = await call('PATCH', '', selfCheck())
     assert.equal(self.status, 200)

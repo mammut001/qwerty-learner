@@ -163,6 +163,7 @@ export function aiRateLimits(env = {}) {
   ]
 }
 
-export function aiStatus(provider, rubricVersion) {
-  return { enabled: Boolean(provider), provider: provider?.name ?? null, model: provider?.model ?? null, rubricVersion }
+export function aiStatus(provider, rubricVersion, asrAvailable = false) {
+  return { enabled: Boolean(provider), provider: provider?.name ?? null, model: provider?.model ?? null, rubricVersion, asr: Boolean(asrAvailable) }
 }
+
