@@ -27,7 +27,7 @@ module.exports = {
       plugins: ['@typescript-eslint'],
     },
     {
-      files: ['src/**/*.ts', 'src/**/*.tsx', 'test/**/*.ts', 'test/**/*.tsx'],
+      files: ['src/**/*.ts', 'src/**/*.tsx', 'test/**/*.ts', 'test/**/*.tsx', 'tests/**/*.ts'],
       env: { browser: true },
       extends: [
         'eslint:recommended',

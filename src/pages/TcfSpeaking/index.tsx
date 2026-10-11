@@ -795,27 +795,23 @@ export default function TcfSpeakingPage() {
                             </div>
                           )}
 
-                          {!asrConsent && (
-                            <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50/70 p-2.5 text-xs text-amber-900 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-amber-200">
-                              <label className="flex cursor-pointer items-start gap-2">
-                                <input
-                                  type="checkbox"
-                                  data-testid="tcf-asr-consent-checkbox"
-                                  checked={asrConsent}
-                                  onChange={(e) => {
-                                    if (e.target.checked) {
-                                      setAsrConsent(true)
-                                      setAsrConsentState(true)
-                                    }
-                                  }}
-                                  className="mt-0.5 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                />
-                                <span>
-                                  隐私说明：录音将发送至服务器及语音识别服务商（Deepgram）转写，不作云端存储。勾选即表示同意。
-                                </span>
-                              </label>
-                            </div>
-                          )}
+                          <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50/70 p-2.5 text-xs text-amber-900 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-amber-200">
+                            <label className="flex cursor-pointer items-start gap-2">
+                              <input
+                                type="checkbox"
+                                data-testid="tcf-asr-consent-checkbox"
+                                checked={asrConsent}
+                                onChange={(e) => {
+                                  setAsrConsent(e.target.checked)
+                                  setAsrConsentState(e.target.checked)
+                                }}
+                                className="mt-0.5 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                              />
+                              <span>
+                                隐私说明：录音将发送至服务器及语音识别服务商（Deepgram）转写，不作云端存储。勾选即表示同意。
+                              </span>
+                            </label>
+                          </div>
 
                           <div className="mt-3 flex flex-wrap items-center gap-2">
                             <button

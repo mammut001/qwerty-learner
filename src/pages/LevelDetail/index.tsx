@@ -694,7 +694,7 @@ function ProductionPanel({
   const meetsLength = isWriting
     ? wc >= targetWords
     : useAsrFlow
-    ? effectiveAudioSeconds >= targetSeconds
+    ? effectiveAudioSeconds >= targetSeconds || (speechMetrics ? speechMetrics.wordCount >= 3 : false)
     : seconds >= targetSeconds
   const canSelfMaster = meetsLength && selfChecks.every(Boolean) && !isRecording && !recorder.isRecording
   const canEvaluate =
@@ -951,27 +951,23 @@ function ProductionPanel({
                 <div className="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-300">录音回放：</div>
                 <audio data-testid="speaking-audio-player" controls src={recorder.audioUrl} className="h-9 w-full" />
 
-                {!asrConsent && (
-                  <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50/70 p-2.5 text-xs text-amber-900 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-amber-200">
-                    <label className="flex cursor-pointer items-start gap-2">
-                      <input
-                        type="checkbox"
-                        data-testid="asr-consent-checkbox"
-                        checked={asrConsent}
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            setAsrConsent(true)
-                            setAsrConsentState(true)
-                          }
-                        }}
-                        className="mt-0.5 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                      />
-                      <span>
-                        隐私说明：录音将发送至服务器及语音识别服务商（Deepgram）转写，不作云端存储。勾选即表示同意。
-                      </span>
-                    </label>
-                  </div>
-                )}
+                <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50/70 p-2.5 text-xs text-amber-900 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-amber-200">
+                  <label className="flex cursor-pointer items-start gap-2">
+                    <input
+                      type="checkbox"
+                      data-testid="asr-consent-checkbox"
+                      checked={asrConsent}
+                      onChange={(e) => {
+                        setAsrConsent(e.target.checked)
+                        setAsrConsentState(e.target.checked)
+                      }}
+                      className="mt-0.5 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    />
+                    <span>
+                      隐私说明：录音将发送至服务器及语音识别服务商（Deepgram）转写，不作云端存储。勾选即表示同意。
+                    </span>
+                  </label>
+                </div>
 
                 <div className="mt-3 flex flex-wrap items-center gap-2">
                   <button
