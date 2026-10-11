@@ -797,17 +797,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { adresse: '450 rue Ontario Est, app. 3', loyer: 'neuf cent soixante dollars', services: 'le chauffage et l’eau chaude', date: 'le premier juillet', serPara: 'la fourniture du chauffage et de l’eau chaude' },
-          { adresse: '720 avenue Laurier Ouest, app. 2', loyer: 'mille cinquante dollars', services: 'l’électricité et l’eau chaude', date: 'le premier juillet', serPara: 'l’alimentation électrique et l’eau chaude' },
-          { adresse: '215 rue Saint-Denis, app. 5', loyer: 'huit cent quatre-vingts dollars', services: 'le chauffage et le déneigement', date: 'le premier août', serPara: 'le service de chauffage et le déneigement' },
+          { adresse: '450 rue Ontario Est, app. 3', loyer: 'neuf cent soixante dollars', services: 'le chauffage et l’eau chaude', date: 'le premier juillet', serPara: 'la fourniture du chauffage et de l’eau chaude', serKw: 'chauffage' },
+          { adresse: '720 avenue Laurier Ouest, app. 2', loyer: 'mille cinquante dollars', services: 'l’électricité et l’eau chaude', date: 'le premier juillet', serPara: 'l’alimentation électrique et l’eau chaude', serKw: 'électricité' },
+          { adresse: '215 rue Saint-Denis, app. 5', loyer: 'huit cent quatre-vingts dollars', services: 'le chauffage et le déneigement', date: 'le premier août', serPara: 'le service de chauffage et le déneigement', serKw: 'déneigement' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `BAIL DE LOGEMENT (Tribunal administratif du logement)\nLe présent bail est conclu pour le logement situé au ${s.adresse}. Le bail commence ${s.date} pour une durée fixe de douze mois. Le montant du loyer mensuel est fixé à ${s.loyer}, payable le premier jour de chaque mois par virement. Le loyer comprend ${s.services}. Les animaux domestiques sont interdits dans l’immeuble, sauf les chats stérilisés. Il est strictement interdit de fumer dans le logement. Tout retard de paiement supérieur à trois semaines pourra entraîner une résiliation du bail par le propriétaire.`,
           questions: [
-            ['De quel type de document officiel s’agit-il principalement ?', 'D’un contrat officiel de location pour un appartement', 'D’un état de compte pour des consommations impayées', 'D’une promesse unilatérale pour acquérir une maison'],
-            ['Quels services sont expressément inclus dans le loyer mensuel ?', `La redevance couvre ${s.serPara}`, 'Le paiement comprend un accès à un box de garage privé', 'Le bail garantit un approvisionnement en repas quotidiens'],
-            ['Quelle modalité est exigée pour le versement du loyer ?', 'Un virement bancaire intervenant au premier jour du mois', 'Un versement hebdomadaire en liquide de la main à la main', 'Un paiement semestriel unique déposé auprès d’un notaire'],
+            makeQuestion('De quel type de document officiel s’agit-il principalement ?', 'D’un contrat officiel de location pour un appartement', 'D’un état de compte pour des consommations impayées', 'D’une promesse unilatérale pour acquérir une maison', ['bail', 'logement']),
+            makeQuestion('Quels services sont expressément inclus dans le loyer mensuel ?', `La redevance couvre ${s.serPara}`, 'Le paiement comprend un accès à un box de garage privé', 'Le bail garantit un approvisionnement en repas quotidiens', [s.serKw]),
+            makeQuestion('Quelle modalité est exigée pour le versement du loyer ?', 'Un virement bancaire intervenant au premier jour du mois', 'Un versement hebdomadaire en liquide de la main à la main', 'Un paiement semestriel unique déposé auprès d’un notaire', ['virement', 'premier']),
           ],
         }
       },
@@ -817,17 +817,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { ville: 'à Québec', quartier: 'dans le quartier Saint-Roch', loyer: 'mille cent dollars', stationnement: 'd’un espace de stationnement intérieur', staPara: 'un emplacement de stationnement abrité' },
-          { ville: 'à Sherbrooke', quartier: 'près du centre-ville', loyer: 'neuf cent vingt dollars', stationnement: 'd’un casier de rangement au sous-sol', staPara: 'un compartiment de rangement au sous-sol' },
-          { ville: 'à Trois-Rivières', quartier: 'dans un secteur résidentiel', loyer: 'huit cent cinquante dollars', stationnement: 'd’un espace pour bicyclette sécurisé', staPara: 'un local sécurisé réservé aux bicyclettes' },
+          { ville: 'à Québec', quartier: 'dans le quartier Saint-Roch', loyer: 'mille cent dollars', stationnement: 'd’un espace de stationnement intérieur', staPara: 'un emplacement de stationnement abrité', staKw: 'stationnement' },
+          { ville: 'à Sherbrooke', quartier: 'près du centre-ville', loyer: 'neuf cent vingt dollars', stationnement: 'd’un casier de rangement au sous-sol', staPara: 'un compartiment de rangement au sous-sol', staKw: 'rangement' },
+          { ville: 'à Trois-Rivières', quartier: 'dans un secteur résidentiel', loyer: 'huit cent cinquante dollars', stationnement: 'd’un espace pour bicyclette sécurisé', staPara: 'un local sécurisé réservé aux bicyclettes', staKw: 'bicyclette' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `ANNEXE AU CONTRAT DE LOCATION - IMMEUBLE LES ÉRABLES\nBienvenue dans votre appartement 3 1/2 situé ${s.ville}, ${s.quartier}. Votre loyer mensuel de ${s.loyer} inclut l’accès au gymnase en plus ${s.stationnement}. Le paiement s’effectue par prélèvement bancaire le premier jour de chaque mois. Les locataires doivent fournir une preuve d’assurance responsabilité civile avant la remise des clés. Les travaux de peinture requièrent une entente écrite préalable avec le gestionnaire. Pour toute urgence de chauffage, veuillez joindre le concierge de garde au poste 102.`,
           questions: [
-            ['Quel document le futur locataire lit-il ici ?', 'Une annexe détaillant les règles de son appartement', 'Une promesse formelle d’acquisition pour un immeuble', 'Une soumission d’entrepreneur pour refaire une cuisine'],
-            ['Quel aménagement complémentaire est compris avec le logement ?', `L’usage d’${s.staPara}`, 'Un branchement direct à un forfait Internet très rapide', 'Une formule de ménage complet assurée chaque vendredi'],
-            ['Que doit fournir le locataire avant d’obtenir les clés ?', 'Une attestation valide d’assurance responsabilité civile', 'Une lettre de recommandation rédigée par son employeur', 'Un dépôt en garantie couvrant trois mensualités de loyer'],
+            makeQuestion('Quel document le futur locataire lit-il ici ?', 'Une annexe détaillant les règles de son appartement', 'Une promesse formelle d’acquisition pour un immeuble', 'Une soumission d’entrepreneur pour refaire une cuisine', ['contrat', 'location']),
+            makeQuestion('Quel aménagement complémentaire est compris avec le logement ?', `L’usage d’${s.staPara}`, 'Un branchement direct à un forfait Internet très rapide', 'Une formule de ménage complet assurée chaque vendredi', [s.staKw]),
+            makeQuestion('Que doit fournir le locataire avant d’obtenir les clés ?', 'Une attestation valide d’assurance responsabilité civile', 'Une lettre de recommandation rédigée par son employeur', 'Un dépôt en garantie couvrant trois mensualités de loyer', ['assurance', 'responsabilité']),
           ],
         }
       },
@@ -837,17 +837,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { festival: 'des Francos de Montréal', spectateurs: 'huit cent mille festivaliers', concerts: 'deux cent cinquante spectacles gratuits' },
-          { festival: 'du Festival de jazz de Montréal', spectateurs: 'près d’un million d’amateurs', concerts: 'trois cents concerts sur les scènes extérieures' },
-          { festival: 'du Festival d’été de Québec', spectateurs: 'six cent mille spectateurs', concerts: 'deux cents représentations musicales variées' },
+          { festival: 'des Francos de Montréal', spectateurs: 'huit cent mille festivaliers', concerts: 'deux cent cinquante spectacles gratuits', conPara: 'Une vaste offre de concerts extérieurs sans frais d’accès', conKw: 'spectacles gratuits', cloture: 'célébrer la chanson francophone', orientPara: 'Une nouvelle édition consacrée aux artistes francophones', orientKw: 'francophone' },
+          { festival: 'du Festival de jazz de Montréal', spectateurs: 'près d’un million d’amateurs', concerts: 'trois cents concerts sur les scènes extérieures', conPara: 'Une programmation riche déployée sur les scènes extérieures', conKw: 'scènes extérieures', cloture: 'célébrer les maîtres du jazz mondial', orientPara: 'Une programmation future centrée sur les talents du jazz', orientKw: 'jazz' },
+          { festival: 'du Festival d’été de Québec', spectateurs: 'six cent mille spectateurs', concerts: 'deux cents représentations musicales variées', conPara: 'Un grand déploiement de prestations musicales diversifiées', conKw: 'représentations musicales', cloture: 'célébrer les artistes de la scène pop et rock', orientPara: 'Une programmation future axée sur les scènes pop et rock', orientKw: 'rock' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
-          text: `BILAN CULTUREL - SUCCÈS MAJEUR POUR LA MUSIQUE\nLa quarantième célébration ${s.festival} s’est clôturée dimanche sur une note formidable. Pendant dix jours sous le soleil, ${s.spectateurs} ont convergé vers le centre-ville. Les organisateurs célèbrent cette réussite populaire avec ${s.concerts} qui ont ravi un public familial. Les commerçants locaux soulignent des retombées économiques majeures pour les restaurants du secteur. Aucun incident n’a été rapporté par la police. Le comité organisateur donne déjà rendez-vous l’an prochain pour célébrer la chanson francophone !`,
+          text: `BILAN CULTUREL - SUCCÈS MAJEUR POUR LA MUSIQUE\nLa quarantième célébration ${s.festival} s’est clôturée dimanche sur une note formidable. Pendant dix jours sous le soleil, ${s.spectateurs} ont convergé vers le centre-ville. Les organisateurs célèbrent cette réussite populaire avec ${s.concerts} qui ont ravi un public familial. Les commerçants locaux soulignent des retombées économiques majeures pour les restaurants du secteur. Aucun incident n’a été rapporté par la police. Le comité organisateur donne déjà rendez-vous l’an prochain pour ${s.cloture} !`,
           questions: [
-            ['Quel est le sujet principal de cet article de journal ?', 'Le couronnement réussi d’une grande manifestation musicale', 'L’interruption d’un événement culturel sous de fortes pluies', 'Le conflit de travail persistant entre musiciens et agents'],
-            ['Quelle statistique illustre la grande réussite de l’événement ?', 'Une vaste offre de concerts extérieurs sans frais d’accès', 'La commercialisation exclusive de billets à des tarifs élevés', 'La participation ponctuelle d’une unique vedette étrangère'],
-            ['Quelle orientation est annoncée pour l’édition de l’année suivante ?', 'Une reconduction de l’événement dédiée à la francophonie', 'La délocalisation de toutes les scènes vers la périphérie', 'L’abandon pur et simple des représentations en plein air'],
+            makeQuestion('Quel est le sujet principal de cet article de journal ?', 'Le couronnement réussi d’une grande manifestation musicale', 'L’interruption d’un événement culturel sous de fortes pluies', 'Le conflit de travail persistant entre musiciens et agents', ['musique', 'festival']),
+            makeQuestion('Quelle statistique illustre la grande réussite de l’événement ?', s.conPara, 'La commercialisation exclusive de billets à des tarifs élevés', 'La participation ponctuelle d’une unique vedette étrangère', [s.conKw]),
+            makeQuestion('Quelle orientation est annoncée pour l’édition de l’année suivante ?', s.orientPara, 'La délocalisation de toutes les scènes vers la périphérie', 'L’abandon pur et simple des représentations en plein air', [s.orientKw]),
           ],
         }
       },
@@ -857,17 +857,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { festival: 'Le Festi-Plage de Cap-d’Espoir', region: 'en Gaspésie', participants: 'vingt-cinq mille visiteurs', nouveaute: 'une plateforme écologique solaire', nouPara: 'une plateforme scénique alimentée à l’énergie solaire' },
-          { festival: 'Le Festival des musiques du monde', region: 'au Saguenay', participants: 'trente mille amateurs', nouveaute: 'des ateliers de percussion pour enfants', nouPara: 'des séances d’initiation à la percussion pour enfants' },
-          { festival: 'Les Nuits acoustiques de Rimouski', region: 'dans le Bas-Saint-Laurent', participants: 'quinze mille festivaliers', nouveaute: 'des navettes fluviales gratuites', nouPara: 'un service de transport par navettes sur le fleuve' },
+          { festival: 'Le Festi-Plage de Cap-d’Espoir', region: 'en Gaspésie', participants: 'vingt-cinq mille visiteurs', nouveaute: 'une plateforme écologique solaire', nouPara: 'une plateforme scénique alimentée à l’énergie solaire', nouKw: 'solaire' },
+          { festival: 'Le Festival des musiques du monde', region: 'au Saguenay', participants: 'trente mille amateurs', nouveaute: 'des ateliers de percussion pour enfants', nouPara: 'des séances d’initiation à la percussion pour enfants', nouKw: 'percussion' },
+          { festival: 'Le festival Les Nuits acoustiques de Rimouski', region: 'dans le Bas-Saint-Laurent', participants: 'quinze mille festivaliers', nouveaute: 'des navettes fluviales gratuites', nouPara: 'un service de transport par navettes sur le fleuve', nouKw: 'navettes' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `CHRONIQUE LOCALE - RECORD DE PARTICIPATION EN RÉGION\n${s.festival}, qui célébrait sa quinzième saison ${s.region}, a franchi une étape historique cette fin de semaine. L’événement a attiré ${s.participants}, dépassant toutes les prévisions du comité organisateur. Les festivaliers ont particulièrement apprécié ${s.nouveaute}. Les artistes invités ont salué l’accueil chaleureux du public lors des concerts au coucher du soleil. Grâce aux revenus de la billetterie, les organisateurs confirment que les profits serviront à financer des bourses pour les jeunes musiciens de la région.`,
           questions: [
-            ['Quel événement culturel régional fait l’objet de ce bilan de presse ?', 'Un festival musical ayant battu son record d’affluence', 'Un concours de chant réservé aux étudiants de conservatoire', 'Une exposition itinérante sur les métiers d’autrefois'],
-            ['Quelle nouveauté a particulièrement séduit les festivaliers ?', `${s.nouPara[0].toUpperCase() + s.nouPara.slice(1)}`, 'Des feux d’artifice tirés à chaque heure de la nuitée', 'L’offre de repas gastronomiques gratuits à tous les visiteurs'],
-            ['À quoi serviront les profits générés par le festival ?', 'Au financement d’un fonds d’aide aux jeunes talents locaux', 'À l’acquisition de voitures de fonction pour la direction', 'À la construction d’une hôtellerie permanente sur la plage'],
+            makeQuestion('Quel événement culturel régional fait l’objet de ce bilan de presse ?', 'Un festival musical ayant battu son record d’affluence', 'Un concours de chant réservé aux étudiants de conservatoire', 'Une exposition itinérante sur les métiers d’autrefois', ['festival', 'région']),
+            makeQuestion('Quelle nouveauté a particulièrement séduit les festivaliers ?', `${cap(s.nouPara)}`, 'Des feux d’artifice tirés à chaque heure de la nuitée', 'L’offre de repas gastronomiques gratuits à tous les visiteurs', [s.nouKw]),
+            makeQuestion('À quoi serviront les profits générés par le festival ?', 'Au financement d’un fonds d’aide aux jeunes talents locaux', 'À l’acquisition de voitures de fonction pour la direction', 'À la construction d’une hôtellerie permanente sur la plage', ['bourses', 'musiciens']),
           ],
         }
       },
@@ -877,17 +877,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { quartier: 'de Côte-des-Neiges', distance: 'à cinq minutes de l’université', meuble: 'entièrement meublé avec électroménagers', internet: 'l’accès à Internet haute vitesse illimité', intPara: 'un accès illimité au réseau Internet à haute vitesse' },
-          { quartier: 'de Sainte-Foy', distance: 'à deux pas du campus collégial', meuble: 'semi-meublé avec lit et bureau', internet: 'une connexion Wi-Fi sécurisée dans tout l’immeuble', intPara: 'une liaison sans fil sécurisée accessible dans l’édifice' },
-          { quartier: 'de Sherbrooke', distance: 'à proximité des facultés', meuble: 'meublé à neuf avec lit double', internet: 'le câble et l’Internet sans fil', intPara: 'la fourniture combinée du câble et d’Internet sans fil' },
+          { quartier: 'de Côte-des-Neiges', distance: 'à cinq minutes de l’université', meuble: 'entièrement meublé avec électroménagers', internet: 'l’accès à Internet haute vitesse illimité', intPara: 'un accès illimité au réseau Internet à haute vitesse', intKw: 'internet' },
+          { quartier: 'de Sainte-Foy', distance: 'à deux pas du campus collégial', meuble: 'semi-meublé avec lit et bureau', internet: 'une connexion Wi-Fi sécurisée dans tout l’immeuble', intPara: 'une liaison sans fil sécurisée accessible dans l’édifice', intKw: 'wi-fi' },
+          { quartier: 'de Sherbrooke', distance: 'à proximité des facultés', meuble: 'meublé à neuf avec lit double', internet: 'le câble et l’Internet sans fil', intPara: 'la fourniture combinée du câble et d’Internet sans fil', intKw: 'câble' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `EXTRAIT DE BAIL RÉSIDENTIEL - SECTION LOGEMENT ÉTUDIANT\nLe logement loué est situé au cœur du secteur ${s.quartier}, ${s.distance}. Il s’agit d’un studio ${s.meuble}. En plus du chauffage, le loyer mensuel comprend ${s.internet}. Le locataire s’engage à respecter la tranquillité des autres résidents entre vingt-deux heures et sept heures du matin. Aucun sous-locataire n’est admis sans le consentement écrit du propriétaire. Toute sous-location non autorisée entraînera une pénalité financière immédiate. Les clés seront remises le premier du mois après versement du premier loyer.`,
           questions: [
-            ['À qui s’adresse principalement cette offre de logement locatif ?', 'À des étudiants recherchant un hébergement adapté', 'À un ménage avec plusieurs enfants en bas âge', 'À une société en quête de locaux professionnels'],
-            ['Quel service de télécommunication est compris dans le bail ?', `${s.intPara[0].toUpperCase() + s.intPara.slice(1)}`, 'Un forfait de téléphonie cellulaire internationale illimité', 'Un abonnement sans frais à des bouquets de chaînes cinéma'],
-            ['Quelle condition encadre la sous-location de ce studio ?', 'Obtenir impérativement l’accord formel et écrit du bailleur', 'Prévenir simplement le voisinage par un message affiché', 'Limiter cette occupation aux seules semaines de la relâche'],
+            makeQuestion('À qui s’adresse principalement cette offre de logement locatif ?', 'À des étudiants recherchant un hébergement adapté', 'À un ménage avec plusieurs enfants en bas âge', 'À une société en quête de locaux professionnels', ['bail', 'étudiant']),
+            makeQuestion('Quel service de télécommunication est compris dans le bail ?', `${cap(s.intPara)}`, 'Un forfait de téléphonie cellulaire internationale illimité', 'Un abonnement sans frais à des bouquets de chaînes cinéma', [s.intKw]),
+            makeQuestion('Quelle condition encadre la sous-location de ce studio ?', 'Obtenir impérativement l’accord formel et écrit du bailleur', 'Prévenir simplement le voisinage par un message affiché', 'Limiter cette occupation aux seules semaines de la relâche', ['sous-locataire', 'consentement']),
           ],
         }
       },
@@ -903,17 +903,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { attraction: 'les saveurs de la Route des terroirs', paysage: 'entre le fleuve et les montagnes imposantes', village: 'le village pittoresque de Baie-Saint-Paul', attPara: 'un parcours gourmand célébrant les saveurs régionales' },
-          { attraction: 'les croisières d’observation des baleines', paysage: 'des fjords spectaculaires aux falaises escarpées', village: 'la municipalité historique de Tadoussac', attPara: 'des excursions maritimes pour contempler les baleines' },
-          { attraction: 'les sentiers panoramiques du parc national', paysage: 'des vallées profondes sculptées par la nature', village: 'la jolie côte de La Malbaie', attPara: 'des pistes balisées offrant des vues imprenables' },
+          { attraction: 'les saveurs de la Route des terroirs', paysage: 'entre le fleuve et les montagnes imposantes', village: 'le village pittoresque de Baie-Saint-Paul', attPara: 'un parcours gourmand célébrant les saveurs régionales', attKw: 'saveurs', vilKw: 'baie-saint-paul' },
+          { attraction: 'les croisières d’observation des baleines', paysage: 'des fjords spectaculaires aux falaises escarpées', village: 'le village historique de Tadoussac', attPara: 'des excursions maritimes pour contempler les baleines', attKw: 'baleines', vilKw: 'tadoussac' },
+          { attraction: 'les sentiers panoramiques du parc national', paysage: 'des vallées profondes sculptées par la nature', village: 'le bourg côtier de La Malbaie', attPara: 'des pistes balisées offrant des vues imprenables', attKw: 'panoramiques', vilKw: 'la malbaie' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `BROCHURE TOURISTIQUE OFFICIELLE - ÉVASION DANS CHARLEVOIX\nNiché ${s.paysage}, Charlevoix est une destination magnifique pour les amoureux de plein air. En parcourant cette région réserve mondiale de la biosphère, vous découvrirez ${s.attraction}, où des fromagers et des artisans passionnés vous accueillent. Faites une halte dans ${s.village}, réputé pour ses galeries d’art, ses bistros chaleureux et son patrimoine architectural préservé. Que vous choisissiez une randonnée au grand air ou un séjour douillet dans une auberge de charme, Charlevoix saura vous émerveiller en toute saison. Réservez votre séjour en ligne dès aujourd’hui !`,
           questions: [
-            ['Quel est l’objectif principal de cette brochure touristique ?', 'Mettre en valeur le patrimoine naturel et culturel régional', 'Avertir les résidents de l’arrivée de dépressions côtières', 'Dresser la chronique historique des premiers colons français'],
-            ['Quelle expérience est particulièrement mise en avant ?', `${s.attPara[0].toUpperCase() + s.attPara.slice(1)}`, 'Une compétition sportive de pêche au gros en haute mer', 'Une visite commentée d’installations pétrochimiques'],
-            ['Pour quoi la municipalité mentionnée est-elle reconnue ?', 'Ses ateliers d’artisans et ses bâtiments patrimoniaux', 'Ses infrastructures aéroportuaires et ses foires d’affaires', 'Ses étendues de sable chaud bordées d’eaux tropicales'],
+            makeQuestion('Quel est l’objectif principal de cette brochure touristique ?', 'Mettre en valeur le patrimoine naturel et culturel régional', 'Avertir les résidents de l’arrivée de dépressions côtières', 'Dresser la chronique historique des premiers colons français', ['charlevoix', 'brochure']),
+            makeQuestion('Quelle expérience est particulièrement mise en avant ?', `${cap(s.attPara)}`, 'Une compétition sportive de pêche au gros en haute mer', 'Une visite commentée d’installations pétrochimiques', [s.attKw]),
+            makeQuestion('Pour quoi la municipalité mentionnée est-elle reconnue ?', 'Ses ateliers d’artisans et ses bâtiments patrimoniaux', 'Ses infrastructures aéroportuaires et ses foires d’affaires', 'Ses étendues de sable chaud bordées d’eaux tropicales', ['galeries', 'patrimoine']),
           ],
         }
       },
@@ -923,17 +923,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { route: 'la célèbre Route des vins', activite: 'la cueillette des pommes dans les vergers ancestraux', mont: 'le mont Orford', actPara: 'l’autocueillette de fruits au cœur de vergers ancestraux' },
-          { route: 'le circuit des cœurs villageois', activite: 'la détente dans les spas nordiques en plein air', mont: 'le mont Brome', actPara: 'un moment de ressourcement dans des bains nordiques extérieurs' },
-          { route: 'le Chemin des Cantons patrimonial', activite: 'la dégustation de bières de microbrasseries locales', mont: 'le mont Sutton', actPara: 'la découverte de bières artisanales brassées sur place' },
+          { route: 'la célèbre Route des vins', activite: 'la cueillette des pommes dans les vergers ancestraux', mont: 'le mont Orford', actPara: 'l’autocueillette de fruits au cœur de vergers ancestraux', actKw: 'pommes', montKw: 'orford' },
+          { route: 'le circuit des cœurs villageois', activite: 'la détente dans les spas nordiques en plein air', mont: 'le mont Brome', actPara: 'un moment de ressourcement dans des bains nordiques extérieurs', actKw: 'spas', montKw: 'brome' },
+          { route: 'le Chemin des Cantons patrimonial', activite: 'la dégustation de bières de microbrasseries locales', mont: 'le mont Sutton', actPara: 'la découverte de bières artisanales brassées sur place', actKw: 'bières', montKw: 'sutton' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `GUIDE DU VISITEUR - LES TRÉSORS DES CANTONS-DE-L’EST\nÀ une heure de route de Montréal, les Cantons-de-l’Est invitent à la douceur de vivre et au dépaysement champêtre. Empruntez ${s.route} pour faire connaissance avec des producteurs locaux réputés. À l’automne, ne manquez pas ${s.activite}, une tradition vivante partagée en famille. Les adeptes de vélo et de marche trouveront leur bonheur sur les pentes entourant ${s.mont}, dont les panoramas sur les collines sont remarquables. Consultez notre carte interactive pour planifier votre circuit et découvrez nos forfaits vacances avantageux combinant nuitée et dégustations.`,
           questions: [
-            ['Quelle région touristique québécoise ce guide fait-il découvrir ?', 'Les paysages ruraux et les villages des Cantons-de-l’Est', 'Les paysages forestiers boréaux caractéristiques du grand nord québécois', 'La plaine agricole s’étendant au centre du pays'],
-            ['Quelle activité automnale est recommandée aux familles ?', `${s.actPara[0].toUpperCase() + s.actPara.slice(1)}`, 'Des descentes en canot sur les rivières', 'Des compétitions de course à pied organisées chaque fin de semaine en forêt'],
-            ['Quel attrait géographique offre des panoramas remarquables ?', 'Les sentiers pédestres balisés offrant des panoramas splendides autour du mont', 'Des sentiers côtiers longeant une immense plage de sable fin', 'Des sentiers de terre battue au fond d’une combe'],
+            makeQuestion('Quelle région touristique québécoise ce guide fait-il découvrir ?', 'Les paysages ruraux et les villages des Cantons-de-l’Est', 'Les paysages forestiers boréaux caractéristiques du grand nord québécois', 'La plaine agricole s’étendant au centre du pays', ['cantons-de-l’est', 'visiteur']),
+            makeQuestion('Quelle activité automnale est recommandée aux familles ?', `${cap(s.actPara)}`, 'Des descentes en canot sur les rivières', 'Des compétitions de course à pied organisées chaque fin de semaine en forêt', [s.actKw]),
+            makeQuestion('Quel attrait géographique offre des panoramas remarquables ?', 'Les sentiers pédestres balisés offrant des panoramas splendides autour du mont', 'Des sentiers côtiers longeant une immense plage de sable fin', 'Des sentiers de terre battue au fond d’une combe', ['panoramas', 'collines']),
           ],
         }
       },
@@ -943,17 +943,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { celebrite: 'la chanteuse populaire Marianne Lemieux', lieu: 'dans une chapelle historique de l’Île d’Orléans', tenue: 'une robe blanche en dentelle signée par un créateur d’ici', tenPara: 'une création blanche en dentelle conçue par un artisan d’ici' },
-          { celebrite: 'l’actrice renommée Béatrice Martel', lieu: 'dans un domaine viticole réputé des Laurentides', tenue: 'une élégante robe satinée aux reflets dorés', tenPara: 'une robe satinée aux nuances dorées d’une grande élégance' },
-          { celebrite: 'l’animatrice de télévision Sophie Leduc', lieu: 'au bord de l’eau dans un manoir du Bas-Saint-Laurent', tenue: 'une longue robe fluide bordée de broderies délicates', tenPara: 'une longue toilette vaporeuse rehaussée de fines broderies' },
+          { celebrite: 'la chanteuse populaire Marianne Lemieux', lieu: 'dans une chapelle historique de l’Île d’Orléans', tenue: 'une robe blanche en dentelle signée par un créateur d’ici', tenPara: 'une création blanche en dentelle conçue par un artisan d’ici', lieuPara: 'Au sein d’une vieille église sur l’Île d’Orléans', lieuKw: 'chapelle', tenKw: 'dentelle' },
+          { celebrite: 'l’actrice renommée Béatrice Martel', lieu: 'dans un domaine viticole réputé des Laurentides', tenue: 'une élégante robe satinée aux reflets dorés', tenPara: 'une robe satinée aux nuances dorées d’une grande élégance', lieuPara: 'Au cœur d’un vignoble prestigieux des Laurentides', lieuKw: 'domaine', tenKw: 'satinée' },
+          { celebrite: 'l’animatrice de télévision Sophie Leduc', lieu: 'au bord de l’eau dans un manoir du Bas-Saint-Laurent', tenue: 'une longue robe fluide bordée de broderies délicates', tenPara: 'une longue toilette vaporeuse rehaussée de fines broderies', lieuPara: 'Près des berges dans une vaste propriété bas-laurentienne', lieuKw: 'manoir', tenKw: 'broderies' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `MAGAZINE ÉCHOS VEDETTES - REPORTAGE EXCLUSIF\nC’est dans une atmosphère féerique que s’est déroulé ce samedi le mariage de ${s.celebrite} avec son compagnon de longue date. La cérémonie intime s’est tenue ${s.lieu}, devant une centaine d’invités triés sur le volet. La mariée a ébloui l’assistance en portant ${s.tenue}. Après un échange de vœux émouvant qui a touché leurs proches, la fête s’est poursuivie avec un banquet champêtre mettant en valeur les produits du terroir québécois. Les amoureux ont ensuite dansé sous un ciel étoilé avant de couper le gâteau traditionnel.`,
           questions: [
-            ['Quel événement mondain ce magazine culturel relate-t-il ?', 'L’union intime d’une personnalité reconnue du milieu artistique', 'Le lancement d’un album de musique classique enregistré par un grand orchestre', 'La projection d’un documentaire historique primé'],
-            ['Où s’est déroulée la cérémonie officielle d’échange des vœux ?', 'Au sein d’un lieu de réception pittoresque en région', 'Dans une salle de réception municipale', 'Dans l’enceinte fermée d’un grand amphithéâtre sportif au cœur du centre-ville'],
-            ['Quelle attention particulière de la mariée a marqué les convives ?', `${s.tenPara[0].toUpperCase() + s.tenPara.slice(1)}`, 'Une toilette sobre confectionnée par une boutique locale', 'Un habit traditionnel d’époque loué pour la fête'],
+            makeQuestion('Quel événement mondain ce magazine culturel relate-t-il ?', 'L’union intime d’une personnalité reconnue du milieu artistique', 'Le lancement d’un album de musique classique enregistré par un grand orchestre', 'La projection d’un documentaire historique primé', ['mariage', 'compagnon']),
+            makeQuestion('Où s’est déroulée la cérémonie officielle d’échange des vœux ?', s.lieuPara, 'Dans une salle municipale polyvalente', 'Dans un amphithéâtre sportif au centre-ville', [s.lieuKw]),
+            makeQuestion('Quelle attention particulière de la mariée a marqué les convives ?', `${cap(s.tenPara)}`, 'Une toilette sobre confectionnée par une boutique locale', 'Un habit traditionnel d’époque loué pour la fête', [s.tenKw]),
           ],
         }
       },
@@ -963,17 +963,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { sportif: 'le capitaine de hockey Alexandre Roy', endroit: 'dans une auberge ancestrale de Charlevoix', cadeau: 'des dons à un organisme pour enfants défavorisés', cadPara: 'un groupe venant en aide aux enfants' },
-          { sportif: 'le patineur médaillé Maxime Tremblay', endroit: 'dans une grange patrimoniale restaurée en Estrie', cadeau: 'des contributions à une fondation de recherche médicale', cadPara: 'la recherche médicale québécoise' },
-          { sportif: 'le joueur étoile David Desbiens', endroit: 'dans un verger privé au pied du mont Saint-Hilaire', cadeau: 'le financement d’équipements sportifs scolaires', cadPara: 'l’achat de matériel sportif scolaire' },
+          { sportif: 'le capitaine de hockey Alexandre Roy', endroit: 'dans une auberge ancestrale de Charlevoix', cadeau: 'des dons à un organisme pour enfants défavorisés', cadPara: 'un groupe venant en aide aux enfants', cadKw: 'enfants' },
+          { sportif: 'le patineur médaillé Maxime Tremblay', endroit: 'dans une grange patrimoniale restaurée en Estrie', cadeau: 'des contributions à une fondation de recherche médicale', cadPara: 'la recherche médicale québécoise', cadKw: 'médicale' },
+          { sportif: 'le joueur étoile David Desbiens', endroit: 'dans un verger privé au pied du mont Saint-Hilaire', cadeau: 'le financement d’équipements sportifs scolaires', cadPara: 'l’achat de matériel sportif scolaire', cadKw: 'équipements sportifs' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `CHRONIQUE CÉLÉBRITÉS - UNION HIVERNALE AUX SAVEURS D’ICI\nCe week-end, ${s.sportif} a uni sa destinée à celle de sa conjointe ${s.endroit}. Entourés de leurs coéquipiers et de leurs familles, les amoureux ont célébré leur union dans un décor rustique. Au lieu des traditionnels présents de mariage, le couple a invité ses convives à faire ${s.cadeau}. Les invités ont savouré un repas inspiré des cabanes à sucre traditionnelles, avec de la tire sur la neige servie en fin de soirée. Un moment magique et authentique que le couple et leurs invités chériront longtemps !`,
           questions: [
-            ['De quelle célébration d’envergure l’article fait-il le récit ?', 'Du mariage chaleureux d’un athlète professionnel québécois', 'D’un hommage marquant le départ en retraite d’un entraîneur', 'D’une soirée commémorant une victoire en championnat de hockey'],
-            ['Quel geste charitable les mariés ont-ils demandé à leurs invités ?', `Offrir des contributions au profit de ${s.cadPara}`, 'Fabriquer eux-mêmes les tables et chaises du banquet', 'Prendre en charge l’achat de tous les meubles requis pour accueillir les invités'],
-            ['Quelle surprise gourmande a clôturé la soirée de mariage ?', 'De la tire d’érable servie sur la neige en plein air', 'Un assortiment de poissons et fruits de mer importés', 'Une pièce montée chocolatée parée de fruits exotiques'],
+            makeQuestion('De quelle célébration d’envergure l’article fait-il le récit ?', 'Du mariage chaleureux d’un athlète professionnel québécois', 'D’un hommage marquant le départ en retraite d’un entraîneur', 'D’une soirée commémorant une victoire en championnat de hockey', ['sportif', 'mariage']),
+            makeQuestion('Quel geste charitable les mariés ont-ils demandé à leurs invités ?', `Offrir des contributions au profit de ${s.cadPara}`, 'Fabriquer eux-mêmes les tables et chaises du banquet', 'Prendre en charge l’achat de tous les meubles requis pour accueillir les invités', [s.cadKw]),
+            makeQuestion('Quelle surprise gourmande a clôturé la soirée de mariage ?', 'De la tire d’érable servie sur la neige en plein air', 'Un assortiment de poissons et fruits de mer importés', 'Une pièce montée chocolatée parée de fruits exotiques', ['tire', 'neige']),
           ],
         }
       },
@@ -983,17 +983,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { symbole: 'le célèbre rocher Percé', parc: 'le parc national de la Gaspésie', route: 'la mythique route 132 qui longe le golfe marin', symPara: 'une formation géologique emblématique du littoral' },
-          { symbole: 'le phare historique de Pointe-à-la-Renommée', parc: 'le parc national Forillon', route: 'le grand tour côtier reliant la mer et les monts', symPara: 'un phare patrimonial surplombant la côte maritime' },
-          { symbole: 'les fous de Bassan de l’île Bonaventure', parc: 'la réserve faunique des Chic-Chocs', route: 'le corridor panoramique aux falaises côtières', symPara: 'une colonie impressionnante d’oiseaux marins' },
+          { symbole: 'le célèbre rocher Percé', parc: 'le parc national de la Gaspésie', route: 'la mythique route 132 qui longe le golfe marin', symPara: 'une formation géologique emblématique du littoral', symKw: 'rocher percé' },
+          { symbole: 'le phare historique de Pointe-à-la-Renommée', parc: 'le parc national Forillon', route: 'le grand tour côtier reliant la mer et les monts', symPara: 'un phare patrimonial surplombant la côte maritime', symKw: 'phare' },
+          { symbole: 'les fous de Bassan de l’île Bonaventure', parc: 'la réserve faunique des Chic-Chocs', route: 'le corridor panoramique aux falaises côtières', symPara: 'une colonie impressionnante d’oiseaux marins', symKw: 'île bonaventure' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `DÉPLIANT TOURISME QUÉBEC - CAP SUR LA GASPÉSIE\nPréparez-vous à vivre un voyage sur route spectaculaire en explorant la Gaspésie. Empruntez ${s.route}, où chaque virage dévoile des falaises maritimes et des havres de pêche pittoresques. Admirez ${s.symbole}, véritable joyau naturel, et marchez dans ${s.parc} pour apercevoir des orignaux dans leur habitat sauvage. Les auberges du littoral vous feront déguster le homard frais et des chaudrées préparées selon les traditions des pêcheurs d’autrefois. Une aventure maritime inoubliable vous attend dès votre premier arrêt en bord de mer !`,
           questions: [
-            ['Quelle région maritime du Québec ce dépliant décrit-il ?', 'La péninsule côtière gaspésienne et ses grands espaces', 'L’archipel urbain s’étendant autour de la métropole', 'La plaine agricole s’étirant au cœur de la province'],
-            ['Quel site naturel ou faunique emblématique est mis à l’honneur ?', `${s.symPara[0].toUpperCase() + s.symPara.slice(1)}`, 'Une pyramide de pierre édifiée au siècle précédent', 'Une centrale hydroélectrique interdite aux curieux'],
-            ['Quel mets culinaire typique est proposé dans les auberges ?', 'Des crustacés frais et des potages marins traditionnels', 'Des pièces de viande rouge importées par transport aérien', 'Des barquettes de plats préparés et réchauffés au four'],
+            makeQuestion('Quelle région maritime du Québec ce dépliant décrit-il ?', 'La péninsule côtière gaspésienne et ses grands espaces', 'L’archipel urbain s’étendant autour de la métropole', 'La plaine agricole s’étirant au cœur de la province', ['gaspésie', 'dépliant']),
+            makeQuestion('Quel site naturel ou faunique emblématique est mis à l’honneur ?', `${cap(s.symPara)}`, 'Une pyramide de pierre édifiée au siècle précédent', 'Une centrale hydroélectrique interdite aux curieux', [s.symKw]),
+            makeQuestion('Quel mets culinaire typique est proposé dans les auberges ?', 'Des crustacés frais et des potages marins traditionnels', 'Des pièces de viande rouge importées par transport aérien', 'Des barquettes de plats préparés et réchauffés au four', ['homard', 'chaudrées']),
           ],
         }
       },
@@ -1009,17 +1009,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { couple: 'Mélanie et Sébastien', transport: 'à bord du train transcanadien', sommet: 'les sommets enneigés des Rocheuses canadiennes', retard: 'trois heures de retard causées par un troupeau d’orignaux', retPara: 'un ralentissement de quelques heures provoqué par la faune' },
-          { couple: 'Audrey et Guillaume', transport: 'en train panoramique avec dôme vitré', sommet: 'les parois vertigineuses de la rivière Fraser', retard: 'deux heures d’attente sur une voie secondaire', retPara: 'une immobilisation temporaire sur une voie de garage' },
-          { couple: 'Émilie et David', transport: 'en wagon-lit confortable et chaleureux', sommet: 'les lacs glaciaires d’un bleu éblouissant', retard: 'une pause imprévue pour réparer un aiguillage', retPara: 'une halte technique afin de réparer un équipement ferroviaire' },
+          { couple: 'Mélanie et Sébastien', transport: 'à bord du train transcanadien', sommet: 'les sommets enneigés des Rocheuses canadiennes', retard: 'trois heures de retard causées par un troupeau d’orignaux', retPara: 'un ralentissement de quelques heures provoqué par la faune', retKw: 'orignaux' },
+          { couple: 'Audrey et Guillaume', transport: 'en train panoramique avec dôme vitré', sommet: 'les parois vertigineuses de la rivière Fraser', retard: 'deux heures d’attente sur une voie secondaire', retPara: 'une immobilisation temporaire sur une voie de garage', retKw: 'voie' },
+          { couple: 'Émilie et David', transport: 'en wagon-lit confortable et chaleureux', sommet: 'les lacs glaciaires d’un bleu éblouissant', retard: 'une pause imprévue pour réparer un aiguillage', retPara: 'une halte technique afin de réparer un équipement ferroviaire', retKw: 'aiguillage' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `BILLET DE BLOGUE - NOTRE ÉPOPÉE FERROVIAIRE EN DUO\nBonjour à tous nos abonnés ! ${s.couple} vous écrivent depuis Vancouver après un voyage de deux semaines. Nous avons traversé le pays ${s.transport}, et c’était merveilleux. Chaque matin, nous prenions notre café devant ${s.sommet}. Même si le train a subi ${s.retard}, personne ne s’est plaint : nous en avons profité pour lier conversation avec d’autres voyageurs autour d’un jeu de cartes. Ce voyage nous a appris à ralentir et à contempler la nature. Prochaine étape : une excursion en traversier vers l’île de Vancouver !`,
           questions: [
-            ['Quel est le sujet principal de ce billet de blogue de voyage ?', 'Le carnet d’une traversée ferroviaire du pays en duo', 'Une recension critique des prestations d’un hôtel urbain', 'Une campagne participative pour soutenir un projet d’art'],
-            ['Quel contretemps sur les voies a prolongé le trajet ?', `${s.retPara[0].toUpperCase() + s.retPara.slice(1)}`, 'Une panne générale d’énergie touchant l’ensemble des rames', 'La disparition des bagages de cabine durant une manœuvre'],
-            ['Quelle est la prochaine destination prévue par le couple ?', 'Une traversée maritime par bateau vers l’île voisine', 'Un vol sans escale de retour vers leur ville de départ', 'Un séjour d’une semaine dans une cabane non chauffée'],
+            makeQuestion('Quel est le sujet principal de ce billet de blogue de voyage ?', 'Le carnet d’une traversée ferroviaire du pays en duo', 'Une recension critique des prestations d’un hôtel urbain', 'Une campagne participative pour soutenir un projet d’art', ['ferroviaire', 'voyage']),
+            makeQuestion('Quel contretemps sur les voies a prolongé le trajet ?', `${cap(s.retPara)}`, 'Une panne générale d’énergie touchant l’ensemble des rames', 'La disparition des bagages de cabine durant une manœuvre', [s.retKw]),
+            makeQuestion('Quelle est la prochaine destination prévue par le couple ?', 'Une traversée maritime par bateau vers l’île voisine', 'Un vol sans escale de retour vers leur ville de départ', 'Un séjour d’une semaine dans une cabane non chauffée', ['traversier', 'vancouver']),
           ],
         }
       },
@@ -1029,17 +1029,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { auteurs: 'Caroline et Mathieu', duree: 'cinq jours d’immersion totale', plan: 'les lacs calmes du parc national de la Mauricie', mesaventure: 'un orage soudain qui a trempé leurs sacs de couchage', mesPara: 'une violente averse ayant mouillé leur matériel de couchage' },
-          { auteurs: 'Isabelle et Antoine', duree: 'quatre jours de canot-camping', plan: 'la rivière Mistassibi et ses rives boisées', mesaventure: 'la visite nocturne d’un raton laveur gourmand près du feu', mesPara: 'l’incursion nocturne d’un animal attiré par leurs vivres' },
-          { auteurs: 'Sophie et François', duree: 'six jours d’expédition en nature', plan: 'le réservoir Poisson Blanc et ses îles sauvages', mesaventure: 'une pagaie cassée heureusement remplacée par celle de secours', mesPara: 'le bris d’une pagaie remplacée par une pièce de rechange' },
+          { auteurs: 'Caroline et Mathieu', duree: 'cinq jours d’immersion totale', plan: 'les lacs calmes du parc national de la Mauricie', mesaventure: 'un orage soudain qui a trempé nos sacs de couchage', mesPara: 'une violente averse ayant mouillé leur matériel de couchage', mesKw: 'couchage' },
+          { auteurs: 'Isabelle et Antoine', duree: 'quatre jours de canot-camping', plan: 'la rivière Mistassibi et ses rives boisées', mesaventure: 'la visite nocturne d’un raton laveur gourmand près du feu', mesPara: 'l’incursion nocturne d’un animal attiré par leurs vivres', mesKw: 'raton laveur' },
+          { auteurs: 'Sophie et François', duree: 'six jours d’expédition en nature', plan: 'le réservoir Poisson Blanc et ses îles sauvages', mesaventure: 'une pagaie cassée heureusement remplacée par celle de secours', mesPara: 'le bris d’une pagaie remplacée par une pièce de rechange', mesKw: 'pagaie' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `CARNET D’AVENTURE - RETOUR DE NOTRE SÉJOUR EN NATURE\nNous revoilà en ligne après ${s.duree} en forêt ! Avec mon conjoint, nous avons pagayé sur ${s.plan}. Le silence matinal sur l’eau et le chant des oiseaux resteront gravés dans nos mémoires pour toujours. Évidemment, une belle expédition comporte ses imprévus : nous avons essuyé ${s.mesaventure}. Heureusement, grâce à notre trousse de survie et à un feu de camp, nous avons séché nos affaires dans la bonne humeur. Pour tous ceux qui hésitent : préparez votre équipement et sautez à l’eau !`,
           questions: [
-            ['Quelle expérience vécue les blogueurs partagent-ils ?', 'Une randonnée nautique en autonomie de plusieurs jours', 'L’acquisition d’une résidence secondaire près d’un axe routier', 'Le suivi d’un stage professionnel pour devenir guide de plein air'],
-            ['Quel désagrément matériel a marqué leur périple ?', `${s.mesPara[0].toUpperCase() + s.mesPara.slice(1)}`, 'La perte de leur canot emporté au loin par les flots d’un torrent', 'Une atteinte corporelle sévère exigeant une évacuation par les airs'],
-            ['Comment ont-ils réagi face à ce contretemps ?', 'En surmontant l’épreuve avec bonne humeur autour du feu', 'En alertant sans attendre les équipes de secours forestier', 'En abandonnant sur place leur équipement pour regagner la route'],
+            makeQuestion('Quelle expérience vécue les blogueurs partagent-ils ?', 'Une randonnée nautique en autonomie de plusieurs jours', 'L’acquisition d’une résidence secondaire près d’un axe routier', 'Le suivi d’un stage professionnel pour devenir guide de plein air', ['canot', 'forêt']),
+            makeQuestion('Quel désagrément matériel a marqué leur périple ?', `${cap(s.mesPara)}`, 'La perte de leur canot emporté au loin par les flots d’un torrent', 'Une atteinte corporelle sévère exigeant une évacuation par les airs', [s.mesKw]),
+            makeQuestion('Comment ont-ils réagi face à ce contretemps ?', 'En surmontant l’épreuve avec bonne humeur autour du feu', 'En alertant sans attendre les équipes de secours forestier', 'En abandonnant sur place leur équipement pour regagner la route', ['feu', 'affaires']),
           ],
         }
       },
@@ -1049,17 +1049,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { secteur: 'sur la rue Saint-Zotique Est', heure: 'vers six heures du matin', cause: 'du bris soudain d’une conduite d’eau principale', solidarite: 'ont offert des cruches d’eau potable à leurs voisins âgés', solPara: 'offrir des récipients d’eau aux personnes plus âgées' },
-          { secteur: 'sur la rue Beaubien', heure: 'vers sept heures et demie', cause: 'd’une fuite majeure causée par des travaux de voirie', solidarite: 'ont partagé des bidons d’eau pour préparer le café', solPara: 'partager de l’eau potable pour faciliter les besoins matinaux' },
-          { secteur: 'sur l’avenue Papineau', heure: 'à l’aube ce mardi', cause: 'de l’éclatement d’un tuyau d’aqueduc sous le trottoir', solidarite: 'ont mis à disposition le robinet extérieur de leur cour', solPara: 'ouvrir le robinet de leur cour pour dépanner les voisins' },
+          { secteur: 'sur la rue Saint-Zotique Est', heure: 'vers six heures du matin', cause: 'du bris soudain d’une conduite d’eau principale', solidarite: 'ont offert des cruches d’eau potable à leurs voisins âgés', solPara: 'offrir des récipients d’eau aux personnes plus âgées', solKw: 'cruches' },
+          { secteur: 'sur la rue Beaubien', heure: 'vers sept heures et demie', cause: 'd’une fuite majeure causée par des travaux de voirie', solidarite: 'ont partagé des bidons d’eau pour préparer le café', solPara: 'partager de l’eau potable pour faciliter les besoins matinaux', solKw: 'bidons' },
+          { secteur: 'sur l’avenue Papineau', heure: 'à l’aube ce mardi', cause: 'de l’éclatement d’un tuyau d’aqueduc sous le trottoir', solidarite: 'ont mis à disposition le robinet extérieur de leur cour', solPara: 'ouvrir le robinet de leur cour pour dépanner les voisins', solKw: 'robinet' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `GROUPE CITOYEN - SOLIDARITÉ DU QUARTIER ROSEMONT\nChers voisins, voici un résumé de la situation vécue ${s.secteur}. Ce matin ${s.heure}, l’eau s’est déversée sur le trottoir à la suite ${s.cause}. Les cols bleus de la ville sont intervenus rapidement pour fermer les valves, coupant l’eau pour quarante logements. Face à ce désagrément, plusieurs résidents ${s.solidarite}. La municipalité a distribué des bouteilles d’eau devant le dépanneur. La pression reviendra avant vingt heures ce soir. Merci à tous pour votre belle entraide communautaire !`,
           questions: [
-            ['Quel incident de quartier est décrit dans cette publication ?', 'Une rupture d’aqueduc entraînant une coupure d’eau potable', 'Une interruption électrique causée par de violentes rafales', 'Une série d’effractions commises dans des commerces du secteur'],
-            ['Comment la solidarité entre résidents s’est-elle manifestée ?', `En choisissant d’${s.solPara}`, 'En barrant l’accès à la rue pour alerter les automobilistes', 'En tentant de colmater eux-mêmes les bris de canalisation'],
-            ['Quelle mesure municipale temporaire a été mise en place ?', 'Un approvisionnement en eau potable devant le dépanneur', 'Un hébergement gratuit pour tous les occupants à l’hôtel', 'L’annulation des taxes municipales pour l’ensemble de l’année'],
+            makeQuestion('Quel incident de quartier est décrit dans cette publication ?', 'Une rupture d’aqueduc entraînant une coupure d’eau potable', 'Une interruption électrique causée par de violentes rafales', 'Une série d’effractions commises dans des commerces du secteur', ['eau', 'conduite']),
+            makeQuestion('Comment la solidarité entre résidents s’est-elle manifestée ?', `En choisissant ${de(s.solPara)}`, 'En barrant l’accès à la rue pour alerter les automobilistes', 'En tentant de colmater eux-mêmes les bris de canalisation', [s.solKw]),
+            makeQuestion('Quelle mesure municipale temporaire a été mise en place ?', 'Un approvisionnement en eau potable devant le dépanneur', 'Un hébergement gratuit pour tous les occupants à l’hôtel', 'L’annulation des taxes municipales pour l’ensemble de l’année', ['bouteilles', 'dépanneur']),
           ],
         }
       },
@@ -1069,17 +1069,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { ruelle: 'entre les rues Masson et Dandurand', orage: 'de violentes rafales de vent hier soir', degat: 'a arraché deux fils téléphoniques et bloqué trois garages', degPara: 'des fils téléphoniques rompus et des accès de garages obstrués' },
-          { ruelle: 'derrière la rue Saint-Hubert', orage: 'un orage d’été avec de fortes averses', degat: 'est tombé sur une clôture en bois et obstrue le passage', degPara: 'une palissade de bois endommagée et la circulation piétonne bloquée' },
-          { ruelle: 'au sud de l’avenue du Mont-Royal', orage: 'un coup de vent soudain en fin d’après-midi', degat: 'a écrasé un cabanon de jardin sans faire de blessé', degPara: 'la destruction d’un abri de jardin sans occasionner de blessures' },
+          { ruelle: 'entre les rues Masson et Dandurand', orage: 'de violentes rafales de vent hier soir', degat: 'a arraché deux fils téléphoniques et bloqué trois garages', degPara: 'des fils téléphoniques rompus et des accès de garages obstrués', degKw: 'garages' },
+          { ruelle: 'derrière la rue Saint-Hubert', orage: 'd’un orage d’été avec de fortes averses', degat: 'est tombé sur une clôture en bois et obstrue le passage', degPara: 'une palissade de bois endommagée et la circulation piétonne bloquée', degKw: 'clôture' },
+          { ruelle: 'au sud de l’avenue du Mont-Royal', orage: 'd’un coup de vent soudain en fin d’après-midi', degat: 'a écrasé un cabanon de jardin sans faire de blessé', degPara: 'la destruction d’un abri de jardin sans occasionner de blessures', degKw: 'cabanon' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `FORUM DES HABITANTS - RUELLE SÉCURITÉ ET ENTRAIDE\nPetit retour sur les événements survenus dans notre ruelle ${s.ruelle}. À la suite ${s.orage}, un grand saule s’est abattu en travers du chemin. L’arbre ${s.degat}. Heureusement, aucun passant ne circulait à cet instant. Avant même l’arrivée des équipes municipales d’urgence, plusieurs voisins ont sorti leurs scies pour dégager l’accès aux piétons. Merci à Patrick d’avoir installé des cônes de signalisation. La ville ramassera les branches dès demain matin. Soyez prudents à vélo dans le secteur !`,
           questions: [
-            ['Quel événement imprévu dans la ruelle est rapporté ?', 'La chute d’un grand arbre provoquée par de fortes bourrasques', 'Une fuite de gaz ayant nécessité l’évacuation des logements', 'La tenue sans permis d’un rassemblement festif sur la voie'],
-            ['Quel dommage matériel direct cette chute a-t-elle causé ?', `${s.degPara[0].toUpperCase() + s.degPara.slice(1)}`, 'L’écroulement d’un mur mitoyen sur un immeuble de trois étages', 'La destruction de trois véhicules stationnés le long du trottoir'],
-            ['Quelle action collective spontanée les voisins ont-ils entreprise ?', 'Découper des branchages pour libérer le passage des piétons', 'Faire appel aux forces policières pour établir un constat écrit', 'Quitter temporairement leurs logements pour loger chez des proches'],
+            makeQuestion('Quel événement imprévu dans la ruelle est rapporté ?', 'La chute d’un grand arbre provoquée par de fortes bourrasques', 'Une fuite de gaz ayant nécessité l’évacuation des logements', 'La tenue sans permis d’un rassemblement festif sur la voie', ['arbre', 'ruelle']),
+            makeQuestion('Quel dommage matériel direct cette chute a-t-elle causé ?', `${cap(s.degPara)}`, 'L’écroulement d’un mur mitoyen sur un immeuble de trois étages', 'La destruction de trois véhicules stationnés le long du trottoir', [s.degKw]),
+            makeQuestion('Quelle action collective spontanée les voisins ont-ils entreprise ?', 'Découper des branchages pour libérer le passage des piétons', 'Faire appel aux forces policières pour établir un constat écrit', 'Quitter temporairement leurs logements pour loger chez des proches', ['scies', 'piétons']),
           ],
         }
       },
@@ -1089,17 +1089,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { parcours: 'les monts Valin et leurs sapins givrés', etape: 'dans un relais de motoneigistes chauffé au poêle à bois', etaPara: 'dans une halte pour motoneigistes chauffée au bois' },
-          { parcours: 'le tour complet du grand lac Saint-Jean glacé', etape: 'dans une pourvoirie traditionnelle très chaleureuse', etaPara: 'au sein d’une pourvoirie chaleureuse en région' },
-          { parcours: 'les sentiers boisés qui surplombent le fjord', etape: 'dans un camp rustique au cœur de la forêt boréale', etaPara: 'dans un refuge forestier modeste mais accueillant' },
+          { parcours: 'les monts Valin et leurs sapins givrés', etape: 'dans un relais de motoneigistes chauffé au poêle à bois', etaPara: 'dans une halte pour motoneigistes chauffée au bois', etaKw: 'relais' },
+          { parcours: 'le tour complet du grand lac Saint-Jean glacé', etape: 'dans une pourvoirie traditionnelle très chaleureuse', etaPara: 'au sein d’une pourvoirie chaleureuse en région', etaKw: 'pourvoirie' },
+          { parcours: 'les sentiers boisés qui surplombent le fjord', etape: 'dans un camp rustique au cœur de la forêt boréale', etaPara: 'dans un refuge forestier modeste mais accueillant', etaKw: 'camp' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `RÉCIT D’ÉVASION - NOTRE PREMIER RAID HIVERNAL EN DUO\nBonjour à tous les adeptes du plein air ! Mon conjoint et moi venons de terminer notre première randonnée de motoneige au Saguenay. Pendant quatre jours, nous avons sillonné ${s.parcours}. Les paysages entièrement blancs étaient féeriques. Chaque soir, après avoir affronté un froid vif de moins vingt degrés, nous nous réchauffions ${s.etape}. L’ambiance y était formidable et les habitués nous ont donné de précieux conseils mécaniques. Nous rentrons avec des souvenirs magnifiques et l’envie irrésistible de repartir explorer la Côte-Nord l’hiver prochain !`,
           questions: [
-            ['Quelle expérience hivernale ce couple partage-t-il sur son blogue ?', 'Une randonnée sur plusieurs jours en motoneige au Saguenay', 'Une participation à un concours officiel de slalom en ski', 'Une démarche d’acquisition immobilière dans les Laurentides'],
-            ['Où les motoneigistes trouvaient-ils refuge pour la soirée ?', `Ils logeaient ${s.etaPara}`, 'Ils dormaient sous la tente sans équipement de chauffage', 'Ils revenaient chaque soir séjourner dans un grand hôtel urbain'],
-            ['Quel projet hivernal le couple envisage-t-il déjà pour l’an prochain ?', 'Explorer les grands espaces de la Côte-Nord en motoneige', 'Céder tout leur matériel motorisé pour demeurer en ville', 'Séjourner durant la saison froide dans un pays ensoleillé'],
+            makeQuestion('Quelle expérience hivernale ce couple partage-t-il sur son blogue ?', 'Une randonnée sur plusieurs jours en motoneige au Saguenay', 'Une participation à un concours officiel de slalom en ski', 'Une démarche d’acquisition immobilière dans les Laurentides', ['motoneige', 'saguenay']),
+            makeQuestion('Où les motoneigistes trouvaient-ils refuge pour la soirée ?', `Ils logeaient ${s.etaPara}`, 'Ils dormaient sous la tente sans équipement de chauffage', 'Ils revenaient chaque soir séjourner dans un grand hôtel urbain', [s.etaKw]),
+            makeQuestion('Quel projet hivernal le couple envisage-t-il déjà pour l’an prochain ?', 'Explorer les grands espaces de la Côte-Nord en motoneige', 'Céder tout leur matériel motorisé pour demeurer en ville', 'Séjourner durant la saison froide dans un pays ensoleillé', ['côte-nord', 'hiver']),
           ],
         }
       },
@@ -1115,17 +1115,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { amie: 'Léa', poste: 'd’agente de liaison communautaire', organisme: 'au CLSC de mon quartier', avantage: 'je pourrai y aller à pied tous les matins', avPara: 'la possibilité de se rendre au travail à pied chaque matin' },
-          { amie: 'Myriam', poste: 'd’éducatrice spécialisée', organisme: 'dans un centre de pédiatrie sociale', avantage: 'l’équipe est humaine et très soudée', avPara: 'l’ambiance d’équipe particulièrement humaine et soudée' },
-          { amie: 'Sophie', poste: 'de coordonnatrice de projets', organisme: 'dans une coopérative solidaire', avantage: 'l’horaire sur quatre jours me libère mes vendredis', avPara: 'une formule de travail sur quatre jours libérant le vendredi' },
+          { amie: 'Léa', poste: 'd’agente de liaison communautaire', organisme: 'au CLSC de mon quartier', avantage: 'je pourrai y aller à pied tous les matins', avPara: 'la possibilité de se rendre au travail à pied chaque matin', avKw: 'pied' },
+          { amie: 'Myriam', poste: 'd’éducatrice spécialisée', organisme: 'dans un centre de pédiatrie sociale', avantage: 'l’équipe est humaine et très soudée', avPara: 'l’ambiance d’équipe particulièrement humaine et soudée', avKw: 'soudée' },
+          { amie: 'Sophie', poste: 'de coordonnatrice de projets', organisme: 'dans une coopérative solidaire', avantage: 'l’horaire sur quatre jours me libère mes vendredis', avPara: 'une formule de travail sur quatre jours libérant le vendredi', avKw: 'quatre jours' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `CLAVARDAGE - DISCUSSION AVEC ${s.amie.toUpperCase()}\n[14:15] ${s.amie} : Coucou ! J’ai une grande nouvelle : j’ai signé mon contrat aujourd’hui ! J’ai accepté le poste ${s.poste} ${s.organisme}. J’hésitais avec une autre offre mieux payée, mais la mission sociale me rejoint beaucoup plus. En plus, un avantage formidable : ${s.avantage} ! La directrice m’a assuré que je serai bien accompagnée durant ma formation initiale. Je commence officiellement le deux mai. On va pouvoir célébrer ça autour d’un bon café cette fin de semaine si tu es libre !`,
           questions: [
-            ['Quelle décision importante l’amie annonce-t-elle par message ?', 'L’acceptation d’un contrat au sein d’un organisme social', 'Une inscription à temps plein dans un programme universitaire', 'Un départ précipité pour s’établir de façon permanente en région'],
-            ['Quelle raison principale a fait pencher la balance en faveur de ce poste ?', 'La concordance avec ses valeurs et la mission sociale du groupe', 'Une rémunération deux fois supérieure à celle des autres postes', 'L’absence de supervision hiérarchique au sein de la structure'],
-            ['Quel avantage pratique du quotidien la réjouit particulièrement ?', `${s.avPara[0].toUpperCase() + s.avPara.slice(1)}`, 'Une voiture de fonction haut de gamme mise à disposition', 'Des séjours professionnels assurés mensuellement à l’étranger'],
+            makeQuestion('Quelle décision importante l’amie annonce-t-elle par message ?', 'L’acceptation d’un contrat au sein d’un organisme social', 'Une inscription à temps plein dans un programme universitaire', 'Un départ précipité pour s’établir de façon permanente en région', ['contrat', 'poste']),
+            makeQuestion('Quelle raison principale a fait pencher la balance en faveur de ce poste ?', 'La concordance avec ses valeurs et la mission sociale du groupe', 'Une rémunération deux fois supérieure à celle des autres postes', 'L’absence de supervision hiérarchique au sein de la structure', ['mission', 'sociale']),
+            makeQuestion('Quel avantage pratique du quotidien la réjouit particulièrement ?', `${cap(s.avPara)}`, 'Une voiture de fonction haut de gamme mise à disposition', 'Des séjours professionnels assurés mensuellement à l’étranger', [s.avKw]),
           ],
         }
       },
@@ -1135,17 +1135,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { amie: 'Catherine', poste: 'de technicienne en documentation', institution: 'à la bibliothèque du cégep', raison: 'la sécurité d’emploi et le régime de retraite', raiPara: 'la stabilité professionnelle et un bon régime de retraite' },
-          { amie: 'Audrey', poste: 'd’animatrice de vie étudiante', institution: 'dans une école secondaire locale', raison: 'le contact stimulant avec les adolescents', raiPara: 'les relations dynamiques et quotidiennes avec les adolescents' },
-          { amie: 'Nadia', poste: 'de conseillère d’orientation', institution: 'au centre pour adultes', raison: 'l’aide pratique apportée aux nouveaux arrivants', raiPara: 'le soutien concret accordé aux nouveaux arrivants' },
+          { amie: 'Catherine', poste: 'de technicienne en documentation', institution: 'à la bibliothèque du cégep', raison: 'la sécurité d’emploi et le régime de retraite', raiPara: 'la stabilité professionnelle et un bon régime de retraite', raiKw: 'retraite' },
+          { amie: 'Audrey', poste: 'd’animatrice de vie étudiante', institution: 'dans une école secondaire locale', raison: 'le contact stimulant avec les adolescents', raiPara: 'les relations dynamiques et quotidiennes avec les adolescents', raiKw: 'adolescents' },
+          { amie: 'Nadia', poste: 'de conseillère d’orientation', institution: 'au centre pour adultes', raison: 'l’aide pratique apportée aux nouveaux arrivants', raiPara: 'le soutien concret accordé aux nouveaux arrivants', raiKw: 'nouveaux arrivants' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `CLAVARDAGE - ANNONCE OFFICIELLE DE CARRIÈRE\n[10:32] ${s.amie} : Salut ! Je voulais t’expliquer pourquoi j’ai accepté l’offre ${s.poste} ${s.institution}. Après avoir travaillé à contrat dans l’incertitude, ce poste m’apporte exactement ce dont j’avais besoin : ${s.raison}. Même si le processus de sélection a été long avec trois entrevues, la directrice m’a fait une excellente impression. Mes futurs collègues sont accueillants et le bureau est très lumineux. J’entre en poste lundi prochain. Je suis tellement soulagée de cette stabilité !`,
           questions: [
-            ['Quelle orientation de carrière est partagée par l’amie ?', 'L’acceptation d’un engagement dans le réseau éducatif', 'Une embauche comme commis comptable au sein d’une banque', 'Un contrat de gérance dans un magasin de vêtements du quartier'],
-            ['Pourquoi cette embauche représente-t-elle un grand soulagement ?', `Elle lui assure ${s.raiPara}`, 'Elle n’exige qu’une dizaine d’heures de présence par mois', 'Elle lui permet d’œuvrer sans aucun contact avec le public'],
-            ['Quand doit-elle commencer officiellement son nouvel emploi ?', 'Dès le début de la semaine suivante suite à son embauche', 'Dans trois mois après une longue période de repos estival', 'Au cours de l’automne prochain lors de la rentrée scolaire'],
+            makeQuestion('Quelle orientation de carrière est partagée par l’amie ?', 'L’acceptation d’un engagement dans le réseau éducatif', 'Une embauche comme commis comptable au sein d’une banque', 'Un contrat de gérance dans un magasin de vêtements du quartier', ['poste', 'offre']),
+            makeQuestion('Pourquoi cette embauche représente-t-elle un grand soulagement ?', `Elle lui assure ${s.raiPara}`, 'Elle n’exige qu’une dizaine d’heures de présence par mois', 'Elle lui permet d’œuvrer sans aucun contact avec le public', [s.raiKw]),
+            makeQuestion('Quand doit-elle commencer officiellement son nouvel emploi ?', 'Dès le début de la semaine suivante suite à son embauche', 'Dans trois mois après une longue période de repos estival', 'Au cours de l’automne prochain lors de la rentrée scolaire', ['lundi', 'poste']),
           ],
         }
       },
@@ -1155,17 +1155,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { collegue: 'Marc-André Tremblay', motif: 'la livraison urgente du rapport financier annuel', offre: 'de préparer les dépliants promotionnels', motPara: 'l’achèvement impératif du rapport financier annuel', offPara: 'confectionner le matériel promotionnel dès le mardi' },
-          { collegue: 'Vincent Bouchard', motif: 'une formation obligatoire en santé et sécurité', offre: 'de rédiger le compte rendu complet de la rencontre', motPara: 'une session imposée en matière de sécurité du travail', offPara: 'rédiger l’ensemble du compte rendu de la rencontre' },
-          { collegue: 'Simon Pelletier', motif: 'un audit externe qui mobilise toute notre équipe', offre: 'd’accueillir les nouveaux lors de la séance suivante', motPara: 'une vérification externe mobilisant l’ensemble du service', offPara: 'prendre en charge l’accueil lors d’une séance ultérieure' },
+          { collegue: 'Marc-André Tremblay', motif: 'la livraison urgente du rapport financier annuel', offre: 'de préparer les dépliants promotionnels', motPara: 'l’achèvement impératif du rapport financier annuel', offPara: 'confectionner le matériel promotionnel dès le mardi', motKw: 'financier', offKw: 'dépliants' },
+          { collegue: 'Vincent Bouchard', motif: 'une formation obligatoire en santé et sécurité', offre: 'de rédiger le compte rendu complet de la rencontre', motPara: 'une session imposée en matière de sécurité du travail', offPara: 'rédiger l’ensemble du compte rendu de la rencontre', motKw: 'sécurité', offKw: 'compte rendu' },
+          { collegue: 'Simon Pelletier', motif: 'un audit externe qui mobilise toute notre équipe', offre: 'd’accueillir les nouveaux lors de la séance suivante', motPara: 'une vérification externe mobilisant l’ensemble du service', offPara: 'prendre en charge l’accueil lors d’une séance ultérieure', motKw: 'audit', offKw: 'accueillir' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `COURRIEL PROFESSIONNEL\nDe : ${s.collegue}\nÀ : Comité d’insertion professionnelle\nObjet : Absence motivée - Journée d’insertion du 18 octobre\nBonjour à tous,\nJe vous informe avec regret que je ne pourrai pas participer à notre journée d’insertion professionnelle jeudi prochain. En effet, je dois finaliser en priorité ${s.motif}, dont l’échéance a été devancée à vendredi matin par la direction. Cette charge de travail m’empêche de me libérer pour la journée. Toutefois, pour soutenir le comité, je me propose ${s.offre} dès ce mardi. Je vous souhaite une belle journée d’échanges et je reste disponible au besoin.`,
           questions: [
-            ['Quel est l’objet principal de ce courriel professionnel ?', 'La justification polie d’un empêchement à une activité interne', 'Une demande formelle d’augmentation de traitement salarial', 'Une démission sans préavis suite à un désaccord dans le service'],
-            ['Quelle contrainte professionnelle majeure justifie cette absence ?', `${s.motPara[0].toUpperCase() + s.motPara.slice(1)}`, 'Une invitation personnelle à disputer une partie de golf récréative', 'Une coupure de connexion Internet survenue à son domicile privé'],
-            ['Quelle aide concrète le collègue propose-t-il d’apporter malgré tout ?', `Il offre de ${s.offPara}`, 'Régler personnellement l’ensemble des frais de bouche de la journée', 'Rémunérer à ses frais un travailleur temporaire pour la journée'],
+            makeQuestion('Quel est l’objet principal de ce courriel professionnel ?', 'La justification polie d’un empêchement à une activité interne', 'Une demande formelle d’augmentation de traitement salarial', 'Une démission sans préavis suite à un désaccord dans le service', ['insertion', 'absence']),
+            makeQuestion('Quelle contrainte professionnelle majeure justifie cette absence ?', `${cap(s.motPara)}`, 'Une invitation personnelle à disputer une partie de golf récréative', 'Une coupure de connexion Internet survenue à son domicile privé', [s.motKw]),
+            makeQuestion('Quelle aide concrète le collègue propose-t-il d’apporter malgré tout ?', `Il offre de ${s.offPara}`, 'Régler personnellement l’ensemble des frais de bouche de la journée', 'Rémunérer à ses frais un travailleur temporaire pour la journée', [s.offKw]),
           ],
         }
       },
@@ -1175,17 +1175,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { expediteur: 'Alexandre Roy', obligation: 'un rendez-vous médical spécialisé pour ma fille à l’hôpital', compensation: 'transmettre mes fiches d’information par courriel', oblPara: 'un rendez-vous de santé pour son enfant fixé de longue date', comPara: 'acheminer ses fiches de renseignements par voie électronique' },
-          { expediteur: 'Patrick Lavoie', obligation: 'une convocation judiciaire comme témoin civique', compensation: 'enregistrer une brève capsule vidéo de bienvenue', oblPara: 'une obligation civique de témoignage auprès de la justice', comPara: 'préparer un court enregistrement vidéo de bienvenue' },
-          { expediteur: 'Guillaume Simard', obligation: 'une urgence familiale majeure qui nécessite ma présence', compensation: 'animer la rencontre virtuelle de suivi la semaine prochaine', oblPara: 'un impératif familial majeur qui retient sa présence', comPara: 'coordonner la réunion de suivi prévue en ligne la semaine suivante' },
+          { expediteur: 'Alexandre Roy', obligation: 'un rendez-vous médical spécialisé pour ma fille à l’hôpital', compensation: 'transmettre mes fiches d’information par courriel', oblPara: 'un rendez-vous de santé pour son enfant fixé de longue date', comPara: 'acheminer ses fiches de renseignements par voie électronique', oblKw: 'fille', comKw: 'fiches' },
+          { expediteur: 'Patrick Lavoie', obligation: 'une convocation judiciaire comme témoin civique', compensation: 'enregistrer une brève capsule vidéo de bienvenue', oblPara: 'une obligation civique de témoignage auprès de la justice', comPara: 'préparer un court enregistrement vidéo de bienvenue', oblKw: 'témoin', comKw: 'vidéo' },
+          { expediteur: 'Guillaume Simard', obligation: 'une soutenance universitaire obligatoire pour mon diplôme', compensation: 'animer la rencontre virtuelle de suivi la semaine prochaine', oblPara: 'une obligation universitaire fixée de longue date pour son diplôme', comPara: 'coordonner la réunion de suivi prévue en ligne la semaine suivante', oblKw: 'diplôme', comKw: 'virtuelle' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `MESSAGE ÉLECTRONIQUE INTERNE\nDe : ${s.expediteur}\nÀ : Direction des ressources humaines\nObjet : Absence à l’activité d’intégration\nChers collègues,\nJe tiens à vous aviser que je ne pourrai malheureusement pas me joindre à vous ce vendredi pour l’accueil des nouveaux employés. J’ai ${s.obligation}, une démarche fixée de longue date que je ne peux reporter. Je regrette sincèrement de manquer cette occasion d’échanger avec nos nouvelles recrues. Afin de soutenir le groupe malgré tout, je m’engage à ${s.compensation} avant mercredi midi. Merci beaucoup pour votre compréhension et bonne journée d’accueil à tous !`,
           questions: [
-            ['Pourquoi l’employé écrit-il ce message à la direction ?', 'Pour exposer les motifs de son absence à l’accueil des recrues', 'Pour officialiser son embauche auprès d’une entreprise concurrente', 'Pour demander une indemnité de transport pour son itinéraire'],
-            ['Quelle raison impérative empêche sa présence ce vendredi ?', `${s.oblPara[0].toUpperCase() + s.oblPara.slice(1)}`, 'Une réservation de vacances organisée au dernier moment', 'Un défaut d’inscription de la date sur son agenda personnel'],
-            ['Quelle solution alternative l’employé propose-t-il pour s’impliquer ?', `Il s’engage à ${s.comPara}`, 'Refuser de répondre aux courriels des nouveaux arrivants', 'Transférer définitivement l’ensemble de ses dossiers à un pair'],
+            makeQuestion('Pourquoi l’employé écrit-il ce message à la direction ?', 'Pour exposer les motifs de son absence à l’accueil des recrues', 'Pour officialiser son embauche auprès d’une entreprise concurrente', 'Pour demander une indemnité de transport pour son itinéraire', ['absence', 'intégration']),
+            makeQuestion('Quelle raison impérative empêche sa présence ce vendredi ?', `${cap(s.oblPara)}`, 'Une réservation de vacances organisée au dernier moment', 'Un défaut d’inscription de la date sur son agenda personnel', [s.oblKw]),
+            makeQuestion('Quelle solution alternative l’employé propose-t-il pour s’impliquer ?', `Il s’engage à ${s.comPara}`, 'Refuser de répondre aux courriels des nouveaux arrivants', 'Transférer définitivement l’ensemble de ses dossiers à un pair', [s.comKw]),
           ],
         }
       },
@@ -1195,17 +1195,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { amie: 'Isabelle', ville: 'à Rimouski', poste: 'de rédactrice scientifique', cadre: 'un cadre de vie paisible au bord du fleuve', cadPara: 'un environnement apaisant à proximité du fleuve' },
-          { amie: 'Florence', ville: 'à Chicoutimi', poste: 'd’ingénieure en environnement', cadre: 'un accès direct aux sentiers de plein air', cadPara: 'la proximité immédiate des parcours de grand air' },
-          { amie: 'Mélanie', ville: 'à Rouyn-Noranda', poste: 'd’agente culturelle', cadre: 'une communauté solidaire sans bouchons de circulation', cadPara: 'une ville solidaire épargnée par les congestions' },
+          { amie: 'Isabelle', ville: 'à Rimouski', poste: 'de rédactrice scientifique', cadre: 'un cadre de vie paisible au bord du fleuve', cadPara: 'un environnement apaisant à proximité du fleuve', cadKw: 'fleuve' },
+          { amie: 'Florence', ville: 'à Chicoutimi', poste: 'd’ingénieure en environnement', cadre: 'un accès direct aux sentiers de plein air', cadPara: 'la proximité immédiate des parcours de grand air', cadKw: 'sentiers' },
+          { amie: 'Mélanie', ville: 'à Rouyn-Noranda', poste: 'd’agente culturelle', cadre: 'une communauté solidaire sans bouchons de circulation', cadPara: 'une ville solidaire épargnée par les congestions', cadKw: 'circulation' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `CLAVARDAGE - DÉPART VERS UNE NOUVELLE RÉGION\n[16:45] ${s.amie} : Salut ! J’ai une grande décision à t’annoncer : j’ai dit oui pour le poste ${s.poste} ${s.ville} ! Je quitte la métropole le mois prochain. J’ai longuement réfléchi, mais ce qui a emporté mon choix, c’est ${s.cadre}. Même si mes amis vont me manquer, mon employeur m’accorde une aide financière pour mon déménagement et un horaire flexible. C’est un nouveau départ formidable. Je prépare un souper d’au revoir chez moi samedi prochain, viens fêter avec nous !`,
           questions: [
-            ['Quelle décision majeure l’amie partage-t-elle dans ce message ?', 'Son choix d’accepter un travail et d’aller s’établir en région', 'Son refus de quitter son logement situé au cœur de Montréal', 'L’achat d’une maison de villégiature pour ses fins de semaine'],
-            ['Quel facteur principal a motivé son départ vers sa nouvelle ville ?', `${s.cadPara[0].toUpperCase() + s.cadPara.slice(1)}`, 'L’assurance d’exercer un emploi exempt de toute responsabilité', 'Une décision obligatoire rendue par son association corporative'],
-            ['Quelle aide concrète son nouvel employeur lui accorde-t-il ?', 'Une allocation pour faciliter les frais de son déménagement', 'Le paiement complet de ses droits universitaires passés', 'L’acquisition d’un logement complet dans sa municipalité d’accueil'],
+            makeQuestion('Quelle décision majeure l’amie partage-t-elle dans ce message ?', 'Son choix d’accepter un travail et d’aller s’établir en région', 'Son refus de quitter son logement situé au cœur de Montréal', 'L’achat d’une maison de villégiature pour ses fins de semaine', ['poste', 'région']),
+            makeQuestion('Quel facteur principal a motivé son départ vers sa nouvelle ville ?', `${cap(s.cadPara)}`, 'L’assurance d’exercer un emploi exempt de toute responsabilité', 'Une décision obligatoire rendue par son association corporative', [s.cadKw]),
+            makeQuestion('Quelle aide concrète son nouvel employeur lui accorde-t-il ?', 'Une allocation pour faciliter les frais de son déménagement', 'Le paiement complet de ses droits universitaires passés', 'L’acquisition d’un logement complet dans sa municipalité d’accueil', ['déménagement', 'financière']),
           ],
         }
       },
@@ -1221,17 +1221,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { organisme: 'la Régie de l’assurance maladie (RAMQ)', identifiant: 'votre numéro d’assurance maladie à douze caractères', confirmation: 'un numéro de confirmation officiel à sept chiffres', conPara: 'un code chiffré de confirmation officiel à conserver' },
-          { organisme: 'Revenu Québec et Retraite Québec', identifiant: 'votre numéro d’assurance sociale et votre code postal', confirmation: 'un accusé de réception électronique téléchargeable', conPara: 'un reçu officiel téléchargeable confirmant l’envoi' },
-          { organisme: 'la Société de l’assurance automobile (SAAQ)', identifiant: 'votre numéro de permis de conduire et votre date de naissance', confirmation: 'un avis de validation transmis par courriel sécurisé', conPara: 'un message électronique officiel validant l’opération' },
+          { organisme: 'la Régie de l’assurance maladie (RAMQ)', identifiant: 'votre numéro d’assurance maladie à douze caractères', confirmation: 'un numéro de confirmation officiel à sept chiffres', conPara: 'un code chiffré de confirmation officiel à conserver', conKw: 'confirmation' },
+          { organisme: 'Revenu Québec et Retraite Québec', identifiant: 'votre numéro d’assurance sociale et votre code postal', confirmation: 'un accusé de réception électronique téléchargeable', conPara: 'un reçu officiel téléchargeable confirmant l’envoi', conKw: 'réception' },
+          { organisme: 'la Société de l’assurance automobile (SAAQ)', identifiant: 'votre numéro de permis de conduire et votre date de naissance', confirmation: 'un avis de validation transmis par courriel sécurisé', conPara: 'un message électronique officiel validant l’opération', conKw: 'validation' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `SERVICE QUÉBÉCOIS DE CHANGEMENT D’ADRESSE\nPour mettre à jour votre adresse auprès de ministères dont ${s.organisme}, suivez ces quatre étapes. Étape 1 : Accédez au portail du gouvernement du Québec et sélectionnez « Déménagement ». Étape 2 : Confirmez votre identité en saisissant ${s.identifiant}. Étape 3 : Inscrivez votre nouvelle adresse et la date de votre emménagement. Étape 4 : Révisez le formulaire et cliquez sur « Transmettre ». Le système générera ${s.confirmation}. Conservez précieusement ce document pour vos dossiers administratifs.`,
           questions: [
-            ['Quelle démarche citoyenne ce guide gouvernemental explique-t-il ?', 'La communication d’une nouvelle adresse aux ministères provinciaux', 'La demande de délivrance d’un passeport de voyage à l’étranger', 'La transmission de la déclaration fiscale annuelle de revenus'],
-            ['Quelle information personnelle doit-on saisir à la seconde étape ?', 'La combinaison identifiante officielle requise par le portail', 'Les coordonnées bancaires complètes de sa carte de paiement', 'L’adresse courriel personnelle de son propriétaire de logement'],
-            ['Que doit conserver le citoyen à la fin de la démarche en ligne ?', `${s.conPara[0].toUpperCase() + s.conPara.slice(1)}`, 'Une attestation timbrée expédiée par voie postale sous pli fermé', 'Un formulaire manuscrit signé devant un officier public'],
+            makeQuestion('Quelle démarche citoyenne ce guide gouvernemental explique-t-il ?', 'La communication d’une nouvelle adresse aux ministères provinciaux', 'La demande de délivrance d’un passeport de voyage à l’étranger', 'La transmission de la déclaration fiscale annuelle de revenus', ['changement', 'adresse']),
+            makeQuestion('Quelle information personnelle doit-on saisir à la seconde étape ?', 'La combinaison identifiante officielle requise par le portail', 'Les coordonnées bancaires complètes de sa carte de paiement', 'L’adresse courriel personnelle de son propriétaire de logement', ['identité', 'saisissant']),
+            makeQuestion('Que doit conserver le citoyen à la fin de la démarche en ligne ?', `${cap(s.conPara)}`, 'Une attestation timbrée expédiée par voie postale sous pli fermé', 'Un formulaire manuscrit signé devant un officier public', [s.conKw]),
           ],
         }
       },
@@ -1241,17 +1241,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { document: 'votre permis de conduire officiel', service: 'SAAQclic avec votre compte ClicSÉQUR', avis: 'un avis de confirmation par la poste sous dix jours', aviPara: 'un courrier de confirmation sous une dizaine de jours' },
-          { document: 'votre dossier de conducteur automobile', service: 'l’espace client sécurisé de la SAAQ', avis: 'une nouvelle étiquette autocollante d’adresse', aviPara: 'un autocollant officiel d’adresse à poser sur son permis' },
-          { document: 'vos pièces d’immatriculation de véhicule', service: 'le portail citoyen gouvernemental', avis: 'un message dans votre boîte de réception sécurisée', aviPara: 'une notification officielle dans son espace de réception' },
+          { document: 'votre permis de conduire officiel', service: 'sur SAAQclic avec votre compte ClicSÉQUR', avis: 'un avis de confirmation par la poste sous dix jours', aviPara: 'un courrier de confirmation sous une dizaine de jours', aviKw: 'dix jours' },
+          { document: 'votre dossier de conducteur automobile', service: 'sur l’espace client sécurisé de la SAAQ', avis: 'une nouvelle étiquette autocollante d’adresse', aviPara: 'un autocollant officiel d’adresse à poser sur son permis', aviKw: 'autocollante' },
+          { document: 'vos pièces d’immatriculation de véhicule', service: 'sur le portail citoyen gouvernemental', avis: 'un message dans votre boîte de réception sécurisée', aviPara: 'une notification officielle dans son espace de réception', aviKw: 'réception' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
-          text: `GUIDE D’UTILISATION - DOSSIER CONDUCTEUR SAAQ\nLa loi exige d’aviser la Société de l’assurance automobile dans les trente jours suivant un déménagement pour ${s.document}. Voici la démarche. Connectez-vous d’abord à ${s.service}. Rendez-vous dans la section « Coordonnées » et cliquez sur « Modifier mon adresse ». Entrez votre nouveau code postal et votre numéro de logement. Vérifiez l’exactitude des données et validez la transaction. Vous recevrez ${s.avis}. Si votre ancienne adresse figure encore sur vos pièces après trente jours, vous risquez une amende lors d’un contrôle routier.`,
+          text: `GUIDE D’UTILISATION - DOSSIER CONDUCTEUR SAAQ\nLa loi exige d’aviser la Société de l’assurance automobile dans les trente jours suivant un déménagement pour ${s.document}. Voici la démarche. Connectez-vous d’abord ${s.service}. Rendez-vous dans la section « Coordonnées » et cliquez sur « Modifier mon adresse ». Entrez votre nouveau code postal et votre numéro de logement. Vérifiez l’exactitude des données et validez la transaction. Vous recevrez ${s.avis}. Si votre ancienne adresse figure encore sur vos pièces après trente jours, vous risquez une amende lors d’un contrôle routier.`,
           questions: [
-            ['Dans quel délai un citoyen doit-il mettre à jour son adresse à la SAAQ ?', 'Dans les trente jours consécutifs à son changement de domicile', 'Durant les quarante-huit heures suivant l’entrée dans les lieux', 'Au terme d’une période maximale d’une année civile complète'],
-            ['Où doit-on se connecter pour faire cette modification par Internet ?', 'Sur le portail officiel désigné pour la gestion du profil', 'Auprès du site promotionnel d’un distributeur d’automobiles', 'Sur la page officielle des réseaux de la surveillance policière'],
-            ['Que reçoit le conducteur après avoir validé son changement en ligne ?', `${s.aviPara[0].toUpperCase() + s.aviPara.slice(1)}`, 'Une contravention forfaitaire pour usage du service numérique', 'Une convocation obligatoire à repasser l’examen théorique du code'],
+            makeQuestion('Dans quel délai un citoyen doit-il mettre à jour son adresse à la SAAQ ?', 'Dans les trente jours consécutifs à son changement de domicile', 'Durant les quarante-huit heures suivant l’entrée dans les lieux', 'Au terme d’une période maximale d’une année civile complète', ['trente jours', 'déménagement']),
+            makeQuestion('Où doit-on se connecter pour faire cette modification par Internet ?', 'Sur le portail officiel désigné pour la gestion du profil', 'Auprès du site promotionnel d’un distributeur d’automobiles', 'Sur la page officielle des réseaux de la surveillance policière', ['connectez-vous', 'section']),
+            makeQuestion('Que reçoit le conducteur après avoir validé son changement en ligne ?', `${cap(s.aviPara)}`, 'Une contravention forfaitaire pour usage du service numérique', 'Une convocation obligatoire à repasser l’examen théorique du code', [s.aviKw]),
           ],
         }
       },
@@ -1261,17 +1261,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { modele: 'l’imprimante multifonction sans fil', reseau: 'votre réseau Wi-Fi domestique', bouton: 'le bouton Wi-Fi pendant trois secondes', test: 'imprimer une page de test pour vérifier la qualité', tesPara: 'lancer l’impression d’un feuillet d’essai pour juger du rendu' },
-          { modele: 'l’imprimante laser noir et blanc', reseau: 'le réseau Internet local du bureau', bouton: 'la touche WPS de votre routeur', test: 'lancer l’impression du document d’accueil', tesPara: 'lancer le tirage du feuillet de présentation fourni par le logiciel' },
-          { modele: 'l’appareil à jet d’encre couleur', reseau: 'votre connexion sans fil personnelle', bouton: 'l’icône Réseau sur l’écran tactile', test: 'exécuter l’alignement des têtes d’impression', tesPara: 'procéder au calibrage mécanique des têtes d’impression' },
+          { modele: 'l’imprimante multifonction sans fil', reseau: 'à votre réseau Wi-Fi domestique', bouton: 'le bouton Wi-Fi pendant trois secondes', test: 'imprimer une page de test pour vérifier la qualité', tesPara: 'lancer l’impression d’un feuillet d’essai pour juger du rendu', tesKw: 'page de test' },
+          { modele: 'l’imprimante laser noir et blanc', reseau: 'au réseau Internet local du bureau', bouton: 'la touche WPS de votre routeur', test: 'lancer l’impression du document d’accueil', tesPara: 'lancer le tirage du feuillet de présentation fourni par le logiciel', tesKw: 'document d’accueil' },
+          { modele: 'l’appareil à jet d’encre couleur', reseau: 'à votre connexion sans fil personnelle', bouton: 'l’icône Réseau sur l’écran tactile', test: 'exécuter l’alignement des têtes d’impression', tesPara: 'procéder au calibrage mécanique des têtes d’impression', tesKw: 'têtes d’impression' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
-          text: `GUIDE DE DÉMARRAGE - INSTALLATION D’IMPRIMANTE\nPour configurer ${s.modele} sur votre ordinateur, suivez ces instructions. 1. Branchez le cordon d’alimentation et allumez l’appareil. 2. Connectez l’imprimante à ${s.reseau} en maintenant enfoncé ${s.bouton}. 3. Sur votre ordinateur, ouvrez les « Paramètres », cliquez sur « Imprimantes », puis sélectionnez « Ajouter un appareil ». Votre ordinateur détectera automatiquement l’imprimante. 4. Téléchargez le pilote recommandé et terminez en prenant soin d’${s.test}. En cas d’erreur de détection, redémarrez votre routeur avant de réessayer.`,
+          text: `GUIDE DE DÉMARRAGE - INSTALLATION D’IMPRIMANTE\nPour configurer ${s.modele} sur votre ordinateur, suivez ces instructions. 1. Branchez le cordon d’alimentation et allumez l’appareil. 2. Connectez l’imprimante ${s.reseau} en maintenant enfoncé ${s.bouton}. 3. Sur votre ordinateur, ouvrez les « Paramètres », cliquez sur « Imprimantes », puis sélectionnez « Ajouter un appareil ». Votre ordinateur détectera automatiquement l’imprimante. 4. Téléchargez le pilote recommandé et terminez en prenant soin ${de(s.test)}. En cas d’erreur de détection, redémarrez votre routeur avant de réessayer.`,
           questions: [
-            ['Quel équipement informatique ce guide aide-t-il à installer ?', 'Une nouvelle imprimante sans fil reliée à son ordinateur', 'Un moniteur d’ordinateur haute définition pour les loisirs', 'Un ensemble clavier et pavé tactile sans liaison filaire'],
-            ['Quelle manipulation permet de connecter l’imprimante au réseau ?', 'Appuyer de façon prolongée sur la commande réseau indiquée', 'Déconnecter puis réinsérer le câble d’alimentation dix fois', 'Maintenir enfoncée la touche de majuscule sur son clavier'],
-            ['Quelle action finale permet de valider le bon fonctionnement ?', `Il convient de ${s.tesPara}`, 'Laisser le matériel hors tension durant une journée entière', 'Mettre en vente immédiate son ancien équipement sur Internet'],
+            makeQuestion('Quel équipement informatique ce guide aide-t-il à installer ?', 'Une nouvelle imprimante sans fil reliée à son ordinateur', 'Un moniteur d’ordinateur haute définition pour les loisirs', 'Un ensemble clavier et pavé tactile sans liaison filaire', ['imprimante', 'configurer']),
+            makeQuestion('Quelle manipulation permet de connecter l’imprimante au réseau ?', 'Appuyer de façon prolongée sur la commande réseau indiquée', 'Déconnecter puis réinsérer le câble d’alimentation dix fois', 'Maintenir enfoncée la touche de majuscule sur son clavier', ['maintenant', 'enfoncé']),
+            makeQuestion('Quelle action finale permet de valider le bon fonctionnement ?', `Il convient de ${s.tesPara}`, 'Laisser le matériel hors tension durant une journée entière', 'Mettre en vente immédiate son ancien équipement sur Internet', [s.tesKw]),
           ],
         }
       },
@@ -1281,17 +1281,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { port: 'un port USB libre de votre ordinateur', cartouche: 'les rubans de protection orange des cartouches', site: 'le site officiel d’assistance du fabricant', carPara: 'retirer les adhésifs de sécurité protégeant les cartouches' },
-          { port: 'la prise USB à l’arrière de l’ordinateur', cartouche: 'les languettes de sécurité du toner laser', site: 'la page de téléchargement des pilotes officiels', carPara: 'dégager les attaches de protection bloquant le toner laser' },
-          { port: 'l’adaptateur USB fourni avec votre appareil', cartouche: 'les bandes adhésives de protection', site: 'le centre de soutien technique en ligne', carPara: 'ôter soigneusement toutes les bandes collantes de protection' },
+          { port: 'un port USB libre de votre ordinateur', cartouche: 'les rubans de protection orange des cartouches', site: 'le site officiel d’assistance du fabricant', carPara: 'retirer les adhésifs de sécurité protégeant les cartouches', carKw: 'cartouches' },
+          { port: 'la prise USB à l’arrière de l’ordinateur', cartouche: 'les languettes de sécurité du toner laser', site: 'la page de téléchargement des pilotes officiels', carPara: 'dégager les attaches de protection bloquant le toner laser', carKw: 'toner laser' },
+          { port: 'l’adaptateur USB fourni avec votre appareil', cartouche: 'les bandes adhésives de protection', site: 'le centre de soutien technique en ligne', carPara: 'ôter soigneusement toutes les bandes collantes de protection', carKw: 'adhésives' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `GUIDE D’INSTALLATION - CONNEXION FILAIRE USB\nPour relier votre imprimante sans passer par le réseau sans fil, respectez ces étapes simples. 1. Retirez tous les emballages et enlevez ${s.cartouche}. 2. Insérez le papier dans le bac et allumez l’appareil. 3. Rendez-vous sur ${s.site} pour installer le logiciel requis avant de brancher le câble. 4. Lorsque le programme vous y invite, branchez le câble USB reliant l’imprimante à ${s.port}. Le système terminera la configuration en quelques secondes. Imprimez une page d’essai pour confirmer que la liaison est réussie.`,
           questions: [
-            ['Quelle méthode de raccordement de l’imprimante est détaillée ici ?', 'Une liaison par câble informatique direct entre les deux appareils', 'Un raccordement distant par antenne satellitaire de longue portée', 'Une synchronisation par signal Bluetooth de faible puissance'],
-            ['Que faut-il faire avant de brancher le câble physique ?', 'Installer d’abord le programme téléchargé sur la page de soutien', 'Remplacer la carte maîtresse de son ordinateur de travail', 'Procéder au formatage du système de stockage de la machine'],
-            ['Quel élément de protection doit-on enlever au début ?', `Il faut ${s.carPara}`, 'Dévisser le verre de protection du numériseur de documents', 'Couper le câble d’alimentation permanente de l’équipement'],
+            makeQuestion('Quelle méthode de raccordement de l’imprimante est détaillée ici ?', 'Une liaison par câble informatique direct entre les deux appareils', 'Un raccordement distant par antenne satellitaire de longue portée', 'Une synchronisation par signal Bluetooth de faible puissance', ['imprimante', 'câble usb']),
+            makeQuestion('Que faut-il faire avant de brancher le câble physique ?', 'Installer d’abord le programme téléchargé sur la page de soutien', 'Remplacer la carte maîtresse de son ordinateur de travail', 'Procéder au formatage du système de stockage de la machine', ['logiciel', 'brancher']),
+            makeQuestion('Quel élément de protection doit-on enlever au début ?', `Il faut ${s.carPara}`, 'Dévisser le verre de protection du numériseur de documents', 'Couper le câble d’alimentation permanente de l’équipement', [s.carKw]),
           ],
         }
       },
@@ -1301,17 +1301,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { institution: 'votre coopérative Desjardins', champ: 'votre numéro de téléphone et votre courriel', securite: 'un code de sécurité temporaire par message texte', secPara: 'un code temporaire de validation reçu par message texte' },
-          { institution: 'la Banque Nationale', champ: 'votre adresse postale et votre employeur', securite: 'un mot de passe unique sur votre application', secPara: 'une clé d’accès unique transmise sur l’application bancaire' },
-          { institution: 'la Banque Royale', champ: 'vos coordonnées personnelles et vos avis', securite: 'une notification d’approbation sur votre appareil', secPara: 'un avis d’approbation sécurisé à confirmer sur l’appareil' },
+          { institution: 'votre coopérative Desjardins', champ: 'votre numéro de téléphone et votre courriel', securite: 'un code de sécurité temporaire par message texte', instruction: 'Entrez ce code dans la case requise et confirmez', secPara: 'un code temporaire de validation reçu par message texte', secKw: 'message texte' },
+          { institution: 'la Banque Nationale', champ: 'votre adresse postale et votre employeur', securite: 'un mot de passe unique sur votre application', instruction: 'Saisissez ce mot de passe unique pour confirmer', secPara: 'une clé d’accès unique transmise sur l’application bancaire', secKw: 'application' },
+          { institution: 'la Banque Royale', champ: 'vos coordonnées personnelles et vos avis', securite: 'une notification d’approbation sur votre appareil', instruction: 'Validez cette notification d’approbation pour confirmer', secPara: 'un avis d’approbation sécurisé à confirmer sur l’appareil', secKw: 'notification' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
-          text: `PROCÉDURE BANCAIRE - MISE À JOUR DE VOTRE DOSSIER\nMaintenez vos coordonnées à jour pour assurer la sécurité de vos comptes chez ${s.institution}. Suivez ce guide depuis votre ordinateur. Étape 1 : Ouvrez votre session avec votre identifiant et votre mot de passe habituels. Étape 2 : Cliquez sur « Paramètres du compte », puis choisissez « Renseignements personnels ». Étape 3 : Modifiez ${s.champ}. Étape 4 : Pour valider votre identité, vous recevrez ${s.securite}. Entrez ce code dans la case requise et confirmez. Vos nouvelles informations entreront en vigueur immédiatement sur vos comptes.`,
+          text: `PROCÉDURE BANCAIRE - MISE À JOUR DE VOTRE DOSSIER\nMaintenez vos coordonnées à jour pour assurer la sécurité de vos comptes chez ${s.institution}. Suivez ce guide depuis votre ordinateur. Étape 1 : Ouvrez votre session avec votre identifiant et votre mot de passe habituels. Étape 2 : Cliquez sur « Paramètres du compte », puis choisissez « Renseignements personnels ». Étape 3 : Modifiez ${s.champ}. Étape 4 : Pour valider votre identité, vous recevrez ${s.securite}. ${s.instruction}. Vos nouvelles informations entreront en vigueur immédiatement sur vos comptes.`,
           questions: [
-            ['Quelle opération de gestion ce tutoriel permet-il de réaliser ?', 'Actualiser ses coordonnées personnelles sur son portail bancaire', 'Constituer un dossier de prêt hypothécaire pour un bien immobilier', 'Créer un compte d’affaires dédié à une entreprise commerciale'],
-            ['Quel moyen de sécurité est utilisé pour confirmer l’identité ?', `${s.secPara[0].toUpperCase() + s.secPara.slice(1)}`, 'Une entrevue visuelle imposée avec le gestionnaire de succursale', 'La visite au domicile d’un mandataire de sécurité financière'],
-            ['Quand les modifications enregistrées prennent-elles effet ?', 'Dès la validation de l’étape de confirmation de sécurité', 'Au terme d’un délai d’examen de trente jours ouvrables', 'Exclusivement lors de l’ouverture du prochain exercice civil'],
+            makeQuestion('Quelle opération de gestion ce tutoriel permet-il de réaliser ?', 'Actualiser ses coordonnées personnelles sur son portail bancaire', 'Constituer un dossier de prêt hypothécaire pour un bien immobilier', 'Créer un compte d’affaires dédié à une entreprise commerciale', ['coordonnées', 'sécurité']),
+            makeQuestion('Quel moyen de sécurité est utilisé pour confirmer l’identité ?', `${cap(s.secPara)}`, 'Une entrevue visuelle imposée avec le gestionnaire de succursale', 'La visite au domicile d’un mandataire de sécurité financière', [s.secKw]),
+            makeQuestion('Quand les modifications enregistrées prennent-elles effet ?', 'Dès la validation de l’étape de confirmation de sécurité', 'Au terme d’un délai d’examen de trente jours ouvrables', 'Exclusivement lors de l’ouverture du prochain exercice civil', ['valider', 'immédiatement']),
           ],
         }
       },
@@ -1327,17 +1327,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { amie: 'Geneviève', collation: 'des muffins maison aux carottes et à l’avoine sans sucre', fruit: 'des tranches de pomme avec du yogourt nature', regle: 'interdiction absolue des noix et des arachides', colPara: 'des gâteaux légers aux légumes râpés préparés sans sucre' },
-          { amie: 'Isabelle', collation: 'des boules d’énergie aux dattes et graines de tournesol', fruit: 'des bâtonnets de concombre avec un houmous doux', regle: 'politique sans graines de sésame ni fruits à coque', colPara: 'des friandises nutritives faites de fruits séchés et de graines' },
-          { amie: 'Véronique', collation: 'des biscuits tendres aux bananes et graines de chia', fruit: 'des cubes de melon avec du fromage cheddar doux', regle: 'respect strict de la liste sans allergènes de la classe', colPara: 'des douceurs cuisinées avec des bananes écrasées et des graines' },
+          { amie: 'Geneviève', collation: 'des muffins maison aux carottes et à l’avoine sans sucre', fruit: 'des tranches de pomme avec du yogourt nature', regle: 'règle stricte interdisant les noix et les arachides', colPara: 'des gâteaux légers aux légumes râpés préparés sans sucre', colKw: 'muffins' },
+          { amie: 'Isabelle', collation: 'des boules d’énergie aux dattes et graines de tournesol', fruit: 'des bâtonnets de concombre avec un houmous doux', regle: 'politique sans graines de sésame ni fruits à coque', colPara: 'des friandises nutritives faites de fruits séchés et de graines', colKw: 'dattes' },
+          { amie: 'Véronique', collation: 'des biscuits tendres aux bananes et graines de chia', fruit: 'des cubes de melon avec du fromage cheddar doux', regle: 'consigne stricte concernant la liste sans allergènes', colPara: 'des douceurs cuisinées avec des bananes écrasées et des graines', colKw: 'bananes' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `COURRIEL AMICAL - IDÉES DE COLLATIONS ÉCOLE\nDe : ${s.amie} Bouchard\nÀ : Marie-Ève Gagnon\nObjet : Mes recettes faciles de collations pour la rentrée !\nChère Marie-Ève,\nTu me disais hier que tu manquais d’idées pour les collations des enfants. Voici mes trouvailles nutritives préférées ! Chaque dimanche, je cuisine ${s.collation}. C’est économique et riche en fibres. Pour la collation du matin, j’ajoute toujours ${s.fruit}. N’oublie pas que l’école applique une ${s.regle}, alors évite les beurres d’amandes industriels. Si tu veux, je t’enverrai mes recettes complètes par courriel ce soir. Dis-moi si tes enfants aiment ça ! Bises, ${s.amie}`,
           questions: [
-            ['Quel est le thème des suggestions partagées dans ce courriel ?', 'Des propositions saines d’en-cas scolaires pour enfants', 'Un menu d’invitation complet préparé pour un repas d’adultes', 'Une liste d’effets vestimentaires chauds pour la rentrée'],
-            ['Quelle collation maison l’amie prépare-t-elle le dimanche ?', `${s.colPara[0].toUpperCase() + s.colPara.slice(1)}`, 'Des beignets industriels nappés d’un épais sirop de sucre', 'Des portions de croustilles industrielles frites et très salées sorties du sachet'],
-            ['Quelle consigne scolaire rappelle-t-elle pour la sécurité ?', 'L’absence de certains allergènes alimentaires pour préserver la santé des élèves', 'L’obligation formelle de ne consommer que des aliments chauds', 'L’interdiction d’apporter des bouteilles d’eau dans les salles'],
+            makeQuestion('Quel est le thème des suggestions partagées dans ce courriel ?', 'Des propositions saines d’en-cas scolaires pour enfants', 'Un menu d’invitation complet préparé pour un repas d’adultes', 'Une liste d’effets vestimentaires chauds pour la rentrée', ['collations', 'école']),
+            makeQuestion('Quelle collation maison l’amie prépare-t-elle le dimanche ?', `${cap(s.colPara)}`, 'Des beignets industriels nappés d’un épais sirop de sucre', 'Des portions de croustilles industrielles frites et très salées sorties du sachet', [s.colKw]),
+            makeQuestion('Quelle consigne scolaire rappelle-t-elle pour la sécurité ?', 'L’absence de certains allergènes alimentaires pour préserver la santé des élèves', 'L’obligation formelle de ne consommer que des aliments chauds', 'L’interdiction d’apporter des bouteilles d’eau dans les salles', ['allergènes', 'école']),
           ],
         }
       },
@@ -1347,17 +1347,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { maman: 'Audrey', snack: 'des mini-galettes de riz à la purée de courge', salade: 'une salade de fruits frais coupés en dés', conseil: 'de préparer les portions dans des petits contenants réutilisables', snaPara: 'des galettes de riz complétées de purée de courge' },
-          { maman: 'Nathalie', snack: 'des barres tendres maison à l’avoine et canneberges', salade: 'des bouquets de brocoli avec trempette légère', conseil: 'de congeler la moitié de la recette pour gagner du temps', snaPara: 'des barres à l’avoine et canneberges cuisinées maison' },
-          { maman: 'Mélanie', snack: 'des galettes moelleuses aux pommes et graines de lin', salade: 'des pointes de pita complet avec du guacamole', conseil: 'd’impliquer les enfants pour leur donner envie de goûter', snaPara: 'des biscuits moelleux aux pommes et aux graines de lin' },
+          { maman: 'Audrey', snack: 'des mini-galettes de riz à la purée de courge', salade: 'une salade de fruits frais coupés en dés', conseil: 'de préparer les portions dans des petits contenants réutilisables', snaPara: 'des galettes de riz complétées de purée de courge', snaKw: 'galettes de riz' },
+          { maman: 'Nathalie', snack: 'des barres tendres maison à l’avoine et canneberges', salade: 'des bouquets de brocoli avec trempette légère', conseil: 'de congeler la moitié de la recette pour gagner du temps', snaPara: 'des barres à l’avoine et canneberges cuisinées maison', snaKw: 'barres tendres' },
+          { maman: 'Mélanie', snack: 'des galettes moelleuses aux pommes et graines de lin', salade: 'des pointes de pita complet avec du guacamole', conseil: 'd’impliquer les enfants pour leur donner envie de goûter', snaPara: 'des galettes tendres préparées avec des pommes et du lin', snaKw: 'pommes' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `MESSAGE AMICAL - ASTUCES COLLATIONS GARDERIE\nDe : ${s.maman} Tremblay\nÀ : Julie Fortin\nObjet : Recommandations de collations saines pour la garderie !\nAllô Julie ! Comme promis, voici mes conseils pour les collations de nos tout-petits. Pour remplacer les biscuits trop sucrés de l’épicerie, j’ai adopté ${s.snack}. Les enfants adorent la texture et ça leur donne une énergie durable sans coup de fatigue. J’accompagne toujours le tout avec ${s.salade}. Mon astuce préférée pour le matin : ${s.conseil}. Ça prend vingt minutes le dimanche et ta semaine est prête. Essaie ça et donne-m’en des nouvelles au parc !`,
           questions: [
-            ['Quel est le principal objectif des conseils culinaires partagés ?', 'Privilégier des options saines aux produits sucrés du commerce', 'Organiser un buffet d’anniversaire très copieux rassemblant vingt enfants d’âge préscolaire', 'Apprendre à cuisiner des repas complets'],
-            ['Quelle collation nutritive maison propose-t-elle pour les enfants ?', `${s.snaPara[0].toUpperCase() + s.snaPara.slice(1)}`, 'Des barres de chocolat au lait achetées au magasin', 'Des collations très salées et grasses issues des rayons de dépanneur d’autoroute'],
-            ['Quelle astuce d’organisation pratique recommande-t-elle ?', 'S’avancer le dimanche pour préparer l’ensemble des collations saines de la semaine', 'Se procurer des collations jetables sous emballage individuel', 'Compter sur le service de garde pour nourrir les enfants'],
+            makeQuestion('Quel est le principal objectif des conseils culinaires partagés ?', 'Privilégier des options saines aux produits sucrés du commerce', 'Organiser un buffet d’anniversaire très copieux rassemblant vingt enfants d’âge préscolaire', 'Apprendre à cuisiner des repas complets', ['collations', 'garderie']),
+            makeQuestion('Quelle collation nutritive maison propose-t-elle pour les enfants ?', `${cap(s.snaPara)}`, 'Des barres de chocolat au lait achetées au magasin', 'Des collations très salées et grasses issues des rayons de dépanneur d’autoroute', [s.snaKw]),
+            makeQuestion('Quelle astuce d’organisation pratique recommande-t-elle ?', 'S’avancer le dimanche pour préparer l’ensemble des collations saines de la semaine', 'Se procurer des collations jetables sous emballage individuel', 'Compter sur le service de garde pour nourrir les enfants', ['dimanche', 'astuce']),
           ],
         }
       },
@@ -1367,17 +1367,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { produit: 'une pomme de douche à débit réduit certifiée WaterSense', reduction: 'quarante pour cent de consommation d’eau chaude', geste: 'laver vos vêtements à l’eau froide dans la laveuse', proPara: 'une douchette à débit contrôlé certifiée pour l’économie d’eau' },
-          { produit: 'des aérateurs de robinet à faible débit pour la maison', reduction: 'trente pour cent d’énergie liée au chauffe-eau', geste: 'prendre des douches courtes de moins de cinq minutes', proPara: 'des embouts aérateurs adaptés réduisant le flux des robinets' },
-          { produit: 'un régulateur de pression pour chauffe-eau domestique', reduction: 'deux cents dollars par an sur votre facture d’électricité', geste: 'réparer rapidement tout robinet qui fuit dans l’appartement', proPara: 'un régulateur limitant la pression du chauffe-eau domestique' },
+          { produit: 'une pomme de douche à débit réduit certifiée WaterSense', reduction: 'quarante pour cent de consommation d’eau chaude', geste: 'laver vos vêtements à l’eau froide dans la laveuse', proPara: 'une douchette à débit contrôlé certifiée pour l’économie d’eau', proKw: 'watersense' },
+          { produit: 'des aérateurs de robinet à faible débit pour la maison', reduction: 'trente pour cent d’énergie liée au chauffe-eau', geste: 'prendre des douches courtes de moins de cinq minutes', proPara: 'des embouts aérateurs adaptés réduisant le flux des robinets', proKw: 'aérateurs' },
+          { produit: 'un régulateur de pression pour chauffe-eau domestique', reduction: 'deux cents dollars par an sur votre facture d’électricité', geste: 'réparer rapidement tout robinet qui fuit dans l’appartement', proPara: 'un régulateur limitant la pression du chauffe-eau domestique', proKw: 'régulateur' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `PAGE WEB CONSEILS ÉNERGIE - HYDRO-QUÉBEC\nLe chauffage de l’eau représente près de vingt pour cent de votre facture d’électricité. Pour réduire vos coûts tout en préservant l’environnement, nous vous recommandons d’installer ${s.produit}. Cet équipement simple permet d’économiser ${s.reduction} sans sacrifier votre confort. En complément, pensez à ${s.geste}. Vérifiez également que la température de votre chauffe-eau est réglée à soixante degrés Celsius : c’est le niveau idéal pour prévenir les bactéries tout en évitant le gaspillage d’énergie. Consultez nos rabais instantanés en quincaillerie participante dès aujourd’hui !`,
           questions: [
-            ['Quel est le thème principal de cette page Web d’information ?', 'Des mesures pour modérer sa dépense d’énergie liée à l’eau chaude', 'Un guide pour choisir une nouvelle thermopompe de climatisation', 'Une procédure de déclaration suite à une coupure de courant'],
-            ['Quel équipement économiseur d’eau chaude est recommandé ?', `${s.proPara[0].toUpperCase() + s.proPara.slice(1)}`, 'Une piscine chauffée en permanence dans sa cour arrière privée', 'Un second réservoir de chauffe-eau réservé aux visiteurs'],
-            ['Quelle température idéale est recommandée pour le réservoir ?', 'Un maintien stable du réservoir à soixante degrés Celsius', 'Un abaissement du chauffe-eau à vingt degrés pour économiser', 'Une température maximale de cent degrés pour stériliser'],
+            makeQuestion('Quel est le thème principal de cette page Web d’information ?', 'Des mesures pour modérer sa dépense d’énergie liée à l’eau chaude', 'Un guide pour choisir une nouvelle thermopompe de climatisation', 'Une procédure de déclaration suite à une coupure de courant', ['eau chaude', 'facture']),
+            makeQuestion('Quel équipement économiseur d’eau chaude est recommandé ?', `${cap(s.proPara)}`, 'Une piscine chauffée en permanence dans sa cour arrière privée', 'Un second réservoir de chauffe-eau réservé aux visiteurs', [s.proKw]),
+            makeQuestion('Quelle température idéale est recommandée pour le réservoir ?', 'Un maintien stable du réservoir à soixante degrés Celsius', 'Un abaissement du chauffe-eau à vingt degrés pour économiser', 'Une température maximale de cent degrés pour stériliser', ['soixante degrés', 'chauffe-eau']),
           ],
         }
       },
@@ -1387,17 +1387,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { dispositif: 'un mitigeur thermostatique avec bouton d’arrêt temporaire', avantage: 'bloquer l’eau pendant qu’on se savonne', retour: 'rentabilisé en trois mois d’utilisation', disPara: 'un mitigeur thermostatique pourvu d’une coupure momentanée' },
-          { dispositif: 'un tuyau de douche avec coupe-débit intégré', avantage: 'réduire le débit à six litres par minute', retour: 'amorti sur votre première facture d’énergie', disPara: 'un tuyau de douche doté d’un mécanisme coupe-débit intégré' },
-          { dispositif: 'des embouts régulateurs de débit pour robinetterie', avantage: 'mélanger de l’air à l’eau pour garder une bonne pression', retour: 'très peu coûteux et posé sans outils en cinq minutes', disPara: 'des adaptateurs de débit mélangeant l’air pour la robinetterie' },
+          { dispositif: 'un mitigeur thermostatique avec bouton d’arrêt temporaire', avantage: 'bloquer l’eau pendant qu’on se savonne', retour: 'rentabilisé en trois mois d’utilisation', disPara: 'un mitigeur thermostatique pourvu d’une coupure momentanée', disKw: 'thermostatique' },
+          { dispositif: 'un tuyau de douche avec coupe-débit intégré', avantage: 'réduire le débit à six litres par minute', retour: 'amorti sur votre première facture d’énergie', disPara: 'un tuyau de douche doté d’un mécanisme coupe-débit intégré', disKw: 'coupe-débit' },
+          { dispositif: 'des embouts régulateurs de débit pour robinetterie', avantage: 'mélanger de l’air à l’eau pour garder une bonne pression', retour: 'très peu coûteux et posé sans outils en cinq minutes', disPara: 'des adaptateurs de débit mélangeant l’air pour la robinetterie', disKw: 'embouts' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `CHRONIQUE MAISON ÉCOLOGIQUE - DISPOSITIFS D’EAU\nPour réduire votre consommation d’énergie à la maison, le remplacement de vos accessoires de plomberie est une excellente décision. Lors de votre visite en quincaillerie, privilégiez ${s.dispositif}. Ce produit offre l’avantage de ${s.avantage}. Cet achat est rapidement ${s.retour}. N’oubliez pas de mesurer le diamètre de vos tuyaux avant l’achat afin de choisir le modèle compatible. Enfin, profitez des programmes de votre municipalité, qui offre souvent des trousses gratuites de produits économiseurs d’eau sur présentation d’une preuve de résidence.`,
           questions: [
-            ['Que conseille cet article aux occupants de logements ?', 'Poser des éléments de plomberie limitant le débit d’eau chaude', 'Renouveler toute la tuyauterie de sa bâtisse avec du cuivre neuf', 'Creuser un point d’eau individuel dans son jardin de banlieue'],
-            ['Quel accessoire de plomberie économe est valorisé ?', `${s.disPara[0].toUpperCase() + s.disPara.slice(1)}`, 'Une pompe surpuissante augmentant le débit pour rincer plus vite', 'Un raccord électronique nécessitant le concours d’un technicien'],
-            ['Comment peut-on parfois obtenir ces équipements sans frais ?', 'Par l’entremise de trousses remises par son administration locale', 'En participant à un tirage au sort commercial diffusé en ligne', 'En effectuant d’abord l’achat de plusieurs gros appareils neufs'],
+            makeQuestion('Que conseille cet article aux occupants de logements ?', 'Poser des éléments de plomberie limitant le débit d’eau chaude', 'Renouveler toute la tuyauterie de sa bâtisse avec du cuivre neuf', 'Creuser un point d’eau individuel dans son jardin de banlieue', ['consommation', 'plomberie']),
+            makeQuestion('Quel accessoire de plomberie économe est valorisé ?', `${cap(s.disPara)}`, 'Une pompe surpuissante augmentant le débit pour rincer plus vite', 'Un raccord électronique nécessitant le concours d’un technicien', [s.disKw]),
+            makeQuestion('Comment peut-on parfois obtenir ces équipements sans frais ?', 'Par l’entremise de trousses remises par son administration locale', 'En participant à un tirage au sort commercial diffusé en ligne', 'En effectuant d’abord l’achat de plusieurs gros appareils neufs', ['municipale', 'trousses']),
           ],
         }
       },
@@ -1407,17 +1407,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { entraineur: 'Sophie', collation: 'des quartiers d’orange et des galettes à l’avoine', boisson: 'de l’eau fraîche dans une gourde bien identifiée', colPara: 'des portions d’orange associées à des galettes d’avoine' },
-          { entraineur: 'Valérie', collation: 'des raisins sans pépins et des morceaux de fromage', boisson: 'une eau fraîche infusée avec du citron et de la menthe', colPara: 'des raisins frais accompagnés de cubes de fromage' },
-          { entraineur: 'Chantal', collation: 'des bananes mûres et des barres tendres maison', boisson: 'de l’eau plate sans ajout de sucre ni de jus', colPara: 'des bananes complétées de barres tendres faites maison' },
+          { entraineur: 'Sophie', collation: 'des quartiers d’orange et des galettes à l’avoine', boisson: 'de l’eau fraîche dans une gourde bien identifiée', colPara: 'des portions d’orange associées à des galettes d’avoine', colKw: 'orange' },
+          { entraineur: 'Valérie', collation: 'des raisins sans pépins et des morceaux de fromage', boisson: 'une eau fraîche infusée avec du citron et de la menthe', colPara: 'des raisins frais accompagnés de cubes de fromage', colKw: 'raisins' },
+          { entraineur: 'Chantal', collation: 'des bananes mûres et des barres tendres maison', boisson: 'de l’eau plate sans ajout de sucre ni de jus', colPara: 'des bananes complétées de barres tendres faites maison', colKw: 'bananes' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
-          text: `MESSAGE DU CLUB SPORTIF - COLLATIONS TOURNOI DE SOCCER\nDe : ${s.entraineur} Roy, responsable jeunesse\nÀ : Parents des joueurs de la ligue récréative\nObjet : Recommandations nutritionnelles pour le tournoi\nChers parents,\nEn vue de notre tournoi de soccer de samedi, voici quelques suggestions pour garder nos jeunes sportifs en forme. Entre deux matchs intenses, privilégiez ${s.collation}. Les glucides naturels aident à reconstituer l’énergie sans alourdir la digestion. Pour l’hydratation, la seule boisson nécessaire est ${s.boisson}. Évitez les boissons énergisantes et les jus très sucrés qui causent des maux de ventre pendant l’effort. Merci de votre précieuse collaboration et bon match à tous !`,
+          text: `MESSAGE DU CLUB SPORTIF - COLLATIONS TOURNOI DE SOCCER\nDe : ${s.entraineur} Roy, entraîneuse jeunesse\nÀ : Parents des joueurs de la ligue récréative\nObjet : Recommandations nutritionnelles pour le tournoi\nChers parents,\nEn vue de notre tournoi de soccer de samedi, voici quelques suggestions pour garder nos jeunes sportifs en forme. Entre deux matchs intenses, privilégiez ${s.collation}. Les glucides naturels aident à reconstituer l’énergie sans alourdir la digestion. Pour l’hydratation, la seule boisson nécessaire est ${s.boisson}. Évitez les boissons énergisantes et les jus très sucrés qui causent des maux de ventre pendant l’effort. Merci de votre précieuse collaboration et bon match à tous !`,
           questions: [
-            ['Quel est l’objectif de cette note transmise par l’entraîneuse ?', 'Conseiller des en-cas équilibrés pour des jeunes lors d’un tournoi', 'Reporter l’ensemble des parties disputées à l’extérieur en raison des fortes pluies', 'Réclamer le versement des droits d’adhésion'],
-            ['Quelle collation est recommandée entre deux matchs intenses ?', `${s.colPara[0].toUpperCase() + s.colPara.slice(1)}`, 'Des sachets de bonbons du commerce', 'Des portions de frites chaudes très grasses servies avec une sauce salée'],
-            ['Quelle boisson doit-on privilégier pour l’hydratation des joueurs ?', 'De l’eau potable fraîche sans aucun ajout de sucre raffiné ou de jus commercial', 'Des boissons stimulantes pour coureurs d’endurance', 'Des sodas gazéifiés et fortement enrichis en caféine'],
+            makeQuestion('Quel est l’objectif de cette note transmise par l’entraîneuse ?', 'Conseiller des en-cas équilibrés pour des jeunes lors d’un tournoi', 'Reporter l’ensemble des parties disputées à l’extérieur en raison des fortes pluies', 'Réclamer le versement des droits d’adhésion', ['tournoi', 'collations']),
+            makeQuestion('Quelle collation est recommandée entre deux matchs intenses ?', `${cap(s.colPara)}`, 'Des sachets de bonbons du commerce', 'Des portions de frites chaudes très grasses servies avec une sauce salée', [s.colKw]),
+            makeQuestion('Quelle boisson doit-on privilégier pour l’hydratation des joueurs ?', 'De l’eau potable fraîche sans aucun ajout de sucre raffiné ou de jus commercial', 'Des boissons stimulantes pour coureurs d’endurance', 'Des sodas gazéifiés et fortement enrichis en caféine', ['eau', 'boisson']),
           ],
         }
       },
