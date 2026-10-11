@@ -52,7 +52,7 @@ export default function LevelsPage() {
 
   return (
     <>
-      <div className="container mx-auto max-w-6xl px-4 pb-8 sm:px-6">
+      <div className="ui-shell-container pt-5 pb-8 sm:pt-6 sm:pb-10">
         <div className="mb-8">
           <Link to="/study-plan" data-testid="levels-back-home" className="ui-btn-secondary mb-4 flex w-fit items-center gap-1">
             <IconChevronLeft className="h-4 w-4" />
