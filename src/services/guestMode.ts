@@ -58,5 +58,5 @@ export function setGuestMode(enabled: boolean): void {
 }
 
 if (typeof window !== 'undefined') {
-  ;(window as unknown as { __setGuestMode?: (enabled: boolean) => void }).__setGuestMode = setGuestMode
+  (window as unknown as { __setGuestMode?: (enabled: boolean) => void }).__setGuestMode = setGuestMode
 }

@@ -48,7 +48,7 @@ import IconRefresh from '~icons/tabler/refresh'
 import IconSparkles from '~icons/tabler/sparkles'
 import IconVolume from '~icons/tabler/volume'
 import { isGuestMode, onGuestModeChange } from '@/services/guestMode'
-import { isItemVariantReportedInSession, reportEchelleItem, type ReportCategory } from '@/services/reports'
+import { type ReportCategory, isItemVariantReportedInSession, reportEchelleItem } from '@/services/reports'
 
 const skillLabels: Record<EchelleItemSkill, string> = {
   listening: '听力',
