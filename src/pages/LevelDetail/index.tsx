@@ -7,10 +7,13 @@ import {
   type EchelleItemSkill,
   type EchelleProductionItem,
   type EchelleQuizItem,
+  countEchelleItemVariants,
+  getEchelleItemVariant,
   getEchelleLevelItems,
   getEchelleProductionTaskPool,
   scoreEchelleItem,
 } from '@/resources/echelleCurriculum'
+import { ensureItemBatchLoaded, isItemBatchLoaded } from '@/resources/echelleBatchLoader'
 import { estimateRetention } from '@/resources/echelleMemory'
 import { DISCOURSE_TYPE_META, getEchelleStage } from '@/resources/echelleQuebecoise'
 import { countDue, memoryLabel } from '@/resources/echelleReview'
@@ -354,26 +357,126 @@ function ItemCard({
   )
 }
 
+/**
+ * Picks a non-zero variant for a quiz item.
+ * E2E tests drive the quiz through the catalog; to keep them deterministic, when
+ * localStorage['echelle:fixedVariant'] is set to an integer the UI uses that variant
+ * instead of a random one ('0' = legacy content).
+ */
+function pickQuizVariant(itemId: string, avoidVariant?: number): number {
+  if (typeof window !== 'undefined') {
+    try {
+      const fixed = window.localStorage.getItem('echelle:fixedVariant')
+      if (fixed !== null && /^-?\d+$/.test(fixed)) {
+        const parsed = parseInt(fixed, 10)
+        if (Number.isInteger(parsed) && parsed >= 0) return parsed
+      }
+    } catch {
+      // localStorage may fail in restricted/sandboxed environments
+    }
+  }
+  let next = Math.floor(Math.random() * 0x7ffffffe) + 1
+  if (avoidVariant !== undefined && next === avoidVariant) {
+    next = (next % 0x7ffffffe) + 1
+  }
+  return next
+}
+
 function QuizPanel({ item }: { item: EchelleQuizItem }) {
-  const [answers, setAnswers] = useState<(string | null)[]>(() => item.questions.map(() => null))
+  const [variant, setVariant] = useState<number>(() => pickQuizVariant(item.id))
+  const [loading, setLoading] = useState<boolean>(() => {
+    return item.kind === 'indicator' && !isItemBatchLoaded(item.id)
+  })
+
+  useEffect(() => {
+    let cancelled = false
+    if (item.kind === 'indicator' && !isItemBatchLoaded(item.id)) {
+      setLoading(true)
+      ensureItemBatchLoaded(item.id).then((ok) => {
+        if (cancelled) return
+        if (!ok) {
+          setVariant(0)
+        }
+        setLoading(false)
+      })
+    } else {
+      setLoading(false)
+    }
+    return () => {
+      cancelled = true
+    }
+  }, [item.id, item.kind])
+
+  const activeItem = useMemo(() => {
+    if (loading) return item
+    return (getEchelleItemVariant(item.id, variant) as EchelleQuizItem) ?? item
+  }, [item, variant, loading])
+
+  const [answers, setAnswers] = useState<(string | null)[]>(() => activeItem.questions.map(() => null))
   const [submitted, setSubmitted] = useState(false)
   const [showTranscript, setShowTranscript] = useState(false)
-  const isListening = item.skill === 'listening'
-  const { speak, cancel, speaking } = useSpeech(item.audioText ?? item.text ?? '', FRENCH_SPEECH)
+  const isListening = activeItem.skill === 'listening'
+  const { speak, cancel, speaking } = useSpeech(activeItem.audioText ?? activeItem.text ?? '', FRENCH_SPEECH)
+
+  useEffect(() => {
+    cancel()
+  }, [variant, cancel])
+
+  useEffect(() => {
+    setAnswers(activeItem.questions.map(() => null))
+  }, [activeItem])
 
   const complete = answers.every((answer): answer is string => answer !== null)
-  const result = submitted && complete ? scoreEchelleItem(item.id, answers) : null
+  const result =
+    submitted && complete && !(variant > 0 && item.kind === 'indicator' && !isItemBatchLoaded(item.id))
+      ? scoreEchelleItem(activeItem.id, answers, { variant })
+      : null
 
   const handleSubmit = () => {
     if (!complete) return
-    recordEchelleMastery({ itemId: item.id, answers })
+    if (variant > 0 && item.kind === 'indicator' && !isItemBatchLoaded(item.id)) {
+      console.error(`[QuizPanel] Cannot submit variant ${variant} for ${item.id} before batch is loaded`)
+      return
+    }
+    recordEchelleMastery({ itemId: activeItem.id, answers, variant })
     setSubmitted(true)
   }
 
+  const reroll = async () => {
+    cancel()
+    const nextVariant = pickQuizVariant(item.id, variant)
+    if (nextVariant > 0 && item.kind === 'indicator' && !isItemBatchLoaded(item.id)) {
+      setLoading(true)
+      const ok = await ensureItemBatchLoaded(item.id)
+      const actualVariant = ok ? nextVariant : 0
+      setVariant(actualVariant)
+      const nextItem = (getEchelleItemVariant(item.id, actualVariant) as EchelleQuizItem) ?? item
+      setAnswers(nextItem.questions.map(() => null))
+      setSubmitted(false)
+      setShowTranscript(false)
+      setLoading(false)
+    } else {
+      setVariant(nextVariant)
+      const nextItem = (getEchelleItemVariant(item.id, nextVariant) as EchelleQuizItem) ?? item
+      setAnswers(nextItem.questions.map(() => null))
+      setSubmitted(false)
+      setShowTranscript(false)
+    }
+  }
+
   const handleRetry = () => {
-    setAnswers(item.questions.map(() => null))
-    setSubmitted(false)
-    setShowTranscript(false)
+    reroll()
+  }
+
+  const hasVariants = countEchelleItemVariants(item.id) > 1
+
+  if (loading) {
+    return (
+      <div className="border-t border-gray-100 p-8 text-center text-sm text-gray-500 dark:border-white/[0.06] dark:text-gray-400">
+        <div className="inline-block h-6 w-6 animate-spin rounded-full border-2 border-indigo-500 border-t-transparent" />
+        <p className="mt-2 text-xs">正在载入题目…</p>
+      </div>
+    )
   }
 
   return (
@@ -403,21 +506,21 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
           </div>
           {(showTranscript || submitted) && (
             <p className="mt-3 leading-relaxed text-gray-800 dark:text-gray-200" data-testid="listening-transcript">
-              {item.text}
+              {activeItem.text}
             </p>
           )}
         </div>
       ) : (
-        item.text && (
+        activeItem.text && (
           <div className="mb-4 rounded-xl bg-gray-50 p-3 text-sm leading-relaxed text-gray-800 dark:bg-white/[0.04] dark:text-gray-200">
-            {item.text}
+            {activeItem.text}
           </div>
         )
       )}
-      {item.explanationZh && <div className="mb-3 text-sm text-gray-600 dark:text-gray-400">{item.explanationZh}</div>}
-      {item.examples && item.examples.length > 0 && (
+      {activeItem.explanationZh && <div className="mb-3 text-sm text-gray-600 dark:text-gray-400">{activeItem.explanationZh}</div>}
+      {activeItem.examples && activeItem.examples.length > 0 && (
         <div className="mb-4 space-y-1">
-          {item.examples.map(([fr, zh], index) => (
+          {activeItem.examples.map(([fr, zh], index) => (
             <div key={index} className="text-sm">
               <span className="text-gray-800 dark:text-gray-200">{fr}</span>
               <span className="ml-2 text-gray-500">{zh}</span>
@@ -425,9 +528,9 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
           ))}
         </div>
       )}
-      {item.words && (
+      {activeItem.words && (
         <div className="mb-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
-          {item.words.map(([fr, zh]) => (
+          {activeItem.words.map(([fr, zh]) => (
             <div key={fr} className="rounded-lg bg-gray-50 p-2 text-sm dark:bg-white/[0.04]">
               <div className="font-medium text-gray-900 dark:text-white">{fr}</div>
               <div className="text-gray-500">{zh}</div>
@@ -437,7 +540,7 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
       )}
 
       <div className="space-y-4">
-        {item.questions.map((question, index) => (
+        {activeItem.questions.map((question, index) => (
           <fieldset key={index}>
             <legend className="mb-2 text-sm font-medium text-gray-900 dark:text-white">
               {index + 1}. {question.prompt}
@@ -474,14 +577,26 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
 
       <div className="mt-5 flex flex-wrap items-center gap-3">
         {!submitted ? (
-          <button
-            type="button"
-            onClick={handleSubmit}
-            disabled={!complete}
-            className="ui-btn-primary disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            提交答案
-          </button>
+          <>
+            <button
+              type="button"
+              onClick={handleSubmit}
+              disabled={!complete}
+              className="ui-btn-primary disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              提交答案
+            </button>
+            {hasVariants && (
+              <button
+                type="button"
+                onClick={reroll}
+                className="ui-btn-secondary flex items-center gap-1 text-xs"
+                title="更换题目变体"
+              >
+                <IconRefresh className="h-3.5 w-3.5" /> 换一题
+              </button>
+            )}
+          </>
         ) : (
           <>
             {result?.mastered ? (
@@ -490,13 +605,23 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
               </span>
             ) : (
               <span data-testid="level-item-failed" className="text-rose-600 dark:text-rose-400">
-                答对 {result?.correctCount ?? 0}/{result?.totalQuestions ?? item.questions.length}，
-                {item.threshold >= 1 ? '需要全部答对' : `需要至少 ${Math.round(item.threshold * 100)}%`}，请重试
+                答对 {result?.correctCount ?? 0}/{result?.totalQuestions ?? activeItem.questions.length}，
+                {activeItem.threshold >= 1 ? '需要全部答对' : `需要至少 ${Math.round(activeItem.threshold * 100)}%`}，请重试
               </span>
             )}
             <button type="button" onClick={handleRetry} className="ui-btn-secondary flex items-center gap-1">
               <IconRefresh className="h-4 w-4" /> 重做
             </button>
+            {hasVariants && (
+              <button
+                type="button"
+                onClick={reroll}
+                className="ui-btn-secondary flex items-center gap-1 text-xs"
+                title="更换题目变体"
+              >
+                <IconRefresh className="h-3.5 w-3.5" /> 换一题
+              </button>
+            )}
           </>
         )}
       </div>
