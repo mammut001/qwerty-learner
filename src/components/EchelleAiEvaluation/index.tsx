@@ -16,6 +16,7 @@ const warningText = (warning: string) => {
   if (warning === 'PROMPT_INJECTION') return '答案中出现了试图影响评分的指令，已忽略并下调分数。'
   if (warning === 'NOT_FRENCH') return '答案主要不是法语，按 0 分处理。'
   if (warning === 'PHONOLOGIE_CLAMPED') return '语音评分已结合声学测量指标（清晰度、语速、停顿）进行客观校准。'
+  if (warning === 'INTELLIGIBILITY_UNCLEAR') return '录音清晰度不足（未能清晰识别），未能达到达标要求。'
   if (warning.startsWith('EVIDENCE_NOT_FOUND:'))
     return `「${CRITERION_LABELS[warning.split(':')[1]] ?? warning}」的评分没有引用到你的原文，已按规则下调。`
   return warning

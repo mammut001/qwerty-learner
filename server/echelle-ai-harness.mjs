@@ -140,9 +140,12 @@ export function buildMessages(rubric, submission, nonce) {
         `- Durée totale : ${submission.seconds ?? s.speechSeconds} s (temps de parole effectif : ${s.speechSeconds} s)`,
         `- Débit : ${s.wordsPerMinute} mots/min (taux d'articulation : ${s.articulationRate} mots/min)`,
         `- Pauses : ${s.pauseCount} pause(s) >= 0.4s, ${s.longPauseCount} pause(s) longue(s) >= 1.5s (pause la plus longue : ${s.longestPauseSeconds} s, ratio de pause : ${s.pauseRatio})`,
+        `- Proportion de l'enregistrement sans parole reconnue : ${Math.round(s.pauseRatio * 100)} %`,
         `- Mots de remplissage (fillers) : ${s.fillerCount}`,
         `- Indice d'intelligibilité : ${s.intelligibility} (confiance moyenne de reconnaissance : ${s.meanConfidence}, proportion de mots incertains : ${s.lowConfidenceRatio})`,
         `- Mots à faible confiance (< 0.6) : ${lowWords}`,
+        'Instruction importante sur la fidélité de la transcription :',
+        'La reconnaissance vocale peut masquer des erreurs de prononciation ou omettre des segments inintelligibles. La transcription peut donc paraître plus correcte que ce qui a été réellement dit. Les critères "tache" et "texte" doivent impérativement être jugés sur ce qui a été intelligiblement reconnu.',
         'Instruction obligatoire pour le critère "phonologie" :',
         'Ce critère doit impérativement être fondé sur ces mesures objectives (fluidité, pauses, débit, fillers) et sur l’indice d’intelligibilité. Notez que la confiance de reconnaissance vocale est un indicateur indirect de clarté/intelligibilité, et non une note phonétique absolue.',
         'Pour le critère "phonologie", le champ "evidence" ne doit PAS citer le texte mais doit obligatoirement citer les mesures acoustiques (ex. "170 mots/min, 0 pause longue, confiance 0,99") et ne doit pas être vide.',
@@ -456,11 +459,16 @@ export function finalizeEvaluation(rubric, submission, output, meta) {
     ? criteria.filter((c) => c.id !== 'phonologie')
     : criteria
 
+  const isAsr = submission.inputMode === 'asr' || hasMeasurements
+  const isUnclear = isSpeaking && hasMeasurements && submission.speech?.intelligibility === 'unclear'
+  if (isUnclear) warnings.push('INTELLIGIBILITY_UNCLEAR')
+
   const mean = Math.round((measurableCriteria.reduce((sum, c) => sum + c.score, 0) / measurableCriteria.length) * 100) / 100
   const passed =
     mean >= PASS_RULE.requiredMean &&
     measurableCriteria.every((criterion) => criterion.score >= PASS_RULE.minimumPerCriterion) &&
-    scores.tache >= PASS_RULE.minimumTask
+    scores.tache >= PASS_RULE.minimumTask &&
+    (!isAsr || (!isUnclear && (scores.phonologie ?? 0) >= 2))
   const estimatedLevel = passed
     ? Math.max(rubric.level, output.estimatedLevel)
     : Math.max(1, Math.min(output.estimatedLevel, rubric.level - 1))
@@ -475,6 +483,12 @@ export function finalizeEvaluation(rubric, submission, output, meta) {
       explanationZh: entry.explanationZh.trim().slice(0, 300),
     }))
 
+  let feedbackZh = output.feedbackZh.trim().slice(0, 1200)
+  if (isUnclear) {
+    const unclearNotice = '录音清晰度不足（未能清晰识别）。建议在安静环境下重新录音，靠近麦克风，并适当放慢语速、发音清晰。'
+    feedbackZh = feedbackZh ? `${unclearNotice}\n\n${feedbackZh}`.slice(0, 1200) : unclearNotice
+  }
+
   return {
     passed,
     scores,
@@ -482,7 +496,7 @@ export function finalizeEvaluation(rubric, submission, output, meta) {
     estimatedLevel,
     requiredMean: PASS_RULE.requiredMean,
     criteria,
-    feedbackZh: output.feedbackZh.trim().slice(0, 1200),
+    feedbackZh,
     strengthsZh: (output.strengthsZh ?? []).filter((entry) => isText(entry, 2000)).slice(0, 3).map((entry) => entry.trim().slice(0, 200)),
     corrections,
     warnings,

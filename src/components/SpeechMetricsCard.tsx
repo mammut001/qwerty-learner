@@ -132,6 +132,15 @@ export default function SpeechMetricsCard({ metrics, transcript, title = '口语
         </div>
       )}
 
+      {(metrics.pauseRatio >= 0.4 || metrics.longestPauseSeconds >= 5) && (
+        <div
+          data-testid="speech-unrecognised-gap-warning"
+          className="mt-2.5 rounded bg-amber-50 px-2.5 py-1.5 text-[11px] text-amber-800 dark:bg-amber-950/40 dark:text-amber-300"
+        >
+          有较长时间未识别到语音，可能是停顿或发音未被识别
+        </div>
+      )}
+
       <p className="mt-2.5 text-[11px] text-gray-500 dark:text-gray-400">
         💡 提示：清晰度基于语音识别置信度估算，作为口语清晰度参考，非音素级发音评分。
       </p>

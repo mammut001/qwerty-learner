@@ -846,3 +846,78 @@ describe('phonologie grounding and bounds clamping', () => {
   })
 })
 
+describe('ASR intelligibility pass guard and recognition fidelity instructions', () => {
+  it('includes unrecognised speech proportion and fidelity instructions in prompt', () => {
+    const speech = {
+      wordCount: 15,
+      speechSeconds: 12.0,
+      wordsPerMinute: 75,
+      articulationRate: 75,
+      pauseCount: 2,
+      longPauseCount: 1,
+      longestPauseSeconds: 2.0,
+      pauseRatio: 0.4,
+      fillerCount: 1,
+      meanConfidence: 0.75,
+      lowConfidenceRatio: 0.2,
+      intelligibility: 'mostly-clear',
+      lowConfidenceWords: [{ word: 'Lucia', confidence: 0.52 }],
+    }
+
+    const { user } = buildMessages(
+      buildRubric('n1-speaking-production'),
+      { text: N1_TEXT, seconds: 20, words: 12, inputMode: 'asr', speech },
+      'test1234',
+    )
+
+    assert.match(user, /Proportion de l'enregistrement sans parole reconnue : 40 %/)
+    assert.match(user, /Mots à faible confiance.*Lucia.*0\.52/)
+    assert.match(user, /Instruction importante sur la fidélité de la transcription/)
+    assert.match(user, /jugés sur ce qui a été intelligiblement reconnu/)
+  })
+
+  it('fails ASR evaluation when intelligibility is unclear and advises re-recording in Chinese', async () => {
+    const unclearSpeech = {
+      wordCount: 12,
+      speechSeconds: 9.0,
+      wordsPerMinute: 60,
+      articulationRate: 80,
+      pauseCount: 2,
+      longPauseCount: 0,
+      longestPauseSeconds: 1.0,
+      pauseRatio: 0.25,
+      fillerCount: 0,
+      meanConfidence: 0.6,
+      lowConfidenceRatio: 0.45,
+      intelligibility: 'unclear',
+      lowConfidenceWords: [{ word: 'Lucia', confidence: 0.4 }],
+    }
+
+    // Provider attempts to give high scores (mean would normally be 3.0)
+    const evalOutput = speakingOutput(3, {
+      feedbackZh: '整体表达尚可。',
+      criteria: [
+        { id: 'tache', score: 3, evidence: 'Je suis mexicaine', commentZh: '完成' },
+        { id: 'texte', score: 3, evidence: 'Je suis mexicaine', commentZh: '完成' },
+        { id: 'phrase', score: 3, evidence: 'Je suis mexicaine', commentZh: '完成' },
+        { id: 'lexique', score: 3, evidence: 'Je suis mexicaine', commentZh: '完成' },
+        { id: 'phonologie', score: 3, evidence: '60 mots/min, confiance 0.60', commentZh: '语音一般' },
+      ],
+    })
+
+    const result = await evaluateProduction(
+      { itemId: 'n1-speaking-production', text: N1_TEXT, seconds: 12, inputMode: 'asr', speech: unclearSpeech },
+      scripted(evalOutput),
+    )
+
+    // Cannot pass because intelligibility is unclear (and phonologie clamped to 1)
+    assert.equal(result.passed, false)
+    assert.ok(result.warnings.includes('INTELLIGIBILITY_UNCLEAR'))
+    // feedbackZh includes clear advice telling learner to re-record in quiet place, closer to mic, more slowly
+    assert.match(result.feedbackZh, /录音清晰度不足/)
+    assert.match(result.feedbackZh, /安静环境/)
+    assert.match(result.feedbackZh, /麦克风/)
+    assert.match(result.feedbackZh, /放慢语速/)
+  })
+})
+
