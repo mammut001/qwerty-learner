@@ -1,4 +1,5 @@
 import type { EchelleEvaluation, EchelleStoredEvaluation } from '@/services/studyPlanSync'
+import SpeechMetricsCard from '@/components/SpeechMetricsCard'
 import IconCheck from '~icons/tabler/check'
 import IconX from '~icons/tabler/x'
 
@@ -123,6 +124,12 @@ export default function EchelleAiEvaluation({ evaluation, level }: Props) {
       <div className="mt-3 text-xs text-gray-400">
         按魁北克量表 Niveau {level} 官方描述评分 · {evaluation.provider}/{evaluation.model} · 标准 {evaluation.rubricVersion}
       </div>
+
+      {evaluation.speech && (
+        <div className="mt-4">
+          <SpeechMetricsCard metrics={evaluation.speech} title="口语声学指标记录" />
+        </div>
+      )}
     </div>
   )
 }

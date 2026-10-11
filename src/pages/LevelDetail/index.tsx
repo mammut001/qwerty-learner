@@ -1,4 +1,6 @@
 import EchelleAiEvaluation from '@/components/EchelleAiEvaluation'
+import SpeechMetricsCard from '@/components/SpeechMetricsCard'
+import useAudioRecorder from '@/hooks/useAudioRecorder'
 import useFrenchSpeechRecognition from '@/hooks/useFrenchSpeechRecognition'
 import useSpeech from '@/hooks/useSpeech'
 import {
@@ -16,13 +18,16 @@ import {
 import { estimateRetention } from '@/resources/echelleMemory'
 import { DISCOURSE_TYPE_META, getEchelleStage } from '@/resources/echelleQuebecoise'
 import { countDue, memoryLabel } from '@/resources/echelleReview'
-import type { EchelleAiStatus, EchelleEvaluation, EchelleItemRecord, LearningProgress } from '@/services/studyPlanSync'
+import type { EchelleAiStatus, EchelleEvaluation, EchelleItemRecord, LearningProgress, SpeechMetrics } from '@/services/studyPlanSync'
 import {
   evaluateEchelleProduction,
   getLearningProgress,
+  hasAsrConsent,
   loadEchelleAiStatus,
   recordEchelleMastery,
+  setAsrConsent,
   subscribeLearningProgress,
+  transcribeSpeech,
 } from '@/services/studyPlanSync'
 import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
@@ -35,6 +40,7 @@ import IconHeadphones from '~icons/tabler/headphones'
 import IconMicrophone from '~icons/tabler/microphone'
 import IconPencil from '~icons/tabler/pencil'
 import IconPlayerPlay from '~icons/tabler/player-play'
+import IconPlayerStop from '~icons/tabler/player-stop'
 import IconRefresh from '~icons/tabler/refresh'
 import IconSparkles from '~icons/tabler/sparkles'
 import IconVolume from '~icons/tabler/volume'
@@ -615,6 +621,19 @@ function ProductionPanel({
   const [evaluating, setEvaluating] = useState(false)
   const [evaluation, setEvaluation] = useState<EchelleEvaluation | null>(null)
   const [aiError, setAiError] = useState<string | null>(null)
+
+  // ASR states
+  const [originalTranscript, setOriginalTranscript] = useState<string | null>(null)
+  const [speechMetrics, setSpeechMetrics] = useState<SpeechMetrics | null>(null)
+  const [isTranscribing, setIsTranscribing] = useState(false)
+  const [asrError, setAsrError] = useState<string | null>(null)
+  const [asrConsent, setAsrConsentState] = useState(() => hasAsrConsent())
+  const [fallbackToWebSpeech, setFallbackToWebSpeech] = useState(false)
+
+  const recorder = useAudioRecorder({ maxDurationSeconds: 180 })
+  const asrConfigured = Boolean(aiStatus?.asr)
+  const useAsrFlow = !isWriting && asrConfigured && !fallbackToWebSpeech
+
   const timerRef = useRef<number | null>(null)
 
   const speech = useFrenchSpeechRecognition((phrase) => {
@@ -642,8 +661,13 @@ function ProductionPanel({
     setSaved(false)
     setEvaluation(null)
     setAiError(null)
+    setAsrError(null)
+    setOriginalTranscript(null)
+    setSpeechMetrics(null)
+    setIsTranscribing(false)
     stopTimer()
     speech.stop()
+    recorder.reset()
   }
 
   const toggleRecording = () => {
@@ -659,17 +683,32 @@ function ProductionPanel({
     }
   }
 
+  const isTranscriptEdited = Boolean(
+    speechMetrics && originalTranscript !== null && text.trim() !== originalTranscript.trim(),
+  )
+
   const wc = wordCount(text)
   const targetWords = activeTask.wordMin ?? item.wordMin ?? 0
   const targetSeconds = activeTask.secondsMin ?? item.secondsMin ?? 0
-  const meetsLength = isWriting ? wc >= targetWords : seconds >= targetSeconds
-  const canSelfMaster = meetsLength && selfChecks.every(Boolean) && !isRecording
-  const canEvaluate = meetsLength && (isWriting || wc >= 3) && !isRecording && !evaluating
+  const effectiveAudioSeconds = Math.max(seconds, recorder.elapsedSeconds, Math.round(speechMetrics?.speechSeconds ?? 0))
+  const meetsLength = isWriting
+    ? wc >= targetWords
+    : useAsrFlow
+    ? effectiveAudioSeconds >= targetSeconds
+    : seconds >= targetSeconds
+  const canSelfMaster = meetsLength && selfChecks.every(Boolean) && !isRecording && !recorder.isRecording
+  const canEvaluate =
+    meetsLength &&
+    (isWriting || wc >= 3 || text.trim().length > 0) &&
+    !isRecording &&
+    !recorder.isRecording &&
+    !evaluating &&
+    !isTranscribing
 
   const handleSelfMaster = () => {
     recordEchelleMastery({
       itemId: activeTask.id,
-      response: isWriting ? { selfChecks, wordCount: wc } : { selfChecks, seconds },
+      response: isWriting ? { selfChecks, wordCount: wc } : { selfChecks, seconds: effectiveAudioSeconds },
     })
     setSaved(true)
   }
@@ -678,17 +717,91 @@ function ProductionPanel({
     setEvaluating(true)
     setAiError(null)
     try {
+      let inputMode: 'typed' | 'speech' | 'manual-transcript' | 'asr' = 'typed'
+      let metricsToSend: SpeechMetrics | undefined = undefined
+
+      if (!isWriting) {
+        if (speechMetrics && !isTranscriptEdited) {
+          inputMode = 'asr'
+          metricsToSend = speechMetrics
+        } else if (usedSpeech) {
+          inputMode = 'speech'
+        } else {
+          inputMode = 'manual-transcript'
+        }
+      }
+
       setEvaluation(
         await evaluateEchelleProduction({
           itemId: activeTask.id,
           text,
-          ...(isWriting ? {} : { seconds, inputMode: usedSpeech ? 'speech' : 'manual-transcript' }),
+          ...(isWriting ? {} : { seconds: Math.max(effectiveAudioSeconds, 1), inputMode, speech: metricsToSend }),
         }),
       )
     } catch (error) {
-      setAiError(AI_ERRORS[(error as Error).message] ?? 'AI 评分暂时不可用，请稍后重试。')
+      setAiError(AI_ERRORS[(error as Error).message] ?? (error as Error).message ?? 'AI 评分暂时不可用，请稍后重试。')
     } finally {
       setEvaluating(false)
+    }
+  }
+
+  const handleTranscribeAndEvaluate = async () => {
+    if (!recorder.blob) return
+    if (!asrConsent) {
+      setAsrError('请先同意语音识别服务隐私声明。')
+      return
+    }
+    setIsTranscribing(true)
+    setAiError(null)
+    setAsrError(null)
+    try {
+      const res = await transcribeSpeech(recorder.blob)
+      setOriginalTranscript(res.transcript)
+      setSpeechMetrics(res.metrics)
+      setText(res.transcript)
+      setIsTranscribing(false)
+
+      setEvaluating(true)
+      const duration = Math.max(recorder.elapsedSeconds, Math.round(res.durationSeconds), 1)
+      const evalResult = await evaluateEchelleProduction({
+        itemId: activeTask.id,
+        text: res.transcript,
+        seconds: duration,
+        inputMode: 'asr',
+        speech: res.metrics,
+      })
+      setEvaluation(evalResult)
+    } catch (error) {
+      const msg = (error as Error).message
+      setAsrError(msg)
+      setAiError(AI_ERRORS[msg] ?? msg ?? '转写或评分失败，请稍后重试。')
+      setFallbackToWebSpeech(true)
+    } finally {
+      setIsTranscribing(false)
+      setEvaluating(false)
+    }
+  }
+
+  const handleTranscribeOnly = async () => {
+    if (!recorder.blob) return
+    if (!asrConsent) {
+      setAsrError('请先同意语音识别服务隐私声明。')
+      return
+    }
+    setIsTranscribing(true)
+    setAiError(null)
+    setAsrError(null)
+    try {
+      const res = await transcribeSpeech(recorder.blob)
+      setOriginalTranscript(res.transcript)
+      setSpeechMetrics(res.metrics)
+      setText(res.transcript)
+    } catch (error) {
+      const msg = (error as Error).message
+      setAsrError(msg)
+      setFallbackToWebSpeech(true)
+    } finally {
+      setIsTranscribing(false)
     }
   }
 
@@ -784,6 +897,131 @@ function ProductionPanel({
             当前 {wc} 词 / 目标 {targetWords} 词
           </div>
         </>
+      ) : useAsrFlow ? (
+        <div className="space-y-4">
+          <div className="rounded-xl bg-gray-50 p-4 dark:bg-white/[0.04]">
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-2">
+                {recorder.isRecording && <span className="h-3 w-3 animate-ping rounded-full bg-rose-500" />}
+                <div className="text-3xl font-bold text-gray-900 dark:text-white" data-testid="speaking-seconds">
+                  {recorder.elapsedSeconds}s
+                </div>
+                <span className="text-xs text-gray-400">/ 180s</span>
+              </div>
+              <div className="mt-1 text-xs text-gray-500">
+                大声说出你的回答；目标：至少 {targetSeconds} 秒（最长 3 分钟自动停止）
+              </div>
+
+              <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
+                {recorder.isRecording ? (
+                  <button
+                    type="button"
+                    data-testid="speaking-recorder-stop"
+                    onClick={() => recorder.stop()}
+                    className="inline-flex items-center gap-1 rounded-full bg-rose-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-rose-700"
+                  >
+                    <IconPlayerStop className="h-4 w-4" /> 停止录音
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    data-testid="speaking-recorder-start"
+                    onClick={() => void recorder.start()}
+                    className="inline-flex items-center gap-1 rounded-full bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700"
+                  >
+                    <IconMicrophone className="h-4 w-4" />
+                    {recorder.audioUrl ? '重新录制' : '开始录音'}
+                  </button>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => setFallbackToWebSpeech(true)}
+                  className="text-xs text-gray-500 underline hover:text-gray-700 dark:hover:text-gray-300"
+                >
+                  切换为浏览器识别 / 手动输入
+                </button>
+              </div>
+
+              {recorder.error && <p className="mt-2 text-xs text-rose-600">{recorder.error}</p>}
+            </div>
+
+            {recorder.audioUrl && (
+              <div className="mt-4 rounded-xl border border-gray-200/80 bg-white p-3.5 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
+                <div className="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-300">录音回放：</div>
+                <audio data-testid="speaking-audio-player" controls src={recorder.audioUrl} className="h-9 w-full" />
+
+                {!asrConsent && (
+                  <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50/70 p-2.5 text-xs text-amber-900 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-amber-200">
+                    <label className="flex cursor-pointer items-start gap-2">
+                      <input
+                        type="checkbox"
+                        data-testid="asr-consent-checkbox"
+                        checked={asrConsent}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setAsrConsent(true)
+                            setAsrConsentState(true)
+                          }
+                        }}
+                        className="mt-0.5 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                      />
+                      <span>
+                        隐私说明：录音将发送至服务器及语音识别服务商（Deepgram）转写，不作云端存储。勾选即表示同意。
+                      </span>
+                    </label>
+                  </div>
+                )}
+
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    data-testid="speech-transcribe-eval-btn"
+                    disabled={!asrConsent || isTranscribing || evaluating || recorder.isRecording}
+                    onClick={() => void handleTranscribeAndEvaluate()}
+                    className="ui-btn-primary flex items-center gap-1 text-xs disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    <IconSparkles className="h-3.5 w-3.5" />
+                    {isTranscribing ? '正在转写音频…' : evaluating ? 'AI 正在评分…' : '转写并评分'}
+                  </button>
+
+                  <button
+                    type="button"
+                    data-testid="speech-transcribe-only-btn"
+                    disabled={!asrConsent || isTranscribing || evaluating || recorder.isRecording}
+                    onClick={() => void handleTranscribeOnly()}
+                    className="ui-btn-secondary flex items-center gap-1 text-xs disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    仅转写录音
+                  </button>
+                </div>
+                {asrError && (
+                  <p className="mt-2 text-xs text-rose-600" data-testid="asr-error">
+                    {asrError}
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+
+          {speechMetrics && (
+            <SpeechMetricsCard metrics={speechMetrics} transcript={originalTranscript ?? undefined} />
+          )}
+
+          {(speechMetrics || text) && (
+            <div>
+              <div className="mb-1 flex items-center justify-between text-xs text-gray-500">
+                <span>转写内容（可手动修改，但修改后将作为「手动转写」模式评估，不含声学指标）：</span>
+                {isTranscriptEdited && (
+                  <span className="font-medium text-amber-600 dark:text-amber-400">
+                    ⚠️ 文本已修改（切换为手动转写模式）
+                  </span>
+                )}
+              </div>
+              {textArea}
+            </div>
+          )}
+        </div>
       ) : (
         <>
           <div className="rounded-xl bg-gray-50 p-4 text-center dark:bg-white/[0.04]">
@@ -809,6 +1047,15 @@ function ProductionPanel({
               )}
             </button>
             {speech.listening && speech.interim && <p className="mt-2 text-sm italic text-gray-500">{speech.interim}…</p>}
+            {asrConfigured && (
+              <button
+                type="button"
+                onClick={() => setFallbackToWebSpeech(false)}
+                className="mt-2 block mx-auto text-xs text-indigo-600 underline dark:text-indigo-400"
+              >
+                切换为 Deepgram 高清录音转写
+              </button>
+            )}
           </div>
           {aiEnabled && (
             <div className="mt-3">

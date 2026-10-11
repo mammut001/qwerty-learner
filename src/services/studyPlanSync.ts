@@ -302,6 +302,36 @@ export type SyncMeta = {
 
 export type EchelleCorrection = { original: string; suggestion: string; explanationZh: string }
 
+export type LowConfidenceWord = {
+  word: string
+  start: number
+  end: number
+  confidence: number
+}
+
+export type SpeechMetrics = {
+  wordCount: number
+  speechSeconds: number
+  wordsPerMinute: number
+  articulationRate: number
+  pauseCount: number
+  longPauseCount: number
+  longestPauseSeconds: number
+  pauseRatio: number
+  fillerCount: number
+  meanConfidence: number
+  lowConfidenceWords: LowConfidenceWord[]
+  lowConfidenceRatio: number
+  intelligibility: 'clear' | 'mostly-clear' | 'unclear'
+}
+
+export type SpeechTranscriptionResult = {
+  transcript: string
+  durationSeconds: number
+  words: { word: string; start: number; end: number; confidence: number }[]
+  metrics: SpeechMetrics
+}
+
 export type EchelleStoredEvaluation = {
   passed: boolean
   scores: Record<string, number>
@@ -313,16 +343,17 @@ export type EchelleStoredEvaluation = {
   rubricVersion: string
   evaluatedAt: number
   corrections: EchelleCorrection[]
+  speech?: SpeechMetrics
 }
 
 export type EchelleEvaluation = EchelleStoredEvaluation & {
-  criteria: { id: string; labelZh: string; score: number; evidence: string; commentZh: string }[]
+  criteria: { id: string; labelZh: string; score: number; evidence: string; commentZh: string; unmeasured?: boolean }[]
   strengthsZh: string[]
   requiredMean: number
   warnings: string[]
 }
 
-export type EchelleAiStatus = { enabled: boolean; provider: string | null; model: string | null; rubricVersion: string }
+export type EchelleAiStatus = { enabled: boolean; provider: string | null; model: string | null; rubricVersion: string; asr?: boolean }
 
 export type EchelleItemRecord = {
   mastered: boolean
@@ -1293,7 +1324,7 @@ export function loadEchelleAiStatus(): Promise<EchelleAiStatus> {
     .then((payload) => payload as unknown as EchelleAiStatus)
     .catch(() => {
       echelleAiStatus = undefined
-      return { enabled: false, provider: null, model: null, rubricVersion: '' }
+      return { enabled: false, provider: null, model: null, rubricVersion: '', asr: false }
     })
   return echelleAiStatus
 }
@@ -1302,7 +1333,74 @@ export type EchelleEvaluationInput = {
   itemId: string
   text: string
   seconds?: number
-  inputMode?: 'typed' | 'speech' | 'manual-transcript'
+  inputMode?: 'typed' | 'speech' | 'manual-transcript' | 'asr'
+  speech?: SpeechMetrics
+}
+
+export const ASR_CONSENT_STORAGE_KEY = 'qwerty_study_asr_consent'
+
+export function hasAsrConsent(): boolean {
+  if (typeof window === 'undefined') return false
+  return window.localStorage.getItem(ASR_CONSENT_STORAGE_KEY) === 'true'
+}
+
+export function setAsrConsent(granted = true): void {
+  if (typeof window !== 'undefined') {
+    if (granted) {
+      window.localStorage.setItem(ASR_CONSENT_STORAGE_KEY, 'true')
+    } else {
+      window.localStorage.removeItem(ASR_CONSENT_STORAGE_KEY)
+    }
+  }
+}
+
+export const ASR_ERROR_MESSAGES: Record<string, string> = {
+  ASR_NOT_CONFIGURED: '语音识别服务未配置，请使用手动输入。',
+  ASR_UPSTREAM_FAILED: '语音识别转写服务暂时不可用，请稍后重试。',
+  ASR_RATE_LIMITED: '语音转写次数过于频繁，请稍后再试。',
+  UNSUPPORTED_MEDIA_TYPE: '不支持的录音格式，请尝试其他浏览器。',
+  AUDIO_TOO_LARGE: '录音文件过大（超过 6 MB），请缩短录音时长。',
+  REQUEST_TOO_LARGE: '录音文件过大（超过 6 MB），请缩短录音时长。',
+  AUDIO_EMPTY: '录音数据为空，请重新录制。',
+  PLAN_UNINITIALIZED: '学习计划尚未初始化，请刷新后重试。',
+  LOGIN_REQUIRED: '需要登录后才能使用语音转写功能。',
+  SESSION_REQUIRED: '会话已过期，请刷新页面后重试。',
+}
+
+export async function transcribeSpeech(blob: Blob): Promise<SpeechTranscriptionResult> {
+  if (isGuestMode()) {
+    throw new Error('STUDY_SESSION_BLOCKED')
+  }
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), 45000)
+  try {
+    const response = await fetch(`${API_BASE}/api/study-plan/speech/transcribe`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': blob.type || 'audio/webm',
+      },
+      body: blob,
+      signal: controller.signal,
+    })
+    if (!response.ok) {
+      const data = (await response.json().catch(() => ({}))) as { error?: string; code?: string }
+      const code = data.code || `HTTP_${response.status}`
+      const msg = ASR_ERROR_MESSAGES[code] || data.error || '语音转写失败，请稍后重试。'
+      const err = new Error(msg)
+      ;(err as Error & { code?: string; status?: number }).code = code
+      ;(err as Error & { code?: string; status?: number }).status = response.status
+      throw err
+    }
+    return (await response.json()) as SpeechTranscriptionResult
+  } catch (err) {
+    if ((err as Error).name === 'AbortError') {
+      throw new Error('语音转写请求超时，请检查网络后重试。')
+    }
+    throw err
+  } finally {
+    clearTimeout(timeout)
+  }
 }
 
 /** Scores a writing/speaking answer on the server; the server writes the result into the learner's state. */
