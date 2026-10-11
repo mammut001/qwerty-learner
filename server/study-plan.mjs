@@ -189,6 +189,34 @@ function readAudioBuffer(req, limit = MAX_AUDIO_BYTES) {
   })
 }
 
+// Discards the rest of a rejected request body, then calls respond() exactly once. Stops early when the
+// body ends, the byte bound is exceeded, or the time bound elapses (Node then closes the socket itself).
+function drainRequestBody(req, respond, { maxBytes = 32 * 1024 * 1024, timeoutMs = 10000 } = {}) {
+  if (req.readableEnded) return respond()
+  let seen = 0
+  let finished = false
+  let timer = null
+  const finish = () => {
+    if (finished) return
+    finished = true
+    clearTimeout(timer)
+    req.off('data', onData)
+    req.off('end', finish)
+    req.off('close', finish)
+    respond()
+  }
+  const onData = (chunk) => {
+    seen += chunk.length
+    if (seen > maxBytes) finish()
+  }
+  timer = setTimeout(finish, timeoutMs)
+  timer.unref?.()
+  req.on('data', onData)
+  req.on('end', finish)
+  req.on('close', finish)
+  req.resume()
+}
+
 export function createStudyServer({
   database = process.env.STUDY_DB_PATH || './data/study-plan.sqlite',
   origin = process.env.STUDY_ORIGIN || 'http://localhost:5173',
@@ -305,26 +333,17 @@ export function createStudyServer({
       send(status, { error: message, code, ...extra }, headers)
     const sendPendingBodyError = (status, code, message, extra = {}) => {
       req.on('error', () => {})
-      req.unpipe?.()
-      req.resume()
-      res.writeHead(status, {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-store',
-        'X-Content-Type-Options': 'nosniff',
-        Connection: 'close',
+      // Answer only after the unread body is consumed (bounded): Node closes the socket as soon as a
+      // Connection: close response is flushed, which resets a client that is still uploading.
+      drainRequestBody(req, () => {
+        res.writeHead(status, {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-store',
+          'X-Content-Type-Options': 'nosniff',
+          Connection: 'close',
+        })
+        res.end(JSON.stringify({ error: message, code, ...extra }))
       })
-      res.end(JSON.stringify({ error: message, code, ...extra }))
-      let destroyed = false
-      const cleanup = () => {
-        if (!destroyed) {
-          destroyed = true
-          req.destroy()
-        }
-      }
-      res.on('finish', () => {
-        setImmediate(cleanup)
-      })
-      req.on('end', cleanup)
     }
     const sendText = (status, body, contentType, extraHeaders = {}) => {
       res.writeHead(status, {

@@ -332,7 +332,7 @@ describe('POST /api/study-plan/speech/transcribe endpoint', () => {
     })
   })
 
-  it('handles keep-alive connection cleanly: 7 MB upload returns 413 and subsequent request on same agent succeeds', async () => {
+  const runKeepAliveRejection = async ({ contentType, expectedStatus, expectedCode }) => {
     const dir = mkdtempSync(join(tmpdir(), 'study-speech-asr-keepalive-'))
     const server = createStudyServer({
       database: join(dir, 'study.sqlite'),
@@ -365,7 +365,7 @@ describe('POST /api/study-plan/speech/transcribe endpoint', () => {
         headers: {
           Origin: ORIGIN,
           Cookie: cookie,
-          'Content-Type': 'audio/webm',
+          'Content-Type': contentType,
           'Content-Length': chunk.length,
         },
       })
@@ -392,10 +392,10 @@ describe('POST /api/study-plan/speech/transcribe endpoint', () => {
         req1.end(chunk)
       })
 
-      assert.equal(res1.status, 413)
+      assert.equal(res1.status, expectedStatus)
       assert.equal(res1.headers.connection, 'close')
       const parsed1 = JSON.parse(res1.body)
-      assert.equal(parsed1.code, 'REQUEST_TOO_LARGE')
+      assert.equal(parsed1.code, expectedCode)
 
       // 2. Normal request on the same keep-alive agent succeeds without ECONNRESET
       const res2 = await new Promise((resolve, reject) => {
@@ -432,6 +432,14 @@ describe('POST /api/study-plan/speech/transcribe endpoint', () => {
       await new Promise((resolve) => server.close(resolve))
       rmSync(dir, { recursive: true, force: true })
     }
+  }
+
+  it('handles keep-alive connection cleanly: 7 MB upload returns 413 and subsequent request on same agent succeeds', async () => {
+    await runKeepAliveRejection({ contentType: 'audio/webm', expectedStatus: 413, expectedCode: 'REQUEST_TOO_LARGE' })
+  })
+
+  it('handles keep-alive connection cleanly: 7 MB upload with unsupported type returns 415 and subsequent request succeeds', async () => {
+    await runKeepAliveRejection({ contentType: 'text/plain', expectedStatus: 415, expectedCode: 'UNSUPPORTED_MEDIA_TYPE' })
   })
 
   it('returns 503 ASR_NOT_CONFIGURED when DEEPGRAM_API_KEY is not set', async () => {
