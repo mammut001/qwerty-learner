@@ -1376,7 +1376,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle mission préventive figure parmi les tâches de l’analyste ?",
           "Organiser des tests d’attaque fictifs pour former le personnel",
-          "Remplacer tous les terminaux de paiement des succursales locales",
+          "Superviser la réinitialisation des accès des usagers internes",
           "Installer manuellement les logiciels comptables de la direction",
         ],
         [
@@ -1414,7 +1414,7 @@ export const N07_08_SCENARIOS = {
           "Quel bénéfice d’ordre culturel le poste offre-t-il au gestionnaire engagé ?",
           "Une immersion au cœur des ateliers de création théâtrale",
           "Une gratuité totale pour assister à des concerts de musique pop",
-          "Un voyage culturel entièrement défrayé dans une capitale d’Europe",
+          "Un accès illimité aux représentations théâtrales des grands festivals",
         ],
       ],
     },
@@ -1539,8 +1539,8 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle attitude Clara adopte-t-elle face à la tension naissante entre ses amis ?",
           "Elle choisit de se taire pour éviter d’aggraver les divisions",
-          "Elle force ses camarades à quitter immédiatement l’appartement",
-          "Elle met fin sur-le-champ à toute relation avec les deux garçons",
+          "Elle confronte ouvertement les deux hommes lors d’une vive explication",
+          "Elle tente d’apaiser la dispute en imposant une médiation formelle",
         ],
         [
           "Que sous-entend la conclusion du film quant au passage à l’âge adulte ?",
@@ -1590,8 +1590,8 @@ export const N07_08_SCENARIOS = {
         [
           "Quel impact direct le manque de personnel a-t-il sur les entreprises locales ?",
           "L’obligation de décliner des contrats d’affaires rentables",
-          "L’arrêt définitif de toutes les activités de coupe en forêt",
-          "La faillite immédiate de la majorité des petites usines du coin",
+          "La suspension temporaire des investissements de modernisation",
+          "La baisse généralisée de la rentabilité opérationnelle des usines",
         ],
         [
           "À quelle condition un étudiant peut-il toucher la bourse financière régionale ?",
@@ -1615,8 +1615,8 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle conséquence sociale la pénurie d’éducatrices entraîne-t-elle dans la région ?",
           "Le maintien forcé de parents hors de la vie professionnelle",
-          "La fermeture complète de tous les centres pédiatriques de l’Estrie",
-          "L’expulsion massive des enfants inscrits dans les garderies privées",
+          "L’allongement des listes d’attente dans les garderies privées",
+          "La diminution du nombre de berceaux disponibles en milieu familial",
         ],
         [
           "Comment le programme collégial facilite-t-il l’apprentissage du métier d’éducatrice ?",
@@ -1646,7 +1646,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quel objectif vise l’automatisation des tâches de conditionnement selon le reportage ?",
           "Alléger la pénibilité du travail pour séduire de nouveaux candidats",
-          "Éliminer tous les emplois humains dans les entreprises de Mauricie",
+          "Supprimer un nombre significatif de postes d’ouvriers non qualifiés",
           "Accélérer la vente de produits importés au détriment des récoltes",
         ],
         [
@@ -1665,7 +1665,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle est l’origine principale du désaccord survenu avec le ministère ?",
           "Une lecture divergente des fonctionnalités prévues dans le premier contrat",
-          "Un refus systématique de l’équipe de livrer le moindre module informatique",
+          "Un retard technique dans le déploiement du module de calcul d’itinéraire",
           "Une faille de sécurité majeure ayant entraîné la fuite de données d’usagers",
         ],
         [
@@ -1798,7 +1798,7 @@ export const N07_08_SCENARIOS = {
           "Quelle opération prioritaire permet d’écarter tout risque pour l’intervenant ?",
           "Interrompre le courant électrique au niveau du coffret mural",
           "Retirer les colis les plus lourds directement depuis l’échelle",
-          "Appeler immédiatement les pompiers de la ville de Trois-Rivières",
+          "Déclencher le signal d’évacuation de l’ensemble de l’entrepôt",
         ],
         [
           "Que peut-on déduire quant à l’attitude requise pour faire descendre la charge suspendue ?",
@@ -1810,7 +1810,7 @@ export const N07_08_SCENARIOS = {
           "Quelle vérification finale s’impose avant de relancer la machine industrielle ?",
           "Contrôler le parfait alignement des colis sur leur support de bois",
           "Peindre des bandes jaunes sur l’ensemble du sol de l’allée centrale",
-          "Remplacer toutes les palettes en bois par des modèles en plastique",
+          "Transférer les marchandises vers un quai de déchargement adjacent",
         ],
       ],
     },
@@ -1905,7 +1905,7 @@ export const N07_08_SCENARIOS = {
           "Quelle position modérée la chroniqueuse défend-elle sur l’interdiction totale des pesticides ?",
           "Un refus d’une mesure brutale qui désavantagerait l’agriculture locale",
           "Un accord enthousiaste pour supprimer tous les traitements chimiques",
-          "Une demande d’autorisation de vente libre de tous les produits toxiques",
+          "La conviction que le cadre réglementaire actuel demeure suffisant",
         ],
         [
           "Quelle critique sévère formule-t-elle envers l’action gouvernementale actuelle ?",
@@ -1954,13 +1954,13 @@ export const N07_08_SCENARIOS = {
         [
           "Pourquoi l’agronome s’oppose-t-elle à une politique axée sur les pénalités financières ?",
           "Elle pénalise lourdement les fermiers sans offrir d’alternatives viables",
-          "Les produits phytosanitaires chimiques sont devenus entièrement inoffensifs",
-          "Parce que le sol québécois ne contient plus aucun résidu d’azote toxique",
+          "L’idée que l’usage des produits chimiques diminue déjà spontanément",
+          "La conviction que le marché agricole compensera seul les pertes",
         ],
         [
           "Quelle solution technique concrète propose-t-elle pour remplacer les désherbants ?",
           "Le déploiement de technologies mécaniques autonomes sur les parcelles",
-          "L’abandon complet de toute forme de culture céréalière dans toute la province",
+          "La réduction drastique des superficies consacrées aux grandes cultures",
           "L’importation massive d’herbicides expérimentaux venus de l’étranger",
         ],
         [
@@ -2004,8 +2004,8 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle fonctionnalité novatrice Antoine valorise-t-il dans son utilisation quotidienne ?",
           "La transcription instantanée facilitant le dialogue avec les parents allophones",
-          "La correction automatique de toutes les dissertations littéraires des étudiants",
-          "L’interdiction aux parents d’adresser des requêtes écrites aux professeurs",
+          "L’analyse automatique du niveau de compréhension écrite de la classe",
+          "Le filtrage administratif de tous les courriels destinés aux tuteurs",
         ],
         [
           "Quel effet pervers de l’outil numérique Chantal dénonce-t-elle avec vigueur ?",
@@ -2016,8 +2016,8 @@ export const N07_08_SCENARIOS = {
         [
           "Que peut-on déduire quant à l’attitude de Chantal envers le rôle de l’enseignant ?",
           "Elle refuse la dérive bureaucratique au détriment de la vocation pédagogique",
-          "Elle préfère supprimer définitivement toute communication avec les familles d’élèves",
-          "Elle réclame l’abandon pur et simple des examens trimestriels dans l’école",
+          "Elle souhaite limiter les correspondances à un bilan annuel transmis par la direction",
+          "Elle plaide pour un retour complet aux évaluations manuscrites sur papier",
         ],
       ],
     },
@@ -2042,7 +2042,7 @@ export const N07_08_SCENARIOS = {
           "Que peut-on déduire sur la réaction de Karine face à l’hébergement des plans à l’étranger ?",
           "Elle redoute une perte de contrôle juridique et sécuritaire sur leur patrimoine",
           "Elle souhaite transférer l’ensemble des serveurs dans une grande filiale canadienne",
-          "Elle juge que les plans d’ingénierie n’ont aucune valeur commerciale secrète",
+          "Elle minimise la valeur stratégique des archives techniques de conception",
         ],
       ],
     },
@@ -2073,7 +2073,7 @@ export const N07_08_SCENARIOS = {
         [
           "Que peut-on déduire quant à l’attitude corporative de la compagnie envers la relève étudiante ?",
           "Elle consacre des ressources financières ciblées pour appuyer les talents",
-          "Elle exige que tous les stagiaires signent un contrat d’embauche à vie",
+          "Elle conditionne l’octroi des bourses à un engagement de service exclusif",
           "Elle limite ses partenariats aux seules écoles professionnelles de Lévis",
         ],
       ],
@@ -2112,7 +2112,7 @@ export const N07_08_SCENARIOS = {
           "Quelle méthode écologique novatrice distingue cette entreprise des pratiques classiques ?",
           "L’utilisation de végétaux adaptés pour assainir les terres sur place",
           "L’acheminement des terres souillées vers des dépotoirs d’outre-mer",
-          "Le recouvrement de tous les terrains par une épaisse dalle de béton",
+          "Le traitement thermique intensif des terres dans des installations fermées",
         ],
         [
           "Quelle expansion territoriale la firme a-t-elle concrétisée au fil des années ?",
@@ -2355,7 +2355,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle réaction courageuse permet à l’héroïne de sauver le captif de la noyade ?",
           "Résoudre avec sang-froid un mécanisme hydraulique pour faire baisser le niveau d’eau",
-          "Neutraliser la créature en lui tirant dessus à l’aide de balles en argent massif",
+          "Briser les verrous de la vanne d’évacuation à l’aide d’une barre métallique",
           "Téléphoner aux plongeurs de la Sûreté du Québec pour obtenir un secours d’urgence",
         ],
       ],
@@ -2381,7 +2381,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quel fonctionnement novateur caractérisera le nouveau pôle créé à l’automne ?",
           "Une équipe d’intervention itinérante répondant aux besoins de l’ensemble du secteur",
-          "Une division réservée uniquement au traitement hospitalier des maladies chroniques",
+          "Une division hospitalière réservée uniquement au suivi des maladies chroniques graves",
           "Un service exclusivement téléphonique géré par des assistants virtuels automatisés",
         ],
         [
@@ -2400,14 +2400,14 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle transformation technologique a impulsé cette refonte de l’organisation du travail ?",
           "L’arrivée d’engins forestiers sophistiqués nécessitant de nouvelles compétences",
-          "L’abandon total de l’informatique au profit de méthodes manuelles traditionnelles",
-          "La fermeture des scieries locales obligeant à exporter les troncs sans découpe",
+          "Le regroupement des petites scieries régionales sous une régie étatique",
+          "La fermeture des scieries locales obligeant à exporter les troncs bruts sans découpe",
         ],
         [
           "Quel aménagement du temps de travail a été négocié pour les salariés des brigades ?",
           "Une alternance fixe de quatre journées d’activité et de trois jours de repos",
-          "Une semaine de travail obligatoire de sept jours continus en forêt boréale",
-          "La suppression de tout congé annuel pendant les mois de récolte automnale",
+          "Une réduction des heures de jour compensée par du travail de nuit systématique",
+          "Une modulation unilatérale des congés payés selon les aléas météorologiques",
         ],
         [
           "Que peut-on déduire quant à l’attitude de la coopérative face aux compétences requises ?",
@@ -2431,7 +2431,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quel rôle central le conseiller pivot jouera-t-il auprès de chaque collégien ?",
           "Coordonner de manière personnalisée l’ensemble des services dont il a besoin",
-          "Décider unilatéralement de l’exclusion définitive des jeunes en situation d’échec",
+          "Prendre en charge l’évaluation pédagogique des examens de mi-session",
           "Remplacer les professeurs lors des cours magistraux de formation générale commune",
         ],
         [
@@ -2450,20 +2450,20 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle amélioration technique majeure distingue le nouveau moteur de conciliation bancaire ?",
           "L’analyse conjointe des numéros fiscaux, des libellés et des historiques de facturation",
-          "La suppression complète de l’obligation de payer les taxes de vente provinciales",
+          "Le traitement direct de toutes les écritures sans validation des pièces justificatives",
           "L’envoi automatique des déclarations fiscales d’impôt au ministère du Revenu",
         ],
         [
           "Quelle manipulation précise est conseillée lorsque des transactions ne s’associent pas ?",
           "Augmenter l’intervalle de temps toléré entre la facture et le transfert d’argent",
-          "Supprimer définitivement le compte bancaire de l’entreprise pour recommencer",
-          "Désactiver l’ensemble des fonctionnalités de sécurité du logiciel d’exploitation",
+          "Saisir manuellement chacune des écritures comptables dans un tableur externe partagé",
+          "Forcer le rapprochement sans vérifier la concordance des soldes d’ouverture",
         ],
         [
           "Quelle attitude le modérateur préconise-t-il face au voyant d’alerte orange ?",
           "Une prudence rigoureuse en évitant toute validation hâtive avant vérification",
-          "Un mépris total du signal d’alarme puisqu’il s’agit d’une anomalie sans conséquence",
-          "Une fermeture immédiate du programme informatique pour effacer les données de calcul",
+          "Une validation automatique des écritures sans attendre le contrôle mensuel",
+          "Une réinitialisation complète des paramètres du grand livre comptable",
         ],
       ],
     },
@@ -2475,8 +2475,8 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle exigence préalable conditionne la validité des calculs thermiques de l’édifice ?",
           "L’importation des données météorologiques officielles de la localité visée",
-          "La présence obligatoire d’un garage chauffé dans la modélisation spatiale",
-          "L’achat d’un ordinateur de bureau certifié par l’Ordre des architectes",
+          "L’utilisation exclusive de matériaux isolants certifiés conformes par l’Ordre",
+          "La souscription préalable d’un abonnement payant à la base de données",
         ],
         [
           "Quelle maladresse fréquente de modélisation provoque l’apparition d’un bogue système ?",
@@ -2487,8 +2487,8 @@ export const N07_08_SCENARIOS = {
         [
           "Que peut-on déduire quant à l’intérêt pratique de l’exportation au format normatif provincial ?",
           "Accélérer la délivrance des autorisations administratives auprès des villes",
-          "Éviter de devoir payer des honoraires professionnels aux inspecteurs du bâtiment",
-          "Permettre de modifier les dimensions réelles de la bâtisse sans permis officiel",
+          "Dispenser le promoteur de soumettre les plans à la Régie du bâtiment",
+          "Garantir automatiquement la conformité aux règlements d’urbanisme locaux",
         ],
       ],
     },
@@ -2500,20 +2500,20 @@ export const N07_08_SCENARIOS = {
         [
           "Quel bénéfice créatif essentiel les nouveaux masques dynamiques procurent-ils aux artistes ?",
           "La possibilité de remanier les tracés sans anéantir les éléments d’origine",
-          "L’effacement automatique de toutes les fautes d’orthographe dans les titres",
-          "La baisse du coût d’achat des encres chez les imprimeurs de la région",
+          "La conversion instantanée de tous les tracés vectoriels en basse définition",
+          "La réduction drastique de la mémoire vive requise par la station graphique",
         ],
         [
           "Quelle négligence de mise en page risque de dégrader la qualité visuelle du produit fini ?",
           "L’omission d’ajouter une marge de fond perdu pour sécuriser la coupe au massicot",
-          "La sélection de couleurs trop vives pour les arrière-plans des affiches urbaines",
-          "L’utilisation de polices de caractères créées par des typographes québécois",
+          "L’exportation du document final sans incorporer le profil colorimétrique",
+          "Le verrouillage intempestif des calques d’ajustement avant l’impression",
         ],
         [
           "Que peut-on déduire sur l’esprit qui anime la communauté LibreArt à travers ce message ?",
           "Une volonté de solidarité professionnelle axée sur le partage libre des savoirs",
-          "Un refus d’aider les designers débutants qui n’ont pas suivi de formation d’art",
-          "Une interdiction formelle de collaborer avec des imprimeurs commerciaux locaux",
+          "Une volonté de réserver les tutoriels avancés aux membres contributeurs",
+          "Le rejet systématique des formats propriétaires dans la chaîne graphique",
         ],
       ],
     },
@@ -2663,14 +2663,14 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle formalité essentielle autorise le Commissaire à examiner les antécédents médicaux ?",
           "L’accord formel et consenti du patient concerné par les soins reçus",
-          "Une ordonnance spéciale délivrée par un juge de la cour criminelle",
-          "L’approbation conjointe de tous les médecins du centre hospitalier",
+          "Une dérogation formelle accordée par la direction régionale de santé publique",
+          "L’autorisation préalable du conseil d’administration de l’établissement",
         ],
         [
           "Que peut-on déduire quant à l’engagement temporel pris par le Commissariat dans le traitement du dossier ?",
           "Il s’engage sur une échéance encadrée pour rendre un avis écrit et argumenté",
-          "Il refuse de fixer la moindre date pour finaliser ses analyses cliniques approfondies",
-          "Il exige que les plaignants attendent un an avant de recevoir le moindre retour d’information",
+          "Il subordonne son rapport à la clôture de toutes les actions judiciaires parallèles",
+          "Il suspend systématiquement ses conclusions en attendant l’accord du ministre",
         ],
       ],
     },
@@ -2689,14 +2689,14 @@ export const N07_08_SCENARIOS = {
         [
           "Quel aspect positif de la nouvelle loi la chroniqueuse reconnaît-elle volontiers ?",
           "La fixation d’une limite temporelle contraignante et la fin des frais de copie",
-          "La fermeture définitive et complète de tous les services de relations avec les médias",
-          "L’interdiction aux fonctionnaires de refuser la moindre demande citoyenne",
+          "L’obligation d’obtenir une autorisation judiciaire pour consulter un rapport",
+          "La publication intégrale et sans filtre de toutes les notes ministérielles",
         ],
         [
           "Quel recul démocratique majeur dénonce-t-elle avec véhémence ?",
           "L’élargissement des exceptions légales permettant de cacher des dossiers clés",
-          "La suppression totale de toute consultation des députés élus à l’Assemblée nationale",
-          "L’obligation pour les journalistes de payer une taxe spéciale pour enquêter",
+          "L’interdiction faite aux citoyens de contester les refus devant un tribunal administratif",
+          "La réduction des sanctions applicables en cas de destruction illégale d’archives",
         ],
         [
           "Que peut-on déduire sur son sentiment face à la communication gouvernementale ?",
@@ -2714,20 +2714,20 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle mesure forte introduite par la loi la chroniqueuse juge-t-elle bénéfique ?",
           "La responsabilité financière directe des plateformes en cas de publicité frauduleuse",
-          "L’interdiction complète de toute visite de touristes étrangers dans les grandes villes",
-          "L’obligation pour chaque voyageur de loger exclusivement dans des hôtels de luxe",
+          "L’attribution exclusive des permis de louer aux seuls résidents permanents du quartier",
+          "Le plafonnement automatique des loyers résidentiels par la Régie du logement",
         ],
         [
           "Quelle lacune cruciale risque selon elle de compromettre l’efficacité du règlement ?",
           "Le manque criant de personnel de surveillance pour effectuer des vérifications sur place",
-          "L’opposition unanime et déterminée de l’ensemble des locataires québécois à ces règles",
-          "L’annulation de tous les contrats de location par les tribunaux civils de la région",
+          "La complexité excessive des formulaires d’enregistrement sur les portails municipaux",
+          "Le refus systématique des tribunaux d’imposer des sanctions financières aux contrevenants",
         ],
         [
           "Que peut-on déduire quant à l’attitude de l’auteure envers les promesses des élus ?",
           "Elle affiche un scepticisme lucide devant une réforme dénuée de moyens logistiques",
           "Elle manifeste une confiance aveugle dans la capacité des mairies à agir sans argent",
-          "Elle accuse les députés d’avoir voulu ruiner le secteur hôtelier traditionnel d’ici",
+          "Elle craint que la loi ne pénalise injustement les hôteliers traditionnels de la ville",
         ],
       ],
     },
@@ -2739,20 +2739,20 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle avancée légale remarquable la journaliste souligne-t-elle dans cette réforme ?",
           "La prise en compte officielle des troubles physiques et mentaux liés au travail à distance",
-          "L’obligation stricte d’interdire définitivement tout usage d’écrans dans les résidences",
-          "Le versement obligatoire d’un salaire doublé pour toutes les heures passées chez soi",
+          "L’interdiction patronale de contacter les employés en dehors des heures de bureau",
+          "La prise en charge intégrale du loyer du domicile par l’organisation employeuse",
         ],
         [
           "Quelle difficulté d’application majeure suscite les plus vives inquiétudes juridiques ?",
           "Le respect de la vie intime lors des contrôles de sécurité dans l’habitat personnel",
-          "Le refus unanime des entreprises d’assumer les fournitures de papeterie courante",
-          "L’absence d’ordinateurs portables chez la majorité des salariés de la province",
+          "L’impossibilité matérielle d’inspecter les postes de travail sans l’accord préalable du syndicat",
+          "La difficulté d’imposer des normes ergonomiques uniformes dans des logements disparates",
         ],
         [
           "Que peut-on déduire sur la prédiction formulée par Caroline Gagnon concernant l’avenir de la loi ?",
           "Elle anticipe une multiplication des différends judiciaires devant les cours de justice",
           "Elle prévoit une harmonisation pacifique, rapide et durable des relations professionnelles",
-          "Elle imagine que les tribunaux administratifs fermeront faute de dossiers à entendre",
+          "Elle espère une clarification rapide des responsabilités par voie de décret ministériel",
         ],
       ],
     },
@@ -2764,14 +2764,14 @@ export const N07_08_SCENARIOS = {
         [
           "Quel décalage choquant l’éditorialiste dénonce-t-il entre la loi et la pratique réelle ?",
           "La persistance de mauvais traitements dans les élevages intensifs malgré le statut civil",
-          "La multiplication injustifiée des poursuites criminelles contre les propriétaires de chats",
-          "L’interdiction aux vétérinaires de soigner les bêtes sans autorisation gouvernementale",
+          "L’absence de contrôles sanitaires dans les abattoirs certifiés par le gouvernement",
+          "Le manque de sanctions financières contre les vétérinaires exerçant en région",
         ],
         [
           "Quelle réforme législative concrète réclame-t-il pour transformer durablement les pratiques ?",
           "La suppression des cages de confinement et la mise en place d’un protecteur neutre",
-          "La fermeture immédiate et sans compensation de toutes les exploitations maraîchères",
-          "L’obligation pour chaque citoyen québécois d’adopter un chien abandonné en refuge",
+          "L’interdiction généralisée de toute consommation de viande animale sur le territoire",
+          "La nationalisation complète de la filière porcine par le ministère de l’Agriculture",
         ],
         [
           "Que peut-on déduire sur son sentiment face au bilan de la décennie écoulée ?",
@@ -2789,20 +2789,20 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle décision expéditive prise par les autorités locales suscite l’indignation du journaliste ?",
           "L’organisation de chasses d’éradication pour régler le surplus de bêtes à bas prix",
-          "La clôture intégrale de tous les parcs municipaux pour empêcher les promenades",
-          "L’obligation pour les automobilistes de rouler à moins de dix kilomètres à l’heure",
+          "L’interdiction totale faite aux citoyens de fréquenter les parcs régionaux boisés",
+          "L’installation de barrières électrifiées le long de l’ensemble des routes secondaires",
         ],
         [
           "Quelle solution éthique alternative l’auteur suggère-t-il pour gérer la harde sans cruauté ?",
           "Le recours à la stérilisation ciblée et le maintien de corridors de passage naturels",
-          "L’introduction de meutes de loups sauvages au cœur des zones résidentielles de la banlieue",
-          "Le transfert forcé de l’ensemble des cerfs dans des zoos payants du nord québécois",
+          "Le déplacement massif des hardes vers des réserves de chasse privées du nord",
+          "La capture systématique des animaux pour les confiner dans des enclos municipaux",
         ],
         [
           "Que peut-on déduire quant à l’attitude préconisée par l’éditorialiste envers la faune urbaine ?",
           "Privilégier un partage respectueux de l’espace plutôt qu’une domination destructrice",
-          "Chasser les animaux dès qu’ils s’approchent des plates-bandes privées des maisons",
-          "Détruire les espaces boisés pour supprimer définitivement l’habitat des grands mammifères",
+          "Laisser la faune proliférer librement sans aucune intervention humaine dans les parcs",
+          "Exclure la faune des zones urbaines pour sécuriser prioritairement les banlieues résidentielles",
         ],
       ],
     },
@@ -2814,19 +2814,19 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle justification traditionnelle de la science la journaliste remet-elle en question ?",
           "L’obligation morale d’utiliser des animaux pour valider les avancées de la santé",
-          "La nécessité absolue d’enseigner les sciences de la nature dans les écoles secondaires",
-          "L’interdiction formelle de vendre des médicaments sans ordonnance de médecin",
+          "L’interdiction de développer de nouveaux traitements sans études cliniques préalables",
+          "L’exigence de valider toute recherche biomédicale auprès de comités d’éthique citoyens",
         ],
         [
           "Quelle innovation biomédicale contemporaine permet d’éviter la souffrance des bêtes ?",
           "Le développement de tissus humains miniaturisés et la simulation informatique",
-          "L’arrêt total et immédiat de la recherche sur les traitements des maladies infectieuses",
-          "L’obligation de tester directement les vaccins sur des populations humaines",
+          "Le recours exclusif à l’observation de cas cliniques humains déjà diagnostiqués",
+          "L’abandon de tout essai préliminaire avant la commercialisation des molécules",
         ],
         [
           "Que peut-on déduire sur la cause principale du blocage selon l’éditorialiste ?",
           "La force des habitudes acquises et la répartition conservatrice des subventions",
-          "L’absence totale de chercheurs compétents dans les universités de la province",
+          "Le refus catégorique des scientifiques de se former aux nouvelles méthodes numériques",
           "Le coût prohibitif des rongeurs de laboratoire par rapport aux puces virtuelles",
         ],
       ],

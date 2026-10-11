@@ -647,13 +647,13 @@ export const N09_10_SCENARIOS = {
         [
           "Comment l’exposé scientifique structure-t-il la description du danger acoustique ?",
           "Les mécanismes physiologiques de destruction cellulaire sont décrits avant les stratégies de prévention",
-          "Une condamnation judiciaire systématique et sans appel de tous les employeurs de la province québécoise",
+          "Une revue historique des procès intentés par des ouvriers contre des manufactures du siècle passé",
           "Un comparatif financier des coûts de réparation des tympans artificiels est détaillé"
         ],
         [
           "Que déduit-on implicitement de la remarque sur le retrait temporaire des protecteurs ?",
           "Une interruption même brève de la protection compromet l’efficacité globale de la mesure",
-          "Les ouvriers d’usine refusent toujours par principe de respecter les normes élémentaires de santé au travail",
+          "La croyance voulant que le port intermittent de bouchons suffise à prévenir les traumatismes sonores",
           "Les protecteurs auditifs empêchent complètement de respirer convenablement en atelier"
         ],
         [
@@ -734,7 +734,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle thèse principale cette recherche en relations industrielles défend-elle ?",
           "La flexibilité professionnelle nécessite un soutien social et une reconnaissance solide pour être saine",
-          "Le télétravail devrait être immédiatement et définitivement aboli pour tous les professionnels de l’informatique",
+          "Le travail à distance provoque une baisse irrémédiable de la rentabilité des entreprises de haute technologie",
           "L’autonomie accordée aux travailleurs suffit à éliminer tout risque d’épuisement professionnel"
         ],
         [
@@ -829,19 +829,19 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le plaidoyer fondamental formulé par le dirigeant dans ce passage autobiographique ?",
           "La justification de décisions impopulaires au nom de la sauvegarde industrielle à long terme",
-          "L’aveu d’une faillite frauduleuse planifiée pour fuir ses créanciers dans un paradis fiscal",
-          "La dénonciation de tous les ouvriers de l’aluminium québécois jugés paresseux et incompétents"
+          "La reconnaissance d’erreurs stratégiques majeures commises lors du rachat d’usines obsolètes",
+          "La critique sévère des syndicats locaux accusés d’avoir rejeté tout compromis salarial"
         ],
         [
           "Comment l’auteur articule-t-il sa défense contre ses détracteurs médiatiques ?",
           "Il oppose la superficialité des critiques de presse aux dures réalités économiques de la filière",
-          "Il accuse ses propres enfants d’avoir comploté pour lui voler la présidence du conseil d’administration",
-          "Il réclame l’intervention militaire du gouvernement fédéral pour disperser les manifestants syndicaux"
+          "Il affirme que les actionnaires minoritaires ont sciemment bloqué les investissements technologiques",
+          "Il déplore l’absence de subventions provinciales directes pour moderniser les cuves d’électrolyse"
         ],
         [
           "Que signifie implicitement l’expression « porter le chapeau » dans le récit ?",
           "Assumer publiquement l’entière responsabilité d’une décision contestée pour protéger le projet",
-          "Acheter des vêtements de grand luxe pour soigner son apparence publique lors des galas de charité montréalais",
+          "Accepter une rémunération exceptionnelle en échange de son départ forcé de la direction",
           "Refuser systématiquement de répondre aux questions posées par les juges de la cour"
         ],
         [
@@ -955,19 +955,19 @@ export const N09_10_SCENARIOS = {
         [
           "Quel phénomène logistique et économique cet article universitaire explique-t-il ?",
           "La transmission retardée des hausses des coûts du fret maritime sur les prix de consommation",
-          "La fermeture définitive et sans préavis de tous les ports fluviaux majeurs situés le long du fleuve Saint-Laurent",
+          "La chute durable des volumes d’échanges maritimes causée par la récession mondiale",
           "La baisse spectaculaire et immédiate des prix des meubles et des électroménagers importés"
         ],
         [
           "De quelle manière les économistes articulent-ils la chaîne de répercussion des coûts ?",
           "Les hausses maritimes sont tracées des transporteurs aux grossistes puis aux étiquettes des magasins",
-          "Une dénonciation exclusive et virulente de la cupidité des petits commerçants de détail locaux est exposée",
-          "Un plaidoyer pour le retour aux navires à voile traditionnels est défendu comme solution d’avenir"
+          "Une critique des ententes tarifaires secrètes conclues entre les grandes chaînes de supermarchés",
+          "Une proposition de subventionner directement les carburants maritimes pour alléger les factures"
         ],
         [
           "Que déduit-on implicitement du décalage de six à neuf mois mis en lumière ?",
           "L’inflation peut continuer de progresser en magasin même si les frais de transport ont déjà diminué",
-          "Les commerçants de détail changent leurs prix chaque matin en fonction directe de la météo océanique globale",
+          "Les détaillants réajustent instantanément leurs étiquettes dès l’arrivée des navires au port",
           "Les navires marchands mettent près d’une année complète pour traverser l’océan Pacifique nord"
         ],
         [
@@ -986,19 +986,19 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle idée directrice ce guide clinique avance-t-il sur l’anxiété de performance scolaire ?",
           "La distinction entre le trac stimulant et une angoisse paralysante fondée sur la peur d’échouer",
-          "L’obligation légale d’éliminer l’ensemble des examens écrits pour supprimer tout sentiment d’angoisse scolaire",
+          "La recommandation de remplacer tous les examens formels par des projets de groupe non notés",
           "La certitude que les élèves stressés manquent tous de discipline et de compétences académiques"
         ],
         [
           "Comment l’explication psychologique met-elle en lumière la complexité du problème ?",
           "Deux comportements en apparence contraires sont montrés comme étant les reflets d’une même peur",
-          "Une attaque en règle contre le ministère de l’Éducation est lancée sans analyse comportementale",
-          "Une série de sanctions disciplinaires est prescrite contre les adolescents qui procrastinent"
+          "Une remise en question de la formation des conseillers d’orientation en milieu scolaire québécois",
+          "Un protocole d’exclusion temporaire des élèves refusant de rendre leurs devoirs à temps"
         ],
         [
           "Que sous-entend la recommandation de dissocier la valeur personnelle des résultats ?",
           "Fonder l’estime de soi uniquement sur les notes rend l’adolescent vulnérable à la dépression",
-          "Les notes scolaires ne reflètent aucune compétence réelle et devraient être supprimées à jamais",
+          "L’évaluation chiffrée encourage nécessairement une rivalité destructrice entre camarades de classe",
           "Les parents ne doivent accorder aucun intérêt aux bulletins transmis par les enseignants"
         ],
         [
@@ -1207,26 +1207,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle dénonciation principale l’auteur de cet essai formule-t-il au sujet des agences privées ?",
           "L’effet pervers des agences privées qui coûtent une fortune et déstabilisent les équipes régulières",
-          "Le refus de soigner les patients hospitalisés dans les régions éloignées du nord québécois",
-          "L’interdiction totale faite aux infirmières québécoises de travailler durant les fins de semaine"
+          "La dégradation progressive de la formation continue offerte au personnel infirmier des régions québécoises",
+          "L’incapacité des universités québécoises à former un nombre suffisant de médecins spécialistes"
         ],
         [
           "Comment l’essai démontre-t-il l’inefficacité structurelle du modèle des agences de placement ?",
           "Il montre que les agences siphonnent l’argent public et créent des disparités sans créer de nouveaux soignants",
-          "Il affirme sans preuve que les infirmières d’agence commettent toutes des erreurs médicales criminelles",
-          "Il demande la fermeture pure et simple de tous les hôpitaux régionaux situés hors de l’île de Montréal"
+          "Il soutient que les infirmières d’agence travaillent uniquement dans les cliniques privées de l’île de Montréal",
+          "Il réclame le gel immédiat de toutes les embauches de cadres administratifs dans le réseau public"
         ],
         [
           "Quel sous-entendu émane de la mention du refus des quarts de nuit par les soignants d’agence ?",
           "La flexibilité offerte aux uns fait peser une charge de travail insoutenable sur les épaules des autres",
-          "Les hôpitaux du Québec ne fonctionnent plus du tout durant la nuit et les jours fériés officiels",
-          "Les infirmières du réseau public refusent par principe d’accueillir les nouveaux malades après vingt heures"
+          "Les hôpitaux régionaux manquent cruellement de matériel de réanimation moderne durant les gardes",
+          "Les soignants du réseau public désertent volontairement les unités de soins intensifs pédiatriques"
         ],
         [
           "Dans ce contexte d’économie de la santé, que signifie le mot « expédient » ?",
           "Une solution de dépannage provisoire et imparfaite adoptée pour faire face à une difficulté urgente",
-          "Un produit pharmaceutique dangereux retiré du marché par les autorités réglementaires sanitaires",
-          "Un protocole d’évacuation médicale aérienne réservé aux cas d’extrême urgence en forêt boréale"
+          "Une démarche administrative formelle requise pour homologuer un nouvel équipement hospitalier de pointe",
+          "Un mode d’attribution des contrats publics par appel d’offres concurrentiel international"
         ]
       ],
       "frame": "essai sociologique — critique du recours aux agences privées de soins"
@@ -1238,26 +1238,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel argument central est déployé dans cette tribune pour soutenir le vote à seize ans ?",
           "La légitimité des jeunes à peser sur les décisions écologiques dont ils subiront l’impact toute leur vie",
-          "L’obligation légale pour tous les élèves du secondaire de militer dans un parti politique enregistré",
-          "La proposition de remplacer les députés de l’Assemblée nationale par des collégiens tirés au sort"
+          "La conviction que les adolescents possèdent une maturité politique supérieure à celle de leurs aînés",
+          "La proposition d’attribuer un droit de veto aux associations étudiantes sur tout projet de loi environnemental"
         ],
         [
           "De quelle manière l’auteur appuie-t-il son raisonnement sur la réalité sociale québécoise ?",
           "L’engagement environnemental concret des adolescents est mis en contraste avec leur exclusion politique",
-          "Une accusation d’ignorance généralisée est portée contre l’ensemble des scientifiques et des climatologues",
-          "Un appel à boycotter définitivement toutes les futures élections provinciales est lancé aux électeurs"
+          "Une critique virulente des programmes d’éducation civique enseignés dans les écoles secondaires québécoises",
+          "Un appel à dissoudre immédiatement l’ensemble des partis politiques traditionnels de la province"
         ],
         [
           "Que déduit-on implicitement de la remarque sur l’horizon temporel des aînés ?",
           "Les générations plus âgées sont moins directement menacées par les effets à long terme du réchauffement",
-          "Les citoyens retraités ne devraient plus avoir le droit d’exprimer leur vote lors des scrutins généraux",
-          "Les personnes âgées au Québec refusent catégoriquement de recycler leurs déchets ménagers quotidiens"
+          "Les électeurs plus âgés votent systématiquement contre toute taxe carbone ou mesure de transition",
+          "Les citoyens aînés manifestent une indifférence complète envers la dégradation des forêts boréales"
         ],
         [
           "Dans ce passage d’actualité politique, que désigne le mot « cohorte » ?",
           "Un groupe d’individus partageant une même tranche d’âge ou une expérience historique commune",
-          "Une organisation paramilitaire clandestine cherchant à renverser les institutions démocratiques",
-          "Un rassemblement spontané de manifestants écologistes bloquant un pont autoroutier à l’heure de pointe"
+          "Une subdivision électorale regroupant plusieurs circonscriptions pour un scrutin uninominal",
+          "Un organisme de surveillance chargé de contrôler la conformité des dépenses de campagne électorale"
         ]
       ],
       "frame": "tribune démocratique — participation politique et vote des jeunes de 16 ans"
@@ -1712,14 +1712,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle tâche initiale les responsables d’étage doivent-ils exécuter lors de la mise à jour du plan ?",
           "Dénombrer précisément les personnes grabataires pour évaluer le nombre de matelas de secours requis",
-          "Faire descendre l’ensemble des patients au rez-de-chaussée par les escaliers de secours extérieurs",
-          "Fermer manuellement les disjoncteurs électriques principaux de toutes les unités de soins intensifs"
+          "Vérifier l’état de charge des batteries d’appoint pour chaque respirateur artificiel de l’aile",
+          "Inspecter les issues de secours extérieures pour vérifier l’absence de tout obstacle mécanique"
         ],
         [
           "Quel principe séquentiel doit être obligatoirement respecté lors du transfert des patients ?",
           "Réaliser un déplacement horizontal vers le compartiment voisin avant toute évacuation verticale",
           "Évacuer en priorité les étages supérieurs avant de porter assistance aux personnes du rez-de-chaussée",
-          "Regrouper tous les malades dans le hall d’accueil central avant d’ouvrir les portes coupe-feu"
+          "Transférer les patients vers le stationnement souterrain avant l’arrivée des équipes de secours"
         ],
         [
           "Quelle personne est formellement habilitée à autoriser le déplacement des incubateurs néonataux ?",
@@ -1731,7 +1731,7 @@ export const N09_10_SCENARIOS = {
           "Sous quelle condition le recours au monte-charge médical est-il exceptionnellement autorisé ?",
           "S’il bénéficie d’une alimentation électrique secourue et qu’un technicien certifié assure l’escorte",
           "Dès lors que les ascenseurs pour visiteurs sont occupés par le personnel soignant de garde",
-          "Uniquement si les pompiers municipaux ont déjà quitté les abords de l’établissement hospitalier"
+          "Uniquement en cas de panne complète du système de pressurisation des escaliers d’urgence"
         ]
       ]
     },
@@ -2310,20 +2310,20 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle est la revendication fondamentale défendue par l’auteur de cette lettre ouverte ?",
           "La réintégration de la procréation médicalement assistée au sein du régime public gratuit",
-          "La fermeture définitive de tous les départements d’obstétrique et de gynécologie des hôpitaux publics",
-          "L’interdiction complète des traitements de fertilité pour toutes les personnes âgées de plus de trente ans"
+          "La suppression complète des congés parentaux accordés aux employés du secteur privé québécois",
+          "Le plafonnement strict du nombre total d’enfants autorisés par famille dans la province"
         ],
         [
           "Comment la lettre déconstruit-elle l’argument selon lequel la gratuité ruinerait l’État ?",
           "En démontrant que les transferts d’embryons multiples payants entraînent des coûts néonatals supérieurs",
-          "En proposant d’utiliser les surplus des caisses de retraite provinciales pour bâtir de nouvelles cliniques privées",
-          "En affirmant que les compagnies d’assurance privées prendront automatiquement en charge tous les soins futurs"
+          "En suggérant de taxer lourdement les entreprises pharmaceutiques fabriquant des traitements hormonaux",
+          "En prédisant que les dons philanthropiques privés combleront l’ensemble des besoins financiers du réseau"
         ],
         [
           "Quelle conséquence inique du régime actuel de crédits d’impôt le texte dénonce-t-il ?",
           "L’exclusion de facto des familles modestes incapables d’avancer les sommes requises pour les traitements",
           "La baisse généralisée des salaires des infirmières travaillant dans les centres de santé communautaires",
-          "L’obligation pour les couples de déménager dans une autre province pour adopter légalement un enfant mineur"
+          "L’obligation pour les ménages à faible revenu de souscrire un prêt bancaire à taux usuraire pour payer leurs soins"
         ],
         [
           "Dans ce plaidoyer en santé publique, que signifie l’expression « impératif catégorique » ?",
@@ -2347,14 +2347,14 @@ export const N09_10_SCENARIOS = {
         [
           "Comment le jugement démontre-t-il la mauvaise foi du consortium défendeur ?",
           "En révélant que les prétextes de retard cachaient le développement parallèle d’un outil concurrent",
-          "En produisant des enregistrements clandestins de conversations privées obtenues illégalement par la police",
+          "En démontrant que les dirigeants du consortium avaient secrètement déposé un brevet concurrent identique",
           "En soulignant que la société étrangère n’avait jamais déposé ses états financiers auprès du registraire d’État"
         ],
         [
           "Quelle finalité pratique sous-tend l’ordonnance de restitution des prototypes sous scellés ?",
           "Empêcher la partie adverse d’exploiter indûment les innovations protégées conçues par son ancien partenaire",
-          "Permettre aux journalistes scientifiques d’analyser les composantes chimiques lors d’une démonstration publique",
-          "Faciliter la vente aux enchères des équipements industriels afin de rembourser les créanciers bancaires locaux"
+          "Autoriser les experts judiciaires à tester le fonctionnement des capteurs dans un laboratoire universitaire neutre",
+          "Permettre au ministère de la Santé d’évaluer la conformité des appareils aux normes environnementales locales"
         ],
         [
           "Dans le cadre de cette décision civile, que recouvre le terme « demande reconventionnelle » ?",
@@ -2379,13 +2379,13 @@ export const N09_10_SCENARIOS = {
           "Quel argument médical majeur les signataires opposent-ils au refus de financement public ?",
           "La reconnaissance formelle de l’infertilité comme une pathologie véritable par les instances de santé mondiales",
           "La publication de sondages d’opinion montrant le désintérêt croissant des citoyens pour les questions d’éthique",
-          "L’affirmation selon laquelle les pays voisins ont tous aboli les impôts sur le revenu des jeunes ménages"
+          "L’argument selon lequel les cliniques privées de fertilité sont toutes déficitaires et prêtes à faire faillite"
         ],
         [
           "Quel risque sanitaire grave la gratuité encadrée des traitements permet-elle d’écarter ?",
           "Le recours dangereux à des établissements clandestins non réglementés et les grossesses à risque élevé",
           "La surpopulation soudaine des services d’urgence pédiatrique causée par des infections infantiles bénignes",
-          "La disparition programmée des facultés de médecine générale en raison du manque de candidats qualifiés"
+          "La baisse drastique des effectifs d’infirmières cliniciennes spécialisées dans les soins périnataux hospitaliers"
         ],
         [
           "Dans cette prise de position engagée, que qualifie l’adjectif « inique » ?",
