@@ -1266,8 +1266,8 @@ const N4_APPLIANCE_PRICES = ['149 dollars', '119 dollars', '129 dollars', '179 d
 const N4_APPLIANCE_COVS = [
   { text: 'les pièces et la main-d’œuvre à domicile', opt: 'les pièces et la main-d’œuvre', kw: 'pièces' },
   { text: 'le moteur électrique et les réparations urgentes', opt: 'le moteur et les réparations', kw: 'moteur' },
-  { text: 'toutes les pannes mécaniques imprévues sur place', opt: 'les pannes mécaniques courantes', kw: 'mécaniques' },
-  { text: 'les fuites internes et les pièces électroniques', opt: 'les fuites et les pièces électriques', kw: 'fuites' },
+  { text: 'toutes les pannes mécaniques imprévues sur place', opt: 'les pannes mécaniques imprévues', kw: 'mécaniques' },
+  { text: 'les fuites internes et les pièces électroniques', opt: 'les fuites et les pièces électroniques', kw: 'fuites' },
 ]
 
 const N4_STORAGE_UNITS = [
@@ -1714,7 +1714,7 @@ const N4_PLUMBING_PROBLEMS = [
     issue: 'le tuyau sous le lavabo fuit goutte à goutte',
     measure: 'fermé la petite valve d’arrivée d’eau',
     measKw: 'valve',
-    probOpt: 'un écoulement d’eau sous le lavabo du bain',
+    probOpt: 'un écoulement d’eau sous le lavabo de la salle de bain',
     measOpt: 'fermer la valve locale d’arrivée d’eau',
     otherProb1: 'une poignée d’entrée complètement bloquée',
     otherProb2: 'un rideau de douche déchiré par le vent',
@@ -1843,16 +1843,16 @@ export const N04_L_2 = [
 const N4_AIRPORT_CITIES = ['de Paris', 'de Vancouver', 'de Sept-Îles', 'de Halifax', 'de Calgary']
 const N4_AIRPORT_WAITS = ['pendant plus d’une heure au carrousel', 'pendant quarante-cinq minutes au débarcadère', 'pendant près d’une heure à l’arrivée', 'pendant plus d’une heure et demie']
 const N4_AIRPORT_BAGS = [
-  { text: 'ma grosse valise rouge', pron: 'elle', part: 'sortie' },
+  { text: 'mon gros bagage enregistré', pron: 'il', part: 'sorti' },
   { text: 'mon sac de voyage noir', pron: 'il', part: 'sorti' },
-  { text: 'ma valise bleue à roulettes', pron: 'elle', part: 'sortie' },
+  { text: 'mon bagage bleu à roulettes', pron: 'il', part: 'sorti' },
   { text: 'mon sac à dos vert foncé', pron: 'il', part: 'sorti' },
 ]
 const N4_AIRPORT_RESOLUTIONS = [
-  { text: 'la compagnie me l’a livrée le lendemain midi', opt: 'la compagnie lui a livré le lendemain midi', kw: 'lendemain' },
+  { text: 'la compagnie me l’a livré le lendemain midi', opt: 'la compagnie lui a livré le lendemain midi', kw: 'lendemain' },
   { text: 'un livreur est passé chez moi deux jours après', opt: 'un livreur est passé à sa maison deux jours après', kw: 'livreur' },
-  { text: 'l’agente m’a appelé le lendemain pour la récupérer', opt: 'l’agente l’a rappelé pour la récupérer', kw: 'agente' },
-  { text: 'le service des bagages l’a déposée à ma porte mardi', opt: 'le service l’a déposée à sa porte mardi', kw: 'déposée' },
+  { text: 'l’agente m’a appelé le lendemain pour le récupérer', opt: 'l’agente l’a rappelé pour le récupérer', kw: 'agente' },
+  { text: 'le service des bagages l’a déposé à ma porte mardi', opt: 'le service l’a déposé à sa porte mardi', kw: 'déposé' },
 ]
 
 const N4_FAMILY_PARKS = [
@@ -2025,7 +2025,7 @@ const N4_LEAK_HOURS = ['dès 8 h demain matin', 'vers 10 h demain matin', 'dès 
 const N4_LEAK_BUNDLES = [
   {
     part: 'd’un tuyau usé sous la baignoire',
-    causeOpt: 'du tuyau de baignoire du voisin',
+    causeOpt: 'du tuyau sous la baignoire du voisin',
     action: 'coupé l’arrivée d’eau locale sans tarder',
     repair: 'un plombier certifié viendra changer la pièce',
     repOpt: 'le remplacement de la pièce par un plombier',
@@ -2034,7 +2034,7 @@ const N4_LEAK_BUNDLES = [
   },
   {
     part: 'du joint du chauffe-eau central',
-    causeOpt: 'du joint de chauffe-eau du palier',
+    causeOpt: 'du joint du chauffe-eau de l’étage',
     action: 'fermé la valve de sécurité du réservoir',
     repair: 'l’artisan qualifié viendra poser un raccord neuf',
     repOpt: 'l’installation d’un raccord neuf par un ouvrier',
@@ -2043,7 +2043,7 @@ const N4_LEAK_BUNDLES = [
   },
   {
     part: 'de la canalisation sous l’évier',
-    causeOpt: 'de la canalisation du logement voisin',
+    causeOpt: 'du tuyau sous l’évier du voisin',
     action: 'stoppé l’alimentation principale ce matin',
     repair: 'un technicien de service posera un tuyau neuf',
     repOpt: 'la pose d’un tuyau neuf par le technicien',
@@ -2052,7 +2052,7 @@ const N4_LEAK_BUNDLES = [
   },
   {
     part: 'd’une valve défectueuse de radiateur',
-    causeOpt: 'd’une valve de radiateur de l’étage',
+    causeOpt: 'de la valve du radiateur de l’étage',
     action: 'isolé le circuit de chauffage immédiatement',
     repair: 'un chauffagiste d’urgence viendra réparer le bris',
     repOpt: 'la réparation du bris par un chauffagiste',
@@ -2154,9 +2154,9 @@ const N4_HEATING_BUNDLES = [
 ]
 
 const N4_TRANSIT_AGENCIES = ['de la société de transport', 'du réseau métropolitain', 'du service d’autobus et métro', 'du centre de mobilité urbaine']
-const N4_TRANSIT_LINES = ['la ligne orange du métro', 'le train de banlieue nord', 'la ligne verte du métro', 'le circuit d’autobus express']
 const N4_TRANSIT_BUNDLES = [
   {
+    line: 'la ligne orange du métro',
     cause: 'une panne de signalisation près de la station Berri-UQAM',
     causeOpt: 'un bris de signalisation dans le secteur',
     delay: 'un arrêt de service d’environ trente minutes',
@@ -2167,6 +2167,7 @@ const N4_TRANSIT_BUNDLES = [
     kwMeas: 'autobus',
   },
   {
+    line: 'le train de banlieue nord',
     cause: 'un problème d’aiguillage gelé à l’entrée de la gare',
     causeOpt: 'le gel d’un aiguillage près de la gare',
     delay: 'un retard estimé à quarante minutes au terminus',
@@ -2177,16 +2178,18 @@ const N4_TRANSIT_BUNDLES = [
     kwMeas: 'navettes',
   },
   {
+    line: 'la ligne verte du métro',
     cause: 'un ennui mécanique sur une rame immobilisée en station',
-    causeOpt: 'une défaillance sur une rame en gare',
+    causeOpt: 'une défaillance sur une rame en station',
     delay: 'une attente supplémentaire de vingt-cinq minutes',
     delayOpt: 'un allongement de trajet de vingt-cinq minutes',
     measure: 'les techniciens remorquent la rame vers le garage d’urgence',
-    measOpt: 'le remorquage du train vers un atelier voisin',
+    measOpt: 'le remorquage rapide vers le garage d’urgence',
     kwCause: 'mécanique',
     kwMeas: 'remorquent',
   },
   {
+    line: 'le circuit d’autobus express',
     cause: 'la fermeture temporaire d’une bretelle d’accès par la police',
     causeOpt: 'une intervention policière fermant l’accès',
     delay: 'un ralentissement de trente-cinq minutes sur le trajet',
@@ -2259,10 +2262,9 @@ export const N04_L_4 = [
   Object.assign(
     (rand) => {
       const agency = pick(N4_TRANSIT_AGENCIES, rand)
-      const line = pick(N4_TRANSIT_LINES, rand)
       const b = pick(N4_TRANSIT_BUNDLES, rand)
       const others = sample(N4_TRANSIT_BUNDLES.filter((x) => x.causeOpt !== b.causeOpt), 2, rand)
-      const text = `— Avis aux usagers ${agency}. Une perturbation majeure touche actuellement ${line}. Cet incident découle ${de(b.cause)}. Les voyageurs doivent composer avec ${b.delay}. Pour faciliter vos déplacements, ${b.measure}. Nous vous remercions pour votre patience.`
+      const text = `— Avis aux usagers ${agency}. Une perturbation majeure touche actuellement ${b.line}. Cet incident découle ${de(b.cause)}. Les voyageurs doivent composer avec ${b.delay}. Pour faciliter vos déplacements, ${b.measure}. Nous vous remercions pour votre patience.`
       return {
         text,
         questions: [
@@ -2271,7 +2273,7 @@ export const N04_L_4 = [
         ],
       }
     },
-    { situation: 1, capacity: N4_TRANSIT_AGENCIES.length * N4_TRANSIT_LINES.length * N4_TRANSIT_BUNDLES.length }
+    { situation: 1, capacity: N4_TRANSIT_AGENCIES.length * N4_TRANSIT_BUNDLES.length }
   ),
   // Scenario 5 (Static, situation: 0) - Fuite d'eau à la conciergerie
   {
@@ -2769,16 +2771,16 @@ const N4_LEASE_PETS = [
 ]
 
 const N4_FESTIVAL_NAMES = [
-  { name: 'le Festival d’été de Québec', opt: 'le Festival d’été de Québec', kw: 'québec' },
+  { name: 'le Festival d’été de Québec', opt: 'le grand Festival d’été de Québec', kw: 'québec' },
   { name: 'les Francos de Montréal', opt: 'les Francos de Montréal', kw: 'francos' },
   { name: 'le FestiVoix de Trois-Rivières', opt: 'le FestiVoix de Trois-Rivières', kw: 'festivoix' },
-  { name: 'le Festival de montgolfières de Gatineau', opt: 'le Festival de montgolfières de Gatineau', kw: 'montgolfières' },
+  { name: 'le Festival de montgolfières de Gatineau', opt: 'le grand Festival de montgolfières', kw: 'montgolfières' },
 ]
 const N4_FESTIVAL_CROWDS = [
-  { text: 'plus de cent mille spectateurs', opt: 'plus de cent mille festivaliers', kw: 'cent mille' },
-  { text: 'près de quatre-vingt mille personnes', opt: 'environ quatre-vingt mille personnes', kw: 'quatre-vingt mille' },
-  { text: 'plus de soixante mille visiteurs', opt: 'plus de soixante mille visiteurs', kw: 'soixante mille' },
-  { text: 'environ soixante-quinze mille personnes', opt: 'environ soixante-quinze mille personnes', kw: 'soixante-quinze mille' },
+  { text: 'un total de cent mille festivaliers', opt: 'exactement cent mille festivaliers', kw: 'cent mille' },
+  { text: 'un total de quatre-vingt mille festivaliers', opt: 'exactement quatre-vingt mille personnes', kw: 'quatre-vingt mille' },
+  { text: 'un total de soixante mille festivaliers', opt: 'exactement soixante mille festivaliers', kw: 'soixante mille' },
+  { text: 'un total de quarante-cinq mille festivaliers', opt: 'exactement quarante-cinq mille personnes', kw: 'quarante-cinq mille' },
 ]
 const N4_FESTIVAL_DAYS = ['dix jours de festivités en ville', 'huit journées de spectacles dehors', 'neuf soirs de concerts sur le fleuve', 'cinq jours d’activités familiales']
 const N4_FESTIVAL_HIGHS = [
@@ -2796,10 +2798,10 @@ const N4_DIRECT_DEPOSIT_DOCS = [
   { text: 'une attestation de dépôt fournie par la caisse', opt: 'une attestation de compte bancaire', kw: 'attestation' },
 ]
 const N4_DIRECT_DEPOSIT_DELAYS = [
-  { text: 'deux semaines après la réception', opt: 'environ deux semaines de délai', kw: 'deux semaines' },
-  { text: 'dix jours ouvrables suivant l’envoi', opt: 'dix jours ouvrables après envoi', kw: 'dix jours' },
-  { text: 'quinze jours avant le prochain paiement', opt: 'quinze jours avant le paiement', kw: 'quinze jours' },
-  { text: 'environ trois semaines pour le traitement', opt: 'trois semaines complètes de délai', kw: 'trois semaines' },
+  { text: 'deux jours ouvrables après la réception', opt: 'deux jours ouvrables de traitement', kw: 'deux jours' },
+  { text: 'cinq jours ouvrables suivant l’envoi', opt: 'cinq jours ouvrables après envoi', kw: 'cinq jours' },
+  { text: 'trois semaines complètes après la demande', opt: 'trois semaines complètes de délai', kw: 'trois semaines' },
+  { text: 'un mois entier pour le traitement', opt: 'un mois entier de traitement', kw: 'un mois' },
 ]
 const N4_DIRECT_DEPOSIT_BENEFITS = [
   { text: 'recevoir son salaire sans aucun déplacement', opt: 'recevoir son salaire sans déplacement' },
@@ -2809,7 +2811,7 @@ const N4_DIRECT_DEPOSIT_BENEFITS = [
 ]
 
 const N4_ECOCENTER_CITIES = ['de la Ville de Québec', 'de l’agglomération de Longueuil', 'de la municipalité de Lévis', 'de la ville de Gatineau']
-const N4_ECOCENTER_PERIODS = ['du premier mai au trente et un octobre', 'du premier avril au quinze novembre', 'du quinze mai au trente septembre', 'du premier juin au trente et un août']
+const N4_ECOCENTER_PERIODS = ['du premier mai au trente et un octobre', 'du premier mai au quinze octobre', 'du quinze mai au trente septembre', 'du premier juin au trente et un août']
 const N4_ECOCENTER_HOURS = ['du mardi au dimanche de 8 h à 18 h', 'du mercredi au dimanche de 9 h à 17 h', 'du jeudi au lundi de 8 h 30 à 16 h 30', 'du mardi au samedi de 10 h à 18 h']
 const N4_ECOCENTER_ACCEPTED = [
   { text: 'des résidus de rénovation et des branches', opt: 'des résidus de bois et des branches', kw: 'branches' },
@@ -3980,9 +3982,9 @@ const N4_WORK_SIGNOFFS = [
 
 const N4_DRIVE_FOLDERS = [
   { folder: 'dans le dossier partagé des ventes', opt: 'dans le répertoire commun des ventes', kw: 'ventes' },
-  { folder: 'sur le portail des ressources humaines', opt: 'dans l’espace réservé aux employés', kw: 'ressources humaines' },
+  { folder: 'sur le portail des ressources humaines', opt: 'sur le site interne des ressources humaines', kw: 'ressources humaines' },
   { folder: 'dans l’espace sécurisé des projets', opt: 'au sein du dossier protégé des projets', kw: 'projets' },
-  { folder: 'sur le disque réseau de la comptabilité', opt: 'sur le serveur partagé des finances', kw: 'comptabilité' },
+  { folder: 'sur le disque réseau de la comptabilité', opt: 'sur l’espace partagé de la comptabilité', kw: 'comptabilité' },
 ]
 const N4_DRIVE_SUBS = [
   { sub: 'le sous-dossier de l’année courante', opt: 'le sous-dossier de l’année courante' },
