@@ -316,17 +316,17 @@ export const PLACES_SERVICES = [
 
 // Family relations
 export const FAMILY_RELATIONS = [
-  { termFr: 'votre père', ansFr: 'mon père', otherFr: 'mon oncle', zh: '父亲', otherZh: '叔伯 / 舅舅' },
-  { termFr: 'votre mère', ansFr: 'ma mère', otherFr: 'ma tante', zh: '母亲', otherZh: '姑姑 / 阿姨' },
-  { termFr: 'votre frère', ansFr: 'mon frère', otherFr: 'mon cousin', zh: '兄弟', otherZh: '堂 / 表兄弟' },
-  { termFr: 'votre sœur', ansFr: 'ma sœur', otherFr: 'ma cousine', zh: '姐妹', otherZh: '堂 / 表姐妹' },
-  { termFr: 'votre oncle', ansFr: 'mon oncle', otherFr: 'mon père', zh: '叔伯 / 舅舅', otherZh: '父亲' },
-  { termFr: 'votre tante', ansFr: 'ma tante', otherFr: 'ma mère', zh: '姑姑 / 阿姨', otherZh: '母亲' },
-  { termFr: 'votre grand-père', ansFr: 'mon grand-père', otherFr: 'mon père', zh: '祖父 / 外祖父', otherZh: '父亲' },
-  { termFr: 'votre grand-mère', ansFr: 'ma grand-mère', otherFr: 'ma mère', zh: '祖母 / 外祖母', otherZh: '母亲' },
-  { termFr: 'votre fils', ansFr: 'mon fils', otherFr: 'mon neveu', zh: '儿子', otherZh: '侄子 / 外甥' },
-  { termFr: 'votre fille', ansFr: 'ma fille', otherFr: 'ma nièce', zh: '女儿', otherZh: '侄女 / 外甥女' },
-  { termFr: 'votre cousin', ansFr: 'mon cousin', otherFr: 'mon frère', zh: '堂 / 表兄弟', otherZh: '兄弟' },
+  { termFr: 'votre père', ansFr: 'mon père', childAnsFr: 'son père', gender: 'm', otherFr: 'mon oncle', zh: '父亲', otherZh: '叔伯 / 舅舅' },
+  { termFr: 'votre mère', ansFr: 'ma mère', childAnsFr: 'sa mère', gender: 'f', otherFr: 'ma tante', zh: '母亲', otherZh: '姑姑 / 阿姨' },
+  { termFr: 'votre frère', ansFr: 'mon frère', childAnsFr: 'son frère', gender: 'm', otherFr: 'mon cousin', zh: '兄弟', otherZh: '堂 / 表兄弟' },
+  { termFr: 'votre sœur', ansFr: 'ma sœur', childAnsFr: 'sa sœur', gender: 'f', otherFr: 'ma cousine', zh: '姐妹', otherZh: '堂 / 表姐妹' },
+  { termFr: 'votre oncle', ansFr: 'mon oncle', childAnsFr: 'son oncle', gender: 'm', otherFr: 'mon père', zh: '叔伯 / 舅舅', otherZh: '父亲' },
+  { termFr: 'votre tante', ansFr: 'ma tante', childAnsFr: 'sa tante', gender: 'f', otherFr: 'ma mère', zh: '姑姑 / 阿姨', otherZh: '母亲' },
+  { termFr: 'votre grand-père', ansFr: 'mon grand-père', childAnsFr: 'son grand-père', gender: 'm', otherFr: 'mon père', zh: '祖父 / 外祖父', otherZh: '父亲' },
+  { termFr: 'votre grand-mère', ansFr: 'ma grand-mère', childAnsFr: 'sa grand-mère', gender: 'f', otherFr: 'ma mère', zh: '祖母 / 外祖母', otherZh: '母亲' },
+  { termFr: 'votre fils', ansFr: 'mon fils', childAnsFr: 'son fils', gender: 'm', otherFr: 'mon neveu', zh: '儿子', otherZh: '侄子 / 外甥' },
+  { termFr: 'votre fille', ansFr: 'ma fille', childAnsFr: 'sa fille', gender: 'f', otherFr: 'ma nièce', zh: '女儿', otherZh: '侄女 / 外甥女' },
+  { termFr: 'votre cousin', ansFr: 'mon cousin', childAnsFr: 'son cousin', gender: 'm', otherFr: 'mon frère', zh: '堂 / 表兄弟', otherZh: '兄弟' },
 ]
 
 // Payment methods in Québec
@@ -564,5 +564,31 @@ export function pronSujet(noun) {
 export function adjSitue(noun) {
   if (noun?.number === 'p') return noun?.gender === 'f' ? 'situées' : 'situés'
   return noun?.gender === 'f' ? 'située' : 'situé'
+}
+
+export function cher(persona) {
+  return g(persona, 'Cher', 'Chère')
+}
+
+export function au(word) {
+  if (!word) return 'au'
+  const w = String(word).trim()
+  if (isElidable(w)) return `à l’${w}`
+  return `au ${w}`
+}
+
+export function du(word) {
+  if (!word) return 'du'
+  const w = String(word).trim()
+  if (isElidable(w)) return `d’${w}`
+  return `du ${w}`
+}
+
+export function q(prompt, correct, d1, d2, evidence) {
+  const row = [prompt, correct, d1, d2]
+  if (evidence) {
+    row.evidence = (Array.isArray(evidence) ? evidence : [evidence]).map((e) => String(e).toLowerCase().trim())
+  }
+  return row
 }
 
