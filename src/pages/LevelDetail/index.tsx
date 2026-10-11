@@ -385,13 +385,12 @@ function pickQuizVariant(itemId: string, avoidVariant?: number): number {
 function QuizPanel({ item }: { item: EchelleQuizItem }) {
   const [variant, setVariant] = useState<number>(() => pickQuizVariant(item.id))
   const [loading, setLoading] = useState<boolean>(() => {
-    const v = pickQuizVariant(item.id)
-    return v > 0 && item.kind === 'indicator' && !isItemBatchLoaded(item.id)
+    return item.kind === 'indicator' && !isItemBatchLoaded(item.id)
   })
 
   useEffect(() => {
     let cancelled = false
-    if (variant > 0 && item.kind === 'indicator' && !isItemBatchLoaded(item.id)) {
+    if (item.kind === 'indicator' && !isItemBatchLoaded(item.id)) {
       setLoading(true)
       ensureItemBatchLoaded(item.id).then((ok) => {
         if (cancelled) return
@@ -406,11 +405,12 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
     return () => {
       cancelled = true
     }
-  }, [item.id, item.kind, variant])
+  }, [item.id, item.kind])
 
   const activeItem = useMemo(() => {
+    if (loading) return item
     return (getEchelleItemVariant(item.id, variant) as EchelleQuizItem) ?? item
-  }, [item, variant])
+  }, [item, variant, loading])
 
   const [answers, setAnswers] = useState<(string | null)[]>(() => activeItem.questions.map(() => null))
   const [submitted, setSubmitted] = useState(false)
@@ -427,10 +427,17 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
   }, [activeItem])
 
   const complete = answers.every((answer): answer is string => answer !== null)
-  const result = submitted && complete ? scoreEchelleItem(activeItem.id, answers, { variant }) : null
+  const result =
+    submitted && complete && !(variant > 0 && item.kind === 'indicator' && !isItemBatchLoaded(item.id))
+      ? scoreEchelleItem(activeItem.id, answers, { variant })
+      : null
 
   const handleSubmit = () => {
     if (!complete) return
+    if (variant > 0 && item.kind === 'indicator' && !isItemBatchLoaded(item.id)) {
+      console.error(`[QuizPanel] Cannot submit variant ${variant} for ${item.id} before batch is loaded`)
+      return
+    }
     recordEchelleMastery({ itemId: activeItem.id, answers, variant })
     setSubmitted(true)
   }
@@ -461,13 +468,13 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
     reroll()
   }
 
-  const hasVariants = countEchelleItemVariants(item.id) > 1 || item.kind === 'indicator'
+  const hasVariants = countEchelleItemVariants(item.id) > 1
 
   if (loading) {
     return (
       <div className="border-t border-gray-100 p-8 text-center text-sm text-gray-500 dark:border-white/[0.06] dark:text-gray-400">
         <div className="inline-block h-6 w-6 animate-spin rounded-full border-2 border-indigo-500 border-t-transparent" />
-        <p className="mt-2 text-xs">正在载入题目变体…</p>
+        <p className="mt-2 text-xs">正在载入题目…</p>
       </div>
     )
   }

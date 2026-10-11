@@ -1,5 +1,4 @@
-import { parseEchelleItemId, registerIndicatorScenarios, scoreEchelleItem } from './echelleCurriculum'
-import { type EchelleMemoryFields, nextMemory } from './echelleMemory'
+import { parseEchelleItemId, registerIndicatorScenarios } from './echelleCurriculum'
 
 export type EchelleBatchKey = 'n01-02' | 'n03-04' | 'n05-06' | 'n07-08' | 'n09-10' | 'n11-12'
 
@@ -19,13 +18,40 @@ export function getBatchKeyForItemId(itemId: string): EchelleBatchKey | null {
   return getBatchKeyForLevel(parsed.level)
 }
 
-const BATCH_LOADERS: Record<EchelleBatchKey, () => Promise<Record<string, unknown>>> = {
+export const BATCH_EXPORT_NAMES: Record<EchelleBatchKey, string> = {
+  'n01-02': 'N01_02_SCENARIOS',
+  'n03-04': 'N03_04_SCENARIOS',
+  'n05-06': 'N05_06_SCENARIOS',
+  'n07-08': 'N07_08_SCENARIOS',
+  'n09-10': 'N09_10_SCENARIOS',
+  'n11-12': 'N11_12_SCENARIOS',
+}
+
+export type EchelleBatchLoaderFn = () => Promise<Record<string, unknown>>
+
+const DEFAULT_BATCH_LOADERS: Record<EchelleBatchKey, EchelleBatchLoaderFn> = {
   'n01-02': () => import('../../server/echelle-variants/n01-02.mjs'),
   'n03-04': () => import('../../server/echelle-variants/n03-04.mjs'),
   'n05-06': () => import('../../server/echelle-variants/n05-06.mjs'),
   'n07-08': () => import('../../server/echelle-variants/n07-08.mjs'),
   'n09-10': () => import('../../server/echelle-variants/n09-10.mjs'),
   'n11-12': () => import('../../server/echelle-variants/n11-12.mjs'),
+}
+
+let batchLoaders: Record<EchelleBatchKey, EchelleBatchLoaderFn> = { ...DEFAULT_BATCH_LOADERS }
+
+export function setBatchLoaderForTest(key: EchelleBatchKey, loader?: EchelleBatchLoaderFn): void {
+  if (loader) {
+    batchLoaders[key] = loader
+  } else {
+    batchLoaders[key] = DEFAULT_BATCH_LOADERS[key]
+  }
+}
+
+export function resetBatchLoaderStateForTest(): void {
+  batchLoaders = { ...DEFAULT_BATCH_LOADERS }
+  loadedBatches.clear()
+  batchPromises.clear()
 }
 
 const loadedBatches = new Set<EchelleBatchKey>()
@@ -50,19 +76,29 @@ export async function ensureLevelBatchLoaded(level: number): Promise<boolean> {
 
   const promise = (async () => {
     try {
-      const loader = BATCH_LOADERS[key]
+      const loader = batchLoaders[key]
       if (!loader) return false
       const mod = await loader()
-      const exportName = `N${key.replace('-', '_').toUpperCase()}_SCENARIOS`
-      const scenarios =
-        mod[exportName] ||
-        Object.values(mod).find((v) => v && typeof v === 'object' && !Array.isArray(v))
-      if (scenarios && typeof scenarios === 'object') {
-        registerIndicatorScenarios(scenarios as Record<string, unknown>)
+      const exportName = BATCH_EXPORT_NAMES[key]
+      const scenarios = mod?.[exportName]
+      if (!scenarios || typeof scenarios !== 'object' || Array.isArray(scenarios)) {
+        const error = new Error(`[echelleBatchLoader] Missing export "${exportName}" in batch "${key}"`)
+        if (process.env.NODE_ENV !== 'production') {
+          throw error
+        }
+        return false
       }
+      registerIndicatorScenarios(scenarios as Record<string, unknown>)
       loadedBatches.add(key)
       return true
-    } catch {
+    } catch (err) {
+      if (
+        process.env.NODE_ENV !== 'production' &&
+        err instanceof Error &&
+        err.message.includes('[echelleBatchLoader] Missing export')
+      ) {
+        throw err
+      }
       return false
     } finally {
       batchPromises.delete(key)
@@ -77,92 +113,4 @@ export async function ensureItemBatchLoaded(itemId: string): Promise<boolean> {
   const parsed = parseEchelleItemId(itemId)
   if (!parsed) return true
   return ensureLevelBatchLoaded(parsed.level)
-}
-
-type EchellePendingOp = {
-  kind: string
-  itemId?: string
-  answers?: string[]
-  response?: unknown
-  variant?: number
-  updatedAt?: number
-}
-
-type EchellePendingMutation = {
-  operations?: EchellePendingOp[]
-}
-
-type EchelleSyncRecord = Partial<EchelleMemoryFields> & {
-  mastered: boolean
-  attempts?: number
-  updatedAt?: number
-  [key: string]: unknown
-}
-
-export async function replayPendingEchelleMutations<
-  T extends {
-    learning: {
-      echelle: {
-        items: Record<string, EchelleSyncRecord>
-      }
-      [key: string]: unknown
-    }
-    [key: string]: unknown
-  },
->(
-  mutations: EchellePendingMutation[],
-  getState: () => T,
-  saveState: (s: T) => void,
-): Promise<number> {
-  let replayedCount = 0
-  for (const mut of mutations) {
-    for (const op of mut.operations || []) {
-      if (
-        op.kind === 'echelleCheck' &&
-        typeof op.itemId === 'string' &&
-        typeof op.variant === 'number' &&
-        op.variant > 0 &&
-        typeof op.updatedAt === 'number'
-      ) {
-        const loaded = await ensureItemBatchLoaded(op.itemId)
-        if (loaded) {
-          const responseObj =
-            typeof op.response === 'object' && op.response !== null && !Array.isArray(op.response)
-              ? (op.response as Record<string, unknown>)
-              : {}
-          const meta = {
-            ...responseObj,
-            variant: op.variant,
-          }
-          const result = scoreEchelleItem(op.itemId, op.answers, meta)
-          if (result) {
-            const current = getState()
-            const existing = current.learning?.echelle?.items?.[op.itemId]
-            if (!existing || op.updatedAt >= (existing.updatedAt ?? 0)) {
-              const record: EchelleSyncRecord = {
-                ...nextMemory(existing, result.mastered, op.updatedAt),
-                score: result.score,
-                attempts: existing?.attempts ?? 1,
-                updatedAt: op.updatedAt,
-                method: 'check',
-                response: op.response ?? op.answers,
-                variant: op.variant,
-              }
-              saveState({
-                ...current,
-                learning: {
-                  ...current.learning,
-                  echelle: {
-                    items: { ...current.learning?.echelle?.items, [op.itemId]: record },
-                  },
-                },
-              })
-              replayedCount++
-            }
-          }
-        }
-      }
-    }
-  }
-  return replayedCount
 }

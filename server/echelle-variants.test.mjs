@@ -520,4 +520,149 @@ describe('Échelle item variant engine', () => {
       'src/resources/echelleCurriculum.ts must not import eager server/echelle-curriculum.mjs',
     )
   })
+
+  it('echelleBatchLoader: retries failed loads and fails loudly on missing export in dev', async () => {
+    const {
+      ensureLevelBatchLoaded,
+      isLevelBatchLoaded,
+      setBatchLoaderForTest,
+      resetBatchLoaderStateForTest,
+      BATCH_EXPORT_NAMES,
+    } = await import('../src/resources/echelleBatchLoader.ts')
+
+    try {
+      resetBatchLoaderStateForTest()
+      let callCount = 0
+      const flakyLoader = async () => {
+        callCount++
+        if (callCount === 1) {
+          throw new Error('transient network failure')
+        }
+        return { [BATCH_EXPORT_NAMES['n01-02']]: {} }
+      }
+
+      setBatchLoaderForTest('n01-02', flakyLoader)
+
+      // First call fails
+      const firstRes = await ensureLevelBatchLoaded(1)
+      assert.strictEqual(firstRes, false)
+      assert.strictEqual(isLevelBatchLoaded(1), false, 'Failed load must not be cached as loaded')
+
+      // Second call succeeds
+      const secondRes = await ensureLevelBatchLoaded(1)
+      assert.strictEqual(secondRes, true)
+      assert.strictEqual(isLevelBatchLoaded(1), true, 'Retry must succeed and be cached')
+      assert.strictEqual(callCount, 2)
+
+      // Missing export in dev fails loudly (throws)
+      resetBatchLoaderStateForTest()
+      const badLoader = async () => ({ WRONG_EXPORT: {} })
+      setBatchLoaderForTest('n01-02', badLoader)
+      await assert.rejects(
+        () => ensureLevelBatchLoaded(1),
+        /Missing export "N01_02_SCENARIOS" in batch "n01-02"/,
+      )
+    } finally {
+      resetBatchLoaderStateForTest()
+    }
+  })
+
+  it('recordEchelleMastery reconciles memory correctly when scored before batch was registered', async () => {
+    if (!globalThis.localStorage) {
+      const mem = {}
+      globalThis.localStorage = {
+        getItem: (k) => mem[k] ?? null,
+        setItem: (k, v) => {
+          mem[k] = String(v)
+        },
+        removeItem: (k) => {
+          delete mem[k]
+        },
+        clear: () => {
+          for (const k in mem) delete mem[k]
+        },
+      }
+    }
+    if (!globalThis.window) {
+      globalThis.window = new EventTarget()
+    }
+
+    const { recordEchelleMastery, getLastEchelleReconcilePromise, resetStudyPlanSyncForTest } = await import(
+      '../src/services/studyPlanSync.ts'
+    )
+    const { getEchelleItemVariant, registerIndicatorScenarios, SCENARIO_REGISTRY } = await import(
+      '../server/echelle-curriculum-core.mjs'
+    )
+    const { resetBatchLoaderStateForTest, setBatchLoaderForTest } = await import(
+      '../src/resources/echelleBatchLoader.ts'
+    )
+
+    const itemId = 'n1-listening-0'
+    const variant = 1
+
+    const { N01_02_SCENARIOS } = await import('./echelle-variants/n01-02.mjs')
+    registerIndicatorScenarios(N01_02_SCENARIOS)
+    const variantItem = getEchelleItemVariant(itemId, variant)
+    assert.ok(variantItem)
+    const passingAnswers = variantItem.questions.map((q) => q.answer)
+    const failingAnswers = variantItem.questions.map((q, i) =>
+      i === 0 ? q.choices.find((c) => c !== q.answer) : q.answer,
+    )
+
+    const realNow = Date.now
+    const fixedNow = 1770000000000
+    Date.now = () => fixedNow
+
+    const realFetch = globalThis.fetch
+    globalThis.fetch = async () => {
+      throw new Error('offline')
+    }
+
+    try {
+      const testAnswerSet = async (answers, label) => {
+        // 1. Baseline: batch registered from the start
+        localStorage.clear()
+        resetStudyPlanSyncForTest()
+        resetBatchLoaderStateForTest()
+        registerIndicatorScenarios(N01_02_SCENARIOS)
+        recordEchelleMastery({ itemId, answers, variant })
+        const cachedBaseline = JSON.parse(localStorage.getItem('qwerty-fr-study-plan-v1'))
+        const baselineRecord = cachedBaseline.learning.echelle.items[itemId]
+
+        // 2. Test: batch NOT registered at time of scoring, then registered and reconciled
+        localStorage.clear()
+        resetStudyPlanSyncForTest()
+        resetBatchLoaderStateForTest()
+        delete SCENARIO_REGISTRY[itemId]
+
+        setBatchLoaderForTest('n01-02', async () => {
+          return { N01_02_SCENARIOS }
+        })
+
+        recordEchelleMastery({ itemId, answers, variant })
+        const reconcilePromise = getLastEchelleReconcilePromise()
+        assert.ok(reconcilePromise, 'Reconcile promise must be started')
+        await reconcilePromise
+
+        const cachedReconciled = JSON.parse(localStorage.getItem('qwerty-fr-study-plan-v1'))
+        const reconciledRecord = cachedReconciled.learning.echelle.items[itemId]
+
+        assert.deepStrictEqual(
+          reconciledRecord,
+          baselineRecord,
+          `Reconciled record for ${label} must be deep-equal to baseline record obtained with pre-registered batch`,
+        )
+        assert.strictEqual(reconciledRecord.attempts, 1, 'Attempts must be counted exactly once')
+      }
+
+      await testAnswerSet(passingAnswers, 'passing')
+      await testAnswerSet(failingAnswers, 'failing')
+    } finally {
+      Date.now = realNow
+      globalThis.fetch = realFetch
+      resetStudyPlanSyncForTest()
+      registerIndicatorScenarios(N01_02_SCENARIOS)
+      resetBatchLoaderStateForTest()
+    }
+  })
 })

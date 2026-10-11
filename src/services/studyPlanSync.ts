@@ -1013,16 +1013,30 @@ export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Pr
           ? '当前离线：学习记录已保存在本机，联网后会按最新时间戳自动合并。'
           : '服务端暂不可用，记录保留在本机，将自动重试。',
       )
-      if (!retry)
+      if (!retry) {
         retry = setTimeout(() => {
           retry = undefined
           void syncStudyPlan()
         }, 10000)
+        retry?.unref?.()
+      }
     })
     .finally(() => {
       running = undefined
     })
   return running
+}
+
+export function clearSyncRetryForTest(): void {
+  if (retry) {
+    clearTimeout(retry)
+    retry = undefined
+  }
+}
+
+export function resetStudyPlanSyncForTest(): void {
+  fallback = undefined
+  clearSyncRetryForTest()
 }
 
 function enqueue(operations: Operation[]) {
@@ -1280,7 +1294,10 @@ export function recordEchelleMastery(input: EchelleCheckInput) {
 
   // If scored before the level batch finished loading, load asynchronously and reconcile once ready.
   if (hasVariant && getIndicatorScenarios(input.itemId) === null) {
-    void import('../resources/echelleBatchLoader')
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn(`[echelle] Scored variant ${input.variant} for ${input.itemId} before batch was registered; reconciling asynchronously`)
+    }
+    lastEchelleReconcilePromise = import('../resources/echelleBatchLoader')
       .then((loader) => loader.ensureItemBatchLoaded(input.itemId))
       .then((loaded) => {
         if (loaded) {
@@ -1298,7 +1315,7 @@ export function recordEchelleMastery(input: EchelleCheckInput) {
                       ...current.learning.echelle.items,
                       [input.itemId]: {
                         ...existing,
-                        ...nextMemory(existing, fresh.mastered && selfAssess, updatedAt),
+                        ...nextMemory(previous, fresh.mastered && selfAssess, updatedAt),
                         score: selfAssess ? fresh.score : 0,
                       },
                     },
@@ -1309,6 +1326,13 @@ export function recordEchelleMastery(input: EchelleCheckInput) {
           }
         }
       })
+      .catch((err) => {
+        if (process.env.NODE_ENV !== 'production') {
+          console.error('[echelle] Reconcile failed:', err)
+        }
+      })
+  } else {
+    lastEchelleReconcilePromise = undefined
   }
 
   const parsed = parseEchelleItemId(input.itemId)
@@ -1321,22 +1345,10 @@ export function recordEchelleMastery(input: EchelleCheckInput) {
   return { ...result, mastered: result.mastered && selfAssess }
 }
 
-export async function recordEchelleMasteryAsync(input: EchelleCheckInput) {
-  if (typeof input.variant === 'number' && input.variant > 0 && getIndicatorScenarios(input.itemId) === null) {
-    const { ensureItemBatchLoaded } = await import('../resources/echelleBatchLoader')
-    await ensureItemBatchLoaded(input.itemId)
-  }
-  return recordEchelleMastery(input)
-}
+export let lastEchelleReconcilePromise: Promise<void> | undefined
 
-export async function replayPendingEchelleOps(): Promise<number> {
-  const mutations = pending()
-  const hasVariants = mutations.some((m) =>
-    m.operations.some((op) => op.kind === 'echelleCheck' && typeof op.variant === 'number' && op.variant > 0)
-  )
-  if (!hasVariants) return 0
-  const { replayPendingEchelleMutations } = await import('../resources/echelleBatchLoader')
-  return replayPendingEchelleMutations(mutations, ensureFallback, publish)
+export function getLastEchelleReconcilePromise(): Promise<void> | undefined {
+  return lastEchelleReconcilePromise
 }
 
 let echelleAiStatus: Promise<EchelleAiStatus> | undefined
