@@ -1,5 +1,5 @@
 import { computePlacementResult } from '../../server/placement-data.mjs'
-import { parseEchelleItemId, scoreEchelleItem } from '../resources/echelleCurriculum'
+import { getIndicatorScenarios, parseEchelleItemId, scoreEchelleItem } from '../resources/echelleCurriculum'
 import { nextMemory } from '../resources/echelleMemory'
 import type { PlacementProfile, PlacementResult } from '../resources/placementTest'
 import { isGuestMode } from './guestMode'
@@ -1237,9 +1237,10 @@ export type EchelleCheckInput = {
 }
 
 export function recordEchelleMastery(input: EchelleCheckInput) {
+  const hasVariant = typeof input.variant === 'number' && input.variant > 0
   const meta = {
     ...(input.response ?? {}),
-    ...(typeof input.variant === 'number' && input.variant > 0 ? { variant: input.variant } : {}),
+    ...(hasVariant ? { variant: input.variant } : {}),
   }
   const result = scoreEchelleItem(input.itemId, input.answers, meta)
   if (!result) throw new Error('UNKNOWN_ECHELLE_ITEM')
@@ -1252,7 +1253,7 @@ export function recordEchelleMastery(input: EchelleCheckInput) {
     updatedAt,
     ...(input.answers ? { answers: input.answers } : {}),
     ...(input.response ? { response: input.response } : {}),
-    ...(typeof input.variant === 'number' && input.variant > 0 ? { variant: input.variant } : {}),
+    ...(hasVariant ? { variant: input.variant } : {}),
   }
 
   const production = result.kind === 'production'
@@ -1266,7 +1267,7 @@ export function recordEchelleMastery(input: EchelleCheckInput) {
       updatedAt,
       method: production ? 'self' : 'check',
       response: input.answers ?? input.response,
-      ...(typeof input.variant === 'number' && input.variant > 0 ? { variant: input.variant } : {}),
+      ...(hasVariant ? { variant: input.variant } : {}),
     }
     return {
       ...state,
@@ -1276,6 +1277,40 @@ export function recordEchelleMastery(input: EchelleCheckInput) {
       },
     }
   })
+
+  // If scored before the level batch finished loading, load asynchronously and reconcile once ready.
+  if (hasVariant && getIndicatorScenarios(input.itemId) === null) {
+    void import('../resources/echelleBatchLoader')
+      .then((loader) => loader.ensureItemBatchLoaded(input.itemId))
+      .then((loaded) => {
+        if (loaded) {
+          const fresh = scoreEchelleItem(input.itemId, input.answers, meta)
+          if (fresh) {
+            const current = ensureFallback()
+            const existing = current.learning.echelle.items[input.itemId]
+            if (existing && existing.updatedAt === updatedAt) {
+              publish({
+                ...current,
+                learning: {
+                  ...current.learning,
+                  echelle: {
+                    items: {
+                      ...current.learning.echelle.items,
+                      [input.itemId]: {
+                        ...existing,
+                        ...nextMemory(existing, fresh.mastered && selfAssess, updatedAt),
+                        score: selfAssess ? fresh.score : 0,
+                      },
+                    },
+                  },
+                },
+              })
+            }
+          }
+        }
+      })
+  }
+
   const parsed = parseEchelleItemId(input.itemId)
   if (parsed && (parsed.skill === 'writing' || parsed.skill === 'speaking')) {
     const primaryId = `n${parsed.level}-${parsed.skill}-production`
@@ -1284,6 +1319,24 @@ export function recordEchelleMastery(input: EchelleCheckInput) {
     }
   }
   return { ...result, mastered: result.mastered && selfAssess }
+}
+
+export async function recordEchelleMasteryAsync(input: EchelleCheckInput) {
+  if (typeof input.variant === 'number' && input.variant > 0 && getIndicatorScenarios(input.itemId) === null) {
+    const { ensureItemBatchLoaded } = await import('../resources/echelleBatchLoader')
+    await ensureItemBatchLoaded(input.itemId)
+  }
+  return recordEchelleMastery(input)
+}
+
+export async function replayPendingEchelleOps(): Promise<number> {
+  const mutations = pending()
+  const hasVariants = mutations.some((m) =>
+    m.operations.some((op) => op.kind === 'echelleCheck' && typeof op.variant === 'number' && op.variant > 0)
+  )
+  if (!hasVariants) return 0
+  const { replayPendingEchelleMutations } = await import('../resources/echelleBatchLoader')
+  return replayPendingEchelleMutations(mutations, ensureFallback, publish)
 }
 
 let echelleAiStatus: Promise<EchelleAiStatus> | undefined

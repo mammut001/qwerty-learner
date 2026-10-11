@@ -1,5 +1,8 @@
 import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
 import { describe, it } from 'node:test'
+import { fileURLToPath } from 'node:url'
 import {
   ECHELLE_ITEM_CATALOG,
   ECHELLE_LEVEL_ITEMS,
@@ -12,6 +15,8 @@ import { LEXIQUE_TOPICS } from './echelle-lexique-bank.mjs'
 import { N01_02_SCENARIOS } from './echelle-variants/n01-02.mjs'
 import { PERSONAS, numberToFrench } from './echelle-variants/shared.mjs'
 import { apply, emptyLearningProgress, normalizeState } from './study-model.mjs'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const baseState = (echelleItems = {}) =>
   normalizeState({
@@ -488,5 +493,31 @@ describe('Échelle item variant engine', () => {
         }
       }
     }
+  })
+
+  it('server/echelle-curriculum core does not statically import any echelle-variants/n*.mjs file', () => {
+    const corePath = join(__dirname, 'echelle-curriculum-core.mjs')
+    const coreSource = readFileSync(corePath, 'utf8')
+
+    // Must not statically import any echelle-variants scenario file
+    const staticVariantImport = /import\s+.*from\s+['"].*echelle-variants(\/.*)?['"]/
+    assert.strictEqual(
+      staticVariantImport.test(coreSource),
+      false,
+      'server/echelle-curriculum-core.mjs must not statically import echelle-variants modules',
+    )
+
+    // Check that client resource imports echelle-curriculum-core.mjs and not the eager server entry
+    const clientResourcePath = join(__dirname, '../src/resources/echelleCurriculum.ts')
+    const clientResourceSource = readFileSync(clientResourcePath, 'utf8')
+    assert.ok(
+      clientResourceSource.includes('echelle-curriculum-core.mjs'),
+      'src/resources/echelleCurriculum.ts must import echelle-curriculum-core.mjs',
+    )
+    assert.strictEqual(
+      clientResourceSource.includes("from '../../server/echelle-curriculum.mjs'"),
+      false,
+      'src/resources/echelleCurriculum.ts must not import eager server/echelle-curriculum.mjs',
+    )
   })
 })
