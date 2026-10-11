@@ -1,5 +1,6 @@
 import test, { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
+import http from 'node:http'
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -306,6 +307,7 @@ describe('POST /api/study-plan/speech/transcribe endpoint', () => {
       })
       assert.equal(res.status, 415)
       assert.equal(res.data.code, 'UNSUPPORTED_MEDIA_TYPE')
+      assert.equal(res.headers.get('connection'), 'close')
 
       const jsonRes = await call('POST', '/speech/transcribe', {
         body: JSON.stringify({ audio: 'abc' }),
@@ -313,6 +315,7 @@ describe('POST /api/study-plan/speech/transcribe endpoint', () => {
       })
       assert.equal(jsonRes.status, 415)
       assert.equal(jsonRes.data.code, 'UNSUPPORTED_MEDIA_TYPE')
+      assert.equal(jsonRes.headers.get('connection'), 'close')
     })
   })
 
@@ -325,7 +328,110 @@ describe('POST /api/study-plan/speech/transcribe endpoint', () => {
       })
       assert.equal(res.status, 413)
       assert.equal(res.data.code, 'REQUEST_TOO_LARGE')
+      assert.equal(res.headers.get('connection'), 'close')
     })
+  })
+
+  it('handles keep-alive connection cleanly: 7 MB upload returns 413 and subsequent request on same agent succeeds', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'study-speech-asr-keepalive-'))
+    const server = createStudyServer({
+      database: join(dir, 'study.sqlite'),
+      origin: ORIGIN,
+      deepgramApiKey: SECRET_KEY,
+    })
+    await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
+    const port = server.address().port
+    const agent = new http.Agent({ keepAlive: true })
+
+    try {
+      // Initialize session cookie and plan
+      const getRes = await fetch(`http://127.0.0.1:${port}/api/study-plan`, {
+        headers: { Origin: ORIGIN },
+      })
+      const cookie = getRes.headers.get('set-cookie')?.split(';')[0] || ''
+      await fetch(`http://127.0.0.1:${port}/api/study-plan`, {
+        method: 'POST',
+        headers: { Origin: ORIGIN, Cookie: cookie, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ state: STATE }),
+      })
+
+      const chunk = Buffer.alloc(7 * 1024 * 1024, 0)
+      const req1 = http.request({
+        hostname: '127.0.0.1',
+        port,
+        path: '/api/study-plan/speech/transcribe',
+        method: 'POST',
+        agent,
+        headers: {
+          Origin: ORIGIN,
+          Cookie: cookie,
+          'Content-Type': 'audio/webm',
+          'Content-Length': chunk.length,
+        },
+      })
+
+      let gotResponse1 = false
+      const res1 = await new Promise((resolve, reject) => {
+        req1.on('response', (res) => {
+          gotResponse1 = true
+          let body = ''
+          let settled = false
+          const done = () => {
+            if (!settled) {
+              settled = true
+              resolve({ status: res.statusCode, headers: res.headers, body })
+            }
+          }
+          res.on('data', (c) => { body += c })
+          res.once('end', done)
+          res.once('close', done)
+        })
+        req1.on('error', (err) => {
+          if (!gotResponse1) reject(err)
+        })
+        req1.end(chunk)
+      })
+
+      assert.equal(res1.status, 413)
+      assert.equal(res1.headers.connection, 'close')
+      const parsed1 = JSON.parse(res1.body)
+      assert.equal(parsed1.code, 'REQUEST_TOO_LARGE')
+
+      // 2. Normal request on the same keep-alive agent succeeds without ECONNRESET
+      const res2 = await new Promise((resolve, reject) => {
+        const req2 = http.request({
+          hostname: '127.0.0.1',
+          port,
+          path: '/api/study-plan/echelle/ai',
+          method: 'GET',
+          agent,
+          headers: { Origin: ORIGIN, Cookie: cookie },
+        })
+        req2.on('error', reject)
+        req2.on('response', (res) => {
+          let body = ''
+          let settled = false
+          const done = () => {
+            if (!settled) {
+              settled = true
+              resolve({ status: res.statusCode, headers: res.headers, body })
+            }
+          }
+          res.on('data', (c) => { body += c })
+          res.once('end', done)
+          res.once('close', done)
+        })
+        req2.end()
+      })
+
+      assert.equal(res2.status, 200)
+      const parsed2 = JSON.parse(res2.body)
+      assert.equal(parsed2.asr, true)
+    } finally {
+      agent.destroy()
+      await new Promise((resolve) => server.close(resolve))
+      rmSync(dir, { recursive: true, force: true })
+    }
   })
 
   it('returns 503 ASR_NOT_CONFIGURED when DEEPGRAM_API_KEY is not set', async () => {
@@ -336,6 +442,7 @@ describe('POST /api/study-plan/speech/transcribe endpoint', () => {
       })
       assert.equal(res.status, 503)
       assert.equal(res.data.code, 'ASR_NOT_CONFIGURED')
+      assert.equal(res.headers.get('connection'), 'close')
 
       const aiStatusRes = await call('GET', '/echelle/ai')
       assert.equal(aiStatusRes.data.asr, false)

@@ -154,16 +154,39 @@ async function readBody(req) {
   return input
 }
 
-async function readAudioBuffer(req, limit = MAX_AUDIO_BYTES) {
-  const chunks = []
-  let totalBytes = 0
-  for await (const chunk of req) {
-    const buf = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)
-    totalBytes += buf.length
-    if (totalBytes > limit) throw new RangeError('Audio too large')
-    chunks.push(buf)
-  }
-  return Buffer.concat(chunks, totalBytes)
+function readAudioBuffer(req, limit = MAX_AUDIO_BYTES) {
+  return new Promise((resolve, reject) => {
+    const chunks = []
+    let totalBytes = 0
+    let exceeded = false
+
+    const onData = (chunk) => {
+      if (exceeded) return
+      const buf = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)
+      totalBytes += buf.length
+      if (totalBytes > limit) {
+        exceeded = true
+        req.off('data', onData)
+        req.off('end', onEnd)
+        req.off('error', onError)
+        reject(new RangeError('Audio too large'))
+        return
+      }
+      chunks.push(buf)
+    }
+
+    const onEnd = () => {
+      if (!exceeded) resolve(Buffer.concat(chunks, totalBytes))
+    }
+
+    const onError = (err) => {
+      if (!exceeded) reject(err)
+    }
+
+    req.on('data', onData)
+    req.on('end', onEnd)
+    req.on('error', onError)
+  })
 }
 
 export function createStudyServer({
@@ -280,6 +303,29 @@ export function createStudyServer({
     }
     const sendError = (status, code, message, extra = {}, headers = {}) =>
       send(status, { error: message, code, ...extra }, headers)
+    const sendPendingBodyError = (status, code, message, extra = {}) => {
+      req.on('error', () => {})
+      req.unpipe?.()
+      req.resume()
+      res.writeHead(status, {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store',
+        'X-Content-Type-Options': 'nosniff',
+        Connection: 'close',
+      })
+      res.end(JSON.stringify({ error: message, code, ...extra }))
+      let destroyed = false
+      const cleanup = () => {
+        if (!destroyed) {
+          destroyed = true
+          req.destroy()
+        }
+      }
+      res.on('finish', () => {
+        setImmediate(cleanup)
+      })
+      req.on('end', cleanup)
+    }
     const sendText = (status, body, contentType, extraHeaders = {}) => {
       res.writeHead(status, {
         'Content-Type': contentType,
@@ -1034,20 +1080,20 @@ export function createStudyServer({
     }
 
     if (speechTranscribe) {
-      if (!deepgramApiKey) return sendError(503, 'ASR_NOT_CONFIGURED', 'Speech recognition is not configured')
+      if (!deepgramApiKey) return sendPendingBodyError(503, 'ASR_NOT_CONFIGURED', 'Speech recognition is not configured')
       if (!row.state) return sendError(409, 'PLAN_UNINITIALIZED', 'Initialize plan first')
 
       const rawType = String(req.headers['content-type'] || '').toLowerCase().trim()
       const baseMime = rawType.split(';')[0].trim()
       if (!ALLOWED_AUDIO_TYPES.has(baseMime)) {
-        return sendError(415, 'UNSUPPORTED_MEDIA_TYPE', 'Unsupported audio content type')
+        return sendPendingBodyError(415, 'UNSUPPORTED_MEDIA_TYPE', 'Unsupported audio content type')
       }
 
       let audioBuffer
       try {
         audioBuffer = await readAudioBuffer(req)
       } catch (error) {
-        return sendError(error instanceof RangeError ? 413 : 400, 'REQUEST_TOO_LARGE', 'Audio too large')
+        return sendPendingBodyError(error instanceof RangeError ? 413 : 400, 'REQUEST_TOO_LARGE', 'Audio too large')
       }
       if (audioBuffer.length === 0) {
         return sendError(400, 'AUDIO_EMPTY', 'Audio payload is empty')
