@@ -975,7 +975,7 @@ function ProductionPanel({
                     data-testid="speech-transcribe-eval-btn"
                     disabled={!asrConsent || isTranscribing || evaluating || recorder.isRecording}
                     onClick={() => void handleTranscribeAndEvaluate()}
-                    className="ui-btn-primary flex items-center gap-1 text-xs disabled:cursor-not-allowed disabled:opacity-50"
+                    className={`${(speechMetrics || originalTranscript) ? 'ui-btn-secondary' : 'ui-btn-primary'} flex items-center gap-1 text-xs disabled:cursor-not-allowed disabled:opacity-50`}
                   >
                     <IconSparkles className="h-3.5 w-3.5" />
                     {isTranscribing ? '正在转写音频…' : evaluating ? 'AI 正在评分…' : '转写并评分'}
@@ -1087,14 +1087,16 @@ function ProductionPanel({
 
       <div className="mt-5 flex flex-wrap items-center gap-3">
         {aiEnabled ? (
-          <button
-            type="button"
-            onClick={() => void handleEvaluate()}
-            disabled={!canEvaluate}
-            className="ui-btn-primary flex items-center gap-1 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            <IconSparkles className="h-4 w-4" /> {evaluating ? 'AI 正在按量表评分…' : 'AI 评分'}
-          </button>
+          !(useAsrFlow && recorder.audioUrl && !speechMetrics && !originalTranscript) && (
+            <button
+              type="button"
+              onClick={() => void handleEvaluate()}
+              disabled={!canEvaluate}
+              className="ui-btn-primary flex items-center gap-1 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              <IconSparkles className="h-4 w-4" /> {evaluating ? 'AI 正在按量表评分…' : 'AI 评分'}
+            </button>
+          )
         ) : (
           <>
             <button

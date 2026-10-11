@@ -199,16 +199,30 @@ test('speech ASR flow: record, transcribe, view measurements card with highlight
   const audioPlayer = speakingCard.getByTestId('speaking-audio-player')
   await expect(audioPlayer).toBeVisible()
 
-  // Check privacy consent line and check it
+  // Check privacy consent line is unchecked by default on first use
   const consentCheckbox = speakingCard.getByTestId('asr-consent-checkbox')
-  if (await consentCheckbox.isVisible()) {
-    await consentCheckbox.check()
-  }
+  await expect(consentCheckbox).toBeVisible()
+  await expect(consentCheckbox).not.toBeChecked()
+
+  // Verify « 转写并评分 » button is disabled before consent
+  const transcribeAndEvalBtn = speakingCard.getByTestId('speech-transcribe-eval-btn')
+  await expect(transcribeAndEvalBtn).toBeDisabled()
+
+  // Unambiguous flow: while un-transcribed recording exists, bottom « AI 评分 » is hidden
+  const bottomAiBtn = speakingCard.getByRole('button', { name: /^AI 评分$/ })
+  await expect(bottomAiBtn).not.toBeVisible()
+
+  // Grant consent
+  await consentCheckbox.check()
+  await expect(consentCheckbox).toBeChecked()
+  await expect(transcribeAndEvalBtn).toBeEnabled()
 
   // Click « 转写并评分 » button
-  const transcribeAndEvalBtn = speakingCard.getByTestId('speech-transcribe-eval-btn')
-  await expect(transcribeAndEvalBtn).toBeEnabled()
   await transcribeAndEvalBtn.click()
+
+  // Verify consent is remembered in localStorage once given
+  const consentStored = await page.evaluate(() => localStorage.getItem('qwerty_study_asr_consent'))
+  expect(consentStored).toBe('true')
 
   // Verify ASR was called
   await expect.poll(() => transcribeCalled).toBe(true)
@@ -217,7 +231,11 @@ test('speech ASR flow: record, transcribe, view measurements card with highlight
   const metricsCard = speakingCard.getByTestId('speech-metrics-card').first()
   await expect(metricsCard).toBeVisible()
   await expect(speakingCard.getByTestId('metric-wpm').first()).toContainText('38')
+  // Verify intelligibility badge is Chinese only
   await expect(speakingCard.getByTestId('intelligibility-badge').first()).toContainText('基本清晰')
+  await expect(speakingCard.getByTestId('intelligibility-badge').first()).not.toContainText('Mostly clear')
+  // Verify long gap warning appears when pauseRatio >= 0.4
+  await expect(speakingCard.getByTestId('speech-unrecognised-gap-warning').first()).toContainText('有较长时间未识别到语音')
 
   // Verify highlighted low-confidence words
   const lowConfWords = metricsCard.getByTestId('low-confidence-word')

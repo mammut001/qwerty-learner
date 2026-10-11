@@ -2,17 +2,17 @@ import type { LowConfidenceWord, SpeechMetrics } from '@/services/studyPlanSync'
 
 const INTELLIGIBILITY_META = {
   clear: {
-    label: '清晰 (Clear)',
+    label: '清晰',
     badgeClass: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300',
     desc: '识别置信度高，语流表达清晰',
   },
   'mostly-clear': {
-    label: '基本清晰 (Mostly clear)',
+    label: '基本清晰',
     badgeClass: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-300',
     desc: '大部分词汇清晰，个别词汇可能发音含糊',
   },
   unclear: {
-    label: '不清晰 (Unclear)',
+    label: '不清晰',
     badgeClass: 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300',
     desc: '平均置信度偏低，建议放慢语速并注意发音咬字',
   },
