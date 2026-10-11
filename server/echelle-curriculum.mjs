@@ -371,6 +371,19 @@ export function countEchelleItemVariants(itemId) {
   return 1
 }
 
+export function reshuffleItemChoices(item, variant, rand) {
+  const r = rand || mulberry32(djb2(`${item?.id || 'item'}#variant#${variant}`))
+  const questions = (item.questions || []).map((q) => ({
+    ...q,
+    choices: shuffle(q.choices, Math.floor(r() * 0x7fffffff)),
+  }))
+  return {
+    ...item,
+    variant,
+    questions,
+  }
+}
+
 export function getEchelleItemVariant(itemId, variant) {
   const item = getEchelleItem(itemId)
   if (!item) return null
@@ -398,15 +411,7 @@ export function getEchelleItemVariant(itemId, variant) {
   if (item.kind === 'indicator') {
     const scenarios = getIndicatorScenarios(itemId)
     if (!scenarios || scenarios.length === 0) {
-      const questions = (item.questions || []).map((q) => ({
-        ...q,
-        choices: shuffle(q.choices, Math.floor(rand() * 0x7fffffff)),
-      }))
-      return {
-        ...item,
-        variant,
-        questions,
-      }
+      return reshuffleItemChoices(item, variant, rand)
     }
     const scIdx = Math.floor(rand() * scenarios.length)
     const sc = scenarios[scIdx]

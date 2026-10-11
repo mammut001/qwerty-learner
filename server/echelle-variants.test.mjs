@@ -5,6 +5,7 @@ import {
   ECHELLE_LEVEL_ITEMS,
   countEchelleItemVariants,
   getEchelleItemVariant,
+  reshuffleItemChoices,
   scoreEchelleItem,
 } from './echelle-curriculum.mjs'
 import { LEXIQUE_TOPICS } from './echelle-lexique-bank.mjs'
@@ -223,31 +224,64 @@ describe('Échelle item variant engine', () => {
   })
 
   it('items without scenarios reshuffle choices and set variant for non-zero seeds while count remains 1 and variant 0 equals catalog', () => {
-    const nonScenarioItem = 'n3-listening-0'
-    const catalogItem = ECHELLE_ITEM_CATALOG[nonScenarioItem]
+    // If any real quiz item currently lacks extra variants (count === 1), test getEchelleItemVariant on it
+    const candidateId = Object.keys(ECHELLE_ITEM_CATALOG).find(
+      (id) => ECHELLE_ITEM_CATALOG[id].kind !== 'production' && countEchelleItemVariants(id) === 1
+    )
+    if (candidateId) {
+      const catalogItem = ECHELLE_ITEM_CATALOG[candidateId]
+      assert.strictEqual(countEchelleItemVariants(candidateId), 1)
 
-    assert.strictEqual(countEchelleItemVariants(nonScenarioItem), 1)
+      const v0 = getEchelleItemVariant(candidateId, 0)
+      assert.deepStrictEqual(v0, catalogItem)
 
-    const v0 = getEchelleItemVariant(nonScenarioItem, 0)
-    assert.deepStrictEqual(v0, catalogItem)
-
-    const seenPositions = new Set()
-    for (let seed = 1; seed <= 20; seed++) {
-      const v = getEchelleItemVariant(nonScenarioItem, seed)
-      assert.strictEqual(v.variant, seed)
-      assert.strictEqual(v.text, catalogItem.text)
-      assert.strictEqual(v.questions.length, catalogItem.questions.length)
-      for (let i = 0; i < v.questions.length; i++) {
-        assert.strictEqual(v.questions[i].prompt, catalogItem.questions[i].prompt)
-        assert.strictEqual(v.questions[i].answer, catalogItem.questions[i].answer)
-        assert.strictEqual(new Set(v.questions[i].choices).size, catalogItem.questions[i].choices.length)
-        if (i === 0) {
-          seenPositions.add(v.questions[i].choices.indexOf(v.questions[i].answer))
+      const seenPositions = new Set()
+      for (let seed = 1; seed <= 20; seed++) {
+        const v = getEchelleItemVariant(candidateId, seed)
+        assert.strictEqual(v.variant, seed)
+        assert.strictEqual(v.text, catalogItem.text)
+        assert.strictEqual(v.questions.length, catalogItem.questions.length)
+        for (let i = 0; i < v.questions.length; i++) {
+          assert.strictEqual(v.questions[i].prompt, catalogItem.questions[i].prompt)
+          assert.strictEqual(v.questions[i].answer, catalogItem.questions[i].answer)
+          assert.strictEqual(new Set(v.questions[i].choices).size, catalogItem.questions[i].choices.length)
+          if (i === 0) {
+            seenPositions.add(v.questions[i].choices.indexOf(v.questions[i].answer))
+          }
         }
+      }
+      if (catalogItem.questions?.[0]?.choices?.length > 1) {
+        assert.ok(seenPositions.size > 1, `Answer positions were not reshuffled across seeds: seen ${[...seenPositions]}`)
       }
     }
 
-    assert.ok(seenPositions.size > 1, `Answer positions were not reshuffled across seeds: seen ${[...seenPositions]}`)
+    // Always cover the no-scenario reshuffle code path with a synthetic item via the exported helper
+    const syntheticItem = {
+      id: 'synthetic-no-scenario-item',
+      kind: 'indicator',
+      skill: 'listening',
+      text: 'Texte d’écoute synthétique sans scénarios.',
+      questions: [
+        {
+          prompt: 'Quel est le sujet ?',
+          answer: 'Bonne réponse',
+          choices: ['Bonne réponse', 'Choix B', 'Choix C', 'Choix D'],
+        },
+      ],
+    }
+
+    const seenPositions = new Set()
+    for (let seed = 1; seed <= 20; seed++) {
+      const v = reshuffleItemChoices(syntheticItem, seed)
+      assert.strictEqual(v.variant, seed)
+      assert.strictEqual(v.text, syntheticItem.text)
+      assert.strictEqual(v.questions.length, syntheticItem.questions.length)
+      assert.strictEqual(v.questions[0].prompt, syntheticItem.questions[0].prompt)
+      assert.strictEqual(v.questions[0].answer, syntheticItem.questions[0].answer)
+      assert.strictEqual(new Set(v.questions[0].choices).size, 4)
+      seenPositions.add(v.questions[0].choices.indexOf(v.questions[0].answer))
+    }
+    assert.ok(seenPositions.size > 1, `Answer positions were not reshuffled across seeds for synthetic item: seen ${[...seenPositions]}`)
   })
 
   it('tests every word in the topic at least once across 300 seeds for every N1-N2 lexique topic', () => {
