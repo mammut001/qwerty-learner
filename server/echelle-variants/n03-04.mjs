@@ -2,7 +2,7 @@
 // Covers both official situations types (examples) for every listening and reading indicator.
 // All indicators yield >= 40 distinct texts across 300 seeded builds.
 
-import { pick, sample } from './shared.mjs'
+import { pick, sample, q, cher, au, du, g } from './shared.mjs'
 
 // Helper to count words identically to the evaluation harness
 export function countWords(text) {
@@ -80,8 +80,8 @@ export const N03_L_0 = [
       return {
         text,
         questions: [
-          ['满多少金额可以享受免费送货？', store.minZh, othersFee[0].minZh, othersFee[1].minZh],
-          ['超市在哪几天安排送货？', sched.daysZh, othersSched[0].daysZh, othersSched[1].daysZh],
+          q('满多少金额可以享受免费送货？', store.minZh, othersFee[0].minZh, othersFee[1].minZh, [store.name.toLowerCase(), 'gratuit']),
+          q('超市在哪几天安排送货？', sched.daysZh, othersSched[0].daysZh, othersSched[1].daysZh, [sched.daysFr.toLowerCase()]),
         ],
       }
     },
@@ -98,8 +98,8 @@ export const N03_L_0 = [
       return {
         text,
         questions: [
-          ['单程车票的价格是多少？', transit.fareZh, othersFare[0], othersFare[1]],
-          ['被介绍的通票类型是？', pass.passZh, othersPass[0].passZh, othersPass[1].passZh],
+          q('单程车票的价格是多少？', transit.fareZh, othersFare[0], othersFare[1], [transit.agency.split(' ')[0].toLowerCase(), 'coûte']),
+          q('被介绍的通票类型是？', pass.passZh, othersPass[0].passZh, othersPass[1].passZh, [pass.passFr.toLowerCase()]),
         ],
       }
     },
@@ -115,8 +115,8 @@ export const N03_L_0 = [
       return {
         text,
         questions: [
-          ['药房满多少金额免收配送费？', pharm.minZh, othersMin[0].minZh, othersMin[1].minZh],
-          ['送药上门服务安排在哪几天？', pharm.daysZh, othersDays[0].daysZh, othersDays[1].daysZh],
+          q('药房满多少金额免收配送费？', pharm.minZh, othersMin[0].minZh, othersMin[1].minZh, [pharm.name.toLowerCase(), 'achats']),
+          q('送药上门服务安排在哪几天？', pharm.daysZh, othersDays[0].daysZh, othersDays[1].daysZh, [pharm.daysFr.toLowerCase()]),
         ],
       }
     },
@@ -132,8 +132,8 @@ export const N03_L_0 = [
       return {
         text,
         questions: [
-          ['居民办理图书借阅的年费是？', lib.feeZh, othersFee[0].feeZh, othersFee[1].feeZh],
-          ['读者一次最多可以借多少书？', lib.limitZh, othersLimit[0].limitZh, othersLimit[1].limitZh],
+          q('居民办理图书借阅的年费是？', lib.feeZh, othersFee[0].feeZh, othersFee[1].feeZh, [lib.city.toLowerCase(), 'abonnement']),
+          q('读者一次最多可以借多少书？', lib.limitZh, othersLimit[0].limitZh, othersLimit[1].limitZh, [lib.limitFr.toLowerCase()]),
         ],
       }
     },
@@ -201,8 +201,8 @@ export const N03_L_1 = [
       return {
         text,
         questions: [
-          ['朋友需要什么方面的帮助？', `协助填写${form.topicZh}`, `协助填写${othersForm[0].topicZh}`, `协助填写${othersForm[1].topicZh}`],
-          ['面对求助，合适的回答是：', 'Oui, je peux regarder avec toi.', 'Merci pour cette belle invitation.', 'Enchanté de faire votre rencontre.'],
+          q('朋友需要什么方面的帮助？', `协助填写${form.topicZh}`, `协助填写${othersForm[0].topicZh}`, `协助填写${othersForm[1].topicZh}`, [form.field.replace(/[«»]/g, '').toLowerCase()]),
+          q('面对求助，合适的回答是：', 'Oui, je peux regarder avec toi.', 'Merci pour cette belle invitation.', 'Enchanté de faire votre rencontre.', ['aider']),
         ],
       }
     },
@@ -218,8 +218,8 @@ export const N03_L_1 = [
       return {
         text,
         questions: [
-          ['同事计划在周末做什么？', plan.actZh, othersPlan[0].actZh, othersPlan[1].actZh],
-          ['面对询问，合适的回答是：', 'Moi, je vais me reposer à la maison.', 'À mon avis, ce projet coûte trop cher.', 'S’il vous plaît, où est la réception ?'],
+          q('同事计划在周末做什么？', plan.actZh, othersPlan[0].actZh, othersPlan[1].actZh, [plan.day.toLowerCase()]),
+          q('面对询问，合适的回答是：', 'Moi, je vais me reposer à la maison.', 'À mon avis, ce projet coûte trop cher.', 'S’il vous plaît, où est la réception ?', ['prévu']),
         ],
       }
     },
@@ -235,8 +235,8 @@ export const N03_L_1 = [
       return {
         text,
         questions: [
-          ['说话人想打听哪个部门的下班时间？', off.placeZh, othersOff[0].placeZh, othersOff[1].placeZh],
-          ['面对询问，合适的回答是：', 'Le bureau ferme à dix-sept heures.', 'Je prends un café sans sucre, merci.', 'Félicitations pour ton bon travail.'],
+          q('说话人想打听哪个部门的下班时间？', off.placeZh, othersOff[0].placeZh, othersOff[1].placeZh, [off.place.split(' ')[1].toLowerCase()]),
+          q('面对询问，合适的回答是：', 'Le bureau ferme à dix-sept heures.', 'Je prends un café sans sucre, merci.', 'Félicitations pour ton bon travail.', ['ferme']),
         ],
       }
     },
@@ -252,8 +252,8 @@ export const N03_L_1 = [
       return {
         text,
         questions: [
-          ['同事邀请对方去哪里用餐？', lunch.placeZh, othersLunch[0].placeZh, othersLunch[1].placeZh],
-          ['面对邀请，合适的回答是：', 'Avec plaisir, j’arrive dans cinq minutes.', 'Bonjour, je cherche l’arrêt d’autobus.', 'Prenez deux comprimés avant le souper.'],
+          q('同事邀请对方去哪里用餐？', lunch.placeZh, othersLunch[0].placeZh, othersLunch[1].placeZh, [lunch.place.split(' ')[1].toLowerCase()]),
+          q('面对邀请，合适的回答是：', 'Avec plaisir, j’arrive dans cinq minutes.', 'Bonjour, je cherche l’arrêt d’autobus.', 'Prenez deux comprimés avant le souper.', ['dîner']),
         ],
       }
     },
@@ -306,18 +306,18 @@ const N3_CLINIC_LIST = [
 ]
 
 const N3_APPLIANCES = [
-  { item: 'une cafetière programmable', colorZh: '黑色机身', feat: 'compacte avec une verseuse en verre', useZh: '快速煮制新鲜咖啡' },
-  { item: 'un grille-pain électrique', colorZh: '银灰机身', feat: 'muni de fentes très larges', useZh: '均匀烘烤各种面包' },
-  { item: 'un four à micro-ondes', colorZh: '白色机身', feat: 'doté d’un affichage numérique clair', useZh: '快速加热便当餐食' },
-  { item: 'un mélangeur de cuisine', colorZh: '深红机身', feat: 'équipé de lames solides en acier', useZh: '轻松搅拌新鲜果汁' },
+  { item: 'une cafetière programmable', colorFr: 'noire', colorZh: '黑色机身', feat: 'compacte avec une verseuse en verre', purposeFr: 'préparer du bon café le matin', useZh: '快速煮制新鲜咖啡', useKw: 'café' },
+  { item: 'un grille-pain électrique', colorFr: 'argenté', colorZh: '银灰机身', feat: 'muni de fentes très larges', purposeFr: 'griller le pain doré', useZh: '均匀烘烤各种面包', useKw: 'pain' },
+  { item: 'un four à micro-ondes', colorFr: 'blanc', colorZh: '白色机身', feat: 'doté d’un affichage numérique clair', purposeFr: 'réchauffer les repas rapidement', useZh: '快速加热便当餐食', useKw: 'repas' },
+  { item: 'un mélangeur de cuisine', colorFr: 'rouge', colorZh: '深红机身', feat: 'équipé de lames solides en acier', purposeFr: 'mélanger les fruits frais pour les jus', useZh: '轻松搅拌新鲜果汁', useKw: 'fruits' },
 ]
 const N3_APPLIANCE_STORES = ['au magasin Walmart', 'chez Canadian Tire', 'au magasin Best Buy', 'au centre d’achats']
 
 const N3_PETS = [
-  { type: 'chaton très affectueux', furZh: '灰色条纹', featZh: '活泼好动爱玩耍' },
-  { type: 'chiot très énergique', furZh: '棕褐毛色', featZh: '热情开朗喜奔跑' },
-  { type: 'jeune chat curieux', furZh: '黑白相间', featZh: '机警温和喜安静' },
-  { type: 'petit chien joueur', furZh: '纯白毛色', featZh: '乖巧亲人爱撒娇' },
+  { type: 'chaton très affectueux', furFr: 'au pelage gris rayé', furZh: '灰色条纹', featFr: 'doux et très affectueux', featZh: '乖巧亲人爱撒娇', kw: 'affectueux', furKw: 'gris' },
+  { type: 'chiot très énergique', furFr: 'au pelage brun doré', furZh: '棕褐毛色', featFr: 'plein d’énergie et joyeux', featZh: '热情开朗喜奔跑', kw: 'énergie', furKw: 'brun' },
+  { type: 'jeune chat calme', furFr: 'au pelage noir et blanc', furZh: '黑白相间', featFr: 'très calme et attentif', featZh: '机警温和喜安静', kw: 'calme', furKw: 'noir' },
+  { type: 'petit chien joueur', furFr: 'au pelage blanc pur', furZh: '纯白毛色', featFr: 'très joueur et vif', featZh: '活泼好动爱玩耍', kw: 'joueur', furKw: 'blanc' },
 ]
 const N3_SHELTER_LOCS = ['de Québec', 'de Montréal', 'de Laval', 'de Sherbrooke']
 
@@ -333,8 +333,8 @@ export const N03_L_2 = [
       return {
         text,
         questions: [
-          ['购买的衣物是什么颜色？', c.colorZh, othersColor[0].colorZh, othersColor[1].colorZh],
-          ['为什么这次购物很划算？', c.reasonZh, othersReason[0].reasonZh, othersReason[1].reasonZh],
+          q('购买的衣物是什么颜色？', c.colorZh, othersColor[0].colorZh, othersColor[1].colorZh, [c.colorM.split(' ')[0].toLowerCase()]),
+          q('为什么这次购物很划算？', c.reasonZh, othersReason[0].reasonZh, othersReason[1].reasonZh, [c.discount.split(' ')[0].toLowerCase()]),
         ],
       }
     },
@@ -351,8 +351,8 @@ export const N03_L_2 = [
       return {
         text,
         questions: [
-          ['生病的同事出现了什么症状？', p.sympZh, othersSymp[0].sympZh, othersSymp[1].sympZh],
-          ['同事去哪里看了医生？', clinic.clinicZh, othersClinic[0].clinicZh, othersClinic[1].clinicZh],
+          q('生病的同事出现了什么症状？', p.sympZh, othersSymp[0].sympZh, othersSymp[1].sympZh, [p.prep.split(' ')[1].toLowerCase()]),
+          q('同事去哪里看了医生？', clinic.clinicZh, othersClinic[0].clinicZh, othersClinic[1].clinicZh, [clinic.clinic.split(' ')[1].toLowerCase()]),
         ],
       }
     },
@@ -365,12 +365,12 @@ export const N03_L_2 = [
       const st = pick(N3_APPLIANCE_STORES, rand)
       const othersColor = sample(N3_APPLIANCES.filter(x => x.colorZh !== app.colorZh), 2, rand)
       const othersUse = sample(N3_APPLIANCES.filter(x => x.useZh !== app.useZh), 2, rand)
-      const text = `J’ai acheté ${app.item} en solde ${st}. L’appareil est ${app.feat}. Il est très pratique pour la cuisine de tous les jours.`
+      const text = `J’ai acheté ${app.item} ${app.colorFr} en solde ${st}. L’appareil est ${app.feat}, idéal pour ${app.purposeFr}.`
       return {
         text,
         questions: [
-          ['买到的厨房电器外观颜色是？', app.colorZh, othersColor[0].colorZh, othersColor[1].colorZh],
-          ['这款电器的主要实用功能是？', app.useZh, othersUse[0].useZh, othersUse[1].useZh],
+          q('买到的厨房电器外观颜色是？', app.colorZh, othersColor[0].colorZh, othersColor[1].colorZh, [app.colorFr]),
+          q('这款电器的主要实用功能是？', app.useZh, othersUse[0].useZh, othersUse[1].useZh, [app.useKw]),
         ],
       }
     },
@@ -383,12 +383,12 @@ export const N03_L_2 = [
       const loc = pick(N3_SHELTER_LOCS, rand)
       const othersFur = sample(N3_PETS.filter(x => x.furZh !== pet.furZh), 2, rand)
       const othersFeat = sample(N3_PETS.filter(x => x.featZh !== pet.featZh), 2, rand)
-      const text = `Au refuge pour animaux ${loc}, nous avons choisi un ${pet.type}. Il a un beau pelage et des yeux vifs. Nous sommes ravis de l’accueillir à la maison.`
+      const text = `Au refuge pour animaux ${loc}, nous avons choisi un ${pet.type} ${pet.furFr}. L’animal est ${pet.featFr}. Nous sommes ravis de l’accueillir à la maison.`
       return {
         text,
         questions: [
-          ['在收容所挑选的动物毛色是？', pet.furZh, othersFur[0].furZh, othersFur[1].furZh],
-          ['这只小动物表现出的性格是？', pet.featZh, othersFeat[0].featZh, othersFeat[1].featZh],
+          q('在收容所挑选的动物毛色是？', pet.furZh, othersFur[0].furZh, othersFur[1].furZh, [pet.furKw]),
+          q('这只小动物表现出的性格是？', pet.featZh, othersFeat[0].featZh, othersFeat[1].featZh, [pet.kw]),
         ],
       }
     },
@@ -467,8 +467,8 @@ export const N03_L_3 = [
       return {
         text,
         questions: [
-          ['这种药品的服用频率是？', med.freqZh, othersFreq[0].freqZh, othersFreq[1].freqZh],
-          ['药剂师给出的健康建议是？', adv.zh, othersAdv[0].zh, othersAdv[1].zh],
+          q('这种药品的服用频率是？', med.freqZh, othersFreq[0].freqZh, othersFreq[1].freqZh, [med.freq.split(' ')[0].toLowerCase()]),
+          q('药剂师给出的健康建议是？', adv.zh, othersAdv[0].zh, othersAdv[1].zh, [adv.fr.split(' ')[0].toLowerCase()]),
         ],
       }
     },
@@ -485,8 +485,8 @@ export const N03_L_3 = [
       return {
         text,
         questions: [
-          ['开启工作设备的第一步是？', dev.step1Zh, othersStep1[0].step1Zh, othersStep1[1].step1Zh],
-          ['开机后应如何登录系统？', dev.step2Zh, othersStep2[0].step2Zh, othersStep2[1].step2Zh],
+          q('开启工作设备的第一步是？', dev.step1Zh, othersStep1[0].step1Zh, othersStep1[1].step1Zh, [dev.step1.split(' ')[1].toLowerCase()]),
+          q('开机后应如何登录系统？', dev.step2Zh, othersStep2[0].step2Zh, othersStep2[1].step2Zh, [dev.step2.split(' ')[0].toLowerCase()]),
         ],
       }
     },
@@ -501,8 +501,8 @@ export const N03_L_3 = [
       return {
         text,
         questions: [
-          ['洗衣液应倒在哪个具体位置？', wm.soapZh, '洗衣机机身排水管道', '直接倒入滚筒的最底部'],
-          ['建议选择哪一种洗涤程序？', wm.cycleZh, '高温强力除污清洗程序', '超高速甩干脱水程序'],
+          q('洗衣液应倒在哪个具体位置？', wm.soapZh, '洗衣机机身排水管道', '直接倒入滚筒的最底部', ['détergent', wm.soapSlot.split(' ')[1].toLowerCase()]),
+          q('建议选择哪一种洗涤程序？', wm.cycleZh, '高温强力除污清洗程序', '超高速甩干脱水程序', [wm.cycle.split(' ')[0].toLowerCase()]),
         ],
       }
     },
@@ -516,8 +516,8 @@ export const N03_L_3 = [
       return {
         text,
         questions: [
-          ['进入工作区域前必须佩戴什么？', ws.gearZh, '轻便普通防尘棉纱口罩', '耐磨防刮保暖皮质手套'],
-          ['随身背包应当放在什么地方？', ws.placeZh, '靠近生产机床的物料架', '车间大门口右侧木长椅'],
+          q('进入工作区域前必须佩戴什么？', ws.gearZh, '轻便普通防尘棉纱口罩', '耐磨防刮保暖皮质手套', [ws.gear.split(' ')[1].toLowerCase()]),
+          q('随身背包应当放在什么地方？', ws.placeZh, '靠近生产机床的物料架', '车间大门口右侧木长椅', ['vestiaire']),
         ],
       }
     },
@@ -547,11 +547,11 @@ export const N03_L_3 = [
 // n3-listening-4
 // ---------------------------------------------------------------------------
 const N3_COMPLIMENTS = [
-  { item: 'ton veston bleu', adj: 'très élégant', itemZh: '蓝色外套', effectZh: '显得大方得体' },
-  { item: 'ta chemise blanche', adj: 'vraiment impeccable', itemZh: '白色衬衫', effectZh: '显得干净整洁' },
-  { item: 'ta belle veste', adj: 'très soignée', itemZh: '漂亮的夹克', effectZh: '很有职业精神' },
-  { item: 'ton joli foulard', adj: 'superbe', itemZh: '好看的围巾', effectZh: '显得现代大方' },
-  { item: 'ton pull en laine', adj: 'très chic', itemZh: '羊毛毛衣', effectZh: '款式大方端庄' },
+  { item: 'ton veston bleu', kw: 'veston', adj: 'très élégant', itemZh: '蓝色外套', effectZh: '显得大方得体' },
+  { item: 'ta chemise blanche', kw: 'chemise', adj: 'vraiment impeccable', itemZh: '白色衬衫', effectZh: '显得干净整洁' },
+  { item: 'ta belle veste', kw: 'veste', adj: 'très soignée', itemZh: '漂亮的夹克', effectZh: '很有职业精神' },
+  { item: 'ton joli foulard', kw: 'foulard', adj: 'superbe', itemZh: '好看的围巾', effectZh: '显得现代大方' },
+  { item: 'ton pull en laine', kw: 'pull', adj: 'très chic', itemZh: '羊毛毛衣', effectZh: '款式大方端庄' },
 ]
 const N3_MEETINGS = [
   'pour la réunion de ce matin',
@@ -560,25 +560,34 @@ const N3_MEETINGS = [
   'pour la formation de cet après-midi',
 ]
 
+const N3_CHEER_PERSONAS = [
+  { name: 'Mélanie', gender: 'f' },
+  { name: 'Amadou', gender: 'm' },
+  { name: 'Sofia', gender: 'f' },
+  { name: 'Émile', gender: 'm' },
+  { name: 'Karim', gender: 'm' },
+  { name: 'Lucia', gender: 'f' },
+]
+
 const N3_CHEERS = [
-  { condition: 'ta vilaine grippe', conditionZh: '患严重季节性流感', wish: 'un prompt rétablissement', wishZh: '祝早日恢复健康' },
-  { condition: 'ton opération récente', conditionZh: '刚做完微创手术', wish: 'une douce convalescence', wishZh: '祝安心平稳休养' },
-  { condition: 'ta grosse bronchite', conditionZh: '患急性支气管炎', wish: 'un bon rétablissement', wishZh: '祝早日康复如初' },
-  { condition: 'tes douleurs au dos', conditionZh: '背部肌肉拉伤酸痛', wish: 'beaucoup de repos', wishZh: '祝好好放松休息' },
+  { condition: 'ta vilaine grippe', kwCond: 'grippe', conditionZh: '患严重季节性流感', wish: 'un prompt rétablissement', kwWish: 'rétablissement', wishZh: '祝早日恢复健康' },
+  { condition: 'ton opération récente', kwCond: 'opération', conditionZh: '刚做完微创手术', wish: 'une douce convalescence', kwWish: 'convalescence', wishZh: '祝安心平稳休养' },
+  { condition: 'ta grosse bronchite', kwCond: 'bronchite', conditionZh: '患急性支气管炎', wish: 'un bon rétablissement', kwWish: 'rétablissement', wishZh: '祝早日康复如初' },
+  { condition: 'tes douleurs au dos', kwCond: 'dos', conditionZh: '背部肌肉拉伤酸痛', wish: 'beaucoup de repos', kwWish: 'repos', wishZh: '祝好好放松休息' },
 ]
 
 const N3_EXAM_SUCCESSES = [
-  { exam: 'pratique de conduite', task: 'les manœuvres de stationnement', passZh: '通过了路考拿到驾照' },
-  { exam: 'de français professionnel', task: 'la compréhension orale', passZh: '通过了职业法语考试' },
-  { exam: 'd’admission au cégep', task: 'toutes les épreuves écrites', passZh: '顺利通过了学院统考' },
-  { exam: 'de certification comptable', task: 'les exercices financiers', passZh: '考取了专业资格证书' },
+  { exam: 'pratique de conduite', kwExam: 'conduite', task: 'les manœuvres de stationnement', passZh: '通过了路考拿到驾照' },
+  { exam: 'de français professionnel', kwExam: 'professionnel', task: 'la compréhension orale', passZh: '通过了职业法语考试' },
+  { exam: 'd’admission au cégep', kwExam: 'cégep', task: 'toutes les épreuves écrites', passZh: '顺利通过了学院统考' },
+  { exam: 'de certification comptable', kwExam: 'comptable', task: 'les exercices financiers', passZh: '考取了专业资格证书' },
 ]
 
 const N3_NEWCOMERS = [
-  { name: 'Antoine', dept: 'de service', deptZh: '热烈欢迎加入工作团队' },
-  { name: 'Thomas', dept: 'des finances', deptZh: '热烈欢迎加入财务团队' },
-  { name: 'Nicolas', dept: 'des admissions', deptZh: '热烈欢迎加入招生团队' },
-  { name: 'Gabriel', dept: 'de la logistique', deptZh: '热烈欢迎加入后勤团队' },
+  { name: 'Antoine', dept: 'de service', kwDept: 'service', deptZh: '热烈欢迎加入工作团队' },
+  { name: 'Thomas', dept: 'des finances', kwDept: 'finances', deptZh: '热烈欢迎加入财务团队' },
+  { name: 'Nicolas', dept: 'des admissions', kwDept: 'admissions', deptZh: '热烈欢迎加入招生团队' },
+  { name: 'Gabriel', dept: 'de la logistique', kwDept: 'logistique', deptZh: '热烈欢迎加入后勤团队' },
 ]
 
 export const N03_L_4 = [
@@ -588,13 +597,12 @@ export const N03_L_4 = [
       const c = pick(N3_COMPLIMENTS, rand)
       const m = pick(N3_MEETINGS, rand)
       const othersItem = sample(N3_COMPLIMENTS.filter(x => x.itemZh !== c.itemZh), 2, rand)
-      const othersEffect = sample(N3_COMPLIMENTS.filter(x => x.effectZh !== c.effectZh), 2, rand)
       const text = `Wow, ${c.item} est ${c.adj} ! Cela te va à merveille ${m}. Tu fais une excellente impression auprès de toute l’équipe aujourd’hui.`
       return {
         text,
         questions: [
-          ['说话人赞赏了对方的什么穿着？', c.itemZh, othersItem[0].itemZh, othersItem[1].itemZh],
-          ['同事表达的核心赞赏意思是？', c.effectZh, othersEffect[0].effectZh, othersEffect[1].effectZh],
+          q('说话人赞赏了对方的什么穿着？', c.itemZh, othersItem[0].itemZh, othersItem[1].itemZh, [c.kw]),
+          q('同事表达的核心赞赏意思是？', c.effectZh, '衣服显得过于宽大随意', '颜色看起来陈旧过时', ['impression']),
         ],
       }
     },
@@ -604,19 +612,19 @@ export const N03_L_4 = [
   Object.assign(
     (rand) => {
       const ch = pick(N3_CHEERS, rand)
-      const p = pick(['Mélanie', 'Amadou', 'Sofia', 'Émile', 'Karim', 'Lucia'], rand)
+      const p = pick(N3_CHEER_PERSONAS, rand)
       const othersWish = sample(N3_CHEERS.filter(x => x.wishZh !== ch.wishZh), 2, rand)
       const othersCond = sample(N3_CHEERS.filter(x => x.conditionZh !== ch.conditionZh), 2, rand)
-      const text = `Chère ${p}, j’ai appris pour ${ch.condition}. Je te souhaite ${ch.wish}. Prends tout ton temps pour te soigner. Reviens-nous en pleine forme !`
+      const text = `${cher(p)}, j’ai appris pour ${ch.condition}. Je te souhaite ${ch.wish}. Prends tout ton temps pour te soigner. Reviens-nous en pleine forme !`
       return {
         text,
         questions: [
-          ['朋友发来这段问候的主要内容是？', ch.wishZh, othersWish[0].wishZh, othersWish[1].wishZh],
-          ['朋友得知对方出现了什么状况？', ch.conditionZh, othersCond[0].conditionZh, othersCond[1].conditionZh],
+          q('朋友发来这段问候的主要内容是？', ch.wishZh, othersWish[0].wishZh, othersWish[1].wishZh, [ch.kwWish]),
+          q('朋友得知对方出现了什么状况？', ch.conditionZh, othersCond[0].conditionZh, othersCond[1].conditionZh, [ch.kwCond]),
         ],
       }
     },
-    { situation: 1, capacity: 6 * N3_CHEERS.length }
+    { situation: 1, capacity: N3_CHEER_PERSONAS.length * N3_CHEERS.length }
   ),
   // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Examen réussi)
   Object.assign(
@@ -627,8 +635,8 @@ export const N03_L_4 = [
       return {
         text,
         questions: [
-          ['朋友发来祝贺的具体事情是？', ex.passZh, othersPass[0].passZh, othersPass[1].passZh],
-          ['说话人对这个结果有什么评价？', '对努力付出的认可', '靠运气通过的侥幸', '过程准备得太匆忙'],
+          q('朋友发来祝贺的具体事情是？', ex.passZh, othersPass[0].passZh, othersPass[1].passZh, [ex.kwExam]),
+          q('说话人对这个结果有什么评价？', '对努力付出的认可', '靠运气通过的侥幸', '过程准备得太匆忙', ['pratiqué']),
         ],
       }
     },
@@ -643,8 +651,8 @@ export const N03_L_4 = [
       return {
         text,
         questions: [
-          ['同事向新员工表达了什么心意？', newcomer.deptZh, othersDept[0].deptZh, othersDept[1].deptZh],
-          ['同事希望对方在第一天怎样？', '轻松适应新的工作环境', '立即起草一份业务方案', '独立处理客户投诉案件'],
+          q('同事向新员工表达了什么心意？', newcomer.deptZh, othersDept[0].deptZh, othersDept[1].deptZh, [newcomer.kwDept]),
+          q('同事希望对方在第一天怎样？', '轻松适应新的工作环境', '立即起草一份业务方案', '独立处理客户投诉案件', ['repères']),
         ],
       }
     },
