@@ -24,6 +24,9 @@ services:
       STUDY_ACCESS_PASSWORD: ${STUDY_ACCESS_PASSWORD:-}
       DEEPGRAM_API_KEY: ${DEEPGRAM_API_KEY:-}
       STUDY_ASR_DAILY_LIMIT: ${STUDY_ASR_DAILY_LIMIT:-}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
+      STRIPE_PRICE_ID: ${STRIPE_PRICE_ID:-}
     volumes:
       - study-data:/data
     restart: unless-stopped

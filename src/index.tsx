@@ -36,6 +36,7 @@ const DictionaryPage = lazy(() => import('./pages/Dictionary'))
 const CustomDictPage = lazy(() => import('./pages/CustomDict'))
 const KeyboardRequiredPage = lazy(() => import('./pages/KeyboardRequired'))
 const ErrorBookPage = lazy(() => import('./pages/ErrorBook').then((module) => ({ default: module.ErrorBook })))
+const BillingPage = lazy(() => import('./pages/Billing'))
 const FocusTimerDock = lazy(() => import('./components/FocusTimerDock'))
 
 // The study plan is the home page; old `/?dict=…` practice links keep working by forwarding to the typing page.
@@ -149,6 +150,7 @@ function Root() {
                       <Route path="/tcf-speaking" element={<RequireAccount pageName="TCF 口语"><TcfSpeakingPage /></RequireAccount>} />
                       <Route path="/analysis" element={<RequireAccount pageName="统计"><AnalysisPage /></RequireAccount>} />
                       <Route path="/error-book" element={<RequireAccount pageName="错题本"><ErrorBookPage /></RequireAccount>} />
+                      <Route path="/billing" element={<BillingPage />} />
                       <Route path="/*" element={<Navigate to="/study-plan" />} />
                     </Routes>
                   </Suspense>
