@@ -340,16 +340,16 @@ export const PAYMENT_METHODS = [
 
 // Directions
 export const SIMPLE_DIRECTIONS = [
-  { fr: 'au fond, à droite', zh: '走到底右转', shortFr: 'à droite' },
-  { fr: 'au fond, à gauche', zh: '走到底左转', shortFr: 'à gauche' },
-  { fr: 'tout droit', zh: '直走', shortFr: 'tout droit' },
-  { fr: 'à côté de l’entrée', zh: '在入口旁边', shortFr: 'près de l’entrée' },
-  { fr: 'près des escaliers', zh: '在楼梯旁边', shortFr: 'près des escaliers' },
-  { fr: 'en face de l’ascenseur', zh: '在电梯对面', shortFr: 'en face de l’ascenseur' },
-  { fr: 'au deuxième étage', zh: '在二楼', shortFr: 'au 2e étage' },
-  { fr: 'au rez-de-chaussée', zh: '在一楼', shortFr: 'au rez-de-chaussée' },
-  { fr: 'au sous-sol', zh: '在地下室', shortFr: 'au sous-sol' },
-  { fr: 'au coin de la rue', zh: '在街角', shortFr: 'au coin' },
+  { fr: 'au fond, à droite', zh: '走到底右转', shortFr: 'à droite', kw: 'droite' },
+  { fr: 'au fond, à gauche', zh: '走到底左转', shortFr: 'à gauche', kw: 'gauche' },
+  { fr: 'tout droit', zh: '直走', shortFr: 'tout droit', kw: 'droit' },
+  { fr: 'à côté de l’entrée', zh: '在入口旁边', shortFr: 'près de l’entrée', kw: 'entrée' },
+  { fr: 'près des escaliers', zh: '在楼梯旁边', shortFr: 'près des escaliers', kw: 'escaliers' },
+  { fr: 'en face de l’ascenseur', zh: '在电梯对面', shortFr: 'en face de l’ascenseur', kw: 'ascenseur' },
+  { fr: 'au deuxième étage', zh: '在二楼', shortFr: 'au deuxième étage', kw: 'étage' },
+  { fr: 'au rez-de-chaussée', zh: '在一楼', shortFr: 'au rez-de-chaussée', kw: 'rez-de-chaussée' },
+  { fr: 'au sous-sol', zh: '在地下室', shortFr: 'au sous-sol', kw: 'sous-sol' },
+  { fr: 'au coin de la rue', zh: '在街角', shortFr: 'au coin', kw: 'coin' },
 ]
 
 // Number formatting to French in words (0 - 9999) with grammatical hyphens and plural rules
