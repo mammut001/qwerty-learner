@@ -582,12 +582,24 @@ const N3_EXAM_SUCCESSES = [
   { exam: 'd’admission au cégep', kwExam: 'cégep', task: 'toutes les épreuves écrites', passZh: '顺利通过了学院统考' },
   { exam: 'de certification comptable', kwExam: 'comptable', task: 'les exercices financiers', passZh: '考取了专业资格证书' },
 ]
+const N3_EXAM_PRAISES = [
+  'Je suis vraiment fier de ton beau succès.',
+  'Tout le monde est très impressionné par ton résultat.',
+  'C’est amplement mérité après tant d’efforts.',
+  'Tu as démontré toute ta belle persévérance.',
+]
 
 const N3_NEWCOMERS = [
   { name: 'Antoine', dept: 'de service', kwDept: 'service', deptZh: '热烈欢迎加入工作团队' },
   { name: 'Thomas', dept: 'des finances', kwDept: 'finances', deptZh: '热烈欢迎加入财务团队' },
   { name: 'Nicolas', dept: 'des admissions', kwDept: 'admissions', deptZh: '热烈欢迎加入招生团队' },
   { name: 'Gabriel', dept: 'de la logistique', kwDept: 'logistique', deptZh: '热烈欢迎加入后勤团队' },
+]
+const N3_NEWCOMER_GREETS = [
+  'Prends bien tes repères et passe une agréable première journée.',
+  'N’hésite surtout pas à poser des questions pour tes débuts.',
+  'Toute l’équipe est là pour faciliter ton intégration ici.',
+  'Nous avons tous très hâte de collaborer avec toi dès maintenant.',
 ]
 
 export const N03_L_4 = [
@@ -630,8 +642,9 @@ export const N03_L_4 = [
   Object.assign(
     (rand) => {
       const ex = pick(N3_EXAM_SUCCESSES, rand)
+      const praise = pick(N3_EXAM_PRAISES, rand)
       const othersPass = sample(N3_EXAM_SUCCESSES.filter(x => x.passZh !== ex.passZh), 2, rand)
-      const text = `Bravo pour ton examen ${ex.exam} ! Tu as tellement pratiqué ${ex.task} ces dernières semaines. Je suis vraiment fier de ton beau succès.`
+      const text = `Bravo pour ton examen ${ex.exam} ! Tu as tellement pratiqué ${ex.task} ces dernières semaines. ${praise}`
       return {
         text,
         questions: [
@@ -640,23 +653,24 @@ export const N03_L_4 = [
         ],
       }
     },
-    { situation: 0, capacity: N3_EXAM_SUCCESSES.length }
+    { situation: 0, capacity: N3_EXAM_SUCCESSES.length * N3_EXAM_PRAISES.length }
   ),
   // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Bienvenue nouveau collègue)
   Object.assign(
     (rand) => {
       const newcomer = pick(N3_NEWCOMERS, rand)
+      const greet = pick(N3_NEWCOMER_GREETS, rand)
       const othersDept = sample(N3_NEWCOMERS.filter(x => x.deptZh !== newcomer.deptZh), 2, rand)
-      const text = `Bienvenue dans notre équipe, ${newcomer.name} ! Nous sommes tous très heureux de t’accueillir dans la division ${newcomer.dept}. Prends bien tes repères et passe une agréable première journée.`
+      const text = `Bienvenue dans notre équipe, ${newcomer.name} ! Nous sommes tous très heureux de t’accueillir dans la division ${newcomer.dept}. ${greet}`
       return {
         text,
         questions: [
           q('同事向新员工表达了什么心意？', newcomer.deptZh, othersDept[0].deptZh, othersDept[1].deptZh, [newcomer.kwDept]),
-          q('同事希望对方在第一天怎样？', '轻松适应新的工作环境', '立即起草一份业务方案', '独立处理客户投诉案件', ['repères']),
+          q('同事希望对方在第一天怎样？', '轻松适应新的工作环境', '立即起草一份业务方案', '独立处理客户投诉案件', ['accueillir']),
         ],
       }
     },
-    { situation: 1, capacity: N3_NEWCOMERS.length }
+    { situation: 1, capacity: N3_NEWCOMERS.length * N3_NEWCOMER_GREETS.length }
   ),
   // Scenario 5 (Static, situation: 0) - Félicitations promotion & veston
   {
@@ -2730,10 +2744,10 @@ const N4_LEASE_ADDRS = [
 ]
 const N4_LEASE_RENTS = ['1 120 dollars', '1 350 dollars', '980 dollars', '1 240 dollars']
 const N4_LEASE_PERIODS = [
-  { text: 'du premier juillet au trente juin', opt: 'une année complète à partir de juillet' },
-  { text: 'du premier août au trente et un juillet', opt: 'une année complète à compter d’août' },
-  { text: 'du premier septembre au trente et un août', opt: 'un an complet à partir de septembre' },
-  { text: 'du premier octobre au trente septembre', opt: 'un an complet à compter d’octobre' },
+  { text: 'du premier juillet au trente juin', opt: 'une année complète à partir de juillet', kw: 'juillet' },
+  { text: 'du premier août au trente et un juillet', opt: 'une année complète à compter d’août', kw: 'août' },
+  { text: 'du premier septembre au trente et un août', opt: 'un an complet à partir de septembre', kw: 'septembre' },
+  { text: 'du premier octobre au trente septembre', opt: 'un an complet à compter d’octobre', kw: 'octobre' },
 ]
 const N4_LEASE_HEATS = [
   { text: 'à la charge du locataire', opt: 'aux frais directs du locataire' },
@@ -2749,16 +2763,16 @@ const N4_LEASE_PETS = [
 ]
 
 const N4_FESTIVAL_NAMES = [
-  { name: 'le Festival d’été de Québec', opt: 'le Festival d’été de Québec' },
-  { name: 'les Francos de Montréal', opt: 'les Francos de Montréal au centre' },
-  { name: 'le FestiVoix de Trois-Rivières', opt: 'le FestiVoix de Trois-Rivières' },
-  { name: 'le Festival de montgolfières de Gatineau', opt: 'le Festival de Gatineau au parc' },
+  { name: 'le Festival d’été de Québec', opt: 'le Festival d’été de Québec', kw: 'québec' },
+  { name: 'les Francos de Montréal', opt: 'les Francos de Montréal', kw: 'francos' },
+  { name: 'le FestiVoix de Trois-Rivières', opt: 'le FestiVoix de Trois-Rivières', kw: 'festivoix' },
+  { name: 'le Festival de montgolfières de Gatineau', opt: 'le Festival de montgolfières de Gatineau', kw: 'montgolfières' },
 ]
 const N4_FESTIVAL_CROWDS = [
-  { text: 'plus de cent mille spectateurs', opt: 'plus de cent mille festivaliers' },
-  { text: 'près de quatre-vingt mille personnes', opt: 'environ quatre-vingt mille personnes' },
-  { text: 'plus de soixante mille visiteurs', opt: 'plus de soixante mille visiteurs' },
-  { text: 'environ soixante-quinze mille personnes', opt: 'environ soixante-quinze mille personnes' },
+  { text: 'plus de cent mille spectateurs', opt: 'plus de cent mille festivaliers', kw: 'cent mille' },
+  { text: 'près de quatre-vingt mille personnes', opt: 'environ quatre-vingt mille personnes', kw: 'quatre-vingt mille' },
+  { text: 'plus de soixante mille visiteurs', opt: 'plus de soixante mille visiteurs', kw: 'soixante mille' },
+  { text: 'environ soixante-quinze mille personnes', opt: 'environ soixante-quinze mille personnes', kw: 'soixante-quinze mille' },
 ]
 const N4_FESTIVAL_DAYS = ['dix jours de festivités en ville', 'huit journées de spectacles dehors', 'neuf soirs de concerts sur le fleuve', 'cinq jours d’activités familiales']
 const N4_FESTIVAL_HIGHS = [
@@ -2770,16 +2784,16 @@ const N4_FESTIVAL_HIGHS = [
 
 const N4_DIRECT_DEPOSIT_DEPTS = ['au service de la paie', 'à la direction des ressources humaines', 'au bureau de la comptabilité générale', 'au secrétariat des avantages sociaux']
 const N4_DIRECT_DEPOSIT_DOCS = [
-  { text: 'un spécimen de chèque de votre compte', opt: 'un spécimen de chèque bancaire' },
-  { text: 'un document de confirmation bancaire officiel', opt: 'une confirmation bancaire officielle' },
-  { text: 'un formulaire de prélèvement avec signature', opt: 'un formulaire bancaire signé' },
-  { text: 'une attestation de dépôt fournie par la caisse', opt: 'une attestation de compte bancaire' },
+  { text: 'un spécimen de chèque de votre compte', opt: 'un spécimen de chèque bancaire', kw: 'chèque' },
+  { text: 'un document de confirmation bancaire officiel', opt: 'une confirmation bancaire officielle', kw: 'confirmation' },
+  { text: 'un formulaire de prélèvement avec signature', opt: 'un formulaire bancaire signé', kw: 'formulaire' },
+  { text: 'une attestation de dépôt fournie par la caisse', opt: 'une attestation de compte bancaire', kw: 'attestation' },
 ]
 const N4_DIRECT_DEPOSIT_DELAYS = [
-  { text: 'deux semaines après la réception', opt: 'environ deux semaines de délai' },
-  { text: 'dix jours ouvrables suivant l’envoi', opt: 'dix jours ouvrables après envoi' },
-  { text: 'quinze jours avant le prochain paiement', opt: 'quinze jours avant le paiement' },
-  { text: 'environ trois semaines pour le traitement', opt: 'trois semaines complètes de délai' },
+  { text: 'deux semaines après la réception', opt: 'environ deux semaines de délai', kw: 'deux semaines' },
+  { text: 'dix jours ouvrables suivant l’envoi', opt: 'dix jours ouvrables après envoi', kw: 'dix jours' },
+  { text: 'quinze jours avant le prochain paiement', opt: 'quinze jours avant le paiement', kw: 'quinze jours' },
+  { text: 'environ trois semaines pour le traitement', opt: 'trois semaines complètes de délai', kw: 'trois semaines' },
 ]
 const N4_DIRECT_DEPOSIT_BENEFITS = [
   { text: 'recevoir son salaire sans aucun déplacement', opt: 'recevoir son salaire sans déplacement' },
@@ -2792,16 +2806,16 @@ const N4_ECOCENTER_CITIES = ['de la Ville de Québec', 'de l’agglomération de
 const N4_ECOCENTER_PERIODS = ['du premier mai au trente et un octobre', 'du premier avril au quinze novembre', 'du quinze mai au trente septembre', 'du premier juin au trente et un août']
 const N4_ECOCENTER_HOURS = ['du mardi au dimanche de 8 h à 18 h', 'du mercredi au dimanche de 9 h à 17 h', 'du jeudi au lundi de 8 h 30 à 16 h 30', 'du mardi au samedi de 10 h à 18 h']
 const N4_ECOCENTER_ACCEPTED = [
-  { text: 'des résidus de rénovation et des branches', opt: 'des résidus de bois et des branches' },
-  { text: 'des appareils ménagers et des métaux', opt: 'des vieux appareils et des métaux' },
-  { text: 'des cartons pliés et des pots de peinture', opt: 'des cartons et des restes de peinture' },
-  { text: 'des appareils électroniques et vieux câbles', opt: 'du matériel électronique et des fils' },
+  { text: 'des résidus de rénovation et des branches', opt: 'des résidus de bois et des branches', kw: 'branches' },
+  { text: 'des appareils ménagers et des métaux', opt: 'des vieux appareils et des métaux', kw: 'métaux' },
+  { text: 'des cartons pliés et des pots de peinture', opt: 'des cartons et des restes de peinture', kw: 'peinture' },
+  { text: 'des appareils électroniques et vieux câbles', opt: 'du matériel électronique et des fils', kw: 'câbles' },
 ]
 const N4_ECOCENTER_REQUIRED = [
-  { text: 'une preuve de résidence avec adresse locale', opt: 'une preuve de résidence municipale' },
-  { text: 'un permis de conduire avec adresse à jour', opt: 'un permis de conduire à bonne adresse' },
-  { text: 'un compte de taxes ou facture municipale', opt: 'un compte de taxes ou reçu municipal' },
-  { text: 'une carte de citoyen délivrée par la mairie', opt: 'une carte citoyenne de la mairie' },
+  { text: 'une preuve de résidence avec adresse locale', opt: 'une preuve de résidence municipale', kw: 'résidence' },
+  { text: 'un permis de conduire avec adresse à jour', opt: 'un permis de conduire à bonne adresse', kw: 'permis' },
+  { text: 'un compte de taxes ou facture municipale', opt: 'un compte de taxes ou reçu municipal', kw: 'taxes' },
+  { text: 'une carte de citoyen délivrée par la mairie', opt: 'une carte citoyenne de la mairie', kw: 'citoyen' },
 ]
 
 export const N04_R_0 = [
@@ -2819,8 +2833,8 @@ export const N04_R_0 = [
       return {
         text,
         questions: [
-          ['Combien le locataire doit-il payer chaque mois ?', `${rent} par mois`, `${othersRent[0]} par mois`, `${othersRent[1]} par mois`],
-          ['Quelle est la période de location couverte par ce bail ?', period.opt, othersPeriod[0].opt, othersPeriod[1].opt],
+          q('Combien le locataire doit-il payer chaque mois ?', `${rent} par mois`, `${othersRent[0]} par mois`, `${othersRent[1]} par mois`, [rent.split(' ')[0]]),
+          q('Quelle est la période de location couverte par ce bail ?', period.opt, othersPeriod[0].opt, othersPeriod[1].opt, [period.kw]),
         ],
       }
     },
@@ -2839,8 +2853,8 @@ export const N04_R_0 = [
       return {
         text,
         questions: [
-          ['Quelle manifestation culturelle fait l’objet de cet article ?', fest.opt, othersFest[0].opt, othersFest[1].opt],
-          ['Combien de spectateurs ont pris part à cet évènement ?', crowd.opt, othersCrowd[0].opt, othersCrowd[1].opt],
+          q('Quelle manifestation culturelle fait l’objet de cet article ?', fest.opt, othersFest[0].opt, othersFest[1].opt, [fest.kw]),
+          q('Combien de spectateurs ont pris part à cet évènement ?', crowd.opt, othersCrowd[0].opt, othersCrowd[1].opt, [crowd.kw]),
         ],
       }
     },
@@ -2859,8 +2873,8 @@ export const N04_R_0 = [
       return {
         text,
         questions: [
-          ['Quel document financier faut-il joindre au formulaire ?', doc.opt, othersDoc[0].opt, othersDoc[1].opt],
-          ['Quel est le délai prévu pour la mise en place du service ?', delay.opt, othersDelay[0].opt, othersDelay[1].opt],
+          q('Quel document financier faut-il joindre au formulaire ?', doc.opt, othersDoc[0].opt, othersDoc[1].opt, [doc.kw]),
+          q('Quel est le délai prévu pour la mise en place du service ?', delay.opt, othersDelay[0].opt, othersDelay[1].opt, [delay.kw]),
         ],
       }
     },
@@ -2880,8 +2894,8 @@ export const N04_R_0 = [
       return {
         text,
         questions: [
-          ['Quelles matières les citoyens peuvent-ils apporter sans frais ?', accepted.opt, othersAccept[0].opt, othersAccept[1].opt],
-          ['Quel document officiel faut-il présenter pour entrer sur le site ?', req.opt, othersReq[0].opt, othersReq[1].opt],
+          q('Quelles matières les citoyens peuvent-ils apporter sans frais ?', accepted.opt, othersAccept[0].opt, othersAccept[1].opt, [accepted.kw]),
+          q('Quel document officiel faut-il présenter pour entrer sur le site ?', req.opt, othersReq[0].opt, othersReq[1].opt, [req.kw]),
         ],
       }
     },
@@ -2892,8 +2906,8 @@ export const N04_R_0 = [
     situation: 0,
     text: 'Avis officiel de renouvellement de bail. Madame Bergeron vous informe que le loyer de votre trois et demie au 820 rue Saint-Vallier sera ajusté de trente dollars pour atteindre 950 dollars dès le premier juillet. Vous disposez d’un délai d’un mois après réception pour accepter ou refuser cette hausse par écrit.',
     questions: [
-      ['De quel montant le loyer sera-t-il augmenté selon cet avis ?', 'de trente dollars de plus par mois', 'de quatre-vingts dollars de plus par mois', 'de quinze dollars de plus chaque mois'],
-      ['Quel délai le locataire a-t-il pour envoyer sa réponse ?', 'trente jours pour transmettre sa décision', 'trois mois complets pour donner une réponse', 'deux semaines ouvrables après la réception'],
+      q('De quel montant le loyer sera-t-il augmenté selon cet avis ?', 'de trente dollars de plus par mois', 'de quatre-vingts dollars de plus par mois', 'de quinze dollars de plus chaque mois', ['trente dollars']),
+      q('Quel délai le locataire a-t-il pour envoyer sa réponse ?', 'trente jours pour transmettre sa décision', 'trois mois complets pour donner une réponse', 'deux semaines ouvrables après la réception', ['un mois']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Bilan de la Fête des neiges au parc Jean-Drapeau
@@ -2901,8 +2915,8 @@ export const N04_R_0 = [
     situation: 1,
     text: 'Revue municipale : bilan de la Fête des neiges. Plus de quarante-cinq mille personnes se sont rassemblées au parc Jean-Drapeau durant trois fins de semaine d’hiver. Les glissades sur tube, les ateliers de sculpture sur neige et la distribution de chocolat chaud ont fait la joie des petits et des grands.',
     questions: [
-      ['Où cette fête d’hiver populaire s’est-elle tenue à Montréal ?', 'au parc Jean-Drapeau', 'au parc La Fontaine', 'au parc du Mont-Royal'],
-      ['Quelles attractions hivernales ont notamment diverti le public ?', 'des glissades et des sculptures sur neige', 'des courses de traîneaux à chiens rapides', 'des tournois de hockey sur patinoire couverte'],
+      q('Où cette fête d’hiver populaire s’est-elle tenue à Montréal ?', 'au parc Jean-Drapeau', 'au parc La Fontaine', 'au parc du Mont-Royal', ['jean-drapeau']),
+      q('Quelles attractions hivernales ont notamment diverti le public ?', 'des glissades et des sculptures sur neige', 'des courses de traîneaux à chiens rapides', 'des tournois de hockey sur patinoire couverte', ['glissades']),
     ],
   },
 ]
@@ -2915,33 +2929,41 @@ const N4_CRAFT_WORKSHOPS = [
     name: 'un cours de menuiserie pour débutants',
     topic: 'la fabrication d’objets simples en bois',
     topicOpt: 'la menuiserie et le travail du bois',
+    kwTopic: 'bois',
     dur: 'six semaines en soirée',
     req: 'le matériel et les outils sont fournis',
     reqOpt: 'les outils sont fournis sur place',
+    kwReq: 'outils',
   },
   {
     name: 'un atelier de couture et retouche',
     topic: 'la réparation de vêtements et le tricot',
     topicOpt: 'la couture et la retouche de vêtements',
+    kwTopic: 'tricot',
     dur: 'cinq semaines le samedi matin',
     req: 'les machines à coudre sont prêtées',
     reqOpt: 'les machines sont prêtées sur place',
+    kwReq: 'machines',
   },
   {
     name: 'un cours de poterie artisanale',
     topic: 'le modelage de l’argile et la cuisson',
     topicOpt: 'la poterie et le modelage de l’argile',
+    kwTopic: 'argile',
     dur: 'quatre semaines le mardi soir',
     req: 'toute la terre glaise est comprise',
     reqOpt: 'l’argile est incluse dans l’atelier',
+    kwReq: 'terre glaise',
   },
   {
     name: 'un atelier de photographie numérique',
     topic: 'les réglages de base et le cadrage',
     topicOpt: 'la photographie et les prises de vue',
+    kwTopic: 'cadrage',
     dur: 'trois semaines le jeudi soir',
     req: 'un appareil photo est mis à disposition',
     reqOpt: 'un appareil photo est prêté au groupe',
+    kwReq: 'appareil photo',
   },
 ]
 const N4_CRAFT_CENTERS = [
@@ -2968,33 +2990,41 @@ const N4_FAIR_EVENTS = [
     name: 'le Salon des métiers d’art régionaux',
     craft: 'des céramiques faites à la main',
     craftOpt: 'de la poterie façonnée à la main',
+    kwCraft: 'céramiques',
     time: 'de dix heures à dix-huit heures',
     bonus: 'des démonstrations gratuites de tournage',
     bonOpt: 'des démonstrations d’artisans sur place',
+    kwBon: 'tournage',
   },
   {
     name: 'la Foire d’automne des artisans locaux',
     craft: 'des confections en laine du pays',
     craftOpt: 'des tricots en laine et tissus locaux',
+    kwCraft: 'laine',
     time: 'de neuf heures à dix-sept heures',
     bonus: 'des dégustations de confitures maison',
     bonOpt: 'des dégustations de produits maison',
+    kwBon: 'confitures',
   },
   {
     name: 'le Marché des créateurs indépendants',
     craft: 'des bijoux en bois sculpté et cuir',
     craftOpt: 'des bijoux et objets en bois sculpté',
+    kwCraft: 'bijoux',
     time: 'entre onze heures et dix-neuf heures',
     bonus: 'des activités de fabrication pour enfants',
     bonOpt: 'des activités manuelles pour enfants',
+    kwBon: 'enfants',
   },
   {
     name: 'l’Exposition annuelle du terroir québécois',
     craft: 'des savons naturels et produits doux',
     craftOpt: 'des savons naturels et soins corporels',
+    kwCraft: 'savons',
     time: 'de dix heures à dix-sept heures',
     bonus: 'des échanges avec les artisans d’ici',
     bonOpt: 'des échanges avec les artisans locaux',
+    kwBon: 'artisans',
   },
 ]
 const N4_FAIR_LOCS = [
@@ -3021,29 +3051,37 @@ const N4_TOUR_SITES = [
     site: 'du moulin à farine historique',
     item: 'la mouture du blé avec la roue à eau',
     itemOpt: 'la fabrication de farine au moulin à eau',
+    kwItem: 'mouture',
     taste: 'du pain chaud sorti du fournil',
     tasteOpt: 'une miche de pain tout juste cuite',
+    kwTaste: 'pain',
   },
   {
     site: 'de la ferme maraîchère biologique',
     item: 'la récolte de légumes sans produits chimiques',
     itemOpt: 'la récolte écologique de légumes frais',
+    kwItem: 'légumes',
     taste: 'du jus de légumes fraîchement pressé',
     tasteOpt: 'du jus frais préparé sur place',
+    kwTaste: 'jus',
   },
   {
     site: 'du verger éducatif familial',
     item: 'la taille et la culture des pommiers',
     itemOpt: 'la culture et la récolte des pommes',
+    kwItem: 'pommiers',
     taste: 'du jus de pomme chaud et des beignes',
     tasteOpt: 'du jus de pomme chaud avec des beignes',
+    kwTaste: 'beignes',
   },
   {
     site: 'de la miellerie artisanale de la vallée',
     item: 'le travail quotidien autour des ruches',
     itemOpt: 'le travail d’apiculture avec les ruches',
+    kwItem: 'ruches',
     taste: 'différentes variétés de miel local',
     tasteOpt: 'plusieurs sortes de miel de la ferme',
+    kwTaste: 'miel',
   },
 ]
 const N4_TOUR_DAYS = [
@@ -3070,8 +3108,10 @@ const N4_SPORT_CLUBS = [
     club: 'le club de marche nordique du parc',
     act: 'des promenades toniques avec des bâtons',
     actOpt: 'la marche rapide avec des bâtons',
+    kwAct: 'marche',
     sched: 'le mardi et le jeudi à dix heures',
     schedOpt: 'deux matinées par semaine à dix heures',
+    kwSched: 'mardi',
     ben: 'de renforcer son endurance en douceur',
     benOpt: 'renforcer son endurance en douceur',
   },
@@ -3079,8 +3119,10 @@ const N4_SPORT_CLUBS = [
     club: 'le groupe d’initiation à la course à pied',
     act: 'des séances progressives sur sentier',
     actOpt: 'la course à pied par étapes faciles',
+    kwAct: 'course à pied',
     sched: 'le samedi matin dès neuf heures',
     schedOpt: 'chaque samedi matin dès neuf heures',
+    kwSched: 'samedi',
     ben: 'd’atteindre cinq kilomètres sans fatigue',
     benOpt: 'progresser vers cinq kilomètres de course',
   },
@@ -3088,8 +3130,10 @@ const N4_SPORT_CLUBS = [
     club: 'les cours de yoga doux en plein air',
     act: 'des postures simples et de la respiration',
     actOpt: 'le yoga doux et des respirations',
+    kwAct: 'postures',
     sched: 'le dimanche matin à dix heures',
     schedOpt: 'le dimanche matin dès dix heures',
+    kwSched: 'dimanche',
     ben: 'de réduire les tensions accumulées',
     benOpt: 'diminuer les tensions de la semaine',
   },
@@ -3097,8 +3141,10 @@ const N4_SPORT_CLUBS = [
     club: 'l’atelier collectif de mise en forme',
     act: 'des étirements et du renforcement léger',
     actOpt: 'des étirements doux et du renforcement',
+    kwAct: 'étirements',
     sched: 'le mercredi soir à dix-huit heures',
     schedOpt: 'le mercredi en début de soirée',
+    kwSched: 'mercredi',
     ben: 'de garder la forme entre collègues',
     benOpt: 'maintenir sa forme physique en groupe',
   },
@@ -3135,8 +3181,8 @@ export const N04_R_1 = [
       return {
         text,
         questions: [
-          ['Quel apprentissage pratique est présenté dans cette annonce ?', w.topicOpt, others[0].topicOpt, others[1].topicOpt],
-          ['Quel avantage matériel est offert aux personnes inscrites ?', w.reqOpt, others[0].reqOpt, others[1].reqOpt],
+          q('Quel apprentissage pratique est présenté dans cette annonce ?', w.topicOpt, others[0].topicOpt, others[1].topicOpt, [w.kwTopic]),
+          q('Quel avantage matériel est offert aux personnes inscrites ?', w.reqOpt, others[0].reqOpt, others[1].reqOpt, [w.kwReq]),
         ],
       }
     },
@@ -3154,8 +3200,8 @@ export const N04_R_1 = [
       return {
         text,
         questions: [
-          ['Quels produits artisanaux sont mis en valeur à cet événement ?', f.craftOpt, others[0].craftOpt, others[1].craftOpt],
-          ['Quelle animation spéciale est proposée aux visiteurs sur place ?', f.bonOpt, others[0].bonOpt, others[1].bonOpt],
+          q('Quels produits artisanaux sont mis en valeur à cet événement ?', f.craftOpt, others[0].craftOpt, others[1].craftOpt, [f.kwCraft]),
+          q('Quelle animation spéciale est proposée aux visiteurs sur place ?', f.bonOpt, others[0].bonOpt, others[1].bonOpt, [f.kwBon]),
         ],
       }
     },
@@ -3173,8 +3219,8 @@ export const N04_R_1 = [
       return {
         text,
         questions: [
-          ['Quel aspect du site les visiteurs vont-ils explorer lors du tour ?', t.itemOpt, others[0].itemOpt, others[1].itemOpt],
-          ['Quelle dégustation conclut la visite commentée pour le groupe ?', t.tasteOpt, others[0].tasteOpt, others[1].tasteOpt],
+          q('Quel aspect du site les visiteurs vont-ils explorer lors du tour ?', t.itemOpt, others[0].itemOpt, others[1].itemOpt, [t.kwItem]),
+          q('Quelle dégustation conclut la visite commentée pour le groupe ?', t.tasteOpt, others[0].tasteOpt, others[1].tasteOpt, [t.kwTaste]),
         ],
       }
     },
@@ -3192,8 +3238,8 @@ export const N04_R_1 = [
       return {
         text,
         questions: [
-          ['Quelle pratique physique ce club propose-t-il aux participants ?', s.actOpt, others[0].actOpt, others[1].actOpt],
-          ['À quel moment les participants se rassemblent-ils pour l’activité ?', s.schedOpt, others[0].schedOpt, others[1].schedOpt],
+          q('Quelle pratique physique ce club propose-t-il aux participants ?', s.actOpt, others[0].actOpt, others[1].actOpt, [s.kwAct]),
+          q('À quel moment les participants se rassemblent-ils pour l’activité ?', s.schedOpt, others[0].schedOpt, others[1].schedOpt, [s.kwSched]),
         ],
       }
     },
@@ -3204,8 +3250,8 @@ export const N04_R_1 = [
     situation: 0,
     text: 'Atelier de loisirs créatifs. Le centre communautaire propose un cours d’initiation à la poterie traditionnelle cet automne. Les participants découvrent le modelage de la terre glaise, le façonnage sur tour électrique et la cuisson des pièces au four. Le matériel et l’argile sont entièrement fournis. La session dure six semaines, à raison d’une heure et demie par semaine.',
     questions: [
-      ['Quelle activité manuelle est présentée dans ce descriptif ?', 'un cours pratique de poterie traditionnelle', 'un cours théorique de dessin industriel', 'un atelier d’ébénisterie et de menuiserie'],
-      ['Quelle condition matérielle s’applique aux personnes inscrites ?', 'les outils et l’argile sont fournis au centre', 'chacun doit acheter son propre tour de potier', 'il faut obligatoirement apporter son matériel'],
+      q('Quelle activité manuelle est présentée dans ce descriptif ?', 'un cours pratique de poterie traditionnelle', 'un cours théorique de dessin industriel', 'un atelier d’ébénisterie et de menuiserie', ['poterie']),
+      q('Quelle condition matérielle s’applique aux personnes inscrites ?', 'les outils et l’argile sont fournis au centre', 'chacun doit acheter son propre tour de potier', 'il faut obligatoirement apporter son matériel', ['fournis']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Marché fermier hebdomadaire
@@ -3213,8 +3259,8 @@ export const N04_R_1 = [
     situation: 1,
     text: 'Vie de quartier. Le marché fermier du Vieux-Port revient chaque dimanche sur la place centrale. Une quinzaine de maraîchers de la région y vendent des légumes biologiques, des petits fruits frais, du pain artisanal et des fromages fermiers. Des musiciens locaux animent les allées entre dix heures et quatorze heures. L’accès est ouvert à tous.',
     questions: [
-      ['Quel genre d’événement hebdomadaire ce texte décrit-il ?', 'un marché fermier de produits du terroir', 'une compétition sportive intercollégiale', 'un salon professionnel de l’automobile'],
-      ['Quelle animation accompagne les emplettes des visiteurs ?', 'des musiciens locaux jouant dans les allées', 'des feux d’artifice tirés en plein jour', 'des conférences données par des experts'],
+      q('Quel genre d’événement hebdomadaire ce texte décrit-il ?', 'un marché fermier de produits du terroir', 'une compétition sportive intercollégiale', 'un salon professionnel de l’automobile', ['marché']),
+      q('Quelle animation accompagne les emplettes des visiteurs ?', 'des musiciens locaux jouant dans les allées', 'des feux d’artifice tirés en plein jour', 'des conférences données par des experts', ['musiciens']),
     ],
   },
 ]
@@ -3228,32 +3274,40 @@ const N4_CAMP_DESTS = [
     lodging: 'dans une tente près de la rivière',
     act: 'fait une belle randonnée pédestre dans la forêt',
     actOpt: 'une longue marche en forêt le long des sentiers',
+    kwAct: 'randonnée',
     eve: 'partagé un repas chaud autour du feu de camp',
     eveOpt: 'un repas très chaud partagé autour du feu',
+    kwEve: 'repas',
   },
   {
     place: 'au parc de la Jacques-Cartier',
     lodging: 'dans un petit chalet en bois rond',
     act: 'pagayé en canot sur les eaux calmes de la vallée',
     actOpt: 'une sortie en canot sur la rivière calme',
+    kwAct: 'canot',
     eve: 'admiré les étoiles sous un ciel très dégagé',
     eveOpt: 'l’observation des étoiles dans le ciel nocturne',
+    kwEve: 'étoiles',
   },
   {
     place: 'au bord du grand lac Saint-Jean',
     lodging: 'au camping municipal sur la berge',
     act: 'roulé à bicyclette le long de la piste cyclable',
     actOpt: 'une promenade à bicyclette sur la piste',
+    kwAct: 'bicyclette',
     eve: 'grillé des guimauves en écoutant de la musique',
     eveOpt: 'des guimauves grillées au son de la musique',
+    kwEve: 'guimauves',
   },
   {
     place: 'dans les collines de Charlevoix',
     lodging: 'dans un refuge perché dans les arbres',
     act: 'marché jusqu’au belvédère pour voir le fleuve',
     actOpt: 'une montée au belvédère surplombant le fleuve',
+    kwAct: 'belvédère',
     eve: 'joué à des jeux de société dans le salon',
     eveOpt: 'des parties de jeux de société en famille',
+    kwEve: 'jeux',
   },
 ]
 const N4_CAMP_WEATHERS = [
@@ -3279,34 +3333,42 @@ const N4_NEIGH_INCIDENTS = [
   {
     cause: 'une grosse branche d’arbre a cédé sous le vent fort',
     causeOpt: 'une branche d’arbre tombée sur la voie',
+    kwCause: 'branche',
     imp: 'le courant a été coupé pour plusieurs résidences',
     impOpt: 'une coupure de courant dans plusieurs résidences',
     sol: 'les équipes d’Hydro-Québec ont dégagé la rue et réparé les câbles',
     solOpt: 'les équipes d’urgence ont rétabli les câbles',
+    kwSol: 'câbles',
   },
   {
     cause: 'une canalisation d’eau a éclaté sous le trottoir',
     causeOpt: 'une fuite d’eau sous le trottoir du quartier',
+    kwCause: 'trottoir',
     imp: 'l’eau a été fermée pendant deux heures dans la rue',
     impOpt: 'une interruption d’eau durant deux heures',
     sol: 'les ouvriers municipaux ont réparé la conduite d’eau sans tarder',
     solOpt: 'les ouvriers ont colmaté la conduite d’eau',
+    kwSol: 'conduite',
   },
   {
     cause: 'un camion de livraison est tombé en panne au carrefour',
     causeOpt: 'un camion de livraison immobilisé au carrefour',
+    kwCause: 'camion',
     imp: 'les autobus ont dû faire un détour par une autre rue',
     impOpt: 'un détour obligatoire pour les autobus',
     sol: 'les agents de circulation ont dirigé les voitures et dégagé la voie',
     solOpt: 'les agents ont fait circuler les véhicules',
+    kwSol: 'voitures',
   },
   {
     cause: 'un conteneur de recyclage s’est renversé sur la route',
-    causeOpt: 'des boîtes de recyclage renversées par le vent',
+    causeOpt: 'un conteneur de recyclage renversé sur la route',
+    kwCause: 'conteneur',
     imp: 'des cartons et papiers se sont éparpillés sur l’asphalte',
     impOpt: 'des cartons dispersés sur toute la chaussée',
     sol: 'les voisins se sont rassemblés pour tout ramasser avec des balais',
     solOpt: 'les voisins ont nettoyé la chaussée ensemble',
+    kwSol: 'balais',
   },
 ]
 const N4_NEIGH_AREAS_2 = [
@@ -3332,34 +3394,42 @@ const N4_MOVE_BUNDLES = [
   {
     help: 'mon cousin et deux amis d’enfance',
     helpOpt: 'un cousin et des amis proches du quartier',
+    kwHelp: 'cousin',
     load: 'chargé le camion de boîtes et de meubles',
     loadOpt: 'remplir le camion de meubles et de boîtes',
     meal: 'partagé une bonne pizza assis sur des cartons',
     mealOpt: 'une bonne pizza partagée sur les boîtes',
+    kwMeal: 'pizza',
   },
   {
     help: 'trois collègues de travail très serviables',
     helpOpt: 'trois collègues de bureau très serviables',
+    kwHelp: 'collègues',
     load: 'descendu les lits et le réfrigérateur au bas de l’édifice',
     loadOpt: 'descendre les gros meubles par l’escalier',
     meal: 'dégusté des sandwichs frais avec du jus',
     mealOpt: 'des sandwichs frais avec des jus de fruits',
+    kwMeal: 'sandwichs',
   },
   {
     help: 'mes deux frères et une voisine sympathique',
     helpOpt: 'ses deux frères et une voisine serviable',
+    kwHelp: 'frères',
     load: 'transporté la vaisselle et les armoires en bois',
     loadOpt: 'transporter les armoires et la vaisselle',
     meal: 'mangé des salades préparées à la maison',
     mealOpt: 'de bonnes salades fraîches préparées à la maison',
+    kwMeal: 'salades',
   },
   {
     help: 'des compagnons de mon club de sport',
     helpOpt: 'des amis sportifs rencontrés au club local',
+    kwHelp: 'club de sport',
     load: 'rempli la remorque avec tous les appareils ménagers',
     loadOpt: 'charger les appareils ménagers dans la remorque',
     meal: 'commandé des poutines chaudes au restaurant',
     mealOpt: 'une poutine chaude commandée au restaurant',
+    kwMeal: 'poutines',
   },
 ]
 const N4_MOVE_APTS = [
@@ -3387,32 +3457,40 @@ const N4_SNOW_BUNDLES = [
     dropOpt: 'une accumulation de trente centimètres de neige',
     trouble: 'ma voiture est restée coincée dans l’entrée',
     troubOpt: 'sa voiture est restée prise dans l’entrée',
+    kwTrouble: 'voiture',
     helper: 'mon voisin est venu avec sa souffleuse à neige',
     helpOpt: 'un voisin avec sa souffleuse à neige',
+    kwHelper: 'souffleuse',
   },
   {
     drop: 'une importante chute de neige et des rafales',
     dropOpt: 'une tempête de neige aux vents violents',
     trouble: 'un épais banc de neige bloquait notre porte de cour',
     troubOpt: 'un banc de neige bloquant la porte de cour',
+    kwTrouble: 'bloquait',
     helper: 'deux jeunes du quartier sont arrivés avec des pelles',
     helpOpt: 'deux jeunes du quartier avec de grandes pelles',
+    kwHelper: 'pelles',
   },
   {
     drop: 'vingt-cinq centimètres tombés pendant la nuit',
     dropOpt: 'vingt-cinq centimètres de neige fraîche',
     trouble: 'les roues de mon véhicule patinaient sur la glace',
     troubOpt: 'les roues de son auto patinant sur la glace',
+    kwTrouble: 'patinaient',
     helper: 'une passante m’a prêté un sac de sel et de sable',
     helpOpt: 'une passante lui prêtant du sable et du sel',
+    kwHelper: 'sable',
   },
   {
     drop: 'un blizzard intense durant la matinée',
     dropOpt: 'un blizzard intense durant la matinée',
     trouble: 'le stationnement était complètement recouvert de blanc',
     troubOpt: 'le stationnement couvert d’une épaisse couche',
+    kwTrouble: 'stationnement',
     helper: 'le concierge est venu déblayer l’accès avec son tracteur',
     helpOpt: 'le concierge avec son petit tracteur à neige',
+    kwHelper: 'tracteur',
   },
 ]
 const N4_SNOW_CITIES = [
@@ -3447,8 +3525,8 @@ export const N04_R_2 = [
       return {
         text,
         questions: [
-          ['Quelle activité de jour les vacanciers ont-ils pratiquée ?', d.actOpt, others[0].actOpt, others[1].actOpt],
-          ['Comment le groupe a-t-il passé sa soirée en plein air ?', d.eveOpt, others[0].eveOpt, others[1].eveOpt],
+          q('Quelle activité de jour les vacanciers ont-ils pratiquée ?', d.actOpt, others[0].actOpt, others[1].actOpt, [d.kwAct]),
+          q('Comment le groupe a-t-il passé sa soirée en plein air ?', d.eveOpt, others[0].eveOpt, others[1].eveOpt, [d.kwEve]),
         ],
       }
     },
@@ -3466,8 +3544,8 @@ export const N04_R_2 = [
       return {
         text,
         questions: [
-          ['Quel problème a perturbé la vie normale du quartier ?', b.causeOpt, others[0].causeOpt, others[1].causeOpt],
-          ['Comment les intervenants ont-ils réglé cette situation ?', b.solOpt, others[0].solOpt, others[1].solOpt],
+          q('Quel problème a perturbé la vie normale du quartier ?', b.causeOpt, others[0].causeOpt, others[1].causeOpt, [b.kwCause]),
+          q('Comment les intervenants ont-ils réglé cette situation ?', b.solOpt, others[0].solOpt, others[1].solOpt, [b.kwSol]),
         ],
       }
     },
@@ -3485,8 +3563,8 @@ export const N04_R_2 = [
       return {
         text,
         questions: [
-          ['Qui est venu prêter main-forte pour ce déménagement ?', m.helpOpt, others[0].helpOpt, others[1].helpOpt],
-          ['Quel repas réconfortant le groupe a-t-il partagé à midi ?', m.mealOpt, others[0].mealOpt, others[1].mealOpt],
+          q('Qui est venu prêter main-forte pour ce déménagement ?', m.helpOpt, others[0].helpOpt, others[1].helpOpt, [m.kwHelp]),
+          q('Quel repas réconfortant le groupe a-t-il partagé à midi ?', m.mealOpt, others[0].mealOpt, others[1].mealOpt, [m.kwMeal]),
         ],
       }
     },
@@ -3504,8 +3582,8 @@ export const N04_R_2 = [
       return {
         text,
         questions: [
-          ['Quel désagrément hivernal la personne a-t-elle vécu le matin ?', s.troubOpt, others[0].troubOpt, others[1].troubOpt],
-          ['Qui est intervenu pour aider à déneiger le secteur ?', s.helpOpt, others[0].helpOpt, others[1].helpOpt],
+          q('Quel désagrément hivernal la personne a-t-elle vécu le matin ?', s.troubOpt, others[0].troubOpt, others[1].troubOpt, [s.kwTrouble]),
+          q('Qui est intervenu pour aider à déneiger le secteur ?', s.helpOpt, others[0].helpOpt, others[1].helpOpt, [s.kwHelper]),
         ],
       }
     },
@@ -3516,8 +3594,8 @@ export const N04_R_2 = [
     situation: 0,
     text: 'Anecdote de famille. Dimanche passé, je suis allé à la plage du parc avec les enfants. Le soleil était magnifique, mais l’eau du lac était encore un peu froide. On a quand même passé une très belle journée. Les enfants ont bâti un grand château de sable et ramassé de petits coquillages. Nous avons terminé l’après-midi avec une bonne crème glacée à la vanille.',
     questions: [
-      ['Quelle activité les enfants ont-ils faite au bord de l’eau ?', 'construire un château de sable sur la plage', 'faire une promenade en chaloupe sur les vagues', 'pêcher tranquillement des poissons sur le quai'],
-      ['Quelle gourmandise ont-ils savourée avant de partir ?', 'une glace rafraîchissante à la vanille', 'un sac de friandises acheté au dépanneur', 'un chocolat chaud dans un café voisin'],
+      q('Quelle activité les enfants ont-ils faite au bord de l’eau ?', 'construire un château de sable sur la plage', 'faire une promenade en chaloupe sur les vagues', 'pêcher tranquillement des poissons sur le quai', ['château de sable']),
+      q('Quelle gourmandise ont-ils savourée avant de partir ?', 'une glace rafraîchissante à la vanille', 'un sac de friandises acheté au dépanneur', 'un chocolat chaud dans un café voisin', ['crème glacée']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Bris d'aqueduc devant l'école
@@ -3525,8 +3603,8 @@ export const N04_R_2 = [
     situation: 1,
     text: 'Nouvelle locale. Hier matin vers huit heures, un bris d’aqueduc est survenu sur la rue devant l’école primaire. L’eau s’est rapidement écoulée sur la chaussée et le trottoir. Par mesure de prudence, la directrice a demandé aux élèves de passer par la porte arrière. Les ouvriers municipaux sont arrivés en vingt minutes pour couper la valve d’eau et réparer la canalisation. Tout est rentré dans l’ordre avant midi.',
     questions: [
-      ['Quel problème municipal a perturbé l’accès à l’école ?', 'un bris d’aqueduc provoquant une fuite d’eau', 'une panne générale de courant dans les locaux', 'une chute importante de verglas sur la toiture'],
-      ['Quelle consigne temporaire la directrice a-t-elle donnée ?', 'faire entrer les élèves par la porte arrière', 'fermer complètement l’établissement scolaire', 'déplacer toutes les classes dans une autre école'],
+      q('Quel problème municipal a perturbé l’accès à l’école ?', 'un bris d’aqueduc provoquant une fuite d’eau', 'une panne générale de courant dans les locaux', 'une chute importante de verglas sur la toiture', ['bris d’aqueduc']),
+      q('Quelle consigne temporaire la directrice a-t-elle donnée ?', 'faire entrer les élèves par la porte arrière', 'fermer complètement l’établissement scolaire', 'déplacer toutes les classes dans une autre école', ['porte arrière']),
     ],
   },
 ]
@@ -3539,22 +3617,30 @@ const N4_BANK_FRAUD_BUNDLES = [
   {
     trick: 'des textos affirmant que votre carte est bloquée',
     trickOpt: 'des textos annonçant un faux blocage de carte',
+    kwTrick: 'textos',
     trap: 'un faux lien vers une page demandant votre mot de passe',
+    kwTrap: 'mot de passe',
   },
   {
     trick: 'des courriels signalant un faux virement en attente',
     trickOpt: 'des courriels mentionnant un virement en attente',
+    kwTrick: 'courriels',
     trap: 'un formulaire vous réclamant votre numéro d’assurance',
+    kwTrap: 'assurance',
   },
   {
     trick: 'des appels automatiques demandant de rappeler d’urgence',
     trickOpt: 'des appels automatiques exigeant un rappel rapide',
+    kwTrick: 'appels',
     trap: 'un répondeur vous invitant à taper votre code secret',
+    kwTrap: 'secret',
   },
   {
     trick: 'des messages prétextant une mise à jour obligatoire',
     trickOpt: 'des messages exigeant une mise à jour immédiate',
+    kwTrick: 'mise à jour',
     trap: 'un bouton pour saisir vos coordonnées bancaires',
+    kwTrap: 'coordonnées',
   },
 ]
 const N4_BANK_RULES = [
@@ -3564,10 +3650,10 @@ const N4_BANK_RULES = [
   'Ignorez ces demandes inhabituelles sans y répondre.',
 ]
 const N4_BANK_CONTACTS = [
-  { act: 'appelez le numéro officiel au verso de votre carte', actOpt: 'appeler le numéro officiel au dos de sa carte' },
-  { act: 'joignez le service à la clientèle par l’application', actOpt: 'utiliser l’application officielle de la banque' },
-  { act: 'rendez-vous directement à votre succursale locale', actOpt: 'se présenter en succursale auprès d’un conseiller' },
-  { act: 'écrivez au bureau de sécurité de votre institution', actOpt: 'signaler le message au bureau de sécurité' },
+  { act: 'appelez le numéro officiel au verso de votre carte', actOpt: 'appeler le numéro officiel au dos de sa carte', kwAct: 'numéro' },
+  { act: 'joignez le service à la clientèle par l’application', actOpt: 'utiliser l’application officielle de la banque', kwAct: 'application' },
+  { act: 'rendez-vous directement à votre succursale locale', actOpt: 'se présenter en succursale auprès d’un conseiller', kwAct: 'succursale' },
+  { act: 'écrivez au bureau de sécurité de votre institution', actOpt: 'signaler le message au bureau de sécurité', kwAct: 'sécurité' },
 ]
 
 const N4_WORK_INCIDENTS = [
@@ -3575,37 +3661,45 @@ const N4_WORK_INCIDENTS = [
     place: 'dans la salle des serveurs au deuxième niveau',
     cause: 'une surchauffe temporaire du système de climatisation',
     causeOpt: 'une surchauffe de la climatisation des serveurs',
+    kwCause: 'climatisation',
     imp: 'l’accès au portail interne a été ralenti durant une heure',
     impOpt: 'un ralentissement du portail durant une heure',
     sol: 'les techniciens ont rétabli la ventilation et tout fonctionne',
     solOpt: 'les équipes ont remis la ventilation en marche',
+    kwSol: 'ventilation',
   },
   {
     place: 'dans l’atelier d’emballage du centre de tri',
     cause: 'le blocage mécanique d’un rouleau sur la chaîne de tri',
     causeOpt: 'un blocage mécanique sur la chaîne d’emballage',
+    kwCause: 'rouleau',
     imp: 'le traitement des colis a été suspendu pendant quarante minutes',
     impOpt: 'une interruption de quarante minutes au tri des colis',
     sol: 'l’équipe de maintenance a remplacé la courroie et relancé l’atelier',
     solOpt: 'l’équipe a remplacé la courroie défectueuse',
+    kwSol: 'courroie',
   },
   {
     place: 'au comptoir de la cafétéria du personnel',
     cause: 'une fuite d’eau sous un appareil de cuisson ce matin',
     causeOpt: 'une fuite d’eau sous un équipement de cuisson',
+    kwCause: 'cuisson',
     imp: 'le service du repas chaud a été retardé d’une demi-heure',
     impOpt: 'un retard d’une demi-heure pour le repas du midi',
     sol: 'le plombier a colmaté la conduite et le dîner a pu être servi',
     solOpt: 'le plombier a colmaté la conduite d’eau rapidement',
+    kwSol: 'plombier',
   },
   {
     place: 'dans l’entrepôt principal de notre succursale',
     cause: 'la panne d’un chariot élévateur bloquant l’allée centrale',
     causeOpt: 'un bris de chariot élévateur dans l’allée',
+    kwCause: 'chariot élévateur',
     imp: 'la préparation des commandes a pris quarante-cinq minutes de retard',
     impOpt: 'un retard de quarante-cinq minutes sur les commandes',
     sol: 'les caristes ont déplacé le véhicule et dégagé le passage',
     solOpt: 'les employés ont déplacé l’appareil en panne',
+    kwSol: 'véhicule',
   },
 ]
 const N4_WORK_NOTES = [
@@ -3627,32 +3721,40 @@ const N4_SNOW_ALERT_BUNDLES = [
     trigger: 'le déclenchement des gyrophares de nuit',
     rule: 'stationnez uniquement du côté des numéros pairs',
     ruleOpt: 'se garer seulement du côté des numéros pairs',
+    kwRule: 'pairs',
     penalty: 'le remorquage du véhicule et une amende',
     penOpt: 'le remorquage du véhicule avec une amende',
+    kwPen: 'remorquage',
   },
   {
     city: 'de l’arrondissement de Rosemont',
     trigger: 'le retentissement de la sirène de déneigement',
     rule: 'libérez complètement le côté de la rue indiqué',
     ruleOpt: 'libérer totalement le côté de rue indiqué',
+    kwRule: 'libérez',
     penalty: 'un constat d’infraction déposé sur le pare-brise',
     penOpt: 'un constat d’infraction sur le pare-brise',
+    kwPen: 'constat',
   },
   {
     city: 'de la municipalité de Lévis',
     trigger: 'l’affichage des feux clignotants orange',
     rule: 'utilisez les stationnements municipaux gratuits',
     ruleOpt: 'utiliser les espaces municipaux sans frais',
-    penalty: 'un déplacement du véhicule vers une autre rue',
-    penOpt: 'le déplacement forcé du véhicule par dépanneuse',
+    kwRule: 'municipaux',
+    penalty: 'la suspension temporaire de votre vignette de stationnement',
+    penOpt: 'la suspension temporaire de sa vignette municipale',
+    kwPen: 'vignette',
   },
   {
     city: 'de la ville de Gatineau',
     trigger: 'l’annonce d’une opération de chargement de neige',
     rule: 'garez votre auto du côté impair de la chaussée',
     ruleOpt: 'stationner son auto du côté impair seulement',
-    penalty: 'des frais de remorquage imposés au propriétaire',
-    penOpt: 'des frais de remorquage facturés au propriétaire',
+    kwRule: 'impair',
+    penalty: 'la pose d’un sabot de blocage sur une roue',
+    penOpt: 'la pose d’un sabot de blocage de roue',
+    kwPen: 'sabot',
   },
 ]
 const N4_SNOW_ALERT_HOURS = [
@@ -3679,37 +3781,45 @@ const N4_FACILITY_BUNDLES = [
     place: 'la piscine municipale du quartier',
     cause: 'la réfection des filtres de traitement d’eau',
     causeOpt: 'changer les filtres du circuit d’eau',
+    kwCause: 'filtres',
     dur: 'du lundi douze au vendredi seize novembre',
     durOpt: 'une fermeture du lundi au vendredi inclus',
     alt: 'au centre aquatique de l’Est situé à deux kilomètres',
     altOpt: 'au centre aquatique voisin à deux kilomètres',
+    kwAlt: 'aquatique',
   },
   {
     place: 'la bibliothèque centrale de la ville',
     cause: 'le vernissage et la rénovation des planchers de bois',
     causeOpt: 'la rénovation des planchers dans les salles',
+    kwCause: 'planchers',
     dur: 'du trois au huit octobre inclusivement',
     durOpt: 'une période de fermeture de six jours complets',
     alt: 'à la bibliothèque de quartier pour emprunter des livres',
     altOpt: 'à la succursale de quartier pour les prêts',
+    kwAlt: 'bibliothèque',
   },
   {
     place: 'l’aréna communautaire des sports',
     cause: 'l’entretien planifié du compresseur de la glace',
     causeOpt: 'la maintenance annuelle sur la machinerie de glace',
+    kwCause: 'compresseur',
     dur: 'pendant quatre jours à compter de mercredi',
     durOpt: 'un arrêt temporaire de quatre journées de travail',
     alt: 'sur la patinoire extérieure du grand parc',
     altOpt: 'sur l’anneau de glace extérieur du grand parc',
+    kwAlt: 'patinoire',
   },
   {
     place: 'la maison de quartier Saint-Roch',
     cause: 'la mise aux normes du tableau électrique principal',
     causeOpt: 'la mise aux normes de l’installation électrique',
+    kwCause: 'électrique',
     dur: 'pour toute la fin de semaine à venir',
     durOpt: 'un arrêt des services pour la fin de semaine',
     alt: 'au pavillon des loisirs pour les ateliers habituels',
-    altOpt: 'dans la salle polyvalente du secteur',
+    altOpt: 'au pavillon des loisirs du quartier',
+    kwAlt: 'pavillon',
   },
 ]
 const N4_FACILITY_HEADS = [
@@ -3745,8 +3855,8 @@ export const N04_R_3 = [
       return {
         text,
         questions: [
-          ['Quel stratagème frauduleux est dénoncé dans cet avis bancaire ?', f.trickOpt, othersF[0].trickOpt, othersF[1].trickOpt],
-          ['Quelle consigne est recommandée au client en cas d’hésitation ?', c.actOpt, othersC[0].actOpt, othersC[1].actOpt],
+          q('Quel stratagème frauduleux est dénoncé dans cet avis bancaire ?', f.trickOpt, othersF[0].trickOpt, othersF[1].trickOpt, [f.kwTrick]),
+          q('Quelle consigne est recommandée au client en cas d’hésitation ?', c.actOpt, othersC[0].actOpt, othersC[1].actOpt, [c.kwAct]),
         ],
       }
     },
@@ -3763,8 +3873,8 @@ export const N04_R_3 = [
       return {
         text,
         questions: [
-          ['Quelle a été la cause de cet incident au travail ce matin ?', b.causeOpt, others[0].causeOpt, others[1].causeOpt],
-          ['Comment le problème matériel a-t-il été résolu par l’équipe ?', b.solOpt, others[0].solOpt, others[1].solOpt],
+          q('Quelle a été la cause de cet incident au travail ce matin ?', b.causeOpt, others[0].causeOpt, others[1].causeOpt, [b.kwCause]),
+          q('Comment le problème matériel a-t-il été résolu par l’équipe ?', b.solOpt, others[0].solOpt, others[1].solOpt, [b.kwSol]),
         ],
       }
     },
@@ -3782,8 +3892,8 @@ export const N04_R_3 = [
       return {
         text,
         questions: [
-          ['Quelle consigne de stationnement doit être appliquée la nuit ?', a.ruleOpt, others[0].ruleOpt, others[1].ruleOpt],
-          ['Quel risque encourent les automobilistes qui ne respectent pas l’avis ?', a.penOpt, others[0].penOpt, others[1].penOpt],
+          q('Quelle consigne de stationnement doit être appliquée la nuit ?', a.ruleOpt, others[0].ruleOpt, others[1].ruleOpt, [a.kwRule]),
+          q('Quel risque encourent les automobilistes qui ne respectent pas l’avis ?', a.penOpt, others[0].penOpt, others[1].penOpt, [a.kwPen]),
         ],
       }
     },
@@ -3801,8 +3911,8 @@ export const N04_R_3 = [
       return {
         text,
         questions: [
-          ['Pour quel motif cette installation publique ferme-t-elle temporairement ?', fac.causeOpt, others[0].causeOpt, others[1].causeOpt],
-          ['Quelle alternative de proximité est suggérée aux usagers ?', fac.altOpt, others[0].altOpt, others[1].altOpt],
+          q('Pour quel motif cette installation publique ferme-t-elle temporairement ?', fac.causeOpt, others[0].causeOpt, others[1].causeOpt, [fac.kwCause]),
+          q('Quelle alternative de proximité est suggérée aux usagers ?', fac.altOpt, others[0].altOpt, others[1].altOpt, [fac.kwAlt]),
         ],
       }
     },
@@ -3813,8 +3923,8 @@ export const N04_R_3 = [
     situation: 0,
     text: 'Message de sécurité de votre caisse. Des courriels frauduleux circulent actuellement au nom de notre institution. Ces messages vous demandent de confirmer votre mot de passe pour débloquer votre accès en ligne. Sachez que notre institution ne demande jamais vos identifiants par courriel. Ne cliquez sur aucun hyperlien suspect. En cas de doute, composez directement le numéro inscrit au dos de votre carte de débit.',
     questions: [
-      ['Quel faux prétexte est utilisé par les fraudeurs ?', 'demander un mot de passe pour débloquer l’accès', 'proposer un prêt à taux réduit pour l’achat d’auto', 'offrir un remboursement pour des frais d’assurance'],
-      ['Quel bon réflexe est recommandé aux clients en cas de doute ?', 'appeler le numéro figurant au verso de la carte', 'envoyer une capture d’écran à ses collègues', 'changer immédiatement de téléphone cellulaire'],
+      q('Quel faux prétexte est utilisé par les fraudeurs ?', 'demander un mot de passe pour débloquer l’accès', 'proposer un prêt à taux réduit pour l’achat d’auto', 'offrir un remboursement pour des frais d’assurance', ['mot de passe']),
+      q('Quel bon réflexe est recommandé aux clients en cas de doute ?', 'appeler le numéro figurant au verso de la carte', 'envoyer une capture d’écran à ses collègues', 'changer immédiatement de téléphone cellulaire', ['numéro']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Panne d'ascenseur dans l'immeuble
@@ -3822,8 +3932,8 @@ export const N04_R_3 = [
     situation: 1,
     text: 'Avis aux résidents de l’immeuble. L’ascenseur principal est temporairement hors service depuis ce matin en raison d’une surchauffe du moteur de levage. Le technicien de la compagnie d’entretien est sur place pour changer la pièce endommagée. Nous prévoyons une remise en marche complète vers dix-sept heures. Pour les personnes à mobilité réduite, le monte-charge de service reste accessible avec l’aide du concierge.',
     questions: [
-      ['Quelle pièce mécanique a causé l’arrêt de l’ascenseur ?', 'une surchauffe sur le moteur de levage', 'un bris de câble au niveau du sous-sol', 'un bouton de commande cassé au rez-de-chaussée'],
-      ['Quelle solution d’aide est offerte aux personnes à mobilité réduite ?', 'utiliser le monte-charge avec le concierge', 'attendre dans le hall jusqu’à la fin des travaux', 'demander aux voisins de porter leurs sacs'],
+      q('Quelle pièce mécanique a causé l’arrêt de l’ascenseur ?', 'une surchauffe sur le moteur de levage', 'un bris de câble au niveau du sous-sol', 'un bouton de commande cassé au rez-de-chaussée', ['moteur de levage']),
+      q('Quelle solution d’aide est offerte aux personnes à mobilité réduite ?', 'utiliser le monte-charge avec le concierge', 'attendre dans le hall jusqu’à la fin des travaux', 'demander aux voisins de porter leurs sacs', ['monte-charge']),
     ],
   },
 ]
@@ -3832,16 +3942,16 @@ export const N04_R_3 = [
 // n4-reading-4
 // ---------------------------------------------------------------------------
 const N4_WORK_TASKS_1 = [
-  { text: 'traiter les courriels prioritaires des clients', opt: 'gérer les messages urgents de la clientèle' },
-  { text: 'vérifier les commandes en attente d’envoi', opt: 'contrôler les commandes prêtes à livrer' },
-  { text: 'mettre à jour le tableau des présences', opt: 'noter les présences du personnel du jour' },
-  { text: 'imprimer les bordereaux de livraison du jour', opt: 'éditer les feuilles de route de livraison' },
+  { text: 'traiter les courriels prioritaires des clients', opt: 'gérer les messages urgents de la clientèle', kw: 'courriels' },
+  { text: 'vérifier les commandes en attente d’envoi', opt: 'contrôler les commandes prêtes à livrer', kw: 'commandes' },
+  { text: 'mettre à jour le tableau des présences', opt: 'noter les présences du personnel du jour', kw: 'présences' },
+  { text: 'imprimer les bordereaux de livraison du jour', opt: 'éditer les feuilles de route de livraison', kw: 'bordereaux' },
 ]
 const N4_WORK_TASKS_2 = [
-  { text: 'confirmer les rendez-vous de l’après-midi', opt: 'valider les rencontres prévues plus tard' },
-  { text: 'classer les factures dans le classeur vert', opt: 'ranger les factures dans le bon classeur' },
-  { text: 'finaliser le compte rendu de la rencontre', opt: 'rédiger la synthèse finale de la réunion' },
-  { text: 'compter les fournitures de papeterie', opt: 'faire l’inventaire complet du matériel' },
+  { text: 'confirmer les rendez-vous de l’après-midi', opt: 'valider les rencontres prévues plus tard', kw: 'rendez-vous' },
+  { text: 'classer les factures dans le classeur vert', opt: 'ranger les factures dans le bon classeur', kw: 'factures' },
+  { text: 'finaliser le compte rendu de la rencontre', opt: 'rédiger la synthèse finale de la réunion', kw: 'compte rendu' },
+  { text: 'compter les fournitures de papeterie', opt: 'faire l’inventaire complet du matériel', kw: 'fournitures' },
 ]
 const N4_WORK_TASKS_3 = [
   { text: 'ranger les dossiers confidentiels sous clé', opt: 'fermer à clé l’armoire des dossiers privés' },
@@ -3863,10 +3973,10 @@ const N4_WORK_SIGNOFFS = [
 ]
 
 const N4_DRIVE_FOLDERS = [
-  { folder: 'dans le dossier partagé des ventes', opt: 'dans le répertoire commun des ventes' },
-  { folder: 'sur le portail des ressources humaines', opt: 'dans l’espace réservé aux employés' },
-  { folder: 'dans l’espace sécurisé des projets', opt: 'au sein du dossier protégé des projets' },
-  { folder: 'sur le disque réseau de la comptabilité', opt: 'sur le serveur partagé des finances' },
+  { folder: 'dans le dossier partagé des ventes', opt: 'dans le répertoire commun des ventes', kw: 'ventes' },
+  { folder: 'sur le portail des ressources humaines', opt: 'dans l’espace réservé aux employés', kw: 'ressources humaines' },
+  { folder: 'dans l’espace sécurisé des projets', opt: 'au sein du dossier protégé des projets', kw: 'projets' },
+  { folder: 'sur le disque réseau de la comptabilité', opt: 'sur le serveur partagé des finances', kw: 'comptabilité' },
 ]
 const N4_DRIVE_SUBS = [
   { sub: 'le sous-dossier de l’année courante', opt: 'le sous-dossier de l’année courante' },
@@ -3881,10 +3991,10 @@ const N4_DRIVE_FORMATS = [
   { fmt: 'sous la forme d’un fichier compressé', opt: 'sous forme de fichier compressé' },
 ]
 const N4_DRIVE_BUTTONS = [
-  { btn: 'appuyez sur le bouton vert Téléverser', opt: 'appuyer sur le bouton Téléverser' },
-  { btn: 'cliquez sur la commande Enregistrer', opt: 'cliquer sur la commande Enregistrer' },
-  { btn: 'validez avec la touche Confirmer l’envoi', opt: 'valider avec la touche Confirmer' },
-  { btn: 'cliquez sur le bouton Déposer le fichier', opt: 'cliquer sur Déposer le fichier' },
+  { btn: 'appuyez sur le bouton vert Téléverser', opt: 'appuyer sur le bouton Téléverser', kw: 'Téléverser' },
+  { btn: 'cliquez sur la commande Enregistrer', opt: 'cliquer sur la commande Enregistrer', kw: 'Enregistrer' },
+  { btn: 'validez avec la touche Confirmer l’envoi', opt: 'valider avec la touche Confirmer', kw: 'Confirmer' },
+  { btn: 'cliquez sur le bouton Déposer le fichier', opt: 'cliquer sur Déposer le fichier', kw: 'Déposer' },
 ]
 const N4_DRIVE_STEPS = [
   'Procédure de classement informatique.',
@@ -3906,16 +4016,16 @@ const N4_ROOM_SETUPS = [
   { text: 'préparer les tables d’accueil à l’entrée', opt: 'installer les tables d’accueil à l’entrée' },
 ]
 const N4_ROOM_TECHS = [
-  { text: 'brancher le projecteur et tester le micro sans fil', opt: 'brancher le projecteur et le micro sans fil' },
-  { text: 'allumer l’ordinateur central et vérifier l’écran', opt: 'allumer l’ordinateur et l’écran central' },
-  { text: 'connecter l’appareil audio au réseau sans fil', opt: 'connecter l’appareil de son au réseau' },
-  { text: 'tester la caméra vidéo pour les participants en ligne', opt: 'tester la caméra pour les gens à distance' },
+  { text: 'brancher le projecteur et tester le micro sans fil', opt: 'brancher le projecteur et le micro sans fil', kw: 'projecteur' },
+  { text: 'allumer l’ordinateur central et vérifier l’écran', opt: 'allumer l’ordinateur et l’écran central', kw: 'ordinateur' },
+  { text: 'connecter l’appareil audio au réseau sans fil', opt: 'connecter l’appareil de son au réseau', kw: 'audio' },
+  { text: 'tester la caméra vidéo pour les participants en ligne', opt: 'tester la caméra pour les gens à distance', kw: 'caméra' },
 ]
 const N4_ROOM_REFRESHS = [
-  { text: 'placer des bouteilles d’eau et des verres propres', opt: 'installer les carafes et les verres à eau' },
-  { text: 'déposer les blocs-notes et les stylos devant chaque place', opt: 'distribuer feuilles blanches et crayons' },
-  { text: 'remplir la cafetière et sortir les tasses en carton', opt: 'préparer le café et disposer les gobelets' },
-  { text: 'distribuer les dépliants du programme sur les tables', opt: 'mettre les guides de la rencontre en place' },
+  { text: 'placer des bouteilles d’eau et des verres propres', opt: 'installer les carafes et les verres à eau', kw: 'bouteilles' },
+  { text: 'déposer les blocs-notes et les stylos devant chaque place', opt: 'distribuer feuilles blanches et crayons', kw: 'blocs-notes' },
+  { text: 'remplir la cafetière et sortir les tasses en carton', opt: 'préparer le café et disposer les gobelets', kw: 'cafetière' },
+  { text: 'distribuer les dépliants du programme sur les tables', opt: 'mettre les guides de la rencontre en place', kw: 'dépliants' },
 ]
 const N4_ROOM_HEADS = [
   'Consignes pour la réunion de service.',
@@ -3931,16 +4041,16 @@ const N4_ROOM_TIMES = [
 ]
 
 const N4_RECYCLE_STEPS = [
-  { text: 'déposer les cartons plats et journaux dans le bac bleu', opt: 'mettre cartons et journaux dans le bac bleu' },
-  { text: 'placer les boîtes en carton pliées dans le bac de tri', opt: 'ranger les cartons pliés dans le bac de tri' },
-  { text: 'jeter les feuilles de papier usagées dans le bac bleu', opt: 'déposer le papier de bureau dans le bac bleu' },
-  { text: 'regrouper les revues et circulaires dans le bac prévu', opt: 'mettre revues et circulaires au bac bleu' },
+  { text: 'déposer les cartons plats et journaux dans le bac bleu', opt: 'mettre cartons et journaux dans le bac bleu', kw: 'cartons plats' },
+  { text: 'placer les boîtes en carton pliées dans le bac de tri', opt: 'ranger les cartons pliés dans le bac de tri', kw: 'boîtes en carton' },
+  { text: 'jeter les feuilles de papier usagées dans le bac bleu', opt: 'déposer le papier de bureau dans le bac bleu', kw: 'feuilles de papier' },
+  { text: 'regrouper les revues et circulaires dans le bac bleu', opt: 'mettre revues et circulaires au bac bleu', kw: 'revues' },
 ]
 const N4_RECYCLE_WASHES = [
-  { text: 'rincer les contenants en plastique et boîtes de conserve', opt: 'rincer boîtes de conserve et plastiques' },
-  { text: 'laver brièvement les bouteilles en verre avant le dépôt', opt: 'rincer les bouteilles en verre d’avance' },
-  { text: 'enlever les bouchons et vider les pots de plastique', opt: 'vider et déboucher les pots de plastique' },
-  { text: 'nettoyer les barquettes en aluminium avant le recyclage', opt: 'nettoyer les barquettes en aluminium' },
+  { text: 'rincer les contenants en plastique et boîtes de conserve', opt: 'rincer boîtes de conserve et plastiques', kw: 'plastique' },
+  { text: 'laver brièvement les bouteilles en verre avant le dépôt', opt: 'rincer les bouteilles en verre d’avance', kw: 'verre' },
+  { text: 'enlever les bouchons et vider les pots de plastique', opt: 'vider et déboucher les pots de plastique', kw: 'pots' },
+  { text: 'nettoyer les barquettes en aluminium avant le recyclage', opt: 'nettoyer les barquettes en aluminium', kw: 'aluminium' },
 ]
 const N4_RECYCLE_WASTES = [
   { text: 'fermer hermétiquement le sac noir de déchets ménagers', opt: 'fermer le sac noir de déchets ménagers' },
@@ -3976,8 +4086,8 @@ export const N04_R_4 = [
       return {
         text,
         questions: [
-          ['Quelle est la première tâche urgente à accomplir le matin ?', t1.opt, others1[0].opt, others1[1].opt],
-          ['Quelle obligation doit être finalisée avant la pause de midi ?', t2.opt, others2[0].opt, others2[1].opt],
+          q('Quelle est la première tâche urgente à accomplir le matin ?', t1.opt, others1[0].opt, others1[1].opt, [t1.kw]),
+          q('Quelle obligation doit être finalisée avant la pause de midi ?', t2.opt, others2[0].opt, others2[1].opt, [t2.kw]),
         ],
       }
     },
@@ -3998,8 +4108,8 @@ export const N04_R_4 = [
       return {
         text,
         questions: [
-          ['Dans quel répertoire principal faut-il classer le document ?', f.opt, othersF[0].opt, othersF[1].opt],
-          ['Quelle action finale permet de valider le téléversement ?', btn.opt, othersB[0].opt, othersB[1].opt],
+          q('Dans quel répertoire principal faut-il classer le document ?', f.opt, othersF[0].opt, othersF[1].opt, [f.kw]),
+          q('Quelle action finale permet de valider le téléversement ?', btn.opt, othersB[0].opt, othersB[1].opt, [btn.kw]),
         ],
       }
     },
@@ -4019,8 +4129,8 @@ export const N04_R_4 = [
       return {
         text,
         questions: [
-          ['Quelle tâche technique doit être effectuée dans la pièce ?', tech.opt, othersT[0].opt, othersT[1].opt],
-          ['Quel matériel d’accueil faut-il installer sur les tables ?', ref.opt, othersR[0].opt, othersR[1].opt],
+          q('Quelle tâche technique doit être effectuée dans la pièce ?', tech.opt, othersT[0].opt, othersT[1].opt, [tech.kw]),
+          q('Quel matériel d’accueil faut-il installer sur les tables ?', ref.opt, othersR[0].opt, othersR[1].opt, [ref.kw]),
         ],
       }
     },
@@ -4040,8 +4150,8 @@ export const N04_R_4 = [
       return {
         text,
         questions: [
-          ['Que faut-il faire avec les contenants réutilisables ou recyclables ?', w.opt, othersW[0].opt, othersW[1].opt],
-          ['Où les matières en papier et carton doivent-elles être déposées ?', rec.opt, othersR[0].opt, othersR[1].opt],
+          q('Que faut-il faire avec les contenants réutilisables ou recyclables ?', w.opt, othersW[0].opt, othersW[1].opt, [w.kw]),
+          q('Où les matières en papier et carton doivent-elles être déposées ?', rec.opt, othersR[0].opt, othersR[1].opt, [rec.kw]),
         ],
       }
     },
@@ -4052,8 +4162,8 @@ export const N04_R_4 = [
     situation: 0,
     text: 'Liste des priorités pour la journée de vendredi. 1. Répondre aux courriels prioritaires des clients avant dix heures. 2. Téléphoner à madame Roy pour confirmer la réunion de quatorze heures. 3. Déposer les contrats signés dans le classeur de la comptabilité avant seize heures. Merci de suivre cet ordre pour respecter nos échéances.',
     questions: [
-      ['Quelle tâche précise doit être exécutée avant dix heures ?', 'traiter les courriels urgents de la clientèle', 'téléphoner à madame Roy pour sa confirmation', 'classer les contrats dans le bureau comptable'],
-      ['Pour quel motif cette liste de priorités est-elle communiquée ?', 'respecter les échéances prévues avec les clients', 'organiser un dîner de fin de semaine au bureau', 'attribuer les congés payés de la saison estivale'],
+      q('Quelle tâche précise doit être exécutée avant dix heures ?', 'traiter les courriels urgents de la clientèle', 'téléphoner à madame Roy pour sa confirmation', 'classer les contrats dans le bureau comptable', ['courriels']),
+      q('Pour quel motif cette liste de priorités est-elle communiquée ?', 'respecter les échéances prévues avec les clients', 'organiser un dîner de fin de semaine au bureau', 'attribuer les congés payés de la saison estivale', ['échéances']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Réservation d'un véhicule de service
@@ -4061,8 +4171,8 @@ export const N04_R_4 = [
     situation: 1,
     text: 'Guide de réservation d’un véhicule de service. Étape 1 : Ouvrez l’application mobile et choisissez la date souhaitée. Étape 2 : Sélectionnez une voiture disponible au stationnement principal. Étape 3 : Récupérez la clé dans le boîtier mural à l’aide de votre code d’employé. Étape 4 : Notez le kilométrage sur la fiche de bord au retour.',
     questions: [
-      ['Où l’employé doit-il récupérer la clé de la voiture ?', 'au coffret mural en saisissant son code', 'au guichet de sécurité à l’entrée du garage', 'auprès du directeur du département de gestion'],
-      ['Quelle consigne finale faut-il respecter à la fin du déplacement ?', 'inscrire la distance parcourue sur le carnet', 'nettoyer la carrosserie du véhicule à la main', 'remplir le réservoir d’essence au maximum'],
+      q('Où l’employé doit-il récupérer la clé de la voiture ?', 'au coffret mural en saisissant son code', 'au guichet de sécurité à l’entrée du garage', 'auprès du directeur du département de gestion', ['boîtier mural']),
+      q('Quelle consigne finale faut-il respecter à la fin du déplacement ?', 'inscrire la distance parcourue sur le carnet', 'nettoyer la carrosserie du véhicule à la main', 'remplir le réservoir d’essence au maximum', ['kilométrage']),
     ],
   },
 ]
@@ -4090,6 +4200,8 @@ const N4_CHALET_DESTS = [
     distPrefer2: 'un sauna chaud dans la cour',
     distHate1: 'la présence de moustiques le soir',
     distHate2: 'le manque de bois pour le feu',
+    kwPrefer: 'quai',
+    kwHate: 'voisins',
   },
   {
     place: 'un camp rustique dans les Laurentides',
@@ -4101,6 +4213,8 @@ const N4_CHALET_DESTS = [
     distPrefer2: 'un grand balcon avec barbecue',
     distHate1: 'le manque de réseau cellulaire',
     distHate2: 'l’eau froide dans la cuisine',
+    kwPrefer: 'sentier',
+    kwHate: 'heures',
   },
   {
     place: 'un terrain de camping en Mauricie',
@@ -4112,6 +4226,8 @@ const N4_CHALET_DESTS = [
     distPrefer2: 'une épicerie sur le camping',
     distHate1: 'la proximité de la grand-route',
     distHate2: 'l’absence d’arbres sur le site',
+    kwPrefer: 'ombragé',
+    kwHate: 'douches',
   },
   {
     place: 'une maisonnette dans les Cantons-de-l’Est',
@@ -4123,6 +4239,8 @@ const N4_CHALET_DESTS = [
     distPrefer2: 'une cuisine moderne bien équipée',
     distHate1: 'les frais de ménage élevés',
     distHate2: 'l’arrivée avant midi pile',
+    kwPrefer: 'foyer',
+    kwHate: 'chemins',
   },
 ]
 const N4_CHALET_CLOSINGS = [
@@ -4149,6 +4267,8 @@ const N4_PLAN_SUBS = [
     distLike2: 'la facture mensuelle par courriel',
     distDislike1: 'la lenteur du téléchargement',
     distDislike2: 'les frais fixes pour le modem',
+    kwLike: 'téléphone',
+    kwDislike: 'tarifs',
   },
   {
     service: 'l’abonnement cellulaire avec données partagées',
@@ -4160,6 +4280,8 @@ const N4_PLAN_SUBS = [
     distLike2: 'la messagerie vocale comprise',
     distDislike1: 'le blocage des données le soir',
     distDislike2: 'la perte fréquente de connexion',
+    kwLike: 'réseau',
+    kwDislike: 'textos',
   },
   {
     service: 'le forfait combiné pour la télévision et internet',
@@ -4171,6 +4293,8 @@ const N4_PLAN_SUBS = [
     distLike2: 'l’enregistrement des émissions',
     distDislike1: 'le retard du technicien à midi',
     distDislike2: 'les frais de branchement initiaux',
+    kwLike: 'chaînes',
+    kwDislike: 'deux ans',
   },
   {
     service: 'l’offre de téléphonie résidentielle avec internet',
@@ -4182,6 +4306,8 @@ const N4_PLAN_SUBS = [
     distLike2: 'le rabais postal de bienvenue',
     distDislike1: 'la coupure du signal la nuit',
     distDislike2: 'le paiement exigé par chèque',
+    kwLike: 'installation',
+    kwDislike: 'boîte vocale',
   },
 ]
 const N4_PLAN_RECOMMENDS = [
@@ -4195,7 +4321,7 @@ const N4_RENT_INTROS = [
   'Message pour une recherche de logement.',
   'Courriel envoyé au propriétaire de l’immeuble :',
   'Note pour ma future colocation en ville :',
-  'Annonce publiée pour louer un appartement :',
+  'Annonce de recherche de logement :',
 ]
 const N4_RENT_APTS = [
   {
@@ -4208,6 +4334,8 @@ const N4_RENT_APTS = [
     distPrefer2: 'un casier de rangement au sous-sol',
     distHate1: 'la présence de petits commerces',
     distHate2: 'les marches d’escalier raides',
+    kwPrefer: 'balcon',
+    kwHate: 'circulation',
   },
   {
     quarter: 'le quartier Villeray',
@@ -4219,6 +4347,8 @@ const N4_RENT_APTS = [
     distPrefer2: 'des planchers en bois franc vernis',
     distHate1: 'un plancher qui craque un peu',
     distHate2: 'l’eau tiède dans la baignoire',
+    kwPrefer: 'salle de bain',
+    kwHate: 'isolés',
   },
   {
     quarter: 'le Vieux-Longueuil',
@@ -4230,6 +4360,8 @@ const N4_RENT_APTS = [
     distPrefer2: 'un support pour vélos dans la cour',
     distHate1: 'la peinture foncée des murs',
     distHate2: 'les couloirs sans éclairage',
+    kwPrefer: 'buanderie',
+    kwHate: 'animaux',
   },
   {
     quarter: 'la basse-ville de Québec',
@@ -4241,6 +4373,8 @@ const N4_RENT_APTS = [
     distPrefer2: 'une cour partagée avec verdure',
     distHate1: 'le bruit lointain des cloches',
     distHate2: 'la couleur des portes en bois',
+    kwPrefer: 'autobus',
+    kwHate: 'plafonds',
   },
 ]
 const N4_RENT_CLOSINGS = [
@@ -4267,6 +4401,8 @@ const N4_SNACK_PICKS = [
     distItem2: 'une compote de poires fraîches',
     distDislike1: 'les jus de fruits en carton',
     distDislike2: 'les biscuits à la confiture',
+    kwItem: 'muffins',
+    kwDislike: 'barres tendres',
   },
   {
     item: 'des bâtonnets de céleri avec du fromage doux',
@@ -4278,6 +4414,8 @@ const N4_SNACK_PICKS = [
     distItem2: 'des quartiers d’oranges douces',
     distDislike1: 'les bonbons gélifiés colorés',
     distDislike2: 'les sachets de maïs soufflé',
+    kwItem: 'céleri',
+    kwDislike: 'croustilles',
   },
   {
     item: 'des galettes à l’avoine préparées avec des graines',
@@ -4289,6 +4427,8 @@ const N4_SNACK_PICKS = [
     distItem2: 'des carrés de céréales au miel',
     distDislike1: 'les tartes sucrées aux pommes',
     distDislike2: 'les pâtisseries à la crème',
+    kwItem: 'galettes',
+    kwDislike: 'brioches',
   },
   {
     item: 'des tranches de fromage avec des quartiers de pomme',
@@ -4299,7 +4439,9 @@ const N4_SNACK_PICKS = [
     distItem1: 'des craquelins au blé complet',
     distItem2: 'un petit pot de yaourt crémeux',
     distDislike1: 'les boissons gazeuses sucrées',
-    distDislike2: 'les gâteaux emballés d’avance',
+    distDislike2: 'les sacs de croustilles salées',
+    kwItem: 'fromage',
+    kwDislike: 'desserts industriels',
   },
 ]
 const N4_SNACK_CLOSINGS = [
@@ -4321,8 +4463,8 @@ export const N04_R_5 = [
       return {
         text,
         questions: [
-          ['Quel critère le message privilégie-t-il pour le séjour ?', dest.paraphrasePrefer, dest.distPrefer1, dest.distPrefer2],
-          ['Quel inconvénient l’auteur souhaite-t-il absolument éviter ?', dest.paraphraseHate, dest.distHate1, dest.distHate2],
+          q('Quel critère le message privilégie-t-il pour le séjour ?', dest.paraphrasePrefer, dest.distPrefer1, dest.distPrefer2, [dest.kwPrefer]),
+          q('Quel inconvénient l’auteur souhaite-t-il absolument éviter ?', dest.paraphraseHate, dest.distHate1, dest.distHate2, [dest.kwHate]),
         ],
       }
     },
@@ -4338,8 +4480,8 @@ export const N04_R_5 = [
       return {
         text,
         questions: [
-          ['Quel point positif l’usager souligne-t-il dans son avis ?', sub.paraphraseLike, sub.distLike1, sub.distLike2],
-          ['Quel point faible est mentionné au sujet de ce forfait ?', sub.paraphraseDislike, sub.distDislike1, sub.distDislike2],
+          q('Quel point positif l’usager souligne-t-il dans son avis ?', sub.paraphraseLike, sub.distLike1, sub.distLike2, [sub.kwLike]),
+          q('Quel point faible est mentionné au sujet de ce forfait ?', sub.paraphraseDislike, sub.distDislike1, sub.distDislike2, [sub.kwDislike]),
         ],
       }
     },
@@ -4355,8 +4497,8 @@ export const N04_R_5 = [
       return {
         text,
         questions: [
-          ['Quelle caractéristique du logement est prioritaire pour la personne ?', apt.paraphrasePrefer, apt.distPrefer1, apt.distPrefer2],
-          ['Quel désagrément la personne refuse-t-elle absolument ?', apt.paraphraseHate, apt.distHate1, apt.distHate2],
+          q('Quelle caractéristique du logement est prioritaire pour la personne ?', apt.paraphrasePrefer, apt.distPrefer1, apt.distPrefer2, [apt.kwPrefer]),
+          q('Quel désagrément la personne refuse-t-elle absolument ?', apt.paraphraseHate, apt.distHate1, apt.distHate2, [apt.kwHate]),
         ],
       }
     },
@@ -4372,8 +4514,8 @@ export const N04_R_5 = [
       return {
         text,
         questions: [
-          ['Quelle collation maison la personne conseille-t-elle de préparer ?', snack.paraphraseLikeItem, snack.distItem1, snack.distItem2],
-          ['Que cherche-t-elle à éviter dans la boîte à lunch ?', snack.paraphraseDislike, snack.distDislike1, snack.distDislike2],
+          q('Quelle collation maison la personne conseille-t-elle de préparer ?', snack.paraphraseLikeItem, snack.distItem1, snack.distItem2, [snack.kwItem]),
+          q('Que cherche-t-elle à éviter dans la boîte à lunch ?', snack.paraphraseDislike, snack.distDislike1, snack.distDislike2, [snack.kwDislike]),
         ],
       }
     },
@@ -4384,8 +4526,8 @@ export const N04_R_5 = [
     situation: 0,
     text: 'Message de Marc pour le camping de la Saint-Jean. Pour notre fin de semaine en famille, je préfère réserver un terrain paisible avec une grande piscine et un accès autorisé aux chiens. Par contre, je n’aime pas quand le trajet en auto dépasse deux heures depuis Montréal. On veut arriver tôt le vendredi soir pour monter la tente sans stress.',
     questions: [
-      ['Qu’est-ce que Marc préfère pour ce séjour de camping ?', 'une piscine et les animaux admis', 'un grand lac avec location de canots', 'un terrain de sport avec éclairage'],
-      ['Quel inconvénient cherche-t-il absolument à éviter ?', 'un trajet de route trop long en auto', 'les frais supplémentaires pour le bois', 'l’absence d’eau courante sur le site'],
+      q('Qu’est-ce que Marc préfère pour ce séjour de camping ?', 'une piscine et les animaux admis', 'un grand lac avec location de canots', 'un terrain de sport avec éclairage', ['piscine']),
+      q('Quel inconvénient cherche-t-il absolument à éviter ?', 'un trajet de route trop long en auto', 'les frais supplémentaires pour le bois', 'l’absence d’eau courante sur le site', ['heures']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Sondage de satisfaction sur le transport en commun
@@ -4393,8 +4535,8 @@ export const N04_R_5 = [
     situation: 1,
     text: 'Sondage de satisfaction - Transport collectif urbain. Pour mes déplacements quotidiens vers le travail, je préfère acheter l’abonnement mensuel sur carte à puce parce que le tarif est avantageux. Par contre, je n’aime pas du tout les retards fréquents des autobus sur la ligne centrale le matin. Cela me fait parfois manquer le début de mes réunions.',
     questions: [
-      ['Pourquoi cette usagère préfère-t-elle l’abonnement mensuel ?', 'pour le coût avantageux de ce forfait', 'pour la rapidité du service en soirée', 'pour la gratuité du réseau la fin de semaine'],
-      ['Quel point négatif déplore-t-elle au sujet du transport ?', 'les retards d’autobus en début de journée', 'le manque de propreté dans les véhicules', 'la difficulté de recharger la carte au guichet'],
+      q('Pourquoi cette usagère préfère-t-elle l’abonnement mensuel ?', 'pour le coût avantageux de ce forfait', 'pour la rapidité du service en soirée', 'pour la gratuité du réseau la fin de semaine', ['avantageux']),
+      q('Quel point négatif déplore-t-elle au sujet du transport ?', 'les retards d’autobus en début de journée', 'le manque de propreté dans les véhicules', 'la difficulté de recharger la carte au guichet', ['retards']),
     ],
   },
 ]
