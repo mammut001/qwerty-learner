@@ -13,6 +13,17 @@ import {
   listCohorts,
   rotateCohortJoinCode,
 } from './study-cohorts.mjs'
+import {
+  REPORT_CATEGORIES,
+  sanitizeReportNote,
+  buildItemReportSnapshot,
+  saveItemReport,
+  listItemReports,
+  aggregateItemReports,
+  resolveItemReports,
+  itemReportsCsv,
+  isValidCatalogItem,
+} from './study-reports.mjs'
 import { EchelleAiError, RUBRIC_VERSION, evaluateProduction, evaluationOperation, validateSubmission } from './echelle-ai-harness.mjs'
 import { aiRateLimits, aiStatus, createAiProvider } from './echelle-ai-providers.mjs'
 import { ALLOWED_AUDIO_TYPES, MAX_AUDIO_BYTES, asrRateLimits, transcribeSpeech } from './speech-asr.mjs'
@@ -451,6 +462,10 @@ export function createStudyServer({
     const adminPlacementCsv = path === '/api/study-plan/admin/placement-cohort.csv'
     const adminCohorts = path === '/api/study-plan/admin/cohorts'
     const adminCohortRotate = path === '/api/study-plan/admin/cohorts/rotate'
+    const adminReports = path === '/api/study-plan/admin/reports'
+    const adminReportsCsv = path === '/api/study-plan/admin/reports.csv'
+    const adminReportsResolve = path === '/api/study-plan/admin/reports/resolve'
+    const itemReports = path === '/api/study-plan/reports'
     const cohortInfo = path === '/api/study-plan/cohort'
     const cohortJoin = path === '/api/study-plan/cohort/join'
     const echelleAi = path === '/api/study-plan/echelle/ai'
@@ -474,6 +489,7 @@ export function createStudyServer({
         !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
         !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts && !access &&
         !adminConfig && !adminPlacementCohort && !adminPlacementCsv && !adminCohorts && !adminCohortRotate &&
+        !adminReports && !adminReportsCsv && !adminReportsResolve && !itemReports &&
         !cohortInfo && !cohortJoin && !plan) {
       if (staticDir && !path.startsWith('/api/')) {
         return serveStatic(req, res, staticDir)
@@ -523,6 +539,7 @@ export function createStudyServer({
         db.prepare('SELECT provider,subject FROM account_identities LIMIT 1').get()
         db.prepare('SELECT account_id,stripe_customer_id FROM billing_subscriptions LIMIT 1').get()
         db.prepare('SELECT event_id,event_type FROM billing_events LIMIT 1').get()
+        db.prepare('SELECT id,item_id FROM item_reports LIMIT 1').get()
         const schemaVersion = getNodeSchemaVersion(db)
         if (schemaVersion !== STUDY_SCHEMA_VERSION) throw new Error('Schema version mismatch')
         return send(200, { ok: true, storage: 'sqlite', schemaVersion })
@@ -628,6 +645,53 @@ export function createStudyServer({
       } catch {
         return sendError(404, 'COHORT_NOT_FOUND', 'Cohort not found')
       }
+    }
+
+    if (adminReports || adminReportsCsv) {
+      if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      const auth = authorizeAdminRequest(req.headers.authorization, adminToken)
+      if (!auth.ok) {
+        audit(null, 'admin_reports', auth.status === 401 ? 'denied' : 'disabled')
+        return sendError(auth.status, auth.code, auth.message)
+      }
+      const statusParam = requestUrl.searchParams.get('status') || 'open'
+      const limitParam = parseInt(requestUrl.searchParams.get('limit') || '50', 10)
+      const offsetParam = parseInt(requestUrl.searchParams.get('offset') || '0', 10)
+      if (adminReportsCsv) {
+        const reports = listItemReports(db, { status: statusParam, limit: Math.max(1, Math.min(1000, limitParam || 1000)), offset: offsetParam })
+        audit(null, 'admin_reports_csv', 'success', { count: reports.length })
+        return sendCsv('item-reports.csv', itemReportsCsv(reports))
+      }
+      const reports = listItemReports(db, { status: statusParam, limit: limitParam, offset: offsetParam })
+      const aggregate = aggregateItemReports(db)
+      audit(null, 'admin_reports', 'success', { count: reports.length, status: statusParam })
+      return send(200, { ok: true, reports, aggregate })
+    }
+
+    if (adminReportsResolve) {
+      if (req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      const auth = authorizeAdminRequest(req.headers.authorization, adminToken)
+      if (!auth.ok) {
+        audit(null, 'admin_reports_resolve', auth.status === 401 ? 'denied' : 'disabled')
+        return sendError(auth.status, auth.code, auth.message)
+      }
+      let input
+      try {
+        input = await readBody(req)
+      } catch {
+        return sendError(400, 'REPORT_RESOLVE_INVALID', 'Invalid resolve request')
+      }
+      if (!record(input)) return sendError(400, 'REPORT_RESOLVE_INVALID', 'Invalid resolve request')
+      const hasId = typeof input.id === 'string' && input.id.length > 0
+      const hasIds = Array.isArray(input.ids) && input.ids.length > 0
+      const hasItemId = typeof input.itemId === 'string' && input.itemId.length > 0
+      if (!hasId && !hasIds && !hasItemId) {
+        return sendError(400, 'REPORT_RESOLVE_INVALID', 'Specify id, ids, or itemId to resolve')
+      }
+      const variant = typeof input.variant === 'number' && Number.isInteger(input.variant) ? input.variant : undefined
+      const result = resolveItemReports(db, { id: input.id, ids: input.ids, itemId: input.itemId, variant })
+      audit(null, 'admin_reports_resolve', 'success', { count: result.count })
+      return send(200, { ok: true, resolved: result.count })
     }
 
     if (billingWebhook) {
@@ -763,7 +827,7 @@ export function createStudyServer({
     if (authRoute && req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if ((authFirebase || authLogout) && req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if ((importing || syncKey || revokeSyncKey || linking || unlinking || makeup || passkeyRegisterOptions ||
-        passkeyRegisterVerify || passkeyLoginOptions || passkeyLoginVerify) && req.method !== 'POST')
+        passkeyRegisterVerify || passkeyLoginOptions || passkeyLoginVerify || itemReports) && req.method !== 'POST')
       return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if ((exporting || analytics || syncInfo || review || errorBook || checkins || achievements || reports || reportExport ||
         account || recordsCsv || errorCsv || reportsCsv || tcfAttempts || cohortInfo) && req.method !== 'GET')
@@ -1170,7 +1234,7 @@ export function createStudyServer({
 
     if (!row) {
       if (loginRequired) return sendError(401, 'LOGIN_REQUIRED', 'Sign-in required')
-      if (req.method !== 'GET' || exporting || errorBook || checkins || achievements || reports || reportExport || deleteData)
+      if (req.method !== 'GET' || exporting || errorBook || checkins || achievements || reports || reportExport || deleteData || itemReports)
         return sendError(401, 'SESSION_REQUIRED', 'Load plan first')
       const next = randomBytes(32).toString('hex')
       learner = hash(next)
@@ -1317,6 +1381,101 @@ export function createStudyServer({
         audit(learner, 'cohort_join', 'denied')
         return sendError(400, 'COHORT_JOIN_INVALID', 'Invalid or expired class join code')
       }
+    }
+
+    if (itemReports) {
+      const limit = consumeNodeRateLimit(db, 'actor:' + actorHash, 'item-report', {
+        limit: 20,
+        windowMs: 60 * 60_000,
+        blockMs: 60 * 60_000,
+      })
+      if (!limit.allowed) {
+        audit(learner, 'item_report', 'rate_limited')
+        return sendError(
+          429,
+          'REPORT_RATE_LIMITED',
+          'Too many reports. Try again later.',
+          { retryAfterSeconds: Math.ceil(limit.retryAfterMs / 1000) },
+          { 'Retry-After': String(Math.ceil(limit.retryAfterMs / 1000)) },
+        )
+      }
+
+      let input
+      try {
+        input = await readBody(req)
+      } catch (error) {
+        return sendError(
+          error instanceof RangeError ? 413 : 400,
+          error instanceof RangeError ? 'REQUEST_TOO_LARGE' : 'REPORT_INVALID',
+          error instanceof RangeError ? 'Request too large' : 'Invalid report payload',
+        )
+      }
+
+      if (
+        !hasExactKeys(
+          input,
+          ['itemId', 'variant', 'category', 'note', 'snapshot', 'appVersion'],
+          ['itemId', 'variant', 'category'],
+        )
+      ) {
+        return sendError(400, 'REPORT_INVALID', 'Invalid report payload')
+      }
+
+      if (!isValidCatalogItem(input.itemId)) {
+        return sendError(400, 'ITEM_NOT_FOUND', 'Item not found in curriculum')
+      }
+
+      if (
+        typeof input.variant !== 'number' ||
+        !Number.isInteger(input.variant) ||
+        input.variant < 0 ||
+        input.variant > 0x7fffffff
+      ) {
+        return sendError(400, 'VARIANT_INVALID', 'Variant must be an integer between 0 and 2^31 - 1')
+      }
+
+      if (typeof input.category !== 'string' || !REPORT_CATEGORIES.has(input.category)) {
+        return sendError(400, 'CATEGORY_INVALID', 'Invalid report category')
+      }
+
+      if (input.note !== undefined && input.note !== null) {
+        if (typeof input.note !== 'string') {
+          return sendError(400, 'NOTE_INVALID', 'Note must be a string')
+        }
+        if (input.note.length > 1000) {
+          return sendError(400, 'NOTE_TOO_LONG', 'Note exceeds maximum length')
+        }
+      }
+
+      const note = sanitizeReportNote(input.note)
+      if (note.length > 500) {
+        return sendError(400, 'NOTE_TOO_LONG', 'Note exceeds 500 characters')
+      }
+
+      const snapshot = buildItemReportSnapshot(input.itemId, input.variant)
+      const appVersion = typeof input.appVersion === 'string' ? input.appVersion.slice(0, 50) : RUBRIC_VERSION
+      const accountId = viaAccount ? resolved.accountId : null
+
+      const outcome = saveItemReport(db, {
+        learner,
+        accountId,
+        itemId: input.itemId,
+        variant: input.variant,
+        category: input.category,
+        note,
+        snapshot,
+        appVersion,
+        nowMs: Date.now(),
+      })
+
+      audit(learner, 'item_report', outcome.deduped ? 'deduped' : 'success', {
+        id: outcome.id,
+        itemId: input.itemId,
+        variant: input.variant,
+        category: input.category,
+      })
+
+      return send(200, { ok: true, id: outcome.id, status: outcome.status, deduped: outcome.deduped })
     }
 
     if (account) return send(200, nodePasskeyAccountInfo(db, learner, viaAccount))

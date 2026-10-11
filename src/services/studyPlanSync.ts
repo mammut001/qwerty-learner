@@ -2418,3 +2418,5 @@ export function resumeStudyPlanSync(): Promise<void> {
   authBlocked = false
   return syncStudyPlan()
 }
+
+export { reportEchelleItem, type ReportCategory, type ReportItemInput, type ReportItemResponse } from './reports'
