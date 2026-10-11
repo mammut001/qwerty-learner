@@ -681,23 +681,29 @@ export const N03_L_4 = [
 // ---------------------------------------------------------------------------
 // n3-reading-0
 // ---------------------------------------------------------------------------
+const N3_SCHOOL_EVENTS = [
+  { date: 'le 14 octobre', rsvp: 'le 10 octobre', rsvpBad1: 'avant le 25 octobre', rsvpBad2: 'avant le 15 novembre' },
+  { date: 'le 22 octobre', rsvp: 'le 17 octobre', rsvpBad1: 'avant le 30 octobre', rsvpBad2: 'avant le 15 novembre' },
+  { date: 'le 12 novembre', rsvp: 'le 7 novembre', rsvpBad1: 'avant le 20 novembre', rsvpBad2: 'avant le premier décembre' },
+  { date: 'le 18 novembre', rsvp: 'le 12 novembre', rsvpBad1: 'avant le 25 novembre', rsvpBad2: 'avant le premier décembre' },
+]
+
 export const N03_R_0 = [
   // Scenario 1 (Template, situation: 0) - Rencontre parents-enseignant
   Object.assign(
     (rand) => {
       const school = pick(['Saint-Jean-Baptiste', 'Marguerite-Bourgeoys', 'Jacques-Cartier', 'Sainte-Bernadette'], rand)
-      const date = pick(['le 14 octobre', 'le 18 novembre', 'le 22 octobre', 'le 12 novembre'], rand)
-      const rsvp = pick(['le 10 octobre', 'le 12 novembre', 'le 17 octobre', 'le 7 novembre'], rand)
-      const text = `École primaire ${school}. Rencontre individuelle parents-enseignants : ${date}, de 17 h à 20 h, au gymnase de l’école. Veuillez confirmer votre présence auprès du secrétariat avant ${rsvp}. Le stationnement est gratuit pour les familles.`
+      const ev = pick(N3_SCHOOL_EVENTS, rand)
+      const text = `École primaire ${school}. Rencontre individuelle parents-enseignants : ${ev.date}, de 17 h à 20 h, au gymnase de l’école. Veuillez confirmer votre présence auprès du secrétariat avant ${ev.rsvp}. Le stationnement est gratuit pour les familles.`
       return {
         text,
         questions: [
-          ['De quel évènement s’agit-il dans cet avis ?', 'la rencontre parents-enseignant', 'la sortie scolaire au grand musée', 'la fête de quartier pour l’école'],
-          ['Avant quelle date doit-on confirmer sa venue ?', `avant ${rsvp}`, 'avant le trente décembre prochain', 'avant le premier septembre entier'],
+          q('De quel évènement s’agit-il dans cet avis ?', 'la rencontre parents-enseignant', 'la sortie scolaire au grand musée', 'la fête de quartier pour l’école', ['parents-enseignants']),
+          q('Avant quelle date doit-on confirmer sa venue ?', `avant ${ev.rsvp}`, ev.rsvpBad1, ev.rsvpBad2, [ev.rsvp.toLowerCase()]),
         ],
       }
     },
-    { situation: 0, capacity: 64 }
+    { situation: 0, capacity: 4 * N3_SCHOOL_EVENTS.length }
   ),
   // Scenario 2 (Template, situation: 1) - Marché public municipal
   Object.assign(
@@ -708,8 +714,8 @@ export const N03_R_0 = [
       return {
         text,
         questions: [
-          ['Quelle annonce municipale est présentée dans le texte ?', 'le lancement d’un marché local', 'la fermeture d’un parc aquatique', 'des travaux dans le quartier est'],
-          ['Quels jours le marché accueille-t-il le public ?', 'les samedis et les dimanches', 'tous les mercredis après-midi', 'chaque vendredi soir seulement'],
+          q('Quelle annonce municipale est présentée dans le texte ?', 'le lancement d’un marché local', 'la fermeture d’un parc aquatique', 'des travaux dans le quartier est', ['marché']),
+          q('Quels jours le marché accueille-t-il le public ?', 'les samedis et les dimanches', 'tous les mercredis après-midi', 'chaque vendredi soir seulement', ['samedis', 'dimanches']),
         ],
       }
     },
@@ -723,8 +729,8 @@ export const N03_R_0 = [
       return {
         text,
         questions: [
-          ['Quel équipement est obligatoire pour nager ?', 'un bonnet de bain', 'des lunettes de plongée', 'un maillot avec dossard'],
-          ['Quel est le tarif d’entrée pour un adulte ?', 'quatre dollars par personne', 'dix dollars pour une personne', 'huit dollars pour une personne'],
+          q('Quel équipement est obligatoire pour nager ?', 'un bonnet de bain', 'des lunettes de plongée', 'un maillot avec dossard', ['bonnet']),
+          q('Quel est le tarif d’entrée pour un adulte ?', 'quatre dollars par personne', 'dix dollars pour une personne', 'huit dollars pour une personne', ['quatre']),
         ],
       }
     },
@@ -738,8 +744,8 @@ export const N03_R_0 = [
       return {
         text,
         questions: [
-          ['Quel est le sujet de cette annonce de quartier ?', 'des ateliers d’artisanat gratuits', 'un grand festival de musique payant', 'une exposition d’œuvres d’art locales'],
-          ['Où se déroulent les inscriptions le 18 octobre ?', 'dans la salle polyvalente', 'au secrétariat de l’établissement', 'dans la grande cour extérieure'],
+          q('Quel est le sujet de cette annonce de quartier ?', 'des ateliers d’artisanat gratuits', 'un grand festival de musique payant', 'une exposition d’œuvres d’art locales', ['artisanat']),
+          q('Où se déroulent les inscriptions le 18 octobre ?', 'dans la salle polyvalente', 'au secrétariat de l’établissement', 'dans la grande cour extérieure', ['polyvalente']),
         ],
       }
     },
@@ -769,16 +775,16 @@ export const N03_R_0 = [
 // n3-reading-1
 // ---------------------------------------------------------------------------
 const N3_JOBS_LIST = [
-  { job: 'commis à la caisse', short: 'commis de caisse' },
-  { job: 'vendeur au rayon vêtements', short: 'vendeur en rayon' },
-  { job: 'commis d’épicerie', short: 'commis d’épicerie' },
-  { job: 'associé au service à la clientèle', short: 'agent de service' },
+  { job: 'commis à la caisse', kw: 'caisse', short: 'commis de caisse' },
+  { job: 'vendeur au rayon vêtements', kw: 'vêtements', short: 'vendeur en rayon' },
+  { job: 'commis d’épicerie', kw: 'épicerie', short: 'commis d’épicerie' },
+  { job: 'associé au service à la clientèle', kw: 'clientèle', short: 'agent de service' },
 ]
 const N3_ATTACHMENTS_LIST = [
-  { att: 'votre curriculum vitæ complet', p: 'son curriculum vitæ récent' },
-  { att: 'vos disponibilités de travail écrites', p: 'ses plages de travail écrites' },
-  { att: 'deux références professionnelles vérifiables', p: 'deux références vérifiables' },
-  { att: 'une copie de votre diplôme secondaire', p: 'la copie de son diplôme' },
+  { att: 'votre curriculum vitæ complet', kw: 'curriculum', p: 'son curriculum vitæ récent' },
+  { att: 'vos disponibilités de travail écrites', kw: 'disponibilités', p: 'ses plages de travail écrites' },
+  { att: 'deux références professionnelles vérifiables', kw: 'références', p: 'deux références vérifiables' },
+  { att: 'une copie de votre diplôme secondaire', kw: 'diplôme', p: 'la copie de son diplôme' },
 ]
 
 export const N03_R_1 = [
@@ -792,8 +798,8 @@ export const N03_R_1 = [
       return {
         text,
         questions: [
-          ['Quel document le candidat remplit-il ici ?', 'une demande d’emploi en magasin', 'un contrat de location de local', 'une facture d’électricité du mois'],
-          ['Quel document d’accompagnement est exigé ?', att.p, 'un acte de vente pour un bien', 'un carnet de santé pour animal'],
+          q('Quel document le candidat remplit-il ici ?', 'une demande d’emploi en magasin', 'un contrat de location de local', 'une facture d’électricité du mois', ['embauche']),
+          q('Quel document d’accompagnement est exigé ?', att.p, 'un acte de vente pour un bien', 'un carnet de santé pour animal', [att.kw]),
         ],
       }
     },
@@ -807,8 +813,8 @@ export const N03_R_1 = [
       return {
         text,
         questions: [
-          ['À quel service scolaire ce formulaire sert-il ?', 'au service de garde des élèves', 'au club sportif de fin d’année', 'aux sorties scolaires du vendredi'],
-          ['Quelle information sur l’enfant doit être indiquée ?', 'les allergies alimentaires', 'la pointure exacte des souliers', 'le titre du jeu vidéo préféré'],
+          q('À quel service scolaire ce formulaire sert-il ?', 'au service de garde des élèves', 'au club sportif de fin d’année', 'aux sorties scolaires du vendredi', ['garde']),
+          q('Quelle information sur l’enfant doit être indiquée ?', 'les allergies alimentaires', 'la pointure exacte des souliers', 'le titre du jeu vidéo préféré', ['allergies']),
         ],
       }
     },
@@ -822,8 +828,8 @@ export const N03_R_1 = [
       return {
         text,
         questions: [
-          ['Pour quel service ce document est-il utilisé ?', 'l’adhésion à la bibliothèque', 'l’abonnement au centre de gym', 'l’accès à la piscine municipale'],
-          ['Quelle pièce justificative doit-on présenter ?', 'une preuve d’adresse récente', 'un relevé de notes scolaires', 'une attestation d’employeur'],
+          q('Pour quel service ce document est-il utilisé ?', 'l’adhésion à la bibliothèque', 'l’abonnement au centre de gym', 'l’accès à la piscine municipale', ['bibliothèque']),
+          q('Quelle pièce justificative doit-on présenter ?', 'une preuve d’adresse récente', 'un relevé de notes scolaires', 'une attestation d’employeur', ['résidence']),
         ],
       }
     },
@@ -837,8 +843,8 @@ export const N03_R_1 = [
       return {
         text,
         questions: [
-          ['Quel type d’inscription cette fiche permet-elle ?', 'une activité sportive pour enfant', 'un voyage scolaire à l’étranger', 'un cours de musique pour adulte'],
-          ['Quel renseignement d’urgence est demandé ?', 'le contact d’un proche responsable', 'le numéro de permis de conduire', 'le groupe sanguin des parents'],
+          q('Quel type d’inscription cette fiche permet-elle ?', 'une activité sportive pour enfant', 'un voyage scolaire à l’étranger', 'un cours de musique pour adulte', ['sportifs']),
+          q('Quel renseignement d’urgence est demandé ?', 'le contact d’un proche responsable', 'le numéro de permis de conduire', 'le groupe sanguin des parents', ['urgence']),
         ],
       }
     },
@@ -873,16 +879,16 @@ export const N03_R_2 = [
     (rand) => {
       const role = pick(['Commis d’entrepôt', 'Adjoint de bureau', 'Préposé à l’accueil'], rand)
       const req = pick([
-        { skill: 'ponctualité et esprit d’équipe', exp: 'une année d’expérience souhaitée' },
-        { skill: 'bon entregent et rigueur', exp: 'aucune expérience requise' },
-        { skill: 'bonne forme et autonomie', exp: 'expérience en manutention un atout' },
+        { skill: 'ponctualité et esprit d’équipe', exp: 'une année d’expérience souhaitée', kw: 'ponctualité' },
+        { skill: 'bon entregent et rigueur', exp: 'aucune expérience requise', kw: 'entregent' },
+        { skill: 'bonne forme et autonomie', exp: 'expérience en manutention un atout', kw: 'autonomie' },
       ], rand)
       const text = `Offre d’emploi. Titre du poste : ${role}. Profil recherché : personne dynamique démontrant ${req.skill}. Exigences : ${req.exp}. Disponibilité demandée du lundi au vendredi, 35 heures par semaine. Envoyez votre candidature à rh@entreprise.ca.`
       return {
         text,
         questions: [
-          ['Quel est le poste proposé dans cette annonce ?', role, 'Comptable d’entreprise', 'Directeur du personnel'],
-          ['Quelle qualité essentielle est recherchée pour ce rôle ?', req.skill, 'connaissance du droit fiscal', 'expérience de dix ans'],
+          q('Quel est le poste proposé dans cette annonce ?', role, 'Comptable d’entreprise', 'Directeur du personnel', [role.split(' ')[0].toLowerCase()]),
+          q('Quelle qualité essentielle est recherchée pour ce rôle ?', req.skill, 'connaissance du droit fiscal', 'expérience de dix ans', [req.kw]),
         ],
       }
     },
@@ -898,8 +904,8 @@ export const N03_R_2 = [
       return {
         text,
         questions: [
-          ['Combien coûte le loyer de ce logement ?', rent, '2 500 $ par mois', '450 $ par mois'],
-          ['Quelle caractéristique intérieure est mentionnée ?', 'planchers en bois et balcon privé', 'cour arrière avec deux piscines', 'salle de cinéma au sous-sol'],
+          q('Combien coûte le loyer de ce logement ?', rent, '2 500 $ par mois', '450 $ par mois', [rent.split(' ')[0]]),
+          q('Quelle caractéristique intérieure est mentionnée ?', 'planchers en bois et balcon privé', 'cour arrière avec deux piscines', 'salle de cinéma au sous-sol', ['planchers']),
         ],
       }
     },
@@ -914,8 +920,8 @@ export const N03_R_2 = [
       return {
         text,
         questions: [
-          ['Quel article d’occasion est proposé à la vente ?', 'un vélo de route pour adulte', 'une trottinette tout-terrain', 'un appareil de musculation'],
-          ['Quel accessoire est inclus avec l’article vendu ?', 'un casque et un antivol solide', 'une pompe et deux sacoches', 'un phare avant et un compteur'],
+          q('Quel article d’occasion est proposé à la vente ?', 'un vélo de route pour adulte', 'une trottinette tout-terrain', 'un appareil de musculation', ['vélo']),
+          q('Quel accessoire est inclus avec l’article vendu ?', 'un casque et un antivol solide', 'une pompe et deux sacoches', 'un phare avant et un compteur', ['casque', 'antivol']),
         ],
       }
     },
@@ -924,14 +930,14 @@ export const N03_R_2 = [
   // Scenario 4 (Template, situation: 1 variant / NEW SITUATION: Recherche de colocataire)
   Object.assign(
     (rand) => {
-      const q = pick(['dans Rosemont', 'dans Limoilou', 'sur le Plateau', 'près du métro Jarry'], rand)
+      const qPlace = pick(['dans Rosemont', 'dans Limoilou', 'sur le Plateau', 'près du métro Jarry'], rand)
       const rent = pick(['650 $ par mois', '680 $ par mois', '620 $ par mois', '700 $ par mois'], rand)
-      const text = `Recherche colocataire pour grand appartement ${q}. Chambre privée lumineuse avec placard, cuisine tout équipée et salon partagé. Ambiance calme et respectueuse. Loyer de ${rent} tout compris. Libre dès le mois prochain.`
+      const text = `Recherche colocataire pour grand appartement ${qPlace}. Chambre privée lumineuse avec placard, cuisine tout équipée et salon partagé. Ambiance calme et respectueuse. Loyer de ${rent} tout compris. Libre dès le mois prochain.`
       return {
         text,
         questions: [
-          ['Que propose l’annonceur de ce message ?', 'une chambre privée en colocation', 'un studio meublé pour famille', 'un bureau commercial partagé'],
-          ['Quel type d’ambiance est recherché dans le logement ?', 'un milieu calme et respectueux', 'des fêtes chaque fin de semaine', 'un atelier ouvert aux clients'],
+          q('Que propose l’annonceur de ce message ?', 'une chambre privée en colocation', 'un studio meublé pour famille', 'un bureau commercial partagé', ['colocataire']),
+          q('Quel type d’ambiance est recherché dans le logement ?', 'un milieu calme et respectueux', 'des fêtes chaque fin de semaine', 'un atelier ouvert aux clients', ['calme']),
         ],
       }
     },
@@ -961,29 +967,33 @@ export const N03_R_2 = [
 // n3-reading-3
 // ---------------------------------------------------------------------------
 const N3_CLEANERS_DATA = [
-  { name: 'Nettoyant multi-surfaces écologique', action: 'Vaporiser à vingt centimètres.', actP: 'vaporiser à courte distance', wait: 'Laisser agir deux minutes.', wipe: 'Essuyer avec un chiffon en microfibre.', warn: 'Ne jamais mélanger avec de la Javel.', warnP: 'ne pas mélanger avec la Javel' },
-  { name: 'Désinfectant doux pour la cuisine', action: 'Appliquer sur une éponge propre.', actP: 'mettre le produit sur l’éponge', wait: 'Laisser reposer trois minutes.', wipe: 'Rincer ensuite à l’eau claire.', warn: 'Conserver hors de portée des enfants.', warnP: 'garder hors de portée des petits' },
-  { name: 'Dégraissant puissant pour cuisinière', action: 'Verser quelques gouttes sur la tache.', actP: 'verser le produit sur la tache', wait: 'Attendre cinq minutes.', wipe: 'Frotter avec un linge doux.', warn: 'Éviter tout contact avec les yeux.', warnP: 'ne pas mettre dans les yeux' },
-  { name: 'Savon liquide pour planchers', action: 'Diluer deux bouchons dans de l’eau.', actP: 'diluer la dose dans de l’eau', wait: 'Passer une vadrouille bien essorée.', wipe: 'Laisser sécher à l’air libre.', warn: 'Ne pas appliquer sur du bois brut.', warnP: 'ne pas mettre sur du bois brut' },
+  { name: 'Nettoyant multi-surfaces écologique', action: 'Vaporiser à vingt centimètres.', actP: 'vaporiser à courte distance', kwAct: 'vaporiser', wait: 'Laisser agir deux minutes.', wipe: 'Essuyer avec un chiffon en microfibre.', warn: 'Ne jamais mélanger avec de la Javel.', warnP: 'ne pas mélanger avec la Javel', kwWarn: 'javel' },
+  { name: 'Désinfectant doux pour la cuisine', action: 'Appliquer sur une éponge propre.', actP: 'mettre le produit sur l’éponge', kwAct: 'appliquer', wait: 'Laisser reposer trois minutes.', wipe: 'Rincer ensuite à l’eau claire.', warn: 'Conserver hors de portée des enfants.', warnP: 'garder hors de portée des petits', kwWarn: 'enfants' },
+  { name: 'Dégraissant puissant pour cuisinière', action: 'Verser quelques gouttes sur la tache.', actP: 'verser le produit sur la tache', kwAct: 'verser', wait: 'Attendre cinq minutes.', wipe: 'Frotter avec un linge doux.', warn: 'Éviter tout contact avec les yeux.', warnP: 'ne pas mettre dans les yeux', kwWarn: 'yeux' },
+  { name: 'Savon liquide pour planchers', action: 'Diluer deux bouchons dans de l’eau.', actP: 'diluer la dose dans de l’eau', kwAct: 'diluer', wait: 'Passer une vadrouille bien essorée.', wipe: 'Laisser sécher à l’air libre.', warn: 'Ne pas appliquer sur du bois brut.', warnP: 'ne pas mettre sur du bois brut', kwWarn: 'bois' },
 ]
 const N3_CLEANER_BRANDS = ['Éco-Ménage', 'Net-Maison', 'Pur-Québec', 'Bio-Propre']
 
 const N3_PHARMA_DATA = [
-  { med: 'Comprimés contre le rhume', dose: 'Prendre un comprimé aux six heures.', doseP: 'un comprimé toutes les six heures', max: 'Ne pas dépasser quatre prises par jour.', dur: 'cinq jours consécutifs', store: 'Garder dans un endroit sec.', storeP: 'garder au sec et loin du soleil' },
-  { med: 'Sirop contre la toux sèche', dose: 'Prendre une cuillère matin et soir.', doseP: 'une dose le matin et le soir', max: 'Ne pas dépasser deux cuillères en 24 heures.', dur: 'sept jours au besoin', store: 'Conserver la bouteille bien fermée.', storeP: 'bien fermer la bouteille au sec' },
-  { med: 'Gélules pour la digestion', dose: 'Prendre deux gélules au milieu du repas.', doseP: 'avaler deux capsules en mangeant', max: 'Ne pas prendre plus de quatre gélules par jour.', dur: 'dix jours consécutifs', store: 'Mettre à l’abri de l’humidité.', storeP: 'garder au sec et à l’abri du jour' },
+  { med: 'Comprimés contre le rhume', dose: 'Prendre un comprimé aux six heures.', doseP: 'un comprimé toutes les six heures', kwDose: 'comprimé', max: 'Ne pas dépasser quatre prises par jour.', dur: 'cinq jours consécutifs', store: 'Garder dans un endroit sec.', storeP: 'garder au sec et loin du soleil', kwStore: 'sec' },
+  { med: 'Sirop contre la toux sèche', dose: 'Prendre une cuillère matin et soir.', doseP: 'une dose le matin et le soir', kwDose: 'cuillère', max: 'Ne pas dépasser deux cuillères en 24 heures.', dur: 'sept jours au besoin', store: 'Conserver la bouteille bien fermée.', storeP: 'bien fermer la bouteille au sec', kwStore: 'fermée' },
+  { med: 'Gélules pour la digestion', dose: 'Prendre deux gélules au milieu du repas.', doseP: 'avaler deux capsules en mangeant', kwDose: 'gélules', max: 'Ne pas prendre plus de quatre gélules par jour.', dur: 'dix jours consécutifs', store: 'Mettre à l’abri de l’humidité.', storeP: 'garder au sec et à l’abri du jour', kwStore: 'humidité' },
 ]
 const N3_PHARMA_DURS = ['trois jours consécutifs', 'cinq jours complets', 'sept jours ouvrables', 'dix jours de suite']
 
 const N3_APPLIANCE_CARE = [
-  { app: 'cafetière électrique', product: 'vinaigre blanc', prodP: 'du vinaigre blanc ordinaire' },
-  { app: 'bouilloire en inox', product: 'jus de citron dilué', prodP: 'du jus de citron naturel' },
-  { app: 'fer à repasser à vapeur', product: 'eau déminéralisée', prodP: 'de l’eau déminéralisée' },
+  { app: 'cafetière électrique', product: 'vinaigre blanc', prodP: 'du vinaigre blanc ordinaire', kw: 'vinaigre' },
+  { app: 'bouilloire en inox', product: 'jus de citron', prodP: 'du jus de citron naturel', kw: 'citron' },
+  { app: 'machine à espresso', product: 'détartrant liquide', prodP: 'un produit détartrant liquide', kw: 'détartrant' },
 ]
 const N3_APPLIANCE_CARE_CYCLES = ['deux cycles complets', 'trois cycles consécutifs', 'un cycle prolongé']
 
 const N3_RECYCLE_AREAS = ['Ville de Québec', 'Ville de Montréal', 'Ville de Laval', 'Ville de Sherbrooke']
-const N3_RECYCLE_ITEMS = ['les cartons pliés', 'les bouteilles de plastique', 'les emballages métalliques']
+const N3_RECYCLE_ITEMS = [
+  { textFr: 'les cartons pliés', ans: 'les cartons et contenants propres', kw: 'cartons' },
+  { textFr: 'les bouteilles de verre', ans: 'le verre et contenants propres', kw: 'verre' },
+  { textFr: 'les emballages métalliques', ans: 'le métal et contenants propres', kw: 'emballages' },
+]
 
 export const N03_R_3 = [
   // Scenario 1 (Template, situation: 0) - Nettoyant ménager
@@ -995,8 +1005,8 @@ export const N03_R_3 = [
       return {
         text,
         questions: [
-          ['Quelle est la première action à réaliser ?', c.actP, 'verser dans une bouilloire avec de l’huile', 'appliquer avec force sur des habits en soie'],
-          ['Quelle consigne de prudence doit-on observer ?', c.warnP, 'changer les piles chaque mois sans tarder', 'verser la bouteille entière en une fois'],
+          q('Quelle est la première action à réaliser ?', c.actP, 'verser dans une bouilloire avec de l’huile', 'appliquer avec force sur des habits en soie', [c.kwAct]),
+          q('Quelle consigne de prudence doit-on observer ?', c.warnP, 'changer les piles chaque mois sans tarder', 'verser la bouteille entière en une fois', [c.kwWarn]),
         ],
       }
     },
@@ -1011,8 +1021,8 @@ export const N03_R_3 = [
       return {
         text,
         questions: [
-          ['À quelle fréquence ce médicament doit-il être pris ?', p.doseP, 'prendre toute la boîte en une seule fois', 'prendre une pleine dose chaque quart d’heure'],
-          ['Quelle consigne de conservation est indiquée ?', p.storeP, 'garder le paquet sous la pluie au jardin', 'mettre les comprimés dans un four très chaud'],
+          q('À quelle fréquence ce médicament doit-il être pris ?', p.doseP, 'prendre toute la boîte en une seule fois', 'prendre une pleine dose chaque quart d’heure', [p.kwDose]),
+          q('Quelle consigne de conservation est indiquée ?', p.storeP, 'garder le paquet sous la pluie au jardin', 'mettre les comprimés dans un four très chaud', [p.kwStore]),
         ],
       }
     },
@@ -1027,8 +1037,8 @@ export const N03_R_3 = [
       return {
         text,
         questions: [
-          ['Quel produit doit-on mélanger avec de l’eau ?', care.prodP, 'du savon liquide pour vaisselle', 'du bicarbonate de soude pur'],
-          ['Que faut-il faire pour bien rincer l’appareil ?', 'lancer des cycles à l’eau claire', 'essuyer l’intérieur avec un linge', 'laisser tremper pendant une journée'],
+          q('Quel produit doit-on mélanger avec de l’eau ?', care.prodP, 'du savon liquide pour vaisselle', 'du bicarbonate de soude pur', [care.kw]),
+          q('Que faut-il faire pour bien rincer l’appareil ?', 'lancer des cycles à l’eau claire', 'essuyer l’intérieur avec un linge', 'laisser tremper pendant une journée', ['claire']),
         ],
       }
     },
@@ -1039,12 +1049,12 @@ export const N03_R_3 = [
     (rand) => {
       const city = pick(N3_RECYCLE_AREAS, rand)
       const item = pick(N3_RECYCLE_ITEMS, rand)
-      const text = `${city}. Consignes municipales de recyclage. Déposez ${item} et les contenants en plastique propres dans le bac bleu. Rincez bien vos boîtes avant le dépôt. Les résidus alimentaires doivent être placés dans le bac brun.`
+      const text = `${city}. Consignes municipales de recyclage. Déposez ${item.textFr} et les contenants en plastique propres dans le bac bleu. Rincez bien vos boîtes avant le dépôt. Les résidus alimentaires doivent être placés dans le bac brun.`
       return {
         text,
         questions: [
-          ['Que doit-on mettre dans le bac bleu ?', 'les cartons et plastiques propres', 'les déchets alimentaires des repas', 'les vieux habits et souliers usés'],
-          ['Quelle consigne s’applique aux boîtes de conserve ?', 'bien rincer avant le dépôt', 'les écraser avec un outil lourd', 'les envelopper dans du plastique'],
+          q('Que doit-on mettre dans le bac bleu ?', item.ans, 'les déchets alimentaires des repas', 'les vieux habits et souliers usés', [item.kw, 'bleu']),
+          q('Quelle consigne s’applique aux boîtes de conserve ?', 'bien rincer avant le dépôt', 'les écraser avec un outil lourd', 'les envelopper dans du plastique', ['rincez']),
         ],
       }
     },
@@ -1074,11 +1084,11 @@ export const N03_R_3 = [
 // n3-reading-4
 // ---------------------------------------------------------------------------
 const N3_TEXTO_DATA = [
-  { friend: 'Camille', topic: 'ta présentation orale de ce matin', topicP: 'la présentation orale du matin', detail: 'Tu as parlé avec beaucoup de calme et d’assurance', detailP: 'le calme et la clarté des propos' },
-  { friend: 'Valérie', topic: 'ton nouveau manteau d’automne', topicP: 'ton nouveau manteau d’automne', detail: 'La couleur te donne une mine vraiment éclatante', detailP: 'la belle couleur éclatante du tissu' },
-  { friend: 'Mélanie', topic: 'tes photos de notre randonnée', topicP: 'tes jolies photos de randonnée', detail: 'Les paysages des montagnes sont magnifiques', detailP: 'les superbes vues sur la montagne' },
-  { friend: 'Sophie', topic: 'ton délicieux gâteau aux pommes', topicP: 'ton bon gâteau fait maison', detail: 'Toute la famille a adoré ta recette maison', detailP: 'la recette appréciée de la famille' },
-  { friend: 'Chloé', topic: 'ton joli dessin pour l’exposition', topicP: 'ton beau dessin pour l’exposition', detail: 'Les couleurs vives attirent tout de suite le regard', detailP: 'les couleurs vives qui attirent l’œil' },
+  { friend: 'Camille', topic: 'ta présentation orale de ce matin', topicP: 'la présentation orale du matin', kwTopic: 'présentation', detail: 'Tu as parlé avec beaucoup de calme et d’assurance', detailP: 'le calme et la clarté des propos', kwDetail: 'calme' },
+  { friend: 'Valérie', topic: 'ton nouveau manteau d’automne', topicP: 'ton nouveau manteau d’automne', kwTopic: 'manteau', detail: 'La couleur te donne une mine vraiment éclatante', detailP: 'la belle couleur éclatante du tissu', kwDetail: 'éclatante' },
+  { friend: 'Mélanie', topic: 'tes photos de notre randonnée', topicP: 'tes jolies photos de randonnée', kwTopic: 'photos', detail: 'Les paysages des montagnes sont magnifiques', detailP: 'les superbes vues sur la montagne', kwDetail: 'montagnes' },
+  { friend: 'Sophie', topic: 'ton délicieux gâteau aux pommes', topicP: 'ton bon gâteau fait maison', kwTopic: 'gâteau', detail: 'Toute la famille a adoré ta recette maison', detailP: 'la recette appréciée de la famille', kwDetail: 'recette' },
+  { friend: 'Chloé', topic: 'ton joli dessin pour l’exposition', topicP: 'ton beau dessin pour l’exposition', kwTopic: 'dessin', detail: 'Les couleurs vives attirent tout de suite le regard', detailP: 'les couleurs vives qui attirent l’œil', kwDetail: 'regard' },
 ]
 
 const N3_TEXTO_CLOSINGS = [
@@ -1089,11 +1099,11 @@ const N3_TEXTO_CLOSINGS = [
 ]
 
 const N3_BIRTHDAY_DATA = [
-  { colleague: 'Émile', wish: 'un très joyeux anniversaire', wishP: 'beaucoup de bonheur et une bonne santé', note: 'Profite bien de cette journée festive avec tes proches.' },
-  { colleague: 'Karim', wish: 'une merveilleuse journée de fête', wishP: 'la réussite dans tous tes beaux projets', note: 'Ne pense pas aux dossiers du bureau aujourd’hui.' },
-  { colleague: 'Martin', wish: 'un superbe anniversaire', wishP: 'de beaux souvenirs en famille réunis', note: 'Toute l’équipe a hâte de célébrer cela avec toi demain.' },
-  { colleague: 'Sébastien', wish: 'une très belle fête', wishP: 'de la joie et de beaux succès personnels', note: 'Prends le temps de savourer chaque instant de fête.' },
-  { colleague: 'Alexandre', wish: 'un chaleureux anniversaire', wishP: 'une année pleine de santé et d’énergie', note: 'Nous serons ravis de trinquer à ta santé sous peu.' },
+  { colleague: 'Émile', wish: 'un très joyeux anniversaire', extraWish: 'beaucoup de bonheur et une excellente santé', wishP: 'du bonheur et une excellente santé', kwWish: 'santé', note: 'Profite bien de cette journée festive avec tes proches.' },
+  { colleague: 'Karim', wish: 'une merveilleuse journée de fête', extraWish: 'la réussite dans tous tes beaux projets', wishP: 'la réussite dans tous ses beaux projets', kwWish: 'réussite', note: 'Ne pense pas aux dossiers du bureau aujourd’hui.' },
+  { colleague: 'Martin', wish: 'un superbe anniversaire', extraWish: 'de très beaux souvenirs en famille réunis', wishP: 'des souvenirs en famille réunis', kwWish: 'souvenirs', note: 'Toute l’équipe a hâte de célébrer cela avec toi demain.' },
+  { colleague: 'Sébastien', wish: 'une très belle fête', extraWish: 'de la joie et de beaux succès personnels', wishP: 'de la joie et des succès personnels', kwWish: 'succès', note: 'Prends le temps de savourer chaque instant de fête.' },
+  { colleague: 'Alexandre', wish: 'un chaleureux anniversaire', extraWish: 'une année pleine de santé et d’énergie', wishP: 'de la pleine santé et de l’énergie', kwWish: 'énergie', note: 'Nous serons ravis de trinquer à ta santé sous peu.' },
 ]
 const N3_BIRTHDAY_SIGNOFFS = [
   'Passe une excellente soirée !',
@@ -1125,8 +1135,8 @@ export const N03_R_4 = [
       return {
         text,
         questions: [
-          ['Sur quoi porte le compliment reçu dans ce message ?', t.topicP, 'l’achat d’un camion d’occasion révisé', 'un contrat de location longue durée'],
-          ['Quelle appréciation positive l’amie formule-t-elle ?', t.detailP, 'le bas prix trouvé au centre commercial', 'la rapidité d’envoi du paquet postal'],
+          q('Sur quoi porte le compliment reçu dans ce message ?', t.topicP, 'l’achat d’un camion d’occasion révisé', 'un contrat de location longue durée', [t.kwTopic]),
+          q('Quelle appréciation positive l’amie formule-t-elle ?', t.detailP, 'le bas prix trouvé au centre commercial', 'la rapidité d’envoi du paquet postal', [t.kwDetail]),
         ],
       }
     },
@@ -1137,12 +1147,13 @@ export const N03_R_4 = [
     (rand) => {
       const b = pick(N3_BIRTHDAY_DATA, rand)
       const sign = pick(N3_BIRTHDAY_SIGNOFFS, rand)
-      const text = `Bonjour ! De la part de toute l’équipe, je te souhaite ${b.wish}. Nous te souhaitons beaucoup de bonheur. ${b.note} ${sign}`
+      const othersWish = sample(N3_BIRTHDAY_DATA.filter(x => x.wishP !== b.wishP), 2, rand)
+      const text = `Bonjour ! De la part de toute l’équipe, je te souhaite ${b.wish}. Nous te souhaitons ${b.extraWish}. ${b.note} ${sign}`
       return {
         text,
         questions: [
-          ['Quel est le but principal de ce courriel ?', 'souhaiter un joyeux anniversaire', 'demander un rapport de travail urgent', 'annoncer une réunion de crise d’équipe'],
-          ['Quels vœux bienveillants le collègue exprime-t-il ?', b.wishP, 'des heures de travail en plus le samedi', 'une baisse importante des congés payés'],
+          q('Quel est le but principal de ce courriel ?', 'souhaiter un joyeux anniversaire', 'demander un rapport de travail urgent', 'annoncer une réunion de crise d’équipe', ['souhaite']),
+          q('Quels vœux bienveillants le collègue exprime-t-il ?', b.wishP, othersWish[0].wishP, othersWish[1].wishP, [b.kwWish]),
         ],
       }
     },
@@ -1157,8 +1168,8 @@ export const N03_R_4 = [
       return {
         text,
         questions: [
-          ['Pourquoi l’expéditeur envoie-t-il ce message ?', 'pour remercier un ami de son aide', 'pour inviter des voisins à un concert', 'pour demander de prêter une remorque'],
-          ['Quelle qualité de l’ami est soulignée dans le texte ?', 'sa bonne humeur et son dynamisme', 'sa ponctualité aux réunions du matin', 'sa connaissance des routes de la ville'],
+          q('Pourquoi l’expéditeur envoie-t-il ce message ?', 'pour remercier un ami de son aide', 'pour inviter des voisins à un concert', 'pour demander de prêter une remorque', ['merci']),
+          q('Quelle qualité de l’ami est soulignée dans le texte ?', 'sa bonne humeur et son dynamisme', 'sa ponctualité aux réunions du matin', 'sa connaissance des routes de la ville', ['humeur', 'énergie']),
         ],
       }
     },
@@ -1173,8 +1184,8 @@ export const N03_R_4 = [
       return {
         text,
         questions: [
-          ['Quel évènement professionnel est célébré ici ?', p.roleP, 'le départ d’une collègue en voyage', 'l’arrivée d’un nouveau directeur'],
-          ['Quel sentiment l’équipe exprime-t-elle dans ce message ?', 'une grande fierté et de la joie', 'une inquiétude face aux changements', 'une surprise devant cette annonce'],
+          q('Quel évènement professionnel est célébré ici ?', p.roleP, 'le départ d’une collègue en voyage', 'l’arrivée d’un nouveau directeur', [p.role.split(' ')[0].toLowerCase()]),
+          q('Quel sentiment l’équipe exprime-t-elle dans ce message ?', 'une grande fierté et de la joie', 'une inquiétude face aux changements', 'une surprise devant cette annonce', ['féliciter', 'succès']),
         ],
       }
     },
