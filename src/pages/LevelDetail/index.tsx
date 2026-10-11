@@ -145,7 +145,7 @@ export default function LevelDetailPage() {
   if (!validLevel) {
     return (
       <>
-        <div className="container mx-auto max-w-4xl px-4 py-10">
+        <div className="ui-shell-container py-10">
           <Link to="/levels" className="ui-btn-secondary">
             返回等级课程
           </Link>
@@ -171,7 +171,7 @@ export default function LevelDetailPage() {
 
   return (
     <>
-      <div className="container mx-auto max-w-5xl px-4 pb-6 sm:px-6">
+      <div className="ui-shell-container pt-5 pb-8 sm:pt-6 sm:pb-10">
         <div className="mb-6 flex flex-wrap items-center gap-3">
           <Link to="/levels" className="ui-btn-secondary flex items-center gap-1">
             <IconChevronLeft className="h-4 w-4" />

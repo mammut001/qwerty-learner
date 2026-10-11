@@ -194,10 +194,10 @@ function parseImportedStorage(value: unknown): StudyPlanStorage | StudyServerSta
     minimumMode,
   }
   if (isRecord(value.learning)) {
-    ;(imported as StudyServerState).learning = value.learning as unknown as LearningProgress
+    (imported as StudyServerState).learning = value.learning as unknown as LearningProgress
   }
   if (isRecord(value.syncMeta)) {
-    ;(imported as StudyServerState).syncMeta = value.syncMeta as StudyServerState['syncMeta']
+    (imported as StudyServerState).syncMeta = value.syncMeta as StudyServerState['syncMeta']
   }
   return imported
 }
@@ -1151,7 +1151,7 @@ export default function StudyPlanPage() {
 
   return (
     <Layout>
-      <main className="container mx-auto w-full max-w-6xl flex-1 px-4 pb-12 sm:px-6 lg:px-10">
+      <main className="ui-shell-container flex-1 pt-5 pb-12 sm:pt-6">
         <section className="my-card relative overflow-hidden rounded-[28px] bg-white p-5 dark:bg-gray-800 sm:p-8">
           <div
             aria-hidden

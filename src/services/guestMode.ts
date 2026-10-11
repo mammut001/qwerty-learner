@@ -32,11 +32,27 @@ const readInitialGuestMode = (): boolean => {
 }
 
 let guestMode = readInitialGuestMode()
+const listeners = new Set<(enabled: boolean) => void>()
 
 export function isGuestMode(): boolean {
   return guestMode
 }
 
+export function onGuestModeChange(listener: (enabled: boolean) => void): () => void {
+  listeners.add(listener)
+  return () => {
+    listeners.delete(listener)
+  }
+}
+
 export function setGuestMode(enabled: boolean): void {
+  if (guestMode === enabled) return
   guestMode = enabled
+  listeners.forEach((listener) => {
+    try {
+      listener(enabled)
+    } catch {
+      // Storage or listener errors
+    }
+  })
 }
