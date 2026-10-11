@@ -3244,18 +3244,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 0 (Template, Ex 0): Fiche de programme AEC au Cégep de Sainte-Foy
     Object.assign(
       (rand) => {
-        const slots = [
-          { programme: 'Attestation d’études collégiales en bureautique et coordination numérique', duree: 'quatorze mois intensifs', stage: 'un stage en entreprise de quatre cent cinquante heures', prealable: 'un diplôme d’études secondaires ou une expérience équivalente' },
-          { programme: 'AEC en gestion de réseaux et cybersécurité', duree: 'seize mois à temps plein', stage: 'un stage crédité en milieu corporatif de quatre cents heures', prealable: 'avoir interrompu ses études régulières depuis au moins deux sessions' },
-          { programme: 'AEC en développement Web et médias interactifs', duree: 'douze mois de formation', stage: 'un stage pratique supervisé de trois cent cinquante heures', prealable: 'la réussite d’un test de logique informatique et de français' },
+        const tuples = [
+          {
+            programme: 'Attestation d’études collégiales en bureautique et coordination numérique',
+            duree: 'quatorze mois intensifs',
+            stage: 'un stage crédité en entreprise de quatre cent cinquante heures',
+            prealable: 'un diplôme d’études secondaires ou une expérience équivalente reconnue',
+            stageAns: 'Une période de travail en entreprise totalisant quatre cent cinquante heures',
+            stageDist1: 'Un court atelier pratique d’une quinzaine d’heures sans supervision directe',
+            stageDist2: 'Un projet de recherche exclusivement théorique sans stage en milieu de travail',
+            prealableAns: 'Avoir complété ses études secondaires ou justifier d’une expérience équivalente',
+            prealableDist1: 'La possession préalable d’une maîtrise universitaire en administration publique',
+            prealableDist2: 'Une expérience de direction d’au moins dix années dans une entreprise multinationale',
+            evidenceStage: ['stage', 'quatre', 'cinquante', 'heures'],
+            evidencePrealable: ['diplôme', 'secondaires', 'expérience'],
+          },
+          {
+            programme: 'AEC en gestion de réseaux et cybersécurité',
+            duree: 'seize mois à temps plein',
+            stage: 'un stage en milieu corporatif de quatre cents heures',
+            prealable: 'avoir interrompu ses études régulières depuis au moins deux sessions',
+            stageAns: 'Une période de stage corporatif supervisé totalisant quatre cents heures',
+            stageDist1: 'Une fin de semaine complète de bénévolat communautaire sans supervision directe',
+            stageDist2: 'La rédaction d’un mémoire universitaire sans aucune immersion pratique sur le terrain',
+            prealableAns: 'Une interruption des études régulières d’au moins deux sessions consécutives',
+            prealableDist1: 'Une inscription scolaire continue sans interruption depuis l’école primaire jusqu’au cégep',
+            prealableDist2: 'L’obtention d’un permis spécial de sécurité délivré par le gouvernement fédéral',
+            evidenceStage: ['stage', 'corporatif', 'quatre', 'cents'],
+            evidencePrealable: ['interrompu', 'études', 'sessions'],
+          },
+          {
+            programme: 'AEC en développement Web et médias interactifs',
+            duree: 'douze mois de formation',
+            stage: 'un stage pratique supervisé de trois cent cinquante heures',
+            prealable: 'la réussite d’un test de logique informatique et de français',
+            stageAns: 'Une période de stage pratique totalisant trois cent cinquante heures',
+            stageDist1: 'Un voyage d’observation touristique de deux jours organisé dans un pays étranger',
+            stageDist2: 'Une série de questionnaires théoriques en ligne sans aucune intégration en équipe',
+            prealableAns: 'Obtenir la note de passage requise à l’épreuve de logique et de français',
+            prealableDist1: 'La démonstration d’un bilinguisme parfait certifié dans plus de quatre langues vivantes',
+            prealableDist2: 'La remise d’un brevet d’invention officiel homologué par les autorités canadiennes',
+            evidenceStage: ['stage', 'trois', 'cinquante', 'heures'],
+            evidencePrealable: ['réussite', 'logique', 'français'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `FICHE DESCRIPTIVE DE PROGRAMME - CÉGEP DE SAINTE-FOY\nProgramme : ${s.programme}\nCe programme s’adresse aux adultes désireux de réorienter leur carrière vers un secteur en forte demande de main-d’œuvre. La formation s’échelonne sur ${s.duree}, combinant cours théoriques en ligne et travaux dirigés dans les laboratoires informatiques. Le cursus comprend ${s.stage}, permettant une intégration immédiate sur le marché du travail québécois. Les conditions d’admission exigent ${s.prealable}. Les cours sont dispensés de soir et les fins de semaine pour accommoder les personnes en emploi. Les candidats admissibles peuvent bénéficier des prêts et bourses du gouvernement du Québec ainsi que d’un soutien personnalisé pour la rédaction de leur curriculum vitæ. Date limite de dépôt des dossiers : le quinze novembre prochain.`,
+          text: `FICHE DESCRIPTIVE DE PROGRAMME - CÉGEP DE SAINTE-FOY\nProgramme : ${t.programme}\nCe programme collégial s’adresse aux adultes désireux de réorienter leur carrière vers un secteur en forte demande de main-d’œuvre au Québec. La formation s’échelonne sur ${t.duree}, combinant cours théoriques en ligne et travaux dirigés dans les laboratoires informatiques du campus. Le cursus comprend ${t.stage}, permettant une intégration professionnelle immédiate sur le marché du travail. Les conditions d’admission exigent ${t.prealable}. Les cours sont dispensés de soir et les fins de semaine pour accommoder les personnes en emploi. Les candidats admissibles peuvent bénéficier des prêts et bourses du gouvernement du Québec ainsi que d’un soutien personnalisé pour la rédaction de leur curriculum vitæ. Date limite de dépôt des dossiers : le quinze novembre prochain.`,
           questions: [
-            ['Quel type de document officiel est présenté dans cet extrait ?', 'Une fiche descriptive d’une formation collégiale pour adultes', 'Une convention collective encadrant les droits du corps enseignant du cégep', 'Un dépliant publicitaire pour des loisirs sportifs'],
-            ['Quelle composante pratique obligatoire le parcours intègre-t-il ?', 'Un stage crédité en milieu de travail de plusieurs centaines d’heures', 'Un voyage d’études à l’étranger pour la session', 'La rédaction d’une recherche théorique publiée dans une revue universitaire'],
-            ['Quel aménagement d’horaire est offert pour concilier les études avec l’emploi ?', 'Des séances d’enseignement offertes en soirée ainsi que les fins de semaine', 'Des cours intensifs concentrés durant les vacances estivales', 'Un parcours libre sans aucun horaire fixe imposé'],
+            makeQuestion('Quel type de document officiel est présenté dans cet extrait d’information ?', 'Une fiche descriptive d’une formation collégiale pour adultes', 'Une convention collective encadrant les droits du corps enseignant du cégep', 'Un dépliant publicitaire vantant un voyage d’agrément à l’étranger', ['fiche', 'programme', 'adultes']),
+            makeQuestion('Quelle composante pratique obligatoire le parcours intègre-t-il dans son cursus ?', t.stageAns, t.stageDist1, t.stageDist2, t.evidenceStage),
+            makeQuestion('Quelle condition formelle d’admissibilité est requise pour intégrer la cohorte ?', t.prealableAns, t.prealableDist1, t.prealableDist2, t.evidencePrealable),
           ],
         }
       },
@@ -3264,18 +3303,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 1 (Template, Ex 0): Descriptif de formation DEP professionnelle
     Object.assign(
       (rand) => {
-        const slots = [
-          { dep: 'Diplôme d’études professionnelles en électricité de construction', centre: 'au Centre de formation professionnelle de Québec', duree: 'mille huit cents heures d’ateliers pratiques', debouche: 'l’obtention du carnet d’apprenti électricien de la Commission de la construction' },
-          { dep: 'DEP en plomberie et chauffage résidentiel', centre: 'au Centre de formation professionnelle de Montréal', duree: 'mille cinq cents heures de formation intensive', debouche: 'l’accès direct aux chantiers certifiés par la CCQ' },
-          { dep: 'DEP en mécanique de véhicules lourds routiers', centre: 'au Pavillon technique de l’Estrie', duree: 'mille huit cents heures en atelier mécanique', debouche: 'un taux de placement de quatre-vingt-quinze pour cent en entreprise' },
+        const tuples = [
+          {
+            dep: 'Diplôme d’études professionnelles en électricité de construction',
+            centre: 'au Centre de formation professionnelle de Québec',
+            duree: 'mille huit cents heures d’ateliers pratiques',
+            debouche: 'l’obtention du carnet d’apprenti électricien de la Commission de la construction',
+            metierAns: 'Le métier d’électricien de construction sur les grands chantiers',
+            metierDist1: 'L’horticulture ornementale et l’aménagement d’espaces verts urbains municipaux',
+            metierDist2: 'La haute gastronomie et le service en salle dans les grands palaces hôteliers',
+            deboucheAns: 'La délivrance de la carte d’apprenti électricien reconnue par la CCQ',
+            deboucheDist1: 'L’accès direct et sans stage à un poste de cadre dirigeant en ministère public',
+            deboucheDist2: 'Une licence immédiate d’ingénieur en génie civil sans formation universitaire préalable',
+            evidenceMetier: ['électricité', 'construction', 'chantiers'],
+            evidenceDebouche: ['carnet', 'apprenti', 'électricien'],
+          },
+          {
+            dep: 'DEP en plomberie et chauffage résidentiel',
+            centre: 'au Centre de formation professionnelle de Montréal',
+            duree: 'mille cinq cents heures de formation intensive',
+            debouche: 'l’accès direct aux chantiers certifiés par la CCQ',
+            metierAns: 'Les techniques de plomberie et d’installation de chauffage résidentiel',
+            metierDist1: 'Le pilotage d’hélicoptères de sauvetage d’urgence en zone montagneuse isolée',
+            metierDist2: 'La conception de jeux vidéo interactifs grand public pour appareils mobiles',
+            deboucheAns: 'L’embauche immédiate sur les chantiers de construction agréés par la CCQ',
+            deboucheDist1: 'Une autorisation permanente d’ouvrir un cabinet d’architecte de renommée internationale',
+            deboucheDist2: 'Une charge d’enseignement régulier à plein temps à la faculté de médecine',
+            evidenceMetier: ['plomberie', 'chauffage', 'chantiers'],
+            evidenceDebouche: ['accès', 'chantiers', 'ccq'],
+          },
+          {
+            dep: 'DEP en mécanique de véhicules lourds routiers',
+            centre: 'au Pavillon technique de l’Estrie',
+            duree: 'mille huit cents heures en atelier mécanique',
+            debouche: 'un taux d’embauche confirmé de quatre-vingt-quinze pour cent en entreprise',
+            metierAns: 'La mécanique spécialisée pour les camions et véhicules lourds routiers',
+            metierDist1: 'La vente au détail de prêt-à-porter haut de gamme dans les grandes boutiques',
+            metierDist2: 'L’enseignement de la danse contemporaine auprès d’élèves de niveau avancé',
+            deboucheAns: 'Une quasi-certitude de placement professionnel chiffrée à quatre-vingt-quinze pour cent',
+            deboucheDist1: 'Une promesse formelle d’embauche en télétravail à plein temps depuis une destination de vacances',
+            deboucheDist2: 'La titularisation immédiate comme juge permanent auprès de la Cour suprême du pays',
+            evidenceMetier: ['mécanique', 'véhicules', 'lourds'],
+            evidenceDebouche: ['embauche', 'quatre-vingt-quinze', 'pour'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `GUIDE DES FORMATIONS PROFESSIONNELLES - CENTRE DE SERVICES SCOLAIRE\nProgramme : ${s.dep}, offert ${s.centre}. Cette formation qualifiante de ${s.duree} prépare les futurs diplômés à œuvrer sur les grands chantiers résidentiels et industriels du Québec. Les étudiants apprennent à lire des plans complexes, à installer des systèmes conformes au Code du bâtiment et à utiliser des outils spécialisés de pointe. La réussite du programme mène à ${s.debouche}. Les candidats doivent être âgés d’au moins seize ans et avoir réussi leurs unités de français et de mathématiques de quatrième secondaire. Les équipements de protection individuelle et les coffres à outils sont fournis gratuitement pour toute la durée des cours. Les séances d’information virtuelles ont lieu chaque mardi à dix-neuf heures.`,
+          text: `GUIDE DES FORMATIONS PROFESSIONNELLES - CENTRE DE SERVICES SCOLAIRE\nProgramme : ${t.dep}, offert ${t.centre}. Cette formation qualifiante de ${t.duree} prépare les futurs diplômés à œuvrer sur les grands chantiers résidentiels et industriels du Québec. Les étudiants apprennent à lire des plans complexes, à installer des systèmes conformes au Code du bâtiment et à utiliser des outils spécialisés de pointe. La réussite du programme mène à ${t.debouche}. Les candidats doivent être âgés d’au moins seize ans et avoir réussi leurs unités de français et de mathématiques de quatrième secondaire. Les équipements de protection individuelle et les coffres à outils sont fournis gratuitement pour toute la durée des cours. Les séances d’information virtuelles ont lieu chaque mardi à dix-neuf heures.`,
           questions: [
-            ['Quel diplôme professionnel et technique est présenté dans ce guide ?', 'Un cheminement pratique préparant à un métier de chantier', 'Un certificat universitaire de premier cycle orienté vers les arts visuels', 'Un programme court de gestion des espaces verts'],
-            ['Quelle reconnaissance sur le marché du travail la réussite assure-t-elle ?', 'L’obtention d’une certification facilitant l’accès aux chantiers', 'La direction immédiate des projets municipaux', 'L’embauche automatique comme cadre supérieur au sein de l’administration'],
-            ['Quel avantage matériel gratuit l’établissement met-il à la disposition des élèves ?', 'L’ensemble du matériel de sécurité et la trousse d’outils nécessaires', 'La prise en charge des frais quotidiens de transport', 'Le versement d’une aide pour payer le loyer mensuel'],
+            makeQuestion('Quel métier technique du secteur professionnel cette formation prépare-t-elle ?', t.metierAns, t.metierDist1, t.metierDist2, t.evidenceMetier),
+            makeQuestion('Quelle perspective sur le marché du travail la réussite du programme garantit-elle ?', t.deboucheAns, t.deboucheDist1, t.deboucheDist2, t.evidenceDebouche),
+            makeQuestion('Quel avantage matériel gratuit l’établissement scolaire fournit-il aux étudiants ?', t.metierAns.length > 50 ? 'Le matériel de protection corporelle et l’outillage spécialisé' : 'Le matériel de protection individuelle ainsi que la boîte à outils spécialisée', 'La prise en charge intégrale du paiement de son loyer mensuel et de ses dépenses de logement', 'L’attribution d’un véhicule de fonction neuf pour tous les déplacements personnels quotidiens', ['protection', 'outils']),
           ],
         }
       },
@@ -3284,18 +3362,60 @@ export const N05_06_SCENARIOS = {
     // Scenario 2 (Template, Ex 1): Infolettre municipale - Programmation estivale
     Object.assign(
       (rand) => {
-        const slots = [
-          { ville: 'de la Ville de Gatineau', parc: 'le grand parc du Lac-Beauchamp', sport: 'des initiations gratuites au canot et au kayak sur l’eau', culture: 'des projections de cinéma en plein air tous les vendredis soirs' },
-          { ville: 'de la Ville de Laval', parc: 'le Centre de la nature', sport: 'des ligues amicales de volleyball de plage et de soccer', culture: 'des concerts acoustiques sous le kiosque à musique les samedis' },
-          { ville: 'de la Ville de Longueuil', parc: 'le parc régional Michel-Chartrand', sport: 'des séances matinales de yoga et de course sur sentiers', culture: 'des représentations théâtrales familiales en plein air' },
+        const tuples = [
+          {
+            ville: 'de la Ville de Gatineau',
+            parc: 'le grand parc du Lac-Beauchamp',
+            sportTexte: 'd’initiations gratuites au canot et au kayak sur l’eau',
+            materiel: 'les embarcations nautiques et les gilets de sauvetage',
+            culture: 'des projections de cinéma en plein air tous les vendredis soirs',
+            sportAns: 'Des ateliers guidés sur l’eau avec prêt gratuit d’embarcations et de gilets',
+            sportDist1: 'Des cours payants de pilotage d’embarcations à moteur hors-bord',
+            sportDist2: 'Des leçons d’équitation réservées exclusivement aux cavaliers professionnels',
+            cultureAns: 'Des séances de cinéma en plein air proposées les vendredis en soirée',
+            cultureDist1: 'Des ventes aux enchères d’œuvres d’art contemporain en salle fermée',
+            cultureDist2: 'Des cours de danse classique payants donnés dans un auditorium',
+            evidenceSport: ['canot', 'kayak', 'gilets'],
+            evidenceCulture: ['projections', 'cinéma', 'plein', 'air'],
+          },
+          {
+            ville: 'de la Ville de Laval',
+            parc: 'le Centre de la nature',
+            sportTexte: 'de ligues amicales de volleyball de plage et de tournois de soccer',
+            materiel: 'les ballons officiels et les filets de sport nécessaires',
+            culture: 'des concerts acoustiques sous le kiosque à musique les samedis',
+            sportAns: 'Des parties amicales de volleyball ou de soccer avec matériel fourni',
+            sportDist1: 'Des compétitions de motoneige sur pistes asphaltées chauffées',
+            sportDist2: 'Des régates océaniques de voiliers de haute mer pour navigateurs aguerris',
+            cultureAns: 'Des prestations musicales acoustiques présentées sous le kiosque le samedi',
+            cultureDist1: 'Des examens universitaires de solfège surveillés sous chapiteau',
+            cultureDist2: 'Des conférences théoriques sur l’entretien des voies ferrées de triage',
+            evidenceSport: ['volleyball', 'soccer', 'ballons'],
+            evidenceCulture: ['concerts', 'acoustiques', 'kiosque'],
+          },
+          {
+            ville: 'de la Ville de Longueuil',
+            parc: 'le parc régional Michel-Chartrand',
+            sportTexte: 'de séances matinales de yoga et de course guidée sur sentiers',
+            materiel: 'les tapis d’exercice adaptés et les accessoires de posture',
+            culture: 'des représentations théâtrales familiales jouées en plein air',
+            sportAns: 'Des cours matinaux combinant yoga et course avec prêt de tapis adapté',
+            sportDist1: 'Des combats professionnels d’arts martiaux mixtes en aréna couverte',
+            sportDist2: 'Des rallyes de voitures tout-terrain organisés sur les chemins forestiers',
+            cultureAns: 'Des pièces de théâtre destinées aux familles interprétées en plein air',
+            cultureDist1: 'Des concours de tir de précision réservés aux tireurs licenciés',
+            cultureDist2: 'Des galas de patinage artistique payants en patinoire olympique',
+            evidenceSport: ['yoga', 'course', 'tapis'],
+            evidenceCulture: ['théâtrales', 'plein', 'air'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `INFOLETTRE MUNICIPALE OFFICIELLE - ÉDITION SPÉCIALE ÉTÉ\nChers citoyens ${s.ville}, votre programmation d’activités culturelles et récréatives pour la saison estivale est enfin dévoilée ! Tout au long des mois de juillet et août, ${s.parc} deviendra le cœur des festivités familiales. Côté loisirs sportifs, les résidents pourront profiter de ${s.sport}, avec équipement nautique et gilets de sauvetage prêtés sans frais sur présentation de la carte citoyenne. Côté culture, nous vous convions à ${s.culture}. Des camions de cuisine de rue et des aires de pique-nique ombragées seront accessibles sur place. L’inscription préalable aux ateliers de groupe est obligatoire sur le portail Web des loisirs municipaux à compter du premier juin à neuf heures. Venez célébrer l’été au grand air en famille !`,
+          text: `INFOLETTRE MUNICIPALE OFFICIELLE - ÉDITION SPÉCIALE ÉTÉ\nChers citoyens ${t.ville}, votre programmation d’activités culturelles et récréatives pour la saison estivale est enfin dévoilée ! Tout au long des mois de juillet et août, ${t.parc} deviendra le cœur des festivités familiales. Côté loisirs sportifs, les résidents pourront profiter ${t.sportTexte}, avec ${t.materiel} prêtés sans frais sur présentation de la carte citoyenne. Côté culture, nous vous convions à ${t.culture}. Des camions de cuisine de rue et des aires de pique-nique ombragées seront accessibles sur place. L’inscription préalable aux ateliers de groupe est obligatoire sur le portail Web des loisirs municipaux à compter du premier juin à neuf heures. Venez célébrer l’été au grand air en famille !`,
           questions: [
-            ['Quel est l’objet de cette publication municipale estivale ?', 'Présenter les activités sportives et culturelles de la saison', 'Rappeler les consignes strictes sur l’arrosage et la consommation d’eau', 'Annoncer la révision triennale des taxes foncières'],
-            ['Quelle offre récréative est accessible gratuitement aux résidents ?', 'Des activités sportives de plein air avec prêt de matériel', 'Des cours privés de pilotage de bateaux à moteur', 'Des leçons d’équitation réservées exclusivement aux sportifs de haut niveau'],
-            ['Quelle formalité est exigée pour avoir accès aux ateliers de groupe ?', 'Une inscription obligatoire sur le portail Web municipal dès le début de juin', 'Le paiement d’une cotisation au comptoir d’accueil municipal', 'La présentation d’un certificat médical récent'],
+            makeQuestion('Quel est l’objet principal de cette publication municipale estivale ?', 'Présenter la programmation estivale d’activités sportives et culturelles', 'Aviser la population d’une révision triennale des taxes foncières locales', 'Rappeler les consignes strictes sur l’arrosage de nuit et les pelouses', ['programmation', 'estivale', 'loisirs']),
+            makeQuestion('Quelle proposition sportive avec équipement prêté est offerte aux citoyens ?', t.sportAns, t.sportDist1, t.sportDist2, t.evidenceSport),
+            makeQuestion('Quelle animation culturelle de fin de semaine est accessible dans le parc ?', t.cultureAns, t.cultureDist1, t.cultureDist2, t.evidenceCulture),
           ],
         }
       },
@@ -3304,18 +3424,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 3 (Template, Ex 1): Infolettre d'arrondissement montréalais - Automne culturel
     Object.assign(
       (rand) => {
-        const slots = [
-          { secteur: 'de l’arrondissement Rosemont-La Petite-Patrie', biblio: 'la bibliothèque Marc-Favreau', atelier: 'des ateliers d’écriture créative et de contes pour enfants', tournoi: 'le tournoi d’échecs et de badminton au centre communautaire' },
-          { secteur: 'de l’arrondissement Villeray-Saint-Michel', biblio: 'la maison de la culture Claude-Léveillée', atelier: 'des cours d’initiation à la poterie et à la céramique', tournoi: 'la ligue récréative de basketball pour les adolescents' },
-          { secteur: 'de l’arrondissement Verdun', biblio: 'le Quai 5160 - Maison de la culture', atelier: 'des ateliers de photographie urbaine et de peinture', tournoi: 'les courses de patins à roues alignées le long des berges' },
+        const tuples = [
+          {
+            secteur: 'dans l’arrondissement de Rosemont–La Petite-Patrie',
+            biblio: 'la bibliothèque Marc-Favreau',
+            atelier: 'des ateliers d’écriture créative et de contes pour enfants',
+            tournoi: 'le tournoi amical d’échecs et de badminton',
+            atelierAns: 'Des ateliers guidés favorisant l’écriture d’histoires chez les jeunes',
+            atelierDist1: 'Des cours intensifs de pilotage de drones civils pour le repérage',
+            atelierDist2: 'Des séances de mécanique automobile pour la révision de freins usagés',
+            tournoiAns: 'Une rencontre amicale et sportive mariant les échecs et le badminton',
+            tournoiDist1: 'Un championnat provincial de boxe professionnelle en cage',
+            tournoiDist2: 'Un marathon nocturne de quarante-deux kilomètres sur route nationale',
+            evidenceAtelier: ['écriture', 'contes', 'enfants'],
+            evidenceTournoi: ['échecs', 'badminton', 'tournoi'],
+          },
+          {
+            secteur: 'dans l’arrondissement de Villeray–Saint-Michel',
+            biblio: 'la maison de la culture Claude-Léveillée',
+            atelier: 'des cours pratiques d’initiation à la poterie et au modelage',
+            tournoi: 'la ligue récréative de basketball pour les adolescents',
+            atelierAns: 'Des séances pratiques d’apprentissage du travail de la terre cuite et du modelage',
+            atelierDist1: 'Des entraînements militaires de parachutisme tactique en hauteur',
+            atelierDist2: 'Des séminaires théoriques de physique quantique appliquée aux minéraux',
+            tournoiAns: 'Une ligue récréative de basketball destinée aux adolescents',
+            tournoiDist1: 'Une course de motomarines à grande vitesse sur le canal de décharge',
+            tournoiDist2: 'Un tournoi international de water-polo réservé aux athlètes d’élite',
+            evidenceAtelier: ['poterie', 'modelage', 'cours'],
+            evidenceTournoi: ['basketball', 'adolescents', 'ligue'],
+          },
+          {
+            secteur: 'dans l’arrondissement de Verdun',
+            biblio: 'le Quai 5160 - Maison de la culture',
+            atelier: 'des ateliers de photographie urbaine et de peinture d’automne',
+            tournoi: 'la course de patins à roues alignées le long des berges',
+            atelierAns: 'Des ateliers de création visuelle centrés sur la photo et la peinture',
+            atelierDist1: 'Des corvées d’abattage d’arbres centenaires en zone résidentielle',
+            atelierDist2: 'Des stages d’initiation à la soudure de pipelines sous-marins',
+            tournoiAns: 'Une épreuve sportive sur patins à roues alignées en bordure fluviale',
+            tournoiDist1: 'Une compétition de descente acrobatique de bobsleigh sur piste glacée',
+            tournoiDist2: 'Une régate de planches à voile en bassin artificiel de rétention',
+            evidenceAtelier: ['photographie', 'peinture', 'ateliers'],
+            evidenceTournoi: ['patins', 'roues', 'berges'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `BULLETIN COMMUNAUTAIRE - HIVER ACTIF DANS VOTRE SECTEUR\nLa direction des loisirs et de la vie de quartier ${s.secteur} est fière de vous présenter son calendrier d’automne. Dès le premier octobre, ${s.biblio} accueillera une exposition photographique captivante sur l’histoire industrielle locale ainsi que ${s.atelier}. Pour les sportifs de tous âges, les inscriptions sont officiellement ouvertes pour ${s.tournoi}. Tous les gymnases municipaux offriront également des plages horaires de bain libre et de patinage intérieur gratuit durant les fins de semaine. Les personnes détenant la carte de bibliothèque bénéficient d’un accès prioritaire pour l’ensemble des événements à jauge limitée. Rendez-vous sur notre site Internet pour réserver vos laissez-passer gratuits avant que les places ne soient épuisées !`,
+          text: `BULLETIN COMMUNAUTAIRE - AUTOMNE CULTUREL DANS VOTRE SECTEUR\nLa direction des loisirs et de la vie de quartier ${t.secteur} est fière de vous présenter son calendrier d’automne. Dès le premier octobre, ${t.biblio} accueillera une exposition photographique captivante sur l’histoire industrielle locale ainsi que ${t.atelier}. Pour les sportifs de tous âges, les inscriptions sont officiellement ouvertes pour ${t.tournoi}. Tous les gymnases municipaux offriront également des plages horaires de bain libre et de patinage intérieur gratuit durant les fins de semaine. Les personnes détenant la carte de bibliothèque bénéficient d’un accès prioritaire pour l’ensemble des événements à jauge limitée. Rendez-vous sur notre site Internet pour réserver vos laissez-passer gratuits avant que les places ne soient épuisées !`,
           questions: [
-            ['Quel type de document d’information locale cet extrait constitue-t-il ?', 'Un calendrier détaillant les propositions de loisirs pour l’automne', 'Un bilan financier exhaustif portant sur les coûts des travaux de voirie', 'Une ordonnance municipale encadrant le stationnement'],
-            ['Quelle activité artistique est notamment accessible dans le quartier ?', 'Des ateliers d’expression culturelle ouverts à tout le public', 'Des séances pour apprendre la conduite d’engins', 'Des conférences théoriques sur l’entretien futur des voies ferrées urbaines'],
-            ['Quel privilège la possession d’une carte de bibliothèque locale confère-t-elle ?', 'Un accès prioritaire pour s’inscrire aux rendez-vous dont les places sont limitées', 'La gratuité complète des repas dans les commerces locaux', 'L’annulation de l’ensemble des constats d’infraction'],
+            makeQuestion('Quel est l’objet de ce bulletin d’information distribué aux citoyens ?', 'Présenter le calendrier municipal des loisirs et activités de l’automne', 'Dresser le bilan financier des investissements de réfection des chaussées', 'Promulguer une ordonnance d’urgence sur le stationnement hivernal', ['bulletin', 'automne', 'calendrier']),
+            makeQuestion('Quelle activité artistique ou d’expression est proposée dans le centre culturel ?', t.atelierAns, t.atelierDist1, t.atelierDist2, t.evidenceAtelier),
+            makeQuestion('Quelle compétition ou ligue sportive récréative est accessible aux résidents ?', t.tournoiAns, t.tournoiDist1, t.tournoiDist2, t.evidenceTournoi),
           ],
         }
       },
@@ -3324,18 +3483,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 4 (Template, Ex 0): Descriptif de microprogramme universitaire à l'UQAM
     Object.assign(
       (rand) => {
-        const slots = [
-          { titre: 'Microprogramme de premier cycle en gestion des ressources humaines', credits: 'quinze crédits universitaires répartis sur cinq cours', formule: 'une formule cent pour cent en ligne avec des classes virtuelles le soir', public: 'les professionnels en gestion d’équipe' },
-          { titre: 'Certificat en communication organisationnelle et relations publiques', credits: 'trente crédits échelonnés sur deux années d’études', formule: 'un enseignement hybride combinant visioconférences et ateliers le samedi', public: 'les professionnels en reconversion vers les communications' },
-          { titre: 'Microprogramme en gestion de projets dans le secteur communautaire', credits: 'douze crédits axés sur la gouvernance et le financement', formule: 'des cours de fin de semaine intensifs une fois par mois', public: 'les intervenants et coordonnateurs d’organismes à but non lucratif' },
+        const tuples = [
+          {
+            titre: 'Microprogramme de premier cycle en gestion des ressources humaines',
+            credits: 'quinze crédits universitaires répartis sur cinq cours spécialisés',
+            formule: 'une formule entièrement en ligne avec des classes virtuelles offertes le soir',
+            public: 'les coordonnateurs et gestionnaires d’équipe déjà en exercice',
+            formuleAns: 'Une modalité d’apprentissage à distance intégrant des cours synchrones en soirée',
+            formuleDist1: 'Des cours magistraux obligatoires en amphithéâtre tous les matins de la semaine entière',
+            formuleDist2: 'Un séjour immersif continu de six mois en forêt boréale sans aucun accès à Internet',
+            publicAns: 'Les professionnels en exercice qui coordonnent ou dirigent des équipes',
+            publicDist1: 'Les jeunes enfants d’âge préscolaire ayant besoin d’une garderie de quartier',
+            publicDist2: 'Les sportifs d’élite se préparant à des épreuves exigeantes de plongeon olympique',
+            evidenceFormule: ['ligne', 'virtuelles', 'soir'],
+            evidencePublic: ['gestionnaires', 'équipe', 'professionnels'],
+          },
+          {
+            titre: 'Certificat en communication organisationnelle et relations publiques',
+            credits: 'trente crédits universitaires échelonnés sur deux années d’études',
+            formule: 'un enseignement hybride combinant visioconférences et ateliers pratiques le samedi',
+            public: 'les professionnels visant une réorientation vers les relations publiques',
+            formuleAns: 'Un cursus mixte alliant visioconférences et ateliers d’application le samedi',
+            formuleDist1: 'Des quarts de nuit intensifs imposés dans les ateliers de production industrielle',
+            formuleDist2: 'Un enseignement exclusivement par courrier postal sans aucun échange direct en personne',
+            publicAns: 'Les travailleurs souhaitant se réorienter vers les relations publiques',
+            publicDist1: 'Les mécaniciens d’aviation cherchant une formation spécialisée en réfection de moteurs',
+            publicDist2: 'Les candidats préparant un brevet de navigation hauturière pour grands navires marchands',
+            evidenceFormule: ['hybride', 'visioconférences', 'samedi'],
+            evidencePublic: ['réorientation', 'relations', 'publiques'],
+          },
+          {
+            titre: 'Microprogramme en gestion de projets dans le secteur communautaire',
+            credits: 'douze crédits universitaires axés sur la gouvernance et le financement',
+            formule: 'des cours intensifs de fin de semaine planifiés une fois par mois',
+            public: 'les intervenants et coordonnateurs d’organismes à but non lucratif',
+            formuleAns: 'Des sessions intensives de fin de semaine organisées à raison d’une fois par mois',
+            formuleDist1: 'Une présence continue au laboratoire de chimie durant toute la journée du lundi au vendredi',
+            formuleDist2: 'Une session complète de travail bénévole non rémunéré dans une exploitation minière isolée',
+            publicAns: 'Les intervenants et gestionnaires travaillant dans le milieu communautaire',
+            publicDist1: 'Les médecins diplômés voulant entamer une formation clinique en chirurgie cardiaque',
+            publicDist2: 'Les commandants de bord de navires marchands naviguant dans les glaces de l’Arctique',
+            evidenceFormule: ['fin', 'semaine', 'mois'],
+            evidencePublic: ['intervenants', 'organismes', 'lucratif'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `RÉPERTOIRE DES ÉTUDES CONTINUES - UNIVERSITÉ DU QUÉBEC À MONTRÉAL\nProgramme offert : ${s.titre}.\nCette formation courte et flexible comprend ${s.credits}. Conçue spécialement pour les professionnels sur le marché du travail, elle adopte ${s.formule}. Ce programme vise particulièrement ${s.public}. Les cours couvrent la législation du travail, la résolution de conflits, la communication interculturelle et les outils numériques de gestion collaborative. Les étudiants admis bénéficient d’un accès complet aux bibliothèques universitaires et aux bases de données de recherche spécialisées. Il est possible de faire reconnaître des acquis d’expérience professionnelle pour satisfaire aux exigences d’admission sans détenir de diplôme collégial préalable. Les candidatures pour la prochaine session sont acceptées jusqu’au premier août.`,
+          text: `RÉPERTOIRE DES ÉTUDES CONTINUES - UNIVERSITÉ DU QUÉBEC À MONTRÉAL\nProgramme offert : ${t.titre}.\nCette formation courte et flexible comprend ${t.credits}. Conçue spécialement pour les professionnels sur le marché du travail, elle adopte ${t.formule}. Ce programme vise particulièrement ${t.public}. Les cours couvrent la législation du travail, la résolution de conflits, la communication interculturelle et les outils numériques de gestion collaborative. Les étudiants admis bénéficient d’un accès complet aux bibliothèques universitaires et aux bases de données de recherche spécialisées. Il est possible de faire reconnaître des acquis d’expérience professionnelle pour satisfaire aux exigences d’admission sans détenir de diplôme collégial préalable. Les candidatures pour la prochaine session sont acceptées jusqu’au premier août.`,
           questions: [
-            ['À quelle clientèle ce programme universitaire s’adresse-t-il en priorité ?', 'Aux travailleurs en poste souhaitant approfondir leurs compétences', 'Aux jeunes du primaire ayant besoin d’un soutien scolaire pendant l’été', 'Aux athlètes préparant une transition olympique'],
-            ['Quel mode d’apprentissage souple est offert pour concilier études et travail ?', 'Une formule à distance ou dispensée en dehors des heures de jour', 'Des cours magistraux obligatoires chaque matinée', 'Un séjour d’immersion linguistique complet d’une année en milieu anglophone'],
-            ['Quelle mesure d’équivalence favorise l’admission directe des adultes sur le marché ?', 'La valorisation de l’expérience de travail passée pour combler les préalables', 'La reprise systématique des cours secondaires généraux', 'Le versement de frais de scolarité bonifiés au départ'],
+            makeQuestion('À quel public de travailleurs ce cursus universitaire s’adresse-t-il en priorité ?', t.publicAns, t.publicDist1, t.publicDist2, t.evidencePublic),
+            makeQuestion('Quel aménagement pédagogique souple permet de concilier travail et formation ?', t.formuleAns, t.formuleDist1, t.formuleDist2, t.evidenceFormule),
+            makeQuestion('Quelle disposition avantageuse facilite l’admission directe des adultes expérimentés ?', 'La reconnaissance officielle des acquis d’expérience professionnelle sur le marché', 'La dispense d’assister à tout cours théorique tout en recevant automatiquement le diplôme', 'Le paiement régulier d’une prime financière versée par l’université à chaque nouvel inscrit', ['reconnaître', 'acquis', 'expérience']),
           ],
         }
       },
@@ -3350,18 +3548,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 0 (Template, Ex 0): Offre d'emploi - Coordonnateur / Coordonnatrice de bureau
     Object.assign(
       (rand) => {
-        const slots = [
-          { poste: 'Coordonnateur administratif ou coordonnatrice administrative', organisme: 'dans une fondation caritative de Montréal', taches: 'l’accueil des partenaires, la rédaction des comptes rendus et la logistique des réunions', salaire: 'vingt-huit et trente-deux dollars de l’heure selon l’expérience' },
-          { poste: 'Adjoint exécutif ou adjointe exécutive à la direction', organisme: 'au sein d’une coopérative de services financiers', taches: 'la gestion des agendas, le suivi des correspondances officielles et l’organisation des déplacements', salaire: 'trente et trente-cinq dollars de l’heure avec régime de retraite' },
-          { poste: 'Agent de liaison ou agente de liaison et soutien de bureau', organisme: 'dans une association provinciale pour l’environnement', taches: 'la gestion des adhésions, l’envoi des infolettres et le soutien administratif aux chargés de projet', salaire: 'vingt-sept et trente et un dollars de l’heure avec horaire flexible' },
+        const tuples = [
+          {
+            poste: 'Coordonnateur administratif ou coordonnatrice administrative',
+            organisme: 'dans une fondation caritative de Montréal',
+            taches: 'l’accueil des partenaires, la rédaction des comptes rendus et la logistique des réunions',
+            salaire: 'vingt-huit et trente-deux dollars de l’heure selon l’expérience',
+            posteAns: 'Un rôle de coordination administrative générale pour une fondation',
+            posteDist1: 'Soudeur qualifié sur coques de navires de charge dans un grand chantier naval',
+            posteDist2: 'Chauffeur routier de longue distance assurant le transport de matières explosives',
+            tachesAns: 'L’accueil des visiteurs, la prise de notes lors des rencontres et le soutien logistique',
+            tachesDist1: 'La confection complète des repas gastronomiques du midi pour deux cents personnes en cuisine',
+            tachesDist2: 'L’entretien mécanique lourd, la vidange et le débosselage des véhicules de transport commercial',
+            evidencePoste: ['coordonnateur', 'administrative', 'fondation'],
+            evidenceTaches: ['accueil', 'comptes', 'réunions'],
+          },
+          {
+            poste: 'Adjoint exécutif ou adjointe exécutive à la direction',
+            organisme: 'au sein d’une coopérative de services financiers',
+            taches: 'la gestion des agendas, le suivi des correspondances officielles et l’organisation des déplacements',
+            salaire: 'trente et trente-cinq dollars de l’heure avec régime de retraite',
+            posteAns: 'Un poste d’assistance exécutive auprès de la direction d’une coopérative',
+            posteDist1: 'Technicien spécialisé en forage souterrain dans un complexe minier du Grand Nord',
+            posteDist2: 'Boucher-charcutier préparant les viandes fraîches dans un grand marché d’alimentation',
+            tachesAns: 'Le calendrier de direction, le traitement du courrier officiel et la gestion des trajets',
+            tachesDist1: 'La surveillance physique nocturne des coffres-forts avec un chien de garde spécialement dressé',
+            tachesDist2: 'Le creusement manuel de tranchées profondes pour l’installation de canalisations urbaines',
+            evidencePoste: ['adjoint', 'direction', 'financiers'],
+            evidenceTaches: ['agendas', 'correspondances', 'déplacements'],
+          },
+          {
+            poste: 'Agent de liaison ou agente de liaison et soutien de bureau',
+            organisme: 'dans une association provinciale pour l’environnement',
+            taches: 'la gestion des adhésions, l’envoi des infolettres et le soutien administratif aux chargés de projet',
+            salaire: 'vingt-sept et trente et un dollars de l’heure avec horaire flexible',
+            posteAns: 'Un mandat de liaison et de soutien bureautique au sein d’une organisation verte',
+            posteDist1: 'Opérateur de grue géante mobile intervenant sur les chantiers urbains de gratte-ciel',
+            posteDist2: 'Marin-pêcheur hauturier naviguant au large sur les bancs froids de crevettes nordiques',
+            tachesAns: 'Le suivi des membres, l’expédition des infolettres et l’appui aux chargés de projet',
+            tachesDist1: 'L’élagage dangereux des arbres à la tronçonneuse sous les lignes électriques à haute tension',
+            tachesDist2: 'Le lavage régulier des vitres extérieures d’édifices en hauteur à l’aide de cordes de rappel',
+            evidencePoste: ['agent', 'liaison', 'environnement'],
+            evidenceTaches: ['adhésions', 'infolettres', 'projet'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `OFFRE D’EMPLOI - RECRUTEMENT IMMÉDIAT\nTitre du poste : ${s.poste}\nNotre organisation, située ${s.organisme}, est à la recherche d’une personne dynamique, rigoureuse et organisée pour pourvoir un poste permanent à temps plein de trente-cinq heures par semaine. Sous la supervision de la direction générale, vos responsabilités principales incluront ${s.taches}. Vous assurerez également la mise à jour des banques de données et le classement des dossiers financiers. Le profil recherché comprend un diplôme collégial en bureautique ou équivalent, une excellente maîtrise du français écrit et une aisance avec la suite logicielle Microsoft 365. Le salaire offert se situe entre ${s.salaire}, avec une gamme complète d’avantages sociaux après trois mois. Faites parvenir votre lettre de motivation avant le vingt-cinq mai.`,
+          text: `OFFRE D’EMPLOI - RECRUTEMENT IMMÉDIAT\nTitre du poste : ${t.poste}\nNotre organisation, située ${t.organisme}, est à la recherche d’une personne dynamique, rigoureuse et organisée pour pourvoir un poste permanent à temps plein de trente-cinq heures par semaine. Sous la supervision de la direction générale, vos responsabilités principales incluront ${t.taches}. Vous assurerez également la mise à jour des banques de données et le classement des dossiers financiers. Le profil recherché comprend un diplôme collégial en bureautique ou équivalent, une excellente maîtrise du français écrit et une aisance avec la suite logicielle Microsoft 365. Le salaire offert se situe entre ${t.salaire}, avec une gamme complète d’avantages sociaux après trois mois. Faites parvenir votre lettre de motivation avant le vingt-cinq mai.`,
           questions: [
-            ['Quel poste permanent est décrit dans cette offre de recrutement ?', 'Un emploi de soutien et de coordination administrative en bureau', 'Un poste d’ouvrier spécialisé en électromécanique au sein d’un atelier de nuit', 'Un contrat de livraison pour le transport de colis'],
-            ['Quelles tâches courantes font partie du quotidien du poste ?', 'L’accueil des partenaires et la gestion des dossiers de bureau', 'La préparation des repas pour les réceptions', 'La révision technique de l’ensemble des camionnettes de service de l’organisme'],
-            ['Quelle exigence linguistique formelle est indispensable pour poser sa candidature ?', 'Une excellente maîtrise de la rédaction et de la communication écrite en français', 'La pratique fluide de quatre langues vivantes étrangères', 'Un certificat officiel délivré par un ordre de traducteurs'],
+            makeQuestion('Quel titre de poste permanent est ouvert au recrutement dans cette offre ?', t.posteAns, t.posteDist1, t.posteDist2, t.evidencePoste),
+            makeQuestion('Quelles tâches administratives concrètes feront partie du quotidien professionnel ?', t.tachesAns, t.tachesDist1, t.tachesDist2, t.evidenceTaches),
+            makeQuestion('Quelle compétence fondamentale de communication est formellement requise ?', 'Une grande aisance rédactionnelle en français pour produire les documents', 'La maîtrise parfaite, fluide et certifiée de plus de quatre langues vivantes étrangères', 'La possession formelle d’un doctorat en linguistique comparée et grammaire ancienne', ['maîtrise', 'français', 'écrit']),
           ],
         }
       },
@@ -3370,58 +3607,175 @@ export const N05_06_SCENARIOS = {
     // Scenario 1 (Template, Ex 0): Offre d'emploi - Technicien(ne) en soutien informatique
     Object.assign(
       (rand) => {
-        const slots = [
-          { titre: 'Technicien ou technicienne en informatique et réseau', employeur: 'au Centre de services scolaire Marguerite-Bourgeoys', responsabilites: 'l’installation des postes de travail, le dépannage technique des enseignants et la maintenance du matériel', horaire: 'trente-cinq heures par semaine sur un horaire de jour' },
-          { titre: 'Spécialiste de soutien aux utilisateurs et infrastructures', employeur: 'à l’Institut de cardiologie de Montréal', responsabilites: 'la gestion des accès réseau, le support téléphonique d’urgence et le remplacement des pièces défectueuses', horaire: 'quarts de travail rotatifs avec primes de fin de semaine' },
-          { titre: 'Technicien ou technicienne au service d’assistance technique', employeur: 'dans une grande société d’État québécoise', responsabilites: 'le diagnostic à distance des pannes logicielles, la configuration des téléphones et le suivi des demandes', horaire: 'formule hybride avec deux jours de télétravail par semaine' },
+        const tuples = [
+          {
+            titre: 'Technicien ou technicienne en informatique et réseau',
+            employeur: 'au Centre de services scolaire Marguerite-Bourgeoys',
+            responsabilites: 'l’installation des postes de travail, le dépannage technique des enseignants et la maintenance du matériel',
+            horaire: 'un horaire régulier de jour à raison de trente-cinq heures par semaine',
+            employeurAns: 'Un centre de services scolaire du réseau de l’éducation publique',
+            employeurDist1: 'Une entreprise privée de fabrication d’engrais minéraux destinés à l’exportation',
+            employeurDist2: 'Un restaurant gastronomique réputé spécialisé dans la préparation de fruits de mer frais',
+            responsabilitesAns: 'L’installation des postes, la maintenance du matériel et le dépannage des enseignants',
+            responsabilitesDist1: 'La négociation des conventions collectives syndicales avec les représentants du ministère',
+            responsabilitesDist2: 'Le déneigement mécanique de la toiture des écoles primaires durant toute la saison hivernale',
+            evidenceEmployeur: ['services', 'scolaire', 'marguerite-bourgeoys'],
+            evidenceResp: ['installation', 'postes', 'enseignants'],
+          },
+          {
+            titre: 'Spécialiste de soutien aux utilisateurs et infrastructures',
+            employeur: 'à l’Institut de cardiologie de Montréal',
+            responsabilites: 'la gestion des accès réseau, le support d’urgence aux soignants et le remplacement des pièces défectueuses',
+            horaire: 'des quarts de travail rotatifs avec des primes bonifiées la fin de semaine',
+            employeurAns: 'Un institut hospitalier réputé du secteur des soins et de la santé',
+            employeurDist1: 'Un concessionnaire d’automobiles et de véhicules utilitaires de la grande banlieue',
+            employeurDist2: 'Une station récréotouristique de ski alpin familiale située dans les hautes montagnes',
+            responsabilitesAns: 'L’attribution des accès réseau, le support aux équipes médicales et le changement de pièces',
+            responsabilitesDist1: 'La réalisation autonome d’interventions chirurgicales complexes au bloc opératoire central',
+            responsabilitesDist2: 'La conception nutritionnelle détaillée des régimes alimentaires des malades alités à l’hôpital',
+            evidenceEmployeur: ['institut', 'cardiologie', 'montréal'],
+            evidenceResp: ['accès', 'réseau', 'soignants'],
+          },
+          {
+            titre: 'Technicien ou technicienne au service d’assistance technique',
+            employeur: 'dans une grande société d’État québécoise',
+            responsabilites: 'le diagnostic à distance des anomalies logicielles, la configuration des téléphones et le traitement des requêtes',
+            horaire: 'une formule hybride combinant trois jours au bureau et deux jours en télétravail',
+            employeurAns: 'Une société d’État québécoise d’envergure dans le secteur parapublic',
+            employeurDist1: 'Une ferme d’élevage porcin biologique certifiée située dans les Cantons-de-l’Est',
+            employeurDist2: 'Un cirque itinérant traditionnel présentant des spectacles équestres sous grand chapiteau',
+            responsabilitesAns: 'La résolution à distance des bogues logiciels et le paramétrage des téléphones',
+            responsabilitesDist1: 'Le calcul comptable et la vérification minutieuse des états financiers annuels de l’entreprise',
+            responsabilitesDist2: 'La conception mécanique détaillée des turbines hydroélectriques installées sur les grands barrages',
+            evidenceEmployeur: ['société', 'état', 'québécoise'],
+            evidenceResp: ['diagnostic', 'anomalies', 'téléphones'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `OFFRE DE CARRIÈRE - SECTEUR PUBLIC QUÉBÉCOIS\nPoste : ${s.titre}, en poste régulier ${s.employeur}.\nRelevant du coordonnateur des technologies de l’information, la personne titulaire aura comme mandat principal d’assurer le bon fonctionnement du parc informatique. Les tâches comprendront ${s.responsabilites}. La personne participera également à l’inventaire du matériel et à la sensibilisation des utilisateurs aux pratiques de cybersécurité. Nous recherchons un candidat titulaire d’un DEC ou d’un DEP en soutien informatique avec au moins deux années d’expérience pertinente. Le poste offre un horaire régulier de ${s.horaire}, un fonds de pension gouvernemental très avantageux et quatre semaines de vacances dès la première année. Les candidatures doivent être déposées sur notre portail d’embauche avant le trente avril.`,
+          text: `OFFRE DE CARRIÈRE - SECTEUR PUBLIC QUÉBÉCOIS\nPoste : ${t.titre}, en poste régulier ${t.employeur}.\nRelevant du coordonnateur des technologies de l’information, la personne titulaire aura comme mandat principal d’assurer le bon fonctionnement du parc informatique. Les tâches comprendront ${t.responsabilites}. La personne participera également à l’inventaire du matériel et à la sensibilisation des utilisateurs aux pratiques de cybersécurité. Nous recherchons un candidat titulaire d’un DEC ou d’un DEP en soutien informatique avec au moins deux années d’expérience pertinente. Le poste offre ${t.horaire}, un régime de retraite gouvernemental très avantageux et quatre semaines de vacances dès la première année. Les candidatures doivent être déposées sur notre portail d’embauche avant le trente avril.`,
           questions: [
-            ['Quel profil professionnel est recherché par cet organisme public ?', 'Un spécialiste du soutien aux usagers et du matériel informatique', 'Un chef cuisinier responsable des menus au sein d’un établissement réputé', 'Un gardien de sécurité affecté à la surveillance'],
-            ['Quelle mission opérationnelle précise est assignée au technicien ?', 'L’installation des postes et la résolution des pannes courantes', 'La négociation des ententes internationales', 'Le calcul comptable et la validation des salaires des membres de la direction'],
-            ['Quel avantage social avantageux est accordé dès la première année en poste ?', 'Quatre semaines de congés payés ainsi que l’adhésion à un fonds de pension', 'L’attribution d’un véhicule de service pour les fins de semaine', 'Une prime d’embauche versée sous forme d’actions'],
+            makeQuestion('Quel environnement institutionnel recrute pour ce poste informatique ?', t.employeurAns, t.employeurDist1, t.employeurDist2, t.evidenceEmployeur),
+            makeQuestion('Quel mandat technique opérationnel est confié à la personne engagée ?', t.responsabilitesAns, t.responsabilitesDist1, t.responsabilitesDist2, t.evidenceResp),
+            makeQuestion('Quels avantages sociaux sont offerts dès la première année d’entrée en fonction ?', 'Un fonds de retraite public avantageux et quatre semaines de congés payés dès l’embauche', 'L’attribution d’un véhicule de fonction haut de gamme avec carte d’essence illimitée pour les congés', 'Le versement immédiat et sans condition d’une prime de départ équivalant à un an complet de salaire', ['retraite', 'quatre', 'semaines', 'vacances']),
           ],
         }
       },
       { situation: 0, capacity: 3 }
     ),
-    // Scenario 2 (Template, Ex 1): Article biographique d'une scientifique québécoise (fictional)
+    // Scenario 2 (Template, Ex 1): Article biographique d'une scientifique québécoise
     Object.assign(
       (rand) => {
-        const slots = [
-          { nom: 'Docteure Joanne Tremblay', origine: 'dans un village côtier de la péninsule gaspésienne', discipline: 'l’océanographie et la préservation des écosystèmes marins du Saint-Laurent', prix: 'le prix scientifique Marie-Victorin du gouvernement du Québec' },
-          { nom: 'Docteure Céline Beaulieu', origine: 'dans une famille agricole de la région du Saguenay', discipline: 'la microbiologie des sols boréaux et la régénération des forêts', prix: 'l’Ordre national du Québec pour sa contribution à la biodiversité' },
-          { nom: 'Docteure Hélène Desbiens', origine: 'dans les quartiers populaires de l’est de Montréal', discipline: 'la recherche en thérapie génique contre les maladies infantiles rares', prix: 'la médaille d’or du Conseil de recherches médicales du Canada' },
+        const tuples = [
+          {
+            nom: 'Docteure Joanne Tremblay',
+            origine: 'dans un village côtier de la péninsule gaspésienne',
+            discipline: 'l’océanographie et la préservation des écosystèmes marins du Saint-Laurent',
+            prix: 'le prix scientifique Marie-Victorin du gouvernement du Québec',
+            disciplineAns: 'L’océanographie et la protection de la faune marine dans l’estuaire',
+            disciplineDist1: 'L’exploration minière de gisements aurifères souterrains en zone arctique',
+            disciplineDist2: 'La conception de réacteurs nucléaires miniatures pour des fusées spatiales habitées',
+            prixAns: 'Le prix scientifique Marie-Victorin décerné par le gouvernement du Québec',
+            prixDist1: 'La Palme d’or internationale du meilleur scénario de fiction au festival de cinéma',
+            prixDist2: 'Une médaille militaire pour des actes d’héroïsme exceptionnels au cours d’un conflit armé',
+            evidenceDiscipline: ['océanographie', 'préservation', 'écosystèmes'],
+            evidencePrix: ['marie-victorin', 'gouvernement', 'québec'],
+          },
+          {
+            nom: 'Docteure Céline Beaulieu',
+            origine: 'dans une communauté agricole de la région du Saguenay',
+            discipline: 'la microbiologie des sols boréaux et la régénération naturelle des forêts',
+            prix: 'l’Ordre national du Québec pour sa contribution à la biodiversité',
+            disciplineAns: 'L’étude microbienne des sols boréaux et le renouveau forestier naturel',
+            disciplineDist1: 'Le forage profond de puits de gaz de schiste sous très haute pression hydraulique',
+            disciplineDist2: 'La programmation d’algorithmes de jeux vidéo multijoueurs pour ordinateurs quantiques',
+            prixAns: 'L’Ordre national du Québec soulignant son apport à la biodiversité boréale',
+            prixDist1: 'Le titre de championne mondiale toutes catégories de patinage de vitesse sur courte piste',
+            prixDist2: 'Le trophée d’interprétation féminine lors d’un gala de télévision commerciale très populaire',
+            evidenceDiscipline: ['microbiologie', 'sols', 'forêts'],
+            evidencePrix: ['ordre', 'national', 'biodiversité'],
+          },
+          {
+            nom: 'Docteure Hélène Desbiens',
+            origine: 'dans un quartier populaire de l’est de Montréal',
+            discipline: 'la thérapie génique visant à guérir des maladies infantiles rares',
+            prix: 'la médaille d’or du Conseil de recherches médicales du Canada',
+            disciplineAns: 'La recherche en thérapie génique contre des maladies infantiles rares',
+            disciplineDist1: 'La restauration minutieuse de cathédrales gothiques du Moyen Âge à travers toute l’Europe',
+            disciplineDist2: 'La métallurgie spécialisée des poutrelles d’acier pour les grands gratte-ciel parasismiques',
+            prixAns: 'La plus haute distinction attribuée par l’organisme fédéral de recherche médicale',
+            prixDist1: 'Un disque de diamant célébrant la vente record d’un album de chanson francophone populaire',
+            prixDist2: 'Le ruban d’honneur officiel de la course de voiliers solitaires sans escale autour du monde',
+            evidenceDiscipline: ['thérapie', 'génique', 'infantiles'],
+            evidencePrix: ['médaille', 'or', 'médicales'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `PORTRAIT BIOGRAPHIQUE - UNE CHERCHEUSE PIONNIÈRE DU QUÉBEC\nNée ${s.origine}, ${s.nom} a toujours été animée par une grande curiosité pour le monde vivant. Dès son enfance, elle observait la nature avec une rigueur qui annonçait déjà son intérêt pour la recherche. Après de solides études à l’Université Laval et un séjour de recherche en Europe, elle est devenue une référence reconnue dans le domaine de ${s.discipline}. Tout au long de son parcours, elle a publié de nombreux articles scientifiques et formé plusieurs étudiants aux cycles supérieurs. En reconnaissance de ses découvertes importantes, elle a reçu ${s.prix}. Au-delà de ses travaux au laboratoire, elle milite avec conviction pour encourager les jeunes filles à choisir des carrières en sciences. Une chercheuse remarquable dont le parcours inspire la relève scientifique d’ici.`,
+          text: `PORTRAIT BIOGRAPHIQUE - UNE CHERCHEUSE PIONNIÈRE DU QUÉBEC\nNée ${t.origine}, ${t.nom} a toujours été animée par une grande curiosité pour le monde vivant. Dès son enfance, elle observait la nature avec une rigueur qui annonçait déjà son intérêt pour la recherche. Après de solides études à l’Université Laval et un séjour de recherche en Europe, elle est devenue une référence reconnue dans le domaine de ${t.discipline}. Tout au long de son parcours, elle a publié de nombreux articles scientifiques et formé plusieurs étudiants aux cycles supérieurs. En reconnaissance de ses découvertes importantes, elle a reçu ${t.prix}. Au-delà de ses travaux au laboratoire, elle milite avec conviction pour encourager les jeunes filles à choisir des carrières en sciences. Une chercheuse remarquable dont le parcours inspire la relève scientifique d’ici.`,
           questions: [
-            ['Quel est le sujet de cet article biographique paru dans la revue ?', 'Le cheminement professionnel remarquable d’une scientifique d’ici', 'Une critique littéraire consacrée au dernier roman à succès d’un auteur connu', 'Une entrevue politique avec une candidate aux élections'],
-            ['Dans quelle discipline la chercheuse s’est-elle illustrée ?', 'Des recherches appliquées touchant les sciences et l’environnement', 'L’archéologie des civilisations disparues', 'La conception de technologies militaires pour des fusées de combat aérien'],
-            ['Quel engagement social poursuit-elle parallèlement à ses projets de recherche ?', 'L’encouragement actif des jeunes filles à choisir des études en sciences', 'Le refus de tout outil numérique à l’école primaire', 'L’opposition aux subventions gouvernementales pour la science'],
+            makeQuestion('Dans quel domaine d’expertise scientifique cette pionnière s’est-elle illustrée ?', t.disciplineAns, t.disciplineDist1, t.disciplineDist2, t.evidenceDiscipline),
+            makeQuestion('Quelle distinction prestigieuse est venue couronner ses contributions remarquables ?', t.prixAns, t.prixDist1, t.prixDist2, t.evidencePrix),
+            makeQuestion('Quel engagement social poursuit-elle parallèlement à ses recherches de pointe ?', 'L’incitation des jeunes filles à s’orienter vers les carrières scientifiques', 'L’interdiction formelle de l’enseignement des sciences et des mathématiques au secondaire', 'La suppression définitive et immédiate de toute bourse pour les études universitaires supérieures', ['jeunes', 'filles', 'sciences']),
           ],
         }
       },
       { situation: 1, capacity: 3 }
     ),
-    // Scenario 3 (Template, Ex 1): Portrait d'un chef cuisinier mettant en valeur le terroir (fictional)
+    // Scenario 3 (Template, Ex 1): Portrait d'un chef cuisinier mettant en valeur le terroir
     Object.assign(
       (rand) => {
-        const slots = [
-          { chef: 'Renaud Simard', restaurant: 'son établissement réputé du centre-ville', philosophie: 'sublimer les produits sauvages de la forêt boréale et le terroir québécois', honneur: 'du titre honorifique d’ambassadeur de notre gastronomie' },
-          { chef: 'Mathieu Caron', restaurant: 'sa cabane gourmande établie en campagne', philosophie: 'réinventer les traditions culinaires rustiques avec créativité et audace', honneur: 'de plusieurs distinctions prestigieuses remises par ses pairs' },
-          { chef: 'Marianne Lemieux', restaurant: 'sa table de bord de mer dans le Bas-Saint-Laurent', philosophie: 'valoriser les algues marines, les herbes de grève et les poissons côtiers', honneur: 'du prix convoité de chef de l’année au gala québécois' },
+        const tuples = [
+          {
+            chef: 'Renaud Simard',
+            restaurant: 'son établissement réputé du Vieux-Montréal',
+            philosophie: 'sublimer les champignons sauvages de la forêt boréale et le terroir québécois',
+            honneur: 'du titre honorifique d’ambassadeur de notre gastronomie régionale',
+            philoAns: 'La mise en valeur originale des champignons de cueillette boréale',
+            philoDist1: 'L’importation massive d’aliments ultra-transformés sous vide depuis l’étranger',
+            philoDist2: 'La préparation exclusive de plats cuisinés à partir de sauces chimiques en sachet déshydraté',
+            honneurAns: 'Le titre honorifique d’ambassadeur de la gastronomie régionale québécoise',
+            honneurDist1: 'Le grade de colonel honoraire au sein des forces armées aériennes canadiennes',
+            honneurDist2: 'Une nomination prestigieuse à la présidence du conseil d’administration de la société des alcools',
+            evidencePhilo: ['champignons', 'sauvages', 'boréale'],
+            evidenceHonneur: ['ambassadeur', 'gastronomie', 'régionale'],
+          },
+          {
+            chef: 'Mathieu Caron',
+            restaurant: 'sa cabane gourmande établie en campagne dans les Cantons-de-l’Est',
+            philosophie: 'réinventer les recettes rustiques traditionnelles avec des viandes d’élevage local et du sirop d’érable',
+            honneur: 'de l’étoile d’or de la créativité culinaire au gala provincial des restaurateurs',
+            philoAns: 'La réinvention de recettes traditionnelles avec viandes locales et sirop d’érable',
+            philoDist1: 'L’abandon complet des ingrédients frais pour servir exclusivement des plats industriels surgelés',
+            philoDist2: 'La standardisation de menus entièrement calqués sur ceux des grandes chaînes de restauration rapide',
+            honneurAns: 'Le prestigieux trophée récompensant l’inventivité en cuisine des restaurateurs',
+            honneurDist1: 'Un trophée de champion automobile sur circuit fermé décerné lors du Grand Prix de Formule 1',
+            honneurDist2: 'Une médaille d’honneur décernée par le barreau pour la défense active des droits des locataires',
+            evidencePhilo: ['recettes', 'rustiques', 'érable'],
+            evidenceHonneur: ['étoile', 'créativité', 'restaurateurs'],
+          },
+          {
+            chef: 'Étienne Lapointe',
+            restaurant: 'sa table de bord de mer dans la région du Bas-Saint-Laurent',
+            philosophie: 'valoriser les algues marines comestibles, les herbes de grève et les poissons côtiers',
+            honneur: 'du prix prestigieux de chef de l’année décerné lors de la grande fête des saveurs',
+            philoAns: 'La valorisation d’algues marines, d’herbes de grève et de poissons côtiers',
+            philoDist1: 'L’interdiction absolue d’utiliser tout produit frais provenant des rives du fleuve ou de la mer',
+            philoDist2: 'L’utilisation systématique d’arômes et de colorants artificiels pour masquer le goût des poissons',
+            honneurAns: 'Le titre envié de chef de l’année attribué au grand rassemblement gastronomique',
+            honneurDist1: 'Le premier prix international d’architecture navale pour la conception d’un pétrolier géant',
+            honneurDist2: 'Une bourse prestigieuse d’études postdoctorales en génétique végétale des semences hybrides',
+            evidencePhilo: ['algues', 'herbes', 'poissons'],
+            evidenceHonneur: ['chef', 'année', 'saveurs'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `FIGURES MARQUANTES DE CHEZ NOUS - LE CHEF DU TERROIR\nReconnu comme un créateur culinaire marquant de sa génération, ${s.chef} a profondément renouvelé la cuisine régionale au Québec. Après une jeunesse modeste en région, il a perfectionné son art dans de grandes cuisines avant de s’établir à son compte. En ouvrant ${s.restaurant}, il a proposé une approche nouvelle : ${s.philosophie}. Il a bâti des liens solides avec de petits producteurs agricoles, des cueilleurs de plantes sauvages et des pêcheurs locaux. Pour souligner son apport marquant à notre culture de la table, il a été décoré ${s.honneur}. Aujourd’hui formateur auprès des jeunes cuisiniers, il transmet l’importance de valoriser les ressources locales et les saisons.`,
+          text: `FIGURES MARQUANTES DE CHEZ NOUS - LE CHEF DU TERROIR\nReconnu comme un créateur culinaire marquant de sa génération, ${t.chef} a profondément renouvelé la cuisine régionale au Québec. Après une jeunesse modeste en région, il a perfectionné son art dans de grandes cuisines avant de s’établir à son compte. En ouvrant ${t.restaurant}, il a proposé une approche nouvelle : ${t.philosophie}. Il a bâti des liens solides avec de petits producteurs agricoles, des cueilleurs de plantes sauvages et des pêcheurs locaux. Pour souligner son apport marquant à notre culture de la table, il a été décoré ${t.honneur}. Aujourd’hui formateur auprès des jeunes cuisiniers, il transmet l’importance de valoriser les ressources locales et les saisons.`,
           questions: [
-            ['Quelle figure du monde culinaire ce texte met-il en valeur ?', 'Un chef québécois renommé valorisant les produits du terroir', 'Un dirigeant ayant bâti un réseau international de restaurants franchisés', 'Un critique gastronomique animant une émission'],
-            ['Quelle démarche gastronomique distinctive caractérise sa cuisine ?', 'La valorisation créative des ingrédients régionaux et sauvages', 'L’importation massive d’aliments exotiques par avion', 'L’utilisation systématique de produits industriels transformés sous vide'],
-            ['Quelle reconnaissance officielle lui a été décernée pour sa carrière marquante ?', 'Une prestigieuse marque de distinction célébrant sa contribution à la table', 'Un grade universitaire honorifique remis à l’étranger', 'Une médaille militaire pour des actes de bravoure civique'],
+            makeQuestion('Quelle démarche gastronomique originale caractérise la cuisine de ce chef ?', t.philoAns, t.philoDist1, t.philoDist2, t.evidencePhilo),
+            makeQuestion('Quelle distinction officielle consacre l’excellence de son engagement culinaire ?', t.honneurAns, t.honneurDist1, t.honneurDist2, t.evidenceHonneur),
+            makeQuestion('Quelle valeur fondamentale transmet-il aujourd’hui à la relève culinaire ?', 'La mise en valeur primordiale du terroir québécois et des arrivages saisonniers', 'La nécessité commerciale d’importer des denrées exotiques de pays lointains par avion cargo', 'L’abandon complet de la cuisine artisanale au profit de robots industriels entièrement automatisés', ['ressources', 'locales', 'saisons']),
           ],
         }
       },
@@ -3430,18 +3784,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 4 (Template, Ex 0): Offre d'emploi - Préposé(e) aux bénéficiaires
     Object.assign(
       (rand) => {
-        const slots = [
-          { titre: 'Préposé ou préposée aux bénéficiaires', etablissement: 'en centre d’hébergement de soins de longue durée (CHSLD)', soins: 'l’aide à l’alimentation, l’hygiène corporelle et la mobilisation sécuritaire des résidents âgés', exigences: 'détenir une attestation professionnelle (AEP) et une carte de secourisme à jour' },
-          { titre: 'Auxiliaire aux services de santé et sociaux', etablissement: 'au soutien à domicile du CLSC local', soins: 'l’accompagnement quotidien, la préparation de repas légers et la surveillance bienveillante', exigences: 'posséder un diplôme secondaire et un permis de conduire valide avec voiture' },
-          { titre: 'Préposé ou préposée aux soins généraux', etablissement: 'dans une résidence privée pour aînés certifiée', soins: 'la distribution des plateaux de repas, l’aide au lever et l’animation d’activités de détente', exigences: 'démontrer une grande empathie, de la patience et une bonne endurance physique' },
+        const tuples = [
+          {
+            titre: 'Préposé ou préposée aux bénéficiaires',
+            etablissement: 'en centre d’hébergement et de soins de longue durée (CHSLD)',
+            soins: 'l’aide à l’alimentation, l’hygiène corporelle et la mobilisation sécuritaire des résidents âgés',
+            exigences: 'détenir une attestation d’études professionnelles (AEP) et une carte de secourisme à jour',
+            etabAns: 'Un établissement public d’hébergement pour personnes en perte d’autonomie',
+            etabDist1: 'Une clinique de chirurgie esthétique privée haut de gamme située en plein centre-ville',
+            etabDist2: 'Un complexe de recherche pharmaceutique fabricant des vaccins pour l’industrie vétérinaire',
+            soinsAns: 'Le soutien aux repas, la toilette quotidienne et l’aide aux déplacements',
+            soinsDist1: 'L’exécution autonome d’opérations chirurgicales à cœur ouvert au bloc opératoire central',
+            soinsDist2: 'La conduite de gros engins de chantier pour déblayer la cour intérieure de l’hôpital',
+            evidenceEtab: ['hébergement', 'soins', 'chsld'],
+            evidenceSoins: ['alimentation', 'hygiène', 'mobilisation'],
+          },
+          {
+            titre: 'Auxiliaire aux services de santé et sociaux',
+            etablissement: 'au sein de l’équipe de soutien à domicile du CLSC local',
+            soins: 'l’accompagnement quotidien, la préparation de repas simples et la surveillance bienveillante à la maison',
+            exigences: 'posséder un diplôme secondaire et un permis de conduire valide avec voiture personnelle',
+            etabAns: 'Le service de soutien à domicile d’un centre local de services communautaires',
+            etabDist1: 'Un camp de base d’alpinistes chevronnés préparant des ascensions dans les Rocheuses',
+            etabDist2: 'Une grande raffinerie de pétrole brut installée près des terminaux portuaires fluviaux',
+            soinsAns: 'L’assistance à domicile, la confection de plats légers et la présence attentive',
+            soinsDist1: 'Le dépannage haute tension de turbines hydrauliques dans une centrale électrique isolée',
+            soinsDist2: 'L’arbitrage officiel de rencontres sportives professionnelles de soccer en ligue majeure',
+            evidenceEtab: ['soutien', 'domicile', 'clsc'],
+            evidenceSoins: ['accompagnement', 'repas', 'surveillance'],
+          },
+          {
+            titre: 'Préposé ou préposée aux soins généraux',
+            etablissement: 'dans une résidence privée pour aînés certifiée par le gouvernement',
+            soins: 'la distribution des plateaux-repas, l’aide au lever et l’animation de jeux calmes de détente',
+            exigences: 'démontrer une grande empathie, de la patience et une bonne endurance physique',
+            etabAns: 'Un complexe résidentiel privé pour aînés dûment homologué par le gouvernement',
+            etabDist1: 'Un tribunal administratif d’arbitrage tranchant des litiges commerciaux internationaux',
+            etabDist2: 'Une tour de contrôle aérienne régionale supervisant les atterrissages nocturnes par radar',
+            soinsAns: 'Le service de nourriture aux chambres, l’assistance matinale et les loisirs doux',
+            soinsDist1: 'La réparation de circuits électriques de haute tension dans le transformateur du quartier',
+            soinsDist2: 'La vérification comptable approfondie de multinationales cotées sur les marchés boursiers',
+            evidenceEtab: ['résidence', 'privée', 'aînés'],
+            evidenceSoins: ['plateaux-repas', 'lever', 'détente'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `AVIS DE RECRUTEMENT EN SANTÉ - EMPLOI ESSENTIEL\nTitre d’emploi : ${s.titre}, ${s.etablissement}.\nNous recrutons des personnes bienveillantes et engagées pour offrir des soins personnalisés à notre clientèle vulnérable. Votre rôle quotidien sera au cœur du confort des personnes hébergées : vos responsabilités comprendront ${s.soins}. Vous travaillerez en étroite collaboration avec l’équipe d’infirmières pour signaler tout changement dans l’état de santé des usagers. Les exigences du poste demandent de ${s.exigences}. Nous offrons un salaire horaire débutant à vingt-six dollars de l’heure avec des primes de soir et de nuit bonifiées, ainsi qu’une conciliation travail-famille exemplaire. Plusieurs postes permanents sont offerts à temps plein ou à temps partiel. Postulez dès aujourd’hui en joignant votre relevé de notes !`,
+          text: `AVIS DE RECRUTEMENT EN SANTÉ - EMPLOI ESSENTIEL\nTitre d’emploi : ${t.titre}, ${t.etablissement}.\nNous recrutons des personnes bienveillantes et engagées pour offrir des soins personnalisés à notre clientèle vulnérable. Votre rôle quotidien sera au cœur du confort des personnes hébergées : vos responsabilités comprendront ${t.soins}. Vous travaillerez en étroite collaboration avec l’équipe d’infirmières pour signaler tout changement dans l’état de santé des usagers. Les exigences du poste demandent de ${t.exigences}. Nous offrons un salaire débutant à vingt-six dollars de l’heure avec des primes de soir et de nuit bonifiées, ainsi qu’une conciliation travail-famille exemplaire. Plusieurs postes permanents sont offerts à temps plein ou à temps partiel. Postulez dès aujourd’hui en joignant votre relevé de notes !`,
           questions: [
-            ['Quel métier essentiel du secteur des soins cette annonce recrute-t-elle ?', 'Un poste d’accompagnement et d’aide quotidienne auprès des aînés', 'Un ingénieur responsable du parc d’équipements biomédicaux hospitaliers', 'Un pharmacien cadre supervisant les stocks de garde'],
-            ['Quelles tâches de bienveillance courante le poste comprend-il ?', 'L’assistance aux repas, à la mobilité et aux soins de confort', 'Des interventions chirurgicales complexes au bloc', 'La rénovation des circuits électriques et des systèmes de ventilation du bloc'],
-            ['Quelle qualification fait partie des exigences formulées pour poser sa candidature ?', 'Une formation reconnue en assistance à la personne ou des qualités humaines solides', 'Un grade universitaire de maîtrise en gestion hospitalière', 'Une expérience de dix ans comme cadre de département clinique'],
+            makeQuestion('Dans quel milieu de vie dédié aux personnes âgées cette offre s’inscrit-elle ?', t.etabAns, t.etabDist1, t.etabDist2, t.evidenceEtab),
+            makeQuestion('Quelles interventions concrètes d’aide et de réconfort sont confiées au candidat ?', t.soinsAns, t.soinsDist1, t.soinsDist2, t.evidenceSoins),
+            makeQuestion('Quelles conditions salariales et de conciliation avantageuses sont garanties ?', 'Un taux horaire initial de vingt-six dollars assorti de bonifications de quart', 'Une rémunération exclusive en bons d’achat de supermarché expirant à la fin de chaque mois', 'L’obligation légale de travailler sans interruption quatorze jours consécutifs sans jour de repos', ['salaire', 'vingt-six', 'primes']),
           ],
         }
       },
@@ -3456,18 +3849,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 0 (Template, Ex 0): Article presse - Rorqual à bosse égaré à Montréal
     Object.assign(
       (rand) => {
-        const slots = [
-          { cetace: 'un rorqual à bosse juvénile de dix mètres', distance: 'à plus de quatre cent cinquante kilomètres de son habitat marin salé', endroit: 'dans le bassin du Vieux-Port de Montréal', mesure: 'd’imposer une zone d’exclusion maritime et de réduire la vitesse des navires' },
-          { cetace: 'un jeune béluga blanc égaré de son groupe', distance: 'à près de trois cents kilomètres en amont de Tadoussac', endroit: 'près du pont Jacques-Cartier dans les courants du fleuve', mesure: 'd’interdire la circulation des bateaux de plaisance et des motomarines' },
-          { cetace: 'une baleine de Minke d’environ sept mètres', distance: 'à plus de cinq cents kilomètres des eaux maritimes de l’estuaire', endroit: 'aux abords des quais du port commercial de Montréal', mesure: 'd’installer des balises acoustiques pour surveiller l’état du mammifère' },
+        const tuples = [
+          {
+            cetace: 'un rorqual à bosse juvénile de dix mètres',
+            endroit: 'dans le bassin du Vieux-Port de Montréal',
+            distance: 'à plus de quatre cent cinquante kilomètres de son habitat marin salé',
+            mesure: 'd’imposer une zone d’exclusion maritime et de réduire la vitesse des navires marchands',
+            cetaceAns: 'Un rorqual à bosse juvénile naviguant dans le Vieux-Port de Montréal',
+            cetaceDist1: 'Un grand requin blanc prédateur pourchassant des baigneurs sur une plage surveillée',
+            cetaceDist2: 'Une colonie d’otaries polaires installée en permanence sur la place d’Armes',
+            mesureAns: 'L’imposition d’une zone d’exclusion et la réduction de vitesse des navires',
+            mesureDist1: 'L’utilisation de harpons à pointe métallique pour chasser l’animal hors du port commercial',
+            mesureDist2: 'La vidange complète du bassin portuaire au moyen de puissantes pompes industrielles mobiles',
+            evidenceCetace: ['rorqual', 'bosse', 'Montréal'],
+            evidenceMesure: ['exclusion', 'vitesse', 'navires'],
+          },
+          {
+            cetace: 'un jeune béluga blanc égaré de son groupe',
+            endroit: 'près du pont Jacques-Cartier dans les forts courants du fleuve',
+            distance: 'à près de trois cents kilomètres en amont de Tadoussac',
+            mesure: 'd’interdire la circulation des bateaux de plaisance et des motomarines dans le secteur',
+            cetaceAns: 'Un jeune béluga blanc isolé près du pont Jacques-Cartier',
+            cetaceDist1: 'Un banc gigantesque d’espadons bloquant les vannes d’un canal maritime commercial',
+            cetaceDist2: 'Un ours polaire réfugié sous une pile centrale de pont autoroutier urbain',
+            mesureAns: 'L’interdiction de naviguer pour les bateaux de plaisance et les motomarines',
+            mesureDist1: 'L’empoisonnement préventif des bancs de poissons pour hâter le départ du cétacé vers l’océan',
+            mesureDist2: 'La démolition complète des piles du pont fluvial pour ouvrir largement la navigation',
+            evidenceCetace: ['béluga', 'blanc', 'Jacques-Cartier'],
+            evidenceMesure: ['interdire', 'bateaux', 'motomarines'],
+          },
+          {
+            cetace: 'une baleine de Minke d’environ sept mètres',
+            endroit: 'aux abords des quais du port commercial de Montréal',
+            distance: 'à plus de cinq cents kilomètres des eaux maritimes de l’estuaire',
+            mesure: 'd’installer des balises acoustiques pour surveiller en continu l’état et les plongées du mammifère',
+            cetaceAns: 'Une baleine de Minke repérée près des installations portuaires montréalaises',
+            cetaceDist1: 'Un phoque d’eau douce apprivoisé par l’ensemble des employés de la capitainerie',
+            cetaceDist2: 'Une tortue luth géante venue pondre ses œufs sur un quai de déchargement industriel',
+            mesureAns: 'L’installation de balises acoustiques de surveillance continue des plongées',
+            mesureDist1: 'La capture au filet métallique rigide pour hisser l’animal sur une plateforme routière',
+            mesureDist2: 'L’éclairage nocturne continu du fleuve à l’aide de faisceaux laser d’extrême puissance',
+            evidenceCetace: ['baleine', 'Minke', 'quais'],
+            evidenceMesure: ['balises', 'acoustiques', 'surveiller'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `ACTUALITÉ ENVIRONNEMENTALE - ODYSSÉE INHABITUELLE DANS LE FLEUVE\nUn événement faunique exceptionnel retient l’attention des Québécois depuis plusieurs jours. ${s.cetace[0].toUpperCase() + s.cetace.slice(1)} a remonté le cours du fleuve Saint-Laurent pour atteindre les eaux douces ${s.endroit}. L’animal se trouve ${s.distance}, un phénomène très rare qui inquiète les biologistes du Réseau québécois d’urgences pour les mammifères marins. Selon les spécialistes, l’eau douce prolongée fragilise la peau de l’animal et il ne trouve aucune nourriture adaptée dans ce secteur. Afin de protéger le mammifère contre d’éventuelles collisions, Transports Canada a ordonné ${s.mesure}. Des navires de la Garde côtière veillent jour et nuit pour dissuader les curieux de s’approcher. Tous espèrent que la baleine retrouvera d’elle-même le chemin vers l’océan.`,
+          text: `ACTUALITÉ ENVIRONNEMENTALE - ODYSSÉE INHABITUELLE DANS LE FLEUVE\nUn événement faunique exceptionnel retient l’attention des Québécois depuis plusieurs jours. ${cap(t.cetace)} a remonté le cours du fleuve Saint-Laurent pour atteindre les eaux douces ${t.endroit}. L’animal se trouve ${t.distance}, un phénomène très rare qui inquiète les biologistes du Réseau québécois d’urgences pour les mammifères marins. Selon les spécialistes, l’eau douce prolongée fragilise la peau de l’animal et il ne trouve aucune nourriture adaptée dans ce secteur. Afin de protéger le mammifère contre d’éventuelles collisions, Transports Canada a ordonné ${t.mesure}. Des navires de la Garde côtière veillent jour et nuit pour dissuader les curieux de s’approcher. Tous espèrent que l’animal retrouvera de lui-même le chemin vers l’océan.`,
           questions: [
-            ['Quel événement animalier rare est rapporté par les spécialistes ?', 'La présence inhabituelle d’une grande baleine dans le fleuve', 'Une prolifération subite d’algues toxiques dans un lac de villégiature estival', 'La découverte d’ossements anciens sur une berge isolée'],
-            ['Pourquoi le séjour prolongé de l’animal en eau douce inquiète-t-il ?', 'Le manque de proies adaptées et la détérioration de son épiderme', 'La température de l’eau qui causerait des coups de soleil', 'Une incapacité totale de flotter provoquée par l’absence de marées maritimes'],
-            ['Quelle mesure de sécurité immédiate a été mise en place pour préserver l’animal ?', 'L’instauration d’un périmètre d’exclusion et la réduction de vitesse des navires', 'La capture au filet pour transporter l’animal en camion', 'La construction rapide d’une digue en béton sur le chenal'],
+            makeQuestion('Quel événement faunique rare et insolite est rapporté par la presse québécoise ?', t.cetaceAns, t.cetaceDist1, t.cetaceDist2, t.evidenceCetace),
+            makeQuestion('Pourquoi le séjour prolongé de l’animal en eau douce inquiète-t-il les biologistes ?', 'La fragilisation de son épiderme et l’absence de nourriture adaptée sur place', 'La surchauffe immédiate de sa peau causée par l’exposition prolongée au grand soleil', 'L’impossibilité absolue de se mouvoir en raison de l’absence de marée dans le bassin portuaire', ['fragilise', 'nourriture', 'adaptée']),
+            makeQuestion('Quelle mesure de protection immédiate Transports Canada a-t-il ordonnée ?', t.mesureAns, t.mesureDist1, t.mesureDist2, t.evidenceMesure),
           ],
         }
       },
@@ -3476,18 +3908,72 @@ export const N05_06_SCENARIOS = {
     // Scenario 1 (Template, Ex 0): Baleine à bosse dans le fjord du Saguenay
     Object.assign(
       (rand) => {
-        const slots = [
-          { animal: 'une baleine bleue imposante', site: 'dans la baie Éternité en plein cœur du fjord', alerte: 'des kayakistes qui ont aperçu son souffle puissant à l’aube', secours: 'une équipe de patrouilleurs du parc marin escortant l’animal à distance' },
-          { animal: 'un rorqual commun adulte', site: 'dans les eaux profondes de l’embouchure du Saguenay', alerte: 'le capitaine d’un traversier régulier reliant les deux rives', secours: 'des scientifiques munis de balises satellites pour cartographier ses plongées' },
-          { animal: 'un groupe de dauphins à flancs blancs', site: 'dans les méandres étroits de la rivière Saguenay', alerte: 'des résidents riverains intrigués par leurs bonds hors de l’eau', secours: 'des équipes spécialisées diffusant des signaux acoustiques de guidage' },
+        const tuples = [
+          {
+            animal: 'Une baleine bleue imposante',
+            verbeSujet: 's’est aventurée',
+            site: 'dans la baie Éternité en plein cœur du fjord du Saguenay',
+            alerte: 'des kayakistes qui ont aperçu son souffle puissant à l’aube',
+            patrouille: 'Une équipe de patrouilleurs du parc marin veille à ce qu’aucune embarcation ne s’approche à moins de quatre cents mètres',
+            animalAns: 'Une baleine bleue imposante s’aventurant dans le fjord du Saguenay',
+            animalDist1: 'Un sous-marin d’exploration militaire échoué sur un haut-fond sablonneux',
+            animalDist2: 'Un troupeau de caribous des bois traversant les eaux froides du fjord à la nage',
+            alerteAns: 'Des sportifs en kayak ayant distingué son jet d’eau à l’aurore',
+            alerteDist1: 'Des gardes forestiers patrouillant en hélicoptère au-dessus de la cime des arbres',
+            alerteDist2: 'Un pêcheur commercial chevronné constatant la disparition de tous ses casiers à crabe',
+            distanceAns: 'Garder un rayon de sécurité d’au moins quatre cents mètres avec le mammifère',
+            distanceDist1: 'Amarrer directement son embarcation légère contre le flanc protecteur de la baleine',
+            distanceDist2: 'Plonger en apnée auprès du cétacé pour tenter d’effleurer la baleine et lui donner à manger',
+            evidenceAnimal: ['baleine', 'bleue', 'fjord'],
+            evidenceAlerte: ['kayakistes', 'souffle', 'aube'],
+            evidenceDistance: ['quatre', 'cents', 'mètres'],
+          },
+          {
+            animal: 'Un rorqual commun adulte',
+            verbeSujet: 's’est aventuré',
+            site: 'dans les eaux profondes de l’embouchure du Saguenay',
+            alerte: 'le capitaine d’un traversier régulier reliant Tadoussac à Baie-Sainte-Catherine',
+            patrouille: 'Des agents de protection de la faune veillent à faire respecter un périmètre de six cents mètres autour du mammifère',
+            animalAns: 'Un rorqual commun adulte circulant dans les eaux de l’embouchure du Saguenay',
+            animalDist1: 'Un brise-glace de la Garde côtière immobilisé par une avarie majeure de moteur',
+            animalDist2: 'Une marée noire d’hydrocarbures causée par le naufrage d’un pétrolier étranger',
+            alerteAns: 'Le commandant d’un traversier reliant les deux rives du Saguenay',
+            alerteDist1: 'Des touristes en vacances observant le ciel étoilé depuis le belvédère d’un hôtel',
+            alerteDist2: 'Un scaphandrier professionnel intervenant pour réparer une canalisation sous-marine',
+            distanceAns: 'Maintenir une zone tampon d’au moins six cents mètres autour du cétacé',
+            distanceDist1: 'Remorquer l’animal adulte vers la haute mer en utilisant de gros câbles métalliques',
+            distanceDist2: 'Projeter des bouées lumineuses et des fusées éclairantes sur le dos du mammifère',
+            evidenceAnimal: ['rorqual', 'commun', 'Saguenay'],
+            evidenceAlerte: ['capitaine', 'traversier', 'reliant'],
+            evidenceDistance: ['six', 'cents', 'mètres'],
+          },
+          {
+            animal: 'Un jeune béluga blanc égaré',
+            verbeSujet: 's’est aventuré',
+            site: 'dans les méandres escarpés de la rivière Sainte-Marguerite',
+            alerte: 'des résidents riverains intrigués par ses apparitions répétées à la surface de l’eau',
+            patrouille: 'Une brigade nautique spécialisée veille à ce que personne ne franchisse un rayon de trois cents mètres',
+            animalAns: 'Un jeune béluga blanc égaré dans une rivière tributaire du fjord',
+            animalDist1: 'Une épave historique de goélette en bois remontée spontanément à la surface',
+            animalDist2: 'Une colonie de morses de l’Arctique établie en permanence sur les berges rocheuses',
+            alerteAns: 'Des habitants du bord de l’eau étonnés de voir l’animal émerger',
+            alerteDist1: 'Un pilote d’avion de ligne commerciale survolant le secteur à très haute altitude',
+            alerteDist2: 'Une sonde scientifique immergée enregistrant un signal électrique d’origine inconnue',
+            distanceAns: 'Interdire toute approche nautique à moins de trois cents mètres de l’animal',
+            distanceDist1: 'Organiser des courses de motomarines rapides pour apeurer l’animal vers l’embouchure',
+            distanceDist2: 'Implanter un réseau de filets métalliques infranchissables pour le retenir prisonnier',
+            evidenceAnimal: ['béluga', 'blanc', 'rivière'],
+            evidenceAlerte: ['résidents', 'riverains', 'surface'],
+            evidenceDistance: ['trois', 'cents', 'mètres'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `REPORTAGE DE PRESSE - INTRUSION SPECTACULAIRE AU ROYAUME DU SAGUENAY\nLes riverains du fjord assistent depuis quarante-huit heures à un spectacle naturel fascinant. ${s.animal[0].toUpperCase() + s.animal.slice(1)} s’est aventuré bien au-delà de son périmètre habituel, naviguant ${s.site}. Le premier signalement a été donné par ${s.alerte}. Les experts maritimes expliquent que des courants inhabituels de krill ont pu attirer l’animal dans cette gorge rocheuse abrupte. Pour garantir la quiétude de ce visiteur majestueux, ${s.secours} veille à ce qu’aucune embarcation de plaisance ne s’approche à moins de quatre cents mètres. Les autorités rappellent que le harcèlement d’un mammifère marin protégé constitue une infraction passible de lourdes amendes en vertu de la loi sur les espèces en péril.`,
+          text: `REPORTAGE DE PRESSE - INTRUSION SPECTACULAIRE AU ROYAUME DU SAGUENAY\nLes riverains du fjord assistent depuis quarante-huit heures à un spectacle naturel fascinant. ${t.animal} ${t.verbeSujet} bien au-delà de son périmètre habituel, naviguant ${t.site}. Le premier signalement a été donné par ${t.alerte}. Les experts maritimes expliquent que des courants inhabituels de krill ont pu attirer l’animal dans cette gorge rocheuse abrupte. Pour garantir la quiétude de ce visiteur rare, ${t.patrouille}. Les autorités rappellent que le harcèlement d’un mammifère marin protégé constitue une infraction passible de lourdes amendes en vertu de la loi sur les espèces en péril.`,
           questions: [
-            ['Quel événement naturel marquant retient l’attention des riverains ?', 'L’arrivée inattendue d’un grand cétacé dans les eaux du fjord', 'Un déversement d’hydrocarbures causé par l’avarie d’un grand navire commercial', 'La désertion soudaine des colonies d’oiseaux marins du parc'],
-            ['Par qui le premier signalement de l’animal a-t-il été transmis ?', 'Par des usagers ou des observateurs attentifs présents sur place', 'Par des pilotes d’hélicoptère en mission de sauvetage', 'Par un pêcheur hauturier constatant la perte de l’ensemble de ses filets marins'],
-            ['Quelle consigne stricte de navigation les patrouilleurs nautiques appliquent-ils ?', 'Maintenir une distance minimale d’au moins un demi-kilomètre avec l’animal', 'Distribuer chaque jour des poissons pour nourrir le visiteur', 'Guider le mammifère vers la sortie avec des avertisseurs sonores'],
+            makeQuestion('Quel événement naturel remarquable retient toute l’attention des riverains ?', t.animalAns, t.animalDist1, t.animalDist2, t.evidenceAnimal),
+            makeQuestion('Par qui le premier signalement de l’animal a-t-il été transmis aux autorités ?', t.alerteAns, t.alerteDist1, t.alerteDist2, t.evidenceAlerte),
+            makeQuestion('Quelle consigne stricte de navigation les patrouilleurs imposent-ils aux plaisanciers ?', t.distanceAns, t.distanceDist1, t.distanceDist2, t.evidenceDistance),
           ],
         }
       },
@@ -3496,18 +3982,60 @@ export const N05_06_SCENARIOS = {
     // Scenario 2 (Template, Ex 1): Panne d'électricité majeure après une tempête de vent
     Object.assign(
       (rand) => {
-        const slots = [
-          { ville: 'dans la région métropolitaine de Montréal', rafales: 'des vents violents soufflant à près de cent kilomètres à l’heure', foyers: 'plus de deux cent cinquante mille foyers et commerces', mobilisation: 'cinq cents équipes de monteurs de ligne déployées jour et nuit sur le terrain' },
-          { ville: 'dans les arrondissements de la ville de Québec', rafales: 'des bourrasques de vent destructrices accompagnées de pluie verglaçante', foyers: 'près de cent quatre-vingts mille clients d’Hydro-Québec', mobilisation: 'des équipes venues en renfort d’autres provinces pour réparer les lignes' },
-          { ville: 'dans la région de la Montérégie', rafales: 'un coup de vent destructeur arrachant de nombreux toits de grange', foyers: 'plus de cent cinquante mille résidences privées', mobilisation: 'des spécialistes élagueurs débroussaillant les débris tombés sur les fils' },
+        const tuples = [
+          {
+            ville: 'dans la région métropolitaine de Montréal',
+            rafales: 'des vents violents soufflant à près de cent kilomètres à l’heure',
+            verbeRafale: 'ont provoqué',
+            foyers: 'plus de deux cent cinquante mille foyers et commerces',
+            mobilisation: 'cinq cents équipes de monteurs de ligne sont déployées jour et nuit sur le terrain',
+            causeAns: 'Des bourrasques violentes à une vitesse avoisinant les cent kilomètres-heure',
+            causeDist1: 'Un incendie criminel de grande ampleur détruisant un poste électrique sous la ville',
+            causeDist2: 'Une rupture catastrophique de barrage hydroélectrique sur les rivières de la Côte-Nord',
+            mobilisationAns: 'L’envoi sur le réseau de cinq cents équipes de monteurs mobilisées en continu',
+            mobilisationDist1: 'L’évacuation intégrale de la métropole par des hélicoptères militaires de transport',
+            mobilisationDist2: 'La coupure d’urgence de l’eau courante ordonnée pour l’ensemble des résidences privées',
+            evidenceCause: ['vents', 'violents', 'cent'],
+            evidenceMob: ['cinq', 'cents', 'monteurs'],
+          },
+          {
+            ville: 'dans les arrondissements de la ville de Québec',
+            rafales: 'des bourrasques destructrices accompagnées de pluie torrentielle',
+            verbeRafale: 'ont provoqué',
+            foyers: 'près de cent quatre-vingts mille clients d’Hydro-Québec',
+            mobilisation: 'des équipes de monteurs venues en renfort d’autres régions s’activent sans relâche',
+            causeAns: 'Des vents torrentiels et de très fortes pluies ayant endommagé le réseau',
+            causeDist1: 'Une collision de cargos océaniques contre les grands pylônes métalliques du fleuve',
+            causeDist2: 'Une cyberattaque internationale paralysant l’ensemble des centrales hydroélectriques',
+            mobilisationAns: 'L’appui d’effectifs de monteurs acheminés depuis d’autres zones pour réparer',
+            mobilisationDist1: 'L’interruption définitive de tout le réseau de transport en commun pendant douze mois',
+            mobilisationDist2: 'L’obligation faite à chaque citoyen de réparer lui-même les fils devant sa propriété',
+            evidenceCause: ['bourrasques', 'destructrices', 'torrentielle'],
+            evidenceMob: ['renfort', 'régions', 'activent'],
+          },
+          {
+            ville: 'dans la région rurale de la Montérégie',
+            rafales: 'un coup de vent destructeur d’une rare violence',
+            verbeRafale: 'a provoqué',
+            foyers: 'plus de cent cinquante mille résidences privées',
+            mobilisation: 'des spécialistes élagueurs débroussaillent sans répit les débris tombés sur les fils',
+            causeAns: 'Une violente tempête soudaine d’une force rare qui a arraché les arbres',
+            causeDist1: 'Une vague de chaleur écrasante ayant fait fondre les câbles aériens de haute tension',
+            causeDist2: 'Un effondrement massif de terrain ayant englouti une municipalité rurale tout entière',
+            mobilisationAns: 'L’intervention sans répit d’élagueurs spécialisés dégageant les fils',
+            mobilisationDist1: 'L’abattage préventif et systématique de l’ensemble des massifs forestiers régionaux',
+            mobilisationDist2: 'La décision officielle d’Hydro-Québec d’abandonner l’alimentation des régions rurales',
+            evidenceCause: ['coup', 'vent', 'violence'],
+            evidenceMob: ['élagueurs', 'débroussaillent', 'fils'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `CHRONIQUE D’ACTUALITÉ - LA VILLE PLONGÉE DANS LE NOIR\nLa bourrasque automnale qui a balayé le sud de la province a laissé de lourdes séquelles ${s.ville}. Hier vers dix-sept heures, ${s.rafales} ont provoqué la chute de centaines de branches et de gros arbres sur le réseau électrique. En moins de deux heures, les coupures se sont propagées, privant d’électricité ${s.foyers}. Les feux de circulation éteints ont provoqué de forts ralentissements sur toutes les artères principales. Plusieurs municipalités ont ouvert des centres d’hébergement temporaires avec génératrices pour permettre aux citoyens de se réchauffer et de recharger leurs téléphones. Hydro-Québec souligne que ${s.mobilisation}. Le rétablissement complet du courant prendra toutefois encore de quarante-huit à soixante-douze heures dans les secteurs les plus lourdement endommagés.`,
+          text: `CHRONIQUE D’ACTUALITÉ - LA VILLE PLONGÉE DANS LE NOIR\nLa bourrasque automnale qui a balayé le sud de la province a laissé de lourdes séquelles ${t.ville}. Hier vers dix-sept heures, ${t.rafales} ${t.verbeRafale} la chute de centaines de branches et de gros arbres sur le réseau électrique. En moins de deux heures, les coupures se sont propagées, privant d’électricité ${t.foyers}. Les feux de circulation éteints ont provoqué de forts ralentissements sur toutes les artères principales. Plusieurs municipalités ont ouvert des centres d’hébergement temporaires avec génératrices pour permettre aux citoyens de se réchauffer et de recharger leurs téléphones. Hydro-Québec souligne que ${t.mobilisation}. Le rétablissement complet du courant prendra toutefois encore de quarante-huit à soixante-douze heures dans les secteurs les plus lourdement endommagés.`,
           questions: [
-            ['Quel phénomène météorologique violent a provoqué les pannes de courant ?', 'De fortes rafales de vent ayant fait tomber des branches sur les fils', 'Une vague de chaleur sans précédent ayant endommagé les postes de distribution', 'Un affaissement de terrain ayant détruit une centrale'],
-            ['Combien d’abonnés ont été touchés par ces coupures majeures d’électricité ?', 'Plusieurs dizaines ou centaines de milliers de résidences et commerces', 'Seulement quelques habitations situées en forêt profonde', 'L’intégralité des clients raccordés à l’ensemble du réseau nord-américain réuni'],
-            ['Quelle mesure d’urgence a été déployée par les villes pour soulager les citoyens ?', 'Des centres temporaires chauffés munis de génératrices pour accueillir la population', 'L’octroi de billets d’avion vers des régions épargnées par le froid', 'L’évacuation forcée des familles vers une autre métropole'],
+            makeQuestion('Quel phénomène météorologique violent a provoqué ces pannes majeures de courant ?', t.causeAns, t.causeDist1, t.causeDist2, t.evidenceCause),
+            makeQuestion('Quel déploiement exceptionnel sur le terrain Hydro-Québec met-elle en avant ?', t.mobilisationAns, t.mobilisationDist1, t.mobilisationDist2, t.evidenceMob),
+            makeQuestion('Quelle mesure d’urgence les municipalités ont-elles ouverte pour soutenir les résidents ?', 'Des centres d’hébergement temporaires chauffés équipés de génératrices', 'La gratuité complète de séjours hôteliers de luxe dans les stations balnéaires du Sud', 'La livraison obligatoire d’appareils de chauffage au bois dans l’ensemble des logements', ['hébergement', 'génératrices', 'réchauffer']),
           ],
         }
       },
@@ -3516,18 +4044,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 3 (Template, Ex 1): Panne causée par une tempête de verglas printanière
     Object.assign(
       (rand) => {
-        const slots = [
-          { secteur: 'la région de Lanaudière et des Laurentides', epaisseur: 'vingt-cinq millimètres de glace', bris: 'l’effondrement de plusieurs poteaux et de transformateurs', delai: 'trois à quatre jours de travaux continus' },
-          { secteur: 'l’ouest de l’île de Montréal et Laval', epaisseur: 'quinze millimètres de pluie verglaçante accumulée sur les branches', bris: 'la rupture de câbles aériens près des grands axes routiers', delai: 'au moins quarante-huit heures de travail continu' },
-          { secteur: 'la région de l’Outaouais', epaisseur: 'vingt millimètres de glace alourdissant la végétation', bris: 'des chutes d’arbres massives bloquant les chemins de campagne', delai: 'quatre à cinq jours pour les secteurs les plus ruraux' },
+        const tuples = [
+          {
+            secteur: 'la région de Lanaudière et des Laurentides',
+            epaisseur: 'vingt-cinq millimètres de glace',
+            bris: 'l’effondrement de plusieurs poteaux et de transformateurs',
+            delai: 'trois à quatre jours de travaux continus',
+            brisAns: 'La chute sous le verglas de poteaux électriques et de transformateurs',
+            brisDist1: 'L’explosion violente de conduites souterraines de gaz sous l’effet d’une sécheresse',
+            brisDist2: 'Une rupture soudaine de barrage hydroélectrique inondant les municipalités voisines',
+            delaiAns: 'Entre trois et quatre journées complètes d’efforts soutenus pour tout rétablir',
+            delaiDist1: 'Un retour complet et garanti du courant en moins de trente minutes pour tous les résidents',
+            delaiDist2: 'Une coupure générale planifiée appelée à se prolonger sur plusieurs années civiles complètes',
+            evidenceBris: ['effondrement', 'poteaux', 'transformateurs'],
+            evidenceDelai: ['trois', 'quatre', 'jours'],
+          },
+          {
+            secteur: 'l’ouest de l’île de Montréal et Laval',
+            epaisseur: 'quinze millimètres de pluie verglaçante accumulée sur les branches',
+            bris: 'la rupture de câbles aériens majeurs près des autoroutes',
+            delai: 'au moins quarante-huit heures de travail continu',
+            brisAns: 'Le sectionnement de lignes aériennes importantes longeant les autoroutes',
+            brisDist1: 'La destruction complète des stations municipales de pompage par un tsunami fluvial',
+            brisDist2: 'La fermeture permanente de toutes les voies rapides en raison d’un affaissement majeur',
+            delaiAns: 'Une durée minimale de deux jours complets d’intervention technique',
+            delaiDist1: 'Une remise en service immédiate garantie avant la fin du journal télévisé du soir',
+            delaiDist2: 'Une suspension définitive de tous les chantiers de reconnexion électrique rurale',
+            evidenceBris: ['rupture', 'câbles', 'autoroutes'],
+            evidenceDelai: ['quarante-huit', 'heures', 'travail'],
+          },
+          {
+            secteur: 'la région de l’Outaouais',
+            epaisseur: 'vingt millimètres de glace alourdissant la végétation',
+            bris: 'des chutes d’arbres massives bloquant les chemins de campagne',
+            delai: 'quatre à cinq jours pour les secteurs les plus ruraux',
+            brisAns: 'Des arbres tombés en grand nombre obstruant les voies rurales',
+            brisDist1: 'Une tempête de poussière désertique recouvrant l’ensemble des pylônes de distribution',
+            brisDist2: 'Un feu de forêt incontrôlé ravageant les postes de transformation d’énergie régionale',
+            delaiAns: 'Une attente estimée de quatre à cinq journées en milieu rural',
+            delaiDist1: 'Un rétablissement intégral promis dans les dix prochaines minutes ouvrables',
+            delaiDist2: 'Le refus catégorique et définitif de raccorder à nouveau les foyers ruraux éloignés',
+            evidenceBris: ['chutes', 'arbres', 'chemins'],
+            evidenceDelai: ['quatre', 'cinq', 'jours'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `CRISE CLIMATIQUE - LE VERGLAS PARALYSE LE RÉSEAU ÉNERGÉTIQUE\nUn épisode de pluie verglaçante printanier d’une intensité exceptionnelle a durement frappé ${s.secteur} depuis mercredi soir. L’accumulation d’une couche de verglas pesant jusqu’à ${s.epaisseur} a fait céder la végétation sous un poids considérable. Les bruits de branches qui cassaient ont résonné toute la nuit dans les quartiers résidentiels. Le réseau de distribution a subi des dommages importants, avec ${s.bris}. Les hôpitaux et les résidences pour personnes âgées ont basculé sans interruption sur leurs génératrices d’urgence. La direction d’Hydro-Québec a appelé la population à la patience lors d’un point de presse, estimant qu’il faudra ${s.delai} pour rebrancher tous les foyers isolés. Les pompiers rappellent de ne jamais utiliser d’appareils de cuisson au propane à l’intérieur pour éviter toute intoxication.`,
+          text: `CRISE CLIMATIQUE - LE VERGLAS PARALYSE LE RÉSEAU ÉNERGÉTIQUE\nUn épisode de pluie verglaçante printanier d’une intensité exceptionnelle a durement frappé ${t.secteur} depuis mercredi soir. L’accumulation d’une couche de verglas pesant jusqu’à ${t.epaisseur} a fait céder la végétation sous un poids considérable. Les bruits de branches qui cassaient ont résonné toute la nuit dans les quartiers résidentiels. Le réseau de distribution a subi des dommages importants, avec ${t.bris}. Les hôpitaux et les résidences pour personnes âgées ont basculé sans interruption sur leurs génératrices d’urgence. La direction d’Hydro-Québec a appelé la population à la patience lors d’un point de presse, estimant qu’il faudra ${t.delai} pour rebrancher tous les foyers isolés. Les pompiers rappellent de ne jamais utiliser d’appareils de cuisson au propane à l’intérieur pour éviter toute intoxication.`,
           questions: [
-            ['Quel événement climatique a paralysé le réseau électrique régional ?', 'Une accumulation sévère de verglas ayant brisé fils et poteaux', 'Une violente bourrasque estivale ayant arraché plusieurs toitures dans la ville', 'Une sécheresse marquée ayant asséché les réservoirs du nord'],
-            ['Comment les établissements de soins ont-ils maintenu leurs services essentiels ?', 'Grâce au fonctionnement immédiat de génératrices de secours internes', 'En organisant le transfert par bus de tous les patients', 'En demandant à l’ensemble des malades hospitalisés de rentrer à leur domicile'],
-            ['Quel avertissement de sécurité essentiel les pompiers rappellent-ils au public ?', 'L’interdiction absolue de faire fonctionner des appareils au propane à l’intérieur', 'L’obligation d’ouvrir toutes les fenêtres de la résidence en hiver', 'La consigne de réparer soi-même les câbles tombés sur la voie'],
+            makeQuestion('Quels dommages matériels sévères le réseau de distribution électrique a-t-il subis ?', t.brisAns, t.brisDist1, t.brisDist2, t.evidenceBris),
+            makeQuestion('Quel délai de réalimentation Hydro-Québec estime-t-elle pour les foyers touchés ?', t.delaiAns, t.delaiDist1, t.delaiDist2, t.evidenceDelai),
+            makeQuestion('Quel avertissement de sécurité essentiel les pompiers réitèrent-ils à la population ?', 'Éviter tout réchaud au gaz dans son logement pour prévenir l’asphyxie', 'Ouvrir en grand toutes les fenêtres de la résidence malgré le froid intense et le gel', 'Manipuler directement de ses mains les câbles de haute tension tombés sur la voie publique', ['propane', 'intérieur', 'intoxication']),
           ],
         }
       },
@@ -3536,18 +4103,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 4 (Template, Ex 0): Béluga égaré dans la rivière Saint-Maurice
     Object.assign(
       (rand) => {
-        const slots = [
-          { riviere: 'la rivière Saint-Maurice à la hauteur de Shawinigan', mammifere: 'un béluga blanc adulte reconnaissable à sa peau claire', alerte: 'des pêcheurs en chaloupe surpris par son apparition', protocole: 'le Réseau d’urgences pour les mammifères marins avec des vétérinaires spécialisés' },
-          { riviere: 'la rivière Richelieu près du bassin de Chambly', mammifere: 'un jeune béluga encore dépendant de son alimentation marine', alerte: 'des plaisanciers qui ont photographié sa silhouette près des écluses', protocole: 'Pêches et Océans Canada avec des biologistes de l’aquarium' },
-          { riviere: 'la rivière des Prairies au nord de Montréal', mammifere: 'un rorqual à museau pointu en quête de bancs de poissons', alerte: 'des marcheurs longeant le parc riverain de la Merci', protocole: 'une équipe d’experts fauniques équipés de drones d’observation aérienne' },
+        const tuples = [
+          {
+            coursEau: 'la rivière Saint-Maurice à la hauteur de Shawinigan',
+            mammifere: 'un béluga blanc adulte reconnaissable à sa silhouette claire',
+            alerte: 'des pêcheurs en chaloupe surpris par son émersion soudaine',
+            protocole: 'le Réseau québécois d’urgences pour les mammifères marins avec des vétérinaires spécialisés',
+            lieuAns: 'Dans les eaux douces de la rivière Saint-Maurice à Shawinigan',
+            lieuDist1: 'Dans une piscine olympique municipale fermée pour sa vidange annuelle',
+            lieuDist2: 'Dans le canal d’évacuation bétonné d’un complexe pétrochimique côtier',
+            alerteAns: 'Des personnes en chaloupe de pêche ayant constaté sa remontée d’eau',
+            alerteDist1: 'Des contrôleurs aériens observant les pistes sur les écrans radar d’un aéroport',
+            alerteDist2: 'Des ingénieurs géomètres effectuant le tracé d’un nouveau tronçon d’autoroute',
+            evidenceLieu: ['Saint-Maurice', 'Shawinigan'],
+            evidenceAlerte: ['pêcheurs', 'chaloupe', 'émersion'],
+          },
+          {
+            coursEau: 'la rivière Richelieu près du bassin historique de Chambly',
+            mammifere: 'un jeune béluga blanc encore dépendant de son alimentation marine',
+            alerte: 'des plaisanciers qui ont photographié sa silhouette près des écluses',
+            protocole: 'Pêches et Océans Canada avec des biologistes de l’aquarium de Québec',
+            lieuAns: 'Sur le cours de la rivière Richelieu aux abords du bassin de Chambly',
+            lieuDist1: 'Dans le bassin d’une fontaine décorative en plein centre-ville montréalais',
+            lieuDist2: 'Dans un étang clôturé d’aquaculture réservé à l’élevage de truites arc-en-ciel',
+            alerteAns: 'Des navigateurs de plaisance ayant pris en photo sa forme aux écluses',
+            alerteDist1: 'Des douaniers fédéraux en poste à un poste frontalier terrestre de la frontière',
+            alerteDist2: 'Une équipe d’archéologues effectuant des fouilles approfondies au fond d’une grotte',
+            evidenceLieu: ['Richelieu', 'Chambly'],
+            evidenceAlerte: ['plaisanciers', 'silhouette', 'écluses'],
+          },
+          {
+            coursEau: 'la rivière des Prairies au nord de l’île de Montréal',
+            mammifere: 'un rorqual à museau pointu en quête de bancs de poissons',
+            alerte: 'des marcheurs longeant le sentier riverain du parc de la Merci',
+            protocole: 'une équipe d’experts fauniques appuyée par des drones de repérage aérien',
+            lieuAns: 'Sur les flots de la rivière des Prairies bordant le secteur nord montréalais',
+            lieuDist1: 'Dans un réservoir souterrain d’eau d’extinction pour les camions de pompiers',
+            lieuDist2: 'Dans la fosse d’immersion d’un centre privé de formation à la plongée sous-marine',
+            alerteAns: 'Des promeneurs sur le sentier du parc de la Merci en bord de rive',
+            alerteDist1: 'Des cheminots chevronnés assurant la maintenance dans une gare de triage ferroviaire',
+            alerteDist2: 'Un astronome amateur observant les constellations célestes depuis le toit d’un immeuble',
+            evidenceLieu: ['Prairies', 'Montréal'],
+            evidenceAlerte: ['marcheurs', 'riverain', 'Merci'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `FAITS DIVERS SCIENTIFIQUES - UN HABITANT DE L’ARCTIQUE EN PLEIN CŒUR DU QUÉBEC\nLa surprise a été totale lorsque ${s.mammifere} a été aperçu nageant paisiblement dans ${s.riviere}. L’alerte a été transmise aux autorités par ${s.alerte}. Aussitôt informée, une équipe conjointe comprenant ${s.protocole} s’est mobilisée pour évaluer la viabilité d’un sauvetage ou d’un raccompagnement vers l’estuaire. Selon les spécialistes, les barrages hydroélectriques et les ponts routiers représentent des obstacles infranchissables pour le cétacé en amont. Les patrouilleurs nautiques ont établi un corridor de protection strict pour empêcher les curieux de s’approcher en canot ou en motomarine. La présence de ce visiteur rare rappelle la fragilité de nos écosystèmes et l’importance de protéger nos cours d’eau.`,
+          text: `FAITS DIVERS SCIENTIFIQUES - UN HABITANT DE L’ARCTIQUE EN PLEIN CŒUR DU QUÉBEC\nLa surprise a été totale ${lorsque(t.mammifere)} a été aperçu nageant paisiblement dans ${t.coursEau}. L’alerte a été transmise aux autorités par ${t.alerte}. Aussitôt informée, une équipe conjointe comprenant ${t.protocole} s’est mobilisée pour évaluer la viabilité d’un sauvetage ou d’un raccompagnement vers l’estuaire. Selon les spécialistes, les barrages hydroélectriques et les ponts routiers représentent des obstacles infranchissables pour le cétacé en amont. Les patrouilleurs nautiques ont établi un corridor de protection strict pour empêcher les curieux de s’approcher en canot ou en motomarine. La présence de ce visiteur rare rappelle la fragilité de nos écosystèmes et l’importance de protéger nos cours d’eau.`,
           questions: [
-            ['Dans quel environnement inhabituel ce mammifère arctique a-t-il été repéré ?', 'Dans les eaux douces d’un cours d’eau situé à l’intérieur des terres', 'Dans les installations intérieures d’un parc aquatique commercial de Toronto', 'Dans le bassin d’une piscine privée de banlieue'],
-            ['Quel obstacle majeur empêche l’animal de continuer sa route en amont ?', 'La présence de barrages hydroélectriques et de structures infranchissables', 'La menace d’attaques par de grands carnivores marins', 'Une couche épaisse de banquise bloquant toute avancée sur le fleuve en amont'],
-            ['Quel message de sensibilisation cette observation insolite transmet-elle au public ?', 'La nécessité urgente de protéger les écosystèmes fluviaux et les espèces fragiles', 'L’obligation de chasser tout animal sauvage hors des cours d’eau', 'Le drainage prévu des rivières pour accélérer les déplacements'],
+            makeQuestion('Dans quel cours d’eau inattendu ce mammifère égaré a-t-il été repéré ?', t.lieuAns, t.lieuDist1, t.lieuDist2, t.evidenceLieu),
+            makeQuestion('Par quel groupe de témoins l’alerte a-t-elle été transmise aux autorités maritimes ?', t.alerteAns, t.alerteDist1, t.alerteDist2, t.evidenceAlerte),
+            makeQuestion('Quel obstacle d’aménagement majeur bloque toute progression du cétacé en amont ?', 'La présence de barrages hydroélectriques et de ponts routiers infranchissables', 'Une muraille de banquise polaire infranchissable formée spontanément en travers du fleuve', 'Une troupe d’orques carnivores en chasse postée en embuscade au milieu des rapides violents', ['barrages', 'hydroélectriques', 'ponts']),
           ],
         }
       },
@@ -3562,18 +4168,60 @@ export const N05_06_SCENARIOS = {
     // Scenario 0 (Template, Ex 0): Lettre officielle du propriétaire justifiant la hausse
     Object.assign(
       (rand) => {
-        const slots = [
-          { proprio: 'Gestion Immobilière du Nord', nouveau: 'neuf cent quatre-vingts dollars', hausse: 'quarante dollars par mois', raison: 'la hausse de douze pour cent du compte de taxes foncières municipales', travaux: 'le remplacement complet des chauffe-eau de l’immeuble l’automne dernier' },
-          { proprio: 'Immeubles Résidentiels Tremblay', nouveau: 'mille quarante dollars', hausse: 'quarante-cinq dollars par mois', raison: 'l’augmentation marquée de la facture d’assurance bâtiment du complexe', travaux: 'la réfection de la brique de façade et le calfeutrage de toutes les fenêtres' },
-          { proprio: 'Société Immobilière Lavoie', nouveau: 'neuf cent cinquante dollars', hausse: 'trente-cinq dollars par mois', raison: 'la hausse des coûts contractuels de déneigement et d’entretien extérieur', travaux: 'l’installation d’un nouveau système d’interphone sécurisé avec caméra' },
+        const tuples = [
+          {
+            proprio: 'Gestion Immobilière du Nord',
+            nouveau: 'neuf cent quatre-vingts dollars',
+            hausse: 'quarante dollars par mois',
+            raison: 'la hausse de douze pour cent du compte de taxes foncières municipales',
+            travaux: 'le remplacement complet des chauffe-eau de l’immeuble l’automne dernier',
+            raisonAns: 'L’alourdissement de douze pour cent des taxes de la ville et les chauffe-eau neufs',
+            raisonDist1: 'L’achat d’un yacht de grand luxe pour les déplacements d’agrément de la direction',
+            raisonDist2: 'Le paiement de multiples contraventions pour stationnement illégal de camionnettes',
+            hausseAns: 'Une hausse mensuelle de quarante dollars portant le loyer à neuf cent quatre-vingts dollars',
+            hausseDist1: 'Un doublement soudain du loyer exigible immédiatement dès la fin de la semaine en cours',
+            hausseDist2: 'Une réduction permanente de cinquante dollars accordée sans condition pour fidélité',
+            evidenceRaison: ['taxes', 'foncières', 'chauffe-eau'],
+            evidenceHausse: ['neuf', 'quatre-vingts', 'quarante'],
+          },
+          {
+            proprio: 'Immeubles Résidentiels Tremblay',
+            nouveau: 'mille quarante dollars',
+            hausse: 'quarante-cinq dollars par mois',
+            raison: 'l’augmentation marquée de la facture d’assurance bâtiment du complexe',
+            travaux: 'la réfection de la brique de façade et le calfeutrage complet de toutes les fenêtres',
+            raisonAns: 'La flambée des primes d’assurance de l’immeuble et la réfection de la maçonnerie',
+            raisonDist1: 'Le financement d’une vaste campagne publicitaire pour une marque de motoneiges',
+            raisonDist2: 'Des pertes boursières personnelles subies par le gérant de l’immeuble locatif',
+            hausseAns: 'Une majoration de quarante-cinq dollars pour un loyer fixé à mille quarante dollars',
+            hausseDist1: 'Une hausse imprévue de trois cents dollars sans aucun justificatif financier officiel',
+            hausseDist2: 'La gratuité complète de deux mois de loyer en contrepartie d’heures de conciergerie',
+            evidenceRaison: ['assurance', 'bâtiment', 'brique'],
+            evidenceHausse: ['mille', 'quarante', 'quarante-cinq'],
+          },
+          {
+            proprio: 'Société Immobilière Lavoie',
+            nouveau: 'neuf cent cinquante dollars',
+            hausse: 'trente-cinq dollars par mois',
+            raison: 'la hausse des coûts contractuels de déneigement et d’entretien extérieur',
+            travaux: 'l’installation d’un nouveau système d’interphone sécurisé avec caméra couleur',
+            raisonAns: 'Les coûts accrus de déneigement et l’installation d’un interphone avec caméra',
+            raisonDist1: 'L’organisation d’un voyage d’affaires aux Bahamas pour l’ensemble des administrateurs',
+            raisonDist2: 'Le remboursement d’un emprunt personnel souscrit par l’ancien concierge de l’édifice',
+            hausseAns: 'Une augmentation de trente-cinq dollars menant le loyer à neuf cent cinquante dollars',
+            hausseDist1: 'Une hausse de cent cinquante dollars imposée sans aucun formulaire officiel du tribunal',
+            hausseDist2: 'Une remise rétroactive de deux cents dollars versée comptant au locataire sans motif',
+            evidenceRaison: ['déneigement', 'entretien', 'interphone'],
+            evidenceHausse: ['neuf', 'cinquante', 'trente-cinq'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `AVIS D’AUGMENTATION DE LOYER - RENOUVELLEMENT DU BAIL\nDe : ${s.proprio}\nÀ : Locataire du logement 4\nMadame, Monsieur,\nConformément aux formulaires officiels du Tribunal administratif du logement, nous vous avisons qu’à compter du premier juillet, votre loyer mensuel sera de ${s.nouveau}, soit une hausse de ${s.hausse}. Cette révision découle de deux facteurs majeurs : d’une part, ${s.raison}, et d’autre part, ${s.travaux}. Ces investissements améliorent la sécurité et le confort de votre immeuble. Conformément à la loi, vous disposez d’un délai de trente jours suivant la réception de cet avis pour nous signifier par écrit votre acceptation ou votre refus. À défaut de réponse dans ce délai, l’augmentation sera réputée acceptée. Nous vous remercions pour votre confiance continue.`,
+          text: `AVIS D’AUGMENTATION DE LOYER - RENOUVELLEMENT DU BAIL\nDe : ${t.proprio}\nÀ : Locataire du logement 4\nMadame, Monsieur,\nConformément aux formulaires officiels du Tribunal administratif du logement, nous vous avisons qu’à compter du premier juillet, votre loyer mensuel sera de ${t.nouveau}, soit une hausse de ${t.hausse}. Cette révision découle de deux facteurs majeurs : d’une part, ${t.raison}, et d’autre part, ${t.travaux}. Ces investissements améliorent la sécurité et le confort de votre immeuble. Conformément à la loi, vous disposez d’un délai de trente jours suivant la réception de cet avis pour nous signifier par écrit votre acceptation ou votre refus. À défaut de réponse dans ce délai, l’augmentation sera réputée acceptée. Nous vous remercions pour votre confiance continue.`,
           questions: [
-            ['Quelle notification juridique et financière le propriétaire transmet-il au locataire ?', 'Un avis officiel de hausse de loyer pour le renouvellement du bail', 'Une mise en demeure pour loyer impayé exigeant de libérer les lieux sans délai', 'Une offre formelle pour acheter son appartement actuel'],
-            ['Quels facteurs principaux justifient la hausse demandée selon le locateur ?', 'La montée des dépenses d’exploitation et les travaux effectués sur la bâtisse', 'L’achat d’une voiture de luxe pour la direction', 'Le paiement d’amendes municipales répétées pour le bruit excessif dans le bloc'],
-            ['De quel délai légal le locataire dispose-t-il pour faire part de son désaccord écrit ?', 'D’une période de trente jours débutant au moment de la réception de la lettre', 'D’un délai impératif de quarante-huit heures ouvrables', 'D’une obligation d’accepter sans recours juridique possible'],
+            makeQuestion('Quels facteurs objectifs et vérifiables motivent la révision du montant du loyer ?', t.raisonAns, t.raisonDist1, t.raisonDist2, t.evidenceRaison),
+            makeQuestion('Quel est le montant exact de la hausse mensuelle et le loyer projeté ?', t.hausseAns, t.hausseDist1, t.hausseDist2, t.evidenceHausse),
+            makeQuestion('De quel délai légal le locataire dispose-t-il pour faire connaître son désaccord par écrit ?', 'Une période légale de trente jours à compter de la réception de la lettre', 'Un délai impératif de quarante-huit heures ouvrables sous peine d’expulsion immédiate', 'Une absence totale de délai légal, la décision du bailleur étant sans aucun appel possible', ['délai', 'trente', 'jours']),
           ],
         }
       },
@@ -3582,18 +4230,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 1 (Template, Ex 0): Lettre du propriétaire avec grille de calcul du TAL
     Object.assign(
       (rand) => {
-        const slots = [
-          { proprio: 'Monsieur Paul Gagnon', loyer: 'mille cent vingt dollars', taux: 'trois virgule huit pour cent d’augmentation', investissement: 'la pose d’une nouvelle toiture blanche écoénergétique' },
-          { proprio: 'Monsieur Marc Simard', loyer: 'neuf cent quatre-vingt-dix dollars', taux: 'quatre virgule deux pour cent de majoration', investissement: 'le remplacement de la chaudière au gaz par un système à thermopompe' },
-          { proprio: 'Monsieur Denis Bouchard', loyer: 'mille soixante-quinze dollars', taux: 'trois virgule cinq pour cent de hausse', investissement: 'la réfection de l’ensemble des escaliers extérieurs et rampes de sécurité' },
+        const tuples = [
+          {
+            proprio: 'Monsieur Paul Gagnon',
+            loyer: 'mille cent vingt dollars',
+            taux: 'trois virgule huit pour cent d’augmentation',
+            investissement: 'la pose d’une nouvelle toiture blanche écoénergétique',
+            investAns: 'La pose d’une toiture blanche écoénergétique à haut rendement',
+            investDist1: 'L’installation d’une piscine creusée chauffée dans la cour intérieure commune',
+            investDist2: 'L’achat de mobilier de créateur européen pour l’appartement privé du propriétaire',
+            tauxAns: 'Une progression de trois virgule huit pour cent fixant le coût à mille cent vingt dollars',
+            tauxDist1: 'Une augmentation arbitraire et forfaitaire de vingt-cinq pour cent sans calcul officiel',
+            tauxDist2: 'Un gel complet et définitif de loyer garanti pour les cinq prochaines années scolaires',
+            evidenceInvest: ['toiture', 'blanche', 'écoénergétique'],
+            evidenceTaux: ['mille', 'cent', 'vingt', 'trois', 'huit'],
+          },
+          {
+            proprio: 'Monsieur Marc Simard',
+            loyer: 'neuf cent quatre-vingt-dix dollars',
+            taux: 'quatre virgule deux pour cent de majoration',
+            investissement: 'le remplacement de la vieille chaudière au gaz par un système à thermopompe',
+            investAns: 'L’abandon du vieux chauffage au gaz au profit d’une thermopompe moderne',
+            investDist1: 'La construction d’une piste d’hélicoptère privée sur le toit de l’immeuble locatif',
+            investDist2: 'La transformation complète de tous les logements en entrepôts de stockage frigorifique',
+            tauxAns: 'Une majoration de quatre virgule deux pour cent pour un loyer révisé de neuf cent quatre-vingt-dix',
+            tauxDist1: 'Une hausse forfaitaire et arbitraire de deux cents dollars sans aucune explication',
+            tauxDist2: 'Une dispense totale de payer le loyer mensuel pendant l’ensemble des six mois d’hiver',
+            evidenceInvest: ['chaudière', 'gaz', 'thermopompe'],
+            evidenceTaux: ['neuf', 'quatre-vingt-dix', 'quatre', 'deux'],
+          },
+          {
+            proprio: 'Monsieur Denis Bouchard',
+            loyer: 'mille soixante-quinze dollars',
+            taux: 'trois virgule cinq pour cent de hausse',
+            investissement: 'la réfection de l’ensemble des escaliers extérieurs et rampes de sécurité',
+            investAns: 'La remise à neuf des escaliers extérieurs et le renforcement des rampes',
+            investDist1: 'Le creusement d’un tunnel sous-terrain privé menant directement au centre commercial',
+            investDist2: 'L’installation de colonnes décoratives en marbre d’Italie dans le vestibule d’entrée',
+            tauxAns: 'Une hausse de trois virgule cinq pour cent menant le loyer à mille soixante-quinze dollars',
+            tauxDist1: 'Un doublement pur et simple de la somme totale demandée au bail de l’année dernière',
+            tauxDist2: 'Une prime de fidélité de cinq cents dollars versée par chèque bancaire au locataire',
+            evidenceInvest: ['escaliers', 'extérieurs', 'rampes'],
+            evidenceTaux: ['mille', 'soixante-quinze', 'trois', 'cinq'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `LETTRE DU PROPRIÉTAIRE - CALCUL DU LOYER\nChère locataire,\nComme chaque printemps, je vous transmets les conditions de renouvellement de votre bail. En appliquant la grille officielle du Tribunal administratif du logement, votre loyer mensuel passera à ${s.loyer}, soit ${s.taux}. Cette hausse s’explique par des travaux indispensables sur le bâtiment, notamment ${s.investissement}, ainsi que par l’augmentation marquée des assurances de l’immeuble. Je privilégie toujours l’entretien préventif pour vous offrir un espace sain et sécuritaire. Vous trouverez ci-joint la copie de la feuille de calcul officielle du tribunal détaillant chaque montant. N’hésitez pas à me contacter si vous souhaitez en discuter calmement de vive voix.`,
+          text: `LETTRE DU PROPRIÉTAIRE - CALCUL DU LOYER\nChère locataire,\nComme chaque printemps, je vous transmets les conditions de renouvellement de votre bail. En appliquant la grille officielle du Tribunal administratif du logement, votre loyer mensuel passera à ${t.loyer}, soit ${t.taux}. Cette hausse s’explique par des travaux indispensables sur le bâtiment, notamment ${t.investissement}, ainsi que par l’augmentation marquée des assurances de l’immeuble. Je privilégie toujours l’entretien préventif pour vous offrir un espace sain et sécuritaire. Vous trouverez ci-joint la copie de la feuille de calcul officielle du tribunal détaillant chaque montant. N’hésitez pas à me contacter si vous souhaitez en discuter calmement de vive voix.`,
           questions: [
-            ['Sur quelle référence officielle le locateur s’appuie-t-il pour fixer sa hausse ?', 'Sur la grille de calcul établie par le Tribunal administratif du logement', 'Sur une décision arbitraire prise après une consultation verbale des voisins', 'Sur le barème moyen des logements de luxe du secteur'],
-            ['Quels travaux nécessaires sur l’immeuble sont évoqués dans le calcul ?', 'Des interventions de rénovation visant à préserver l’état du bâtiment', 'L’installation d’un écran géant dans le hall', 'L’aménagement d’un bain tourbillon sur le toit réservé aux seuls gestionnaires'],
-            ['Quelle attitude le propriétaire privilégie-t-il envers son locataire ?', 'Une démarche constructive et transparente encourageant un échange bienveillant', 'Une mise en garde sévère contre tout refus de la révision', 'Le refus catégorique d’expliquer les factures engagées'],
+            makeQuestion('Sur quel outil de référence légal le bailleur base-t-il sa proposition de hausse ?', 'La grille et la feuille de calcul officielles du Tribunal administratif du logement', 'Une estimation verbale très approximative demandée à des résidents voisins du quartier', 'Le barème moyen des appartements de très grand luxe récemment construits au centre-ville', ['grille', 'Tribunal', 'calcul']),
+            makeQuestion('Quel investissement de rénovation majeur sur le bâtiment justifie ce calcul ?', t.investAns, t.investDist1, t.investDist2, t.evidenceInvest),
+            makeQuestion('Quel pourcentage d’ajustement et quel loyer mensuel sont formellement proposés ?', t.tauxAns, t.tauxDist1, t.tauxDist2, t.evidenceTaux),
           ],
         }
       },
@@ -3602,18 +4289,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 2 (Template, Ex 1): Article magazine - Choix de l'agriculture urbaine sur son toit
     Object.assign(
       (rand) => {
-        const slots = [
-          { personne: 'Guillaume Lemay', quartier: 'dans le quartier Mile-End à Montréal', potager: 'un potager sur toit d’une centaine de bacs en feutre', benefice: 'récolter des tomates, des fines herbes et des courgettes' },
-          { personne: 'Mathieu Roy', quartier: 'dans le quartier Saint-Roch à Québec', potager: 'un jardin suspendu aménagé sur une terrasse communautaire', benefice: 'produire des légumes frais sans engrais chimiques pour trois familles' },
-          { personne: 'Sébastien Côté', quartier: 'dans le secteur du Vieux-Rosemont', potager: 'un écosystème de toiture verte avec ruche et composteur', benefice: 'consommer des aliments cueillis à maturité sans emballage jetable' },
+        const tuples = [
+          {
+            personne: 'Guillaume Lemay',
+            quartier: 'dans le quartier Mile-End à Montréal',
+            potager: 'un potager sur toit comptant une centaine de bacs en feutre géotextile',
+            benefice: 'récolter des tomates ancestrales, des fines herbes fraîches et des courgettes',
+            potagerAns: 'Un potager aménagé sur la toiture avec une centaine de contenants textiles',
+            potagerDist1: 'Une serre commerciale chauffée au gaz naturel occupant un entrepôt complet en ville',
+            potagerDist2: 'Un terrain de golf miniature synthétique aménagé sur la toiture pour les résidents',
+            beneficeAns: 'Cueillir des tomates du patrimoine, des fines herbes et des courgettes fraîches',
+            beneficeDist1: 'Élever un troupeau de chèvres naines sur le balcon de son appartement au centre-ville',
+            beneficeDist2: 'Fabriquer des conserves industrielles sous vide pour l’exportation massive à l’étranger',
+            evidencePotager: ['toit', 'bacs', 'feutre'],
+            evidenceBenefice: ['tomates', 'herbes', 'courgettes'],
+          },
+          {
+            personne: 'Mathieu Roy',
+            quartier: 'dans le quartier Saint-Roch à Québec',
+            potager: 'un jardin suspendu aménagé avec des bacs surélevés en cèdre durable',
+            benefice: 'produire des légumes frais sans engrais chimiques pour approvisionner trois familles',
+            potagerAns: 'Un aménagement suspendu composé de grands bacs en bois de cèdre',
+            potagerDist1: 'Une terrasse privée réservée exclusivement à l’atterrissage nocturne d’hélicoptères',
+            potagerDist2: 'Un atelier mécanique de soudure lourde de remorques de transport routier',
+            beneficeAns: 'Produire des légumes sans engrais chimiques pour nourrir trois familles voisines',
+            beneficeDist1: 'Revendre des denrées avariées rachetées en gros auprès des supermarchés locaux',
+            beneficeDist2: 'Expérimenter des engrais synthétiques hautement concentrés en milieu fermé étanche',
+            evidencePotager: ['jardin', 'suspendu', 'cèdre'],
+            evidenceBenefice: ['légumes', 'engrais', 'familles'],
+          },
+          {
+            personne: 'Sébastien Côté',
+            quartier: 'dans le secteur convivial du Vieux-Rosemont',
+            potager: 'un écosystème de toiture verte combinant bacs de permaculture et composteur',
+            benefice: 'consommer des aliments cueillis à maturité sans emballage jetable de plastique',
+            potagerAns: 'Un toit végétalisé intégrant la permaculture et le compostage collectif',
+            potagerDist1: 'Un stationnement privé clôturé pour entreposer des motomarines de location estivale',
+            potagerDist2: 'Une vaste décharge à ciel ouvert de matériaux de construction en attente de tri',
+            beneficeAns: 'Consommer des aliments cueillis mûrs sans emballage de plastique jetable',
+            beneficeDist1: 'Conditionner des repas industriels déshydratés sous vide pour des expéditions polaires',
+            beneficeDist2: 'Tester des pesticides chimiques de synthèse hautement toxiques sur des plantes importées',
+            evidencePotager: ['toiture', 'verte', 'composteur'],
+            evidenceBenefice: ['cueillis', 'maturité', 'emballage'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `MAGAZINE ÉCO-CITOYEN - LE VIRAGE VERT D’UN CITADIN PASSIONNÉ\nInstallé ${s.quartier}, ${s.personne} a troqué sa pelouse de banlieue contre ${s.potager}. Dans une entrevue, il nous explique les raisons qui l’ont poussé vers l’agriculture urbaine. « J’en avais assez d’acheter en épicerie des légumes suremballés ayant parcouru des milliers de kilomètres sans goût, confie-t-il. Je voulais reprendre le contrôle de ce que je mange. » Aujourd’hui, son aménagement lui permet de ${s.benefice}. Au-delà des récoltes, cette pratique a transformé sa vie de quartier : ses voisins montent régulièrement l’aider à arroser en échange de légumes frais. « Cela crée des liens formidables au cœur même de la ville », conclut-il avec le sourire.`,
+          text: `MAGAZINE ÉCO-CITOYEN - LE VIRAGE VERT D’UN CITADIN PASSIONNÉ\nInstallé ${t.quartier}, ${t.personne} a troque sa pelouse de banlieue contre ${t.potager}. Dans une entrevue, il nous explique les raisons qui l’ont poussé vers l’agriculture urbaine. « J’en avais assez d’acheter en épicerie des légumes suremballés ayant parcouru des milliers de kilomètres sans goût, confie-t-il. Je voulais reprendre le contrôle de ce que je mange. » Aujourd’hui, son aménagement lui permet de ${t.benefice}. Au-delà des récoltes, cette pratique a transformé sa vie de quartier : ses voisins montent régulièrement l’aider à arroser en échange de légumes frais. « Cela crée des liens formidables au cœur même de la ville », conclut-il avec le sourire.`,
           questions: [
-            ['Quelle initiative citoyenne écologique est documentée dans cette entrevue ?', 'La création d’un potager de toiture productive en milieu urbain', 'L’achat d’une terre agricole conventionnelle pour y faire de la monoculture', 'Le lancement d’une entreprise de livraison rapide'],
-            ['Quelle motivation principale a guidé le choix de cet habitant de la ville ?', 'Le refus de légumes d’épicerie sans saveur venus de très loin', 'Une obligation réglementaire votée par la mairie', 'La volonté de ne plus jamais payer les taxes foncières associées au bâtiment'],
-            ['Quelle retombée humaine et communautaire inattendue le projet a-t-il favorisée ?', 'Le tissage de liens chaleureux et d’entraide entre voisins autour des récoltes', 'Des tensions persistantes avec le voisinage de l’immeuble', 'L’abandon des petits commerces d’alimentation du secteur'],
+            makeQuestion('Quelle installation écologique cet habitant a-t-il créée au sommet de son immeuble ?', t.potagerAns, t.potagerDist1, t.potagerDist2, t.evidencePotager),
+            makeQuestion('Quel avantage alimentaire direct son potager urbain lui permet-il d’obtenir ?', t.beneficeAns, t.beneficeDist1, t.beneficeDist2, t.evidenceBenefice),
+            makeQuestion('Quelle retombée humaine et communautaire inattendue le projet a-t-il favorisée ?', 'Le tissage de liens d’entraide et de partage chaleureux avec les voisins du secteur', 'Des conflits de voisinage répétés nécessitant l’intervention fréquente de la police locale', 'L’abandon complet et définitif de tout achat d’aliments dans les épiceries de quartier', ['liens', 'voisins', 'arroser']),
           ],
         }
       },
@@ -3622,18 +4348,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 3 (Template, Ex 1): Entrevue magazine - Potager nourricier familial en façade
     Object.assign(
       (rand) => {
-        const slots = [
-          { mere: 'Isabelle Martel', ville: 'à Longueuil', superficie: 'une plate-bande nourricière de deux cents mètres carrés', impact: 'une réduction appréciable de notre facture d’épicerie estivale' },
-          { mere: 'Caroline Bélanger', ville: 'à Sherbrooke', superficie: 'un jardin en permaculture occupant toute la façade', impact: 'une économie mesurable sur nos achats de fruits et légumes' },
-          { mere: 'Stéphanie Gagnon', ville: 'à Trois-Rivières', superficie: 'un aménagement de bacs en bois surélevés bordant la cour avant', impact: 'l’apprentissage pratique de la nature pour nos trois jeunes enfants' },
+        const tuples = [
+          {
+            mere: 'Isabelle Martel',
+            ville: 'à Longueuil',
+            superficie: 'une plate-bande nourricière de deux cents mètres carrés en façade',
+            impact: 'une économie d’au moins deux cents dollars par mois sur notre facture d’épicerie estivale',
+            superficieAns: 'Une aire potagère de deux cents mètres carrés aménagée devant la résidence',
+            superficieDist1: 'Un parc d’attractions privé avec manèges motorisés bruyants pour enfants du secteur',
+            superficieDist2: 'Une cour de stockage de gravier et de sable pour des chantiers de voirie municipale',
+            impactAns: 'Une baisse mensuelle de deux cents dollars minimum sur les emplettes d’été',
+            impactDist1: 'L’obligation de contracter un emprunt bancaire majeur pour payer les factures d’eau',
+            impactDist2: 'Une lourde amende municipale annuelle imposée pour non-conformité de la pelouse avant',
+            evidenceSuperficie: ['plate-bande', 'deux', 'cents', 'mètres'],
+            evidenceImpact: ['économie', 'deux', 'cents', 'épicerie'],
+          },
+          {
+            mere: 'Caroline Bélanger',
+            ville: 'à Sherbrooke',
+            superficie: 'un aménagement en permaculture remplaçant entièrement la pelouse devant la maison',
+            impact: 'une baisse de près de quarante pour cent de nos dépenses en fruits et légumes frais',
+            superficieAns: 'Un jardin en permaculture remplaçant toute la pelouse devant la maison',
+            superficieDist1: 'Une aire de stationnement entièrement asphaltée pouvant accueillir six gros camions',
+            superficieDist2: 'Un mur d’enceinte en béton armé masquant complètement la façade principale de la maison',
+            impactAns: 'Une coupure avoisinant quarante pour cent dans l’achat de fruits et légumes',
+            impactDist1: 'La faillite financière complète du foyer causée par les coûts prohibitifs des semences',
+            impactDist2: 'Une rente étatique permanente permettant aux parents de cesser toute activité salariée',
+            evidenceSuperficie: ['permaculture', 'pelouse', 'devant'],
+            evidenceImpact: ['quarante', 'pour', 'cent', 'légumes'],
+          },
+          {
+            mere: 'Stéphanie Gagnon',
+            ville: 'à Trois-Rivières',
+            superficie: 'une série de bacs surélevés en bois bordant harmonieusement l’allée d’entrée',
+            impact: 'une réduction appréciable de plusieurs centaines de dollars sur le budget alimentaire estival',
+            superficieAns: 'Un alignement de bacs surélevés en bois longeant le chemin d’accès',
+            superficieDist1: 'Un étang artificiel d’élevage de grenouilles géantes pour des expériences de laboratoire',
+            superficieDist2: 'Un hangar métallique fermé dédié à la réparation mécanique de tronçonneuses à chaîne',
+            impactAns: 'Un allègement de plusieurs centaines de dollars pour les repas de la belle saison',
+            impactDist1: 'Une facture d’eau d’aqueduc décuplée entraînant une poursuite judiciaire immédiate',
+            impactDist2: 'La nécessité impérative de revendre le terrain familial pour rembourser les aménagements',
+            evidenceSuperficie: ['bacs', 'surélevés', 'allée'],
+            evidenceImpact: ['réduction', 'centaines', 'alimentaire'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `CHRONIQUE MAISON DURABLE - QUAND LE GAZON DEVIENT POTAGER\nIl y a trois ans, ${s.mere}, résidente ${s.ville}, a transformé sa cour avant en remplaçant sa pelouse verte par ${s.superficie}. « Arroser et tondre un gazon gourmand en eau me semblait un non-sens écologique », explique-t-elle. Les récoltes ont rapidement dépassé ses attentes : légumes frais, herbes et petits fruits comblent sa famille tout l’été. L’impact sur les finances familiales est majeur : ${s.impact}. De plus, les voisins s’arrêtent quotidiennement pour admirer les fleurs et échanger des conseils de jardinage. Son initiative inspire désormais d’autres citoyens à cultiver leurs propres aliments.`,
+          text: `CHRONIQUE MAISON DURABLE - QUAND LE GAZON DEVIENT POTAGER\nIl y a trois ans, ${t.mere}, résidente ${t.ville}, a transformé sa cour avant en remplaçant sa pelouse verte par ${t.superficie}. « Arroser et tondre un gazon gourmand en eau me semblait un non-sens écologique », explique-t-elle. Les récoltes ont rapidement comblé toute la famille tout au long de l’été. L’impact sur les finances familiales est tangible : ${t.impact}, tout en éveillant les enfants au jardinage. De plus, les voisins s’arrêtent quotidiennement pour admirer les plants et échanger des conseils horticoles. Son initiative inspire désormais d’autres citoyens du secteur à cultiver leurs propres aliments.`,
           questions: [
-            ['Quel réaménagement extérieur audacieux cette résidente a-t-elle entrepris ?', 'Le remplacement d’une pelouse gazonnée par un espace potager nourricier', 'L’asphaltage complet de la cour pour y stationner plusieurs véhicules lourds', 'L’érection d’un mur opaque pour masquer la façade'],
-            ['Quel reproche environnemental adressait-elle à l’entretien d’un gazon parfait ?', 'La grande quantité d’eau potable gaspillée pour un simple agrément visuel', 'L’apparition de prédateurs sauvages sur la pelouse', 'Le coût excessif des semences vendues dans les pépinières horticoles locales'],
-            ['Quel avantage direct et mesurable ce changement a-t-il procuré au ménage ?', 'Une diminution appréciable des dépenses alimentaires et un contact éducatif vert', 'Une sollicitation pour participer à une émission de téléréalité', 'Une pénalité financière imposée pour absence de pelouse'],
+            makeQuestion('Quel aménagement extérieur écologique cette résidente a-t-elle créé devant chez elle ?', t.superficieAns, t.superficieDist1, t.superficieDist2, t.evidenceSuperficie),
+            makeQuestion('Quel impact financier positif et direct cette pratique procure-t-elle au ménage ?', t.impactAns, t.impactDist1, t.impactDist2, t.evidenceImpact),
+            makeQuestion('Quelle motivation environnementale a initialement poussé la résidente à ce changement ?', 'Le refus d’entretenir un gazon traditionnel très gourmand en eau potable', 'La volonté affirmée de transformer la cour avant en piste pour chiens de traîneau du Nord', 'Une injonction formelle votée par le conseil d’arrondissement sous peine de saisie du bien', ['gazon', 'gourmand', 'eau']),
           ],
         }
       },
@@ -3642,18 +4407,60 @@ export const N05_06_SCENARIOS = {
     // Scenario 4 (Template, Ex 0): Lettre du propriétaire motivant la hausse par l'énergie
     Object.assign(
       (rand) => {
-        const slots = [
-          { proprio: 'Immeubles de l’Estrie', loyer_actuel: 'huit cent quatre-vingts dollars', loyer_futur: 'neuf cent vingt dollars', facteur: 'l’augmentation des frais de chauffage et d’électricité', travaux_immeuble: 'l’isolation thermique du toit et le remplacement des portes d’entrée coupe-froid' },
-          { proprio: 'Gestion Résidentielle Chaudière', loyer_actuel: 'neuf cent dix dollars', loyer_futur: 'neuf cent cinquante dollars', facteur: 'la hausse des coûts d’énergie et des matériaux de réparation d’urgence', travaux_immeuble: 'la pose de fenêtres à triple vitrage pour réduire les pertes de chaleur' },
-          { proprio: 'Habitations Mauricie', loyer_actuel: 'huit cent quarante dollars', loyer_futur: 'huit cent soixante-quinze dollars', facteur: 'les augmentations des primes d’assurance contre les dégâts d’eau', travaux_immeuble: 'le renouvellement de la plomberie et des valves de sécurité principales' },
+        const tuples = [
+          {
+            proprio: 'Immeubles de l’Estrie',
+            loyer_actuel: 'huit cent quatre-vingts dollars',
+            loyer_futur: 'neuf cent vingt dollars',
+            facteur: 'l’augmentation de quinze pour cent des coûts de chauffage collectif au gaz',
+            travaux_immeuble: 'l’isolation thermique du toit et le remplacement des portes coupe-froid',
+            depenseAns: 'La hausse de quinze pour cent du chauffage au gaz et l’isolation thermique du toit',
+            depenseDist1: 'L’installation d’un ascenseur panoramique plaqué or réservé aux administrateurs du groupe',
+            depenseDist2: 'Le remboursement d’amendes de circulation infligées aux camionnettes de gestion immobilière',
+            loyerAns: 'Un loyer mensuel passant de huit cent quatre-vingts à neuf cent vingt dollars',
+            loyerDist1: 'Un triplement soudain du montant à payer sans aucun préavis ni formulaire officiel',
+            loyerDist2: 'Une baisse forfaitaire de cent cinquante dollars octroyée en compensation des travaux',
+            evidenceDepense: ['chauffage', 'gaz', 'isolation', 'toit'],
+            evidenceLoyer: ['huit', 'quatre-vingts', 'neuf', 'vingt'],
+          },
+          {
+            proprio: 'Gestion Résidentielle Chaudière',
+            loyer_actuel: 'neuf cent dix dollars',
+            loyer_futur: 'neuf cent cinquante dollars',
+            facteur: 'la hausse des primes d’assurance multirisque et des frais d’électricité des aires communes',
+            travaux_immeuble: 'la pose de fenêtres à triple vitrage pour réduire les pertes de chaleur',
+            depenseAns: 'La hausse des assurances et de l’électricité commune et les fenêtres à triple vitrage',
+            depenseDist1: 'L’achat de mobilier de bureau de grand luxe pour le secrétariat général de direction',
+            depenseDist2: 'Des pertes financières majeures suite à des placements boursiers spéculatifs à l’étranger',
+            loyerAns: 'Un montant de loyer révisé passant de neuf cent dix à neuf cent cinquante dollars',
+            loyerDist1: 'Une augmentation de quatre cents dollars applicable immédiatement dès le lendemain matin',
+            loyerDist2: 'La gratuité intégrale de deux trimestres de loyer pour compenser le bruit du chantier',
+            evidenceDepense: ['assurance', 'électricité', 'triple', 'vitrage'],
+            evidenceLoyer: ['neuf', 'dix', 'neuf', 'cinquante'],
+          },
+          {
+            proprio: 'Habitations Mauricie',
+            loyer_actuel: 'huit cent quarante dollars',
+            loyer_futur: 'huit cent soixante-quinze dollars',
+            facteur: 'les augmentations des tarifs municipaux de traitement d’eau et de collecte des résidus',
+            travaux_immeuble: 'le renouvellement préventif de la plomberie et des valves de sécurité principales',
+            depenseAns: 'La hausse des tarifs municipaux d’eau et la rénovation préventive de la plomberie',
+            depenseDist1: 'La construction d’une piste d’atterrissage pour planeurs derrière les garages du complexe',
+            depenseDist2: 'L’achat massif de billets de loterie avec l’ensemble des fonds de réserve du syndicat',
+            loyerAns: 'Un bail révisé s’établissant à huit cent soixante-quinze au lieu du montant de huit cent quarante',
+            loyerDist1: 'Une augmentation injustifiée de deux cent cinquante dollars sans justificatif ni calcul',
+            loyerDist2: 'Une retenue sur salaire opérée d’office directement auprès de l’employeur du locataire',
+            evidenceDepense: ['traitement', 'eau', 'plomberie', 'valves'],
+            evidenceLoyer: ['huit', 'quarante', 'huit', 'soixante-quinze'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `COMMUNICATION DU LOCATEUR - PROPOSITION DE RENOUVELLEMENT\nChère locataire, cher locataire,\nNous vous soumettons notre proposition de renouvellement de bail pour l’année prochaine. Votre loyer passera de ${s.loyer_actuel} à ${s.loyer_futur} à compter du premier juillet. Cette hausse découle des critères du Tribunal administratif du logement et s’explique par deux dépenses incontournables : ${s.facteur}, ainsi que ${s.travaux_immeuble}. Ces rénovations assurent un confort durable à votre logement. Si vous acceptez ces conditions, le bail se renouvellera automatiquement. En cas de refus, veuillez nous aviser par écrit dans les trente jours. Nous vous remercions pour votre confiance continue et vous souhaitons un excellent été.`,
+          text: `COMMUNICATION DU LOCATEUR - PROPOSITION DE RENOUVELLEMENT\nChère locataire, cher locataire,\nNous vous soumettons notre proposition de renouvellement de bail pour l’année prochaine. Votre loyer passera de ${t.loyer_actuel} à ${t.loyer_futur} à compter du premier juillet. Cette hausse découle des critères du Tribunal administratif du logement et s’explique par deux dépenses incontournables : ${t.facteur}, ainsi que ${t.travaux_immeuble}. Ces rénovations assurent un confort durable à votre logement. Si vous acceptez ces conditions, le bail se renouvellera automatiquement. En cas de refus, veuillez nous aviser par écrit dans les trente jours. Nous vous remercions pour votre confiance continue et vous souhaitons un excellent été.`,
           questions: [
-            ['Quelle modification contractuelle le propriétaire soumet-il à son locataire ?', 'Une révision annuelle du montant du loyer pour le prochain bail', 'La résiliation unilatérale de l’entente sans motif pour reprendre le logement', 'Un rabais exceptionnel consenti suite à des travaux'],
-            ['Quels coûts d’opération justifient ce calcul de renouvellement ?', 'La facture accrue des assurances et des énergies ainsi que des rénovations', 'Des investissements boursiers hasardeux du locateur', 'L’achat d’équipements récréatifs pour les dirigeants de la société de gestion'],
-            ['Quelle démarche s’impose au locataire qui accepte les termes de la proposition ?', 'Aucune formalité particulière requise, la reconduction se faisant d’office', 'Une confirmation notariée sous serment obligatoire', 'Le versement immédiat de plusieurs mensualités d’avance'],
+            makeQuestion('Quelles dépenses d’exploitation incontournables justifient ce calcul de renouvellement ?', t.depenseAns, t.depenseDist1, t.depenseDist2, t.evidenceDepense),
+            makeQuestion('Quel ajustement précis de loyer mensuel est soumis à l’approbation du locataire ?', t.loyerAns, t.loyerDist1, t.loyerDist2, t.evidenceLoyer),
+            makeQuestion('Quelle démarche s’impose au locataire qui accepte les termes de la proposition ?', 'Le bail se renouvelle automatiquement sans démarche supplémentaire', 'Faire signer une déclaration solennelle sous serment devant un juge de la Cour supérieure', 'Verser sans délai un dépôt de garantie de six mois de loyer en argent liquide non remboursable', ['bail', 'renouvellera', 'automatiquement']),
           ],
         }
       },
@@ -3668,18 +4475,69 @@ export const N05_06_SCENARIOS = {
     // Scenario 0 (Template, Ex 0): Procédure de retour boutique de vêtements québécoise
     Object.assign(
       (rand) => {
-        const slots = [
-          { boutique: 'la boutique de mode Simons', delai: 'trente jours suivant la date de réception du colis', condition: 'l’article doit être non porté, non lavé et conserver toutes ses étiquettes d’origine', point: 'dans n’importe quel comptoir postal de Postes Canada' },
-          { boutique: 'la plateforme de vêtements Chlorophylle', delai: 'quarante-cinq jours suivant la livraison à domicile', condition: 'le vêtement doit être dans son emballage d’origine avec la facture d’achat', point: 'au bureau de livraison le plus proche de votre domicile' },
-          { boutique: 'la boutique montréalaise Frank And Oak', delai: 'trente jours civils après confirmation de commande', condition: 'l’habit doit être dans un état impeccable avec son étiquette intacte', point: 'dans un point de dépôt sécurisé affilié de votre secteur' },
+        const tuples = [
+          {
+            boutique: 'la boutique de mode Simons',
+            delai: 'trente jours suivant la date de réception du colis',
+            condition: 'l’article doit être non porté, non lavé et conserver toutes ses étiquettes de vente d’origine',
+            point: 'dans n’importe quel comptoir postal agréé de Postes Canada',
+            delaiAns: 'Un intervalle de trente jours au maximum après livraison du colis',
+            delaiDist1: 'Un délai indéfini pouvant s’étendre sur plusieurs années civiles complètes',
+            delaiDist2: 'Une obligation stricte de retour dans les vingt-quatre heures suivant l’achat',
+            conditionAns: 'L’article doit rester propre, jamais lavé ni porté, avec étiquetage intact',
+            conditionDist1: 'Le vêtement doit avoir été lavé et repassé plusieurs fois d’affilée par le client',
+            conditionDist2: 'Le consommateur doit avoir décousu les coutures pour vérifier le tissu intérieur',
+            pointAns: 'Auprès d’un point de service de Postes Canada avec l’étiquette fournie',
+            pointDist1: 'Au bureau personnel du président fondateur de la chaîne de magasins de mode',
+            pointDist2: 'Auprès d’un chauffeur de taxi non affilié sans aucune étiquette de retour officielle',
+            evidenceDelai: ['trente', 'jours', 'réception'],
+            evidenceCondition: ['porté', 'lavé', 'étiquettes'],
+            evidencePoint: ['comptoir', 'postal', 'Postes', 'Canada'],
+          },
+          {
+            boutique: 'la plateforme de vêtements Chlorophylle',
+            delai: 'quarante-cinq jours suivant la livraison à domicile',
+            condition: 'le vêtement doit être retourné intact dans son emballage d’origine avec la facture d’achat',
+            point: 'au bureau de messagerie de votre quartier indiqué sur le bordereau',
+            delaiAns: 'Une période de quarante-cinq jours accordée à compter de la livraison',
+            delaiDist1: 'Une période stricte de quarante-huit heures ouvrables après la commande sur le Web',
+            delaiDist2: 'Un retour possible uniquement le jour anniversaire exact de la transaction',
+            conditionAns: 'La pièce de vêtement doit demeurer intacte dans son carton avec la facture',
+            conditionDist1: 'Le tissu doit comporter des traces d’usure manifestes attestant son utilisation réelle',
+            conditionDist2: 'Les étiquettes de lavage intérieures cousues doivent impérativement avoir été découpées',
+            pointAns: 'Au bureau de messagerie du quartier précisé sur le bordereau d’envoi',
+            pointDist1: 'Dans une benne publique de recyclage textile située au fond d’une ruelle fermée',
+            pointDist2: 'À la consigne d’une gare ferroviaire sans aucun bon de retour officiel du marchand',
+            evidenceDelai: ['quarante-cinq', 'jours', 'livraison'],
+            evidenceCondition: ['intact', 'emballage', 'facture'],
+            evidencePoint: ['bureau', 'messagerie', 'bordereau'],
+          },
+          {
+            boutique: 'la boutique montréalaise Frank And Oak',
+            delai: 'vingt et un jours civils après confirmation de commande',
+            condition: 'l’habit doit être dans un état impeccable, exempt de taches et avec son étiquette intacte',
+            point: 'dans un point de dépôt sécurisé affilié à notre réseau de distribution',
+            delaiAns: 'Un intervalle de trois semaines complètes suivant la confirmation de commande',
+            delaiDist1: 'Une période probatoire de six mois sans aucune obligation de justification par écrit',
+            delaiDist2: 'Un retour accepté uniquement avant minuit le jour même de la commande en ligne',
+            conditionAns: 'La tenue doit demeurer impeccable, sans la moindre tache et avec étiquette',
+            conditionDist1: 'L’article doit obligatoirement avoir été porté durant une soirée pour tester sa coupe',
+            conditionDist2: 'Le vêtement doit être retourné trempé dans une solution désinfectante pour stérilisation',
+            pointAns: 'Auprès d’un comptoir de dépôt sécurisé lié au réseau du marchand',
+            pointDist1: 'Au domicile privé de l’un des stylistes principaux de la marque de prêt-à-porter',
+            pointDist2: 'Dans le bac de compostage extérieur de l’immeuble de logements du consommateur',
+            evidenceDelai: ['vingt', 'jours', 'confirmation'],
+            evidenceCondition: ['impeccable', 'taches', 'étiquette'],
+            evidencePoint: ['dépôt', 'sécurisé', 'affilié'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `POLITIQUE DE RETOUR ET REMBOURSEMENT EN LIGNE\nPour retourner un vêtement commandé chez ${s.boutique}, suivez ces directives simples. Connectez-vous à votre compte client sous « Historique des commandes » et sélectionnez « Demande de retour ». Vous disposez d’un délai maximal de ${s.delai}. Précisez le motif du renvoi puis assurez-vous que ${s.condition}. Ensuite, imprimez l’étiquette de retour préaffranchie, collez-la sur le colis d’origine et déposez le paquet ${s.point}. Dès réception et inspection à notre entrepôt, le remboursement sera versé sur votre carte de crédit sous cinq jours ouvrables.`,
+          text: `POLITIQUE DE RETOUR ET REMBOURSEMENT EN LIGNE\nPour retourner un vêtement commandé chez ${t.boutique}, suivez ces directives simples. Connectez-vous à votre compte client sous « Historique des commandes » et sélectionnez « Demande de retour ». Vous disposez d’un délai maximal de ${t.delai}. Précisez le motif du renvoi puis assurez-vous que ${t.condition}. Ensuite, imprimez l’étiquette de retour préaffranchie, collez-la sur le colis d’origine et déposez le paquet ${t.point}. Dès réception et inspection à notre entrepôt, le remboursement sera versé sur votre carte bancaire sous cinq jours ouvrables.`,
           questions: [
-            ['Quelle démarche ce document explicatif détaille-t-il pour les clients en ligne ?', 'La marche à suivre pour retourner un habit et obtenir son remboursement', 'Les techniques de lavage recommandées pour préserver les lainages délicats', 'L’adhésion à un programme fidélité donnant droit à des soldes'],
-            ['Quelle exigence relative à l’état du vêtement renvoyé est incontournable ?', 'Renvoyer une pièce impeccable, sans odeur, jamais portée ni lavée', 'Le vêtement doit avoir été porté au moins une fois', 'Le tissu doit être volontairement décousu pour en vérifier la composition'],
-            ['Où le consommateur doit-il déposer son colis muni du bordereau officiel ?', 'Dans un point de dépôt postal ou un comptoir de livraison dûment agréé', 'Dans le casier postal privé du président de la bannière', 'Auprès du gardien d’immeuble sans étiquette collée'],
+            makeQuestion('Quel délai maximal le client doit-il respecter pour enregistrer sa demande de retour ?', t.delaiAns, t.delaiDist1, t.delaiDist2, t.evidenceDelai),
+            makeQuestion('Quelle exigence stricte relative à l’état de l’article retourné est imposée ?', t.conditionAns, t.conditionDist1, t.conditionDist2, t.evidenceCondition),
+            makeQuestion('Où le consommateur doit-il déposer son colis muni de l’étiquette préaffranchie ?', t.pointAns, t.pointDist1, t.pointDist2, t.evidencePoint),
           ],
         }
       },
@@ -3688,18 +4546,69 @@ export const N05_06_SCENARIOS = {
     // Scenario 1 (Template, Ex 0): Procédure échange ou retour chaussures en ligne
     Object.assign(
       (rand) => {
-        const slots = [
-          { magasin: 'la boutique de souliers Yellow', delai: 'dans les trente jours suivant l’achat en ligne', exigence: 'les chaussures doivent être retournées dans leur boîte d’origine, munies de semelles propres', mode: 'un crédit instantané ou un remboursement sur le mode de paiement original' },
-          { magasin: 'le magasin d’hiver Kanuk', delai: 'dans les vingt et un jours suivant la réception', exigence: 'les bottes ne doivent pas avoir servi à l’extérieur et garder les étiquettes', mode: 'un remboursement complet déduction faite d’un frais fixe de retour de cinq dollars' },
-          { magasin: 'la boutique québécoise Saute-Mouton', delai: 'dans les trente jours ouvrables après livraison', exigence: 'les semelles intérieures et lacets doivent être parfaitement complets', mode: 'un échange de pointure sans frais de livraison supplémentaires' },
+        const tuples = [
+          {
+            magasin: 'la boutique de souliers Yellow',
+            delai: 'dans les trente jours suivant la commande en ligne',
+            exigence: 'les chaussures doivent être retournées dans leur boîte d’origine avec des semelles propres',
+            mode: 'un crédit instantané au compte ou un remboursement sur le mode de paiement original',
+            delaiAns: 'Une période de trente jours après avoir passé la commande sur le Web',
+            delaiDist1: 'Dans les deux heures ouvrables suivant la livraison initiale du paquet à domicile',
+            delaiDist2: 'Sans aucune limite de temps durant les dix prochaines années suivant la commande',
+            exigenceAns: 'Les souliers doivent retourner dans l’emballage initial avec des semelles nettes',
+            exigenceDist1: 'Les semelles extérieures doivent être râpées et très boueuses pour justifier l’essayage',
+            exigenceDist2: 'Les souliers doivent être renvoyés sans boîte protectrice ni emballage d’origine',
+            modeAns: 'Un avoir immédiat au profil ou la rétrocession sur la carte de paiement initiale',
+            modeDist1: 'L’attribution obligatoire de billets de tirage au sort pour une croisière maritime',
+            modeDist2: 'Une déduction appliquée automatiquement sur la prochaine facture d’énergie d’Hydro-Québec',
+            evidenceDelai: ['trente', 'jours', 'commande'],
+            evidenceExigence: ['boîte', 'origine', 'semelles', 'propres'],
+            evidenceMode: ['crédit', 'remboursement', 'paiement'],
+          },
+          {
+            magasin: 'la boutique d’hiver Kanuk',
+            delai: 'dans les vingt et un jours suivant la réception à domicile',
+            exigence: 'les bottes ne doivent jamais avoir servi à l’extérieur et doivent garder leurs étiquettes',
+            mode: 'un remboursement complet déduction faite d’un frais fixe de retour de cinq dollars',
+            delaiAns: 'Une fenêtre de vingt et un jours calculée dès la livraison du paquet',
+            delaiDist1: 'Après une période probatoire obligatoire de six mois d’attente sans explication',
+            delaiDist2: 'Exclusivement avant midi le jour même où le paquet a été expédié de l’entrepôt',
+            exigenceAns: 'Les bottes doivent être indemnes d’usage extérieur et munies de leurs étiquettes',
+            exigenceDist1: 'Les bottes doivent avoir été portées dans la neige salée pour test thermique',
+            exigenceDist2: 'L’acheteur doit avoir découpé la languette intérieure et jeté les doublures',
+            modeAns: 'La restitution intégrale des sommes moins une retenue forfaitaire de cinq dollars',
+            modeDist1: 'Une remise de coupons promotionnels périmés utilisables seulement au milieu de la nuit',
+            modeDist2: 'Une retenue administrative correspondant à quatre-vingts pour cent de la somme totale',
+            evidenceDelai: ['vingt', 'jours', 'réception'],
+            evidenceExigence: ['servi', 'extérieur', 'étiquettes'],
+            evidenceMode: ['remboursement', 'frais', 'cinq', 'dollars'],
+          },
+          {
+            magasin: 'la maison québécoise Saute-Mouton',
+            delai: 'dans les trente jours ouvrables après livraison',
+            exigence: 'les semelles intérieures et les lacets doivent être parfaitement complets et sans odeur',
+            mode: 'un échange direct de pointure sans frais de livraison supplémentaires',
+            delaiAns: 'Dans les trente jours ouvrables suivant la livraison du produit',
+            delaiDist1: 'Dans les vingt-quatre heures précédant l’arrivée effective du transporteur chez soi',
+            delaiDist2: 'Pendant une période illimitée sans avoir besoin du moindre justificatif de paiement',
+            exigenceAns: 'La présence intacte des lacets et des semelles de propreté, sans odeur',
+            exigenceDist1: 'Les lacets doivent avoir été brûlés et les semelles retirées complètement du soulier',
+            exigenceDist2: 'Les chaussures doivent avoir été entièrement reteintes d’une tout autre couleur',
+            modeAns: 'Le remplacement immédiat de la grandeur sans frais de renvoi additionnels',
+            modeDist1: 'Une amende forfaitaire de cinquante dollars imposée pour erreur de pointure du client',
+            modeDist2: 'La confiscation pure et simple des souliers sans aucun dédommagement financier possible',
+            evidenceDelai: ['trente', 'jours', 'ouvrables'],
+            evidenceExigence: ['semelles', 'lacets', 'complets'],
+            evidenceMode: ['échange', 'pointure', 'frais'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `SERVICE CLIENTÈLE - RETOUR ET ÉCHANGE DE CHAUSSURES\nVous avez commandé une paire de chaussures chez ${s.magasin} et la pointure ne convient pas ? Voici la marche à suivre pour effectuer votre retour. D’abord, remplissez le formulaire en ligne sous l’onglet « Aide et soutien ». Cette démarche doit être entreprise ${s.delai}. Ensuite, emballez le produit en respectant notre consigne essentielle : ${s.exigence}. Insérez le bon d’expédition et remettez le paquet au transporteur. Après vérification par notre service de contrôle, vous recevrez ${s.mode}. Les articles achetés à cinquante pour cent de rabais et plus sont en vente finale, sans échange ni remboursement.`,
+          text: `SERVICE CLIENTÈLE - RETOUR ET ÉCHANGE DE CHAUSSURES\nVous avez commandé une paire de chaussures chez ${t.magasin} et la pointure ne convient pas ? Voici la marche à suivre pour effectuer votre retour. D’abord, remplissez le formulaire en ligne sous l’onglet « Aide et soutien ». Cette démarche doit être entreprise ${t.delai}. Ensuite, emballez le produit en respectant notre consigne essentielle : ${t.exigence}. Insérez le bon d’expédition et remettez le paquet au transporteur. Après vérification par notre service de contrôle, vous recevrez ${t.mode}. Les articles achetés à cinquante pour cent de rabais et plus sont en vente finale, sans échange ni remboursement.`,
           questions: [
-            ['Quelle politique commerciale ce guide pratique précise-t-il aux acheteurs ?', 'La procédure à appliquer pour renvoyer des chaussures mal ajustées', 'Les consignes de cirage du cuir pour éviter les marques d’usure prématurée', 'L’utilisation d’un bon de réduction en magasin'],
-            ['Quelle condition physique essentielle concerne les chaussures retournées ?', 'Les articles doivent être propres, complets et remis dans leur emballage', 'Les souliers doivent être portés dehors deux semaines', 'Les chaussures doivent être expédiées sans aucune protection de transport'],
-            ['Quelle restriction vise formellement les articles acquis en très forte solde ?', 'Les produits vendus à moitié prix ou plus sont considérés en vente finale', 'Le remboursement est versé exclusivement en argent liquide', 'La livraison est différée de six mois par l’entrepôt'],
+            makeQuestion('Quel délai s’applique pour entreprendre formellement la démarche de retour ?', t.delaiAns, t.delaiDist1, t.delaiDist2, t.evidenceDelai),
+            makeQuestion('Quelle règle matérielle stricte relative à l’état des chaussures doit être respectée ?', t.exigenceAns, t.exigenceDist1, t.exigenceDist2, t.evidenceExigence),
+            makeQuestion('Quelle modalité de compensation ou d’échange le client reçoit-il après vérification ?', t.modeAns, t.modeDist1, t.modeDist2, t.evidenceMode),
           ],
         }
       },
@@ -3708,18 +4617,69 @@ export const N05_06_SCENARIOS = {
     // Scenario 2 (Template, Ex 1): Procédure RQAP - Demande de prestations parentales
     Object.assign(
       (rand) => {
-        const slots = [
-          { regime: 'le Régime québécois d’assurance parentale (RQAP)', choix: 'le choix entre le régime de base plus long ou le régime particulier plus généreux', piece: 'votre relevé d’emploi officiel transmis électroniquement par votre employeur', delai: 'dans les dix jours suivant la réception de votre dossier complet' },
-          { regime: 'le portail officiel des prestations familiales du Québec', choix: 'la décision concertée entre parents pour le partage des semaines de congé', piece: 'votre numéro d’assurance sociale et la confirmation de naissance de l’état civil', delai: 'dans un délai moyen de quatorze jours ouvrables' },
-          { regime: 'la plateforme gouvernementale de soutien aux nouveaux parents', choix: 'l’option de recevoir des versements réguliers sur dix-huit ou douze mois', piece: 'vos coordonnées bancaires précises pour activer le dépôt direct automatique', delai: 'sous deux semaines à compter de la transmission électronique' },
+        const tuples = [
+          {
+            choix: 'le choix déterminant entre le régime de base plus étalé et le régime particulier plus généreux',
+            piece: 'votre relevé d’emploi officiel transmis électroniquement par votre employeur',
+            pieceVerbe: 'est bien versé',
+            delai: 'dans les dix jours suivant la confirmation de votre dossier complet',
+            choixAns: 'L’arbitrage entre la formule de base allongée et la formule spéciale majorée',
+            choixDist1: 'L’engagement irréversible et notarié de renoncer à tout travail salarié durant dix années',
+            choixDist2: 'La désignation judiciaire obligatoire d’un curateur public nommé d’office par le tribunal',
+            pieceAns: 'L’attestation d’emploi officielle acheminée par voie numérique par l’employeur',
+            pieceDist1: 'Un extrait officiel de casier judiciaire international certifié par un notaire assermenté',
+            pieceDist2: 'L’acte de propriété notarié d’un bien immobilier de villégiature situé à l’extérieur du pays',
+            delaiAns: 'Au cours des dix journées consécutives à la validation finale du dossier',
+            delaiDist1: 'Seulement lorsque l’enfant aura atteint sa majorité légale de dix-huit ans',
+            delaiDist2: 'Après une période d’attente probatoire obligatoire de vingt-quatre mois complets sans salaire',
+            evidenceChoix: ['régime', 'base', 'particulier'],
+            evidencePiece: ['relevé', 'emploi', 'employeur'],
+            evidenceDelai: ['dix', 'jours', 'dossier'],
+          },
+          {
+            choix: 'la décision concertée entre les deux parents concernant le partage des semaines de congé',
+            piece: 'votre numéro d’assurance sociale et la confirmation de naissance de l’état civil',
+            pieceVerbe: 'sont bien versés',
+            delai: 'dans un délai moyen de quatorze jours ouvrables après réception',
+            choixAns: 'L’entente mutuelle des parents quant à la répartition des semaines de congé',
+            choixDist1: 'La cession définitive et irrévocable de l’ensemble des biens patrimoniaux du ménage',
+            choixDist2: 'Le renoncement volontaire et perpétuel à exercer son droit de vote lors des scrutins civiques',
+            pieceAns: 'Le numéro d’assurance sociale et le certificat de naissance officiel de l’enfant',
+            pieceDist1: 'Un brevet de pilote de ligne aérienne commerciale valide pour le transport international',
+            pieceDist2: 'Une attestation bancaire sous serment certifiant l’absence complète de tout compte courant',
+            delaiAns: 'Une période d’environ deux semaines ouvrables à compter de la réception',
+            delaiDist1: 'Dans les soixante secondes suivant la validation informatique du formulaire officiel',
+            delaiDist2: 'Au terme d’un délai probatoire d’examen administratif d’au moins cinq années pleines',
+            evidenceChoix: ['partage', 'semaines', 'congé'],
+            evidencePiece: ['assurance', 'sociale', 'naissance'],
+            evidenceDelai: ['quatorze', 'jours', 'ouvrables'],
+          },
+          {
+            choix: 'l’option de recevoir des versements réguliers étalés sur douze ou dix-huit mois',
+            piece: 'vos coordonnées bancaires complètes permettant d’activer le dépôt direct',
+            pieceVerbe: 'sont bien versées',
+            delai: 'sous deux semaines à compter de la transmission électronique finale',
+            choixAns: 'La modalité d’étalement des versements périodiques sur un an ou un an et demi',
+            choixDist1: 'L’obligation contractuelle de rembourser à terme le double des prestations perçues',
+            choixDist2: 'Le renoncement irrévocable à l’accès aux services de santé gratuits offerts par la province',
+            pieceAns: 'Les renseignements bancaires complets nécessaires pour activer le dépôt direct',
+            pieceDist1: 'Le carnet de santé vétérinaire à jour d’un animal de compagnie domestique certifié',
+            pieceDist2: 'Le contrat notarié de location d’un véhicule automobile de course de très grand luxe',
+            delaiAns: 'Dans un délai de quatorze jours après l’envoi numérique définitif',
+            delaiDist1: 'Lorsque l’enfant aura achevé avec succès ses études universitaires de premier cycle',
+            delaiDist2: 'Le jour même du dépôt de la demande sans aucune analyse du dossier par un agent public',
+            evidenceChoix: ['versements', 'douze', 'dix-huit'],
+            evidencePiece: ['coordonnées', 'bancaires', 'dépôt'],
+            evidenceDelai: ['deux', 'semaines', 'transmission'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `ASSURANCE PARENTALE (RQAP) - GUIDE DU PARENT\nLa naissance ou l’adoption d’un enfant donne droit au remplacement d’une partie de votre salaire par ${s.regime}. Pour recevoir vos prestations sans délai, suivez ces étapes. Connectez-vous d’abord au portail gouvernemental avec votre identifiant ClicSÉQUR. Indiquez la date d’arrivée de l’enfant et choisissez votre option irréversible : ${s.choix}. Assurez-vous ensuite que ${s.piece} est bien versé à votre dossier. Enfin, confirmez vos coordonnées bancaires pour le dépôt direct. Votre premier versement monétaire sera déposé dans votre compte ${s.delai}. Tout revenu gagné pendant les congés doit être déclaré chaque semaine pour ajuster vos prestations.`,
+          text: `ASSURANCE PARENTALE (RQAP) - GUIDE DU PARENT\nLa naissance ou l’adoption d’un enfant donne droit au remplacement d’une partie de votre salaire par le Régime québécois d’assurance parentale (RQAP). Pour recevoir vos prestations sans retard, suivez ces étapes. Connectez-vous d’abord au portail officiel avec votre identifiant ClicSÉQUR. Indiquez la date d’arrivée de l’enfant et choisissez votre option irréversible : ${t.choix}. Assurez-vous ensuite que ${t.piece} ${t.pieceVerbe} à votre dossier. Enfin, confirmez vos coordonnées bancaires pour le dépôt direct. Votre premier versement financier sera déposé dans votre compte ${t.delai}. Tout revenu gagné pendant vos semaines de congé doit être déclaré pour ajuster vos prestations.`,
           questions: [
-            ['Quelle mesure de soutien gouvernementale ce guide permet-il de demander ?', 'Le remplacement partiel de salaire lors de l’accueil d’un enfant', 'Une allocation de retraite anticipée destinée aux employés en fin de carrière', 'Une indemnité financière consécutive à un arrêt de travail'],
-            ['Quel choix irréversible les nouveaux parents doivent-ils obligatoirement poser ?', 'La sélection entre le régime de base et le régime particulier du RQAP', 'L’inscription définitive du prénom à l’état civil', 'La désignation formelle de trois tuteurs légaux domiciliés dans la province'],
-            ['Quel délai moyen est généralement requis pour recevoir le premier paiement ?', 'Les versements sont effectués sous un délai moyen de dix à quatorze jours', 'Une fois que l’enfant fréquente l’école primaire de quartier', 'Après une attente administrative stricte d’une année complète'],
+            makeQuestion('Quel choix irréversible les parents doivent-ils obligatoirement poser lors de l’inscription ?', t.choixAns, t.choixDist1, t.choixDist2, t.evidenceChoix),
+            makeQuestion('Quel renseignement ou document officiel doit être consigné au dossier du RQAP ?', t.pieceAns, t.pieceDist1, t.pieceDist2, t.evidencePiece),
+            makeQuestion('Dans quel délai moyen le premier versement financier sera-t-il déposé dans le compte ?', t.delaiAns, t.delaiDist1, t.delaiDist2, t.evidenceDelai),
           ],
         }
       },
@@ -3728,18 +4688,54 @@ export const N05_06_SCENARIOS = {
     // Scenario 3 (Template, Ex 1): Partage des semaines de congé parental RQAP
     Object.assign(
       (rand) => {
-        const slots = [
-          { volet: 'les semaines partageables de congé parental entre les deux conjoints', document: 'une entente écrite commune signée par les deux parents indiquant la répartition', avertissement: 'le choix du régime de prestations ne peut plus être modifié une fois le premier versement émis' },
-          { volet: 'l’octroi des quatre semaines supplémentaires de bonus pour partage équitable', document: 'la déclaration de revenus de l’année précédente de chaque conjoint', avertissement: 'toute semaine de travail rémunéré doit être inscrite dans la déclaration hebdomadaire' },
-          { volet: 'la transition entre les prestations de maternité et le congé parental', document: 'l’autorisation parentale conjointe et le calendrier prévu des semaines', avertissement: 'les semaines non utilisées avant le premier anniversaire de l’enfant sont perdues' },
+        const tuples = [
+          {
+            volet: 'les semaines partageables de congé parental entre les deux conjoints',
+            document: 'une entente écrite signée par les deux parents précisant la répartition choisie',
+            avertissement: 'le choix du régime ne peut plus être modifié dès qu’un premier versement a été émis',
+            avertAns: 'L’impossibilité absolue de changer d’option après réception du versement initial',
+            avertDist1: 'L’interdiction formelle et légale faite aux deux conjoints de cohabiter sous le même toit',
+            avertDist2: 'L’obligation stricte faite à l’un des deux parents de quitter le territoire québécois',
+            docAns: 'Un document conjoint signé fixant le partage convenu des semaines de congé',
+            docDist1: 'Un certificat d’évaluation municipale confirmant la valeur marchande du logement familial',
+            docDist2: 'Une quittance officielle signée d’un avocat attestant l’absence totale de dette étudiante',
+            evidenceAvert: ['régime', 'modifié', 'versement'],
+            evidenceDoc: ['entente', 'signée', 'répartition'],
+          },
+          {
+            volet: 'l’octroi des quatre semaines de prestations supplémentaires favorisant un partage équitable',
+            document: 'la déclaration de revenus provinciale de l’année fiscale précédente de chaque parent',
+            avertissement: 'toute semaine de travail rémunéré doit obligatoirement être inscrite dans la déclaration hebdomadaire',
+            avertAns: 'L’inscription obligatoire de chaque tranche de salaire reçue au cours des semaines',
+            avertDist1: 'L’obligation de démissionner sans préavis de son emploi pour pouvoir faire la demande',
+            avertDist2: 'L’interdiction absolue de quitter sa résidence principale pour quelque motif que ce soit',
+            docAns: 'Le rapport fiscal provincial du dernier exercice d’imposition de chaque parent',
+            docDist1: 'Une attestation d’inscription de l’enfant dans une garderie privée réputée de la région',
+            docDist2: 'La facture acquittée d’achat d’un véhicule neuf adapté au transport d’une famille nombreuse',
+            evidenceAvert: ['travail', 'déclaration', 'hebdomadaire'],
+            evidenceDoc: ['déclaration', 'revenus', 'parent'],
+          },
+          {
+            volet: 'la transition continue entre les prestations de maternité et le congé parental',
+            document: 'l’autorisation parentale conjointe ainsi que le calendrier détaillé des semaines projetées',
+            avertissement: 'les semaines de congé non réclamées avant le premier anniversaire de l’enfant sont définitivement perdues',
+            avertAns: 'La perte définitive de toute semaine non utilisée avant le premier anniversaire',
+            avertDist1: 'L’obligation de confier le bébé à une garderie dès sa quatrième semaine d’existence',
+            avertDist2: 'L’exigence de changer d’employeur avant de pouvoir percevoir la moindre prestation',
+            docAns: 'L’accord officiel des deux parents précisant la planification des semaines retenues',
+            docDist1: 'Une lettre d’autorisation signée par le député représentant la circonscription électorale',
+            docDist2: 'Un dossier médical approfondi de plusieurs centaines de pages rédigé par des spécialistes',
+            evidenceAvert: ['anniversaire', 'enfant', 'perdues'],
+            evidenceDoc: ['autorisation', 'calendrier', 'semaines'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `SERVICES QUÉBEC - FOIRE AUX QUESTIONS ASSURANCE PARENTALE\nComment organiser le partage de vos congés lors de l’arrivée d’un enfant ? Voici les règles régissant ${s.volet}. Les deux parents peuvent recevoir des prestations simultanément ou à tour de rôle selon leurs besoins. D’abord, chaque parent doit créer son propre dossier sur le portail du RQAP. Ensuite, vous devez téléverser ${s.document}. Enfin, sélectionnez le calendrier des semaines souhaitées. Attention : ${s.avertissement}. Si vous travaillez à temps partiel durant le congé, vous pouvez conserver une partie de vos gains sans réduction excessive de prestation. Notre service clientèle demeure joignable du lundi au vendredi de huit heures trente à seize heures trente.`,
+          text: `SERVICES QUÉBEC - FOIRE AUX QUESTIONS ASSURANCE PARENTALE\nComment organiser le partage de vos congés lors de l’arrivée d’un enfant ? Voici les règles régissant ${t.volet}. Les deux parents peuvent recevoir des prestations simultanément ou à tour de rôle selon leurs besoins. D’abord, chaque parent doit créer son propre dossier sur le portail du RQAP. Ensuite, vous devez téléverser ${t.document}. Enfin, sélectionnez le calendrier des semaines souhaitées. Attention : ${t.avertissement}. Si vous travaillez à temps partiel durant le congé, vous pouvez conserver une partie de vos gains sans réduction excessive de prestation. Notre service clientèle demeure joignable du lundi au vendredi de huit heures trente à seize heures trente.`,
           questions: [
-            ['Quelle modalité spécifique du congé parental ce texte détaille-t-il aux familles ?', 'Les conditions encadrant la répartition des semaines entre parents', 'La procédure juridique complète d’adoption d’un pupille né à l’étranger', 'La réservation de billets d’avion subventionnés par l’État'],
-            ['Quel avertissement important les demandeurs doivent-ils impérativement respecter ?', 'Le choix des modalités est irréversible dès le dépôt de la première somme', 'L’interdiction aux deux conjoints d’habiter ensemble', 'La limitation stricte des congés à deux semaines consécutives pour chaque parent'],
-            ['Que prévoit le système si un parent effectue quelques heures rémunérées pendant son congé ?', 'La possibilité de conserver une part de ses gains sans perte intégrale de droits', 'La suppression immédiate et sans appel de toutes les prestations', 'L’obligation de rembourser le double des montants déjà versés'],
+            makeQuestion('Quel avertissement impératif les bénéficiaires doivent-ils impérativement respecter ?', t.avertAns, t.avertDist1, t.avertDist2, t.evidenceAvert),
+            makeQuestion('Quel document justificatif les parents doivent-ils téléverser dans leur dossier en ligne ?', t.docAns, t.docDist1, t.docDist2, t.evidenceDoc),
+            makeQuestion('Que prévoit le système si un parent effectue quelques heures rémunérées pendant son congé ?', 'Le maintien d’une part de rémunération sans pénalité majeure sur ses allocations', 'L’annulation immédiate, automatique et irrévocable de l’ensemble de ses allocations familiales', 'L’obligation formelle de rembourser le double des indemnités perçues avec une forte pénalité', ['partie', 'gains', 'réduction']),
           ],
         }
       },
@@ -3748,18 +4744,42 @@ export const N05_06_SCENARIOS = {
     // Scenario 4 (Template, Ex 0): Retour et échange chez un détaillant d'équipement de plein air
     Object.assign(
       (rand) => {
-        const slots = [
-          { coop: 'la Coopérative de plein air MEC', delai: 'dans les trente jours avec preuve d’achat', exclusion: 'les articles de sécurité et les sous-vêtements ne sont ni repris ni échangés' },
-          { coop: 'les magasins de sport SAIL Plein Air', delai: 'dans un délai de trente jours civils', exclusion: 'les permis et les munitions sont exclus de tout remboursement' },
-          { coop: 'le détaillant québécois La Cordée Plein Air', delai: 'dans les trente jours suivant la commande', exclusion: 'les cartes-cadeaux et les articles vendus en liquidation ne sont pas admissibles' },
+        const tuples = [
+          {
+            coop: 'la Coopérative de plein air MEC',
+            delai: 'dans les trente jours suivant la transaction avec preuve d’achat',
+            motifEtExclusion: 'pour des impératifs stricts d’hygiène et de sécurité corporelle, le matériel d’escalade et les sous-vêtements thermiques ne sont ni repris ni échangés',
+            exclusionAns: 'Les équipements d’assurage en paroi ainsi que les sous-vêtements chauds',
+            exclusionDist1: 'L’ensemble des tentes de camping et des sacs à dos étanches de randonnée alpine',
+            exclusionDist2: 'Tous les articles achetés au moyen d’une carte bancaire lors d’une promotion spéciale',
+            evidenceExcl: ['escalade', 'sous-vêtements', 'échangés'],
+          },
+          {
+            coop: 'les magasins de sport SAIL Plein Air',
+            delai: 'dans un délai limite de trente jours civils après achat',
+            motifEtExclusion: 'en vertu de la réglementation provinciale sur les activités récréatives, les permis de pêche et les munitions sont exclus de tout remboursement',
+            exclusionAns: 'Les droits de pêche officiels ainsi que les cartouches de chasse',
+            exclusionDist1: 'Les cannes à pêche professionnelles et les bottes de marche imperméables neuves',
+            exclusionDist2: 'Les achats effectués par les détenteurs de la carte de fidélité du commerce de détail',
+            evidenceExcl: ['permis', 'pêche', 'munitions'],
+          },
+          {
+            coop: 'le détaillant québécois La Cordée Plein Air',
+            delai: 'dans les trente jours suivant la réception de votre commande',
+            motifEtExclusion: 'selon nos règles commerciales de gestion d’inventaire, les cartes-cadeaux et les articles vendus en liquidation finale ne sont pas admissibles aux retours',
+            exclusionAns: 'Les cartes d’achat prépayées et les produits achetés en solde de fermeture',
+            exclusionDist1: 'Les espadrilles de marche neuves encore emballées dans leur boîte en carton rigide',
+            exclusionDist2: 'Les retours de marchandise effectués directement au comptoir d’un magasin du réseau',
+            evidenceExcl: ['cartes-cadeaux', 'liquidation', 'admissibles'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `SERVICE CLIENTÈLE - POLITIQUE DE RETOUR ET SATISFACTION GARANTIE\nChez ${s.coop}, nous voulons que chaque aventure en nature se déroule avec le meilleur équipement possible. Si votre matériel ne répond pas à vos attentes, vous pouvez le retourner facilement ${s.delai}. Pour une commande Web, générez votre étiquette de retour prépayée dans votre espace membre en ligne. Les articles doivent être retournés dans un état neuf, propres, avec leurs manuels et tous les accessoires dans leur emballage d’origine. Veuillez noter que pour des motifs de sécurité et d’hygiène, ${s.exclusion}. Dès réception du colis dans notre entrepôt de distribution, nous inspecterons le matériel et émettrons un remboursement selon votre méthode de paiement initiale. Si vous préférez un échange immédiat, vous pouvez également vous présenter dans l’une de nos succursales avec votre facture électronique.`,
+          text: `SERVICE CLIENTÈLE - POLITIQUE DE RETOUR ET SATISFACTION GARANTIE\nChez ${t.coop}, nous voulons que chaque aventure en nature se déroule avec le meilleur équipement possible. Si votre matériel ne répond pas à vos attentes, vous pouvez le retourner facilement ${t.delai}. Pour une commande Web, générez votre étiquette de retour prépayée dans votre espace membre en ligne. Les articles doivent être retournés dans un état neuf, propres, avec leurs manuels et tous les accessoires dans leur emballage d’origine. Veuillez noter que ${t.motifEtExclusion}. Dès réception du colis dans notre entrepôt de distribution, nous inspecterons le matériel et émettrons un remboursement selon votre méthode de paiement initiale. Si vous préférez un échange immédiat, vous pouvez également vous présenter dans l’une de nos succursales avec votre facture électronique.`,
           questions: [
-            ['Quelle politique d’après-vente ce détaillant de plein air met-il en œuvre ?', 'Les conditions de reprise et de remboursement des articles de sport', 'La location à long terme de camionnettes tout-terrain pour les expéditions', 'La vente d’aliments frais pour les camps en forêt'],
-            ['Quelle clause d’exclusion pour des raisons d’hygiène ou de sécurité s’applique ?', 'L’exclusion de certaines pièces précises par souci d’hygiène', 'L’interdiction de retourner les articles colorés', 'Le refus systématique de rembourser les commandes réglées par carte de débit'],
-            ['Quelle option avantageuse s’offre au client désirant obtenir un remplacement sans délai ?', 'Se présenter en personne dans un magasin du réseau avec son justificatif d’achat', 'Envoyer une lettre recommandée au siège corporatif de l’entreprise', 'Attendre l’année suivante pour obtenir un échange gratuit'],
+            makeQuestion('Quel est l’objet de cette politique d’après-vente pour les amateurs de plein air ?', 'Les conditions encadrant le retour, l’échange et le remboursement des articles', 'L’organisation d’expéditions guidées payantes de survie autonome en pleine forêt boréale', 'La tarification officielle des cours d’initiation au canot et au kayak donnés en eau vive', ['politique', 'retour', 'remboursement']),
+            makeQuestion('Quelle clause d’exclusion spécifique s’applique formellement selon le texte ?', t.exclusionAns, t.exclusionDist1, t.exclusionDist2, t.evidenceExcl),
+            makeQuestion('Quelle option avantageuse s’offre au client désirant obtenir un remplacement sans délai ?', 'Se présenter en personne dans une succursale du réseau avec sa facture électronique', 'Faire parvenir une demande officielle par lettre recommandée et signée devant notaire au siège social', 'Patienter obligatoirement jusqu’au renouvellement de la collection printanière l’année suivante', ['succursales', 'facture', 'immédiat']),
           ],
         }
       },
@@ -3774,18 +4794,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 0 (Template, Ex 0): Déception citoyenne réseau social - Annulation piste cyclable
     Object.assign(
       (rand) => {
-        const slots = [
-          { citoyenne: 'Mireille Gagnon', projet: 'la piste cyclable protégée sur le boulevard Saint-Laurent', consultation: 'deux ans d’ateliers participatifs et plus de mille signatures citoyennes', motif: 'de coupures budgétaires décidées en catimini' },
-          { citoyenne: 'Diane Bouchard', projet: 'le réaménagement piétonnier et végétalisé de la rue Saint-Denis', consultation: 'dix-huit mois de concertation avec les commerçants et résidents', motif: 'de la pression exercée par quelques commerçants' },
-          { citoyenne: 'Hélène Tremblay', projet: 'la voie réservée aux autobus et cyclistes sur l’avenue du Parc', consultation: 'trois consultations publiques et un sondage officiel d’arrondissement', motif: 'd’un revirement politique inattendu de la mairie' },
+        const tuples = [
+          {
+            citoyenne: 'Mireille Gagnon',
+            projet: 'la piste cyclable protégée sur le boulevard Saint-Laurent',
+            consultation: 'deux ans d’ateliers participatifs et plus de mille signatures citoyennes',
+            motif: 'de coupures budgétaires décidées en catimini',
+            projetAns: 'L’aménagement d’un corridor cyclable sécurisé sur le boulevard Saint-Laurent',
+            projetDist1: 'La construction d’une vaste autoroute urbaine à six voies à péage traversant le quartier',
+            projetDist2: 'L’installation définitive de barrières métalliques interdisant l’accès piétonnier aux trottoirs',
+            consultAns: 'Deux années d’ateliers participatifs et plus d’un millier d’adhésions citoyennes',
+            consultDist1: 'Une rencontre secrète de dix minutes réunissant trois promoteurs immobiliers privés',
+            consultDist2: 'Une directive unilatérale imposée directement par un ministère fédéral sans concertation',
+            evidenceProjet: ['cyclable', 'Saint-Laurent', 'mairie'],
+            evidenceConsult: ['ateliers', 'participatifs', 'signatures'],
+          },
+          {
+            citoyenne: 'Diane Bouchard',
+            projet: 'le réaménagement piétonnier et végétalisé de la rue Saint-Denis',
+            consultation: 'dix-huit mois de concertation continue avec les commerçants et résidents',
+            motif: 'de la pression indue exercée par quelques commerçants réticents',
+            projetAns: 'La transformation verte et piétonne de la chaussée de la rue Saint-Denis',
+            projetDist1: 'L’abattage massif de tous les arbres centenaires pour ajouter des espaces de stationnement',
+            projetDist2: 'L’aménagement de pistes d’essai pour des compétitions automobiles nocturnes de camionnettes',
+            consultAns: 'Dix-huit mois d’échanges soutenus réunissant commerçants locaux et riverains',
+            consultDist1: 'Un sondage sommaire de trois questions acheminé par courriel à seulement cinq personnes',
+            consultDist2: 'Une injonction juridique prise d’urgence par un tribunal administratif international sans appel',
+            evidenceProjet: ['piétonnier', 'Saint-Denis', 'mairie'],
+            evidenceConsult: ['concertation', 'commerçants', 'résidents'],
+          },
+          {
+            citoyenne: 'Hélène Tremblay',
+            projet: 'la voie réservée aux autobus et aux cyclistes sur l’avenue du Parc',
+            consultation: 'trois consultations publiques et un sondage officiel d’arrondissement',
+            motif: 'd’un revirement politique inattendu de l’administration municipale',
+            projetAns: 'Le tracé dédié aux autobus collectifs et aux vélos sur l’avenue du Parc',
+            projetDist1: 'La suppression pure et simple de l’intégralité des circuits d’autobus dans tout le secteur',
+            projetDist2: 'Le creusement d’une tranchée ferroviaire lourde pour des convois miniers hautement polluants',
+            consultAns: 'Trois séances de consultation publique et une vaste enquête d’arrondissement',
+            consultDist1: 'Une pétition manuscrite anonyme de deux signatures ramassée dans un bac de recyclage',
+            consultDist2: 'Un tirage au sort informel réalisé à main levée pendant une foire artisanale de quartier',
+            evidenceProjet: ['voie', 'autobus', 'Parc'],
+            evidenceConsult: ['consultations', 'publiques', 'sondage'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `PUBLICATION CITOYENNE SUR UN RÉSEAU SOCIAL\nPar ${s.citoyenne} - Groupe « Citoyens engagés de notre quartier »\nJ’apprends avec une immense déception que la mairie a décidé d’annuler ${s.projet}. Je n’ai pas de mots pour exprimer ma colère. Nous avons pourtant investi ${s.consultation} pour bâtir une rue plus verte et sécuritaire pour nos enfants. Et voilà que tout est balayé sous prétexte ${s.motif} ! Comment les élus peuvent-ils mépriser autant d’heures de mobilisation bénévole ? Nos enfants continueront de frôler des autos roulant trop vite. Je refuse de baisser les bras : venez tous au conseil d’arrondissement ce mardi pour exiger des comptes !`,
+          text: `PUBLICATION CITOYENNE SUR UN RÉSEAU SOCIAL\nPar ${t.citoyenne} - Groupe « Citoyens engagés de notre quartier »\nJ’apprends avec une immense déception que la mairie a décidé d’annuler ${t.projet}. Je n’ai pas de mots pour exprimer ma colère. Nous avons pourtant investi ${t.consultation} pour bâtir une rue plus verte et sécuritaire pour nos enfants. Et voilà que tout est balayé sous prétexte ${t.motif} ! Comment les élus peuvent-ils mépriser autant d’heures de mobilisation bénévole ? Nos enfants continueront de frôler des autos roulant trop vite. Je refuse de baisser les bras : venez tous au conseil d’arrondissement ce mardi pour exiger des comptes !`,
           questions: [
-            ['Quel sentiment dominant la résidente exprime-t-elle dans son message en ligne ?', 'Une amère déception et de l’indignation face à l’abandon du projet', 'Un grand soulagement suite à la construction d’un grand complexe de bureaux', 'La joie d’avoir été élue au conseil d’arrondissement'],
-            ['Quel effort collectif important a été balayé selon l’auteure de la publication ?', 'De longs mois de consultation et des centaines de signatures citoyennes', 'Des rénovations privées menées par les propriétaires', 'Une vaste collecte de fonds destinée à créer un nouveau parti politique d’ici'],
-            ['Quelle mobilisation civique concrète propose-t-elle aux résidents de son quartier ?', 'Assister en grand nombre à la prochaine séance du conseil municipal local', 'Déménager immédiatement dans une banlieue plus paisible', 'Refuser de payer ses taxes foncières durant plusieurs années'],
+            makeQuestion('Quel aménagement urbain annulé par les autorités provoque l’indignation de l’auteure ?', t.projetAns, t.projetDist1, t.projetDist2, t.evidenceProjet),
+            makeQuestion('Quel effort citoyen majeur de longue haleine est ainsi balayé par cette décision ?', t.consultAns, t.consultDist1, t.consultDist2, t.evidenceConsult),
+            makeQuestion('Quelle mobilisation concrète la citoyenne propose-t-elle pour demander des comptes ?', 'Assister en grand nombre à la prochaine séance du conseil d’arrondissement ce mardi', 'Déménager immédiatement dans une municipalité voisine sans faire de vagues', 'Refuser définitivement de payer toute taxe municipale durant les dix prochaines années', ['conseil', 'arrondissement', 'comptes']),
           ],
         }
       },
@@ -3794,18 +4853,57 @@ export const N05_06_SCENARIOS = {
     // Scenario 1 (Template, Ex 0): Déception citoyenne réseau social - Abandon d'un parc de quartier
     Object.assign(
       (rand) => {
-        const slots = [
-          { auteur: 'Marc-André Lavoie', espace: 'l’aménagement d’un grand parc public avec jardins partagés sur l’ancien terrain vague de la rue Bellechasse', promoteur: 'la vente du terrain à un promoteur pour ériger deux tours d’habitation', promesse: 'de la promesse électorale de préserver un îlot de fraîcheur' },
-          { auteur: 'Patrick Simard', espace: 'la transformation de l’ancien dépôt municipal en parc nature boisé avec jeux d’eau pour enfants', promoteur: 'la construction d’un stationnement étagé payant et de bureaux administratifs', promesse: 'de l’engagement officiel d’augmenter les arbres dans le secteur' },
-          { auteur: 'Vincent Roy', espace: 'la création d’une place publique animée avec forêt urbaine et marché fermier local', promoteur: 'la cession du lot pour agrandir un entrepôt de distribution commerciale', promesse: 'du vote unanime du comité de quartier pour un parc vert' },
+        const tuples = [
+          {
+            auteur: 'Marc-André Lavoie',
+            espace: 'l’aménagement d’un grand parc public avec jardins partagés sur l’ancien terrain vague de la rue Bellechasse',
+            promoteur: 'la vente du terrain à un promoteur pour ériger deux tours d’habitation denses',
+            promesse: 'de la promesse électorale formelle de préserver un îlot de fraîcheur pour les familles',
+            espaceAns: 'Un grand parc public accueillant des potagers collectifs sur la rue Bellechasse',
+            espaceDist1: 'Une usine de traitement chimique d’eaux usées industrielles hautement toxiques',
+            espaceDist2: 'Un héliport commercial privé destiné aux liaisons directes vers l’aéroport international',
+            promoteurAns: 'Deux tours d’habitation denses confiées à un promoteur immobilier privé',
+            promoteurDist1: 'La création d’un grand musée national public consacré à l’art contemporain québécois',
+            promoteurDist2: 'L’établissement d’une vaste réserve écologique protégée pour les oiseaux migrateurs',
+            evidenceEspace: ['parc', 'Bellechasse', 'jardins'],
+            evidencePromoteur: ['tours', 'habitation', 'promoteur'],
+          },
+          {
+            auteur: 'Patrick Simard',
+            espace: 'la transformation de l’ancien dépôt municipal en parc nature boisé doté de jeux d’eau pour enfants',
+            promoteur: 'la construction d’un stationnement étagé payant en béton et d’immeubles à bureaux',
+            promesse: 'de l’engagement officiel d’augmenter significativement le couvert végétal du secteur',
+            espaceAns: 'La reconversion de l’ancien dépôt en espace boisé naturel pourvu de jeux d’eau',
+            espaceDist1: 'Une décharge à ciel ouvert accueillant les gravats lourds de démolition du centre-ville',
+            espaceDist2: 'Un champ de tir d’entraînement militaire permanent réservé aux véhicules blindés',
+            promoteurAns: 'L’implantation d’un garage étagé payant et d’édifices de bureaux en béton',
+            promoteurDist1: 'La construction d’une serre botanique géante ouverte sans frais aux familles du quartier',
+            promoteurDist2: 'La restauration patrimoniale complète d’une chapelle historique flanquée d’un jardin floral',
+            evidenceEspace: ['dépôt', 'boisé', 'jeux'],
+            evidencePromoteur: ['stationnement', 'étagé', 'bureaux'],
+          },
+          {
+            auteur: 'Vincent Roy',
+            espace: 'la création d’une place publique animée avec forêt urbaine et kiosques de marché fermier',
+            promoteur: 'la cession du lot commercial pour agrandir un vaste entrepôt de distribution logistique',
+            promesse: 'du vote unanime des comités de quartier en faveur d’un espace vert et rassembleur',
+            espaceAns: 'Une esplanade publique animée mariant îlot forestier urbain et marché fermier',
+            espaceDist1: 'Un relais touristique permanent pour motoneiges doté de pistes d’accélération bruyantes',
+            espaceDist2: 'Un établissement pénitentiaire de haute sécurité cerné de doubles barrières électrifiées',
+            promoteurAns: 'La cession du terrain en faveur d’un vaste centre logistique de distribution',
+            promoteurDist1: 'L’ouverture d’un conservatoire provincial de musique moderne dédié aux artistes locaux',
+            promoteurDist2: 'La fondation d’un refuge zoologique métropolitain pour la sauvegarde de faune menacée',
+            evidenceEspace: ['place', 'publique', 'fermier'],
+            evidencePromoteur: ['entrepôt', 'distribution', 'logistique'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `TRIBUNE LIBRE DU QUARTIER - DÉCEPTION AMÈRE FACE AU BÉTON\nPar ${s.auteur}\nQuelle tristesse de constater que le béton l’emporte encore sur notre quartier ! La ville vient de confirmer l’abandon du projet pour ${s.espace}. À la place de cet îlot de fraîcheur, les autorités ont approuvé ${s.promoteur}. Qu’est-il advenu ${s.promesse} ? Notre secteur étouffe durant les canicules et nos enfants manquent d’arbres pour jouer. Je me sens profondément trahi comme citoyen payeur de taxes. Partagez massivement ce statut pour dénoncer cette décision inacceptable de notre administration municipale !`,
+          text: `TRIBUNE LIBRE DU QUARTIER - DÉCEPTION AMÈRE FACE AU BÉTON\nPar ${t.auteur}\nQuelle tristesse de constater que le béton l’emporte encore sur notre quartier ! La ville vient de confirmer l’abandon du projet pour ${t.espace}. À la place de cet îlot de fraîcheur, les autorités ont approuvé ${t.promoteur}. Qu’est-il advenu ${t.promesse} ? Notre secteur étouffe durant les canicules et nos enfants manquent d’arbres pour jouer. Je me sens profondément trahi comme citoyen payeur de taxes. Partagez massivement ce statut pour dénoncer cette décision inacceptable de notre administration municipale !`,
           questions: [
-            ['Quelle décision des autorités municipales révolte profondément ce résident ?', 'L’abandon d’un parc naturel au profit de projets immobiliers denses', 'La démolition d’une vieille école primaire pour élargir les voies de circulation', 'La fermeture d’une piscine durant la période de canicule'],
-            ['Quel type d’aménagement remplacera l’espace vert initialement promis aux citoyens ?', 'La construction de tours d’habitation ou d’un vaste stationnement', 'L’aménagement d’un sanctuaire d’oiseaux marins', 'L’érection d’un observatoire botanique réservé uniquement aux chercheurs du cégep'],
-            ['Quelle préoccupation environnementale et humaine est mise de l’avant dans ce cri du cœur ?', 'Le manque criant d’ombre et de végétation pour rafraîchir le quartier en été', 'L’absence de commerces de luxe sur l’artère commerciale', 'La rareté des cases de stationnement pour les visiteurs le soir'],
+            makeQuestion('Quel aménagement vert promis aux familles est sacrifié par les élus municipaux ?', t.espaceAns, t.espaceDist1, t.espaceDist2, t.evidenceEspace),
+            makeQuestion('Quel type de projet immobilier dense ou commercial remplacera l’espace vert prévu ?', t.promoteurAns, t.promoteurDist1, t.promoteurDist2, t.evidencePromoteur),
+            makeQuestion('Quelle préoccupation écologique essentielle motive ce cri du cœur sur le réseau social ?', 'Le manque d’arbres et d’îlots de fraîcheur pour soulager le quartier durant les canicules', 'L’absence de pistes d’atterrissage pour jets privés dans le voisinage immédiat', 'La fermeture définitive de toutes les voies rapides reliant les grands centres commerciaux de banlieue', ['canicules', 'enfants', 'arbres']),
           ],
         }
       },
@@ -3814,18 +4912,69 @@ export const N05_06_SCENARIOS = {
     // Scenario 2 (Template, Ex 1): Nervosité courriel d'un ami avant une entrevue d'embauche
     Object.assign(
       (rand) => {
-        const slots = [
-          { ami: 'Éric', poste: 'de directeur adjoint des communications dans un grand ministère québécois', jury: 'un comité de quatre évaluateurs avec une mise en situation minutée', peur: 'de bafouiller, d’avoir un trou de mémoire ou de mal gérer mon stress en anglais' },
-          { ami: 'Maxime', poste: 'de chef d’équipe logistique dans une entreprise multinationale de transport', jury: 'un jury de trois cadres supérieurs avec des questions comportementales', peur: 'de perdre mes repères face aux questions sur la gestion de crise' },
-          { ami: 'Guillaume', poste: 'de conseiller principal en politiques publiques auprès de la ville', jury: 'une commission d’experts qui évaluera ma présentation orale de quinze minutes', peur: 'de dépasser le temps limite et d’oublier les points clés de mon dossier' },
+        const tuples = [
+          {
+            ami: 'Éric',
+            poste: 'de directeur adjoint des communications dans un grand ministère québécois',
+            jury: 'un comité de quatre évaluateurs avec une mise en situation minutée',
+            peur: 'de bafouiller, d’avoir un trou de mémoire ou de mal gérer mon stress en anglais',
+            posteAns: 'Un mandat d’encadrement des communications au sein d’un ministère québécois',
+            posteDist1: 'Scaphandrier professionnel effectuant des soudures d’urgence en haute mer',
+            posteDist2: 'Conducteur de véhicules lourds de transport scolaire sur les routes de gravier',
+            juryAns: 'Un panel de quatre examinateurs avec épreuve pratique chronométrée',
+            juryDist1: 'Une épreuve sportive de triathlon sous la surveillance d’arbitres fédéraux',
+            juryDist2: 'Une audition musicale d’opéra devant plusieurs centaines de critiques musicaux',
+            peurAns: 'La crainte d’hésiter dans ses paroles, d’oublier ses arguments et de bloquer en anglais',
+            peurDist1: 'La crainte obsédante d’oublier son parapluie dans l’entrée du ministère avant l’entrevue',
+            peurDist2: 'L’angoisse d’arriver avec une heure d’avance et d’attendre dans un fauteuil trop profond',
+            evidencePoste: ['directeur', 'adjoint', 'communications'],
+            evidenceJury: ['quatre', 'évaluateurs', 'minutée'],
+            evidencePeur: ['bafouiller', 'mémoire', 'stress'],
+          },
+          {
+            ami: 'Maxime',
+            poste: 'de chef d’équipe logistique dans une entreprise multinationale de transport',
+            jury: 'un jury de trois cadres supérieurs avec des questions comportementales serrées',
+            peur: 'de perdre mes repères face aux questions imprévues sur la gestion de crise',
+            posteAns: 'La direction de la cellule logistique pour un groupe mondial de fret',
+            posteDist1: 'Danseur soliste principal de premier plan dans une troupe réputée de ballet classique',
+            posteDist2: 'Chef pâtissier responsable des créations sucrées à la table gastronomique d’un palace',
+            juryAns: 'Un panel de trois hauts dirigeants posant des questions comportementales pointues',
+            juryDist1: 'Un examen théorique écrit de quatre heures portant sur l’histoire politique antique',
+            juryDist2: 'Un saut en parachute tandem d’altitude vérifiant la résistance au vertige des candidats',
+            peurAns: 'L’angoisse de perdre ses moyens devant des questions inattendues sur les crises',
+            peurDist1: 'La terreur que la teinte de sa cravate ne s’accorde pas avec les rideaux du grand salon',
+            peurDist2: 'L’inquiétude d’obtenir une prime salariale de rendement trop généreuse pour ses besoins',
+            evidencePoste: ['chef', 'équipe', 'logistique'],
+            evidenceJury: ['trois', 'cadres', 'comportementales'],
+            evidencePeur: ['repères', 'questions', 'crise'],
+          },
+          {
+            ami: 'Guillaume',
+            poste: 'de conseiller principal en politiques publiques auprès de la mairie',
+            jury: 'une commission d’experts qui évaluera ma présentation orale de quinze minutes',
+            peur: 'de dépasser le temps limite et d’oublier les recommandations clés de mon dossier',
+            posteAns: 'Un rôle stratégique d’orientation des affaires publiques pour la ville',
+            posteDist1: 'Entraîneur chef d’une franchise professionnelle de hockey sur glace en ligue majeure',
+            posteDist2: 'Mécanicien d’aéronef réparant les propulseurs à hélices sur des avions cargo polaires',
+            juryAns: 'Un comité d’évaluation chargé de juger un exposé oral de quinze minutes',
+            juryDist1: 'Un bilan clinique d’endurance à l’effort sur bicyclette stationnaire à l’hôpital',
+            juryDist2: 'Une compétition d’improvisation comique présentée en direct devant un public payant',
+            peurAns: 'La crainte d’excéder le temps imparti et d’omettre les propositions maîtresses',
+            peurDist1: 'La panique de recevoir un compliment flatteur du jury immédiatement après son exposé',
+            peurDist2: 'L’appréhension d’avoir oublié d’éteindre la lumière du salon avant de quitter le logis',
+            evidencePoste: ['conseiller', 'politiques', 'publiques'],
+            evidenceJury: ['commission', 'présentation', 'minutes'],
+            evidencePeur: ['dépasser', 'recommandations', 'dossier'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `COURRIEL PERSONNEL - BESOIN DE TES ENCOURAGEMENTS\nDe : ${s.ami} Lemieux\nÀ : Martin Tremblay\nObjet : Panique avant mon entrevue de demain !\nSalut Martin,\nJe t’écris parce que j’ai l’estomac noué et je n’arrive plus à dormir. Demain à neuf heures, je passe mon entrevue décisive pour le poste ${s.poste}. C’est la chance dont je rêve depuis des années, mais la pression est forte : je serai devant ${s.jury}. Bien que j’aie révisé mes dossiers, j’ai une angoisse folle ${s.peur}. Le syndrome de l’imposteur me paralyse complètement. Aurais-tu cinq minutes pour me faire répéter au téléphone ou me donner des conseils de respiration ? Ton aide me ferait un bien immense. Merci d’être là pour moi !`,
+          text: `COURRIEL PERSONNEL - BESOIN DE TES ENCOURAGEMENTS\nDe : ${t.ami} Lemieux\nÀ : Martin Tremblay\nObjet : Panique avant mon entrevue de demain !\nSalut Martin,\nJe t’écris parce que j’ai l’estomac noué et je n’arrive plus à dormir. Demain à neuf heures, je passe mon entrevue décisive pour le poste ${t.poste}. C’est la chance dont je rêve depuis des années, mais la pression est forte : je serai devant ${t.jury}. Bien que j’aie révisé mes dossiers, j’ai une angoisse folle : j’ai peur ${t.peur}. Le syndrome de l’imposteur me paralyse complètement. Aurais-tu cinq minutes pour me faire répéter au téléphone ou me donner des conseils de respiration ? Ton aide me ferait un bien immense. Merci d’être là pour moi !`,
           questions: [
-            ['Quel état d’esprit l’expéditeur confie-t-il à son interlocuteur dans ce courriel ?', 'Une profonde angoisse à la veille d’un entretien d’embauche déterminant', 'La conviction inébranlable d’avoir déjà signé son contrat avec prime d’embauche', 'L’ennui ressenti dans ses fonctions actuelles au bureau'],
-            ['Quelle modalité particulièrement stressante de l’épreuve de sélection redoute-t-il ?', 'Devoir faire une présentation ou répondre à un jury de cadres exigeants', 'Une épreuve sportive chronométrée sur piste d’athlétisme', 'Un bilan médical complet incluant une batterie d’examens cliniques approfondis'],
-            ['Quelle démarche d’entraide concrète sollicite-t-il auprès de son ami pour se calmer ?', 'Une simulation au téléphone pour répéter ses réponses et maîtriser sa respiration', 'Une demande pour qu’un proche se présente au test à sa place', 'Le prêt d’une somme d’argent pour annuler son rendez-vous'],
+            makeQuestion('Quel poste stratégique de carrière convoité est en jeu lors de cette entrevue ?', t.posteAns, t.posteDist1, t.posteDist2, t.evidencePoste),
+            makeQuestion('Quelle formule d’évaluation exigeante devant jury le candidat doit-il affronter ?', t.juryAns, t.juryDist1, t.juryDist2, t.evidenceJury),
+            makeQuestion('Quelle crainte précise paralyse particulièrement le candidat à la veille du test ?', t.peurAns, t.peurDist1, t.peurDist2, t.evidencePeur),
           ],
         }
       },
@@ -3834,38 +4983,140 @@ export const N05_06_SCENARIOS = {
     // Scenario 3 (Template, Ex 1): Courriel amical - Anxiété avant une audition ou entrevue d'admission
     Object.assign(
       (rand) => {
-        const slots = [
-          { amie: 'Sandrine', epreuve: 'une audition finale d’admission au Conservatoire d’art dramatique de Montréal', exigence: 'd’interpréter deux monologues classiques devant un jury de professeurs renommés', symptome: 'les mains qui tremblent, la gorge sèche et l’impression d’avoir tout oublié' },
-          { amie: 'Laurence', epreuve: 'une entrevue d’admission pour la maîtrise en psychologie clinique', exigence: 'd’analyser un cas clinique complexe sans préparation préalable en trente minutes', symptome: 'des palpitations cardiaques et une insomnie tenace depuis trois jours' },
-          { amie: 'Audrey', epreuve: 'un examen oral final du barreau du Québec pour devenir avocate', exigence: 'de plaider une cause simulée devant un collège de trois juges expérimentés', symptome: 'des maux de ventre paralysants et la peur panique de perdre mes moyens' },
+        const tuples = [
+          {
+            amie: 'Sandrine',
+            epreuve: 'une audition finale d’admission au Conservatoire d’art dramatique de Montréal',
+            exigence: 'interpréter deux monologues classiques devant un jury de professeurs renommés',
+            symptome: 'les mains qui tremblent, la gorge sèche et la peur panique d’oublier mon texte',
+            epreuveAns: 'L’audition décisive pour être admise au prestigieux Conservatoire de théâtre',
+            epreuveDist1: 'Une course d’obstacles chronométrée de haut niveau en terrain accidenté pour athlètes d’élite',
+            epreuveDist2: 'Un simple rendez-vous administratif de routine pour le renouvellement d’une carte d’identité',
+            exigenceAns: 'Jouer deux scènes théâtrales classiques devant des enseignants de premier plan',
+            exigenceDist1: 'Préparer un repas gastronomique cinq services pour les membres du jury d’évaluation dramatique',
+            exigenceDist2: 'Réparer l’ensemble des projecteurs électriques de la scène théâtrale avant le début des épreuves',
+            symptomeAns: 'Des tremblements aux mains, la bouche asséchée et la hantise d’un trou de mémoire',
+            symptomeDist1: 'Une sensation de faim impérieuse la poussant à grignoter des viennoiseries sans s’arrêter du tout',
+            symptomeDist2: 'Un état d’euphorie hilarante provoquant des éclats de rire incontrôlables devant les professeurs',
+            evidenceEpreuve: ['audition', 'Conservatoire', 'dramatique'],
+            evidenceExigence: ['interpréter', 'monologues', 'professeurs'],
+            evidenceSymptome: ['tremblent', 'gorge', 'texte'],
+          },
+          {
+            amie: 'Laurence',
+            epreuve: 'une entrevue d’admission pour la maîtrise professionnelle en psychologie clinique',
+            exigence: 'analyser un cas clinique complexe sans préparation préalable en trente minutes',
+            symptome: 'des palpitations cardiaques intenses et une insomnie tenace depuis trois jours',
+            epreuveAns: 'L’entrevue sélective permettant d’intégrer le programme supérieur de psychologie',
+            epreuveDist1: 'Un examen pratique de conduite pour piloter de la machinerie lourde de chantier de terrassement',
+            epreuveDist2: 'Une démonstration de natation en apnée dans les eaux glaciales d’un fjord du Grand Nord québécois',
+            exigenceAns: 'Décortiquer une situation clinique complexe sans préparation en trente minutes',
+            exigenceDist1: 'Repeindre minutieusement l’ensemble des cloisons des bureaux de consultation universitaire',
+            exigenceDist2: 'Traduire instantanément un traité de neurochirurgie rédigé en vieux grec vers le français parlé',
+            symptomeAns: 'De vives palpitations cardiaques et trois nuits consécutives sans trouver le sommeil',
+            symptomeDist1: 'Une envie invincible de dormir pendant plus de quarante-huit heures consécutives sans réveil',
+            symptomeDist2: 'Une sensation de sérénité absolue et une absence totale de battements cardiaques perceptibles',
+            evidenceEpreuve: ['entrevue', 'maîtrise', 'psychologie'],
+            evidenceExigence: ['analyser', 'clinique', 'trente'],
+            evidenceSymptome: ['palpitations', 'insomnie', 'jours'],
+          },
+          {
+            amie: 'Audrey',
+            epreuve: 'un examen oral final de l’École du Barreau du Québec pour devenir avocate',
+            exigence: 'plaider une cause simulée devant un collège de trois juges expérimentés',
+            symptome: 'des maux de ventre paralysants et l’angoisse vive de perdre tous mes moyens',
+            epreuveAns: 'L’épreuve orale ultime auprès du Barreau pour pouvoir exercer comme avocate',
+            epreuveDist1: 'Une compétition de gymnastique acrobatique synchronisée sur poutre en salle omnisports fermée',
+            epreuveDist2: 'Une formalité consulaire de délivrance d’un visa touristique pour voyager dans les îles du Sud',
+            exigenceAns: 'Soutenir une plaidoirie simulée face à un tribunal de trois magistrats d’expérience',
+            exigenceDist1: 'Dresser l’inventaire exhaustif du mobilier de bureau entreposé au sous-sol du palais de justice',
+            exigenceDist2: 'Assurer l’entretien ménager complet de la grande salle d’audience avant l’arrivée des avocats',
+            symptomeAns: 'De violents maux d’estomac et la hantise de perdre l’ensemble de ses capacités',
+            symptomeDist1: 'Une fringale soudaine et irrépressible conduisant à commander plusieurs festins copieux au restaurant',
+            symptomeDist2: 'Une hilarité permanente et contagieuse qui la fait pouffer de rire sans pouvoir retrouver son sérieux',
+            evidenceEpreuve: ['examen', 'Barreau', 'avocate'],
+            evidenceExigence: ['plaider', 'cause', 'juges'],
+            evidenceSymptome: ['ventre', 'moyens', 'peur'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `COURRIEL AMICAL - SOS STRESS AVANT MON ÉPREUVE\nDe : ${s.amie} Bouchard\nÀ : Julie Fortin\nObjet : Je stresse pour mon épreuve de demain !\nMa chère Julie,\nL’angoisse m’empêche totalement de dormir. Demain après-midi, c’est le moment fatidique : je passe ${s.epreuve}. Toute mon année d’efforts se joue sur cette seule rencontre. L’exigence est élevée car je dois ${s.exigence}. Bien que mes professeurs me disent prête, je ressens ${s.symptome}. La peur de décevoir mes proches me serre le cœur, même si je dramatise probablement. Envoie-moi tes meilleures pensées positives demain à quatorze heures, j’en aurai grand besoin ! Grosses bises, ${s.amie}`,
+          text: `COURRIEL AMICAL - SOS STRESS AVANT MON ÉPREUVE\nDe : ${t.amie} Bouchard\nÀ : Julie Fortin\nObjet : Je stresse pour mon épreuve de demain !\nMa chère Julie,\nL’angoisse m’empêche totalement de dormir. Demain après-midi, c’est le moment fatidique : je passe ${t.epreuve}. Toute mon année d’efforts se joue sur cette seule rencontre. L’exigence est élevée car je dois ${t.exigence}. Bien que mes professeurs me disent prête, je ressens ${t.symptome}. La peur de décevoir mes proches me serre le cœur, même si je dramatise probablement. Envoie-moi tes meilleures pensées positives demain à quatorze heures, j’en aurai grand besoin ! Grosses bises, ${t.amie}`,
           questions: [
-            ['Quelle rencontre décisive provoque la vive appréhension de l’expéditrice ?', 'Une épreuve formelle de sélection déterminant son avenir d’études', 'Une compétition de natation synchronisée organisée à huis clos dans son collège', 'Une démarche administrative pour renouveler son passeport'],
-            ['Quelle exigence d’évaluation complexe doit-elle démontrer devant le comité ?', 'Une performance exigeante requérant une grande maîtrise professionnelle', 'Le rangement soigné des dossiers après l’entrevue', 'La préparation complète d’un repas gastronomique destiné aux évaluateurs de table'],
-            ['Quels symptômes physiques traduisent l’ampleur de son anxiété à la veille du test ?', 'Des tremblements, des troubles de sommeil et la peur de perdre tous ses repères', 'Une faim inhabituelle qui l’empêche de se concentrer sur ses textes', 'Une agitation joyeuse qui la pousse à sortir fêter toute la nuit'],
+            makeQuestion('Quelle épreuve déterminante provoque la vive anxiété de l’expéditrice ?', t.epreuveAns, t.epreuveDist1, t.epreuveDist2, t.evidenceEpreuve),
+            makeQuestion('Quel défi d’évaluation complexe doit-elle relever devant le comité ?', t.exigenceAns, t.exigenceDist1, t.exigenceDist2, t.evidenceExigence),
+            makeQuestion('Quels symptômes physiques traduisent l’ampleur de son stress à la veille de l’épreuve ?', t.symptomeAns, t.symptomeDist1, t.symptomeDist2, t.evidenceSymptome),
           ],
         }
       },
       { situation: 1, capacity: 3 }
     ),
-    // Scenario 4 (Template, Ex 0): Déception citoyenne réseau social - Fermeture bibliothèque
+    // Scenario 4 (Template, Ex 0): Déception citoyenne réseau social - Fermeture équipement de quartier
     Object.assign(
       (rand) => {
-        const slots = [
-          { citoyen: 'Jean-François Tremblay', lieu: 'de la bibliothèque de quartier Saint-Charles', public: 'les personnes âgées du secteur qui venaient lire le journal', repli: 'un pavillon municipal vétuste sans transport en commun accessible' },
-          { citoyen: 'Simon Pelletier', lieu: 'du centre communautaire et récréatif des jeunes', public: 'les adolescents qui profitaient de l’aide aux devoirs et des ateliers d’art', repli: 'un sous-sol sombre d’église situé à trois kilomètres de distance' },
-          { citoyen: 'David Simard', lieu: 'de la piscine municipale intérieure de notre arrondissement', public: 'les familles avec jeunes enfants et les aînés suivant des cours d’aquagym', repli: 'un complexe sportif privé payant hors de prix pour les citoyens' },
+        const tuples = [
+          {
+            citoyen: 'Jean-François Tremblay',
+            lieu: 'de la bibliothèque de quartier Saint-Charles',
+            public: 'aux aînés du secteur qui venaient lire le journal et emprunter des livres',
+            repli: 'un pavillon municipal vétuste sans transport en commun direct',
+            lieuAns: 'L’arrêt définitif des services offerts par la bibliothèque Saint-Charles',
+            lieuDist1: 'La hausse des tarifs des concerts présentés au grand théâtre municipal',
+            lieuDist2: 'L’interdiction faite aux piétons de circuler sur les trottoirs la fin de semaine',
+            publicAns: 'Les résidents âgés du quartier habitués à consulter la presse et emprunter des romans',
+            publicDist1: 'Les touristes étrangers de passage séjournant une seule journée dans un palace du centre-ville',
+            publicDist2: 'Les diplomates étrangers travaillant dans les consulats généraux de la métropole',
+            repliAns: 'Un local communal dégradé inaccessible sans véhicule automobile personnel',
+            repliDist1: 'Un château luxueux récemment rénové disposant d’un service de limousine privée',
+            repliDist2: 'Une bibliothèque virtuelle accessible uniquement avec un casque de simulation 3D',
+            evidenceLieu: ['fermeture', 'bibliothèque', 'Saint-Charles'],
+            evidencePublic: ['aînés', 'journal', 'livres'],
+            evidenceRepli: ['pavillon', 'vétuste', 'transport'],
+          },
+          {
+            citoyen: 'Simon Pelletier',
+            lieu: 'du centre communautaire et récréatif pour les jeunes de notre arrondissement',
+            public: 'aux adolescents qui profitaient de l’aide aux devoirs et des ateliers d’art',
+            repli: 'un sous-sol sombre d’église situé à plus de trois kilomètres de distance',
+            lieuAns: 'La condamnation irréversible du centre récréatif jeunesse du quartier',
+            lieuDist1: 'La suppression de toutes les dessertes ferroviaires reliant la ville aux régions éloignées',
+            lieuDist2: 'L’annulation pure et simple de la parade annuelle festive dans les rues commerçantes',
+            publicAns: 'Les jeunes du quartier soutenus pour leurs études scolaires et leurs créations manuelles',
+            publicDist1: 'Les dirigeants des grandes institutions financières et bancaires du centre-ville métropolitain',
+            publicDist2: 'Les arbitres internationaux officiant lors des tournois sportifs professionnels',
+            repliAns: 'Une crypte d’édifice religieux obscure et éloignée de plus de trois mille mètres',
+            repliDist1: 'Un complexe aérospatial ultramoderne équipé de simulateurs de navigation orbitale',
+            repliDist2: 'Un paquebot de croisière amarré au port transformé en centre récréatif pour membres',
+            evidenceLieu: ['fermeture', 'centre', 'jeunes'],
+            evidencePublic: ['adolescents', 'devoirs', 'ateliers'],
+            evidenceRepli: ['sous-sol', 'église', 'kilomètres'],
+          },
+          {
+            citoyen: 'David Simard',
+            lieu: 'de la piscine municipale intérieure de notre arrondissement',
+            public: 'aux familles avec enfants et aux personnes âgées suivant des cours d’aquagym',
+            repli: 'un complexe sportif privé aux tarifs d’abonnement inaccessibles pour la population',
+            lieuAns: 'L’abandon permanent du bassin aquatique intérieur de l’arrondissement',
+            lieuDist1: 'L’obligation légale d’apprendre la plongée sous-marine en scaphandre autonome',
+            lieuDist2: 'La vidange annuelle temporaire des fontaines publiques d’eau potable du grand parc',
+            publicAns: 'Les ménages avec tout-petits et les aînés adeptes d’exercices aquatiques doux',
+            publicDist1: 'Les commandants de navires marchands naviguant au long cours sur les grands océans',
+            publicDist2: 'Les astronautes chevronnés en stage intensif dans des cuves d’immersion étanches',
+            repliAns: 'Un club d’entraînement payant appliquant des cotisations trop lourdes pour les résidents',
+            repliDist1: 'Une île inhabitée au milieu du fleuve uniquement accessible par navette nautique d’urgence',
+            repliDist2: 'Une station de recherche scientifique isolée basée dans le Grand Nord québécois',
+            evidenceLieu: ['fermeture', 'piscine', 'arrondissement'],
+            evidencePublic: ['familles', 'âgées', 'aquagym'],
+            evidenceRepli: ['complexe', 'privé', 'inaccessibles'],
+          },
         ]
-        const s = slots[Math.floor(rand() * slots.length)]
+        const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `RÉSEAU SOCIAL DE QUARTIER - CRI DU CŒUR\nPar ${s.citoyen}\nC’est avec tristesse que je partage cette nouvelle : la municipalité a confirmé la fermeture définitive ${s.lieu} à la fin du mois. Cet endroit constituait un repère précieux dans notre quartier depuis des décennies. Je pense avec peine à ${s.public}, qui perdront un espace accessible et gratuit. La mairie prétend relocaliser les activités vers ${s.repli}, mais cette solution pénalise d’abord les résidents les plus vulnérables. Comment peut-on sacrifier nos services de proximité essentiels ? J’appelle les résidents à signer notre pétition en ligne pour faire reculer les élus avant qu’il ne soit trop tard !`,
+          text: `RÉSEAU SOCIAL DE QUARTIER - CRI DU CŒUR\nPar ${t.citoyen}\nC’est avec tristesse que je partage cette nouvelle : la municipalité a confirmé la fermeture définitive ${t.lieu} à la fin du mois. Cet endroit constituait un repère précieux dans notre quartier depuis des décennies. Je pense avec peine ${t.public}, qui perdront un espace accessible et gratuit. La mairie prétend relocaliser les activités vers ${t.repli}, mais cette solution pénalise d’abord les résidents les plus vulnérables. Comment peut-on sacrifier nos services de proximité essentiels ? J’appelle les résidents à signer notre pétition en ligne pour faire reculer les élus avant qu’il ne soit trop tard !`,
           questions: [
-            ['Quelle mesure municipale amèrement dénoncée fait l’objet de cette publication ?', 'La fermeture définitive d’une installation de loisirs de proximité', 'La majoration des tarifs des billets présentés dans les grands théâtres urbains', 'L’interdiction temporaire de circuler en voiture le soir'],
-            ['Quel groupe d’usagers sera particulièrement pénalisé par cette disparition ?', 'Les résidents du quartier, notamment les jeunes et les personnes âgées', 'Les athlètes professionnels participant à des championnats', 'Les promoteurs immobiliers cherchant à acquérir des terrains dans le centre-ville'],
-            ['Quelle démarche démocratique locale l’auteur encourage-t-il pour s’opposer à la décision ?', 'L’appui à une démarche citoyenne sur le Web visant à contester la décision', 'Le boycott immédiat des réseaux de transport en commun de la région', 'Le dépôt de plaintes judiciaires contre les riverains indifférents'],
+            makeQuestion('Quelle fermeture de service de proximité local est dénoncée dans ce cri du cœur ?', t.lieuAns, t.lieuDist1, t.lieuDist2, t.evidenceLieu),
+            makeQuestion('Quel groupe d’usagers sera le plus durement pénalisé par cette décision municipale ?', t.publicAns, t.publicDist1, t.publicDist2, t.evidencePublic),
+            makeQuestion('Pourquoi l’option de relocalisation proposée par la mairie est-elle vivement critiquée ?', t.repliAns, t.repliDist1, t.repliDist2, t.evidenceRepli),
           ],
         }
       },
