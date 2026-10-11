@@ -704,8 +704,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Calendrier des activités : ${cap(d[0].fr)} : atelier de français. ${cap(d[1].fr)} : club de lecture. ${cap(d[2].fr)} : cours de dessin.`,
           questions: [
-            ['法语工作坊在哪一天？', d[0].zh, otherDays[0].zh, otherDays[1].zh],
-            ['绘画课在哪一天？', d[2].zh, otherDays[0].zh, otherDays[1].zh],
+            q('法语工作坊在哪一天？', d[0].zh, otherDays[0].zh, otherDays[1].zh, [d[0].fr.toLowerCase()]),
+            q('绘画课在哪一天？', d[2].zh, otherDays[0].zh, otherDays[1].zh, [d[2].fr.toLowerCase()]),
           ],
         }
       },
@@ -715,12 +715,21 @@ export const N01_02_SCENARIOS = {
     Object.assign(
       (rand) => {
         const p = sample(PLACES_SERVICES, 3, rand)
-        const otherPlaces = sample(PLACES_SERVICES.filter((x) => !p.includes(x)), 2, rand)
+        const otherPlaces = sample(
+          PLACES_SERVICES.filter(
+            (x) =>
+              !p.includes(x) &&
+              !(p.some((item) => item.base === 'épicerie') && x.base === 'supermarché') &&
+              !(p.some((item) => item.base === 'supermarché') && x.base === 'épicerie')
+          ),
+          2,
+          rand
+        )
         return {
           text: `Services du quartier : ${cap(p[0].fr)} sur la rue Principale. ${cap(p[1].fr)} sur le boulevard Saint-Laurent. ${cap(p[2].fr)} près du parc.`,
           questions: [
-            ['在 rue Principale 上的场所是？', p[0].zh, otherPlaces[0].zh, otherPlaces[1].zh],
-            ['在 boulevard Saint-Laurent 上的场所是？', p[1].zh, otherPlaces[0].zh, otherPlaces[1].zh],
+            q('在 rue Principale 上的场所是？', p[0].zh, otherPlaces[0].zh, otherPlaces[1].zh, [p[0].base.toLowerCase()]),
+            q('在 boulevard Saint-Laurent 上的场所是？', p[1].zh, otherPlaces[0].zh, otherPlaces[1].zh, [p[1].base.toLowerCase()]),
           ],
         }
       },
@@ -734,8 +743,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Collecte municipale : ${cap(d[0].fr)} : ordures ménagères. ${cap(d[1].fr)} : recyclage. ${cap(d[2].fr)} : résidus verts.`,
           questions: [
-            ['哪一天收集可回收物（recyclage）？', d[1].zh, others[0].zh, others[1].zh],
-            ['生活垃圾（ordures）在哪一天收集？', d[0].zh, others[0].zh, others[1].zh],
+            q('哪一天收集可回收物（recyclage）？', d[1].zh, others[0].zh, others[1].zh, [d[1].fr.toLowerCase()]),
+            q('生活垃圾（ordures）在哪一天收集？', d[0].zh, others[0].zh, others[1].zh, [d[0].fr.toLowerCase()]),
           ],
         }
       },
@@ -747,12 +756,21 @@ export const N01_02_SCENARIOS = {
         const p = sample(PLACES_SERVICES, 2, rand)
         const n1 = pick([120, 250, 310, 420], rand)
         const n2 = pick([550, 680, 740, 890], rand)
-        const others = sample(PLACES_SERVICES.filter((x) => !p.includes(x)), 2, rand)
+        const others = sample(
+          PLACES_SERVICES.filter(
+            (x) =>
+              !p.includes(x) &&
+              !(p.some((item) => item.base === 'épicerie') && x.base === 'supermarché') &&
+              !(p.some((item) => item.base === 'supermarché') && x.base === 'épicerie')
+          ),
+          2,
+          rand
+        )
         return {
           text: `Guide des commerces : ${cap(p[0].fr)} se situe au numéro ${n1}. ${cap(p[1].fr)} se situe au numéro ${n2}.`,
           questions: [
-            [`门牌号 ${n1} 是什么机构？`, p[0].zh, others[0].zh, others[1].zh],
-            [`门牌号 ${n2} 是什么机构？`, p[1].zh, others[0].zh, others[1].zh],
+            q(`门牌号 ${n1} 是什么机构？`, p[0].zh, others[0].zh, others[1].zh, [String(n1)]),
+            q(`门牌号 ${n2} 是什么机构？`, p[1].zh, others[0].zh, others[1].zh, [String(n2)]),
           ],
         }
       },
@@ -766,8 +784,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Clinique médicale : ${cap(d[0].fr)} : sans rendez-vous. ${cap(d[1].fr)} : clinique de vaccination. ${cap(d[2].fr)} : prélèvements sanguins.`,
           questions: [
-            ['无预约门诊在星期几？', d[0].zh, others[0].zh, others[1].zh],
-            ['疫苗接种在星期几？', d[1].zh, others[0].zh, others[1].zh],
+            q('无预约门诊在星期几？', d[0].zh, others[0].zh, others[1].zh, [d[0].fr.toLowerCase()]),
+            q('疫苗接种在星期几？', d[1].zh, others[0].zh, others[1].zh, [d[1].fr.toLowerCase()]),
           ],
         }
       },
@@ -791,8 +809,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Formulaire d’inscription : Nom : ${lastName} | Prénom : ${persona.name} | Sexe : ${sex} | Année de naissance : ${birthYear} | Tél. : ${phone.fr}`,
           questions: [
-            ['报名者的名字（Prénom）是？', persona.name, 'Sophie', 'Alexandre'],
-            ['报名者的电话号码是？', phone.fr, otherPhones[0].fr, otherPhones[1].fr],
+            q('报名者的名字（Prénom）是？', persona.name, 'Sophie', 'Alexandre', [persona.name.toLowerCase()]),
+            q('报名者的电话号码是？', phone.fr, otherPhones[0].fr, otherPhones[1].fr, [phone.fr.toLowerCase()]),
           ],
         }
       },
@@ -810,8 +828,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Carte d’assurance maladie (RAMQ) : Nom : ${lastName} | Prénom : ${persona.name} | Sexe : ${sex} | Expiration : ${expMonth} / ${expYear}`,
           questions: [
-            ['持卡人的名字是？', persona.name, 'Lucie', 'Gabriel'],
-            ['该医保卡的到期年份是？', String(expYear), String(otherYears[0]), String(otherYears[1])],
+            q('持卡人的名字是？', persona.name, 'Lucie', 'Gabriel', [persona.name.toLowerCase()]),
+            q('该医保卡的到期年份是？', String(expYear), String(otherYears[0]), String(otherYears[1]), [String(expYear)]),
           ],
         }
       },
@@ -827,8 +845,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Demande de carte de bibliothèque : Demandeur : ${persona.name} ${lastName} | Ville : ${city} | Statut : Résident`,
           questions: [
-            ['申请人的居住城市是？', city, otherCities[0], otherCities[1]],
-            ['申请人的名字（Prénom）是？', persona.name, 'Isabelle', 'Patrick'],
+            q('申请人的居住城市是？', city, otherCities[0], otherCities[1], [city.toLowerCase()]),
+            q('申请人的名字（Prénom）是？', persona.name, 'Isabelle', 'Patrick', [persona.name.toLowerCase()]),
           ],
         }
       },
@@ -843,8 +861,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Avis de renouvellement RAMQ : Assuré : ${persona.name} ${lastName} | Dossier no : ${dossier} | Date limite : 31 décembre.`,
           questions: [
-            ['被保险人的名字是？', persona.name, 'Camille', 'François'],
-            ['该通知办理的截止日期是？', '12 月 31 日', '1 月 1 日', '6 月 30 日'],
+            q('被保险人的名字是？', persona.name, 'Camille', 'François', [persona.name.toLowerCase()]),
+            q('该通知办理的截止日期是？', '12 月 31 日', '1 月 1 日', '6 月 30 日', ['décembre']),
           ],
         }
       },
@@ -859,8 +877,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Fiche du centre sportif : Participant : ${persona.name} | Urgence tél. : ${phone.fr} | Groupe : Adulte`,
           questions: [
-            ['紧急联络电话号码是？', phone.fr, otherPhones[0].fr, otherPhones[1].fr],
-            ['登记参加者的名字是？', persona.name, 'Éric', 'Valérie'],
+            q('紧急联络电话号码是？', phone.fr, otherPhones[0].fr, otherPhones[1].fr, [phone.fr.toLowerCase()]),
+            q('登记参加者的名字是？', persona.name, 'Éric', 'Valérie', [persona.name.toLowerCase()]),
           ],
         }
       },
@@ -882,8 +900,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Tableau de classe : Début du cours : ${start}. Pause du matin : ${pause}. Fin des cours : ${end}.`,
           questions: [
-            ['课间休息（Pause）在几点？', pause, otherTimes[0], otherTimes[1]],
-            ['课程几点结束？', end, start, '15 h 00'],
+            q('课间休息（Pause）在几点？', pause, otherTimes[0], otherTimes[1], [pause.toLowerCase()]),
+            q('课程几点结束？', end, start, '15 h 00', [end.toLowerCase()]),
           ],
         }
       },
@@ -899,8 +917,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Panneau d’arrêt de bus : Ligne ${line} : passage à ${time}. Ligne ${nextLine} : passage dans 20 minutes.`,
           questions: [
-            [`${line} 路公交车的到达时间是？`, time, otherTimes[0], otherTimes[1]],
-            ['该信息显示在什么设施上？', '公交车站数字站牌', '地铁检票口', '机场航站楼'],
+            q(`${line} 路公交车的到达时间是？`, time, otherTimes[0], otherTimes[1], [time.toLowerCase()]),
+            q('该信息显示在什么设施上？', '公交车站数字站牌', '地铁检票口', '机场航站楼', ['panneau']),
           ],
         }
       },
@@ -914,8 +932,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Horaire quotidien : Fin de matinée. Pause du dîner : de ${start} à ${end}. Reprise des cours à ${end}.`,
           questions: [
-            ['午休从几点开始？', start, '10 h 00', '14 h 00'],
-            ['下午几点恢复上课？', end, start, '15 h 00'],
+            q('午休从几点开始？', start, '10 h 00', '14 h 00', [start.toLowerCase()]),
+            q('下午几点恢复上课？', end, start, '15 h 00', [end.toLowerCase()]),
           ],
         }
       },
@@ -929,8 +947,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Station de métro : Direction Montmorency : passage à ${time1}. Direction Côte-Vertu : passage à ${time2}.`,
           questions: [
-            ['往 Montmorency 方向的列车几点到达？', time1, time2, '15 h 30'],
-            ['往 Côte-Vertu 方向的列车几点到达？', time2, time1, '15 h 00'],
+            q('往 Montmorency 方向的列车几点到达？', time1, time2, '15 h 30', [time1.toLowerCase()]),
+            q('往 Côte-Vertu 方向的列车几点到达？', time2, time1, '15 h 00', [time2.toLowerCase()]),
           ],
         }
       },
@@ -944,8 +962,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Avis aux étudiants : Pause de l’après-midi : ${pause}. Permanence de l’enseignant : ${office}.`,
           questions: [
-            ['下午休息时间是？', pause, office, '13 h 00'],
-            ['教师接待时间是？', office, pause, '17 h 30'],
+            q('下午休息时间是？', pause, office, '13 h 00', [pause.toLowerCase()]),
+            q('教师接待时间是？', office, pause, '17 h 30', [office.toLowerCase()]),
           ],
         }
       },
@@ -976,8 +994,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Signalisation de sécurité (${zone}) : ${p[0].emoji} ${p[0].fr} ; ${p[1].emoji} ${p[1].fr} ; ${p[2].emoji} ${p[2].fr}.`,
           questions: [
-            [`哪个图标代表“${p[0].fr}”？`, p[0].emoji, otherEmoji[0], otherEmoji[1]],
-            [`图标 ${p[1].emoji} 对应的法语词汇是：`, p[1].fr, otherWords[0], otherWords[1]],
+            q(`哪个图标代表“${p[0].fr}”？`, p[0].emoji, otherEmoji[0], otherEmoji[1], [p[0].fr.toLowerCase()]),
+            q(`图标 ${p[1].emoji} 对应的法语词汇是：`, p[1].fr, otherWords[0], otherWords[1], [p[1].fr.toLowerCase()]),
           ],
         }
       },
@@ -1001,8 +1019,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Services au public (${loc}) : ${p[0].emoji} ${p[0].fr} ; ${p[1].emoji} ${p[1].fr} ; ${p[2].emoji} ${p[2].fr}.`,
           questions: [
-            [`哪个图标代表“${p[0].fr}”？`, p[0].emoji, otherEmoji[0], otherEmoji[1]],
-            [`图标 ${p[1].emoji} 对应的服务设施是：`, p[1].fr, otherWords[0], otherWords[1]],
+            q(`哪个图标代表“${p[0].fr}”？`, p[0].emoji, otherEmoji[0], otherEmoji[1], [p[0].fr.toLowerCase()]),
+            q(`图标 ${p[1].emoji} 对应的服务设施是：`, p[1].fr, otherWords[0], otherWords[1], [p[1].fr.toLowerCase()]),
           ],
         }
       },
@@ -1025,8 +1043,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Pôle de transport (${hub}) : ${p[0].emoji} ${p[0].fr} ; ${p[1].emoji} ${p[1].fr} ; ${p[2].emoji} ${p[2].fr}.`,
           questions: [
-            [`哪个图标表示“${p[0].fr}”？`, p[0].emoji, otherEmoji[0], otherEmoji[1]],
-            [`图标 ${p[1].emoji} 对应的交通服务是：`, p[1].fr, otherWords[0], otherWords[1]],
+            q(`哪个图标表示“${p[0].fr}”？`, p[0].emoji, otherEmoji[0], otherEmoji[1], [p[0].fr.toLowerCase()]),
+            q(`图标 ${p[1].emoji} 对应的交通服务是：`, p[1].fr, otherWords[0], otherWords[1], [p[1].fr.toLowerCase()]),
           ],
         }
       },
@@ -1049,8 +1067,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Consignes de l’établissement (${hosp}) : ${p[0].emoji} ${p[0].fr} ; ${p[1].emoji} ${p[1].fr} ; ${p[2].emoji} ${p[2].fr}.`,
           questions: [
-            [`哪个图标表示“${p[0].fr}”？`, p[0].emoji, otherEmoji[0], otherEmoji[1]],
-            [`图标 ${p[1].emoji} 对应的规定是：`, p[1].fr, otherWords[0], otherWords[1]],
+            q(`哪个图标表示“${p[0].fr}”？`, p[0].emoji, otherEmoji[0], otherEmoji[1], [p[0].fr.toLowerCase()]),
+            q(`图标 ${p[1].emoji} 对应的规定是：`, p[1].fr, otherWords[0], otherWords[1], [p[1].fr.toLowerCase()]),
           ],
         }
       },
@@ -1073,8 +1091,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Guide des services (${area}) : ${p[0].emoji} ${p[0].fr} ; ${p[1].emoji} ${p[1].fr} ; ${p[2].emoji} ${p[2].fr}.`,
           questions: [
-            [`哪个图标表示“${p[0].fr}”？`, p[0].emoji, otherEmoji[0], otherEmoji[1]],
-            [`图标 ${p[1].emoji} 对应的词汇是：`, p[1].fr, otherWords[0], otherWords[1]],
+            q(`哪个图标表示“${p[0].fr}”？`, p[0].emoji, otherEmoji[0], otherEmoji[1], [p[0].fr.toLowerCase()]),
+            q(`图标 ${p[1].emoji} 对应的词汇是：`, p[1].fr, otherWords[0], otherWords[1], [p[1].fr.toLowerCase()]),
           ],
         }
       },
@@ -1096,8 +1114,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Couloir central (${floor}) : ${p[0].emoji} ${p[0].fr} ; ${p[1].emoji} ${p[1].fr}.`,
           questions: [
-            [`哪个图标表示“${p[0].fr}”？`, p[0].emoji, otherEmoji[0], otherEmoji[1]],
-            [`图标 ${p[1].emoji} 对应的词汇是：`, p[1].fr, otherWords[0], otherWords[1]],
+            q(`哪个图标表示“${p[0].fr}”？`, p[0].emoji, otherEmoji[0], otherEmoji[1], [p[0].fr.toLowerCase()]),
+            q(`图标 ${p[1].emoji} 对应的词汇是：`, p[1].fr, otherWords[0], otherWords[1], [p[1].fr.toLowerCase()]),
           ],
         }
       },
@@ -1127,8 +1145,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Adresse postale : Destinataire : M. Tremblay, ${num}, ${road.abbr} des Érables, ${unit.abbr} ${unitNum}, Montréal (Québec).`,
           questions: [
-            [`地址中的缩写“${road.abbr}”代表：`, road.full, 'boutique', 'bibliothèque'],
-            [`地址中的缩写“${unit.abbr}”代表：`, unit.full, 'banque', 'boulangerie'],
+            q(`地址中的缩写“${road.abbr}”代表：`, road.full, 'boutique', 'bibliothèque', [road.abbr.toLowerCase()]),
+            q(`地址中的缩写“${unit.abbr}”代表：`, unit.full, 'banque', 'boulangerie', [unit.abbr.toLowerCase()]),
           ],
         }
       },
@@ -1141,8 +1159,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Formulaire officiel — Titre de civilité : [ ] M. [ ] Mme [ ] Mlle. Nom de famille : ${lastName}.`,
           questions: [
-            ['表格中的称谓缩写“M.”代表：', 'Monsieur', 'Madame', 'Mademoiselle'],
-            ['表格中的称谓缩写“Mme”代表：', 'Madame', 'Monsieur', 'Médecin'],
+            q('表格中的称谓缩写“M.”代表：', 'Monsieur', 'Madame', 'Mademoiselle', ['m.']),
+            q('表格中的称谓缩写“Mme”代表：', 'Madame', 'Monsieur', 'Médecin', ['mme']),
           ],
         }
       },
@@ -1163,8 +1181,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Coordonnées de l’entreprise : ${num}, ${road.abbr} René-Lévesque Ouest, ${unit.abbr} 300, Montréal. Tél. : 514 555-0189.`,
           questions: [
-            [`路名缩写“${road.abbr}”代表：`, road.full, 'boucherie', 'banque'],
-            [`单元缩写“${unit.abbr}”代表：`, unit.full, 'boutique', 'boîte'],
+            q(`路名缩写“${road.abbr}”代表：`, road.full, 'boucherie', 'banque', [road.abbr.toLowerCase()]),
+            q(`单元缩写“${unit.abbr}”代表：`, unit.full, 'boutique', 'boîte', [unit.abbr.toLowerCase()]),
           ],
         }
       },
@@ -1179,8 +1197,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Reçu médical : Patient : ${civ.abbr} ${persona.name}, résidant au ${num}, av. du Parc, Montréal.`,
           questions: [
-            [`称谓缩写“${civ.abbr}”代表：`, civ.full, 'Docteur', 'Infirmier'],
-            ['地址中的“av.”代表：', 'avenue', 'appartement', 'autobus'],
+            q(`称谓缩写“${civ.abbr}”代表：`, civ.full, 'Docteur', 'Infirmier', [civ.abbr.toLowerCase()]),
+            q('地址中的“av.”代表：', 'avenue', 'appartement', 'autobus', ['av.']),
           ],
         }
       },
@@ -1197,8 +1215,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Étiquette de livraison : Livrer au ${num}, ${road.abbr} Saint-Denis, app. 4B. Code postal : H2X 1Y4.`,
           questions: [
-            [`缩写“${road.abbr}”代表：`, road.full, 'boulangerie', 'bar'],
-            ['缩写“app.”代表：', 'appartement', 'appareil', 'appel'],
+            q(`缩写“${road.abbr}”代表：`, road.full, 'boulangerie', 'bar', [road.abbr.toLowerCase()]),
+            q('缩写“app.”代表：', 'appartement', 'appareil', 'appel', ['app.']),
           ],
         }
       },
@@ -1219,11 +1237,12 @@ export const N01_02_SCENARIOS = {
         const day = pick(DAYS, rand)
         const time = pick(['14 h 00', '15 h 30', '18 h 00'], rand)
         const otherDays = sample(DAYS.filter((d) => d.zh !== day.zh), 2, rand)
+        const otherPersonas = sample(PERSONAS.filter((p) => p.name !== persona.name), 2, rand)
         return {
           text: `Texto ${de(persona.name)} : « ${greeting} ! J’espère que tu vas bien. On se retrouve ${day.fr} à ${time} pour notre projet ? Confirme-moi dès que tu peux ! »`,
           questions: [
-            ['是谁发送了这条短信？', persona.name, 'David', 'Christine'],
-            [`${g(persona, '发信人（l’expéditeur）', '发信人（l’expéditrice）')}想确认哪一天的碰面？`, day.zh, otherDays[0].zh, otherDays[1].zh],
+            q('是谁发送了这条短信？', persona.name, otherPersonas[0].name, otherPersonas[1].name, [persona.name.toLowerCase()]),
+            q(`${g(persona, '发信人（l’expéditeur）', '发信人（l’expéditrice）')}想确认哪一天的碰面？`, day.zh, otherDays[0].zh, otherDays[1].zh, [day.fr.toLowerCase()]),
           ],
         }
       },
@@ -1234,20 +1253,21 @@ export const N01_02_SCENARIOS = {
       (rand) => {
         const persona = pick(PERSONAS, rand)
         const favors = [
-          { fr: 'ton aide précieuse avec mon déménagement', zh: '搬家时的宝贵帮助' },
-          { fr: 'avoir arrosé mes fleurs cette semaine', zh: '本周帮忙浇花' },
-          { fr: 'm’avoir prêté tes outils hier', zh: '昨天借出工具' },
-          { fr: 'ton soutien pour mon examen de français', zh: '法语考试期间的支持' },
+          { fr: 'ton aide précieuse avec mon déménagement', zh: '搬家时的宝贵帮助', kw: 'déménagement' },
+          { fr: 'avoir arrosé mes fleurs cette semaine', zh: '本周帮忙浇花', kw: 'fleurs' },
+          { fr: 'm’avoir prêté tes outils hier', zh: '昨天借出工具', kw: 'outils' },
+          { fr: 'ton soutien pour mon examen de français', zh: '法语考试期间的支持', kw: 'examen' },
         ]
         const fav = pick(favors, rand)
         const otherFavors = favors.filter((f) => f.zh !== fav.zh)
         const cherFr = g(persona, 'Cher', 'Chère')
         const amiFr = g(persona, 'ami', 'amie')
+        const otherPersonas = sample(PERSONAS.filter((p) => p.name !== persona.name), 2, rand)
         return {
           text: `Courriel ${de(persona.name)} : « ${cherFr} collègue, un grand merci ${merciDe(fav.fr)}. Ton aide m’a été indispensable. Amitiés, ton ${amiFr} ${persona.name}. »`,
           questions: [
-            [`${persona.name} 写这封邮件的目的是：`, `感谢${fav.zh}`, `请求借款`, `请假缺勤`],
-            [`发信人（${g(persona, 'l’expéditeur', 'l’expéditrice')}）是：`, persona.name, 'Luc', 'Valérie'],
+            q(`${persona.name} 写这封邮件的目的是：`, `感谢${fav.zh}`, `请求借款`, `请假缺勤`, ['merci', fav.kw]),
+            q(`发信人（${g(persona, 'l’expéditeur', 'l’expéditrice')}）是：`, persona.name, otherPersonas[0].name, otherPersonas[1].name, [persona.name.toLowerCase()]),
           ],
         }
       },
@@ -1264,8 +1284,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Texto ${de(persona.name)} : « Bonjour ! Il fait très beau ce ${day.fr}. Veux-tu aller marcher au parc à ${time} ? Réponds-moi si tu es libre ! »`,
           questions: [
-            ['发信人提议在星期几去散步？', day.zh, otherDays[0].zh, otherDays[1].zh],
-            ['短信的发信人是谁？', persona.name, otherPersonas[0].name, otherPersonas[1].name],
+            q('发信人提议在星期几去散步？', day.zh, otherDays[0].zh, otherDays[1].zh, [day.fr.toLowerCase()]),
+            q('短信的发信人是谁？', persona.name, otherPersonas[0].name, otherPersonas[1].name, [persona.name.toLowerCase()]),
           ],
         }
       },
@@ -1276,9 +1296,9 @@ export const N01_02_SCENARIOS = {
       (rand) => {
         const persona = pick(PERSONAS, rand)
         const tasks = [
-          { fr: 'le déneigement du trottoir', zh: '清理人行道积雪' },
-          { fr: 'la garde de mon chat', zh: '照看小猫' },
-          { fr: 'la réception de mon colis', zh: '代收包裹' },
+          { fr: 'le déneigement du trottoir', zh: '清理人行道积雪', kw: 'déneigement' },
+          { fr: 'la garde de mon chat', zh: '照看小猫', kw: 'chat' },
+          { fr: 'la réception de mon colis', zh: '代收包裹', kw: 'colis' },
         ]
         const t = pick(tasks, rand)
         const otherTasks = tasks.filter((x) => x.zh !== t.zh)
@@ -1286,8 +1306,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Message ${de(persona.name)} : « Bonjour ! Merci mille fois pour ton aide avec ${t.fr} ce matin. ${cap(voisinFr)}, ${persona.name}. »`,
           questions: [
-            ['发信人感谢邻居的：', t.zh, otherTasks[0].zh, otherTasks[1].zh],
-            ['发信人是收信人的：', g(persona, '男邻居', '女邻居'), '房东', '医生'],
+            q('发信人感谢邻居的：', t.zh, otherTasks[0].zh, otherTasks[1].zh, [t.kw]),
+            q('发信人是收信人的：', g(persona, '男邻居', '女邻居'), '房东', '医生', [g(persona, 'voisin', 'voisine')]),
           ],
         }
       },
@@ -1300,8 +1320,8 @@ export const N01_02_SCENARIOS = {
         return {
           text: `Texto ${de(persona.name)} : « Bonsoir ! Merci pour le café cet après-midi, c’était un plaisir de te voir. Passe une très bonne soirée ! »`,
           questions: [
-            [`${persona.name} 在短信结尾送上了什么祝愿？`, '晚上愉快', '生日快乐', '节日愉快'],
-            ['两人今天下午一起做了什么？', '喝了咖啡', '看了电影', '去了医院'],
+            q(`${persona.name} 在短信结尾送上了什么祝愿？`, '晚上愉快', '生日快乐', '节日愉快', ['soirée']),
+            q('两人今天下午一起做了什么？', '喝了咖啡', '看了电影', '去了医院', ['café']),
           ],
         }
       },
