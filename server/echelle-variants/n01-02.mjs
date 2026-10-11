@@ -1129,7 +1129,7 @@ export const N01_02_SCENARIOS = {
       (rand) => {
         const lastName = pick(['Bouchard', 'Gagnon', 'Roy', 'Côté', 'Morin'], rand)
         return {
-          text: `Formulaire officiel — Titre de civilité : [ ] M.  [ ] Mme  [ ] Mlle. Nom de famille : ${lastName}.`,
+          text: `Formulaire officiel — Titre de civilité : [ ] M. [ ] Mme [ ] Mlle. Nom de famille : ${lastName}.`,
           questions: [
             ['表格中的称谓缩写“M.”代表：', 'Monsieur', 'Madame', 'Mademoiselle'],
             ['表格中的称谓缩写“Mme”代表：', 'Madame', 'Monsieur', 'Médecin'],
@@ -1540,17 +1540,18 @@ export const N01_02_SCENARIOS = {
     // Scenario 2 (Ex 2): Neighborhood pharmacy location inquiry
     Object.assign(
       (rand) => {
+        const civ = pick(['madame', 'monsieur'], rand)
         const dir = pick(SIMPLE_DIRECTIONS, rand)
         const street = pick(['la rue Saint-Denis', 'l’avenue du Mont-Royal', 'le boulevard Saint-Laurent', 'la rue Rachel'], rand)
         return {
-          text: `— Excusez-moi monsieur / madame ! Je cherche la pharmacie sur ${street}. Pouvez-vous m’indiquer le chemin ? — Oui, elle est ${dir.fr}.`,
+          text: `— Excusez-moi ${civ} ! Je cherche la pharmacie sur ${street}. Pouvez-vous m’indiquer le chemin ? — Oui, elle est ${dir.fr}.`,
           questions: [
             ['药店的具体方位在：', dir.zh, '在另一座城市', '在地铁隧道里'],
             ['路人询问的是什么场所的路线？', '药店', '市政厅', '火车站'],
           ],
         }
       },
-      { capacity: SIMPLE_DIRECTIONS.length * 4, situation: 1 }
+      { capacity: 2 * SIMPLE_DIRECTIONS.length * 4, situation: 1 }
     ),
     // Scenario 3 (Ex 0): Public building elevator location
     Object.assign(
@@ -1575,23 +1576,29 @@ export const N01_02_SCENARIOS = {
     // Scenario 4 (Ex 1): Neighborhood store inquiry
     Object.assign(
       (rand) => {
-        const dir = pick(SIMPLE_DIRECTIONS, rand)
+        const dir = pick([
+          { fr: 'au coin de la rue', zh: '在街角' },
+          { fr: 'tout droit', zh: '直走' },
+          { fr: 'un peu plus loin à droite', zh: '再往前走一点右转' },
+          { fr: 'un peu plus loin à gauche', zh: '再往前走一点左转' },
+          { fr: 'au bout de la rue', zh: '在街尾' },
+        ], rand)
         const store = pick([
-          { fr: 'l’épicerie', zh: '杂货店' },
-          { fr: 'le dépanneur', zh: '便利店' },
-          { fr: 'la boulangerie', zh: '面包房' },
-          { fr: 'le supermarché', zh: '生鲜超市' },
+          { article: 'une', pron: 'une', name: 'épicerie', zh: '杂货店' },
+          { article: 'un', pron: 'un', name: 'dépanneur', zh: '便利店' },
+          { article: 'une', pron: 'une', name: 'boulangerie', zh: '面包房' },
+          { article: 'un', pron: 'un', name: 'supermarché', zh: '生鲜超市' },
         ], rand)
         const street = pick(['la rue Principale', 'l’avenue Laurier', 'la rue Beaubien'], rand)
         return {
-          text: `— Bonjour ! Est-ce qu’il y a ${store.fr} sur ${street} ? — Oui, vous en trouverez une ${dir.fr}.`,
+          text: `— Bonjour ! Est-ce qu’il y a ${store.article} ${store.name} sur ${street} ? — Oui, vous en trouverez ${store.pron} ${dir.fr}.`,
           questions: [
             ['该商店在什么方位？', dir.zh, '在河对岸', '在高速公路旁'],
             ['路人寻找的是哪种商铺？', store.zh, '五金建材城', '汽车修理厂'],
           ],
         }
       },
-      { capacity: SIMPLE_DIRECTIONS.length * 4 * 3, situation: 1 }
+      { capacity: 5 * 4 * 3, situation: 1 }
     ),
     // Scenario 5 (Ex 0): Main exit location in public facility
     Object.assign(
@@ -1826,7 +1833,7 @@ export const N01_02_SCENARIOS = {
     Object.assign(
       (rand) => {
         const line = pick([24, 55, 80, 105, 129, 165], rand)
-        const street = pick(['rue Sherbrooke', 'avenue du Parc', 'boulevard Saint-Laurent', 'rue Saint-Denis'], rand)
+        const street = pick(['la rue Sherbrooke', 'l’avenue du Parc', 'le boulevard Saint-Laurent', 'la rue Saint-Denis'], rand)
         return {
           text: `— Pardonnez-moi ! Sur la ligne ${line}, je descends au prochain arrêt sur ${street}, laissez-moi passer s’il vous plaît. — Oui bien sûr, allez-y !`,
           questions: [
@@ -1857,9 +1864,9 @@ export const N01_02_SCENARIOS = {
     Object.assign(
       (rand) => {
         const caisse = pick([1, 2, 3, 4, 5, 6], rand)
-        const store = pick(['l’épicerie Métro', 'le supermarché IGA', 'la pharmacie Jean Coutu', 'le magasin Maxi'], rand)
+        const store = pick(['chez Métro', 'chez IGA', 'chez Jean Coutu', 'chez Maxi'], rand)
         return {
-          text: `— Oh pardon madame ! Je ne vous ai pas vue, vous êtes avant moi dans la file à la caisse ${caisse} chez ${store}. Je vous en prie, passez devant !`,
+          text: `— Oh pardon madame ! Je ne vous ai pas vue, vous êtes avant moi dans la file à la caisse ${caisse} ${store}. Je vous en prie, passez devant !`,
           questions: [
             ['顾客向对方道歉是因为：', '自己刚才没看到对方排在前面', '自己打破了商品', '自己没有带钱包'],
             ['她们正在哪个收银台排队？', `caisse ${caisse}`, 'caisse 9', 'caisse 12'],
@@ -1917,12 +1924,13 @@ export const N01_02_SCENARIOS = {
         const f2 = pick(FOOD_ITEMS.filter((f) => f.base !== f1.base), rand)
         const p1 = pick(['2,99 $', '3,49 $', '4,99 $', '5,29 $'], rand)
         const p2 = pick(['1,99 $', '2,49 $', '3,99 $'], rand)
+        const unit1 = f1.unitShort === 'L' ? '/ L' : '/ kg'
         const day = pick(DAYS, rand)
         const otherDays = sample(DAYS.filter((d) => d.zh !== day.zh), 2, rand)
         return {
-          text: `Circulaire Métro : ${cap(f1.base)} : ${p1} / kg. ${cap(f2.base)} : ${p2} le paquet. Rabais valide jusqu’à ${day.fr}.`,
+          text: `Circulaire Métro : ${cap(f1.base)} : ${p1} ${unit1}. ${cap(f2.base)} : ${p2} le paquet. Rabais valide jusqu’à ${day.fr}.`,
           questions: [
-            [`${f1.zh}的特价是多少？`, `${p1} / kg`, '9,99 $ / kg', '免费赠送'],
+            [`${f1.zh}的特价是多少？`, `${p1} ${unit1}`, `9,99 $ ${unit1}`, '免费赠送'],
             ['本期特价优惠截止到星期几？', day.zh, otherDays[0].zh, otherDays[1].zh],
           ],
         }
@@ -1983,10 +1991,12 @@ export const N01_02_SCENARIOS = {
       (rand) => {
         const f = pick(FOOD_ITEMS, rand)
         const price = pick(['2,50 $', '3,00 $', '4,25 $'], rand)
+        const unit = f.unitFr || 'la livre'
+        const unitShort = f.unitShort || 'lb'
         return {
-          text: `Marché Jean-Talon : ${cap(f.base)} du Québec à ${price} la livre. Arrivage frais tous les matins.`,
+          text: `Marché Jean-Talon : ${cap(f.base)} du Québec à ${price} ${unit}. Arrivage frais tous les matins.`,
           questions: [
-            [`本地产${f.zh}的价格是？`, `${price} / lb`, '15,00 $ / lb', '免费'],
+            [`本地产${f.zh}的价格是？`, `${price} / ${unitShort}`, `15,00 $ / ${unitShort}`, '免费'],
             ['该宣传单来自哪个市场？', 'Marché Jean-Talon', 'Marché Atwater', 'Marché Bonsecours'],
           ],
         }

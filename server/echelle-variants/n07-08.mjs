@@ -2533,7 +2533,7 @@ export const N07_08_SCENARIOS = {
           "Quelle exigence spécifique s’applique aux candidats formés dans une université étrangère ?",
           "Faire évaluer la reconnaissance officielle de leur cursus pédagogique",
           "Reprendre l’intégralité de leurs études dans une faculté universitaire d’ici",
-          "Obtenir le parrainage écrit de trois membres honoraires de l’Assemblée nationale",
+          "Obtenir l’attestation écrite de conformité signée par deux ingénieurs tuteurs",
         ],
         [
           "Sur quel domaine de compétences porte l’épreuve écrite obligatoire d’évaluation ?",

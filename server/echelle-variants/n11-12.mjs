@@ -1280,13 +1280,13 @@ Assis à son vieil établi de chêne près de la fenêtre givrée, Henri écouta
           'Comment le comportement du citoyen modèle est-il caricaturé dans la file ?',
           'Par la soumission docile poussée jusqu’à conserver son silence en bocal hermétique',
           'Par sa volonté d’offrir des pourboires généreux à tous les fonctionnaires croisés',
-          'Par son déguisement de robot miniature destiné à séduire les agents de contrôle',
+          'Par la remise d’un dossier médical certifiant l’absence totale de toute toux',
         ],
         [
           'Quelle règle finale délirante l’employée pose-t-elle pour le permis provisoire ?',
           'L’interdiction formelle d’avoir des pensées complexes sous peine de sanctions',
-          'L’obligation de courir à reculons jusqu’à la sortie du bâtiment gouvernemental',
-          'La promesse écrite de ne plus jamais fêter le Nouvel An avec ses proches amis',
+          'L’interdiction d’expirer la moindre buée en présence d’un agent de sécurité',
+          'La remise immédiate de tous ses souvenirs d’enfance à la borne de sortie',
         ],
       ],
     },
@@ -1633,63 +1633,73 @@ La littérature urbaine québécoise contemporaine a rompu avec l’idéalisatio
     },
     {
       situation: 0,
-      text: `Étude critique : « Géographies de l’intime : arpenter la ville dans la fiction contemporaine », Revue Voix et Images, UQAM.
-L’arpentage pédestre constitue l’un des motifs structurants du roman contemporain, renouvelant la figure baudelairienne du flâneur à l’aune de la précarité métropolitaine. Dans la prose de Gabrielle Roy à celle des plumes actuelles, marcher dans la ville ne relève jamais d’un simple déplacement utilitaire ; c’est une tentative obstinée de réappropriation subjective face à l’accélération frénétique des flux marchands. Les récits récents mettent en scène des marcheurs anonymes qui délaissent les avenues commerciales éclairées par les enseignes néon pour s’enfoncer dans les interstices oubliés : friches ferroviaires envahies par les herbes folles, passages sous voies rapides et arrière-cours silencieuses. Cet univers marginal fonctionne comme un révélateur existentiel. C’est là, au creux des délaissés urbains, que les personnages parviennent à soustraire leurs pensées à la tyrannie des algorithmes de rendement et à la surveillance numérique ubiquitaire. L’écriture épouse le rythme de la marche, adoptant des phrases amples scandées par les bruits métalliques de la circulation au loin et le bruissement du vent dans les tôles ondulées. Cette déambulation poétique ne constitue pas une fuite lâche hors du monde, mais un acte de résistance silencieuse qui oppose la lenteur du pas humain à la brutalité des impératifs économiques. En cartographiant les blessures invisibles du paysage urbain, l’écrivain restitue aux exclus et aux marginaux une présence textuelle digne, prouvant que la beauté métropolitaine réside dans les fissures de son organisation géométrique plutôt que dans ses façades cliniques.`,
+      text: `Extrait du roman contemporain « Les Voies de traverse », de Martine Leduc, Éditions du Quartier, Montréal.
+
+Il est six heures du matin lorsque la ville cesse d’appartenir aux planificateurs pour redevenir un corps vivant. Depuis le viaduc Van Horne, la lumière de novembre descend en nappe grise sur les cours de triage du Mile-End, où des rames immobiles dorment encore dans la rouille et le givre. J’ai marché toute la nuit à contre-courant des artères nettoyées, évitant les vitrines aveuglantes des nouveaux commerces de luxe qui colonisent une à une les anciennes manufactures de textile. Sous la semelle de mes bottes, la boue mêlée de gravier raconte une autre histoire que celle des dépliants immobiliers vantant l’effervescence branchée du secteur.
+
+Près des clôtures grillagées éventrées par le gel, les sentiers informels tracés par des générations de marcheurs résistent encore au béton coulé par les promoteurs. Des silhouettes anonymes, ouvriers matinaux ou noctambules égarés, s’y croisent sans échanger un mot, unies par cette même démarche pressée le long des rails désaffectés. Ici, entre un conteneur maritime abandonné et un massif d’herbes folles noircies par l’hiver, subsiste un interstice où l’on échappe au regard des caméras de surveillance municipale. La vapeur de mon souffle se dissout dans l’air glacé. Je m’arrête un instant devant une carcasse de wagon taguée de symboles oubliés : ce décor décrépit n’a rien d’une carte postale pittoresque, mais il offre un asile précaire à ceux que le loyer trop cher a rejetés vers la périphérie. En descendant la pente abrupte vers la rue Saint-Urbain, j’entends la pulsation lointaine du premier métro qui s’éveille. Cette métropole ne m’appartient pas davantage qu’à ces passants solitaires, mais nous habitons ses failles avec une obstination tranquille.`,
       questions: [
         [
-          'Quelle signification la marche urbaine prend-elle dans les œuvres analysées ?',
-          'Une reconquête personnelle de soi face aux cadences du monde marchand',
-          'Une façon hygiénique de préserver sa santé physique sans aller au gymnase',
-          'Un travail rémunéré par les municipalités pour cartographier les trottoirs',
+          'Quel contraste le narrateur établit-il au début de sa traversée urbaine ?',
+          'La confrontation entre les friches industrielles et les commerces huppés',
+          'L’opposition violente entre les piétons matinaux et les conducteurs de métro',
+          'Le décalage grandissant entre les banlieues pavillonnaires et le centre historique',
         ],
         [
-          'Quel type d’espace attire préférentiellement les pas de ces nouveaux arpenteurs ?',
-          'Les zones abandonnées et les recoins oubliés par les circuits officiels',
-          'Les centres d’achats souterrains chauffés durant les tempêtes d’hiver',
-          'Les terrasses huppées du Vieux-Montréal fréquentées par la bourgeoisie',
+          'Quelle signification les sentiers informels le long des voies revêtent-ils ?',
+          'Une persistance silencieuse d’usages populaires bravant l’urbanisation',
+          'Un projet pilote officiel conçu pour accélérer la circulation des ouvriers',
+          'Une zone récréative sécurisée réservée exclusivement aux promeneurs du soir',
         ],
         [
-          'Comment la forme stylistique des textes reflète-t-elle ce cheminement ?',
-          'Par un tempo fluide et continu calqué sur la cadence de la promenade',
-          'Par des strophes poétiques courtes et rythmées rimant toutes en alexandrins',
-          'Par l’insertion de graphiques statistiques décrivant la vitesse des pas',
+          'Que symbolise le décor décrépit de la cour de triage pour le narrateur ?',
+          'Un refuge temporaire pour les personnes chassées par la hausse des loyers',
+          'Un vestige d’époque à préserver impérativement comme musée historique d’État',
+          'Un danger sanitaire imminent nécessitant la démolition de toutes les clôtures',
         ],
         [
-          'Quelle vision politique et humaine se dégage de cette esthétique littéraire ?',
-          'Une résistance douce donnant une voix aux invisibles de la société moderne',
-          'Un plaidoyer en faveur de la démolition de tous les vieux immeubles en bois',
-          'Une célébration triomphale de la vitesse permise par le métro automatique',
+          'Quelle relation finale le narrateur entretient-il avec l’espace métropolitain ?',
+          'Une cohabitation lucide et résolue dans les marges délaissées de la ville',
+          'Un sentiment triomphant de posséder l’ensemble des quartiers traversés la nuit',
+          'Une volonté farouche de fuir définitivement vers les régions rurales isolées',
         ],
       ],
     },
     {
       situation: 1,
-      text: `Étude littéraire : « Correspondance clandestine : jeux de miroir entre l’autrice et sa muse », Revue Lettres québécoises.
-La publication récente des lettres échangées entre la romancière Adrienne Roy et sa muse confidente Monique Desrochers dévoile les coulisses d’une alchimie créatrice d’une remarquable complexité psychologique. Loin du mythe romantique stéréotypé de la muse passive inspirant docilement l’artiste par sa simple présence angélique, ces missives témoignent d’un corps à corps intellectuel redoutable où chaque formulation devient le théâtre d’une lutte feutrée pour la domination symbolique. Dans ses lettres de 1952 rédigées depuis un chalet des Laurentides, Adrienne oscille perpétuellement entre la vénération passionnée et la cruauté lucide : elle supplie Monique de relire ses brouillons tout en fustigeant la moindre hésitation de sa correspondante comme une trahison intolérable envers l’absolu littéraire. De son côté, Monique ne prend aucunement la posture de la dévote soumise ; ses réponses, empreintes d’une ironie subtile et d’un discernement esthétique acéré, pointent sans complaisance les facilités de style et les complaisances narratives de l’écrivaine, la contraignant à récrire des chapitres entiers. Les critiques analysent cette tension permanente non comme une relation toxique ordinaire, mais comme la matrice dialectique indispensable sans laquelle le chef-d’œuvre d’Adrienne n’aurait jamais atteint une telle puissance d’évocation tragique. L’écriture émergeait précisément de cette friction électrique où l’admiration réciproque ne cessait de flirter avec la rancœur créatrice. Ces lettres illuminent d’un jour cru le coût humain et le déchirement intime qui accompagnent la naissance d’un monument de nos lettres nationales.`,
+      text: `Correspondance : Lettres croisées entre Adrienne Roy et Monique Desrochers (automne 1952).
+
+[Adrienne à Monique — Val-David, 14 octobre 1952]
+Monique,
+Le vent d’octobre secoue les vitres du chalet et je relis mon troisième chapitre avec un dégoût insurmontable. Tout sonne faux : les dialogues de Clara semblent dictés par une automate de salon et le dénouement de la scène d’adieu manque cruellement de cette âpreté sans concession que tu réclamais l’été dernier. Pourquoi t’obstines-tu à garder le silence depuis dix jours ? Ta réserve m’angoisse davantage que les critiques les plus assassines. J’ai besoin de ton regard impitoyable, même s’il doit me déchirer. Dis-moi franchement si cette héroïne mérite d’exister ou s’il faut jeter ces soixante feuillets dans l’âtre du foyer. Je ne sais plus distinguer la lucidité de l’égarement.
+
+[Monique à Adrienne — Montréal, 19 octobre 1952]
+Adrienne,
+Cessez cette comédie d’autodénigrement qui ne trompe que vous-même. Vous savez pertinemment que Clara possède une densité tragique remarquable ; ce qui flanche dans votre texte, ce n’est pas le personnage, c’est votre lâcheté d’autrice devant sa solitude finale. Vous avez voulu adoucir la rupture pour épargner le lecteur bourgeois de la métropole, et cette complaisance sentimentale tue l’élan du drame. Récrivez cette scène sans fard, sans chercher d’excuse poétique à la lâcheté humaine. Ne comptez pas sur mon affection pour vous servir de miroir flatteur : mon amitié exige de votre talent une vérité intégrale, dût-elle vous coûter vos nuits. Brûler ce manuscrit serait une fuite indigne de vous. Retroussez vos manches et renvoyez-moi la nouvelle version dès mardi.`,
       questions: [
         [
-          'Quelle vision traditionnelle de la muse cette correspondance vient-elle balayer ?',
-          'L’illusion d’une inspiratrice soumise et effacée devant le talent du génie',
-          'L’affirmation selon laquelle les artistes travaillent toujours en autarcie',
-          'L’idée que les relations épistolaires ne laissent aucune trace matérielle',
+          'Quel sentiment tourmente Adrienne dans sa lettre depuis le chalet ?',
+          'Le doute existentiel face à la sincérité artistique de son récit',
+          'La rancœur tenace envers des éditeurs parisiens refusant son livre',
+          'L’angoisse matérielle de manquer de vivres durant la saison froide',
         ],
         [
-          'Quel comportement l’autrice Adrienne adopte-t-elle envers sa correspondante ?',
-          'Une alternance constante entre louanges ferventes et reproches acerbes',
-          'Une indifférence polie consistant à ne répondre qu’une seule fois l’an',
-          'Une demande constante de soutien financier pour régler ses loyers urbains',
+          'Que reproche Adrienne au silence prolongé de Monique ?',
+          'Elle y voit une mise à distance plus déstabilisante qu’un blâme direct',
+          'Elle l’interprète comme la preuve définitive d’un désaccord politique aigu',
+          'Elle craint que sa correspondante ait divulgué ses brouillons à la presse',
         ],
         [
-          'Quel rôle actif Monique exerçait-elle sur les manuscrits en gestation ?',
-          'Une critique intransigeante forçant la romancière à retravailler sa prose',
-          'Une simple correction typographique sans avis sur le fond de l’intrigue',
-          'La rédaction intégrale de plusieurs tomes publiés sous un pseudonyme faux',
+          'Quel défaut majeur Monique décèle-t-elle dans le dénouement de la scène ?',
+          'Une concession sentimentale atténuant la dureté morale de la rupture',
+          'Une maladresse stylistique liée à un vocabulaire trop archaïque et lourd',
+          'Une incohérence historique dans la description des milieux montréalais',
         ],
         [
-          'Quelle conclusion l’analyse critique tire-t-elle sur la genèse de l’œuvre ?',
-          'La confrontation des exigences a constitué le moteur de l’éclat textuel',
-          'La rupture des deux femmes a empêché l’achèvement du livre magistral prévu',
-          'Les correspondances privées n’ont aucune valeur pour comprendre un texte',
+          'Quelle conception de leur relation transparaît dans la réplique de Monique ?',
+          'Une amitié exigeante refusant la complaisance pour pousser à l’absolu',
+          'Une relation de mécénat financier subordonnant l’art aux gains marchands',
+          'Une rivalité professionnelle destructive visant à décourager la romancière',
         ],
       ],
     },

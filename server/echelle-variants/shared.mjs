@@ -277,25 +277,25 @@ export function enFaceDe(noun) {
   return `en face ${prepDe(noun)}`
 }
 
-// Food items with grammatical gender, number, vowel flag, and Chinese gloss
+// Food items with grammatical gender, number, vowel flag, matched selling units, and Chinese gloss
 export const FOOD_ITEMS = [
-  { base: 'café', gender: 'm', number: 's', vowel: false, zh: '咖啡' },
-  { base: 'farine', gender: 'f', number: 's', vowel: false, zh: '面粉' },
-  { base: 'huile', gender: 'f', number: 's', vowel: true, zh: '油' },
-  { base: 'pâtes', gender: 'f', number: 'p', vowel: false, zh: '意面' },
-  { base: 'pommes', gender: 'f', number: 'p', vowel: true, zh: '苹果' },
-  { base: 'lait', gender: 'm', number: 's', vowel: false, zh: '牛奶' },
-  { base: 'riz', gender: 'm', number: 's', vowel: false, zh: '大米' },
-  { base: 'pain', gender: 'm', number: 's', vowel: false, zh: '面包' },
-  { base: 'œufs', gender: 'm', number: 'p', vowel: true, zh: '鸡蛋' },
-  { base: 'fromage', gender: 'm', number: 's', vowel: false, zh: '奶酪' },
-  { base: 'sucre', gender: 'm', number: 's', vowel: false, zh: '糖' },
-  { base: 'beurre', gender: 'm', number: 's', vowel: false, zh: '黄油' },
-  { base: 'tomates', gender: 'f', number: 'p', vowel: false, zh: '西红柿' },
-  { base: 'bananes', gender: 'f', number: 'p', vowel: false, zh: '香蕉' },
-  { base: 'oranges', gender: 'f', number: 'p', vowel: true, zh: '橙子' },
-  { base: 'muffins', gender: 'm', number: 'p', vowel: false, zh: '松饼' },
-  { base: 'jus d’orange', gender: 'm', number: 's', vowel: false, zh: '橙汁' },
+  { base: 'café', gender: 'm', number: 's', vowel: false, unitFr: 'la livre', unitShort: 'lb', zh: '咖啡' },
+  { base: 'farine', gender: 'f', number: 's', vowel: false, unitFr: 'la livre', unitShort: 'lb', zh: '面粉' },
+  { base: 'huile', gender: 'f', number: 's', vowel: true, unitFr: 'le litre', unitShort: 'L', zh: '油' },
+  { base: 'pâtes', gender: 'f', number: 'p', vowel: false, unitFr: 'la livre', unitShort: 'lb', zh: '意面' },
+  { base: 'pommes', gender: 'f', number: 'p', vowel: true, unitFr: 'la livre', unitShort: 'lb', zh: '苹果' },
+  { base: 'lait', gender: 'm', number: 's', vowel: false, unitFr: 'le litre', unitShort: 'L', zh: '牛奶' },
+  { base: 'riz', gender: 'm', number: 's', vowel: false, unitFr: 'la livre', unitShort: 'lb', zh: '大米' },
+  { base: 'pain', gender: 'm', number: 's', vowel: false, unitFr: 'l’unité', unitShort: 'unité', zh: '面包' },
+  { base: 'œufs', gender: 'm', number: 'p', vowel: true, unitFr: 'la douzaine', unitShort: 'douzaine', zh: '鸡蛋' },
+  { base: 'fromage', gender: 'm', number: 's', vowel: false, unitFr: 'la livre', unitShort: 'lb', zh: '奶酪' },
+  { base: 'sucre', gender: 'm', number: 's', vowel: false, unitFr: 'la livre', unitShort: 'lb', zh: '糖' },
+  { base: 'beurre', gender: 'm', number: 's', vowel: false, unitFr: 'la livre', unitShort: 'lb', zh: '黄油' },
+  { base: 'tomates', gender: 'f', number: 'p', vowel: false, unitFr: 'la livre', unitShort: 'lb', zh: '西红柿' },
+  { base: 'bananes', gender: 'f', number: 'p', vowel: false, unitFr: 'la livre', unitShort: 'lb', zh: '香蕉' },
+  { base: 'oranges', gender: 'f', number: 'p', vowel: true, unitFr: 'la livre', unitShort: 'lb', zh: '橙子' },
+  { base: 'muffins', gender: 'm', number: 'p', vowel: false, unitFr: 'la douzaine', unitShort: 'douzaine', zh: '松饼' },
+  { base: 'jus d’orange', gender: 'm', number: 's', vowel: false, unitFr: 'le litre', unitShort: 'L', zh: '橙汁' },
 ]
 
 // Places, shops and services with grammatical gender and contractions

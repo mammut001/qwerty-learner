@@ -1612,23 +1612,27 @@ const N4_HOCKEY_SHOTS = [
 const N4_HOCKEY_PERIODS = ['en fin de troisième période', 'au milieu de la deuxième période', 'durant la première période', 'au début du dernier tiers']
 const N4_HOCKEY_OUTCOMES = ['le but gagnant en prolongation', 'la victoire avec deux buts d’avance', 'un superbe but en avantage numérique', 'le filet décisif en fin de partie']
 
-const N4_CLINIC_ILLNESSES = [
-  { name: 'une bronchite aiguë', elide: 'd’une bronchite aiguë', zh: 'une bronchite aiguë' },
-  { name: 'une gastro-entérite virale', elide: 'd’une gastro-entérite virale', zh: 'une gastro-entérite virale' },
-  { name: 'une infection des sinus', elide: 'd’une infection des sinus', zh: 'une infection des sinus' },
-  { name: 'une forte grippe saisonnière', elide: 'd’une forte grippe saisonnière', zh: 'une forte grippe saisonnière' },
-]
-const N4_CLINIC_SYMPTOMS = [
-  { fr: 'une fièvre modérée, des frissons et une toux sèche', zh: 'fièvre, frissons et toux sèche' },
-  { fr: 'des crampes abdominales, des nausées et une grande fatigue', zh: 'crampes abdominales et nausées' },
-  { fr: 'des maux de tête frontaux et le nez très congestionné', zh: 'maux de tête et nez très congestionné' },
-  { fr: 'des courbatures intenses, de la fièvre et un mal de gorge', zh: 'courbatures, fièvre et mal de gorge' },
-]
-const N4_CLINIC_WARNINGS = [
-  { text: 'ressentez de la difficulté à respirer', short: 'une difficulté respiratoire importante' },
-  { text: 'avez des signes de déshydratation nette', short: 'des signes de déshydratation nette' },
-  { text: 'constatez une forte enflure au visage', short: 'une forte enflure au visage' },
-  { text: 'observez une hausse subite de fièvre', short: 'une hausse subite de la fièvre' },
+const N4_CLINIC_CONDITIONS = [
+  {
+    name: 'une bronchite aiguë',
+    symp: 'une toux sèche persistante, des frissons et une légère fièvre',
+    warn: { text: 'ressentez de la difficulté à respirer', short: 'une difficulté respiratoire importante' },
+  },
+  {
+    name: 'une gastro-entérite virale',
+    symp: 'des crampes abdominales, des nausées et des vomissements fréquents',
+    warn: { text: 'avez des signes de déshydratation nette', short: 'des signes de déshydratation nette' },
+  },
+  {
+    name: 'une infection des sinus',
+    symp: 'des maux de tête frontaux, une congestion nasale et une pression aux joues',
+    warn: { text: 'constatez une forte enflure au visage', short: 'une forte enflure au visage' },
+  },
+  {
+    name: 'une forte grippe saisonnière',
+    symp: 'des courbatures intenses, de la fièvre et un mal de gorge aigu',
+    warn: { text: 'observez une hausse subite de fièvre', short: 'une hausse subite de la fièvre' },
+  },
 ]
 
 const N4_SOCCER_PARKS = [
@@ -1720,20 +1724,18 @@ export const N04_L_2 = [
   // Scenario 2 (Template, situation: 1) - Conseils médicaux et symptômes d'une maladie
   Object.assign(
     (rand) => {
-      const ill = pick(N4_CLINIC_ILLNESSES, rand)
-      const symp = pick(N4_CLINIC_SYMPTOMS, rand)
-      const warn = pick(N4_CLINIC_WARNINGS, rand)
-      const othersWarn = sample(N4_CLINIC_WARNINGS.filter((w) => w.short !== warn.short), 2, rand)
-      const text = `— Bonjour monsieur. Pour traiter ${ill.name}, les symptômes habituels sont ${symp.fr}. Buvez beaucoup d’eau tiède et reposez-vous au lit pendant trois jours. En revanche, si vous ${warn.text}, appelez sans tarder le service Info-Santé 811 ou venez à la clinique d’urgence.`
+      const cond = pick(N4_CLINIC_CONDITIONS, rand)
+      const othersWarn = sample(N4_CLINIC_CONDITIONS.filter((c) => c !== cond), 2, rand).map((c) => c.warn)
+      const text = `— Bonjour monsieur. Pour traiter ${cond.name}, les symptômes habituels sont ${cond.symp}. Buvez beaucoup d’eau tiède et reposez-vous au lit pendant trois jours. En revanche, si vous ${cond.warn.text}, appelez sans tarder le service Info-Santé 811 ou venez à la clinique d’urgence.`
       return {
         text,
         questions: [
           ['Quel conseil de base le soignant donne-t-il au patient ?', 'se reposer au lit et boire de l’eau', 'reprendre le sport de haute intensité', 'partir en long voyage dès le lendemain'],
-          ['Quel signe doit pousser le patient à consulter d’urgence ?', warn.short, othersWarn[0].short, othersWarn[1].short],
+          ['Quel signe doit pousser le patient à consulter d’urgence ?', cond.warn.short, othersWarn[0].short, othersWarn[1].short],
         ],
       }
     },
-    { situation: 1, capacity: N4_CLINIC_ILLNESSES.length * N4_CLINIC_SYMPTOMS.length * N4_CLINIC_WARNINGS.length }
+    { situation: 1, capacity: N4_CLINIC_CONDITIONS.length }
   ),
   // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Match amical de soccer au parc)
   Object.assign(
@@ -3192,7 +3194,7 @@ const N4_MOVE_BUNDLES = [
     load: 'chargé le camion de boîtes et de meubles',
     loadOpt: 'remplir le camion de meubles et de boîtes',
     meal: 'partagé une bonne pizza assis sur des cartons',
-    mealOpt: 'manger de la bonne pizza assis sur les boîtes',
+    mealOpt: 'une bonne pizza partagée sur les boîtes',
   },
   {
     help: 'trois collègues de travail très serviables',
@@ -3200,7 +3202,7 @@ const N4_MOVE_BUNDLES = [
     load: 'descendu les lits et le réfrigérateur au bas de l’édifice',
     loadOpt: 'descendre les gros meubles par l’escalier',
     meal: 'dégusté des sandwichs frais avec du jus',
-    mealOpt: 'déguster des sandwichs avec des jus de fruits',
+    mealOpt: 'des sandwichs frais avec des jus de fruits',
   },
   {
     help: 'mes deux frères et une voisine sympathique',
@@ -3208,7 +3210,7 @@ const N4_MOVE_BUNDLES = [
     load: 'transporté la vaisselle et les armoires en bois',
     loadOpt: 'transporter les armoires et la vaisselle',
     meal: 'mangé des salades préparées à la maison',
-    mealOpt: 'partager de bonnes salades fraîches maison',
+    mealOpt: 'de bonnes salades fraîches préparées à la maison',
   },
   {
     help: 'des compagnons de mon club de sport',
@@ -3216,7 +3218,7 @@ const N4_MOVE_BUNDLES = [
     load: 'rempli la remorque avec tous les appareils ménagers',
     loadOpt: 'charger les appareils ménagers dans la remorque',
     meal: 'commandé des poutines chaudes au restaurant',
-    mealOpt: 'manger une poutine chaude au casse-croûte',
+    mealOpt: 'une poutine chaude commandée au restaurant',
   },
 ]
 const N4_MOVE_APTS = [
