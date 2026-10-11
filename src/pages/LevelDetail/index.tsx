@@ -983,8 +983,9 @@ function ProductionPanel({
                   <button
                     type="button"
                     data-testid="speaking-recorder-start"
+                    disabled={recorder.requesting}
                     onClick={() => void recorder.start()}
-                    className="inline-flex items-center gap-1 rounded-full bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700"
+                    className="inline-flex items-center gap-1 rounded-full bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     <IconMicrophone className="h-4 w-4" />
                     {recorder.audioUrl ? '重新录制' : '开始录音'}
@@ -1000,6 +1001,14 @@ function ProductionPanel({
                 </button>
               </div>
 
+              {recorder.requesting && (
+                <p data-testid="speaking-recorder-requesting" className="mt-2 text-xs text-indigo-600 dark:text-indigo-300">
+                  正在请求麦克风权限…
+                </p>
+              )}
+              {recorder.permissionHint && (
+                <p className="mt-2 text-xs text-amber-600 dark:text-amber-300">{recorder.permissionHint}</p>
+              )}
               {recorder.error && <p className="mt-2 text-xs text-rose-600">{recorder.error}</p>}
             </div>
 

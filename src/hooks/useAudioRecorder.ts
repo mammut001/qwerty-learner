@@ -17,6 +17,10 @@ export function getSupportedAudioMimeType(): string {
   return ''
 }
 
+const PERMISSION_HINT_DELAY_MS = 8000
+const PERMISSION_HINT_TEXT =
+  '仍在等待麦克风权限：请在浏览器地址栏的提示中点击“允许”。如果没有看到提示，请检查浏览器或系统的麦克风设置。'
+
 export type UseAudioRecorderOptions = {
   maxDurationSeconds?: number
   onMaxDuration?: () => void
@@ -28,6 +32,8 @@ export type UseAudioRecorderReturn = {
   blob: Blob | null
   audioUrl: string | null
   error: string | null
+  requesting: boolean
+  permissionHint: string | null
   start: () => Promise<boolean>
   stop: () => void
   reset: () => void
@@ -44,7 +50,11 @@ export function useAudioRecorder({
   const [blob, setBlob] = useState<Blob | null>(null)
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [requesting, setRequesting] = useState(false)
+  const [permissionHint, setPermissionHint] = useState<string | null>(null)
 
+  const requestingRef = useRef(false)
+  const hintTimerRef = useRef<number | null>(null)
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
   const streamRef = useRef<MediaStream | null>(null)
   const chunksRef = useRef<Blob[]>([])
@@ -101,12 +111,30 @@ export function useAudioRecorder({
     chunksRef.current = []
   }, [stop, cleanupAudioUrl])
 
+  const settleRequest = useCallback(() => {
+    if (hintTimerRef.current !== null) {
+      window.clearTimeout(hintTimerRef.current)
+      hintTimerRef.current = null
+    }
+    requestingRef.current = false
+    setRequesting(false)
+    setPermissionHint(null)
+  }, [])
+
   const start = useCallback(async (): Promise<boolean> => {
+    if (requestingRef.current) return false
     reset()
     if (!supported) {
       setError('当前浏览器不支持录音功能')
       return false
     }
+
+    requestingRef.current = true
+    setRequesting(true)
+    hintTimerRef.current = window.setTimeout(() => {
+      hintTimerRef.current = null
+      setPermissionHint(PERMISSION_HINT_TEXT)
+    }, PERMISSION_HINT_DELAY_MS)
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
@@ -165,12 +193,19 @@ export function useAudioRecorder({
         setError('无法启动麦克风录音，请检查设备权限')
       }
       return false
+    } finally {
+      settleRequest()
     }
-  }, [maxDurationSeconds, reset, stop, stopTracks, supported])
+  }, [maxDurationSeconds, reset, settleRequest, stop, stopTracks, supported])
 
   useEffect(() => {
     return () => {
       clearTimer()
+      if (hintTimerRef.current !== null) {
+        window.clearTimeout(hintTimerRef.current)
+        hintTimerRef.current = null
+      }
+      requestingRef.current = false
       if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
         try {
           mediaRecorderRef.current.stop()
@@ -191,6 +226,8 @@ export function useAudioRecorder({
     blob,
     audioUrl,
     error,
+    requesting,
+    permissionHint,
     start,
     stop,
     reset,
