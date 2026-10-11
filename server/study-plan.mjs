@@ -16,6 +16,14 @@ import {
 import { EchelleAiError, RUBRIC_VERSION, evaluateProduction, evaluationOperation, validateSubmission } from './echelle-ai-harness.mjs'
 import { aiRateLimits, aiStatus, createAiProvider } from './echelle-ai-providers.mjs'
 import { ALLOWED_AUDIO_TYPES, MAX_AUDIO_BYTES, asrRateLimits, transcribeSpeech } from './speech-asr.mjs'
+import {
+  BillingError,
+  billingConfig,
+  createCheckoutSession,
+  createPortalSession,
+  reduceBillingEvent,
+  verifyStripeSignature,
+} from './study-billing.mjs'
 import { bearerMatches, createStudyMetrics, logStudyRequest, loopbackAddress, studyRequestId } from './study-observability.mjs'
 import {
   createAccountSession,
@@ -51,6 +59,8 @@ import {
   consumeNodeRateLimit,
   writeNodeAudit,
   deleteNodeLearnerData,
+  getNodeBilling,
+  applyNodeBillingEvent,
 } from './study-node-features.mjs'
 import { createYoudaoCache, fetchYoudaoFrenchVoice, frenchQueryKey, lookupYoudaoFrench, normalizeFrenchQuery } from './youdao-fr.mjs'
 import { randomBytes, createHash, createHmac, timingSafeEqual } from 'node:crypto'
@@ -136,6 +146,14 @@ function serveStatic(req, res, staticDir) {
 const hash = (value) => createHash('sha256').update(value).digest('hex')
 const accountProfileId = (accountId) => createHash('sha256').update('account:' + accountId).digest('hex').slice(0, 16)
 const MAX_BODY_BYTES = 1700000
+const BILLING_WEBHOOK_MAX_BYTES = 1024 * 1024
+const BILLING_NO_SUBSCRIPTION = Object.freeze({
+  status: 'none',
+  active: false,
+  currentPeriodEnd: null,
+  cancelAtPeriodEnd: false,
+  priceId: '',
+})
 const ALLOWED_ERROR_TYPES = new Set(['vocabulary', 'grammar', 'conjugation'])
 const hasExactKeys = (value, allowed, required = []) => {
   if (!record(value)) return false
@@ -233,6 +251,8 @@ export function createStudyServer({
   deepgramApiKey = process.env.DEEPGRAM_API_KEY || '',
   asrLimits = asrRateLimits(process.env),
   asrFetchImpl = globalThis.fetch,
+  billing = billingConfig(process.env),
+  billingFetchImpl = globalThis.fetch,
   youdaoLookup = null,
   firebaseProjectId = process.env.STUDY_FIREBASE_PROJECT_ID || '',
   firebaseVerifier = null,
@@ -441,8 +461,13 @@ export function createStudyServer({
     const authRoute = path === '/api/study-plan/auth'
     const authFirebase = path === '/api/study-plan/auth/firebase'
     const authLogout = path === '/api/study-plan/auth/logout'
+    const billingStatus = path === '/api/study-plan/billing'
+    const billingCheckout = path === '/api/study-plan/billing/checkout'
+    const billingPortal = path === '/api/study-plan/billing/portal'
+    const billingWebhook = path === '/api/study-plan/billing/webhook'
     const plan = path === '/api/study-plan'
     if (!health && !importing && !exporting && !analytics && !syncKey && !revokeSyncKey && !linking && !unlinking &&
+        !billingStatus && !billingCheckout && !billingPortal && !billingWebhook &&
         !echelleAi && !echelleEvaluate && !speechTranscribe && !dictionary && !dictionaryVoice &&
         !authRoute && !authFirebase && !authLogout &&
         !syncInfo && !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData &&
@@ -459,7 +484,7 @@ export function createStudyServer({
     const policy = studyPolicy(
       { origin, secure, sameSite },
       { method: req.method, headers: new Headers(req.headers) },
-      health ? true : { allowBinary: speechTranscribe },
+      health ? true : { allowBinary: speechTranscribe, webhook: billingWebhook },
     )
     for (const [key, value] of Object.entries(policy.headers)) res.setHeader(key, value)
     if (policy.status) return policy.status === 204
@@ -496,6 +521,8 @@ export function createStudyServer({
         db.prepare('SELECT id,name FROM cohorts LIMIT 1').get()
         db.prepare('SELECT learner,cohort_id FROM learner_cohorts LIMIT 1').get()
         db.prepare('SELECT provider,subject FROM account_identities LIMIT 1').get()
+        db.prepare('SELECT account_id,stripe_customer_id FROM billing_subscriptions LIMIT 1').get()
+        db.prepare('SELECT event_id,event_type FROM billing_events LIMIT 1').get()
         const schemaVersion = getNodeSchemaVersion(db)
         if (schemaVersion !== STUDY_SCHEMA_VERSION) throw new Error('Schema version mismatch')
         return send(200, { ok: true, storage: 'sqlite', schemaVersion })
@@ -601,6 +628,55 @@ export function createStudyServer({
       } catch {
         return sendError(404, 'COHORT_NOT_FOUND', 'Cohort not found')
       }
+    }
+
+    if (billingWebhook) {
+      // Called by Stripe: no session cookie and no Origin. The HMAC over the raw body is the only authentication.
+      // It runs before the site access gate on purpose, since Stripe cannot carry the access cookie.
+      if (req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      if (!billing.enabled) return sendPendingBodyError(503, 'BILLING_NOT_CONFIGURED', 'Billing is not configured')
+      let raw
+      try {
+        raw = await readAudioBuffer(req, BILLING_WEBHOOK_MAX_BYTES)
+      } catch (error) {
+        return sendPendingBodyError(
+          error instanceof RangeError ? 413 : 400,
+          error instanceof RangeError ? 'REQUEST_TOO_LARGE' : 'BILLING_WEBHOOK_INVALID',
+          'Invalid webhook request',
+        )
+      }
+      const signature = req.headers['stripe-signature']
+      if (!verifyStripeSignature({ payload: raw, header: typeof signature === 'string' ? signature : '', secret: billing.webhookSecret })) {
+        return sendError(400, 'BILLING_SIGNATURE_INVALID', 'Invalid signature')
+      }
+      let event
+      try {
+        event = JSON.parse(raw.toString('utf8'))
+      } catch {
+        return sendError(400, 'BILLING_EVENT_INVALID', 'Invalid event payload')
+      }
+      if (!record(event) || typeof event.id !== 'string' || !event.id || typeof event.type !== 'string')
+        return sendError(400, 'BILLING_EVENT_INVALID', 'Invalid event payload')
+
+      let outcome
+      db.exec('BEGIN IMMEDIATE')
+      try {
+        outcome = applyNodeBillingEvent(db, {
+          eventId: event.id,
+          eventType: event.type,
+          action: reduceBillingEvent(event),
+          nowMs: Date.now(),
+        })
+        db.exec('COMMIT')
+      } catch {
+        db.exec('ROLLBACK')
+        audit(null, 'billing_webhook', 'error', { eventId: event.id, eventType: event.type })
+        // A 500 makes Stripe retry the delivery later.
+        return sendError(500, 'BILLING_WEBHOOK_FAILED', 'Webhook processing failed')
+      }
+      // A replayed event is answered 200 with no further side effects, including no new audit row.
+      if (outcome !== 'duplicate') audit(null, 'billing_webhook', outcome, { eventId: event.id, eventType: event.type })
+      return send(200, { received: true })
     }
 
     if (!accessGranted(req.headers.cookie)) return sendError(401, 'ACCESS_REQUIRED', 'Access password required')
@@ -1024,6 +1100,73 @@ export function createStudyServer({
     let row = resolved?.row ?? null
     let viaSyncKey = resolved?.viaSyncKey ?? false
     let viaAccount = resolved?.viaAccount ?? false
+
+    if (billingStatus || billingCheckout || billingPortal) {
+      // Billing is keyed by the signed-in ACCOUNT. Anonymous learners and sync-key devices have no account.
+      const accountId = viaAccount ? resolved.accountId : null
+      if (billingStatus) {
+        if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+        const entitlement = billing.enabled && accountId
+          ? (getNodeBilling(db, accountId)?.entitlement ?? BILLING_NO_SUBSCRIPTION)
+          : null
+        return send(200, { enabled: billing.enabled, mode: billing.mode, entitlement })
+      }
+      if (req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      if (!billing.enabled) return sendPendingBodyError(503, 'BILLING_NOT_CONFIGURED', 'Billing is not configured')
+      if (!accountId) return sendPendingBodyError(401, 'LOGIN_REQUIRED', 'Sign-in required')
+      const rule = billingCheckout ? { action: 'billing-checkout', limit: 6 } : { action: 'billing-portal', limit: 20 }
+      const limit = consumeNodeRateLimit(db, 'account:' + accountId, rule.action, { limit: rule.limit, windowMs: 10 * 60_000, blockMs: 15 * 60_000 })
+      if (!limit.allowed) {
+        return sendPendingBodyError(429, 'BILLING_RATE_LIMITED', 'Too many billing requests. Try again later.', {
+          retryAfterSeconds: Math.ceil(limit.retryAfterMs / 1000),
+        })
+      }
+      let input
+      try {
+        input = await readBody(req)
+      } catch (error) {
+        return sendError(error instanceof RangeError ? 413 : 400, 'BILLING_REQUEST_INVALID', 'Invalid billing request')
+      }
+      if (!hasExactKeys(input, [])) return sendError(400, 'BILLING_REQUEST_INVALID', 'Invalid billing request')
+
+      // Return URLs come from the configured first origin only, never from request input.
+      const returnBase = originList[0]
+      const billingRow = getNodeBilling(db, accountId)
+
+      if (billingCheckout) {
+        if (billingRow?.entitlement.active) return sendError(409, 'BILLING_ALREADY_ACTIVE', 'Subscription is already active')
+        try {
+          const session = await createCheckoutSession({
+            config: billing,
+            fetchImpl: billingFetchImpl,
+            customerId: billingRow?.customerId || '',
+            accountId,
+            successUrl: `${returnBase}/billing?status=success`,
+            cancelUrl: `${returnBase}/billing?status=cancel`,
+          })
+          audit(learner, 'billing_checkout', 'success')
+          return send(200, { url: session.url })
+        } catch (error) {
+          audit(learner, 'billing_checkout', 'error', { code: error instanceof BillingError ? error.code : 'BILLING_UNAVAILABLE' })
+          return sendError(502, 'BILLING_UNAVAILABLE', 'Billing is temporarily unavailable')
+        }
+      }
+
+      if (!billingRow?.customerId) return sendError(409, 'BILLING_NO_CUSTOMER', 'No billing profile yet')
+      try {
+        const portal = await createPortalSession({
+          config: billing,
+          fetchImpl: billingFetchImpl,
+          customerId: billingRow.customerId,
+          returnUrl: `${returnBase}/billing`,
+        })
+        audit(learner, 'billing_portal', 'success')
+        return send(200, { url: portal.url })
+      } catch (error) {
+        audit(learner, 'billing_portal', 'error', { code: error instanceof BillingError ? error.code : 'BILLING_UNAVAILABLE' })
+        return sendError(502, 'BILLING_UNAVAILABLE', 'Billing is temporarily unavailable')
+      }
+    }
 
     if (!row) {
       if (loginRequired) return sendError(401, 'LOGIN_REQUIRED', 'Sign-in required')

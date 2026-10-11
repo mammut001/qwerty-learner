@@ -12,6 +12,9 @@ services:
       STUDY_COOKIE_SECURE: 'true'
       DEEPGRAM_API_KEY: ${DEEPGRAM_API_KEY:-}
       STUDY_ASR_DAILY_LIMIT: ${STUDY_ASR_DAILY_LIMIT:-}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
+      STRIPE_PRICE_ID: ${STRIPE_PRICE_ID:-}
     read_only: true
     tmpfs:
       - /tmp

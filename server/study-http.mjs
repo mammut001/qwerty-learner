@@ -8,6 +8,9 @@ function isLoopbackOrPrivate(hostname) {
 export function studyPolicy({ origin, secure, sameSite = 'strict' }, { method, headers }, healthOrOptions = false) {
   const health = typeof healthOrOptions === 'boolean' ? healthOrOptions : Boolean(healthOrOptions?.health)
   const allowBinary = typeof healthOrOptions === 'object' ? Boolean(healthOrOptions?.allowBinary) : false
+  // Stripe webhook callbacks are server-to-server: no Origin, no cookie. Only the POST to the webhook path
+  // is exempt (the route verifies the Stripe signature instead). Every other route keeps the full policy.
+  const stripeWebhook = typeof healthOrOptions === 'object' && healthOrOptions?.webhook === true && method === 'POST'
   const responseHeaders = { Vary: 'Origin', 'Cache-Control': 'no-store' }
   const originList = String(origin || '').split(',').map((s) => s.trim()).filter(Boolean)
   if (originList.length === 0) return { status: 503, headers: responseHeaders }
@@ -19,6 +22,8 @@ export function studyPolicy({ origin, secure, sameSite = 'strict' }, { method, h
         !['strict', 'none'].includes(sameSite) || (sameSite === 'none' && !secure))
       return { status: 503, headers: responseHeaders }
   }
+
+  if (stripeWebhook) return { headers: responseHeaders }
 
   const requestOrigin = headers.get('origin')
   const isMatch = requestOrigin && originList.includes(requestOrigin)

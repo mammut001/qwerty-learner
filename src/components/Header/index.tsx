@@ -6,6 +6,7 @@ import {
   preloadFirebaseSdk,
   signInWithGoogle,
 } from '@/services/auth'
+import { getBillingStatus } from '@/services/billing'
 import { switchLocalProfile } from '@/services/localProfile'
 import { authStatusAtom } from '@/store/auth'
 import { Menu, Transition } from '@headlessui/react'
@@ -13,7 +14,7 @@ import { useAtomValue } from 'jotai'
 import type React from 'react'
 import { Fragment, useEffect, useState } from 'react'
 import { isGuestMode, isPathGated } from '@/services/guestMode'
-import { NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import IconChevronDown from '~icons/tabler/chevron-down'
 import IconLock from '~icons/tabler/lock'
 import IconMenu from '~icons/tabler/menu-2'
@@ -60,6 +61,27 @@ const Header: React.FC = () => {
   const [isSigningIn, setIsSigningIn] = useState(false)
   const [isSigningOut, setIsSigningOut] = useState(false)
   const warmSdk = () => void preloadFirebaseSdk().catch(() => undefined)
+  // The billing entry is shown only when the server has billing enabled and the user is signed in.
+  const [billingEnabled, setBillingEnabled] = useState(false)
+  const signedIn = Boolean(authStatus?.signedIn)
+
+  useEffect(() => {
+    if (!signedIn) {
+      setBillingEnabled(false)
+      return
+    }
+    let cancelled = false
+    getBillingStatus()
+      .then((status) => {
+        if (!cancelled) setBillingEnabled(Boolean(status.enabled))
+      })
+      .catch(() => {
+        if (!cancelled) setBillingEnabled(false)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [signedIn])
 
   const handleSignIn = async () => {
     if (isSigningIn) return
@@ -249,6 +271,23 @@ const Header: React.FC = () => {
                       )}
                     </div>
                     <div className="p-1">
+                      {billingEnabled && (
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              to="/billing"
+                              data-testid="header-billing"
+                              className={`flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm no-underline transition-colors hover:no-underline ${
+                                active
+                                  ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300'
+                                  : 'text-gray-700 dark:text-gray-300'
+                              }`}
+                            >
+                              <span>Pro 订阅</span>
+                            </Link>
+                          )}
+                        </Menu.Item>
+                      )}
                       <Menu.Item>
                         {({ active }) => (
                           <button
@@ -333,6 +372,15 @@ const Header: React.FC = () => {
             <div className="col-span-2 mt-2 border-t border-gray-100 p-2 dark:border-white/10 sm:col-span-3">
               {authStatus.signedIn ? (
                 <div className="flex items-center justify-between gap-3">
+                  {billingEnabled && (
+                    <Link
+                      to="/billing"
+                      data-testid="header-billing-mobile"
+                      className="shrink-0 rounded-xl px-3 py-1.5 text-xs font-medium text-indigo-700 no-underline hover:bg-indigo-50 hover:no-underline dark:text-indigo-300 dark:hover:bg-indigo-500/10"
+                    >
+                      Pro 订阅
+                    </Link>
+                  )}
                   <div className="flex min-w-0 items-center gap-2.5">
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full ring-1 ring-gray-200 dark:ring-white/20">
                       {authStatus.user?.picture ? (
