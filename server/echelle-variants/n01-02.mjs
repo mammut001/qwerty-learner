@@ -1621,8 +1621,8 @@ export const N01_02_SCENARIOS = {
         const dir = pick([
           { fr: 'au coin de la rue', zh: '在街角', kw: 'coin' },
           { fr: 'tout droit', zh: '直走', kw: 'tout droit' },
-          { fr: 'un peu plus loin à droite', zh: '再往前走一点右转', kw: 'droite' },
-          { fr: 'un peu plus loin à gauche', zh: '再往前走一点左转', kw: 'gauche' },
+          { fr: 'plus loin à droite', zh: '再往前走一点右转', kw: 'droite' },
+          { fr: 'plus loin à gauche', zh: '再往前走一点左转', kw: 'gauche' },
           { fr: 'au bout de la rue', zh: '在街尾', kw: 'bout' },
         ], rand)
         const store = pick([

@@ -1560,7 +1560,7 @@ export const N04_L_1 = [
         text,
         questions: [
           q('Que demande le collègue au début de la conversation ?', 'comment se servir d’un appareil partagé', 'à quelle heure commence la réunion d’équipe', 'où se trouve la salle de pause des employés', ['fonctionne']),
-          q('Quelle consigne permet d’utiliser correctement l’appareil ?', d.validOpt, d.otherOpt1, d.otherOpt2, ['appuie', 'carte']),
+          q('Quelle consigne permet d’utiliser correctement l’appareil ?', d.validOpt, d.otherOpt1, d.otherOpt2, ['appuie']),
         ],
       }
     },
