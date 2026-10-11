@@ -445,7 +445,7 @@ const N3_IT_FOLLOWS = [
 const N3_WASH_MACHINES = [
   { machine: 'la laveuse frontale', soapSlot: 'le petit bac de gauche', cycle: 'délicat', soapZh: '左侧的小储液槽', cycleZh: '温和轻柔洗涤程序' },
   { machine: 'la machine à laver', soapSlot: 'le compartiment supérieur', cycle: 'coton rapide', soapZh: '顶部的小分配格槽', cycleZh: '快速棉质清洗程序' },
-  { machine: 'le lave-linge moderne', soapSlot: 'le tiroir central gradué', cycle: 'éco à l’eau froide', soapZh: '中间带刻度的小槽', cycleZh: '冷水节能环保程序' },
+  { machine: 'le lave-linge moderne', soapSlot: 'le tiroir central gradué', cycle: 'éco', soapZh: '中间带刻度的小槽', cycleZh: '冷水节能环保程序' },
 ]
 const N3_WASH_TEMPS = ['à l’eau tiède', 'à l’eau froide', 'à basse température']
 
