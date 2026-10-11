@@ -283,11 +283,11 @@ export const N03_L_1 = [
 // n3-listening-2
 // ---------------------------------------------------------------------------
 const N3_CLOTHES = [
-  { item: 'un manteau d’hiver', colorM: 'bleu marine', colorZh: '深蓝色', feature: 'très chaud avec un capuchon', discount: 'à moitié prix', reasonZh: '半价特惠' },
-  { item: 'une veste imperméable', colorM: 'noire', colorZh: '深黑色', feature: 'avec de grandes poches', discount: 'en liquidation', reasonZh: '清仓特卖' },
-  { item: 'un chandail de laine', colorM: 'vert foncé', colorZh: '墨绿色', feature: 'doux et très confortable', discount: 'avec un bon rabais', reasonZh: '特价优惠' },
-  { item: 'un pantalon chaud', colorM: 'gris foncé', colorZh: '深灰色', feature: 'parfait pour le froid', discount: 'en solde de saison', reasonZh: '季末折扣' },
-  { item: 'un blouson d’automne', colorM: 'brun foncé', colorZh: '深棕色', feature: 'doublé en polaire douce', discount: 'avec un bon rabais', reasonZh: '换季让利' },
+  { item: 'un manteau d’hiver', colorM: 'bleu marine', colorZh: '深蓝色', feature: 'très chaud avec un capuchon', discount: 'à moitié prix', reasonZh: '商品享受半价' },
+  { item: 'une veste imperméable', colorM: 'noire', colorZh: '深黑色', feature: 'avec de grandes poches', discount: 'en liquidation', reasonZh: '属于清仓甩卖' },
+  { item: 'un chandail de laine', colorM: 'vert foncé', colorZh: '墨绿色', feature: 'doux et très confortable', discount: 'avec un bon rabais', reasonZh: '享受降价立减' },
+  { item: 'un pantalon chaud', colorM: 'gris foncé', colorZh: '深灰色', feature: 'parfait pour le froid', discount: 'en solde de saison', reasonZh: '属于季末打折' },
+  { item: 'un blouson d’automne', colorM: 'brun foncé', colorZh: '深棕色', feature: 'doublé en polaire douce', discount: 'avec un bon rabais', reasonZh: '享受降价立减' },
 ]
 const N3_CLOTH_STORES = ['chez Simons', 'au magasin Winners', 'au centre commercial', 'à la boutique locale', 'chez Aubainerie']
 
@@ -314,10 +314,10 @@ const N3_APPLIANCES = [
 const N3_APPLIANCE_STORES = ['au magasin Walmart', 'chez Canadian Tire', 'au magasin Best Buy', 'au centre d’achats']
 
 const N3_PETS = [
-  { type: 'chaton très affectueux', furFr: 'au pelage gris rayé', furZh: '灰色条纹', featFr: 'doux et très affectueux', featZh: '乖巧亲人爱撒娇', kw: 'affectueux', furKw: 'gris' },
-  { type: 'chiot très énergique', furFr: 'au pelage brun doré', furZh: '棕褐毛色', featFr: 'plein d’énergie et joyeux', featZh: '热情开朗喜奔跑', kw: 'énergie', furKw: 'brun' },
-  { type: 'jeune chat calme', furFr: 'au pelage noir et blanc', furZh: '黑白相间', featFr: 'très calme et attentif', featZh: '机警温和喜安静', kw: 'calme', furKw: 'noir' },
-  { type: 'petit chien joueur', furFr: 'au pelage blanc pur', furZh: '纯白毛色', featFr: 'très joueur et vif', featZh: '活泼好动爱玩耍', kw: 'joueur', furKw: 'blanc' },
+  { type: 'chaton très affectueux', furFr: 'au pelage gris rayé', furZh: '灰色条纹', featFr: 'doux et très affectueux', featZh: '温顺且非常亲人', kw: 'affectueux', furKw: 'gris' },
+  { type: 'chiot très énergique', furFr: 'au pelage brun doré', furZh: '棕褐毛色', featFr: 'plein d’énergie et joyeux', featZh: '精力充沛且开朗', kw: 'énergie', furKw: 'brun' },
+  { type: 'jeune chat calme', furFr: 'au pelage noir et blanc', furZh: '黑白相间', featFr: 'très calme et attentif', featZh: '非常安静且专注', kw: 'calme', furKw: 'noir' },
+  { type: 'petit chien timide', furFr: 'au pelage blanc pur', furZh: '纯白毛色', featFr: 'très timide et réservé', featZh: '非常胆小且害羞', kw: 'timide', furKw: 'blanc' },
 ]
 const N3_SHELTER_LOCS = ['de Québec', 'de Montréal', 'de Laval', 'de Sherbrooke']
 
@@ -328,13 +328,14 @@ export const N03_L_2 = [
       const c = pick(N3_CLOTHES, rand)
       const store = pick(N3_CLOTH_STORES, rand)
       const othersColor = sample(N3_CLOTHES.filter(x => x.colorZh !== c.colorZh), 2, rand)
-      const othersReason = sample(N3_CLOTHES.filter(x => x.reasonZh !== c.reasonZh), 2, rand)
+      const falseReasons = ['附赠精美礼品', '免除配送费用', '赠送双倍积分', '附带延长保修']
+      const othersReason = sample(falseReasons, 2, rand)
       const text = `Regarde, je viens d’acheter ${c.item} ${c.colorM}. C’est ${c.feature}, parfait pour l’hiver au Québec. En plus, c’était ${c.discount} ${store}.`
       return {
         text,
         questions: [
           q('购买的衣物是什么颜色？', c.colorZh, othersColor[0].colorZh, othersColor[1].colorZh, [c.colorM.split(' ')[0].toLowerCase()]),
-          q('为什么这次购物很划算？', c.reasonZh, othersReason[0].reasonZh, othersReason[1].reasonZh, [c.discount.split(' ')[0].toLowerCase()]),
+          q('为什么这次购物很划算？', c.reasonZh, othersReason[0], othersReason[1], [c.discount.split(' ')[0].toLowerCase()]),
         ],
       }
     },
@@ -450,9 +451,9 @@ const N3_WASH_MACHINES = [
 const N3_WASH_TEMPS = ['à l’eau tiède', 'à l’eau froide', 'à basse température']
 
 const N3_WORKSHOP_AREAS = [
-  { area: 'à l’atelier de menuiserie', gear: 'des lunettes de sécurité transparentes', gearZh: '透明护目安全眼镜', placeZh: '员工更衣室存物柜' },
-  { area: 'au laboratoire de mécanique', gear: 'des gants de protection renforcés', gearZh: '加厚耐磨防护手套', placeZh: '车间进门处的置物台' },
-  { area: 'dans la zone d’usinage', gear: 'un casque de protection antibruit', gearZh: '专用防噪安全耳罩', placeZh: '指定员工个人存物箱' },
+  { area: 'à l’atelier de menuiserie', gear: 'des lunettes de sécurité transparentes', gearZh: '透明护目安全眼镜', placeZh: '员工专用更衣室内' },
+  { area: 'au laboratoire de mécanique', gear: 'des gants de protection renforcés', gearZh: '加厚耐磨防护手套', placeZh: '员工专用更衣室内' },
+  { area: 'dans la zone d’usinage', gear: 'un casque de protection antibruit', gearZh: '专用防噪安全耳罩', placeZh: '员工专用更衣室内' },
 ]
 
 export const N03_L_3 = [
@@ -486,7 +487,7 @@ export const N03_L_3 = [
         text,
         questions: [
           q('开启工作设备的第一步是？', dev.step1Zh, othersStep1[0].step1Zh, othersStep1[1].step1Zh, [dev.step1.split(' ')[1].toLowerCase()]),
-          q('开机后应如何登录系统？', dev.step2Zh, othersStep2[0].step2Zh, othersStep2[1].step2Zh, [dev.step2.split(' ')[0].toLowerCase()]),
+          q('完成开机步骤后接下来做什么？', dev.step2Zh, othersStep2[0].step2Zh, othersStep2[1].step2Zh, [dev.step2.split(' ')[0].toLowerCase()]),
         ],
       }
     },
@@ -570,10 +571,10 @@ const N3_CHEER_PERSONAS = [
 ]
 
 const N3_CHEERS = [
-  { condition: 'ta vilaine grippe', kwCond: 'grippe', conditionZh: '患严重季节性流感', wish: 'un prompt rétablissement', kwWish: 'rétablissement', wishZh: '祝早日恢复健康' },
-  { condition: 'ton opération récente', kwCond: 'opération', conditionZh: '刚做完微创手术', wish: 'une douce convalescence', kwWish: 'convalescence', wishZh: '祝安心平稳休养' },
-  { condition: 'ta grosse bronchite', kwCond: 'bronchite', conditionZh: '患急性支气管炎', wish: 'un bon rétablissement', kwWish: 'rétablissement', wishZh: '祝早日康复如初' },
-  { condition: 'tes douleurs au dos', kwCond: 'dos', conditionZh: '背部肌肉拉伤酸痛', wish: 'beaucoup de repos', kwWish: 'repos', wishZh: '祝好好放松休息' },
+  { condition: 'ta vilaine grippe', kwCond: 'grippe', conditionZh: '患上严重流感', wish: 'un prompt rétablissement', kwWish: 'rétablissement', wishZh: '祝早日恢复健康' },
+  { condition: 'ton opération récente', kwCond: 'opération', conditionZh: '刚做完手术', wish: 'une douce convalescence', kwWish: 'convalescence', wishZh: '祝安心平稳休养' },
+  { condition: 'ta grosse bronchite', kwCond: 'bronchite', conditionZh: '患上支气管炎', wish: 'un bon rétablissement', kwWish: 'rétablissement', wishZh: '祝早日康复如初' },
+  { condition: 'tes douleurs au dos', kwCond: 'dos', conditionZh: '背部感到疼痛', wish: 'beaucoup de repos', kwWish: 'repos', wishZh: '祝好好放松休息' },
 ]
 
 const N3_EXAM_SUCCESSES = [
@@ -597,9 +598,9 @@ const N3_NEWCOMERS = [
 ]
 const N3_NEWCOMER_GREETS = [
   'Prends bien tes repères et passe une agréable première journée.',
-  'N’hésite surtout pas à poser des questions pour tes débuts.',
-  'Toute l’équipe est là pour faciliter ton intégration ici.',
-  'Nous avons tous très hâte de collaborer avec toi dès maintenant.',
+  'Installe-toi confortablement et passe une excellente première journée.',
+  'Prends le temps d’arriver et passe une très belle première journée.',
+  'Découvre calmement tes dossiers et passe une agréable première journée.',
 ]
 
 export const N03_L_4 = [
@@ -666,7 +667,7 @@ export const N03_L_4 = [
         text,
         questions: [
           q('同事向新员工表达了什么心意？', newcomer.deptZh, othersDept[0].deptZh, othersDept[1].deptZh, [newcomer.kwDept]),
-          q('同事希望对方在第一天怎样？', '轻松适应新的工作环境', '立即起草一份业务方案', '独立处理客户投诉案件', ['accueillir']),
+          q('同事希望对方在第一天怎样？', '顺利度过愉快的第一天', '立即起草一份业务方案', '独立处理客户投诉案件', ['première', 'journée']),
         ],
       }
     },
@@ -911,10 +912,15 @@ export const N03_R_2 = [
   // Scenario 2 (Template, situation: 1) - Appartement à louer
   Object.assign(
     (rand) => {
-      const type = pick(['Beau quatre et demie', 'Grand trois et demie', 'Spacieux cinq et demie'], rand)
+      const apt = pick([
+        { type: 'Spacieux cinq et demie', bedrooms: 'Deux chambres fermées' },
+        { type: 'Grand cinq et demie', bedrooms: 'Deux chambres fermées' },
+        { type: 'Beau quatre et demie', bedrooms: 'Une chambre fermée' },
+        { type: 'Joli quatre et demie', bedrooms: 'Une chambre fermée' },
+      ], rand)
       const area = pick(['dans Rosemont', 'à Sainte-Foy', 'dans Saint-Sauveur', 'près du métro Jarry'], rand)
       const rent = pick(['1 180 $ par mois', '1 250 $ par mois', '1 350 $ par mois', '1 050 $ par mois'], rand)
-      const text = `À louer : ${type} ensoleillé ${area}. Loyer de ${rent}. Deux chambres fermées, planchers de bois franc, salle de bain rénovée et balcon privé. Entrée laveuse-sécheuse incluse. Chauffage non inclus. Chats acceptés, non-fumeur. Disponible dès le 1er juillet.`
+      const text = `À louer : ${apt.type} ensoleillé ${area}. Loyer de ${rent}. ${apt.bedrooms}, planchers de bois franc, salle de bain rénovée et balcon privé. Entrée laveuse-sécheuse incluse. Chauffage non inclus. Chats acceptés, non-fumeur. Disponible dès le 1er juillet.`
       return {
         text,
         questions: [
@@ -923,7 +929,7 @@ export const N03_R_2 = [
         ],
       }
     },
-    { situation: 1, capacity: 48 }
+    { situation: 1, capacity: 64 }
   ),
   // Scenario 3 (Template, situation: 0 variant / NEW SITUATION: Vente d'un vélo d'occasion)
   Object.assign(
