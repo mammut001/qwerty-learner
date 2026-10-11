@@ -1,4 +1,5 @@
 import EchelleAiEvaluation from '@/components/EchelleAiEvaluation'
+import RealReadingSection from './RealReadingSection'
 import SpeechMetricsCard from '@/components/SpeechMetricsCard'
 import useAudioRecorder from '@/hooks/useAudioRecorder'
 import useFrenchSpeechRecognition from '@/hooks/useFrenchSpeechRecognition'
@@ -257,31 +258,34 @@ export default function LevelDetailPage() {
 
         <div className="space-y-8">
           {Array.from(grouped.entries()).map(([skill, list]) => (
-            <section key={skill} data-testid={`level-skill-${skill}`}>
-              <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-white">
-                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300">
-                  {skillIcons[skill]}
-                </span>
-                {skillLabels[skill]}
-                <span className="ml-2 text-sm font-normal text-gray-500">
-                  {list.filter((item) => itemStates[item.id]?.mastered).length} / {list.length}
-                </span>
-              </h2>
-              <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2">
-                {list.map((item) => (
-                  <ItemCard
-                    key={item.id}
-                    item={item}
-                    now={now}
-                    aiStatus={aiStatus}
-                    state={itemStates[item.id]}
-                    itemStates={itemStates}
-                    isOpen={activeItemId === item.id}
-                    onToggle={() => setActiveItemId(activeItemId === item.id ? null : item.id)}
-                  />
-                ))}
-              </div>
-            </section>
+            <div key={skill} className="space-y-8">
+              <section data-testid={`level-skill-${skill}`}>
+                <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-white">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300">
+                    {skillIcons[skill]}
+                  </span>
+                  {skillLabels[skill]}
+                  <span className="ml-2 text-sm font-normal text-gray-500">
+                    {list.filter((item) => itemStates[item.id]?.mastered).length} / {list.length}
+                  </span>
+                </h2>
+                <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2">
+                  {list.map((item) => (
+                    <ItemCard
+                      key={item.id}
+                      item={item}
+                      now={now}
+                      aiStatus={aiStatus}
+                      state={itemStates[item.id]}
+                      itemStates={itemStates}
+                      isOpen={activeItemId === item.id}
+                      onToggle={() => setActiveItemId(activeItemId === item.id ? null : item.id)}
+                    />
+                  ))}
+                </div>
+              </section>
+              {skill === 'reading' && <RealReadingSection level={level} />}
+            </div>
           ))}
         </div>
       </div>
