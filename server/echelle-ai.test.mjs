@@ -13,6 +13,7 @@ import {
   buildMessages,
   buildRubric,
   clampSpeechMetrics,
+  derivePhonologieBounds,
   evaluateProduction,
   parseModelOutput,
   validateSubmission,
@@ -527,8 +528,9 @@ test('Oral criteria grounding: with speech measurements, phonologie is included 
       { id: 'phonologie', score: 1, evidence: 'Je suis mexicaine', commentZh: '发音不佳' },
     ],
   })
+  const lowSpeech = { ...validSpeech, intelligibility: 'unclear', meanConfidence: 0.6 }
   const failingWithSpeech = await evaluateProduction(
-    { itemId: 'n1-speaking-production', text: N1_TEXT, seconds: 12, inputMode: 'asr', speech: validSpeech },
+    { itemId: 'n1-speaking-production', text: N1_TEXT, seconds: 12, inputMode: 'asr', speech: lowSpeech },
     scripted(outputPhonoFail),
   )
   assert.equal(failingWithSpeech.passed, false)
@@ -554,3 +556,293 @@ test('Oral criteria grounding: with speech measurements, phonologie is included 
     assert.equal(item.ai.speech.wordCount, 14)
   })
 })
+
+describe('phonologie grounding and bounds clamping', () => {
+  it('derives correct deterministic bounds from acoustic metrics', () => {
+    // unclear -> max 1
+    assert.deepEqual(
+      derivePhonologieBounds({ wordCount: 12, intelligibility: 'unclear', longestPauseSeconds: 1.0, pauseRatio: 0.1 }),
+      { minScore: 0, maxScore: 1 },
+    )
+    // mostly-clear -> max 3
+    assert.deepEqual(
+      derivePhonologieBounds({ wordCount: 12, intelligibility: 'mostly-clear', longestPauseSeconds: 1.0, pauseRatio: 0.1 }),
+      { minScore: 0, maxScore: 3 },
+    )
+    // clear -> min 2, max 4
+    assert.deepEqual(
+      derivePhonologieBounds({ wordCount: 12, intelligibility: 'clear', longestPauseSeconds: 1.0, pauseRatio: 0.1 }),
+      { minScore: 2, maxScore: 4 },
+    )
+    // long pause >= 5s -> max 2 (even if clear)
+    assert.deepEqual(
+      derivePhonologieBounds({ wordCount: 12, intelligibility: 'clear', longestPauseSeconds: 5.2, pauseRatio: 0.1 }),
+      { minScore: 2, maxScore: 2 },
+    )
+    // pause ratio >= 0.4 -> max 2 (even if clear)
+    assert.deepEqual(
+      derivePhonologieBounds({ wordCount: 12, intelligibility: 'clear', longestPauseSeconds: 1.0, pauseRatio: 0.45 }),
+      { minScore: 2, maxScore: 2 },
+    )
+    // fewer than 8 words -> max 1 (even if clear)
+    assert.deepEqual(
+      derivePhonologieBounds({ wordCount: 6, intelligibility: 'clear', longestPauseSeconds: 1.0, pauseRatio: 0.1 }),
+      { minScore: 1, maxScore: 1 },
+    )
+  })
+
+  it('exempts phonologie from verbatim-quote rule when acoustic evidence is provided', async () => {
+    const clearSpeech = {
+      wordCount: 14,
+      speechSeconds: 10.0,
+      wordsPerMinute: 70,
+      articulationRate: 80,
+      pauseCount: 1,
+      longPauseCount: 0,
+      longestPauseSeconds: 0.8,
+      pauseRatio: 0.1,
+      fillerCount: 0,
+      meanConfidence: 0.98,
+      lowConfidenceRatio: 0,
+      intelligibility: 'clear',
+      lowConfidenceWords: [],
+    }
+
+    // Provider returns phonologie evidence citing measurements (which is not in N1_TEXT)
+    const acousticEvidence = '70 mots/min, 0 pause longue, confiance 0.98'
+    const evalOutput = speakingOutput(4, {
+      criteria: [
+        { id: 'tache', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'texte', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'phrase', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'lexique', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'phonologie', score: 4, evidence: acousticEvidence, commentZh: '发音清晰度高，超出目标等级' },
+      ],
+    })
+
+    const result = await evaluateProduction(
+      { itemId: 'n1-speaking-production', text: N1_TEXT, seconds: 12, inputMode: 'asr', speech: clearSpeech },
+      scripted(evalOutput),
+    )
+
+    const phono = result.criteria.find((c) => c.id === 'phonologie')
+    // Score 4 is not capped at 2 and no EVIDENCE_NOT_FOUND warning for phonologie
+    assert.equal(phono.score, 4)
+    assert.equal(phono.evidence, acousticEvidence)
+    assert.equal(result.warnings.includes('EVIDENCE_NOT_FOUND:phonologie'), false)
+  })
+
+  it('requires non-empty evidence for phonologie when measurements exist', async () => {
+    const clearSpeech = {
+      wordCount: 14,
+      speechSeconds: 10.0,
+      wordsPerMinute: 70,
+      articulationRate: 80,
+      pauseCount: 1,
+      longPauseCount: 0,
+      longestPauseSeconds: 0.8,
+      pauseRatio: 0.1,
+      fillerCount: 0,
+      meanConfidence: 0.98,
+      lowConfidenceRatio: 0,
+      intelligibility: 'clear',
+      lowConfidenceWords: [],
+    }
+
+    const evalOutput = speakingOutput(4, {
+      criteria: [
+        { id: 'tache', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'texte', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'phrase', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'lexique', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'phonologie', score: 4, evidence: '', commentZh: '发音很好但无证据' },
+      ],
+    })
+
+    const result = await evaluateProduction(
+      { itemId: 'n1-speaking-production', text: N1_TEXT, seconds: 12, inputMode: 'asr', speech: clearSpeech },
+      scripted(evalOutput),
+    )
+
+    const phono = result.criteria.find((c) => c.id === 'phonologie')
+    // Score is capped at 2 due to empty evidence
+    assert.equal(phono.score, 2)
+    assert.ok(result.warnings.includes('EVIDENCE_NOT_FOUND:phonologie'))
+  })
+
+  it('preserves verbatim quote enforcement for other criteria in ASR mode', async () => {
+    const clearSpeech = {
+      wordCount: 14,
+      speechSeconds: 10.0,
+      wordsPerMinute: 70,
+      articulationRate: 80,
+      pauseCount: 1,
+      longPauseCount: 0,
+      longestPauseSeconds: 0.8,
+      pauseRatio: 0.1,
+      fillerCount: 0,
+      meanConfidence: 0.98,
+      lowConfidenceRatio: 0,
+      intelligibility: 'clear',
+      lowConfidenceWords: [],
+    }
+
+    // tache has an invented quote not in N1_TEXT
+    const evalOutput = speakingOutput(3, {
+      criteria: [
+        { id: 'tache', score: 4, evidence: 'Texte inventé non prononcé', commentZh: '捏造引文' },
+        { id: 'texte', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'phrase', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'lexique', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'phonologie', score: 3, evidence: '70 mots/min, confiance 0.98', commentZh: '好' },
+      ],
+    })
+
+    const result = await evaluateProduction(
+      { itemId: 'n1-speaking-production', text: N1_TEXT, seconds: 12, inputMode: 'asr', speech: clearSpeech },
+      scripted(evalOutput),
+    )
+
+    const tache = result.criteria.find((c) => c.id === 'tache')
+    assert.equal(tache.score, 2)
+    assert.ok(result.warnings.includes('EVIDENCE_NOT_FOUND:tache'))
+  })
+
+  it('clamps phonologie score to bounds with PHONOLOGIE_CLAMPED warning and keeps comment', async () => {
+    // 1. unclear speech clamps model score 3 down to 1
+    const unclearSpeech = {
+      wordCount: 10,
+      speechSeconds: 8.0,
+      wordsPerMinute: 50,
+      articulationRate: 60,
+      pauseCount: 2,
+      longPauseCount: 0,
+      longestPauseSeconds: 1.0,
+      pauseRatio: 0.2,
+      fillerCount: 0,
+      meanConfidence: 0.65,
+      lowConfidenceRatio: 0.45,
+      intelligibility: 'unclear',
+      lowConfidenceWords: [],
+    }
+    const evalUnclear = speakingOutput(3, {
+      criteria: [
+        { id: 'tache', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'texte', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'phrase', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'lexique', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'phonologie', score: 3, evidence: '50 mots/min, confiance 0.65', commentZh: '模型给了3分' },
+      ],
+    })
+    const resUnclear = await evaluateProduction(
+      { itemId: 'n1-speaking-production', text: N1_TEXT, seconds: 12, inputMode: 'asr', speech: unclearSpeech },
+      scripted(evalUnclear),
+    )
+    const phonoUnclear = resUnclear.criteria.find((c) => c.id === 'phonologie')
+    assert.equal(phonoUnclear.score, 1)
+    assert.equal(phonoUnclear.commentZh, '模型给了3分')
+    assert.ok(resUnclear.warnings.includes('PHONOLOGIE_CLAMPED'))
+
+    // 2. mostly-clear clamps model score 4 down to 3
+    const mostlyClearSpeech = {
+      wordCount: 12,
+      speechSeconds: 9.0,
+      wordsPerMinute: 65,
+      articulationRate: 75,
+      pauseCount: 1,
+      longPauseCount: 0,
+      longestPauseSeconds: 0.9,
+      pauseRatio: 0.15,
+      fillerCount: 0,
+      meanConfidence: 0.8,
+      lowConfidenceRatio: 0.2,
+      intelligibility: 'mostly-clear',
+      lowConfidenceWords: [],
+    }
+    const evalMostly = speakingOutput(3, {
+      criteria: [
+        { id: 'tache', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'texte', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'phrase', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'lexique', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'phonologie', score: 4, evidence: '65 mots/min, confiance 0.80', commentZh: '模型给了4分' },
+      ],
+    })
+    const resMostly = await evaluateProduction(
+      { itemId: 'n1-speaking-production', text: N1_TEXT, seconds: 12, inputMode: 'asr', speech: mostlyClearSpeech },
+      scripted(evalMostly),
+    )
+    const phonoMostly = resMostly.criteria.find((c) => c.id === 'phonologie')
+    assert.equal(phonoMostly.score, 3)
+    assert.ok(resMostly.warnings.includes('PHONOLOGIE_CLAMPED'))
+
+    // 3. clear speech clamps model score 1 up to 2
+    const clearSpeech = {
+      wordCount: 14,
+      speechSeconds: 10.0,
+      wordsPerMinute: 70,
+      articulationRate: 80,
+      pauseCount: 1,
+      longPauseCount: 0,
+      longestPauseSeconds: 0.8,
+      pauseRatio: 0.1,
+      fillerCount: 0,
+      meanConfidence: 0.96,
+      lowConfidenceRatio: 0.05,
+      intelligibility: 'clear',
+      lowConfidenceWords: [],
+    }
+    const evalClearLow = speakingOutput(3, {
+      criteria: [
+        { id: 'tache', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'texte', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'phrase', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'lexique', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'phonologie', score: 1, evidence: '70 mots/min, confiance 0.96', commentZh: '模型给了1分' },
+      ],
+    })
+    const resClearLow = await evaluateProduction(
+      { itemId: 'n1-speaking-production', text: N1_TEXT, seconds: 12, inputMode: 'asr', speech: clearSpeech },
+      scripted(evalClearLow),
+    )
+    const phonoClearLow = resClearLow.criteria.find((c) => c.id === 'phonologie')
+    assert.equal(phonoClearLow.score, 2)
+    assert.ok(resClearLow.warnings.includes('PHONOLOGIE_CLAMPED'))
+
+    // 4. clear speech with pause >= 5s clamps model score 4 down to 2
+    const clearWithLongPause = {
+      ...clearSpeech,
+      longestPauseSeconds: 5.5,
+    }
+    const evalClearHigh = speakingOutput(3, {
+      criteria: [
+        { id: 'tache', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'texte', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'phrase', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'lexique', score: 3, evidence: 'Je suis mexicaine', commentZh: '好' },
+        { id: 'phonologie', score: 4, evidence: 'pause 5.5s, confiance 0.96', commentZh: '模型给了4分' },
+      ],
+    })
+    const resLongPause = await evaluateProduction(
+      { itemId: 'n1-speaking-production', text: N1_TEXT, seconds: 12, inputMode: 'asr', speech: clearWithLongPause },
+      scripted(evalClearHigh),
+    )
+    const phonoLongPause = resLongPause.criteria.find((c) => c.id === 'phonologie')
+    assert.equal(phonoLongPause.score, 2)
+    assert.ok(resLongPause.warnings.includes('PHONOLOGIE_CLAMPED'))
+
+    // 5. fewer than 8 words clamps model score 3 down to 1
+    const shortWordSpeech = {
+      ...clearSpeech,
+      wordCount: 5,
+    }
+    const resShortWords = await evaluateProduction(
+      { itemId: 'n1-speaking-production', text: N1_TEXT, seconds: 12, inputMode: 'asr', speech: shortWordSpeech },
+      scripted(evalClearHigh),
+    )
+    const phonoShortWords = resShortWords.criteria.find((c) => c.id === 'phonologie')
+    assert.equal(phonoShortWords.score, 1)
+    assert.ok(resShortWords.warnings.includes('PHONOLOGIE_CLAMPED'))
+  })
+})
+
