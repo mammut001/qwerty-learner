@@ -14,16 +14,17 @@ export function makeQuestion(prompt, ans, dist1, dist2, evidence) {
 
 const H_ASPIRE_SET = new Set([
   'haut', 'haute', 'hautes', 'hauteur', 'hausse', 'homard', 'hockey',
-  'halte', 'harcèlement', 'hors', 'huit', 'onze', 'héroïque', 'hérisson'
+  'halte', 'harcèlement', 'hors', 'huit', 'onze', 'héroïque', 'hérisson',
+  'harpon', 'harpons'
 ])
 
 export function isElidable(word) {
   if (!word) return false
   const clean = word.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
   const first = clean.split(/[^a-z0-9]/)[0]
-  if (H_ASPIRE_SET.has(first) || first === 'huit' || first === 'onze') return false
-  if (/^[aeiouy]/.test(first)) return true
-  if (/^h[aeiouy]/.test(first)) return true
+  if (H_ASPIRE_SET.has(first) || first === 'huit' || first === 'onze' || first.startsWith('y')) return false
+  if (/^[aeiou]/.test(first)) return true
+  if (/^h[aeiou]/.test(first)) return true
   return false
 }
 
@@ -438,7 +439,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Tu ne devineras jamais ce qui est arrivé samedi chez nous ! On attendait douze enfants pour la fête de notre petite dernière. On avait réservé ${s.animateur}, mais il a eu ${s.retard} à cause d’un pneu crevé sur l’autoroute. Imagine l’angoisse avec douze petits qui courent partout en criant ! Mon conjoint et moi avons dû improviser ${s.activite} en catastrophe pour les occuper. Quand l’artiste est enfin arrivé, tout est rentré dans l’ordre et le spectacle était formidable. Les enfants n’ont même pas remarqué qu’il y avait eu un pépin !`,
           questions: [
-            makeQuestion('Quel problème principal a déclenché le stress des parents ?', 'Le retard prononcé de l’animateur engagé pour la fête', 'L’arrêt imprévu du four lors de la cuisson du gâteau', 'Le désistement de la moitié des camarades de classe invités', ['retard', 'animateur']),
+            makeQuestion('Quel problème principal a déclenché le stress des parents ?', 'Le retard prononcé de l’animateur engagé pour la fête', 'L’arrêt imprévu du four lors de la cuisson du gâteau', 'Le désistement de la moitié des camarades de classe invités', ['retard', 'artiste']),
             makeQuestion('Quelle solution d’urgence les parents ont-ils improvisée ?', `${cap(s.actPara)}`, 'Laisser les enfants jouer à des jeux vidéo sur ordinateur', 'Emmener l’ensemble du groupe au parc public le plus proche', [s.actKw]),
             makeQuestion('Quelle a été la réaction finale des enfants invités ?', 'Ils ont adoré le spectacle sans remarquer le contretemps', 'Ils ont réclamé avec insistance de rentrer chez eux', 'Ils ont quitté les lieux déçus avant la fin de l’activité', ['spectacle', 'enfants']),
           ],
@@ -504,7 +505,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— J’ai discuté avec ${s.amie} hier soir. Elle m’a expliqué pourquoi elle a choisi un contrat à temps partiel comme ${s.metier}. L’entreprise lui offrait un poste régulier de quarante heures, mais elle a insisté pour faire seulement ${s.jours}. Sa priorité absolue cette année, c’est de ${s.raison}. Elle a calculé son budget de manière serrée et a constaté qu’en réduisant certaines dépenses de loisir, elle pouvait très bien vivre ainsi. Elle préfère avoir du temps de qualité plutôt que d’accumuler du stress au quotidien.`,
           questions: [
-            makeQuestion('Quel compromis l’amie a-t-elle choisi pour sa vie professionnelle ?', 'Adopter un horaire allégé pour préserver son quotidien', 'Cumuler deux emplois complémentaires la même semaine', 'Effectuer des heures supplémentaires chaque soir ouvrable', ['temps partiel', 'horaire']),
+            makeQuestion('Quel compromis l’amie a-t-elle choisi pour sa vie professionnelle ?', 'Adopter un horaire allégé pour préserver son quotidien', 'Cumuler deux emplois complémentaires la même semaine', 'Effectuer des heures supplémentaires chaque soir ouvrable', ['temps partiel', 'heures']),
             makeQuestion('Quelle raison principale motive son choix d’horaire ?', `Le souhait de ${s.raiPara}`, 'Une clause obligatoire stipulée dans son entente syndicale', 'Une volonté explicite de réduire ses obligations fiscales', [s.kw]),
             makeQuestion('Comment a-t-elle adapté son quotidien pour compenser la baisse de salaire ?', 'En surveillant ses dépenses et en coupant dans les loisirs', 'En sollicitant un emprunt d’argent auprès de sa famille', 'En mettant en vente sa propriété pour habiter en colocation', ['dépenses', 'loisir']),
           ],
@@ -632,7 +633,7 @@ export const N05_06_SCENARIOS = {
           questions: [
             makeQuestion('Quel paiement le colocataire apprend-il à effectuer sur son téléphone ?', 'Le règlement de sa quote-part de loyer via l’application', 'Le paiement mensuel de sa facture de consommation électrique', 'L’achat en ligne d’éléments d’ameublement pour le logement', ['loyer', 'interac']),
             makeQuestion('Quelle réponse de sécurité doit-on saisir dans l’application ?', `Il faut entrer ${s.secPara}`, 'La date de naissance exacte de votre propriétaire', 'Le numéro de cellulaire de votre colocataire en poste', [s.secKw]),
-            makeQuestion('Que doit envoyer le locataire une fois la transaction terminée ?', 'Une preuve visuelle de l’écran de confirmation par texto', 'Un reçu officiel imprimé en trois exemplaires distincts', 'Un message officiel adressé au responsable de succursale', ['capture', 'texto']),
+            makeQuestion('Que doit envoyer le locataire une fois la transaction terminée ?', 'Une preuve visuelle de l’écran de confirmation par texto', 'Un reçu officiel imprimé en trois exemplaires distincts', 'Un message officiel adressé au responsable de succursale', ['capture', 'texte']),
           ],
         }
       },
@@ -971,8 +972,8 @@ export const N05_06_SCENARIOS = {
         return {
           text: `CHRONIQUE CÉLÉBRITÉS - UNION HIVERNALE AUX SAVEURS D’ICI\nCe week-end, ${s.sportif} a uni sa destinée à celle de sa conjointe ${s.endroit}. Entourés de leurs coéquipiers et de leurs familles, les amoureux ont célébré leur union dans un décor rustique. Au lieu des traditionnels présents de mariage, le couple a invité ses convives à faire ${s.cadeau}. Les invités ont savouré un repas inspiré des cabanes à sucre traditionnelles, avec de la tire sur la neige servie en fin de soirée. Un moment magique et authentique que le couple et leurs invités chériront longtemps !`,
           questions: [
-            makeQuestion('De quelle célébration d’envergure l’article fait-il le récit ?', 'Du mariage chaleureux d’un athlète professionnel québécois', 'D’un hommage marquant le départ en retraite d’un entraîneur', 'D’une soirée commémorant une victoire en championnat de hockey', ['sportif', 'mariage']),
-            makeQuestion('Quel geste charitable les mariés ont-ils demandé à leurs invités ?', `Offrir des contributions au profit de ${s.cadPara}`, 'Fabriquer eux-mêmes les tables et chaises du banquet', 'Prendre en charge l’achat de tous les meubles requis pour accueillir les invités', [s.cadKw]),
+            makeQuestion('De quelle célébration d’envergure l’article fait-il le récit ?', 'Du mariage chaleureux d’un athlète professionnel québécois', 'D’un hommage marquant le départ en retraite d’un entraîneur', 'D’une soirée commémorant une victoire en championnat de hockey', ['mariage', 'union']),
+            makeQuestion('Quel geste charitable les mariés ont-ils demandé à leurs invités ?', `Offrir des contributions au profit ${de(s.cadPara)}`, 'Fabriquer eux-mêmes les tables et chaises du banquet', 'Prendre en charge l’achat de tous les meubles requis pour accueillir les invités', [s.cadKw]),
             makeQuestion('Quelle surprise gourmande a clôturé la soirée de mariage ?', 'De la tire d’érable servie sur la neige en plein air', 'Un assortiment de poissons et fruits de mer importés', 'Une pièce montée chocolatée parée de fruits exotiques', ['tire', 'neige']),
           ],
         }
@@ -1037,7 +1038,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `CARNET D’AVENTURE - RETOUR DE NOTRE SÉJOUR EN NATURE\nNous revoilà en ligne après ${s.duree} en forêt ! Avec mon conjoint, nous avons pagayé sur ${s.plan}. Le silence matinal sur l’eau et le chant des oiseaux resteront gravés dans nos mémoires pour toujours. Évidemment, une belle expédition comporte ses imprévus : nous avons essuyé ${s.mesaventure}. Heureusement, grâce à notre trousse de survie et à un feu de camp, nous avons séché nos affaires dans la bonne humeur. Pour tous ceux qui hésitent : préparez votre équipement et sautez à l’eau !`,
           questions: [
-            makeQuestion('Quelle expérience vécue les blogueurs partagent-ils ?', 'Une randonnée nautique en autonomie de plusieurs jours', 'L’acquisition d’une résidence secondaire près d’un axe routier', 'Le suivi d’un stage professionnel pour devenir guide de plein air', ['canot', 'forêt']),
+            makeQuestion('Quelle expérience vécue les blogueurs partagent-ils ?', 'Une randonnée nautique en autonomie de plusieurs jours', 'L’acquisition d’une résidence secondaire près d’un axe routier', 'Le suivi d’un stage professionnel pour devenir guide de plein air', ['pagayé', 'forêt']),
             makeQuestion('Quel désagrément matériel a marqué leur périple ?', `${cap(s.mesPara)}`, 'La perte de leur canot emporté au loin par les flots d’un torrent', 'Une atteinte corporelle sévère exigeant une évacuation par les airs', [s.mesKw]),
             makeQuestion('Comment ont-ils réagi face à ce contretemps ?', 'En surmontant l’épreuve avec bonne humeur autour du feu', 'En alertant sans attendre les équipes de secours forestier', 'En abandonnant sur place leur équipement pour regagner la route', ['feu', 'affaires']),
           ],
@@ -1057,7 +1058,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `GROUPE CITOYEN - SOLIDARITÉ DU QUARTIER ROSEMONT\nChers voisins, voici un résumé de la situation vécue ${s.secteur}. Ce matin ${s.heure}, l’eau s’est déversée sur le trottoir à la suite ${s.cause}. Les cols bleus de la ville sont intervenus rapidement pour fermer les valves, coupant l’eau pour quarante logements. Face à ce désagrément, plusieurs résidents ${s.solidarite}. La municipalité a distribué des bouteilles d’eau devant le dépanneur. La pression reviendra avant vingt heures ce soir. Merci à tous pour votre belle entraide communautaire !`,
           questions: [
-            makeQuestion('Quel incident de quartier est décrit dans cette publication ?', 'Une rupture d’aqueduc entraînant une coupure d’eau potable', 'Une interruption électrique causée par de violentes rafales', 'Une série d’effractions commises dans des commerces du secteur', ['eau', 'conduite']),
+            makeQuestion('Quel incident de quartier est décrit dans cette publication ?', 'Une rupture d’aqueduc entraînant une coupure d’eau potable', 'Une interruption électrique causée par de violentes rafales', 'Une série d’effractions commises dans des commerces du secteur', ['eau', 'trottoir']),
             makeQuestion('Comment la solidarité entre résidents s’est-elle manifestée ?', `En choisissant ${de(s.solPara)}`, 'En barrant l’accès à la rue pour alerter les automobilistes', 'En tentant de colmater eux-mêmes les bris de canalisation', [s.solKw]),
             makeQuestion('Quelle mesure municipale temporaire a été mise en place ?', 'Un approvisionnement en eau potable devant le dépanneur', 'Un hébergement gratuit pour tous les occupants à l’hôtel', 'L’annulation des taxes municipales pour l’ensemble de l’année', ['bouteilles', 'dépanneur']),
           ],
@@ -1337,7 +1338,7 @@ export const N05_06_SCENARIOS = {
           questions: [
             makeQuestion('Quel est le thème des suggestions partagées dans ce courriel ?', 'Des propositions saines d’en-cas scolaires pour enfants', 'Un menu d’invitation complet préparé pour un repas d’adultes', 'Une liste d’effets vestimentaires chauds pour la rentrée', ['collations', 'école']),
             makeQuestion('Quelle collation maison l’amie prépare-t-elle le dimanche ?', `${cap(s.colPara)}`, 'Des beignets industriels nappés d’un épais sirop de sucre', 'Des portions de croustilles industrielles frites et très salées sorties du sachet', [s.colKw]),
-            makeQuestion('Quelle consigne scolaire rappelle-t-elle pour la sécurité ?', 'L’absence de certains allergènes alimentaires pour préserver la santé des élèves', 'L’obligation formelle de ne consommer que des aliments chauds', 'L’interdiction d’apporter des bouteilles d’eau dans les salles', ['allergènes', 'école']),
+            makeQuestion('Quelle consigne scolaire rappelle-t-elle pour la sécurité ?', 'L’absence de certains allergènes alimentaires pour préserver la santé des élèves', 'L’obligation formelle de ne consommer que des aliments chauds', 'L’interdiction d’apporter des bouteilles d’eau dans les salles', ['école', 'beurres']),
           ],
         }
       },
@@ -1375,7 +1376,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `PAGE WEB CONSEILS ÉNERGIE - HYDRO-QUÉBEC\nLe chauffage de l’eau représente près de vingt pour cent de votre facture d’électricité. Pour réduire vos coûts tout en préservant l’environnement, nous vous recommandons d’installer ${s.produit}. Cet équipement simple permet d’économiser ${s.reduction} sans sacrifier votre confort. En complément, pensez à ${s.geste}. Vérifiez également que la température de votre chauffe-eau est réglée à soixante degrés Celsius : c’est le niveau idéal pour prévenir les bactéries tout en évitant le gaspillage d’énergie. Consultez nos rabais instantanés en quincaillerie participante dès aujourd’hui !`,
           questions: [
-            makeQuestion('Quel est le thème principal de cette page Web d’information ?', 'Des mesures pour modérer sa dépense d’énergie liée à l’eau chaude', 'Un guide pour choisir une nouvelle thermopompe de climatisation', 'Une procédure de déclaration suite à une coupure de courant', ['eau chaude', 'facture']),
+            makeQuestion('Quel est le thème principal de cette page Web d’information ?', 'Des mesures pour modérer sa dépense d’énergie liée à l’eau chaude', 'Un guide pour choisir une nouvelle thermopompe de climatisation', 'Une procédure de déclaration suite à une coupure de courant', ['chauffage', 'facture']),
             makeQuestion('Quel équipement économiseur d’eau chaude est recommandé ?', `${cap(s.proPara)}`, 'Une piscine chauffée en permanence dans sa cour arrière privée', 'Un second réservoir de chauffe-eau réservé aux visiteurs', [s.proKw]),
             makeQuestion('Quelle température idéale est recommandée pour le réservoir ?', 'Un maintien stable du réservoir à soixante degrés Celsius', 'Un abaissement du chauffe-eau à vingt degrés pour économiser', 'Une température maximale de cent degrés pour stériliser', ['soixante degrés', 'chauffe-eau']),
           ],
@@ -1397,7 +1398,7 @@ export const N05_06_SCENARIOS = {
           questions: [
             makeQuestion('Que conseille cet article aux occupants de logements ?', 'Poser des éléments de plomberie limitant le débit d’eau chaude', 'Renouveler toute la tuyauterie de sa bâtisse avec du cuivre neuf', 'Creuser un point d’eau individuel dans son jardin de banlieue', ['consommation', 'plomberie']),
             makeQuestion('Quel accessoire de plomberie économe est valorisé ?', `${cap(s.disPara)}`, 'Une pompe surpuissante augmentant le débit pour rincer plus vite', 'Un raccord électronique nécessitant le concours d’un technicien', [s.disKw]),
-            makeQuestion('Comment peut-on parfois obtenir ces équipements sans frais ?', 'Par l’entremise de trousses remises par son administration locale', 'En participant à un tirage au sort commercial diffusé en ligne', 'En effectuant d’abord l’achat de plusieurs gros appareils neufs', ['municipale', 'trousses']),
+            makeQuestion('Comment peut-on parfois obtenir ces équipements sans frais ?', 'Par l’entremise de trousses remises par son administration locale', 'En participant à un tirage au sort commercial diffusé en ligne', 'En effectuant d’abord l’achat de plusieurs gros appareils neufs', ['municipalité', 'trousses']),
           ],
         }
       },
@@ -1757,7 +1758,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `Bienvenue sur nos ondes pour cette émission spéciale consacrée à la cérémonie d’ouverture ${t.competition}, qui s’est tenue hier soir dans le grand stade ${t.ville}. Le spectacle a débuté par un hommage touchant aux Premières Nations, suivi d’une chorégraphie dynamique alliant danses traditionnelles et projections lumineuses sur une gigantesque surface de glace. L’émotion a atteint son comble lors du défilé des délégations, lorsque ${t.porte_drapeau} a franchi la scène centrale sous les ovations de ${t.foule}. La flamme officielle a ensuite été allumée par deux jeunes athlètes de la relève locale au milieu d’un impressionnant feu d’artifice. Les compétitions s’amorceront dès ce matin avec les premières rondes éliminatoires.`,
           questions: [
-            makeQuestion('Quel événement festif et sportif est décrit par le journaliste à la radio ?', 'Le lancement festif d’une grande rencontre sportive internationale', 'La remise officielle des prix clôturant une compétition provinciale annuelle', 'La conférence de presse matinale annonçant l’annulation de tournois', ['cérémonie', 'ouverture', 'sportive']),
+            makeQuestion('Quel événement festif et sportif est décrit par le journaliste à la radio ?', 'Le lancement festif d’une grande rencontre sportive internationale', 'La remise officielle des prix clôturant une compétition provinciale annuelle', 'La conférence de presse matinale annonçant l’annulation de tournois', ['cérémonie', 'ouverture', 'stade']),
             makeQuestion('Par quoi le spectacle inaugural a-t-il débuté ?', 'Un hommage aux Premières Nations suivi de projections visuelles', 'Une joute amicale entre deux équipes rivales régionales', 'Une longue allocution officielle prononcée par les commanditaires', ['hommage', 'nations', 'projections']),
             makeQuestion('Quelle personnalité sportive a suscité l’enthousiasme lors du défilé ?', t.drapeauAns, t.drapeauDist1, t.drapeauDist2, t.evidenceDrapeau),
           ],
@@ -2507,7 +2508,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Tu as vu le nouveau véhicule dans le stationnement des employés ? C’est le mien ! J’ai finalement fait le saut et choisi ${t.modele}. Je faisais soixante kilomètres par jour pour venir au bureau et je dépensais près de quatre cents dollars d’essence chaque mois. En faisant mes calculs financiers, j’ai réalisé qu’avec ${t.subvention}, le paiement mensuel était comparable à mon ancien véhicule à essence. En plus, grâce à ${t.borne}, faire le plein d’énergie me coûte à peine trois dollars par nuit d’électricité. L’entretien est minime : plus de vidange d’huile, moins d’usure des freins grâce au système régénératif, et une conduite silencieuse dans la circulation dense. Je ne regrette absolument pas mon choix !`,
           questions: [
-            makeQuestion('Quel achat personnel majeur le collègue explique-t-il avec fierté ?', 'L’acquisition d’une automobile entièrement électrique pour ses trajets', 'L’achat d’un grand véhicule utilitaire familial d’occasion à motorisation diesel', 'La souscription d’un contrat de location longue durée pour une camionnette lourde', ['véhicule', 'électrique']),
+            makeQuestion('Quel achat personnel majeur le collègue explique-t-il avec fierté ?', 'L’acquisition d’une automobile entièrement électrique pour ses trajets', 'L’achat d’un grand véhicule utilitaire familial d’occasion à motorisation diesel', 'La souscription d’un contrat de location longue durée pour une camionnette lourde', ['véhicule', 'essence']),
             makeQuestion('Quel coup de pouce financier public a pesé dans sa décision d’achat ?', t.subventionAns, t.subventionDist1, t.subventionDist2, t.evidenceSubvention),
             makeQuestion('Quelle solution de recharge pratique lui assure de faire le plein à peu de frais ?', t.borneAns, t.borneDist1, t.borneDist2, t.evidenceBorne),
           ],
@@ -2750,7 +2751,7 @@ export const N05_06_SCENARIOS = {
         ]
         const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Bienvenue au cours d’ajustement des freins de vélo. C’est ${t.animatrice} qui vous accompagne aujourd’hui. Quand votre levier touche presque le guidon, il est temps de remplacer le câble d’acier. Voici la séquence obligatoire. D’abord, vous devez ${t.etape1}. Ensuite, retirez l’ancien câble rouillé. Avant d’insérer le nouveau câble neuf, prenez soin de ${t.gaine}. Faites coulisser le fil métallique jusqu’au frein. Tendez le câble fermement avec une pince tout en resserrant la vis de fixation. Pour finir, il est essentiel de ${t.embout}. Testez le freinage à l’arrêt en pressant vigoureusement le levier dix fois de suite pour vérifier qu’il n’y a aucun glissement. Votre sécurité sur la route en dépend directement !`,
+          text: `— Bienvenue au cours d’ajustement des freins de vélo. C’est ${t.animatrice} qui vous accompagne aujourd’hui. Quand votre levier touche presque le guidon, il est temps de remplacer le câble d’acier. Voici la séquence obligatoire. D’abord, vous devez ${t.etape1}. Ensuite, retirez l’ancien câble rouillé. Avant d’insérer le nouveau câble neuf, prenez soin ${de(t.gaine)}. Faites coulisser le fil métallique jusqu’au frein. Tendez le câble fermement avec une pince tout en resserrant la vis de fixation. Pour finir, il est essentiel ${de(t.embout)}. Testez le freinage à l’arrêt en pressant vigoureusement le levier dix fois de suite pour vérifier qu’il n’y a aucun glissement. Votre sécurité sur la route en dépend directement !`,
           questions: [
             makeQuestion('Quelle procédure mécanique sécuritaire cet atelier enseigne-t-il ?', 'Le remplacement méthodique et l’ajustement d’un nouveau câble de frein', 'La révision générale de tous les engrenages internes du boîtier de pédalier', 'L’installation fixe d’un grand porte-bagages métallique à l’arrière du vélo', ['câble', 'frein']),
             makeQuestion('Quelle précaution concernant la gaine doit être accomplie avant d’enfiler le câble ?', t.gaineAns, t.gaineDist1, t.gaineDist2, t.evidenceGaine),
@@ -2929,7 +2930,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Bonjour chers cyclistes ! Dans cet atelier consacré au réglage de la transmission, je vous montre la méthode exacte pour éliminer les sauts de chaîne désagréables. Étape numéro un : commencez par ${t.etape}. Étape numéro deux : utilisez ${t.outil}. En tournant d’un quart de tour à la fois, vous devez éliminer l’espace qui provoque le déraillement. Étape numéro trois : tournez la molette de tension du câble d’un demi-tour dans le sens antihoraire si la chaîne hésite à monter. Étape numéro quatre : pour la vérification finale, prenez soin de ${t.verification}. Si chaque changement de vitesse s’opère avec fluidité et silence, votre transmission est parfaitement synchronisée. Rangez vos outils et venez faire un tour d’essai dans la cour !`,
           questions: [
-            makeQuestion('Quel composant mécanique de la bicyclette cet atelier apprend-il à régler ?', 'Le mécanisme de transmission et le passage des vitesses du vélo', 'L’ajustement complet de la selle et l’inclinaison du guidon de course', 'La pression d’air optimale recommandée pour les pneus tout-terrain', ['transmission', 'vitesses']),
+            makeQuestion('Quel composant mécanique de la bicyclette cet atelier apprend-il à régler ?', 'Le mécanisme de transmission et le passage des vitesses du vélo', 'L’ajustement complet de la selle et l’inclinaison du guidon de course', 'La pression d’air optimale recommandée pour les pneus tout-terrain', ['transmission', 'vitesse']),
             makeQuestion('Quelle première intervention concrète faut-il exécuter au début de la manœuvre ?', t.etapeAns, t.etapeDist1, t.etapeDist2, t.evidenceEtape),
             makeQuestion('Quelle vérification finale permet de valider le bon fonctionnement de la transmission ?', t.verifAns, t.verifDist1, t.verifDist2, t.evidenceVerif),
           ],
@@ -2994,7 +2995,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Bonjour à toute l’équipe ! Je tenais à vous réunir aujourd’hui pour faire le bilan de notre troisième trimestre, et je dois vous dire que je suis immensément fière de chacun d’entre vous. Les chiffres viennent de tomber : nous avons atteint ${t.taux} ! Compte tenu des défis importants auxquels nous avons fait face ces derniers mois, notamment ${t.defi}, ce résultat est tout simplement remarquable. Votre solidarité, vos efforts continus et votre créativité ont fait toute la différence. Je tiens à vous exprimer ma plus sincère reconnaissance. Pour souligner cette belle réussite collective comme il se doit, la direction générale a approuvé ${t.cadeau}. Prenez ce temps pour vous reposer et célébrer, vous l’avez amplement mérité ! Félicitations à tous !`,
           questions: [
-            makeQuestion('Quel sentiment dominant la directrice exprime-t-elle avec chaleur ?', 'Une grande fierté devant l’atteinte des objectifs collectifs de l’équipe', 'Une vive inquiétude financière quant à la rentabilité future de l’ensemble de l’organisation', 'Un vif mécontentement causé par le non-respect répété des délais convenus initialement', ['fière', 'bilan', 'objectifs']),
+            makeQuestion('Quel sentiment dominant la directrice exprime-t-elle avec chaleur ?', 'Une grande fierté devant l’atteinte des objectifs collectifs de l’équipe', 'Une vive inquiétude financière quant à la rentabilité future de l’ensemble de l’organisation', 'Un vif mécontentement causé par le non-respect répété des délais convenus initialement', ['fière', 'bilan', 'résultat']),
             makeQuestion('Quelle difficulté majeure l’équipe est-elle parvenue à surmonter ?', t.defiAns, t.defiDist1, t.defiDist2, t.evidenceDefi),
             makeQuestion('Quelle marque de reconnaissance concrète la direction générale accorde-t-elle ?', t.cadeauAns, t.cadeauDist1, t.cadeauDist2, t.evidenceCadeau),
           ],
@@ -3053,7 +3054,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Merci à tous d’être venus. J’ai les résultats officiels de ${t.audit}, et je ne peux cacher ma fierté. Nous avons obtenu ${t.note} ! Lorsque nous avons commencé ce chantier il y a six mois, plusieurs personnes doutaient de notre capacité à réussir dans des délais aussi courts. Vous avez fait preuve d’une rigueur remarquable, en révisant chaque procédure et en vous entraidant sans compter vos heures. Je suis touchée par votre dévouement constant. Pour souligner cette très belle réussite qui met en valeur notre équipe, j’ai le plaisir de vous annoncer ${t.reconfort}. Merci sincèrement pour votre excellent travail !`,
           questions: [
-            makeQuestion('Pourquoi la cheffe d’équipe convoque-t-elle ses collègues avec enthousiasme ?', 'Pour souligner le succès éclatant obtenu lors de l’audit externe', 'Pour planifier le licenciement économique de plusieurs employés', 'Pour dénoncer les retards accumulés dans la livraison des dossiers', ['audit', 'résultats', 'fierté']),
+            makeQuestion('Pourquoi la cheffe d’équipe convoque-t-elle ses collègues avec enthousiasme ?', 'Pour souligner le succès éclatant obtenu lors de l’audit externe', 'Pour planifier le licenciement économique de plusieurs employés', 'Pour dénoncer les retards accumulés dans la livraison des dossiers', ['résultats', 'fierté']),
             makeQuestion('Quel résultat remarquable l’équipe a-t-elle décroché lors de cette vérification ?', t.noteAns, t.noteDist1, t.noteDist2, t.evidenceNote),
             makeQuestion('Quel geste de reconnaissance la gestionnaire annonce-t-elle pour récompenser l’effort ?', t.reconfortAns, t.reconfortDist1, t.reconfortDist2, t.evidenceReconfort),
           ],
@@ -4775,7 +4776,7 @@ export const N05_06_SCENARIOS = {
         ]
         const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `SERVICE CLIENTÈLE - POLITIQUE DE RETOUR ET SATISFACTION GARANTIE\nChez ${t.coop}, nous voulons que chaque aventure en nature se déroule avec le meilleur équipement possible. Si votre matériel ne répond pas à vos attentes, vous pouvez le retourner facilement ${t.delai}. Pour une commande Web, générez votre étiquette de retour prépayée dans votre espace membre en ligne. Les articles doivent être retournés dans un état neuf, propres, avec leurs manuels et tous les accessoires dans leur emballage d’origine. Veuillez noter que ${t.motifEtExclusion}. Dès réception du colis dans notre entrepôt de distribution, nous inspecterons le matériel et émettrons un remboursement selon votre méthode de paiement initiale. Si vous préférez un échange immédiat, vous pouvez également vous présenter dans l’une de nos succursales avec votre facture électronique.`,
+          text: `SERVICE CLIENTÈLE - POLITIQUE DE RETOUR ET SATISFACTION GARANTIE\nChez ${t.coop}, nous voulons que chaque aventure en nature se déroule avec le meilleur équipement possible. Si votre matériel ne répond pas à vos attentes, vous pouvez le retourner facilement ${t.delai}. Pour une commande Web, générez votre étiquette de retour prépayée dans votre espace membre en ligne. Les articles doivent être retournés dans un état neuf, propres, avec leurs manuels et tous les accessoires dans leur emballage d’origine. Veuillez noter ${que(t.motifEtExclusion)}. Dès réception du colis dans notre entrepôt de distribution, nous inspecterons le matériel et émettrons un remboursement selon votre méthode de paiement initiale. Si vous préférez un échange immédiat, vous pouvez également vous présenter dans l’une de nos succursales avec votre facture électronique.`,
           questions: [
             makeQuestion('Quel est l’objet de cette politique d’après-vente pour les amateurs de plein air ?', 'Les conditions encadrant le retour, l’échange et le remboursement des articles', 'L’organisation d’expéditions guidées payantes de survie autonome en pleine forêt boréale', 'La tarification officielle des cours d’initiation au canot et au kayak donnés en eau vive', ['politique', 'retour', 'remboursement']),
             makeQuestion('Quelle clause d’exclusion spécifique s’applique formellement selon le texte ?', t.exclusionAns, t.exclusionDist1, t.exclusionDist2, t.evidenceExcl),

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
-import { N05_06_SCENARIOS } from './echelle-variants/n05-06.mjs'
+import { N05_06_SCENARIOS, SLOT_NOUN_METADATA } from './echelle-variants/n05-06.mjs'
 import { ECHELLE_ITEM_CATALOG, mulberry32 } from './echelle-curriculum.mjs'
 import { LEXIQUE_TOPICS } from './echelle-lexique-bank.mjs'
 import { SENTENCE_GRAMMAR } from './echelle-grammar-bank.mjs'
@@ -340,4 +340,165 @@ describe('Échelle québécoise Niveaux 5–6 Scenarios and Banks', () => {
       }
     }
   })
+
+  it('satisfies comprehensive levels 5-6 guard invariants across 300 seeded builds', () => {
+    const ALLOWED_PROPER_NOUNS = ['Le Devoir', 'Les Affaires', 'Le Soleil', 'Le Droit']
+
+    const NON_ELIDING_WORDS = new Set([
+      'haut', 'haute', 'hautes', 'hauteur', 'hausse', 'homard', 'hockey',
+      'halte', 'harcèlement', 'hors', 'huit', 'onze', 'héroïque', 'hérisson',
+      'hache', 'honte', 'haine', 'hasard', 'hâte', 'héros', 'hollande', 'hongrie',
+      'harpon', 'harpons', 'yoga', 'yoho', 'yukon',
+    ])
+
+    const mascPersonas = new Set([
+      'Patrick', 'Luc', 'Simon', 'Karim', 'Émile', 'Tariq',
+      'Marc', 'David', 'Alexandre', 'Antoine', 'François', 'Mathieu',
+    ])
+    const femPersonas = new Set([
+      'Marie-Ève', 'Marie', 'Geneviève', 'Isabelle', 'Véronique', 'Audrey',
+      'Sophie', 'Valérie', 'Chantal', 'Monique', 'Nadia', 'Camille',
+      'Julie', 'Caroline', 'Lucia',
+    ])
+
+    const mascNouns = SLOT_NOUN_METADATA.filter((n) => n.gender === 'm').map((n) => n.noun)
+    const femNouns = SLOT_NOUN_METADATA.filter((n) => n.gender === 'f').map((n) => n.noun)
+    const mascClashRe = new RegExp(`\\b(la|une|cette)\\s+(${mascNouns.join('|')})\\b`, 'iu')
+    const femClashRe = new RegExp(`\\b(le|un|ce|cet)\\s+(${femNouns.join('|')})\\b`, 'iu')
+
+    const contractionRe = /\b(à|de) (le|les)\b/i
+    const deDesRe = /\bde des\b/i
+    const doubledRe = /(?<![\p{L}\p{N}])(de|le|la|les|un|une|à)\s+\1(?![\p{L}\p{N}])/iu
+    const wrongElisionRe = /(?<![\p{L}\p{N}])(d|l|qu|j|n|s|m|t|c)[’'](?![aeiouyhâàéèêëîïôöûùœAEIOUYHÂÀÉÈÊÎÔÛŒ\d])/iu
+    const elisionCheckRe = /(?<![\p{L}\p{N}])(de|que|lorsque|puisque|jusque|je|ne|me|te|se)\s+([a-zà-ÿ]+)/giu
+    const ilFautRe = /\bil faut (?:absolument )?d[e’']/i
+    const cherRe = /\b(Cher|Chère|Chers|Chères)\s+([A-ZÀ-Ÿ][a-zà-ÿ-]+)/gu
+
+    let totalBuilds = 0
+    let totalQuestions = 0
+    let totalScenarios = 0
+
+    for (const [id, scenarios] of Object.entries(N05_06_SCENARIOS)) {
+      for (let sIdx = 0; sIdx < scenarios.length; sIdx++) {
+        totalScenarios++
+        const sc = scenarios[sIdx]
+        const isDynamic = typeof sc === 'function'
+        const iterations = isDynamic ? 300 : 1
+
+        for (let seed = 0; seed < iterations; seed++) {
+          totalBuilds++
+          const rand = mulberry32(djb2(`${id}:${sIdx}:${seed}`))
+          const inst = isDynamic ? sc(rand) : sc
+          const lowerText = inst.text.toLowerCase().replace(/[’']/g, ' ')
+
+          // Option distinctness & answer-binding
+          for (let qIdx = 0; qIdx < inst.questions.length; qIdx++) {
+            totalQuestions++
+            const q = inst.questions[qIdx]
+            const [prompt, ans, dist1, dist2] = q
+            const choices = [ans.trim().toLowerCase(), dist1.trim().toLowerCase(), dist2.trim().toLowerCase()]
+            assert.strictEqual(
+              new Set(choices).size,
+              3,
+              `Duplicate or trivial choices in ${id} sc ${sIdx} q ${qIdx}: ${JSON.stringify(choices)}`
+            )
+
+            const ev = q.evidence || []
+            assert.ok(
+              Array.isArray(ev) && ev.length >= 1,
+              `Question must have at least 1 evidence keyword in ${id} sc ${sIdx} q ${qIdx}`
+            )
+            for (const kw of ev) {
+              const cleanKw = kw.toLowerCase().replace(/[’']/g, ' ').trim()
+              assert.ok(
+                lowerText.includes(cleanKw),
+                `Evidence keyword "${kw}" missing from built text in ${id} sc ${sIdx} q ${qIdx} seed ${seed}`
+              )
+            }
+          }
+
+          const strings = [inst.text]
+          for (const q of inst.questions) strings.push(q[0], q[1], q[2], q[3])
+
+          for (const rawStr of strings) {
+            let str = rawStr
+            for (const pn of ALLOWED_PROPER_NOUNS) {
+              str = str.replaceAll(`de ${pn}`, '___DE_PN___').replaceAll(`à ${pn}`, '___A_PN___')
+            }
+
+            // 1. Contraction check: \b(à|de) (le|les)\b
+            assert.ok(
+              !contractionRe.test(str),
+              `Forbidden contraction in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+
+            // 2. de des check
+            assert.ok(
+              !deDesRe.test(str),
+              `Forbidden "de des" in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+
+            // 3. Doubled function words
+            assert.ok(
+              !doubledRe.test(str),
+              `Doubled function word in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+
+            // 4. Wrong elision
+            assert.ok(
+              !wrongElisionRe.test(str),
+              `Wrong elision in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+
+            // 5. il faut (absolument )?d[e']
+            assert.ok(
+              !ilFautRe.test(str),
+              `Forbidden "il faut de" in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+
+            // 6. Article/noun clashes from SLOT_NOUN_METADATA
+            assert.ok(
+              !mascClashRe.test(str),
+              `Masculine slot noun clash with feminine article in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+            assert.ok(
+              !femClashRe.test(str),
+              `Feminine slot noun clash with masculine article in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+
+            // 7. Persona gender agreement for Cher/Chère
+            for (const cm of str.matchAll(cherRe)) {
+              const salutation = cm[1]
+              const persona = cm[2]
+              if (salutation === 'Cher') {
+                assert.ok(!femPersonas.has(persona), `Gender clash: "Cher ${persona}" in ${id} sc ${sIdx}`)
+              }
+              if (salutation === 'Chère') {
+                assert.ok(!mascPersonas.has(persona), `Gender clash: "Chère ${persona}" in ${id} sc ${sIdx}`)
+              }
+            }
+
+            // 8. Missing mandatory elision with allowlist
+            for (const em of str.matchAll(elisionCheckRe)) {
+              const nextWord = em[2].toLowerCase()
+              if (NON_ELIDING_WORDS.has(nextWord) || nextWord.startsWith('huit') || nextWord.startsWith('onze')) {
+                continue
+              }
+              const isVowelInitial = /^[aeiouâàéèêëîïôöûùœ]/.test(nextWord)
+              const isMuteH = /^h[aeiouâàéèêëîïôöûùœ]/.test(nextWord) && !NON_ELIDING_WORDS.has(nextWord)
+              assert.ok(
+                !isVowelInitial && !isMuteH,
+                `Missing mandatory elision "${em[0]}" in ${id} sc ${sIdx}: "${rawStr}"`
+              )
+            }
+          }
+        }
+      }
+    }
+
+    console.log(
+      `Guard test completed successfully: ${totalScenarios} scenarios, ${totalBuilds} builds, and ${totalQuestions} questions verified across all 24 indicators.`
+    )
+  })
 })
+
