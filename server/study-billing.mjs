@@ -9,6 +9,7 @@ export const STRIPE_API_VERSION = '2024-06-20'
 export const STRIPE_API_BASE = 'https://api.stripe.com'
 export const CHECKOUT_HOST = 'https://checkout.stripe.com/'
 export const PORTAL_HOST = 'https://billing.stripe.com/'
+export const ENTITLED_STATUSES = Object.freeze(new Set(['active', 'trialing']))
 export const BILLING_EVENT_TYPES = Object.freeze([
   'checkout.session.completed',
   'customer.subscription.created',
@@ -189,7 +190,7 @@ export function entitlementFromSubscription(sub) {
   const periodEndSeconds = Number(sub.current_period_end ?? item?.current_period_end) || 0
   return {
     status,
-    active: status === 'active' || status === 'trialing',
+    active: ENTITLED_STATUSES.has(status),
     currentPeriodEnd: periodEndSeconds > 0 ? new Date(periodEndSeconds * 1000).toISOString() : null,
     cancelAtPeriodEnd: sub.cancel_at_period_end === true,
     priceId: String(item?.price?.id || item?.plan?.id || sub.plan?.id || ''),

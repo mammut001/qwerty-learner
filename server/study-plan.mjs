@@ -496,6 +496,8 @@ export function createStudyServer({
         db.prepare('SELECT id,name FROM cohorts LIMIT 1').get()
         db.prepare('SELECT learner,cohort_id FROM learner_cohorts LIMIT 1').get()
         db.prepare('SELECT provider,subject FROM account_identities LIMIT 1').get()
+        db.prepare('SELECT account_id,stripe_customer_id FROM billing_subscriptions LIMIT 1').get()
+        db.prepare('SELECT event_id,event_type FROM billing_events LIMIT 1').get()
         const schemaVersion = getNodeSchemaVersion(db)
         if (schemaVersion !== STUDY_SCHEMA_VERSION) throw new Error('Schema version mismatch')
         return send(200, { ok: true, storage: 'sqlite', schemaVersion })
