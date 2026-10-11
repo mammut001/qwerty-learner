@@ -1507,12 +1507,14 @@ export const N01_02_SCENARIOS = {
       (rand) => {
         const payRaw = sample(PAYMENT_METHODS, 2, rand)
         const pay = payRaw[0].fr === 'par chèque' ? [payRaw[1], payRaw[0]] : payRaw
-        const service = pick([
+        const services = [
           { fr: 'l’atelier de francisation', zh: '法语培训班', kw: 'francisation' },
           { fr: 'l’accès à la piscine', zh: '游泳馆门票', kw: 'piscine' },
           { fr: 'la carte de membre', zh: '会员卡费', kw: 'membre' },
           { fr: 'l’activité de soccer', zh: '足球活动费', kw: 'soccer' },
-        ], rand)
+        ]
+        const service = pick(services, rand)
+        const otherServices = services.filter((s) => s.zh !== service.zh)
         return {
           text: `Bonjour. Pour régler ${service.fr} au comptoir d’accueil, vous pouvez payer ${pay[0].fr} ou ${pay[1].fr}.`,
           questions: [
@@ -1523,7 +1525,7 @@ export const N01_02_SCENARIOS = {
               'C’est mon frère.',
               [pay[0].short, pay[1].short]
             ),
-            q('需要办理缴费的项目是：', service.zh, '停车罚单', '房屋买卖', [service.kw]),
+            q('需要办理缴费的项目是：', service.zh, otherServices[0].zh, otherServices[1].zh, [service.kw]),
           ],
         }
       },
@@ -1802,7 +1804,7 @@ export const N01_02_SCENARIOS = {
           text: `${place} : attention s’il vous plaît ! ${p.fr}. Merci de votre collaboration pour la sécurité de tous.`,
           questions: [
             q('安保人员宣布的安全禁令是：', p.zh, alt[0].zh, alt[1].zh, [p.kw]),
-            q('公众听到此要求后应当：', '自觉配合并严格遵守规定', '无视提醒继续停留', '向工作人员索要礼品', ['collaboration']),
+            q('公众听到此要求后应当：', '自觉配合并严格遵守规定', '无视提醒继续停留', '向现场安保提出异议', ['collaboration']),
           ],
         }
       },
@@ -1845,7 +1847,7 @@ export const N01_02_SCENARIOS = {
           text: `Message de la STM (${station}) : ${w.fr}. Attention : amende de 100 dollars.`,
           questions: [
             q('广播播报的安全警示是：', w.zh, alt[0].zh, alt[1].zh, [w.kw]),
-            q('违规者将面临什么后果：', '被处以罚款', '被口头表扬', '免费乘车一日', ['amende']),
+            q('违规者将面临什么后果：', '被处以罚款', '被勒令离开车站', '被暂停乘车卡', ['amende']),
           ],
         }
       },
