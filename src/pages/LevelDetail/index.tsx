@@ -37,6 +37,7 @@ import IconCheck from '~icons/tabler/check'
 import IconChevronLeft from '~icons/tabler/chevron-left'
 import IconChevronRight from '~icons/tabler/chevron-right'
 import IconClock from '~icons/tabler/clock'
+import IconFlag from '~icons/tabler/flag'
 import IconHeadphones from '~icons/tabler/headphones'
 import IconMicrophone from '~icons/tabler/microphone'
 import IconPencil from '~icons/tabler/pencil'
@@ -45,6 +46,8 @@ import IconPlayerStop from '~icons/tabler/player-stop'
 import IconRefresh from '~icons/tabler/refresh'
 import IconSparkles from '~icons/tabler/sparkles'
 import IconVolume from '~icons/tabler/volume'
+import { isGuestMode, onGuestModeChange } from '@/services/guestMode'
+import { isItemVariantReportedInSession, reportEchelleItem, type ReportCategory } from '@/services/reports'
 
 const skillLabels: Record<EchelleItemSkill, string> = {
   listening: '听力',
@@ -388,6 +391,151 @@ function pickQuizVariant(itemId: string, avoidVariant?: number): number {
   return next
 }
 
+const REPORT_CATEGORIES: { value: ReportCategory; label: string }[] = [
+  { value: 'wrong-answer', label: '答案有误' },
+  { value: 'language-error', label: '法语有误' },
+  { value: 'unclear', label: '题意不清' },
+  { value: 'audio', label: '音频问题' },
+  { value: 'other', label: '其他' },
+]
+
+function ItemReportSection({ itemId, variant }: { itemId: string; variant: number }) {
+  const [isGuest, setIsGuest] = useState(() => isGuestMode())
+  const [isOpen, setIsOpen] = useState(false)
+  const [category, setCategory] = useState<ReportCategory>('wrong-answer')
+  const [note, setNote] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [reported, setReported] = useState(() => isItemVariantReportedInSession(itemId, variant))
+
+  useEffect(() => {
+    return onGuestModeChange(setIsGuest)
+  }, [])
+
+  useEffect(() => {
+    setReported(isItemVariantReportedInSession(itemId, variant))
+    setIsOpen(false)
+    setError(null)
+    setNote('')
+  }, [itemId, variant])
+
+  if (isGuest) return null
+
+  if (reported) {
+    return (
+      <span
+        data-testid="report-submitted-confirmation"
+        className="inline-flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500"
+      >
+        <IconCheck className="h-3.5 w-3.5 text-emerald-500" /> 已收到，谢谢
+      </span>
+    )
+  }
+
+  const handleSubmit = async () => {
+    setSubmitting(true)
+    setError(null)
+    try {
+      await reportEchelleItem({ itemId, variant, category, note })
+      setReported(true)
+      setIsOpen(false)
+      setNote('')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : '提交失败，请重试')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  return (
+    <>
+      {!isOpen ? (
+        <button
+          type="button"
+          onClick={() => setIsOpen(true)}
+          className="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
+          title="报告题目问题"
+          data-testid="report-issue-btn"
+        >
+          <IconFlag className="h-3.5 w-3.5" /> 报告问题
+        </button>
+      ) : (
+        <div
+          data-testid="report-issue-form"
+          className="w-full basis-full mt-2 p-3 bg-gray-50 dark:bg-white/[0.04] rounded-xl border border-gray-200 dark:border-white/10 text-sm space-y-3"
+        >
+          <div className="flex items-center justify-between text-xs font-medium text-gray-700 dark:text-gray-300">
+            <span>报告题目问题</span>
+            <button
+              type="button"
+              onClick={() => setIsOpen(false)}
+              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+              title="关闭"
+            >
+              ×
+            </button>
+          </div>
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
+            {REPORT_CATEGORIES.map((opt) => (
+              <label
+                key={opt.value}
+                className="inline-flex items-center gap-1.5 text-xs text-gray-700 dark:text-gray-300 cursor-pointer"
+              >
+                <input
+                  type="radio"
+                  name={`report-cat-${itemId}-${variant}`}
+                  value={opt.value}
+                  checked={category === opt.value}
+                  onChange={() => setCategory(opt.value)}
+                  className="text-indigo-600 focus:ring-indigo-500"
+                />
+                {opt.label}
+              </label>
+            ))}
+          </div>
+          <div>
+            <textarea
+              value={note}
+              onChange={(e) => setNote(e.target.value.slice(0, 500))}
+              placeholder="详细说明（可选，500字以内）"
+              maxLength={500}
+              rows={2}
+              className="w-full text-xs rounded-lg border border-gray-300 dark:border-white/10 bg-white dark:bg-white/[0.06] p-2 text-gray-900 dark:text-white focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+              data-testid="report-note-input"
+            />
+            <div className="text-right text-[10px] text-gray-400">{note.length}/500</div>
+          </div>
+          {error && (
+            <div className="text-xs text-rose-500" data-testid="report-error-msg">
+              {error}
+            </div>
+          )}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleSubmit}
+              disabled={submitting}
+              className="ui-btn-primary text-xs py-1 px-3 disabled:opacity-50"
+              data-testid="report-submit-btn"
+            >
+              {submitting ? '提交中…' : '提交'}
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsOpen(false)}
+              disabled={submitting}
+              className="ui-btn-secondary text-xs py-1 px-3"
+              data-testid="report-cancel-btn"
+            >
+              取消
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
+
 function QuizPanel({ item }: { item: EchelleQuizItem }) {
   const [variant, setVariant] = useState<number>(() => pickQuizVariant(item.id))
   const [loading, setLoading] = useState<boolean>(() => {
@@ -602,6 +750,7 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
                 <IconRefresh className="h-3.5 w-3.5" /> 换一题
               </button>
             )}
+            <ItemReportSection itemId={activeItem.id} variant={variant} />
           </>
         ) : (
           <>
@@ -628,6 +777,7 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
                 <IconRefresh className="h-3.5 w-3.5" /> 换一题
               </button>
             )}
+            <ItemReportSection itemId={activeItem.id} variant={variant} />
           </>
         )}
       </div>
