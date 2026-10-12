@@ -1777,25 +1777,25 @@ export const N09_10_SCENARIOS = {
           "Quelle est la thèse centrale défendue par l’économiste dans ce discours ?",
           "L’iniquité fiscale favorisant le commerce en ligne fragilise les boutiques de quartier",
           "La fermeture définitive des entrepôts de banlieue est la seule option de relance urbaine",
-          "L’augmentation des loyers commerciaux sur les artères montréalaises doit être plafonnée"
+          "L’iniquité fiscale profite surtout aux boutiques de quartier qui financent les plateformes numériques"
         ],
         [
           "De quelle façon l’argumentation économique est-elle développée ?",
           "La réfutation de l’argument des bas prix précède la démonstration des pertes territoriales",
-          "Une comparaison des salaires des vendeurs précède un hommage aux fondateurs des plateformes",
-          "Un éloge des centres d’achats suburbains sert d’introduction à une demande de baisse d’impôt"
+          "La démonstration des pertes territoriales précède la réfutation de l’argument des bas prix",
+          "L’appel à la mobilisation précède l’évocation des taxes foncières payées par les commerçants"
         ],
         [
           "Quel préjudice indirect la désertification commerciale engendre-t-elle pour la collectivité ?",
           "Une baisse substantielle des rentrées de taxes foncières pour l’administration municipale",
-          "Une disparition graduelle des lignes d’autobus desservant le centre des affaires de la métropole",
-          "L’obligation pour les municipalités de nationaliser l’ensemble des surfaces commerciales"
+          "Une hausse soudaine des rentrées de taxes foncières provoquée par l’ouverture des entrepôts de banlieue",
+          "La fermeture de trois boutiques de quartier pour chaque entrepôt robotisé ouvert en centre-ville"
         ],
         [
           "Que connote l’expression « commodité algorithmique » dans la bouche de l’oratrice ?",
           "Le confort trompeur d’achats rapides en ligne masquant des dégâts collectifs majeurs",
-          "La fiabilité d’un logiciel qui protège les données personnelles des consommateurs québécois",
-          "Le service de livraison rapide qui améliore la productivité des petites boutiques de quartier"
+          "Le gain d’efficacité des entrepôts robotisés, qui réduit les coûts de main-d’œuvre des commerces locaux",
+          "L’automatisation de la gestion des cotisations patronales qui allège les formalités des commerçants"
         ]
       ]
     },
@@ -1807,26 +1807,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle est la position argumentée par la représentante de la partie adverse lors de la médiation ?",
           "Le rejet du partage collectif des frais issus de dégradations causées par un aménagement privatif",
-          "La demande d’expropriation judiciaire immédiate du propriétaire du dernier étage pour charges impayées",
-          "L’exigence de démolir l’immeuble entier en raison d’un vice structurel majeur affectant les fondations"
+          "Le déblocage immédiat du fonds de prévoyance pour financer la réfection, avant l’expertise des surcharges",
+          "La démonstration d’une vétusté normale de la membrane d’étanchéité justifiant son remplacement intégral"
         ],
         [
           "Comment l’argumentation juridique progresse-t-elle dans cette déclaration ?",
           "La reconnaissance du statut de partie commune précède la preuve de la faute individuelle",
-          "Une attaque en diffamation contre les administrateurs est suivie d’une menace de poursuites judiciaires",
-          "L’énumération des cotisations passées débouche sur un appel au boycott des assemblées générales de l’immeuble"
+          "La preuve de la faute individuelle précède la reconnaissance du statut de partie commune du toit",
+          "La proposition d’une expertise chiffrée précède l’examen de la faute du propriétaire de l’attique"
         ],
         [
           "Quel élément technique exonérerait le fonds de prévoyance de l’ensemble des frais selon l’avocate ?",
           "Les voies d’eau découlent des surcharges d’un aménagement privatif non autorisé",
-          "Le manufacturier de toiture a formellement garanti la membrane d’étanchéité pour cinquante ans",
-          "La municipalité a promis de subventionner l’intégralité des chantiers d’isolation écologique"
+          "Les voies d’eau découlent des bacs à fleurs installés par le syndicat sur la toiture commune",
+          "Les voies d’eau découlent de l’usage de la terrasse par les résidents du dessous"
         ],
         [
           "Que propose la partie adverse comme règlement équitable du litige ?",
           "Un audit technique chiffrant le préjudice attribuable aux surcharges pour le facturer au fautif",
-          "Le règlement intégral de l’ensemble des devis par l’assureur responsabilité du syndicat d’immeuble",
-          "L’abandon pur et simple des travaux de réfection jusqu’à la prochaine vente de l’ensemble des logements"
+          "Un audit technique chiffrant le préjudice pour le répartir entre l’ensemble des copropriétaires",
+          "Le paiement des travaux par le fonds collectif avant l’imputation au propriétaire défaillant"
         ]
       ]
     },
@@ -1838,26 +1838,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel message central l’orateur souhaite-t-il transmettre aux artisans et producteurs réunis ?",
           "L’urgence de créer des plateformes collectives pour contrer la domination des géants du web",
-          "L’obligation d’abandonner toute vente de produits manufacturés en dehors des marchés villageois",
-          "La nécessité de signer des contrats d’exclusivité avec les distributeurs transnationaux majeurs"
+          "La nécessité de rester sur les galeries numériques dominantes pour accéder aux marchés mondiaux",
+          "L’intérêt de confier la distribution des données clients aux plateformes pour baisser les commissions"
         ],
         [
           "Comment la démonstration de l’intervenant s’articule-t-elle dans ce discours ?",
           "La déconstruction du mirage des ventes en ligne précède la mise en lumière de pratiques déloyales et l’appel coopératif",
-          "Un rappel des traditions d’ébénisterie est suivi d’une violente diatribe contre les habitudes de consommation urbaines",
-          "Le bilan comptable d’une seule foire artisanale sert de base à une demande de subventions publiques permanentes"
+          "La mise en lumière de pratiques déloyales précède la déconstruction du mirage des ventes en ligne",
+          "L’appel coopératif précède la mise en lumière de pratiques déloyales et la déconstruction du mirage"
         ],
         [
           "Quel comportement prédateur des plateformes est particulièrement dénoncé dans l’extrait ?",
           "L’exploitation des données d’achats pour copier les créations locales sous marque de distributeur",
-          "Le refus délibéré et concerté des transporteurs de desservir les municipalités éloignées de la province",
-          "La subvention publique accordée aux producteurs québécois pour baisser leurs commissions"
+          "La fixation par les artisans eux-mêmes de commissions de trente pour cent sur chaque commande",
+          "Le reléguage des créateurs au bas des résultats, même lorsqu’ils achètent une campagne de visibilité"
         ],
         [
           "Que connote l’expression « souveraineté artisanale » dans cette harangue économique ?",
           "Le contrôle direct par les artisans locaux de la mise en marché et de la rentabilité de leurs œuvres",
-          "L’érection de barrières douanières permanentes bloquant l’entrée de tout article artisanal importé d’Europe",
-          "L’octroi d’un statut juridique autonome exemptant les créateurs ruraux de tout impôt sur le revenu"
+          "Le contrôle exercé par les algorithmes programmés en Californie sur la mise en marché des artisans",
+          "L’autonomie réglementaire qui permet aux artisans de fixer seuls les normes de qualité du marché"
         ]
       ]
     },
@@ -1870,25 +1870,25 @@ export const N09_10_SCENARIOS = {
           "Quel argument de fond l’avocat adverse avance-t-il pour justifier la position de sa mandante ?",
           "Les travaux d’insonorisation respectaient scrupuleusement la réglementation en vigueur au moment de leur exécution",
           "Les copropriétaires du dessous ont refusé de faire réaliser une expertise acoustique indépendante",
-          "Le bruit perçu par le voisinage provient en partie des canalisations de plomberie traversant les cloisons"
+          "Les travaux d’insonorisation ont été exécutés selon le devis ultérieur de soixante-huit décibels"
         ],
         [
           "Comment la stratégie de défense est-elle structurée dans cette intervention ?",
           "La démonstration de la régularité du chantier devance le rejet de la rétroactivité et une offre de compromis",
-          "La contestation de l’honorabilité des experts acousticiens débouche sur une plainte devant l’ordre professionnel",
-          "Le détail des sommes engagées pour la rénovation sert à réclamer un remboursement complet par les administrateurs"
+          "Le rejet de la rétroactivité devance la démonstration de la régularité du chantier et une offre de compromis",
+          "L’invitation à financer un test précède la démonstration de la régularité du chantier et le rejet de la rétroactivité"
         ],
         [
           "Pourquoi l’exigence syndicale de retrait du plancher est-elle qualifiée d’abus de droit ?",
           "Elle prétend appliquer rétroactivement un nouveau standard voté après la finalisation approuvée du chantier",
-          "Elle a été adoptée lors d’une assemblée extraordinaire convoquée sans respecter le quorum légalement requis",
-          "Elle impose à la copropriétaire d’utiliser un type de revêtement textile formellement interdit par les normes d’hygiène"
+          "Elle exige un plancher posé sans acousticien agréé, contrairement au devis alors en vigueur",
+          "Elle reproche à la copropriétaire d’avoir obtenu le quitus syndical avant la clôture des travaux"
         ],
         [
           "Dans ce plaidoyer, quelle est la portée du terme « quitus syndical » ?",
           "L’approbation officielle confirmant que les travaux achevés respectaient le devis autorisé",
-          "Un rabais commercial substantiel consenti par l’entrepreneur en bâtiment pour solde rapide",
-          "Une décharge de responsabilité pénale délivrée par les autorités municipales après inspection des installations"
+          "La réserve formulée par le syndicat sur la conformité acoustique des travaux après leur clôture",
+          "L’attestation d’un acousticien confirmant que le plancher respecte la norme de soixante-huit décibels"
         ]
       ]
     }
@@ -1902,25 +1902,25 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’objet central de cet extrait d’ouvrage doctrinal ?",
           "L’exposé des trois critères cumulatifs qui définissent la légitime défense en droit pénal",
-          "L’historique comparé des sanctions applicables aux infractions commises avec une arme à feu",
-          "La critique de l’impartialité des jurés populaires lors des procès criminels pour homicide"
+          "La présentation de la légitime défense comme une excuse qui laisse subsister la faute pénale",
+          "L’énumération de quatre conditions cumulatives que la personne doit réunir pour se défendre"
         ],
         [
           "De quelle façon l’explication doctrinale est-elle construite ?",
           "Elle décline méthodiquement le triple test légal avant d’en préciser la qualification de justification",
-          "Elle commente des procès célèbres avant de recommander un durcissement des peines d’emprisonnement",
-          "Elle confronte les règles québécoises aux lois européennes sans définir les notions de droit positif"
+          "Elle précise la qualification de justification avant de décliner le triple test légal de la défense",
+          "Elle détaille la grille d’analyse de la riposte avant de poser les trois conditions cumulatives"
         ],
         [
           "Comment la première condition de la légitime défense concilie-t-elle le subjectif et l’objectif ?",
           "La sincérité du prévenu doit être corroborée par ce qu’une personne raisonnable aurait perçu dans la même situation",
           "La seule croyance du prévenu suffit, indépendamment de ce qu’une personne raisonnable aurait perçu",
-          "Les antécédents judiciaires de la victime suffisent à établir objectivement l’existence d’une menace armée"
+          "La croyance du prévenu n’a pas à être sincère, pourvu qu’une personne raisonnable l’ait partagée"
         ],
         [
           "Quelle distinction conceptuelle fondamentale l’auteur met-il en relief en conclusion ?",
           "La reconnaissance de l’acte comme licite en soi plutôt que comme une faute simplement pardonnée",
-          "L’obligation d’indemniser civilement l’agresseur même si la responsabilité pénale se trouve écartée",
+          "La reconnaissance de l’acte comme licite, sans que la proportionnalité de la riposte soit examinée",
           "La transformation de la légitime défense en simple circonstance atténuante de la faute pénale"
         ]
       ]
@@ -1933,26 +1933,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle mutation technique et formelle cet article encyclopédique retrace-t-il ?",
           "L’avènement du parlant synchrone, ses contraintes matérielles initiales et l’émancipation du cadre",
-          "L’apparition des premières caméras légères portées à l’épaule durant la Nouvelle Vague française",
-          "Le remplacement définitif du support celluloïd argentique par les capteurs numériques contemporains"
+          "L’avènement du sonore synchrone et l’abandon immédiat des micros suspendus sur perches mobiles",
+          "Le passage du muet au sonore grâce à la seule numérisation des photogrammes à la fin des années 1920"
         ],
         [
           "Comment la trajectoire historique des techniques sonores est-elle exposée ?",
           "Des limites du son sur disque découle l’adoption du son optique, suivie de la résolution des entraves scéniques",
-          "Un éloge des vedettes du cinéma muet précède une diatribe contre l’amateurisme des premiers ingénieurs du son",
-          "Une analyse comparative des profits des studios hollywoodiens sert à illustrer le coût des projecteurs"
+          "La résolution des entraves scéniques précède l’adoption du son optique, née des limites du disque",
+          "La conquête de la liberté spatiale précède l’apparition du blimp, puis l’adoption du son optique sur pellicule"
         ],
         [
           "Quel paradoxe esthétique a marqué les toutes premières années de l’avènement du parlant ?",
           "L’enregistrement du son a temporairement paralysé le mouvement et la fluidité visuelle de la caméra",
-          "Les salles de projection ont vite supprimé les bandes-son pour réduire les coûts de copie",
-          "Les studios ont banni l’usage de toute musique instrumentale pour réserver la pellicule aux seuls bruits réels"
+          "L’enregistrement du son a paralysé la caméra, interdisant même les travellings après l’invention du blimp",
+          "Le matériel de prise de son a mieux protégé la fluidité des travellings que les caméras muettes"
         ],
         [
           "Dans l’histoire des appareils de tournage, quelle fonction capitale le « blimp » a-t-il remplie ?",
           "Il étouffait le bruit du moteur sans enfermer l’appareil dans une cabine étanche fixe",
-          "Il synchronisait les tours de manivelle de l’opérateur avec la vitesse d’un disque phonographique",
-          "Il amplifiait les fréquences aiguës des voix pour faciliter leur gravure sur la piste magnétique"
+          "Il éliminait les micros suspendus sur perches en gardant la caméra dans sa cabine insonorisée fixe",
+          "Il fixait les micros au carbone directement sur le corps de la caméra pour capter les dialogues"
         ]
       ]
     },
@@ -1965,25 +1965,25 @@ export const N09_10_SCENARIOS = {
           "Quel principe juridique fondamental gouverne la défense des biens selon cet extrait doctrinal ?",
           "La prohibition formelle de recourir à une force mortelle ou causant des blessures graves pour protéger un bien",
           "La permission générale de se faire justice soi-même dès qu’une propriété privée est menacée",
-          "La nécessité d’obtenir un mandat judiciaire avant d’empêcher physiquement un vol en cours"
+          "La possibilité d’infliger des lésions graves après une sommation verbale restée sans réponse"
         ],
         [
           "Comment l’auteur articule-t-il la distinction entre l’article 34 et l’article 35 du Code criminel ?",
           "Il oppose la hiérarchie intangible entre la sauvegarde de la vie humaine et la simple protection des choses",
-          "Il analyse les peines pécuniaires minimales avant d’examiner la responsabilité des compagnies d’assurances",
-          "Il retrace l’histoire du droit coutumier anglais pour déplorer l’adoucissement contemporain des règles pénales"
+          "Il oppose la protection des choses à la défense des personnes, en admettant la force létale pour les deux",
+          "Il rappelle la protection des choses avant la vie humaine, puis évoque la retenue physique non violente"
         ],
         [
           "Quelle condition préalable relative au statut de la victime de l’ingérence est exigée par la loi ?",
           "Elle doit se trouver en possession paisible du bien convoité au moment précis où l’acte illégal se produit",
-          "Elle doit posséder un titre notarié de propriété enregistré au registre foncier depuis au moins un an",
-          "Elle doit avoir souscrit une police d’assurance contre le vol auprès d’une institution financière certifiée"
+          "Elle doit avoir été en possession paisible du bien pendant au moins un an avant l’ingérence",
+          "Elle doit être propriétaire du bien convoité, peu importe qui le possédait au moment précis de l’acte illégal"
         ],
         [
           "Que connote l’expression « pondération minutieuse des moyens employés » dans l’évaluation judiciaire ?",
           "L’appréciation concrète de la proportionnalité entre la gravité de l’atteinte matérielle et la riposte choisie",
-          "Le calcul mathématique rigoureux de la valeur marchande du bien dérobé au moment de fixer les dommages civils",
-          "L’obligation pour le tribunal de consulter un jury d’experts avant de déterminer la recevabilité de la défense"
+          "L’examen minutieux de la valeur sentimentale du bien pour justifier une riposte plus forte et plus durable face à l’intrus",
+          "L’inutilité de la sommation verbale dès que l’intrus a pénétré sur la propriété, même sans menace"
         ]
       ]
     },
@@ -1995,26 +1995,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le sujet conducteur analysé dans cet article d’encyclopédie cinématographique ?",
           "Le passage des trucages optiques photochimiques à la modélisation et à la capture numériques modernes",
-          "La concurrence commerciale entre les grands studios hollywoodiens et les productions indépendantes",
-          "L’influence prépondérante du maquillage prothétique traditionnel sur l’expressivité des comédiens de cinéma"
+          "Le passage des caches peints aux effets de maquillage prothétique sur les créatures des plateaux",
+          "La précision croissante des tireuses optiques multi-passes qui a sauvé le grain de l’image argentique"
         ],
         [
           "Comment l’évolution technique est-elle ordonnée au fil du texte ?",
           "La mise en évidence des limites du tirage optique prépare l’exposé de l’essor des calculs tridimensionnels",
-          "Une biographie des pionniers de la pellicule couleur est suivie d’une critique des coûts des logiciels de montage",
-          "Un réquisitoire contre le tout-numérique débouche sur un appel nostalgique au retour des maquettes en carton"
+          "L’exposé de l’essor des calculs tridimensionnels prépare la mise en évidence des limites du tirage optique",
+          "La défense des tireuses optiques débouche sur une critique de la prévisualisation numérique précoce"
         ],
         [
           "Quel inconvénient technique inhérent affectait les trucages argentiques sur tireuse optique ?",
           "La superposition de négatifs successifs altérait la finesse du grain et l’équilibre des couleurs",
-          "Les tireuses optiques détruisaient les maquettes physiques lors de chaque passage de pellicule",
-          "La caméra ne pouvait pas enregistrer le son et l’image sur une même bande lors des scènes truquées"
+          "Les tireuses optiques multipliaient les négatifs sans altérer les couleurs ni la cohérence de l’image",
+          "Les caches peints sur plaques de verre reproduisaient fidèlement le grain de la pellicule argentique"
         ],
         [
           "De quelle façon la capture de mouvement a-t-elle profondément enrichi l’animation numérique ?",
           "En insufflant l’organicité et les micro-expressions du jeu d’un comédien dans un avatar généré par ordinateur",
-          "En supprimant définitivement le besoin de scénaristes pour écrire les scènes d’action des superproductions",
-          "En remplaçant les animateurs par des plateaux de tournage équipés de projecteurs argentiques"
+          "En transposant le jeu corporel d’une créature numérique sur un acteur réel en temps réel",
+          "En remplaçant les maillages polygonaux par des maquettes physiques photographiées en pellicule"
         ]
       ]
     }
