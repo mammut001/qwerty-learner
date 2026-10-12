@@ -377,17 +377,42 @@ describe('Guard test: Levels 1–4 French grammar invariants and answer binding'
             assert.notStrictEqual(norm(correct), norm(d2), `Trivial variant (correct ≈ d2) in ${indicatorId} sc ${sIdx} seed ${seed}: "${correct}" vs "${d2}"`)
             assert.notStrictEqual(norm(d1), norm(d2), `Trivial variant (d1 ≈ d2) in ${indicatorId} sc ${sIdx} seed ${seed}: "${d1}" vs "${d2}"`)
 
+            // Synonym-set check: at most one member appears among options
+            if (Array.isArray(q.sameAs) && q.sameAs.length > 0) {
+              const present = q.sameAs.filter((syn) =>
+                [correct, d1, d2].some((opt) => opt.toLowerCase().includes(syn.toLowerCase()))
+              )
+              assert.ok(
+                present.length <= 1,
+                `Multiple synonyms from sameAs [${q.sameAs.join(', ')}] appear among options: ${present.join(', ')} in ${indicatorId} sc ${sIdx} q ${qIdx} seed ${seed}`
+              )
+            }
+
             // Answer-binding check:
             if (isTemplate) {
               assert.ok(
                 Array.isArray(q.evidence) && q.evidence.length >= 1,
                 `Template question missing evidence keywords in ${indicatorId} sc ${sIdx} q ${qIdx}: "${prompt}"`
               )
+            }
+            if (Array.isArray(q.evidence) && q.evidence.length >= 1) {
               const lowerText = build.text.toLowerCase()
               for (const kw of q.evidence) {
                 assert.ok(
                   lowerText.includes(kw.toLowerCase()),
                   `Evidence keyword "${kw}" not found in built text for ${indicatorId} sc ${sIdx} seed ${seed}: "${build.text}"`
+                )
+              }
+              const isSpeechReply = /réponse|réplique|面对求助|回答/i.test(prompt)
+              const isZh = /[\u4e00-\u9fa5]/.test(correct) || /[\u4e00-\u9fa5]/.test(prompt)
+              if (!isZh && !isSpeechReply) {
+                const lowerCorrect = correct.toLowerCase()
+                const shares = q.evidence.some(
+                  (kw) => lowerText.includes(kw.toLowerCase()) && lowerCorrect.includes(kw.toLowerCase())
+                )
+                assert.ok(
+                  shares,
+                  `Correct answer "${correct}" does not share any declared evidence keyword from [${q.evidence.join(', ')}] with text in ${indicatorId} sc ${sIdx} q ${qIdx} seed ${seed}`
                 )
               }
             }
