@@ -1282,14 +1282,14 @@ export const N07_08_SCENARIOS = {
         [
           "Que peut-on déduire sur l’attitude de la direction face aux faiblesses signalées ?",
           "Elle réagit promptement en allouant des ressources ciblées",
-          "Elle préfère minimiser les plaintes en attendant la saison d’hiver",
+          "Elle estime que les lacunes signalées ne requièrent pas d’intervention",
           "Elle impute les erreurs d’inventaire aux usagers eux-mêmes",
         ],
         [
           "Quel problème logistique précis les répondants ont-ils souligné ?",
           "Des écarts fréquents dans l’état réel des marchandises disponibles",
           "Un logiciel de gestion des stocks jugé fiable par les répondants",
-          "Un manque de personnel de plancher pour garnir les rayons le samedi",
+          "Une courtoisie insuffisante du personnel de plancher envers la clientèle",
         ],
       ],
     },
@@ -1363,7 +1363,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle modalité d’organisation du travail est garantie dans ce poste ?",
           "La possibilité d’exercer ses fonctions à distance à temps partiel",
-          "L’obligation de réaliser l’ensemble des réunions de travail par vidéoconférence",
+          "L’interdiction du télétravail à cause des déplacements fréquents",
           "Le télétravail permis seulement lors des réunions de conseil",
         ],
       ],
@@ -1412,7 +1412,7 @@ export const N07_08_SCENARIOS = {
         ],
         [
           "Quel bénéfice d’ordre culturel le poste offre-t-il au gestionnaire engagé ?",
-          "Une immersion au cœur des ateliers de création théâtrale",
+          "Une autonomie artistique considérable au sein d’un festival de théâtre émergent",
           "Un accès privilégié aux résidences réservé aux seuls bénévoles",
           "Une liberté artistique réduite lors des captations en coulisses",
         ],
@@ -1463,7 +1463,7 @@ export const N07_08_SCENARIOS = {
         ],
         [
           "Que peut-on déduire sur l’attitude des commerçants face aux travaux de réfection ?",
-          "Ils nourrissent une rancœur vive nourrie par leurs pertes d’argent",
+          "Ils éprouvent une vive amertume liée à leurs pertes financières",
           "Ils applaudissent la métamorphose paysagère de leurs artères piétonnes",
           "Ils ont profité d’une hausse d’achalandage pendant les chantiers",
         ],
@@ -1482,7 +1482,7 @@ export const N07_08_SCENARIOS = {
       questions: [
         [
           "Quelle mesure a été favorablement accueillie dans le secteur de l’enseignement ?",
-          "La baisse des effectifs d’enfants dans les classes débutantes",
+          "L’allègement des groupes d’élèves dans le premier cycle du primaire",
           "La suppression de toute aide financière aux établissements culturels",
           "L’abandon du passeport culturel pour les adolescents",
         ],
@@ -1494,7 +1494,7 @@ export const N07_08_SCENARIOS = {
         ],
         [
           "Que déduit implicitement le journaliste au sujet des relations de travail ?",
-          "Les conflits syndicaux ont entamé la confiance du corps professoral",
+          "Les négociations salariales conflictuelles ont fragilisé le dialogue social",
           "Les augmentations de salaire ont dissipé toute tension avec les écoles",
           "La grève du personnel de soutien a renforcé la confiance des familles",
         ],
@@ -1515,7 +1515,7 @@ export const N07_08_SCENARIOS = {
           "Quel obstacle personnel freine Antoine dans sa relation naissante avec Juliette ?",
           "Les blessures non résolues laissées par une rupture passée",
           "La crainte de Juliette de s’engager dans une relation durable",
-          "Des divergences professionnelles sur les projets d’architecture de la jeune femme",
+          "Une offre d’emploi prestigieuse à Montréal qu’il refuse d’accepter",
         ],
         [
           "Que peut-on déduire sur l’intention de la cinéaste à travers ce long-métrage ?",
@@ -1533,7 +1533,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quel événement déclencheur vient fissurer la cohésion des trois colocataires ?",
           "La naissance de sentiments amoureux rivaux envers leur amie commune",
-          "Une jalousie née du succès du groupe indie auprès du public",
+          "Le départ de Vincent pour Sherbrooke afin de poursuivre ses études",
           "La décision soudaine de Clara de quitter le quartier de Saint-Roch",
         ],
         [
@@ -1666,7 +1666,7 @@ export const N07_08_SCENARIOS = {
           "Quelle est l’origine principale du désaccord survenu avec le ministère ?",
           "Une lecture divergente des fonctionnalités prévues dans le premier contrat",
           "Un dépassement budgétaire du prototype de géolocalisation simplifié",
-          "Un refus catégorique de concevoir le module de géolocalisation des autobus",
+          "Un retard de livraison des modules de consultation des horaires",
         ],
         [
           "Que peut-on déduire quant à l’attitude du client avant cette mise au point ?",
@@ -1695,7 +1695,7 @@ export const N07_08_SCENARIOS = {
         ],
         [
           "Quel comportement de notre direction a suscité la réaction outrée du partenaire ?",
-          "L’absence de communication spontanée lors du constat de la variation",
+          "L’absence d’avis immédiat lorsque l’écart est apparu aux premiers essais",
           "Le refus d’utiliser des matières écologiques pour fabriquer les contenants",
           "Un protocole d’inspection instauré sans consulter le client",
         ],
@@ -1796,7 +1796,7 @@ export const N07_08_SCENARIOS = {
       questions: [
         [
           "Quelle opération prioritaire permet d’écarter tout risque pour l’intervenant ?",
-          "Interrompre le courant électrique au niveau du coffret mural",
+          "Couper le disjoncteur principal à l’armoire sectionnelle en bout de rangée",
           "Relâcher manuellement les freins depuis le rail supérieur",
           "Descendre la charge au treuil avant d’isoler le circuit de traction",
         ],
@@ -1807,10 +1807,10 @@ export const N07_08_SCENARIOS = {
           "Effectuer des arrêts brusques pour tester les mâchoires de frein",
         ],
         [
-          "Quelle vérification finale s’impose avant de relancer la machine industrielle ?",
-          "Contrôler le parfait alignement des colis sur leur support de bois",
-          "Réenclencher le coupe-circuit avant de sécuriser le périmètre au sol",
-          "Vérifier que le harnais antichute est bien retiré de l’intervenant",
+          "Quelle vérification s’impose avant d’extraire la charge bloquée ?",
+          "Vérifier l’absence de colis qui débordent de la palette avant l’extraction",
+          "Vérifier que le coupe-circuit est réenclenché avant de sécuriser le périmètre",
+          "Vérifier que le cycle d’étalonnage tourne déjà avant l’extraction",
         ],
       ],
     },
@@ -1915,7 +1915,7 @@ export const N07_08_SCENARIOS = {
         ],
         [
           "Que peut-on déduire sur son sentiment face au débat public contemporain ?",
-          "Elle regrette la simplification excessive et le manque de nuance rationnelle",
+          "Elle déplore un débat trop caricatural et dépourvu de finesse",
           "Elle admire le climat de collaboration harmonieuse entre les partis politiques",
           "Elle se félicite que les postures partisanes dominent enfin le débat",
         ],
@@ -1930,7 +1930,7 @@ export const N07_08_SCENARIOS = {
           "Quel constat sanitaire alarmant l’éditorialiste met-elle en avant dans son plaidoyer ?",
           "La multiplication des troubles neurologiques infantiles liés aux toxiques",
           "La baisse des troubles neurodéveloppementaux chez les tout-petits",
-          "La hausse des troubles neurodéveloppementaux chez les golfeurs du secteur",
+          "Une légère amélioration de la santé des abeilles indigènes en zone périurbaine",
         ],
         [
           "Quelle attitude des lobbyistes horticoles l’intervenante fustige-t-elle avec vigueur ?",
@@ -2060,7 +2060,7 @@ export const N07_08_SCENARIOS = {
       questions: [
         [
           "Dans quel contexte institutionnel précis l’entreprise a-t-elle vu le jour en 2008 ?",
-          "Comme projet d’essaimage issu des laboratoires universitaires",
+          "Comme entreprise dérivée des recherches menées à l’Université Laval",
           "Comme laboratoire de fabrication ouvert à Lévis pour l’exploration minière",
           "Comme gamme de capteurs pour ponts suspendus, lancée dès l’an 2008",
         ],
@@ -2092,7 +2092,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle avancée technologique a permis d’accélérer le développement de l’entreprise en 2005 ?",
           "L’implantation d’installations de congélation préservant les nutriments",
-          "L’implantation de séchoirs à air chaud préservant les qualités antioxydantes",
+          "L’implantation de surgélateurs à air chaud qui altèrent les qualités antioxydantes",
           "L’utilisation de conservateurs chimiques autorisés pour le transport marin",
         ],
         [
@@ -2218,7 +2218,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quel enjeu vital l’audition musicale représentait-elle pour la jeune artiste ?",
           "L’opportunité décisive de surmonter une situation matérielle précaire",
-          "La chance de jouer au faubourg Saint-Jean-Baptiste devant ses voisins",
+          "La chance d’obtenir une mansarde mieux chauffée près du Grand Théâtre",
           "La possibilité de guérir sa fièvre tenace grâce à un long repos",
         ],
         [
@@ -2268,7 +2268,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle conviction profonde pousse Clara à s’enfermer des semaines entières dans sa pièce de travail ?",
           "La certitude qu’une œuvre cachée se trouve sous les couches anciennes",
-          "La crainte que son directeur veuille repousser l’exposition inaugurale",
+          "La conviction que la toile anonyme date en fait du vingtième siècle",
           "Le souhait de prouver qu’elle peut restaurer sans solvants chimiques",
         ],
         [
@@ -2300,7 +2300,7 @@ export const N07_08_SCENARIOS = {
           "Comment les fugitifs réussissent-ils à déjouer la surveillance des machines de sécurité ?",
           "En causant une panne électrique majeure pour ouvrir la porte de sortie",
           "En se cachant sur le toit du convoi ferroviaire avant de franchir le sas",
-          "En utilisant le journal intime comme plan des galeries de ventilation",
+          "En attirant les drones sentinelles dans une fausse galerie de ventilation",
         ],
         [
           "Quelle réaction stupéfaite les héros éprouvent-ils en découvrant l’environnement extérieur ?",
@@ -2324,8 +2324,8 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle astuce permet à Julien d’échapper à ses poursuivants au cœur de la haute-ville ?",
           "Se fondre habilement au sein de la foule rassemblée pour la fête carnavalesque",
-          "Sauter sur la glissade de glace pour remonter vers la haute-ville",
-          "Se réfugier au monastère des Ursulines avant la descente sous les feux d’artifice",
+          "Se mêler aux trafiquants d’antiquités qui le poursuivaient dans le défilé",
+          "Remettre le parchemin codé aux trafiquants pour mettre fin à la traque",
         ],
         [
           "Que peut-on déduire quant à l’intention de la conservatrice du couvent des Ursulines ?",
@@ -2348,7 +2348,7 @@ export const N07_08_SCENARIOS = {
         ],
         [
           "Quel danger naturel imminent met la vie de Sarah en péril dans les sous-sols ?",
-          "Une submersion des galeries souterraines causée par les pluies torrentielles",
+          "Une inondation du réseau souterrain causée par une tempête printanière",
           "Un incendie des galeries provoqué par la lampe étanche de l’enquêtrice",
           "Un niveau trop bas des eaux fluviales qui assèche peu à peu les galeries souterraines",
         ],
@@ -2454,7 +2454,7 @@ export const N07_08_SCENARIOS = {
           "Le rapprochement des écritures à partir des seuls montants bruts",
         ],
         [
-          "Quelle manipulation précise est conseillée lorsque des transactions ne s’associent pas ?",
+          "Quelle manipulation précise est conseillée lorsque des transactions ne sont pas rapprochées ?",
           "Augmenter l’intervalle de temps toléré entre la facture et le transfert d’argent",
           "Réduire la fenêtre de tolérance chronologique à sept jours dans les règles personnalisées",
           "Ouvrir l’onglet « Règles personnalisées » et désélectionner le compte Desjardins",
@@ -2480,7 +2480,7 @@ export const N07_08_SCENARIOS = {
         ],
         [
           "Quelle maladresse fréquente de modélisation provoque l’apparition d’un bogue système ?",
-          "L’affectation erronée d’une fenêtre vitrée à une séparation intérieure mitoyenne",
+          "L’affectation erronée d’une fenêtre vitrée à une cloison intérieure",
           "Le réglage du masque d’ombrage après l’export du bordereau au format normatif",
           "La saisie des données du bâtiment voisin comme s’il faisait partie du projet",
         ],
@@ -2536,7 +2536,7 @@ export const N07_08_SCENARIOS = {
           "Passer l’examen professionnel sur la déontologie avant toute demande d’équivalence",
         ],
         [
-          "Sur quel domaine de compétences porte l’épreuve écrite obligatoire d’évaluation ?",
+          "Sur quel domaine de compétences porte l’examen professionnel obligatoire ?",
           "Les règles morales de déontologie et le cadre réglementaire du milieu",
           "L’expérience pratique supervisée de vingt-quatre mois sous la tutelle d’un ingénieur",
           "Le paiement des droits d’ouverture de dossier par carte de crédit",
@@ -2562,7 +2562,7 @@ export const N07_08_SCENARIOS = {
         ],
         [
           "Quelle prérogative le statut temporaire de candidate accorde-t-il avant l’examen final ?",
-          "Exercer des tâches soignantes sous la responsabilité d’infirmières chevronnées",
+          "Exercer des actes délégués sous une supervision clinique obligatoire",
           "Assurer seule des soins hospitaliers en pleine autonomie dès le paiement des frais",
           "Travailler en milieu hospitalier sans aucune obligation de supervision clinique",
         ],
@@ -2614,7 +2614,7 @@ export const N07_08_SCENARIOS = {
           "Quelle précaution matérielle importante l’organisme demande-t-il d’observer pour les pièces jointes ?",
           "Ne faire parvenir que des reproductions sans jamais se départir des documents originaux",
           "Faire parvenir les originaux par la poste et conserver les copies numériques",
-          "Faire signer chaque copie numérique par le fonctionnaire rencontré avant l’envoi",
+          "Joindre les documents originaux au formulaire sécurisé en ligne",
         ],
         [
           "Que peut-on déduire quant au statut du Protecteur du citoyen dans le règlement des différends ?",
@@ -2746,7 +2746,7 @@ export const N07_08_SCENARIOS = {
           "Quelle difficulté d’application majeure suscite les plus vives inquiétudes juridiques ?",
           "Le respect de la vie intime lors des contrôles de sécurité dans l’habitat personnel",
           "La facilité avec laquelle les employeurs peuvent contrôler le domicile privé des salariés",
-          "Le partage trop strict des responsabilités entre la direction et l’employé en télétravail",
+          "La clarté des responsabilités partagées entre la direction et l’employé",
         ],
         [
           "Que peut-on déduire sur la prédiction formulée par Caroline Gagnon concernant l’avenir de la loi ?",
@@ -2788,7 +2788,7 @@ export const N07_08_SCENARIOS = {
       questions: [
         [
           "Quelle décision expéditive prise par les autorités locales suscite l’indignation du journaliste ?",
-          "L’organisation de chasses d’éradication pour régler le surplus de bêtes à bas prix",
+          "L’organisation de battues d’abattage menées par réflexe primaire",
           "Le recours généralisé à la contraception chimique par fléchettes dans les parcs",
           "La fermeture des corridors biologiques entre les parcs et les massifs forestiers",
         ],
