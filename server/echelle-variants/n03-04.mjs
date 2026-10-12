@@ -2826,7 +2826,7 @@ const N4_FESTIVAL_NAMES = [
   { name: 'le Festival d’été de Québec', opt: 'le grand Festival d’été de Québec', kw: 'québec' },
   { name: 'les Francos de Montréal', opt: 'les Francos de Montréal', kw: 'francos' },
   { name: 'le FestiVoix de Trois-Rivières', opt: 'le FestiVoix de Trois-Rivières', kw: 'festivoix' },
-  { name: 'le Festival de montgolfières de Gatineau', opt: 'le grand Festival de montgolfières', kw: 'montgolfières' },
+  { name: 'le Festival de jazz de Montréal', opt: 'le grand Festival de jazz de Montréal', kw: 'jazz' },
 ]
 const N4_FESTIVAL_CROWDS = [
   { text: 'un total de cent mille festivaliers', opt: 'exactement cent mille festivaliers', kw: 'cent mille' },
@@ -4101,10 +4101,34 @@ const N4_ROOM_TIMES = [
 ]
 
 const N4_RECYCLE_STEPS = [
-  { text: 'déposer les cartons plats et journaux dans le bac bleu', opt: 'mettre les cartons dans le bac bleu', kw: 'cartons' },
-  { text: 'placer les boîtes en carton pliées dans le bac de tri', opt: 'ranger les cartons pliés dans le bac de tri', kw: 'carton' },
-  { text: 'jeter les feuilles de papier usagées dans le bac bleu', opt: 'déposer le papier de bureau dans le bac bleu', kw: 'papier' },
-  { text: 'regrouper les revues et circulaires dans le bac bleu', opt: 'mettre revues et circulaires au bac bleu', kw: 'revues' },
+  {
+    text: 'déposer les cartons plats et journaux dans le bac bleu',
+    opt: 'mettre les cartons dans le bac bleu',
+    dist1: 'jeter les cartons dans la poubelle noire',
+    dist2: 'déposer les journaux dans le bac brun',
+    kw: 'cartons',
+  },
+  {
+    text: 'placer les boîtes en carton pliées dans le bac de tri',
+    opt: 'ranger les cartons pliés dans le bac de tri',
+    dist1: 'mettre les cartons pliés dans le sac noir',
+    dist2: 'déposer les boîtes dans le bac à compost',
+    kw: 'carton',
+  },
+  {
+    text: 'jeter les feuilles de papier usagées dans le bac bleu',
+    opt: 'déposer le papier de bureau dans le bac bleu',
+    dist1: 'jeter les feuilles dans la poubelle noire',
+    dist2: 'mettre le papier usagé dans le bac brun',
+    kw: 'papier',
+  },
+  {
+    text: 'regrouper les revues et circulaires dans le bac bleu',
+    opt: 'mettre revues et circulaires au bac bleu',
+    dist1: 'jeter les revues dans la poubelle ordinaire',
+    dist2: 'déposer les circulaires dans le bac brun',
+    kw: 'revues',
+  },
 ]
 const N4_RECYCLE_WASHES = [
   { text: 'rincer les contenants en plastique et boîtes de conserve', opt: 'rincer boîtes de conserve et plastiques', kw: 'plastique' },
@@ -4205,13 +4229,12 @@ export const N04_R_4 = [
       const head = pick(N4_RECYCLE_HEADS, rand)
       const day = pick(N4_RECYCLE_DAYS, rand)
       const othersW = sample(N4_RECYCLE_WASHES.filter((x) => x.opt !== w.opt), 2, rand)
-      const othersR = sample(N4_RECYCLE_STEPS.filter((x) => x.opt !== rec.opt), 2, rand)
       const text = `${head} Pour assurer la propreté des lieux et respecter l’environnement, suivez ces étapes : d’abord, ${rec.text}. Ensuite, pensez à ${w.text}. Enfin, ${waste.text}. ${day} Merci de votre participation pour une ville plus verte.`
       return {
         text,
         questions: [
           q('Que faut-il faire avec les contenants réutilisables ou recyclables ?', w.opt, othersW[0].opt, othersW[1].opt, [w.kw]),
-          q('Où les matières en papier et carton doivent-elles être déposées ?', rec.opt, othersR[0].opt, othersR[1].opt, [rec.kw]),
+          q('Où les matières en papier et carton doivent-elles être déposées ?', rec.opt, rec.dist1, rec.dist2, [rec.kw]),
         ],
       }
     },
