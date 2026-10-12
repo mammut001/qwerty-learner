@@ -369,7 +369,7 @@ On nous accuse souvent de vouloir manquer des cours par pur plaisir de contester
       questions: [
         [
           'Quel reproche récurrent l’oratrice réfute-t-elle d’emblée ?',
-          'L’idée que les jeunes débrayent uniquement pour fuir leurs devoirs',
+          'L’accusation selon laquelle les élèves débrayent par pur plaisir',
           'L’affirmation selon laquelle les cégeps coûtent trop cher à l’État',
           'Le soupçon d’une ingérence de partis politiques au sein du campus',
         ],
@@ -482,7 +482,7 @@ Tout le monde dans cette faculté sait que Jean-Marc ne possède pas de calendri
           'Comment le sentiment de la salle évolue-t-il au fil du discours ?',
           'De la taquinerie complice vers une reconnaissance touchante',
           'D’une rancœur tenace vers une indifférence polie mais froide',
-          'D’une solennité pompeuse vers un fou rire totalement incontrôlé',
+          'D’une solennité pompeuse vers un éclat de rire franc et spontané',
         ],
         [
           'Quelle appréhension humoristique l’intervenante exprime-t-elle pour l’avenir ?',
@@ -537,7 +537,7 @@ Contrairement à une conception populaire tenace qui assimile l’estime de soi 
         [
           'Quel mythe éducatif répandu l’extrait remet-il en question ?',
           'L’illusion que les louanges permanentes suffisent à bâtir l’enfant',
-          'L’idée que l’intelligence dépend exclusivement de facteurs génétiques',
+          'L’idée que l’intelligence dépend principalement de facteurs innés',
           'La croyance voulant que les punitions corporelles favorisent le calme',
         ],
         [
@@ -1068,7 +1068,7 @@ Assis à son vieil établi de chêne près de la fenêtre givrée, Henri écouta
           'Quel argument la travailleuse sociale oppose-t-elle à la vision médicale ?',
           'L’importance capitale de ses repères affectifs et de son autonomie',
           'Le coût prohibitif des centres de soins pour la bourse de l’usagère',
-          'La promesse faite à sa famille de ne jamais quitter son appartement',
+          'La volonté formelle de ses proches d’éviter un placement en foyer',
         ],
         [
           'Quel compromis pragmatique l’ergothérapeute propose-t-elle au groupe ?',
@@ -1207,7 +1207,7 @@ Assis à son vieil établi de chêne près de la fenêtre givrée, Henri écouta
           'Quel comportement politique le film tourne-t-il en dérision ?',
           'La répétition rituelle d’annonces vides pour faire miroiter une action',
           'La baisse continue des indemnités financières versées aux parlementaires',
-          'L’obligation d’utiliser uniquement les transports en commun municipaux',
+          'Le refus obstiné de subventionner l’élargissement des autoroutes régionales',
         ],
         [
           'Quel exemple absurde d’utilisation des deniers publics est fustigé ?',
@@ -1589,8 +1589,8 @@ L’inégale répartition des effectifs médicaux entre les métropoles et les t
         [
           'Quelle solution novatrice les chercheurs recommandent-ils pour les villages ?',
           'Élargir les compétences des infirmières expertes et déployer des cliniques',
-          'Fermer tous les petits hôpitaux pour regrouper les lits dans les métropoles',
-          'Automatiser entièrement le suivi clinique au détriment du contact direct',
+          'Imposer aux spécialistes urbains des gardes obligatoires dans les hôpitaux',
+          'Remplacer les examens physiques par des diagnostics automatisés à distance',
         ],
       ],
     },
@@ -1649,7 +1649,7 @@ Près des clôtures grillagées éventrées par le gel, les sentiers informels t
           'Quelle signification les sentiers informels le long des voies revêtent-ils ?',
           'Une persistance silencieuse d’usages populaires bravant l’urbanisation',
           'Un projet pilote officiel conçu pour accélérer la circulation des ouvriers',
-          'Une zone récréative sécurisée réservée exclusivement aux promeneurs du soir',
+          'Un aménagement paysager officiel financé pour attirer les promeneurs du soir',
         ],
         [
           'Que symbolise le décor décrépit de la cour de triage pour le narrateur ?',
@@ -1730,7 +1730,7 @@ Il y a dans la correspondance entre Gabrielle Moreau et l’essayiste Jean-Phili
           'Quelle fonction la rivalité épistolaire remplissait-elle dans leur parcours ?',
           'Un aiguillon stimulant qui poussait chaque créateur à dépasser ses limites',
           'Un frein paralysant qui a retardé la publication de leurs livres majeurs',
-          'Une mascarade sans sincérité destinée uniquement à amuser les journalistes',
+          'Une mise en scène publicitaire calculée pour séduire les éditeurs parisiens',
         ],
       ],
     },
@@ -1766,7 +1766,7 @@ L’élévation continue du niveau moyen des océans et la désertification galo
         [
           'Quelle portée éthique l’analyse donne-t-elle à cette confrontation mondiale ?',
           'Une interrogation profonde sur la dette morale envers les victimes du globe',
-          'Une discussion technique réservée exclusivement aux spécialistes du droit',
+          'Un débat technique limité aux seuls diplomates et juristes internationaux',
           'La certitude que les progrès technologiques règleront la crise sans départ',
         ],
       ],

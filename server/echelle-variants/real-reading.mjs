@@ -222,8 +222,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle est une différence entre la maternelle en France et au Québec mentionnée dans l'extrait ?",
         "Elle est devenue obligatoire en France mais reste facultative au Québec",
-        "Elle commence à six ans en France mais dès deux ans dans les classes québécoises",
-        "Elle est réservée aux garçons en France et ouverte à tous les enfants au Québec"
+        "Elle débute dès l'âge de deux ans en France mais seulement à six ans au Québec",
+        "Elle relève du secteur privé en France mais du réseau public primaire au Québec"
       ],
       [
         "Que contredit formellement le texte à propos de l'origine de l'école ?",
@@ -274,7 +274,7 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi l'auteur donne-t-il l'exemple de rapporter une baguette de pain ?",
         "Pour montrer qu'un déplacement quotidien personnel relève aussi du transport",
-        "Pour prouver que les boulangeries dépendent entièrement des réseaux de fret",
+        "Pour prouver que les boulangeries dépendent directement des réseaux de fret",
         "Pour illustrer la nécessité d'une réglementation stricte des commerces locaux"
       ]
     ],
@@ -314,7 +314,7 @@ export const REAL_READING_PASSAGES = [
       [
         "Que recherchent les consommateurs modernes selon l'auteur ?",
         "Des saveurs étrangères et une alimentation plus respectueuse de l'environnement",
-        "Des plats traditionnels préparés exclusivement à la maison pour toute la famille",
+        "Des plats traditionnels préparés principalement à la maison pour toute la famille",
         "Des aliments moins chers sans se préoccuper de l'origine ou du bien-être animal"
       ]
     ],
@@ -601,7 +601,7 @@ export const REAL_READING_PASSAGES = [
         "Que permet le parc du Mont-Royal aux citadins selon le texte ?",
         "De profiter de la nature et de pratiquer des activités variées toute l'année",
         "De traverser plus rapidement la métropole pour éviter la circulation dense",
-        "De s'isoler totalement du reste du Québec sans jamais croiser d'autres promeneurs"
+        "D'accéder rapidement aux autoroutes reliant la métropole aux autres régions"
       ]
     ],
     "justificationFr": "Description concrète et vivante des quartiers montréalais et des activités au parc du Mont-Royal selon les saisons.",
@@ -726,8 +726,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi certaines sociétés anciennes ont-elles eu la réputation erronée de négliger l'hygiène ?",
         "Nos instruments d'analyse contemporains peinent à saisir leurs propres réponses aux risques sanitaires",
-        "Ces peuples ont délibérément détruit tous les écrits médicaux avant l'arrivée des explorateurs modernes",
-        "Leurs croyances spirituelles interdisaient strictement toute forme de purification par l'eau courante"
+        "Leurs pratiques sanitaires étaient fondées sur des remèdes chimiques importés d'autres continents",
+        "Leurs autorités civiles refusaient d'accorder la moindre valeur aux recommandations médicales"
       ]
     ],
     "justificationFr": "Analyse historique et anthropologique approfondie de l'hygiène publique à travers diverses civilisations anciennes.",
@@ -765,8 +765,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Selon la doctrine de Galien évoquée dans le texte, de quoi dépend la physiologie humaine ?",
         "Elle est étroitement liée au milieu naturel dans lequel vit l'individu",
-        "Elle est dictée exclusivement par la volonté divine sans influence matérielle",
-        "Elle demeure totalement identique quel que soit le climat où l'on réside"
+        "Elle est régie par des prédispositions génétiques sans lien avec l'air ambiant",
+        "Elle dépend des habitudes professionnelles plutôt que des saisons et des vents"
       ]
     ],
     "justificationFr": "Exposé dense sur les doctrines médicales préventives fondées sur l'interaction entre environnement et physiologie.",
@@ -792,19 +792,19 @@ export const REAL_READING_PASSAGES = [
         "Quelle nuance essentielle le texte cherche-t-il à établir ?",
         "La distinction entre le logement en tant que structure matérielle et l'habitat comme mode de vie",
         "L'écart entre les coûts réels de construction et les aides versées aux familles les plus modestes",
-        "La supériorité absolue de l'achat d'un bien immobilier sur la formule de la location temporaire"
+        "La supériorité de l'achat d'un bien immobilier par rapport à la formule locative ordinaire"
       ],
       [
         "Dans quel domaine le mot « logement » est-il particulièrement employé selon le document ?",
         "Dans les analyses sociales, économiques et sanitaires conduites par les institutions publiques",
-        "Dans les manuels militaires consacrés exclusivement au stationnement de la troupe en garnison",
+        "Dans les manuels militaires consacrés au stationnement temporaire des troupes en garnison",
         "Dans les traités artistiques décrivant la décoration intérieure des monuments historiques royaux"
       ],
       [
         "Que signifie l'affirmation « le logement n'est donc pas l'habitat » ?",
         "Un lieu d'habitation pourvu d'équipements ne résume pas l'expérience globale du cadre de vie",
         "Les lois d'urbanisme refusent de reconnaître la valeur marchande des maisons individuelles",
-        "L'habitat désigne uniquement les constructions provisoires édifiées en dehors des agglomérations"
+        "L'habitat concerne les aménagements temporaires réalisés en dehors des zones résidentielles"
       ]
     ],
     "justificationFr": "Distinction conceptuelle et institutionnelle entre le logement comme bien matériel et la notion d'habitat.",
@@ -832,7 +832,7 @@ export const REAL_READING_PASSAGES = [
         "Quel est le thème principal de cette analyse ?",
         "La répartition entre propriétaires et locataires au sein des différents pays d'Europe",
         "Les incitations fiscales favorisant les investissements privés dans l'immobilier neuf",
-        "L'abandon progressif des zones rurales au profit exclusif des grandes cités industrielles"
+        "L'exode rural des jeunes travailleurs vers les grandes métropoles industrielles"
       ],
       [
         "Quel pays européen compte une part de propriétaires particulièrement élevée atteignant 80 % ?",
@@ -843,8 +843,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi la situation de la France est-elle qualifiée d'intermédiaire ?",
         "Elle présente un équilibre presque égalitaire entre propriétaires occupants et locataires",
-        "Elle impose une réglementation stricte limitant l'achat d'un logement à un seul bien par foyer",
-        "Elle a totalement supprimé la distinction légale entre habitat individuel et habitat collectif"
+        "Elle impose une réglementation limitant l'achat d'un logement à un seul bien par foyer",
+        "Elle interdit aux bailleurs privés de posséder des logements collectifs en zone urbaine"
       ]
     ],
     "justificationFr": "Étude comparative de la structure de propriété et de location immobilière à travers les pays européens.",
@@ -1035,7 +1035,7 @@ export const REAL_READING_PASSAGES = [
         "Quelle personnalité française a conçu le service des « carrosses à cinq sols » en 1662 ?",
         "Blaise Pascal",
         "Jean Racine",
-        "Molière"
+        "René Descartes"
       ],
       [
         "Pourquoi le service de carrosses parisiens a-t-il fini par péricliter après ses débuts ?",
@@ -1597,8 +1597,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle réalité des flux migratoires canadiens ce texte met-il en évidence ?",
         "Les législations restrictives envers certaines communautés et l'émigration massive vers les États-Unis",
-        "La gratuité totale du transport transatlantique offerte par le gouvernement aux ouvriers chinois",
-        "L'interdiction absolue de quitter le sol canadien prononcée à l'encontre des citoyens francophones"
+        "L'ouverture inconditionnelle des frontières canadiennes aux travailleurs non qualifiés d'Asie",
+        "La création d'un programme fédéral d'aide au retour pour les émigrants installés aux États-Unis"
       ],
       [
         "À combien s'élevait la taxe d'entrée imposée aux immigrants chinois en 1903 ?",
@@ -1649,8 +1649,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Que révèle la statistique sur les compétences linguistiques des Montréalais ?",
         "La population locale fait preuve d'un degré très élevé de bilinguisme et de multilinguisme",
-        "L'anglais est devenu la seule langue d'usage officielle autorisée au sein de l'administration",
-        "Le français n'est parlé que par une faible minorité isolée dans un arrondissement périphérique"
+        "L'usage de l'anglais s'est généralisé comme unique langue maternelle chez les résidents",
+        "L'apprentissage d'une langue seconde est resté limité à une frange marginale d'habitants"
       ]
     ],
     "justificationFr": "Présentation globale du statut métropolitain de Montréal, de sa géographie insulaire et de sa diversité linguistique.",

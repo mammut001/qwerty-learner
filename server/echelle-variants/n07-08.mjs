@@ -69,14 +69,14 @@ export const N07_08_SCENARIOS = {
         [
           'Comment l’économie de cette région se transforme-t-elle selon la présentation ?',
           'En développant l’énergie éolienne et le numérique',
-          'En cessant totalement l’exploitation des ressources marines',
-          'En limitant toutes les activités touristiques en période estivale',
+          'En modernisant la transformation des produits de la mer',
+          'En réduisant les investissements publics dans le réseau routier',
         ],
         [
           'Quelle difficulté concrète les nouveaux arrivants risquent-ils de rencontrer ?',
           'Un accès restreint aux appartements à louer',
-          'Une absence totale d’écoles primaires sur la côte',
-          'Une opposition hostile des communautés côtières',
+          'Un manque de places dans les services de garde locaux',
+          'Des démarches d’installation complexes auprès des banques',
         ],
         [
           'Quel sous-entendu implicite la conférencière formule-t-elle sur le mode de vie en Gaspésie ?',
@@ -224,7 +224,7 @@ export const N07_08_SCENARIOS = {
       questions: [
         [
           'Quel problème majeur la collègue cherche-t-elle à corriger chez Gabriel ?',
-          'Il oscille entre des registres de langue totalement inappropriés',
+          'Il mélange des registres familier et soutenu dans son discours',
           'Il refuse d’admettre que les chiffres de l’entreprise sont mauvais',
           'Il ne parvient pas à mémoriser le prénom de sa supérieure hiérarchique',
         ],
@@ -236,7 +236,7 @@ export const N07_08_SCENARIOS = {
         ],
         [
           'Que conseille-t-elle concrètement pour réussir l’introduction de l’exposé ?',
-          'Adopter un ton sobre, direct et courtois',
+          'Adopter d’entrée de jeu un ton sobre, direct et courtois',
           'Raconter une anecdote humoristique sur Trois-Rivières',
           'Lire l’intégralité des tableaux comptables sans commentaire',
         ],
@@ -381,14 +381,14 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle stratégie de remboursement la spécialiste recommande-t-elle en priorité ?',
           'Régler en premier les dettes dont le taux d’intérêt est le plus fort',
-          'Rembourser uniquement la dette affichant le solde le moins élevé',
+          'Rembourser en premier lieu la dette affichant le solde le plus faible',
           'Attendre une baisse générale des taux pour payer ses cartes de crédit',
         ],
         [
           'Quel sous-entendu implicite la chroniqueuse formule-t-elle sur la consolidation de dettes ?',
           'Elle s’avère inefficace si les habitudes de consommation ne changent pas',
           'Elle garantit l’annulation complète de la moitié du capital emprunté',
-          'Elle s’adresse exclusivement aux personnes sans aucun revenu fixe',
+          'Elle convient surtout aux ménages bénéficiant de plusieurs sources de revenus',
         ],
         [
           'À quoi devrait servir le fonds de secours préconisé par la chroniqueuse ?',
@@ -431,8 +431,8 @@ export const N07_08_SCENARIOS = {
         [
           'Quels jours de la semaine la présence physique au bureau devient-elle obligatoire ?',
           'Les mardis et les jeudis pour toute l’équipe',
-          'Les lundis et les vendredis sans exception',
-          'Uniquement le mercredi matin pour la réunion générale',
+          'Les lundis et les mercredis selon l’horaire fixé',
+          'Le vendredi après-midi pour le bilan d’étape de l’équipe',
         ],
         [
           'Quelle intention implicite dicte le choix de fixer des journées communes au bureau ?',
@@ -457,7 +457,7 @@ export const N07_08_SCENARIOS = {
           'Quel est l’atout écologique majeur du nouvel édifice selon le gestionnaire ?',
           'Sa certification carboneutre et sa ventilation géothermique',
           'Sa proximité immédiate avec une grande autoroute urbaine',
-          'L’absence totale d’ordinateurs et d’écrans dans les bureaux',
+          'L’usage de mobilier de bureau conçu à partir de bois recyclé',
         ],
         [
           'Que déduit-on de l’attitude de la direction concernant les transports ?',
@@ -543,14 +543,14 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle opinion virulente Denis formule-t-il à l’égard de la nouvelle méthode ?',
           'Le système pénalise injustement les aînés du quartier',
-          'Le déneigement devrait être entièrement pris en charge par l’armée',
+          'La Ville devrait confier les opérations aux entreprises privées du secteur',
           'Les alertes téléphoniques devraient être envoyées en pleine nuit',
         ],
         [
           'Quel bénéfice implicite le voisin met-il de l’avant pour défendre la réforme ?',
           'Un gain de rapidité évitant des tracas prolongés de stationnement',
-          'La gratuité totale des contraventions pour les résidents du quartier',
-          'La fin définitive des hivers froids et enneigés dans la métropole',
+          'Une diminution notable des amendes de stationnement en période de tempête',
+          'Une baisse appréciable des taxes foncières locales liées à la voirie hivernale',
         ],
       ],
     },
@@ -574,7 +574,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle intention implicite sous-tend l’intervention du collègue de Nadia ?',
           'Nuancer un jugement trop sévère en rappelant des gestes récents',
-          'Convaincre Nadia de ne plus jamais aller manifester dans la rue',
+          'Persuader Nadia de privilégier les négociations en comité de quartier',
           'Défendre les promoteurs privés contre les coopératives citoyennes',
         ],
       ],
@@ -594,7 +594,7 @@ export const N07_08_SCENARIOS = {
           'Quelle réaction émotionnelle Patrick manifeste-t-il vis-à-vis des grévistes ?',
           'Une indignation vive face aux retards subis par les usagers',
           'Une grande sympathie pour la fatigue accumulée au volant des bus',
-          'Une indifférence totale car il utilise uniquement sa bicyclette',
+          'Un désaccord modéré lié au manque d’information préalable aux arrêts',
         ],
         [
           'Quel argument implicite Antoine avance-t-il pour justifier la démarche syndicale ?',
@@ -653,8 +653,8 @@ export const N07_08_SCENARIOS = {
         [
           'Que peut-on déduire de la présence d’un pôle d’océanographie reconnu à Rimouski ?',
           'La région mise sur le savoir scientifique pour innover',
-          'Le fleuve est désormais interdit à toute navigation de pêche',
-          'Les jeunes diplômés doivent obligatoirement partir à l’étranger',
+          'La navigation marchande sur l’estuaire est transférée vers Montréal',
+          'Les activités portuaires traditionnelles sont délaissées par les armateurs',
         ],
         [
           'Quelle stratégie les acteurs locaux déploient-ils pour compenser la démographie vieillissante ?',
@@ -685,7 +685,7 @@ export const N07_08_SCENARIOS = {
           'Quel autre secteur d’activité contribue de façon notable à l’économie régionale ?',
           'Le tourisme récréatif axé sur les grands espaces naturels',
           'L’importation massive de produits agricoles manufacturés',
-          'La fabrication exclusive de matériel ferroviaire lourd',
+          'L’assemblage de composantes pour l’industrie ferroviaire lourde',
         ],
       ],
     },
@@ -815,7 +815,7 @@ export const N07_08_SCENARIOS = {
         [
           'Parmi les personnes bénéficiant de l’aide, qui le bénévole cite-t-il explicitement ?',
           'Des aînés, des parents étudiants et de nouveaux résidents',
-          'Uniquement des adolescents refusant de fréquenter l’école',
+          'Des étudiants collégiaux participant à des tournois sportifs régionaux',
           'Des marchands fortunés venus liquider leurs invendus gâtés',
         ],
       ],
@@ -928,8 +928,8 @@ export const N07_08_SCENARIOS = {
         [
           'Quel obstacle important la musicienne a-t-elle dû surmonter pour réaliser son rêve ?',
           'Des moyens financiers restreints et un milieu musical frileux',
-          'L’interdiction légale pour les jeunes de fréquenter les conservatoires',
-          'L’absence totale de professeurs de musique dans sa région d’origine',
+          'Le manque de bourses d’études accordées aux nouveaux talents régionaux',
+          'L’éloignement géographique des écoles spécialisées de la métropole',
         ],
         [
           'Que déduit-on implicitement de sa décision de jouer dans les parcs et les écoles ?',
@@ -1020,9 +1020,9 @@ export const N07_08_SCENARIOS = {
         ],
         [
           'Pourquoi les sommes retirées pour les études sont-elles si peu imposées ?',
-          'L’impôt est imputé à l’étudiant qui a de faibles revenus',
-          'Le gouvernement québécois a aboli tout impôt pour les personnes de moins de trente ans',
-          'Les retraits d’études sont totalement anonymes pour le fisc',
+          'L’impôt est directement imputé à l’étudiant qui dispose de faibles revenus',
+          'Le ministère du Revenu accorde une déduction automatique sans condition de revenu',
+          'Les sommes retirées sont déclarées comme des bourses d’excellence non imposables',
         ],
       ],
     },
@@ -1059,7 +1059,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quel avantage psychologique majeur les partisans de la semaine de quatre jours soulignent-ils ?',
           'Un repos plus réparateur réduisant le niveau de stress global',
-          'La certitude de ne plus jamais devoir accomplir de tâches complexes',
+          'La diminution immédiate des responsabilités confiées aux employés de bureau',
           'La possibilité de cumuler deux emplois à temps plein facilement',
         ],
         [
@@ -1084,7 +1084,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quel bénéfice relationnel principal les travailleurs autonomes trouvent-ils en cotravail ?',
           'L’accès à un réseau stimulant brisant la solitude du domicile',
-          'La promesse de ne plus jamais payer d’impôt sur le revenu d’affaires',
+          'La prise en charge de la comptabilité personnelle par les gestionnaires de l’espace',
           'La mise à disposition d’employés administratifs gratuits pour leurs mandats',
         ],
         [
@@ -1096,8 +1096,8 @@ export const N07_08_SCENARIOS = {
         [
           'Quel inconvénient sonore peut perturber certains professionnels en espace partagé ?',
           'Les bavardages continus et la circulation fréquente des personnes',
-          'L’absence totale de toute musique d’ambiance dans les salons',
-          'Le silence absolu et oppressant imposé par la direction du lieu',
+          'La programmation musicale ininterrompue diffusée dans les zones de détente',
+          'L’interdiction de parler à voix basse même dans les espaces fermés de travail',
         ],
       ],
     },
@@ -1115,8 +1115,8 @@ export const N07_08_SCENARIOS = {
         [
           'Parmi les énoncés suivants, lequel rapporte un fait objectif vérifié par les autorités ?',
           'La cycliste souffre de traumatismes sérieux aux membres supérieurs',
-          'La Ville fait preuve d’une négligence absolument impardonnable',
-          'Les élus ne se soucient aucunement de la vie des usagers',
+          'La Ville a fait preuve de négligence dans l’aménagement de l’intersection',
+          'Les élus municipaux ont ignoré les demandes des associations cyclistes',
         ],
         [
           'Quelle opinion vigoureuse le chroniqueur défend-il au sujet de la voirie ?',
@@ -1178,7 +1178,7 @@ export const N07_08_SCENARIOS = {
           'Que déduit-on implicitement de la mise en garde finale de l’autrice ?',
           'Elle souhaite le retrait complet des flottes si les règles ne sont pas appliquées',
           'Elle envisage d’investir des fonds personnels dans une entreprise de trottinettes',
-          'Elle préfère que les trottinettes circulent uniquement dans les cours d’école',
+          'Elle propose de limiter l’usage des trottinettes aux voies cyclables récréatives',
         ],
       ],
     },
@@ -1197,7 +1197,7 @@ export const N07_08_SCENARIOS = {
           'Quelle opinion favorable l’éditorialiste exprime-t-il vis-à-vis du projet ?',
           'Il s’agit d’un geste éthique courageux pour préserver l’avenir environnemental',
           'Cette mesure permettra d’augmenter de façon spectaculaire les profits de l’école',
-          'Les cafétérias scolaires devraient servir uniquement des légumes crus sans cuisson',
+          'Les cafétérias devraient bannir tout aliment préparé hors de la région immédiate',
         ],
         [
           'Quelle critique implicite les opposants à la mesure mettent-ils de l’avant ?',
@@ -1216,7 +1216,7 @@ export const N07_08_SCENARIOS = {
           'Quel résultat factuel a été constaté par les inspecteurs de la ville après un mois ?',
           'Un niveau de conformité des commerces approchant quatre-vingt-huit pour cent',
           'La fermeture immédiate de la moitié des restaurants et des épiceries de la ville',
-          'Une disparition totale de tous les déchets polluants dans les rivières locales',
+          'Une diminution notable des emballages jetables abandonnés dans les parcs de quartier',
         ],
         [
           'Quelle opinion contestataire la représentante des restaurateurs défend-elle ?',
@@ -1247,7 +1247,7 @@ export const N07_08_SCENARIOS = {
           'Quelle position favorable le chroniqueur avance-t-il au sujet de ce système ?',
           'La tarification selon l’usage responsabilise concrètement les comportements individuels',
           'Les bacs noirs à puce électronique devraient être interdits dans toute la province',
-          'Les familles sans enfant devraient payer la totalité des impôts fonciers municipaux',
+          'Les propriétaires d’immeubles devraient assumer la majeure partie des coûts de collecte',
         ],
         [
           'Quelle conséquence perverse implicite la coalition citoyenne redoute-t-elle ?',
@@ -1288,7 +1288,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quel problème logistique précis les répondants ont-ils souligné ?",
           "Des écarts fréquents dans l’état réel des marchandises disponibles",
-          "Une rupture totale dans l’approvisionnement en matériaux lourds",
+          "Des retards répétés dans l’approvisionnement en matériaux de construction",
           "Un manque chronique de camions pour assurer la livraison à domicile",
         ],
       ],
@@ -1352,7 +1352,7 @@ export const N07_08_SCENARIOS = {
           "En quoi consiste la tâche principale liée au mandat proposé ?",
           "Guider les villes locales dans la conception de stratégies climatiques",
           "Assurer la maintenance mécanique des installations solaires municipales",
-          "Gérer exclusivement le budget annuel des travaux d’asphaltage urbain",
+          "Coordonner les appels d’offres pour les travaux de réfection du réseau routier",
         ],
         [
           "Quelle exigence particulière découle implicitement de l’animation des réunions citoyennes ?",
@@ -1363,7 +1363,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle modalité d’organisation du travail est garantie dans ce poste ?",
           "La possibilité d’exercer ses fonctions à distance à temps partiel",
-          "L’interdiction absolue de tout déplacement hors du bureau central",
+          "L’obligation de réaliser l’ensemble des réunions de travail par vidéoconférence",
           "Une présence obligatoire au siège régional cinq jours par semaine",
         ],
       ],
@@ -1388,7 +1388,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quel avantage professionnel l’institution propose-t-elle à la candidate ?",
           "Un financement régulier pour perfectionner ses compétences",
-          "Une dispense totale de toute formation au cours de l’année",
+          "Une exemption d’évaluation professionnelle durant ses premières années de service",
           "Un horaire de travail fixe sans aucune contrainte d’urgence",
         ],
       ],
@@ -1408,12 +1408,12 @@ export const N07_08_SCENARIOS = {
           "Que peut-on déduire sur les contraintes horaires liées à cet emploi ?",
           "Les journées de travail s’étirent souvent lors des représentations",
           "L’horaire s’arrête strictement à dix-sept heures chaque jour ouvrable",
-          "Le travail s’effectue uniquement les fins de semaine durant l’automne",
+          "Les plages de travail sont concentrées en fin de semaine durant l’automne",
         ],
         [
           "Quel bénéfice d’ordre culturel le poste offre-t-il au gestionnaire engagé ?",
           "Une immersion au cœur des ateliers de création théâtrale",
-          "Une gratuité totale pour assister à des concerts de musique pop",
+          "L’octroi d’invitations gratuites pour les spectacles musicaux en plein air",
           "Un accès illimité aux représentations théâtrales des grands festivals",
         ],
       ],
@@ -1445,7 +1445,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quel sentiment général émerge implicitement chez les électeurs à l’heure du scrutin ?",
           "Un tiraillement entre la stabilité acquise et la volonté de changement",
-          "Une certitude absolue de reconduire massivement l’équipe en place",
+          "Une volonté majoritaire de reconduire sans réserve l’équipe en place",
           "Un désintérêt complet pour les questions de santé et d’économie",
         ],
       ],
@@ -1515,7 +1515,7 @@ export const N07_08_SCENARIOS = {
           "Quel obstacle personnel freine Antoine dans sa relation naissante avec Juliette ?",
           "Les blessures non résolues laissées par une rupture passée",
           "Le rejet catégorique du milieu de vie maritime de la jeune femme",
-          "Le manque d’intérêt total pour les projets d’architecture de celle-ci",
+          "Des divergences professionnelles sur les projets d’architecture de la jeune femme",
         ],
         [
           "Que peut-on déduire sur l’intention de la cinéaste à travers ce long-métrage ?",
@@ -1564,7 +1564,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quel sentiment les personnages éprouvent-ils au fil de leur cohabitation ?",
           "Une insécurité grandissante face à l’avenir et aux projets communs",
-          "Une certitude absolue que leurs différences renforceront leur foyer",
+          "La conviction sereine que leurs différences enrichiront leur quotidien partagé",
           "Un profond mépris l’un pour l’autre après la première dispute vécue",
         ],
         [
@@ -1671,7 +1671,7 @@ export const N07_08_SCENARIOS = {
         [
           "Que peut-on déduire quant à l’attitude du client avant cette mise au point ?",
           "Il éprouvait une méfiance accrue en raison d’un manque de communication",
-          "Il était entièrement satisfait de la tournure prise par le développement",
+          "Il approuvait sans réserve les fonctionnalités présentées lors des réunions d’étape",
           "Il cherchait délibérément un prétexte pour annuler le projet de portail",
         ],
         [
@@ -1778,7 +1778,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle réaction prudente la superviseure préconise-t-elle face au mécanisme d’aspiration ?",
           "Manipuler les pièces délicates avec douceur sans exercer de contrainte",
-          "Démonter entièrement la pompe hydraulique sans attendre de secours",
+          "Démonter le corps de la pompe hydraulique avant l’arrivée du technicien spécialisé",
           "Remplacer le tuyau souple par une conduite métallique rigide",
         ],
         [
@@ -1848,7 +1848,7 @@ export const N07_08_SCENARIOS = {
           "Quelle orientation géographique est recommandée pour maximiser l’ensoleillement des herbes ?",
           "Un alignement plein sud-ouest pour profiter du soleil d’après-midi",
           "Une orientation dirigée vers le nord pour préserver la fraîcheur",
-          "Un emplacement à l’ombre totale pour éviter les brûlures solaires",
+          "Un aménagement en zone ombragée pour protéger le feuillage des chaleurs intenses",
         ],
         [
           "Quelle intention motive le conseil d’arroser directement à la base des végétaux ?",
@@ -1992,7 +1992,7 @@ export const N07_08_SCENARIOS = {
           "Quel sentiment domine chez Dominique lors de cette discussion entre collègues ?",
           "Une profonde frustration causée par les lourdeurs de la nouvelle interface",
           "Un enthousiasme débordant devant les perspectives futures d’évolution de carrière",
-          "Une indifférence totale envers les choix d’organisation de la direction",
+          "Un détachement poli face aux nouvelles directives transmises par la direction",
         ],
       ],
     },
@@ -2092,7 +2092,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle avancée technologique a permis d’accélérer le développement de l’entreprise en 2005 ?",
           "L’implantation d’installations de congélation préservant les nutriments",
-          "L’invention d’un tracteur entièrement automatisé pour récolter le bleuet",
+          "La mise au point d’une récolteuse mécanique adaptée aux vergers de bleuets nains",
           "L’utilisation de conservateurs chimiques autorisés pour le transport marin",
         ],
         [
@@ -2160,8 +2160,8 @@ export const N07_08_SCENARIOS = {
       questions: [
         [
           "Quelle importance capitale les tourbières revêtent-elles pour l’équilibre de la planète ?",
-          "Elles retiennent davantage de carbone que la totalité des forêts mondiales",
-          "Elles procurent la totalité de l’eau douce consommée par les grandes villes",
+          "Elles stockent davantage de matière carbonée que tous les massifs forestiers du globe",
+          "Elles fournissent l’essentiel de l’eau douce distribuée dans les grands centres urbains",
           "Elles éliminent les risques de tempêtes hivernales sur la plaine côtière",
         ],
         [
@@ -2185,7 +2185,7 @@ export const N07_08_SCENARIOS = {
       questions: [
         [
           "Quelle contrainte géographique majeure oblige les villages du Nunavik à produire leur propre énergie ?",
-          "L’absence totale de raccordement physique au réseau d’électricité de la province",
+          "L’impossibilité matérielle d’un raccordement au réseau électrique provincial",
           "L’interdiction légale de transporter des carburants liquides en bateau dans le Nord",
           "L’altitude trop élevée des villages qui empêche la circulation de l’air éolien",
         ],
@@ -2306,7 +2306,7 @@ export const N07_08_SCENARIOS = {
           "Quelle réaction stupéfaite les héros éprouvent-ils en découvrant l’environnement extérieur ?",
           "Un choc salutaire face à une nature bien vivante contredisant les récits officiels",
           "Une panique incontrôlable causée par la présence d’air toxique et étouffant",
-          "Une déception immense devant un désert de glace froid et totalement inhabité",
+          "Une profonde désillusion devant une plaine aride dénuée de toute trace de végétation",
         ],
       ],
     },
@@ -2381,8 +2381,8 @@ export const N07_08_SCENARIOS = {
         [
           "Quel fonctionnement novateur caractérisera le nouveau pôle créé à l’automne ?",
           "Une équipe d’intervention itinérante répondant aux besoins de l’ensemble du secteur",
-          "Une division hospitalière réservée uniquement au suivi des maladies chroniques graves",
-          "Un service exclusivement téléphonique géré par des assistants virtuels automatisés",
+          "Une unité médicale spécialisée affectée au traitement des affections respiratoires aiguës",
+          "Une plateforme d’assistance téléphonique animée par des conseillers bénévoles du quartier",
         ],
         [
           "Quelle intention bienveillante la direction exprime-t-elle envers ses équipes de terrain ?",
@@ -2426,7 +2426,7 @@ export const N07_08_SCENARIOS = {
           "Quel irritant majeur pour les étudiants le projet de fusion vise-t-il à éliminer ?",
           "La multiplication des démarches morcelées à travers différents pavillons",
           "L’obligation de payer des droits d’inscription supplémentaires pour être guidé",
-          "L’absence totale de professeurs d’aide aux devoirs pendant les fins de semaine",
+          "Le manque de tuteurs disponibles pour animer les ateliers de méthodologie universitaire",
         ],
         [
           "Quel rôle central le conseiller pivot jouera-t-il auprès de chaque collégien ?",
@@ -2475,7 +2475,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle exigence préalable conditionne la validité des calculs thermiques de l’édifice ?",
           "L’importation des données météorologiques officielles de la localité visée",
-          "L’utilisation exclusive de matériaux isolants certifiés conformes par l’Ordre",
+          "La sélection de matériaux écologiques homologués par les associations de constructeurs",
           "La souscription préalable d’un abonnement payant à la base de données",
         ],
         [
@@ -2563,14 +2563,14 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle prérogative le statut temporaire de candidate accorde-t-il avant l’examen final ?",
           "Exercer des tâches soignantes sous la responsabilité d’infirmières chevronnées",
-          "Prescrire de manière totalement autonome tous les médicaments hospitaliers majeurs",
+          "Prescrire en toute indépendance des protocoles médicamenteux en salle d’opération",
           "Diriger un département d’urgences pédiatriques sans aucune tutelle hiérarchique",
         ],
         [
           "Que peut-on déduire sur la mission première de cet ordre professionnel à travers ces exigences ?",
           "Protéger la sécurité des usagers en garantissant la compétence rigoureuse du corps soignant",
           "Limiter arbitrairement le nombre de candidates pour maintenir des rémunérations élevées",
-          "Favoriser l’embauche exclusive d’étudiantes issues des grands centres urbains de la province",
+          "Favoriser l’intégration prioritaire de diplômées originaires des grandes universités urbaines",
         ],
       ],
     },
@@ -2582,7 +2582,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quels actes techniques essentiels requièrent obligatoirement le statut d’agronome certifié ?",
           "La prescription de plans d’amendement des terres et le conseil sur les intrants",
-          "La vente exclusive d’engrais minéraux dans les coopératives agricoles du terroir",
+          "La commercialisation d’équipements de pulvérisation dans les magasins d’outillage rural",
           "La conduite de moissonneuses-batteuses lors des récoltes intensives d’automne",
         ],
         [
@@ -2638,7 +2638,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle étape préliminaire de conciliation est systématiquement proposée par l’organisme ?",
           "Une rencontre de médiation bénévole et sans frais pour rechercher une entente à l’amiable",
-          "Un arbitrage payant dont les frais sont entièrement assumés par le travailleur requérant",
+          "Un arbitrage juridique dont les honoraires sont facturés à parts égales aux deux parties",
           "Une confrontation obligatoire dans les locaux de l’entreprise devant l’ensemble du personnel",
         ],
         [
@@ -2714,7 +2714,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle mesure forte introduite par la loi la chroniqueuse juge-t-elle bénéfique ?",
           "La responsabilité financière directe des plateformes en cas de publicité frauduleuse",
-          "L’attribution exclusive des permis de louer aux seuls résidents permanents du quartier",
+          "L’obligation d’accorder la priorité de location aux travailleurs du secteur hôtelier local",
           "Le plafonnement automatique des loyers résidentiels par la Régie du logement",
         ],
         [
@@ -2789,7 +2789,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle décision expéditive prise par les autorités locales suscite l’indignation du journaliste ?",
           "L’organisation de chasses d’éradication pour régler le surplus de bêtes à bas prix",
-          "L’interdiction totale faite aux citoyens de fréquenter les parcs régionaux boisés",
+          "La fermeture préventive des sentiers de randonnée pédestre durant toute la belle saison",
           "L’installation de barrières électrifiées le long de l’ensemble des routes secondaires",
         ],
         [
