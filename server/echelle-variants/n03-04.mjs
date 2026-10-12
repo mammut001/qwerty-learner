@@ -817,9 +817,9 @@ const N3_JOBS_LIST = [
 ]
 const N3_ATTACHMENTS_LIST = [
   { att: 'votre curriculum vitæ complet', kw: 'curriculum', p: 'son curriculum vitæ récent' },
-  { att: 'vos disponibilités de travail écrites', kw: 'disponibilités', p: 'ses disponibilités de travail écrites' },
-  { att: 'deux références professionnelles vérifiables', kw: 'références', p: 'deux références vérifiables' },
-  { att: 'une copie de votre diplôme secondaire', kw: 'diplôme', p: 'la copie de son diplôme' },
+  { att: 'vos disponibilités de travail écrites', kw: 'disponibilités', p: 'ses disponibilités de travail' },
+  { att: 'deux références professionnelles vérifiables', kw: 'références', p: 'deux références professionnelles' },
+  { att: 'une copie de votre diplôme secondaire', kw: 'diplôme', p: 'la copie de son diplôme récent' },
 ]
 
 export const N03_R_1 = [
@@ -829,12 +829,13 @@ export const N03_R_1 = [
       const job = pick(N3_JOBS_LIST, rand)
       const att = pick(N3_ATTACHMENTS_LIST, rand)
       const shift = pick(['en semaine et les fins de semaine', 'du jeudi au samedi inclusivement', 'sur les quarts de soir en semaine'], rand)
+      const othersAtt = sample(N3_ATTACHMENTS_LIST.filter(x => x.kw !== att.kw), 2, rand)
       const text = `Formulaire d’embauche - Commerce de détail. Poste convoité : ${job.job}. Nom : … Prénom : … Téléphone : … Disponibilités : ${shift}. Expérience dans le domaine : oui / non. Veuillez joindre ${att.att} à votre demande.`
       return {
         text,
         questions: [
-          q('Quel document le candidat remplit-il ici ?', 'un formulaire d’embauche en magasin', 'un contrat de location de local', 'une facture d’électricité du mois', ['embauche']),
-          q('Quel document d’accompagnement est exigé ?', att.p, 'un acte de vente pour un bien', 'un carnet de santé pour animal', [att.kw]),
+          q('Quel document le candidat remplit-il ici ?', 'un formulaire d’embauche en magasin', 'une demande de stage professionnel', 'une fiche de formation en entreprise', ['embauche']),
+          q('Quel document d’accompagnement est exigé ?', att.p, othersAtt[0].p, othersAtt[1].p, [att.kw]),
         ],
       }
     },
@@ -849,7 +850,7 @@ export const N03_R_1 = [
         text,
         questions: [
           q('À quel service scolaire ce formulaire sert-il ?', 'au service de garde des élèves', 'au club sportif de fin d’année', 'aux sorties scolaires du vendredi', ['garde']),
-          q('Quelle information sur l’enfant doit être indiquée ?', 'les allergies alimentaires', 'la pointure exacte des souliers', 'le titre du jeu vidéo préféré', ['allergies']),
+          q('Quelle information sur l’enfant doit être indiquée ?', 'les allergies alimentaires', 'la date du vaccin obligatoire', 'le nom du médecin de famille', ['allergies']),
         ],
       }
     },
@@ -878,8 +879,8 @@ export const N03_R_1 = [
       return {
         text,
         questions: [
-          q('Quel type d’inscription cette fiche permet-elle ?', 'une activité sportive pour enfant', 'un voyage scolaire à l’étranger', 'un cours de musique pour adulte', ['sport']),
-          q('Quel renseignement d’urgence est demandé ?', 'un contact en cas d’urgence', 'le numéro de permis de conduire', 'le groupe sanguin des parents', ['urgence']),
+          q('Quel type d’inscription cette fiche permet-elle ?', 'l’inscription à une équipe sportive', 'la réservation du gymnase municipal', 'l’achat d’un ensemble d’entraînement', ['sport']),
+          q('Quel renseignement d’urgence est demandé ?', 'un contact en cas d’urgence', 'le numéro du médecin traitant', 'l’adresse du centre hospitalier', ['urgence']),
         ],
       }
     },
@@ -891,7 +892,7 @@ export const N03_R_1 = [
     text: 'Formulaire de demande d’emploi - Supermarché Metro. Postes disponibles : commis d’emballage, caissière, poissonnier. Avez-vous de l’expérience avec le public ? Êtes-vous étudiant ? Indiquez vos heures de cours du lundi au vendredi.',
     questions: [
       q('Pour quel type de commerce ce formulaire est-il conçu ?', 'un supermarché d’alimentation', 'une pharmacie de quartier', 'une quincaillerie de banlieue', ['supermarché']),
-      q('Que doivent préciser les candidats qui étudient ?', 'leurs heures de cours la semaine', 'leurs résultats aux examens', 'la liste des livres achetés', ['heures de cours']),
+      q('Que doivent préciser les candidats qui étudient ?', 'leurs heures de cours la semaine', 'le nom de leur établissement scolaire', 'le diplôme visé en fin de programme', ['heures de cours']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Camp de jour estival
@@ -900,7 +901,7 @@ export const N03_R_1 = [
     text: 'Service des loisirs municipaux. Formulaire de camp de jour estival. Prénom et nom du jeune : … Âge : … Allergies aux piqûres d’insectes : … Prise de médicaments pendant le séjour : oui / non. Contact d’urgence et numéro de cellulaire : …',
     questions: [
       q('Pour quelle activité estivale ce formulaire est-il requis ?', 'le camp de jour municipal', 'les cours de natation d’été', 'la sortie au parc d’attractions', ['camp de jour']),
-      q('Quelle information médicale particulière est relevée ?', 'la réaction aux piqûres d’insectes', 'le type de brosse à dents utilisée', 'le groupe sanguin des voisins', ['piqûres d’insectes']),
+      q('Quelle information médicale particulière est relevée ?', 'la réaction aux piqûres d’insectes', 'l’historique des vaccins d’enfance', 'les allergies aux produits laitiers', ['piqûres d’insectes']),
     ],
   },
 ]
