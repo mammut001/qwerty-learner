@@ -2366,10 +2366,10 @@ const N4_VOICEMAIL_PASSWORDS = [
   { text: 'compose ton nouveau code d’accès personnel', opt: 'composer son nouveau code d’accès', kw: 'code' },
 ]
 const N4_VOICEMAIL_FALSE_STEPS = [
-  'rappeler immédiatement son dernier correspondant',
-  'effacer sans écouter tous les anciens messages',
-  'désactiver la sonnerie d’appel du téléphone',
-  'transférer l’appel vers une boîte vocale externe',
+  'épeler son nom de famille complet',
+  'donner sa date de naissance exacte',
+  'indiquer son code postal actuel',
+  'confirmer son numéro d’abonné',
 ]
 const N4_VOICEMAIL_GREETINGS = [
   'enregistre ton message d’accueil après le bip',
