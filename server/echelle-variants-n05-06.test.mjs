@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
-import { N05_06_SCENARIOS } from './echelle-variants/n05-06.mjs'
+import { N05_06_SCENARIOS, SLOT_NOUN_METADATA } from './echelle-variants/n05-06.mjs'
 import { ECHELLE_ITEM_CATALOG, mulberry32 } from './echelle-curriculum.mjs'
 import { LEXIQUE_TOPICS } from './echelle-lexique-bank.mjs'
 import { SENTENCE_GRAMMAR } from './echelle-grammar-bank.mjs'
@@ -308,10 +308,12 @@ describe('Échelle québécoise Niveaux 5–6 Scenarios and Banks', () => {
   })
 
   it('satisfies slot grammar scan patterns without invalid contractions or elisions', () => {
-    const p1 = /\b(de le|à le|de les|à les)\b/i
+    const p1 = /(?<![\p{L}\p{N}])(de le|à le|de les|à les)(?![\p{L}\p{N}])/iu
     const p2 = /\ben (le|la|les|l[’'])\s?\w+/i
     const p3 = /\bentre [^.;,]{3,40} à /i
     const p4 = /\b(de|que|je|ne|me|te|se)\s+[aeiouéèêàâîôû]\w{2,}/i
+    const pCestPlural = /(?<![\p{L}\p{N}])c[’']est\s+(?:les|des)(?![\p{L}\p{N}])/iu
+    const pNicheDes = /(?<![\p{L}\p{N}])nich[ée]e?s?\s+des(?![\p{L}\p{N}])/iu
     const allowedP2 = [
       'en l’absence de', "en l'absence de",
       'en la matière', 'en la matiere',
@@ -335,9 +337,236 @@ describe('Échelle québécoise Niveaux 5–6 Scenarios and Banks', () => {
             assert.ok(!p2.test(cleanP2), `P2 article after en hit in ${id} sc ${sIdx}: "${cleanP2}"`)
             assert.ok(!p3.test(str), `P3 entre ... à hit in ${id} sc ${sIdx}: "${str}"`)
             assert.ok(!p4.test(str), `P4 missing elision hit in ${id} sc ${sIdx}: "${str}"`)
+            assert.ok(!pCestPlural.test(str), `Forbidden c'est les/des in ${id} sc ${sIdx}: "${str}"`)
+            assert.ok(!pNicheDes.test(str), `Forbidden niché(e)(s) des in ${id} sc ${sIdx}: "${str}"`)
           }
         }
       }
     }
   })
+
+  it('satisfies comprehensive levels 5-6 guard invariants across 300 seeded builds', () => {
+    const ALLOWED_PROPER_NOUNS = ['Le Devoir', 'Les Affaires', 'Le Soleil', 'Le Droit']
+
+    const NON_ELIDING_WORDS = new Set([
+      'haut', 'haute', 'hautes', 'hauteur', 'hausse', 'homard', 'hockey',
+      'halte', 'harcèlement', 'hors', 'huit', 'onze', 'héroïque', 'hérisson',
+      'hache', 'honte', 'haine', 'hasard', 'hâte', 'héros', 'hollande', 'hongrie',
+      'harpon', 'harpons', 'yoga', 'yoho', 'yukon',
+    ])
+
+    const mascPersonas = new Set([
+      'Patrick', 'Luc', 'Simon', 'Karim', 'Émile', 'Tariq',
+      'Marc', 'David', 'Alexandre', 'Antoine', 'François', 'Mathieu',
+    ])
+    const femPersonas = new Set([
+      'Marie-Ève', 'Marie', 'Geneviève', 'Isabelle', 'Véronique', 'Audrey',
+      'Sophie', 'Valérie', 'Chantal', 'Monique', 'Nadia', 'Camille',
+      'Julie', 'Caroline', 'Lucia',
+    ])
+
+    const mascNouns = SLOT_NOUN_METADATA.filter((n) => n.gender === 'm').map((n) => n.noun)
+    const femNouns = SLOT_NOUN_METADATA.filter((n) => n.gender === 'f').map((n) => n.noun)
+    const mascClashRe = new RegExp(`\\b(la|une|cette)\\s+(${mascNouns.join('|')})\\b`, 'iu')
+    const femClashRe = new RegExp(`\\b(le|un|ce|cet)\\s+(${femNouns.join('|')})\\b`, 'iu')
+
+    const PROPER_NOUNS_AFTER_PUNCT = new Set([
+      'Patrick', 'Simard', 'Marc', 'Bédard', 'Chantal', 'Lévesque', 'Alexandre', 'Antoine', 'François',
+      'Mathieu', 'Marie-Ève', 'Geneviève', 'Isabelle', 'Véronique', 'Audrey', 'Sophie', 'Valérie',
+      'Monique', 'Nadia', 'Camille', 'Julie', 'Caroline', 'Lucia', 'Tariq', 'Karim', 'Émile', 'Luc',
+      'Simon', 'David', 'Clara', 'Laurence', 'Marianne', 'Lemieux', 'Gagnon', 'Tremblay', 'Roy',
+      'Bouchard', 'Gauthier', 'Côté', 'Morin', 'Fortin', 'Pelletier', 'Bélanger', 'Bergeron', 'Boucher',
+      'Martin', 'Félix', 'Samuel', 'Jean', 'Ariane', 'Belkacem', 'Docteure', 'Docteur', 'Madame', 'Monsieur',
+      'Charlevoix', 'Rimouski', 'Gatineau', 'Montréal', 'Québec', 'Magog', 'Sherbrooke', 'Laval',
+      'Longueuil', 'Tadoussac', 'Saguenay', 'Gaspé', 'Percé', 'Laurentides', 'Orléans', 'Bonaventure',
+      'Peel', 'Cartet', 'Maguire', 'Alma', 'Mont-Tremblant', 'Canada', 'Hydro-Québec', 'Desjardins', 'RQAP',
+      'Karine', 'Sarah', 'Émilie',
+    ])
+    const unaccentedParticipleRe = /(?<![\p{L}\p{N}])(a|ont|est|sont|avait|avaient)\s+(troque|participe|installe|renove|regroupe|mobilise|cree|ameliore|organise|debute|remplace|presente|confirme)(?![\p{L}\p{N}])/iu
+
+    const contractionRe = /(?<![\p{L}\p{N}])(à|de)\s+(le|les)(?![\p{L}\p{N}])/iu
+    const deDesRe = /\bde des\b/i
+    const cestPluralRe = /(?<![\p{L}\p{N}])c[’']est\s+(?:les|des)(?![\p{L}\p{N}])/iu
+    const nicheDesRe = /(?<![\p{L}\p{N}])nich[ée]e?s?\s+des(?![\p{L}\p{N}])/iu
+    const doubledRe = /(?<![\p{L}\p{N}])(de|le|la|les|un|une|à)\s+\1(?![\p{L}\p{N}])/iu
+    const wrongElisionRe = /(?<![\p{L}\p{N}])(d|l|qu|j|n|s|m|t|c)[’'](?![aeiouyhâàéèêëîïôöûùœAEIOUYHÂÀÉÈÊÎÔÛŒ\d])/iu
+    const elisionCheckRe = /(?<![\p{L}\p{N}])(de|que|lorsque|puisque|jusque|je|ne|me|te|se)\s+([a-zà-ÿ]+)/giu
+    const ilFautRe = /\bil faut (?:absolument )?d[e’']/i
+    const cherRe = /\b(Cher|Chère|Chers|Chères)\s+([A-ZÀ-Ÿ][a-zà-ÿ-]+)/gu
+
+    let totalBuilds = 0
+    let totalQuestions = 0
+    let totalScenarios = 0
+
+    for (const [id, scenarios] of Object.entries(N05_06_SCENARIOS)) {
+      for (let sIdx = 0; sIdx < scenarios.length; sIdx++) {
+        totalScenarios++
+        const sc = scenarios[sIdx]
+        const isDynamic = typeof sc === 'function'
+        const iterations = isDynamic ? 300 : 1
+
+        for (let seed = 0; seed < iterations; seed++) {
+          totalBuilds++
+          const rand = mulberry32(djb2(`${id}:${sIdx}:${seed}`))
+          const inst = isDynamic ? sc(rand) : sc
+          const lowerText = inst.text.toLowerCase().replace(/[’']/g, ' ')
+
+          // Option distinctness & answer-binding
+          for (let qIdx = 0; qIdx < inst.questions.length; qIdx++) {
+            totalQuestions++
+            const q = inst.questions[qIdx]
+            const [prompt, ans, dist1, dist2] = q
+            const choices = [ans.trim().toLowerCase(), dist1.trim().toLowerCase(), dist2.trim().toLowerCase()]
+            assert.strictEqual(
+              new Set(choices).size,
+              3,
+              `Duplicate or trivial choices in ${id} sc ${sIdx} q ${qIdx}: ${JSON.stringify(choices)}`
+            )
+
+            const ev = q.evidence || []
+            assert.ok(
+              Array.isArray(ev) && ev.length >= 1,
+              `Question must have at least 1 evidence keyword in ${id} sc ${sIdx} q ${qIdx}`
+            )
+            for (const kw of ev) {
+              const cleanKw = kw.toLowerCase().replace(/[’']/g, ' ').trim()
+              assert.ok(
+                lowerText.includes(cleanKw),
+                `Evidence keyword "${kw}" missing from built text in ${id} sc ${sIdx} q ${qIdx} seed ${seed}`
+              )
+            }
+          }
+
+          const strings = [inst.text]
+          for (const q of inst.questions) strings.push(q[0], q[1], q[2], q[3])
+
+          for (const rawStr of strings) {
+            let str = rawStr
+            for (const pn of ALLOWED_PROPER_NOUNS) {
+              str = str.replaceAll(`de ${pn}`, '___DE_PN___').replaceAll(`à ${pn}`, '___A_PN___')
+            }
+
+            // 1. Contraction check: \b(à|de) (le|les)\b
+            assert.ok(
+              !contractionRe.test(str),
+              `Forbidden contraction in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+
+            // 1b. Capital letter directly after comma or semicolon followed by lowercase word
+            for (const cm of str.matchAll(/(?:,|;)[ \t]+(\p{Lu}[\p{L}-]*)[ \t]+(\p{Ll}[\p{L}-]*)/gu)) {
+              const capWord = cm[1]
+              assert.ok(
+                PROPER_NOUNS_AFTER_PUNCT.has(capWord),
+                `Capital letter directly after punctuation followed by lowercase word in ${id} sc ${sIdx}: "${cm[0]}" in "${rawStr}"`
+              )
+            }
+
+            // 1c. Unaccented participle typos
+            assert.ok(
+              !unaccentedParticipleRe.test(str),
+              `Unaccented participle typo in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+
+            // 2. de des check
+            assert.ok(
+              !deDesRe.test(str),
+              `Forbidden "de des" in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+
+            // 2b. c'est les/des check
+            assert.ok(
+              !cestPluralRe.test(str),
+              `Forbidden "c'est les/des" in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+
+            // 2c. niché(e)(s) des check
+            assert.ok(
+              !nicheDesRe.test(str),
+              `Forbidden "niché(e)(s) des" in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+
+            // 3. Doubled function words
+            assert.ok(
+              !doubledRe.test(str),
+              `Doubled function word in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+
+            // 4. Wrong elision
+            assert.ok(
+              !wrongElisionRe.test(str),
+              `Wrong elision in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+
+            // 5. il faut (absolument )?d[e']
+            assert.ok(
+              !ilFautRe.test(str),
+              `Forbidden "il faut de" in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+
+            // 6. Article/noun clashes from SLOT_NOUN_METADATA
+            assert.ok(
+              !mascClashRe.test(str),
+              `Masculine slot noun clash with feminine article in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+            assert.ok(
+              !femClashRe.test(str),
+              `Feminine slot noun clash with masculine article in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+
+            // 7. Persona gender agreement for Cher/Chère
+            for (const cm of str.matchAll(cherRe)) {
+              const salutation = cm[1]
+              const persona = cm[2]
+              if (salutation === 'Cher') {
+                assert.ok(!femPersonas.has(persona), `Gender clash: "Cher ${persona}" in ${id} sc ${sIdx}`)
+              }
+              if (salutation === 'Chère') {
+                assert.ok(!mascPersonas.has(persona), `Gender clash: "Chère ${persona}" in ${id} sc ${sIdx}`)
+              }
+            }
+
+            // 8. Missing mandatory elision with allowlist
+            for (const em of str.matchAll(elisionCheckRe)) {
+              const nextWord = em[2].toLowerCase()
+              if (NON_ELIDING_WORDS.has(nextWord) || nextWord.startsWith('huit') || nextWord.startsWith('onze')) {
+                continue
+              }
+              const isVowelInitial = /^[aeiouâàéèêëîïôöûùœ]/.test(nextWord)
+              const isMuteH = /^h[aeiouâàéèêëîïôöûùœ]/.test(nextWord) && !NON_ELIDING_WORDS.has(nextWord)
+              assert.ok(
+                !isVowelInitial && !isMuteH,
+                `Missing mandatory elision "${em[0]}" in ${id} sc ${sIdx}: "${rawStr}"`
+              )
+            }
+          }
+
+          // 9. Register consistency per built text (tu vs vous)
+          const tuRe = /(?<![\p{L}\p{N}])(tu|toi|ton|ta|tes|connecte-toi)(?![\p{L}\p{N}])/iu
+          const vousRe = /(?<![\p{L}\p{N}-])(vous|votre|vos)(?![\p{L}\p{N}-])/iu
+          const unquoted = inst.text.replace(/«[^»]*»|"[^"]*"/g, '')
+          if (tuRe.test(unquoted) && vousRe.test(unquoted)) {
+            assert.fail(
+              `Register clash (tu vs vous) in ${id} sc ${sIdx} seed ${seed}: "${inst.text}"`
+            )
+          }
+
+          // 10. Finite verb check after reporting verbs
+          const reportingClauseRe = /(?:indique|souligne|précise|annonce) que\s+([^.!?]+)[.!?]/giu
+          for (const rm of inst.text.matchAll(reportingClauseRe)) {
+            const clause = rm[1].trim()
+            const finiteVerbRe = /(?<![\p{L}\p{N}])(?:est|sont|était|étaient|fut|furent|sera|seront|a|ont|avait|avaient|aura|auront|fait|font|faisait|faisaient|fera|feront|va|vont|allait|allaient|doit|doivent|devait|devaient|peut|peuvent|pouvait|pouvaient|sait|savent|semble|semblent|prend|prennent|prendra|prenait|reçoit|reçoivent|débroussaillent|activent|dépassent|souffre|souffrent|suffit|suffisent|compte|comptent|\w+(?:ent|ait|aient|era|eront))\b/iu
+            assert.ok(
+              finiteVerbRe.test(clause),
+              `Subordinate clause after reporting verb missing finite verb in ${id} sc ${sIdx}: "${clause}"`
+            )
+          }
+        }
+      }
+    }
+
+    console.log(
+      `Guard test completed successfully: ${totalScenarios} scenarios, ${totalBuilds} builds, and ${totalQuestions} questions verified across all 24 indicators.`
+    )
+  })
 })
+

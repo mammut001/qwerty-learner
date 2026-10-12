@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
+import { N01_02_SCENARIOS } from './echelle-variants/n01-02.mjs'
 import { N03_04_SCENARIOS } from './echelle-variants/n03-04.mjs'
+import * as shared from './echelle-variants/shared.mjs'
 import { ECHELLE_ITEM_CATALOG, mulberry32 } from './echelle-curriculum.mjs'
 
 function countWords(text) {
@@ -270,6 +272,7 @@ describe('Échelle québécoise Niveaux 3 & 4 practice scenarios (n03-04)', () =
         )
 
         // Verbatim frequency check (<= 15% of builds)
+        // Verbatim frequency check (<= 15% of builds)
         const verbatimPct = (verbatimBuildCount / 300) * 100
         assert.ok(
           verbatimPct <= 15,
@@ -278,4 +281,241 @@ describe('Échelle québécoise Niveaux 3 & 4 practice scenarios (n03-04)', () =
       })
     })
   }
+})
+
+describe('Guard test: Levels 1–4 French grammar invariants and answer binding', () => {
+  it('enforces French invariants, distinct options, and answer evidence binding across 300 seeded builds for all scenarios in levels 1–4', () => {
+    // 1. Build slot gender dictionaries from metadata
+    const maleNames = shared.PERSONAS.filter((p) => p.gender === 'm').map((p) => p.name)
+    const femaleNames = shared.PERSONAS.filter((p) => p.gender === 'f').map((p) => p.name)
+    const chereMaleRegex = new RegExp(`\\bChère\\s+(?:${maleNames.join('|')})\\b`, 'u')
+    const cherFemaleRegex = new RegExp(`\\bCher\\s+(?:${femaleNames.join('|')})\\b`, 'u')
+
+    const slotMascNouns = new Set()
+    const slotFemNouns = new Set()
+
+    for (const val of Object.values(shared)) {
+      if (Array.isArray(val)) {
+        for (const item of val) {
+          if (item && typeof item === 'object') {
+            const noun = item.base || item.noun || item.name
+            const g = item.gender
+            if (noun && typeof noun === 'string' && (g === 'm' || g === 'f') && item.number !== 'p') {
+              const firstWord = noun.trim().split(/\s+/)[0].toLowerCase().replace(/^[dl]’/i, '')
+              if (firstWord.length > 2 && !maleNames.map((n) => n.toLowerCase()).includes(firstWord) && !femaleNames.map((n) => n.toLowerCase()).includes(firstWord)) {
+                if (g === 'm') slotMascNouns.add(firstWord)
+                if (g === 'f') slotFemNouns.add(firstWord)
+              }
+            }
+            if (item.article === 'un' && item.name) {
+              const firstWord = item.name.trim().split(/\s+/)[0].toLowerCase().replace(/^[dl]’/i, '')
+              if (firstWord.length > 2) slotMascNouns.add(firstWord)
+            }
+            if (item.article === 'une' && item.name) {
+              const firstWord = item.name.trim().split(/\s+/)[0].toLowerCase().replace(/^[dl]’/i, '')
+              if (firstWord.length > 2) slotFemNouns.add(firstWord)
+            }
+          }
+        }
+      }
+    }
+
+    // Patterns
+    const PROPER_NAME_ALLOWLIST = new Set([
+      'le devoir', 'le soleil', 'le cartet', 'les laurentides', 'le plateau', 'les habitations', 'le châtelet'
+    ])
+    const contractionRegex = /(?:^|[\s,;!?'’(])(à|de)\s+(le|les)\s+([a-zà-ÿA-ZÀ-Ý\w]+)/giu
+    const deDesRegex = /(?:^|[\s,;!?'’(])de\s+des(?:$|[\s,;!?'’)])/iu
+    const doubledFuncRegex = /(?:^|[\s,;!?'’(])(de|le|la|les|un|une|à)\s+\1(?:$|[\s,;!?'’)])/iu
+    const wrongElisionRegex = /(?:^|[\s,;!?'’(])(d|l|qu|j|n|s|m|t|c)[’'](?![aeiouyhâàéèêëîïôöûùœAEIOUYHÂÀÉÈÊÎÔÛŒ\d])/iu
+    const MANDATORY_ELISION_ALLOWLIST = new Set([
+      'onze', 'onzième', 'un', 'une', 'huit', 'huitième', 'oui'
+    ])
+    const mandatoryElisionRegex = /(?:^|[\s,;!?'’(])(de|le|la|que|je|ne|se|me|te|lorsque|puisque|jusque)\s+([a-zà-ÿ]+)/giu
+    const ilFautDeRegex = /il faut\s+(?:absolument\s+)?d[e’']/iu
+
+    const allIndicators = { ...N01_02_SCENARIOS, ...N03_04_SCENARIOS }
+    let scenariosChecked = 0
+    let buildsChecked = 0
+    let questionsChecked = 0
+
+    for (const [indicatorId, scenarioList] of Object.entries(allIndicators)) {
+      for (let sIdx = 0; sIdx < scenarioList.length; sIdx++) {
+        scenariosChecked++
+        const sc = scenarioList[sIdx]
+        const isTemplate = typeof sc === 'function'
+        const iterations = isTemplate ? 300 : 1
+
+        for (let seed = 1; seed <= iterations; seed++) {
+          buildsChecked++
+          const rand = mulberry32(seed)
+          const build = isTemplate ? sc(rand) : sc
+
+          assert.ok(build.text && typeof build.text === 'string', `Missing text in ${indicatorId} sc ${sIdx}`)
+          assert.ok(Array.isArray(build.questions) && build.questions.length > 0, `Missing questions in ${indicatorId} sc ${sIdx}`)
+
+          const stringsToCheck = [{ type: 'text', val: build.text }]
+
+          for (let qIdx = 0; qIdx < build.questions.length; qIdx++) {
+            questionsChecked++
+            const q = build.questions[qIdx]
+            const [prompt, correct, d1, d2] = q
+
+            assert.ok(prompt && typeof prompt === 'string', `Empty prompt in ${indicatorId} sc ${sIdx} q ${qIdx}`)
+            assert.ok(correct && typeof correct === 'string', `Empty correct answer in ${indicatorId} sc ${sIdx} q ${qIdx}`)
+            assert.ok(d1 && typeof d1 === 'string', `Empty d1 in ${indicatorId} sc ${sIdx} q ${qIdx}`)
+            assert.ok(d2 && typeof d2 === 'string', `Empty d2 in ${indicatorId} sc ${sIdx} q ${qIdx}`)
+
+            // Distinct options
+            assert.notStrictEqual(correct, d1, `Duplicate choices (correct == d1) in ${indicatorId} sc ${sIdx} seed ${seed}: "${prompt}"`)
+            assert.notStrictEqual(correct, d2, `Duplicate choices (correct == d2) in ${indicatorId} sc ${sIdx} seed ${seed}: "${prompt}"`)
+            assert.notStrictEqual(d1, d2, `Duplicate choices (d1 == d2) in ${indicatorId} sc ${sIdx} seed ${seed}: "${prompt}"`)
+
+            // Trivial variant check
+            const norm = (s) => String(s).toLowerCase().trim().replace(/[’']/g, "'").replace(/[.,!?;:]/g, '')
+            assert.notStrictEqual(norm(correct), norm(d1), `Trivial variant (correct ≈ d1) in ${indicatorId} sc ${sIdx} seed ${seed}: "${correct}" vs "${d1}"`)
+            assert.notStrictEqual(norm(correct), norm(d2), `Trivial variant (correct ≈ d2) in ${indicatorId} sc ${sIdx} seed ${seed}: "${correct}" vs "${d2}"`)
+            assert.notStrictEqual(norm(d1), norm(d2), `Trivial variant (d1 ≈ d2) in ${indicatorId} sc ${sIdx} seed ${seed}: "${d1}" vs "${d2}"`)
+
+            // Synonym-set check: at most one member appears among options
+            if (Array.isArray(q.sameAs) && q.sameAs.length > 0) {
+              const present = q.sameAs.filter((syn) =>
+                [correct, d1, d2].some((opt) => opt.toLowerCase().includes(syn.toLowerCase()))
+              )
+              assert.ok(
+                present.length <= 1,
+                `Multiple synonyms from sameAs [${q.sameAs.join(', ')}] appear among options: ${present.join(', ')} in ${indicatorId} sc ${sIdx} q ${qIdx} seed ${seed}`
+              )
+            }
+
+            // Answer-binding check:
+            if (isTemplate) {
+              assert.ok(
+                Array.isArray(q.evidence) && q.evidence.length >= 1,
+                `Template question missing evidence keywords in ${indicatorId} sc ${sIdx} q ${qIdx}: "${prompt}"`
+              )
+            }
+            if (Array.isArray(q.evidence) && q.evidence.length >= 1) {
+              const lowerText = build.text.toLowerCase()
+              for (const kw of q.evidence) {
+                assert.ok(
+                  lowerText.includes(kw.toLowerCase()),
+                  `Evidence keyword "${kw}" not found in built text for ${indicatorId} sc ${sIdx} seed ${seed}: "${build.text}"`
+                )
+              }
+              const isSpeechReply = /réponse|réplique|面对求助|回答/i.test(prompt)
+              const isZh = /[\u4e00-\u9fa5]/.test(correct) || /[\u4e00-\u9fa5]/.test(prompt)
+              if (!isZh && !isSpeechReply) {
+                const lowerCorrect = correct.toLowerCase()
+                const shares = q.evidence.some(
+                  (kw) => lowerText.includes(kw.toLowerCase()) && lowerCorrect.includes(kw.toLowerCase())
+                )
+                assert.ok(
+                  shares,
+                  `Correct answer "${correct}" does not share any declared evidence keyword from [${q.evidence.join(', ')}] with text in ${indicatorId} sc ${sIdx} q ${qIdx} seed ${seed}`
+                )
+              }
+            }
+
+            stringsToCheck.push({ type: `q${qIdx}_prompt`, val: prompt })
+            stringsToCheck.push({ type: `q${qIdx}_correct`, val: correct })
+            stringsToCheck.push({ type: `q${qIdx}_d1`, val: d1 })
+            stringsToCheck.push({ type: `q${qIdx}_d2`, val: d2 })
+          }
+
+          // Check patterns over text, questions and options
+          for (const { type, val } of stringsToCheck) {
+            if (!val || typeof val !== 'string') continue
+
+            // 1. Contraction check
+            let m
+            contractionRegex.lastIndex = 0
+            while ((m = contractionRegex.exec(val)) !== null) {
+              const phrase = `${m[2]} ${m[3]}`.toLowerCase()
+              if (!PROPER_NAME_ALLOWLIST.has(phrase)) {
+                const nextWord = m[3]
+                const isCapitalized = /^[A-ZÀ-Ý]/.test(nextWord)
+                if (!isCapitalized) {
+                  assert.fail(`[${indicatorId} sc ${sIdx} seed ${seed} in ${type}] Contraction error "${m[0].trim()}": in "${val}"`)
+                }
+              }
+            }
+
+            // 2. de des
+            assert.strictEqual(
+              deDesRegex.test(val),
+              false,
+              `[${indicatorId} sc ${sIdx} seed ${seed} in ${type}] "de des" found in "${val}"`
+            )
+
+            // 3. Doubled function words
+            if (doubledFuncRegex.test(val)) {
+              const hit = val.match(doubledFuncRegex)
+              assert.fail(`[${indicatorId} sc ${sIdx} seed ${seed} in ${type}] Doubled function word "${hit[0].trim()}" in "${val}"`)
+            }
+
+            // 4. Wrong elision
+            if (wrongElisionRegex.test(val)) {
+              const hit = val.match(wrongElisionRegex)
+              assert.fail(`[${indicatorId} sc ${sIdx} seed ${seed} in ${type}] Wrong elision "${hit[0].trim()}" in "${val}"`)
+            }
+
+            // 5. Mandatory elision
+            mandatoryElisionRegex.lastIndex = 0
+            let me
+            while ((me = mandatoryElisionRegex.exec(val)) !== null) {
+              const nextWord = me[2].toLowerCase()
+              const firstChar = nextWord[0]
+              if ('aeiouâàéèêîôûœ'.includes(firstChar) && !MANDATORY_ELISION_ALLOWLIST.has(nextWord)) {
+                assert.fail(`[${indicatorId} sc ${sIdx} seed ${seed} in ${type}] Mandatory elision missing "${me[0].trim()}" in "${val}"`)
+              }
+            }
+
+            // 6. il faut de
+            assert.strictEqual(
+              ilFautDeRegex.test(val),
+              false,
+              `[${indicatorId} sc ${sIdx} seed ${seed} in ${type}] "il faut de" found in "${val}"`
+            )
+
+            // 7. Persona gender agreement
+            assert.strictEqual(
+              chereMaleRegex.test(val),
+              false,
+              `[${indicatorId} sc ${sIdx} seed ${seed} in ${type}] Found "Chère <MaleName>" agreement error in "${val}"`
+            )
+            assert.strictEqual(
+              cherFemaleRegex.test(val),
+              false,
+              `[${indicatorId} sc ${sIdx} seed ${seed} in ${type}] Found "Cher <FemaleName>" agreement error in "${val}"`
+            )
+
+            // 8. Gender clash with slot nouns
+            for (const mascNoun of slotMascNouns) {
+              const clashRe = new RegExp(`(?:^|[\\s,;!?'’])(une|la|cette)\\s+${mascNoun}(?:$|[\\s,;!?'’])`, 'iu')
+              assert.strictEqual(
+                clashRe.test(val),
+                false,
+                `[${indicatorId} sc ${sIdx} seed ${seed} in ${type}] Fem article before masc noun "${mascNoun}" in "${val}"`
+              )
+            }
+            for (const femNoun of slotFemNouns) {
+              const clashRe = new RegExp(`(?:^|[\\s,;!?'’])(un|le|ce|cet)\\s+${femNoun}(?:$|[\\s,;!?'’])`, 'iu')
+              assert.strictEqual(
+                clashRe.test(val),
+                false,
+                `[${indicatorId} sc ${sIdx} seed ${seed} in ${type}] Masc article before fem noun "${femNoun}" in "${val}"`
+              )
+            }
+          }
+        }
+      }
+    }
+
+    const summaryMsg = `Guard test complete: checked ${scenariosChecked} scenarios, ${buildsChecked} builds, ${questionsChecked} questions across levels 1–4.`
+    console.log(summaryMsg)
+    process.on('exit', () => {
+      console.log(summaryMsg)
+    })
+  })
 })
