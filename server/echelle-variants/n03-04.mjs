@@ -144,8 +144,8 @@ export const N03_L_0 = [
     situation: 0,
     text: 'Bienvenue chez Provigo. Pour faire livrer votre épicerie chez vous, le panier d’achats doit atteindre au moins 60 dollars. Nous livrons du lundi au vendredi jusqu’à 19 heures.',
     questions: [
-      ['最低购物金额是多少才能送货？', '60 加元', '40 加元', '80 加元'],
-      ['超市哪几天提供送货服务？', '周一至周五', '周二至周六', '仅限双休日'],
+      q('最低购物金额是多少才能送货？', '60 加元', '40 加元', '30 加元', ['60', 'dollars']),
+      q('超市哪几天提供送货服务？', '周一至周五', '周二至周六', '仅限双休日', ['lundi', 'vendredi']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Titres de transport autobus et métro
@@ -153,8 +153,8 @@ export const N03_L_0 = [
     situation: 1,
     text: 'Bonjour madame. Pour circuler dans l’autobus et le métro, vous pouvez acheter un titre de deux passages à sept dollars. C’est valide durant deux heures après la première validation.',
     questions: [
-      ['购买两次票的价格是多少？', '7,00 加元', '5,00 加元', '9,00 加元'],
-      ['车票验证后的有效时长是？', '2 个小时', '4 个小时', '1 个小时'],
+      q('购买两次票的价格是多少？', '7,00 加元', '5,00 加元', '9,00 加元', ['sept dollars']),
+      q('车票验证后的有效时长是？', '2 个小时', '4 个小时', '1 个小时', ['deux heures']),
     ],
   },
 ]
@@ -264,8 +264,8 @@ export const N03_L_1 = [
     situation: 0,
     text: '— Excuse-moi Carlos, est-ce que tu as rempli la demande d’aide financière pour les cours ? Je ne comprends pas où écrire mon numéro d’assurance sociale.',
     questions: [
-      ['朋友在咨询关于什么的疑问？', '助学贷款申请表格', '租房合同续约条款', '驾照更新体检证明'],
-      ['面对求助，合适的回答是：', 'Viens, je vais te montrer la case.', 'Merci beaucoup pour ce beau cadeau.', 'Je prends mon manteau et je sors.'],
+      q('朋友在咨询关于什么的疑问？', '助学贷款申请表格', '租房合同续约条款', '驾照更新体检证明', ['aide financière']),
+      q('面对求助，合适的回答是：', 'Viens, je vais te montrer la case.', 'Merci beaucoup pour ce beau cadeau.', 'Je prends mon manteau et je sors.', ['assurance sociale']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Sortie de camping dans Charlevoix
@@ -273,8 +273,8 @@ export const N03_L_1 = [
     situation: 1,
     text: '— Salut Martin ! Tu as des projets pour la longue fin de semaine ? Nous partons deux jours en camping dans Charlevoix s’il fait beau. Tu viens avec nous ?',
     questions: [
-      ['马丁被邀请参加什么活动？', '去夏勒瓦地区露营', '在市中心商场购物', '去市立图书馆复习'],
-      ['面对邀请，合适的回答是：', 'Merci, mais j’ai déjà un engagement.', 'Le dossier est prêt sur votre bureau.', 'Prenez à droite après le feu rouge.'],
+      q('马丁被邀请参加什么活动？', '去夏勒瓦地区露营', '在市中心商场购物', '去市立图书馆复习', ['camping', 'Charlevoix']),
+      q('面对邀请，合适的回答是：', 'Merci, mais j’ai déjà un engagement.', 'Le dossier est prêt sur votre bureau.', 'Prenez à droite après le feu rouge.', ['projets']),
     ],
   },
 ]
@@ -400,8 +400,8 @@ export const N03_L_2 = [
     situation: 0,
     text: 'J’ai acheté une écharpe en laine brune et des mitaines épaisses. Les deux articles étaient en solde à vingt dollars seulement au magasin de la rue Saint-Denis.',
     questions: [
-      ['买到的围巾是什么颜色？', '棕色毛线', '黑色毛线', '深蓝毛线'],
-      ['购买这两样物品共花了多少钱？', '20 加元', '35 加元', '50 加元'],
+      q('买到的围巾是什么颜色？', '棕色毛线', '黑色毛线', '深蓝毛线', ['brune']),
+      q('购买这两样物品共花了多少钱？', '20 加元', '35 加元', '50 加元', ['vingt dollars']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Collègue atteint d'une laryngite
@@ -409,8 +409,8 @@ export const N03_L_2 = [
     situation: 1,
     text: 'Marc nous a écrit ce matin. Il a une laryngite et a complètement perdu sa voix. Le médecin lui a prescrit du repos et des tisanes chaudes pour toute la semaine.',
     questions: [
-      ['马克身体有什么具体不适？', '得了喉炎并且失声', '偏头痛伴随有低烧', '扭伤手腕无法写字'],
-      ['医生给马克的治疗建议是？', '充分休息并喝热茶', '按时服用消炎胶囊', '佩戴护具卧床静养'],
+      q('马克身体有什么具体不适？', '得了喉炎并且失声', '偏头痛伴随有低烧', '扭伤手腕无法写字', ['laryngite']),
+      q('医生给马克的治疗建议是？', '充分休息并喝热茶', '按时服用消炎胶囊', '佩戴护具卧床静养', ['repos', 'tisanes']),
     ],
   },
 ]
@@ -529,8 +529,8 @@ export const N03_L_3 = [
     situation: 0,
     text: 'Pour votre toux, dissolvez un sachet de poudre dans un verre d’eau tiède chaque matin. Ne dépassez pas deux sachets par jour et buvez beaucoup d’eau fraîche.',
     questions: [
-      ['这种止咳冲剂应该在什么时候服用？', '每天早晨起床后', '每晚睡前空腹时', '午餐正餐进食前'],
-      ['冲剂每天的最高限量是多少？', '每天最多两小包', '每天最多四小包', '每天最多一整盒'],
+      q('这种止咳冲剂应该在什么时候服用？', '每天早晨起床后', '每晚睡前空腹时', '午餐正餐进食前', ['chaque matin']),
+      q('冲剂每天的最高限量是多少？', '每天最多两小包', '每天最多四小包', '每天最多一整盒', ['deux sachets']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Imprimante partagée
@@ -538,8 +538,8 @@ export const N03_L_3 = [
     situation: 1,
     text: 'Pour lancer l’imprimante partagée, appuie sur le bouton vert situé sur le côté droit. Attends que le voyant bleu devienne fixe avant d’envoyer ton premier document.',
     questions: [
-      ['开启打印机应按下哪个按钮？', '右侧的绿色按钮', '左侧的红色开关', '顶部的黄色旋钮'],
-      ['什么时候才可以发送打印文件？', '蓝色指示灯常亮时', '黄色警报灯闪烁时', '红色按键弹起之后'],
+      q('开启打印机应按下哪个按钮？', '右侧的绿色按钮', '左侧的红色开关', '顶部的黄色旋钮', ['bouton vert', 'côté droit']),
+      q('什么时候才可以发送打印文件？', '蓝色指示灯常亮时', '黄色警报灯闪烁时', '红色按键弹起之后', ['voyant bleu', 'fixe']),
     ],
   },
 ]
@@ -678,8 +678,8 @@ export const N03_L_4 = [
     situation: 0,
     text: 'Félicitations pour ta promotion ! Ton nouveau veston bleu marine est très classe et s’accorde parfaitement à tes nouvelles fonctions. Tu as fière allure !',
     questions: [
-      ['说话人称赞了同事的什么着装？', '深蓝色的西装外套', '质地轻薄的长袖衫', '剪裁合身的长裤子'],
-      ['« Tu as fière allure » 的意思是：', '你看起来气派精神', '你走起路来很迅速', '你穿着打扮太随意'],
+      q('说话人称赞了同事的什么着装？', '深蓝色的西装外套', '质地轻薄的长袖衫', '剪裁合身的长裤子', ['veston bleu']),
+      q('« Tu as fière allure » 的意思是：', '你看起来气派精神', '你走起路来很迅速', '你穿着打扮太随意', ['fière allure']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Vœux après opération du genou
@@ -687,8 +687,8 @@ export const N03_L_4 = [
     situation: 1,
     text: 'Coucou Julie ! Je viens aux nouvelles après ton opération du genou. J’espère que tu as moins mal. Reste bien tranquille à la maison et reviens en pleine forme !',
     questions: [
-      ['朋友为什么发来这段慰问？', '得知对方刚做膝盖手术', '听说对方准备外出旅行', '祝贺对方喜迁全新住所'],
-      ['朋友希望朱莉怎样休养？', '安心在家休养到康复', '每天坚持在户外快走', '尽快回单位报到上班'],
+      q('朋友为什么发来这段慰问？', '得知对方刚做膝盖手术', '听说对方准备外出旅行', '祝贺对方喜迁全新住所', ['opération', 'genou']),
+      q('朋友希望朱莉怎样休养？', '安心在家休养到康复', '每天坚持在户外快走', '尽快回单位报到上班', ['tranquille', 'maison']),
     ],
   },
 ]
