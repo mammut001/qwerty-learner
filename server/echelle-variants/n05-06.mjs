@@ -697,9 +697,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Salut Julie ! Avec ${s.amie}, on discutait de nos projets pour les vacances de juillet et on a pensé à toi. On te suggère vraiment de venir avec nous ${s.destination}. Notre plan, c’est de ${s.activite} et de découvrir les petits cafés locaux. C’est tellement reposant et dépaysant ! Par contre, ${s.amie} insiste sur un point crucial : il faut absolument ${s.conseil}, parce que les hébergements affichent complet très vite en haute saison. Prends le temps d’y penser cette semaine et dis-nous si l’aventure te tente !`,
           questions: [
-            makeQuestion('Quelle proposition les amies font-elles pour l’été ?', `Une escapade estivale commune ${s.destination}`, 'Une session intensive d’anglais à suivre à Montréal', 'Un temps libre consacré à des travaux dans leur logement', ['vacances', 'juillet']),
-            makeQuestion('Quelle activité principale prévoient-elles de faire sur place ?', 'Explorer les paysages et fréquenter de petits cafés typiques', 'Participer à une série de conférences sur les affaires régionales', 'Faire des achats dans les centres commerciaux des environs', ['cafés', 'découvrir']),
-            makeQuestion('Quel conseil important l’amie donne-t-elle pour l’organisation ?', `${cap(s.conPara)}`, 'Attendre les réductions de fin de parcours en plein mois de juillet', 'Partir sans rien retenir afin de négocier son logement sur place', [s.conKw]),
+            makeQuestion('Quelle proposition les amies font-elles pour l’été ?', `Une escapade estivale commune ${s.destination}`, 'Un séjour tranquille pour se reposer dans leur ville', 'Un temps libre consacré à des travaux dans leur logement', ['vacances', 'juillet']),
+            makeQuestion('Quelle activité principale prévoient-elles de faire sur place ?', 'Explorer les paysages et fréquenter de petits cafés typiques', 'Travailler dans les petits cafés locaux durant la haute saison', 'Faire des achats dans les centres commerciaux des environs', ['cafés', 'découvrir']),
+            makeQuestion('Quel conseil important l’amie donne-t-elle pour l’organisation ?', `${cap(s.conPara)}`, 'Attendre le plein cœur de la haute saison pour réserver', 'Partir sans rien retenir afin de négocier son logement sur place', [s.conKw]),
           ],
         }
       },
@@ -711,15 +711,15 @@ export const N05_06_SCENARIOS = {
         const slots = [
           { parc: 'le parc national du Mont-Tremblant', logement: 'des tentes de prêt-à-camper toutes équipées', rando: 'la via ferrata sur la paroi rocheuse', logPara: 'des formules de tentes prêt-à-camper toutes pourvues', logKw: 'tentes' },
           { parc: 'le parc national de la Jacques-Cartier', logement: 'des chalets en bois près de la rivière', rando: 'la descente en canot sur l’eau calme', logPara: 'des maisonnettes rustiques au bord de la rivière', logKw: 'chalets' },
-          { parc: 'le parc national des Grands-Jardins', logement: 'des refuges rustiques en forêt', rando: 'l’ascension du mont du Lac-des-Cygnes', logPara: 'des cabanes écologiques simples implantées en forêt', logKw: 'refuges' },
+          { parc: 'le parc national des Grands-Jardins', logement: 'des refuges rustiques en forêt', rando: 'l’ascension du mont du Lac-des-Cygnes', logPara: 'des abris rustiques simples installés en forêt', logKw: 'refuges' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `— Allô Marc ! Si tu cherches des idées de vacances sans dépenser une fortune, mes copines et moi te conseillons ${s.parc}. On a testé la formule l’été dernier et c’était merveilleux. Tu peux réserver ${s.logement}, donc tu n’as pas besoin de transporter tout ton matériel de camping. Pendant la journée, la plus belle activité à faire, c’est ${s.rando}. N’oublie surtout pas d’apporter une bonne lotion contre les moustiques et une gourde d’eau réutilisable. Les réservations ouvrent ce samedi matin sur le site officiel de la Sépaq, alors sois prêt !`,
           questions: [
-            makeQuestion('Quelle destination de plein air les amies recommandent-elles ?', 'Un séjour nature abordable dans un parc national du réseau', 'Un circuit touristique guidé à travers les capitales du monde', 'Une semaine complète tout inclus dans un complexe hôtelier du Sud', ['parc national', 'vacances']),
-            makeQuestion('Quel hébergement pratique et économique suggèrent-elles ?', `${cap(s.logPara)}`, 'Une chambre spacieuse au sein d’un hôtel haut de gamme', 'Passer la nuit dans sa propre voiture sur le stationnement', [s.logKw]),
-            makeQuestion('Quelle recommandation d’équipement pratique mentionnent-elles ?', 'Prévoir du répulsif à insectes et un récipient d’eau propre', 'Acheter des souliers neufs de course pour marcher en sentier', 'Prendre en location un véhicule tout-terrain pour circuler', ['moustiques', 'gourde']),
+            makeQuestion('Quelle destination de plein air les amies recommandent-elles ?', 'Un séjour nature abordable dans un parc national du réseau', 'Un séjour de camping sauvage sans aucune réservation au parc', 'Une semaine complète tout inclus dans un complexe hôtelier du Sud', ['parc national', 'vacances']),
+            makeQuestion('Quel hébergement pratique et économique suggèrent-elles ?', `${cap(s.logPara)}`, 'Installer sa propre tente avec son matériel de camping', 'Passer la nuit dans sa propre voiture sur le stationnement', [s.logKw]),
+            makeQuestion('Quelle recommandation d’équipement pratique mentionnent-elles ?', 'Prévoir du répulsif à insectes et un récipient d’eau propre', 'Transporter tout son matériel de camping pour la semaine', 'Prendre en location un véhicule tout-terrain pour circuler', ['moustiques', 'gourde']),
           ],
         }
       },
@@ -730,15 +730,15 @@ export const N05_06_SCENARIOS = {
       (rand) => {
         const slots = [
           { posture: 'un support lombaire derrière votre dos', pause: 'toutes les quarante-cinq minutes', exercice: 'd’étirements doux des ischio-jambiers', posPara: 'ajuster un coussin lombaire adapté derrière le bas du dos', posKw: 'lombaire' },
-          { posture: 'l’écran à la hauteur exacte de vos yeux', pause: 'toutes les trente minutes', exercice: 'de rotations contrôlées du bassin', posPara: 'caler le moniteur informatique au niveau direct du regard', posKw: 'écran' },
-          { posture: 'les pieds bien à plat sur le sol ou sur un repose-pied', pause: 'au moins une fois par heure', exercice: 'de flexions douces des genoux', posPara: 'poser les pieds à plat sur le plancher ou un appui stable', posKw: 'pieds' },
+          { posture: 'l’écran à la hauteur exacte de vos yeux', pause: 'toutes les trente minutes', exercice: 'de rotations contrôlées du bassin', posPara: 'caler le moniteur informatique au niveau du regard', posKw: 'écran' },
+          { posture: 'les pieds bien à plat sur le sol ou sur un repose-pied', pause: 'au moins une fois par heure', exercice: 'de flexions douces des genoux', posPara: 'maintenir les deux pieds en contact avec un appui stable', posKw: 'pieds' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `— Bonjour monsieur. Vos douleurs lombaires ont bien diminué, mais pour éviter toute rechute, vous devez adopter de nouvelles habitudes de travail. Quand vous travaillez à l’ordinateur, placez ${s.posture} pour maintenir la courbe naturelle de votre colonne. Ensuite, levez-vous ${s.pause} pour marcher quelques pas et activer la circulation sanguine. Chaque matin au lever, faites dix minutes ${s.exercice}. Surtout, évitez absolument de soulever des boîtes lourdes en pliant le dos : pliez toujours les genoux en gardant la charge près du corps.`,
           questions: [
-            makeQuestion('Quel est le but des conseils donnés par le physiothérapeute ?', 'Prévenir la réapparition des douleurs dorsales au bureau', 'Préparer un athlète d’élite à une épreuve de course à pied', 'Enseigner le maniement sécuritaire d’un fauteuil de transport', ['lombaires', 'douleurs']),
-            makeQuestion('Quel ajustement postural le spécialiste recommande-t-il au bureau ?', `Il est recommandé ${de(s.posPara)}`, 'S’asseoir directement au plancher sans recourir à un siège', 'Accomplir ses tâches en station debout toute la journée sans arrêt', [s.posKw]),
+            makeQuestion('Quel est le but des conseils donnés par le physiothérapeute ?', 'Prévenir la réapparition des douleurs dorsales au bureau', 'Reprendre un entraînement physique intensif dès le matin', 'Enseigner le maniement sécuritaire d’un fauteuil de transport', ['lombaires', 'douleurs']),
+            makeQuestion('Quel ajustement postural le spécialiste recommande-t-il au bureau ?', `${cap(s.posPara)}`, 'Rester assis sans bouger pour soulager la colonne', 'Travailler debout toute la journée sans s’asseoir', [s.posKw]),
             makeQuestion('Que doit-on faire absolument pour soulever une charge lourde ?', 'Fléchir les genoux en maintenant l’objet contre son torse', 'Courber l’échine au maximum pour créer un effet de levier', 'Garder les jambes raides en penchant le torse vers l’avant', ['genoux', 'dos']),
           ],
         }
@@ -757,9 +757,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Vos trapèzes sont encore très tendus après votre blessure musculaire. Pour consolider la guérison, appliquez ${s.accessoire} après une longue journée devant l’écran. En journée, pratiquez ${s.mouvement} trois fois par jour pour relâcher la pression sur les vertèbres cervicales. Pour vos déplacements en transport en commun, remplacez votre sac lourd par ${s.sac}. Évitez de coincer votre téléphone cellulaire entre votre oreille et votre épaule quand vous parlez : utilisez plutôt vos écouteurs avec micro mains libres. On se revoit dans un mois pour évaluer votre progression !`,
           questions: [
-            makeQuestion('Quels conseils professionnels la thérapeute formule-t-elle ?', 'Des gestes ciblés pour atténuer les raideurs au cou', 'Des recommandations alimentaires pour perdre du poids', 'Une prescription formelle d’analgésiques puissants', ['trapèzes', 'musculaire']),
-            makeQuestion('Quelle méthode d’application locale est conseillée le soir ?', `${cap(s.accPara)}`, 'Prendre une douche très froide pendant une trentaine de minutes', 'Passer la nuit complète sans oreiller sous les vertèbres cervicales', [s.accKw]),
-            makeQuestion('Quelle mauvaise habitude quotidienne faut-il absolument bannir ?', 'Tenir son appareil entre son oreille et son épaule', 'Porter son regard vers l’extérieur pendant les courtes pauses', 'Prendre de l’eau fraîche en travaillant devant son écran', ['cellulaire', 'oreille']),
+            makeQuestion('Quels conseils professionnels la thérapeute formule-t-elle ?', 'Des gestes ciblés pour atténuer les raideurs au cou', 'Un entraînement intensif pour fortifier les bras', 'Une prescription formelle d’analgésiques puissants', ['trapèzes', 'musculaire']),
+            makeQuestion('Quelle méthode d’application locale est conseillée le soir ?', `${cap(s.accPara)}`, 'Appliquer une serviette très chaude durant toute la soirée', 'Passer la nuit complète sans oreiller sous les vertèbres cervicales', [s.accKw]),
+            makeQuestion('Quelle mauvaise habitude quotidienne faut-il absolument bannir ?', 'Tenir son appareil entre son oreille et son épaule', 'Porter un sac lourd d’un seul côté lors des trajets', 'Prendre de l’eau fraîche en travaillant devant son écran', ['cellulaire', 'oreille']),
           ],
         }
       },
@@ -777,9 +777,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Salut Stéphane ! On sait que tu aimes le vélo de route, alors on te propose un beau voyage estival ${s.region}. On te suggère d’emprunter ${s.parcours}. C’est sécuritaire, presque entièrement plat et idéal pour pédaler à son rythme en contemplant la nature. Pour dormir, on te conseille ${s.halte}, qui offrent des ateliers pour réparer et ranger les bicyclettes en sécurité la nuit. Prépare bien deux sacoches imperméables et un nécessaire de réparation pour les crevaisons. Tu verras, c’est une façon formidable de déconnecter du travail pendant une semaine !`,
           questions: [
-            makeQuestion('Quel genre de vacances les amies suggèrent-elles à Stéphane ?', `${s.regPara}`, 'Un stage d’alpinisme technique en haute altitude', 'Une fin de semaine de navigation à moteur sur les lacs', ['vélo', 'voyage']),
-            makeQuestion('Quelle infrastructure cyclable recommande-t-on pour le trajet ?', `${cap(s.parPara)}`, 'Un circuit fermé d’entraînement dédié uniquement à la course', 'Une route provinciale dépourvue de bande réservée aux vélos', [s.parKw]),
-            makeQuestion('Quel équipement pratique lui conseille-t-on de préparer ?', 'Deux sacoches étanches et une trousse de secours pour les crevaisons', 'Une lourde remorque de camping pour transporter des bagages', 'Un équipement complet de secours en cas de tempête hivernale', ['sacoches', 'crevaisons']),
+            makeQuestion('Quel genre de vacances les amies suggèrent-elles à Stéphane ?', `${s.regPara}`, 'Un stage de mécanique pour apprendre à réparer des bicyclettes', 'Une fin de semaine de navigation à moteur sur les lacs', ['vélo', 'voyage']),
+            makeQuestion('Quelle infrastructure cyclable recommande-t-on pour le trajet ?', `${cap(s.parPara)}`, 'Un sentier de montagne accidenté exigeant un rythme très rapide', 'Une route provinciale dépourvue de bande réservée aux vélos', [s.parKw]),
+            makeQuestion('Quel équipement pratique lui conseille-t-on de préparer ?', 'Deux sacoches étanches ainsi qu’un nécessaire pour crevaisons', 'Un cadenas renforcé pour laisser le vélo dehors toute la nuit', 'Un équipement complet de secours en cas de tempête hivernale', ['sacoches', 'crevaisons']),
           ],
         }
       },
