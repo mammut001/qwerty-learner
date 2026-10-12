@@ -4331,7 +4331,7 @@ const N4_CHALET_DESTS = [
     paraphraseHate: 'payer pour utiliser la douche',
     distPrefer1: 'un terrain de soccer éclairé',
     distPrefer2: 'une épicerie sur le camping',
-    distHate1: 'la proximité de la grand-route',
+    distHate1: 'les frais pour le stationnement',
     distHate2: 'l’absence d’arbres sur le site',
     kwPrefer: 'ombragé',
     kwHate: 'douche',
