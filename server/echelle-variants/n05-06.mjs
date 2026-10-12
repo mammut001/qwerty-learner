@@ -1018,9 +1018,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `BILLET DE BLOGUE - NOTRE ÉPOPÉE FERROVIAIRE EN DUO\nBonjour à tous nos abonnés ! ${s.couple} vous écrivent depuis Vancouver après un voyage de deux semaines. Nous avons traversé le pays ${s.transport}, et c’était merveilleux. Chaque matin, nous prenions notre café devant ${s.sommet}. Même si le train a subi ${s.retard}, personne ne s’est plaint : nous en avons profité pour lier conversation avec d’autres voyageurs autour d’un jeu de cartes. Ce voyage nous a appris à ralentir et à contempler la nature. Prochaine étape : une excursion en traversier vers l’île de Vancouver !`,
           questions: [
-            makeQuestion('Quel est le sujet principal de ce billet de blogue de voyage ?', 'Le carnet d’une traversée ferroviaire du pays en duo', 'Une recension critique des prestations d’un hôtel urbain', 'Une campagne participative pour soutenir un projet d’art', ['ferroviaire', 'voyage']),
-            makeQuestion('Quel contretemps sur les voies a prolongé le trajet ?', `${cap(s.retPara)}`, 'Une panne générale d’énergie touchant l’ensemble des rames', 'La disparition des bagages de cabine durant une manœuvre', [s.retKw]),
-            makeQuestion('Quelle est la prochaine destination prévue par le couple ?', 'Une traversée maritime par bateau vers l’île voisine', 'Un vol sans escale de retour vers leur ville de départ', 'Un séjour d’une semaine dans une cabane non chauffée', ['traversier', 'vancouver']),
+            makeQuestion('Quel est le sujet principal de ce billet de blogue de voyage ?', 'Le carnet d’une traversée ferroviaire du pays en duo', 'Le compte rendu d’une excursion en traversier vers une île', 'Une campagne participative pour soutenir un projet d’art', ['ferroviaire', 'voyage']),
+            makeQuestion('Quel contretemps sur les voies a prolongé le trajet ?', `${cap(s.retPara)}`, 'Une dispute prolongée entre voyageurs autour d’un jeu de cartes', 'La disparition des bagages de cabine durant une manœuvre', [s.retKw]),
+            makeQuestion('Quelle est la prochaine destination prévue par le couple ?', 'Une traversée maritime par bateau vers l’île voisine', 'Un trajet direct en train de retour depuis Vancouver', 'Un séjour d’une semaine dans une cabane non chauffée', ['traversier', 'vancouver']),
           ],
         }
       },
@@ -1038,9 +1038,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `CARNET D’AVENTURE - RETOUR DE NOTRE SÉJOUR EN NATURE\nNous revoilà en ligne après ${s.duree} en forêt ! Avec mon conjoint, nous avons pagayé sur ${s.plan}. Le silence matinal sur l’eau et le chant des oiseaux resteront gravés dans nos mémoires pour toujours. Évidemment, une belle expédition comporte ses imprévus : nous avons essuyé ${s.mesaventure}. Heureusement, grâce à notre trousse de survie et à un feu de camp, nous avons séché nos affaires dans la bonne humeur. Pour tous ceux qui hésitent : préparez votre équipement et sautez à l’eau !`,
           questions: [
-            makeQuestion('Quelle expérience vécue les blogueurs partagent-ils ?', 'Une randonnée nautique en autonomie de plusieurs jours', 'L’acquisition d’une résidence secondaire près d’un axe routier', 'Le suivi d’un stage professionnel pour devenir guide de plein air', ['pagayé', 'forêt']),
-            makeQuestion('Quel désagrément matériel a marqué leur périple ?', `${cap(s.mesPara)}`, 'La perte de leur canot emporté au loin par les flots d’un torrent', 'Une atteinte corporelle sévère exigeant une évacuation par les airs', [s.mesKw]),
-            makeQuestion('Comment ont-ils réagi face à ce contretemps ?', 'En surmontant l’épreuve avec bonne humeur autour du feu', 'En alertant sans attendre les équipes de secours forestier', 'En abandonnant sur place leur équipement pour regagner la route', ['feu', 'affaires']),
+            makeQuestion('Quelle expérience vécue les blogueurs partagent-ils ?', 'Une randonnée nautique en autonomie de plusieurs jours', 'Un stage de formation aux techniques de survie en forêt', 'Le suivi d’un stage professionnel pour devenir guide de plein air', ['pagayé', 'forêt']),
+            makeQuestion('Quel désagrément matériel a marqué leur périple ?', `${cap(s.mesPara)}`, 'La perte de la trousse de survie emportée dans les eaux du lac', 'Une atteinte corporelle sévère exigeant une évacuation par les airs', [s.mesKw]),
+            makeQuestion('Comment ont-ils réagi face à ce contretemps ?', 'En surmontant l’épreuve avec bonne humeur autour du feu', 'En appelant les secours forestiers avec la trousse de survie', 'En abandonnant sur place leur équipement pour regagner la route', ['feu', 'affaires']),
           ],
         }
       },
@@ -1058,9 +1058,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `GROUPE CITOYEN - SOLIDARITÉ DU QUARTIER ROSEMONT\nChers voisins, voici un résumé de la situation vécue ${s.secteur}. Ce matin ${s.heure}, l’eau s’est déversée sur le trottoir à la suite ${s.cause}. Les cols bleus de la ville sont intervenus rapidement pour fermer les valves, coupant l’eau pour quarante logements. Face à ce désagrément, plusieurs résidents ${s.solidarite}. La municipalité a distribué des bouteilles d’eau devant le dépanneur. La pression reviendra avant vingt heures ce soir. Merci à tous pour votre belle entraide communautaire !`,
           questions: [
-            makeQuestion('Quel incident de quartier est décrit dans cette publication ?', 'Une rupture d’aqueduc entraînant une coupure d’eau potable', 'Une interruption électrique causée par de violentes rafales', 'Une série d’effractions commises dans des commerces du secteur', ['eau', 'trottoir']),
-            makeQuestion('Comment la solidarité entre résidents s’est-elle manifestée ?', `En choisissant ${de(s.solPara)}`, 'En barrant l’accès à la rue pour alerter les automobilistes', 'En tentant de colmater eux-mêmes les bris de canalisation', [s.solKw]),
-            makeQuestion('Quelle mesure municipale temporaire a été mise en place ?', 'Un approvisionnement en eau potable devant le dépanneur', 'Un hébergement gratuit pour tous les occupants à l’hôtel', 'L’annulation des taxes municipales pour l’ensemble de l’année', ['bouteilles', 'dépanneur']),
+            makeQuestion('Quel incident de quartier est décrit dans cette publication ?', 'Une rupture d’aqueduc entraînant une coupure d’eau potable', 'Une inondation majeure au sous-sol d’un dépanneur du secteur', 'Une série d’effractions commises dans des commerces du secteur', ['eau', 'trottoir']),
+            makeQuestion('Comment la solidarité entre résidents s’est-elle manifestée ?', `En choisissant ${de(s.solPara)}`, 'En aidant les cols bleus de la ville à fermer les valves d’eau', 'En tentant de colmater eux-mêmes les bris de canalisation', [s.solKw]),
+            makeQuestion('Quelle mesure municipale temporaire a été mise en place ?', 'Un approvisionnement en eau potable devant le dépanneur', 'L’évacuation d’urgence des quarante logements de la rue', 'L’annulation des taxes municipales pour l’ensemble de l’année', ['bouteilles', 'dépanneur']),
           ],
         }
       },
@@ -1078,9 +1078,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `FORUM DES HABITANTS - RUELLE SÉCURITÉ ET ENTRAIDE\nPetit retour sur les événements survenus dans notre ruelle ${s.ruelle}. À la suite ${s.orage}, un grand saule s’est abattu en travers du chemin. L’arbre ${s.degat}. Heureusement, aucun passant ne circulait à cet instant. Avant même l’arrivée des équipes municipales d’urgence, plusieurs voisins ont sorti leurs scies pour dégager l’accès aux piétons. Merci à Patrick d’avoir installé des cônes de signalisation. La ville ramassera les branches dès demain matin. Soyez prudents à vélo dans le secteur !`,
           questions: [
-            makeQuestion('Quel événement imprévu dans la ruelle est rapporté ?', 'La chute d’un grand arbre provoquée par les intempéries', 'Une fuite de gaz ayant nécessité l’évacuation des logements', 'La tenue sans permis d’un rassemblement festif sur la voie', ['arbre', 'ruelle']),
-            makeQuestion('Quel dommage matériel direct cette chute a-t-elle causé ?', `${cap(s.degPara)}`, 'L’écroulement d’un mur mitoyen sur un immeuble de trois étages', 'La destruction de trois véhicules stationnés le long du trottoir', [s.degKw]),
-            makeQuestion('Quelle action collective spontanée les voisins ont-ils entreprise ?', 'Découper des branchages pour libérer le passage des piétons', 'Faire appel aux forces policières pour établir un constat écrit', 'Quitter temporairement leurs logements pour loger chez des proches', ['scies', 'piétons']),
+            makeQuestion('Quel événement imprévu dans la ruelle est rapporté ?', 'La chute d’un grand arbre provoquée par les intempéries', 'Une collision entre cyclistes causée par des branchages', 'La tenue sans permis d’un rassemblement festif sur la voie', ['arbre', 'ruelle']),
+            makeQuestion('Quel dommage matériel direct cette chute a-t-elle causé ?', `${cap(s.degPara)}`, 'L’écrasement de plusieurs vélos rangés près de la ruelle', 'La destruction de trois véhicules stationnés le long du trottoir', [s.degKw]),
+            makeQuestion('Quelle action collective spontanée les voisins ont-ils entreprise ?', 'Découper des branchages pour libérer le passage des piétons', 'Attendre sur place l’arrivée de l’équipe municipale d’urgence', 'Quitter temporairement leurs logements pour loger chez des proches', ['scies', 'piétons']),
           ],
         }
       },
@@ -1098,9 +1098,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `RÉCIT D’ÉVASION - NOTRE PREMIER RAID HIVERNAL EN DUO\nBonjour à tous les adeptes du plein air ! Mon conjoint et moi venons de terminer notre première randonnée de motoneige au Saguenay. Pendant quatre jours, nous avons sillonné ${s.parcours}. Les paysages entièrement blancs étaient féeriques. Chaque soir, après avoir affronté un froid vif de moins vingt degrés, nous nous réchauffions ${s.etape}. L’ambiance y était formidable et les habitués nous ont donné de précieux conseils mécaniques. Nous rentrons avec des souvenirs magnifiques et l’envie irrésistible de repartir explorer la Côte-Nord l’hiver prochain !`,
           questions: [
-            makeQuestion('Quelle expérience hivernale ce couple partage-t-il sur son blogue ?', 'Une randonnée sur plusieurs jours en motoneige au Saguenay', 'Une participation à un concours officiel de slalom en ski', 'Une démarche d’acquisition immobilière dans les Laurentides', ['motoneige', 'saguenay']),
-            makeQuestion('Où les motoneigistes trouvaient-ils refuge pour la soirée ?', `Ils logeaient ${s.etaPara}`, 'Ils dormaient sous la tente sans équipement de chauffage', 'Ils revenaient chaque soir séjourner dans un grand hôtel urbain', [s.etaKw]),
-            makeQuestion('Quel projet hivernal le couple envisage-t-il déjà pour l’an prochain ?', 'Explorer les grands espaces de la Côte-Nord en motoneige', 'Céder tout leur matériel motorisé pour demeurer en ville', 'Séjourner durant la saison froide dans un pays ensoleillé', ['côte-nord', 'hiver']),
+            makeQuestion('Quelle expérience hivernale ce couple partage-t-il sur son blogue ?', 'Une randonnée sur plusieurs jours en motoneige au Saguenay', 'Un stage d’apprentissage de la mécanique pour motoneiges', 'Une démarche d’acquisition immobilière dans les Laurentides', ['motoneige', 'saguenay']),
+            makeQuestion('Où les motoneigistes trouvaient-ils refuge pour la soirée ?', `Ils logeaient ${s.etaPara}`, 'Ils montaient une tente dans le froid à chaque étape', 'Ils revenaient chaque soir séjourner dans un grand hôtel urbain', [s.etaKw]),
+            makeQuestion('Quel projet hivernal le couple envisage-t-il déjà pour l’an prochain ?', 'Explorer les grands espaces de la Côte-Nord en motoneige', 'Refaire le même circuit en motoneige autour du Saguenay', 'Séjourner durant la saison froide dans un pays ensoleillé', ['côte-nord', 'hiver']),
           ],
         }
       },
