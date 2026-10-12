@@ -1877,9 +1877,9 @@ export const N07_08_SCENARIOS = {
         ],
         [
           "Que peut-on déduire quant à l’utilité du tuyau reliant les gouttières du potager ?",
-          "Il évite que l’eau sale ne dégouline sur les galeries des voisins",
-          "Il sert à distiller des boissons aromatisées à base de racines",
-          "Il chauffe l’eau d’irrigation grâce à la lumière du soleil estival",
+          "Il achemine l’excédent d’arrosage vers un récipient posé au sol",
+          "Il injecte de l’engrais liquide directement au cœur du terreau",
+          "Il distribue l’eau de pluie filtrée vers les fraisiers du haut",
         ],
         [
           "Quel effet bénéfique le purin végétal produit-il sur les plantes selon l’animateur ?",
@@ -2003,9 +2003,9 @@ export const N07_08_SCENARIOS = {
       questions: [
         [
           "Quelle fonctionnalité novatrice Antoine valorise-t-il dans son utilisation quotidienne ?",
-          "La transcription instantanée facilitant le dialogue avec les parents allophones",
+          "La traduction automatique des messages transmis aux familles allophones",
           "L’analyse automatique du niveau de compréhension écrite de la classe",
-          "Le filtrage administratif de tous les courriels destinés aux tuteurs",
+          "Le filtrage préventif des communications destinées aux tuteurs légaux",
         ],
         [
           "Quel effet pervers de l’outil numérique Chantal dénonce-t-elle avec vigueur ?",
@@ -2348,7 +2348,7 @@ export const N07_08_SCENARIOS = {
         ],
         [
           "Quel danger naturel imminent met la vie de Sarah en péril dans les sous-sols ?",
-          "Une subversion des galeries souterraines causée par les pluies torrentielles",
+          "Une submersion des galeries souterraines causée par les pluies torrentielles",
           "Un effondrement brutal des voûtes en briques provoqué par un tremblement de terre",
           "Une explosion accidentelle de gaz de schiste due à l’usage de sa torche étanche",
         ],
@@ -2794,7 +2794,7 @@ export const N07_08_SCENARIOS = {
         ],
         [
           "Quelle solution éthique alternative l’auteur suggère-t-il pour gérer la harde sans cruauté ?",
-          "Le recours à la stérilisation ciblée et le maintien de corridors de passage naturels",
+          "La contraception chimique ciblée et le maintien de corridors de passage naturels",
           "Le déplacement massif des hardes vers des réserves de chasse privées du nord",
           "La capture systématique des animaux pour les confiner dans des enclos municipaux",
         ],

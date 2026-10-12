@@ -437,8 +437,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi le climat influence-t-il la présence des êtres vivants dans une région ?",
         "Les plantes et les animaux ont besoin de conditions de température et d'eau adaptées",
-        "Les animaux migrent uniquement lors du passage des cyclones observés sur les plaines",
-        "Les instruments météorologiques modifient l'équilibre naturel des zones tempérées"
+        "La plupart des espèces animales tolèrent indifféremment tous les écarts d'ensoleillement",
+        "Les plantes peuvent se développer sans égards aux volumes d'eau et aux moyennes thermiques"
       ]
     ],
     "justificationFr": "Notions scientifiques claires expliquant les facteurs influençant le climat et sa mesure.",
@@ -641,10 +641,10 @@ export const REAL_READING_PASSAGES = [
         "Le jour de la Toussaint"
       ],
       [
-        "D'après le passage, pourquoi de nombreuses personnes non chrétiennes fêtent-elles Noël ?",
-        "Pour se réunir chaleureusement en famille et partager des cadeaux",
-        "Pour participer aux cérémonies religieuses obligatoires de leur commune",
-        "Pour commémorer officiellement le solstice d'été dans leur pays d'origine"
+        "En dehors des aspects religieux, quelle est la façon la plus courante de fêter Noël ?",
+        "Se rassembler en famille ou entre amis et échanger des cadeaux",
+        "Organiser de grands défilés municipaux à travers les avenues",
+        "Participer à des cérémonies obligatoires dans sa commune"
       ]
     ],
     "justificationFr": "Vocabulaire courant et structures simples décrivant les coutumes familiales et l'origine de Noël.",
@@ -876,8 +876,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel argument les défenseurs du salaire minimum avancent-ils dans le premier paragraphe ?",
         "Il garantit des règles équitables et soutient l'unité sociale au sein du pays",
-        "Il garantit l'accès automatique de tous les demandeurs d'emploi à un poste en entreprise",
-        "Il élimine entièrement le paiement des impôts sur le revenu pour les ménages modestes"
+        "Il assure une stricte proportionnalité entre le salaire et la productivité individuelle",
+        "Il élimine le chômage frictionnel en période de ralentissement des activités économiques"
       ],
       [
         "Selon la perspective libérale décrite, quelle solution est jugée préférable pour réduire les inégalités ?",
@@ -1119,8 +1119,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Comment les organismes végétaux se procurent-ils leurs composants organiques ?",
         "En les synthétisant grâce à l'eau, aux minéraux du sol, au dioxyde de carbone et au soleil",
-        "En consommant des proies animales herbivores par l'intermédiaire de leurs racines profondes",
-        "En absorbant les molécules préfabriquées rejetées dans l'air par les champignons forestiers"
+        "En puisant directement leur énergie dans les tissus organiques d'espèces animales",
+        "En absorbant le méthane produit par les bactéries souterraines de leur environnement"
       ],
       [
         "Pourquoi les animaux sont-ils qualifiés d'organismes « hétérotrophes » ?",
@@ -1243,8 +1243,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quels deux gaz représentent 90 % des émissions de gaz à effet de serre d'origine humaine ?",
         "Le dioxyde de carbone et le méthane",
-        "L'azote et l'oxyde de monoxyde d'argent",
-        "L'oxygène pur et les vapeurs de chlore"
+        "L'azote et l'argon atmosphérique",
+        "L'oxygène et l'hélium naturel"
       ],
       [
         "Que signifie la notion de « consensus scientifique » employée dans le deuxième paragraphe ?",
@@ -1531,9 +1531,9 @@ export const REAL_READING_PASSAGES = [
       ],
       [
         "Que reprochaient les députés Henri Bourassa et Armand Lavergne à Ottawa en 1907 ?",
-        "D'encourager l'immigration britannique dans le but d'assimiler la population canadienne-française",
-        "D'interdire totalement l'accès du territoire canadien aux ouvriers agricoles originaires d'Europe",
-        "De refuser d'indemniser les propriétaires de terres francophones expropriés par le chemin de fer"
+        "De tenter d’assimiler la population canadienne-française",
+        "D'interdire l'arrivée des ouvriers agricoles d'Europe",
+        "De refuser d'indemniser les propriétaires francophones"
       ]
     ],
     "justificationFr": "Évolution historique de l'immigration au Canada et revendication québécoise de sa propre politique d'accueil.",
@@ -1609,8 +1609,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi de nombreux immigrants et Canadiens quittaient-ils le Canada pour les États-Unis ?",
         "Ils étaient attirés par la prospérité économique et les emplois des grands centres manufacturiers voisins",
-        "Ils fuyaient les hivers rigoureux du Grand Nord pour s'installer dans les colonies agricoles du Mexique",
-        "Ils étaient expulsés de force par le ministère de l'Intérieur canadien pour cause de surpopulation urbaine"
+        "Ils cherchaient à fonder des exploitations agricoles dans les régions rurales du sud américain",
+        "Ils voulaient contourner les taxes d'entrée imposées sur les chantiers ferroviaires transfrontaliers"
       ]
     ],
     "justificationFr": "Histoire des politiques d'exclusion migratoire au Canada et contrebalancement par l'émigration vers les États-Unis.",
@@ -1688,8 +1688,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi Montréal est-elle considérée comme une destination universitaire de premier plan ?",
         "Elle compte six universités réputées et se classe parmi les meilleures villes étudiantes au monde",
-        "Elle accorde la gratuité absolue des droits de scolarité à tous les étudiants de passage",
-        "Elle oblige chaque habitant à suivre des cours du soir dans un centre de recherche agréé"
+        "Elle héberge le siège permanent de plus de quatre cents associations étudiantes étrangères",
+        "Elle accueille chaque année l'ensemble des compétitions universitaires d'Amérique du Nord"
       ]
     ],
     "justificationFr": "Rayonnement économique, attractivité universitaire et vitalité culturelle de la métropole montréalaise.",
@@ -1726,10 +1726,10 @@ export const REAL_READING_PASSAGES = [
         "Le vaste bassin où dorment les navires"
       ],
       [
-        "Pourquoi le Vieux-Québec a-t-il été inscrit au patrimoine mondial par l'UNESCO en 1985 ?",
-        "Ses remparts en font l'unique cité fortifiée subsistant encore en Amérique au nord du Mexique",
-        "Ses gratte-ciel en verre représentent l'architecture coloniale la plus moderne de l'époque",
-        "Son port maritime est resté le seul point de passage autorisé pour entrer au Canada-Uni"
+        "Quelle distinction l'UNESCO a-t-elle accordée au Vieux-Québec en 1985 ?",
+        "La reconnaissance officielle comme site du patrimoine mondial",
+        "Le classement prioritaire comme réserve de biosphère côtière",
+        "Le titre exclusif de première capitale culturelle d'Amérique"
       ]
     ],
     "justificationFr": "Présentation patrimoniale et historique de la capitale québécoise, seule ville fortifiée au nord du Mexique.",
@@ -1764,7 +1764,7 @@ export const REAL_READING_PASSAGES = [
         "Quel hôtel emblématique situé dans le Vieux-Québec est considéré comme le plus photographié au monde ?",
         "Le Château Frontenac",
         "Le Manoir Richelieu",
-        "L'Hôtel Reine-Élizabeth"
+        "L'Hôtel Reine-Elizabeth"
       ],
       [
         "Quelle règle d'usage linguistique le texte rappelle-t-il pour éviter toute confusion géographique ?",
@@ -1969,8 +1969,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Que démontre l'engouement universel pour le personnage du père Noël au XXe siècle ?",
         "La fête s'est enrichie d'une dimension laïque et familiale centrée sur les enfants et les cadeaux",
-        "Les cérémonies chrétiennes traditionnelles ont été entièrement interdites par les lois laïques",
-        "Les familles ne se réunissent plus jamais pour partager le traditionnel repas festif de fin d'année"
+        "Les réjouissances familiales ont été supplantées par l'obligation de participer aux messes",
+        "L'échange de cadeaux a été circonscrit aux cercles ecclésiastiques et aux orphelinats paroissiaux"
       ]
     ],
     "justificationFr": "Sécularisation de Noël, mondialisation du père Noël et spécificités du calendrier liturgique et civil en Europe.",

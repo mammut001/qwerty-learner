@@ -194,7 +194,7 @@ export const N09_10_SCENARIOS = {
     },
     {
       "situation": 0,
-      "text": "— Capitaine et archéologue Renaud Beaulieu, vous revenez d’une mission subaquatique au large de Restigouche, dans la baie des Chaleurs. Quelles traces du passé avez-vous retrouvées au fond des eaux ?\n— Bonjour. Notre expédition visait à cartographier les vestiges d’un navire de ravitaillement sabordé lors de la bataille de la Ristigouche en 1760. Dès que nos plongeurs ont atteint l’épave ensevelie sous les alluvions, l’émotion était palpable à bord du bateau. Sous une visibilité quasi inexistante due au courant marin, nous avons palpé la membrure de chêne remarquablement conservée grâce à l’absence d’oxygène dans la vase. En dégageant précautionneusement un secteur de la cale, nous avons extrait des caisses de fusils encore munies de leurs garnitures en laiton, ainsi que des bouteilles cachetées renfermant des huiles médicinales destinées aux troupes de la Nouvelle-France. Chaque objet remonté à la surface représentait une pièce d’un casse-tête dramatique, car cet équipage savait qu’il s’agissait du dernier convoi envoyé pour briser le blocus naval britannique. La dégradation accélérée par le réchauffement des eaux et l’érosion côtière nous imposait d’agir sans délai. Ces artefacts exceptionnels permettront de reconstituer les ultimes semaines de résistance avant la capitulation finale, apportant un éclairage intime et poignant sur cet épisode méconnu de notre histoire.",
+      "text": "— Capitaine et archéologue Renaud Beaulieu, vous revenez d’une mission subaquatique au large de Ristigouche, dans la baie des Chaleurs. Quelles traces du passé avez-vous retrouvées au fond des eaux ?\n— Bonjour. Notre expédition visait à cartographier les vestiges d’un navire de ravitaillement sabordé lors de la bataille de la Ristigouche en 1760. Dès que nos plongeurs ont atteint l’épave ensevelie sous les alluvions, l’émotion était palpable à bord du bateau. Sous une visibilité quasi inexistante due au courant marin, nous avons palpé la membrure de chêne remarquablement conservée grâce à l’absence d’oxygène dans la vase. En dégageant précautionneusement un secteur de la cale, nous avons extrait des caisses de fusils encore munies de leurs garnitures en laiton, ainsi que des bouteilles cachetées renfermant des huiles médicinales destinées aux troupes de la Nouvelle-France. Chaque objet remonté à la surface représentait une pièce d’un casse-tête dramatique, car cet équipage savait qu’il s’agissait du dernier convoi envoyé pour briser le blocus naval britannique. La dégradation accélérée par le réchauffement des eaux et l’érosion côtière nous imposait d’agir sans délai. Ces artefacts exceptionnels permettront de reconstituer les ultimes semaines de résistance avant la capitulation finale, apportant un éclairage intime et poignant sur cet épisode méconnu de notre histoire.",
       "questions": [
         [
           "Quel est le sujet central du témoignage livré par l’archéologue sous-marin ?",
@@ -221,7 +221,7 @@ export const N09_10_SCENARIOS = {
           "Vendu clandestinement à des marchands étrangers pour réaliser un profit financier personnel"
         ]
       ],
-      "frame": "entrevue radiophonique — découverte archéologique d’épave à Restigouche"
+      "frame": "entrevue radiophonique — découverte archéologique d’épave à Ristigouche"
     },
     {
       "situation": 1,
