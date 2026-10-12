@@ -1336,9 +1336,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `COURRIEL AMICAL - IDÉES DE COLLATIONS ÉCOLE\nDe : ${s.amie} Bouchard\nÀ : Marie-Ève Gagnon\nObjet : Mes recettes faciles de collations pour la rentrée !\nChère Marie-Ève,\nTu me disais hier que tu manquais d’idées pour les collations des enfants. Voici mes trouvailles nutritives préférées ! Chaque dimanche, je cuisine ${s.collation}. C’est économique et riche en fibres. Pour la collation du matin, j’ajoute toujours ${s.fruit}. N’oublie pas que l’école applique une ${s.regle}, alors évite les beurres d’amandes industriels. Si tu veux, je t’enverrai mes recettes complètes par courriel ce soir. Dis-moi si tes enfants aiment ça ! Bises, ${s.amie}`,
           questions: [
-            makeQuestion('Quel est le thème des suggestions partagées dans ce courriel ?', 'Des propositions saines d’en-cas scolaires pour enfants', 'Un menu d’invitation complet préparé pour un repas d’adultes', 'Une liste d’effets vestimentaires chauds pour la rentrée', ['collations', 'école']),
-            makeQuestion('Quelle collation maison l’amie prépare-t-elle le dimanche ?', `${cap(s.colPara)}`, 'Des beignets industriels nappés d’un épais sirop de sucre', 'Des portions de croustilles industrielles frites et très salées sorties du sachet', [s.colKw]),
-            makeQuestion('Quelle consigne scolaire rappelle-t-elle pour la sécurité ?', 'L’absence de certains allergènes alimentaires pour préserver la santé des élèves', 'L’obligation formelle de ne consommer que des aliments chauds', 'L’interdiction d’apporter des bouteilles d’eau dans les salles', ['école', 'beurres']),
+            makeQuestion('Quel est le thème des suggestions partagées dans ce courriel ?', 'Des propositions saines d’en-cas scolaires pour enfants', 'Une sélection de beurres d’amandes industriels pour la rentrée', 'Une liste d’effets vestimentaires chauds pour la rentrée', ['collations', 'école']),
+            makeQuestion('Quelle collation maison l’amie prépare-t-elle le dimanche ?', `${cap(s.colPara)}`, 'Des tartines garnies de beurres d’amandes vendus en magasin', 'Des portions de croustilles industrielles frites et très salées sorties du sachet', [s.colKw]),
+            makeQuestion('Quelle consigne scolaire rappelle-t-elle pour la sécurité ?', 'L’absence de certains allergènes pour préserver la santé des élèves', 'L’obligation formelle de ne consommer que des aliments chauds', 'L’interdiction formelle d’apporter toute collation préparée à la maison', ['école', 'beurres']),
           ],
         }
       },
@@ -1356,9 +1356,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `MESSAGE AMICAL - ASTUCES COLLATIONS GARDERIE\nDe : ${s.maman} Tremblay\nÀ : Julie Fortin\nObjet : Recommandations de collations saines pour la garderie !\nAllô Julie ! Comme promis, voici mes conseils pour les collations de nos tout-petits. Pour remplacer les biscuits trop sucrés de l’épicerie, j’ai adopté ${s.snack}. Les enfants adorent la texture et ça leur donne une énergie durable sans coup de fatigue. J’accompagne toujours le tout avec ${s.salade}. Mon astuce préférée pour le matin : ${s.conseil}. Ça prend vingt minutes le dimanche et ta semaine est prête. Essaie ça et donne-m’en des nouvelles au parc !`,
           questions: [
-            makeQuestion('Quel est le principal objectif des conseils culinaires partagés ?', 'Privilégier des options saines aux produits sucrés du commerce', 'Organiser un buffet d’anniversaire très copieux rassemblant vingt enfants d’âge préscolaire', 'Apprendre à cuisiner des repas complets', ['collations', 'garderie']),
-            makeQuestion('Quelle collation nutritive maison propose-t-elle pour les enfants ?', `${cap(s.snaPara)}`, 'Des barres de chocolat au lait achetées au magasin', 'Des collations très salées et grasses issues des rayons de dépanneur d’autoroute', [s.snaKw]),
-            makeQuestion('Quelle astuce d’organisation pratique recommande-t-elle ?', 'S’avancer le dimanche pour préparer l’ensemble des collations saines de la semaine', 'Se procurer des collations jetables sous emballage individuel', 'Compter sur le service de garde pour nourrir les enfants', ['dimanche', 'astuce']),
+            makeQuestion('Quel est le principal objectif des conseils culinaires partagés ?', 'Privilégier des options saines aux produits sucrés du commerce', 'Acheter des biscuits d’épicerie pour la collation à la garderie', 'Apprendre à cuisiner des repas complets', ['collations', 'garderie']),
+            makeQuestion('Quelle collation nutritive maison propose-t-elle pour les enfants ?', `${cap(s.snaPara)}`, 'Des paquets de biscuits sucrés achetés à l’épicerie', 'Des collations très salées et grasses issues des rayons de dépanneur d’autoroute', [s.snaKw]),
+            makeQuestion('Quelle astuce d’organisation pratique recommande-t-elle ?', 'Cuisiner le dimanche pour préparer les collations de la semaine', 'Acheter des biscuits sucrés à l’épicerie du coin pour gagner du temps', 'Déléguer la préparation des collations à la garderie', ['dimanche', 'astuce']),
           ],
         }
       },
@@ -1376,9 +1376,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `PAGE WEB CONSEILS ÉNERGIE - HYDRO-QUÉBEC\nLe chauffage de l’eau représente près de vingt pour cent de votre facture d’électricité. Pour réduire vos coûts tout en préservant l’environnement, nous vous recommandons d’installer ${s.produit}. Cet équipement simple permet d’économiser ${s.reduction} sans sacrifier votre confort. En complément, pensez à ${s.geste}. Vérifiez également que la température de votre chauffe-eau est réglée à soixante degrés Celsius : c’est le niveau idéal pour prévenir les bactéries tout en évitant le gaspillage d’énergie. Consultez nos rabais instantanés en quincaillerie participante dès aujourd’hui !`,
           questions: [
-            makeQuestion('Quel est le thème principal de cette page Web d’information ?', 'Des mesures pour modérer sa dépense d’énergie liée à l’eau chaude', 'Un guide pour choisir une nouvelle thermopompe de climatisation', 'Une procédure de déclaration suite à une coupure de courant', ['chauffage', 'facture']),
-            makeQuestion('Quel équipement économiseur d’eau chaude est recommandé ?', `${cap(s.proPara)}`, 'Une piscine chauffée en permanence dans sa cour arrière privée', 'Un second réservoir de chauffe-eau réservé aux visiteurs', [s.proKw]),
-            makeQuestion('Quelle température idéale est recommandée pour le réservoir ?', 'Un maintien stable du réservoir à soixante degrés Celsius', 'Un abaissement du chauffe-eau à vingt degrés pour économiser', 'Une température maximale de cent degrés pour stériliser', ['soixante degrés', 'chauffe-eau']),
+            makeQuestion('Quel est le thème principal de cette page Web d’information ?', 'Des mesures pour modérer sa dépense d’énergie liée à l’eau chaude', 'Une offre de remboursement direct sur sa prochaine facture d’électricité', 'Une procédure de déclaration suite à une coupure de courant', ['chauffage', 'facture']),
+            makeQuestion('Quel équipement économiseur d’eau chaude est recommandé ?', `${cap(s.proPara)}`, 'Une laveuse industrielle raccordée à un second chauffe-eau', 'Un second réservoir de chauffe-eau exclusivement réservé aux visiteurs', [s.proKw]),
+            makeQuestion('Quelle température idéale est recommandée pour le réservoir ?', 'Un maintien stable du réservoir à soixante degrés Celsius', 'Un arrêt complet du chauffe-eau pour éliminer les bactéries', 'Une température maximale de cent degrés pour stériliser', ['soixante degrés', 'chauffe-eau']),
           ],
         }
       },
@@ -1396,9 +1396,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `CHRONIQUE MAISON ÉCOLOGIQUE - DISPOSITIFS D’EAU\nPour réduire votre consommation d’énergie à la maison, le remplacement de vos accessoires de plomberie est une excellente décision. Lors de votre visite en quincaillerie, privilégiez ${s.dispositif}. Ce produit offre l’avantage de ${s.avantage}. Cet achat est rapidement ${s.retour}. N’oubliez pas de mesurer le diamètre de vos tuyaux avant l’achat afin de choisir le modèle compatible. Enfin, profitez des programmes de votre municipalité, qui offre souvent des trousses gratuites de produits économiseurs d’eau sur présentation d’une preuve de résidence.`,
           questions: [
-            makeQuestion('Que conseille cet article aux occupants de logements ?', 'Poser des éléments de plomberie limitant le débit d’eau chaude', 'Renouveler toute la tuyauterie de sa bâtisse avec du cuivre neuf', 'Creuser un point d’eau individuel dans son jardin de banlieue', ['consommation', 'plomberie']),
-            makeQuestion('Quel accessoire de plomberie économe est valorisé ?', `${cap(s.disPara)}`, 'Une pompe surpuissante augmentant le débit pour rincer plus vite', 'Un raccord électronique nécessitant le concours d’un technicien', [s.disKw]),
-            makeQuestion('Comment peut-on parfois obtenir ces équipements sans frais ?', 'Par l’entremise de trousses remises par son administration locale', 'En participant à un tirage au sort commercial diffusé en ligne', 'En effectuant d’abord l’achat de plusieurs gros appareils neufs', ['municipalité', 'trousses']),
+            makeQuestion('Que conseille cet article aux occupants de logements ?', 'Poser des éléments de plomberie limitant le débit d’eau chaude', 'Remplacer tous les tuyaux de sa maison par un diamètre plus grand', 'Creuser un point d’eau individuel dans son jardin de banlieue', ['consommation', 'plomberie']),
+            makeQuestion('Quel accessoire de plomberie économe est valorisé ?', `${cap(s.disPara)}`, 'Un tuyau de grand diamètre raccordé sans dispositif de coupure', 'Un raccord électronique nécessitant le concours d’un technicien', [s.disKw]),
+            makeQuestion('Comment peut-on parfois obtenir ces équipements sans frais ?', 'Par l’entremise de trousses remises par son administration locale', 'En réclamant un bon d’achat sans frais auprès d’une grande quincaillerie', 'En effectuant d’abord l’achat de plusieurs gros appareils neufs', ['municipalité', 'trousses']),
           ],
         }
       },
@@ -1409,16 +1409,16 @@ export const N05_06_SCENARIOS = {
       (rand) => {
         const slots = [
           { entraineur: 'Sophie', collation: 'des quartiers d’orange et des galettes à l’avoine', boisson: 'de l’eau fraîche dans une gourde bien identifiée', boiPara: 'De l’eau fraîche conservée dans une gourde bien identifiée', boiKw: 'gourde', colPara: 'des portions d’orange associées à des galettes d’avoine', colKw: 'orange' },
-          { entraineur: 'Valérie', collation: 'des raisins sans pépins et des morceaux de fromage', boisson: 'une eau fraîche infusée avec du citron et de la menthe', boiPara: 'Une eau fraîche infusée naturellement au citron et à la menthe', boiKw: 'citron', colPara: 'des raisins frais accompagnés de cubes de fromage', colKw: 'raisins' },
+          { entraineur: 'Valérie', collation: 'des raisins sans pépins et des morceaux de fromage', boisson: 'une eau fraîche infusée avec du citron et de la menthe', boiPara: 'De l’eau fraîche infusée au citron et à la menthe', boiKw: 'citron', colPara: 'des raisins frais accompagnés de cubes de fromage', colKw: 'raisins' },
           { entraineur: 'Chantal', collation: 'des bananes mûres et des barres tendres maison', boisson: 'de l’eau plate sans ajout de sucre ni de jus', boiPara: 'De l’eau plate exempte de tout ajout de sucre ou de jus', boiKw: 'sucre', colPara: 'des bananes complétées de barres tendres faites maison', colKw: 'bananes' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `MESSAGE DU CLUB SPORTIF - COLLATIONS TOURNOI DE SOCCER\nDe : ${s.entraineur} Roy, entraîneuse jeunesse\nÀ : Parents des joueurs de la ligue récréative\nObjet : Recommandations nutritionnelles pour le tournoi\nChers parents,\nEn vue de notre tournoi de soccer de samedi, voici quelques suggestions pour garder nos jeunes sportifs en forme. Entre deux matchs intenses, privilégiez ${s.collation}. Les glucides naturels aident à reconstituer l’énergie sans alourdir la digestion. Pour l’hydratation, la seule boisson nécessaire est ${s.boisson}. Évitez les boissons énergisantes et les jus très sucrés qui causent des maux de ventre pendant l’effort. Merci de votre précieuse collaboration et bon match à tous !`,
           questions: [
-            makeQuestion('Quel est l’objectif de cette note transmise par l’entraîneuse ?', 'Conseiller des en-cas équilibrés pour des jeunes lors d’un tournoi', 'Reporter l’ensemble des parties disputées à l’extérieur en raison des fortes pluies', 'Réclamer le versement des droits d’adhésion', ['tournoi', 'collations']),
-            makeQuestion('Quelle collation est recommandée entre deux matchs intenses ?', `${cap(s.colPara)}`, 'Des sachets de bonbons du commerce', 'Des portions de frites chaudes très grasses servies avec une sauce salée', [s.colKw]),
-            makeQuestion('Quelle boisson doit-on privilégier pour l’hydratation des joueurs ?', s.boiPara, 'Des boissons énergisantes pour coureurs d’endurance', 'Des sodas très sucrés et fortement enrichis en caféine', [s.boiKw]),
+            makeQuestion('Quel est l’objectif de cette note transmise par l’entraîneuse ?', 'Conseiller des en-cas équilibrés pour des jeunes lors d’un tournoi', 'Reporter à plus tard l’ensemble des matchs du tournoi de soccer de samedi', 'Réclamer le versement des droits d’adhésion', ['tournoi', 'collations']),
+            makeQuestion('Quelle collation est recommandée entre deux matchs intenses ?', `${cap(s.colPara)}`, 'Des bonbons très sucrés qui causent des maux de ventre', 'Des portions de frites chaudes très grasses servies avec une sauce salée', [s.colKw]),
+            makeQuestion('Quelle boisson doit-on privilégier pour l’hydratation des joueurs ?', s.boiPara, 'Des boissons énergisantes conçues pour les jeunes sportifs', 'Des jus de fruits très sucrés consommés pendant l’effort', [s.boiKw]),
           ],
         }
       },
