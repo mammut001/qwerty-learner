@@ -30,7 +30,7 @@ export default function Switcher() {
   }
 
   useHotkeys(
-    'ctrl+shift+v',
+    'ctrl+alt+shift+v',
     () => {
       changeTransVisibleState()
     },
@@ -48,10 +48,10 @@ export default function Switcher() {
         <LoopWordSwitcher />
       </Tooltip>
 
-      <Tooltip className="h-7 w-7" content={`开关默写模式（${CTRL} + V）`}>
+      <Tooltip className="h-7 w-7" content={`开关默写模式（${CTRL} + Alt + V）`}>
         <WordDictationSwitcher />
       </Tooltip>
-      <Tooltip className="h-7 w-7" content={`开关释义显示（${CTRL} + Shift + V）`}>
+      <Tooltip className="h-7 w-7" content={`开关释义显示（${CTRL} + Alt + Shift + V）`}>
         <button
           className={`p-[2px] ${state?.isTransVisible ? 'text-indigo-500' : 'text-gray-500'} text-lg focus:outline-none`}
           type="button"
@@ -59,7 +59,7 @@ export default function Switcher() {
             changeTransVisibleState()
             e.currentTarget.blur()
           }}
-          aria-label={`开关释义显示（${CTRL} + Shift + V）`}
+          aria-label={`开关释义显示（${CTRL} + Alt + Shift + V）`}
         >
           {state?.isTransVisible ? <IconLanguage /> : <IconLanguageOff />}
         </button>

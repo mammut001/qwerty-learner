@@ -73,3 +73,35 @@ test('multi-character input validates every letter and supports French phrases w
   })
   await expect(page.getByText('谢谢', { exact: true })).toBeVisible()
 })
+
+test('paste shortcuts remain available and the dictation shortcut uses Alt', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write'])
+  await page.goto('/word-lists')
+  await page.getByLabel('词表名称').fill('剪贴板练习')
+  await page.getByLabel('词条', { exact: true }).fill('bonjour = 你好\nmerci = 谢谢')
+  await page.getByTestId('word-list-practise').click()
+  await expect(page.getByRole('link', { name: '剪贴板练习' })).toBeVisible()
+  await page.keyboard.press('Enter')
+  await expect(page.locator('textarea')).toBeFocused()
+  for (const shift of [false, true]) {
+    const intercepted = await page.locator('textarea').evaluate((element, shiftKey) => {
+      const event = new KeyboardEvent('keydown', { key: 'v', code: 'KeyV', ctrlKey: true, shiftKey, bubbles: true, cancelable: true })
+      element.dispatchEvent(event)
+      const prevented = event.defaultPrevented
+      element.dispatchEvent(new KeyboardEvent('keyup', { key: 'v', code: 'KeyV', ctrlKey: true, shiftKey, bubbles: true }))
+      return prevented
+    }, shift)
+    expect(intercepted).toBe(false)
+  }
+  await page.keyboard.press('Control+Alt+v')
+  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('wordDictationConfig') ?? '{}').isOpen)).toBe(true)
+  await page.keyboard.press('Control+Alt+v')
+  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('wordDictationConfig') ?? '{}').isOpen)).toBe(false)
+  await page.keyboard.press('Control+Alt+Shift+v')
+  await expect(page.getByText('你好', { exact: true })).toBeHidden()
+  await page.keyboard.press('Control+Alt+Shift+v')
+  await expect(page.getByText('你好', { exact: true })).toBeVisible()
+  await page.evaluate(() => navigator.clipboard.writeText('bonjour'))
+  await page.keyboard.press(process.platform === 'darwin' ? 'Meta+v' : 'Control+v')
+  await expect(page.getByText('谢谢', { exact: true })).toBeVisible()
+})
