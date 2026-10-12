@@ -1020,25 +1020,25 @@ export const N09_10_SCENARIOS = {
           "Quel est l’objectif réglementaire visé par ces directives de trésorerie sportive ?",
           "Encadrer rigoureusement les dépenses et imposer des mécanismes stricts de double contrôle",
           "Alléger les démarches des bénévoles en supprimant les rapprochements bancaires mensuels",
-          "Supprimer définitivement l’ensemble des cotisations demandées aux familles de l’association"
+          "Confier la signature de chaque paiement à un seul administrateur afin d’accélérer les décaissements"
         ],
         [
           "De quelle manière les exigences de contrôle financier sont-elles présentées ?",
           "Des seuils de dépenses, des méthodes de paiement et des délais de justification sont prescrits",
           "Une invitation cordiale à faire confiance à chacun sans garder de reçus est formulée",
-          "Une série de reproches sans fondement est adressée aux anciens gestionnaires bénévoles du club"
+          "Une réserve de quinze pour cent est d’abord imposée, puis les seuils de dépenses sont fixés"
         ],
         [
           "Pourquoi le règlement impose-t-il la sanctuarisation d’un fonds de réserve de quinze pour cent ?",
           "Pour garantir la continuité des activités en cas de versement tardif des aides financières de l’État",
-          "Pour financer un voyage récréatif annuel pour l’ensemble des membres du conseil d’administration de l’organisme",
-          "Pour payer d’avance la construction d’une nouvelle patinoire municipale dans un quartier voisin"
+          "Pour rembourser à l’avance les subventions gouvernementales québécoises une fois qu’elles ont été reçues",
+          "Pour dispenser le trésorier de toute conciliation bancaire tant que la réserve n’est pas épuisée"
         ],
         [
           "Dans ce contexte administratif, que désigne une « conciliation bancaire » ?",
           "La vérification détaillée de la concordance parfaite entre les registres comptables et la banque",
-          "Une médiation juridique complexe entre une association sportive amateur et ses créanciers financiers en litige",
-          "Une demande formelle de prêt d’urgence déposée auprès d’une caisse d’économie solidaire locale"
+          "Le réajustement hebdomadaire de la réserve d’exploitation selon les subventions reçues du gouvernement",
+          "Le règlement en espèces des honoraires d’entraîneurs, admis lorsque le montant reste sous deux cent cinquante dollars"
         ]
       ],
       "frame": "directives de trésorerie — gestion financière d’un club sportif"
@@ -1056,20 +1056,20 @@ export const N09_10_SCENARIOS = {
         [
           "Comment la démarche d’administration du médicament est-elle structurée dans le texte ?",
           "Les prérequis médicaux sont posés avant le calcul posologique et les consignes d’urgence vitale",
-          "Une discussion purement théorique sur les étapes de synthèse chimique complexe de la molécule en laboratoire",
-          "Une comparaison purement commerciale entre les prix de trois anticoagulants est dressée"
+          "Le calcul posologique est posé d’abord, puis les prérequis d’hémostase sont vérifiés après la perfusion",
+          "Les consignes d’urgence vitale sont données en premier, avant tout calcul posologique ni prérequis biologiques"
         ],
         [
           "Que déduit-on implicitement de l’obligation de mesurer le temps de céphaline activée ?",
           "Le niveau d’anticoagulation doit être calibré avec une extrême précision pour éviter l’hémorragie",
-          "Le personnel soignant ne sait pas si le médicament a été injecté dans la bonne veine superficielle du bras",
+          "Le produit reste sans effet mesurable sur la coagulation, car la dilution saline suffit à l’inactiver",
           "Le médicament agit surtout sur la fréquence cardiaque et peu sur la coagulation sanguine"
         ],
         [
           "Dans ce protocole médical, que signifie le terme « antidote » ?",
           "Une substance thérapeutique capable de neutraliser rapidement les effets nocifs d’un médicament",
-          "Un calmant puissant destiné à soulager les céphalées particulièrement sévères chez les malades hospitalisés",
-          "Un désinfectant chirurgical appliqué sur la peau avant l’insertion d’un cathéter intraveineux"
+          "Une solution saline servant à rincer la tubulure après l’arrêt de la perfusion, pour éviter les caillots",
+          "Un produit complémentaire administré en parallèle pour renforcer l’effet anticoagulant lorsque la cible tarde"
         ]
       ],
       "frame": "protocole hospitalier — administration clinique d’un nouvel anticoagulant"
@@ -1087,20 +1087,20 @@ export const N09_10_SCENARIOS = {
         [
           "De quelle manière ces directives de bonne gouvernance sont-elles organisées ?",
           "Les délais de soumission, les modalités de paiement et les devoirs de rapportage sont explicités",
-          "Une polémique acerbe contre les arbitres sportifs régionaux est alimentée sans proposer de directives utiles",
+          "Les modalités de paiement des arbitres sont exposées d’abord, avant les délais de soumission des demandes de remboursement",
           "Une exemption de pièces justificatives est accordée aux entraîneurs pour leurs dépenses de déplacement"
         ],
         [
           "Quel risque implicite l’interdiction de l’argent liquide cherche-t-elle à neutraliser ?",
           "Le risque de détournement de fonds ou de contestation sur les montants réellement versés",
-          "Le risque que les entraîneurs soient rémunérés en retard par les administrateurs du club",
-          "L’obligation légale pour les arbitres de transporter des coffres-forts lourds dans leur sac de sport"
+          "Le risque que les dons de commanditaires soient déposés en retard, sans reçu conforme pour Revenu Québec",
+          "Le risque que le trésorier paie les arbitres avant que la feuille de match ait été signée par le directeur technique"
         ],
         [
           "Que désigne l’expression « pièce justificative » dans ce texte de réglementation ?",
           "Un document officiel ou une facture attestant la réalité et la conformité d’une dépense engagée",
-          "Une lettre de recommandation signée par un entraîneur attestant les compétences d’un bénévole",
-          "Une lettre d’excuses signée par un joueur ayant reçu un carton rouge durant une rencontre"
+          "Un état qui présente seulement les revenus du club, sans rapprochement avec les dépenses engagées",
+          "Une note interne rédigée librement par le trésorier, dont la valeur comptable dépend du seul jugement du conseil"
         ]
       ],
       "frame": "directives administratives — reddition de comptes d’une association sportive"
@@ -1119,19 +1119,19 @@ export const N09_10_SCENARIOS = {
           "Comment la progression du protocole clinique est-elle planifiée dans les consignes ?",
           "La préparation du patient et du produit précède une injection progressive sous observation soutenue",
           "L’injection complète est lancée d’emblée à plein débit dès la sortie du réfrigérateur",
-          "Une série d’arguments publicitaires vantant l’efficacité miraculeuse de la molécule est exposée"
+          "Le débit cible est fixé d’emblée, puis le produit est sorti du réfrigérateur avant la prémédication"
         ],
         [
           "Pourquoi le protocole impose-t-il une observation prolongée de deux heures après l’arrêt ?",
           "Des réactions indésirables d’hypersensibilité retardée peuvent survenir après la fin de la perfusion",
-          "Les infirmières doivent obligatoirement terminer de remplir leurs dossiers médicaux avant de libérer le lit de soins",
-          "Le médicament ne commence à agir dans le sang qu’après cent vingt minutes d’attente passive"
+          "L’observation prolongée sert surtout à contrôler la température ambiante du flacon après sa sortie du frigo",
+          "Le produit conserve son effet pendant deux heures, si bien que le débit n’a plus à être surveillé"
         ],
         [
           "Dans ce contexte hospitalier, que signifie le terme « prémédication » ?",
           "Un traitement préventif administré avant une thérapie lourde pour en atténuer les effets secondaires",
-          "Une consultation psychologique préalable pour convaincre un malade récalcitrant d’accepter de se faire soigner",
-          "Une décharge de responsabilité légale que le patient doit signer avant d’entrer dans la clinique"
+          "Une dose de charge administrée après la perfusion pour accélérer l’élimination du produit de l’organisme",
+          "Une substitution du traitement habituel par un produit moins coûteux durant toute la durée de la perfusion"
         ]
       ],
       "frame": "protocole médical — perfusion intraveineuse continue d’anticorps monoclonaux"
@@ -1146,25 +1146,25 @@ export const N09_10_SCENARIOS = {
           "Quelle thèse principale le sociologue soutient-il avec vigueur dans sa tribune ?",
           "La préservation du système public de santé comme rempart indispensable contre l’iniquité sociale",
           "L’accélération de la privatisation de tous les hôpitaux pour régler définitivement les listes d’attente",
-          "La fermeture des facultés universitaires de médecine qui coûtent trop cher aux contribuables québécois"
+          "La promotion d’une privatisation partielle des soins, jugée nécessaire pour financer les universités publiques"
         ],
         [
           "Comment l’argumentation sociologique est-elle construite pour convaincre le lectorat ?",
           "Une promesse fallacieuse du privé est démontée en exposant le siphonage des ressources publiques",
-          "Une série d’attaques personnelles diffamatoires est dirigée contre les directeurs d’hôpitaux généraux",
-          "Un éloge nostalgique des institutions médicales religieuses d’avant les années 1960 est prononcé"
+          "L’universalité du régime public est défendue dès l’ouverture, puis la promesse fallacieuse du privé est démontée",
+          "La critique du secteur privé est d’abord écartée comme un réflexe corporatiste, puis démontée par des chiffres de rentabilité"
         ],
         [
           "Que sous-entend la métaphore de la « pompe aspirante » utilisée par l’auteur ?",
           "Le secteur privé s’approprie les soignants formés par l’État au détriment des hôpitaux publics",
           "Le secteur public engage des chirurgiens venus du privé afin de financer les hôpitaux régionaux",
-          "Les universités publiques refusent de former des infirmières pour répondre aux besoins du privé"
+          "Le secteur public confie ses cas complexes au privé, qui dispose de moyens supérieurs pour les traiter"
         ],
         [
           "Dans ce texte engagé, que connote l’expression « médecine à deux vitesses » ?",
           "Un système injuste offrant des soins rapides aux riches et abandonnant les pauvres à l’attente",
-          "Un réseau ambulancier moderne équipé de véhicules d’urgence particulièrement rapides et efficaces",
-          "Une méthode clinique novatrice permettant de doubler la vitesse des interventions chirurgicales"
+          "Un système neutre où les délais d’attente sont identiques pour chacun, sans lien avec le revenu",
+          "Un système où les pauvres bénéficient d’un accès prioritaire aux cliniques privées à but lucratif"
         ]
       ],
       "frame": "revue syndicale — défense et préservation du réseau public de santé"
@@ -1183,19 +1183,19 @@ export const N09_10_SCENARIOS = {
           "Quelle démarche argumentative l’auteur privilégie-t-il pour réfuter les objections ?",
           "Il confronte les responsabilités réelles des jeunes de seize ans aux préjugés paternalistes de leurs détracteurs",
           "Il propose des statistiques électorales anciennes sans répondre directement aux objections soulevées",
-          "Il exige la dissolution immédiate de l’Assemblée nationale du Québec sans attendre les prochaines élections"
+          "Il rejette les objections en qualifiant les adversaires de paternalistes, sans examiner les juridictions étrangères"
         ],
         [
           "Que déduit-on implicitement de la référence à l’expérience démocratique en Autriche ?",
           "Accorder le droit de vote aux jeunes adolescents ne présente aucun danger d’instabilité politique pour l’État",
           "Abaisser l’âge électoral entraîne un recul durable de la participation citoyenne en Autriche",
-          "L’Autriche envisage de rétablir la majorité électorale à vingt-et-un ans lors de son prochain scrutin"
+          "Le vote à seize ans a déstabilisé les institutions autrichiennes, ce qui justifie sa suspension"
         ],
         [
           "Dans ce débat civique, que désigne l’expression « justice intergénérationnelle » ?",
           "L’obligation morale et politique d’intégrer équitablement les intérêts des générations montantes dans les lois",
-          "L’institution de tribunaux d’arbitrage familiaux spéciaux pour régler les conflits entre parents et adolescents",
-          "Une loi obligeant les personnes retraitées à partager équitablement leurs pensions avec leurs petits-enfants"
+          "Un partage du pouvoir de vote entre les âges, où les aînés décident à la place des jeunes adultes",
+          "La priorité donnée aux jeunes de seize ans dans les emplois d’été au détriment des adultes"
         ]
       ],
       "frame": "tribune d’opinion — arguments favorables à l’abaissement du droit de vote"
@@ -1207,26 +1207,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle dénonciation principale l’auteur de cet essai formule-t-il au sujet des agences privées ?",
           "L’effet pervers des agences privées qui coûtent une fortune et déstabilisent les équipes régulières",
-          "La dégradation progressive de la formation continue offerte au personnel infirmier des régions québécoises",
-          "L’incapacité des universités québécoises à former un nombre suffisant de médecins spécialistes"
+          "Le recours massif aux primes offertes aux infirmières régulières pour compenser la pénurie d’effectifs",
+          "Le rôle positif des agences privées qui comblent les vacances de postes dans les régions éloignées"
         ],
         [
           "Comment l’essai démontre-t-il l’inefficacité structurelle du modèle des agences de placement ?",
           "Il montre que les agences siphonnent l’argent public et créent des disparités sans créer de nouveaux soignants",
           "Il affirme que le recours aux agences a permis de combler durablement la pénurie de personnel infirmier",
-          "Il réclame le gel immédiat de toutes les embauches de cadres administratifs dans le réseau public"
+          "Il montre que les agences ont ajouté de nouveaux soignants à l’effectif, sans gonfler les coûts publics"
         ],
         [
           "Quel sous-entendu émane de la mention du refus des quarts de nuit par les soignants d’agence ?",
           "La flexibilité offerte aux uns fait peser une charge de travail insoutenable sur les épaules des autres",
-          "Les hôpitaux régionaux manquent cruellement de matériel de réanimation moderne durant les gardes",
-          "Les soignants du réseau public désertent volontairement les unités de soins intensifs pédiatriques"
+          "Les soignants d’agence acceptent l’ensemble des quarts de nuit, ce qui allège le travail des régulières",
+          "Les infirmières régulières réclament volontairement les quarts de nuit pour toucher des primes plus élevées"
         ],
         [
           "Dans ce contexte d’économie de la santé, que signifie le mot « expédient » ?",
           "Une solution de dépannage provisoire et imparfaite adoptée pour faire face à une difficulté urgente",
-          "Une démarche administrative formelle requise pour homologuer un nouvel équipement hospitalier de pointe",
-          "Un mode d’attribution des contrats publics par appel d’offres concurrentiel international"
+          "Un moyen de fidélisation durable conçu pour retenir les soignants dans les régions éloignées",
+          "Une manœuvre comptable habile permettant d’afficher des dépenses réduites sans changer le budget réel"
         ]
       ],
       "frame": "essai sociologique — critique du recours aux agences privées de soins"
@@ -1238,26 +1238,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel argument central est déployé dans cette tribune pour soutenir le vote à seize ans ?",
           "La légitimité des jeunes à peser sur les décisions écologiques dont ils subiront l’impact toute leur vie",
-          "La volonté de limiter le droit de vote des cohortes âgées dont les horizons temporels sont courts",
-          "La nécessité de confier aux seuls partis écologistes la définition des programmes électoraux"
+          "La nécessité de maintenir le vote à dix-huit ans pour préserver l’expérience civique de l’électorat",
+          "La nécessité d’abaisser le droit de vote à quinze ans pour accélérer la transition écologique"
         ],
         [
           "De quelle manière l’auteur appuie-t-il son raisonnement sur la réalité sociale québécoise ?",
           "L’engagement environnemental concret des adolescents est mis en contraste avec leur exclusion politique",
-          "Une critique virulente des programmes d’éducation civique enseignés dans les écoles secondaires québécoises",
+          "Le recours aux grèves pour le climat est présenté comme une menace pour la démocratie représentative",
           "Le faible taux de participation des jeunes aux grèves pour le climat est mis en avant"
         ],
         [
           "Que déduit-on implicitement de la remarque sur l’horizon temporel des aînés ?",
           "Les générations plus âgées sont moins directement menacées par les effets à long terme du réchauffement",
-          "Les électeurs plus âgés votent systématiquement contre toute taxe carbone ou mesure de transition",
-          "Les citoyens aînés manifestent une indifférence complète envers la dégradation des forêts boréales"
+          "Les générations plus âgées subiront les conséquences climatiques pendant plus de six décennies",
+          "Les électeurs aînés ont une vision à long terme qui les rend plus prudents que les jeunes"
         ],
         [
           "Dans ce passage d’actualité politique, que désigne le mot « cohorte » ?",
           "Un groupe d’individus partageant une même tranche d’âge ou une expérience historique commune",
-          "Une subdivision électorale regroupant plusieurs circonscriptions pour un scrutin uninominal",
-          "Un organisme de surveillance chargé de contrôler la conformité des dépenses de campagne électorale"
+          "Un bloc d’électeurs qui vote de façon coordonnée pour défendre les intérêts d’un parti politique",
+          "Un regroupement de partis politiques alliés qui présentent des candidats communs lors d’un scrutin"
         ]
       ],
       "frame": "tribune démocratique — participation politique et vote des jeunes de 16 ans"
