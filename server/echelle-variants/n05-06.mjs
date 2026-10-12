@@ -1124,9 +1124,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `CLAVARDAGE - DISCUSSION AVEC ${s.amie.toUpperCase()}\n[14:15] ${s.amie} : Coucou ! J’ai une grande nouvelle : j’ai signé mon contrat aujourd’hui ! J’ai accepté le poste ${s.poste} ${s.organisme}. J’hésitais avec une autre offre mieux payée, mais la mission sociale me rejoint beaucoup plus. En plus, un avantage formidable : ${s.avantage} ! La directrice m’a assuré que je serai bien accompagnée durant ma formation initiale. Je commence officiellement le deux mai. On va pouvoir célébrer ça autour d’un bon café cette fin de semaine si tu es libre !`,
           questions: [
-            makeQuestion('Quelle décision importante l’amie annonce-t-elle par message ?', 'L’acceptation d’un contrat au sein d’un organisme social', 'Une inscription à temps plein dans un programme universitaire', 'Un départ précipité pour s’établir de façon permanente en région', ['contrat', 'poste']),
-            makeQuestion('Quelle raison principale a fait pencher la balance en faveur de ce poste ?', 'La concordance avec ses valeurs et la mission sociale du groupe', 'Une rémunération deux fois supérieure à celle des autres postes', 'L’absence de supervision hiérarchique au sein de la structure', ['mission', 'sociale']),
-            makeQuestion('Quel avantage pratique du quotidien la réjouit particulièrement ?', `${cap(s.avPara)}`, 'Une voiture de fonction haut de gamme mise à disposition', 'Des séjours professionnels assurés mensuellement à l’étranger', [s.avKw]),
+            makeQuestion('Quelle décision importante l’amie annonce-t-elle par message ?', 'L’acceptation d’un contrat au sein d’un organisme social', 'La signature d’une offre d’emploi beaucoup mieux payée', 'Un départ précipité pour s’établir de façon permanente en région', ['contrat', 'poste']),
+            makeQuestion('Quelle raison principale a fait pencher la balance en faveur de ce poste ?', 'La concordance avec ses valeurs et la mission sociale du groupe', 'Une proposition salariale bien plus avantageuse que les autres', 'L’absence de supervision hiérarchique au sein de la structure', ['mission', 'sociale']),
+            makeQuestion('Quel avantage pratique du quotidien la réjouit particulièrement ?', `${cap(s.avPara)}`, 'Une dispense complète de toute formation initiale en arrivant', 'Des séjours professionnels assurés mensuellement à l’étranger', [s.avKw]),
           ],
         }
       },
@@ -1144,9 +1144,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `CLAVARDAGE - ANNONCE OFFICIELLE DE CARRIÈRE\n[10:32] ${s.amie} : Salut ! Je voulais t’expliquer pourquoi j’ai accepté l’offre ${s.poste} ${s.institution}. Après avoir travaillé à contrat dans l’incertitude, ce poste m’apporte exactement ce dont j’avais besoin : ${s.raison}. Même si le processus de sélection a été long avec trois entrevues, la directrice m’a fait une excellente impression. Mes futurs collègues sont accueillants et le bureau est très lumineux. J’entre en poste lundi prochain. Je suis tellement soulagée de cette stabilité !`,
           questions: [
-            makeQuestion('Quelle orientation de carrière est partagée par l’amie ?', 'L’acceptation d’un engagement dans le réseau éducatif', 'Une embauche comme commis comptable au sein d’une banque', 'Un contrat de gérance dans un magasin de vêtements du quartier', ['poste', 'offre']),
-            makeQuestion('Quel aspect du travail répondait exactement à ses attentes prioritaires ?', `Ce poste lui apporte ${s.raiPara}`, 'Une absence totale de contact direct avec le public ou avec les élèves', 'L’assurance d’une charge de travail hebdomadaire réduite à dix heures', [s.raiKw]),
-            makeQuestion('Quand doit-elle commencer officiellement son nouvel emploi ?', 'Dès le début de la semaine suivante suite à son embauche', 'Dans trois mois après une longue période de repos estival', 'Au cours de l’automne prochain lors de la rentrée scolaire', ['lundi', 'poste']),
+            makeQuestion('Quelle orientation de carrière est partagée par l’amie ?', 'L’acceptation d’un engagement dans le réseau éducatif', 'Le renouvellement d’un contrat temporaire dans l’incertitude', 'Un contrat de gérance dans un magasin de vêtements du quartier', ['poste', 'offre']),
+            makeQuestion('Quel aspect du travail répondait exactement à ses attentes prioritaires ?', `Ce poste lui apporte ${s.raiPara}`, 'L’évitement de tout processus de sélection lors de l’embauche', 'L’assurance d’une charge de travail hebdomadaire réduite à dix heures', [s.raiKw]),
+            makeQuestion('Quand doit-elle commencer officiellement son nouvel emploi ?', 'Dès le début de la semaine suivante suite à son embauche', 'Dans trois semaines après une nouvelle entrevue de sélection', 'Au cours de l’automne prochain lors de la rentrée scolaire', ['lundi', 'poste']),
           ],
         }
       },
@@ -1164,9 +1164,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `COURRIEL PROFESSIONNEL\nDe : ${s.collegue}\nÀ : Comité d’insertion professionnelle\nObjet : Absence motivée - Journée d’insertion du 18 octobre\nBonjour à tous,\nJe vous informe avec regret que je ne pourrai pas participer à notre journée d’insertion professionnelle jeudi prochain. En effet, je dois finaliser en priorité ${s.motif}, dont l’échéance a été devancée à vendredi matin par la direction. Cette charge de travail m’empêche de me libérer pour la journée. Toutefois, pour soutenir le comité, je me propose ${s.offre} dès ce mardi. Je vous souhaite une belle journée d’échanges et je reste disponible au besoin.`,
           questions: [
-            makeQuestion('Quel est l’objet principal de ce courriel professionnel ?', 'La justification polie d’un empêchement à une activité interne', 'Une demande formelle d’augmentation de traitement salarial', 'Une démission sans préavis suite à un désaccord dans le service', ['insertion', 'absence']),
-            makeQuestion('Quelle contrainte professionnelle majeure justifie cette absence ?', `${cap(s.motPara)}`, 'Une invitation personnelle à disputer une partie de golf récréative', 'Une coupure de connexion Internet survenue à son domicile privé', [s.motKw]),
-            makeQuestion('Quelle aide concrète le collègue propose-t-il d’apporter malgré tout ?', `Il offre de ${s.offPara}`, 'Régler personnellement l’ensemble des frais de bouche de la journée', 'Rémunérer à ses frais un travailleur temporaire pour la journée', [s.offKw]),
+            makeQuestion('Quel est l’objet principal de ce courriel professionnel ?', 'La justification polie d’un empêchement à une activité interne', 'Une demande de report de l’échéance fixée par la direction', 'Une démission sans préavis suite à un désaccord dans le service', ['insertion', 'absence']),
+            makeQuestion('Quelle contrainte professionnelle majeure justifie cette absence ?', `${cap(s.motPara)}`, 'L’organisation matérielle de la journée d’échanges du comité', 'Une coupure de connexion Internet survenue à son domicile privé', [s.motKw]),
+            makeQuestion('Quelle aide concrète le collègue propose-t-il d’apporter malgré tout ?', `Il offre de ${s.offPara}`, 'Reporter à la semaine suivante la livraison demandée par la direction', 'Rémunérer à ses frais un travailleur temporaire pour la journée', [s.offKw]),
           ],
         }
       },
@@ -1178,15 +1178,15 @@ export const N05_06_SCENARIOS = {
         const slots = [
           { expediteur: 'Alexandre Roy', obligation: 'un rendez-vous médical spécialisé pour ma fille à l’hôpital', compensation: 'transmettre mes fiches d’information par courriel', oblPara: 'un rendez-vous de santé pour son enfant fixé de longue date', comPara: 'acheminer ses fiches de renseignements par voie électronique', oblKw: 'fille', comKw: 'fiches' },
           { expediteur: 'Patrick Lavoie', obligation: 'une convocation judiciaire comme témoin civique', compensation: 'enregistrer une brève capsule vidéo de bienvenue', oblPara: 'une obligation civique de témoignage auprès de la justice', comPara: 'préparer un court enregistrement vidéo de bienvenue', oblKw: 'témoin', comKw: 'vidéo' },
-          { expediteur: 'Guillaume Simard', obligation: 'une soutenance universitaire obligatoire pour mon diplôme', compensation: 'animer la rencontre virtuelle de suivi la semaine prochaine', oblPara: 'une obligation universitaire fixée de longue date pour son diplôme', comPara: 'coordonner la réunion de suivi prévue en ligne la semaine suivante', oblKw: 'diplôme', comKw: 'virtuelle' },
+          { expediteur: 'Guillaume Simard', obligation: 'une soutenance universitaire obligatoire pour mon diplôme', compensation: 'animer la rencontre virtuelle de suivi la semaine prochaine', oblPara: 'une obligation universitaire fixée de longue date pour son diplôme', comPara: 'coordonner la séance de suivi en ligne la semaine suivante', oblKw: 'diplôme', comKw: 'virtuelle' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `MESSAGE ÉLECTRONIQUE INTERNE\nDe : ${s.expediteur}\nÀ : Direction des ressources humaines\nObjet : Absence à l’activité d’intégration\nChers collègues,\nJe tiens à vous aviser que je ne pourrai malheureusement pas me joindre à vous ce vendredi pour l’accueil des nouveaux employés. J’ai ${s.obligation}, une démarche fixée de longue date que je ne peux reporter. Je regrette sincèrement de manquer cette occasion d’échanger avec nos nouvelles recrues. Afin de soutenir le groupe malgré tout, je m’engage à ${s.compensation} avant mercredi midi. Merci beaucoup pour votre compréhension et bonne journée d’accueil à tous !`,
           questions: [
-            makeQuestion('Pourquoi l’employé écrit-il ce message à la direction ?', 'Pour exposer les motifs de son absence à l’accueil des recrues', 'Pour officialiser son embauche auprès d’une entreprise concurrente', 'Pour demander une indemnité de transport pour son itinéraire', ['absence', 'intégration']),
-            makeQuestion('Quelle raison impérative empêche sa présence ce vendredi ?', `${cap(s.oblPara)}`, 'Une réservation de vacances organisée au dernier moment', 'Un défaut d’inscription de la date sur son agenda personnel', [s.oblKw]),
-            makeQuestion('Quelle solution alternative l’employé propose-t-il pour s’impliquer ?', `Il s’engage à ${s.comPara}`, 'Refuser de répondre aux courriels des nouveaux arrivants', 'Transférer définitivement l’ensemble de ses dossiers à un pair', [s.comKw]),
+            makeQuestion('Pourquoi l’employé écrit-il ce message à la direction ?', 'Pour exposer les motifs de son absence à l’accueil des recrues', 'Pour annuler l’activité d’intégration des nouvelles recrues', 'Pour demander une indemnité de transport pour son itinéraire', ['absence', 'intégration']),
+            makeQuestion('Quelle raison impérative empêche sa présence ce vendredi ?', `${cap(s.oblPara)}`, 'Une séance de formation imprévue avec les nouvelles recrues', 'Un défaut d’inscription de la date sur son agenda personnel', [s.oblKw]),
+            makeQuestion('Quelle solution alternative l’employé propose-t-il pour s’impliquer ?', `Il s’engage à ${s.comPara}`, 'Accueillir les nouvelles recrues en personne dès le mercredi midi', 'Demander à la direction des ressources humaines d’annuler la journée', [s.comKw]),
           ],
         }
       },
@@ -1204,9 +1204,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `CLAVARDAGE - DÉPART VERS UNE NOUVELLE RÉGION\n[16:45] ${s.amie} : Salut ! J’ai une grande décision à t’annoncer : j’ai dit oui pour le poste ${s.poste} ${s.ville} ! Je quitte la métropole le mois prochain. J’ai longuement réfléchi, mais ce qui a emporté mon choix, c’est ${s.cadre}. Même si mes amis vont me manquer, mon employeur m’accorde une aide financière pour mon déménagement et un horaire flexible. C’est un nouveau départ formidable. Je prépare un souper d’au revoir chez moi samedi prochain, viens fêter avec nous !`,
           questions: [
-            makeQuestion('Quelle décision majeure l’amie partage-t-elle dans ce message ?', 'Son choix d’accepter un travail et d’aller s’établir en région', 'Son refus de quitter son logement situé au cœur de Montréal', 'L’achat d’une maison de villégiature pour ses fins de semaine', ['poste', 'région']),
-            makeQuestion('Quel facteur principal a motivé son départ vers sa nouvelle ville ?', `${cap(s.cadPara)}`, 'L’assurance d’exercer un emploi exempt de toute responsabilité', 'Une décision obligatoire rendue par son association corporative', [s.cadKw]),
-            makeQuestion('Quelle aide concrète son nouvel employeur lui accorde-t-il ?', 'Une allocation pour faciliter les frais de son déménagement', 'Le paiement complet de ses droits universitaires passés', 'L’acquisition d’un logement complet dans sa municipalité d’accueil', ['déménagement', 'financière']),
+            makeQuestion('Quelle décision majeure l’amie partage-t-elle dans ce message ?', 'Son choix d’accepter un travail et d’aller s’établir en région', 'Son choix de refuser l’offre pour rester auprès de ses amis', 'L’achat d’une maison de villégiature pour ses fins de semaine', ['poste', 'région']),
+            makeQuestion('Quel facteur principal a motivé son départ vers sa nouvelle ville ?', `${cap(s.cadPara)}`, 'Une promesse d’augmentation salariale dès son arrivée', 'Une décision obligatoire rendue par son association corporative', [s.cadKw]),
+            makeQuestion('Quelle aide concrète son nouvel employeur lui accorde-t-il ?', 'Une allocation pour faciliter les frais de son déménagement', 'La prise en charge intégrale de son souper d’au revoir', 'L’acquisition d’un logement complet dans sa municipalité d’accueil', ['déménagement', 'financière']),
           ],
         }
       },
