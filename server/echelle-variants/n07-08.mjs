@@ -56,7 +56,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle mesure concrète plusieurs employeurs proposent-ils pour faciliter l’installation ?',
           'La prise en charge des coûts liés au transport des biens',
-          'La garantie d’un emploi stable pendant trois ans',
+          'Un mentorat garanti seulement après une qualification reconnue',
           'Un mentorat financé par les municipalités',
         ],
       ],
@@ -131,8 +131,8 @@ export const N07_08_SCENARIOS = {
         [
           'Où les parents peuvent-ils trouver des ateliers éducatifs adaptés à leur situation ?',
           'Dans leur centre local de services communautaires',
-          'Dans les centres de la petite enfance du quartier',
-          'Auprès des éducatrices qualifiées de leur garderie',
+          'Dans les garderies éducatives agréées, pour le jeu libre',
+          'Auprès des éducatrices, en dehors des heures de garderie',
         ],
       ],
     },
@@ -157,7 +157,7 @@ export const N07_08_SCENARIOS = {
           'Quelle initiative pratique est proposée pour les trajets quotidiens ?',
           'Privilégier la marche ou le vélo pour aller étudier',
           'Éviter les déplacements actifs vers l’école',
-          'Prendre systématiquement le transport scolaire jaune',
+          'Choisir les écrans lumineux pour aller étudier',
         ],
       ],
     },
@@ -238,7 +238,7 @@ export const N07_08_SCENARIOS = {
           'Que conseille-t-elle concrètement pour réussir l’introduction de l’exposé ?',
           'Adopter d’entrée de jeu un ton sobre, direct et courtois',
           'Commencer par une flatterie appuyée envers la directrice',
-          'Lire l’intégralité des tableaux comptables sans commentaire',
+          'Dire que les finances roulent au max, comme Gabriel',
         ],
       ],
     },
@@ -418,8 +418,8 @@ export const N07_08_SCENARIOS = {
         [
           'Comment les employés choisiront-ils leur poste de travail à l’avenir ?',
           'En utilisant un outil numérique de réservation préalable',
-          'En arrivant avant sept heures du matin pour réserver une place',
-          'En négociant directement chaque matin avec leur chef d’équipe',
+          'En occupant le cubicule attitré qu’on lui réserve chaque matin',
+          'En réservant leur poste seulement sur place, à l’arrivée',
         ],
       ],
     },
@@ -432,7 +432,7 @@ export const N07_08_SCENARIOS = {
           'Quels jours de la semaine la présence physique au bureau devient-elle obligatoire ?',
           'Les mardis et les jeudis pour toute l’équipe',
           'Les lundis et les mercredis selon l’horaire fixé',
-          'Le vendredi après-midi pour le bilan d’étape de l’équipe',
+          'Les trois autres journées pour toute l’équipe',
         ],
         [
           'Quelle intention implicite dicte le choix de fixer des journées communes au bureau ?',
@@ -443,7 +443,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle aide matérielle l’entreprise renouvelle-t-elle pour le travail à domicile ?',
           'Une subvention financière pour le mobilier et les ordinateurs',
-          'Une allocation annuelle pour l’équipement des salles de réunion',
+          'Une allocation annuelle pour l’application mobile de réservation',
           'Une allocation annuelle réservée aux employés présents au bureau',
         ],
       ],
@@ -594,7 +594,7 @@ export const N07_08_SCENARIOS = {
           'Quelle réaction émotionnelle Patrick manifeste-t-il vis-à-vis des grévistes ?',
           'Une indignation vive face aux retards subis par les usagers',
           'Une grande sympathie pour la fatigue accumulée au volant des bus',
-          'Un désaccord modéré lié au manque d’information préalable aux arrêts',
+          'Une approbation tranquille de la pression sur les usagers',
         ],
         [
           'Quel argument implicite Antoine avance-t-il pour justifier la démarche syndicale ?',
@@ -722,7 +722,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quels services promotionnels spécifiques cette agence propose-t-elle aux propriétaires vendeurs ?',
           'Des photos professionnelles et des visites virtuelles',
-          'Des affiches distribuées seulement par la poste',
+          'Une évaluation marchande rigoureuse réalisée par le vendeur',
           'Une diffusion limitée aux réseaux sociaux de l’agence',
         ],
         [
@@ -804,19 +804,19 @@ export const N07_08_SCENARIOS = {
           'Quelle tâche concrète le bénévole devait-il accomplir chaque semaine ?',
           'Trier les denrées et composer des paniers pour les familles',
           'Composer des paniers pour les seuls aînés du quartier',
-          'Assurer la comptabilité des dons offerts par les marchands solidaires',
+          'Recevoir les dons de légumes au comptoir, sans les trier',
         ],
         [
           'Que déduit-on implicitement de la réflexion finale du bénévole ?',
           'L’aide alimentaire sert aussi de rempart contre l’exclusion sociale',
           'L’aide alimentaire ne sert qu’à distribuer des denrées',
-          'La municipalité devrait fermer les organismes communautaires locaux',
+          'L’aide alimentaire doit surtout profiter aux marchands solidaires',
         ],
         [
           'Parmi les personnes bénéficiant de l’aide, qui le bénévole cite-t-il explicitement ?',
           'Des aînés, des parents étudiants et de nouveaux résidents',
           'Des bénévoles paroissiaux recevant un panier de nourriture',
-          'Des commerçants locaux venus acheter des produits maraîchers',
+          'Des marchands solidaires qui offrent des paniers en retour',
         ],
       ],
     },
@@ -828,7 +828,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quel était l’objectif premier de l’engagement bénévole décrit dans ce récit ?',
           'Offrir une présence régulière pour atténuer l’isolement d’une aînée',
-          'Prendre en charge les soins médicaux quotidiens de la résidente',
+          'Soutenir la résidente dans ses doutes professionnels, chaque mardi',
           'Animer des veillées dansantes au son de l’accordéon pour les résidents',
         ],
         [
@@ -840,7 +840,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quels sujets madame Simone aimait-elle évoquer avec sa visiteuse ?',
           'Sa jeunesse à la campagne et les traditions musicales d’antan',
-          'Les soins médicaux qu’elle recevait chaque jeudi à la résidence',
+          'Les veillées dansantes organisées par la résidence du Bon-Pasteur',
           'Ses propres études universitaires et ses doutes professionnels',
         ],
       ],
@@ -853,7 +853,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle tâche physique précise a mobilisé ce groupe de bénévoles ?',
           'Planter des végétaux indigènes pour consolider le rivage',
-          'Construire des digues en béton armé le long de la rivière',
+          'Poser des paillis en béton le long des rives dénudées',
           'Déterrer les mottes racinaires des arbres déjà plantés',
         ],
         [
@@ -940,7 +940,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle distinction professionnelle Clara Tremblay a-t-elle obtenue récemment ?',
           'La direction principale d’un orchestre symphonique régional',
-          'Un prix de la relève remis par son cégep d’origine',
+          'Un poste de chef invité au Conservatoire de musique de Montréal',
           'La démission de la tête de l’Orchestre symphonique de l’Estuaire',
         ],
       ],
@@ -959,7 +959,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quel atout déterminant les fonds négociés en bourse offrent-ils par rapport aux fonds traditionnels ?',
           'Des frais de gestion bien moindres qui bonifient les gains',
-          'Une garantie légale contre toute baisse temporaire de valeur',
+          'Des frais de gestion dix fois plus élevés que les fonds traditionnels',
           'Une protection complète contre les récessions boursières globales',
         ],
         [
@@ -985,7 +985,7 @@ export const N07_08_SCENARIOS = {
           'Quel bénéfice financier majeur ce modèle locatif garantit-il à ses occupants ?',
           'Un loyer modéré déterminé selon les coûts réels de l’immeuble',
           'Un loyer aligné sur les prix du marché privé pour chaque membre',
-          'Le versement annuel d’un dividende en argent aux locataires',
+          'Des hausses de loyer décidées par un propriétaire privé',
         ],
         [
           'Quel sous-entendu implicite le texte formule-t-il à propos d’une personne très individualiste ?',
@@ -1091,7 +1091,7 @@ export const N07_08_SCENARIOS = {
           'Quelle vigilance implicite ce mode de travail ouvert impose-t-il aux usagers ?',
           'Une attention constante à la discrétion des données et des appels',
           'Une vigilance limitée à la seule qualité de la connexion internet',
-          'Une confidentialité garantie par les salles de visioconférence insonorisées',
+          'Une vigilance inutile, car les appels restent toujours privés',
         ],
         [
           'Quel inconvénient sonore peut perturber certains professionnels en espace partagé ?',
@@ -1178,7 +1178,7 @@ export const N07_08_SCENARIOS = {
           'Que déduit-on implicitement de la mise en garde finale de l’autrice ?',
           'Elle souhaite le retrait complet des flottes si les règles ne sont pas appliquées',
           'Elle espère une augmentation du nombre de trottinettes offertes en libre-service',
-          'Elle propose de limiter l’usage des trottinettes aux voies cyclables récréatives',
+          'Elle juge le projet acceptable tant que les trottoirs restent libres',
         ],
       ],
     },
