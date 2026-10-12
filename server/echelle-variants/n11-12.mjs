@@ -697,7 +697,7 @@ Au milieu de la clairière boueuse où se croisaient les frontières des trois d
       questions: [
         [
           'Quel ordre cruel le comte Renaud donne-t-il à son champion ?',
-          'Exécuter sans pitié un combattant étendu sur le champ de foire',
+          'Exécuter sans pitié un combattant étendu dans la clairière',
           'Livrer aux flammes les villages voisins sans épargner personne',
           'Dépouiller les chevaux des bêtes mortes pour en vendre les cuirs',
         ],
