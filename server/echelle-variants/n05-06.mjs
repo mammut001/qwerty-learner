@@ -1125,7 +1125,7 @@ export const N05_06_SCENARIOS = {
           text: `CLAVARDAGE - DISCUSSION AVEC ${s.amie.toUpperCase()}\n[14:15] ${s.amie} : Coucou ! J’ai une grande nouvelle : j’ai signé mon contrat aujourd’hui ! J’ai accepté le poste ${s.poste} ${s.organisme}. J’hésitais avec une autre offre mieux payée, mais la mission sociale me rejoint beaucoup plus. En plus, un avantage formidable : ${s.avantage} ! La directrice m’a assuré que je serai bien accompagnée durant ma formation initiale. Je commence officiellement le deux mai. On va pouvoir célébrer ça autour d’un bon café cette fin de semaine si tu es libre !`,
           questions: [
             makeQuestion('Quelle décision importante l’amie annonce-t-elle par message ?', 'L’acceptation d’un contrat au sein d’un organisme social', 'La signature d’une offre d’emploi beaucoup mieux payée', 'Le report de son entrée en fonction à l’automne prochain', ['contrat', 'poste']),
-            makeQuestion('Quelle raison principale a fait pencher la balance en faveur de ce poste ?', 'La concordance avec ses valeurs et la mission sociale du groupe', 'Une proposition salariale bien plus avantageuse que les autres', 'L’avantage d’un trajet quotidien en voiture vers le bureau du centre-ville', ['mission', 'sociale']),
+            makeQuestion('Quelle raison principale a fait pencher la balance en faveur de ce poste ?', 'La concordance avec ses valeurs et la mission sociale du groupe', 'Une proposition salariale bien plus avantageuse que les autres', 'Un salaire plus élevé que celui de l’autre offre', ['mission', 'sociale']),
             makeQuestion('Quel avantage pratique du quotidien la réjouit particulièrement ?', `${cap(s.avPara)}`, 'Une dispense complète de toute formation initiale en arrivant', 'Une formation initiale qu’elle doit suivre seule, sans aide', [s.avKw]),
           ],
         }
@@ -1146,7 +1146,7 @@ export const N05_06_SCENARIOS = {
           questions: [
             makeQuestion('Quelle orientation de carrière est partagée par l’amie ?', 'L’acceptation d’un engagement dans le réseau éducatif', 'Le renouvellement d’un contrat temporaire dans l’incertitude', 'Le refus de tout poste offert dans le réseau éducatif', ['poste', 'offre']),
             makeQuestion('Quel aspect du travail répondait exactement à ses attentes prioritaires ?', `Ce poste lui apporte ${s.raiPara}`, 'L’évitement de tout processus de sélection lors de l’embauche', 'Un processus de sélection expédié en une seule entrevue, très informelle et rapide', [s.raiKw]),
-            makeQuestion('Quand doit-elle commencer officiellement son nouvel emploi ?', 'Dès le début de la semaine suivante suite à son embauche', 'Un mois après la signature de son nouveau contrat', 'Au terme de deux semaines de congé payé, en restant à la maison', ['lundi', 'poste']),
+            makeQuestion('Quand doit-elle commencer officiellement son nouvel emploi ?', 'Dès le début de la semaine suivante suite à son embauche', 'Un mois après la signature de son nouveau contrat', 'Dès la fin de la semaine précédente, sans attendre lundi', ['lundi', 'poste']),
           ],
         }
       },
@@ -1165,7 +1165,7 @@ export const N05_06_SCENARIOS = {
           text: `COURRIEL PROFESSIONNEL\nDe : ${s.collegue}\nÀ : Comité d’insertion professionnelle\nObjet : Absence motivée - Journée d’insertion du 18 octobre\nBonjour à tous,\nJe vous informe avec regret que je ne pourrai pas participer à notre journée d’insertion professionnelle jeudi prochain. En effet, je dois finaliser en priorité ${s.motif}, dont l’échéance a été devancée à vendredi matin par la direction. Cette charge de travail m’empêche de me libérer pour la journée. Toutefois, pour soutenir le comité, je me propose ${s.offre} dès ce mardi. Je vous souhaite une belle journée d’échanges et je reste disponible au besoin.`,
           questions: [
             makeQuestion('Quel est l’objet principal de ce courriel professionnel ?', 'La justification polie d’un empêchement à une activité interne', 'Une demande de report de l’échéance fixée par la direction', 'Une proposition d’animer en personne la journée d’insertion prévue jeudi', ['insertion', 'absence']),
-            makeQuestion('Quelle contrainte professionnelle majeure justifie cette absence ?', `${cap(s.motPara)}`, 'L’organisation matérielle de la journée d’échanges du comité', 'Un rendez-vous personnel chez le dentiste en fin de journée', [s.motKw]),
+            makeQuestion('Quelle contrainte professionnelle majeure justifie cette absence ?', `${cap(s.motPara)}`, 'Une échéance repoussée à la semaine suivante par la direction', 'La journée d’insertion fixée au vendredi matin', [s.motKw]),
             makeQuestion('Quelle aide concrète le collègue propose-t-il d’apporter malgré tout ?', `Il offre de ${s.offPara}`, 'Reporter à la semaine suivante la livraison demandée par la direction', 'Il propose de participer à la journée d’insertion jeudi', [s.offKw]),
           ],
         }
@@ -1185,8 +1185,8 @@ export const N05_06_SCENARIOS = {
           text: `MESSAGE ÉLECTRONIQUE INTERNE\nDe : ${s.expediteur}\nÀ : Direction des ressources humaines\nObjet : Absence à l’activité d’intégration\nChers collègues,\nJe tiens à vous aviser que je ne pourrai malheureusement pas me joindre à vous ce vendredi pour l’accueil des nouveaux employés. J’ai ${s.obligation}, une démarche fixée de longue date que je ne peux reporter. Je regrette sincèrement de manquer cette occasion d’échanger avec nos nouvelles recrues. Afin de soutenir le groupe malgré tout, je m’engage à ${s.compensation} avant mercredi midi. Merci beaucoup pour votre compréhension et bonne journée d’accueil à tous !`,
           questions: [
             makeQuestion('Pourquoi l’employé écrit-il ce message à la direction ?', 'Pour exposer les motifs de son absence à l’accueil des recrues', 'Pour annuler l’activité d’intégration des nouvelles recrues', 'Pour se porter volontaire afin d’animer l’accueil des recrues ce vendredi', ['absence', 'intégration']),
-            makeQuestion('Quelle raison impérative empêche sa présence ce vendredi ?', `${cap(s.oblPara)}`, 'Un congé personnel demandé pour des vacances à la campagne', 'Une démarche qu’il pouvait facilement reporter à plus tard', [s.oblKw]),
-            makeQuestion('Quelle solution alternative l’employé propose-t-il pour s’impliquer ?', `Il s’engage à ${s.comPara}`, 'Accueillir les nouvelles recrues en personne dès le mercredi midi', 'Demander à la direction des ressources humaines d’annuler la journée', [s.comKw]),
+            makeQuestion('Quelle raison impérative empêche sa présence ce vendredi ?', `${cap(s.oblPara)}`, 'Un devoir de participer à l’accueil des recrues ce vendredi', 'Une démarche qu’il pouvait facilement reporter à plus tard', [s.oblKw]),
+            makeQuestion('Quelle solution alternative l’employé propose-t-il pour s’impliquer ?', `Il s’engage à ${s.comPara}`, 'Accueillir les nouvelles recrues en personne dès le mercredi midi', 'Remettre son travail seulement après l’accueil du vendredi', [s.comKw]),
           ],
         }
       },
@@ -1204,9 +1204,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `CLAVARDAGE - DÉPART VERS UNE NOUVELLE RÉGION\n[16:45] ${s.amie} : Salut ! J’ai une grande décision à t’annoncer : j’ai dit oui pour le poste ${s.poste} ${s.ville} ! Je quitte la métropole le mois prochain. J’ai longuement réfléchi, mais ce qui a emporté mon choix, c’est ${s.cadre}. Même si mes amis vont me manquer, mon employeur m’accorde une aide financière pour mon déménagement et un horaire flexible. C’est un nouveau départ formidable. Je prépare un souper d’au revoir chez moi samedi prochain, viens fêter avec nous !`,
           questions: [
-            makeQuestion('Quelle décision majeure l’amie partage-t-elle dans ce message ?', 'Son choix d’accepter un travail et d’aller s’établir en région', 'Son choix de refuser l’offre pour rester auprès de ses amis', 'Son projet de prendre une retraite anticipée dès l’automne prochain', ['poste', 'région']),
+            makeQuestion('Quelle décision majeure l’amie partage-t-elle dans ce message ?', 'Son choix d’accepter un travail et d’aller s’établir en région', 'Son choix de refuser l’offre pour rester auprès de ses amis', 'Son départ de la métropole prévu dès le mois dernier', ['poste', 'région']),
             makeQuestion('Quel facteur principal a motivé son départ vers sa nouvelle ville ?', `${cap(s.cadPara)}`, 'Un horaire très rigide qui limite son temps libre', 'Une mutation imposée par son employeur sans son accord', [s.cadKw]),
-            makeQuestion('Quelle aide concrète son nouvel employeur lui accorde-t-il ?', 'Une allocation pour faciliter les frais de son déménagement', 'La prise en charge intégrale de son souper d’au revoir', 'Une prime de bienvenue versée par son ancien employeur', ['déménagement', 'financière']),
+            makeQuestion('Quelle aide concrète son nouvel employeur lui accorde-t-il ?', 'Une allocation pour faciliter les frais de son déménagement', 'La prise en charge intégrale de son souper d’au revoir', 'Un horaire très rigide imposé par son nouvel employeur', ['déménagement', 'financière']),
           ],
         }
       },
@@ -1230,9 +1230,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `SERVICE QUÉBÉCOIS DE CHANGEMENT D’ADRESSE\nPour mettre à jour votre adresse auprès de ministères dont ${s.organisme}, suivez ces quatre étapes. Étape 1 : Accédez au portail du gouvernement du Québec et sélectionnez « Déménagement ». Étape 2 : Confirmez votre identité en saisissant ${s.identifiant}. Étape 3 : Inscrivez votre nouvelle adresse et la date de votre emménagement. Étape 4 : Révisez le formulaire et cliquez sur « Transmettre ». Le système générera ${s.confirmation}. Conservez précieusement ce document pour vos dossiers administratifs.`,
           questions: [
-            makeQuestion('Quelle démarche citoyenne ce guide gouvernemental explique-t-il ?', 'La communication d’une nouvelle adresse aux ministères provinciaux', 'L’inscription d’un nouvel enfant à l’école primaire du quartier', 'La réservation d’un rendez-vous pour un examen de vue annuel', ['changement', 'adresse']),
-            makeQuestion('Quelle information personnelle doit-on saisir à la seconde étape ?', 'La combinaison identifiante officielle requise par le portail', 'La date précise de son emménagement dans le nouveau logement', 'Le montant des frais de déménagement payés à l’entrepreneur', ['identité', 'saisissant']),
-            makeQuestion('Que doit conserver le citoyen à la fin de la démarche en ligne ?', `${cap(s.conPara)}`, 'Une copie papier du formulaire révisé avant la transmission', 'Un reçu de paiement délivré au guichet du bureau', [s.conKw]),
+            makeQuestion('Quelle démarche citoyenne ce guide gouvernemental explique-t-il ?', 'La communication d’une nouvelle adresse aux ministères provinciaux', 'La suppression de son dossier auprès des ministères provinciaux et fédéraux', 'Un changement d’adresse effectué par courrier au guichet', ['changement', 'adresse']),
+            makeQuestion('Quelle information personnelle doit-on saisir à la seconde étape ?', 'La combinaison identifiante officielle requise par le portail', 'La date précise de son emménagement dans le nouveau logement', 'Votre nouvelle adresse complète, avec le code postal, à l’étape suivante', ['identité', 'saisissant']),
+            makeQuestion('Que doit conserver le citoyen à la fin de la démarche en ligne ?', `${cap(s.conPara)}`, 'Une copie papier du formulaire révisé avant la transmission', 'Rien, car le système conserve le document à votre place', [s.conKw]),
           ],
         }
       },
@@ -1251,8 +1251,8 @@ export const N05_06_SCENARIOS = {
           text: `GUIDE D’UTILISATION - DOSSIER CONDUCTEUR SAAQ\nLa loi exige d’aviser la Société de l’assurance automobile dans les trente jours suivant un déménagement pour ${s.document}. Voici la démarche. Connectez-vous d’abord ${s.service}. Rendez-vous dans la section « Coordonnées » et cliquez sur « Modifier mon adresse ». Entrez votre nouveau code postal et votre numéro de logement. Vérifiez l’exactitude des données et validez la transaction. Vous recevrez ${s.avis}. Si votre ancienne adresse figure encore sur vos pièces après trente jours, vous risquez une amende lors d’un contrôle routier.`,
           questions: [
             makeQuestion('Dans quel délai un citoyen doit-il mettre à jour son adresse à la SAAQ ?', 'Dans les trente jours consécutifs à son changement de domicile', 'Dans un délai strict de dix jours consécutifs au déménagement', 'Au terme d’une période administrative d’une année civile complète', ['trente jours', 'déménagement']),
-            makeQuestion('Où doit-on se connecter pour faire cette modification par Internet ?', 'Sur le portail officiel désigné pour la gestion du profil', 'Sur le site de vérification d’amendes de contrôle routier', 'Au comptoir d’un bureau de poste de son quartier', ['connectez-vous', 'section']),
-            makeQuestion('Que reçoit le conducteur après avoir validé son changement en ligne ?', `${cap(s.aviPara)}`, 'Un avis officiel d’amende forfaitaire de contrôle routier', 'Une lettre de refus de son changement d’adresse', [s.aviKw]),
+            makeQuestion('Où doit-on se connecter pour faire cette modification par Internet ?', 'Sur le portail officiel désigné pour la gestion du profil', 'Au guichet d’une succursale, sans passer par Internet ni téléphone', 'Dans la section « Coordonnées », avant toute connexion', ['connectez-vous', 'section']),
+            makeQuestion('Que reçoit le conducteur après avoir validé son changement en ligne ?', `${cap(s.aviPara)}`, 'Un avis officiel d’amende forfaitaire de contrôle routier', 'Un avis indiquant que le changement a été refusé', [s.aviKw]),
           ],
         }
       },
@@ -1270,8 +1270,8 @@ export const N05_06_SCENARIOS = {
         return {
           text: `GUIDE DE DÉMARRAGE - INSTALLATION D’IMPRIMANTE\nPour configurer ${s.modele} sur votre ordinateur, suivez ces instructions. 1. Branchez le cordon d’alimentation et allumez l’appareil. 2. Connectez l’imprimante ${s.reseau} en maintenant enfoncé ${s.bouton}. 3. Sur votre ordinateur, ouvrez les « Paramètres », cliquez sur « Imprimantes », puis sélectionnez « Ajouter un appareil ». Votre ordinateur détectera automatiquement l’imprimante. 4. Téléchargez le pilote recommandé et terminez en prenant soin ${de(s.test)}. En cas d’erreur de détection, redémarrez votre routeur avant de réessayer.`,
           questions: [
-            makeQuestion('Quel équipement informatique ce guide aide-t-il à installer ?', 'Une nouvelle imprimante sans fil reliée à son ordinateur', 'Un routeur sans fil assurant la liaison Internet du bureau', 'Un numériseur à plat relié au moniteur de l’ordinateur', ['imprimante', 'configurer']),
-            makeQuestion('Quelle manipulation permet de connecter l’imprimante au réseau ?', 'Appuyer de façon prolongée sur la commande réseau indiquée', 'Débrancher le cordon d’alimentation électrique pendant trois secondes', 'Ouvrir le capot arrière pour vérifier les cartouches', ['maintenant', 'enfoncé']),
+            makeQuestion('Quel équipement informatique ce guide aide-t-il à installer ?', 'Une nouvelle imprimante sans fil reliée à son ordinateur', 'Un routeur sans fil assurant la liaison Internet du bureau', 'Un ordinateur à installer avant l’imprimante', ['imprimante', 'configurer']),
+            makeQuestion('Quelle manipulation permet de connecter l’imprimante au réseau ?', 'Appuyer de façon prolongée sur la commande réseau indiquée', 'Débrancher le cordon d’alimentation électrique pendant trois secondes', 'Relâcher aussitôt la commande réseau, dès la première touche', ['maintenant', 'enfoncé']),
             makeQuestion('Quelle action finale permet de valider le bon fonctionnement ?', `Il convient de ${s.tesPara}`, 'Redémarrer le routeur réseau dès le premier branchement', 'Il convient de supprimer le pilote après son installation', [s.tesKw]),
           ],
         }
@@ -1290,7 +1290,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `GUIDE D’INSTALLATION - CONNEXION FILAIRE USB\nPour relier votre imprimante sans passer par le réseau sans fil, respectez ces étapes simples. 1. Retirez tous les emballages et enlevez ${s.cartouche}. 2. Insérez le papier dans le bac et allumez l’appareil. 3. Rendez-vous sur ${s.site} pour installer le logiciel requis avant de brancher le câble. 4. Lorsque le programme vous y invite, branchez le câble USB reliant l’imprimante à ${s.port}. Le système terminera la configuration en quelques secondes. Imprimez une page d’essai pour confirmer que la liaison est réussie.`,
           questions: [
-            makeQuestion('Quelle méthode de raccordement de l’imprimante est détaillée ici ?', 'Une liaison par câble informatique direct entre les deux appareils', 'Une connexion par modem téléphonique à numérotation analogique', 'Une connexion sans fil automatique entre les deux appareils', ['imprimante', 'câble usb']),
+            makeQuestion('Quelle méthode de raccordement de l’imprimante est détaillée ici ?', 'Une liaison par câble informatique direct entre les deux appareils', 'Une liaison passant par le réseau sans fil de la maison, sans câble', 'Une connexion sans fil automatique entre les deux appareils', ['imprimante', 'câble usb']),
             makeQuestion('Que faut-il faire avant de brancher le câble physique ?', 'Installer d’abord le programme téléchargé sur la page de soutien', 'Imprimer au préalable une page d’essai pour vérifier le bac de papier', 'Brancher le câble USB avant d’installer le logiciel requis', ['logiciel', 'brancher']),
             makeQuestion('Quel élément de protection doit-on enlever au début ?', `Il faut ${s.carPara}`, 'Relier le câble USB au bac de papier vide de l’appareil', 'Retirer soigneusement le papier déjà inséré dans le bac', [s.carKw]),
           ],
@@ -1310,9 +1310,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `PROCÉDURE BANCAIRE - MISE À JOUR DE VOTRE DOSSIER\nMaintenez vos coordonnées à jour pour assurer la sécurité de vos comptes chez ${s.institution}. Suivez ce guide depuis votre ordinateur. Étape 1 : Ouvrez votre session avec votre identifiant et votre mot de passe habituels. Étape 2 : Cliquez sur « Paramètres du compte », puis choisissez « Renseignements personnels ». Étape 3 : Modifiez ${s.champ}. Étape 4 : Pour valider votre identité, vous recevrez ${s.securite}. ${s.instruction}. Vos nouvelles informations entreront en vigueur immédiatement sur vos comptes.`,
           questions: [
-            makeQuestion('Quelle opération de gestion ce tutoriel permet-il de réaliser ?', 'Actualiser ses coordonnées personnelles sur son portail bancaire', 'Modifier le mot de passe habituel servant à ouvrir sa session', 'Fermer un compte d’épargne chez son institution financière', ['coordonnées', 'sécurité']),
-            makeQuestion('Quel moyen de sécurité est utilisé pour confirmer l’identité ?', `${cap(s.secPara)}`, 'Un appel téléphonique d’un conseiller pour valider le dossier', 'Un code remis au guichet d’une succursale bancaire', [s.secKw]),
-            makeQuestion('Quand les modifications enregistrées prennent-elles effet ?', 'Dès la validation de l’étape de confirmation de sécurité', 'Après une période d’attente de plusieurs jours ouvrables', 'Seulement après l’envoi d’une lettre par la poste', ['valider', 'immédiatement']),
+            makeQuestion('Quelle opération de gestion ce tutoriel permet-il de réaliser ?', 'Actualiser ses coordonnées personnelles sur son portail bancaire', 'Modifier le mot de passe habituel servant à ouvrir sa session', 'Consulter ses coordonnées bancaires, sans rien y modifier ni valider', ['coordonnées', 'sécurité']),
+            makeQuestion('Quel moyen de sécurité est utilisé pour confirmer l’identité ?', `${cap(s.secPara)}`, 'Un document à envoyer à la banque pour valider son identité', 'Un nouveau mot de passe choisi à la première étape', [s.secKw]),
+            makeQuestion('Quand les modifications enregistrées prennent-elles effet ?', 'Dès la validation de l’étape de confirmation de sécurité', 'Après une période d’attente de plusieurs jours ouvrables', 'Le lendemain de la validation, une fois la session fermée', ['valider', 'immédiatement']),
           ],
         }
       },
@@ -1336,9 +1336,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `COURRIEL AMICAL - IDÉES DE COLLATIONS ÉCOLE\nDe : ${s.amie} Bouchard\nÀ : Marie-Ève Gagnon\nObjet : Mes recettes faciles de collations pour la rentrée !\nChère Marie-Ève,\nTu me disais hier que tu manquais d’idées pour les collations des enfants. Voici mes trouvailles nutritives préférées ! Chaque dimanche, je cuisine ${s.collation}. C’est économique et riche en fibres. Pour la collation du matin, j’ajoute toujours ${s.fruit}. N’oublie pas que l’école applique une ${s.regle}, alors évite les beurres d’amandes industriels. Si tu veux, je t’enverrai mes recettes complètes par courriel ce soir. Dis-moi si tes enfants aiment ça ! Bises, ${s.amie}`,
           questions: [
-            makeQuestion('Quel est le thème des suggestions partagées dans ce courriel ?', 'Des propositions saines d’en-cas scolaires pour enfants', 'Une sélection de beurres d’amandes industriels pour la rentrée', 'Une liste de recettes de soupes pour le dîner des adultes', ['collations', 'école']),
-            makeQuestion('Quelle collation maison l’amie prépare-t-elle le dimanche ?', `${cap(s.colPara)}`, 'Des tartines garnies de beurres d’amandes vendus en magasin', 'Des frites congelées achetées au dépanneur du quartier', [s.colKw]),
-            makeQuestion('Quelle consigne scolaire rappelle-t-elle pour la sécurité ?', 'L’absence de certains allergènes pour préserver la santé des élèves', 'L’obligation d’apporter seulement des collations achetées en magasin', 'L’interdiction formelle d’apporter toute collation préparée à la maison', ['école', 'beurres']),
+            makeQuestion('Quel est le thème des suggestions partagées dans ce courriel ?', 'Des propositions saines d’en-cas scolaires pour enfants', 'Une sélection de beurres d’amandes industriels pour la rentrée', 'Des recettes de collations pour les adultes au bureau', ['collations', 'école']),
+            makeQuestion('Quelle collation maison l’amie prépare-t-elle le dimanche ?', `${cap(s.colPara)}`, 'Des tartines garnies de beurres d’amandes vendus en magasin', 'Des biscuits achetés en magasin, chers et pauvres en fibres', [s.colKw]),
+            makeQuestion('Quelle consigne scolaire rappelle-t-elle pour la sécurité ?', 'L’absence de certains allergènes pour préserver la santé des élèves', 'L’obligation d’apporter des beurres d’amandes industriels', 'L’interdiction formelle d’apporter toute collation préparée à la maison', ['école', 'beurres']),
           ],
         }
       },
@@ -1356,8 +1356,8 @@ export const N05_06_SCENARIOS = {
         return {
           text: `MESSAGE AMICAL - ASTUCES COLLATIONS GARDERIE\nDe : ${s.maman} Tremblay\nÀ : Julie Fortin\nObjet : Recommandations de collations saines pour la garderie !\nAllô Julie ! Comme promis, voici mes conseils pour les collations de nos tout-petits. Pour remplacer les biscuits trop sucrés de l’épicerie, j’ai adopté ${s.snack}. Les enfants adorent la texture et ça leur donne une énergie durable sans coup de fatigue. J’accompagne toujours le tout avec ${s.salade}. Mon astuce préférée pour le matin : ${s.conseil}. Ça prend vingt minutes le dimanche et ta semaine est prête. Essaie ça et donne-m’en des nouvelles au parc !`,
           questions: [
-            makeQuestion('Quel est le principal objectif des conseils culinaires partagés ?', 'Privilégier des options saines aux produits sucrés du commerce', 'Acheter des biscuits d’épicerie pour la collation à la garderie', 'Vendre des collations maison à la garderie du quartier', ['collations', 'garderie']),
-            makeQuestion('Quelle collation nutritive maison propose-t-elle pour les enfants ?', `${cap(s.snaPara)}`, 'Des paquets de biscuits sucrés achetés à l’épicerie du coin', 'Des croustilles achetées en grand format au supermarché du quartier', [s.snaKw]),
+            makeQuestion('Quel est le principal objectif des conseils culinaires partagés ?', 'Privilégier des options saines aux produits sucrés du commerce', 'Acheter des biscuits d’épicerie pour la collation à la garderie', 'Garder les biscuits sucrés pour une énergie passagère', ['collations', 'garderie']),
+            makeQuestion('Quelle collation nutritive maison propose-t-elle pour les enfants ?', `${cap(s.snaPara)}`, 'Des paquets de biscuits sucrés achetés à l’épicerie du coin', 'Des biscuits sucrés préparés le lundi soir, en quinze minutes', [s.snaKw]),
             makeQuestion('Quelle astuce d’organisation pratique recommande-t-elle ?', 'Cuisiner le dimanche pour préparer les collations de la semaine', 'Acheter des biscuits sucrés à l’épicerie du coin pour gagner du temps', 'Préparer les collations le matin même, à la dernière minute', ['dimanche', 'astuce']),
           ],
         }
@@ -1376,8 +1376,8 @@ export const N05_06_SCENARIOS = {
         return {
           text: `PAGE WEB CONSEILS ÉNERGIE - HYDRO-QUÉBEC\nLe chauffage de l’eau représente près de vingt pour cent de votre facture d’électricité. Pour réduire vos coûts tout en préservant l’environnement, nous vous recommandons d’installer ${s.produit}. Cet équipement simple permet d’économiser ${s.reduction} sans sacrifier votre confort. En complément, pensez à ${s.geste}. Vérifiez également que la température de votre chauffe-eau est réglée à soixante degrés Celsius : c’est le niveau idéal pour prévenir les bactéries tout en évitant le gaspillage d’énergie. Consultez nos rabais instantanés en quincaillerie participante dès aujourd’hui !`,
           questions: [
-            makeQuestion('Quel est le thème principal de cette page Web d’information ?', 'Des mesures pour modérer sa dépense d’énergie liée à l’eau chaude', 'Un guide pour choisir un chauffe-eau neuf de grande capacité', 'Une liste de travaux de rénovation pour la salle de bain', ['chauffage', 'facture']),
-            makeQuestion('Quel équipement économiseur d’eau chaude est recommandé ?', `${cap(s.proPara)}`, 'Une bouilloire électrique à réservoir de grande capacité', 'Un chauffe-eau de plus grande capacité pour la famille', [s.proKw]),
+            makeQuestion('Quel est le thème principal de cette page Web d’information ?', 'Des mesures pour modérer sa dépense d’énergie liée à l’eau chaude', 'Des conseils pour augmenter la température du chauffe-eau', 'Des conseils pour gaspiller l’énergie du chauffe-eau', ['chauffage', 'facture']),
+            makeQuestion('Quel équipement économiseur d’eau chaude est recommandé ?', `${cap(s.proPara)}`, 'Un chauffe-eau réglé à quatre-vingts degrés Celsius', 'Un chauffe-eau réglé à trente degrés Celsius', [s.proKw]),
             makeQuestion('Quelle température idéale est recommandée pour le réservoir ?', 'Un maintien stable du réservoir à soixante degrés Celsius', 'Un arrêt complet du chauffe-eau pour éliminer les bactéries', 'Un réglage à quarante degrés Celsius pour économiser l’énergie', ['soixante degrés', 'chauffe-eau']),
           ],
         }
@@ -1397,8 +1397,8 @@ export const N05_06_SCENARIOS = {
           text: `CHRONIQUE MAISON ÉCOLOGIQUE - DISPOSITIFS D’EAU\nPour réduire votre consommation d’énergie à la maison, le remplacement de vos accessoires de plomberie est une excellente décision. Lors de votre visite en quincaillerie, privilégiez ${s.dispositif}. Ce produit offre l’avantage de ${s.avantage}. Cet achat est rapidement ${s.retour}. N’oubliez pas de mesurer le diamètre de vos tuyaux avant l’achat afin de choisir le modèle compatible. Enfin, profitez des programmes de votre municipalité, qui offre souvent des trousses gratuites de produits économiseurs d’eau sur présentation d’une preuve de résidence.`,
           questions: [
             makeQuestion('Que conseille cet article aux occupants de logements ?', 'Poser des éléments de plomberie limitant le débit d’eau chaude', 'Remplacer tous les tuyaux de sa maison par un diamètre plus grand', 'Retirer les accessoires de plomberie pour réduire les coûts', ['consommation', 'plomberie']),
-            makeQuestion('Quel accessoire de plomberie économe est valorisé ?', `${cap(s.disPara)}`, 'Un tuyau de grand diamètre raccordé sans dispositif de coupure', 'Un robinet à double poignée sans limitation de débit', [s.disKw]),
-            makeQuestion('Comment peut-on parfois obtenir ces équipements sans frais ?', 'Par l’entremise de trousses remises par son administration locale', 'En présentant une facture d’achat datant de plus d’un an', 'En payant un abonnement annuel au fournisseur d’électricité', ['municipalité', 'trousses']),
+            makeQuestion('Quel accessoire de plomberie économe est valorisé ?', `${cap(s.disPara)}`, 'Un tuyau de grand diamètre raccordé sans dispositif de coupure', 'Un robinet incompatible avec le diamètre des tuyaux', [s.disKw]),
+            makeQuestion('Comment peut-on parfois obtenir ces équipements sans frais ?', 'Par l’entremise de trousses remises par son administration locale', 'En payant des frais d’inscription au programme municipal', 'En achetant le produit au prix fort en quincaillerie', ['municipalité', 'trousses']),
           ],
         }
       },
@@ -1416,8 +1416,8 @@ export const N05_06_SCENARIOS = {
         return {
           text: `MESSAGE DU CLUB SPORTIF - COLLATIONS TOURNOI DE SOCCER\nDe : ${s.entraineur} Roy, entraîneuse jeunesse\nÀ : Parents des joueurs de la ligue récréative\nObjet : Recommandations nutritionnelles pour le tournoi\nChers parents,\nEn vue de notre tournoi de soccer de samedi, voici quelques suggestions pour garder nos jeunes sportifs en forme. Entre deux matchs intenses, privilégiez ${s.collation}. Les glucides naturels aident à reconstituer l’énergie sans alourdir la digestion. Pour l’hydratation, la seule boisson nécessaire est ${s.boisson}. Évitez les boissons énergisantes et les jus très sucrés qui causent des maux de ventre pendant l’effort. Merci de votre précieuse collaboration et bon match à tous !`,
           questions: [
-            makeQuestion('Quel est l’objectif de cette note transmise par l’entraîneuse ?', 'Conseiller des en-cas équilibrés pour des jeunes lors d’un tournoi', 'Reporter à plus tard l’ensemble des matchs du tournoi de soccer de samedi', 'Annoncer la nouvelle liste des joueurs retenus pour l’équipe', ['tournoi', 'collations']),
-            makeQuestion('Quelle collation est recommandée entre deux matchs intenses ?', `${cap(s.colPara)}`, 'Des bonbons très sucrés qui causent des maux de ventre', 'Des tranches de pain blanc beurrées avec de la confiture', [s.colKw]),
+            makeQuestion('Quel est l’objectif de cette note transmise par l’entraîneuse ?', 'Conseiller des en-cas équilibrés pour des jeunes lors d’un tournoi', 'Reporter à plus tard l’ensemble des matchs du tournoi de soccer de samedi', 'Interdire les collations aux jeunes sportifs pendant le tournoi', ['tournoi', 'collations']),
+            makeQuestion('Quelle collation est recommandée entre deux matchs intenses ?', `${cap(s.colPara)}`, 'Des bonbons très sucrés qui causent des maux de ventre', 'Des aliments lourds qui alourdissent la digestion', [s.colKw]),
             makeQuestion('Quelle boisson doit-on privilégier pour l’hydratation des joueurs ?', s.boiPara, 'Des boissons énergisantes conçues pour les jeunes sportifs', 'Des jus de fruits très sucrés consommés pendant l’effort', [s.boiKw]),
           ],
         }
