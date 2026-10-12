@@ -3565,7 +3565,7 @@ const N4_SNOW_BUNDLES = [
     drop: 'un blizzard intense durant la matinée',
     dropOpt: 'un blizzard intense durant la matinée',
     trouble: 'le stationnement était complètement recouvert de blanc',
-    troubOpt: 'le stationnement couvert d’une épaisse couche',
+    troubOpt: 'le stationnement couvert d’une épaisse couche de neige',
     kwTrouble: 'stationnement',
     helper: 'le concierge est venu déblayer l’accès avec son tracteur',
     helpOpt: 'le concierge avec son petit tracteur à neige',
