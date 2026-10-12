@@ -216,8 +216,8 @@ export const REAL_READING_PASSAGES = [
       [
         "De quoi traite ce texte dans son ensemble ?",
         "Des racines historiques de l'école et de ses débuts pour les tout-petits",
-        "Des programmes officiels de mathématiques au niveau secondaire en France",
-        "Des conditions d'admission des professeurs dans les écoles québécoises"
+        "De l'invention de l'école par Charlemagne et de son extension en Suisse",
+        "De l'étude des hiéroglyphes par l'élite indienne durant l'Antiquité"
       ],
       [
         "Quelle est une différence entre la maternelle en France et au Québec mentionnée dans l'extrait ?",
@@ -262,8 +262,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est l'objectif de cet extrait ?",
         "Définir la notion de transport et expliquer son utilité globale",
-        "Comparer le coût du train avec celui de l'aviation commerciale",
-        "Raconter l'invention de la roue et l'utilisation des animaux"
+        "Décrire les règles de contrôle réservées au seul transport fluvial",
+        "Limiter la notion de transport aux services vendus en entreprise"
       ],
       [
         "Comment nomme-t-on le transport de marchandises selon le texte ?",
@@ -275,7 +275,7 @@ export const REAL_READING_PASSAGES = [
         "Pourquoi l'auteur donne-t-il l'exemple de rapporter une baguette de pain ?",
         "Pour montrer qu'un déplacement quotidien personnel relève aussi du transport",
         "Pour prouver que les boulangeries dépendent directement des réseaux de fret",
-        "Pour illustrer la nécessité d'une réglementation stricte des commerces locaux"
+        "Pour montrer que le fret routier concerne d'abord la nourriture quotidienne"
       ]
     ],
     "justificationFr": "Définition concrète des modes de transport et de leur importance économique au quotidien.",
@@ -303,7 +303,7 @@ export const REAL_READING_PASSAGES = [
         "Quel constat d'ensemble le texte dresse-t-il sur les repas des Français ?",
         "Les traditions culinaires reculent face à de nouvelles attentes citoyennes",
         "La cuisine régionale est désormais la seule pratique reconnue dans le pays",
-        "Les règles religieuses imposent de nouveaux menus dans les cantines scolaires"
+        "La consommation de pain et de fromage progresse dans les foyers ordinaires"
       ],
       [
         "Quels produits de base sont moins consommés d'après le texte ?",
@@ -341,8 +341,8 @@ export const REAL_READING_PASSAGES = [
       [
         "De quoi traite ce texte sur le pain ?",
         "Des procédés de fabrication et de différentes sortes de pains",
-        "Du commerce mondial du blé et de la farine au fil des siècles",
-        "Des techniques de récolte dans les exploitations agricoles modernes"
+        "De l'usage de la levure pour faire monter la seule farine complète",
+        "Des recettes de pain perdu préparées au pétrin électrique en bois"
       ],
       [
         "Pourquoi le pain complet a-t-il une couleur marron ?",
@@ -353,7 +353,7 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le rôle du gaz libéré par la levure lors de la préparation ?",
         "Il crée des bulles qui font monter la pâte et rendent la mie moelleuse",
-        "Il accélère la cuisson du pain en réduisant la chaleur nécessaire du four",
+        "Il dissout le gros sel et le sucre pour faciliter le pétrissage manuel",
         "Il empêche la pâte de sécher lorsqu'elle repose pendant plusieurs heures"
       ]
     ],
@@ -384,8 +384,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est l'objet de ce court document ?",
         "Présenter quatre catégories particulières de pains",
-        "Expliquer comment régler la température d'un four",
-        "Donner des conseils pour conserver le pain frais"
+        "Décrire la composition des seules farines de seigle",
+        "Comparer la proportion de fibres dans chaque graine"
       ],
       [
         "Quelle farine est employée pour confectionner le pain de seigle ?",
@@ -397,7 +397,7 @@ export const REAL_READING_PASSAGES = [
         "Pourquoi le pain azyme a-t-il une forme très aplatie ?",
         "Parce qu'il est préparé sans aucune levure pour le faire gonfler",
         "Parce qu'il contient une quantité excessive de son et de fibres",
-        "Parce qu'il est écrasé sous une pierre lourde après sa cuisson"
+        "Parce que l'ajout de graines de pavot empêche la pâte de lever"
       ]
     ],
     "justificationFr": "Présentation simple et énumérative de différentes variétés de pain et de leurs ingrédients.",
@@ -425,14 +425,14 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle est la principale distinction faite dans le texte ?",
         "La différence entre le climat à long terme et la météo ponctuelle",
-        "L'opposition entre les instruments anciens et les satellites récents",
-        "Le contraste entre les cyclones d'Amérique et les tempêtes d'Europe"
+        "L'emploi d'appareils de mesure distincts en climatologie et en météo",
+        "Le calcul des seules températures annuelles au détriment des vents"
       ],
       [
         "Quels facteurs géographiques influencent directement le climat selon le texte ?",
         "La latitude et l'altitude",
-        "La longitude et les marées",
-        "La taille des fleuves locaux"
+        "L'humidité et les nuages",
+        "La pluie et les tempêtes"
       ],
       [
         "Pourquoi le climat influence-t-il la présence des êtres vivants dans une région ?",
@@ -469,7 +469,7 @@ export const REAL_READING_PASSAGES = [
         "Quel phénomène ce texte décrit-il ?",
         "L'impact temporaire d'une grande éruption volcanique sur la température terrestre",
         "La formation des nuages de pluie dans les couches inférieures de l'atmosphère",
-        "Le rôle bienfaisant du dioxyde de soufre dans la protection de la couche d'ozone"
+        "La dispersion d'un voile de chlore provoquant un réchauffement de la stratosphère"
       ],
       [
         "À quelle altitude se trouve la stratosphère mentionnée dans le passage ?",
@@ -480,8 +480,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Comment les substances rejetées par le volcan provoquent-elles un refroidissement ?",
         "En renvoyant une portion des rayons du soleil vers l'espace extérieur",
-        "En absorbant l'ensemble de l'oxygène présent dans l'air ambiant de la Terre",
-        "En accélérant la condensation de la vapeur d'eau sous forme de neige glacée"
+        "En emprisonnant les rayons infrarouges émis depuis le sol sous le voile",
+        "En empêchant le rayonnement solaire de pénétrer dans la stratosphère"
       ]
     ],
     "justificationFr": "Explication scientifique dense et rigoureuse de l'impact des éruptions volcaniques sur le climat.",
@@ -506,8 +506,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Que présente principalement ce document sur Montréal ?",
         "Sa situation géographique et des étapes marquantes de son histoire",
-        "Le réseau de transport en commun et les festivals de l'été montréalais",
-        "Les activités économiques des gratte-ciel du quartier des affaires"
+        "La fondation de Ville-Marie par Champlain et le départ des religieux",
+        "La conquête de Toronto et d'Ottawa lors de la guerre contre Paris"
       ],
       [
         "Quel navigateur français a baptisé le lieu du nom de Montréal en 1535 ?",
@@ -549,7 +549,7 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le sujet principal de cet extrait ?",
         "Le portrait linguistique et démographique de la métropole montréalaise",
-        "Le budget municipal alloué aux nouveaux arrivants dans la région de Montréal",
+        "La répartition par âge des résidents dans les dix-sept régions du Québec",
         "L'histoire de la cohabitation entre Français et Britanniques au dix-huitième siècle"
       ],
       [
@@ -599,9 +599,9 @@ export const REAL_READING_PASSAGES = [
       ],
       [
         "Que permet le parc du Mont-Royal aux citadins selon le texte ?",
-        "De profiter de la nature et de pratiquer des activités variées toute l'année",
-        "De traverser plus rapidement la métropole pour éviter la circulation dense",
-        "D'accéder rapidement aux autoroutes reliant la métropole aux autres régions"
+        "D'échapper au bruit urbain et de pratiquer des loisirs en toute saison",
+        "D'assister à des compétitions de ski réservées aux athlètes de la ville",
+        "D'emprunter des pistes de luge pour rejoindre le quartier des affaires"
       ]
     ],
     "justificationFr": "Description concrète et vivante des quartiers montréalais et des activités au parc du Mont-Royal selon les saisons.",
@@ -631,8 +631,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le thème général de ce texte ?",
         "Les traditions religieuses et familiales associées à Noël",
-        "L'histoire commerciale des grands magasins pendant l'hiver",
-        "Les coutumes de la fête de Pâques dans les pays chrétiens"
+        "L'origine scandinave ancienne du personnage du père Noël",
+        "Le rejet des célébrations de Noël par les non-chrétiens"
       ],
       [
         "Quelle est la fête la plus importante du christianisme citée avant Noël ?",
@@ -642,9 +642,9 @@ export const REAL_READING_PASSAGES = [
       ],
       [
         "En dehors des aspects religieux, quelle est la façon la plus courante de fêter Noël ?",
-        "Se rassembler en famille ou entre amis et échanger des cadeaux",
-        "Organiser de grands défilés municipaux à travers les avenues",
-        "Participer à des cérémonies obligatoires dans sa commune"
+        "Se réunir en famille ou entre amis pour échanger des cadeaux",
+        "Allumer un grand feu de bois en forêt loin de toute maison",
+        "Participer à une messe spéciale et jeûner durant la veillée"
       ]
     ],
     "justificationFr": "Vocabulaire courant et structures simples décrivant les coutumes familiales et l'origine de Noël.",
@@ -671,20 +671,20 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le sujet développé dans cet extrait ?",
         "La présence de rituels liés au solstice d'hiver bien avant Noël",
-        "Le rôle des églises médiévales dans l'organisation des marchés d'hiver",
+        "L'abandon des cultes solaires par les Celtes avant le solstice d'hiver",
         "L'origine des décorations modernes de sapins dans les foyers celtiques"
       ],
       [
         "Que représentaient les Saturnales chez les Romains selon le texte ?",
         "Une période festive en décembre marquée par des échanges de cadeaux",
-        "Une cérémonie solennelle réservée aux soldats de retour de conquête",
-        "Un jour de jeûne strict en l'honneur des divinités de l'agriculture"
+        "Une journée unique fixée au 25 décembre pour couronner Jules César",
+        "Un rassemblement nocturne où l'on brûlait des guirlandes en secret"
       ],
       [
         "Pourquoi les peuples anciens accordaient-ils tant d'importance au solstice d'hiver ?",
         "Ce moment marquait le rallongement des journées et l'espoir du retour de la chaleur",
-        "Cette date imposait l'arrêt définitif des voyages maritimes jusqu'au printemps suivant",
-        "Les récoltes de blé atteignaient leur plein rendement au cours de cette longue nuitée"
+        "Ils croyaient que les feux allumés suffiraient à empêcher le froid de s'installer",
+        "Ils pensaient que les rayons du soleil ne pouvaient plus pénétrer dans les temples"
       ]
     ],
     "justificationFr": "Panorama historique comparant les célébrations du solstice d'hiver à travers différentes cultures.",
@@ -720,14 +720,14 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel exemple de pratique sanitaire chez les Aborigènes d'Australie est mentionné ?",
         "L'aménagement d'un micro-zonage pour diminuer la pollution et les incendies",
-        "La distribution gratuite de médicaments élaborés à partir d'arbres sacrés",
-        "La construction d'hôpitaux permanents en pierre au centre de chaque territoire"
+        "L'installation de réservoirs en argile pour filtrer les déchets industriels",
+        "L'obligation de construire des campements fixes à l'écart des zones boisées"
       ],
       [
         "Pourquoi certaines sociétés anciennes ont-elles eu la réputation erronée de négliger l'hygiène ?",
         "Nos instruments d'analyse contemporains peinent à saisir leurs propres réponses aux risques sanitaires",
-        "Leurs pratiques sanitaires étaient fondées sur des remèdes chimiques importés d'autres continents",
-        "Leurs autorités civiles refusaient d'accorder la moindre valeur aux recommandations médicales"
+        "Leurs croyances religieuses leur interdisaient de chercher l'équilibre de santé dans leur communauté",
+        "Leur organisation sociale rejetait la vente de plantes médicinales sur les marchés des grandes cités"
       ]
     ],
     "justificationFr": "Analyse historique et anthropologique approfondie de l'hygiène publique à travers diverses civilisations anciennes.",
@@ -753,14 +753,14 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le propos central de cet extrait ?",
         "La prise en compte de l'environnement géographique dans les programmes médicaux préventifs anciens",
-        "L'invention des premiers vaccins par les praticiens byzantins lors des grandes épidémies d'Orient",
-        "Le conflit permanent entre les architectes militaires et les disciples du médecin grec Hippocrate"
+        "L'opposition doctrinale entre les traités d'architecture militaire et les manuels de médecine galénique",
+        "L'abandon des régimes alimentaires basés sur le climat local au profit des seuls soins chirurgicaux"
       ],
       [
         "Quels facteurs environnementaux étaient évalués pour élaborer ces mesures de prévention ?",
         "Le climat local, l'ensoleillement, les vents et la pureté des sources d'eau",
-        "La proximité des frontières ennemies et le cours des devises monétaires",
-        "La hauteur des remparts de la cité et l'armement de la garde civile"
+        "La profondeur des nappes souterraines et la présence de minerais rares",
+        "La composition chimique des sols rocheux et l'humidité de l'air marin"
       ],
       [
         "Selon la doctrine de Galien évoquée dans le texte, de quoi dépend la physiologie humaine ?",
@@ -797,8 +797,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Dans quel domaine le mot « logement » est-il particulièrement employé selon le document ?",
         "Dans les analyses sociales, économiques et sanitaires conduites par les institutions publiques",
-        "Dans les manuels militaires consacrés au stationnement temporaire des troupes en garnison",
-        "Dans les traités artistiques décrivant la décoration intérieure des monuments historiques royaux"
+        "Dans les seules études fiscales évaluant le montant de l'épargne privée des ménages fortunés",
+        "Dans les théories philosophiques opposant le droit au logement aux règles de la construction"
       ],
       [
         "Que signifie l'affirmation « le logement n'est donc pas l'habitat » ?",
