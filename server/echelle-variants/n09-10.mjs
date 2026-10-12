@@ -1524,26 +1524,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’objet fondamental de cette communication scientifique ?",
           "L’explication des causes environnementales et sociales d’un exode côtier",
-          "La présentation d’un plan d’assainissement des eaux usées en milieu urbain",
-          "L’analyse des rendements touristiques estivaux des localités de l’estuaire"
+          "L’explication des bienfaits de l’érosion côtière pour les communautés riveraines",
+          "L’analyse des stratégies d’adaptation réussies des ménages restés sur le littoral"
         ],
         [
           "Comment la dynamique migratoire est-elle expliquée par le chercheur ?",
           "La dégradation physique du rivage déclenche un engrenage économique et social inéluctable",
-          "Une crise politique locale est suivie d’une vague d’émigration vers d’autres provinces",
-          "Les hausses d’impôts fonciers poussent les propriétaires à vendre à des promoteurs hôteliers"
+          "L’abandon progressif des services publics engendre la dégradation physique du rivage",
+          "Les ménages les plus aisés quittent d’abord les zones de haute altitude par goût du confort"
         ],
         [
           "Quel facteur précipite le départ des ménages les plus démunis ?",
           "L’impossibilité financière de continuer à assurer leurs résidences menacées",
-          "La hausse soudaine des loyers imposée par les propriétaires des quartiers intérieurs",
-          "L’obligation légale imposée par les tribunaux d’évacuer immédiatement les lieux"
+          "Le refus des assureurs de couvrir les résidences situées en quartiers intérieurs",
+          "Le versement d’une aide publique couvrant intégralement la valeur des résidences endommagées"
         ],
         [
           "Que connote l’expression « éviction territoriale systémique » dans ce contexte ?",
           "Un départ forcé résultant d’une dégradation conjointe du milieu naturel et des infrastructures",
-          "Une expulsion de locataires ordonnée par des propriétaires de complexes immobiliers privés",
-          "Un transfert planifié de populations orchestré unilatéralement par les forces de sécurité publique"
+          "Un départ volontaire motivé par la recherche de meilleurs services publics à proximité",
+          "Un déplacement anticipé négocié avec des municipalités d’accueil disposant de logements suffisants"
         ]
       ]
     },
@@ -1556,13 +1556,13 @@ export const N09_10_SCENARIOS = {
           "Quelle est l’idée directrice exposée par le vulgarisateur scientifique ?",
           "Des lois mathématiques déterministes peuvent engendrer des comportements intrinsèquement imprévisibles",
           "La connaissance exacte des conditions initiales autorise une prévision certaine à long terme",
-          "Les équations de Lorenz ont été abandonnées faute d’expérimentations convaincantes en laboratoire"
+          "Les équations de Lorenz montrent que l’écart initial entre deux trajectoires finit par s’annuler"
         ],
         [
           "Comment la réflexion mathématique progresse-t-elle dans cette chronique ?",
           "La remise en cause du dogme prédictif ancien ouvre sur la modélisation géométrique du chaos",
-          "Une biographie d’Edward Lorenz est suivie d’une critique des instruments de mesure météorologique",
-          "L’inventaire des erreurs de prévision de la semaine sert d’introduction à une querelle universitaire"
+          "La description de l’attracteur étrange précède la référence au déterminisme laplacien classique",
+          "Les travaux de Lorenz sont présentés comme une confirmation finale du déterminisme laplacien"
         ],
         [
           "Que garantit l’existence d’un attracteur étrange au sein du système dynamique ?",
@@ -1573,8 +1573,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans ce contexte, que connote le terme « temps de Liapounov » ?",
           "La limite temporelle au-delà de laquelle toute prédiction calculée perd toute fiabilité",
-          "La durée exacte requise par un supercalculateur pour intégrer les équations de convection",
-          "L’intervalle régulier séparant deux observations météorologiques successives sur le terrain"
+          "La mesure de l’écart initial entre deux trajectoires, qui reste négligeable à long terme",
+          "L’ordre de grandeur de la divergence initiale qui se stabilise dans l’espace des phases"
         ]
       ]
     },
@@ -1586,26 +1586,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle est la thèse principale défendue par la chercheuse lors de ce colloque ?",
           "L’exode des diplômés répond à des synergies métropolitaines plutôt qu’au seul attrait salarial",
-          "Les régions périphériques attirent spontanément les cadres supérieurs grâce à des impôts plus faibles",
-          "La fermeture des universités régionales est la cause unique de la fuite des jeunes professionnels"
+          "Les écarts de rémunération nominale suffisent à expliquer les déplacements des jeunes diplômés",
+          "La dépendance envers l’extraction de ressources provoque le départ des professionnels qualifiés"
         ],
         [
           "De quelle façon l’analyse socio-économique est-elle articulée dans cet extrait ?",
           "L’explication du pouvoir d’attraction métropolitain précède l’analyse des impacts locaux et du reflux",
-          "Une attaque contre la bureaucratie gouvernementale est suivie d’un appel à fermer les frontières régionales",
-          "Un réquisitoire contre les diplômés ingrats débouche sur une demande de remboursement des bourses publiques"
+          "L’analyse du reflux régional précède l’explication du pouvoir d’attraction des métropoles",
+          "Les conséquences locales de la fuite sont décrites avant toute mention des contre-mouvements migratoires"
         ],
         [
           "Quel cercle vicieux découle de la perte continue de diplômés en région ?",
           "Le tissu industriel local s’enferme dans des activités de rente faute d’expertise pour innover",
           "Les municipalités régionales attirent des entreprises de haute technologie grâce aux diplômés",
-          "Les municipalités rurales sont contraintes de fusionner de force avec les centres urbains limitrophes"
+          "Les entreprises locales diversifient leur tissu industriel grâce à l’arrivée massive de diplômés"
         ],
         [
           "Que désigne précisément l’expression « effets d’agglomération » dans cette communication ?",
           "Les gains mutuels de productivité et d’apprentissage générés par la concentration spatiale d’experts",
-          "La densification anarchique des banlieues pavillonnaires autour des grandes artères de circulation",
-          "Le regroupement forcé de petites entreprises manufacturières sous l’égide d’un monopole d’État"
+          "Les coûts de congestion générés par la dispersion spatiale d’experts dans les régions",
+          "Les pertes de productivité engendrées par la mobilité des experts entre régions voisines"
         ]
       ]
     },
@@ -1617,26 +1617,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel principe mathématique fondamental cette émission télévisuelle vulgarise-t-elle ?",
           "L’asymétrie algorithmique entre la multiplication d’entiers premiers et leur factorisation",
-          "L’utilisation de séries statistiques aléatoires pour brouiller les transmissions hertziennes militaires",
-          "L’intégration continue de fonctions trigonométriques pour crypter des signaux acoustiques sous-marins"
+          "La rapidité de la factorisation de nombres premiers par les supercalculateurs les plus puissants",
+          "La clé publique transmise par le destinataire contient les deux facteurs premiers secrets"
         ],
         [
           "Comment le vulgarisateur structure-t-il son explication didactique ?",
           "Il rappelle la vulnérabilité historique de la clé unique avant d’exposer le ressort du chiffrement moderne",
           "Il évoque d’abord les supercalculateurs avant de réfuter la notion même de clé unique",
-          "Il énumère les fraudes informatiques récentes avant de mettre en doute la fiabilité des mathématiques pures"
+          "Il expose d’abord le ressort du chiffrement moderne avant d’évoquer le secret partagé"
         ],
         [
           "Pourquoi est-il sans danger de rendre publique la clé issue du calcul initial ?",
           "La décomposition en facteurs premiers exigerait un temps de calcul inaccessible aux machines actuelles",
-          "Le protocole efface immédiatement les données sensibles dès qu’un intrus cherche à en percer le secret",
+          "Le message reste lisible par chacun puisque le produit public suffit à le déchiffrer",
           "La clé publique révèle immédiatement le second facteur premier à tout ordinateur ordinaire"
         ],
         [
           "Dans ce contexte, que qualifie-t-on de « fonction à sens unique avec brèche secrète » ?",
           "Une opération mathématique aisée à réaliser dans un sens mais impossible à inverser sans information privilégiée",
-          "Un virus informatique conçu pour pénétrer discrètement dans les serveurs informatiques des gouvernements",
-          "Une passerelle réseau privée conçue pour sécuriser les transferts de devises entre banques centrales mondiales"
+          "Une opération mathématique rapide à réaliser dans les deux sens grâce aux grands nombres premiers",
+          "Une fonction mathématique dont l’inverse est aisé à calculer dès que la clé est publique"
         ]
       ]
     }
@@ -1656,20 +1656,20 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle directive spécifique s’applique si l’alarme signale une fuite toxique plutôt qu’un feu ?",
           "Se calfeutrer sans délai dans les abris pressurisés plutôt que de tenter une sortie à l’extérieur",
-          "Regagner immédiatement son véhicule personnel garé sur les voies d’accès carrossables de l’usine",
+          "Attendre l’avis du poste central avant de confiner l’ensemble du personnel dans les abris pressurisés de l’usine",
           "Sortir immédiatement à l’air libre par les coursives sud en direction du parc de stationnement"
         ],
         [
           "À qui revient la responsabilité exclusive de valider officiellement le plan de cheminement conçu ?",
           "À la responsable exécutive veillant sur la salubrité environnementale",
           "Au technicien en prévention des sinistres chargé de l’interphonie d’urgence",
-          "Au coordonnateur logistique responsable de l’impression des cartes pour les ateliers"
+          "Au coordonnateur logistique chargé de valider le plan d’évacuation après l’audit"
         ],
         [
           "À quelle condition expresse le repli d’urgence vers la plateforme maritime nord est-il autorisé ?",
           "Si les voies terrestres sont coupées et que le capitaine de port a donné son aval verbal",
-          "Dès que la sonnerie d’incendie retentit pendant plus de deux minutes consécutives dans l’aile sud",
-          "Lorsque le service municipal des incendies refuse de se déplacer sur le site industriel sinistré"
+          "Si un incendie thermique est confirmé par le poste central dans le secteur sud",
+          "Si le service municipal de protection contre les incendies a validé les scénarios de simulation"
         ]
       ]
     },
@@ -1687,20 +1687,20 @@ export const N09_10_SCENARIOS = {
         [
           "Que doit faire Marc si le taux d’endettement du partenaire privé dépasse soixante pour cent ?",
           "Exiger une garantie bancaire irrévocable sur les travaux ou suspendre sur-le-champ les pourparlers",
-          "Prendre en charge la moitié des emprunts du promoteur par le biais d’une subvention gouvernementale",
-          "Résoudre unilatéralement le partenariat et transférer le projet à une régie publique hospitalière"
+          "Accorder un délai de trois mois pour fournir la garantie bancaire irrévocable",
+          "Poursuivre les pourparlers en signant sur-le-champ le protocole d’entente préliminaire avec le consortium"
         ],
         [
           "Qui détient l’autorité requise pour approuver l’échéancier des redevances annuelles de l’entente ?",
           "Le sous-ministre adjoint aux finances du gouvernement provincial",
           "Le juriste principal chargé de rédiger les clauses de pénalités contractuelles",
-          "Marc lui-même en sa qualité de gestionnaire de projet désigné par la direction"
+          "Le vérificateur général chargé d’approuver l’échéancier des redevances"
         ],
         [
           "À quelle double condition Marc peut-il autoriser par écrit un ajustement des équipements biomédicaux ?",
           "Si la dépense additionnelle reste sous deux cent mille dollars et n’engendre aucun retard d’échéancier",
-          "Si le consortium privé assume seul le paiement de l’ensemble des frais notariés de la transaction",
-          "Si le ministre de la Santé signe un décret d’urgence sanitaire autorisant la dérogation financière"
+          "Si la dépense additionnelle atteint un million de dollars, même avec un délai supplémentaire accordé au partenaire",
+          "Si le partenaire privé accepte d’avancer lui-même le coût des équipements biomédicaux"
         ]
       ]
     },
@@ -1712,13 +1712,13 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle tâche initiale les responsables d’étage doivent-ils exécuter lors de la mise à jour du plan ?",
           "Dénombrer précisément les personnes grabataires pour évaluer le nombre de matelas de secours requis",
-          "Vérifier l’état de charge des batteries d’appoint pour chaque respirateur artificiel de l’aile",
-          "Inspecter les issues de secours extérieures pour vérifier l’absence de tout obstacle mécanique"
+          "Contrôler soigneusement l’étanchéité des sas coupe-feu de chaque aile avant d’envisager toute mise en œuvre du plan",
+          "Transférer les malades vers la zone refuge avant de savoir combien de matelas sont nécessaires"
         ],
         [
           "Quel principe séquentiel doit être obligatoirement respecté lors du transfert des patients ?",
           "Réaliser un déplacement horizontal vers le compartiment voisin avant toute évacuation verticale",
-          "Évacuer en priorité les étages supérieurs avant de porter assistance aux personnes du rez-de-chaussée",
+          "Procéder à une descente verticale par les cages pressurisées avant tout déplacement horizontal",
           "Transférer les malades vers les étages supérieurs seulement après l’arrivée des pompiers"
         ],
         [
@@ -1730,7 +1730,7 @@ export const N09_10_SCENARIOS = {
         [
           "Sous quelle condition le recours au monte-charge médical est-il exceptionnellement autorisé ?",
           "S’il bénéficie d’une alimentation électrique secourue et qu’un technicien certifié assure l’escorte",
-          "Dès lors que les ascenseurs pour visiteurs sont occupés par le personnel soignant de garde",
+          "Si l’alimentation électrique relève d’Hydro-Québec sans qu’un technicien certifié soit requis pour l’escorte",
           "En cas de défaillance confirmée du système de pressurisation desservant les escaliers de secours"
         ]
       ]
@@ -1749,20 +1749,20 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle conduite Chantal doit-elle impérativement adopter si le consortium réclame l’exclusivité des quais ?",
           "Rejeter formellement la demande et faire du libre accès public une condition préalable aux discussions",
-          "Accorder l’exclusivité demandée en échange d’une remise de dix pour cent sur le prix des navettes fluviales",
-          "Suspendre définitivement toute démarche et dissoudre la société de transport métropolitaine de passagers"
+          "Accepter une exclusivité temporaire sur les quais, à condition qu’elle soit renégociée chaque année",
+          "Poursuivre les négociations en renonçant à toute garantie d’accès pour les transporteurs publics"
         ],
         [
           "Quelle instance détient l’autorité requise pour approuver la grille tarifaire imposée aux voyageurs ?",
           "Le comité exécutif désigné relevant de l’autorité organisatrice métropolitaine",
           "L’avocate externe mandatée pour négocier la garantie environnementale des batteries",
-          "La directrice générale après concertation avec les représentants syndicaux maritimes"
+          "La commission des transports, après consultation des administrateurs du consortium privé"
         ],
         [
           "Quelle dérogation Chantal peut-elle accorder de sa propre initiative lors des tests techniques ?",
           "Étendre la phase d’homologation d’un mois au plus si des aléas affectent l’amarrage automatisé",
           "Accorder au concessionnaire une clause d’exclusivité sur les quais municipaux pour un an",
-          "Modifier le tracé des navettes pour éviter de desservir les municipalités riveraines éloignées"
+          "Prolonger l’homologation de six mois sans en référer à la commission des transports"
         ]
       ]
     }
