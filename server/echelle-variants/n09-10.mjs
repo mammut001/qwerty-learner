@@ -18,19 +18,19 @@ export const N09_10_SCENARIOS = {
           "Comment la réflexion économique progresse-t-elle dans cette chronique ?",
           "Une apparente réussite fiscale est contrastée avec des risques financiers profonds",
           "Un succès budgétaire éclatant est défendu contre des attaques politiques partisanes",
-          "Une liste de coupures drastiques est annoncée avant tout examen des comptes publics"
+          "Des risques financiers profonds sont exposés d’abord, puis une réussite fiscale reconnue sans réserve"
         ],
         [
           "Quel constat implicite découle des propos sur les baisses d’impôt ?",
           "Ce choix politique prive l’État de revenus précieux pour ses services essentiels",
           "Cette réduction d’impôt a permis de rembourser la dette et d’éviter tout report de chantiers",
-          "Cette baisse fiscale a déjà réglé l’ensemble des litiges avec le secteur public"
+          "Ce choix politique est jugé sans effet sur la dette, car les recettes fiscales ont fortement reculé"
         ],
         [
           "Que connote le terme « enthousiastes » dans ce contexte précis ?",
           "Un optimisme officiel excessif masquant les faiblesses réelles du cadre financier",
           "Des déclarations rassurantes que le vérificateur général a pleinement confirmées",
-          "Un accord parfait et unanime conclu entre les ministères et les syndicats"
+          "Des commentaires prudents et mesurés, formulés avec réserve sur la solidité des surplus"
         ]
       ],
       "frame": "segment économique radio — finances publiques du Québec"
@@ -54,8 +54,8 @@ export const N09_10_SCENARIOS = {
         [
           "Que laisse entendre le commentaire sur les métriques asymétriques ?",
           "Les créateurs privilégiaient l’intégrité artistique plutôt que les passages radiophoniques",
-          "Les artistes visaient en priorité la production de succès commerciaux faciles pour les discothèques",
-          "Les stations radiophoniques refusaient systématiquement de diffuser des chansons en français"
+          "Les créateurs cherchaient surtout à respecter les formats commerciaux des radios grand public",
+          "Les créateurs ont renoncé aux synthétiseurs pour se conformer aux codes de la chansonnette de variétés"
         ],
         [
           "Dans cet extrait, quel est le sens du terme « renouveau » ?",
@@ -80,7 +80,7 @@ export const N09_10_SCENARIOS = {
           "Quelle démarche argumentative soutient cette chronique économique ?",
           "La déconstruction d’une apparence positive à la lumière des défaillances concrètes",
           "Une condamnation morale sans nuance de l’ensemble des entrepreneurs en construction",
-          "Un éloge enthousiaste des gels de taxes foncières appliqués dans les grandes villes"
+          "Une adhésion sans réserve aux élus municipaux qui vantent une gestion rigoureuse des deniers"
         ],
         [
           "Que sous-entend la mise en garde concernant la dégradation des canalisations ?",
@@ -92,7 +92,7 @@ export const N09_10_SCENARIOS = {
           "Dans ce contexte, que signifie l’expression « contrepartie comptable » ?",
           "Le reflet purement chiffré dissimulant une accumulation de dégradations réelles",
           "Le montant exact des travaux urgents déjà réalisés et entièrement financés par l’exercice",
-          "Un dividende généreux versé aux contribuables sous la forme d’un crédit d’impôt"
+          "Une ligne budgétaire équilibrée qui couvre fidèlement l’entretien futur des canalisations"
         ]
       ],
       "frame": "bulletin économique régional — finances et fiscalité municipale"
@@ -155,8 +155,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans ce témoignage, que qualifie l’expression « course contre la montre » ?",
           "L’urgence dramatique dictée par la menace imminente d’une montée soudaine des eaux",
-          "Une rivalité acharnée entre les chercheurs pour publier leurs résultats avant les concurrents",
-          "Un programme de fouilles fixé par le ministère de la Culture pour finir avant l’hiver"
+          "La nécessité de sauver les vestiges avant la mise en service de la digue remise à neuf",
+          "Une fenêtre de fouilles fixée par la migration printanière des poissons à respecter"
         ]
       ],
       "frame": "entrevue radiophonique — fouilles archéologiques subaquatiques à Pointe-aux-Cascades"
@@ -180,12 +180,12 @@ export const N09_10_SCENARIOS = {
         [
           "Que symbolise implicitement le silence des sirènes d’usine dans la narration ?",
           "La fin brutale d’un mode de vie industriel qui structurait le quotidien des résidents",
-          "La suspension temporaire des usines pour cause de grève, avant une reprise rapide de la production",
+          "Un départ volontaire et paisible des ouvriers vers les grands centres, sans deuil collectif",
           "Un afflux massif de jeunes diplômés qui s’installent dans la région, malgré la crise"
         ],
         [
           "Quel sens précis revêt le mot « catalyseur » dans la conclusion du reportage ?",
-          "Un facteur déclencheur qui accélère une transformation économique inévitable",
+          "Un facteur déclencheur d’une transformation économique suivie d’une laborieuse renaissance",
           "Un agent protecteur qui freine durablement la reconversion des friches industrielles",
           "Un obstacle insurmontable empêchant la concrétisation des projets de reconversion"
         ]
@@ -199,13 +199,13 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le sujet central du témoignage livré par l’archéologue sous-marin ?",
           "L’exploration émouvante d’une épave historique et le sauvetage de son précieux chargement",
-          "La localisation d’un navire marchand récent, coulé lors d’une collision dans la baie des Chaleurs",
-          "La restauration d’une membrure de chêne dans un musée de Québec, après une campagne de dons"
+          "La cartographie d’un navire de ravitaillement britannique, sabordé lors d’une bataille en 1760",
+          "Un bilan de la dégradation des vestiges, attribuée surtout à la pollution industrielle du fleuve"
         ],
         [
           "Comment l’intervenant raconte-t-il sa descente sous l’eau dans cet échange ?",
           "Les difficultés techniques de la plongée cèdent le pas à la portée historique des trouvailles",
-          "Le récit commence par les risques de la plongée, puis se termine sur la portée historique",
+          "La portée historique est évoquée d’emblée, puis le récit revient sur les difficultés de la plongée",
           "Un récit détaillé de chaque plongée, minute par minute, sans évoquer le courant ni la visibilité"
         ],
         [
@@ -236,14 +236,14 @@ export const N09_10_SCENARIOS = {
         [
           "De quelle manière la trame historique est-elle organisée dans cette narration ?",
           "Un modèle urbain vulnérable est bouleversé par un choc externe entraînant des réformes durables",
-          "Une polémique municipale sans issue s’éternise sans qu’aucune décision concrète ne soit prise",
+          "Des réformes durables sont décidées avant le choc externe, qui révèle ensuite la fragilité du modèle urbain",
           "Un modèle urbain solide résiste à un choc externe, sans que des réformes soient nécessaires"
         ],
         [
           "Que déduit-on implicitement du changement d’attitude envers l’extension du métro ?",
           "L’urgence de la crise a balayé les réticences financières qui bloquaient les investissements",
           "Les réticences financières ont été levées avant même que la crise pétrolière n’éclate",
-          "Les ingénieurs municipaux préconisaient l’arrêt définitif de tout chantier souterrain"
+          "La crise a incité la Ville à reporter le métro au profit d’une extension autoroutière, jugée plus rapide"
         ],
         [
           "Dans ce passage, quelle nuance porte le terme « désenclaver » ?",
@@ -276,7 +276,7 @@ export const N09_10_SCENARIOS = {
           "Quelle conséquence découle implicitement de l’obligation de se récuser ?",
           "Le processus décisionnel doit se poursuivre sans aucune participation du cadre concerné",
           "Le cadre doit rester présent aux délibérations pour témoigner de sa neutralité décisionnelle",
-          "La candidature est écartée, mais le cadre concerné demeure libre d’évaluer les autres offres"
+          "La firme liée est retenue d’office, puisque le cadre concerné n’a pas à déclarer son lien"
         ],
         [
           "Dans ce contexte réglementaire, que signifie précisément le verbe « se récuser » ?",
@@ -301,18 +301,18 @@ export const N09_10_SCENARIOS = {
           "Comment les spécialistes articulent-ils leur raisonnement scientifique ?",
           "Un comportement observable chez l’enfant est relié à des apprentissages cognitifs ultérieurs",
           "Un comportement observable chez l’adulte est relié à des fragilités cognitives de l’enfant",
-          "Une observation de garderie est rejetée au profit d’études longitudinales menées à Laval"
+          "Une habileté observable chez le nourrisson est attribuée à la seule maturation motrice, indépendante des échanges"
         ],
         [
           "Que déduit-on implicitement de l’importance du pointage parental ?",
           "La réactivité de l’adulte joue un rôle déterminant dans la construction du lexique enfantin",
-          "Les enfants apprennent à parler de manière optimale en regardant seuls des vidéos éducatives",
+          "Le pointage parental suffit à lui seul à enrichir le lexique, sans que l’adulte nomme l’objet",
           "Le mot prononcé par l’adulte est assimilé avec la même efficacité sans synchronisation visuelle"
         ],
         [
           "Dans cet extrait, que désigne une « étude longitudinale » ?",
           "Une recherche qui suit les mêmes participants sur une longue période chronologique",
-          "Une recherche qui compare des enfants de deux garderies différentes à un instant précis",
+          "Une recherche qui observe les enfants en un seul temps pour prédire leur vocabulaire à deux ans",
           "Un suivi qui s’arrête à neuf mois, avant l’apparition de l’attention conjointe chez l’enfant"
         ]
       ],
@@ -344,7 +344,7 @@ export const N09_10_SCENARIOS = {
           "Dans ce contexte, que signifie le terme « proscrite » ?",
           "Formellement interdite par une disposition réglementaire impérative et contraignante",
           "Fortement encouragée par les superviseurs pour stimuler les partenariats d’affaires",
-          "Autorisée sous condition d’obtenir l’accord préalable de la direction des ressources humaines"
+          "Simplement déconseillée par la direction, sans sanction prévue en cas de manquement"
         ]
       ],
       "frame": "formation en entreprise — cadeaux d’affaires et marques d’hospitalité"
@@ -427,7 +427,7 @@ export const N09_10_SCENARIOS = {
           "Comment le metteur en scène organise-t-il la transmission de ses ordres ?",
           "Il identifie les défaillances de rythme, attribue les correctifs et impose des répétitions",
           "Il confie aux comédiens le choix des changements de décor et supprime les répétitions",
-          "Il délègue l’ensemble des choix artistiques et techniques à la direction du théâtre"
+          "Il formule des remarques générales sur le rythme, sans attribuer de correctifs ni fixer de répétitions"
         ],
         [
           "Que déduit-on implicitement de l’interdiction de bouger avant le signal vert ?",
@@ -439,7 +439,7 @@ export const N09_10_SCENARIOS = {
           "Dans le vocabulaire théâtral, que désigne le mot « praticable » ?",
           "Une plateforme mobile en bois conçue pour supporter le jeu des acteurs sur scène",
           "Un rideau de velours suspendu dont la tension est réglée pour éviter les ondulations",
-          "Un élément de décor escamotable installé dans la cour pour le changement de plateau"
+          "Une estrade fixe en béton, côté salle, qui reste en place pendant tout le spectacle"
         ]
       ],
       "frame": "directives de metteur en scène — création des décors théâtraux"
@@ -495,13 +495,13 @@ export const N09_10_SCENARIOS = {
           "Que sous-entend la remarque sur le système de freinage de secours de la passerelle ?",
           "Une anomalie dans la manipulation de la structure gâcherait irrémédiablement la performance",
           "La Place des Arts ne dispose d’aucun dispositif technique de secours en cas d’urgence sur la scène",
-          "La Place des Arts ne possède aucun dispositif de secours en cas de problème technique"
+          "Le freinage de secours sert à accélérer la descente de la passerelle dès que le rythme ralentit"
         ],
         [
           "Dans le vocabulaire de la scène, que désigne le terme « cintre » ?",
           "La partie supérieure d’une cage de scène où sont logées les poulies et les machineries",
           "Le personnel de coulisse chargé de fixer les accessoires au sol avant chaque spectacle",
-          "Une estrade de répétition démontable utilisée par le chœur avant la pause de midi"
+          "Le plancher de scène, couvert de passerelles métalliques où le chœur se place avant le troisième acte"
         ]
       ],
       "frame": "directives de mise en scène — scénographie et éclairage théâtral"
@@ -515,7 +515,7 @@ export const N09_10_SCENARIOS = {
         [
           "Sur quel enjeu principal porte l’échange d’opinions entre les deux collègues ?",
           "La pertinence d’imposer des journées fixes de présence au bureau pour l’ensemble du personnel",
-          "Le recours à des indicateurs quotidiens de productivité pour surveiller les employés en télétravail",
+          "La durée excessive du télétravail complet, qui a fait chuter la productivité des analystes pendant deux ans",
           "L’interdiction des échanges par messagerie instantanée entre les nouvelles recrues et les stagiaires"
         ],
         [
@@ -596,7 +596,7 @@ export const N09_10_SCENARIOS = {
           "Dans ce contexte économique, que signifie le verbe « péricliter » ?",
           "Décliner progressivement et risquer de disparaître faute de compétitivité suffisante",
           "Rester stable malgré la pénurie de main-d’œuvre grâce à une rotation des équipes",
-          "Être racheté par un concurrent privé qui conserve intacts les emplois manuels"
+          "Prospérer rapidement grâce à l’automatisation qui réduit les coûts unitaires de production"
         ]
       ],
       "frame": "discussion entre collègues — plan de modernisation d’une coopérative"
@@ -627,7 +627,7 @@ export const N09_10_SCENARIOS = {
           "Dans cette discussion, que désigne l’expression « heures de pointe » ?",
           "Les périodes de forte demande où la consommation globale du réseau atteint son maximum",
           "Les périodes creuses où les tarifs réduits profitent surtout aux propriétaires équipés de maisons solaires",
-          "Les soirées d’été où les propriétaires fortunés revendent l’électricité de leurs maisons solaires"
+          "Les tranches du matin où la consommation est facturée au tarif le plus bas du réseau"
         ]
       ],
       "frame": "échange entre connaissances — controverse sur la tarification énergétique résidentielle"
@@ -690,8 +690,8 @@ export const N09_10_SCENARIOS = {
         [
           "Que désigne l’expression « injustice distributive » dans ce cadre d’analyse ?",
           "Le déséquilibre ressenti entre les efforts personnels investis et les marques de reconnaissance reçues",
-          "Une pénurie de fournitures médicales qui oblige les infirmières à réutiliser leur matériel",
-          "La rémunération forfaitaire des cadres intermédiaires, jugée supérieure à celle des infirmières"
+          "Un sentiment de considération accordée à chacun de façon égale, indépendamment des efforts fournis",
+          "Une répartition équitable des marques de reconnaissance, qui renforce le sentiment d’efficacité personnelle"
         ]
       ],
       "frame": "article spécialisé — bienfaits psychologiques de la reconnaissance au travail"
@@ -721,7 +721,7 @@ export const N09_10_SCENARIOS = {
         [
           "Dans ce texte normatif, qu’est-ce qu’un « bruit d’impact » ?",
           "Une impulsion sonore brève et violente causée par le choc brutal de deux masses solides",
-          "Une vibration continue transmise au sol par le passage répété des chariots élévateurs",
+          "Un bourdonnement régulier émis par le moteur des presses mécaniques pendant la production",
           "Une pression acoustique mesurée en continu sur une journée entière à l’aide d’un sonomètre"
         ]
       ],
@@ -752,8 +752,8 @@ export const N09_10_SCENARIOS = {
         [
           "Que désigne l’expression « garde-fou » dans ce contexte organisationnel ?",
           "Un mécanisme protecteur destiné à prévenir un dérapage ou une dégradation de la santé mentale",
-          "Un dispositif de surveillance qui enregistre les heures de travail des employés à distance",
-          "Un espace de travail partagé où les équipes se disputent les meilleurs postes"
+          "Une limite imposée à la marge de manœuvre décisionnelle, qui restreint l’autonomie des cadres",
+          "Une source de surmenage qui aggrave la porosité entre la vie professionnelle et la sphère personnelle"
         ]
       ],
       "frame": "étude universitaire — soutien managérial et bien-être psychologique des équipes"
@@ -805,7 +805,7 @@ export const N09_10_SCENARIOS = {
           "De quelle manière l’intrigue progresse-t-elle à travers les découvertes de Tremblay ?",
           "L’indice matériel de l’encre falsifiée permet de dévoiler un mobile financier d’envergure",
           "Le témoignage de la dernière héritière suffit à démasquer le meurtrier sans examiner les minutes",
-          "Après l’arrestation du suspect, l’inspecteur compare les signatures puis n’analyse l’encre qu’ensuite"
+          "L’inspecteur analyse d’abord l’encre, puis compare les signatures, avant de cerner le mobile financier"
         ],
         [
           "Que comprend-on implicitement sur le rôle du notaire défunt avant son décès ?",
@@ -817,7 +817,7 @@ export const N09_10_SCENARIOS = {
           "Dans ce contexte d’enquête, que désigne le mot « paraphe » ?",
           "Une signature abrégée manuscrite apposée pour valider une page ou un document notarié",
           "Une copie photographique déposée au bureau d’enregistrement pour valider officiellement un acte",
-          "Un registre relié dans lequel le greffier consigne les actes de succession des seigneuries"
+          "Un tracé d’encre ferrugineuse utilisé pour dater précisément chaque minute notariale du dossier"
         ]
       ],
       "frame": "roman policier — enquête d’un inspecteur de police au Bic"
@@ -912,7 +912,7 @@ export const N09_10_SCENARIOS = {
           "Dans ce contexte économique, que désigne le terme « inertie » ?",
           "La tendance des prix de certains biens et services à demeurer élevés malgré l’évolution conjoncturelle",
           "La réaction rapide des prix de l’essence aux variations des cours du baril de pétrole",
-          "La contrainte imposée aux détaillants de geler leurs étiquettes pendant toute la saison des récoltes"
+          "La baisse soudaine des prix de l’alimentation dès que les récoltes deviennent abondantes"
         ]
       ],
       "frame": "article économique — analyse de l’indice des prix à la consommation"
@@ -973,8 +973,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans le vocabulaire du transport de marchandises, que signifie le mot « affrètement » ?",
           "La location contractuelle d’un navire ou d’un espace de chargement pour transporter des biens",
-          "L’assurance obligatoire couvrant les marchandises contre les avaries survenues pendant la traversée",
-          "La taxe perçue sur chaque conteneur de quarante pieds à l’entrée des ports de la côte ouest"
+          "Le transfert de propriété d’une cargaison à l’importateur au moment de son arrivée au port",
+          "Le déplacement de conteneurs vers un autre port pour contourner les goulets d’étranglement de la côte ouest"
         ]
       ],
       "frame": "analyse économique — pressions inflationnistes et chaînes d’approvisionnement mondiales"
@@ -999,13 +999,13 @@ export const N09_10_SCENARIOS = {
           "Que sous-entend la recommandation de dissocier la valeur personnelle des résultats ?",
           "Fonder son estime personnelle sur les notes obtenues fragilise l’équilibre psychologique du jeune",
           "Un bon bulletin suffit à garantir la santé psychologique de l’adolescent sans autre accompagnement",
-          "Il s’agit de reporter la sanction des notes à la fin de l’année pour alléger le travail de l’élève"
+          "Une note élevée reste le meilleur baromètre de la valeur personnelle, qu’il faut viser à tout prix"
         ],
         [
           "Dans ce contexte scolaire, que désigne l’expression « évitement anxieux » ?",
           "Le réflexe de fuir une tâche difficile pour échapper temporairement à la détresse qu’elle génère",
-          "La tendance à s’isoler volontairement des autres élèves pour mieux préparer les examens de fin d’année",
-          "La décision de l’élève de changer de programme d’études pour réduire la pression du bulletin"
+          "Un surinvestissement épuisant qui conduit l’élève à réviser jusqu’à l’épuisement physique complet",
+          "Un manque de volonté qui pousse l’élève à remettre ses devoirs à plus tard par paresse"
         ]
       ],
       "frame": "guide pratique — gestion de l’anxiété de performance chez les adolescents"
@@ -1088,7 +1088,7 @@ export const N09_10_SCENARIOS = {
           "De quelle manière ces directives de bonne gouvernance sont-elles organisées ?",
           "Les délais de soumission, les modalités de paiement et les devoirs de rapportage sont explicités",
           "Les modalités de paiement des arbitres sont exposées d’abord, avant les délais de soumission des demandes de remboursement",
-          "Une exemption de pièces justificatives est accordée aux entraîneurs pour leurs dépenses de déplacement"
+          "Le rapportage du trésorier ouvre les directives, suivi des délais de soumission puis des modalités de paiement"
         ],
         [
           "Quel risque implicite l’interdiction de l’argent liquide cherche-t-elle à neutraliser ?",
@@ -1152,7 +1152,7 @@ export const N09_10_SCENARIOS = {
           "Comment l’argumentation sociologique est-elle construite pour convaincre le lectorat ?",
           "Une promesse fallacieuse du privé est démontée en exposant le siphonage des ressources publiques",
           "L’universalité du régime public est défendue dès l’ouverture, puis la promesse fallacieuse du privé est démontée",
-          "La critique du secteur privé est d’abord écartée comme un réflexe corporatiste, puis démontée par des chiffres de rentabilité"
+          "Une médecine à deux vitesses est d’abord célébrée comme un progrès, puis démontée par la défense de l’universalité"
         ],
         [
           "Que sous-entend la métaphore de la « pompe aspirante » utilisée par l’auteur ?",
@@ -1208,7 +1208,7 @@ export const N09_10_SCENARIOS = {
           "Quelle dénonciation principale l’auteur de cet essai formule-t-il au sujet des agences privées ?",
           "L’effet pervers des agences privées qui coûtent une fortune et déstabilisent les équipes régulières",
           "Le recours massif aux primes offertes aux infirmières régulières pour compenser la pénurie d’effectifs",
-          "Le rôle positif des agences privées qui comblent les vacances de postes dans les régions éloignées"
+          "Une solution efficace qui a stabilisé les équipes régulières tout en réduisant la facture publique"
         ],
         [
           "Comment l’essai démontre-t-il l’inefficacité structurelle du modèle des agences de placement ?",
