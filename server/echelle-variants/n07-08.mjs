@@ -338,7 +338,7 @@ export const N07_08_SCENARIOS = {
           'Que déduit-on implicitement quant au choix optimal pour un jeune travailleur au salaire modeste ?',
           'Le CELI lui évite de gaspiller de précieux droits de déduction',
           'Le REER est l’unique véhicule d’épargne sécuritaire à son âge',
-          'Il ne devrait épargner aucun montant avant d’atteindre quarante ans',
+          'Le REER lui assure des retraits totalement exonérés d’impôt plus tard',
         ],
         [
           'À quelle condition majeure le REER est-il le plus profitable selon l’experte ?',
@@ -357,18 +357,18 @@ export const N07_08_SCENARIOS = {
           'Quelle obligation légale récente s’impose désormais aux syndicats de copropriété ?',
           'Faire évaluer professionnellement les besoins futurs de réparation',
           'Baisser systématiquement les charges mensuelles des propriétaires',
-          'Souscrire une assurance payée par le ministère de l’Habitation',
+          'Remplacer immédiatement la toiture et les ascenseurs du bâtiment',
         ],
         [
           'Quel risque implicite guette les acheteurs de condos aux frais mensuels anormalement bas ?',
           'Devoir payer d’urgence d’importantes cotisations de rattrapage',
           'Perdre définitivement leur droit de vote aux assemblées générales',
-          'Voir leur immeuble confisqué par la municipalité dans l’immédiat',
+          'Devoir assumer individuellement les frais de réfection de la toiture',
         ],
         [
           'Quels types d’ouvrages collectifs le fonds de prévoyance sert-il à financer ?',
           'Les réparations majeures des composantes communes du bâtiment',
-          'La décoration intérieure des pièces privatives de chaque logement',
+          'L’entretien ménager régulier des corridors et des espaces communs',
           'Les frais d’électricité et de chauffage individuel des occupants',
         ],
       ],
@@ -387,7 +387,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quel sous-entendu implicite la chroniqueuse formule-t-elle sur la consolidation de dettes ?',
           'Elle s’avère inefficace si les habitudes de consommation ne changent pas',
-          'Elle garantit l’annulation complète de la moitié du capital emprunté',
+          'Elle permet de rembourser les dettes sans exiger une bonne cote de crédit',
           'Elle convient surtout aux ménages bénéficiant de plusieurs sources de revenus',
         ],
         [
@@ -444,7 +444,7 @@ export const N07_08_SCENARIOS = {
           'Quelle aide matérielle l’entreprise renouvelle-t-elle pour le travail à domicile ?',
           'Une subvention financière pour le mobilier et les ordinateurs',
           'La livraison gratuite de repas chauds pour les télétravailleurs',
-          'Le paiement intégral de la facture de chauffage du domicile',
+          'Le remboursement complet des frais d’accès à la ligne Internet',
         ],
       ],
     },
@@ -456,7 +456,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quel est l’atout écologique majeur du nouvel édifice selon le gestionnaire ?',
           'Sa certification carboneutre et sa ventilation géothermique',
-          'Sa proximité immédiate avec une grande autoroute urbaine',
+          'L’intégration d’espaces verts réservés sur le toit de l’édifice',
           'L’usage de mobilier de bureau conçu à partir de bois recyclé',
         ],
         [
@@ -469,7 +469,7 @@ export const N07_08_SCENARIOS = {
           'Quelle tâche préparatoire chaque employé doit-il accomplir avant le départ ?',
           'Trier ses dossiers et numériser les documents non essentiels',
           'Démonter soi-même l’ensemble de son mobilier de travail',
-          'Peindre les murs de son futur poste de travail au nouveau local',
+          'Emballer l’ensemble des archives papier dans des boîtes scellées',
         ],
       ],
     },
@@ -494,7 +494,7 @@ export const N07_08_SCENARIOS = {
           'Quelle information factuelle Robert oppose-t-il pour justifier le chantier ?',
           'Des bris de canalisation ont inondé des maisons l’hiver dernier',
           'Les commerçants du secteur réclamaient tous une piste cyclable',
-          'Le maire a promis de payer le dédommagement des automobilistes',
+          'Les ingénieurs civils ont demandé le report des travaux à l’automne',
         ],
         [
           'Quelle attitude Manon manifeste-t-elle implicitement face au réaménagement ?',
@@ -518,8 +518,8 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle opinion radicale Sylvain exprime-t-il pendant la discussion ?',
           'La pose de radars et le retrait des permis aux récidivistes',
-          'L’interdiction définitive de tous les enfants dans le parc public',
-          'La démolition complète des feux de signalisation de la grande artère',
+          'Le refus des ralentisseurs pour faciliter le passage des ambulances',
+          'L’interdiction totale de circuler en voiture autour du parc des Saules',
         ],
         [
           'Quelle préoccupation implicite le premier voisin soulève-t-il face aux ralentisseurs ?',
@@ -544,7 +544,7 @@ export const N07_08_SCENARIOS = {
           'Quelle opinion virulente Denis formule-t-il à l’égard de la nouvelle méthode ?',
           'Le système pénalise injustement les aînés du quartier',
           'La Ville devrait confier les opérations aux entreprises privées du secteur',
-          'Les alertes téléphoniques devraient être envoyées en pleine nuit',
+          'Le dispositif vise surtout à réduire les coûts pour les arrondissements',
         ],
         [
           'Quel bénéfice implicite le voisin met-il de l’avant pour défendre la réforme ?',
@@ -625,7 +625,7 @@ export const N07_08_SCENARIOS = {
           'Quel est le sous-entendu implicite du second collègue avec l’image du « pompier » ?',
           'Une approche à court terme ne règle pas les problèmes structurels majeurs',
           'Le service de protection contre les incendies est mal financé par la Ville',
-          'Les pompiers devraient participer à la planification des voies ferrées',
+          'Il faut financer en priorité les urgences hospitalières déjà débordées',
         ],
       ],
     },
@@ -647,8 +647,8 @@ export const N07_08_SCENARIOS = {
         [
           'Quels piliers traditionnels structurent l’activité économique de cette région côtière ?',
           'L’agroalimentaire laitier et la transformation du bois',
-          'L’extraction du minerai de fer et les chantiers maritimes',
-          'L’industrie textile lourde et le raffinage pétrochimique',
+          'Les biotechnologies marines et la recherche océanographique',
+          'La numérisation industrielle et l’accueil des chercheurs',
         ],
         [
           'Que peut-on déduire de la présence d’un pôle d’océanographie reconnu à Rimouski ?',
@@ -660,7 +660,7 @@ export const N07_08_SCENARIOS = {
           'Quelle stratégie les acteurs locaux déploient-ils pour compenser la démographie vieillissante ?',
           'L’intégration de l’immigration et la modernisation technologique',
           'La fermeture des usines ne trouvant pas immédiatement de main-d’œuvre',
-          'L’arrêt définitif des investissements dans les services de santé',
+          'Le transfert des services collectifs vers les grands centres urbains',
         ],
       ],
     },
@@ -672,13 +672,13 @@ export const N07_08_SCENARIOS = {
         [
           'Dans quel secteur d’avenir la Mauricie investit-elle massivement ses ressources ?',
           'La transition énergétique et l’hydrogène vert',
-          'L’extraction pétrolière en haute mer',
+          'Les pâtes et papiers et l’industrie forestière',
           'Le commerce de détail traditionnel en magasin',
         ],
         [
           'Quelle intention implicite sous-tend le partenariat entre écoles et entreprises ?',
           'La formation s’adapte aux nouveaux besoins industriels',
-          'Les étudiants n’ont plus besoin de diplôme formel pour travailler',
+          'Les cégeps abandonnent la formation de techniciens et d’ingénieurs',
           'Les universités locales refusent tout financement du secteur privé',
         ],
         [
@@ -697,8 +697,8 @@ export const N07_08_SCENARIOS = {
         [
           'Quelles ressources majeures font la richesse économique principale de la Côte-Nord ?',
           'L’hydroélectricité puissante et le minerai de fer',
-          'La viticulture côtière et les céréales d’exportation',
-          'L’industrie de l’optique et les technologies financières',
+          'Les petits fruits sauvages et les produits marins',
+          'Le transport routier de fret et la gastronomie urbaine',
         ],
         [
           'Quel défi structurel implicite découle de la vaste géographie du territoire nord-côtier ?',
@@ -709,7 +709,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle filière originale de niche émerge dans le secteur bioalimentaire régional ?',
           'La valorisation des ressources marines et des petits fruits sauvages',
-          'La production en serre chauffée de bananes et de fruits tropicaux',
+          'La culture maraîchère à grande échelle le long de la route principale',
           'L’élevage intensif de bovins dans des parcs d’engraissement géants',
         ],
       ],
@@ -735,7 +735,7 @@ export const N07_08_SCENARIOS = {
           'Jusqu’à quelle étape administrative l’accompagnement de l’agence est-il garanti ?',
           'Jusqu’à la signature officielle de l’acte chez le notaire',
           'Jusqu’à l’approbation préliminaire du prêt par l’institution bancaire',
-          'Jusqu’à la pose de la pancarte publicitaire sur le terrain vendu',
+          'Jusqu’à la négociation formelle de la promesse d’achat acceptée',
         ],
       ],
     },
@@ -759,8 +759,8 @@ export const N07_08_SCENARIOS = {
         [
           'Quels spécialistes externes le réseau de l’agence permet-il de consulter ?',
           'Des inspecteurs certifiés et des conseillers hypothécaires',
-          'Des architectes d’intérieur spécialisés en mobilier antique',
-          'Des déménageurs internationaux pour le transport d’animaux',
+          'Des urbanistes municipaux et des gestionnaires d’écoles primaires',
+          'Des évaluateurs en transport collectif et des comptables agréés',
         ],
       ],
     },
@@ -816,7 +816,7 @@ export const N07_08_SCENARIOS = {
           'Parmi les personnes bénéficiant de l’aide, qui le bénévole cite-t-il explicitement ?',
           'Des aînés, des parents étudiants et de nouveaux résidents',
           'Des étudiants collégiaux participant à des tournois sportifs régionaux',
-          'Des marchands fortunés venus liquider leurs invendus gâtés',
+          'Des commerçants locaux venus acheter des produits maraîchers',
         ],
       ],
     },
