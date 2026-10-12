@@ -1521,8 +1521,8 @@ export const N01_02_SCENARIOS = {
             q(
               '前台人员说明的缴费方式是：',
               `Vous pouvez payer ${pay[0].fr} ou ${pay[1].fr}.`,
-              'Le cours de dessin est annulé à cause de la neige demain.',
-              'C’est mon frère qui habite à Laval, et il vient demain.',
+              'Vous pouvez payer seulement avec une carte-cadeau du centre.',
+              'Vous pouvez payer seulement en ligne, avant le cours.',
               [pay[0].short, pay[1].short]
             ),
             q('需要办理缴费的项目是：', service.zh, otherServices[0].zh, otherServices[1].zh, [service.kw]),
