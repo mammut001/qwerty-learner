@@ -312,6 +312,8 @@ describe('Échelle québécoise Niveaux 5–6 Scenarios and Banks', () => {
     const p2 = /\ben (le|la|les|l[’'])\s?\w+/i
     const p3 = /\bentre [^.;,]{3,40} à /i
     const p4 = /\b(de|que|je|ne|me|te|se)\s+[aeiouéèêàâîôû]\w{2,}/i
+    const pCestPlural = /(?<![\p{L}\p{N}])c[’']est\s+(?:les|des)(?![\p{L}\p{N}])/iu
+    const pNicheDes = /(?<![\p{L}\p{N}])nich[ée]e?s?\s+des(?![\p{L}\p{N}])/iu
     const allowedP2 = [
       'en l’absence de', "en l'absence de",
       'en la matière', 'en la matiere',
@@ -335,6 +337,8 @@ describe('Échelle québécoise Niveaux 5–6 Scenarios and Banks', () => {
             assert.ok(!p2.test(cleanP2), `P2 article after en hit in ${id} sc ${sIdx}: "${cleanP2}"`)
             assert.ok(!p3.test(str), `P3 entre ... à hit in ${id} sc ${sIdx}: "${str}"`)
             assert.ok(!p4.test(str), `P4 missing elision hit in ${id} sc ${sIdx}: "${str}"`)
+            assert.ok(!pCestPlural.test(str), `Forbidden c'est les/des in ${id} sc ${sIdx}: "${str}"`)
+            assert.ok(!pNicheDes.test(str), `Forbidden niché(e)(s) des in ${id} sc ${sIdx}: "${str}"`)
           }
         }
       }
@@ -382,6 +386,8 @@ describe('Échelle québécoise Niveaux 5–6 Scenarios and Banks', () => {
 
     const contractionRe = /(?<![\p{L}\p{N}])(à|de)\s+(le|les)(?![\p{L}\p{N}])/iu
     const deDesRe = /\bde des\b/i
+    const cestPluralRe = /(?<![\p{L}\p{N}])c[’']est\s+(?:les|des)(?![\p{L}\p{N}])/iu
+    const nicheDesRe = /(?<![\p{L}\p{N}])nich[ée]e?s?\s+des(?![\p{L}\p{N}])/iu
     const doubledRe = /(?<![\p{L}\p{N}])(de|le|la|les|un|une|à)\s+\1(?![\p{L}\p{N}])/iu
     const wrongElisionRe = /(?<![\p{L}\p{N}])(d|l|qu|j|n|s|m|t|c)[’'](?![aeiouyhâàéèêëîïôöûùœAEIOUYHÂÀÉÈÊÎÔÛŒ\d])/iu
     const elisionCheckRe = /(?<![\p{L}\p{N}])(de|que|lorsque|puisque|jusque|je|ne|me|te|se)\s+([a-zà-ÿ]+)/giu
@@ -465,6 +471,18 @@ describe('Échelle québécoise Niveaux 5–6 Scenarios and Banks', () => {
             assert.ok(
               !deDesRe.test(str),
               `Forbidden "de des" in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+
+            // 2b. c'est les/des check
+            assert.ok(
+              !cestPluralRe.test(str),
+              `Forbidden "c'est les/des" in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+
+            // 2c. niché(e)(s) des check
+            assert.ok(
+              !nicheDesRe.test(str),
+              `Forbidden "niché(e)(s) des" in ${id} sc ${sIdx}: "${rawStr}"`
             )
 
             // 3. Doubled function words

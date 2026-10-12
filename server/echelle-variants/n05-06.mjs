@@ -265,13 +265,13 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { titre: 'd’adjoint administratif', ville: 'à Laval', flex: 'deux jours de télétravail', avantage: 'une assurance collective complète', avPara: 'une couverture d’assurance collective complète', avKw: 'assurance collective' },
-          { titre: 'de commis de bureau', ville: 'à Longueuil', flex: 'trois jours de télétravail', avantage: 'un régime de retraite avantageux', avPara: 'un programme d’épargne pour la retraite avantageux', avKw: 'retraite' },
+          { titre: 'd’adjoint administratif', ville: 'à Laval', flex: 'deux jours de télétravail par semaine', avantage: 'une assurance collective complète', avPara: 'une couverture d’assurance collective complète', avKw: 'assurance collective' },
+          { titre: 'de commis de bureau', ville: 'à Longueuil', flex: 'trois jours de télétravail par semaine', avantage: 'un régime de retraite avantageux', avPara: 'un programme d’épargne pour la retraite avantageux', avKw: 'retraite' },
           { titre: 'de coordonnateur de projets', ville: 'à Montréal', flex: 'un horaire flexible', avantage: 'quatre semaines de vacances payées', avPara: 'quatre semaines de congés payés dès l’entrée en poste', avKw: 'vacances payées' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
-          text: `— Salut Patrick ! Tu cherchais un emploi stable ces temps-ci ? Notre firme de génie ${s.ville} recrute justement un poste ${s.titre}. La personne choisie devra répondre aux appels des clients, classer les dossiers techniques et coordonner les réunions hebdomadaires. On offre ${s.flex} par semaine et ${s.avantage} dès l’embauche. L’ambiance dans l’équipe est vraiment chaleureuse et dynamique. Si le poste t’intéresse, tu devrais m’envoyer ton curriculum vitæ avant vendredi midi. Je pourrai le transmettre directement à notre gestionnaire des ressources humaines !`,
+          text: `— Salut Patrick ! Tu cherchais un emploi stable ces temps-ci ? Notre firme de génie ${s.ville} recrute justement un poste ${s.titre}. La personne choisie devra répondre aux appels des clients, classer les dossiers techniques et coordonner les réunions hebdomadaires. On offre ${s.flex} et ${s.avantage} dès l’embauche. L’ambiance dans l’équipe est vraiment chaleureuse et dynamique. Si le poste t’intéresse, tu devrais m’envoyer ton curriculum vitæ avant vendredi midi. Je pourrai le transmettre directement à notre gestionnaire des ressources humaines !`,
           questions: [
             makeQuestion('Que propose l’ami dans cette conversation ?', 'Un emploi administratif stable dans son entreprise', 'Un perfectionnement en bureautique pour diplômés', 'Un contrat temporaire de rédaction de rapports', ['firme', 'recrute']),
             makeQuestion('Quel avantage lié au poste est expressément mentionné ?', `${cap(s.avPara)}`, 'Une voiture de société fournie pour les déplacements', 'Un abonnement annuel à une salle de sport privée', [s.avKw]),
@@ -451,13 +451,13 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { parc: 'dans le parc de Banff', transport: 'une caravane louée', souvenir: 'la couleur turquoise des lacs glaciaires', transPara: 'une caravane de location pour dormir en nature', transKw: 'caravane' },
-          { parc: 'dans le parc de Jasper', transport: 'une camionnette aménagée', souvenir: 'la rencontre avec une harde de wapitis', transPara: 'un véhicule utilitaire adapté au repos nocturne', transKw: 'camionnette' },
-          { parc: 'dans les parcs de Yoho et Kootenay', transport: 'une petite tente de camping', souvenir: 'les sommets enneigés au lever du soleil', transPara: 'un abri de toile compact dressé sur le terrain', transKw: 'tente' },
+          { parc: 'dans le parc de Banff', transport: 'une caravane louée', copule: 'c’est', souvenir: 'la couleur turquoise des lacs glaciaires', transPara: 'une caravane de location pour dormir en nature', transKw: 'caravane' },
+          { parc: 'dans le parc de Jasper', transport: 'une camionnette aménagée', copule: 'c’est', souvenir: 'la rencontre avec une harde de wapitis', transPara: 'un véhicule utilitaire adapté au repos nocturne', transKw: 'camionnette' },
+          { parc: 'dans les parcs de Yoho et Kootenay', transport: 'une petite tente de camping', copule: 'ce sont', souvenir: 'les sommets enneigés au lever du soleil', transPara: 'un abri de toile compact dressé sur le terrain', transKw: 'tente' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
-          text: `— Salut Martin ! Je voulais te raconter notre périple de dix jours ${s.parc}. On voyageait avec ${s.transport}, ce qui nous permettait de dormir en pleine nature chaque soir. Ce qui restera gravé dans ma mémoire, c’est ${s.souvenir}. Par contre, on a dû composer avec des nuits très fraîches : il a gelé deux fois au mois d’août ! Il fallait allumer le réchaud dès six heures du matin pour réchauffer le café et dégeler nos souliers de marche. Mais l’effort en valait tellement la peine. C’est le plus beau voyage de ma vie !`,
+          text: `— Salut Martin ! Je voulais te raconter notre périple de dix jours ${s.parc}. On voyageait avec ${s.transport}, ce qui nous permettait de dormir en pleine nature chaque soir. Ce qui restera gravé dans ma mémoire, ${s.copule} ${s.souvenir}. Par contre, on a dû composer avec des nuits très fraîches : il a gelé deux fois au mois d’août ! Il fallait allumer le réchaud dès six heures du matin pour réchauffer le café et dégeler nos souliers de marche. Mais l’effort en valait tellement la peine. C’est le plus beau voyage de ma vie !`,
           questions: [
             makeQuestion('Où la collègue et son compagnon ont-ils passé leurs dix jours ?', 'Au cœur de réserves naturelles des Rocheuses de l’Ouest', 'Dans les grandes métropoles animées de la région atlantique', 'Dans une station balnéaire populaire du sud du continent', ['périple', 'nature']),
             makeQuestion('Quelle météo inattendue a surpris les randonneurs en août ?', 'Des nuits particulièrement froides accompagnées de gelée', 'Des pluies continues qui ont détrempé les chemins durant sept jours', 'Une chaleur étouffante qui a empêché toute marche en montagne', ['gelé', 'fraîches']),
@@ -905,12 +905,12 @@ export const N05_06_SCENARIOS = {
       (rand) => {
         const slots = [
           { attraction: 'les saveurs de la Route des terroirs', paysage: 'entre le fleuve et les montagnes imposantes', village: 'le village pittoresque de Baie-Saint-Paul', attPara: 'un parcours gourmand célébrant les saveurs régionales', attKw: 'saveurs', vilKw: 'baie-saint-paul' },
-          { attraction: 'les croisières d’observation des baleines', paysage: 'des fjords spectaculaires aux falaises escarpées', village: 'le village historique de Tadoussac', attPara: 'des excursions maritimes pour contempler les baleines', attKw: 'baleines', vilKw: 'tadoussac' },
-          { attraction: 'les sentiers panoramiques du parc national', paysage: 'des vallées profondes sculptées par la nature', village: 'le bourg côtier de La Malbaie', attPara: 'des pistes balisées offrant des vues imprenables', attKw: 'panoramiques', vilKw: 'la malbaie' },
+          { attraction: 'les croisières d’observation des baleines', paysage: 'entre des fjords spectaculaires et des falaises escarpées', village: 'le village historique de Tadoussac', attPara: 'des excursions maritimes pour contempler les baleines', attKw: 'baleines', vilKw: 'tadoussac' },
+          { attraction: 'les sentiers panoramiques du parc national', paysage: 'au cœur de vallées profondes sculptées par la nature', village: 'le bourg côtier de La Malbaie', attPara: 'des pistes balisées offrant des vues imprenables', attKw: 'panoramiques', vilKw: 'la malbaie' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
-          text: `BROCHURE TOURISTIQUE OFFICIELLE - ÉVASION DANS CHARLEVOIX\nNiché ${s.paysage}, Charlevoix est une destination magnifique pour les amoureux de plein air. En parcourant cette région réserve mondiale de la biosphère, vous découvrirez ${s.attraction}, où des fromagers et des artisans passionnés vous accueillent. Faites une halte dans ${s.village}, réputé pour ses galeries d’art, ses bistros chaleureux et son patrimoine architectural préservé. Que vous choisissiez une randonnée au grand air ou un séjour douillet dans une auberge de charme, Charlevoix saura vous émerveiller en toute saison. Réservez votre séjour en ligne dès aujourd’hui !`,
+          text: `BROCHURE TOURISTIQUE OFFICIELLE - ÉVASION DANS CHARLEVOIX\nNichée ${s.paysage}, la région de Charlevoix est une destination magnifique pour les amoureux de plein air. En parcourant cette région réserve mondiale de la biosphère, vous découvrirez ${s.attraction}, où des fromagers et des artisans passionnés vous accueillent. Faites une halte dans ${s.village}, réputé pour ses galeries d’art, ses bistros chaleureux et son patrimoine architectural préservé. Que vous choisissiez une randonnée au grand air ou un séjour douillet dans une auberge de charme, Charlevoix saura vous émerveiller en toute saison. Réservez votre séjour en ligne dès aujourd’hui !`,
           questions: [
             makeQuestion('Quel est l’objectif principal de cette brochure touristique ?', 'Mettre en valeur le patrimoine naturel et culturel régional', 'Avertir les résidents de l’arrivée de dépressions côtières', 'Dresser la chronique historique des premiers colons français', ['charlevoix', 'brochure']),
             makeQuestion('Quelle expérience est particulièrement mise en avant ?', `${cap(s.attPara)}`, 'Une compétition sportive de pêche au gros en haute mer', 'Une visite commentée d’installations pétrochimiques', [s.attKw]),
@@ -964,13 +964,13 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { sportif: 'le capitaine de hockey Alexandre Roy', endroit: 'dans une auberge ancestrale de Charlevoix', cadeau: 'des dons à un organisme pour enfants défavorisés', cadPara: 'un groupe venant en aide aux enfants', cadKw: 'enfants' },
-          { sportif: 'le patineur médaillé Maxime Tremblay', endroit: 'dans une grange patrimoniale restaurée en Estrie', cadeau: 'des contributions à une fondation de recherche médicale', cadPara: 'la recherche médicale québécoise', cadKw: 'médicale' },
-          { sportif: 'le joueur étoile David Desbiens', endroit: 'dans un verger privé au pied du mont Saint-Hilaire', cadeau: 'le financement d’équipements sportifs scolaires', cadPara: 'l’achat de matériel sportif scolaire', cadKw: 'équipements sportifs' },
+          { sportif: 'le capitaine de hockey Alexandre Roy', endroit: 'dans une auberge ancestrale de Charlevoix', cadeau: 'faire des dons à un organisme pour enfants défavorisés', cadPara: 'un groupe venant en aide aux enfants', cadKw: 'enfants' },
+          { sportif: 'le patineur médaillé Maxime Tremblay', endroit: 'dans une grange patrimoniale restaurée en Estrie', cadeau: 'contribuer à une fondation de recherche médicale', cadPara: 'la recherche médicale québécoise', cadKw: 'médicale' },
+          { sportif: 'le joueur étoile David Desbiens', endroit: 'dans un verger privé au pied du mont Saint-Hilaire', cadeau: 'contribuer au financement d’équipements sportifs scolaires', cadPara: 'l’achat de matériel sportif scolaire', cadKw: 'équipements sportifs' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
-          text: `CHRONIQUE CÉLÉBRITÉS - UNION HIVERNALE AUX SAVEURS D’ICI\nCe week-end, ${s.sportif} a uni sa destinée à celle de sa conjointe ${s.endroit}. Entourés de leurs coéquipiers et de leurs familles, les amoureux ont célébré leur union dans un décor rustique. Au lieu des traditionnels présents de mariage, le couple a invité ses convives à faire ${s.cadeau}. Les invités ont savouré un repas inspiré des cabanes à sucre traditionnelles, avec de la tire sur la neige servie en fin de soirée. Un moment magique et authentique que le couple et leurs invités chériront longtemps !`,
+          text: `CHRONIQUE CÉLÉBRITÉS - UNION HIVERNALE AUX SAVEURS D’ICI\nCe week-end, ${s.sportif} a uni sa destinée à celle de sa conjointe ${s.endroit}. Entourés de leurs coéquipiers et de leurs familles, les amoureux ont célébré leur union dans un décor rustique. Au lieu des traditionnels présents de mariage, le couple a invité ses convives à ${s.cadeau}. Les invités ont savouré un repas inspiré des cabanes à sucre traditionnelles, avec de la tire sur la neige servie en fin de soirée. Un moment magique et authentique que le couple et leurs invités chériront longtemps !`,
           questions: [
             makeQuestion('De quelle célébration d’envergure l’article fait-il le récit ?', 'Du mariage chaleureux d’un athlète professionnel québécois', 'D’un hommage marquant le départ en retraite d’un entraîneur', 'D’une soirée commémorant une victoire en championnat de hockey', ['mariage', 'union']),
             makeQuestion('Quel geste charitable les mariés ont-ils demandé à leurs invités ?', `Offrir des contributions au profit ${de(s.cadPara)}`, 'Fabriquer eux-mêmes les tables et chaises du banquet', 'Prendre en charge l’achat de tous les meubles requis pour accueillir les invités', [s.cadKw]),
@@ -2682,15 +2682,15 @@ export const N05_06_SCENARIOS = {
             formatrice: 'Julie',
             outil: 'une clé plate pour dévisser l’axe de la roue sans forcer',
             methode: 'passer doucement les doigts le long de la chambre à air gonflée',
-            sechage: 'appliquer une fine couche de dissolvant sur la zone poncée',
+            sechage: 'appliquer une fine couche de dissolvant sur la zone ciblée',
             methodeAns: 'Glisser délicatement ses doigts le long du tube pour sentir le flux d’air',
             methodeDist1: 'Frotter vigoureusement avec une brosse métallique rugueuse',
             methodeDist2: 'Verser de la cire chaude sur tout le pourtour de la tringle',
-            sechageAns: 'Étaler une mince couche de dissolvant sur la surface préalablement poncée',
+            sechageAns: 'Étaler une mince couche de dissolvant sur la surface ciblée',
             sechageDist1: 'Coller immédiatement la rustine sans aucune préparation de surface préalable',
             sechageDist2: 'Saupoudrer du sable fin pour sécher rapidement la colle liquide',
             evidenceMethode: ['doigts', 'chambre', 'air'],
-            evidenceSechage: ['dissolvant', 'zone', 'poncée'],
+            evidenceSechage: ['dissolvant', 'zone', 'ciblée'],
           },
         ]
         const t = tuples[Math.floor(rand() * tuples.length)]
@@ -4011,7 +4011,7 @@ export const N05_06_SCENARIOS = {
             verbeRafale: 'ont provoqué',
             foyers: 'près de cent quatre-vingts mille clients d’Hydro-Québec',
             mobilisation: 'des équipes de monteurs venues en renfort d’autres régions s’activent sans relâche',
-            causeAns: 'Des vents torrentiels et de très fortes pluies ayant endommagé le réseau',
+            causeAns: 'Des vents violents et des pluies torrentielles ayant endommagé le réseau',
             causeDist1: 'Une collision de cargos océaniques contre les grands pylônes métalliques du fleuve',
             causeDist2: 'Une cyberattaque internationale paralysant l’ensemble des centrales hydroélectriques',
             mobilisationAns: 'L’appui d’effectifs de monteurs acheminés depuis d’autres zones pour réparer',
@@ -4119,7 +4119,7 @@ export const N05_06_SCENARIOS = {
             lieuAns: 'Dans les eaux douces de la rivière Saint-Maurice à Shawinigan',
             lieuDist1: 'Dans une piscine olympique municipale fermée pour sa vidange annuelle',
             lieuDist2: 'Dans le canal d’évacuation bétonné d’un complexe pétrochimique côtier',
-            alerteAns: 'Des personnes en chaloupe de pêche ayant constaté sa remontée d’eau',
+            alerteAns: 'Des personnes en chaloupe de pêche ayant constaté sa remontée à la surface',
             alerteDist1: 'Des contrôleurs aériens observant les pistes sur les écrans radar d’un aéroport',
             alerteDist2: 'Des ingénieurs géomètres effectuant le tracé d’un nouveau tronçon d’autoroute',
             evidenceLieu: ['Saint-Maurice', 'Shawinigan'],
