@@ -49,7 +49,7 @@ const N3_TRANSIT_NETS = [
 ]
 const N3_TRANSIT_PASS_LIST = [
   { passFr: 'soirée illimitée', passZh: '晚间通票', priceFr: '6 dollars' },
-  { passFr: 'fin de semaine', passZh: '周末通票', priceFr: '15 dollars' },
+  { passFr: 'de fin de semaine', passZh: '周末通票', priceFr: '15 dollars' },
   { passFr: 'mensuel régulier', passZh: '月度通票', priceFr: '94 dollars' },
   { passFr: 'une journée', passZh: '单日通票', priceFr: '11 dollars' },
 ]
@@ -219,7 +219,7 @@ export const N03_L_1 = [
         text,
         questions: [
           q('同事计划在周末做什么？', plan.actZh, othersPlan[0].actZh, othersPlan[1].actZh, [plan.day.toLowerCase()]),
-          q('面对询问，合适的回答是：', 'Moi, je vais me reposer à la maison.', 'Oui, je suis resté chez moi hier soir.', 'Non, je prends le métro chaque matin.', ['prévu']),
+          q('面对询问，合适的回答是：', 'Moi, je vais me reposer à la maison.', 'Le week-end passé, j’ai lavé l’auto.', 'Mon frère va jouer au hockey samedi.', ['prévu']),
         ],
       }
     },
@@ -253,7 +253,7 @@ export const N03_L_1 = [
         text,
         questions: [
           q('同事邀请对方去哪里用餐？', lunch.placeZh, othersLunch[0].placeZh, othersLunch[1].placeZh, [lunch.place.split(' ')[1].toLowerCase()]),
-          q('面对邀请，合适的回答是：', 'Avec plaisir, j’arrive dans cinq minutes.', 'Oui, j’ai déjà imprimé tous les dossiers.', 'Non, j’ai envoyé le courriel ce matin.', ['dîner']),
+          q('面对邀请，合适的回答是：', 'Avec plaisir, j’arrive dans cinq minutes.', 'Le repas commence vers treize heures trente.', 'Ce restaurant accepte les cartes de crédit.', ['dîner']),
         ],
       }
     },
@@ -274,7 +274,7 @@ export const N03_L_1 = [
     text: '— Salut Martin ! Tu as des projets pour la longue fin de semaine ? Nous partons deux jours en camping dans Charlevoix s’il fait beau. Tu viens avec nous ?',
     questions: [
       q('马丁被邀请参加什么活动？', '去夏勒瓦地区露营', '在市中心商场购物', '去市立图书馆复习', ['camping', 'Charlevoix']),
-      q('面对邀请，合适的回答是：', 'Merci, mais j’ai déjà un engagement.', 'Non, j’ai déjà posté la lettre hier.', 'Oui, le magasin est ouvert ce midi.', ['projets']),
+      q('面对邀请，合适的回答是：', 'Merci, mais j’ai déjà un engagement.', 'Mon cousin a visité Québec l’an dernier.', 'Il a fait très froid ici l’an dernier.', ['projets']),
     ],
   },
 ]
@@ -816,10 +816,10 @@ const N3_JOBS_LIST = [
   { job: 'associé au service à la clientèle', kw: 'clientèle', short: 'agent de service' },
 ]
 const N3_ATTACHMENTS_LIST = [
-  { att: 'votre curriculum vitæ complet', kw: 'curriculum', p: 'son curriculum vitæ récent' },
-  { att: 'vos disponibilités de travail écrites', kw: 'disponibilités', p: 'ses disponibilités de travail' },
-  { att: 'deux références professionnelles vérifiables', kw: 'références', p: 'deux références professionnelles' },
-  { att: 'une copie de votre diplôme secondaire', kw: 'diplôme', p: 'la copie de son diplôme récent' },
+  { att: 'votre curriculum vitæ complet', kw: 'curriculum', p: 'son curriculum vitæ complet' },
+  { att: 'vos disponibilités de travail écrites', kw: 'disponibilités', p: 'ses disponibilités de travail écrites' },
+  { att: 'deux références professionnelles vérifiables', kw: 'références', p: 'deux références professionnelles vérifiables' },
+  { att: 'une copie de votre diplôme secondaire', kw: 'diplôme', p: 'la copie de son diplôme secondaire' },
 ]
 
 export const N03_R_1 = [
@@ -1575,7 +1575,7 @@ const N4_COMMUNITY_COURSES = [
     kwCourse: 'français',
     otherTopic1: 'les horaires de la piscine pour la fin de semaine',
     otherTopic2: 'les tarifs de location de la salle des fêtes',
-    answerGood: 'Remplissez la fiche jaune au secrétariat avec votre carte.',
+    answerGood: 'Indiquez votre niveau de français sur la fiche d’inscription.',
     answerWrong1: 'Achetez une carte d’accès pour la piscine à la réception.',
     answerWrong2: 'Déposez vos dons de livres dans la boîte du hall d’entrée.',
   },
@@ -1692,7 +1692,7 @@ export const N04_L_1 = [
     text: '— Excusez-moi monsieur, ma carte d’autobus mensuelle ne fonctionne plus quand je la passe sur la borne ce matin. Est-ce que vous pourriez m’expliquer la procédure pour régler ce problème ? Je dois prendre l’autobus tous les jours.',
     questions: [
       q('Quelle explication l’usager demande-t-il au commis ?', 'la façon de remplacer une carte défectueuse', 'le tarif d’un billet unitaire pour le métro', 'l’horaire de passage du prochain autobus rapide', ['carte']),
-      q('Quelle réponse du commis est adaptée à cette situation ?', 'Montrez votre carte au guichet avec votre reçu.', 'Achetez un billet simple dans cette distributrice.', 'Consultez les horaires de passage sur le panneau.', ['carte']),
+      q('Quelle réponse du commis est adaptée à cette situation ?', 'Montrez votre carte au guichet avec votre reçu.', 'Renouvelez votre abonnement étudiant au guichet.', 'Consultez les horaires de passage sur le panneau.', ['carte']),
     ],
   },
 ]
@@ -2180,7 +2180,7 @@ const N4_HEATING_BUNDLES = [
     causeOpt: 'une défaillance sur la pompe d’eau',
     impact: 'les radiateurs sont restés froids dans tous les appartements',
     repair: 'un réparateur certifié viendra poser une pièce neuve',
-    repOpt: 'un réparateur posera une pièce neuve rapidement',
+    repOpt: 'un réparateur posera une pièce neuve sur la pompe d’eau',
     kwCause: 'pompe',
     kwRep: 'réparateur',
   },
@@ -2792,8 +2792,8 @@ export const N04_L_6 = [
     situation: 0,
     text: '— Pour les vacances d’été en famille, je préfère le camping sous la tente au bord d’un lac calme plutôt qu’un hôtel bondé en ville. Ce que j’aime le plus, c’est le feu de camp le soir sous les étoiles et la baignade matinale. La routine est bruyante toute l’année, j’ai besoin d’air frais.',
     questions: [
-      q('Quel genre de vacances la personne privilégie-t-elle en été ?', 'dormir sous la tente au bord du lac', 'loger dans un grand complexe hôtelier', 'séjourner dans un appartement très animé', ['tente']),
-      q('Qu’apprécie-t-elle tout spécialement lors de ce séjour ?', 'la baignade au réveil et le feu de camp', 'les longues randonnées en forêt sauvage', 'les promenades à bicyclette autour du lac', ['baignade']),
+      q('Quel genre de vacances la personne privilégie-t-elle en été ?', 'dormir sous la tente au bord du lac', 'loger dans un grand hôtel bondé en ville', 'séjourner dans un petit appartement en ville', ['tente']),
+      q('Qu’apprécie-t-elle tout spécialement lors de ce séjour ?', 'la baignade au réveil et le feu de camp', 'les longues randonnées en forêt sauvage le matin', 'les promenades à vélo autour du grand lac', ['baignade']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Crêperie bretonne de la rue Saint-Denis
