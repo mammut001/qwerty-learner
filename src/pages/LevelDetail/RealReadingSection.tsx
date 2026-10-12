@@ -1,5 +1,6 @@
 import type { RealReadingMeta, RealReadingPassage, RealReadingScoreResult } from '@/resources/realReadingLoader'
 import { getRealReadingPassage, listRealReadingForLevel, scoreRealReadingPassage } from '@/resources/realReadingLoader'
+import { trackAnalyticsEvent } from '@/utils/analytics'
 import { useEffect, useMemo, useState } from 'react'
 import IconBook from '~icons/tabler/book'
 import IconCheck from '~icons/tabler/check'
@@ -403,7 +404,13 @@ export default function RealReadingSection({ level }: { level: number }) {
             key={meta.id}
             meta={meta}
             isOpen={openPassageId === meta.id}
-            onToggle={() => setOpenPassageId(openPassageId === meta.id ? null : meta.id)}
+            onToggle={() => {
+              const willOpen = openPassageId !== meta.id
+              if (willOpen) {
+                trackAnalyticsEvent('real_reading_open')
+              }
+              setOpenPassageId(willOpen ? meta.id : null)
+            }}
             bestScore={bestScores[meta.id] ?? null}
             onScoreUpdated={handleScoreUpdated}
           />

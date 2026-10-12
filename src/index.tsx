@@ -1,4 +1,7 @@
 import './services/localProfileInit'
+import { initAnalytics } from './utils/analytics'
+
+initAnalytics()
 import AccessGate from './components/AccessGate'
 import AuthGate from './components/AuthGate'
 import Header from './components/Header'

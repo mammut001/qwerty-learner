@@ -5,6 +5,8 @@ services:
       dockerfile: Dockerfile
       args:
         VITE_STUDY_API_BASE_URL: ${VITE_STUDY_API_BASE_URL:-}
+        VITE_FIREBASE_AUTH_DOMAIN: ${VITE_FIREBASE_AUTH_DOMAIN:-}
+        VITE_UMAMI_WEBSITE_ID: ${VITE_UMAMI_WEBSITE_ID:-}
     ports:
       - '8990:5173'
     depends_on:
