@@ -390,24 +390,24 @@ export const N09_10_SCENARIOS = {
           "Quel est le but impératif des consignes transmises par la directrice de laboratoire ?",
           "Mobiliser l’équipe et redistribuer les responsabilités en vue d’une inspection officielle",
           "Annoncer l’annulation pure et simple de l’ensemble des recherches pharmacologiques en cours dans l’institut",
-          "Recruter de nouveaux chercheurs pour combler des départs imprévus à la retraite"
+          "Reporter l’inspection de Santé Canada prévue mardi prochain afin de terminer l’inventaire des molécules"
         ],
         [
           "De quelle façon les directives sont-elles formulées par la responsable ?",
           "Des tâches précises et nominatives sont assignées avec des délais de rigueur stricts",
-          "Une suggestion générale est soumise au vote démocratique des étudiants du laboratoire",
+          "Des consignes générales sont lancées sans attribution nominative ni échéance précise",
           "Une critique sévère du travail passé est formulée sans proposer de nouvelles consignes"
         ],
         [
           "Que sous-entend l’obligation de suspendre les manipulations individuelles pour les doctorants ?",
           "La préparation de l’audit réglementaire prime sur l’avancement des projets personnels",
-          "Les doctorants ne possèdent pas les compétences nécessaires pour manipuler les réactifs",
-          "Le laboratoire ne dispose plus des ressources matérielles pour poursuivre les thèses"
+          "Les doctorants doivent désormais vérifier les dates de péremption des molécules réfrigérées",
+          "L’audit de Santé Canada est reporté tant que les doctorants n’ont pas terminé leurs manipulations"
         ],
         [
           "Que signifie l’expression « à vos postes » dans cette intervention orale ?",
           "Un signal invitant chacun à retourner immédiatement exécuter son travail assigné",
-          "Une consigne demandant à toute l’équipe de se regrouper dans le bureau de la direction",
+          "Un ordre de quitter son poste pour rejoindre immédiatement la réunion de coordination",
           "Une autorisation accordée aux doctorants de reprendre leurs manipulations individuelles"
         ]
       ],
@@ -420,8 +420,8 @@ export const N09_10_SCENARIOS = {
         [
           "Quel impératif motive les directives formulées par le metteur en scène ?",
           "Accélérer et sécuriser les transitions scéniques avant la représentation inaugurale",
-          "Refaire intégralement les décors de la scène du salon pour modifier le jeu des comédiens",
-          "Remplacer les comédiens principaux qui n’arrivent pas à mémoriser leurs répliques"
+          "Reporter la première de la pièce pour attendre la réparation des rideaux de velours",
+          "Supprimer le noir scène pour gagner du temps entre le salon et la cour intérieure"
         ],
         [
           "Comment le metteur en scène organise-t-il la transmission de ses ordres ?",
@@ -432,14 +432,14 @@ export const N09_10_SCENARIOS = {
         [
           "Que déduit-on implicitement de l’interdiction de bouger avant le signal vert ?",
           "Le travail dans l’obscurité comporte des risques graves d’accidents matériels ou corporels",
-          "Les machinistes ne savent pas compter le temps sans l’aide d’un chronomètre sonore",
-          "Le metteur en scène souhaite simplement vérifier le fonctionnement des ampoules de couleur"
+          "Les machinistes peuvent déplacer les praticables dès le début du noir, sans attendre le signal",
+          "Le signal lumineux vert est une consigne esthétique destinée à synchroniser les lumières avec la musique"
         ],
         [
           "Dans le vocabulaire théâtral, que désigne le mot « praticable » ?",
           "Une plateforme mobile en bois conçue pour supporter le jeu des acteurs sur scène",
-          "Un livret de répétition détaillé contenant les annotations de mise en scène manuscrites du dramaturge",
-          "Un costume léger porté par les doublures durant les raccords de maquillage"
+          "Un rideau de velours suspendu dont la tension est réglée pour éviter les ondulations",
+          "Un élément de décor escamotable installé dans la cour pour le changement de plateau"
         ]
       ],
       "frame": "directives de metteur en scène — création des décors théâtraux"
@@ -451,14 +451,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’enjeu prioritaire énoncé dans les consignes de la directrice de recherche ?",
           "La sécurisation rigoureuse et le contrôle de qualité des données génomiques traitées",
-          "Le calibrage minutieux des filtres de contrôle sur les séquences d’acide nucléique",
-          "La consignation des scripts d’algorithmes dans le dépôt de version institutionnel"
+          "La migration des fichiers bruts vers des serveurs non chiffrés pour accélérer le traitement",
+          "Le transfert des fichiers bruts vers les disques durs locaux des postes pour accélérer l’extraction"
         ],
         [
           "Quelle méthode de gestion du travail transparaît dans ces instructions verbales ?",
           "Une répartition claire des responsabilités techniques assortie de critères de conformité",
           "Une délégation informelle des tâches laissant chaque employé libre de définir ses propres méthodes",
-          "Une discussion philosophique informelle sur les limites de l’intelligence artificielle"
+          "Une répartition des tâches confiée aux analystes les plus expérimentés, sans critère de conformité"
         ],
         [
           "Quel constat découle implicitement du rejet des codes non documentés ?",
@@ -469,8 +469,8 @@ export const N09_10_SCENARIOS = {
         [
           "Que signifie le terme « crypter » dans cette consigne technologique ?",
           "Encoder les données numériques pour les rendre illisibles sans clé d’accès autorisée",
-          "Effacer définitivement un ensemble de fichiers sans laisser aucune archive résiduelle",
-          "Imprimer les documents confidentiels sur du papier sécurisé avec filigrane officiel"
+          "Copier les fichiers bruts sur des serveurs ouverts sans restriction d’accès ni mot de passe",
+          "Déchiffrer les séquences sur les postes de travail pour que les analystes puissent les lire"
         ]
       ],
       "frame": "directives de directrice — séquençage génomique en laboratoire bio-informatique"
@@ -482,14 +482,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle est la préoccupation immédiate guidant les directives de la metteuse en scène ?",
           "L’ajustement mécanique et la sécurisation des décors suspendus avant la répétition générale",
-          "L’annulation pure et simple de la présence des musiciens de l’orchestre pour réduire les frais de location",
-          "La modification intégrale du texte du livret d’opéra à quelques heures du spectacle"
+          "Le retrait du système de freinage de secours afin d’accélérer la descente de la passerelle",
+          "L’installation de chandeliers mobiles sur la passerelle pour accélérer les déplacements du chœur"
         ],
         [
           "Comment les consignes techniques sont-elles agencées dans ce discours ?",
           "Des paramètres temporels et physiques précis sont énoncés avec des règles de protection",
-          "Un blâme collectif particulièrement sévère est adressé aux chanteurs du chœur pour leur manque de rigueur",
-          "Un blâme collectif est adressé aux chanteurs du chœur pour leur manque de ponctualité"
+          "Des instructions vagues sont données sans chiffre précis ni consigne de sécurité pour les régisseurs",
+          "Les règles de protection sont énoncées d’emblée, puis suivent les paramètres de la descente"
         ],
         [
           "Que sous-entend la remarque sur le système de freinage de secours de la passerelle ?",
@@ -500,8 +500,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans le vocabulaire de la scène, que désigne le terme « cintre » ?",
           "La partie supérieure d’une cage de scène où sont logées les poulies et les machineries",
-          "Un accessoire en fil de fer servant à suspendre les costumes d’époque en loge",
-          "Un instrument de percussion utilisé par l’orchestre pour marquer le début du spectacle"
+          "Le personnel de coulisse chargé de fixer les accessoires au sol avant chaque spectacle",
+          "Une estrade de répétition démontable utilisée par le chœur avant la pause de midi"
         ]
       ],
       "frame": "directives de mise en scène — scénographie et éclairage théâtral"
@@ -515,26 +515,26 @@ export const N09_10_SCENARIOS = {
         [
           "Sur quel enjeu principal porte l’échange d’opinions entre les deux collègues ?",
           "La pertinence d’imposer des journées fixes de présence au bureau pour l’ensemble du personnel",
-          "Le risque de démissions chez les analystes recrutés par des firmes concurrentes plus flexibles",
-          "L’organisation de plages obligatoires de mentorat en personne pour intégrer les nouveaux stagiaires"
+          "Le recours à des indicateurs quotidiens de productivité pour surveiller les employés en télétravail",
+          "L’interdiction des échanges par messagerie instantanée entre les nouvelles recrues et les stagiaires"
         ],
         [
           "Quelle est la divergence de fond qui oppose les perspectives de Caroline et de Marc ?",
           "L’autonomie accordée aux équipes face aux impératifs d’encadrement des nouveaux arrivants",
-          "La fermeture définitive des bureaux physiques contre le maintien d’un siège corporatif luxueux",
-          "Le montant des indemnités kilométriques à verser aux employés résidant en banlieue éloignée"
+          "La relance du télétravail complet proposée par Marc contre le retour rigide défendu par Caroline",
+          "La prolongation du télétravail complet pour les nouvelles recrues, que Marc souhaite préserver"
         ],
         [
           "Que déduit-on implicitement de la mise en garde de Caroline sur la rétention des talents ?",
           "Les professionnels qualifiés accordent une grande valeur à la flexibilité de leurs horaires",
           "Les meilleurs spécialistes préfèrent des firmes imposant une présence physique continue au bureau",
-          "Les employeurs concurrents offrent systématiquement des salaires deux fois plus élevés"
+          "Les employés refusent désormais la moindre présence physique au bureau, malgré les consignes"
         ],
         [
           "Dans cet échange, que qualifie l’expression « règle mur à mur » ?",
           "Une directive uniforme et rigide appliquée indistinctement à tous sans nuance contextuelle",
-          "Une politique visant à repeindre les cloisons intérieures des aires de travail ouvertes",
-          "Un protocole d’insonorisation acoustique destiné à limiter le bruit entre les bureaux fermés"
+          "Une règle négociée séparément avec chaque équipe selon ses livrables et ses horaires",
+          "Une disposition qui exempte les nouveaux arrivants de l’obligation de présence au bureau"
         ]
       ],
       "frame": "discussion entre collègues — politiques de travail hybride en entreprise"
@@ -546,26 +546,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’objet central de la controverse discutée par les deux connaissances ?",
           "Les répercussions économiques et sociales de la piétonnisation complète d’une grande artère",
-          "La démolition planifiée d’immeubles patrimoniaux anciens pour construire un vaste centre commercial moderne",
-          "La démolition d’immeubles patrimoniaux pour construire un centre commercial moderne"
+          "La levée des restrictions d’heures de livraison pour les camionneurs, réclamée par les cafés",
+          "La mise en place de navettes électriques de quartier décidée sans consultation des commerçants"
         ],
         [
           "De quelle manière les interlocuteurs structurent-ils leur confrontation de points de vue ?",
           "Les bénéfices de la convivialité urbaine sont confrontés aux contraintes d’accessibilité commerciale",
           "Un plaidoyer unilatéral pour la piétonnisation intégrale ignorant les pertes financières des commerçants",
-          "Une dénonciation sévère de l’inaction municipale face à la prolifération des grands centres d’achats"
+          "Les contraintes des marchands sont d’abord rejetées comme négligeables, avant les bénéfices de la convivialité"
         ],
         [
           "Quel compromis implicite émerge de la conclusion de la discussion ?",
           "La piétonnisation doit s’accompagner d’aménagements logistiques adaptés aux besoins variés",
           "La circulation automobile devrait être rétablie sans aucune restriction sur toute l’avenue",
-          "Tous les commerces spécialisés devraient déménager dans des parcs industriels périphériques"
+          "La piétonnisation peut se passer d’aménagements logistiques, puisque les navettes électriques suffisent"
         ],
         [
           "Dans ce dialogue, quel est le sens du terme « achalandage » ?",
           "Le nombre de clients ou de visiteurs fréquentant un lieu commercial donné",
-          "La quantité de marchandises entreposées dans les réserves arrière d’un magasin",
-          "Le coût des permis municipaux exigés pour l’installation de terrasses estivales"
+          "Le montant des recettes réalisées par un commerce grâce aux ventes effectuées en terrasse",
+          "La marge bénéficiaire qu’un commerce tire de la vente de boissons en terrasse"
         ]
       ],
       "frame": "échange entre connaissances — controverse sur la piétonnisation d’une avenue"
@@ -577,14 +577,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle question stratégique oppose les deux gestionnaires de la coopérative ?",
           "La conciliation entre la robotisation indispensable et la responsabilité envers l’emploi local",
-          "La vente immédiate et intégrale de la coopérative agricole régionale à une grande multinationale étrangère",
+          "La question de savoir si Hélène doit renoncer à la robotisation pour préserver les emplois manuels",
           "L’interdiction définitive de toute technologie informatique dans les usines de transformation"
         ],
         [
           "Comment l’argumentation d’Hélène répond-elle aux objections de Simon ?",
           "Elle invoque la pénurie d’employés et la compétitivité pour justifier la modernisation",
-          "Elle affirme que les travailleurs manuels ne méritent aucune compensation salariale décente",
-          "Elle propose de transférer l’ensemble des activités de transformation dans une province voisine"
+          "Elle juge que la pénurie de main-d’œuvre est un faux problème et que la robotisation est inutile",
+          "Elle concède que la robotisation menace le tissu social et accepte de la reporter"
         ],
         [
           "Quel constat découle implicitement de la suggestion finale de formation de Simon ?",
@@ -595,8 +595,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans ce contexte économique, que signifie le verbe « péricliter » ?",
           "Décliner progressivement et risquer de disparaître faute de compétitivité suffisante",
-          "Accroître subitement son chiffre d’affaires grâce à une demande imprévue du marché",
-          "Fusionner avec succès avec des partenaires commerciaux au sein d’une nouvelle entité"
+          "Rester stable malgré la pénurie de main-d’œuvre grâce à une rotation des équipes",
+          "Être racheté par un concurrent privé qui conserve intacts les emplois manuels"
         ]
       ],
       "frame": "discussion entre collègues — plan de modernisation d’une coopérative"
@@ -609,7 +609,7 @@ export const N09_10_SCENARIOS = {
           "Quel est le cœur du débat soulevé par la tarification dynamique de l’électricité ?",
           "L’équilibre entre l’efficacité énergétique environnementale et la justice sociale pour les ménages",
           "La suppression programmée des subventions destinées à l’isolation thermique des logements anciens",
-          "La privatisation imminente du réseau public de distribution d’électricité québécois"
+          "Le financement de nouvelles centrales hydroélectriques par la surtaxe des pointes hivernales"
         ],
         [
           "De quelle manière les deux interlocuteurs confrontent-ils leurs visions ?",
@@ -626,8 +626,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans cette discussion, que désigne l’expression « heures de pointe » ?",
           "Les périodes de forte demande où la consommation globale du réseau atteint son maximum",
-          "Les moments où les réparateurs d’urgence interviennent sur les lignes à haute tension",
-          "Les créneaux horaires où l’accès au service à la clientèle téléphonique est indisponible"
+          "Les périodes creuses où les tarifs réduits profitent surtout aux propriétaires équipés de maisons solaires",
+          "Les soirées d’été où les propriétaires fortunés revendent l’électricité de leurs maisons solaires"
         ]
       ],
       "frame": "échange entre connaissances — controverse sur la tarification énergétique résidentielle"
@@ -647,19 +647,19 @@ export const N09_10_SCENARIOS = {
         [
           "Comment l’exposé scientifique structure-t-il la description du danger acoustique ?",
           "Les mécanismes physiologiques de destruction cellulaire sont décrits avant les stratégies de prévention",
-          "Une revue historique des procès intentés par des ouvriers contre des manufactures du siècle passé",
-          "Un comparatif financier des coûts de réparation des tympans artificiels est détaillé"
+          "Des solutions d’encoffrement sont proposées dès l’ouverture, puis l’étiologie de la surdité est expliquée",
+          "Les données de l’Institut national de santé publique ouvrent l’exposé, avant la description des cellules ciliées"
         ],
         [
           "Que déduit-on implicitement de la remarque sur le retrait temporaire des protecteurs ?",
           "Une interruption même brève de la protection compromet l’efficacité globale de la mesure",
           "La croyance voulant que le port intermittent de bouchons suffise à prévenir les traumatismes sonores",
-          "Les protecteurs auditifs empêchent complètement de respirer convenablement en atelier"
+          "Un retrait bref des protecteurs reste sans conséquence si des cabines de repos sont disponibles"
         ],
         [
           "Dans ce contexte clinique, que qualifie l’adjectif « insidieuse » ?",
           "Une dégradation auditive lente et discrète qui progresse sans douleur apparente immédiate",
-          "Une maladie contagieuse qui se transmet rapidement d’un travailleur à un autre par contact",
+          "Une fatigue auditive passagère qui disparaît après une nuit de sommeil sans bruit",
           "Une blessure acoustique brutale provoquée par une déflagration soudaine déchirant le tympan"
         ]
       ],
@@ -678,8 +678,8 @@ export const N09_10_SCENARIOS = {
         [
           "De quelle manière l’analyse psychologique organise-t-elle ses constats ?",
           "Les effets bénéfiques de la reconnaissance sont détaillés avant d’être opposés aux méfaits de son absence",
-          "Une série de reproches virulents adressée aux syndicats hospitaliers sans aucune donnée probante à l’appui",
-          "Un protocole mathématique de calcul des primes de fin d’année est proposé aux gestionnaires"
+          "L’injustice distributive est décrite en premier, avant les bienfaits de la reconnaissance et de la coopération",
+          "Les conseils pratiques aux gestionnaires ouvrent l’article, avant l’exposé des données sur la santé"
         ],
         [
           "Quel constat découle implicitement du rôle de la « coopération horizontale » ?",
@@ -690,8 +690,8 @@ export const N09_10_SCENARIOS = {
         [
           "Que désigne l’expression « injustice distributive » dans ce cadre d’analyse ?",
           "Le déséquilibre ressenti entre les efforts personnels investis et les marques de reconnaissance reçues",
-          "Le refus d’accorder des congés payés aux infirmières effectuant des heures supplémentaires de nuit",
-          "Une répartition inégale des fournitures de bureau et des uniformes entre les services cliniques"
+          "Une pénurie de fournitures médicales qui oblige les infirmières à réutiliser leur matériel",
+          "La rémunération forfaitaire des cadres intermédiaires, jugée supérieure à celle des infirmières"
         ]
       ],
       "frame": "article spécialisé — bienfaits psychologiques de la reconnaissance au travail"
@@ -703,14 +703,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’objet technique central documenté dans cette fiche professionnelle ?",
           "La méthodologie rigoureuse de mesure et les risques globaux liés aux bruits d’impact industriels",
-          "La fabrication artisanale de casques de protection auditive en matériaux recyclés locaux",
-          "La pose d’écrans absorbants composites pour réduire le bruit de crête des presses mécaniques"
+          "La formation obligatoire des opérateurs à la rotation des postes les plus exposés",
+          "La mise à niveau des dosimètres individuels pour réduire directement le bruit de crête des presses"
         ],
         [
           "Comment l’exposé technique articule-t-il les exigences de sécurité au travail ?",
           "La nécessité d’une dosimétrie continue est justifiée par les effets auditifs et physiologiques du bruit",
           "Un réquisitoire virulent contre l’achat de tout matériel électronique de mesure moderne présenté aux employeurs",
-          "Une comparaison tarifaire entre différentes marques de dosimètres étrangers est dressée"
+          "Les mesures d’atténuation sont proposées dès l’ouverture, avant l’explication des effets physiologiques"
         ],
         [
           "Que laisse entendre la remarque sur les réactions du système cardiovasculaire ?",
@@ -721,8 +721,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans ce texte normatif, qu’est-ce qu’un « bruit d’impact » ?",
           "Une impulsion sonore brève et violente causée par le choc brutal de deux masses solides",
-          "Un sifflement continu et régulier produit par la circulation de vapeur dans les conduits",
-          "Un bruit de fond modéré généré par la ventilation mécanique générale du bâtiment"
+          "Une vibration continue transmise au sol par le passage répété des chariots élévateurs",
+          "Une pression acoustique mesurée en continu sur une journée entière à l’aide d’un sonomètre"
         ]
       ],
       "frame": "guide technique — pénibilité sonore et maladies professionnelles de l’ouïe"
@@ -734,26 +734,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle thèse principale cette recherche en relations industrielles défend-elle ?",
           "La flexibilité professionnelle nécessite un soutien social et une reconnaissance solide pour être saine",
-          "Le travail à distance provoque une baisse irrémédiable de la rentabilité des entreprises de haute technologie",
+          "La reconnaissance formalisée des équipes doit être réservée aux seuls cadres pour rester efficace",
           "L’autonomie accordée aux travailleurs suffit à éliminer tout risque d’épuisement professionnel"
         ],
         [
           "De quelle manière la démonstration des chercheurs progresse-t-elle dans le texte ?",
           "Un paradoxe moderne est soulevé avant de proposer des remèdes relationnels et managériaux éprouvés",
           "Une apologie aveugle du travail à toute heure du jour et de la nuit présentée sans la moindre réserve critique",
-          "Une critique virulente des compétences informatiques des jeunes diplômés est exposée en détail"
+          "Des remèdes managériaux sont proposés d’emblée, puis le paradoxe de la flexibilité est soulevé"
         ],
         [
           "Quel risque implicite est associé à la « porosité excessive » entre vie privée et travail ?",
           "L’incapacité psychologique de décrocher mentalement favorise l’usure précoce des travailleurs",
-          "Les employeurs risquent de voir tous leurs secrets d’affaires confidentiels divulgués aux membres des familles",
-          "Les employés refusent de consacrer du temps à leurs enfants en fin de semaine"
+          "Les travailleurs deviennent plus productifs, car l’effritement des frontières stimule leur motivation",
+          "Les salariés se désintéressent de la réussite collective dès qu’ils reçoivent une reconnaissance réciproque"
         ],
         [
           "Que désigne l’expression « garde-fou » dans ce contexte organisationnel ?",
           "Un mécanisme protecteur destiné à prévenir un dérapage ou une dégradation de la santé mentale",
-          "Une grille métallique de sécurité installée sur les toits des édifices pour éviter les chutes",
-          "Un règlement intérieur draconien interdisant formellement l’usage des téléphones cellulaires"
+          "Un dispositif de surveillance qui enregistre les heures de travail des employés à distance",
+          "Un espace de travail partagé où les équipes se disputent les meilleurs postes"
         ]
       ],
       "frame": "étude universitaire — soutien managérial et bien-être psychologique des équipes"
