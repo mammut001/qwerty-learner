@@ -29,7 +29,8 @@ import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { useImmer } from 'use-immer'
 
-const vowelLetters = ['A', 'E', 'I', 'O', 'U']
+const vowelLetters = 'AEIOU'
+const frenchVowelLetters = 'AEIOUYŒÆ'
 
 export default function WordComponent({ word, onFinish }: { word: Word; onFinish: () => void }) {
   // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
@@ -136,11 +137,20 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
         if (wordDictationConfig.type === 'hideAll') return false
 
         const letter = wordState.displayWord[index]
+        const isVowel =
+          currentLanguage === 'fr'
+            ? frenchVowelLetters.includes(
+                letter
+                  .normalize('NFD')
+                  .replace(/[\u0300-\u036f]/g, '')
+                  .toUpperCase(),
+              )
+            : vowelLetters.includes(letter.toUpperCase())
         if (wordDictationConfig.type === 'hideVowel') {
-          return vowelLetters.includes(letter.toUpperCase()) ? false : true
+          return !isVowel
         }
         if (wordDictationConfig.type === 'hideConsonant') {
-          return vowelLetters.includes(letter.toUpperCase()) ? true : false
+          return isVowel
         }
         if (wordDictationConfig.type === 'randomHide') {
           return wordState.randomLetterVisible[index]
@@ -149,6 +159,7 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
       return true
     },
     [
+      currentLanguage,
       isHoveringWord,
       isShowAnswerOnHover,
       wordDictationConfig.isOpen,
