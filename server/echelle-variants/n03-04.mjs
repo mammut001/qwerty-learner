@@ -3723,16 +3723,16 @@ const N4_BANK_FRAUD_BUNDLES = [
   },
 ]
 const N4_BANK_RULES = [
-  'Ne cliquez sur aucun lien contenu dans ces messages.',
-  'Supprimez immédiatement ce type de notification.',
-  'N’entrez jamais vos identifiants sur un site non sécurisé.',
-  'Ignorez ces demandes inhabituelles sans y répondre.',
+  'ne cliquez sur aucun lien contenu dans ces messages.',
+  'supprimez immédiatement ce type de notification.',
+  'n’entrez jamais vos identifiants sur un site non sécurisé.',
+  'ignorez ces demandes inhabituelles sans y répondre.',
 ]
 const N4_BANK_CONTACTS = [
   { act: 'appelez le numéro officiel au verso de votre carte', actOpt: 'appeler le numéro officiel au dos de sa carte', kwAct: 'numéro' },
-  { act: 'joignez le service à la clientèle par l’application', actOpt: 'utiliser l’application officielle de la banque', kwAct: 'application' },
-  { act: 'rendez-vous directement à votre succursale locale', actOpt: 'se présenter en succursale auprès d’un conseiller', kwAct: 'succursale' },
-  { act: 'écrivez au bureau de sécurité de votre institution', actOpt: 'signaler le message au bureau de sécurité', kwAct: 'sécurité' },
+  { act: 'joignez le service d’aide par l’application', actOpt: 'joindre l’assistance par l’application', kwAct: 'application' },
+  { act: 'rendez-vous directement à votre succursale', actOpt: 'se rendre directement à sa succursale', kwAct: 'succursale' },
+  { act: 'ouvrez une session sur le clavardage officiel', actOpt: 'utiliser le clavardage officiel en ligne', kwAct: 'clavardage' },
 ]
 
 const N4_WORK_INCIDENTS = [
@@ -4003,7 +4003,7 @@ export const N04_R_3 = [
     text: 'Message de sécurité de votre caisse. Des courriels frauduleux circulent actuellement au nom de notre institution. Ces messages vous demandent de confirmer votre mot de passe pour débloquer votre accès en ligne. Sachez que notre institution ne demande jamais vos identifiants par courriel. Ne cliquez sur aucun hyperlien suspect. En cas de doute, composez directement le numéro inscrit au dos de votre carte de débit.',
     questions: [
       q('Quel faux prétexte est utilisé par les fraudeurs ?', 'demander un mot de passe pour débloquer l’accès', 'proposer un prêt à taux réduit pour l’achat d’auto', 'offrir un remboursement pour des frais d’assurance', ['mot de passe']),
-      q('Quel bon réflexe est recommandé aux clients en cas de doute ?', 'appeler le numéro figurant au verso de la carte', 'envoyer une capture d’écran à ses collègues', 'changer immédiatement de téléphone cellulaire', ['numéro']),
+      q('Quel bon réflexe est recommandé aux clients en cas de doute ?', 'appeler le numéro figurant au verso de la carte', 'répondre au message pour demander confirmation', 'se déplacer directement au comptoir de l’agence', ['numéro']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Panne d'ascenseur dans l'immeuble
