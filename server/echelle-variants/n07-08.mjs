@@ -957,7 +957,7 @@ export const N07_08_SCENARIOS = {
       text: 'Pour les épargnants soucieux de faire fructifier leurs économies sans y consacrer leurs soirées, les fonds négociés en bourse représentent une solution d’investissement populaire. Ces instruments financiers regroupent des centaines d’actions ou d’obligations, offrant une diversification instantanée qui réduit considérablement le risque lié à la défaillance d’une seule entreprise. Leur attrait principal réside dans leurs frais de gestion minimes, souvent dix fois inférieurs à ceux des fonds communs traditionnels vendus par les institutions financières, ce qui préserve une part substantielle de votre rendement à long terme. En contrepartie, ces fonds demeurent pleinement exposés aux fluctuations parfois brutales des marchés boursiers : en cas de récession globale, la valeur de votre portefeuille peut chuter rapidement. Il convient donc d’avoir un horizon de placement d’au moins cinq ans pour absorber les creux économiques sans céder à la panique. Si vous approchez de la retraite, équilibrer votre portefeuille avec des titres à revenu fixe s’avère indispensable pour préserver votre capital.',
       questions: [
         [
-          'Quel atout déterminant les fonds indiciels offrent-ils par rapport aux fonds traditionnels ?',
+          'Quel atout déterminant les fonds négociés en bourse offrent-ils par rapport aux fonds traditionnels ?',
           'Des frais de gestion bien moindres qui bonifient les gains',
           'Une garantie légale contre toute baisse temporaire de valeur',
           'L’absence complète de déclaration de revenus pour les impôts',
@@ -1070,7 +1070,7 @@ export const N07_08_SCENARIOS = {
         ],
         [
           'Pourquoi ce modèle pose-t-il un défi logistique aux commerces et services continus ?',
-          'Il complique le maintien du service aux clients sans frais d’embauche',
+          'Il impose des embauches coûteuses pour maintenir la couverture du service',
           'Il est formellement interdit par les lois du travail provinciales',
           'Les clients refusent catégoriquement d’être servis par des employés reposés',
         ],
@@ -1110,7 +1110,7 @@ export const N07_08_SCENARIOS = {
     // sc 0 (sit 0): Chronique sur la collision de l’avenue du Mont-Royal
     {
       situation: 0,
-      text: 'Mardi matin, vers huit heures quinze, une violente collision est survenue à l’intersection de l’avenue du Mont-Royal et de la rue Saint-Denis. Selon le rapport du Service de police de Montréal, une cycliste de vingt-huit ans circulant en direction est a été heurtée par une camionnette commerciale effectuant un virage à droite sur un feu vert. La cycliste a été transportée d’urgence à l’hôpital pour soigner des fractures multiples au bras et à la clavicule, bien que ses jours ne soient heureusement pas en danger. Cet accident relance un débat houleux. Selon notre chroniqueur, il est inadmissible que la Ville tarde autant à installer des feux de virage exclusifs et des bordures de béton surchargées sur cet axe hautement fréquenté. Peindre de simples lignes blanches au sol pour délimiter les pistes cyclables est une négligence impardonnable face au gabarit écrasant des camions lourds. Si les élus municipaux avaient un réel souci de la vie des usagers vulnérables, ces aménagements protecteurs auraient été réalisés depuis au moins trois ans.',
+      text: 'Mardi matin, vers huit heures quinze, une violente collision est survenue à l’intersection de l’avenue du Mont-Royal et de la rue Saint-Denis. Selon le rapport du Service de police de Montréal, une cycliste de vingt-huit ans circulant en direction est a été heurtée par une camionnette commerciale effectuant un virage à droite sur un feu vert. La cycliste a été transportée d’urgence à l’hôpital pour soigner des fractures multiples au bras et à la clavicule, bien que ses jours ne soient heureusement pas en danger. Cet accident relance un débat houleux. Selon notre chroniqueur, il est inadmissible que la Ville tarde autant à installer des feux de virage exclusifs et des bordures de béton surélevées sur cet axe hautement fréquenté. Peindre de simples lignes blanches au sol pour délimiter les pistes cyclables est une négligence impardonnable face au gabarit écrasant des camions lourds. Si les élus municipaux avaient un réel souci de la vie des usagers vulnérables, ces aménagements protecteurs auraient été réalisés depuis au moins trois ans.',
       questions: [
         [
           'Parmi les énoncés suivants, lequel rapporte un fait objectif vérifié par les autorités ?',
@@ -2405,7 +2405,7 @@ export const N07_08_SCENARIOS = {
         ],
         [
           "Quel aménagement du temps de travail a été négocié pour les salariés des brigades ?",
-          "Une alternance fixe de quatre journées d’activité et de trois jours de repos",
+          "Une alternance rotative de quatre journées d’activité et de trois jours de repos",
           "Une réduction des heures de jour compensée par du travail de nuit systématique",
           "Une modulation unilatérale des congés payés selon les aléas météorologiques",
         ],
