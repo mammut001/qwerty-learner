@@ -3184,7 +3184,7 @@ const N4_TOUR_TIPS = [
 
 const N4_SPORT_CLUBS = [
   {
-    club: 'le club de marche nordique du parc',
+    club: 'le club de marche nordique de quartier',
     act: 'des promenades toniques avec des bâtons',
     actOpt: 'la marche rapide avec des bâtons',
     kwAct: 'marche',
@@ -3339,7 +3339,7 @@ export const N04_R_1 = [
     text: 'Vie de quartier. Le marché fermier du Vieux-Port revient chaque dimanche sur la place centrale. Une quinzaine de maraîchers de la région y vendent des légumes biologiques, des petits fruits frais, du pain artisanal et des fromages fermiers. Des musiciens locaux animent les allées entre dix heures et quatorze heures. L’accès est ouvert à tous.',
     questions: [
       q('Quel genre d’événement hebdomadaire ce texte décrit-il ?', 'un marché fermier de produits du terroir', 'une compétition sportive intercollégiale', 'un salon professionnel de l’automobile', ['marché']),
-      q('Quelle animation accompagne les emplettes des visiteurs ?', 'des musiciens locaux jouant dans les allées', 'des feux d’artifice tirés en plein jour', 'des conférences données par des experts', ['musiciens']),
+      q('Quelle animation accompagne les emplettes des visiteurs ?', 'des musiciens locaux jouant dans les allées', 'des démonstrations de cuisine par des chefs', 'des dégustations gratuites de cidre local', ['musiciens']),
     ],
   },
 ]
