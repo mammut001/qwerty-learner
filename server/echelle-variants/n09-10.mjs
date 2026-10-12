@@ -1272,14 +1272,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’objet central de cet échange entre les deux spécialistes ?",
           "L’évaluation des progrès et des blocages techniques d’une cellule robotisée",
-          "La négociation financière pour l’achat de nouveaux bras mécaniques d’assemblage",
-          "Le remplacement complet des ouvriers de la ligne par un système de convoyage"
+          "La justification d’un retour aux trajectoires préprogrammées face aux tolérances des pièces",
+          "Le bilan d’une hausse des rebuts au soudage par points malgré la vision adaptative"
         ],
         [
           "De quelle manière l’ingénieur structure-t-il son explication technique ?",
           "Il oppose les bénéfices de la vision adaptative aux instabilités du réseau de commande",
-          "Il énumère les pannes mécaniques avant de rejeter la responsabilité sur les sous-traitants",
-          "Il détaille le coût unitaire des composants optiques avant de comparer plusieurs fournisseurs"
+          "Il admet les instabilités du réseau avant de contester les gains de la vision adaptative",
+          "Il vante la vision stéréoscopique avant de réclamer le retour aux trajectoires rigides"
         ],
         [
           "Que laisse entendre le spécialiste au sujet de la montée en cadence de vendredi ?",
@@ -1303,26 +1303,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le sujet principal de cet exposé présenté au congrès d’ingénierie civile ?",
           "Les choix architecturaux et aérodynamiques appliqués à un pont en milieu nordique",
-          "L’estimation budgétaire globale pour le dragage approfondi d’un chenal de navigation",
-          "La controverse politique entourant le choix du tracé autoroutier à travers le détroit"
+          "Le renoncement à un tablier continu au profit de piles multiples en eau profonde",
+          "Les contraintes du chenal imposant un tablier flottant, sans câbles ancrés dans le roc"
         ],
         [
           "Comment la présentation technique progresse-t-elle au fil du discours ?",
           "Des contraintes de l’environnement découle la description des solutions d’amortissement",
-          "L’orateur compare le coût des matériaux avant de critiquer les méthodes des compétiteurs",
-          "Un historique des ponts effondrés précède l’inventaire des amendes imposées par l’État"
+          "De la description des solutions d’amortissement découle l’évocation des contraintes de l’environnement",
+          "Une présentation des mesures de tension précède l’évocation des rafales de vent"
         ],
         [
           "Que sous-entend l’exclusion d’emblée de piles intermédiaires multiples ?",
           "L’impact récurrent de la dérive des glaces aurait menacé des appuis immergés",
-          "Les autorités maritimes interdisaient toute présence d’ingénieurs sur l’eau",
-          "Le consortium manquait des compétences requises pour couler du béton armé"
+          "Les débâcles glacières étaient jugées trop faibles pour fragiliser les piles en eau profonde",
+          "Le consortium avait retenu des piles multiples, le roc sous-marin étant jugé trop friable"
         ],
         [
           "Dans cet exposé, que désigne précisément un « amortisseur à masse accordée » ?",
           "Un mécanisme interne absorbant les vibrations causées par les rafales",
-          "Un bloc de béton massif servant d’ancrage externe pour les navires",
-          "Un capteur électronique mesurant la température de l’eau du détroit"
+          "Un pylône monolithique en béton fibré ancré dans le roc sous-marin",
+          "Un contrepoids d’acier suspendu au pylône pour stabiliser l’approche des navires"
         ]
       ]
     },
@@ -1334,26 +1334,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le thème dominant abordé par l’ingénieur dans cet échange d’atelier ?",
           "Le bilan opérationnel et les limites climatiques de robots collaboratifs",
-          "Le licenciement économique des ouvriers assignés à l’emballage des produits",
+          "L’abandon du procédé de palettisation après les dérives de calibrage sur la zone sud",
           "Le projet de fermeture définitive de l’ensemble de la zone sud de transformation"
         ],
         [
           "Comment l’exposé du collègue s’articule-t-il dans cet extrait ?",
           "Les bénéfices ergonomiques et sécuritaires sont nuancés par des aléas d’étanchéité",
-          "Une démonstration mathématique abstraite est suivie d’une plainte envers la direction",
-          "L’éloge d’un fabricant étranger est immédiatement contredit par un bilan financier négatif"
+          "Les aléas d’étanchéité sont exposés avant que les bénéfices ergonomiques ne soient reconnus",
+          "L’éloge d’un calibrage parfait du préhenseur précède la mention des nettoyages alcalins"
         ],
         [
           "Quel constat implicite ressort de l’analyse du préhenseur à ventouses ?",
           "Les conditions rigoureuses de salubrité n’avaient pas été pleinement anticipées",
-          "Le personnel refuse délibérément de coopérer avec les nouveaux bras motorisés",
+          "Les boîtiers électroniques d’origine résistaient parfaitement à l’humidité et aux nettoyages",
           "Les nettoyages quotidiens ont été supprimés depuis l’installation des nouveaux cobots"
         ],
         [
           "Que connote l’expression « dissipe instantanément son inertie » dans cet échange ?",
           "Une annulation immédiate de l’énergie cinétique pour éviter toute lésion corporelle",
-          "Un arrêt complet de l’alimentation électrique générale de l’usine agroalimentaire",
-          "Une défaillance mécanique spontanée provoquée par une surchauffe des engrenages"
+          "Une temporisation volontaire du cycle pour laisser sécher les barquettes thermoformées",
+          "Une réaction de sécurité retardée qui laisse le cobot poursuivre son mouvement après un contact"
         ]
       ]
     },
@@ -1365,14 +1365,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle est l’intention dominante de cette communication d’ingénierie civile ?",
           "Partager les solutions techniques mises en œuvre pour bâtir un viaduc boréal",
-          "Critiquer la lenteur administrative de l’octroi des permis environnementaux",
-          "Présenter le coût financier détaillé de l’exploitation des rames ferroviaires"
+          "Défendre l’abandon de l’arche métallique au profit de piles multiples en rivière",
+          "Démontrer que la débâcle printanière ne représentait qu’une menace mineure pour les appuis"
         ],
         [
           "Comment progresse l’argumentation technique de l’ingénieur dans sa conférence ?",
           "Des contraintes de gel et de charge découle l’exposé des choix de matériaux et de pose",
-          "Une querelle entre bureaux d’études rivaux débouche sur une remise en question globale",
-          "Le calendrier des travaux est opposé aux retards répétés des transporteurs de matériaux"
+          "Des choix de matériaux et de pose découle l’exposé des contraintes de gel et de charge",
+          "L’exposé des suspentes précède la description du lançage du tablier préfabriqué"
         ],
         [
           "Que laisse entendre le choix d’une arche unique de grande portée ?",
@@ -1383,8 +1383,8 @@ export const N09_10_SCENARIOS = {
         [
           "Que signifie précisément l’expression « compenser la flèche instantanée » ?",
           "Corriger l’affaissement temporaire de la poutre lors de l’installation des câbles",
-          "Augmenter la vitesse maximale autorisée pour le passage des convois de fret lourd",
-          "Éviter les erreurs d’alignement horizontal dues à la réfraction de l’air chaud"
+          "Compenser le renforcement durable de l’arche dû aux écarts de température saisonniers",
+          "Réduire la portée libre de l’arche en ajoutant des suspentes de soutien intermédiaires"
         ]
       ]
     }
@@ -1398,14 +1398,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le sujet central de cet épisode de série documentaire ?",
           "La portée politique et sociale de la nationalisation de l’électricité en 1962",
-          "La négociation discrète de l’emprunt obligataire sur les marchés de New York",
-          "La faillite bancaire provoquée par la gestion désordonnée des emprunts publics"
+          "Le recul politique des réformes énergétiques face aux cartels privés en 1962",
+          "Le partage du contrôle de la distribution électrique avec les cartels privés en 1962"
         ],
         [
           "Comment la narration documentaire s’organise-t-elle dans cet extrait ?",
           "Elle relie les manœuvres politiques initiales aux répercussions sociales durables",
-          "Elle oppose la biographie de deux ministres sans jamais aborder le contexte économique",
-          "Elle dresse un bilan comptable sévère avant de contester la pertinence du slogan électoral"
+          "Elle expose les répercussions sociales avant de retracer les manœuvres politiques initiales",
+          "Elle s’arrête aux manœuvres politiques initiales sans évoquer les répercussions sociales"
         ],
         [
           "Que laisse entendre le narrateur sur la place des francophones avant cette réforme ?",
@@ -1416,8 +1416,8 @@ export const N09_10_SCENARIOS = {
         [
           "Que connote l’expression « brisant les plafonds de verre corporatifs » dans ce récit ?",
           "L’accès inédit à des fonctions directoriales autrefois inaccessibles",
-          "La destruction physique des bâtiments des anciennes compagnies privées",
-          "La diminution soudaine des salaires versés aux cadres supérieurs de l’État"
+          "Le maintien des barrières corporatives malgré la nationalisation",
+          "L’octroi de primes exceptionnelles aux anciens dirigeants des compagnies privées"
         ]
       ]
     },
@@ -1430,25 +1430,25 @@ export const N09_10_SCENARIOS = {
           "Quel est l’axe dramatique principal de ce chapitre de docufiction sonore ?",
           "La mise au jour d’une vaste fraude financière au moment de son effondrement inéluctable",
           "Le sauvetage in extremis d’un gestionnaire de portefeuille menacé par des créanciers",
-          "L’ascension fulgurante d’un jeune informaticien ayant inventé un logiciel d’arbitrage"
+          "Le sauvetage in extremis de Financière Boréale grâce à une injection de capitaux publics"
         ],
         [
           "De quelle manière l’intrigue progresse-t-elle au fil de la narration ?",
           "La scène d’angoisse matinale ouvre sur l’explication du piège pyramidal puis sur le dénouement",
-          "Un interrogatoire de police serré alterne avec des témoignages d’épargnants en larmes",
-          "Une analyse théorique des devises débouche sur le plaidoyer d’un avocat de la défense"
+          "Le dénouement judiciaire ouvre le récit avant la scène d’angoisse matinale de Vigneault",
+          "Le piège pyramidal est expliqué avant la scène d’angoisse matinale, puis le dénouement"
         ],
         [
           "Quel facteur a précipité l’écroulement de la supercherie montée par Vigneault ?",
           "Une vague soudaine de demandes de retraits impossibles à honorer",
-          "Le piratage informatique des serveurs hébergeant ses algorithmes",
-          "La dénonciation anonyme transmise par un informaticien dissident"
+          "La visite surprise des auditeurs de l’Autorité des marchés financiers",
+          "La rupture de contrat d’un courtier avec les coquilles bancaires caribéennes"
         ],
         [
           "Dans cet extrait, que connote l’expression « cavalerie financière classique » ?",
           "Un stratagème pyramidal dissimulant des pertes par de faux rendements",
-          "Une stratégie boursière agressive misant sur des matières premières",
-          "Un prêt bancaire garanti par des actifs immobiliers internationaux"
+          "Un montage d’arbitrage réel, fondé sur des placements en devises étrangères",
+          "Un dispositif de gestion à rendements réels garantis par les régulateurs"
         ]
       ]
     },
@@ -1466,20 +1466,20 @@ export const N09_10_SCENARIOS = {
         [
           "Comment l’analyse historique est-elle articulée dans ce documentaire sonore ?",
           "Le constat des inégalités d’accès initiales précède la description des réformes et de leur impact social",
-          "Une querelle entre partis politiques rivaux est détaillée avant d’énumérer les budgets annuels des collèges",
-          "La biographie du président de la commission est suivie d’un réquisitoire contre l’alphabétisation populaire"
+          "La description des réformes et de leur impact social devance le constat des inégalités d’accès",
+          "Le constat des inégalités d’accès est aussitôt réfuté par la description des réformes"
         ],
         [
           "Que suggère l’extrait à propos de la résistance de l’épiscopat face à la réforme ?",
           "L’Église craignait de perdre son emprise séculaire sur la formation intellectuelle de la jeunesse",
-          "Les évêques souhaitaient consacrer l’ensemble de leurs ressources à la construction d’hôpitaux publics",
-          "Les autorités religieuses exigeaient une hausse immédiate des frais d’inscription dans tous les collèges"
+          "Les évêques acceptaient volontiers que l’État prenne seul en charge l’instruction publique",
+          "Les autorités religieuses réclamaient la gratuité immédiate des collèges pour élargir l’accès"
         ],
         [
           "Dans ce contexte historique, que connote le terme « séisme institutionnel » ?",
           "Un bouleversement structurel profond rompant avec l’ordre traditionnel établi",
-          "Une catastrophe naturelle majeure ayant détruit plusieurs collèges classiques",
-          "Une révolte violente des étudiants contre le personnel enseignant des cégeps"
+          "Une simple retouche administrative sans effet sur l’ordre traditionnel établi",
+          "Une controverse budgétaire ponctuelle entre ministères, vite oubliée"
         ]
       ]
     },
@@ -1492,25 +1492,25 @@ export const N09_10_SCENARIOS = {
           "Quel est le sujet conducteur de ce dernier épisode de docufiction ?",
           "La falsification délibérée de données géologiques au cœur d’une gigantesque escroquerie boursière",
           "La découverte scientifique d’un filon aurifère inestimable dans les profondeurs du Grand Nord québécois",
-          "La bataille juridique entre deux compagnies minières pour obtenir le contrôle exclusif d’une concession"
+          "La découverte légitime d’un gisement, confirmée par les analyses métallurgiques de la commission"
         ],
         [
           "Comment la narration du scandale s’organise-t-elle dans ce récit audio ?",
           "La mise en scène de la manipulation technique précède la frénésie boursière et la débâcle finale",
-          "Un procès au tribunal de commerce alterne avec les cours des matières premières à la bourse de Londres",
-          "L’éloge des compétences des géologues débouche sur la célébration d’une réussite entrepreneuriale locale"
+          "La débâcle boursière ouvre le récit avant le rappel des manipulations de terrain",
+          "La manipulation technique est décrite comme un accident isolé avant la frénésie boursière"
         ],
         [
           "Que révèle la vente précipitée d’actions par les hauts dirigeants de l’entreprise ?",
           "Ils savaient pertinemment que la valeur boursière de leur entreprise reposait sur un mensonge",
-          "Ils espéraient réinvestir leurs gains personnels dans l’achat de matériel d’extraction plus moderne",
-          "Ils voulaient céder gratuitement leurs participations aux ouvriers travaillant sur le campement minier"
+          "Ils ignoraient les résultats des forages, qu’ils croyaient favorables au gisement",
+          "Ils comptaient racheter discrètement les actions des petits porteurs pour soutenir le cours"
         ],
         [
           "Que connote l’expression « forages jumelés contradictoires » dans ce contexte d’enquête ?",
           "Une contre-expertise rigoureuse menée de manière indépendante pour démasquer une fraude",
-          "Une technique d’excavation accélérée employée pour doubler la cadence d’extraction de minerai",
-          "Une méthode de forage en eaux profondes testée pour la première fois en climat subarctique"
+          "Une analyse précipitée des carottes, menée par la direction pour rassurer les investisseurs",
+          "Un échantillonnage aléatoire des carottes, sans rapport avec la teneur réelle du terrain"
         ]
       ]
     }
