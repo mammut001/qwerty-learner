@@ -2,6 +2,7 @@
 # Run on the VM after cloning feature/study-plan. No credentials in arguments.
 set -euo pipefail
 cd "$(dirname "$0")/.."
+export BUILD_COMMIT_SHA=$(git rev-parse --short HEAD)
 env_file=deploy/.env.production
 if [[ ! -f "$env_file" ]]; then
   echo 'Copy deploy/.env.production.example to deploy/.env.production and set STUDY_DOMAIN / ACME_EMAIL.' >&2

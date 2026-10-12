@@ -5,6 +5,9 @@ RUN corepack enable && corepack prepare yarn@1.22.22 --activate && yarn install 
 COPY . .
 ARG VITE_STUDY_API_BASE_URL=
 ENV VITE_STUDY_API_BASE_URL=$VITE_STUDY_API_BASE_URL
+ARG BUILD_COMMIT_SHA
+RUN test -n "$BUILD_COMMIT_SHA" || (echo "Pass BUILD_COMMIT_SHA via --build-arg" >&2; exit 1)
+ENV BUILD_COMMIT_SHA=$BUILD_COMMIT_SHA
 RUN npm run build -- --base=/
 
 FROM nginx:alpine
