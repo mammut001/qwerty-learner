@@ -1322,7 +1322,7 @@ export const N09_10_SCENARIOS = {
           "Dans cet exposé, que désigne précisément un « amortisseur à masse accordée » ?",
           "Un mécanisme interne absorbant les vibrations causées par les rafales",
           "Un pylône monolithique en béton fibré ancré dans le roc sous-marin",
-          "Un contrepoids d’acier suspendu au pylône pour stabiliser l’approche des navires"
+          "Un capteur à fibre optique transmettant la tension des câbles au poste central"
         ]
       ]
     },
@@ -1378,7 +1378,7 @@ export const N09_10_SCENARIOS = {
           "Que laisse entendre le choix d’une arche unique de grande portée ?",
           "Implanter des piliers dans le lit fluvial aurait exposé l’ouvrage aux débâcles",
           "Installer des appuis flottants en acier fragile sur le lit de la rivière dès la débâcle",
-          "Retirer les appuis en béton aurait allongé la portée libre au-delà de trois cents mètres"
+          "Multiplier les appuis en rivière aurait permis d’éviter l’érosion par abrasion glaciaire"
         ],
         [
           "Que signifie précisément l’expression « compenser la flèche instantanée » ?",
@@ -1417,7 +1417,7 @@ export const N09_10_SCENARIOS = {
           "Que connote l’expression « brisant les plafonds de verre corporatifs » dans ce récit ?",
           "L’accès inédit à des fonctions directoriales autrefois inaccessibles",
           "Le maintien des barrières corporatives malgré la nationalisation",
-          "L’octroi de primes exceptionnelles aux anciens dirigeants des compagnies privées"
+          "Le renforcement des barrières reléguant les francophones aux postes subalternes"
         ]
       ]
     },
@@ -1430,7 +1430,7 @@ export const N09_10_SCENARIOS = {
           "Quel est l’axe dramatique principal de ce chapitre de docufiction sonore ?",
           "La mise au jour d’une vaste fraude financière au moment de son effondrement inéluctable",
           "Le sauvetage in extremis d’un gestionnaire de portefeuille menacé par des créanciers",
-          "Le sauvetage in extremis de Financière Boréale grâce à une injection de capitaux publics"
+          "La réussite d’un algorithme d’arbitrage quantitatif salué par l’Autorité des marchés financiers"
         ],
         [
           "De quelle manière l’intrigue progresse-t-elle au fil de la narration ?",
@@ -1442,7 +1442,7 @@ export const N09_10_SCENARIOS = {
           "Quel facteur a précipité l’écroulement de la supercherie montée par Vigneault ?",
           "Une vague soudaine de demandes de retraits impossibles à honorer",
           "La visite surprise des auditeurs de l’Autorité des marchés financiers",
-          "La rupture de contrat d’un courtier avec les coquilles bancaires caribéennes"
+          "L’arrivée des enquêteurs de l’escouade des crimes financiers au rez-de-chaussée"
         ],
         [
           "Dans cet extrait, que connote l’expression « cavalerie financière classique » ?",
@@ -1461,7 +1461,7 @@ export const N09_10_SCENARIOS = {
           "Quelle est la thèse centrale développée dans ce volet documentaire ?",
           "La réforme scolaire des années soixante a constitué un levier majeur d’émancipation collective",
           "L’archevêché a repris le contrôle de l’instruction publique dès la création du ministère",
-          "Le clergé québécois a financé la création des premiers cégeps pour préserver son influence rurale"
+          "La gratuité des collèges a surtout profité aux familles bourgeoises déjà privilégiées"
         ],
         [
           "Comment l’analyse historique est-elle articulée dans ce documentaire sonore ?",
@@ -1479,7 +1479,7 @@ export const N09_10_SCENARIOS = {
           "Dans ce contexte historique, que connote le terme « séisme institutionnel » ?",
           "Un bouleversement structurel profond rompant avec l’ordre traditionnel établi",
           "Une simple retouche administrative sans effet sur l’ordre traditionnel établi",
-          "Une controverse budgétaire ponctuelle entre ministères, vite oubliée"
+          "Un simple transfert de pouvoir du clergé vers les institutions privées élitistes"
         ]
       ]
     },
@@ -1525,7 +1525,7 @@ export const N09_10_SCENARIOS = {
           "Quel est l’objet fondamental de cette communication scientifique ?",
           "L’explication des causes environnementales et sociales d’un exode côtier",
           "L’explication des bienfaits de l’érosion côtière pour les communautés riveraines",
-          "L’analyse des stratégies d’adaptation réussies des ménages restés sur le littoral"
+          "L’analyse de l’érosion côtière comme phénomène sans lien avec les déplacements"
         ],
         [
           "Comment la dynamique migratoire est-elle expliquée par le chercheur ?",
@@ -1593,7 +1593,7 @@ export const N09_10_SCENARIOS = {
           "De quelle façon l’analyse socio-économique est-elle articulée dans cet extrait ?",
           "L’explication du pouvoir d’attraction métropolitain précède l’analyse des impacts locaux et du reflux",
           "L’analyse du reflux régional précède l’explication du pouvoir d’attraction des métropoles",
-          "Les conséquences locales de la fuite sont décrites avant toute mention des contre-mouvements migratoires"
+          "Les contre-mouvements migratoires sont évoqués avant l’explication du pouvoir d’attraction métropolitain"
         ],
         [
           "Quel cercle vicieux découle de la perte continue de diplômés en région ?",
@@ -1656,7 +1656,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle directive spécifique s’applique si l’alarme signale une fuite toxique plutôt qu’un feu ?",
           "Se calfeutrer sans délai dans les abris pressurisés plutôt que de tenter une sortie à l’extérieur",
-          "Attendre l’avis du poste central avant de confiner l’ensemble du personnel dans les abris pressurisés de l’usine",
+          "Évacuer le personnel vers la plateforme maritime nord dès l’alarme, sans attendre le capitaine de port",
           "Sortir immédiatement à l’air libre par les coursives sud en direction du parc de stationnement"
         ],
         [
@@ -1681,7 +1681,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle démarche Marc doit-il obligatoirement accomplir avant toute discussion sur les risques ?",
           "Réclamer le rapport de vérification financière certifié portant sur les sous-traitants techniques",
-          "Faire approuver le barème tarifaire de l’hôpital par le sous-ministre adjoint aux finances publiques",
+          "Ouvrir la matrice de partage des risques avant d’exiger l’audit financier des sous-traitants",
           "Signer immédiatement le protocole d’entente préliminaire avec les mandataires du consortium privé"
         ],
         [
@@ -1700,7 +1700,7 @@ export const N09_10_SCENARIOS = {
           "À quelle double condition Marc peut-il autoriser par écrit un ajustement des équipements biomédicaux ?",
           "Si la dépense additionnelle reste sous deux cent mille dollars et n’engendre aucun retard d’échéancier",
           "Si la dépense additionnelle atteint un million de dollars, même avec un délai supplémentaire accordé au partenaire",
-          "Si le partenaire privé accepte d’avancer lui-même le coût des équipements biomédicaux"
+          "Si la dépense additionnelle reste sous deux cent mille dollars, même avec un délai supplémentaire"
         ]
       ]
     },
@@ -1869,7 +1869,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel argument de fond l’avocat adverse avance-t-il pour justifier la position de sa mandante ?",
           "Les travaux d’insonorisation respectaient scrupuleusement la réglementation en vigueur au moment de leur exécution",
-          "Les copropriétaires du dessous ont refusé de faire réaliser une expertise acoustique indépendante",
+          "Les bruits résiduels sont imputables à une faute de la copropriétaire, qui a posé son plancher sans acousticien agréé",
           "Les travaux d’insonorisation ont été exécutés selon le devis ultérieur de soixante-huit décibels"
         ],
         [
@@ -1920,7 +1920,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle distinction conceptuelle fondamentale l’auteur met-il en relief en conclusion ?",
           "La reconnaissance de l’acte comme licite en soi plutôt que comme une faute simplement pardonnée",
-          "La reconnaissance de l’acte comme licite, sans que la proportionnalité de la riposte soit examinée",
+          "La reconnaissance d’une faute pénale excusée par la seule croyance sincère du prévenu, quel que soit le péril",
           "La transformation de la légitime défense en simple circonstance atténuante de la faute pénale"
         ]
       ]
@@ -1934,7 +1934,7 @@ export const N09_10_SCENARIOS = {
           "Quelle mutation technique et formelle cet article encyclopédique retrace-t-il ?",
           "L’avènement du parlant synchrone, ses contraintes matérielles initiales et l’émancipation du cadre",
           "L’avènement du sonore synchrone et l’abandon immédiat des micros suspendus sur perches mobiles",
-          "Le passage du muet au sonore grâce à la seule numérisation des photogrammes à la fin des années 1920"
+          "Le passage du muet au sonore grâce au maintien du phonographe à disque, jugé plus fiable que le son optique"
         ],
         [
           "Comment la trajectoire historique des techniques sonores est-elle exposée ?",
@@ -1971,18 +1971,18 @@ export const N09_10_SCENARIOS = {
           "Comment l’auteur articule-t-il la distinction entre l’article 34 et l’article 35 du Code criminel ?",
           "Il oppose la hiérarchie intangible entre la sauvegarde de la vie humaine et la simple protection des choses",
           "Il oppose la protection des choses à la défense des personnes, en admettant la force létale pour les deux",
-          "Il rappelle la protection des choses avant la vie humaine, puis évoque la retenue physique non violente"
+          "Il évoque la retenue physique non violente, puis rappelle la protection des choses avant la vie humaine"
         ],
         [
           "Quelle condition préalable relative au statut de la victime de l’ingérence est exigée par la loi ?",
           "Elle doit se trouver en possession paisible du bien convoité au moment précis où l’acte illégal se produit",
-          "Elle doit avoir été en possession paisible du bien pendant au moins un an avant l’ingérence",
+          "Elle doit avoir été en possession paisible du bien dans les jours qui suivent l’ingérence illicite",
           "Elle doit être propriétaire du bien convoité, peu importe qui le possédait au moment précis de l’acte illégal"
         ],
         [
           "Que connote l’expression « pondération minutieuse des moyens employés » dans l’évaluation judiciaire ?",
           "L’appréciation concrète de la proportionnalité entre la gravité de l’atteinte matérielle et la riposte choisie",
-          "L’examen minutieux de la valeur sentimentale du bien pour justifier une riposte plus forte et plus durable face à l’intrus",
+          "L’évaluation du nombre de moyens de riposte disponibles, indépendamment de l’atteinte matérielle subie et de la menace",
           "L’inutilité de la sommation verbale dès que l’intrus a pénétré sur la propriété, même sans menace"
         ]
       ]
@@ -1995,7 +1995,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le sujet conducteur analysé dans cet article d’encyclopédie cinématographique ?",
           "Le passage des trucages optiques photochimiques à la modélisation et à la capture numériques modernes",
-          "Le passage des caches peints aux effets de maquillage prothétique sur les créatures des plateaux",
+          "L’abandon de la modélisation numérique et de la capture de mouvement au profit des trucages photochimiques",
           "La précision croissante des tireuses optiques multi-passes qui a sauvé le grain de l’image argentique"
         ],
         [
@@ -2096,7 +2096,7 @@ export const N09_10_SCENARIOS = {
           "Comment l’auteur relie-t-il l’activité solaire aux manifestations visibles du ciel boréal ?",
           "En retraçant l’onde de choc depuis l’expulsion de plasma jusqu’aux excitations ionosphériques",
           "En démontrant que les excitations ionosphériques précèdent l’expulsion de plasma par le Soleil",
-          "En attribuant l’onde de choc aux seules variations des vents polaires, sans lien avec le Soleil"
+          "En reliant les excitations ionosphériques aux seuls courants telluriques, sans passer par l’orage géomagnétique"
         ],
         [
           "Selon l’article, quelle information les variations rapides des draperies aurorales fournissent-elles ?",
@@ -2107,7 +2107,7 @@ export const N09_10_SCENARIOS = {
         [
           "Dans cette étude de physique des plasmas, que représente la « météo spatiale » ?",
           "L’état dynamique des conditions environnementales entre le Soleil et l’espace circumterrestre",
-          "Les effets des variations de pression atmosphérique au sol sur la formation des draperies aurorales",
+          "Les perturbations de surface du champ géomagnétique, indépendantes du cycle magnétique solaire",
           "L’ensemble des flux de particules solaires que la Terre bloque entièrement avant d’atteindre l’atmosphère"
         ]
       ],
@@ -2190,8 +2190,8 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle démarche doit précéder l’utilisation d’un document dépassant le seuil des dix pour cent autorisés ?",
           "La transmission d’une demande écrite au responsable des bibliothèques trois semaines avant le trimestre",
-          "La transmission d’une demande orale au doyen quarante-huit heures avant la session",
-          "Une simple approbation orale de l’éditeur doit précéder l’envoi de toute demande écrite au service"
+          "La transmission d’une demande formelle au coordonnateur des bibliothèques après le début de la session",
+          "Une approbation orale du coordonnateur suffit, sans demande écrite, pour reproduire l’extrait"
         ],
         [
           "Sous quelle condition technique des extraits numérisés peuvent-ils être mis à la disposition des étudiants ?",
@@ -2258,7 +2258,7 @@ export const N09_10_SCENARIOS = {
         [
           "À quelle exigence technique la mise en ligne des extraits autorisés est-elle soumise ?",
           "L’apposition d’un filigrane de l’université et la limitation stricte de l’accès aux seuls étudiants inscrits",
-          "L’apposition d’une signature de l’enseignant sur chaque fichier et l’envoi par courriel aux étudiants",
+          "L’hébergement des fichiers sur le portail public, avec liens actifs pendant une année entière",
           "La suppression des fichiers numérisés dès leur téléversement, pour éviter toute copie par les étudiants"
         ],
         [
@@ -2311,7 +2311,7 @@ export const N09_10_SCENARIOS = {
           "Quelle est la revendication fondamentale défendue par l’auteur de cette lettre ouverte ?",
           "La réintégration de la procréation médicalement assistée au sein du régime public gratuit",
           "Le maintien intégral du régime de crédits d’impôt, qui profite surtout aux familles modestes",
-          "La taxation des cliniques privées de fécondation, dont le produit financerait des crédits d’impôt plus généreux"
+          "L’instauration de transferts obligatoires de plusieurs embryons dans le régime public gratuit"
         ],
         [
           "Comment la lettre déconstruit-elle l’argument selon lequel la gratuité ruinerait l’État ?",
@@ -2341,7 +2341,7 @@ export const N09_10_SCENARIOS = {
         [
           "Sur quel fondement juridique principal le tribunal sanctionne-t-il la rupture de l’entente ?",
           "Le manquement manifeste de la multinationale à son obligation légale de bonne foi contractuelle",
-          "L’absence d’homologation internationale des capteurs électroniques par l’agence de santé mondiale",
+          "La faute de la demanderesse, qui avait créé un outil concurrent avant la rupture de l’entente",
           "La rupture de l’entente jugée légitime en raison du retard réglementaire imputable à la demanderesse"
         ],
         [
