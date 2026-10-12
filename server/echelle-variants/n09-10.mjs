@@ -23,13 +23,13 @@ export const N09_10_SCENARIOS = {
         [
           "Quel constat implicite découle des propos sur les baisses d’impôt ?",
           "Ce choix politique prive l’État de revenus précieux pour ses services essentiels",
-          "Cette stratégie fiscale garantit une relance spectaculaire des investissements privés",
+          "Cette réduction d’impôt a permis de rembourser la dette et d’éviter tout report de chantiers",
           "Cette baisse fiscale a déjà réglé l’ensemble des litiges avec le secteur public"
         ],
         [
           "Que connote le terme « enthousiastes » dans ce contexte précis ?",
           "Un optimisme officiel excessif masquant les faiblesses réelles du cadre financier",
-          "Une victoire diplomatique majeure remportée face aux partenaires de la fédération",
+          "Des déclarations rassurantes que le vérificateur général a pleinement confirmées",
           "Un accord parfait et unanime conclu entre les ministères et les syndicats"
         ]
       ],
@@ -49,7 +49,7 @@ export const N09_10_SCENARIOS = {
           "De quelle manière l’explication technique est-elle articulée dans l’extrait ?",
           "Les innovations de studio sont reliées à un mouvement d’affirmation socioculturelle",
           "La technologie audio est présentée comme un simple divertissement sans portée sociale",
-          "Une querelle entre producteurs new-yorkais et musiciens québécois est décrite en détail"
+          "Les procédés de studio sont d’abord critiqués, puis défendus comme une simple mode passagère"
         ],
         [
           "Que laisse entendre le commentaire sur les métriques asymétriques ?",
@@ -60,8 +60,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans cet extrait, quel est le sens du terme « renouveau » ?",
           "Une transformation profonde rompant avec les conventions musicales établies",
-          "Une séparation conflictuelle entre des compositeurs et leurs compagnies de disques",
-          "Une dégradation matérielle irrémédiable des bandes magnétiques dans les archives"
+          "Une imitation fidèle des succès commerciaux de la chansonnette de variétés",
+          "Une réorganisation des studios autour d’équipements techniques plus performants"
         ]
       ],
       "frame": "visite audioguidée — effervescence musicale québécoise des années 1970"
@@ -86,12 +86,12 @@ export const N09_10_SCENARIOS = {
           "Que sous-entend la mise en garde concernant la dégradation des canalisations ?",
           "Reporter les investissements engendre des dépenses futures beaucoup plus lourdes",
           "Les municipalités québécoises ne disposent d’aucun réseau d’approvisionnement en eau",
-          "Les ingénieurs municipaux refusent désormais de travailler sur les chantiers publics"
+          "Les réparations d’urgence coûtent plus cher parce que les villes ont trop investi tôt"
         ],
         [
           "Dans ce contexte, que signifie l’expression « contrepartie comptable » ?",
           "Le reflet purement chiffré dissimulant une accumulation de dégradations réelles",
-          "Une amende financière imposée par le gouvernement pour sanctionner un retard injustifié",
+          "Le montant exact des travaux urgents déjà réalisés et entièrement financés par l’exercice",
           "Un dividende généreux versé aux contribuables sous la forme d’un crédit d’impôt"
         ]
       ],
@@ -110,8 +110,8 @@ export const N09_10_SCENARIOS = {
         [
           "Sur quel contraste repose la présentation de ces recherches musicales ?",
           "La rupture technique avec la tradition musicale pour renouveler l’expérience sensorielle",
-          "L’opposition irréconciliable entre les étudiants montréalais et leurs professeurs étrangers",
-          "La comparaison technique entre les microphones japonais et les magnétophones allemands"
+          "Des compositeurs qui cherchaient surtout à séduire le public par une musique plus accessible",
+          "Les compositeurs européens rejetaient la spatialisation sonore que les créateurs montréalais adoptaient"
         ],
         [
           "Quel élément implicite ressort de l’utilisation de haut-parleurs multiples ?",
@@ -122,8 +122,8 @@ export const N09_10_SCENARIOS = {
         [
           "Que désigne le verbe « métamorphoser » dans ce passage audioguidé ?",
           "Transformer une matière banale pour lui conférer une valeur artistique inédite",
-          "Détruire involontairement un enregistrement sonore lors d’une fausse manœuvre technique",
-          "Vendre des droits d’auteur à des maisons de disques commerciales pour faire fortune"
+          "Reproduire fidèlement le bruit industriel de la ville pour l’installer dans une salle de concert",
+          "Effacer le son original en fragments jetés au hasard pour le rendre entièrement inaudible"
         ]
       ],
       "frame": "parcours audioguidé — essor de la musique électroacoustique"
@@ -138,12 +138,12 @@ export const N09_10_SCENARIOS = {
           "Quel est le récit principal livré par l’archéologue durant cette entrevue ?",
           "La mise au jour inattendue et l’excavation urgente d’un campement saisonnier ancien",
           "L’analyse sédimentaire d’un village sédentaire fondé au confluent des cours d’eau",
-          "La découverte fortuite d’une forteresse militaire coloniale du dix-huitième siècle"
+          "La découverte d’une digue iroquoienne édifiée pour protéger un campement permanent"
         ],
         [
           "Comment la narration des fouilles est-elle construite par la chercheuse ?",
           "Une découverte initiale mène à des constats scientifiques puis à une tension finale",
-          "Une série de reproches administratifs est adressée aux responsables de la digue",
+          "Des constats scientifiques ouvrent le récit avant la découverte initiale et la tension finale",
           "Un exposé théorique abstrait est prononcé sans aucune référence au travail de terrain"
         ],
         [
@@ -155,8 +155,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans ce témoignage, que qualifie l’expression « course contre la montre » ?",
           "L’urgence dramatique dictée par la menace imminente d’une montée soudaine des eaux",
-          "Une compétition amicale organisée entre différentes équipes universitaires en présence",
-          "Un calendrier imposé par les médias pour diffuser le reportage avant la fin du mois"
+          "Une rivalité acharnée entre les chercheurs pour publier leurs résultats avant les concurrents",
+          "Un programme de fouilles fixé par le ministère de la Culture pour finir avant l’hiver"
         ]
       ],
       "frame": "entrevue radiophonique — fouilles archéologiques subaquatiques à Pointe-aux-Cascades"
@@ -174,19 +174,19 @@ export const N09_10_SCENARIOS = {
         [
           "De quelle façon le documentaire structure-t-il l’évolution de la crise régionale ?",
           "Le choc externe initial débouche sur une détresse locale puis sur une mobilisation civique",
-          "Une analyse purement mathématique des taux bancaires est exposée sans regard humain",
-          "Un débat politique partisan oppose les ministres fédéraux aux dirigeants municipaux"
+          "Une mobilisation civique précède la détresse locale, elle-même causée par des problèmes internes",
+          "La détresse locale se résout grâce à une aide venue de l’extérieur, sans mobilisation des résidents"
         ],
         [
           "Que symbolise implicitement le silence des sirènes d’usine dans la narration ?",
           "La fin brutale d’un mode de vie industriel qui structurait le quotidien des résidents",
-          "Une panne électrique généralisée causée par une tempête de verglas imprévue",
-          "L’adoption de nouvelles normes environnementales limitant les bruits de voisinage"
+          "La suspension temporaire des usines pour cause de grève, avant une reprise rapide de la production",
+          "Un afflux massif de jeunes diplômés qui s’installent dans la région, malgré la crise"
         ],
         [
           "Quel sens précis revêt le mot « catalyseur » dans la conclusion du reportage ?",
           "Un facteur déclencheur qui accélère une transformation économique inévitable",
-          "Un produit chimique dangereux responsable de la pollution des cours d’eau locaux",
+          "Un agent protecteur qui freine durablement la reconversion des friches industrielles",
           "Un obstacle insurmontable empêchant la concrétisation des projets de reconversion"
         ]
       ],
@@ -199,14 +199,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le sujet central du témoignage livré par l’archéologue sous-marin ?",
           "L’exploration émouvante d’une épave historique et le sauvetage de son précieux chargement",
-          "La découverte d’un sous-marin moderne coulé pendant un entraînement militaire régulier",
-          "Le refus catégorique des autorités maritimes de financer les opérations de plongée"
+          "La localisation d’un navire marchand récent, coulé lors d’une collision dans la baie des Chaleurs",
+          "La restauration d’une membrure de chêne dans un musée de Québec, après une campagne de dons"
         ],
         [
           "Comment l’intervenant raconte-t-il sa descente sous l’eau dans cet échange ?",
           "Les difficultés techniques de la plongée cèdent le pas à la portée historique des trouvailles",
-          "Une série de plaintes logistiques est formulée contre le manque d’équipement adéquat",
-          "Un cours de chimie marine sur la salinité est donné sans référence à l’épave explorée"
+          "Le récit commence par les risques de la plongée, puis se termine sur la portée historique",
+          "Un récit détaillé de chaque plongée, minute par minute, sans évoquer le courant ni la visibilité"
         ],
         [
           "Que souligne implicitement le bon état de conservation de la membrure de chêne ?",
@@ -218,7 +218,7 @@ export const N09_10_SCENARIOS = {
           "Dans ce contexte de fouilles sous-marines, que signifie le terme « sabordé » ?",
           "Coulé volontairement par son propre équipage pour empêcher sa capture par l’ennemi",
           "Échoué par accident sur les alluvions côtières lors d’une manœuvre pour briser le blocus",
-          "Vendu clandestinement à des marchands étrangers pour réaliser un profit financier personnel"
+          "Démantelé sur la plage par son équipage pour récupérer les fusils et le laiton de sa cargaison"
         ]
       ],
       "frame": "entrevue radiophonique — découverte archéologique d’épave à Ristigouche"
@@ -231,25 +231,25 @@ export const N09_10_SCENARIOS = {
           "Quel est le récit historique déployé tout au long de ce documentaire ?",
           "La mutation forcée des transports montréalais sous l’impact d’une crise énergétique",
           "L’abandon définitif des transports en commun au profit des autoroutes suburbaines",
-          "La création des premières stations-service automatiques dans les quartiers de la métropole"
+          "La stagnation des transports montréalais, que la crise énergétique n’a finalement pas modifiée"
         ],
         [
           "De quelle manière la trame historique est-elle organisée dans cette narration ?",
           "Un modèle urbain vulnérable est bouleversé par un choc externe entraînant des réformes durables",
           "Une polémique municipale sans issue s’éternise sans qu’aucune décision concrète ne soit prise",
-          "Une célébration inconditionnelle de l’industrie automobile américaine est présentée au public"
+          "Un modèle urbain solide résiste à un choc externe, sans que des réformes soient nécessaires"
         ],
         [
           "Que déduit-on implicitement du changement d’attitude envers l’extension du métro ?",
           "L’urgence de la crise a balayé les réticences financières qui bloquaient les investissements",
-          "La rentabilité commerciale des lignes de métro dépassait désormais celle du transport par autobus",
+          "Les réticences financières ont été levées avant même que la crise pétrolière n’éclate",
           "Les ingénieurs municipaux préconisaient l’arrêt définitif de tout chantier souterrain"
         ],
         [
           "Dans ce passage, quelle nuance porte le terme « désenclaver » ?",
           "Relier des secteurs mal desservis pour faciliter les déplacements de leur population",
-          "Construire des murs d’insonorisation le long des autoroutes traversant les banlieues",
-          "Interdire la circulation des camions de marchandises dans les ruelles résidentielles"
+          "Réserver l’accès au réseau de métro aux seuls résidents des quartiers populaires",
+          "Déplacer les stations de métro vers les banlieues pour réduire le nombre d’automobilistes"
         ]
       ],
       "frame": "documentaire radiophonique — crise pétrolière et grands chantiers montréalais"
@@ -263,26 +263,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’objectif fondamental poursuivi par cette formation en entreprise ?",
           "Expliciter les obligations de neutralité et les procédures de récusation pour les gestionnaires",
-          "Interdire définitivement l’embauche de tout consultant externe pour l’ensemble des projets publics de l’État",
-          "Présenter les barèmes financiers appliqués lors de l’adjudication des mandats de sous-traitance"
+          "Dispenser les gestionnaires de toute obligation de neutralité lors des comités de sélection",
+          "Sanctionner publiquement les gestionnaires qui ont omis de déclarer leurs liens de parenté"
         ],
         [
           "Comment le formateur développe-t-il la notion de conflit d’intérêts ?",
           "Il élargit la définition au-delà du délit financier pour inclure l’apparence de partialité",
           "Il affirme que seuls les pots-de-vin en espèces sont considérés comme des fautes graves",
-          "Il compare minutieusement les codes d’éthique de dix pays étrangers sans lien avec le Québec"
+          "Il réduit la définition au seul délit financier, en écartant l’apparence de partialité"
         ],
         [
           "Quelle conséquence découle implicitement de l’obligation de se récuser ?",
           "Le processus décisionnel doit se poursuivre sans aucune participation du cadre concerné",
-          "L’entreprise candidate appartenant à un proche est automatiquement disqualifiée de tous les appels d’offres",
-          "L’entreprise candidate appartenant à un proche est automatiquement disqualifiée à vie"
+          "Le cadre doit rester présent aux délibérations pour témoigner de sa neutralité décisionnelle",
+          "La candidature est écartée, mais le cadre concerné demeure libre d’évaluer les autres offres"
         ],
         [
           "Dans ce contexte réglementaire, que signifie précisément le verbe « se récuser » ?",
           "Se retirer volontairement d’une décision pour garantir l’impartialité du jugement",
-          "Contester publiquement les directives données par les avocats et les conseillers juridiques de l’entreprise",
-          "Démissionner sur-le-champ de son poste sans préavis ni compensation financière"
+          "Accepter de siéger au comité tout en déclarant officiellement son lien avec la firme",
+          "Exclure la firme candidate du processus pour éviter toute apparence de favoritisme"
         ]
       ],
       "frame": "formation en entreprise — intégrité et conflits d’intérêts corporatifs"
@@ -294,14 +294,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le propos explicatif central de cet extrait documentaire ?",
           "Le rôle fondamental de l’attention conjointe dans l’émergence du langage et de la cognition",
-          "L’évaluation systématique du vocabulaire passif des enfants dès l’âge de neuf mois en garderie",
+          "Le rôle secondaire de l’attention conjointe, qui n’influence que le développement moteur de l’enfant",
           "L’inutilité des interactions verbales précoces entre les parents et leurs jeunes enfants"
         ],
         [
           "Comment les spécialistes articulent-ils leur raisonnement scientifique ?",
           "Un comportement observable chez l’enfant est relié à des apprentissages cognitifs ultérieurs",
-          "Une critique sévère et sans appel des méthodes pédagogiques traditionnelles appliquées en garderie éducative",
-          "Les résultats de tests de quotient intellectuel pour bébés sont énumérés sans explication"
+          "Un comportement observable chez l’adulte est relié à des fragilités cognitives de l’enfant",
+          "Une observation de garderie est rejetée au profit d’études longitudinales menées à Laval"
         ],
         [
           "Que déduit-on implicitement de l’importance du pointage parental ?",
@@ -312,8 +312,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans cet extrait, que désigne une « étude longitudinale » ?",
           "Une recherche qui suit les mêmes participants sur une longue période chronologique",
-          "Une analyse de laboratoire mesurant la taille géométrique du cerveau des nourrissons",
-          "Une enquête d’opinion menée auprès d’échantillons aléatoires de parents en garderie"
+          "Une recherche qui compare des enfants de deux garderies différentes à un instant précis",
+          "Un suivi qui s’arrête à neuf mois, avant l’apparition de l’attention conjointe chez l’enfant"
         ]
       ],
       "frame": "documentaire scientifique — neurosciences et développement cognitif infantile"
@@ -326,18 +326,18 @@ export const N09_10_SCENARIOS = {
           "Quelle directive principale est explicitée dans cette séance de déontologie ?",
           "L’interdiction des cadeaux significatifs et l’obligation d’enregistrer toute offre d’avantage",
           "L’autorisation sans aucune limite des voyages d’affaires financés par des partenaires industriels de longue date",
-          "Le refus de participer à toute conférence technique organisée en dehors du bureau"
+          "La limitation des cadeaux aux seuls employés de rang supérieur, sans obligation de déclaration"
         ],
         [
           "De quelle manière l’exposé juridique est-il structuré par l’intervenant ?",
           "Les règles professionnelles sont présentées en insistant sur le risque d’influence indirecte",
-          "Un bilan statistique complet des sanctions disciplinaires prononcées par les tribunaux criminels de la province",
-          "Une défense argumentée de la liberté contractuelle des négociateurs dans les arbitrages civils"
+          "Les sanctions disciplinaires sont énumérées une à une, sans lien avec la pratique professionnelle",
+          "Une mise en garde contre la courtoisie d’affaires, qui serait sans effet sur le jugement technique"
         ],
         [
           "Quel présupposé sous-tend l’inscription au registre dans les quarante-huit heures ?",
           "La traçabilité immédiate empêche la dissimulation et démontre la bonne foi du professionnel",
-          "Le département de conformité souhaite redistribuer tous les cadeaux reçus aux autres employés de l’entreprise",
+          "Une inscription tardive au registre suffit à effacer tout manquement, quelle que soit sa gravité",
           "L’inscription au registre transfère l’entière responsabilité civile du projet aux dirigeants du cabinet"
         ],
         [
@@ -362,8 +362,8 @@ export const N09_10_SCENARIOS = {
         [
           "Comment la démonstration des neuropsychologues s’articule-t-elle ?",
           "Un décalage biologique est opposé aux préjugés moraux pour proposer des pistes éducatives",
-          "Une série d’accusations est lancée contre les enseignants qui ne comprennent pas le cerveau",
-          "Une liste de médicaments stimulants est vantée comme unique solution aux troubles d’attention"
+          "Des pistes éducatives sont proposées d’abord, puis justifiées par des préjugés moraux sur les élèves",
+          "Un inventaire de méthodes disciplinaires est dressé pour corriger l’agitation des élèves en classe"
         ],
         [
           "Que déduit-on implicitement de la variabilité du développement cérébral ?",
@@ -374,8 +374,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans cet extrait, que désigne le mot « inhibition » ?",
           "La capacité cognitive de freiner volontairement un réflexe ou une réponse automatique",
-          "Une diminution anormale et prolongée du débit sanguin dans les zones postérieures de l’encéphale humain",
-          "Une diminution anormale du débit sanguin dans les zones postérieures de l’encéphale"
+          "La faculté de retenir plusieurs consignes à la fois, en les reformulant mentalement",
+          "La capacité cognitive de déclencher aussitôt une réponse motrice dès qu’une consigne est donnée"
         ]
       ],
       "frame": "documentaire scientifique — plasticité cérébrale et fonctions exécutives chez l’enfant"
