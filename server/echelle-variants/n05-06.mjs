@@ -591,9 +591,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Si tu dois envoyer ${s.doc} à la direction, voici la procédure exacte à suivre. D’abord, connecte-toi sur l’intranet de l’entreprise avec ton identifiant habituel. Ensuite, clique sur l’onglet « ${s.onglet} » et sélectionne le formulaire d’envoi interne. Tu dois impérativement téléverser toutes tes pièces justificatives ${s.format}. N’oublie pas d’inscrire le numéro de projet dans la case prévue. Enfin, clique sur « Soumettre » et attends le courriel de confirmation automatique. Il faut absolument faire cette démarche ${s.delai} pour que le traitement soit fait à temps sur ta paie.`,
           questions: [
-            makeQuestion('Quelle démarche administrative la collègue explique-t-elle ?', 'La transmission interne de justificatifs via le portail', 'La réservation d’un espace de conférence pour clients', 'La passation d’une commande de fournitures en magasin', ['intranet', 'formulaire']),
-            makeQuestion('Dans quel format les fichiers doivent-ils être déposés ?', `Ils doivent être transmis ${s.formPara}`, 'Ils doivent être imprimés puis apportés en mains propres', 'Ils doivent être expédiés par simple messagerie texte', [s.formKw]),
-            makeQuestion('Quelle est l’échéance pour soumettre la demande ?', `${s.delPara}`, 'La démarche doit obligatoirement être faite en 24 heures', 'Aucune limite dans le calendrier n’est imposée aux salariés', [s.delKw]),
+            makeQuestion('Quelle démarche administrative la collègue explique-t-elle ?', 'La transmission interne de justificatifs via le portail', 'La création d’un nouveau numéro de projet sur l’intranet', 'La passation d’une commande de fournitures en magasin', ['intranet', 'formulaire']),
+            makeQuestion('Dans quel format les fichiers doivent-ils être déposés ?', `Ils doivent être transmis ${s.formPara}`, 'Ils doivent être envoyés par courriel direct à la direction', 'Ils doivent être expédiés par simple messagerie texte', [s.formKw]),
+            makeQuestion('Quelle est l’échéance pour soumettre la demande ?', `${s.delPara}`, 'L’envoi doit être complété immédiatement le jour de la paie', 'Aucune limite dans le calendrier n’est imposée aux salariés', [s.delKw]),
           ],
         }
       },
@@ -611,9 +611,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Pour commander ${s.materiel}, fais bien attention aux étapes du protocole interne. Première étape : remplis le bon de commande dans le logiciel de gestion en indiquant les codes d’articles précis. Étape suivante : imprime une copie papier et obtiens la signature manuscrite ${s.palier}. Troisième phase : dépose le document signé ${s.bac} avant quatorze heures. Une fois le bon enregistré, le commis t’enverra un numéro de suivi par messagerie instantanée. Si tu oublies la signature, ta demande sera automatiquement rejetée par le système.`,
           questions: [
-            makeQuestion('Quelle procédure la collègue détaille-t-elle à son interlocuteur ?', 'L’acheminement formel d’une demande d’achat de matériel', 'L’évaluation semestrielle du rendement au sein du groupe', 'Le protocole de demande de congé pour motifs personnels', ['bon de commande', 'protocole']),
-            makeQuestion('Quelle condition obligatoire permet de valider le bon de commande ?', `Recueillir ${s.signPara}`, 'Contacter directement par téléphone le fournisseur externe', 'Effectuer un paiement comptant préalable de la moitié du coût', [s.signKw]),
-            makeQuestion('Où doit-on déposer le document papier une fois signé ?', `${s.bacPara}`, 'Le glisser sous la porte fermée du bureau de direction', 'Le remettre directement au transporteur lors de sa livraison', [s.bacKw]),
+            makeQuestion('Quelle procédure la collègue détaille-t-elle à son interlocuteur ?', 'L’acheminement formel d’une demande d’achat de matériel', 'L’enregistrement des retours de matériel dans le logiciel', 'Le protocole de demande de congé pour motifs personnels', ['bon de commande', 'protocole']),
+            makeQuestion('Quelle condition obligatoire permet de valider le bon de commande ?', `Recueillir ${s.signPara}`, 'Obtenir un numéro de suivi auprès du commis de bureau', 'Effectuer un paiement comptant préalable de la moitié du coût', [s.signKw]),
+            makeQuestion('Où doit-on déposer le document papier une fois signé ?', `${s.bacPara}`, 'Le laisser sur la table de travail de son responsable', 'Le remettre directement au transporteur lors de sa livraison', [s.bacKw]),
           ],
         }
       },
@@ -631,9 +631,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Pour payer ta part de loyer par cellulaire, c’est très simple, regarde. Ouvre d’abord l’application mobile ${s.banque} et va dans la section « Virements Interac ». Entre l’adresse courriel du propriétaire, qui est ${s.courriel}. Ensuite, inscris le montant exact de ta part, soit ${s.montant}. Pour la question de sécurité, écris « Appartement », et comme réponse secrète, tape ${s.code}. Vérifie bien toutes les informations avant de confirmer l’envoi. Dès que le virement est complété, fais une capture d’écran de la confirmation et envoie-la-moi par message texte pour nos dossiers !`,
           questions: [
-            makeQuestion('Quel paiement le colocataire apprend-il à effectuer sur son téléphone ?', 'Le règlement de sa quote-part de loyer via l’application', 'Le paiement mensuel de sa facture de consommation électrique', 'L’achat en ligne d’éléments d’ameublement pour le logement', ['loyer', 'interac']),
-            makeQuestion('Quelle réponse de sécurité doit-on saisir dans l’application ?', `Il faut entrer ${s.secPara}`, 'La date de naissance exacte de votre propriétaire', 'Le numéro de cellulaire de votre colocataire en poste', [s.secKw]),
-            makeQuestion('Que doit envoyer le locataire une fois la transaction terminée ?', 'Une preuve visuelle de l’écran de confirmation par texto', 'Un reçu officiel imprimé en trois exemplaires distincts', 'Un message officiel adressé au responsable de succursale', ['capture', 'texte']),
+            makeQuestion('Quel paiement le colocataire apprend-il à effectuer sur son téléphone ?', 'Le règlement de sa quote-part de loyer via l’application', 'Le versement d’un acompte pour réserver un appartement', 'L’achat en ligne d’éléments d’ameublement pour le logement', ['loyer', 'interac']),
+            makeQuestion('Quelle réponse de sécurité doit-on saisir dans l’application ?', `Il faut entrer ${s.secPara}`, 'L’adresse courriel complète de votre propriétaire', 'Le numéro de cellulaire de votre colocataire en poste', [s.secKw]),
+            makeQuestion('Que doit envoyer le locataire une fois la transaction terminée ?', 'Une preuve visuelle de l’écran de confirmation par texto', 'Un courriel de confirmation officiel au propriétaire', 'Un message officiel adressé au responsable de succursale', ['capture', 'texte']),
           ],
         }
       },
@@ -651,9 +651,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Voici comment faire pour payer la facture ${s.facture} avec ton cellulaire. Dans ton application bancaire, choisis l’onglet « Payer une facture ». Si le fournisseur n’est pas encore enregistré, clique sur « Ajouter un bénéficiaire » et tape le numéro de compte qui apparaît en haut du compte papier. Ensuite, sélectionne ${s.compte} et saisis le montant de ${s.montant}. Tu peux programmer un paiement récurrent qui s’exécutera automatiquement ${s.date}. N’oublie pas de cliquer sur le bouton vert pour enregistrer. Ça évite les oublis et les frais d’intérêt de retard !`,
           questions: [
-            makeQuestion('Quelle procédure est expliquée pour gérer les dépenses de la colocation ?', 'Le règlement d’une charge de logement sur l’outil bancaire mobile', 'La fermeture complète d’un compte auprès de l’établissement bancaire', 'L’ouverture d’une demande de crédit pour la caution de l’appartement', ['facture', 'bancaire']),
-            makeQuestion('Quelle information faut-il taper pour ajouter le bénéficiaire ?', 'La référence de compte figurant sur le document papier', 'Les prénoms et noms de l’ensemble des résidents du bloc', 'Le courriel confidentiel du propriétaire de la bâtisse', ['numéro de compte', 'bénéficiaire']),
-            makeQuestion('Quel avantage offre la programmation automatique du paiement ?', 'Prévenir tout retard et s’épargner des pénalités financières', 'Bénéficier d’une remise commerciale de dix pour cent sur la note', 'Engranger des récompenses fidélité sur sa carte de crédit privée', ['frais', 'retard']),
+            makeQuestion('Quelle procédure est expliquée pour gérer les dépenses de la colocation ?', 'Le règlement d’une charge de logement sur l’outil bancaire mobile', 'L’ouverture d’un compte bancaire pour payer les factures', 'L’ouverture d’une demande de crédit pour la caution de l’appartement', ['facture', 'bancaire']),
+            makeQuestion('Quelle information faut-il taper pour ajouter le bénéficiaire ?', 'La référence de compte figurant sur le document papier', 'Le montant total de la facture figurant sur le compte papier', 'Le courriel confidentiel du propriétaire de la bâtisse', ['numéro de compte', 'bénéficiaire']),
+            makeQuestion('Quel avantage offre la programmation automatique du paiement ?', 'Prévenir tout retard et s’épargner des pénalités financières', 'Payer un montant moins élevé lors de chaque versement mensuel', 'Engranger des récompenses fidélité sur sa carte de crédit privée', ['frais', 'retard']),
           ],
         }
       },
@@ -671,9 +671,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Pour finaliser ton dossier d’embauche auprès des ressources humaines, il y a trois étapes simples. Premièrement, télécharge le formulaire d’adhésion à la paie depuis ${s.portail}. Deuxièmement, numérise ${s.piece} et joins ce document en fichier PDF au formulaire. Troisièmement, vérifie que ton adresse postale et ton numéro de téléphone sont bien à jour dans ton profil. Il faut compléter ces démarches ${s.delai} pour que la paie de la semaine prochaine ne soit pas bloquée. Si tu as un problème technique, appelle le poste interne 204.`,
           questions: [
-            makeQuestion('Quel dossier administratif le nouvel employé doit-il compléter ?', 'Les pièces d’embauche nécessaires à la gestion de la paie', 'Un dossier de mutation vers une filiale en région voisine', 'Une demande officielle d’octroi de jours de congé parental', ['dossier', 'embauche']),
-            makeQuestion('Quel document doit-il numériser et joindre au formulaire ?', `Il est nécessaire de déposer ${s.piePara}`, 'Une attestation de bonne conduite signée par son voisinage', 'Un certificat d’aptitude remis par un médecin spécialiste', [s.pieKw]),
-            makeQuestion('Dans quel délai doit-il accomplir toutes ces étapes ?', `${s.delPara}`, 'Le processus doit être mené dans un délai strict de trente jours', 'Les démarches doivent obligatoirement précéder sa probation', [s.delKw]),
+            makeQuestion('Quel dossier administratif le nouvel employé doit-il compléter ?', 'Les pièces d’embauche nécessaires à la gestion de la paie', 'Une mise à jour de son profil pour le poste interne', 'Une demande officielle d’octroi de jours de congé parental', ['dossier', 'embauche']),
+            makeQuestion('Quel document doit-il numériser et joindre au formulaire ?', `Il est nécessaire de déposer ${s.piePara}`, 'Un justificatif de domicile attestant de son adresse postale', 'Un certificat d’aptitude remis par un médecin spécialiste', [s.pieKw]),
+            makeQuestion('Dans quel délai doit-il accomplir toutes ces étapes ?', `${s.delPara}`, 'Avant la date de versement de sa paie du mois prochain', 'Les démarches doivent obligatoirement précéder sa probation', [s.delKw]),
           ],
         }
       },
