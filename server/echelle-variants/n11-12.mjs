@@ -24,7 +24,7 @@ export const N11_12_SCENARIOS = {
           'Quel avantage le nouveau matériau développé présente-t-il ?',
           'Une cicatrisation rapide sous l’action des liquides souterrains',
           'Une baisse totale des dépenses de fabrication du ciment routier',
-          'Une élimination instantanée des gaz toxiques sans aucun résidu',
+          'Une capture directe du dioxyde de carbone dans l’atmosphère',
         ],
         [
           'Selon la conférencière, quelle erreur doit-on absolument éviter ?',
@@ -117,13 +117,13 @@ export const N11_12_SCENARIOS = {
           'Quel principe d’équité la nouvelle réglementation instaure-t-elle ?',
           'Une procédure de départ aussi simple et directe que l’adhésion',
           'Une réduction tarifaire obligatoire après deux années d’abonnement',
-          'Une dispense de paiement complet lors des vacances estivales annuelles',
+          'Un remboursement automatique de tout abonnement résilié dans les trente jours',
         ],
         [
           'Quel devoir préventif incombe désormais aux marchands du web ?',
           'Signaler par courriel le renouvellement imminent d’un compte annuel',
           'Fournir un reçu papier par la poste après chaque achat dématérialisé',
-          'Demander une pièce d’identité officielle lors de chaque transaction',
+          'Publier chaque mois la liste des abonnés qui ont résilié leur forfait',
         ],
         [
           'Sur quoi la fidélité des usagers devrait-elle reposer selon Félix Lapointe ?',
@@ -191,13 +191,13 @@ Pendant plus de trente ans, la famille régnait sans partage sur six antennes de
           'Quelle réaction immédiate a suivi l’annonce d’Hélène ?',
           'Une stupeur violente suivie d’un abattement lourd dans l’immeuble',
           'Des applaudissements nourris de la part des journalistes juniors',
-          'Une célébration festive organisée spontanément à la cafétéria',
+          'Une grève spontanée des techniciens du plateau de tournage',
         ],
         [
           'Quelle image finale résume la déchéance de cette entreprise ?',
           'La dilution de l’identité locale au profit d’un groupe anonyme',
           'La transformation du bâtiment en musée consacré à la télévision',
-          'Le rachat symbolique des caméras par les employés au chômage',
+          'Le retour du patriarche à la tête des antennes régionales',
         ],
       ],
     },
@@ -259,7 +259,7 @@ Pendant plus de trente ans, la famille régnait sans partage sur six antennes de
           'Quelle impression générale la mise en scène suscite-t-elle à la fin ?',
           'Le sentiment tragique d’un déchirement sans issue favorable',
           'L’enthousiasme populaire face à la réconciliation des rivaux',
-          'La surprise provoquée par un dénouement comique inattendu',
+          'Un sentiment de soulagement après la signature d’un compromis',
         ],
       ],
     },
@@ -315,7 +315,7 @@ Au cours de la dernière décennie, plus de cinq mille hectares de terres de pre
           'Quel péril futur la perte de ces terres engendre-t-elle selon elle ?',
           'Une soumission périlleuse aux fluctuations du commerce extérieur',
           'Une baisse de l’attrait touristique des campagnes laurentiennes',
-          'Une augmentation mécanique des charges d’eau dans les agglomérations',
+          'Une hausse des loyers agricoles dans les municipalités de la couronne',
         ],
         [
           'Quel comportement l’oratrice reproche-t-elle à certains acteurs ?',
@@ -369,7 +369,7 @@ On nous accuse souvent de vouloir manquer des cours par pur plaisir de contester
       questions: [
         [
           'Quel reproche récurrent l’oratrice réfute-t-elle d’emblée ?',
-          'L’idée que les jeunes débrayent uniquement pour fuir leurs devoirs',
+          'L’accusation selon laquelle les élèves débrayent par pur plaisir',
           'L’affirmation selon laquelle les cégeps coûtent trop cher à l’État',
           'Le soupçon d’une ingérence de partis politiques au sein du campus',
         ],
@@ -419,7 +419,7 @@ Quand j’ai débarqué à Dorval il y a douze ans, le froid m’a giflé le vis
         [
           'Que symbolise la métaphore des tiroirs qui débordent ?',
           'La libération impétueuse de sentiments trop longtemps enfouis',
-          'L’encombrement matériel d’un logement trop étroit du quartier',
+          'La rupture d’un bail de location trop coûteux pour la famille',
           'La perte définitive de souvenirs d’enfance égarés lors du vol',
         ],
         [
@@ -438,7 +438,7 @@ J’ai grandi à l’ombre des cheminées de brique rouge, là où les sirènes 
         [
           'Quel sentiment domine l’évocation des usines de son enfance ?',
           'Une admiration émue envers la dignité des générations ouvrières',
-          'Une rancune amère contre ses parents qui travaillaient sans cesse',
+          'Une colère froide envers les patrons qui ont fermé les usines',
           'Un soulagement de voir les fabriques polluantes fermer boutique',
         ],
         [
@@ -451,7 +451,7 @@ J’ai grandi à l’ombre des cheminées de brique rouge, là où les sirènes 
           'Comment le poète perçoit-il son propre rôle lors de cette performance ?',
           'Comme le gardien déterminé d’un passé qu’on cherche à occulter',
           'Comme un négociateur cherchant à obtenir des logements abordables',
-          'Comme un touriste émerveillé découvrant l’architecture du siècle',
+          'Comme un promoteur immobilier soucieux de valoriser les anciens ateliers',
         ],
         [
           'Quelle image puissante illustre la résistance de la communauté locale ?',
@@ -482,7 +482,7 @@ Tout le monde dans cette faculté sait que Jean-Marc ne possède pas de calendri
           'Comment le sentiment de la salle évolue-t-il au fil du discours ?',
           'De la taquinerie complice vers une reconnaissance touchante',
           'D’une rancœur tenace vers une indifférence polie mais froide',
-          'D’une solennité pompeuse vers un fou rire totalement incontrôlé',
+          'D’une solennité pompeuse vers un éclat de rire franc et spontané',
         ],
         [
           'Quelle appréhension humoristique l’intervenante exprime-t-elle pour l’avenir ?',
@@ -500,7 +500,7 @@ Tous les critiques gastronomiques de la presse vantent aujourd’hui son audace 
         [
           'Quel souvenir humoristique de jeunesse l’orateur dévoile-t-il d’entrée ?',
           'Des maladresses mémorables lors de ses premiers essais aux fourneaux',
-          'Une tentative ratée de remporter une compétition de course à pied',
+          'Une médaille d’or remportée lors d’un concours de cuisine régional',
           'Un refus catégorique d’assister aux cours théoriques d’alimentation',
         ],
         [
@@ -513,13 +513,13 @@ Tous les critiques gastronomiques de la presse vantent aujourd’hui son audace 
           'Quel acte de charité sincère témoigne de la bonté de Sébastien ?',
           'La préparation de repas gastronomiques pour les personnes démunies',
           'L’achat régulier d’équipements coûteux pour les écoles primaires',
-          'Le financement anonyme de bourses d’études pour les critiques d’art',
+          'L’organisation de collectes de fonds pour des concours culinaires étudiants',
         ],
         [
           'Quelle intention finale guide cette prise de parole chaleureuse ?',
           'Célébrer l’amitié fraternelle et le dévouement humain du fêté',
           'Régler de vieux comptes professionnels accumulés depuis vingt ans',
-          'Annoncer l’ouverture prochaine d’un restaurant concurrent en ville',
+          'Réclamer une augmentation de salaire pour les plongeurs du restaurant',
         ],
       ],
     },
@@ -537,8 +537,8 @@ Contrairement à une conception populaire tenace qui assimile l’estime de soi 
         [
           'Quel mythe éducatif répandu l’extrait remet-il en question ?',
           'L’illusion que les louanges permanentes suffisent à bâtir l’enfant',
-          'L’idée que l’intelligence dépend exclusivement de facteurs génétiques',
-          'La croyance voulant que les punitions corporelles favorisent le calme',
+          'L’idée que l’intelligence dépend principalement de facteurs innés',
+          'L’idée que la rétroaction descriptive nuit à la motivation scolaire',
         ],
         [
           'Quel effet néfaste les éloges immérités produisent-ils chez les jeunes ?',
@@ -574,19 +574,19 @@ Le développement de l’estime de soi à l’orée de l’adolescence s’artic
         [
           'Quel risque une tutelle parentale excessive entraîne-t-elle ?',
           'L’incapacité d’acquérir par soi-même des tactiques de conciliation',
-          'L’apparition précoce de problèmes de santé physique dégénératifs',
+          'Une perte passagère de l’attention lors des cours de mathématiques',
           'Une baisse immédiate de la motricité fine lors des travaux manuels',
         ],
         [
           'Quel atout confère la maîtrise des compétences métacognitives ?',
           'La faculté de traverser les déconvenues sans ébranler sa dignité',
-          'La garantie d’obtenir les meilleures notes de sa classe d’examen',
+          'La capacité de réussir ses examens sans efforts de révision',
           'L’élimination intégrale des désaccords au sein de la cour de récréation',
         ],
         [
           'Quelle modalité pratique l’article suggère-t-il pour l’école ?',
           'Des temps d’échange structurés pour apprendre à gérer les tensions',
-          'Des sanctions accrues contre les élèves qui manifestent de la peine',
+          'Des exposés individuels imposés aux élèves les plus timides',
           'La suppression temporaire des activités d’équipe pour les élèves anxieux',
         ],
       ],
@@ -697,9 +697,9 @@ Au milieu de la clairière boueuse où se croisaient les frontières des trois d
       questions: [
         [
           'Quel ordre cruel le comte Renaud donne-t-il à son champion ?',
-          'Exécuter sans pitié un combattant étendu sur le champ de foire',
+          'Exécuter sans pitié un combattant étendu dans la clairière',
           'Livrer aux flammes les villages voisins sans épargner personne',
-          'Dépouiller les chevaux des bêtes mortes pour en vendre les cuirs',
+          'Confisquer les terres de Gaucelm pour récompenser son courage',
         ],
         [
           'Quel geste théâtral Gaucelm pose-t-il pour marquer son refus ?',
@@ -711,13 +711,13 @@ Au milieu de la clairière boueuse où se croisaient les frontières des trois d
           'Comment réagissent les autres chevaliers devant cette désobéissance ?',
           'Un assentiment discret devant un geste digne de l’idéal militaire',
           'Une indignation furieuse réclamant la pendaison immédiate du traître',
-          'Une panique générale provoquant la déroute des lignes d’infanterie',
+          'Une fuite précipitée des gens d’armes vers le château du comte',
         ],
         [
           'Quelle signification intemporelle ce passage épique véhicule-t-il ?',
           'Le devoir moral supérieur de refuser un commandement inique',
-          'L’avantage tactique de combattre à pied plutôt qu’à cheval en forêt',
-          'La fragilité inhérente aux traités de paix conclus sans les clercs',
+          'L’obligation d’obéir sans réserve aux décrets de son suzerain',
+          'La crainte de perdre ses terres lors d’un bannissement comtal',
         ],
       ],
     },
@@ -729,14 +729,14 @@ Après avoir vogué trois lunes au-delà des mers cartographiées, le savant Phi
         [
           'Quelle coutume singulière régit la vie des citoyens d’Ochronie ?',
           'Le bannissement strict de tout instrument servant à compter les heures',
-          'L’obligation de jeûner chaque semaine pour purifier l’esprit des jeunes',
-          'L’interdiction totale de naviguer au-delà de la barrière de corail',
+          'L’interdiction faite aux jeunes de quitter leur île natale',
+          'La fabrication obligatoire de cadrans solaires sur chaque place publique',
         ],
         [
           'Quel travers majeur le voyageur découvre-t-il rapidement sur l’île ?',
           'La désorganisation générale qui paralyse tous les projets collectifs',
           'La misère matérielle causée par des sécheresses répétées et sans fin',
-          'La tyrannie militaire imposée par un petit groupe de forgerons armés',
+          'La prospérité commerciale des caravanes qui traversent le désert',
         ],
         [
           'Comment la justice est-elle rendue dans cette contrée sans repères ?',
@@ -748,7 +748,7 @@ Après avoir vogué trois lunes au-delà des mers cartographiées, le savant Phi
           'Quelle leçon philosophique Philothée tire-t-il de son escale insulaire ?',
           'La mesure temporelle structure le sens du devoir et le lien humain',
           'L’abolition des contraintes horaires libère naturellement la bonté humaine',
-          'La navigation en solitaire permet de guérir toutes les peines d’amour',
+          'L’oubli du passé rend les citoyens plus fidèles à leurs serments',
         ],
       ],
     },
@@ -803,8 +803,8 @@ Alors que les chefs d’État et de gouvernement s’apprêtent à parapher le n
         [
           'Quel pouvoir ces tribunaux spéciaux accordent-ils aux entreprises privées ?',
           'Réclamer des dédommagements financiers si une loi réduit leurs gains',
-          'Remplacer les juges de la Cour suprême lors des procès pour fraude',
-          'Décider unilatéralement du calendrier des élections législatives',
+          'Désigner les juges nationaux qui siègeront dans chaque procès commercial',
+          'Suspendre les procédures judiciaires engagées devant les tribunaux ordinaires',
         ],
         [
           'Comment l’auteur démonte-t-il la justification économique des promoteurs ?',
@@ -815,7 +815,7 @@ Alors que les chefs d’État et de gouvernement s’apprêtent à parapher le n
         [
           'Quelle directive d’action le journal adresse-t-il aux élus du peuple ?',
           'Refuser leur approbation tant que ces privilèges demeurent inscrits',
-          'Demander une augmentation de leur indemnité avant le vote définitif',
+          'Accélérer la ratification pour éviter tout débat public sur le texte',
           'Signer l’entente sans attendre pour devancer les pays concurrents',
         ],
       ],
@@ -841,13 +841,13 @@ La signature imminente de l’accord économique global suscite une levée de bo
           'Quel contre-argument l’article oppose-t-il au discours des partisans ?',
           'L’allongement des rentes brevetées finance la finance et non l’essor',
           'Les laboratoires québécois refusent de collaborer avec les hôpitaux',
-          'La recherche médicale a déjà découvert tous les remèdes possibles',
+          'Les essais cliniques réalisés au Québec ralentissent faute de patients',
         ],
         [
           'Quelle ligne de conduite l’auteur réclame-t-il des décideurs publics ?',
           'Isoler la santé des trocs commerciaux pour protéger la population',
           'Nationaliser immédiatement la fabrication de tous les comprimés',
-          'Cesser toute relation diplomatique avec les partenaires du traité',
+          'Accorder aux laboratoires une exclusivité commerciale prolongée',
         ],
       ],
     },
@@ -878,7 +878,7 @@ Monsieur le Président, membres de la Commission, notre mémoire vise à démont
           'Quelle réponse le groupe citoyen apporte-t-il au spectre de l’instabilité ?',
           'Les gouvernements de compromis élaborent des politiques plus pérennes',
           'Le premier ministre conserve un droit de veto absolu sur tout projet de loi',
-          'Les tribunaux administratifs peuvent dissoudre une coalition défaillante',
+          'Les coalitions doivent être dissoutes après chaque élection régionale',
         ],
       ],
     },
@@ -928,25 +928,25 @@ Quelle époque bénie pour le consommateur moderne ! Rendons grâce au génie vi
           'Quel procédé d’écriture structure l’ensemble de cette chronique ?',
           'Une ironie mordante louant le mépris sous couvert de bienfaisance',
           'Un compte rendu austère alignant des statistiques de rentabilité',
-          'Un poème mélancolique déplorant la disparition des vieux artisans',
+          'Un manuel technique détaillant les étapes de réparation des appareils',
         ],
         [
           'Quelle réalité prosaïque se cache derrière les boîtiers hermétiques ?',
           'La volonté délibérée de rendre toute réparation maison impossible',
-          'La nécessité technique d’éviter les interférences radio des avions',
+          'La protection optimale de la lentille en cristal contre la poussière',
           'L’exigence de conformité aux normes internationales de recyclage rapide',
         ],
         [
           'Quel effet réel la mise à jour logicielle produit-elle sur l’appareil ?',
           'Une dégradation calculée de la vitesse pour encourager un rachat',
           'Une amélioration spectaculaire de l’autonomie de la batterie usée',
-          'Un effacement accidentel de tous les contacts de la boîte vocale',
+          'Une protection technique réelle contre les cybermenaces réseau',
         ],
         [
           'Quelle critique sociétale l’auteur formule-t-il sous ses éloges feints ?',
           'La manipulation consumériste orchestrée par les géants numériques',
-          'La baisse alarmante du niveau scientifique chez les étudiants d’ici',
-          'L’inefficacité des douanes à bloquer les importations d’électronique',
+          'L’obsession esthétique pour les bordures d’écran de quelques millimètres',
+          'Le prix d’achat excessif des téléphones intelligents à deux mille dollars',
         ],
       ],
     },
@@ -965,7 +965,7 @@ Nous vivons désormais entourés d’appareils électroménagers tellement intel
           'Quel obstacle kafkaïen bloque le fonctionnement de la machine ?',
           'La dépendance absurde à un réseau lointain pour une tâche basique',
           'Une coupure générale d’électricité survenue dans tout le quartier sud',
-          'L’introduction par erreur d’un savon inadapté dans le bac de réserve',
+          'La perte accidentelle du signal de liaison sans fil dans la maison',
         ],
         [
           'Comment le fabricant verrouille-t-il le marché de la réparation ?',
@@ -976,21 +976,21 @@ Nous vivons désormais entourés d’appareils électroménagers tellement intel
         [
           'Quelle comparaison finale souligne la régression sous couvert de progrès ?',
           'La longévité des anciens appareils face à la caducité des nouveaux',
-          'La consommation d’eau potable par rapport aux puits des campagnes',
-          'Le coût exorbitant des forfaits cellulaires comparé aux téléphones',
+          'Le tarif des réparateurs de quartier face aux techniciens franchisés',
+          'L’élégance des écrans tactiles modernes comparée aux vieilles cuves',
         ],
       ],
     },
     {
       situation: 1,
       text: `Extrait du roman : « La Couleur du repentir », par Geneviève Tremblay, Éditions du Boréal.
-Debout dans le silence de son atelier de la rue Saint-Denis, Mathilde contemplait le chef-d’œuvre posé sur le chevalet avec une gorge si serrée qu’elle en oubliait de respirer. La toile du dix-huitième siècle, léguée par un couvent de la rive sud, avait subi une lacération sauvage en plein cœur du visage de la madone, trace d’un vandalisme dont nul ne comprenait l’origine. Dans un premier instant, une colère sourde et brûlante l’avait envahie, une révolte viscérale devant cette mutilation barbare infligée à des siècles de grâce picturale. Puis, à cette rage impuissante avait succédé un vertige glacé d’effroi : et si son geste de restauratrice trahissait la matière ? Et si ses solvants dissolvaient le vernis originel sans réussir à combler la béance de la trame de lin ? Ses mains tremblaient sur le manche du scalpel, paralysées par la peur de l’irréversible. Elle ferma les paupières, écouta les battements précipités de ses tempes, puis laissa le calme de la respiration descendre jusqu’à ses doigts. Lorsqu’elle appliqua enfin la première gouttelette d’émulsion consolidante, une onde de soulagement lumineux la traversa. Sous l’action patiente du pinceau de martre, les pigments millénaires reprirent vie, refermant la blessure dans une harmonie miraculeuse. L’angoisse fit place à une plénitude presque sacrée, celle de l’artisane qui sait qu’elle vient d’arracher une étincelle de beauté à l’abîme de l’oubli.`,
+Debout dans le silence de son atelier de la rue Saint-Denis, Mathilde contemplait le chef-d’œuvre posé sur le chevalet avec une gorge si serrée qu’elle en oubliait de respirer. La toile du dix-huitième siècle, léguée par un couvent de la rive sud, avait subi une lacération sauvage en plein cœur du visage de la madone, trace d’un vandalisme dont nul ne comprenait l’origine. Dans un premier instant, une colère sourde et brûlante l’avait envahie, une révolte viscérale devant cette mutilation barbare infligée à des siècles de grâce picturale. Puis, à cette rage impuissante avait succédé un vertige glacé d’effroi : et si son geste de restauratrice trahissait la matière ? Et si ses solvants dissolvaient le vernis originel sans réussir à combler la béance de la trame de lin ? Ses mains tremblaient sur le manche du scalpel, paralysées par la peur de l’irréversible. Elle ferma les paupières, écouta les battements précipités de ses tempes, puis laissa le calme de la respiration descendre jusqu’à ses doigts. Lorsqu’elle appliqua enfin la première gouttelette d’émulsion consolidante, une onde de soulagement lumineux la traversa. Sous l’action patiente du pinceau de martre, les pigments séculaires reprirent vie, refermant la blessure dans une harmonie miraculeuse. L’angoisse fit place à une plénitude presque sacrée, celle de l’artisane qui sait qu’elle vient d’arracher une étincelle de beauté à l’abîme de l’oubli.`,
       questions: [
         [
           'Quel sentiment initial saisit Mathilde devant le tableau dégradé ?',
           'Une fureur révoltée face à la destruction sauvage de l’œuvre d’art',
           'Un découragement total la poussant à abandonner aussitôt sa carrière',
-          'Une joie secrète à l’idée d’empocher une rémunération substantielle',
+          'Une lassitude ancienne envers un métier qu’elle n’aime plus',
         ],
         [
           'Quel doute angoissant paralyse ensuite la restauratrice ?',
@@ -1062,18 +1062,18 @@ Assis à son vieil établi de chêne près de la fenêtre givrée, Henri écouta
           'Quel motif clinique le médecin invoque-t-il pour suggérer un hébergement ?',
           'Les dangers de chutes provoqués par un trop grand nombre de remèdes',
           'Une démence très avancée empêchant la patiente de s’exprimer seule',
-          'L’impossibilité matérielle de soigner ses plaies à son propre logis',
+          'Une fracture du poignet survenue lors d’une visite chez sa mercière',
         ],
         [
           'Quel argument la travailleuse sociale oppose-t-elle à la vision médicale ?',
           'L’importance capitale de ses repères affectifs et de son autonomie',
           'Le coût prohibitif des centres de soins pour la bourse de l’usagère',
-          'La promesse faite à sa famille de ne jamais quitter son appartement',
+          'La volonté formelle de ses proches d’éviter un placement en foyer',
         ],
         [
           'Quel compromis pragmatique l’ergothérapeute propose-t-elle au groupe ?',
           'Réaménager le logement et installer des outils d’aide connectés',
-          'Embaucher un garde du corps privé pour la surveiller jour et nuit',
+          'Installer des caméras de surveillance reliées au poste du voisin bénévole',
           'Transférer la dame chez sa fille résidant en province éloignée',
         ],
         [
@@ -1102,7 +1102,7 @@ Assis à son vieil établi de chêne près de la fenêtre givrée, Henri écouta
           'Quel constat l’infirmière-pivot dresse-t-elle au sujet des oublis du malade ?',
           'Une solitude pesante et un désarroi moral plutôt qu’une démence',
           'Une tentative consciente de défier les conseils du corps soignant',
-          'Une perte irréversible de la vision rendant les flacons illisibles',
+          'Une fatigue passagère liée à une infection urinaire non traitée',
         ],
         [
           'Quel levier communautaire le travailleur social préconise-t-il d’activer ?',
@@ -1114,7 +1114,7 @@ Assis à son vieil établi de chêne près de la fenêtre givrée, Henri écouta
           'Quelle conception globale du soin cette équipe multidisciplinaire défend-elle ?',
           'Un équilibre indissociable entre exactitude médicale et intégration humaine',
           'La prépondérance absolue des analyses biologiques sur le bien-être subjectif',
-          'La délégation complète des responsabilités thérapeutiques aux seuls bénévoles',
+          'La réduction des soins médicaux au seul suivi des résultats sanguins',
         ],
       ],
     },
@@ -1129,7 +1129,7 @@ Assis à son vieil établi de chêne près de la fenêtre givrée, Henri écouta
         [
           'Quel enjeu économique le délégué des marchands fait-il valoir ?',
           'Le maintien des commerces grâce aux recettes générées par les touristes',
-          'La construction rapide d’une autoroute pour désengorger le centre-ville',
+          'La reconversion du complexe hôtelier en résidence pour aînés',
           'L’obtention de subventions publiques pour baisser les impôts fonciers',
         ],
         [
@@ -1142,7 +1142,7 @@ Assis à son vieil établi de chêne près de la fenêtre givrée, Henri écouta
           'Comment l’urbaniste propose-t-il de dépasser cette opposition frontale ?',
           'En concentrant le bâti dans le cœur habité tout en préservant les sommets',
           'En suspendant tout investissement récréatif pour une période de dix années',
-          'En rachetant toutes les terres privées avec les réserves de la trésorerie',
+          'En suspendant les permis de construction pour les seuls commerces locaux',
         ],
         [
           'Quelle valeur citoyenne caractérise cette assemblée de concertation ?',
@@ -1163,19 +1163,19 @@ Assis à son vieil établi de chêne près de la fenêtre givrée, Henri écouta
         [
           'Quel argument décisif le responsable économique met-il en exergue ?',
           'Des revenus stables et durables pour financer les services publics locaux',
-          'L’assurance de fournir de l’électricité gratuite à tous les foyers côtiers',
+          'La garantie de baisser les factures d’électricité des commerces locaux',
           'La promesse d’attirer des usines de fabrication de pales sur place au port',
         ],
         [
           'Quelle crainte majeure la porte-parole de l’hôtellerie exprime-t-elle ?',
           'La dégradation de la vue maritime causant la désertion des vacanciers',
-          'La perturbation des ondes cellulaires causée par les moteurs d’éoliennes',
+          'La pollution sonore des plages causée par les bateaux de pêche',
           'Le blocage des voies maritimes pour les pêcheurs de homard de la péninsule',
         ],
         [
           'Quelle adaptation technique le médiateur suggère-t-il pour apaiser le conflit ?',
           'Déplacer les turbines vers les terres intérieures pour dégager l’horizon',
-          'Peindre les structures en bleu ciel pour les camoufler parmi les nuages',
+          'Augmenter la hauteur des mâts pour multiplier la production sur la côte',
           'Arrêter la rotation des générateurs durant tous les mois de haute saison',
         ],
         [
@@ -1207,7 +1207,7 @@ Assis à son vieil établi de chêne près de la fenêtre givrée, Henri écouta
           'Quel comportement politique le film tourne-t-il en dérision ?',
           'La répétition rituelle d’annonces vides pour faire miroiter une action',
           'La baisse continue des indemnités financières versées aux parlementaires',
-          'L’obligation d’utiliser uniquement les transports en commun municipaux',
+          'Le refus obstiné de subventionner l’élargissement des autoroutes régionales',
         ],
         [
           'Quel exemple absurde d’utilisation des deniers publics est fustigé ?',
@@ -1219,7 +1219,7 @@ Assis à son vieil établi de chêne près de la fenêtre givrée, Henri écouta
           'Quelle vision cynique du succès le consultant interrogé affiche-t-il ?',
           'La primauté de la visibilité numérique éphémère sur tout résultat concret',
           'Le mépris affiché envers les commanditaires privés du secteur financier',
-          'La certitude que la crise écologique sera résolue d’ici l’année prochaine',
+          'L’évaluation de la réussite par les sommes allouées à l’autoroute voisine',
         ],
       ],
     },
@@ -1250,7 +1250,7 @@ Assis à son vieil établi de chêne près de la fenêtre givrée, Henri écouta
           'Quelle conclusion caustique les coréalisateurs tirent-ils de cette enquête ?',
           'La métamorphose de la crise planétaire en simple argument de vente rentable',
           'La disparition progressive de la télévision traditionnelle face au web libre',
-          'Le retour inévitable des citoyens vers les campagnes profondes du nord rural',
+          'Le refus des actionnaires immobiliers d’applaudir les projets de verdissement',
         ],
       ],
     },
@@ -1305,7 +1305,7 @@ L’autre jour, j’étais assise à la cafétéria avec mon sandwich aux œufs.
         [
           'Comment le collègue Jean-François interprète-t-il la baisse de forme de Valérie ?',
           'Comme une baisse de rendement financier à inscrire dans un tableau de bord',
-          'Comme une grippe hivernale bénigne nécessitant du repos durant deux jours',
+          'Comme une dispute amoureuse qu’il faudrait porter au tribunal du travail',
           'Comme une jalousie professionnelle envers les nouveaux employés du service',
         ],
         [
@@ -1358,7 +1358,7 @@ L’autre jour, j’étais assise à la cafétéria avec mon sandwich aux œufs.
           'Quelle divergence fondamentale structure la confrontation entre les débatteurs ?',
           'L’opposition entre défense à court terme de la rente et vision prospective',
           'Le désaccord sur le montant précis des salaires versés aux ouvriers d’usine',
-          'La querelle sur le choix du calendrier des prochaines élections provinciales',
+          'Le différend sur le montant précis des redevances imposées aux alumineries',
         ],
       ],
     },
@@ -1379,7 +1379,7 @@ L’autre jour, j’étais assise à la cafétéria avec mon sandwich aux œufs.
         [
           'Quel risque technologique l’analyste des finances soulève-t-il pour l’avenir ?',
           'L’obsolescence rapide des procédés choisis face aux percées scientifiques',
-          'Le piratage systématique des logiciels régissant le réseau électrique du nord',
+          'La dégradation rapide des cellules de batterie sous l’effet du grand froid',
           'L’épuisement total des réserves d’eau douce nécessaires au refroidissement',
         ],
         [
@@ -1392,7 +1392,7 @@ L’autre jour, j’étais assise à la cafétéria avec mon sandwich aux œufs.
           'Quelle vision géopolitique défend-elle face aux réserves budgétaires adverses ?',
           'La nécessité de transformer nos ressources chez nous pour préserver notre rang',
           'L’abandon complet des accords de libre-échange avec les partenaires du sud',
-          'Le transfert obligatoire de tous les profits industriels vers les garderies',
+          'La délocalisation de la recherche vers les fabriques d’Asie du Sud-Est',
         ],
       ],
     },
@@ -1484,7 +1484,7 @@ L’expansion rapide de la filière de l’hydrogène vert comme vecteur de déc
         [
           'Quel problème les alternatives technologiques actuelles soulèvent-elles ?',
           'Une efficacité énergétique plus faible et d’autres tensions minérales',
-          'Un rejet massif de dioxyde de soufre dans les cours d’eau environnants',
+          'Une dépendance accrue aux importations de gaz naturel liquéfié',
           'Une incompatibilité totale avec les sources d’électricité renouvelable',
         ],
         [
@@ -1516,12 +1516,12 @@ L’intermittence inhérente aux filières éoliennes et solaires impose aux ges
           'Quel débouché complémentaire la température élevée des réacteurs offre-t-elle ?',
           'L’exploitation de la chaleur résiduelle pour les réseaux urbains d’eau',
           'La fusion des métaux de rebut pour forger des rails de chemin de fer',
-          'L’élimination instantanée de tous les déchets plastiques municipaux',
+          'La conversion de l’eau de mer en combustible pour les trains de fret',
         ],
         [
           'Quel défi sécuritaire et éthique spécifique ce déploiement pose-t-il ?',
           'La protection informatique et le contrôle des substances sensibles',
-          'La baisse de la production agricole causée par le rayonnement direct',
+          'La contamination des récoltes par les eaux de refroidissement réchauffées',
           'L’obligation de relocaliser les populations à cent kilomètres des sites',
         ],
         [
@@ -1578,7 +1578,7 @@ L’inégale répartition des effectifs médicaux entre les métropoles et les t
           'Quelle limite intrinsèque la télémédecine présente-t-elle pour les patients ?',
           'L’inadéquation pour les diagnostics requérant une évaluation corporelle',
           'L’interdiction légale de prescrire des comprimés par voie électronique',
-          'L’obligation de payer des droits de diffusion pour chaque appel médical',
+          'L’obligation d’équiper chaque domicile d’une connexion satellite',
         ],
         [
           'Quel obstacle matériel pénalise particulièrement les aînés des milieux ruraux ?',
@@ -1589,8 +1589,8 @@ L’inégale répartition des effectifs médicaux entre les métropoles et les t
         [
           'Quelle solution novatrice les chercheurs recommandent-ils pour les villages ?',
           'Élargir les compétences des infirmières expertes et déployer des cliniques',
-          'Fermer tous les petits hôpitaux pour regrouper les lits dans les métropoles',
-          'Automatiser entièrement le suivi clinique au détriment du contact direct',
+          'Imposer aux spécialistes urbains des gardes obligatoires dans les hôpitaux',
+          'Remplacer les examens physiques par des diagnostics automatisés à distance',
         ],
       ],
     },
@@ -1642,20 +1642,20 @@ Près des clôtures grillagées éventrées par le gel, les sentiers informels t
         [
           'Quel contraste le narrateur établit-il au début de sa traversée urbaine ?',
           'La confrontation entre les friches industrielles et les commerces huppés',
-          'L’opposition violente entre les piétons matinaux et les conducteurs de métro',
+          'L’affrontement entre les riverains et les sociétés ferroviaires',
           'Le décalage grandissant entre les banlieues pavillonnaires et le centre historique',
         ],
         [
           'Quelle signification les sentiers informels le long des voies revêtent-ils ?',
           'Une persistance silencieuse d’usages populaires bravant l’urbanisation',
           'Un projet pilote officiel conçu pour accélérer la circulation des ouvriers',
-          'Une zone récréative sécurisée réservée exclusivement aux promeneurs du soir',
+          'Un aménagement paysager officiel financé pour attirer les promeneurs du soir',
         ],
         [
           'Que symbolise le décor décrépit de la cour de triage pour le narrateur ?',
           'Un refuge temporaire pour les personnes chassées par la hausse des loyers',
           'Un vestige d’époque à préserver impérativement comme musée historique d’État',
-          'Un danger sanitaire imminent nécessitant la démolition de toutes les clôtures',
+          'Un attrait pittoresque destiné à attirer les clients des commerces de luxe',
         ],
         [
           'Quelle relation finale le narrateur entretient-il avec l’espace métropolitain ?',
@@ -1711,13 +1711,13 @@ Il y a dans la correspondance entre Gabrielle Moreau et l’essayiste Jean-Phili
         [
           'Quelle métaphore initiale caractérise les échanges entre ces deux auteurs ?',
           'Une joute impitoyable où les compliments dissimulent des traits acérés',
-          'Un partenariat commercial paisible visant la conquête des marchés du livre',
+          'Une collaboration éditoriale apaisée autour d’un projet commun',
           'Une relation filiale bienveillante où le maître enseigne les règles à l’élève',
         ],
         [
           'Quel paradoxe marque la lettre de félicitations reçue par la romancière ?',
           'L’éloge public du livre s’accompagne d’un minutieux démontage critique',
-          'Le refus d’admettre que l’ouvrage a été écrit par une personne connue d’eux',
+          'La crainte que le roman soit jugé trop court par les éditeurs',
           'La certitude que le livre sera boudé par les jurys des grands prix littéraires',
         ],
         [
@@ -1730,7 +1730,7 @@ Il y a dans la correspondance entre Gabrielle Moreau et l’essayiste Jean-Phili
           'Quelle fonction la rivalité épistolaire remplissait-elle dans leur parcours ?',
           'Un aiguillon stimulant qui poussait chaque créateur à dépasser ses limites',
           'Un frein paralysant qui a retardé la publication de leurs livres majeurs',
-          'Une mascarade sans sincérité destinée uniquement à amuser les journalistes',
+          'Une mise en scène publicitaire calculée pour séduire les éditeurs parisiens',
         ],
       ],
     },
@@ -1749,7 +1749,7 @@ L’élévation continue du niveau moyen des océans et la désertification galo
           'Quelle lacune majeure du droit international le dossier expose-t-il ?',
           'L’absence de reconnaissance légale protectrice pour les déplacés du climat',
           'Le refus d’accorder des passeports consulaires aux enfants nés à l’étranger',
-          'L’interdiction pour les pays insulaires de siéger aux comités de l’UNESCO',
+          'Le plafonnement des visas accordés aux étudiants venus des îles du Pacifique',
         ],
         [
           'Que demandent les associations humanitaires et les États insulaires menacés ?',
@@ -1760,13 +1760,13 @@ L’élévation continue du niveau moyen des océans et la désertification galo
         [
           'Quel contre-argument les nations industrialisées avancent-elles pour refuser ?',
           'La préservation de leur souveraineté aux frontières et la peur des afflux',
-          'La baisse constante du réchauffement marin mesurée par les bouées au large',
+          'La rivalité commerciale autour des ports de pêche de l’Arctique',
           'L’absence totale de moyens budgétaires pour financer le moindre dispositif',
         ],
         [
           'Quelle portée éthique l’analyse donne-t-elle à cette confrontation mondiale ?',
           'Une interrogation profonde sur la dette morale envers les victimes du globe',
-          'Une discussion technique réservée exclusivement aux spécialistes du droit',
+          'Un débat technique limité aux seuls diplomates et juristes internationaux',
           'La certitude que les progrès technologiques règleront la crise sans départ',
         ],
       ],
@@ -1786,12 +1786,12 @@ Face à la multiplication des événements météorologiques extrêmes, les doct
           'Quelle justification les partisans de l’approche sécuritaire mettent-ils en avant ?',
           'La crainte de tensions communautaires et d’une pression sur les services',
           'Le manque d’intérêt des nouveaux arrivants pour les cultures de leur terroir',
-          'La volonté d’empêcher la propagation d’anciennes maladies infectieuses du sol',
+          'La volonté d’interdire les transferts technologiques vers le Sud global',
         ],
         [
           'Quel effet pervers les politiques de fermeture stricte produisent-elles ?',
           'L’essor des trafics illicites et l’exposition des réfugiés aux pires abus',
-          'Une diminution spontanée des émissions de polluants atmosphériques en mer',
+          'La réduction des flux maritimes de marchandises vers les ports du Sud',
           'La fermeture de toutes les ambassades diplomatiques dans les pays du sud',
         ],
         [
@@ -1836,7 +1836,7 @@ La consolidation de la paix au sortir d’un conflit civil fratricide confronte 
     {
       situation: 1,
       text: `Note de lecture : « L’Éthique du compromis dans la médiation post-conflit », Revue Études internationales, Québec.
-Le nouvel essai du professeur Henri Gauthier renouvelle avec brio la réflexion contemporaine sur les limites éthiques de la diplomatie préventive en zone post-conflit. L’auteur s’attaque à l’illusion d’une paix parfaire qui prétendrait imposer des standards démocratiques occidentaux immédiats à des sociétés profondément fragmentées par des décennies de haines claniques. À travers une étude minutieuse des accords de paix signés en Afrique subsaharienne et dans les Balkans, Gauthier met en lumière la nécessité d’une politique des petits pas, où la réintégration économique des anciens combattants prime sur la tenue hâtive de scrutins électoraux polarisants. Organiser des élections multipartites dans un pays où circulent encore des millions d’armes automatiques ne relève pas de la promotion civique, mais de l’inconscience pyromane : cela transforme le bureau de vote en une arène guerrière où les rancœurs tribales se ravivent. La réussite pérenne de la médiation repose plutôt sur le désarmement effectif des milices, la création d’une armée républicaine intégrant équitablement les factions rivales et la décentralisation des ressources économiques vers les municipalités rurales. Certes, les puristes du droit international reprochent à cette approche d’accorder des strapontins ministériels à des chefs de factions coupables d’exactions. Gauthier répond avec réalisme que la politique en temps de crise n’est jamais le choix entre le bien et le mal, mais entre le pire et le moindre mal. Une paix imparfaite mais vivante vaut infiniment mieux qu’un idéal de justice théorique proclamé sur un charnier récurrent.`,
+Le nouvel essai du professeur Henri Gauthier renouvelle avec brio la réflexion contemporaine sur les limites éthiques de la diplomatie préventive en zone post-conflit. L’auteur s’attaque à l’illusion d’une paix parfaite qui prétendrait imposer des standards démocratiques occidentaux immédiats à des sociétés profondément fragmentées par des décennies de haines claniques. À travers une étude minutieuse des accords de paix signés en Afrique subsaharienne et dans les Balkans, Gauthier met en lumière la nécessité d’une politique des petits pas, où la réintégration économique des anciens combattants prime sur la tenue hâtive de scrutins électoraux polarisants. Organiser des élections multipartites dans un pays où circulent encore des millions d’armes automatiques ne relève pas de la promotion civique, mais de l’inconscience pyromane : cela transforme le bureau de vote en une arène guerrière où les rancœurs tribales se ravivent. La réussite pérenne de la médiation repose plutôt sur le désarmement effectif des milices, la création d’une armée républicaine intégrant équitablement les factions rivales et la décentralisation des ressources économiques vers les municipalités rurales. Certes, les puristes du droit international reprochent à cette approche d’accorder des strapontins ministériels à des chefs de factions coupables d’exactions. Gauthier répond avec réalisme que la politique en temps de crise n’est jamais le choix entre le bien et le mal, mais entre le pire et le moindre mal. Une paix imparfaite mais vivante vaut infiniment mieux qu’un idéal de justice théorique proclamé sur un charnier récurrent.`,
       questions: [
         [
           'Quelle illusion occidentale l’essai du professeur Gauthier démonte-t-il ?',
@@ -1848,7 +1848,7 @@ Le nouvel essai du professeur Henri Gauthier renouvelle avec brio la réflexion 
           'Quel péril l’organisation précipitée d’élections comporte-t-elle selon l’auteur ?',
           'Rallumer les conflits armés au lieu de pacifier le débat public national',
           'Coûter trop cher aux finances publiques des petites communes du littoral',
-          'Empêcher les jeunes générations de fréquenter les établissements scolaires',
+          'Retarder l’inscription des enfants déplacés dans les écoles régionales',
         ],
         [
           'Quel pilier concret assure véritablement la stabilité durable sur le terrain ?',

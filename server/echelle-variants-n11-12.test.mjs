@@ -48,6 +48,17 @@ function hasSixConsecutiveWordsShared(text, choice) {
   return false
 }
 
+const ABSOLUTIST_RE = /\b(plus jamais|sans exception|uniquement|totalement interdit)\b/i
+
+function normalizeOption(s) {
+  return s
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/^(l['’]|le\s+|la\s+|les\s+|un\s+|une\s+|des\s+|d['’])/g, '')
+    .replace(/[^a-z0-9]/g, '')
+}
+
 // Build a scenario using mulberry32 for a given seed
 function buildScenario(scenarios, seed) {
   const rand = mulberry32(seed)
@@ -148,19 +159,75 @@ describe('N11–N12 Échelle québécoise variant scenarios', () => {
             3,
             `Duplicate choices in ${id}[${scIdx}][${qIdx}]: ${choices.join(' | ')}`
           )
+          const normChoices = new Set(choices.map(normalizeOption))
+          assert.strictEqual(
+            normChoices.size,
+            3,
+            `Duplicate normalized choices in ${id}[${scIdx}][${qIdx}]: ${choices.map(normalizeOption).join(' | ')}`
+          )
 
           const avgDistractorLen = (d1.length + d2.length) / 2
           const ratio = correct.length / avgDistractorLen
           assert.ok(
-            ratio <= 1.6,
-            `Correct answer is > 1.6x average distractor length (${ratio.toFixed(2)}x) in ${id}[${scIdx}][${qIdx}]`
+            ratio >= 0.65 && ratio <= 1.35,
+            `Correct answer length ratio ${ratio.toFixed(2)} out of [0.65, 1.35] (correct: ${correct.length}, mean distractors: ${avgDistractorLen}) in ${id}[${scIdx}][${qIdx}]`
           )
+
+          for (const str of [prompt, ...choices]) {
+            assert.strictEqual(
+              ABSOLUTIST_RE.test(str),
+              false,
+              `Absolutist marker found in ${id}[${scIdx}][${qIdx}]: "${str}"`
+            )
+            assert.strictEqual(
+              /,\s+[A-ZÀ-ÖØ-ß]/.test(str),
+              false,
+              `Capital after comma found in ${id}[${scIdx}][${qIdx}]: "${str}"`
+            )
+          }
 
           assert.strictEqual(
             hasSixConsecutiveWordsShared(sc.text, correct),
             false,
             `Correct answer shares ≥ 6 consecutive words with text in ${id}[${scIdx}][${qIdx}]: "${correct}"`
           )
+        }
+      }
+    }
+  })
+
+  it('seeded generation across 50 seeds satisfies quality guards (normalized uniqueness, length balance [0.65, 1.35], clean syntax)', () => {
+    for (const id of ALL_INDICATORS) {
+      const scenarios = N11_12_SCENARIOS[id]
+      for (let seed = 1; seed <= 50; seed++) {
+        const built = buildScenario(scenarios, seed)
+        for (let qIdx = 0; qIdx < built.questions.length; qIdx++) {
+          const [prompt, correct, d1, d2] = built.questions[qIdx]
+          const choices = [correct, d1, d2]
+          const norm = choices.map(normalizeOption)
+          assert.strictEqual(
+            new Set(norm).size,
+            3,
+            `Duplicate normalized option in ${id} seed ${seed} q${qIdx}`
+          )
+          const avgDist = (d1.length + d2.length) / 2
+          const ratio = correct.length / avgDist
+          assert.ok(
+            ratio >= 0.65 && ratio <= 1.35,
+            `Length ratio ${ratio.toFixed(2)} out of [0.65, 1.35] in ${id} seed ${seed} q${qIdx}`
+          )
+          for (const str of [prompt, ...choices]) {
+            assert.strictEqual(
+              ABSOLUTIST_RE.test(str),
+              false,
+              `Absolutist marker in ${id} seed ${seed} q${qIdx}: "${str}"`
+            )
+            assert.strictEqual(
+              /,\s+[A-ZÀ-ÖØ-ß]/.test(str),
+              false,
+              `Capital after comma in ${id} seed ${seed} q${qIdx}: "${str}"`
+            )
+          }
         }
       }
     }
@@ -210,8 +277,9 @@ describe('N11–N12 Échelle québécoise variant scenarios', () => {
   })
 
   it('zero forbidden grammar, elision, and syntax patterns across all scenarios', () => {
-    // Contracted articles: de le, à le, de les, à les (with unicode word boundary)
-    const contractedArticlesRe = /(?:^|[\s,;:(«'’])(de\s+le|à\s+le|de\s+les|à\s+les)(?:[\s,;:)»'’]|$)/i
+    // Contracted articles: de le, à le, de les, à les, de des (with unicode word boundary)
+    const contractedArticlesRe = /(?:^|[\s,;:(«'’])(de\s+le|à\s+le|de\s+les|à\s+les|de\s+des)(?:[\s,;:)»'’]|$)/i
+    const deLeNounRe = /\bde le\s+[a-zà-ÿ]/i
 
     // Unelided short grammatical words before vowels: de, que, je, ne, me, te, se
     // Accounting for French accented letters before and after
@@ -243,6 +311,8 @@ describe('N11–N12 Échelle québécoise variant scenarios', () => {
         for (const str of allStrings) {
           const mContr = str.match(contractedArticlesRe)
           assert.strictEqual(mContr, null, `Forbidden contracted article "${mContr?.[1]}" in ${id}[${scIdx}]`)
+
+          assert.strictEqual(deLeNounRe.test(str), false, `Forbidden "de le + noun" in ${id}[${scIdx}]: "${str}"`)
 
           const mUnelided = str.match(unelidedRe)
           assert.strictEqual(mUnelided, null, `Unelided word "${mUnelided?.[1]} ${mUnelided?.[2]}" in ${id}[${scIdx}]`)

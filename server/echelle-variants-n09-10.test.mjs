@@ -62,10 +62,21 @@ const N9_10_TEXTE_CONCEPTS = [
 
 const KNOWN_ABBREVIATIONS = ['p. ex.', 'etc.', 'c.-à-d.', 'vs.', 'M.', 'Mme', 'Dr.', 'Dre.']
 const LEGITIMATE_ELISION_EXCEPTIONS = new Set(['de un', 'de une', 'de huit', 'de onze', 'je hais'])
+const ABSOLUTIST_RE = /\b(plus jamais|sans exception|uniquement|totalement interdit)\b/i
+
+function normalizeOption(s) {
+  return s
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/^(l['’]|le\s+|la\s+|les\s+|un\s+|une\s+|des\s+|d['’])/g, '')
+    .replace(/[^a-z0-9]/g, '')
+}
 
 function checkCleanFrench(str, context) {
   // Contractions check
-  assert.ok(!/\b(de le|à le|de les|à les)\b/i.test(str), `Forbidden contraction in ${context}: "${str}"`)
+  assert.ok(!/\b(de le|à le|de les|à les|de des)\b/i.test(str), `Forbidden contraction in ${context}: "${str}"`)
+  assert.ok(!/\bde le\s+[a-zà-ÿ]/i.test(str), `Forbidden "de le + noun" in ${context}: "${str}"`)
 
   // Missing elision check (using Unicode boundary to avoid false positives on accented letters in JS)
   const elisionMatch = str.match(/(?<![\p{L}\p{M}])(de|que|je|ne|me|te|se)\s+([aeiouéèêàâîôû][\p{L}\p{M}]{2,})/ui)
@@ -223,19 +234,39 @@ describe('Échelle québécoise Niveaux 9–10 Scenarios and Banks', () => {
             checkCleanFrench(dist1, `${id} sc ${sIdx} q ${qIdx} dist1`)
             checkCleanFrench(dist2, `${id} sc ${sIdx} q ${qIdx} dist2`)
 
-            const choices = new Set([ans, dist1, dist2])
+            const choices = [ans, dist1, dist2]
+            const uniqueChoices = new Set(choices)
             assert.strictEqual(
-              choices.size,
+              uniqueChoices.size,
               3,
               `Choices must be 3 distinct non-empty values in ${id} sc ${sIdx} q ${qIdx}`
             )
-
-            // Length ratio check: correct answer <= 1.6x average distractor length
-            const avgDistLen = (dist1.length + dist2.length) / 2
-            assert.ok(
-              ans.length <= 1.6 * avgDistLen,
-              `Correct answer length (${ans.length}) exceeds 1.6x average distractor length (${avgDistLen}) in ${id} sc ${sIdx} q ${qIdx}`
+            const normChoices = new Set(choices.map(normalizeOption))
+            assert.strictEqual(
+              normChoices.size,
+              3,
+              `Choices must be 3 distinct normalized values in ${id} sc ${sIdx} q ${qIdx}`
             )
+
+            // Length ratio check: correct answer within [0.65, 1.35] of average distractor length
+            const avgDistLen = (dist1.length + dist2.length) / 2
+            const ratio = ans.length / avgDistLen
+            assert.ok(
+              ratio >= 0.65 && ratio <= 1.35,
+              `Correct answer length ratio ${ratio.toFixed(2)} out of [0.65, 1.35] (ans: ${ans.length}, avg dist: ${avgDistLen}) in ${id} sc ${sIdx} q ${qIdx}`
+            )
+
+            // Absolutist markers and capital after comma checks
+            for (const str of [prompt, ...choices]) {
+              assert.ok(
+                !ABSOLUTIST_RE.test(str),
+                `Forbidden absolutist marker in ${id} sc ${sIdx} q ${qIdx}: "${str}"`
+              )
+              assert.ok(
+                !/,\s+[A-ZÀ-ÖØ-ß]/.test(str),
+                `Capital after comma in ${id} sc ${sIdx} q ${qIdx}: "${str}"`
+              )
+            }
 
             // Paraphrasing check: no 6 consecutive words shared with text
             assert.ok(

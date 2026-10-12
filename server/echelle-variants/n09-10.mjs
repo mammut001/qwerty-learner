@@ -54,7 +54,7 @@ export const N09_10_SCENARIOS = {
         [
           "Que laisse entendre le commentaire sur les métriques asymétriques ?",
           "Les créateurs privilégiaient l’intégrité artistique plutôt que les passages radiophoniques",
-          "Les artistes cherchaient absolument à concevoir des succès faciles pour les boîtes de nuit",
+          "Les artistes visaient en priorité la production de succès commerciaux faciles pour les discothèques",
           "Les stations radiophoniques refusaient systématiquement de diffuser des chansons en français"
         ],
         [
@@ -105,7 +105,7 @@ export const N09_10_SCENARIOS = {
           "Quel est le propos fondamental développé dans cette étape guidée ?",
           "L’émergence d’une pratique sonore novatrice redéfinissant l’acte d’écoute musical",
           "Le rejet définitif de toute forme d’art musical par les institutions universitaires",
-          "La supériorité absolue des orchestres symphoniques classiques sur les technologies modernes"
+          "La primauté des orchestres symphoniques classiques sur les dispositifs électroacoustiques"
         ],
         [
           "Sur quel contraste repose la présentation de ces recherches musicales ?",
@@ -137,7 +137,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le récit principal livré par l’archéologue durant cette entrevue ?",
           "La mise au jour inattendue et l’excavation urgente d’un campement saisonnier ancien",
-          "L’échec des fouilles archéologiques en raison de la destruction complète des digues",
+          "L’analyse sédimentaire d’un village sédentaire fondé au confluent des cours d’eau",
           "La découverte fortuite d’une forteresse militaire coloniale du dix-huitième siècle"
         ],
         [
@@ -150,7 +150,7 @@ export const N09_10_SCENARIOS = {
           "Que révèle implicitement la provenance du quartzite utilisé pour les pointes de flèche ?",
           "Les populations autochtones entretenaient des contacts étendus bien au-delà de leur région",
           "Les occupants du campement ignoraient complètement l’art de tailler la pierre locale",
-          "Les fouilleurs ont confondu des outils anciens avec des débris de construction récents"
+          "Les chasseurs iroquoiens extrayaient ce minéral sur les rives mêmes de leur campement fluvial"
         ],
         [
           "Dans ce témoignage, que qualifie l’expression « course contre la montre » ?",
@@ -194,7 +194,7 @@ export const N09_10_SCENARIOS = {
     },
     {
       "situation": 0,
-      "text": "— Capitaine et archéologue Renaud Beaulieu, vous revenez d’une mission subaquatique au large de Restigouche, dans la baie des Chaleurs. Quelles traces du passé avez-vous retrouvées au fond des eaux ?\n— Bonjour. Notre expédition visait à cartographier les vestiges d’un navire de ravitaillement sabordé lors de la bataille de la Ristigouche en 1760. Dès que nos plongeurs ont atteint l’épave ensevelie sous les alluvions, l’émotion était palpable à bord du bateau. Sous une visibilité quasi inexistante due au courant marin, nous avons palpé la membrure de chêne remarquablement conservée grâce à l’absence d’oxygène dans la vase. En dégageant précautionneusement un secteur de la cale, nous avons extrait des caisses de fusils encore munies de leurs garnitures en laiton, ainsi que des bouteilles cachetées renfermant des huiles médicinales destinées aux troupes de la Nouvelle-France. Chaque objet remonté à la surface représentait une pièce d’un casse-tête dramatique, car cet équipage savait qu’il s’agissait du dernier convoi envoyé pour briser le blocus naval britannique. La dégradation accélérée par le réchauffement des eaux et l’érosion côtière nous imposait d’agir sans délai. Ces artefacts exceptionnels permettront de reconstituer les ultimes semaines de résistance avant la capitulation finale, apportant un éclairage intime et poignant sur cet épisode méconnu de notre histoire.",
+      "text": "— Capitaine et archéologue Renaud Beaulieu, vous revenez d’une mission subaquatique au large de Ristigouche, dans la baie des Chaleurs. Quelles traces du passé avez-vous retrouvées au fond des eaux ?\n— Bonjour. Notre expédition visait à cartographier les vestiges d’un navire de ravitaillement sabordé lors de la bataille de la Ristigouche en 1760. Dès que nos plongeurs ont atteint l’épave ensevelie sous les alluvions, l’émotion était palpable à bord du bateau. Sous une visibilité quasi inexistante due au courant marin, nous avons palpé la membrure de chêne remarquablement conservée grâce à l’absence d’oxygène dans la vase. En dégageant précautionneusement un secteur de la cale, nous avons extrait des caisses de fusils encore munies de leurs garnitures en laiton, ainsi que des bouteilles cachetées renfermant des huiles médicinales destinées aux troupes de la Nouvelle-France. Chaque objet remonté à la surface représentait une pièce d’un casse-tête dramatique, car cet équipage savait qu’il s’agissait du dernier convoi envoyé pour briser le blocus naval britannique. La dégradation accélérée par le réchauffement des eaux et l’érosion côtière nous imposait d’agir sans délai. Ces artefacts exceptionnels permettront de reconstituer les ultimes semaines de résistance avant la capitulation finale, apportant un éclairage intime et poignant sur cet épisode méconnu de notre histoire.",
       "questions": [
         [
           "Quel est le sujet central du témoignage livré par l’archéologue sous-marin ?",
@@ -211,17 +211,17 @@ export const N09_10_SCENARIOS = {
         [
           "Que souligne implicitement le bon état de conservation de la membrure de chêne ?",
           "L’environnement vaseux et anoxique du fond marin a protégé le bois durant des siècles",
-          "Les constructeurs navals du dix-huitième siècle utilisaient des vernis chimiques modernes",
+          "Les huiles médicinales transportées dans la cale ont imprégné et imperméabilisé la coque en bois",
           "Le navire avait été coulé seulement quelques années avant le début des recherches"
         ],
         [
           "Dans ce contexte de fouilles sous-marines, que signifie le terme « sabordé » ?",
           "Coulé volontairement par son propre équipage pour empêcher sa capture par l’ennemi",
-          "Détruit accidentellement par un incendie incontrôlable survenu dans la salle des machines",
+          "Échoué par accident sur les alluvions côtières lors d’une manœuvre pour briser le blocus",
           "Vendu clandestinement à des marchands étrangers pour réaliser un profit financier personnel"
         ]
       ],
-      "frame": "entrevue radiophonique — découverte archéologique d’épave à Restigouche"
+      "frame": "entrevue radiophonique — découverte archéologique d’épave à Ristigouche"
     },
     {
       "situation": 1,
@@ -242,7 +242,7 @@ export const N09_10_SCENARIOS = {
         [
           "Que déduit-on implicitement du changement d’attitude envers l’extension du métro ?",
           "L’urgence de la crise a balayé les réticences financières qui bloquaient les investissements",
-          "Le réseau de métro était devenu entièrement gratuit pour l’ensemble des citoyens montréalais",
+          "La rentabilité commerciale des lignes de métro dépassait désormais celle du transport par autobus",
           "Les ingénieurs municipaux préconisaient l’arrêt définitif de tout chantier souterrain"
         ],
         [
@@ -264,7 +264,7 @@ export const N09_10_SCENARIOS = {
           "Quel est l’objectif fondamental poursuivi par cette formation en entreprise ?",
           "Expliciter les obligations de neutralité et les procédures de récusation pour les gestionnaires",
           "Interdire définitivement l’embauche de tout consultant externe pour l’ensemble des projets publics de l’État",
-          "Encourager les employés à négocier des ententes financières informelles avec leurs proches"
+          "Présenter les barèmes financiers appliqués lors de l’adjudication des mandats de sous-traitance"
         ],
         [
           "Comment le formateur développe-t-il la notion de conflit d’intérêts ?",
@@ -294,7 +294,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le propos explicatif central de cet extrait documentaire ?",
           "Le rôle fondamental de l’attention conjointe dans l’émergence du langage et de la cognition",
-          "La nécessité d’enseigner l’écriture formelle aux nourrissons bien avant l’âge de dix-huit mois révolus",
+          "L’évaluation systématique du vocabulaire passif des enfants dès l’âge de neuf mois en garderie",
           "L’inutilité des interactions verbales précoces entre les parents et leurs jeunes enfants"
         ],
         [
@@ -307,7 +307,7 @@ export const N09_10_SCENARIOS = {
           "Que déduit-on implicitement de l’importance du pointage parental ?",
           "La réactivité de l’adulte joue un rôle déterminant dans la construction du lexique enfantin",
           "Les enfants apprennent à parler de manière optimale en regardant seuls des vidéos éducatives",
-          "Le geste de pointer doit être corrigé par les éducatrices pour éviter de mauvaises habitudes"
+          "Le mot prononcé par l’adulte est assimilé avec la même efficacité sans synchronisation visuelle"
         ],
         [
           "Dans cet extrait, que désigne une « étude longitudinale » ?",
@@ -332,19 +332,19 @@ export const N09_10_SCENARIOS = {
           "De quelle manière l’exposé juridique est-il structuré par l’intervenant ?",
           "Les règles professionnelles sont présentées en insistant sur le risque d’influence indirecte",
           "Un bilan statistique complet des sanctions disciplinaires prononcées par les tribunaux criminels de la province",
-          "Un plaidoyer passionné pour la liberté totale de négociation commerciale est prononcé"
+          "Une défense argumentée de la liberté contractuelle des négociateurs dans les arbitrages civils"
         ],
         [
           "Quel présupposé sous-tend l’inscription au registre dans les quarante-huit heures ?",
           "La traçabilité immédiate empêche la dissimulation et démontre la bonne foi du professionnel",
           "Le département de conformité souhaite redistribuer tous les cadeaux reçus aux autres employés de l’entreprise",
-          "Les formulaires papier doivent être envoyés par courrier recommandé à l’Ordre chaque jour"
+          "L’inscription au registre transfère l’entière responsabilité civile du projet aux dirigeants du cabinet"
         ],
         [
           "Dans ce contexte, que signifie le terme « proscrite » ?",
           "Formellement interdite par une disposition réglementaire impérative et contraignante",
           "Fortement encouragée par les superviseurs pour stimuler les partenariats d’affaires",
-          "Réservée exclusivement aux gestionnaires ayant plus de dix ans d’ancienneté au cabinet"
+          "Autorisée sous condition d’obtenir l’accord préalable de la direction des ressources humaines"
         ]
       ],
       "frame": "formation en entreprise — cadeaux d’affaires et marques d’hospitalité"
@@ -368,7 +368,7 @@ export const N09_10_SCENARIOS = {
         [
           "Que déduit-on implicitement de la variabilité du développement cérébral ?",
           "L’évaluation des comportements des élèves exige de tenir compte de leur rythme neurologique",
-          "Tous les enfants de huit ans devraient obligatoirement être soumis à des examens d’imagerie cérébrale poussés",
+          "L’agitation motrice observée en classe s’explique principalement par un refus conscient de coopérer",
           "L’apprentissage des mathématiques ne dépend d’aucune habileté cognitive préalable"
         ],
         [
@@ -407,8 +407,8 @@ export const N09_10_SCENARIOS = {
         [
           "Que signifie l’expression « à vos postes » dans cette intervention orale ?",
           "Un signal invitant chacun à retourner immédiatement exécuter son travail assigné",
-          "Une invitation cordiale à postuler pour des postes de direction au sein de l’institut",
-          "Une consigne ordonnant d’éteindre les ordinateurs avant de quitter définitivement les lieux"
+          "Une consigne demandant à toute l’équipe de se regrouper dans le bureau de la direction",
+          "Une autorisation accordée aux doctorants de reprendre leurs manipulations individuelles"
         ]
       ],
       "frame": "directives de directrice — coordination de laboratoire de recherche"
@@ -420,13 +420,13 @@ export const N09_10_SCENARIOS = {
         [
           "Quel impératif motive les directives formulées par le metteur en scène ?",
           "Accélérer et sécuriser les transitions scéniques avant la représentation inaugurale",
-          "Remplacer immédiatement les comédiens principaux qui n’arrivent plus à mémoriser leurs répliques sur scène",
+          "Refaire intégralement les décors de la scène du salon pour modifier le jeu des comédiens",
           "Remplacer les comédiens principaux qui n’arrivent pas à mémoriser leurs répliques"
         ],
         [
           "Comment le metteur en scène organise-t-il la transmission de ses ordres ?",
           "Il identifie les défaillances de rythme, attribue les correctifs et impose des répétitions",
-          "Il demande l’avis des spectateurs dans la salle avant de modifier la disposition des décors",
+          "Il confie aux comédiens le choix des changements de décor et supprime les répétitions",
           "Il délègue l’ensemble des choix artistiques et techniques à la direction du théâtre"
         ],
         [
@@ -451,20 +451,20 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’enjeu prioritaire énoncé dans les consignes de la directrice de recherche ?",
           "La sécurisation rigoureuse et le contrôle de qualité des données génomiques traitées",
-          "L’achat immédiat de nouveaux ordinateurs portables performants pour l’ensemble des étudiants et chercheurs",
-          "La fermeture définitive des serveurs universitaires pour des raisons d’économies"
+          "Le calibrage minutieux des filtres de contrôle sur les séquences d’acide nucléique",
+          "La consignation des scripts d’algorithmes dans le dépôt de version institutionnel"
         ],
         [
           "Quelle méthode de gestion du travail transparaît dans ces instructions verbales ?",
           "Une répartition claire des responsabilités techniques assortie de critères de conformité",
-          "Une distribution totalement aléatoire des tâches sans aucune vérification ultérieure des résultats obtenus",
+          "Une délégation informelle des tâches laissant chaque employé libre de définir ses propres méthodes",
           "Une discussion philosophique informelle sur les limites de l’intelligence artificielle"
         ],
         [
           "Quel constat découle implicitement du rejet des codes non documentés ?",
           "La reproductibilité scientifique dépend de la traçabilité complète des outils informatiques",
-          "Les doctorants doivent obligatoirement rédiger tous leurs programmes à la main sur du papier quadrillé",
-          "Le consortium refuse catégoriquement d’utiliser des ordinateurs pour la recherche"
+          "L’entraînement des modèles prédictifs ne nécessite aucun protocole d’archivage institutionnel",
+          "Les résultats d’analyse sont acceptés même si les filtres de qualité détectent des erreurs"
         ],
         [
           "Que signifie le terme « crypter » dans cette consigne technologique ?",
@@ -515,8 +515,8 @@ export const N09_10_SCENARIOS = {
         [
           "Sur quel enjeu principal porte l’échange d’opinions entre les deux collègues ?",
           "La pertinence d’imposer des journées fixes de présence au bureau pour l’ensemble du personnel",
-          "L’obligation d’acheter de nouveaux ordinateurs performants pour améliorer la communication quotidienne à distance",
-          "L’obligation d’acheter de nouveaux ordinateurs pour améliorer la communication à distance"
+          "Le risque de démissions chez les analystes recrutés par des firmes concurrentes plus flexibles",
+          "L’organisation de plages obligatoires de mentorat en personne pour intégrer les nouveaux stagiaires"
         ],
         [
           "Quelle est la divergence de fond qui oppose les perspectives de Caroline et de Marc ?",
@@ -527,7 +527,7 @@ export const N09_10_SCENARIOS = {
         [
           "Que déduit-on implicitement de la mise en garde de Caroline sur la rétention des talents ?",
           "Les professionnels qualifiés accordent une grande valeur à la flexibilité de leurs horaires",
-          "Les analystes prévoient tous de quitter le marché du travail pour prendre leur retraite anticipée",
+          "Les meilleurs spécialistes préfèrent des firmes imposant une présence physique continue au bureau",
           "Les employeurs concurrents offrent systématiquement des salaires deux fois plus élevés"
         ],
         [
@@ -552,8 +552,8 @@ export const N09_10_SCENARIOS = {
         [
           "De quelle manière les interlocuteurs structurent-ils leur confrontation de points de vue ?",
           "Les bénéfices de la convivialité urbaine sont confrontés aux contraintes d’accessibilité commerciale",
-          "Une apologie exclusive du commerce électronique est présentée au détriment des boutiques traditionnelles de quartier",
-          "Une apologie exclusive du commerce en ligne est présentée au détriment des boutiques locales"
+          "Un plaidoyer unilatéral pour la piétonnisation intégrale ignorant les pertes financières des commerçants",
+          "Une dénonciation sévère de l’inaction municipale face à la prolifération des grands centres d’achats"
         ],
         [
           "Quel compromis implicite émerge de la conclusion de la discussion ?",
@@ -589,7 +589,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel constat découle implicitement de la suggestion finale de formation de Simon ?",
           "Le progrès technologique peut être accepté s’il s’accompagne d’une transition pour le personnel",
-          "Les robots industriels tombent systématiquement en panne sans intervention humaine manuelle",
+          "Les employés de l’usine possèdent déjà toutes les compétences requises pour entretenir les robots",
           "La coopérative dispose de surplus budgétaires illimités pour financer tous les projets imaginables"
         ],
         [
@@ -608,19 +608,19 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le cœur du débat soulevé par la tarification dynamique de l’électricité ?",
           "L’équilibre entre l’efficacité énergétique environnementale et la justice sociale pour les ménages",
-          "L’interdiction absolue et définitive d’utiliser des appareils de chauffage durant l’ensemble de la période hivernale",
+          "La suppression programmée des subventions destinées à l’isolation thermique des logements anciens",
           "La privatisation imminente du réseau public de distribution d’électricité québécois"
         ],
         [
           "De quelle manière les deux interlocuteurs confrontent-ils leurs visions ?",
           "Les arguments de sobriété collective sont mis en balance avec le fardeau des personnes vulnérables",
-          "Une condamnation sans appel de toutes les formes d’énergies renouvelables est prononcée par les intervenants",
+          "Les avantages financiers réservés aux propriétaires aisés sont justifiés par l’inaction des locataires",
           "Un consensus parfait sur l’inutilité des programmes d’efficacité énergétique est vite atteint"
         ],
         [
           "Que déduit-on implicitement de la remarque sur les logements mal isolés ?",
           "Le prix de l’énergie expose les ménages modestes à des difficultés sans amélioration du bâti",
-          "Les locataires québécois refusent par principe de payer leurs factures mensuelles d’énergie",
+          "Les locataires de logements mal calfeutrés peuvent aisément baisser leur thermostat lors des pointes",
           "L’isolation des logements privés ne relève en aucun cas des politiques environnementales"
         ],
         [
@@ -641,8 +641,8 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle information médicale essentielle cet ouvrage spécialisé met-il en évidence ?",
           "La nature progressive et irréversible de la surdité induite par le bruit en milieu industriel",
-          "L’efficacité absolue et permanente du port occasionnel de simples bouchons de mousse jetables en atelier",
-          "L’absence totale de risque auditif pour les travailleurs des ateliers de métallurgie lourde"
+          "L’efficacité suffisante du port occasionnel de bouchons antibruit sans aménagement des machines",
+          "La régénération naturelle des cellules ciliées grâce à l’aménagement de cabines insonorisées"
         ],
         [
           "Comment l’exposé scientifique structure-t-il la description du danger acoustique ?",
@@ -660,7 +660,7 @@ export const N09_10_SCENARIOS = {
           "Dans ce contexte clinique, que qualifie l’adjectif « insidieuse » ?",
           "Une dégradation auditive lente et discrète qui progresse sans douleur apparente immédiate",
           "Une maladie contagieuse qui se transmet rapidement d’un travailleur à un autre par contact",
-          "Une réaction allergique foudroyante nécessitant une hospitalisation d’urgence en réanimation"
+          "Une blessure acoustique brutale provoquée par une déflagration soudaine déchirant le tympan"
         ]
       ],
       "frame": "ouvrage médical — risques sanitaires de l’exposition au bruit industriel"
@@ -672,8 +672,8 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’enseignement majeur transmis par cet article en psychologie du travail ?",
           "L’impact salutaire déterminant de la valorisation mutuelle et de la collaboration sur la santé mentale",
-          "La nécessité d’éliminer toute communication informelle entre collègues pour maximiser le rendement quotidien",
-          "La supériorité absolue de la compétition interne entre salariés pour réduire les congés de maladie"
+          "La priorité accordée aux primes de rendement individuel pour stimuler l’engagement des équipes",
+          "L’utilité d’instaurer une émulation compétitive entre collègues pour réduire les congés de maladie"
         ],
         [
           "De quelle manière l’analyse psychologique organise-t-elle ses constats ?",
@@ -684,13 +684,13 @@ export const N09_10_SCENARIOS = {
         [
           "Quel constat découle implicitement du rôle de la « coopération horizontale » ?",
           "Le soutien mutuel entre collègues protège mieux les équipes que la simple hiérarchie verticale",
-          "Les gestionnaires hospitaliers ne devraient plus jamais intervenir auprès du personnel soignant",
-          "Tous les employés de la santé souhaitent travailler de manière totalement isolée et autonome"
+          "Les gestionnaires hospitaliers considèrent le travail d’équipe comme une source de désorganisation",
+          "La plupart des soignants préfèrent exécuter des consignes strictes sans échanger avec leurs pairs"
         ],
         [
           "Que désigne l’expression « injustice distributive » dans ce cadre d’analyse ?",
           "Le déséquilibre ressenti entre les efforts personnels investis et les marques de reconnaissance reçues",
-          "L’interdiction légale absolue pour les infirmières de distribuer des médicaments sans prescription écrite préalable",
+          "Le refus d’accorder des congés payés aux infirmières effectuant des heures supplémentaires de nuit",
           "Une répartition inégale des fournitures de bureau et des uniformes entre les services cliniques"
         ]
       ],
@@ -704,7 +704,7 @@ export const N09_10_SCENARIOS = {
           "Quel est l’objet technique central documenté dans cette fiche professionnelle ?",
           "La méthodologie rigoureuse de mesure et les risques globaux liés aux bruits d’impact industriels",
           "La fabrication artisanale de casques de protection auditive en matériaux recyclés locaux",
-          "L’interdiction définitive d’utiliser des presses mécaniques dans l’ensemble des usines québécoises"
+          "La pose d’écrans absorbants composites pour réduire le bruit de crête des presses mécaniques"
         ],
         [
           "Comment l’exposé technique articule-t-il les exigences de sécurité au travail ?",
@@ -716,7 +716,7 @@ export const N09_10_SCENARIOS = {
           "Que laisse entendre la remarque sur les réactions du système cardiovasculaire ?",
           "Le bruit industriel altère la santé globale du travailleur bien au-delà de sa seule audition",
           "Les ouvriers souffrant de surdité ne ressentent aucune fatigue physique au cours de leur journée",
-          "Les dosimètres individuels émettent des ondes magnétiques dangereuses pour le cœur des porteurs"
+          "Les impulsions sonores répétées n’entraînent aucun dérèglement physiologique en dehors de l’ouïe"
         ],
         [
           "Dans ce texte normatif, qu’est-ce qu’un « bruit d’impact » ?",
@@ -767,7 +767,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel sentiment dominant se dégage de cette évocation autobiographique ?",
           "Une lucidité teintée d’amertume face aux sacrifices consentis pour l’intérêt de l’État",
-          "Un repentir total et une demande publique de pardon adressée à l’ensemble des citoyens",
+          "Un sentiment de triomphe personnel après l’adoption unanime de ses projets de loi prioritaires",
           "Une joie exubérante à l’idée de quitter définitivement le monde de la politique provinciale"
         ],
         [
@@ -780,7 +780,7 @@ export const N09_10_SCENARIOS = {
           "Que déduit-on implicitement de la formule « le courage de déplaire » ?",
           "L’ancien élu estime avoir agi par devoir d’État plutôt que par calcul électoraliste facile",
           "Le politicien admet avoir délibérément et constamment cherché à provoquer la colère de ses concitoyens",
-          "Les ministres doivent systématiquement insulter les journalistes pour se faire respecter"
+          "Le ministre affirme avoir cédé aux pressions corporatistes afin de préserver sa popularité"
         ],
         [
           "Dans ce récit personnel, que signifie l’expression « faire le pied de grue » ?",
@@ -798,7 +798,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel tournant narratif majeur cet extrait de roman policier relate-t-il ?",
           "La requalification d’une mort accidentelle en meurtre calculé lié à une fraude foncière",
-          "L’arrestation immédiate et spectaculaire du maire de Rimouski en plein milieu de son bureau à l’hôtel de ville",
+          "La confirmation d’une vengeance passionnelle après un règlement de dettes au cap Enragé",
           "La fermeture définitive de la société d’histoire régionale en raison d’un cambriolage"
         ],
         [
@@ -867,13 +867,13 @@ export const N09_10_SCENARIOS = {
           "De quelle manière la détective parvient-elle à percer le mystère de l’emploi du temps ?",
           "L’analyse visuelle d’une caméra et la géolocalisation téléphonique démentent les déclarations",
           "Les aveux complets et spontanés du suspect sont recueillis sans aucune preuve matérielle préalable",
-          "Un témoin anonyme téléphone au poste de police pour dénoncer son propre frère jumeau"
+          "La déposition d’un boulanger voisin disculpe le restaurateur en confirmant son alibi nocturne"
         ],
         [
           "Que révèle implicitement la nature de l’objet recherché par le criminel ?",
           "Le crime était guidé par la dissimulation d’un secret compromettant plutôt que par le gain pécuniaire",
-          "L’antiquaire assassiné ne possédait absolument aucun meuble de valeur marchande dans son arrière-boutique du quartier",
-          "La détective ignorait totalement la valeur historique des meubles d’époque française du dix-huitième"
+          "L’antiquaire avait déjà revendu l’ensemble des pièces d’époque avant l’intrusion nocturne",
+          "L’agresseur cherchait à dérober des bijoux précieux dissimulés dans le tiroir-caisse de la boutique"
         ],
         [
           "Dans le jargon policier et judiciaire québécois, que signifie le verbe « borner » ?",
@@ -899,8 +899,8 @@ export const N09_10_SCENARIOS = {
         [
           "Comment l’argumentation économique est-elle agencée dans cette analyse ?",
           "Une simplification populaire est démentie avant de détailler les composantes clés de la hausse des prix",
-          "Une critique partisane virulente des choix politiques du gouvernement fédéral formulée sans aucune nuance",
-          "Un plaidoyer enthousiaste pour la suppression totale des impôts sur le revenu est proposé"
+          "Une critique sévère des choix budgétaires gouvernementaux présentée sans données statistiques d’appui",
+          "Une proposition de réforme fiscale visant à réduire les prélèvements sur les entreprises manufacturières"
         ],
         [
           "Que déduit-on implicitement du maintien d’une politique monétaire restrictive ?",
@@ -911,7 +911,7 @@ export const N09_10_SCENARIOS = {
         [
           "Dans ce contexte économique, que désigne le terme « inertie » ?",
           "La tendance des prix de certains biens et services à demeurer élevés malgré l’évolution conjoncturelle",
-          "L’incapacité totale des ordinateurs de l’institut statistique officiel à calculer les moyennes mensuelles fiables",
+          "L’impossibilité technique pour les économistes de mesurer avec exactitude le coût du panier de consommation",
           "Le refus catégorique des consommateurs d’acheter des produits alimentaires locaux et de saison"
         ]
       ],
@@ -924,14 +924,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle orientation éducative majeure ce guide prodigue-t-il aux parents désemparés ?",
           "La compréhension biologique de l’anxiété et l’adoption de rituels stables pour sécuriser l’enfant",
-          "La punition sévère et immédiate de toute manifestation de tristesse lors de l’arrivée matinale à l’école",
+          "La réprimande publique de l’enfant qui pleure à la porte de la garderie pour l’habituer à la séparation",
           "Le retrait définitif de l’enfant du milieu scolaire pour le garder en permanence à la maison"
         ],
         [
           "Comment l’explication psychoéducative est-elle ordonnée pour convaincre les familles ?",
           "Les bases physiologiques de l’émotion sont clarifiées avant de proposer des attitudes bienveillantes",
           "Une série de reproches excessivement culpabilisants adressée aux parents qui travaillent beaucoup à l’extérieur",
-          "Une prescription de somnifères pédiatriques est recommandée dès l’apparition des premiers pleurs"
+          "Une consultation psychiatrique de l’enfant est exigée dès qu’il refuse d’entrer à la garderie le matin"
         ],
         [
           "Pourquoi le guide déconseille-t-il formellement les départs furtifs en cachette ?",
@@ -943,7 +943,7 @@ export const N09_10_SCENARIOS = {
           "Dans ce contexte pédiatrique, que signifie l’expression « valider l’émotion » ?",
           "Reconnaître et accueillir ce que l’enfant ressent sans le juger ni minimiser sa souffrance",
           "Signer une attestation médicale certifiant que l’élève est temporairement inapte à l’apprentissage",
-          "Exiger que l’enfant explique par écrit et en phrases complètes les raisons logiques de sa colère"
+          "Exiger de l’enfant qu’il cesse de pleurer avant de quitter ses parents à la porte"
         ]
       ],
       "frame": "guide pour parents — manifestations de l’anxiété chez l’enfant d’âge préscolaire"
@@ -960,7 +960,7 @@ export const N09_10_SCENARIOS = {
         ],
         [
           "De quelle manière les économistes articulent-ils la chaîne de répercussion des coûts ?",
-          "Les hausses maritimes sont tracées des transporteurs aux grossistes puis aux étiquettes des magasins",
+          "Les hausses maritimes sont répercutées des transporteurs aux grossistes puis aux étiquettes des magasins",
           "Une critique des ententes tarifaires secrètes conclues entre les grandes chaînes de supermarchés",
           "Une proposition de subventionner directement les carburants maritimes pour alléger les factures"
         ],
@@ -968,7 +968,7 @@ export const N09_10_SCENARIOS = {
           "Que déduit-on implicitement du décalage de six à neuf mois mis en lumière ?",
           "L’inflation peut continuer de progresser en magasin même si les frais de transport ont déjà diminué",
           "Les détaillants réajustent instantanément leurs étiquettes dès l’arrivée des navires au port",
-          "Les navires marchands mettent près d’une année complète pour traverser l’océan Pacifique nord"
+          "Les importateurs répercutent sans délai les hausses de fret sur les prix de gros"
         ],
         [
           "Dans le vocabulaire du transport de marchandises, que signifie le mot « affrètement » ?",
@@ -997,9 +997,9 @@ export const N09_10_SCENARIOS = {
         ],
         [
           "Que sous-entend la recommandation de dissocier la valeur personnelle des résultats ?",
-          "Fonder l’estime de soi uniquement sur les notes rend l’adolescent vulnérable à la dépression",
-          "L’évaluation chiffrée encourage nécessairement une rivalité destructrice entre camarades de classe",
-          "Les parents ne doivent accorder aucun intérêt aux bulletins transmis par les enseignants"
+          "Fonder son estime personnelle sur les notes obtenues fragilise l’équilibre psychologique du jeune",
+          "L’évaluation chiffrée encourage une rivalité destructrice entre camarades de classe",
+          "Les parents devraient s’abstenir de vérifier le relevé des résultats scolaires de leurs enfants"
         ],
         [
           "Dans ce contexte scolaire, que désigne l’expression « évitement anxieux » ?",
@@ -1019,7 +1019,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’objectif réglementaire visé par ces directives de trésorerie sportive ?",
           "Encadrer rigoureusement les dépenses et imposer des mécanismes stricts de double contrôle",
-          "Autoriser les entraîneurs sportifs à utiliser l’argent liquide pour leurs achats personnels",
+          "Alléger les démarches des bénévoles en supprimant les rapprochements bancaires mensuels",
           "Supprimer définitivement l’ensemble des cotisations demandées aux familles de l’association"
         ],
         [
@@ -1050,7 +1050,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le but clinique impératif décrit dans ce protocole de soins hospitaliers ?",
           "Établir les étapes de sécurité strictes pour administrer et surveiller une thérapie anticoagulante",
-          "Permettre aux patients d’ajuster eux-mêmes en direct le débit de leur pompe à perfusion intraveineuse continue",
+          "Réduire la durée des hospitalisations en espaçant les contrôles sanguins après la première journée",
           "Interdire l’usage des anticoagulants pour l’ensemble des personnes hospitalisées en cardiologie"
         ],
         [
@@ -1063,7 +1063,7 @@ export const N09_10_SCENARIOS = {
           "Que déduit-on implicitement de l’obligation de mesurer le temps de céphaline activée ?",
           "Le niveau d’anticoagulation doit être calibré avec une extrême précision pour éviter l’hémorragie",
           "Le personnel soignant ne sait pas si le médicament a été injecté dans la bonne veine superficielle du bras",
-          "Les bilans sanguins réguliers ne servent qu’à vérifier le taux de cholestérol dans le sang"
+          "Le médicament agit surtout sur la fréquence cardiaque et peu sur la coagulation sanguine"
         ],
         [
           "Dans ce protocole médical, que signifie le terme « antidote » ?",
@@ -1088,18 +1088,18 @@ export const N09_10_SCENARIOS = {
           "De quelle manière ces directives de bonne gouvernance sont-elles organisées ?",
           "Les délais de soumission, les modalités de paiement et les devoirs de rapportage sont explicités",
           "Une polémique acerbe contre les arbitres sportifs régionaux est alimentée sans proposer de directives utiles",
-          "Une dispense totale de justificatifs est accordée aux membres de l’équipe de direction du club"
+          "Une exemption de pièces justificatives est accordée aux entraîneurs pour leurs dépenses de déplacement"
         ],
         [
           "Quel risque implicite l’interdiction de l’argent liquide cherche-t-elle à neutraliser ?",
           "Le risque de détournement de fonds ou de contestation sur les montants réellement versés",
-          "La possibilité que les billets de banque québécois perdent subitement toute valeur marchande",
+          "Le risque que les entraîneurs soient rémunérés en retard par les administrateurs du club",
           "L’obligation légale pour les arbitres de transporter des coffres-forts lourds dans leur sac de sport"
         ],
         [
           "Que désigne l’expression « pièce justificative » dans ce texte de réglementation ?",
           "Un document officiel ou une facture attestant la réalité et la conformité d’une dépense engagée",
-          "Une carte d’identité avec photo récente requise pour assister aux réunions du conseil d’administration du club",
+          "Une lettre de recommandation signée par un entraîneur attestant les compétences d’un bénévole",
           "Une lettre d’excuses signée par un joueur ayant reçu un carton rouge durant une rencontre"
         ]
       ],
@@ -1112,13 +1112,13 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle est la directive médicale prioritaire formulée dans ce protocole de perfusion ?",
           "La prévention stricte des réactions allergiques majeures et la surveillance graduelle du débit",
-          "L’injection ultra-rapide du médicament pour écourter la durée de présence du malade en clinique",
+          "L’administration du produit dans un couloir ouvert afin d’accélérer l’évacuation des patients",
           "L’abandon de toute surveillance cardiaque dès que la perfusion intraveineuse est entamée"
         ],
         [
           "Comment la progression du protocole clinique est-elle planifiée dans les consignes ?",
           "La préparation du patient et du produit précède une injection progressive sous observation soutenue",
-          "Les étapes médicales sont laissées à la libre improvisation du patient selon son humeur fluctuante du jour",
+          "L’injection complète est lancée d’emblée à plein débit dès la sortie du réfrigérateur",
           "Une série d’arguments publicitaires vantant l’efficacité miraculeuse de la molécule est exposée"
         ],
         [
@@ -1157,8 +1157,8 @@ export const N09_10_SCENARIOS = {
         [
           "Que sous-entend la métaphore de la « pompe aspirante » utilisée par l’auteur ?",
           "Le secteur privé s’approprie les soignants formés par l’État au détriment des hôpitaux publics",
-          "Les cliniques privées utilisent des aspirateurs chirurgicaux plus perfectionnés que les hôpitaux",
-          "Les agences de placement manquent d’équipements mécaniques pour nettoyer les blocs opératoires"
+          "Le secteur public engage des chirurgiens venus du privé afin de financer les hôpitaux régionaux",
+          "Les universités publiques refusent de former des infirmières pour répondre aux besoins du privé"
         ],
         [
           "Dans ce texte engagé, que connote l’expression « médecine à deux vitesses » ?",
@@ -1182,13 +1182,13 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle démarche argumentative l’auteur privilégie-t-il pour réfuter les objections ?",
           "Il confronte les responsabilités réelles des jeunes de seize ans aux préjugés paternalistes de leurs détracteurs",
-          "Il insulte délibérément l’ensemble des électeurs aînés québécois en les accusant d’égoïsme générationnel",
+          "Il propose des statistiques électorales anciennes sans répondre directement aux objections soulevées",
           "Il exige la dissolution immédiate de l’Assemblée nationale du Québec sans attendre les prochaines élections"
         ],
         [
           "Que déduit-on implicitement de la référence à l’expérience démocratique en Autriche ?",
           "Accorder le droit de vote aux jeunes adolescents ne présente aucun danger d’instabilité politique pour l’État",
-          "Les jeunes Autrichiens sont beaucoup plus intelligents et instruits que l’ensemble des élèves québécois",
+          "Abaisser l’âge électoral entraîne un recul durable de la participation citoyenne en Autriche",
           "L’Autriche envisage de rétablir la majorité électorale à vingt-et-un ans lors de son prochain scrutin"
         ],
         [
@@ -1213,7 +1213,7 @@ export const N09_10_SCENARIOS = {
         [
           "Comment l’essai démontre-t-il l’inefficacité structurelle du modèle des agences de placement ?",
           "Il montre que les agences siphonnent l’argent public et créent des disparités sans créer de nouveaux soignants",
-          "Il soutient que les infirmières d’agence travaillent uniquement dans les cliniques privées de l’île de Montréal",
+          "Il affirme que le recours aux agences a permis de combler durablement la pénurie de personnel infirmier",
           "Il réclame le gel immédiat de toutes les embauches de cadres administratifs dans le réseau public"
         ],
         [
@@ -1238,14 +1238,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quel argument central est déployé dans cette tribune pour soutenir le vote à seize ans ?",
           "La légitimité des jeunes à peser sur les décisions écologiques dont ils subiront l’impact toute leur vie",
-          "La conviction que les adolescents possèdent une maturité politique supérieure à celle de leurs aînés",
-          "La proposition d’attribuer un droit de veto aux associations étudiantes sur tout projet de loi environnemental"
+          "La volonté de limiter le droit de vote des cohortes âgées dont les horizons temporels sont courts",
+          "La nécessité de confier aux seuls partis écologistes la définition des programmes électoraux"
         ],
         [
           "De quelle manière l’auteur appuie-t-il son raisonnement sur la réalité sociale québécoise ?",
           "L’engagement environnemental concret des adolescents est mis en contraste avec leur exclusion politique",
           "Une critique virulente des programmes d’éducation civique enseignés dans les écoles secondaires québécoises",
-          "Un appel à dissoudre immédiatement l’ensemble des partis politiques traditionnels de la province"
+          "Le faible taux de participation des jeunes aux grèves pour le climat est mis en avant"
         ],
         [
           "Que déduit-on implicitement de la remarque sur l’horizon temporel des aînés ?",
@@ -1285,12 +1285,12 @@ export const N09_10_SCENARIOS = {
           "Que laisse entendre le spécialiste au sujet de la montée en cadence de vendredi ?",
           "Elle risque d’être différée si les retards de transmission ne sont pas résolus",
           "Elle se déroulera sans le moindre obstacle technique grâce aux capteurs optiques",
-          "Elle exigera l’arrêt définitif de l’ensemble des robots de la ligne d’assemblage"
+          "Elle est déjà avancée à mardi car les retards de transmission ont été résolus"
         ],
         [
           "Que connote l’expression « bascule en mode sécuritaire dégradé » dans ce contexte ?",
-          "Un repli protecteur automatisé qui freine le rythme d’usinage prévu",
-          "Une panne électrique totale détruisant les moteurs de l’installation",
+          "Un repli protecteur automatisé qui freine le rythme d’assemblage prévu",
+          "Une mise à jour logicielle qui accélère le rythme d’assemblage avant la livraison",
           "Une manœuvre d’urgence manuelle déclenchée par l’opérateur de quart"
         ]
       ]
@@ -1347,7 +1347,7 @@ export const N09_10_SCENARIOS = {
           "Quel constat implicite ressort de l’analyse du préhenseur à ventouses ?",
           "Les conditions rigoureuses de salubrité n’avaient pas été pleinement anticipées",
           "Le personnel refuse délibérément de coopérer avec les nouveaux bras motorisés",
-          "Les barquettes laitières utilisées en usine sont impropres à toute distribution"
+          "Les nettoyages quotidiens ont été supprimés depuis l’installation des nouveaux cobots"
         ],
         [
           "Que connote l’expression « dissipe instantanément son inertie » dans cet échange ?",
@@ -1377,8 +1377,8 @@ export const N09_10_SCENARIOS = {
         [
           "Que laisse entendre le choix d’une arche unique de grande portée ?",
           "Implanter des piliers dans le lit fluvial aurait exposé l’ouvrage aux débâcles",
-          "Le lit de la rivière contenait des nappes de gaz toxique interdisant les travaux",
-          "Les convois de minerai ne pouvaient circuler que sur des voies sans aucun virage"
+          "Installer des appuis flottants en acier fragile sur le lit de la rivière dès la débâcle",
+          "Retirer les appuis en béton aurait allongé la portée libre au-delà de trois cents mètres"
         ],
         [
           "Que signifie précisément l’expression « compenser la flèche instantanée » ?",
@@ -1398,7 +1398,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le sujet central de cet épisode de série documentaire ?",
           "La portée politique et sociale de la nationalisation de l’électricité en 1962",
-          "Le conflit syndical opposant les ouvriers des barrages aux ingénieurs new-yorkais",
+          "La négociation discrète de l’emprunt obligataire sur les marchés de New York",
           "La faillite bancaire provoquée par la gestion désordonnée des emprunts publics"
         ],
         [
@@ -1410,8 +1410,8 @@ export const N09_10_SCENARIOS = {
         [
           "Que laisse entendre le narrateur sur la place des francophones avant cette réforme ?",
           "Ils étaient largement tenus à l’écart des postes de décision stratégique",
-          "Ils refusaient catégoriquement de s’instruire dans les disciplines scientifiques",
-          "Ils détenaient déjà la quasi-totalité des institutions financières de Montréal"
+          "Ils occupaient les conseils d’administration des compagnies privées d’électricité",
+          "Ils détenaient déjà la majorité des institutions financières montréalaises"
         ],
         [
           "Que connote l’expression « brisant les plafonds de verre corporatifs » dans ce récit ?",
@@ -1460,7 +1460,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle est la thèse centrale développée dans ce volet documentaire ?",
           "La réforme scolaire des années soixante a constitué un levier majeur d’émancipation collective",
-          "La création du ministère de l’Éducation a provoqué la fermeture durable des universités régionales",
+          "L’archevêché a repris le contrôle de l’instruction publique dès la création du ministère",
           "Le clergé québécois a financé la création des premiers cégeps pour préserver son influence rurale"
         ],
         [
@@ -1536,7 +1536,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel facteur précipite le départ des ménages les plus démunis ?",
           "L’impossibilité financière de continuer à assurer leurs résidences menacées",
-          "La fermeture administrative de l’ensemble des voies de circulation provinciales",
+          "La hausse soudaine des loyers imposée par les propriétaires des quartiers intérieurs",
           "L’obligation légale imposée par les tribunaux d’évacuer immédiatement les lieux"
         ],
         [
@@ -1554,9 +1554,9 @@ export const N09_10_SCENARIOS = {
       "questions": [
         [
           "Quelle est l’idée directrice exposée par le vulgarisateur scientifique ?",
-          "Des lois mathématiques déterministes peuvent générer une imprévisibilité dynamique totale",
-          "La physique quantique a définitivement réfuté la validité du calcul infinitésimal classique",
-          "Les modèles météorologiques actuels permettent des prédictions infaillibles sur plusieurs années"
+          "Des lois mathématiques déterministes peuvent engendrer des comportements intrinsèquement imprévisibles",
+          "La connaissance exacte des conditions initiales autorise une prévision certaine à long terme",
+          "Les équations de Lorenz ont été abandonnées faute d’expérimentations convaincantes en laboratoire"
         ],
         [
           "Comment la réflexion mathématique progresse-t-elle dans cette chronique ?",
@@ -1598,7 +1598,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel cercle vicieux découle de la perte continue de diplômés en région ?",
           "Le tissu industriel local s’enferme dans des activités de rente faute d’expertise pour innover",
-          "Les banques centrales régionales augmentent automatiquement les taux d’intérêt sur les prêts hypothécaires",
+          "Les municipalités régionales attirent des entreprises de haute technologie grâce aux diplômés",
           "Les municipalités rurales sont contraintes de fusionner de force avec les centres urbains limitrophes"
         ],
         [
@@ -1623,20 +1623,20 @@ export const N09_10_SCENARIOS = {
         [
           "Comment le vulgarisateur structure-t-il son explication didactique ?",
           "Il rappelle la vulnérabilité historique de la clé unique avant d’exposer le ressort du chiffrement moderne",
-          "Il compare le prix de divers ordinateurs avant de déconseiller l’utilisation des cartes bancaires à puce",
+          "Il évoque d’abord les supercalculateurs avant de réfuter la notion même de clé unique",
           "Il énumère les fraudes informatiques récentes avant de mettre en doute la fiabilité des mathématiques pures"
         ],
         [
           "Pourquoi est-il sans danger de rendre publique la clé issue du calcul initial ?",
           "La décomposition en facteurs premiers exigerait un temps de calcul inaccessible aux machines actuelles",
           "Le protocole efface immédiatement les données sensibles dès qu’un intrus cherche à en percer le secret",
-          "Les banques commerciales modifient les chiffres de la clé toutes les trois secondes par satellite"
+          "La clé publique révèle immédiatement le second facteur premier à tout ordinateur ordinaire"
         ],
         [
           "Dans ce contexte, que qualifie-t-on de « fonction à sens unique avec brèche secrète » ?",
           "Une opération mathématique aisée à réaliser dans un sens mais impossible à inverser sans information privilégiée",
           "Un virus informatique conçu pour pénétrer discrètement dans les serveurs informatiques des gouvernements",
-          "Une passerelle réseau privée réservée exclusivement aux échanges de devises entre banques centrales mondiales"
+          "Une passerelle réseau privée conçue pour sécuriser les transferts de devises entre banques centrales mondiales"
         ]
       ]
     }
@@ -1657,7 +1657,7 @@ export const N09_10_SCENARIOS = {
           "Quelle directive spécifique s’applique si l’alarme signale une fuite toxique plutôt qu’un feu ?",
           "Se calfeutrer sans délai dans les abris pressurisés plutôt que de tenter une sortie à l’extérieur",
           "Regagner immédiatement son véhicule personnel garé sur les voies d’accès carrossables de l’usine",
-          "Monter sur le toit des ateliers de raffinage pour attendre l’arrivée des hélicoptères de secours"
+          "Sortir immédiatement à l’air libre par les coursives sud en direction du parc de stationnement"
         ],
         [
           "À qui revient la responsabilité exclusive de valider officiellement le plan de cheminement conçu ?",
@@ -1719,7 +1719,7 @@ export const N09_10_SCENARIOS = {
           "Quel principe séquentiel doit être obligatoirement respecté lors du transfert des patients ?",
           "Réaliser un déplacement horizontal vers le compartiment voisin avant toute évacuation verticale",
           "Évacuer en priorité les étages supérieurs avant de porter assistance aux personnes du rez-de-chaussée",
-          "Transférer les patients vers le stationnement souterrain avant l’arrivée des équipes de secours"
+          "Transférer les malades vers les étages supérieurs seulement après l’arrivée des pompiers"
         ],
         [
           "Quelle personne est formellement habilitée à autoriser le déplacement des incubateurs néonataux ?",
@@ -1731,7 +1731,7 @@ export const N09_10_SCENARIOS = {
           "Sous quelle condition le recours au monte-charge médical est-il exceptionnellement autorisé ?",
           "S’il bénéficie d’une alimentation électrique secourue et qu’un technicien certifié assure l’escorte",
           "Dès lors que les ascenseurs pour visiteurs sont occupés par le personnel soignant de garde",
-          "Uniquement en cas de panne complète du système de pressurisation des escaliers d’urgence"
+          "En cas de défaillance confirmée du système de pressurisation desservant les escaliers de secours"
         ]
       ]
     },
@@ -1754,14 +1754,14 @@ export const N09_10_SCENARIOS = {
         ],
         [
           "Quelle instance détient l’autorité requise pour approuver la grille tarifaire imposée aux voyageurs ?",
-          "L’organe exécutif de l’autorité organisatrice métropolitaine",
+          "Le comité exécutif désigné relevant de l’autorité organisatrice métropolitaine",
           "L’avocate externe mandatée pour négocier la garantie environnementale des batteries",
-          "Chantal elle-même après concertation avec les représentants syndicaux des matelots"
+          "La directrice générale après concertation avec les représentants syndicaux maritimes"
         ],
         [
           "Quelle dérogation Chantal peut-elle accorder de sa propre initiative lors des tests techniques ?",
           "Étendre la phase d’homologation d’un mois au plus si des aléas affectent l’amarrage automatisé",
-          "Autoriser le partenaire à naviguer avec des moteurs diesel polluants sans permis environnemental",
+          "Accorder au concessionnaire une clause d’exclusivité sur les quais municipaux pour un an",
           "Modifier le tracé des navettes pour éviter de desservir les municipalités riveraines éloignées"
         ]
       ]
@@ -1792,10 +1792,10 @@ export const N09_10_SCENARIOS = {
           "L’obligation pour les municipalités de nationaliser l’ensemble des surfaces commerciales"
         ],
         [
-          "Que connote l’expression « commodité algorithmique » sous la plume de l’oratrice ?",
+          "Que connote l’expression « commodité algorithmique » dans la bouche de l’oratrice ?",
           "Le confort trompeur d’achats rapides en ligne masquant des dégâts collectifs majeurs",
-          "L’efficacité technique d’un moteur de recherche simplifiant les opérations bancaires",
-          "La programmation automatisée des feux de signalisation sur les boulevards urbains"
+          "La fiabilité d’un logiciel qui protège les données personnelles des consommateurs québécois",
+          "Le service de livraison rapide qui améliore la productivité des petites boutiques de quartier"
         ]
       ]
     },
@@ -1851,7 +1851,7 @@ export const N09_10_SCENARIOS = {
           "Quel comportement prédateur des plateformes est particulièrement dénoncé dans l’extrait ?",
           "L’exploitation des données d’achats pour copier les créations locales sous marque de distributeur",
           "Le refus délibéré et concerté des transporteurs de desservir les municipalités éloignées de la province",
-          "L’interdiction contractuelle faite aux artisans québécois d’afficher leurs prix dans la devise locale"
+          "La subvention publique accordée aux producteurs québécois pour baisser leurs commissions"
         ],
         [
           "Que connote l’expression « souveraineté artisanale » dans cette harangue économique ?",
@@ -1869,8 +1869,8 @@ export const N09_10_SCENARIOS = {
         [
           "Quel argument de fond l’avocat adverse avance-t-il pour justifier la position de sa mandante ?",
           "Les travaux d’insonorisation respectaient scrupuleusement la réglementation en vigueur au moment de leur exécution",
-          "Les copropriétaires du dessous ont eux-mêmes installé des haut-parleurs surpuissants collés au plafond de leur salon",
-          "Le bruit perçu par le voisinage provient exclusivement des canalisations de plomberie traversant les cloisons"
+          "Les copropriétaires du dessous ont refusé de faire réaliser une expertise acoustique indépendante",
+          "Le bruit perçu par le voisinage provient en partie des canalisations de plomberie traversant les cloisons"
         ],
         [
           "Comment la stratégie de défense est-elle structurée dans cette intervention ?",
@@ -1881,7 +1881,7 @@ export const N09_10_SCENARIOS = {
         [
           "Pourquoi l’exigence syndicale de retrait du plancher est-elle qualifiée d’abus de droit ?",
           "Elle prétend appliquer rétroactivement un nouveau standard voté après la finalisation approuvée du chantier",
-          "Elle a été adoptée lors d’une assemblée clandestine tenue en l’absence totale de quorum légalement requis",
+          "Elle a été adoptée lors d’une assemblée extraordinaire convoquée sans respecter le quorum légalement requis",
           "Elle impose à la copropriétaire d’utiliser un type de revêtement textile formellement interdit par les normes d’hygiène"
         ],
         [
@@ -1914,14 +1914,14 @@ export const N09_10_SCENARIOS = {
         [
           "Comment la première condition de la légitime défense concilie-t-elle le subjectif et l’objectif ?",
           "La sincérité du prévenu doit être corroborée par ce qu’une personne raisonnable aurait perçu dans la même situation",
-          "Le témoignage de l’accusé est réputé infaillible dès lors qu’aucune caméra n’a filmé le déroulement des faits",
+          "La seule croyance du prévenu suffit, indépendamment de ce qu’une personne raisonnable aurait perçu",
           "Les antécédents judiciaires de la victime suffisent à établir objectivement l’existence d’une menace armée"
         ],
         [
           "Quelle distinction conceptuelle fondamentale l’auteur met-il en relief en conclusion ?",
           "La reconnaissance de l’acte comme licite en soi plutôt que comme une faute simplement pardonnée",
           "L’obligation d’indemniser civilement l’agresseur même si la responsabilité pénale se trouve écartée",
-          "L’inversion automatique de la présomption d’innocence dès lors qu’une riposte physique est avérée"
+          "La transformation de la légitime défense en simple circonstance atténuante de la faute pénale"
         ]
       ]
     },
@@ -1945,7 +1945,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel paradoxe esthétique a marqué les toutes premières années de l’avènement du parlant ?",
           "L’enregistrement du son a temporairement paralysé le mouvement et la fluidité visuelle de la caméra",
-          "Les comédiens devaient crier leurs répliques pour couvrir le vacarme des projecteurs de la salle de cinéma",
+          "Les salles de projection ont vite supprimé les bandes-son pour réduire les coûts de copie",
           "Les studios ont banni l’usage de toute musique instrumentale pour réserver la pellicule aux seuls bruits réels"
         ],
         [
@@ -1963,9 +1963,9 @@ export const N09_10_SCENARIOS = {
       "questions": [
         [
           "Quel principe juridique fondamental gouverne la défense des biens selon cet extrait doctrinal ?",
-          "L’interdiction absolue de recourir à une force mortelle ou causant des blessures graves pour protéger un bien",
-          "L’autorisation sans réserve d’abattre tout intrus pénétrant de nuit sur un terrain résidentiel clôturé",
-          "L’obligation d’attendre l’intervention d’un huissier de justice avant de s’opposer physiquement à un vol"
+          "La prohibition formelle de recourir à une force mortelle ou causant des blessures graves pour protéger un bien",
+          "La permission générale de se faire justice soi-même dès qu’une propriété privée est menacée",
+          "La nécessité d’obtenir un mandat judiciaire avant d’empêcher physiquement un vol en cours"
         ],
         [
           "Comment l’auteur articule-t-il la distinction entre l’article 34 et l’article 35 du Code criminel ?",
@@ -2007,14 +2007,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quel inconvénient technique inhérent affectait les trucages argentiques sur tireuse optique ?",
           "La superposition de négatifs successifs altérait la finesse du grain et l’équilibre des couleurs",
-          "Les peintures sur verre s’écaillaient irrémédiablement sous la chaleur dégagée par les projecteurs de tournage",
+          "Les tireuses optiques détruisaient les maquettes physiques lors de chaque passage de pellicule",
           "La caméra ne pouvait pas enregistrer le son et l’image sur une même bande lors des scènes truquées"
         ],
         [
           "De quelle façon la capture de mouvement a-t-elle profondément enrichi l’animation numérique ?",
           "En insufflant l’organicité et les micro-expressions du jeu d’un comédien dans un avatar généré par ordinateur",
           "En supprimant définitivement le besoin de scénaristes pour écrire les scènes d’action des superproductions",
-          "En permettant d’imprimer instantanément des figurines en plastique destinées aux campagnes promotionnelles"
+          "En remplaçant les animateurs par des plateaux de tournage équipés de projecteurs argentiques"
         ]
       ]
     }
@@ -2027,7 +2027,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel processus physique fondamental est expliqué dans cet extrait de revue scientifique ?",
           "La chaîne d’interactions entre particules cosmiques et magnétosphère créant des émissions lumineuses",
-          "La mesure des perturbations acoustiques causées par les marées océaniques sur les côtes arctiques du globe",
+          "La désexcitation radiative de l’oxygène atomique produisant des longueurs d’onde vertes et rouges",
           "L’impact des variations de la gravité lunaire sur la trajectoire des satellites météorologiques en orbite"
         ],
         [
@@ -2039,7 +2039,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle condition géophysique détermine l’amorce de la reconnexion magnétique du côté diurne ?",
           "L’alignement inverse du champ magnétique solaire par rapport à celui de la planète",
-          "La disparition complète de toute trace d’oxygène gazeux dans les strates supérieures de l’atmosphère",
+          "La densité accrue de plasma dans la queue magnétique nocturne de la planète",
           "Une chute brutale de la température nocturne en dessous du point de condensation des vapeurs polaires"
         ],
         [
@@ -2071,7 +2071,7 @@ export const N09_10_SCENARIOS = {
           "Quel problème d’organisation a accentué le surcoût énergétique sur la chaîne d’extrusion ?",
           "Le manque de qualification initiale du personnel face aux réglages des nouveaux équipements",
           "Une coupure d’électricité généralisée ayant paralysé l’ensemble du parc industriel pendant un mois",
-          "La détérioration irréversible des moteurs thermiques par suite d’une inondation des sous-sols de l’usine"
+          "La formation trop poussée des opérateurs, qui ralentissait l’entretien des équipements neufs"
         ],
         [
           "Dans ce contexte de gestion budgétaire, que qualifie un « écart défavorable » ?",
@@ -2089,7 +2089,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel phénomène d’astrophysique ce texte spécialisé décrit-il en détail ?",
           "La répercussion des éjections coronales sur la magnétosphère et la haute atmosphère",
-          "Le risque de collision imminente entre un astéroïde géocroiseur et les anneaux de Saturne",
+          "L’anticipation des perturbations radioélectriques sur les communications satellitaires",
           "La formation des cratères d’impact météoritique sur la surface glacée des lunes de Jupiter"
         ],
         [
@@ -2101,7 +2101,7 @@ export const N09_10_SCENARIOS = {
         [
           "Selon l’article, quelle information les variations rapides des draperies aurorales fournissent-elles ?",
           "Elles traduisent les oscillations micro-ondes et la dynamique thermique des gaz de haute altitude",
-          "Elles signalent l’épuisement imminent des réserves de lithium présentes dans le manteau terrestre profond",
+          "Elles révèlent la teneur exacte en oxygène des océans polaires et leur température de surface",
           "Elles prédisent l’arrivée de précipitations neigeuses torrentielles sur les centres urbains du Saint-Laurent"
         ],
         [
@@ -2154,7 +2154,7 @@ export const N09_10_SCENARIOS = {
           "Quelle consigne immédiate un employé ordinaire doit-il appliquer s’il est abordé par un journaliste ?",
           "Refuser tout commentaire personnel et orienter le reporter vers le service des relations publiques",
           "Répondre brièvement aux questions techniques en exigeant l’anonymat complet dans le reportage à paraître",
-          "Convoquer immédiatement une conférence de presse au siège social de l’entreprise avec les gestionnaires"
+          "Publier immédiatement un communiqué technique sans l’approbation du conseiller juridique"
         ],
         [
           "Quel est l’ordre des étapes préalables obligatoires avant la publication d’un communiqué d’entreprise ?",
@@ -2184,7 +2184,7 @@ export const N09_10_SCENARIOS = {
         [
           "Que doit obligatoirement faire un professeur lors de la reproduction d’un chapitre conforme aux seuils ?",
           "Indiquer la source bibliographique intégrale et le nom des créateurs sur l’ensemble des exemplaires",
-          "Faire signer un engagement de confidentialité à tous les étudiants inscrits à son cours collégial",
+          "Obtenir la signature du doyen sur chaque photocopie avant de la distribuer aux étudiants",
           "Vendre les photocopies au prix coûtant afin de compenser les dépenses de reprographie de l’établissement"
         ],
         [
@@ -2197,7 +2197,7 @@ export const N09_10_SCENARIOS = {
           "Sous quelle condition technique des extraits numérisés peuvent-ils être mis à la disposition des étudiants ?",
           "En étant réservés aux inscrits sur l’intranet avec désactivation des liens au terme du trimestre d’études",
           "En étant mis en libre accès sur le site internet public du collège pendant une période indéterminée",
-          "À condition que le fichier soit imprimé en un seul exemplaire scellé conservé sous clé dans le bureau du doyen"
+          "En étant envoyés par courriel aux anciens diplômés et aux parents, sans restriction de durée"
         ],
         [
           "À quelle instance incombe la surveillance périodique de la conformité des recueils de textes ?",
@@ -2215,7 +2215,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle action un témoin de la présence de journalistes lors d’un incident doit-il poser immédiatement ?",
           "Guider la presse vers le point de rassemblement dédié tout en joignant la cellule d’urgence sans tarder",
-          "Prendre des photographies des installations endommagées pour les diffuser sans délai sur les réseaux sociaux",
+          "Accorder une entrevue improvisée aux reporters présents avant de contacter la cellule de crise",
           "Répondre spontanément aux questions des reporters pour rassurer la population locale du secteur"
         ],
         [
@@ -2228,7 +2228,7 @@ export const N09_10_SCENARIOS = {
           "Quelle condition préalable s’impose si les services d’urgence de la ville participent à l’intervention ?",
           "L’aval exprès du maire ou du responsable des secours avant la diffusion de la déclaration publique",
           "L’approbation d’un comité citoyen de quartier convoqué en assemblée générale extraordinaire d’urgence",
-          "L’obtention d’un mandat de comparution délivré par un juge de paix de la Cour supérieure de justice"
+          "L’avis favorable d’un journaliste indépendant consulté après la publication de la déclaration"
         ],
         [
           "Qui détient l’autorité exclusive pour s’exprimer devant les journalistes lors de l’incident ?",
@@ -2252,13 +2252,13 @@ export const N09_10_SCENARIOS = {
         [
           "Quand la désactivation des accès aux fichiers numérisés doit-elle intervenir sur le serveur ?",
           "Trente jours après la conclusion définitive des examens de la session académique correspondante",
-          "Dès le lendemain du premier cours magistral dispensé devant les étudiants de premier cycle universitaire",
+          "Deux semaines après la remise des notes du premier examen partiel de la session",
           "Au terme d’un délai de douze mois consécutifs suivant l’approbation du plan de cours par le doyen"
         ],
         [
           "À quelle exigence technique la mise en ligne des extraits autorisés est-elle soumise ?",
           "L’apposition d’un filigrane de l’université et la limitation stricte de l’accès aux seuls étudiants inscrits",
-          "L’insertion obligatoire d’une annonce publicitaire commerciale au début et à la fin de chaque document téléversé",
+          "L’apposition d’une photographie de l’auteur et la diffusion ouverte à tout internaute",
           "Le cryptage des fichiers au moyen d’une clé biométrique renouvelée toutes les quarante-huit heures"
         ],
         [
@@ -2285,14 +2285,14 @@ export const N09_10_SCENARIOS = {
         [
           "Sur quel motif le juge écarte-t-il l’argument de la force majeure invoqué par la compagnie ?",
           "La prévisibilité avérée du risque d’infiltration dès les premières études géologiques du terrain",
-          "L’absence totale de solvants chimiques dans les échantillons prélevés par les inspecteurs du gouvernement",
+          "La présence négligeable de résidus industriels dans les échantillons prélevés par les inspecteurs du ministère",
           "L’aveu écrit du président du groupe reconnaissant un acte de sabotage commis par des employés démissionnaires"
         ],
         [
           "Quel fait prouve de manière décisive la négligence délibérée de la partie défenderesse ?",
           "Le refus de réparer des défectuosités structurelles déjà relevées par ses propres spécialistes",
           "La tenue d’une conférence de presse non autorisée par le maire de la ville avant l’audition des témoins",
-          "Le versement de pots-de-vin à des fonctionnaires provinciaux chargés d’évaluer la salubrité de l’eau"
+          "L’installation de géomembranes doubles dès le lancement des bassins de décantation"
         ],
         [
           "Dans cette ordonnance judiciaire, que désigne l’expression « délai péremptoire » ?",
@@ -2311,7 +2311,7 @@ export const N09_10_SCENARIOS = {
           "Quelle est la revendication fondamentale défendue par l’auteur de cette lettre ouverte ?",
           "La réintégration de la procréation médicalement assistée au sein du régime public gratuit",
           "La suppression complète des congés parentaux accordés aux employés du secteur privé québécois",
-          "Le plafonnement strict du nombre total d’enfants autorisés par famille dans la province"
+          "L’instauration d’un plafond de revenus familiaux pour l’admissibilité aux allocations de garde d’enfants"
         ],
         [
           "Comment la lettre déconstruit-elle l’argument selon lequel la gratuité ruinerait l’État ?",
@@ -2329,7 +2329,7 @@ export const N09_10_SCENARIOS = {
           "Dans ce plaidoyer en santé publique, que signifie l’expression « impératif catégorique » ?",
           "Une exigence morale inconditionnelle qui s’impose d’elle-même sans dépendre de considérations opportunistes",
           "Une recommandation technique facultative formulée par un comité d’experts indépendants lors d’une consultation",
-          "Un protocole médical expérimental réservé exclusivement aux patients hospitalisés dans un état critique"
+          "Un protocole médical expérimental administré aux patients hospitalisés dans un état critique"
         ]
       ],
       "frame": "lettre ouverte — gratuité de la procréation assistée"
@@ -2372,25 +2372,25 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle thèse directrice les professionnels de la santé soutiennent-ils dans cette tribune ?",
           "L’infertilité est une affection légitime dont la prise en charge relève du droit fondamental aux soins",
-          "La médecine reproductive doit être confiée en exclusivité à des entreprises commerciales à capital de risque",
-          "Le financement public doit être conditionné à la réussite garantie d’une première insémination artificielle"
+          "La médecine reproductive doit être confiée en priorité à des cliniques commerciales à but lucratif",
+          "La gratuité des soins doit dépendre des revenus déclarés par chaque couple à Revenu Québec"
         ],
         [
           "Quel argument médical majeur les signataires opposent-ils au refus de financement public ?",
           "La reconnaissance formelle de l’infertilité comme une pathologie véritable par les instances de santé mondiales",
           "La publication de sondages d’opinion montrant le désintérêt croissant des citoyens pour les questions d’éthique",
-          "L’argument selon lequel les cliniques privées de fertilité sont toutes déficitaires et prêtes à faire faillite"
+          "La baisse constante des cas d’infertilité signalés au Québec depuis une dizaine d’années"
         ],
         [
           "Quel risque sanitaire grave la gratuité encadrée des traitements permet-elle d’écarter ?",
           "Le recours dangereux à des établissements clandestins non réglementés et les grossesses à risque élevé",
-          "La surpopulation soudaine des services d’urgence pédiatrique causée par des infections infantiles bénignes",
+          "Le développement d’affections chroniques graves provoquées par les protocoles de fécondation in vitro",
           "La baisse drastique des effectifs d’infirmières cliniciennes spécialisées dans les soins périnataux hospitaliers"
         ],
         [
           "Dans cette prise de position engagée, que qualifie l’adjectif « inique » ?",
           "Qui est profondément injuste, partial, et contraire à l’équité fondamentale entre les membres d’une société",
-          "Qui présente un caractère insolite et surprenant suscitant l’admiration unanime des observateurs contemporains",
+          "Qui correspond à une pratique médicale répandue et généralement approuvée par les cliniques",
           "Qui découle d’une application trop rigide et tatillonne des règles de procédure administrative courante"
         ]
       ],
