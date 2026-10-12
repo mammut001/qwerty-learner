@@ -264,7 +264,7 @@ export const N09_10_SCENARIOS = {
           "Quel est l’objectif fondamental poursuivi par cette formation en entreprise ?",
           "Expliciter les obligations de neutralité et les procédures de récusation pour les gestionnaires",
           "Interdire définitivement l’embauche de tout consultant externe pour l’ensemble des projets publics de l’État",
-          "Encourager les employés à négocier des ententes financières informelles avec leurs proches"
+          "Présenter les barèmes financiers appliqués lors de l’adjudication des mandats de sous-traitance"
         ],
         [
           "Comment le formateur développe-t-il la notion de conflit d’intérêts ?",
@@ -451,8 +451,8 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’enjeu prioritaire énoncé dans les consignes de la directrice de recherche ?",
           "La sécurisation rigoureuse et le contrôle de qualité des données génomiques traitées",
-          "L’achat immédiat de nouveaux ordinateurs portables performants pour l’ensemble des étudiants et chercheurs",
-          "La fermeture définitive des serveurs universitaires pour des raisons d’économies"
+          "Le calibrage minutieux des filtres de contrôle sur les séquences d’acide nucléique",
+          "La consignation des scripts d’algorithmes dans le dépôt de version institutionnel"
         ],
         [
           "Quelle méthode de gestion du travail transparaît dans ces instructions verbales ?",
@@ -515,7 +515,7 @@ export const N09_10_SCENARIOS = {
         [
           "Sur quel enjeu principal porte l’échange d’opinions entre les deux collègues ?",
           "La pertinence d’imposer des journées fixes de présence au bureau pour l’ensemble du personnel",
-          "L’obligation d’acheter de nouveaux ordinateurs performants pour améliorer la communication quotidienne à distance",
+          "Le risque de démissions chez les analystes recrutés par des firmes concurrentes plus flexibles",
           "L’organisation de plages obligatoires de mentorat en personne pour intégrer les nouveaux stagiaires"
         ],
         [
@@ -704,7 +704,7 @@ export const N09_10_SCENARIOS = {
           "Quel est l’objet technique central documenté dans cette fiche professionnelle ?",
           "La méthodologie rigoureuse de mesure et les risques globaux liés aux bruits d’impact industriels",
           "La fabrication artisanale de casques de protection auditive en matériaux recyclés locaux",
-          "L’interdiction définitive d’utiliser des presses mécaniques dans l’ensemble des usines québécoises"
+          "La pose d’écrans absorbants composites pour réduire le bruit de crête des presses mécaniques"
         ],
         [
           "Comment l’exposé technique articule-t-il les exigences de sécurité au travail ?",
@@ -780,7 +780,7 @@ export const N09_10_SCENARIOS = {
           "Que déduit-on implicitement de la formule « le courage de déplaire » ?",
           "L’ancien élu estime avoir agi par devoir d’État plutôt que par calcul électoraliste facile",
           "Le politicien admet avoir délibérément et constamment cherché à provoquer la colère de ses concitoyens",
-          "Le ministre regrette d’avoir heurté les sensibilités corporatistes pour sauver son ministère"
+          "Le ministre affirme avoir cédé aux pressions corporatistes afin de préserver sa popularité"
         ],
         [
           "Dans ce récit personnel, que signifie l’expression « faire le pied de grue » ?",
@@ -960,7 +960,7 @@ export const N09_10_SCENARIOS = {
         ],
         [
           "De quelle manière les économistes articulent-ils la chaîne de répercussion des coûts ?",
-          "Les hausses maritimes sont tracées des transporteurs aux grossistes puis aux étiquettes des magasins",
+          "Les hausses maritimes sont répercutées des transporteurs aux grossistes puis aux étiquettes des magasins",
           "Une critique des ententes tarifaires secrètes conclues entre les grandes chaînes de supermarchés",
           "Une proposition de subventionner directement les carburants maritimes pour alléger les factures"
         ],
@@ -1238,7 +1238,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel argument central est déployé dans cette tribune pour soutenir le vote à seize ans ?",
           "La légitimité des jeunes à peser sur les décisions écologiques dont ils subiront l’impact toute leur vie",
-          "La conviction que les adolescents possèdent une maturité politique supérieure à celle de leurs aînés",
+          "La volonté de limiter le droit de vote des cohortes âgées dont les horizons temporels sont courts",
           "La nécessité de confier aux seuls partis écologistes la définition des programmes électoraux"
         ],
         [
@@ -1398,7 +1398,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le sujet central de cet épisode de série documentaire ?",
           "La portée politique et sociale de la nationalisation de l’électricité en 1962",
-          "Le conflit syndical opposant les ouvriers des barrages aux ingénieurs new-yorkais",
+          "La négociation discrète de l’emprunt obligataire sur les marchés de New York",
           "La faillite bancaire provoquée par la gestion désordonnée des emprunts publics"
         ],
         [
@@ -2027,7 +2027,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel processus physique fondamental est expliqué dans cet extrait de revue scientifique ?",
           "La chaîne d’interactions entre particules cosmiques et magnétosphère créant des émissions lumineuses",
-          "La mesure des perturbations acoustiques causées par les marées océaniques sur les côtes arctiques du globe",
+          "La désexcitation radiative de l’oxygène atomique produisant des longueurs d’onde vertes et rouges",
           "L’impact des variations de la gravité lunaire sur la trajectoire des satellites météorologiques en orbite"
         ],
         [
@@ -2089,7 +2089,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel phénomène d’astrophysique ce texte spécialisé décrit-il en détail ?",
           "La répercussion des éjections coronales sur la magnétosphère et la haute atmosphère",
-          "Le risque de collision imminente entre un astéroïde géocroiseur et les anneaux de Saturne",
+          "L’anticipation des perturbations radioélectriques sur les communications satellitaires",
           "La formation des cratères d’impact météoritique sur la surface glacée des lunes de Jupiter"
         ],
         [
@@ -2384,7 +2384,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel risque sanitaire grave la gratuité encadrée des traitements permet-elle d’écarter ?",
           "Le recours dangereux à des établissements clandestins non réglementés et les grossesses à risque élevé",
-          "La surpopulation soudaine des services d’urgence pédiatrique causée par des infections infantiles bénignes",
+          "Le développement d’affections chroniques graves provoquées par les protocoles de fécondation in vitro",
           "La baisse drastique des effectifs d’infirmières cliniciennes spécialisées dans les soins périnataux hospitaliers"
         ],
         [
