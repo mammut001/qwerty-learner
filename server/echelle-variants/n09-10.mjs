@@ -137,7 +137,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le récit principal livré par l’archéologue durant cette entrevue ?",
           "La mise au jour inattendue et l’excavation urgente d’un campement saisonnier ancien",
-          "L’échec des fouilles archéologiques en raison de la destruction complète des digues",
+          "L’analyse sédimentaire d’un village sédentaire fondé au confluent des cours d’eau",
           "La découverte fortuite d’une forteresse militaire coloniale du dix-huitième siècle"
         ],
         [
@@ -150,7 +150,7 @@ export const N09_10_SCENARIOS = {
           "Que révèle implicitement la provenance du quartzite utilisé pour les pointes de flèche ?",
           "Les populations autochtones entretenaient des contacts étendus bien au-delà de leur région",
           "Les occupants du campement ignoraient complètement l’art de tailler la pierre locale",
-          "Les fouilleurs ont confondu des outils anciens avec des débris de construction récents"
+          "Les chasseurs iroquoiens extrayaient ce minéral sur les rives mêmes de leur campement fluvial"
         ],
         [
           "Dans ce témoignage, que qualifie l’expression « course contre la montre » ?",
@@ -211,13 +211,13 @@ export const N09_10_SCENARIOS = {
         [
           "Que souligne implicitement le bon état de conservation de la membrure de chêne ?",
           "L’environnement vaseux et anoxique du fond marin a protégé le bois durant des siècles",
-          "Les constructeurs navals du dix-huitième siècle utilisaient des vernis chimiques modernes",
+          "Les huiles médicinales transportées dans la cale ont imprégné et imperméabilisé la coque en bois",
           "Le navire avait été coulé seulement quelques années avant le début des recherches"
         ],
         [
           "Dans ce contexte de fouilles sous-marines, que signifie le terme « sabordé » ?",
           "Coulé volontairement par son propre équipage pour empêcher sa capture par l’ennemi",
-          "Détruit accidentellement par un incendie incontrôlable survenu dans la salle des machines",
+          "Échoué par accident sur les alluvions côtières lors d’une manœuvre pour briser le blocus",
           "Vendu clandestinement à des marchands étrangers pour réaliser un profit financier personnel"
         ]
       ],
@@ -294,7 +294,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le propos explicatif central de cet extrait documentaire ?",
           "Le rôle fondamental de l’attention conjointe dans l’émergence du langage et de la cognition",
-          "La nécessité d’enseigner l’écriture formelle aux nourrissons bien avant l’âge de dix-huit mois révolus",
+          "L’évaluation systématique du vocabulaire passif des enfants dès l’âge de neuf mois en garderie",
           "L’inutilité des interactions verbales précoces entre les parents et leurs jeunes enfants"
         ],
         [
@@ -307,7 +307,7 @@ export const N09_10_SCENARIOS = {
           "Que déduit-on implicitement de l’importance du pointage parental ?",
           "La réactivité de l’adulte joue un rôle déterminant dans la construction du lexique enfantin",
           "Les enfants apprennent à parler de manière optimale en regardant seuls des vidéos éducatives",
-          "Le geste de pointer doit être corrigé par les éducatrices pour éviter de mauvaises habitudes"
+          "Le mot prononcé par l’adulte est assimilé avec la même efficacité sans synchronisation visuelle"
         ],
         [
           "Dans cet extrait, que désigne une « étude longitudinale » ?",
@@ -338,7 +338,7 @@ export const N09_10_SCENARIOS = {
           "Quel présupposé sous-tend l’inscription au registre dans les quarante-huit heures ?",
           "La traçabilité immédiate empêche la dissimulation et démontre la bonne foi du professionnel",
           "Le département de conformité souhaite redistribuer tous les cadeaux reçus aux autres employés de l’entreprise",
-          "Les formulaires papier doivent être envoyés par courrier recommandé à l’Ordre chaque jour"
+          "L’inscription au registre transfère l’entière responsabilité civile du projet aux dirigeants du cabinet"
         ],
         [
           "Dans ce contexte, que signifie le terme « proscrite » ?",
@@ -368,7 +368,7 @@ export const N09_10_SCENARIOS = {
         [
           "Que déduit-on implicitement de la variabilité du développement cérébral ?",
           "L’évaluation des comportements des élèves exige de tenir compte de leur rythme neurologique",
-          "Tous les enfants de huit ans devraient obligatoirement être soumis à des examens d’imagerie cérébrale poussés",
+          "L’agitation motrice observée en classe s’explique principalement par un refus conscient de coopérer",
           "L’apprentissage des mathématiques ne dépend d’aucune habileté cognitive préalable"
         ],
         [
@@ -407,8 +407,8 @@ export const N09_10_SCENARIOS = {
         [
           "Que signifie l’expression « à vos postes » dans cette intervention orale ?",
           "Un signal invitant chacun à retourner immédiatement exécuter son travail assigné",
-          "Une invitation cordiale à postuler pour des postes de direction au sein de l’institut",
-          "Une consigne ordonnant d’éteindre les ordinateurs avant de quitter définitivement les lieux"
+          "Une consigne demandant à toute l’équipe de se regrouper dans le bureau de la direction",
+          "Une autorisation accordée aux doctorants de reprendre leurs manipulations individuelles"
         ]
       ],
       "frame": "directives de directrice — coordination de laboratoire de recherche"
@@ -420,7 +420,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel impératif motive les directives formulées par le metteur en scène ?",
           "Accélérer et sécuriser les transitions scéniques avant la représentation inaugurale",
-          "Remplacer immédiatement les comédiens principaux qui n’arrivent plus à mémoriser leurs répliques sur scène",
+          "Refaire intégralement les décors de la scène du salon pour modifier le jeu des comédiens",
           "Remplacer les comédiens principaux qui n’arrivent pas à mémoriser leurs répliques"
         ],
         [
@@ -463,8 +463,8 @@ export const N09_10_SCENARIOS = {
         [
           "Quel constat découle implicitement du rejet des codes non documentés ?",
           "La reproductibilité scientifique dépend de la traçabilité complète des outils informatiques",
-          "Les doctorants doivent obligatoirement rédiger tous leurs programmes à la main sur du papier quadrillé",
-          "Le consortium refuse catégoriquement d’utiliser des ordinateurs pour la recherche"
+          "L’entraînement des modèles prédictifs ne nécessite aucun protocole d’archivage institutionnel",
+          "Les résultats d’analyse sont acceptés même si les filtres de qualité détectent des erreurs"
         ],
         [
           "Que signifie le terme « crypter » dans cette consigne technologique ?",
@@ -516,7 +516,7 @@ export const N09_10_SCENARIOS = {
           "Sur quel enjeu principal porte l’échange d’opinions entre les deux collègues ?",
           "La pertinence d’imposer des journées fixes de présence au bureau pour l’ensemble du personnel",
           "L’obligation d’acheter de nouveaux ordinateurs performants pour améliorer la communication quotidienne à distance",
-          "L’obligation d’acheter de nouveaux ordinateurs pour améliorer la communication à distance"
+          "L’organisation de plages obligatoires de mentorat en personne pour intégrer les nouveaux stagiaires"
         ],
         [
           "Quelle est la divergence de fond qui oppose les perspectives de Caroline et de Marc ?",
@@ -527,7 +527,7 @@ export const N09_10_SCENARIOS = {
         [
           "Que déduit-on implicitement de la mise en garde de Caroline sur la rétention des talents ?",
           "Les professionnels qualifiés accordent une grande valeur à la flexibilité de leurs horaires",
-          "Les analystes prévoient tous de quitter le marché du travail pour prendre leur retraite anticipée",
+          "Les meilleurs spécialistes préfèrent des firmes imposant une présence physique continue au bureau",
           "Les employeurs concurrents offrent systématiquement des salaires deux fois plus élevés"
         ],
         [
@@ -589,7 +589,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel constat découle implicitement de la suggestion finale de formation de Simon ?",
           "Le progrès technologique peut être accepté s’il s’accompagne d’une transition pour le personnel",
-          "Les robots industriels tombent systématiquement en panne sans intervention humaine manuelle",
+          "Les employés de l’usine possèdent déjà toutes les compétences requises pour entretenir les robots",
           "La coopérative dispose de surplus budgétaires illimités pour financer tous les projets imaginables"
         ],
         [
@@ -614,13 +614,13 @@ export const N09_10_SCENARIOS = {
         [
           "De quelle manière les deux interlocuteurs confrontent-ils leurs visions ?",
           "Les arguments de sobriété collective sont mis en balance avec le fardeau des personnes vulnérables",
-          "Une condamnation sans appel de toutes les formes d’énergies renouvelables est prononcée par les intervenants",
+          "Les avantages financiers réservés aux propriétaires aisés sont justifiés par l’inaction des locataires",
           "Un consensus parfait sur l’inutilité des programmes d’efficacité énergétique est vite atteint"
         ],
         [
           "Que déduit-on implicitement de la remarque sur les logements mal isolés ?",
           "Le prix de l’énergie expose les ménages modestes à des difficultés sans amélioration du bâti",
-          "Les locataires québécois refusent par principe de payer leurs factures mensuelles d’énergie",
+          "Les locataires de logements mal calfeutrés peuvent aisément baisser leur thermostat lors des pointes",
           "L’isolation des logements privés ne relève en aucun cas des politiques environnementales"
         ],
         [
@@ -642,7 +642,7 @@ export const N09_10_SCENARIOS = {
           "Quelle information médicale essentielle cet ouvrage spécialisé met-il en évidence ?",
           "La nature progressive et irréversible de la surdité induite par le bruit en milieu industriel",
           "L’efficacité suffisante du port occasionnel de bouchons antibruit sans aménagement des machines",
-          "La guérison spontanée des lésions auditives après quelques semaines de repos loin des ateliers"
+          "La régénération naturelle des cellules ciliées grâce à l’aménagement de cabines insonorisées"
         ],
         [
           "Comment l’exposé scientifique structure-t-il la description du danger acoustique ?",
@@ -660,7 +660,7 @@ export const N09_10_SCENARIOS = {
           "Dans ce contexte clinique, que qualifie l’adjectif « insidieuse » ?",
           "Une dégradation auditive lente et discrète qui progresse sans douleur apparente immédiate",
           "Une maladie contagieuse qui se transmet rapidement d’un travailleur à un autre par contact",
-          "Une réaction allergique foudroyante nécessitant une hospitalisation d’urgence en réanimation"
+          "Une blessure acoustique brutale provoquée par une déflagration soudaine déchirant le tympan"
         ]
       ],
       "frame": "ouvrage médical — risques sanitaires de l’exposition au bruit industriel"
@@ -716,7 +716,7 @@ export const N09_10_SCENARIOS = {
           "Que laisse entendre la remarque sur les réactions du système cardiovasculaire ?",
           "Le bruit industriel altère la santé globale du travailleur bien au-delà de sa seule audition",
           "Les ouvriers souffrant de surdité ne ressentent aucune fatigue physique au cours de leur journée",
-          "Les dosimètres individuels émettent des ondes magnétiques dangereuses pour le cœur des porteurs"
+          "Les impulsions sonores répétées n’entraînent aucun dérèglement physiologique en dehors de l’ouïe"
         ],
         [
           "Dans ce texte normatif, qu’est-ce qu’un « bruit d’impact » ?",
@@ -780,7 +780,7 @@ export const N09_10_SCENARIOS = {
           "Que déduit-on implicitement de la formule « le courage de déplaire » ?",
           "L’ancien élu estime avoir agi par devoir d’État plutôt que par calcul électoraliste facile",
           "Le politicien admet avoir délibérément et constamment cherché à provoquer la colère de ses concitoyens",
-          "Les ministres doivent systématiquement insulter les journalistes pour se faire respecter"
+          "Le ministre regrette d’avoir heurté les sensibilités corporatistes pour sauver son ministère"
         ],
         [
           "Dans ce récit personnel, que signifie l’expression « faire le pied de grue » ?",
@@ -798,7 +798,7 @@ export const N09_10_SCENARIOS = {
         [
           "Quel tournant narratif majeur cet extrait de roman policier relate-t-il ?",
           "La requalification d’une mort accidentelle en meurtre calculé lié à une fraude foncière",
-          "L’arrestation immédiate et spectaculaire du maire de Rimouski en plein milieu de son bureau à l’hôtel de ville",
+          "La confirmation d’une vengeance passionnelle après un règlement de dettes au cap Enragé",
           "La fermeture définitive de la société d’histoire régionale en raison d’un cambriolage"
         ],
         [
