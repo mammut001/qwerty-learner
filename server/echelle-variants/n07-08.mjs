@@ -1190,7 +1190,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle mesure factuelle a été officiellement adoptée par l’organisme scolaire ?',
           'L’instauration d’un dîner végétalien hebdomadaire dans dix écoles',
-          'La fermeture définitive des cafétérias scolaires pour des raisons d’économie',
+          'L’instauration de menus sans viande tous les midis de la semaine',
           'L’interdiction complète de toute consommation de viande à la maison',
         ],
         [
@@ -1202,7 +1202,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle critique implicite les opposants à la mesure mettent-ils de l’avant ?',
           'Ils perçoivent cette imposition comme une atteinte à leur autonomie alimentaire',
-          'Ils affirment que les légumineuses sont excessivement toxiques pour la jeunesse',
+          'Ils affirment que la mesure augmentera l’empreinte carbone des écoles secondaires',
           'Ils refusent que les élèves apprennent les enjeux du réchauffement climatique',
         ],
       ],
@@ -1215,7 +1215,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quel résultat factuel a été constaté par les inspecteurs de la ville après un mois ?',
           'Un niveau de conformité des commerces approchant quatre-vingt-huit pour cent',
-          'La fermeture immédiate de la moitié des restaurants et des épiceries de la ville',
+          'Une baisse immédiate de quatre-vingt-huit pour cent des coûts d’emballage alternatif',
           'Une diminution notable des emballages jetables abandonnés dans les parcs de quartier',
         ],
         [
@@ -1240,7 +1240,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle donnée chiffrée démontre l’efficacité matérielle du projet pilote ?',
           'Une réduction de vingt-cinq pour cent des matières destinées à l’enfouissement',
-          'La collecte gratuite de cent pour cent des déchets industriels en forêt',
+          'Une augmentation de vingt-cinq pour cent du nombre de dépôts sauvages en forêt',
           'Une économie financière de dix millions de dollars dès la première semaine',
         ],
         [
@@ -1307,8 +1307,8 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle réaction des voyageurs la défaillance informatique a-t-elle provoquée ?",
           "Un mécontentement marqué face aux blocages numériques",
-          "Une annulation massive de toutes les traversées prévues",
-          "Un refus catégorique de respecter les consignes à bord",
+          "Une plainte formelle sur la sécurité appliquée à bord",
+          "Une confusion généralisée sur les horaires de départ",
         ],
         [
           "Quelle intention anime la direction dans les changements recommandés ?",
@@ -1333,7 +1333,7 @@ export const N07_08_SCENARIOS = {
           "Que peut-on déduire quant à l’effet des désagréments observés dans la cuisine ?",
           "Ils nuisent à la convivialité et créent des tensions réelles",
           "Ils incitent la majorité des membres à rompre leur contrat",
-          "Ils contraignent les usagers à télétravailler depuis leur résidence",
+          "Ils provoquent une dégradation de l’insonorisation des cabines",
         ],
         [
           "Quelle mesure corrective immédiate l’équipe de gestion compte-t-elle implanter ?",
@@ -1351,7 +1351,7 @@ export const N07_08_SCENARIOS = {
         [
           "En quoi consiste la tâche principale liée au mandat proposé ?",
           "Guider les villes locales dans la conception de stratégies climatiques",
-          "Assurer la maintenance mécanique des installations solaires municipales",
+          "Régler les litiges financiers entre les agriculteurs et les écologistes",
           "Coordonner les appels d’offres pour les travaux de réfection du réseau routier",
         ],
         [
@@ -1382,7 +1382,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle attitude est implicitement requise lors des périodes d’astreinte ?",
           "Une disponibilité réactive doublée d’un grand sang-froid",
-          "Une indifférence sereine envers l’ensemble des alertes logicielles",
+          "Une capacité à reporter le traitement des alertes au lundi",
           "Une tendance à déléguer systématiquement aux stagiaires",
         ],
         [
@@ -1440,7 +1440,7 @@ export const N07_08_SCENARIOS = {
           "Quelle réaction critique des adversaires politiques la gestion financière suscite-t-elle ?",
           "Un reproche véhément visant l’ampleur du déséquilibre des finances",
           "Une contestation légale de l’installation d’usines à Bécancour",
-          "Une accusation de fraude électorale envers les membres du conseil",
+          "Une dénonciation du manque d’investissements pour l’industrie propre",
         ],
         [
           "Quel sentiment général émerge implicitement chez les électeurs à l’heure du scrutin ?",
@@ -1471,7 +1471,7 @@ export const N07_08_SCENARIOS = {
           "Quel argument la mairesse tente-t-elle de faire valoir pour persuader les votants ?",
           "Les perturbations subies étaient nécessaires pour préparer l’avenir",
           "Les travaux routiers n’ont occasionné aucun dérangement pour quiconque",
-          "Le réseau de transport public sera dorénavant privatisé sans délai",
+          "La crise du logement abordable a été réglée de manière exemplaire",
         ],
       ],
     },
@@ -1533,7 +1533,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quel événement déclencheur vient fissurer la cohésion des trois colocataires ?",
           "La naissance de sentiments amoureux rivaux envers leur amie commune",
-          "Une dispute financière grave liée au paiement du loyer mensuel",
+          "Un désaccord musical persistant sur la création de leur groupe indie",
           "La décision soudaine de Vincent de partir étudier à l’étranger",
         ],
         [
@@ -1559,7 +1559,7 @@ export const N07_08_SCENARIOS = {
           "Quelle différence fondamentale caractérise les deux protagonistes de cette comédie dramatique ?",
           "Leurs rapports diamétralement opposés à la prévoyance quotidienne",
           "Leurs opinions politiques incompatibles lors des élections locales",
-          "Leurs désaccords irréconciliables sur l’importance des études d’art",
+          "Leurs visions opposées de la traduction littéraire professionnelle",
         ],
         [
           "Quel sentiment les personnages éprouvent-ils au fil de leur cohabitation ?",
@@ -1596,14 +1596,14 @@ export const N07_08_SCENARIOS = {
         [
           "À quelle condition un étudiant peut-il toucher la bourse financière régionale ?",
           "Demeurer en poste sur le territoire pendant une période de trois ans",
-          "S’engager à travailler sans rémunération pendant son stage pratique",
+          "Posséder un permis de conduire valide pour utiliser la machinerie",
           "Obtenir obligatoirement la première place de sa cohorte collégiale",
         ],
         [
           "Quelle intention anime les élus en implantant des cours de français en entreprise ?",
           "Favoriser l’enracinement durable des travailleurs issus de l’immigration",
           "Remplacer le personnel syndiqué par des stagiaires venus de l’étranger",
-          "Réduire les salaires octroyés aux personnes qui ne parlent pas la langue",
+          "Obliger les travailleurs à financer eux-mêmes leur formation linguistique",
         ],
       ],
     },
@@ -1622,7 +1622,7 @@ export const N07_08_SCENARIOS = {
           "Comment le programme collégial facilite-t-il l’apprentissage du métier d’éducatrice ?",
           "En combinant un salaire régulier avec l’acquisition théorique en classe",
           "En exigeant un diplôme collégial de niveau supérieur avant l’embauche",
-          "En supprimant tout stage pratique au contact des tout-petits en centre",
+          "En dispensant la totalité des cours en ligne sans présence sur place",
         ],
         [
           "Que déduit-on quant à l’attitude des municipalités envers la crise de l’habitation ?",
@@ -1647,13 +1647,13 @@ export const N07_08_SCENARIOS = {
           "Quel objectif vise l’automatisation des tâches de conditionnement selon le reportage ?",
           "Alléger la pénibilité du travail pour séduire de nouveaux candidats",
           "Supprimer un nombre significatif de postes d’ouvriers non qualifiés",
-          "Accélérer la vente de produits importés au détriment des récoltes",
+          "Remplacer les cultures maraîchères locales par la transformation laitière",
         ],
         [
           "Quelle intention se dégage du soutien administratif accordé aux producteurs ?",
           "Simplifier l’embauche internationale pour combler les postes vacants",
           "Bloquer l’arrivée de travailleurs temporaires dans les villages ruraux",
-          "Transférer l’entière gestion des fermes sous l’autorité des municipalités",
+          "Restreindre l’embauche des ouvriers aux seules personnes des villages locaux",
         ],
       ],
     },
@@ -1666,7 +1666,7 @@ export const N07_08_SCENARIOS = {
           "Quelle est l’origine principale du désaccord survenu avec le ministère ?",
           "Une lecture divergente des fonctionnalités prévues dans le premier contrat",
           "Un retard technique dans le déploiement du module de calcul d’itinéraire",
-          "Une faille de sécurité majeure ayant entraîné la fuite de données d’usagers",
+          "Un refus catégorique de concevoir le module de géolocalisation des autobus",
         ],
         [
           "Que peut-on déduire quant à l’attitude du client avant cette mise au point ?",
@@ -1702,7 +1702,7 @@ export const N07_08_SCENARIOS = {
         [
           "Que déduit-on sur la volonté du gestionnaire dans le règlement de la crise ?",
           "Il privilégie la transparence et assume financièrement la réparation",
-          "Il rejette l’entière responsabilité sur les employés de l’entrepôt froid",
+          "Il exige que le client compense financièrement les pertes liées à la résine",
           "Il menace d’intenter des poursuites en justice contre la chaîne de magasins",
         ],
       ],
@@ -1716,7 +1716,7 @@ export const N07_08_SCENARIOS = {
           "Quelle décision de l’équipe a déclenché le conflit avec le donneur d’ordre ?",
           "Le report unilatéral de la date de remise pour ajouter des analyses",
           "La publication non autorisée de photos du chantier sur les réseaux sociaux",
-          "La falsification intentionnelle des relevés acoustiques sur les oiseaux",
+          "L’omission complète de données acoustiques dans le dossier d’impact légal",
         ],
         [
           "Pourquoi le retard causé plaçait-il le client dans une situation critique ?",
@@ -1747,14 +1747,14 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle consigne d’interdiction formelle la responsable formule-t-elle au début ?",
           "S’abstenir d’effectuer une réinitialisation brutale de la machine",
-          "Refuser systématiquement toute mise à jour logicielle sur le réseau",
+          "Ne pas ouvrir la console d’administration sur le poste de travail",
           "Bloquer les accès physiques des employés à la salle des serveurs",
         ],
         [
           "Que doit-on déduire sur l’intention de la cheffe en exigeant une relance graduelle des services ?",
           "S’assurer de la stabilité du système sans provoquer une nouvelle panne",
           "Permettre aux employés de quitter le travail plus rapidement le soir",
-          "Tester la résistance électrique des répartiteurs face aux surtensions",
+          "Accélérer la réinitialisation matérielle forcée du serveur réseau",
         ],
         [
           "Quel indicateur atteste que la situation technique est revenue à la normale ?",
@@ -1772,7 +1772,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle manœuvre initiale l’employée doit-elle exécuter pour sécuriser le matériel ?",
           "Mettre le processus en arrêt temporaire au moyen du clavier",
-          "Vidanger l’intégralité des réactifs chimiques dans l’évier",
+          "Lancer directement la séquence de nettoyage enzymatique automatique",
           "Changer immédiatement la lampe optique du compartiment central",
         ],
         [
@@ -1797,7 +1797,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle opération prioritaire permet d’écarter tout risque pour l’intervenant ?",
           "Interrompre le courant électrique au niveau du coffret mural",
-          "Retirer les colis les plus lourds directement depuis l’échelle",
+          "Relâcher manuellement les freins depuis le rail supérieur",
           "Déclencher le signal d’évacuation de l’ensemble de l’entrepôt",
         ],
         [
