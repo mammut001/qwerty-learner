@@ -1158,10 +1158,10 @@ const N3_TEXTO_CLOSINGS = [
 
 const N3_BIRTHDAY_DATA = [
   { colleague: 'Émile', wish: 'un très joyeux anniversaire', extraWish: 'beaucoup de bonheur et une excellente santé', wishP: 'du bonheur et une excellente santé', kwWish: 'santé', note: 'Profite bien de cette journée festive avec tes proches.' },
-  { colleague: 'Karim', wish: 'une merveilleuse journée de fête', extraWish: 'la réussite dans tous tes beaux projets', wishP: 'la réussite dans tous ses beaux projets', kwWish: 'réussite', note: 'Ne pense pas aux dossiers du bureau aujourd’hui.' },
+  { colleague: 'Karim', wish: 'un merveilleux anniversaire', extraWish: 'la réussite dans tous tes beaux projets', wishP: 'la réussite dans tous ses projets', kwWish: 'réussite', note: 'Ne pense pas aux dossiers du bureau aujourd’hui.' },
   { colleague: 'Martin', wish: 'un superbe anniversaire', extraWish: 'de très beaux souvenirs en famille réunis', wishP: 'des souvenirs en famille réunis', kwWish: 'souvenirs', note: 'Toute l’équipe a hâte de célébrer cela avec toi demain.' },
-  { colleague: 'Sébastien', wish: 'une très belle fête', extraWish: 'de la joie et de beaux succès personnels', wishP: 'de la joie et des succès personnels', kwWish: 'succès', note: 'Prends le temps de savourer chaque instant de fête.' },
-  { colleague: 'Alexandre', wish: 'un chaleureux anniversaire', extraWish: 'une année pleine de santé et d’énergie', wishP: 'de la pleine santé et de l’énergie', kwWish: 'énergie', note: 'Nous serons ravis de trinquer à ta santé sous peu.' },
+  { colleague: 'Sébastien', wish: 'un très bel anniversaire', extraWish: 'beaucoup de repos et de beaux voyages', wishP: 'beaucoup de repos et de beaux voyages', kwWish: 'voyages', note: 'Prends le temps de savourer chaque instant de fête.' },
+  { colleague: 'Alexandre', wish: 'un chaleureux anniversaire', extraWish: 'une année pleine de santé et d’énergie', wishP: 'une pleine vitalité et de l’énergie', kwWish: 'énergie', note: 'Nous serons ravis de trinquer à ta santé sous peu.' },
 ]
 const N3_BIRTHDAY_SIGNOFFS = [
   'Passe une excellente soirée !',
@@ -1189,12 +1189,14 @@ export const N03_R_4 = [
     (rand) => {
       const t = pick(N3_TEXTO_DATA, rand)
       const cl = pick(N3_TEXTO_CLOSINGS, rand)
+      const othersTopic = sample(N3_TEXTO_DATA.filter(x => x.topicP !== t.topicP), 2, rand)
+      const othersDetail = sample(N3_TEXTO_DATA.filter(x => x.detailP !== t.detailP), 2, rand)
       const text = `Coucou ! Je voulais te féliciter pour ${t.topic}. ${t.detail}. Tu as vraiment beaucoup de talent. ${cl}`
       return {
         text,
         questions: [
-          q('Sur quoi porte le compliment reçu dans ce message ?', t.topicP, 'l’achat d’un camion d’occasion révisé', 'un contrat de location longue durée', [t.kwTopic]),
-          q('Quelle appréciation positive l’amie formule-t-elle ?', t.detailP, 'le bas prix trouvé au centre commercial', 'la rapidité d’envoi du paquet postal', [t.kwDetail]),
+          q('Sur quoi porte le compliment reçu dans ce message ?', t.topicP, othersTopic[0].topicP, othersTopic[1].topicP, [t.kwTopic]),
+          q('Quelle appréciation positive l’amie formule-t-elle ?', t.detailP, othersDetail[0].detailP, othersDetail[1].detailP, [t.kwDetail]),
         ],
       }
     },
@@ -1210,7 +1212,7 @@ export const N03_R_4 = [
       return {
         text,
         questions: [
-          q('Quel est le but principal de ce courriel ?', 'souhaiter un joyeux anniversaire', 'demander un rapport de travail urgent', 'annoncer une réunion de crise d’équipe', ['souhaite']),
+          q('Quel est le but principal de ce courriel ?', 'souhaiter un joyeux anniversaire', 'féliciter un collègue pour sa retraite', 'annoncer l’arrivée d’un nouvel employé', ['souhaite', 'anniversaire']),
           q('Quels vœux bienveillants le collègue exprime-t-il ?', b.wishP, othersWish[0].wishP, othersWish[1].wishP, [b.kwWish]),
         ],
       }
@@ -1264,7 +1266,7 @@ export const N03_R_4 = [
     text: 'Bonjour Sophie ! Toute l’équipe du bureau te souhaite un joyeux anniversaire. Que cette journée t’apporte joie, repos et sourires avec ta famille. On t’attend demain avec le gâteau !',
     questions: [
       q('Quelle fête les collègues célèbrent-ils par courriel ?', 'l’anniversaire de naissance de Sophie', 'la fin d’un projet important au bureau', 'le départ en vacances de leur collègue', ['anniversaire']),
-      q('Qu’est-ce qui est prévu au bureau pour le lendemain ?', 'partager un gâteau avec les collègues', 'assister à une réunion de crise urgente', 'faire des heures supplémentaires le soir', ['gâteau']),
+      q('Qu’est-ce qui est prévu au bureau pour le lendemain ?', 'partager un gâteau avec les collègues', 'offrir une carte signée par l’équipe', 'décorer la salle de pause en matinée', ['gâteau']),
     ],
   },
 ]
