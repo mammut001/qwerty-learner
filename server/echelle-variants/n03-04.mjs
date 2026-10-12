@@ -2557,7 +2557,7 @@ export const N04_L_5 = [
 const N4_OUTDOOR_BUNDLES = [
   {
     act: 'la descente en kayak sur la rivière',
-    short: 'le kayak sur la rivière en été',
+    short: 'la descente en kayak de rivière',
     reason: 'le calme de l’eau au matin',
     reasonOpt: 'le calme apaisant au bord de l’eau',
     dis: 'le vélo sur des sentiers de boue',
@@ -2624,7 +2624,7 @@ const N4_CLOTHING_BUNDLES = [
     item: 'un manteau long en duvet d’hiver',
     opt: 'un grand manteau d’hiver en duvet',
     reason: 'il protège beaucoup mieux du grand froid',
-    reasonOpt: 'une protection supérieure au grand froid',
+    reasonOpt: 'mieux se protéger du grand froid',
     color: 'en bleu marin avec de grandes poches',
     dis: 'une veste courte sans capuchon',
     kwItem: 'manteau',
@@ -2634,7 +2634,7 @@ const N4_CLOTHING_BUNDLES = [
     item: 'des bottes chaudes avec semelles solides',
     opt: 'des bottes chaudes antidérapantes',
     reason: 'elles empêchent de glisser sur la glace',
-    reasonOpt: 'une bonne adhérence sur la glace vive',
+    reasonOpt: 'éviter de glisser sur la glace',
     color: 'en cuir noir de qualité imperméable',
     dis: 'des souliers légers de marche urbaine',
     kwItem: 'bottes',
@@ -2793,7 +2793,7 @@ export const N04_L_6 = [
     text: '— Pour les vacances d’été en famille, je préfère le camping sous la tente au bord d’un lac calme plutôt qu’un hôtel bondé en ville. Ce que j’aime le plus, c’est le feu de camp le soir sous les étoiles et la baignade matinale. La routine est bruyante toute l’année, j’ai besoin d’air frais.',
     questions: [
       q('Quel genre de vacances la personne privilégie-t-elle en été ?', 'dormir sous la tente au bord du lac', 'loger dans un grand complexe hôtelier', 'séjourner dans un appartement très animé', ['tente']),
-      q('Qu’apprécie-t-elle tout spécialement lors de ce séjour ?', 'la baignade au réveil et le feu de camp', 'la climatisation et la télévision moderne', 'les galeries marchandes et les boutiques', ['baignade']),
+      q('Qu’apprécie-t-elle tout spécialement lors de ce séjour ?', 'la baignade au réveil et le feu de camp', 'les longues randonnées en forêt sauvage', 'les promenades à bicyclette autour du lac', ['baignade']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Crêperie bretonne de la rue Saint-Denis
@@ -2802,7 +2802,7 @@ export const N04_L_6 = [
     text: '— J’ai dîné à la nouvelle crêperie de la rue Saint-Denis hier midi avec ma cousine. Les galettes de sarrasin sont croustillantes et généreusement garnies de fromage et de jambon de chez nous. Le cidre local est excellent et la serveuse a été très gentille. Une bonne adresse à découvrir !',
     questions: [
       q('Quelle spécialité culinaire est appréciée dans ce restaurant ?', 'des galettes de sarrasin bien garnies', 'des soupes de légumes servies froides', 'des sandwichs au pain blanc réchauffés', ['galettes']),
-      q('Quelle appréciation est formulée au sujet du service ?', 'une serveuse souriante et très gentille', 'une équipe de serveurs distante et froide', 'un personnel débordé par la forte affluence', ['serveuse']),
+      q('Quelle appréciation est formulée au sujet du service ?', 'une serveuse très gentille avec les clients', 'une équipe de serveurs distante et froide', 'un personnel débordé par la forte affluence', ['serveuse']),
     ],
   },
 ]
