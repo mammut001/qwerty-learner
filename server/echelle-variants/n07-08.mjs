@@ -23,7 +23,7 @@ export const N07_08_SCENARIOS = {
           'La fermeture définitive des alumineries régionales',
         ],
         [
-          'Que peut-on déduire sur l’attitude des autorités régionales envers les nouveaux arrivants ?',
+          'Que peut-on déduire de l’attitude des autorités régionales envers les nouveaux arrivants ?',
           'Elles déploient des incitatifs concrets pour les attirer',
           'Elles se montrent indifférentes face à leur intégration',
           'Elles préfèrent restreindre l’accès aux garderies locales',
@@ -50,7 +50,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle réticence implicite des candidats la représentante cherche-t-elle à dissiper ?',
           'La crainte d’un isolement causé par la distance',
-          'La crainte que les diplômes régionaux soient refusés',
+          'La crainte d’un arrêt rapide de l’extraction minière',
           'La crainte d’un marché du travail saturé dans la région',
         ],
         [
@@ -279,9 +279,9 @@ export const N07_08_SCENARIOS = {
           'L’automobile et la construction d’autoroutes',
         ],
         [
-          'Que peut-on déduire sur l’attitude des résidents lors de la modernisation d’après-guerre ?',
+          'Que peut-on déduire de l’attitude des résidents lors de la modernisation d’après-guerre ?',
           'Ils se sont mobilisés pour protéger l’esprit de leur quartier',
-          'Ils ont immédiatement quitté la ville pour vivre en banlieue',
+          'Ils ont accepté sans broncher la construction d’autoroutes',
           'Ils ont refusé la création de tout nouveau commerce de proximité',
         ],
         [
@@ -443,7 +443,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle aide matérielle l’entreprise renouvelle-t-elle pour le travail à domicile ?',
           'Une subvention financière pour le mobilier et les ordinateurs',
-          'Une allocation annuelle pour l’application mobile de réservation',
+          'Une allocation annuelle versée pour le télétravail du mardi et du jeudi',
           'Une allocation annuelle réservée aux employés présents au bureau',
         ],
       ],
@@ -647,7 +647,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quels piliers traditionnels structurent l’activité économique de cette région côtière ?',
           'L’agroalimentaire laitier et la transformation du bois',
-          'Les biotechnologies marines et la recherche océanographique',
+          'Les créneaux de haute technologie et les partenariats d’accueil',
           'La numérisation industrielle et l’accueil des chercheurs',
         ],
         [
@@ -772,8 +772,8 @@ export const N07_08_SCENARIOS = {
         [
           'Dans quel secteur d’activité immobilière cette agence se spécialise-t-elle ?',
           'Les locaux commerciaux, les bureaux et les espaces industriels',
-          'Les propriétés résidentielles de quartier et les maisons unifamiliales',
-          'Les bâtiments résidentiels et les espaces de stationnement',
+          'Les propriétaires d’immeubles locatifs et les investisseurs',
+          'Les ratios de stationnement et le zonage municipal',
         ],
         [
           'Quelle mise en garde implicite le document formule-t-il au sujet des baux commerciaux ?',
@@ -904,7 +904,7 @@ export const N07_08_SCENARIOS = {
           'Quelle étape prestigieuse a scellé la reconnaissance institutionnelle d’Isabelle ?',
           'Une commande publique pour le hall d’un grand musée national',
           'Une exposition refusée par le Musée national des beaux-arts',
-          'Une dissolution de son atelier faute de clients privés',
+          'Une fermeture de son atelier faute de clients privés',
         ],
         [
           'Que peut-on déduire des débuts de sa démarche artistique singulière ?',
@@ -939,7 +939,7 @@ export const N07_08_SCENARIOS = {
         ],
         [
           'Quelle distinction professionnelle Clara Tremblay a-t-elle obtenue récemment ?',
-          'La direction principale d’un orchestre symphonique régional',
+          'Une nomination récente pour diriger l’Orchestre de l’Estuaire',
           'Un poste de chef invité au Conservatoire de musique de Montréal',
           'La démission de la tête de l’Orchestre symphonique de l’Estuaire',
         ],
@@ -963,7 +963,7 @@ export const N07_08_SCENARIOS = {
           'Une protection complète contre les récessions boursières globales',
         ],
         [
-          'Que déduit-on implicitement sur l’attitude requise de l’investisseur face aux baisses du marché ?',
+          'Que déduit-on implicitement de l’attitude requise de l’investisseur face aux baisses du marché ?',
           'Il doit garder son calme et conserver son horizon temporel',
           'Il doit vendre immédiatement toutes ses parts au premier jour de repli',
           'Il devrait retirer son argent pour le conserver en espèces chez lui',
@@ -1047,7 +1047,7 @@ export const N07_08_SCENARIOS = {
           'Quel compromis les spécialistes du travail recommandent-ils face à ce dilemme ?',
           'Une formule hybride mariant jours au bureau et travail chez soi',
           'Le retour obligatoire au bureau cinq jours par semaine pour tous',
-          'Le maintien du télétravail à temps plein avec extinction du réseau',
+          'Le maintien du télétravail à temps plein avec déconnexion du réseau',
         ],
       ],
     },
@@ -1178,7 +1178,7 @@ export const N07_08_SCENARIOS = {
           'Que déduit-on implicitement de la mise en garde finale de l’autrice ?',
           'Elle souhaite le retrait complet des flottes si les règles ne sont pas appliquées',
           'Elle espère une augmentation du nombre de trottinettes offertes en libre-service',
-          'Elle juge le projet acceptable tant que les trottoirs restent libres',
+          'Elle juge le bilan rassurant, les blessés étant peu nombreux',
         ],
       ],
     },
@@ -1280,7 +1280,7 @@ export const N07_08_SCENARIOS = {
           "L’exactitude des stocks affichés pour la cueillette à l’auto",
         ],
         [
-          "Que peut-on déduire sur l’attitude de la direction face aux faiblesses signalées ?",
+          "Que peut-on déduire de l’attitude de la direction face aux faiblesses signalées ?",
           "Elle réagit promptement en allouant des ressources ciblées",
           "Elle estime que les lacunes signalées ne requièrent pas d’intervention",
           "Elle impute les erreurs d’inventaire aux usagers eux-mêmes",
@@ -1405,7 +1405,7 @@ export const N07_08_SCENARIOS = {
           "Rédiger les infolettres à destination des seules troupes invitées",
         ],
         [
-          "Que peut-on déduire sur les contraintes horaires liées à cet emploi ?",
+          "Que peut-on déduire des contraintes horaires liées à cet emploi ?",
           "Les journées de travail s’étirent souvent lors des représentations",
           "L’horaire s’arrête strictement à dix-sept heures chaque jour ouvrable",
           "Les horaires se réduisent aux matinées pendant la quinzaine du festival",
@@ -1462,7 +1462,7 @@ export const N07_08_SCENARIOS = {
           "L’achèvement précoce des réparations d’aqueduc au centre-ville",
         ],
         [
-          "Que peut-on déduire sur l’attitude des commerçants face aux travaux de réfection ?",
+          "Que peut-on déduire de l’attitude des commerçants face aux travaux de réfection ?",
           "Ils éprouvent une vive amertume liée à leurs pertes financières",
           "Ils applaudissent la métamorphose paysagère de leurs artères piétonnes",
           "Ils ont profité d’une hausse d’achalandage pendant les chantiers",
@@ -1518,7 +1518,7 @@ export const N07_08_SCENARIOS = {
           "Une offre d’emploi prestigieuse à Montréal qu’il refuse d’accepter",
         ],
         [
-          "Que peut-on déduire sur l’intention de la cinéaste à travers ce long-métrage ?",
+          "Que peut-on déduire de l’intention de la cinéaste à travers ce long-métrage ?",
           "Dépeindre les compromis affectifs sans verser dans la facilité romanesque",
           "Présenter une vision idyllique où l’amour triomphe sans aucun sacrifice",
           "Décrire le déracinement géographique comme un atout pour le couple",
@@ -1700,7 +1700,7 @@ export const N07_08_SCENARIOS = {
           "Un protocole d’inspection instauré sans consulter le client",
         ],
         [
-          "Que déduit-on sur la volonté du gestionnaire dans le règlement de la crise ?",
+          "Que déduit-on de la volonté du gestionnaire dans le règlement de la crise ?",
           "Il privilégie la transparence et assume financièrement la réparation",
           "Il exige que le client compense financièrement les pertes liées à la résine",
           "Il renonce à réparer le lien et clôt le dossier sans compensation",
@@ -1751,7 +1751,7 @@ export const N07_08_SCENARIOS = {
           "Ne pas purger le répertoire temporaire avant de relancer les services",
         ],
         [
-          "Que doit-on déduire sur l’intention de la cheffe en exigeant une relance graduelle des services ?",
+          "Que doit-on déduire de l’intention de la cheffe en exigeant une relance graduelle des services ?",
           "S’assurer de la stabilité du système sans provoquer une nouvelle panne",
           "Permettre la reconnexion immédiate de la machine au réseau externe",
           "Accélérer la réinitialisation matérielle forcée du serveur réseau",
@@ -1858,7 +1858,7 @@ export const N07_08_SCENARIOS = {
         ],
         [
           "Quel geste d’entretien régulier garantit une cueillette continue d’aromates frais ?",
-          "Retirer avec les doigts les boutons floraux dès leur apparition",
+          "Pincer régulièrement les têtes fleuries pour stimuler de nouvelles pousses",
           "Arroser les feuilles en fin de journée pour réduire les moisissures",
           "Laisser monter les tiges fleuries pour prolonger la récolte des feuilles",
         ],
@@ -1914,7 +1914,7 @@ export const N07_08_SCENARIOS = {
           "Elle reproche aux producteurs de refuser les zones tampons imposées",
         ],
         [
-          "Que peut-on déduire sur son sentiment face au débat public contemporain ?",
+          "Que peut-on déduire de son sentiment face au débat public contemporain ?",
           "Elle déplore un débat trop caricatural et dépourvu de finesse",
           "Elle admire le climat de collaboration harmonieuse entre les partis politiques",
           "Elle se félicite que les postures partisanes dominent enfin le débat",
@@ -1964,7 +1964,7 @@ export const N07_08_SCENARIOS = {
           "La multiplication des pulvérisations d’herbicides sur l’ensemble des parcelles",
         ],
         [
-          "Que peut-on déduire sur son sentiment concernant la responsabilité de la société ?",
+          "Que peut-on déduire de son sentiment concernant la responsabilité de la société ?",
           "Elle estime équitable que la collectivité assume une part du risque financier",
           "Elle estime que les contribuables doivent refuser toute indemnisation des fermiers",
           "Elle pense que les agriculteurs doivent assumer seuls toutes les pertes futures",
@@ -2039,7 +2039,7 @@ export const N07_08_SCENARIOS = {
           "L’hébergement des plans sur des serveurs situés à l’intérieur du pays",
         ],
         [
-          "Que peut-on déduire sur la réaction de Karine face à l’hébergement des plans à l’étranger ?",
+          "Que peut-on déduire de la réaction de Karine face à l’hébergement des plans à l’étranger ?",
           "Elle redoute une perte de contrôle juridique et sécuritaire sur leur patrimoine",
           "Elle se réjouit que le fournisseur américain garde la maîtrise des archives",
           "Elle minimise la valeur stratégique des archives techniques de conception",
@@ -2096,7 +2096,7 @@ export const N07_08_SCENARIOS = {
           "L’utilisation de conservateurs chimiques autorisés pour le transport marin",
         ],
         [
-          "Que peut-on déduire sur la philosophie environnementale de cette coopérative agricole ?",
+          "Que peut-on déduire de la philosophie environnementale de cette coopérative agricole ?",
           "Elle intègre la protection des écosystèmes locaux au cœur de sa pratique",
           "Elle utilise des engrais chimiques pour accroître le rendement des vergers",
           "Elle cherche à assécher les tourbières pour étendre ses champs de culture",
@@ -2222,7 +2222,7 @@ export const N07_08_SCENARIOS = {
           "La possibilité de guérir sa fièvre tenace grâce à un long repos",
         ],
         [
-          "Que peut-on déduire sur l’attitude de Gabrielle face aux signaux d’alerte de son corps ?",
+          "Que peut-on déduire de l’attitude de Gabrielle face aux signaux d’alerte de son corps ?",
           "Elle faisait preuve d’un déni obstiné dicté par une exigence démesurée",
           "Elle ménageait ses forces en limitant ses répétitions à deux heures par jour",
           "Elle abandonnait le concerto dès qu’une fièvre faisait trembler ses doigts",
@@ -2278,7 +2278,7 @@ export const N07_08_SCENARIOS = {
           "L’ajout répété de vernis neuf sur la toile pour la protéger",
         ],
         [
-          "Que peut-on déduire sur le sentiment qui se dégage du contraste final de la scène ?",
+          "Que peut-on déduire du sentiment qui se dégage du contraste final de la scène ?",
           "Une cruelle ironie où la beauté révélée triomphe au prix d’une vie humaine",
           "Une satisfaction joyeuse partagée par l’ensemble des membres de l’équipe",
           "Une tristesse sans mélange, le portrait restauré étant vite oublié du public",
@@ -2293,7 +2293,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quel indice met les jeunes protagonistes sur la piste d’une supercherie collective ?",
           "La consultation clandestine d’un vieux carnet intime trouvé par hasard",
-          "La propagande vantant une terre morte et stérile au-delà de la muraille d’acier",
+          "La fouille des galeries de ventilation révélant une panne du Dôme",
           "La vue d’un sas de décontamination scellé par les autorités du Dôme",
         ],
         [
@@ -2435,7 +2435,7 @@ export const N07_08_SCENARIOS = {
           "Rencontrer chaque nouvel inscrit seulement après l’échec de son premier semestre",
         ],
         [
-          "Que peut-on déduire sur la volonté de la direction dans la gestion de ce changement ?",
+          "Que peut-on déduire de la volonté de la direction dans la gestion de ce changement ?",
           "Elle favorise un dialogue ouvert et transparent pour rassurer son personnel",
           "Elle impose la réorganisation sans accorder aucun moment d’échange aux équipes",
           "Elle ne prévoit de séance d’information qu’après la mise en place du guichet",
@@ -2510,7 +2510,7 @@ export const N07_08_SCENARIOS = {
           "L’usage de masques vectoriels dynamiques sur les illustrations sans nœuds sous-jacents",
         ],
         [
-          "Que peut-on déduire sur l’esprit qui anime la communauté LibreArt à travers ce message ?",
+          "Que peut-on déduire de l’esprit qui anime la communauté LibreArt à travers ce message ?",
           "Une volonté de solidarité professionnelle axée sur le partage libre des savoirs",
           "Une volonté de protéger les gabarits d’exportation contre toute diffusion extérieure",
           "Une méfiance envers les graphistes indépendants qui partagent leurs gabarits",
@@ -2567,7 +2567,7 @@ export const N07_08_SCENARIOS = {
           "Travailler en milieu hospitalier sans aucune obligation de supervision clinique",
         ],
         [
-          "Que peut-on déduire sur la mission première de cet ordre professionnel à travers ces exigences ?",
+          "Que peut-on déduire de la mission première de cet ordre professionnel à travers ces exigences ?",
           "Protéger la sécurité des usagers en garantissant la compétence rigoureuse du corps soignant",
           "Assurer la rentabilité de l’Ordre en limitant les examens à une seule session annuelle",
           "Accorder le permis régulier sans examen à toute candidate ayant payé les frais d’inscription",
@@ -2642,7 +2642,7 @@ export const N07_08_SCENARIOS = {
           "Une audition formelle sous serment devant les juges du Tribunal administratif du travail",
         ],
         [
-          "Que peut-on déduire sur l’intention de la loi en prévoyant le recours au Tribunal administratif ?",
+          "Que peut-on déduire de l’intention de la loi en prévoyant le recours au Tribunal administratif ?",
           "Garantir un arbitrage judiciaire équitable en dernier ressort si le dialogue direct échoue",
           "Réserver le recours au tribunal aux seuls employeurs qui refusent la médiation",
           "Imposer aux salariés de payer les frais de la séance de médiation avant tout recours",
@@ -2699,7 +2699,7 @@ export const N07_08_SCENARIOS = {
           "L’instauration de délais de réponse maximaux de vingt jours civils pour chaque demande",
         ],
         [
-          "Que peut-on déduire sur son sentiment face à la communication gouvernementale ?",
+          "Que peut-on déduire de son sentiment face à la communication gouvernementale ?",
           "Elle perçoit une contradiction flagrante entre le discours officiel et la réalité",
           "Elle approuve sans réserve la volonté ministérielle d’accélérer les débats en chambre",
           "Elle juge que le gouvernement a fait preuve d’une franchise remarquable envers les journalistes",
@@ -2749,7 +2749,7 @@ export const N07_08_SCENARIOS = {
           "La clarté des responsabilités partagées entre la direction et l’employé",
         ],
         [
-          "Que peut-on déduire sur la prédiction formulée par Caroline Gagnon concernant l’avenir de la loi ?",
+          "Que peut-on déduire de la prédiction formulée par Caroline Gagnon concernant l’avenir de la loi ?",
           "Elle anticipe une multiplication des différends judiciaires devant les cours de justice",
           "Elle prévoit une harmonisation pacifique, rapide et durable des relations professionnelles",
           "Elle prévoit une diminution rapide des litiges grâce à la clarté du texte",
@@ -2774,7 +2774,7 @@ export const N07_08_SCENARIOS = {
           "L’abaissement des amendes pour cruauté afin de réduire les coûts d’exploitation",
         ],
         [
-          "Que peut-on déduire sur son sentiment face au bilan de la décennie écoulée ?",
+          "Que peut-on déduire de son sentiment face au bilan de la décennie écoulée ?",
           "Une grande amertume devant des déclarations de principe jamais suivies d’effets réels",
           "Un optimisme radieux quant à l’évolution naturelle des méthodes d’élevage intensif",
           "Une indifférence sereine face aux conditions de vie des bêtes dans les fermes locales",
@@ -2813,7 +2813,7 @@ export const N07_08_SCENARIOS = {
       questions: [
         [
           "Quelle justification traditionnelle de la science la journaliste remet-elle en question ?",
-          "L’obligation morale d’utiliser des animaux pour valider les avancées de la santé",
+          "L’obligation morale d’utiliser des animaux pour le progrès thérapeutique humain",
           "La nécessité de financer la recherche par les seuls laboratoires privés",
           "L’obligation de tester les composés cosmétiques sur animaux avant leur mise en vente",
         ],
@@ -2824,7 +2824,7 @@ export const N07_08_SCENARIOS = {
           "Le recours accru aux tests animaux pour corriger les modèles informatiques défaillants",
         ],
         [
-          "Que peut-on déduire sur la cause principale du blocage selon l’éditorialiste ?",
+          "Que peut-on déduire de la cause principale du blocage selon l’éditorialiste ?",
           "La force des habitudes acquises et la répartition conservatrice des subventions",
           "La mauvaise qualité des cultures de tissus humains en trois dimensions",
           "La générosité excessive des subventions accordées aux technologies substitutives",
