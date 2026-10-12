@@ -24,12 +24,24 @@ function countFrenchWords(text) {
 }
 
 function checkRegexInString(str, context) {
-  assert.ok(!/\b(de le|à le|de les|à les)\b/i.test(str), `Forbidden contraction in ${context}: "${str}"`)
+  assert.ok(!/\b(de le|à le|de les|à les|de des)\b/i.test(str), `Forbidden contraction in ${context}: "${str}"`)
+  assert.ok(!/\bde le\s+[a-zà-ÿ]/i.test(str), `Forbidden "de le + noun" in ${context}: "${str}"`)
   assert.ok(!/\b(de|que|je|ne|me|te|se)\s+[aeiouéèêàâîôû]\w{2,}/i.test(str), `Forbidden missing elision in ${context}: "${str}"`)
   assert.ok(!/merci[^.!?]*\bpour (avoir|être)\b/i.test(str), `Forbidden "merci pour avoir/être" in ${context}: "${str}"`)
   assert.ok(!/(?:^|[.!?]\s+)[a-zàâéèêîôû]/.test(str.replace(/(?:etc\.|p\. ex\.|M\.|Mme)\s+[a-z]/g, '')), `Lowercase after punctuation in ${context}: "${str}"`)
   assert.ok(!/undefined|null|NaN|\$\{/.test(str), `Unresolved template token in ${context}: "${str}"`)
   assert.ok(!/  /.test(str), `Double space in ${context}: "${str}"`)
+}
+
+const ABSOLUTIST_RE = /\b(plus jamais|sans exception|uniquement|totalement interdit)\b/i
+
+function normalizeOption(s) {
+  return s
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/^(l['’]|le\s+|la\s+|les\s+|un\s+|une\s+|des\s+|d['’])/g, '')
+    .replace(/[^a-z0-9]/g, '')
 }
 
 describe('Échelle québécoise Niveaux 7-8 Scenarios Invariant Tests', () => {
@@ -78,6 +90,29 @@ describe('Échelle québécoise Niveaux 7-8 Scenarios Invariant Tests', () => {
             wc >= minWords && wc <= maxWords,
             `${itemId} seed ${seed}: word count ${wc} out of bounds [${minWords}, ${maxWords}] for text:\n${built1.text}`,
           )
+
+          // Seeded quality guard across all 300 seeds
+          for (let qi = 0; qi < built1.questions.length; qi++) {
+            const [prompt, correct, d1, d2] = built1.questions[qi]
+            const choices = [correct, d1, d2]
+            const norm = choices.map(normalizeOption)
+            assert.strictEqual(
+              new Set(norm).size,
+              3,
+              `${itemId} seed ${seed} q${qi}: normalized choices must be distinct`,
+            )
+            const avgDist = (d1.length + d2.length) / 2
+            const lenRatio = correct.length / avgDist
+            assert.ok(
+              lenRatio >= 0.65 && lenRatio <= 1.35,
+              `${itemId} seed ${seed} q${qi}: correct answer length ratio ${lenRatio.toFixed(2)} out of [0.65, 1.35]`,
+            )
+            for (const str of [prompt, ...choices]) {
+              checkRegexInString(str, `${itemId} seed ${seed} q${qi}`)
+              assert.ok(!ABSOLUTIST_RE.test(str), `Forbidden absolutist marker in ${itemId} seed ${seed} q${qi}: "${str}"`)
+              assert.ok(!/,\s+[A-ZÀ-ÖØ-ß]/.test(str), `Capital after comma in ${itemId} seed ${seed} q${qi}: "${str}"`)
+            }
+          }
         }
         assert.ok(texts.size >= 6, `${itemId}: expected >= 6 distinct texts, got ${texts.size}`)
       })
@@ -104,10 +139,24 @@ describe('Échelle québécoise Niveaux 7-8 Scenarios Invariant Tests', () => {
             checkRegexInString(d1, `${itemId} sc${scIdx} q${qIdx} d1`)
             checkRegexInString(d2, `${itemId} sc${scIdx} q${qIdx} d2`)
 
-            // 3 choices distinct and non-empty
+            // 3 choices distinct and non-empty, and distinct after normalization
             const choices = [correct, d1, d2]
             assert.strictEqual(new Set(choices).size, 3, `${itemId} sc${scIdx} q${qIdx}: choices must be distinct`)
             choices.forEach((c) => assert.ok(c && c.trim().length > 0))
+            const normalizedChoices = choices.map(normalizeOption)
+            assert.strictEqual(
+              new Set(normalizedChoices).size,
+              3,
+              `${itemId} sc${scIdx} q${qIdx}: choices must be distinct after normalization`,
+            )
+
+            // Capital after comma and absolutist check on prompt and choices
+            assert.ok(!ABSOLUTIST_RE.test(prompt), `Forbidden absolutist marker in ${itemId} sc${scIdx} q${qIdx} prompt: "${prompt}"`)
+            assert.ok(!/,\s+[A-ZÀ-ÖØ-ß]/.test(prompt), `Capital after comma in ${itemId} sc${scIdx} q${qIdx} prompt: "${prompt}"`)
+            choices.forEach((c) => {
+              assert.ok(!ABSOLUTIST_RE.test(c), `Forbidden absolutist marker in ${itemId} sc${scIdx} q${qIdx} choice: "${c}"`)
+              assert.ok(!/,\s+[A-ZÀ-ÖØ-ß]/.test(c), `Capital after comma in ${itemId} sc${scIdx} q${qIdx} choice: "${c}"`)
+            })
 
             // Check implicit question presence
             if (/implicite|sous-entendu|déduire|attitude|intention|sentiment|ton de|réaction/i.test(prompt)) {
@@ -128,11 +177,12 @@ describe('Échelle québécoise Niveaux 7-8 Scenarios Invariant Tests', () => {
               }
             }
 
-            // Length ratio: correct answer not longer than 1.6x avg distractor
+            // Length ratio: correct answer within [0.65, 1.35] of average distractor length
             const avgDist = (d1.length + d2.length) / 2
+            const lenRatio = correct.length / avgDist
             assert.ok(
-              correct.length <= 1.6 * avgDist,
-              `${itemId} sc${scIdx} q${qIdx}: correct answer (${correct.length}) > 1.6x avg distractor (${avgDist})`,
+              lenRatio >= 0.65 && lenRatio <= 1.35,
+              `${itemId} sc${scIdx} q${qIdx}: correct answer length ratio ${lenRatio.toFixed(2)} out of [0.65, 1.35] (ans: ${correct.length}, avg dist: ${avgDist})`,
             )
 
             // Strictly longest option tracking
