@@ -26,6 +26,7 @@ test('Youdao Chinese is the explanation and is what gets saved to the word list'
   await expect(youdao).toContainText('早安，日安，白天好，你好')
   await expect(youdao).toContainText('顾客：你好，先生。')
   await expect(youdao).not.toContainText('<b>')
+  await expect(youdao.locator('mark')).toHaveText('Bonjour')
 
   await page.getByTestId('dictionary-add').click()
   await expect(page.getByRole('status')).toContainText('已新建「生词本」并加入')
@@ -68,4 +69,27 @@ test('a failed Youdao lookup still shows the offline dictionary', async ({ page 
   await expect(result).toContainText('school')
   await expect(result).toContainText('阴性')
   await expect(page.getByTestId('dictionary-youdao')).toHaveCount(0)
+})
+
+test('rite stays a French headword and examples highlight whole words only', async ({ page }) => {
+  await page.route('**/api/study-plan/dictionary**', (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        query: 'rite',
+        word: 'rite',
+        phone: '',
+        source: '',
+        senses: [],
+        examples: [{ fr: 'Ce rite mérite une étude. Rite : un rite ancien.', zh: '这个仪式值得研究。一个古老的仪式。' }],
+      }),
+    }),
+  )
+  await page.route('**://*.wiktionary.org/**', (route) => route.abort())
+  await page.goto('/dictionary?q=rite')
+  const result = page.getByTestId('dictionary-result')
+  await expect(result.locator('span[lang="fr"]', { hasText: /^rite$/ })).toBeVisible()
+  await expect(result).toContainText('英文释义')
+  await expect(result.locator('mark')).toHaveText(['rite', 'Rite', 'rite'])
 })
