@@ -773,8 +773,8 @@ export const N09_10_SCENARIOS = {
         [
           "Comment la narration de ce départ politique est-elle construite par l’auteur ?",
           "La description du moment de solitude encadre une justification rétrospective de ses choix",
-          "Une liste chronologique de toutes les élections remportées dans sa carrière est détaillée",
-          "Une polémique violente est engagée directement contre le premier ministre de l’époque"
+          "La justification rétrospective de ses choix est placée en ouverture, avant la description du moment de solitude",
+          "L’auteur se borne à reconnaître ses maladresses stratégiques sans défendre le fond de ses décisions"
         ],
         [
           "Que déduit-on implicitement de la formule « le courage de déplaire » ?",
@@ -785,8 +785,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans ce récit personnel, que signifie l’expression « faire le pied de grue » ?",
           "Attendre patiemment et longuement debout à un endroit précis dans l’espoir d’une nouvelle",
-          "Danser sur place pour tenter de se réchauffer lors des rigueurs de l’hiver québécois",
-          "Protester violemment en bloquant les accès d’un édifice public avec des pancartes syndicales"
+          "Parcourir les couloirs en groupe pour distribuer aux élus des communiqués de presse rédigés à l’avance",
+          "Discuter à voix basse avec des collègues pour préparer une réponse commune aux journalistes"
         ]
       ],
       "frame": "récit autobiographique — mémoires d’une personnalité politique provinciale"
@@ -799,25 +799,25 @@ export const N09_10_SCENARIOS = {
           "Quel tournant narratif majeur cet extrait de roman policier relate-t-il ?",
           "La requalification d’une mort accidentelle en meurtre calculé lié à une fraude foncière",
           "La confirmation d’une vengeance passionnelle après un règlement de dettes au cap Enragé",
-          "La fermeture définitive de la société d’histoire régionale en raison d’un cambriolage"
+          "La confirmation d’une chute accidentelle au bas de la falaise du cap Enragé, sans enquête complémentaire"
         ],
         [
           "De quelle manière l’intrigue progresse-t-elle à travers les découvertes de Tremblay ?",
           "L’indice matériel de l’encre falsifiée permet de dévoiler un mobile financier d’envergure",
-          "Une course-poursuite en automobile sur l’autoroute vingt s’engage contre le suspect principal",
-          "Un dialogue philosophique sur la nature humaine oppose l’inspecteur à son supérieur immédiat"
+          "Le témoignage de la dernière héritière suffit à démasquer le meurtrier sans examiner les minutes",
+          "Après l’arrestation du suspect, l’inspecteur compare les signatures puis n’analyse l’encre qu’ensuite"
         ],
         [
           "Que comprend-on implicitement sur le rôle du notaire défunt avant son décès ?",
           "Le notaire avait été complice de la spoliation mais menaçait de révéler la vérité par remords",
           "Le notaire ignorait complètement l’existence des terres seigneuriales historiques le long du fleuve Saint-Laurent",
-          "Le notaire avait légué toute sa fortune personnelle à l’orphelinat du village voisin"
+          "Le notaire avait déjà dénoncé la spoliation au greffe avant d’être retrouvé au bas de la falaise"
         ],
         [
           "Dans ce contexte d’enquête, que désigne le mot « paraphe » ?",
           "Une signature abrégée manuscrite apposée pour valider une page ou un document notarié",
-          "Un sceau en cire rouge utilisé autrefois pour cacheter solennellement le testament officiel des seigneurs",
-          "Un instrument d’arpentage optique permettant de mesurer avec précision les parcelles"
+          "Une copie photographique déposée au bureau d’enregistrement pour valider officiellement un acte",
+          "Un registre relié dans lequel le greffier consigne les actes de succession des seigneuries"
         ]
       ],
       "frame": "roman policier — enquête d’un inspecteur de police au Bic"
@@ -830,25 +830,25 @@ export const N09_10_SCENARIOS = {
           "Quel est le plaidoyer fondamental formulé par le dirigeant dans ce passage autobiographique ?",
           "La justification de décisions impopulaires au nom de la sauvegarde industrielle à long terme",
           "La reconnaissance d’erreurs stratégiques majeures commises lors du rachat d’usines obsolètes",
-          "La critique sévère des syndicats locaux accusés d’avoir rejeté tout compromis salarial"
+          "La mise en cause des financiers new-yorkais, accusés d’avoir délibérément saboté l’usine du Saguenay"
         ],
         [
           "Comment l’auteur articule-t-il sa défense contre ses détracteurs médiatiques ?",
           "Il oppose la superficialité des critiques de presse aux dures réalités économiques de la filière",
-          "Il affirme que les actionnaires minoritaires ont sciemment bloqué les investissements technologiques",
-          "Il déplore l’absence de subventions provinciales directes pour moderniser les cuves d’électrolyse"
+          "Il concède que la presse avait raison de dénoncer une restructuration menée sans consulter les ouvriers",
+          "Il impute la fermeture annoncée des alumineries à la seule insolence des éditorialistes montréalais"
         ],
         [
           "Que signifie implicitement l’expression « porter le chapeau » dans le récit ?",
           "Assumer publiquement l’entière responsabilité d’une décision contestée pour protéger le projet",
-          "Accepter une rémunération exceptionnelle en échange de son départ forcé de la direction",
-          "Refuser systématiquement de répondre aux questions posées par les juges de la cour"
+          "Faire porter à un tiers la faute d’une décision qu’on a prise soi-même pour sauver sa réputation",
+          "Se soumettre sans protester aux exigences des financiers new-yorkais pour calmer les actionnaires"
         ],
         [
           "Dans ce texte de gestion de crise, que désigne le mot « flibustier » ?",
           "Un aventurier sans scrupules menant des opérations financières agressives et prédatrices",
-          "Un capitaine de navire marchand assurant le transport maritime du minerai de bauxite",
-          "Un inspecteur assermenté du fisc chargé de vérifier les déclarations de revenus des entreprises"
+          "Un investisseur patient qui conserve ses parts pendant des décennies pour soutenir l’industrie",
+          "Un actionnaire minoritaire qui rachète les usines obsolètes pour les revendre à la concurrence asiatique"
         ]
       ],
       "frame": "mémoires d’affaires — parcours d’un dirigeant industriel contesté"
@@ -860,8 +860,8 @@ export const N09_10_SCENARIOS = {
         [
           "Quel dénouement partiel de l’enquête est raconté dans cet extrait de roman noir ?",
           "L’effondrement de l’alibi du suspect grâce à la convergence d’indices matériels précis",
-          "L’arrestation par erreur d’un touriste étranger égaré dans les ruelles du quartier montréalais",
-          "La découverte fortuite d’un coffre-fort rempli de lingots d’or dans une boulangerie voisine"
+          "L’aveu spontané du restaurateur, qui reconnaît avoir tué pour récupérer une somme d’argent",
+          "La remise en liberté du suspect faute de preuves matérielles après une longue garde à vue"
         ],
         [
           "De quelle manière la détective parvient-elle à percer le mystère de l’emploi du temps ?",
@@ -872,14 +872,14 @@ export const N09_10_SCENARIOS = {
         [
           "Que révèle implicitement la nature de l’objet recherché par le criminel ?",
           "Le crime était guidé par la dissimulation d’un secret compromettant plutôt que par le gain pécuniaire",
-          "L’antiquaire avait déjà revendu l’ensemble des pièces d’époque avant l’intrusion nocturne",
+          "Le crime visait le vol d’un meuble ancien de grande valeur marchande déjà repéré sur le marché",
           "L’agresseur cherchait à dérober des bijoux précieux dissimulés dans le tiroir-caisse de la boutique"
         ],
         [
           "Dans le jargon policier et judiciaire québécois, que signifie le verbe « borner » ?",
           "Se connecter automatiquement à une antenne de relais cellulaire permettant d’établir une position",
-          "Délimiter physiquement le périmètre étendu d’une scène de crime à l’aide d’un ruban jaune officiel de la police",
-          "Fixer des bornes kilométriques le long des trottoirs municipaux pour réguler le stationnement"
+          "Inscrire l’heure exacte d’un enregistrement de surveillance sur un registre policier horodaté",
+          "Restreindre l’accès à un secteur par une ordonnance du tribunal faisant office de barrière légale"
         ]
       ],
       "frame": "roman noir — filature nocturne dans les ruelles montréalaises"
@@ -899,8 +899,8 @@ export const N09_10_SCENARIOS = {
         [
           "Comment l’argumentation économique est-elle agencée dans cette analyse ?",
           "Une simplification populaire est démentie avant de détailler les composantes clés de la hausse des prix",
-          "Une critique sévère des choix budgétaires gouvernementaux présentée sans données statistiques d’appui",
-          "Une proposition de réforme fiscale visant à réduire les prélèvements sur les entreprises manufacturières"
+          "Les composantes clés de la hausse des prix sont détaillées avant que la simplification populaire ne soit démentie",
+          "Une baisse du prix des carburants est d’abord constatée avant que l’inflation du logement soit expliquée"
         ],
         [
           "Que déduit-on implicitement du maintien d’une politique monétaire restrictive ?",
@@ -911,8 +911,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans ce contexte économique, que désigne le terme « inertie » ?",
           "La tendance des prix de certains biens et services à demeurer élevés malgré l’évolution conjoncturelle",
-          "L’impossibilité technique pour les économistes de mesurer avec exactitude le coût du panier de consommation",
-          "Le refus catégorique des consommateurs d’acheter des produits alimentaires locaux et de saison"
+          "La réaction rapide des prix de l’essence aux variations des cours du baril de pétrole",
+          "La contrainte imposée aux détaillants de geler leurs étiquettes pendant toute la saison des récoltes"
         ]
       ],
       "frame": "article économique — analyse de l’indice des prix à la consommation"
@@ -930,19 +930,19 @@ export const N09_10_SCENARIOS = {
         [
           "Comment l’explication psychoéducative est-elle ordonnée pour convaincre les familles ?",
           "Les bases physiologiques de l’émotion sont clarifiées avant de proposer des attitudes bienveillantes",
-          "Une série de reproches excessivement culpabilisants adressée aux parents qui travaillent beaucoup à l’extérieur",
-          "Une consultation psychiatrique de l’enfant est exigée dès qu’il refuse d’entrer à la garderie le matin"
+          "Un rituel d’au revoir est recommandé avant que l’activation de l’amygdale soit expliquée aux parents",
+          "Les conseils pour les parents précèdent toute explication des mécanismes du cerveau émotionnel"
         ],
         [
           "Pourquoi le guide déconseille-t-il formellement les départs furtifs en cachette ?",
           "Parce que disparaître sans prévenir détruit le sentiment de sécurité et accroît la peur de l’abandon",
-          "Parce que les éducatrices de garderie n’ont pas le temps matériel de surveiller les portes d’entrée du local",
-          "Parce que les règlements municipaux imposent la signature d’un registre à chaque départ matinal"
+          "Parce que les départs furtifs rassurent l’enfant en lui montrant que la séparation est sans danger",
+          "Parce que les parents doivent éviter de valider l’émotion de l’enfant pour ne pas prolonger ses pleurs"
         ],
         [
           "Dans ce contexte pédiatrique, que signifie l’expression « valider l’émotion » ?",
           "Reconnaître et accueillir ce que l’enfant ressent sans le juger ni minimiser sa souffrance",
-          "Signer une attestation médicale certifiant que l’élève est temporairement inapte à l’apprentissage",
+          "Démontrer à l’enfant par un raisonnement logique que sa peur est absurde pour la dissiper",
           "Exiger de l’enfant qu’il cesse de pleurer avant de quitter ses parents à la porte"
         ]
       ],
@@ -955,14 +955,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quel phénomène logistique et économique cet article universitaire explique-t-il ?",
           "La transmission retardée des hausses des coûts du fret maritime sur les prix de consommation",
-          "La chute durable des volumes d’échanges maritimes causée par la récession mondiale",
+          "La disparition rapide des hausses de fret dès que les ports de la côte ouest retrouvent leur fluidité",
           "La baisse spectaculaire et immédiate des prix des meubles et des électroménagers importés"
         ],
         [
           "De quelle manière les économistes articulent-ils la chaîne de répercussion des coûts ?",
-          "Les hausses maritimes sont répercutées des transporteurs aux grossistes puis aux étiquettes des magasins",
-          "Une critique des ententes tarifaires secrètes conclues entre les grandes chaînes de supermarchés",
-          "Une proposition de subventionner directement les carburants maritimes pour alléger les factures"
+          "Les hausses maritimes sont répercutées des importateurs aux grossistes puis aux étiquettes des détaillants",
+          "Les marges bénéficiaires absorbent intégralement la hausse du fret avant toute répercussion sur les prix",
+          "Le décalage entre la hausse des tarifs portuaires et l’IPC s’étend sur deux ans selon l’article"
         ],
         [
           "Que déduit-on implicitement du décalage de six à neuf mois mis en lumière ?",
@@ -973,8 +973,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans le vocabulaire du transport de marchandises, que signifie le mot « affrètement » ?",
           "La location contractuelle d’un navire ou d’un espace de chargement pour transporter des biens",
-          "Le déchargement manuel et pénible de marchandises avariées sur les quais venteux d’un port de transit régional",
-          "L’amende douanière imposée aux compagnies maritimes transportant des produits non déclarés"
+          "L’assurance obligatoire couvrant les marchandises contre les avaries survenues pendant la traversée",
+          "La taxe perçue sur chaque conteneur de quarante pieds à l’entrée des ports de la côte ouest"
         ]
       ],
       "frame": "analyse économique — pressions inflationnistes et chaînes d’approvisionnement mondiales"
@@ -986,26 +986,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle idée directrice ce guide clinique avance-t-il sur l’anxiété de performance scolaire ?",
           "La distinction entre le trac stimulant et une angoisse paralysante fondée sur la peur d’échouer",
-          "La recommandation de remplacer tous les examens formels par des projets de groupe non notés",
+          "Tout stress lié aux examens relève d’une anxiété pathologique exigeant un suivi clinique spécialisé",
           "La certitude que les élèves stressés manquent tous de discipline et de compétences académiques"
         ],
         [
           "Comment l’explication psychologique met-elle en lumière la complexité du problème ?",
           "Deux comportements en apparence contraires sont montrés comme étant les reflets d’une même peur",
-          "Une remise en question de la formation des conseillers d’orientation en milieu scolaire québécois",
-          "Un protocole d’exclusion temporaire des élèves refusant de rendre leurs devoirs à temps"
+          "Deux comportements contraires sont présentés comme des réactions à des peurs différentes et indépendantes",
+          "Un seul comportement, le surinvestissement, est retenu comme signe de l’anxiété, l’évitement étant écarté"
         ],
         [
           "Que sous-entend la recommandation de dissocier la valeur personnelle des résultats ?",
           "Fonder son estime personnelle sur les notes obtenues fragilise l’équilibre psychologique du jeune",
-          "L’évaluation chiffrée encourage une rivalité destructrice entre camarades de classe",
-          "Les parents devraient s’abstenir de vérifier le relevé des résultats scolaires de leurs enfants"
+          "Un bon bulletin suffit à garantir la santé psychologique de l’adolescent sans autre accompagnement",
+          "Il s’agit de reporter la sanction des notes à la fin de l’année pour alléger le travail de l’élève"
         ],
         [
           "Dans ce contexte scolaire, que désigne l’expression « évitement anxieux » ?",
           "Le réflexe de fuir une tâche difficile pour échapper temporairement à la détresse qu’elle génère",
-          "L’absence non justifiée d’un professeur lors de la correction des épreuves ministérielles de fin d’année",
-          "Une dispense médicale définitive accordée à un élève pour l’ensemble des cours d’éducation physique"
+          "La tendance à s’isoler volontairement des autres élèves pour mieux préparer les examens de fin d’année",
+          "La décision de l’élève de changer de programme d’études pour réduire la pression du bulletin"
         ]
       ],
       "frame": "guide pratique — gestion de l’anxiété de performance chez les adolescents"
