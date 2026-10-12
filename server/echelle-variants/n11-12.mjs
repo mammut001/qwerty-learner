@@ -221,7 +221,7 @@ Pendant plus de trente ans, la famille régnait sans partage sur six antennes de
         [
           'Comment la célèbre tirade de la folie est-elle abordée sur scène ?',
           'Comme une angoisse existentielle étouffante plutôt qu’une farce',
-          'Comme un numéro de cirque acrobatique réservé aux figurants',
+          'Comme une bouffonnerie burlesque que le public reçoit sans malaise',
           'Comme un moment de joie triomphale marquant la fin du drame',
         ],
         [
@@ -288,7 +288,7 @@ Le promoteur qui sollicite le dézonage de quatre-vingts hectares de notre plain
         ],
         [
           'Quelle solution de rechange la politicienne préconise-t-elle ?',
-          'L’occupation de friches industrielles déjà reliées au réseau',
+          'La revitalisation de friches urbaines situées à moins de dix kilomètres',
           'Le transfert des entrepôts vers une province voisine moins chère',
           'La construction d’immeubles d’habitation de très grande hauteur',
         ],
@@ -537,7 +537,7 @@ Contrairement à une conception populaire tenace qui assimile l’estime de soi 
         [
           'Quel mythe éducatif répandu l’extrait remet-il en question ?',
           'L’illusion que les louanges permanentes suffisent à bâtir l’enfant',
-          'L’idée que l’intelligence dépend principalement de facteurs innés',
+          'L’idée que le sentiment d’efficacité personnelle a été théorisé par Jean Piaget',
           'L’idée que la rétroaction descriptive nuit à la motivation scolaire',
         ],
         [
@@ -945,7 +945,7 @@ Quelle époque bénie pour le consommateur moderne ! Rendons grâce au génie vi
         [
           'Quelle critique sociétale l’auteur formule-t-il sous ses éloges feints ?',
           'La manipulation consumériste orchestrée par les géants numériques',
-          'L’obsession esthétique pour les bordures d’écran de quelques millimètres',
+          'Le souci des ingénieurs de rendre les boîtiers faciles à ouvrir',
           'Le prix d’achat excessif des téléphones intelligents à deux mille dollars',
         ],
       ],
@@ -1273,20 +1273,20 @@ Assis à son vieil établi de chêne près de la fenêtre givrée, Henri écouta
         [
           'Quelle exigence matériellement impossible l’agente impose-t-elle au protagoniste ?',
           'Scanner une silhouette corporelle préalablement défroissée avec un fer chaud',
-          'Fournir les empreintes digitales de tous ses ancêtres sur cinq générations',
-          'Déposer l’intégralité de son patrimoine financier sur un compte bloqué d’État',
+          'Apporter son silence emballé sous vide dans un bocal en verre',
+          'Présenter une buée recevable accompagnée d’un formulaire 42-B',
         ],
         [
           'Comment le comportement du citoyen modèle est-il caricaturé dans la file ?',
           'Par la soumission docile poussée jusqu’à conserver son silence en bocal hermétique',
           'Par sa volonté d’offrir des pourboires généreux à tous les fonctionnaires croisés',
-          'Par la remise d’un dossier médical certifiant l’absence totale de toute toux',
+          'Par la présentation d’un certificat attestant vingt-cinq ans de nuisances sonores',
         ],
         [
           'Quelle règle finale délirante l’employée pose-t-elle pour le permis provisoire ?',
           'L’interdiction formelle d’avoir des pensées complexes sous peine de sanctions',
           'L’interdiction d’expirer la moindre buée en présence d’un agent de sécurité',
-          'La remise immédiate de tous ses souvenirs d’enfance à la borne de sortie',
+          'L’obligation de valider le ticket de néant avant d’entrer dans la file',
         ],
       ],
     },
@@ -1358,7 +1358,7 @@ L’autre jour, j’étais assise à la cafétéria avec mon sandwich aux œufs.
           'Quelle divergence fondamentale structure la confrontation entre les débatteurs ?',
           'L’opposition entre défense à court terme de la rente et vision prospective',
           'Le désaccord sur le montant précis des salaires versés aux ouvriers d’usine',
-          'Le différend sur le montant précis des redevances imposées aux alumineries',
+          'Le désaccord sur la question de savoir si la ministre veut supprimer la redevance carbone',
         ],
       ],
     },
@@ -1514,9 +1514,9 @@ L’intermittence inhérente aux filières éoliennes et solaires impose aux ges
         ],
         [
           'Quel débouché complémentaire la température élevée des réacteurs offre-t-elle ?',
-          'L’exploitation de la chaleur résiduelle pour les réseaux urbains d’eau',
+          'L’exploitation de la chaleur de procédé pour le chauffage urbain centralisé',
           'La fusion des métaux de rebut pour forger des rails de chemin de fer',
-          'La conversion de l’eau de mer en combustible pour les trains de fret',
+          'La production de vapeur destinée à refroidir l’eau de mer avant son rejet',
         ],
         [
           'Quel défi sécuritaire et éthique spécifique ce déploiement pose-t-il ?',

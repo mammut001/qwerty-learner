@@ -229,7 +229,7 @@ export const REAL_READING_PASSAGES = [
         "Que contredit formellement le texte à propos de l'origine de l'école ?",
         "La croyance populaire attribuant sa création à l'empereur Charlemagne",
         "La certitude que l'apprentissage du dessin est utile aux jeunes élèves",
-        "L'idée que les Égyptiens de l'Antiquité savaient lire les hiéroglyphes"
+        "L'idée que les écoles pour les enfants de moins de six ans sont nées au Québec"
       ]
     ],
     "justificationFr": "Texte informatif sur l'origine de l'école et l'organisation de l'enseignement préscolaire.",
@@ -643,7 +643,7 @@ export const REAL_READING_PASSAGES = [
       [
         "En dehors des aspects religieux, quelle est la façon la plus courante de fêter Noël ?",
         "Se réunir en famille ou entre amis pour échanger des cadeaux",
-        "Allumer un grand feu de bois en forêt loin de toute maison",
+        "Échanger des vœux par courrier plutôt que de se réunir en famille",
         "Participer à une messe spéciale et jeûner durant la veillée"
       ]
     ],
@@ -1202,7 +1202,7 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle molécule les cellules musculaires et nerveuses utilisent-elles comme carburant direct ?",
         "Le glucose",
-        "Le glycogène",
+        "La protéine",
         "Le phospholipide"
       ],
       [

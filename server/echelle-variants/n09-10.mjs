@@ -18,19 +18,19 @@ export const N09_10_SCENARIOS = {
           "Comment la réflexion économique progresse-t-elle dans cette chronique ?",
           "Une apparente réussite fiscale est contrastée avec des risques financiers profonds",
           "Un succès budgétaire éclatant est défendu contre des attaques politiques partisanes",
-          "Une liste de coupures drastiques est annoncée avant tout examen des comptes publics"
+          "Des risques financiers profonds sont exposés d’abord, puis une réussite fiscale reconnue sans réserve"
         ],
         [
           "Quel constat implicite découle des propos sur les baisses d’impôt ?",
           "Ce choix politique prive l’État de revenus précieux pour ses services essentiels",
-          "Cette stratégie fiscale garantit une relance spectaculaire des investissements privés",
-          "Cette baisse fiscale a déjà réglé l’ensemble des litiges avec le secteur public"
+          "Cette réduction d’impôt a permis de rembourser la dette et d’éviter tout report de chantiers",
+          "Ce choix politique est jugé sans effet sur la dette, car les recettes fiscales ont fortement reculé"
         ],
         [
           "Que connote le terme « enthousiastes » dans ce contexte précis ?",
           "Un optimisme officiel excessif masquant les faiblesses réelles du cadre financier",
-          "Une victoire diplomatique majeure remportée face aux partenaires de la fédération",
-          "Un accord parfait et unanime conclu entre les ministères et les syndicats"
+          "Des déclarations rassurantes que le vérificateur général a pleinement confirmées",
+          "Des commentaires prudents et mesurés, formulés avec réserve sur la solidité des surplus"
         ]
       ],
       "frame": "segment économique radio — finances publiques du Québec"
@@ -49,19 +49,19 @@ export const N09_10_SCENARIOS = {
           "De quelle manière l’explication technique est-elle articulée dans l’extrait ?",
           "Les innovations de studio sont reliées à un mouvement d’affirmation socioculturelle",
           "La technologie audio est présentée comme un simple divertissement sans portée sociale",
-          "Une querelle entre producteurs new-yorkais et musiciens québécois est décrite en détail"
+          "Les procédés de studio sont d’abord critiqués, puis défendus comme une simple mode passagère"
         ],
         [
           "Que laisse entendre le commentaire sur les métriques asymétriques ?",
           "Les créateurs privilégiaient l’intégrité artistique plutôt que les passages radiophoniques",
-          "Les artistes visaient en priorité la production de succès commerciaux faciles pour les discothèques",
-          "Les stations radiophoniques refusaient systématiquement de diffuser des chansons en français"
+          "Les créateurs cherchaient surtout à respecter les formats commerciaux des radios grand public",
+          "Les créateurs ont renoncé aux synthétiseurs pour se conformer aux codes de la chansonnette de variétés"
         ],
         [
           "Dans cet extrait, quel est le sens du terme « renouveau » ?",
           "Une transformation profonde rompant avec les conventions musicales établies",
-          "Une séparation conflictuelle entre des compositeurs et leurs compagnies de disques",
-          "Une dégradation matérielle irrémédiable des bandes magnétiques dans les archives"
+          "Une imitation fidèle des succès commerciaux de la chansonnette de variétés",
+          "Une réorganisation des studios autour d’équipements techniques plus performants"
         ]
       ],
       "frame": "visite audioguidée — effervescence musicale québécoise des années 1970"
@@ -80,19 +80,19 @@ export const N09_10_SCENARIOS = {
           "Quelle démarche argumentative soutient cette chronique économique ?",
           "La déconstruction d’une apparence positive à la lumière des défaillances concrètes",
           "Une condamnation morale sans nuance de l’ensemble des entrepreneurs en construction",
-          "Un éloge enthousiaste des gels de taxes foncières appliqués dans les grandes villes"
+          "Une adhésion sans réserve aux élus municipaux qui vantent une gestion rigoureuse des deniers"
         ],
         [
           "Que sous-entend la mise en garde concernant la dégradation des canalisations ?",
           "Reporter les investissements engendre des dépenses futures beaucoup plus lourdes",
           "Les municipalités québécoises ne disposent d’aucun réseau d’approvisionnement en eau",
-          "Les ingénieurs municipaux refusent désormais de travailler sur les chantiers publics"
+          "Les réparations d’urgence coûtent plus cher parce que les villes ont trop investi tôt"
         ],
         [
           "Dans ce contexte, que signifie l’expression « contrepartie comptable » ?",
           "Le reflet purement chiffré dissimulant une accumulation de dégradations réelles",
-          "Une amende financière imposée par le gouvernement pour sanctionner un retard injustifié",
-          "Un dividende généreux versé aux contribuables sous la forme d’un crédit d’impôt"
+          "Le montant exact des travaux urgents déjà réalisés et entièrement financés par l’exercice",
+          "Une ligne budgétaire équilibrée qui couvre fidèlement l’entretien futur des canalisations"
         ]
       ],
       "frame": "bulletin économique régional — finances et fiscalité municipale"
@@ -110,8 +110,8 @@ export const N09_10_SCENARIOS = {
         [
           "Sur quel contraste repose la présentation de ces recherches musicales ?",
           "La rupture technique avec la tradition musicale pour renouveler l’expérience sensorielle",
-          "L’opposition irréconciliable entre les étudiants montréalais et leurs professeurs étrangers",
-          "La comparaison technique entre les microphones japonais et les magnétophones allemands"
+          "Des compositeurs qui cherchaient surtout à séduire le public par une musique plus accessible",
+          "Les compositeurs européens rejetaient la spatialisation sonore que les créateurs montréalais adoptaient"
         ],
         [
           "Quel élément implicite ressort de l’utilisation de haut-parleurs multiples ?",
@@ -122,8 +122,8 @@ export const N09_10_SCENARIOS = {
         [
           "Que désigne le verbe « métamorphoser » dans ce passage audioguidé ?",
           "Transformer une matière banale pour lui conférer une valeur artistique inédite",
-          "Détruire involontairement un enregistrement sonore lors d’une fausse manœuvre technique",
-          "Vendre des droits d’auteur à des maisons de disques commerciales pour faire fortune"
+          "Reproduire fidèlement le bruit industriel de la ville pour l’installer dans une salle de concert",
+          "Effacer le son original en fragments jetés au hasard pour le rendre entièrement inaudible"
         ]
       ],
       "frame": "parcours audioguidé — essor de la musique électroacoustique"
@@ -138,12 +138,12 @@ export const N09_10_SCENARIOS = {
           "Quel est le récit principal livré par l’archéologue durant cette entrevue ?",
           "La mise au jour inattendue et l’excavation urgente d’un campement saisonnier ancien",
           "L’analyse sédimentaire d’un village sédentaire fondé au confluent des cours d’eau",
-          "La découverte fortuite d’une forteresse militaire coloniale du dix-huitième siècle"
+          "La découverte d’une digue iroquoienne édifiée pour protéger un campement permanent"
         ],
         [
           "Comment la narration des fouilles est-elle construite par la chercheuse ?",
           "Une découverte initiale mène à des constats scientifiques puis à une tension finale",
-          "Une série de reproches administratifs est adressée aux responsables de la digue",
+          "Des constats scientifiques ouvrent le récit avant la découverte initiale et la tension finale",
           "Un exposé théorique abstrait est prononcé sans aucune référence au travail de terrain"
         ],
         [
@@ -155,8 +155,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans ce témoignage, que qualifie l’expression « course contre la montre » ?",
           "L’urgence dramatique dictée par la menace imminente d’une montée soudaine des eaux",
-          "Une compétition amicale organisée entre différentes équipes universitaires en présence",
-          "Un calendrier imposé par les médias pour diffuser le reportage avant la fin du mois"
+          "La nécessité de sauver les vestiges avant la mise en service de la digue remise à neuf",
+          "Une fenêtre de fouilles fixée par la migration printanière des poissons à respecter"
         ]
       ],
       "frame": "entrevue radiophonique — fouilles archéologiques subaquatiques à Pointe-aux-Cascades"
@@ -174,19 +174,19 @@ export const N09_10_SCENARIOS = {
         [
           "De quelle façon le documentaire structure-t-il l’évolution de la crise régionale ?",
           "Le choc externe initial débouche sur une détresse locale puis sur une mobilisation civique",
-          "Une analyse purement mathématique des taux bancaires est exposée sans regard humain",
-          "Un débat politique partisan oppose les ministres fédéraux aux dirigeants municipaux"
+          "Une mobilisation civique précède la détresse locale, elle-même causée par des problèmes internes",
+          "La détresse locale se résout grâce à une aide venue de l’extérieur, sans mobilisation des résidents"
         ],
         [
           "Que symbolise implicitement le silence des sirènes d’usine dans la narration ?",
           "La fin brutale d’un mode de vie industriel qui structurait le quotidien des résidents",
-          "Une panne électrique généralisée causée par une tempête de verglas imprévue",
-          "L’adoption de nouvelles normes environnementales limitant les bruits de voisinage"
+          "Un départ volontaire et paisible des ouvriers vers les grands centres, sans deuil collectif",
+          "Un afflux massif de jeunes diplômés qui s’installent dans la région, malgré la crise"
         ],
         [
           "Quel sens précis revêt le mot « catalyseur » dans la conclusion du reportage ?",
-          "Un facteur déclencheur qui accélère une transformation économique inévitable",
-          "Un produit chimique dangereux responsable de la pollution des cours d’eau locaux",
+          "Un facteur déclencheur d’une transformation économique suivie d’une laborieuse renaissance",
+          "Un agent protecteur qui freine durablement la reconversion des friches industrielles",
           "Un obstacle insurmontable empêchant la concrétisation des projets de reconversion"
         ]
       ],
@@ -199,14 +199,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le sujet central du témoignage livré par l’archéologue sous-marin ?",
           "L’exploration émouvante d’une épave historique et le sauvetage de son précieux chargement",
-          "La découverte d’un sous-marin moderne coulé pendant un entraînement militaire régulier",
-          "Le refus catégorique des autorités maritimes de financer les opérations de plongée"
+          "La cartographie d’un navire de ravitaillement britannique, sabordé lors d’une bataille en 1760",
+          "Un bilan de la dégradation des vestiges, attribuée surtout à la pollution industrielle du fleuve"
         ],
         [
           "Comment l’intervenant raconte-t-il sa descente sous l’eau dans cet échange ?",
           "Les difficultés techniques de la plongée cèdent le pas à la portée historique des trouvailles",
-          "Une série de plaintes logistiques est formulée contre le manque d’équipement adéquat",
-          "Un cours de chimie marine sur la salinité est donné sans référence à l’épave explorée"
+          "La portée historique est évoquée d’emblée, puis le récit revient sur les difficultés de la plongée",
+          "Un récit détaillé de chaque plongée, minute par minute, sans évoquer le courant ni la visibilité"
         ],
         [
           "Que souligne implicitement le bon état de conservation de la membrure de chêne ?",
@@ -218,7 +218,7 @@ export const N09_10_SCENARIOS = {
           "Dans ce contexte de fouilles sous-marines, que signifie le terme « sabordé » ?",
           "Coulé volontairement par son propre équipage pour empêcher sa capture par l’ennemi",
           "Échoué par accident sur les alluvions côtières lors d’une manœuvre pour briser le blocus",
-          "Vendu clandestinement à des marchands étrangers pour réaliser un profit financier personnel"
+          "Démantelé sur la plage par son équipage pour récupérer les fusils et le laiton de sa cargaison"
         ]
       ],
       "frame": "entrevue radiophonique — découverte archéologique d’épave à Ristigouche"
@@ -231,25 +231,25 @@ export const N09_10_SCENARIOS = {
           "Quel est le récit historique déployé tout au long de ce documentaire ?",
           "La mutation forcée des transports montréalais sous l’impact d’une crise énergétique",
           "L’abandon définitif des transports en commun au profit des autoroutes suburbaines",
-          "La création des premières stations-service automatiques dans les quartiers de la métropole"
+          "La stagnation des transports montréalais, que la crise énergétique n’a finalement pas modifiée"
         ],
         [
           "De quelle manière la trame historique est-elle organisée dans cette narration ?",
           "Un modèle urbain vulnérable est bouleversé par un choc externe entraînant des réformes durables",
-          "Une polémique municipale sans issue s’éternise sans qu’aucune décision concrète ne soit prise",
-          "Une célébration inconditionnelle de l’industrie automobile américaine est présentée au public"
+          "Des réformes durables sont décidées avant le choc externe, qui révèle ensuite la fragilité du modèle urbain",
+          "Un modèle urbain solide résiste à un choc externe, sans que des réformes soient nécessaires"
         ],
         [
           "Que déduit-on implicitement du changement d’attitude envers l’extension du métro ?",
           "L’urgence de la crise a balayé les réticences financières qui bloquaient les investissements",
-          "La rentabilité commerciale des lignes de métro dépassait désormais celle du transport par autobus",
-          "Les ingénieurs municipaux préconisaient l’arrêt définitif de tout chantier souterrain"
+          "Les réticences financières ont été levées avant même que la crise pétrolière n’éclate",
+          "La crise a incité la Ville à reporter le métro au profit d’une extension autoroutière, jugée plus rapide"
         ],
         [
           "Dans ce passage, quelle nuance porte le terme « désenclaver » ?",
           "Relier des secteurs mal desservis pour faciliter les déplacements de leur population",
-          "Construire des murs d’insonorisation le long des autoroutes traversant les banlieues",
-          "Interdire la circulation des camions de marchandises dans les ruelles résidentielles"
+          "Réserver l’accès au réseau de métro aux seuls résidents des quartiers populaires",
+          "Déplacer les stations de métro vers les banlieues pour réduire le nombre d’automobilistes"
         ]
       ],
       "frame": "documentaire radiophonique — crise pétrolière et grands chantiers montréalais"
@@ -263,26 +263,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’objectif fondamental poursuivi par cette formation en entreprise ?",
           "Expliciter les obligations de neutralité et les procédures de récusation pour les gestionnaires",
-          "Interdire définitivement l’embauche de tout consultant externe pour l’ensemble des projets publics de l’État",
-          "Présenter les barèmes financiers appliqués lors de l’adjudication des mandats de sous-traitance"
+          "Dispenser les gestionnaires de toute obligation de neutralité lors des comités de sélection",
+          "Sanctionner publiquement les gestionnaires qui ont omis de déclarer leurs liens de parenté"
         ],
         [
           "Comment le formateur développe-t-il la notion de conflit d’intérêts ?",
           "Il élargit la définition au-delà du délit financier pour inclure l’apparence de partialité",
           "Il affirme que seuls les pots-de-vin en espèces sont considérés comme des fautes graves",
-          "Il compare minutieusement les codes d’éthique de dix pays étrangers sans lien avec le Québec"
+          "Il réduit la définition au seul délit financier, en écartant l’apparence de partialité"
         ],
         [
           "Quelle conséquence découle implicitement de l’obligation de se récuser ?",
           "Le processus décisionnel doit se poursuivre sans aucune participation du cadre concerné",
-          "L’entreprise candidate appartenant à un proche est automatiquement disqualifiée de tous les appels d’offres",
-          "L’entreprise candidate appartenant à un proche est automatiquement disqualifiée à vie"
+          "Le cadre doit rester présent aux délibérations pour témoigner de sa neutralité décisionnelle",
+          "La firme liée est retenue d’office, puisque le cadre concerné n’a pas à déclarer son lien"
         ],
         [
           "Dans ce contexte réglementaire, que signifie précisément le verbe « se récuser » ?",
           "Se retirer volontairement d’une décision pour garantir l’impartialité du jugement",
-          "Contester publiquement les directives données par les avocats et les conseillers juridiques de l’entreprise",
-          "Démissionner sur-le-champ de son poste sans préavis ni compensation financière"
+          "Accepter de siéger au comité tout en déclarant officiellement son lien avec la firme",
+          "Exclure la firme candidate du processus pour éviter toute apparence de favoritisme"
         ]
       ],
       "frame": "formation en entreprise — intégrité et conflits d’intérêts corporatifs"
@@ -294,26 +294,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le propos explicatif central de cet extrait documentaire ?",
           "Le rôle fondamental de l’attention conjointe dans l’émergence du langage et de la cognition",
-          "L’évaluation systématique du vocabulaire passif des enfants dès l’âge de neuf mois en garderie",
+          "Le rôle secondaire de l’attention conjointe, qui n’influence que le développement moteur de l’enfant",
           "L’inutilité des interactions verbales précoces entre les parents et leurs jeunes enfants"
         ],
         [
           "Comment les spécialistes articulent-ils leur raisonnement scientifique ?",
           "Un comportement observable chez l’enfant est relié à des apprentissages cognitifs ultérieurs",
-          "Une critique sévère et sans appel des méthodes pédagogiques traditionnelles appliquées en garderie éducative",
-          "Les résultats de tests de quotient intellectuel pour bébés sont énumérés sans explication"
+          "Un comportement observable chez l’adulte est relié à des fragilités cognitives de l’enfant",
+          "Une habileté observable chez le nourrisson est attribuée à la seule maturation motrice, indépendante des échanges"
         ],
         [
           "Que déduit-on implicitement de l’importance du pointage parental ?",
           "La réactivité de l’adulte joue un rôle déterminant dans la construction du lexique enfantin",
-          "Les enfants apprennent à parler de manière optimale en regardant seuls des vidéos éducatives",
+          "Le pointage parental suffit à lui seul à enrichir le lexique, sans que l’adulte nomme l’objet",
           "Le mot prononcé par l’adulte est assimilé avec la même efficacité sans synchronisation visuelle"
         ],
         [
           "Dans cet extrait, que désigne une « étude longitudinale » ?",
           "Une recherche qui suit les mêmes participants sur une longue période chronologique",
-          "Une analyse de laboratoire mesurant la taille géométrique du cerveau des nourrissons",
-          "Une enquête d’opinion menée auprès d’échantillons aléatoires de parents en garderie"
+          "Une recherche qui observe les enfants en un seul temps pour prédire leur vocabulaire à deux ans",
+          "Un suivi qui s’arrête à neuf mois, avant l’apparition de l’attention conjointe chez l’enfant"
         ]
       ],
       "frame": "documentaire scientifique — neurosciences et développement cognitif infantile"
@@ -326,25 +326,25 @@ export const N09_10_SCENARIOS = {
           "Quelle directive principale est explicitée dans cette séance de déontologie ?",
           "L’interdiction des cadeaux significatifs et l’obligation d’enregistrer toute offre d’avantage",
           "L’autorisation sans aucune limite des voyages d’affaires financés par des partenaires industriels de longue date",
-          "Le refus de participer à toute conférence technique organisée en dehors du bureau"
+          "La limitation des cadeaux aux seuls employés de rang supérieur, sans obligation de déclaration"
         ],
         [
           "De quelle manière l’exposé juridique est-il structuré par l’intervenant ?",
           "Les règles professionnelles sont présentées en insistant sur le risque d’influence indirecte",
-          "Un bilan statistique complet des sanctions disciplinaires prononcées par les tribunaux criminels de la province",
-          "Une défense argumentée de la liberté contractuelle des négociateurs dans les arbitrages civils"
+          "Les sanctions disciplinaires sont énumérées une à une, sans lien avec la pratique professionnelle",
+          "Une mise en garde contre la courtoisie d’affaires, qui serait sans effet sur le jugement technique"
         ],
         [
           "Quel présupposé sous-tend l’inscription au registre dans les quarante-huit heures ?",
           "La traçabilité immédiate empêche la dissimulation et démontre la bonne foi du professionnel",
-          "Le département de conformité souhaite redistribuer tous les cadeaux reçus aux autres employés de l’entreprise",
+          "Une inscription tardive au registre suffit à effacer tout manquement, quelle que soit sa gravité",
           "L’inscription au registre transfère l’entière responsabilité civile du projet aux dirigeants du cabinet"
         ],
         [
           "Dans ce contexte, que signifie le terme « proscrite » ?",
           "Formellement interdite par une disposition réglementaire impérative et contraignante",
           "Fortement encouragée par les superviseurs pour stimuler les partenariats d’affaires",
-          "Autorisée sous condition d’obtenir l’accord préalable de la direction des ressources humaines"
+          "Simplement déconseillée par la direction, sans sanction prévue en cas de manquement"
         ]
       ],
       "frame": "formation en entreprise — cadeaux d’affaires et marques d’hospitalité"
@@ -362,8 +362,8 @@ export const N09_10_SCENARIOS = {
         [
           "Comment la démonstration des neuropsychologues s’articule-t-elle ?",
           "Un décalage biologique est opposé aux préjugés moraux pour proposer des pistes éducatives",
-          "Une série d’accusations est lancée contre les enseignants qui ne comprennent pas le cerveau",
-          "Une liste de médicaments stimulants est vantée comme unique solution aux troubles d’attention"
+          "Des pistes éducatives sont proposées d’abord, puis justifiées par des préjugés moraux sur les élèves",
+          "Un inventaire de méthodes disciplinaires est dressé pour corriger l’agitation des élèves en classe"
         ],
         [
           "Que déduit-on implicitement de la variabilité du développement cérébral ?",
@@ -374,8 +374,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans cet extrait, que désigne le mot « inhibition » ?",
           "La capacité cognitive de freiner volontairement un réflexe ou une réponse automatique",
-          "Une diminution anormale et prolongée du débit sanguin dans les zones postérieures de l’encéphale humain",
-          "Une diminution anormale du débit sanguin dans les zones postérieures de l’encéphale"
+          "La faculté de retenir plusieurs consignes à la fois, en les reformulant mentalement",
+          "La capacité cognitive de déclencher aussitôt une réponse motrice dès qu’une consigne est donnée"
         ]
       ],
       "frame": "documentaire scientifique — plasticité cérébrale et fonctions exécutives chez l’enfant"
@@ -390,24 +390,24 @@ export const N09_10_SCENARIOS = {
           "Quel est le but impératif des consignes transmises par la directrice de laboratoire ?",
           "Mobiliser l’équipe et redistribuer les responsabilités en vue d’une inspection officielle",
           "Annoncer l’annulation pure et simple de l’ensemble des recherches pharmacologiques en cours dans l’institut",
-          "Recruter de nouveaux chercheurs pour combler des départs imprévus à la retraite"
+          "Reporter l’inspection de Santé Canada prévue mardi prochain afin de terminer l’inventaire des molécules"
         ],
         [
           "De quelle façon les directives sont-elles formulées par la responsable ?",
           "Des tâches précises et nominatives sont assignées avec des délais de rigueur stricts",
-          "Une suggestion générale est soumise au vote démocratique des étudiants du laboratoire",
+          "Des consignes générales sont lancées sans attribution nominative ni échéance précise",
           "Une critique sévère du travail passé est formulée sans proposer de nouvelles consignes"
         ],
         [
           "Que sous-entend l’obligation de suspendre les manipulations individuelles pour les doctorants ?",
           "La préparation de l’audit réglementaire prime sur l’avancement des projets personnels",
-          "Les doctorants ne possèdent pas les compétences nécessaires pour manipuler les réactifs",
-          "Le laboratoire ne dispose plus des ressources matérielles pour poursuivre les thèses"
+          "Les doctorants doivent désormais vérifier les dates de péremption des molécules réfrigérées",
+          "L’audit de Santé Canada est reporté tant que les doctorants n’ont pas terminé leurs manipulations"
         ],
         [
           "Que signifie l’expression « à vos postes » dans cette intervention orale ?",
           "Un signal invitant chacun à retourner immédiatement exécuter son travail assigné",
-          "Une consigne demandant à toute l’équipe de se regrouper dans le bureau de la direction",
+          "Un ordre de quitter son poste pour rejoindre immédiatement la réunion de coordination",
           "Une autorisation accordée aux doctorants de reprendre leurs manipulations individuelles"
         ]
       ],
@@ -420,26 +420,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel impératif motive les directives formulées par le metteur en scène ?",
           "Accélérer et sécuriser les transitions scéniques avant la représentation inaugurale",
-          "Refaire intégralement les décors de la scène du salon pour modifier le jeu des comédiens",
-          "Remplacer les comédiens principaux qui n’arrivent pas à mémoriser leurs répliques"
+          "Reporter la première de la pièce pour attendre la réparation des rideaux de velours",
+          "Supprimer le noir scène pour gagner du temps entre le salon et la cour intérieure"
         ],
         [
           "Comment le metteur en scène organise-t-il la transmission de ses ordres ?",
           "Il identifie les défaillances de rythme, attribue les correctifs et impose des répétitions",
           "Il confie aux comédiens le choix des changements de décor et supprime les répétitions",
-          "Il délègue l’ensemble des choix artistiques et techniques à la direction du théâtre"
+          "Il formule des remarques générales sur le rythme, sans attribuer de correctifs ni fixer de répétitions"
         ],
         [
           "Que déduit-on implicitement de l’interdiction de bouger avant le signal vert ?",
           "Le travail dans l’obscurité comporte des risques graves d’accidents matériels ou corporels",
-          "Les machinistes ne savent pas compter le temps sans l’aide d’un chronomètre sonore",
-          "Le metteur en scène souhaite simplement vérifier le fonctionnement des ampoules de couleur"
+          "Les machinistes peuvent déplacer les praticables dès le début du noir, sans attendre le signal",
+          "Le signal lumineux vert est une consigne esthétique destinée à synchroniser les lumières avec la musique"
         ],
         [
           "Dans le vocabulaire théâtral, que désigne le mot « praticable » ?",
           "Une plateforme mobile en bois conçue pour supporter le jeu des acteurs sur scène",
-          "Un livret de répétition détaillé contenant les annotations de mise en scène manuscrites du dramaturge",
-          "Un costume léger porté par les doublures durant les raccords de maquillage"
+          "Un rideau de velours suspendu dont la tension est réglée pour éviter les ondulations",
+          "Une estrade fixe en béton, côté salle, qui reste en place pendant tout le spectacle"
         ]
       ],
       "frame": "directives de metteur en scène — création des décors théâtraux"
@@ -451,14 +451,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’enjeu prioritaire énoncé dans les consignes de la directrice de recherche ?",
           "La sécurisation rigoureuse et le contrôle de qualité des données génomiques traitées",
-          "Le calibrage minutieux des filtres de contrôle sur les séquences d’acide nucléique",
-          "La consignation des scripts d’algorithmes dans le dépôt de version institutionnel"
+          "La migration des fichiers bruts vers des serveurs non chiffrés pour accélérer le traitement",
+          "Le transfert des fichiers bruts vers les disques durs locaux des postes pour accélérer l’extraction"
         ],
         [
           "Quelle méthode de gestion du travail transparaît dans ces instructions verbales ?",
           "Une répartition claire des responsabilités techniques assortie de critères de conformité",
           "Une délégation informelle des tâches laissant chaque employé libre de définir ses propres méthodes",
-          "Une discussion philosophique informelle sur les limites de l’intelligence artificielle"
+          "Une répartition des tâches confiée aux analystes les plus expérimentés, sans critère de conformité"
         ],
         [
           "Quel constat découle implicitement du rejet des codes non documentés ?",
@@ -469,8 +469,8 @@ export const N09_10_SCENARIOS = {
         [
           "Que signifie le terme « crypter » dans cette consigne technologique ?",
           "Encoder les données numériques pour les rendre illisibles sans clé d’accès autorisée",
-          "Effacer définitivement un ensemble de fichiers sans laisser aucune archive résiduelle",
-          "Imprimer les documents confidentiels sur du papier sécurisé avec filigrane officiel"
+          "Copier les fichiers bruts sur des serveurs ouverts sans restriction d’accès ni mot de passe",
+          "Déchiffrer les séquences sur les postes de travail pour que les analystes puissent les lire"
         ]
       ],
       "frame": "directives de directrice — séquençage génomique en laboratoire bio-informatique"
@@ -482,26 +482,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle est la préoccupation immédiate guidant les directives de la metteuse en scène ?",
           "L’ajustement mécanique et la sécurisation des décors suspendus avant la répétition générale",
-          "L’annulation pure et simple de la présence des musiciens de l’orchestre pour réduire les frais de location",
-          "La modification intégrale du texte du livret d’opéra à quelques heures du spectacle"
+          "Le retrait du système de freinage de secours afin d’accélérer la descente de la passerelle",
+          "L’installation de chandeliers mobiles sur la passerelle pour accélérer les déplacements du chœur"
         ],
         [
           "Comment les consignes techniques sont-elles agencées dans ce discours ?",
           "Des paramètres temporels et physiques précis sont énoncés avec des règles de protection",
-          "Un blâme collectif particulièrement sévère est adressé aux chanteurs du chœur pour leur manque de rigueur",
-          "Un blâme collectif est adressé aux chanteurs du chœur pour leur manque de ponctualité"
+          "Des instructions vagues sont données sans chiffre précis ni consigne de sécurité pour les régisseurs",
+          "Les règles de protection sont énoncées d’emblée, puis suivent les paramètres de la descente"
         ],
         [
           "Que sous-entend la remarque sur le système de freinage de secours de la passerelle ?",
           "Une anomalie dans la manipulation de la structure gâcherait irrémédiablement la performance",
           "La Place des Arts ne dispose d’aucun dispositif technique de secours en cas d’urgence sur la scène",
-          "La Place des Arts ne possède aucun dispositif de secours en cas de problème technique"
+          "Le freinage de secours sert à accélérer la descente de la passerelle dès que le rythme ralentit"
         ],
         [
           "Dans le vocabulaire de la scène, que désigne le terme « cintre » ?",
           "La partie supérieure d’une cage de scène où sont logées les poulies et les machineries",
-          "Un accessoire en fil de fer servant à suspendre les costumes d’époque en loge",
-          "Un instrument de percussion utilisé par l’orchestre pour marquer le début du spectacle"
+          "Le personnel de coulisse chargé de fixer les accessoires au sol avant chaque spectacle",
+          "Le plancher de scène, couvert de passerelles métalliques où le chœur se place avant le troisième acte"
         ]
       ],
       "frame": "directives de mise en scène — scénographie et éclairage théâtral"
@@ -515,26 +515,26 @@ export const N09_10_SCENARIOS = {
         [
           "Sur quel enjeu principal porte l’échange d’opinions entre les deux collègues ?",
           "La pertinence d’imposer des journées fixes de présence au bureau pour l’ensemble du personnel",
-          "Le risque de démissions chez les analystes recrutés par des firmes concurrentes plus flexibles",
-          "L’organisation de plages obligatoires de mentorat en personne pour intégrer les nouveaux stagiaires"
+          "La durée excessive du télétravail complet, qui a fait chuter la productivité des analystes pendant deux ans",
+          "L’interdiction des échanges par messagerie instantanée entre les nouvelles recrues et les stagiaires"
         ],
         [
           "Quelle est la divergence de fond qui oppose les perspectives de Caroline et de Marc ?",
           "L’autonomie accordée aux équipes face aux impératifs d’encadrement des nouveaux arrivants",
-          "La fermeture définitive des bureaux physiques contre le maintien d’un siège corporatif luxueux",
-          "Le montant des indemnités kilométriques à verser aux employés résidant en banlieue éloignée"
+          "La relance du télétravail complet proposée par Marc contre le retour rigide défendu par Caroline",
+          "La prolongation du télétravail complet pour les nouvelles recrues, que Marc souhaite préserver"
         ],
         [
           "Que déduit-on implicitement de la mise en garde de Caroline sur la rétention des talents ?",
           "Les professionnels qualifiés accordent une grande valeur à la flexibilité de leurs horaires",
           "Les meilleurs spécialistes préfèrent des firmes imposant une présence physique continue au bureau",
-          "Les employeurs concurrents offrent systématiquement des salaires deux fois plus élevés"
+          "Les employés refusent désormais la moindre présence physique au bureau, malgré les consignes"
         ],
         [
           "Dans cet échange, que qualifie l’expression « règle mur à mur » ?",
           "Une directive uniforme et rigide appliquée indistinctement à tous sans nuance contextuelle",
-          "Une politique visant à repeindre les cloisons intérieures des aires de travail ouvertes",
-          "Un protocole d’insonorisation acoustique destiné à limiter le bruit entre les bureaux fermés"
+          "Une règle négociée séparément avec chaque équipe selon ses livrables et ses horaires",
+          "Une disposition qui exempte les nouveaux arrivants de l’obligation de présence au bureau"
         ]
       ],
       "frame": "discussion entre collègues — politiques de travail hybride en entreprise"
@@ -546,26 +546,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’objet central de la controverse discutée par les deux connaissances ?",
           "Les répercussions économiques et sociales de la piétonnisation complète d’une grande artère",
-          "La démolition planifiée d’immeubles patrimoniaux anciens pour construire un vaste centre commercial moderne",
-          "La démolition d’immeubles patrimoniaux pour construire un centre commercial moderne"
+          "La levée des restrictions d’heures de livraison pour les camionneurs, réclamée par les cafés",
+          "La mise en place de navettes électriques de quartier décidée sans consultation des commerçants"
         ],
         [
           "De quelle manière les interlocuteurs structurent-ils leur confrontation de points de vue ?",
           "Les bénéfices de la convivialité urbaine sont confrontés aux contraintes d’accessibilité commerciale",
           "Un plaidoyer unilatéral pour la piétonnisation intégrale ignorant les pertes financières des commerçants",
-          "Une dénonciation sévère de l’inaction municipale face à la prolifération des grands centres d’achats"
+          "Les contraintes des marchands sont d’abord rejetées comme négligeables, avant les bénéfices de la convivialité"
         ],
         [
           "Quel compromis implicite émerge de la conclusion de la discussion ?",
           "La piétonnisation doit s’accompagner d’aménagements logistiques adaptés aux besoins variés",
           "La circulation automobile devrait être rétablie sans aucune restriction sur toute l’avenue",
-          "Tous les commerces spécialisés devraient déménager dans des parcs industriels périphériques"
+          "La piétonnisation peut se passer d’aménagements logistiques, puisque les navettes électriques suffisent"
         ],
         [
           "Dans ce dialogue, quel est le sens du terme « achalandage » ?",
           "Le nombre de clients ou de visiteurs fréquentant un lieu commercial donné",
-          "La quantité de marchandises entreposées dans les réserves arrière d’un magasin",
-          "Le coût des permis municipaux exigés pour l’installation de terrasses estivales"
+          "Le montant des recettes réalisées par un commerce grâce aux ventes effectuées en terrasse",
+          "La marge bénéficiaire qu’un commerce tire de la vente de boissons en terrasse"
         ]
       ],
       "frame": "échange entre connaissances — controverse sur la piétonnisation d’une avenue"
@@ -577,14 +577,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle question stratégique oppose les deux gestionnaires de la coopérative ?",
           "La conciliation entre la robotisation indispensable et la responsabilité envers l’emploi local",
-          "La vente immédiate et intégrale de la coopérative agricole régionale à une grande multinationale étrangère",
+          "La question de savoir si Hélène doit renoncer à la robotisation pour préserver les emplois manuels",
           "L’interdiction définitive de toute technologie informatique dans les usines de transformation"
         ],
         [
           "Comment l’argumentation d’Hélène répond-elle aux objections de Simon ?",
           "Elle invoque la pénurie d’employés et la compétitivité pour justifier la modernisation",
-          "Elle affirme que les travailleurs manuels ne méritent aucune compensation salariale décente",
-          "Elle propose de transférer l’ensemble des activités de transformation dans une province voisine"
+          "Elle juge que la pénurie de main-d’œuvre est un faux problème et que la robotisation est inutile",
+          "Elle concède que la robotisation menace le tissu social et accepte de la reporter"
         ],
         [
           "Quel constat découle implicitement de la suggestion finale de formation de Simon ?",
@@ -595,8 +595,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans ce contexte économique, que signifie le verbe « péricliter » ?",
           "Décliner progressivement et risquer de disparaître faute de compétitivité suffisante",
-          "Accroître subitement son chiffre d’affaires grâce à une demande imprévue du marché",
-          "Fusionner avec succès avec des partenaires commerciaux au sein d’une nouvelle entité"
+          "Rester stable malgré la pénurie de main-d’œuvre grâce à une rotation des équipes",
+          "Prospérer rapidement grâce à l’automatisation qui réduit les coûts unitaires de production"
         ]
       ],
       "frame": "discussion entre collègues — plan de modernisation d’une coopérative"
@@ -609,7 +609,7 @@ export const N09_10_SCENARIOS = {
           "Quel est le cœur du débat soulevé par la tarification dynamique de l’électricité ?",
           "L’équilibre entre l’efficacité énergétique environnementale et la justice sociale pour les ménages",
           "La suppression programmée des subventions destinées à l’isolation thermique des logements anciens",
-          "La privatisation imminente du réseau public de distribution d’électricité québécois"
+          "Le financement de nouvelles centrales hydroélectriques par la surtaxe des pointes hivernales"
         ],
         [
           "De quelle manière les deux interlocuteurs confrontent-ils leurs visions ?",
@@ -626,8 +626,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans cette discussion, que désigne l’expression « heures de pointe » ?",
           "Les périodes de forte demande où la consommation globale du réseau atteint son maximum",
-          "Les moments où les réparateurs d’urgence interviennent sur les lignes à haute tension",
-          "Les créneaux horaires où l’accès au service à la clientèle téléphonique est indisponible"
+          "Les périodes creuses où les tarifs réduits profitent surtout aux propriétaires équipés de maisons solaires",
+          "Les tranches du matin où la consommation est facturée au tarif le plus bas du réseau"
         ]
       ],
       "frame": "échange entre connaissances — controverse sur la tarification énergétique résidentielle"
@@ -647,19 +647,19 @@ export const N09_10_SCENARIOS = {
         [
           "Comment l’exposé scientifique structure-t-il la description du danger acoustique ?",
           "Les mécanismes physiologiques de destruction cellulaire sont décrits avant les stratégies de prévention",
-          "Une revue historique des procès intentés par des ouvriers contre des manufactures du siècle passé",
-          "Un comparatif financier des coûts de réparation des tympans artificiels est détaillé"
+          "Des solutions d’encoffrement sont proposées dès l’ouverture, puis l’étiologie de la surdité est expliquée",
+          "Les données de l’Institut national de santé publique ouvrent l’exposé, avant la description des cellules ciliées"
         ],
         [
           "Que déduit-on implicitement de la remarque sur le retrait temporaire des protecteurs ?",
           "Une interruption même brève de la protection compromet l’efficacité globale de la mesure",
           "La croyance voulant que le port intermittent de bouchons suffise à prévenir les traumatismes sonores",
-          "Les protecteurs auditifs empêchent complètement de respirer convenablement en atelier"
+          "Un retrait bref des protecteurs reste sans conséquence si des cabines de repos sont disponibles"
         ],
         [
           "Dans ce contexte clinique, que qualifie l’adjectif « insidieuse » ?",
           "Une dégradation auditive lente et discrète qui progresse sans douleur apparente immédiate",
-          "Une maladie contagieuse qui se transmet rapidement d’un travailleur à un autre par contact",
+          "Une fatigue auditive passagère qui disparaît après une nuit de sommeil sans bruit",
           "Une blessure acoustique brutale provoquée par une déflagration soudaine déchirant le tympan"
         ]
       ],
@@ -678,8 +678,8 @@ export const N09_10_SCENARIOS = {
         [
           "De quelle manière l’analyse psychologique organise-t-elle ses constats ?",
           "Les effets bénéfiques de la reconnaissance sont détaillés avant d’être opposés aux méfaits de son absence",
-          "Une série de reproches virulents adressée aux syndicats hospitaliers sans aucune donnée probante à l’appui",
-          "Un protocole mathématique de calcul des primes de fin d’année est proposé aux gestionnaires"
+          "L’injustice distributive est décrite en premier, avant les bienfaits de la reconnaissance et de la coopération",
+          "Les conseils pratiques aux gestionnaires ouvrent l’article, avant l’exposé des données sur la santé"
         ],
         [
           "Quel constat découle implicitement du rôle de la « coopération horizontale » ?",
@@ -690,8 +690,8 @@ export const N09_10_SCENARIOS = {
         [
           "Que désigne l’expression « injustice distributive » dans ce cadre d’analyse ?",
           "Le déséquilibre ressenti entre les efforts personnels investis et les marques de reconnaissance reçues",
-          "Le refus d’accorder des congés payés aux infirmières effectuant des heures supplémentaires de nuit",
-          "Une répartition inégale des fournitures de bureau et des uniformes entre les services cliniques"
+          "Un sentiment de considération accordée à chacun de façon égale, indépendamment des efforts fournis",
+          "Une répartition équitable des marques de reconnaissance, qui renforce le sentiment d’efficacité personnelle"
         ]
       ],
       "frame": "article spécialisé — bienfaits psychologiques de la reconnaissance au travail"
@@ -703,14 +703,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’objet technique central documenté dans cette fiche professionnelle ?",
           "La méthodologie rigoureuse de mesure et les risques globaux liés aux bruits d’impact industriels",
-          "La fabrication artisanale de casques de protection auditive en matériaux recyclés locaux",
-          "La pose d’écrans absorbants composites pour réduire le bruit de crête des presses mécaniques"
+          "La formation obligatoire des opérateurs à la rotation des postes les plus exposés",
+          "La mise à niveau des dosimètres individuels pour réduire directement le bruit de crête des presses"
         ],
         [
           "Comment l’exposé technique articule-t-il les exigences de sécurité au travail ?",
           "La nécessité d’une dosimétrie continue est justifiée par les effets auditifs et physiologiques du bruit",
           "Un réquisitoire virulent contre l’achat de tout matériel électronique de mesure moderne présenté aux employeurs",
-          "Une comparaison tarifaire entre différentes marques de dosimètres étrangers est dressée"
+          "Les mesures d’atténuation sont proposées dès l’ouverture, avant l’explication des effets physiologiques"
         ],
         [
           "Que laisse entendre la remarque sur les réactions du système cardiovasculaire ?",
@@ -721,8 +721,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans ce texte normatif, qu’est-ce qu’un « bruit d’impact » ?",
           "Une impulsion sonore brève et violente causée par le choc brutal de deux masses solides",
-          "Un sifflement continu et régulier produit par la circulation de vapeur dans les conduits",
-          "Un bruit de fond modéré généré par la ventilation mécanique générale du bâtiment"
+          "Un bourdonnement régulier émis par le moteur des presses mécaniques pendant la production",
+          "Une pression acoustique mesurée en continu sur une journée entière à l’aide d’un sonomètre"
         ]
       ],
       "frame": "guide technique — pénibilité sonore et maladies professionnelles de l’ouïe"
@@ -734,26 +734,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle thèse principale cette recherche en relations industrielles défend-elle ?",
           "La flexibilité professionnelle nécessite un soutien social et une reconnaissance solide pour être saine",
-          "Le travail à distance provoque une baisse irrémédiable de la rentabilité des entreprises de haute technologie",
+          "La reconnaissance formalisée des équipes doit être réservée aux seuls cadres pour rester efficace",
           "L’autonomie accordée aux travailleurs suffit à éliminer tout risque d’épuisement professionnel"
         ],
         [
           "De quelle manière la démonstration des chercheurs progresse-t-elle dans le texte ?",
           "Un paradoxe moderne est soulevé avant de proposer des remèdes relationnels et managériaux éprouvés",
           "Une apologie aveugle du travail à toute heure du jour et de la nuit présentée sans la moindre réserve critique",
-          "Une critique virulente des compétences informatiques des jeunes diplômés est exposée en détail"
+          "Des remèdes managériaux sont proposés d’emblée, puis le paradoxe de la flexibilité est soulevé"
         ],
         [
           "Quel risque implicite est associé à la « porosité excessive » entre vie privée et travail ?",
           "L’incapacité psychologique de décrocher mentalement favorise l’usure précoce des travailleurs",
-          "Les employeurs risquent de voir tous leurs secrets d’affaires confidentiels divulgués aux membres des familles",
-          "Les employés refusent de consacrer du temps à leurs enfants en fin de semaine"
+          "Les travailleurs deviennent plus productifs, car l’effritement des frontières stimule leur motivation",
+          "Les salariés se désintéressent de la réussite collective dès qu’ils reçoivent une reconnaissance réciproque"
         ],
         [
           "Que désigne l’expression « garde-fou » dans ce contexte organisationnel ?",
           "Un mécanisme protecteur destiné à prévenir un dérapage ou une dégradation de la santé mentale",
-          "Une grille métallique de sécurité installée sur les toits des édifices pour éviter les chutes",
-          "Un règlement intérieur draconien interdisant formellement l’usage des téléphones cellulaires"
+          "Une limite imposée à la marge de manœuvre décisionnelle, qui restreint l’autonomie des cadres",
+          "Une source de surmenage qui aggrave la porosité entre la vie professionnelle et la sphère personnelle"
         ]
       ],
       "frame": "étude universitaire — soutien managérial et bien-être psychologique des équipes"
@@ -773,8 +773,8 @@ export const N09_10_SCENARIOS = {
         [
           "Comment la narration de ce départ politique est-elle construite par l’auteur ?",
           "La description du moment de solitude encadre une justification rétrospective de ses choix",
-          "Une liste chronologique de toutes les élections remportées dans sa carrière est détaillée",
-          "Une polémique violente est engagée directement contre le premier ministre de l’époque"
+          "La justification rétrospective de ses choix est placée en ouverture, avant la description du moment de solitude",
+          "L’auteur se borne à reconnaître ses maladresses stratégiques sans défendre le fond de ses décisions"
         ],
         [
           "Que déduit-on implicitement de la formule « le courage de déplaire » ?",
@@ -785,8 +785,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans ce récit personnel, que signifie l’expression « faire le pied de grue » ?",
           "Attendre patiemment et longuement debout à un endroit précis dans l’espoir d’une nouvelle",
-          "Danser sur place pour tenter de se réchauffer lors des rigueurs de l’hiver québécois",
-          "Protester violemment en bloquant les accès d’un édifice public avec des pancartes syndicales"
+          "Parcourir les couloirs en groupe pour distribuer aux élus des communiqués de presse rédigés à l’avance",
+          "Discuter à voix basse avec des collègues pour préparer une réponse commune aux journalistes"
         ]
       ],
       "frame": "récit autobiographique — mémoires d’une personnalité politique provinciale"
@@ -799,25 +799,25 @@ export const N09_10_SCENARIOS = {
           "Quel tournant narratif majeur cet extrait de roman policier relate-t-il ?",
           "La requalification d’une mort accidentelle en meurtre calculé lié à une fraude foncière",
           "La confirmation d’une vengeance passionnelle après un règlement de dettes au cap Enragé",
-          "La fermeture définitive de la société d’histoire régionale en raison d’un cambriolage"
+          "La confirmation d’une chute accidentelle au bas de la falaise du cap Enragé, sans enquête complémentaire"
         ],
         [
           "De quelle manière l’intrigue progresse-t-elle à travers les découvertes de Tremblay ?",
           "L’indice matériel de l’encre falsifiée permet de dévoiler un mobile financier d’envergure",
-          "Une course-poursuite en automobile sur l’autoroute vingt s’engage contre le suspect principal",
-          "Un dialogue philosophique sur la nature humaine oppose l’inspecteur à son supérieur immédiat"
+          "Le témoignage de la dernière héritière suffit à démasquer le meurtrier sans examiner les minutes",
+          "L’inspecteur analyse d’abord l’encre, puis compare les signatures, avant de cerner le mobile financier"
         ],
         [
           "Que comprend-on implicitement sur le rôle du notaire défunt avant son décès ?",
           "Le notaire avait été complice de la spoliation mais menaçait de révéler la vérité par remords",
           "Le notaire ignorait complètement l’existence des terres seigneuriales historiques le long du fleuve Saint-Laurent",
-          "Le notaire avait légué toute sa fortune personnelle à l’orphelinat du village voisin"
+          "Le notaire avait déjà dénoncé la spoliation au greffe avant d’être retrouvé au bas de la falaise"
         ],
         [
           "Dans ce contexte d’enquête, que désigne le mot « paraphe » ?",
           "Une signature abrégée manuscrite apposée pour valider une page ou un document notarié",
-          "Un sceau en cire rouge utilisé autrefois pour cacheter solennellement le testament officiel des seigneurs",
-          "Un instrument d’arpentage optique permettant de mesurer avec précision les parcelles"
+          "Une copie photographique déposée au bureau d’enregistrement pour valider officiellement un acte",
+          "Un tracé d’encre ferrugineuse utilisé pour dater précisément chaque minute notariale du dossier"
         ]
       ],
       "frame": "roman policier — enquête d’un inspecteur de police au Bic"
@@ -830,25 +830,25 @@ export const N09_10_SCENARIOS = {
           "Quel est le plaidoyer fondamental formulé par le dirigeant dans ce passage autobiographique ?",
           "La justification de décisions impopulaires au nom de la sauvegarde industrielle à long terme",
           "La reconnaissance d’erreurs stratégiques majeures commises lors du rachat d’usines obsolètes",
-          "La critique sévère des syndicats locaux accusés d’avoir rejeté tout compromis salarial"
+          "La mise en cause des financiers new-yorkais, accusés d’avoir délibérément saboté l’usine du Saguenay"
         ],
         [
           "Comment l’auteur articule-t-il sa défense contre ses détracteurs médiatiques ?",
           "Il oppose la superficialité des critiques de presse aux dures réalités économiques de la filière",
-          "Il affirme que les actionnaires minoritaires ont sciemment bloqué les investissements technologiques",
-          "Il déplore l’absence de subventions provinciales directes pour moderniser les cuves d’électrolyse"
+          "Il concède que la presse avait raison de dénoncer une restructuration menée sans consulter les ouvriers",
+          "Il impute la fermeture annoncée des alumineries à la seule insolence des éditorialistes montréalais"
         ],
         [
           "Que signifie implicitement l’expression « porter le chapeau » dans le récit ?",
           "Assumer publiquement l’entière responsabilité d’une décision contestée pour protéger le projet",
-          "Accepter une rémunération exceptionnelle en échange de son départ forcé de la direction",
-          "Refuser systématiquement de répondre aux questions posées par les juges de la cour"
+          "Faire porter à un tiers la faute d’une décision qu’on a prise soi-même pour sauver sa réputation",
+          "Se soumettre sans protester aux exigences des financiers new-yorkais pour calmer les actionnaires"
         ],
         [
           "Dans ce texte de gestion de crise, que désigne le mot « flibustier » ?",
           "Un aventurier sans scrupules menant des opérations financières agressives et prédatrices",
-          "Un capitaine de navire marchand assurant le transport maritime du minerai de bauxite",
-          "Un inspecteur assermenté du fisc chargé de vérifier les déclarations de revenus des entreprises"
+          "Un investisseur patient qui conserve ses parts pendant des décennies pour soutenir l’industrie",
+          "Un actionnaire minoritaire qui rachète les usines obsolètes pour les revendre à la concurrence asiatique"
         ]
       ],
       "frame": "mémoires d’affaires — parcours d’un dirigeant industriel contesté"
@@ -860,8 +860,8 @@ export const N09_10_SCENARIOS = {
         [
           "Quel dénouement partiel de l’enquête est raconté dans cet extrait de roman noir ?",
           "L’effondrement de l’alibi du suspect grâce à la convergence d’indices matériels précis",
-          "L’arrestation par erreur d’un touriste étranger égaré dans les ruelles du quartier montréalais",
-          "La découverte fortuite d’un coffre-fort rempli de lingots d’or dans une boulangerie voisine"
+          "L’aveu spontané du restaurateur, qui reconnaît avoir tué pour récupérer une somme d’argent",
+          "La remise en liberté du suspect faute de preuves matérielles après une longue garde à vue"
         ],
         [
           "De quelle manière la détective parvient-elle à percer le mystère de l’emploi du temps ?",
@@ -872,14 +872,14 @@ export const N09_10_SCENARIOS = {
         [
           "Que révèle implicitement la nature de l’objet recherché par le criminel ?",
           "Le crime était guidé par la dissimulation d’un secret compromettant plutôt que par le gain pécuniaire",
-          "L’antiquaire avait déjà revendu l’ensemble des pièces d’époque avant l’intrusion nocturne",
+          "Le crime visait le vol d’un meuble ancien de grande valeur marchande déjà repéré sur le marché",
           "L’agresseur cherchait à dérober des bijoux précieux dissimulés dans le tiroir-caisse de la boutique"
         ],
         [
           "Dans le jargon policier et judiciaire québécois, que signifie le verbe « borner » ?",
           "Se connecter automatiquement à une antenne de relais cellulaire permettant d’établir une position",
-          "Délimiter physiquement le périmètre étendu d’une scène de crime à l’aide d’un ruban jaune officiel de la police",
-          "Fixer des bornes kilométriques le long des trottoirs municipaux pour réguler le stationnement"
+          "Inscrire l’heure exacte d’un enregistrement de surveillance sur un registre policier horodaté",
+          "Restreindre l’accès à un secteur par une ordonnance du tribunal faisant office de barrière légale"
         ]
       ],
       "frame": "roman noir — filature nocturne dans les ruelles montréalaises"
@@ -899,8 +899,8 @@ export const N09_10_SCENARIOS = {
         [
           "Comment l’argumentation économique est-elle agencée dans cette analyse ?",
           "Une simplification populaire est démentie avant de détailler les composantes clés de la hausse des prix",
-          "Une critique sévère des choix budgétaires gouvernementaux présentée sans données statistiques d’appui",
-          "Une proposition de réforme fiscale visant à réduire les prélèvements sur les entreprises manufacturières"
+          "Les composantes clés de la hausse des prix sont détaillées avant que la simplification populaire ne soit démentie",
+          "Une baisse du prix des carburants est d’abord constatée avant que l’inflation du logement soit expliquée"
         ],
         [
           "Que déduit-on implicitement du maintien d’une politique monétaire restrictive ?",
@@ -911,8 +911,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans ce contexte économique, que désigne le terme « inertie » ?",
           "La tendance des prix de certains biens et services à demeurer élevés malgré l’évolution conjoncturelle",
-          "L’impossibilité technique pour les économistes de mesurer avec exactitude le coût du panier de consommation",
-          "Le refus catégorique des consommateurs d’acheter des produits alimentaires locaux et de saison"
+          "La réaction rapide des prix de l’essence aux variations des cours du baril de pétrole",
+          "La baisse soudaine des prix de l’alimentation dès que les récoltes deviennent abondantes"
         ]
       ],
       "frame": "article économique — analyse de l’indice des prix à la consommation"
@@ -930,19 +930,19 @@ export const N09_10_SCENARIOS = {
         [
           "Comment l’explication psychoéducative est-elle ordonnée pour convaincre les familles ?",
           "Les bases physiologiques de l’émotion sont clarifiées avant de proposer des attitudes bienveillantes",
-          "Une série de reproches excessivement culpabilisants adressée aux parents qui travaillent beaucoup à l’extérieur",
-          "Une consultation psychiatrique de l’enfant est exigée dès qu’il refuse d’entrer à la garderie le matin"
+          "Un rituel d’au revoir est recommandé avant que l’activation de l’amygdale soit expliquée aux parents",
+          "Les conseils pour les parents précèdent toute explication des mécanismes du cerveau émotionnel"
         ],
         [
           "Pourquoi le guide déconseille-t-il formellement les départs furtifs en cachette ?",
           "Parce que disparaître sans prévenir détruit le sentiment de sécurité et accroît la peur de l’abandon",
-          "Parce que les éducatrices de garderie n’ont pas le temps matériel de surveiller les portes d’entrée du local",
-          "Parce que les règlements municipaux imposent la signature d’un registre à chaque départ matinal"
+          "Parce que les départs furtifs rassurent l’enfant en lui montrant que la séparation est sans danger",
+          "Parce que les parents doivent éviter de valider l’émotion de l’enfant pour ne pas prolonger ses pleurs"
         ],
         [
           "Dans ce contexte pédiatrique, que signifie l’expression « valider l’émotion » ?",
           "Reconnaître et accueillir ce que l’enfant ressent sans le juger ni minimiser sa souffrance",
-          "Signer une attestation médicale certifiant que l’élève est temporairement inapte à l’apprentissage",
+          "Démontrer à l’enfant par un raisonnement logique que sa peur est absurde pour la dissiper",
           "Exiger de l’enfant qu’il cesse de pleurer avant de quitter ses parents à la porte"
         ]
       ],
@@ -955,14 +955,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quel phénomène logistique et économique cet article universitaire explique-t-il ?",
           "La transmission retardée des hausses des coûts du fret maritime sur les prix de consommation",
-          "La chute durable des volumes d’échanges maritimes causée par la récession mondiale",
+          "La disparition rapide des hausses de fret dès que les ports de la côte ouest retrouvent leur fluidité",
           "La baisse spectaculaire et immédiate des prix des meubles et des électroménagers importés"
         ],
         [
           "De quelle manière les économistes articulent-ils la chaîne de répercussion des coûts ?",
-          "Les hausses maritimes sont répercutées des transporteurs aux grossistes puis aux étiquettes des magasins",
-          "Une critique des ententes tarifaires secrètes conclues entre les grandes chaînes de supermarchés",
-          "Une proposition de subventionner directement les carburants maritimes pour alléger les factures"
+          "Les hausses maritimes sont répercutées des importateurs aux grossistes puis aux étiquettes des détaillants",
+          "Les marges bénéficiaires absorbent intégralement la hausse du fret avant toute répercussion sur les prix",
+          "Le décalage entre la hausse des tarifs portuaires et l’IPC s’étend sur deux ans selon l’article"
         ],
         [
           "Que déduit-on implicitement du décalage de six à neuf mois mis en lumière ?",
@@ -973,8 +973,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans le vocabulaire du transport de marchandises, que signifie le mot « affrètement » ?",
           "La location contractuelle d’un navire ou d’un espace de chargement pour transporter des biens",
-          "Le déchargement manuel et pénible de marchandises avariées sur les quais venteux d’un port de transit régional",
-          "L’amende douanière imposée aux compagnies maritimes transportant des produits non déclarés"
+          "Le transfert de propriété d’une cargaison à l’importateur au moment de son arrivée au port",
+          "Le déplacement de conteneurs vers un autre port pour contourner les goulets d’étranglement de la côte ouest"
         ]
       ],
       "frame": "analyse économique — pressions inflationnistes et chaînes d’approvisionnement mondiales"
@@ -986,26 +986,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle idée directrice ce guide clinique avance-t-il sur l’anxiété de performance scolaire ?",
           "La distinction entre le trac stimulant et une angoisse paralysante fondée sur la peur d’échouer",
-          "La recommandation de remplacer tous les examens formels par des projets de groupe non notés",
+          "Tout stress lié aux examens relève d’une anxiété pathologique exigeant un suivi clinique spécialisé",
           "La certitude que les élèves stressés manquent tous de discipline et de compétences académiques"
         ],
         [
           "Comment l’explication psychologique met-elle en lumière la complexité du problème ?",
           "Deux comportements en apparence contraires sont montrés comme étant les reflets d’une même peur",
-          "Une remise en question de la formation des conseillers d’orientation en milieu scolaire québécois",
-          "Un protocole d’exclusion temporaire des élèves refusant de rendre leurs devoirs à temps"
+          "Deux comportements contraires sont présentés comme des réactions à des peurs différentes et indépendantes",
+          "Un seul comportement, le surinvestissement, est retenu comme signe de l’anxiété, l’évitement étant écarté"
         ],
         [
           "Que sous-entend la recommandation de dissocier la valeur personnelle des résultats ?",
           "Fonder son estime personnelle sur les notes obtenues fragilise l’équilibre psychologique du jeune",
-          "L’évaluation chiffrée encourage une rivalité destructrice entre camarades de classe",
-          "Les parents devraient s’abstenir de vérifier le relevé des résultats scolaires de leurs enfants"
+          "Un bon bulletin suffit à garantir la santé psychologique de l’adolescent sans autre accompagnement",
+          "Une note élevée reste le meilleur baromètre de la valeur personnelle, qu’il faut viser à tout prix"
         ],
         [
           "Dans ce contexte scolaire, que désigne l’expression « évitement anxieux » ?",
           "Le réflexe de fuir une tâche difficile pour échapper temporairement à la détresse qu’elle génère",
-          "L’absence non justifiée d’un professeur lors de la correction des épreuves ministérielles de fin d’année",
-          "Une dispense médicale définitive accordée à un élève pour l’ensemble des cours d’éducation physique"
+          "Un surinvestissement épuisant qui conduit l’élève à réviser jusqu’à l’épuisement physique complet",
+          "Un manque de volonté qui pousse l’élève à remettre ses devoirs à plus tard par paresse"
         ]
       ],
       "frame": "guide pratique — gestion de l’anxiété de performance chez les adolescents"
@@ -1020,25 +1020,25 @@ export const N09_10_SCENARIOS = {
           "Quel est l’objectif réglementaire visé par ces directives de trésorerie sportive ?",
           "Encadrer rigoureusement les dépenses et imposer des mécanismes stricts de double contrôle",
           "Alléger les démarches des bénévoles en supprimant les rapprochements bancaires mensuels",
-          "Supprimer définitivement l’ensemble des cotisations demandées aux familles de l’association"
+          "Confier la signature de chaque paiement à un seul administrateur afin d’accélérer les décaissements"
         ],
         [
           "De quelle manière les exigences de contrôle financier sont-elles présentées ?",
           "Des seuils de dépenses, des méthodes de paiement et des délais de justification sont prescrits",
           "Une invitation cordiale à faire confiance à chacun sans garder de reçus est formulée",
-          "Une série de reproches sans fondement est adressée aux anciens gestionnaires bénévoles du club"
+          "Une réserve de quinze pour cent est d’abord imposée, puis les seuils de dépenses sont fixés"
         ],
         [
           "Pourquoi le règlement impose-t-il la sanctuarisation d’un fonds de réserve de quinze pour cent ?",
           "Pour garantir la continuité des activités en cas de versement tardif des aides financières de l’État",
-          "Pour financer un voyage récréatif annuel pour l’ensemble des membres du conseil d’administration de l’organisme",
-          "Pour payer d’avance la construction d’une nouvelle patinoire municipale dans un quartier voisin"
+          "Pour rembourser à l’avance les subventions gouvernementales québécoises une fois qu’elles ont été reçues",
+          "Pour dispenser le trésorier de toute conciliation bancaire tant que la réserve n’est pas épuisée"
         ],
         [
           "Dans ce contexte administratif, que désigne une « conciliation bancaire » ?",
           "La vérification détaillée de la concordance parfaite entre les registres comptables et la banque",
-          "Une médiation juridique complexe entre une association sportive amateur et ses créanciers financiers en litige",
-          "Une demande formelle de prêt d’urgence déposée auprès d’une caisse d’économie solidaire locale"
+          "Le réajustement hebdomadaire de la réserve d’exploitation selon les subventions reçues du gouvernement",
+          "Le règlement en espèces des honoraires d’entraîneurs, admis lorsque le montant reste sous deux cent cinquante dollars"
         ]
       ],
       "frame": "directives de trésorerie — gestion financière d’un club sportif"
@@ -1056,20 +1056,20 @@ export const N09_10_SCENARIOS = {
         [
           "Comment la démarche d’administration du médicament est-elle structurée dans le texte ?",
           "Les prérequis médicaux sont posés avant le calcul posologique et les consignes d’urgence vitale",
-          "Une discussion purement théorique sur les étapes de synthèse chimique complexe de la molécule en laboratoire",
-          "Une comparaison purement commerciale entre les prix de trois anticoagulants est dressée"
+          "Le calcul posologique est posé d’abord, puis les prérequis d’hémostase sont vérifiés après la perfusion",
+          "Les consignes d’urgence vitale sont données en premier, avant tout calcul posologique ni prérequis biologiques"
         ],
         [
           "Que déduit-on implicitement de l’obligation de mesurer le temps de céphaline activée ?",
           "Le niveau d’anticoagulation doit être calibré avec une extrême précision pour éviter l’hémorragie",
-          "Le personnel soignant ne sait pas si le médicament a été injecté dans la bonne veine superficielle du bras",
+          "Le produit reste sans effet mesurable sur la coagulation, car la dilution saline suffit à l’inactiver",
           "Le médicament agit surtout sur la fréquence cardiaque et peu sur la coagulation sanguine"
         ],
         [
           "Dans ce protocole médical, que signifie le terme « antidote » ?",
           "Une substance thérapeutique capable de neutraliser rapidement les effets nocifs d’un médicament",
-          "Un calmant puissant destiné à soulager les céphalées particulièrement sévères chez les malades hospitalisés",
-          "Un désinfectant chirurgical appliqué sur la peau avant l’insertion d’un cathéter intraveineux"
+          "Une solution saline servant à rincer la tubulure après l’arrêt de la perfusion, pour éviter les caillots",
+          "Un produit complémentaire administré en parallèle pour renforcer l’effet anticoagulant lorsque la cible tarde"
         ]
       ],
       "frame": "protocole hospitalier — administration clinique d’un nouvel anticoagulant"
@@ -1087,20 +1087,20 @@ export const N09_10_SCENARIOS = {
         [
           "De quelle manière ces directives de bonne gouvernance sont-elles organisées ?",
           "Les délais de soumission, les modalités de paiement et les devoirs de rapportage sont explicités",
-          "Une polémique acerbe contre les arbitres sportifs régionaux est alimentée sans proposer de directives utiles",
-          "Une exemption de pièces justificatives est accordée aux entraîneurs pour leurs dépenses de déplacement"
+          "Les modalités de paiement des arbitres sont exposées d’abord, avant les délais de soumission des demandes de remboursement",
+          "Le rapportage du trésorier ouvre les directives, suivi des délais de soumission puis des modalités de paiement"
         ],
         [
           "Quel risque implicite l’interdiction de l’argent liquide cherche-t-elle à neutraliser ?",
           "Le risque de détournement de fonds ou de contestation sur les montants réellement versés",
-          "Le risque que les entraîneurs soient rémunérés en retard par les administrateurs du club",
-          "L’obligation légale pour les arbitres de transporter des coffres-forts lourds dans leur sac de sport"
+          "Le risque que les dons de commanditaires soient déposés en retard, sans reçu conforme pour Revenu Québec",
+          "Le risque que le trésorier paie les arbitres avant que la feuille de match ait été signée par le directeur technique"
         ],
         [
           "Que désigne l’expression « pièce justificative » dans ce texte de réglementation ?",
           "Un document officiel ou une facture attestant la réalité et la conformité d’une dépense engagée",
-          "Une lettre de recommandation signée par un entraîneur attestant les compétences d’un bénévole",
-          "Une lettre d’excuses signée par un joueur ayant reçu un carton rouge durant une rencontre"
+          "Un état qui présente seulement les revenus du club, sans rapprochement avec les dépenses engagées",
+          "Une note interne rédigée librement par le trésorier, dont la valeur comptable dépend du seul jugement du conseil"
         ]
       ],
       "frame": "directives administratives — reddition de comptes d’une association sportive"
@@ -1119,19 +1119,19 @@ export const N09_10_SCENARIOS = {
           "Comment la progression du protocole clinique est-elle planifiée dans les consignes ?",
           "La préparation du patient et du produit précède une injection progressive sous observation soutenue",
           "L’injection complète est lancée d’emblée à plein débit dès la sortie du réfrigérateur",
-          "Une série d’arguments publicitaires vantant l’efficacité miraculeuse de la molécule est exposée"
+          "Le débit cible est fixé d’emblée, puis le produit est sorti du réfrigérateur avant la prémédication"
         ],
         [
           "Pourquoi le protocole impose-t-il une observation prolongée de deux heures après l’arrêt ?",
           "Des réactions indésirables d’hypersensibilité retardée peuvent survenir après la fin de la perfusion",
-          "Les infirmières doivent obligatoirement terminer de remplir leurs dossiers médicaux avant de libérer le lit de soins",
-          "Le médicament ne commence à agir dans le sang qu’après cent vingt minutes d’attente passive"
+          "L’observation prolongée sert surtout à contrôler la température ambiante du flacon après sa sortie du frigo",
+          "Le produit conserve son effet pendant deux heures, si bien que le débit n’a plus à être surveillé"
         ],
         [
           "Dans ce contexte hospitalier, que signifie le terme « prémédication » ?",
           "Un traitement préventif administré avant une thérapie lourde pour en atténuer les effets secondaires",
-          "Une consultation psychologique préalable pour convaincre un malade récalcitrant d’accepter de se faire soigner",
-          "Une décharge de responsabilité légale que le patient doit signer avant d’entrer dans la clinique"
+          "Une dose de charge administrée après la perfusion pour accélérer l’élimination du produit de l’organisme",
+          "Une substitution du traitement habituel par un produit moins coûteux durant toute la durée de la perfusion"
         ]
       ],
       "frame": "protocole médical — perfusion intraveineuse continue d’anticorps monoclonaux"
@@ -1146,25 +1146,25 @@ export const N09_10_SCENARIOS = {
           "Quelle thèse principale le sociologue soutient-il avec vigueur dans sa tribune ?",
           "La préservation du système public de santé comme rempart indispensable contre l’iniquité sociale",
           "L’accélération de la privatisation de tous les hôpitaux pour régler définitivement les listes d’attente",
-          "La fermeture des facultés universitaires de médecine qui coûtent trop cher aux contribuables québécois"
+          "La promotion d’une privatisation partielle des soins, jugée nécessaire pour financer les universités publiques"
         ],
         [
           "Comment l’argumentation sociologique est-elle construite pour convaincre le lectorat ?",
           "Une promesse fallacieuse du privé est démontée en exposant le siphonage des ressources publiques",
-          "Une série d’attaques personnelles diffamatoires est dirigée contre les directeurs d’hôpitaux généraux",
-          "Un éloge nostalgique des institutions médicales religieuses d’avant les années 1960 est prononcé"
+          "L’universalité du régime public est défendue dès l’ouverture, puis la promesse fallacieuse du privé est démontée",
+          "Une médecine à deux vitesses est d’abord célébrée comme un progrès, puis démontée par la défense de l’universalité"
         ],
         [
           "Que sous-entend la métaphore de la « pompe aspirante » utilisée par l’auteur ?",
           "Le secteur privé s’approprie les soignants formés par l’État au détriment des hôpitaux publics",
           "Le secteur public engage des chirurgiens venus du privé afin de financer les hôpitaux régionaux",
-          "Les universités publiques refusent de former des infirmières pour répondre aux besoins du privé"
+          "Le secteur public confie ses cas complexes au privé, qui dispose de moyens supérieurs pour les traiter"
         ],
         [
           "Dans ce texte engagé, que connote l’expression « médecine à deux vitesses » ?",
           "Un système injuste offrant des soins rapides aux riches et abandonnant les pauvres à l’attente",
-          "Un réseau ambulancier moderne équipé de véhicules d’urgence particulièrement rapides et efficaces",
-          "Une méthode clinique novatrice permettant de doubler la vitesse des interventions chirurgicales"
+          "Un système neutre où les délais d’attente sont identiques pour chacun, sans lien avec le revenu",
+          "Un système où les pauvres bénéficient d’un accès prioritaire aux cliniques privées à but lucratif"
         ]
       ],
       "frame": "revue syndicale — défense et préservation du réseau public de santé"
@@ -1183,19 +1183,19 @@ export const N09_10_SCENARIOS = {
           "Quelle démarche argumentative l’auteur privilégie-t-il pour réfuter les objections ?",
           "Il confronte les responsabilités réelles des jeunes de seize ans aux préjugés paternalistes de leurs détracteurs",
           "Il propose des statistiques électorales anciennes sans répondre directement aux objections soulevées",
-          "Il exige la dissolution immédiate de l’Assemblée nationale du Québec sans attendre les prochaines élections"
+          "Il rejette les objections en qualifiant les adversaires de paternalistes, sans examiner les juridictions étrangères"
         ],
         [
           "Que déduit-on implicitement de la référence à l’expérience démocratique en Autriche ?",
           "Accorder le droit de vote aux jeunes adolescents ne présente aucun danger d’instabilité politique pour l’État",
           "Abaisser l’âge électoral entraîne un recul durable de la participation citoyenne en Autriche",
-          "L’Autriche envisage de rétablir la majorité électorale à vingt-et-un ans lors de son prochain scrutin"
+          "Le vote à seize ans a déstabilisé les institutions autrichiennes, ce qui justifie sa suspension"
         ],
         [
           "Dans ce débat civique, que désigne l’expression « justice intergénérationnelle » ?",
           "L’obligation morale et politique d’intégrer équitablement les intérêts des générations montantes dans les lois",
-          "L’institution de tribunaux d’arbitrage familiaux spéciaux pour régler les conflits entre parents et adolescents",
-          "Une loi obligeant les personnes retraitées à partager équitablement leurs pensions avec leurs petits-enfants"
+          "Un partage du pouvoir de vote entre les âges, où les aînés décident à la place des jeunes adultes",
+          "La priorité donnée aux jeunes de seize ans dans les emplois d’été au détriment des adultes"
         ]
       ],
       "frame": "tribune d’opinion — arguments favorables à l’abaissement du droit de vote"
@@ -1207,26 +1207,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle dénonciation principale l’auteur de cet essai formule-t-il au sujet des agences privées ?",
           "L’effet pervers des agences privées qui coûtent une fortune et déstabilisent les équipes régulières",
-          "La dégradation progressive de la formation continue offerte au personnel infirmier des régions québécoises",
-          "L’incapacité des universités québécoises à former un nombre suffisant de médecins spécialistes"
+          "Le recours massif aux primes offertes aux infirmières régulières pour compenser la pénurie d’effectifs",
+          "Une solution efficace qui a stabilisé les équipes régulières tout en réduisant la facture publique"
         ],
         [
           "Comment l’essai démontre-t-il l’inefficacité structurelle du modèle des agences de placement ?",
           "Il montre que les agences siphonnent l’argent public et créent des disparités sans créer de nouveaux soignants",
           "Il affirme que le recours aux agences a permis de combler durablement la pénurie de personnel infirmier",
-          "Il réclame le gel immédiat de toutes les embauches de cadres administratifs dans le réseau public"
+          "Il montre que les agences ont ajouté de nouveaux soignants à l’effectif, sans gonfler les coûts publics"
         ],
         [
           "Quel sous-entendu émane de la mention du refus des quarts de nuit par les soignants d’agence ?",
           "La flexibilité offerte aux uns fait peser une charge de travail insoutenable sur les épaules des autres",
-          "Les hôpitaux régionaux manquent cruellement de matériel de réanimation moderne durant les gardes",
-          "Les soignants du réseau public désertent volontairement les unités de soins intensifs pédiatriques"
+          "Les soignants d’agence acceptent l’ensemble des quarts de nuit, ce qui allège le travail des régulières",
+          "Les infirmières régulières réclament volontairement les quarts de nuit pour toucher des primes plus élevées"
         ],
         [
           "Dans ce contexte d’économie de la santé, que signifie le mot « expédient » ?",
           "Une solution de dépannage provisoire et imparfaite adoptée pour faire face à une difficulté urgente",
-          "Une démarche administrative formelle requise pour homologuer un nouvel équipement hospitalier de pointe",
-          "Un mode d’attribution des contrats publics par appel d’offres concurrentiel international"
+          "Un moyen de fidélisation durable conçu pour retenir les soignants dans les régions éloignées",
+          "Une manœuvre comptable habile permettant d’afficher des dépenses réduites sans changer le budget réel"
         ]
       ],
       "frame": "essai sociologique — critique du recours aux agences privées de soins"
@@ -1238,26 +1238,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel argument central est déployé dans cette tribune pour soutenir le vote à seize ans ?",
           "La légitimité des jeunes à peser sur les décisions écologiques dont ils subiront l’impact toute leur vie",
-          "La volonté de limiter le droit de vote des cohortes âgées dont les horizons temporels sont courts",
-          "La nécessité de confier aux seuls partis écologistes la définition des programmes électoraux"
+          "La nécessité de maintenir le vote à dix-huit ans pour préserver l’expérience civique de l’électorat",
+          "La nécessité d’abaisser le droit de vote à quinze ans pour accélérer la transition écologique"
         ],
         [
           "De quelle manière l’auteur appuie-t-il son raisonnement sur la réalité sociale québécoise ?",
           "L’engagement environnemental concret des adolescents est mis en contraste avec leur exclusion politique",
-          "Une critique virulente des programmes d’éducation civique enseignés dans les écoles secondaires québécoises",
+          "Le recours aux grèves pour le climat est présenté comme une menace pour la démocratie représentative",
           "Le faible taux de participation des jeunes aux grèves pour le climat est mis en avant"
         ],
         [
           "Que déduit-on implicitement de la remarque sur l’horizon temporel des aînés ?",
           "Les générations plus âgées sont moins directement menacées par les effets à long terme du réchauffement",
-          "Les électeurs plus âgés votent systématiquement contre toute taxe carbone ou mesure de transition",
-          "Les citoyens aînés manifestent une indifférence complète envers la dégradation des forêts boréales"
+          "Les générations plus âgées subiront les conséquences climatiques pendant plus de six décennies",
+          "Les électeurs aînés ont une vision à long terme qui les rend plus prudents que les jeunes"
         ],
         [
           "Dans ce passage d’actualité politique, que désigne le mot « cohorte » ?",
           "Un groupe d’individus partageant une même tranche d’âge ou une expérience historique commune",
-          "Une subdivision électorale regroupant plusieurs circonscriptions pour un scrutin uninominal",
-          "Un organisme de surveillance chargé de contrôler la conformité des dépenses de campagne électorale"
+          "Un bloc d’électeurs qui vote de façon coordonnée pour défendre les intérêts d’un parti politique",
+          "Un regroupement de partis politiques alliés qui présentent des candidats communs lors d’un scrutin"
         ]
       ],
       "frame": "tribune démocratique — participation politique et vote des jeunes de 16 ans"
@@ -1272,14 +1272,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’objet central de cet échange entre les deux spécialistes ?",
           "L’évaluation des progrès et des blocages techniques d’une cellule robotisée",
-          "La négociation financière pour l’achat de nouveaux bras mécaniques d’assemblage",
-          "Le remplacement complet des ouvriers de la ligne par un système de convoyage"
+          "La justification d’un retour aux trajectoires préprogrammées face aux tolérances des pièces",
+          "Le bilan d’une hausse des rebuts au soudage par points malgré la vision adaptative"
         ],
         [
           "De quelle manière l’ingénieur structure-t-il son explication technique ?",
           "Il oppose les bénéfices de la vision adaptative aux instabilités du réseau de commande",
-          "Il énumère les pannes mécaniques avant de rejeter la responsabilité sur les sous-traitants",
-          "Il détaille le coût unitaire des composants optiques avant de comparer plusieurs fournisseurs"
+          "Il admet les instabilités du réseau avant de contester les gains de la vision adaptative",
+          "Il vante la vision stéréoscopique avant de réclamer le retour aux trajectoires rigides"
         ],
         [
           "Que laisse entendre le spécialiste au sujet de la montée en cadence de vendredi ?",
@@ -1303,26 +1303,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le sujet principal de cet exposé présenté au congrès d’ingénierie civile ?",
           "Les choix architecturaux et aérodynamiques appliqués à un pont en milieu nordique",
-          "L’estimation budgétaire globale pour le dragage approfondi d’un chenal de navigation",
-          "La controverse politique entourant le choix du tracé autoroutier à travers le détroit"
+          "Le renoncement à un tablier continu au profit de piles multiples en eau profonde",
+          "Les contraintes du chenal imposant un tablier flottant, sans câbles ancrés dans le roc"
         ],
         [
           "Comment la présentation technique progresse-t-elle au fil du discours ?",
           "Des contraintes de l’environnement découle la description des solutions d’amortissement",
-          "L’orateur compare le coût des matériaux avant de critiquer les méthodes des compétiteurs",
-          "Un historique des ponts effondrés précède l’inventaire des amendes imposées par l’État"
+          "De la description des solutions d’amortissement découle l’évocation des contraintes de l’environnement",
+          "Une présentation des mesures de tension précède l’évocation des rafales de vent"
         ],
         [
           "Que sous-entend l’exclusion d’emblée de piles intermédiaires multiples ?",
           "L’impact récurrent de la dérive des glaces aurait menacé des appuis immergés",
-          "Les autorités maritimes interdisaient toute présence d’ingénieurs sur l’eau",
-          "Le consortium manquait des compétences requises pour couler du béton armé"
+          "Les débâcles glacières étaient jugées trop faibles pour fragiliser les piles en eau profonde",
+          "Le consortium avait retenu des piles multiples, le roc sous-marin étant jugé trop friable"
         ],
         [
           "Dans cet exposé, que désigne précisément un « amortisseur à masse accordée » ?",
           "Un mécanisme interne absorbant les vibrations causées par les rafales",
-          "Un bloc de béton massif servant d’ancrage externe pour les navires",
-          "Un capteur électronique mesurant la température de l’eau du détroit"
+          "Un pylône monolithique en béton fibré ancré dans le roc sous-marin",
+          "Un capteur à fibre optique transmettant la tension des câbles au poste central"
         ]
       ]
     },
@@ -1334,26 +1334,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le thème dominant abordé par l’ingénieur dans cet échange d’atelier ?",
           "Le bilan opérationnel et les limites climatiques de robots collaboratifs",
-          "Le licenciement économique des ouvriers assignés à l’emballage des produits",
+          "L’abandon du procédé de palettisation après les dérives de calibrage sur la zone sud",
           "Le projet de fermeture définitive de l’ensemble de la zone sud de transformation"
         ],
         [
           "Comment l’exposé du collègue s’articule-t-il dans cet extrait ?",
           "Les bénéfices ergonomiques et sécuritaires sont nuancés par des aléas d’étanchéité",
-          "Une démonstration mathématique abstraite est suivie d’une plainte envers la direction",
-          "L’éloge d’un fabricant étranger est immédiatement contredit par un bilan financier négatif"
+          "Les aléas d’étanchéité sont exposés avant que les bénéfices ergonomiques ne soient reconnus",
+          "L’éloge d’un calibrage parfait du préhenseur précède la mention des nettoyages alcalins"
         ],
         [
           "Quel constat implicite ressort de l’analyse du préhenseur à ventouses ?",
           "Les conditions rigoureuses de salubrité n’avaient pas été pleinement anticipées",
-          "Le personnel refuse délibérément de coopérer avec les nouveaux bras motorisés",
+          "Les boîtiers électroniques d’origine résistaient parfaitement à l’humidité et aux nettoyages",
           "Les nettoyages quotidiens ont été supprimés depuis l’installation des nouveaux cobots"
         ],
         [
           "Que connote l’expression « dissipe instantanément son inertie » dans cet échange ?",
           "Une annulation immédiate de l’énergie cinétique pour éviter toute lésion corporelle",
-          "Un arrêt complet de l’alimentation électrique générale de l’usine agroalimentaire",
-          "Une défaillance mécanique spontanée provoquée par une surchauffe des engrenages"
+          "Une temporisation volontaire du cycle pour laisser sécher les barquettes thermoformées",
+          "Une réaction de sécurité retardée qui laisse le cobot poursuivre son mouvement après un contact"
         ]
       ]
     },
@@ -1365,26 +1365,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle est l’intention dominante de cette communication d’ingénierie civile ?",
           "Partager les solutions techniques mises en œuvre pour bâtir un viaduc boréal",
-          "Critiquer la lenteur administrative de l’octroi des permis environnementaux",
-          "Présenter le coût financier détaillé de l’exploitation des rames ferroviaires"
+          "Défendre l’abandon de l’arche métallique au profit de piles multiples en rivière",
+          "Démontrer que la débâcle printanière ne représentait qu’une menace mineure pour les appuis"
         ],
         [
           "Comment progresse l’argumentation technique de l’ingénieur dans sa conférence ?",
           "Des contraintes de gel et de charge découle l’exposé des choix de matériaux et de pose",
-          "Une querelle entre bureaux d’études rivaux débouche sur une remise en question globale",
-          "Le calendrier des travaux est opposé aux retards répétés des transporteurs de matériaux"
+          "Des choix de matériaux et de pose découle l’exposé des contraintes de gel et de charge",
+          "L’exposé des suspentes précède la description du lançage du tablier préfabriqué"
         ],
         [
           "Que laisse entendre le choix d’une arche unique de grande portée ?",
           "Implanter des piliers dans le lit fluvial aurait exposé l’ouvrage aux débâcles",
           "Installer des appuis flottants en acier fragile sur le lit de la rivière dès la débâcle",
-          "Retirer les appuis en béton aurait allongé la portée libre au-delà de trois cents mètres"
+          "Multiplier les appuis en rivière aurait permis d’éviter l’érosion par abrasion glaciaire"
         ],
         [
           "Que signifie précisément l’expression « compenser la flèche instantanée » ?",
           "Corriger l’affaissement temporaire de la poutre lors de l’installation des câbles",
-          "Augmenter la vitesse maximale autorisée pour le passage des convois de fret lourd",
-          "Éviter les erreurs d’alignement horizontal dues à la réfraction de l’air chaud"
+          "Compenser le renforcement durable de l’arche dû aux écarts de température saisonniers",
+          "Réduire la portée libre de l’arche en ajoutant des suspentes de soutien intermédiaires"
         ]
       ]
     }
@@ -1398,14 +1398,14 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le sujet central de cet épisode de série documentaire ?",
           "La portée politique et sociale de la nationalisation de l’électricité en 1962",
-          "La négociation discrète de l’emprunt obligataire sur les marchés de New York",
-          "La faillite bancaire provoquée par la gestion désordonnée des emprunts publics"
+          "Le recul politique des réformes énergétiques face aux cartels privés en 1962",
+          "Le partage du contrôle de la distribution électrique avec les cartels privés en 1962"
         ],
         [
           "Comment la narration documentaire s’organise-t-elle dans cet extrait ?",
           "Elle relie les manœuvres politiques initiales aux répercussions sociales durables",
-          "Elle oppose la biographie de deux ministres sans jamais aborder le contexte économique",
-          "Elle dresse un bilan comptable sévère avant de contester la pertinence du slogan électoral"
+          "Elle expose les répercussions sociales avant de retracer les manœuvres politiques initiales",
+          "Elle s’arrête aux manœuvres politiques initiales sans évoquer les répercussions sociales"
         ],
         [
           "Que laisse entendre le narrateur sur la place des francophones avant cette réforme ?",
@@ -1416,8 +1416,8 @@ export const N09_10_SCENARIOS = {
         [
           "Que connote l’expression « brisant les plafonds de verre corporatifs » dans ce récit ?",
           "L’accès inédit à des fonctions directoriales autrefois inaccessibles",
-          "La destruction physique des bâtiments des anciennes compagnies privées",
-          "La diminution soudaine des salaires versés aux cadres supérieurs de l’État"
+          "Le maintien des barrières corporatives malgré la nationalisation",
+          "Le renforcement des barrières reléguant les francophones aux postes subalternes"
         ]
       ]
     },
@@ -1430,25 +1430,25 @@ export const N09_10_SCENARIOS = {
           "Quel est l’axe dramatique principal de ce chapitre de docufiction sonore ?",
           "La mise au jour d’une vaste fraude financière au moment de son effondrement inéluctable",
           "Le sauvetage in extremis d’un gestionnaire de portefeuille menacé par des créanciers",
-          "L’ascension fulgurante d’un jeune informaticien ayant inventé un logiciel d’arbitrage"
+          "La réussite d’un algorithme d’arbitrage quantitatif salué par l’Autorité des marchés financiers"
         ],
         [
           "De quelle manière l’intrigue progresse-t-elle au fil de la narration ?",
           "La scène d’angoisse matinale ouvre sur l’explication du piège pyramidal puis sur le dénouement",
-          "Un interrogatoire de police serré alterne avec des témoignages d’épargnants en larmes",
-          "Une analyse théorique des devises débouche sur le plaidoyer d’un avocat de la défense"
+          "Le dénouement judiciaire ouvre le récit avant la scène d’angoisse matinale de Vigneault",
+          "Le piège pyramidal est expliqué avant la scène d’angoisse matinale, puis le dénouement"
         ],
         [
           "Quel facteur a précipité l’écroulement de la supercherie montée par Vigneault ?",
           "Une vague soudaine de demandes de retraits impossibles à honorer",
-          "Le piratage informatique des serveurs hébergeant ses algorithmes",
-          "La dénonciation anonyme transmise par un informaticien dissident"
+          "La visite surprise des auditeurs de l’Autorité des marchés financiers",
+          "L’arrivée des enquêteurs de l’escouade des crimes financiers au rez-de-chaussée"
         ],
         [
           "Dans cet extrait, que connote l’expression « cavalerie financière classique » ?",
           "Un stratagème pyramidal dissimulant des pertes par de faux rendements",
-          "Une stratégie boursière agressive misant sur des matières premières",
-          "Un prêt bancaire garanti par des actifs immobiliers internationaux"
+          "Un montage d’arbitrage réel, fondé sur des placements en devises étrangères",
+          "Un dispositif de gestion à rendements réels garantis par les régulateurs"
         ]
       ]
     },
@@ -1461,25 +1461,25 @@ export const N09_10_SCENARIOS = {
           "Quelle est la thèse centrale développée dans ce volet documentaire ?",
           "La réforme scolaire des années soixante a constitué un levier majeur d’émancipation collective",
           "L’archevêché a repris le contrôle de l’instruction publique dès la création du ministère",
-          "Le clergé québécois a financé la création des premiers cégeps pour préserver son influence rurale"
+          "La gratuité des collèges a surtout profité aux familles bourgeoises déjà privilégiées"
         ],
         [
           "Comment l’analyse historique est-elle articulée dans ce documentaire sonore ?",
           "Le constat des inégalités d’accès initiales précède la description des réformes et de leur impact social",
-          "Une querelle entre partis politiques rivaux est détaillée avant d’énumérer les budgets annuels des collèges",
-          "La biographie du président de la commission est suivie d’un réquisitoire contre l’alphabétisation populaire"
+          "La description des réformes et de leur impact social devance le constat des inégalités d’accès",
+          "Le constat des inégalités d’accès est aussitôt réfuté par la description des réformes"
         ],
         [
           "Que suggère l’extrait à propos de la résistance de l’épiscopat face à la réforme ?",
           "L’Église craignait de perdre son emprise séculaire sur la formation intellectuelle de la jeunesse",
-          "Les évêques souhaitaient consacrer l’ensemble de leurs ressources à la construction d’hôpitaux publics",
-          "Les autorités religieuses exigeaient une hausse immédiate des frais d’inscription dans tous les collèges"
+          "Les évêques acceptaient volontiers que l’État prenne seul en charge l’instruction publique",
+          "Les autorités religieuses réclamaient la gratuité immédiate des collèges pour élargir l’accès"
         ],
         [
           "Dans ce contexte historique, que connote le terme « séisme institutionnel » ?",
           "Un bouleversement structurel profond rompant avec l’ordre traditionnel établi",
-          "Une catastrophe naturelle majeure ayant détruit plusieurs collèges classiques",
-          "Une révolte violente des étudiants contre le personnel enseignant des cégeps"
+          "Une simple retouche administrative sans effet sur l’ordre traditionnel établi",
+          "Un simple transfert de pouvoir du clergé vers les institutions privées élitistes"
         ]
       ]
     },
@@ -1492,25 +1492,25 @@ export const N09_10_SCENARIOS = {
           "Quel est le sujet conducteur de ce dernier épisode de docufiction ?",
           "La falsification délibérée de données géologiques au cœur d’une gigantesque escroquerie boursière",
           "La découverte scientifique d’un filon aurifère inestimable dans les profondeurs du Grand Nord québécois",
-          "La bataille juridique entre deux compagnies minières pour obtenir le contrôle exclusif d’une concession"
+          "La découverte légitime d’un gisement, confirmée par les analyses métallurgiques de la commission"
         ],
         [
           "Comment la narration du scandale s’organise-t-elle dans ce récit audio ?",
           "La mise en scène de la manipulation technique précède la frénésie boursière et la débâcle finale",
-          "Un procès au tribunal de commerce alterne avec les cours des matières premières à la bourse de Londres",
-          "L’éloge des compétences des géologues débouche sur la célébration d’une réussite entrepreneuriale locale"
+          "La débâcle boursière ouvre le récit avant le rappel des manipulations de terrain",
+          "La manipulation technique est décrite comme un accident isolé avant la frénésie boursière"
         ],
         [
           "Que révèle la vente précipitée d’actions par les hauts dirigeants de l’entreprise ?",
           "Ils savaient pertinemment que la valeur boursière de leur entreprise reposait sur un mensonge",
-          "Ils espéraient réinvestir leurs gains personnels dans l’achat de matériel d’extraction plus moderne",
-          "Ils voulaient céder gratuitement leurs participations aux ouvriers travaillant sur le campement minier"
+          "Ils ignoraient les résultats des forages, qu’ils croyaient favorables au gisement",
+          "Ils comptaient racheter discrètement les actions des petits porteurs pour soutenir le cours"
         ],
         [
           "Que connote l’expression « forages jumelés contradictoires » dans ce contexte d’enquête ?",
           "Une contre-expertise rigoureuse menée de manière indépendante pour démasquer une fraude",
-          "Une technique d’excavation accélérée employée pour doubler la cadence d’extraction de minerai",
-          "Une méthode de forage en eaux profondes testée pour la première fois en climat subarctique"
+          "Une analyse précipitée des carottes, menée par la direction pour rassurer les investisseurs",
+          "Un échantillonnage aléatoire des carottes, sans rapport avec la teneur réelle du terrain"
         ]
       ]
     }
@@ -1524,26 +1524,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’objet fondamental de cette communication scientifique ?",
           "L’explication des causes environnementales et sociales d’un exode côtier",
-          "La présentation d’un plan d’assainissement des eaux usées en milieu urbain",
-          "L’analyse des rendements touristiques estivaux des localités de l’estuaire"
+          "L’explication des bienfaits de l’érosion côtière pour les communautés riveraines",
+          "L’analyse de l’érosion côtière comme phénomène sans lien avec les déplacements"
         ],
         [
           "Comment la dynamique migratoire est-elle expliquée par le chercheur ?",
           "La dégradation physique du rivage déclenche un engrenage économique et social inéluctable",
-          "Une crise politique locale est suivie d’une vague d’émigration vers d’autres provinces",
-          "Les hausses d’impôts fonciers poussent les propriétaires à vendre à des promoteurs hôteliers"
+          "L’abandon progressif des services publics engendre la dégradation physique du rivage",
+          "Les ménages les plus aisés quittent d’abord les zones de haute altitude par goût du confort"
         ],
         [
           "Quel facteur précipite le départ des ménages les plus démunis ?",
           "L’impossibilité financière de continuer à assurer leurs résidences menacées",
-          "La hausse soudaine des loyers imposée par les propriétaires des quartiers intérieurs",
-          "L’obligation légale imposée par les tribunaux d’évacuer immédiatement les lieux"
+          "Le refus des assureurs de couvrir les résidences situées en quartiers intérieurs",
+          "Le versement d’une aide publique couvrant intégralement la valeur des résidences endommagées"
         ],
         [
           "Que connote l’expression « éviction territoriale systémique » dans ce contexte ?",
           "Un départ forcé résultant d’une dégradation conjointe du milieu naturel et des infrastructures",
-          "Une expulsion de locataires ordonnée par des propriétaires de complexes immobiliers privés",
-          "Un transfert planifié de populations orchestré unilatéralement par les forces de sécurité publique"
+          "Un départ volontaire motivé par la recherche de meilleurs services publics à proximité",
+          "Un déplacement anticipé négocié avec des municipalités d’accueil disposant de logements suffisants"
         ]
       ]
     },
@@ -1556,13 +1556,13 @@ export const N09_10_SCENARIOS = {
           "Quelle est l’idée directrice exposée par le vulgarisateur scientifique ?",
           "Des lois mathématiques déterministes peuvent engendrer des comportements intrinsèquement imprévisibles",
           "La connaissance exacte des conditions initiales autorise une prévision certaine à long terme",
-          "Les équations de Lorenz ont été abandonnées faute d’expérimentations convaincantes en laboratoire"
+          "Les équations de Lorenz montrent que l’écart initial entre deux trajectoires finit par s’annuler"
         ],
         [
           "Comment la réflexion mathématique progresse-t-elle dans cette chronique ?",
           "La remise en cause du dogme prédictif ancien ouvre sur la modélisation géométrique du chaos",
-          "Une biographie d’Edward Lorenz est suivie d’une critique des instruments de mesure météorologique",
-          "L’inventaire des erreurs de prévision de la semaine sert d’introduction à une querelle universitaire"
+          "La description de l’attracteur étrange précède la référence au déterminisme laplacien classique",
+          "Les travaux de Lorenz sont présentés comme une confirmation finale du déterminisme laplacien"
         ],
         [
           "Que garantit l’existence d’un attracteur étrange au sein du système dynamique ?",
@@ -1573,8 +1573,8 @@ export const N09_10_SCENARIOS = {
         [
           "Dans ce contexte, que connote le terme « temps de Liapounov » ?",
           "La limite temporelle au-delà de laquelle toute prédiction calculée perd toute fiabilité",
-          "La durée exacte requise par un supercalculateur pour intégrer les équations de convection",
-          "L’intervalle régulier séparant deux observations météorologiques successives sur le terrain"
+          "La mesure de l’écart initial entre deux trajectoires, qui reste négligeable à long terme",
+          "L’ordre de grandeur de la divergence initiale qui se stabilise dans l’espace des phases"
         ]
       ]
     },
@@ -1586,26 +1586,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle est la thèse principale défendue par la chercheuse lors de ce colloque ?",
           "L’exode des diplômés répond à des synergies métropolitaines plutôt qu’au seul attrait salarial",
-          "Les régions périphériques attirent spontanément les cadres supérieurs grâce à des impôts plus faibles",
-          "La fermeture des universités régionales est la cause unique de la fuite des jeunes professionnels"
+          "Les écarts de rémunération nominale suffisent à expliquer les déplacements des jeunes diplômés",
+          "La dépendance envers l’extraction de ressources provoque le départ des professionnels qualifiés"
         ],
         [
           "De quelle façon l’analyse socio-économique est-elle articulée dans cet extrait ?",
           "L’explication du pouvoir d’attraction métropolitain précède l’analyse des impacts locaux et du reflux",
-          "Une attaque contre la bureaucratie gouvernementale est suivie d’un appel à fermer les frontières régionales",
-          "Un réquisitoire contre les diplômés ingrats débouche sur une demande de remboursement des bourses publiques"
+          "L’analyse du reflux régional précède l’explication du pouvoir d’attraction des métropoles",
+          "Les contre-mouvements migratoires sont évoqués avant l’explication du pouvoir d’attraction métropolitain"
         ],
         [
           "Quel cercle vicieux découle de la perte continue de diplômés en région ?",
           "Le tissu industriel local s’enferme dans des activités de rente faute d’expertise pour innover",
           "Les municipalités régionales attirent des entreprises de haute technologie grâce aux diplômés",
-          "Les municipalités rurales sont contraintes de fusionner de force avec les centres urbains limitrophes"
+          "Les entreprises locales diversifient leur tissu industriel grâce à l’arrivée massive de diplômés"
         ],
         [
           "Que désigne précisément l’expression « effets d’agglomération » dans cette communication ?",
           "Les gains mutuels de productivité et d’apprentissage générés par la concentration spatiale d’experts",
-          "La densification anarchique des banlieues pavillonnaires autour des grandes artères de circulation",
-          "Le regroupement forcé de petites entreprises manufacturières sous l’égide d’un monopole d’État"
+          "Les coûts de congestion générés par la dispersion spatiale d’experts dans les régions",
+          "Les pertes de productivité engendrées par la mobilité des experts entre régions voisines"
         ]
       ]
     },
@@ -1617,26 +1617,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel principe mathématique fondamental cette émission télévisuelle vulgarise-t-elle ?",
           "L’asymétrie algorithmique entre la multiplication d’entiers premiers et leur factorisation",
-          "L’utilisation de séries statistiques aléatoires pour brouiller les transmissions hertziennes militaires",
-          "L’intégration continue de fonctions trigonométriques pour crypter des signaux acoustiques sous-marins"
+          "La rapidité de la factorisation de nombres premiers par les supercalculateurs les plus puissants",
+          "La clé publique transmise par le destinataire contient les deux facteurs premiers secrets"
         ],
         [
           "Comment le vulgarisateur structure-t-il son explication didactique ?",
           "Il rappelle la vulnérabilité historique de la clé unique avant d’exposer le ressort du chiffrement moderne",
           "Il évoque d’abord les supercalculateurs avant de réfuter la notion même de clé unique",
-          "Il énumère les fraudes informatiques récentes avant de mettre en doute la fiabilité des mathématiques pures"
+          "Il expose d’abord le ressort du chiffrement moderne avant d’évoquer le secret partagé"
         ],
         [
           "Pourquoi est-il sans danger de rendre publique la clé issue du calcul initial ?",
           "La décomposition en facteurs premiers exigerait un temps de calcul inaccessible aux machines actuelles",
-          "Le protocole efface immédiatement les données sensibles dès qu’un intrus cherche à en percer le secret",
+          "Le message reste lisible par chacun puisque le produit public suffit à le déchiffrer",
           "La clé publique révèle immédiatement le second facteur premier à tout ordinateur ordinaire"
         ],
         [
           "Dans ce contexte, que qualifie-t-on de « fonction à sens unique avec brèche secrète » ?",
           "Une opération mathématique aisée à réaliser dans un sens mais impossible à inverser sans information privilégiée",
-          "Un virus informatique conçu pour pénétrer discrètement dans les serveurs informatiques des gouvernements",
-          "Une passerelle réseau privée conçue pour sécuriser les transferts de devises entre banques centrales mondiales"
+          "Une opération mathématique rapide à réaliser dans les deux sens grâce aux grands nombres premiers",
+          "Une fonction mathématique dont l’inverse est aisé à calculer dès que la clé est publique"
         ]
       ]
     }
@@ -1656,20 +1656,20 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle directive spécifique s’applique si l’alarme signale une fuite toxique plutôt qu’un feu ?",
           "Se calfeutrer sans délai dans les abris pressurisés plutôt que de tenter une sortie à l’extérieur",
-          "Regagner immédiatement son véhicule personnel garé sur les voies d’accès carrossables de l’usine",
+          "Évacuer le personnel vers la plateforme maritime nord dès l’alarme, sans attendre le capitaine de port",
           "Sortir immédiatement à l’air libre par les coursives sud en direction du parc de stationnement"
         ],
         [
           "À qui revient la responsabilité exclusive de valider officiellement le plan de cheminement conçu ?",
           "À la responsable exécutive veillant sur la salubrité environnementale",
           "Au technicien en prévention des sinistres chargé de l’interphonie d’urgence",
-          "Au coordonnateur logistique responsable de l’impression des cartes pour les ateliers"
+          "Au coordonnateur logistique chargé de valider le plan d’évacuation après l’audit"
         ],
         [
           "À quelle condition expresse le repli d’urgence vers la plateforme maritime nord est-il autorisé ?",
           "Si les voies terrestres sont coupées et que le capitaine de port a donné son aval verbal",
-          "Dès que la sonnerie d’incendie retentit pendant plus de deux minutes consécutives dans l’aile sud",
-          "Lorsque le service municipal des incendies refuse de se déplacer sur le site industriel sinistré"
+          "Si un incendie thermique est confirmé par le poste central dans le secteur sud",
+          "Si le service municipal de protection contre les incendies a validé les scénarios de simulation"
         ]
       ]
     },
@@ -1681,26 +1681,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle démarche Marc doit-il obligatoirement accomplir avant toute discussion sur les risques ?",
           "Réclamer le rapport de vérification financière certifié portant sur les sous-traitants techniques",
-          "Faire approuver le barème tarifaire de l’hôpital par le sous-ministre adjoint aux finances publiques",
+          "Ouvrir la matrice de partage des risques avant d’exiger l’audit financier des sous-traitants",
           "Signer immédiatement le protocole d’entente préliminaire avec les mandataires du consortium privé"
         ],
         [
           "Que doit faire Marc si le taux d’endettement du partenaire privé dépasse soixante pour cent ?",
           "Exiger une garantie bancaire irrévocable sur les travaux ou suspendre sur-le-champ les pourparlers",
-          "Prendre en charge la moitié des emprunts du promoteur par le biais d’une subvention gouvernementale",
-          "Résoudre unilatéralement le partenariat et transférer le projet à une régie publique hospitalière"
+          "Accorder un délai de trois mois pour fournir la garantie bancaire irrévocable",
+          "Poursuivre les pourparlers en signant sur-le-champ le protocole d’entente préliminaire avec le consortium"
         ],
         [
           "Qui détient l’autorité requise pour approuver l’échéancier des redevances annuelles de l’entente ?",
           "Le sous-ministre adjoint aux finances du gouvernement provincial",
           "Le juriste principal chargé de rédiger les clauses de pénalités contractuelles",
-          "Marc lui-même en sa qualité de gestionnaire de projet désigné par la direction"
+          "Le vérificateur général chargé d’approuver l’échéancier des redevances"
         ],
         [
           "À quelle double condition Marc peut-il autoriser par écrit un ajustement des équipements biomédicaux ?",
           "Si la dépense additionnelle reste sous deux cent mille dollars et n’engendre aucun retard d’échéancier",
-          "Si le consortium privé assume seul le paiement de l’ensemble des frais notariés de la transaction",
-          "Si le ministre de la Santé signe un décret d’urgence sanitaire autorisant la dérogation financière"
+          "Si la dépense additionnelle atteint un million de dollars, même avec un délai supplémentaire accordé au partenaire",
+          "Si la dépense additionnelle reste sous deux cent mille dollars, même avec un délai supplémentaire"
         ]
       ]
     },
@@ -1712,13 +1712,13 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle tâche initiale les responsables d’étage doivent-ils exécuter lors de la mise à jour du plan ?",
           "Dénombrer précisément les personnes grabataires pour évaluer le nombre de matelas de secours requis",
-          "Vérifier l’état de charge des batteries d’appoint pour chaque respirateur artificiel de l’aile",
-          "Inspecter les issues de secours extérieures pour vérifier l’absence de tout obstacle mécanique"
+          "Contrôler soigneusement l’étanchéité des sas coupe-feu de chaque aile avant d’envisager toute mise en œuvre du plan",
+          "Transférer les malades vers la zone refuge avant de savoir combien de matelas sont nécessaires"
         ],
         [
           "Quel principe séquentiel doit être obligatoirement respecté lors du transfert des patients ?",
           "Réaliser un déplacement horizontal vers le compartiment voisin avant toute évacuation verticale",
-          "Évacuer en priorité les étages supérieurs avant de porter assistance aux personnes du rez-de-chaussée",
+          "Procéder à une descente verticale par les cages pressurisées avant tout déplacement horizontal",
           "Transférer les malades vers les étages supérieurs seulement après l’arrivée des pompiers"
         ],
         [
@@ -1730,7 +1730,7 @@ export const N09_10_SCENARIOS = {
         [
           "Sous quelle condition le recours au monte-charge médical est-il exceptionnellement autorisé ?",
           "S’il bénéficie d’une alimentation électrique secourue et qu’un technicien certifié assure l’escorte",
-          "Dès lors que les ascenseurs pour visiteurs sont occupés par le personnel soignant de garde",
+          "Si l’alimentation électrique relève d’Hydro-Québec sans qu’un technicien certifié soit requis pour l’escorte",
           "En cas de défaillance confirmée du système de pressurisation desservant les escaliers de secours"
         ]
       ]
@@ -1749,20 +1749,20 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle conduite Chantal doit-elle impérativement adopter si le consortium réclame l’exclusivité des quais ?",
           "Rejeter formellement la demande et faire du libre accès public une condition préalable aux discussions",
-          "Accorder l’exclusivité demandée en échange d’une remise de dix pour cent sur le prix des navettes fluviales",
-          "Suspendre définitivement toute démarche et dissoudre la société de transport métropolitaine de passagers"
+          "Accepter une exclusivité temporaire sur les quais, à condition qu’elle soit renégociée chaque année",
+          "Poursuivre les négociations en renonçant à toute garantie d’accès pour les transporteurs publics"
         ],
         [
           "Quelle instance détient l’autorité requise pour approuver la grille tarifaire imposée aux voyageurs ?",
           "Le comité exécutif désigné relevant de l’autorité organisatrice métropolitaine",
           "L’avocate externe mandatée pour négocier la garantie environnementale des batteries",
-          "La directrice générale après concertation avec les représentants syndicaux maritimes"
+          "La commission des transports, après consultation des administrateurs du consortium privé"
         ],
         [
           "Quelle dérogation Chantal peut-elle accorder de sa propre initiative lors des tests techniques ?",
           "Étendre la phase d’homologation d’un mois au plus si des aléas affectent l’amarrage automatisé",
           "Accorder au concessionnaire une clause d’exclusivité sur les quais municipaux pour un an",
-          "Modifier le tracé des navettes pour éviter de desservir les municipalités riveraines éloignées"
+          "Prolonger l’homologation de six mois sans en référer à la commission des transports"
         ]
       ]
     }
@@ -1777,25 +1777,25 @@ export const N09_10_SCENARIOS = {
           "Quelle est la thèse centrale défendue par l’économiste dans ce discours ?",
           "L’iniquité fiscale favorisant le commerce en ligne fragilise les boutiques de quartier",
           "La fermeture définitive des entrepôts de banlieue est la seule option de relance urbaine",
-          "L’augmentation des loyers commerciaux sur les artères montréalaises doit être plafonnée"
+          "L’iniquité fiscale profite surtout aux boutiques de quartier qui financent les plateformes numériques"
         ],
         [
           "De quelle façon l’argumentation économique est-elle développée ?",
           "La réfutation de l’argument des bas prix précède la démonstration des pertes territoriales",
-          "Une comparaison des salaires des vendeurs précède un hommage aux fondateurs des plateformes",
-          "Un éloge des centres d’achats suburbains sert d’introduction à une demande de baisse d’impôt"
+          "La démonstration des pertes territoriales précède la réfutation de l’argument des bas prix",
+          "L’appel à la mobilisation précède l’évocation des taxes foncières payées par les commerçants"
         ],
         [
           "Quel préjudice indirect la désertification commerciale engendre-t-elle pour la collectivité ?",
           "Une baisse substantielle des rentrées de taxes foncières pour l’administration municipale",
-          "Une disparition graduelle des lignes d’autobus desservant le centre des affaires de la métropole",
-          "L’obligation pour les municipalités de nationaliser l’ensemble des surfaces commerciales"
+          "Une hausse soudaine des rentrées de taxes foncières provoquée par l’ouverture des entrepôts de banlieue",
+          "La fermeture de trois boutiques de quartier pour chaque entrepôt robotisé ouvert en centre-ville"
         ],
         [
           "Que connote l’expression « commodité algorithmique » dans la bouche de l’oratrice ?",
           "Le confort trompeur d’achats rapides en ligne masquant des dégâts collectifs majeurs",
-          "La fiabilité d’un logiciel qui protège les données personnelles des consommateurs québécois",
-          "Le service de livraison rapide qui améliore la productivité des petites boutiques de quartier"
+          "Le gain d’efficacité des entrepôts robotisés, qui réduit les coûts de main-d’œuvre des commerces locaux",
+          "L’automatisation de la gestion des cotisations patronales qui allège les formalités des commerçants"
         ]
       ]
     },
@@ -1807,26 +1807,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle est la position argumentée par la représentante de la partie adverse lors de la médiation ?",
           "Le rejet du partage collectif des frais issus de dégradations causées par un aménagement privatif",
-          "La demande d’expropriation judiciaire immédiate du propriétaire du dernier étage pour charges impayées",
-          "L’exigence de démolir l’immeuble entier en raison d’un vice structurel majeur affectant les fondations"
+          "Le déblocage immédiat du fonds de prévoyance pour financer la réfection, avant l’expertise des surcharges",
+          "La démonstration d’une vétusté normale de la membrane d’étanchéité justifiant son remplacement intégral"
         ],
         [
           "Comment l’argumentation juridique progresse-t-elle dans cette déclaration ?",
           "La reconnaissance du statut de partie commune précède la preuve de la faute individuelle",
-          "Une attaque en diffamation contre les administrateurs est suivie d’une menace de poursuites judiciaires",
-          "L’énumération des cotisations passées débouche sur un appel au boycott des assemblées générales de l’immeuble"
+          "La preuve de la faute individuelle précède la reconnaissance du statut de partie commune du toit",
+          "La proposition d’une expertise chiffrée précède l’examen de la faute du propriétaire de l’attique"
         ],
         [
           "Quel élément technique exonérerait le fonds de prévoyance de l’ensemble des frais selon l’avocate ?",
           "Les voies d’eau découlent des surcharges d’un aménagement privatif non autorisé",
-          "Le manufacturier de toiture a formellement garanti la membrane d’étanchéité pour cinquante ans",
-          "La municipalité a promis de subventionner l’intégralité des chantiers d’isolation écologique"
+          "Les voies d’eau découlent des bacs à fleurs installés par le syndicat sur la toiture commune",
+          "Les voies d’eau découlent de l’usage de la terrasse par les résidents du dessous"
         ],
         [
           "Que propose la partie adverse comme règlement équitable du litige ?",
           "Un audit technique chiffrant le préjudice attribuable aux surcharges pour le facturer au fautif",
-          "Le règlement intégral de l’ensemble des devis par l’assureur responsabilité du syndicat d’immeuble",
-          "L’abandon pur et simple des travaux de réfection jusqu’à la prochaine vente de l’ensemble des logements"
+          "Un audit technique chiffrant le préjudice pour le répartir entre l’ensemble des copropriétaires",
+          "Le paiement des travaux par le fonds collectif avant l’imputation au propriétaire défaillant"
         ]
       ]
     },
@@ -1838,26 +1838,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel message central l’orateur souhaite-t-il transmettre aux artisans et producteurs réunis ?",
           "L’urgence de créer des plateformes collectives pour contrer la domination des géants du web",
-          "L’obligation d’abandonner toute vente de produits manufacturés en dehors des marchés villageois",
-          "La nécessité de signer des contrats d’exclusivité avec les distributeurs transnationaux majeurs"
+          "La nécessité de rester sur les galeries numériques dominantes pour accéder aux marchés mondiaux",
+          "L’intérêt de confier la distribution des données clients aux plateformes pour baisser les commissions"
         ],
         [
           "Comment la démonstration de l’intervenant s’articule-t-elle dans ce discours ?",
           "La déconstruction du mirage des ventes en ligne précède la mise en lumière de pratiques déloyales et l’appel coopératif",
-          "Un rappel des traditions d’ébénisterie est suivi d’une violente diatribe contre les habitudes de consommation urbaines",
-          "Le bilan comptable d’une seule foire artisanale sert de base à une demande de subventions publiques permanentes"
+          "La mise en lumière de pratiques déloyales précède la déconstruction du mirage des ventes en ligne",
+          "L’appel coopératif précède la mise en lumière de pratiques déloyales et la déconstruction du mirage"
         ],
         [
           "Quel comportement prédateur des plateformes est particulièrement dénoncé dans l’extrait ?",
           "L’exploitation des données d’achats pour copier les créations locales sous marque de distributeur",
-          "Le refus délibéré et concerté des transporteurs de desservir les municipalités éloignées de la province",
-          "La subvention publique accordée aux producteurs québécois pour baisser leurs commissions"
+          "La fixation par les artisans eux-mêmes de commissions de trente pour cent sur chaque commande",
+          "Le reléguage des créateurs au bas des résultats, même lorsqu’ils achètent une campagne de visibilité"
         ],
         [
           "Que connote l’expression « souveraineté artisanale » dans cette harangue économique ?",
           "Le contrôle direct par les artisans locaux de la mise en marché et de la rentabilité de leurs œuvres",
-          "L’érection de barrières douanières permanentes bloquant l’entrée de tout article artisanal importé d’Europe",
-          "L’octroi d’un statut juridique autonome exemptant les créateurs ruraux de tout impôt sur le revenu"
+          "Le contrôle exercé par les algorithmes programmés en Californie sur la mise en marché des artisans",
+          "L’autonomie réglementaire qui permet aux artisans de fixer seuls les normes de qualité du marché"
         ]
       ]
     },
@@ -1869,26 +1869,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel argument de fond l’avocat adverse avance-t-il pour justifier la position de sa mandante ?",
           "Les travaux d’insonorisation respectaient scrupuleusement la réglementation en vigueur au moment de leur exécution",
-          "Les copropriétaires du dessous ont refusé de faire réaliser une expertise acoustique indépendante",
-          "Le bruit perçu par le voisinage provient en partie des canalisations de plomberie traversant les cloisons"
+          "Les bruits résiduels sont imputables à une faute de la copropriétaire, qui a posé son plancher sans acousticien agréé",
+          "Les travaux d’insonorisation ont été exécutés selon le devis ultérieur de soixante-huit décibels"
         ],
         [
           "Comment la stratégie de défense est-elle structurée dans cette intervention ?",
           "La démonstration de la régularité du chantier devance le rejet de la rétroactivité et une offre de compromis",
-          "La contestation de l’honorabilité des experts acousticiens débouche sur une plainte devant l’ordre professionnel",
-          "Le détail des sommes engagées pour la rénovation sert à réclamer un remboursement complet par les administrateurs"
+          "Le rejet de la rétroactivité devance la démonstration de la régularité du chantier et une offre de compromis",
+          "L’invitation à financer un test précède la démonstration de la régularité du chantier et le rejet de la rétroactivité"
         ],
         [
           "Pourquoi l’exigence syndicale de retrait du plancher est-elle qualifiée d’abus de droit ?",
           "Elle prétend appliquer rétroactivement un nouveau standard voté après la finalisation approuvée du chantier",
-          "Elle a été adoptée lors d’une assemblée extraordinaire convoquée sans respecter le quorum légalement requis",
-          "Elle impose à la copropriétaire d’utiliser un type de revêtement textile formellement interdit par les normes d’hygiène"
+          "Elle exige un plancher posé sans acousticien agréé, contrairement au devis alors en vigueur",
+          "Elle reproche à la copropriétaire d’avoir obtenu le quitus syndical avant la clôture des travaux"
         ],
         [
           "Dans ce plaidoyer, quelle est la portée du terme « quitus syndical » ?",
           "L’approbation officielle confirmant que les travaux achevés respectaient le devis autorisé",
-          "Un rabais commercial substantiel consenti par l’entrepreneur en bâtiment pour solde rapide",
-          "Une décharge de responsabilité pénale délivrée par les autorités municipales après inspection des installations"
+          "La réserve formulée par le syndicat sur la conformité acoustique des travaux après leur clôture",
+          "L’attestation d’un acousticien confirmant que le plancher respecte la norme de soixante-huit décibels"
         ]
       ]
     }
@@ -1902,25 +1902,25 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’objet central de cet extrait d’ouvrage doctrinal ?",
           "L’exposé des trois critères cumulatifs qui définissent la légitime défense en droit pénal",
-          "L’historique comparé des sanctions applicables aux infractions commises avec une arme à feu",
-          "La critique de l’impartialité des jurés populaires lors des procès criminels pour homicide"
+          "La présentation de la légitime défense comme une excuse qui laisse subsister la faute pénale",
+          "L’énumération de quatre conditions cumulatives que la personne doit réunir pour se défendre"
         ],
         [
           "De quelle façon l’explication doctrinale est-elle construite ?",
           "Elle décline méthodiquement le triple test légal avant d’en préciser la qualification de justification",
-          "Elle commente des procès célèbres avant de recommander un durcissement des peines d’emprisonnement",
-          "Elle confronte les règles québécoises aux lois européennes sans définir les notions de droit positif"
+          "Elle précise la qualification de justification avant de décliner le triple test légal de la défense",
+          "Elle détaille la grille d’analyse de la riposte avant de poser les trois conditions cumulatives"
         ],
         [
           "Comment la première condition de la légitime défense concilie-t-elle le subjectif et l’objectif ?",
           "La sincérité du prévenu doit être corroborée par ce qu’une personne raisonnable aurait perçu dans la même situation",
           "La seule croyance du prévenu suffit, indépendamment de ce qu’une personne raisonnable aurait perçu",
-          "Les antécédents judiciaires de la victime suffisent à établir objectivement l’existence d’une menace armée"
+          "La croyance du prévenu n’a pas à être sincère, pourvu qu’une personne raisonnable l’ait partagée"
         ],
         [
           "Quelle distinction conceptuelle fondamentale l’auteur met-il en relief en conclusion ?",
           "La reconnaissance de l’acte comme licite en soi plutôt que comme une faute simplement pardonnée",
-          "L’obligation d’indemniser civilement l’agresseur même si la responsabilité pénale se trouve écartée",
+          "La reconnaissance d’une faute pénale excusée par la seule croyance sincère du prévenu, quel que soit le péril",
           "La transformation de la légitime défense en simple circonstance atténuante de la faute pénale"
         ]
       ]
@@ -1933,26 +1933,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle mutation technique et formelle cet article encyclopédique retrace-t-il ?",
           "L’avènement du parlant synchrone, ses contraintes matérielles initiales et l’émancipation du cadre",
-          "L’apparition des premières caméras légères portées à l’épaule durant la Nouvelle Vague française",
-          "Le remplacement définitif du support celluloïd argentique par les capteurs numériques contemporains"
+          "L’avènement du sonore synchrone et l’abandon immédiat des micros suspendus sur perches mobiles",
+          "Le passage du muet au sonore grâce au maintien du phonographe à disque, jugé plus fiable que le son optique"
         ],
         [
           "Comment la trajectoire historique des techniques sonores est-elle exposée ?",
           "Des limites du son sur disque découle l’adoption du son optique, suivie de la résolution des entraves scéniques",
-          "Un éloge des vedettes du cinéma muet précède une diatribe contre l’amateurisme des premiers ingénieurs du son",
-          "Une analyse comparative des profits des studios hollywoodiens sert à illustrer le coût des projecteurs"
+          "La résolution des entraves scéniques précède l’adoption du son optique, née des limites du disque",
+          "La conquête de la liberté spatiale précède l’apparition du blimp, puis l’adoption du son optique sur pellicule"
         ],
         [
           "Quel paradoxe esthétique a marqué les toutes premières années de l’avènement du parlant ?",
           "L’enregistrement du son a temporairement paralysé le mouvement et la fluidité visuelle de la caméra",
-          "Les salles de projection ont vite supprimé les bandes-son pour réduire les coûts de copie",
-          "Les studios ont banni l’usage de toute musique instrumentale pour réserver la pellicule aux seuls bruits réels"
+          "L’enregistrement du son a paralysé la caméra, interdisant même les travellings après l’invention du blimp",
+          "Le matériel de prise de son a mieux protégé la fluidité des travellings que les caméras muettes"
         ],
         [
           "Dans l’histoire des appareils de tournage, quelle fonction capitale le « blimp » a-t-il remplie ?",
           "Il étouffait le bruit du moteur sans enfermer l’appareil dans une cabine étanche fixe",
-          "Il synchronisait les tours de manivelle de l’opérateur avec la vitesse d’un disque phonographique",
-          "Il amplifiait les fréquences aiguës des voix pour faciliter leur gravure sur la piste magnétique"
+          "Il éliminait les micros suspendus sur perches en gardant la caméra dans sa cabine insonorisée fixe",
+          "Il fixait les micros au carbone directement sur le corps de la caméra pour capter les dialogues"
         ]
       ]
     },
@@ -1965,25 +1965,25 @@ export const N09_10_SCENARIOS = {
           "Quel principe juridique fondamental gouverne la défense des biens selon cet extrait doctrinal ?",
           "La prohibition formelle de recourir à une force mortelle ou causant des blessures graves pour protéger un bien",
           "La permission générale de se faire justice soi-même dès qu’une propriété privée est menacée",
-          "La nécessité d’obtenir un mandat judiciaire avant d’empêcher physiquement un vol en cours"
+          "La possibilité d’infliger des lésions graves après une sommation verbale restée sans réponse"
         ],
         [
           "Comment l’auteur articule-t-il la distinction entre l’article 34 et l’article 35 du Code criminel ?",
           "Il oppose la hiérarchie intangible entre la sauvegarde de la vie humaine et la simple protection des choses",
-          "Il analyse les peines pécuniaires minimales avant d’examiner la responsabilité des compagnies d’assurances",
-          "Il retrace l’histoire du droit coutumier anglais pour déplorer l’adoucissement contemporain des règles pénales"
+          "Il oppose la protection des choses à la défense des personnes, en admettant la force létale pour les deux",
+          "Il évoque la retenue physique non violente, puis rappelle la protection des choses avant la vie humaine"
         ],
         [
           "Quelle condition préalable relative au statut de la victime de l’ingérence est exigée par la loi ?",
           "Elle doit se trouver en possession paisible du bien convoité au moment précis où l’acte illégal se produit",
-          "Elle doit posséder un titre notarié de propriété enregistré au registre foncier depuis au moins un an",
-          "Elle doit avoir souscrit une police d’assurance contre le vol auprès d’une institution financière certifiée"
+          "Elle doit avoir été en possession paisible du bien dans les jours qui suivent l’ingérence illicite",
+          "Elle doit être propriétaire du bien convoité, peu importe qui le possédait au moment précis de l’acte illégal"
         ],
         [
           "Que connote l’expression « pondération minutieuse des moyens employés » dans l’évaluation judiciaire ?",
           "L’appréciation concrète de la proportionnalité entre la gravité de l’atteinte matérielle et la riposte choisie",
-          "Le calcul mathématique rigoureux de la valeur marchande du bien dérobé au moment de fixer les dommages civils",
-          "L’obligation pour le tribunal de consulter un jury d’experts avant de déterminer la recevabilité de la défense"
+          "L’évaluation du nombre de moyens de riposte disponibles, indépendamment de l’atteinte matérielle subie et de la menace",
+          "L’inutilité de la sommation verbale dès que l’intrus a pénétré sur la propriété, même sans menace"
         ]
       ]
     },
@@ -1995,26 +1995,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est le sujet conducteur analysé dans cet article d’encyclopédie cinématographique ?",
           "Le passage des trucages optiques photochimiques à la modélisation et à la capture numériques modernes",
-          "La concurrence commerciale entre les grands studios hollywoodiens et les productions indépendantes",
-          "L’influence prépondérante du maquillage prothétique traditionnel sur l’expressivité des comédiens de cinéma"
+          "L’abandon de la modélisation numérique et de la capture de mouvement au profit des trucages photochimiques",
+          "La précision croissante des tireuses optiques multi-passes qui a sauvé le grain de l’image argentique"
         ],
         [
           "Comment l’évolution technique est-elle ordonnée au fil du texte ?",
           "La mise en évidence des limites du tirage optique prépare l’exposé de l’essor des calculs tridimensionnels",
-          "Une biographie des pionniers de la pellicule couleur est suivie d’une critique des coûts des logiciels de montage",
-          "Un réquisitoire contre le tout-numérique débouche sur un appel nostalgique au retour des maquettes en carton"
+          "L’exposé de l’essor des calculs tridimensionnels prépare la mise en évidence des limites du tirage optique",
+          "La défense des tireuses optiques débouche sur une critique de la prévisualisation numérique précoce"
         ],
         [
           "Quel inconvénient technique inhérent affectait les trucages argentiques sur tireuse optique ?",
           "La superposition de négatifs successifs altérait la finesse du grain et l’équilibre des couleurs",
-          "Les tireuses optiques détruisaient les maquettes physiques lors de chaque passage de pellicule",
-          "La caméra ne pouvait pas enregistrer le son et l’image sur une même bande lors des scènes truquées"
+          "Les tireuses optiques multipliaient les négatifs sans altérer les couleurs ni la cohérence de l’image",
+          "Les caches peints sur plaques de verre reproduisaient fidèlement le grain de la pellicule argentique"
         ],
         [
           "De quelle façon la capture de mouvement a-t-elle profondément enrichi l’animation numérique ?",
           "En insufflant l’organicité et les micro-expressions du jeu d’un comédien dans un avatar généré par ordinateur",
-          "En supprimant définitivement le besoin de scénaristes pour écrire les scènes d’action des superproductions",
-          "En remplaçant les animateurs par des plateaux de tournage équipés de projecteurs argentiques"
+          "En transposant le jeu corporel d’une créature numérique sur un acteur réel en temps réel",
+          "En remplaçant les maillages polygonaux par des maquettes physiques photographiées en pellicule"
         ]
       ]
     }
@@ -2027,26 +2027,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel processus physique fondamental est expliqué dans cet extrait de revue scientifique ?",
           "La chaîne d’interactions entre particules cosmiques et magnétosphère créant des émissions lumineuses",
-          "La désexcitation radiative de l’oxygène atomique produisant des longueurs d’onde vertes et rouges",
-          "L’impact des variations de la gravité lunaire sur la trajectoire des satellites météorologiques en orbite"
+          "Des particules chargées qui traversent la haute atmosphère sans collision et se dispersent vers l’espace",
+          "Le renforcement de la magnétopause diurne qui empêche la pénétration des électrons dans la haute atmosphère"
         ],
         [
           "De quelle manière l’auteur structure-t-il l’explication du phénomène polaire ?",
           "En décrivant la trajectoire de l’énergie depuis l’expulsion solaire jusqu’aux collisions atomiques",
-          "En opposant les croyances mythologiques anciennes aux premières observations télescopiques du dix-neuvième siècle",
-          "En comparant la rentabilité financière des observatoires nordiques avec celle des stations spatiales orbitales"
+          "En décrivant l’énergie solaire comme une source qui se dissipe avant d’atteindre les collisions atomiques",
+          "En inversant la chronologie, les collisions atomiques précèdent l’expulsion du plasma par le Soleil"
         ],
         [
           "Quelle condition géophysique détermine l’amorce de la reconnexion magnétique du côté diurne ?",
           "L’alignement inverse du champ magnétique solaire par rapport à celui de la planète",
           "La densité accrue de plasma dans la queue magnétique nocturne de la planète",
-          "Une chute brutale de la température nocturne en dessous du point de condensation des vapeurs polaires"
+          "Une orientation vers le nord du champ interplanétaire, parallèle à celle du bouclier terrestre"
         ],
         [
           "Dans ce texte scientifique, que désigne précisément la « désexcitation radiative » ?",
           "La libération spontanée de photons lorsqu’un atome retrouve son niveau énergétique d’origine",
-          "L’évaporation instantanée des molécules d’eau sous l’effet d’un faisceau d’électrons accélérés",
-          "La désintégration radioactive définitive des noyaux lourds sous l’effet du rayonnement cosmique"
+          "L’absorption de photons par un atome qui accède à un niveau énergétique supérieur après un choc",
+          "La transformation d’un atome d’oxygène en ion chargé lors d’un choc avec un électron libre"
         ]
       ],
       "frame": "revue de géophysique — mécanisme des aurores boréales"
@@ -2058,26 +2058,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle situation financière ce rapport de gestion trimestriel cherche-t-il à expliquer ?",
           "Le recul de la marge d’exploitation malgré une légère progression des ventes globales",
-          "L’augmentation subite des dividendes versés aux actionnaires majoritaires de l’entreprise industrielle",
-          "La faillite imminente d’un partenaire commercial stratégique basé sur les marchés européens du Sud"
+          "L’envolée du chiffre d’affaires consolidé, bien au-delà des prévisions annuelles",
+          "Un recul du chiffre d’affaires consolidé accompagné d’une marge d’exploitation en hausse"
         ],
         [
           "Comment la direction justifie-t-elle l’écart négatif observé sur les matières premières ?",
           "Par une hausse imprévue des résines que les contrats n’ont pas permis de répercuter immédiatement",
-          "Par des erreurs de saisie comptable commises lors de la clôture des registres de paie des employés",
-          "Par une taxe douanière exceptionnelle imposée sur toutes les importations d’acier inoxydable brut"
+          "Par une baisse de la demande des clients industriels que les contrats indexés n’ont pas su absorber",
+          "Par des arrêts de production chez nos propres usines du golfe du Mexique, qui ont interrompu nos livraisons"
         ],
         [
           "Quel problème d’organisation a accentué le surcoût énergétique sur la chaîne d’extrusion ?",
           "Le manque de qualification initiale du personnel face aux réglages des nouveaux équipements",
-          "Une coupure d’électricité généralisée ayant paralysé l’ensemble du parc industriel pendant un mois",
+          "Des régulateurs automatisés mis en service trop tôt, ce qui a immédiatement amélioré le rendement énergétique",
           "La formation trop poussée des opérateurs, qui ralentissait l’entretien des équipements neufs"
         ],
         [
           "Dans ce contexte de gestion budgétaire, que qualifie un « écart défavorable » ?",
           "Un dépassement effectif des charges réelles par rapport aux projections de dépenses initiales",
-          "Une divergence d’opinion entre deux administrateurs quant au choix du vérificateur externe indépendant",
-          "Un retard administratif dans le dépôt des déclarations fiscales auprès du ministère du Revenu provincial"
+          "Un excédent de recettes réelles par rapport aux prévisions de ventes établies au début de l’exercice",
+          "Une économie réalisée sur les matières premières grâce à des contrats renégociés à la baisse"
         ]
       ],
       "frame": "rapport de gestion — analyse des écarts budgétaires"
@@ -2089,26 +2089,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel phénomène d’astrophysique ce texte spécialisé décrit-il en détail ?",
           "La répercussion des éjections coronales sur la magnétosphère et la haute atmosphère",
-          "L’anticipation des perturbations radioélectriques sur les communications satellitaires",
-          "La formation des cratères d’impact météoritique sur la surface glacée des lunes de Jupiter"
+          "Le ralentissement des éjections coronales par les courants telluriques avant leur impact sur la Terre",
+          "La dissipation rapide des orages géomagnétiques lorsque la calotte aurorale se rétracte"
         ],
         [
           "Comment l’auteur relie-t-il l’activité solaire aux manifestations visibles du ciel boréal ?",
           "En retraçant l’onde de choc depuis l’expulsion de plasma jusqu’aux excitations ionosphériques",
-          "En calculant le budget nécessaire à la construction de nouveaux radiotélescopes dans les Rocheuses",
-          "En réfutant les thèses des météorologues partisans d’une origine purement océanique des vents polaires"
+          "En démontrant que les excitations ionosphériques précèdent l’expulsion de plasma par le Soleil",
+          "En reliant les excitations ionosphériques aux seuls courants telluriques, sans passer par l’orage géomagnétique"
         ],
         [
           "Selon l’article, quelle information les variations rapides des draperies aurorales fournissent-elles ?",
           "Elles traduisent les oscillations micro-ondes et la dynamique thermique des gaz de haute altitude",
-          "Elles révèlent la teneur exacte en oxygène des océans polaires et leur température de surface",
-          "Elles prédisent l’arrivée de précipitations neigeuses torrentielles sur les centres urbains du Saint-Laurent"
+          "Elles mesurent la densité des gaz de basse altitude, sans lien avec les oscillations micro-ondes",
+          "Elles causent les oscillations micro-ondes, qui résultent d’une densité thermique plus faible des gaz"
         ],
         [
           "Dans cette étude de physique des plasmas, que représente la « météo spatiale » ?",
           "L’état dynamique des conditions environnementales entre le Soleil et l’espace circumterrestre",
-          "La prévision des cyclones tropicaux marins fondée sur des relevés barométriques côtiers d’époque",
-          "La température moyenne relevée au sol dans les stations d’échantillonnage de l’archipel arctique"
+          "Les perturbations de surface du champ géomagnétique, indépendantes du cycle magnétique solaire",
+          "L’ensemble des flux de particules solaires que la Terre bloque entièrement avant d’atteindre l’atmosphère"
         ]
       ],
       "frame": "revue d’astrophysique — tempêtes solaires et aurores"
@@ -2120,26 +2120,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel constat financier majeur fait l’objet de cette explication managériale ?",
           "Une dérive négative importante des coûts opérationnels par rapport aux prévisions établies",
-          "Une fraude comptable interne commise par les responsables des approvisionnements forestiers locaux",
-          "Une chute catastrophique du cours mondial du bois d’œuvre ayant entraîné la fermeture des ateliers"
+          "Un excédent de bénéfices d’exploitation de six cent vingt mille dollars par rapport aux budgets approuvés",
+          "Un retard de livraison de billes d’épinette noire importées d’Europe, qui a fermé la ligne de sciage"
         ],
         [
           "Quels sont les deux déterminants principaux invoqués pour expliquer la variation budgétaire ?",
           "Le surcoût d’approvisionnement causé par le climat et les retards techniques d’une chaîne automatisée",
-          "La hausse générale des taux d’intérêt bancaires et un différend syndical prolongé dans les forêts de l’Ouest",
-          "L’amende environnementale imposée pour pollution des cours d’eau et la dévaluation de la monnaie nationale"
+          "La fermeture prolongée des chantiers de coupe et les retards d’une chaîne de sciage manuelle",
+          "Un excès de production par rapport aux prévisions, dû à une cadence d’usinage trop rapide dès le début"
         ],
         [
           "Pourquoi le retard de la nouvelle ligne de sciage a-t-il alourdi les charges de main-d’œuvre ?",
-          "L’utilisation prolongée d’anciennes machines a nécessité le paiement d’heures supplémentaires aux équipes",
-          "Le constructeur étranger a exigé le paiement immédiat d’une pénalité de résiliation de bail commercial",
-          "L’entreprise a dû embaucher des gardiens de sécurité supplémentaires pour surveiller les hangars de stockage"
+          "Durant la transition, les heures supplémentaires des équipes de maintenance et l’ancienne machinerie ont fait grimper la main-d’œuvre directe",
+          "Durant la transition, les heures supplémentaires ont été supprimées dès l’abandon de l’ancienne machinerie, plus énergivore",
+          "Durant la transition, les frais de main-d’œuvre directe ont reculé grâce à la livraison anticipée des pièces hydrauliques"
         ],
         [
           "Dans ce contexte d’exploitation industrielle, que désigne l’expression « tarifs spot » ?",
           "Des prix d’achat fixés immédiatement sur le marché au comptant selon l’offre et la demande",
-          "Des remises commerciales accordées aux acheteurs de gros lors de ventes promotionnelles d’hiver",
-          "Des tarifs douaniers préférentiels négociés dans le cadre d’un accord commercial bilatéral d’État"
+          "Des prix de vente garantis aux clients industriels par contrat annuel, sans lien avec le marché",
+          "Des prix d’achat négociés à l’avance auprès des producteurs, valables pour toute l’année"
         ]
       ],
       "frame": "rapport de gestion — écarts de coûts manufacturiers"
@@ -2159,20 +2159,20 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’ordre des étapes préalables obligatoires avant la publication d’un communiqué d’entreprise ?",
           "L’examen par le conseiller juridique précède la validation finale du directeur des communications",
-          "L’autorisation de la présidence doit intervenir avant toute rédaction de la fiche technique de base",
+          "La note du gestionnaire de projet est archivée au registre central avant l’examen du conseiller juridique",
           "La diffusion sur les réseaux sociaux personnels devance l’archivage au registre central des dossiers"
         ],
         [
           "À quelle condition dérogatoire le directeur de site peut-il autoriser une prise de parole hâtive ?",
           "En cas d’urgence touchant la sécurité de l’usine et avec notification du siège dans les trente minutes",
-          "Dès lors qu’un journaliste régional accrédité en formule la demande écrite au moins une semaine à l’avance",
-          "Si le projet commercial en cours a déjà généré des retombées positives dans les médias financiers"
+          "Lorsque le projet a été approuvé par la présidence et que la note est rédigée sous vingt-quatre heures",
+          "Si un incident mineur survient en semaine et que le siège est avisé dans les quarante-huit heures"
         ],
         [
           "Qui a la responsabilité de consigner l’historique des échanges médiatiques au registre central ?",
           "Le coordonnateur de quart doit archiver les déclarations dans les quarante-huit heures suivant l’événement",
-          "Le conseiller juridique externe mandaté pour réviser les clauses de confidentialité des contrats commerciaux",
-          "L’employé ayant initialement transmis les coordonnées du journaliste au service des communications"
+          "Le directeur des communications, qui consigne la note au registre central dans les vingt-quatre heures",
+          "Le conseiller juridique corporatif qui doit consigner les propos tenus au registre une semaine après l’événement"
         ]
       ],
       "frame": "directives d’entreprise — relations avec les médias"
@@ -2184,26 +2184,26 @@ export const N09_10_SCENARIOS = {
         [
           "Que doit obligatoirement faire un professeur lors de la reproduction d’un chapitre conforme aux seuils ?",
           "Indiquer la source bibliographique intégrale et le nom des créateurs sur l’ensemble des exemplaires",
-          "Obtenir la signature du doyen sur chaque photocopie avant de la distribuer aux étudiants",
-          "Vendre les photocopies au prix coûtant afin de compenser les dépenses de reprographie de l’établissement"
+          "Indiquer seulement le titre de l’ouvrage sur les exemplaires, sans mentionner les auteurs",
+          "Reproduire le chapitre sans mention de source, puisque l’extrait respecte les seuils autorisés"
         ],
         [
           "Quelle démarche doit précéder l’utilisation d’un document dépassant le seuil des dix pour cent autorisés ?",
           "La transmission d’une demande écrite au responsable des bibliothèques trois semaines avant le trimestre",
-          "L’achat préalable d’exemplaires originaux par les étudiants doit être validé par le syndicat des professeurs",
-          "L’accord verbal du directeur du collège doit survenir avant toute consultation des bases de données"
+          "La transmission d’une demande formelle au coordonnateur des bibliothèques après le début de la session",
+          "Une approbation orale du coordonnateur suffit, sans demande écrite, pour reproduire l’extrait"
         ],
         [
           "Sous quelle condition technique des extraits numérisés peuvent-ils être mis à la disposition des étudiants ?",
           "En étant réservés aux inscrits sur l’intranet avec désactivation des liens au terme du trimestre d’études",
           "En étant mis en libre accès sur le site internet public du collège pendant une période indéterminée",
-          "En étant envoyés par courriel aux anciens diplômés et aux parents, sans restriction de durée"
+          "En étant conservés sur le portail public de l’établissement, avec liens actifs pour les anciens étudiants"
         ],
         [
           "À quelle instance incombe la surveillance périodique de la conformité des recueils de textes ?",
           "L’agent de conformité mène des vérifications inopinées et ordonne le retrait des éléments non conformes",
-          "Le représentant régional de Copibec qui inspecte chaque salle de classe au début de la rentrée scolaire",
-          "L’association étudiante qui valide la pertinence pédagogique des documents distribués aux cours"
+          "Le coordonnateur du service des bibliothèques qui ne contrôle les recueils qu’à la rentrée scolaire",
+          "Le service des technologies de l’information qui effectue un audit annuel aléatoire des recueils de textes"
         ]
       ],
       "frame": "directives administratives — droit d’auteur et utilisation équitable"
@@ -2221,20 +2221,20 @@ export const N09_10_SCENARIOS = {
         [
           "Quel document doit impérativement être acheminé avant toute prise de parole officielle ?",
           "Le rapport technique initial rédigé par le chef des opérations précisant la situation et les secours",
-          "Le compte rendu financier des réparations signé conjointement par le trésorier de l’entreprise énergétique",
+          "La déclaration officielle rédigée par le directeur des communications après la première prise de parole",
           "La synthèse de presse hebdomadaire élaborée par l’équipe de surveillance des réseaux sociaux"
         ],
         [
           "Quelle condition préalable s’impose si les services d’urgence de la ville participent à l’intervention ?",
           "L’aval exprès du maire ou du responsable des secours avant la diffusion de la déclaration publique",
-          "L’approbation d’un comité citoyen de quartier convoqué en assemblée générale extraordinaire d’urgence",
-          "L’avis favorable d’un journaliste indépendant consulté après la publication de la déclaration"
+          "L’aval du directeur de la conformité réglementaire, qui doit suivre la lecture publique de la déclaration",
+          "L’approbation du seul porte-parole, sans attendre le maire, dès que la déclaration est lue aux médias"
         ],
         [
           "Qui détient l’autorité exclusive pour s’exprimer devant les journalistes lors de l’incident ?",
           "Le porte-parole désigné par la cellule de crise avec l’appui technique encadré des ingénieurs",
           "Le technicien supérieur présent sur le chantier au moment où la première alerte a été déclenchée",
-          "L’agent de sécurité chargé du filtrage des entrées de véhicules au poste d’accès principal de l’usine"
+          "Le directeur de la conformité réglementaire, seul habilité à répondre aux questions de la presse"
         ]
       ],
       "frame": "directives d’entreprise — communication en situation d’incident"
@@ -2246,26 +2246,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle démarche un enseignant doit-il engager pour diffuser un chapitre représentant le quart d’un livre ?",
           "Remplir un formulaire de droits auprès du bureau spécialisé au moins quatre semaines avant la session",
-          "Acheter vingt exemplaires du volume en librairie pour les déposer à la réserve de la faculté des lettres",
-          "Demander aux étudiants d’imprimer individuellement les chapitres à leurs frais dans un centre privé"
+          "Obtenir une licence verbale auprès de l’éditeur, sans formalité, pour diffuser le chapitre librement",
+          "Diffuser le chapitre tel quel, sans demande, puisque le quart d’un livre ne dépasse pas les seuils"
         ],
         [
           "Quand la désactivation des accès aux fichiers numérisés doit-elle intervenir sur le serveur ?",
           "Trente jours après la conclusion définitive des examens de la session académique correspondante",
-          "Deux semaines après la remise des notes du premier examen partiel de la session",
-          "Au terme d’un délai de douze mois consécutifs suivant l’approbation du plan de cours par le doyen"
+          "Dès la fin du dernier cours de la session, avant même la publication des résultats finaux",
+          "Quarante-cinq jours après la fin des examens finaux, à la demande du bibliothécaire en chef"
         ],
         [
           "À quelle exigence technique la mise en ligne des extraits autorisés est-elle soumise ?",
           "L’apposition d’un filigrane de l’université et la limitation stricte de l’accès aux seuls étudiants inscrits",
-          "L’apposition d’une photographie de l’auteur et la diffusion ouverte à tout internaute",
-          "Le cryptage des fichiers au moyen d’une clé biométrique renouvelée toutes les quarante-huit heures"
+          "L’hébergement des fichiers sur le portail public, avec liens actifs pendant une année entière",
+          "La suppression des fichiers numérisés dès leur téléversement, pour éviter toute copie par les étudiants"
         ],
         [
           "Quelle autorité est chargée des contrôles inopinés et du respect des règles par les départements ?",
           "Le bibliothécaire en chef vérifie les banques de cours et engage la responsabilité du département",
-          "L’association des éditeurs scolaires qui procède à des saisies de documents dans les salles de cours",
-          "Le technicien du laboratoire informatique responsable de l’installation des systèmes d’exploitation"
+          "Le service des technologies de l’information qui vérifie les banques de cours chaque trimestre",
+          "Le gestionnaire des systèmes informatiques qui rembourse les redevances exigées par les ayants droit"
         ]
       ],
       "frame": "directives institutionnelles — reproduction et droit d’auteur"
@@ -2279,26 +2279,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle décision centrale l’ordonnance du tribunal consacre-t-elle à l’issue de ce procès ?",
           "La condamnation d’une entreprise pour pollution fautive et l’obligation de restaurer l’aquifère",
-          "L’autorisation accordée à l’usine d’enfouir des résidus toxiques dans les formations rocheuses voisines",
-          "L’annulation définitive des poursuites municipales en raison d’un vice de forme dans le dépôt initial"
+          "L’annulation de la sûreté financière exigée de l’entreprise, jugée disproportionnée au regard des expertises",
+          "La reconnaissance d’une force majeure, les infiltrations ayant été jugées imprévisibles par les experts"
         ],
         [
           "Sur quel motif le juge écarte-t-il l’argument de la force majeure invoqué par la compagnie ?",
           "La prévisibilité avérée du risque d’infiltration dès les premières études géologiques du terrain",
-          "La présence négligeable de résidus industriels dans les échantillons prélevés par les inspecteurs du ministère",
-          "L’aveu écrit du président du groupe reconnaissant un acte de sabotage commis par des employés démissionnaires"
+          "Le caractère exceptionnel d’un écoulement karstique survenu après la fin des études d’impact initiales",
+          "La faiblesse des expertises hydrogéologiques, qui ne mentionnaient pas la perméabilité du sous-sol"
         ],
         [
           "Quel fait prouve de manière décisive la négligence délibérée de la partie défenderesse ?",
           "Le refus de réparer des défectuosités structurelles déjà relevées par ses propres spécialistes",
-          "La tenue d’une conférence de presse non autorisée par le maire de la ville avant l’audition des témoins",
+          "Le partage de la responsabilité entre l’entreprise et la Municipalité, qui avait tardé à contrôler les fissures",
           "L’installation de géomembranes doubles dès le lancement des bassins de décantation"
         ],
         [
           "Dans cette ordonnance judiciaire, que désigne l’expression « délai péremptoire » ?",
           "Un intervalle de temps rigoureusement obligatoire au-delà duquel aucun acte ne peut plus être accompli",
-          "Une période de suspension temporaire des débats judiciaires décidée d’un commun accord entre les parties",
-          "Un calendrier prévisionnel indicatif pouvant être modifié à tout moment sans autorisation du tribunal"
+          "Un simple délai d’usage, sans conséquence juridique si la société tarde légèrement à consigner la sûreté",
+          "Un délai de grâce accordé à la défenderesse, reportable à sa demande, pour trouver les fonds nécessaires"
         ]
       ],
       "frame": "ordonnance judiciaire — responsabilité environnementale et procès"
@@ -2310,26 +2310,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle est la revendication fondamentale défendue par l’auteur de cette lettre ouverte ?",
           "La réintégration de la procréation médicalement assistée au sein du régime public gratuit",
-          "La suppression complète des congés parentaux accordés aux employés du secteur privé québécois",
-          "L’instauration d’un plafond de revenus familiaux pour l’admissibilité aux allocations de garde d’enfants"
+          "Le maintien intégral du régime de crédits d’impôt, qui profite surtout aux familles modestes",
+          "L’instauration de transferts obligatoires de plusieurs embryons dans le régime public gratuit"
         ],
         [
           "Comment la lettre déconstruit-elle l’argument selon lequel la gratuité ruinerait l’État ?",
           "En démontrant que les transferts d’embryons multiples payants entraînent des coûts néonatals supérieurs",
-          "En suggérant de taxer lourdement les entreprises pharmaceutiques fabriquant des traitements hormonaux",
-          "En prédisant que les dons philanthropiques privés combleront l’ensemble des besoins financiers du réseau"
+          "En affirmant que les cliniques publiques ont déjà réduit leurs coûts grâce aux crédits d’impôt régressifs",
+          "En établissant que les naissances multiples issues de traitements publics coûtent davantage au trésor public"
         ],
         [
           "Quelle conséquence inique du régime actuel de crédits d’impôt le texte dénonce-t-il ?",
           "L’exclusion de facto des familles modestes incapables d’avancer les sommes requises pour les traitements",
-          "La baisse généralisée des salaires des infirmières travaillant dans les centres de santé communautaires",
-          "L’obligation pour les ménages à faible revenu de souscrire un prêt bancaire à taux usuraire pour payer leurs soins"
+          "L’obligation pour les seuls ménages aisés de transférer plusieurs embryons afin de réduire les frais hospitaliers",
+          "La création d’un crédit d’impôt supplémentaire pour les ménages à faible revenu, qui rendrait la gratuité inutile"
         ],
         [
           "Dans ce plaidoyer en santé publique, que signifie l’expression « impératif catégorique » ?",
           "Une exigence morale inconditionnelle qui s’impose d’elle-même sans dépendre de considérations opportunistes",
-          "Une recommandation technique facultative formulée par un comité d’experts indépendants lors d’une consultation",
-          "Un protocole médical expérimental administré aux patients hospitalisés dans un état critique"
+          "Une règle comptable rigide que le gouvernement doit respecter, quelle que soit la pression sociale",
+          "Une préférence idéologique que chaque province peut adapter librement selon ses priorités budgétaires"
         ]
       ],
       "frame": "lettre ouverte — gratuité de la procréation assistée"
@@ -2341,26 +2341,26 @@ export const N09_10_SCENARIOS = {
         [
           "Sur quel fondement juridique principal le tribunal sanctionne-t-il la rupture de l’entente ?",
           "Le manquement manifeste de la multinationale à son obligation légale de bonne foi contractuelle",
-          "L’absence d’homologation internationale des capteurs électroniques par l’agence de santé mondiale",
-          "L’invalidation rétroactive du contrat en raison d’un vice de consentement commis lors de sa signature notariale"
+          "La faute de la demanderesse, qui avait créé un outil concurrent avant la rupture de l’entente",
+          "La rupture de l’entente jugée légitime en raison du retard réglementaire imputable à la demanderesse"
         ],
         [
           "Comment le jugement démontre-t-il la mauvaise foi du consortium défendeur ?",
           "En révélant que les prétextes de retard cachaient le développement parallèle d’un outil concurrent",
-          "En démontrant que les dirigeants du consortium avaient secrètement déposé un brevet concurrent identique",
-          "En soulignant que la société étrangère n’avait jamais déposé ses états financiers auprès du registraire d’État"
+          "En prouvant que la demanderesse avait elle-même retardé les démarches auprès des autorités sanitaires",
+          "En établissant que les prototypes avaient été détruits avant la rupture, faute de financement suffisant"
         ],
         [
           "Quelle finalité pratique sous-tend l’ordonnance de restitution des prototypes sous scellés ?",
           "Empêcher la partie adverse d’exploiter indûment les innovations protégées conçues par son ancien partenaire",
-          "Autoriser les experts judiciaires à tester le fonctionnement des capteurs dans un laboratoire universitaire neutre",
-          "Permettre au ministère de la Santé d’évaluer la conformité des appareils aux normes environnementales locales"
+          "Obliger la défenderesse à détruire publiquement les prototypes afin d’éviter toute contrefaçon à l’étranger",
+          "Garantir à la défenderesse l’accès immédiat aux données cliniques pour achever ses propres essais pilotes"
         ],
         [
           "Dans le cadre de cette décision civile, que recouvre le terme « demande reconventionnelle » ?",
           "Une réclamation formulée en retour par le défendeur contre la partie qui l’a initialement assigné en justice",
-          "Un appel formel interjeté devant la Cour suprême pour contester la compétence territoriale d’un tribunal",
-          "Une requête déposée par un témoin expert pour obtenir le remboursement de ses frais de déplacement professionnel"
+          "La demande principale que le demandeur présente au début du procès, avant toute réponse du défendeur",
+          "Un moyen de défense soulevé par le défendeur pour contester la compétence de la chambre commerciale de Montréal"
         ]
       ],
       "frame": "ordonnance du tribunal — litige contractuel biomédical"
@@ -2373,25 +2373,25 @@ export const N09_10_SCENARIOS = {
           "Quelle thèse directrice les professionnels de la santé soutiennent-ils dans cette tribune ?",
           "L’infertilité est une affection légitime dont la prise en charge relève du droit fondamental aux soins",
           "La médecine reproductive doit être confiée en priorité à des cliniques commerciales à but lucratif",
-          "La gratuité des soins doit dépendre des revenus déclarés par chaque couple à Revenu Québec"
+          "Le retour aux crédits d’impôt constitue la solution la plus équitable, car il profite davantage aux familles modestes"
         ],
         [
           "Quel argument médical majeur les signataires opposent-ils au refus de financement public ?",
           "La reconnaissance formelle de l’infertilité comme une pathologie véritable par les instances de santé mondiales",
-          "La publication de sondages d’opinion montrant le désintérêt croissant des citoyens pour les questions d’éthique",
-          "La baisse constante des cas d’infertilité signalés au Québec depuis une dizaine d’années"
+          "La hausse des hospitalisations néonatales à risque provoquée par la gratuité des traitements publics",
+          "Le fait que l’OMS classe l’infertilité parmi les choix de vie personnels, qui ne relèvent pas des soins"
         ],
         [
           "Quel risque sanitaire grave la gratuité encadrée des traitements permet-elle d’écarter ?",
           "Le recours dangereux à des établissements clandestins non réglementés et les grossesses à risque élevé",
-          "Le développement d’affections chroniques graves provoquées par les protocoles de fécondation in vitro",
-          "La baisse drastique des effectifs d’infirmières cliniciennes spécialisées dans les soins périnataux hospitaliers"
+          "Le recours massif aux cliniques étrangères autorisées, qui assurent un suivi médical plus rigoureux",
+          "La multiplication des hospitalisations néonatales depuis que l’État finance intégralement la fécondation in vitro"
         ],
         [
           "Dans cette prise de position engagée, que qualifie l’adjectif « inique » ?",
           "Qui est profondément injuste, partial, et contraire à l’équité fondamentale entre les membres d’une société",
-          "Qui correspond à une pratique médicale répandue et généralement approuvée par les cliniques",
-          "Qui découle d’une application trop rigide et tatillonne des règles de procédure administrative courante"
+          "Qui relève d’un choix économique rationnel, fondé sur l’équilibre des finances publiques et la prudence budgétaire",
+          "Qui sort de l’ordinaire et ne concerne que des cas exceptionnels, peu fréquents dans la pratique médicale"
         ]
       ],
       "frame": "tribune d’opinion — accès public à la procréation assistée"
