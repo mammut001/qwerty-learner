@@ -207,8 +207,8 @@ export const N05_06_SCENARIOS = {
         return {
           text: `Ici Radio-Canada au téléjournal de dix-huit heures. Les Championnats internationaux de patinage de vitesse sur courte piste s’ouvrent officiellement ce soir ${s.ville}. Plus de cent cinquante patineurs représentant ${s.pays} sont arrivés cette semaine pour s’entraîner sur la glace québécoise. L’épreuve très attendue ${s.epreuve} se déroulera samedi après-midi devant une foule nombreuse. Les entraîneurs soulignent l’excellente forme des athlètes d’ici, dont ${s.athlete}, qui espèrent remporter plusieurs médailles d’or. La finale sera diffusée en direct sur nos plateformes dès quatorze heures. Les billets pour les gradins sont presque tous vendus.`,
           questions: [
-            makeQuestion('Quelle est l’information principale donnée dans ce bulletin ?', 'L’ouverture d’une compétition sur glace internationale', 'L’arrivée de patineurs étrangers pour un entraînement', 'Le départ d’une équipe olympique pour un stage à l’étranger', ['patinage', 'championnats']),
-            makeQuestion('Quelle course très attendue se déroulera samedi après-midi ?', `${cap(s.epPara)}`, 'La séance d’entraînement sur la glace québécoise', 'La cérémonie de remise des récompenses d’ouverture', [s.epKw]),
+            makeQuestion('Quelle est l’information principale donnée dans ce bulletin ?', 'L’ouverture d’une compétition sur glace internationale', 'L’arrivée de patineurs étrangers pour un entraînement', 'La clôture d’une compétition sur glace internationale', ['patinage', 'championnats']),
+            makeQuestion('Quelle course très attendue se déroulera samedi après-midi ?', `${cap(s.epPara)}`, 'La séance d’entraînement sur la glace québécoise', 'La course de fond prévue dimanche matin', [s.epKw]),
             makeQuestion('Que pourront faire les amateurs de sport samedi dès quatorze heures ?', 'Regarder la ronde finale en diffusion directe', 'Acheter les derniers billets pour les gradins', 'Rencontrer les entraîneurs lors d’un entraînement', ['finale', 'direct']),
           ],
         }
@@ -227,8 +227,8 @@ export const N05_06_SCENARIOS = {
         return {
           text: `Au téléjournal sportif, la Coupe du monde de ski de fond débute ${s.jour} ${s.site}. Les organisateurs confirment ${s.conditions} malgré le redoux du début de semaine. Plus de deux cents compétiteurs étrangers participent aux épreuves individuelles et par équipe. L’équipe canadienne mise particulièrement sur ses jeunes recrues pour monter sur le podium lors du sprint classique. Les spectateurs sont invités à utiliser les navettes gratuites mises en place depuis le centre-ville afin de limiter les embouteillages routiers. Les premières courses commenceront en début de matinée demain.`,
           questions: [
-            makeQuestion('Quel événement sportif fait l’objet de ce reportage ?', 'Une coupe du monde réunissant des fondeurs', 'Un entraînement de ski réservé aux recrues', 'Une traversée récréative des forêts du Nord', ['ski', 'coupe du monde']),
-            makeQuestion('Quel moyen de transport conseille-t-on aux spectateurs ?', 'Les autobus gratuits affrétés depuis la ville', 'Leur véhicule personnel pour rejoindre les pistes', 'Le covoiturage payant coordonné par taxi local', ['navettes', 'gratuites']),
+            makeQuestion('Quel événement sportif fait l’objet de ce reportage ?', 'Une coupe du monde réunissant des fondeurs', 'Un entraînement de ski réservé aux recrues', 'Un slalom de ski alpin réservé aux juniors', ['ski', 'coupe du monde']),
+            makeQuestion('Quel moyen de transport conseille-t-on aux spectateurs ?', 'Les autobus gratuits affrétés depuis la ville', 'Leur véhicule personnel pour rejoindre les pistes', 'Des navettes payantes vendues à l’entrée des pistes', ['navettes', 'gratuites']),
             makeQuestion('Quand auront lieu les premières courses officielles ?', 'En tout début de matinée au cours du lendemain', 'En début d’après-midi après le redoux annoncé', 'En milieu de semaine prochaine en soirée', ['début', 'matinée']),
           ],
         }
@@ -248,7 +248,7 @@ export const N05_06_SCENARIOS = {
           text: `— Allô Julie ! Je voulais te rappeler que notre journée de solidarité entre voisins se tiendra samedi sur ${s.rue}. Les familles installeront leurs kiosques dès ${s.heure} pour la vente d’objets usagés et de livres pour enfants. Tous les profits de la cantine iront directement soutenir ${s.cause}. Les commerçants du secteur offriront aussi du café chaud et des viennoiseries aux bénévoles. S’il pleut trop fort, l’événement sera remis au dimanche suivant à la même heure. Tu penses venir faire un tour avec les petits ?`,
           questions: [
             makeQuestion('Quel est le but premier de ce rassemblement de quartier ?', 'Une fête solidaire avec vente d’articles usagés', 'Une collecte de livres usagés pour enfants', 'Une rencontre d’accueil pour de nouveaux commerçants', ['vente', 'voisins']),
-            makeQuestion('À quel organisme seront versés les bénéfices de la cantine ?', `Directement ${s.orgPara}`, 'À l’association des commerçants du secteur', 'À un club sportif finançant ses compétitions', [s.orgKw]),
+            makeQuestion('À quel organisme seront versés les bénéfices de la cantine ?', `Directement ${s.orgPara}`, 'À l’association des commerçants du secteur', 'Au comité de bénévoles du quartier', [s.orgKw]),
             makeQuestion('Quelle décision sera prise s’il pleut trop fort samedi ?', 'Reporter l’ensemble des activités au lendemain', 'Annuler définitivement la vente de solidarité', 'Installer les kiosques chez les commerçants', ['dimanche', 'remis']),
           ],
         }
@@ -273,8 +273,8 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Salut Patrick ! Tu cherchais un emploi stable ces temps-ci ? Notre firme de génie ${s.ville} recrute justement un poste ${s.titre}. La personne choisie devra répondre aux appels des clients, classer les dossiers techniques et coordonner les réunions hebdomadaires. On offre ${s.flex} et ${s.avantage} dès l’embauche. L’ambiance dans l’équipe est vraiment chaleureuse et dynamique. Si le poste t’intéresse, tu devrais m’envoyer ton curriculum vitæ avant vendredi midi. Je pourrai le transmettre directement à notre gestionnaire des ressources humaines !`,
           questions: [
-            makeQuestion('Que propose l’ami dans cette conversation ?', 'Un emploi administratif stable dans son entreprise', 'Un poste d’ingénieur de projets dans son entreprise', 'Un contrat temporaire de rédaction de rapports', ['firme', 'recrute']),
-            makeQuestion('Quel avantage lié au poste est expressément mentionné ?', `${cap(s.avPara)}`, `${cap(s.flexDist)}`, 'Un abonnement annuel à une salle de sport privée', [s.avKw]),
+            makeQuestion('Que propose l’ami dans cette conversation ?', 'Un emploi administratif stable dans son entreprise', 'Un poste de comptable dans une grande firme de génie', 'Un contrat temporaire de rédaction de rapports', ['firme', 'recrute']),
+            makeQuestion('Quel avantage lié au poste est expressément mentionné ?', `${cap(s.avPara)}`, `${cap(s.flexDist)}`, 'Une prime annuelle de rendement versée à la fin de l’année', [s.avKw]),
             makeQuestion('Que doit faire la personne intéressée avant vendredi midi ?', 'Transmettre sa candidature professionnelle à son ami', 'Joindre directement le responsable des ressources humaines', 'Passer une entrevue formelle devant les collègues', ['curriculum vitæ', 'vendredi']),
           ],
         }
@@ -293,9 +293,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Allô Sophie ! Je t’appelle parce qu’il y a une belle ouverture de poste ${s.secteur} où je travaille depuis deux ans. Il s’agit d’un emploi à temps plein de représentant au service aux membres. Le travail consiste principalement à répondre aux courriels, traiter les réclamations et utiliser ${s.logiciel}. La direction demande ${s.min}, mais ils offrent deux semaines de formation payée pour les nouveaux arrivants. Le salaire de départ est très compétitif. Dis-moi si tu veux que je dépose ta candidature aujourd’hui !`,
           questions: [
-            makeQuestion('Quel type d’emploi est décrit par la collègue ?', 'Un poste au service aux membres à temps plein', 'Un poste de formateur pour les nouveaux arrivants', 'Un rôle de cadre supérieur gérant les finances', ['service aux membres', 'plein']),
-            makeQuestion('Quelle exigence de l’employeur est précisée ?', `${cap(s.reqPara)}`, 'Deux années d’expérience au sein de l’équipe', 'La maîtrise courante de trois langues étrangères', [s.reqKw]),
-            makeQuestion('Que propose l’amie à la fin de l’appel ?', 'Déposer la candidature de son interlocutrice', 'Lui donner elle-même deux semaines de formation', 'Organiser un dîner avec le chef des ressources', ['candidature', 'dépose']),
+            makeQuestion('Quel type d’emploi est décrit par la collègue ?', 'Un poste au service aux membres à temps plein', 'Un poste de formateur pour les nouveaux arrivants', 'Un rôle de caissier à temps partiel', ['service aux membres', 'plein']),
+            makeQuestion('Quelle exigence de l’employeur est précisée ?', `${cap(s.reqPara)}`, 'Deux années d’expérience au sein de l’équipe', 'Une formation préalable de deux semaines non payée', [s.reqKw]),
+            makeQuestion('Que propose l’amie à la fin de l’appel ?', 'Déposer la candidature de son interlocutrice', 'Lui donner elle-même deux semaines de formation', 'Lui conseiller de postuler ailleurs cette semaine', ['candidature', 'dépose']),
           ],
         }
       },
@@ -313,8 +313,8 @@ export const N05_06_SCENARIOS = {
         return {
           text: `Au téléjournal de vingt heures, la crue printanière continue de causer de lourds dégâts dans le secteur ${s.secteur}. La rivière est sortie de son lit cet après-midi, inondant les rues riveraines et ${s.maisons}. Les équipes de la sécurité civile et des dizaines de bénévoles ont installé des milliers de sacs de sable le long des berges. Plusieurs familles ont dû être évacuées d’urgence en bateau à moteur et sont actuellement hébergées ${s.refuge}. Les autorités municipales demandent aux automobilistes d’éviter complètement le secteur pour faciliter le travail des premiers répondants.`,
           questions: [
-            makeQuestion('Quel phénomène climatique est décrit dans ce reportage ?', 'Une inondation majeure causée par une crue de printemps', 'Une tempête printanière de vent le long de la rivière', 'Un glissement de terrain le long d’une falaise rocheuse', ['crue', 'inondant']),
-            makeQuestion('Où les familles évacuées sont-elles accueillies pour la nuit ?', `Elles sont hébergées ${s.refPara}`, 'Elles passent la nuit à bord des bateaux de secours', 'Elles ont été relocalisées dans un hôtel de banlieue', [s.refKw]),
+            makeQuestion('Quel phénomène climatique est décrit dans ce reportage ?', 'Une inondation majeure causée par une crue de printemps', 'Une sécheresse prolongée qui a asséché les berges du secteur', 'Un incendie de forêt qui a gagné les berges', ['crue', 'inondant']),
+            makeQuestion('Où les familles évacuées sont-elles accueillies pour la nuit ?', `Elles sont hébergées ${s.refPara}`, 'Elles passent la nuit à bord des bateaux de secours', 'Elles ont préféré rester chez elles, loin de la rivière en crue', [s.refKw]),
             makeQuestion('Quelle consigne les autorités donnent-elles aux automobilistes ?', 'Éviter totalement de circuler dans le quartier touché', 'Venir aider les équipes de secours à empiler le sable', 'Conduire les familles évacuées vers les lieux de refuge', ['éviter', 'automobilistes']),
           ],
         }
@@ -333,9 +333,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `En Beauce, la situation demeure critique ${s.ville} en raison de la débâcle hâtive de la rivière Chaudière. D’immenses blocs de glace ont formé un embâcle majeur sous les ponts routiers, refoulant les eaux vers le centre-ville. Les sous-sols sont inondés et ${s.commerces} du boulevard principal ont été envahis par ${s.hauteur}. Les pannes d’électricité préventives touchent actuellement deux mille clients pour éviter tout risque d’incendie. La Croix-Rouge a ouvert un bureau temporaire pour distribuer des repas chauds et des couvertures aux sinistrés évacués depuis ce matin.`,
           questions: [
-            makeQuestion('Quelle est la cause principale de cette inondation soudaine ?', 'Un blocage d’imposants blocs de glace sous les ponts', 'L’effondrement soudain d’un pont routier sur la rivière', 'Des précipitations torrentielles causées par un orage d’été', ['embâcle', 'glace']),
-            makeQuestion('Quelle conséquence directe touche les commerces du secteur ?', `Leur rez-de-chaussée a subi ${s.hautPara}`, 'Leurs sous-sols ont subi un incendie causé par l’électricité', 'Leurs réserves de marchandises ont été pillées la nuit', [s.hautKw]),
-            makeQuestion('Quelle mesure d’aide la Croix-Rouge a-t-elle mise en place ?', 'Un centre distribuant des couvertures et des repas chauds', 'Un service de pompage de l’eau dans les sous-sols inondés', 'Un service d’avocats pour contester les décisions d’assurance', ['couvertures', 'repas']),
+            makeQuestion('Quelle est la cause principale de cette inondation soudaine ?', 'Un blocage d’imposants blocs de glace sous les ponts', 'Une rupture soudaine d’un grand barrage en amont du secteur', 'Une débâcle tardive, en plein mois de juin', ['embâcle', 'glace']),
+            makeQuestion('Quelle conséquence directe touche les commerces du secteur ?', `Leur rez-de-chaussée a subi ${s.hautPara}`, 'Leurs sous-sols ont subi un incendie causé par l’électricité', 'Leur rez-de-chaussée a été épargné par l’eau pendant toute la durée de la crue', [s.hautKw]),
+            makeQuestion('Quelle mesure d’aide la Croix-Rouge a-t-elle mise en place ?', 'Un centre distribuant des couvertures et des repas chauds', 'Un bureau pour vendre des assurances aux sinistrés', 'Une équipe chargée de nettoyer le boulevard principal du secteur', ['couvertures', 'repas']),
           ],
         }
       },
@@ -353,9 +353,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Éric, écoute ça ! Mon département ${s.cegep} vient d’afficher un poste permanent de technicien en soutien informatique. C’est un horaire régulier de ${s.horaire}, du lundi au vendredi. Tes tâches consisteraient à assurer ${s.taches} et configurer les nouveaux équipements réseau. Comme tu as déjà une bonne expérience dans ce domaine, tu as d’excellentes chances. En plus, les conditions de travail dans le réseau public sont superbes : fonds de pension, vacances d’été et journées de maladie payées. Pense à soumettre ton dossier sur le portail d’emploi !`,
           questions: [
-            makeQuestion('De quel emploi l’intervenant fait-il la description ?', 'Technicien en soutien informatique en milieu collégial', 'Professeur régulier d’informatique au sein du cégep', 'Conseiller pédagogique pour l’orientation scolaire', ['technicien', 'informatique']),
-            makeQuestion('Quelle est l’une des responsabilités principales mentionnées ?', `${cap(s.tacPara)}`, 'La gestion des dossiers de maladie et du fonds de pension', 'La surveillance nocturne des résidences d’étudiants', [s.tacKw]),
-            makeQuestion('Où l’ami doit-il envoyer son dossier pour postuler ?', 'Directement par le portail de recrutement du cégep', 'Par courriel personnel à l’adresse de son département', 'En main propre au bureau du directeur général du cégep', ['portail', 'dossier']),
+            makeQuestion('De quel emploi l’intervenant fait-il la description ?', 'Technicien en soutien informatique en milieu collégial', 'Professeur régulier d’informatique au sein du cégep', 'Technicien en génie civil au sein d’un bureau d’ingénieurs', ['technicien', 'informatique']),
+            makeQuestion('Quelle est l’une des responsabilités principales mentionnées ?', `${cap(s.tacPara)}`, 'La gestion des dossiers de maladie et du fonds de pension', 'La vente d’équipements réseau aux étudiants et aux professeurs', [s.tacKw]),
+            makeQuestion('Où l’ami doit-il envoyer son dossier pour postuler ?', 'Directement par le portail de recrutement du cégep', 'Par courriel personnel à l’adresse de son département', 'Par la poste, au secrétariat du département', ['portail', 'dossier']),
           ],
         }
       },
@@ -379,9 +379,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Allô Jean ! Je reviens tout juste de mon voyage de ${s.duree} ${s.pays}. C’était une expérience absolument inoubliable ! Ce qui m’a le plus marquée, c’est ${s.activite} et l’immense gentillesse des gens locaux. Par contre, le début du séjour a été un peu difficile à cause ${s.defi}. Les premiers jours, j’étais épuisée et j’avais du mal à marcher longtemps. Heureusement, en buvant beaucoup d’eau et en me reposant l’après-midi, j’ai vite retrouvé mon énergie. Je te montrerai mes photos pendant notre pause de dîner si tu veux !`,
           questions: [
-            makeQuestion('Quel est le thème principal de ce récit ?', 'Le bilan d’un séjour de vacances personnelles à l’étranger', 'Une mission de travail bénévole auprès des gens locaux', 'Un projet de déménagement définitif en Amérique du Sud', ['voyage', 'séjour']),
-            makeQuestion('Quelle difficulté la voyageuse a-t-elle rencontrée au début ?', `${cap(s.defPara)}`, 'Un manque sévère d’eau potable lors des premiers jours', 'Le vol de ses pièces d’identité et de son argent comptant', [s.defKw]),
-            makeQuestion('Que propose la collègue à la fin de leur discussion ?', 'Regarder ensemble les clichés pris durant son voyage', 'Lui prêter son appareil photo pour son propre voyage', 'Planifier une escapade commune pour l’été qui vient', ['photos', 'pause']),
+            makeQuestion('Quel est le thème principal de ce récit ?', 'Le bilan d’un séjour de vacances personnelles à l’étranger', 'Un stage professionnel obligatoire à l’étranger', 'Une visite rapide de sa famille en Europe', ['voyage', 'séjour']),
+            makeQuestion('Quelle difficulté la voyageuse a-t-elle rencontrée au début ?', `${cap(s.defPara)}`, 'Un manque sévère d’eau potable lors des premiers jours', 'Une grande facilité à marcher dès le premier jour', [s.defKw]),
+            makeQuestion('Que propose la collègue à la fin de leur discussion ?', 'Regarder ensemble les clichés pris durant son voyage', 'Annuler leur pause de dîner pour travailler', 'Partir ensemble pour un séjour de trois mois', ['photos', 'pause']),
           ],
         }
       },
@@ -399,8 +399,8 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Tu as passé de belles vacances, Carole ? — Oui, vraiment fantastiques ! Je suis partie un mois complet ${s.pays} pour suivre des cours de langue. J’habitais ${s.logement} dans le centre ${s.ville}. Tous les matins, je prenais ${s.transport} pour aller à l’école. Au début, j’avais peur de ne pas comprendre les accents régionaux, mais après deux semaines, j’arrivais déjà à commander au marché et à discuter avec les marchands. Le plus dépaysant, c’était le rythme de vie : les soupers tardifs et les longues promenades en soirée au bord de l’eau.`,
           questions: [
-            makeQuestion('Pourquoi Carole est-elle partie à l’étranger pendant un mois ?', 'Pour perfectionner une langue seconde dans son milieu', 'Pour enseigner sa propre langue dans une école du centre', 'Pour participer à un tournoi sportif d’envergure internationale', ['langue', 'cours']),
-            makeQuestion('Où habitait-elle pendant toute la durée de son séjour ?', `Elle résidait ${s.logPara}`, 'Elle louait une chambre directement au-dessus de l’école', 'Elle partageait l’appartement d’un collègue de son entreprise', [s.logKw]),
+            makeQuestion('Pourquoi Carole est-elle partie à l’étranger pendant un mois ?', 'Pour perfectionner une langue seconde dans son milieu', 'Pour enseigner sa propre langue dans une école du centre', 'Pour suivre un stage de cuisine dans un restaurant', ['langue', 'cours']),
+            makeQuestion('Où habitait-elle pendant toute la durée de son séjour ?', `Elle résidait ${s.logPara}`, 'Elle logeait dans un hôtel en périphérie', 'Elle louait un chalet isolé en pleine forêt', [s.logKw]),
             makeQuestion('Quel aspect culturel a particulièrement surpris Carole ?', 'Les heures tardives des repas du soir et des promenades', 'La difficulté persistante à échanger avec les marchands', 'L’absence presque totale de transports en commun dans la cité', ['soupers', 'promenades']),
           ],
         }
@@ -419,9 +419,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Salut Sylvain ! Tu as l’air fatigué ce matin, tout s’est bien passé en fin de semaine ? — Ouf, ne m’en parle pas ! On organisait la fête d’anniversaire pour ${s.enfant} qui fêtait ses ${s.age}. On avait invité dix enfants dans la cour. Tout allait bien jusqu’au moment où ${s.incident} ! Heureusement, personne ne s’est fait mal, mais les enfants ont poussé de grands cris. Pour sauver la journée, on a tout rentré ${s.repli}. Finalement, ils ont ri comme des fous et ils sont repartis avec le sourire. Mais moi, j’ai mis deux jours à m’en remettre !`,
           questions: [
-            makeQuestion('Quel événement le voisin raconte-t-il dans cet extrait ?', 'Une célébration d’anniversaire d’enfants mouvementée', 'Un après-midi de jeux calmes organisé pour dix enfants', 'Une panne d’électricité ayant interrompu une réunion de quartier', ['anniversaire', 'fête']),
-            makeQuestion('Quel incident imprévu a perturbé l’activité extérieure ?', `${cap(s.incPara)}`, 'Une chute d’un enfant qui s’est fait mal dans la cour', 'Une coupure générale d’eau courante dans tout le secteur', [s.incKw]),
-            makeQuestion('Comment les adultes ont-ils sauvé la fin de la fête ?', `${cap(s.repPara)}`, 'En reconduisant chaque jeune chez ses parents avant l’heure', 'En poursuivant les activités de la fête dehors dans la cour', [s.repKw]),
+            makeQuestion('Quel événement le voisin raconte-t-il dans cet extrait ?', 'Une célébration d’anniversaire d’enfants mouvementée', 'Un après-midi de jeux calmes organisé pour dix enfants', 'Une fête d’anniversaire annulée faute d’invités', ['anniversaire', 'fête']),
+            makeQuestion('Quel incident imprévu a perturbé l’activité extérieure ?', `${cap(s.incPara)}`, 'Une chute d’un enfant qui s’est fait mal dans la cour', 'Une averse soudaine qui a trempé les invités', [s.incKw]),
+            makeQuestion('Comment les adultes ont-ils sauvé la fin de la fête ?', `${cap(s.repPara)}`, 'En annulant la fête dès le premier incident', 'En poursuivant les activités de la fête dehors dans la cour', [s.repKw]),
           ],
         }
       },
@@ -439,8 +439,8 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Tu ne devineras jamais ce qui est arrivé samedi chez nous ! On attendait douze enfants pour la fête de notre petite dernière. On avait réservé ${s.animateur}, mais il a eu ${s.retard} à cause d’un pneu crevé sur l’autoroute. Imagine l’angoisse avec douze petits qui courent partout en criant ! Mon conjoint et moi avons dû improviser ${s.activite} en catastrophe pour les occuper. Quand l’artiste est enfin arrivé, tout est rentré dans l’ordre et le spectacle était formidable. Les enfants n’ont même pas remarqué qu’il y avait eu un pépin !`,
           questions: [
-            makeQuestion('Quel problème principal a déclenché le stress des parents ?', 'Le retard prononcé de l’animateur engagé pour la fête', 'Un pneu crevé immobilisant les parents sur l’autoroute', 'Le désistement de la moitié des camarades de classe invités', ['retard', 'artiste']),
-            makeQuestion('Quelle solution d’urgence les parents ont-ils improvisée ?', `${cap(s.actPara)}`, 'Présenter eux-mêmes un spectacle comique aux enfants', 'Emmener l’ensemble du groupe au parc public le plus proche', [s.actKw]),
+            makeQuestion('Quel problème principal a déclenché le stress des parents ?', 'Le retard prononcé de l’animateur engagé pour la fête', 'L’annulation du spectacle de l’artiste engagé', 'Le vol des cadeaux de la petite dernière', ['retard', 'artiste']),
+            makeQuestion('Quelle solution d’urgence les parents ont-ils improvisée ?', `${cap(s.actPara)}`, 'Annuler la fête et renvoyer les enfants chez eux', 'Louer une salle de jeux pour la journée', [s.actKw]),
             makeQuestion('Quelle a été la réaction finale des enfants invités ?', 'Ils ont adoré le spectacle sans remarquer le contretemps', 'Ils ont continué de courir et crier pendant le spectacle', 'Ils ont quitté les lieux déçus avant la fin de l’activité', ['spectacle', 'enfants']),
           ],
         }
@@ -459,9 +459,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Salut Martin ! Je voulais te raconter notre périple de dix jours ${s.parc}. On voyageait avec ${s.transport}, ce qui nous permettait de dormir en pleine nature chaque soir. Ce qui restera gravé dans ma mémoire, ${s.copule} ${s.souvenir}. Par contre, on a dû composer avec des nuits très fraîches : il a gelé deux fois au mois d’août ! Il fallait allumer le réchaud dès six heures du matin pour réchauffer le café et dégeler nos souliers de marche. Mais l’effort en valait tellement la peine. C’est le plus beau voyage de ma vie !`,
           questions: [
-            makeQuestion('Où la collègue et son compagnon ont-ils passé leurs dix jours ?', 'Au cœur de réserves naturelles des Rocheuses de l’Ouest', 'Dans un village hôtelier aménagé au pied des montagnes', 'Dans une station balnéaire populaire du sud du continent', ['périple', 'nature']),
-            makeQuestion('Quelle météo inattendue a surpris les randonneurs en août ?', 'Des nuits particulièrement froides accompagnées de gelée', 'Des chutes de neige abondantes dès six heures du matin', 'Une chaleur étouffante qui a empêché toute marche en montagne', ['gelé', 'fraîches']),
-            makeQuestion('Quel moyen d’hébergement itinérant utilisaient-ils ?', `Ils utilisaient ${s.transPara}`, 'Ils logeaient dans des chalets chauffés en pleine nature', 'Ils séjournaient dans des auberges luxueuses en bordure de route', [s.transKw]),
+            makeQuestion('Où la collègue et son compagnon ont-ils passé leurs dix jours ?', 'Dans des parcs naturels protégés, en pleine nature', 'Dans un village hôtelier aménagé au pied des montagnes', 'Dans un hôtel de luxe au bord de la mer', ['périple', 'nature']),
+            makeQuestion('Quelle météo inattendue a surpris les randonneurs en août ?', 'Des nuits particulièrement froides accompagnées de gelée', 'Des nuits très chaudes au mois d’août', 'Une chaleur étouffante qui a empêché toute marche en montagne', ['gelé', 'fraîches']),
+            makeQuestion('Quel moyen d’hébergement itinérant utilisaient-ils ?', `Ils utilisaient ${s.transPara}`, 'Ils dormaient dans des cabanes louées au bord du lac', 'Ils logeaient chez des amis rencontrés en route', [s.transKw]),
           ],
         }
       },
