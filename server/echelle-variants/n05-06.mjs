@@ -910,11 +910,11 @@ export const N05_06_SCENARIOS = {
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
-          text: `BROCHURE TOURISTIQUE OFFICIELLE - ÉVASION DANS CHARLEVOIX\nNichée ${s.paysage}, la région de Charlevoix est une destination magnifique pour les amoureux de plein air. En parcourant cette région réserve mondiale de la biosphère, vous découvrirez ${s.attraction}, où des fromagers et des artisans passionnés vous accueillent. Faites une halte dans ${s.village}, réputé pour ses galeries d’art, ses bistros chaleureux et son patrimoine architectural préservé. Que vous choisissiez une randonnée au grand air ou un séjour douillet dans une auberge de charme, Charlevoix saura vous émerveiller en toute saison. Réservez votre séjour en ligne dès aujourd’hui !`,
+          text: `BROCHURE TOURISTIQUE OFFICIELLE - ÉVASION DANS CHARLEVOIX\nNichée ${s.paysage}, la région de Charlevoix est une destination magnifique pour les amoureux de plein air. En parcourant cette région, réserve mondiale de la biosphère, vous découvrirez ${s.attraction}, où des fromagers et des artisans passionnés vous accueillent. Faites une halte dans ${s.village}, réputé pour ses galeries d’art, ses bistros chaleureux et son patrimoine architectural préservé. Que vous choisissiez une randonnée au grand air ou un séjour douillet dans une auberge de charme, Charlevoix saura vous émerveiller en toute saison. Réservez votre séjour en ligne dès aujourd’hui !`,
           questions: [
-            makeQuestion('Quel est l’objectif principal de cette brochure touristique ?', 'Mettre en valeur le patrimoine naturel et culturel régional', 'Avertir les résidents de l’arrivée de dépressions côtières', 'Dresser la chronique historique des premiers colons français', ['charlevoix', 'brochure']),
-            makeQuestion('Quelle expérience est particulièrement mise en avant ?', `${cap(s.attPara)}`, 'Une compétition sportive de pêche au gros en haute mer', 'Une visite commentée d’installations pétrochimiques', [s.attKw]),
-            makeQuestion('Pour quoi la municipalité mentionnée est-elle reconnue ?', 'Ses galeries d’art et son patrimoine architectural préservé', 'Ses infrastructures aéroportuaires et ses foires d’affaires', 'Ses étendues de sable chaud bordées d’eaux tropicales', ['galeries', 'patrimoine']),
+            makeQuestion('Quel est l’objectif principal de cette brochure touristique ?', 'Mettre en valeur le patrimoine naturel et culturel régional', 'Présenter les tarifs d’hébergement d’une auberge de charme', 'Dresser la chronique historique des premiers colons français', ['charlevoix', 'brochure']),
+            makeQuestion('Quelle expérience est particulièrement mise en avant ?', `${cap(s.attPara)}`, 'Un concours culinaire réunissant des fromagers et artisans', 'Une visite commentée d’installations pétrochimiques', [s.attKw]),
+            makeQuestion('Pour quoi la municipalité mentionnée est-elle reconnue ?', 'Ses galeries d’art et son patrimoine architectural préservé', 'Ses grandes pistes de randonnée en altitude et ses auberges', 'Ses étendues de sable chaud bordées d’eaux tropicales', ['galeries', 'patrimoine']),
           ],
         }
       },
@@ -932,9 +932,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `GUIDE DU VISITEUR - LES TRÉSORS DES CANTONS-DE-L’EST\nÀ une heure de route de Montréal, les Cantons-de-l’Est invitent à la douceur de vivre et au dépaysement champêtre. Empruntez ${s.route} pour faire connaissance avec des producteurs locaux réputés. À l’automne, ne manquez pas ${s.activite}, une tradition vivante partagée en famille. Les adeptes de vélo et de marche trouveront leur bonheur sur les pentes entourant ${s.mont}, dont les panoramas sur les collines sont remarquables. Consultez notre carte interactive pour planifier votre circuit et découvrez nos forfaits vacances avantageux combinant nuitée et dégustations.`,
           questions: [
-            makeQuestion('Quelle région touristique québécoise ce guide fait-il découvrir ?', 'Les paysages ruraux et les villages des Cantons-de-l’Est', 'Les paysages forestiers boréaux caractéristiques du grand nord québécois', 'La plaine agricole s’étendant au centre du pays', ['cantons-de-l’est', 'visiteur']),
-            makeQuestion('Quelle activité automnale est recommandée aux familles ?', `${cap(s.actPara)}`, 'Des descentes en canot sur les rivières', 'Des compétitions de course à pied organisées chaque fin de semaine en forêt', [s.actKw]),
-            makeQuestion('Quel attrait géographique offre des panoramas remarquables ?', `Les pentes aux panoramas remarquables autour ${s.montNom}`, 'Des sentiers côtiers longeant une immense plage de sable fin', 'Des sentiers de terre battue au fond d’une combe obscure', ['panoramas', 'collines']),
+            makeQuestion('Quelle région touristique québécoise ce guide fait-il découvrir ?', 'Les paysages ruraux et les villages des Cantons-de-l’Est', 'Les quartiers urbains animés de la métropole de Montréal', 'La plaine agricole s’étendant au centre du pays', ['cantons-de-l’est', 'visiteur']),
+            makeQuestion('Quelle activité automnale est recommandée aux familles ?', `${cap(s.actPara)}`, 'Des circuits de vélo intensifs sur les pentes des collines', 'Des compétitions de course à pied organisées chaque fin de semaine en forêt', [s.actKw]),
+            makeQuestion('Quel attrait géographique offre des panoramas remarquables ?', `Les pentes aux panoramas remarquables autour ${s.montNom}`, 'Les circuits routiers reliant les producteurs de la région', 'Des sentiers de terre battue au fond d’une combe obscure', ['panoramas', 'collines']),
           ],
         }
       },
@@ -952,9 +952,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `MAGAZINE ÉCHOS VEDETTES - REPORTAGE EXCLUSIF\nC’est dans une atmosphère féerique que s’est déroulé ce samedi le mariage de ${s.celebrite} avec son compagnon de longue date. La cérémonie intime s’est tenue ${s.lieu}, devant une centaine d’invités triés sur le volet. La mariée a ébloui l’assistance en portant ${s.tenue}. Après un échange de vœux émouvant qui a touché leurs proches, la fête s’est poursuivie avec un banquet champêtre mettant en valeur les produits du terroir québécois. Les amoureux ont ensuite dansé sous un ciel étoilé avant de couper le gâteau traditionnel.`,
           questions: [
-            makeQuestion('Quel événement mondain ce magazine culturel relate-t-il ?', 'L’union intime d’une personnalité reconnue du milieu artistique', 'Le lancement d’un album de musique classique enregistré par un grand orchestre', 'La projection d’un documentaire historique primé', ['mariage', 'compagnon']),
-            makeQuestion('Où s’est déroulée la cérémonie officielle d’échange des vœux ?', s.lieuPara, 'Dans une salle municipale polyvalente', 'Dans un amphithéâtre sportif au centre-ville', [s.lieuKw]),
-            makeQuestion('Quelle attention particulière de la mariée a marqué les convives ?', `${cap(s.tenPara)}`, 'Une toilette sobre confectionnée par une boutique locale', 'Un habit traditionnel d’époque loué pour la fête', [s.tenKw]),
+            makeQuestion('Quel événement mondain ce magazine culturel relate-t-il ?', 'L’union intime d’une personnalité reconnue du milieu artistique', 'Un banquet champêtre célébrant les meilleurs produits du terroir', 'La projection d’un documentaire historique primé', ['mariage', 'compagnon']),
+            makeQuestion('Où s’est déroulée la cérémonie officielle d’échange des vœux ?', s.lieuPara, 'Au milieu de la salle du banquet champêtre', 'Dans un amphithéâtre sportif au centre-ville', [s.lieuKw]),
+            makeQuestion('Quelle attention particulière de la mariée a marqué les convives ?', `${cap(s.tenPara)}`, 'Une danse d’ouverture répétée avec les proches du compagnon', 'Un habit traditionnel d’époque loué pour la fête', [s.tenKw]),
           ],
         }
       },
@@ -972,9 +972,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `CHRONIQUE CÉLÉBRITÉS - UNION HIVERNALE AUX SAVEURS D’ICI\nCe week-end, ${s.sportif} a uni sa destinée à celle de sa conjointe ${s.endroit}. Entourés de leurs coéquipiers et de leurs familles, les amoureux ont célébré leur union dans un décor rustique. Au lieu des traditionnels présents de mariage, le couple a invité ses convives à ${s.cadeau}. Les invités ont savouré un repas inspiré des cabanes à sucre traditionnelles, avec de la tire sur la neige servie en fin de soirée. Un moment magique et authentique que le couple et leurs invités chériront longtemps !`,
           questions: [
-            makeQuestion('De quelle célébration d’envergure l’article fait-il le récit ?', 'Du mariage chaleureux d’un athlète professionnel québécois', 'D’un hommage marquant le départ en retraite d’un entraîneur', 'D’une soirée commémorant une victoire en championnat de hockey', ['mariage', 'union']),
-            makeQuestion('Quel geste charitable les mariés ont-ils demandé à leurs invités ?', `Offrir des contributions au profit ${de(s.cadPara)}`, 'Fabriquer eux-mêmes les tables et chaises du banquet', 'Prendre en charge l’achat de tous les meubles requis pour accueillir les invités', [s.cadKw]),
-            makeQuestion('Quelle surprise gourmande a clôturé la soirée de mariage ?', 'De la tire d’érable servie sur la neige en plein air', 'Un assortiment de poissons et fruits de mer importés', 'Une pièce montée chocolatée parée de fruits exotiques', ['tire', 'neige']),
+            makeQuestion('De quelle célébration d’envergure l’article fait-il le récit ?', 'Du mariage chaleureux d’un athlète professionnel québécois', 'D’une rencontre festive des coéquipiers dans une cabane à sucre', 'D’une soirée commémorant une victoire en championnat de hockey', ['mariage', 'union']),
+            makeQuestion('Quel geste charitable les mariés ont-ils demandé à leurs invités ?', `Offrir des contributions au profit ${de(s.cadPara)}`, 'Financer eux-mêmes le repas traditionnel servi dans la cabane à sucre', 'Prendre en charge l’achat de tous les meubles requis pour accueillir les invités', [s.cadKw]),
+            makeQuestion('Quelle surprise gourmande a clôturé la soirée de mariage ?', 'De la tire d’érable servie sur la neige en plein air', 'Un gâteau festif préparé par les coéquipiers de l’athlète', 'Une pièce montée chocolatée parée de fruits exotiques', ['tire', 'neige']),
           ],
         }
       },
@@ -992,9 +992,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `DÉPLIANT TOURISME QUÉBEC - CAP SUR LA GASPÉSIE\nPréparez-vous à vivre un voyage sur route spectaculaire en explorant la Gaspésie. Empruntez ${s.route}, où chaque virage dévoile des falaises maritimes et des havres de pêche pittoresques. Admirez ${s.symbole}, véritable joyau naturel, et marchez dans ${s.parc} pour apercevoir des orignaux dans leur habitat sauvage. Les auberges du littoral vous feront déguster le homard frais et des chaudrées préparées selon les traditions des pêcheurs d’autrefois. Une aventure maritime inoubliable vous attend dès votre premier arrêt en bord de mer !`,
           questions: [
-            makeQuestion('Quelle région maritime du Québec ce dépliant décrit-il ?', 'La péninsule côtière gaspésienne et ses grands espaces', 'L’archipel urbain s’étendant autour de la métropole', 'La plaine agricole s’étirant au cœur de la province', ['gaspésie', 'dépliant']),
-            makeQuestion('Quel site naturel ou faunique emblématique est mis à l’honneur ?', `${cap(s.symPara)}`, 'Une pyramide de pierre édifiée au siècle précédent', 'Une centrale hydroélectrique interdite aux curieux', [s.symKw]),
-            makeQuestion('Quel mets culinaire typique est proposé dans les auberges ?', 'Des crustacés frais et des potages marins traditionnels', 'Des pièces de viande rouge importées par transport aérien', 'Des barquettes de plats préparés et réchauffés au four', ['homard', 'chaudrées']),
+            makeQuestion('Quelle région maritime du Québec ce dépliant décrit-il ?', 'La péninsule côtière gaspésienne et ses grands espaces', 'Un grand port industriel abritant des flottes de pêcheurs', 'La plaine agricole s’étirant au cœur de la province', ['gaspésie', 'dépliant']),
+            makeQuestion('Quel site naturel ou faunique emblématique est mis à l’honneur ?', `${cap(s.symPara)}`, 'Un refuge artificiel d’orignaux aménagé près du littoral', 'Une centrale hydroélectrique interdite aux curieux', [s.symKw]),
+            makeQuestion('Quel mets culinaire typique est proposé dans les auberges ?', 'Des crustacés frais et des potages marins traditionnels', 'De la viande fraîche d’orignaux chassés par des pêcheurs', 'Des barquettes de plats préparés et réchauffés au four', ['homard', 'chaudrées']),
           ],
         }
       },
