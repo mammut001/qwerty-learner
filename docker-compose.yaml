@@ -4,6 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
+        BUILD_COMMIT_SHA: ${BUILD_COMMIT_SHA:?Set BUILD_COMMIT_SHA to the Git commit being deployed}
         VITE_STUDY_API_BASE_URL: ${VITE_STUDY_API_BASE_URL:-}
         VITE_FIREBASE_AUTH_DOMAIN: ${VITE_FIREBASE_AUTH_DOMAIN:-}
         VITE_UMAMI_WEBSITE_ID: ${VITE_UMAMI_WEBSITE_ID:-}
