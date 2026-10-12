@@ -19,7 +19,17 @@ export default function StartButton({ isLoading }: { isLoading: boolean }) {
     dispatch({ type: TypingStateActionType.REPEAT_CHAPTER, shouldShuffle: randomConfig.isOpen })
   }, [dispatch, randomConfig.isOpen])
 
-  useHotkeys('enter', onToggleIsTyping, { enableOnFormTags: true, preventDefault: true }, [onToggleIsTyping])
+  useHotkeys(
+    'enter',
+    onToggleIsTyping,
+    {
+      enabled: !state.isFinished,
+      enableOnFormTags: true,
+      preventDefault: true,
+      ignoreEventWhen: (event) => event.target instanceof Element && Boolean(event.target.closest('button, a, [role="button"]')),
+    },
+    [onToggleIsTyping],
+  )
 
   const [isShowReStartButton, setIsShowReStartButton] = useState(false)
   const { refs, context } = useFloating({

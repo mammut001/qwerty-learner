@@ -14,12 +14,15 @@ import {
 } from '@/store'
 import { Transition } from '@headlessui/react'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
-import { useCallback, useContext, useEffect, useMemo } from 'react'
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { useNavigate } from 'react-router-dom'
 import IexportWords from '~icons/icon-park-outline/excel'
 import IconGithub from '~icons/simple-icons/github'
 import IconX from '~icons/tabler/x'
+
+const ignoreControlShortcuts = (event: KeyboardEvent) =>
+  event.target instanceof Element && Boolean(event.target.closest('button, a, [role="button"]'))
 
 const ResultScreen = () => {
   // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
@@ -33,6 +36,8 @@ const ResultScreen = () => {
 
   const setReviewModeInfo = useSetAtom(reviewModeInfoAtom)
   const isReviewMode = useAtomValue(isReviewModeAtom)
+  const [isExporting, setIsExporting] = useState(false)
+  const [exportError, setExportError] = useState('')
 
   useEffect(() => {
     // tick a zero timer to calc the stats
@@ -40,6 +45,9 @@ const ResultScreen = () => {
   }, [dispatch])
 
   const exportWords = useCallback(() => {
+    if (isExporting) return
+    setIsExporting(true)
+    setExportError('')
     const { words, userInputLogs } = state.chapterData
     const exportData = userInputLogs.map((log) => {
       const word = words[log.index]
@@ -63,9 +71,10 @@ const ResultScreen = () => {
         writeFileXLSX(wb, `${currentDictInfo.name}第${currentChapter + 1}章.xlsx`)
       })
       .catch(() => {
-        console.log('写入 xlsx 模块导入失败')
+        setExportError('导出失败，请刷新页面后重试。')
       })
-  }, [currentChapter, currentDictInfo.language, currentDictInfo.name, state.chapterData])
+      .finally(() => setIsExporting(false))
+  }, [currentChapter, currentDictInfo.language, currentDictInfo.name, isExporting, state.chapterData])
 
   const wrongWords = useMemo(() => {
     return state.chapterData.userInputLogs
@@ -167,7 +176,7 @@ const ResultScreen = () => {
     () => {
       nextButtonHandler()
     },
-    { preventDefault: true },
+    { preventDefault: true, ignoreEventWhen: ignoreControlShortcuts },
   )
 
   useHotkeys(
@@ -177,7 +186,7 @@ const ResultScreen = () => {
       e.stopPropagation()
       repeatButtonHandler()
     },
-    { preventDefault: true },
+    { preventDefault: true, ignoreEventWhen: ignoreControlShortcuts },
   )
 
   useHotkeys(
@@ -185,7 +194,7 @@ const ResultScreen = () => {
     () => {
       dictationButtonHandler()
     },
-    { preventDefault: true },
+    { preventDefault: true, ignoreEventWhen: ignoreControlShortcuts },
   )
 
   return (
@@ -227,7 +236,16 @@ const ResultScreen = () => {
               <div className="ml-2 flex flex-col items-center justify-end gap-3 text-xl">
                 {!isReviewMode && (
                   <Tooltip content="导出本章练习结果">
-                    <IexportWords fontSize={18} className="cursor-pointer text-gray-500 hover:text-indigo-500" onClick={exportWords}></IexportWords>
+                    <button
+                      type="button"
+                      aria-label="导出本章练习结果"
+                      aria-busy={isExporting}
+                      disabled={isExporting}
+                      onClick={exportWords}
+                      className="rounded p-1 text-gray-500 hover:text-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:cursor-wait disabled:opacity-50"
+                    >
+                      <IexportWords fontSize={18} aria-hidden="true" />
+                    </button>
                   </Tooltip>
                 )}
                 <a
@@ -241,6 +259,11 @@ const ResultScreen = () => {
                 </a>
               </div>
             </div>
+            {exportError && (
+              <p role="alert" className="mt-4 text-center text-sm text-red-600 dark:text-red-400">
+                {exportError}
+              </p>
+            )}
             <div className="mt-10 flex w-full justify-center gap-5 px-5 text-xl">
               {!isReviewMode && (
                 <>
