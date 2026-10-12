@@ -1632,12 +1632,13 @@ export const N04_L_1 = [
   Object.assign(
     (rand) => {
       const req = pick(N4_DESK_REQUESTS, rand)
+      const others = sample(N4_DESK_REQUESTS.filter(x => x.answerGood !== req.answerGood), 2, rand)
       const text = `— Bonjour madame, excusez-moi de vous déranger à l’accueil. J’ai égaré ${req.lost} ce matin en venant au bureau. Est-ce que vous pourriez m’expliquer la marche à suivre pour régler cette situation rapidement aujourd’hui ?`
       return {
         text,
         questions: [
           q('Quel renseignement le visiteur demande-t-il au comptoir ?', req.topicOpt, req.otherTopic1, req.otherTopic2, [req.kwTopic]),
-          q('Quelle réponse donnée par l’agente est appropriée ?', req.answerGood, req.answerWrong1, req.answerWrong2, ['accueil']),
+          q('Quelle réponse donnée par l’agente est appropriée ?', req.answerGood, others[0].answerGood, others[1].answerGood, ['accueil']),
         ],
       }
     },
@@ -1648,12 +1649,13 @@ export const N04_L_1 = [
     (rand) => {
       const item = pick(N4_PORTAL_TASKS, rand)
       const col = pick(N4_COLLEAGUES, rand)
+      const others = sample(N4_PORTAL_TASKS.filter(x => x.answerGood !== item.answerGood), 2, rand)
       const text = `— Salut ${col} ! Est-ce que tu pourrais m’expliquer comment ${item.task} sur le portail interne ? Je cherche depuis dix minutes dans tous les menus sans succès, et j’aimerais terminer cette démarche avant de quitter le bureau.`
       return {
         text,
         questions: [
           q('Sur quel point le collègue demande-t-il des explications ?', item.topicOpt, item.otherTopic1, item.otherTopic2, [item.kwTask]),
-          q('Quelle réponse de la collègue est adaptée à la demande ?', item.answerGood, item.answerWrong1, item.answerWrong2, ['menus']),
+          q('Quelle réponse de la collègue est adaptée à la demande ?', item.answerGood, others[0].answerGood, others[1].answerGood, ['menus']),
         ],
       }
     },
@@ -1663,12 +1665,13 @@ export const N04_L_1 = [
   Object.assign(
     (rand) => {
       const item = pick(N4_COMMUNITY_COURSES, rand)
+      const others = sample(N4_COMMUNITY_COURSES.filter(x => x.answerGood !== item.answerGood), 2, rand)
       const text = `— Bonjour monsieur. Je viens tout juste d’emménager dans le quartier avec ma famille. Pouvez-vous m’expliquer comment s’inscrire ${item.course} ? J’ai vu l’affiche à l’entrée, mais je ne connais pas du tout les démarches.`
       return {
         text,
         questions: [
           q('Quel renseignement le citoyen demande-t-il au centre ?', item.topicOpt, item.otherTopic1, item.otherTopic2, [item.kwCourse]),
-          q('Quelle réponse de l’employé est adaptée à la situation ?', item.answerGood, item.answerWrong1, item.answerWrong2, ['affiche']),
+          q('Quelle réponse de l’employé est adaptée à la situation ?', item.answerGood, others[0].answerGood, others[1].answerGood, ['affiche']),
         ],
       }
     },
@@ -1680,7 +1683,7 @@ export const N04_L_1 = [
     text: '— Bonjour Sylvain. Peux-tu m’expliquer comment utiliser le numériseur de la réception ? Je veux envoyer un contrat signé à la direction par courriel aujourd’hui. J’ai placé le document sur la vitre, mais je ne sais pas quoi choisir sur l’écran.',
     questions: [
       q('Que cherche à savoir la personne au début du message ?', 'la marche à suivre pour utiliser le numériseur', 'le prix d’une cartouche d’encre pour l’appareil', 'l’heure de ramassage du courrier par la poste', ['numériseur']),
-      q('Quelle consigne du collègue est appropriée ?', 'Sélectionne Envoi courriel et appuie sur Départ.', 'Je serais ravi de venir dîner avec vous demain.', 'Désolé, mais j’ai un rendez-vous chez le médecin.', ['courriel']),
+      q('Quelle consigne du collègue est appropriée ?', 'Sélectionne Envoi courriel et appuie sur Départ.', 'Choisis Impression recto-verso puis valide ici.', 'Active le mode Copie couleur sur le menu central.', ['courriel']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Remplacement d'une carte de transport défectueuse
@@ -1689,7 +1692,7 @@ export const N04_L_1 = [
     text: '— Excusez-moi monsieur, ma carte d’autobus mensuelle ne fonctionne plus quand je la passe sur la borne ce matin. Est-ce que vous pourriez m’expliquer la procédure pour régler ce problème ? Je dois prendre l’autobus tous les jours.',
     questions: [
       q('Quelle explication l’usager demande-t-il au commis ?', 'la façon de remplacer une carte défectueuse', 'le tarif d’un billet unitaire pour le métro', 'l’horaire de passage du prochain autobus rapide', ['carte']),
-      q('Quelle réponse du commis est adaptée à cette situation ?', 'Montrez votre carte au guichet avec votre reçu.', 'Félicitations pour votre nouvelle maison en ville.', 'Je prends un thé à la menthe avec un peu de sucre.', ['carte']),
+      q('Quelle réponse du commis est adaptée à cette situation ?', 'Montrez votre carte au guichet avec votre reçu.', 'Achetez un billet simple dans cette distributrice.', 'Consultez les horaires de passage sur le panneau.', ['carte']),
     ],
   },
 ]
