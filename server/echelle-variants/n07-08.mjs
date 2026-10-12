@@ -56,7 +56,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle mesure concrète plusieurs employeurs proposent-ils pour faciliter l’installation ?',
           'La prise en charge des coûts liés au transport des biens',
-          'La promesse d’un voyage de vacances après quelques mois',
+          'Le financement direct des études professionnelles accélérées',
           'L’attribution gratuite d’une maison dans la municipalité',
         ],
       ],
@@ -181,7 +181,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quel sous-entendu Catherine fait-elle en menaçant d’installer un péage ?',
           'Elle veut montrer l’absurdité du comportement de Félix',
-          'Elle a un besoin urgent de collecter de l’argent liquide',
+          'Elle espère récupérer ses muffins aux carottes disparus',
           'Elle souhaite rénover complètement la salle de bain',
         ],
         [
@@ -207,7 +207,7 @@ export const N07_08_SCENARIOS = {
           'Que peut-on déduire de l’attitude de Marc face à cette fin de semaine ?',
           'Il manifeste une inquiétude exagérée face aux imprévus',
           'Il cherche secrètement un prétexte pour annuler le voyage',
-          'Il est un expert reconnu en survie dans le Grand Nord',
+          'Il redoute une panne du réseau Internet haute vitesse',
         ],
         [
           'Quelle information météo Chantal rappelle-t-elle pour calmer son conjoint ?',
@@ -363,7 +363,7 @@ export const N07_08_SCENARIOS = {
           'Quel risque implicite guette les acheteurs de condos aux frais mensuels anormalement bas ?',
           'Devoir payer d’urgence d’importantes cotisations de rattrapage',
           'Perdre définitivement leur droit de vote aux assemblées générales',
-          'Devoir assumer individuellement les frais de réfection de la toiture',
+          'Devoir payer l’intégralité des honoraires de l’évaluateur agréé',
         ],
         [
           'Quels types d’ouvrages collectifs le fonds de prévoyance sert-il à financer ?',
@@ -1085,7 +1085,7 @@ export const N07_08_SCENARIOS = {
           'Quel bénéfice relationnel principal les travailleurs autonomes trouvent-ils en cotravail ?',
           'L’accès à un réseau stimulant brisant la solitude du domicile',
           'La prise en charge de la comptabilité personnelle par les gestionnaires de l’espace',
-          'La mise à disposition d’employés administratifs gratuits pour leurs mandats',
+          'L’accès privilégié aux mandats confiés aux autres travailleurs du centre',
         ],
         [
           'Quelle vigilance implicite ce mode de travail ouvert impose-t-il aux usagers ?',
@@ -1383,12 +1383,12 @@ export const N07_08_SCENARIOS = {
           "Quelle attitude est implicitement requise lors des périodes d’astreinte ?",
           "Une disponibilité réactive doublée d’un grand sang-froid",
           "Une capacité à reporter le traitement des alertes au lundi",
-          "Une tendance à déléguer systématiquement aux stagiaires",
+          "Une propension à attendre le feu vert du comité de direction",
         ],
         [
           "Quel avantage professionnel l’institution propose-t-elle à la candidate ?",
           "Un financement régulier pour perfectionner ses compétences",
-          "Une exemption d’évaluation professionnelle durant ses premières années de service",
+          "Une dispense des rotations de garde lors des fins de semaine",
           "Un horaire de travail fixe sans aucune contrainte d’urgence",
         ],
       ],
@@ -1558,7 +1558,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle différence fondamentale caractérise les deux protagonistes de cette comédie dramatique ?",
           "Leurs rapports diamétralement opposés à la prévoyance quotidienne",
-          "Leurs opinions politiques incompatibles lors des élections locales",
+          "Leurs conceptions opposées de l’aménagement paysager et des parcs",
           "Leurs visions opposées de la traduction littéraire professionnelle",
         ],
         [
@@ -1753,13 +1753,13 @@ export const N07_08_SCENARIOS = {
         [
           "Que doit-on déduire sur l’intention de la cheffe en exigeant une relance graduelle des services ?",
           "S’assurer de la stabilité du système sans provoquer une nouvelle panne",
-          "Permettre aux employés de quitter le travail plus rapidement le soir",
+          "Permettre la reconnexion immédiate de la machine au réseau externe",
           "Accélérer la réinitialisation matérielle forcée du serveur réseau",
         ],
         [
           "Quel indicateur atteste que la situation technique est revenue à la normale ?",
           "L’évacuation fluide des courriels placés dans la file d’envoi",
-          "La disparition complète de tous les anciens comptes usagers",
+          "Le maintien prolongé du routeur en mode d’isolation locale",
           "L’apparition d’un voyant lumineux rouge sur la tour centrale",
         ],
       ],
@@ -1771,7 +1771,7 @@ export const N07_08_SCENARIOS = {
       questions: [
         [
           "Quelle manœuvre initiale l’employée doit-elle exécuter pour sécuriser le matériel ?",
-          "Mettre le processus en arrêt temporaire au moyen du clavier",
+          "Mettre le processus en arrêt temporaire depuis le panneau latéral",
           "Lancer directement la séquence de nettoyage enzymatique automatique",
           "Changer immédiatement la lampe optique du compartiment central",
         ],
@@ -1804,12 +1804,12 @@ export const N07_08_SCENARIOS = {
           "Que peut-on déduire quant à l’attitude requise pour faire descendre la charge suspendue ?",
           "Agir avec une lenteur méthodique pour prévenir tout balancement",
           "Accélérer la rotation de la manivelle afin de gagner du temps",
-          "Secouer le mât vertical pour détacher les fixations grippées",
+          "Effectuer des arrêts brusques pour tester les mâchoires de frein",
         ],
         [
           "Quelle vérification finale s’impose avant de relancer la machine industrielle ?",
           "Contrôler le parfait alignement des colis sur leur support de bois",
-          "Vérifier le serrage des mâchoires de freinage sur le rail supérieur",
+          "Vérifier la fermeture de l’armoire sectionnelle en bout de rangée",
           "Transférer les marchandises vers un quai de déchargement adjacent",
         ],
       ],
@@ -2086,7 +2086,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quel principe fondamental a guidé la création de la coopérative en 1994 ?",
           "L’association solidaire de plusieurs familles agricoles de la région",
-          "La nationalisation de terres abandonnées par de grandes corporations",
+          "L’exportation immédiate de bleuets sauvages vers les marchés d’Europe",
           "La volonté de transformer les fruits en confitures pour les touristes",
         ],
         [
@@ -2375,7 +2375,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quel motif structurel fondamental justifie le regroupement des services ambulatoires ?",
           "Le manque prononcé de professionnelles de santé exigeant une réorganisation",
-          "La volonté d’augmenter les tarifs facturés aux patients lors des consultations",
+          "La volonté de supprimer les postes de coordonnateurs cliniques sur le terrain",
           "L’ouverture de nouveaux centres communautaires dans les petites municipalités",
         ],
         [
@@ -2488,7 +2488,7 @@ export const N07_08_SCENARIOS = {
           "Que peut-on déduire quant à l’intérêt pratique de l’exportation au format normatif provincial ?",
           "Accélérer la délivrance des autorisations administratives auprès des villes",
           "Remplacer le calcul du coefficient thermique par une estimation visuelle",
-          "Garantir automatiquement la conformité aux règlements d’urbanisme locaux",
+          "Corriger automatiquement les erreurs d’assignation des cloisons mitoyennes",
         ],
       ],
     },
@@ -2506,7 +2506,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle négligence de mise en page risque de dégrader la qualité visuelle du produit fini ?",
           "L’omission d’ajouter une marge de fond perdu pour sécuriser la coupe au massicot",
-          "L’exportation du document final sans incorporer le profil colorimétrique",
+          "L’oubli de détruire les nœuds sous-jacents avant d’éditer l’affiche",
           "Le verrouillage intempestif des calques d’ajustement avant l’impression",
         ],
         [
@@ -2564,7 +2564,7 @@ export const N07_08_SCENARIOS = {
           "Quelle prérogative le statut temporaire de candidate accorde-t-il avant l’examen final ?",
           "Exercer des tâches soignantes sous la responsabilité d’infirmières chevronnées",
           "Prescrire en toute indépendance des protocoles médicamenteux en salle d’opération",
-          "Remplacer les surveillantes lors des examens d’admission de l’Ordre",
+          "Travailler en milieu hospitalier sans aucune obligation de supervision clinique",
         ],
         [
           "Que peut-on déduire sur la mission première de cet ordre professionnel à travers ces exigences ?",
@@ -2614,7 +2614,7 @@ export const N07_08_SCENARIOS = {
           "Quelle précaution matérielle importante l’organisme demande-t-il d’observer pour les pièces jointes ?",
           "Ne faire parvenir que des reproductions sans jamais se départir des documents originaux",
           "Faire traduire l’intégralité des courriels par un notaire assermenté de la région",
-          "Envoyer tous les éléments de preuve sur une clé USB scellée par les autorités postales",
+          "Faire authentifier les copies numériques auprès du ministère ou de l’organisme visé",
         ],
         [
           "Que peut-on déduire quant au statut du Protecteur du citoyen dans le règlement des différends ?",
@@ -2639,7 +2639,7 @@ export const N07_08_SCENARIOS = {
           "Quelle étape préliminaire de conciliation est systématiquement proposée par l’organisme ?",
           "Une rencontre de médiation bénévole et sans frais pour rechercher une entente à l’amiable",
           "Un arbitrage juridique dont les honoraires sont facturés à parts égales aux deux parties",
-          "Une confrontation obligatoire dans les locaux de l’entreprise devant l’ensemble du personnel",
+          "Une audition formelle sous serment devant les juges du Tribunal administratif du travail",
         ],
         [
           "Que peut-on déduire sur l’intention de la loi en prévoyant le recours au Tribunal administratif ?",
