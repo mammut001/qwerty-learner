@@ -308,7 +308,7 @@ describe('Échelle québécoise Niveaux 5–6 Scenarios and Banks', () => {
   })
 
   it('satisfies slot grammar scan patterns without invalid contractions or elisions', () => {
-    const p1 = /\b(de le|à le|de les|à les)\b/i
+    const p1 = /(?<![\p{L}\p{N}])(de le|à le|de les|à les)(?![\p{L}\p{N}])/iu
     const p2 = /\ben (le|la|les|l[’'])\s?\w+/i
     const p3 = /\bentre [^.;,]{3,40} à /i
     const p4 = /\b(de|que|je|ne|me|te|se)\s+[aeiouéèêàâîôû]\w{2,}/i
@@ -366,7 +366,21 @@ describe('Échelle québécoise Niveaux 5–6 Scenarios and Banks', () => {
     const mascClashRe = new RegExp(`\\b(la|une|cette)\\s+(${mascNouns.join('|')})\\b`, 'iu')
     const femClashRe = new RegExp(`\\b(le|un|ce|cet)\\s+(${femNouns.join('|')})\\b`, 'iu')
 
-    const contractionRe = /\b(à|de) (le|les)\b/i
+    const PROPER_NOUNS_AFTER_PUNCT = new Set([
+      'Patrick', 'Simard', 'Marc', 'Bédard', 'Chantal', 'Lévesque', 'Alexandre', 'Antoine', 'François',
+      'Mathieu', 'Marie-Ève', 'Geneviève', 'Isabelle', 'Véronique', 'Audrey', 'Sophie', 'Valérie',
+      'Monique', 'Nadia', 'Camille', 'Julie', 'Caroline', 'Lucia', 'Tariq', 'Karim', 'Émile', 'Luc',
+      'Simon', 'David', 'Clara', 'Laurence', 'Marianne', 'Lemieux', 'Gagnon', 'Tremblay', 'Roy',
+      'Bouchard', 'Gauthier', 'Côté', 'Morin', 'Fortin', 'Pelletier', 'Bélanger', 'Bergeron', 'Boucher',
+      'Martin', 'Félix', 'Samuel', 'Jean', 'Ariane', 'Belkacem', 'Docteure', 'Docteur', 'Madame', 'Monsieur',
+      'Charlevoix', 'Rimouski', 'Gatineau', 'Montréal', 'Québec', 'Magog', 'Sherbrooke', 'Laval',
+      'Longueuil', 'Tadoussac', 'Saguenay', 'Gaspé', 'Percé', 'Laurentides', 'Orléans', 'Bonaventure',
+      'Peel', 'Cartet', 'Maguire', 'Alma', 'Mont-Tremblant', 'Canada', 'Hydro-Québec', 'Desjardins', 'RQAP',
+      'Karine', 'Sarah', 'Émilie',
+    ])
+    const unaccentedParticipleRe = /(?<![\p{L}\p{N}])(a|ont|est|sont|avait|avaient)\s+(troque|participe|installe|renove|regroupe|mobilise|cree|ameliore|organise|debute|remplace|presente|confirme)(?![\p{L}\p{N}])/iu
+
+    const contractionRe = /(?<![\p{L}\p{N}])(à|de)\s+(le|les)(?![\p{L}\p{N}])/iu
     const deDesRe = /\bde des\b/i
     const doubledRe = /(?<![\p{L}\p{N}])(de|le|la|les|un|une|à)\s+\1(?![\p{L}\p{N}])/iu
     const wrongElisionRe = /(?<![\p{L}\p{N}])(d|l|qu|j|n|s|m|t|c)[’'](?![aeiouyhâàéèêëîïôöûùœAEIOUYHÂÀÉÈÊÎÔÛŒ\d])/iu
@@ -432,6 +446,21 @@ describe('Échelle québécoise Niveaux 5–6 Scenarios and Banks', () => {
               `Forbidden contraction in ${id} sc ${sIdx}: "${rawStr}"`
             )
 
+            // 1b. Capital letter directly after comma or semicolon followed by lowercase word
+            for (const cm of str.matchAll(/(?:,|;)[ \t]+(\p{Lu}[\p{L}-]*)[ \t]+(\p{Ll}[\p{L}-]*)/gu)) {
+              const capWord = cm[1]
+              assert.ok(
+                PROPER_NOUNS_AFTER_PUNCT.has(capWord),
+                `Capital letter directly after punctuation followed by lowercase word in ${id} sc ${sIdx}: "${cm[0]}" in "${rawStr}"`
+              )
+            }
+
+            // 1c. Unaccented participle typos
+            assert.ok(
+              !unaccentedParticipleRe.test(str),
+              `Unaccented participle typo in ${id} sc ${sIdx}: "${rawStr}"`
+            )
+
             // 2. de des check
             assert.ok(
               !deDesRe.test(str),
@@ -491,6 +520,27 @@ describe('Échelle québécoise Niveaux 5–6 Scenarios and Banks', () => {
                 `Missing mandatory elision "${em[0]}" in ${id} sc ${sIdx}: "${rawStr}"`
               )
             }
+          }
+
+          // 9. Register consistency per built text (tu vs vous)
+          const tuRe = /(?<![\p{L}\p{N}])(tu|toi|ton|ta|tes|connecte-toi)(?![\p{L}\p{N}])/iu
+          const vousRe = /(?<![\p{L}\p{N}-])(vous|votre|vos)(?![\p{L}\p{N}-])/iu
+          const unquoted = inst.text.replace(/«[^»]*»|"[^"]*"/g, '')
+          if (tuRe.test(unquoted) && vousRe.test(unquoted)) {
+            assert.fail(
+              `Register clash (tu vs vous) in ${id} sc ${sIdx} seed ${seed}: "${inst.text}"`
+            )
+          }
+
+          // 10. Finite verb check after reporting verbs
+          const reportingClauseRe = /(?:indique|souligne|précise|annonce) que\s+([^.!?]+)[.!?]/giu
+          for (const rm of inst.text.matchAll(reportingClauseRe)) {
+            const clause = rm[1].trim()
+            const finiteVerbRe = /(?<![\p{L}\p{N}])(?:est|sont|était|étaient|fut|furent|sera|seront|a|ont|avait|avaient|aura|auront|fait|font|faisait|faisaient|fera|feront|va|vont|allait|allaient|doit|doivent|devait|devaient|peut|peuvent|pouvait|pouvaient|sait|savent|semble|semblent|prend|prennent|prendra|prenait|reçoit|reçoivent|débroussaillent|activent|dépassent|souffre|souffrent|suffit|suffisent|compte|comptent|\w+(?:ent|ait|aient|era|eront))\b/iu
+            assert.ok(
+              finiteVerbRe.test(clause),
+              `Subordinate clause after reporting verb missing finite verb in ${id} sc ${sIdx}: "${clause}"`
+            )
           }
         }
       }

@@ -161,7 +161,7 @@ export const N05_06_SCENARIOS = {
         const slots = [
           { lieu: 'dans la ruelle verte', repli: 'au centre communautaire', horaire: 'dix heures', plat: 'un plat cuisiné', lieuPara: 'au sein de la ruelle verte', repliPara: 'vers les salles du centre communautaire', lieuKw: 'ruelle verte', repliKw: 'centre communautaire' },
           { lieu: 'au parc Laurier', repli: 'dans le gymnase de l’école', horaire: 'onze heures', plat: 'une salade fraîche', lieuPara: 'directement au parc Laurier', repliPara: 'vers le gymnase de l’école voisine', lieuKw: 'parc laurier', repliKw: 'gymnase' },
-          { lieu: 'sur la place publique', repli: 'dans la salle paroissiale', horaire: 'dix heures et demie', plat: 'un dessert maison', lieuPara: 'au centre de la place publique', repliPara: 'vers les locaux de la paroisse', lieuKw: 'place publique', repliKw: 'salle paroissiale' },
+          { lieu: 'sur la place publique', repli: 'dans la salle paroissiale', horaire: 'dix heures et demie', plat: 'un dessert maison', lieuPara: 'directement sur la place publique', repliPara: 'vers les locaux de la paroisse', lieuKw: 'place publique', repliKw: 'salle paroissiale' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
@@ -181,7 +181,7 @@ export const N05_06_SCENARIOS = {
         const slots = [
           { nom: 'Madame Tremblay', activite: 'un concours de tartes aux pommes', heure: 'midi', actPara: 'un concours culinaire de tartes aux pommes', actKw: 'pommes' },
           { nom: 'Madame Bouchard', activite: 'un tournoi amical de pétanque', heure: 'midi et quart', actPara: 'une compétition récréative de pétanque', actKw: 'pétanque' },
-          { nom: 'Madame Roy', activite: 'une dégustation de produits régionaux', heure: 'midi et demi', actPara: 'une dégustation guidée de spécialités locales', actKw: 'dégustation' },
+          { nom: 'Madame Roy', activite: 'une dégustation de produits régionaux', heure: 'midi et demi', actPara: 'une dégustation de spécialités locales', actKw: 'dégustation' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
@@ -200,7 +200,7 @@ export const N05_06_SCENARIOS = {
       (rand) => {
         const slots = [
           { ville: 'à Québec', pays: 'douze pays', epreuve: 'du cinq cents mètres', athlete: 'Camille Bédard', epPara: 'la course de vitesse sur courte distance', epKw: 'cinq cents mètres' },
-          { ville: 'à Montréal', pays: 'quinze pays', epreuve: 'du mille mètres', athlete: 'Mélanie Tremblay', epPara: 'l’épreuve individuelle de moyenne distance', epKw: 'mille mètres' },
+          { ville: 'à Montréal', pays: 'quinze pays', epreuve: 'du mille mètres', athlete: 'Mélanie Tremblay', epPara: 'la compétition sur glace du mille mètres', epKw: 'mille mètres' },
           { ville: 'à Sherbrooke', pays: 'dix pays', epreuve: 'du relais mixte', athlete: 'Audrey Beaulieu', epPara: 'la compétition par équipes du relais mixte', epKw: 'relais mixte' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
@@ -229,7 +229,7 @@ export const N05_06_SCENARIOS = {
           questions: [
             makeQuestion('Quel événement sportif fait l’objet de ce reportage ?', 'Une coupe du monde réunissant des fondeurs', 'Un circuit d’alpinisme réservé aux recrues', 'Une traversée récréative des forêts du Nord', ['ski', 'coupe du monde']),
             makeQuestion('Quel moyen de transport conseille-t-on aux spectateurs ?', 'Les autobus gratuits affrétés depuis la ville', 'Le train de banlieue reliant les pistes de ski', 'Le covoiturage payant coordonné par taxi local', ['navettes', 'gratuites']),
-            makeQuestion('Quand auront lieu les premières courses officielles ?', 'En tout début de matinée au cours du lendemain', 'En fin d’après-midi après le coucher du soleil', 'Lundi matin dès l’ouverture générale du domaine', ['début', 'matinée']),
+            makeQuestion('Quand auront lieu les premières courses officielles ?', 'En tout début de matinée au cours du lendemain', 'En fin d’après-midi après le coucher du soleil', 'En milieu de semaine prochaine en soirée', ['début', 'matinée']),
           ],
         }
       },
@@ -393,7 +393,7 @@ export const N05_06_SCENARIOS = {
         const slots = [
           { pays: 'au Portugal', ville: 'de Lisbonne', logement: 'chez une famille chaleureuse', transport: 'le tramway historique', logPara: 'au sein d’une famille d’accueil accueillante', logKw: 'famille' },
           { pays: 'en Espagne', ville: 'de Séville', logement: 'dans une auberge de jeunesse conviviale', transport: 'le vélo en libre-service', logPara: 'dans une auberge de jeunesse pour voyageurs', logKw: 'auberge' },
-          { pays: 'en Italie', ville: 'de Bologne', logement: 'dans un petit appartement d’étudiant', transport: 'les trains régionaux', logPara: 'dans un modeste logement partagé pour étudiants', logKw: 'appartement' },
+          { pays: 'en Italie', ville: 'de Bologne', logement: 'dans un petit appartement d’étudiant', transport: 'les trains régionaux', logPara: 'dans un petit logement pour étudiants', logKw: 'appartement' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
@@ -565,7 +565,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Tu as su pour ${s.collegue} ? ${s.employeur[0].toUpperCase() + s.employeur.slice(1)} lui offrait un poste permanent à temps plein avec un salaire alléchant. Mais après mûre réflexion, il a décliné l’offre complète pour négocier un horaire de ${s.heures} par semaine. Il m’a confié que son but principal était ${s.raison}. Il avait vécu un épisode difficile il y a deux ans et il ne voulait absolument pas retomber dans le même piège de surcharge de travail. Son employeur a heureusement accepté sa proposition, car ses compétences techniques sont indispensables pour l’équipe.`,
           questions: [
-            makeQuestion('Pourquoi le travailleur a-t-il refusé le poste à quarante heures ?', `Dans l’objectif de ${s.raiPara}`, 'Pour s’installer plusieurs mois à l’écart en campagne', 'Parce qu’une autre entreprise lui assurait un salaire doublé', [s.kw]),
+            makeQuestion('Pourquoi le travailleur a-t-il refusé le poste permanent à temps plein ?', `Dans l’objectif de ${s.raiPara}`, 'Pour s’installer plusieurs mois à l’écart en campagne', 'Parce qu’une autre entreprise lui assurait un salaire doublé', [s.kw]),
             makeQuestion('Combien d’heures de travail par semaine a-t-il négociées ?', `Une formule contractuelle de ${s.heures} hebdomadaires`, 'Un horaire réduit fixé à une dizaine d’heures par semaine', 'Une charge hebdomadaire standard de trente-cinq heures', [s.heures]),
             makeQuestion('Quelle a été la réponse finale de l’employeur ?', 'Il a consenti à son aménagement à temps partiel', 'Il a rompu la relation contractuelle sans délai', 'Il lui a enjoint de solliciter un autre établissement', ['employeur', 'accepté']),
           ],
@@ -689,7 +689,7 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { amie: 'Karine', destination: 'en Gaspésie', activite: 'louer un chalet face au fleuve et voir les baleines', conseil: 'réserver avant la fin mars', conPara: 'effectuer ses réservations avant le terme du mois de mars', actKw: 'baleines', conKw: 'mars' },
+          { amie: 'Karine', destination: 'en Gaspésie', activite: 'louer un chalet face au fleuve et de voir les baleines', conseil: 'réserver avant la fin mars', conPara: 'effectuer ses réservations avant le terme du mois de mars', actKw: 'baleines', conKw: 'mars' },
           { amie: 'Sarah', destination: 'aux Îles-de-la-Madeleine', activite: 'faire du kayak le long des falaises rouges', conseil: 'acheter les billets de traversier très tôt', conPara: 'se procurer les passages sur le traversier sans tarder', actKw: 'kayak', conKw: 'traversier' },
           { amie: 'Émilie', destination: 'dans Charlevoix', activite: 'parcourir les sentiers de randonnée en montagne', conseil: 'prévoir des vêtements chauds pour le soir', conPara: 'emporter une tenue bien chaude pour les soirées fraîches', actKw: 'randonnée', conKw: 'vêtements' },
         ]
@@ -771,7 +771,7 @@ export const N05_06_SCENARIOS = {
         const slots = [
           { region: 'dans les Cantons-de-l’Est', parcours: 'l’Estriade et ses sentiers ombragés', halte: 'les auberges champêtres locales', parPara: 'la voie cyclable de l’Estriade et ses tronçons boisés', regPara: 'Une randonnée touristique à bicyclette sur les routes de l’Estrie', parKw: 'l’estriade', halKw: 'auberges' },
           { region: 'dans la région de Chaudière-Appalaches', parcours: 'le Parc linéaire de la MRC de Lotbinière', halte: 'les gîtes touristiques certifiés Bienvenue cyclistes', parPara: 'le tracé du parc linéaire aménagé dans Lotbinière', regPara: 'Un itinéraire cyclable balisé dans le secteur de Chaudière-Appalaches', parKw: 'lotbinière', halKw: 'gîtes' },
-          { region: 'dans les Laurentides', parcours: 'le célèbre parc linéaire du P’tit Train du Nord', halte: 'les anciennes auberges de gare aménagées pour cyclistes', parPara: 'l’ancienne voie ferroviaire transformée en piste pour cyclistes', regPara: 'Une boucle de vélo récréative au cœur des paysages des Laurentides', parKw: 'train du nord', halKw: 'auberges' },
+          { region: 'dans les Laurentides', parcours: 'le célèbre parc linéaire du P’tit Train du Nord', halte: 'les anciennes auberges de gare aménagées pour cyclistes', parPara: 'l’ancienne voie ferroviaire transformée en piste pour cyclistes', regPara: 'Un itinéraire à vélo récréatif au cœur des paysages des Laurentides', parKw: 'train du nord', halKw: 'auberges' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
@@ -838,7 +838,7 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { festival: 'des Francos de Montréal', spectateurs: 'huit cent mille festivaliers', concerts: 'deux cent cinquante spectacles gratuits', conPara: 'Une vaste offre de concerts extérieurs sans frais d’accès', conKw: 'spectacles gratuits', cloture: 'célébrer la chanson francophone', orientPara: 'Une nouvelle édition consacrée aux artistes francophones', orientKw: 'francophone' },
+          { festival: 'des Francos de Montréal', spectateurs: 'huit cent mille festivaliers', concerts: 'deux cent cinquante spectacles gratuits', conPara: 'Une vaste offre de concerts musicaux sans frais d’accès', conKw: 'spectacles gratuits', cloture: 'célébrer la chanson francophone', orientPara: 'Une nouvelle édition consacrée aux artistes francophones', orientKw: 'francophone' },
           { festival: 'du Festival de jazz de Montréal', spectateurs: 'près d’un million d’amateurs', concerts: 'trois cents concerts sur les scènes extérieures', conPara: 'Une programmation riche déployée sur les scènes extérieures', conKw: 'scènes extérieures', cloture: 'célébrer les maîtres du jazz mondial', orientPara: 'Une programmation future centrée sur les talents du jazz', orientKw: 'jazz' },
           { festival: 'du Festival d’été de Québec', spectateurs: 'six cent mille spectateurs', concerts: 'deux cents représentations musicales variées', conPara: 'Un grand déploiement de prestations musicales diversifiées', conKw: 'représentations musicales', cloture: 'célébrer les artistes de la scène pop et rock', orientPara: 'Une programmation future axée sur les scènes pop et rock', orientKw: 'rock' },
         ]
@@ -914,7 +914,7 @@ export const N05_06_SCENARIOS = {
           questions: [
             makeQuestion('Quel est l’objectif principal de cette brochure touristique ?', 'Mettre en valeur le patrimoine naturel et culturel régional', 'Avertir les résidents de l’arrivée de dépressions côtières', 'Dresser la chronique historique des premiers colons français', ['charlevoix', 'brochure']),
             makeQuestion('Quelle expérience est particulièrement mise en avant ?', `${cap(s.attPara)}`, 'Une compétition sportive de pêche au gros en haute mer', 'Une visite commentée d’installations pétrochimiques', [s.attKw]),
-            makeQuestion('Pour quoi la municipalité mentionnée est-elle reconnue ?', 'Ses ateliers d’artisans et ses bâtiments patrimoniaux', 'Ses infrastructures aéroportuaires et ses foires d’affaires', 'Ses étendues de sable chaud bordées d’eaux tropicales', ['galeries', 'patrimoine']),
+            makeQuestion('Pour quoi la municipalité mentionnée est-elle reconnue ?', 'Ses galeries d’art et son patrimoine architectural préservé', 'Ses infrastructures aéroportuaires et ses foires d’affaires', 'Ses étendues de sable chaud bordées d’eaux tropicales', ['galeries', 'patrimoine']),
           ],
         }
       },
@@ -924,9 +924,9 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { route: 'la célèbre Route des vins', activite: 'la cueillette des pommes dans les vergers ancestraux', mont: 'le mont Orford', actPara: 'l’autocueillette de fruits au cœur de vergers ancestraux', actKw: 'pommes', montKw: 'orford' },
-          { route: 'le circuit des cœurs villageois', activite: 'la détente dans les spas nordiques en plein air', mont: 'le mont Brome', actPara: 'un moment de ressourcement dans des bains nordiques extérieurs', actKw: 'spas', montKw: 'brome' },
-          { route: 'le Chemin des Cantons patrimonial', activite: 'la dégustation de bières de microbrasseries locales', mont: 'le mont Sutton', actPara: 'la découverte de bières artisanales brassées sur place', actKw: 'bières', montKw: 'sutton' },
+          { route: 'la célèbre Route des vins', activite: 'la cueillette des pommes dans les vergers ancestraux', mont: 'le mont Orford', montNom: 'du mont Orford', actPara: 'l’autocueillette de fruits au cœur de vergers ancestraux', actKw: 'pommes', montKw: 'orford' },
+          { route: 'le circuit des cœurs villageois', activite: 'la détente dans les spas nordiques en plein air', mont: 'le mont Brome', montNom: 'du mont Brome', actPara: 'un moment de ressourcement dans des bains nordiques extérieurs', actKw: 'spas', montKw: 'brome' },
+          { route: 'le Chemin des Cantons patrimonial', activite: 'la dégustation de bières de microbrasseries locales', mont: 'le mont Sutton', montNom: 'du mont Sutton', actPara: 'la découverte de bières artisanales brassées sur place', actKw: 'bières', montKw: 'sutton' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
@@ -934,7 +934,7 @@ export const N05_06_SCENARIOS = {
           questions: [
             makeQuestion('Quelle région touristique québécoise ce guide fait-il découvrir ?', 'Les paysages ruraux et les villages des Cantons-de-l’Est', 'Les paysages forestiers boréaux caractéristiques du grand nord québécois', 'La plaine agricole s’étendant au centre du pays', ['cantons-de-l’est', 'visiteur']),
             makeQuestion('Quelle activité automnale est recommandée aux familles ?', `${cap(s.actPara)}`, 'Des descentes en canot sur les rivières', 'Des compétitions de course à pied organisées chaque fin de semaine en forêt', [s.actKw]),
-            makeQuestion('Quel attrait géographique offre des panoramas remarquables ?', 'Les sentiers pédestres balisés offrant des panoramas splendides autour du mont', 'Des sentiers côtiers longeant une immense plage de sable fin', 'Des sentiers de terre battue au fond d’une combe', ['panoramas', 'collines']),
+            makeQuestion('Quel attrait géographique offre des panoramas remarquables ?', `Les pentes aux panoramas remarquables autour ${s.montNom}`, 'Des sentiers côtiers longeant une immense plage de sable fin', 'Des sentiers de terre battue au fond d’une combe obscure', ['panoramas', 'collines']),
           ],
         }
       },
@@ -1078,7 +1078,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `FORUM DES HABITANTS - RUELLE SÉCURITÉ ET ENTRAIDE\nPetit retour sur les événements survenus dans notre ruelle ${s.ruelle}. À la suite ${s.orage}, un grand saule s’est abattu en travers du chemin. L’arbre ${s.degat}. Heureusement, aucun passant ne circulait à cet instant. Avant même l’arrivée des équipes municipales d’urgence, plusieurs voisins ont sorti leurs scies pour dégager l’accès aux piétons. Merci à Patrick d’avoir installé des cônes de signalisation. La ville ramassera les branches dès demain matin. Soyez prudents à vélo dans le secteur !`,
           questions: [
-            makeQuestion('Quel événement imprévu dans la ruelle est rapporté ?', 'La chute d’un grand arbre provoquée par de fortes bourrasques', 'Une fuite de gaz ayant nécessité l’évacuation des logements', 'La tenue sans permis d’un rassemblement festif sur la voie', ['arbre', 'ruelle']),
+            makeQuestion('Quel événement imprévu dans la ruelle est rapporté ?', 'La chute d’un grand arbre provoquée par les intempéries', 'Une fuite de gaz ayant nécessité l’évacuation des logements', 'La tenue sans permis d’un rassemblement festif sur la voie', ['arbre', 'ruelle']),
             makeQuestion('Quel dommage matériel direct cette chute a-t-elle causé ?', `${cap(s.degPara)}`, 'L’écroulement d’un mur mitoyen sur un immeuble de trois étages', 'La destruction de trois véhicules stationnés le long du trottoir', [s.degKw]),
             makeQuestion('Quelle action collective spontanée les voisins ont-ils entreprise ?', 'Découper des branchages pour libérer le passage des piétons', 'Faire appel aux forces policières pour établir un constat écrit', 'Quitter temporairement leurs logements pour loger chez des proches', ['scies', 'piétons']),
           ],
@@ -1145,7 +1145,7 @@ export const N05_06_SCENARIOS = {
           text: `CLAVARDAGE - ANNONCE OFFICIELLE DE CARRIÈRE\n[10:32] ${s.amie} : Salut ! Je voulais t’expliquer pourquoi j’ai accepté l’offre ${s.poste} ${s.institution}. Après avoir travaillé à contrat dans l’incertitude, ce poste m’apporte exactement ce dont j’avais besoin : ${s.raison}. Même si le processus de sélection a été long avec trois entrevues, la directrice m’a fait une excellente impression. Mes futurs collègues sont accueillants et le bureau est très lumineux. J’entre en poste lundi prochain. Je suis tellement soulagée de cette stabilité !`,
           questions: [
             makeQuestion('Quelle orientation de carrière est partagée par l’amie ?', 'L’acceptation d’un engagement dans le réseau éducatif', 'Une embauche comme commis comptable au sein d’une banque', 'Un contrat de gérance dans un magasin de vêtements du quartier', ['poste', 'offre']),
-            makeQuestion('Pourquoi cette embauche représente-t-elle un grand soulagement ?', `Elle lui assure ${s.raiPara}`, 'Elle n’exige qu’une dizaine d’heures de présence par mois', 'Elle lui permet d’œuvrer sans aucun contact avec le public', [s.raiKw]),
+            makeQuestion('Quel aspect du travail répondait exactement à ses attentes prioritaires ?', `Ce poste lui apporte ${s.raiPara}`, 'Une absence totale de contact direct avec le public ou avec les élèves', 'L’assurance d’une charge de travail hebdomadaire réduite à dix heures', [s.raiKw]),
             makeQuestion('Quand doit-elle commencer officiellement son nouvel emploi ?', 'Dès le début de la semaine suivante suite à son embauche', 'Dans trois mois après une longue période de repos estival', 'Au cours de l’automne prochain lors de la rentrée scolaire', ['lundi', 'poste']),
           ],
         }
@@ -1350,7 +1350,7 @@ export const N05_06_SCENARIOS = {
         const slots = [
           { maman: 'Audrey', snack: 'des mini-galettes de riz à la purée de courge', salade: 'une salade de fruits frais coupés en dés', conseil: 'de préparer les portions dans des petits contenants réutilisables', snaPara: 'des galettes de riz complétées de purée de courge', snaKw: 'galettes de riz' },
           { maman: 'Nathalie', snack: 'des barres tendres maison à l’avoine et canneberges', salade: 'des bouquets de brocoli avec trempette légère', conseil: 'de congeler la moitié de la recette pour gagner du temps', snaPara: 'des barres à l’avoine et canneberges cuisinées maison', snaKw: 'barres tendres' },
-          { maman: 'Mélanie', snack: 'des galettes moelleuses aux pommes et graines de lin', salade: 'des pointes de pita complet avec du guacamole', conseil: 'd’impliquer les enfants pour leur donner envie de goûter', snaPara: 'des galettes tendres préparées avec des pommes et du lin', snaKw: 'pommes' },
+          { maman: 'Mélanie', snack: 'des galettes moelleuses aux pommes et graines de lin', salade: 'des pointes de pita complet avec du guacamole', conseil: 'd’impliquer les enfants pour leur donner envie de goûter', snaPara: 'des galettes tendres préparées avec des pommes et des graines de lin', snaKw: 'pommes' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
@@ -1408,9 +1408,9 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { entraineur: 'Sophie', collation: 'des quartiers d’orange et des galettes à l’avoine', boisson: 'de l’eau fraîche dans une gourde bien identifiée', colPara: 'des portions d’orange associées à des galettes d’avoine', colKw: 'orange' },
-          { entraineur: 'Valérie', collation: 'des raisins sans pépins et des morceaux de fromage', boisson: 'une eau fraîche infusée avec du citron et de la menthe', colPara: 'des raisins frais accompagnés de cubes de fromage', colKw: 'raisins' },
-          { entraineur: 'Chantal', collation: 'des bananes mûres et des barres tendres maison', boisson: 'de l’eau plate sans ajout de sucre ni de jus', colPara: 'des bananes complétées de barres tendres faites maison', colKw: 'bananes' },
+          { entraineur: 'Sophie', collation: 'des quartiers d’orange et des galettes à l’avoine', boisson: 'de l’eau fraîche dans une gourde bien identifiée', boiPara: 'De l’eau fraîche conservée dans une gourde bien identifiée', boiKw: 'gourde', colPara: 'des portions d’orange associées à des galettes d’avoine', colKw: 'orange' },
+          { entraineur: 'Valérie', collation: 'des raisins sans pépins et des morceaux de fromage', boisson: 'une eau fraîche infusée avec du citron et de la menthe', boiPara: 'Une eau fraîche infusée naturellement au citron et à la menthe', boiKw: 'citron', colPara: 'des raisins frais accompagnés de cubes de fromage', colKw: 'raisins' },
+          { entraineur: 'Chantal', collation: 'des bananes mûres et des barres tendres maison', boisson: 'de l’eau plate sans ajout de sucre ni de jus', boiPara: 'De l’eau plate exempte de tout ajout de sucre ou de jus', boiKw: 'sucre', colPara: 'des bananes complétées de barres tendres faites maison', colKw: 'bananes' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
@@ -1418,7 +1418,7 @@ export const N05_06_SCENARIOS = {
           questions: [
             makeQuestion('Quel est l’objectif de cette note transmise par l’entraîneuse ?', 'Conseiller des en-cas équilibrés pour des jeunes lors d’un tournoi', 'Reporter l’ensemble des parties disputées à l’extérieur en raison des fortes pluies', 'Réclamer le versement des droits d’adhésion', ['tournoi', 'collations']),
             makeQuestion('Quelle collation est recommandée entre deux matchs intenses ?', `${cap(s.colPara)}`, 'Des sachets de bonbons du commerce', 'Des portions de frites chaudes très grasses servies avec une sauce salée', [s.colKw]),
-            makeQuestion('Quelle boisson doit-on privilégier pour l’hydratation des joueurs ?', 'De l’eau potable fraîche sans aucun ajout de sucre raffiné ou de jus commercial', 'Des boissons stimulantes pour coureurs d’endurance', 'Des sodas gazéifiés et fortement enrichis en caféine', ['eau', 'boisson']),
+            makeQuestion('Quelle boisson doit-on privilégier pour l’hydratation des joueurs ?', s.boiPara, 'Des boissons énergisantes pour coureurs d’endurance', 'Des sodas très sucrés et fortement enrichis en caféine', [s.boiKw]),
           ],
         }
       },
