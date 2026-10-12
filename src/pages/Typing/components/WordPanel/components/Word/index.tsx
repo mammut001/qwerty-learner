@@ -77,16 +77,10 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
         case 'add':
           if (wordState.hasWrong) return
 
-          if (updateAction.value === ' ') {
-            updateAction.event?.preventDefault()
-            setWordState((state) => {
-              state.inputWord = state.inputWord + EXPLICIT_SPACE
-            })
-          } else {
-            setWordState((state) => {
-              state.inputWord = state.inputWord + updateAction.value
-            })
-          }
+          if (updateAction.value.includes(' ')) updateAction.event?.preventDefault()
+          setWordState((draft) => {
+            draft.inputWord += updateAction.value.replace(/ /g, EXPLICIT_SPACE)
+          })
           break
 
         default:
@@ -171,62 +165,61 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
       return
     }
 
-    const inputChar = wordState.inputWord[inputLength - 1]
-    const correctChar = wordState.displayWord[inputLength - 1]
-    let isEqual = false
-    if (inputChar != undefined && correctChar != undefined) {
-      isEqual = isIgnoreCase ? inputChar.toLowerCase() === correctChar.toLowerCase() : inputChar === correctChar
-    }
-
-    if (isEqual) {
-      // 输入正确时
-      setWordState((state) => {
-        state.letterTimeArray.push(Date.now())
-        state.correctCount += 1
-      })
-
-      if (inputLength >= wordState.displayWord.length) {
-        // 完成输入时
-        setWordState((state) => {
-          state.letterStates[inputLength - 1] = 'correct'
-          state.isFinished = true
-          state.endTime = getUtcStringForMixpanel()
-        })
-        playHintSound()
-      } else {
-        setWordState((state) => {
-          state.letterStates[inputLength - 1] = 'correct'
-        })
-        playKeySound()
+    const start = wordState.letterStates.findIndex((letter) => letter !== 'correct')
+    if (start < 0 || wordState.isFinished) return
+    const end = Math.min(inputLength, wordState.displayWord.length)
+    let errorIndex = -1
+    for (let index = start; index < end; index += 1) {
+      const input = wordState.inputWord[index]
+      const expected = wordState.displayWord[index]
+      if (isIgnoreCase ? input.toLowerCase() !== expected.toLowerCase() : input !== expected) {
+        errorIndex = index
+        break
       }
+    }
+    // An oversized batch must not turn an incorrect pasted word into a successful answer.
+    const overflow = errorIndex < 0 && inputLength > wordState.displayWord.length
+    if (overflow) errorIndex = end - 1
+    const correctEnd = errorIndex < 0 ? end : errorIndex
+    const correctCount = Math.max(0, correctEnd - start)
+    const finished = errorIndex < 0 && end === wordState.displayWord.length
+    const inputChar = overflow ? wordState.inputWord[end] : errorIndex >= 0 ? wordState.inputWord[errorIndex] : ''
 
+    setWordState((draft) => {
+      for (let index = start; index < correctEnd; index += 1) {
+        draft.letterStates[index] = 'correct'
+        draft.letterTimeArray.push(Date.now())
+      }
+      draft.correctCount += correctCount
+      if (errorIndex >= 0) {
+        draft.letterStates[errorIndex] = 'wrong'
+        draft.hasWrong = true
+        draft.hasMadeInputWrong = true
+        draft.wrongCount += 1
+        draft.letterTimeArray = []
+        draft.letterMistake[errorIndex] = [...(draft.letterMistake[errorIndex] ?? []), inputChar]
+      } else if (finished) {
+        draft.isFinished = true
+        draft.endTime = getUtcStringForMixpanel()
+      }
+    })
+
+    for (let index = 0; index < correctCount; index += 1) {
       dispatch({ type: TypingStateActionType.REPORT_CORRECT_WORD })
-    } else {
-      // 出错时
+    }
+    if (errorIndex >= 0) {
       playBeepSound()
-      setWordState((state) => {
-        state.letterStates[inputLength - 1] = 'wrong'
-        state.hasWrong = true
-        state.hasMadeInputWrong = true
-        state.wrongCount += 1
-        state.letterTimeArray = []
-
-        if (state.letterMistake[inputLength - 1]) {
-          state.letterMistake[inputLength - 1].push(inputChar)
-        } else {
-          state.letterMistake[inputLength - 1] = [inputChar]
-        }
-      })
-
-      // Report only this new typo, outside the state updater. The chapter reducer merges mistakes.
       dispatch({
         type: TypingStateActionType.REPORT_WRONG_WORD,
-        payload: { letterMistake: { [inputLength - 1]: [inputChar] } },
+        payload: { letterMistake: { [errorIndex]: [inputChar] } },
       })
-
       if (currentChapter === 0 && state.chapterData.index === 0 && wordState.wrongCount >= 3) {
         setShowTipAlert(true)
       }
+    } else if (finished) {
+      playHintSound()
+    } else {
+      playKeySound()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wordState.inputWord])
