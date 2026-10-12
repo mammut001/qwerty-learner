@@ -1809,7 +1809,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle vérification finale s’impose avant de relancer la machine industrielle ?",
           "Contrôler le parfait alignement des colis sur leur support de bois",
-          "Peindre des bandes jaunes sur l’ensemble du sol de l’allée centrale",
+          "Vérifier le serrage des mâchoires de freinage sur le rail supérieur",
           "Transférer les marchandises vers un quai de déchargement adjacent",
         ],
       ],
@@ -1834,7 +1834,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quel bénéfice écologique procure l’épandage de paille sur le terreau du potager ?",
           "Conserver la fraîcheur du substrat durant les chaleurs de l’été",
-          "Accélérer artificiellement la coloration des tomates suspendues",
+          "Drainer l’excédent d’arrosage grâce aux billes d’argile du fond des bacs",
           "Attirer les insectes pollinisateurs dès les premières semaines",
         ],
       ],
@@ -1859,7 +1859,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quel geste d’entretien régulier garantit une cueillette continue d’aromates frais ?",
           "Retirer avec les doigts les boutons floraux dès leur apparition",
-          "Ajouter de l’engrais chimique liquide deux fois chaque après-midi",
+          "Arroser les feuilles en fin de journée pour réduire les moisissures",
           "Couvrir les bacs d’une bâche sombre pendant les heures de clarté",
         ],
       ],
@@ -1872,7 +1872,7 @@ export const N07_08_SCENARIOS = {
         [
           "Pourquoi le cèdre naturel est-il privilégié pour fabriquer la structure verticale ?",
           "Pour sa capacité intrinsèque à tolérer l’humidité sans pourrir",
-          "Pour son prix d’achat inférieur à tous les bois de charpente",
+          "Pour sa densité faible qui allège le cadre fixé au mur porteur",
           "Pour sa coloration foncée qui attire davantage la chaleur solaire",
         ],
         [
@@ -1885,7 +1885,7 @@ export const N07_08_SCENARIOS = {
           "Quel effet bénéfique le purin végétal produit-il sur les plantes selon l’animateur ?",
           "Il renforce les défenses naturelles des feuilles contre les ravageurs",
           "Il supprime l’obligation d’arroser le potager vertical en plein soleil",
-          "Il permet de cueillir des radis mûrs en moins de quarante-huit heures",
+          "Il favorise la floraison précoce des salades plantées aux étages supérieurs",
         ],
       ],
     },
@@ -1942,7 +1942,7 @@ export const N07_08_SCENARIOS = {
           "Quel sous-entendu implicite découle de son appel au principe de précaution ?",
           "La protection de la vie citoyenne doit surpasser les profits privés",
           "Les municipalités manquent cruellement de fonds pour payer des désherbants bio",
-          "Les citoyens de banlieue préfèrent les pelouses jaunies en été",
+          "Les golfs municipaux doivent être exemptés des règles de précaution",
         ],
       ],
     },
@@ -1966,7 +1966,7 @@ export const N07_08_SCENARIOS = {
         [
           "Que peut-on déduire sur son sentiment concernant la responsabilité de la société ?",
           "Elle estime équitable que la collectivité assume une part du risque financier",
-          "Elle considère que seuls les citadins doivent payer pour les dépenses de santé",
+          "Elle croit que les fonds de garantie doivent être financés par les banques",
           "Elle pense que les agriculteurs doivent assumer seuls toutes les pertes futures",
         ],
       ],
@@ -1979,7 +1979,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quel avantage majeur Martin attribue-t-il à la nouvelle plateforme informatique ?",
           "La simplification du suivi des dossiers et la diminution des démarches papier",
-          "La possibilité pour les agents d’effectuer des semaines de travail très réduites",
+          "La réduction des effectifs de préposés grâce à l’automatisation des tâches",
           "La baisse automatique du tarif des permis octroyés aux citoyens inscrits",
         ],
         [
@@ -2011,7 +2011,7 @@ export const N07_08_SCENARIOS = {
           "Quel effet pervers de l’outil numérique Chantal dénonce-t-elle avec vigueur ?",
           "L’invasion constante de la sphère personnelle par des sollicitations tardives",
           "La baisse catastrophique du taux de réussite des élèves dans les sciences pures",
-          "L’obligation d’acheter son propre matériel informatique sur ses deniers",
+          "L’abandon des bulletins chiffrés au profit de commentaires écrits",
         ],
         [
           "Que peut-on déduire quant à l’attitude de Chantal envers le rôle de l’enseignant ?",
@@ -2030,7 +2030,7 @@ export const N07_08_SCENARIOS = {
           "Quel gain opérationnel Stéphane met-il de l’avant pour justifier cette transition logicielle ?",
           "L’actualisation instantanée des schémas techniques entre bureaux et chantiers",
           "L’élimination de toute obligation de se déplacer sur les sites de construction",
-          "La baisse automatique du coût des matériaux d’armature pour les clients",
+          "La réduction des coûts de licence grâce à un hébergement local des données",
         ],
         [
           "Quelle vulnérabilité technique majeure Karine soulève-t-elle pour les missions en région ?",
@@ -2062,12 +2062,12 @@ export const N07_08_SCENARIOS = {
           "Dans quel contexte institutionnel précis l’entreprise a-t-elle vu le jour en 2008 ?",
           "Comme projet d’essaimage issu des laboratoires universitaires",
           "Comme filiale commerciale créée par une grande compagnie minière",
-          "Comme agence publique rattachée au ministère des Transports",
+          "Comme fusion de deux cabinets d’ingénierie établis à Montréal",
         ],
         [
           "Vers quel secteur industriel majeur la société a-t-elle élargi ses activités par la suite ?",
           "La surveillance continue des grands ouvrages d’art et barrages",
-          "La confection d’écrans tactiles pour des téléphones cellulaires",
+          "La vente de pièces détachées pour les tracteurs agricoles de la région",
           "L’assemblage mécanique de véhicules lourds destinés aux mines",
         ],
         [
@@ -2087,7 +2087,7 @@ export const N07_08_SCENARIOS = {
           "Quel principe fondamental a guidé la création de la coopérative en 1994 ?",
           "L’association solidaire de plusieurs familles agricoles de la région",
           "La nationalisation de terres abandonnées par de grandes corporations",
-          "L’obligation légale d’exporter des fruits vers les marchés asiatiques",
+          "La volonté de transformer les fruits en confitures pour les touristes",
         ],
         [
           "Quelle avancée technologique a permis d’accélérer le développement de l’entreprise en 2005 ?",
@@ -2142,7 +2142,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quel avantage physique notable ce nouveau béton présente-t-il pour le climat local ?",
           "Une résistance renforcée face aux variations répétées de température hivernale",
-          "Une capacité à fondre spontanément la glace sans ajout de sel de déglaçage",
+          "Une meilleure absorption du bruit routier grâce à des pores vides",
           "Une élasticité exceptionnelle empêchant toute déformation en cas de séisme",
         ],
         [
@@ -2167,7 +2167,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle opération concrète permet de restaurer le régime hydrique des tourbières dégradées ?",
           "L’obturation des fossés de drainage au moyen de barrages d’argile étanches",
-          "L’arrosage artificiel permanent par des avions-citernes de la sécurité civile",
+          "Le remplacement des digues d’argile par des barrages en béton armé",
           "Le pompage intensif des eaux profondes pour assécher la surface des mousses",
         ],
         [
@@ -2198,7 +2198,7 @@ export const N07_08_SCENARIOS = {
         [
           "Que peut-on déduire quant à l’ambition des dirigeants inuits pour la suite du déploiement énergétique ?",
           "Ils souhaitent que les communautés assument elles-mêmes la gestion de leurs infrastructures",
-          "Ils demandent à fermer les centrales vertes pour revenir au chauffage traditionnel au bois",
+          "Ils comptent prolonger l’usage du mazout lourd dans les centrales thermiques",
           "Ils prévoient de revendre l’électricité excédentaire aux centres urbains du sud québécois",
         ],
       ],
@@ -2230,7 +2230,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quel dénouement tragique vient sceller la tentative de la protagoniste ?",
           "Une perte de conscience sur le plancher causant le bris de son instrument",
-          "Une interruption du concert causée par un malaise cardiaque du chef",
+          "Un report de l’audition à cause d’une tempête de neige sur la ville",
           "Le refus du jury de l’entendre jouer en raison de son retard à l’entrée",
         ],
       ],
@@ -2244,7 +2244,7 @@ export const N07_08_SCENARIOS = {
           "Quel motif pressant pousse Évelyne à entreprendre ce vol périlleux ?",
           "Secourir sans attendre un travailleur blessé en forêt éloignée",
           "Rapporter des échantillons de minéraux précieux pour la compagnie",
-          "Rejoindre sa famille pour célébrer le réveillon du premier janvier",
+          "Livrer du matériel médical urgent à un village isolé de la Basse-Côte-Nord",
         ],
         [
           "Quelle réaction caractérise la protagoniste face aux consignes de prudence de sa hiérarchie ?",
@@ -2281,7 +2281,7 @@ export const N07_08_SCENARIOS = {
           "Que peut-on déduire sur le sentiment qui se dégage du contraste final de la scène ?",
           "Une cruelle ironie où la beauté révélée triomphe au prix d’une vie humaine",
           "Une satisfaction joyeuse partagée par l’ensemble des membres de l’équipe",
-          "Un soulagement général devant la destruction définitive de la toile peinte",
+          "Une indifférence générale face au malaise de la restauratrice dans l’atelier",
         ],
       ],
     },
@@ -2294,7 +2294,7 @@ export const N07_08_SCENARIOS = {
           "Quel indice met les jeunes protagonistes sur la piste d’une supercherie collective ?",
           "La consultation clandestine d’un vieux carnet intime trouvé par hasard",
           "L’interception d’un appel téléphonique entre des dirigeants de la mine",
-          "La vue directe d’animaux sauvages se promenant sur le dôme de verre",
+          "La lecture d’un rapport officiel publié par les autorités du Dôme",
         ],
         [
           "Comment les fugitifs réussissent-ils à déjouer la surveillance des machines de sécurité ?",
@@ -2324,8 +2324,8 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle astuce permet à Julien d’échapper à ses poursuivants au cœur de la haute-ville ?",
           "Se fondre habilement au sein de la foule rassemblée pour la fête carnavalesque",
-          "Voler une motoneige de patrouille stationnée devant l’hôtel de ville de Québec",
-          "Menacer les malfaiteurs avec une arme à feu factice achetée dans un dépanneur",
+          "Emprunter le funiculaire touristique pour fuir vers la basse-ville",
+          "Déployer une fumée épaisse dans les ruelles pour aveugler les assaillants",
         ],
         [
           "Que peut-on déduire quant à l’intention de la conservatrice du couvent des Ursulines ?",
@@ -2344,7 +2344,7 @@ export const N07_08_SCENARIOS = {
           "Quel mystère urbain pousse la détective privée à explorer les abords du canal montréalais ?",
           "La disparition soudaine de plusieurs spécialistes en archéologie industrielle",
           "Une série de vols commis dans les luxueux appartements du quartier Saint-Henri",
-          "La découverte d’un chargement d’armes anciennes caché dans un navire marchand",
+          "La construction d’un nouveau barrage sur les écluses du canal",
         ],
         [
           "Quel danger naturel imminent met la vie de Sarah en péril dans les sous-sols ?",
@@ -2356,7 +2356,7 @@ export const N07_08_SCENARIOS = {
           "Quelle réaction courageuse permet à l’héroïne de sauver le captif de la noyade ?",
           "Résoudre avec sang-froid un mécanisme hydraulique pour faire baisser le niveau d’eau",
           "Briser les verrous de la vanne d’évacuation à l’aide d’une barre métallique",
-          "Téléphoner aux plongeurs de la Sûreté du Québec pour obtenir un secours d’urgence",
+          "Appeler les pompiers de Saint-Henri pour évacuer les galeries inondées",
         ],
       ],
     },
@@ -2376,7 +2376,7 @@ export const N07_08_SCENARIOS = {
           "Quel motif structurel fondamental justifie le regroupement des services ambulatoires ?",
           "Le manque prononcé de professionnelles de santé exigeant une réorganisation",
           "La volonté d’augmenter les tarifs facturés aux patients lors des consultations",
-          "L’obligation de fermer tous les centres locaux de santé communautaire en région",
+          "L’ouverture de nouveaux centres communautaires dans les petites municipalités",
         ],
         [
           "Quel fonctionnement novateur caractérisera le nouveau pôle créé à l’automne ?",
@@ -2388,7 +2388,7 @@ export const N07_08_SCENARIOS = {
           "Quelle intention bienveillante la direction exprime-t-elle envers ses équipes de terrain ?",
           "Prendre en compte les souhaits individuels de localisation des professionnels",
           "Offrir une prime financière extraordinaire à chaque personne acceptant le poste",
-          "Dispenser l’ensemble des soignants de tout rapport d’évaluation pendant une année",
+          "Imposer une hausse de la charge de travail pour les infirmières cliniciennes",
         ],
       ],
     },
@@ -2400,7 +2400,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle transformation technologique a impulsé cette refonte de l’organisation du travail ?",
           "L’arrivée d’engins forestiers sophistiqués nécessitant de nouvelles compétences",
-          "Le regroupement des petites scieries régionales sous une régie étatique",
+          "La vente de la coopérative à un groupe industriel privé étranger",
           "La fermeture des scieries locales obligeant à exporter les troncs bruts sans découpe",
         ],
         [
@@ -2451,7 +2451,7 @@ export const N07_08_SCENARIOS = {
           "Quelle amélioration technique majeure distingue le nouveau moteur de conciliation bancaire ?",
           "L’analyse conjointe des numéros fiscaux, des libellés et des historiques de facturation",
           "Le traitement direct de toutes les écritures sans validation des pièces justificatives",
-          "L’envoi automatique des déclarations fiscales d’impôt au ministère du Revenu",
+          "Le rapprochement des écritures à partir des seuls montants bruts",
         ],
         [
           "Quelle manipulation précise est conseillée lorsque des transactions ne s’associent pas ?",
@@ -2482,12 +2482,12 @@ export const N07_08_SCENARIOS = {
           "Quelle maladresse fréquente de modélisation provoque l’apparition d’un bogue système ?",
           "L’affectation erronée d’une fenêtre vitrée à une séparation intérieure mitoyenne",
           "Le choix d’une orientation cardinale tournée en direction de la lumière solaire",
-          "La fixation d’une toiture isolée au-dessus du dernier étage de la construction",
+          "La saisie des données du bâtiment voisin comme s’il faisait partie du projet",
         ],
         [
           "Que peut-on déduire quant à l’intérêt pratique de l’exportation au format normatif provincial ?",
           "Accélérer la délivrance des autorisations administratives auprès des villes",
-          "Dispenser le promoteur de soumettre les plans à la Régie du bâtiment",
+          "Remplacer le calcul du coefficient thermique par une estimation visuelle",
           "Garantir automatiquement la conformité aux règlements d’urbanisme locaux",
         ],
       ],
@@ -2500,7 +2500,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quel bénéfice créatif essentiel les nouveaux masques dynamiques procurent-ils aux artistes ?",
           "La possibilité de remanier les tracés sans anéantir les éléments d’origine",
-          "La conversion instantanée de tous les tracés vectoriels en basse définition",
+          "La réduction automatique des couleurs Pantone dans chaque illustration",
           "La réduction drastique de la mémoire vive requise par la station graphique",
         ],
         [
@@ -2539,7 +2539,7 @@ export const N07_08_SCENARIOS = {
           "Sur quel domaine de compétences porte l’épreuve écrite obligatoire d’évaluation ?",
           "Les règles morales de déontologie et le cadre réglementaire du milieu",
           "La résolution de problèmes complexes de mathématiques théoriques pures",
-          "La négociation commerciale de contrats de fournitures métallurgiques lourdes",
+          "La rédaction d’un mémoire de recherche sur les procédés de soudage",
         ],
         [
           "Que peut-on déduire quant à l’obligation de mentorat durant le parcours probatoire ?",
@@ -2564,7 +2564,7 @@ export const N07_08_SCENARIOS = {
           "Quelle prérogative le statut temporaire de candidate accorde-t-il avant l’examen final ?",
           "Exercer des tâches soignantes sous la responsabilité d’infirmières chevronnées",
           "Prescrire en toute indépendance des protocoles médicamenteux en salle d’opération",
-          "Diriger un département d’urgences pédiatriques sans aucune tutelle hiérarchique",
+          "Remplacer les surveillantes lors des examens d’admission de l’Ordre",
         ],
         [
           "Que peut-on déduire sur la mission première de cet ordre professionnel à travers ces exigences ?",
@@ -2583,12 +2583,12 @@ export const N07_08_SCENARIOS = {
           "Quels actes techniques essentiels requièrent obligatoirement le statut d’agronome certifié ?",
           "La prescription de plans d’amendement des terres et le conseil sur les intrants",
           "La commercialisation d’équipements de pulvérisation dans les magasins d’outillage rural",
-          "La conduite de moissonneuses-batteuses lors des récoltes intensives d’automne",
+          "La vente de semences génétiquement modifiées aux agriculteurs de la région",
         ],
         [
           "Quelle étape pédagogique obligatoire fait suite à la validation des diplômes universitaires ?",
           "Le suivi d’un programme en ligne sur les obligations légales envers l’écologie",
-          "Un séjour d’immersion de six mois dans une ferme laitière de l’Ouest canadien",
+          "Un examen écrit de soixante questions sur les engrais minéraux",
           "La rédaction d’un mémoire de recherche fondamentale sur l’histoire rurale",
         ],
         [
@@ -2620,7 +2620,7 @@ export const N07_08_SCENARIOS = {
           "Que peut-on déduire quant au statut du Protecteur du citoyen dans le règlement des différends ?",
           "Il agit comme un arbitre indépendant cherchant à rétablir une équité dans le service public",
           "Il représente systématiquement les ministères pour défendre la régularité de leurs décisions",
-          "Il inflige des peines d’emprisonnement aux administrateurs jugés coupables de négligence",
+          "Il impose des amendes financières aux ministères reconnus fautifs par ses enquêtes",
         ],
       ],
     },
@@ -2644,7 +2644,7 @@ export const N07_08_SCENARIOS = {
         [
           "Que peut-on déduire sur l’intention de la loi en prévoyant le recours au Tribunal administratif ?",
           "Garantir un arbitrage judiciaire équitable en dernier ressort si le dialogue direct échoue",
-          "Interdire définitivement aux entreprises québécoises de se séparer d’employés indisciplinés",
+          "Accorder au tribunal le pouvoir de fixer les salaires des employés congédiés",
           "Forcer les plaignants à abandonner leurs demandes financières pour éviter les procès longs",
         ],
       ],
@@ -2740,7 +2740,7 @@ export const N07_08_SCENARIOS = {
           "Quelle avancée légale remarquable la journaliste souligne-t-elle dans cette réforme ?",
           "La prise en compte officielle des troubles physiques et mentaux liés au travail à distance",
           "L’interdiction patronale de contacter les employés en dehors des heures de bureau",
-          "La prise en charge intégrale du loyer du domicile par l’organisation employeuse",
+          "La création d’une allocation fixe pour l’achat de mobilier de bureau",
         ],
         [
           "Quelle difficulté d’application majeure suscite les plus vives inquiétudes juridiques ?",
@@ -2771,7 +2771,7 @@ export const N07_08_SCENARIOS = {
           "Quelle réforme législative concrète réclame-t-il pour transformer durablement les pratiques ?",
           "La suppression des cages de confinement et la mise en place d’un protecteur neutre",
           "L’interdiction généralisée de toute consommation de viande animale sur le territoire",
-          "La nationalisation complète de la filière porcine par le ministère de l’Agriculture",
+          "L’abolition des abattoirs au profit de l’importation de viande congelée",
         ],
         [
           "Que peut-on déduire sur son sentiment face au bilan de la décennie écoulée ?",
@@ -2789,7 +2789,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle décision expéditive prise par les autorités locales suscite l’indignation du journaliste ?",
           "L’organisation de chasses d’éradication pour régler le surplus de bêtes à bas prix",
-          "La fermeture préventive des sentiers de randonnée pédestre durant toute la belle saison",
+          "La vente de permis de chasse à prix réduit aux résidents des banlieues",
           "L’installation de barrières électrifiées le long de l’ensemble des routes secondaires",
         ],
         [
@@ -2827,7 +2827,7 @@ export const N07_08_SCENARIOS = {
           "Que peut-on déduire sur la cause principale du blocage selon l’éditorialiste ?",
           "La force des habitudes acquises et la répartition conservatrice des subventions",
           "Le refus catégorique des scientifiques de se former aux nouvelles méthodes numériques",
-          "Le coût prohibitif des rongeurs de laboratoire par rapport aux puces virtuelles",
+          "La pénurie de techniciens formés aux méthodes de cultures cellulaires",
         ],
       ],
     },
