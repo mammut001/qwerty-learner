@@ -5,40 +5,53 @@ import type { RESET } from 'jotai/vanilla/utils/constants'
 
 type SetStateActionWithReset<Value> = Value | typeof RESET | ((prev: Value) => Value | typeof RESET)
 
+function repairConfig(value: unknown, fallback: unknown): unknown {
+  if (value === null || typeof value !== typeof fallback) return fallback
+  if (typeof value === 'number' && !Number.isFinite(value)) return fallback
+  if (!fallback || typeof fallback !== 'object') return value
+  if (Array.isArray(fallback)) return Array.isArray(value) ? value : fallback
+  if (Array.isArray(value)) return fallback
+
+  const record = value as Record<string, unknown>
+  const defaults = fallback as Record<string, unknown>
+  let repaired = record
+  for (const key of Object.keys(defaults)) {
+    const field = repairConfig(record[key], defaults[key])
+    if (field !== record[key]) {
+      if (repaired === record) repaired = { ...record }
+      repaired[key] = field
+    }
+  }
+  return repaired
+}
+
 export default function atomForConfig<T extends Record<string, unknown>>(
   key: string,
   defaultValue: T,
 ): WritableAtom<T, [SetStateActionWithReset<T>], void> {
   const storageAtom = atomWithStorage(key, defaultValue)
-  return atom((get) => {
-    // Get the underlying object
-    const config = get(storageAtom)
+  return atom(
+    (get) => {
+      const config = get(storageAtom)
+      const newConfig = repairConfig(config, defaultValue) as T
 
-    let newConfig: T
-
-    // Check if the types are different
-    const isTypeMismatch = typeof config !== typeof defaultValue
-
-    if (isTypeMismatch) {
-      newConfig = defaultValue
-    } else {
-      // Check if there are missing properties
-      let hasMissingProperty = false
-      for (const key in defaultValue) {
-        if (!(key in config)) {
-          hasMissingProperty = true
-          break
+      if (newConfig !== config) {
+        try {
+          localStorage.setItem(key, JSON.stringify(newConfig))
+        } catch {
+          // Recovered settings still work when browser storage is unavailable.
         }
       }
 
-      newConfig = hasMissingProperty ? { ...defaultValue, ...config } : config
-    }
-
-    if (newConfig !== config) {
-      const jsonString = JSON.stringify(newConfig)
-      localStorage.setItem(key, jsonString)
-    }
-
-    return newConfig
-  }, storageAtom.write)
+      return newConfig
+    },
+    (get, set, update: SetStateActionWithReset<T>) => {
+      if (typeof update === 'function') {
+        const current = repairConfig(get(storageAtom), defaultValue) as T
+        set(storageAtom, update(current))
+      } else {
+        set(storageAtom, update)
+      }
+    },
+  )
 }
