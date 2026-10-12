@@ -28,3 +28,22 @@ test('Space activates the font reset button without resuming practice', async ({
   await expect(reset).toBeFocused()
   await expect(page.locator('textarea')).not.toBeFocused()
 })
+
+for (const key of ['Enter', 'Space', 'Escape']) {
+  test(`${key} closes the named settings dialog and returns focus`, async ({ page }) => {
+    await page.goto('/typing')
+    const opener = page.getByTitle('打开设置对话框')
+    await opener.click()
+    const dialog = page.getByRole('dialog', { name: '设置', exact: true })
+    await expect(dialog).toBeAttached()
+    const close = page.getByRole('button', { name: '关闭设置', exact: true })
+    await expect(close).toBeVisible()
+    await expect.poll(async () => (await close.boundingBox())?.width ?? 0).toBeGreaterThanOrEqual(40)
+    await expect.poll(async () => (await close.boundingBox())?.height ?? 0).toBeGreaterThanOrEqual(40)
+    await close.focus()
+    await page.keyboard.press(key)
+    await expect(dialog).not.toBeAttached()
+    await expect(opener).toBeFocused()
+    await expect(page.locator('textarea')).not.toBeFocused()
+  })
+}
