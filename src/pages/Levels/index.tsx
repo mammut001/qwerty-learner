@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer'
 import { getEchelleLevelItems, parseEchelleItemId, summarizeEchelleLevel } from '@/resources/echelleCurriculum'
 import { getEchelleStage } from '@/resources/echelleQuebecoise'
 import { countDue } from '@/resources/echelleReview'
@@ -144,6 +145,7 @@ export default function LevelsPage() {
           })}
         </div>
       </div>
+      <Footer />
     </>
   )
 }

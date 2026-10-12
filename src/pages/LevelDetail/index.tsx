@@ -1,4 +1,5 @@
 import EchelleAiEvaluation from '@/components/EchelleAiEvaluation'
+import Footer from '@/components/Footer'
 import RealReadingSection from './RealReadingSection'
 import SpeechMetricsCard from '@/components/SpeechMetricsCard'
 import { trackAnalyticsEvent } from '@/utils/analytics'
@@ -156,6 +157,7 @@ export default function LevelDetailPage() {
           </Link>
           <p className="mt-6 text-gray-600">无效的等级参数。</p>
         </div>
+        <Footer />
       </>
     )
   }
@@ -293,6 +295,7 @@ export default function LevelDetailPage() {
           ))}
         </div>
       </div>
+      <Footer />
     </>
   )
 }

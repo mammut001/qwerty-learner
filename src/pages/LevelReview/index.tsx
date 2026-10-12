@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer'
 import { DAY_MS, estimateRetention } from '@/resources/echelleMemory'
 import { type EchelleReviewEntry, echelleReviewQueue, formatDue } from '@/resources/echelleReview'
 import type { LearningProgress } from '@/services/studyPlanSync'
@@ -100,6 +101,7 @@ export default function LevelReviewPage() {
           </>
         )}
       </div>
+      <Footer />
     </>
   )
 }
