@@ -1489,7 +1489,7 @@ const N4_DESK_REQUESTS = [
     kwTopic: 'carte d’accès',
     otherTopic1: 'le tarif mensuel pour garer son véhicule',
     otherTopic2: 'l’emplacement des bornes de recharge privées',
-    answerGood: 'Remplissez ce formulaire et montrez une pièce d’identité.',
+    answerGood: 'Remplissez le formulaire du stationnement et montrez une pièce d’identité.',
     answerWrong1: 'Consultez les horaires de la navette sur l’écran mural.',
     answerWrong2: 'Déposez votre cadenas à vélo dans le casier des visiteurs.',
   },
@@ -1532,7 +1532,7 @@ const N4_PORTAL_TASKS = [
     kwTask: 'congés',
     otherTopic1: 'l’horaire de travail prévu pour le mois prochain',
     otherTopic2: 'le compte rendu officiel de la dernière assemblée',
-    answerGood: 'Ouvre l’onglet Calendrier puis clique sur Nouveau.',
+    answerGood: 'Ouvre l’onglet Congés puis clique sur Nouvelle demande.',
     answerWrong1: 'Ouvre la section Profil pour modifier ton adresse.',
     answerWrong2: 'Télécharge la copie électronique de ton contrat.',
   },
@@ -1542,7 +1542,7 @@ const N4_PORTAL_TASKS = [
     kwTask: 'frais de déplacement',
     otherTopic1: 'le choix du moyen de transport pour la formation',
     otherTopic2: 'l’adresse exacte de l’hôtel réservé par l’agence',
-    answerGood: 'Ajoute tes reçus en photo et valide le total en bas.',
+    answerGood: 'Ouvre l’onglet Dépenses puis ajoute tes reçus en photo.',
     answerWrong1: 'Choisis l’option Véhicule de service dans l’agenda.',
     answerWrong2: 'Télécharge ton relevé fiscal annuel dans les archives.',
   },
@@ -1595,7 +1595,7 @@ const N4_COMMUNITY_COURSES = [
     kwCourse: 'cours de dessin',
     otherTopic1: 'le nom de l’artiste invité pour l’exposition d’art',
     otherTopic2: 'le programme de musique offert durant le festival',
-    answerGood: 'Inscrivez votre nom sur la liste à l’entrée de l’atelier.',
+    answerGood: 'Remplissez le bulletin au comptoir des cours de dessin.',
     answerWrong1: 'Prenez un cadenas pour votre casier auprès du gardien.',
     answerWrong2: 'Consultez les menus du midi affichés près de la cafétéria.',
   },
@@ -2366,7 +2366,7 @@ const N4_VOICEMAIL_PASSWORDS = [
   { text: 'compose ton nouveau code d’accès personnel', opt: 'composer son nouveau code d’accès', kw: 'code' },
 ]
 const N4_VOICEMAIL_FALSE_STEPS = [
-  'épeler son nom de famille complet',
+  'envoyer une photo de son profil',
   'donner sa date de naissance exacte',
   'indiquer son code postal actuel',
   'confirmer son numéro d’abonné',
@@ -2414,7 +2414,7 @@ const N4_CLOSING_FINALS = [
   { text: 'verrouillez la porte d’entrée avec la clé noire', opt: 'verrouiller la porte avec la clé noire', kw: 'clé' },
   { text: 'barrez la porte arrière avec le cadenas bleu', opt: 'barrer la porte avec le cadenas bleu', kw: 'cadenas' },
   { text: 'fermez la grille de sécurité devant l’entrée', opt: 'fermer la grille métallique de sécurité', kw: 'grille' },
-  { text: 'tournez la poignée à double tour avant de partir', opt: 'verrouiller la serrure à double tour', kw: 'double tour' },
+  { text: 'activez l’alarme générale du bâtiment avant de partir', opt: 'activer l’alarme générale du bâtiment', kw: 'alarme' },
 ]
 
 const N4_TRANSIT_DESTS = [
@@ -2623,17 +2623,17 @@ const N4_CLOTHING_BUNDLES = [
   {
     item: 'un manteau long en duvet d’hiver',
     opt: 'un grand manteau d’hiver en duvet',
-    reason: 'il protège beaucoup mieux du grand froid',
-    reasonOpt: 'mieux se protéger du grand froid',
+    reason: 'il couvre bien les hanches et le dos',
+    reasonOpt: 'couvrir le dos et les hanches',
     color: 'en bleu marin avec de grandes poches',
     dis: 'une veste courte sans capuchon',
     kwItem: 'manteau',
-    kwReason: 'froid',
+    kwReason: 'hanches',
   },
   {
     item: 'des bottes chaudes avec semelles solides',
     opt: 'des bottes chaudes antidérapantes',
-    reason: 'elles empêchent de glisser sur la glace',
+    reason: 'il empêche de glisser sur la glace',
     reasonOpt: 'éviter de glisser sur la glace',
     color: 'en cuir noir de qualité imperméable',
     dis: 'des souliers légers de marche urbaine',
@@ -2643,7 +2643,7 @@ const N4_CLOTHING_BUNDLES = [
   {
     item: 'une tuque doublée en laine polaire',
     opt: 'une tuque chaude doublée en polaire',
-    reason: 'elle garde les oreilles bien au chaud',
+    reason: 'il garde les oreilles bien au chaud',
     reasonOpt: 'garder les oreilles bien au chaud',
     color: 'de couleur vert forêt et bien épaisse',
     dis: 'une casquette de sport ordinaire',
@@ -2653,7 +2653,7 @@ const N4_CLOTHING_BUNDLES = [
   {
     item: 'des gants de cuir avec doublure thermique',
     opt: 'des gants de cuir à doublure chaude',
-    reason: 'ils permettent de conduire confortablement',
+    reason: 'il permet de conduire confortablement',
     reasonOpt: 'conduire sa voiture confortablement',
     color: 'en cuir brun foncé très souple',
     dis: 'des mitaines en laine tricotée',
@@ -2695,20 +2695,20 @@ const N4_CULTURE_BUNDLES = [
   {
     show: 'un film d’aventure pour toute la famille',
     showOpt: 'un film d’aventure pour la famille',
-    high: 'l’intrigue palpitante pleine de surprises',
-    highOpt: 'une intrigue dynamique et surprenante',
+    high: 'la bande sonore envoûtante et soigneusement choisie',
+    highOpt: 'une bande sonore envoûtante et bien choisie',
     sound: 'les réactions enthousiastes des spectateurs',
     kwShow: 'aventure',
-    kwHigh: 'intrigue',
+    kwHigh: 'bande sonore',
   },
   {
     show: 'un spectacle d’humour au festival d’été',
     showOpt: 'un spectacle d’humour au festival',
-    high: 'la fraîcheur des anecdotes sur le quotidien',
-    highOpt: 'des anecdotes drôles sur le quotidien',
+    high: 'la scénographie sobre et ingénieuse',
+    highOpt: 'une scénographie sobre et ingénieuse',
     sound: 'les applaudissements nourris à la fin de la soirée',
     kwShow: 'humour',
-    kwHigh: 'anecdotes',
+    kwHigh: 'scénographie',
   },
 ]
 const N4_MOVIE_DAYS = ['Vendredi passé', 'Samedi dernier', 'Hier soir', 'La semaine dernière']
@@ -3021,7 +3021,7 @@ const N4_CRAFT_WORKSHOPS = [
     kwTopic: 'vêtements',
     dur: 'cinq semaines le samedi matin',
     req: 'les machines à coudre sont prêtées',
-    reqOpt: 'les machines sont prêtées sur place',
+    reqOpt: 'des machines à coudre sont prêtées sur place',
     kwReq: 'machines',
   },
   {
@@ -3734,6 +3734,12 @@ const N4_BANK_CONTACTS = [
   { act: 'rendez-vous directement à votre succursale', actOpt: 'se rendre directement à sa succursale', kwAct: 'succursale' },
   { act: 'ouvrez une session sur le clavardage officiel', actOpt: 'utiliser le clavardage officiel en ligne', kwAct: 'clavardage' },
 ]
+const N4_BANK_BAD_ACTIONS = [
+  'répondre directement au message reçu',
+  'cliquer sur le lien du message',
+  'transmettre son code secret par texto',
+  'payer les frais demandés dans le message',
+]
 
 const N4_WORK_INCIDENTS = [
   {
@@ -3929,13 +3935,13 @@ export const N04_R_3 = [
       const rule = pick(N4_BANK_RULES, rand)
       const c = pick(N4_BANK_CONTACTS, rand)
       const othersF = sample(N4_BANK_FRAUD_BUNDLES.filter((x) => x.trickOpt !== f.trickOpt), 2, rand)
-      const othersC = sample(N4_BANK_CONTACTS.filter((x) => x.actOpt !== c.actOpt), 2, rand)
+      const othersC = sample(N4_BANK_BAD_ACTIONS, 2, rand)
       const text = `Avis de sécurité publié par ${bank}. Attention aux tentatives de fraude en ligne. Des personnes malveillantes envoient actuellement ${f.trick}. Ces messages contiennent souvent ${f.trap}. Règle de prudence essentielle : ${rule} En cas d’hésitation, ${c.act}. Notre institution protège vos données en tout temps.`
       return {
         text,
         questions: [
           q('Quel stratagème frauduleux est dénoncé dans cet avis bancaire ?', f.trickOpt, othersF[0].trickOpt, othersF[1].trickOpt, [f.kwTrick]),
-          q('Quelle consigne est recommandée au client en cas d’hésitation ?', c.actOpt, othersC[0].actOpt, othersC[1].actOpt, [c.kwAct]),
+          q('Quelle consigne est recommandée au client en cas d’hésitation ?', c.actOpt, othersC[0], othersC[1], [c.kwAct]),
         ],
       }
     },
