@@ -57,7 +57,8 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
     // run only when word changes
     let headword = ''
     try {
-      headword = word.name.replace(new RegExp(' ', 'g'), EXPLICIT_SPACE)
+      const name = currentLanguage === 'fr' ? word.name.normalize('NFC') : word.name
+      headword = name.replace(new RegExp(' ', 'g'), EXPLICIT_SPACE)
       headword = headword.replace(new RegExp('…', 'g'), '..')
     } catch (e) {
       console.error('word.name is not a string', word)
@@ -70,7 +71,7 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
     newWordState.startTime = getUtcStringForMixpanel()
     newWordState.randomLetterVisible = headword.split('').map(() => Math.random() > 0.4)
     setWordState(newWordState)
-  }, [word, setWordState])
+  }, [word, currentLanguage, setWordState])
 
   const updateInput = useCallback(
     (updateAction: WordUpdateAction) => {
@@ -80,7 +81,8 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
 
           if (updateAction.value.includes(' ')) updateAction.event?.preventDefault()
           setWordState((draft) => {
-            draft.inputWord += updateAction.value.replace(/ /g, EXPLICIT_SPACE)
+            const value = currentLanguage === 'fr' ? updateAction.value.normalize('NFC') : updateAction.value
+            draft.inputWord += value.replace(/ /g, EXPLICIT_SPACE)
           })
           break
 
@@ -88,7 +90,7 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
           console.warn('unknown update type', updateAction)
       }
     },
-    [wordState.hasWrong, setWordState],
+    [wordState.hasWrong, currentLanguage, setWordState],
   )
 
   const handleHoverWord = useCallback((checked: boolean) => {
