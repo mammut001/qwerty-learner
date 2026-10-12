@@ -202,7 +202,7 @@ export const N03_L_1 = [
         text,
         questions: [
           q('朋友需要什么方面的帮助？', `协助填写${form.topicZh}`, `协助填写${othersForm[0].topicZh}`, `协助填写${othersForm[1].topicZh}`, [form.field.replace(/[«»]/g, '').toLowerCase()]),
-          q('面对求助，合适的回答是：', 'Oui, je peux regarder avec toi.', 'Merci pour cette belle invitation.', 'Enchanté de faire votre rencontre.', ['aider']),
+          q('面对求助，合适的回答是：', 'Oui, je peux regarder avec toi.', 'Non, j’ai déjà envoyé ce document.', 'Oui, j’ai rempli ma propre feuille.', ['aider']),
         ],
       }
     },
@@ -219,7 +219,7 @@ export const N03_L_1 = [
         text,
         questions: [
           q('同事计划在周末做什么？', plan.actZh, othersPlan[0].actZh, othersPlan[1].actZh, [plan.day.toLowerCase()]),
-          q('面对询问，合适的回答是：', 'Moi, je vais me reposer à la maison.', 'À mon avis, ce projet coûte trop cher.', 'S’il vous plaît, où est la réception ?', ['prévu']),
+          q('面对询问，合适的回答是：', 'Moi, je vais me reposer à la maison.', 'Oui, je suis resté chez moi hier soir.', 'Non, je prends le métro chaque matin.', ['prévu']),
         ],
       }
     },
@@ -231,12 +231,12 @@ export const N03_L_1 = [
       const off = pick(N3_OFFICE_CLOSINGS, rand)
       const name = pick(['Sophie', 'Mei', 'Karim', 'Amadou'], rand)
       const othersOff = sample(N3_OFFICE_CLOSINGS.filter(o => o.placeZh !== off.placeZh), 2, rand)
-      const text = `— Excuse-moi ${name}, est-ce que tu sais à quelle heure ferme ${off.place} aujourd’hui ? Je dois déposer une feuille importante avant mon départ.`
+      const text = `— Excuse-moi ${name}, est-ce que tu sais si ${off.place} ferme bien à ${off.hour} ? Je dois déposer une feuille importante avant mon départ.`
       return {
         text,
         questions: [
           q('说话人想打听哪个部门的下班时间？', off.placeZh, othersOff[0].placeZh, othersOff[1].placeZh, [off.place.split(' ')[1].toLowerCase()]),
-          q('面对询问，合适的回答是：', 'Le bureau ferme à dix-sept heures.', 'Je prends un café sans sucre, merci.', 'Félicitations pour ton bon travail.', ['ferme']),
+          q('面对询问，合适的回答是：', `Oui, le service ferme à ${off.hour}.`, 'Non, le bureau ouvre à huit heures.', 'Le service est fermé la fin de semaine.', ['ferme']),
         ],
       }
     },
@@ -253,7 +253,7 @@ export const N03_L_1 = [
         text,
         questions: [
           q('同事邀请对方去哪里用餐？', lunch.placeZh, othersLunch[0].placeZh, othersLunch[1].placeZh, [lunch.place.split(' ')[1].toLowerCase()]),
-          q('面对邀请，合适的回答是：', 'Avec plaisir, j’arrive dans cinq minutes.', 'Bonjour, je cherche l’arrêt d’autobus.', 'Prenez deux comprimés avant le souper.', ['dîner']),
+          q('面对邀请，合适的回答是：', 'Avec plaisir, j’arrive dans cinq minutes.', 'Oui, j’ai déjà imprimé tous les dossiers.', 'Non, j’ai envoyé le courriel ce matin.', ['dîner']),
         ],
       }
     },
@@ -264,8 +264,8 @@ export const N03_L_1 = [
     situation: 0,
     text: '— Excuse-moi Carlos, est-ce que tu as rempli la demande d’aide financière pour les cours ? Je ne comprends pas où écrire mon numéro d’assurance sociale.',
     questions: [
-      q('朋友在咨询关于什么的疑问？', '助学贷款申请表格', '租房合同续约条款', '驾照更新体检证明', ['aide financière']),
-      q('面对求助，合适的回答是：', 'Viens, je vais te montrer la case.', 'Merci beaucoup pour ce beau cadeau.', 'Je prends mon manteau et je sors.', ['assurance sociale']),
+      q('朋友在咨询关于什么的疑问？', '助学贷款申请表格', '学生宿舍申请表格', '课程注册申请表格', ['aide financière']),
+      q('面对求助，合适的回答是：', 'Viens, je vais te montrer la case.', 'Non, j’ai déjà envoyé ma demande hier.', 'Oui, la date limite est le trente avril.', ['assurance sociale']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Sortie de camping dans Charlevoix
@@ -274,7 +274,7 @@ export const N03_L_1 = [
     text: '— Salut Martin ! Tu as des projets pour la longue fin de semaine ? Nous partons deux jours en camping dans Charlevoix s’il fait beau. Tu viens avec nous ?',
     questions: [
       q('马丁被邀请参加什么活动？', '去夏勒瓦地区露营', '在市中心商场购物', '去市立图书馆复习', ['camping', 'Charlevoix']),
-      q('面对邀请，合适的回答是：', 'Merci, mais j’ai déjà un engagement.', 'Le dossier est prêt sur votre bureau.', 'Prenez à droite après le feu rouge.', ['projets']),
+      q('面对邀请，合适的回答是：', 'Merci, mais j’ai déjà un engagement.', 'Non, j’ai déjà posté la lettre hier.', 'Oui, le magasin est ouvert ce midi.', ['projets']),
     ],
   },
 ]
@@ -312,17 +312,17 @@ const N3_FALSE_CLINICS = [
 ]
 
 const N3_APPLIANCES = [
-  { item: 'une cafetière programmable', colorFr: 'noire', colorZh: '黑色机身', feat: 'compacte avec une verseuse en verre', purposeFr: 'préparer du bon café le matin', useZh: '快速煮制新鲜咖啡', useKw: 'café' },
-  { item: 'un grille-pain électrique', colorFr: 'argenté', colorZh: '银灰机身', feat: 'muni de fentes très larges', purposeFr: 'griller le pain doré', useZh: '均匀烘烤各种面包', useKw: 'pain' },
-  { item: 'un four à micro-ondes', colorFr: 'blanc', colorZh: '白色机身', feat: 'doté d’un affichage numérique clair', purposeFr: 'réchauffer les repas rapidement', useZh: '快速加热便当餐食', useKw: 'repas' },
-  { item: 'un mélangeur de cuisine', colorFr: 'rouge', colorZh: '深红机身', feat: 'équipé de lames solides en acier', purposeFr: 'mélanger les fruits frais pour les jus', useZh: '轻松搅拌新鲜果汁', useKw: 'fruits' },
+  { item: 'une cafetière programmable', colorFr: 'noire', colorZh: '黑色机身', feat: 'compacte avec une verseuse en verre', purposeFr: 'préparer du bon café le matin', useZh: '快速煮制新鲜咖啡', falseUsesZh: ['自动研磨整粒咖啡', '恒温保持咖啡温度'], useKw: 'café' },
+  { item: 'un grille-pain électrique', colorFr: 'argenté', colorZh: '银灰机身', feat: 'muni de fentes très larges', purposeFr: 'griller le pain doré', useZh: '均匀烘烤各种面包', falseUsesZh: ['快速解冻冷冻面团', '自动切片新鲜吐司'], useKw: 'pain' },
+  { item: 'un four à micro-ondes', colorFr: 'blanc', colorZh: '白色机身', feat: 'doté d’un affichage numérique clair', purposeFr: 'réchauffer les repas rapidement', useZh: '快速加热便当餐食', falseUsesZh: ['高温烘烤甜点蛋糕', '低温慢炖各种汤品'], useKw: 'repas' },
+  { item: 'un mélangeur de cuisine', colorFr: 'rouge', colorZh: '深红机身', feat: 'équipé de lames solides en acier', purposeFr: 'mélanger les fruits frais pour les jus', useZh: '轻松搅拌新鲜果汁', falseUsesZh: ['自动切碎坚果果干', '低温慢速萃取原汁'], useKw: 'fruits' },
 ]
 const N3_APPLIANCE_STORES = ['au magasin Walmart', 'chez Canadian Tire', 'au magasin Best Buy', 'au centre d’achats']
 
 const N3_PETS = [
   { type: 'chaton très affectueux', furFr: 'au pelage gris rayé', furZh: '灰色条纹', featFr: 'doux et très affectueux', featZh: '温顺且非常亲人', kw: 'affectueux', furKw: 'gris' },
   { type: 'chiot très énergique', furFr: 'au pelage brun doré', furZh: '棕褐毛色', featFr: 'plein d’énergie et joyeux', featZh: '精力充沛且开朗', kw: 'énergie', furKw: 'brun' },
-  { type: 'jeune chat calme', furFr: 'au pelage noir et blanc', furZh: '黑白相间', featFr: 'très calme et attentif', featZh: '非常安静且专注', kw: 'calme', furKw: 'noir' },
+  { type: 'jeune chat curieux', furFr: 'au pelage noir et blanc', furZh: '黑白相间', featFr: 'très curieux et joueur', featZh: '好奇且喜欢玩耍', kw: 'curieux', furKw: 'noir' },
   { type: 'petit chien timide', furFr: 'au pelage blanc pur', furZh: '纯白毛色', featFr: 'très timide et réservé', featZh: '非常胆小且害羞', kw: 'timide', furKw: 'blanc' },
 ]
 const N3_SHELTER_LOCS = ['de Québec', 'de Montréal', 'de Laval', 'de Sherbrooke']
@@ -371,13 +371,12 @@ export const N03_L_2 = [
       const app = pick(N3_APPLIANCES, rand)
       const st = pick(N3_APPLIANCE_STORES, rand)
       const othersColor = sample(N3_APPLIANCES.filter(x => x.colorZh !== app.colorZh), 2, rand)
-      const othersUse = sample(N3_APPLIANCES.filter(x => x.useZh !== app.useZh), 2, rand)
       const text = `J’ai acheté ${app.item} ${app.colorFr} en solde ${st}. L’appareil est ${app.feat}, idéal pour ${app.purposeFr}.`
       return {
         text,
         questions: [
           q('买到的厨房电器外观颜色是？', app.colorZh, othersColor[0].colorZh, othersColor[1].colorZh, [app.colorFr]),
-          q('这款电器的主要实用功能是？', app.useZh, othersUse[0].useZh, othersUse[1].useZh, [app.useKw]),
+          q('这款电器的主要实用功能是？', app.useZh, app.falseUsesZh[0], app.falseUsesZh[1], [app.useKw]),
         ],
       }
     },
@@ -433,7 +432,7 @@ const N3_MED_DOSAGES = [
 const N3_MED_ADVICES = [
   { fr: 'Buvez beaucoup d’eau dans la journée.', zh: '白天多喝温水补充水分' },
   { fr: 'Reposez-vous bien pour vite récupérer.', zh: '充分卧床休息加快恢复' },
-  { fr: 'Ne dépassez jamais la dose recommandée.', zh: '严格按医嘱剂量切勿过量' },
+  { fr: 'Évitez toute exposition au soleil.', zh: '服药期间避免阳光暴晒' },
   { fr: 'Gardez ce flacon dans un endroit frais.', zh: '将药瓶放置阴凉干燥处' },
 ]
 const N3_IT_DEVICES = [
@@ -556,7 +555,7 @@ export const N03_L_3 = [
 const N3_COMPLIMENTS = [
   { item: 'ton veston bleu', kw: 'veston', adj: 'très élégant', itemZh: '蓝色外套', effectZh: '显得大方得体' },
   { item: 'ta chemise blanche', kw: 'chemise', adj: 'vraiment impeccable', itemZh: '白色衬衫', effectZh: '显得干净整洁' },
-  { item: 'ta belle veste', kw: 'veste', adj: 'très soignée', itemZh: '漂亮的夹克', effectZh: '很有职业精神' },
+  { item: 'ta belle veste', kw: 'veste', adj: 'très soignée', itemZh: '漂亮的夹克', effectZh: '给人极佳印象' },
   { item: 'ton joli foulard', kw: 'foulard', adj: 'superbe', itemZh: '好看的围巾', effectZh: '显得现代大方' },
   { item: 'ton pull en laine', kw: 'pull', adj: 'très chic', itemZh: '羊毛毛衣', effectZh: '款式大方端庄' },
 ]
@@ -583,10 +582,17 @@ const N3_CHEERS = [
   { condition: 'tes douleurs au dos', kwCond: 'dos', conditionZh: '背部感到疼痛', wish: 'beaucoup de repos', kwWish: 'repos', wishZh: '祝好好放松休息' },
 ]
 const N3_FALSE_WISHES = [
-  '祝考试顺利通过',
-  '祝旅途平安愉快',
-  '祝生日快乐幸福',
-  '祝乔迁新居顺利',
+  '催促尽快返回岗位',
+  '询问医院检查结果',
+  '推荐附近专科门诊',
+  '打听请假手续流程',
+]
+
+const N3_FALSE_COMPLIMENTS = [
+  '鞋子颜色非常亮眼',
+  '发型显得非常年轻',
+  '手表款式十分昂贵',
+  '首饰搭配十分华丽',
 ]
 
 const N3_EXAM_SUCCESSES = [
@@ -622,12 +628,13 @@ export const N03_L_4 = [
       const c = pick(N3_COMPLIMENTS, rand)
       const m = pick(N3_MEETINGS, rand)
       const othersItem = sample(N3_COMPLIMENTS.filter(x => x.itemZh !== c.itemZh), 2, rand)
+      const falseComp = sample(N3_FALSE_COMPLIMENTS, 2, rand)
       const text = `Wow, ${c.item} est ${c.adj} ! Cela te va à merveille ${m}. Tu fais une excellente impression auprès de toute l’équipe aujourd’hui.`
       return {
         text,
         questions: [
           q('说话人赞赏了对方的什么穿着？', c.itemZh, othersItem[0].itemZh, othersItem[1].itemZh, [c.kw]),
-          q('同事表达的核心赞赏意思是？', c.effectZh, '衣服显得过于宽大随意', '颜色看起来陈旧过时', ['impression']),
+          q('同事表达的核心赞赏意思是？', c.effectZh, falseComp[0], falseComp[1], ['impression']),
         ],
       }
     },
@@ -662,7 +669,7 @@ export const N03_L_4 = [
         text,
         questions: [
           q('朋友发来祝贺的具体事情是？', ex.passZh, othersPass[0].passZh, othersPass[1].passZh, [ex.kwExam]),
-          q('说话人对这个结果有什么评价？', '对努力付出的认可', '靠运气通过的侥幸', '过程准备得太匆忙', ['pratiqué']),
+          q('说话人对这个结果有什么评价？', '对努力付出的认可', '赞扬临场应变能力', '强调培训课程效果', ['pratiqué']),
         ],
       }
     },
@@ -680,7 +687,7 @@ export const N03_L_4 = [
         text,
         questions: [
           q('同事向新员工表达了什么心意？', newcomer.deptZh, otherDept, otherAct, [newcomer.kwDept]),
-          q('同事希望对方在第一天怎样？', '顺利度过愉快的第一天', '立即起草一份业务方案', '独立处理客户投诉案件', ['première', 'journée']),
+          q('同事希望对方在第一天怎样？', '顺利度过愉快的第一天', '准时参加新员工培训会', '抓紧时间阅读规章手册', ['première', 'journée']),
         ],
       }
     },
@@ -692,7 +699,7 @@ export const N03_L_4 = [
     text: 'Félicitations pour ta promotion ! Ton nouveau veston bleu marine est très classe et s’accorde parfaitement à tes nouvelles fonctions. Tu as fière allure !',
     questions: [
       q('说话人称赞了同事的什么着装？', '深蓝色的西装外套', '质地轻薄的长袖衫', '剪裁合身的长裤子', ['veston bleu']),
-      q('« Tu as fière allure » 的意思是：', '你看起来气派精神', '你走起路来很迅速', '你穿着打扮太随意', ['fière allure']),
+      q('« Tu as fière allure » 的意思是：', '你看起来气派精神', '你显得态度很傲慢', '你的步伐十分从容', ['fière allure']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Vœux après opération du genou
@@ -700,8 +707,8 @@ export const N03_L_4 = [
     situation: 1,
     text: 'Coucou Julie ! Je viens aux nouvelles après ton opération du genou. J’espère que tu as moins mal. Reste bien tranquille à la maison et reviens en pleine forme !',
     questions: [
-      q('朋友为什么发来这段慰问？', '得知对方刚做膝盖手术', '听说对方准备外出旅行', '祝贺对方喜迁全新住所', ['opération', 'genou']),
-      q('朋友希望朱莉怎样休养？', '安心在家休养到康复', '每天坚持在户外快走', '尽快回单位报到上班', ['tranquille', 'maison']),
+      q('朋友为什么发来这段慰问？', '得知对方刚做膝盖手术', '听说对方不慎扭伤脚踝', '得知对方突发重感冒了', ['opération', 'genou']),
+      q('朋友希望朱莉怎样休养？', '安心在家休养直到康复', '定期去医院做理疗康复', '按时服用医生开具的药物', ['tranquille', 'maison']),
     ],
   },
 ]
@@ -726,7 +733,7 @@ export const N03_R_0 = [
       return {
         text,
         questions: [
-          q('De quel évènement s’agit-il dans cet avis ?', 'la rencontre parents-enseignant', 'la sortie scolaire au grand musée', 'la fête de quartier pour l’école', ['rencontre']),
+          q('De quel évènement s’agit-il dans cet avis ?', 'la rencontre parents-enseignants', 'la sortie scolaire au grand musée', 'la fête de quartier pour l’école', ['rencontre']),
           q('Avant quelle date doit-on confirmer sa venue ?', `avant ${ev.rsvp}`, ev.rsvpBad1, ev.rsvpBad2, [ev.rsvp.toLowerCase()]),
         ],
       }
@@ -784,7 +791,7 @@ export const N03_R_0 = [
     situation: 0,
     text: 'Garderie Les Petits Lutins. Convocation à l’assemblée générale annuelle des parents : mardi 14 octobre à 19 h dans la salle communautaire. Nous élirons les représentants au conseil d’administration. Confirmez votre participation auprès de l’éducatrice avant vendredi.',
     questions: [
-      q('Quel est le but de cette assemblée générale ?', 'choisir les membres du conseil', 'organiser une fête de quartier animée', 'présenter les comptes financiers annuels', ['conseil']),
+      q('Quel est le but de cette assemblée générale ?', 'choisir les membres du conseil', 'organiser une sortie au musée', 'adopter un nouveau menu chaud', ['conseil']),
       q('À quelle heure débute la rencontre ?', 'à 19 h dans la salle', 'à midi exactement sur place', 'à 20 h dans la soirée', ['19 h']),
     ],
   },
@@ -794,7 +801,7 @@ export const N03_R_0 = [
     text: 'Ville de Montréal. Dépliant de quartier : le grand marché artisanal d’automne s’installe sur la place Simon-Valois le 20 septembre de 10 h à 17 h. Venez encourager nos artisans et créateurs québécois. Kiosques d’artisanat, musique et café chaud.',
     questions: [
       q('Quel évènement ce dépliant présente-t-il ?', 'le marché artisanal d’automne', 'un concert de musique rock', 'une course sportive à pied', ['marché artisanal']),
-      q('Sur quel lieu public l’évènement s’installe-t-il ?', 'sur la place Simon-Valois', 'dans la cour fermée d’une école', 'au parc public du Mont-Royal', ['place simon-valois']),
+      q('Où le marché artisanal s’installe-t-il ?', 'sur la place Simon-Valois', 'au grand parc Maisonneuve', 'devant l’hôtel de ville', ['place simon-valois']),
     ],
   },
 ]
@@ -810,9 +817,9 @@ const N3_JOBS_LIST = [
 ]
 const N3_ATTACHMENTS_LIST = [
   { att: 'votre curriculum vitæ complet', kw: 'curriculum', p: 'son curriculum vitæ récent' },
-  { att: 'vos disponibilités de travail écrites', kw: 'disponibilités', p: 'ses disponibilités de travail écrites' },
-  { att: 'deux références professionnelles vérifiables', kw: 'références', p: 'deux références vérifiables' },
-  { att: 'une copie de votre diplôme secondaire', kw: 'diplôme', p: 'la copie de son diplôme' },
+  { att: 'vos disponibilités de travail écrites', kw: 'disponibilités', p: 'ses disponibilités de travail' },
+  { att: 'deux références professionnelles vérifiables', kw: 'références', p: 'deux références professionnelles' },
+  { att: 'une copie de votre diplôme secondaire', kw: 'diplôme', p: 'la copie de son diplôme récent' },
 ]
 
 export const N03_R_1 = [
@@ -822,12 +829,13 @@ export const N03_R_1 = [
       const job = pick(N3_JOBS_LIST, rand)
       const att = pick(N3_ATTACHMENTS_LIST, rand)
       const shift = pick(['en semaine et les fins de semaine', 'du jeudi au samedi inclusivement', 'sur les quarts de soir en semaine'], rand)
+      const othersAtt = sample(N3_ATTACHMENTS_LIST.filter(x => x.kw !== att.kw), 2, rand)
       const text = `Formulaire d’embauche - Commerce de détail. Poste convoité : ${job.job}. Nom : … Prénom : … Téléphone : … Disponibilités : ${shift}. Expérience dans le domaine : oui / non. Veuillez joindre ${att.att} à votre demande.`
       return {
         text,
         questions: [
-          q('Quel document le candidat remplit-il ici ?', 'un formulaire d’embauche en magasin', 'un contrat de location de local', 'une facture d’électricité du mois', ['embauche']),
-          q('Quel document d’accompagnement est exigé ?', att.p, 'un acte de vente pour un bien', 'un carnet de santé pour animal', [att.kw]),
+          q('Quel document le candidat remplit-il ici ?', 'un formulaire d’embauche en magasin', 'une demande de stage professionnel', 'une fiche de formation en entreprise', ['embauche']),
+          q('Quel document d’accompagnement est exigé ?', att.p, othersAtt[0].p, othersAtt[1].p, [att.kw]),
         ],
       }
     },
@@ -842,7 +850,7 @@ export const N03_R_1 = [
         text,
         questions: [
           q('À quel service scolaire ce formulaire sert-il ?', 'au service de garde des élèves', 'au club sportif de fin d’année', 'aux sorties scolaires du vendredi', ['garde']),
-          q('Quelle information sur l’enfant doit être indiquée ?', 'les allergies alimentaires', 'la pointure exacte des souliers', 'le titre du jeu vidéo préféré', ['allergies']),
+          q('Quelle information sur l’enfant doit être indiquée ?', 'les allergies alimentaires', 'la date du vaccin obligatoire', 'le nom du médecin de famille', ['allergies']),
         ],
       }
     },
@@ -871,8 +879,8 @@ export const N03_R_1 = [
       return {
         text,
         questions: [
-          q('Quel type d’inscription cette fiche permet-elle ?', 'une activité sportive pour enfant', 'un voyage scolaire à l’étranger', 'un cours de musique pour adulte', ['sport']),
-          q('Quel renseignement d’urgence est demandé ?', 'un contact en cas d’urgence', 'le numéro de permis de conduire', 'le groupe sanguin des parents', ['urgence']),
+          q('Quel type d’inscription cette fiche permet-elle ?', 'l’inscription à une équipe sportive', 'la réservation du gymnase municipal', 'l’achat d’un ensemble d’entraînement', ['sport']),
+          q('Quel renseignement d’urgence est demandé ?', 'un contact en cas d’urgence', 'le numéro du médecin traitant', 'l’adresse du centre hospitalier', ['urgence']),
         ],
       }
     },
@@ -884,7 +892,7 @@ export const N03_R_1 = [
     text: 'Formulaire de demande d’emploi - Supermarché Metro. Postes disponibles : commis d’emballage, caissière, poissonnier. Avez-vous de l’expérience avec le public ? Êtes-vous étudiant ? Indiquez vos heures de cours du lundi au vendredi.',
     questions: [
       q('Pour quel type de commerce ce formulaire est-il conçu ?', 'un supermarché d’alimentation', 'une pharmacie de quartier', 'une quincaillerie de banlieue', ['supermarché']),
-      q('Que doivent préciser les candidats qui étudient ?', 'leurs heures de cours la semaine', 'leurs résultats aux examens', 'la liste des livres achetés', ['heures de cours']),
+      q('Que doivent préciser les candidats qui étudient ?', 'leurs heures de cours la semaine', 'le nom de leur établissement scolaire', 'le diplôme visé en fin de programme', ['heures de cours']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Camp de jour estival
@@ -893,7 +901,7 @@ export const N03_R_1 = [
     text: 'Service des loisirs municipaux. Formulaire de camp de jour estival. Prénom et nom du jeune : … Âge : … Allergies aux piqûres d’insectes : … Prise de médicaments pendant le séjour : oui / non. Contact d’urgence et numéro de cellulaire : …',
     questions: [
       q('Pour quelle activité estivale ce formulaire est-il requis ?', 'le camp de jour municipal', 'les cours de natation d’été', 'la sortie au parc d’attractions', ['camp de jour']),
-      q('Quelle information médicale particulière est relevée ?', 'la réaction aux piqûres d’insectes', 'le type de brosse à dents utilisée', 'le groupe sanguin des voisins', ['piqûres d’insectes']),
+      q('Quelle information médicale particulière est relevée ?', 'la réaction aux piqûres d’insectes', 'l’historique des vaccins d’enfance', 'les allergies aux produits laitiers', ['piqûres d’insectes']),
     ],
   },
 ]
@@ -911,12 +919,18 @@ export const N03_R_2 = [
         { skill: 'bon entregent et rigueur', exp: 'aucune expérience requise', kw: 'entregent' },
         { skill: 'bonne forme et autonomie', exp: 'expérience en manutention un atout', kw: 'autonomie' },
       ], rand)
+      const falseSkills = sample([
+        'sens de l’écoute et patience',
+        'créativité et esprit positif',
+        'polyvalence et discrétion',
+        'patience et esprit d’analyse',
+      ], 2, rand)
       const text = `Offre d’emploi. Titre du poste : ${role}. Profil recherché : personne dynamique démontrant ${req.skill}. Exigences : ${req.exp}. Disponibilité demandée du lundi au vendredi, 35 heures par semaine. Envoyez votre candidature à rh@entreprise.ca.`
       return {
         text,
         questions: [
           q('Quel est le poste proposé dans cette annonce ?', role, 'Comptable d’entreprise', 'Directeur du personnel', [role.split(' ')[0].toLowerCase()]),
-          q('Quelle qualité essentielle est recherchée pour ce rôle ?', req.skill, 'connaissance du droit fiscal', 'expérience de dix ans', [req.kw]),
+          q('Quelle qualité essentielle est recherchée pour ce rôle ?', req.skill, falseSkills[0], falseSkills[1], [req.kw]),
         ],
       }
     },
@@ -938,7 +952,7 @@ export const N03_R_2 = [
         text,
         questions: [
           q('Combien coûte le loyer de ce logement ?', rent, '2 500 $ par mois', '450 $ par mois', [rent.split(' ')[0]]),
-          q('Quelle caractéristique intérieure est mentionnée ?', 'planchers en bois et balcon privé', 'cour arrière avec deux piscines', 'salle de cinéma au sous-sol', ['planchers']),
+          q('Quelle caractéristique du logement est mentionnée ?', 'planchers en bois et balcon privé', 'cuisine ouverte avec îlot central', 'grand foyer au gaz dans le salon', ['planchers']),
         ],
       }
     },
@@ -970,7 +984,7 @@ export const N03_R_2 = [
         text,
         questions: [
           q('Que propose l’annonceur de ce message ?', 'une chambre privée en colocation', 'un studio meublé pour famille', 'un bureau commercial partagé', ['chambre privée']),
-          q('Quel type d’ambiance est recherché dans le logement ?', 'un milieu calme et respectueux', 'des fêtes chaque fin de semaine', 'un atelier ouvert aux clients', ['calme']),
+          q('Quel type d’ambiance est recherché dans le logement ?', 'un milieu calme et respectueux', 'des repas partagés tous les soirs', 'une vie commune axée sur le sport', ['calme']),
         ],
       }
     },
@@ -982,7 +996,7 @@ export const N03_R_2 = [
     text: 'CPE Les Petits Soleils recrute une éducatrice à la petite enfance remplaçante. Profil attendu : diplôme reconnu ou attestation en garderie, patience, esprit créatif et certificat de premiers soins valide. Salaire selon l’échelle officielle du ministère de la Famille.',
     questions: [
       q('Dans quel organisme ce poste est-il offert ?', 'en garderie pour la petite enfance', 'dans une école secondaire publique', 'dans une clinique médicale de jour', ['garderie']),
-      q('Quelle formation figure dans le profil attendu ?', 'un certificat de premiers soins valide', 'un permis de conduire camion lourd', 'un brevet de pilote d’avion de ligne', ['premiers soins']),
+      q('Quelle formation figure dans le profil attendu ?', 'un certificat de premiers soins valide', 'un diplôme en gestion administrative', 'une attestation en nutrition infantile', ['premiers soins']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Annonce immobilière Limoilou
@@ -1008,11 +1022,17 @@ const N3_CLEANERS_DATA = [
 const N3_CLEANER_BRANDS = ['Éco-Ménage', 'Net-Maison', 'Pur-Québec', 'Bio-Propre']
 
 const N3_PHARMA_DATA = [
-  { med: 'Comprimés contre le rhume', dose: 'Prendre un comprimé aux six heures.', doseP: 'un comprimé toutes les six heures', kwDose: 'comprimé', max: 'Ne pas dépasser quatre prises par jour.', dur: 'cinq jours consécutifs', store: 'Garder dans un endroit sec.', storeP: 'garder au sec et loin du soleil', kwStore: 'sec' },
-  { med: 'Sirop contre la toux sèche', dose: 'Prendre une cuillère matin et soir.', doseP: 'une cuillère matin et soir', kwDose: 'cuillère', max: 'Ne pas dépasser deux cuillères en 24 heures.', dur: 'sept jours au besoin', store: 'Conserver la bouteille bien fermée.', storeP: 'garder la bouteille bien fermée', kwStore: 'fermée' },
-  { med: 'Gélules pour la digestion', dose: 'Prendre deux gélules au milieu du repas.', doseP: 'avaler deux gélules en mangeant', kwDose: 'gélules', max: 'Ne pas prendre plus de quatre gélules par jour.', dur: 'dix jours consécutifs', store: 'Mettre à l’abri de l’humidité.', storeP: 'garder à l’abri de l’humidité', kwStore: 'humidité' },
+  { med: 'Comprimés contre le rhume', dose: 'Prendre un comprimé aux six heures.', doseP: 'un comprimé toutes les six heures', falseDoses: ['un comprimé matin et soir au repas', 'deux comprimés avant de dormir'], kwDose: 'comprimé', max: 'Ne pas dépasser quatre prises par jour.', dur: 'cinq jours consécutifs', store: 'Garder dans un endroit sec.', storeP: 'garder dans un endroit bien sec', kwStore: 'sec' },
+  { med: 'Sirop contre la toux sèche', dose: 'Prendre une cuillère matin et soir.', doseP: 'une cuillère le matin et le soir', falseDoses: ['une cuillère toutes les six heures', 'deux cuillères avant de dormir'], kwDose: 'cuillère', max: 'Ne pas dépasser deux cuillères en 24 heures.', dur: 'sept jours au besoin', store: 'Conserver la bouteille bien fermée.', storeP: 'garder la bouteille bien fermée', kwStore: 'fermée' },
+  { med: 'Gélules pour la digestion', dose: 'Prendre deux gélules au milieu du repas.', doseP: 'avaler deux gélules en mangeant', falseDoses: ['une gélule toutes les six heures', 'deux gélules le matin à jeun'], kwDose: 'gélules', max: 'Ne pas prendre plus de quatre gélules par jour.', dur: 'dix jours consécutifs', store: 'Conserver au frais au réfrigérateur.', storeP: 'garder au frais au réfrigérateur', kwStore: 'réfrigérateur' },
 ]
 const N3_PHARMA_DURS = ['trois jours consécutifs', 'cinq jours complets', 'sept jours ouvrables', 'dix jours de suite']
+const N3_STORAGE_LIST = [
+  'garder dans un endroit bien sec',
+  'garder la bouteille bien fermée',
+  'garder au frais au réfrigérateur',
+  'garder à l’abri de la lumière',
+]
 
 const N3_APPLIANCE_CARE = [
   { app: 'cafetière électrique', product: 'vinaigre blanc', prodP: 'du vinaigre blanc ordinaire', kw: 'vinaigre' },
@@ -1025,7 +1045,8 @@ const N3_RECYCLE_AREAS = ['Ville de Québec', 'Ville de Montréal', 'Ville de La
 const N3_RECYCLE_ITEMS = [
   { textFr: 'les cartons pliés', ans: 'les cartons et contenants propres', kw: 'cartons' },
   { textFr: 'les bouteilles de verre', ans: 'le verre et contenants propres', kw: 'verre' },
-  { textFr: 'les emballages métalliques', ans: 'les emballages et contenants propres', kw: 'emballages' },
+  { textFr: 'les boîtes de conserve en métal', ans: 'le métal et contenants propres', kw: 'métal' },
+  { textFr: 'les papiers journaux', ans: 'les journaux et contenants propres', kw: 'journaux' },
 ]
 
 export const N03_R_3 = [
@@ -1034,12 +1055,14 @@ export const N03_R_3 = [
     (rand) => {
       const c = pick(N3_CLEANERS_DATA, rand)
       const b = pick(N3_CLEANER_BRANDS, rand)
+      const othersAct = sample(N3_CLEANERS_DATA.filter(x => x.actP !== c.actP), 2, rand)
+      const othersWarn = sample(N3_CLEANERS_DATA.filter(x => x.warnP !== c.warnP), 2, rand)
       const text = `Produit ${b} : ${c.name}. Mode d’emploi : ${c.action} ${c.wait} ${c.wipe} Mise en garde de sécurité : ${c.warn} Fabriqué au Québec.`
       return {
         text,
         questions: [
-          q('Quelle est la première action à réaliser ?', c.actP, 'verser dans une bouilloire avec de l’huile', 'appliquer avec force sur des habits en soie', [c.kwAct]),
-          q('Quelle consigne de prudence doit-on observer ?', c.warnP, 'changer les piles chaque mois sans tarder', 'verser la bouteille entière en une fois', [c.kwWarn]),
+          q('Quelle est la première action à réaliser ?', c.actP, othersAct[0].actP, othersAct[1].actP, [c.kwAct]),
+          q('Quelle consigne de prudence doit-on observer ?', c.warnP, othersWarn[0].warnP, othersWarn[1].warnP, [c.kwWarn]),
         ],
       }
     },
@@ -1050,12 +1073,13 @@ export const N03_R_3 = [
     (rand) => {
       const p = pick(N3_PHARMA_DATA, rand)
       const dur = pick(N3_PHARMA_DURS, rand)
+      const othersStore = sample(N3_STORAGE_LIST.filter(s => s !== p.storeP), 2, rand)
       const text = `Notice médicale - ${p.med}. Posologie recommandée : ${p.dose} ${p.max} Durée prévue : ${dur}. Précaution : ${p.store} En cas de doute, consultez un pharmacien.`
       return {
         text,
         questions: [
-          q('À quelle fréquence ce médicament doit-il être pris ?', p.doseP, 'prendre toute la boîte en une seule fois', 'prendre une pleine dose chaque quart d’heure', [p.kwDose]),
-          q('Quelle consigne de conservation est indiquée ?', p.storeP, 'garder le paquet sous la pluie au jardin', 'mettre les comprimés dans un four très chaud', [p.kwStore]),
+          q('À quelle fréquence ce médicament doit-il être pris ?', p.doseP, p.falseDoses[0], p.falseDoses[1], [p.kwDose]),
+          q('Quelle consigne de conservation est indiquée ?', p.storeP, othersStore[0], othersStore[1], [p.kwStore]),
         ],
       }
     },
@@ -1082,11 +1106,12 @@ export const N03_R_3 = [
     (rand) => {
       const city = pick(N3_RECYCLE_AREAS, rand)
       const item = pick(N3_RECYCLE_ITEMS, rand)
+      const othersRecycle = sample(N3_RECYCLE_ITEMS.filter(x => x.ans !== item.ans), 2, rand)
       const text = `${city}. Consignes municipales de recyclage. Déposez ${item.textFr} et les contenants en plastique propres dans le bac bleu. Rincez bien vos boîtes avant le dépôt. Les résidus alimentaires doivent être placés dans le bac brun.`
       return {
         text,
         questions: [
-          q('Que doit-on mettre dans le bac bleu ?', item.ans, 'les déchets alimentaires des repas', 'les vieux habits et souliers usés', [item.kw, 'bleu']),
+          q('Que doit-on mettre dans le bac bleu ?', item.ans, othersRecycle[0].ans, othersRecycle[1].ans, [item.kw, 'bleu']),
           q('Quelle consigne s’applique aux boîtes de conserve ?', 'bien rincer avant le dépôt', 'les écraser avec un outil lourd', 'les envelopper dans du plastique', ['dépôt']),
         ],
       }
@@ -1098,8 +1123,8 @@ export const N03_R_3 = [
     situation: 0,
     text: 'Nettoyant pour vitres et miroirs. Mode d’emploi : vaporiser sur une vitre propre et sèche à quinze centimètres. Essuyer avec du papier absorbant ou un chiffon non pelucheux. Ne pas avaler. Tenir à l’écart des flammes.',
     questions: [
-      q('Sur quelle surface ce produit s’applique-t-il ?', 'sur une vitre propre et bien sèche', 'sur un tapis de salon très humide', 'sur des casseroles en aluminium', ['vitre']),
-      q('Quel chiffon est recommandé pour essuyer ?', 'du papier absorbant ou un linge sec', 'une serviette de bain très mouillée', 'une éponge abrasive pour plancher', ['papier absorbant']),
+      q('Sur quelle surface ce produit s’applique-t-il ?', 'sur une vitre propre et bien sèche', 'sur un comptoir de cuisine en bois', 'sur une table de salon en marbre', ['vitre']),
+      q('Quel chiffon est recommandé pour essuyer ?', 'du papier ou un chiffon non pelucheux', 'un torchon de cuisine en gros coton', 'un linge humide imbibé d’eau tiède', ['pelucheux']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Posologie sirop pour enfants
@@ -1107,8 +1132,8 @@ export const N03_R_3 = [
     situation: 1,
     text: 'Posologie - Sirop pour enfants de plus de six ans. Prendre une cuillère à thé toutes les huit heures après les repas. Ne pas dépasser trois prises par 24 heures. Bien agiter le flacon avant l’usage.',
     questions: [
-      q('Quel est le nombre maximal de prises par jour ?', 'au maximum trois prises par jour', 'dix cuillères par journée d’école', 'une seule cuillère par fin de semaine', ['trois prises']),
-      q('Que faut-il faire avec le flacon avant l’usage ?', 'secouer le flacon avant l’emploi', 'chauffer le liquide au micro-ondes', 'laisser le produit ouvert dehors', ['flacon']),
+      q('Quel est le nombre maximal de prises par jour ?', 'au maximum trois prises par jour', 'au maximum deux prises par jour', 'au maximum quatre prises par jour', ['trois prises']),
+      q('Que faut-il faire avec le flacon avant l’usage ?', 'secouer le flacon avant l’emploi', 'diluer la dose dans un verre d’eau', 'mesurer la dose avec une seringue', ['flacon']),
     ],
   },
 ]
@@ -1133,10 +1158,10 @@ const N3_TEXTO_CLOSINGS = [
 
 const N3_BIRTHDAY_DATA = [
   { colleague: 'Émile', wish: 'un très joyeux anniversaire', extraWish: 'beaucoup de bonheur et une excellente santé', wishP: 'du bonheur et une excellente santé', kwWish: 'santé', note: 'Profite bien de cette journée festive avec tes proches.' },
-  { colleague: 'Karim', wish: 'une merveilleuse journée de fête', extraWish: 'la réussite dans tous tes beaux projets', wishP: 'la réussite dans tous ses beaux projets', kwWish: 'réussite', note: 'Ne pense pas aux dossiers du bureau aujourd’hui.' },
+  { colleague: 'Karim', wish: 'un merveilleux anniversaire', extraWish: 'la réussite dans tous tes beaux projets', wishP: 'la réussite dans tous ses projets', kwWish: 'réussite', note: 'Ne pense pas aux dossiers du bureau aujourd’hui.' },
   { colleague: 'Martin', wish: 'un superbe anniversaire', extraWish: 'de très beaux souvenirs en famille réunis', wishP: 'des souvenirs en famille réunis', kwWish: 'souvenirs', note: 'Toute l’équipe a hâte de célébrer cela avec toi demain.' },
-  { colleague: 'Sébastien', wish: 'une très belle fête', extraWish: 'de la joie et de beaux succès personnels', wishP: 'de la joie et des succès personnels', kwWish: 'succès', note: 'Prends le temps de savourer chaque instant de fête.' },
-  { colleague: 'Alexandre', wish: 'un chaleureux anniversaire', extraWish: 'une année pleine de santé et d’énergie', wishP: 'de la pleine santé et de l’énergie', kwWish: 'énergie', note: 'Nous serons ravis de trinquer à ta santé sous peu.' },
+  { colleague: 'Sébastien', wish: 'un très bel anniversaire', extraWish: 'beaucoup de repos et de beaux voyages', wishP: 'beaucoup de repos et de beaux voyages', kwWish: 'voyages', note: 'Prends le temps de savourer chaque instant de fête.' },
+  { colleague: 'Alexandre', wish: 'un chaleureux anniversaire', extraWish: 'une année pleine de santé et d’énergie', wishP: 'une pleine vitalité et de l’énergie', kwWish: 'énergie', note: 'Nous serons ravis de trinquer à ta santé sous peu.' },
 ]
 const N3_BIRTHDAY_SIGNOFFS = [
   'Passe une excellente soirée !',
@@ -1164,12 +1189,14 @@ export const N03_R_4 = [
     (rand) => {
       const t = pick(N3_TEXTO_DATA, rand)
       const cl = pick(N3_TEXTO_CLOSINGS, rand)
+      const othersTopic = sample(N3_TEXTO_DATA.filter(x => x.topicP !== t.topicP), 2, rand)
+      const othersDetail = sample(N3_TEXTO_DATA.filter(x => x.detailP !== t.detailP), 2, rand)
       const text = `Coucou ! Je voulais te féliciter pour ${t.topic}. ${t.detail}. Tu as vraiment beaucoup de talent. ${cl}`
       return {
         text,
         questions: [
-          q('Sur quoi porte le compliment reçu dans ce message ?', t.topicP, 'l’achat d’un camion d’occasion révisé', 'un contrat de location longue durée', [t.kwTopic]),
-          q('Quelle appréciation positive l’amie formule-t-elle ?', t.detailP, 'le bas prix trouvé au centre commercial', 'la rapidité d’envoi du paquet postal', [t.kwDetail]),
+          q('Sur quoi porte le compliment reçu dans ce message ?', t.topicP, othersTopic[0].topicP, othersTopic[1].topicP, [t.kwTopic]),
+          q('Quelle appréciation positive l’amie formule-t-elle ?', t.detailP, othersDetail[0].detailP, othersDetail[1].detailP, [t.kwDetail]),
         ],
       }
     },
@@ -1185,7 +1212,7 @@ export const N03_R_4 = [
       return {
         text,
         questions: [
-          q('Quel est le but principal de ce courriel ?', 'souhaiter un joyeux anniversaire', 'demander un rapport de travail urgent', 'annoncer une réunion de crise d’équipe', ['souhaite']),
+          q('Quel est le but principal de ce courriel ?', 'souhaiter un joyeux anniversaire', 'féliciter un collègue pour sa retraite', 'annoncer l’arrivée d’un nouvel employé', ['souhaite', 'anniversaire']),
           q('Quels vœux bienveillants le collègue exprime-t-il ?', b.wishP, othersWish[0].wishP, othersWish[1].wishP, [b.kwWish]),
         ],
       }
@@ -1239,7 +1266,7 @@ export const N03_R_4 = [
     text: 'Bonjour Sophie ! Toute l’équipe du bureau te souhaite un joyeux anniversaire. Que cette journée t’apporte joie, repos et sourires avec ta famille. On t’attend demain avec le gâteau !',
     questions: [
       q('Quelle fête les collègues célèbrent-ils par courriel ?', 'l’anniversaire de naissance de Sophie', 'la fin d’un projet important au bureau', 'le départ en vacances de leur collègue', ['anniversaire']),
-      q('Qu’est-ce qui est prévu au bureau pour le lendemain ?', 'partager un gâteau avec les collègues', 'assister à une réunion de crise urgente', 'faire des heures supplémentaires le soir', ['gâteau']),
+      q('Qu’est-ce qui est prévu au bureau pour le lendemain ?', 'partager un gâteau avec les collègues', 'offrir une carte signée par l’équipe', 'décorer la salle de pause en matinée', ['gâteau']),
     ],
   },
 ]
@@ -1298,11 +1325,11 @@ const N4_STORAGE_DATES = [
 ]
 
 const N4_FURNITURE_DELIVERIES = [
-  { item: 'votre table de cuisine en bois', fee: '69 dollars', feeOpt: '69 dollars pour le transport' },
-  { item: 'votre meuble de salon en chêne', fee: '89 dollars', feeOpt: '89 dollars pour le transport' },
-  { item: 'votre bibliothèque moderne', fee: '59 dollars', feeOpt: '59 dollars pour le transport' },
-  { item: 'votre canapé trois places', fee: '79 dollars', feeOpt: '79 dollars pour le transport' },
-  { item: 'votre ensemble de chambre', fee: '99 dollars', feeOpt: '99 dollars pour le transport' },
+  { item: 'votre table de cuisine en bois', fee: '69 dollars', feeOpt: '69 dollars pour le forfait complet' },
+  { item: 'votre meuble de salon en chêne', fee: '89 dollars', feeOpt: '89 dollars pour le forfait complet' },
+  { item: 'votre bibliothèque moderne', fee: '59 dollars', feeOpt: '59 dollars pour le forfait complet' },
+  { item: 'votre canapé trois places', fee: '79 dollars', feeOpt: '79 dollars pour le forfait complet' },
+  { item: 'votre ensemble de chambre', fee: '99 dollars', feeOpt: '99 dollars pour le forfait complet' },
 ]
 const N4_DELIVERY_SLOTS = [
   { slot: 'vendredi prochain en après-midi', opt: 'vendredi en après-midi' },
@@ -1462,9 +1489,9 @@ const N4_DESK_REQUESTS = [
     kwTopic: 'carte d’accès',
     otherTopic1: 'le tarif mensuel pour garer son véhicule',
     otherTopic2: 'l’emplacement des bornes de recharge privées',
-    answerGood: 'Remplissez ce formulaire et montrez une pièce d’identité.',
-    answerWrong1: 'Merci beaucoup pour cette invitation très sympathique.',
-    answerWrong2: 'Je prends un café noir sans sucre, s’il vous plaît.',
+    answerGood: 'Remplissez le formulaire du stationnement et montrez une pièce d’identité.',
+    answerWrong1: 'Consultez les horaires de la navette sur l’écran mural.',
+    answerWrong2: 'Déposez votre cadenas à vélo dans le casier des visiteurs.',
   },
   {
     lost: 'mon mot de passe pour le portail du personnel',
@@ -1473,8 +1500,8 @@ const N4_DESK_REQUESTS = [
     otherTopic1: 'la liste des nouveaux ordinateurs de l’entreprise',
     otherTopic2: 'l’horaire de fermeture de la salle informatique',
     answerGood: 'Entrez votre matricule et cliquez sur Réinitialiser ici.',
-    answerWrong1: 'Félicitations pour votre promotion dans l’équipe.',
-    answerWrong2: 'Le restaurant italien du coin est excellent le midi.',
+    answerWrong1: 'Branchez le câble réseau sur la prise murale du bureau.',
+    answerWrong2: 'Glissez la feuille blanche dans le bac numéro deux en bas.',
   },
   {
     lost: 'ma carte de bibliothèque municipale',
@@ -1483,8 +1510,8 @@ const N4_DESK_REQUESTS = [
     otherTopic1: 'le nombre de livres disponibles pour les enfants',
     otherTopic2: 'la date de la prochaine exposition de peinture',
     answerGood: 'Présentez une preuve d’adresse au bureau d’accueil.',
-    answerWrong1: 'Désolé, je ne peux pas venir souper ce samedi soir.',
-    answerWrong2: 'Il fait vraiment un temps magnifique aujourd’hui.',
+    answerWrong1: 'Glissez vos livres retournés dans la boîte extérieure.',
+    answerWrong2: 'Réservez un poste internet sur la borne près du hall.',
   },
   {
     lost: 'mon formulaire d’assurance collective',
@@ -1493,8 +1520,8 @@ const N4_DESK_REQUESTS = [
     otherTopic1: 'le montant total des primes versées cette année',
     otherTopic2: 'le nom du nouveau responsable du personnel',
     answerGood: 'Téléversez le document signé sur le site internet.',
-    answerWrong1: 'Je vous remercie de m’avoir prêté votre parapluie.',
-    answerWrong2: 'Nous pouvons aller prendre une marche après le dîner.',
+    answerWrong1: 'Vérifiez votre solde de vacances sur la fiche de paie.',
+    answerWrong2: 'Remettez vos reçus médicaux dans l’enveloppe cachetée.',
   },
 ]
 
@@ -1505,9 +1532,9 @@ const N4_PORTAL_TASKS = [
     kwTask: 'congés',
     otherTopic1: 'l’horaire de travail prévu pour le mois prochain',
     otherTopic2: 'le compte rendu officiel de la dernière assemblée',
-    answerGood: 'Ouvre l’onglet Calendrier puis clique sur Nouveau.',
-    answerWrong1: 'J’ai déjà réservé ma table pour le souper d’hier.',
-    answerWrong2: 'Enchanté de faire votre connaissance ce matin.',
+    answerGood: 'Ouvre l’onglet Congés puis clique sur Nouvelle demande.',
+    answerWrong1: 'Ouvre la section Profil pour modifier ton adresse.',
+    answerWrong2: 'Télécharge la copie électronique de ton contrat.',
   },
   {
     task: 'soumettre une note de frais de déplacement',
@@ -1515,9 +1542,9 @@ const N4_PORTAL_TASKS = [
     kwTask: 'frais de déplacement',
     otherTopic1: 'le choix du moyen de transport pour la formation',
     otherTopic2: 'l’adresse exacte de l’hôtel réservé par l’agence',
-    answerGood: 'Ajoute tes reçus en photo et valide le total en bas.',
-    answerWrong1: 'Bonne fin de semaine et repose-toi bien surtout.',
-    answerWrong2: 'Je préfère manger une salade verte pour le repas.',
+    answerGood: 'Ouvre l’onglet Dépenses puis ajoute tes reçus en photo.',
+    answerWrong1: 'Choisis l’option Véhicule de service dans l’agenda.',
+    answerWrong2: 'Télécharge ton relevé fiscal annuel dans les archives.',
   },
   {
     task: 'changer mes coordonnées bancaires pour la paie',
@@ -1526,8 +1553,8 @@ const N4_PORTAL_TASKS = [
     otherTopic1: 'la date de versement de la prochaine prime annuelle',
     otherTopic2: 'le nom de l’institution financière de l’employeur',
     answerGood: 'Dépose un document bancaire dans la section Mon profil.',
-    answerWrong1: 'Ce dossier volumineux est déjà prêt pour la poste.',
-    answerWrong2: 'Il pleut assez fort dehors depuis ce matin tôt.',
+    answerWrong1: 'Inscris tes heures supplémentaires dans l’onglet Paie.',
+    answerWrong2: 'Remplis le bon de commande pour du matériel de bureau.',
   },
   {
     task: 'réserver une salle pour la réunion de service',
@@ -1536,8 +1563,8 @@ const N4_PORTAL_TASKS = [
     otherTopic1: 'le compte rendu rédigé par la secrétaire adjointe',
     otherTopic2: 'la liste des invités présents au colloque annuel',
     answerGood: 'Choisis la plage libre sur l’agenda partagé du groupe.',
-    answerWrong1: 'Merci pour ce joli cadeau offert à mon anniversaire.',
-    answerWrong2: 'Le café sans caféine est disponible au distributeur.',
+    answerWrong1: 'Modifie les alertes de notification dans tes réglages.',
+    answerWrong2: 'Télécharge le modèle de compte rendu dans les modèles.',
   },
 ]
 
@@ -1549,8 +1576,8 @@ const N4_COMMUNITY_COURSES = [
     otherTopic1: 'les horaires de la piscine pour la fin de semaine',
     otherTopic2: 'les tarifs de location de la salle des fêtes',
     answerGood: 'Remplissez la fiche jaune au secrétariat avec votre carte.',
-    answerWrong1: 'J’ai acheté du pain et du lait à l’épicerie ce midi.',
-    answerWrong2: 'Le train de banlieue arrive sur la voie numéro trois.',
+    answerWrong1: 'Achetez une carte d’accès pour la piscine à la réception.',
+    answerWrong2: 'Déposez vos dons de livres dans la boîte du hall d’entrée.',
   },
   {
     course: 'aux séances de gymnastique douce pour adultes',
@@ -1559,8 +1586,8 @@ const N4_COMMUNITY_COURSES = [
     otherTopic1: 'le règlement concernant les casiers du vestiaire',
     otherTopic2: 'la date de la fête annuelle des bénévoles du centre',
     answerGood: 'Présentez un certificat médical au comptoir de sports.',
-    answerWrong1: 'Je vous envoie le rapport dès demain matin sans faute.',
-    answerWrong2: 'Cette veste noire me semble un peu trop petite pour moi.',
+    answerWrong1: 'Louez des raquettes de badminton au comptoir d’accueil.',
+    answerWrong2: 'Inscrivez-vous au tirage pour les parcelles du potager.',
   },
   {
     course: 'aux cours de dessin pour débutants le samedi',
@@ -1568,9 +1595,9 @@ const N4_COMMUNITY_COURSES = [
     kwCourse: 'cours de dessin',
     otherTopic1: 'le nom de l’artiste invité pour l’exposition d’art',
     otherTopic2: 'le programme de musique offert durant le festival',
-    answerGood: 'Inscrivez votre nom sur la liste à l’entrée de l’atelier.',
-    answerWrong1: 'Prenez soin de vous et à la semaine prochaine, salut.',
-    answerWrong2: 'Ma voiture est garée juste devant la porte de sortie.',
+    answerGood: 'Remplissez le bulletin au comptoir des cours de dessin.',
+    answerWrong1: 'Prenez un cadenas pour votre casier auprès du gardien.',
+    answerWrong2: 'Consultez les menus du midi affichés près de la cafétéria.',
   },
   {
     course: 'aux ateliers de cuisine collective du mardi',
@@ -1579,8 +1606,8 @@ const N4_COMMUNITY_COURSES = [
     otherTopic1: 'le menu de la cantine scolaire pour la semaine',
     otherTopic2: 'l’horaire d’ouverture de la pharmacie du quartier',
     answerGood: 'Venez rencontrer l’animatrice demain entre dix et midi.',
-    answerWrong1: 'Très bonne idée, je vais commander un thé glacé aussi.',
-    answerWrong2: 'La station de métro la plus proche est à deux coins.',
+    answerWrong1: 'Triez les vêtements d’hiver dans la salle polyvalente.',
+    answerWrong2: 'Réservez le piano du sous-sol auprès du responsable d’étage.',
   },
 ]
 
@@ -1605,12 +1632,13 @@ export const N04_L_1 = [
   Object.assign(
     (rand) => {
       const req = pick(N4_DESK_REQUESTS, rand)
+      const others = sample(N4_DESK_REQUESTS.filter(x => x.answerGood !== req.answerGood), 2, rand)
       const text = `— Bonjour madame, excusez-moi de vous déranger à l’accueil. J’ai égaré ${req.lost} ce matin en venant au bureau. Est-ce que vous pourriez m’expliquer la marche à suivre pour régler cette situation rapidement aujourd’hui ?`
       return {
         text,
         questions: [
           q('Quel renseignement le visiteur demande-t-il au comptoir ?', req.topicOpt, req.otherTopic1, req.otherTopic2, [req.kwTopic]),
-          q('Quelle réponse donnée par l’agente est appropriée ?', req.answerGood, req.answerWrong1, req.answerWrong2, ['accueil']),
+          q('Quelle réponse donnée par l’agente est appropriée ?', req.answerGood, others[0].answerGood, others[1].answerGood, ['accueil']),
         ],
       }
     },
@@ -1621,12 +1649,13 @@ export const N04_L_1 = [
     (rand) => {
       const item = pick(N4_PORTAL_TASKS, rand)
       const col = pick(N4_COLLEAGUES, rand)
+      const others = sample(N4_PORTAL_TASKS.filter(x => x.answerGood !== item.answerGood), 2, rand)
       const text = `— Salut ${col} ! Est-ce que tu pourrais m’expliquer comment ${item.task} sur le portail interne ? Je cherche depuis dix minutes dans tous les menus sans succès, et j’aimerais terminer cette démarche avant de quitter le bureau.`
       return {
         text,
         questions: [
           q('Sur quel point le collègue demande-t-il des explications ?', item.topicOpt, item.otherTopic1, item.otherTopic2, [item.kwTask]),
-          q('Quelle réponse de la collègue est adaptée à la demande ?', item.answerGood, item.answerWrong1, item.answerWrong2, ['menus']),
+          q('Quelle réponse de la collègue est adaptée à la demande ?', item.answerGood, others[0].answerGood, others[1].answerGood, ['menus']),
         ],
       }
     },
@@ -1636,12 +1665,13 @@ export const N04_L_1 = [
   Object.assign(
     (rand) => {
       const item = pick(N4_COMMUNITY_COURSES, rand)
+      const others = sample(N4_COMMUNITY_COURSES.filter(x => x.answerGood !== item.answerGood), 2, rand)
       const text = `— Bonjour monsieur. Je viens tout juste d’emménager dans le quartier avec ma famille. Pouvez-vous m’expliquer comment s’inscrire ${item.course} ? J’ai vu l’affiche à l’entrée, mais je ne connais pas du tout les démarches.`
       return {
         text,
         questions: [
           q('Quel renseignement le citoyen demande-t-il au centre ?', item.topicOpt, item.otherTopic1, item.otherTopic2, [item.kwCourse]),
-          q('Quelle réponse de l’employé est adaptée à la situation ?', item.answerGood, item.answerWrong1, item.answerWrong2, ['affiche']),
+          q('Quelle réponse de l’employé est adaptée à la situation ?', item.answerGood, others[0].answerGood, others[1].answerGood, ['affiche']),
         ],
       }
     },
@@ -1653,7 +1683,7 @@ export const N04_L_1 = [
     text: '— Bonjour Sylvain. Peux-tu m’expliquer comment utiliser le numériseur de la réception ? Je veux envoyer un contrat signé à la direction par courriel aujourd’hui. J’ai placé le document sur la vitre, mais je ne sais pas quoi choisir sur l’écran.',
     questions: [
       q('Que cherche à savoir la personne au début du message ?', 'la marche à suivre pour utiliser le numériseur', 'le prix d’une cartouche d’encre pour l’appareil', 'l’heure de ramassage du courrier par la poste', ['numériseur']),
-      q('Quelle consigne du collègue est appropriée ?', 'Sélectionne Envoi courriel et appuie sur Départ.', 'Je serais ravi de venir dîner avec vous demain.', 'Désolé, mais j’ai un rendez-vous chez le médecin.', ['courriel']),
+      q('Quelle consigne du collègue est appropriée ?', 'Sélectionne Envoi courriel et appuie sur Départ.', 'Choisis Impression recto-verso puis valide ici.', 'Active le mode Copie couleur sur le menu central.', ['courriel']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Remplacement d'une carte de transport défectueuse
@@ -1662,7 +1692,7 @@ export const N04_L_1 = [
     text: '— Excusez-moi monsieur, ma carte d’autobus mensuelle ne fonctionne plus quand je la passe sur la borne ce matin. Est-ce que vous pourriez m’expliquer la procédure pour régler ce problème ? Je dois prendre l’autobus tous les jours.',
     questions: [
       q('Quelle explication l’usager demande-t-il au commis ?', 'la façon de remplacer une carte défectueuse', 'le tarif d’un billet unitaire pour le métro', 'l’horaire de passage du prochain autobus rapide', ['carte']),
-      q('Quelle réponse du commis est adaptée à cette situation ?', 'Montrez votre carte au guichet avec votre reçu.', 'Félicitations pour votre nouvelle maison en ville.', 'Je prends un thé à la menthe avec un peu de sucre.', ['carte']),
+      q('Quelle réponse du commis est adaptée à cette situation ?', 'Montrez votre carte au guichet avec votre reçu.', 'Achetez un billet simple dans cette distributrice.', 'Consultez les horaires de passage sur le panneau.', ['carte']),
     ],
   },
 ]
@@ -1685,21 +1715,25 @@ const N4_CLINIC_CONDITIONS = [
     name: 'une bronchite aiguë',
     symp: 'une toux sèche persistante, des frissons et une légère fièvre',
     warn: { text: 'ressentez de la difficulté à respirer', short: 'une difficulté respiratoire importante', kw: 'difficulté' },
+    falseSigns: ['une toux sèche persistante au repos', 'une légère fièvre avec des frissons'],
   },
   {
     name: 'une gastro-entérite virale',
     symp: 'des crampes abdominales, des nausées et des vomissements fréquents',
     warn: { text: 'avez des signes de déshydratation nette', short: 'des signes de déshydratation nette', kw: 'déshydratation' },
+    falseSigns: ['des crampes abdominales passagères', 'des nausées légères après le repas'],
   },
   {
     name: 'une infection des sinus',
     symp: 'des maux de tête frontaux, une congestion nasale et une pression aux joues',
-    warn: { text: 'constatez une forte enflure au visage', short: 'une forte enflure au visage', kw: 'enflure' },
+    warn: { text: 'constatez une forte enflure au visage', short: 'une forte enflure visible au visage', kw: 'enflure' },
+    falseSigns: ['une congestion nasale sans douleur', 'une légère pression dans les joues'],
   },
   {
     name: 'une forte grippe saisonnière',
     symp: 'des courbatures intenses, de la fièvre et un mal de gorge aigu',
     warn: { text: 'observez une hausse subite de fièvre', short: 'une hausse subite de la fièvre', kw: 'fièvre' },
+    falseSigns: ['des courbatures musculaires au lit', 'un mal de gorge habituel et modéré'],
   },
 ]
 
@@ -1735,8 +1769,6 @@ const N4_PLUMBING_PROBLEMS = [
     measOpt: 'installer une bassine sous le tuyau d’eau',
     otherProb1: 'une panne de courant dans les chambres',
     otherProb2: 'une porte de balcon difficile à verrouiller',
-    otherMeas1: 'laisser la fenêtre du salon grande ouverte',
-    otherMeas2: 'couper l’accès à l’ascenseur de l’immeuble',
   },
   {
     room: 'dans la salle de bain',
@@ -1749,8 +1781,6 @@ const N4_PLUMBING_PROBLEMS = [
     measOpt: 'fermer la valve locale d’arrivée d’eau',
     otherProb1: 'une poignée d’entrée complètement bloquée',
     otherProb2: 'un rideau de douche déchiré par le vent',
-    otherMeas1: 'allumer le chauffage d’appoint au maximum',
-    otherMeas2: 'nettoyer le carrelage avec du savon noir',
   },
   {
     room: 'près de la laveuse',
@@ -1763,8 +1793,6 @@ const N4_PLUMBING_PROBLEMS = [
     measOpt: 'éponger le sol et éteindre l’appareil',
     otherProb1: 'un bruit de grincement dans le plancher',
     otherProb2: 'une prise murale sans tension électrique',
-    otherMeas1: 'laisser tourner la machine toute la soirée',
-    otherMeas2: 'ouvrir le robinet extérieur du jardinier',
   },
   {
     room: 'au sous-sol du bâtiment',
@@ -1777,8 +1805,6 @@ const N4_PLUMBING_PROBLEMS = [
     measOpt: 'poser des linges autour du réservoir d’eau',
     otherProb1: 'un verrou de porte rouillé par l’humidité',
     otherProb2: 'un escalier de secours difficile à monter',
-    otherMeas1: 'remplir le réservoir avec de l’eau chaude',
-    otherMeas2: 'déplacer la chaudière dans la cour arrière',
   },
 ]
 
@@ -1805,13 +1831,12 @@ export const N04_L_2 = [
   Object.assign(
     (rand) => {
       const cond = pick(N4_CLINIC_CONDITIONS, rand)
-      const othersWarn = sample(N4_CLINIC_CONDITIONS.filter((c) => c !== cond), 2, rand).map((c) => c.warn)
       const text = `— Bonjour monsieur. Pour traiter ${cond.name}, les symptômes habituels sont ${cond.symp}. Buvez beaucoup d’eau tiède et reposez-vous au lit pendant trois jours. En revanche, si vous ${cond.warn.text}, appelez sans tarder le service Info-Santé 811 ou venez à la clinique d’urgence.`
       return {
         text,
         questions: [
-          q('Quel conseil de base le soignant donne-t-il au patient ?', 'se reposer au lit et boire de l’eau', 'reprendre le sport de haute intensité', 'partir en long voyage dès le lendemain', ['lit']),
-          q('Quel signe doit pousser le patient à consulter d’urgence ?', cond.warn.short, othersWarn[0].short, othersWarn[1].short, [cond.warn.kw]),
+          q('Quel conseil de base le soignant donne-t-il au patient ?', 'se reposer au lit et boire de l’eau', 'appliquer des compresses froides au cou', 'garder une diète liquide sans solides', ['lit']),
+          q('Quel signe doit pousser le patient à consulter d’urgence ?', cond.warn.short, cond.falseSigns[0], cond.falseSigns[1], [cond.warn.kw]),
         ],
       }
     },
@@ -1839,12 +1864,13 @@ export const N04_L_2 = [
   Object.assign(
     (rand) => {
       const p = pick(N4_PLUMBING_PROBLEMS, rand)
+      const others = sample(N4_PLUMBING_PROBLEMS.filter(x => x.measOpt !== p.measOpt), 2, rand)
       const text = `— Bonjour monsieur Tremblay. C’est le locataire du numéro quatre. Je vous contacte pour un problème de plomberie ${p.room}. Depuis ce matin, ${p.issue}. J’ai tout de suite ${p.measure}. Est-ce qu’un plombier pourrait passer aujourd’hui pour réparer le bris ? Merci de me rappeler rapidement.`
       return {
         text,
         questions: [
           q('Quel problème domestique le locataire signale-t-il ?', p.probOpt, p.otherProb1, p.otherProb2, [p.probKw]),
-          q('Quelle précaution le locataire a-t-il prise immédiatement ?', p.measOpt, p.otherMeas1, p.otherMeas2, [p.measKw]),
+          q('Quelle précaution le locataire a-t-il prise immédiatement ?', p.measOpt, others[0].measOpt, others[1].measOpt, [p.measKw]),
         ],
       }
     },
@@ -1864,7 +1890,7 @@ export const N04_L_2 = [
     situation: 1,
     text: '— À la suite de votre piqûre d’insecte, une rougeur locale et une démangeaison modérée sont normales pendant deux jours. Appliquez de la glace enveloppée dans un linge propre. Par contre, si vous observez un gonflement du visage ou une difficulté à respirer, appelez sans tarder le 911.',
     questions: [
-      q('Quelle réaction cutanée est jugée normale au départ ?', 'une rougeur cutanée avec démangeaison', 'une perte temporaire de la vision nette', 'un engourdissement total du bras entier', ['démangeaison']),
+      q('Quelle réaction cutanée est jugée normale au départ ?', 'une rougeur cutanée avec démangeaison', 'une petite cloque sans douleur vive', 'une plaque très sèche sur la peau', ['démangeaison']),
       q('Dans quelle situation faut-il composer immédiatement le 911 ?', 'si le visage gonfle ou la respiration bloque', 'si la démangeaison continue pendant une heure', 'si la trace rouge reste visible en surface', ['visage']),
     ],
   },
@@ -1917,8 +1943,6 @@ const N4_TRANSIT_MISHAPS = [
     help: 'une chauffeuse bienveillante m’a indiqué la bonne correspondance',
     helpOpt: 'une chauffeuse lui a indiqué la correspondance',
     helpKw: 'chauffeuse',
-    otherHelp1: 'un agent de police l’a reconduit en patrouille',
-    otherHelp2: 'un passant lui a vendu un vieux plan de ville',
   },
   {
     dest: 'au campus de l’Université Laval',
@@ -1928,8 +1952,6 @@ const N4_TRANSIT_MISHAPS = [
     help: 'un étudiant sympathique m’a guidé jusqu’au bon quai',
     helpOpt: 'un étudiant l’a guidé vers le bon quai',
     helpKw: 'étudiant',
-    otherHelp1: 'le chauffeur l’a forcé à marcher trois heures',
-    otherHelp2: 'une patrouille municipale a bloqué la route',
   },
   {
     dest: 'au bureau d’accueil des nouveaux arrivants',
@@ -1939,8 +1961,6 @@ const N4_TRANSIT_MISHAPS = [
     help: 'une agente au guichet m’a imprimé le trajet complet',
     helpOpt: 'une agente lui a imprimé le bon trajet',
     helpKw: 'agente',
-    otherHelp1: 'un passant l’a envoyé vers une fausse adresse',
-    otherHelp2: 'le train a été annulé pour tout le reste du jour',
   },
   {
     dest: 'à mon premier appartement à Longueuil',
@@ -1950,8 +1970,6 @@ const N4_TRANSIT_MISHAPS = [
     help: 'un voisin de siège m’a prêté son téléphone pour m’orienter',
     helpOpt: 'un passager lui a prêté son téléphone',
     helpKw: 'téléphone',
-    otherHelp1: 'un contrôleur lui a confisqué sa valise rouge',
-    otherHelp2: 'le véhicule est tombé en panne sur l’autoroute',
   },
 ]
 
@@ -2005,12 +2023,13 @@ export const N04_L_3 = [
   Object.assign(
     (rand) => {
       const item = pick(N4_TRANSIT_MISHAPS, rand)
+      const othersHelp = sample(N4_TRANSIT_MISHAPS.filter((x) => x.helpOpt !== item.helpOpt), 2, rand)
       const text = `— Lors de ma première semaine au Québec, j’ai vécu une vraie mésaventure en voulant me rendre ${item.dest}. J’ai pris ${item.bus} sans regarder l’affiche. Je me suis retrouvé loin sous la pluie. Heureusement, ${item.help}. Je suis arrivé à destination avec un petit retard mais sain et sauf !`
       return {
         text,
         questions: [
           q('Quelle mésaventure la personne raconte-t-elle sur son trajet ?', item.mishapOpt, 'un bris mécanique de sa voiture personnelle', 'une perte de son billet dans la station de train', [item.busKw]),
-          q('Comment la personne a-t-elle finalement trouvé son chemin ?', item.helpOpt, item.otherHelp1, item.otherHelp2, [item.helpKw]),
+          q('Comment la personne a-t-elle finalement trouvé son chemin ?', item.helpOpt, othersHelp[0].helpOpt, othersHelp[1].helpOpt, [item.helpKw]),
         ],
       }
     },
@@ -2068,8 +2087,8 @@ const N4_LEAK_BUNDLES = [
     part: 'd’un tuyau usé sous la baignoire',
     causeOpt: 'du tuyau sous la baignoire du voisin',
     action: 'coupé l’arrivée d’eau locale sans tarder',
-    repair: 'un plombier certifié viendra changer la pièce',
-    repOpt: 'le remplacement de la pièce par un plombier',
+    repair: 'un plombier certifié viendra changer la tuyauterie',
+    repOpt: 'le changement de tuyau par un plombier',
     kwPart: 'baignoire',
     kwRep: 'plombier',
   },
@@ -2077,26 +2096,26 @@ const N4_LEAK_BUNDLES = [
     part: 'du joint du chauffe-eau central',
     causeOpt: 'du joint du chauffe-eau de l’étage',
     action: 'fermé la valve de sécurité du réservoir',
-    repair: 'l’artisan qualifié viendra poser un raccord neuf',
-    repOpt: 'l’installation d’un raccord neuf par un ouvrier',
+    repair: 'l’artisan qualifié viendra poser un joint neuf',
+    repOpt: 'la pose d’un joint neuf par un artisan',
     kwPart: 'chauffe-eau',
-    kwRep: 'raccord',
+    kwRep: 'joint',
   },
   {
-    part: 'de la canalisation sous l’évier',
-    causeOpt: 'du tuyau sous l’évier du voisin',
+    part: 'du siphon fendu sous l’évier',
+    causeOpt: 'du siphon sous l’évier du voisin',
     action: 'stoppé l’alimentation principale ce matin',
-    repair: 'un technicien de service posera un tuyau neuf',
-    repOpt: 'la pose d’un tuyau neuf par le technicien',
+    repair: 'un technicien de service remplacera le siphon',
+    repOpt: 'le changement de siphon par le technicien',
     kwPart: 'évier',
-    kwRep: 'technicien',
+    kwRep: 'siphon',
   },
   {
     part: 'd’une valve défectueuse de radiateur',
     causeOpt: 'de la valve du radiateur de l’étage',
     action: 'isolé le circuit de chauffage immédiatement',
-    repair: 'un chauffagiste d’urgence viendra réparer le bris',
-    repOpt: 'la réparation du bris par un chauffagiste',
+    repair: 'un chauffagiste d’urgence viendra resserrer la valve',
+    repOpt: 'le resserrage de valve par un chauffagiste',
     kwPart: 'radiateur',
     kwRep: 'chauffagiste',
   },
@@ -2166,12 +2185,12 @@ const N4_HEATING_BUNDLES = [
     kwRep: 'réparateur',
   },
   {
-    cause: 'd’une coupure du brûleur principal au sous-sol',
-    causeOpt: 'l’arrêt soudain du brûleur de la chaudière',
-    impact: 'la température a chuté de quelques degrés dans les logements',
-    repair: 'l’équipe d’entretien remplacera le filtre à gaz',
-    repOpt: 'l’équipe changera le filtre dans la journée',
-    kwCause: 'brûleur',
+    cause: 'de l’encrassement du filtre à combustible',
+    causeOpt: 'un encrassement du filtre à combustible',
+    impact: 'la chaudière s’est coupée tout de suite par sécurité',
+    repair: 'l’équipe d’entretien remplacera le filtre encrassé',
+    repOpt: 'l’équipe changera le filtre encrassé sans tarder',
+    kwCause: 'combustible',
     kwRep: 'filtre',
   },
   {
@@ -2347,10 +2366,10 @@ const N4_VOICEMAIL_PASSWORDS = [
   { text: 'compose ton nouveau code d’accès personnel', opt: 'composer son nouveau code d’accès', kw: 'code' },
 ]
 const N4_VOICEMAIL_FALSE_STEPS = [
-  'rappeler immédiatement son dernier correspondant',
-  'effacer sans écouter tous les anciens messages',
-  'désactiver la sonnerie d’appel du téléphone',
-  'transférer l’appel vers une boîte vocale externe',
+  'envoyer une photo de son profil',
+  'donner sa date de naissance exacte',
+  'indiquer son code postal actuel',
+  'confirmer son numéro d’abonné',
 ]
 const N4_VOICEMAIL_GREETINGS = [
   'enregistre ton message d’accueil après le bip',
@@ -2395,7 +2414,7 @@ const N4_CLOSING_FINALS = [
   { text: 'verrouillez la porte d’entrée avec la clé noire', opt: 'verrouiller la porte avec la clé noire', kw: 'clé' },
   { text: 'barrez la porte arrière avec le cadenas bleu', opt: 'barrer la porte avec le cadenas bleu', kw: 'cadenas' },
   { text: 'fermez la grille de sécurité devant l’entrée', opt: 'fermer la grille métallique de sécurité', kw: 'grille' },
-  { text: 'tournez la poignée à double tour avant de partir', opt: 'verrouiller la serrure à double tour', kw: 'double tour' },
+  { text: 'activez l’alarme générale du bâtiment avant de partir', opt: 'activer l’alarme générale du bâtiment', kw: 'alarme' },
 ]
 
 const N4_TRANSIT_DESTS = [
@@ -2538,7 +2557,7 @@ export const N04_L_5 = [
 const N4_OUTDOOR_BUNDLES = [
   {
     act: 'la descente en kayak sur la rivière',
-    short: 'le kayak sur la rivière en été',
+    short: 'la descente en kayak de rivière',
     reason: 'le calme de l’eau au matin',
     reasonOpt: 'le calme apaisant au bord de l’eau',
     dis: 'le vélo sur des sentiers de boue',
@@ -2604,18 +2623,18 @@ const N4_CLOTHING_BUNDLES = [
   {
     item: 'un manteau long en duvet d’hiver',
     opt: 'un grand manteau d’hiver en duvet',
-    reason: 'il protège beaucoup mieux du grand froid',
-    reasonOpt: 'une protection supérieure au grand froid',
+    reason: 'il couvre bien les hanches et le dos',
+    reasonOpt: 'couvrir le dos et les hanches',
     color: 'en bleu marin avec de grandes poches',
     dis: 'une veste courte sans capuchon',
     kwItem: 'manteau',
-    kwReason: 'froid',
+    kwReason: 'hanches',
   },
   {
     item: 'des bottes chaudes avec semelles solides',
     opt: 'des bottes chaudes antidérapantes',
-    reason: 'elles empêchent de glisser sur la glace',
-    reasonOpt: 'une bonne adhérence sur la glace vive',
+    reason: 'il empêche de glisser sur la glace',
+    reasonOpt: 'éviter de glisser sur la glace',
     color: 'en cuir noir de qualité imperméable',
     dis: 'des souliers légers de marche urbaine',
     kwItem: 'bottes',
@@ -2624,7 +2643,7 @@ const N4_CLOTHING_BUNDLES = [
   {
     item: 'une tuque doublée en laine polaire',
     opt: 'une tuque chaude doublée en polaire',
-    reason: 'elle garde les oreilles bien au chaud',
+    reason: 'il garde les oreilles bien au chaud',
     reasonOpt: 'garder les oreilles bien au chaud',
     color: 'de couleur vert forêt et bien épaisse',
     dis: 'une casquette de sport ordinaire',
@@ -2634,7 +2653,7 @@ const N4_CLOTHING_BUNDLES = [
   {
     item: 'des gants de cuir avec doublure thermique',
     opt: 'des gants de cuir à doublure chaude',
-    reason: 'ils permettent de conduire confortablement',
+    reason: 'il permet de conduire confortablement',
     reasonOpt: 'conduire sa voiture confortablement',
     color: 'en cuir brun foncé très souple',
     dis: 'des mitaines en laine tricotée',
@@ -2676,20 +2695,20 @@ const N4_CULTURE_BUNDLES = [
   {
     show: 'un film d’aventure pour toute la famille',
     showOpt: 'un film d’aventure pour la famille',
-    high: 'l’intrigue palpitante pleine de surprises',
-    highOpt: 'une intrigue dynamique et surprenante',
+    high: 'la bande sonore envoûtante et soigneusement choisie',
+    highOpt: 'une bande sonore envoûtante et bien choisie',
     sound: 'les réactions enthousiastes des spectateurs',
     kwShow: 'aventure',
-    kwHigh: 'intrigue',
+    kwHigh: 'bande sonore',
   },
   {
     show: 'un spectacle d’humour au festival d’été',
     showOpt: 'un spectacle d’humour au festival',
-    high: 'la fraîcheur des anecdotes sur le quotidien',
-    highOpt: 'des anecdotes drôles sur le quotidien',
+    high: 'la scénographie sobre et ingénieuse',
+    highOpt: 'une scénographie sobre et ingénieuse',
     sound: 'les applaudissements nourris à la fin de la soirée',
     kwShow: 'humour',
-    kwHigh: 'anecdotes',
+    kwHigh: 'scénographie',
   },
 ]
 const N4_MOVIE_DAYS = ['Vendredi passé', 'Samedi dernier', 'Hier soir', 'La semaine dernière']
@@ -2774,7 +2793,7 @@ export const N04_L_6 = [
     text: '— Pour les vacances d’été en famille, je préfère le camping sous la tente au bord d’un lac calme plutôt qu’un hôtel bondé en ville. Ce que j’aime le plus, c’est le feu de camp le soir sous les étoiles et la baignade matinale. La routine est bruyante toute l’année, j’ai besoin d’air frais.',
     questions: [
       q('Quel genre de vacances la personne privilégie-t-elle en été ?', 'dormir sous la tente au bord du lac', 'loger dans un grand complexe hôtelier', 'séjourner dans un appartement très animé', ['tente']),
-      q('Qu’apprécie-t-elle tout spécialement lors de ce séjour ?', 'la baignade au réveil et le feu de camp', 'la climatisation et la télévision moderne', 'les galeries marchandes et les boutiques', ['baignade']),
+      q('Qu’apprécie-t-elle tout spécialement lors de ce séjour ?', 'la baignade au réveil et le feu de camp', 'les longues randonnées en forêt sauvage', 'les promenades à bicyclette autour du lac', ['baignade']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Crêperie bretonne de la rue Saint-Denis
@@ -2783,7 +2802,7 @@ export const N04_L_6 = [
     text: '— J’ai dîné à la nouvelle crêperie de la rue Saint-Denis hier midi avec ma cousine. Les galettes de sarrasin sont croustillantes et généreusement garnies de fromage et de jambon de chez nous. Le cidre local est excellent et la serveuse a été très gentille. Une bonne adresse à découvrir !',
     questions: [
       q('Quelle spécialité culinaire est appréciée dans ce restaurant ?', 'des galettes de sarrasin bien garnies', 'des soupes de légumes servies froides', 'des sandwichs au pain blanc réchauffés', ['galettes']),
-      q('Quelle appréciation est formulée au sujet du service ?', 'une serveuse souriante et très gentille', 'une équipe de serveurs distante et froide', 'un personnel débordé par la forte affluence', ['serveuse']),
+      q('Quelle appréciation est formulée au sujet du service ?', 'une serveuse très gentille avec les clients', 'une équipe de serveurs distante et froide', 'un personnel débordé par la forte affluence', ['serveuse']),
     ],
   },
 ]
@@ -2866,10 +2885,10 @@ const N4_ECOCENTER_CITIES = ['de la Ville de Québec', 'de l’agglomération de
 const N4_ECOCENTER_PERIODS = ['du premier mai au trente et un octobre', 'du premier mai au quinze octobre', 'du quinze mai au trente septembre', 'du premier juin au trente et un août']
 const N4_ECOCENTER_HOURS = ['du mardi au dimanche de 8 h à 18 h', 'du mercredi au dimanche de 9 h à 17 h', 'du jeudi au lundi de 8 h 30 à 16 h 30', 'du mardi au samedi de 10 h à 18 h']
 const N4_ECOCENTER_ACCEPTED = [
-  { text: 'des résidus de rénovation et des branches', opt: 'des résidus de bois et des branches', kw: 'branches' },
-  { text: 'des appareils ménagers et des métaux', opt: 'des vieux appareils et des métaux', kw: 'métaux' },
-  { text: 'des cartons pliés et des pots de peinture', opt: 'des cartons et des restes de peinture', kw: 'peinture' },
-  { text: 'des appareils électroniques et vieux câbles', opt: 'des appareils électroniques et des câbles', kw: 'câbles' },
+  { text: 'des résidus de rénovation et des branches', opt: 'des résidus de rénovation et des branches', kw: 'branches' },
+  { text: 'des gros électroménagers et des métaux', opt: 'des gros électroménagers et des métaux', kw: 'métaux' },
+  { text: 'des cartons pliés et des pots de peinture', opt: 'des cartons pliés et des restes de peinture', kw: 'peinture' },
+  { text: 'du matériel informatique et de vieux câbles', opt: 'du matériel informatique et des câbles', kw: 'câbles' },
 ]
 const N4_ECOCENTER_REQUIRED = [
   { text: 'une preuve de résidence avec adresse locale', opt: 'une preuve de résidence municipale', kw: 'résidence' },
@@ -3002,7 +3021,7 @@ const N4_CRAFT_WORKSHOPS = [
     kwTopic: 'vêtements',
     dur: 'cinq semaines le samedi matin',
     req: 'les machines à coudre sont prêtées',
-    reqOpt: 'les machines sont prêtées sur place',
+    reqOpt: 'des machines à coudre sont prêtées sur place',
     kwReq: 'machines',
   },
   {
@@ -3165,7 +3184,7 @@ const N4_TOUR_TIPS = [
 
 const N4_SPORT_CLUBS = [
   {
-    club: 'le club de marche nordique du parc',
+    club: 'le club de marche nordique de quartier',
     act: 'des promenades toniques avec des bâtons',
     actOpt: 'la marche rapide avec des bâtons',
     kwAct: 'marche',
@@ -3320,7 +3339,7 @@ export const N04_R_1 = [
     text: 'Vie de quartier. Le marché fermier du Vieux-Port revient chaque dimanche sur la place centrale. Une quinzaine de maraîchers de la région y vendent des légumes biologiques, des petits fruits frais, du pain artisanal et des fromages fermiers. Des musiciens locaux animent les allées entre dix heures et quatorze heures. L’accès est ouvert à tous.',
     questions: [
       q('Quel genre d’événement hebdomadaire ce texte décrit-il ?', 'un marché fermier de produits du terroir', 'une compétition sportive intercollégiale', 'un salon professionnel de l’automobile', ['marché']),
-      q('Quelle animation accompagne les emplettes des visiteurs ?', 'des musiciens locaux jouant dans les allées', 'des feux d’artifice tirés en plein jour', 'des conférences données par des experts', ['musiciens']),
+      q('Quelle animation accompagne les emplettes des visiteurs ?', 'des musiciens locaux jouant dans les allées', 'des démonstrations de cuisine par des chefs', 'des dégustations gratuites de cidre local', ['musiciens']),
     ],
   },
 ]
@@ -3546,7 +3565,7 @@ const N4_SNOW_BUNDLES = [
     drop: 'un blizzard intense durant la matinée',
     dropOpt: 'un blizzard intense durant la matinée',
     trouble: 'le stationnement était complètement recouvert de blanc',
-    troubOpt: 'le stationnement couvert d’une épaisse couche',
+    troubOpt: 'le stationnement couvert d’une épaisse couche de neige',
     kwTrouble: 'stationnement',
     helper: 'le concierge est venu déblayer l’accès avec son tracteur',
     helpOpt: 'le concierge avec son petit tracteur à neige',
@@ -3704,16 +3723,22 @@ const N4_BANK_FRAUD_BUNDLES = [
   },
 ]
 const N4_BANK_RULES = [
-  'Ne cliquez sur aucun lien contenu dans ces messages.',
-  'Supprimez immédiatement ce type de notification.',
-  'N’entrez jamais vos identifiants sur un site non sécurisé.',
-  'Ignorez ces demandes inhabituelles sans y répondre.',
+  'ne cliquez sur aucun lien contenu dans ces messages.',
+  'supprimez immédiatement ce type de notification.',
+  'n’entrez jamais vos identifiants sur un site non sécurisé.',
+  'ignorez ces demandes inhabituelles sans y répondre.',
 ]
 const N4_BANK_CONTACTS = [
   { act: 'appelez le numéro officiel au verso de votre carte', actOpt: 'appeler le numéro officiel au dos de sa carte', kwAct: 'numéro' },
-  { act: 'joignez le service à la clientèle par l’application', actOpt: 'utiliser l’application officielle de la banque', kwAct: 'application' },
-  { act: 'rendez-vous directement à votre succursale locale', actOpt: 'se présenter en succursale auprès d’un conseiller', kwAct: 'succursale' },
-  { act: 'écrivez au bureau de sécurité de votre institution', actOpt: 'signaler le message au bureau de sécurité', kwAct: 'sécurité' },
+  { act: 'joignez le service d’aide par l’application', actOpt: 'joindre l’assistance par l’application', kwAct: 'application' },
+  { act: 'rendez-vous directement à votre succursale', actOpt: 'se rendre directement à sa succursale', kwAct: 'succursale' },
+  { act: 'ouvrez une session sur le clavardage officiel', actOpt: 'utiliser le clavardage officiel en ligne', kwAct: 'clavardage' },
+]
+const N4_BANK_BAD_ACTIONS = [
+  'répondre directement au message reçu',
+  'cliquer sur le lien du message',
+  'transmettre son code secret par texto',
+  'payer les frais demandés dans le message',
 ]
 
 const N4_WORK_INCIDENTS = [
@@ -3910,13 +3935,13 @@ export const N04_R_3 = [
       const rule = pick(N4_BANK_RULES, rand)
       const c = pick(N4_BANK_CONTACTS, rand)
       const othersF = sample(N4_BANK_FRAUD_BUNDLES.filter((x) => x.trickOpt !== f.trickOpt), 2, rand)
-      const othersC = sample(N4_BANK_CONTACTS.filter((x) => x.actOpt !== c.actOpt), 2, rand)
+      const othersC = sample(N4_BANK_BAD_ACTIONS, 2, rand)
       const text = `Avis de sécurité publié par ${bank}. Attention aux tentatives de fraude en ligne. Des personnes malveillantes envoient actuellement ${f.trick}. Ces messages contiennent souvent ${f.trap}. Règle de prudence essentielle : ${rule} En cas d’hésitation, ${c.act}. Notre institution protège vos données en tout temps.`
       return {
         text,
         questions: [
           q('Quel stratagème frauduleux est dénoncé dans cet avis bancaire ?', f.trickOpt, othersF[0].trickOpt, othersF[1].trickOpt, [f.kwTrick]),
-          q('Quelle consigne est recommandée au client en cas d’hésitation ?', c.actOpt, othersC[0].actOpt, othersC[1].actOpt, [c.kwAct]),
+          q('Quelle consigne est recommandée au client en cas d’hésitation ?', c.actOpt, othersC[0], othersC[1], [c.kwAct]),
         ],
       }
     },
@@ -3984,7 +4009,7 @@ export const N04_R_3 = [
     text: 'Message de sécurité de votre caisse. Des courriels frauduleux circulent actuellement au nom de notre institution. Ces messages vous demandent de confirmer votre mot de passe pour débloquer votre accès en ligne. Sachez que notre institution ne demande jamais vos identifiants par courriel. Ne cliquez sur aucun hyperlien suspect. En cas de doute, composez directement le numéro inscrit au dos de votre carte de débit.',
     questions: [
       q('Quel faux prétexte est utilisé par les fraudeurs ?', 'demander un mot de passe pour débloquer l’accès', 'proposer un prêt à taux réduit pour l’achat d’auto', 'offrir un remboursement pour des frais d’assurance', ['mot de passe']),
-      q('Quel bon réflexe est recommandé aux clients en cas de doute ?', 'appeler le numéro figurant au verso de la carte', 'envoyer une capture d’écran à ses collègues', 'changer immédiatement de téléphone cellulaire', ['numéro']),
+      q('Quel bon réflexe est recommandé aux clients en cas de doute ?', 'appeler le numéro figurant au verso de la carte', 'répondre au message pour demander confirmation', 'se déplacer directement au comptoir de l’agence', ['numéro']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Panne d'ascenseur dans l'immeuble
@@ -4076,7 +4101,7 @@ const N4_ROOM_SETUPS = [
   { text: 'préparer les tables d’accueil à l’entrée', opt: 'installer les tables d’accueil à l’entrée' },
 ]
 const N4_ROOM_TECHS = [
-  { text: 'brancher le projecteur et tester le micro sans fil', opt: 'brancher le projecteur et le micro sans fil', kw: 'projecteur' },
+  { text: 'brancher le projecteur et tester le micro sans fil', opt: 'brancher le projecteur et tester le micro', kw: 'projecteur' },
   { text: 'allumer l’ordinateur central et vérifier l’écran', opt: 'allumer l’ordinateur et l’écran central', kw: 'ordinateur' },
   { text: 'connecter l’appareil audio au réseau sans fil', opt: 'relier l’appareil audio au réseau', kw: 'audio' },
   { text: 'tester la caméra vidéo pour les participants en ligne', opt: 'tester la caméra pour les gens à distance', kw: 'caméra' },
@@ -4135,6 +4160,11 @@ const N4_RECYCLE_WASHES = [
   { text: 'laver brièvement les bouteilles en verre avant le dépôt', opt: 'rincer les bouteilles en verre d’avance', kw: 'verre' },
   { text: 'enlever les bouchons et vider les pots de plastique', opt: 'vider et déboucher les pots de plastique', kw: 'pots' },
   { text: 'nettoyer les barquettes en aluminium avant le recyclage', opt: 'nettoyer les barquettes en aluminium', kw: 'aluminium' },
+]
+const N4_RECYCLE_WASH_DISTRACTORS = [
+  'les faire tremper dans de l’eau savonneuse',
+  'les désinfecter avec un détergent puissant',
+  'les emballer dans un film plastique étanche',
 ]
 const N4_RECYCLE_WASTES = [
   { text: 'fermer hermétiquement le sac noir de déchets ménagers', opt: 'fermer le sac noir de déchets ménagers' },
@@ -4228,12 +4258,12 @@ export const N04_R_4 = [
       const waste = pick(N4_RECYCLE_WASTES, rand)
       const head = pick(N4_RECYCLE_HEADS, rand)
       const day = pick(N4_RECYCLE_DAYS, rand)
-      const othersW = sample(N4_RECYCLE_WASHES.filter((x) => x.opt !== w.opt), 2, rand)
+      const othersW = sample(N4_RECYCLE_WASH_DISTRACTORS, 2, rand)
       const text = `${head} Pour assurer la propreté des lieux et respecter l’environnement, suivez ces étapes : d’abord, ${rec.text}. Ensuite, pensez à ${w.text}. Enfin, ${waste.text}. ${day} Merci de votre participation pour une ville plus verte.`
       return {
         text,
         questions: [
-          q('Que faut-il faire avec les contenants réutilisables ou recyclables ?', w.opt, othersW[0].opt, othersW[1].opt, [w.kw]),
+          q('Que faut-il faire avec les contenants réutilisables ou recyclables ?', w.opt, othersW[0], othersW[1], [w.kw]),
           q('Où les matières en papier et carton doivent-elles être déposées ?', rec.opt, rec.dist1, rec.dist2, [rec.kw]),
         ],
       }
@@ -4246,7 +4276,7 @@ export const N04_R_4 = [
     text: 'Liste des priorités pour la journée de vendredi. 1. Répondre aux courriels prioritaires des clients avant dix heures. 2. Téléphoner à madame Roy pour confirmer la réunion de quatorze heures. 3. Déposer les contrats signés dans le classeur de la comptabilité avant seize heures. Merci de suivre cet ordre pour respecter nos échéances.',
     questions: [
       q('Quelle tâche précise doit être exécutée avant dix heures ?', 'traiter les courriels urgents de la clientèle', 'téléphoner à madame Roy pour sa confirmation', 'classer les contrats dans le bureau comptable', ['courriels']),
-      q('Pour quel motif cette liste de priorités est-elle communiquée ?', 'respecter les échéances prévues avec les clients', 'organiser un dîner de fin de semaine au bureau', 'attribuer les congés payés de la saison estivale', ['échéances']),
+      q('Pour quel motif cette liste de priorités est-elle communiquée ?', 'respecter les échéances prévues avec les clients', 'faciliter la répartition des dossiers d’équipe', 'préparer le bilan hebdomadaire de la direction', ['échéances']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Réservation d'un véhicule de service
@@ -4307,7 +4337,7 @@ const N4_CHALET_DESTS = [
     paraphraseHate: 'payer pour utiliser la douche',
     distPrefer1: 'un terrain de soccer éclairé',
     distPrefer2: 'une épicerie sur le camping',
-    distHate1: 'la proximité de la grand-route',
+    distHate1: 'les frais pour le stationnement',
     distHate2: 'l’absence d’arbres sur le site',
     kwPrefer: 'ombragé',
     kwHate: 'douche',
