@@ -481,7 +481,7 @@ export const REAL_READING_PASSAGES = [
         "Comment les substances rejetées par le volcan provoquent-elles un refroidissement ?",
         "En renvoyant une portion des rayons du soleil vers l'espace extérieur",
         "En emprisonnant les rayons infrarouges émis depuis le sol sous le voile",
-        "En empêchant le rayonnement solaire de pénétrer dans la stratosphère"
+        "En aspirant la chaleur terrestre vers les couches d'altitude du voile"
       ]
     ],
     "justificationFr": "Explication scientifique dense et rigoureuse de l'impact des éruptions volcaniques sur le climat.",
@@ -1069,14 +1069,14 @@ export const REAL_READING_PASSAGES = [
       [
         "Que présente ce passage ?",
         "Une clarification terminologique et un inventaire des véhicules de transport collectif",
-        "Un plaidoyer pour remplacer le transport par voie d'eau par des voitures avec chauffeur",
+        "Une analyse des confusions juridiques liées au terme de transport public en France",
         "Une critique historique de la traction animale dans les services touristiques actuels"
       ],
       [
         "Quelle distinction établit le Grand Dictionnaire terminologique québécois ?",
         "Le transport en commun est une sous-catégorie planifiée du transport collectif",
         "Le transport collectif exclut tout déplacement effectué avec des véhicules routiers",
-        "Le transport en commun interdit l'accès au public sans accord préalable d'un juge"
+        "Le transport collectif impose des horaires réguliers et des trajets fixés à l'avance"
       ],
       [
         "Quel est l'atout principal des véhicules routiers comme les autobus selon le texte ?",
@@ -1276,7 +1276,7 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle est la portée globale de cet extrait ?",
         "La multiplicité des conséquences environnementales et sanitaires de la hausse des températures",
-        "La disparition progressive de tous les feux de forêt sous l'effet de l'acidification marine",
+        "La description prospective de l'élévation du niveau de la mer et de l'acidification des océans",
         "Le ralentissement des vagues de chaleur constaté dans les régions entourant le pôle Nord"
       ],
       [
@@ -1289,7 +1289,7 @@ export const REAL_READING_PASSAGES = [
         "Que désigne l'expression « points de basculement » dans les rapports du GIEC ?",
         "Des seuils climatiques critiques au-delà desquels des bouleversements majeurs deviennent irréversibles",
         "Des paliers de température à partir desquels le niveau de la mer recommence à baisser naturellement",
-        "Des moments précis où les feux de forêt cessent de libérer du dioxyde de carbone dans l'atmosphère"
+        "Des niveaux de réchauffement où l'évaporation accrue compense durablement la fonte des glaciers"
       ]
     ],
     "justificationFr": "Exposé approfondi des impacts climatiques à l'échelle planétaire, des points de basculement et des projections du GIEC.",
@@ -1328,7 +1328,7 @@ export const REAL_READING_PASSAGES = [
       [
         "D'après le rapport du GIEC mentionné, pourquoi l'adaptation ne suffit-elle pas à elle seule ?",
         "Elle ne peut éviter à elle seule la survenue d'effets sévères, durables et irréversibles",
-        "Elle exige l'arrêt préalable de toutes les cultures agricoles dans les zones côtières",
+        "Elle suppose le remplacement préalable du gaz et du pétrole par l'énergie nucléaire",
         "Elle ne protège efficacement les populations que contre les aléas de court terme prévus"
       ]
     ],
@@ -1369,7 +1369,7 @@ export const REAL_READING_PASSAGES = [
         "Que traduit la longévité de la pratique parlementaire au Bas-Canada mentionnée dans le texte ?",
         "Le Québec possède l'une des traditions démocratiques représentatives les plus anciennes au monde",
         "Les parlementaires québécois appliquent un modèle constitutionnel unique sans aucun vote populaire",
-        "Le premier orateur de la Chambre avait le droit exclusif de modifier le résultat des scrutins"
+        "Les institutions parlementaires québécoises ont conservé sans changement leur structure de 1792"
       ]
     ],
     "justificationFr": "Présentation des compétences législatives, du mode de scrutin et des origines historiques de l'Assemblée nationale.",
@@ -1411,7 +1411,7 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle transformation majeure est intervenue le 18 décembre 1968 ?",
         "La suppression de la chambre haute a instauré un système parlementaire à chambre unique",
-        "Le Conseil législatif a obtenu la prérogative de dissoudre l'Assemblée à la demande des juges",
+        "Le Conseil législatif a été transformé en une seconde chambre élue pour un mandat de cinq ans",
         "Les vingt-quatre conseillers ont vu leur mandat à vie prolongé sans contrôle de l'Assemblée"
       ]
     ],
@@ -1439,7 +1439,7 @@ export const REAL_READING_PASSAGES = [
       [
         "Que détaille cet extrait sur le Parlement fédéral canadien ?",
         "La composition du Parlement canadien et les raisons stratégiques du choix d'Ottawa",
-        "La désignation des hauts magistrats par le Premier ministre dans les tribunaux",
+        "L'histoire des résidences officielles attribuées aux principaux parlementaires",
         "Le transfert des résidences officielles des ministres vers Kingston et Québec"
       ],
       [
@@ -1610,7 +1610,7 @@ export const REAL_READING_PASSAGES = [
         "Pourquoi de nombreux immigrants et Canadiens quittaient-ils le Canada pour les États-Unis ?",
         "Ils étaient attirés par la prospérité économique et les emplois des grands centres manufacturiers voisins",
         "Ils espéraient bénéficier de salaires journaliers plus faibles pour éviter les syndicats locaux",
-        "Ils cherchaient à échapper au travail en usine en refusant les emplois du secteur manufacturier"
+        "Ils espéraient trouver des emplois ferroviaires pour échapper aux syndicats de la Colombie-Britannique"
       ]
     ],
     "justificationFr": "Histoire des politiques d'exclusion migratoire au Canada et contrebalancement par l'émigration vers les États-Unis.",
@@ -1757,7 +1757,7 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le sujet central de ce passage ?",
         "La prospérité économique, le rayonnement culturel et la valeur patrimoniale de Québec",
-        "La rivalité commerciale exclusive entre le port de Québec et les chantiers de Saskatoon",
+        "Le bilan des retombées financières des croisières maritimes dans le port de Québec",
         "Le déclin du tourisme de croisière et la hausse du chômage urbain depuis les années 2000"
       ],
       [
