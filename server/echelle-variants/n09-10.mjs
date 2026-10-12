@@ -2027,26 +2027,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel processus physique fondamental est expliqué dans cet extrait de revue scientifique ?",
           "La chaîne d’interactions entre particules cosmiques et magnétosphère créant des émissions lumineuses",
-          "La désexcitation radiative de l’oxygène atomique produisant des longueurs d’onde vertes et rouges",
-          "L’impact des variations de la gravité lunaire sur la trajectoire des satellites météorologiques en orbite"
+          "Des particules chargées qui traversent la haute atmosphère sans collision et se dispersent vers l’espace",
+          "Le renforcement de la magnétopause diurne qui empêche la pénétration des électrons dans la haute atmosphère"
         ],
         [
           "De quelle manière l’auteur structure-t-il l’explication du phénomène polaire ?",
           "En décrivant la trajectoire de l’énergie depuis l’expulsion solaire jusqu’aux collisions atomiques",
-          "En opposant les croyances mythologiques anciennes aux premières observations télescopiques du dix-neuvième siècle",
-          "En comparant la rentabilité financière des observatoires nordiques avec celle des stations spatiales orbitales"
+          "En décrivant l’énergie solaire comme une source qui se dissipe avant d’atteindre les collisions atomiques",
+          "En inversant la chronologie, les collisions atomiques précèdent l’expulsion du plasma par le Soleil"
         ],
         [
           "Quelle condition géophysique détermine l’amorce de la reconnexion magnétique du côté diurne ?",
           "L’alignement inverse du champ magnétique solaire par rapport à celui de la planète",
           "La densité accrue de plasma dans la queue magnétique nocturne de la planète",
-          "Une chute brutale de la température nocturne en dessous du point de condensation des vapeurs polaires"
+          "Une orientation vers le nord du champ interplanétaire, parallèle à celle du bouclier terrestre"
         ],
         [
           "Dans ce texte scientifique, que désigne précisément la « désexcitation radiative » ?",
           "La libération spontanée de photons lorsqu’un atome retrouve son niveau énergétique d’origine",
-          "L’évaporation instantanée des molécules d’eau sous l’effet d’un faisceau d’électrons accélérés",
-          "La désintégration radioactive définitive des noyaux lourds sous l’effet du rayonnement cosmique"
+          "L’absorption de photons par un atome qui accède à un niveau énergétique supérieur après un choc",
+          "La transformation d’un atome d’oxygène en ion chargé lors d’un choc avec un électron libre"
         ]
       ],
       "frame": "revue de géophysique — mécanisme des aurores boréales"
@@ -2058,26 +2058,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle situation financière ce rapport de gestion trimestriel cherche-t-il à expliquer ?",
           "Le recul de la marge d’exploitation malgré une légère progression des ventes globales",
-          "L’augmentation subite des dividendes versés aux actionnaires majoritaires de l’entreprise industrielle",
-          "La faillite imminente d’un partenaire commercial stratégique basé sur les marchés européens du Sud"
+          "L’envolée du chiffre d’affaires consolidé, bien au-delà des prévisions annuelles",
+          "Un recul du chiffre d’affaires consolidé accompagné d’une marge d’exploitation en hausse"
         ],
         [
           "Comment la direction justifie-t-elle l’écart négatif observé sur les matières premières ?",
           "Par une hausse imprévue des résines que les contrats n’ont pas permis de répercuter immédiatement",
-          "Par des erreurs de saisie comptable commises lors de la clôture des registres de paie des employés",
-          "Par une taxe douanière exceptionnelle imposée sur toutes les importations d’acier inoxydable brut"
+          "Par une baisse de la demande des clients industriels que les contrats indexés n’ont pas su absorber",
+          "Par des arrêts de production chez nos propres usines du golfe du Mexique, qui ont interrompu nos livraisons"
         ],
         [
           "Quel problème d’organisation a accentué le surcoût énergétique sur la chaîne d’extrusion ?",
           "Le manque de qualification initiale du personnel face aux réglages des nouveaux équipements",
-          "Une coupure d’électricité généralisée ayant paralysé l’ensemble du parc industriel pendant un mois",
+          "Des régulateurs automatisés mis en service trop tôt, ce qui a immédiatement amélioré le rendement énergétique",
           "La formation trop poussée des opérateurs, qui ralentissait l’entretien des équipements neufs"
         ],
         [
           "Dans ce contexte de gestion budgétaire, que qualifie un « écart défavorable » ?",
           "Un dépassement effectif des charges réelles par rapport aux projections de dépenses initiales",
-          "Une divergence d’opinion entre deux administrateurs quant au choix du vérificateur externe indépendant",
-          "Un retard administratif dans le dépôt des déclarations fiscales auprès du ministère du Revenu provincial"
+          "Un excédent de recettes réelles par rapport aux prévisions de ventes établies au début de l’exercice",
+          "Une économie réalisée sur les matières premières grâce à des contrats renégociés à la baisse"
         ]
       ],
       "frame": "rapport de gestion — analyse des écarts budgétaires"
@@ -2089,26 +2089,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel phénomène d’astrophysique ce texte spécialisé décrit-il en détail ?",
           "La répercussion des éjections coronales sur la magnétosphère et la haute atmosphère",
-          "L’anticipation des perturbations radioélectriques sur les communications satellitaires",
-          "La formation des cratères d’impact météoritique sur la surface glacée des lunes de Jupiter"
+          "Le ralentissement des éjections coronales par les courants telluriques avant leur impact sur la Terre",
+          "La dissipation rapide des orages géomagnétiques lorsque la calotte aurorale se rétracte"
         ],
         [
           "Comment l’auteur relie-t-il l’activité solaire aux manifestations visibles du ciel boréal ?",
           "En retraçant l’onde de choc depuis l’expulsion de plasma jusqu’aux excitations ionosphériques",
-          "En calculant le budget nécessaire à la construction de nouveaux radiotélescopes dans les Rocheuses",
-          "En réfutant les thèses des météorologues partisans d’une origine purement océanique des vents polaires"
+          "En démontrant que les excitations ionosphériques précèdent l’expulsion de plasma par le Soleil",
+          "En attribuant l’onde de choc aux seules variations des vents polaires, sans lien avec le Soleil"
         ],
         [
           "Selon l’article, quelle information les variations rapides des draperies aurorales fournissent-elles ?",
           "Elles traduisent les oscillations micro-ondes et la dynamique thermique des gaz de haute altitude",
-          "Elles révèlent la teneur exacte en oxygène des océans polaires et leur température de surface",
-          "Elles prédisent l’arrivée de précipitations neigeuses torrentielles sur les centres urbains du Saint-Laurent"
+          "Elles mesurent la densité des gaz de basse altitude, sans lien avec les oscillations micro-ondes",
+          "Elles causent les oscillations micro-ondes, qui résultent d’une densité thermique plus faible des gaz"
         ],
         [
           "Dans cette étude de physique des plasmas, que représente la « météo spatiale » ?",
           "L’état dynamique des conditions environnementales entre le Soleil et l’espace circumterrestre",
-          "La prévision des cyclones tropicaux marins fondée sur des relevés barométriques côtiers d’époque",
-          "La température moyenne relevée au sol dans les stations d’échantillonnage de l’archipel arctique"
+          "Les effets des variations de pression atmosphérique au sol sur la formation des draperies aurorales",
+          "L’ensemble des flux de particules solaires que la Terre bloque entièrement avant d’atteindre l’atmosphère"
         ]
       ],
       "frame": "revue d’astrophysique — tempêtes solaires et aurores"
@@ -2120,26 +2120,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quel constat financier majeur fait l’objet de cette explication managériale ?",
           "Une dérive négative importante des coûts opérationnels par rapport aux prévisions établies",
-          "Une fraude comptable interne commise par les responsables des approvisionnements forestiers locaux",
-          "Une chute catastrophique du cours mondial du bois d’œuvre ayant entraîné la fermeture des ateliers"
+          "Un excédent de bénéfices d’exploitation de six cent vingt mille dollars par rapport aux budgets approuvés",
+          "Un retard de livraison de billes d’épinette noire importées d’Europe, qui a fermé la ligne de sciage"
         ],
         [
           "Quels sont les deux déterminants principaux invoqués pour expliquer la variation budgétaire ?",
           "Le surcoût d’approvisionnement causé par le climat et les retards techniques d’une chaîne automatisée",
-          "La hausse générale des taux d’intérêt bancaires et un différend syndical prolongé dans les forêts de l’Ouest",
-          "L’amende environnementale imposée pour pollution des cours d’eau et la dévaluation de la monnaie nationale"
+          "La fermeture prolongée des chantiers de coupe et les retards d’une chaîne de sciage manuelle",
+          "Un excès de production par rapport aux prévisions, dû à une cadence d’usinage trop rapide dès le début"
         ],
         [
           "Pourquoi le retard de la nouvelle ligne de sciage a-t-il alourdi les charges de main-d’œuvre ?",
-          "L’utilisation prolongée d’anciennes machines a nécessité le paiement d’heures supplémentaires aux équipes",
-          "Le constructeur étranger a exigé le paiement immédiat d’une pénalité de résiliation de bail commercial",
-          "L’entreprise a dû embaucher des gardiens de sécurité supplémentaires pour surveiller les hangars de stockage"
+          "Durant la transition, les heures supplémentaires des équipes de maintenance et l’ancienne machinerie ont fait grimper la main-d’œuvre directe",
+          "Durant la transition, les heures supplémentaires ont été supprimées dès l’abandon de l’ancienne machinerie, plus énergivore",
+          "Durant la transition, les frais de main-d’œuvre directe ont reculé grâce à la livraison anticipée des pièces hydrauliques"
         ],
         [
           "Dans ce contexte d’exploitation industrielle, que désigne l’expression « tarifs spot » ?",
           "Des prix d’achat fixés immédiatement sur le marché au comptant selon l’offre et la demande",
-          "Des remises commerciales accordées aux acheteurs de gros lors de ventes promotionnelles d’hiver",
-          "Des tarifs douaniers préférentiels négociés dans le cadre d’un accord commercial bilatéral d’État"
+          "Des prix de vente garantis aux clients industriels par contrat annuel, sans lien avec le marché",
+          "Des prix d’achat négociés à l’avance auprès des producteurs, valables pour toute l’année"
         ]
       ],
       "frame": "rapport de gestion — écarts de coûts manufacturiers"
@@ -2159,20 +2159,20 @@ export const N09_10_SCENARIOS = {
         [
           "Quel est l’ordre des étapes préalables obligatoires avant la publication d’un communiqué d’entreprise ?",
           "L’examen par le conseiller juridique précède la validation finale du directeur des communications",
-          "L’autorisation de la présidence doit intervenir avant toute rédaction de la fiche technique de base",
+          "La note du gestionnaire de projet est archivée au registre central avant l’examen du conseiller juridique",
           "La diffusion sur les réseaux sociaux personnels devance l’archivage au registre central des dossiers"
         ],
         [
           "À quelle condition dérogatoire le directeur de site peut-il autoriser une prise de parole hâtive ?",
           "En cas d’urgence touchant la sécurité de l’usine et avec notification du siège dans les trente minutes",
-          "Dès lors qu’un journaliste régional accrédité en formule la demande écrite au moins une semaine à l’avance",
-          "Si le projet commercial en cours a déjà généré des retombées positives dans les médias financiers"
+          "Lorsque le projet a été approuvé par la présidence et que la note est rédigée sous vingt-quatre heures",
+          "Si un incident mineur survient en semaine et que le siège est avisé dans les quarante-huit heures"
         ],
         [
           "Qui a la responsabilité de consigner l’historique des échanges médiatiques au registre central ?",
           "Le coordonnateur de quart doit archiver les déclarations dans les quarante-huit heures suivant l’événement",
-          "Le conseiller juridique externe mandaté pour réviser les clauses de confidentialité des contrats commerciaux",
-          "L’employé ayant initialement transmis les coordonnées du journaliste au service des communications"
+          "Le directeur des communications, qui consigne la note au registre central dans les vingt-quatre heures",
+          "Le conseiller juridique corporatif qui doit consigner les propos tenus au registre une semaine après l’événement"
         ]
       ],
       "frame": "directives d’entreprise — relations avec les médias"
@@ -2184,26 +2184,26 @@ export const N09_10_SCENARIOS = {
         [
           "Que doit obligatoirement faire un professeur lors de la reproduction d’un chapitre conforme aux seuils ?",
           "Indiquer la source bibliographique intégrale et le nom des créateurs sur l’ensemble des exemplaires",
-          "Obtenir la signature du doyen sur chaque photocopie avant de la distribuer aux étudiants",
-          "Vendre les photocopies au prix coûtant afin de compenser les dépenses de reprographie de l’établissement"
+          "Indiquer seulement le titre de l’ouvrage sur les exemplaires, sans mentionner les auteurs",
+          "Reproduire le chapitre sans mention de source, puisque l’extrait respecte les seuils autorisés"
         ],
         [
           "Quelle démarche doit précéder l’utilisation d’un document dépassant le seuil des dix pour cent autorisés ?",
           "La transmission d’une demande écrite au responsable des bibliothèques trois semaines avant le trimestre",
-          "L’achat préalable d’exemplaires originaux par les étudiants doit être validé par le syndicat des professeurs",
-          "L’accord verbal du directeur du collège doit survenir avant toute consultation des bases de données"
+          "La transmission d’une demande orale au doyen quarante-huit heures avant la session",
+          "Une simple approbation orale de l’éditeur doit précéder l’envoi de toute demande écrite au service"
         ],
         [
           "Sous quelle condition technique des extraits numérisés peuvent-ils être mis à la disposition des étudiants ?",
           "En étant réservés aux inscrits sur l’intranet avec désactivation des liens au terme du trimestre d’études",
           "En étant mis en libre accès sur le site internet public du collège pendant une période indéterminée",
-          "En étant envoyés par courriel aux anciens diplômés et aux parents, sans restriction de durée"
+          "En étant conservés sur le portail public de l’établissement, avec liens actifs pour les anciens étudiants"
         ],
         [
           "À quelle instance incombe la surveillance périodique de la conformité des recueils de textes ?",
           "L’agent de conformité mène des vérifications inopinées et ordonne le retrait des éléments non conformes",
-          "Le représentant régional de Copibec qui inspecte chaque salle de classe au début de la rentrée scolaire",
-          "L’association étudiante qui valide la pertinence pédagogique des documents distribués aux cours"
+          "Le coordonnateur du service des bibliothèques qui ne contrôle les recueils qu’à la rentrée scolaire",
+          "Le service des technologies de l’information qui effectue un audit annuel aléatoire des recueils de textes"
         ]
       ],
       "frame": "directives administratives — droit d’auteur et utilisation équitable"
@@ -2221,20 +2221,20 @@ export const N09_10_SCENARIOS = {
         [
           "Quel document doit impérativement être acheminé avant toute prise de parole officielle ?",
           "Le rapport technique initial rédigé par le chef des opérations précisant la situation et les secours",
-          "Le compte rendu financier des réparations signé conjointement par le trésorier de l’entreprise énergétique",
+          "La déclaration officielle rédigée par le directeur des communications après la première prise de parole",
           "La synthèse de presse hebdomadaire élaborée par l’équipe de surveillance des réseaux sociaux"
         ],
         [
           "Quelle condition préalable s’impose si les services d’urgence de la ville participent à l’intervention ?",
           "L’aval exprès du maire ou du responsable des secours avant la diffusion de la déclaration publique",
-          "L’approbation d’un comité citoyen de quartier convoqué en assemblée générale extraordinaire d’urgence",
-          "L’avis favorable d’un journaliste indépendant consulté après la publication de la déclaration"
+          "L’aval du directeur de la conformité réglementaire, qui doit suivre la lecture publique de la déclaration",
+          "L’approbation du seul porte-parole, sans attendre le maire, dès que la déclaration est lue aux médias"
         ],
         [
           "Qui détient l’autorité exclusive pour s’exprimer devant les journalistes lors de l’incident ?",
           "Le porte-parole désigné par la cellule de crise avec l’appui technique encadré des ingénieurs",
           "Le technicien supérieur présent sur le chantier au moment où la première alerte a été déclenchée",
-          "L’agent de sécurité chargé du filtrage des entrées de véhicules au poste d’accès principal de l’usine"
+          "Le directeur de la conformité réglementaire, seul habilité à répondre aux questions de la presse"
         ]
       ],
       "frame": "directives d’entreprise — communication en situation d’incident"
@@ -2246,26 +2246,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle démarche un enseignant doit-il engager pour diffuser un chapitre représentant le quart d’un livre ?",
           "Remplir un formulaire de droits auprès du bureau spécialisé au moins quatre semaines avant la session",
-          "Acheter vingt exemplaires du volume en librairie pour les déposer à la réserve de la faculté des lettres",
-          "Demander aux étudiants d’imprimer individuellement les chapitres à leurs frais dans un centre privé"
+          "Obtenir une licence verbale auprès de l’éditeur, sans formalité, pour diffuser le chapitre librement",
+          "Diffuser le chapitre tel quel, sans demande, puisque le quart d’un livre ne dépasse pas les seuils"
         ],
         [
           "Quand la désactivation des accès aux fichiers numérisés doit-elle intervenir sur le serveur ?",
           "Trente jours après la conclusion définitive des examens de la session académique correspondante",
-          "Deux semaines après la remise des notes du premier examen partiel de la session",
-          "Au terme d’un délai de douze mois consécutifs suivant l’approbation du plan de cours par le doyen"
+          "Dès la fin du dernier cours de la session, avant même la publication des résultats finaux",
+          "Quarante-cinq jours après la fin des examens finaux, à la demande du bibliothécaire en chef"
         ],
         [
           "À quelle exigence technique la mise en ligne des extraits autorisés est-elle soumise ?",
           "L’apposition d’un filigrane de l’université et la limitation stricte de l’accès aux seuls étudiants inscrits",
-          "L’apposition d’une photographie de l’auteur et la diffusion ouverte à tout internaute",
-          "Le cryptage des fichiers au moyen d’une clé biométrique renouvelée toutes les quarante-huit heures"
+          "L’apposition d’une signature de l’enseignant sur chaque fichier et l’envoi par courriel aux étudiants",
+          "La suppression des fichiers numérisés dès leur téléversement, pour éviter toute copie par les étudiants"
         ],
         [
           "Quelle autorité est chargée des contrôles inopinés et du respect des règles par les départements ?",
           "Le bibliothécaire en chef vérifie les banques de cours et engage la responsabilité du département",
-          "L’association des éditeurs scolaires qui procède à des saisies de documents dans les salles de cours",
-          "Le technicien du laboratoire informatique responsable de l’installation des systèmes d’exploitation"
+          "Le service des technologies de l’information qui vérifie les banques de cours chaque trimestre",
+          "Le gestionnaire des systèmes informatiques qui rembourse les redevances exigées par les ayants droit"
         ]
       ],
       "frame": "directives institutionnelles — reproduction et droit d’auteur"
