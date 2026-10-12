@@ -6,20 +6,36 @@ declare global {
   }
 }
 
-export function isAnalyticsEnabled(): boolean {
+function getWebsiteId(overrideId?: string): string | undefined {
+  if (typeof overrideId === 'string') {
+    const trimmed = overrideId.trim()
+    return trimmed.length > 0 ? trimmed : undefined
+  }
+  const envId = import.meta.env?.VITE_UMAMI_WEBSITE_ID
+  if (typeof envId === 'string') {
+    const trimmed = envId.trim()
+    if (trimmed.length > 0) return trimmed
+  }
+  if (typeof process !== 'undefined' && typeof process.env?.VITE_UMAMI_WEBSITE_ID === 'string') {
+    const trimmed = process.env.VITE_UMAMI_WEBSITE_ID.trim()
+    if (trimmed.length > 0) return trimmed
+  }
+  return undefined
+}
+
+export function isAnalyticsEnabled(overrideId?: string): boolean {
   try {
-    const id = import.meta.env?.VITE_UMAMI_WEBSITE_ID
-    return typeof id === 'string' && id.trim().length > 0
+    return Boolean(getWebsiteId(overrideId))
   } catch {
     return false
   }
 }
 
-export function initAnalytics(): void {
+export function initAnalytics(overrideId?: string): void {
   try {
     if (typeof window === 'undefined' || typeof document === 'undefined') return
 
-    const websiteId = import.meta.env?.VITE_UMAMI_WEBSITE_ID?.trim()
+    const websiteId = getWebsiteId(overrideId)
     if (!websiteId) return
 
     if (typeof navigator !== 'undefined') {
