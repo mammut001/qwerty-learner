@@ -462,7 +462,7 @@ export const N07_08_SCENARIOS = {
         [
           'Que déduit-on de l’attitude de la direction concernant les transports ?',
           'Elle encourage activement ses employés à adopter le transport actif',
-          'Elle oblige tout le personnel à acheter une voiture électrique',
+          'Elle réserve le stationnement intérieur sécurisé aux véhicules motorisés',
           'Elle supprime le remboursement des titres de transport en commun',
         ],
         [
@@ -2350,7 +2350,7 @@ export const N07_08_SCENARIOS = {
           "Quel danger naturel imminent met la vie de Sarah en péril dans les sous-sols ?",
           "Une submersion des galeries souterraines causée par les pluies torrentielles",
           "Un effondrement brutal des voûtes en briques provoqué par un tremblement de terre",
-          "Une explosion accidentelle de gaz de schiste due à l’usage de sa torche étanche",
+          "Une panne de la lampe étanche causée par l’humidité des galeries",
         ],
         [
           "Quelle réaction courageuse permet à l’héroïne de sauver le captif de la noyade ?",
@@ -2538,8 +2538,8 @@ export const N07_08_SCENARIOS = {
         [
           "Sur quel domaine de compétences porte l’épreuve écrite obligatoire d’évaluation ?",
           "Les règles morales de déontologie et le cadre réglementaire du milieu",
-          "La résolution de problèmes complexes de mathématiques théoriques pures",
-          "La rédaction d’un mémoire de recherche sur les procédés de soudage",
+          "L’expérience pratique supervisée de vingt-quatre mois sous la tutelle d’un ingénieur",
+          "Le paiement des droits d’ouverture de dossier par carte de crédit",
         ],
         [
           "Que peut-on déduire quant à l’obligation de mentorat durant le parcours probatoire ?",
@@ -2613,7 +2613,7 @@ export const N07_08_SCENARIOS = {
         [
           "Quelle précaution matérielle importante l’organisme demande-t-il d’observer pour les pièces jointes ?",
           "Ne faire parvenir que des reproductions sans jamais se départir des documents originaux",
-          "Faire traduire l’intégralité des courriels par un notaire assermenté de la région",
+          "Faire parvenir les originaux par la poste et conserver les copies numériques",
           "Faire authentifier les copies numériques auprès du ministère ou de l’organisme visé",
         ],
         [
