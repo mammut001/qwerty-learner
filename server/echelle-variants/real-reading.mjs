@@ -57,8 +57,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le thème central de cet extrait ?",
         "Le parcours de formation des futurs praticiens",
-        "Le fonctionnement des hôpitaux universitaires",
-        "La vie quotidienne des patients en rééducation"
+        "Le rôle du Parlement dans le numerus clausus",
+        "Les gardes médicales rémunérées des étudiants"
       ],
       [
         "Combien d'années d'études sont nécessaires pour devenir médecin généraliste ?",
@@ -97,8 +97,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Que cherche à expliquer ce texte ?",
         "Les multiples rôles et dimensions de l'habitation",
-        "Les démarches administratives pour acheter un bien",
-        "Les techniques récentes de construction écologique"
+        "Le rôle de l'État dans l'aide à la construction",
+        "L'adresse qui reflète l'image que l'on a d'une personne"
       ],
       [
         "Selon l'auteur, pourquoi le logement a-t-il une fonction patrimoniale ?",
@@ -137,7 +137,7 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le sujet principal de ce passage ?",
         "La description des caractéristiques d'un appartement",
-        "Le coût moyen d'un immeuble dans les grandes villes",
+        "Le loyer mensuel payé par les locataires",
         "Les formalités pour signer un contrat de colocation"
       ],
       [
@@ -190,7 +190,7 @@ export const REAL_READING_PASSAGES = [
         "D'après l'auteur, le travail nécessite-t-il obligatoirement un patron ?",
         "Non, car une personne peut aussi travailler pour son propre compte",
         "Oui, car seules les entreprises peuvent rédiger un contrat valable",
-        "Non, mais l'État doit obligatoirement approuver l'activité exercée"
+        "Oui, car toute activité professionnelle doit être confiée par un employeur"
       ]
     ],
     "justificationFr": "Vocabulaire de base du monde professionnel et syntaxe simple et directe.",
@@ -467,8 +467,8 @@ export const REAL_READING_PASSAGES = [
     "questions": [
       [
         "Quel phénomène ce texte décrit-il ?",
-        "L'impact temporaire d'une grande éruption volcanique sur la température terrestre",
-        "La formation des nuages de pluie dans les couches inférieures de l'atmosphère",
+        "L'impact d'une grande éruption volcanique sur la température atmosphérique",
+        "La composition chimique des cendres et des gaz éjectés par un volcan",
         "La dispersion d'un voile de chlore provoquant un réchauffement de la stratosphère"
       ],
       [
@@ -517,7 +517,7 @@ export const REAL_READING_PASSAGES = [
       ],
       [
         "Que signifie le nom « Ville-Marie » dans l'histoire de la cité ?",
-        "C'était le village originel fondé sur l'île par des religieux français",
+        "C'était le village fondé sur l'île en 1642 par un groupe de religieux français",
         "C'était le nom donné par les Iroquois au village bordant la rivière",
         "C'était le quartier fortifié construit après le départ des Anglais"
       ]
@@ -549,8 +549,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le sujet principal de cet extrait ?",
         "Le portrait linguistique et démographique de la métropole montréalaise",
-        "La répartition par âge des résidents dans les dix-sept régions du Québec",
-        "L'histoire de la cohabitation entre Français et Britanniques au dix-huitième siècle"
+        "Le classement de Montréal parmi les agglomérations canadiennes",
+        "La part des néo-Québécois dans la population de la ville de Montréal"
       ],
       [
         "Quelle est la part approximative de la population francophone sur l'île de Montréal ?",
@@ -920,7 +920,7 @@ export const REAL_READING_PASSAGES = [
       ],
       [
         "Que signifie que le salaire minimum est « d'ordre public » en droit français ?",
-        "Les accords d'entreprise ou conventions de branche ne peuvent lui être inférieurs",
+        "Les conventions collectives ne peuvent pas écarter son application aux salariés",
         "Chaque branche professionnelle a le pouvoir de suspendre son application par vote",
         "Les syndicats peuvent négocier une dérogation pour réduire le plancher salarial"
       ]
@@ -1287,7 +1287,7 @@ export const REAL_READING_PASSAGES = [
       ],
       [
         "Que désigne l'expression « points de basculement » dans les rapports du GIEC ?",
-        "Des seuils climatiques critiques au-delà desquels des bouleversements majeurs deviennent irréversibles",
+        "Des seuils climatiques critiques qu'un réchauffement supplémentaire risque de déclencher",
         "Des paliers de température à partir desquels le niveau de la mer recommence à baisser naturellement",
         "Des niveaux de réchauffement où l'évaporation accrue compense durablement la fonte des glaciers"
       ]
@@ -1399,7 +1399,7 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle évolution historique est retracée dans cet extrait ?",
         "Le parcours institutionnel du parlement québécois de la rébellion des Patriotes à l'unicaméralisme",
-        "La rivalité entre les députés de Montréal et ceux de Québec pour fixer le lieu de la capitale",
+        "Le mode de nomination des vingt-quatre conseillers du Conseil législatif",
         "La proclamation d'un parlement souverain sans aucun lien avec la Couronne britannique en 1867"
       ],
       [
