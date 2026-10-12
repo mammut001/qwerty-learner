@@ -1230,9 +1230,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `SERVICE QUÉBÉCOIS DE CHANGEMENT D’ADRESSE\nPour mettre à jour votre adresse auprès de ministères dont ${s.organisme}, suivez ces quatre étapes. Étape 1 : Accédez au portail du gouvernement du Québec et sélectionnez « Déménagement ». Étape 2 : Confirmez votre identité en saisissant ${s.identifiant}. Étape 3 : Inscrivez votre nouvelle adresse et la date de votre emménagement. Étape 4 : Révisez le formulaire et cliquez sur « Transmettre ». Le système générera ${s.confirmation}. Conservez précieusement ce document pour vos dossiers administratifs.`,
           questions: [
-            makeQuestion('Quelle démarche citoyenne ce guide gouvernemental explique-t-il ?', 'La communication d’une nouvelle adresse aux ministères provinciaux', 'La demande de délivrance d’un passeport de voyage à l’étranger', 'La transmission de la déclaration fiscale annuelle de revenus', ['changement', 'adresse']),
-            makeQuestion('Quelle information personnelle doit-on saisir à la seconde étape ?', 'La combinaison identifiante officielle requise par le portail', 'Les coordonnées bancaires complètes de sa carte de paiement', 'L’adresse courriel personnelle de son propriétaire de logement', ['identité', 'saisissant']),
-            makeQuestion('Que doit conserver le citoyen à la fin de la démarche en ligne ?', `${cap(s.conPara)}`, 'Une attestation timbrée expédiée par voie postale sous pli fermé', 'Un formulaire manuscrit signé devant un officier public', [s.conKw]),
+            makeQuestion('Quelle démarche citoyenne ce guide gouvernemental explique-t-il ?', 'La communication d’une nouvelle adresse aux ministères provinciaux', 'La demande d’un remboursement officiel de frais liés au déménagement', 'La transmission de la déclaration fiscale annuelle de revenus', ['changement', 'adresse']),
+            makeQuestion('Quelle information personnelle doit-on saisir à la seconde étape ?', 'La combinaison identifiante officielle requise par le portail', 'La date précise de son emménagement dans le nouveau logement', 'L’adresse courriel personnelle de son propriétaire de logement', ['identité', 'saisissant']),
+            makeQuestion('Que doit conserver le citoyen à la fin de la démarche en ligne ?', `${cap(s.conPara)}`, 'Une copie papier du formulaire révisé avant la transmission', 'Un formulaire manuscrit signé devant un officier public', [s.conKw]),
           ],
         }
       },
@@ -1243,16 +1243,16 @@ export const N05_06_SCENARIOS = {
       (rand) => {
         const slots = [
           { document: 'votre permis de conduire officiel', service: 'sur SAAQclic avec votre compte ClicSÉQUR', avis: 'un avis de confirmation par la poste sous dix jours', aviPara: 'un courrier de confirmation sous une dizaine de jours', aviKw: 'dix jours' },
-          { document: 'votre dossier de conducteur automobile', service: 'sur l’espace client sécurisé de la SAAQ', avis: 'une nouvelle étiquette autocollante d’adresse', aviPara: 'un autocollant officiel d’adresse à poser sur son permis', aviKw: 'autocollante' },
+          { document: 'votre dossier de conducteur automobile', service: 'sur l’espace client sécurisé de la SAAQ', avis: 'une nouvelle étiquette autocollante d’adresse', aviPara: 'une nouvelle étiquette autocollante avec son adresse', aviKw: 'autocollante' },
           { document: 'vos pièces d’immatriculation de véhicule', service: 'sur le portail citoyen gouvernemental', avis: 'un message dans votre boîte de réception sécurisée', aviPara: 'une notification officielle dans son espace de réception', aviKw: 'réception' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `GUIDE D’UTILISATION - DOSSIER CONDUCTEUR SAAQ\nLa loi exige d’aviser la Société de l’assurance automobile dans les trente jours suivant un déménagement pour ${s.document}. Voici la démarche. Connectez-vous d’abord ${s.service}. Rendez-vous dans la section « Coordonnées » et cliquez sur « Modifier mon adresse ». Entrez votre nouveau code postal et votre numéro de logement. Vérifiez l’exactitude des données et validez la transaction. Vous recevrez ${s.avis}. Si votre ancienne adresse figure encore sur vos pièces après trente jours, vous risquez une amende lors d’un contrôle routier.`,
           questions: [
-            makeQuestion('Dans quel délai un citoyen doit-il mettre à jour son adresse à la SAAQ ?', 'Dans les trente jours consécutifs à son changement de domicile', 'Durant les quarante-huit heures suivant l’entrée dans les lieux', 'Au terme d’une période maximale d’une année civile complète', ['trente jours', 'déménagement']),
-            makeQuestion('Où doit-on se connecter pour faire cette modification par Internet ?', 'Sur le portail officiel désigné pour la gestion du profil', 'Auprès du site promotionnel d’un distributeur d’automobiles', 'Sur la page officielle des réseaux de la surveillance policière', ['connectez-vous', 'section']),
-            makeQuestion('Que reçoit le conducteur après avoir validé son changement en ligne ?', `${cap(s.aviPara)}`, 'Une contravention forfaitaire pour usage du service numérique', 'Une convocation obligatoire à repasser l’examen théorique du code', [s.aviKw]),
+            makeQuestion('Dans quel délai un citoyen doit-il mettre à jour son adresse à la SAAQ ?', 'Dans les trente jours consécutifs à son changement de domicile', 'Dans un délai strict de dix jours consécutifs au déménagement', 'Au terme d’une période administrative d’une année civile complète', ['trente jours', 'déménagement']),
+            makeQuestion('Où doit-on se connecter pour faire cette modification par Internet ?', 'Sur le portail officiel désigné pour la gestion du profil', 'Sur le site de vérification d’amendes de contrôle routier', 'Sur la page officielle des réseaux de la surveillance policière', ['connectez-vous', 'section']),
+            makeQuestion('Que reçoit le conducteur après avoir validé son changement en ligne ?', `${cap(s.aviPara)}`, 'Un avis officiel d’amende forfaitaire de contrôle routier', 'Une convocation obligatoire à repasser l’examen théorique du code', [s.aviKw]),
           ],
         }
       },
@@ -1262,17 +1262,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { modele: 'l’imprimante multifonction sans fil', reseau: 'à votre réseau Wi-Fi domestique', bouton: 'le bouton Wi-Fi pendant trois secondes', test: 'imprimer une page de test pour vérifier la qualité', tesPara: 'lancer l’impression d’un feuillet d’essai pour juger du rendu', tesKw: 'page de test' },
-          { modele: 'l’imprimante laser noir et blanc', reseau: 'au réseau Internet local du bureau', bouton: 'la touche WPS de votre routeur', test: 'lancer l’impression du document d’accueil', tesPara: 'lancer le tirage du feuillet de présentation fourni par le logiciel', tesKw: 'document d’accueil' },
-          { modele: 'l’appareil à jet d’encre couleur', reseau: 'à votre connexion sans fil personnelle', bouton: 'l’icône Réseau sur l’écran tactile', test: 'exécuter l’alignement des têtes d’impression', tesPara: 'procéder au calibrage mécanique des têtes d’impression', tesKw: 'têtes d’impression' },
+          { modele: 'l’imprimante multifonction sans fil', reseau: 'à votre réseau Wi-Fi domestique', bouton: 'le bouton Wi-Fi pendant trois secondes', test: 'imprimer une page de test pour vérifier la qualité', tesPara: 'lancer l’impression d’un feuillet d’essai', tesKw: 'page de test' },
+          { modele: 'l’imprimante laser noir et blanc', reseau: 'au réseau Internet local du bureau', bouton: 'la touche WPS de votre routeur', test: 'lancer l’impression du document d’accueil', tesPara: 'lancer le tirage du document d’accueil', tesKw: 'document d’accueil' },
+          { modele: 'l’appareil à jet d’encre couleur', reseau: 'à votre connexion sans fil personnelle', bouton: 'l’icône Réseau sur l’écran tactile', test: 'exécuter l’alignement des têtes d’impression', tesPara: 'procéder au calibrage des têtes d’impression', tesKw: 'têtes d’impression' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `GUIDE DE DÉMARRAGE - INSTALLATION D’IMPRIMANTE\nPour configurer ${s.modele} sur votre ordinateur, suivez ces instructions. 1. Branchez le cordon d’alimentation et allumez l’appareil. 2. Connectez l’imprimante ${s.reseau} en maintenant enfoncé ${s.bouton}. 3. Sur votre ordinateur, ouvrez les « Paramètres », cliquez sur « Imprimantes », puis sélectionnez « Ajouter un appareil ». Votre ordinateur détectera automatiquement l’imprimante. 4. Téléchargez le pilote recommandé et terminez en prenant soin ${de(s.test)}. En cas d’erreur de détection, redémarrez votre routeur avant de réessayer.`,
           questions: [
-            makeQuestion('Quel équipement informatique ce guide aide-t-il à installer ?', 'Une nouvelle imprimante sans fil reliée à son ordinateur', 'Un moniteur d’ordinateur haute définition pour les loisirs', 'Un ensemble clavier et pavé tactile sans liaison filaire', ['imprimante', 'configurer']),
-            makeQuestion('Quelle manipulation permet de connecter l’imprimante au réseau ?', 'Appuyer de façon prolongée sur la commande réseau indiquée', 'Déconnecter puis réinsérer le câble d’alimentation dix fois', 'Maintenir enfoncée la touche de majuscule sur son clavier', ['maintenant', 'enfoncé']),
-            makeQuestion('Quelle action finale permet de valider le bon fonctionnement ?', `Il convient de ${s.tesPara}`, 'Laisser le matériel hors tension durant une journée entière', 'Mettre en vente immédiate son ancien équipement sur Internet', [s.tesKw]),
+            makeQuestion('Quel équipement informatique ce guide aide-t-il à installer ?', 'Une nouvelle imprimante sans fil reliée à son ordinateur', 'Un routeur sans fil assurant la liaison Internet du bureau', 'Un ensemble clavier et pavé tactile sans liaison filaire', ['imprimante', 'configurer']),
+            makeQuestion('Quelle manipulation permet de connecter l’imprimante au réseau ?', 'Appuyer de façon prolongée sur la commande réseau indiquée', 'Débrancher le cordon d’alimentation électrique pendant trois secondes', 'Maintenir enfoncée la touche de majuscule sur son clavier', ['maintenant', 'enfoncé']),
+            makeQuestion('Quelle action finale permet de valider le bon fonctionnement ?', `Il convient de ${s.tesPara}`, 'Redémarrer le routeur réseau dès le premier branchement', 'Débrancher le cordon d’alimentation avant chaque impression', [s.tesKw]),
           ],
         }
       },
@@ -1290,9 +1290,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `GUIDE D’INSTALLATION - CONNEXION FILAIRE USB\nPour relier votre imprimante sans passer par le réseau sans fil, respectez ces étapes simples. 1. Retirez tous les emballages et enlevez ${s.cartouche}. 2. Insérez le papier dans le bac et allumez l’appareil. 3. Rendez-vous sur ${s.site} pour installer le logiciel requis avant de brancher le câble. 4. Lorsque le programme vous y invite, branchez le câble USB reliant l’imprimante à ${s.port}. Le système terminera la configuration en quelques secondes. Imprimez une page d’essai pour confirmer que la liaison est réussie.`,
           questions: [
-            makeQuestion('Quelle méthode de raccordement de l’imprimante est détaillée ici ?', 'Une liaison par câble informatique direct entre les deux appareils', 'Un raccordement distant par antenne satellitaire de longue portée', 'Une synchronisation par signal Bluetooth de faible puissance', ['imprimante', 'câble usb']),
-            makeQuestion('Que faut-il faire avant de brancher le câble physique ?', 'Installer d’abord le programme téléchargé sur la page de soutien', 'Remplacer la carte maîtresse de son ordinateur de travail', 'Procéder au formatage du système de stockage de la machine', ['logiciel', 'brancher']),
-            makeQuestion('Quel élément de protection doit-on enlever au début ?', `Il faut ${s.carPara}`, 'Dévisser le verre de protection du numériseur de documents', 'Couper le câble d’alimentation permanente de l’équipement', [s.carKw]),
+            makeQuestion('Quelle méthode de raccordement de l’imprimante est détaillée ici ?', 'Une liaison par câble informatique direct entre les deux appareils', 'Un raccordement distant établi par antenne satellitaire de longue portée', 'Une connexion sans fil automatique entre les deux appareils', ['imprimante', 'câble usb']),
+            makeQuestion('Que faut-il faire avant de brancher le câble physique ?', 'Installer d’abord le programme téléchargé sur la page de soutien', 'Imprimer au préalable une page d’essai pour vérifier le bac de papier', 'Procéder au formatage du système de stockage de la machine', ['logiciel', 'brancher']),
+            makeQuestion('Quel élément de protection doit-on enlever au début ?', `Il faut ${s.carPara}`, 'Retirer le bac de papier fixé à l’intérieur de l’appareil', 'Couper le câble d’alimentation électrique permanente de l’équipement', [s.carKw]),
           ],
         }
       },
@@ -1310,9 +1310,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `PROCÉDURE BANCAIRE - MISE À JOUR DE VOTRE DOSSIER\nMaintenez vos coordonnées à jour pour assurer la sécurité de vos comptes chez ${s.institution}. Suivez ce guide depuis votre ordinateur. Étape 1 : Ouvrez votre session avec votre identifiant et votre mot de passe habituels. Étape 2 : Cliquez sur « Paramètres du compte », puis choisissez « Renseignements personnels ». Étape 3 : Modifiez ${s.champ}. Étape 4 : Pour valider votre identité, vous recevrez ${s.securite}. ${s.instruction}. Vos nouvelles informations entreront en vigueur immédiatement sur vos comptes.`,
           questions: [
-            makeQuestion('Quelle opération de gestion ce tutoriel permet-il de réaliser ?', 'Actualiser ses coordonnées personnelles sur son portail bancaire', 'Constituer un dossier de prêt hypothécaire pour un bien immobilier', 'Créer un compte d’affaires dédié à une entreprise commerciale', ['coordonnées', 'sécurité']),
-            makeQuestion('Quel moyen de sécurité est utilisé pour confirmer l’identité ?', `${cap(s.secPara)}`, 'Une entrevue visuelle imposée avec le gestionnaire de succursale', 'La visite au domicile d’un mandataire de sécurité financière', [s.secKw]),
-            makeQuestion('Quand les modifications enregistrées prennent-elles effet ?', 'Dès la validation de l’étape de confirmation de sécurité', 'Au terme d’un délai d’examen de trente jours ouvrables', 'Exclusivement lors de l’ouverture du prochain exercice civil', ['valider', 'immédiatement']),
+            makeQuestion('Quelle opération de gestion ce tutoriel permet-il de réaliser ?', 'Actualiser ses coordonnées personnelles sur son portail bancaire', 'Modifier le mot de passe habituel servant à ouvrir sa session', 'Créer un nouveau compte d’affaires dédié à une entreprise commerciale', ['coordonnées', 'sécurité']),
+            makeQuestion('Quel moyen de sécurité est utilisé pour confirmer l’identité ?', `${cap(s.secPara)}`, 'La saisie répétée de son mot de passe habituel de session', 'La visite au domicile d’un mandataire de sécurité financière', [s.secKw]),
+            makeQuestion('Quand les modifications enregistrées prennent-elles effet ?', 'Dès la validation de l’étape de confirmation de sécurité', 'Après une période d’attente de plusieurs jours ouvrables', 'Exclusivement lors de l’ouverture du prochain exercice civil', ['valider', 'immédiatement']),
           ],
         }
       },
