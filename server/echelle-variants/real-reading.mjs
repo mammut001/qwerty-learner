@@ -1288,8 +1288,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Que désigne l'expression « points de basculement » dans les rapports du GIEC ?",
         "Des seuils climatiques critiques au-delà desquels des bouleversements majeurs deviennent irréversibles",
-        "Des dates précises où les pays développés cesseront définitivement d'émettre des gaz polluants",
-        "Des zones géographiques isolées où la température moyenne baisse au lieu d'augmenter régulièrement"
+        "Des paliers de température à partir desquels le niveau de la mer recommence à baisser naturellement",
+        "Des moments précis où les feux de forêt cessent de libérer du dioxyde de carbone dans l'atmosphère"
       ]
     ],
     "justificationFr": "Exposé approfondi des impacts climatiques à l'échelle planétaire, des points de basculement et des projections du GIEC.",
@@ -1316,20 +1316,20 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle distinction stratégique ce texte détaille-t-il ?",
         "L'articulation entre l'atténuation des émissions et l'adaptation aux impacts climatiques",
-        "La concurrence entre les énergies renouvelables et l'industrie minière des pays du Sud",
-        "Le débat juridique sur l'indemnisation des pays côtiers touchés par les marées noires"
+        "La rivalité entre le déploiement du nucléaire et les projets de protection du littoral",
+        "La séparation stricte entre les objectifs de l'accord de Paris et l'action scientifique"
       ],
       [
         "Quel objectif chiffré les signataires de l'accord de Paris de 2015 ont-ils fixé ?",
         "Contenir le réchauffement terrestre nettement sous la barre des 2 °C",
         "Tolérer une hausse planétaire plafonnée à un seuil maximal de 4 °C",
-        "Supprimer la moitié des surfaces boisées d'ici la conclusion du siècle"
+        "Réduire de moitié les émissions de gaz à effet de serre d'ici 2050"
       ],
       [
         "D'après le rapport du GIEC mentionné, pourquoi l'adaptation ne suffit-elle pas à elle seule ?",
         "Elle ne peut éviter à elle seule la survenue d'effets sévères, durables et irréversibles",
-        "Elle coûte beaucoup plus cher aux États que le remplacement complet des centrales nucléaires",
-        "Elle incite les populations à consommer davantage d'énergies fossiles au lieu de les réduire"
+        "Elle exige l'arrêt préalable de toutes les cultures agricoles dans les zones côtières",
+        "Elle ne protège efficacement les populations que contre les aléas de court terme prévus"
       ]
     ],
     "justificationFr": "Distinction stratégique entre atténuation et adaptation face aux engagements de l'accord de Paris.",
@@ -1356,20 +1356,20 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le sujet principal présenté dans ce texte ?",
         "Le rôle, l'organisation et les origines historiques de l'Assemblée nationale du Québec",
-        "Les relations diplomatiques entre le premier ministre québécois et les dirigeants étrangers",
-        "Le mode de financement des campagnes électorales des partis politiques municipaux"
+        "Le mode de désignation et les compétences constitutionnelles du lieutenant-gouverneur",
+        "Le fonctionnement du Conseil législatif et l'élection de ses membres au suffrage universel"
       ],
       [
         "Depuis quelle année l'Assemblée nationale est-elle devenue la seule chambre du Parlement québécois ?",
         "Depuis l'abolition du Conseil législatif en 1968",
         "Depuis la première élection provinciale tenue en 1792",
-        "Depuis l'agrandissement de l'hôtel du Parlement en 2026"
+        "Depuis la création de la 34e Législature du Québec"
       ],
       [
         "Que traduit la longévité de la pratique parlementaire au Bas-Canada mentionnée dans le texte ?",
         "Le Québec possède l'une des traditions démocratiques représentatives les plus anciennes au monde",
         "Les parlementaires québécois appliquent un modèle constitutionnel unique sans aucun vote populaire",
-        "Le lieutenant-gouverneur exerce un pouvoir absolu et rejette régulièrement les lois votées"
+        "Le premier orateur de la Chambre avait le droit exclusif de modifier le résultat des scrutins"
       ]
     ],
     "justificationFr": "Présentation des compétences législatives, du mode de scrutin et des origines historiques de l'Assemblée nationale.",
@@ -1400,7 +1400,7 @@ export const REAL_READING_PASSAGES = [
         "Quelle évolution historique est retracée dans cet extrait ?",
         "Le parcours institutionnel du parlement québécois de la rébellion des Patriotes à l'unicaméralisme",
         "La rivalité entre les députés de Montréal et ceux de Québec pour fixer le lieu de la capitale",
-        "La rédaction de la première constitution écrite de la république libre du Bas-Canada en 1840"
+        "La proclamation d'un parlement souverain sans aucun lien avec la Couronne britannique en 1867"
       ],
       [
         "Quelle loi britannique a restitué le Parlement du Québec en 1867 ?",
@@ -1411,8 +1411,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle transformation majeure est intervenue le 18 décembre 1968 ?",
         "La suppression de la chambre haute a instauré un système parlementaire à chambre unique",
-        "Les députés ont décidé de confier la présidence des débats au lieutenant-gouverneur provincial",
-        "Les conseillers nommés à vie ont reçu le pouvoir exclusif d'adopter le budget annuel du Québec"
+        "Le Conseil législatif a obtenu la prérogative de dissoudre l'Assemblée à la demande des juges",
+        "Les vingt-quatre conseillers ont vu leur mandat à vie prolongé sans contrôle de l'Assemblée"
       ]
     ],
     "justificationFr": "Histoire constitutionnelle québécoise depuis la rébellion des Patriotes jusqu'à l'avènement du parlement unicaméral.",
@@ -1439,20 +1439,20 @@ export const REAL_READING_PASSAGES = [
       [
         "Que détaille cet extrait sur le Parlement fédéral canadien ?",
         "La composition du Parlement canadien et les raisons stratégiques du choix d'Ottawa",
-        "Les débats oratoires entre les ministres fédéraux lors des sessions de la Chambre",
-        "L'architecture victorienne des édifices construits sur la colline parlementaire"
+        "La désignation des hauts magistrats par le Premier ministre dans les tribunaux",
+        "Le transfert des résidences officielles des ministres vers Kingston et Québec"
       ],
       [
         "Quelles sont les trois composantes du Parlement du Canada selon le texte ?",
         "La Couronne ainsi que les deux chambres parlementaires",
         "Le chef du gouvernement assisté des hauts magistrats",
-        "Le représentant de la reine entouré des maires élus"
+        "Le souverain, les premiers ministres et les préfets"
       ],
       [
         "Pourquoi la reine Victoria a-t-elle choisi Ottawa plutôt que Montréal ou Québec en 1857 ?",
-        "Sa position entre anglophones et francophones et sa distance de la frontière offraient sécurité et neutralité",
-        "Ottawa comptait une population beaucoup plus nombreuse que les autres grandes villes établies",
-        "Les chefs des Premières Nations exigeaient que le siège du gouvernement soit implanté sur leur réserve"
+        "Sa situation centrale évitait les conflits linguistiques et assurait la sécurité militaire",
+        "Ottawa comptait une population beaucoup plus nombreuse que les grandes cités rivales",
+        "La ville disposait d'un accès direct à l'océan Atlantique pour les convois de la Couronne"
       ]
     ],
     "justificationFr": "Structure du Parlement canadien, fondements du modèle de Westminster et motifs géopolitiques du choix d'Ottawa.",
@@ -1480,7 +1480,7 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle thèse centrale sur la création du Canada en 1867 ce passage expose-t-il ?",
         "La fédération canadienne a été conçue comme un État centralisé et juridiquement subordonné à Londres",
-        "Les pères de la confédération ont copié mot pour mot la constitution des États-Unis d'Amérique",
+        "Le Canada a instauré un gouvernement central faible pour reproduire le modèle des États américains",
         "Les provinces canadiennes ont obtenu une souveraineté internationale totale dès la signature de l'accord"
       ],
       [
@@ -1492,8 +1492,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi le Canada de 1867 n'était-il pas pleinement souverain sur le plan international ?",
         "Ses affaires étrangères et sa diplomatie demeuraient sous le contrôle direct de la Couronne britannique",
-        "Le président américain disposait d'un droit de veto officiel sur toutes les lois votées à Ottawa",
-        "Les juges des cours provinciales devaient prêter serment d'allégeance au gouverneur des États voisins"
+        "Le gouverneur général devait soumettre chaque traité commercial à l'approbation du Congrès américain",
+        "Toute modification des compétences provinciales devait faire l'objet d'un vote du Sénat des États-Unis"
       ]
     ],
     "justificationFr": "Analyse constitutionnelle comparée de la création de la fédération canadienne influencée par la guerre de Sécession.",
@@ -1532,8 +1532,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Que reprochaient les députés Henri Bourassa et Armand Lavergne à Ottawa en 1907 ?",
         "De tenter d’assimiler la population canadienne-française",
-        "D'interdire l'arrivée des ouvriers agricoles d'Europe",
-        "De refuser d'indemniser les propriétaires francophones"
+        "De refuser l'entrée aux immigrants de foi catholique",
+        "D'exiger des cours d'anglais aux ouvriers irlandais"
       ]
     ],
     "justificationFr": "Évolution historique de l'immigration au Canada et revendication québécoise de sa propre politique d'accueil.",
@@ -1559,8 +1559,8 @@ export const REAL_READING_PASSAGES = [
       [
         "De quoi traite ce passage historique ?",
         "Du recrutement de colons pour l'Ouest canadien et des dérives du système des padroni",
-        "De la rivalité commerciale entre les compagnies maritimes desservant l'Atlantique nord",
-        "Des lois votées à Londres pour empêcher les départs d'ouvriers d'usine vers l'Amérique"
+        "De la fermeture définitive des mines de charbon dans les provinces de l'Ouest canadien",
+        "De l'interdiction faite aux entreprises ferroviaires d'employer des candidats italiens"
       ],
       [
         "Quelle compagnie a congédié son principal intermédiaire à la suite de l'enquête royale ?",
@@ -1571,8 +1571,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel rôle les « padroni » jouaient-ils auprès des migrants italiens selon le texte ?",
         "Ils servaient d'intermédiaires de recrutement en facturant abusivement leurs prestations",
-        "Ils assuraient gratuitement leur formation linguistique avant leur départ pour le Canada",
-        "Ils représentaient officiellement le gouvernement d'Ottawa lors des contrôles douaniers"
+        "Ils achetaient directement les concessions agricoles pour le compte des nouveaux colons",
+        "Ils finançaient sur leurs fonds propres le voyage en train des familles vers le Manitoba"
       ]
     ],
     "justificationFr": "Colonisation de l'Ouest canadien, encadrement législatif et régulation des intermédiaires du travail.",
@@ -1597,8 +1597,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle réalité des flux migratoires canadiens ce texte met-il en évidence ?",
         "Les législations restrictives envers certaines communautés et l'émigration massive vers les États-Unis",
-        "L'ouverture inconditionnelle des frontières canadiennes aux travailleurs non qualifiés d'Asie",
-        "La création d'un programme fédéral d'aide au retour pour les émigrants installés aux États-Unis"
+        "L'exemption totale de droit d'entrée pour les ouvriers employés sur le chantier du chemin de fer",
+        "L'interdiction formelle pour les citoyens canadiens de quitter le pays pour s'installer au Sud"
       ],
       [
         "À combien s'élevait la taxe d'entrée imposée aux immigrants chinois en 1903 ?",
@@ -1609,8 +1609,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi de nombreux immigrants et Canadiens quittaient-ils le Canada pour les États-Unis ?",
         "Ils étaient attirés par la prospérité économique et les emplois des grands centres manufacturiers voisins",
-        "Ils cherchaient à fonder des exploitations agricoles dans les régions rurales du sud américain",
-        "Ils voulaient contourner les taxes d'entrée imposées sur les chantiers ferroviaires transfrontaliers"
+        "Ils espéraient bénéficier de salaires journaliers plus faibles pour éviter les syndicats locaux",
+        "Ils cherchaient à échapper au travail en usine en refusant les emplois du secteur manufacturier"
       ]
     ],
     "justificationFr": "Histoire des politiques d'exclusion migratoire au Canada et contrebalancement par l'émigration vers les États-Unis.",
@@ -1638,13 +1638,13 @@ export const REAL_READING_PASSAGES = [
         "Quel portrait global ce texte dresse-t-il de Montréal ?",
         "Une vue d'ensemble géographique, démographique, linguistique et institutionnelle de la métropole",
         "Une analyse détaillée des performances économiques du port maritime situé sur le Saint-Laurent",
-        "Un historique des fouilles archéologiques conduites sur les îles de l'archipel d'Hochelaga"
+        "Une présentation centrée sur l'organisation administrative exclusive des dix-neuf arrondissements"
       ],
       [
         "Quel organisme international a son siège établi à Montréal selon le document ?",
         "L'agence onusienne régissant l'aviation civile mondiale",
-        "L'institution mondiale chargée du commerce transatlantique",
-        "Le comité international chapeautant les olympiades d'hiver"
+        "Le conseil mondial chargé des transports ferroviaires",
+        "Le tribunal international sur le droit maritime fluvial"
       ],
       [
         "Que révèle la statistique sur les compétences linguistiques des Montréalais ?",
@@ -1676,8 +1676,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le sujet développé dans cet extrait ?",
         "Le dynamisme économique, culturel, sportif et universitaire de Montréal sur le plan mondial",
-        "La rénovation des infrastructures souterraines du réseau de transport en commun de la ville",
-        "Les difficultés financières rencontrées par les équipes de hockey professionnel québécoises"
+        "L'impact du trafic de l'aéroport international sur les entreprises de jeux vidéo locales",
+        "Le déclin du nombre d'étudiants inscrits dans les universités et les centres de recherche"
       ],
       [
         "Combien d'immigrants établis au Québec depuis dix ans résident à Montréal et ses banlieues ?",
@@ -1688,8 +1688,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi Montréal est-elle considérée comme une destination universitaire de premier plan ?",
         "Elle compte six universités réputées et se classe parmi les meilleures villes étudiantes au monde",
-        "Elle héberge le siège permanent de plus de quatre cents associations étudiantes étrangères",
-        "Elle accueille chaque année l'ensemble des compétitions universitaires d'Amérique du Nord"
+        "Elle concentre plus de quatre cents sièges sociaux d'organisations internationales étudiantes",
+        "Elle dispense un enseignement gratuit dans l'ensemble des centres de recherche de la métropole"
       ]
     ],
     "justificationFr": "Rayonnement économique, attractivité universitaire et vitalité culturelle de la métropole montréalaise.",
@@ -1716,14 +1716,14 @@ export const REAL_READING_PASSAGES = [
       [
         "De quoi traite ce texte de présentation de la ville de Québec ?",
         "De son statut de capitale, de son ancienneté et de son patrimoine historique fortifié",
-        "Des rivalités politiques contemporaines entre les députés de l'est et de l'ouest du pays",
-        "De l'industrie manufacturière moderne développée le long des rives du fleuve Saint-Laurent"
+        "De la fondation exclusive des institutions religieuses dans l'agglomération de Lévis",
+        "Du tracé des remparts modernes construits au Mexique pour protéger les institutions"
       ],
       [
         "Que signifie le mot d'origine algonquine qui a donné son nom à la ville de Québec ?",
         "L'endroit où les eaux du fleuve se resserrent",
-        "Le promontoire sacré baigné par la brume",
-        "Le vaste bassin où dorment les navires"
+        "La colline où la falaise rejoint la rive",
+        "Le passage rocheux qui domine les flots"
       ],
       [
         "Quelle distinction l'UNESCO a-t-elle accordée au Vieux-Québec en 1985 ?",
