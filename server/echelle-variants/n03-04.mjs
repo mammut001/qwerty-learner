@@ -2885,10 +2885,10 @@ const N4_ECOCENTER_CITIES = ['de la Ville de Québec', 'de l’agglomération de
 const N4_ECOCENTER_PERIODS = ['du premier mai au trente et un octobre', 'du premier mai au quinze octobre', 'du quinze mai au trente septembre', 'du premier juin au trente et un août']
 const N4_ECOCENTER_HOURS = ['du mardi au dimanche de 8 h à 18 h', 'du mercredi au dimanche de 9 h à 17 h', 'du jeudi au lundi de 8 h 30 à 16 h 30', 'du mardi au samedi de 10 h à 18 h']
 const N4_ECOCENTER_ACCEPTED = [
-  { text: 'des résidus de rénovation et des branches', opt: 'des résidus de bois et des branches', kw: 'branches' },
-  { text: 'des appareils ménagers et des métaux', opt: 'des vieux appareils et des métaux', kw: 'métaux' },
-  { text: 'des cartons pliés et des pots de peinture', opt: 'des cartons et des restes de peinture', kw: 'peinture' },
-  { text: 'des appareils électroniques et vieux câbles', opt: 'des appareils électroniques et des câbles', kw: 'câbles' },
+  { text: 'des résidus de rénovation et des branches', opt: 'des résidus de rénovation et des branches', kw: 'branches' },
+  { text: 'des gros électroménagers et des métaux', opt: 'des gros électroménagers et des métaux', kw: 'métaux' },
+  { text: 'des cartons pliés et des pots de peinture', opt: 'des cartons pliés et des restes de peinture', kw: 'peinture' },
+  { text: 'du matériel informatique et de vieux câbles', opt: 'du matériel informatique et des câbles', kw: 'câbles' },
 ]
 const N4_ECOCENTER_REQUIRED = [
   { text: 'une preuve de résidence avec adresse locale', opt: 'une preuve de résidence municipale', kw: 'résidence' },
