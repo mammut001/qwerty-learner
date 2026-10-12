@@ -202,7 +202,7 @@ export const N03_L_1 = [
         text,
         questions: [
           q('朋友需要什么方面的帮助？', `协助填写${form.topicZh}`, `协助填写${othersForm[0].topicZh}`, `协助填写${othersForm[1].topicZh}`, [form.field.replace(/[«»]/g, '').toLowerCase()]),
-          q('面对求助，合适的回答是：', 'Oui, je peux regarder avec toi.', 'Merci pour cette belle invitation.', 'Enchanté de faire votre rencontre.', ['aider']),
+          q('面对求助，合适的回答是：', 'Oui, je peux regarder avec toi.', 'Non, j’ai déjà envoyé ce document.', 'Oui, j’ai rempli ma propre feuille.', ['aider']),
         ],
       }
     },
@@ -219,7 +219,7 @@ export const N03_L_1 = [
         text,
         questions: [
           q('同事计划在周末做什么？', plan.actZh, othersPlan[0].actZh, othersPlan[1].actZh, [plan.day.toLowerCase()]),
-          q('面对询问，合适的回答是：', 'Moi, je vais me reposer à la maison.', 'À mon avis, ce projet coûte trop cher.', 'S’il vous plaît, où est la réception ?', ['prévu']),
+          q('面对询问，合适的回答是：', 'Moi, je vais me reposer à la maison.', 'La réunion d’équipe débute à dix heures.', 'Le rapport complet est envoyé ce matin.', ['prévu']),
         ],
       }
     },
@@ -231,12 +231,12 @@ export const N03_L_1 = [
       const off = pick(N3_OFFICE_CLOSINGS, rand)
       const name = pick(['Sophie', 'Mei', 'Karim', 'Amadou'], rand)
       const othersOff = sample(N3_OFFICE_CLOSINGS.filter(o => o.placeZh !== off.placeZh), 2, rand)
-      const text = `— Excuse-moi ${name}, est-ce que tu sais à quelle heure ferme ${off.place} aujourd’hui ? Je dois déposer une feuille importante avant mon départ.`
+      const text = `— Excuse-moi ${name}, est-ce que tu sais si ${off.place} ferme bien à ${off.hour} ? Je dois déposer une feuille importante avant mon départ.`
       return {
         text,
         questions: [
           q('说话人想打听哪个部门的下班时间？', off.placeZh, othersOff[0].placeZh, othersOff[1].placeZh, [off.place.split(' ')[1].toLowerCase()]),
-          q('面对询问，合适的回答是：', 'Le bureau ferme à dix-sept heures.', 'Je prends un café sans sucre, merci.', 'Félicitations pour ton bon travail.', ['ferme']),
+          q('面对询问，合适的回答是：', `Oui, le service ferme à ${off.hour}.`, 'Non, le bureau ouvre à huit heures.', 'Le service est fermé la fin de semaine.', ['ferme']),
         ],
       }
     },
@@ -253,7 +253,7 @@ export const N03_L_1 = [
         text,
         questions: [
           q('同事邀请对方去哪里用餐？', lunch.placeZh, othersLunch[0].placeZh, othersLunch[1].placeZh, [lunch.place.split(' ')[1].toLowerCase()]),
-          q('面对邀请，合适的回答是：', 'Avec plaisir, j’arrive dans cinq minutes.', 'Bonjour, je cherche l’arrêt d’autobus.', 'Prenez deux comprimés avant le souper.', ['dîner']),
+          q('面对邀请，合适的回答是：', 'Avec plaisir, j’arrive dans cinq minutes.', 'La pause pour dîner termine à treize heures.', 'La réunion d’équipe commence à treize heures.', ['dîner']),
         ],
       }
     },
@@ -264,8 +264,8 @@ export const N03_L_1 = [
     situation: 0,
     text: '— Excuse-moi Carlos, est-ce que tu as rempli la demande d’aide financière pour les cours ? Je ne comprends pas où écrire mon numéro d’assurance sociale.',
     questions: [
-      q('朋友在咨询关于什么的疑问？', '助学贷款申请表格', '租房合同续约条款', '驾照更新体检证明', ['aide financière']),
-      q('面对求助，合适的回答是：', 'Viens, je vais te montrer la case.', 'Merci beaucoup pour ce beau cadeau.', 'Je prends mon manteau et je sors.', ['assurance sociale']),
+      q('朋友在咨询关于什么的疑问？', '助学贷款申请表格', '学期学费减免申请', '大学奖学金申请表', ['aide financière']),
+      q('面对求助，合适的回答是：', 'Viens, je vais te montrer la case.', 'Non, j’ai déjà envoyé ma demande hier.', 'Oui, la date limite est le trente avril.', ['assurance sociale']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Sortie de camping dans Charlevoix
@@ -274,7 +274,7 @@ export const N03_L_1 = [
     text: '— Salut Martin ! Tu as des projets pour la longue fin de semaine ? Nous partons deux jours en camping dans Charlevoix s’il fait beau. Tu viens avec nous ?',
     questions: [
       q('马丁被邀请参加什么活动？', '去夏勒瓦地区露营', '在市中心商场购物', '去市立图书馆复习', ['camping', 'Charlevoix']),
-      q('面对邀请，合适的回答是：', 'Merci, mais j’ai déjà un engagement.', 'Le dossier est prêt sur votre bureau.', 'Prenez à droite après le feu rouge.', ['projets']),
+      q('面对邀请，合适的回答是：', 'Merci, mais j’ai déjà un engagement.', 'La météo annonce de la pluie samedi.', 'Le trajet dure environ trois heures.', ['projets']),
     ],
   },
 ]
