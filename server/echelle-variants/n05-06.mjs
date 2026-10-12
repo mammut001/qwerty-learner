@@ -187,9 +187,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Salut Marc ! ${s.nom} m’a parlé des activités prévues pour notre journée des voisins ce dimanche. Dès neuf heures, les bénévoles installeront les tables et les chaises sur la rue piétonne. Ensuite, vers ${s.heure}, il y aura un grand repas communautaire et ${s.activite}. Les enfants pourront participer à une chasse aux trésors dans les jardins partagés. En cas d’averse, le comité louera la grande tente municipale pour abriter tout le monde. N’oublie pas d’apporter tes verres réutilisables pour éviter les déchets !`,
           questions: [
-            makeQuestion('De quel événement les deux personnes parlent-elles ?', 'Des festivités conviviales organisées par les voisins', 'D’une assemblée publique au conseil de ville', 'D’une foire sportive animée par des bénévoles', ['voisins', 'activités']),
+            makeQuestion('De quel événement les deux personnes parlent-elles ?', 'Des festivités conviviales organisées par les voisins', 'D’une corvée d’aménagement dans les jardins partagés', 'D’une foire sportive animée par des bénévoles', ['voisins', 'activités']),
             makeQuestion('Quelle animation particulière est organisée vers le dîner ?', `${cap(s.actPara)}`, 'Une grande chasse aux trésors dans les jardins', 'L’installation collective des tables et chaises', [s.actKw]),
-            makeQuestion('Que demande-t-on d’apporter pour limiter les déchets ?', 'Fournir ses propres verres pour limiter les rebuts', 'Apporter des assiettes en carton supplémentaires', 'Nettoyer les tables installées sur la rue piétonne', ['verres', 'déchets']),
+            makeQuestion('Que demande-t-on d’apporter pour limiter les déchets ?', 'Fournir ses propres verres pour limiter les rebuts', 'Fournir ses propres chaises pour la rue piétonne', 'Nettoyer les tables installées sur la rue piétonne', ['verres', 'déchets']),
           ],
         }
       },
@@ -207,9 +207,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `Ici Radio-Canada au téléjournal de dix-huit heures. Les Championnats internationaux de patinage de vitesse sur courte piste s’ouvrent officiellement ce soir ${s.ville}. Plus de cent cinquante patineurs représentant ${s.pays} sont arrivés cette semaine pour s’entraîner sur la glace québécoise. L’épreuve très attendue ${s.epreuve} se déroulera samedi après-midi devant une foule nombreuse. Les entraîneurs soulignent l’excellente forme des athlètes d’ici, dont ${s.athlete}, qui espèrent remporter plusieurs médailles d’or. La finale sera diffusée en direct sur nos plateformes dès quatorze heures. Les billets pour les gradins sont presque tous vendus.`,
           questions: [
-            makeQuestion('Quelle est l’information principale donnée dans ce bulletin ?', 'L’ouverture d’une compétition sur glace internationale', 'La rénovation complète d’un anneau sportif régional', 'Le départ d’une équipe olympique pour un stage à l’étranger', ['patinage', 'championnats']),
-            makeQuestion('Quelle course très attendue se déroulera samedi après-midi ?', `${cap(s.epPara)}`, 'La présentation officielle des délégations étrangères', 'La cérémonie de remise des récompenses d’ouverture', [s.epKw]),
-            makeQuestion('Que pourront faire les amateurs de sport samedi dès quatorze heures ?', 'Regarder la ronde finale en diffusion directe', 'Acheter des billets à moitié prix aux guichets', 'Rencontrer les entraîneurs lors d’un entraînement', ['finale', 'direct']),
+            makeQuestion('Quelle est l’information principale donnée dans ce bulletin ?', 'L’ouverture d’une compétition sur glace internationale', 'L’arrivée de patineurs étrangers pour un entraînement', 'Le départ d’une équipe olympique pour un stage à l’étranger', ['patinage', 'championnats']),
+            makeQuestion('Quelle course très attendue se déroulera samedi après-midi ?', `${cap(s.epPara)}`, 'La séance d’entraînement sur la glace québécoise', 'La cérémonie de remise des récompenses d’ouverture', [s.epKw]),
+            makeQuestion('Que pourront faire les amateurs de sport samedi dès quatorze heures ?', 'Regarder la ronde finale en diffusion directe', 'Acheter les derniers billets pour les gradins', 'Rencontrer les entraîneurs lors d’un entraînement', ['finale', 'direct']),
           ],
         }
       },
@@ -227,9 +227,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `Au téléjournal sportif, la Coupe du monde de ski de fond débute ${s.jour} ${s.site}. Les organisateurs confirment ${s.conditions} malgré le redoux du début de semaine. Plus de deux cents compétiteurs étrangers participent aux épreuves individuelles et par équipe. L’équipe canadienne mise particulièrement sur ses jeunes recrues pour monter sur le podium lors du sprint classique. Les spectateurs sont invités à utiliser les navettes gratuites mises en place depuis le centre-ville afin de limiter les embouteillages routiers. Les premières courses commenceront en début de matinée demain.`,
           questions: [
-            makeQuestion('Quel événement sportif fait l’objet de ce reportage ?', 'Une coupe du monde réunissant des fondeurs', 'Un circuit d’alpinisme réservé aux recrues', 'Une traversée récréative des forêts du Nord', ['ski', 'coupe du monde']),
-            makeQuestion('Quel moyen de transport conseille-t-on aux spectateurs ?', 'Les autobus gratuits affrétés depuis la ville', 'Le train de banlieue reliant les pistes de ski', 'Le covoiturage payant coordonné par taxi local', ['navettes', 'gratuites']),
-            makeQuestion('Quand auront lieu les premières courses officielles ?', 'En tout début de matinée au cours du lendemain', 'En fin d’après-midi après le coucher du soleil', 'En milieu de semaine prochaine en soirée', ['début', 'matinée']),
+            makeQuestion('Quel événement sportif fait l’objet de ce reportage ?', 'Une coupe du monde réunissant des fondeurs', 'Un entraînement de ski réservé aux recrues', 'Une traversée récréative des forêts du Nord', ['ski', 'coupe du monde']),
+            makeQuestion('Quel moyen de transport conseille-t-on aux spectateurs ?', 'Les autobus gratuits affrétés depuis la ville', 'Leur véhicule personnel pour rejoindre les pistes', 'Le covoiturage payant coordonné par taxi local', ['navettes', 'gratuites']),
+            makeQuestion('Quand auront lieu les premières courses officielles ?', 'En tout début de matinée au cours du lendemain', 'En début d’après-midi après le redoux annoncé', 'En milieu de semaine prochaine en soirée', ['début', 'matinée']),
           ],
         }
       },
@@ -247,9 +247,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Allô Julie ! Je voulais te rappeler que notre journée de solidarité entre voisins se tiendra samedi sur ${s.rue}. Les familles installeront leurs kiosques dès ${s.heure} pour la vente d’objets usagés et de livres pour enfants. Tous les profits de la cantine iront directement soutenir ${s.cause}. Les commerçants du secteur offriront aussi du café chaud et des viennoiseries aux bénévoles. S’il pleut trop fort, l’événement sera remis au dimanche suivant à la même heure. Tu penses venir faire un tour avec les petits ?`,
           questions: [
-            makeQuestion('Quel est le but premier de ce rassemblement de quartier ?', 'Une fête solidaire avec vente d’articles usagés', 'Une consultation citoyenne sur la circulation locale', 'Une rencontre d’accueil pour de nouveaux commerçants', ['vente', 'voisins']),
-            makeQuestion('À quel organisme seront versés les bénéfices de la cantine ?', `Directement ${s.orgPara}`, 'À une école privée du centre métropolitain', 'À un club sportif finançant ses compétitions', [s.orgKw]),
-            makeQuestion('Quelle décision sera prise s’il pleut trop fort samedi ?', 'Reporter l’ensemble des activités au lendemain', 'Annuler définitivement la vente de solidarité', 'Déplacer les kiosques dans le gymnase du quartier', ['dimanche', 'remis']),
+            makeQuestion('Quel est le but premier de ce rassemblement de quartier ?', 'Une fête solidaire avec vente d’articles usagés', 'Une collecte de livres usagés pour enfants', 'Une rencontre d’accueil pour de nouveaux commerçants', ['vente', 'voisins']),
+            makeQuestion('À quel organisme seront versés les bénéfices de la cantine ?', `Directement ${s.orgPara}`, 'À l’association des commerçants du secteur', 'À un club sportif finançant ses compétitions', [s.orgKw]),
+            makeQuestion('Quelle décision sera prise s’il pleut trop fort samedi ?', 'Reporter l’ensemble des activités au lendemain', 'Annuler définitivement la vente de solidarité', 'Installer les kiosques chez les commerçants', ['dimanche', 'remis']),
           ],
         }
       },
