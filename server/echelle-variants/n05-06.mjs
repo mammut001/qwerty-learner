@@ -806,9 +806,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `BAIL DE LOGEMENT (Tribunal administratif du logement)\nLe présent bail est conclu pour le logement situé au ${s.adresse}. Le bail commence ${s.date} pour une durée fixe de douze mois. Le montant du loyer mensuel est fixé à ${s.loyer}, payable le premier jour de chaque mois par virement. Le loyer comprend ${s.services}. Les animaux domestiques sont interdits dans l’immeuble, sauf les chats stérilisés. Il est strictement interdit de fumer dans le logement. Tout retard de paiement supérieur à trois semaines pourra entraîner une résiliation du bail par le propriétaire.`,
           questions: [
-            makeQuestion('De quel type de document officiel s’agit-il principalement ?', 'D’un contrat officiel de location pour un appartement', 'D’un avis officiel de résiliation pour un logement', 'D’une promesse unilatérale pour acquérir une maison', ['bail', 'logement']),
-            makeQuestion('Quels services sont expressément inclus dans le loyer mensuel ?', `La redevance couvre ${s.serPara}`, 'Le loyer autorise la présence de tous les animaux dans l’immeuble', 'Le bail garantit un approvisionnement en repas quotidiens', [s.serKw]),
-            makeQuestion('Quelle modalité est exigée pour le versement du loyer ?', 'Un virement bancaire intervenant au premier jour du mois', 'Un virement bancaire autorisé après trois semaines de retard', 'Un paiement semestriel unique déposé auprès d’un notaire', ['virement', 'premier']),
+            makeQuestion('De quel type de document officiel s’agit-il principalement ?', 'D’un contrat officiel de location pour un appartement', 'D’un avis officiel de résiliation pour un logement', 'D’un guide touristique sur les quartiers de Montréal', ['bail', 'logement']),
+            makeQuestion('Quels services sont expressément inclus dans le loyer mensuel ?', `La redevance couvre ${s.serPara}`, 'Le loyer autorise la présence de tous les animaux dans l’immeuble', 'Le bail garantit un abonnement à Internet haute vitesse', [s.serKw]),
+            makeQuestion('Quelle modalité est exigée pour le versement du loyer ?', 'Un virement bancaire intervenant au premier jour du mois', 'Un virement bancaire autorisé après trois semaines de retard', 'Un chèque remis chaque mois au propriétaire', ['virement', 'premier']),
           ],
         }
       },
@@ -826,9 +826,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `ANNEXE AU CONTRAT DE LOCATION - IMMEUBLE LES ÉRABLES\nBienvenue dans votre appartement 3 1/2 situé ${s.ville}, ${s.quartier}. Votre loyer mensuel de ${s.loyer} inclut l’accès au gymnase en plus ${s.stationnement}. Le paiement s’effectue par prélèvement bancaire le premier jour de chaque mois. Les locataires doivent fournir une preuve d’assurance responsabilité civile avant la remise des clés. Les travaux de peinture requièrent une entente écrite préalable avec le gestionnaire. Pour toute urgence de chauffage, veuillez joindre le concierge de garde au poste 102.`,
           questions: [
-            makeQuestion('Quel document le futur locataire lit-il ici ?', 'Une annexe détaillant les règles de son appartement', 'Une entente écrite autorisant des travaux de peinture', 'Une soumission d’entrepreneur pour refaire une cuisine', ['contrat', 'location']),
-            makeQuestion('Quel aménagement complémentaire est compris avec le logement ?', `L’usage d’${s.staPara}`, 'Le dépannage prioritaire pour toute urgence de chauffage', 'Une formule de ménage complet assurée chaque vendredi', [s.staKw]),
-            makeQuestion('Que doit fournir le locataire avant d’obtenir les clés ?', 'Une attestation valide d’assurance responsabilité civile', 'Une entente écrite signée pour les travaux de peinture', 'Un dépôt en garantie couvrant trois mensualités de loyer', ['assurance', 'responsabilité']),
+            makeQuestion('Quel document le futur locataire lit-il ici ?', 'Une annexe détaillant les règles de son appartement', 'Une entente écrite autorisant des travaux de peinture', 'Une facture de déménagement pour un camion loué', ['contrat', 'location']),
+            makeQuestion('Quel aménagement complémentaire est compris avec le logement ?', `L’usage d’${s.staPara}`, 'Le dépannage prioritaire pour toute urgence de chauffage', 'Un abonnement annuel à une piscine extérieure', [s.staKw]),
+            makeQuestion('Que doit fournir le locataire avant d’obtenir les clés ?', 'Une attestation valide d’assurance responsabilité civile', 'Une entente écrite signée pour les travaux de peinture', 'Une lettre de recommandation de l’ancien propriétaire', ['assurance', 'responsabilité']),
           ],
         }
       },
@@ -846,9 +846,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `BILAN CULTUREL - SUCCÈS MAJEUR POUR LA MUSIQUE\nLa quarantième célébration ${s.festival} s’est clôturée dimanche sur une note formidable. Pendant dix jours sous le soleil, ${s.spectateurs} ont convergé vers le centre-ville. Les organisateurs célèbrent cette réussite populaire avec ${s.concerts} qui ont ravi un public familial. Les commerçants locaux soulignent des retombées économiques majeures pour les restaurants du secteur. Aucun incident n’a été rapporté par la police. Le comité organisateur donne déjà rendez-vous l’an prochain pour ${s.cloture} !`,
           questions: [
-            makeQuestion('Quel est le sujet principal de cet article de journal ?', 'Le couronnement réussi d’une grande manifestation musicale', 'L’impact d’incidents policiers sur les commerces du secteur', 'Le conflit de travail persistant entre musiciens et agents', ['musique', 'festival']),
-            makeQuestion('Quelle statistique illustre la grande réussite de l’événement ?', s.conPara, 'La fermeture complète des restaurants du secteur en soirée', 'La participation ponctuelle d’une unique vedette étrangère', [s.conKw]),
-            makeQuestion('Quelle orientation est annoncée pour l’édition de l’année suivante ?', s.orientPara, 'Une programmation restreinte aux seuls restaurants du centre', 'L’abandon pur et simple des représentations en plein air', [s.orientKw]),
+            makeQuestion('Quel est le sujet principal de cet article de journal ?', 'Le couronnement réussi d’une grande manifestation musicale', 'L’impact d’incidents policiers sur les commerces du secteur', 'La construction d’un nouveau stade de hockey en banlieue', ['musique', 'festival']),
+            makeQuestion('Quelle statistique illustre la grande réussite de l’événement ?', s.conPara, 'La fermeture complète des restaurants du secteur en soirée', 'Une hausse notable des incidents signalés à la police', [s.conKw]),
+            makeQuestion('Quelle orientation est annoncée pour l’édition de l’année suivante ?', s.orientPara, 'Une programmation restreinte aux seuls restaurants du centre', 'L’annulation de l’édition suivante faute de financement', [s.orientKw]),
           ],
         }
       },
@@ -866,9 +866,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `CHRONIQUE LOCALE - RECORD DE PARTICIPATION EN RÉGION\n${s.festival}, qui célébrait sa quinzième saison ${s.region}, a franchi une étape historique cette fin de semaine. L’événement a attiré ${s.participants}, dépassant toutes les prévisions du comité organisateur. Les festivaliers ont particulièrement apprécié ${s.nouveaute}. Les artistes invités ont salué l’accueil chaleureux du public lors des concerts au coucher du soleil. Grâce aux revenus de la billetterie, les organisateurs confirment que les profits serviront à financer des bourses pour les jeunes musiciens de la région.`,
           questions: [
-            makeQuestion('Quel événement culturel régional fait l’objet de ce bilan de presse ?', 'Un festival musical ayant battu son record d’affluence', 'Une cérémonie de remise de bourses aux jeunes musiciens', 'Une exposition itinérante sur les métiers d’autrefois', ['festival', 'région']),
-            makeQuestion('Quelle nouveauté a particulièrement séduit les festivaliers ?', `${cap(s.nouPara)}`, 'Des concerts nocturnes organisés après le coucher du soleil', 'L’offre de repas gastronomiques gratuits à tous les visiteurs', [s.nouKw]),
-            makeQuestion('À quoi serviront les profits générés par le festival ?', 'Au financement d’un fonds d’aide aux jeunes talents locaux', 'À l’acquisition de voitures de fonction pour la direction', 'À l’achat de matériel réservé aux artistes invités du festival', ['bourses', 'musiciens']),
+            makeQuestion('Quel événement culturel régional fait l’objet de ce bilan de presse ?', 'Un festival musical ayant battu son record d’affluence', 'Une cérémonie de remise de bourses aux jeunes musiciens', 'Un tournoi de badminton organisé par la mairie', ['festival', 'région']),
+            makeQuestion('Quelle nouveauté a particulièrement séduit les festivaliers ?', `${cap(s.nouPara)}`, 'Un parcours de vélo de montagne balisé pour débutants', 'L’offre de visites guidées de la ville à prix réduit', [s.nouKw]),
+            makeQuestion('À quoi serviront les profits générés par le festival ?', 'Au financement d’un fonds d’aide aux jeunes talents locaux', 'À la rénovation d’une salle de spectacle du village', 'Au remboursement d’un emprunt bancaire de la ville', ['bourses', 'musiciens']),
           ],
         }
       },
@@ -886,9 +886,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `EXTRAIT DE BAIL RÉSIDENTIEL - SECTION LOGEMENT ÉTUDIANT\nLe logement loué est situé au cœur du secteur ${s.quartier}, ${s.distance}. Il s’agit d’un studio ${s.meuble}. En plus du chauffage, le loyer mensuel comprend ${s.internet}. Le locataire s’engage à respecter la tranquillité des autres résidents entre vingt-deux heures et sept heures du matin. Aucun sous-locataire n’est admis sans le consentement écrit du propriétaire. Toute sous-location non autorisée entraînera une pénalité financière immédiate. Les clés seront remises le premier du mois après versement du premier loyer.`,
           questions: [
-            makeQuestion('À qui s’adresse principalement cette offre de logement locatif ?', 'À des étudiants recherchant un hébergement adapté', 'À des sous-locataires cherchant un studio temporaire', 'À une société en quête de locaux professionnels', ['bail', 'étudiant']),
-            makeQuestion('Quel service de télécommunication est compris dans le bail ?', `${cap(s.intPara)}`, 'Une ligne de téléphonie fixe installée dans le studio', 'Un abonnement sans frais à des bouquets de chaînes cinéma', [s.intKw]),
-            makeQuestion('Quelle condition encadre la sous-location de ce studio ?', 'Obtenir impérativement l’accord formel et écrit du bailleur', 'Payer une pénalité financière au bailleur avant chaque séjour', 'Limiter cette occupation aux seules semaines de la relâche', ['sous-locataire', 'consentement']),
+            makeQuestion('À qui s’adresse principalement cette offre de logement locatif ?', 'À des étudiants recherchant un hébergement adapté', 'À des sous-locataires cherchant un studio temporaire', 'À des familles cherchant une maison avec jardin', ['bail', 'étudiant']),
+            makeQuestion('Quel service de télécommunication est compris dans le bail ?', `${cap(s.intPara)}`, 'Une place de stationnement couverte pour deux voitures', 'Un abonnement gratuit à une salle de sport voisine', [s.intKw]),
+            makeQuestion('Quelle condition encadre la sous-location de ce studio ?', 'Obtenir impérativement l’accord formel et écrit du bailleur', 'Payer une pénalité financière au bailleur avant chaque séjour', 'Sous-louer librement dès la première année de bail', ['sous-locataire', 'consentement']),
           ],
         }
       },
@@ -912,9 +912,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `BROCHURE TOURISTIQUE OFFICIELLE - ÉVASION DANS CHARLEVOIX\nNichée ${s.paysage}, la région de Charlevoix est une destination magnifique pour les amoureux de plein air. En parcourant cette région, réserve mondiale de la biosphère, vous découvrirez ${s.attraction}, où des fromagers et des artisans passionnés vous accueillent. Faites une halte dans ${s.village}, réputé pour ses galeries d’art, ses bistros chaleureux et son patrimoine architectural préservé. Que vous choisissiez une randonnée au grand air ou un séjour douillet dans une auberge de charme, Charlevoix saura vous émerveiller en toute saison. Réservez votre séjour en ligne dès aujourd’hui !`,
           questions: [
-            makeQuestion('Quel est l’objectif principal de cette brochure touristique ?', 'Mettre en valeur le patrimoine naturel et culturel régional', 'Présenter les tarifs d’hébergement d’une auberge de charme', 'Dresser la chronique historique des premiers colons français', ['charlevoix', 'brochure']),
-            makeQuestion('Quelle expérience est particulièrement mise en avant ?', `${cap(s.attPara)}`, 'Un concours culinaire réunissant des fromagers et artisans', 'Une visite commentée d’installations pétrochimiques', [s.attKw]),
-            makeQuestion('Pour quoi la municipalité mentionnée est-elle reconnue ?', 'Ses galeries d’art et son patrimoine architectural préservé', 'Ses grandes pistes de randonnée en altitude et ses auberges', 'Ses étendues de sable chaud bordées d’eaux tropicales', ['galeries', 'patrimoine']),
+            makeQuestion('Quel est l’objectif principal de cette brochure touristique ?', 'Mettre en valeur le patrimoine naturel et culturel régional', 'Présenter les tarifs d’hébergement d’une auberge de charme', 'Annoncer la fermeture des sentiers pendant l’hiver', ['charlevoix', 'brochure']),
+            makeQuestion('Quelle expérience est particulièrement mise en avant ?', `${cap(s.attPara)}`, 'Un concours culinaire réunissant des fromagers et artisans', 'Une initiation au golf sur un terrain privé', [s.attKw]),
+            makeQuestion('Pour quoi la municipalité mentionnée est-elle reconnue ?', 'Ses galeries d’art et son patrimoine architectural préservé', 'Ses grandes pistes de randonnée en altitude et ses auberges', 'Ses installations de ski alpin et ses remontées mécaniques', ['galeries', 'patrimoine']),
           ],
         }
       },
@@ -932,9 +932,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `GUIDE DU VISITEUR - LES TRÉSORS DES CANTONS-DE-L’EST\nÀ une heure de route de Montréal, les Cantons-de-l’Est invitent à la douceur de vivre et au dépaysement champêtre. Empruntez ${s.route} pour faire connaissance avec des producteurs locaux réputés. À l’automne, ne manquez pas ${s.activite}, une tradition vivante partagée en famille. Les adeptes de vélo et de marche trouveront leur bonheur sur les pentes entourant ${s.mont}, dont les panoramas sur les collines sont remarquables. Consultez notre carte interactive pour planifier votre circuit et découvrez nos forfaits vacances avantageux combinant nuitée et dégustations.`,
           questions: [
-            makeQuestion('Quelle région touristique québécoise ce guide fait-il découvrir ?', 'Les paysages ruraux et les villages des Cantons-de-l’Est', 'Les quartiers urbains animés de la métropole de Montréal', 'La plaine agricole s’étendant au centre du pays', ['cantons-de-l’est', 'visiteur']),
-            makeQuestion('Quelle activité automnale est recommandée aux familles ?', `${cap(s.actPara)}`, 'Des circuits de vélo intensifs sur les pentes des collines', 'Des compétitions de course à pied organisées chaque fin de semaine en forêt', [s.actKw]),
-            makeQuestion('Quel attrait géographique offre des panoramas remarquables ?', `Les pentes aux panoramas remarquables autour ${s.montNom}`, 'Les circuits routiers reliant les producteurs de la région', 'Des sentiers de terre battue au fond d’une combe obscure', ['panoramas', 'collines']),
+            makeQuestion('Quelle région touristique québécoise ce guide fait-il découvrir ?', 'Les paysages ruraux et les villages des Cantons-de-l’Est', 'Les quartiers urbains animés de la métropole de Montréal', 'Les plages de sable et les stations de surf du littoral', ['cantons-de-l’est', 'visiteur']),
+            makeQuestion('Quelle activité automnale est recommandée aux familles ?', `${cap(s.actPara)}`, 'Des circuits de vélo intensifs sur les pentes des collines', 'Des ateliers de peinture sur verre offerts aux enfants', [s.actKw]),
+            makeQuestion('Quel attrait géographique offre des panoramas remarquables ?', `Les pentes aux panoramas remarquables autour ${s.montNom}`, 'Les circuits routiers reliant les producteurs de la région', 'Des chutes d’eau cachées au fond d’une gorge', ['panoramas', 'collines']),
           ],
         }
       },
@@ -952,9 +952,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `MAGAZINE ÉCHOS VEDETTES - REPORTAGE EXCLUSIF\nC’est dans une atmosphère féerique que s’est déroulé ce samedi le mariage de ${s.celebrite} avec son compagnon de longue date. La cérémonie intime s’est tenue ${s.lieu}, devant une centaine d’invités triés sur le volet. La mariée a ébloui l’assistance en portant ${s.tenue}. Après un échange de vœux émouvant qui a touché leurs proches, la fête s’est poursuivie avec un banquet champêtre mettant en valeur les produits du terroir québécois. Les amoureux ont ensuite dansé sous un ciel étoilé avant de couper le gâteau traditionnel.`,
           questions: [
-            makeQuestion('Quel événement mondain ce magazine culturel relate-t-il ?', 'L’union intime d’une personnalité reconnue du milieu artistique', 'Un banquet champêtre célébrant les meilleurs produits du terroir', 'La projection d’un documentaire historique primé', ['mariage', 'compagnon']),
-            makeQuestion('Où s’est déroulée la cérémonie officielle d’échange des vœux ?', s.lieuPara, 'Au milieu de la salle du banquet champêtre', 'Dans un amphithéâtre sportif au centre-ville', [s.lieuKw]),
-            makeQuestion('Quelle attention particulière de la mariée a marqué les convives ?', `${cap(s.tenPara)}`, 'Une danse d’ouverture répétée avec les proches du compagnon', 'Un habit traditionnel d’époque loué pour la fête', [s.tenKw]),
+            makeQuestion('Quel événement mondain ce magazine culturel relate-t-il ?', 'L’union intime d’une personnalité reconnue du milieu artistique', 'Un banquet champêtre célébrant les meilleurs produits du terroir', 'Une conférence sur les méthodes agricoles modernes', ['mariage', 'compagnon']),
+            makeQuestion('Où s’est déroulée la cérémonie officielle d’échange des vœux ?', s.lieuPara, 'Au milieu de la salle du banquet champêtre', 'Dans un restaurant branché du Vieux-Montréal', [s.lieuKw]),
+            makeQuestion('Quelle attention particulière de la mariée a marqué les convives ?', `${cap(s.tenPara)}`, 'Un long discours prononcé par le maire de la municipalité', 'Un tailleur bleu marine choisi à la dernière minute', [s.tenKw]),
           ],
         }
       },
@@ -972,9 +972,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `CHRONIQUE CÉLÉBRITÉS - UNION HIVERNALE AUX SAVEURS D’ICI\nCe week-end, ${s.sportif} a uni sa destinée à celle de sa conjointe ${s.endroit}. Entourés de leurs coéquipiers et de leurs familles, les amoureux ont célébré leur union dans un décor rustique. Au lieu des traditionnels présents de mariage, le couple a invité ses convives à ${s.cadeau}. Les invités ont savouré un repas inspiré des cabanes à sucre traditionnelles, avec de la tire sur la neige servie en fin de soirée. Un moment magique et authentique que le couple et leurs invités chériront longtemps !`,
           questions: [
-            makeQuestion('De quelle célébration d’envergure l’article fait-il le récit ?', 'Du mariage chaleureux d’un athlète professionnel québécois', 'D’une rencontre festive des coéquipiers dans une cabane à sucre', 'D’une soirée commémorant une victoire en championnat de hockey', ['mariage', 'union']),
-            makeQuestion('Quel geste charitable les mariés ont-ils demandé à leurs invités ?', `Offrir des contributions au profit ${de(s.cadPara)}`, 'Financer eux-mêmes le repas traditionnel servi dans la cabane à sucre', 'Prendre en charge l’achat de tous les meubles requis pour accueillir les invités', [s.cadKw]),
-            makeQuestion('Quelle surprise gourmande a clôturé la soirée de mariage ?', 'De la tire d’érable servie sur la neige en plein air', 'Un gâteau festif préparé par les coéquipiers de l’athlète', 'Une pièce montée chocolatée parée de fruits exotiques', ['tire', 'neige']),
+            makeQuestion('De quelle célébration d’envergure l’article fait-il le récit ?', 'Du mariage chaleureux d’un athlète professionnel québécois', 'D’une rencontre festive des coéquipiers dans une cabane à sucre', 'D’un tournoi de golf organisé pour les bénévoles', ['mariage', 'union']),
+            makeQuestion('Quel geste charitable les mariés ont-ils demandé à leurs invités ?', `Offrir des contributions au profit ${de(s.cadPara)}`, 'Financer eux-mêmes le repas traditionnel servi dans la cabane à sucre', 'Recevoir des présents de mariage coûteux de la part des invités', [s.cadKw]),
+            makeQuestion('Quelle surprise gourmande a clôturé la soirée de mariage ?', 'De la tire d’érable servie sur la neige en plein air', 'Une tarte aux pommes servie avec de la crème glacée', 'Des beignets sucrés servis au petit-déjeuner du lendemain', ['tire', 'neige']),
           ],
         }
       },
@@ -992,9 +992,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `DÉPLIANT TOURISME QUÉBEC - CAP SUR LA GASPÉSIE\nPréparez-vous à vivre un voyage sur route spectaculaire en explorant la Gaspésie. Empruntez ${s.route}, où chaque virage dévoile des falaises maritimes et des havres de pêche pittoresques. Admirez ${s.symbole}, véritable joyau naturel, et marchez dans ${s.parc} pour apercevoir des orignaux dans leur habitat sauvage. Les auberges du littoral vous feront déguster le homard frais et des chaudrées préparées selon les traditions des pêcheurs d’autrefois. Une aventure maritime inoubliable vous attend dès votre premier arrêt en bord de mer !`,
           questions: [
-            makeQuestion('Quelle région maritime du Québec ce dépliant décrit-il ?', 'La péninsule côtière gaspésienne et ses grands espaces', 'Un grand port industriel abritant des flottes de pêcheurs', 'La plaine agricole s’étirant au cœur de la province', ['gaspésie', 'dépliant']),
-            makeQuestion('Quel site naturel ou faunique emblématique est mis à l’honneur ?', `${cap(s.symPara)}`, 'Un refuge artificiel d’orignaux aménagé près du littoral', 'Une centrale hydroélectrique interdite aux curieux', [s.symKw]),
-            makeQuestion('Quel mets culinaire typique est proposé dans les auberges ?', 'Des crustacés frais et des potages marins traditionnels', 'De la viande fraîche d’orignaux chassés par des pêcheurs', 'Des barquettes de plats préparés et réchauffés au four', ['homard', 'chaudrées']),
+            makeQuestion('Quelle région maritime du Québec ce dépliant décrit-il ?', 'La péninsule côtière gaspésienne et ses grands espaces', 'Un grand port industriel abritant des flottes de pêcheurs', 'Les tours de bureaux d’un centre financier urbain', ['gaspésie', 'dépliant']),
+            makeQuestion('Quel site naturel ou faunique emblématique est mis à l’honneur ?', `${cap(s.symPara)}`, 'Un refuge artificiel d’orignaux aménagé près du littoral', 'Une mine d’or ouverte aux visiteurs chaque jour', [s.symKw]),
+            makeQuestion('Quel mets culinaire typique est proposé dans les auberges ?', 'Des crustacés frais et des potages marins traditionnels', 'De la viande fraîche d’orignaux chassés par des pêcheurs', 'Des sushis livrés à domicile par un traiteur japonais', ['homard', 'chaudrées']),
           ],
         }
       },
@@ -1018,9 +1018,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `BILLET DE BLOGUE - NOTRE ÉPOPÉE FERROVIAIRE EN DUO\nBonjour à tous nos abonnés ! ${s.couple} vous écrivent depuis Vancouver après un voyage de deux semaines. Nous avons traversé le pays ${s.transport}, et c’était merveilleux. Chaque matin, nous prenions notre café devant ${s.sommet}. Même si le train a subi ${s.retard}, personne ne s’est plaint : nous en avons profité pour lier conversation avec d’autres voyageurs autour d’un jeu de cartes. Ce voyage nous a appris à ralentir et à contempler la nature. Prochaine étape : une excursion en traversier vers l’île de Vancouver !`,
           questions: [
-            makeQuestion('Quel est le sujet principal de ce billet de blogue de voyage ?', 'Le carnet d’une traversée ferroviaire du pays en duo', 'Le compte rendu d’une excursion en traversier vers une île', 'Une campagne participative pour soutenir un projet d’art', ['ferroviaire', 'voyage']),
-            makeQuestion('Quel contretemps sur les voies a prolongé le trajet ?', `${cap(s.retPara)}`, 'Une dispute prolongée entre voyageurs autour d’un jeu de cartes', 'La disparition des bagages de cabine durant une manœuvre', [s.retKw]),
-            makeQuestion('Quelle est la prochaine destination prévue par le couple ?', 'Une traversée maritime par bateau vers l’île voisine', 'Un trajet direct en train de retour depuis Vancouver', 'Un séjour d’une semaine dans une cabane non chauffée', ['traversier', 'vancouver']),
+            makeQuestion('Quel est le sujet principal de ce billet de blogue de voyage ?', 'Le carnet d’une traversée ferroviaire du pays en duo', 'Le compte rendu d’une excursion en traversier vers une île', 'Le guide d’un parcours cycliste en haute montagne', ['ferroviaire', 'voyage']),
+            makeQuestion('Quel contretemps sur les voies a prolongé le trajet ?', `${cap(s.retPara)}`, 'Une dispute prolongée entre voyageurs autour d’un jeu de cartes', 'Une fuite d’eau dans le wagon-restaurant', [s.retKw]),
+            makeQuestion('Quelle est la prochaine destination prévue par le couple ?', 'Une traversée maritime par bateau vers l’île voisine', 'Un trajet direct en train de retour depuis Vancouver', 'Une visite guidée des montagnes en hélicoptère', ['traversier', 'vancouver']),
           ],
         }
       },
@@ -1036,11 +1036,11 @@ export const N05_06_SCENARIOS = {
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
-          text: `CARNET D’AVENTURE - RETOUR DE NOTRE SÉJOUR EN NATURE\nNous revoilà en ligne après ${s.duree} en forêt ! Avec mon conjoint, nous avons pagayé sur ${s.plan}. Le silence matinal sur l’eau et le chant des oiseaux resteront gravés dans nos mémoires pour toujours. Évidemment, une belle expédition comporte ses imprévus : nous avons essuyé ${s.mesaventure}. Heureusement, grâce à notre trousse de survie et à un feu de camp, nous avons séché nos affaires dans la bonne humeur. Pour tous ceux qui hésitent : préparez votre équipement et sautez à l’eau !`,
+          text: `CARNET D’AVENTURE - RETOUR DE NOTRE SÉJOUR EN NATURE\nNous revoilà en ligne après ${s.duree} en forêt ! Avec mon conjoint, nous avons pagayé sur ${s.plan}. Le silence matinal sur l’eau et le chant des oiseaux resteront gravés dans nos mémoires pour toujours. Évidemment, une belle expédition comporte ses imprévus : nous avons eu ${s.mesaventure}. Heureusement, grâce à notre trousse de survie et à un feu de camp, nous avons séché nos affaires dans la bonne humeur. Pour tous ceux qui hésitent : préparez votre équipement et sautez à l’eau !`,
           questions: [
-            makeQuestion('Quelle expérience vécue les blogueurs partagent-ils ?', 'Une randonnée nautique en autonomie de plusieurs jours', 'Un stage de formation aux techniques de survie en forêt', 'Le suivi d’un stage professionnel pour devenir guide de plein air', ['pagayé', 'forêt']),
-            makeQuestion('Quel désagrément matériel a marqué leur périple ?', `${cap(s.mesPara)}`, 'La perte de la trousse de survie emportée dans les eaux du lac', 'Une atteinte corporelle sévère exigeant une évacuation par les airs', [s.mesKw]),
-            makeQuestion('Comment ont-ils réagi face à ce contretemps ?', 'En surmontant l’épreuve avec bonne humeur autour du feu', 'En appelant les secours forestiers avec la trousse de survie', 'En abandonnant sur place leur équipement pour regagner la route', ['feu', 'affaires']),
+            makeQuestion('Quelle expérience vécue les blogueurs partagent-ils ?', 'Une randonnée nautique en autonomie de plusieurs jours', 'Un stage de formation aux techniques de survie en forêt', 'Un concours photo organisé par une revue de voyage', ['pagayé', 'forêt']),
+            makeQuestion('Quel désagrément matériel a marqué leur périple ?', `${cap(s.mesPara)}`, 'Le vol d’un canot resté amarré à la berge du lac', 'Une boussole cassée au milieu de la forêt dense', [s.mesKw]),
+            makeQuestion('Comment ont-ils réagi face à ce contretemps ?', 'En surmontant l’épreuve avec bonne humeur autour du feu', 'En appelant les secours forestiers avec la trousse de survie', 'En louant un bateau-taxi pour quitter le lac au plus vite', ['feu', 'affaires']),
           ],
         }
       },
@@ -1058,9 +1058,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `GROUPE CITOYEN - SOLIDARITÉ DU QUARTIER ROSEMONT\nChers voisins, voici un résumé de la situation vécue ${s.secteur}. Ce matin ${s.heure}, l’eau s’est déversée sur le trottoir à la suite ${s.cause}. Les cols bleus de la ville sont intervenus rapidement pour fermer les valves, coupant l’eau pour quarante logements. Face à ce désagrément, plusieurs résidents ${s.solidarite}. La municipalité a distribué des bouteilles d’eau devant le dépanneur. La pression reviendra avant vingt heures ce soir. Merci à tous pour votre belle entraide communautaire !`,
           questions: [
-            makeQuestion('Quel incident de quartier est décrit dans cette publication ?', 'Une rupture d’aqueduc entraînant une coupure d’eau potable', 'Une inondation majeure au sous-sol d’un dépanneur du secteur', 'Une série d’effractions commises dans des commerces du secteur', ['eau', 'trottoir']),
-            makeQuestion('Comment la solidarité entre résidents s’est-elle manifestée ?', `En choisissant ${de(s.solPara)}`, 'En aidant les cols bleus de la ville à fermer les valves d’eau', 'En tentant de colmater eux-mêmes les bris de canalisation', [s.solKw]),
-            makeQuestion('Quelle mesure municipale temporaire a été mise en place ?', 'Un approvisionnement en eau potable devant le dépanneur', 'L’évacuation d’urgence des quarante logements de la rue', 'L’annulation des taxes municipales pour l’ensemble de l’année', ['bouteilles', 'dépanneur']),
+            makeQuestion('Quel incident de quartier est décrit dans cette publication ?', 'Une rupture d’aqueduc entraînant une coupure d’eau potable', 'Une inondation majeure au sous-sol d’un dépanneur du secteur', 'Un incendie maîtrisé dans un immeuble voisin du marché', ['eau', 'trottoir']),
+            makeQuestion('Comment la solidarité entre résidents s’est-elle manifestée ?', `En choisissant ${de(s.solPara)}`, 'En aidant les cols bleus de la ville à fermer les valves d’eau', 'En exigeant un remboursement de leur facture d’eau mensuelle', [s.solKw]),
+            makeQuestion('Quelle mesure municipale temporaire a été mise en place ?', 'Un approvisionnement en eau potable devant le dépanneur', 'La fermeture complète de la rue pendant une semaine', 'Une prime de cinquante dollars versée à chaque résident', ['bouteilles', 'dépanneur']),
           ],
         }
       },
@@ -1078,9 +1078,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `FORUM DES HABITANTS - RUELLE SÉCURITÉ ET ENTRAIDE\nPetit retour sur les événements survenus dans notre ruelle ${s.ruelle}. À la suite ${s.orage}, un grand saule s’est abattu en travers du chemin. L’arbre ${s.degat}. Heureusement, aucun passant ne circulait à cet instant. Avant même l’arrivée des équipes municipales d’urgence, plusieurs voisins ont sorti leurs scies pour dégager l’accès aux piétons. Merci à Patrick d’avoir installé des cônes de signalisation. La ville ramassera les branches dès demain matin. Soyez prudents à vélo dans le secteur !`,
           questions: [
-            makeQuestion('Quel événement imprévu dans la ruelle est rapporté ?', 'La chute d’un grand arbre provoquée par les intempéries', 'Une collision entre cyclistes causée par des branchages', 'La tenue sans permis d’un rassemblement festif sur la voie', ['arbre', 'ruelle']),
-            makeQuestion('Quel dommage matériel direct cette chute a-t-elle causé ?', `${cap(s.degPara)}`, 'L’écrasement de plusieurs vélos rangés près de la ruelle', 'La destruction de trois véhicules stationnés le long du trottoir', [s.degKw]),
-            makeQuestion('Quelle action collective spontanée les voisins ont-ils entreprise ?', 'Découper des branchages pour libérer le passage des piétons', 'Attendre sur place l’arrivée de l’équipe municipale d’urgence', 'Quitter temporairement leurs logements pour loger chez des proches', ['scies', 'piétons']),
+            makeQuestion('Quel événement imprévu dans la ruelle est rapporté ?', 'La chute d’un grand arbre provoquée par les intempéries', 'Une importante fuite de gaz signalée près de la place publique', 'Le déménagement précipité d’une famille du quartier', ['arbre', 'ruelle']),
+            makeQuestion('Quel dommage matériel direct cette chute a-t-elle causé ?', `${cap(s.degPara)}`, 'Le bris de plusieurs fenêtres d’une maison voisine', 'Un panneau de signalisation renversé au coin de la rue', [s.degKw]),
+            makeQuestion('Quelle action collective spontanée les voisins ont-ils entreprise ?', 'Découper des branchages pour libérer le passage des piétons', 'Attendre sur place l’arrivée de l’équipe municipale d’urgence', 'Demander un remboursement à la ville pour les dégâts', ['scies', 'piétons']),
           ],
         }
       },
@@ -1098,9 +1098,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `RÉCIT D’ÉVASION - NOTRE PREMIER RAID HIVERNAL EN DUO\nBonjour à tous les adeptes du plein air ! Mon conjoint et moi venons de terminer notre première randonnée de motoneige au Saguenay. Pendant quatre jours, nous avons sillonné ${s.parcours}. Les paysages entièrement blancs étaient féeriques. Chaque soir, après avoir affronté un froid vif de moins vingt degrés, nous nous réchauffions ${s.etape}. L’ambiance y était formidable et les habitués nous ont donné de précieux conseils mécaniques. Nous rentrons avec des souvenirs magnifiques et l’envie irrésistible de repartir explorer la Côte-Nord l’hiver prochain !`,
           questions: [
-            makeQuestion('Quelle expérience hivernale ce couple partage-t-il sur son blogue ?', 'Une randonnée sur plusieurs jours en motoneige au Saguenay', 'Un stage d’apprentissage de la mécanique pour motoneiges', 'Une démarche d’acquisition immobilière dans les Laurentides', ['motoneige', 'saguenay']),
-            makeQuestion('Où les motoneigistes trouvaient-ils refuge pour la soirée ?', `Ils logeaient ${s.etaPara}`, 'Ils montaient une tente dans le froid à chaque étape', 'Ils revenaient chaque soir séjourner dans un grand hôtel urbain', [s.etaKw]),
-            makeQuestion('Quel projet hivernal le couple envisage-t-il déjà pour l’an prochain ?', 'Explorer les grands espaces de la Côte-Nord en motoneige', 'Refaire le même circuit en motoneige autour du Saguenay', 'Séjourner durant la saison froide dans un pays ensoleillé', ['côte-nord', 'hiver']),
+            makeQuestion('Quelle expérience hivernale ce couple partage-t-il sur son blogue ?', 'Une randonnée sur plusieurs jours en motoneige au Saguenay', 'Un stage d’apprentissage de la mécanique pour motoneiges', 'Un reportage sur la pêche blanche au bord d’un lac', ['motoneige', 'saguenay']),
+            makeQuestion('Où les motoneigistes trouvaient-ils refuge pour la soirée ?', `Ils logeaient ${s.etaPara}`, 'Ils dormaient à la belle étoile près des pistes enneigées', 'Ils passaient chaque nuit dans un motel de la capitale', [s.etaKw]),
+            makeQuestion('Quel projet hivernal le couple envisage-t-il déjà pour l’an prochain ?', 'Explorer les grands espaces de la Côte-Nord en motoneige', 'Refaire le même circuit en motoneige autour du Saguenay', 'Vendre leur motoneige pour acheter un bateau à voile neuf', ['côte-nord', 'hiver']),
           ],
         }
       },
