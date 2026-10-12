@@ -140,6 +140,13 @@ const App: React.FC = () => {
   useEffect(() => {
     if (!state.isTyping && !state.isFinished) {
       const onKeyDown = (e: KeyboardEvent) => {
+        if (
+          e.defaultPrevented ||
+          (e.target instanceof Element &&
+            e.target.closest('button, a, input, select, [contenteditable="true"], [role="dialog"], [role="button"]'))
+        ) {
+          return
+        }
         if (!isLoading && e.key !== 'Enter' && (isLegal(e.key) || e.key === ' ') && !e.altKey && !e.ctrlKey && !e.metaKey) {
           e.preventDefault()
           dispatch({ type: TypingStateActionType.SET_IS_TYPING, payload: true })
