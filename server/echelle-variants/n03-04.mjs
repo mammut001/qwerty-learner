@@ -1943,8 +1943,6 @@ const N4_TRANSIT_MISHAPS = [
     help: 'une chauffeuse bienveillante m’a indiqué la bonne correspondance',
     helpOpt: 'une chauffeuse lui a indiqué la correspondance',
     helpKw: 'chauffeuse',
-    otherHelp1: 'un agent de police l’a reconduit en patrouille',
-    otherHelp2: 'un passant lui a vendu un vieux plan de ville',
   },
   {
     dest: 'au campus de l’Université Laval',
@@ -1954,8 +1952,6 @@ const N4_TRANSIT_MISHAPS = [
     help: 'un étudiant sympathique m’a guidé jusqu’au bon quai',
     helpOpt: 'un étudiant l’a guidé vers le bon quai',
     helpKw: 'étudiant',
-    otherHelp1: 'le chauffeur l’a forcé à marcher trois heures',
-    otherHelp2: 'une patrouille municipale a bloqué la route',
   },
   {
     dest: 'au bureau d’accueil des nouveaux arrivants',
@@ -1965,8 +1961,6 @@ const N4_TRANSIT_MISHAPS = [
     help: 'une agente au guichet m’a imprimé le trajet complet',
     helpOpt: 'une agente lui a imprimé le bon trajet',
     helpKw: 'agente',
-    otherHelp1: 'un passant l’a envoyé vers une fausse adresse',
-    otherHelp2: 'le train a été annulé pour tout le reste du jour',
   },
   {
     dest: 'à mon premier appartement à Longueuil',
@@ -1976,8 +1970,6 @@ const N4_TRANSIT_MISHAPS = [
     help: 'un voisin de siège m’a prêté son téléphone pour m’orienter',
     helpOpt: 'un passager lui a prêté son téléphone',
     helpKw: 'téléphone',
-    otherHelp1: 'un contrôleur lui a confisqué sa valise rouge',
-    otherHelp2: 'le véhicule est tombé en panne sur l’autoroute',
   },
 ]
 
@@ -2031,12 +2023,13 @@ export const N04_L_3 = [
   Object.assign(
     (rand) => {
       const item = pick(N4_TRANSIT_MISHAPS, rand)
+      const othersHelp = sample(N4_TRANSIT_MISHAPS.filter((x) => x.helpOpt !== item.helpOpt), 2, rand)
       const text = `— Lors de ma première semaine au Québec, j’ai vécu une vraie mésaventure en voulant me rendre ${item.dest}. J’ai pris ${item.bus} sans regarder l’affiche. Je me suis retrouvé loin sous la pluie. Heureusement, ${item.help}. Je suis arrivé à destination avec un petit retard mais sain et sauf !`
       return {
         text,
         questions: [
           q('Quelle mésaventure la personne raconte-t-elle sur son trajet ?', item.mishapOpt, 'un bris mécanique de sa voiture personnelle', 'une perte de son billet dans la station de train', [item.busKw]),
-          q('Comment la personne a-t-elle finalement trouvé son chemin ?', item.helpOpt, item.otherHelp1, item.otherHelp2, [item.helpKw]),
+          q('Comment la personne a-t-elle finalement trouvé son chemin ?', item.helpOpt, othersHelp[0].helpOpt, othersHelp[1].helpOpt, [item.helpKw]),
         ],
       }
     },
