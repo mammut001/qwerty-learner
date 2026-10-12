@@ -791,7 +791,7 @@ export const N03_R_0 = [
     situation: 0,
     text: 'Garderie Les Petits Lutins. Convocation à l’assemblée générale annuelle des parents : mardi 14 octobre à 19 h dans la salle communautaire. Nous élirons les représentants au conseil d’administration. Confirmez votre participation auprès de l’éducatrice avant vendredi.',
     questions: [
-      q('Quel est le but de cette assemblée générale ?', 'choisir les membres du conseil', 'organiser une fête de quartier animée', 'présenter les comptes financiers annuels', ['conseil']),
+      q('Quel est le but de cette assemblée générale ?', 'choisir les membres du conseil', 'organiser une sortie au musée', 'adopter un nouveau menu chaud', ['conseil']),
       q('À quelle heure débute la rencontre ?', 'à 19 h dans la salle', 'à midi exactement sur place', 'à 20 h dans la soirée', ['19 h']),
     ],
   },
@@ -801,7 +801,7 @@ export const N03_R_0 = [
     text: 'Ville de Montréal. Dépliant de quartier : le grand marché artisanal d’automne s’installe sur la place Simon-Valois le 20 septembre de 10 h à 17 h. Venez encourager nos artisans et créateurs québécois. Kiosques d’artisanat, musique et café chaud.',
     questions: [
       q('Quel évènement ce dépliant présente-t-il ?', 'le marché artisanal d’automne', 'un concert de musique rock', 'une course sportive à pied', ['marché artisanal']),
-      q('Sur quel lieu public l’évènement s’installe-t-il ?', 'sur la place Simon-Valois', 'dans la cour fermée d’une école', 'au parc public du Mont-Royal', ['place simon-valois']),
+      q('Où le marché artisanal s’installe-t-il ?', 'sur la place Simon-Valois', 'au grand parc Maisonneuve', 'devant l’hôtel de ville', ['place simon-valois']),
     ],
   },
 ]
