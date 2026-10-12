@@ -1879,8 +1879,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le sujet principal exposé dans cet extrait ?",
         "La montée en popularité de saint Jean Baptiste et son adoption comme symbole identitaire",
-        "Le conflit de doctrine entre les jésuites et les évêques sur le choix du calendrier religieux",
-        "La liste des patronymes d'origine française les plus portés par les enfants nés à Montréal"
+        "La disparition progressive de la Saint-Jean-Baptiste au début du XIXe siècle",
+        "L'interdiction faite aux familles de donner le prénom Jean-Baptiste à leur fils"
       ],
       [
         "Quel saint était initialement le saint patron officiel de la Nouvelle-France au tout début de la colonie ?",
@@ -1891,8 +1891,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi la date du 24 juin a-t-elle finalement supplanté la fête de saint Joseph le 19 mars ?",
         "Le climat de fin juin était bien plus agréable et propice aux rassemblements populaires en plein air",
-        "Les autorités militaires exigeaient que tous les colons s'entraînent au tir au début du printemps",
-        "L'Église de Rome avait officiellement radié la fête de mars pour cause d'hérésie doctrinale"
+        "Les autorités religieuses imposaient une messe obligatoire chaque 19 mars aux colons",
+        "Le roi de France avait interdit toute célébration de la Saint-Jean sur ses colonies"
       ]
     ],
     "justificationFr": "Évolution du culte populaire de la Saint-Jean en Nouvelle-France et adoption du patronyme comme symbole identitaire.",
@@ -1918,8 +1918,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le thème traité dans ce document ?",
         "L'origine romaine de la fête de Noël et son implantation sur d'anciens cultes solaires",
-        "Les divergences liturgiques entre les églises d'Orient et les communautés d'Occident",
-        "Le déclin irrémédiable de toute forme de tradition festive dans les foyers contemporains"
+        "Les querelles théologiques sur la date réelle de la naissance de Jésus-Christ",
+        "La fixation de la fête de Noël au solstice d'été dans les pays nordiques"
       ],
       [
         "Au cours de quel siècle la fête de Noël a-t-elle été instituée le 25 décembre dans l'Empire romain ?",
@@ -1930,8 +1930,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Comment l'Église primitive a-t-elle favorisé l'adoption du 25 décembre auprès des populations ?",
         "En présentant le Christ comme une lumière nouvelle remplaçant les fêtes païennes du solstice",
-        "En contraignant tous les marchands de l'Empire à fermer leurs boutiques sous peine d'amende",
-        "En interdisant la célébration de toute autre fête religieuse durant l'ensemble de l'hiver boréal"
+        "En obligeant les prêtres à célébrer la messe de Noël dans chaque village",
+        "En imposant le jeûne aux paysans durant les fêtes de la moisson d'août"
       ]
     ],
     "justificationFr": "Origines historiques de Noël, substitution aux fêtes du solstice d'hiver et sécularisation contemporaine.",
@@ -1957,8 +1957,8 @@ export const REAL_READING_PASSAGES = [
       [
         "De quoi traite ce texte sur les pratiques de Noël ?",
         "De la sécularisation moderne de Noël et des particularités des calendriers civil et liturgique",
-        "De la rivalité commerciale entre les fabricants de jouets en Pologne et au Royaume-Uni",
-        "Du rôle exclusif des célébrations religieuses dans les départements de l'est de la France"
+        "De la suppression progressive du jour férié du 26 décembre dans l'ensemble de l'Europe",
+        "De la baisse constante des dépenses familiales consacrées aux repas de fête"
       ],
       [
         "Quels départements français bénéficient d'un jour férié le 26 décembre en plus du jour de Noël ?",
@@ -1969,8 +1969,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Que démontre l'engouement universel pour le personnage du père Noël au XXe siècle ?",
         "La fête s'est enrichie d'une dimension laïque et familiale centrée sur les enfants et les cadeaux",
-        "Les réjouissances familiales ont été supplantées par l'obligation de participer aux messes",
-        "L'échange de cadeaux a été circonscrit aux cercles ecclésiastiques et aux orphelinats paroissiaux"
+        "Les messes de minuit ont été interdites au profit des repas de fête publics",
+        "Les familles ont renoncé aux sapins au profit de décorations exclusivement religieuses"
       ]
     ],
     "justificationFr": "Sécularisation de Noël, mondialisation du père Noël et spécificités du calendrier liturgique et civil en Europe.",
