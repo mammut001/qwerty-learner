@@ -216,8 +216,8 @@ export const REAL_READING_PASSAGES = [
       [
         "De quoi traite ce texte dans son ensemble ?",
         "Des racines historiques de l'école et de ses débuts pour les tout-petits",
-        "Des programmes officiels de mathématiques au niveau secondaire en France",
-        "Des conditions d'admission des professeurs dans les écoles québécoises"
+        "De l'invention de l'école par Charlemagne et de son extension en Suisse",
+        "De l'étude des hiéroglyphes par l'élite indienne durant l'Antiquité"
       ],
       [
         "Quelle est une différence entre la maternelle en France et au Québec mentionnée dans l'extrait ?",
@@ -262,8 +262,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est l'objectif de cet extrait ?",
         "Définir la notion de transport et expliquer son utilité globale",
-        "Comparer le coût du train avec celui de l'aviation commerciale",
-        "Raconter l'invention de la roue et l'utilisation des animaux"
+        "Décrire les règles de contrôle réservées au seul transport fluvial",
+        "Limiter la notion de transport aux services vendus en entreprise"
       ],
       [
         "Comment nomme-t-on le transport de marchandises selon le texte ?",
@@ -275,7 +275,7 @@ export const REAL_READING_PASSAGES = [
         "Pourquoi l'auteur donne-t-il l'exemple de rapporter une baguette de pain ?",
         "Pour montrer qu'un déplacement quotidien personnel relève aussi du transport",
         "Pour prouver que les boulangeries dépendent directement des réseaux de fret",
-        "Pour illustrer la nécessité d'une réglementation stricte des commerces locaux"
+        "Pour montrer que le fret routier concerne d'abord la nourriture quotidienne"
       ]
     ],
     "justificationFr": "Définition concrète des modes de transport et de leur importance économique au quotidien.",
@@ -303,7 +303,7 @@ export const REAL_READING_PASSAGES = [
         "Quel constat d'ensemble le texte dresse-t-il sur les repas des Français ?",
         "Les traditions culinaires reculent face à de nouvelles attentes citoyennes",
         "La cuisine régionale est désormais la seule pratique reconnue dans le pays",
-        "Les règles religieuses imposent de nouveaux menus dans les cantines scolaires"
+        "La consommation de pain et de fromage progresse dans les foyers ordinaires"
       ],
       [
         "Quels produits de base sont moins consommés d'après le texte ?",
@@ -341,8 +341,8 @@ export const REAL_READING_PASSAGES = [
       [
         "De quoi traite ce texte sur le pain ?",
         "Des procédés de fabrication et de différentes sortes de pains",
-        "Du commerce mondial du blé et de la farine au fil des siècles",
-        "Des techniques de récolte dans les exploitations agricoles modernes"
+        "De l'usage de la levure pour faire monter la seule farine complète",
+        "Des recettes de pain perdu préparées au pétrin électrique en bois"
       ],
       [
         "Pourquoi le pain complet a-t-il une couleur marron ?",
@@ -353,7 +353,7 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le rôle du gaz libéré par la levure lors de la préparation ?",
         "Il crée des bulles qui font monter la pâte et rendent la mie moelleuse",
-        "Il accélère la cuisson du pain en réduisant la chaleur nécessaire du four",
+        "Il dissout le gros sel et le sucre pour faciliter le pétrissage manuel",
         "Il empêche la pâte de sécher lorsqu'elle repose pendant plusieurs heures"
       ]
     ],
@@ -384,8 +384,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est l'objet de ce court document ?",
         "Présenter quatre catégories particulières de pains",
-        "Expliquer comment régler la température d'un four",
-        "Donner des conseils pour conserver le pain frais"
+        "Décrire la composition des seules farines de seigle",
+        "Comparer la proportion de fibres dans chaque graine"
       ],
       [
         "Quelle farine est employée pour confectionner le pain de seigle ?",
@@ -397,7 +397,7 @@ export const REAL_READING_PASSAGES = [
         "Pourquoi le pain azyme a-t-il une forme très aplatie ?",
         "Parce qu'il est préparé sans aucune levure pour le faire gonfler",
         "Parce qu'il contient une quantité excessive de son et de fibres",
-        "Parce qu'il est écrasé sous une pierre lourde après sa cuisson"
+        "Parce que l'ajout de graines de pavot empêche la pâte de lever"
       ]
     ],
     "justificationFr": "Présentation simple et énumérative de différentes variétés de pain et de leurs ingrédients.",
@@ -425,14 +425,14 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle est la principale distinction faite dans le texte ?",
         "La différence entre le climat à long terme et la météo ponctuelle",
-        "L'opposition entre les instruments anciens et les satellites récents",
-        "Le contraste entre les cyclones d'Amérique et les tempêtes d'Europe"
+        "L'emploi d'appareils de mesure distincts en climatologie et en météo",
+        "Le calcul des seules températures annuelles au détriment des vents"
       ],
       [
         "Quels facteurs géographiques influencent directement le climat selon le texte ?",
         "La latitude et l'altitude",
-        "La longitude et les marées",
-        "La taille des fleuves locaux"
+        "L'humidité et les nuages",
+        "La pluie et les tempêtes"
       ],
       [
         "Pourquoi le climat influence-t-il la présence des êtres vivants dans une région ?",
@@ -469,7 +469,7 @@ export const REAL_READING_PASSAGES = [
         "Quel phénomène ce texte décrit-il ?",
         "L'impact temporaire d'une grande éruption volcanique sur la température terrestre",
         "La formation des nuages de pluie dans les couches inférieures de l'atmosphère",
-        "Le rôle bienfaisant du dioxyde de soufre dans la protection de la couche d'ozone"
+        "La dispersion d'un voile de chlore provoquant un réchauffement de la stratosphère"
       ],
       [
         "À quelle altitude se trouve la stratosphère mentionnée dans le passage ?",
@@ -480,8 +480,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Comment les substances rejetées par le volcan provoquent-elles un refroidissement ?",
         "En renvoyant une portion des rayons du soleil vers l'espace extérieur",
-        "En absorbant l'ensemble de l'oxygène présent dans l'air ambiant de la Terre",
-        "En accélérant la condensation de la vapeur d'eau sous forme de neige glacée"
+        "En emprisonnant les rayons infrarouges émis depuis le sol sous le voile",
+        "En empêchant le rayonnement solaire de pénétrer dans la stratosphère"
       ]
     ],
     "justificationFr": "Explication scientifique dense et rigoureuse de l'impact des éruptions volcaniques sur le climat.",
@@ -506,8 +506,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Que présente principalement ce document sur Montréal ?",
         "Sa situation géographique et des étapes marquantes de son histoire",
-        "Le réseau de transport en commun et les festivals de l'été montréalais",
-        "Les activités économiques des gratte-ciel du quartier des affaires"
+        "La fondation de Ville-Marie par Champlain et le départ des religieux",
+        "La conquête de Toronto et d'Ottawa lors de la guerre contre Paris"
       ],
       [
         "Quel navigateur français a baptisé le lieu du nom de Montréal en 1535 ?",
@@ -549,7 +549,7 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le sujet principal de cet extrait ?",
         "Le portrait linguistique et démographique de la métropole montréalaise",
-        "Le budget municipal alloué aux nouveaux arrivants dans la région de Montréal",
+        "La répartition par âge des résidents dans les dix-sept régions du Québec",
         "L'histoire de la cohabitation entre Français et Britanniques au dix-huitième siècle"
       ],
       [
@@ -599,9 +599,9 @@ export const REAL_READING_PASSAGES = [
       ],
       [
         "Que permet le parc du Mont-Royal aux citadins selon le texte ?",
-        "De profiter de la nature et de pratiquer des activités variées toute l'année",
-        "De traverser plus rapidement la métropole pour éviter la circulation dense",
-        "D'accéder rapidement aux autoroutes reliant la métropole aux autres régions"
+        "D'échapper au bruit urbain et de pratiquer des loisirs en toute saison",
+        "D'assister à des compétitions de ski réservées aux athlètes de la ville",
+        "D'emprunter des pistes de luge pour rejoindre le quartier des affaires"
       ]
     ],
     "justificationFr": "Description concrète et vivante des quartiers montréalais et des activités au parc du Mont-Royal selon les saisons.",
@@ -631,8 +631,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le thème général de ce texte ?",
         "Les traditions religieuses et familiales associées à Noël",
-        "L'histoire commerciale des grands magasins pendant l'hiver",
-        "Les coutumes de la fête de Pâques dans les pays chrétiens"
+        "L'origine scandinave ancienne du personnage du père Noël",
+        "Le rejet des célébrations de Noël par les non-chrétiens"
       ],
       [
         "Quelle est la fête la plus importante du christianisme citée avant Noël ?",
@@ -642,9 +642,9 @@ export const REAL_READING_PASSAGES = [
       ],
       [
         "En dehors des aspects religieux, quelle est la façon la plus courante de fêter Noël ?",
-        "Se rassembler en famille ou entre amis et échanger des cadeaux",
-        "Organiser de grands défilés municipaux à travers les avenues",
-        "Participer à des cérémonies obligatoires dans sa commune"
+        "Se réunir en famille ou entre amis pour échanger des cadeaux",
+        "Allumer un grand feu de bois en forêt loin de toute maison",
+        "Participer à une messe spéciale et jeûner durant la veillée"
       ]
     ],
     "justificationFr": "Vocabulaire courant et structures simples décrivant les coutumes familiales et l'origine de Noël.",
@@ -671,20 +671,20 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le sujet développé dans cet extrait ?",
         "La présence de rituels liés au solstice d'hiver bien avant Noël",
-        "Le rôle des églises médiévales dans l'organisation des marchés d'hiver",
+        "L'abandon des cultes solaires par les Celtes avant le solstice d'hiver",
         "L'origine des décorations modernes de sapins dans les foyers celtiques"
       ],
       [
         "Que représentaient les Saturnales chez les Romains selon le texte ?",
         "Une période festive en décembre marquée par des échanges de cadeaux",
-        "Une cérémonie solennelle réservée aux soldats de retour de conquête",
-        "Un jour de jeûne strict en l'honneur des divinités de l'agriculture"
+        "Une journée unique fixée au 25 décembre pour couronner Jules César",
+        "Un rassemblement nocturne où l'on brûlait des guirlandes en secret"
       ],
       [
         "Pourquoi les peuples anciens accordaient-ils tant d'importance au solstice d'hiver ?",
         "Ce moment marquait le rallongement des journées et l'espoir du retour de la chaleur",
-        "Cette date imposait l'arrêt définitif des voyages maritimes jusqu'au printemps suivant",
-        "Les récoltes de blé atteignaient leur plein rendement au cours de cette longue nuitée"
+        "Ils croyaient que les feux allumés suffiraient à empêcher le froid de s'installer",
+        "Ils pensaient que les rayons du soleil ne pouvaient plus pénétrer dans les temples"
       ]
     ],
     "justificationFr": "Panorama historique comparant les célébrations du solstice d'hiver à travers différentes cultures.",
@@ -720,14 +720,14 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel exemple de pratique sanitaire chez les Aborigènes d'Australie est mentionné ?",
         "L'aménagement d'un micro-zonage pour diminuer la pollution et les incendies",
-        "La distribution gratuite de médicaments élaborés à partir d'arbres sacrés",
-        "La construction d'hôpitaux permanents en pierre au centre de chaque territoire"
+        "L'installation de réservoirs en argile pour filtrer les déchets industriels",
+        "L'obligation de construire des campements fixes à l'écart des zones boisées"
       ],
       [
         "Pourquoi certaines sociétés anciennes ont-elles eu la réputation erronée de négliger l'hygiène ?",
         "Nos instruments d'analyse contemporains peinent à saisir leurs propres réponses aux risques sanitaires",
-        "Leurs pratiques sanitaires étaient fondées sur des remèdes chimiques importés d'autres continents",
-        "Leurs autorités civiles refusaient d'accorder la moindre valeur aux recommandations médicales"
+        "Leurs croyances religieuses leur interdisaient de chercher l'équilibre de santé dans leur communauté",
+        "Leur organisation sociale rejetait la vente de plantes médicinales sur les marchés des grandes cités"
       ]
     ],
     "justificationFr": "Analyse historique et anthropologique approfondie de l'hygiène publique à travers diverses civilisations anciennes.",
@@ -753,14 +753,14 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le propos central de cet extrait ?",
         "La prise en compte de l'environnement géographique dans les programmes médicaux préventifs anciens",
-        "L'invention des premiers vaccins par les praticiens byzantins lors des grandes épidémies d'Orient",
-        "Le conflit permanent entre les architectes militaires et les disciples du médecin grec Hippocrate"
+        "L'opposition doctrinale entre les traités d'architecture militaire et les manuels de médecine galénique",
+        "L'abandon des régimes alimentaires basés sur le climat local au profit des seuls soins chirurgicaux"
       ],
       [
         "Quels facteurs environnementaux étaient évalués pour élaborer ces mesures de prévention ?",
         "Le climat local, l'ensoleillement, les vents et la pureté des sources d'eau",
-        "La proximité des frontières ennemies et le cours des devises monétaires",
-        "La hauteur des remparts de la cité et l'armement de la garde civile"
+        "La profondeur des nappes souterraines et la présence de minerais rares",
+        "La composition chimique des sols rocheux et l'humidité de l'air marin"
       ],
       [
         "Selon la doctrine de Galien évoquée dans le texte, de quoi dépend la physiologie humaine ?",
@@ -797,8 +797,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Dans quel domaine le mot « logement » est-il particulièrement employé selon le document ?",
         "Dans les analyses sociales, économiques et sanitaires conduites par les institutions publiques",
-        "Dans les manuels militaires consacrés au stationnement temporaire des troupes en garnison",
-        "Dans les traités artistiques décrivant la décoration intérieure des monuments historiques royaux"
+        "Dans les seules études fiscales évaluant le montant de l'épargne privée des ménages fortunés",
+        "Dans les théories philosophiques opposant le droit au logement aux règles de la construction"
       ],
       [
         "Que signifie l'affirmation « le logement n'est donc pas l'habitat » ?",
@@ -843,8 +843,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi la situation de la France est-elle qualifiée d'intermédiaire ?",
         "Elle présente un équilibre presque égalitaire entre propriétaires occupants et locataires",
-        "Elle impose une réglementation limitant l'achat d'un logement à un seul bien par foyer",
-        "Elle interdit aux bailleurs privés de posséder des logements collectifs en zone urbaine"
+        "Elle oblige les investisseurs privés à financer exclusivement des résidences individuelles",
+        "Elle réserve la possession de biens durables aux seuls ménages résidant en région rurale"
       ]
     ],
     "justificationFr": "Étude comparative de la structure de propriété et de location immobilière à travers les pays européens.",
@@ -870,8 +870,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle controverse ce texte expose-t-il ?",
         "Le désaccord théorique entre partisans du salaire minimum et économistes libéraux",
-        "Le conflit sur les dates annuelles de révision des grilles salariales en France",
-        "L'opposition syndicale concernant la durée légale du temps de travail hebdomadaire"
+        "La controverse sur l'interdiction de tout salaire minimum durant les phases de crise",
+        "L'accord unanime des économistes pour limiter les salaires au chômage de transition"
       ],
       [
         "Quel argument les défenseurs du salaire minimum avancent-ils dans le premier paragraphe ?",
@@ -883,7 +883,7 @@ export const REAL_READING_PASSAGES = [
         "Selon la perspective libérale décrite, quelle solution est jugée préférable pour réduire les inégalités ?",
         "Ajuster la fiscalité sur les plus fortunés plutôt qu'imposer un plancher salarial excessif",
         "Interdire aux employeurs de licencier du personnel lors d'une période de ralentissement",
-        "Augmenter fortement le salaire minimum afin de décourager toute nouvelle candidature ouvrière"
+        "Fixer un barème de salaires identique pour chaque branche sans égard à la productivité"
       ]
     ],
     "justificationFr": "Confrontation argumentée des doctrines économiques sur les effets et la régulation du salaire minimum.",
@@ -909,8 +909,8 @@ export const REAL_READING_PASSAGES = [
       [
         "De quoi traite ce texte sur le minimum salarial ?",
         "De son statut juridique d'ordre public et de ses justifications doctrinales",
-        "De la baisse du pouvoir d'achat provoquée par les impôts indirects sur la consommation",
-        "De la négociation annuelle obligatoire du temps de repos dans la fonction publique"
+        "De la baisse automatique de tous les salaires lors d'une chute des prix",
+        "Du refus syndical d'appliquer l'échelle mobile aux salaires les plus bas"
       ],
       [
         "Que permet l'échelle mobile des salaires citée dans le deuxième paragraphe ?",
@@ -921,8 +921,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Que signifie que le salaire minimum est « d'ordre public » en droit français ?",
         "Les accords d'entreprise ou conventions de branche ne peuvent lui être inférieurs",
-        "L'ensemble des citoyens peut voter chaque année pour en fixer le barème horaire",
-        "Son montant doit être affiché obligatoirement à l'entrée de chaque mairie du pays"
+        "Chaque branche professionnelle a le pouvoir de suspendre son application par vote",
+        "Les syndicats peuvent négocier une dérogation pour réduire le plancher salarial"
       ]
     ],
     "justificationFr": "Analyse juridique et doctrinale du salaire minimum comme mécanisme d'ordre public et d'indexation.",
@@ -949,19 +949,19 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le sujet principal de ce document ?",
         "La diversité des modèles de salaire minimum à travers l'Union européenne",
-        "L'impact négatif des délocalisations industrielles vers les pays d'Asie",
-        "Le rôle exclusif des parlements nationaux dans le calcul des allocations chômage"
+        "L'obligation pour les six pays nordiques d'adopter le modèle salarial français",
+        "La disparition des conventions collectives dans les pays non membres de l'Union"
       ],
       [
         "Comment le salaire minimum est-il déterminé dans des pays comme l'Italie ou la Suède ?",
         "Par des négociations entre partenaires sociaux au niveau des branches professionnelles",
-        "Par un décret présidentiel contraignant imposé à l'ensemble des secteurs d'activité",
-        "Par une votation populaire organisée tous les trois ans sous le contrôle des juges"
+        "Par une directive européenne fixant le barème minimal pour l'ensemble des salariés",
+        "Par un arrêté ministériel automatique s'appliquant sans négociation syndicale préalable"
       ],
       [
         "Quelle mise en garde Ursula von der Leyen formule-t-elle à propos du dumping salarial ?",
         "Il nuit à la dignité ouvrière et fausse la concurrence loyale au sein du marché",
-        "Il incite les entreprises les plus rentables à quitter définitivement le sol européen",
+        "Il favorise indûment les patrons qui rémunèrent dignement l'ensemble de leurs équipes",
         "Il décourage les syndicats de négocier des augmentations pour les cadres dirigeants"
       ]
     ],
@@ -989,8 +989,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle est la visée de ce texte ?",
         "Présenter la structure générale et la gestion politique du système scolaire québécois",
-        "Détailler les critères d'évaluation des examens d'admission à l'université au Canada",
-        "Raconter la fondation des premiers collèges religieux sous le régime de la colonie"
+        "Comparer le programme de formation professionnelle du Québec avec les autres provinces",
+        "Défendre l'unification de l'enseignement collégial et universitaire sous un seul ministère"
       ],
       [
         "Quels sont les quatre ordres principaux d'enseignement énumérés dans l'extrait ?",
@@ -1001,8 +1001,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi le gouvernement du Québec pilote-t-il lui-même son réseau éducatif ?",
         "Parce que l'enseignement relève de l'autorité des provinces et non du palier fédéral",
-        "Parce qu'une directive royale britannique de 1982 lui en délègue la gestion financière",
-        "Parce que le Parlement fédéral canadien a renoncé à percevoir tout impôt d'éducation"
+        "Parce que la formation continue des adultes est financée par des fonds municipaux locaux",
+        "Parce que les universités québécoises refusent toute coordination avec les ministères"
       ]
     ],
     "justificationFr": "Présentation institutionnelle claire des quatre ordres d'enseignement et des compétences ministérielles au Québec.",
@@ -1040,8 +1040,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi le service de carrosses parisiens a-t-il fini par péricliter après ses débuts ?",
         "Une décision légale a exclu la majorité des habitants en le réservant à une élite",
-        "Les chevaux ont été réquisitionnés par l'armée royale pour mener des campagnes de guerre",
-        "Les passagers ont refusé de voyager ensemble sur un itinéraire fixé à l'avance par la ville"
+        "Le prix du billet est resté trop bas pour amortir l'achat initial des quatre chevaux",
+        "Le roi Louis XIV a refusé de compenser le déficit d'exploitation des carrosses à cinq sols"
       ]
     ],
     "justificationFr": "Définition du transport public et genèse historique du premier service collectif urbain conçu par Blaise Pascal.",
@@ -1069,20 +1069,20 @@ export const REAL_READING_PASSAGES = [
       [
         "Que présente ce passage ?",
         "Une clarification terminologique et un inventaire des véhicules de transport collectif",
-        "Une étude comparative sur la rentabilité des lignes d'autobus urbains et régionaux",
-        "Une analyse technique du moteur électrique utilisé dans les rames de métro moderne"
+        "Un plaidoyer pour remplacer le transport par voie d'eau par des voitures avec chauffeur",
+        "Une critique historique de la traction animale dans les services touristiques actuels"
       ],
       [
         "Quelle distinction établit le Grand Dictionnaire terminologique québécois ?",
         "Le transport en commun est une sous-catégorie planifiée du transport collectif",
-        "Le transport public s'oppose juridiquement aux véhicules équipés d'un moteur",
-        "Le transport par voie d'eau nécessite impérativement un accord intercommunal"
+        "Le transport collectif exclut tout déplacement effectué avec des véhicules routiers",
+        "Le transport en commun interdit l'accès au public sans accord préalable d'un juge"
       ],
       [
         "Quel est l'atout principal des véhicules routiers comme les autobus selon le texte ?",
         "Leur souplesse d'usage et la faiblesse des investissements en infrastructure neuve",
-        "Leur vitesse de pointe nettement supérieure à celle des convois ferroviaires rapides",
-        "Leur capacité à circuler gratuitement en bénéficiant de subventions d'État permanentes"
+        "Leur aptitude à remplacer entièrement le réseau ferroviaire pour les longs trajets",
+        "Leur faculté d'aménager de nouvelles voies réservées sans autorisation communale"
       ]
     ],
     "justificationFr": "Distinction terminologique rigoureuse et typologie des modes de transport public et collectif.",
@@ -1113,20 +1113,20 @@ export const REAL_READING_PASSAGES = [
       [
         "De quoi traite ce texte sur le plan biologique et humain ?",
         "De la nature de l'alimentation, des stratégies métaboliques du vivant et des pratiques humaines",
-        "Des techniques de conservation des denrées périssables dans l'industrie agroalimentaire",
-        "Des conséquences des carences en vitamines sur la reproduction des prédateurs sauvages"
+        "De la dépendance exclusive des espèces végétales envers les bactéries productrices de méthane",
+        "De l'uniformité des régimes zoophages et herbivores au sein des réseaux trophiques terrestres"
       ],
       [
         "Comment les organismes végétaux se procurent-ils leurs composants organiques ?",
         "En les synthétisant grâce à l'eau, aux minéraux du sol, au dioxyde de carbone et au soleil",
-        "En puisant directement leur énergie dans les tissus organiques d'espèces animales",
-        "En absorbant le méthane produit par les bactéries souterraines de leur environnement"
+        "En extrayant des composés azotés déjà synthétisés par la digestion d'autres plantes",
+        "En absorbant les molécules carbonées libérées lors de la décomposition de l'humus"
       ],
       [
         "Pourquoi les animaux sont-ils qualifiés d'organismes « hétérotrophes » ?",
         "Leur survie dépend de la consommation d'autres espèces pour acquérir leurs nutriments",
-        "Leur organisme produit spontanément son énergie grâce à la photosynthèse cellulaire",
-        "Leur comportement alimentaire reste parfaitement indépendant des variations saisonnières"
+        "Leur métabolisme transforme directement les sels minéraux du sol en tissus musculaires",
+        "Leur alimentation est invariable et indépendante de leur statut dans le réseau trophique"
       ]
     ],
     "justificationFr": "Approche biologique et écologique comparant autotrophie végétale, hétérotrophie animale et dimensions culturelles.",
@@ -1155,20 +1155,20 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le sujet central exposé dans ce passage ?",
         "La classification des macronutriments et le rôle biologique indispensable des protéines",
-        "Les causes médicales de l'obésité infantile dans les sociétés industrielles contemporaines",
-        "Les méthodes de dépistage des allergies alimentaires courantes chez les adultes âgés"
+        "La fabrication exclusive des glucides par le foie pour combler le manque de protéines",
+        "L'incapacité de l'organisme humain à digérer les graisses sans apport d'acides aminés"
       ],
       [
         "Pourquoi les protéines et les lipides sont-ils dits « essentiels » pour l'être humain ?",
         "Parce que le corps ne peut pas les fabriquer et doit les trouver dans l'alimentation",
-        "Parce qu'ils fournissent la totalité de l'azote nécessaire à la formation du glycogène",
-        "Parce qu'ils permettent au foie de décomposer sans danger les glucides complexes ingérés"
+        "Parce qu'ils sont immédiatement convertis en glucose lors de chaque effort musculaire",
+        "Parce qu'ils sont les seuls nutriments capables d'apporter de l'énergie au métabolisme"
       ],
       [
         "Quel est l'un des rôles majeurs assurés par les protéines selon le texte ?",
         "Elles participent activement aux défenses immunitaires et à la structure des tissus corporels",
-        "Elles dissolvent les sels minéraux dans le sang pour remplacer l'eau indispensable aux cellules",
-        "Elles empêchent le vieillissement des os en stockant les lipides sous forme de réserves stables"
+        "Elles assurent la réserve instantanée d'énergie sous forme de glycogène pour les muscles",
+        "Elles permettent la synthèse du glucose à partir des sels minéraux absorbés par la peau"
       ]
     ],
     "justificationFr": "Explication physiologique détaillée du rôle métabolique des nutriments et de l'importance des protéines.",
@@ -1196,8 +1196,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le thème traité dans ce document ?",
         "Les apports et les fonctions vitales des lipides, des glucides et de l'eau dans l'organisme",
-        "La comparaison de la valeur calorique des boissons sucrées et des huiles végétales pures",
-        "Les risques liés à la consommation excessive de sel de table sur la pression artérielle"
+        "L'effet négatif de la consommation de glucose sur les membranes cellulaires des neurones",
+        "La supériorité calorique des glucides complexes par rapport aux lipides de l'organisme"
       ],
       [
         "Quelle molécule les cellules musculaires et nerveuses utilisent-elles comme carburant direct ?",
@@ -1208,8 +1208,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi l'eau est-elle jugée indispensable à la survie humaine d'après le texte ?",
         "Elle sert de solvant polaire essentiel aux réactions chimiques et hydrate les tissus vivants",
-        "Elle constitue le principal nutriment calorique nécessaire à la fabrication des hormones",
-        "Elle permet aux cellules du cerveau de se multiplier rapidement sans apport d'autres aliments"
+        "Elle remplace le glucose pour approvisionner directement les cellules nerveuses en énergie",
+        "Elle forme la bicouche de phospholipides qui protège la membrane des organes vitaux"
       ]
     ],
     "justificationFr": "Fonctions biochimiques des lipides, des glucides et de l'eau dans le métabolisme cellulaire humain.",
@@ -1238,13 +1238,13 @@ export const REAL_READING_PASSAGES = [
         "Quelle idée directrice ce texte expose-t-il ?",
         "L'origine humaine du réchauffement contemporain et les gaz à effet de serre en cause",
         "L'influence prépondérante des cycles d'activité solaire sur les saisons terrestres",
-        "Les conséquences de la fonte des glaces de montagne sur le trafic maritime mondial"
+        "L'explication des variations du climat par la seule évaporation de la vapeur d'eau"
       ],
       [
         "Quels deux gaz représentent 90 % des émissions de gaz à effet de serre d'origine humaine ?",
         "Le dioxyde de carbone et le méthane",
-        "L'azote et l'argon atmosphérique",
-        "L'oxygène et l'hélium naturel"
+        "La vapeur d'eau et l'ozone gazeux",
+        "Le monoxyde de carbone et l'azote"
       ],
       [
         "Que signifie la notion de « consensus scientifique » employée dans le deuxième paragraphe ?",
@@ -1276,7 +1276,7 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle est la portée globale de cet extrait ?",
         "La multiplicité des conséquences environnementales et sanitaires de la hausse des températures",
-        "L'histoire de la création du Groupe d'experts intergouvernemental sur l'évolution du climat",
+        "La disparition progressive de tous les feux de forêt sous l'effet de l'acidification marine",
         "Le ralentissement des vagues de chaleur constaté dans les régions entourant le pôle Nord"
       ],
       [
@@ -1288,8 +1288,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Que désigne l'expression « points de basculement » dans les rapports du GIEC ?",
         "Des seuils climatiques critiques au-delà desquels des bouleversements majeurs deviennent irréversibles",
-        "Des dates précises où les pays développés cesseront définitivement d'émettre des gaz polluants",
-        "Des zones géographiques isolées où la température moyenne baisse au lieu d'augmenter régulièrement"
+        "Des paliers de température à partir desquels le niveau de la mer recommence à baisser naturellement",
+        "Des moments précis où les feux de forêt cessent de libérer du dioxyde de carbone dans l'atmosphère"
       ]
     ],
     "justificationFr": "Exposé approfondi des impacts climatiques à l'échelle planétaire, des points de basculement et des projections du GIEC.",
@@ -1316,20 +1316,20 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle distinction stratégique ce texte détaille-t-il ?",
         "L'articulation entre l'atténuation des émissions et l'adaptation aux impacts climatiques",
-        "La concurrence entre les énergies renouvelables et l'industrie minière des pays du Sud",
-        "Le débat juridique sur l'indemnisation des pays côtiers touchés par les marées noires"
+        "La rivalité entre le déploiement du nucléaire et les projets de protection du littoral",
+        "La séparation stricte entre les objectifs de l'accord de Paris et l'action scientifique"
       ],
       [
         "Quel objectif chiffré les signataires de l'accord de Paris de 2015 ont-ils fixé ?",
         "Contenir le réchauffement terrestre nettement sous la barre des 2 °C",
         "Tolérer une hausse planétaire plafonnée à un seuil maximal de 4 °C",
-        "Supprimer la moitié des surfaces boisées d'ici la conclusion du siècle"
+        "Réduire de moitié les émissions de gaz à effet de serre d'ici 2050"
       ],
       [
         "D'après le rapport du GIEC mentionné, pourquoi l'adaptation ne suffit-elle pas à elle seule ?",
         "Elle ne peut éviter à elle seule la survenue d'effets sévères, durables et irréversibles",
-        "Elle coûte beaucoup plus cher aux États que le remplacement complet des centrales nucléaires",
-        "Elle incite les populations à consommer davantage d'énergies fossiles au lieu de les réduire"
+        "Elle exige l'arrêt préalable de toutes les cultures agricoles dans les zones côtières",
+        "Elle ne protège efficacement les populations que contre les aléas de court terme prévus"
       ]
     ],
     "justificationFr": "Distinction stratégique entre atténuation et adaptation face aux engagements de l'accord de Paris.",
@@ -1356,20 +1356,20 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le sujet principal présenté dans ce texte ?",
         "Le rôle, l'organisation et les origines historiques de l'Assemblée nationale du Québec",
-        "Les relations diplomatiques entre le premier ministre québécois et les dirigeants étrangers",
-        "Le mode de financement des campagnes électorales des partis politiques municipaux"
+        "Le mode de désignation et les compétences constitutionnelles du lieutenant-gouverneur",
+        "Le fonctionnement du Conseil législatif et l'élection de ses membres au suffrage universel"
       ],
       [
         "Depuis quelle année l'Assemblée nationale est-elle devenue la seule chambre du Parlement québécois ?",
         "Depuis l'abolition du Conseil législatif en 1968",
         "Depuis la première élection provinciale tenue en 1792",
-        "Depuis l'agrandissement de l'hôtel du Parlement en 2026"
+        "Depuis la création de la 34e Législature du Québec"
       ],
       [
         "Que traduit la longévité de la pratique parlementaire au Bas-Canada mentionnée dans le texte ?",
         "Le Québec possède l'une des traditions démocratiques représentatives les plus anciennes au monde",
         "Les parlementaires québécois appliquent un modèle constitutionnel unique sans aucun vote populaire",
-        "Le lieutenant-gouverneur exerce un pouvoir absolu et rejette régulièrement les lois votées"
+        "Le premier orateur de la Chambre avait le droit exclusif de modifier le résultat des scrutins"
       ]
     ],
     "justificationFr": "Présentation des compétences législatives, du mode de scrutin et des origines historiques de l'Assemblée nationale.",
@@ -1400,7 +1400,7 @@ export const REAL_READING_PASSAGES = [
         "Quelle évolution historique est retracée dans cet extrait ?",
         "Le parcours institutionnel du parlement québécois de la rébellion des Patriotes à l'unicaméralisme",
         "La rivalité entre les députés de Montréal et ceux de Québec pour fixer le lieu de la capitale",
-        "La rédaction de la première constitution écrite de la république libre du Bas-Canada en 1840"
+        "La proclamation d'un parlement souverain sans aucun lien avec la Couronne britannique en 1867"
       ],
       [
         "Quelle loi britannique a restitué le Parlement du Québec en 1867 ?",
@@ -1411,8 +1411,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle transformation majeure est intervenue le 18 décembre 1968 ?",
         "La suppression de la chambre haute a instauré un système parlementaire à chambre unique",
-        "Les députés ont décidé de confier la présidence des débats au lieutenant-gouverneur provincial",
-        "Les conseillers nommés à vie ont reçu le pouvoir exclusif d'adopter le budget annuel du Québec"
+        "Le Conseil législatif a obtenu la prérogative de dissoudre l'Assemblée à la demande des juges",
+        "Les vingt-quatre conseillers ont vu leur mandat à vie prolongé sans contrôle de l'Assemblée"
       ]
     ],
     "justificationFr": "Histoire constitutionnelle québécoise depuis la rébellion des Patriotes jusqu'à l'avènement du parlement unicaméral.",
@@ -1439,20 +1439,20 @@ export const REAL_READING_PASSAGES = [
       [
         "Que détaille cet extrait sur le Parlement fédéral canadien ?",
         "La composition du Parlement canadien et les raisons stratégiques du choix d'Ottawa",
-        "Les débats oratoires entre les ministres fédéraux lors des sessions de la Chambre",
-        "L'architecture victorienne des édifices construits sur la colline parlementaire"
+        "La désignation des hauts magistrats par le Premier ministre dans les tribunaux",
+        "Le transfert des résidences officielles des ministres vers Kingston et Québec"
       ],
       [
         "Quelles sont les trois composantes du Parlement du Canada selon le texte ?",
         "La Couronne ainsi que les deux chambres parlementaires",
         "Le chef du gouvernement assisté des hauts magistrats",
-        "Le représentant de la reine entouré des maires élus"
+        "Le souverain, les premiers ministres et les préfets"
       ],
       [
         "Pourquoi la reine Victoria a-t-elle choisi Ottawa plutôt que Montréal ou Québec en 1857 ?",
-        "Sa position entre anglophones et francophones et sa distance de la frontière offraient sécurité et neutralité",
-        "Ottawa comptait une population beaucoup plus nombreuse que les autres grandes villes établies",
-        "Les chefs des Premières Nations exigeaient que le siège du gouvernement soit implanté sur leur réserve"
+        "Sa situation centrale évitait les conflits linguistiques et assurait la sécurité militaire",
+        "Ottawa comptait une population beaucoup plus nombreuse que les grandes cités rivales",
+        "La ville disposait d'un accès direct à l'océan Atlantique pour les convois de la Couronne"
       ]
     ],
     "justificationFr": "Structure du Parlement canadien, fondements du modèle de Westminster et motifs géopolitiques du choix d'Ottawa.",
@@ -1480,7 +1480,7 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle thèse centrale sur la création du Canada en 1867 ce passage expose-t-il ?",
         "La fédération canadienne a été conçue comme un État centralisé et juridiquement subordonné à Londres",
-        "Les pères de la confédération ont copié mot pour mot la constitution des États-Unis d'Amérique",
+        "Le Canada a instauré un gouvernement central faible pour reproduire le modèle des États américains",
         "Les provinces canadiennes ont obtenu une souveraineté internationale totale dès la signature de l'accord"
       ],
       [
@@ -1492,8 +1492,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi le Canada de 1867 n'était-il pas pleinement souverain sur le plan international ?",
         "Ses affaires étrangères et sa diplomatie demeuraient sous le contrôle direct de la Couronne britannique",
-        "Le président américain disposait d'un droit de veto officiel sur toutes les lois votées à Ottawa",
-        "Les juges des cours provinciales devaient prêter serment d'allégeance au gouverneur des États voisins"
+        "Le gouverneur général devait soumettre chaque traité commercial à l'approbation du Congrès américain",
+        "Toute modification des compétences provinciales devait faire l'objet d'un vote du Sénat des États-Unis"
       ]
     ],
     "justificationFr": "Analyse constitutionnelle comparée de la création de la fédération canadienne influencée par la guerre de Sécession.",
@@ -1532,8 +1532,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Que reprochaient les députés Henri Bourassa et Armand Lavergne à Ottawa en 1907 ?",
         "De tenter d’assimiler la population canadienne-française",
-        "D'interdire l'arrivée des ouvriers agricoles d'Europe",
-        "De refuser d'indemniser les propriétaires francophones"
+        "De refuser l'entrée aux immigrants de foi catholique",
+        "D'exiger des cours d'anglais aux ouvriers irlandais"
       ]
     ],
     "justificationFr": "Évolution historique de l'immigration au Canada et revendication québécoise de sa propre politique d'accueil.",
@@ -1559,8 +1559,8 @@ export const REAL_READING_PASSAGES = [
       [
         "De quoi traite ce passage historique ?",
         "Du recrutement de colons pour l'Ouest canadien et des dérives du système des padroni",
-        "De la rivalité commerciale entre les compagnies maritimes desservant l'Atlantique nord",
-        "Des lois votées à Londres pour empêcher les départs d'ouvriers d'usine vers l'Amérique"
+        "De la fermeture définitive des mines de charbon dans les provinces de l'Ouest canadien",
+        "De l'interdiction faite aux entreprises ferroviaires d'employer des candidats italiens"
       ],
       [
         "Quelle compagnie a congédié son principal intermédiaire à la suite de l'enquête royale ?",
@@ -1571,8 +1571,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel rôle les « padroni » jouaient-ils auprès des migrants italiens selon le texte ?",
         "Ils servaient d'intermédiaires de recrutement en facturant abusivement leurs prestations",
-        "Ils assuraient gratuitement leur formation linguistique avant leur départ pour le Canada",
-        "Ils représentaient officiellement le gouvernement d'Ottawa lors des contrôles douaniers"
+        "Ils achetaient directement les concessions agricoles pour le compte des nouveaux colons",
+        "Ils finançaient sur leurs fonds propres le voyage en train des familles vers le Manitoba"
       ]
     ],
     "justificationFr": "Colonisation de l'Ouest canadien, encadrement législatif et régulation des intermédiaires du travail.",
@@ -1597,8 +1597,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle réalité des flux migratoires canadiens ce texte met-il en évidence ?",
         "Les législations restrictives envers certaines communautés et l'émigration massive vers les États-Unis",
-        "L'ouverture inconditionnelle des frontières canadiennes aux travailleurs non qualifiés d'Asie",
-        "La création d'un programme fédéral d'aide au retour pour les émigrants installés aux États-Unis"
+        "L'exemption totale de droit d'entrée pour les ouvriers employés sur le chantier du chemin de fer",
+        "L'interdiction formelle pour les citoyens canadiens de quitter le pays pour s'installer au Sud"
       ],
       [
         "À combien s'élevait la taxe d'entrée imposée aux immigrants chinois en 1903 ?",
@@ -1609,8 +1609,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi de nombreux immigrants et Canadiens quittaient-ils le Canada pour les États-Unis ?",
         "Ils étaient attirés par la prospérité économique et les emplois des grands centres manufacturiers voisins",
-        "Ils cherchaient à fonder des exploitations agricoles dans les régions rurales du sud américain",
-        "Ils voulaient contourner les taxes d'entrée imposées sur les chantiers ferroviaires transfrontaliers"
+        "Ils espéraient bénéficier de salaires journaliers plus faibles pour éviter les syndicats locaux",
+        "Ils cherchaient à échapper au travail en usine en refusant les emplois du secteur manufacturier"
       ]
     ],
     "justificationFr": "Histoire des politiques d'exclusion migratoire au Canada et contrebalancement par l'émigration vers les États-Unis.",
@@ -1638,13 +1638,13 @@ export const REAL_READING_PASSAGES = [
         "Quel portrait global ce texte dresse-t-il de Montréal ?",
         "Une vue d'ensemble géographique, démographique, linguistique et institutionnelle de la métropole",
         "Une analyse détaillée des performances économiques du port maritime situé sur le Saint-Laurent",
-        "Un historique des fouilles archéologiques conduites sur les îles de l'archipel d'Hochelaga"
+        "Une présentation centrée sur l'organisation administrative exclusive des dix-neuf arrondissements"
       ],
       [
         "Quel organisme international a son siège établi à Montréal selon le document ?",
         "L'agence onusienne régissant l'aviation civile mondiale",
-        "L'institution mondiale chargée du commerce transatlantique",
-        "Le comité international chapeautant les olympiades d'hiver"
+        "Le conseil mondial chargé des transports ferroviaires",
+        "Le tribunal international sur le droit maritime fluvial"
       ],
       [
         "Que révèle la statistique sur les compétences linguistiques des Montréalais ?",
@@ -1676,8 +1676,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le sujet développé dans cet extrait ?",
         "Le dynamisme économique, culturel, sportif et universitaire de Montréal sur le plan mondial",
-        "La rénovation des infrastructures souterraines du réseau de transport en commun de la ville",
-        "Les difficultés financières rencontrées par les équipes de hockey professionnel québécoises"
+        "L'impact du trafic de l'aéroport international sur les entreprises de jeux vidéo locales",
+        "Le déclin du nombre d'étudiants inscrits dans les universités et les centres de recherche"
       ],
       [
         "Combien d'immigrants établis au Québec depuis dix ans résident à Montréal et ses banlieues ?",
@@ -1688,8 +1688,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi Montréal est-elle considérée comme une destination universitaire de premier plan ?",
         "Elle compte six universités réputées et se classe parmi les meilleures villes étudiantes au monde",
-        "Elle héberge le siège permanent de plus de quatre cents associations étudiantes étrangères",
-        "Elle accueille chaque année l'ensemble des compétitions universitaires d'Amérique du Nord"
+        "Elle concentre plus de quatre cents sièges sociaux d'organisations internationales étudiantes",
+        "Elle dispense un enseignement gratuit dans l'ensemble des centres de recherche de la métropole"
       ]
     ],
     "justificationFr": "Rayonnement économique, attractivité universitaire et vitalité culturelle de la métropole montréalaise.",
@@ -1716,20 +1716,20 @@ export const REAL_READING_PASSAGES = [
       [
         "De quoi traite ce texte de présentation de la ville de Québec ?",
         "De son statut de capitale, de son ancienneté et de son patrimoine historique fortifié",
-        "Des rivalités politiques contemporaines entre les députés de l'est et de l'ouest du pays",
-        "De l'industrie manufacturière moderne développée le long des rives du fleuve Saint-Laurent"
+        "De la fondation exclusive des institutions religieuses dans l'agglomération de Lévis",
+        "Du tracé des remparts modernes construits au Mexique pour protéger les institutions"
       ],
       [
         "Que signifie le mot d'origine algonquine qui a donné son nom à la ville de Québec ?",
         "L'endroit où les eaux du fleuve se resserrent",
-        "Le promontoire sacré baigné par la brume",
-        "Le vaste bassin où dorment les navires"
+        "La colline où la falaise rejoint la rive",
+        "Le passage rocheux qui domine les flots"
       ],
       [
         "Quelle distinction l'UNESCO a-t-elle accordée au Vieux-Québec en 1985 ?",
         "La reconnaissance officielle comme site du patrimoine mondial",
-        "Le classement prioritaire comme réserve de biosphère côtière",
-        "Le titre exclusif de première capitale culturelle d'Amérique"
+        "L'inscription spéciale sur la liste des cités maritimes en péril",
+        "Le statut de capitale coloniale protégée de la Nouvelle-France"
       ]
     ],
     "justificationFr": "Présentation patrimoniale et historique de la capitale québécoise, seule ville fortifiée au nord du Mexique.",
@@ -1757,8 +1757,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le sujet central de ce passage ?",
         "La prospérité économique, le rayonnement culturel et la valeur patrimoniale de Québec",
-        "Les règles de navigation fluviale imposées aux paquebots de croisière sur le Saint-Laurent",
-        "L'histoire de la construction des lignes de chemin de fer reliant Calgary à la Côte Est"
+        "La rivalité commerciale exclusive entre le port de Québec et les chantiers de Saskatoon",
+        "Le déclin du tourisme de croisière et la hausse du chômage urbain depuis les années 2000"
       ],
       [
         "Quel hôtel emblématique situé dans le Vieux-Québec est considéré comme le plus photographié au monde ?",
@@ -1768,9 +1768,9 @@ export const REAL_READING_PASSAGES = [
       ],
       [
         "Quelle règle d'usage linguistique le texte rappelle-t-il pour éviter toute confusion géographique ?",
-        "Employer « à Québec » pour la ville et « au Québec » pour désigner la province dans son ensemble",
-        "Utiliser toujours le nom anglais de la capitale lors des échanges commerciaux internationaux",
-        "Supprimer l'article défini devant le nom de la cité dans tous les documents administratifs"
+        "Dire « à Québec » pour la ville et « au Québec » pour désigner la province",
+        "Employer « de Québec » pour la province et « du Québec » pour la seule cité",
+        "Utiliser indifféremment les prépositions « à » et « en » pour la capitale"
       ]
     ],
     "justificationFr": "Dynamisme économique contemporain, distinction d'usage toponymique et célébration du 400e anniversaire de Québec.",
@@ -1799,7 +1799,7 @@ export const REAL_READING_PASSAGES = [
         "Quelle évolution historique ce texte retrace-t-il à propos du 24 juin ?",
         "Le passage d'une célébration païenne du solstice d'été à la fête nationale des Québécois",
         "La décision politique prise en 1925 pour obliger les entreprises à fermer le jour férié",
-        "Les différends religieux entre les missionnaires chrétiens et les chefs des tribus amérindiennes"
+        "L'interdiction des feux de joie par l'Église catholique dès l'instauration du christianisme"
       ],
       [
         "En quelle année un décret officiel du gouvernement a-t-il proclamé la fête nationale du Québec ?",
@@ -1810,8 +1810,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi le solstice d'été était-il célébré par de grands feux de joie dans les temps anciens ?",
         "Pour prolonger symboliquement la clarté solaire avant d'entamer les lourds travaux agricoles",
-        "Pour prévenir les invasions ennemies en signalant la présence des guerriers sur les collines",
-        "Pour consumer les surplus de récoltes de l'année précédente avant le début de l'hiver froid"
+        "Pour brûler les herbes indésirables avant de commencer les premiers semis du début de l'été",
+        "Pour marquer la fin définitive des moissons et célébrer le stockage des céréales au village"
       ]
     ],
     "justificationFr": "Histoire culturelle de la Fête nationale du Québec, du solstice d'été païen à la célébration identitaire contemporaine.",
@@ -1839,20 +1839,20 @@ export const REAL_READING_PASSAGES = [
       [
         "De quoi traite ce texte sur les festivités de la Saint-Jean en Nouvelle-France ?",
         "Des rites populaires traditionnels associés au feu et à l'eau lors de la nuit festive",
-        "Des disputes fréquentes entre les autorités civiles et le clergé pour allumer le bûcher",
+        "Du refus des colons normands de reproduire les coutumes des feux en Nouvelle-France",
         "Des canons de marine tirés dans le port de Québec lors de la visite des gouverneurs royaux"
       ],
       [
         "Que promettait la tradition aux jeunes filles qui réussissaient à sauter par-dessus le feu de joie ?",
         "Elles allaient se marier dans l'année qui suivait",
-        "Elles obtenaient une place de choix au banquet paroissial",
-        "Elles étaient protégées des maladies durant tout l'hiver"
+        "Elles étaient dispensées des corvées de moisson",
+        "Elles choisissaient le lieu du bûcher paroissial"
       ],
       [
         "Pourquoi la coutume autorisait-elle la première baignade de l'année le soir du 23 juin ?",
         "L'eau était jugée assez tiède et se voyait attribuer des vertus spirituelles de guérison",
-        "Les règlements de police municipale interdisaient tout accès aux fleuves durant le printemps",
-        "Les fidèles devaient obligatoirement se purifier pour assister à la messe dite le lendemain"
+        "L'Église imposait ce bain rituel comme condition préalable pour allumer le bûcher sacré",
+        "Les colons pensaient que l'eau du fleuve perdait toute fraîcheur dès le coucher du soleil"
       ]
     ],
     "justificationFr": "Coutumes traditionnelles de la Saint-Jean en Nouvelle-France : feux de joie, rituels communautaires et vertus attribuées à l'eau.",
@@ -1879,8 +1879,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le sujet principal exposé dans cet extrait ?",
         "La montée en popularité de saint Jean Baptiste et son adoption comme symbole identitaire",
-        "Le conflit de doctrine entre les jésuites et les évêques sur le choix du calendrier religieux",
-        "La liste des patronymes d'origine française les plus portés par les enfants nés à Montréal"
+        "La disparition progressive de la Saint-Jean-Baptiste au début du XIXe siècle",
+        "L'interdiction faite aux familles de donner le prénom Jean-Baptiste à leur fils"
       ],
       [
         "Quel saint était initialement le saint patron officiel de la Nouvelle-France au tout début de la colonie ?",
@@ -1891,8 +1891,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi la date du 24 juin a-t-elle finalement supplanté la fête de saint Joseph le 19 mars ?",
         "Le climat de fin juin était bien plus agréable et propice aux rassemblements populaires en plein air",
-        "Les autorités militaires exigeaient que tous les colons s'entraînent au tir au début du printemps",
-        "L'Église de Rome avait officiellement radié la fête de mars pour cause d'hérésie doctrinale"
+        "Les autorités religieuses imposaient une messe obligatoire chaque 19 mars aux colons",
+        "Le roi de France avait interdit toute célébration de la Saint-Jean sur ses colonies"
       ]
     ],
     "justificationFr": "Évolution du culte populaire de la Saint-Jean en Nouvelle-France et adoption du patronyme comme symbole identitaire.",
@@ -1918,8 +1918,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le thème traité dans ce document ?",
         "L'origine romaine de la fête de Noël et son implantation sur d'anciens cultes solaires",
-        "Les divergences liturgiques entre les églises d'Orient et les communautés d'Occident",
-        "Le déclin irrémédiable de toute forme de tradition festive dans les foyers contemporains"
+        "Les querelles théologiques sur la date réelle de la naissance de Jésus-Christ",
+        "La fixation de la fête de Noël au solstice d'été dans les pays nordiques"
       ],
       [
         "Au cours de quel siècle la fête de Noël a-t-elle été instituée le 25 décembre dans l'Empire romain ?",
@@ -1930,8 +1930,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Comment l'Église primitive a-t-elle favorisé l'adoption du 25 décembre auprès des populations ?",
         "En présentant le Christ comme une lumière nouvelle remplaçant les fêtes païennes du solstice",
-        "En contraignant tous les marchands de l'Empire à fermer leurs boutiques sous peine d'amende",
-        "En interdisant la célébration de toute autre fête religieuse durant l'ensemble de l'hiver boréal"
+        "En obligeant les prêtres à célébrer la messe de Noël dans chaque village",
+        "En imposant le jeûne aux paysans durant les fêtes de la moisson d'août"
       ]
     ],
     "justificationFr": "Origines historiques de Noël, substitution aux fêtes du solstice d'hiver et sécularisation contemporaine.",
@@ -1957,8 +1957,8 @@ export const REAL_READING_PASSAGES = [
       [
         "De quoi traite ce texte sur les pratiques de Noël ?",
         "De la sécularisation moderne de Noël et des particularités des calendriers civil et liturgique",
-        "De la rivalité commerciale entre les fabricants de jouets en Pologne et au Royaume-Uni",
-        "Du rôle exclusif des célébrations religieuses dans les départements de l'est de la France"
+        "De la suppression progressive du jour férié du 26 décembre dans l'ensemble de l'Europe",
+        "De la baisse constante des dépenses familiales consacrées aux repas de fête"
       ],
       [
         "Quels départements français bénéficient d'un jour férié le 26 décembre en plus du jour de Noël ?",
@@ -1969,8 +1969,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Que démontre l'engouement universel pour le personnage du père Noël au XXe siècle ?",
         "La fête s'est enrichie d'une dimension laïque et familiale centrée sur les enfants et les cadeaux",
-        "Les réjouissances familiales ont été supplantées par l'obligation de participer aux messes",
-        "L'échange de cadeaux a été circonscrit aux cercles ecclésiastiques et aux orphelinats paroissiaux"
+        "Les messes de minuit ont été interdites au profit des repas de fête publics",
+        "Les familles ont renoncé aux sapins au profit de décorations exclusivement religieuses"
       ]
     ],
     "justificationFr": "Sécularisation de Noël, mondialisation du père Noël et spécificités du calendrier liturgique et civil en Europe.",
