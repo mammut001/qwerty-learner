@@ -7,6 +7,7 @@ import { useCallback, useState } from 'react'
 
 export default function DataSetting() {
   const [isExporting, setIsExporting] = useState(false)
+  const [dataError, setDataError] = useState('')
   const [exportProgress, setExportProgress] = useState(0)
 
   const [isImporting, setIsImporting] = useState(false)
@@ -14,12 +15,11 @@ export default function DataSetting() {
 
   const exportProgressCallback = useCallback(({ totalRows, completedRows, done }: ExportProgress) => {
     if (done) {
-      setIsExporting(false)
-      setExportProgress(100)
+      setExportProgress(99)
       return true
     }
     if (totalRows) {
-      setExportProgress(Math.floor((completedRows / totalRows) * 100))
+      setExportProgress(Math.min(99, Math.floor((completedRows / totalRows) * 100)))
     }
 
     return true
@@ -28,17 +28,23 @@ export default function DataSetting() {
   const onClickExport = useCallback(() => {
     setExportProgress(0)
     setIsExporting(true)
+    setDataError('')
     exportDatabase(exportProgressCallback)
+      .then(() => setExportProgress(100))
+      .catch(() => {
+        setExportProgress(0)
+        setDataError('导出失败，请重试。若仍失败，请刷新页面后重试。')
+      })
+      .finally(() => setIsExporting(false))
   }, [exportProgressCallback])
 
   const importProgressCallback = useCallback(({ totalRows, completedRows, done }: ImportProgress) => {
     if (done) {
-      setIsImporting(false)
-      setImportProgress(100)
+      setImportProgress(99)
       return true
     }
     if (totalRows) {
-      setImportProgress(Math.floor((completedRows / totalRows) * 100))
+      setImportProgress(Math.min(99, Math.floor((completedRows / totalRows) * 100)))
     }
 
     return true
@@ -50,19 +56,32 @@ export default function DataSetting() {
   }, [])
 
   const onClickImport = useCallback(() => {
+    setDataError('')
+    setIsImporting(true)
     importDatabase(onStartImport, importProgressCallback)
+      .then((imported) => {
+        if (imported) setImportProgress(100)
+      })
+      .catch(() => {
+        setImportProgress(0)
+        setDataError('导入失败，请选择有效的 .gz 备份文件后重试。')
+      })
+      .finally(() => setIsImporting(false))
   }, [importProgressCallback, onStartImport])
 
   return (
     <ScrollArea.Root className="flex-1 select-none overflow-y-auto ">
       <ScrollArea.Viewport className="h-full w-full px-3">
         <div className={styles.tabContent}>
+          {dataError && (
+            <p role="alert" className="px-4 text-sm text-red-500">
+              {dataError}
+            </p>
+          )}
           <div className={styles.section}>
             <span className={styles.sectionLabel}>数据导出</span>
             <span className={styles.sectionDescription}>
-              目前，用户的练习数据<strong>仅保存在本地</strong>。如果您需要在不同的设备、浏览器或者其他非官方部署上使用 Qwerty Learner，
-              您需要手动进行数据同步和保存。为了保留您的练习进度，以及使用近期即将上线的数据分析和智能训练功能，
-              我们建议您及时备份您的数据。
+              将当前浏览器中的练习记录导出为 .gz 备份文件，便于保存或迁移到其他浏览器。建议在导入备份或清理浏览器数据前先导出。
             </span>
             <span className="pl-4 text-left text-sm font-bold leading-tight text-red-500">
               为了您的数据安全，请不要修改导出的数据文件。
@@ -84,7 +103,8 @@ export default function DataSetting() {
               className="my-btn-primary ml-4 disabled:bg-gray-300"
               type="button"
               onClick={onClickExport}
-              disabled={isExporting}
+              disabled={isExporting || isImporting}
+              aria-busy={isExporting}
               title="导出数据"
             >
               导出数据
@@ -113,7 +133,8 @@ export default function DataSetting() {
               className="my-btn-primary ml-4 disabled:bg-gray-300"
               type="button"
               onClick={onClickImport}
-              disabled={isImporting}
+              disabled={isImporting || isExporting}
+              aria-busy={isImporting}
               title="导入数据"
             >
               导入数据
