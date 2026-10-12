@@ -219,7 +219,7 @@ export const N03_L_1 = [
         text,
         questions: [
           q('同事计划在周末做什么？', plan.actZh, othersPlan[0].actZh, othersPlan[1].actZh, [plan.day.toLowerCase()]),
-          q('面对询问，合适的回答是：', 'Moi, je vais me reposer à la maison.', 'La réunion d’équipe débute à dix heures.', 'Le rapport complet est envoyé ce matin.', ['prévu']),
+          q('面对询问，合适的回答是：', 'Moi, je vais me reposer à la maison.', 'Oui, je suis resté chez moi hier soir.', 'Non, je prends le métro chaque matin.', ['prévu']),
         ],
       }
     },
@@ -253,7 +253,7 @@ export const N03_L_1 = [
         text,
         questions: [
           q('同事邀请对方去哪里用餐？', lunch.placeZh, othersLunch[0].placeZh, othersLunch[1].placeZh, [lunch.place.split(' ')[1].toLowerCase()]),
-          q('面对邀请，合适的回答是：', 'Avec plaisir, j’arrive dans cinq minutes.', 'La pause pour dîner termine à treize heures.', 'La réunion d’équipe commence à treize heures.', ['dîner']),
+          q('面对邀请，合适的回答是：', 'Avec plaisir, j’arrive dans cinq minutes.', 'Oui, j’ai déjà imprimé tous les dossiers.', 'Non, j’ai envoyé le courriel ce matin.', ['dîner']),
         ],
       }
     },
@@ -264,7 +264,7 @@ export const N03_L_1 = [
     situation: 0,
     text: '— Excuse-moi Carlos, est-ce que tu as rempli la demande d’aide financière pour les cours ? Je ne comprends pas où écrire mon numéro d’assurance sociale.',
     questions: [
-      q('朋友在咨询关于什么的疑问？', '助学贷款申请表格', '学期学费减免申请', '大学奖学金申请表', ['aide financière']),
+      q('朋友在咨询关于什么的疑问？', '助学贷款申请表格', '学生宿舍申请表格', '课程注册申请表格', ['aide financière']),
       q('面对求助，合适的回答是：', 'Viens, je vais te montrer la case.', 'Non, j’ai déjà envoyé ma demande hier.', 'Oui, la date limite est le trente avril.', ['assurance sociale']),
     ],
   },
@@ -274,7 +274,7 @@ export const N03_L_1 = [
     text: '— Salut Martin ! Tu as des projets pour la longue fin de semaine ? Nous partons deux jours en camping dans Charlevoix s’il fait beau. Tu viens avec nous ?',
     questions: [
       q('马丁被邀请参加什么活动？', '去夏勒瓦地区露营', '在市中心商场购物', '去市立图书馆复习', ['camping', 'Charlevoix']),
-      q('面对邀请，合适的回答是：', 'Merci, mais j’ai déjà un engagement.', 'La météo annonce de la pluie samedi.', 'Le trajet dure environ trois heures.', ['projets']),
+      q('面对邀请，合适的回答是：', 'Merci, mais j’ai déjà un engagement.', 'Non, j’ai déjà posté la lettre hier.', 'Oui, le magasin est ouvert ce midi.', ['projets']),
     ],
   },
 ]
@@ -432,7 +432,7 @@ const N3_MED_DOSAGES = [
 const N3_MED_ADVICES = [
   { fr: 'Buvez beaucoup d’eau dans la journée.', zh: '白天多喝温水补充水分' },
   { fr: 'Reposez-vous bien pour vite récupérer.', zh: '充分卧床休息加快恢复' },
-  { fr: 'Ne dépassez jamais la dose recommandée.', zh: '严格按医嘱剂量切勿过量' },
+  { fr: 'Évitez toute exposition au soleil.', zh: '服药期间避免阳光暴晒' },
   { fr: 'Gardez ce flacon dans un endroit frais.', zh: '将药瓶放置阴凉干燥处' },
 ]
 const N3_IT_DEVICES = [
@@ -555,7 +555,7 @@ export const N03_L_3 = [
 const N3_COMPLIMENTS = [
   { item: 'ton veston bleu', kw: 'veston', adj: 'très élégant', itemZh: '蓝色外套', effectZh: '显得大方得体' },
   { item: 'ta chemise blanche', kw: 'chemise', adj: 'vraiment impeccable', itemZh: '白色衬衫', effectZh: '显得干净整洁' },
-  { item: 'ta belle veste', kw: 'veste', adj: 'très soignée', itemZh: '漂亮的夹克', effectZh: '很有职业精神' },
+  { item: 'ta belle veste', kw: 'veste', adj: 'très soignée', itemZh: '漂亮的夹克', effectZh: '给人极佳印象' },
   { item: 'ton joli foulard', kw: 'foulard', adj: 'superbe', itemZh: '好看的围巾', effectZh: '显得现代大方' },
   { item: 'ton pull en laine', kw: 'pull', adj: 'très chic', itemZh: '羊毛毛衣', effectZh: '款式大方端庄' },
 ]
@@ -589,10 +589,10 @@ const N3_FALSE_WISHES = [
 ]
 
 const N3_FALSE_COMPLIMENTS = [
-  '面料格外防水耐磨',
-  '款式十分御寒保暖',
-  '衣服质地非常轻便',
-  '口袋设计十分实用',
+  '鞋子颜色非常亮眼',
+  '发型显得非常年轻',
+  '手表款式十分昂贵',
+  '首饰搭配十分华丽',
 ]
 
 const N3_EXAM_SUCCESSES = [
@@ -733,7 +733,7 @@ export const N03_R_0 = [
       return {
         text,
         questions: [
-          q('De quel évènement s’agit-il dans cet avis ?', 'la rencontre parents-enseignant', 'la sortie scolaire au grand musée', 'la fête de quartier pour l’école', ['rencontre']),
+          q('De quel évènement s’agit-il dans cet avis ?', 'la rencontre parents-enseignants', 'la sortie scolaire au grand musée', 'la fête de quartier pour l’école', ['rencontre']),
           q('Avant quelle date doit-on confirmer sa venue ?', `avant ${ev.rsvp}`, ev.rsvpBad1, ev.rsvpBad2, [ev.rsvp.toLowerCase()]),
         ],
       }
@@ -952,7 +952,7 @@ export const N03_R_2 = [
         text,
         questions: [
           q('Combien coûte le loyer de ce logement ?', rent, '2 500 $ par mois', '450 $ par mois', [rent.split(' ')[0]]),
-          q('Quelle caractéristique intérieure est mentionnée ?', 'planchers en bois et balcon privé', 'cuisine ouverte avec îlot central', 'grand foyer au gaz dans le salon', ['planchers']),
+          q('Quelle caractéristique du logement est mentionnée ?', 'planchers en bois et balcon privé', 'cuisine ouverte avec îlot central', 'grand foyer au gaz dans le salon', ['planchers']),
         ],
       }
     },
@@ -1024,13 +1024,13 @@ const N3_CLEANER_BRANDS = ['Éco-Ménage', 'Net-Maison', 'Pur-Québec', 'Bio-Pro
 const N3_PHARMA_DATA = [
   { med: 'Comprimés contre le rhume', dose: 'Prendre un comprimé aux six heures.', doseP: 'un comprimé toutes les six heures', falseDoses: ['un comprimé matin et soir au repas', 'deux comprimés avant de dormir'], kwDose: 'comprimé', max: 'Ne pas dépasser quatre prises par jour.', dur: 'cinq jours consécutifs', store: 'Garder dans un endroit sec.', storeP: 'garder dans un endroit bien sec', kwStore: 'sec' },
   { med: 'Sirop contre la toux sèche', dose: 'Prendre une cuillère matin et soir.', doseP: 'une cuillère le matin et le soir', falseDoses: ['une cuillère toutes les six heures', 'deux cuillères avant de dormir'], kwDose: 'cuillère', max: 'Ne pas dépasser deux cuillères en 24 heures.', dur: 'sept jours au besoin', store: 'Conserver la bouteille bien fermée.', storeP: 'garder la bouteille bien fermée', kwStore: 'fermée' },
-  { med: 'Gélules pour la digestion', dose: 'Prendre deux gélules au milieu du repas.', doseP: 'avaler deux gélules en mangeant', falseDoses: ['une gélule toutes les six heures', 'deux gélules le matin à jeun'], kwDose: 'gélules', max: 'Ne pas prendre plus de quatre gélules par jour.', dur: 'dix jours consécutifs', store: 'Mettre à l’abri de l’humidité.', storeP: 'garder à l’abri de l’humidité', kwStore: 'humidité' },
+  { med: 'Gélules pour la digestion', dose: 'Prendre deux gélules au milieu du repas.', doseP: 'avaler deux gélules en mangeant', falseDoses: ['une gélule toutes les six heures', 'deux gélules le matin à jeun'], kwDose: 'gélules', max: 'Ne pas prendre plus de quatre gélules par jour.', dur: 'dix jours consécutifs', store: 'Conserver au frais au réfrigérateur.', storeP: 'garder au frais au réfrigérateur', kwStore: 'réfrigérateur' },
 ]
 const N3_PHARMA_DURS = ['trois jours consécutifs', 'cinq jours complets', 'sept jours ouvrables', 'dix jours de suite']
 const N3_STORAGE_LIST = [
   'garder dans un endroit bien sec',
   'garder la bouteille bien fermée',
-  'garder à l’abri de l’humidité',
+  'garder au frais au réfrigérateur',
   'garder à l’abri de la lumière',
 ]
 
@@ -1045,7 +1045,7 @@ const N3_RECYCLE_AREAS = ['Ville de Québec', 'Ville de Montréal', 'Ville de La
 const N3_RECYCLE_ITEMS = [
   { textFr: 'les cartons pliés', ans: 'les cartons et contenants propres', kw: 'cartons' },
   { textFr: 'les bouteilles de verre', ans: 'le verre et contenants propres', kw: 'verre' },
-  { textFr: 'les emballages métalliques', ans: 'les emballages et contenants propres', kw: 'emballages' },
+  { textFr: 'les boîtes de conserve en métal', ans: 'le métal et contenants propres', kw: 'métal' },
   { textFr: 'les papiers journaux', ans: 'les journaux et contenants propres', kw: 'journaux' },
 ]
 
@@ -1124,7 +1124,7 @@ export const N03_R_3 = [
     text: 'Nettoyant pour vitres et miroirs. Mode d’emploi : vaporiser sur une vitre propre et sèche à quinze centimètres. Essuyer avec du papier absorbant ou un chiffon non pelucheux. Ne pas avaler. Tenir à l’écart des flammes.',
     questions: [
       q('Sur quelle surface ce produit s’applique-t-il ?', 'sur une vitre propre et bien sèche', 'sur un comptoir de cuisine en bois', 'sur une table de salon en marbre', ['vitre']),
-      q('Quel chiffon est recommandé pour essuyer ?', 'du papier absorbant ou un linge sec', 'un torchon de cuisine en gros coton', 'un linge humide imbibé d’eau tiède', ['papier absorbant']),
+      q('Quel chiffon est recommandé pour essuyer ?', 'du papier ou un chiffon non pelucheux', 'un torchon de cuisine en gros coton', 'un linge humide imbibé d’eau tiède', ['pelucheux']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Posologie sirop pour enfants
@@ -1325,11 +1325,11 @@ const N4_STORAGE_DATES = [
 ]
 
 const N4_FURNITURE_DELIVERIES = [
-  { item: 'votre table de cuisine en bois', fee: '69 dollars', feeOpt: '69 dollars pour le transport' },
-  { item: 'votre meuble de salon en chêne', fee: '89 dollars', feeOpt: '89 dollars pour le transport' },
-  { item: 'votre bibliothèque moderne', fee: '59 dollars', feeOpt: '59 dollars pour le transport' },
-  { item: 'votre canapé trois places', fee: '79 dollars', feeOpt: '79 dollars pour le transport' },
-  { item: 'votre ensemble de chambre', fee: '99 dollars', feeOpt: '99 dollars pour le transport' },
+  { item: 'votre table de cuisine en bois', fee: '69 dollars', feeOpt: '69 dollars pour le forfait complet' },
+  { item: 'votre meuble de salon en chêne', fee: '89 dollars', feeOpt: '89 dollars pour le forfait complet' },
+  { item: 'votre bibliothèque moderne', fee: '59 dollars', feeOpt: '59 dollars pour le forfait complet' },
+  { item: 'votre canapé trois places', fee: '79 dollars', feeOpt: '79 dollars pour le forfait complet' },
+  { item: 'votre ensemble de chambre', fee: '99 dollars', feeOpt: '99 dollars pour le forfait complet' },
 ]
 const N4_DELIVERY_SLOTS = [
   { slot: 'vendredi prochain en après-midi', opt: 'vendredi en après-midi' },
@@ -1490,8 +1490,8 @@ const N4_DESK_REQUESTS = [
     otherTopic1: 'le tarif mensuel pour garer son véhicule',
     otherTopic2: 'l’emplacement des bornes de recharge privées',
     answerGood: 'Remplissez ce formulaire et montrez une pièce d’identité.',
-    answerWrong1: 'Merci beaucoup pour cette invitation très sympathique.',
-    answerWrong2: 'Je prends un café noir sans sucre, s’il vous plaît.',
+    answerWrong1: 'Consultez les horaires de la navette sur l’écran mural.',
+    answerWrong2: 'Déposez votre cadenas à vélo dans le casier des visiteurs.',
   },
   {
     lost: 'mon mot de passe pour le portail du personnel',
@@ -1500,8 +1500,8 @@ const N4_DESK_REQUESTS = [
     otherTopic1: 'la liste des nouveaux ordinateurs de l’entreprise',
     otherTopic2: 'l’horaire de fermeture de la salle informatique',
     answerGood: 'Entrez votre matricule et cliquez sur Réinitialiser ici.',
-    answerWrong1: 'Félicitations pour votre promotion dans l’équipe.',
-    answerWrong2: 'Le restaurant italien du coin est excellent le midi.',
+    answerWrong1: 'Branchez le câble réseau sur la prise murale du bureau.',
+    answerWrong2: 'Glissez la feuille blanche dans le bac numéro deux en bas.',
   },
   {
     lost: 'ma carte de bibliothèque municipale',
@@ -1510,8 +1510,8 @@ const N4_DESK_REQUESTS = [
     otherTopic1: 'le nombre de livres disponibles pour les enfants',
     otherTopic2: 'la date de la prochaine exposition de peinture',
     answerGood: 'Présentez une preuve d’adresse au bureau d’accueil.',
-    answerWrong1: 'Désolé, je ne peux pas venir souper ce samedi soir.',
-    answerWrong2: 'Il fait vraiment un temps magnifique aujourd’hui.',
+    answerWrong1: 'Glissez vos livres retournés dans la boîte extérieure.',
+    answerWrong2: 'Réservez un poste internet sur la borne près du hall.',
   },
   {
     lost: 'mon formulaire d’assurance collective',
@@ -1520,8 +1520,8 @@ const N4_DESK_REQUESTS = [
     otherTopic1: 'le montant total des primes versées cette année',
     otherTopic2: 'le nom du nouveau responsable du personnel',
     answerGood: 'Téléversez le document signé sur le site internet.',
-    answerWrong1: 'Je vous remercie de m’avoir prêté votre parapluie.',
-    answerWrong2: 'Nous pouvons aller prendre une marche après le dîner.',
+    answerWrong1: 'Vérifiez votre solde de vacances sur la fiche de paie.',
+    answerWrong2: 'Remettez vos reçus médicaux dans l’enveloppe cachetée.',
   },
 ]
 
@@ -1533,8 +1533,8 @@ const N4_PORTAL_TASKS = [
     otherTopic1: 'l’horaire de travail prévu pour le mois prochain',
     otherTopic2: 'le compte rendu officiel de la dernière assemblée',
     answerGood: 'Ouvre l’onglet Calendrier puis clique sur Nouveau.',
-    answerWrong1: 'J’ai déjà réservé ma table pour le souper d’hier.',
-    answerWrong2: 'Enchanté de faire votre connaissance ce matin.',
+    answerWrong1: 'Ouvre la section Profil pour modifier ton adresse.',
+    answerWrong2: 'Télécharge la copie électronique de ton contrat.',
   },
   {
     task: 'soumettre une note de frais de déplacement',
@@ -1543,8 +1543,8 @@ const N4_PORTAL_TASKS = [
     otherTopic1: 'le choix du moyen de transport pour la formation',
     otherTopic2: 'l’adresse exacte de l’hôtel réservé par l’agence',
     answerGood: 'Ajoute tes reçus en photo et valide le total en bas.',
-    answerWrong1: 'Bonne fin de semaine et repose-toi bien surtout.',
-    answerWrong2: 'Je préfère manger une salade verte pour le repas.',
+    answerWrong1: 'Choisis l’option Véhicule de service dans l’agenda.',
+    answerWrong2: 'Télécharge ton relevé fiscal annuel dans les archives.',
   },
   {
     task: 'changer mes coordonnées bancaires pour la paie',
@@ -1553,8 +1553,8 @@ const N4_PORTAL_TASKS = [
     otherTopic1: 'la date de versement de la prochaine prime annuelle',
     otherTopic2: 'le nom de l’institution financière de l’employeur',
     answerGood: 'Dépose un document bancaire dans la section Mon profil.',
-    answerWrong1: 'Ce dossier volumineux est déjà prêt pour la poste.',
-    answerWrong2: 'Il pleut assez fort dehors depuis ce matin tôt.',
+    answerWrong1: 'Inscris tes heures supplémentaires dans l’onglet Paie.',
+    answerWrong2: 'Remplis le bon de commande pour du matériel de bureau.',
   },
   {
     task: 'réserver une salle pour la réunion de service',
@@ -1563,8 +1563,8 @@ const N4_PORTAL_TASKS = [
     otherTopic1: 'le compte rendu rédigé par la secrétaire adjointe',
     otherTopic2: 'la liste des invités présents au colloque annuel',
     answerGood: 'Choisis la plage libre sur l’agenda partagé du groupe.',
-    answerWrong1: 'Merci pour ce joli cadeau offert à mon anniversaire.',
-    answerWrong2: 'Le café sans caféine est disponible au distributeur.',
+    answerWrong1: 'Modifie les alertes de notification dans tes réglages.',
+    answerWrong2: 'Télécharge le modèle de compte rendu dans les modèles.',
   },
 ]
 
@@ -1576,8 +1576,8 @@ const N4_COMMUNITY_COURSES = [
     otherTopic1: 'les horaires de la piscine pour la fin de semaine',
     otherTopic2: 'les tarifs de location de la salle des fêtes',
     answerGood: 'Remplissez la fiche jaune au secrétariat avec votre carte.',
-    answerWrong1: 'J’ai acheté du pain et du lait à l’épicerie ce midi.',
-    answerWrong2: 'Le train de banlieue arrive sur la voie numéro trois.',
+    answerWrong1: 'Achetez une carte d’accès pour la piscine à la réception.',
+    answerWrong2: 'Déposez vos dons de livres dans la boîte du hall d’entrée.',
   },
   {
     course: 'aux séances de gymnastique douce pour adultes',
@@ -1586,8 +1586,8 @@ const N4_COMMUNITY_COURSES = [
     otherTopic1: 'le règlement concernant les casiers du vestiaire',
     otherTopic2: 'la date de la fête annuelle des bénévoles du centre',
     answerGood: 'Présentez un certificat médical au comptoir de sports.',
-    answerWrong1: 'Je vous envoie le rapport dès demain matin sans faute.',
-    answerWrong2: 'Cette veste noire me semble un peu trop petite pour moi.',
+    answerWrong1: 'Louez des raquettes de badminton au comptoir d’accueil.',
+    answerWrong2: 'Inscrivez-vous au tirage pour les parcelles du potager.',
   },
   {
     course: 'aux cours de dessin pour débutants le samedi',
@@ -1596,8 +1596,8 @@ const N4_COMMUNITY_COURSES = [
     otherTopic1: 'le nom de l’artiste invité pour l’exposition d’art',
     otherTopic2: 'le programme de musique offert durant le festival',
     answerGood: 'Inscrivez votre nom sur la liste à l’entrée de l’atelier.',
-    answerWrong1: 'Prenez soin de vous et à la semaine prochaine, salut.',
-    answerWrong2: 'Ma voiture est garée juste devant la porte de sortie.',
+    answerWrong1: 'Prenez un cadenas pour votre casier auprès du gardien.',
+    answerWrong2: 'Consultez les menus du midi affichés près de la cafétéria.',
   },
   {
     course: 'aux ateliers de cuisine collective du mardi',
@@ -1606,8 +1606,8 @@ const N4_COMMUNITY_COURSES = [
     otherTopic1: 'le menu de la cantine scolaire pour la semaine',
     otherTopic2: 'l’horaire d’ouverture de la pharmacie du quartier',
     answerGood: 'Venez rencontrer l’animatrice demain entre dix et midi.',
-    answerWrong1: 'Très bonne idée, je vais commander un thé glacé aussi.',
-    answerWrong2: 'La station de métro la plus proche est à deux coins.',
+    answerWrong1: 'Triez les vêtements d’hiver dans la salle polyvalente.',
+    answerWrong2: 'Réservez le piano du sous-sol auprès du responsable d’étage.',
   },
 ]
 
