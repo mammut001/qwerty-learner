@@ -843,8 +843,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi la situation de la France est-elle qualifiée d'intermédiaire ?",
         "Elle présente un équilibre presque égalitaire entre propriétaires occupants et locataires",
-        "Elle impose une réglementation limitant l'achat d'un logement à un seul bien par foyer",
-        "Elle interdit aux bailleurs privés de posséder des logements collectifs en zone urbaine"
+        "Elle oblige les investisseurs privés à financer exclusivement des résidences individuelles",
+        "Elle réserve la possession de biens durables aux seuls ménages résidant en région rurale"
       ]
     ],
     "justificationFr": "Étude comparative de la structure de propriété et de location immobilière à travers les pays européens.",
@@ -870,8 +870,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle controverse ce texte expose-t-il ?",
         "Le désaccord théorique entre partisans du salaire minimum et économistes libéraux",
-        "Le conflit sur les dates annuelles de révision des grilles salariales en France",
-        "L'opposition syndicale concernant la durée légale du temps de travail hebdomadaire"
+        "La controverse sur l'interdiction de tout salaire minimum durant les phases de crise",
+        "L'accord unanime des économistes pour limiter les salaires au chômage de transition"
       ],
       [
         "Quel argument les défenseurs du salaire minimum avancent-ils dans le premier paragraphe ?",
@@ -883,7 +883,7 @@ export const REAL_READING_PASSAGES = [
         "Selon la perspective libérale décrite, quelle solution est jugée préférable pour réduire les inégalités ?",
         "Ajuster la fiscalité sur les plus fortunés plutôt qu'imposer un plancher salarial excessif",
         "Interdire aux employeurs de licencier du personnel lors d'une période de ralentissement",
-        "Augmenter fortement le salaire minimum afin de décourager toute nouvelle candidature ouvrière"
+        "Fixer un barème de salaires identique pour chaque branche sans égard à la productivité"
       ]
     ],
     "justificationFr": "Confrontation argumentée des doctrines économiques sur les effets et la régulation du salaire minimum.",
@@ -909,8 +909,8 @@ export const REAL_READING_PASSAGES = [
       [
         "De quoi traite ce texte sur le minimum salarial ?",
         "De son statut juridique d'ordre public et de ses justifications doctrinales",
-        "De la baisse du pouvoir d'achat provoquée par les impôts indirects sur la consommation",
-        "De la négociation annuelle obligatoire du temps de repos dans la fonction publique"
+        "De la baisse automatique de tous les salaires lors d'une chute des prix",
+        "Du refus syndical d'appliquer l'échelle mobile aux salaires les plus bas"
       ],
       [
         "Que permet l'échelle mobile des salaires citée dans le deuxième paragraphe ?",
@@ -921,8 +921,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Que signifie que le salaire minimum est « d'ordre public » en droit français ?",
         "Les accords d'entreprise ou conventions de branche ne peuvent lui être inférieurs",
-        "L'ensemble des citoyens peut voter chaque année pour en fixer le barème horaire",
-        "Son montant doit être affiché obligatoirement à l'entrée de chaque mairie du pays"
+        "Chaque branche professionnelle a le pouvoir de suspendre son application par vote",
+        "Les syndicats peuvent négocier une dérogation pour réduire le plancher salarial"
       ]
     ],
     "justificationFr": "Analyse juridique et doctrinale du salaire minimum comme mécanisme d'ordre public et d'indexation.",
@@ -949,19 +949,19 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le sujet principal de ce document ?",
         "La diversité des modèles de salaire minimum à travers l'Union européenne",
-        "L'impact négatif des délocalisations industrielles vers les pays d'Asie",
-        "Le rôle exclusif des parlements nationaux dans le calcul des allocations chômage"
+        "L'obligation pour les six pays nordiques d'adopter le modèle salarial français",
+        "La disparition des conventions collectives dans les pays non membres de l'Union"
       ],
       [
         "Comment le salaire minimum est-il déterminé dans des pays comme l'Italie ou la Suède ?",
         "Par des négociations entre partenaires sociaux au niveau des branches professionnelles",
-        "Par un décret présidentiel contraignant imposé à l'ensemble des secteurs d'activité",
-        "Par une votation populaire organisée tous les trois ans sous le contrôle des juges"
+        "Par une directive européenne fixant le barème minimal pour l'ensemble des salariés",
+        "Par un arrêté ministériel automatique s'appliquant sans négociation syndicale préalable"
       ],
       [
         "Quelle mise en garde Ursula von der Leyen formule-t-elle à propos du dumping salarial ?",
         "Il nuit à la dignité ouvrière et fausse la concurrence loyale au sein du marché",
-        "Il incite les entreprises les plus rentables à quitter définitivement le sol européen",
+        "Il favorise indûment les patrons qui rémunèrent dignement l'ensemble de leurs équipes",
         "Il décourage les syndicats de négocier des augmentations pour les cadres dirigeants"
       ]
     ],
@@ -989,8 +989,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle est la visée de ce texte ?",
         "Présenter la structure générale et la gestion politique du système scolaire québécois",
-        "Détailler les critères d'évaluation des examens d'admission à l'université au Canada",
-        "Raconter la fondation des premiers collèges religieux sous le régime de la colonie"
+        "Comparer le programme de formation professionnelle du Québec avec les autres provinces",
+        "Défendre l'unification de l'enseignement collégial et universitaire sous un seul ministère"
       ],
       [
         "Quels sont les quatre ordres principaux d'enseignement énumérés dans l'extrait ?",
@@ -1001,8 +1001,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi le gouvernement du Québec pilote-t-il lui-même son réseau éducatif ?",
         "Parce que l'enseignement relève de l'autorité des provinces et non du palier fédéral",
-        "Parce qu'une directive royale britannique de 1982 lui en délègue la gestion financière",
-        "Parce que le Parlement fédéral canadien a renoncé à percevoir tout impôt d'éducation"
+        "Parce que la formation continue des adultes est financée par des fonds municipaux locaux",
+        "Parce que les universités québécoises refusent toute coordination avec les ministères"
       ]
     ],
     "justificationFr": "Présentation institutionnelle claire des quatre ordres d'enseignement et des compétences ministérielles au Québec.",
@@ -1040,8 +1040,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi le service de carrosses parisiens a-t-il fini par péricliter après ses débuts ?",
         "Une décision légale a exclu la majorité des habitants en le réservant à une élite",
-        "Les chevaux ont été réquisitionnés par l'armée royale pour mener des campagnes de guerre",
-        "Les passagers ont refusé de voyager ensemble sur un itinéraire fixé à l'avance par la ville"
+        "Le prix du billet est resté trop bas pour amortir l'achat initial des quatre chevaux",
+        "Le roi Louis XIV a refusé de compenser le déficit d'exploitation des carrosses à cinq sols"
       ]
     ],
     "justificationFr": "Définition du transport public et genèse historique du premier service collectif urbain conçu par Blaise Pascal.",
@@ -1069,20 +1069,20 @@ export const REAL_READING_PASSAGES = [
       [
         "Que présente ce passage ?",
         "Une clarification terminologique et un inventaire des véhicules de transport collectif",
-        "Une étude comparative sur la rentabilité des lignes d'autobus urbains et régionaux",
-        "Une analyse technique du moteur électrique utilisé dans les rames de métro moderne"
+        "Un plaidoyer pour remplacer le transport par voie d'eau par des voitures avec chauffeur",
+        "Une critique historique de la traction animale dans les services touristiques actuels"
       ],
       [
         "Quelle distinction établit le Grand Dictionnaire terminologique québécois ?",
         "Le transport en commun est une sous-catégorie planifiée du transport collectif",
-        "Le transport public s'oppose juridiquement aux véhicules équipés d'un moteur",
-        "Le transport par voie d'eau nécessite impérativement un accord intercommunal"
+        "Le transport collectif exclut tout déplacement effectué avec des véhicules routiers",
+        "Le transport en commun interdit l'accès au public sans accord préalable d'un juge"
       ],
       [
         "Quel est l'atout principal des véhicules routiers comme les autobus selon le texte ?",
         "Leur souplesse d'usage et la faiblesse des investissements en infrastructure neuve",
-        "Leur vitesse de pointe nettement supérieure à celle des convois ferroviaires rapides",
-        "Leur capacité à circuler gratuitement en bénéficiant de subventions d'État permanentes"
+        "Leur aptitude à remplacer entièrement le réseau ferroviaire pour les longs trajets",
+        "Leur faculté d'aménager de nouvelles voies réservées sans autorisation communale"
       ]
     ],
     "justificationFr": "Distinction terminologique rigoureuse et typologie des modes de transport public et collectif.",
@@ -1113,20 +1113,20 @@ export const REAL_READING_PASSAGES = [
       [
         "De quoi traite ce texte sur le plan biologique et humain ?",
         "De la nature de l'alimentation, des stratégies métaboliques du vivant et des pratiques humaines",
-        "Des techniques de conservation des denrées périssables dans l'industrie agroalimentaire",
-        "Des conséquences des carences en vitamines sur la reproduction des prédateurs sauvages"
+        "De la dépendance exclusive des espèces végétales envers les bactéries productrices de méthane",
+        "De l'uniformité des régimes zoophages et herbivores au sein des réseaux trophiques terrestres"
       ],
       [
         "Comment les organismes végétaux se procurent-ils leurs composants organiques ?",
         "En les synthétisant grâce à l'eau, aux minéraux du sol, au dioxyde de carbone et au soleil",
-        "En puisant directement leur énergie dans les tissus organiques d'espèces animales",
-        "En absorbant le méthane produit par les bactéries souterraines de leur environnement"
+        "En extrayant des composés azotés déjà synthétisés par la digestion d'autres plantes",
+        "En absorbant les molécules carbonées libérées lors de la décomposition de l'humus"
       ],
       [
         "Pourquoi les animaux sont-ils qualifiés d'organismes « hétérotrophes » ?",
         "Leur survie dépend de la consommation d'autres espèces pour acquérir leurs nutriments",
-        "Leur organisme produit spontanément son énergie grâce à la photosynthèse cellulaire",
-        "Leur comportement alimentaire reste parfaitement indépendant des variations saisonnières"
+        "Leur métabolisme transforme directement les sels minéraux du sol en tissus musculaires",
+        "Leur alimentation est invariable et indépendante de leur statut dans le réseau trophique"
       ]
     ],
     "justificationFr": "Approche biologique et écologique comparant autotrophie végétale, hétérotrophie animale et dimensions culturelles.",
@@ -1155,20 +1155,20 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le sujet central exposé dans ce passage ?",
         "La classification des macronutriments et le rôle biologique indispensable des protéines",
-        "Les causes médicales de l'obésité infantile dans les sociétés industrielles contemporaines",
-        "Les méthodes de dépistage des allergies alimentaires courantes chez les adultes âgés"
+        "La fabrication exclusive des glucides par le foie pour combler le manque de protéines",
+        "L'incapacité de l'organisme humain à digérer les graisses sans apport d'acides aminés"
       ],
       [
         "Pourquoi les protéines et les lipides sont-ils dits « essentiels » pour l'être humain ?",
         "Parce que le corps ne peut pas les fabriquer et doit les trouver dans l'alimentation",
-        "Parce qu'ils fournissent la totalité de l'azote nécessaire à la formation du glycogène",
-        "Parce qu'ils permettent au foie de décomposer sans danger les glucides complexes ingérés"
+        "Parce qu'ils sont immédiatement convertis en glucose lors de chaque effort musculaire",
+        "Parce qu'ils sont les seuls nutriments capables d'apporter de l'énergie au métabolisme"
       ],
       [
         "Quel est l'un des rôles majeurs assurés par les protéines selon le texte ?",
         "Elles participent activement aux défenses immunitaires et à la structure des tissus corporels",
-        "Elles dissolvent les sels minéraux dans le sang pour remplacer l'eau indispensable aux cellules",
-        "Elles empêchent le vieillissement des os en stockant les lipides sous forme de réserves stables"
+        "Elles assurent la réserve instantanée d'énergie sous forme de glycogène pour les muscles",
+        "Elles permettent la synthèse du glucose à partir des sels minéraux absorbés par la peau"
       ]
     ],
     "justificationFr": "Explication physiologique détaillée du rôle métabolique des nutriments et de l'importance des protéines.",
@@ -1196,8 +1196,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le thème traité dans ce document ?",
         "Les apports et les fonctions vitales des lipides, des glucides et de l'eau dans l'organisme",
-        "La comparaison de la valeur calorique des boissons sucrées et des huiles végétales pures",
-        "Les risques liés à la consommation excessive de sel de table sur la pression artérielle"
+        "L'effet négatif de la consommation de glucose sur les membranes cellulaires des neurones",
+        "La supériorité calorique des glucides complexes par rapport aux lipides de l'organisme"
       ],
       [
         "Quelle molécule les cellules musculaires et nerveuses utilisent-elles comme carburant direct ?",
@@ -1208,8 +1208,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi l'eau est-elle jugée indispensable à la survie humaine d'après le texte ?",
         "Elle sert de solvant polaire essentiel aux réactions chimiques et hydrate les tissus vivants",
-        "Elle constitue le principal nutriment calorique nécessaire à la fabrication des hormones",
-        "Elle permet aux cellules du cerveau de se multiplier rapidement sans apport d'autres aliments"
+        "Elle remplace le glucose pour approvisionner directement les cellules nerveuses en énergie",
+        "Elle forme la bicouche de phospholipides qui protège la membrane des organes vitaux"
       ]
     ],
     "justificationFr": "Fonctions biochimiques des lipides, des glucides et de l'eau dans le métabolisme cellulaire humain.",
@@ -1238,13 +1238,13 @@ export const REAL_READING_PASSAGES = [
         "Quelle idée directrice ce texte expose-t-il ?",
         "L'origine humaine du réchauffement contemporain et les gaz à effet de serre en cause",
         "L'influence prépondérante des cycles d'activité solaire sur les saisons terrestres",
-        "Les conséquences de la fonte des glaces de montagne sur le trafic maritime mondial"
+        "L'explication des variations du climat par la seule évaporation de la vapeur d'eau"
       ],
       [
         "Quels deux gaz représentent 90 % des émissions de gaz à effet de serre d'origine humaine ?",
         "Le dioxyde de carbone et le méthane",
-        "L'azote et l'argon atmosphérique",
-        "L'oxygène et l'hélium naturel"
+        "La vapeur d'eau et l'ozone gazeux",
+        "Le monoxyde de carbone et l'azote"
       ],
       [
         "Que signifie la notion de « consensus scientifique » employée dans le deuxième paragraphe ?",
@@ -1276,7 +1276,7 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle est la portée globale de cet extrait ?",
         "La multiplicité des conséquences environnementales et sanitaires de la hausse des températures",
-        "L'histoire de la création du Groupe d'experts intergouvernemental sur l'évolution du climat",
+        "La disparition progressive de tous les feux de forêt sous l'effet de l'acidification marine",
         "Le ralentissement des vagues de chaleur constaté dans les régions entourant le pôle Nord"
       ],
       [
