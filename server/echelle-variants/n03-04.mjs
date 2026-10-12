@@ -312,17 +312,17 @@ const N3_FALSE_CLINICS = [
 ]
 
 const N3_APPLIANCES = [
-  { item: 'une cafetière programmable', colorFr: 'noire', colorZh: '黑色机身', feat: 'compacte avec une verseuse en verre', purposeFr: 'préparer du bon café le matin', useZh: '快速煮制新鲜咖啡', useKw: 'café' },
-  { item: 'un grille-pain électrique', colorFr: 'argenté', colorZh: '银灰机身', feat: 'muni de fentes très larges', purposeFr: 'griller le pain doré', useZh: '均匀烘烤各种面包', useKw: 'pain' },
-  { item: 'un four à micro-ondes', colorFr: 'blanc', colorZh: '白色机身', feat: 'doté d’un affichage numérique clair', purposeFr: 'réchauffer les repas rapidement', useZh: '快速加热便当餐食', useKw: 'repas' },
-  { item: 'un mélangeur de cuisine', colorFr: 'rouge', colorZh: '深红机身', feat: 'équipé de lames solides en acier', purposeFr: 'mélanger les fruits frais pour les jus', useZh: '轻松搅拌新鲜果汁', useKw: 'fruits' },
+  { item: 'une cafetière programmable', colorFr: 'noire', colorZh: '黑色机身', feat: 'compacte avec une verseuse en verre', purposeFr: 'préparer du bon café le matin', useZh: '快速煮制新鲜咖啡', falseUsesZh: ['自动研磨整粒咖啡', '恒温保持咖啡温度'], useKw: 'café' },
+  { item: 'un grille-pain électrique', colorFr: 'argenté', colorZh: '银灰机身', feat: 'muni de fentes très larges', purposeFr: 'griller le pain doré', useZh: '均匀烘烤各种面包', falseUsesZh: ['快速解冻冷冻面团', '自动切片新鲜吐司'], useKw: 'pain' },
+  { item: 'un four à micro-ondes', colorFr: 'blanc', colorZh: '白色机身', feat: 'doté d’un affichage numérique clair', purposeFr: 'réchauffer les repas rapidement', useZh: '快速加热便当餐食', falseUsesZh: ['高温烘烤甜点蛋糕', '低温慢炖各种汤品'], useKw: 'repas' },
+  { item: 'un mélangeur de cuisine', colorFr: 'rouge', colorZh: '深红机身', feat: 'équipé de lames solides en acier', purposeFr: 'mélanger les fruits frais pour les jus', useZh: '轻松搅拌新鲜果汁', falseUsesZh: ['自动切碎坚果果干', '低温慢速萃取原汁'], useKw: 'fruits' },
 ]
 const N3_APPLIANCE_STORES = ['au magasin Walmart', 'chez Canadian Tire', 'au magasin Best Buy', 'au centre d’achats']
 
 const N3_PETS = [
   { type: 'chaton très affectueux', furFr: 'au pelage gris rayé', furZh: '灰色条纹', featFr: 'doux et très affectueux', featZh: '温顺且非常亲人', kw: 'affectueux', furKw: 'gris' },
   { type: 'chiot très énergique', furFr: 'au pelage brun doré', furZh: '棕褐毛色', featFr: 'plein d’énergie et joyeux', featZh: '精力充沛且开朗', kw: 'énergie', furKw: 'brun' },
-  { type: 'jeune chat calme', furFr: 'au pelage noir et blanc', furZh: '黑白相间', featFr: 'très calme et attentif', featZh: '非常安静且专注', kw: 'calme', furKw: 'noir' },
+  { type: 'jeune chat curieux', furFr: 'au pelage noir et blanc', furZh: '黑白相间', featFr: 'très curieux et joueur', featZh: '好奇且喜欢玩耍', kw: 'curieux', furKw: 'noir' },
   { type: 'petit chien timide', furFr: 'au pelage blanc pur', furZh: '纯白毛色', featFr: 'très timide et réservé', featZh: '非常胆小且害羞', kw: 'timide', furKw: 'blanc' },
 ]
 const N3_SHELTER_LOCS = ['de Québec', 'de Montréal', 'de Laval', 'de Sherbrooke']
@@ -371,13 +371,12 @@ export const N03_L_2 = [
       const app = pick(N3_APPLIANCES, rand)
       const st = pick(N3_APPLIANCE_STORES, rand)
       const othersColor = sample(N3_APPLIANCES.filter(x => x.colorZh !== app.colorZh), 2, rand)
-      const othersUse = sample(N3_APPLIANCES.filter(x => x.useZh !== app.useZh), 2, rand)
       const text = `J’ai acheté ${app.item} ${app.colorFr} en solde ${st}. L’appareil est ${app.feat}, idéal pour ${app.purposeFr}.`
       return {
         text,
         questions: [
           q('买到的厨房电器外观颜色是？', app.colorZh, othersColor[0].colorZh, othersColor[1].colorZh, [app.colorFr]),
-          q('这款电器的主要实用功能是？', app.useZh, othersUse[0].useZh, othersUse[1].useZh, [app.useKw]),
+          q('这款电器的主要实用功能是？', app.useZh, app.falseUsesZh[0], app.falseUsesZh[1], [app.useKw]),
         ],
       }
     },
