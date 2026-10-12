@@ -806,9 +806,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `BAIL DE LOGEMENT (Tribunal administratif du logement)\nLe présent bail est conclu pour le logement situé au ${s.adresse}. Le bail commence ${s.date} pour une durée fixe de douze mois. Le montant du loyer mensuel est fixé à ${s.loyer}, payable le premier jour de chaque mois par virement. Le loyer comprend ${s.services}. Les animaux domestiques sont interdits dans l’immeuble, sauf les chats stérilisés. Il est strictement interdit de fumer dans le logement. Tout retard de paiement supérieur à trois semaines pourra entraîner une résiliation du bail par le propriétaire.`,
           questions: [
-            makeQuestion('De quel type de document officiel s’agit-il principalement ?', 'D’un contrat officiel de location pour un appartement', 'D’un état de compte pour des consommations impayées', 'D’une promesse unilatérale pour acquérir une maison', ['bail', 'logement']),
-            makeQuestion('Quels services sont expressément inclus dans le loyer mensuel ?', `La redevance couvre ${s.serPara}`, 'Le paiement comprend un accès à un box de garage privé', 'Le bail garantit un approvisionnement en repas quotidiens', [s.serKw]),
-            makeQuestion('Quelle modalité est exigée pour le versement du loyer ?', 'Un virement bancaire intervenant au premier jour du mois', 'Un versement hebdomadaire en liquide de la main à la main', 'Un paiement semestriel unique déposé auprès d’un notaire', ['virement', 'premier']),
+            makeQuestion('De quel type de document officiel s’agit-il principalement ?', 'D’un contrat officiel de location pour un appartement', 'D’un avis officiel de résiliation pour un logement', 'D’une promesse unilatérale pour acquérir une maison', ['bail', 'logement']),
+            makeQuestion('Quels services sont expressément inclus dans le loyer mensuel ?', `La redevance couvre ${s.serPara}`, 'Le loyer autorise la présence de tous les animaux dans l’immeuble', 'Le bail garantit un approvisionnement en repas quotidiens', [s.serKw]),
+            makeQuestion('Quelle modalité est exigée pour le versement du loyer ?', 'Un virement bancaire intervenant au premier jour du mois', 'Un virement bancaire autorisé après trois semaines de retard', 'Un paiement semestriel unique déposé auprès d’un notaire', ['virement', 'premier']),
           ],
         }
       },
@@ -826,9 +826,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `ANNEXE AU CONTRAT DE LOCATION - IMMEUBLE LES ÉRABLES\nBienvenue dans votre appartement 3 1/2 situé ${s.ville}, ${s.quartier}. Votre loyer mensuel de ${s.loyer} inclut l’accès au gymnase en plus ${s.stationnement}. Le paiement s’effectue par prélèvement bancaire le premier jour de chaque mois. Les locataires doivent fournir une preuve d’assurance responsabilité civile avant la remise des clés. Les travaux de peinture requièrent une entente écrite préalable avec le gestionnaire. Pour toute urgence de chauffage, veuillez joindre le concierge de garde au poste 102.`,
           questions: [
-            makeQuestion('Quel document le futur locataire lit-il ici ?', 'Une annexe détaillant les règles de son appartement', 'Une promesse formelle d’acquisition pour un immeuble', 'Une soumission d’entrepreneur pour refaire une cuisine', ['contrat', 'location']),
-            makeQuestion('Quel aménagement complémentaire est compris avec le logement ?', `L’usage d’${s.staPara}`, 'Un branchement direct à un forfait Internet très rapide', 'Une formule de ménage complet assurée chaque vendredi', [s.staKw]),
-            makeQuestion('Que doit fournir le locataire avant d’obtenir les clés ?', 'Une attestation valide d’assurance responsabilité civile', 'Une lettre de recommandation rédigée par son employeur', 'Un dépôt en garantie couvrant trois mensualités de loyer', ['assurance', 'responsabilité']),
+            makeQuestion('Quel document le futur locataire lit-il ici ?', 'Une annexe détaillant les règles de son appartement', 'Une entente écrite autorisant des travaux de peinture', 'Une soumission d’entrepreneur pour refaire une cuisine', ['contrat', 'location']),
+            makeQuestion('Quel aménagement complémentaire est compris avec le logement ?', `L’usage d’${s.staPara}`, 'Le dépannage prioritaire pour toute urgence de chauffage', 'Une formule de ménage complet assurée chaque vendredi', [s.staKw]),
+            makeQuestion('Que doit fournir le locataire avant d’obtenir les clés ?', 'Une attestation valide d’assurance responsabilité civile', 'Une entente écrite signée pour les travaux de peinture', 'Un dépôt en garantie couvrant trois mensualités de loyer', ['assurance', 'responsabilité']),
           ],
         }
       },
@@ -846,9 +846,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `BILAN CULTUREL - SUCCÈS MAJEUR POUR LA MUSIQUE\nLa quarantième célébration ${s.festival} s’est clôturée dimanche sur une note formidable. Pendant dix jours sous le soleil, ${s.spectateurs} ont convergé vers le centre-ville. Les organisateurs célèbrent cette réussite populaire avec ${s.concerts} qui ont ravi un public familial. Les commerçants locaux soulignent des retombées économiques majeures pour les restaurants du secteur. Aucun incident n’a été rapporté par la police. Le comité organisateur donne déjà rendez-vous l’an prochain pour ${s.cloture} !`,
           questions: [
-            makeQuestion('Quel est le sujet principal de cet article de journal ?', 'Le couronnement réussi d’une grande manifestation musicale', 'L’interruption d’un événement culturel sous de fortes pluies', 'Le conflit de travail persistant entre musiciens et agents', ['musique', 'festival']),
-            makeQuestion('Quelle statistique illustre la grande réussite de l’événement ?', s.conPara, 'La commercialisation exclusive de billets à des tarifs élevés', 'La participation ponctuelle d’une unique vedette étrangère', [s.conKw]),
-            makeQuestion('Quelle orientation est annoncée pour l’édition de l’année suivante ?', s.orientPara, 'La délocalisation de toutes les scènes vers la périphérie', 'L’abandon pur et simple des représentations en plein air', [s.orientKw]),
+            makeQuestion('Quel est le sujet principal de cet article de journal ?', 'Le couronnement réussi d’une grande manifestation musicale', 'L’impact d’incidents policiers sur les commerces du secteur', 'Le conflit de travail persistant entre musiciens et agents', ['musique', 'festival']),
+            makeQuestion('Quelle statistique illustre la grande réussite de l’événement ?', s.conPara, 'La fermeture complète des restaurants du secteur en soirée', 'La participation ponctuelle d’une unique vedette étrangère', [s.conKw]),
+            makeQuestion('Quelle orientation est annoncée pour l’édition de l’année suivante ?', s.orientPara, 'Une programmation restreinte aux seuls restaurants du centre', 'L’abandon pur et simple des représentations en plein air', [s.orientKw]),
           ],
         }
       },
@@ -866,9 +866,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `CHRONIQUE LOCALE - RECORD DE PARTICIPATION EN RÉGION\n${s.festival}, qui célébrait sa quinzième saison ${s.region}, a franchi une étape historique cette fin de semaine. L’événement a attiré ${s.participants}, dépassant toutes les prévisions du comité organisateur. Les festivaliers ont particulièrement apprécié ${s.nouveaute}. Les artistes invités ont salué l’accueil chaleureux du public lors des concerts au coucher du soleil. Grâce aux revenus de la billetterie, les organisateurs confirment que les profits serviront à financer des bourses pour les jeunes musiciens de la région.`,
           questions: [
-            makeQuestion('Quel événement culturel régional fait l’objet de ce bilan de presse ?', 'Un festival musical ayant battu son record d’affluence', 'Un concours de chant réservé aux étudiants de conservatoire', 'Une exposition itinérante sur les métiers d’autrefois', ['festival', 'région']),
-            makeQuestion('Quelle nouveauté a particulièrement séduit les festivaliers ?', `${cap(s.nouPara)}`, 'Des feux d’artifice tirés à chaque heure de la nuitée', 'L’offre de repas gastronomiques gratuits à tous les visiteurs', [s.nouKw]),
-            makeQuestion('À quoi serviront les profits générés par le festival ?', 'Au financement d’un fonds d’aide aux jeunes talents locaux', 'À l’acquisition de voitures de fonction pour la direction', 'À la construction d’une hôtellerie permanente sur la plage', ['bourses', 'musiciens']),
+            makeQuestion('Quel événement culturel régional fait l’objet de ce bilan de presse ?', 'Un festival musical ayant battu son record d’affluence', 'Une cérémonie de remise de bourses aux jeunes musiciens', 'Une exposition itinérante sur les métiers d’autrefois', ['festival', 'région']),
+            makeQuestion('Quelle nouveauté a particulièrement séduit les festivaliers ?', `${cap(s.nouPara)}`, 'Des concerts nocturnes organisés après le coucher du soleil', 'L’offre de repas gastronomiques gratuits à tous les visiteurs', [s.nouKw]),
+            makeQuestion('À quoi serviront les profits générés par le festival ?', 'Au financement d’un fonds d’aide aux jeunes talents locaux', 'À l’acquisition de voitures de fonction pour la direction', 'À l’achat de matériel réservé aux artistes invités du festival', ['bourses', 'musiciens']),
           ],
         }
       },
@@ -886,9 +886,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `EXTRAIT DE BAIL RÉSIDENTIEL - SECTION LOGEMENT ÉTUDIANT\nLe logement loué est situé au cœur du secteur ${s.quartier}, ${s.distance}. Il s’agit d’un studio ${s.meuble}. En plus du chauffage, le loyer mensuel comprend ${s.internet}. Le locataire s’engage à respecter la tranquillité des autres résidents entre vingt-deux heures et sept heures du matin. Aucun sous-locataire n’est admis sans le consentement écrit du propriétaire. Toute sous-location non autorisée entraînera une pénalité financière immédiate. Les clés seront remises le premier du mois après versement du premier loyer.`,
           questions: [
-            makeQuestion('À qui s’adresse principalement cette offre de logement locatif ?', 'À des étudiants recherchant un hébergement adapté', 'À un ménage avec plusieurs enfants en bas âge', 'À une société en quête de locaux professionnels', ['bail', 'étudiant']),
-            makeQuestion('Quel service de télécommunication est compris dans le bail ?', `${cap(s.intPara)}`, 'Un forfait de téléphonie cellulaire internationale illimité', 'Un abonnement sans frais à des bouquets de chaînes cinéma', [s.intKw]),
-            makeQuestion('Quelle condition encadre la sous-location de ce studio ?', 'Obtenir impérativement l’accord formel et écrit du bailleur', 'Prévenir simplement le voisinage par un message affiché', 'Limiter cette occupation aux seules semaines de la relâche', ['sous-locataire', 'consentement']),
+            makeQuestion('À qui s’adresse principalement cette offre de logement locatif ?', 'À des étudiants recherchant un hébergement adapté', 'À des sous-locataires cherchant un studio temporaire', 'À une société en quête de locaux professionnels', ['bail', 'étudiant']),
+            makeQuestion('Quel service de télécommunication est compris dans le bail ?', `${cap(s.intPara)}`, 'Une ligne de téléphonie fixe installée dans le studio', 'Un abonnement sans frais à des bouquets de chaînes cinéma', [s.intKw]),
+            makeQuestion('Quelle condition encadre la sous-location de ce studio ?', 'Obtenir impérativement l’accord formel et écrit du bailleur', 'Payer une pénalité financière au bailleur avant chaque séjour', 'Limiter cette occupation aux seules semaines de la relâche', ['sous-locataire', 'consentement']),
           ],
         }
       },
