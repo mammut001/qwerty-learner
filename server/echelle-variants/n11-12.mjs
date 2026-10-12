@@ -48,12 +48,12 @@ export const N11_12_SCENARIOS = {
         [
           'Quel enjeu technique particulier motive l’adoption de ces accumulateurs ?',
           'L’approvisionnement en vapeur continue sans solliciter le réseau',
-          'Une surcharge du réseau d’Hydro-Québec lors des pointes estivales',
+          'Une production de vapeur excédentaire qui gaspille l’électricité hors pointe',
           'Une chaleur industrielle abaissée sous cent degrés Celsius dans les usines',
         ],
         [
           'Quel mécanisme permet de stocker l’énergie dans ce système ?',
-          'L’absorption de surplus électriques dans des blocs très chauds',
+          'L’absorption de surplus d’électricité dans des blocs très chauds',
           'La circulation de vapeur dans des conduits de graphite',
           'La libération de chaleur par les briques vers le réseau hors pointe',
         ],
@@ -92,12 +92,12 @@ export const N11_12_SCENARIOS = {
           'Quel argument les opposants industriels invoquent-ils contre la réforme ?',
           'Un renchérissement des charges d’approvisionnement et de transport',
           'Une disparition d’emplois spécialisés dans l’économie circulaire locale',
-          'Une dégradation de la qualité des pièces importées d’Europe',
+          'Une baisse de qualité des appareils due aux ateliers indépendants',
         ],
         [
           'Quelle condition déterminera l’efficacité réelle de ces dispositions ?',
           'Le traitement rapide des litiges pour éviter des attentes prolongées',
-          'Le remplacement immédiat des biens indispensables sans examen du litige',
+          'Un délai imposé aux fabricants avant tout examen des pièces de rechange',
           'La multiplication des ateliers affiliés pratiquant des prix dissuasifs',
         ],
       ],
@@ -209,13 +209,13 @@ Pendant plus de trente ans, la famille régnait sans partage sur six antennes de
         [
           'Quelle transposition concrète caractérise cette mise en scène ?',
           'Le transfert de l’intrigue dans l’univers de la haute finance',
-          'La conservation des costumes d’époque dans une tour vitrée',
+          'Le transfert de l’intrigue dans une tour vitrée, avec un jeune artiste',
           'Le maintien de l’intrigue dans une demeure du dix-septième siècle',
         ],
         [
           'Quel objet remplace la cassette traditionnelle de la pièce ?',
           'Un code cryptographique dissimulé sur le dirigeant',
-          'Un registre de comptes tenu dans la tour vitrée',
+          'Un compte d’actifs numériques ouvert au nom des enfants',
           'La cassette traditionnelle de bijoux enfouie dans le jardin',
         ],
         [
@@ -370,7 +370,7 @@ On nous accuse souvent de vouloir manquer des cours par pur plaisir de contester
         [
           'Quel reproche récurrent l’oratrice réfute-t-elle d’emblée ?',
           'L’accusation selon laquelle les élèves débrayent par pur plaisir',
-          'L’accusation selon laquelle la mobilisation viserait directement les enseignants',
+          'L’accusation selon laquelle la grève sert à financer les autoroutes',
           'L’accusation selon laquelle la grève vise à réduire les bourses étudiantes',
         ],
         [
@@ -383,7 +383,7 @@ On nous accuse souvent de vouloir manquer des cours par pur plaisir de contester
           'À qui le mouvement de protestation s’adresse-t-il expressément ?',
           'Aux gouvernants qui tardent à prendre des mesures structurelles',
           'Aux enseignants dont la mobilisation est directement visée par la grève',
-          'Aux directions des cégeps qui laissent les pavillons se dégrader',
+          'Aux étudiants de région dont les bourses sont gelées',
         ],
         [
           'Quelle fonction la dirigeante attribue-t-elle à l’arrêt des cours ?',
@@ -537,7 +537,7 @@ Contrairement à une conception populaire tenace qui assimile l’estime de soi 
         [
           'Quel mythe éducatif répandu l’extrait remet-il en question ?',
           'L’illusion que les louanges permanentes suffisent à bâtir l’enfant',
-          'L’idée que le sentiment d’efficacité personnelle a été théorisé par Jean Piaget',
+          'L’idée que les défis doivent être écartés pour préserver l’estime de l’enfant',
           'L’idée que la rétroaction descriptive nuit à la motivation scolaire',
         ],
         [
@@ -597,7 +597,7 @@ Le développement de l’estime de soi à l’orée de l’adolescence s’artic
 La faillite de nombreux chantiers de transformation numérique au sein des grandes organisations ne découle que rarement de lacunes logicielles ou de défaillances informatiques ; elle s’explique presque invariablement par une sous-estimation criante des facteurs psychosociaux inhérents au changement d’habitudes. Lorsqu’une direction impose une nouvelle plateforme de travail collaboratif de manière descendante, en se contentant de courtes formations magistrales et d’une campagne de communication promotionnelle, elle suscite inévitablement une résistance passive chez les employés chevronnés. Ceux-ci perçoivent l’outil non pas comme un levier d’émancipation, mais comme une menace pour leur autonomie et une négation de leurs savoir-faire tacites patiemment accumulés. Pour contourner cet écueil majeur, les praticiens de la transformation organisationnelle préconisent une gouvernance décentralisée fondée sur des réseaux de champions locaux issus de divers échelons hiérarchiques. Ces relais d’influence, choisis pour leur crédibilité auprès de leurs collègues plutôt que pour leur titre d’emploi, participent directement à la co-conception des flux de travail et testent les interfaces en contexte réel avant le déploiement généralisé. Cette démarche participative permet d’ajuster les paramètres aux contraintes du terrain tout en désamorçant les craintes légitimes de déclassement professionnel. Les entreprises adoptant ce modèle enregistrent une vitesse d’adoption trois fois supérieure et une baisse marquée du taux de roulement pendant la période de transition. En dernière analyse, réussir une mutation technologique exige de considérer les employés non comme de simples usagers passifs à former, mais comme les véritables architectes de l’évolution des processus.`,
       questions: [
         [
-          'Quelle raison première explique l’avortement des réformes numériques ?',
+          'Quelle raison première explique l’échec des réformes numériques ?',
           'L’oubli des dynamiques humaines au profit d’une vision technique',
           'La rigidité des logiciels imposés par les services informatiques',
           'La résistance passive des directions face à la co-conception des outils',
@@ -642,7 +642,7 @@ La crise persistante de rétention du personnel dans les centres locaux de servi
         [
           'Quelle appréhension se manifeste chez certains cadres au début ?',
           'La crainte de voir leur emprise sur les statistiques s’estomper',
-          'La crainte de voir les soignants réclamer des primes de rétention plus élevées',
+          'La crainte que la coordination interdisciplinaire se dégrade',
           'La crainte que les réunions d’alignement prolongent leur journée de travail',
         ],
         [
@@ -797,7 +797,7 @@ Alors que les chefs d’État et de gouvernement s’apprêtent à parapher le n
         [
           'Quelle inquiétude majeure l’éditorialiste formule-t-il sur ce traité ?',
           'L’affaiblissement des capacités juridiques de l’État par l’arbitrage',
-          'Un arbitrage des litiges entre États confié à des avocats d’affaires',
+          'La disparition de l’impartialité de nos tribunaux ordinaires face aux multinationales',
           'Le versement d’amendes par les investisseurs étrangers aux États fautifs',
         ],
         [
@@ -839,13 +839,13 @@ La signature imminente de l’accord économique global suscite une levée de bo
         ],
         [
           'Quel contre-argument l’article oppose-t-il au discours des partisans ?',
-          'L’allongement des rentes brevetées finance la finance et non l’essor',
+          'L’allongement des monopoles de brevet profite surtout aux actionnaires plutôt qu’à l’innovation',
           'Les brevets prolongés financent surtout les soins que reçoivent les patients',
           'Les molécules novatrices naissent grâce aux rachats d’actions et aux dividendes',
         ],
         [
           'Quelle ligne de conduite l’auteur réclame-t-il des décideurs publics ?',
-          'Isoler la santé des trocs commerciaux pour protéger la population',
+          'Isoler la santé des tractations commerciales pour protéger la population',
           'Lier la politique du médicament aux quotas d’exportation agroalimentaire',
           'Accorder aux laboratoires une exclusivité commerciale prolongée',
         ],
@@ -901,7 +901,7 @@ Au cœur des débats entourant la réforme des institutions démocratiques se tr
         ],
         [
           'Quel comportement malsain ce mode de scrutin permet-il de dissiper ?',
-          'L’obligation de choisir par défaut pour bloquer un candidat redouté',
+          'Le vote stratégique qui détourne l’électeur de ses convictions',
           'Le renforcement du vote stratégique où l’on vote contre un parti',
           'L’accentuation de la polarisation toxique entre les partis et leurs régions',
         ],
@@ -970,7 +970,7 @@ Nous vivons désormais entourés d’appareils électroménagers tellement intel
         [
           'Comment le fabricant verrouille-t-il le marché de la réparation ?',
           'En interdisant l’accès physique par des barrières logicielles closes',
-          'En réservant les codes d’accès aux seuls ateliers de quartier',
+          'En publiant librement le code d’accès du panneau sur son site',
           'En offrant gratuitement les pièces détachées aux ateliers indépendants',
         ],
         [
@@ -1025,7 +1025,7 @@ Assis à son vieil établi de chêne près de la fenêtre givrée, Henri écouta
         ],
         [
           'Quelle cause matérielle explique la désertion de son échoppe ?',
-          'Le triomphe des technologies électroniques sur les montres mécaniques',
+          'Le triomphe des affichages numériques à quartz sur les pendules',
           'Le retour en force des pendules mécaniques dans les salons de la ville',
           'La surcharge de travail qui força l’horloger à fermer son échoppe',
         ],
@@ -1060,14 +1060,14 @@ Assis à son vieil établi de chêne près de la fenêtre givrée, Henri écouta
       questions: [
         [
           'Quel motif clinique le médecin invoque-t-il pour suggérer un hébergement ?',
-          'Les dangers de chutes provoqués par un trop grand nombre de remèdes',
+          'Les risques de chute provoqués par un trop grand nombre de remèdes',
           'Une démence très avancée empêchant la patiente de s’exprimer seule',
           'Des chutes fracturaires qui ont justifié l’ajout de huit molécules distinctes',
         ],
         [
           'Quel argument la travailleuse sociale oppose-t-elle à la vision médicale ?',
           'L’importance capitale de ses repères affectifs et de son autonomie',
-          'Le coût prohibitif des centres de soins pour la bourse de l’usagère',
+          'Un relogement rapide qui dissiperait la crainte de l’institutionnalisation',
           'Une perte de lucidité qui rend la patiente incapable de décider pour elle-même',
         ],
         [
@@ -1102,7 +1102,7 @@ Assis à son vieil établi de chêne près de la fenêtre givrée, Henri écouta
           'Quel constat l’infirmière-pivot dresse-t-elle au sujet des oublis du malade ?',
           'Une solitude pesante et un désarroi moral plutôt qu’une démence',
           'Un déclin cérébral organique qui a provoqué sa détresse morale',
-          'Une lassitude passagère liée à la fermeture du dépanneur du village',
+          'Un refus volontaire de ses ordonnances, sans lien avec son humeur',
         ],
         [
           'Quel levier communautaire le travailleur social préconise-t-il d’activer ?',
@@ -1134,7 +1134,7 @@ Assis à son vieil établi de chêne près de la fenêtre givrée, Henri écouta
         ],
         [
           'Quel péril environnemental le représentant citoyen met-il en garde ?',
-          'L’altération grave et irréversible de l’approvisionnement en eau potable',
+          'L’altération grave de l’approvisionnement en eau potable',
           'Une hausse des résurgences estivales grâce aux nouvelles routes',
           'La hausse de la nappe phréatique causée par les nouveaux stationnements asphaltés',
         ],
@@ -1286,7 +1286,7 @@ Assis à son vieil établi de chêne près de la fenêtre givrée, Henri écouta
           'Quelle règle finale délirante l’employée pose-t-elle pour le permis provisoire ?',
           'L’interdiction formelle d’avoir des pensées complexes sous peine de sanctions',
           'L’autorisation d’expirer de la buée sur la vitre sans la moindre formalité',
-          'L’obligation de valider le ticket de néant avant d’obtenir le permis provisoire',
+          'La dispense de valider le ticket de néant pour les citoyens exemplaires',
         ],
       ],
     },
@@ -1311,13 +1311,13 @@ L’autre jour, j’étais assise à la cafétéria avec mon sandwich aux œufs.
         [
           'Quel débat grotesque oppose les deux stagiaires à la table voisine ?',
           'La classification d’un sentiment amoureux selon les normes de la comptabilité',
-          'La rédaction d’un contrat de travail pour formaliser un coup de foudre',
-          'La réparation d’une machine à café qui imprime un état de flux financier',
+          'La vérification d’un passif contingent lié à la machine à café',
+          'La comptabilisation d’un sandwich aux œufs parmi les pertes d’exploitation',
         ],
         [
           'Quelle chute absurde précipite la fuite de la narratrice hors de l’édifice ?',
           'Le distributeur de café qui édite un rapport financier à la place d’une boisson',
-          'Le stylet de Jean-François qui s’effondre sur la tablette de notes comptables',
+          'Le café renversé par les stagiaires sur la boîte à lunch de Jean-François',
           'Le collègue qui inscrit la mélancolie dans les recettes d’exploitation',
         ],
       ],
@@ -1339,13 +1339,13 @@ L’autre jour, j’étais assise à la cafétéria avec mon sandwich aux œufs.
         [
           'Quel péril économique l’analyste Pierre-Olivier Côté met-il de l’avant ?',
           'La fuite des usines vers des pays moins exigeants sans gain pour le climat',
-          'La fuite des capitaux causée par la recherche publique trop coûteuse',
+          'La chute de la recherche privée faute de taxes carbone suffisantes',
           'L’essor de centrales au charbon sur le territoire québécois à cause des taxes',
         ],
         [
           'Quel argument économique central la ministre oppose-t-elle à cette vision ?',
           'Les ravages écologiques coûtent infiniment plus cher que les investissements',
-          'Les primes d’assurance coûtent infiniment plus cher que les usines elles-mêmes',
+          'Les subventions aux alumineries coûtent plus cher que les feux de forêt',
           'L’importation massive de batteries étrangères comme seule garantie d’emplois de pointe',
         ],
         [
@@ -1374,7 +1374,7 @@ L’autre jour, j’étais assise à la cafétéria avec mon sandwich aux œufs.
           'Quel reproche sévère Marc-André Dubé adresse-t-il aux aides accordées ?',
           'L’octroi de sommes colossales à des groupes extérieurs au détriment du social',
           'L’octroi de subventions aux PME québécoises innovantes qui étaient déjà bien financées',
-          'Les aides versées aux usines de la Baie-James sans reddition de comptes',
+          'Des exemptions fiscales accordées aux hôpitaux, qui manquent d’infirmières',
         ],
         [
           'Quel risque technologique l’analyste des finances soulève-t-il pour l’avenir ?',
@@ -1389,7 +1389,7 @@ L’autre jour, j’étais assise à la cafétéria avec mon sandwich aux œufs.
           'Le projet de la Baie-James abandonné avant même la mise en service des turbines',
         ],
         [
-          'Quelle vision géopolitique défend-elle face aux réserves budgétaires adverses ?',
+          'Quelle vision géopolitique défend-elle face aux objections budgétaires ?',
           'La nécessité de transformer nos ressources chez nous pour préserver notre rang',
           'La nécessité d’exporter nos ressources brutes pour préserver notre rang',
           'La sous-traitance du raffinage à l’étranger pour mieux garder notre souveraineté',
@@ -1441,7 +1441,7 @@ L’autre jour, j’étais assise à la cafétéria avec mon sandwich aux œufs.
         [
           'Quel risque financier Me Mercier cherche-t-il à épargner aux municipalités ?',
           'L’alourdissement de la taxe foncière pour combler les manques des caisses',
-          'La perte de l’indexation automatique des rentes en période de sous-capitalisation',
+          'Un déficit de solvabilité qui serait imputé aux seuls retraités',
           'Le gel des cotisations municipales durant les années de déficit actuariel',
         ],
         [
@@ -1588,7 +1588,7 @@ L’inégale répartition des effectifs médicaux entre les métropoles et les t
         ],
         [
           'Quelle solution novatrice les chercheurs recommandent-ils pour les villages ?',
-          'Élargir les compétences des infirmières expertes et déployer des cliniques',
+          'Élargir les compétences des infirmières praticiennes spécialisées et déployer des unités mobiles',
           'Réduire les compétences des infirmières praticiennes et supprimer les unités mobiles',
           'Remplacer les examens physiques par des diagnostics automatisés à distance',
         ],
@@ -1687,7 +1687,7 @@ Cessez cette comédie d’autodénigrement qui ne trompe que vous-même. Vous sa
           'Que reproche Adrienne au silence prolongé de Monique ?',
           'Elle y voit une mise à distance plus déstabilisante qu’un blâme direct',
           'Elle y voit une approbation discrète de son troisième chapitre sans réserve',
-          'Elle soupçonne que Monique a déjà transmis son manuscrit à un éditeur parisien',
+          'Elle y voit une simple distraction de Monique, sans lien avec son manuscrit',
         ],
         [
           'Quel défaut majeur Monique décèle-t-elle dans le dénouement de la scène ?',
@@ -1778,7 +1778,7 @@ Face à la multiplication des événements météorologiques extrêmes, les doct
       questions: [
         [
           'Quel changement doctrinal alarmant l’article dénonce-t-il chez les puissances ?',
-          'La criminalisation militaire des migrations causées par les périls du climat',
+          'La militarisation des migrations causées par les périls du climat',
           'La reconnaissance des migrations climatiques comme urgences humanitaires prioritaires',
           'La baisse continue des investissements alloués aux technologies de repérage',
         ],
@@ -1797,8 +1797,8 @@ Face à la multiplication des événements météorologiques extrêmes, les doct
         [
           'Quelle politique alternative les experts critiques préconisent-ils avec force ?',
           'Des voies de passage sûres et le soutien technique aux territoires frappés',
-          'La militarisation préventive des corridors maritimes sous mandat international',
-          'Le retour obligatoire de tous les résidents récents vers leur pays natal',
+          'La fermeture des couloirs humanitaires au profit de barbelés plus hauts',
+          'Le renforcement des drones de surveillance aux frontières du Sud global',
         ],
       ],
     },
@@ -1810,7 +1810,7 @@ La consolidation de la paix au sortir d’un conflit civil fratricide confronte 
         [
           'Quel dilemme fondamental se pose aux négociateurs à la fin d’une guerre civile ?',
           'Choisir entre la poursuite des coupables et le maintien du cessez-le-feu',
-          'Choisir entre les commissions vérité et l’amnistie générale des chefs belligérants',
+          'Choisir entre l’amnistie des civils et la poursuite des chefs de guerre',
           'Choisir entre la reconnaissance des crimes et l’abandon des victimes civiles',
         ],
         [
@@ -1846,13 +1846,13 @@ Le nouvel essai du professeur Henri Gauthier renouvelle avec brio la réflexion 
         ],
         [
           'Quel péril l’organisation précipitée d’élections comporte-t-elle selon l’auteur ?',
-          'Rallumer les conflits armés au lieu de pacifier le débat public national',
+          'Rallumer les conflits armés au lieu d’apaiser le débat public national',
           'Apaiser les rancœurs tribales en transformant les bureaux de vote en forums civiques',
           'Hâter la démobilisation des milices sans réintégration économique des anciens combattants',
         ],
         [
           'Quel pilier concret assure véritablement la stabilité durable sur le terrain ?',
-          'La restitution des armes et la formation d’une force armée intégratrice',
+          'La remise des armes et la formation d’une force armée intégratrice',
           'La dissolution de l’armée républicaine au profit des milices intégrées',
           'La centralisation des ressources économiques dans les seules municipalités urbaines',
         ],
