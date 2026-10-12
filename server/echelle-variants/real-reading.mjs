@@ -1728,8 +1728,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quelle distinction l'UNESCO a-t-elle accordée au Vieux-Québec en 1985 ?",
         "La reconnaissance officielle comme site du patrimoine mondial",
-        "Le classement prioritaire comme réserve de biosphère côtière",
-        "Le titre exclusif de première capitale culturelle d'Amérique"
+        "L'inscription spéciale sur la liste des cités maritimes en péril",
+        "Le statut de capitale coloniale protégée de la Nouvelle-France"
       ]
     ],
     "justificationFr": "Présentation patrimoniale et historique de la capitale québécoise, seule ville fortifiée au nord du Mexique.",
@@ -1757,8 +1757,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Quel est le sujet central de ce passage ?",
         "La prospérité économique, le rayonnement culturel et la valeur patrimoniale de Québec",
-        "Les règles de navigation fluviale imposées aux paquebots de croisière sur le Saint-Laurent",
-        "L'histoire de la construction des lignes de chemin de fer reliant Calgary à la Côte Est"
+        "La rivalité commerciale exclusive entre le port de Québec et les chantiers de Saskatoon",
+        "Le déclin du tourisme de croisière et la hausse du chômage urbain depuis les années 2000"
       ],
       [
         "Quel hôtel emblématique situé dans le Vieux-Québec est considéré comme le plus photographié au monde ?",
@@ -1768,9 +1768,9 @@ export const REAL_READING_PASSAGES = [
       ],
       [
         "Quelle règle d'usage linguistique le texte rappelle-t-il pour éviter toute confusion géographique ?",
-        "Employer « à Québec » pour la ville et « au Québec » pour désigner la province dans son ensemble",
-        "Utiliser toujours le nom anglais de la capitale lors des échanges commerciaux internationaux",
-        "Supprimer l'article défini devant le nom de la cité dans tous les documents administratifs"
+        "Dire « à Québec » pour la ville et « au Québec » pour désigner la province",
+        "Employer « de Québec » pour la province et « du Québec » pour la seule cité",
+        "Utiliser indifféremment les prépositions « à » et « en » pour la capitale"
       ]
     ],
     "justificationFr": "Dynamisme économique contemporain, distinction d'usage toponymique et célébration du 400e anniversaire de Québec.",
@@ -1799,7 +1799,7 @@ export const REAL_READING_PASSAGES = [
         "Quelle évolution historique ce texte retrace-t-il à propos du 24 juin ?",
         "Le passage d'une célébration païenne du solstice d'été à la fête nationale des Québécois",
         "La décision politique prise en 1925 pour obliger les entreprises à fermer le jour férié",
-        "Les différends religieux entre les missionnaires chrétiens et les chefs des tribus amérindiennes"
+        "L'interdiction des feux de joie par l'Église catholique dès l'instauration du christianisme"
       ],
       [
         "En quelle année un décret officiel du gouvernement a-t-il proclamé la fête nationale du Québec ?",
@@ -1810,8 +1810,8 @@ export const REAL_READING_PASSAGES = [
       [
         "Pourquoi le solstice d'été était-il célébré par de grands feux de joie dans les temps anciens ?",
         "Pour prolonger symboliquement la clarté solaire avant d'entamer les lourds travaux agricoles",
-        "Pour prévenir les invasions ennemies en signalant la présence des guerriers sur les collines",
-        "Pour consumer les surplus de récoltes de l'année précédente avant le début de l'hiver froid"
+        "Pour brûler les herbes indésirables avant de commencer les premiers semis du début de l'été",
+        "Pour marquer la fin définitive des moissons et célébrer le stockage des céréales au village"
       ]
     ],
     "justificationFr": "Histoire culturelle de la Fête nationale du Québec, du solstice d'été païen à la célébration identitaire contemporaine.",
@@ -1839,20 +1839,20 @@ export const REAL_READING_PASSAGES = [
       [
         "De quoi traite ce texte sur les festivités de la Saint-Jean en Nouvelle-France ?",
         "Des rites populaires traditionnels associés au feu et à l'eau lors de la nuit festive",
-        "Des disputes fréquentes entre les autorités civiles et le clergé pour allumer le bûcher",
+        "Du refus des colons normands de reproduire les coutumes des feux en Nouvelle-France",
         "Des canons de marine tirés dans le port de Québec lors de la visite des gouverneurs royaux"
       ],
       [
         "Que promettait la tradition aux jeunes filles qui réussissaient à sauter par-dessus le feu de joie ?",
         "Elles allaient se marier dans l'année qui suivait",
-        "Elles obtenaient une place de choix au banquet paroissial",
-        "Elles étaient protégées des maladies durant tout l'hiver"
+        "Elles étaient dispensées des corvées de moisson",
+        "Elles choisissaient le lieu du bûcher paroissial"
       ],
       [
         "Pourquoi la coutume autorisait-elle la première baignade de l'année le soir du 23 juin ?",
         "L'eau était jugée assez tiède et se voyait attribuer des vertus spirituelles de guérison",
-        "Les règlements de police municipale interdisaient tout accès aux fleuves durant le printemps",
-        "Les fidèles devaient obligatoirement se purifier pour assister à la messe dite le lendemain"
+        "L'Église imposait ce bain rituel comme condition préalable pour allumer le bûcher sacré",
+        "Les colons pensaient que l'eau du fleuve perdait toute fraîcheur dès le coucher du soleil"
       ]
     ],
     "justificationFr": "Coutumes traditionnelles de la Saint-Jean en Nouvelle-France : feux de joie, rituels communautaires et vertus attribuées à l'eau.",
