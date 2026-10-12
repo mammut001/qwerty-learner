@@ -483,11 +483,11 @@ export const N05_06_SCENARIOS = {
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
-          text: `— Tu as des nouvelles de Clara ? — Oui ! ${s.soeur} a finalement décidé d’accepter l’offre d’emploi à temps partiel ${s.domaine}. Elle travaillera ${s.heures}, principalement les jeudis et vendredis. Même si le salaire total est moins élevé qu’un temps plein, c’était le compromis idéal pour terminer ${s.etudes}. Son employeur lui garantit des horaires stables et accepte d’aménager son horaire pendant ses examens de fin de session. Elle se sent tellement soulagée d’avoir pris cette décision après avoir hésité pendant des semaines !`,
+          text: `— Tu as des nouvelles de Clara ? — Oui ! ${s.soeur} a finalement décidé d’accepter l’offre d’emploi à temps partiel ${s.domaine}. Elle travaillera ${s.heures}, principalement les jeudis et vendredis. Même si le salaire total est moins élevé qu’à temps plein, c’était le compromis idéal pour terminer ${s.etudes}. Son employeur lui garantit des horaires stables et accepte d’aménager son horaire pendant ses examens de fin de session. Elle se sent tellement soulagée d’avoir pris cette décision après avoir hésité pendant des semaines !`,
           questions: [
-            makeQuestion('Quelle décision professionnelle est expliquée ici ?', 'L’acceptation d’un contrat de travail à temps partiel', 'Le refus d’une promotion hiérarchique dans son entreprise', 'Une démission sans perspective d’un autre engagement', ['temps partiel', 'offre']),
-            makeQuestion('Pourquoi ce poste à temps partiel convient-il particulièrement ?', `Pour lui permettre ${de(s.etudPara)}`, 'Pour lui offrir du temps libre afin de voyager à l’étranger', 'Parce qu’elle privilégie la réalisation d’actions bénévoles', [s.kw]),
-            makeQuestion('Quel avantage l’employeur lui accorde-t-il pendant les examens ?', 'Des horaires adaptés durant les épreuves de fin de session', 'Une indemnité financière pour couvrir les coûts d’inscription', 'L’autorisation d’étudier ses manuels durant ses heures de garde', ['examens', 'horaire']),
+            makeQuestion('Quelle décision professionnelle est expliquée ici ?', 'L’acceptation d’un contrat de travail à temps partiel', 'L’abandon de ses études pour un emploi à temps plein', 'Une démission sans perspective d’un autre engagement', ['temps partiel', 'offre']),
+            makeQuestion('Pourquoi ce poste à temps partiel convient-il particulièrement ?', `Pour lui permettre ${de(s.etudPara)}`, 'Pour obtenir des congés payés tout au long de la fin de session', 'Parce qu’elle privilégie la réalisation d’actions bénévoles', [s.kw]),
+            makeQuestion('Quel avantage l’employeur lui accorde-t-il pendant les examens ?', 'Des horaires adaptés durant les épreuves de fin de session', 'Le maintien intégral de son salaire habituel de temps plein', 'L’autorisation d’étudier ses manuels durant ses heures de garde', ['examens', 'horaire']),
           ],
         }
       },
@@ -497,17 +497,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { amie: 'Nadia', metier: 'de designer graphique', jours: 'trois jours par semaine', raison: 'passer plus de temps avec son bébé', raiPara: 'consacrer davantage de moments précieux à son jeune enfant', kw: 'bébé' },
-          { amie: 'Camille', metier: 'de comptable adjointe', jours: 'quatre jours par semaine', raison: 'concilier sa vie de famille et ses cours', raiPara: 'mieux équilibrer sa vie familiale et la reprise de ses cours', kw: 'famille' },
-          { amie: 'Julie', metier: 'de rédactrice de contenu', jours: 'trois jours par semaine', raison: 'prendre soin de sa mère convalescente', raiPara: 'veiller au quotidien sur sa mère convalescente', kw: 'mère' },
+          { amie: 'Nadia', metier: 'de designer graphique', jours: 'trois jours par semaine', raison: 'passer plus de temps avec son bébé', raiPara: 'profiter pleinement de son jeune enfant', kw: 'bébé' },
+          { amie: 'Camille', metier: 'de comptable adjointe', jours: 'quatre jours par semaine', raison: 'concilier sa vie de famille et ses cours', raiPara: 'trouver un équilibre entre foyer et études', kw: 'famille' },
+          { amie: 'Julie', metier: 'de rédactrice de contenu', jours: 'trois jours par semaine', raison: 'prendre soin de sa mère convalescente', raiPara: 'veiller au rétablissement de sa mère malade', kw: 'mère' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `— J’ai discuté avec ${s.amie} hier soir. Elle m’a expliqué pourquoi elle a choisi un contrat à temps partiel comme ${s.metier}. L’entreprise lui offrait un poste régulier de quarante heures, mais elle a insisté pour faire seulement ${s.jours}. Sa priorité absolue cette année, c’est de ${s.raison}. Elle a calculé son budget de manière serrée et a constaté qu’en réduisant certaines dépenses de loisir, elle pouvait très bien vivre ainsi. Elle préfère avoir du temps de qualité plutôt que d’accumuler du stress au quotidien.`,
           questions: [
-            makeQuestion('Quel compromis l’amie a-t-elle choisi pour sa vie professionnelle ?', 'Adopter un horaire allégé pour préserver son quotidien', 'Cumuler deux emplois complémentaires la même semaine', 'Effectuer des heures supplémentaires chaque soir ouvrable', ['temps partiel', 'heures']),
-            makeQuestion('Quelle raison principale motive son choix d’horaire ?', `Le souhait de ${s.raiPara}`, 'Une clause obligatoire stipulée dans son entente syndicale', 'Une volonté explicite de réduire ses obligations fiscales', [s.kw]),
-            makeQuestion('Comment a-t-elle adapté son quotidien pour compenser la baisse de salaire ?', 'En surveillant ses dépenses et en coupant dans les loisirs', 'En sollicitant un emprunt d’argent auprès de sa famille', 'En mettant en vente sa propriété pour habiter en colocation', ['dépenses', 'loisir']),
+            makeQuestion('Quel compromis l’amie a-t-elle choisi pour sa vie professionnelle ?', 'Adopter un horaire allégé pour préserver son quotidien', 'Conserver un poste régulier de quarante heures par semaine', 'Effectuer des heures supplémentaires chaque soir ouvrable', ['temps partiel', 'heures']),
+            makeQuestion('Quelle raison principale motive son choix d’horaire ?', `Le souhait de ${s.raiPara}`, 'Le besoin de réduire totalement ses dépenses de loisir', 'Une volonté d’éviter toute surcharge de travail imprévue', [s.kw]),
+            makeQuestion('Comment a-t-elle adapté son quotidien pour compenser la baisse de salaire ?', 'En surveillant ses dépenses et en coupant dans les loisirs', 'En accumulant des heures payées durant les fins de semaine', 'En mettant en vente sa propriété pour habiter en colocation', ['dépenses', 'loisir']),
           ],
         }
       },
@@ -525,9 +525,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Tu as reçu la circulaire de ${s.proprio} ? — Oui, il nous a envoyé une longue lettre pour expliquer sa décision d’interdire les chiens et chats dans tous les nouveaux baux. Il explique que depuis l’hiver dernier, plusieurs locataires se sont plaints ${s.motif}. De plus, lors du départ des anciens occupants du troisième palier, il a constaté ${s.degat}. Pour préserver la valeur de son immeuble et la quiétude des résidents, il a donc décidé de resserrer le règlement. Heureusement, les animaux déjà présents sont tolérés jusqu’à la fin des baux actuels.`,
           questions: [
-            makeQuestion('Quelle décision le propriétaire d’immeuble a-t-il prise ?', 'Bannir la présence des animaux pour les futurs baux', 'Hausser les loyers mensuels de vingt pour cent au renouvellement', 'Suspendre les baux pour lancer des travaux de rénovation majeurs', ['interdire', 'animaux']),
-            makeQuestion('Quel dommage matériel dans un logement a motivé cette décision ?', `${cap(s.degPara)}`, 'Des carreaux de fenêtres fracturés dans les parties communes', 'Une tuyauterie de cuisine descellée provoquant une fuite d’eau', [s.degKw]),
-            makeQuestion('Qu’arrive-t-il aux animaux des personnes qui habitent déjà là ?', 'Ils demeurent tolérés jusqu’au terme de leur entente actuelle', 'Leurs maîtres doivent les placer immédiatement dans un refuge', 'Leur présence est soumise à une pénalité financière mensuelle', ['baux', 'tolérés']),
+            makeQuestion('Quelle décision le propriétaire d’immeuble a-t-il prise ?', 'Bannir la présence des animaux pour les futurs baux', 'Exiger le départ des locataires du troisième palier', 'Suspendre les baux pour lancer des travaux de rénovation majeurs', ['interdire', 'animaux']),
+            makeQuestion('Quel dommage matériel dans un logement a motivé cette décision ?', `${cap(s.degPara)}`, 'Des portes d’entrée brisées sur le troisième palier', 'Une tuyauterie de cuisine descellée provoquant une fuite d’eau', [s.degKw]),
+            makeQuestion('Qu’arrive-t-il aux animaux des personnes qui habitent déjà là ?', 'Ils demeurent tolérés jusqu’au terme de leur entente actuelle', 'Ils doivent quitter l’immeuble dès la fin de l’hiver prochain', 'Leur présence est soumise à une pénalité financière mensuelle', ['baux', 'tolérés']),
           ],
         }
       },
@@ -545,9 +545,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— J’ai assisté à la rencontre hier soir avec ${s.organisme}. La direction a expliqué en détail pourquoi le règlement interdit désormais les chiens ${s.poidsPhrase}. Cette règle a été adoptée ${s.vote} après deux incidents récents où des résidents âgés ont eu peur dans les ascenseurs. Les gestionnaires ont rappelé que les bruits de pas sur les parquets flottants créent trop d’irritation entre voisins de palier. Seuls les petits animaux de compagnie silencieux restent acceptés. Les propriétaires d’animaux actuels ont reçu un formulaire d’enregistrement obligatoire avant le premier mai.`,
           questions: [
-            makeQuestion('Quelle est la décision adoptée lors de la réunion de gestion ?', `La restriction visant ${s.poiPara}`, 'L’interdiction définitive de fumer sur les balcons extérieurs', 'L’obligation de renouveler l’ensemble des serrures de palier', [s.kw]),
-            makeQuestion('Quelle situation a particulièrement poussé à prendre cette décision ?', 'L’anxiété causée à des aînés croisés dans les ascenseurs', 'Une morsure sévère ayant exigé l’intervention des ambulanciers', 'La détérioration continue des plates-bandes végétalisées du parc', ['ascenseurs', 'peur']),
-            makeQuestion('Que doivent faire les résidents qui possèdent déjà un animal ?', 'Remplir une fiche d’identification avant le premier mai', 'Verser un droit spécifique au bureau municipal de quartier', 'Fournir un carnet de vaccination visé par une clinique vétérinaire', ['formulaire', 'premier mai']),
+            makeQuestion('Quelle est la décision adoptée lors de la réunion de gestion ?', `La restriction visant ${s.poiPara}`, 'Le remplacement obligatoire des parquets flottants par du tapis', 'L’obligation de renouveler l’ensemble des serrures de palier', [s.kw]),
+            makeQuestion('Quelle situation a particulièrement poussé à prendre cette décision ?', 'L’anxiété causée à des aînés croisés dans les ascenseurs', 'Une chute grave d’aînés glissant sur les parquets flottants', 'La détérioration continue des plates-bandes végétalisées du parc', ['ascenseurs', 'peur']),
+            makeQuestion('Que doivent faire les résidents qui possèdent déjà un animal ?', 'Remplir une fiche d’identification avant le premier mai', 'Éviter désormais d’emprunter les ascenseurs avec leur animal', 'Fournir un carnet de vaccination visé par une clinique vétérinaire', ['formulaire', 'premier mai']),
           ],
         }
       },
@@ -557,17 +557,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { collegue: 'Marc', employeur: 'une agence de publicité', heures: 'vingt-quatre heures', raison: 'd’éviter l’épuisement professionnel', raiPara: 'protéger son bien-être et prévenir le surmenage', kw: 'épuisement' },
-          { collegue: 'Simon', employeur: 'un cabinet de consultants', heures: 'vingt heures', raison: 'de garder du temps pour ses projets créatifs', raiPara: 'conserver des plages pour ses projets personnels créatifs', kw: 'créatifs' },
-          { collegue: 'Benoît', employeur: 'un laboratoire médical', heures: 'vingt-huit heures', raison: 'de prendre soin de sa santé fragile', raiPara: 'donner la priorité au maintien d’un bon état de santé', kw: 'santé' },
+          { collegue: 'Marc', employeur: 'une agence de publicité', heures: 'vingt-quatre heures', raison: 'd’éviter l’épuisement professionnel', raiPara: 'd’éviter le surmenage et préserver sa santé', kw: 'épuisement' },
+          { collegue: 'Simon', employeur: 'un cabinet de consultants', heures: 'vingt heures', raison: 'de garder du temps pour ses projets créatifs', raiPara: 'de consacrer du temps à ses projets créatifs', kw: 'créatifs' },
+          { collegue: 'Benoît', employeur: 'un laboratoire médical', heures: 'vingt-huit heures', raison: 'de prendre soin de sa santé fragile', raiPara: 'de prendre soin au quotidien de sa santé', kw: 'santé' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `— Tu as su pour ${s.collegue} ? ${s.employeur[0].toUpperCase() + s.employeur.slice(1)} lui offrait un poste permanent à temps plein avec un salaire alléchant. Mais après mûre réflexion, il a décliné l’offre complète pour négocier un horaire de ${s.heures} par semaine. Il m’a confié que son but principal était ${s.raison}. Il avait vécu un épisode difficile il y a deux ans et il ne voulait absolument pas retomber dans le même piège de surcharge de travail. Son employeur a heureusement accepté sa proposition, car ses compétences techniques sont indispensables pour l’équipe.`,
           questions: [
-            makeQuestion('Pourquoi le travailleur a-t-il refusé le poste permanent à temps plein ?', `Dans l’objectif de ${s.raiPara}`, 'Pour s’installer plusieurs mois à l’écart en campagne', 'Parce qu’une autre entreprise lui assurait un salaire doublé', [s.kw]),
+            makeQuestion('Pourquoi le travailleur a-t-il refusé le poste permanent à temps plein ?', `Afin ${s.raiPara}`, 'Afin d’obtenir un salaire permanent plus alléchant', 'Afin d’accepter une autre offre plus rémunératrice', [s.kw]),
             makeQuestion('Combien d’heures de travail par semaine a-t-il négociées ?', `Une formule contractuelle de ${s.heures} hebdomadaires`, 'Un horaire réduit fixé à une dizaine d’heures par semaine', 'Une charge hebdomadaire standard de trente-cinq heures', [s.heures]),
-            makeQuestion('Quelle a été la réponse finale de l’employeur ?', 'Il a consenti à son aménagement à temps partiel', 'Il a rompu la relation contractuelle sans délai', 'Il lui a enjoint de solliciter un autre établissement', ['employeur', 'accepté']),
+            makeQuestion('Quelle a été la réponse finale de l’employeur ?', 'Il a consenti à son aménagement à temps partiel', 'Il a rompu la relation contractuelle sans délai', 'Il a refusé de reconnaître ses compétences techniques', ['employeur', 'accepté']),
           ],
         }
       },
