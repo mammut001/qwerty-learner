@@ -2279,26 +2279,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle décision centrale l’ordonnance du tribunal consacre-t-elle à l’issue de ce procès ?",
           "La condamnation d’une entreprise pour pollution fautive et l’obligation de restaurer l’aquifère",
-          "L’autorisation accordée à l’usine d’enfouir des résidus toxiques dans les formations rocheuses voisines",
-          "L’annulation définitive des poursuites municipales en raison d’un vice de forme dans le dépôt initial"
+          "L’annulation de la sûreté financière exigée de l’entreprise, jugée disproportionnée au regard des expertises",
+          "La reconnaissance d’une force majeure, les infiltrations ayant été jugées imprévisibles par les experts"
         ],
         [
           "Sur quel motif le juge écarte-t-il l’argument de la force majeure invoqué par la compagnie ?",
           "La prévisibilité avérée du risque d’infiltration dès les premières études géologiques du terrain",
-          "La présence négligeable de résidus industriels dans les échantillons prélevés par les inspecteurs du ministère",
-          "L’aveu écrit du président du groupe reconnaissant un acte de sabotage commis par des employés démissionnaires"
+          "Le caractère exceptionnel d’un écoulement karstique survenu après la fin des études d’impact initiales",
+          "La faiblesse des expertises hydrogéologiques, qui ne mentionnaient pas la perméabilité du sous-sol"
         ],
         [
           "Quel fait prouve de manière décisive la négligence délibérée de la partie défenderesse ?",
           "Le refus de réparer des défectuosités structurelles déjà relevées par ses propres spécialistes",
-          "La tenue d’une conférence de presse non autorisée par le maire de la ville avant l’audition des témoins",
+          "Le partage de la responsabilité entre l’entreprise et la Municipalité, qui avait tardé à contrôler les fissures",
           "L’installation de géomembranes doubles dès le lancement des bassins de décantation"
         ],
         [
           "Dans cette ordonnance judiciaire, que désigne l’expression « délai péremptoire » ?",
           "Un intervalle de temps rigoureusement obligatoire au-delà duquel aucun acte ne peut plus être accompli",
-          "Une période de suspension temporaire des débats judiciaires décidée d’un commun accord entre les parties",
-          "Un calendrier prévisionnel indicatif pouvant être modifié à tout moment sans autorisation du tribunal"
+          "Un simple délai d’usage, sans conséquence juridique si la société tarde légèrement à consigner la sûreté",
+          "Un délai de grâce accordé à la défenderesse, reportable à sa demande, pour trouver les fonds nécessaires"
         ]
       ],
       "frame": "ordonnance judiciaire — responsabilité environnementale et procès"
@@ -2310,26 +2310,26 @@ export const N09_10_SCENARIOS = {
         [
           "Quelle est la revendication fondamentale défendue par l’auteur de cette lettre ouverte ?",
           "La réintégration de la procréation médicalement assistée au sein du régime public gratuit",
-          "La suppression complète des congés parentaux accordés aux employés du secteur privé québécois",
-          "L’instauration d’un plafond de revenus familiaux pour l’admissibilité aux allocations de garde d’enfants"
+          "Le maintien intégral du régime de crédits d’impôt, qui profite surtout aux familles modestes",
+          "La taxation des cliniques privées de fécondation, dont le produit financerait des crédits d’impôt plus généreux"
         ],
         [
           "Comment la lettre déconstruit-elle l’argument selon lequel la gratuité ruinerait l’État ?",
           "En démontrant que les transferts d’embryons multiples payants entraînent des coûts néonatals supérieurs",
-          "En suggérant de taxer lourdement les entreprises pharmaceutiques fabriquant des traitements hormonaux",
-          "En prédisant que les dons philanthropiques privés combleront l’ensemble des besoins financiers du réseau"
+          "En affirmant que les cliniques publiques ont déjà réduit leurs coûts grâce aux crédits d’impôt régressifs",
+          "En établissant que les naissances multiples issues de traitements publics coûtent davantage au trésor public"
         ],
         [
           "Quelle conséquence inique du régime actuel de crédits d’impôt le texte dénonce-t-il ?",
           "L’exclusion de facto des familles modestes incapables d’avancer les sommes requises pour les traitements",
-          "La baisse généralisée des salaires des infirmières travaillant dans les centres de santé communautaires",
-          "L’obligation pour les ménages à faible revenu de souscrire un prêt bancaire à taux usuraire pour payer leurs soins"
+          "L’obligation pour les seuls ménages aisés de transférer plusieurs embryons afin de réduire les frais hospitaliers",
+          "La création d’un crédit d’impôt supplémentaire pour les ménages à faible revenu, qui rendrait la gratuité inutile"
         ],
         [
           "Dans ce plaidoyer en santé publique, que signifie l’expression « impératif catégorique » ?",
           "Une exigence morale inconditionnelle qui s’impose d’elle-même sans dépendre de considérations opportunistes",
-          "Une recommandation technique facultative formulée par un comité d’experts indépendants lors d’une consultation",
-          "Un protocole médical expérimental administré aux patients hospitalisés dans un état critique"
+          "Une règle comptable rigide que le gouvernement doit respecter, quelle que soit la pression sociale",
+          "Une préférence idéologique que chaque province peut adapter librement selon ses priorités budgétaires"
         ]
       ],
       "frame": "lettre ouverte — gratuité de la procréation assistée"
@@ -2342,25 +2342,25 @@ export const N09_10_SCENARIOS = {
           "Sur quel fondement juridique principal le tribunal sanctionne-t-il la rupture de l’entente ?",
           "Le manquement manifeste de la multinationale à son obligation légale de bonne foi contractuelle",
           "L’absence d’homologation internationale des capteurs électroniques par l’agence de santé mondiale",
-          "L’invalidation rétroactive du contrat en raison d’un vice de consentement commis lors de sa signature notariale"
+          "La rupture de l’entente jugée légitime en raison du retard réglementaire imputable à la demanderesse"
         ],
         [
           "Comment le jugement démontre-t-il la mauvaise foi du consortium défendeur ?",
           "En révélant que les prétextes de retard cachaient le développement parallèle d’un outil concurrent",
-          "En démontrant que les dirigeants du consortium avaient secrètement déposé un brevet concurrent identique",
-          "En soulignant que la société étrangère n’avait jamais déposé ses états financiers auprès du registraire d’État"
+          "En prouvant que la demanderesse avait elle-même retardé les démarches auprès des autorités sanitaires",
+          "En établissant que les prototypes avaient été détruits avant la rupture, faute de financement suffisant"
         ],
         [
           "Quelle finalité pratique sous-tend l’ordonnance de restitution des prototypes sous scellés ?",
           "Empêcher la partie adverse d’exploiter indûment les innovations protégées conçues par son ancien partenaire",
-          "Autoriser les experts judiciaires à tester le fonctionnement des capteurs dans un laboratoire universitaire neutre",
-          "Permettre au ministère de la Santé d’évaluer la conformité des appareils aux normes environnementales locales"
+          "Obliger la défenderesse à détruire publiquement les prototypes afin d’éviter toute contrefaçon à l’étranger",
+          "Garantir à la défenderesse l’accès immédiat aux données cliniques pour achever ses propres essais pilotes"
         ],
         [
           "Dans le cadre de cette décision civile, que recouvre le terme « demande reconventionnelle » ?",
           "Une réclamation formulée en retour par le défendeur contre la partie qui l’a initialement assigné en justice",
-          "Un appel formel interjeté devant la Cour suprême pour contester la compétence territoriale d’un tribunal",
-          "Une requête déposée par un témoin expert pour obtenir le remboursement de ses frais de déplacement professionnel"
+          "La demande principale que le demandeur présente au début du procès, avant toute réponse du défendeur",
+          "Un moyen de défense soulevé par le défendeur pour contester la compétence de la chambre commerciale de Montréal"
         ]
       ],
       "frame": "ordonnance du tribunal — litige contractuel biomédical"
@@ -2373,25 +2373,25 @@ export const N09_10_SCENARIOS = {
           "Quelle thèse directrice les professionnels de la santé soutiennent-ils dans cette tribune ?",
           "L’infertilité est une affection légitime dont la prise en charge relève du droit fondamental aux soins",
           "La médecine reproductive doit être confiée en priorité à des cliniques commerciales à but lucratif",
-          "La gratuité des soins doit dépendre des revenus déclarés par chaque couple à Revenu Québec"
+          "Le retour aux crédits d’impôt constitue la solution la plus équitable, car il profite davantage aux familles modestes"
         ],
         [
           "Quel argument médical majeur les signataires opposent-ils au refus de financement public ?",
           "La reconnaissance formelle de l’infertilité comme une pathologie véritable par les instances de santé mondiales",
-          "La publication de sondages d’opinion montrant le désintérêt croissant des citoyens pour les questions d’éthique",
-          "La baisse constante des cas d’infertilité signalés au Québec depuis une dizaine d’années"
+          "La hausse des hospitalisations néonatales à risque provoquée par la gratuité des traitements publics",
+          "Le fait que l’OMS classe l’infertilité parmi les choix de vie personnels, qui ne relèvent pas des soins"
         ],
         [
           "Quel risque sanitaire grave la gratuité encadrée des traitements permet-elle d’écarter ?",
           "Le recours dangereux à des établissements clandestins non réglementés et les grossesses à risque élevé",
-          "Le développement d’affections chroniques graves provoquées par les protocoles de fécondation in vitro",
-          "La baisse drastique des effectifs d’infirmières cliniciennes spécialisées dans les soins périnataux hospitaliers"
+          "Le recours massif aux cliniques étrangères autorisées, qui assurent un suivi médical plus rigoureux",
+          "La multiplication des hospitalisations néonatales depuis que l’État finance intégralement la fécondation in vitro"
         ],
         [
           "Dans cette prise de position engagée, que qualifie l’adjectif « inique » ?",
           "Qui est profondément injuste, partial, et contraire à l’équité fondamentale entre les membres d’une société",
-          "Qui correspond à une pratique médicale répandue et généralement approuvée par les cliniques",
-          "Qui découle d’une application trop rigide et tatillonne des règles de procédure administrative courante"
+          "Qui relève d’un choix économique rationnel, fondé sur l’équilibre des finances publiques et la prudence budgétaire",
+          "Qui sort de l’ordinaire et ne concerne que des cas exceptionnels, peu fréquents dans la pratique médicale"
         ]
       ],
       "frame": "tribune d’opinion — accès public à la procréation assistée"
