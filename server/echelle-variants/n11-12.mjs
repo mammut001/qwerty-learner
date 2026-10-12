@@ -78,7 +78,7 @@ export const N11_12_SCENARIOS = {
       questions: [
         [
           'Quel changement juridique majeur la juriste met-elle en avant ?',
-          'Le transfert vers le fabricant de la charge de prouver la faute',
+          'Un renversement partiel de la preuve pour certains appareils essentiels',
           'Le maintien de la charge de la preuve auprès du seul acheteur',
           'Une présomption de défaut prolongée jusqu’à dix ans après la vente',
         ],
@@ -127,7 +127,7 @@ export const N11_12_SCENARIOS = {
         ],
         [
           'Sur quoi la fidélité des usagers devrait-elle reposer selon Félix Lapointe ?',
-          'Un accord pleinement conscient sans manœuvres pour le retenir',
+          'Un consentement éclairé, sans manœuvres pour le retenir',
           'L’épuisement progressif des abonnés face aux démarches',
           'La fidélité acquise par des pénalités imposées aux abonnés récalcitrants',
         ],
@@ -344,7 +344,7 @@ La direction de l’université et le ministère de l’Enseignement supérieur 
         ],
         [
           'Quelle situation vécue par les étudiants le leader met-il en évidence ?',
-          'Une pauvreté grandissante qui les oblige à multiplier les labeurs',
+          'Des emplois à temps partiel multipliés pour payer leur loyer',
           'Plus de la moitié des membres fréquentent régulièrement les banques alimentaires',
           'Un cumul de deux emplois réduit grâce à l’aide du rectorat',
         ],
@@ -616,7 +616,7 @@ La faillite de nombreux chantiers de transformation numérique au sein des grand
         ],
         [
           'Quelle conclusion managériale l’article met-il en évidence ?',
-          'L’implication active des équipes demeure le gage de tout succès',
+          'Une mutation technologique réclame de traiter les employés en concepteurs',
           'La formation magistrale suffit à garantir la réussite de toute transformation',
           'La campagne promotionnelle suffit à assurer l’adhésion durable des employés',
         ],
@@ -772,7 +772,7 @@ Dans la populeuse cité de Maracanda, un marchand nommé Zadig prospérait en ve
         [
           'Que provoque l’irruption soudaine de la tempête sur les habitants ?',
           'La révélation implacable de la réelle valeur morale de chacun',
-          'La disparition précipitée de Zadig, qui laisse la ville sans ses ombres',
+          'L’ombre du puissant mise en lumière, celle du potier qui s’éteint',
           'Une célébration collective des ombres royales qui restaurent la fierté de chacun',
         ],
         [
@@ -932,7 +932,7 @@ Quelle époque bénie pour le consommateur moderne ! Rendons grâce au génie vi
         ],
         [
           'Quelle réalité prosaïque se cache derrière les boîtiers hermétiques ?',
-          'La volonté délibérée de rendre toute réparation maison impossible',
+          'Une colle si tenace que changer une pile devient une opération délicate',
           'La protection optimale de la lentille en cristal contre la poussière',
           'La volonté délibérée de faciliter le remplacement de la pile par l’usager',
         ],
@@ -1545,7 +1545,7 @@ Le Québec traverse une mutation démographique d’une ampleur sans précédent
         ],
         [
           'Quel péril financier l’étude met-elle en lumière pour les comptes publics ?',
-          'L’accaparement potentiel de la presque totalité des ressources de l’État',
+          'La santé pourrait absorber les marges fiscales de l’État d’ici deux décennies',
           'Un surplus des marges fiscales qui permettrait de financer les régimes de retraite',
           'Un recul du budget de la santé à moins du tiers des dépenses publiques',
         ],
@@ -1615,7 +1615,7 @@ La littérature urbaine québécoise contemporaine a rompu avec l’idéalisatio
           'Quel rôle actif le cadre architectural joue-t-il dans ces fictions récentes ?',
           'Il exerce une pression contraignante qui oriente la vie des protagonistes',
           'Il sert d’ornement purement décoratif pour embellir l’action des chapitres',
-          'Il reproduit à l’identique les décors des romans français du siècle passé',
+          'Il favorise la rencontre fortuite entre nouveaux arrivants et habitants historiques',
         ],
         [
           'Comment la ruelle montréalaise contemporaine est-elle dépeinte par les auteurs ?',
@@ -1697,7 +1697,7 @@ Cessez cette comédie d’autodénigrement qui ne trompe que vous-même. Vous sa
         ],
         [
           'Quelle conception de leur relation transparaît dans la réplique de Monique ?',
-          'Une amitié exigeante refusant la complaisance pour pousser à l’absolu',
+          'Une amitié exigeante refusant la complaisance pour tendre vers l’absolu',
           'Une amitié dévouée qui encourage chaque concession pour ménager l’autrice',
           'Une rivalité professionnelle destructive visant à décourager la romancière',
         ],
@@ -1716,7 +1716,7 @@ Il y a dans la correspondance entre Gabrielle Moreau et l’essayiste Jean-Phili
         ],
         [
           'Quel paradoxe marque la lettre de félicitations reçue par la romancière ?',
-          'L’éloge public du livre s’accompagne d’un minutieux démontage critique',
+          'L’éloge de l’audace formelle s’accompagne de quatre pages de critiques',
           'L’éloge public du livre s’accompagne d’un silence complet sur ses défauts',
           'La certitude que le livre sera boudé par les jurys des grands prix littéraires',
         ],
