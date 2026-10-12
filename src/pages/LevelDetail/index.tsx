@@ -1,6 +1,7 @@
 import EchelleAiEvaluation from '@/components/EchelleAiEvaluation'
 import RealReadingSection from './RealReadingSection'
 import SpeechMetricsCard from '@/components/SpeechMetricsCard'
+import { trackAnalyticsEvent } from '@/utils/analytics'
 import useAudioRecorder from '@/hooks/useAudioRecorder'
 import useFrenchSpeechRecognition from '@/hooks/useFrenchSpeechRecognition'
 import useSpeech from '@/hooks/useSpeech'
@@ -596,8 +597,14 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
       console.error(`[QuizPanel] Cannot submit variant ${variant} for ${item.id} before batch is loaded`)
       return
     }
+    const score = scoreEchelleItem(activeItem.id, answers, { variant })
     recordEchelleMastery({ itemId: activeItem.id, answers, variant })
     setSubmitted(true)
+    trackAnalyticsEvent('level_quiz_submit', {
+      level: item.level,
+      skill: item.skill,
+      passed: Boolean(score?.mastered),
+    })
   }
 
   const reroll = async () => {
@@ -620,6 +627,11 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
       setSubmitted(false)
       setShowTranscript(false)
     }
+  }
+
+  const handleRerollClick = () => {
+    trackAnalyticsEvent('level_quiz_reroll')
+    void reroll()
   }
 
   const handleRetry = () => {
@@ -645,8 +657,12 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
             <button
               type="button"
               onClick={() => {
-                if (speaking) cancel()
-                else speak(true)
+                if (speaking) {
+                  cancel()
+                } else {
+                  trackAnalyticsEvent('listening_play')
+                  speak(true)
+                }
               }}
               className="inline-flex items-center gap-1 rounded-lg bg-white px-3 py-1.5 text-xs font-medium text-indigo-600 shadow-sm ring-1 ring-gray-200 hover:bg-gray-50 dark:bg-white/[0.06] dark:text-indigo-300 dark:ring-white/10 dark:hover:bg-white/[0.1]"
               title={speaking ? '点击停止播放' : '点击播放录音'}
@@ -747,7 +763,7 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
             {hasVariants && (
               <button
                 type="button"
-                onClick={reroll}
+                onClick={handleRerollClick}
                 className="ui-btn-secondary flex items-center gap-1 text-xs"
                 title="更换题目变体"
               >
@@ -774,7 +790,7 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
             {hasVariants && (
               <button
                 type="button"
-                onClick={reroll}
+                onClick={handleRerollClick}
                 className="ui-btn-secondary flex items-center gap-1 text-xs"
                 title="更换题目变体"
               >

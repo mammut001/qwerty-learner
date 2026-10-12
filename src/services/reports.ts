@@ -1,5 +1,6 @@
 import { isGuestMode } from './guestMode'
 import { studyApiBase } from './studyPlanSync'
+import { trackAnalyticsEvent } from '../utils/analytics'
 
 const API_BASE = studyApiBase(import.meta.env?.VITE_STUDY_API_BASE_URL)
 
@@ -87,6 +88,7 @@ export async function reportEchelleItem(input: ReportItemInput): Promise<ReportI
 
     const result = (await response.json()) as ReportItemResponse
     markItemVariantReportedInSession(itemId, variant)
+    trackAnalyticsEvent('issue_report')
     return result
   } catch (err) {
     if (err instanceof ReportItemError) throw err

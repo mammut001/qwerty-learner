@@ -35,7 +35,13 @@ self.addEventListener('message', (event) => {
     for (const value of event.data.urls) {
       try {
         const url = new URL(value, self.registration.scope)
-        if (url.origin !== self.location.origin || url.pathname.startsWith('/api/')) continue
+        if (
+          url.origin !== self.location.origin ||
+          url.pathname.startsWith('/api/') ||
+          url.pathname.startsWith('/umami/') ||
+          url.pathname.startsWith('/__/auth/')
+        )
+          continue
         const response = await fetch(url.href, { credentials: 'same-origin' })
         if (response.ok) await cache.put(url.href, response.clone())
       } catch {
@@ -51,7 +57,13 @@ self.addEventListener('fetch', (event) => {
   if (request.method !== 'GET') return
 
   const url = new URL(request.url)
-  if (url.origin !== self.location.origin || url.pathname.startsWith('/api/')) return
+  if (
+    url.origin !== self.location.origin ||
+    url.pathname.startsWith('/api/') ||
+    url.pathname.startsWith('/umami/') ||
+    url.pathname.startsWith('/__/auth/')
+  )
+    return
 
   if (request.mode === 'navigate') {
     event.respondWith(

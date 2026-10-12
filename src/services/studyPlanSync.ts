@@ -3,6 +3,7 @@ import { getIndicatorScenarios, parseEchelleItemId, scoreEchelleItem } from '../
 import { nextMemory } from '../resources/echelleMemory'
 import type { PlacementProfile, PlacementResult } from '../resources/placementTest'
 import { isGuestMode, onGuestModeChange, setGuestMode } from './guestMode'
+import { trackAnalyticsEvent } from '../utils/analytics'
 
 type StudyPlanSettings = {
   examDate: string
@@ -1460,6 +1461,7 @@ export async function transcribeSpeech(blob: Blob): Promise<SpeechTranscriptionR
   if (isGuestMode()) {
     throw new Error('STUDY_SESSION_BLOCKED')
   }
+  trackAnalyticsEvent('speech_transcribe')
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), 45000)
   try {
