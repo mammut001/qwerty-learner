@@ -1022,11 +1022,17 @@ const N3_CLEANERS_DATA = [
 const N3_CLEANER_BRANDS = ['Éco-Ménage', 'Net-Maison', 'Pur-Québec', 'Bio-Propre']
 
 const N3_PHARMA_DATA = [
-  { med: 'Comprimés contre le rhume', dose: 'Prendre un comprimé aux six heures.', doseP: 'un comprimé toutes les six heures', kwDose: 'comprimé', max: 'Ne pas dépasser quatre prises par jour.', dur: 'cinq jours consécutifs', store: 'Garder dans un endroit sec.', storeP: 'garder au sec et loin du soleil', kwStore: 'sec' },
-  { med: 'Sirop contre la toux sèche', dose: 'Prendre une cuillère matin et soir.', doseP: 'une cuillère matin et soir', kwDose: 'cuillère', max: 'Ne pas dépasser deux cuillères en 24 heures.', dur: 'sept jours au besoin', store: 'Conserver la bouteille bien fermée.', storeP: 'garder la bouteille bien fermée', kwStore: 'fermée' },
-  { med: 'Gélules pour la digestion', dose: 'Prendre deux gélules au milieu du repas.', doseP: 'avaler deux gélules en mangeant', kwDose: 'gélules', max: 'Ne pas prendre plus de quatre gélules par jour.', dur: 'dix jours consécutifs', store: 'Mettre à l’abri de l’humidité.', storeP: 'garder à l’abri de l’humidité', kwStore: 'humidité' },
+  { med: 'Comprimés contre le rhume', dose: 'Prendre un comprimé aux six heures.', doseP: 'un comprimé toutes les six heures', falseDoses: ['un comprimé matin et soir au repas', 'deux comprimés avant de dormir'], kwDose: 'comprimé', max: 'Ne pas dépasser quatre prises par jour.', dur: 'cinq jours consécutifs', store: 'Garder dans un endroit sec.', storeP: 'garder dans un endroit bien sec', kwStore: 'sec' },
+  { med: 'Sirop contre la toux sèche', dose: 'Prendre une cuillère matin et soir.', doseP: 'une cuillère le matin et le soir', falseDoses: ['une cuillère toutes les six heures', 'deux cuillères avant de dormir'], kwDose: 'cuillère', max: 'Ne pas dépasser deux cuillères en 24 heures.', dur: 'sept jours au besoin', store: 'Conserver la bouteille bien fermée.', storeP: 'garder la bouteille bien fermée', kwStore: 'fermée' },
+  { med: 'Gélules pour la digestion', dose: 'Prendre deux gélules au milieu du repas.', doseP: 'avaler deux gélules en mangeant', falseDoses: ['une gélule toutes les six heures', 'deux gélules le matin à jeun'], kwDose: 'gélules', max: 'Ne pas prendre plus de quatre gélules par jour.', dur: 'dix jours consécutifs', store: 'Mettre à l’abri de l’humidité.', storeP: 'garder à l’abri de l’humidité', kwStore: 'humidité' },
 ]
 const N3_PHARMA_DURS = ['trois jours consécutifs', 'cinq jours complets', 'sept jours ouvrables', 'dix jours de suite']
+const N3_STORAGE_LIST = [
+  'garder dans un endroit bien sec',
+  'garder la bouteille bien fermée',
+  'garder à l’abri de l’humidité',
+  'garder à l’abri de la lumière',
+]
 
 const N3_APPLIANCE_CARE = [
   { app: 'cafetière électrique', product: 'vinaigre blanc', prodP: 'du vinaigre blanc ordinaire', kw: 'vinaigre' },
@@ -1040,6 +1046,7 @@ const N3_RECYCLE_ITEMS = [
   { textFr: 'les cartons pliés', ans: 'les cartons et contenants propres', kw: 'cartons' },
   { textFr: 'les bouteilles de verre', ans: 'le verre et contenants propres', kw: 'verre' },
   { textFr: 'les emballages métalliques', ans: 'les emballages et contenants propres', kw: 'emballages' },
+  { textFr: 'les papiers journaux', ans: 'les journaux et contenants propres', kw: 'journaux' },
 ]
 
 export const N03_R_3 = [
@@ -1048,12 +1055,14 @@ export const N03_R_3 = [
     (rand) => {
       const c = pick(N3_CLEANERS_DATA, rand)
       const b = pick(N3_CLEANER_BRANDS, rand)
+      const othersAct = sample(N3_CLEANERS_DATA.filter(x => x.actP !== c.actP), 2, rand)
+      const othersWarn = sample(N3_CLEANERS_DATA.filter(x => x.warnP !== c.warnP), 2, rand)
       const text = `Produit ${b} : ${c.name}. Mode d’emploi : ${c.action} ${c.wait} ${c.wipe} Mise en garde de sécurité : ${c.warn} Fabriqué au Québec.`
       return {
         text,
         questions: [
-          q('Quelle est la première action à réaliser ?', c.actP, 'verser dans une bouilloire avec de l’huile', 'appliquer avec force sur des habits en soie', [c.kwAct]),
-          q('Quelle consigne de prudence doit-on observer ?', c.warnP, 'changer les piles chaque mois sans tarder', 'verser la bouteille entière en une fois', [c.kwWarn]),
+          q('Quelle est la première action à réaliser ?', c.actP, othersAct[0].actP, othersAct[1].actP, [c.kwAct]),
+          q('Quelle consigne de prudence doit-on observer ?', c.warnP, othersWarn[0].warnP, othersWarn[1].warnP, [c.kwWarn]),
         ],
       }
     },
@@ -1064,12 +1073,13 @@ export const N03_R_3 = [
     (rand) => {
       const p = pick(N3_PHARMA_DATA, rand)
       const dur = pick(N3_PHARMA_DURS, rand)
+      const othersStore = sample(N3_STORAGE_LIST.filter(s => s !== p.storeP), 2, rand)
       const text = `Notice médicale - ${p.med}. Posologie recommandée : ${p.dose} ${p.max} Durée prévue : ${dur}. Précaution : ${p.store} En cas de doute, consultez un pharmacien.`
       return {
         text,
         questions: [
-          q('À quelle fréquence ce médicament doit-il être pris ?', p.doseP, 'prendre toute la boîte en une seule fois', 'prendre une pleine dose chaque quart d’heure', [p.kwDose]),
-          q('Quelle consigne de conservation est indiquée ?', p.storeP, 'garder le paquet sous la pluie au jardin', 'mettre les comprimés dans un four très chaud', [p.kwStore]),
+          q('À quelle fréquence ce médicament doit-il être pris ?', p.doseP, p.falseDoses[0], p.falseDoses[1], [p.kwDose]),
+          q('Quelle consigne de conservation est indiquée ?', p.storeP, othersStore[0], othersStore[1], [p.kwStore]),
         ],
       }
     },
@@ -1096,11 +1106,12 @@ export const N03_R_3 = [
     (rand) => {
       const city = pick(N3_RECYCLE_AREAS, rand)
       const item = pick(N3_RECYCLE_ITEMS, rand)
+      const othersRecycle = sample(N3_RECYCLE_ITEMS.filter(x => x.ans !== item.ans), 2, rand)
       const text = `${city}. Consignes municipales de recyclage. Déposez ${item.textFr} et les contenants en plastique propres dans le bac bleu. Rincez bien vos boîtes avant le dépôt. Les résidus alimentaires doivent être placés dans le bac brun.`
       return {
         text,
         questions: [
-          q('Que doit-on mettre dans le bac bleu ?', item.ans, 'les déchets alimentaires des repas', 'les vieux habits et souliers usés', [item.kw, 'bleu']),
+          q('Que doit-on mettre dans le bac bleu ?', item.ans, othersRecycle[0].ans, othersRecycle[1].ans, [item.kw, 'bleu']),
           q('Quelle consigne s’applique aux boîtes de conserve ?', 'bien rincer avant le dépôt', 'les écraser avec un outil lourd', 'les envelopper dans du plastique', ['dépôt']),
         ],
       }
@@ -1112,8 +1123,8 @@ export const N03_R_3 = [
     situation: 0,
     text: 'Nettoyant pour vitres et miroirs. Mode d’emploi : vaporiser sur une vitre propre et sèche à quinze centimètres. Essuyer avec du papier absorbant ou un chiffon non pelucheux. Ne pas avaler. Tenir à l’écart des flammes.',
     questions: [
-      q('Sur quelle surface ce produit s’applique-t-il ?', 'sur une vitre propre et bien sèche', 'sur un tapis de salon très humide', 'sur des casseroles en aluminium', ['vitre']),
-      q('Quel chiffon est recommandé pour essuyer ?', 'du papier absorbant ou un linge sec', 'une serviette de bain très mouillée', 'une éponge abrasive pour plancher', ['papier absorbant']),
+      q('Sur quelle surface ce produit s’applique-t-il ?', 'sur une vitre propre et bien sèche', 'sur un comptoir de cuisine en bois', 'sur une table de salon en marbre', ['vitre']),
+      q('Quel chiffon est recommandé pour essuyer ?', 'du papier absorbant ou un linge sec', 'un torchon de cuisine en gros coton', 'un linge humide imbibé d’eau tiède', ['papier absorbant']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Posologie sirop pour enfants
@@ -1121,8 +1132,8 @@ export const N03_R_3 = [
     situation: 1,
     text: 'Posologie - Sirop pour enfants de plus de six ans. Prendre une cuillère à thé toutes les huit heures après les repas. Ne pas dépasser trois prises par 24 heures. Bien agiter le flacon avant l’usage.',
     questions: [
-      q('Quel est le nombre maximal de prises par jour ?', 'au maximum trois prises par jour', 'dix cuillères par journée d’école', 'une seule cuillère par fin de semaine', ['trois prises']),
-      q('Que faut-il faire avec le flacon avant l’usage ?', 'secouer le flacon avant l’emploi', 'chauffer le liquide au micro-ondes', 'laisser le produit ouvert dehors', ['flacon']),
+      q('Quel est le nombre maximal de prises par jour ?', 'au maximum trois prises par jour', 'au maximum deux prises par jour', 'au maximum quatre prises par jour', ['trois prises']),
+      q('Que faut-il faire avec le flacon avant l’usage ?', 'secouer le flacon avant l’emploi', 'diluer la dose dans un verre d’eau', 'mesurer la dose avec une seringue', ['flacon']),
     ],
   },
 ]
