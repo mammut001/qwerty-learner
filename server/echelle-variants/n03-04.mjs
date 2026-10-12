@@ -919,12 +919,18 @@ export const N03_R_2 = [
         { skill: 'bon entregent et rigueur', exp: 'aucune expérience requise', kw: 'entregent' },
         { skill: 'bonne forme et autonomie', exp: 'expérience en manutention un atout', kw: 'autonomie' },
       ], rand)
+      const falseSkills = sample([
+        'sens de l’écoute et patience',
+        'créativité et esprit positif',
+        'polyvalence et discrétion',
+        'patience et esprit d’analyse',
+      ], 2, rand)
       const text = `Offre d’emploi. Titre du poste : ${role}. Profil recherché : personne dynamique démontrant ${req.skill}. Exigences : ${req.exp}. Disponibilité demandée du lundi au vendredi, 35 heures par semaine. Envoyez votre candidature à rh@entreprise.ca.`
       return {
         text,
         questions: [
           q('Quel est le poste proposé dans cette annonce ?', role, 'Comptable d’entreprise', 'Directeur du personnel', [role.split(' ')[0].toLowerCase()]),
-          q('Quelle qualité essentielle est recherchée pour ce rôle ?', req.skill, 'connaissance du droit fiscal', 'expérience de dix ans', [req.kw]),
+          q('Quelle qualité essentielle est recherchée pour ce rôle ?', req.skill, falseSkills[0], falseSkills[1], [req.kw]),
         ],
       }
     },
@@ -946,7 +952,7 @@ export const N03_R_2 = [
         text,
         questions: [
           q('Combien coûte le loyer de ce logement ?', rent, '2 500 $ par mois', '450 $ par mois', [rent.split(' ')[0]]),
-          q('Quelle caractéristique intérieure est mentionnée ?', 'planchers en bois et balcon privé', 'cour arrière avec deux piscines', 'salle de cinéma au sous-sol', ['planchers']),
+          q('Quelle caractéristique intérieure est mentionnée ?', 'planchers en bois et balcon privé', 'cuisine ouverte avec îlot central', 'grand foyer au gaz dans le salon', ['planchers']),
         ],
       }
     },
@@ -978,7 +984,7 @@ export const N03_R_2 = [
         text,
         questions: [
           q('Que propose l’annonceur de ce message ?', 'une chambre privée en colocation', 'un studio meublé pour famille', 'un bureau commercial partagé', ['chambre privée']),
-          q('Quel type d’ambiance est recherché dans le logement ?', 'un milieu calme et respectueux', 'des fêtes chaque fin de semaine', 'un atelier ouvert aux clients', ['calme']),
+          q('Quel type d’ambiance est recherché dans le logement ?', 'un milieu calme et respectueux', 'des repas partagés tous les soirs', 'une vie commune axée sur le sport', ['calme']),
         ],
       }
     },
@@ -990,7 +996,7 @@ export const N03_R_2 = [
     text: 'CPE Les Petits Soleils recrute une éducatrice à la petite enfance remplaçante. Profil attendu : diplôme reconnu ou attestation en garderie, patience, esprit créatif et certificat de premiers soins valide. Salaire selon l’échelle officielle du ministère de la Famille.',
     questions: [
       q('Dans quel organisme ce poste est-il offert ?', 'en garderie pour la petite enfance', 'dans une école secondaire publique', 'dans une clinique médicale de jour', ['garderie']),
-      q('Quelle formation figure dans le profil attendu ?', 'un certificat de premiers soins valide', 'un permis de conduire camion lourd', 'un brevet de pilote d’avion de ligne', ['premiers soins']),
+      q('Quelle formation figure dans le profil attendu ?', 'un certificat de premiers soins valide', 'un diplôme en gestion administrative', 'une attestation en nutrition infantile', ['premiers soins']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Annonce immobilière Limoilou
