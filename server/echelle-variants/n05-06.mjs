@@ -265,17 +265,17 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { titre: 'd’adjoint administratif', ville: 'à Laval', flex: 'deux jours de télétravail par semaine', avantage: 'une assurance collective complète', avPara: 'une couverture d’assurance collective complète', avKw: 'assurance collective' },
-          { titre: 'de commis de bureau', ville: 'à Longueuil', flex: 'trois jours de télétravail par semaine', avantage: 'un régime de retraite avantageux', avPara: 'un programme d’épargne pour la retraite avantageux', avKw: 'retraite' },
-          { titre: 'de coordonnateur de projets', ville: 'à Montréal', flex: 'un horaire flexible', avantage: 'quatre semaines de vacances payées', avPara: 'quatre semaines de congés payés dès l’entrée en poste', avKw: 'vacances payées' },
+          { titre: 'd’adjoint administratif', ville: 'à Laval', flex: 'deux jours de télétravail par semaine', avantage: 'une assurance collective complète', avPara: 'une couverture d’assurance collective complète', flexDist: 'du télétravail complet pour toute la semaine', avKw: 'assurance collective' },
+          { titre: 'de commis de bureau', ville: 'à Longueuil', flex: 'trois jours de télétravail par semaine', avantage: 'un régime de retraite avantageux', avPara: 'un programme d’épargne pour la retraite avantageux', flexDist: 'du télétravail complet pour toute la semaine', avKw: 'retraite' },
+          { titre: 'de coordonnateur de projets', ville: 'à Montréal', flex: 'un horaire flexible', avantage: 'quatre semaines de vacances payées', avPara: 'quatre semaines de congés payés dès l’entrée en poste', flexDist: 'un horaire allégé de travail à mi-temps', avKw: 'vacances payées' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
           text: `— Salut Patrick ! Tu cherchais un emploi stable ces temps-ci ? Notre firme de génie ${s.ville} recrute justement un poste ${s.titre}. La personne choisie devra répondre aux appels des clients, classer les dossiers techniques et coordonner les réunions hebdomadaires. On offre ${s.flex} et ${s.avantage} dès l’embauche. L’ambiance dans l’équipe est vraiment chaleureuse et dynamique. Si le poste t’intéresse, tu devrais m’envoyer ton curriculum vitæ avant vendredi midi. Je pourrai le transmettre directement à notre gestionnaire des ressources humaines !`,
           questions: [
-            makeQuestion('Que propose l’ami dans cette conversation ?', 'Un emploi administratif stable dans son entreprise', 'Un perfectionnement en bureautique pour diplômés', 'Un contrat temporaire de rédaction de rapports', ['firme', 'recrute']),
-            makeQuestion('Quel avantage lié au poste est expressément mentionné ?', `${cap(s.avPara)}`, 'Une voiture de société fournie pour les déplacements', 'Un abonnement annuel à une salle de sport privée', [s.avKw]),
-            makeQuestion('Que doit faire la personne intéressée avant vendredi midi ?', 'Transmettre sa candidature professionnelle à son ami', 'Prendre rendez-vous avec la direction générale', 'Passer une entrevue formelle devant les collègues', ['curriculum vitæ', 'vendredi']),
+            makeQuestion('Que propose l’ami dans cette conversation ?', 'Un emploi administratif stable dans son entreprise', 'Un poste d’ingénieur de projets dans son entreprise', 'Un contrat temporaire de rédaction de rapports', ['firme', 'recrute']),
+            makeQuestion('Quel avantage lié au poste est expressément mentionné ?', `${cap(s.avPara)}`, `${cap(s.flexDist)}`, 'Un abonnement annuel à une salle de sport privée', [s.avKw]),
+            makeQuestion('Que doit faire la personne intéressée avant vendredi midi ?', 'Transmettre sa candidature professionnelle à son ami', 'Joindre directement le responsable des ressources humaines', 'Passer une entrevue formelle devant les collègues', ['curriculum vitæ', 'vendredi']),
           ],
         }
       },
@@ -293,9 +293,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Allô Sophie ! Je t’appelle parce qu’il y a une belle ouverture de poste ${s.secteur} où je travaille depuis deux ans. Il s’agit d’un emploi à temps plein de représentant au service aux membres. Le travail consiste principalement à répondre aux courriels, traiter les réclamations et utiliser ${s.logiciel}. La direction demande ${s.min}, mais ils offrent deux semaines de formation payée pour les nouveaux arrivants. Le salaire de départ est très compétitif. Dis-moi si tu veux que je dépose ta candidature aujourd’hui !`,
           questions: [
-            makeQuestion('Quel type d’emploi est décrit par la collègue ?', 'Un poste au service aux membres à temps plein', 'Un emploi de mécanicien dans un atelier d’usine', 'Un rôle de cadre supérieur gérant les finances', ['service aux membres', 'plein']),
-            makeQuestion('Quelle exigence de l’employeur est précisée ?', `${cap(s.reqPara)}`, 'La détention d’un permis de conduire commercial', 'La maîtrise courante de trois langues étrangères', [s.reqKw]),
-            makeQuestion('Que propose l’amie à la fin de l’appel ?', 'Déposer la candidature de son interlocutrice', 'Lui prêter des manuels de comptabilité financière', 'Organiser un dîner avec le chef des ressources', ['candidature', 'dépose']),
+            makeQuestion('Quel type d’emploi est décrit par la collègue ?', 'Un poste au service aux membres à temps plein', 'Un poste de formateur pour les nouveaux arrivants', 'Un rôle de cadre supérieur gérant les finances', ['service aux membres', 'plein']),
+            makeQuestion('Quelle exigence de l’employeur est précisée ?', `${cap(s.reqPara)}`, 'Deux années d’expérience au sein de l’équipe', 'La maîtrise courante de trois langues étrangères', [s.reqKw]),
+            makeQuestion('Que propose l’amie à la fin de l’appel ?', 'Déposer la candidature de son interlocutrice', 'Lui donner elle-même deux semaines de formation', 'Organiser un dîner avec le chef des ressources', ['candidature', 'dépose']),
           ],
         }
       },
@@ -313,9 +313,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `Au téléjournal de vingt heures, la crue printanière continue de causer de lourds dégâts dans le secteur ${s.secteur}. La rivière est sortie de son lit cet après-midi, inondant les rues riveraines et ${s.maisons}. Les équipes de la sécurité civile et des dizaines de bénévoles ont installé des milliers de sacs de sable le long des berges. Plusieurs familles ont dû être évacuées d’urgence en bateau à moteur et sont actuellement hébergées ${s.refuge}. Les autorités municipales demandent aux automobilistes d’éviter complètement le secteur pour faciliter le travail des premiers répondants.`,
           questions: [
-            makeQuestion('Quel phénomène climatique est décrit dans ce reportage ?', 'Une inondation majeure causée par une crue de printemps', 'Une tempête de neige tardive bloquant les grands axes', 'Un glissement de terrain le long d’une falaise rocheuse', ['crue', 'inondant']),
-            makeQuestion('Où les familles évacuées sont-elles accueillies pour la nuit ?', `Elles sont hébergées ${s.refPara}`, 'Elles passent la nuit dans leur véhicule personnel', 'Elles ont été relocalisées dans un hôtel de banlieue', [s.refKw]),
-            makeQuestion('Quelle consigne les autorités donnent-elles aux automobilistes ?', 'Éviter totalement de circuler dans le quartier touché', 'Venir aider les équipes de secours à empiler le sable', 'Ralentir leur allure de dix kilomètres à l’heure', ['éviter', 'automobilistes']),
+            makeQuestion('Quel phénomène climatique est décrit dans ce reportage ?', 'Une inondation majeure causée par une crue de printemps', 'Une tempête printanière de vent le long de la rivière', 'Un glissement de terrain le long d’une falaise rocheuse', ['crue', 'inondant']),
+            makeQuestion('Où les familles évacuées sont-elles accueillies pour la nuit ?', `Elles sont hébergées ${s.refPara}`, 'Elles passent la nuit à bord des bateaux de secours', 'Elles ont été relocalisées dans un hôtel de banlieue', [s.refKw]),
+            makeQuestion('Quelle consigne les autorités donnent-elles aux automobilistes ?', 'Éviter totalement de circuler dans le quartier touché', 'Venir aider les équipes de secours à empiler le sable', 'Conduire les familles évacuées vers les lieux de refuge', ['éviter', 'automobilistes']),
           ],
         }
       },
@@ -333,9 +333,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `En Beauce, la situation demeure critique ${s.ville} en raison de la débâcle hâtive de la rivière Chaudière. D’immenses blocs de glace ont formé un embâcle majeur sous les ponts routiers, refoulant les eaux vers le centre-ville. Les sous-sols sont inondés et ${s.commerces} du boulevard principal ont été envahis par ${s.hauteur}. Les pannes d’électricité préventives touchent actuellement deux mille clients pour éviter tout risque d’incendie. La Croix-Rouge a ouvert un bureau temporaire pour distribuer des repas chauds et des couvertures aux sinistrés évacués depuis ce matin.`,
           questions: [
-            makeQuestion('Quelle est la cause principale de cette inondation soudaine ?', 'Un blocage d’imposants blocs de glace sous les ponts', 'La rupture soudaine d’un barrage hydroélectrique en amont', 'Des précipitations torrentielles causées par un orage d’été', ['embâcle', 'glace']),
-            makeQuestion('Quelle conséquence directe touche les commerces du secteur ?', `Leur rez-de-chaussée a subi ${s.hautPara}`, 'Leur toiture a cédé sous le poids d’une neige abondante', 'Leurs réserves de marchandises ont été pillées la nuit', [s.hautKw]),
-            makeQuestion('Quelle mesure d’aide la Croix-Rouge a-t-elle mise en place ?', 'Un centre distribuant des couvertures et des repas chauds', 'Une distribution d’argent comptant aux propriétaires sinistrés', 'Un service d’avocats pour contester les décisions d’assurance', ['couvertures', 'repas']),
+            makeQuestion('Quelle est la cause principale de cette inondation soudaine ?', 'Un blocage d’imposants blocs de glace sous les ponts', 'L’effondrement soudain d’un pont routier sur la rivière', 'Des précipitations torrentielles causées par un orage d’été', ['embâcle', 'glace']),
+            makeQuestion('Quelle conséquence directe touche les commerces du secteur ?', `Leur rez-de-chaussée a subi ${s.hautPara}`, 'Leurs sous-sols ont subi un incendie causé par l’électricité', 'Leurs réserves de marchandises ont été pillées la nuit', [s.hautKw]),
+            makeQuestion('Quelle mesure d’aide la Croix-Rouge a-t-elle mise en place ?', 'Un centre distribuant des couvertures et des repas chauds', 'Un service de pompage de l’eau dans les sous-sols inondés', 'Un service d’avocats pour contester les décisions d’assurance', ['couvertures', 'repas']),
           ],
         }
       },
@@ -353,9 +353,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Éric, écoute ça ! Mon département ${s.cegep} vient d’afficher un poste permanent de technicien en soutien informatique. C’est un horaire régulier de ${s.horaire}, du lundi au vendredi. Tes tâches consisteraient à assurer ${s.taches} et configurer les nouveaux équipements réseau. Comme tu as déjà une bonne expérience dans ce domaine, tu as d’excellentes chances. En plus, les conditions de travail dans le réseau public sont superbes : fonds de pension, vacances d’été et journées de maladie payées. Pense à soumettre ton dossier sur le portail d’emploi !`,
           questions: [
-            makeQuestion('De quel emploi l’intervenant fait-il la description ?', 'Technicien en soutien informatique en milieu collégial', 'Professeur régulier de littérature au secondaire', 'Conseiller pédagogique pour l’orientation scolaire', ['technicien', 'informatique']),
-            makeQuestion('Quelle est l’une des responsabilités principales mentionnées ?', `${cap(s.tacPara)}`, 'La préparation des repas quotidiens à la cafétéria', 'La surveillance nocturne des résidences d’étudiants', [s.tacKw]),
-            makeQuestion('Où l’ami doit-il envoyer son dossier pour postuler ?', 'Directement par le portail de recrutement du cégep', 'Par lettre recommandée au ministère de l’Éducation', 'En main propre au bureau du directeur général du cégep', ['portail', 'dossier']),
+            makeQuestion('De quel emploi l’intervenant fait-il la description ?', 'Technicien en soutien informatique en milieu collégial', 'Professeur régulier d’informatique au sein du cégep', 'Conseiller pédagogique pour l’orientation scolaire', ['technicien', 'informatique']),
+            makeQuestion('Quelle est l’une des responsabilités principales mentionnées ?', `${cap(s.tacPara)}`, 'La gestion des dossiers de maladie et du fonds de pension', 'La surveillance nocturne des résidences d’étudiants', [s.tacKw]),
+            makeQuestion('Où l’ami doit-il envoyer son dossier pour postuler ?', 'Directement par le portail de recrutement du cégep', 'Par courriel personnel à l’adresse de son département', 'En main propre au bureau du directeur général du cégep', ['portail', 'dossier']),
           ],
         }
       },
