@@ -53,7 +53,7 @@ export default function WordDictationSwitcher() {
   }, [wordDictationConfig.type])
 
   useHotkeys(
-    'ctrl+v',
+    'ctrl+alt+v',
     () => {
       onToggleWordDictation()
     },
