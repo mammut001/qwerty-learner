@@ -168,7 +168,7 @@ export const N05_06_SCENARIOS = {
           text: `— Bonjour ! Est-ce que tu as vu l’affiche pour la fête de quartier de samedi ? Tout le monde se rassemble ${s.lieu} dès ${s.horaire} du matin. Il y aura des jeux gonflables pour les enfants et un dîner partagé le midi. Chaque famille apporte ${s.plat} à partager avec les voisins. Les organisateurs prévoient aussi des ateliers d’artisanat et des musiciens locaux tout l’après-midi. S’il commence à pleuvoir, nous irons tous ${s.repli} juste à côté. J’espère vraiment que tu viendras avec nous !`,
           questions: [
             makeQuestion('Quel est le sujet principal de cette conversation ?', 'L’organisation festive d’un grand rassemblement de quartier', 'La planification d’un concert de musique locale', 'La préparation du grand dîner communautaire de midi', ['fête', 'quartier']),
-            makeQuestion('Où les participants doivent-ils se rassembler le matin ?', `Ils se réunissent ${s.lieuPara}`, 'Ils se rejoignent devant l’école du quartier', 'Ils s’installent près des jeux pour enfants', [s.lieuKw]),
+            makeQuestion('Où les participants doivent-ils se rassembler le matin ?', `Ils se réunissent ${s.lieuPara}`, 'Ils se rejoignent devant l’école du quartier', 'Ils se retrouvent à la bibliothèque municipale', [s.lieuKw]),
             makeQuestion('Que feront les personnes présentes en cas de mauvais temps ?', `Elles iront ${s.repliPara}`, 'Elles annuleront le repas partagé entre résidents', 'Elles termineront plus tôt les ateliers d’artisanat', [s.repliKw]),
           ],
         }
@@ -188,7 +188,7 @@ export const N05_06_SCENARIOS = {
           text: `— Salut Marc ! ${s.nom} m’a parlé des activités prévues pour notre journée des voisins ce dimanche. Dès neuf heures, les bénévoles installeront les tables et les chaises sur la rue piétonne. Ensuite, vers ${s.heure}, il y aura un grand repas communautaire et ${s.activite}. Les enfants pourront participer à une chasse aux trésors dans les jardins partagés. En cas d’averse, le comité louera la grande tente municipale pour abriter tout le monde. N’oublie pas d’apporter tes verres réutilisables pour éviter les déchets !`,
           questions: [
             makeQuestion('De quel événement les deux personnes parlent-elles ?', 'Des festivités conviviales organisées par les voisins', 'D’une corvée d’aménagement dans les jardins partagés', 'D’une foire sportive animée par des bénévoles', ['voisins', 'activités']),
-            makeQuestion('Quelle animation particulière est organisée vers le dîner ?', `${cap(s.actPara)}`, 'Une grande chasse aux trésors dans les jardins', 'L’installation collective des tables et chaises', [s.actKw]),
+            makeQuestion('Quelle animation particulière est organisée vers le dîner ?', `${cap(s.actPara)}`, 'Une course de sacs dans le parc municipal', 'L’installation collective des tables et chaises', [s.actKw]),
             makeQuestion('Que demande-t-on d’apporter pour limiter les déchets ?', 'Fournir ses propres verres pour limiter les rebuts', 'Fournir ses propres chaises pour la rue piétonne', 'Nettoyer les tables installées sur la rue piétonne', ['verres', 'déchets']),
           ],
         }
@@ -207,9 +207,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `Ici Radio-Canada au téléjournal de dix-huit heures. Les Championnats internationaux de patinage de vitesse sur courte piste s’ouvrent officiellement ce soir ${s.ville}. Plus de cent cinquante patineurs représentant ${s.pays} sont arrivés cette semaine pour s’entraîner sur la glace québécoise. L’épreuve très attendue ${s.epreuve} se déroulera samedi après-midi devant une foule nombreuse. Les entraîneurs soulignent l’excellente forme des athlètes d’ici, dont ${s.athlete}, qui espèrent remporter plusieurs médailles d’or. La finale sera diffusée en direct sur nos plateformes dès quatorze heures. Les billets pour les gradins sont presque tous vendus.`,
           questions: [
-            makeQuestion('Quelle est l’information principale donnée dans ce bulletin ?', 'L’ouverture d’une compétition sur glace internationale', 'L’arrivée de patineurs étrangers pour un entraînement', 'La clôture d’une compétition sur glace internationale', ['patinage', 'championnats']),
+            makeQuestion('Quelle est l’information principale donnée dans ce bulletin ?', 'L’ouverture d’une compétition sur glace internationale', 'La vente aux enchères d’anciens maillots de hockey', 'La clôture d’une compétition sur glace internationale', ['patinage', 'championnats']),
             makeQuestion('Quelle course très attendue se déroulera samedi après-midi ?', `${cap(s.epPara)}`, 'La séance d’entraînement sur la glace québécoise', 'La course de fond prévue dimanche matin', [s.epKw]),
-            makeQuestion('Que pourront faire les amateurs de sport samedi dès quatorze heures ?', 'Regarder la ronde finale en diffusion directe', 'Acheter les derniers billets pour les gradins', 'Rencontrer les entraîneurs lors d’un entraînement', ['finale', 'direct']),
+            makeQuestion('Que pourront faire les amateurs de sport samedi dès quatorze heures ?', 'Regarder la ronde finale en diffusion directe', 'Participer à une collecte de dons pour les athlètes', 'Rencontrer les entraîneurs lors d’un entraînement', ['finale', 'direct']),
           ],
         }
       },
@@ -379,7 +379,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Allô Jean ! Je reviens tout juste de mon voyage de ${s.duree} ${s.pays}. C’était une expérience absolument inoubliable ! Ce qui m’a le plus marquée, c’est ${s.activite} et l’immense gentillesse des gens locaux. Par contre, le début du séjour a été un peu difficile à cause ${s.defi}. Les premiers jours, j’étais épuisée et j’avais du mal à marcher longtemps. Heureusement, en buvant beaucoup d’eau et en me reposant l’après-midi, j’ai vite retrouvé mon énergie. Je te montrerai mes photos pendant notre pause de dîner si tu veux !`,
           questions: [
-            makeQuestion('Quel est le thème principal de ce récit ?', 'Le bilan d’un séjour de vacances personnelles à l’étranger', 'Un stage professionnel obligatoire à l’étranger', 'Une visite rapide de sa famille en Europe', ['voyage', 'séjour']),
+            makeQuestion('Quel est le thème principal de ce récit ?', 'Le bilan d’un séjour de vacances personnelles à l’étranger', 'Un stage professionnel obligatoire dans une entreprise étrangère', 'Une visite rapide de toute sa famille en Europe', ['voyage', 'séjour']),
             makeQuestion('Quelle difficulté la voyageuse a-t-elle rencontrée au début ?', `${cap(s.defPara)}`, 'Un manque sévère d’eau potable lors des premiers jours', 'Une grande facilité à marcher dès le premier jour', [s.defKw]),
             makeQuestion('Que propose la collègue à la fin de leur discussion ?', 'Regarder ensemble les clichés pris durant son voyage', 'Annuler leur pause de dîner pour travailler', 'Partir ensemble pour un séjour de trois mois', ['photos', 'pause']),
           ],
@@ -486,7 +486,7 @@ export const N05_06_SCENARIOS = {
           text: `— Tu as des nouvelles de Clara ? — Oui ! ${s.soeur} a finalement décidé d’accepter l’offre d’emploi à temps partiel ${s.domaine}. Elle travaillera ${s.heures}, principalement les jeudis et vendredis. Même si le salaire total est moins élevé qu’à temps plein, c’était le compromis idéal pour terminer ${s.etudes}. Son employeur lui garantit des horaires stables et accepte d’aménager son horaire pendant ses examens de fin de session. Elle se sent tellement soulagée d’avoir pris cette décision après avoir hésité pendant des semaines !`,
           questions: [
             makeQuestion('Quelle décision professionnelle est expliquée ici ?', 'L’acceptation d’un contrat de travail à temps partiel', 'L’abandon de ses études pour un emploi à temps plein', 'Un refus net de tout emploi pendant ses études', ['temps partiel', 'offre']),
-            makeQuestion('Pourquoi ce poste à temps partiel convient-il particulièrement ?', `Pour lui permettre ${de(s.etudPara)}`, 'Pour lui permettre d’abandonner ses études au printemps', 'Parce qu’elle a décidé de cesser de travailler', [s.kw]),
+            makeQuestion('Pourquoi ce poste à temps partiel convient-il particulièrement ?', `Pour lui permettre ${de(s.etudPara)}`, 'Pour lui permettre d’abandonner ses études au printemps prochain', 'Parce qu’elle a décidé de cesser de travailler dès maintenant', [s.kw]),
             makeQuestion('Quel avantage l’employeur lui accorde-t-il pendant les examens ?', 'Des horaires adaptés durant les épreuves de fin de session', 'Le maintien intégral de son salaire habituel de temps plein', 'L’obligation de travailler davantage les lundis et mardis', ['examens', 'horaire']),
           ],
         }
@@ -497,9 +497,9 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { amie: 'Nadia', metier: 'de designer graphique', jours: 'trois jours par semaine', raison: 'passer plus de temps avec son bébé', raiPara: 'profiter pleinement de son jeune enfant', kw: 'bébé' },
-          { amie: 'Camille', metier: 'de comptable adjointe', jours: 'quatre jours par semaine', raison: 'concilier sa vie de famille et ses cours', raiPara: 'trouver un équilibre entre foyer et études', kw: 'famille' },
-          { amie: 'Julie', metier: 'de rédactrice de contenu', jours: 'trois jours par semaine', raison: 'prendre soin de sa mère convalescente', raiPara: 'veiller au rétablissement de sa mère malade', kw: 'mère' },
+          { amie: 'Nadia', metier: 'designer graphique', jours: 'trois jours par semaine', raison: 'passer plus de temps avec son bébé', raiPara: 'profiter pleinement de son jeune enfant', kw: 'bébé' },
+          { amie: 'Camille', metier: 'comptable adjointe', jours: 'quatre jours par semaine', raison: 'concilier sa vie de famille et ses cours', raiPara: 'trouver un équilibre entre foyer et études', kw: 'famille' },
+          { amie: 'Julie', metier: 'rédactrice de contenu', jours: 'trois jours par semaine', raison: 'prendre soin de sa mère convalescente', raiPara: 'veiller au rétablissement de sa mère malade', kw: 'mère' },
         ]
         const s = slots[Math.floor(rand() * slots.length)]
         return {
@@ -827,7 +827,7 @@ export const N05_06_SCENARIOS = {
           text: `ANNEXE AU CONTRAT DE LOCATION - IMMEUBLE LES ÉRABLES\nBienvenue dans votre appartement 3 1/2 situé ${s.ville}, ${s.quartier}. Votre loyer mensuel de ${s.loyer} inclut l’accès au gymnase en plus ${s.stationnement}. Le paiement s’effectue par prélèvement bancaire le premier jour de chaque mois. Les locataires doivent fournir une preuve d’assurance responsabilité civile avant la remise des clés. Les travaux de peinture requièrent une entente écrite préalable avec le gestionnaire. Pour toute urgence de chauffage, veuillez joindre le concierge de garde au poste 102.`,
           questions: [
             makeQuestion('Quel document le futur locataire lit-il ici ?', 'Une annexe détaillant les règles de son appartement', 'Une entente écrite autorisant des travaux de peinture', 'Une facture de déménagement pour un camion loué', ['contrat', 'location']),
-            makeQuestion('Quel aménagement complémentaire est compris avec le logement ?', `L’usage d’${s.staPara}`, 'Le dépannage prioritaire pour toute urgence de chauffage', 'Un abonnement annuel à une piscine extérieure', [s.staKw]),
+            makeQuestion('Quel aménagement complémentaire est compris avec le logement ?', `L’usage d’${s.staPara}`, 'Une salle de lavage privée près de l’ascenseur', 'Un abonnement annuel à une piscine extérieure', [s.staKw]),
             makeQuestion('Que doit fournir le locataire avant d’obtenir les clés ?', 'Une attestation valide d’assurance responsabilité civile', 'Une entente écrite signée pour les travaux de peinture', 'Une lettre de recommandation de l’ancien propriétaire', ['assurance', 'responsabilité']),
           ],
         }
@@ -933,7 +933,7 @@ export const N05_06_SCENARIOS = {
           text: `GUIDE DU VISITEUR - LES TRÉSORS DES CANTONS-DE-L’EST\nÀ une heure de route de Montréal, les Cantons-de-l’Est invitent à la douceur de vivre et au dépaysement champêtre. Empruntez ${s.route} pour faire connaissance avec des producteurs locaux réputés. À l’automne, ne manquez pas ${s.activite}, une tradition vivante partagée en famille. Les adeptes de vélo et de marche trouveront leur bonheur sur les pentes entourant ${s.mont}, dont les panoramas sur les collines sont remarquables. Consultez notre carte interactive pour planifier votre circuit et découvrez nos forfaits vacances avantageux combinant nuitée et dégustations.`,
           questions: [
             makeQuestion('Quelle région touristique québécoise ce guide fait-il découvrir ?', 'Les paysages ruraux et les villages des Cantons-de-l’Est', 'Les quartiers urbains animés de la métropole de Montréal', 'Les plages de sable et les stations de surf du littoral', ['cantons-de-l’est', 'visiteur']),
-            makeQuestion('Quelle activité automnale est recommandée aux familles ?', `${cap(s.actPara)}`, 'Des circuits de vélo intensifs sur les pentes des collines', 'Des ateliers de peinture sur verre offerts aux enfants', [s.actKw]),
+            makeQuestion('Quelle activité automnale est recommandée aux familles ?', `${cap(s.actPara)}`, 'Des cours de natation dans un lac glacé en hiver', 'Des ateliers de peinture sur verre offerts aux enfants', [s.actKw]),
             makeQuestion('Quel attrait géographique offre des panoramas remarquables ?', `Les pentes aux panoramas remarquables autour ${s.montNom}`, 'Les circuits routiers reliant les producteurs de la région', 'Des chutes d’eau cachées au fond d’une gorge', ['panoramas', 'collines']),
           ],
         }
@@ -944,7 +944,7 @@ export const N05_06_SCENARIOS = {
     Object.assign(
       (rand) => {
         const slots = [
-          { celebrite: 'la chanteuse populaire Marianne Lemieux', lieu: 'dans une chapelle historique de l’Île d’Orléans', tenue: 'une robe blanche en dentelle signée par un créateur d’ici', tenPara: 'une création blanche en dentelle conçue par un artisan d’ici', lieuPara: 'Au sein d’une vieille église sur l’Île d’Orléans', lieuKw: 'chapelle', tenKw: 'dentelle' },
+          { celebrite: 'la chanteuse populaire Marianne Lemieux', lieu: 'dans une chapelle historique de l’Île d’Orléans', tenue: 'une robe blanche en dentelle signée par un créateur d’ici', tenPara: 'une création blanche en dentelle conçue par un artisan d’ici', lieuPara: 'Au sein d’une chapelle historique sur l’Île d’Orléans', lieuKw: 'chapelle', tenKw: 'dentelle' },
           { celebrite: 'l’actrice renommée Béatrice Martel', lieu: 'dans un domaine viticole réputé des Laurentides', tenue: 'une élégante robe satinée aux reflets dorés', tenPara: 'une robe satinée aux nuances dorées d’une grande élégance', lieuPara: 'Au cœur d’un vignoble prestigieux des Laurentides', lieuKw: 'domaine', tenKw: 'satinée' },
           { celebrite: 'l’animatrice de télévision Sophie Leduc', lieu: 'au bord de l’eau dans un manoir du Bas-Saint-Laurent', tenue: 'une longue robe fluide bordée de broderies délicates', tenPara: 'une longue toilette vaporeuse rehaussée de fines broderies', lieuPara: 'Près des berges dans une vaste propriété bas-laurentienne', lieuKw: 'manoir', tenKw: 'broderies' },
         ]
@@ -972,7 +972,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `CHRONIQUE CÉLÉBRITÉS - UNION HIVERNALE AUX SAVEURS D’ICI\nCe week-end, ${s.sportif} a uni sa destinée à celle de sa conjointe ${s.endroit}. Entourés de leurs coéquipiers et de leurs familles, les amoureux ont célébré leur union dans un décor rustique. Au lieu des traditionnels présents de mariage, le couple a invité ses convives à ${s.cadeau}. Les invités ont savouré un repas inspiré des cabanes à sucre traditionnelles, avec de la tire sur la neige servie en fin de soirée. Un moment magique et authentique que le couple et leurs invités chériront longtemps !`,
           questions: [
-            makeQuestion('De quelle célébration d’envergure l’article fait-il le récit ?', 'Du mariage chaleureux d’un athlète professionnel québécois', 'D’une rencontre festive des coéquipiers dans une cabane à sucre', 'D’un tournoi de golf organisé pour les bénévoles', ['mariage', 'union']),
+            makeQuestion('De quelle célébration d’envergure l’article fait-il le récit ?', 'Du mariage chaleureux d’un sportif célèbre et de sa conjointe', 'D’une rencontre festive des coéquipiers dans une cabane à sucre', 'D’un tournoi de golf organisé pour les bénévoles', ['mariage', 'union']),
             makeQuestion('Quel geste charitable les mariés ont-ils demandé à leurs invités ?', `Offrir des contributions au profit ${de(s.cadPara)}`, 'Financer eux-mêmes le repas traditionnel servi dans la cabane à sucre', 'Recevoir des présents de mariage coûteux de la part des invités', [s.cadKw]),
             makeQuestion('Quelle surprise gourmande a clôturé la soirée de mariage ?', 'De la tire d’érable servie sur la neige en plein air', 'Une tarte aux pommes servie avec de la crème glacée', 'Des beignets sucrés servis au petit-déjeuner du lendemain', ['tire', 'neige']),
           ],
@@ -1357,7 +1357,7 @@ export const N05_06_SCENARIOS = {
           text: `MESSAGE AMICAL - ASTUCES COLLATIONS GARDERIE\nDe : ${s.maman} Tremblay\nÀ : Julie Fortin\nObjet : Recommandations de collations saines pour la garderie !\nAllô Julie ! Comme promis, voici mes conseils pour les collations de nos tout-petits. Pour remplacer les biscuits trop sucrés de l’épicerie, j’ai adopté ${s.snack}. Les enfants adorent la texture et ça leur donne une énergie durable sans coup de fatigue. J’accompagne toujours le tout avec ${s.salade}. Mon astuce préférée pour le matin : ${s.conseil}. Ça prend vingt minutes le dimanche et ta semaine est prête. Essaie ça et donne-m’en des nouvelles au parc !`,
           questions: [
             makeQuestion('Quel est le principal objectif des conseils culinaires partagés ?', 'Privilégier des options saines aux produits sucrés du commerce', 'Acheter des biscuits d’épicerie pour la collation à la garderie', 'Vendre des collations maison à la garderie du quartier', ['collations', 'garderie']),
-            makeQuestion('Quelle collation nutritive maison propose-t-elle pour les enfants ?', `${cap(s.snaPara)}`, 'Des paquets de biscuits sucrés achetés à l’épicerie', 'Des croustilles achetées en grand format au supermarché', [s.snaKw]),
+            makeQuestion('Quelle collation nutritive maison propose-t-elle pour les enfants ?', `${cap(s.snaPara)}`, 'Des paquets de biscuits sucrés achetés à l’épicerie du coin', 'Des croustilles achetées en grand format au supermarché du quartier', [s.snaKw]),
             makeQuestion('Quelle astuce d’organisation pratique recommande-t-elle ?', 'Cuisiner le dimanche pour préparer les collations de la semaine', 'Acheter des biscuits sucrés à l’épicerie du coin pour gagner du temps', 'Préparer les collations le matin même, à la dernière minute', ['dimanche', 'astuce']),
           ],
         }
