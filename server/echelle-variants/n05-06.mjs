@@ -379,9 +379,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Allô Jean ! Je reviens tout juste de mon voyage de ${s.duree} ${s.pays}. C’était une expérience absolument inoubliable ! Ce qui m’a le plus marquée, c’est ${s.activite} et l’immense gentillesse des gens locaux. Par contre, le début du séjour a été un peu difficile à cause ${s.defi}. Les premiers jours, j’étais épuisée et j’avais du mal à marcher longtemps. Heureusement, en buvant beaucoup d’eau et en me reposant l’après-midi, j’ai vite retrouvé mon énergie. Je te montrerai mes photos pendant notre pause de dîner si tu veux !`,
           questions: [
-            makeQuestion('Quel est le thème principal de ce récit ?', 'Le bilan d’un séjour de vacances personnelles à l’étranger', 'Un voyage d’affaires pour conclure des accords commerciaux', 'Un projet de déménagement définitif en Amérique du Sud', ['voyage', 'séjour']),
-            makeQuestion('Quelle difficulté la voyageuse a-t-elle rencontrée au début ?', `${cap(s.defPara)}`, 'La perte de toutes ses valises dès l’arrivée à l’aéroport', 'Le vol de ses pièces d’identité et de son argent comptant', [s.defKw]),
-            makeQuestion('Que propose la collègue à la fin de leur discussion ?', 'Regarder ensemble les clichés pris durant son voyage', 'Lui vendre ses guides touristiques sur le pays visité', 'Planifier une escapade commune pour l’été qui vient', ['photos', 'pause']),
+            makeQuestion('Quel est le thème principal de ce récit ?', 'Le bilan d’un séjour de vacances personnelles à l’étranger', 'Une mission de travail bénévole auprès des gens locaux', 'Un projet de déménagement définitif en Amérique du Sud', ['voyage', 'séjour']),
+            makeQuestion('Quelle difficulté la voyageuse a-t-elle rencontrée au début ?', `${cap(s.defPara)}`, 'Un manque sévère d’eau potable lors des premiers jours', 'Le vol de ses pièces d’identité et de son argent comptant', [s.defKw]),
+            makeQuestion('Que propose la collègue à la fin de leur discussion ?', 'Regarder ensemble les clichés pris durant son voyage', 'Lui prêter son appareil photo pour son propre voyage', 'Planifier une escapade commune pour l’été qui vient', ['photos', 'pause']),
           ],
         }
       },
@@ -399,9 +399,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Tu as passé de belles vacances, Carole ? — Oui, vraiment fantastiques ! Je suis partie un mois complet ${s.pays} pour suivre des cours de langue. J’habitais ${s.logement} dans le centre ${s.ville}. Tous les matins, je prenais ${s.transport} pour aller à l’école. Au début, j’avais peur de ne pas comprendre les accents régionaux, mais après deux semaines, j’arrivais déjà à commander au marché et à discuter avec les marchands. Le plus dépaysant, c’était le rythme de vie : les soupers tardifs et les longues promenades en soirée au bord de l’eau.`,
           questions: [
-            makeQuestion('Pourquoi Carole est-elle partie à l’étranger pendant un mois ?', 'Pour perfectionner une langue seconde dans son milieu', 'Pour chercher un emploi régulier auprès d’une firme européenne', 'Pour participer à un tournoi sportif d’envergure internationale', ['langue', 'cours']),
-            makeQuestion('Où habitait-elle pendant toute la durée de son séjour ?', `Elle résidait ${s.logPara}`, 'Elle séjournait dans une chambre d’hôtel quatre étoiles', 'Elle partageait l’appartement d’un collègue de son entreprise', [s.logKw]),
-            makeQuestion('Quel aspect culturel a particulièrement surpris Carole ?', 'Les heures tardives des repas du soir et des promenades', 'Un climat hivernal anormalement rigoureux pour la saison', 'L’absence presque totale de transports en commun dans la cité', ['soupers', 'promenades']),
+            makeQuestion('Pourquoi Carole est-elle partie à l’étranger pendant un mois ?', 'Pour perfectionner une langue seconde dans son milieu', 'Pour enseigner sa propre langue dans une école du centre', 'Pour participer à un tournoi sportif d’envergure internationale', ['langue', 'cours']),
+            makeQuestion('Où habitait-elle pendant toute la durée de son séjour ?', `Elle résidait ${s.logPara}`, 'Elle louait une chambre directement au-dessus de l’école', 'Elle partageait l’appartement d’un collègue de son entreprise', [s.logKw]),
+            makeQuestion('Quel aspect culturel a particulièrement surpris Carole ?', 'Les heures tardives des repas du soir et des promenades', 'La difficulté persistante à échanger avec les marchands', 'L’absence presque totale de transports en commun dans la cité', ['soupers', 'promenades']),
           ],
         }
       },
@@ -419,9 +419,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Salut Sylvain ! Tu as l’air fatigué ce matin, tout s’est bien passé en fin de semaine ? — Ouf, ne m’en parle pas ! On organisait la fête d’anniversaire pour ${s.enfant} qui fêtait ses ${s.age}. On avait invité dix enfants dans la cour. Tout allait bien jusqu’au moment où ${s.incident} ! Heureusement, personne ne s’est fait mal, mais les enfants ont poussé de grands cris. Pour sauver la journée, on a tout rentré ${s.repli}. Finalement, ils ont ri comme des fous et ils sont repartis avec le sourire. Mais moi, j’ai mis deux jours à m’en remettre !`,
           questions: [
-            makeQuestion('Quel événement le voisin raconte-t-il dans cet extrait ?', 'Une célébration d’anniversaire d’enfants mouvementée', 'Un déménagement familial précipité durant le week-end', 'Une panne d’électricité ayant interrompu une réunion de quartier', ['anniversaire', 'fête']),
-            makeQuestion('Quel incident imprévu a perturbé l’activité extérieure ?', `${cap(s.incPara)}`, 'Une invasion soudaine de guêpes sur les tables du repas', 'Une coupure générale d’eau courante dans tout le secteur', [s.incKw]),
-            makeQuestion('Comment les adultes ont-ils sauvé la fin de la fête ?', `${cap(s.repPara)}`, 'En reconduisant chaque jeune chez ses parents avant l’heure', 'En commandant une dizaine de pizzas livrées d’intervention prioritaire', [s.repKw]),
+            makeQuestion('Quel événement le voisin raconte-t-il dans cet extrait ?', 'Une célébration d’anniversaire d’enfants mouvementée', 'Un après-midi de jeux calmes organisé pour dix enfants', 'Une panne d’électricité ayant interrompu une réunion de quartier', ['anniversaire', 'fête']),
+            makeQuestion('Quel incident imprévu a perturbé l’activité extérieure ?', `${cap(s.incPara)}`, 'Une chute d’un enfant qui s’est fait mal dans la cour', 'Une coupure générale d’eau courante dans tout le secteur', [s.incKw]),
+            makeQuestion('Comment les adultes ont-ils sauvé la fin de la fête ?', `${cap(s.repPara)}`, 'En reconduisant chaque jeune chez ses parents avant l’heure', 'En poursuivant les activités de la fête dehors dans la cour', [s.repKw]),
           ],
         }
       },
@@ -439,9 +439,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Tu ne devineras jamais ce qui est arrivé samedi chez nous ! On attendait douze enfants pour la fête de notre petite dernière. On avait réservé ${s.animateur}, mais il a eu ${s.retard} à cause d’un pneu crevé sur l’autoroute. Imagine l’angoisse avec douze petits qui courent partout en criant ! Mon conjoint et moi avons dû improviser ${s.activite} en catastrophe pour les occuper. Quand l’artiste est enfin arrivé, tout est rentré dans l’ordre et le spectacle était formidable. Les enfants n’ont même pas remarqué qu’il y avait eu un pépin !`,
           questions: [
-            makeQuestion('Quel problème principal a déclenché le stress des parents ?', 'Le retard prononcé de l’animateur engagé pour la fête', 'L’arrêt imprévu du four lors de la cuisson du gâteau', 'Le désistement de la moitié des camarades de classe invités', ['retard', 'artiste']),
-            makeQuestion('Quelle solution d’urgence les parents ont-ils improvisée ?', `${cap(s.actPara)}`, 'Laisser les enfants jouer à des jeux vidéo sur ordinateur', 'Emmener l’ensemble du groupe au parc public le plus proche', [s.actKw]),
-            makeQuestion('Quelle a été la réaction finale des enfants invités ?', 'Ils ont adoré le spectacle sans remarquer le contretemps', 'Ils ont réclamé avec insistance de rentrer chez eux', 'Ils ont quitté les lieux déçus avant la fin de l’activité', ['spectacle', 'enfants']),
+            makeQuestion('Quel problème principal a déclenché le stress des parents ?', 'Le retard prononcé de l’animateur engagé pour la fête', 'Un pneu crevé immobilisant les parents sur l’autoroute', 'Le désistement de la moitié des camarades de classe invités', ['retard', 'artiste']),
+            makeQuestion('Quelle solution d’urgence les parents ont-ils improvisée ?', `${cap(s.actPara)}`, 'Présenter eux-mêmes un spectacle comique aux enfants', 'Emmener l’ensemble du groupe au parc public le plus proche', [s.actKw]),
+            makeQuestion('Quelle a été la réaction finale des enfants invités ?', 'Ils ont adoré le spectacle sans remarquer le contretemps', 'Ils ont continué de courir et crier pendant le spectacle', 'Ils ont quitté les lieux déçus avant la fin de l’activité', ['spectacle', 'enfants']),
           ],
         }
       },
@@ -459,9 +459,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Salut Martin ! Je voulais te raconter notre périple de dix jours ${s.parc}. On voyageait avec ${s.transport}, ce qui nous permettait de dormir en pleine nature chaque soir. Ce qui restera gravé dans ma mémoire, ${s.copule} ${s.souvenir}. Par contre, on a dû composer avec des nuits très fraîches : il a gelé deux fois au mois d’août ! Il fallait allumer le réchaud dès six heures du matin pour réchauffer le café et dégeler nos souliers de marche. Mais l’effort en valait tellement la peine. C’est le plus beau voyage de ma vie !`,
           questions: [
-            makeQuestion('Où la collègue et son compagnon ont-ils passé leurs dix jours ?', 'Au cœur de réserves naturelles des Rocheuses de l’Ouest', 'Dans les grandes métropoles animées de la région atlantique', 'Dans une station balnéaire populaire du sud du continent', ['périple', 'nature']),
-            makeQuestion('Quelle météo inattendue a surpris les randonneurs en août ?', 'Des nuits particulièrement froides accompagnées de gelée', 'Des pluies continues qui ont détrempé les chemins durant sept jours', 'Une chaleur étouffante qui a empêché toute marche en montagne', ['gelé', 'fraîches']),
-            makeQuestion('Quel moyen d’hébergement itinérant utilisaient-ils ?', `Ils utilisaient ${s.transPara}`, 'Ils réservaient des chambres d’hôtel en ville chaque soir', 'Ils séjournaient dans des auberges luxueuses en bordure de route', [s.transKw]),
+            makeQuestion('Où la collègue et son compagnon ont-ils passé leurs dix jours ?', 'Au cœur de réserves naturelles des Rocheuses de l’Ouest', 'Dans un village hôtelier aménagé au pied des montagnes', 'Dans une station balnéaire populaire du sud du continent', ['périple', 'nature']),
+            makeQuestion('Quelle météo inattendue a surpris les randonneurs en août ?', 'Des nuits particulièrement froides accompagnées de gelée', 'Des chutes de neige abondantes dès six heures du matin', 'Une chaleur étouffante qui a empêché toute marche en montagne', ['gelé', 'fraîches']),
+            makeQuestion('Quel moyen d’hébergement itinérant utilisaient-ils ?', `Ils utilisaient ${s.transPara}`, 'Ils logeaient dans des chalets chauffés en pleine nature', 'Ils séjournaient dans des auberges luxueuses en bordure de route', [s.transKw]),
           ],
         }
       },
