@@ -274,7 +274,7 @@ export const N03_L_1 = [
     text: '— Salut Martin ! Tu as des projets pour la longue fin de semaine ? Nous partons deux jours en camping dans Charlevoix s’il fait beau. Tu viens avec nous ?',
     questions: [
       q('马丁被邀请参加什么活动？', '去夏勒瓦地区露营', '在市中心商场购物', '去市立图书馆复习', ['camping', 'Charlevoix']),
-      q('面对邀请，合适的回答是：', 'Merci, mais j’ai déjà un engagement.', 'Mon cousin a visité Québec l’an dernier.', 'Il a fait très froid ici l’an dernier.', ['projets']),
+      q('面对邀请，合适的回答是：', 'Merci, mais j’ai déjà un engagement.', 'Le camping se trouve près de la rivière.', 'Le départ est prévu tôt samedi matin.', ['projets']),
     ],
   },
 ]
@@ -503,11 +503,12 @@ export const N03_L_3 = [
     (rand) => {
       const wm = pick(N3_WASH_MACHINES, rand)
       const temp = pick(N3_WASH_TEMPS, rand)
+      const othersSoap = sample(N3_WASH_MACHINES.filter(w => w.soapZh !== wm.soapZh), 2, rand)
       const text = `Pour faire fonctionner ${wm.machine}, place d’abord ton linge dans le tambour. Verse une mesure de détergent dans ${wm.soapSlot}, puis tourne le bouton vers le cycle ${wm.cycle} ${temp}.`
       return {
         text,
         questions: [
-          q('洗衣液应倒在哪个具体位置？', wm.soapZh, '洗衣机机身排水管道', '直接倒入滚筒的最底部', ['détergent', wm.soapSlot.split(' ')[1].toLowerCase()]),
+          q('洗衣液应倒在哪个具体位置？', wm.soapZh, othersSoap[0].soapZh, othersSoap[1].soapZh, ['détergent', wm.soapSlot.split(' ')[1].toLowerCase()]),
           q('建议选择哪一种洗涤程序？', wm.cycleZh, '高温强力除污清洗程序', '超高速甩干脱水程序', [wm.cycle.split(' ')[0].toLowerCase()]),
         ],
       }
@@ -544,7 +545,7 @@ export const N03_L_3 = [
     text: 'Pour lancer l’imprimante partagée, appuie sur le bouton vert situé sur le côté droit. Attends que le voyant bleu devienne fixe avant d’envoyer ton premier document.',
     questions: [
       q('开启打印机应按下哪个按钮？', '右侧的绿色按钮', '左侧的红色开关', '顶部的黄色旋钮', ['bouton vert', 'côté droit']),
-      q('什么时候才可以发送打印文件？', '蓝色指示灯常亮时', '黄色警报灯闪烁时', '红色按键弹起之后', ['voyant bleu', 'fixe']),
+      q('什么时候才可以发送打印文件？', '蓝色指示灯常亮时', '蓝色指示灯闪烁时', '绿色指示灯常亮时', ['voyant bleu', 'fixe']),
     ],
   },
 ]
@@ -946,12 +947,14 @@ export const N03_R_2 = [
         { type: 'Joli quatre et demie', bedrooms: 'Une chambre fermée' },
       ], rand)
       const area = pick(['dans Rosemont', 'à Sainte-Foy', 'dans Saint-Sauveur', 'près du métro Jarry'], rand)
-      const rent = pick(['1 180 $ par mois', '1 250 $ par mois', '1 350 $ par mois', '1 050 $ par mois'], rand)
+      const rents = ['1 180 $ par mois', '1 250 $ par mois', '1 350 $ par mois', '1 050 $ par mois']
+      const rent = pick(rents, rand)
+      const otherRents = sample(rents.filter((r) => r !== rent), 2, rand)
       const text = `À louer : ${apt.type} ensoleillé ${area}. Loyer de ${rent}. ${apt.bedrooms}, planchers de bois franc, salle de bain rénovée et balcon privé. Entrée laveuse-sécheuse incluse. Chauffage non inclus. Chats acceptés, non-fumeur. Disponible dès le 1er juillet.`
       return {
         text,
         questions: [
-          q('Combien coûte le loyer de ce logement ?', rent, '2 500 $ par mois', '450 $ par mois', [rent.split(' ')[0]]),
+          q('Combien coûte le loyer de ce logement ?', rent, otherRents[0], otherRents[1], [rent.split(' ')[0]]),
           q('Quelle caractéristique du logement est mentionnée ?', 'planchers en bois et balcon privé', 'cuisine ouverte avec îlot central', 'grand foyer au gaz dans le salon', ['planchers']),
         ],
       }
@@ -3729,14 +3732,14 @@ const N4_BANK_RULES = [
   'ignorez ces demandes inhabituelles sans y répondre.',
 ]
 const N4_BANK_CONTACTS = [
-  { act: 'appelez le numéro officiel au verso de votre carte', actOpt: 'appeler le numéro officiel au dos de sa carte', kwAct: 'numéro' },
+  { act: 'appelez le numéro officiel au verso de votre carte', actOpt: 'appeler le numéro au dos de sa carte', kwAct: 'numéro' },
   { act: 'joignez le service d’aide par l’application', actOpt: 'joindre l’assistance par l’application', kwAct: 'application' },
   { act: 'rendez-vous directement à votre succursale', actOpt: 'se rendre directement à sa succursale', kwAct: 'succursale' },
   { act: 'ouvrez une session sur le clavardage officiel', actOpt: 'utiliser le clavardage officiel en ligne', kwAct: 'clavardage' },
 ]
 const N4_BANK_BAD_ACTIONS = [
   'répondre directement au message reçu',
-  'cliquer sur le lien du message',
+  'cliquer sur le lien du message reçu',
   'transmettre son code secret par texto',
   'payer les frais demandés dans le message',
 ]

@@ -661,7 +661,7 @@ export const N01_02_SCENARIOS = {
           text: `Salut ${persona.name} ! Je te rapporte ${it.fr}. Un grand merci, ${cherFr}, ton aide est très appréciée !`,
           questions: [
             q('邻居归还了什么物品？', it.zh, otherItems[0].zh, otherItems[1].zh, [it.fr.toLowerCase().split(' ').pop()]),
-            q(`邻居对 ${persona.name} 表达了什么：`, '感激与道谢', '道歉与解释', '邀请朋友做客', ['merci']),
+            q(`邻居对 ${persona.name} 表达了什么：`, '感激与道谢', '祝贺与赞赏', '问候与邀请', ['merci']),
           ],
         }
       },
@@ -1383,7 +1383,7 @@ export const N01_02_SCENARIOS = {
           text: `La pharmacie est ouverte du ${d1.fr} au ${d2.fr} de ${h1} à ${h2}. Un service d’urgence reste disponible la nuit.`,
           questions: [
             q('药店平时的营业时间是？', `De ${h1} à ${h2}`, 'De 7 h 00 à 12 h 00', 'De 13 h 00 à 17 h 00', [h1, h2]),
-            q('夜间提供什么服务？', '夜间急诊值班服务', '门诊手术', '疫苗批量接种', ['service', 'urgence', 'nuit']),
+            q('夜间提供什么服务？', '夜间急诊服务', '门诊手术服务', '疫苗接种服务', ['service', 'urgence', 'nuit']),
           ],
         }
       },
@@ -1804,7 +1804,7 @@ export const N01_02_SCENARIOS = {
           text: `${place} : attention s’il vous plaît ! ${p.fr}. Merci de votre collaboration pour la sécurité de tous.`,
           questions: [
             q('安保人员宣布的安全禁令是：', p.zh, alt[0].zh, alt[1].zh, [p.kw]),
-            q('公众听到此要求后应当：', '自觉配合并严格遵守规定', '拍照并把照片发到网上', '询问附近哪里有停车场', ['collaboration']),
+            q('公众听到此要求后应当：', '自觉配合并严格遵守规定', '向安保人员出示个人证件', '前往服务台办理登记手续', ['collaboration']),
           ],
         }
       },
@@ -1963,7 +1963,7 @@ export const N01_02_SCENARIOS = {
         return {
           text: `— Pardon tout le monde ! Excusez-moi, je dois sortir sur ${route.line} à la station ${route.station}. Merci de me laisser passer !`,
           questions: [
-            q('乘客请求大家让路是因为：', '需要在本站下车出车门', '车厢内有危险', '需要换座位', ['sortir', 'station']),
+            q('乘客请求大家让路是因为：', '需要在本站下车', '发现车厢有危险', '希望在车内换座', ['sortir', 'station']),
             q('列车到达的车站是：', route.station, route.otherStations[0], route.otherStations[1], [route.station.toLowerCase()]),
           ],
         }
@@ -2491,7 +2491,7 @@ export const N01_02_SCENARIOS = {
           text: `Message ${de(persona.name)} : « ${cherFr} collègue, un grand merci pour ${serv.fr}. Ta disponibilité m’a beaucoup ${toucheFr}. Amitiés, ${persona.name}. »`,
           questions: [
             q(`${persona.name} 表达感谢是因为同事帮忙做了什么？`, serv.zh, otherServs[0].zh, otherServs[1].zh, [serv.kw]),
-            q('该信函的主要情感基调是：', '真诚致谢', '热情的邀请', '郑重的道歉', ['merci']),
+            q('该信函的主要情感基调是：', '真诚致谢', '热情邀请', '诚挚祝贺', ['merci']),
           ],
         }
       },
