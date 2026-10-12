@@ -1608,7 +1608,7 @@ export const N05_06_SCENARIOS = {
             coupureAns: 'Les mardis et jeudis entre neuf heures et seize heures',
             coupureDist1: 'Les vendredis soirs de dix-huit heures à minuit de manière continue',
             coupureDist2: 'Chaque nuit de la semaine entre deux heures et six heures du matin',
-            acces: 'permettre aux plombiers d’accéder aux tuyaux sous votre évier',
+            acces: 'permettre aux ouvriers d’accéder aux tuyaux sous votre évier',
             accesAns: 'Donner accès aux canalisations situées sous l’évier de la cuisine',
             accesDist1: 'Acheter à ses frais des raccords de plomberie neufs dans une quincaillerie',
             accesDist2: 'Purger soi-même le compteur d’eau principal situé au sous-sol du bâtiment',
@@ -1621,8 +1621,8 @@ export const N05_06_SCENARIOS = {
             coupureAns: 'Les lundis et mercredis entre huit heures et quinze heures',
             coupureDist1: 'Les fins de semaine complètes du samedi matin jusqu’au dimanche soir',
             coupureDist2: 'Uniquement les mercredis soirs après dix-neuf heures jusqu’à minuit',
-            acces: 'libérer l’espace autour du chauffe-eau dans votre buanderie',
-            accesAns: 'Dégager entièrement le pourtour du chauffe-eau situé dans la buanderie',
+            acces: 'permettre aux ouvriers d’accéder au chauffe-eau dans votre buanderie',
+            accesAns: 'Donner accès au chauffe-eau situé dans la buanderie pour l’intervention',
             accesDist1: 'Vidanger complètement le réservoir d’eau chaude la veille de l’intervention',
             accesDist2: 'Démonter tous les robinets de la baignoire avant l’arrivée des plombiers',
             evidenceCoupure: ['lundis', 'mercredis', 'quinze'],
@@ -1634,8 +1634,8 @@ export const N05_06_SCENARIOS = {
             coupureAns: 'Tous les matins de la semaine en cours de huit heures à midi',
             coupureDist1: 'Une journée entière sans aucun préavis au milieu du mois courant',
             coupureDist2: 'Les samedis après-midi entre treize heures et dix-huit heures trente',
-            acces: 'dégager complètement l’accès aux conduites de la salle de bain',
-            accesAns: 'Dégager les canalisations situées dans la salle de bain pour les ouvriers',
+            acces: 'permettre aux ouvriers d’accéder aux conduites de la salle de bain',
+            accesAns: 'Donner accès aux canalisations de la salle de bain pour les ouvriers',
             accesDist1: 'Remplacer le rideau de douche par une cloison étanche aux normes sanitaires',
             accesDist2: 'Couper le chauffage central de l’appartement pendant trois jours consécutifs',
             evidenceCoupure: ['matins', 'huit', 'midi'],
@@ -1756,7 +1756,7 @@ export const N05_06_SCENARIOS = {
         ]
         const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `Bienvenue sur nos ondes pour cette émission spéciale consacrée à la cérémonie d’ouverture ${t.competition}, qui s’est tenue hier soir dans le grand stade ${t.ville}. Le spectacle a débuté par un hommage touchant aux Premières Nations, suivi d’une chorégraphie dynamique alliant danses traditionnelles et projections lumineuses sur une gigantesque surface de glace. L’émotion a atteint son comble lors du défilé des délégations, lorsque ${t.porte_drapeau} a franchi la scène centrale sous les ovations de ${t.foule}. La flamme officielle a ensuite été allumée par deux jeunes athlètes de la relève locale au milieu d’un impressionnant feu d’artifice. Les compétitions s’amorceront dès ce matin avec les premières rondes éliminatoires.`,
+          text: `Bienvenue sur nos ondes pour cette émission spéciale consacrée à la cérémonie d’ouverture ${t.competition}, qui s’est tenue hier soir dans le grand stade ${t.ville}. Le spectacle a débuté par un hommage touchant aux Premières Nations, suivi d’une chorégraphie dynamique alliant danses traditionnelles et projections lumineuses sur une gigantesque scène centrale. L’émotion a atteint son comble lors du défilé des délégations, lorsque ${t.porte_drapeau} a franchi la scène centrale sous les ovations de ${t.foule}. La flamme officielle a ensuite été allumée par deux jeunes athlètes de la relève locale au milieu d’un impressionnant feu d’artifice. Les compétitions s’amorceront dès ce matin avec les premières rondes éliminatoires.`,
           questions: [
             makeQuestion('Quel événement festif et sportif est décrit par le journaliste à la radio ?', 'Le lancement festif d’une grande rencontre sportive internationale', 'La remise officielle des prix clôturant une compétition provinciale annuelle', 'La conférence de presse matinale annonçant l’annulation de tournois', ['cérémonie', 'ouverture', 'stade']),
             makeQuestion('Par quoi le spectacle inaugural a-t-il débuté ?', 'Un hommage aux Premières Nations suivi de projections visuelles', 'Une joute amicale entre deux équipes rivales régionales', 'Une longue allocution officielle prononcée par les commanditaires', ['hommage', 'nations', 'projections']),
@@ -2027,6 +2027,7 @@ export const N05_06_SCENARIOS = {
           {
             film: '« L’Or sur glace »',
             sportive: 'la patineuse Émilie Vachon',
+            lieuEntrainement: 'sur des patinoires extérieures sous un froid polaire',
             blessure: 'une fracture sévère à la cheville à la veille des sélections',
             finale: 'une médaille historique remportée avec courage aux Jeux d’hiver',
             blessureAns: 'Une sévère fracture de la cheville subie juste avant les sélections',
@@ -2041,6 +2042,7 @@ export const N05_06_SCENARIOS = {
           {
             film: '« La Traversée du courage »',
             sportive: 'la fondeuse Sandrine Gagnon',
+            lieuEntrainement: 'sur les sentiers enneigés de la forêt sous un froid polaire',
             blessure: 'une pneumonie sévère qui a paralysé sa préparation hivernale',
             finale: 'une remontée spectaculaire sur le podium lors du cinquante kilomètres',
             blessureAns: 'Une violente pneumonie venue interrompre sa préparation en plein hiver',
@@ -2055,6 +2057,7 @@ export const N05_06_SCENARIOS = {
           {
             film: '« Seule contre le vent »',
             sportive: 'la cycliste Karine Simard',
+            lieuEntrainement: 'sur les routes sinueuses de campagne dès les premières lueurs',
             blessure: 'une déchirure musculaire douloureuse après une chute en peloton',
             finale: 'un triomphe émouvant lors du contre-la-montre des championnats mondiaux',
             blessureAns: 'Une déchirure musculaire douloureuse occasionnée par une chute collective',
@@ -2069,7 +2072,7 @@ export const N05_06_SCENARIOS = {
         ]
         const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `Dans notre chronique cinéma de ce midi, nous nous penchons sur le long-métrage biographique ${t.film}, qui retrace la vie marquante de ${t.sportive}. Le film débute dans un petit village du Québec où l’on voit la jeune fille s’entraîner à l’aube sur des patinoires extérieures sous des froids polaires. Le récit prend ensuite un tournant dramatique au milieu du film lorsqu’elle subit ${t.blessure}. Alors que tous les spécialistes prédisent la fin de sa carrière, elle entreprend une réadaptation rigoureuse avec l’aide de son entraîneur de toujours. La scène culminante du film montre ${t.finale}, un moment d’une grande intensité émotionnelle qui a profondément touché les spectateurs lors de la première montréalaise.`,
+          text: `Dans notre chronique cinéma de ce midi, nous nous penchons sur le long-métrage biographique ${t.film}, qui retrace la vie marquante de ${t.sportive}. Le film débute dans un petit village du Québec où l’on voit la jeune fille s’entraîner à l’aube ${t.lieuEntrainement}. Le récit prend ensuite un tournant dramatique au milieu du film lorsqu’elle subit ${t.blessure}. Alors que tous les spécialistes prédisent la fin de sa carrière, elle entreprend une réadaptation rigoureuse avec l’aide de son entraîneur de toujours. La scène culminante du film montre ${t.finale}, un moment d’une grande intensité émotionnelle qui a profondément touché les spectateurs lors de la première montréalaise.`,
           questions: [
             makeQuestion('Quel genre d’œuvre cinématographique le critique commente-t-il à la radio ?', 'Une biographie filmée retraçant le destin d’une sportive québécoise', 'Une comédie d’intrigue amoureuse et burlesque qui se déroule dans une grande université', 'Un grand documentaire historique sur la fondation des premiers cinémas de quartier', ['biographique', 'film']),
             makeQuestion('Quelle épreuve dramatique compromet temporairement le parcours de l’athlète ?', t.blessureAns, t.blessureDist1, t.blessureDist2, t.evidenceBlessure),
@@ -2286,7 +2289,7 @@ export const N05_06_SCENARIOS = {
             sujet: 'la championne Laurie Mercier a atteint les sommets du ski acrobatique',
             epreuve: 'des blessures répétées aux genoux nécessitant plusieurs chirurgies délicates',
             podium: 'sa médaille d’or conquise sous une pluie battante lors de la manche finale',
-            sujetAns: 'Une skieuse solitaire qui gravit les échelons du ski de bosses international',
+            sujetAns: 'Une skieuse solitaire qui gravit les échelons du ski acrobatique international',
             sujetDist1: 'Une patineuse artistique s’exilant à l’étranger pour changer de nationalité sportive',
             sujetDist2: 'Un groupe de monitrices de ski ouvrant une école privée en montagne',
             epreuveAns: 'Des atteintes sérieuses aux genoux ayant nécessité plusieurs chirurgies délicates',
@@ -2357,7 +2360,7 @@ export const N05_06_SCENARIOS = {
           },
           {
             amie: 'Marianne',
-            ancien: 'les sciences de la nature théoriques',
+            ancien: 'l’informatique de gestion de bureau',
             nouveau: 'inhalothérapie et assistance respiratoire',
             motif: 'la volonté d’exercer un métier utile et actif en santé',
             stage: 'les séances de pratique avec des simulateurs haute fidélité',
@@ -2493,15 +2496,15 @@ export const N05_06_SCENARIOS = {
             collegue: 'Simon',
             modele: 'une voiture compacte à batterie longue autonomie',
             subvention: 'dix mille dollars de subventions écologiques à l’achat',
-            borne: 'l’accès à des bornes rapides le long de mon trajet quotidien',
+            borne: 'une borne de recharge murale installée à mon domicile',
             subventionAns: 'Une aide financière de dix mille dollars en subventions écologiques',
             subventionDist1: 'Un rabais consenti par le fabricant en échange d’actions en bourse',
             subventionDist2: 'Un prêt sans intérêt accordé par un organisme caritatif local',
-            borneAns: 'La disponibilité de bornes rapides situées sur son parcours de tous les jours',
+            borneAns: 'L’installation d’une borne de recharge murale à son domicile',
             borneDist1: 'Le rechargement d’urgence effectué par une remorqueuse municipale',
             borneDist2: 'Le prêt d’une batterie de rechange à chaque passage au bureau',
             evidenceSubvention: ['dix', 'mille', 'subventions'],
-            evidenceBorne: ['bornes', 'rapides', 'trajet'],
+            evidenceBorne: ['borne', 'murale', 'domicile'],
           },
         ]
         const t = tuples[Math.floor(rand() * tuples.length)]
@@ -2781,7 +2784,7 @@ export const N05_06_SCENARIOS = {
           },
           {
             chef: 'François Tremblay',
-            motif: 'la prime de quart de soir du mois dernier qui a été omise sur votre talon',
+            motif: 'la prime de quart de soir du mois dernier qui a été omise sur ton talon',
             portail: 'la section intranet des paies en choisissant le formulaire P-102',
             delai: 'avant mercredi dix-sept heures',
             motifAns: 'L’oubli de la prime liée aux quarts de travail en soirée du mois passé',
@@ -2795,8 +2798,8 @@ export const N05_06_SCENARIOS = {
           },
           {
             chef: 'Marc Lavoie',
-            motif: 'l’erreur d’échelon salarial consécutive à votre promotion du premier mars',
-            portail: 'le logiciel de gestion des ressources humaines avec votre code d’employé',
+            motif: 'l’erreur d’échelon salarial consécutive à ta promotion du premier mars',
+            portail: 'le logiciel de gestion des ressources humaines avec ton code d’employé',
             delai: 'au plus tard vendredi matin',
             motifAns: 'Une mauvaise attribution d’échelon salarial intervenue suite à sa promotion',
             motifDist1: 'Une retenue salariale injustifiée sur l’ensemble des indemnités de repas du midi',
@@ -2826,9 +2829,9 @@ export const N05_06_SCENARIOS = {
         const tuples = [
           {
             gestionnaire: 'Diane Roy',
-            probleme: 'une double retenue d’assurance collective prélevée par erreur sur votre chèque',
-            preuve: 'votre formulaire d’adhésion original confirmant le régime individuel choisi',
-            conseillerTexte: 'la conseillère attitrée, Chantal Lévesque, au poste téléphonique 412',
+            probleme: 'une double retenue d’assurance collective prélevée par erreur sur ton chèque',
+            preuve: 'ton formulaire d’adhésion original confirmant le régime individuel choisi',
+            conseillerTexte: 'à la conseillère attitrée, Chantal Lévesque, au poste téléphonique 412',
             problemeAns: 'Un prélèvement dédoublé au titre du régime d’assurance collective',
             problemeDist1: 'Une saisie sur salaire ordonnée formellement par une cour de justice municipale',
             problemeDist2: 'Un défaut de versement de la prime de fin d’année convenue',
@@ -2841,8 +2844,8 @@ export const N05_06_SCENARIOS = {
           {
             gestionnaire: 'Monique Bélanger',
             probleme: 'une déduction incorrecte pour les cotisations au régime de retraite volontaire',
-            preuve: 'votre contrat d’embauche mentionnant expressément le taux de cotisation retenu',
-            conseillerTexte: 'le conseiller attitré, Patrick Simard, à la division des avantages sociaux',
+            preuve: 'ton contrat d’embauche mentionnant expressément le taux de cotisation retenu',
+            conseillerTexte: 'au conseiller attitré, Patrick Simard, à la division des avantages sociaux',
             problemeAns: 'Une retenue excessive appliquée aux cotisations de retraite volontaire',
             problemeDist1: 'Une retenue erronée d’impôt fédéral calculée sur la base d’un salaire fictif',
             problemeDist2: 'L’annulation imprévue de ses jours de congés parentaux accumulés',
@@ -2856,7 +2859,7 @@ export const N05_06_SCENARIOS = {
             gestionnaire: 'Carole Fortin',
             probleme: 'une retenue fiscale provinciale calculée avec un mauvais code de déduction',
             preuve: 'le formulaire officiel de déclaration des crédits d’impôt TP-1015 signé',
-            conseillerTexte: 'le conseiller attitré, Marc Bédard, au bureau de paie',
+            conseillerTexte: 'au conseiller attitré, Marc Bédard, au bureau de paie',
             problemeAns: 'Une retenue d’impôt provincial erronée causée par un code fiscal inadéquat',
             problemeDist1: 'Une déduction financière injustifiée pour un repas pris à la cantine d’entreprise',
             problemeDist2: 'Une suspension de salaire liée à une absence pour motifs syndicaux',
@@ -2869,7 +2872,7 @@ export const N05_06_SCENARIOS = {
         ]
         const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `— Bonjour Alexandre. Je viens de vérifier les montants avec le service de paie concernant ${t.probleme}. C’est fâcheux, mais nous avons une démarche bien balisée pour rembourser le montant perçu en trop. Première étape : remplis la demande de redressement de paie disponible sur notre portail intranet d’entreprise. Seconde étape : joins en pièce jointe ${t.preuve}. Troisième phase : transmets le tout directement à ${t.conseillerTexte}, en me mettant en copie conforme pour que j’appose ma validation. Le service financier s’est engagé à émettre un paiement correctif d’ici vendredi si le dossier est complet avant midi demain. Passe à mon bureau si tu as besoin d’aide pour remplir les sections du formulaire.`,
+          text: `— Bonjour Alexandre. Je viens de vérifier les montants avec le service de paie concernant ${t.probleme}. C’est fâcheux, mais nous avons une démarche bien balisée pour rembourser le montant perçu en trop. Première étape : remplis la demande de redressement de paie disponible sur notre portail intranet d’entreprise. Seconde étape : joins en pièce jointe ${t.preuve}. Troisième phase : transmets le tout directement ${t.conseillerTexte}, en me mettant en copie conforme pour que j’appose ma validation. Le service financier s’est engagé à émettre un paiement correctif d’ici vendredi si le dossier est complet avant midi demain. Passe à mon bureau si tu as besoin d’aide pour remplir les sections du formulaire.`,
           questions: [
             makeQuestion('Quel prélèvement indu sur la paie cette démarche vise-t-elle à régulariser ?', t.problemeAns, t.problemeDist1, t.problemeDist2, t.evidenceProbleme),
             makeQuestion('Quelle pièce justificative officielle doit impérativement accompagner la demande ?', t.preuveAns, t.preuveDist1, t.preuveDist2, t.evidencePreuve),
@@ -3083,7 +3086,7 @@ export const N05_06_SCENARIOS = {
           {
             ami: 'Samuel',
             programme: 'en techniques de réadaptation physique au cégep',
-            cause: 'le grand nombre de candidatures pour très peu de places disponibles',
+            cause: 'le nombre de candidatures reçues dépassait largement les places disponibles',
             soutien: 'suivre des cours de perfectionnement pour bonifier ma candidature future',
             causeAns: 'La forte concurrence générée par un nombre très restreint de places offertes',
             causeDist1: 'L’absence remarquée d’une lettre de recommandation signée par un ancien enseignant',
@@ -3130,10 +3133,11 @@ export const N05_06_SCENARIOS = {
             universite: 'à l’Université de Montréal en médecine vétérinaire',
             reve: 'soigner les animaux en région rurale depuis mon enfance',
             alternative: 'faire une année en sciences biomédicales pour hausser mes notes',
+            reveAns: 'Le souhait profond de soigner des animaux en région rurale',
             altAns: 'Entreprendre une année préparatoire en sciences biomédicales pour améliorer ses notes',
             altDist1: 'Renoncer définitivement aux études supérieures pour travailler comme aide-animalière non qualifiée',
             altDist2: 'Tenter sa chance dans un conservatoire de musique sans préparation',
-            evidenceReve: ['soigner', 'animaux', 'enfance'],
+            evidenceReve: ['soigner', 'animaux'],
             evidenceAlt: ['sciences', 'biomédicales', 'notes'],
           },
           {
@@ -3141,6 +3145,7 @@ export const N05_06_SCENARIOS = {
             universite: 'en pharmacie clinique à l’Université Laval',
             reve: 'travailler en milieu hospitalier auprès des aînés',
             alternative: 'suivre un certificat universitaire complémentaire pour enrichir mes compétences',
+            reveAns: 'Le souhait d’œuvrer dans le secteur hospitalier auprès des aînés',
             altAns: 'Compléter un certificat universitaire pour renforcer la valeur de son profil',
             altDist1: 'Ouvrir sans diplôme requis un petit commerce indépendant de vente de produits naturels',
             altDist2: 'Partir vivre dans un pays étranger sans donner d’explications',
@@ -3152,6 +3157,7 @@ export const N05_06_SCENARIOS = {
             universite: 'en physiothérapie à l’Université de Sherbrooke',
             reve: 'soutenir les personnes blessées pour retrouver leur mobilité',
             alternative: 'm’inscrire dans une filière voisine pour faire une nouvelle demande l’an prochain',
+            reveAns: 'Le désir d’aider des personnes blessées à retrouver leur mobilité',
             altAns: 'Intégrer une filière connexe afin de retenter sa chance l’année suivante',
             altDist1: 'Déposer une poursuite judiciaire contre le doyen de la faculté de médecine',
             altDist2: 'Abandonner toute ambition dans le secteur des soins de santé',
@@ -3164,7 +3170,7 @@ export const N05_06_SCENARIOS = {
           text: `— Salut Julie... Je t’écris avec le cœur gros. Je viens d’ouvrir le portail d’admission ${t.universite} et ma candidature n’a pas été retenue. Je me sens vraiment triste et déçue. Tu sais à quel point c’était mon rêve de ${t.reve}. J’ai maintenu de très bonnes notes pendant tout mon parcours collégial et j’ai fait du bénévolat pour consolider mon dossier. Voir une lettre impersonnelle écarter mes projets après tant d’efforts, c’est dur à accepter. Pour l’instant, j’ai de la difficulté à voir le côté positif. Quand le choc sera passé, j’envisagerai probablement de ${t.alternative}. Mais pour aujourd’hui, j’ai simplement besoin d’en parler avec une amie et de souffler un peu.`,
           questions: [
             makeQuestion('Quelle triste nouvelle l’amie partage-t-elle avec émotion ?', 'Le refus de son admission dans le programme universitaire souhaité', 'La perte inattendue de son emploi à temps partiel à la clinique', 'L’annulation de son stage d’observation auprès d’une équipe sportive', ['admission', 'candidature', 'retenue']),
-            makeQuestion('Quelle aspiration de longue date motivait particulièrement son projet d’études ?', 'Le souhait profond de concrétiser une vocation née dès l’enfance', 'Le désir de percevoir un salaire très élevé dès la fin du baccalauréat', 'La volonté de diriger un département sans jamais être en contact avec le public', ['rêve', 'efforts']),
+            makeQuestion('Quelle aspiration motivait particulièrement son projet d’études ?', t.reveAns, 'Le désir de percevoir un salaire très élevé dès la fin du baccalauréat', 'La volonté de diriger un département sans jamais être en contact avec le public', t.evidenceReve),
             makeQuestion('Quelle stratégie académique constructive envisage-t-elle après le choc de l’annonce ?', t.altAns, t.altDist1, t.altDist2, t.evidenceAlt),
           ],
         }
@@ -3471,7 +3477,7 @@ export const N05_06_SCENARIOS = {
         ]
         const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `BULLETIN COMMUNAUTAIRE - AUTOMNE CULTUREL DANS VOTRE SECTEUR\nLa direction des loisirs et de la vie de quartier ${t.secteur} est fière de vous présenter son calendrier d’automne. Dès le premier octobre, ${t.biblio} accueillera une exposition photographique captivante sur l’histoire industrielle locale ainsi que ${t.atelier}. Pour les sportifs de tous âges, les inscriptions sont officiellement ouvertes pour ${t.tournoi}. Tous les gymnases municipaux offriront également des plages horaires de bain libre et de patinage intérieur gratuit durant les fins de semaine. Les personnes détenant la carte de bibliothèque bénéficient d’un accès prioritaire pour l’ensemble des événements à jauge limitée. Rendez-vous sur notre site Internet pour réserver vos laissez-passer gratuits avant que les places ne soient épuisées !`,
+          text: `BULLETIN COMMUNAUTAIRE - AUTOMNE CULTUREL DANS VOTRE SECTEUR\nLa direction des loisirs et de la vie de quartier ${t.secteur} est fière de vous présenter son calendrier d’automne. Dès le premier octobre, ${t.biblio} accueillera une exposition photographique captivante sur l’histoire industrielle locale ainsi que ${t.atelier}. Pour les sportifs de tous âges, les inscriptions sont officiellement ouvertes pour ${t.tournoi}. Tous les gymnases municipaux offriront également des plages horaires de jeu libre et de patinage intérieur gratuit durant les fins de semaine. Les personnes détenant la carte de bibliothèque bénéficient d’un accès prioritaire pour l’ensemble des événements à jauge limitée. Rendez-vous sur notre site Internet pour réserver vos laissez-passer gratuits avant que les places ne soient épuisées !`,
           questions: [
             makeQuestion('Quel est l’objet de ce bulletin d’information distribué aux citoyens ?', 'Présenter le calendrier municipal des loisirs et activités de l’automne', 'Dresser le bilan financier des investissements de réfection des chaussées', 'Promulguer une ordonnance d’urgence sur le stationnement hivernal', ['bulletin', 'automne', 'calendrier']),
             makeQuestion('Quelle activité artistique ou d’expression est proposée dans le centre culturel ?', t.atelierAns, t.atelierDist1, t.atelierDist2, t.evidenceAtelier),
@@ -3534,7 +3540,7 @@ export const N05_06_SCENARIOS = {
           questions: [
             makeQuestion('À quel public de travailleurs ce cursus universitaire s’adresse-t-il en priorité ?', t.publicAns, t.publicDist1, t.publicDist2, t.evidencePublic),
             makeQuestion('Quel aménagement pédagogique souple permet de concilier travail et formation ?', t.formuleAns, t.formuleDist1, t.formuleDist2, t.evidenceFormule),
-            makeQuestion('Quelle disposition avantageuse facilite l’admission directe des adultes expérimentés ?', 'La reconnaissance officielle des acquis d’expérience professionnelle sur le marché', 'La dispense d’assister à tout cours théorique tout en recevant automatiquement le diplôme', 'Le paiement régulier d’une prime financière versée par l’université à chaque nouvel inscrit', ['reconnaître', 'acquis', 'expérience']),
+            makeQuestion('Quelle disposition avantageuse facilite l’admission directe des adultes expérimentés ?', 'La reconnaissance officielle des acquis d’expérience professionnelle', 'La dispense d’assister à tout cours théorique tout en recevant automatiquement le diplôme', 'Le paiement régulier d’une prime financière versée par l’université à chaque nouvel inscrit', ['reconnaître', 'acquis', 'expérience']),
           ],
         }
       },
@@ -3915,7 +3921,7 @@ export const N05_06_SCENARIOS = {
             verbeSujet: 's’est aventurée',
             site: 'dans la baie Éternité en plein cœur du fjord du Saguenay',
             alerte: 'des kayakistes qui ont aperçu son souffle puissant à l’aube',
-            patrouille: 'Une équipe de patrouilleurs du parc marin veille à ce qu’aucune embarcation ne s’approche à moins de quatre cents mètres',
+            patrouille: 'une équipe de patrouilleurs du parc marin veille à ce qu’aucune embarcation ne s’approche à moins de quatre cents mètres',
             animalAns: 'Une baleine bleue imposante s’aventurant dans le fjord du Saguenay',
             animalDist1: 'Un sous-marin d’exploration militaire échoué sur un haut-fond sablonneux',
             animalDist2: 'Un troupeau de caribous des bois traversant les eaux froides du fjord à la nage',
@@ -3934,7 +3940,7 @@ export const N05_06_SCENARIOS = {
             verbeSujet: 's’est aventuré',
             site: 'dans les eaux profondes de l’embouchure du Saguenay',
             alerte: 'le capitaine d’un traversier régulier reliant Tadoussac à Baie-Sainte-Catherine',
-            patrouille: 'Des agents de protection de la faune veillent à faire respecter un périmètre de six cents mètres autour du mammifère',
+            patrouille: 'des agents de protection de la faune veillent à faire respecter un périmètre de six cents mètres autour du mammifère',
             animalAns: 'Un rorqual commun adulte circulant dans les eaux de l’embouchure du Saguenay',
             animalDist1: 'Un brise-glace de la Garde côtière immobilisé par une avarie majeure de moteur',
             animalDist2: 'Une marée noire d’hydrocarbures causée par le naufrage d’un pétrolier étranger',
@@ -3953,7 +3959,7 @@ export const N05_06_SCENARIOS = {
             verbeSujet: 's’est aventuré',
             site: 'dans les méandres escarpés de la rivière Sainte-Marguerite',
             alerte: 'des résidents riverains intrigués par ses apparitions répétées à la surface de l’eau',
-            patrouille: 'Une brigade nautique spécialisée veille à ce que personne ne franchisse un rayon de trois cents mètres',
+            patrouille: 'une brigade nautique spécialisée veille à ce que personne ne franchisse un rayon de trois cents mètres',
             animalAns: 'Un jeune béluga blanc égaré dans une rivière tributaire du fjord',
             animalDist1: 'Une épave historique de goélette en bois remontée spontanément à la surface',
             animalDist2: 'Une colonie de morses de l’Arctique établie en permanence sur les berges rocheuses',
@@ -4336,7 +4342,7 @@ export const N05_06_SCENARIOS = {
         ]
         const t = tuples[Math.floor(rand() * tuples.length)]
         return {
-          text: `MAGAZINE ÉCO-CITOYEN - LE VIRAGE VERT D’UN CITADIN PASSIONNÉ\nInstallé ${t.quartier}, ${t.personne} a troque sa pelouse de banlieue contre ${t.potager}. Dans une entrevue, il nous explique les raisons qui l’ont poussé vers l’agriculture urbaine. « J’en avais assez d’acheter en épicerie des légumes suremballés ayant parcouru des milliers de kilomètres sans goût, confie-t-il. Je voulais reprendre le contrôle de ce que je mange. » Aujourd’hui, son aménagement lui permet de ${t.benefice}. Au-delà des récoltes, cette pratique a transformé sa vie de quartier : ses voisins montent régulièrement l’aider à arroser en échange de légumes frais. « Cela crée des liens formidables au cœur même de la ville », conclut-il avec le sourire.`,
+          text: `MAGAZINE ÉCO-CITOYEN - LE VIRAGE VERT D’UN CITADIN PASSIONNÉ\nInstallé ${t.quartier}, ${t.personne} a troqué sa pelouse de banlieue contre ${t.potager}. Dans une entrevue, il nous explique les raisons qui l’ont poussé vers l’agriculture urbaine. « J’en avais assez d’acheter en épicerie des légumes suremballés ayant parcouru des milliers de kilomètres sans goût, confie-t-il. Je voulais reprendre le contrôle de ce que je mange. » Aujourd’hui, son aménagement lui permet de ${t.benefice}. Au-delà des récoltes, cette pratique a transformé sa vie de quartier : ses voisins montent régulièrement l’aider à arroser en échange de légumes frais. « Cela crée des liens formidables au cœur même de la ville », conclut-il avec le sourire.`,
           questions: [
             makeQuestion('Quelle installation écologique cet habitant a-t-il créée au sommet de son immeuble ?', t.potagerAns, t.potagerDist1, t.potagerDist2, t.evidencePotager),
             makeQuestion('Quel avantage alimentaire direct son potager urbain lui permet-il d’obtenir ?', t.beneficeAns, t.beneficeDist1, t.beneficeDist2, t.evidenceBenefice),
