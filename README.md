@@ -133,8 +133,11 @@ Vite 自动把 `/api` 代理到 `127.0.0.1:8787`，默认允许的页面来源�
 ### 部署
 
 ```bash
+export BUILD_COMMIT_SHA=$(git rev-parse --short HEAD)
 docker compose up --build -d
 ```
+
+版本号会写入前端页脚。已有 OVH VPS 使用 `bash scripts/deploy-vps.sh` 更新前端，该脚本会自动读取当前提交号。
 
 访问 `http://localhost:8990`。Nginx 提供前端并转发 API，SQLite 放在 `study-data` 持久卷中。
 公网部署时在 HTTPS 反向代理后运行，设置 `STUDY_ORIGIN=https://你的域名` 和
