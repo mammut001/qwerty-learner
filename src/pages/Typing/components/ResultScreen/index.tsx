@@ -43,7 +43,7 @@ const ResultScreen = () => {
     const { words, userInputLogs } = state.chapterData
     const exportData = userInputLogs.map((log) => {
       const word = words[log.index]
-      const wordName = word.name
+      const wordName = currentDictInfo.language === 'fr' ? word.name.normalize('NFC') : word.name
       return {
         ...word,
         trans: word.trans.join(';'),
@@ -65,7 +65,7 @@ const ResultScreen = () => {
       .catch(() => {
         console.log('写入 xlsx 模块导入失败')
       })
-  }, [currentChapter, currentDictInfo.name, state.chapterData])
+  }, [currentChapter, currentDictInfo.language, currentDictInfo.name, state.chapterData])
 
   const wrongWords = useMemo(() => {
     return state.chapterData.userInputLogs
