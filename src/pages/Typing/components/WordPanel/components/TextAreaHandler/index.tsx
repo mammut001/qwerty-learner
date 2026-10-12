@@ -20,13 +20,11 @@ export default function TextAreaHandler({ updateInput }: { updateInput: (updateO
 
   const onInput = (e: FormEvent<HTMLTextAreaElement>) => {
     const nativeEvent = e.nativeEvent as InputEvent
-    if (!nativeEvent.isComposing && nativeEvent.data !== null) {
-      updateInput({ type: 'add', value: nativeEvent.data, event: e })
-
-      if (textareaRef.current) {
-        textareaRef.current.value = ''
-      }
-    }
+    if (nativeEvent.isComposing) return
+    // Paste events may have null data; the textarea still contains the inserted text.
+    const text = nativeEvent.data ?? e.currentTarget.value
+    if (text) updateInput({ type: 'add', value: text, event: e })
+    e.currentTarget.value = ''
   }
 
   const onBlur = useCallback(() => {
