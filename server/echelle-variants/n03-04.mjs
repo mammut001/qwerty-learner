@@ -1715,21 +1715,25 @@ const N4_CLINIC_CONDITIONS = [
     name: 'une bronchite aiguë',
     symp: 'une toux sèche persistante, des frissons et une légère fièvre',
     warn: { text: 'ressentez de la difficulté à respirer', short: 'une difficulté respiratoire importante', kw: 'difficulté' },
+    falseSigns: ['une toux sèche persistante au repos', 'une légère fièvre avec des frissons'],
   },
   {
     name: 'une gastro-entérite virale',
     symp: 'des crampes abdominales, des nausées et des vomissements fréquents',
     warn: { text: 'avez des signes de déshydratation nette', short: 'des signes de déshydratation nette', kw: 'déshydratation' },
+    falseSigns: ['des crampes abdominales passagères', 'des nausées légères après le repas'],
   },
   {
     name: 'une infection des sinus',
     symp: 'des maux de tête frontaux, une congestion nasale et une pression aux joues',
-    warn: { text: 'constatez une forte enflure au visage', short: 'une forte enflure au visage', kw: 'enflure' },
+    warn: { text: 'constatez une forte enflure au visage', short: 'une forte enflure visible au visage', kw: 'enflure' },
+    falseSigns: ['une congestion nasale sans douleur', 'une légère pression dans les joues'],
   },
   {
     name: 'une forte grippe saisonnière',
     symp: 'des courbatures intenses, de la fièvre et un mal de gorge aigu',
     warn: { text: 'observez une hausse subite de fièvre', short: 'une hausse subite de la fièvre', kw: 'fièvre' },
+    falseSigns: ['des courbatures musculaires au lit', 'un mal de gorge habituel et modéré'],
   },
 ]
 
@@ -1765,8 +1769,6 @@ const N4_PLUMBING_PROBLEMS = [
     measOpt: 'installer une bassine sous le tuyau d’eau',
     otherProb1: 'une panne de courant dans les chambres',
     otherProb2: 'une porte de balcon difficile à verrouiller',
-    otherMeas1: 'laisser la fenêtre du salon grande ouverte',
-    otherMeas2: 'couper l’accès à l’ascenseur de l’immeuble',
   },
   {
     room: 'dans la salle de bain',
@@ -1779,8 +1781,6 @@ const N4_PLUMBING_PROBLEMS = [
     measOpt: 'fermer la valve locale d’arrivée d’eau',
     otherProb1: 'une poignée d’entrée complètement bloquée',
     otherProb2: 'un rideau de douche déchiré par le vent',
-    otherMeas1: 'allumer le chauffage d’appoint au maximum',
-    otherMeas2: 'nettoyer le carrelage avec du savon noir',
   },
   {
     room: 'près de la laveuse',
@@ -1793,8 +1793,6 @@ const N4_PLUMBING_PROBLEMS = [
     measOpt: 'éponger le sol et éteindre l’appareil',
     otherProb1: 'un bruit de grincement dans le plancher',
     otherProb2: 'une prise murale sans tension électrique',
-    otherMeas1: 'laisser tourner la machine toute la soirée',
-    otherMeas2: 'ouvrir le robinet extérieur du jardinier',
   },
   {
     room: 'au sous-sol du bâtiment',
@@ -1807,8 +1805,6 @@ const N4_PLUMBING_PROBLEMS = [
     measOpt: 'poser des linges autour du réservoir d’eau',
     otherProb1: 'un verrou de porte rouillé par l’humidité',
     otherProb2: 'un escalier de secours difficile à monter',
-    otherMeas1: 'remplir le réservoir avec de l’eau chaude',
-    otherMeas2: 'déplacer la chaudière dans la cour arrière',
   },
 ]
 
@@ -1835,13 +1831,12 @@ export const N04_L_2 = [
   Object.assign(
     (rand) => {
       const cond = pick(N4_CLINIC_CONDITIONS, rand)
-      const othersWarn = sample(N4_CLINIC_CONDITIONS.filter((c) => c !== cond), 2, rand).map((c) => c.warn)
       const text = `— Bonjour monsieur. Pour traiter ${cond.name}, les symptômes habituels sont ${cond.symp}. Buvez beaucoup d’eau tiède et reposez-vous au lit pendant trois jours. En revanche, si vous ${cond.warn.text}, appelez sans tarder le service Info-Santé 811 ou venez à la clinique d’urgence.`
       return {
         text,
         questions: [
-          q('Quel conseil de base le soignant donne-t-il au patient ?', 'se reposer au lit et boire de l’eau', 'reprendre le sport de haute intensité', 'partir en long voyage dès le lendemain', ['lit']),
-          q('Quel signe doit pousser le patient à consulter d’urgence ?', cond.warn.short, othersWarn[0].short, othersWarn[1].short, [cond.warn.kw]),
+          q('Quel conseil de base le soignant donne-t-il au patient ?', 'se reposer au lit et boire de l’eau', 'appliquer des compresses froides au cou', 'garder une diète liquide sans solides', ['lit']),
+          q('Quel signe doit pousser le patient à consulter d’urgence ?', cond.warn.short, cond.falseSigns[0], cond.falseSigns[1], [cond.warn.kw]),
         ],
       }
     },
@@ -1869,12 +1864,13 @@ export const N04_L_2 = [
   Object.assign(
     (rand) => {
       const p = pick(N4_PLUMBING_PROBLEMS, rand)
+      const others = sample(N4_PLUMBING_PROBLEMS.filter(x => x.measOpt !== p.measOpt), 2, rand)
       const text = `— Bonjour monsieur Tremblay. C’est le locataire du numéro quatre. Je vous contacte pour un problème de plomberie ${p.room}. Depuis ce matin, ${p.issue}. J’ai tout de suite ${p.measure}. Est-ce qu’un plombier pourrait passer aujourd’hui pour réparer le bris ? Merci de me rappeler rapidement.`
       return {
         text,
         questions: [
           q('Quel problème domestique le locataire signale-t-il ?', p.probOpt, p.otherProb1, p.otherProb2, [p.probKw]),
-          q('Quelle précaution le locataire a-t-il prise immédiatement ?', p.measOpt, p.otherMeas1, p.otherMeas2, [p.measKw]),
+          q('Quelle précaution le locataire a-t-il prise immédiatement ?', p.measOpt, others[0].measOpt, others[1].measOpt, [p.measKw]),
         ],
       }
     },
@@ -1894,7 +1890,7 @@ export const N04_L_2 = [
     situation: 1,
     text: '— À la suite de votre piqûre d’insecte, une rougeur locale et une démangeaison modérée sont normales pendant deux jours. Appliquez de la glace enveloppée dans un linge propre. Par contre, si vous observez un gonflement du visage ou une difficulté à respirer, appelez sans tarder le 911.',
     questions: [
-      q('Quelle réaction cutanée est jugée normale au départ ?', 'une rougeur cutanée avec démangeaison', 'une perte temporaire de la vision nette', 'un engourdissement total du bras entier', ['démangeaison']),
+      q('Quelle réaction cutanée est jugée normale au départ ?', 'une rougeur cutanée avec démangeaison', 'une petite cloque sans douleur vive', 'une plaque très sèche sur la peau', ['démangeaison']),
       q('Dans quelle situation faut-il composer immédiatement le 911 ?', 'si le visage gonfle ou la respiration bloque', 'si la démangeaison continue pendant une heure', 'si la trace rouge reste visible en surface', ['visage']),
     ],
   },
