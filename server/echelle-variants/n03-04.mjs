@@ -582,10 +582,17 @@ const N3_CHEERS = [
   { condition: 'tes douleurs au dos', kwCond: 'dos', conditionZh: '背部感到疼痛', wish: 'beaucoup de repos', kwWish: 'repos', wishZh: '祝好好放松休息' },
 ]
 const N3_FALSE_WISHES = [
-  '祝考试顺利通过',
-  '祝旅途平安愉快',
-  '祝生日快乐幸福',
-  '祝乔迁新居顺利',
+  '催促尽快返回岗位',
+  '询问医院检查结果',
+  '推荐附近专科门诊',
+  '打听请假手续流程',
+]
+
+const N3_FALSE_COMPLIMENTS = [
+  '面料格外防水耐磨',
+  '款式十分御寒保暖',
+  '衣服质地非常轻便',
+  '口袋设计十分实用',
 ]
 
 const N3_EXAM_SUCCESSES = [
@@ -621,12 +628,13 @@ export const N03_L_4 = [
       const c = pick(N3_COMPLIMENTS, rand)
       const m = pick(N3_MEETINGS, rand)
       const othersItem = sample(N3_COMPLIMENTS.filter(x => x.itemZh !== c.itemZh), 2, rand)
+      const falseComp = sample(N3_FALSE_COMPLIMENTS, 2, rand)
       const text = `Wow, ${c.item} est ${c.adj} ! Cela te va à merveille ${m}. Tu fais une excellente impression auprès de toute l’équipe aujourd’hui.`
       return {
         text,
         questions: [
           q('说话人赞赏了对方的什么穿着？', c.itemZh, othersItem[0].itemZh, othersItem[1].itemZh, [c.kw]),
-          q('同事表达的核心赞赏意思是？', c.effectZh, '衣服显得过于宽大随意', '颜色看起来陈旧过时', ['impression']),
+          q('同事表达的核心赞赏意思是？', c.effectZh, falseComp[0], falseComp[1], ['impression']),
         ],
       }
     },
@@ -661,7 +669,7 @@ export const N03_L_4 = [
         text,
         questions: [
           q('朋友发来祝贺的具体事情是？', ex.passZh, othersPass[0].passZh, othersPass[1].passZh, [ex.kwExam]),
-          q('说话人对这个结果有什么评价？', '对努力付出的认可', '靠运气通过的侥幸', '过程准备得太匆忙', ['pratiqué']),
+          q('说话人对这个结果有什么评价？', '对努力付出的认可', '赞扬临场应变能力', '强调培训课程效果', ['pratiqué']),
         ],
       }
     },
@@ -679,7 +687,7 @@ export const N03_L_4 = [
         text,
         questions: [
           q('同事向新员工表达了什么心意？', newcomer.deptZh, otherDept, otherAct, [newcomer.kwDept]),
-          q('同事希望对方在第一天怎样？', '顺利度过愉快的第一天', '立即起草一份业务方案', '独立处理客户投诉案件', ['première', 'journée']),
+          q('同事希望对方在第一天怎样？', '顺利度过愉快的第一天', '准时参加新员工培训会', '抓紧时间阅读规章手册', ['première', 'journée']),
         ],
       }
     },
@@ -691,7 +699,7 @@ export const N03_L_4 = [
     text: 'Félicitations pour ta promotion ! Ton nouveau veston bleu marine est très classe et s’accorde parfaitement à tes nouvelles fonctions. Tu as fière allure !',
     questions: [
       q('说话人称赞了同事的什么着装？', '深蓝色的西装外套', '质地轻薄的长袖衫', '剪裁合身的长裤子', ['veston bleu']),
-      q('« Tu as fière allure » 的意思是：', '你看起来气派精神', '你走起路来很迅速', '你穿着打扮太随意', ['fière allure']),
+      q('« Tu as fière allure » 的意思是：', '你看起来气派精神', '你显得态度很傲慢', '你的步伐十分从容', ['fière allure']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Vœux après opération du genou
@@ -699,8 +707,8 @@ export const N03_L_4 = [
     situation: 1,
     text: 'Coucou Julie ! Je viens aux nouvelles après ton opération du genou. J’espère que tu as moins mal. Reste bien tranquille à la maison et reviens en pleine forme !',
     questions: [
-      q('朋友为什么发来这段慰问？', '得知对方刚做膝盖手术', '听说对方准备外出旅行', '祝贺对方喜迁全新住所', ['opération', 'genou']),
-      q('朋友希望朱莉怎样休养？', '安心在家休养到康复', '每天坚持在户外快走', '尽快回单位报到上班', ['tranquille', 'maison']),
+      q('朋友为什么发来这段慰问？', '得知对方刚做膝盖手术', '听说对方不慎扭伤脚踝', '得知对方突发重感冒了', ['opération', 'genou']),
+      q('朋友希望朱莉怎样休养？', '安心在家休养直到康复', '定期去医院做理疗康复', '按时服用医生开具的药物', ['tranquille', 'maison']),
     ],
   },
 ]
