@@ -66,7 +66,7 @@ function AddToWordList({ word, meaning }: { word: string; meaning: string }) {
               // Remembering the list is optional.
             }
           }}
-          className="max-w-[10rem] rounded-xl border border-gray-200 bg-white px-2.5 py-1.5 text-xs text-gray-700 outline-none transition focus:border-indigo-400 dark:border-gray-700 dark:bg-gray-850 dark:text-gray-200"
+          className="dark:bg-gray-850 max-w-[10rem] rounded-xl border border-gray-200 bg-white px-2.5 py-1.5 text-xs text-gray-700 outline-none transition focus:border-indigo-400 dark:border-gray-700 dark:text-gray-200"
         >
           {lists.map((item) => (
             <option key={item.id} value={item.id}>
@@ -80,7 +80,7 @@ function AddToWordList({ word, meaning }: { word: string; meaning: string }) {
         data-testid="dictionary-add"
         disabled={alreadySaved}
         onClick={add}
-        className="inline-flex items-center rounded-xl bg-indigo-50 px-3 py-1.5 text-xs sm:text-sm font-medium text-indigo-700 transition hover:bg-indigo-100 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 dark:bg-indigo-950/40 dark:text-indigo-300 dark:hover:bg-indigo-900/60 dark:disabled:bg-gray-800 dark:disabled:text-gray-500"
+        className="inline-flex items-center rounded-xl bg-indigo-50 px-3 py-1.5 text-xs font-medium text-indigo-700 transition hover:bg-indigo-100 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 dark:bg-indigo-950/40 dark:text-indigo-300 dark:hover:bg-indigo-900/60 dark:disabled:bg-gray-800 dark:disabled:text-gray-500 sm:text-sm"
       >
         {alreadySaved
           ? '已在词表中'
@@ -134,7 +134,7 @@ function GlossList({
       <div className={`text-sm leading-6 text-gray-900 dark:text-gray-100 ${className}`} lang={lang}>
         {fallbackBadge && (
           <span className="mr-1.5 inline-flex items-center rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-500 dark:bg-gray-700/60 dark:text-gray-400">
-            EN
+            英文释义
           </span>
         )}
         {items[0]}
@@ -146,7 +146,7 @@ function GlossList({
       {fallbackBadge && (
         <div className="mb-1">
           <span className="inline-flex items-center rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-500 dark:bg-gray-700/60 dark:text-gray-400">
-            EN
+            英文释义
           </span>
         </div>
       )}
@@ -163,9 +163,7 @@ function YoudaoSenses({ senses, source }: { senses: YoudaoFrench['senses']; sour
   if (senses.length === 0) return null
   return (
     <div className="space-y-2">
-      <div className="text-xs font-medium text-gray-400 dark:text-gray-500">
-        有道 · {source || '法汉词典'}
-      </div>
+      <div className="text-xs font-medium text-gray-400 dark:text-gray-500">有道 · {source || '法汉词典'}</div>
       <div className="space-y-1.5">
         {senses.map((sense) => (
           <div key={`${sense.pos}-${sense.gloss}`} className="text-sm leading-7 text-gray-900 dark:text-gray-100 sm:text-base">
@@ -194,7 +192,29 @@ function OnlineMeanings({ meanings, source, compact }: { meanings: string[]; sou
   )
 }
 
-function ExampleList({ examples, compact }: { examples: YoudaoFrench['examples']; compact: boolean }) {
+function HighlightedExample({ text, words }: { text: string; words: string[] }) {
+  const targets = words.map((word) => word.trim()).filter(Boolean)
+  if (targets.length === 0) return <>{text}</>
+  const escaped = Array.from(new Set(targets))
+    .sort((a, b) => b.length - a.length)
+    .map((word) => word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/[’']/g, "[’']"))
+  const pattern = new RegExp(`(?<![\\p{L}\\p{M}\\p{N}])(${escaped.join('|')})(?![\\p{L}\\p{M}\\p{N}])`, 'giu')
+  return (
+    <>
+      {text.split(pattern).map((part, index) =>
+        index % 2 === 1 ? (
+          <mark key={index} className="rounded bg-rose-50 px-0.5 font-semibold text-red-600 dark:bg-rose-950/50 dark:text-red-300">
+            {part}
+          </mark>
+        ) : (
+          part
+        ),
+      )}
+    </>
+  )
+}
+
+function ExampleList({ examples, compact, words }: { examples: YoudaoFrench['examples']; compact: boolean; words: string[] }) {
   if (examples.length === 0) return null
   const list = examples.slice(0, compact ? 1 : 2)
   return (
@@ -204,11 +224,9 @@ function ExampleList({ examples, compact }: { examples: YoudaoFrench['examples']
         {list.map((example) => (
           <div key={example.fr} className="space-y-0.5">
             <div lang="fr" className="text-sm font-medium leading-relaxed text-gray-900 dark:text-gray-100">
-              {example.fr}
+              <HighlightedExample text={example.fr} words={words} />
             </div>
-            <div className="text-sm leading-relaxed text-gray-500 dark:text-gray-400">
-              {example.zh}
-            </div>
+            <div className="text-sm leading-relaxed text-gray-500 dark:text-gray-400">{example.zh}</div>
           </div>
         ))}
       </div>
@@ -226,6 +244,7 @@ function WordBlock({
   onSpeak,
   meaning,
   showAdd = false,
+  query,
 }: {
   item: DictionaryWord
   compact: boolean
@@ -236,6 +255,7 @@ function WordBlock({
   onSpeak: (word: string) => void
   meaning: string
   showAdd?: boolean
+  query: string
 }) {
   const ipa = item.entries.find((entry) => entry.ipa)?.ipa
   const hasYoudaoSenses = Boolean(youdao && youdao.senses.length > 0)
@@ -255,7 +275,9 @@ function WordBlock({
             type="button"
             onClick={() => onSpeak(item.word)}
             aria-label={`朗读 ${item.word}`}
-            className={`inline-flex ${compact ? 'h-7 w-7' : 'h-9 w-9'} shrink-0 items-center justify-center rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-800 ${
+            className={`inline-flex ${
+              compact ? 'h-7 w-7' : 'h-9 w-9'
+            } shrink-0 items-center justify-center rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-800 ${
               isPlaying
                 ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300'
                 : 'text-indigo-600 hover:bg-indigo-50 dark:text-indigo-400 dark:hover:bg-gray-700/60'
@@ -280,7 +302,7 @@ function WordBlock({
           )}
           {hasYoudaoExamples && (
             <div className="border-t border-gray-100 pt-3 dark:border-gray-800/80">
-              <ExampleList examples={youdao.examples} compact={compact} />
+              <ExampleList examples={youdao.examples} compact={compact} words={[query, item.word, youdao.word]} />
             </div>
           )}
         </div>
@@ -301,9 +323,7 @@ function WordBlock({
                     </span>
                     {entry.gender && <span className="text-xs text-gray-400 dark:text-gray-500">{GENDER_LABELS[entry.gender]}</span>}
                   </div>
-                  {hasZh && (
-                    <GlossList items={entry.zh.slice(0, compact ? 3 : undefined)} />
-                  )}
+                  {hasZh && <GlossList items={entry.zh.slice(0, compact ? 3 : undefined)} />}
                   <GlossList
                     items={entry.en.slice(0, compact ? (hasZh ? 1 : 3) : undefined)}
                     className={hasZh ? 'text-gray-500 dark:text-gray-400' : ''}
@@ -324,7 +344,7 @@ function WordBlock({
 
           {youdao && hasYoudaoExamples && (
             <div data-testid="dictionary-youdao" className="border-t border-gray-100 pt-3 dark:border-gray-800/80">
-              <ExampleList examples={youdao.examples} compact={compact} />
+              <ExampleList examples={youdao.examples} compact={compact} words={[query, item.word, youdao.word]} />
             </div>
           )}
         </>
@@ -410,7 +430,9 @@ export default function DictionaryCard({ result, compact = false }: { result: Di
                 type="button"
                 onClick={() => handleSpeak(headword)}
                 aria-label={`朗读 ${headword}`}
-                className={`inline-flex ${compact ? 'h-7 w-7' : 'h-9 w-9'} shrink-0 items-center justify-center rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-800 ${
+                className={`inline-flex ${
+                  compact ? 'h-7 w-7' : 'h-9 w-9'
+                } shrink-0 items-center justify-center rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-800 ${
                   isPlaying
                     ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300'
                     : 'text-indigo-600 hover:bg-indigo-50 dark:text-indigo-400 dark:hover:bg-gray-700/60'
@@ -427,7 +449,7 @@ export default function DictionaryCard({ result, compact = false }: { result: Di
               {hasYoudaoSenses && <YoudaoSenses senses={youdao.senses} source={youdao.source} />}
               {hasYoudaoExamples && (
                 <div className={hasYoudaoSenses ? 'border-t border-gray-100 pt-3 dark:border-gray-800/80' : ''}>
-                  <ExampleList examples={youdao.examples} compact={compact} />
+                  <ExampleList examples={youdao.examples} compact={compact} words={[result.query, headword]} />
                 </div>
               )}
             </div>
@@ -455,6 +477,7 @@ export default function DictionaryCard({ result, compact = false }: { result: Di
         <WordBlock
           key={item.word}
           item={item}
+          query={result.query}
           compact={compact}
           onlineMeanings={index === 0 && !youdao?.senses.length ? onlineMeanings : undefined}
           onlineSource={onlineSource}
@@ -476,6 +499,7 @@ export default function DictionaryCard({ result, compact = false }: { result: Di
               <WordBlock
                 key={item.word}
                 item={item}
+                query={result.query}
                 compact={compact}
                 onlineMeanings={result.words.length === 0 && index === 0 && !youdao?.senses.length ? onlineMeanings : undefined}
                 onlineSource={onlineSource}
