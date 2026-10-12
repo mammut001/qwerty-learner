@@ -815,7 +815,7 @@ export const N07_08_SCENARIOS = {
         [
           'Parmi les personnes bénéficiant de l’aide, qui le bénévole cite-t-il explicitement ?',
           'Des aînés, des parents étudiants et de nouveaux résidents',
-          'Des étudiants collégiaux participant à des tournois sportifs régionaux',
+          'Des bénévoles paroissiaux recevant un panier de nourriture',
           'Des commerçants locaux venus acheter des produits maraîchers',
         ],
       ],
@@ -841,7 +841,7 @@ export const N07_08_SCENARIOS = {
           'Quels sujets madame Simone aimait-elle évoquer avec sa visiteuse ?',
           'Sa jeunesse à la campagne et les traditions musicales d’antan',
           'Ses récriminations continuelles contre le personnel de la résidence',
-          'Les cours d’informatique moderne dispensés par l’université',
+          'Ses propres études universitaires et ses doutes professionnels',
         ],
       ],
     },
@@ -854,7 +854,7 @@ export const N07_08_SCENARIOS = {
           'Quelle tâche physique précise a mobilisé ce groupe de bénévoles ?',
           'Planter des végétaux indigènes pour consolider le rivage',
           'Construire des digues en béton armé le long de la rivière',
-          'Nettoyer les résidus d’huile moteur sur les ponts municipaux',
+          'Retirer des débris et des branches mortes dans la rivière',
         ],
         [
           'Que ressent implicitement le narrateur à l’issue de cette journée de travail sous la pluie ?',
@@ -865,7 +865,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quel enjeu environnemental récurrent les plantations visent-elles à atténuer ?',
           'L’érosion des berges accentuée par les crues des eaux',
-          'La disparition des oiseaux migrateurs nichant dans les toitures',
+          'La prolifération d’espèces envahissantes dans le bassin versant',
           'La pollution sonore causée par le passage des embarcations à moteur',
         ],
       ],
@@ -878,8 +878,8 @@ export const N07_08_SCENARIOS = {
         [
           'Quel sujet formait la trame dramatique de la pièce qui a révélé Marianne ?',
           'L’impact social de la fermeture d’une usine de papier',
-          'L’aventure romantique d’une jeune reine de la Renaissance',
-          'La rivalité sportive entre deux équipes de hockey collégiales',
+          'La création précaire d’une troupe de comédiens amateurs',
+          'La tournée internationale d’une jeune troupe régionale',
         ],
         [
           'Que peut-on déduire de son choix persistant de continuer à résider dans sa région ?',
@@ -903,7 +903,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle étape prestigieuse a scellé la reconnaissance institutionnelle d’Isabelle ?',
           'Une commande publique pour le hall d’un grand musée national',
-          'L’obtention d’un premier prix de peinture classique à Paris',
+          'Une rétrospective de meubles ébénistes dans son atelier',
           'L’ouverture d’une usine de meubles industriels en série',
         ],
         [
@@ -916,7 +916,7 @@ export const N07_08_SCENARIOS = {
           'Comment l’artiste s’investit-elle auprès de la jeune génération de créateurs ?',
           'En formant personnellement des apprentis à l’atelier',
           'En publiant des manuels de bricolage vendus en pharmacie',
-          'En organisant des ventes aux enchères virtuelles chaque semaine',
+          'En cédant gratuitement ses œuvres à de jeunes galeries',
         ],
       ],
     },
@@ -934,14 +934,14 @@ export const N07_08_SCENARIOS = {
         [
           'Que déduit-on implicitement de sa décision de jouer dans les parcs et les écoles ?',
           'Elle veut désacraliser l’art classique pour le rendre accessible à tous',
-          'Elle cherche à remplacer l’ensemble de ses musiciens professionnels',
+          'Elle veut limiter son répertoire aux musiciens amateurs de son cégep',
           'Elle refuse désormais de se produire dans des salles de concert fermées',
         ],
         [
           'Quelle distinction professionnelle Clara Tremblay a-t-elle obtenue récemment ?',
           'La direction principale d’un orchestre symphonique régional',
           'Un poste d’administratrice au ministère des Finances provinciales',
-          'Le premier violon au sein d’un quatuor à cordes international',
+          'Le poste de cheffe permanente au Conservatoire de Montréal',
         ],
       ],
     },
@@ -960,7 +960,7 @@ export const N07_08_SCENARIOS = {
           'Quel atout déterminant les fonds négociés en bourse offrent-ils par rapport aux fonds traditionnels ?',
           'Des frais de gestion bien moindres qui bonifient les gains',
           'Une garantie légale contre toute baisse temporaire de valeur',
-          'L’absence complète de déclaration de revenus pour les impôts',
+          'Une protection complète contre les récessions boursières globales',
         ],
         [
           'Que déduit-on implicitement sur l’attitude requise de l’investisseur face aux baisses du marché ?',
@@ -991,13 +991,13 @@ export const N07_08_SCENARIOS = {
           'Quel sous-entendu implicite le texte formule-t-il à propos d’une personne très individualiste ?',
           'Elle s’adaptera difficilement aux devoirs de la vie en coopérative',
           'Elle pourra facilement déléguer ses corvées contre paiement direct',
-          'Elle sera immédiatement élue présidente du conseil d’administration',
+          'Elle appréciera la liberté d’ignorer les corvées et les assemblées',
         ],
         [
           'Quelle obligation particulière incombe à chaque membre habitant dans une coopérative ?',
           'Participer activement à la gestion et aux corvées collectives',
           'Être propriétaire d’au moins une part sociale dans une banque privée',
-          'Loger gratuitement des touristes dans son appartement en été',
+          'Assumer personnellement l’entretien extérieur de tout l’immeuble',
         ],
       ],
     },
@@ -1009,7 +1009,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle particularité financière rend le compte d’épargne-études si avantageux ?',
           'L’apport direct de subventions gouvernementales généreuses',
-          'L’obligation pour les universités d’admettre l’enfant sans examen',
+          'La gratuité des frais de scolarité accordée par le cégep ou l’université',
           'La possibilité de dépenser les fonds pour des achats récréatifs libres',
         ],
         [
@@ -1035,7 +1035,7 @@ export const N07_08_SCENARIOS = {
           'Quel gain pratique immédiat le télétravail procure-t-il aux travailleurs concernés ?',
           'L’élimination du temps et du coût des déplacements quotidiens',
           'La réduction automatique de la durée hebdomadaire de travail',
-          'La prise en charge par l’employeur du loyer résidentiel complet',
+          'Une augmentation salariale pour compenser les frais d’électricité',
         ],
         [
           'Quelle conséquence négative implicite menace les nouveaux employés travaillant à distance ?',
@@ -1047,7 +1047,7 @@ export const N07_08_SCENARIOS = {
           'Quel compromis les spécialistes du travail recommandent-ils face à ce dilemme ?',
           'Une formule hybride mariant jours au bureau et travail chez soi',
           'Le retour obligatoire au bureau cinq jours par semaine pour tous',
-          'L’interdiction définitive de toute messagerie électronique le soir',
+          'Le maintien du télétravail à temps plein avec extinction du réseau',
         ],
       ],
     },
@@ -1060,7 +1060,7 @@ export const N07_08_SCENARIOS = {
           'Quel avantage psychologique majeur les partisans de la semaine de quatre jours soulignent-ils ?',
           'Un repos plus réparateur réduisant le niveau de stress global',
           'La diminution immédiate des responsabilités confiées aux employés de bureau',
-          'La possibilité de cumuler deux emplois à temps plein facilement',
+          'La disparition complète de toute fatigue physique à la fin du quart',
         ],
         [
           'Quel risque implicite guette les employés travaillant dix heures d’affilée par jour ?',
@@ -1071,7 +1071,7 @@ export const N07_08_SCENARIOS = {
         [
           'Pourquoi ce modèle pose-t-il un défi logistique aux commerces et services continus ?',
           'Il impose des embauches coûteuses pour maintenir la couverture du service',
-          'Il est formellement interdit par les lois du travail provinciales',
+          'Les salariés refusent d’effectuer des tâches de service à la clientèle',
           'Les clients refusent catégoriquement d’être servis par des employés reposés',
         ],
       ],
@@ -1090,8 +1090,8 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle vigilance implicite ce mode de travail ouvert impose-t-il aux usagers ?',
           'Une attention constante à la discrétion des données et des appels',
-          'Une obligation de partager la moitié de ses contrats avec ses voisins',
-          'L’interdiction de travailler sur un ordinateur sans fil connecté',
+          'Une interdiction de recevoir des mandats de clients extérieurs au lieu',
+          'L’obligation de réserver une salle insonorisée pour toute activité',
         ],
         [
           'Quel inconvénient sonore peut perturber certains professionnels en espace partagé ?',
@@ -1121,7 +1121,7 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle opinion vigoureuse le chroniqueur défend-il au sujet de la voirie ?',
           'L’installation impérative de séparateurs physiques et de feux dédiés',
-          'L’interdiction définitive de tous les vélos sur les artères commerciales',
+          'Le maintien de simples marquages blancs pour réduire les coûts municipaux',
           'La fermeture complète des pistes cyclables durant les heures de pointe',
         ],
         [
@@ -1146,8 +1146,8 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle solution radicale l’éditorialiste préconise-t-il pour régler le problème ?',
           'La pose obligatoire de radars photo automatiques et des amendes doublées',
-          'L’embauche de policiers privés financés par les comités de parents d’élèves',
-          'La fermeture des cours d’école pour transférer les enfants en périphérie',
+          'L’intensification des campagnes publicitaires de sensibilisation à la télévision',
+          'La multiplication des avertissements verbaux sans pénalité financière immédiate',
         ],
         [
           'Quel raisonnement implicite sous-tend l’argumentation de l’auteur ?',
@@ -1171,13 +1171,13 @@ export const N07_08_SCENARIOS = {
         [
           'Quelle opinion la chroniqueuse soutient-elle avec véhémence ?',
           'Les trottoirs doivent être strictement réservés aux piétons sans engin motorisé',
-          'La vitesse des trottinettes devrait être augmentée pour fluidifier le trafic',
+          'Tolérer une circulation modérée des trottinettes sur les trottoirs centraux',
           'Les municipalités devraient financer l’achat individuel de trottinettes pour tous',
         ],
         [
           'Que déduit-on implicitement de la mise en garde finale de l’autrice ?',
           'Elle souhaite le retrait complet des flottes si les règles ne sont pas appliquées',
-          'Elle envisage d’investir des fonds personnels dans une entreprise de trottinettes',
+          'Elle espère une augmentation du nombre de trottinettes offertes en libre-service',
           'Elle propose de limiter l’usage des trottinettes aux voies cyclables récréatives',
         ],
       ],
