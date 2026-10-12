@@ -4095,7 +4095,7 @@ const N4_ROOM_SETUPS = [
   { text: 'préparer les tables d’accueil à l’entrée', opt: 'installer les tables d’accueil à l’entrée' },
 ]
 const N4_ROOM_TECHS = [
-  { text: 'brancher le projecteur et tester le micro sans fil', opt: 'brancher le projecteur et le micro sans fil', kw: 'projecteur' },
+  { text: 'brancher le projecteur et tester le micro sans fil', opt: 'brancher le projecteur et tester le micro', kw: 'projecteur' },
   { text: 'allumer l’ordinateur central et vérifier l’écran', opt: 'allumer l’ordinateur et l’écran central', kw: 'ordinateur' },
   { text: 'connecter l’appareil audio au réseau sans fil', opt: 'relier l’appareil audio au réseau', kw: 'audio' },
   { text: 'tester la caméra vidéo pour les participants en ligne', opt: 'tester la caméra pour les gens à distance', kw: 'caméra' },
@@ -4154,6 +4154,11 @@ const N4_RECYCLE_WASHES = [
   { text: 'laver brièvement les bouteilles en verre avant le dépôt', opt: 'rincer les bouteilles en verre d’avance', kw: 'verre' },
   { text: 'enlever les bouchons et vider les pots de plastique', opt: 'vider et déboucher les pots de plastique', kw: 'pots' },
   { text: 'nettoyer les barquettes en aluminium avant le recyclage', opt: 'nettoyer les barquettes en aluminium', kw: 'aluminium' },
+]
+const N4_RECYCLE_WASH_DISTRACTORS = [
+  'les faire tremper dans de l’eau savonneuse',
+  'les désinfecter avec un détergent puissant',
+  'les emballer dans un film plastique étanche',
 ]
 const N4_RECYCLE_WASTES = [
   { text: 'fermer hermétiquement le sac noir de déchets ménagers', opt: 'fermer le sac noir de déchets ménagers' },
@@ -4247,12 +4252,12 @@ export const N04_R_4 = [
       const waste = pick(N4_RECYCLE_WASTES, rand)
       const head = pick(N4_RECYCLE_HEADS, rand)
       const day = pick(N4_RECYCLE_DAYS, rand)
-      const othersW = sample(N4_RECYCLE_WASHES.filter((x) => x.opt !== w.opt), 2, rand)
+      const othersW = sample(N4_RECYCLE_WASH_DISTRACTORS, 2, rand)
       const text = `${head} Pour assurer la propreté des lieux et respecter l’environnement, suivez ces étapes : d’abord, ${rec.text}. Ensuite, pensez à ${w.text}. Enfin, ${waste.text}. ${day} Merci de votre participation pour une ville plus verte.`
       return {
         text,
         questions: [
-          q('Que faut-il faire avec les contenants réutilisables ou recyclables ?', w.opt, othersW[0].opt, othersW[1].opt, [w.kw]),
+          q('Que faut-il faire avec les contenants réutilisables ou recyclables ?', w.opt, othersW[0], othersW[1], [w.kw]),
           q('Où les matières en papier et carton doivent-elles être déposées ?', rec.opt, rec.dist1, rec.dist2, [rec.kw]),
         ],
       }
@@ -4265,7 +4270,7 @@ export const N04_R_4 = [
     text: 'Liste des priorités pour la journée de vendredi. 1. Répondre aux courriels prioritaires des clients avant dix heures. 2. Téléphoner à madame Roy pour confirmer la réunion de quatorze heures. 3. Déposer les contrats signés dans le classeur de la comptabilité avant seize heures. Merci de suivre cet ordre pour respecter nos échéances.',
     questions: [
       q('Quelle tâche précise doit être exécutée avant dix heures ?', 'traiter les courriels urgents de la clientèle', 'téléphoner à madame Roy pour sa confirmation', 'classer les contrats dans le bureau comptable', ['courriels']),
-      q('Pour quel motif cette liste de priorités est-elle communiquée ?', 'respecter les échéances prévues avec les clients', 'organiser un dîner de fin de semaine au bureau', 'attribuer les congés payés de la saison estivale', ['échéances']),
+      q('Pour quel motif cette liste de priorités est-elle communiquée ?', 'respecter les échéances prévues avec les clients', 'faciliter la répartition des dossiers d’équipe', 'préparer le bilan hebdomadaire de la direction', ['échéances']),
     ],
   },
   // Scenario 6 (Static, situation: 1) - Réservation d'un véhicule de service
