@@ -273,9 +273,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Salut Patrick ! Tu cherchais un emploi stable ces temps-ci ? Notre firme de génie ${s.ville} recrute justement un poste ${s.titre}. La personne choisie devra répondre aux appels des clients, classer les dossiers techniques et coordonner les réunions hebdomadaires. On offre ${s.flex} et ${s.avantage} dès l’embauche. L’ambiance dans l’équipe est vraiment chaleureuse et dynamique. Si le poste t’intéresse, tu devrais m’envoyer ton curriculum vitæ avant vendredi midi. Je pourrai le transmettre directement à notre gestionnaire des ressources humaines !`,
           questions: [
-            makeQuestion('Que propose l’ami dans cette conversation ?', 'Un emploi administratif stable dans son entreprise', 'Un poste de comptable dans une grande firme de génie', 'Un contrat temporaire de rédaction de rapports', ['firme', 'recrute']),
-            makeQuestion('Quel avantage lié au poste est expressément mentionné ?', `${cap(s.avPara)}`, `${cap(s.flexDist)}`, 'Une prime annuelle de rendement versée à la fin de l’année', [s.avKw]),
-            makeQuestion('Que doit faire la personne intéressée avant vendredi midi ?', 'Transmettre sa candidature professionnelle à son ami', 'Joindre directement le responsable des ressources humaines', 'Passer une entrevue formelle devant les collègues', ['curriculum vitæ', 'vendredi']),
+            makeQuestion('Que propose l’ami dans cette conversation ?', 'Un emploi administratif stable dans son entreprise', 'Un poste de comptable dans une grande firme de génie', 'Un contrat temporaire de classement de dossiers', ['firme', 'recrute']),
+            makeQuestion('Quel avantage lié au poste est expressément mentionné ?', `${cap(s.avPara)}`, `${cap(s.flexDist)}`, 'Des réunions hebdomadaires supprimées dès l’embauche', [s.avKw]),
+            makeQuestion('Que doit faire la personne intéressée avant vendredi midi ?', 'Transmettre sa candidature professionnelle à son ami', 'Joindre directement le responsable des ressources humaines', 'Attendre le lundi suivant pour envoyer son curriculum vitæ', ['curriculum vitæ', 'vendredi']),
           ],
         }
       },
@@ -333,7 +333,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `En Beauce, la situation demeure critique ${s.ville} en raison de la débâcle hâtive de la rivière Chaudière. D’immenses blocs de glace ont formé un embâcle majeur sous les ponts routiers, refoulant les eaux vers le centre-ville. Les sous-sols sont inondés et ${s.commerces} du boulevard principal ont été envahis par ${s.hauteur}. Les pannes d’électricité préventives touchent actuellement deux mille clients pour éviter tout risque d’incendie. La Croix-Rouge a ouvert un bureau temporaire pour distribuer des repas chauds et des couvertures aux sinistrés évacués depuis ce matin.`,
           questions: [
-            makeQuestion('Quelle est la cause principale de cette inondation soudaine ?', 'Un blocage d’imposants blocs de glace sous les ponts', 'Une rupture soudaine d’un grand barrage en amont du secteur', 'Une débâcle tardive, en plein mois de juin', ['embâcle', 'glace']),
+            makeQuestion('Quelle est la cause principale de cette inondation soudaine ?', 'Un blocage d’imposants blocs de glace sous les ponts', 'Une coupure d’électricité préventive touchant deux mille clients', 'Une débâcle tardive, en plein mois de juin', ['embâcle', 'glace']),
             makeQuestion('Quelle conséquence directe touche les commerces du secteur ?', `Leur rez-de-chaussée a subi ${s.hautPara}`, 'Leurs sous-sols ont subi un incendie causé par l’électricité', 'Leur rez-de-chaussée a été épargné par l’eau pendant toute la durée de la crue', [s.hautKw]),
             makeQuestion('Quelle mesure d’aide la Croix-Rouge a-t-elle mise en place ?', 'Un centre distribuant des couvertures et des repas chauds', 'Un bureau pour vendre des assurances aux sinistrés', 'Une équipe chargée de nettoyer le boulevard principal du secteur', ['couvertures', 'repas']),
           ],
@@ -379,7 +379,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Allô Jean ! Je reviens tout juste de mon voyage de ${s.duree} ${s.pays}. C’était une expérience absolument inoubliable ! Ce qui m’a le plus marquée, c’est ${s.activite} et l’immense gentillesse des gens locaux. Par contre, le début du séjour a été un peu difficile à cause ${s.defi}. Les premiers jours, j’étais épuisée et j’avais du mal à marcher longtemps. Heureusement, en buvant beaucoup d’eau et en me reposant l’après-midi, j’ai vite retrouvé mon énergie. Je te montrerai mes photos pendant notre pause de dîner si tu veux !`,
           questions: [
-            makeQuestion('Quel est le thème principal de ce récit ?', 'Le bilan d’un séjour de vacances personnelles à l’étranger', 'Un stage professionnel obligatoire dans une entreprise étrangère', 'Une visite rapide de toute sa famille en Europe', ['voyage', 'séjour']),
+            makeQuestion('Quel est le thème principal de ce récit ?', 'Le bilan d’un séjour de vacances personnelles à l’étranger', 'Le récit d’un déménagement définitif dans un pays étranger', 'Un séjour express d’une seule journée à l’étranger', ['voyage', 'séjour']),
             makeQuestion('Quelle difficulté la voyageuse a-t-elle rencontrée au début ?', `${cap(s.defPara)}`, 'Un manque sévère d’eau potable lors des premiers jours', 'Une grande facilité à marcher dès le premier jour', [s.defKw]),
             makeQuestion('Que propose la collègue à la fin de leur discussion ?', 'Regarder ensemble les clichés pris durant son voyage', 'Annuler leur pause de dîner pour travailler', 'Partir ensemble pour un séjour de trois mois', ['photos', 'pause']),
           ],
@@ -399,8 +399,8 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Tu as passé de belles vacances, Carole ? — Oui, vraiment fantastiques ! Je suis partie un mois complet ${s.pays} pour suivre des cours de langue. J’habitais ${s.logement} dans le centre ${s.ville}. Tous les matins, je prenais ${s.transport} pour aller à l’école. Au début, j’avais peur de ne pas comprendre les accents régionaux, mais après deux semaines, j’arrivais déjà à commander au marché et à discuter avec les marchands. Le plus dépaysant, c’était le rythme de vie : les soupers tardifs et les longues promenades en soirée au bord de l’eau.`,
           questions: [
-            makeQuestion('Pourquoi Carole est-elle partie à l’étranger pendant un mois ?', 'Pour perfectionner une langue seconde dans son milieu', 'Pour enseigner sa propre langue dans une école du centre', 'Pour suivre un stage de cuisine dans un restaurant', ['langue', 'cours']),
-            makeQuestion('Où habitait-elle pendant toute la durée de son séjour ?', `Elle résidait ${s.logPara}`, 'Elle logeait dans un hôtel en périphérie', 'Elle louait un chalet isolé en pleine forêt', [s.logKw]),
+            makeQuestion('Pourquoi Carole est-elle partie à l’étranger pendant un mois ?', 'Pour perfectionner une langue seconde dans son milieu', 'Pour enseigner sa propre langue dans une école du centre', 'Pour rendre visite à un ami malade pendant un mois', ['langue', 'cours']),
+            makeQuestion('Où habitait-elle pendant toute la durée de son séjour ?', `Elle résidait ${s.logPara}`, 'Elle logeait dans un hôtel en périphérie', 'Elle logeait sous une tente installée au bord de l’eau', [s.logKw]),
             makeQuestion('Quel aspect culturel a particulièrement surpris Carole ?', 'Les heures tardives des repas du soir et des promenades', 'La difficulté persistante à échanger avec les marchands', 'L’absence presque totale de transports en commun dans la cité', ['soupers', 'promenades']),
           ],
         }
@@ -440,7 +440,7 @@ export const N05_06_SCENARIOS = {
           text: `— Tu ne devineras jamais ce qui est arrivé samedi chez nous ! On attendait douze enfants pour la fête de notre petite dernière. On avait réservé ${s.animateur}, mais il a eu ${s.retard} à cause d’un pneu crevé sur l’autoroute. Imagine l’angoisse avec douze petits qui courent partout en criant ! Mon conjoint et moi avons dû improviser ${s.activite} en catastrophe pour les occuper. Quand l’artiste est enfin arrivé, tout est rentré dans l’ordre et le spectacle était formidable. Les enfants n’ont même pas remarqué qu’il y avait eu un pépin !`,
           questions: [
             makeQuestion('Quel problème principal a déclenché le stress des parents ?', 'Le retard prononcé de l’animateur engagé pour la fête', 'L’annulation du spectacle de l’artiste engagé', 'Le vol des cadeaux de la petite dernière', ['retard', 'artiste']),
-            makeQuestion('Quelle solution d’urgence les parents ont-ils improvisée ?', `${cap(s.actPara)}`, 'Annuler la fête et renvoyer les enfants chez eux', 'Louer une salle de jeux pour la journée', [s.actKw]),
+            makeQuestion('Quelle solution d’urgence les parents ont-ils improvisée ?', `${cap(s.actPara)}`, 'Annuler la fête et renvoyer les enfants chez eux', 'Attendre l’artiste sans rien proposer aux enfants', [s.actKw]),
             makeQuestion('Quelle a été la réaction finale des enfants invités ?', 'Ils ont adoré le spectacle sans remarquer le contretemps', 'Ils ont continué de courir et crier pendant le spectacle', 'Ils ont quitté les lieux déçus avant la fin de l’activité', ['spectacle', 'enfants']),
           ],
         }
@@ -459,7 +459,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Salut Martin ! Je voulais te raconter notre périple de dix jours ${s.parc}. On voyageait avec ${s.transport}, ce qui nous permettait de dormir en pleine nature chaque soir. Ce qui restera gravé dans ma mémoire, ${s.copule} ${s.souvenir}. Par contre, on a dû composer avec des nuits très fraîches : il a gelé deux fois au mois d’août ! Il fallait allumer le réchaud dès six heures du matin pour réchauffer le café et dégeler nos souliers de marche. Mais l’effort en valait tellement la peine. C’est le plus beau voyage de ma vie !`,
           questions: [
-            makeQuestion('Où la collègue et son compagnon ont-ils passé leurs dix jours ?', 'Dans des parcs naturels protégés, en pleine nature', 'Dans un village hôtelier aménagé au pied des montagnes', 'Dans un hôtel de luxe au bord de la mer', ['périple', 'nature']),
+            makeQuestion('Où la collègue et son compagnon ont-ils passé leurs dix jours ?', 'Dans des parcs naturels protégés, en pleine nature', 'Dans des chambres d’hôtel en centre-ville, loin de la nature', 'Dans un camping aménagé au bord d’une grande autoroute', ['périple', 'nature']),
             makeQuestion('Quelle météo inattendue a surpris les randonneurs en août ?', 'Des nuits particulièrement froides accompagnées de gelée', 'Des nuits très chaudes au mois d’août', 'Une chaleur étouffante qui a empêché toute marche en montagne', ['gelé', 'fraîches']),
             makeQuestion('Quel moyen d’hébergement itinérant utilisaient-ils ?', `Ils utilisaient ${s.transPara}`, 'Ils dormaient dans des cabanes louées au bord du lac', 'Ils logeaient chez des amis rencontrés en route', [s.transKw]),
           ],
@@ -505,9 +505,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— J’ai discuté avec ${s.amie} hier soir. Elle m’a expliqué pourquoi elle a choisi un contrat à temps partiel comme ${s.metier}. L’entreprise lui offrait un poste régulier de quarante heures, mais elle a insisté pour faire seulement ${s.jours}. Sa priorité absolue cette année, c’est de ${s.raison}. Elle a calculé son budget de manière serrée et a constaté qu’en réduisant certaines dépenses de loisir, elle pouvait très bien vivre ainsi. Elle préfère avoir du temps de qualité plutôt que d’accumuler du stress au quotidien.`,
           questions: [
-            makeQuestion('Quel compromis l’amie a-t-elle choisi pour sa vie professionnelle ?', 'Adopter un horaire allégé pour préserver son quotidien', 'Conserver un poste régulier de quarante heures par semaine', 'Démissionner pour se reposer pendant une longue période', ['temps partiel', 'heures']),
+            makeQuestion('Quel compromis l’amie a-t-elle choisi pour sa vie professionnelle ?', 'Adopter un horaire allégé pour préserver son quotidien', 'Conserver un poste régulier de quarante heures par semaine', 'Augmenter ses journées de travail à cinq jours par semaine', ['temps partiel', 'heures']),
             makeQuestion('Quelle raison principale motive son choix d’horaire ?', `Le souhait de ${s.raiPara}`, 'Le besoin de réduire totalement ses dépenses de loisir', 'Une volonté d’augmenter ses revenus pour acheter une maison', [s.kw]),
-            makeQuestion('Comment a-t-elle adapté son quotidien pour compenser la baisse de salaire ?', 'En surveillant ses dépenses et en coupant dans les loisirs', 'En empruntant de l’argent à ses parents chaque mois', 'En refusant toute aide financière de ses proches', ['dépenses', 'loisir']),
+            makeQuestion('Comment a-t-elle adapté son quotidien pour compenser la baisse de salaire ?', 'En surveillant ses dépenses et en coupant dans les loisirs', 'En augmentant ses dépenses de loisir chaque semaine', 'En négligeant son budget et en ignorant ses dépenses', ['dépenses', 'loisir']),
           ],
         }
       },
@@ -547,7 +547,7 @@ export const N05_06_SCENARIOS = {
           questions: [
             makeQuestion('Quelle est la décision adoptée lors de la réunion de gestion ?', `La restriction visant ${s.poiPara}`, 'L’assouplissement de la règle visant les chiens de la copropriété', 'L’obligation de tenir les chiens à la laisse dans l’immeuble', [s.kw]),
             makeQuestion('Quelle situation a particulièrement poussé à prendre cette décision ?', 'L’anxiété causée à des aînés croisés dans les ascenseurs', 'Une chute grave d’aînés glissant sur les parquets flottants', 'L’enthousiasme unanime des résidents envers les nouveaux animaux', ['ascenseurs', 'peur']),
-            makeQuestion('Que doivent faire les résidents qui possèdent déjà un animal ?', 'Remplir une fiche d’identification avant le premier mai', 'Remettre leur animal à un refuge avant l’hiver prochain', 'Payer une amende mensuelle au syndicat de copropriété', ['formulaire', 'premier mai']),
+            makeQuestion('Que doivent faire les résidents qui possèdent déjà un animal ?', 'Remplir une fiche d’identification avant le premier mai', 'Remettre leur animal à un refuge avant l’hiver prochain', 'Faire enregistrer leur animal après le premier mai', ['formulaire', 'premier mai']),
           ],
         }
       },
@@ -591,9 +591,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Si tu dois envoyer ${s.doc} à la direction, voici la procédure exacte à suivre. D’abord, connecte-toi sur l’intranet de l’entreprise avec ton identifiant habituel. Ensuite, clique sur l’onglet « ${s.onglet} » et sélectionne le formulaire d’envoi interne. Tu dois impérativement téléverser toutes tes pièces justificatives ${s.format}. N’oublie pas d’inscrire le numéro de projet dans la case prévue. Enfin, clique sur « Soumettre » et attends le courriel de confirmation automatique. Il faut absolument faire cette démarche ${s.delai} pour que le traitement soit fait à temps sur ta paie.`,
           questions: [
-            makeQuestion('Quelle démarche administrative la collègue explique-t-elle ?', 'La transmission interne de justificatifs via le portail', 'La création d’un nouveau numéro de projet sur l’intranet', 'La rédaction d’un rapport annuel au siège social', ['intranet', 'formulaire']),
+            makeQuestion('Quelle démarche administrative la collègue explique-t-elle ?', 'La transmission interne de justificatifs via le portail', 'La création d’un nouveau numéro de projet sur l’intranet', 'L’envoi manuel d’un courriel de confirmation à la direction', ['intranet', 'formulaire']),
             makeQuestion('Dans quel format les fichiers doivent-ils être déposés ?', `Ils doivent être transmis ${s.formPara}`, 'Ils doivent être envoyés par courriel direct à la direction', 'Ils doivent être remis en main propre au secrétariat de la direction générale', [s.formKw]),
-            makeQuestion('Quelle est l’échéance pour soumettre la demande ?', `${s.delPara}`, 'L’envoi doit être complété après la fin du mois suivant', 'Aucune limite dans le calendrier n’est imposée aux salariés', [s.delKw]),
+            makeQuestion('Quelle est l’échéance pour soumettre la demande ?', `${s.delPara}`, 'L’envoi doit être complété après la fin du mois suivant', 'Au plus tard le lendemain de la fin du trimestre', [s.delKw]),
           ],
         }
       },
@@ -611,7 +611,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Pour commander ${s.materiel}, fais bien attention aux étapes du protocole interne. Première étape : remplis le bon de commande dans le logiciel de gestion en indiquant les codes d’articles précis. Étape suivante : imprime une copie papier et obtiens la signature manuscrite ${s.palier}. Troisième phase : dépose le document signé ${s.bac} avant quatorze heures. Une fois le bon enregistré, le commis t’enverra un numéro de suivi par messagerie instantanée. Si tu oublies la signature, ta demande sera automatiquement rejetée par le système.`,
           questions: [
-            makeQuestion('Quelle procédure la collègue détaille-t-elle à son interlocuteur ?', 'L’acheminement formel d’une demande d’achat de matériel', 'L’enregistrement des retours de matériel dans le logiciel', 'L’archivage d’une facture déjà réglée par chèque', ['bon de commande', 'protocole']),
+            makeQuestion('Quelle procédure la collègue détaille-t-elle à son interlocuteur ?', 'L’acheminement formel d’une demande d’achat de matériel', 'L’enregistrement des retours de matériel dans le logiciel', 'La transmission d’une demande d’achat sans signature manuscrite', ['bon de commande', 'protocole']),
             makeQuestion('Quelle condition obligatoire permet de valider le bon de commande ?', `Recueillir ${s.signPara}`, 'Obtenir un numéro de suivi auprès du commis de bureau', 'Transmettre une approbation par simple courriel au secrétariat', [s.signKw]),
             makeQuestion('Où doit-on déposer le document papier une fois signé ?', `${s.bacPara}`, 'Le conserver dans son casier personnel au second étage du bureau', 'Le transmettre par courriel au fournisseur du matériel', [s.bacKw]),
           ],
@@ -631,7 +631,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Pour payer ta part de loyer par cellulaire, c’est très simple, regarde. Ouvre d’abord l’application mobile ${s.banque} et va dans la section « Virements Interac ». Entre l’adresse courriel du propriétaire, qui est ${s.courriel}. Ensuite, inscris le montant exact de ta part, soit ${s.montant}. Pour la question de sécurité, écris « Appartement », et comme réponse secrète, tape ${s.code}. Vérifie bien toutes les informations avant de confirmer l’envoi. Dès que le virement est complété, fais une capture d’écran de la confirmation et envoie-la-moi par message texte pour nos dossiers !`,
           questions: [
-            makeQuestion('Quel paiement le colocataire apprend-il à effectuer sur son téléphone ?', 'Le règlement de sa quote-part de loyer via l’application', 'Le paiement en argent comptant au bureau du propriétaire', 'La signature d’un contrat de location de voiture', ['loyer', 'interac']),
+            makeQuestion('Quel paiement le colocataire apprend-il à effectuer sur son téléphone ?', 'Le règlement de sa quote-part de loyer via l’application', 'Le paiement en argent comptant au bureau du propriétaire', 'Le virement du loyer envoyé par simple message texte', ['loyer', 'interac']),
             makeQuestion('Quelle réponse de sécurité doit-on saisir dans l’application ?', `Il faut entrer ${s.secPara}`, 'L’adresse courriel complète de votre propriétaire', 'Le numéro de cellulaire de votre colocataire en poste', [s.secKw]),
             makeQuestion('Que doit envoyer le locataire une fois la transaction terminée ?', 'Une preuve visuelle de l’écran de confirmation par texto', 'Un courriel de confirmation officiel au propriétaire', 'Une copie papier remise en main propre au gérant de l’immeuble', ['capture', 'texte']),
           ],
@@ -651,7 +651,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Voici comment faire pour payer la facture ${s.facture} avec ton cellulaire. Dans ton application bancaire, choisis l’onglet « Payer une facture ». Si le fournisseur n’est pas encore enregistré, clique sur « Ajouter un bénéficiaire » et tape le numéro de compte qui apparaît en haut du compte papier. Ensuite, sélectionne ${s.compte} et saisis le montant de ${s.montant}. Tu peux programmer un paiement récurrent qui s’exécutera automatiquement ${s.date}. N’oublie pas de cliquer sur le bouton vert pour enregistrer. Ça évite les oublis et les frais d’intérêt de retard !`,
           questions: [
-            makeQuestion('Quelle procédure est expliquée pour gérer les dépenses de la colocation ?', 'Le règlement d’une charge de logement sur l’outil bancaire mobile', 'L’ouverture d’un compte bancaire pour payer les factures', 'Le versement en espèces au guichet de la succursale locale du quartier', ['facture', 'bancaire']),
+            makeQuestion('Quelle procédure est expliquée pour gérer les dépenses de la colocation ?', 'Le règlement d’une charge de logement sur l’outil bancaire mobile', 'L’ouverture d’un compte bancaire pour payer les factures', 'Le règlement d’une facture en imprimant le compte papier', ['facture', 'bancaire']),
             makeQuestion('Quelle information faut-il taper pour ajouter le bénéficiaire ?', 'La référence de compte figurant sur le document papier', 'Le montant total de la facture figurant sur le compte papier', 'Le code postal de l’agence bancaire la plus proche', ['numéro de compte', 'bénéficiaire']),
             makeQuestion('Quel avantage offre la programmation automatique du paiement ?', 'Prévenir tout retard et s’épargner des pénalités financières', 'Payer un montant moins élevé lors de chaque versement mensuel', 'Multiplier les oublis lors de chaque versement mensuel', ['frais', 'retard']),
           ],
@@ -671,8 +671,8 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Pour finaliser ton dossier d’embauche auprès des ressources humaines, il y a trois étapes simples. Premièrement, télécharge le formulaire d’adhésion à la paie depuis ${s.portail}. Deuxièmement, numérise ${s.piece} et joins ce document en fichier PDF au formulaire. Troisièmement, vérifie que ton adresse postale et ton numéro de téléphone sont bien à jour dans ton profil. Il faut compléter ces démarches ${s.delai} pour que la paie de la semaine prochaine ne soit pas bloquée. Si tu as un problème technique, appelle le poste interne 204.`,
           questions: [
-            makeQuestion('Quel dossier administratif le nouvel employé doit-il compléter ?', 'Les pièces d’embauche nécessaires à la gestion de la paie', 'Une mise à jour de son profil pour le poste interne', 'Une demande de formation continue offerte par l’employeur', ['dossier', 'embauche']),
-            makeQuestion('Quel document doit-il numériser et joindre au formulaire ?', `Il est nécessaire de déposer ${s.piePara}`, 'Un justificatif de domicile attestant de son adresse postale', 'Un relevé de notes du semestre précédent, daté, signé et certifié conforme', [s.pieKw]),
+            makeQuestion('Quel dossier administratif le nouvel employé doit-il compléter ?', 'Les pièces d’embauche nécessaires à la gestion de la paie', 'Une mise à jour de son profil pour le poste interne', 'Un formulaire de démission envoyé à la direction', ['dossier', 'embauche']),
+            makeQuestion('Quel document doit-il numériser et joindre au formulaire ?', `Il est nécessaire de déposer ${s.piePara}`, 'Un justificatif de domicile attestant de son adresse postale', 'Un document papier qui n’a pas été numérisé', [s.pieKw]),
             makeQuestion('Dans quel délai doit-il accomplir toutes ces étapes ?', `${s.delPara}`, 'Avant la date de versement de sa paie du mois prochain', 'Accomplir les démarches seulement après la fin de sa période de probation', [s.delKw]),
           ],
         }
@@ -697,7 +697,7 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Salut Julie ! Avec ${s.amie}, on discutait de nos projets pour les vacances de juillet et on a pensé à toi. On te suggère vraiment de venir avec nous ${s.destination}. Notre plan, c’est de ${s.activite} et de découvrir les petits cafés locaux. C’est tellement reposant et dépaysant ! Par contre, ${s.amie} insiste sur un point crucial : il faut absolument ${s.conseil}, parce que les hébergements affichent complet très vite en haute saison. Prends le temps d’y penser cette semaine et dis-nous si l’aventure te tente !`,
           questions: [
-            makeQuestion('Quelle proposition les amies font-elles pour l’été ?', `Une escapade estivale commune ${s.destination}`, 'Un séjour tranquille pour se reposer dans leur ville', 'Une formation professionnelle obligatoire dans leur ville', ['vacances', 'juillet']),
+            makeQuestion('Quelle proposition les amies font-elles pour l’été ?', `Une escapade estivale commune ${s.destination}`, 'Un séjour tranquille pour se reposer dans leur ville', 'Une escapade hivernale commune pour les fêtes de Noël', ['vacances', 'juillet']),
             makeQuestion('Quelle activité principale prévoient-elles de faire sur place ?', 'Explorer les paysages et fréquenter de petits cafés typiques', 'Travailler dans les petits cafés locaux durant la haute saison', 'Rester enfermées dans leur hébergement toute la semaine', ['cafés', 'découvrir']),
             makeQuestion('Quel conseil important l’amie donne-t-elle pour l’organisation ?', `${cap(s.conPara)}`, 'Attendre le plein cœur de la haute saison pour réserver', 'Partir sans rien retenir afin de négocier son logement sur place', [s.conKw]),
           ],
@@ -717,9 +717,9 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Allô Marc ! Si tu cherches des idées de vacances sans dépenser une fortune, mes copines et moi te conseillons ${s.parc}. On a testé la formule l’été dernier et c’était merveilleux. Tu peux réserver ${s.logement}, donc tu n’as pas besoin de transporter tout ton matériel de camping. Pendant la journée, la plus belle activité à faire, c’est ${s.rando}. N’oublie surtout pas d’apporter une bonne lotion contre les moustiques et une gourde d’eau réutilisable. Les réservations ouvrent ce samedi matin sur le site officiel de la Sépaq, alors sois prêt !`,
           questions: [
-            makeQuestion('Quelle destination de plein air les amies recommandent-elles ?', 'Un séjour nature abordable dans un parc national du réseau', 'Un séjour de camping sauvage sans aucune réservation au parc', 'Un séjour urbain luxueux dans un hôtel du centre-ville', ['parc national', 'vacances']),
-            makeQuestion('Quel hébergement pratique et économique suggèrent-elles ?', `${cap(s.logPara)}`, 'Installer sa propre tente avec son matériel de camping', 'Des chambres d’hôtel climatisées avec service de ménage', [s.logKw]),
-            makeQuestion('Quelle recommandation d’équipement pratique mentionnent-elles ?', 'Prévoir du répulsif à insectes et un récipient d’eau propre', 'Transporter tout son matériel de camping pour la semaine', 'Oublier le sac de couchage et prendre une grosse valise', ['moustiques', 'gourde']),
+            makeQuestion('Quelle destination de plein air les amies recommandent-elles ?', 'Un séjour nature abordable dans un parc national du réseau', 'Un séjour de camping sauvage sans aucune réservation au parc', 'Un séjour urbain coûteux, loin de tout parc national', ['parc national', 'vacances']),
+            makeQuestion('Quel hébergement pratique et économique suggèrent-elles ?', `${cap(s.logPara)}`, 'Installer sa propre tente avec son matériel de camping', 'Réserver une chambre d’hôtel coûteuse en ville', [s.logKw]),
+            makeQuestion('Quelle recommandation d’équipement pratique mentionnent-elles ?', 'Prévoir du répulsif à insectes et un récipient d’eau propre', 'Transporter tout son matériel de camping pour la semaine', 'Oublier la lotion contre les moustiques à la maison', ['moustiques', 'gourde']),
           ],
         }
       },
@@ -758,7 +758,7 @@ export const N05_06_SCENARIOS = {
           text: `— Vos trapèzes sont encore très tendus après votre blessure musculaire. Pour consolider la guérison, appliquez ${s.accessoire} après une longue journée devant l’écran. En journée, pratiquez ${s.mouvement} trois fois par jour pour relâcher la pression sur les vertèbres cervicales. Pour vos déplacements en transport en commun, remplacez votre sac lourd par ${s.sac}. Évitez de coincer votre téléphone cellulaire entre votre oreille et votre épaule quand vous parlez : utilisez plutôt vos écouteurs avec micro mains libres. On se revoit dans un mois pour évaluer votre progression !`,
           questions: [
             makeQuestion('Quels conseils professionnels la thérapeute formule-t-elle ?', 'Des gestes ciblés pour atténuer les raideurs au cou', 'Des efforts intenses pour durcir les muscles du cou', 'Une cure de repos complet au lit pendant un mois', ['trapèzes', 'musculaire']),
-            makeQuestion('Quelle méthode d’application locale est conseillée le soir ?', `${cap(s.accPara)}`, 'Appliquer une serviette très chaude durant toute la soirée', 'Frotter fortement la nuque avec un linge sec pendant la nuit', [s.accKw]),
+            makeQuestion('Quelle méthode d’application locale est conseillée le soir ?', `${cap(s.accPara)}`, 'Appliquer une compresse froide pendant la pause de midi', 'Appliquer l’accessoire le matin, avant de se rendre au travail', [s.accKw]),
             makeQuestion('Quelle mauvaise habitude quotidienne faut-il absolument bannir ?', 'Tenir son appareil entre son oreille et son épaule', 'Porter un sac lourd d’un seul côté lors des trajets', 'Changer de position seulement une fois par jour', ['cellulaire', 'oreille']),
           ],
         }
@@ -777,8 +777,8 @@ export const N05_06_SCENARIOS = {
         return {
           text: `— Salut Stéphane ! On sait que tu aimes le vélo de route, alors on te propose un beau voyage estival ${s.region}. On te suggère d’emprunter ${s.parcours}. C’est sécuritaire, presque entièrement plat et idéal pour pédaler à son rythme en contemplant la nature. Pour dormir, on te conseille ${s.halte}, qui offrent des ateliers pour réparer et ranger les bicyclettes en sécurité la nuit. Prépare bien deux sacoches imperméables et un nécessaire de réparation pour les crevaisons. Tu verras, c’est une façon formidable de déconnecter du travail pendant une semaine !`,
           questions: [
-            makeQuestion('Quel genre de vacances les amies suggèrent-elles à Stéphane ?', `${s.regPara}`, 'Un stage de mécanique pour apprendre à réparer des bicyclettes', 'Une croisière touristique de plusieurs jours sur le fleuve', ['vélo', 'voyage']),
-            makeQuestion('Quelle infrastructure cyclable recommande-t-on pour le trajet ?', `${cap(s.parPara)}`, 'Un sentier de montagne accidenté exigeant un rythme très rapide', 'La grande autoroute à quatre voies très achalandée', [s.parKw]),
+            makeQuestion('Quel genre de vacances les amies suggèrent-elles à Stéphane ?', `${s.regPara}`, 'Un stage de mécanique pour apprendre à réparer des bicyclettes', 'Un circuit touristique en autobus, sans pédaler du tout', ['vélo', 'voyage']),
+            makeQuestion('Quelle infrastructure cyclable recommande-t-on pour le trajet ?', `${cap(s.parPara)}`, 'Un sentier de montagne accidenté exigeant un rythme très rapide', 'Une route sinueuse et pleine de côtes abruptes', [s.parKw]),
             makeQuestion('Quel équipement pratique lui conseille-t-on de préparer ?', 'Deux sacoches étanches ainsi qu’un nécessaire pour crevaisons', 'Une tente de camping pour dormir au bord de la route', 'Une combinaison de ski pour pédaler en plein hiver', ['sacoches', 'crevaisons']),
           ],
         }
