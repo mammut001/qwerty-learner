@@ -1289,7 +1289,7 @@ export const N09_10_SCENARIOS = {
         ],
         [
           "Que connote l’expression « bascule en mode sécuritaire dégradé » dans ce contexte ?",
-          "Un repli protecteur automatisé qui freine le rythme d’usinage prévu",
+          "Un repli protecteur automatisé qui freine le rythme d’assemblage prévu",
           "Une panne mécanique majeure entraînant l’arrêt complet des turbines",
           "Une manœuvre d’urgence manuelle déclenchée par l’opérateur de quart"
         ]
@@ -1792,7 +1792,7 @@ export const N09_10_SCENARIOS = {
           "L’obligation pour les municipalités de nationaliser l’ensemble des surfaces commerciales"
         ],
         [
-          "Que connote l’expression « commodité algorithmique » sous la plume de l’oratrice ?",
+          "Que connote l’expression « commodité algorithmique » dans la bouche de l’oratrice ?",
           "Le confort trompeur d’achats rapides en ligne masquant des dégâts collectifs majeurs",
           "L’efficacité technique d’un moteur de recherche simplifiant les opérations bancaires",
           "La programmation automatisée des feux de signalisation sur les boulevards urbains"
