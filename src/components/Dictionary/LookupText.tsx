@@ -1,6 +1,6 @@
 import DictionaryCard from './DictionaryCard'
 import { type DictionaryResult, lookupDictionary } from '@/services/dictionary'
-import { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import IconX from '~icons/tabler/x'
 
@@ -20,6 +20,7 @@ function notifyCloseOthers(except: CloseListener) {
 /** French text whose words can be clicked to look them up in the offline dictionary. */
 export default function LookupText({ text, className }: { text: string; className?: string }) {
   const tokens = useMemo(() => text.split(WORD), [text])
+  const triggerRef = useRef<HTMLButtonElement | null>(null)
   const [active, setActive] = useState<string | null>(null)
   const [result, setResult] = useState<DictionaryResult | null>(null)
   const [error, setError] = useState('')
@@ -39,6 +40,18 @@ export default function LookupText({ text, className }: { text: string; classNam
   useEffect(() => {
     setActive(null)
   }, [text])
+
+  useEffect(() => {
+    if (active === null) return
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape' || event.defaultPrevented || event.isComposing) return
+      event.preventDefault()
+      closeSelf()
+      triggerRef.current?.focus({ preventScroll: true })
+    }
+    window.addEventListener('keydown', handleEscape)
+    return () => window.removeEventListener('keydown', handleEscape)
+  }, [active, closeSelf])
 
   const openToken = (token: string) => {
     notifyCloseOthers(closeSelf)
@@ -67,20 +80,20 @@ export default function LookupText({ text, className }: { text: string; classNam
       <span className={className} lang="fr">
         {tokens.map((token, index) =>
           index % 2 === 1 ? (
-            <span
+            <button
               key={index}
-              role="button"
-              tabIndex={0}
-              onClick={() => openToken(token)}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter') openToken(token)
+              type="button"
+              aria-expanded={active === token}
+              onClick={(event) => {
+                triggerRef.current = event.currentTarget
+                openToken(token)
               }}
-              className={`cursor-pointer rounded decoration-indigo-300 decoration-dotted underline-offset-4 hover:bg-indigo-100 hover:underline dark:hover:bg-indigo-900/50 ${
+              className={`cursor-pointer rounded decoration-indigo-300 decoration-dotted underline-offset-4 hover:bg-indigo-100 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500 dark:hover:bg-indigo-900/50 ${
                 active === token ? 'bg-indigo-100 dark:bg-indigo-900/50' : ''
               }`}
             >
               {token}
-            </span>
+            </button>
           ) : (
             <Fragment key={index}>{token}</Fragment>
           ),

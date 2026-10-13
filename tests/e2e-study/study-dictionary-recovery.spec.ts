@@ -55,3 +55,26 @@ test('a reading review word can be retried in place after its dictionary shard f
   await popover.getByRole('button', { name: '关闭查词' }).click()
   await expect(popover).toHaveCount(0)
 })
+
+for (const key of ['Enter', 'Space']) {
+  test(`reading words support ${key} and Escape returns focus to the word`, async ({ page }) => {
+    await page.route('**/api/study-plan/dictionary**', (route) => route.fulfill({ status: 502, json: {} }))
+    await page.route('**://*.wiktionary.org/**', (route) => route.abort())
+    await page.goto('/tcf-reading')
+    await page.getByTestId('tcf-start-exam').click()
+    await page.getByTestId('tcf-submit-exam').click()
+    await expect(page.getByTestId('tcf-result')).toBeVisible()
+    const word = page.getByRole('button', { name: 'fermeture', exact: true })
+    await word.focus()
+    await page.keyboard.press(key)
+    const popover = page.getByTestId('dictionary-popover')
+    await expect(popover.getByTestId('dictionary-result')).toContainText('fermeture')
+    await expect(word).toHaveAttribute('aria-expanded', 'true')
+    await popover.getByRole('button', { name: '关闭查词' }).focus()
+    await page.keyboard.press('Escape')
+    await expect(popover).toHaveCount(0)
+    await expect(word).toBeFocused()
+    await expect(word).toHaveAttribute('aria-expanded', 'false')
+    await expect(page.getByTestId('tcf-result')).toBeVisible()
+  })
+}
