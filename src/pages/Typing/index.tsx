@@ -21,7 +21,7 @@ import { useMixPanelChapterLogUploader } from '@/utils/mixpanel'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import type React from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useImmerReducer } from 'use-immer'
 
 const studyVocabularyTaskIds = new Set(['mon-vocab', 'fri-vocab', 'minimum-vocab', 'smart-vocab'])
@@ -45,6 +45,7 @@ const App: React.FC = () => {
   const setCurrentChapter = useSetAtom(currentChapterAtom)
   const setReviewModeInfo = useSetAtom(reviewModeInfoAtom)
   const [searchParams, setSearchParams] = useSearchParams()
+  const navigate = useNavigate()
   const requestedDictId = searchParams.get('dict')
   const requestedChapter = searchParams.get('chapter')
   const requestedStudyDate = searchParams.get('studyDate')
@@ -237,7 +238,23 @@ const App: React.FC = () => {
         <div className="container mx-auto flex h-full flex-1 flex-col items-center justify-center pb-5">
           <div className="container relative mx-auto flex h-full flex-col items-center">
             <div className="container flex flex-grow items-center justify-center">
-              {wordListError ? (
+              {isReviewMode && words.length === 0 ? (
+                <div role="status" className="ui-panel mx-auto max-w-xl p-8 text-center">
+                  <h2 className="font-medium">没有可复习的词条</h2>
+                  <p className="mt-2 text-sm text-gray-500">请选择词库继续练习，产生错词后再开始复习。</p>
+                  <button
+                    type="button"
+                    className="ui-btn-primary mt-4"
+                    onClick={() => {
+                      setReviewModeInfo((old) => ({ ...old, isReviewMode: false }))
+                      setCurrentChapter(0)
+                      navigate('/gallery')
+                    }}
+                  >
+                    返回词库
+                  </button>
+                </div>
+              ) : wordListError ? (
                 <div
                   role="alert"
                   className="mx-auto max-w-xl rounded-2xl border border-red-100 bg-red-50 px-6 py-5 text-center dark:border-red-900 dark:bg-red-950/30"

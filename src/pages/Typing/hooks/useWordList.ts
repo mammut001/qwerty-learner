@@ -28,10 +28,11 @@ export function useWordList(): UseWordListResult {
     if (!isReviewMode && currentChapter !== safeChapter) setCurrentChapter(safeChapter)
   }, [currentChapter, safeChapter, setCurrentChapter, isReviewMode])
 
+  const reviewWords = reviewRecord?.words
   const words: WordWithIndex[] = useMemo(() => {
     let newWords: Word[]
     if (isReviewMode) {
-      newWords = reviewRecord?.words ?? []
+      newWords = Array.isArray(reviewWords) ? reviewWords : []
     } else if (wordList) {
       newWords = wordList.slice(safeChapter * CHAPTER_LENGTH, (safeChapter + 1) * CHAPTER_LENGTH)
     } else {
@@ -53,7 +54,7 @@ export function useWordList(): UseWordListResult {
         trans,
       }
     })
-  }, [isReviewMode, wordList, reviewRecord?.words, safeChapter])
+  }, [isReviewMode, wordList, reviewWords, safeChapter])
 
   return { words, isLoading, error, isRetrying: isValidating, retry: mutate }
 }
