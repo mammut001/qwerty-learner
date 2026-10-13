@@ -12,7 +12,7 @@ export type ErrorColumn = {
   errorChar: string[]
 }
 
-export const errorColumns = (onDelete: (word: string) => Promise<void>): ColumnDef<ErrorColumn>[] => [
+export const errorColumns = (onDelete: (word: string) => Promise<void>, deleting: boolean): ColumnDef<ErrorColumn>[] => [
   {
     accessorKey: 'word',
     size: 100,
@@ -69,11 +69,17 @@ export const errorColumns = (onDelete: (word: string) => Promise<void>): ColumnD
       return (
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger>
-              <DeleteIcon className="cursor-pointer" onClick={() => onDelete(row.original.word)} />
+            <TooltipTrigger
+              type="button"
+              aria-label={`删除 ${row.original.word} 的练习记录`}
+              disabled={deleting}
+              onClick={() => void onDelete(row.original.word)}
+              className="rounded p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50"
+            >
+              <DeleteIcon aria-hidden="true" />
             </TooltipTrigger>
             <TooltipContent>
-              <p>Delete Records</p>
+              <p>删除练习记录</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
