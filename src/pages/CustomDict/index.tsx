@@ -305,7 +305,7 @@ export default function CustomDictPage() {
               <span data-testid="word-list-count">
                 识别到 {parsed.words.length} 个词条 · {Math.ceil(parsed.words.length / CHAPTER_LENGTH)} 章（每章 {CHAPTER_LENGTH} 词）
               </span>
-              {parsed.duplicates > 0 && <span className="text-amber-600">已忽略 {parsed.duplicates} 个重复词条</span>}
+              {parsed.duplicates > 0 && <span className="text-amber-600">已合并 {parsed.duplicates} 个重复词条</span>}
               {parsed.tooLong > 0 && <span className="text-amber-600">有 {parsed.tooLong} 行超过长度限制</span>}
               {parsed.truncated && <span className="text-amber-600">超过 {CUSTOM_DICT_LIMITS.words} 词，请拆分为多个词表</span>}
               <span>分隔符可用 =、Tab、：或 |；释义可以不写；# 开头的行会被忽略</span>

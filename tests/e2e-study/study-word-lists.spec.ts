@@ -3,11 +3,11 @@ import { expect, test } from '@playwright/test'
 test('a custom word list can be created, practised, edited, found in the gallery and deleted', async ({ page }) => {
   await page.goto('/word-lists')
   await page.getByLabel('词表名称').fill('模考生词')
-  await page.getByLabel('词条', { exact: true }).fill(
-    ['# 阅读套题 B', 'un bail = 租约', 'déménager\t搬家', 'en revanche：相反', 'un bail = 重复', 'sans-abri', ''].join('\n'),
-  )
+  await page
+    .getByLabel('词条', { exact: true })
+    .fill(['# 阅读套题 B', 'un bail = 租约', 'déménager\t搬家', 'en revanche：相反', 'un bail = 重复', 'sans-abri', ''].join('\n'))
   await expect(page.getByTestId('word-list-count')).toContainText('识别到 4 个词条 · 1 章')
-  await expect(page.getByText('已忽略 1 个重复词条')).toBeVisible()
+  await expect(page.getByText('已合并 1 个重复词条')).toBeVisible()
 
   // Saving selects the list and opens the typing page on its first chapter.
   await page.getByTestId('word-list-practise').click()
