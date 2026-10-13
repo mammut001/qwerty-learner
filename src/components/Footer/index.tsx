@@ -33,6 +33,9 @@ const Footer: React.FC = () => {
           Build <span className="select-all">{LATEST_COMMIT_HASH}</span>
         </span>
       </div>
+      <p className="max-w-2xl text-center text-[11px] leading-relaxed text-gray-400 dark:text-gray-500">
+        词库和题目尚未经法语母语者逐条校对，发现错误欢迎通过页面上的「报告问题」告诉我们。
+      </p>
       {showAnalyticsNotice && (
         <p className="max-w-2xl text-center text-[11px] leading-relaxed text-gray-400 dark:text-gray-500" data-testid="analytics-privacy-notice">
           本站使用自托管的 Umami 统计访问情况（页面、停留时间、大致地区、设备类型），不使用 Cookie，不记录姓名、邮箱或答题内容，数据保存在本站服务器，不提供给第三方。浏览器开启&ldquo;请勿跟踪&rdquo;时不统计。

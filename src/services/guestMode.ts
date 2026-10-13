@@ -19,16 +19,21 @@ export function isPathGated(pathname: string): boolean {
   return false
 }
 
-const readInitialGuestMode = (): boolean => {
+export const readCachedStatus = (): 'open' | 'locked' | null => {
   try {
     if (typeof localStorage !== 'undefined') {
       const cached = localStorage.getItem(AUTH_STATUS_CACHE_KEY)
-      return cached === 'locked'
+      if (cached === 'open' || cached === 'locked') return cached
     }
+    return null
   } catch {
     // Storage access might be restricted
+    return null
   }
-  return false
+}
+
+const readInitialGuestMode = (): boolean => {
+  return readCachedStatus() === 'locked'
 }
 
 let guestMode = readInitialGuestMode()
