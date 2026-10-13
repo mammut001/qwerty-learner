@@ -150,8 +150,12 @@ export default function CustomDictPage() {
 
   const exportJson = () => {
     if (!selected) return
-    const words = selected.words.map((word) => ({ name: word.name, trans: word.trans }))
-    saveAs(new Blob([JSON.stringify(words, null, 2)], { type: 'application/json;charset=utf-8' }), `${selected.name}.json`)
+    if (parsed.words.length === 0) {
+      setMessage({ tone: 'error', text: '没有可导出的词条。每行写一个：mot = 释义' })
+      return
+    }
+    const words = parsed.words.map((word) => ({ name: word.name, trans: word.trans }))
+    saveAs(new Blob([JSON.stringify(words, null, 2)], { type: 'application/json;charset=utf-8' }), `${name.trim() || selected.name}.json`)
   }
 
   const inputClass =
@@ -321,7 +325,7 @@ export default function CustomDictPage() {
                     onClick={exportJson}
                     className="rounded-lg border border-gray-200 px-5 py-2 text-gray-700 hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-200"
                   >
-                    导出 JSON
+                    {dirty ? '导出当前编辑 JSON' : '导出 JSON'}
                   </button>
                   {confirmingDelete ? (
                     <span className="ml-auto flex items-center gap-2 text-sm text-red-600">
