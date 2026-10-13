@@ -1,5 +1,26 @@
 const { expect, test } = require('@playwright/test')
 
+test.use({ serviceWorkers: 'block' })
+// Explicit missing-Chinese fixtures keep fallback tests independent of real data coverage.
+test.beforeEach(async ({ page }) => {
+  for (const [word, english] of [
+    ['voisinage', 'neighbourhood'],
+    ['embauche', 'hiring'],
+    ['remboursement', 'reimbursement'],
+    ['trottoir', 'sidewalk'],
+  ]) {
+    await page.route(`**/lexicon/fr/${word.slice(0, 2)}.json*`, (route) =>
+      route.fulfill({
+        json: {
+          e: { [word]: [['noun', '', '', [english], []]] },
+          s: {},
+          f: {},
+        },
+      }),
+    )
+  }
+})
+
 async function stubYoudaoEmpty(page) {
   await page.route('**/api/study-plan/dictionary**', (route) =>
     route.fulfill({

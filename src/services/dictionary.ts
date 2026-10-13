@@ -69,7 +69,9 @@ function loadShard(name: string): Promise<Shard> {
   let pending = shardCache.get(name)
   if (!pending) {
     // Same deploy-prefix rule as the word-list fetcher.
-    pending = fetch(`${REACT_APP_DEPLOY_ENV === 'pages' ? '/qwerty-learner' : ''}/lexicon/fr/${name}.json`)
+    pending = fetch(
+      `${REACT_APP_DEPLOY_ENV === 'pages' ? '/qwerty-learner' : ''}/lexicon/fr/${name}.json?v=${encodeURIComponent(LATEST_COMMIT_HASH)}`,
+    )
       .then(async (response) => {
         // A missing shard just means no word starts with those letters. Static hosts answer it with a 404,
         // single-page fallbacks with an HTML page.

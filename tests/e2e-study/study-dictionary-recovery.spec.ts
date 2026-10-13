@@ -4,7 +4,7 @@ test.use({ serviceWorkers: 'block' })
 
 test('a failed dictionary shard can be retried and the recovered word can be saved', async ({ page }) => {
   let recovered = false
-  await page.route('**/lexicon/fr/bo.json', (route) =>
+  await page.route('**/lexicon/fr/bo.json*', (route) =>
     recovered ? route.continue() : route.fulfill({ status: 503, json: { error: 'temporary' } }),
   )
   await page.route('**/api/study-plan/dictionary**', (route) => route.fulfill({ status: 502, json: {} }))
@@ -22,7 +22,7 @@ test('a failed dictionary shard can be retried and the recovered word can be sav
 })
 
 test('clearing a failed query removes its error and returns to dictionary help', async ({ page }) => {
-  await page.route('**/lexicon/fr/bo.json', (route) => route.fulfill({ status: 503, json: {} }))
+  await page.route('**/lexicon/fr/bo.json*', (route) => route.fulfill({ status: 503, json: {} }))
   await page.goto('/dictionary?q=bonjour')
   await expect(page.getByRole('alert')).toBeVisible()
   const search = page.getByRole('searchbox', { name: '查词' })
@@ -35,7 +35,7 @@ test('clearing a failed query removes its error and returns to dictionary help',
 
 test('a reading review word can be retried in place after its dictionary shard fails', async ({ page }) => {
   let recovered = false
-  await page.route('**/lexicon/fr/fe.json', (route) => (recovered ? route.continue() : route.fulfill({ status: 503, json: {} })))
+  await page.route('**/lexicon/fr/fe.json*', (route) => (recovered ? route.continue() : route.fulfill({ status: 503, json: {} })))
   await page.route('**/api/study-plan/dictionary**', (route) => route.fulfill({ status: 502, json: {} }))
   await page.route('**://*.wiktionary.org/**', (route) => route.abort())
   await page.goto('/tcf-reading')
