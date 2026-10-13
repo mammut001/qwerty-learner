@@ -128,3 +128,16 @@ test('typing exposes missing meanings when all sources fail', async ({ page }) =
   await expect(page.getByText('暂无释义', { exact: true })).toBeVisible()
   await expect(page.getByRole('link', { name: '查看词典' })).toHaveAttribute('href', '/dictionary?q=rite')
 })
+
+test('typing still tries the online definition when the offline shard cannot load', async ({ page }) => {
+  await page.route('**/lexicon/fr/ri.json', (route) => route.abort())
+  await page.route('**/api/study-plan/dictionary**', (route) =>
+    route.fulfill({ json: { word: 'rite', senses: [{ pos: 'm.', gloss: '仪式；礼仪' }], examples: [] } }),
+  )
+  await page.goto('/word-lists')
+  await page.getByLabel('词表名称').fill('缺失释义')
+  await page.getByLabel('词条', { exact: true }).fill('rite')
+  await page.getByTestId('word-list-practise').click()
+  await page.keyboard.press('Enter')
+  await expect(page.getByText('仪式；礼仪', { exact: true })).toBeVisible()
+})
