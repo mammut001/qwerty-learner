@@ -102,8 +102,12 @@ export default function CustomDictPage() {
   const remove = () => {
     if (!selected) return
     const rest = lists.filter((item) => item.id !== selected.id)
-    setLists(rest)
-    open(rest[0] ?? null)
+    try {
+      setLists(rest)
+      open(rest[0] ?? null)
+    } catch {
+      setMessage({ tone: 'error', text: '删除失败：浏览器存储不可用，请重试。' })
+    }
   }
 
   const importFile = async (file: File | undefined) => {
