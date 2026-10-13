@@ -1,7 +1,7 @@
 import { type DictionaryResult, type DictionaryWord, GENDER_LABELS, POS_LABELS, briefMeaning, speakFrench } from '@/services/dictionary'
 import { type OnlineChineseSource, loadOnlineChinese, needsOnlineChinese } from '@/services/dictionaryOnline'
 import { type YoudaoFrench, loadYoudaoFrench, youdaoQuery } from '@/services/dictionaryYoudao'
-import { CUSTOM_DICT_LIMITS, type CustomDict, customDictsAtom } from '@/store/customDict'
+import { CUSTOM_DICT_LIMITS, type CustomDict, customDictsAtom, normalizeCustomWordName } from '@/store/customDict'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
 import IconVolume from '~icons/tabler/volume'
@@ -20,21 +20,22 @@ function AddToWordList({ word, meaning }: { word: string; meaning: string }) {
   })
   const [message, setMessage] = useState('')
   const target = lists.find((item) => item.id === listId) ?? lists[0]
-  const savedWord = target?.words.find((item) => item.name === word)
+  const wordName = normalizeCustomWordName(word)
+  const savedWord = target?.words.find((item) => normalizeCustomWordName(item.name) === wordName)
   const alreadySaved = Boolean(savedWord)
-  const normalizedWord = word.trim().toLocaleLowerCase('fr')
+  const normalizedWord = wordName.toLocaleLowerCase('fr')
   const canCompleteMeaning = Boolean(
     savedWord &&
-      savedWord.trans.every((item) => !item.trim() || item.trim().toLocaleLowerCase('fr') === normalizedWord) &&
+      savedWord.trans.every((item) => !item.trim() || normalizeCustomWordName(item).toLocaleLowerCase('fr') === normalizedWord) &&
       meaning.trim() &&
-      meaning.trim().toLocaleLowerCase('fr') !== normalizedWord,
+      normalizeCustomWordName(meaning).toLocaleLowerCase('fr') !== normalizedWord,
   )
 
   useEffect(() => setMessage(''), [word])
 
   const add = () => {
     const now = Date.now()
-    const entry = { name: word, trans: meaning ? [meaning.slice(0, CUSTOM_DICT_LIMITS.trans)] : [] }
+    const entry = { name: wordName, trans: meaning ? [meaning.slice(0, CUSTOM_DICT_LIMITS.trans)] : [] }
     try {
       if (!target) {
         const created: CustomDict = {
@@ -54,7 +55,11 @@ function AddToWordList({ word, meaning }: { word: string; meaning: string }) {
         setLists(
           lists.map((item) =>
             item.id === target.id
-              ? { ...item, words: item.words.map((existing) => (existing.name === word ? entry : existing)), updatedAt: now }
+              ? {
+                  ...item,
+                  words: item.words.map((existing) => (existing === savedWord ? { ...entry, name: existing.name } : existing)),
+                  updatedAt: now,
+                }
               : item,
           ),
         )
