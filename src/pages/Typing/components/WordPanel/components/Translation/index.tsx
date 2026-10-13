@@ -28,17 +28,19 @@ export default function Translation({ word, trans, showTrans = true, onMouseEnte
     const run = async () => {
       let meaning = ''
       try {
-        const result = await lookupDictionary(word)
-        meaning = briefMeaning(result)
+        const result = await lookupDictionary(word).catch(() => null)
+        if (cancelled) return
+        meaning = result ? briefMeaning(result) : ''
         if (!/[一-鿿]/.test(meaning) && navigator.onLine !== false) {
-          const headword = result.words[0]?.word ?? result.lemmas[0]?.word ?? word
+          const headword = result?.words[0]?.word ?? result?.lemmas[0]?.word ?? word
           const online = await loadYoudaoFrench(headword)
+          if (cancelled) return
           const chinese = online?.senses
             .slice(0, 3)
             .map((sense) => sense.gloss)
             .join('；')
           if (chinese) meaning = chinese
-          else if (needsOnlineChinese(result)) {
+          else if (!result || needsOnlineChinese(result)) {
             const fallback = await loadOnlineChinese(headword)
             if (fallback.zh.length) meaning = fallback.zh.slice(0, 3).join('；')
           }
