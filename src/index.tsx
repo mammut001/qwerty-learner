@@ -1,4 +1,7 @@
 import './services/localProfileInit'
+import { initAnalytics } from './utils/analytics'
+
+initAnalytics()
 import AccessGate from './components/AccessGate'
 import AuthGate from './components/AuthGate'
 import Header from './components/Header'
@@ -6,7 +9,10 @@ import { LoadingUI } from './components/Loading'
 import RequireAccount from './components/RequireAccount'
 import { ShellHeaderProvider } from './components/ShellHeader'
 import './index.css'
+import { isGuestMode, readCachedStatus } from '@/services/guestMode'
 import { isOpenDarkModeAtom } from '@/store'
+import { authStatusAtom } from '@/store/auth'
+import { resolveHomePath } from '@/utils/homePath'
 import 'animate.css'
 import { useAtomValue } from 'jotai'
 import React, { Suspense, lazy, useEffect, useRef, useState } from 'react'
@@ -19,6 +25,7 @@ const AnalysisPage = lazy(() => import('./pages/Analysis'))
 const GalleryPage = lazy(() => import('./pages/Gallery-N'))
 const ConjugationPage = lazy(() => import('./pages/Conjugation'))
 const GrammarSessionPage = lazy(() => import('./pages/GrammarSession'))
+const TensesPage = lazy(() => import('./pages/Tenses'))
 const StudyPlanPage = lazy(() => import('./pages/StudyPlan'))
 const TcfHubPage = lazy(() => import('./pages/TcfHub'))
 const PlacementTestPage = lazy(() => import('./pages/PlacementTest'))
@@ -35,12 +42,17 @@ const DictionaryPage = lazy(() => import('./pages/Dictionary'))
 const CustomDictPage = lazy(() => import('./pages/CustomDict'))
 const KeyboardRequiredPage = lazy(() => import('./pages/KeyboardRequired'))
 const ErrorBookPage = lazy(() => import('./pages/ErrorBook').then((module) => ({ default: module.ErrorBook })))
+const BillingPage = lazy(() => import('./pages/Billing'))
 const FocusTimerDock = lazy(() => import('./components/FocusTimerDock'))
 
-// The study plan is the home page; old `/?dict=…` practice links keep working by forwarding to the typing page.
+// The study plan is the home page for signed-in users; guests land on typing practice.
+// Old `/?dict=…` practice links keep working by forwarding to the typing page.
 function HomeRedirect() {
   const { search } = useLocation()
-  return <Navigate to={search ? `/typing${search}` : '/study-plan'} replace />
+  const authStatus = useAtomValue(authStatusAtom)
+  const cachedStatus = readCachedStatus()
+  const guestMode = isGuestMode()
+  return <Navigate to={resolveHomePath({ search, authStatus, cachedStatus, guestMode })} replace />
 }
 
 async function migrateExistingStudyData() {
@@ -132,6 +144,8 @@ function Root() {
                       <Route path="/word-lists" element={<CustomDictPage />} />
                       <Route path="/conjugation" element={<ConjugationPage />} />
                       <Route path="/grammar-session" element={<GrammarSessionPage />} />
+                      <Route path="/tenses" element={<TensesPage />} />
+                      <Route path="/tenses/:lessonId" element={<TensesPage />} />
                       <Route path="/study-plan" element={<RequireAccount pageName="学习计划"><StudyPlanPage /></RequireAccount>} />
                       <Route path="/placement-test" element={<RequireAccount pageName="定级测试"><PlacementTestPage /></RequireAccount>} />
                       <Route path="/admin/placement" element={<AdminPlacementPage />} />
@@ -146,6 +160,7 @@ function Root() {
                       <Route path="/tcf-speaking" element={<RequireAccount pageName="TCF 口语"><TcfSpeakingPage /></RequireAccount>} />
                       <Route path="/analysis" element={<RequireAccount pageName="统计"><AnalysisPage /></RequireAccount>} />
                       <Route path="/error-book" element={<RequireAccount pageName="错题本"><ErrorBookPage /></RequireAccount>} />
+                      <Route path="/billing" element={<BillingPage />} />
                       <Route path="/*" element={<Navigate to="/study-plan" />} />
                     </Routes>
                   </Suspense>

@@ -3,12 +3,12 @@ import { NavLink } from 'react-router-dom'
 import IconKeyboard from '~icons/tabler/keyboard'
 
 const alternatives = [
-  { to: '/study-plan', label: '学习计划', detail: '今日任务与 26 周路线' },
   { to: '/tcf-reading', label: '阅读模考', detail: '39 题 · 60 分钟' },
   { to: '/tcf-listening', label: '听力模考', detail: '39 题 · 35 分钟' },
   { to: '/grammar-session', label: '语法专题', detail: '5 个专题 · 先选再解释' },
   { to: '/conjugation', label: '动词变位', detail: '30 个核心动词' },
   { to: '/error-book', label: '错题本', detail: '词汇 · 语法 · 变位' },
+  { to: '/study-plan', label: '学习计划', detail: '今日任务与 26 周路线（需登录）' },
 ]
 
 // Typing practice needs a physical keyboard, so small screens get pointed at what does work on a phone.

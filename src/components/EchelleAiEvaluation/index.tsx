@@ -1,4 +1,5 @@
 import type { EchelleEvaluation, EchelleStoredEvaluation } from '@/services/studyPlanSync'
+import SpeechMetricsCard from '@/components/SpeechMetricsCard'
 import IconCheck from '~icons/tabler/check'
 import IconX from '~icons/tabler/x'
 
@@ -14,6 +15,8 @@ const SCORE_LABELS = ['无法评估', '明显低于本级', '接近本级', '符
 const warningText = (warning: string) => {
   if (warning === 'PROMPT_INJECTION') return '答案中出现了试图影响评分的指令，已忽略并下调分数。'
   if (warning === 'NOT_FRENCH') return '答案主要不是法语，按 0 分处理。'
+  if (warning === 'PHONOLOGIE_CLAMPED') return '语音评分已结合声学测量指标（清晰度、语速、停顿）进行客观校准。'
+  if (warning === 'INTELLIGIBILITY_UNCLEAR') return '录音清晰度不足（未能清晰识别），未能达到达标要求。'
   if (warning.startsWith('EVIDENCE_NOT_FOUND:'))
     return `「${CRITERION_LABELS[warning.split(':')[1]] ?? warning}」的评分没有引用到你的原文，已按规则下调。`
   return warning
@@ -123,6 +126,12 @@ export default function EchelleAiEvaluation({ evaluation, level }: Props) {
       <div className="mt-3 text-xs text-gray-400">
         按魁北克量表 Niveau {level} 官方描述评分 · {evaluation.provider}/{evaluation.model} · 标准 {evaluation.rubricVersion}
       </div>
+
+      {evaluation.speech && (
+        <div className="mt-4">
+          <SpeechMetricsCard metrics={evaluation.speech} title="口语声学指标记录" />
+        </div>
+      )}
     </div>
   )
 }

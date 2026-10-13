@@ -1,5 +1,6 @@
 import { buildAchievementCandidates, buildErrorBookEntries, buildWeeklyReport, featureDateUtils, streakFromCheckins } from './study-features.mjs'
 import { normalizeState, studyDaySummary } from './study-model.mjs'
+import { ENTITLED_STATUSES } from './study-billing.mjs'
 
 const { addDays, diffDays, dateKey } = featureDateUtils
 const safeJson = (value) => JSON.stringify(value ?? {})
@@ -7,7 +8,7 @@ const parseJson = (value, fallback = null) => {
   try { return JSON.parse(value) } catch { return fallback }
 }
 
-export const STUDY_SCHEMA_VERSION = 10
+export const STUDY_SCHEMA_VERSION = 12
 
 export function ensureNodeFeatureSchema(db) {
   db.exec(`
@@ -111,6 +112,40 @@ export function ensureNodeFeatureSchema(db) {
       PRIMARY KEY (provider, subject)
     );
     CREATE INDEX IF NOT EXISTS account_identities_account ON account_identities(account_id);
+    CREATE TABLE IF NOT EXISTS billing_subscriptions (
+      account_id TEXT NOT NULL PRIMARY KEY,
+      stripe_customer_id TEXT NOT NULL DEFAULT '',
+      stripe_subscription_id TEXT NOT NULL DEFAULT '',
+      status TEXT NOT NULL DEFAULT 'none',
+      price_id TEXT NOT NULL DEFAULT '',
+      current_period_end TEXT,
+      cancel_at_period_end INTEGER NOT NULL DEFAULT 0,
+      last_event_created INTEGER NOT NULL DEFAULT 0,
+      updated_at INTEGER NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS billing_subscriptions_customer ON billing_subscriptions(stripe_customer_id);
+    CREATE TABLE IF NOT EXISTS billing_events (
+      event_id TEXT PRIMARY KEY, event_type TEXT NOT NULL, received_at INTEGER NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS item_reports (
+      id TEXT PRIMARY KEY,
+      learner TEXT,
+      account_id TEXT,
+      item_id TEXT NOT NULL,
+      variant INTEGER NOT NULL,
+      category TEXT NOT NULL,
+      note TEXT NOT NULL DEFAULT '',
+      snapshot TEXT NOT NULL DEFAULT '{}',
+      app_version TEXT,
+      created_at INTEGER NOT NULL,
+      status TEXT NOT NULL DEFAULT 'open',
+      resolved_at INTEGER
+    );
+    CREATE INDEX IF NOT EXISTS item_reports_status_created ON item_reports(status,created_at DESC);
+    CREATE INDEX IF NOT EXISTS item_reports_dedupe ON item_reports(learner,item_id,variant,category);
+    CREATE INDEX IF NOT EXISTS item_reports_item_variant ON item_reports(item_id,variant);
+    CREATE INDEX IF NOT EXISTS item_reports_learner ON item_reports(learner);
+    CREATE INDEX IF NOT EXISTS item_reports_account ON item_reports(account_id);
   `)
   const existingVersion = Number(
     db.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").get()?.value ?? 0,
@@ -614,6 +649,7 @@ export function writeNodeAudit(db, { id, learner = null, action, status, actorHa
 export function deleteNodeLearnerData(db, learner) {
   const account = db.prepare('SELECT id FROM accounts WHERE learner=?').get(learner)
   if (account?.id) {
+    db.prepare('DELETE FROM billing_subscriptions WHERE account_id=?').run(account.id)
     db.prepare('DELETE FROM account_identities WHERE account_id=?').run(account.id)
     db.prepare('DELETE FROM passkeys WHERE account_id=?').run(account.id)
     db.prepare('DELETE FROM account_sessions WHERE account_id=?').run(account.id)
@@ -632,8 +668,111 @@ export function deleteNodeLearnerData(db, learner) {
     'tcf_ee_attempts',
     'tcf_eo_attempts',
     'audit_log',
+    'item_reports',
   ]
   for (const table of tables) db.prepare(`DELETE FROM ${table} WHERE learner=?`).run(learner)
+  if (account?.id) {
+    db.prepare('DELETE FROM item_reports WHERE account_id=?').run(account.id)
+  }
   db.prepare('DELETE FROM rate_limits WHERE scope=?').run('learner:' + learner)
   db.prepare('DELETE FROM learners WHERE id=?').run(learner)
+}
+
+// Billing (Stripe). Subscription rows are keyed by ACCOUNT, never by anonymous learner.
+// The caller owns the transaction (BEGIN IMMEDIATE) so the idempotency check, the state change and the
+// event record commit or roll back together.
+export function getNodeBilling(db, accountId) {
+  const row = db.prepare('SELECT * FROM billing_subscriptions WHERE account_id=?').get(accountId)
+  if (!row) return null
+  return {
+    customerId: row.stripe_customer_id,
+    subscriptionId: row.stripe_subscription_id,
+    entitlement: {
+      status: row.status,
+      active: ENTITLED_STATUSES.has(row.status),
+      currentPeriodEnd: row.current_period_end || null,
+      cancelAtPeriodEnd: row.cancel_at_period_end === 1,
+      priceId: row.price_id,
+    },
+  }
+}
+
+function billingAccountFor(db, action) {
+  let accountId = action.accountId || ''
+  if (!accountId && action.customerId)
+    accountId = db.prepare('SELECT account_id FROM billing_subscriptions WHERE stripe_customer_id=?').get(action.customerId)?.account_id || ''
+  if (!accountId && action.subscriptionId)
+    accountId = db.prepare('SELECT account_id FROM billing_subscriptions WHERE stripe_subscription_id=?').get(action.subscriptionId)?.account_id || ''
+  if (!accountId) return null
+  return db.prepare('SELECT id FROM accounts WHERE id=?').get(accountId) ? accountId : null
+}
+
+/**
+ * Records a verified Stripe event and applies its normalised action. Returns one of:
+ * 'duplicate' (event id already processed, no side effects), 'ignored', 'unmatched' (no known account),
+ * 'stale' (an older event than the one already applied, so state is kept), or 'applied'.
+ */
+export function applyNodeBillingEvent(db, { eventId, eventType, action, nowMs = Date.now() }) {
+  if (db.prepare('SELECT 1 FROM billing_events WHERE event_id=?').get(eventId)) return 'duplicate'
+  db.prepare('INSERT INTO billing_events(event_id,event_type,received_at) VALUES(?,?,?)').run(eventId, eventType, nowMs)
+  if (action.kind === 'ignored') return 'ignored'
+
+  const accountId = billingAccountFor(db, action)
+  if (!accountId) return 'unmatched'
+  const created = Number(action.created) || 0
+
+  if (action.kind === 'checkout_completed') {
+    // Only fills identifiers that are still empty. Subscription events carry the authoritative state.
+    db.prepare(`
+      INSERT INTO billing_subscriptions(account_id,stripe_customer_id,stripe_subscription_id,updated_at) VALUES(?,?,?,?)
+      ON CONFLICT(account_id) DO UPDATE SET
+        stripe_customer_id=CASE WHEN stripe_customer_id='' THEN excluded.stripe_customer_id ELSE stripe_customer_id END,
+        stripe_subscription_id=CASE WHEN stripe_subscription_id='' THEN excluded.stripe_subscription_id ELSE stripe_subscription_id END,
+        updated_at=excluded.updated_at
+    `).run(accountId, action.customerId || '', action.subscriptionId || '', nowMs)
+    return 'applied'
+  }
+
+  const row = db.prepare('SELECT * FROM billing_subscriptions WHERE account_id=?').get(accountId)
+  // Out-of-order delivery: an event older than the last applied one never overwrites newer state.
+  if (row && created < row.last_event_created) return 'stale'
+
+  if (action.kind === 'subscription_changed') {
+    const entitlement = action.entitlement
+    if (!entitlement) return 'ignored'
+    db.prepare(`
+      INSERT INTO billing_subscriptions(account_id,stripe_customer_id,stripe_subscription_id,status,price_id,
+        current_period_end,cancel_at_period_end,last_event_created,updated_at) VALUES(?,?,?,?,?,?,?,?,?)
+      ON CONFLICT(account_id) DO UPDATE SET
+        stripe_customer_id=CASE WHEN excluded.stripe_customer_id='' THEN stripe_customer_id ELSE excluded.stripe_customer_id END,
+        stripe_subscription_id=excluded.stripe_subscription_id,
+        status=excluded.status,
+        price_id=excluded.price_id,
+        current_period_end=excluded.current_period_end,
+        cancel_at_period_end=excluded.cancel_at_period_end,
+        last_event_created=excluded.last_event_created,
+        updated_at=excluded.updated_at
+    `).run(
+      accountId,
+      action.customerId || row?.stripe_customer_id || '',
+      action.subscriptionId || '',
+      entitlement.status,
+      entitlement.priceId || '',
+      entitlement.currentPeriodEnd,
+      entitlement.cancelAtPeriodEnd ? 1 : 0,
+      created,
+      nowMs,
+    )
+    return 'applied'
+  }
+
+  if (action.kind === 'payment_failed') {
+    // Only a subscription that is currently entitled moves to past_due. Other states are left to their own events.
+    if (!row || !['active', 'trialing', 'past_due'].includes(row.status)) return 'ignored'
+    db.prepare('UPDATE billing_subscriptions SET status=?,last_event_created=?,updated_at=? WHERE account_id=?')
+      .run('past_due', created, nowMs, accountId)
+    return 'applied'
+  }
+
+  return 'ignored'
 }

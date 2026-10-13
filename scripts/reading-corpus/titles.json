@@ -1,0 +1,135 @@
+{
+  "description": "Article titles for the offline reading-corpus pilot. Only anonymous GET requests to the public MediaWiki API are made for these titles. Topics follow the task: sante, logement, travail, ecole, transport, alimentation, climat, institutions, villes, metiers, fetes.",
+  "sites": {
+    "vikidia": {
+      "host": "fr.vikidia.org",
+      "titles": [
+        {
+          "title": "Santé",
+          "topic": "sante"
+        },
+        {
+          "title": "Médecin",
+          "topic": "sante"
+        },
+        {
+          "title": "Logement",
+          "topic": "logement"
+        },
+        {
+          "title": "Appartement",
+          "topic": "logement"
+        },
+        {
+          "title": "Travail",
+          "topic": "travail"
+        },
+        {
+          "title": "Métier",
+          "topic": "metiers"
+        },
+        {
+          "title": "École",
+          "topic": "ecole"
+        },
+        {
+          "title": "Transport",
+          "topic": "transport"
+        },
+        {
+          "title": "Train",
+          "topic": "transport"
+        },
+        {
+          "title": "Alimentation",
+          "topic": "alimentation"
+        },
+        {
+          "title": "Pain",
+          "topic": "alimentation"
+        },
+        {
+          "title": "Climat",
+          "topic": "climat"
+        },
+        {
+          "title": "Québec",
+          "topic": "institutions"
+        },
+        {
+          "title": "Montréal",
+          "topic": "villes"
+        },
+        {
+          "title": "Noël",
+          "topic": "fetes"
+        }
+      ]
+    },
+    "wikipedia": {
+      "host": "fr.wikipedia.org",
+      "titles": [
+        {
+          "title": "Santé publique",
+          "topic": "sante"
+        },
+        {
+          "title": "Logement",
+          "topic": "logement"
+        },
+        {
+          "title": "Salaire minimum",
+          "topic": "travail"
+        },
+        {
+          "title": "Métier",
+          "topic": "metiers"
+        },
+        {
+          "title": "Éducation au Québec",
+          "topic": "ecole"
+        },
+        {
+          "title": "Transport en commun",
+          "topic": "transport"
+        },
+        {
+          "title": "Alimentation",
+          "topic": "alimentation"
+        },
+        {
+          "title": "Changement climatique",
+          "topic": "climat"
+        },
+        {
+          "title": "Assemblée nationale du Québec",
+          "topic": "institutions"
+        },
+        {
+          "title": "Parlement du Canada",
+          "topic": "institutions"
+        },
+        {
+          "title": "Immigration au Canada",
+          "topic": "institutions"
+        },
+        {
+          "title": "Montréal",
+          "topic": "villes"
+        },
+        {
+          "title": "Québec (ville)",
+          "topic": "villes"
+        },
+        {
+          "title": "Fête nationale du Québec",
+          "topic": "fetes"
+        },
+        {
+          "title": "Noël",
+          "topic": "fetes"
+        }
+      ]
+    }
+  }
+}

@@ -16,6 +16,7 @@ import { addStudyMinutes, flushStudyProgress } from '@/services/studyPlanSync'
 import { currentChapterAtom, currentDictIdAtom, isReviewModeAtom, randomConfigAtom, reviewModeInfoAtom } from '@/store'
 import { customDictionariesAtom, findDictionary } from '@/store/customDict'
 import { IsDesktop, isLegal } from '@/utils'
+import { trackAnalyticsEvent } from '@/utils/analytics'
 import { useSaveChapterRecord } from '@/utils/db'
 import { useMixPanelChapterLogUploader } from '@/utils/mixpanel'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
@@ -53,6 +54,7 @@ const App: React.FC = () => {
   const studyPlanTracking = useRef<{ dateKey: string; taskId: string } | null>(null)
   const recordedStudyPlanChapter = useRef(false)
   const flushedFinishedChapter = useRef(false)
+  const hasTrackedTypingStart = useRef(false)
   const randomConfig = useAtomValue(randomConfigAtom)
   const customDictionaries = useAtomValue(customDictionariesAtom)
   const chapterLogUploader = useMixPanelChapterLogUploader(state)
@@ -150,6 +152,10 @@ const App: React.FC = () => {
         }
         if (!isLoading && e.key !== 'Enter' && (isLegal(e.key) || e.key === ' ') && !e.altKey && !e.ctrlKey && !e.metaKey) {
           e.preventDefault()
+          if (!hasTrackedTypingStart.current) {
+            hasTrackedTypingStart.current = true
+            trackAnalyticsEvent('typing_start')
+          }
           dispatch({ type: TypingStateActionType.SET_IS_TYPING, payload: true })
         }
       }
@@ -158,6 +164,13 @@ const App: React.FC = () => {
       return () => window.removeEventListener('keydown', onKeyDown)
     }
   }, [state.isTyping, state.isFinished, isLoading, dispatch])
+
+  useEffect(() => {
+    if (state.isTyping && !hasTrackedTypingStart.current) {
+      hasTrackedTypingStart.current = true
+      trackAnalyticsEvent('typing_start')
+    }
+  }, [state.isTyping])
 
   useEffect(() => {
     if (words !== undefined) {

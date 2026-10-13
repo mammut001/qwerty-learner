@@ -182,9 +182,10 @@ export async function studyApi(request, env) {
   const cohortJoin = path === '/api/study-plan/cohort/join'
   const echelleAi = path === '/api/study-plan/echelle/ai'
   const echelleEvaluate = path === '/api/study-plan/echelle/evaluate'
+  const speechTranscribe = path === '/api/study-plan/speech/transcribe'
   const plan = path === '/api/study-plan'
   if (!importing && !exporting && !analytics && !syncKey && !revokeSyncKey && !linking && !unlinking && !syncInfo &&
-      !echelleAi && !echelleEvaluate &&
+      !echelleAi && !echelleEvaluate && !speechTranscribe &&
       !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData &&
       !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
       !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts &&
@@ -197,7 +198,7 @@ export async function studyApi(request, env) {
   if ((exporting || analytics || syncInfo || review || errorBook || checkins || achievements || reports || reportExport ||
       account || recordsCsv || errorCsv || reportsCsv || tcfAttempts || cohortInfo) && request.method !== 'GET')
     return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
-  if ((adminCohortRotate || cohortJoin || echelleEvaluate) && request.method !== 'POST')
+  if ((adminCohortRotate || cohortJoin || echelleEvaluate || speechTranscribe) && request.method !== 'POST')
     return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
   if (echelleAi && request.method !== 'GET') return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
   if (adminCohorts && !['GET', 'POST'].includes(request.method))
@@ -208,13 +209,15 @@ export async function studyApi(request, env) {
   if (deleteData && request.method !== 'DELETE') return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
   if (plan && !['GET', 'POST', 'PATCH'].includes(request.method)) return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
 
+  if (speechTranscribe) return jsonError(503, 'ASR_NOT_CONFIGURED', 'Speech recognition is not configured')
+
   let aiProvider
   try {
     aiProvider = workerAiProvider(env)
   } catch {
     return jsonError(503, 'AI_MISCONFIGURED', 'AI scoring is misconfigured')
   }
-  if (echelleAi) return json(200, aiStatus(aiProvider, RUBRIC_VERSION))
+  if (echelleAi) return json(200, aiStatus(aiProvider, RUBRIC_VERSION, false))
 
   const db = env.DB.withSession('first-primary')
   const headers = {}
@@ -956,7 +959,7 @@ export default {
         sameSite: env.STUDY_COOKIE_SAME_SITE || 'strict',
       },
       request,
-      ['/api/health', '/health'].includes(path),
+      ['/api/health', '/health'].includes(path) ? true : { allowBinary: path === '/api/study-plan/speech/transcribe' },
     )
     let response
     if (policy.status) {

@@ -19,24 +19,49 @@ export function isPathGated(pathname: string): boolean {
   return false
 }
 
-const readInitialGuestMode = (): boolean => {
+export const readCachedStatus = (): 'open' | 'locked' | null => {
   try {
     if (typeof localStorage !== 'undefined') {
       const cached = localStorage.getItem(AUTH_STATUS_CACHE_KEY)
-      return cached === 'locked'
+      if (cached === 'open' || cached === 'locked') return cached
     }
+    return null
   } catch {
     // Storage access might be restricted
+    return null
   }
-  return false
+}
+
+const readInitialGuestMode = (): boolean => {
+  return readCachedStatus() === 'locked'
 }
 
 let guestMode = readInitialGuestMode()
+const listeners = new Set<(enabled: boolean) => void>()
 
 export function isGuestMode(): boolean {
   return guestMode
 }
 
+export function onGuestModeChange(listener: (enabled: boolean) => void): () => void {
+  listeners.add(listener)
+  return () => {
+    listeners.delete(listener)
+  }
+}
+
 export function setGuestMode(enabled: boolean): void {
+  if (guestMode === enabled) return
   guestMode = enabled
+  listeners.forEach((listener) => {
+    try {
+      listener(enabled)
+    } catch {
+      // Storage or listener errors
+    }
+  })
+}
+
+if (typeof window !== 'undefined') {
+  (window as unknown as { __setGuestMode?: (enabled: boolean) => void }).__setGuestMode = setGuestMode
 }

@@ -1,8 +1,9 @@
 import { computePlacementResult } from '../../server/placement-data.mjs'
-import { parseEchelleItemId, scoreEchelleItem } from '../resources/echelleCurriculum'
+import { getIndicatorScenarios, parseEchelleItemId, scoreEchelleItem } from '../resources/echelleCurriculum'
 import { nextMemory } from '../resources/echelleMemory'
 import type { PlacementProfile, PlacementResult } from '../resources/placementTest'
-import { isGuestMode } from './guestMode'
+import { isGuestMode, onGuestModeChange, setGuestMode } from './guestMode'
+import { trackAnalyticsEvent } from '../utils/analytics'
 
 type StudyPlanSettings = {
   examDate: string
@@ -302,6 +303,36 @@ export type SyncMeta = {
 
 export type EchelleCorrection = { original: string; suggestion: string; explanationZh: string }
 
+export type LowConfidenceWord = {
+  word: string
+  start: number
+  end: number
+  confidence: number
+}
+
+export type SpeechMetrics = {
+  wordCount: number
+  speechSeconds: number
+  wordsPerMinute: number
+  articulationRate: number
+  pauseCount: number
+  longPauseCount: number
+  longestPauseSeconds: number
+  pauseRatio: number
+  fillerCount: number
+  meanConfidence: number
+  lowConfidenceWords: LowConfidenceWord[]
+  lowConfidenceRatio: number
+  intelligibility: 'clear' | 'mostly-clear' | 'unclear'
+}
+
+export type SpeechTranscriptionResult = {
+  transcript: string
+  durationSeconds: number
+  words: { word: string; start: number; end: number; confidence: number }[]
+  metrics: SpeechMetrics
+}
+
 export type EchelleStoredEvaluation = {
   passed: boolean
   scores: Record<string, number>
@@ -313,22 +344,24 @@ export type EchelleStoredEvaluation = {
   rubricVersion: string
   evaluatedAt: number
   corrections: EchelleCorrection[]
+  speech?: SpeechMetrics
 }
 
 export type EchelleEvaluation = EchelleStoredEvaluation & {
-  criteria: { id: string; labelZh: string; score: number; evidence: string; commentZh: string }[]
+  criteria: { id: string; labelZh: string; score: number; evidence: string; commentZh: string; unmeasured?: boolean }[]
   strengthsZh: string[]
   requiredMean: number
   warnings: string[]
 }
 
-export type EchelleAiStatus = { enabled: boolean; provider: string | null; model: string | null; rubricVersion: string }
+export type EchelleAiStatus = { enabled: boolean; provider: string | null; model: string | null; rubricVersion: string; asr?: boolean }
 
 export type EchelleItemRecord = {
   mastered: boolean
   score: number
   attempts: number
   updatedAt: number
+  variant?: number
   stage?: number
   dueAt?: number | null
   lastPassedAt?: number | null
@@ -621,6 +654,7 @@ type Operation =
       itemId: string
       answers?: string[]
       response?: { selfChecks: boolean[]; wordCount?: number; seconds?: number }
+      variant?: number
       updatedAt: number
     }
   | {
@@ -674,10 +708,21 @@ export type StudyCsvKind = 'records' | 'error-book' | 'weekly-reports'
 const syncStatusListeners = new Set<(status: StudySyncStatus) => void>()
 let syncStatus: StudySyncStatus = { phase: 'idle', pending: 0, message: '尚未同步' }
 let autoSyncInstalled = false
+let authBlocked = false
 let running: Promise<void> | undefined
 let retry: ReturnType<typeof setTimeout> | undefined
 let fallback: StudyServerState | undefined
 let legacyMigrationRunning: Promise<boolean> | undefined
+
+onGuestModeChange((enabled) => {
+  if (!enabled) {
+    authBlocked = false
+    void syncStudyPlan()
+  } else if (retry) {
+    clearTimeout(retry)
+    retry = undefined
+  }
+})
 
 const localDay = (timestampMs = Date.now()) => {
   const date = new Date(timestampMs)
@@ -805,8 +850,10 @@ const publish = (input: StudyPlanStorage | StudyServerState) => {
   listeners.forEach((listener) => listener(state))
 }
 
+const isPublicAuthPath = (path: string) => path.startsWith('/passkey/') || path === '/link'
+
 async function api(method: string, path = '', body?: unknown, unauthorized = 'STUDY_SESSION_BLOCKED') {
-  if (isGuestMode()) {
+  if ((isGuestMode() || authBlocked) && !isPublicAuthPath(path)) {
     throw new Error(unauthorized)
   }
   const controller = new AbortController()
@@ -820,6 +867,7 @@ async function api(method: string, path = '', body?: unknown, unauthorized = 'ST
       body: body === undefined ? undefined : JSON.stringify(body),
     })
     if (response.status === 401) {
+      authBlocked = true
       try {
         const data = (await response.clone().json()) as { code?: string }
         if (data?.code === 'LOGIN_REQUIRED' && typeof window !== 'undefined') {
@@ -844,7 +892,7 @@ async function api(method: string, path = '', body?: unknown, unauthorized = 'ST
 }
 
 async function apiText(method: string, path: string) {
-  if (isGuestMode()) {
+  if (isGuestMode() || authBlocked) {
     throw new Error('STUDY_SESSION_BLOCKED')
   }
   const controller = new AbortController()
@@ -856,6 +904,7 @@ async function apiText(method: string, path: string) {
       signal: controller.signal,
     })
     if (response.status === 401) {
+      authBlocked = true
       try {
         const data = (await response.clone().json()) as { code?: string }
         if (data?.code === 'LOGIN_REQUIRED' && typeof window !== 'undefined') {
@@ -906,7 +955,7 @@ function ensureAutoSyncListeners() {
   autoSyncInstalled = true
   const resume = () => {
     try {
-      if (pending().length > 0) void syncStudyPlan()
+      if (!isGuestMode() && !authBlocked && pending().length > 0) void syncStudyPlan()
     } catch {
       // Browser storage may be unavailable; the next explicit save will surface the error.
     }
@@ -973,11 +1022,12 @@ async function drain() {
     clearTimeout(retry)
     retry = undefined
   }
+  authBlocked = false
   emitSyncStatus('saved', '已与服务端合并并保存')
 }
 
 export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Promise<void> {
-  if (isGuestMode()) {
+  if (isGuestMode() || authBlocked) {
     if (retry) {
       clearTimeout(retry)
       retry = undefined
@@ -1002,6 +1052,13 @@ export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Pr
   running = (locks ? locks.request('qwerty-study-plan', drain) : drain())
     .catch((error: Error) => {
       const sessionBlocked = error.message === 'STUDY_SESSION_BLOCKED'
+      if (sessionBlocked) {
+        authBlocked = true
+        if (retry) {
+          clearTimeout(retry)
+          retry = undefined
+        }
+      }
       const offline = typeof navigator !== 'undefined' && navigator.onLine === false
       emitSyncStatus(
         offline ? 'offline' : 'error',
@@ -1011,11 +1068,13 @@ export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Pr
           ? '当前离线：学习记录已保存在本机，联网后会按最新时间戳自动合并。'
           : '服务端暂不可用，记录保留在本机，将自动重试。',
       )
-      if (!retry)
+      if (!sessionBlocked && !isGuestMode() && !authBlocked && !retry) {
         retry = setTimeout(() => {
           retry = undefined
           void syncStudyPlan()
         }, 10000)
+        retry?.unref?.()
+      }
     })
     .finally(() => {
       running = undefined
@@ -1023,8 +1082,21 @@ export function syncStudyPlan(initial?: StudyPlanStorage | StudyServerState): Pr
   return running
 }
 
+export function clearSyncRetryForTest(): void {
+  if (retry) {
+    clearTimeout(retry)
+    retry = undefined
+  }
+}
+
+export function resetStudyPlanSyncForTest(): void {
+  fallback = undefined
+  clearSyncRetryForTest()
+}
+
 function enqueue(operations: Operation[]) {
   if (isGuestMode() || !operations.length) return
+  authBlocked = false
   ensureAutoSyncListeners()
   ensureFallback()
   const id = crypto.randomUUID()
@@ -1229,12 +1301,18 @@ export type EchelleCheckInput = {
   itemId: string
   answers?: string[]
   response?: { selfChecks: boolean[]; wordCount?: number; seconds?: number }
+  variant?: number
   /** When the server has AI scoring enabled, a self-assessment is recorded but never counts as mastery. */
   aiRequired?: boolean
 }
 
 export function recordEchelleMastery(input: EchelleCheckInput) {
-  const result = scoreEchelleItem(input.itemId, input.answers, input.response)
+  const hasVariant = typeof input.variant === 'number' && input.variant > 0
+  const meta = {
+    ...(input.response ?? {}),
+    ...(hasVariant ? { variant: input.variant } : {}),
+  }
+  const result = scoreEchelleItem(input.itemId, input.answers, meta)
   if (!result) throw new Error('UNKNOWN_ECHELLE_ITEM')
   // The server keeps the newest attempt only, so retries within one millisecond must still move forward.
   const previous = ensureFallback().learning.echelle.items[input.itemId]
@@ -1245,6 +1323,7 @@ export function recordEchelleMastery(input: EchelleCheckInput) {
     updatedAt,
     ...(input.answers ? { answers: input.answers } : {}),
     ...(input.response ? { response: input.response } : {}),
+    ...(hasVariant ? { variant: input.variant } : {}),
   }
 
   const production = result.kind === 'production'
@@ -1258,6 +1337,7 @@ export function recordEchelleMastery(input: EchelleCheckInput) {
       updatedAt,
       method: production ? 'self' : 'check',
       response: input.answers ?? input.response,
+      ...(hasVariant ? { variant: input.variant } : {}),
     }
     return {
       ...state,
@@ -1267,6 +1347,50 @@ export function recordEchelleMastery(input: EchelleCheckInput) {
       },
     }
   })
+
+  // If scored before the level batch finished loading, load asynchronously and reconcile once ready.
+  if (hasVariant && getIndicatorScenarios(input.itemId) === null) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn(`[echelle] Scored variant ${input.variant} for ${input.itemId} before batch was registered; reconciling asynchronously`)
+    }
+    lastEchelleReconcilePromise = import('../resources/echelleBatchLoader')
+      .then((loader) => loader.ensureItemBatchLoaded(input.itemId))
+      .then((loaded) => {
+        if (loaded) {
+          const fresh = scoreEchelleItem(input.itemId, input.answers, meta)
+          if (fresh) {
+            const current = ensureFallback()
+            const existing = current.learning.echelle.items[input.itemId]
+            if (existing && existing.updatedAt === updatedAt) {
+              publish({
+                ...current,
+                learning: {
+                  ...current.learning,
+                  echelle: {
+                    items: {
+                      ...current.learning.echelle.items,
+                      [input.itemId]: {
+                        ...existing,
+                        ...nextMemory(previous, fresh.mastered && selfAssess, updatedAt),
+                        score: selfAssess ? fresh.score : 0,
+                      },
+                    },
+                  },
+                },
+              })
+            }
+          }
+        }
+      })
+      .catch((err) => {
+        if (process.env.NODE_ENV !== 'production') {
+          console.error('[echelle] Reconcile failed:', err)
+        }
+      })
+  } else {
+    lastEchelleReconcilePromise = undefined
+  }
+
   const parsed = parseEchelleItemId(input.itemId)
   if (parsed && (parsed.skill === 'writing' || parsed.skill === 'speaking')) {
     const primaryId = `n${parsed.level}-${parsed.skill}-production`
@@ -1277,6 +1401,12 @@ export function recordEchelleMastery(input: EchelleCheckInput) {
   return { ...result, mastered: result.mastered && selfAssess }
 }
 
+export let lastEchelleReconcilePromise: Promise<void> | undefined
+
+export function getLastEchelleReconcilePromise(): Promise<void> | undefined {
+  return lastEchelleReconcilePromise
+}
+
 let echelleAiStatus: Promise<EchelleAiStatus> | undefined
 
 export function loadEchelleAiStatus(): Promise<EchelleAiStatus> {
@@ -1284,7 +1414,7 @@ export function loadEchelleAiStatus(): Promise<EchelleAiStatus> {
     .then((payload) => payload as unknown as EchelleAiStatus)
     .catch(() => {
       echelleAiStatus = undefined
-      return { enabled: false, provider: null, model: null, rubricVersion: '' }
+      return { enabled: false, provider: null, model: null, rubricVersion: '', asr: false }
     })
   return echelleAiStatus
 }
@@ -1293,7 +1423,75 @@ export type EchelleEvaluationInput = {
   itemId: string
   text: string
   seconds?: number
-  inputMode?: 'typed' | 'speech' | 'manual-transcript'
+  inputMode?: 'typed' | 'speech' | 'manual-transcript' | 'asr'
+  speech?: SpeechMetrics
+}
+
+export const ASR_CONSENT_STORAGE_KEY = 'qwerty_study_asr_consent'
+
+export function hasAsrConsent(): boolean {
+  if (typeof window === 'undefined') return false
+  return window.localStorage.getItem(ASR_CONSENT_STORAGE_KEY) === 'true'
+}
+
+export function setAsrConsent(granted = true): void {
+  if (typeof window !== 'undefined') {
+    if (granted) {
+      window.localStorage.setItem(ASR_CONSENT_STORAGE_KEY, 'true')
+    } else {
+      window.localStorage.removeItem(ASR_CONSENT_STORAGE_KEY)
+    }
+  }
+}
+
+export const ASR_ERROR_MESSAGES: Record<string, string> = {
+  ASR_NOT_CONFIGURED: '语音识别服务未配置，请使用手动输入。',
+  ASR_UPSTREAM_FAILED: '语音识别转写服务暂时不可用，请稍后重试。',
+  ASR_RATE_LIMITED: '语音转写次数过于频繁，请稍后再试。',
+  UNSUPPORTED_MEDIA_TYPE: '不支持的录音格式，请尝试其他浏览器。',
+  AUDIO_TOO_LARGE: '录音文件过大（超过 6 MB），请缩短录音时长。',
+  REQUEST_TOO_LARGE: '录音文件过大（超过 6 MB），请缩短录音时长。',
+  AUDIO_EMPTY: '录音数据为空，请重新录制。',
+  PLAN_UNINITIALIZED: '学习计划尚未初始化，请刷新后重试。',
+  LOGIN_REQUIRED: '需要登录后才能使用语音转写功能。',
+  SESSION_REQUIRED: '会话已过期，请刷新页面后重试。',
+}
+
+export async function transcribeSpeech(blob: Blob): Promise<SpeechTranscriptionResult> {
+  if (isGuestMode()) {
+    throw new Error('STUDY_SESSION_BLOCKED')
+  }
+  trackAnalyticsEvent('speech_transcribe')
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), 45000)
+  try {
+    const response = await fetch(`${API_BASE}/api/study-plan/speech/transcribe`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': blob.type || 'audio/webm',
+      },
+      body: blob,
+      signal: controller.signal,
+    })
+    if (!response.ok) {
+      const data = (await response.json().catch(() => ({}))) as { error?: string; code?: string }
+      const code = data.code || `HTTP_${response.status}`
+      const msg = ASR_ERROR_MESSAGES[code] || data.error || '语音转写失败，请稍后重试。'
+      const err = new Error(msg)
+      ;(err as Error & { code?: string; status?: number }).code = code
+      ;(err as Error & { code?: string; status?: number }).status = response.status
+      throw err
+    }
+    return (await response.json()) as SpeechTranscriptionResult
+  } catch (err) {
+    if ((err as Error).name === 'AbortError') {
+      throw new Error('语音转写请求超时，请检查网络后重试。')
+    }
+    throw err
+  } finally {
+    clearTimeout(timeout)
+  }
 }
 
 /** Scores a writing/speaking answer on the server; the server writes the result into the learner's state. */
@@ -1711,6 +1909,7 @@ export async function getLearningProgress(): Promise<LearningProgress> {
 }
 
 export async function flushStudyProgress(): Promise<StudySyncStatus> {
+  authBlocked = false
   await syncStudyPlan()
   return getStudySyncSnapshot()
 }
@@ -1719,7 +1918,9 @@ export function subscribeStudyPlan(listener: (state: StudyPlanStorage) => void, 
   const wrapped = (state: StudyServerState) => listener(state)
   listeners.add(wrapped)
   statuses.add(status)
-  const refresh = () => void syncStudyPlan()
+  const refresh = () => {
+    if (!isGuestMode() && !authBlocked) void syncStudyPlan()
+  }
   window.addEventListener('online', refresh)
   window.addEventListener('focus', refresh)
   return () => {
@@ -1737,6 +1938,7 @@ export function subscribeLearningProgress(listener: (learning: LearningProgress)
 }
 
 export async function exportRemoteStudyPlan(initial: StudyPlanStorage) {
+  authBlocked = false
   await syncStudyPlan(initial)
   if (pending().length) throw new Error('请等待待保存记录同步后再导出。')
   const payload = await api('GET', '/export')
@@ -1832,6 +2034,8 @@ export async function finishPasskeyRegistration(credential: unknown): Promise<Pa
   const payload = await api('POST', '/passkey/register/verify', { credential })
   const account = normalizePasskeyAccount(payload.account)
   if (!account.registered) throw new Error('PASSKEY_REGISTRATION_FAILED')
+  authBlocked = false
+  setGuestMode(false)
   localStorage.removeItem(SYNC_KEY)
   return account
 }
@@ -1858,6 +2062,8 @@ export async function finishPasskeyLogin(credential: unknown): Promise<{
   const state = payload.state as StudyPlanStorage | StudyServerState | undefined
   if (!state) throw new Error('PASSKEY_LOGIN_FAILED')
   const normalized = withLearning(state)
+  authBlocked = false
+  setGuestMode(false)
   localStorage.removeItem(SYNC_KEY)
   localStorage.removeItem(SEED)
   publish(normalized)
@@ -1919,6 +2125,8 @@ export async function linkStudyDevice(key: string): Promise<StudyServerState> {
   const payload = await api('POST', '/link', { key: normalized }, 'INVALID_SYNC_KEY')
   const state = payload.state as StudyServerState | undefined
   if (!state) throw new Error('INVALID_SYNC_KEY_RESPONSE')
+  authBlocked = false
+  setGuestMode(false)
   localStorage.removeItem(SEED)
   localStorage.setItem(SYNC_KEY, normalized)
   publish(withLearning(state))
@@ -2212,3 +2420,14 @@ export async function deleteAllStudyData() {
   emitSyncStatus('idle', '学习数据已删除')
   return true
 }
+
+export function isStudySyncBlocked(): boolean {
+  return authBlocked
+}
+
+export function resumeStudyPlanSync(): Promise<void> {
+  authBlocked = false
+  return syncStudyPlan()
+}
+
+export { reportEchelleItem, type ReportCategory, type ReportItemInput, type ReportItemResponse } from './reports'

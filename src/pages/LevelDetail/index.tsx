@@ -1,4 +1,9 @@
 import EchelleAiEvaluation from '@/components/EchelleAiEvaluation'
+import Footer from '@/components/Footer'
+import RealReadingSection from './RealReadingSection'
+import SpeechMetricsCard from '@/components/SpeechMetricsCard'
+import { trackAnalyticsEvent } from '@/utils/analytics'
+import useAudioRecorder from '@/hooks/useAudioRecorder'
 import useFrenchSpeechRecognition from '@/hooks/useFrenchSpeechRecognition'
 import useSpeech from '@/hooks/useSpeech'
 import {
@@ -7,20 +12,26 @@ import {
   type EchelleItemSkill,
   type EchelleProductionItem,
   type EchelleQuizItem,
+  countEchelleItemVariants,
+  getEchelleItemVariant,
   getEchelleLevelItems,
   getEchelleProductionTaskPool,
   scoreEchelleItem,
 } from '@/resources/echelleCurriculum'
+import { ensureItemBatchLoaded, isItemBatchLoaded } from '@/resources/echelleBatchLoader'
 import { estimateRetention } from '@/resources/echelleMemory'
 import { DISCOURSE_TYPE_META, getEchelleStage } from '@/resources/echelleQuebecoise'
 import { countDue, memoryLabel } from '@/resources/echelleReview'
-import type { EchelleAiStatus, EchelleEvaluation, EchelleItemRecord, LearningProgress } from '@/services/studyPlanSync'
+import type { EchelleAiStatus, EchelleEvaluation, EchelleItemRecord, LearningProgress, SpeechMetrics } from '@/services/studyPlanSync'
 import {
   evaluateEchelleProduction,
   getLearningProgress,
+  hasAsrConsent,
   loadEchelleAiStatus,
   recordEchelleMastery,
+  setAsrConsent,
   subscribeLearningProgress,
+  transcribeSpeech,
 } from '@/services/studyPlanSync'
 import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
@@ -29,13 +40,17 @@ import IconCheck from '~icons/tabler/check'
 import IconChevronLeft from '~icons/tabler/chevron-left'
 import IconChevronRight from '~icons/tabler/chevron-right'
 import IconClock from '~icons/tabler/clock'
+import IconFlag from '~icons/tabler/flag'
 import IconHeadphones from '~icons/tabler/headphones'
 import IconMicrophone from '~icons/tabler/microphone'
 import IconPencil from '~icons/tabler/pencil'
 import IconPlayerPlay from '~icons/tabler/player-play'
+import IconPlayerStop from '~icons/tabler/player-stop'
 import IconRefresh from '~icons/tabler/refresh'
 import IconSparkles from '~icons/tabler/sparkles'
 import IconVolume from '~icons/tabler/volume'
+import { isGuestMode, onGuestModeChange } from '@/services/guestMode'
+import { type ReportCategory, isItemVariantReportedInSession, reportEchelleItem } from '@/services/reports'
 
 const skillLabels: Record<EchelleItemSkill, string> = {
   listening: '听力',
@@ -136,12 +151,13 @@ export default function LevelDetailPage() {
   if (!validLevel) {
     return (
       <>
-        <div className="container mx-auto max-w-4xl px-4 py-10">
+        <div className="ui-shell-container py-10">
           <Link to="/levels" className="ui-btn-secondary">
             返回等级课程
           </Link>
           <p className="mt-6 text-gray-600">无效的等级参数。</p>
         </div>
+        <Footer />
       </>
     )
   }
@@ -162,7 +178,7 @@ export default function LevelDetailPage() {
 
   return (
     <>
-      <div className="container mx-auto max-w-5xl px-4 pb-6 sm:px-6">
+      <div className="ui-shell-container pt-5 pb-8 sm:pt-6 sm:pb-10">
         <div className="mb-6 flex flex-wrap items-center gap-3">
           <Link to="/levels" className="ui-btn-secondary flex items-center gap-1">
             <IconChevronLeft className="h-4 w-4" />
@@ -248,34 +264,38 @@ export default function LevelDetailPage() {
 
         <div className="space-y-8">
           {Array.from(grouped.entries()).map(([skill, list]) => (
-            <section key={skill} data-testid={`level-skill-${skill}`}>
-              <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-white">
-                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300">
-                  {skillIcons[skill]}
-                </span>
-                {skillLabels[skill]}
-                <span className="ml-2 text-sm font-normal text-gray-500">
-                  {list.filter((item) => itemStates[item.id]?.mastered).length} / {list.length}
-                </span>
-              </h2>
-              <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2">
-                {list.map((item) => (
-                  <ItemCard
-                    key={item.id}
-                    item={item}
-                    now={now}
-                    aiStatus={aiStatus}
-                    state={itemStates[item.id]}
-                    itemStates={itemStates}
-                    isOpen={activeItemId === item.id}
-                    onToggle={() => setActiveItemId(activeItemId === item.id ? null : item.id)}
-                  />
-                ))}
-              </div>
-            </section>
+            <div key={skill} className="space-y-8">
+              <section data-testid={`level-skill-${skill}`}>
+                <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-white">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300">
+                    {skillIcons[skill]}
+                  </span>
+                  {skillLabels[skill]}
+                  <span className="ml-2 text-sm font-normal text-gray-500">
+                    {list.filter((item) => itemStates[item.id]?.mastered).length} / {list.length}
+                  </span>
+                </h2>
+                <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2">
+                  {list.map((item) => (
+                    <ItemCard
+                      key={item.id}
+                      item={item}
+                      now={now}
+                      aiStatus={aiStatus}
+                      state={itemStates[item.id]}
+                      itemStates={itemStates}
+                      isOpen={activeItemId === item.id}
+                      onToggle={() => setActiveItemId(activeItemId === item.id ? null : item.id)}
+                    />
+                  ))}
+                </div>
+              </section>
+              {skill === 'reading' && <RealReadingSection level={level} />}
+            </div>
           ))}
         </div>
       </div>
+      <Footer />
     </>
   )
 }
@@ -354,26 +374,282 @@ function ItemCard({
   )
 }
 
+/**
+ * Picks a non-zero variant for a quiz item.
+ * E2E tests drive the quiz through the catalog; to keep them deterministic, when
+ * localStorage['echelle:fixedVariant'] is set to an integer the UI uses that variant
+ * instead of a random one ('0' = legacy content).
+ */
+function pickQuizVariant(itemId: string, avoidVariant?: number): number {
+  if (typeof window !== 'undefined') {
+    try {
+      const fixed = window.localStorage.getItem('echelle:fixedVariant')
+      if (fixed !== null && /^-?\d+$/.test(fixed)) {
+        const parsed = parseInt(fixed, 10)
+        if (Number.isInteger(parsed) && parsed >= 0) return parsed
+      }
+    } catch {
+      // localStorage may fail in restricted/sandboxed environments
+    }
+  }
+  let next = Math.floor(Math.random() * 0x7ffffffe) + 1
+  if (avoidVariant !== undefined && next === avoidVariant) {
+    next = (next % 0x7ffffffe) + 1
+  }
+  return next
+}
+
+const REPORT_CATEGORIES: { value: ReportCategory; label: string }[] = [
+  { value: 'wrong-answer', label: '答案有误' },
+  { value: 'language-error', label: '法语有误' },
+  { value: 'unclear', label: '题意不清' },
+  { value: 'audio', label: '音频问题' },
+  { value: 'other', label: '其他' },
+]
+
+function ItemReportSection({ itemId, variant }: { itemId: string; variant: number }) {
+  const [isGuest, setIsGuest] = useState(() => isGuestMode())
+  const [isOpen, setIsOpen] = useState(false)
+  const [category, setCategory] = useState<ReportCategory>('wrong-answer')
+  const [note, setNote] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [reported, setReported] = useState(() => isItemVariantReportedInSession(itemId, variant))
+
+  useEffect(() => {
+    return onGuestModeChange(setIsGuest)
+  }, [])
+
+  useEffect(() => {
+    setReported(isItemVariantReportedInSession(itemId, variant))
+    setIsOpen(false)
+    setError(null)
+    setNote('')
+  }, [itemId, variant])
+
+  if (isGuest) return null
+
+  if (reported) {
+    return (
+      <span
+        data-testid="report-submitted-confirmation"
+        className="inline-flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500"
+      >
+        <IconCheck className="h-3.5 w-3.5 text-emerald-500" /> 已收到，谢谢
+      </span>
+    )
+  }
+
+  const handleSubmit = async () => {
+    setSubmitting(true)
+    setError(null)
+    try {
+      await reportEchelleItem({ itemId, variant, category, note })
+      setReported(true)
+      setIsOpen(false)
+      setNote('')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : '提交失败，请重试')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  return (
+    <>
+      {!isOpen ? (
+        <button
+          type="button"
+          onClick={() => setIsOpen(true)}
+          className="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
+          title="报告题目问题"
+          data-testid="report-issue-btn"
+        >
+          <IconFlag className="h-3.5 w-3.5" /> 报告问题
+        </button>
+      ) : (
+        <div
+          data-testid="report-issue-form"
+          className="w-full basis-full mt-2 p-3 bg-gray-50 dark:bg-white/[0.04] rounded-xl border border-gray-200 dark:border-white/10 text-sm space-y-3"
+        >
+          <div className="flex items-center justify-between text-xs font-medium text-gray-700 dark:text-gray-300">
+            <span>报告题目问题</span>
+            <button
+              type="button"
+              onClick={() => setIsOpen(false)}
+              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+              title="关闭"
+            >
+              ×
+            </button>
+          </div>
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
+            {REPORT_CATEGORIES.map((opt) => (
+              <label
+                key={opt.value}
+                className="inline-flex items-center gap-1.5 text-xs text-gray-700 dark:text-gray-300 cursor-pointer"
+              >
+                <input
+                  type="radio"
+                  name={`report-cat-${itemId}-${variant}`}
+                  value={opt.value}
+                  checked={category === opt.value}
+                  onChange={() => setCategory(opt.value)}
+                  className="text-indigo-600 focus:ring-indigo-500"
+                />
+                {opt.label}
+              </label>
+            ))}
+          </div>
+          <div>
+            <textarea
+              value={note}
+              onChange={(e) => setNote(e.target.value.slice(0, 500))}
+              placeholder="详细说明（可选，500字以内）"
+              maxLength={500}
+              rows={2}
+              className="w-full text-xs rounded-lg border border-gray-300 dark:border-white/10 bg-white dark:bg-white/[0.06] p-2 text-gray-900 dark:text-white focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+              data-testid="report-note-input"
+            />
+            <div className="text-right text-[10px] text-gray-400">{note.length}/500</div>
+          </div>
+          {error && (
+            <div className="text-xs text-rose-500" data-testid="report-error-msg">
+              {error}
+            </div>
+          )}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleSubmit}
+              disabled={submitting}
+              className="ui-btn-primary text-xs py-1 px-3 disabled:opacity-50"
+              data-testid="report-submit-btn"
+            >
+              {submitting ? '提交中…' : '提交'}
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsOpen(false)}
+              disabled={submitting}
+              className="ui-btn-secondary text-xs py-1 px-3"
+              data-testid="report-cancel-btn"
+            >
+              取消
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
+
 function QuizPanel({ item }: { item: EchelleQuizItem }) {
-  const [answers, setAnswers] = useState<(string | null)[]>(() => item.questions.map(() => null))
+  const [variant, setVariant] = useState<number>(() => pickQuizVariant(item.id))
+  const [loading, setLoading] = useState<boolean>(() => {
+    return item.kind === 'indicator' && !isItemBatchLoaded(item.id)
+  })
+
+  useEffect(() => {
+    let cancelled = false
+    if (item.kind === 'indicator' && !isItemBatchLoaded(item.id)) {
+      setLoading(true)
+      ensureItemBatchLoaded(item.id).then((ok) => {
+        if (cancelled) return
+        if (!ok) {
+          setVariant(0)
+        }
+        setLoading(false)
+      })
+    } else {
+      setLoading(false)
+    }
+    return () => {
+      cancelled = true
+    }
+  }, [item.id, item.kind])
+
+  const activeItem = useMemo(() => {
+    if (loading) return item
+    return (getEchelleItemVariant(item.id, variant) as EchelleQuizItem) ?? item
+  }, [item, variant, loading])
+
+  const [answers, setAnswers] = useState<(string | null)[]>(() => activeItem.questions.map(() => null))
   const [submitted, setSubmitted] = useState(false)
   const [showTranscript, setShowTranscript] = useState(false)
-  const isListening = item.skill === 'listening'
-  const { speak, cancel, speaking } = useSpeech(item.audioText ?? item.text ?? '', FRENCH_SPEECH)
+  const isListening = activeItem.skill === 'listening'
+  const { speak, cancel, speaking } = useSpeech(activeItem.audioText ?? activeItem.text ?? '', FRENCH_SPEECH)
+
+  useEffect(() => {
+    cancel()
+  }, [variant, cancel])
+
+  useEffect(() => {
+    setAnswers(activeItem.questions.map(() => null))
+  }, [activeItem])
 
   const complete = answers.every((answer): answer is string => answer !== null)
-  const result = submitted && complete ? scoreEchelleItem(item.id, answers) : null
+  const result =
+    submitted && complete && !(variant > 0 && item.kind === 'indicator' && !isItemBatchLoaded(item.id))
+      ? scoreEchelleItem(activeItem.id, answers, { variant })
+      : null
 
   const handleSubmit = () => {
     if (!complete) return
-    recordEchelleMastery({ itemId: item.id, answers })
+    if (variant > 0 && item.kind === 'indicator' && !isItemBatchLoaded(item.id)) {
+      console.error(`[QuizPanel] Cannot submit variant ${variant} for ${item.id} before batch is loaded`)
+      return
+    }
+    const score = scoreEchelleItem(activeItem.id, answers, { variant })
+    recordEchelleMastery({ itemId: activeItem.id, answers, variant })
     setSubmitted(true)
+    trackAnalyticsEvent('level_quiz_submit', {
+      level: item.level,
+      skill: item.skill,
+      passed: Boolean(score?.mastered),
+    })
+  }
+
+  const reroll = async () => {
+    cancel()
+    const nextVariant = pickQuizVariant(item.id, variant)
+    if (nextVariant > 0 && item.kind === 'indicator' && !isItemBatchLoaded(item.id)) {
+      setLoading(true)
+      const ok = await ensureItemBatchLoaded(item.id)
+      const actualVariant = ok ? nextVariant : 0
+      setVariant(actualVariant)
+      const nextItem = (getEchelleItemVariant(item.id, actualVariant) as EchelleQuizItem) ?? item
+      setAnswers(nextItem.questions.map(() => null))
+      setSubmitted(false)
+      setShowTranscript(false)
+      setLoading(false)
+    } else {
+      setVariant(nextVariant)
+      const nextItem = (getEchelleItemVariant(item.id, nextVariant) as EchelleQuizItem) ?? item
+      setAnswers(nextItem.questions.map(() => null))
+      setSubmitted(false)
+      setShowTranscript(false)
+    }
+  }
+
+  const handleRerollClick = () => {
+    trackAnalyticsEvent('level_quiz_reroll')
+    void reroll()
   }
 
   const handleRetry = () => {
-    setAnswers(item.questions.map(() => null))
-    setSubmitted(false)
-    setShowTranscript(false)
+    reroll()
+  }
+
+  const hasVariants = countEchelleItemVariants(item.id) > 1
+
+  if (loading) {
+    return (
+      <div className="border-t border-gray-100 p-8 text-center text-sm text-gray-500 dark:border-white/[0.06] dark:text-gray-400">
+        <div className="inline-block h-6 w-6 animate-spin rounded-full border-2 border-indigo-500 border-t-transparent" />
+        <p className="mt-2 text-xs">正在载入题目…</p>
+      </div>
+    )
   }
 
   return (
@@ -384,8 +660,12 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
             <button
               type="button"
               onClick={() => {
-                if (speaking) cancel()
-                else speak(true)
+                if (speaking) {
+                  cancel()
+                } else {
+                  trackAnalyticsEvent('listening_play')
+                  speak(true)
+                }
               }}
               className="inline-flex items-center gap-1 rounded-lg bg-white px-3 py-1.5 text-xs font-medium text-indigo-600 shadow-sm ring-1 ring-gray-200 hover:bg-gray-50 dark:bg-white/[0.06] dark:text-indigo-300 dark:ring-white/10 dark:hover:bg-white/[0.1]"
               title={speaking ? '点击停止播放' : '点击播放录音'}
@@ -403,21 +683,21 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
           </div>
           {(showTranscript || submitted) && (
             <p className="mt-3 leading-relaxed text-gray-800 dark:text-gray-200" data-testid="listening-transcript">
-              {item.text}
+              {activeItem.text}
             </p>
           )}
         </div>
       ) : (
-        item.text && (
+        activeItem.text && (
           <div className="mb-4 rounded-xl bg-gray-50 p-3 text-sm leading-relaxed text-gray-800 dark:bg-white/[0.04] dark:text-gray-200">
-            {item.text}
+            {activeItem.text}
           </div>
         )
       )}
-      {item.explanationZh && <div className="mb-3 text-sm text-gray-600 dark:text-gray-400">{item.explanationZh}</div>}
-      {item.examples && item.examples.length > 0 && (
+      {activeItem.explanationZh && <div className="mb-3 text-sm text-gray-600 dark:text-gray-400">{activeItem.explanationZh}</div>}
+      {activeItem.examples && activeItem.examples.length > 0 && (
         <div className="mb-4 space-y-1">
-          {item.examples.map(([fr, zh], index) => (
+          {activeItem.examples.map(([fr, zh], index) => (
             <div key={index} className="text-sm">
               <span className="text-gray-800 dark:text-gray-200">{fr}</span>
               <span className="ml-2 text-gray-500">{zh}</span>
@@ -425,9 +705,9 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
           ))}
         </div>
       )}
-      {item.words && (
+      {activeItem.words && (
         <div className="mb-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
-          {item.words.map(([fr, zh]) => (
+          {activeItem.words.map(([fr, zh]) => (
             <div key={fr} className="rounded-lg bg-gray-50 p-2 text-sm dark:bg-white/[0.04]">
               <div className="font-medium text-gray-900 dark:text-white">{fr}</div>
               <div className="text-gray-500">{zh}</div>
@@ -437,7 +717,7 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
       )}
 
       <div className="space-y-4">
-        {item.questions.map((question, index) => (
+        {activeItem.questions.map((question, index) => (
           <fieldset key={index}>
             <legend className="mb-2 text-sm font-medium text-gray-900 dark:text-white">
               {index + 1}. {question.prompt}
@@ -474,14 +754,27 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
 
       <div className="mt-5 flex flex-wrap items-center gap-3">
         {!submitted ? (
-          <button
-            type="button"
-            onClick={handleSubmit}
-            disabled={!complete}
-            className="ui-btn-primary disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            提交答案
-          </button>
+          <>
+            <button
+              type="button"
+              onClick={handleSubmit}
+              disabled={!complete}
+              className="ui-btn-primary disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              提交答案
+            </button>
+            {hasVariants && (
+              <button
+                type="button"
+                onClick={handleRerollClick}
+                className="ui-btn-secondary flex items-center gap-1 text-xs"
+                title="更换题目变体"
+              >
+                <IconRefresh className="h-3.5 w-3.5" /> 换一题
+              </button>
+            )}
+            <ItemReportSection itemId={activeItem.id} variant={variant} />
+          </>
         ) : (
           <>
             {result?.mastered ? (
@@ -490,13 +783,24 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
               </span>
             ) : (
               <span data-testid="level-item-failed" className="text-rose-600 dark:text-rose-400">
-                答对 {result?.correctCount ?? 0}/{result?.totalQuestions ?? item.questions.length}，
-                {item.threshold >= 1 ? '需要全部答对' : `需要至少 ${Math.round(item.threshold * 100)}%`}，请重试
+                答对 {result?.correctCount ?? 0}/{result?.totalQuestions ?? activeItem.questions.length}，
+                {activeItem.threshold >= 1 ? '需要全部答对' : `需要至少 ${Math.round(activeItem.threshold * 100)}%`}，请重试
               </span>
             )}
             <button type="button" onClick={handleRetry} className="ui-btn-secondary flex items-center gap-1">
               <IconRefresh className="h-4 w-4" /> 重做
             </button>
+            {hasVariants && (
+              <button
+                type="button"
+                onClick={handleRerollClick}
+                className="ui-btn-secondary flex items-center gap-1 text-xs"
+                title="更换题目变体"
+              >
+                <IconRefresh className="h-3.5 w-3.5" /> 换一题
+              </button>
+            )}
+            <ItemReportSection itemId={activeItem.id} variant={variant} />
           </>
         )}
       </div>
@@ -547,6 +851,19 @@ function ProductionPanel({
   const [evaluating, setEvaluating] = useState(false)
   const [evaluation, setEvaluation] = useState<EchelleEvaluation | null>(null)
   const [aiError, setAiError] = useState<string | null>(null)
+
+  // ASR states
+  const [originalTranscript, setOriginalTranscript] = useState<string | null>(null)
+  const [speechMetrics, setSpeechMetrics] = useState<SpeechMetrics | null>(null)
+  const [isTranscribing, setIsTranscribing] = useState(false)
+  const [asrError, setAsrError] = useState<string | null>(null)
+  const [asrConsent, setAsrConsentState] = useState(() => hasAsrConsent())
+  const [fallbackToWebSpeech, setFallbackToWebSpeech] = useState(false)
+
+  const recorder = useAudioRecorder({ maxDurationSeconds: 180 })
+  const asrConfigured = Boolean(aiStatus?.asr)
+  const useAsrFlow = !isWriting && asrConfigured && !fallbackToWebSpeech
+
   const timerRef = useRef<number | null>(null)
 
   const speech = useFrenchSpeechRecognition((phrase) => {
@@ -574,8 +891,13 @@ function ProductionPanel({
     setSaved(false)
     setEvaluation(null)
     setAiError(null)
+    setAsrError(null)
+    setOriginalTranscript(null)
+    setSpeechMetrics(null)
+    setIsTranscribing(false)
     stopTimer()
     speech.stop()
+    recorder.reset()
   }
 
   const toggleRecording = () => {
@@ -591,17 +913,32 @@ function ProductionPanel({
     }
   }
 
+  const isTranscriptEdited = Boolean(
+    speechMetrics && originalTranscript !== null && text.trim() !== originalTranscript.trim(),
+  )
+
   const wc = wordCount(text)
   const targetWords = activeTask.wordMin ?? item.wordMin ?? 0
   const targetSeconds = activeTask.secondsMin ?? item.secondsMin ?? 0
-  const meetsLength = isWriting ? wc >= targetWords : seconds >= targetSeconds
-  const canSelfMaster = meetsLength && selfChecks.every(Boolean) && !isRecording
-  const canEvaluate = meetsLength && (isWriting || wc >= 3) && !isRecording && !evaluating
+  const effectiveAudioSeconds = Math.max(seconds, recorder.elapsedSeconds, Math.round(speechMetrics?.speechSeconds ?? 0))
+  const meetsLength = isWriting
+    ? wc >= targetWords
+    : useAsrFlow
+    ? effectiveAudioSeconds >= targetSeconds || (speechMetrics ? speechMetrics.wordCount >= 3 : false)
+    : seconds >= targetSeconds
+  const canSelfMaster = meetsLength && selfChecks.every(Boolean) && !isRecording && !recorder.isRecording
+  const canEvaluate =
+    meetsLength &&
+    (isWriting || wc >= 3 || text.trim().length > 0) &&
+    !isRecording &&
+    !recorder.isRecording &&
+    !evaluating &&
+    !isTranscribing
 
   const handleSelfMaster = () => {
     recordEchelleMastery({
       itemId: activeTask.id,
-      response: isWriting ? { selfChecks, wordCount: wc } : { selfChecks, seconds },
+      response: isWriting ? { selfChecks, wordCount: wc } : { selfChecks, seconds: effectiveAudioSeconds },
     })
     setSaved(true)
   }
@@ -610,17 +947,91 @@ function ProductionPanel({
     setEvaluating(true)
     setAiError(null)
     try {
+      let inputMode: 'typed' | 'speech' | 'manual-transcript' | 'asr' = 'typed'
+      let metricsToSend: SpeechMetrics | undefined = undefined
+
+      if (!isWriting) {
+        if (speechMetrics && !isTranscriptEdited) {
+          inputMode = 'asr'
+          metricsToSend = speechMetrics
+        } else if (usedSpeech) {
+          inputMode = 'speech'
+        } else {
+          inputMode = 'manual-transcript'
+        }
+      }
+
       setEvaluation(
         await evaluateEchelleProduction({
           itemId: activeTask.id,
           text,
-          ...(isWriting ? {} : { seconds, inputMode: usedSpeech ? 'speech' : 'manual-transcript' }),
+          ...(isWriting ? {} : { seconds: Math.max(effectiveAudioSeconds, 1), inputMode, speech: metricsToSend }),
         }),
       )
     } catch (error) {
-      setAiError(AI_ERRORS[(error as Error).message] ?? 'AI 评分暂时不可用，请稍后重试。')
+      setAiError(AI_ERRORS[(error as Error).message] ?? (error as Error).message ?? 'AI 评分暂时不可用，请稍后重试。')
     } finally {
       setEvaluating(false)
+    }
+  }
+
+  const handleTranscribeAndEvaluate = async () => {
+    if (!recorder.blob) return
+    if (!asrConsent) {
+      setAsrError('请先同意语音识别服务隐私声明。')
+      return
+    }
+    setIsTranscribing(true)
+    setAiError(null)
+    setAsrError(null)
+    try {
+      const res = await transcribeSpeech(recorder.blob)
+      setOriginalTranscript(res.transcript)
+      setSpeechMetrics(res.metrics)
+      setText(res.transcript)
+      setIsTranscribing(false)
+
+      setEvaluating(true)
+      const duration = Math.max(recorder.elapsedSeconds, Math.round(res.durationSeconds), 1)
+      const evalResult = await evaluateEchelleProduction({
+        itemId: activeTask.id,
+        text: res.transcript,
+        seconds: duration,
+        inputMode: 'asr',
+        speech: res.metrics,
+      })
+      setEvaluation(evalResult)
+    } catch (error) {
+      const msg = (error as Error).message
+      setAsrError(msg)
+      setAiError(AI_ERRORS[msg] ?? msg ?? '转写或评分失败，请稍后重试。')
+      setFallbackToWebSpeech(true)
+    } finally {
+      setIsTranscribing(false)
+      setEvaluating(false)
+    }
+  }
+
+  const handleTranscribeOnly = async () => {
+    if (!recorder.blob) return
+    if (!asrConsent) {
+      setAsrError('请先同意语音识别服务隐私声明。')
+      return
+    }
+    setIsTranscribing(true)
+    setAiError(null)
+    setAsrError(null)
+    try {
+      const res = await transcribeSpeech(recorder.blob)
+      setOriginalTranscript(res.transcript)
+      setSpeechMetrics(res.metrics)
+      setText(res.transcript)
+    } catch (error) {
+      const msg = (error as Error).message
+      setAsrError(msg)
+      setFallbackToWebSpeech(true)
+    } finally {
+      setIsTranscribing(false)
     }
   }
 
@@ -716,6 +1127,136 @@ function ProductionPanel({
             当前 {wc} 词 / 目标 {targetWords} 词
           </div>
         </>
+      ) : useAsrFlow ? (
+        <div className="space-y-4">
+          <div className="rounded-xl bg-gray-50 p-4 dark:bg-white/[0.04]">
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-2">
+                {recorder.isRecording && <span className="h-3 w-3 animate-ping rounded-full bg-rose-500" />}
+                <div className="text-3xl font-bold text-gray-900 dark:text-white" data-testid="speaking-seconds">
+                  {recorder.elapsedSeconds}s
+                </div>
+                <span className="text-xs text-gray-400">/ 180s</span>
+              </div>
+              <div className="mt-1 text-xs text-gray-500">
+                大声说出你的回答；目标：至少 {targetSeconds} 秒（最长 3 分钟自动停止）
+              </div>
+
+              <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
+                {recorder.isRecording ? (
+                  <button
+                    type="button"
+                    data-testid="speaking-recorder-stop"
+                    onClick={() => recorder.stop()}
+                    className="inline-flex items-center gap-1 rounded-full bg-rose-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-rose-700"
+                  >
+                    <IconPlayerStop className="h-4 w-4" /> 停止录音
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    data-testid="speaking-recorder-start"
+                    disabled={recorder.requesting}
+                    onClick={() => void recorder.start()}
+                    className="inline-flex items-center gap-1 rounded-full bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    <IconMicrophone className="h-4 w-4" />
+                    {recorder.audioUrl ? '重新录制' : '开始录音'}
+                  </button>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => setFallbackToWebSpeech(true)}
+                  className="text-xs text-gray-500 underline hover:text-gray-700 dark:hover:text-gray-300"
+                >
+                  切换为浏览器识别 / 手动输入
+                </button>
+              </div>
+
+              {recorder.requesting && (
+                <p data-testid="speaking-recorder-requesting" className="mt-2 text-xs text-indigo-600 dark:text-indigo-300">
+                  正在请求麦克风权限…
+                </p>
+              )}
+              {recorder.permissionHint && (
+                <p className="mt-2 text-xs text-amber-600 dark:text-amber-300">{recorder.permissionHint}</p>
+              )}
+              {recorder.error && <p className="mt-2 text-xs text-rose-600">{recorder.error}</p>}
+            </div>
+
+            {recorder.audioUrl && (
+              <div className="mt-4 rounded-xl border border-gray-200/80 bg-white p-3.5 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
+                <div className="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-300">录音回放：</div>
+                <audio data-testid="speaking-audio-player" controls src={recorder.audioUrl} className="h-9 w-full" />
+
+                <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50/70 p-2.5 text-xs text-amber-900 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-amber-200">
+                  <label className="flex cursor-pointer items-start gap-2">
+                    <input
+                      type="checkbox"
+                      data-testid="asr-consent-checkbox"
+                      checked={asrConsent}
+                      onChange={(e) => {
+                        setAsrConsent(e.target.checked)
+                        setAsrConsentState(e.target.checked)
+                      }}
+                      className="mt-0.5 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    />
+                    <span>
+                      隐私说明：录音将发送至服务器及语音识别服务商（Deepgram）转写，不作云端存储。勾选即表示同意。
+                    </span>
+                  </label>
+                </div>
+
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    data-testid="speech-transcribe-eval-btn"
+                    disabled={!asrConsent || isTranscribing || evaluating || recorder.isRecording}
+                    onClick={() => void handleTranscribeAndEvaluate()}
+                    className={`${(speechMetrics || originalTranscript) ? 'ui-btn-secondary' : 'ui-btn-primary'} flex items-center gap-1 text-xs disabled:cursor-not-allowed disabled:opacity-50`}
+                  >
+                    <IconSparkles className="h-3.5 w-3.5" />
+                    {isTranscribing ? '正在转写音频…' : evaluating ? 'AI 正在评分…' : '转写并评分'}
+                  </button>
+
+                  <button
+                    type="button"
+                    data-testid="speech-transcribe-only-btn"
+                    disabled={!asrConsent || isTranscribing || evaluating || recorder.isRecording}
+                    onClick={() => void handleTranscribeOnly()}
+                    className="ui-btn-secondary flex items-center gap-1 text-xs disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    仅转写录音
+                  </button>
+                </div>
+                {asrError && (
+                  <p className="mt-2 text-xs text-rose-600" data-testid="asr-error">
+                    {asrError}
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+
+          {speechMetrics && (
+            <SpeechMetricsCard metrics={speechMetrics} transcript={originalTranscript ?? undefined} />
+          )}
+
+          {(speechMetrics || text) && (
+            <div>
+              <div className="mb-1 flex items-center justify-between text-xs text-gray-500">
+                <span>转写内容（可手动修改，但修改后将作为「手动转写」模式评估，不含声学指标）：</span>
+                {isTranscriptEdited && (
+                  <span className="font-medium text-amber-600 dark:text-amber-400">
+                    ⚠️ 文本已修改（切换为手动转写模式）
+                  </span>
+                )}
+              </div>
+              {textArea}
+            </div>
+          )}
+        </div>
       ) : (
         <>
           <div className="rounded-xl bg-gray-50 p-4 text-center dark:bg-white/[0.04]">
@@ -741,6 +1282,15 @@ function ProductionPanel({
               )}
             </button>
             {speech.listening && speech.interim && <p className="mt-2 text-sm italic text-gray-500">{speech.interim}…</p>}
+            {asrConfigured && (
+              <button
+                type="button"
+                onClick={() => setFallbackToWebSpeech(false)}
+                className="mt-2 block mx-auto text-xs text-indigo-600 underline dark:text-indigo-400"
+              >
+                切换为 Deepgram 高清录音转写
+              </button>
+            )}
           </div>
           {aiEnabled && (
             <div className="mt-3">
@@ -776,14 +1326,16 @@ function ProductionPanel({
 
       <div className="mt-5 flex flex-wrap items-center gap-3">
         {aiEnabled ? (
-          <button
-            type="button"
-            onClick={() => void handleEvaluate()}
-            disabled={!canEvaluate}
-            className="ui-btn-primary flex items-center gap-1 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            <IconSparkles className="h-4 w-4" /> {evaluating ? 'AI 正在按量表评分…' : 'AI 评分'}
-          </button>
+          !(useAsrFlow && recorder.audioUrl && !speechMetrics && !originalTranscript) && (
+            <button
+              type="button"
+              onClick={() => void handleEvaluate()}
+              disabled={!canEvaluate}
+              className="ui-btn-primary flex items-center gap-1 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              <IconSparkles className="h-4 w-4" /> {evaluating ? 'AI 正在按量表评分…' : 'AI 评分'}
+            </button>
+          )
         ) : (
           <>
             <button

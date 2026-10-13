@@ -1,0 +1,2835 @@
+// Échelle québécoise scenarios for Niveau 7 and Niveau 8 indicators.
+// Covers both official situations types (examples) for every listening and reading indicator.
+// All scenarios are hand-crafted, culturally grounded in Québec, and thoroughly tested.
+
+export const N07_08_SCENARIOS = {
+  // ===========================================================================
+  // NIVEAU 7 - LISTENING
+  // ===========================================================================
+
+  // n7-listening-0 (informatif)
+  // Ex 0: Salon de l’emploi - avenir économique d’une région
+  // Ex 1: Publicité gouvernementale - éducation des enfants
+  'n7-listening-0': [
+    // sc 0 (sit 0): Salon de l’emploi au Saguenay–Lac-Saint-Jean
+    {
+      situation: 0,
+      text: 'Bonjour à toutes et à tous. Bienvenue à cette séance d’information consacrée aux perspectives professionnelles au Saguenay–Lac-Saint-Jean. Notre région traverse une transformation majeure : si l’industrie de l’aluminium et le secteur forestier demeurent des piliers économiques, de nouvelles filières en technologies vertes et en transformation agroalimentaire créent actuellement des centaines d’emplois spécialisés. Cependant, le vieillissement démographique représente un défi de taille. Plus de quatre mille postes devront être pourvus d’ici trois ans dans les services publics, la santé et l’enseignement collégial. Pour attirer des travailleuses et travailleurs qualifiés, les municipalités régionales de comté offrent des bourses d’installation ainsi qu’un accompagnement personnalisé pour le logement et les garderies. Si vous cherchez un milieu de vie paisible où vos compétences professionnelles seront reconnues rapidement, notre équipe est à votre entière disposition au kiosque numéro douze.',
+      questions: [
+        [
+          'Quel changement économique majeur la région connaît-elle selon la conférencière ?',
+          'L’apparition de créneaux dans les technologies vertes',
+          'Le déclin irréversible de la transformation forestière',
+          'La fermeture définitive des alumineries régionales',
+        ],
+        [
+          'Que peut-on déduire de l’attitude des autorités régionales envers les nouveaux arrivants ?',
+          'Elles déploient des incitatifs concrets pour les attirer',
+          'Elles se montrent indifférentes face à leur intégration',
+          'Elles préfèrent restreindre l’accès aux garderies locales',
+        ],
+        [
+          'Quel principal défi la région doit-elle surmonter à court terme ?',
+          'Le manque important de relève lié à la démographie',
+          'Le manque de bourses d’installation pour les travailleurs',
+          'Le déclin rapide de l’industrie de l’aluminium',
+        ],
+      ],
+    },
+    // sc 1 (sit 0): Salon de l’emploi en Abitibi-Témiscamingue
+    {
+      situation: 0,
+      text: 'Merci d’être venus en si grand nombre. En Abitibi-Témiscamingue, les perspectives d’embauche sont exceptionnelles dans les secteurs minier, manufacturier et environnemental. Grâce à des investissements massifs dans l’extraction responsable de minéraux critiques, nos entreprises recrutent activement des techniciennes, des ingénieurs et du personnel administratif. Plusieurs personnes hésitent parfois à s’établir en région en raison de l’éloignement géographique, mais notre réseau d’infrastructures municipales et nos services scolaires offrent une qualité de vie remarquable. De plus, plusieurs employeurs financent les frais de déménagement et garantissent un mentorat professionnel dès votre arrivée. Bien que certains corps de métier manquent cruellement de main-d’œuvre, nos programmes de formation professionnelle accélérée permettent d’obtenir rapidement une qualification reconnue. Venez rencontrer nos conseillers au pavillon régional pour discuter des nombreuses carrières qui s’offrent à vous dès aujourd’hui.',
+      questions: [
+        [
+          'Dans quels secteurs les opportunités d’embauche sont-elles particulièrement fortes ?',
+          'Dans les mines et le secteur manufacturier',
+          'Dans le secteur environnemental en recul',
+          'Dans les services scolaires, qui ne recrutent plus',
+        ],
+        [
+          'Quelle réticence implicite des candidats la représentante cherche-t-elle à dissiper ?',
+          'La crainte d’un isolement causé par la distance',
+          'La crainte d’un arrêt rapide de l’extraction minière',
+          'La crainte d’un marché du travail saturé dans la région',
+        ],
+        [
+          'Quelle mesure concrète plusieurs employeurs proposent-ils pour faciliter l’installation ?',
+          'La prise en charge des coûts liés au transport des biens',
+          'Un mentorat garanti seulement après une qualification reconnue',
+          'Un mentorat financé par les municipalités',
+        ],
+      ],
+    },
+    // sc 2 (sit 0): Salon de l’emploi en Gaspésie
+    {
+      situation: 0,
+      text: 'Chers participants, nous sommes ravis de vous présenter aujourd’hui les projets novateurs qui dynamisent la Gaspésie. Longtemps associée uniquement à la pêche saisonnière et aux activités touristiques estivales, notre péninsule diversifie activement son économie grâce à la filière éolienne, aux biotechnologies marines et aux services numériques. Cette vitalité économique nouvelle entraîne toutefois une forte pression sur le marché de l’habitation locative dans plusieurs municipalités côtières. Pour remédier à cette situation, les élus locaux ont mis en place des partenariats novateurs afin de bâtir des logements modulaires abordables destinés aux jeunes familles. Si vous décidez de franchir le pas, vous constaterez rapidement que la solidarité communautaire et la proximité de la mer compensent largement l’éloignement des grands centres urbains. Nous vous invitons chaleureusement à échanger avec nos ambassadeurs régionaux installés au stand principal.',
+      questions: [
+        [
+          'Comment l’économie de cette région se transforme-t-elle selon la présentation ?',
+          'En développant l’énergie éolienne et le numérique',
+          'En abandonnant la pêche au profit du tourisme',
+          'En remplaçant le numérique par la pêche saisonnière',
+        ],
+        [
+          'Quelle difficulté concrète les nouveaux arrivants risquent-ils de rencontrer ?',
+          'Un accès restreint aux appartements à louer',
+          'Une offre excessive de logements modulaires',
+          'Une solidarité communautaire absente sur la côte',
+        ],
+        [
+          'Quel sous-entendu implicite la conférencière formule-t-elle sur le mode de vie en Gaspésie ?',
+          'L’esprit d’entraide compense la distance géographique',
+          'La vie gaspésienne reste limitée à la pêche saisonnière',
+          'Le mode de vie exige de rester près des grands centres',
+        ],
+      ],
+    },
+    // sc 3 (sit 1): Publicité gouvernementale - persévérance scolaire
+    {
+      situation: 1,
+      text: 'La réussite de nos enfants commence par des gestes simples et quotidiens. Dès les premières années du primaire, encourager la lecture à la maison, valoriser les efforts constants et maintenir une communication régulière avec l’équipe pédagogique transforment le parcours scolaire de chaque élève. Lorsque les parents s’investissent activement dans la routine des devoirs et participent aux activités parascolaires, ils transmettent un message clair : l’apprentissage est une aventure enrichissante et essentielle. Si un enfant traverse une période de découragement ou présente des difficultés scolaires, il importe d’agir sans tarder avec les professionnels de l’établissement, qu’il s’agisse d’orthopédagogues ou d’éducateurs spécialisés. Ensemble, soutenons la persévérance de nos jeunes afin qu’ils développent pleinement leur potentiel et réalisent leurs aspirations futures. Pour obtenir des conseils pratiques et des ressources adaptées, consultez dès maintenant le portail officiel du ministère de l’Éducation.',
+      questions: [
+        [
+          'Quel comportement parental est particulièrement recommandé dans ce message ?',
+          'Maintenir un dialogue constant avec les enseignants',
+          'Éviter les échanges avec les enseignants',
+          'Laisser l’enfant gérer seul la routine des devoirs',
+        ],
+        [
+          'Que suggère implicitement le message en cas de baisse de motivation d’un élève ?',
+          'Qu’une intervention rapide évite l’aggravation des blocages',
+          'Qu’il vaut mieux attendre la fin de l’année pour intervenir',
+          'Que les parents sont les seuls responsables de l’échec scolaire',
+        ],
+        [
+          'Vers quelle ressource le public est-il orienté pour approfondir le sujet ?',
+          'Le site Web gouvernemental consacré au milieu éducatif',
+          'Le portail réservé aux seuls enseignants du ministère',
+          'Les professionnels de l’établissement, en dernier recours',
+        ],
+      ],
+    },
+    // sc 4 (sit 1): Publicité gouvernementale - développement de la petite enfance
+    {
+      situation: 1,
+      text: 'Dès les premiers mois de vie, chaque échange avec votre tout-petit construit les fondations de son développement cognitif et émotionnel. Les études démontrent que parler fréquemment à son nourrisson, lui chanter des comptines traditionnelles et lui lire des histoires illustrées stimulent considérablement l’acquisition du langage et favorisent son ouverture au monde. Dans nos centres de la petite enfance et nos garderies éducatives agréées, des éducatrices qualifiées accompagnent chaque enfant selon son propre rythme, en misant sur le jeu libre et la socialisation bienveillante. Si vous observez des retards dans l’acquisition de la motricité ou de la parole, sachez que des équipes multidisciplinaires en CLSC peuvent évaluer gratuitement votre enfant et vous proposer des interventions précoces adaptées. Offrons à nos tout-petits un départ solide et harmonieux dans la vie. Renseignez-vous auprès de votre centre local de services communautaires pour connaître les ateliers offerts aux familles.',
+      questions: [
+        [
+          'Quelles activités simples sont encouragées dès la tendre enfance ?',
+          'La lecture d’histoires et les discussions fréquentes',
+          'Le chant de comptines réservé aux plus grands',
+          'Le silence imposé lors des échanges avec le nourrisson',
+        ],
+        [
+          'Quelle intention implicite sous-tend la mention des services gratuits en CLSC ?',
+          'Rassurer les parents et encourager un dépistage précoce',
+          'Dénoncer le caractère payant des évaluations en CLSC',
+          'Inciter les parents à attendre avant d’agir',
+        ],
+        [
+          'Où les parents peuvent-ils trouver des ateliers éducatifs adaptés à leur situation ?',
+          'Dans leur centre local de services communautaires',
+          'Dans les garderies éducatives agréées, pour le jeu libre',
+          'Auprès des éducatrices, en dehors des heures de garderie',
+        ],
+      ],
+    },
+    // sc 5 (sit 1): Publicité gouvernementale - saines habitudes de vie chez les jeunes
+    {
+      situation: 1,
+      text: 'Bouger tous les jours et adopter une alimentation saine, c’est bien plus qu’une question de santé physique : c’est un moteur puissant pour l’équilibre mental et la concentration en classe. Trop souvent, nos jeunes passent de longues heures devant des écrans lumineux, ce qui perturbe leur sommeil et réduit leur niveau d’énergie pendant les cours. En instaurant des sorties actives en famille, en favorisant les déplacements actifs vers l’école et en préparant des collations nutritives à base de fruits frais, nous aidons nos adolescents à développer de saines habitudes durables. Si les parents montrent l’exemple au quotidien avec enthousiasme, les jeunes adoptent spontanément ces comportements positifs sans les percevoir comme une contrainte imposée. Engageons-nous collectivement pour le bien-être de notre jeunesse. Découvrez des idées d’activités familiales gratuites et des recettes simples sur le site de la Santé publique du Québec.',
+      questions: [
+        [
+          'Quel bienfait de l’activité physique est particulièrement mis de l’avant ?',
+          'Une meilleure capacité d’attention pendant les apprentissages',
+          'Une baisse nette de la concentration pendant les cours',
+          'Un sommeil plus perturbé par les écrans lumineux',
+        ],
+        [
+          'Que laisse entendre le texte à propos de l’attitude parentale souhaitée ?',
+          'L’adhésion des jeunes passe par l’exemplarité des adultes',
+          'L’interdiction stricte des appareils électroniques suffit',
+          'Les adolescents préfèrent toujours les activités solitaires',
+        ],
+        [
+          'Quelle initiative pratique est proposée pour les trajets quotidiens ?',
+          'Privilégier la marche ou le vélo pour aller étudier',
+          'Éviter les déplacements actifs vers l’école',
+          'Choisir les écrans lumineux pour aller étudier',
+        ],
+      ],
+    },
+  ],
+
+  // n7-listening-1 (narratif)
+  // Ex 0: Pièce de théâtre comique sur les relations humaines
+  // Ex 1: Balado sur l’histoire d’un quartier
+  'n7-listening-1': [
+    // sc 0 (sit 0): Pièce comique - querelle de colocation
+    {
+      situation: 0,
+      text: '— Félix, peux-tu m’expliquer pourquoi mon yogourt aux bleuets porte désormais une étiquette avec ton prénom ? — Écoute, Catherine, c’est une question de gestion préventive ! La semaine dernière, quelqu’un a mystérieusement mangé mes muffins aux carottes, alors j’ai décidé de nationaliser les étages du réfrigérateur. — Nationaliser ? Tu as juste collé du ruban adhésif rouge partout ! Le bac à légumes ressemble à une scène de crime. Et en plus, tu as confisqué mon fromage de chèvre sous prétexte qu’il dépassait la frontière du troisième rayon ! — Ce n’était pas une confiscation arbitraire, Catherine, c’était un droit de douane légitime pour compenser l’espace occupé par ta bouteille de kombucha géante ! — Félix, cette bouteille était là depuis hier soir, et ton prétendu traité douanier n’existe que dans ta tête ! Si tu continues comme ça, je vais instaurer un péage payant devant la porte de la salle de bain !',
+      questions: [
+        [
+          'Quel est le ton général de cet échange entre colocataires ?',
+          'Humoristique et théâtral',
+          'Inquiet et dramatique',
+          'Froid et professionnel',
+        ],
+        [
+          'Quel sous-entendu Catherine fait-elle en menaçant d’installer un péage ?',
+          'Elle veut montrer l’absurdité du comportement de Félix',
+          'Elle espère récupérer ses muffins aux carottes disparus',
+          'Elle désire confisquer à son tour le kombucha de Félix',
+        ],
+        [
+          'Quelle justification farfelue Félix donne-t-il pour ses actions ?',
+          'Il applique un prétendu accord douanier domestique',
+          'Il accuse Catherine d’avoir mangé ses muffins aux carottes',
+          'Il affirme que Catherine a signé le traité douanier',
+        ],
+      ],
+    },
+    // sc 1 (sit 0): Pièce comique - préparation d’un séjour en forêt
+    {
+      situation: 0,
+      text: '— Marc, pourquoi as-tu empilé quatre lampes frontales, trois boussoles et une hache de bûcheron dans l’entrée ? Nous partons simplement deux jours dans un chalet tout équipé à Saint-Sauveur ! — Justement, Chantal ! En forêt boréale, la civilisation ne tient qu’à un fil. Si une tempête de vent coupe l’électricité, comment allons-nous survivre sans feu et sans repères géographiques ? — Le chalet possède un poêle à bois vitré, le chauffage d’appoint, l’Internet haute vitesse et une cafetière expresso italienne. Et pourquoi as-tu acheté un sac de couchage résistant à moins quarante degrés en plein mois de juillet ? — Parce que le climat québécois est notoirement imprévisible ! Imagine qu’une vague d’air polaire descende subitement du Grand Nord pendant la nuit ! — Marc, la météo annonce vingt-huit degrés et un soleil radieux pour toute la fin de semaine. Si un ours nous attaque, ce sera probablement pour te voler ton surplus d’équipement tellement tu ressembles à un catalogue de plein air ambulant !',
+      questions: [
+        [
+          'Pourquoi Chantal se moque-t-elle ouvertement des préparatifs de Marc ?',
+          'Il accumule un matériel excessif pour un chalet confortable',
+          'Il emporte un matériel insuffisant pour un chalet isolé en forêt',
+          'Il oublie la boussole et les lampes frontales',
+        ],
+        [
+          'Que peut-on déduire de l’attitude de Marc face à cette fin de semaine ?',
+          'Il manifeste une inquiétude exagérée face aux imprévus',
+          'Il manifeste une confiance absolue dans la météo',
+          'Il redoute une chaleur accablante pendant le séjour',
+        ],
+        [
+          'Quelle information météo Chantal rappelle-t-elle pour calmer son conjoint ?',
+          'La prévision d’un temps très doux et ensoleillé',
+          'L’arrivée imminente d’un orage violent sur les Laurentides',
+          'Une baisse soudaine des températures sous le point de congélation',
+        ],
+      ],
+    },
+    // sc 2 (sit 0): Pièce comique - répétition d’un exposé professionnel
+    {
+      situation: 0,
+      text: '— Respire un grand coup, Gabriel. On recommence ta présentation depuis le début. Imagine que je suis notre directrice régionale. Vas-y, impressionne-moi ! — Bonjour, estimée madame Tremblay… Notre équipe a le plaisir insigne de soumettre à votre sagacité lumineuse les chiffres trimestriels… — Stop ! Gabriel, arrête tout ! Tu as l’air d’un courtisan du dix-septième siècle qui demande une faveur royale ! Madame Tremblay dirige une entreprise de logistique à Trois-Rivières, pas la cour de Versailles ! Sois direct, dynamique et naturel ! — D’accord, d’accord. Salut Josée ! Les finances, ça roule au max, on a cartonné les objectifs et la concurrence est dans le rétroviseur ! — Ciel, Gabriel ! Entre la flatterie médiévale et le discours de vestiaire de hockey, il existe un juste milieu professionnel ! Essaie simplement de dire : « Bonjour madame Tremblay, voici les faits marquants de notre dernier bilan financier. » Tu penses pouvoir prononcer une phrase normale sans basculer dans la tragédie classique ?',
+      questions: [
+        [
+          'Quel problème majeur la collègue cherche-t-elle à corriger chez Gabriel ?',
+          'Il mélange des registres familier et soutenu dans son discours',
+          'Il refuse d’admettre que les chiffres de l’entreprise sont mauvais',
+          'Il ne parvient pas à mémoriser le prénom de sa supérieure hiérarchique',
+        ],
+        [
+          'Quel sentiment domine chez la collègue de Gabriel pendant la répétition ?',
+          'Une exaspération amusée devant ses maladresses verbales',
+          'Une indifférence polie envers sa prestation',
+          'Une admiration sincère pour la clarté de sa présentation',
+        ],
+        [
+          'Que conseille-t-elle concrètement pour réussir l’introduction de l’exposé ?',
+          'Adopter d’entrée de jeu un ton sobre, direct et courtois',
+          'Commencer par une flatterie appuyée envers la directrice',
+          'Dire que les finances roulent au max, comme Gabriel',
+        ],
+      ],
+    },
+    // sc 3 (sit 1): Balado sur l’histoire du Mile End à Montréal
+    {
+      situation: 1,
+      text: 'Bienvenue au nouvel épisode de notre balado consacré au patrimoine urbain montréalais. Aujourd’hui, nous explorons l’histoire fascinante du Mile End. Au début du vingtième siècle, ce quartier au nord du mont Royal vibrait au rythme des manufactures de confection textile et des ateliers de taille de pierre. De nombreuses vagues d’immigration, venues notamment d’Europe de l’Est, de Grèce et d’Italie, s’y sont succédé, chacune laissant une empreinte durable dans les commerces de quartier, les boulangeries artisanales et les institutions communautaires. Vers la fin des années mil neuf cent quatre-vingt-dix, alors que l’industrie manufacturière fermait ses portes, d’immenses manufactures désaffectées ont attiré des peintres, des musiciennes et des artisans séduits par la luminosité des lofts et des loyers abordables. Peu à peu, le Mile End s’est métamorphosé en épicentre de la création artistique et du développement de jeux vidéo. Bien que la hausse récente du coût de l’immobilier menace cet écosystème fragile, l’esprit inventif du secteur résiste fièrement.',
+      questions: [
+        [
+          'Quelle vocation industrielle le quartier avait-il au début du siècle dernier ?',
+          'La confection textile et le travail de la pierre',
+          'La création de jeux vidéo et de lofts d’artistes',
+          'La taille de pierre, sans confection textile',
+        ],
+        [
+          'Quelle conséquence implicite la transformation des bâtiments industriels a-t-elle eue ?',
+          'Elle a favorisé l’installation d’une communauté créative',
+          'Elle a provoqué le départ immédiat de tous les habitants',
+          'Elle a forcé la municipalité à démolir tout le quartier',
+        ],
+        [
+          'Quelle préoccupation actuelle l’animateur du balado mentionne-t-il en conclusion ?',
+          'La pression immobilière sur l’accessibilité des espaces',
+          'La baisse récente du coût de l’immobilier dans le quartier',
+          'Le retour massif des manufactures en activité',
+        ],
+      ],
+    },
+    // sc 4 (sit 1): Balado sur l’histoire du quartier Limoilou à Québec
+    {
+      situation: 1,
+      text: 'Chers auditeurs, marchons aujourd’hui le long des avenues bordées d’arbres de Limoilou, à Québec. Né de la rivière Saint-Charles et du développement ferroviaire à la fin du dix-neuvième siècle, ce faubourg populaire a longtemps accueilli les familles ouvrières travaillant dans les chantiers navals et les scieries avoisinantes. Son tracé urbain unique, inspiré du modèle new-yorkais avec ses rues numérotées et ses ruelles verdoyantes, favorisait une vie de quartier tissée serrée où tout le monde se connaissait. Durant les décennies d’après-guerre, l’automobile et la construction d’autoroutes ont failli défigurer son tissu communautaire, mais la mobilisation farouche des citoyennes et citoyens a permis de préserver ses places publiques et ses commerces indépendants sur la 3e Avenue. Aujourd’hui, de jeunes entrepreneurs, des familles et des artistes redécouvrent la convivialité de Limoilou, tout en défendant jalousement la qualité de l’air et la protection des espaces verts riverains. Un quartier fier de ses racines et résolument tourné vers l’avenir.',
+      questions: [
+        [
+          'Quelles industries historiques ont marqué l’essor initial de ce secteur de Québec ?',
+          'Les chantiers navals et les usines de bois',
+          'Les commerces indépendants et les places publiques',
+          'L’automobile et la construction d’autoroutes',
+        ],
+        [
+          'Que peut-on déduire de l’attitude des résidents lors de la modernisation d’après-guerre ?',
+          'Ils se sont mobilisés pour protéger l’esprit de leur quartier',
+          'Ils ont accepté sans broncher la construction d’autoroutes',
+          'Ils ont refusé la création de tout nouveau commerce de proximité',
+        ],
+        [
+          'Quelle caractéristique architecturale distingue le réseau des voies de Limoilou ?',
+          'Une organisation inspirée du quadrillage urbain nord-américain',
+          'Des rues en spirale construites autour d’une forteresse ancienne',
+          'De grandes boucles circulaires sans aucune ruelle arrière',
+        ],
+      ],
+    },
+    // sc 5 (sit 1): Balado sur l’histoire de la Petite Italie à Montréal
+    {
+      situation: 1,
+      text: 'Dans ce volet de notre balado patrimonial, nous posons nos micros au cœur de la Petite Italie. Arrivés par milliers au tournant du vingtième siècle pour construire les voies ferrées et bâtir les édifices montréalais, les pionniers italiens ont établi leurs pénates autour de l’église Notre-Dame-de-la-Défense. C’est dans ce périmètre chaleureux que sont nées les premières épiceries d’importation, les cafés espresso où l’on débattait avec passion et les cours intérieures garnies de potagers luxuriants. L’ouverture du marché Jean-Talon en mil neuf cent trente-trois a scellé le rôle névralgique du quartier comme carrefour agroalimentaire pour l’ensemble de l’île. Aujourd’hui encore, le parfum du basilic frais, la ferveur des terrasses ensoleillées lors des matchs de soccer et l’accueil des commerçants de deuxième génération confèrent au secteur une identité irremplaçable. Au-delà des clichés folkloriques, la Petite Italie témoigne de la contribution fondamentale des familles immigrantes à la vitalité culturelle québécoise.',
+      questions: [
+        [
+          'Quel événement survenu dans les années trente a renforcé l’importance de ce quartier ?',
+          'L’inauguration d’un grand marché public d’alimentation',
+          'La fermeture des cafés espresso du quartier',
+          'L’arrivée des pionniers italiens au tournant du siècle',
+        ],
+        [
+          'Quelle idée implicite l’animatrice cherche-t-elle à mettre en lumière ?',
+          'L’immigration a profondément façonné le patrimoine québécois',
+          'Les familles italiennes ont quitté le quartier en masse et rapidement',
+          'Le quartier s’est refermé sur lui-même au fil des décennies',
+        ],
+        [
+          'Quels métiers exerçaient principalement les premiers arrivants de cette communauté ?',
+          'Ouvriers ferroviaires et artisans de la construction',
+          'Commerçants de deuxième génération et jardiniers de quartier',
+          'Cultivateurs de potagers et marchands de légumes',
+        ],
+      ],
+    },
+  ],
+
+  // n7-listening-2 (explicatif)
+  // Ex 0: Journaliste économique - épargne / REER
+  // Ex 1: Gestionnaire - réaménagement des espaces de travail
+  'n7-listening-2': [
+    // sc 0 (sit 0): Chroniqueuse économique sur le REER et le CELI
+    {
+      situation: 0,
+      text: 'Bonjour chers auditeurs. Beaucoup d’entre vous se demandent s’il vaut mieux cotiser à un REER ou à un CELI avant la date limite fiscale. Voici les éléments clés pour faire un choix éclairé. Le Régime enregistré d’épargne-retraite procure une déduction fiscale immédiate : chaque dollar versé vient réduire votre revenu imposable de l’année courante, ce qui génère souvent un remboursement d’impôt appréciable. En contrepartie, les sommes retirées à la retraite seront ajoutées à votre revenu et imposées au taux alors en vigueur. Si vous prévoyez que votre revenu sera nettement inférieur à la retraite, le REER s’avère particulièrement avantageux. En revanche, pour une personne qui débute sur le marché du travail ou dont le salaire annuel se situe dans les paliers d’imposition inférieurs, le Compte d’épargne libre d’impôt constitue généralement une option plus souple : les gains s’y accumulent à l’abri de l’impôt et les retraits futurs ne sont jamais pénalisés. L’idéal reste souvent de combiner les deux instruments selon vos projets de vie.',
+      questions: [
+        [
+          'Quel bénéfice financier immédiat procure une cotisation versée dans un REER ?',
+          'Une diminution du montant du revenu imposable annuel',
+          'Une exonération définitive de tout impôt lors de la retraite',
+          'Une hausse du montant du revenu imposable annuel',
+        ],
+        [
+          'Que déduit-on implicitement quant au choix optimal pour un jeune travailleur au salaire modeste ?',
+          'Le CELI lui évite de gaspiller de précieux droits de déduction',
+          'Le REER est l’unique véhicule d’épargne sécuritaire à son âge',
+          'Le REER lui assure des retraits totalement exonérés d’impôt plus tard',
+        ],
+        [
+          'À quelle condition majeure le REER est-il le plus profitable selon l’experte ?',
+          'Si le taux d’imposition diminue lors de la période de retraite',
+          'Si le revenu annuel demeure élevé jusqu’à la retraite',
+          'Si les sommes retirées restent exonérées d’impôt à la retraite',
+        ],
+      ],
+    },
+    // sc 1 (sit 0): Chroniqueur financier sur le fonds de prévoyance en copropriété
+    {
+      situation: 0,
+      text: 'Bienvenue à notre segment économique. Si vous êtes propriétaire d’un condo au Québec ou prévoyez en acquérir un, vous devez prêter une attention rigoureuse au fonds de prévoyance de l’immeuble. En vertu des récentes réformes législatives, chaque syndicat de copropriété doit désormais faire réaliser une étude professionnelle de fonds de prévoyance par un ingénieur ou un évaluateur agréé. Cette démarche rigoureuse permet de planifier sur vingt-cinq ans le coût des réparations majeures, comme le remplacement de la toiture, la mise aux normes des ascenseurs ou la réfection de la maçonnerie extérieure. Trop longtemps, de nombreux copropriétaires ont maintenu des frais mensuels artificiellement bas pour rendre les unités attrayantes, ce qui a causé des cotisations spéciales imprévues de plusieurs milliers de dollars au premier pépin sérieux. Une copropriété bien gérée affiche peut-être des charges mensuelles légèrement plus élevées, mais elle protège durablement la valeur marchande de votre patrimoine immobilier tout en prévenant les litiges entre voisins.',
+      questions: [
+        [
+          'Quelle obligation légale récente s’impose désormais aux syndicats de copropriété ?',
+          'Faire évaluer professionnellement les besoins futurs de réparation',
+          'Baisser systématiquement les charges mensuelles des propriétaires',
+          'Remplacer immédiatement la toiture et les ascenseurs du bâtiment',
+        ],
+        [
+          'Quel risque implicite guette les acheteurs de condos aux frais mensuels anormalement bas ?',
+          'Devoir payer d’urgence d’importantes cotisations de rattrapage',
+          'Devoir attendre vingt-cinq ans pour financer les réparations',
+          'Devoir verser des charges mensuelles trop élevées dès l’achat',
+        ],
+        [
+          'Quels types d’ouvrages collectifs le fonds de prévoyance sert-il à financer ?',
+          'Les réparations majeures des composantes communes du bâtiment',
+          'Les réparations majeures des unités privées des copropriétaires',
+          'Les frais mensuels de fonctionnement de la copropriété',
+        ],
+      ],
+    },
+    // sc 2 (sit 0): Chroniqueuse financière sur la gestion de l’endettement
+    {
+      situation: 0,
+      text: 'Bonjour à tous. Face à la hausse des taux directeurs, la gestion de l’endettement personnel exige une discipline accrue. De nombreux ménages accumulent simultanément des soldes sur des cartes de crédit, des prêts personnels et des marges de crédit hypothécaires. La règle d’or consiste à prioriser le remboursement des dettes affichant le taux d’intérêt le plus élevé, souvent les cartes de grands magasins qui dépassent vingt pour cent d’intérêt annuel. Si votre cote de solvabilité le permet, consolider ces multiples emprunts au sein d’un seul prêt bancaire à taux préférentiel allège considérablement la charge mensuelle et accélère le désendettement. Toutefois, la consolidation ne constitue pas un remède miracle si elle ne s’accompagne pas d’une révision en profondeur des dépenses quotidiennes. Constituer un fonds d’urgence équivalant à trois mois de dépenses de base demeure le meilleur rempart pour ne pas replonger dans l’endettement à la moindre dépense imprévue, qu’il s’agisse d’une réparation automobile ou de soins dentaires urgents.',
+      questions: [
+        [
+          'Quelle stratégie de remboursement la spécialiste recommande-t-elle en priorité ?',
+          'Régler en premier les dettes dont le taux d’intérêt est le plus fort',
+          'Rembourser en premier lieu la dette affichant le solde le plus faible',
+          'Attendre une baisse générale des taux pour payer ses cartes de crédit',
+        ],
+        [
+          'Quel sous-entendu implicite la chroniqueuse formule-t-elle sur la consolidation de dettes ?',
+          'Elle s’avère inefficace si les habitudes de consommation ne changent pas',
+          'Elle permet de rembourser les dettes sans exiger une bonne cote de crédit',
+          'Elle convient surtout aux ménages dont la dette est déjà réglée',
+        ],
+        [
+          'À quoi devrait servir le fonds de secours préconisé par la chroniqueuse ?',
+          'À absorber les dépenses imprévues sans recourir au crédit',
+          'À rembourser en priorité le prêt le moins coûteux',
+          'À financer une consolidation de dettes à taux préférentiel',
+        ],
+      ],
+    },
+    // sc 3 (sit 1): Gestionnaire expliquant le passage aux bureaux partagés
+    {
+      situation: 1,
+      text: 'Bonjour à toute l’équipe. Merci d’être présents pour cette rencontre d’information. Dès le premier octobre, notre direction amorcera le réaménagement complet du quatrième niveau pour adopter un modèle d’espaces partagés, communément appelé bureau flexible. Puisque la majorité des membres du personnel effectue désormais deux à trois journées de télétravail par semaine, près de la moitié de nos postes individuels demeuraient inoccupés au quotidien. Dans la nouvelle configuration, vous ne disposerez plus d’un cubicule attitré, mais d’un casier sécurisé personnel et d’une application mobile intuitive pour réserver votre poste de travail avant d’arriver au bureau. Nous avons conçu trois zones distinctes : un espace silencieux pour les tâches exigeant une concentration soutenue, des salles insonorisées pour les appels téléphoniques et un vaste espace collaboratif équipé d’écrans interactifs. Nous comprenons que cette transition bouscule vos repères habituels, mais elle favorisera une plus grande souplesse et stimulera les échanges entre nos différents départements de travail.',
+      questions: [
+        [
+          'Quelle est la raison principale ayant motivé ce réaménagement des locaux ?',
+          'Le faible taux d’occupation des postes en raison du télétravail',
+          'La hausse du nombre de cubicules attitrés au quatrième niveau',
+          'La volonté de supprimer l’application mobile de réservation',
+        ],
+        [
+          'Que déduit-on de l’attitude du gestionnaire envers les inquiétudes de ses employés ?',
+          'Il reconnaît que le changement perturbe les habitudes de travail',
+          'Il rejette avec sévérité toute critique relative au réaménagement',
+          'Il estime que les employés devraient réclamer un cubicule attitré',
+        ],
+        [
+          'Comment les employés choisiront-ils leur poste de travail à l’avenir ?',
+          'En utilisant un outil numérique de réservation préalable',
+          'En occupant le cubicule attitré qu’on lui réserve chaque matin',
+          'En réservant leur poste seulement sur place, à l’arrivée',
+        ],
+      ],
+    },
+    // sc 4 (sit 1): Gestionnaire expliquant les modalités du travail hybride
+    {
+      situation: 1,
+      text: 'Chers collègues, je tenais à vous réunir aujourd’hui pour préciser les nouvelles balises relatives à notre formule de travail hybride. À compter du mois prochain, chaque employé devra être présent au bureau deux jours fixes par semaine, soit les mardis et les jeudis, afin de consolider la cohésion d’équipe et de faciliter la tenue des réunions stratégiques en présentiel. Les trois autres journées pourront être effectuées en télétravail à votre convenance, sous réserve de respecter vos engagements de disponibilité sur notre messagerie interne entre neuf heures et seize heures. Pour soutenir l’ergonomie de votre espace à la maison, notre organisation reconduit l’allocation annuelle d’équipement informatique et de mobilier de bureau. Si vous devez modifier exceptionnellement vos journées de présence pour des motifs familiaux ou médicaux, veuillez en aviser votre responsable immédiat au moins quarante-huit heures à l’avance. Cette nouvelle organisation vise un équilibre durable entre flexibilité personnelle et performance collective.',
+      questions: [
+        [
+          'Quels jours de la semaine la présence physique au bureau devient-elle obligatoire ?',
+          'Les mardis et les jeudis pour toute l’équipe',
+          'Les lundis et les mercredis selon l’horaire fixé',
+          'Les trois autres journées pour toute l’équipe',
+        ],
+        [
+          'Quelle intention implicite dicte le choix de fixer des journées communes au bureau ?',
+          'Renforcer le sentiment d’appartenance et la synergie de groupe',
+          'Surveiller en permanence le temps de travail de chaque membre',
+          'Supprimer définitivement la formule du travail à domicile',
+        ],
+        [
+          'Quelle aide matérielle l’entreprise renouvelle-t-elle pour le travail à domicile ?',
+          'Une subvention financière pour le mobilier et les ordinateurs',
+          'Une allocation annuelle versée pour le télétravail du mardi et du jeudi',
+          'Une allocation annuelle réservée aux employés présents au bureau',
+        ],
+      ],
+    },
+    // sc 5 (sit 1): Gestionnaire expliquant un déménagement vers un édifice écologique
+    {
+      situation: 1,
+      text: 'Bonjour à tous. Je suis très fier de vous dévoiler les détails de notre futur déménagement vers le complexe environnemental de l’Éco-Quartier, prévu pour le printemps prochain. Ce nouvel édifice certifié carboneutre offre une luminosité naturelle exceptionnelle, une ventilation géothermique à la fine pointe de la technologie et un accès direct à deux stations du réseau de transport collectif. Dans cette optique de développement durable, nous devons amorcer dès ce mois-ci une grande opération de désencombrement et de numérisation de nos archives papier. Chacun d’entre vous recevra des boîtes de tri pour conserver uniquement les documents dont la valeur juridique exige un archivage physique. Par ailleurs, le nouveau site comportera des vestiaires avec douches et un vaste stationnement intérieur sécurisé pour les vélos afin d’encourager le transport actif. Je sais que déménager demande un investissement de temps considérable, mais ce nouvel environnement de travail reflète fidèlement les valeurs environnementales que nous défendons.',
+      questions: [
+        [
+          'Quel est l’atout écologique majeur du nouvel édifice selon le gestionnaire ?',
+          'Sa certification carboneutre et sa ventilation géothermique',
+          'Son stationnement intérieur réservé aux automobiles',
+          'La luminosité artificielle permanente des bureaux',
+        ],
+        [
+          'Que déduit-on de l’attitude de la direction concernant les transports ?',
+          'Elle encourage activement ses employés à adopter le transport actif',
+          'Elle réserve le stationnement intérieur sécurisé aux véhicules motorisés',
+          'Elle reporte la mise en place de vestiaires avec douches',
+        ],
+        [
+          'Quelle tâche préparatoire chaque employé doit-il accomplir avant le départ ?',
+          'Trier ses dossiers et numériser les documents non essentiels',
+          'Jeter sans tri les dossiers personnels de chaque employé',
+          'Emballer l’ensemble des archives papier dans des boîtes scellées',
+        ],
+      ],
+    },
+  ],
+
+  // n7-listening-3 (argumentatif)
+  // Ex 0: Discussion avec une voisine - réfection des rues du quartier
+  // Ex 1: Échange avec un collègue - manifestation dans la ville
+  'n7-listening-3': [
+    // sc 0 (sit 0): Voisine sur la réfection de la rue Saint-Joseph
+    {
+      situation: 0,
+      text: '— Salut Robert ! Tu as vu le panneau municipal installé au coin de la rue Saint-Joseph ? Les travaux d’excavation pour remplacer les vieilles canalisations d’eau débuteront le premier juin et s’échelonneront sur cinq mois complets. Cinq mois de bruit d’asphalteuse et de détours en pleine saison estivale ! Franchement, la Ville aurait dû attendre la fin de l’automne pour lancer ce chantier chaotique : bloquer le seul axe commercial du secteur en été, c’est de l’incompétence pure ! — Attends un peu, Manon, tempère tes propos. Le rapport des ingénieurs civils mentionnait noir sur blanc que deux bris d’aqueduc majeurs ont inondé des sous-sols l’hiver dernier. Réparer les tuyaux avant l’hiver prochain, c’est une nécessité technique absolue. — C’est peut-être vrai pour la tuyauterie souterraine, Robert, mais ils en profitent pour supprimer vingt places de stationnement afin d’ajouter une piste cyclable ! Les commerçants locaux vont perdre la moitié de leurs clients réguliers, c’est une certitude !',
+      questions: [
+        [
+          'Parmi ces affirmations prononcées par Manon, laquelle exprime une opinion ?',
+          'La décision de la Ville relève d’une incompétence pure',
+          'Les travaux municipaux débuteront le premier juin prochain',
+          'Le chantier est planifié pour une durée de cinq mois consécutifs',
+        ],
+        [
+          'Quelle information factuelle Robert oppose-t-il pour justifier le chantier ?',
+          'Des bris de canalisation ont inondé des maisons l’hiver dernier',
+          'La Ville a déjà annulé le remplacement des canalisations d’eau',
+          'Les ingénieurs civils ont demandé le report des travaux à l’automne',
+        ],
+        [
+          'Quelle attitude Manon manifeste-t-elle implicitement face au réaménagement ?',
+          'Une méfiance profonde envers les projets réduisant la place de l’auto',
+          'Un enthousiasme débordant pour l’arrivée des cyclistes dans la rue',
+          'Un détachement complet vis-à-vis des difficultés des commerçants',
+        ],
+      ],
+    },
+    // sc 1 (sit 0): Voisins discutant de l’apaisement de la vitesse près du parc
+    {
+      situation: 0,
+      text: '— Bonjour Sylvain. La Ville a tenu sa consultation publique hier soir pour présenter le plan de sécurisation autour du parc des Saules. Les policiers ont confirmé que plus de soixante automobilistes par jour dépassent la vitesse maximale autorisée de trente kilomètres à l’heure devant le parc pour éviter le feu de circulation de l’artère principale. La municipalité va donc aménager trois ralentisseurs de vitesse et deux îlots centraux végétalisés d’ici la fin du mois d’août. — Enfin une bonne nouvelle ! Ce quartier devenait un circuit de course automobile intolérable pour les jeunes enfants. Selon moi, ils devraient aussi installer des radars photo permanents et retirer le permis aux récidivistes ! — Du calme, Sylvain, n’exagérons rien. Des ralentisseurs de vitesse, c’est utile pour les piétons, mais ces bosses en béton abîment les amortisseurs des véhicules et ralentissent inutilement les ambulances en cas d’urgence vitale. Les conducteurs ne sont pas tous des criminels en cavale !',
+      questions: [
+        [
+          'Laquelle des déclarations suivantes relève d’un fait objectif vérifié ?',
+          'Des automobilistes dépassent quotidiennement la limite autorisée',
+          'Le quartier s’est transformé en véritable circuit de course',
+          'Des radars photo fonctionnent déjà en permanence autour du parc',
+        ],
+        [
+          'Quelle opinion radicale Sylvain exprime-t-il pendant la discussion ?',
+          'La pose de radars et le retrait des permis aux récidivistes',
+          'Le refus des ralentisseurs pour faciliter le passage des ambulances',
+          'La suppression du feu de circulation de l’artère principale',
+        ],
+        [
+          'Quelle préoccupation implicite le premier voisin soulève-t-il face aux ralentisseurs ?',
+          'L’impact possible sur la vitesse de passage des véhicules de secours',
+          'Le risque de ralentir les piétons avec des bosses en béton',
+          'Le retard de la pose des ralentisseurs prévus pour août',
+        ],
+      ],
+    },
+    // sc 2 (sit 0): Voisins discutant des règles de stationnement d’hiver
+    {
+      situation: 0,
+      text: '— Denis, as-tu pris connaissance du nouveau règlement de stationnement hivernal adopté par l’arrondissement ? Les opérations de déneigement seront désormais signalées uniquement par une alerte sur téléphone cellulaire et un gyrophare orange allumé à chaque intersection dès dix-huit heures. L’arrondissement précise que ce système a permis de réduire les coûts de remorquage de vingt pour cent dans deux villes voisines. — Franchement, ce système numérique est une véritable arnaque pour remplir les coffres de la mairie avec des contraventions salées ! Tout le monde ne passe pas sa soirée les yeux rivés sur son cellulaire, surtout les personnes âgées de notre rue. C’est injuste et discriminatoire pour les aînés. — Denis, le système permet de déblayer les bancs de neige deux fois plus vite au lieu de bloquer toute la rue avec des pancartes métalliques manuelles pendant trois jours d’affilée. C’est mille fois plus moderne que de chercher sa voiture dans une fourrière municipale à l’autre bout de la ville !',
+      questions: [
+        [
+          'Laquelle de ces propositions constitue une information factuelle ?',
+          'Le dispositif a fait baisser les frais de remorquage d’un cinquième',
+          'Le dispositif numérique est une manœuvre pour enrichir la mairie',
+          'La méthode moderne est infiniment supérieure à l’ancien système',
+        ],
+        [
+          'Quelle opinion virulente Denis formule-t-il à l’égard de la nouvelle méthode ?',
+          'Le système pénalise injustement les aînés du quartier',
+          'Le dispositif est un progrès qu’il faudrait étendre',
+          'Le dispositif avantage surtout les personnes âgées de notre rue',
+        ],
+        [
+          'Quel bénéfice implicite le voisin met-il de l’avant pour défendre la réforme ?',
+          'Un gain de rapidité évitant des tracas prolongés de stationnement',
+          'Une diminution notable des amendes de stationnement en période de tempête',
+          'Une hausse des frais de remorquage pour les automobilistes',
+        ],
+      ],
+    },
+    // sc 3 (sit 1): Collègues sur une marche pour le logement abordable
+    {
+      situation: 1,
+      text: '— Nadia, étais-tu au centre-ville hier après-midi ? La police a estimé la foule à environ cinq mille manifestants qui ont défilé pacifiquement de la place du Peuple jusqu’au bureau de la ministre responsable de l’Habitation. Les organisateurs du front d’action communautaire demandent l’instauration d’un registre des baux public et universel ainsi que la construction rapide de logements sociaux. — Oui, j’ai vu passer le cortège devant la pharmacie. C’est scandaleux qu’on en soit réduits à bloquer la circulation automobile pour se faire entendre des politiciens ! Selon moi, les élus se moquent éperdument du sort des familles ouvrières et ne protègent que les grands promoteurs immobiliers richissimes ! — Attention aux amalgames, Nadia. Plusieurs députés ont voté une subvention exceptionnelle de cinquante millions de dollars la semaine dernière pour rénover des coopératives. Tout n’est pas tout noir. — Cinquante millions, c’est une goutte d’eau ridicule dans l’océan de la spéculation immobilière actuelle !',
+      questions: [
+        [
+          'Laquelle des assertions formulées au cours du dialogue relève du fait vérifiable ?',
+          'Une manifestation pacifique a réuni environ cinq mille personnes',
+          'Les politiciens méprisent tous le sort des familles moins nanties',
+          'L’argent versé par les députés est une goutte d’eau dérisoire',
+        ],
+        [
+          'Quelle position tranchée Nadia défend-elle au sujet des autorités politiques ?',
+          'Elle juge que les dirigeants favorisent les intérêts des promoteurs',
+          'Elle juge que les dirigeants protègent surtout les familles ouvrières',
+          'Elle croit que les élus sont sincèrement à l’écoute des familles',
+        ],
+        [
+          'Quelle intention implicite sous-tend l’intervention du collègue de Nadia ?',
+          'Nuancer un jugement trop sévère en rappelant des gestes récents',
+          'Rappeler à Nadia que les promoteurs ont déjà financé les coopératives',
+          'Défendre les promoteurs privés contre les coopératives citoyennes',
+        ],
+      ],
+    },
+    // sc 4 (sit 1): Collègues sur une grève des transports collectifs
+    {
+      situation: 1,
+      text: '— Patrick, as-tu réussi à venir en bus ce matin ? La société de transport a confirmé que quatre-vingt pour cent des chauffeurs d’autobus exercent une grève de zèle aujourd’hui pour appuyer le renouvellement de leur convention collective échue depuis six mois. Il a fallu une heure et demie pour que mon autobus arrive à l’arrêt habituel. — C’est inacceptable, Antoine ! Ces chauffeurs bénéficient déjà d’une excellente sécurité d’emploi et d’un fonds de pension indexé au coût de la vie. Prendre en otage des milliers de travailleurs honnêtes qui n’ont pas les moyens de se payer une voiture, c’est du chantage pur et simple ! — Écoute, Patrick, il faut aussi entendre leurs arguments : leurs heures supplémentaires obligatoires ont bondi de trente pour cent cette année faute de relève suffisante, et la fatigue au volant menace directement la sécurité des passagers. — Peu importe leurs heures supplémentaires, bloquer les usagers vulnérables pour faire pression sur l’employeur demeure un procédé profondément déloyal à mes yeux !',
+      questions: [
+        [
+          'Laquelle de ces phrases expose une donnée factuelle et non une prise de position ?',
+          'La convention de travail des chauffeurs est échue depuis six mois',
+          'Le moyen de pression syndical constitue un chantage inacceptable',
+          'Le recours à la grève est un procédé profondément déloyal',
+        ],
+        [
+          'Quelle réaction émotionnelle Patrick manifeste-t-il vis-à-vis des grévistes ?',
+          'Une indignation vive face aux retards subis par les usagers',
+          'Une grande sympathie pour la fatigue accumulée au volant des bus',
+          'Une approbation tranquille de la pression sur les usagers',
+        ],
+        [
+          'Quel argument implicite Antoine avance-t-il pour justifier la démarche syndicale ?',
+          'Le surmenage non résolu met en péril la sécurité du public voyageur',
+          'Les chauffeurs souhaitent accroître leurs heures supplémentaires obligatoires',
+          'La convention collective a été renouvelée il y a six mois',
+        ],
+      ],
+    },
+    // sc 5 (sit 1): Collègues sur une consultation publique relative au tramway
+    {
+      situation: 1,
+      text: '— As-tu regardé les comptes rendus de la commission consultative sur le tramway hier ? Le rapport technique officiel indique qu’une rame de tramway moderne transporte l’équivalent de trois autobus articulés tout en éliminant quinze tonnes de gaz à effet de serre par kilomètre parcouru chaque année. Le tracé de vingt kilomètres desservira deux hôpitaux et les trois principaux campus collégiaux. — Ce projet est peut-être séduisant sur le papier glacé des urbanistes, mais c’est un gouffre financier sans fond pour notre génération ! Dépenser quatre milliards de fonds publics alors que nos urgences hospitalières débordent, c’est une erreur de priorité monumentale. Les élus ont des rêves de grandeur au détriment des services essentiels ! — Mais voyons, sans un réseau ferré moderne et capacitaire, notre ville sera complètement asphyxiée par les bouchons de circulation d’ici dix ans. Investir dans des infrastructures durables, c’est préparer l’avenir au lieu d’agir toujours en pompier à la petite semaine !',
+      questions: [
+        [
+          'Quel élément mentionné dans l’échange relève d’une donnée technique factuelle ?',
+          'Une rame équivaut à la capacité de trois autobus articulés',
+          'Le projet municipal est une monumentale erreur de jugement',
+          'Les politiciens privilégient toujours des rêves de grandeur inutiles',
+        ],
+        [
+          'Quelle conviction personnelle le premier collègue soutient-il avec fermeté ?',
+          'Les fonds publics devraient prioritairement être alloués au réseau de la santé',
+          'Les autobus actuels polluent beaucoup moins qu’un réseau ferré moderne',
+          'Les campus collégiaux ne nécessitent aucun aménagement de transport collectif',
+        ],
+        [
+          'Quel est le sous-entendu implicite du second collègue avec l’image du « pompier » ?',
+          'Une approche à court terme ne règle pas les problèmes structurels majeurs',
+          'Une intervention d’urgence suffit à régler les problèmes structurels',
+          'Il faut financer en priorité les urgences hospitalières déjà débordées',
+        ],
+      ],
+    },
+  ],
+
+  // ===========================================================================
+  // NIVEAU 7 - READING
+  // ===========================================================================
+
+  // n7-reading-0 (informatif)
+  // Ex 0: Activités économiques dominantes dans une région
+  // Ex 1: Dépliant publicitaire pour services de courtage immobilier
+  'n7-reading-0': [
+    // sc 0 (sit 0): Profil économique du Bas-Saint-Laurent
+    {
+      situation: 0,
+      text: 'Le Bas-Saint-Laurent tire sa vitalité économique d’un équilibre remarquable entre ses ressources naturelles traditionnelles et ses créneaux de haute technologie. Bordée par le fleuve Saint-Laurent, la région se distingue historiquement par son secteur agroalimentaire spécialisé en production laitière et en cultures biologiques, ainsi que par une industrie forestière tournée vers la deuxième et troisième transformation du bois d’œuvre. Parallèlement, l’économie maritime s’est profondément modernisée grâce au pôle d’excellence des biotechnologies marines et de la recherche océanographique établi à Rimouski, qui attire des chercheurs du monde entier. Les défis démographiques demeurent néanmoins réels, avec une moyenne d’âge supérieure à la moyenne provinciale. Pour soutenir la croissance de ses entreprises manufacturières et de ses services collectifs, la région multiplie les partenariats d’accueil pour l’immigration régionale et investit dans la numérisation des procédés industriels afin d’optimiser la productivité des équipes en place.',
+      questions: [
+        [
+          'Quels piliers traditionnels structurent l’activité économique de cette région côtière ?',
+          'L’agroalimentaire laitier et la transformation du bois',
+          'Les créneaux de haute technologie et les partenariats d’accueil',
+          'La numérisation industrielle et l’accueil des chercheurs',
+        ],
+        [
+          'Que peut-on déduire de la présence d’un pôle d’océanographie reconnu à Rimouski ?',
+          'La région mise sur le savoir scientifique pour innover',
+          'La recherche océanographique est transférée hors de la région',
+          'Le pôle de Rimouski est sans lien avec l’économie maritime',
+        ],
+        [
+          'Quelle stratégie les acteurs locaux déploient-ils pour compenser la démographie vieillissante ?',
+          'L’intégration de l’immigration et la modernisation technologique',
+          'Le retour aux procédés anciens, sans numérisation industrielle',
+          'Le transfert des services collectifs vers les grands centres urbains',
+        ],
+      ],
+    },
+    // sc 1 (sit 0): Profil économique de la Mauricie
+    {
+      situation: 0,
+      text: 'Carrefour historique du développement industriel québécois, la Mauricie poursuit avec succès sa transition vers une économie diversifiée et écologique. Si les pâtes et papiers ainsi que l’hydroélectricité ont jadis façonné l’identité des villes riveraines de la rivière Saint-Maurice, la région se positionne aujourd’hui comme la plaque tournante de la filière de l’énergie propre et de l’hydrogène vert. La zone d’innovation de la Vallée de la transition énergétique, implantée entre Shawinigan et Trois-Rivières, suscite des investissements majeurs dans la fabrication de composants pour véhicules électriques et la recherche en stockage énergétique. Cette effervescence industrielle s’appuie également sur un secteur touristique quatre saisons florissant, centré sur le parc national et la mise en valeur du patrimoine naturel. Afin de répondre aux besoins criants de techniciens et d’ingénieurs, les établissements d’enseignement supérieur de la région travaillent étroitement avec les gens d’affaires locaux pour concevoir des formations sur mesure adaptées aux exigences des nouvelles usines.',
+      questions: [
+        [
+          'Dans quel secteur d’avenir la Mauricie investit-elle massivement ses ressources ?',
+          'La transition énergétique et l’hydrogène vert',
+          'Les pâtes et papiers et l’industrie forestière',
+          'La fabrication de composants pour véhicules à essence',
+        ],
+        [
+          'Quelle intention implicite sous-tend le partenariat entre écoles et entreprises ?',
+          'La formation s’adapte aux nouveaux besoins industriels',
+          'Les cégeps abandonnent la formation de techniciens et d’ingénieurs',
+          'Les universités locales refusent tout financement du secteur privé',
+        ],
+        [
+          'Quel autre secteur d’activité contribue de façon notable à l’économie régionale ?',
+          'Le tourisme récréatif axé sur les grands espaces naturels',
+          'Les pâtes et papiers, qui dominent toujours l’économie régionale',
+          'La fabrication de véhicules électriques en fin de cycle',
+        ],
+      ],
+    },
+    // sc 2 (sit 0): Profil économique de la Côte-Nord
+    {
+      situation: 0,
+      text: 'Immense territoire nordique, la Côte-Nord constitue le cœur énergétique et minéral du Québec contemporain. Les grands complexes hydroélectriques de Manicouagan et de la rivière Romaine fournissent une part colossale de l’électricité renouvelable québécoise, alimentant tant le réseau domestique que les exportations. Sur le plan minier, l’exploitation du minerai de fer et les projets d’extraction de minéraux stratégiques attirent des capitaux internationaux substantiels et soutiennent des milliers d’emplois très bien rémunérés. La région développe également une bioéconomie nordique axée sur les petits fruits sauvages et les produits marins d’exception, particulièrement prisés par la haute gastronomie. Toutefois, la dispersion géographique des communautés le long de la route cent trente-huit et le coût élevé du fret logistique constituent des freins persistants au développement. Les gens d’affaires réclament des investissements continus dans les liaisons maritimes et aériennes pour désenclaver les localités isolées et fidéliser les travailleurs qualifiés attirés par les salaires avantageux.',
+      questions: [
+        [
+          'Quelles ressources majeures font la richesse économique principale de la Côte-Nord ?',
+          'L’hydroélectricité puissante et le minerai de fer',
+          'Le coût élevé du fret et la dispersion des communautés',
+          'La route cent trente-huit et les liaisons aériennes',
+        ],
+        [
+          'Quel défi structurel implicite découle de la vaste géographie du territoire nord-côtier ?',
+          'La complexité et le coût élevé des transports de marchandises',
+          'Les liaisons maritimes et aériennes déjà jugées suffisantes',
+          'La faible rémunération qui retient les travailleurs qualifiés',
+        ],
+        [
+          'Quelle filière originale de niche émerge dans le secteur bioalimentaire régional ?',
+          'La valorisation des ressources marines et des petits fruits sauvages',
+          'La mise en marché des minerais stratégiques pour la haute gastronomie',
+          'Le captage de l’électricité des barrages de la rivière Romaine',
+        ],
+      ],
+    },
+    // sc 3 (sit 1): Dépliant publicitaire pour l’agence Courtage Boréal
+    {
+      situation: 1,
+      text: 'Vous rêvez de vendre ou d’acheter une propriété en toute tranquillité d’esprit ? L’équipe chevronnée de Courtage Boréal vous accompagne à chaque étape de votre démarche immobilière. Forte de plus de vingt ans d’expertise sur le marché résidentiel et commercial québécois, notre agence combine une connaissance intime de vos quartiers avec des outils d’analyse de pointe. Lorsque vous nous confiez votre propriété, nous effectuons une évaluation marchande rigoureuse et déployons une stratégie promotionnelle multiplateforme, incluant la photographie haute définition, la visite virtuelle immersive et une visibilité maximale sur tous les réseaux spécialisés. Nous prenons en charge la validation des déclarations du vendeur, la coordination des visites d’acheteurs sérieux et la négociation serrée des promesses d’achat pour protéger vos intérêts financiers. De la première consultation gratuite jusqu’à la signature officielle chez le notaire, notre engagement demeure absolu : vous offrir un service professionnel irréprochable et transparent.',
+      questions: [
+        [
+          'Quels services promotionnels spécifiques cette agence propose-t-elle aux propriétaires vendeurs ?',
+          'Des photos professionnelles et des visites virtuelles',
+          'Une évaluation marchande rigoureuse réalisée par le vendeur',
+          'Une diffusion limitée aux réseaux sociaux de l’agence',
+        ],
+        [
+          'Que déduit-on implicitement de l’insistance de l’agence sur la négociation des offres ?',
+          'Elle protège ses clients contre de mauvaises conditions de vente',
+          'Elle refuse systématiquement toute offre inférieure au prix initial',
+          'Elle accepte sans discussion la première offre reçue',
+        ],
+        [
+          'Jusqu’à quelle étape administrative l’accompagnement de l’agence est-il garanti ?',
+          'Jusqu’à la signature officielle de l’acte chez le notaire',
+          'Jusqu’à la validation des déclarations du vendeur par le notaire',
+          'Jusqu’à la première consultation gratuite seulement',
+        ],
+      ],
+    },
+    // sc 4 (sit 1): Dépliant publicitaire pour Immo-Conseil Relocalisation
+    {
+      situation: 1,
+      text: 'Changer de région ou s’installer dans une nouvelle ville représente une formidable opportunité, mais aussi un défi logistique stressant pour toute la maisonnée. Immo-Conseil Relocalisation simplifie votre transition grâce à une formule clé en main personnalisée. Nos conseillers immobiliers agréés débutent par une écoute attentive de vos besoins : proximité des écoles primaires, accessibilité du transport collectif, parcs de quartier ou commerces de proximité. Nous présélectionnons pour vous les résidences correspondant exactement à votre budget, nous organisons des journées de visite optimisées et nous vous guidons dans l’analyse comparative des prix du secteur ciblé. De plus, nous vous mettons en contact avec un réseau vérifié d’arpenteurs, d’inspecteurs en bâtiment certifiés et de conseillers hypothécaires pour sécuriser votre investissement. Que vous cherchiez un duplex avec cour intime, un condo urbain ou une maison unifamiliale de banlieue, faites équipe avec des professionnels attentifs qui placent votre épanouissement au cœur de leur mission.',
+      questions: [
+        [
+          'À quelle clientèle cible cette brochure s’adresse-t-elle principalement ?',
+          'Aux ménages en déménagement ou relocalisation régionale',
+          'Aux ménages qui renoncent à déménager dans une autre région',
+          'Aux ménages qui déménagent sans visiter les résidences',
+        ],
+        [
+          'Quel bénéfice implicite la sélection préalable des propriétés apporte-t-elle aux clients ?',
+          'Un gain de temps précieux et une réduction notable du stress',
+          'Un allongement des délais de recherche pour les clients',
+          'Un accès à davantage de résidences, sans sélection préalable',
+        ],
+        [
+          'Quels spécialistes externes le réseau de l’agence permet-il de consulter ?',
+          'Des inspecteurs certifiés et des conseillers hypothécaires',
+          'Des arpenteurs non vérifiés et des inspecteurs non certifiés',
+          'Les seuls conseillers hypothécaires, sans inspecteur en bâtiment',
+        ],
+      ],
+    },
+    // sc 5 (sit 1): Dépliant publicitaire pour Horizon Immobilier Commercial
+    {
+      situation: 1,
+      text: 'Propriétaires d’immeubles locatifs et entrepreneurs dynamiques, découvrez l’excellence d’Horizon Immobilier Commercial. Trouver le local parfait pour ouvrir un commerce de détail, louer un espace de bureaux modernes ou acquérir un bâtiment industriel exige une expertise pointue et une compréhension fine des baux commerciaux québécois. Nos courtiers d’expérience évaluent minutieusement l’achalandage piétonnier, la conformité du zonage municipal, les ratios de stationnement et les perspectives de valorisation à long terme de chaque emplacement. Nous négocions pour nos clients des clauses de bail équilibrées, qu’il s’agisse de périodes d’aménagement sans loyer, d’options de renouvellement flexibles ou de plafonds pour les dépenses d’exploitation communes. Notre vaste réseau d’investisseurs et notre banque exclusive de propriétés commerciales vous garantissent des opportunités de premier plan avant même leur mise en marché publique. Prenez rendez-vous dès aujourd’hui pour concrétiser vos projets d’affaires avec un partenaire stratégique de confiance.',
+      questions: [
+        [
+          'Dans quel secteur d’activité immobilière cette agence se spécialise-t-elle ?',
+          'Les locaux commerciaux, les bureaux et les espaces industriels',
+          'Les propriétaires d’immeubles locatifs et les investisseurs',
+          'Les ratios de stationnement et le zonage municipal',
+        ],
+        [
+          'Quelle mise en garde implicite le document formule-t-il au sujet des baux commerciaux ?',
+          'Une négociation rigoureuse protège la viabilité financière de l’entreprise',
+          'Tous les contrats de location commerciale sont rigoureusement identiques',
+          'Le locataire ne peut jamais demander de modifications aux conditions écrites',
+        ],
+        [
+          'Quel avantage exclusif l’agence met-elle en avant grâce à son réseau d’affaires ?',
+          'L’accès anticipé à des biens immobiliers avant leur affichage public',
+          'Un accès tardif aux propriétés, après leur affichage public',
+          'Des clauses de bail sans plafond pour les dépenses communes',
+        ],
+      ],
+    },
+  ],
+
+  // n7-reading-1 (narratif)
+  // Ex 0: Récit d’un bénévole au sujet d’une mission humanitaire / communautaire
+  // Ex 1: Récit de l’ascension d’une personnalité artistique dans la presse
+  'n7-reading-1': [
+    // sc 0 (sit 0): Témoignage d’un bénévole en banque alimentaire
+    {
+      situation: 0,
+      text: 'Lorsque j’ai franchi pour la première fois les portes de l’Entraide Populaire de Rosemont un matin de novembre glacial, je n’imaginais pas à quel point cette expérience bénévole allait transformer mon regard sur la ville. Coordonner le tri et la distribution des denrées alimentaires dans notre sous-sol paroissial exigeait une rigueur logistique impressionnante : décharger les caisses de légumes offertes par les marchands solidaires, vérifier la fraîcheur des produits laitiers et préparer plus de deux cents paniers équilibrés pour des familles du quartier. Au-delà des chiffres et des boîtes empilées, ce sont les regards échangés et les confidences discrètes au comptoir qui m’ont profondément marqué. J’y ai rencontré des aînés aux pensions insuffisantes, des parents étudiants jonglant avec deux emplois précaires et de nouveaux arrivants reconnaissants d’échanger quelques mots de français chaleureux. En six mois d’engagement hebdomadaire, j’ai découvert que la véritable solidarité ne se résume pas à distribuer de la nourriture : elle redonne de la dignité et brise l’isolement invisible de nos concitoyens.',
+      questions: [
+        [
+          'Quelle tâche concrète le bénévole devait-il accomplir chaque semaine ?',
+          'Trier les denrées et composer des paniers pour les familles',
+          'Composer des paniers pour les seuls aînés du quartier',
+          'Recevoir les dons de légumes au comptoir, sans les trier',
+        ],
+        [
+          'Que déduit-on implicitement de la réflexion finale du bénévole ?',
+          'L’aide alimentaire sert aussi de rempart contre l’exclusion sociale',
+          'L’aide alimentaire ne sert qu’à distribuer des denrées',
+          'L’aide alimentaire doit surtout profiter aux marchands solidaires',
+        ],
+        [
+          'Parmi les personnes bénéficiant de l’aide, qui le bénévole cite-t-il explicitement ?',
+          'Des aînés, des parents étudiants et de nouveaux résidents',
+          'Des bénévoles paroissiaux recevant un panier de nourriture',
+          'Des marchands solidaires qui offrent des paniers en retour',
+        ],
+      ],
+    },
+    // sc 1 (sit 0): Témoignage d’une bénévole auprès d’aînés isolés
+    {
+      situation: 0,
+      text: 'Chaque mardi après-midi depuis deux ans, je pousse la porte de la résidence du Bon-Pasteur pour retrouver madame Simone, une dame de quatre-vingt-huit ans au regard pétillant malgré les douleurs de l’arthrite. Notre mission dans le cadre du programme « Paroles Partagées » semblait modeste au départ : tenir compagnie à une aînée pour briser la solitude des longs hivers québécois. Au fil des semaines et des tasses de thé fumant, nos conversations ont pris une tournure inestimable. Simone m’a raconté ses souvenirs de jeunesse dans une ferme du Bas-Saint-Laurent, les veillées dansantes au son de l’accordéon et les bouleversements de la société d’après-guerre. En retour, je lui partageais mes doutes professionnels et les anecdotes de mes études universitaires. Un jour où le moral lui manquait, elle m’a serré doucement la main en me disant que nos rendez-vous étaient sa fenêtre ouverte sur le monde. Ce bénévolat m’a appris que la présence attentive et l’écoute bienveillante constituent les remèdes les plus puissants contre la vulnérabilité humaine.',
+      questions: [
+        [
+          'Quel était l’objectif premier de l’engagement bénévole décrit dans ce récit ?',
+          'Offrir une présence régulière pour atténuer l’isolement d’une aînée',
+          'Soutenir la résidente dans ses doutes professionnels, chaque mardi',
+          'Animer des veillées dansantes au son de l’accordéon pour les résidents',
+        ],
+        [
+          'Que peut-on déduire de la qualité de la relation qui s’est développée ?',
+          'Elle est devenue un lien affectif réciproque et réconfortant',
+          'Elle s’est détériorée à cause de désaccords politiques majeurs',
+          'Elle est restée purement formelle et dénuée de chaleur humaine',
+        ],
+        [
+          'Quels sujets madame Simone aimait-elle évoquer avec sa visiteuse ?',
+          'Sa jeunesse à la campagne et les traditions musicales d’antan',
+          'Les veillées dansantes organisées par la résidence du Bon-Pasteur',
+          'Ses propres études universitaires et ses doutes professionnels',
+        ],
+      ],
+    },
+    // sc 2 (sit 0): Récit d’un bénévole en restauration riveraine
+    {
+      situation: 0,
+      text: 'Le réveil a sonné à cinq heures sous une pluie battante de mai, mais aucun des membres de notre brigade citoyenne n’aurait manqué cette journée d’action sur les berges de la rivière Chaudière. Après les inondations printanières destructrices des années passées, notre organisme de bassin versant avait obtenu le soutien municipal pour replanter deux mille arbustes et arbres indigènes le long des rives dénudées. Les bottes enfoncées dans une glaise tenace, nous avons pelleté, disposé les mottes racinaires et fixé les paillis biodégradables tout au long de la journée sans jamais perdre notre bonne humeur. Chaque saule et chaque cornouiller mis en terre représentait un barrage vivant pour freiner l’érosion future et restaurer l’habitat des poissons. Épuisés mais fiers, nous avons contemplé en fin de journée le rivage transformé sous une éclaircie inattendue. Cette mission m’a prouvé que face à l’ampleur de la crise environnementale, l’action collective de proximité insuffle un espoir concret et réparateur.',
+      questions: [
+        [
+          'Quelle tâche physique précise a mobilisé ce groupe de bénévoles ?',
+          'Planter des végétaux indigènes pour consolider le rivage',
+          'Poser des paillis en béton le long des rives dénudées',
+          'Déterrer les mottes racinaires des arbres déjà plantés',
+        ],
+        [
+          'Que ressent implicitement le narrateur à l’issue de cette journée de travail sous la pluie ?',
+          'Une satisfaction profonde d’avoir contribué à la protection du milieu',
+          'Un profond regret d’avoir perdu son temps dans des efforts futiles',
+          'Une rancœur tenace envers les autorités municipales pour leur absence',
+        ],
+        [
+          'Quel enjeu environnemental récurrent les plantations visent-elles à atténuer ?',
+          'L’érosion des berges accentuée par les crues des eaux',
+          'La destruction de l’habitat des poissons par les plantations',
+          'Les inondations printanières causées par les arbres plantés',
+        ],
+      ],
+    },
+    // sc 3 (sit 1): Ascension d’une jeune dramaturge québécoise
+    {
+      situation: 1,
+      text: 'Il y a cinq ans à peine, Marianne Gagnon répétait ses premiers textes dramatiques dans le modeste sous-sol d’un centre communautaire de Jonquière, avec une troupe de comédiens amateurs enthousiastes et un budget dérisoire. Rien ne laissait présager que cette jeune autrice originaire du Saguenay deviendrait si rapidement l’une des voix les plus marquantes du théâtre québécois contemporain. Son premier drame intimiste, qui mettait en scène la fermeture d’une papetière et ses répercussions sur trois générations d’une même famille ouvrière, a captivé le public d’abord dans les festivals régionaux avant d’être repris triomphalement sur une grande scène montréalaise. Saluée par les critiques littéraires pour son sens aiguisé du dialogue authentique et son refus des facilités mélodramatiques, Marianne s’est vu décerner le prestigieux prix de la critique théâtrale à trente ans seulement. Malgré ce couronnement précoce et des invitations en Europe, la dramaturge refuse de quitter sa région natale, où elle puise l’encre puissante de ses pièces populaires.',
+      questions: [
+        [
+          'Quel sujet formait la trame dramatique de la pièce qui a révélé Marianne ?',
+          'L’impact social de la fermeture d’une usine de papier',
+          'La création précaire d’une troupe de comédiens amateurs',
+          'L’ouverture d’une papetière et ses débuts prospères',
+        ],
+        [
+          'Que peut-on déduire de son choix persistant de continuer à résider dans sa région ?',
+          'Son attachement territorial nourrit directement son imaginaire artistique',
+          'Elle refuse catégoriquement que ses œuvres dramatiques soient jouées ailleurs',
+          'Elle a accepté de s’installer en Europe pour mieux développer sa carrière',
+        ],
+        [
+          'Quelle qualité d’écriture les critiques ont-ils unanimement célébrée chez l’autrice ?',
+          'L’authenticité saisissante de ses échanges dialogués',
+          'Un recours excessif au mélodrame et aux effets larmoyants',
+          'Une écriture lente, sans véritable dialogue entre personnages',
+        ],
+      ],
+    },
+    // sc 4 (sit 1): Parcours d’une sculptrice sur bois de Charlevoix
+    {
+      situation: 1,
+      text: 'Dans le silence feutré de son atelier de Baie-Saint-Paul où flotte une odeur persistante de cèdre rouge et d’huile de lin, Isabelle Bouchard façonne patiemment la matière vivante. Fille et petite-fille d’artisans ébénistes, elle a longtemps hésité avant d’embrasser l’art de la sculpture monumentale, un univers alors largement dominé par des figures masculines traditionnelles. C’est en mariant les techniques ancestrales de la gouge avec des formes épurées et semi-abstraites inspirées des falaises de Charlevoix qu’elle a développé un langage visuel unique qui a dérouté le milieu de l’art avant d’enthousiasmer le grand public. Sa consécration est venue lorsque le Musée national des beaux-arts du Québec lui a commandé une œuvre monumentale en chêne blanc pour son grand hall d’accueil. Aujourd’hui courtisée par les grands collectionneurs privés, l’artiste transmet généreusement son savoir-faire à de jeunes apprentis dans son atelier, veillant à ce que la noblesse du travail du bois demeure vivante et novatrice.',
+      questions: [
+        [
+          'Quelle étape prestigieuse a scellé la reconnaissance institutionnelle d’Isabelle ?',
+          'Une commande publique pour le hall d’un grand musée national',
+          'Une exposition refusée par le Musée national des beaux-arts',
+          'Une fermeture de son atelier faute de clients privés',
+        ],
+        [
+          'Que peut-on déduire des débuts de sa démarche artistique singulière ?',
+          'Son audace stylistique s’est heurtée à des réticences initiales',
+          'Elle a immédiatement fait fortune en reproduisant les meubles de son père',
+          'Elle a abandonné la sculpture pour reprendre l’ébénisterie familiale',
+        ],
+        [
+          'Comment l’artiste s’investit-elle auprès de la jeune génération de créateurs ?',
+          'En formant personnellement des apprentis à l’atelier',
+          'En refusant de recevoir les apprentis dans son atelier',
+          'En ne formant que des apprentis issus de sa famille',
+        ],
+      ],
+    },
+    // sc 5 (sit 1): Récit de la réussite d’une cheffe d’orchestre
+    {
+      situation: 1,
+      text: 'Rien ne prédestinait Clara Tremblay, issue d’un quartier populaire de Chicoutimi, à manier la baguette devant les plus grands ensembles symphoniques du continent. Fascinée par la direction d’orchestre dès l’adolescence après avoir entendu une répétition publique de l’orchestre de son cégep, elle a dû surmonter l’absence de moyens financiers familiaux et le scepticisme d’un milieu musical conservateur. Grâce à une bourse d’excellence décrochée au Conservatoire de musique de Montréal et à une discipline de travail inébranlable, elle a complété sa formation de maître avant d’être nommée cheffe adjointe d’un ensemble réputé. Sa gestuelle expressive et sa relecture audacieuse des partitions des compositeurs québécois du vingtième siècle ont immédiatement soulevé l’enthousiasme du public et des musiciens sous sa direction. Nommée cette année à la tête de l’Orchestre symphonique de l’Estuaire, Clara s’emploie avec ferveur à démocratiser la musique classique en multipliant les concerts gratuits dans les parcs publics et les écoles régionales.',
+      questions: [
+        [
+          'Quel obstacle important la musicienne a-t-elle dû surmonter pour réaliser son rêve ?',
+          'Des moyens financiers restreints et un milieu musical frileux',
+          'Le manque de bourses d’études accordées aux nouveaux talents régionaux',
+          'Un refus d’admission au Conservatoire de musique de Montréal',
+        ],
+        [
+          'Que déduit-on implicitement de sa décision de jouer dans les parcs et les écoles ?',
+          'Elle veut désacraliser l’art classique pour le rendre accessible à tous',
+          'Elle veut limiter son répertoire aux musiciens amateurs de son cégep',
+          'Elle veut réserver la musique classique aux salles de concert',
+        ],
+        [
+          'Quelle distinction professionnelle Clara Tremblay a-t-elle obtenue récemment ?',
+          'Une nomination récente pour diriger l’Orchestre de l’Estuaire',
+          'Un poste de chef invité au Conservatoire de musique de Montréal',
+          'La démission de la tête de l’Orchestre symphonique de l’Estuaire',
+        ],
+      ],
+    },
+  ],
+
+  // n7-reading-2 (explicatif)
+  // Ex 0: Chronique pratique - avantages et inconvénients des fonds de placement
+  // Ex 1: Article sur le pour et le contre du télétravail
+  'n7-reading-2': [
+    // sc 0 (sit 0): Chronique financière sur les fonds négociés en bourse
+    {
+      situation: 0,
+      text: 'Pour les épargnants soucieux de faire fructifier leurs économies sans y consacrer leurs soirées, les fonds négociés en bourse représentent une solution d’investissement populaire. Ces instruments financiers regroupent des centaines d’actions ou d’obligations, offrant une diversification instantanée qui réduit considérablement le risque lié à la défaillance d’une seule entreprise. Leur attrait principal réside dans leurs frais de gestion minimes, souvent dix fois inférieurs à ceux des fonds communs traditionnels vendus par les institutions financières, ce qui préserve une part substantielle de votre rendement à long terme. En contrepartie, ces fonds demeurent pleinement exposés aux fluctuations parfois brutales des marchés boursiers : en cas de récession globale, la valeur de votre portefeuille peut chuter rapidement. Il convient donc d’avoir un horizon de placement d’au moins cinq ans pour absorber les creux économiques sans céder à la panique. Si vous approchez de la retraite, équilibrer votre portefeuille avec des titres à revenu fixe s’avère indispensable pour préserver votre capital.',
+      questions: [
+        [
+          'Quel atout déterminant les fonds négociés en bourse offrent-ils par rapport aux fonds traditionnels ?',
+          'Des frais de gestion bien moindres qui bonifient les gains',
+          'Des frais de gestion dix fois plus élevés que les fonds traditionnels',
+          'Une protection complète contre les récessions boursières globales',
+        ],
+        [
+          'Que déduit-on implicitement de l’attitude requise de l’investisseur face aux baisses du marché ?',
+          'Il doit garder son calme et conserver son horizon temporel',
+          'Il doit vendre immédiatement toutes ses parts au premier jour de repli',
+          'Il devrait retirer son argent pour le conserver en espèces chez lui',
+        ],
+        [
+          'Quelle précaution la chroniqueuse conseille-t-elle à l’approche de la retraite ?',
+          'Intégrer des titres plus stables pour amortir la volatilité boursière',
+          'Vendre ses placements boursiers dès la première baisse pour limiter les pertes',
+          'Confier son portefeuille à des fonds communs aux frais de gestion élevés',
+        ],
+      ],
+    },
+    // sc 1 (sit 0): Chronique pratique sur les coopératives d’habitation
+    {
+      situation: 0,
+      text: 'Face à la flambée des loyers dans les grands centres urbains, adhérer à une coopérative d’habitation suscite un engouement grandissant. Ce modèle sans but lucratif permet d’obtenir un logement décent à un coût mensuel bien inférieur à celui du marché privé, les hausses étant votées démocratiquement par les membres pour couvrir uniquement les frais réels de gestion et d’entretien. La stabilité résidentielle y est remarquable, car aucun locataire ne risque d’être évincé par un propriétaire cherchant à revendre l’immeuble à profit. Toutefois, la vie coopérative comporte des exigences qui ne conviennent pas à tous les tempéraments. Chaque membre s’engage formellement à consacrer quelques heures par mois à des comités d’entretien, de finances ou de sélection, et à participer aux corvées communautaires régulières. Les décisions se prennent lors d’assemblées générales parfois longues où le compromis est de rigueur. Si vous recherchez un simple logement de passage sans aucune implication humaine, ce mode de vie risque de devenir une source d’inconfort mutuel.',
+      questions: [
+        [
+          'Quel bénéfice financier majeur ce modèle locatif garantit-il à ses occupants ?',
+          'Un loyer modéré déterminé selon les coûts réels de l’immeuble',
+          'Un loyer aligné sur les prix du marché privé pour chaque membre',
+          'Des hausses de loyer décidées par un propriétaire privé',
+        ],
+        [
+          'Quel sous-entendu implicite le texte formule-t-il à propos d’une personne très individualiste ?',
+          'Elle s’adaptera difficilement aux devoirs de la vie en coopérative',
+          'Elle pourra facilement déléguer ses corvées contre paiement direct',
+          'Elle appréciera la liberté d’ignorer les corvées et les assemblées',
+        ],
+        [
+          'Quelle obligation particulière incombe à chaque membre habitant dans une coopérative ?',
+          'Participer activement à la gestion et aux corvées collectives',
+          'Assister aux assemblées une fois par année et éviter les corvées',
+          'Déléguer ses heures de comité à un autre membre contre une somme d’argent',
+        ],
+      ],
+    },
+    // sc 2 (sit 0): Chronique pratique sur le régime d’épargne-études REEE
+    {
+      situation: 0,
+      text: 'Le Régime enregistré d’épargne-études constitue un véhicule financier redoutablement efficace pour financer les études postsecondaires d’un enfant. L’avantage incomparable du REEE repose sur les subventions gouvernementales : pour chaque somme versée par les parents, le gouvernement du Canada et celui du Québec ajoutent une bonification qui peut atteindre trente pour cent des cotisations pour les ménages à revenu modeste. De plus, les rendements générés s’accumulent à l’abri de l’impôt jusqu’à l’inscription de l’enfant au cégep ou à l’université. Au moment des retraits, l’impôt est calculé au nom de l’étudiant, dont le revenu personnel est généralement faible ou nul, ce qui rend l’imposition quasi inexistante. Le principal piège consiste à souscrire des régimes collectifs rigides proposés par certains courtiers privés, qui imposent des pénalités financières draconiennes si les cotisations sont interrompues temporairement. Opter pour un régime individuel ou familial auprès d’une institution financière classique offre une souplesse indispensable en cas de revers de fortune passager.',
+      questions: [
+        [
+          'Quelle particularité financière rend le compte d’épargne-études si avantageux ?',
+          'L’apport direct de subventions gouvernementales généreuses',
+          'Des subventions versées par l’étudiant à chaque cotisation parentale',
+          'Des rendements imposés chaque année dès le dépôt des cotisations',
+        ],
+        [
+          'Que déduit-on implicitement de la mise en garde contre certains régimes collectifs ?',
+          'Leurs clauses trop strictes pénalisent les familles en cas d’imprévu',
+          'Ils accordent des subventions plus élevées aux ménages très aisés',
+          'Ils refusent systématiquement de verser les subventions provinciales',
+        ],
+        [
+          'Pourquoi les sommes retirées pour les études sont-elles si peu imposées ?',
+          'L’impôt est directement imputé à l’étudiant qui dispose de faibles revenus',
+          'L’impôt est prélevé sur les parents qui cotisent au régime collectif',
+          'Les sommes retirées sont déclarées comme revenus de travail du parent',
+        ],
+      ],
+    },
+    // sc 3 (sit 1): Analyse des impacts du télétravail à temps plein
+    {
+      situation: 1,
+      text: 'Le passage au télétravail à plein temps a profondément transformé le quotidien de milliers de professionnels. D’un côté, les bénéfices pratiques s’avèrent indéniables : élimination des heures perdues dans les embouteillages matinaux, réduction des dépenses de carburant et de transport collectif, et conciliation simplifiée des responsabilités familiales. De nombreux employés rapportent également une meilleure efficacité pour accomplir des tâches individuelles complexes à l’abri du bruit ambiant des cubicules. D’un autre côté, cette déconnexion physique prolongée comporte des revers insidieux pour la santé organisationnelle. L’isolement professionnel érode progressivement le sentiment d’appartenance et complique l’intégration des nouvelles recrues, qui peinent à s’imprégner de la culture de l’entreprise. Par ailleurs, la frontière entre vie privée et vie professionnelle tend à s’estomper lorsque le bureau s’installe à demeure dans le salon, favorisant l’épuisement professionnel chez les personnes incapables d’éteindre leur ordinateur portable le soir. C’est pourquoi les spécialistes préconisent majoritairement une formule hybride équilibrée.',
+      questions: [
+        [
+          'Quel gain pratique immédiat le télétravail procure-t-il aux travailleurs concernés ?',
+          'L’élimination du temps et du coût des déplacements quotidiens',
+          'L’augmentation des dépenses de carburant pour les longs trajets',
+          'La hausse des heures perdues dans les embouteillages matinaux',
+        ],
+        [
+          'Quelle conséquence négative implicite menace les nouveaux employés travaillant à distance ?',
+          'Une difficulté accrue à créer des liens et s’intégrer à l’équipe',
+          'Une assimilation trop rapide de la culture de l’entreprise',
+          'L’isolement qui renforce le sentiment d’appartenance au groupe',
+        ],
+        [
+          'Quel compromis les spécialistes du travail recommandent-ils face à ce dilemme ?',
+          'Une formule hybride mariant jours au bureau et travail chez soi',
+          'Le retour obligatoire au bureau cinq jours par semaine pour tous',
+          'Le maintien du télétravail à temps plein avec déconnexion du réseau',
+        ],
+      ],
+    },
+    // sc 4 (sit 1): Article sur la semaine de travail de quatre jours
+    {
+      situation: 1,
+      text: 'Expérimentée dans plusieurs entreprises québécoises de services et de technologies, la semaine de travail de quatre jours comprimée sans réduction de salaire suscite un vif intérêt. Ses promoteurs mettent en avant des résultats spectaculaires : baisse marquée de l’absentéisme, rétention record des talents et diminution du stress grâce à une fin de semaine prolongée de trois jours qui permet une véritable récupération mentale. Les employés reviennent le lundi avec une énergie renouvelée et une concentration accrue. Cependant, ce modèle n’est pas une panacée universelle et soulève des défis opérationnels complexes. Dans les organisations qui concentrent les quarante heures habituelles sur quatre journées de dix heures, la fatigue physique et intellectuelle en fin de quart de travail peut provoquer une hausse des erreurs d’inattention. De surcroît, pour les secteurs exigeant un service à la clientèle continu du lundi au vendredi, maintenir la couverture horaire requiert des embauches supplémentaires coûteuses ou une planification d’horaires acrobatique qui alourdit la gestion interne.',
+      questions: [
+        [
+          'Quel avantage psychologique majeur les partisans de la semaine de quatre jours soulignent-ils ?',
+          'Un repos plus réparateur réduisant le niveau de stress global',
+          'Une hausse des heures de travail sans récupération mentale réelle',
+          'La disparition complète de toute fatigue physique à la fin du quart',
+        ],
+        [
+          'Quel risque implicite guette les employés travaillant dix heures d’affilée par jour ?',
+          'Une baisse de vigilance causée par l’épuisement en fin de journée',
+          'Une hausse de vigilance grâce à des pauses plus fréquentes',
+          'Une baisse obligatoire de leur salaire proportionnelle aux heures',
+        ],
+        [
+          'Pourquoi ce modèle pose-t-il un défi logistique aux commerces et services continus ?',
+          'Il impose des embauches coûteuses pour maintenir la couverture du service',
+          'Il réduit les coûts de main-d’œuvre grâce à des horaires simplifiés',
+          'Il interdit de planifier des horaires pour le service à la clientèle',
+        ],
+      ],
+    },
+    // sc 5 (sit 1): Analyse des espaces de travail partagés (coworking)
+    {
+      situation: 1,
+      text: 'Face à la solitude du travail solitaire à la maison, les espaces de cotravail connaissent une expansion fulgurante dans les quartiers urbains et les villes régionales. Ces lieux collectifs offrent aux travailleurs autonomes et aux petites équipes un cadre professionnel stimulant : mobilier ergonomique, salles de visioconférence insonorisées, internet ultrarapide et aires de pause propices au réseautage spontané. Pour bien des indépendants, payer un abonnement mensuel représente un investissement rentable pour rompre l’isolement, stimuler leur créativité et nouer des collaborations d’affaires fructueuses avec d’autres professionnels côtoyés autour de la machine à café. Néanmoins, la vie en cotravail impose des concessions non négligeables. Les bruits de fond constants et les allées et venues peuvent déconcentrer les esprits facilement distraits. De plus, la confidentialité des conversations téléphoniques et la sécurité des données sensibles exigent une vigilance permanente dans ces aires ouvertes. Choisir entre confort domestique et effervescence collective dépend donc étroitement de la nature de vos mandats professionnels.',
+      questions: [
+        [
+          'Quel bénéfice relationnel principal les travailleurs autonomes trouvent-ils en cotravail ?',
+          'L’accès à un réseau stimulant brisant la solitude du domicile',
+          'L’accès à un réseau restreint au cadre du domicile familial',
+          'La possibilité de tenir des appels sans précaution particulière',
+        ],
+        [
+          'Quelle vigilance implicite ce mode de travail ouvert impose-t-il aux usagers ?',
+          'Une attention constante à la discrétion des données et des appels',
+          'Une vigilance limitée à la seule qualité de la connexion internet',
+          'Une vigilance inutile, car les appels restent toujours privés',
+        ],
+        [
+          'Quel inconvénient sonore peut perturber certains professionnels en espace partagé ?',
+          'Les bavardages continus et la circulation fréquente des personnes',
+          'Les salles de visioconférence insonorisées qui amplifient le bruit',
+          'Les bruits de fond et les allées et venues qui favorisent la concentration',
+        ],
+      ],
+    },
+  ],
+
+  // n7-reading-3 (argumentatif)
+  // Ex 0: Chronique sur un accident cycliste/auto et aménagement urbain
+  // Ex 1: Article sur le végétalisme ou la consommation responsable
+  'n7-reading-3': [
+    // sc 0 (sit 0): Chronique sur la collision de l’avenue du Mont-Royal
+    {
+      situation: 0,
+      text: 'Mardi matin, vers huit heures quinze, une violente collision est survenue à l’intersection de l’avenue du Mont-Royal et de la rue Saint-Denis. Selon le rapport du Service de police de Montréal, une cycliste de vingt-huit ans circulant en direction est a été heurtée par une camionnette commerciale effectuant un virage à droite sur un feu vert. La cycliste a été transportée d’urgence à l’hôpital pour soigner des fractures multiples au bras et à la clavicule, bien que ses jours ne soient heureusement pas en danger. Cet accident relance un débat houleux. Selon notre chroniqueur, il est inadmissible que la Ville tarde autant à installer des feux de virage exclusifs et des bordures de béton surélevées sur cet axe hautement fréquenté. Peindre de simples lignes blanches au sol pour délimiter les pistes cyclables est une négligence impardonnable face au gabarit écrasant des camions lourds. Si les élus municipaux avaient un réel souci de la vie des usagers vulnérables, ces aménagements protecteurs auraient été réalisés depuis au moins trois ans.',
+      questions: [
+        [
+          'Parmi les énoncés suivants, lequel rapporte un fait objectif vérifié par les autorités ?',
+          'La cycliste souffre de traumatismes sérieux aux membres supérieurs',
+          'La Ville a fait preuve de négligence dans l’aménagement de l’intersection',
+          'La cycliste a été heurtée par une camionnette tournant à gauche sur feu vert',
+        ],
+        [
+          'Quelle opinion vigoureuse le chroniqueur défend-il au sujet de la voirie ?',
+          'L’installation impérative de séparateurs physiques et de feux dédiés',
+          'Le maintien de simples marquages blancs pour réduire les coûts municipaux',
+          'Le retrait des bordures surélevées pour faciliter le passage des camions lourds',
+        ],
+        [
+          'Que déduit-on implicitement de la critique des simples lignes blanches peintes ?',
+          'Le marquage visuel seul n’offre aucune barrière réelle contre les véhicules',
+          'Le marquage visuel seul suffit à séparer nettement les cyclistes des camions lourds',
+          'Les bordures de béton surélevées créent un danger pour les cyclistes',
+        ],
+      ],
+    },
+    // sc 1 (sit 0): Chronique sur la vitesse et la sécurité aux abords des écoles
+    {
+      situation: 0,
+      text: 'Une récente opération de surveillance policière menée devant trois écoles primaires de Lévis a révélé des chiffres alarmants : en deux semaines, cent quarante-cinq contraventions ont été distribuées à des automobilistes roulant à plus de cinquante kilomètres à l’heure dans des zones scolaires balisées à trente. Les données du ministère des Transports indiquent que la probabilité de survie d’un piéton enfant heurté par une automobile chute de quatre-vingt-dix pour cent à cinquante kilomètres à l’heure comparativement à trente. Face à ce constat accablant, notre éditorialiste estime que les campagnes de sensibilisation à la télévision ne servent plus à rien et constituent une dépense stérile de fonds publics. Selon lui, le gouvernement doit rendre obligatoire l’installation de radars photo automatisés à tolérance zéro devant chaque école du Québec et doubler immédiatement le montant des amendes. Traiter des contrevenants récidivistes avec indulgence lorsqu’il s’agit de la sécurité élémentaire de nos tout-petits est une lâcheté politique collective qu’il convient de dénoncer avec la plus grande fermeté.',
+      questions: [
+        [
+          'Laquelle de ces propositions relève d’une information factuelle tirée du texte ?',
+          'Cent quarante-cinq constats d’infraction ont été émis en deux semaines',
+          'Les campagnes télévisées représentent un gaspillage stérile d’argent',
+          'L’attitude des dirigeants face aux contrevenants est une pure lâcheté',
+        ],
+        [
+          'Quelle solution radicale l’éditorialiste préconise-t-il pour régler le problème ?',
+          'La pose obligatoire de radars photo automatiques et des amendes doublées',
+          'L’intensification des campagnes publicitaires de sensibilisation à la télévision',
+          'La multiplication des avertissements verbaux sans pénalité financière immédiate',
+        ],
+        [
+          'Quel raisonnement implicite sous-tend l’argumentation de l’auteur ?',
+          'Seules des sanctions financières sévères contraindront les chauffards à ralentir',
+          'Les campagnes de sensibilisation suffisent à faire ralentir les chauffards',
+          'La police de Lévis a exagéré le danger pour justifier son quota de contraventions',
+        ],
+      ],
+    },
+    // sc 2 (sit 0): Chronique sur la cohabitation trottinettes et piétons
+    {
+      situation: 0,
+      text: 'L’été dernier, la Ville de Québec a déployé un projet pilote de cinq cents trottinettes électriques en libre-service dans les quartiers centraux. Le bilan officiel déposé par les services municipaux fait état de cent vingt mille déplacements enregistrés en quatre mois, mais recense également quarante-trois blessés traités en clinique et plus de trois cents plaintes citoyennes pour des appareils abandonnés au milieu des trottoirs. Ces statistiques confirment nos pires craintes. Notre chroniqueuse affirme sans détour que laisser ces engins motorisés circuler à proximité des piétons relève d’un laxisme urbain intolérable. Selon elle, les trottoirs doivent demeurer des sanctuaires inviolables pour les personnes à mobilité réduite, les aînés et les familles avec poussettes. Tolérer que des usagers circulent à vingt kilomètres à l’heure sur les trottoirs sous prétexte d’écomobilité moderne est une capitulation face aux intérêts mercantiles des multinationales de location. Si les opérateurs privés sont incapables de contraindre leurs clients à respecter les voies de circulation, le projet doit être purement et simplement abrogé.',
+      questions: [
+        [
+          'Laquelle des affirmations suivantes est une donnée factuelle issue du bilan ?',
+          'Quarante-trois blessés ont été soignés en clinique durant la période',
+          'Le projet de trottinettes relève d’un laxisme urbain intolérable',
+          'Les élus ont capitulé devant les intérêts financiers de multinationales',
+        ],
+        [
+          'Quelle opinion la chroniqueuse soutient-elle avec véhémence ?',
+          'Les trottoirs doivent être strictement réservés aux piétons sans engin motorisé',
+          'Tolérer une circulation modérée des trottinettes sur les trottoirs centraux',
+          'Les trottinettes doivent emprunter les trottoirs centraux pour gagner en sécurité',
+        ],
+        [
+          'Que déduit-on implicitement de la mise en garde finale de l’autrice ?',
+          'Elle souhaite le retrait complet des flottes si les règles ne sont pas appliquées',
+          'Elle espère une augmentation du nombre de trottinettes offertes en libre-service',
+          'Elle juge le bilan rassurant, les blessés étant peu nombreux',
+        ],
+      ],
+    },
+    // sc 3 (sit 1): Débat sur les repas végétaliens dans les cafétérias scolaires
+    {
+      situation: 1,
+      text: 'Le centre de services scolaire de l’Or-et-des-Bois a récemment adopté une résolution prévoyant qu’un repas du midi par semaine servi dans ses dix écoles secondaires sera entièrement végétalien à compter de la rentrée. Selon les nutritionnistes de la santé publique, cette mesure permettra de réduire l’empreinte carbone des menus collectifs de douze pour cent tout en doublant la consommation de légumineuses chez les adolescents. Si cette initiative semble exemplaire sur le plan écologique, elle suscite une vive controverse chez plusieurs parents. L’éditorialiste du quotidien régional applaudit chaudement cette décision courageuse, affirmant qu’il est temps de libérer nos institutions publiques de la dépendance à la viande industrielle et d’inculquer aux jeunes des habitudes éthiques indispensables pour l’avenir de la planète. En revanche, certains détracteurs y voient un diktat moralisateur inadmissible qui brime la liberté de choix des familles et ignore les traditions culinaires québécoises. Le débat illustre la difficulté de concilier impératifs climatiques et sensibilités culturelles.',
+      questions: [
+        [
+          'Quelle mesure factuelle a été officiellement adoptée par l’organisme scolaire ?',
+          'L’instauration d’un dîner végétalien hebdomadaire dans dix écoles',
+          'L’instauration de menus sans viande tous les midis de la semaine',
+          'L’instauration d’un dîner végétalien mensuel dans sept écoles secondaires',
+        ],
+        [
+          'Quelle opinion favorable l’éditorialiste exprime-t-il vis-à-vis du projet ?',
+          'Il s’agit d’un geste éthique courageux pour préserver l’avenir environnemental',
+          'Il s’agit d’un diktat moralisateur inadmissible qui brime la liberté de choix des familles',
+          'Il faut limiter l’initiative à une seule école pour en évaluer les coûts',
+        ],
+        [
+          'Quelle critique implicite les opposants à la mesure mettent-ils de l’avant ?',
+          'Ils perçoivent cette imposition comme une atteinte à leur autonomie alimentaire',
+          'Ils affirment que la mesure augmentera l’empreinte carbone des écoles secondaires',
+          'Ils veulent que les écoles abandonnent les traditions culinaires québécoises',
+        ],
+      ],
+    },
+    // sc 4 (sit 1): Débat sur l’interdiction des plastiques à usage unique
+    {
+      situation: 1,
+      text: 'Depuis le premier mars, la Ville de Sherbrooke applique son règlement interdisant les sacs d’emballage en plastique léger, les barquettes en polystyrène et les ustensiles non compostables dans l’ensemble des épiceries et restaurants locaux. Les inspecteurs municipaux ont visité trois cents établissements et relevé un taux de conformité remarquable de quatre-vingt-huit pour cent dès le premier mois. Les écologistes saluent une avancée historique pour préserver la faune aquatique des rivières Magog et Saint-François, où des tonnes de microplastiques s’accumulaient chaque année. Pourtant, la grogne persiste chez plusieurs petits commerçants indépendants. Dans une lettre ouverte percutante, une représentante de restaurateurs dénonce une précipitation dogmatique des autorités qui étouffe les commerces de quartier sous des coûts d’emballage alternatif jusqu’à quatre fois plus chers, en pleine période d’inflation alimentaire. Selon elle, la Ville fait peser la charge morale de la transition écologique sur les petits commerces fragiles plutôt que de s’attaquer aux grands conglomérats industriels qui produisent ces matières polluantes à la source.',
+      questions: [
+        [
+          'Quel résultat factuel a été constaté par les inspecteurs de la ville après un mois ?',
+          'Un niveau de conformité des commerces approchant quatre-vingt-huit pour cent',
+          'Une baisse immédiate de quatre-vingt-huit pour cent des coûts d’emballage alternatif',
+          'Un taux de conformité de soixante-huit pour cent dès le premier mois',
+        ],
+        [
+          'Quelle opinion contestataire la représentante des restaurateurs défend-elle ?',
+          'La réglementation impose un fardeau financier inéquitable aux petits commerces',
+          'Les emballages en plastique devraient être rendus obligatoires dans chaque foyer',
+          'Les rivières de la région ne contiennent en réalité aucune trace de microplastiques',
+        ],
+        [
+          'Quel sous-entendu implicite la porte-parole fait-elle quant aux multinationales ?',
+          'Les politiques ciblent les commerces de détail plutôt que les vrais pollueurs à la source',
+          'Les conglomérats devraient être épargnés par le nouveau règlement municipal',
+          'Les grandes entreprises ont déjà aboli tous les polymères de manière exemplaire',
+        ],
+      ],
+    },
+    // sc 5 (sit 1): Tribune sur la tarification incitative des déchets résiduels
+    {
+      situation: 1,
+      text: 'La Régie intermunicipale de gestion des déchets a présenté les résultats d’une phase pilote de tarification incitative menée auprès de trois mille ménages volontaires. En équipant les bacs noirs de puces électroniques et en facturant les collectes au-delà de deux vidanges par mois, la municipalité a enregistré une baisse spectaculaire de vingt-cinq pour cent de l’enfouissement et une hausse de quarante pour cent des matières compostées. Cette expérience déclenche des réactions passionnées dans la presse locale. Notre chroniqueur estime que le principe de l’utilisateur-payeur constitue le seul outil fiscal véritablement efficace pour responsabiliser les citoyens gaspilleurs et forcer les ménages à trier leurs restes de table. À l’inverse, une coalition citoyenne s’insurge contre ce qu’elle qualifie de taxe punitive déguisée, affirmant que faire payer les familles nombreuses pour leurs ordures est une mesure injuste qui encourage les dépôts sauvages dans les forêts riveraines. Ce bras de fer illustre la complexité d’instaurer des mécanismes d’économie circulaire acceptables pour tous.',
+      questions: [
+        [
+          'Quelle donnée chiffrée démontre l’efficacité matérielle du projet pilote ?',
+          'Une réduction de vingt-cinq pour cent des matières destinées à l’enfouissement',
+          'Une réduction de quarante pour cent des matières destinées à l’enfouissement',
+          'Une réduction de quarante pour cent des matières compostées par les ménages',
+        ],
+        [
+          'Quelle position favorable le chroniqueur avance-t-il au sujet de ce système ?',
+          'La tarification selon l’usage responsabilise concrètement les comportements individuels',
+          'Les bacs noirs à puce électronique devraient être interdits dans toute la province',
+          'Le principe de l’utilisateur-payeur devrait viser les municipalités plutôt que les ménages',
+        ],
+        [
+          'Quelle conséquence perverse implicite la coalition citoyenne redoute-t-elle ?',
+          'L’abandon illégal de sacs de déchets dans la nature pour éviter la facture',
+          'La réduction des coûts de collecte pour les familles nombreuses',
+          'La baisse marquée des dépôts sauvages dans les forêts riveraines',
+        ],
+      ],
+    },
+  ],
+
+  // ===========================================================================
+  // NIVEAU 8 - SCENARIOS TO BE IMPLEMENTED IN NEXT BATCH
+  // ===========================================================================
+  // ===========================================================================
+  // n8-listening-0 (informatif)
+  // Ex 0: Enquête de satisfaction réalisée auprès de la clientèle
+  // Ex 1: Tâches du poste souhaité lors d’un entretien d’embauche
+  // ===========================================================================
+  'n8-listening-0': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "Bonjour à toute l’équipe. Je vous présente ce matin la synthèse de notre grande enquête de satisfaction annuelle menée auprès de mille deux cents clients de nos succursales de quincaillerie de l’Estrie. Globalement, l’indice global de recommandation atteint soixante-dix-huit pour cent, ce qui constitue une progression notable de quatre points par rapport à l’exercice précédent. Les répondants ont particulièrement vanté la courtoisie de notre personnel de plancher et l’expertise technique offerte au comptoir des matériaux lourds. Néanmoins, deux irritants récurrents ressortent clairement des commentaires qualitatifs. Tout d’abord, plus de quarante pour cent des usagers déplorent le temps d’attente aux caisses lors des périodes de pointe du samedi matin. Ensuite, le système de commande en ligne pour cueillette à l’auto souffre d’erreurs récurrentes d’inventaire dans plusieurs commerces. Afin de corriger ces lacunes d’ici l’automne, la direction générale a prévu d’accélérer la formation des préposés saisonniers et de déployer un tout nouveau logiciel de gestion des stocks dès le mois prochain.",
+      questions: [
+        [
+          "Quel aspect du service a été le plus favorablement accueilli par la clientèle ?",
+          "L’accompagnement compétent des employés en magasin",
+          "La rapidité exceptionnelle du passage aux caisses le samedi",
+          "L’exactitude des stocks affichés pour la cueillette à l’auto",
+        ],
+        [
+          "Que peut-on déduire de l’attitude de la direction face aux faiblesses signalées ?",
+          "Elle réagit promptement en allouant des ressources ciblées",
+          "Elle estime que les lacunes signalées ne requièrent pas d’intervention",
+          "Elle impute les erreurs d’inventaire aux usagers eux-mêmes",
+        ],
+        [
+          "Quel problème logistique précis les répondants ont-ils souligné ?",
+          "Des écarts fréquents dans l’état réel des marchandises disponibles",
+          "Un logiciel de gestion des stocks jugé fiable par les répondants",
+          "Une courtoisie insuffisante du personnel de plancher envers la clientèle",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "Merci d’être là. Voici les faits saillants de l’étude de satisfaction réalisée par notre firme indépendante auprès des usagers de la traverse maritime de Rivière-du-Loup. Sur un échantillon représentatif de huit cents passagers interrogés au cours de la saison estivale, quatre-vingt-cinq pour cent se disent très satisfaits de la ponctualité des départs et des normes de sécurité appliquées à bord des traversiers. En revanche, le volet des réservations numériques essuie des critiques sévères : les pannes répétées du site Web lors de l’ouverture des plages horaires ont suscité une vive frustration chez les familles et les transporteurs routiers. De surcroît, la signalétique à l’embarcadère pour orienter les véhicules récréatifs a été jugée confuse par près de la moitié des conducteurs étrangers à la région. Face à ces constats, nous recommandons de moderniser l’infrastructure d’hébergement web avant la haute saison et de clarifier le balisage routier aux abords immédiats des quais de chargement afin de fluidifier les opérations d’embarquement.",
+      questions: [
+        [
+          "Quelle force principale de la traverse ressort avec clarté du sondage ?",
+          "Le respect scrupuleux des horaires annoncés pour les départs",
+          "L’accessibilité exemplaire de la nouvelle plateforme de réservation",
+          "La clarté parfaite des panneaux routiers à l’embarcadère",
+        ],
+        [
+          "Quelle réaction des voyageurs la défaillance informatique a-t-elle provoquée ?",
+          "Un mécontentement marqué face aux blocages numériques",
+          "Une plainte formelle sur la sécurité appliquée à bord",
+          "Une confusion généralisée sur les horaires de départ",
+        ],
+        [
+          "Quelle intention anime la direction dans les changements recommandés ?",
+          "Prévenir les engorgements et fiabiliser les outils en ligne",
+          "Restreindre l’accès des véhicules récréatifs aux abords des quais",
+          "Confier la gestion des réservations aux transporteurs routiers",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "Chers collègues, j’ai analysé les résultats du sondage mené auprès des trois mille abonnés de notre réseau d’espaces de travail partagés à Montréal et à Laval. Le niveau de fidélité demeure robuste avec une cote de satisfaction de quatre étoiles et demie sur cinq. Les membres apprécient tout particulièrement la luminosité des bureaux individuels, l’insonorisation des cabines téléphoniques et la vitesse de la connexion à fibre optique. Toutefois, l’enquête révèle un mécontentement grandissant concernant la gestion des aires communes de restauration : le manque de propreté des réfrigérateurs et la pénurie d’ustensiles aux heures du dîner alimentent les frictions quotidiennes. Par ailleurs, plusieurs télétravailleurs estiment que les tarifs mensuels ont progressé plus vite que la qualité globale des équipements ergonomiques fournis. Pour consolider la confiance de notre communauté, nous allons instaurer un protocole de nettoyage renforcé deux fois par jour et réviser les forfaits de location longue durée d’ici le prochain trimestre d’exploitation.",
+      questions: [
+        [
+          "Quel atout matériel recueille un assentiment massif auprès des membres ?",
+          "L’efficacité des cloisons acoustiques dans les cabines privées",
+          "La propreté irréprochable des réfrigérateurs de la cuisine commune",
+          "La lenteur de la connexion à fibre optique dans les bureaux individuels",
+        ],
+        [
+          "Que peut-on déduire quant à l’effet des désagréments observés dans la cuisine ?",
+          "Ils nuisent à la convivialité et créent des tensions réelles",
+          "Ils ont permis d’améliorer l’hygiène des réfrigérateurs partagés",
+          "Ils provoquent une dégradation de l’insonorisation des cabines",
+        ],
+        [
+          "Quelle mesure corrective immédiate l’équipe de gestion compte-t-elle implanter ?",
+          "Un accroissement de la fréquence d’entretien des espaces partagés",
+          "La fermeture définitive des aires de restauration pour le dîner",
+          "Une réduction de la fréquence des nettoyages dans les espaces partagés",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "— Bonjour, monsieur Bélanger. Permettez-moi de vous préciser les responsabilités quotidiennes du poste de coordonnateur en développement durable pour lequel vous postulez. Au sein de notre municipalité régionale de comté dans Lanaudière, votre mandat consistera principalement à accompagner seize municipalités dans l’élaboration de leur plan climat territorial. Vous rédigerez les devis techniques des projets de transition énergétique, vous animerez des séances de consultation publique en soirée auprès des citoyens et vous préparerez les demandes d’aide financière auprès des ministères provinciaux. Le rythme de travail exige une grande polyvalence et une solide aisance relationnelle, notamment lorsqu’il s’agit de concilier des visions divergentes entre les agriculteurs, les commerçants et les groupes écologistes locaux. Nous accordons deux jours de télétravail par semaine, mais vous devrez vous déplacer fréquemment sur le territoire lors des réunions de conseil. Si cette charge de travail s’avère exigeante sur le plan logistique, elle offre une autonomie décisionnelle rare pour une entrée en fonction dans notre organisation municipale.",
+      questions: [
+        [
+          "En quoi consiste la tâche principale liée au mandat proposé ?",
+          "Guider les villes locales dans la conception de stratégies climatiques",
+          "Animer des séances de consultation publique en journée auprès des élus",
+          "Accorder lui-même les aides financières versées par les ministères",
+        ],
+        [
+          "Quelle exigence particulière découle implicitement de l’animation des réunions citoyennes ?",
+          "Savoir négocier avec tact entre des interlocuteurs opposés",
+          "Imposer unilatéralement les directives de l’administration",
+          "Refuser la parole aux groupes qui contestent les mesures",
+        ],
+        [
+          "Quelle modalité d’organisation du travail est garantie dans ce poste ?",
+          "La possibilité d’exercer ses fonctions à distance à temps partiel",
+          "L’interdiction du télétravail à cause des déplacements fréquents",
+          "Le télétravail permis seulement lors des réunions de conseil",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "— Bienvenue, madame Roy. Pour cette fonction d’analyste en cybersécurité au sein de notre coopérative financière à Lévis, vos missions s’articuleront autour de trois axes majeurs. D’abord, vous assurerez la surveillance active des journaux d’événements afin de détecter les anomalies réseau et les tentatives d’intrusion sur nos serveurs transactionnels. Ensuite, vous concevrez des simulations internes d’hameçonnage pour évaluer la vigilance de nos six cents employés et adapter nos ateliers de formation continue. Enfin, en cas de faille avérée, vous rédigerez les rapports post-incident destinés aux autorités réglementaires financières et au comité de direction. Ce rôle nécessite une capacité d’analyse rigoureuse sous pression, car vous participerez à une rotation d’astreinte téléphonique une fin de semaine par mois pour intervenir en cas d’alerte critique. Même si notre environnement technologique est hautement complexe, vous intégrerez une équipe chevronnée qui valorise le partage des connaissances et accorde un budget généreux pour l’obtention de certifications spécialisées chaque année.",
+      questions: [
+        [
+          "Quelle mission préventive figure parmi les tâches de l’analyste ?",
+          "Organiser des tests d’attaque fictifs pour former le personnel",
+          "Réduire les rotations d’astreinte téléphonique pour le personnel",
+          "Rédiger les rapports préventifs destinés aux autorités réglementaires",
+        ],
+        [
+          "Quelle attitude est implicitement requise lors des périodes d’astreinte ?",
+          "Une disponibilité réactive doublée d’un grand sang-froid",
+          "Une capacité à reporter le traitement des alertes au lundi",
+          "Une propension à attendre le feu vert du comité de direction",
+        ],
+        [
+          "Quel avantage professionnel l’institution propose-t-elle à la candidate ?",
+          "Un financement régulier pour perfectionner ses compétences",
+          "Une dispense des rotations de garde lors des fins de semaine",
+          "Un horaire de travail fixe sans aucune contrainte d’urgence",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "— Bonjour, monsieur Da Silva. Installez-vous confortablement. Comme vous le savez, le poste de gestionnaire de communauté pour notre festival de théâtre émergent à Trois-Rivières requiert un profil dynamique et polyvalent. Votre mandat englobe la gestion quotidienne de nos plateformes numériques, la rédaction d’infolettres percutantes pour nos abonnés et la création de capsules vidéo en coulisses avec les troupes invitées. En période estivale, l’intensité grimpe d’un cran : vous coordonnerez une équipe de huit bénévoles affectés à l’accueil des médias culturels et à la captation des spectacles en plein air. Vous aurez également la responsabilité d’assurer un service à la clientèle courtois en répondant rapidement aux messages du public, y compris en soirée pendant la quinzaine du festival. Nous cherchons quelqu’un doté d’une plume impeccable en français, créatif et capable de conserver son calme en situation d’imprévu technique. En contrepartie, vous jouirez d’une liberté artistique substantielle et d’un accès privilégié à toutes les résidences artistiques de l’année.",
+      questions: [
+        [
+          "Quelle responsabilité directe incombe au candidat durant la période du festival ?",
+          "Encadrer un groupe de bénévoles pour appuyer les journalistes",
+          "Répondre aux messages du public seulement durant les heures de bureau",
+          "Rédiger les infolettres à destination des seules troupes invitées",
+        ],
+        [
+          "Que peut-on déduire des contraintes horaires liées à cet emploi ?",
+          "Les journées de travail s’étirent souvent lors des représentations",
+          "L’horaire s’arrête strictement à dix-sept heures chaque jour ouvrable",
+          "Les horaires se réduisent aux matinées pendant la quinzaine du festival",
+        ],
+        [
+          "Quel bénéfice d’ordre culturel le poste offre-t-il au gestionnaire engagé ?",
+          "Une autonomie artistique considérable au sein d’un festival de théâtre émergent",
+          "Un accès privilégié aux résidences réservé aux seuls bénévoles",
+          "Une liberté artistique réduite lors des captations en coulisses",
+        ],
+      ],
+    },
+  ],
+  // ===========================================================================
+  // n8-listening-1 (narratif)
+  // Ex 0: Rétrospective du mandat d’un gouvernement sortant lors de la soirée électorale
+  // Ex 1: Long-métrage de fiction sur la vie sentimentale de jeunes adultes
+  // ===========================================================================
+  'n8-listening-1': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "— Bonsoir à tous. À l’occasion de cette soirée électorale palpitante, dressons le bilan des quatre années de mandat du gouvernement sortant à l’Assemblée nationale. Arrivée au pouvoir avec la promesse d’un virage audacieux en santé, la coalition ministérielle peut se targuer d’avoir augmenté considérablement le nombre d’infirmières praticiennes spécialisées dans les CLSC et d’avoir enfin décentralisé la gestion des hôpitaux régionaux. Toutefois, la promesse phare d’éliminer l’attente aux urgences urbaines s’est heurtée à une pénurie sans précédent de préposés aux bénéficiaires, provoquant de vives tensions avec les fédérations de médecins. Sur le plan économique, le premier ministre a réussi à attirer des investissements substantiels dans la filière des batteries pour véhicules écologiques à Bécancour. Mais cette réussite industrielle est assombrie par le déficit budgétaire record accumulé, que l’opposition qualifie de dérive gestionnaire. Alors que les premiers bureaux de vote ferment leurs portes, les analystes s’accordent pour dire que l’électorat hésite encore entre la continuité des chantiers entamés et un désir palpable de renouveau démocratique.",
+      questions: [
+        [
+          "Quel accomplissement concret le bilan gouvernemental met-il en lumière en santé ?",
+          "Le renforcement du rôle des infirmières spécialisées en clinique",
+          "La suppression définitive de tout délai d’attente dans les urgences",
+          "Le transfert des urgences urbaines vers les hôpitaux régionaux",
+        ],
+        [
+          "Quelle réaction critique des adversaires politiques la gestion financière suscite-t-elle ?",
+          "Un reproche véhément visant l’ampleur du déséquilibre des finances",
+          "Un appui sans réserve à la gestion des urgences urbaines",
+          "Une dénonciation du manque d’investissements pour l’industrie propre",
+        ],
+        [
+          "Quel sentiment général émerge implicitement chez les électeurs à l’heure du scrutin ?",
+          "Un tiraillement entre la stabilité acquise et la volonté de changement",
+          "Une volonté majoritaire de reconduire sans réserve l’équipe en place",
+          "Un désintérêt complet pour les questions de santé et d’économie",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "— Nous retrouvons notre correspondant parlementaire pour analyser la trajectoire de l’administration municipale sortante lors de ce scrutin local. Il y a quatre ans, la mairesse avait promis une transformation écologique ambitieuse de la métropole. Les réalisations sont indéniables dans le domaine du transport actif, avec plus de soixante kilomètres de voies cyclables sécurisées aménagées et l’acquisition d’autobus entièrement électriques pour la société de transport. Cependant, le mandat a été durement secoué par la crise du logement abordable, qui a jeté une lumière crue sur la lenteur des chantiers communautaires et la flambée des loyers. De surcroît, la réfection interminable des conduites d’aqueduc au centre-ville a provoqué l’ire des commerçants indépendants, dont plusieurs ont dû déclarer faillite faute d’achalandage piétonnier. Alors que le dépouillement commence, la mairesse sortante joue son avenir politique sur sa capacité à convaincre la population que les perturbations subies portaient la promesse d’une métropole plus résiliente pour les générations à venir.",
+      questions: [
+        [
+          "Quel succès majeur l’administration municipale peut-elle revendiquer ?",
+          "L’agrandissement notable du réseau de circulation pour vélos",
+          "L’éradication complète de la crise du logement dans la ville",
+          "L’achèvement précoce des réparations d’aqueduc au centre-ville",
+        ],
+        [
+          "Que peut-on déduire de l’attitude des commerçants face aux travaux de réfection ?",
+          "Ils éprouvent une vive amertume liée à leurs pertes financières",
+          "Ils applaudissent la métamorphose paysagère de leurs artères piétonnes",
+          "Ils ont profité d’une hausse d’achalandage pendant les chantiers",
+        ],
+        [
+          "Quel argument la mairesse tente-t-elle de faire valoir pour persuader les votants ?",
+          "Les perturbations subies étaient nécessaires pour préparer l’avenir",
+          "Les travaux routiers n’ont occasionné aucun dérangement pour quiconque",
+          "La crise du logement abordable a été réglée de manière exemplaire",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "— Mesdames et messieurs, bienvenue à notre rétrospective politique consacrée au mandat du gouvernement sortant en matière d’éducation et de culture. Durant les quatre dernières années, l’équipe au pouvoir a injecté des sommes historiques pour moderniser les écoles vétustes et réduire le nombre d’élèves par classe au premier cycle du primaire. Les milieux culturels saluent également l’instauration d’un passeport culturel pour les adolescents, qui a stimulé la fréquentation des musées et des théâtres régionaux. En contrepartie, le déploiement chaotique de la plateforme numérique des services scolaires a suscité une vive fronde des enseignants, dénonçant un outil déficient imposé sans consultation préalable. Sur le front des négociations salariales, la grève historique du personnel de soutien l’automne dernier a laissé des cicatrices profondes dans les communautés scolaires. Au moment où les électeurs rendent leur verdict, le bilan gouvernemental apparaît contrasté : une volonté réformatrice indéniable sur le plan matériel, mais fragilisée par un dialogue social laborieux et souvent conflictuel.",
+      questions: [
+        [
+          "Quelle mesure a été favorablement accueillie dans le secteur de l’enseignement ?",
+          "L’allègement des groupes d’élèves dans le premier cycle du primaire",
+          "La suppression de toute aide financière aux établissements culturels",
+          "L’abandon du passeport culturel pour les adolescents",
+        ],
+        [
+          "Quel sentiment les enseignants ont-ils exprimé face au nouvel outil informatique ?",
+          "Une exaspération partagée causée par un manque de concertation",
+          "Une satisfaction enthousiaste devant la simplicité du programme",
+          "Une fierté collective pour un outil déployé avec consultation préalable",
+        ],
+        [
+          "Que déduit implicitement le journaliste au sujet des relations de travail ?",
+          "Les négociations salariales conflictuelles ont fragilisé le dialogue social",
+          "Les augmentations de salaire ont dissipé toute tension avec les écoles",
+          "La grève du personnel de soutien a renforcé la confiance des familles",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "Dans sa chronique culturelle, Félix commente la sortie en salle du nouveau long-métrage québécois « L’Écho des Marées ». Cette œuvre dramatique met en scène Juliette, une jeune architecte de Rimouski, et Antoine, un photographe animalier revenant d’un long séjour sur la Côte-Nord. Réunis par le mandat de rénover une maison ancestrale au bord du Saint-Laurent, les deux protagonistes nouent une complicité lumineuse qui bascule progressivement vers une liaison passionnée. Cependant, l’intrigue évite habilement les clichés de la romance convenue : la réalisatrice explore avec finesse la peur de l’engagement d’Antoine, hanté par l’échec d’une relation antérieure, et les ambitions professionnelles divergentes de Juliette, tentée par une offre d’emploi prestigieuse à Montréal. Le film captive par son authenticité psychologique, montrant comment les non-dits et le déracinement géographique pèsent sur l’amour à l’aube de la trentaine. La scène culminante sur les battures au crépuscule livre une réflexion poignante sur la nécessité de renoncer à certaines illusions pour grandir ensemble sans étouffer la liberté de l’autre.",
+      questions: [
+        [
+          "Quel prétexte professionnel réunit les deux personnages principaux au début du récit ?",
+          "Le projet de restauration d’une demeure patrimoniale sur la rive",
+          "Le démontage d’une maison ancestrale au bord du Saint-Laurent",
+          "L’ouverture d’un atelier de photographie animalière sur la Côte-Nord",
+        ],
+        [
+          "Quel obstacle personnel freine Antoine dans sa relation naissante avec Juliette ?",
+          "Les blessures non résolues laissées par une rupture passée",
+          "La crainte de Juliette de s’engager dans une relation durable",
+          "Une offre d’emploi prestigieuse à Montréal qu’il refuse d’accepter",
+        ],
+        [
+          "Que peut-on déduire de l’intention de la cinéaste à travers ce long-métrage ?",
+          "Dépeindre les compromis affectifs sans verser dans la facilité romanesque",
+          "Présenter une vision idyllique où l’amour triomphe sans aucun sacrifice",
+          "Décrire le déracinement géographique comme un atout pour le couple",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "Ce matin, notre critique cinéma revient sur le long-métrage indépendant « Les Soleils d’Automne », réalisé par une jeune créatrice de Sherbrooke. L’histoire suit trois amis d’enfance, Clara, Samuel et Vincent, qui partagent un appartement dans le quartier ouvrier de Saint-Roch à Québec. Alors que leur groupe paraissait soudé par les souvenirs du cégep et un amour partagé pour la musique indie, l’arrivée inattendue d’un sentiment amoureux vient bouleverser leur bel équilibre. Samuel et Vincent tombent tous deux amoureux de Clara, tandis que cette dernière, tiraillée entre son affection fraternelle pour l’un et son attirance vertigineuse pour l’autre, s’enferme dans le silence pour préserver leur colocation. La caméra capte avec une pudeur remarquable les regards fuyants, les soupers partagés où s’accumulent les malaises et la lente dégradation d’une complicité jadis inaltérable. La fin, tout en nuances et sans dénouement mélodramatique, laisse le spectateur songeur face à cette étape charnière où l’amitié inconditionnelle de la jeunesse doit s’effacer devant les vérités du cœur et les choix d’adultes.",
+      questions: [
+        [
+          "Quel événement déclencheur vient fissurer la cohésion des trois colocataires ?",
+          "La naissance de sentiments amoureux rivaux envers leur amie commune",
+          "Le départ de Vincent pour Sherbrooke afin de poursuivre ses études",
+          "La décision soudaine de Clara de quitter le quartier de Saint-Roch",
+        ],
+        [
+          "Quelle attitude Clara adopte-t-elle face à la tension naissante entre ses amis ?",
+          "Elle choisit de se taire pour éviter d’aggraver les divisions",
+          "Elle confronte ouvertement les deux hommes lors d’une vive explication",
+          "Elle tente d’apaiser la dispute en imposant une médiation formelle",
+        ],
+        [
+          "Que sous-entend la conclusion du film quant au passage à l’âge adulte ?",
+          "Les amitiés de jeunesse doivent composer avec des dilemmes sentimentaux",
+          "L’amour de jeunesse finit toujours par réunir les trois amis",
+          "Les relations sentimentales demeurent toujours futiles et secondaires",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "Au microphone de l’émission artistique, nous découvrons aujourd’hui le film « Lignes de Fuite », primé au festival de cinéma de Rouyn-Noranda. Le récit met en scène Sandrine, une traductrice méticuleuse de Gatineau, et Maxime, un paysagiste rêveur rencontré par hasard lors d’un concert dans le Vieux-Hull. Dès leurs premiers rendez-vous, une alchimie singulière opère entre leurs personnalités contrastées : elle incarne la prévoyance et l’organisation rationnelle, tandis qu’il vit au jour le jour, sans plan de carrière ni attache financière. Au fil des saisons, leur union se heurte aux réalités concrètes de la cohabitation et au projet de fonder un foyer. Le cinéaste signe une œuvre vibrante et drôle sur la vulnérabilité émotionnelle, explorant comment deux êtres aux rythmes biologiques et mentaux discordants tentent de négocier un espace commun sans renier leur identité profonde. Porté par des interprètes d’un naturel désarmant, le long-métrage illustre avec justesse les doutes existentiels d’une génération qui refuse de sacrifier ses idéaux personnels au conformisme social.",
+      questions: [
+        [
+          "Quelle différence fondamentale caractérise les deux protagonistes de cette comédie dramatique ?",
+          "Leurs rapports diamétralement opposés à la prévoyance quotidienne",
+          "Leurs métiers respectifs, traductrice et paysagiste, sont très proches",
+          "Leur attitude identique face à la prévoyance et à l’organisation",
+        ],
+        [
+          "Quel sentiment les personnages éprouvent-ils au fil de leur cohabitation ?",
+          "Une insécurité grandissante face à l’avenir et aux projets communs",
+          "La conviction sereine que leurs différences enrichiront leur quotidien partagé",
+          "Un profond mépris l’un pour l’autre après la première dispute vécue",
+        ],
+        [
+          "Que déduit le chroniqueur au sujet de la génération dépeinte dans cette œuvre ?",
+          "Elle cherche à s’épanouir amoureusement sans subir les modèles traditionnels",
+          "Elle privilégie systématiquement l’enrichissement matériel avant l’amour",
+          "Elle évite toute relation durable afin de préserver une solitude choisie",
+        ],
+      ],
+    },
+  ],
+  // ===========================================================================
+  // n8-listening-2 (explicatif)
+  // Ex 0: Explications d’une journaliste sur les enjeux de main-d’œuvre et les solutions des élus
+  // Ex 1: Explications d’un gestionnaire sur les causes d’une mésentente avec un client
+  // ===========================================================================
+  'n8-listening-2': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "Ici Isabelle Roy en direct de Roberval pour Le bulletin régional. La pénurie de main-d’œuvre frappe de plein fouet les secteurs manufacturier et forestier du Saguenay–Lac-Saint-Jean, où plus de deux mille postes demeurent vacants. Plusieurs petites entreprises familiales doivent même refuser des commandes lucratives faute d’opérateurs de machinerie lourde et de mécaniciens industriels. Pour freiner cette hémorragie économique, la table des préfets et les mairesses de la région ont dévoilé ce matin un plan d’action concerté comportant trois mesures phares. Premièrement, une enveloppe de trois millions de dollars financera des bourses incitatives destinées aux étudiants collégiaux s’engageant à occuper un emploi dans la région pendant au moins trois ans après leur diplomation. Deuxièmement, les élus s’associent avec Francisation Québec pour offrir des cours de langue sur mesure directement dans les usines aux travailleurs immigrants temporaires. Enfin, un projet pilote de transport collectif intermunicipal reliera les zones industrielles aux municipalités environnantes pour faciliter les déplacements des travailleurs sans permis de conduire.",
+      questions: [
+        [
+          "Quel impact direct le manque de personnel a-t-il sur les entreprises locales ?",
+          "L’obligation de décliner des contrats d’affaires rentables",
+          "L’obligation d’accepter des commandes sans personnel qualifié",
+          "Une fermeture massive des entreprises familiales du Saguenay",
+        ],
+        [
+          "À quelle condition un étudiant peut-il toucher la bourse financière régionale ?",
+          "Demeurer en poste sur le territoire pendant une période de trois ans",
+          "Démarrer une entreprise familiale dans la région après le diplôme",
+          "Occuper un emploi à l’étranger dès la fin de ses études",
+        ],
+        [
+          "Quelle intention anime les élus en implantant des cours de français en entreprise ?",
+          "Freiner le déclin économique provoqué par le manque d’opérateurs qualifiés",
+          "Accélérer le départ des travailleurs immigrants vers d’autres régions",
+          "Offrir des cours de langue aux seuls cadres des usines de la région",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "Bienvenue à notre dossier économique en direct de Sherbrooke. Dans les Cantons-de-l’Est, c’est le secteur des soins de santé et des services de garde éducatifs qui subit les contrecoups les plus sévères de la pénurie d’employés qualifiés. Près de six cents places en centre de la petite enfance restent fermées, empêchant de nombreux parents, en particulier des mères de famille, de réintégrer le marché du travail. Face à cette impasse, les élus municipaux de la MRC de Memphrémagog ont présenté une stratégie novatrice en collaboration avec le cégep local. D’une part, ils proposent une formation intensive rémunérée en alternance travail-études, permettant aux nouvelles recrues d’acquérir leurs compétences tout en exerçant en salle de classe. D’autre part, pour surmonter l’obstacle majeur de la crise du logement, les municipalités céderont des terrains à prix symbolique afin de construire des coopératives d’habitation réservées en priorité aux travailleurs des services essentiels. Ces initiatives visent à redonner un souffle durable aux familles et aux institutions du réseau.",
+      questions: [
+        [
+          "Quelle conséquence sociale la pénurie d’éducatrices entraîne-t-elle dans la région ?",
+          "Le maintien forcé de parents hors de la vie professionnelle",
+          "L’ouverture de six cents places en centre de la petite enfance",
+          "La hausse du nombre de parents réintégrant le marché du travail",
+        ],
+        [
+          "Comment le programme collégial facilite-t-il l’apprentissage du métier d’éducatrice ?",
+          "En offrant une formation rémunérée en alternance travail-études",
+          "En imposant des cours théoriques sans exercice en salle de classe",
+          "En dispensant la totalité des cours en ligne sans présence sur place",
+        ],
+        [
+          "Que déduit-on quant à l’attitude des municipalités envers la crise de l’habitation ?",
+          "Elles agissent concrètement pour lever le frein lié au coût du logement",
+          "Elles refusent d’intervenir dans un secteur relevant du domaine privé",
+          "Elles considèrent que le marché immobilier finira par s’ajuster seul",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "À l’antenne régionale de Trois-Rivières, nous faisons le point sur la filière bioalimentaire en Mauricie. Malgré une demande vigoureuse pour les produits du terroir, les maraîchers et les transformateurs laitiers peinent à trouver des journaliers et des techniciens de ligne. La concurrence féroce des grandes usines urbaines, qui offrent des salaires horaires plus élevés, prive les exploitations agricoles de main-d’œuvre locale. Pour inverser la vapeur, les maires des municipalités rurales ont annoncé un partenariat inédit avec la Société de développement économique. Leur plan prévoit des incitations fiscales pour les exploitations qui automatisent les tâches les plus physiques, telles que le tri et l’emballage des récoltes, afin de rehausser l’attrait des postes restants. Parallèlement, un service d’accompagnement clé en main sera offert aux exploitants pour faciliter l’accueil des travailleurs étrangers temporaires, en prenant en charge les démarches administratives de visa et la recherche d’hébergement salubre dans les villages environnants.",
+      questions: [
+        [
+          "Quel facteur nuit particulièrement au recrutement dans le milieu agricole ?",
+          "L’attractivité des salaires versés par les usines des grands centres",
+          "La chute continue de la demande pour les aliments issus du terroir",
+          "Le refus des exploitants agricoles d’accueillir des travailleurs étrangers",
+        ],
+        [
+          "Quel objectif vise l’automatisation des tâches de conditionnement selon le reportage ?",
+          "Alléger la pénibilité du travail pour séduire de nouveaux candidats",
+          "Accroître les tâches les plus physiques pour rehausser la production",
+          "Réduire les incitations fiscales accordées aux exploitations automatisées",
+        ],
+        [
+          "Quelle intention se dégage du soutien administratif accordé aux producteurs ?",
+          "Simplifier l’embauche internationale pour combler les postes vacants",
+          "Bloquer l’arrivée de travailleurs temporaires dans les villages ruraux",
+          "Restreindre l’embauche des ouvriers aux seules personnes des villages locaux",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "— Bonjour à toute l’équipe projet. Je vous ai réunis pour faire le point sur le différend qui nous oppose à notre client, le ministère des Transports, concernant la refonte du portail des usagers. Plusieurs d’entre vous s’interrogent sur les tensions ressenties lors du dernier comité de pilotage. La cause fondamentale de cette mésentente réside dans un écart d’interprétation sur le devis initial. De notre côté, nous avons livré les modules de consultation des horaires conformément au calendrier convenu. En revanche, le client s’attendait à ce que la fonctionnalité de géolocalisation en temps réel des autobus soit incluse dans cette première phase, alors qu’elle ne figurait que dans les options de la deuxième phase contractuelle. De plus, nos retards d’échanges de courriels le mois dernier ont alimenté chez eux le sentiment d’un manque de transparence. Pour désamorcer le litige, j’ai proposé au sous-ministre adjoint d’intégrer un prototype simplifié de géolocalisation sans frais supplémentaires, à condition qu’ils valident sans délai les livrables déjà complétés.",
+      questions: [
+        [
+          "Quelle est l’origine principale du désaccord survenu avec le ministère ?",
+          "Une lecture divergente des fonctionnalités prévues dans le premier contrat",
+          "Un dépassement budgétaire du prototype de géolocalisation simplifié",
+          "Un retard de livraison des modules de consultation des horaires",
+        ],
+        [
+          "Que peut-on déduire quant à l’attitude du client avant cette mise au point ?",
+          "Il éprouvait une méfiance accrue en raison d’un manque de communication",
+          "Il approuvait sans réserve les fonctionnalités présentées lors des réunions d’étape",
+          "Il avait déjà validé la géolocalisation lors du comité de pilotage",
+        ],
+        [
+          "Quelle concession le gestionnaire a-t-il proposée pour régler le litige ?",
+          "L’ajout gratuit d’un premier modèle de la fonction de repérage en direct",
+          "Le retrait de la géolocalisation des fonctions du premier contrat",
+          "La prolongation indéfinie du calendrier sans aucune validation du ministère",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "— Merci d’être venus. Comme vous le savez, notre relation d’affaires avec la chaîne de supermarchés Bio-Marché traverse une passe délicate après l’annulation partielle de leur commande de contenants compostables. Je tiens à clarifier ce qui s’est passé. Le nœud du problème découle d’un changement inopiné de fournisseur pour notre résine végétale au mois de mai. Cette matière première de substitution présentait une rigidité légèrement inférieure aux normes spécifiées, ce qui a causé des déformations lors de l’empilement des barquettes dans leurs entrepôts réfrigérés. Au lieu d’aviser nos interlocuteurs immédiatement dès nos premiers essais de moulage, nous avons présumé que la différence demeurerait imperceptible. Le client a naturellement perçu ce silence comme une tentative de dissimulation lorsque leurs gérants de succursale ont signalé les défauts. J’assume pleinement la responsabilité de cette erreur de jugement managériale. Pour réparer le lien de confiance, nous avons réexpédié un lot conforme à nos frais et nous avons instauré un protocole d’inspection tripartite avant toute future expédition.",
+      questions: [
+        [
+          "Quelle défaillance matérielle a causé l’insatisfaction du distributeur ?",
+          "Une résistance mécanique insuffisante des barquettes lors du stockage",
+          "Une rigidité trop élevée de la résine lors du moulage des barquettes",
+          "Un défaut d’empilement causé par des entrepôts trop chauds",
+        ],
+        [
+          "Quel comportement de notre direction a suscité la réaction outrée du partenaire ?",
+          "L’absence d’avis immédiat lorsque l’écart est apparu aux premiers essais",
+          "Le refus d’utiliser des matières écologiques pour fabriquer les contenants",
+          "Un protocole d’inspection instauré sans consulter le client",
+        ],
+        [
+          "Que déduit-on de la volonté du gestionnaire dans le règlement de la crise ?",
+          "Il privilégie la transparence et assume financièrement la réparation",
+          "Il exige que le client compense financièrement les pertes liées à la résine",
+          "Il renonce à réparer le lien et clôt le dossier sans compensation",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "— Prenez place, collègues. Je souhaite débriefer avec vous l’incident survenu hier avec notre client d’Hydro-Québec à propos de la livraison du rapport d’impact environnemental pour le chantier de La Romaine. La tension a culminé lorsque leur directrice adjointe a menacé de résilier notre contrat de consultation. En fait, le malentendu découle de notre décision unilatérale de modifier l’échéancier pour intégrer des données acoustiques supplémentaires sur la faune aviaire. Si notre intention scientifique était irréprochable, nous avons omis de valider cet ajustement avec leur comité technique. Pour eux, ce retard de trois semaines compromet le dépôt de leur dossier légal auprès du ministère de l’Environnement avant l’ajournement des travaux parlementaires. Ils ont donc interprété notre perfectionnisme méthodologique comme un mépris de leurs impératifs légaux. J’ai rencontré leur équipe ce matin pour leur présenter nos excuses formelles et leur remettre une version préliminaire certifiée qui sécurise leurs démarches réglementaires tout en préservant la rigueur de notre mandat.",
+      questions: [
+        [
+          "Quelle décision de l’équipe a déclenché le conflit avec le donneur d’ordre ?",
+          "Le report unilatéral de la date de remise pour ajouter des analyses",
+          "L’annulation unilatérale du contrat de consultation de la firme",
+          "L’omission complète de données acoustiques dans le dossier d’impact légal",
+        ],
+        [
+          "Pourquoi le retard causé plaçait-il le client dans une situation critique ?",
+          "Il menaçait la transmission d’un dossier officiel aux autorités de l’État",
+          "Il imposait l’abandon de la collecte de données acoustiques",
+          "Il bloquait un dossier déjà déposé auprès du ministère de l’Environnement",
+        ],
+        [
+          "Quel sous-entendu implicite le gestionnaire formule-t-il sur l’origine de l’erreur ?",
+          "L’excellence technique a primé au détriment de l’écoute des contraintes client",
+          "L’équipe a ignoré les données scientifiques par souci de délais",
+          "Le client a volontairement retardé la remise de son dossier légal",
+        ],
+      ],
+    },
+  ],
+  // ===========================================================================
+  // n8-listening-3 (injonctif)
+  // Ex 0: Procédure au téléphone par sa cheffe d’équipe (problème technique peu courant)
+  // Ex 1: Procédure expliquée dans un balado pour installer un potager sur son balcon
+  // ===========================================================================
+  'n8-listening-3': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "— Allô Nicolas ? Écoute-moi attentivement. Le serveur de messagerie interne vient de se figer à la suite de la dernière mise à jour de sécurité. Surtout, ne redémarre pas l’appareil de manière forcée, sinon nous risquons de corrompre la base de données transactionnelle. Ouvre la console d’administration réseau sur ton poste et bascule immédiatement le routeur en mode d’isolation locale. Ensuite, consulte le journal des événements pour repérer le code d’anomalie principal. Si tu constates une erreur de dépassement de mémoire tampon, désactive temporairement le filtre antipourriel en ligne de commande. Une fois cette étape franchie, purge le répertoire temporaire avant de relancer les services de distribution un à un. Prends soin de vérifier que la file d’attente des messages sortants se vide sans blocage avant de reconnecter le serveur au réseau externe. Dès que tout sera stabilisé, envoie-moi un compte rendu abrégé par message texte pour confirmer le retour à la normale.",
+      questions: [
+        [
+          "Quelle consigne d’interdiction formelle la responsable formule-t-elle au début ?",
+          "S’abstenir d’effectuer une réinitialisation brutale de la machine",
+          "Ne pas ouvrir la console d’administration sur le poste de travail",
+          "Ne pas purger le répertoire temporaire avant de relancer les services",
+        ],
+        [
+          "Que doit-on déduire de l’intention de la cheffe en exigeant une relance graduelle des services ?",
+          "S’assurer de la stabilité du système sans provoquer une nouvelle panne",
+          "Permettre la reconnexion immédiate de la machine au réseau externe",
+          "Accélérer la réinitialisation matérielle forcée du serveur réseau",
+        ],
+        [
+          "Quel indicateur atteste que la situation technique est revenue à la normale ?",
+          "L’évacuation fluide des courriels placés dans la file d’envoi",
+          "Le maintien prolongé du routeur en mode d’isolation locale",
+          "Le démarrage simultané des services de distribution",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "— Allô Nadine ? Je sais que le calibrage de l’analyseur d’hématologie est bloqué, mais pas de panique. Pour rétablir l’appareil sans perdre la série d’échantillons matinaux, commence par suspendre le cycle en appuyant sur la touche pause du panneau latéral. Ensuite, ouvre le capot protecteur et examine la pipette de prélèvement. Si tu remarques une bulle d’air dans la tubulure d’aspiration, utilise la seringue de purge stérile située dans le tiroir bleu pour chasser le liquide stagnant. Ne force jamais le mécanisme d’aiguille métallique. Après avoir aspiré le solvant résiduel, lance la séquence de nettoyage enzymatique automatique depuis le menu de maintenance. Patiente quatre minutes complètes jusqu’à ce que le signal sonore confirme la fin du rinçage. À ce moment seulement, réinsère la cartouche de contrôle standard et valide la mesure témoin. Si l’écart type demeure inférieur à deux pour cent, tu pourras reprendre les analyses cliniques régulières.",
+      questions: [
+        [
+          "Quelle manœuvre initiale l’employée doit-elle exécuter pour sécuriser le matériel ?",
+          "Mettre le processus en arrêt temporaire depuis le panneau latéral",
+          "Lancer directement la séquence de nettoyage enzymatique automatique",
+          "Ouvrir le capot protecteur pour examiner la pipette de prélèvement",
+        ],
+        [
+          "Quelle réaction prudente la superviseure préconise-t-elle face au mécanisme d’aspiration ?",
+          "Manipuler les pièces délicates avec douceur sans exercer de contrainte",
+          "Forcer légèrement le mécanisme d’aiguille métallique pour le dégager",
+          "Pousser fermement la tubulure d’aspiration pour chasser la bulle d’air",
+        ],
+        [
+          "À quelle condition précise le traitement des échantillons cliniques peut-il redémarrer ?",
+          "L’obtention d’une marge d’erreur très faible lors du test étalon",
+          "La réinsertion de la cartouche de contrôle avant le nettoyage enzymatique",
+          "Le remplacement complet des cartouches de contrôle par du neuf",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "— Mathieu, c’est Geneviève. Le transstockeur de l’allée quatre s’est immobilisé à mi-hauteur avec une palette de boîtes de conserve. Reste très calme et applique scrupuleusement la consigne de sécurité. Rends-toi d’abord à l’armoire sectionnelle située en bout de rangée et coupe le disjoncteur principal pour isoler le circuit de traction. Enfile ton harnais antichute avant d’accéder à la passerelle de service intermédiaire. Une fois sur la plateforme, insère la clé de déverrouillage manuel pour relâcher les mâchoires de freinage sur le rail supérieur. Fais descendre le chariot de levage à l’aide du treuil à manivelle jusqu’au niveau du sol sans aucun à-coup. Vérifie visuellement qu’aucun colis ne dépasse de la palette avant d’extraire la charge. Seulement après avoir sécurisé le périmètre au sol, réenclenche le coupe-circuit et initialise le cycle d’étalonnage automatique depuis le pupitre de commande de l’opérateur.",
+      questions: [
+        [
+          "Quelle opération prioritaire permet d’écarter tout risque pour l’intervenant ?",
+          "Couper le disjoncteur principal à l’armoire sectionnelle en bout de rangée",
+          "Relâcher manuellement les freins depuis le rail supérieur",
+          "Descendre la charge au treuil avant d’isoler le circuit de traction",
+        ],
+        [
+          "Que peut-on déduire quant à l’attitude requise pour faire descendre la charge suspendue ?",
+          "Agir avec une lenteur méthodique pour prévenir tout balancement",
+          "Accélérer la rotation de la manivelle afin de gagner du temps",
+          "Effectuer des arrêts brusques pour tester les mâchoires de frein",
+        ],
+        [
+          "Quelle vérification s’impose avant d’extraire la charge bloquée ?",
+          "Vérifier l’absence de colis qui débordent de la palette avant l’extraction",
+          "Vérifier que le coupe-circuit est réenclenché avant de sécuriser le périmètre",
+          "Vérifier que le cycle d’étalonnage tourne déjà avant l’extraction",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "Bienvenue aux passionnés d’agriculture citoyenne ! Dans cet épisode, je vous guide pas à pas pour créer un potager productif sur votre balcon montréalais. Avant de planter quoi que ce soit, assurez-vous de la capacité portante de votre structure : un bac de terre humide pèse facilement quarante kilos. Choisissez des contenants en géotextile ou en plastique percé dans le fond pour garantir une bonne aération des racines. Déposez une couche de cinq centimètres de billes d’argile au fond de chaque bac pour faciliter l’écoulement de l’eau d’arrosage, puis complétez avec un terreau biologique enrichi de compost marin. Pour les légumes gourmands en soleil comme les tomates cerises et les poivrons, installez des tuteurs solides dès la plantation afin d’éviter d’endommager les racines plus tard. Enfin, disposez une couche protectrice de paille de chanvre à la surface de la terre : cette astuce simple limite l’évaporation lors des canicules estivales et empêche la prolifération des mauvaises herbes.",
+      questions: [
+        [
+          "Quelle précaution structurelle l’animatrice conseille-t-elle de vérifier avant l’aménagement ?",
+          "La résistance maximale de la dalle face au poids des contenants",
+          "Le poids de la terre humide, qui ne dépasse pas dix kilos par bac",
+          "La solidité des tuteurs, qui doivent être installés après la récolte",
+        ],
+        [
+          "Quel sous-entendu implicite justifie l’installation précoce des tuteurs de bois ?",
+          "Planter un piquet dans un sol mature risque de blesser le plant",
+          "Un tuteur planté tardivement cicatrise mieux les racines blessées",
+          "Les poivrons doivent être tuteurés seulement après la première récolte",
+        ],
+        [
+          "Quel bénéfice écologique procure l’épandage de paille sur le terreau du potager ?",
+          "Conserver la fraîcheur du substrat durant les chaleurs de l’été",
+          "Accélérer l’évaporation de l’eau d’arrosage pendant les canicules",
+          "Réchauffer le terreau pour hâter la prolifération des mauvaises herbes",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "Chers jardiniers urbains, cultiver ses propres aromates sur une terrasse étroite à Québec est un projet accessible à tous. Pour réussir vos jardinières suspendues, commencez par fixer solidement des crochets en acier galvanisé sur la balustrade, en veillant à orienter vos bacs vers le sud-ouest pour capter au moins six heures de lumière directe par jour. Tapissez l’intérieur de vos jardinières d’une membrane perméable qui retiendra la terre tout en laissant circuler l’oxygène. Versez ensuite un mélange équilibré composé de deux tiers de terreau horticole allégé et d’un tiers de turricompost. Repiquez vos semis de basilic, de persil et de coriandre en espaçant les mottes d’au moins dix centimètres pour favoriser leur croissance. Arrosez généreusement le matin au pied des plantes plutôt que sur le feuillage pour prévenir l’apparition de moisissures. Pour prolonger la production jusqu’aux premières gelées d’octobre, pincez régulièrement les têtes fleuries : cette taille stimulera le développement constant de nouvelles pousses tendres et parfumées.",
+      questions: [
+        [
+          "Quelle orientation géographique est recommandée pour maximiser l’ensoleillement des herbes ?",
+          "Un alignement plein sud-ouest pour profiter du soleil d’après-midi",
+          "Une orientation dirigée vers le nord pour préserver la fraîcheur",
+          "Un aménagement en zone ombragée pour protéger le feuillage des chaleurs intenses",
+        ],
+        [
+          "Quelle intention motive le conseil d’arroser directement à la base des végétaux ?",
+          "Éviter la stagnation de l’humidité propice aux champignons foliaires",
+          "Mouiller le feuillage pour augmenter l’humidité ambiante du balcon",
+          "Retenir la chaleur du sol en arrosant au pied des plantes en soirée",
+        ],
+        [
+          "Quel geste d’entretien régulier garantit une cueillette continue d’aromates frais ?",
+          "Pincer régulièrement les têtes fleuries pour stimuler de nouvelles pousses",
+          "Arroser les feuilles en fin de journée pour réduire les moisissures",
+          "Laisser monter les tiges fleuries pour prolonger la récolte des feuilles",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "Bienvenue au balado Vert l’Avenir en direct de l’Outaouais. Aujourd’hui, nous découvrons comment bâtir un mur végétal comestible sur un balcon exigu. Pour commencer, procurez-vous des planches de cèdre naturel résistant à l’humidité et assemblez un cadre vertical muni d’équerres métalliques robustes. Fixez ce cadre au mur porteur à l’aide de chevilles adaptées à la maçonnerie pour résister aux rafales de vent. Emboîtez ensuite des gouttières de culture inclinées, percées de trous de drainage reliés par un petit tuyau souple qui évacuera les surplus vers un seau au sol. Remplissez chaque niveau de terreau enrichi de perlite pour assurer un drainage optimal. Plantez les fraisiers et les salades aux étages supérieurs, et réservez les étages du bas aux légumes racines comme les radis. Pour nourrir vos plants sans pesticide, pulvérisez une macération d’ortie diluée tous les quinze jours : cette préparation naturelle fortifie les tissus cellulaires des feuilles et repousse efficacement les pucerons nuisibles.",
+      questions: [
+        [
+          "Pourquoi le cèdre naturel est-il privilégié pour fabriquer la structure verticale ?",
+          "Pour sa capacité intrinsèque à tolérer l’humidité sans pourrir",
+          "Pour sa rigidité qui dispense de fixer le cadre au mur porteur",
+          "Pour sa légèreté qui évite de fixer un cadre métallique au mur",
+        ],
+        [
+          "Que peut-on déduire quant à l’utilité du tuyau reliant les gouttières du potager ?",
+          "Il achemine l’excédent d’arrosage vers un récipient posé au sol",
+          "Il ramène l’excédent d’arrosage vers les gouttières du haut",
+          "Il distribue l’eau de pluie filtrée vers les fraisiers du haut",
+        ],
+        [
+          "Quel effet bénéfique le purin végétal produit-il sur les plantes selon l’animateur ?",
+          "Il renforce les défenses naturelles des feuilles contre les ravageurs",
+          "Il attire davantage les pucerons nuisibles vers les feuilles des plants",
+          "Il affaiblit les tissus cellulaires des feuilles, qui deviennent fragiles",
+        ],
+      ],
+    },
+  ],
+  // ===========================================================================
+  // n8-listening-4 (argumentatif)
+  // Ex 0: Opinion d’une chroniqueuse sur la règlementation de l’utilisation des pesticides
+  // Ex 1: Opinion de collègues sur l’implantation d’un nouveau système informatique
+  // ===========================================================================
+  'n8-listening-4': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "— À notre micro ce matin, la chroniqueuse environnementale Hélène Mercier se prononce sur le débat entourant les pesticides agricoles au Québec. Selon elle, les appels à un bannissement aveugle de tous les produits chimiques d’ici deux ans relèvent de la naïveté politique : une telle mesure ruinerait nos producteurs horticoles face à la concurrence des denrées importées des États-Unis. En revanche, elle fustige la passivité complaisante des pouvoirs publics face aux néonicotinoïdes et aux fongicides épandus à proximité immédiate des bassins versants. Pour la spécialiste, le gouvernement doit instaurer d’urgence des zones tampons obligatoires d’au moins cinquante mètres le long des cours d’eau et tripler les redevances sur les molécules les plus toxiques afin de financer la recherche agronomique. Hélène Mercier conclut qu’il est temps d’abandonner les postures partisanes stériles pour adopter une politique lucide fondée sur des données scientifiques solides et des compensations financières généreuses pour les agriculteurs engagés dans la transition.",
+      questions: [
+        [
+          "Quelle position modérée la chroniqueuse défend-elle sur l’interdiction totale des pesticides ?",
+          "Un refus d’une mesure brutale qui désavantagerait l’agriculture locale",
+          "Un accord enthousiaste pour supprimer tous les traitements chimiques",
+          "La conviction que le cadre réglementaire actuel demeure suffisant",
+        ],
+        [
+          "Quelle critique sévère formule-t-elle envers l’action gouvernementale actuelle ?",
+          "Elle dénonce le laxisme des autorités près des rivières et des lacs",
+          "Elle accuse les ministères de persécuter injustement les cultivateurs",
+          "Elle reproche aux producteurs de refuser les zones tampons imposées",
+        ],
+        [
+          "Que peut-on déduire de son sentiment face au débat public contemporain ?",
+          "Elle déplore un débat trop caricatural et dépourvu de finesse",
+          "Elle admire le climat de collaboration harmonieuse entre les partis politiques",
+          "Elle se félicite que les postures partisanes dominent enfin le débat",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "— Dans son éditorial hebdomadaire sur les ondes de CKRL à Québec, Sophie Lamoureux interpelle les maires des banlieues sur l’usage des pesticides d’ordre esthétique et agricole en zone périurbaine. Elle rappelle que des dizaines d’études médicales récentes associent l’exposition chronique aux insecticides à une hausse des troubles neurodéveloppementaux chez les tout-petits et à l’effondrement dramatique des colonies d’abeilles indigènes. Elle trouve inacceptable que certaines municipalités continuent de tolérer l’épandage de produits de synthèse pour préserver la verdure des pelouses de golfs ou des parcs publics. Bien que les associations professionnelles d’horticulture brandissent la menace de pertes économiques pour s’opposer à tout règlement contraignant, l’éditorialiste martèle que le droit à la santé environnementale doit primer sur les impératifs commerciaux. Elle exhorte les conseils municipaux à adopter le principe de précaution en bannissant sans exception les substances de synthèse dans tous les périmètres habités avant le prochain printemps.",
+      questions: [
+        [
+          "Quel constat sanitaire alarmant l’éditorialiste met-elle en avant dans son plaidoyer ?",
+          "La multiplication des troubles neurologiques infantiles liés aux toxiques",
+          "La baisse des troubles neurodéveloppementaux chez les tout-petits",
+          "Une légère amélioration de la santé des abeilles indigènes en zone périurbaine",
+        ],
+        [
+          "Quelle attitude des lobbyistes horticoles l’intervenante fustige-t-elle avec vigueur ?",
+          "Leur recours constant aux arguments financiers pour bloquer les lois",
+          "Leur soutien appuyé aux règlements contraignants pour bannir les substances",
+          "Leur recours constant aux arguments écologiques pour bloquer les lois",
+        ],
+        [
+          "Quel sous-entendu implicite découle de son appel au principe de précaution ?",
+          "La protection de la vie citoyenne doit surpasser les profits privés",
+          "Les profits privés doivent primer sur la santé des tout-petits",
+          "Les golfs municipaux doivent être exemptés des règles de précaution",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "— Au micro de l’émission Midi-Info en Montérégie, l’agronome et chroniqueuse Valérie Côté apporte un éclairage nuancé sur les cibles provinciales de réduction des intrants chimiques. Tout en reconnaissant la nécessité environnementale de réduire l’empreinte des nitrates et des herbicides sur les sols québécois, elle met en garde contre une vision punitive de la réglementation. Selon elle, imposer des amendes salées aux exploitants agricoles sans leur offrir de solutions de rechange éprouvées, comme le désherbage mécanique robotisé ou la lutte biologique par insectes prédateurs, mènera droit à la faillite de dizaines de fermes familiales. Valérie Côté soutient que la vraie solution réside dans un pacte financier où les contribuables partagent le fardeau des risques économiques avec les agriculteurs. Elle plaide pour un fonds de garantie des récoltes qui indemniserait les fermiers subissant des pertes de rendement durant leurs premières années d’adoption des pratiques agroécologiques.",
+      questions: [
+        [
+          "Pourquoi l’agronome s’oppose-t-elle à une politique axée sur les pénalités financières ?",
+          "Elle pénalise lourdement les fermiers sans offrir d’alternatives viables",
+          "Elle appuie des amendes salées dès les premières années d’adoption",
+          "Elle doute de la nécessité de réduire les nitrates dans les sols",
+        ],
+        [
+          "Quelle solution technique concrète propose-t-elle pour remplacer les désherbants ?",
+          "Le déploiement de technologies mécaniques autonomes sur les parcelles",
+          "Le recours à des insecticides chimiques plus puissants sur les parcelles",
+          "La multiplication des pulvérisations d’herbicides sur l’ensemble des parcelles",
+        ],
+        [
+          "Que peut-on déduire de son sentiment concernant la responsabilité de la société ?",
+          "Elle estime équitable que la collectivité assume une part du risque financier",
+          "Elle estime que les contribuables doivent refuser toute indemnisation des fermiers",
+          "Elle pense que les agriculteurs doivent assumer seuls toutes les pertes futures",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "— Dans la cafétéria de notre organisme public à Québec, Martin et Dominique confrontent vivement leurs points de vue sur le nouveau progiciel de gestion intégrée déployé ce lundi. Martin défend vigoureusement le système : pour lui, la centralisation des dossiers d’usagers sur une plateforme unique réduira les doublons administratifs et permettra un traitement beaucoup plus rapide des demandes de permis. Il souligne que l’interface moderne élimine enfin la paperasse manuelle qui encombrait les classeurs. Dominique, pour sa part, ne décolère pas. Elle juge la transition précipitée et mal encadrée : le logiciel plante dès que plusieurs agents se connectent simultanément, les temps de saisie ont triplé à cause de menus déroulants interminables, et le service d’assistance informatique met des heures à répondre aux courriels d’urgence. Selon elle, la direction a privilégié l’image d’une modernisation technologique tape-à-l’œil au détriment de l’efficacité quotidienne des préposés de première ligne.",
+      questions: [
+        [
+          "Quel avantage majeur Martin attribue-t-il à la nouvelle plateforme informatique ?",
+          "La simplification du suivi des dossiers et la diminution des démarches papier",
+          "L’augmentation des doublons administratifs grâce à la centralisation",
+          "L’allongement des délais de traitement pour les demandes de permis",
+        ],
+        [
+          "Quelle critique fondamentale Dominique adresse-t-elle aux choix de la gestion ?",
+          "Avoir imposé un outil dysfonctionnel sans soutien pour flatter son image",
+          "Avoir ralenti l’implantation pour mieux former les préposés de première ligne",
+          "Avoir imposé des menus déroulants trop courts pour accélérer la saisie",
+        ],
+        [
+          "Quel sentiment domine chez Dominique lors de cette discussion entre collègues ?",
+          "Une profonde frustration causée par les lourdeurs de la nouvelle interface",
+          "Un enthousiasme débordant devant les perspectives futures d’évolution de carrière",
+          "Un détachement poli face aux nouvelles directives transmises par la direction",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "— Lors d’une pause pédagogique dans une école secondaire de Montréal, deux enseignants, Antoine et Chantal, débattent de l’implantation du portail numérique pour la gestion des notes et des communications avec les parents. Antoine se montre enthousiaste : il trouve formidable de pouvoir inscrire les résultats des examens en temps réel sur sa tablette et apprécie la traduction automatisée des messages envoyés aux familles allophones. Pour lui, cet outil favorise un partenariat transparent avec les tuteurs légaux. Chantal, en revanche, exprime de vives réserves éthiques et professionnelles. Elle déplore que ce logiciel incite les parents à envoyer des messages d’injonction à toute heure du jour et de la nuit, brouillant la frontière entre vie professionnelle et vie privée. Elle ajoute que le minutage précis exigé pour chaque saisie transforme les professeurs en simples exécutants comptables, grugeant le temps précieux consacré à la préparation pédagogique des cours.",
+      questions: [
+        [
+          "Quelle fonctionnalité novatrice Antoine valorise-t-il dans son utilisation quotidienne ?",
+          "La traduction automatique des messages transmis aux familles allophones",
+          "La saisie des résultats d’examens sur support papier en fin de semestre",
+          "Le minutage précis exigé pour chaque saisie de résultats",
+        ],
+        [
+          "Quel effet pervers de l’outil numérique Chantal dénonce-t-elle avec vigueur ?",
+          "L’invasion constante de la sphère personnelle par des sollicitations tardives",
+          "L’allègement du travail administratif des enseignants grâce aux saisies",
+          "La préparation pédagogique des cours désormais facilitée par le minutage",
+        ],
+        [
+          "Que peut-on déduire quant à l’attitude de Chantal envers le rôle de l’enseignant ?",
+          "Elle refuse la dérive bureaucratique au détriment de la vocation pédagogique",
+          "Elle soutient que les enseignants doivent s’occuper de la comptabilité des notes",
+          "Elle accepte les messages d’injonction des parents à toute heure",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "— Dans les couloirs d’une firme de génie-conseil à Laval, Stéphane et Karine échangent sur la migration vers un logiciel infonuagique de modélisation 3D imposé par le siège social. Stéphane est conquis par la performance collaborative : les ingénieurs sur le terrain peuvent annoter les plans en direct depuis leur cellulaire, ce qui évite les malentendus avec les contremaîtres de chantier et accélère la validation des devis structuraux. Mais Karine rejette catégoriquement cet enthousiasme qu’elle qualifie d’aveugle. Elle souligne que la dépendance envers une connexion Internet sans faille paralyse le travail lors des visites de chantiers en région éloignée, où le réseau cellulaire reste défaillant. De surcroît, elle s’inquiète de la souveraineté des données confidentielles hébergées sur des serveurs situés à l’extérieur du pays. Elle craint qu’en cas de panne prolongée ou de litige commercial avec le fournisseur américain, l’entreprise ne perde l’accès à ses propres archives de conception.",
+      questions: [
+        [
+          "Quel gain opérationnel Stéphane met-il de l’avant pour justifier cette transition logicielle ?",
+          "L’actualisation instantanée des schémas techniques entre bureaux et chantiers",
+          "L’allongement des délais de validation des devis structuraux",
+          "L’annotation des plans seulement depuis le bureau du siège social",
+        ],
+        [
+          "Quelle vulnérabilité technique majeure Karine soulève-t-elle pour les missions en région ?",
+          "Le blocage des activités lors des pertes de couverture réseau sur le terrain",
+          "Le déblocage rapide des activités grâce à une connexion sans faille",
+          "L’hébergement des plans sur des serveurs situés à l’intérieur du pays",
+        ],
+        [
+          "Que peut-on déduire de la réaction de Karine face à l’hébergement des plans à l’étranger ?",
+          "Elle redoute une perte de contrôle juridique et sécuritaire sur leur patrimoine",
+          "Elle se réjouit que le fournisseur américain garde la maîtrise des archives",
+          "Elle minimise la valeur stratégique des archives techniques de conception",
+        ],
+      ],
+    },
+  ],
+  // ===========================================================================
+  // n8-reading-0 (informatif)
+  // Ex 0: Informations sur une entreprise, ses activités et son historique sur son site Web
+  // Ex 1: Article de vulgarisation scientifique présentant des initiatives climatiques
+  // ===========================================================================
+  'n8-reading-0': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "Boréal-Technologies — Profil corporatif et historique\n\nFondée en 2008 au cœur du parc technologique du Québec métropolitain, Boréal-Technologies est un chef de file canadien dans la conception de capteurs photoniques de haute précision pour les environnements extrêmes. Issue d’un essaimage de l’Université Laval, notre société s’est d’abord fait connaître en mettant au point des fibres optiques spécialisées pour l’exploration minière dans le Grand Nord québécois.\n\nAu fil des ans, l’entreprise a diversifié ses créneaux d’excellence vers la surveillance des structures de génie civil, notamment les barrages hydroélectriques et les ponts suspendus. Aujourd’hui, Boréal-Technologies emploie plus de cent quarante ingénieurs, physiciens et techniciens répartis entre son siège social de Québec et son laboratoire de fabrication de Lévis. Nos solutions de détection laser sont exportées dans vingt-deux pays, garantissant la sécurité d’infrastructures critiques à travers le monde.\n\nFidèle à ses racines boréales, notre firme réinvestit chaque année quinze pour cent de son chiffre d’affaires en recherche et développement. Elle soutient également la relève scientifique par l’attribution annuelle de bourses d’études collégiales et universitaires en physique appliquée.",
+      questions: [
+        [
+          "Dans quel contexte institutionnel précis l’entreprise a-t-elle vu le jour en 2008 ?",
+          "Comme entreprise dérivée des recherches menées à l’Université Laval",
+          "Comme laboratoire de fabrication ouvert à Lévis pour l’exploration minière",
+          "Comme gamme de capteurs pour ponts suspendus, lancée dès l’an 2008",
+        ],
+        [
+          "Vers quel secteur industriel majeur la société a-t-elle élargi ses activités par la suite ?",
+          "La surveillance continue des grands ouvrages d’art et barrages",
+          "L’exploration minière du Grand Nord, abandonnée dès la fondation",
+          "La fabrication de capteurs photoniques destinés au grand public",
+        ],
+        [
+          "Que peut-on déduire quant à l’attitude corporative de la compagnie envers la relève étudiante ?",
+          "Elle consacre des ressources financières ciblées pour appuyer les talents",
+          "Elle conditionne l’octroi des bourses à un engagement de service exclusif",
+          "Elle limite ses partenariats aux seules écoles professionnelles de Lévis",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "Ferme-Nordique Bio — Notre histoire et nos engagements\n\nÉtablie en 1994 à Saint-Félicien au Saguenay–Lac-Saint-Jean, Ferme-Nordique Bio est née du regroupement solidaire de sept familles de producteurs de petits fruits boréaux. Constatant l’engouement grandissant des consommateurs pour les aliments sains et non transformés, la coopérative s’est donné pour mission de valoriser le bleuet sauvage biologique et la canneberge nordique sans recours aux engrais chimiques.\n\nEn 2005, la coopérative a franchi une étape charnière en inaugurant un complexe de surgélation rapide par flux d’air froid, permettant de préserver les qualités antioxydantes des baies sans additif de conservation. Grâce à cette technologie novatrice, nos récoltes approvisionnent désormais les chaînes d’épiceries québécoises ainsi que les marchés spécialisés d’Europe et d’Asie sous l’appellation d’origine contrôlée.\n\nAujourd’hui forte de cinquante-cinq membres sociétaires et de deux cents travailleurs saisonniers, Ferme-Nordique Bio consacre cinq pour cent de ses excédents à la restauration des tourbières régionales et applique des normes strictes de recyclage des eaux de lavage sur l’ensemble de ses installations agricoles.",
+      questions: [
+        [
+          "Quel principe fondamental a guidé la création de la coopérative en 1994 ?",
+          "L’association solidaire de plusieurs familles agricoles de la région",
+          "L’exportation immédiate de bleuets sauvages vers les marchés d’Europe",
+          "La volonté d’ajouter des conservateurs aux baies pour les longues distances",
+        ],
+        [
+          "Quelle avancée technologique a permis d’accélérer le développement de l’entreprise en 2005 ?",
+          "L’implantation d’installations de congélation préservant les nutriments",
+          "L’implantation de surgélateurs à air chaud qui altèrent les qualités antioxydantes",
+          "L’utilisation de conservateurs chimiques autorisés pour le transport marin",
+        ],
+        [
+          "Que peut-on déduire de la philosophie environnementale de cette coopérative agricole ?",
+          "Elle intègre la protection des écosystèmes locaux au cœur de sa pratique",
+          "Elle utilise des engrais chimiques pour accroître le rendement des vergers",
+          "Elle cherche à assécher les tourbières pour étendre ses champs de culture",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "Sol-Éco Innovations — Bilan et réalisations\n\nFondée en 2012 à Sherbrooke par un groupe d’ingénieures civiles et de biochimistes, Sol-Éco Innovations s’est imposée comme une référence dans la décontamination écologique des friches industrielles. Plutôt que d’évacuer les terres polluées vers des sites d’enfouissement par camionnage lourd, notre firme privilégie des procédés de phytoremédiation in situ : des plantations ciblées de saules et de peupliers hybrides qui absorbent naturellement les métaux lourds et dégradent les hydrocarbures présents dans le sol.\n\nDepuis ses débuts modestes dans un parc d’affaires estrien, l’entreprise a réhabilité plus de soixante-dix anciens sites manufacturiers et dépôts ferroviaires à travers le Québec et le Nouveau-Brunswick. Sol-Éco compte aujourd’hui une cinquantaine d’employés permanents et dispose de son propre laboratoire d’analyses pédologiques mobiles.\n\nEn collaboration avec l’Université de Sherbrooke, nos chercheurs peaufinent actuellement des consortiums bactériens capables d’accélérer la biodégradation des composés plastiques récalcitrants. Sol-Éco Innovations poursuit ainsi son ambition : rendre aux communautés urbaines des espaces verts dépollués propices à l’aménagement de parcs et de logements sociaux abordables.",
+      questions: [
+        [
+          "Quelle méthode écologique novatrice distingue cette entreprise des pratiques classiques ?",
+          "L’utilisation de végétaux adaptés pour assainir les terres sur place",
+          "L’acheminement des terres souillées vers des dépotoirs d’outre-mer",
+          "Le reboisement intensif de peupliers hybrides sur des terrains déjà assainis",
+        ],
+        [
+          "Quelle expansion territoriale la firme a-t-elle concrétisée au fil des années ?",
+          "Elle a étendu ses chantiers de réhabilitation jusqu’au Nouveau-Brunswick",
+          "Elle a abandonné les sites du Québec pour se concentrer au Nouveau-Brunswick",
+          "Elle a limité ses contrats au seul périmètre urbain de la ville de Sherbrooke",
+        ],
+        [
+          "Quelle intention sociale transparaît dans la finalité des projets menés par Sol-Éco ?",
+          "Transformer les friches réhabilitées en espaces communautaires et logements",
+          "Réserver les terrains dépollués à de nouvelles industries manufacturières du secteur",
+          "Fermer définitivement l’accès public aux anciens sites industriels traités",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "Décarboner le béton : la révolution des liants minéraux québécois\n\nResponsable de près de huit pour cent des émissions mondiales de gaz à effet de serre, la fabrication du ciment traditionnel nécessite la calcination du calcaire à plus de mille quatre cents degrés Celsius. Pour réduire cette empreinte désastreuse, des chercheurs québécois de l’Université de Sherbrooke et des cimenteries de Lanaudière ont mis au point une formulation novatrice de béton bas carbone.\n\nLe principe consiste à substituer jusqu’à quarante pour cent du clinker ordinaire par de la poudre de verre récupérée dans les centres de tri municipaux et des argiles locales calcinées à basse température. Non seulement cette recette valorise un résidu domestique abondant longtemps enfoui sans issue, mais elle améliore également l’imperméabilité et la durabilité du matériau face aux cycles de gel et de dégel caractéristiques des hivers québécois.\n\nPlusieurs municipalités ont déjà franchi le pas en testant ce béton vert sur des trottoirs et des piliers de viaducs autoroutiers. Les relevés confirment une diminution de trente-cinq pour cent des émissions de carbone intrinsèque sans perte de résistance mécanique.",
+      questions: [
+        [
+          "Quelle matière résiduelle québécoise est valorisée pour remplacer le ciment usuel ?",
+          "La poussière de verre issue des filières de tri des matières recyclables",
+          "Le clinker ordinaire récupéré dans les centres de tri des municipalités",
+          "Le calcaire calciné à plus de mille quatre cents degrés Celsius dans les fours",
+        ],
+        [
+          "Quel avantage physique notable ce nouveau béton présente-t-il pour le climat local ?",
+          "Une résistance renforcée face aux variations répétées de température hivernale",
+          "Une porosité accrue laissant l’eau pénétrer lors des cycles de gel",
+          "Une hausse de trente-cinq pour cent des émissions de carbone intrinsèque du béton",
+        ],
+        [
+          "Que peut-on déduire quant à l’attitude des municipalités envers cette innovation technologique ?",
+          "Elles font preuve d’audace en intégrant le produit dans leurs infrastructures réelles",
+          "Elles attendent des directives obligatoires du gouvernement avant d’essayer le matériau",
+          "Elles ont abandonné le béton vert, jugé trop fragile pour les trottoirs",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "Les tourbières québécoises : des sentinelles climatiques sous surveillance\n\nBien qu’elles ne couvrent que trois pour cent de la surface terrestre mondiale, les tourbières emmagasinent deux fois plus de carbone que l’ensemble des forêts de la planète. Au Québec, ces immenses zones humides boréales jouent un rôle de stabilisateur thermique inestimable. Toutefois, des décennies d’exploitation commerciale de la tourbe horticole et le drainage agricole ont laissé des cicatrices béantes, libérant des tonnes de dioxyde de carbone dans l’atmosphère.\n\nPour inverser ce phénomène, une équipe multidisciplinaire de l’Université Laval déploie une méthode éprouvée de réhumidification dans le Bas-Saint-Laurent. La technique repose sur le bouchage des canaux de drainage artificiels à l’aide de digues d’argile et l’ensemencement manuel de sphaignes vivantes protégées par un paillis de paille. En moins de cinq ans, la nappe phréatique remonte, la végétation pionnière recolonise le milieu et la tourbière redevient un puits de carbone actif.\n\nGrâce à des balises de télédétection satellitaire, les scientifiques mesurent désormais en continu les flux de méthane et confirment que la restauration écologique permet de freiner durablement le réchauffement global.",
+      questions: [
+        [
+          "Quelle importance capitale les tourbières revêtent-elles pour l’équilibre de la planète ?",
+          "Elles stockent davantage de matière carbonée que tous les massifs forestiers du globe",
+          "Elles couvrent davantage de surface terrestre que l’ensemble des forêts du globe entier",
+          "Elles relâchent davantage de carbone que les forêts boréales du Québec",
+        ],
+        [
+          "Quelle opération concrète permet de restaurer le régime hydrique des tourbières dégradées ?",
+          "L’obturation des fossés de drainage au moyen de barrages d’argile étanches",
+          "L’ouverture de nouveaux canaux de drainage pour évacuer l’eau plus vite",
+          "L’extraction intensive de tourbe horticole dans les zones déjà réhumidifiées",
+        ],
+        [
+          "Quelle intention anime les chercheurs en combinant travail de terrain et télédétection ?",
+          "Valider scientifiquement l’efficacité réelle de la régénération écologique",
+          "Trouver de nouvelles zones de coupe pour rentabiliser l’exploitation de tourbe",
+          "Démontrer que les zones humides accélèrent la diffusion des gaz de serre",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "Virage énergétique dans le Grand Nord : les microréseaux hybrides au Nunavik\n\nIsolées du réseau interconnecté d’Hydro-Québec par des milliers de kilomètres de toundra, les quatorze communautés inuites du Nunavik dépendent historiquement de centrales thermiques alimentées au mazout lourd pour leur électricité et leur chauffage. Cette logistique maritime vulnérable génère des émissions massives de particules fines et expose les côtes arctiques à des risques constants de déversement d’hydrocarbures.\n\nPour rompre cette dépendance fossile, un projet pilote pionnier a été inauguré dans le village de Kuujjuaq. Il combine deux éoliennes adaptées au froid extrême, un parc de panneaux solaires bifaciaux captant la réverbération de la neige et une batterie stationnaire au lithium-fer-phosphate. Un contrôleur numérique intelligent gère en temps réel les fluctuations météo, stockant les surplus estivaux sous forme d’eau chaude dans un réseau de chaleur urbain.\n\nCe système hybride permet de réduire de plus de quarante pour cent la consommation annuelle de diesel dans la communauté. Fort de ce succès, les dirigeants inuits travaillent désormais à transférer la propriété et la maintenance de ces installations vertes aux coopératives locales.",
+      questions: [
+        [
+          "Quelle contrainte géographique majeure oblige les villages du Nunavik à produire leur propre énergie ?",
+          "L’impossibilité matérielle d’un raccordement au réseau électrique provincial",
+          "La proximité immédiate du réseau interconnecté d’Hydro-Québec depuis Kuujjuaq",
+          "Un climat trop doux qui réduit le besoin de chauffage des villages",
+        ],
+        [
+          "Comment l’énergie solaire est-elle maximisée durant les longs mois d’ensoleillement arctique ?",
+          "Grâce à des capteurs solaires double face tirant profit de la clarté du manteau blanc",
+          "En orientant les panneaux solaires à l’opposé du manteau blanc de l’hiver",
+          "En recouvrant entièrement les panneaux de neige pendant les longs mois d’ensoleillement arctique",
+        ],
+        [
+          "Que peut-on déduire quant à l’ambition des dirigeants inuits pour la suite du déploiement énergétique ?",
+          "Ils souhaitent que les communautés assument elles-mêmes la gestion de leurs infrastructures",
+          "Ils comptent prolonger l’usage du mazout lourd dans les centrales thermiques",
+          "Ils souhaitent confier la maintenance de l’ensemble de ces installations vertes à Hydro-Québec",
+        ],
+      ],
+    },
+  ],
+  // ===========================================================================
+  // n8-reading-1 (narratif)
+  // Ex 0: Déroulement des aventures tragiques de la protagoniste d’une nouvelle littéraire
+  // Ex 1: Déroulement des péripéties dans une bande dessinée
+  // ===========================================================================
+  'n8-reading-1': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "Extrait de la nouvelle « L’Hiver de Gabrielle »\n\nInstallée dans une mansarde mal chauffée du faubourg Saint-Jean-Baptiste à Québec, Gabrielle consacrait chaque minute de son existence au violoncelle. L’audition annuelle de l’Orchestre symphonique représentait son unique chance d’échapper à la précarité financière qui l’étouffait depuis son départ de la Gaspésie. Obsédée par la perfection technique du concerto de Dvořák, la jeune musicienne s’imposait dix heures de répétition quotidienne, sautant les repas et négligeant une fièvre tenace qui faisait trembler ses doigts fébriles.\n\nLe soir tant redouté, sous les projecteurs brûlants du Grand Théâtre, la salle comble retenait son souffle. Mais dès les premières mesures de la cadence finale, le corps épuisé de Gabrielle refusa d’obéir. Sa vision se brouilla, son archet glissa brutalement sur la touche dans un crissement déchirant, et la soliste s’effondra inanimée sur les planches cirées de la scène, son instrument brisé à ses côtés dans un silence de cathédrale.",
+      questions: [
+        [
+          "Quel enjeu vital l’audition musicale représentait-elle pour la jeune artiste ?",
+          "L’opportunité décisive de surmonter une situation matérielle précaire",
+          "La chance d’obtenir une mansarde mieux chauffée près du Grand Théâtre",
+          "La possibilité de guérir sa fièvre tenace grâce à un long repos",
+        ],
+        [
+          "Que peut-on déduire de l’attitude de Gabrielle face aux signaux d’alerte de son corps ?",
+          "Elle faisait preuve d’un déni obstiné dicté par une exigence démesurée",
+          "Elle ménageait ses forces en limitant ses répétitions à deux heures par jour",
+          "Elle abandonnait le concerto dès qu’une fièvre faisait trembler ses doigts",
+        ],
+        [
+          "Quel dénouement tragique vient sceller la tentative de la protagoniste ?",
+          "Une perte de conscience sur le plancher causant le bris de son instrument",
+          "Une cadence finale achevée avec brio malgré le glissement de l’archet",
+          "Une salle comble qui applaudit la cadence finale juste avant l’effondrement",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "Extrait de la nouvelle « Le Dernier Vol d’Évelyne »\n\nPilote de brousse chevronnée établie à Havre-Saint-Pierre, Évelyne connaissait les humeurs impétueuses du golfe du Saint-Laurent mieux que quiconque. Lorsque l’alerte radio signala qu’un prospecteur blessé agonisait dans un campement minier isolé de la Côte-Nord, elle refusa d’attendre l’accalmie météo promise pour le lendemain. Défiant les avertissements du chef de base qui lui déconseillait formellement de décoller en plein blizzard boréal, elle prit les commandes de son hydravion sous un ciel d’encre.\n\nÀ mi-parcours, au-dessus des forêts d’épinettes noires battues par des rafales violentes, le givre alourdit inexorablement les gouvernes de direction. Malgré toute son audace de pilote d’élite, l’appareil devint incontrôlable. Après un dernier message haché annonçant une descente d’urgence sur un lac gelé inconnu, les radars de Kuujjuaq perdirent son signal, ensevelissant son destin courageux sous un linceul de neige tourbillonnante.",
+      questions: [
+        [
+          "Quel motif pressant pousse Évelyne à entreprendre ce vol périlleux ?",
+          "Secourir sans attendre un travailleur blessé en forêt éloignée",
+          "Ramener au campement le chef de base blessé en plein blizzard",
+          "Transporter un prospecteur en bonne santé vers le campement minier",
+        ],
+        [
+          "Quelle réaction caractérise la protagoniste face aux consignes de prudence de sa hiérarchie ?",
+          "Une insoumission téméraire motivée par son devoir moral d’assistance",
+          "Une hésitation anxieuse prolongée avant de monter dans son appareil",
+          "Une acceptation immédiate d’annuler la mission jusqu’au lendemain midi",
+        ],
+        [
+          "Que peut-on déduire quant au sort final de l’aviatrice dans la tourmente hivernale ?",
+          "Son hydravion a été englouti par le mauvais temps sans issue favorable",
+          "Elle a réussi à amerrir sans dommage près du port de Havre-Saint-Pierre",
+          "Les radars de Kuujjuaq ont retrouvé le signal après la descente sur le lac",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "Extrait de la nouvelle « L’Atelier de Clara »\n\nRestauratrice d’art au musée régional de Rimouski, Clara vivait recluse dans son atelier sous les combles depuis la réception d’une toile maritime anonyme du dix-neuvième siècle. Convaincue que cette peinture dissimulait un portrait secret sous ses couches de vernis jauni, elle s’acharnait jour et nuit à décaper la surface à l’aide de solvants chimiques hautement corrosifs. Refusant d’aérer la pièce pour empêcher la poussière du fleuve de se déposer sur le chef-d’œuvre, elle inhalait sans précaution les émanations nocives qui engourdissaient son esprit.\n\nLe jour même où l’exposition inaugurale devait s’ouvrir au public, son directeur découvrit la porte de l’atelier verrouillée de l’intérieur. Lorsqu’on força la serrure, Clara gisait inanimée devant son chevalet. Sur la toile entièrement restaurée resplendissait le visage radieux d’une jeune femme du siècle passé, contemplant d’un regard d’or la restauratrice vaincue par son propre dévouement artistique.",
+      questions: [
+        [
+          "Quelle conviction profonde pousse Clara à s’enfermer des semaines entières dans sa pièce de travail ?",
+          "La certitude qu’une œuvre cachée se trouve sous les couches anciennes",
+          "La conviction que la toile anonyme date en fait du vingtième siècle",
+          "Le souhait de prouver qu’elle peut restaurer sans solvants chimiques",
+        ],
+        [
+          "Quel comportement imprudent précipite la fin tragique de la restauratrice ?",
+          "Le confinement prolongé dans un espace saturé de vapeurs toxiques",
+          "Le recours à des solvants doux qui préservent la couche de vernis",
+          "L’ajout répété de vernis neuf sur la toile pour la protéger",
+        ],
+        [
+          "Que peut-on déduire du sentiment qui se dégage du contraste final de la scène ?",
+          "Une cruelle ironie où la beauté révélée triomphe au prix d’une vie humaine",
+          "Une satisfaction joyeuse partagée par l’ensemble des membres de l’équipe",
+          "Une tristesse sans mélange, le portrait restauré étant vite oublié du public",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "Analyse narrative de la bande dessinée « Chroniques du Dôme de verre »\n\nDans cette dystopie graphique se déroulant sur la Côte-Nord, deux adolescents intrépides, Félix et Maya, survivent sous une immense cloche protectrice censée isoler la population d’une atmosphère extérieure prétendument irrespirable. Soupçonnant un mensonge d’État après avoir découvert un journal intime oublié, le duo s’infiltre dans les galeries de ventilation industrielle du secteur minier. Traqués par des escouades de drones sentinelles, ils parviennent à franchir le sas de décontamination scellé en provoquant un court-circuit dans l’ordinateur central.\n\nSautant sur le toit d’un convoi ferroviaire automatisé filant dans la nuit boréale, Félix et Maya traversent la muraille d’acier. Dans la spectaculaire double page centrale, ils émergent à l’air libre : loin de la terre morte promise par la propagande, ils découvrent une toundra florissante baignée d’aurores boréales, révélant la machination des dirigeants qui maintenaient la cité captive sous le joug de la terreur.",
+      questions: [
+        [
+          "Quel indice met les jeunes protagonistes sur la piste d’une supercherie collective ?",
+          "La consultation clandestine d’un vieux carnet intime trouvé par hasard",
+          "La fouille des galeries de ventilation révélant une panne du Dôme",
+          "La vue d’un sas de décontamination scellé par les autorités du Dôme",
+        ],
+        [
+          "Comment les fugitifs réussissent-ils à déjouer la surveillance des machines de sécurité ?",
+          "En causant une panne électrique majeure pour ouvrir la porte de sortie",
+          "En se cachant sur le toit du convoi ferroviaire avant de franchir le sas",
+          "En attirant les drones sentinelles dans une fausse galerie de ventilation",
+        ],
+        [
+          "Quelle réaction stupéfaite les héros éprouvent-ils en découvrant l’environnement extérieur ?",
+          "Un choc salutaire face à une nature bien vivante contredisant les récits officiels",
+          "Une panique incontrôlable causée par la présence d’air toxique et étouffant",
+          "Une profonde désillusion devant une plaine aride dénuée de toute trace de végétation",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "Compte rendu de l’album illustré « Le Sceau de Champlain »\n\nCette bande dessinée d’aventures entraîne les lecteurs dans une course folle à travers les rues enneigées du Vieux-Québec. Julien, un jeune stagiaire en archivistique au Musée de la civilisation, met la main sur un parchemin codé révélant l’emplacement de la sépulture secrète du fondateur de Québec. Très vite, une confrérie de trafiquants d’antiquités prend Julien en chasse pour lui dérober l’inestimable document historique.\n\nLa traque atteint son apogée lors du défilé nocturne du Carnaval de Québec. Usant des ruelles escarpées et se fondant parmi les milliers de festivaliers costumés, Julien déjoue ses assaillants sur la terrasse Dufferin en sautant sur la glissade de glace historique. Après une folle descente sous les feux d’artifice, il trouve refuge au monastère des Ursulines où une conservatrice bienveillante l’aide à dissimuler la relique avant l’arrivée des policiers, sauvant ainsi ce pan inestimable du patrimoine national québécois.",
+      questions: [
+        [
+          "Quelle trouvaille historique exceptionnelle déclenche les péripéties vécues par Julien ?",
+          "Un texte ancien codé indiquant le lieu secret d’une tombe historique",
+          "Un inventaire codé des trafiquants d’antiquités retrouvé au Musée",
+          "Une relique religieuse volée au monastère des Ursulines par des trafiquants",
+        ],
+        [
+          "Quelle astuce permet à Julien d’échapper à ses poursuivants au cœur de la haute-ville ?",
+          "Se fondre habilement au sein de la foule rassemblée pour la fête carnavalesque",
+          "Se mêler aux trafiquants d’antiquités qui le poursuivaient dans le défilé",
+          "Remettre le parchemin codé aux trafiquants pour mettre fin à la traque",
+        ],
+        [
+          "Que peut-on déduire quant à l’intention de la conservatrice du couvent des Ursulines ?",
+          "Elle protège un trésor collectif contre l’avidité de marchands sans scrupules",
+          "Elle désire vendre discrètement le document pour enrichir sa communauté",
+          "Elle cherche à remettre immédiatement Julien aux mains de ses ravisseurs",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "Trame narrative du roman graphique « Le Spectre du canal de Lachine »\n\nAu cœur de Montréal, cette bande dessinée fantastique suit Sarah, une détective privée hantée par la disparition inexpliquée de plusieurs archéologues industriels dans le quartier Saint-Henri. Suivant la piste d’inscriptions mystérieuses gravées le long des écluses centenaires du canal, l’enquêtrice découvre une entrée submergée dissimulée derrière une vanne de régulation d’eau abandonnée.\n\nÉquipée d’une lampe étanche, Sarah s’aventure dans un dédale de galeries hydrauliques victoriennes oubliées sous la ville. Alors qu’une tempête printanière fait monter dangereusement le niveau des eaux fluviales, menaçant d’inonder le réseau sous-terrain, elle affronte une silhouette spectrale qui protégeait les archives secrètes de la première manufacture textile de la métropole. En déchiffrant une énigme mécanique sculptée dans une roue à aubes, Sarah parvient à rouvrir une vanne d’évacuation, sauvant de la noyade un chercheur séquestré avant de regagner la surface au lever du jour.",
+      questions: [
+        [
+          "Quel mystère urbain pousse la détective privée à explorer les abords du canal montréalais ?",
+          "La disparition soudaine de plusieurs spécialistes en archéologie industrielle",
+          "La disparition inexpliquée de plusieurs détectives privés dans les écluses du canal",
+          "Le débordement du canal causé par la fermeture des écluses centenaires",
+        ],
+        [
+          "Quel danger naturel imminent met la vie de Sarah en péril dans les sous-sols ?",
+          "Une inondation du réseau souterrain causée par une tempête printanière",
+          "Un incendie des galeries provoqué par la lampe étanche de l’enquêtrice",
+          "Un niveau trop bas des eaux fluviales qui assèche peu à peu les galeries souterraines",
+        ],
+        [
+          "Quelle réaction courageuse permet à l’héroïne de sauver le captif de la noyade ?",
+          "Résoudre avec sang-froid un mécanisme hydraulique pour faire baisser le niveau d’eau",
+          "Déchiffrer une inscription gravée sur les écluses pour trouver la sortie des galeries inondées",
+          "Abandonner le chercheur sur place pour remonter à la surface sans retard",
+        ],
+      ],
+    },
+  ],
+  // ===========================================================================
+  // n8-reading-2 (explicatif)
+  // Ex 0: Explications dans un courriel de la direction sur la réorganisation des équipes
+  // Ex 1: Explications concernant une fonctionnalité d’un logiciel dans un forum
+  // ===========================================================================
+  'n8-reading-2': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "De : Direction générale — CIUSSS de la Mauricie-et-du-Centre-du-Québec\nÀ : Tout le personnel des services de proximité\nObjet : Optimisation et regroupement de nos équipes cliniques ambulatoires\n\nChères collaboratrices, chers collaborateurs,\n\nÀ la suite de notre consultation organisationnelle menée cet hiver, nous vous présentons aujourd’hui les fondements de la restructuration de nos services ambulatoires qui entrera en vigueur le premier novembre prochain. La pénurie aiguë d’infirmières cliniciennes et de travailleuses sociales nous contraint à dépasser le modèle actuel en silos par établissement.\n\nDès l’automne, les équipes de vaccination préventive et de dépistage scolaire seront regroupées au sein d’un pôle d’intervention mobile unique. Cette synergie permettra de déployer nos effectifs là où les besoins sont les plus criants sur le territoire, sans multiplier les démarches administratives redondantes. Deux coordonnateurs cliniques issus du terrain assureront la supervision hebdomadaire pour garantir l’équité des charges de travail.\n\nSoyez assurés que cette transition respectera les préférences géographiques exprimées par les agents dans leur formulaire d’affectation, tout en consolidant notre offre de soins aux familles vulnérables.",
+      questions: [
+        [
+          "Quel motif structurel fondamental justifie le regroupement des services ambulatoires ?",
+          "Le manque prononcé de professionnelles de santé exigeant une réorganisation",
+          "La volonté de supprimer les postes de coordonnateurs cliniques sur le terrain",
+          "Le souhait des agents de réduire le nombre de formulaires d’affectation à remplir",
+        ],
+        [
+          "Quel fonctionnement novateur caractérisera le nouveau pôle créé à l’automne ?",
+          "Une équipe d’intervention itinérante répondant aux besoins de l’ensemble du secteur",
+          "Une équipe d’intervention fixe rattachée séparément à chaque établissement du réseau",
+          "Un pôle où les équipes de dépistage scolaire restent séparées de la vaccination préventive",
+        ],
+        [
+          "Quelle intention bienveillante la direction exprime-t-elle envers ses équipes de terrain ?",
+          "Prendre en compte les souhaits individuels de localisation des professionnels",
+          "Retirer aux agents le droit d’exprimer leurs préférences dans le formulaire d’affectation",
+          "Imposer une hausse de la charge de travail pour les infirmières cliniciennes",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "De : Présidence — Coopérative forestière Boréale (Saguenay)\nÀ : Membres sociétaires et équipes de terrain\nObjet : Modernisation de notre chaîne logistique et redéploiement des brigades\n\nChers collègues sociétaires,\n\nL’intégration de notre nouvelle flotte d’abatteuses multifonctionnelles téléguidées transforme en profondeur nos méthodes sylvicoles. Pour rentabiliser ces équipements de pointe et atténuer la pénibilité des quarts de travail en forêt, le conseil d’administration a entériné une réorganisation complète de nos brigades de récolte et de reboisement.\n\nÀ compter du quinze septembre, les équipes de coupe et les techniciens d’entretien ne seront plus rattachés à des chantiers fixes mais à deux cellules régionales polyvalentes. Cette flexibilité permettra de mutualiser les pièces de rechange et de synchroniser les opérations selon les conditions météorologiques en direct. Chaque travailleur bénéficiera d’un calendrier rotatif de quatre jours de travail suivis de trois jours de congé consécutifs.\n\nUne période d’adaptation de trois mois est prévue avec des ateliers de perfectionnement rémunérés dispensés au centre de formation professionnelle de Dolbeau. Nous comptons sur l’engagement solidaire de chacun pour faire de ce virage un succès coopératif.",
+      questions: [
+        [
+          "Quelle transformation technologique a impulsé cette refonte de l’organisation du travail ?",
+          "L’arrivée d’engins forestiers sophistiqués nécessitant de nouvelles compétences",
+          "L’automatisation complète des opérations de reboisement sans intervention humaine",
+          "Le besoin de remplacer les abatteuses téléguidées par des brigades manuelles plus nombreuses",
+        ],
+        [
+          "Quel aménagement du temps de travail a été négocié pour les salariés des brigades ?",
+          "Une alternance rotative de quatre journées d’activité et de trois jours de repos",
+          "Une alternance rotative de trois journées d’activité suivies de quatre jours de repos",
+          "Une semaine de travail de cinq jours consécutifs suivie de deux jours de congé",
+        ],
+        [
+          "Que peut-on déduire quant à l’attitude de la coopérative face aux compétences requises ?",
+          "Elle investit dans la formation continue de ses membres pour faciliter l’adaptation",
+          "Elle confie aux seuls administrateurs du conseil la formation des équipes de terrain",
+          "Elle refuse d’accorder le moindre temps d’apprentissage sur les nouveaux outils",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "De : Direction des affaires étudiantes — Cégep du Vieux Montréal\nÀ : Communauté enseignante et personnel professionnel\nObjet : Mise en place du Guichet unique d’accompagnement à la réussite\n\nChères et chers collègues,\n\nFace à la diversification des besoins de notre population collégiale, notre organisation interne doit évoluer pour offrir un soutien plus cohérent et rapide. Dès la rentrée d’automne, nous fusionnons l’accueil du service d’orientation, le bureau de l’aide financière et le centre d’aide à l’apprentissage sous la bannière d’un Guichet unique interdisciplinaire.\n\nCette refonte vise à éliminer le parcours du combattant imposé aux étudiants en difficulté, qui devaient jusqu’ici naviguer entre plusieurs pavillons pour obtenir de l’aide. Désormais, chaque nouvel inscrit rencontrera un conseiller pivot qui coordonnera l’ensemble de ses rendez-vous psychosociaux et scolaires. Les intervenants travailleront dans un espace partagé favorisant les échanges rapides de dossiers dans le respect absolu de la confidentialité.\n\nNous vous invitons à une séance d’information hybride jeudi prochain à midi afin de répondre à toutes vos interrogations sur la répartition des bureaux et la nouvelle plateforme de prise de rendez-vous.",
+      questions: [
+        [
+          "Quel irritant majeur pour les étudiants le projet de fusion vise-t-il à éliminer ?",
+          "La multiplication des démarches morcelées à travers différents pavillons",
+          "La fusion précipitée de l’accueil et de l’aide financière imposée aux étudiants",
+          "La confidentialité insuffisante des dossiers partagés entre les intervenants du service",
+        ],
+        [
+          "Quel rôle central le conseiller pivot jouera-t-il auprès de chaque collégien ?",
+          "Coordonner de manière personnalisée l’ensemble des services dont il a besoin",
+          "Transmettre à chaque étudiant une simple liste des bureaux à consulter seul",
+          "Rencontrer chaque nouvel inscrit seulement après l’échec de son premier semestre",
+        ],
+        [
+          "Que peut-on déduire de la volonté de la direction dans la gestion de ce changement ?",
+          "Elle favorise un dialogue ouvert et transparent pour rassurer son personnel",
+          "Elle impose la réorganisation sans accorder aucun moment d’échange aux équipes",
+          "Elle ne prévoit de séance d’information qu’après la mise en place du guichet",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "Forum des utilisateurs ComptaPlus Pro Québec\nSujet : Comprendre le module de conciliation bancaire automatisée par IA\nAuteur : Martin_Tech (Modérateur certifié)\n\nBonjour à la communauté,\n\nPlusieurs d’entre vous ont exprimé des doutes sur le fonctionnement du nouveau module de conciliation bancaire introduit dans la mise à jour 6.4. Contrairement à l’ancienne méthode qui comparait uniquement les montants bruts, ce moteur d’intelligence artificielle analyse simultanément le libellé de la transaction, le numéro de taxe TPS/TVQ et l’historique des factures de chaque fournisseur.\n\nSi une écriture bancaire n’est pas reconnue automatiquement, cela provient généralement d’un écart de date supérieur à sept jours entre le virement et l’émission de la facture. Pour résoudre ce blocage, ouvrez l’onglet « Règles personnalisées », sélectionnez le compte Desjardins concerné et élargissez la fenêtre de tolérance chronologique à quatorze jours. De plus, prenez garde à ne pas forcer manuellement une ligne d’écriture si un voyant orange clignote : ce signal indique une divergence de devise qui nécessite une conversion préalable dans le registre des devises étrangères.\n\nN’hésitez pas à consigner vos retours pour notre prochain comité de développement.",
+      questions: [
+        [
+          "Quelle amélioration technique majeure distingue le nouveau moteur de conciliation bancaire ?",
+          "L’analyse conjointe des numéros fiscaux, des libellés et des historiques de facturation",
+          "Le rapprochement fondé sur le seul libellé de la transaction, sans contrôle fiscal",
+          "Le rapprochement des écritures à partir des seuls montants bruts",
+        ],
+        [
+          "Quelle manipulation précise est conseillée lorsque des transactions ne sont pas rapprochées ?",
+          "Augmenter l’intervalle de temps toléré entre la facture et le transfert d’argent",
+          "Réduire la fenêtre de tolérance chronologique à sept jours dans les règles personnalisées",
+          "Ouvrir l’onglet « Règles personnalisées » et désélectionner le compte Desjardins",
+        ],
+        [
+          "Quelle attitude le modérateur préconise-t-il face au voyant d’alerte orange ?",
+          "Une prudence rigoureuse en évitant toute validation hâtive avant vérification",
+          "Ignorer le voyant orange puisqu’il ne signale qu’un simple retard de saisie",
+          "Une confiance assurée dans le contrôle mensuel qui corrigera les erreurs de devise",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "Forum d’entraide ÉcoPlan 3D — Conception bioclimatique\nSujet : Paramétrer l’analyse d’ensoleillement et le calcul thermique passif\nAuteur : Geneviève_Archi (Experte LEED)\n\nChers confrères,\n\nÀ la suite de nombreuses questions sur le forum, voici comment exploiter pleinement le module d’ensoleillement de la version Pro. Pour obtenir des simulations fiables conformes au Code de construction du Québec, vous devez impérativement charger le fichier météo officiel de votre municipalité disponible sur le portail d’Environnement Canada.\n\nUne fois la maquette 3D géoréférencée, activez la fonction « Masque d’ombrage solaire ». L’outil modélisera l’impact des bâtiments voisins et du couvert végétal existant sur vos baies vitrées au solstice d’hiver et au solstice d’été. Si le calcul du coefficient de déperdition thermique renvoie un message d’erreur critique, vérifiez que chaque ouverture a bien été assignée à un mur extérieur et non à une cloison mitoyenne. Enfin, pour exporter le bordereau énergétique au format exigé par les inspecteurs municipaux, cochez l’option « Bilan normatif provincial » dans le menu d’impression PDF.\n\nCe protocole vous évitera des allers-retours fastidieux avec les bureaux d’urbanisme lors des demandes de permis de construire.",
+      questions: [
+        [
+          "Quelle exigence préalable conditionne la validité des calculs thermiques de l’édifice ?",
+          "L’importation des données météorologiques officielles de la localité visée",
+          "La réalisation des calculs sur une maquette 3D non géoréférencée de la parcelle",
+          "L’activation du masque d’ombrage solaire avant la géoréférence de la maquette",
+        ],
+        [
+          "Quelle maladresse fréquente de modélisation provoque l’apparition d’un bogue système ?",
+          "L’affectation erronée d’une fenêtre vitrée à une cloison intérieure",
+          "Le réglage du masque d’ombrage après l’export du bordereau au format normatif",
+          "La saisie des données du bâtiment voisin comme s’il faisait partie du projet",
+        ],
+        [
+          "Que peut-on déduire quant à l’intérêt pratique de l’exportation au format normatif provincial ?",
+          "Accélérer la délivrance des autorisations administratives auprès des villes",
+          "Multiplier les allers-retours avec les bureaux d’urbanisme lors des demandes de permis",
+          "Remplacer le bordereau énergétique par un simple relevé des ouvertures vitrées",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "Forum LibreArt Québec — Création graphique open-source\nSujet : Maîtriser les masques vectoriels non destructifs en prépresse\nAuteur : David_Designer (Graphiste indépendant)\n\nSalut tout le monde !\n\nSi vous préparez des affiches grand format destinées à l’impression sérigraphique, la version 4.2 apporte une avancée majeure avec les masques vectoriels dynamiques. Auparavant, découper une forme complexe détruisait les nœuds sous-jacents, rendant toute retouche de dernière minute impossible sans recommencer le travail à zéro.\n\nPour activer cette fonction, sélectionnez votre illustration, cliquez sur le menu Objet puis choisissez « Appliquer le masque sans aplatissement ». Vous pouvez ensuite éditer le contour à volonté sans altérer les couleurs pantone sous-jacentes. Attention toutefois lors de la préparation du fichier d’impression pour l’imprimeur commercial : n’oubliez pas de convertir les textes en courbes vectorielles et de définir le fond perdu à trois millimètres sur tout le pourtour du document. Dans le cas contraire, les massicots d’atelier risquent de laisser un liseré blanc inesthétique sur la bordure de vos affiches.\n\nN’hésitez pas à partager vos gabarits d’exportation pour enrichir la bibliothèque communautaire.",
+      questions: [
+        [
+          "Quel bénéfice créatif essentiel les nouveaux masques dynamiques procurent-ils aux artistes ?",
+          "La possibilité de remanier les tracés sans anéantir les éléments d’origine",
+          "La réduction automatique des couleurs Pantone dans chaque illustration",
+          "La possibilité de figer les tracés sans pouvoir revenir aux éléments d’origine",
+        ],
+        [
+          "Quelle négligence de mise en page risque de dégrader la qualité visuelle du produit fini ?",
+          "L’omission d’ajouter une marge de fond perdu pour sécuriser la coupe au massicot",
+          "L’oubli de détruire les nœuds sous-jacents avant d’éditer l’affiche",
+          "L’usage de masques vectoriels dynamiques sur les illustrations sans nœuds sous-jacents",
+        ],
+        [
+          "Que peut-on déduire de l’esprit qui anime la communauté LibreArt à travers ce message ?",
+          "Une volonté de solidarité professionnelle axée sur le partage libre des savoirs",
+          "Une volonté de protéger les gabarits d’exportation contre toute diffusion extérieure",
+          "Une méfiance envers les graphistes indépendants qui partagent leurs gabarits",
+        ],
+      ],
+    },
+  ],
+  // ===========================================================================
+  // n8-reading-3 (injonctif)
+  // Ex 0: Procédure d’adhésion à un ordre professionnel
+  // Ex 1: Procédure pour déposer une plainte auprès d’un organisme public
+  // ===========================================================================
+  'n8-reading-3': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "Guide officiel — Demande d’admission à l’Ordre des ingénieurs du Québec\n\nPour exercer légalement la profession d’ingénieur au Québec et porter le titre réservé, tout candidat doit franchir les étapes obligatoires du processus d’admission régi par le Code des professions.\n\nTout d’abord, créez votre profil sur le portail en ligne de l’Ordre et téléversez une copie certifiée de votre diplôme de baccalauréat en ingénierie décerné par un établissement agréé, accompagnée d’une preuve de citoyenneté ou de résidence permanente. Si vos études ont été complétées à l’extérieur du Canada, vous devrez préalablement soumettre une demande d’équivalence de formation assortie des relevés de notes officiels.\n\nEnsuite, acquittez les droits d’ouverture de dossier par carte de crédit ou virement bancaire sécurisé. Une fois votre admissibilité confirmée, vous devez réussir l’examen professionnel portant sur la déontologie, l’éthique et les normes environnementales québécoises. Enfin, vous devez justifier de vingt-quatre mois d’expérience pratique supervisée sous la tutelle d’un ingénieur d’expérience inscrit au tableau avant d’obtenir votre permis d’exercice de plein droit.",
+      questions: [
+        [
+          "Quelle exigence spécifique s’applique aux candidats formés dans une université étrangère ?",
+          "Faire évaluer la reconnaissance officielle de leur cursus pédagogique",
+          "Soumettre leurs relevés de notes officiels sans demande d’équivalence préalable",
+          "Passer l’examen professionnel sur la déontologie avant toute demande d’équivalence",
+        ],
+        [
+          "Sur quel domaine de compétences porte l’examen professionnel obligatoire ?",
+          "Les règles morales de déontologie et le cadre réglementaire du milieu",
+          "L’expérience pratique supervisée de vingt-quatre mois sous la tutelle d’un ingénieur",
+          "Le paiement des droits d’ouverture de dossier par carte de crédit",
+        ],
+        [
+          "Que peut-on déduire quant à l’obligation de mentorat durant le parcours probatoire ?",
+          "Elle garantit l’encadrement pratique des novices par des pairs expérimentés",
+          "Elle impose aux novices un suivi confié à des ingénieurs non inscrits au tableau",
+          "Elle exige une supervision de douze mois seulement sous la tutelle d’un ingénieur",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "Protocole d’obtention du permis d’exercice — Ordre des infirmières et infirmiers du Québec\n\nL’accès à la pratique infirmière en milieu hospitalier et communautaire exige l’obtention d’un permis délivré par l’OIIQ, garant de la protection du public et de la qualité des actes médicaux délégués.\n\nLa première démarche consiste à transmettre votre dossier de candidature comprenant l’attestation de réussite d’un diplôme d’études collégiales ou d’un baccalauréat en sciences infirmières reconnu. Vous devez également joindre une attestation officielle de maîtrise de la langue française délivrée par l’Office québécois de la langue française si votre scolarité secondaire n’a pas été suivie en français.\n\nAprès paiement des frais d’inscription, vous recevrez une autorisation d’exercer à titre de candidate à l’exercice de la profession infirmière. Ce statut temporaire vous permet de travailler sous supervision clinique en attendant la tenue de l’examen d’admission de l’Ordre, qui se déroule deux fois l’an. La réussite de cette épreuve pratique et la signature de la déclaration d’adhésion au code de déontologie vous confèrent le permis régulier.",
+      questions: [
+        [
+          "Quelle obligation linguistique particulière les personnes formées hors réseau francophone doivent-elles satisfaire ?",
+          "Démontrer officiellement leur compétence de communication en français",
+          "Fournir l’attestation de l’OQLF si le secondaire a été suivi en français",
+          "Remettre une attestation de maîtrise du français seulement après l’examen d’admission",
+        ],
+        [
+          "Quelle prérogative le statut temporaire de candidate accorde-t-il avant l’examen final ?",
+          "Exercer des actes délégués sous une supervision clinique obligatoire",
+          "Assurer seule des soins hospitaliers en pleine autonomie dès le paiement des frais",
+          "Travailler en milieu hospitalier sans aucune obligation de supervision clinique",
+        ],
+        [
+          "Que peut-on déduire de la mission première de cet ordre professionnel à travers ces exigences ?",
+          "Protéger la sécurité des usagers en garantissant la compétence rigoureuse du corps soignant",
+          "Assurer la rentabilité de l’Ordre en limitant les examens à une seule session annuelle",
+          "Accorder le permis régulier sans examen à toute candidate ayant payé les frais d’inscription",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "Conditions d’inscription au tableau — Ordre des agronomes du Québec\n\nPour poser des diagnostics agronomiques, recommander des plans de fertilisation des sols ou conseiller les exploitations agricoles sur l’usage des produits phytosanitaires, l’inscription au tableau de l’Ordre est obligatoire en vertu de la législation québécoise.\n\nLe postulant doit d’abord compléter le formulaire électronique sur l’espace membre sécurisé et fournir le relevé de notes certifié attestant de l’obtention d’un diplôme reconnu en agronomie. Les détenteurs de diplômes connexes en sciences des sols ou en agroéconomie doivent joindre un descriptif détaillé de leurs cours pour l’analyse des crédits par le comité d’admission.\n\nUne fois l’admissibilité déclarée, le candidat acquitte la cotisation professionnelle annuelle et suit la formation obligatoire en ligne consacrée aux responsabilités légales de l’agronome face à la protection de l’environnement. Enfin, il doit prêter serment par écrit de respecter les normes de pratique et souscrire l’assurance responsabilité professionnelle collective de l’Ordre avant d’émettre ses premières ordonnances agronomiques certifiées.",
+      questions: [
+        [
+          "Quels actes techniques essentiels requièrent obligatoirement le statut d’agronome certifié ?",
+          "La prescription de plans d’amendement des terres et le conseil sur les intrants",
+          "L’émission de diagnostics agronomiques sans inscription préalable au tableau de l’Ordre",
+          "La signature d’ordonnances agronomiques dès la réception d’un diplôme connexe",
+        ],
+        [
+          "Quelle étape pédagogique obligatoire fait suite à la validation des diplômes universitaires ?",
+          "Le suivi d’un programme en ligne sur les obligations légales envers l’écologie",
+          "Un serment écrit sur les normes de pratique précédant la formation en ligne",
+          "La remise d’un plan de fertilisation à l’Ordre avant la validation des diplômes",
+        ],
+        [
+          "Que peut-on déduire quant à l’obligation de souscrire une assurance responsabilité collective ?",
+          "Elle protège les agriculteurs et le public contre les conséquences d’erreurs de conseil",
+          "Elle oblige chaque agronome à souscrire une assurance individuelle au lieu de la collective",
+          "Elle annule toute possibilité de recours en justice contre les membres de la corporation",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "Déposer une plainte — Bureau du Protecteur du citoyen du Québec\n\nLe Protecteur du citoyen intervient comme ombudsman impartial pour corriger les situations injustes vécues par les citoyennes et citoyens dans leurs relations avec les ministères, sociétés d’État et organismes du réseau public québécois.\n\nAvant de soumettre une plainte, vous devez impérativement avoir tenté de résoudre le litige auprès du responsable des plaintes du ministère ou de l’organisme concerné. Si cette démarche initiale n’a pas abouti ou si la réponse reçue vous semble insatisfaisante, vous pouvez alors vous adresser au Protecteur du citoyen au moyen du formulaire sécurisé en ligne ou par téléphone.\n\nDans votre exposé des faits, décrivez avec précision la chronologie des événements, identifiez les fonctionnaires rencontrés et joignez des copies numériques de vos correspondances antérieures. Ne transmettez jamais vos documents originaux. Dès réception, un accusé de réception comportant un numéro de dossier unique vous sera transmis sous cinq jours ouvrables, et un délégué communiquera avec vous pour amorcer l’enquête en toute confidentialité.",
+      questions: [
+        [
+          "Quelle démarche préalable obligatoire conditionne la recevabilité de la demande citoyenne ?",
+          "Avoir épuisé les recours de règlement direct auprès de l’entité administrative en cause",
+          "Avoir transmis les documents originaux au responsable des plaintes du ministère",
+          "Avoir attendu la réponse du Protecteur du citoyen avant de saisir le responsable des plaintes",
+        ],
+        [
+          "Quelle précaution matérielle importante l’organisme demande-t-il d’observer pour les pièces jointes ?",
+          "Ne faire parvenir que des reproductions sans jamais se départir des documents originaux",
+          "Faire parvenir les originaux par la poste et conserver les copies numériques",
+          "Joindre les documents originaux au formulaire sécurisé en ligne",
+        ],
+        [
+          "Que peut-on déduire quant au statut du Protecteur du citoyen dans le règlement des différends ?",
+          "Il agit comme un arbitre indépendant cherchant à rétablir une équité dans le service public",
+          "Il représente systématiquement les ministères pour défendre la régularité de leurs décisions",
+          "Il exige que le plaignant prouve la faute avant d’ouvrir la moindre enquête",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "Procédure de recours pour congédiement sans cause juste — CNESST\n\nSi vous comptez au moins deux années de service continu au sein de la même compagnie et estimez avoir fait l’objet d’un congédiement sans motif valable, vous bénéficiez d’un recours légal encadré par la Loi sur les normes du travail.\n\nVous disposez d’un délai strict et non négociable de quarante-cinq jours civils suivant la date de votre renvoi effectif pour déposer votre plainte. Rendez-vous sur le portail monEspace de la CNESST et complétez le formulaire de plainte pour congédiement injustifié. Vous devrez y consigner vos coordonnées professionnelles, les arguments invoqués par votre ancien employeur et votre version factuelle des circonstances du départ.\n\nUne fois la plainte enregistrée, un médiateur chevronné de la Commission communiquera avec les deux parties afin de proposer une séance de médiation volontaire et gratuite. Si aucun accord amiable n’intervient pour une réintégration ou une indemnité financière, le dossier sera transféré au Tribunal administratif du travail, où un juge entendra les témoignages sous serment pour trancher le litige.",
+      questions: [
+        [
+          "Quel impératif de calendrier strict régit le dépôt de ce recours selon les dispositions légales ?",
+          "L’obligation de transmettre la réclamation dans un intervalle n’excédant pas quarante-cinq jours",
+          "La possibilité d’intenter des poursuites sans aucune limite de temps durant les dix années suivantes",
+          "L’obligation d’attendre au minimum six mois après le départ pour déposer un formulaire de plainte",
+        ],
+        [
+          "Quelle étape préliminaire de conciliation est systématiquement proposée par l’organisme ?",
+          "Une rencontre de médiation bénévole et sans frais pour rechercher une entente à l’amiable",
+          "Une médiation obligatoire, facturée à l’employeur et proposée à lui seul",
+          "Une audition formelle sous serment devant les juges du Tribunal administratif du travail",
+        ],
+        [
+          "Que peut-on déduire de l’intention de la loi en prévoyant le recours au Tribunal administratif ?",
+          "Garantir un arbitrage judiciaire équitable en dernier ressort si le dialogue direct échoue",
+          "Réserver le recours au tribunal aux seuls employeurs qui refusent la médiation",
+          "Imposer aux salariés de payer les frais de la séance de médiation avant tout recours",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "Formuler une plainte — Commissariat aux plaintes et à la qualité des services\n\nToute personne qui reçoit des soins dans un centre hospitalier, un CLSC ou un centre d’hébergement de soins de longue durée a le droit fondamental d’exprimer son insatisfaction s’il estime que ses droits n’ont pas été respectés ou que la qualité des services était déficiente.\n\nPour entamer la démarche, communiquez directement avec le bureau du Commissaire aux plaintes du réseau territorial concerné. Votre plainte peut être transmise par écrit, par courrier électronique ou verbalement lors d’un entretien privé avec un préposé à l’assistance. Vous devez préciser la date et l’établissement où l’événement est survenu, détailler les faits reprochés au personnel ou à l’organisation et mentionner les conséquences néfastes subies.\n\nLe Commissaire accusera réception de votre demande sous deux jours ouvrables. Il réalisera une investigation indépendante en consultant votre dossier médical avec votre consentement exprès et en recueillant les explications des équipes soignantes. Ses conclusions motivées vous seront communiquées par écrit dans un délai maximal de quarante-cinq jours.",
+      questions: [
+        [
+          "Quelles modalités d’expression sont offertes aux usagers pour consigner leur mécontentement ?",
+          "La liberté de déposer sa déclaration sous forme écrite ou de vive voix lors d’un entretien",
+          "L’obligation de déposer sa plainte par écrit, sans contact verbal avec le personnel",
+          "L’obligation de signaler sa plainte à l’établissement avant de contacter le Commissaire",
+        ],
+        [
+          "Quelle formalité essentielle autorise le Commissaire à examiner les antécédents médicaux ?",
+          "L’accord formel et consenti du patient concerné par les soins reçus",
+          "Le simple silence du patient, considéré comme un accord implicite à l’examen",
+          "L’accord écrit préalable du seul personnel soignant mis en cause dans la plainte",
+        ],
+        [
+          "Que peut-on déduire quant à l’engagement temporel pris par le Commissariat dans le traitement du dossier ?",
+          "Il s’engage sur une échéance encadrée pour rendre un avis écrit et argumenté",
+          "Il s’engage à rendre son avis écrit dans un délai maximal de six mois",
+          "Il transmet ses conclusions au plaignant seulement à l’oral, lors d’un entretien privé",
+        ],
+      ],
+    },
+  ],
+  // ===========================================================================
+  // n8-reading-4 (argumentatif)
+  // Ex 0: Position d’une chroniqueuse concernant une loi adoptée par l’Assemblée nationale
+  // Ex 1: Opinion d’un éditorialiste concernant les droits des animaux
+  // ===========================================================================
+  'n8-reading-4': [
+    // sc 0 (sit 0)
+    {
+      situation: 0,
+      text: "Chronique politique — Réforme de l’accès à l’information : un trompe-l’œil démocratique\nPar Martine Beaudoin\n\nL’adoption sous le bâillon du projet de loi modernisant l’accès aux documents des organismes publics laisse un goût amer à quiconque chérit la transparence de l’État. Certes, le ministre peut se féliciter d’avoir instauré des délais de réponse maximaux de vingt jours civils et d’avoir aboli les frais de reproduction papier au profit du numérique. Ces ajustements administratifs répondent à des doléances légitimes exprimées depuis une décennie.\n\nToutefois, l’arbre des gains procéduraux ne doit pas cacher la forêt des reculs démocratiques. En élargissant considérablement la définition des avis préliminaires soustraits à la consultation publique, le législateur offre aux cabinets ministériels un bouclier juridique commode pour dissimuler leurs arbitrages politiques les plus controversés.\n\nSous le prétexte louable de protéger la franchise des délibérations internes, cette loi affaiblit le travail d’enquête des journalistes et prive les citoyens d’un regard critique sur les décisions publiques. En prétendant fluidifier l’accès aux données de l’État, le gouvernement a en réalité consolidé la culture du secret au sommet de l’appareil étatique.",
+      questions: [
+        [
+          "Quel aspect positif de la nouvelle loi la chroniqueuse reconnaît-elle volontiers ?",
+          "La fixation d’une limite temporelle contraignante et la fin des frais de copie",
+          "La suppression de tout délai de réponse imposé aux ministères pour les demandes",
+          "L’augmentation des frais de reproduction papier pour les citoyens qui demandent des copies",
+        ],
+        [
+          "Quel recul démocratique majeur dénonce-t-elle avec véhémence ?",
+          "L’élargissement des exceptions légales permettant de cacher des dossiers clés",
+          "La réduction des avis préliminaires soustraits à la consultation publique",
+          "L’instauration de délais de réponse maximaux de vingt jours civils pour chaque demande",
+        ],
+        [
+          "Que peut-on déduire de son sentiment face à la communication gouvernementale ?",
+          "Elle perçoit une contradiction flagrante entre le discours officiel et la réalité",
+          "Elle approuve sans réserve la volonté ministérielle d’accélérer les débats en chambre",
+          "Elle juge que le gouvernement a fait preuve d’une franchise remarquable envers les journalistes",
+        ],
+      ],
+    },
+    // sc 1 (sit 0)
+    {
+      situation: 0,
+      text: "Point de vue — Hébergement touristique : une loi nécessaire mais sans dents\nPar Julie Desrochers\n\nL’Assemblée nationale a enfin adopté la loi resserrant l’encadrement des résidences de tourisme louées sur les plateformes numériques. Saluons d’emblée le courage politique d’imposer l’enregistrement obligatoire auprès de la Corporation de l’industrie touristique du Québec et de rendre les plateformes transactionnelles solidairement responsables des annonces illégales sous peine d’amendes substantielles. Dans les arrondissements montréalais où la crise du logement frappe de plein fouet les familles, cette mesure était réclamée depuis longtemps.\n\nNéanmoins, la portée concrète de cette législation risque d’être neutralisée par une faille organisationnelle majeure : l’absence d’un corps d’inspecteurs provinciaux dotés de pouvoirs d’investigation étendus. Confier l’application des règlements aux seules municipalités sans leur accorder de budgets dédiés relève de l’illusion gestionnaire.\n\nTant que les propriétaires délinquants sauront que les contrôles inopinés demeurent rarissimes, les profits générés par la location illégale continueront de surpasser le risque d’une sanction pécuniaire. Une loi sans moyens réels d’application n’est qu’un vœu pieux.",
+      questions: [
+        [
+          "Quelle mesure forte introduite par la loi la chroniqueuse juge-t-elle bénéfique ?",
+          "La responsabilité financière directe des plateformes en cas de publicité frauduleuse",
+          "L’enregistrement facultatif auprès de la Corporation, sans sanction prévue pour les propriétaires",
+          "La création d’un corps d’inspecteurs provinciaux dotés de pouvoirs d’investigation étendus",
+        ],
+        [
+          "Quelle lacune cruciale risque selon elle de compromettre l’efficacité du règlement ?",
+          "Le manque criant de personnel de surveillance pour effectuer des vérifications sur place",
+          "L’absence d’amendes pour les plateformes qui diffusent des annonces illégales",
+          "Le recours trop fréquent aux contrôles inopinés menés par les municipalités sur le terrain",
+        ],
+        [
+          "Que peut-on déduire quant à l’attitude de l’auteure envers les promesses des élus ?",
+          "Elle affiche un scepticisme lucide devant une réforme dénuée de moyens logistiques",
+          "Elle manifeste une confiance aveugle dans la capacité des mairies à agir sans argent",
+          "Elle estime que les élus ont déjà doté les municipalités de budgets suffisants",
+        ],
+      ],
+    },
+    // sc 2 (sit 0)
+    {
+      situation: 0,
+      text: "Chronique sociale — La modernisation du droit du travail face à l’écran de maison\nPar Caroline Gagnon\n\nLa sanction royale accordée à la loi modernisant le régime de santé et de sécurité du travail marque une étape historique pour le Québec contemporain. En inscrivant formellement les risques psychosociaux et l’ergonomie du télétravail dans le corpus législatif, l’Assemblée nationale prend acte de la transformation irréversible des modes de vie professionnels depuis les récentes crises sanitaires. Les employeurs ne pourront plus se laver les mains des blessures musculosquelettiques ou de l’épuisement professionnel subis à domicile.\n\nPour autant, la chroniqueuse ne saurait taire les ambiguïtés juridiques vertigineuses que soulève ce texte. Comment la commission provinciale peut-elle enquêter sur un poste de travail domestique sans porter atteinte à l’inviolabilité du domicile privé des salariés ? Le compromis adopté par les parlementaires laisse planer un vide inquiétant quant au partage des responsabilités entre la direction et l’employé en cas d’accident domestique durant les heures rémunérées.\n\nEn voulant tout régenter sans tracer de frontières claires, le législateur a créé un nid à litiges qui engorgera les tribunaux du travail pour des années.",
+      questions: [
+        [
+          "Quelle avancée légale remarquable la journaliste souligne-t-elle dans cette réforme ?",
+          "La prise en compte officielle des troubles physiques et mentaux liés au travail à distance",
+          "La dispense des employeurs de toute responsabilité pour les blessures subies à domicile",
+          "L’exemption des employeurs de la prise en compte des risques psychosociaux",
+        ],
+        [
+          "Quelle difficulté d’application majeure suscite les plus vives inquiétudes juridiques ?",
+          "Le respect de la vie intime lors des contrôles de sécurité dans l’habitat personnel",
+          "La facilité avec laquelle les employeurs peuvent contrôler le domicile privé des salariés",
+          "La clarté des responsabilités partagées entre la direction et l’employé",
+        ],
+        [
+          "Que peut-on déduire de la prédiction formulée par Caroline Gagnon concernant l’avenir de la loi ?",
+          "Elle anticipe une multiplication des différends judiciaires devant les cours de justice",
+          "Elle prévoit une harmonisation pacifique, rapide et durable des relations professionnelles",
+          "Elle prévoit une diminution rapide des litiges grâce à la clarté du texte",
+        ],
+      ],
+    },
+    // sc 3 (sit 1)
+    {
+      situation: 1,
+      text: "Éditorial — Au-delà des symboles : reconnaître la dignité animale\nPar Jean-François Cloutier\n\nLorsque l’Assemblée nationale a modifié le Code civil pour stipuler que les animaux ne sont plus des biens meubles mais des êtres doués de sensibilité ayant des impératifs biologiques, une vague d’enthousiasme a traversé la société québécoise. Dix ans plus tard, l’éditorialiste dresse un constat impitoyable : cette proclamation philosophique est restée largement lettre morte dans les fermes industrielles de notre territoire.\n\nComment concilier cette dignité proclamée avec le confinement à perpétuité des truies reproductrices dans des stalles d’acier où elles ne peuvent même pas se retourner ? Comment tolérer que les amendes pour cruauté ou négligence grave soient encore traitées comme de simples coûts d’exploitation par des abattoirs récidivistes ?\n\nIl est temps que nos lois dépassent la posture morale pour imposer des normes contraignantes : interdiction des cages de gestation, limitation stricte du temps de transport des bêtes vivantes par temps de canicule et création d’un protecteur indépendant du bien-être animal. La sensibilité animale ne peut pas demeurer un vœu juridique commode pendant que l’industrie perpétue des souffrances intolérables.",
+      questions: [
+        [
+          "Quel décalage choquant l’éditorialiste dénonce-t-il entre la loi et la pratique réelle ?",
+          "La persistance de mauvais traitements dans les élevages intensifs malgré le statut civil",
+          "L’interdiction déjà effective des cages de gestation dans l’ensemble des fermes",
+          "L’amélioration rapide des conditions de vie des truies depuis l’adoption de la loi",
+        ],
+        [
+          "Quelle réforme législative concrète réclame-t-il pour transformer durablement les pratiques ?",
+          "La suppression des cages de confinement et la mise en place d’un protecteur neutre",
+          "L’allègement des règles limitant le transport des bêtes vivantes par temps de canicule",
+          "L’abaissement des amendes pour cruauté afin de réduire les coûts d’exploitation",
+        ],
+        [
+          "Que peut-on déduire de son sentiment face au bilan de la décennie écoulée ?",
+          "Une grande amertume devant des déclarations de principe jamais suivies d’effets réels",
+          "Un optimisme radieux quant à l’évolution naturelle des méthodes d’élevage intensif",
+          "Une indifférence sereine face aux conditions de vie des bêtes dans les fermes locales",
+        ],
+      ],
+    },
+    // sc 4 (sit 1)
+    {
+      situation: 1,
+      text: "Éditorial — Cerfs de Virginie : pour une éthique de la coexistence animale\nPar Alexandre Tremblay\n\nLe débat passionné entourant la surpopulation de cerfs de Virginie dans nos parcs périurbains, notamment sur la Rive-Sud de Montréal, met en lumière notre incapacité collective à penser notre rapport au vivant. Face à la dégradation de la flore forestière et aux risques de collisions routières, le réflexe primaire des gestionnaires municipaux a trop souvent été d’ordonner des battues d’abattage au fusil ou à l’arbalète. Cette approche expéditive heurte à juste titre la conscience d’un nombre croissant de citoyens attachés à la protection de la faune.\n\nL’éditorialiste soutient que la réduction des troupeaux ne doit pas être guidée par la seule logique du moindre coût financier. Des avenues respectueuses existent : la contraception chimique par fléchettes, le reboisement d’essences moins appétentes et l’aménagement de corridors biologiques permettant aux animaux de migrer vers des massifs forestiers plus vastes.\n\nConsidérer les cerfs comme de simples nuisibles à éliminer au gré de nos convenances urbaines trahit une vision passéiste de la nature. Il appartient aux villes modernes d’inventer les voies d’une cohabitation harmonieuse avec la faune qui partage notre territoire.",
+      questions: [
+        [
+          "Quelle décision expéditive prise par les autorités locales suscite l’indignation du journaliste ?",
+          "L’organisation de battues d’abattage menées par réflexe primaire",
+          "Le recours généralisé à la contraception chimique par fléchettes dans les parcs",
+          "La fermeture des corridors biologiques entre les parcs et les massifs forestiers",
+        ],
+        [
+          "Quelle solution éthique alternative l’auteur suggère-t-il pour gérer la harde sans cruauté ?",
+          "La contraception chimique ciblée et le maintien de corridors de passage naturels",
+          "L’abattage ciblé des femelles reproductrices, jugé plus efficace que la contraception",
+          "Le reboisement d’essences très appétentes pour nourrir davantage les cerfs",
+        ],
+        [
+          "Que peut-on déduire quant à l’attitude préconisée par l’éditorialiste envers la faune urbaine ?",
+          "Privilégier un partage respectueux de l’espace plutôt qu’une domination destructrice",
+          "Laisser la faune proliférer librement sans aucune intervention humaine dans les parcs",
+          "Exclure la faune des zones urbaines pour sécuriser prioritairement les banlieues résidentielles",
+        ],
+      ],
+    },
+    // sc 5 (sit 1)
+    {
+      situation: 1,
+      text: "Éditorial — Recherche médicale : l’impératif moral de dépasser l’expérimentation animale\nPar Sophie Bérubé\n\nChaque année, plus de trois millions d’animaux sont utilisés dans les laboratoires universitaires et privés du pays pour tester des médicaments ou des composés cosmétiques. Pendant des décennies, la communauté biomédicale a justifié ce sacrifice au nom du progrès thérapeutique humain. Or, l’éditorialiste soutient qu’au vingt-et-unième siècle, cet argument moralement discutable s’effondre devant les percées spectaculaires de la biotechnologie moderne.\n\nLes cultures de tissus humains en trois dimensions, les modèles sur puce microfluidique et la modélisation informatique avancée reproduisent désormais les réactions métaboliques avec une fidélité souvent supérieure à celle des modèles rongeurs traditionnels. Pourquoi s’obstiner à infliger la captivité, la douleur et la mort à des êtres sensibles quand la science propose des méthodes substitutives plus prédictives et dénuées de cruauté ?\n\nLe refus d’amorcer une transition méthodique vers le bannissement des tests animaux relève de l’inertie financière et de l’habitude routinière des subventions publiques. Les gouvernements doivent réorienter leurs fonds de recherche vers les technologies substitutives pour clore enfin cette ère de souffrance animale.",
+      questions: [
+        [
+          "Quelle justification traditionnelle de la science la journaliste remet-elle en question ?",
+          "L’obligation morale d’utiliser des animaux pour le progrès thérapeutique humain",
+          "La nécessité de financer la recherche par les seuls laboratoires privés",
+          "L’obligation de tester les composés cosmétiques sur animaux avant leur mise en vente",
+        ],
+        [
+          "Quelle innovation biomédicale contemporaine permet d’éviter la souffrance des bêtes ?",
+          "Le développement de tissus humains miniaturisés et la simulation informatique",
+          "Le perfectionnement des modèles rongeurs traditionnels pour mieux reproduire les réactions",
+          "Le recours accru aux tests animaux pour corriger les modèles informatiques défaillants",
+        ],
+        [
+          "Que peut-on déduire de la cause principale du blocage selon l’éditorialiste ?",
+          "La force des habitudes acquises et la répartition conservatrice des subventions",
+          "La mauvaise qualité des cultures de tissus humains en trois dimensions",
+          "La générosité excessive des subventions accordées aux technologies substitutives",
+        ],
+      ],
+    },
+  ],
+}

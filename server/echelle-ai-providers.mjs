@@ -109,7 +109,7 @@ export function mockProvider({ model = 'mock-heuristic-1' } = {}) {
         lexique: !french ? 0 : distinct >= Math.min(words, 4 + rubric.level * 4) * 0.6 ? base : 2,
         phonologie: !french ? 0 : words >= minimum ? base : 2,
       }
-      const evidence = (sentences[0] ?? text).slice(0, 120)
+      const evidence = (sentences.find((sentence) => countWords(sentence) >= 3) ?? sentences[0] ?? text).slice(0, 120)
       return JSON.stringify({
         criteria: expectedIds.map((id) => ({
           id,
@@ -163,6 +163,7 @@ export function aiRateLimits(env = {}) {
   ]
 }
 
-export function aiStatus(provider, rubricVersion) {
-  return { enabled: Boolean(provider), provider: provider?.name ?? null, model: provider?.model ?? null, rubricVersion }
+export function aiStatus(provider, rubricVersion, asrAvailable = false) {
+  return { enabled: Boolean(provider), provider: provider?.name ?? null, model: provider?.model ?? null, rubricVersion, asr: Boolean(asrAvailable) }
 }
+

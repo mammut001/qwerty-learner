@@ -6,6 +6,7 @@ import {
   preloadFirebaseSdk,
   signInWithGoogle,
 } from '@/services/auth'
+import { getBillingStatus } from '@/services/billing'
 import { switchLocalProfile } from '@/services/localProfile'
 import { authStatusAtom } from '@/store/auth'
 import { Menu, Transition } from '@headlessui/react'
@@ -13,7 +14,7 @@ import { useAtomValue } from 'jotai'
 import type React from 'react'
 import { Fragment, useEffect, useState } from 'react'
 import { isGuestMode, isPathGated } from '@/services/guestMode'
-import { NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import IconChevronDown from '~icons/tabler/chevron-down'
 import IconLock from '~icons/tabler/lock'
 import IconMenu from '~icons/tabler/menu-2'
@@ -28,6 +29,7 @@ const navItems = [
   { to: '/dictionary', label: '查词' },
   { to: '/grammar-session', label: '语法' },
   { to: '/conjugation', label: '动词变位' },
+  { to: '/tenses', label: '时态专题' },
   { to: '/error-book', label: '错题本' },
   { to: '/analysis', label: '统计' },
 ]
@@ -42,7 +44,7 @@ const examItems = [
 ]
 
 const navItemClass = (isActive: boolean) =>
-  `flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] font-medium no-underline transition-all duration-200 hover:no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 ${
+  `flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-1.5 text-[13px] font-medium no-underline transition-all duration-200 hover:no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 xl:px-3 ${
     isActive
       ? 'bg-white text-indigo-700 shadow-[0_1px_2px_rgba(17,24,39,0.08),0_0_0_1px_rgba(99,102,241,0.14)] dark:bg-white/10 dark:text-white dark:shadow-none'
       : 'text-gray-600 hover:bg-white/70 hover:text-gray-950 dark:text-gray-400 dark:hover:bg-white/[0.06] dark:hover:text-white'
@@ -59,6 +61,27 @@ const Header: React.FC = () => {
   const [isSigningIn, setIsSigningIn] = useState(false)
   const [isSigningOut, setIsSigningOut] = useState(false)
   const warmSdk = () => void preloadFirebaseSdk().catch(() => undefined)
+  // The billing entry is shown only when the server has billing enabled and the user is signed in.
+  const [billingEnabled, setBillingEnabled] = useState(false)
+  const signedIn = Boolean(authStatus?.signedIn)
+
+  useEffect(() => {
+    if (!signedIn) {
+      setBillingEnabled(false)
+      return
+    }
+    let cancelled = false
+    getBillingStatus()
+      .then((status) => {
+        if (!cancelled) setBillingEnabled(Boolean(status.enabled))
+      })
+      .catch(() => {
+        if (!cancelled) setBillingEnabled(false)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [signedIn])
 
   const handleSignIn = async () => {
     if (isSigningIn) return
@@ -100,11 +123,12 @@ const Header: React.FC = () => {
   return (
     <header
       data-testid="app-shell-header"
-      className={`container sticky top-0 z-30 mx-auto w-full shrink-0 bg-[#f7f7fb]/90 px-4 py-4 backdrop-blur-md dark:bg-[#0b0d14]/90 sm:px-10 ${
+      className={`sticky top-0 z-30 w-full shrink-0 border-b border-gray-900/[0.06] bg-[#f7f7fb]/90 backdrop-blur-md dark:border-white/[0.08] dark:bg-[#0b0d14]/90 ${
         shellHidden ? 'hidden' : ''
       }`}
     >
-      <div className="flex w-full items-center justify-between gap-3">
+      <div className="ui-shell-container py-3.5">
+        <div className="flex w-full items-center justify-between gap-3">
         <NavLink className="group flex shrink-0 items-center gap-3 whitespace-nowrap no-underline hover:no-underline" to="/study-plan">
           <span className="relative flex h-10 w-10 items-center justify-center rounded-2xl bg-white shadow-[0_1px_2px_rgba(17,24,39,0.06),0_0_0_1px_rgba(17,24,39,0.05),0_8px_20px_-8px_rgba(79,70,229,0.45)] transition-transform duration-200 group-hover:-translate-y-px dark:bg-white/[0.06] dark:shadow-none dark:ring-1 dark:ring-white/10 sm:h-11 sm:w-11">
             <img src={logo} className="h-7 w-7 sm:h-8 sm:w-8" alt="Qwerty Français Logo" />
@@ -247,6 +271,23 @@ const Header: React.FC = () => {
                       )}
                     </div>
                     <div className="p-1">
+                      {billingEnabled && (
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              to="/billing"
+                              data-testid="header-billing"
+                              className={`flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm no-underline transition-colors hover:no-underline ${
+                                active
+                                  ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300'
+                                  : 'text-gray-700 dark:text-gray-300'
+                              }`}
+                            >
+                              <span>Pro 订阅</span>
+                            </Link>
+                          )}
+                        </Menu.Item>
+                      )}
                       <Menu.Item>
                         {({ active }) => (
                           <button
@@ -331,6 +372,15 @@ const Header: React.FC = () => {
             <div className="col-span-2 mt-2 border-t border-gray-100 p-2 dark:border-white/10 sm:col-span-3">
               {authStatus.signedIn ? (
                 <div className="flex items-center justify-between gap-3">
+                  {billingEnabled && (
+                    <Link
+                      to="/billing"
+                      data-testid="header-billing-mobile"
+                      className="shrink-0 rounded-xl px-3 py-1.5 text-xs font-medium text-indigo-700 no-underline hover:bg-indigo-50 hover:no-underline dark:text-indigo-300 dark:hover:bg-indigo-500/10"
+                    >
+                      Pro 订阅
+                    </Link>
+                  )}
                   <div className="flex min-w-0 items-center gap-2.5">
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full ring-1 ring-gray-200 dark:ring-white/20">
                       {authStatus.user?.picture ? (
@@ -393,6 +443,7 @@ const Header: React.FC = () => {
           )}
         </nav>
       )}
+      </div>
     </header>
   )
 }

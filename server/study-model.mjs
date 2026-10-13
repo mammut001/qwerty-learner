@@ -216,6 +216,29 @@ function validateEchelleMemory(item) {
     throw new Error('Invalid echelle memory')
 }
 
+function validateEchelleSpeech(speech) {
+  if (speech === undefined) return
+  if (!record(speech) ||
+      !integer(speech.wordCount, 0, 100000) ||
+      !number(speech.speechSeconds, 0, 86400) ||
+      !number(speech.wordsPerMinute, 0, 10000) ||
+      !number(speech.articulationRate, 0, 10000) ||
+      !integer(speech.pauseCount, 0, 100000) ||
+      !integer(speech.longPauseCount, 0, 100000) ||
+      !number(speech.longestPauseSeconds, 0, 86400) ||
+      !number(speech.pauseRatio, 0, 1) ||
+      !integer(speech.fillerCount, 0, 100000) ||
+      !number(speech.meanConfidence, 0, 1) ||
+      !number(speech.lowConfidenceRatio, 0, 1) ||
+      !['clear', 'mostly-clear', 'unclear'].includes(speech.intelligibility) ||
+      !Array.isArray(speech.lowConfidenceWords) || speech.lowConfidenceWords.length > 12)
+    throw new Error('Invalid echelle evaluation speech metrics')
+  for (const w of speech.lowConfidenceWords) {
+    if (!record(w) || !text(w.word, 100) || !number(w.start, 0, 86400) || !number(w.end, 0, 86400) || !number(w.confidence, 0, 1))
+      throw new Error('Invalid echelle evaluation low confidence word')
+  }
+}
+
 function validateEchelleAi(ai) {
   if (ai === undefined) return
   if (!record(ai) || typeof ai.passed !== 'boolean' || !record(ai.scores) || !number(ai.mean, 0, 4) ||
@@ -229,6 +252,7 @@ function validateEchelleAi(ai) {
     if (!record(correction) || !text(correction.original, 300) || !text(correction.suggestion, 300) ||
         !text(correction.explanationZh, 300))
       throw new Error('Invalid echelle evaluation')
+  validateEchelleSpeech(ai.speech)
 }
 
 function validateEchelle(value) {
@@ -239,6 +263,7 @@ function validateEchelle(value) {
     if (!ECHELLE_ITEM_ID_REGEX.test(id) || !record(item) || typeof item.mastered !== 'boolean' ||
         !number(item.score, 0, 1) || !integer(item.attempts, 0, 1000000) || !timestamp(item.updatedAt))
       throw new Error('Invalid echelle item')
+    if (item.variant !== undefined && !integer(item.variant, 0, 0x7fffffff)) throw new Error('Invalid echelle item')
     if (item.method !== undefined && !['check', 'self', 'ai'].includes(item.method)) throw new Error('Invalid echelle item')
     validateEchelleResponse(item.response)
     validateEchelleMemory(item)
@@ -559,14 +584,19 @@ export function apply(state, operations, { trusted = false, selfAssessProduction
       const history = mergePlacementHistory(state.learning.placement?.history ?? [], op.value)
       state.learning.placement = { latest: structuredClone(op.value), history }
     } else if (op.kind === 'echelleCheck' && ECHELLE_ITEM_ID_REGEX.test(op.itemId) && timestamp(op.updatedAt) &&
-               (op.answers === undefined || (Array.isArray(op.answers) && op.answers.length <= 20))) {
+               (op.answers === undefined || (Array.isArray(op.answers) && op.answers.length <= 20)) &&
+               (op.variant === undefined || integer(op.variant, 0, 0x7fffffff))) {
       const item = ECHELLE_ITEM_CATALOG[op.itemId]
       if (!item) throw new Error('Invalid operation')
       const updatedAt = op.updatedAt
       const existing = state.learning.echelle.items[op.itemId]
       if (!existing || updatedAt > existing.updatedAt) {
         const response = structuredClone(op.response ?? op.answers ?? [])
-        const result = scoreEchelleItem(op.itemId, Array.isArray(response) ? response : undefined, Array.isArray(response) ? {} : response)
+        const meta = {
+          ...(Array.isArray(response) ? {} : response),
+          ...(typeof op.variant === 'number' && op.variant > 0 ? { variant: op.variant } : {}),
+        }
+        const result = scoreEchelleItem(op.itemId, Array.isArray(response) ? response : undefined, meta)
         const production = item.kind === 'production'
         const passed = result.mastered && (!production || selfAssessProduction)
         state.learning.echelle.items[op.itemId] = {
@@ -576,6 +606,7 @@ export function apply(state, operations, { trusted = false, selfAssessProduction
           updatedAt,
           method: production ? 'self' : 'check',
           response,
+          ...(typeof op.variant === 'number' && op.variant > 0 ? { variant: op.variant } : {}),
         }
       }
     } else if (op.kind === 'echelleEvaluation' && trusted && ECHELLE_ITEM_ID_REGEX.test(op.itemId) &&
