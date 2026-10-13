@@ -1,4 +1,4 @@
-const CACHE_NAME = 'qwerty-fr-pwa-v1'
+const CACHE_NAME = 'qwerty-fr-pwa-v2'
 const SHELL = [
   './',
   './index.html',
@@ -10,6 +10,14 @@ const SHELL = [
 ]
 
 const scoped = (path) => new URL(path, self.registration.scope).href
+
+const isAssetPath = (pathname) => /\.(?:[cm]?js|css|json)(?:\.map)?$/i.test(pathname) || pathname.startsWith('/assets/')
+
+const isAssetHtmlResponse = (url, response) => {
+  const contentType = (response.headers?.get?.('content-type') || '').toLowerCase()
+  if (!contentType.includes('text/html')) return false
+  return isAssetPath(url.pathname)
+}
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -43,7 +51,7 @@ self.addEventListener('message', (event) => {
         )
           continue
         const response = await fetch(url.href, { credentials: 'same-origin' })
-        if (response.ok) await cache.put(url.href, response.clone())
+        if (response.ok && !isAssetHtmlResponse(url, response)) await cache.put(url.href, response.clone())
       } catch {
         // Best-effort warmup; individual asset failures must not break the service worker.
       }
@@ -92,7 +100,7 @@ self.addEventListener('fetch', (event) => {
     caches.match(request).then((cached) => {
       if (cached) return cached
       return fetch(request).then(async (response) => {
-        if (response.ok && response.type === 'basic') {
+        if (response.ok && response.type === 'basic' && !isAssetHtmlResponse(url, response)) {
           const cache = await caches.open(CACHE_NAME)
           await cache.put(request, response.clone())
         }
