@@ -15,6 +15,25 @@ export function authorizeAdminRequest(authorizationHeader, adminToken) {
   return { ok: true }
 }
 
+export function authorizeRecallModeration(
+  authorizationHeader,
+  { adminToken, moderatorToken, recallModeratorToken } = {},
+) {
+  const resolvedModeratorToken = moderatorToken ?? recallModeratorToken
+  const adminConfigured = adminApiEnabled(adminToken)
+  const moderatorConfigured = adminApiEnabled(resolvedModeratorToken)
+  if (!adminConfigured && !moderatorConfigured) {
+    return { ok: false, status: 503, code: 'ADMIN_DISABLED', message: 'Admin API is not configured' }
+  }
+  if (adminConfigured && bearerMatches(authorizationHeader, adminToken)) {
+    return { ok: true, role: 'admin' }
+  }
+  if (moderatorConfigured && bearerMatches(authorizationHeader, resolvedModeratorToken)) {
+    return { ok: true, role: 'moderator' }
+  }
+  return { ok: false, status: 401, code: 'ADMIN_UNAUTHORIZED', message: 'Invalid admin token' }
+}
+
 function sectionAccuracy(sectionTotals) {
   const out = {}
   for (const [section, row] of Object.entries(sectionTotals)) {
