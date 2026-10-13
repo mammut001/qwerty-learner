@@ -190,49 +190,94 @@ export const RECALL_CALIBRATION_SAMPLES = Object.freeze([
  * Runs calibration against golden samples.
  * Returns agreement rate and false approvals.
  * Provider is accepted ONLY if agreement >= minAgreement AND falseApprovals === 0.
+ * Reports results for both modes (auto-approve OFF and auto-approve ON).
  */
-export async function runRecallCalibration(provider, { samples = RECALL_CALIBRATION_SAMPLES, minAgreement = 0.85 } = {}) {
+export async function runRecallCalibration(provider, {
+  samples = RECALL_CALIBRATION_SAMPLES,
+  minAgreement = 0.85,
+  allowAutoApprove = false,
+} = {}) {
   const wrapped = wrapProviderForRecalls(provider)
-  const rows = []
 
-  for (const sample of samples) {
-    try {
-      const result = await moderateRecall(sample, wrapped)
-      const agree = result.decision === sample.expected
-      const falseApproval = result.decision === 'approve' && sample.expected !== 'approve'
-      rows.push({
-        id: sample.id,
-        expected: sample.expected,
-        decision: result.decision,
-        agree,
-        falseApproval,
-        reasons: result.reasons,
-      })
-    } catch (err) {
-      rows.push({
-        id: sample.id,
-        expected: sample.expected,
-        decision: null,
-        agree: false,
-        falseApproval: false,
-        error: err instanceof Error ? err.message : String(err),
-      })
+  async function evaluateMode(autoApprove) {
+    const rows = []
+    for (const sample of samples) {
+      try {
+        const result = await moderateRecall(sample, wrapped, { allowAutoApprove: autoApprove })
+        // When auto-approve is OFF:
+        // An expected 'approve' sample is agreed if held with recommendation 'approve' / reason RECOMMEND_APPROVE.
+        const agree = autoApprove
+          ? result.decision === sample.expected
+          : (sample.expected === 'approve'
+              ? result.decision === 'hold' && (result.recommendation === 'approve' || result.reasons?.includes('RECOMMEND_APPROVE'))
+              : result.decision === sample.expected)
+
+        // False approval: non-approve sample getting 'approve' decision
+        // With auto-approve OFF, this is trivially 0 since decision is never 'approve'.
+        const falseApproval = autoApprove
+          ? (result.decision === 'approve' && sample.expected !== 'approve')
+          : (result.decision === 'approve')
+
+        rows.push({
+          id: sample.id,
+          expected: sample.expected,
+          decision: result.decision,
+          recommendation: result.recommendation,
+          agree,
+          falseApproval,
+          reasons: result.reasons,
+        })
+      } catch (err) {
+        rows.push({
+          id: sample.id,
+          expected: sample.expected,
+          decision: null,
+          agree: false,
+          falseApproval: false,
+          error: err instanceof Error ? err.message : String(err),
+        })
+      }
+    }
+
+    const agreedCount = rows.filter((r) => r.agree).length
+    const agreement = rows.length ? agreedCount / rows.length : 0
+    const falseApprovals = rows.filter((r) => r.falseApproval).length
+    const errors = rows.filter((r) => r.error).length
+    const ok = agreement >= minAgreement && falseApprovals === 0
+    const note = autoApprove
+      ? 'Auto-approve ON: full autonomous approval active (enforcing 0 false approvals).'
+      : 'Auto-approve OFF: false approvals is trivially 0 (approved items held with RECOMMEND_APPROVE for human approval).'
+
+    return {
+      mode: autoApprove ? 'auto-approve-on' : 'auto-approve-off',
+      allowAutoApprove: autoApprove,
+      agreement,
+      falseApprovals,
+      errors,
+      ok,
+      note,
+      rows,
     }
   }
 
-  const agreedCount = rows.filter((r) => r.agree).length
-  const agreement = rows.length ? agreedCount / rows.length : 0
-  const falseApprovals = rows.filter((r) => r.falseApproval).length
-  const errors = rows.filter((r) => r.error).length
-  const ok = agreement >= minAgreement && falseApprovals === 0
+  const offReport = await evaluateMode(false)
+  const onReport = await evaluateMode(true)
+  const activeReport = allowAutoApprove ? onReport : offReport
 
   return {
     provider: provider.name,
     model: provider.model,
-    agreement,
-    falseApprovals,
-    errors,
-    ok,
-    rows,
+    activeMode: activeReport.mode,
+    allowAutoApprove,
+    agreement: activeReport.agreement,
+    falseApprovals: activeReport.falseApprovals,
+    errors: activeReport.errors,
+    ok: activeReport.ok,
+    note: activeReport.note,
+    rows: activeReport.rows,
+    bothModes: {
+      autoApproveOff: offReport,
+      autoApproveOn: onReport,
+    },
   }
 }

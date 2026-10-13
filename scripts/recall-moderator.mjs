@@ -26,6 +26,7 @@ export function parseArgs(argv = []) {
     dryRun: true,
     calibrate: false,
     skipCalibration: false,
+    autoApprove: false,
     maxItems: 50,
     maxApprove: 20,
     logFile: null,
@@ -43,6 +44,8 @@ export function parseArgs(argv = []) {
       options.calibrate = true
     } else if (arg === '--skip-calibration') {
       options.skipCalibration = true
+    } else if (arg === '--auto-approve') {
+      options.autoApprove = true
     } else if (arg === '--max-items') {
       const val = parseInt(argv[++i], 10)
       if (!Number.isNaN(val) && val > 0) options.maxItems = val
@@ -68,6 +71,7 @@ export async function runRecallModerator({
   stderr = (msg) => console.error(msg),
 } = {}) {
   const opts = parseArgs(argv)
+  const allowAutoApprove = opts.autoApprove || env.RECALL_AUTO_APPROVE === '1'
   const logLines = []
 
   const writeLog = (record) => {
@@ -101,17 +105,24 @@ export async function runRecallModerator({
   // 2. Handle --calibrate flag
   if (opts.calibrate) {
     stdout(`Running recall moderation calibration with ${provider.name}/${provider.model}...`)
-    const report = await runRecallCalibration(provider)
+    stdout(`Active mode: ${allowAutoApprove ? '--auto-approve ON' : '--auto-approve OFF (default)'}\n`)
+    const report = await runRecallCalibration(provider, { allowAutoApprove })
     for (const row of report.rows) {
       const mark = row.agree ? '✓' : '✗'
-      stdout(`${mark} ${row.id.padEnd(28)} expected ${row.expected}, got ${row.decision || row.error} [${(row.reasons || []).join(', ')}]`)
+      const outcome = row.decision + (row.recommendation ? ` (${row.recommendation})` : '')
+      stdout(`${mark} ${row.id.padEnd(35)} expected ${row.expected}, got ${outcome || row.error} [${(row.reasons || []).join(', ')}]`)
     }
-    stdout(`\nCalibration result: agreement ${(report.agreement * 100).toFixed(0)}%, false approvals ${report.falseApprovals}, errors ${report.errors}`)
+    stdout(`\nCalibration result (${report.activeMode}): agreement ${(report.agreement * 100).toFixed(0)}%, false approvals ${report.falseApprovals}, errors ${report.errors}`)
+    stdout(`Note: ${report.note}`)
+    if (report.bothModes) {
+      const other = allowAutoApprove ? report.bothModes.autoApproveOff : report.bothModes.autoApproveOn
+      stdout(`Alternate mode (${other.mode}): agreement ${(other.agreement * 100).toFixed(0)}%, false approvals ${other.falseApprovals}. ${other.note}`)
+    }
     if (report.ok) {
-      stdout('OK — provider passed calibration gate (0 false approvals).')
+      stdout('\nOK — provider passed calibration gate (0 false approvals).')
       return { exitCode: 0, report, logLines }
     }
-    stderr('NOT OK — calibration failed (false approvals > 0 or agreement below minimum).')
+    stderr('\nNOT OK — calibration failed (false approvals > 0 or agreement below minimum).')
     return { exitCode: 1, report, logLines }
   }
 
@@ -132,8 +143,8 @@ export async function runRecallModerator({
 
   // 4. Pre-run calibration gate for --apply
   if (opts.apply && !opts.skipCalibration) {
-    stdout('Running safety calibration gate before applying reviews...')
-    const calReport = await runRecallCalibration(provider)
+    stdout(`Running safety calibration gate before applying reviews (mode: ${allowAutoApprove ? 'auto-approve ON' : 'auto-approve OFF'})...`)
+    const calReport = await runRecallCalibration(provider, { allowAutoApprove })
     if (!calReport.ok || calReport.falseApprovals > 0) {
       stderr(`[SAFETY_GATE_TRIGGERED] Provider failed calibration gate (${calReport.falseApprovals} false approvals, ${(calReport.agreement * 100).toFixed(0)}% agreement). Refusing to apply changes.`)
       return { exitCode: 4, report: calReport, logLines }
@@ -170,7 +181,7 @@ export async function runRecallModerator({
     return { exitCode: 0, decisions: [], logLines }
   }
 
-  stdout(`Fetched ${items.length} pending recalls (max items: ${opts.maxItems}, max approve cap: ${opts.maxApprove}).`)
+  stdout(`Fetched ${items.length} pending recalls (max items: ${opts.maxItems}, max approve cap: ${opts.maxApprove}, auto-approve: ${allowAutoApprove ? 'ON' : 'OFF'}).`)
 
   // Valid IDs strictly from the fetched list
   const validFetchedIds = new Set(items.map((i) => i.id))
@@ -184,6 +195,7 @@ export async function runRecallModerator({
       result = await moderateRecall(item, provider, {
         approvedCount,
         maxApprove: opts.maxApprove,
+        allowAutoApprove,
         now: Date.now(),
       })
     } catch (err) {
@@ -191,6 +203,7 @@ export async function runRecallModerator({
       result = {
         id: item.id,
         decision: 'hold',
+        recommendation: 'review',
         reasons: [RECALL_REASON_CODES.MODEL_ERROR],
         model: provider.model,
         harnessVersion: RECALL_HARNESS_VERSION,
@@ -202,11 +215,16 @@ export async function runRecallModerator({
     }
     decisions.push(result)
 
+    if (!allowAutoApprove) {
+      stdout(`[triage] id=${item.id} decision=${result.decision} recommendation=${result.recommendation || 'review'} reasons=${(result.reasons || []).join(',')}`)
+    }
+
     // Secrets hygiene: never log token or full prompt; excerpt capped at 80 chars
     const excerpt = String(item.topic || '').slice(0, 80).replace(/[\r\n\t]+/g, ' ')
     writeLog({
       id: item.id,
       decision: result.decision,
+      recommendation: result.recommendation || 'review',
       reasons: result.reasons,
       model: provider.model,
       harnessVersion: RECALL_HARNESS_VERSION,
@@ -219,14 +237,27 @@ export async function runRecallModerator({
   const rejectIds = decisions.filter((d) => d.decision === 'reject').map((d) => d.id).filter((id) => validFetchedIds.has(id))
   const holdIds = decisions.filter((d) => d.decision === 'hold').map((d) => d.id)
 
-  stdout(`\nModeration summary: ${approveIds.length} approve, ${rejectIds.length} reject, ${holdIds.length} hold.`)
+  if (!allowAutoApprove) {
+    const recApproveCount = decisions.filter((d) => d.recommendation === 'approve').length
+    const reviewCount = decisions.filter((d) => d.decision === 'hold' && d.recommendation !== 'approve').length
+    const rejectCount = decisions.filter((d) => d.decision === 'reject').length
+    stdout(`\nTriage summary (auto-approve OFF):`)
+    stdout(`- Total: ${decisions.length}`)
+    stdout(`- Recommended approve (held): ${recApproveCount}`)
+    stdout(`- Review needed (held): ${reviewCount}`)
+    stdout(`- Rejected: ${rejectCount}`)
+    stdout(`(Auto-approve is OFF. ${recApproveCount} item(s) recommended for approval can be approved in the admin page.)`)
+  } else {
+    stdout(`\nModeration summary: ${approveIds.length} approve, ${rejectIds.length} reject, ${holdIds.length} hold.`)
+  }
 
   // 7. Apply decisions if --apply is requested
   if (opts.apply) {
     const reviewUrl = `${apiBase.replace(/\/+$/, '')}/api/study-plan/admin/recalls/review`
     let appliedApprove = 0
 
-    if (approveIds.length > 0) {
+    // With auto-approve OFF, the runner NEVER POSTs action 'approve'
+    if (allowAutoApprove && approveIds.length > 0) {
       stdout(`Submitting ${approveIds.length} approved recalls...`)
       try {
         const approveRes = await fetchImpl(reviewUrl, {
@@ -271,7 +302,11 @@ export async function runRecallModerator({
       }
     }
 
-    stdout('Successfully applied moderation reviews to API.')
+    if (!allowAutoApprove) {
+      stdout('Auto-approve is OFF: 0 approvals submitted. Rejected spam submitted to API.')
+    } else {
+      stdout('Successfully applied moderation reviews to API.')
+    }
   } else {
     stdout('[DRY RUN] No reviews were posted to the API. Run with --apply to apply decisions.')
   }
