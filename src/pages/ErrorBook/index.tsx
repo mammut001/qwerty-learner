@@ -1,7 +1,7 @@
 import Layout from '@/components/Layout'
 import { type ErrorBookItem, type ReviewKind, loadErrorBook } from '@/services/studyPlanSync'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 type StatusFilter = 'active' | 'mastered' | 'all'
@@ -27,21 +27,30 @@ export function ErrorBook() {
   const [to, setTo] = useState('')
   const [loading, setLoading] = useState(true)
   const [message, setMessage] = useState('')
+  const requestId = useRef(0)
 
   const refresh = useCallback(async () => {
+    const id = ++requestId.current
     setLoading(true)
     setMessage('')
     try {
-      setItems(await loadErrorBook({ type, status, from: from || undefined, to: to || undefined }))
+      const nextItems = await loadErrorBook({ type, status, from: from || undefined, to: to || undefined })
+      if (id === requestId.current) setItems(nextItems)
     } catch {
-      setMessage('错题本暂时读取失败；如果当前离线，联网后会自动恢复。')
+      if (id === requestId.current) setMessage('错题本暂时读取失败，请重试；离线时请先恢复网络。')
     } finally {
-      setLoading(false)
+      if (id === requestId.current) setLoading(false)
     }
   }, [from, status, to, type])
 
   useEffect(() => {
     void refresh()
+    const onOnline = () => void refresh()
+    window.addEventListener('online', onOnline)
+    return () => {
+      requestId.current += 1
+      window.removeEventListener('online', onOnline)
+    }
   }, [refresh])
 
   const activeCount = useMemo(() => items.filter((item) => !item.mastered).length, [items])
@@ -134,13 +143,23 @@ export function ErrorBook() {
             </label>
           </div>
 
-          {message && <div className="mt-4 rounded-xl bg-amber-50 p-3 text-sm text-amber-700 dark:bg-amber-950/30">{message}</div>}
+          {message && (
+            <div
+              role="alert"
+              className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-amber-50 p-3 text-sm text-amber-700 dark:bg-amber-950/30"
+            >
+              <span>{message}</span>
+              <button type="button" onClick={() => void refresh()} className="ui-btn-primary">
+                重新读取错题本
+              </button>
+            </div>
+          )}
 
           <ScrollArea.Root className="mt-5 flex-1 overflow-hidden" aria-label="错题列表">
             <ScrollArea.Viewport className="h-full w-full pb-16">
               {loading ? (
                 <div className="ui-panel p-10 text-center text-sm text-gray-400">正在读取错题本…</div>
-              ) : items.length === 0 ? (
+              ) : message ? null : items.length === 0 ? (
                 <div className="ui-panel flex flex-col items-center gap-2 p-12 text-center">
                   <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 text-lg text-emerald-600 ring-1 ring-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-400/20">
                     ✓
