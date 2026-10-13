@@ -20,7 +20,15 @@ function AddToWordList({ word, meaning }: { word: string; meaning: string }) {
   })
   const [message, setMessage] = useState('')
   const target = lists.find((item) => item.id === listId) ?? lists[0]
-  const alreadySaved = Boolean(target?.words.some((item) => item.name === word))
+  const savedWord = target?.words.find((item) => item.name === word)
+  const alreadySaved = Boolean(savedWord)
+  const normalizedWord = word.trim().toLocaleLowerCase('fr')
+  const canCompleteMeaning = Boolean(
+    savedWord &&
+      savedWord.trans.every((item) => !item.trim() || item.trim().toLocaleLowerCase('fr') === normalizedWord) &&
+      meaning.trim() &&
+      meaning.trim().toLocaleLowerCase('fr') !== normalizedWord,
+  )
 
   useEffect(() => setMessage(''), [word])
 
@@ -39,6 +47,18 @@ function AddToWordList({ word, meaning }: { word: string; meaning: string }) {
         }
         setLists([created, ...lists])
         setMessage(`已新建「${DEFAULT_LIST_NAME}」并加入`)
+        return
+      }
+      if (savedWord) {
+        if (!canCompleteMeaning) return
+        setLists(
+          lists.map((item) =>
+            item.id === target.id
+              ? { ...item, words: item.words.map((existing) => (existing.name === word ? entry : existing)), updatedAt: now }
+              : item,
+          ),
+        )
+        setMessage(`已补全「${target.name}」中的释义`)
         return
       }
       if (target.words.length >= CUSTOM_DICT_LIMITS.words) {
@@ -78,11 +98,13 @@ function AddToWordList({ word, meaning }: { word: string; meaning: string }) {
       <button
         type="button"
         data-testid="dictionary-add"
-        disabled={alreadySaved}
+        disabled={alreadySaved && !canCompleteMeaning}
         onClick={add}
         className="inline-flex items-center rounded-xl bg-indigo-50 px-3 py-1.5 text-xs font-medium text-indigo-700 transition hover:bg-indigo-100 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 dark:bg-indigo-950/40 dark:text-indigo-300 dark:hover:bg-indigo-900/60 dark:disabled:bg-gray-800 dark:disabled:text-gray-500 sm:text-sm"
       >
-        {alreadySaved
+        {canCompleteMeaning
+          ? '补全释义'
+          : alreadySaved
           ? '已在词表中'
           : lists.length === 0
           ? `＋ 加入${DEFAULT_LIST_NAME}`
