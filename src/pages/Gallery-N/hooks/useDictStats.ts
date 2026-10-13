@@ -2,20 +2,24 @@ import { db } from '@/utils/db'
 import type { IChapterRecord } from '@/utils/db/record'
 import { useEffect, useState } from 'react'
 
-export function useDictStats(dictID: string, isStartLoad: boolean) {
+export function useDictStats(dictID: string, isStartLoad: boolean, chapterCount: number) {
   const [dictStats, setDictStats] = useState<IDictStats | null>(null)
 
   useEffect(() => {
-    const fetchDictStats = async () => {
-      const stats = await getDictStats(dictID)
-      setDictStats(stats)
+    let cancelled = false
+    setDictStats(null)
+    if (!isStartLoad) return
+    void getDictStats(dictID, chapterCount)
+      .then((stats) => {
+        if (!cancelled) setDictStats(stats)
+      })
+      .catch(() => {
+        if (!cancelled) setDictStats(null)
+      })
+    return () => {
+      cancelled = true
     }
-
-    if (isStartLoad && !dictStats) {
-      fetchDictStats()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dictID, isStartLoad])
+  }, [dictID, isStartLoad, chapterCount])
 
   return dictStats
 }
@@ -24,13 +28,14 @@ interface IDictStats {
   exercisedChapterCount: number
 }
 
-async function getDictStats(dict: string): Promise<IDictStats> {
+async function getDictStats(dict: string, chapterCount: number): Promise<IDictStats> {
   const records: IChapterRecord[] = await db.chapterRecords.where({ dict }).toArray()
-  const allChapter = records.map(({ chapter }) => chapter).filter((item) => item !== null) as number[]
-  const uniqueChapter = allChapter.filter((value, index, self) => {
-    return self.indexOf(value) === index
-  })
-  const exercisedChapterCount = uniqueChapter.length
+  const chapters = records
+    .map(({ chapter }) => chapter)
+    .filter(
+      (chapter): chapter is number => typeof chapter === 'number' && Number.isInteger(chapter) && chapter >= 0 && chapter < chapterCount,
+    )
+  const exercisedChapterCount = new Set(chapters).size
 
   return { exercisedChapterCount }
 }

@@ -28,7 +28,7 @@ export default function DictionaryComponent({ dictionary, autoOpen = false, plac
   const buttonRef = useRef<HTMLButtonElement>(null)
   const entry = useIntersectionObserver(buttonRef, {})
   const isVisible = !!entry?.isIntersecting
-  const dictStats = useDictStats(dictionary.id, isVisible)
+  const dictStats = useDictStats(dictionary.id, isVisible, dictionary.chapterCount)
   const chapterCount = useMemo(() => calcChapterCount(dictionary.length), [dictionary.length])
   const isSelected = currentDictID === dictionary.id
   const progress = useMemo(
