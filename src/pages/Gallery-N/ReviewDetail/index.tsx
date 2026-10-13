@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import MdiRobotAngry from '~icons/mdi/robot-angry'
 
 export function ReviewDetail({ errorData, dict, isOpen }: { errorData: TErrorWordData[]; dict: Dictionary; isOpen: boolean }) {
-  const latestReviewRecord = useGetLatestReviewRecord(dict.id)
+  const { record: latestReviewRecord, error: loadError, isLoading, retry } = useGetLatestReviewRecord(dict.id)
   const setReviewModeInfo = useSetAtom(reviewModeInfoAtom)
   const setCurrentDictId = useSetAtom(currentDictIdAtom)
   const navigate = useNavigate()
@@ -29,7 +29,7 @@ export function ReviewDetail({ errorData, dict, isOpen }: { errorData: TErrorWor
   }, [isOpen])
 
   const startReview = async () => {
-    if (creating.current || errorData.length === 0) return
+    if (creating.current || isLoading || loadError || errorData.length === 0) return
     creating.current = true
     setIsCreating(true)
     setCreateError('')
@@ -91,7 +91,19 @@ export function ReviewDetail({ errorData, dict, isOpen }: { errorData: TErrorWor
           </>
         )}
 
-        {!latestReviewRecord && <div>当前词典错词数: {errorData.length}</div>}
+        {isLoading ? (
+          <p role="status">正在读取复习进度…</p>
+        ) : (
+          !latestReviewRecord && !loadError && <div>当前词典错词数: {errorData.length}</div>
+        )}
+        {Boolean(loadError) && (
+          <div role="alert" className="mt-4 text-sm text-red-500">
+            <p>复习进度暂时读取失败，请重试。</p>
+            <Button size="sm" onClick={retry} className="mt-2">
+              重新读取复习进度
+            </Button>
+          </div>
+        )}
 
         {createError && (
           <p role="alert" className="mt-4 text-sm text-red-500">
@@ -104,7 +116,12 @@ export function ReviewDetail({ errorData, dict, isOpen }: { errorData: TErrorWor
               继续当前进度
             </Button>
           )}
-          <Button size="sm" onClick={startReview} disabled={isCreating || errorData.length === 0} aria-busy={isCreating}>
+          <Button
+            size="sm"
+            onClick={startReview}
+            disabled={isCreating || isLoading || Boolean(loadError) || errorData.length === 0}
+            aria-busy={isCreating}
+          >
             开始{latestReviewRecord && '新的'}复习
           </Button>
         </div>
