@@ -125,8 +125,15 @@ export function parseWordListText(text: string): ParsedWordList {
   return { words, duplicates, tooLong, truncated }
 }
 
+const singleLine = (text: string) => text.replace(/\s+/g, ' ').trim()
+
 export const wordListToText = (words: CustomDictWord[]) =>
-  words.map((word) => (word.trans.length ? `${word.name} = ${word.trans.join('；')}` : word.name)).join('\n')
+  words
+    .map((word) => {
+      const name = singleLine(word.name)
+      return word.trans.length ? `${name} = ${word.trans.map(singleLine).join('；')}` : name
+    })
+    .join('\n')
 
 /** Read quoted CSV fields before flattening each definition to the editor's one-line format. */
 function csvToText(content: string): string {
@@ -186,7 +193,7 @@ function csvToText(content: string): string {
 export function importedFileToText(filename: string, content: string): string {
   const lower = filename.toLowerCase()
   if (lower.endsWith('.json')) {
-    const parsed: unknown = JSON.parse(content)
+    const parsed: unknown = JSON.parse(content.replace(/^\uFEFF/, ''))
     const rows = Array.isArray(parsed) ? parsed : (parsed as { words?: unknown })?.words
     if (!Array.isArray(rows)) throw new Error('JSON 需要是 [{ "name": "mot", "trans": ["释义"] }] 这样的数组。')
     return wordListToText(
