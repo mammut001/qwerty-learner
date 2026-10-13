@@ -63,17 +63,23 @@ function asYoudao(data: unknown, query: string): YoudaoFrench {
   }
 }
 
-async function fetchYoudao(query: string): Promise<YoudaoFrench | null> {
+async function fetchYoudao(query: string, forceRefresh = false): Promise<YoudaoFrench | null> {
   const controller = new AbortController()
   const timer = window.setTimeout(() => controller.abort(), 8000)
   try {
-    const response = await fetch(`${apiBase()}/api/study-plan/dictionary?q=${encodeURIComponent(query)}`, {
-      credentials: 'include',
-      signal: controller.signal,
-    })
+    const response = await fetch(
+      `${apiBase()}/api/study-plan/dictionary?q=${encodeURIComponent(query)}${forceRefresh ? '&refresh=1' : ''}`,
+      {
+        credentials: 'include',
+        signal: controller.signal,
+      },
+    )
     if (!response.ok) {
       if (response.status === 401) {
-        const data = (await response.clone().json().catch(() => ({}))) as { code?: string }
+        const data = (await response
+          .clone()
+          .json()
+          .catch(() => ({}))) as { code?: string }
         if (data.code === 'LOGIN_REQUIRED') {
           if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('qwerty-auth-required'))
         }
@@ -89,15 +95,18 @@ async function fetchYoudao(query: string): Promise<YoudaoFrench | null> {
 }
 
 /** Chinese explanation for a French headword. Null means the lookup failed; an empty sense list is a real miss. */
-export async function loadYoudaoFrench(word: string): Promise<YoudaoFrench | null> {
+export async function loadYoudaoFrench(
+  word: string,
+  { forceRefresh = false }: { forceRefresh?: boolean } = {},
+): Promise<YoudaoFrench | null> {
   if (isGuestMode()) return null
   const query = word.trim()
   if (!query) return null
   const cached = memory.get(query)
-  if (cached) return cached
+  if (cached && !forceRefresh) return cached
   const pending = inflight.get(query)
   if (pending) return pending
-  const request = fetchYoudao(query)
+  const request = fetchYoudao(query, forceRefresh)
     .then((value) => {
       if (value) {
         memory.set(query, value)

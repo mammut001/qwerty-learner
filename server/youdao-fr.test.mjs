@@ -85,11 +85,13 @@ test('dictionary route is access-gated, validates the query, and does not open a
     assert.equal(denied.status, 401)
     assert.equal(calls, 0)
 
+    let receivedRefresh
     const open = createStudyServer({
       database: join(dir, 'open.sqlite'),
       origin: 'http://localhost:5173',
       accessPassword: '',
-      youdaoLookup: async (query) => {
+      youdaoLookup: async (query, options) => {
+        receivedRefresh = options.forceRefresh
         calls += 1
         assert.equal(query, 'bonjour')
         return { value: parseYoudaoFrench(BONJOUR, query) }
@@ -99,6 +101,10 @@ test('dictionary route is access-gated, validates the query, and does not open a
     try {
       const ok = await fetch(`http://127.0.0.1:${open.address().port}/api/study-plan/dictionary?q=${encodeURIComponent('bonjour')}`)
       assert.equal(ok.status, 200)
+      assert.equal(receivedRefresh, false)
+      const refreshed = await fetch(`http://127.0.0.1:${open.address().port}/api/study-plan/dictionary?q=bonjour&refresh=1`)
+      assert.equal(refreshed.status, 200)
+      assert.equal(receivedRefresh, true)
       assert.equal(ok.headers.get('set-cookie'), null)
       const body = await ok.json()
       assert.equal(body.senses[0].gloss, '早安，日安，白天好，你好')
@@ -271,4 +277,19 @@ test('dictionary voice route is access-gated, caches hits, handles errors and me
     await new Promise((resolve) => server.close(resolve))
     rmSync(dir, { recursive: true, force: true })
   }
+})
+
+test('an explicit refresh replaces a cached miss and subsequent normal queries use the new hit', async () => {
+  const cache = createYoudaoCache()
+  let calls = 0
+  const fetchImpl = async () => ({ ok: true, text: async () => JSON.stringify(++calls === 1 ? {} : BONJOUR) })
+  await lookupYoudaoFrench('bonjour', { fetchImpl, cache, now: 1000 })
+  const stale = await lookupYoudaoFrench('bonjour', { fetchImpl, cache, now: 1001 })
+  assert.equal(stale.cached, true)
+  assert.equal(stale.value.senses.length, 0)
+  const fresh = await lookupYoudaoFrench('bonjour', { fetchImpl, cache, now: 1002, forceRefresh: true })
+  assert.equal(fresh.value.senses[0].gloss, '早安，日安，白天好，你好')
+  const reused = await lookupYoudaoFrench('bonjour', { fetchImpl, cache, now: 1003 })
+  assert.equal(reused.cached, true)
+  assert.equal(calls, 2)
 })

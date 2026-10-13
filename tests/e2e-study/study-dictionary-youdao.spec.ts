@@ -239,3 +239,44 @@ test('a query with an elided article still displays its resolved dictionary entr
   await expect(page.getByTestId('dictionary-result')).toContainText('school')
   await expect(page.getByTestId('dictionary-result').locator('span[lang="fr"]', { hasText: /^école$/ })).toBeVisible()
 })
+
+test('explicit retry refreshes a cached empty dictionary response', async ({ page }) => {
+  let requests = 0
+  await page.route('**/api/study-plan/dictionary**', (route) => {
+    requests += 1
+    if (requests > 1) expect(new URL(route.request().url()).searchParams.get('refresh')).toBe('1')
+    return route.fulfill({ json: { word: 'rite', senses: requests === 1 ? [] : [{ pos: 'm.', gloss: '仪式；礼仪' }], examples: [] } })
+  })
+  await page.route('**://*.wiktionary.org/**', (route) => route.fulfill({ json: { error: { code: 'missingtitle' } } }))
+  await page.goto('/word-lists')
+  await page.getByLabel('词表名称').fill('缓存恢复')
+  await page.getByLabel('词条', { exact: true }).fill('rite')
+  await page.getByTestId('word-list-practise').click()
+  await expect(page.getByText('暂无释义', { exact: true })).toBeVisible()
+  await page.getByRole('button', { name: '开始', exact: true }).click()
+  await page.getByRole('button', { name: '重试释义' }).click()
+  await expect(page.getByText('仪式；礼仪', { exact: true })).toBeVisible()
+  expect(requests).toBe(2)
+})
+
+test('explicit retry also refreshes cached empty Wiktionary results', async ({ page }) => {
+  await page.route('**/api/study-plan/dictionary**', (route) => route.fulfill({ json: { word: 'rite', senses: [], examples: [] } }))
+  let zhRequests = 0
+  await page.route('**://*.wiktionary.org/**', (route) => {
+    if (new URL(route.request().url()).hostname === 'zh.wiktionary.org') {
+      zhRequests += 1
+      if (zhRequests > 1)
+        return route.fulfill({ json: { parse: { text: '<h2 id="法语">法语</h2><ol><li>仪式；礼仪</li></ol><h2>英语</h2>' } } })
+    }
+    return route.fulfill({ json: { error: { code: 'missingtitle' } } })
+  })
+  await page.goto('/word-lists')
+  await page.getByLabel('词表名称').fill('缓存恢复')
+  await page.getByLabel('词条', { exact: true }).fill('rite')
+  await page.getByTestId('word-list-practise').click()
+  await expect(page.getByText('暂无释义', { exact: true })).toBeVisible()
+  await page.getByRole('button', { name: '开始', exact: true }).click()
+  await page.getByRole('button', { name: '重试释义' }).click()
+  await expect(page.getByText('仪式；礼仪', { exact: true })).toBeVisible()
+  expect(zhRequests).toBe(2)
+})

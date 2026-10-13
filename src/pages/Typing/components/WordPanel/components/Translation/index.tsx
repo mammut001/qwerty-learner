@@ -20,8 +20,10 @@ export type TranslationProps = {
 export default function Translation({ word, trans, showTrans = true, onMouseEnter, onMouseLeave }: TranslationProps) {
   const usableTrans = trans.trim().toLocaleLowerCase('fr') === word.trim().toLocaleLowerCase('fr') ? '' : trans.trim()
   const [resolved, setResolved] = useState<{ key: string; meaning: string; loading: boolean } | null>(null)
-  const [attempt, setAttempt] = useState(0)
   const key = JSON.stringify([word, trans])
+  const [retryRequest, setRetryRequest] = useState({ key: '', attempt: 0 })
+  const attempt = retryRequest.key === key ? retryRequest.attempt : 0
+  const retryMeaning = useCallback(() => setRetryRequest((old) => ({ key, attempt: old.attempt + 1 })), [key])
   useEffect(() => {
     if (usableTrans) return
     let cancelled = false
@@ -34,7 +36,7 @@ export default function Translation({ word, trans, showTrans = true, onMouseEnte
         meaning = result ? briefMeaning(result) : ''
         if (!/[一-鿿]/.test(meaning) && navigator.onLine !== false) {
           const headword = result?.words[0]?.word ?? result?.lemmas[0]?.word ?? word
-          const online = await loadYoudaoFrench(headword)
+          const online = await loadYoudaoFrench(headword, { forceRefresh: attempt > 0 })
           if (cancelled) return
           const chinese = online?.senses
             .slice(0, 3)
@@ -42,7 +44,7 @@ export default function Translation({ word, trans, showTrans = true, onMouseEnte
             .join('；')
           if (chinese) meaning = chinese
           else if (!result || needsOnlineChinese(result)) {
-            const fallback = await loadOnlineChinese(headword)
+            const fallback = await loadOnlineChinese(headword, { forceRefresh: attempt > 0 })
             if (fallback.zh.length) meaning = fallback.zh.slice(0, 3).join('；')
           }
         }
@@ -60,10 +62,9 @@ export default function Translation({ word, trans, showTrans = true, onMouseEnte
   const loading = !usableTrans && (resolved?.key !== key || resolved.loading)
   useEffect(() => {
     if (usableTrans || meaning || loading) return
-    const retry = () => setAttempt((value) => value + 1)
-    window.addEventListener('online', retry)
-    return () => window.removeEventListener('online', retry)
-  }, [usableTrans, meaning, loading])
+    window.addEventListener('online', retryMeaning)
+    return () => window.removeEventListener('online', retryMeaning)
+  }, [usableTrans, meaning, loading, retryMeaning])
   const pronunciationConfig = useAtomValue(pronunciationConfigAtom)
   const fontSizeConfig = useAtomValue(fontSizeConfigAtom)
   const isShowTransRead = window.speechSynthesis && pronunciationConfig.isTransRead
@@ -92,7 +93,7 @@ export default function Translation({ word, trans, showTrans = true, onMouseEnte
       )}
       {showTrans && !meaning && !loading && (
         <div className="ml-3 flex items-center gap-3 text-sm text-indigo-500">
-          <button type="button" className="underline" onClick={() => setAttempt((value) => value + 1)}>
+          <button type="button" className="underline" onClick={retryMeaning}>
             重试释义
           </button>
           <Link className="underline" to={`/dictionary?q=${encodeURIComponent(word)}`}>

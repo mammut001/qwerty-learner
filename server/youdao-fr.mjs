@@ -107,12 +107,12 @@ export function createYoudaoCache(max = 400) {
   }
 }
 
-export async function lookupYoudaoFrench(query, { fetchImpl = globalThis.fetch, cache, now = Date.now() } = {}) {
+export async function lookupYoudaoFrench(query, { fetchImpl = globalThis.fetch, cache, now = Date.now(), forceRefresh = false } = {}) {
   const normalized = normalizeFrenchQuery(query)
   if (!normalized) return { error: 'invalid' }
   const key = normalized.toLocaleLowerCase('fr-FR')
   const hit = cache?.get(key, now)
-  if (hit) return { value: hit, cached: true }
+  if (hit && !forceRefresh) return { value: hit, cached: true }
   const url = `${YOUDAO_URL}?${new URLSearchParams({ q: normalized, le: 'fr', dicts: DICTS })}`
   let response
   try {
@@ -154,7 +154,8 @@ export async function fetchYoudaoFrenchVoice(query, { fetchImpl = globalThis.fet
     return { error: 'upstream' }
   }
   if (!response?.ok || response.status !== 200) return { error: 'upstream' }
-  const rawContentType = (typeof response.headers?.get === 'function' ? response.headers.get('content-type') : response.headers?.['content-type']) || ''
+  const rawContentType =
+    (typeof response.headers?.get === 'function' ? response.headers.get('content-type') : response.headers?.['content-type']) || ''
   if (!rawContentType.toLowerCase().startsWith('audio/')) return { error: 'upstream' }
   let buffer
   try {

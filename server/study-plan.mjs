@@ -331,7 +331,7 @@ export function createStudyServer({
   }
 
   const youdaoCache = createYoudaoCache()
-  const lookupFrench = youdaoLookup || ((query) => lookupYoudaoFrench(query, { cache: youdaoCache }))
+  const lookupFrench = youdaoLookup || ((query, options) => lookupYoudaoFrench(query, { cache: youdaoCache, ...options }))
   const youdaoVoiceCache = createYoudaoCache(300)
   const lookupVoice = youdaoVoice || ((query) => fetchYoudaoFrenchVoice(query))
 
@@ -806,7 +806,7 @@ export function createStudyServer({
       }
       let outcome
       try {
-        outcome = await lookupFrench(query)
+        outcome = await lookupFrench(query, { forceRefresh: requestUrl.searchParams.get('refresh') === '1' })
       } catch {
         return sendError(502, 'DICTIONARY_UNAVAILABLE', 'Dictionary is temporarily unavailable')
       }
