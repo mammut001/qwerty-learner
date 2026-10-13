@@ -31,6 +31,8 @@ export default function DictDetail({ dictionary: dict }: { dictionary: Dictionar
   const setReviewModeInfo = useSetAtom(reviewModeInfoAtom)
   const navigate = useNavigate()
   const { deleteWordRecord } = useDeleteWordRecord()
+  const [deleteError, setDeleteError] = useState('')
+  const [deleting, setDeleting] = useState(false)
   const [reload, setReload] = useState(false)
 
   const chapter = useMemo(() => (dict.id === currentDictId ? currentChapter : 0), [currentChapter, currentDictId, dict.id])
@@ -42,10 +44,21 @@ export default function DictDetail({ dictionary: dict }: { dictionary: Dictionar
 
   const onDelete = useCallback(
     async (word: string) => {
-      await deleteWordRecord(word, dict.id)
-      setReload((old) => !old)
+      if (deleting) return
+      setDeleting(true)
+      setDeleteError('')
+      try {
+        const deleted = await deleteWordRecord(word, dict.id)
+        if (deleted === undefined) {
+          setDeleteError('删除失败，记录仍保留，请重试。')
+        } else {
+          setReload((old) => !old)
+        }
+      } finally {
+        setDeleting(false)
+      }
     },
-    [deleteWordRecord, dict.id],
+    [deleteWordRecord, dict.id, deleting],
   )
 
   const onChangeChapter = useCallback(
@@ -118,6 +131,11 @@ export default function DictDetail({ dictionary: dict }: { dictionary: Dictionar
           </button>
         </div>
       )}
+      {deleteError && (
+        <p role="alert" className="mb-4 text-sm text-red-500">
+          {deleteError}
+        </p>
+      )}
       <div className="flex pl-0">
         <Tabs value={curTab} className="h-[30rem] w-full ">
           <TabsContent value={Tab.Chapters} className="h-full ">
@@ -136,7 +154,7 @@ export default function DictDetail({ dictionary: dict }: { dictionary: Dictionar
             </ScrollArea>
           </TabsContent>
           <TabsContent value={Tab.Errors} className="h-full">
-            <ErrorTable data={tableData} isLoading={isLoading} error={error} onDelete={onDelete} />
+            <ErrorTable data={tableData} isLoading={isLoading} error={error} onDelete={onDelete} deleting={deleting} />
           </TabsContent>
           <TabsContent value={Tab.Review} className="h-full">
             <ReviewDetail errorData={errorWordData} dict={dict} />

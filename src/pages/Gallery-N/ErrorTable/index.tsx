@@ -11,11 +11,12 @@ interface DataTableProps {
   isLoading: boolean
   error: unknown
   onDelete: (word: string) => Promise<void>
+  deleting: boolean
 }
 
-export function ErrorTable({ data, isLoading, error, onDelete }: DataTableProps) {
+export function ErrorTable({ data, isLoading, error, onDelete, deleting }: DataTableProps) {
   const [sorting, setSorting] = useState<SortingState>([])
-  const columns = useMemo(() => errorColumns(onDelete), [onDelete])
+  const columns = useMemo(() => errorColumns(onDelete, deleting), [onDelete, deleting])
 
   const table = useReactTable({
     data,
