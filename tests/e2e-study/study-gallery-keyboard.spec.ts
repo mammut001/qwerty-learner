@@ -8,6 +8,8 @@ test('Enter opens a focused dictionary card and Escape closes only its dialog', 
   await expect(page.getByRole('dialog')).toBeVisible()
   await expect(page).toHaveURL(/\/gallery$/)
   await expect.poll(() => page.getByRole('dialog').evaluate((element) => element.contains(document.activeElement))).toBe(true)
+  // Wait for the modal layer to finish installing its focus and dismissal effects.
+  await expect(page.locator('body')).toHaveCSS('pointer-events', 'none')
   await page.keyboard.press('Escape')
   await expect(page.getByRole('dialog')).not.toBeAttached()
   await expect(page).toHaveURL(/\/gallery$/)

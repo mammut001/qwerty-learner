@@ -1,9 +1,9 @@
 import { expect, test } from '@playwright/test'
 
 test('TCF question sets, shared navigation, only-wrong review and wrong-answer practice', async ({ page }) => {
-  // The study plan is the home page; legacy practice links still reach the typing page.
+  // Fresh visitors land on typing; legacy practice links keep their query string.
   await page.goto('/')
-  await expect(page).toHaveURL(/\/study-plan$/)
+  await expect(page).toHaveURL(/\/typing$/)
   await page.goto('/?dict=unknown-dict')
   await expect(page).toHaveURL(/\/typing\?dict=unknown-dict$/)
 
