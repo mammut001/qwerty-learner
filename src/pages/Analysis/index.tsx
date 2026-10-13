@@ -242,7 +242,7 @@ const Analysis = () => {
       const url = URL.createObjectURL(blob)
       const link = document.createElement('a')
       link.href = url
-      link.download = `qwerty-study-weekly-reports-${new Date().toISOString().slice(0, 10)}.json`
+      link.download = `qwerty-study-weekly-reports-${dayjs().format('YYYY-MM-DD')}.json`
       link.click()
       URL.revokeObjectURL(url)
     } catch {
@@ -257,7 +257,7 @@ const Analysis = () => {
       const url = URL.createObjectURL(blob)
       const link = document.createElement('a')
       link.href = url
-      link.download = payload.filename.replace('.csv', `-${new Date().toISOString().slice(0, 10)}.csv`)
+      link.download = payload.filename.replace('.csv', `-${dayjs().format('YYYY-MM-DD')}.csv`)
       link.click()
       URL.revokeObjectURL(url)
     } catch {
