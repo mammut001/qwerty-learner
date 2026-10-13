@@ -34,7 +34,7 @@ export function ReviewDetail({ errorData, dict }: { errorData: TErrorWordData[];
   }
 
   return (
-    <div className="flex h-full flex-col items-center justify-around px-60">
+    <div className="flex h-full flex-col items-center justify-around px-4 sm:px-10">
       <div>
         <MdiRobotAngry fontSize={30} className="text-indigo-300 " />
         <blockquote>
