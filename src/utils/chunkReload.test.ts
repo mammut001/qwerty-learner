@@ -2,11 +2,11 @@ import assert from 'node:assert/strict'
 import { test } from 'node:test'
 import {
   CHUNK_RELOAD_STORAGE_KEY,
-  StorageLike,
   handleChunkReload,
   isChunkLoadError,
   setupChunkReloadListener,
 } from './chunkReload'
+import type { StorageLike } from './chunkReload'
 
 function createMockStorage(initial: Record<string, string> = {}): StorageLike & { data: Record<string, string> } {
   const data = { ...initial }

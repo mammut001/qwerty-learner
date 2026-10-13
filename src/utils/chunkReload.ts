@@ -106,11 +106,15 @@ export function handleChunkReload(
   return true
 }
 
+const noop = () => {
+  // No-op cleanup
+}
+
 export function setupChunkReloadListener(
   target: EventTarget = typeof window !== 'undefined' ? window : ({} as EventTarget),
   options?: ChunkReloadOptions,
 ): () => void {
-  if (typeof target?.addEventListener !== 'function') return () => {}
+  if (typeof target?.addEventListener !== 'function') return noop
 
   const listener = (event: Event) => {
     const error = (event as { payload?: unknown }).payload ?? event
