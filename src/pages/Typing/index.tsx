@@ -39,7 +39,7 @@ const recordStudyPlanVocabularyMinutes = (dateKey: string, taskId: string, elaps
 const App: React.FC = () => {
   const [state, dispatch] = useImmerReducer(typingReducer, structuredClone(initialState))
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const { words, error: wordListError } = useWordList()
+  const { words, error: wordListError, isRetrying, retry: retryWordList } = useWordList()
 
   const [currentDictId, setCurrentDictId] = useAtom(currentDictIdAtom)
   const setCurrentChapter = useSetAtom(currentChapterAtom)
@@ -238,15 +238,20 @@ const App: React.FC = () => {
           <div className="container relative mx-auto flex h-full flex-col items-center">
             <div className="container flex flex-grow items-center justify-center">
               {wordListError ? (
-                <div className="mx-auto max-w-xl rounded-2xl border border-red-100 bg-red-50 px-6 py-5 text-center dark:border-red-900 dark:bg-red-950/30">
+                <div
+                  role="alert"
+                  className="mx-auto max-w-xl rounded-2xl border border-red-100 bg-red-50 px-6 py-5 text-center dark:border-red-900 dark:bg-red-950/30"
+                >
                   <div className="font-medium text-red-700 dark:text-red-300">词库加载失败</div>
                   <div className="mt-2 text-sm text-red-600/80 dark:text-red-300/80">{wordListError.message}</div>
                   <button
                     type="button"
                     className="mt-4 rounded-lg bg-red-600 px-4 py-2 text-sm text-white hover:opacity-90"
-                    onClick={() => window.location.reload()}
+                    disabled={isRetrying}
+                    aria-busy={isRetrying}
+                    onClick={() => void retryWordList().catch(() => undefined)}
                   >
-                    重新加载
+                    {isRetrying ? '正在重试…' : '重新加载'}
                   </button>
                 </div>
               ) : isLoading ? (

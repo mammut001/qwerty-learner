@@ -10,6 +10,8 @@ export type UseWordListResult = {
   words: WordWithIndex[]
   isLoading: boolean
   error: Error | undefined
+  isRetrying: boolean
+  retry: () => Promise<unknown>
 }
 
 export function useWordList(): UseWordListResult {
@@ -21,7 +23,7 @@ export function useWordList(): UseWordListResult {
     setCurrentChapter(0)
   }
 
-  const { data: wordList, error, isLoading } = useSWR(currentDictInfo.url, wordListFetcher)
+  const { data: wordList, error, isLoading, isValidating, mutate } = useSWR(currentDictInfo.url, wordListFetcher)
 
   const words: WordWithIndex[] = useMemo(() => {
     let newWords: Word[]
@@ -50,5 +52,5 @@ export function useWordList(): UseWordListResult {
     })
   }, [isReviewMode, wordList, reviewRecord?.words, currentChapter])
 
-  return { words, isLoading, error }
+  return { words, isLoading, error, isRetrying: isValidating, retry: mutate }
 }

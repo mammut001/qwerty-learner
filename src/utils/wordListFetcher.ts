@@ -14,5 +14,10 @@ export async function wordListFetcher(url: string): Promise<Word[]> {
     throw new Error(`词库加载失败：${response.status} ${response.statusText} (${requestUrl})`)
   }
 
-  return (await response.json()) as Word[]
+  const words: unknown = await response.json()
+  if (!Array.isArray(words) || words.some((word) => !word || typeof word.name !== 'string' || !word.name.trim())) {
+    throw new Error('词库内容格式无效，请重试或选择其他词库。')
+  }
+  if (words.length === 0) throw new Error('词库没有可练习的词条，请重试或选择其他词库。')
+  return words as Word[]
 }
