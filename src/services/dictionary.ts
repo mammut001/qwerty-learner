@@ -131,7 +131,7 @@ export const cleanDictionaryQuery = (text: string) =>
     .replace(/^[\s.,;:!?«»"“”()[\]…—–-]+|[\s.,;:!?«»"“”()[\]…—–-]+$/g, '')
     .replace(/\s+/g, ' ')
 
-export async function lookupDictionary(text: string): Promise<DictionaryResult> {
+export async function lookupDictionary(text: string, options: { allowCompoundFallback?: boolean } = {}): Promise<DictionaryResult> {
   const query = cleanDictionaryQuery(text)
   if (!query) return { query, words: [], lemmas: [] }
   const result = await lookupExact(query)
@@ -142,6 +142,8 @@ export async function lookupDictionary(text: string): Promise<DictionaryResult> 
     const retry = await lookupExact(stripped)
     if (retry.words.length || retry.lemmas.length) return retry
   }
+  // Automatic meanings must not present a component's definition as the meaning of a whole compound.
+  if (options.allowCompoundFallback === false) return result
   // peut-on → peut, aujourd'hui is found directly, qu'est-ce → est
   const parts = stripped.split(/[-']/).filter((part) => part.length > 1)
   if (parts.length > 1) {
