@@ -2,8 +2,36 @@ import { expect, test } from '@playwright/test'
 import { readFile } from 'node:fs/promises'
 import { read, utils } from 'xlsx'
 
-for (const headword of ['été', 'e\u0301te\u0301']) {
-  test(`French typing accepts equivalent accent encoding in ${JSON.stringify(headword)}`, async ({ page }) => {
+for (const { headword, legacy } of [
+  { headword: 'été', legacy: false },
+  { headword: 'e\u0301te\u0301', legacy: false },
+  { headword: 'e\u0301te\u0301', legacy: true },
+]) {
+  test(`French typing accepts equivalent accent encoding in ${JSON.stringify(headword)}${legacy ? ' from an existing list' : ''}`, async ({
+    page,
+  }) => {
+    if (legacy) {
+      await page.addInitScript(
+        (headword) =>
+          localStorage.setItem(
+            'qwerty-fr-custom-dicts-v1',
+            JSON.stringify([
+              {
+                id: 'custom-legacy',
+                name: '重音输入练习',
+                description: '',
+                words: [
+                  { name: headword, trans: ['夏天'] },
+                  { name: 'merci', trans: ['谢谢'] },
+                ],
+                createdAt: 1,
+                updatedAt: 1,
+              },
+            ]),
+          ),
+        headword,
+      )
+    }
     await page.goto('/word-lists')
     await page.getByLabel('词表名称').fill('重音输入练习')
     await page.getByLabel('词条', { exact: true }).fill(`${headword} = 夏天\nmerci = 谢谢`)
@@ -34,6 +62,10 @@ for (const headword of ['été', 'e\u0301te\u0301']) {
     if (!filePath) throw new Error('Missing practice export')
     const workbook = read(await readFile(filePath), { type: 'buffer' })
     const rows = utils.sheet_to_json<{ name: string; correctCount: number; wrongCount: number; wrongLetters: string }>(workbook.Sheets.Data)
-    expect(rows.find((row) => row.name === headword)).toMatchObject({ correctCount: 3, wrongCount: 1, wrongLetters: 'é:1' })
+    expect(rows.find((row) => row.name === (legacy ? headword : headword.normalize('NFC')))).toMatchObject({
+      correctCount: 3,
+      wrongCount: 1,
+      wrongLetters: 'é:1',
+    })
   })
 }
