@@ -108,6 +108,8 @@ const Analysis = () => {
   const [achievements, setAchievements] = useState<StudyAchievement[]>([])
   const [weeklyReports, setWeeklyReports] = useState<WeeklyStudyReport[]>([])
   const [featureMessage, setFeatureMessage] = useState('')
+  const [makeupPendingDay, setMakeupPendingDay] = useState<string | null>(null)
+  const makeupPending = useRef(false)
   const hadPendingSync = useRef(false)
 
   const onBack = useCallback(() => {
@@ -204,11 +206,18 @@ const Analysis = () => {
   })
 
   const makeupDay = async (day: string) => {
+    if (makeupPending.current) return
+    makeupPending.current = true
+    setMakeupPendingDay(day)
     setFeatureMessage('')
     try {
       setCheckins(await applyStudyMakeup(day))
-      setAchievements(await loadStudyAchievements())
       setFeatureMessage(`${day} 补签成功。`)
+      try {
+        setAchievements(await loadStudyAchievements())
+      } catch {
+        setFeatureMessage(`${day} 补签成功，成就暂时未能刷新。`)
+      }
     } catch (error) {
       const code = error instanceof Error ? error.message : ''
       const messages: Record<string, string> = {
@@ -219,6 +228,9 @@ const Analysis = () => {
         MAKEUP_LIMIT_REACHED: '每个自然周最多补签 2 次。',
       }
       setFeatureMessage(messages[code] ?? '补签失败，请检查网络与学习记录。')
+    } finally {
+      makeupPending.current = false
+      setMakeupPendingDay(null)
     }
   }
 
@@ -650,9 +662,11 @@ const Analysis = () => {
                             <button
                               type="button"
                               onClick={() => void makeupDay(day)}
-                              className="rounded-md border border-gray-200 bg-white px-2 py-1 text-xs text-gray-500 hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-800"
+                              disabled={makeupPendingDay !== null}
+                              aria-label={`${day} 补签`}
+                              className="disabled:cursor-not-allowed disabled:opacity-50 rounded-md border border-gray-200 bg-white px-2 py-1 text-xs text-gray-500 hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-800"
                             >
-                              尝试补签
+                              {makeupPendingDay === day ? '补签中…' : '尝试补签'}
                             </button>
                           )}
                         </div>
