@@ -1,5 +1,7 @@
 import { randomUUID } from 'node:crypto'
 
+export const MAX_PENDING_RECALLS = 500
+
 export const ALLOWED_SECTIONS = new Set(['speaking', 'writing'])
 
 export const ALLOWED_TASKS_BY_SECTION = {
@@ -136,8 +138,14 @@ export function saveExamRecall(
     topic,
     note = '',
     nowMs = Date.now(),
+    maxPending = MAX_PENDING_RECALLS,
+    maxPendingRecalls,
   },
 ) {
+  const effectiveMaxPending = typeof maxPendingRecalls === 'number'
+    ? maxPendingRecalls
+    : (typeof maxPending === 'number' ? maxPending : MAX_PENDING_RECALLS)
+
   const sanitizedCity = sanitizeText(city ?? '')
   const sanitizedTopic = sanitizeText(topic)
   const sanitizedNote = sanitizeText(note ?? '')
@@ -152,12 +160,14 @@ export function saveExamRecall(
     : null
 
   if (existing?.id) {
-    db.prepare(`
-      UPDATE exam_recalls
-      SET city = ?, note = ?
-      WHERE id = ?
-    `).run(sanitizedCity, sanitizedNote, existing.id)
     return { id: existing.id, deduped: true, status: 'pending' }
+  }
+
+  const pendingCount = Number(
+    db.prepare("SELECT COUNT(*) AS total FROM exam_recalls WHERE status = 'pending'").get()?.total || 0,
+  )
+  if (pendingCount >= effectiveMaxPending) {
+    return { queueFull: true, deduped: false, id: null, status: null }
   }
 
   const recallId = id || randomUUID()

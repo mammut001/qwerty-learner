@@ -15,6 +15,7 @@ import {
 import {
   ALLOWED_SECTIONS,
   ALLOWED_TASKS_BY_SECTION,
+  MAX_PENDING_RECALLS,
   containsUrl,
   isValidExamMonth,
   isValidSection,
@@ -272,10 +273,10 @@ test('saveExamRecall: status pending, deduplication per learner/section/task/mon
     assert.equal(second.id, first.id)
     assert.equal(second.status, 'pending')
 
-    // Updated city and note on dedupe
-    const updatedRow = db.prepare('SELECT * FROM exam_recalls WHERE id=?').get(first.id)
-    assert.equal(updatedRow.city, 'Paris 15e')
-    assert.equal(updatedRow.note, 'Note mise a jour')
+    // Row remains unchanged on dedupe (security guard: submitter cannot alter existing row)
+    const unchangedRow = db.prepare('SELECT * FROM exam_recalls WHERE id=?').get(first.id)
+    assert.equal(unchangedRow.city, 'Paris')
+    assert.equal(unchangedRow.note, 'Premiere note')
 
     // Different section -> NOT deduped
     const diffSection = saveExamRecall(db, { ...payload, section: 'writing', task: 1 })
@@ -630,6 +631,187 @@ test('POST /api/study-plan/recalls: rate limiting (5 per hour limit, 6th request
     assert.equal(limited.data.code, 'RECALL_RATE_LIMITED')
     assert.ok(limited.data.retryAfterSeconds > 0)
     assert.ok(limited.response.headers.get('retry-after'))
+  } finally {
+    await new Promise((resolve) => server.close(resolve))
+    rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+test('security: submit, approve, resubmit same topic with different note -> public list still shows original note', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'study-recalls-sec-note-'))
+  const db = new DatabaseSync(join(dir, 'study.sqlite'))
+  try {
+    ensureNodeFeatureSchema(db)
+
+    const learner = 'learner_sec_check'
+
+    // 1. Submit initial recall
+    const r1 = saveExamRecall(db, {
+      learner,
+      section: 'speaking',
+      task: 2,
+      examMonth: '2026-10',
+      city: 'Paris',
+      topic: 'Sujet legitime approuve par la moderation',
+      note: 'Note originale legitime',
+    })
+    assert.equal(r1.status, 'pending')
+
+    // 2. Admin approves the recall
+    reviewRecalls(db, { ids: [r1.id], action: 'approve' })
+
+    // Verify public list shows the original note
+    let approved = listApprovedRecalls(db)
+    assert.equal(approved.items.length, 1)
+    assert.equal(approved.items[0].note, 'Note originale legitime')
+
+    // 3. Submitter attempts to tamper with note and city on already-approved topic
+    const r2 = saveExamRecall(db, {
+      learner,
+      section: 'speaking',
+      task: 2,
+      examMonth: '2026-10',
+      city: 'Hacked City',
+      topic: 'Sujet legitime approuve par la moderation',
+      note: 'Note modifiee illegitime',
+    })
+    assert.equal(r2.id, r1.id)
+    assert.equal(r2.deduped, true)
+    assert.equal(r2.status, 'pending')
+
+    // 4. Public list STILL shows original note and original city!
+    approved = listApprovedRecalls(db)
+    assert.equal(approved.items.length, 1)
+    assert.equal(approved.items[0].note, 'Note originale legitime')
+    assert.equal(approved.items[0].city, 'Paris')
+  } finally {
+    db.close()
+    rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+test('abuse guard unit test: maxPending override rejects new inserts when queue is full, allows dedupe', () => {
+  assert.equal(MAX_PENDING_RECALLS, 500)
+  const dir = mkdtempSync(join(tmpdir(), 'study-recalls-queue-unit-'))
+  const db = new DatabaseSync(join(dir, 'study.sqlite'))
+  try {
+    ensureNodeFeatureSchema(db)
+    const smallLimit = 2
+
+    // 1. Insert 1st pending item
+    const r1 = saveExamRecall(db, {
+      learner: 'learner_q1',
+      section: 'speaking',
+      task: 2,
+      examMonth: '2026-10',
+      topic: 'Premier sujet pour remplir la file d attente',
+      maxPending: smallLimit,
+    })
+    assert.equal(r1.deduped, false)
+    assert.ok(r1.id)
+
+    // 2. Insert 2nd pending item (queue reaches smallLimit = 2)
+    const r2 = saveExamRecall(db, {
+      learner: 'learner_q2',
+      section: 'speaking',
+      task: 3,
+      examMonth: '2026-10',
+      topic: 'Deuxieme sujet pour remplir la file d attente',
+      maxPending: smallLimit,
+    })
+    assert.equal(r2.deduped, false)
+    assert.ok(r2.id)
+
+    // 3. 3rd distinct item is rejected because queue is full
+    const r3 = saveExamRecall(db, {
+      learner: 'learner_q3',
+      section: 'writing',
+      task: 1,
+      examMonth: '2026-10',
+      topic: 'Troisieme sujet qui doit etre refuse car la file est pleine',
+      maxPending: smallLimit,
+    })
+    assert.equal(r3.queueFull, true)
+    assert.equal(r3.id, null)
+
+    // 4. Duplicate of 1st item succeeds normally even when queue is full
+    const dup = saveExamRecall(db, {
+      learner: 'learner_q1',
+      section: 'speaking',
+      task: 2,
+      examMonth: '2026-10',
+      topic: 'Premier sujet pour remplir la file d attente',
+      maxPending: smallLimit,
+    })
+    assert.equal(dup.deduped, true)
+    assert.equal(dup.id, r1.id)
+    assert.equal(dup.status, 'pending')
+    assert.equal(dup.queueFull, undefined)
+  } finally {
+    db.close()
+    rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+test('abuse guard API test: returns 503 RECALL_QUEUE_FULL when queue is full, allows dedupe', async () => {
+  const { dir, server } = setupTestServer({ maxPendingRecalls: 1 })
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
+  const base = `http://127.0.0.1:${server.address().port}/api/study-plan`
+
+  let sessionCookie = ''
+  const call = async (method, path = '', body) => {
+    const response = await fetch(base + path, {
+      method,
+      headers: {
+        Origin: 'http://localhost:5173',
+        ...(sessionCookie ? { Cookie: sessionCookie } : {}),
+        ...(body === undefined ? {} : { 'Content-Type': 'application/json' }),
+      },
+      body: body === undefined ? undefined : JSON.stringify(body),
+    })
+    if (response.headers.get('set-cookie') && !sessionCookie) {
+      sessionCookie = response.headers.get('set-cookie').split(';')[0]
+    }
+    const data = await response.json().catch(() => null)
+    return { response, data }
+  }
+
+  try {
+    await call('GET')
+
+    // 1st submission succeeds (reaches maxPendingRecalls = 1)
+    const res1 = await call('POST', '/recalls', {
+      section: 'speaking',
+      task: 2,
+      examMonth: '2026-10',
+      topic: 'Premier sujet API pour atteindre la limite',
+    })
+    assert.equal(res1.response.status, 200)
+    assert.equal(res1.data.ok, true)
+    const firstId = res1.data.id
+
+    // 2nd distinct submission rejected with 503 RECALL_QUEUE_FULL
+    const res2 = await call('POST', '/recalls', {
+      section: 'speaking',
+      task: 3,
+      examMonth: '2026-10',
+      topic: 'Deuxieme sujet API qui doit etre bloque a 503',
+    })
+    assert.equal(res2.response.status, 503)
+    assert.equal(res2.data.code, 'RECALL_QUEUE_FULL')
+    assert.equal(res2.data.error, 'Submissions are temporarily paused.')
+
+    // Duplicate of 1st submission returns 200 even though queue is full
+    const dupRes = await call('POST', '/recalls', {
+      section: 'speaking',
+      task: 2,
+      examMonth: '2026-10',
+      topic: 'Premier sujet API pour atteindre la limite',
+    })
+    assert.equal(dupRes.response.status, 200)
+    assert.equal(dupRes.data.ok, true)
+    assert.equal(dupRes.data.id, firstId)
+    assert.equal(dupRes.data.status, 'pending')
   } finally {
     await new Promise((resolve) => server.close(resolve))
     rmSync(dir, { recursive: true, force: true })

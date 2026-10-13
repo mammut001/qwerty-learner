@@ -25,6 +25,7 @@ import {
   isValidCatalogItem,
 } from './study-reports.mjs'
 import {
+  MAX_PENDING_RECALLS,
   listApprovedRecalls,
   listRecallsForAdmin,
   reviewRecalls,
@@ -278,6 +279,7 @@ export function createStudyServer({
   allowedEmails = process.env.STUDY_ALLOWED_EMAILS || '',
   maxNewAccountsPerDay = Number(process.env.STUDY_MAX_NEW_ACCOUNTS_PER_DAY || 200),
   youdaoVoice = null,
+  maxPendingRecalls = MAX_PENDING_RECALLS,
 } = {}) {
   mkdirSync(dirname(resolve(database)), { recursive: true })
   const db = new DatabaseSync(database)
@@ -1357,8 +1359,13 @@ export function createStudyServer({
         const outcome = saveExamRecall(db, {
           learner,
           accountId,
+          maxPending: maxPendingRecalls,
           ...validation.data,
         })
+        if (outcome.queueFull) {
+          audit(learner, 'exam_recall', 'queue_full')
+          return sendError(503, 'RECALL_QUEUE_FULL', 'Submissions are temporarily paused.')
+        }
         audit(learner, 'exam_recall', 'success', {
           section: validation.data.section,
           task: validation.data.task,
