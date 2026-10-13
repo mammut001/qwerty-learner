@@ -265,12 +265,15 @@ function setCached(word: string, outcome: OnlineChineseResult) {
 
 const inflight = new Map<string, Promise<OnlineChineseResult>>()
 
-export async function loadOnlineChinese(word: string): Promise<OnlineChineseResult> {
+export async function loadOnlineChinese(
+  word: string,
+  { forceRefresh = false }: { forceRefresh?: boolean } = {},
+): Promise<OnlineChineseResult> {
   const normalized = word.trim()
   if (!normalized) return { zh: [], source: null }
 
   const cached = getCached(normalized)
-  if (cached !== null) return cached
+  if (cached !== null && !forceRefresh) return cached
 
   const pending = inflight.get(normalized)
   if (pending) return pending
