@@ -128,6 +128,60 @@ export function parseWordListText(text: string): ParsedWordList {
 export const wordListToText = (words: CustomDictWord[]) =>
   words.map((word) => (word.trans.length ? `${word.name} = ${word.trans.join('；')}` : word.name)).join('\n')
 
+/** Read quoted CSV fields before flattening each definition to the editor's one-line format. */
+function csvToText(content: string): string {
+  const rows: string[][] = []
+  let row: string[] = []
+  let field = ''
+  let quoted = false
+  let closedQuote = false
+  const source = content.replace(/^\uFEFF/, '')
+  for (let i = 0; i < source.length; i += 1) {
+    const char = source[i]
+    if (quoted) {
+      if (char !== '"') field += char
+      else if (source[i + 1] === '"') {
+        field += '"'
+        i += 1
+      } else {
+        quoted = false
+        closedQuote = true
+      }
+      continue
+    }
+    if (closedQuote && char !== ',' && char !== '\r' && char !== '\n') {
+      if (/\s/.test(char)) continue
+      throw new Error('CSV 引号后的内容格式不正确，请检查文件。')
+    }
+    if (char === ',') {
+      row.push(field)
+      field = ''
+      closedQuote = false
+    } else if (char === '\r' || char === '\n') {
+      row.push(field)
+      rows.push(row)
+      row = []
+      field = ''
+      closedQuote = false
+      if (char === '\r' && source[i + 1] === '\n') i += 1
+    } else if (char === '"' && !field.trim()) {
+      field = ''
+      quoted = true
+    } else field += char
+  }
+  if (quoted) throw new Error('CSV 引号未闭合，请检查文件。')
+  if (field || row.length) {
+    row.push(field)
+    rows.push(row)
+  }
+  return rows
+    .map((cells) => {
+      const [name, ...meanings] = cells.map((cell) => cell.replace(/\s+/g, ' ').trim())
+      return meanings.length ? `${name}\t${meanings.join(',')}` : name
+    })
+    .join('\n')
+}
+
 /** Turns an imported .json / .csv / .txt file into editor text. */
 export function importedFileToText(filename: string, content: string): string {
   const lower = filename.toLowerCase()
@@ -145,13 +199,7 @@ export function importedFileToText(filename: string, content: string): string {
     )
   }
   if (lower.endsWith('.csv')) {
-    return content
-      .split(/\r?\n/)
-      .map((line) => {
-        const index = line.indexOf(',')
-        return index === -1 ? line : `${line.slice(0, index).replace(/^"|"$/g, '')}\t${line.slice(index + 1).replace(/^"|"$/g, '')}`
-      })
-      .join('\n')
+    return csvToText(content)
   }
   return content
 }
