@@ -68,12 +68,7 @@ export type TypingStateAction =
   | { type: TypingStateActionType.TOGGLE_IS_TYPING }
   | { type: TypingStateActionType.REPORT_WRONG_WORD; payload: { letterMistake: LetterMistakes } }
   | { type: TypingStateActionType.REPORT_CORRECT_WORD }
-  | {
-      type: TypingStateActionType.NEXT_WORD
-      payload?: {
-        updateReviewRecord?: (state: TypingState) => void
-      }
-    }
+  | { type: TypingStateActionType.NEXT_WORD }
   | { type: TypingStateActionType.LOOP_CURRENT_WORD }
   | { type: TypingStateActionType.FINISH_CHAPTER }
   | { type: TypingStateActionType.SKIP_WORD }
@@ -135,9 +130,6 @@ export const typingReducer = (state: TypingState, action: TypingStateAction) => 
       state.chapterData.wordCount += 1
       state.isShowSkip = false
 
-      if (action?.payload?.updateReviewRecord) {
-        action.payload.updateReviewRecord(state)
-      }
       break
     }
     case TypingStateActionType.LOOP_CURRENT_WORD:
