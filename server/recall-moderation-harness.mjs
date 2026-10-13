@@ -14,6 +14,7 @@ export const RECALL_REASON_CODES = Object.freeze({
   ABUSIVE: 'ABUSIVE',
   TOO_SHORT: 'TOO_SHORT',
   PROMPT_INJECTION_SUSPECTED: 'PROMPT_INJECTION_SUSPECTED',
+  META_LANGUAGE: 'META_LANGUAGE',
   NOT_AN_EXAM_TOPIC: 'NOT_AN_EXAM_TOPIC',
   LOW_CONFIDENCE: 'LOW_CONFIDENCE',
   PROBE_FAILED: 'PROBE_FAILED',
@@ -31,6 +32,20 @@ export const CLEAR_REJECT_REASONS = Object.freeze(new Set([
   RECALL_REASON_CODES.TOO_SHORT,
 ]))
 
+// Normalisation utilities
+export function normalizeSecurityText(raw) {
+  if (typeof raw !== 'string') return ''
+  return raw
+    .normalize('NFKC')
+    .replace(/[\u200B-\u200F\u2060\uFEFF\u00AD]/g, '')
+    .toLowerCase()
+}
+
+export function squashSecurityText(normalized) {
+  if (typeof normalized !== 'string') return ''
+  return normalized.replace(/[\s\t\n\r._\-/\\*|:;,~`'"#=!?()（）[\]{}<>«»“”‘’]+/g, '')
+}
+
 // Pre-filter patterns (deterministic, zero model calls required)
 export const URL_REGEX = /(?:https?:\/\/|www\.)[^\s]+|(?<!@)\b[a-zA-Z0-9.-]+\.(?:com|cn|org|net|top|xyz|cc|me|site|vip|link|shop|icu|info|online|club)\b/i
 export const EMAIL_REGEX = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/
@@ -42,7 +57,7 @@ export const REPEATED_CHAR_REGEX = /(.)\1{5,}/u
 
 /**
  * Deterministic pre-filter. Runs without calling the AI provider.
- * Catches contact details, adverts, repeated chars, abusive words, and text that is too short.
+ * Catches contact details, adverts, repeated chars, abusive words, gibberish, and text that is too short.
  */
 export function preFilterRecall(item) {
   if (!item || typeof item !== 'object') {
@@ -53,25 +68,45 @@ export function preFilterRecall(item) {
   const city = typeof item.city === 'string' ? item.city.trim() : ''
   const combined = [topic, note, city].filter(Boolean).join(' ')
 
+  const normCombined = normalizeSecurityText(combined)
+  const squashedCombined = squashSecurityText(normCombined)
+
   if (topic.length < 8) {
     return { hit: true, reason: RECALL_REASON_CODES.TOO_SHORT, detail: 'Topic is too short' }
   }
-  if (EMAIL_REGEX.test(combined)) {
+
+  // Gibberish: Latin token of 25+ letters, 8+ consecutive consonants without vowels, or repeated chars
+  if (/[a-zA-Z]{25,}/.test(topic) || /[a-zA-Z]{25,}/.test(normCombined)) {
+    return { hit: true, reason: RECALL_REASON_CODES.GIBBERISH, detail: 'Single Latin token exceeds 25 characters' }
+  }
+  if (/[b-df-hj-np-tv-z]{8,}/i.test(topic) || /[b-df-hj-np-tv-z]{8,}/i.test(normCombined)) {
+    return { hit: true, reason: RECALL_REASON_CODES.GIBBERISH, detail: 'Unnatural consonant sequence' }
+  }
+
+  if (EMAIL_REGEX.test(combined) || EMAIL_REGEX.test(normCombined)) {
     return { hit: true, reason: RECALL_REASON_CODES.CONTACT_INFO, detail: 'Contains email' }
   }
-  if (PHONE_REGEX.test(combined)) {
+  if (PHONE_REGEX.test(combined) || PHONE_REGEX.test(normCombined)) {
     return { hit: true, reason: RECALL_REASON_CODES.CONTACT_INFO, detail: 'Contains phone number' }
   }
-  if (SOCIAL_HANDLE_REGEX.test(combined)) {
+  if (
+    SOCIAL_HANDLE_REGEX.test(combined) ||
+    SOCIAL_HANDLE_REGEX.test(normCombined) ||
+    /(?:v[x信]|微[x信]|wechat|qq|telegram|tg|whatsapp|纸飞机)[a-z0-9_-]{4,}/i.test(squashedCombined)
+  ) {
     return { hit: true, reason: RECALL_REASON_CODES.CONTACT_INFO, detail: 'Contains social media handle' }
   }
-  if (URL_REGEX.test(combined)) {
+  if (
+    URL_REGEX.test(combined) ||
+    URL_REGEX.test(normCombined) ||
+    /(?:https?|www)[a-z0-9.-]+\.[a-z]{2,}/i.test(squashedCombined)
+  ) {
     return { hit: true, reason: RECALL_REASON_CODES.ADVERTISING, detail: 'Contains URL' }
   }
-  if (COMMERCIAL_REGEX.test(combined)) {
+  if (COMMERCIAL_REGEX.test(combined) || COMMERCIAL_REGEX.test(normCombined) || COMMERCIAL_REGEX.test(squashedCombined)) {
     return { hit: true, reason: RECALL_REASON_CODES.ADVERTISING, detail: 'Contains commercial selling phrase' }
   }
-  if (ABUSIVE_REGEX.test(combined)) {
+  if (ABUSIVE_REGEX.test(combined) || ABUSIVE_REGEX.test(normCombined) || ABUSIVE_REGEX.test(squashedCombined)) {
     return { hit: true, reason: RECALL_REASON_CODES.ABUSIVE, detail: 'Contains abusive content' }
   }
   if (REPEATED_CHAR_REGEX.test(topic)) {
@@ -125,10 +160,93 @@ export const INJECTION_PATTERNS = Object.freeze([
   /"?isExamTopic"?\s*:\s*(?:true|false)/i,
 ])
 
-/** Returns true if any deterministic prompt injection pattern matches. */
+export const SQUASHED_INJECTION_PATTERNS = Object.freeze([
+  /(?:ignore|disregard|forget|bypass|override).{0,30}(?:instructions?|rules?|prompts?|constraints?|directives?)/i,
+  /ignorepreviousinstructions/i,
+  /systemprompt/i,
+  /youarenow/i,
+  /moderatorapprove/i,
+  /approvethis/i,
+  /verdictapprove/i,
+  /verdict=approve/i,
+  /(?:忽略|无视|跳过|忘记|不理会)(?:以上|之前|此前|上述|所有|历史)?(?:的)?(?:指令|规则|提示|设定|要求|限制|prompt)/i,
+  /直接通过/i,
+  /一律通过/i,
+  /审核通过/i,
+  /标记为通过/i,
+  /作为审核员/i,
+  /系统提示/i,
+  /(?:ignore[rz]?|oublie[rz]?|contourne[rz]?).{0,30}(?:instructions?|consignes?|r[èe]gles?|directives?)/i,
+  /ignorezlesinstructions/i,
+  /validezcesujet/i,
+  /approuvez/i,
+])
+
+/** Returns true if any deterministic prompt injection pattern matches on normalized or squashed text. */
 export function detectPromptInjection(text) {
   if (typeof text !== 'string') return false
-  return INJECTION_PATTERNS.some((pattern) => pattern.test(text))
+  const norm = normalizeSecurityText(text)
+  if (INJECTION_PATTERNS.some((pattern) => pattern.test(norm))) return true
+  const squashed = squashSecurityText(norm)
+  if (SQUASHED_INJECTION_PATTERNS.some((pattern) => pattern.test(squashed))) return true
+  return false
+}
+
+// Meta-vocabulary gate: vocabulary about moderation or about the AI itself
+export const META_VOCABULARY_PATTERNS = Object.freeze([
+  // Chinese meta terms
+  /(?:审核|审批|批准|预先批准|免审|无需审核|跳过审核|管理员|版主|机器人|助手|模型|人工智能|指令|提示词|越狱|输出)/,
+
+  // English meta terms (whole words)
+  /\b(?:approve|approved|approval)\b/i,
+  /\bpre-?approved\b/i,
+  /\bverdict\b/i,
+  /\b(?:moderator|moderation)\b/i,
+  /\breviewer\b/i,
+  /\breview\b/i,
+  /\boverride\b/i,
+  /\bbypass\b/i,
+  /\bjailbreak\b/i,
+  /\bprompt\b/i,
+  /\binstructions?(?!\s+civiques?)\b/i,
+  /\bsystem\b/i, // Whole English word, not French système
+  /(?:\bai\s+assistant|\bassistant\s*:)/i,
+  /\bas\s+an\s+ai\b/i,
+  /\b(?:chatgpt|gpt|llm|grok|claude)\b/i,
+
+  // French meta terms
+  /\b(?:mod[ée]rateur|mod[ée]ration)\b/i,
+  /\bapprouv(?:er|ez)\b/i,
+  /\bvalider\s+ce\s+sujet\b/i,
+])
+
+export const SQUASHED_META_PATTERNS = Object.freeze([
+  /(?:审核|审批|批准|预先批准|免审|无需审核|跳过审核|管理员|版主|机器人|助手|模型|人工智能|指令|提示词|越狱|输出)/,
+  /approve|approved|approval/i,
+  /preapproved/i,
+  /verdict/i,
+  /moderator|moderation/i,
+  /reviewer/i,
+  /override/i,
+  /bypass/i,
+  /jailbreak/i,
+  /prompt/i,
+  /instructions?(?!civiques?)/i,
+  /system(?!e)/i,
+  /chatgpt|gpt|llm|grok|claude/i,
+  /mod[ée]rateur|mod[ée]ration/i,
+  /approuv(?:er|ez)/i,
+  /validercesujet/i,
+])
+
+/** Returns true if normalized or squashed text contains moderation or AI meta-vocabulary. */
+export function detectMetaVocabulary(text) {
+  if (typeof text !== 'string') return false
+  const norm = normalizeSecurityText(text)
+  if (META_VOCABULARY_PATTERNS.some((pattern) => pattern.test(norm))) return true
+  const squashed = squashSecurityText(norm)
+  if (SQUASHED_META_PATTERNS.some((pattern) => pattern.test(squashed))) return true
+  return false
 }
 
 /**
@@ -174,7 +292,7 @@ export function buildClassifierMessages(item, nonce) {
     'Output strictly a JSON object with this shape, without any surrounding markdown or commentary:',
     '{',
     '  "verdict": "approve" | "reject" | "hold",',
-    '  "reasons": ["VALID_RECALL" | "ADVERTISING" | "CONTACT_INFO" | "OFF_TOPIC" | "GIBBERISH" | "ABUSIVE" | "TOO_SHORT" | "PROMPT_INJECTION_SUSPECTED" | "NOT_AN_EXAM_TOPIC" | "LOW_CONFIDENCE"],',
+    '  "reasons": ["VALID_RECALL" | "ADVERTISING" | "CONTACT_INFO" | "OFF_TOPIC" | "GIBBERISH" | "ABUSIVE" | "TOO_SHORT" | "PROMPT_INJECTION_SUSPECTED" | "META_LANGUAGE" | "NOT_AN_EXAM_TOPIC" | "LOW_CONFIDENCE"],',
     '  "isExamTopic": boolean,',
     '  "injectionDetected": boolean,',
     '  "evidence": string',
@@ -317,6 +435,7 @@ export function parseProbeOutput(raw) {
 export function decideRecall({
   preFilter = null,
   injectionRegex = false,
+  metaLanguage = false,
   modelOutput = null,
   outputValid = true,
   probeOutput = null,
@@ -328,6 +447,7 @@ export function decideRecall({
   const signals = {
     preFilter,
     injectionRegex,
+    metaLanguage,
     modelOutput,
     outputValid,
     probeOutput,
@@ -349,6 +469,15 @@ export function decideRecall({
     return {
       decision: 'hold',
       reasons: [RECALL_REASON_CODES.PROMPT_INJECTION_SUSPECTED],
+      signals,
+    }
+  }
+
+  // Gate 2.5: Meta-vocabulary gate: vocabulary about moderation or AI itself -> NEVER approve, decision is hold
+  if (metaLanguage) {
+    return {
+      decision: 'hold',
+      reasons: [RECALL_REASON_CODES.META_LANGUAGE],
       signals,
     }
   }
@@ -458,7 +587,7 @@ export function wrapProviderForRecalls(provider) {
       if (isProbe) {
         const probeMatch = /<probe-[a-f0-9]+>([\s\S]*?)<\/probe-[a-f0-9]+>/.exec(prompt)
         const probeText = probeMatch ? probeMatch[1] : prompt
-        const hasInjection = detectPromptInjection(probeText)
+        const hasInjection = detectPromptInjection(probeText) || detectMetaVocabulary(probeText)
         const isCommercial = COMMERCIAL_REGEX.test(probeText) || SOCIAL_HANDLE_REGEX.test(probeText)
         const isClean = !hasInjection && !isCommercial && !/意大利面|今天午饭/i.test(probeText)
         return JSON.stringify({ clean: isClean })
@@ -473,7 +602,7 @@ export function wrapProviderForRecalls(provider) {
         const topicMatch = /Topic:\s*([^\n]+)/.exec(untrusted)
         const topic = topicMatch ? topicMatch[1] : untrusted
 
-        if (detectPromptInjection(untrusted)) {
+        if (detectPromptInjection(untrusted) || detectMetaVocabulary(untrusted)) {
           return JSON.stringify({
             verdict: 'hold',
             reasons: [RECALL_REASON_CODES.PROMPT_INJECTION_SUSPECTED],
@@ -585,9 +714,10 @@ export async function moderateRecall(item, provider, {
     }
   }
 
-  // 2. Run Injection regex check
+  // 2. Run Injection regex & Meta-vocabulary checks
   const combinedText = [item.topic, item.note, item.city].filter(Boolean).join('\n')
   const injectionRegexHit = detectPromptInjection(combinedText)
+  const metaLanguageHit = detectMetaVocabulary(combinedText)
 
   // 3. Build classifier messages
   const { system, messages } = buildClassifierMessages(item, nonce)
@@ -632,6 +762,7 @@ export async function moderateRecall(item, provider, {
     outputValid &&
     parsed?.value?.verdict === 'approve' &&
     !injectionRegexHit &&
+    !metaLanguageHit &&
     !parsed?.value?.injectionDetected &&
     parsed?.value?.isExamTopic === true
   ) {
@@ -653,6 +784,7 @@ export async function moderateRecall(item, provider, {
   const decisionObj = decideRecall({
     preFilter,
     injectionRegex: injectionRegexHit,
+    metaLanguage: metaLanguageHit,
     modelOutput: parsed?.value ?? null,
     outputValid,
     probeOutput,
