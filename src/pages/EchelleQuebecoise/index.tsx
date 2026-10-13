@@ -1,25 +1,25 @@
 import Layout from '@/components/Layout'
 import {
   COMMUNICATION_TYPES,
+  CONTENU_ZH,
   CONTEXT_ZH,
   DIMENSION_LABELS,
+  DISCOURSE_TYPE_META,
   ECHELLE_PROGRESSION_MARKERS,
   ECHELLE_SKILLS,
   ECHELLE_SOURCE,
   ECHELLE_STAGES,
   ECHELLE_TARGET_LEVEL,
+  ETENDUE_ZH,
   type EchelleLevel,
   type EchelleSkill,
   PHONOLOGY_DEGREES,
-  DISCOURSE_TYPE_META,
-  parseDimensionItem,
   SUJETS_ZH,
-  CONTENU_ZH,
-  ETENDUE_ZH,
   getEchelleLevel,
   getEchelleStage,
   isEchelleSkill,
   nextEchelleLevel,
+  parseDimensionItem,
 } from '@/resources/echelleQuebecoise'
 import { type StudyAnalytics, loadStudyAnalytics } from '@/services/studyPlanSync'
 import { useEffect, useState } from 'react'

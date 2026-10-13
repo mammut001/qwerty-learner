@@ -58,7 +58,7 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
     let headword = ''
     try {
       const name = currentLanguage === 'fr' ? word.name.normalize('NFC') : word.name
-      headword = name.replace(new RegExp(' ', 'g'), EXPLICIT_SPACE)
+      headword = name.replace(/[\u00A0\u202F ]/g, EXPLICIT_SPACE)
       headword = headword.replace(new RegExp('…', 'g'), '..')
     } catch (e) {
       console.error('word.name is not a string', word)
@@ -82,7 +82,7 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
           if (updateAction.value.includes(' ')) updateAction.event?.preventDefault()
           setWordState((draft) => {
             const value = currentLanguage === 'fr' ? updateAction.value.normalize('NFC') : updateAction.value
-            draft.inputWord += value.replace(/ /g, EXPLICIT_SPACE)
+            draft.inputWord += value.replace(/[\u00A0\u202F ]/g, EXPLICIT_SPACE)
           })
           break
 
@@ -186,7 +186,17 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
       const input = wordState.inputWord[index]
       const expected = wordState.displayWord[index]
       const sameFrenchApostrophe = currentLanguage === 'fr' && /['’]/.test(input) && /['’]/.test(expected)
-      if (!sameFrenchApostrophe && (isIgnoreCase ? input.toLowerCase() !== expected.toLowerCase() : input !== expected)) {
+      const sameFrenchHyphen = currentLanguage === 'fr' && /[-‑–—]/.test(input) && /[-‑–—]/.test(expected)
+      const sameFrenchSpace =
+        currentLanguage === 'fr' &&
+        (input === EXPLICIT_SPACE || /[\u00A0\u202F ]/.test(input)) &&
+        (expected === EXPLICIT_SPACE || /[\u00A0\u202F ]/.test(expected))
+      if (
+        !sameFrenchApostrophe &&
+        !sameFrenchHyphen &&
+        !sameFrenchSpace &&
+        (isIgnoreCase ? input.toLowerCase() !== expected.toLowerCase() : input !== expected)
+      ) {
         errorIndex = index
         break
       }
@@ -317,16 +327,19 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
         </div>
       </div>
       {currentLanguage === 'fr' && state.isTyping && (
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-1.5">
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-1.5" role="group" aria-label="法语特殊字符快捷输入">
           <span className="mr-1 text-xs text-gray-400">法语字符</span>
           {['é', 'è', 'ê', 'ë', 'à', 'â', 'ù', 'û', 'ô', 'ö', 'î', 'ï', 'ç', 'œ', 'æ'].map((char) => (
             <button
               key={char}
               type="button"
-              className="min-w-8 rounded-md bg-gray-100 px-2 py-1 text-sm text-gray-600 transition hover:bg-indigo-100 hover:text-indigo-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+              className="min-w-8 rounded-md bg-gray-100 px-2 py-1 text-sm text-gray-600 transition hover:bg-indigo-100 hover:text-indigo-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
               onMouseDown={(event) => {
                 event.preventDefault()
-                updateInput({ type: 'add', value: char })
+              }}
+              onClick={(event) => {
+                const value = event.shiftKey ? char.toUpperCase() : char
+                updateInput({ type: 'add', value })
               }}
               aria-label={`输入法语字符 ${char}`}
             >

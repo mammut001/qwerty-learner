@@ -1,4 +1,4 @@
-import { safeSpeak, stopSpeechSynthesis, type SafeSpeakOptions } from '@/utils/speechSynthesis'
+import { type SafeSpeakOptions, safeSpeak, stopSpeechSynthesis } from '@/utils/speechSynthesis'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 export type UseSpeechResult = {
