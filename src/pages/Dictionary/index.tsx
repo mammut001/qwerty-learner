@@ -27,7 +27,7 @@ export default function DictionaryPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const query = cleanDictionaryQuery(searchParams.get('q') ?? '')
   const [input, setInput] = useState(query)
-  const [result, setResult] = useState<DictionaryResult | null>(null)
+  const [result, setResult] = useState<{ query: string; data: DictionaryResult } | null>(null)
   const [suggestions, setSuggestions] = useState<string[]>([])
   const [accentedVariants, setAccentedVariants] = useState<string[]>([])
   const [error, setError] = useState('')
@@ -45,7 +45,7 @@ export default function DictionaryPage() {
     lookupDictionary(query)
       .then((value) => {
         if (cancelled) return
-        setResult(value)
+        setResult({ query, data: value })
         if (value.words.length || value.lemmas.length) {
           setHistory((old) => {
             const next = [query, ...old.filter((item) => item !== query)].slice(0, 12)
@@ -216,8 +216,8 @@ export default function DictionaryPage() {
           <section className="my-card mt-6 rounded-2xl bg-white p-5 dark:bg-gray-800 sm:p-7">
             {error ? (
               <div className="rounded-xl bg-red-50/70 p-4 text-sm text-red-600 dark:bg-red-950/30 dark:text-red-400">{error}</div>
-            ) : result && query ? (
-              <DictionaryCard result={result} />
+            ) : result && query && result.query === query ? (
+              <DictionaryCard key={result.query} result={result.data} />
             ) : query ? (
               <div className="flex items-center gap-2.5 py-4 text-sm text-gray-400 dark:text-gray-500">
                 <span className="inline-block h-2 w-2 animate-ping rounded-full bg-indigo-400 opacity-75" />
