@@ -59,12 +59,6 @@ export function isChunkLoadError(error: unknown): boolean {
 export const CHUNK_RELOAD_STORAGE_KEY = 'qwerty:chunk_reload_ts'
 const DEFAULT_COOLDOWN_MS = 60000
 
-let memoryReloaded = false
-
-export function resetChunkReloadState(): void {
-  memoryReloaded = false
-}
-
 function getSafeSessionStorage(): StorageLike | null {
   try {
     if (typeof window !== 'undefined' && window.sessionStorage) {
@@ -84,35 +78,30 @@ export function handleChunkReload(
     return false
   }
 
-  const now = options?.now ?? (() => Date.now())
-  const reload = options?.reload ?? (() => window.location.reload())
   const storage =
     options?.storage !== undefined ? options.storage : getSafeSessionStorage()
+  if (!storage) {
+    return false
+  }
+
+  const now = options?.now ?? (() => Date.now())
+  const reload = options?.reload ?? (() => window.location.reload())
   const cooldownMs = options?.cooldownMs ?? DEFAULT_COOLDOWN_MS
   const currentTime = now()
 
-  if (storage) {
-    try {
-      const raw = storage.getItem(CHUNK_RELOAD_STORAGE_KEY)
-      if (raw) {
-        const last = parseInt(raw, 10)
-        if (Number.isFinite(last) && currentTime >= last && currentTime - last < cooldownMs) {
-          return false
-        }
+  try {
+    const raw = storage.getItem(CHUNK_RELOAD_STORAGE_KEY)
+    if (raw) {
+      const last = parseInt(raw, 10)
+      if (Number.isFinite(last) && currentTime >= last && currentTime - last < cooldownMs) {
+        return false
       }
-      storage.setItem(CHUNK_RELOAD_STORAGE_KEY, String(currentTime))
-      reload()
-      return true
-    } catch {
-      // Storage threw; fallback to in-memory guard
     }
-  }
-
-  // Storage unavailable or threw: reload at most once per page lifetime
-  if (memoryReloaded) {
+    storage.setItem(CHUNK_RELOAD_STORAGE_KEY, String(currentTime))
+  } catch {
     return false
   }
-  memoryReloaded = true
+
   reload()
   return true
 }

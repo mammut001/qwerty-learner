@@ -5,7 +5,6 @@ import {
   StorageLike,
   handleChunkReload,
   isChunkLoadError,
-  resetChunkReloadState,
   setupChunkReloadListener,
 } from './chunkReload'
 
@@ -74,7 +73,6 @@ test('ignores unrelated errors', () => {
 })
 
 test('first failure triggers reload', () => {
-  resetChunkReloadState()
   const storage = createMockStorage()
   let reloads = 0
   const chunkError = new Error('Failed to fetch dynamically imported module: /assets/index.js')
@@ -93,7 +91,6 @@ test('first failure triggers reload', () => {
 })
 
 test('second failure inside 60 s does not reload', () => {
-  resetChunkReloadState()
   const storage = createMockStorage({ [CHUNK_RELOAD_STORAGE_KEY]: '1000' })
   let reloads = 0
   const chunkError = new Error('error loading dynamically imported module /assets/index.js')
@@ -113,7 +110,6 @@ test('second failure inside 60 s does not reload', () => {
 })
 
 test('after 60 s it reloads again', () => {
-  resetChunkReloadState()
   const storage = createMockStorage({ [CHUNK_RELOAD_STORAGE_KEY]: '1000' })
   let reloads = 0
   const chunkError = new Error('Importing a module script failed.')
@@ -132,8 +128,23 @@ test('after 60 s it reloads again', () => {
   assert.equal(storage.data[CHUNK_RELOAD_STORAGE_KEY], '62000')
 })
 
-test('storage that throws does not loop', () => {
-  resetChunkReloadState()
+test('storage null does not reload', () => {
+  let reloads = 0
+  const chunkError = new Error('Failed to fetch dynamically imported module: /assets/page.js')
+
+  const result = handleChunkReload(chunkError, {
+    now: () => 1000,
+    storage: null,
+    reload: () => {
+      reloads++
+    },
+  })
+
+  assert.equal(result, false)
+  assert.equal(reloads, 0)
+})
+
+test('storage that throws does not reload', () => {
   const throwingStorage: StorageLike = {
     getItem() {
       throw new Error('sessionStorage access denied')
@@ -145,42 +156,19 @@ test('storage that throws does not loop', () => {
   let reloads = 0
   const chunkError = new Error('Failed to fetch dynamically imported module: /assets/page.js')
 
-  // First failure: reload once
-  const first = handleChunkReload(chunkError, {
+  const result = handleChunkReload(chunkError, {
     now: () => 1000,
     storage: throwingStorage,
     reload: () => {
       reloads++
     },
   })
-  assert.equal(first, true)
-  assert.equal(reloads, 1)
 
-  // Second failure within page lifetime: must not reload
-  const second = handleChunkReload(chunkError, {
-    now: () => 2000,
-    storage: throwingStorage,
-    reload: () => {
-      reloads++
-    },
-  })
-  assert.equal(second, false)
-  assert.equal(reloads, 1)
-
-  // Third failure within page lifetime: still must not reload
-  const third = handleChunkReload(chunkError, {
-    now: () => 100000,
-    storage: throwingStorage,
-    reload: () => {
-      reloads++
-    },
-  })
-  assert.equal(third, false)
-  assert.equal(reloads, 1)
+  assert.equal(result, false)
+  assert.equal(reloads, 0)
 })
 
-test('storage setItem that throws does not loop', () => {
-  resetChunkReloadState()
+test('storage setItem that throws does not reload', () => {
   const throwingSetItemStorage: StorageLike = {
     getItem() {
       return null
@@ -192,29 +180,19 @@ test('storage setItem that throws does not loop', () => {
   let reloads = 0
   const chunkError = new Error('is not a valid JavaScript MIME type')
 
-  const first = handleChunkReload(chunkError, {
+  const result = handleChunkReload(chunkError, {
     now: () => 1000,
     storage: throwingSetItemStorage,
     reload: () => {
       reloads++
     },
   })
-  assert.equal(first, true)
-  assert.equal(reloads, 1)
 
-  const second = handleChunkReload(chunkError, {
-    now: () => 2000,
-    storage: throwingSetItemStorage,
-    reload: () => {
-      reloads++
-    },
-  })
-  assert.equal(second, false)
-  assert.equal(reloads, 1)
+  assert.equal(result, false)
+  assert.equal(reloads, 0)
 })
 
 test('setupChunkReloadListener routes vite:preloadError event and calls preventDefault', () => {
-  resetChunkReloadState()
   const listeners: Record<string, ((event: Event) => void)[]> = {}
   const mockTarget = {
     addEventListener(type: string, listener: (event: Event) => void) {
