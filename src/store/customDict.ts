@@ -19,6 +19,8 @@ export const CUSTOM_DICT_CATEGORY = '我的词表'
 export const CUSTOM_DICT_URL_PREFIX = 'custom:'
 export const CUSTOM_DICT_LIMITS = { lists: 50, words: 2000, name: 60, description: 120, word: 200, trans: 300 }
 
+export const normalizeCustomWordName = (name: string) => name.normalize('NFC').trim().replace(/\s+/g, ' ')
+
 const isCustomDict = (value: unknown): value is CustomDict => {
   if (!value || typeof value !== 'object') return false
   const dict = value as Partial<CustomDict>
@@ -104,7 +106,7 @@ export function parseWordListText(text: string): ParsedWordList {
         width = separator.length
       }
     }
-    const name = (cut === -1 ? line : line.slice(0, cut)).trim().replace(/\s+/g, ' ')
+    const name = normalizeCustomWordName(cut === -1 ? line : line.slice(0, cut))
     const meaning = cut === -1 ? '' : line.slice(cut + width).trim()
     if (!name) continue
     if (name.length > CUSTOM_DICT_LIMITS.word || meaning.length > CUSTOM_DICT_LIMITS.trans) {
@@ -130,7 +132,7 @@ const singleLine = (text: string) => text.replace(/\s+/g, ' ').trim()
 export const wordListToText = (words: CustomDictWord[]) =>
   words
     .map((word) => {
-      const name = singleLine(word.name)
+      const name = normalizeCustomWordName(word.name)
       return word.trans.length ? `${name} = ${word.trans.map(singleLine).join('；')}` : name
     })
     .join('\n')
