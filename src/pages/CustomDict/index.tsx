@@ -240,7 +240,10 @@ export default function CustomDictPage() {
                 <input
                   value={name}
                   maxLength={CUSTOM_DICT_LIMITS.name}
-                  onChange={(event) => setName(event.target.value)}
+                  onChange={(event) => {
+                    setName(event.target.value)
+                    setMessage(null)
+                  }}
                   placeholder="例如：模考生词 10 月"
                   aria-label="词表名称"
                   className={inputClass}
@@ -251,7 +254,10 @@ export default function CustomDictPage() {
                 <input
                   value={description}
                   maxLength={CUSTOM_DICT_LIMITS.description}
-                  onChange={(event) => setDescription(event.target.value)}
+                  onChange={(event) => {
+                    setDescription(event.target.value)
+                    setMessage(null)
+                  }}
                   placeholder="例如：阅读套题 B 里不认识的词"
                   aria-label="词表备注"
                   className={inputClass}
@@ -283,7 +289,10 @@ export default function CustomDictPage() {
               <textarea
                 id="word-list-editor"
                 value={text}
-                onChange={(event) => setText(event.target.value)}
+                onChange={(event) => {
+                  setText(event.target.value)
+                  setMessage(null)
+                }}
                 rows={14}
                 spellCheck={false}
                 aria-label="词条"
