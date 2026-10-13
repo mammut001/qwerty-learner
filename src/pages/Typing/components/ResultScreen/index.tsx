@@ -210,11 +210,11 @@ const ResultScreen = () => {
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <div className="flex h-screen items-center justify-center">
+        <div className="flex min-h-screen items-center justify-center py-4">
           <Dialog.Panel
             ref={panelRef}
             tabIndex={-1}
-            className="my-card fixed flex w-[90vw] max-w-6xl flex-col overflow-hidden rounded-3xl bg-white pb-14 pl-10 pr-5 pt-10 shadow-lg dark:bg-gray-800 md:w-4/5 lg:w-3/5"
+            className="my-card relative flex max-h-[calc(100dvh-2rem)] w-[90vw] max-w-6xl flex-col overflow-y-auto overflow-x-hidden rounded-3xl bg-white pb-14 pl-10 pr-5 pt-10 shadow-lg dark:bg-gray-800 md:w-4/5 lg:w-3/5"
           >
             <Dialog.Title as="div" className="text-center font-sans text-xl font-normal text-gray-900 dark:text-gray-400 md:text-2xl">
               {`${currentDictInfo.name} ${isReviewMode ? '错题复习' : '第' + (currentChapter + 1) + '章'}`}
@@ -227,7 +227,7 @@ const ResultScreen = () => {
             >
               <IconX className="text-gray-400" aria-hidden="true" />
             </button>
-            <div className="mt-10 flex flex-row gap-2 overflow-hidden">
+            <div className="mt-10 flex shrink-0 flex-row gap-2">
               <div className="flex flex-shrink-0 flex-grow-0 flex-col gap-3 px-4 sm:px-1 md:px-2 lg:px-4">
                 <RemarkRing remark={`${state.timerData.accuracy}%`} caption="正确率" percentage={state.timerData.accuracy} />
                 <RemarkRing remark={timeString} caption="章节耗时" />
