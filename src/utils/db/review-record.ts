@@ -2,20 +2,34 @@ import { db } from '.'
 import { ReviewRecord } from './record'
 import type { TErrorWordData } from '@/pages/Gallery-N/hooks/useErrorWords'
 import type { Word } from '@/typings'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 export function useGetLatestReviewRecord(dictID: string) {
   const [wordReviewRecord, setWordReviewRecord] = useState<ReviewRecord | undefined>(undefined)
+  const [error, setError] = useState<unknown>()
+  const [isLoading, setIsLoading] = useState(true)
+  const [attempt, setAttempt] = useState(0)
+  const retry = useCallback(() => setAttempt((value) => value + 1), [])
   useEffect(() => {
-    const fetchWordReviewRecords = async () => {
-      const record = await getReviewRecords(dictID)
-      setWordReviewRecord(record)
+    let cancelled = false
+    setWordReviewRecord(undefined)
+    setError(undefined)
+    setIsLoading(true)
+    void getReviewRecords(dictID)
+      .then((record) => {
+        if (!cancelled) setWordReviewRecord(record)
+      })
+      .catch((cause: unknown) => {
+        if (!cancelled) setError(cause)
+      })
+      .finally(() => {
+        if (!cancelled) setIsLoading(false)
+      })
+    return () => {
+      cancelled = true
     }
-    if (dictID) {
-      fetchWordReviewRecords()
-    }
-  }, [dictID])
-  return wordReviewRecord
+  }, [dictID, attempt])
+  return { record: wordReviewRecord, error, isLoading, retry }
 }
 
 async function getReviewRecords(dictID: string): Promise<ReviewRecord | undefined> {
