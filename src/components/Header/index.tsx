@@ -41,6 +41,7 @@ const examItems = [
   { to: '/tcf-writing', label: '写作', code: 'EE', detail: '60 分钟 · 3 任务' },
   { to: '/tcf-speaking', label: '口语', code: 'EO', detail: '12 分钟 · 3 任务' },
   { to: '/echelle', label: '能力量表', code: 'EQ', detail: '魁北克 12 级 · 对照 NCLC' },
+  { to: '/recalls', label: '机经', code: '回忆', detail: '口语 · 写作题目' },
 ]
 
 const navItemClass = (isActive: boolean) =>
@@ -53,7 +54,7 @@ const navItemClass = (isActive: boolean) =>
 const Header: React.FC = () => {
   const { pathname } = useLocation()
   const shellHidden = useShellHeaderHidden()
-  const isExamActive = pathname.startsWith('/tcf') || pathname.startsWith('/echelle')
+  const isExamActive = pathname.startsWith('/tcf') || pathname.startsWith('/echelle') || pathname.startsWith('/recalls')
   const [menuOpen, setMenuOpen] = useState(false)
   const authStatus = useAtomValue(authStatusAtom)
   const isGuest = authStatus ? (authStatus.enabled && authStatus.required && !authStatus.signedIn) : isGuestMode()

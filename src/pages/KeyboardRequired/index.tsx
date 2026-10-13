@@ -8,6 +8,7 @@ const alternatives = [
   { to: '/grammar-session', label: '语法专题', detail: '5 个专题 · 先选再解释' },
   { to: '/conjugation', label: '动词变位', detail: '30 个核心动词' },
   { to: '/error-book', label: '错题本', detail: '词汇 · 语法 · 变位' },
+  { to: '/recalls', label: '机经分享', detail: '考生回忆的口语 · 写作题' },
   { to: '/study-plan', label: '学习计划', detail: '今日任务与 26 周路线（需登录）' },
 ]
 

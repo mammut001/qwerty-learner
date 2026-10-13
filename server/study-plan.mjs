@@ -24,6 +24,14 @@ import {
   itemReportsCsv,
   isValidCatalogItem,
 } from './study-reports.mjs'
+import {
+  MAX_PENDING_RECALLS,
+  listApprovedRecalls,
+  listRecallsForAdmin,
+  reviewRecalls,
+  saveExamRecall,
+  validateRecallInput,
+} from './study-recalls.mjs'
 import { EchelleAiError, RUBRIC_VERSION, evaluateProduction, evaluationOperation, validateSubmission } from './echelle-ai-harness.mjs'
 import { aiRateLimits, aiStatus, createAiProvider } from './echelle-ai-providers.mjs'
 import { ALLOWED_AUDIO_TYPES, MAX_AUDIO_BYTES, asrRateLimits, transcribeSpeech } from './speech-asr.mjs'
@@ -271,6 +279,7 @@ export function createStudyServer({
   allowedEmails = process.env.STUDY_ALLOWED_EMAILS || '',
   maxNewAccountsPerDay = Number(process.env.STUDY_MAX_NEW_ACCOUNTS_PER_DAY || 200),
   youdaoVoice = null,
+  maxPendingRecalls = MAX_PENDING_RECALLS,
 } = {}) {
   mkdirSync(dirname(resolve(database)), { recursive: true })
   const db = new DatabaseSync(database)
@@ -465,7 +474,10 @@ export function createStudyServer({
     const adminReports = path === '/api/study-plan/admin/reports'
     const adminReportsCsv = path === '/api/study-plan/admin/reports.csv'
     const adminReportsResolve = path === '/api/study-plan/admin/reports/resolve'
+    const adminRecalls = path === '/api/study-plan/admin/recalls'
+    const adminRecallsReview = path === '/api/study-plan/admin/recalls/review'
     const itemReports = path === '/api/study-plan/reports'
+    const recalls = path === '/api/study-plan/recalls'
     const cohortInfo = path === '/api/study-plan/cohort'
     const cohortJoin = path === '/api/study-plan/cohort/join'
     const echelleAi = path === '/api/study-plan/echelle/ai'
@@ -489,7 +501,8 @@ export function createStudyServer({
         !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
         !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts && !access &&
         !adminConfig && !adminPlacementCohort && !adminPlacementCsv && !adminCohorts && !adminCohortRotate &&
-        !adminReports && !adminReportsCsv && !adminReportsResolve && !itemReports &&
+        !adminReports && !adminReportsCsv && !adminReportsResolve && !adminRecalls && !adminRecallsReview &&
+        !itemReports && !recalls &&
         !cohortInfo && !cohortJoin && !plan) {
       if (staticDir && !path.startsWith('/api/')) {
         return serveStatic(req, res, staticDir)
@@ -540,6 +553,7 @@ export function createStudyServer({
         db.prepare('SELECT account_id,stripe_customer_id FROM billing_subscriptions LIMIT 1').get()
         db.prepare('SELECT event_id,event_type FROM billing_events LIMIT 1').get()
         db.prepare('SELECT id,item_id FROM item_reports LIMIT 1').get()
+        db.prepare('SELECT id,topic FROM exam_recalls LIMIT 1').get()
         const schemaVersion = getNodeSchemaVersion(db)
         if (schemaVersion !== STUDY_SCHEMA_VERSION) throw new Error('Schema version mismatch')
         return send(200, { ok: true, storage: 'sqlite', schemaVersion })
@@ -694,6 +708,52 @@ export function createStudyServer({
       return send(200, { ok: true, resolved: result.count })
     }
 
+    if (adminRecalls) {
+      if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      const auth = authorizeAdminRequest(req.headers.authorization, adminToken)
+      if (!auth.ok) {
+        audit(null, 'admin_recalls', auth.status === 401 ? 'denied' : 'disabled')
+        return sendError(auth.status, auth.code, auth.message)
+      }
+      const statusParam = requestUrl.searchParams.get('status') || 'pending'
+      const limitParam = parseInt(requestUrl.searchParams.get('limit') || '50', 10)
+      const offsetParam = parseInt(requestUrl.searchParams.get('offset') || '0', 10)
+      const { items, total } = listRecallsForAdmin(db, { status: statusParam, limit: limitParam, offset: offsetParam })
+      audit(null, 'admin_recalls', 'success', { count: items.length, status: statusParam })
+      return send(200, { ok: true, recalls: items, items, total })
+    }
+
+    if (adminRecallsReview) {
+      if (req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      const auth = authorizeAdminRequest(req.headers.authorization, adminToken)
+      if (!auth.ok) {
+        audit(null, 'admin_recalls_review', auth.status === 401 ? 'denied' : 'disabled')
+        return sendError(auth.status, auth.code, auth.message)
+      }
+      let input
+      try {
+        input = await readBody(req)
+      } catch (error) {
+        return sendError(
+          error instanceof RangeError ? 413 : 400,
+          error instanceof RangeError ? 'REQUEST_TOO_LARGE' : 'RECALL_REVIEW_INVALID',
+          error instanceof RangeError ? 'Request too large' : 'Invalid review payload',
+        )
+      }
+      if (!record(input) || !hasExactKeys(input, ['ids', 'action'], ['ids', 'action'])) {
+        return sendError(400, 'RECALL_REVIEW_INVALID', 'Invalid review payload')
+      }
+      if (!Array.isArray(input.ids) || input.ids.length === 0 || !input.ids.every((id) => typeof id === 'string' && id.length > 0)) {
+        return sendError(400, 'RECALL_REVIEW_INVALID', 'Invalid recall ids')
+      }
+      if (input.action !== 'approve' && input.action !== 'reject') {
+        return sendError(400, 'RECALL_REVIEW_INVALID', 'Invalid review action')
+      }
+      const result = reviewRecalls(db, { ids: input.ids, action: input.action })
+      audit(null, 'admin_recalls_review', 'success', { count: result.count, action: input.action })
+      return send(200, { ok: true, reviewed: result.count, count: result.count })
+    }
+
     if (billingWebhook) {
       // Called by Stripe: no session cookie and no Origin. The HMAC over the raw body is the only authentication.
       // It runs before the site access gate on purpose, since Stripe cannot carry the access cookie.
@@ -835,6 +895,7 @@ export function createStudyServer({
     if (cohortJoin && req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if (tcfWritingDraft && !['GET', 'POST', 'PUT', 'DELETE'].includes(req.method)) return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if (tcfWriting && !['GET', 'POST'].includes(req.method)) return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+    if (recalls && !['GET', 'POST'].includes(req.method)) return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if (tcfSpeaking && !['GET', 'POST', 'DELETE'].includes(req.method)) return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if (deleteData && req.method !== 'DELETE') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if (plan && !['GET', 'POST', 'PATCH'].includes(req.method)) return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
@@ -1229,6 +1290,88 @@ export function createStudyServer({
       } catch (error) {
         audit(learner, 'billing_portal', 'error', { code: error instanceof BillingError ? error.code : 'BILLING_UNAVAILABLE' })
         return sendError(502, 'BILLING_UNAVAILABLE', 'Billing is temporarily unavailable')
+      }
+    }
+
+    if (recalls) {
+      if (req.method === 'GET') {
+        const sectionParam = requestUrl.searchParams.get('section') || undefined
+        const taskParam = requestUrl.searchParams.get('task')
+          ? parseInt(requestUrl.searchParams.get('task'), 10)
+          : undefined
+        const monthParam = requestUrl.searchParams.get('month') || undefined
+        const limitParam = parseInt(requestUrl.searchParams.get('limit') || '20', 10)
+        const offsetParam = parseInt(requestUrl.searchParams.get('offset') || '0', 10)
+        const { items, total } = listApprovedRecalls(db, {
+          section: sectionParam,
+          task: taskParam,
+          month: monthParam,
+          limit: limitParam,
+          offset: offsetParam,
+        })
+        return send(200, { ok: true, items, total })
+      }
+
+      if (req.method === 'POST') {
+        const limit = consumeNodeRateLimit(db, 'actor:' + actorHash, 'exam-recall', {
+          limit: 5,
+          windowMs: 60 * 60_000,
+          blockMs: 60 * 60_000,
+        })
+        if (!limit.allowed) {
+          audit(learner, 'exam_recall', 'rate_limited')
+          return sendError(
+            429,
+            'RECALL_RATE_LIMITED',
+            'Too many recall submissions. Try again later.',
+            { retryAfterSeconds: Math.ceil(limit.retryAfterMs / 1000) },
+            { 'Retry-After': String(Math.ceil(limit.retryAfterMs / 1000)) },
+          )
+        }
+
+        let input
+        try {
+          input = await readBody(req)
+        } catch (error) {
+          return sendError(
+            error instanceof RangeError ? 413 : 400,
+            error instanceof RangeError ? 'REQUEST_TOO_LARGE' : 'RECALL_INVALID',
+            error instanceof RangeError ? 'Request too large' : 'Invalid recall payload',
+          )
+        }
+
+        if (
+          !hasExactKeys(
+            input,
+            ['section', 'task', 'examMonth', 'city', 'topic', 'note'],
+            ['section', 'task', 'examMonth', 'topic'],
+          )
+        ) {
+          return sendError(400, 'RECALL_INVALID', 'Invalid recall payload')
+        }
+
+        const validation = validateRecallInput(input)
+        if (!validation.ok) {
+          return sendError(400, 'RECALL_INVALID', validation.error)
+        }
+
+        const accountId = viaAccount ? resolved.accountId : null
+        const outcome = saveExamRecall(db, {
+          learner,
+          accountId,
+          maxPending: maxPendingRecalls,
+          ...validation.data,
+        })
+        if (outcome.queueFull) {
+          audit(learner, 'exam_recall', 'queue_full')
+          return sendError(503, 'RECALL_QUEUE_FULL', 'Submissions are temporarily paused.')
+        }
+        audit(learner, 'exam_recall', 'success', {
+          section: validation.data.section,
+          task: validation.data.task,
+          examMonth: validation.data.examMonth,
+        })
+        return send(200, { ok: true, id: outcome.id, status: 'pending' })
       }
     }
 
