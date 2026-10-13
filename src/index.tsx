@@ -5,6 +5,7 @@ import { setupChunkReloadListener } from './utils/chunkReload'
 initAnalytics()
 setupChunkReloadListener()
 import AccessGate from './components/AccessGate'
+import AdminRouteGate from './components/AdminRouteGate'
 import AppErrorBoundary from './components/AppErrorBoundary'
 import AuthGate from './components/AuthGate'
 import Header from './components/Header'
@@ -155,9 +156,23 @@ function Root() {
                       <Route path="/tenses/:lessonId" element={<TensesPage />} />
                       <Route path="/study-plan" element={<RequireAccount pageName="学习计划"><StudyPlanPage /></RequireAccount>} />
                       <Route path="/placement-test" element={<RequireAccount pageName="定级测试"><PlacementTestPage /></RequireAccount>} />
-                      <Route path="/admin/placement" element={<AdminPlacementPage />} />
+                      <Route
+                        path="/admin/placement"
+                        element={
+                          <AdminRouteGate>
+                            <AdminPlacementPage />
+                          </AdminRouteGate>
+                        }
+                      />
                       <Route path="/recalls" element={<ExamRecallsPage />} />
-                      <Route path="/admin/recalls" element={<AdminRecallsPage />} />
+                      <Route
+                        path="/admin/recalls"
+                        element={
+                          <AdminRouteGate>
+                            <AdminRecallsPage />
+                          </AdminRouteGate>
+                        }
+                      />
                       <Route path="/tcf" element={<RequireAccount pageName="TCF 总览"><TcfHubPage /></RequireAccount>} />
                       <Route path="/echelle" element={<RequireAccount pageName="能力量表"><EchelleQuebecoisePage /></RequireAccount>} />
                       <Route path="/levels" element={<RequireAccount pageName="等级课程"><LevelsPage /></RequireAccount>} />
