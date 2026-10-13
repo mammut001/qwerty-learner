@@ -1,8 +1,11 @@
 import './services/localProfileInit'
 import { initAnalytics } from './utils/analytics'
+import { setupChunkReloadListener } from './utils/chunkReload'
 
 initAnalytics()
+setupChunkReloadListener()
 import AccessGate from './components/AccessGate'
+import AppErrorBoundary from './components/AppErrorBoundary'
 import AuthGate from './components/AuthGate'
 import Header from './components/Header'
 import { LoadingUI } from './components/Loading'
@@ -100,7 +103,9 @@ function ShellOutlet({ children }: { children: React.ReactNode }) {
 
   return (
     <div ref={ref} data-testid="app-shell-outlet" className="flex min-h-0 flex-1 flex-col overflow-y-auto">
-      {children}
+      <AppErrorBoundary resetKey={pathname}>
+        {children}
+      </AppErrorBoundary>
     </div>
   )
 }
