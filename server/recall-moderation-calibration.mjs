@@ -164,6 +164,26 @@ export const RECALL_CALIBRATION_SAMPLES = Object.freeze([
     note: 'TCF Canada expression écrite tâche 3',
     expected: 'approve',
   },
+  {
+    id: 'clean-speaking-zh-bicycle-purchase',
+    section: 'speaking',
+    task: 2,
+    examMonth: '2026-10',
+    city: 'Montreal',
+    topic: '口语任务二：你想购买一辆二手自行车，向卖家询问价格、优惠和取货方式',
+    note: '',
+    expected: 'approve',
+  },
+  {
+    id: 'clean-speaking-fr-bicycle-purchase',
+    section: 'speaking',
+    task: 2,
+    examMonth: '2026-10',
+    city: 'Paris',
+    topic: "Tâche 2 : vous voulez acheter un vélo d'occasion, posez des questions sur le prix et les réductions",
+    note: '',
+    expected: 'approve',
+  },
 ])
 
 /**

@@ -32,11 +32,11 @@ export const CLEAR_REJECT_REASONS = Object.freeze(new Set([
 ]))
 
 // Pre-filter patterns (deterministic, zero model calls required)
-export const URL_REGEX = /(?:https?:\/\/|www\.)[^\s]+|\b[a-zA-Z0-9.-]+\.(?:com|cn|org|net|top|xyz|cc|me|site|vip|link|shop|icu|info|online|club)\b/i
+export const URL_REGEX = /(?:https?:\/\/|www\.)[^\s]+|(?<!@)\b[a-zA-Z0-9.-]+\.(?:com|cn|org|net|top|xyz|cc|me|site|vip|link|shop|icu|info|online|club)\b/i
 export const EMAIL_REGEX = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/
 export const PHONE_REGEX = /(?:\+?86[-.\s]?)?1[3-9]\d{9}\b|\b\d{3}[-.\s]\d{3}[-.\s]\d{4}\b/
 export const SOCIAL_HANDLE_REGEX = /(?:v[x信]|微[x信]|wechat|qq|telegram|tg|whatsapp|纸飞机)[\s:：#号+_-]*[a-zA-Z0-9_-]{4,}/i
-export const COMMERCIAL_REGEX = /(?:加我|私聊|代考|保过|包过|出售|购买|特惠|优惠|枪手|接单|低价|内部名额|买课|代写|买答案|有偿提供)/i
+export const COMMERCIAL_REGEX = /(?:加我|私聊|代考|保过|包过|枪手|接单|内部名额|买答案|代写|有偿提供|替考)/i
 export const ABUSIVE_REGEX = /(?:操你妈|傻逼|草泥马|去死|fuck\s+you|bitch|connard|salope)/i
 export const REPEATED_CHAR_REGEX = /(.)\1{5,}/u
 
@@ -56,9 +56,6 @@ export function preFilterRecall(item) {
   if (topic.length < 8) {
     return { hit: true, reason: RECALL_REASON_CODES.TOO_SHORT, detail: 'Topic is too short' }
   }
-  if (URL_REGEX.test(combined)) {
-    return { hit: true, reason: RECALL_REASON_CODES.ADVERTISING, detail: 'Contains URL' }
-  }
   if (EMAIL_REGEX.test(combined)) {
     return { hit: true, reason: RECALL_REASON_CODES.CONTACT_INFO, detail: 'Contains email' }
   }
@@ -67,6 +64,9 @@ export function preFilterRecall(item) {
   }
   if (SOCIAL_HANDLE_REGEX.test(combined)) {
     return { hit: true, reason: RECALL_REASON_CODES.CONTACT_INFO, detail: 'Contains social media handle' }
+  }
+  if (URL_REGEX.test(combined)) {
+    return { hit: true, reason: RECALL_REASON_CODES.ADVERTISING, detail: 'Contains URL' }
   }
   if (COMMERCIAL_REGEX.test(combined)) {
     return { hit: true, reason: RECALL_REASON_CODES.ADVERTISING, detail: 'Contains commercial selling phrase' }
@@ -92,10 +92,11 @@ export function preFilterRecall(item) {
 export const INJECTION_PATTERNS = Object.freeze([
   // Chinese instructions
   /(?:忽略|无视|跳过|忘记|不理会)\s*(?:以上|之前|此前|上述|所有|历史)?\s*(?:的)?\s*(?:指令|规则|提示|设定|要求|限制|prompt)/i,
-  /(?:请|直接|立即|务必|必须|一律)\s*(?:直接|审核|审批|判定)?\s*(?:通过|approve)/i,
-  /(?:审核|审批|判定|标记为)\s*(?:通过|合格|approve)/i,
-  /(?:作为|你是)?\s*(?:审核员|审核机器人|moderator|ai|助手|系统)\s*[,，:：]?\s*(?:请|直接|批准|通过|approve)/i,
-  /(?:将本条|把本条|本条机经)\s*(?:标记为|设为|判定为|审核为)?\s*通过/i,
+  /(?:审核|审批|判定|标记(?:为)?|设为)\s*(?:为)?\s*通过/,
+  /(?:将|把)\s*(?:本条|这条|此条|该条|该投稿|本投稿|本机经|此机经)[^，。！？\n]*(?:标记为|设为|判定为|直接)?\s*通过/,
+  /(?:作为|你是)?\s*(?:审核员|审核机器人|moderator|ai|助手|系统)\s*[,，:：]?\s*(?:请|直接|务必|必须|一律)?\s*(?:予以|给予)?\s*通过/i,
+  /(?:请|务必|必须|直接|予以|给予)?\s*通过\s*(?:本条|这条|此条|该条|该投稿|本投稿|本机经|此机经|此项审核|该审核)/,
+  /(?:请|务必|必须|一律|直接)\s*(?:直接)?\s*通过\s*(?:[，。！？!?,.;；"'\s）\)\]】>]|$)/,
   /系统提示/i,
 
   // English instructions
@@ -532,7 +533,7 @@ export function wrapProviderForRecalls(provider) {
           })
         }
 
-        const isExam = /tâche|voyage|collègues|télétravail|téléphones|parler|sujet|expression|口语|写作|咨询|旅游|行程|讨论/i.test(untrusted)
+        const isExam = /tâche|voyage|collègues|télétravail|téléphones|vélo|acheter|prix|réductions|parler|sujet|expression|口语|写作|咨询|旅游|行程|讨论|自行车|购买|取货/i.test(untrusted)
         if (isExam) {
           const evidence = topic.length > 20 ? topic.slice(0, 20) : topic
           return JSON.stringify({
