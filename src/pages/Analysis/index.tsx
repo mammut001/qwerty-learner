@@ -122,7 +122,15 @@ const Analysis = () => {
     { enableOnFormTags: true, preventDefault: true },
     [],
   )
-  useHotkeys('enter,esc', onBack, { preventDefault: true })
+  useHotkeys('enter,esc', onBack, {
+    preventDefault: true,
+    ignoreEventWhen: (event) =>
+      event.defaultPrevented ||
+      Boolean(document.querySelector('[role="dialog"]')) ||
+      (event.key === 'Enter' &&
+        event.target instanceof Element &&
+        Boolean(event.target.closest('button, a, input, textarea, select, [contenteditable="true"], [role="button"]'))),
+  })
 
   const refreshAnalytics = useCallback(async () => {
     setAnalyticsLoading(true)
