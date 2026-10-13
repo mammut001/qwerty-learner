@@ -7,6 +7,7 @@ test('Enter opens a focused dictionary card and Escape closes only its dialog', 
   await page.keyboard.press('Enter')
   await expect(page.getByRole('dialog')).toBeVisible()
   await expect(page).toHaveURL(/\/gallery$/)
+  await expect.poll(() => page.getByRole('dialog').evaluate((element) => element.contains(document.activeElement))).toBe(true)
   await page.keyboard.press('Escape')
   await expect(page.getByRole('dialog')).not.toBeAttached()
   await expect(page).toHaveURL(/\/gallery$/)
