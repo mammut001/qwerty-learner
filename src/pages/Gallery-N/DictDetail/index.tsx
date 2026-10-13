@@ -24,7 +24,7 @@ enum Tab {
   Review = 'review',
 }
 
-export default function DictDetail({ dictionary: dict }: { dictionary: Dictionary }) {
+export default function DictDetail({ dictionary: dict, isOpen }: { dictionary: Dictionary; isOpen: boolean }) {
   const [currentChapter, setCurrentChapter] = useAtom(currentChapterAtom)
   const [currentDictId, setCurrentDictId] = useAtom(currentDictIdAtom)
   const [curTab, setCurTab] = useState<Tab>(Tab.Chapters)
@@ -157,7 +157,7 @@ export default function DictDetail({ dictionary: dict }: { dictionary: Dictionar
             <ErrorTable data={tableData} isLoading={isLoading} error={error} onDelete={onDelete} deleting={deleting} />
           </TabsContent>
           <TabsContent value={Tab.Review} className="h-full">
-            <ReviewDetail errorData={errorWordData} dict={dict} />
+            <ReviewDetail errorData={errorWordData} dict={dict} isOpen={isOpen} />
           </TabsContent>
         </Tabs>
       </div>
