@@ -12,9 +12,9 @@ import {
   reviewModeInfoAtom,
   wordDictationConfigAtom,
 } from '@/store'
-import { Transition } from '@headlessui/react'
+import { Dialog, Transition } from '@headlessui/react'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { useNavigate } from 'react-router-dom'
 import IexportWords from '~icons/icon-park-outline/excel'
@@ -38,6 +38,7 @@ const ResultScreen = () => {
   const isReviewMode = useAtomValue(isReviewModeAtom)
   const [isExporting, setIsExporting] = useState(false)
   const [exportError, setExportError] = useState('')
+  const panelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     // tick a zero timer to calc the stats
@@ -198,7 +199,7 @@ const ResultScreen = () => {
   )
 
   return (
-    <div className="fixed inset-0 z-30 overflow-y-auto">
+    <Dialog open onClose={exitButtonHandler} initialFocus={panelRef} className="fixed inset-0 z-30 overflow-y-auto">
       <div className="absolute inset-0 bg-gray-300 opacity-80 dark:bg-gray-600"></div>
       <Transition
         show={true}
@@ -210,12 +211,21 @@ const ResultScreen = () => {
         leaveTo="opacity-0"
       >
         <div className="flex h-screen items-center justify-center">
-          <div className="my-card fixed flex w-[90vw] max-w-6xl flex-col overflow-hidden rounded-3xl bg-white pb-14 pl-10 pr-5 pt-10 shadow-lg dark:bg-gray-800 md:w-4/5 lg:w-3/5">
-            <div className="text-center font-sans text-xl font-normal text-gray-900 dark:text-gray-400 md:text-2xl">
+          <Dialog.Panel
+            ref={panelRef}
+            tabIndex={-1}
+            className="my-card fixed flex w-[90vw] max-w-6xl flex-col overflow-hidden rounded-3xl bg-white pb-14 pl-10 pr-5 pt-10 shadow-lg dark:bg-gray-800 md:w-4/5 lg:w-3/5"
+          >
+            <Dialog.Title as="div" className="text-center font-sans text-xl font-normal text-gray-900 dark:text-gray-400 md:text-2xl">
               {`${currentDictInfo.name} ${isReviewMode ? '错题复习' : '第' + (currentChapter + 1) + '章'}`}
-            </div>
-            <button className="absolute right-7 top-5" onClick={exitButtonHandler}>
-              <IconX className="text-gray-400" />
+            </Dialog.Title>
+            <button
+              type="button"
+              aria-label="关闭练习结果"
+              className="absolute right-5 top-3 flex h-10 w-10 items-center justify-center rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+              onClick={exitButtonHandler}
+            >
+              <IconX className="text-gray-400" aria-hidden="true" />
             </button>
             <div className="mt-10 flex flex-row gap-2 overflow-hidden">
               <div className="flex flex-shrink-0 flex-grow-0 flex-col gap-3 px-4 sm:px-1 md:px-2 lg:px-4">
@@ -314,10 +324,10 @@ const ResultScreen = () => {
               )}
             </div>
             <GuestProgressPrompt className="mt-4" />
-          </div>
+          </Dialog.Panel>
         </div>
       </Transition>
-    </div>
+    </Dialog>
   )
 }
 

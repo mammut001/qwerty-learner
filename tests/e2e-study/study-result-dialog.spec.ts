@@ -1,0 +1,41 @@
+import { expect, test } from '@playwright/test'
+
+test('practice results trap keyboard focus and Escape returns to practice', async ({ page }) => {
+  await page.goto('/word-lists')
+  await page.getByLabel('词表名称').fill('结果键盘验证')
+  await page.getByLabel('词条', { exact: true }).fill('a = 一个')
+  await page.getByTestId('word-list-practise').click()
+  await expect(page.getByRole('link', { name: '结果键盘验证' })).toBeVisible()
+  await page.keyboard.press('Enter')
+  await expect(page.locator('textarea')).toBeFocused()
+  await page.keyboard.insertText('a')
+  const dialog = page.getByRole('dialog', { name: '结果键盘验证 第1章', exact: true })
+  await expect(dialog).toBeVisible()
+  await expect(dialog.getByRole('button', { name: '关闭练习结果' })).toBeVisible()
+  await expect.poll(() => dialog.evaluate((element) => element.contains(document.activeElement))).toBe(true)
+  for (let index = 0; index < 10; index += 1) {
+    await page.keyboard.press('Tab')
+    expect(await dialog.evaluate((element) => element.contains(document.activeElement))).toBe(true)
+  }
+  await page.keyboard.press('Escape')
+  await expect(dialog).not.toBeAttached()
+  await expect(page.locator('textarea')).toBeFocused()
+  await expect(page.getByRole('button', { name: '暂停', exact: true })).toBeVisible()
+})
+
+test('Space on the result panel keeps the existing repeat shortcut', async ({ page }) => {
+  await page.goto('/word-lists')
+  await page.getByLabel('词表名称').fill('结果快捷键验证')
+  await page.getByLabel('词条', { exact: true }).fill('a = 一个')
+  await page.getByTestId('word-list-practise').click()
+  await expect(page.getByRole('link', { name: '结果快捷键验证' })).toBeVisible()
+  await page.keyboard.press('Enter')
+  await expect(page.locator('textarea')).toBeFocused()
+  await page.keyboard.insertText('a')
+  const dialog = page.getByRole('dialog', { name: '结果快捷键验证 第1章', exact: true })
+  await expect(dialog).toBeVisible()
+  await expect.poll(() => dialog.evaluate((element) => element.contains(document.activeElement))).toBe(true)
+  await page.keyboard.press('Space')
+  await expect(dialog).not.toBeAttached()
+  await expect(page.locator('textarea')).toBeFocused()
+})
