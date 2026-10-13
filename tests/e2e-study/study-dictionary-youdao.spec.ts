@@ -1,5 +1,8 @@
 import { expect, test } from '@playwright/test'
 
+// Request failure and delay fixtures must reach Playwright instead of the service-worker cache.
+test.use({ serviceWorkers: 'block' })
+
 const BONJOUR = {
   query: 'bonjour',
   word: 'bonjour',
@@ -194,3 +197,45 @@ for (const recovery of ['button', 'online']) {
     await expect(page.getByRole('button', { name: '重试释义' })).toHaveCount(0)
   })
 }
+
+test('a new query hides the previous word and its save button while loading', async ({ page }) => {
+  await page.route('**/api/study-plan/dictionary**', (route) =>
+    route.fulfill({
+      json:
+        new URL(route.request().url()).searchParams.get('q') === 'rite'
+          ? { word: 'rite', senses: [{ pos: 'm.', gloss: '仪式；礼仪' }], examples: [] }
+          : BONJOUR,
+    }),
+  )
+  await page.goto('/dictionary?q=bonjour')
+  await expect(page.getByTestId('dictionary-youdao')).toContainText('早安，日安')
+  let release!: () => void
+  const gate = new Promise<void>((resolve) => {
+    release = resolve
+  })
+  await page.route('**/lexicon/fr/ri.json', async (route) => {
+    await gate
+    await route.continue()
+  })
+  const search = page.getByRole('searchbox', { name: '查词' })
+  await search.fill('rite')
+  await search.press('Enter')
+  try {
+    await expect(page).toHaveURL(/q=rite/)
+    await expect(page.getByText('正在查「rite」…', { exact: true })).toBeVisible()
+    await expect(page.getByTestId('dictionary-add')).toHaveCount(0)
+    await expect(page.getByTestId('dictionary-result')).toHaveCount(0)
+  } finally {
+    release()
+  }
+  await expect(page.getByTestId('dictionary-result').locator('span[lang="fr"]', { hasText: /^rite$/ })).toBeVisible()
+  await expect(page.getByTestId('dictionary-youdao')).toContainText('仪式；礼仪')
+})
+
+test('a query with an elided article still displays its resolved dictionary entry', async ({ page }) => {
+  await page.route('**/api/study-plan/dictionary**', (route) => route.fulfill({ status: 502, json: {} }))
+  await page.route('**://*.wiktionary.org/**', (route) => route.abort())
+  await page.goto('/dictionary?q=l%27%C3%A9cole')
+  await expect(page.getByTestId('dictionary-result')).toContainText('school')
+  await expect(page.getByTestId('dictionary-result').locator('span[lang="fr"]', { hasText: /^école$/ })).toBeVisible()
+})
