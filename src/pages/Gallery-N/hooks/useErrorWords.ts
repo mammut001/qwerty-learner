@@ -2,7 +2,7 @@ import type { Dictionary, Word } from '@/typings'
 import { db } from '@/utils/db'
 import type { WordRecord } from '@/utils/db/record'
 import { wordListFetcher } from '@/utils/wordListFetcher'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import useSWR from 'swr'
 
 type groupRecord = {
@@ -20,13 +20,26 @@ export type TErrorWordData = {
 }
 
 export default function useErrorWordData(dict: Dictionary, reload: boolean) {
-  const { data: wordList, error, isLoading } = useSWR(dict?.url, wordListFetcher)
+  const { data: wordList, error, isLoading, mutate } = useSWR(dict?.url, wordListFetcher)
 
   const [errorWordData, setErrorData] = useState<TErrorWordData[]>([])
+  const [readError, setReadError] = useState<unknown>()
+  const [reading, setReading] = useState(false)
+  const [attempt, setAttempt] = useState(0)
+  const retry = useCallback(() => {
+    setAttempt((value) => value + 1)
+    void mutate().catch(() => undefined)
+  }, [mutate])
 
   useEffect(() => {
-    if (!wordList) return
-
+    let cancelled = false
+    setErrorData([])
+    setReadError(undefined)
+    if (!wordList) {
+      setReading(false)
+      return
+    }
+    setReading(true)
     db.wordRecords
       .where('wrongCount')
       .above(0)
@@ -80,9 +93,18 @@ export default function useErrorWordData(dict: Dictionary, reload: boolean) {
           res.push(errorData)
         })
 
-        setErrorData(res)
+        if (!cancelled) setErrorData(res)
       })
-  }, [dict.id, wordList, reload])
+      .catch((cause: unknown) => {
+        if (!cancelled) setReadError(cause)
+      })
+      .finally(() => {
+        if (!cancelled) setReading(false)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [dict.id, wordList, reload, attempt])
 
-  return { errorWordData, isLoading, error }
+  return { errorWordData, isLoading: isLoading || reading, error: error || readError, retry }
 }

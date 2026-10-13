@@ -33,7 +33,7 @@ export default function DictDetail({ dictionary: dict }: { dictionary: Dictionar
   const [reload, setReload] = useState(false)
 
   const chapter = useMemo(() => (dict.id === currentDictId ? currentChapter : 0), [currentChapter, currentDictId, dict.id])
-  const { errorWordData, isLoading, error } = useErrorWordData(dict, reload)
+  const { errorWordData, isLoading, error, retry } = useErrorWordData(dict, reload)
 
   const tableData = useMemo(() => {
     return getRowsFromErrorWordData(errorWordData)
@@ -106,6 +106,17 @@ export default function DictDetail({ dictionary: dict }: { dictionary: Dictionar
           </ToggleGroup>
         </div>
       </div>
+      {error && (
+        <div
+          role="alert"
+          className="mb-4 flex items-center justify-between gap-3 rounded-xl bg-amber-50 p-3 text-sm text-amber-800 dark:bg-amber-950/30 dark:text-amber-200"
+        >
+          <span>错词记录暂时读取失败，请重试；离线时请先恢复网络。</span>
+          <button type="button" className="ui-btn-primary" onClick={retry} disabled={isLoading}>
+            重新读取错词
+          </button>
+        </div>
+      )}
       <div className="flex pl-0">
         <Tabs value={curTab} className="h-[30rem] w-full ">
           <TabsContent value={Tab.Chapters} className="h-full ">
