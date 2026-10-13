@@ -4,6 +4,7 @@ import { ErrorTable } from '../ErrorTable'
 import { getRowsFromErrorWordData } from '../ErrorTable/columns'
 import { ReviewDetail } from '../ReviewDetail'
 import useErrorWordData from '../hooks/useErrorWords'
+import { DialogDescription, DialogTitle } from '@/components/ui/dialog'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Tabs, TabsContent } from '@/components/ui/tabs'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
@@ -68,13 +69,13 @@ export default function DictDetail({ dictionary: dict }: { dictionary: Dictionar
 
   return (
     <div className="flex flex-col rounded-[4rem] px-4 py-3 pl-5 text-gray-800 dark:text-gray-300">
-      <div className="text relative flex h-40 flex-col gap-2">
-        <h3 className="text-2xl font-semibold">{dict.name}</h3>
+      <div className="min-h-40 relative flex flex-col gap-2 pb-5">
+        <DialogTitle className="text-2xl font-semibold">{dict.name}</DialogTitle>
         <p className="mt-1">{dict.chapterCount} 章节</p>
         <p>共 {dict.length} 词</p>
-        <p>{dict.description}</p>
-        <div className="absolute bottom-5 right-4">
-          <ToggleGroup type="single" value={curTab} onValueChange={handleTabChange}>
+        <DialogDescription>{dict.description}</DialogDescription>
+        <div className="mt-4">
+          <ToggleGroup className="flex-wrap justify-start" type="single" value={curTab} onValueChange={handleTabChange}>
             <ToggleGroupItem
               value={Tab.Chapters}
               disabled={curTab === Tab.Chapters}
