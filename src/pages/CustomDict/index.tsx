@@ -46,11 +46,14 @@ export default function CustomDictPage() {
   const [confirmingDelete, setConfirmingDelete] = useState(false)
 
   const parsed = useMemo(() => parseWordListText(text), [text])
-  const dirty = selected
-    ? name.trim() !== selected.name ||
-      description.trim() !== selected.description ||
-      wordListToText(parsed.words) !== wordListToText(selected.words)
-    : Boolean(name.trim() || description.trim() || text.trim())
+  const dirty =
+    parsed.tooLong > 0 ||
+    parsed.truncated ||
+    (selected
+      ? name.trim() !== selected.name ||
+        description.trim() !== selected.description ||
+        wordListToText(parsed.words) !== wordListToText(selected.words)
+      : Boolean(name.trim() || description.trim() || text.trim()))
 
   const open = (list: CustomDict | null) => {
     importVersion.current += 1
@@ -69,12 +72,28 @@ export default function CustomDictPage() {
     open(list)
   }
 
+  const hasIncompleteWords = () => {
+    if (parsed.tooLong > 0) {
+      setMessage({
+        tone: 'error',
+        text: `有 ${parsed.tooLong} 行超过长度限制（词条 ${CUSTOM_DICT_LIMITS.word} 字符，释义 ${CUSTOM_DICT_LIMITS.trans} 字符），请缩短后再保存或导出。`,
+      })
+      return true
+    }
+    if (parsed.truncated) {
+      setMessage({ tone: 'error', text: `每个词表最多 ${CUSTOM_DICT_LIMITS.words} 词，请拆分后再保存或导出。` })
+      return true
+    }
+    return false
+  }
+
   const save = (): CustomDict | null => {
     const trimmedName = name.trim()
     if (!trimmedName) {
       setMessage({ tone: 'error', text: '先给词表起个名字。' })
       return null
     }
+    if (hasIncompleteWords()) return null
     if (parsed.words.length === 0) {
       setMessage({ tone: 'error', text: '词表里还没有可用的词条。每行写一个：mot = 释义' })
       return null
@@ -149,7 +168,7 @@ export default function CustomDictPage() {
   }
 
   const exportJson = () => {
-    if (!selected) return
+    if (!selected || hasIncompleteWords()) return
     if (parsed.words.length === 0) {
       setMessage({ tone: 'error', text: '没有可导出的词条。每行写一个：mot = 释义' })
       return
@@ -287,8 +306,8 @@ export default function CustomDictPage() {
                 识别到 {parsed.words.length} 个词条 · {Math.ceil(parsed.words.length / CHAPTER_LENGTH)} 章（每章 {CHAPTER_LENGTH} 词）
               </span>
               {parsed.duplicates > 0 && <span className="text-amber-600">已忽略 {parsed.duplicates} 个重复词条</span>}
-              {parsed.tooLong > 0 && <span className="text-amber-600">已跳过 {parsed.tooLong} 行过长的内容</span>}
-              {parsed.truncated && <span className="text-amber-600">超过 {CUSTOM_DICT_LIMITS.words} 词的部分不会保存</span>}
+              {parsed.tooLong > 0 && <span className="text-amber-600">有 {parsed.tooLong} 行超过长度限制</span>}
+              {parsed.truncated && <span className="text-amber-600">超过 {CUSTOM_DICT_LIMITS.words} 词，请拆分为多个词表</span>}
               <span>分隔符可用 =、Tab、：或 |；释义可以不写；# 开头的行会被忽略</span>
             </div>
 
