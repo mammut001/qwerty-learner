@@ -19,14 +19,14 @@ export function useWordList(): UseWordListResult {
   const [currentChapter, setCurrentChapter] = useAtom(currentChapterAtom)
   const { isReviewMode, reviewRecord } = useAtomValue(reviewModeInfoAtom)
 
-  const { data: wordList, error, isLoading, isValidating, mutate } = useSWR(currentDictInfo.url, wordListFetcher)
+  const { data: wordList, error, isLoading, isValidating, mutate } = useSWR(isReviewMode ? null : currentDictInfo.url, wordListFetcher)
 
   const chapterCount = wordList ? Math.ceil(wordList.length / CHAPTER_LENGTH) : currentDictInfo.chapterCount
   const safeChapter = Number.isSafeInteger(currentChapter) && currentChapter >= 0 && currentChapter < chapterCount ? currentChapter : 0
 
   useEffect(() => {
-    if (currentChapter !== safeChapter) setCurrentChapter(safeChapter)
-  }, [currentChapter, safeChapter, setCurrentChapter])
+    if (!isReviewMode && currentChapter !== safeChapter) setCurrentChapter(safeChapter)
+  }, [currentChapter, safeChapter, setCurrentChapter, isReviewMode])
 
   const words: WordWithIndex[] = useMemo(() => {
     let newWords: Word[]
