@@ -1982,16 +1982,22 @@ export async function loadReviewQueue(): Promise<ReviewQueueItem[]> {
   await syncStudyPlan()
   try {
     const payload = await api('GET', `/review?today=${encodeURIComponent(localDay())}`)
-    const queue = Array.isArray(payload.queue) ? (payload.queue as ReviewQueueItem[]) : []
-    localStorage.setItem(REVIEW_KEY, JSON.stringify(queue))
+    if (!Array.isArray(payload.queue)) throw new Error('INVALID_REVIEW_QUEUE')
+    const queue = payload.queue as ReviewQueueItem[]
+    try {
+      localStorage.setItem(REVIEW_KEY, JSON.stringify(queue))
+    } catch {
+      // A cache write failure must not discard a successful server response.
+    }
     return queue
   } catch {
     try {
-      const cached = localStorage.getItem(REVIEW_KEY)
-      return cached ? (JSON.parse(cached) as ReviewQueueItem[]) : []
+      const cached = JSON.parse(localStorage.getItem(REVIEW_KEY) ?? 'null')
+      if (Array.isArray(cached)) return cached as ReviewQueueItem[]
     } catch {
-      return []
+      // No usable offline copy is available.
     }
+    throw new Error(isGuestMode() ? 'REVIEW_QUEUE_LOGIN_REQUIRED' : 'REVIEW_QUEUE_UNAVAILABLE')
   }
 }
 

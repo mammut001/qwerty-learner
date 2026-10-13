@@ -94,6 +94,8 @@ const Analysis = () => {
   const [analyticsLoading, setAnalyticsLoading] = useState(true)
   const [reviewQueue, setReviewQueue] = useState<ReviewQueueItem[]>([])
   const [reviewLoading, setReviewLoading] = useState(true)
+  const [reviewError, setReviewError] = useState('')
+  const reviewRequest = useRef(0)
   const [trendScale, setTrendScale] = useState<TrendScale>('weekly')
   const [syncStatus, setSyncStatus] = useState<StudySyncStatus>(() => getStudySyncSnapshot())
   const [checkins, setCheckins] = useState<StudyCheckinSummary>({
@@ -130,11 +132,20 @@ const Analysis = () => {
   }, [])
 
   const refreshReview = useCallback(async () => {
+    const request = ++reviewRequest.current
     setReviewLoading(true)
+    setReviewError('')
     try {
-      setReviewQueue(await loadReviewQueue())
+      const queue = await loadReviewQueue()
+      if (request === reviewRequest.current) setReviewQueue(queue)
+    } catch (error) {
+      if (request === reviewRequest.current) {
+        setReviewError(error instanceof Error && error.message === 'REVIEW_QUEUE_LOGIN_REQUIRED'
+          ? '请先登录，再刷新复习队列。'
+          : '复习队列读取失败，请点击“刷新数据”重试。')
+      }
     } finally {
-      setReviewLoading(false)
+      if (request === reviewRequest.current) setReviewLoading(false)
     }
   }, [])
 
@@ -492,7 +503,7 @@ const Analysis = () => {
                 <div>
                   <div className="ui-eyebrow">今日复习 · 间隔重复</div>
                   <h1 className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">
-                    {reviewLoading ? '正在生成复习队列…' : `今天有 ${reviewQueue.length} 项`}
+                    {reviewLoading ? '正在生成复习队列…' : reviewError ? '复习队列暂时不可用' : `今天有 ${reviewQueue.length} 项`}
                   </h1>
                   <div className={`mt-2 text-xs ${syncTone}`}>
                     {syncStatus.message}
@@ -508,7 +519,11 @@ const Analysis = () => {
                 </button>
               </div>
 
-              {!reviewLoading && reviewQueue.length === 0 ? (
+              {reviewError ? (
+                <div role="alert" className="mt-5 rounded-xl bg-red-50 p-4 text-sm text-red-600 dark:bg-red-950/30 dark:text-red-400">
+                  {reviewError}
+                </div>
+              ) : !reviewLoading && reviewQueue.length === 0 ? (
                 <div className="mt-5 rounded-xl bg-green-50 p-4 text-sm text-green-700 dark:bg-green-950/30 dark:text-green-300">
                   今天没有到期错题。新的错误会自动进入复习计划。
                 </div>
