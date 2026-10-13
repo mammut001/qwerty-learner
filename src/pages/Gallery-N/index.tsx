@@ -5,7 +5,7 @@ import { dictionaries } from '@/resources/dictionary'
 import { getLearningProgress } from '@/services/studyPlanSync'
 import { currentDictInfoAtom } from '@/store'
 import { customDictionariesAtom, findDictionary } from '@/store/customDict'
-import type { Dictionary, LanguageCategoryType } from '@/typings'
+import type { LanguageCategoryType } from '@/typings'
 import groupBy from '@/utils/groupBy'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import { useAtomValue } from 'jotai'
@@ -55,7 +55,15 @@ export default function GalleryPage() {
     navigate('/typing')
   }, [navigate])
 
-  useHotkeys('enter,esc', onBack, { preventDefault: true })
+  useHotkeys('enter,esc', onBack, {
+    preventDefault: true,
+    ignoreEventWhen: (event) =>
+      event.defaultPrevented ||
+      Boolean(document.querySelector('[role="dialog"]')) ||
+      (event.key === 'Enter' &&
+        event.target instanceof Element &&
+        Boolean(event.target.closest('button, a, input, textarea, select, [contenteditable="true"], [role="button"]'))),
+  })
 
   useEffect(() => {
     if (currentDictInfo) {

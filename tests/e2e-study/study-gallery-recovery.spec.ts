@@ -13,7 +13,8 @@ test('dictionary details explain failed error-word loading and offer an in-place
   await page.goto('/gallery?dict=tcf-canada-foundation-01')
   await expect(page.getByRole('alert')).toContainText('错词记录暂时读取失败')
   fail = false
-  await page.getByRole('button', { name: '重新读取错词' }).click()
+  await page.getByRole('button', { name: '重新读取错词' }).focus()
+  await page.keyboard.press('Enter')
   await expect(page.getByRole('alert')).not.toBeAttached()
   await expect(page).toHaveURL(/\/gallery\?dict=tcf-canada-foundation-01$/)
 })
