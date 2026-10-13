@@ -3,7 +3,7 @@ import { currentChapterAtom, currentDictInfoAtom, reviewModeInfoAtom } from '@/s
 import type { Word, WordWithIndex } from '@/typings/index'
 import { wordListFetcher } from '@/utils/wordListFetcher'
 import { useAtom, useAtomValue } from 'jotai'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import useSWR from 'swr'
 
 export type UseWordListResult = {
@@ -19,18 +19,21 @@ export function useWordList(): UseWordListResult {
   const [currentChapter, setCurrentChapter] = useAtom(currentChapterAtom)
   const { isReviewMode, reviewRecord } = useAtomValue(reviewModeInfoAtom)
 
-  if (currentChapter >= currentDictInfo.chapterCount) {
-    setCurrentChapter(0)
-  }
-
   const { data: wordList, error, isLoading, isValidating, mutate } = useSWR(currentDictInfo.url, wordListFetcher)
+
+  const chapterCount = wordList ? Math.ceil(wordList.length / CHAPTER_LENGTH) : currentDictInfo.chapterCount
+  const safeChapter = Number.isSafeInteger(currentChapter) && currentChapter >= 0 && currentChapter < chapterCount ? currentChapter : 0
+
+  useEffect(() => {
+    if (currentChapter !== safeChapter) setCurrentChapter(safeChapter)
+  }, [currentChapter, safeChapter, setCurrentChapter])
 
   const words: WordWithIndex[] = useMemo(() => {
     let newWords: Word[]
     if (isReviewMode) {
       newWords = reviewRecord?.words ?? []
     } else if (wordList) {
-      newWords = wordList.slice(currentChapter * CHAPTER_LENGTH, (currentChapter + 1) * CHAPTER_LENGTH)
+      newWords = wordList.slice(safeChapter * CHAPTER_LENGTH, (safeChapter + 1) * CHAPTER_LENGTH)
     } else {
       newWords = []
     }
@@ -50,7 +53,7 @@ export function useWordList(): UseWordListResult {
         trans,
       }
     })
-  }, [isReviewMode, wordList, reviewRecord?.words, currentChapter])
+  }, [isReviewMode, wordList, reviewRecord?.words, safeChapter])
 
   return { words, isLoading, error, isRetrying: isValidating, retry: mutate }
 }
