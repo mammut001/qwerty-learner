@@ -32,7 +32,7 @@ export default function Translation({ word, trans, showTrans = true, onMouseEnte
     const run = async () => {
       let meaning = ''
       try {
-        const result = await lookupDictionary(word).catch(() => null)
+        const result = await lookupDictionary(word, { allowCompoundFallback: false }).catch(() => null)
         if (cancelled) return
         meaning = result ? briefMeaning(result) : ''
         if (!/[一-鿿]/.test(meaning) && navigator.onLine !== false) {

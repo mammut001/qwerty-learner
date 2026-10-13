@@ -201,7 +201,7 @@ export default function CustomDictPage() {
       while (index < candidates.length && version === meaningVersion.current) {
         const word = candidates[index++]
         try {
-          const result = await lookupDictionary(word.name)
+          const result = await lookupDictionary(word.name, { allowCompoundFallback: false })
           if (version !== meaningVersion.current) return
           const target = result.words[0] ?? result.lemmas[0]
           const chinese = target
