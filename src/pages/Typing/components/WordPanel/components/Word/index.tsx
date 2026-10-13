@@ -185,7 +185,8 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
     for (let index = start; index < end; index += 1) {
       const input = wordState.inputWord[index]
       const expected = wordState.displayWord[index]
-      if (isIgnoreCase ? input.toLowerCase() !== expected.toLowerCase() : input !== expected) {
+      const sameFrenchApostrophe = currentLanguage === 'fr' && /['’]/.test(input) && /['’]/.test(expected)
+      if (!sameFrenchApostrophe && (isIgnoreCase ? input.toLowerCase() !== expected.toLowerCase() : input !== expected)) {
         errorIndex = index
         break
       }
