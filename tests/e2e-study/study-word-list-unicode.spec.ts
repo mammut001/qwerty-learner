@@ -5,7 +5,7 @@ test('canonically equivalent accents are duplicates while different accents rema
   await page.getByLabel('词表名称').fill('重音词表')
   await page.getByLabel('词条', { exact: true }).fill('école = 学校\ne\u0301cole = 重复\ncote = 评级\ncôte = 海岸')
   await expect(page.getByTestId('word-list-count')).toContainText('识别到 3 个词条')
-  await expect(page.getByText('已忽略 1 个重复词条')).toBeVisible()
+  await expect(page.getByText('已合并 1 个重复词条')).toBeVisible()
   await page.getByTestId('word-list-save').click()
   expect(await page.evaluate(() => JSON.parse(localStorage.getItem('qwerty-fr-custom-dicts-v1') ?? '[]')[0].words)).toEqual([
     { name: 'école', trans: ['学校'] },

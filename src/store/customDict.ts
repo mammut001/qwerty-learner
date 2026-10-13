@@ -90,7 +90,7 @@ export type ParsedWordList = { words: CustomDictWord[]; duplicates: number; tooL
 /** One entry per line: `mot = 释义`. The meaning is optional; lines starting with # are comments. */
 export function parseWordListText(text: string): ParsedWordList {
   const words: CustomDictWord[] = []
-  const seen = new Set<string>()
+  const seen = new Map<string, number>()
   let duplicates = 0
   let tooLong = 0
   let truncated = false
@@ -113,7 +113,13 @@ export function parseWordListText(text: string): ParsedWordList {
       tooLong += 1
       continue
     }
-    if (seen.has(name)) {
+    const existingIndex = seen.get(name)
+    if (existingIndex !== undefined) {
+      const existing = words[existingIndex]
+      const lacksMeaning = existing.trans.every(
+        (item) => normalizeCustomWordName(item).toLocaleLowerCase('fr') === name.toLocaleLowerCase('fr'),
+      )
+      if (meaning && lacksMeaning) existing.trans = [meaning]
       duplicates += 1
       continue
     }
@@ -121,7 +127,7 @@ export function parseWordListText(text: string): ParsedWordList {
       truncated = true
       break
     }
-    seen.add(name)
+    seen.set(name, words.length)
     words.push({ name, trans: meaning ? [meaning] : [] })
   }
   return { words, duplicates, tooLong, truncated }
