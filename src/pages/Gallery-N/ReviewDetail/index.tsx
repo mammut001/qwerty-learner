@@ -6,6 +6,7 @@ import { timeStamp2String } from '@/utils'
 import { generateNewWordReviewRecord, useGetLatestReviewRecord } from '@/utils/db/review-record'
 import * as Progress from '@radix-ui/react-progress'
 import { useSetAtom } from 'jotai'
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import MdiRobotAngry from '~icons/mdi/robot-angry'
 
@@ -16,16 +17,31 @@ export function ReviewDetail({ errorData, dict }: { errorData: TErrorWordData[];
   const navigate = useNavigate()
   const setCurrentChapter = useSetAtom(currentChapterAtom)
 
-  const startReview = async () => {
-    setCurrentDictId(dict.id)
-    setCurrentChapter(-1)
+  const [isCreating, setIsCreating] = useState(false)
+  const [createError, setCreateError] = useState('')
+  const creating = useRef(false)
 
-    const record = await generateNewWordReviewRecord(dict.id, errorData)
-    setReviewModeInfo({ isReviewMode: true, reviewRecord: record })
-    navigate('/typing')
+  const startReview = async () => {
+    if (creating.current || errorData.length === 0) return
+    creating.current = true
+    setIsCreating(true)
+    setCreateError('')
+    try {
+      const record = await generateNewWordReviewRecord(dict.id, errorData)
+      setCurrentDictId(dict.id)
+      setCurrentChapter(-1)
+      setReviewModeInfo({ isReviewMode: true, reviewRecord: record })
+      navigate('/typing')
+    } catch {
+      setCreateError('创建复习失败，请检查浏览器存储空间后重试。')
+    } finally {
+      creating.current = false
+      setIsCreating(false)
+    }
   }
 
   const continueReview = () => {
+    if (!latestReviewRecord || creating.current) return
     setCurrentDictId(dict.id)
     setCurrentChapter(-1)
 
@@ -69,13 +85,18 @@ export function ReviewDetail({ errorData, dict }: { errorData: TErrorWordData[];
 
         {!latestReviewRecord && <div>当前词典错词数: {errorData.length}</div>}
 
+        {createError && (
+          <p role="alert" className="mt-4 text-sm text-red-500">
+            {createError}
+          </p>
+        )}
         <div className="mt-6 flex gap-10">
           {latestReviewRecord && (
-            <Button size="sm" onClick={continueReview}>
+            <Button size="sm" onClick={continueReview} disabled={isCreating}>
               继续当前进度
             </Button>
           )}
-          <Button size="sm" onClick={startReview}>
+          <Button size="sm" onClick={startReview} disabled={isCreating || errorData.length === 0} aria-busy={isCreating}>
             开始{latestReviewRecord && '新的'}复习
           </Button>
         </div>
