@@ -95,7 +95,7 @@ export const typingReducer = (state: TypingState, action: TypingStateAction) => 
       const newState = structuredClone(initialState)
       const words = action.payload.shouldShuffle ? shuffle(action.payload.words) : action.payload.words
       let initialIndex = action.payload.initialIndex ?? 0
-      if (initialIndex >= words.length) {
+      if (!Number.isSafeInteger(initialIndex) || initialIndex < 0 || initialIndex >= words.length) {
         initialIndex = 0
       }
       newState.chapterData.index = initialIndex
