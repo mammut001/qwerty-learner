@@ -33,6 +33,8 @@ const StudyPlanPage = lazy(() => import('./pages/StudyPlan'))
 const TcfHubPage = lazy(() => import('./pages/TcfHub'))
 const PlacementTestPage = lazy(() => import('./pages/PlacementTest'))
 const AdminPlacementPage = lazy(() => import('./pages/AdminPlacement'))
+const ExamRecallsPage = lazy(() => import('./pages/ExamRecalls'))
+const AdminRecallsPage = lazy(() => import('./pages/AdminRecalls'))
 const EchelleQuebecoisePage = lazy(() => import('./pages/EchelleQuebecoise'))
 const LevelsPage = lazy(() => import('./pages/Levels'))
 const LevelDetailPage = lazy(() => import('./pages/LevelDetail'))
@@ -154,6 +156,8 @@ function Root() {
                       <Route path="/study-plan" element={<RequireAccount pageName="学习计划"><StudyPlanPage /></RequireAccount>} />
                       <Route path="/placement-test" element={<RequireAccount pageName="定级测试"><PlacementTestPage /></RequireAccount>} />
                       <Route path="/admin/placement" element={<AdminPlacementPage />} />
+                      <Route path="/recalls" element={<ExamRecallsPage />} />
+                      <Route path="/admin/recalls" element={<AdminRecallsPage />} />
                       <Route path="/tcf" element={<RequireAccount pageName="TCF 总览"><TcfHubPage /></RequireAccount>} />
                       <Route path="/echelle" element={<RequireAccount pageName="能力量表"><EchelleQuebecoisePage /></RequireAccount>} />
                       <Route path="/levels" element={<RequireAccount pageName="等级课程"><LevelsPage /></RequireAccount>} />
