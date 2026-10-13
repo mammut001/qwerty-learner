@@ -93,3 +93,38 @@ test('rite stays a French headword and examples highlight whole words only', asy
   await expect(result).toContainText('英文释义')
   await expect(result.locator('mark')).toHaveText(['rite', 'Rite', 'rite'])
 })
+
+test('an identical English gloss is not saved as a meaning', async ({ page }) => {
+  await page.route('**/api/study-plan/dictionary**', (route) => route.fulfill({ json: { word: 'rite', senses: [], examples: [] } }))
+  await page.route('**://*.wiktionary.org/**', (route) => route.abort())
+  await page.goto('/dictionary?q=rite')
+  await expect(page.getByTestId('dictionary-result')).toContainText('英文释义')
+  await page.getByTestId('dictionary-add').click()
+  await expect(page.getByRole('status')).toContainText('已新建')
+  await page.goto('/word-lists')
+  await expect(page.getByLabel('词条', { exact: true })).toHaveValue('rite')
+})
+
+test('typing fills a legacy repeated headword with an available Chinese meaning', async ({ page }) => {
+  await page.route('**/api/study-plan/dictionary**', (route) =>
+    route.fulfill({ json: { word: 'rite', senses: [{ pos: 'm.', gloss: '仪式；礼仪' }], examples: [] } }),
+  )
+  await page.goto('/word-lists')
+  await page.getByLabel('词表名称').fill('缺失释义')
+  await page.getByLabel('词条', { exact: true }).fill('rite = rite')
+  await page.getByTestId('word-list-practise').click()
+  await page.keyboard.press('Enter')
+  await expect(page.getByText('仪式；礼仪', { exact: true })).toBeVisible()
+})
+
+test('typing exposes missing meanings when all sources fail', async ({ page }) => {
+  await page.route('**/api/study-plan/dictionary**', (route) => route.fulfill({ status: 502, json: {} }))
+  await page.route('**://*.wiktionary.org/**', (route) => route.abort())
+  await page.goto('/word-lists')
+  await page.getByLabel('词表名称').fill('缺失释义')
+  await page.getByLabel('词条', { exact: true }).fill('rite = rite')
+  await page.getByTestId('word-list-practise').click()
+  await page.keyboard.press('Enter')
+  await expect(page.getByText('暂无释义', { exact: true })).toBeVisible()
+  await expect(page.getByRole('link', { name: '查看词典' })).toHaveAttribute('href', '/dictionary?q=rite')
+})
