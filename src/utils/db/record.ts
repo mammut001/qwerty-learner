@@ -103,15 +103,16 @@ export class ChapterRecord implements IChapterRecord {
   }
 
   get wpm() {
-    return Math.round((this.wordCount / this.time) * 60)
+    return this.time > 0 ? Math.round((this.wordCount / this.time) * 60) : 0
   }
 
   get inputAccuracy() {
-    return Math.round((this.correctCount / this.correctCount + this.wrongCount) * 100)
+    const inputs = this.correctCount + this.wrongCount
+    return inputs > 0 ? Math.round((this.correctCount / inputs) * 100) : 0
   }
 
   get wordAccuracy() {
-    return Math.round((this.correctWordIndexes.length / this.wordNumber) * 100)
+    return this.wordNumber > 0 ? Math.round((this.correctWordIndexes.length / this.wordNumber) * 100) : 0
   }
 }
 
