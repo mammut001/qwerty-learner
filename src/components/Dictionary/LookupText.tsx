@@ -23,6 +23,7 @@ export default function LookupText({ text, className }: { text: string; classNam
   const [active, setActive] = useState<string | null>(null)
   const [result, setResult] = useState<DictionaryResult | null>(null)
   const [error, setError] = useState('')
+  const [lookupAttempt, setLookupAttempt] = useState(0)
 
   const closeSelf = useCallback(() => {
     setActive(null)
@@ -59,7 +60,7 @@ export default function LookupText({ text, className }: { text: string; classNam
     return () => {
       cancelled = true
     }
-  }, [active])
+  }, [active, lookupAttempt])
 
   return (
     <>
@@ -105,7 +106,16 @@ export default function LookupText({ text, className }: { text: string; classNam
             </button>
           </div>
           {error ? (
-            <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+            <div role="alert" className="text-sm text-red-600 dark:text-red-400">
+              <p>{error}</p>
+              <button
+                type="button"
+                className="mt-3 rounded-lg border border-current px-3 py-1.5 font-medium"
+                onClick={() => setLookupAttempt((value) => value + 1)}
+              >
+                重试查词
+              </button>
+            </div>
           ) : result ? (
             <DictionaryCard result={result} compact />
           ) : (

@@ -32,3 +32,26 @@ test('clearing a failed query removes its error and returns to dictionary help',
   await expect(page.getByRole('alert')).toHaveCount(0)
   await expect(page.getByText('试试看', { exact: true })).toBeVisible()
 })
+
+test('a reading review word can be retried in place after its dictionary shard fails', async ({ page }) => {
+  let recovered = false
+  await page.route('**/lexicon/fr/fe.json', (route) => (recovered ? route.continue() : route.fulfill({ status: 503, json: {} })))
+  await page.route('**/api/study-plan/dictionary**', (route) => route.fulfill({ status: 502, json: {} }))
+  await page.route('**://*.wiktionary.org/**', (route) => route.abort())
+  await page.goto('/tcf-reading')
+  await page.getByTestId('tcf-start-exam').click()
+  await page.getByTestId('tcf-submit-exam').click()
+  await expect(page.getByTestId('tcf-result')).toBeVisible()
+  await page.getByText('fermeture', { exact: true }).click()
+  const popover = page.getByTestId('dictionary-popover')
+  await expect(popover.getByRole('alert')).toContainText('词典数据加载失败（503）')
+  recovered = true
+  await popover.getByRole('button', { name: '重试查词' }).click()
+  await expect(popover.getByRole('alert')).toHaveCount(0)
+  await expect(popover.getByTestId('dictionary-result')).toContainText('fermeture')
+  await expect(popover.getByTestId('dictionary-result')).toContainText('阴性')
+  await expect(page).toHaveURL(/\/tcf-reading$/)
+  await expect(page.getByTestId('tcf-result')).toBeVisible()
+  await popover.getByRole('button', { name: '关闭查词' }).click()
+  await expect(popover).toHaveCount(0)
+})
