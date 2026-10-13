@@ -93,7 +93,7 @@ test('online Chinese fallback from Wiktionary with caching and error handling, p
   await page.getByRole('button', { name: '提交本组并看解释' }).click()
   await expect(page.getByRole('button', { name: '继续下一组' })).toBeVisible()
 
-  const promptWord = page.locator('section').first().locator('.text-xl').locator('span[role="button"]').first()
+  const promptWord = page.locator('section').first().locator('.text-xl').getByRole('button').first()
   await promptWord.click()
   const popover = page.getByTestId('dictionary-popover')
   await expect(popover).toBeVisible()
