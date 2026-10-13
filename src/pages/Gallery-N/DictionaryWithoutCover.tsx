@@ -32,7 +32,8 @@ export default function DictionaryComponent({ dictionary, autoOpen = false, plac
   const chapterCount = useMemo(() => calcChapterCount(dictionary.length), [dictionary.length])
   const isSelected = currentDictID === dictionary.id
   const progress = useMemo(
-    () => (dictStats ? Math.ceil((dictStats.exercisedChapterCount / chapterCount) * 100) : 0),
+    () =>
+      dictStats && chapterCount > 0 ? Math.min(100, Math.max(0, Math.ceil((dictStats.exercisedChapterCount / chapterCount) * 100))) : 0,
     [dictStats, chapterCount],
   )
 
