@@ -42,7 +42,7 @@ export default function CustomDictPage() {
     ? name.trim() !== selected.name ||
       description.trim() !== selected.description ||
       wordListToText(parsed.words) !== wordListToText(selected.words)
-    : Boolean(name.trim() || text.trim())
+    : Boolean(name.trim() || description.trim() || text.trim())
 
   const open = (list: CustomDict | null) => {
     setSelectedId(list?.id ?? NEW_LIST)
@@ -51,6 +51,12 @@ export default function CustomDictPage() {
     setText(list ? wordListToText(list.words) : '')
     setMessage(null)
     setConfirmingDelete(false)
+  }
+
+  const requestOpen = (list: CustomDict | null) => {
+    if (list && list.id === selectedId) return
+    if (dirty && !window.confirm('当前词表有未保存的修改。放弃修改并切换？')) return
+    open(list)
   }
 
   const save = (): CustomDict | null => {
@@ -151,7 +157,7 @@ export default function CustomDictPage() {
             <button
               type="button"
               data-testid="word-list-new"
-              onClick={() => open(null)}
+              onClick={() => requestOpen(null)}
               className={`flex w-full items-center gap-2 rounded-xl border border-dashed px-4 py-3 text-sm font-medium transition ${
                 selectedId === NEW_LIST
                   ? 'border-indigo-400 bg-indigo-50 text-indigo-600 dark:bg-indigo-950/40'
@@ -166,7 +172,7 @@ export default function CustomDictPage() {
                 <li key={item.id}>
                   <button
                     type="button"
-                    onClick={() => open(item)}
+                    onClick={() => requestOpen(item)}
                     className={`w-full rounded-xl px-4 py-3 text-left transition ${
                       item.id === selectedId ? 'bg-indigo-500 text-white' : 'hover:bg-gray-50 dark:hover:bg-gray-700'
                     }`}
