@@ -1,5 +1,4 @@
 import { TypingContext, TypingStateActionType } from '../../store'
-import type { TypingState } from '../../store/type'
 import PrevAndNextWord from '../PrevAndNextWord'
 import Progress from '../Progress'
 import Phonetic from './components/Phonetic'
@@ -9,7 +8,7 @@ import { usePrefetchPronunciationSound } from '@/hooks/usePronunciation'
 import { isReviewModeAtom, isShowPrevAndNextWordAtom, loopWordConfigAtom, phoneticConfigAtom, reviewModeInfoAtom } from '@/store'
 import type { Word } from '@/typings'
 import { useAtomValue, useSetAtom } from 'jotai'
-import { useCallback, useContext, useMemo, useState } from 'react'
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 export default function WordPanel() {
@@ -41,15 +40,13 @@ export default function WordPanel() {
     setWordComponentKey((old) => old + 1)
   }, [])
 
-  const updateReviewRecord = useCallback(
-    (state: TypingState) => {
-      setReviewModeInfo((old) => ({
-        ...old,
-        reviewRecord: old.reviewRecord ? { ...old.reviewRecord, index: state.chapterData.index } : undefined,
-      }))
-    },
-    [setReviewModeInfo],
-  )
+  useEffect(() => {
+    if (!isReviewMode) return
+    setReviewModeInfo((old) => {
+      if (!old.reviewRecord || old.reviewRecord.index === state.chapterData.index) return old
+      return { ...old, reviewRecord: { ...old.reviewRecord, index: state.chapterData.index } }
+    })
+  }, [isReviewMode, state.chapterData.index, setReviewModeInfo])
 
   const onFinish = useCallback(() => {
     if (state.chapterData.index < state.chapterData.words.length - 1 || currentWordExerciseCount < loopWordTimes - 1) {
@@ -60,16 +57,7 @@ export default function WordPanel() {
         reloadCurrentWordComponent()
       } else {
         setCurrentWordExerciseCount(0)
-        if (isReviewMode) {
-          dispatch({
-            type: TypingStateActionType.NEXT_WORD,
-            payload: {
-              updateReviewRecord,
-            },
-          })
-        } else {
-          dispatch({ type: TypingStateActionType.NEXT_WORD })
-        }
+        dispatch({ type: TypingStateActionType.NEXT_WORD })
       }
     } else {
       // 用户完成当前章节
@@ -86,7 +74,6 @@ export default function WordPanel() {
     dispatch,
     reloadCurrentWordComponent,
     isReviewMode,
-    updateReviewRecord,
     setReviewModeInfo,
   ])
 

@@ -66,3 +66,80 @@ for (const reviewRecord of [null, { words: [] }, { words: {} }]) {
     expect(await page.evaluate(() => JSON.parse(localStorage.getItem('reviewModeInfo') ?? '{}').isReviewMode)).toBe(false)
   })
 }
+
+test('review progress survives reload without cross-component render warnings', async ({ page }) => {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  page.on('console', (message) => {
+    if (message.type() === 'error' && message.text().includes('Cannot update a component')) errors.push(message.text())
+  })
+  await page.addInitScript(() => {
+    if (localStorage.getItem('reviewModeInfo')) return
+    localStorage.setItem(
+      'reviewModeInfo',
+      JSON.stringify({
+        isReviewMode: true,
+        reviewRecord: {
+          words: [
+            { name: 'bonjour', trans: ['你好'] },
+            { name: 'salut', trans: ['你好'] },
+          ],
+          index: 0,
+          isFinished: false,
+        },
+      }),
+    )
+  })
+  await page.goto('/typing')
+  await expect(page.getByRole('link', { name: /基础核心词 01 错题复习/ })).toBeVisible()
+  await expect(page.locator('textarea')).toBeAttached()
+  await page.keyboard.press('Enter')
+  await expect(page.locator('textarea')).toBeFocused()
+  await page.keyboard.insertText('bonjour')
+  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('reviewModeInfo') ?? '{}').reviewRecord.index)).toBe(1)
+  await page.reload()
+  await expect(page.getByRole('link', { name: /基础核心词 01 错题复习/ })).toBeVisible()
+  await expect(page.locator('textarea')).toBeAttached()
+  await page.keyboard.press('Enter')
+  await expect(page.locator('textarea')).toBeFocused()
+  await page.keyboard.insertText('salut')
+  await expect(page.getByRole('button', { name: '练习其他章节', exact: true })).toBeVisible()
+  await expect
+    .poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('reviewModeInfo') ?? '{}').reviewRecord.isFinished))
+    .toBe(true)
+  expect(errors).toEqual([])
+})
+
+test('manually moving to the next review word saves the resume position', async ({ page }) => {
+  await page.addInitScript(() => {
+    if (localStorage.getItem('reviewModeInfo')) return
+    localStorage.setItem(
+      'reviewModeInfo',
+      JSON.stringify({
+        isReviewMode: true,
+        reviewRecord: {
+          words: [
+            { name: 'bonjour', trans: ['你好'] },
+            { name: 'salut', trans: ['你好'] },
+          ],
+          index: 0,
+          isFinished: false,
+        },
+      }),
+    )
+  })
+  await page.goto('/typing')
+  await expect(page.getByRole('link', { name: /基础核心词 01 错题复习/ })).toBeVisible()
+  await expect(page.locator('textarea')).toBeAttached()
+  await page.keyboard.press('Enter')
+  await expect(page.locator('textarea')).toBeFocused()
+  await page.getByText('salut', { exact: true }).click()
+  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('reviewModeInfo') ?? '{}').reviewRecord.index)).toBe(1)
+  await page.reload()
+  await expect(page.getByRole('link', { name: /基础核心词 01 错题复习/ })).toBeVisible()
+  await expect(page.locator('textarea')).toBeAttached()
+  await page.keyboard.press('Enter')
+  await expect(page.locator('textarea')).toBeFocused()
+  await page.keyboard.insertText('salut')
+  await expect(page.getByRole('button', { name: '练习其他章节', exact: true })).toBeVisible()
+})
