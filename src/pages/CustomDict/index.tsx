@@ -1,11 +1,13 @@
 import Layout from '@/components/Layout'
 import { CHAPTER_LENGTH } from '@/constants'
+import { lookupDictionary } from '@/services/dictionary'
 import { currentChapterAtom, currentDictIdAtom, reviewModeInfoAtom } from '@/store'
 import {
   CUSTOM_DICT_LIMITS,
   type CustomDict,
   customDictsAtom,
   importedFileToText,
+  normalizeCustomWordName,
   parseWordListText,
   wordListToText,
 } from '@/store/customDict'
@@ -16,6 +18,10 @@ import { useNavigate } from 'react-router-dom'
 import IconPlus from '~icons/tabler/plus'
 import IconTrash from '~icons/tabler/trash'
 
+const missingMeaning = (word: { name: string; trans: string[] }) => {
+  const name = word.name.normalize('NFC').trim().toLocaleLowerCase('fr')
+  return word.trans.every((meaning) => !meaning.trim() || meaning.normalize('NFC').trim().toLocaleLowerCase('fr') === name)
+}
 const NEW_LIST = 'new'
 const EXAMPLE = ['le logement = 住房', 'déménager = 搬家', 'un bail = 租约', 'avoir besoin de = 需要', 'en revanche = 相反，然而'].join(
   '\n',
@@ -29,10 +35,17 @@ export default function CustomDictPage() {
   const navigate = useNavigate()
   const fileInput = useRef<HTMLInputElement>(null)
   const importVersion = useRef(0)
+  const meaningVersion = useRef(0)
+  const [isCompleting, setIsCompleting] = useState(false)
+  const cancelCompletion = () => {
+    meaningVersion.current += 1
+    setIsCompleting(false)
+  }
   const [isImporting, setIsImporting] = useState(false)
   useEffect(
     () => () => {
       importVersion.current += 1
+      meaningVersion.current += 1
     },
     [],
   )
@@ -56,6 +69,7 @@ export default function CustomDictPage() {
       : Boolean(name.trim() || description.trim() || text.trim()))
 
   const open = (list: CustomDict | null) => {
+    cancelCompletion()
     importVersion.current += 1
     setIsImporting(false)
     setSelectedId(list?.id ?? NEW_LIST)
@@ -88,6 +102,7 @@ export default function CustomDictPage() {
   }
 
   const save = (): CustomDict | null => {
+    cancelCompletion()
     const trimmedName = name.trim()
     if (!trimmedName) {
       setMessage({ tone: 'error', text: '先给词表起个名字。' })
@@ -147,6 +162,7 @@ export default function CustomDictPage() {
 
   const importFile = async (file: File | undefined) => {
     if (!file) return
+    cancelCompletion()
     const version = ++importVersion.current
     setIsImporting(true)
     try {
@@ -165,6 +181,61 @@ export default function CustomDictPage() {
         if (fileInput.current) fileInput.current.value = ''
       }
     }
+  }
+
+  const completeMeanings = async () => {
+    if (isCompleting || isImporting || hasIncompleteWords()) return
+    const version = ++meaningVersion.current
+    const candidates = parsed.words.filter(missingMeaning)
+    if (!candidates.length) {
+      setMessage({ tone: 'ok', text: '没有需要补全的词条，已有释义和笔记会保留。' })
+      return
+    }
+    setIsCompleting(true)
+    setMessage(null)
+    const meanings = new Map<string, string>()
+    let failed = 0
+    let index = 0
+    const keyOf = normalizeCustomWordName
+    const worker = async () => {
+      while (index < candidates.length && version === meaningVersion.current) {
+        const word = candidates[index++]
+        try {
+          const result = await lookupDictionary(word.name)
+          if (version !== meaningVersion.current) return
+          const target = result.words[0] ?? result.lemmas[0]
+          const chinese = target
+            ? [...target.site, ...target.entries.flatMap((entry) => entry.zh)].filter((meaning) => /[一-鿿]/.test(meaning))
+            : []
+          const meaning = Array.from(new Set(chinese)).slice(0, 3).join('；').slice(0, CUSTOM_DICT_LIMITS.trans)
+          if (meaning) meanings.set(keyOf(word.name), meaning)
+        } catch {
+          failed += 1
+        }
+      }
+    }
+    await Promise.all(Array.from({ length: Math.min(3, candidates.length) }, worker))
+    if (version !== meaningVersion.current) return
+    if (meanings.size) {
+      // Only replace missing lines; keep comments, existing notes and untouched formatting intact.
+      setText(
+        text
+          .split('\n')
+          .map((line) => {
+            const word = parseWordListText(line).words[0]
+            const meaning = word && missingMeaning(word) ? meanings.get(keyOf(word.name)) : ''
+            return meaning ? `${word.name} = ${meaning}` : line
+          })
+          .join('\n'),
+      )
+    }
+    setIsCompleting(false)
+    setMessage({
+      tone: failed ? 'error' : 'ok',
+      text: `已补全 ${meanings.size} 个词条，${candidates.length - meanings.size} 个暂未补全。${
+        meanings.size ? '检查编辑框后点保存。' : ''
+      }${failed ? `有 ${failed} 个词条的数据加载失败，可重试。` : ''}`,
+    })
   }
 
   const exportJson = () => {
@@ -270,12 +341,20 @@ export default function CustomDictPage() {
                 <label htmlFor="word-list-editor" className="text-sm font-medium text-gray-700 dark:text-gray-200">
                   词条 · 每行一个，格式：mot = 释义
                 </label>
-                <span className="flex gap-3 text-xs">
+                <span className="flex max-w-full flex-wrap justify-end gap-x-3 gap-y-2 text-xs">
                   {!text.trim() && (
                     <button type="button" onClick={() => setText(EXAMPLE)} className="text-indigo-500 hover:underline">
                       填入示例
                     </button>
                   )}
+                  <button
+                    type="button"
+                    disabled={isCompleting || isImporting || !parsed.words.some(missingMeaning)}
+                    onClick={() => void completeMeanings()}
+                    className="text-indigo-500 hover:underline disabled:opacity-50"
+                  >
+                    {isCompleting ? '正在补全中文…' : '补全缺失中文'}
+                  </button>
                   <button
                     type="button"
                     disabled={isImporting}
@@ -290,6 +369,7 @@ export default function CustomDictPage() {
                 id="word-list-editor"
                 value={text}
                 onChange={(event) => {
+                  cancelCompletion()
                   setText(event.target.value)
                   setMessage(null)
                 }}
