@@ -26,6 +26,7 @@ import {
 } from '@/services/studyPlanSync'
 import { isOpenDarkModeAtom } from '@/store'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
+import dayjs from 'dayjs'
 import { useAtom } from 'jotai'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
@@ -202,7 +203,7 @@ const Analysis = () => {
   const recentDays = Array.from({ length: 7 }, (_, index) => {
     const date = new Date()
     date.setDate(date.getDate() - index - 1)
-    return date.toISOString().slice(0, 10)
+    return dayjs(date).format('YYYY-MM-DD')
   })
 
   const makeupDay = async (day: string) => {
