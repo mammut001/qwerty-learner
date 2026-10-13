@@ -91,9 +91,33 @@ export default function DictionaryPage() {
     }
   }, [input, query])
 
+  const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1)
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (suggestions.length === 0) return
+
+    if (event.key === 'ArrowDown') {
+      event.preventDefault()
+      setSelectedSuggestionIndex((prev) => (prev + 1 < suggestions.length ? prev + 1 : 0))
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault()
+      setSelectedSuggestionIndex((prev) => (prev > 0 ? prev - 1 : suggestions.length - 1))
+    } else if (event.key === 'Escape') {
+      event.preventDefault()
+      setSuggestions([])
+      setSelectedSuggestionIndex(-1)
+    } else if (event.key === 'Enter') {
+      if (selectedSuggestionIndex >= 0 && selectedSuggestionIndex < suggestions.length) {
+        event.preventDefault()
+        search(suggestions[selectedSuggestionIndex])
+      }
+    }
+  }
+
   const search = (text: string) => {
     const next = cleanDictionaryQuery(text)
     setSuggestions([])
+    setSelectedSuggestionIndex(-1)
     setSearchParams(next ? { q: next } : {})
   }
 
@@ -112,14 +136,36 @@ export default function DictionaryPage() {
             className="relative mt-5"
             onSubmit={(event) => {
               event.preventDefault()
-              search(input)
+              if (selectedSuggestionIndex >= 0 && selectedSuggestionIndex < suggestions.length) {
+                search(suggestions[selectedSuggestionIndex])
+              } else {
+                search(input)
+              }
             }}
           >
             <IconSearch className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
             <input
               type="search"
+              aria-autocomplete="list"
+              aria-expanded={suggestions.length > 0}
+              aria-controls={suggestions.length > 0 ? 'dictionary-suggestions-list' : undefined}
+              aria-activedescendant={
+                selectedSuggestionIndex >= 0 && selectedSuggestionIndex < suggestions.length
+                  ? `suggestion-${selectedSuggestionIndex}`
+                  : undefined
+              }
               value={input}
-              onChange={(event) => setInput(event.target.value)}
+              onChange={(event) => {
+                setInput(event.target.value)
+                setSelectedSuggestionIndex(-1)
+              }}
+              onKeyDown={handleKeyDown}
+              onBlur={() => {
+                setTimeout(() => {
+                  setSuggestions([])
+                  setSelectedSuggestionIndex(-1)
+                }, 200)
+              }}
               placeholder="输入法语单词或变位形式，例如 mangeais"
               aria-label="查词"
               autoFocus
@@ -137,30 +183,39 @@ export default function DictionaryPage() {
             </button>
             {suggestions.length > 0 && (
               <ul
+                id="dictionary-suggestions-list"
+                role="listbox"
+                aria-label="搜索建议"
                 data-testid="dictionary-suggestions"
                 className="absolute inset-x-0 top-full z-10 mt-2 overflow-hidden rounded-2xl border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-800"
               >
-                {suggestions.map((item) => (
-                  <li key={item}>
-                    <button
-                      type="button"
-                      onClick={() => search(item)}
-                      lang="fr"
-                      className="block w-full px-5 py-2 text-left text-gray-800 hover:bg-indigo-50 dark:text-gray-100 dark:hover:bg-gray-700"
-                    >
-                      {item}
-                    </button>
-                  </li>
-                ))}
+                {suggestions.map((item, index) => {
+                  const isSelected = selectedSuggestionIndex === index
+                  return (
+                    <li key={item} id={`suggestion-${index}`} role="option" aria-selected={isSelected}>
+                      <button
+                        type="button"
+                        onClick={() => search(item)}
+                        onMouseEnter={() => setSelectedSuggestionIndex(index)}
+                        lang="fr"
+                        className={`block w-full px-5 py-2 text-left transition-colors ${
+                          isSelected
+                            ? 'bg-indigo-50 font-medium text-indigo-700 dark:bg-gray-700 dark:text-indigo-300'
+                            : 'text-gray-800 hover:bg-indigo-50 dark:text-gray-100 dark:hover:bg-gray-700'
+                        }`}
+                      >
+                        {item}
+                      </button>
+                    </li>
+                  )
+                })}
               </ul>
             )}
           </form>
 
           <section className="my-card mt-6 rounded-2xl bg-white p-5 dark:bg-gray-800 sm:p-7">
             {error ? (
-              <div className="rounded-xl bg-red-50/70 p-4 text-sm text-red-600 dark:bg-red-950/30 dark:text-red-400">
-                {error}
-              </div>
+              <div className="rounded-xl bg-red-50/70 p-4 text-sm text-red-600 dark:bg-red-950/30 dark:text-red-400">{error}</div>
             ) : result && query ? (
               <DictionaryCard result={result} />
             ) : query ? (
@@ -190,13 +245,7 @@ export default function DictionaryPage() {
             <div className="mt-4 flex flex-wrap items-center gap-2 px-1 text-xs text-gray-500 dark:text-gray-400 sm:text-sm">
               <span>你要找的可能是：</span>
               {accentedVariants.map((item) => (
-                <button
-                  key={item}
-                  type="button"
-                  onClick={() => search(item)}
-                  lang="fr"
-                  className={chipClass}
-                >
+                <button key={item} type="button" onClick={() => search(item)} lang="fr" className={chipClass}>
                   {item}
                 </button>
               ))}
