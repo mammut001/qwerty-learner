@@ -52,6 +52,7 @@
 - 服务端设置 `STUDY_ADMIN_TOKEN`（≥16 字符）；管理页输入令牌后可：
   - 创建班级、轮换分班邀请码（16 位，仅创建/轮换时明文展示一次）
   - 按班级下拉筛选定级汇总，或查看全库
+- `STUDY_RECALL_MODERATOR_TOKEN`: token that can only list/approve/reject exam recalls.
 - 学员在学习计划页输入邀请码加入班级（`POST /api/study-plan/cohort/join`），绑定存于 `learner_cohorts`（一学员一条，可换班）。
 - 管理 API 摘要：
   - `GET/POST /api/study-plan/admin/cohorts` — 列表 / 建班（返回 `joinCode`）

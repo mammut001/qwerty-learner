@@ -3,6 +3,7 @@ import { errorBookCsv, learningRecordsCsv, weeklyReportsCsv } from './study-csv.
 import {
   adminApiEnabled,
   authorizeAdminRequest,
+  authorizeRecallModeration,
   loadPlacementCohortReportFromDb,
   placementCohortCsv,
 } from './study-admin.mjs'
@@ -265,6 +266,7 @@ export function createStudyServer({
   staticDir = process.env.STUDY_STATIC_DIR || '',
   accessPassword = process.env.STUDY_ACCESS_PASSWORD || '',
   adminToken = process.env.STUDY_ADMIN_TOKEN || '',
+  recallModeratorToken = process.env.STUDY_RECALL_MODERATOR_TOKEN || '',
   aiProvider = createAiProvider(process.env),
   aiLimits = aiRateLimits(process.env),
   deepgramApiKey = process.env.DEEPGRAM_API_KEY || '',
@@ -710,7 +712,10 @@ export function createStudyServer({
 
     if (adminRecalls) {
       if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
-      const auth = authorizeAdminRequest(req.headers.authorization, adminToken)
+      const auth = authorizeRecallModeration(req.headers.authorization, {
+        adminToken,
+        moderatorToken: recallModeratorToken,
+      })
       if (!auth.ok) {
         audit(null, 'admin_recalls', auth.status === 401 ? 'denied' : 'disabled')
         return sendError(auth.status, auth.code, auth.message)
@@ -719,13 +724,16 @@ export function createStudyServer({
       const limitParam = parseInt(requestUrl.searchParams.get('limit') || '50', 10)
       const offsetParam = parseInt(requestUrl.searchParams.get('offset') || '0', 10)
       const { items, total } = listRecallsForAdmin(db, { status: statusParam, limit: limitParam, offset: offsetParam })
-      audit(null, 'admin_recalls', 'success', { count: items.length, status: statusParam })
+      audit(null, 'admin_recalls', 'success', { count: items.length, status: statusParam, role: auth.role })
       return send(200, { ok: true, recalls: items, items, total })
     }
 
     if (adminRecallsReview) {
       if (req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
-      const auth = authorizeAdminRequest(req.headers.authorization, adminToken)
+      const auth = authorizeRecallModeration(req.headers.authorization, {
+        adminToken,
+        moderatorToken: recallModeratorToken,
+      })
       if (!auth.ok) {
         audit(null, 'admin_recalls_review', auth.status === 401 ? 'denied' : 'disabled')
         return sendError(auth.status, auth.code, auth.message)
@@ -750,7 +758,7 @@ export function createStudyServer({
         return sendError(400, 'RECALL_REVIEW_INVALID', 'Invalid review action')
       }
       const result = reviewRecalls(db, { ids: input.ids, action: input.action })
-      audit(null, 'admin_recalls_review', 'success', { count: result.count, action: input.action })
+      audit(null, 'admin_recalls_review', 'success', { count: result.count, action: input.action, role: auth.role })
       return send(200, { ok: true, reviewed: result.count, count: result.count })
     }
 
