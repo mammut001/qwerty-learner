@@ -197,12 +197,18 @@ export function importedFileToText(filename: string, content: string): string {
     const rows = Array.isArray(parsed) ? parsed : (parsed as { words?: unknown })?.words
     if (!Array.isArray(rows)) throw new Error('JSON 需要是 [{ "name": "mot", "trans": ["释义"] }] 这样的数组。')
     return wordListToText(
-      rows
-        .filter((row): row is { name: string; trans?: unknown } => Boolean(row) && typeof (row as { name?: unknown }).name === 'string')
-        .map((row) => ({
-          name: row.name,
-          trans: Array.isArray(row.trans) ? row.trans.filter((item): item is string => typeof item === 'string') : [],
-        })),
+      rows.map((row: unknown, index: number) => {
+        if (!row || typeof row !== 'object' || !('name' in row) || typeof row.name !== 'string' || !row.name.trim()) {
+          throw new Error(`JSON 第 ${index + 1} 个词条缺少有效的 name。`)
+        }
+        const trans = 'trans' in row ? row.trans : undefined
+        if (trans === undefined || trans === null) return { name: row.name, trans: [] }
+        if (typeof trans === 'string') return { name: row.name, trans: [trans] }
+        if (!Array.isArray(trans) || trans.some((item) => typeof item !== 'string')) {
+          throw new Error(`JSON 第 ${index + 1} 个词条的 trans 需要是字符串或字符串数组。`)
+        }
+        return { name: row.name, trans }
+      }),
     )
   }
   if (lower.endsWith('.csv')) {
