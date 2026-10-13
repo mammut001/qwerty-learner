@@ -95,6 +95,8 @@ const Analysis = () => {
   const [reviewQueue, setReviewQueue] = useState<ReviewQueueItem[]>([])
   const [reviewLoading, setReviewLoading] = useState(true)
   const [reviewError, setReviewError] = useState('')
+  const [reviewActionError, setReviewActionError] = useState('')
+  const submittingReviews = useRef(new Set<string>())
   const reviewRequest = useRef(0)
   const [trendScale, setTrendScale] = useState<TrendScale>('weekly')
   const [syncStatus, setSyncStatus] = useState<StudySyncStatus>(() => getStudySyncSnapshot())
@@ -245,17 +247,29 @@ const Analysis = () => {
   const printWeeklyReports = () => window.print()
 
   const reviewResult = async (item: ReviewQueueItem, quality: number) => {
-    submitReviewResult(item, quality)
-    if (requestedStudyTask === 'smart-review' && requestedStudyDate && /^\d{4}-\d{2}-\d{2}$/.test(requestedStudyDate)) {
+    if (submittingReviews.current.has(item.itemId)) return
+    submittingReviews.current.add(item.itemId)
+    setReviewActionError('')
+    try {
       try {
-        addStudyMinutes(requestedStudyDate, requestedStudyTask, 2)
+        submitReviewResult(item, quality)
       } catch {
-        // The review result itself remains durable even if smart-task minute tracking cannot be queued.
+        setReviewActionError('复习结果未保存，请检查浏览器存储后重试。')
+        return
       }
+      if (requestedStudyTask === 'smart-review' && requestedStudyDate && /^\d{4}-\d{2}-\d{2}$/.test(requestedStudyDate)) {
+        try {
+          addStudyMinutes(requestedStudyDate, requestedStudyTask, 2)
+        } catch {
+          // The review result remains durable if smart-task minute tracking cannot be queued.
+        }
+      }
+      setReviewQueue((old) => old.filter((candidate) => candidate.itemId !== item.itemId))
+      await flushStudyProgress()
+      if (getStudySyncSnapshot().pending === 0) void refreshAll()
+    } finally {
+      submittingReviews.current.delete(item.itemId)
     }
-    setReviewQueue((old) => old.filter((candidate) => candidate.itemId !== item.itemId))
-    await flushStudyProgress()
-    if (getStudySyncSnapshot().pending === 0) void refreshAll()
   }
 
   const syncTone =
@@ -519,6 +533,11 @@ const Analysis = () => {
                 </button>
               </div>
 
+              {reviewActionError && (
+                <div role="alert" className="mt-5 rounded-xl bg-red-50 p-4 text-sm text-red-600 dark:bg-red-950/30 dark:text-red-400">
+                  {reviewActionError}
+                </div>
+              )}
               {reviewError ? (
                 <div role="alert" className="mt-5 rounded-xl bg-red-50 p-4 text-sm text-red-600 dark:bg-red-950/30 dark:text-red-400">
                   {reviewError}
