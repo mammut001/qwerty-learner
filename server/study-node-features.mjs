@@ -8,7 +8,7 @@ const parseJson = (value, fallback = null) => {
   try { return JSON.parse(value) } catch { return fallback }
 }
 
-export const STUDY_SCHEMA_VERSION = 12
+export const STUDY_SCHEMA_VERSION = 13
 
 export function ensureNodeFeatureSchema(db) {
   db.exec(`
@@ -146,6 +146,25 @@ export function ensureNodeFeatureSchema(db) {
     CREATE INDEX IF NOT EXISTS item_reports_item_variant ON item_reports(item_id,variant);
     CREATE INDEX IF NOT EXISTS item_reports_learner ON item_reports(learner);
     CREATE INDEX IF NOT EXISTS item_reports_account ON item_reports(account_id);
+    CREATE TABLE IF NOT EXISTS exam_recalls (
+      id TEXT PRIMARY KEY,
+      learner TEXT,
+      account_id TEXT,
+      section TEXT NOT NULL,
+      task INTEGER NOT NULL,
+      exam_month TEXT NOT NULL,
+      city TEXT NOT NULL DEFAULT '',
+      topic TEXT NOT NULL,
+      note TEXT NOT NULL DEFAULT '',
+      status TEXT NOT NULL DEFAULT 'pending',
+      created_at INTEGER NOT NULL,
+      reviewed_at INTEGER,
+      dedupe_key TEXT
+    );
+    CREATE INDEX IF NOT EXISTS exam_recalls_status_month_created ON exam_recalls(status, exam_month DESC, created_at DESC);
+    CREATE INDEX IF NOT EXISTS exam_recalls_learner ON exam_recalls(learner);
+    CREATE INDEX IF NOT EXISTS exam_recalls_account ON exam_recalls(account_id);
+    CREATE INDEX IF NOT EXISTS exam_recalls_dedupe ON exam_recalls(learner, dedupe_key);
   `)
   const existingVersion = Number(
     db.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").get()?.value ?? 0,
@@ -669,10 +688,12 @@ export function deleteNodeLearnerData(db, learner) {
     'tcf_eo_attempts',
     'audit_log',
     'item_reports',
+    'exam_recalls',
   ]
   for (const table of tables) db.prepare(`DELETE FROM ${table} WHERE learner=?`).run(learner)
   if (account?.id) {
     db.prepare('DELETE FROM item_reports WHERE account_id=?').run(account.id)
+    db.prepare('DELETE FROM exam_recalls WHERE account_id=?').run(account.id)
   }
   db.prepare('DELETE FROM rate_limits WHERE scope=?').run('learner:' + learner)
   db.prepare('DELETE FROM learners WHERE id=?').run(learner)
