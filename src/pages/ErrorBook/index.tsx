@@ -1,4 +1,5 @@
 import Layout from '@/components/Layout'
+import { grammarTopics } from '@/resources/grammarTopics'
 import { type ErrorBookItem, type ReviewKind, loadErrorBook } from '@/services/studyPlanSync'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -63,7 +64,8 @@ export function ErrorBook() {
       return
     }
     if (item.kind === 'grammar') {
-      navigate('/grammar-session')
+      const topic = grammarTopics.find((candidate) => candidate.topic === item.context.topic || candidate.id === item.context.topic)
+      navigate(topic ? `/grammar-session?topic=${encodeURIComponent(topic.id)}` : '/grammar-session')
       return
     }
     const verb = typeof item.context.verb === 'string' ? item.context.verb : item.sourceId.split('|')[0]

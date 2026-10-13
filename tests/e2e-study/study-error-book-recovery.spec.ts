@@ -82,3 +82,26 @@ test('restoring connectivity reloads a failed error book automatically', async (
   await expect(page.getByTestId('error-book-item')).toContainText('联网后恢复')
   await expect(page.getByRole('alert')).not.toBeAttached()
 })
+
+test('grammar retry opens the topic recorded with the mistake', async ({ page }) => {
+  await page.route('**/error-book?**', (route) =>
+    route.fulfill({
+      json: { items: [{ ...item('重练虚拟式', 'grammar'), context: { topic: 'subjonctif vs indicatif' } }] },
+    }),
+  )
+  await page.goto('/error-book')
+  await page.getByRole('button', { name: '一键重练' }).click()
+  await expect(page).toHaveURL(/grammar-session\?topic=subjonctif-indicatif/)
+  await expect(page.getByRole('heading', { name: 'Subjonctif vs indicatif', exact: true })).toBeVisible()
+  await expect(page.getByTestId('grammar-topic-subjonctif-indicatif')).toHaveAttribute('aria-checked', 'true')
+})
+
+test('an unrelated unfinished grammar draft does not replace the requested retry topic', async ({ page }) => {
+  await page.goto('/grammar-session?topic=passe-compose-imparfait')
+  await page.getByRole('button', { name: '开始 30 分钟' }).click()
+  await expect(page.getByText(/第 1 \/ 3 组/)).toBeVisible()
+  await page.getByRole('button', { name: /^A\./ }).first().click()
+  await page.goto('/grammar-session?topic=subjonctif-indicatif')
+  await expect(page.getByRole('heading', { name: 'Subjonctif vs indicatif', exact: true })).toBeVisible()
+  await expect(page.getByRole('button', { name: '开始 30 分钟' })).toBeVisible()
+})
