@@ -11,7 +11,7 @@ import {
 } from '@/store/customDict'
 import { saveAs } from 'file-saver'
 import { useAtom, useSetAtom } from 'jotai'
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import IconPlus from '~icons/tabler/plus'
 import IconTrash from '~icons/tabler/trash'
@@ -28,6 +28,14 @@ export default function CustomDictPage() {
   const setReviewModeInfo = useSetAtom(reviewModeInfoAtom)
   const navigate = useNavigate()
   const fileInput = useRef<HTMLInputElement>(null)
+  const importVersion = useRef(0)
+  const [isImporting, setIsImporting] = useState(false)
+  useEffect(
+    () => () => {
+      importVersion.current += 1
+    },
+    [],
+  )
 
   const [selectedId, setSelectedId] = useState<string>(() => lists[0]?.id ?? NEW_LIST)
   const selected = lists.find((item) => item.id === selectedId)
@@ -45,6 +53,8 @@ export default function CustomDictPage() {
     : Boolean(name.trim() || description.trim() || text.trim())
 
   const open = (list: CustomDict | null) => {
+    importVersion.current += 1
+    setIsImporting(false)
     setSelectedId(list?.id ?? NEW_LIST)
     setName(list?.name ?? '')
     setDescription(list?.description ?? '')
@@ -118,15 +128,23 @@ export default function CustomDictPage() {
 
   const importFile = async (file: File | undefined) => {
     if (!file) return
+    const version = ++importVersion.current
+    setIsImporting(true)
     try {
-      const imported = importedFileToText(file.name, await file.text())
+      const content = await file.text()
+      if (version !== importVersion.current) return
+      const imported = importedFileToText(file.name, content)
       setText((old) => (old.trim() ? `${old.trim()}\n${imported}` : imported))
-      if (!name.trim()) setName(file.name.replace(/\.[^.]+$/, '').slice(0, CUSTOM_DICT_LIMITS.name))
+      setName((current) => (current.trim() ? current : file.name.replace(/\.[^.]+$/, '').slice(0, CUSTOM_DICT_LIMITS.name)))
       setMessage({ tone: 'ok', text: `已读入 ${file.name}，检查无误后点保存。` })
     } catch (error) {
+      if (version !== importVersion.current) return
       setMessage({ tone: 'error', text: error instanceof Error ? error.message : '文件读取失败。' })
     } finally {
-      if (fileInput.current) fileInput.current.value = ''
+      if (version === importVersion.current) {
+        setIsImporting(false)
+        if (fileInput.current) fileInput.current.value = ''
+      }
     }
   }
 
@@ -218,21 +236,29 @@ export default function CustomDictPage() {
               </label>
             </div>
 
-            <label className="mt-5 block">
+            <div className="mt-5 block">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-200">词条 · 每行一个，格式：mot = 释义</span>
+                <label htmlFor="word-list-editor" className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  词条 · 每行一个，格式：mot = 释义
+                </label>
                 <span className="flex gap-3 text-xs">
                   {!text.trim() && (
                     <button type="button" onClick={() => setText(EXAMPLE)} className="text-indigo-500 hover:underline">
                       填入示例
                     </button>
                   )}
-                  <button type="button" onClick={() => fileInput.current?.click()} className="text-indigo-500 hover:underline">
-                    从文件导入（.txt / .csv / .json）
+                  <button
+                    type="button"
+                    disabled={isImporting}
+                    onClick={() => fileInput.current?.click()}
+                    className="text-indigo-500 hover:underline disabled:opacity-50"
+                  >
+                    {isImporting ? '正在读取文件…' : '从文件导入（.txt / .csv / .json）'}
                   </button>
                 </span>
               </div>
               <textarea
+                id="word-list-editor"
                 value={text}
                 onChange={(event) => setText(event.target.value)}
                 rows={14}
@@ -241,10 +267,11 @@ export default function CustomDictPage() {
                 placeholder={EXAMPLE}
                 className={`${inputClass} resize-y font-mono leading-6`}
               />
-            </label>
+            </div>
             <input
               ref={fileInput}
               type="file"
+              disabled={isImporting}
               accept=".txt,.csv,.json,text/plain,text/csv,application/json"
               className="hidden"
               data-testid="word-list-file"
