@@ -280,3 +280,38 @@ test('explicit retry also refreshes cached empty Wiktionary results', async ({ p
   await expect(page.getByText('仪式；礼仪', { exact: true })).toBeVisible()
   expect(zhRequests).toBe(2)
 })
+
+test('a repeated headword with decomposed accents is still treated as a missing meaning', async ({ page }) => {
+  await page.goto('/word-lists')
+  await page.getByLabel('词表名称').fill('重音释义')
+  await page.getByLabel('词条', { exact: true }).fill('école = e\u0301cole')
+  await page.getByTestId('word-list-practise').click()
+  await expect(page.getByText('n.f. 学校', { exact: true })).toBeVisible()
+})
+
+test('a late definition never replaces the next word after manual navigation', async ({ page }) => {
+  let release!: () => void
+  const gate = new Promise<void>((resolve) => {
+    release = resolve
+  })
+  let requested = false
+  await page.route('**/api/study-plan/dictionary**', async (route) => {
+    requested = true
+    await gate
+    await route.fulfill({ json: { word: 'rite', senses: [{ pos: 'm.', gloss: '仪式；礼仪' }], examples: [] } })
+  })
+  await page.goto('/word-lists')
+  await page.getByLabel('词表名称').fill('切换释义')
+  await page.getByLabel('词条', { exact: true }).fill('rite\nbonjour = 你好')
+  await page.getByTestId('word-list-practise').click()
+  await expect.poll(() => requested).toBe(true)
+  await page.getByRole('button', { name: '开始', exact: true }).click()
+  await page.getByText('bonjour', { exact: true }).click()
+  await expect(page.getByText('你好', { exact: true })).toBeVisible()
+  const delivered = page.waitForResponse('**/api/study-plan/dictionary**')
+  release()
+  await (await delivered).finished()
+  await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))))
+  await expect(page.getByText('你好', { exact: true })).toBeVisible()
+  await expect(page.getByText('仪式；礼仪', { exact: true })).toHaveCount(0)
+})

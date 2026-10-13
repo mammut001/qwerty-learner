@@ -18,7 +18,8 @@ export type TranslationProps = {
 }
 
 export default function Translation({ word, trans, showTrans = true, onMouseEnter, onMouseLeave }: TranslationProps) {
-  const usableTrans = trans.trim().toLocaleLowerCase('fr') === word.trim().toLocaleLowerCase('fr') ? '' : trans.trim()
+  const usableTrans =
+    trans.normalize('NFC').trim().toLocaleLowerCase('fr') === word.normalize('NFC').trim().toLocaleLowerCase('fr') ? '' : trans.trim()
   const [resolved, setResolved] = useState<{ key: string; meaning: string; loading: boolean } | null>(null)
   const key = JSON.stringify([word, trans])
   const [retryRequest, setRetryRequest] = useState({ key: '', attempt: 0 })
