@@ -168,3 +168,29 @@ for (const trans of [[], ['bonjour'], ['我的专属笔记']]) {
     expect(words).toEqual([{ name: 'bonjour', trans: trans[0] === '我的专属笔记' ? trans : ['早安，日安，白天好，你好'] }])
   })
 }
+
+for (const recovery of ['button', 'online']) {
+  test(`missing meaning can recover without restarting practice: ${recovery}`, async ({ page }) => {
+    let recovered = false
+    await page.route('**/api/study-plan/dictionary**', (route) =>
+      recovered
+        ? route.fulfill({ json: { word: 'rite', senses: [{ pos: 'm.', gloss: '仪式；礼仪' }], examples: [] } })
+        : route.fulfill({ status: 502, json: {} }),
+    )
+    await page.route('**://*.wiktionary.org/**', (route) => route.abort())
+    await page.goto('/word-lists')
+    await page.getByLabel('词表名称').fill('补查恢复')
+    await page.getByLabel('词条', { exact: true }).fill('rite')
+    await page.getByTestId('word-list-practise').click()
+    await page.keyboard.press('Enter')
+    await expect(page.getByText('暂无释义', { exact: true })).toBeVisible()
+    await page.getByRole('button', { name: '开始', exact: true }).click()
+    await expect(page.getByRole('button', { name: '暂停', exact: true })).toBeVisible()
+    recovered = true
+    if (recovery === 'button') await page.getByRole('button', { name: '重试释义' }).click()
+    else await page.evaluate(() => window.dispatchEvent(new Event('online')))
+    await expect(page.getByText('仪式；礼仪', { exact: true })).toBeVisible()
+    await expect(page.getByRole('button', { name: '暂停', exact: true })).toBeVisible()
+    await expect(page.getByRole('button', { name: '重试释义' })).toHaveCount(0)
+  })
+}

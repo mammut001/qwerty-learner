@@ -20,6 +20,7 @@ export type TranslationProps = {
 export default function Translation({ word, trans, showTrans = true, onMouseEnter, onMouseLeave }: TranslationProps) {
   const usableTrans = trans.trim().toLocaleLowerCase('fr') === word.trim().toLocaleLowerCase('fr') ? '' : trans.trim()
   const [resolved, setResolved] = useState<{ key: string; meaning: string; loading: boolean } | null>(null)
+  const [attempt, setAttempt] = useState(0)
   const key = JSON.stringify([word, trans])
   useEffect(() => {
     if (usableTrans) return
@@ -54,9 +55,15 @@ export default function Translation({ word, trans, showTrans = true, onMouseEnte
     return () => {
       cancelled = true
     }
-  }, [key, word, usableTrans])
+  }, [key, word, usableTrans, attempt])
   const meaning = usableTrans || (resolved?.key === key ? resolved.meaning : '')
   const loading = !usableTrans && (resolved?.key !== key || resolved.loading)
+  useEffect(() => {
+    if (usableTrans || meaning || loading) return
+    const retry = () => setAttempt((value) => value + 1)
+    window.addEventListener('online', retry)
+    return () => window.removeEventListener('online', retry)
+  }, [usableTrans, meaning, loading])
   const pronunciationConfig = useAtomValue(pronunciationConfigAtom)
   const fontSizeConfig = useAtomValue(fontSizeConfigAtom)
   const isShowTransRead = window.speechSynthesis && pronunciationConfig.isTransRead
@@ -84,9 +91,14 @@ export default function Translation({ word, trans, showTrans = true, onMouseEnte
         </Tooltip>
       )}
       {showTrans && !meaning && !loading && (
-        <Link className="ml-3 text-sm text-indigo-500 underline" to={`/dictionary?q=${encodeURIComponent(word)}`}>
-          查看词典
-        </Link>
+        <div className="ml-3 flex items-center gap-3 text-sm text-indigo-500">
+          <button type="button" className="underline" onClick={() => setAttempt((value) => value + 1)}>
+            重试释义
+          </button>
+          <Link className="underline" to={`/dictionary?q=${encodeURIComponent(word)}`}>
+            查看词典
+          </Link>
+        </div>
       )}
     </div>
   )
