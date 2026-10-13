@@ -1,23 +1,65 @@
 import Tooltip from '@/components/Tooltip'
 import { SoundIcon } from '@/components/WordPronunciationIcon/SoundIcon'
 import useSpeech from '@/hooks/useSpeech'
+import { briefMeaning, lookupDictionary } from '@/services/dictionary'
+import { loadOnlineChinese, needsOnlineChinese } from '@/services/dictionaryOnline'
+import { loadYoudaoFrench } from '@/services/dictionaryYoudao'
 import { fontSizeConfigAtom, isTextSelectableAtom, pronunciationConfigAtom } from '@/store'
 import { useAtomValue } from 'jotai'
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export type TranslationProps = {
+  word: string
   trans: string
   showTrans?: boolean
   onMouseEnter?: () => void
   onMouseLeave?: () => void
 }
 
-export default function Translation({ trans, showTrans = true, onMouseEnter, onMouseLeave }: TranslationProps) {
+export default function Translation({ word, trans, showTrans = true, onMouseEnter, onMouseLeave }: TranslationProps) {
+  const usableTrans = trans.trim().toLocaleLowerCase('fr') === word.trim().toLocaleLowerCase('fr') ? '' : trans.trim()
+  const [resolved, setResolved] = useState<{ key: string; meaning: string; loading: boolean } | null>(null)
+  const key = JSON.stringify([word, trans])
+  useEffect(() => {
+    if (usableTrans) return
+    let cancelled = false
+    setResolved({ key, meaning: '', loading: true })
+    const run = async () => {
+      let meaning = ''
+      try {
+        const result = await lookupDictionary(word)
+        meaning = briefMeaning(result)
+        if (!/[一-鿿]/.test(meaning) && navigator.onLine !== false) {
+          const headword = result.words[0]?.word ?? result.lemmas[0]?.word ?? word
+          const online = await loadYoudaoFrench(headword)
+          const chinese = online?.senses
+            .slice(0, 3)
+            .map((sense) => sense.gloss)
+            .join('；')
+          if (chinese) meaning = chinese
+          else if (needsOnlineChinese(result)) {
+            const fallback = await loadOnlineChinese(headword)
+            if (fallback.zh.length) meaning = fallback.zh.slice(0, 3).join('；')
+          }
+        }
+      } catch {
+        // Keep a usable offline definition if the online source is unavailable.
+      }
+      if (!cancelled) setResolved({ key, meaning, loading: false })
+    }
+    void run()
+    return () => {
+      cancelled = true
+    }
+  }, [key, word, usableTrans])
+  const meaning = usableTrans || (resolved?.key === key ? resolved.meaning : '')
+  const loading = !usableTrans && (resolved?.key !== key || resolved.loading)
   const pronunciationConfig = useAtomValue(pronunciationConfigAtom)
   const fontSizeConfig = useAtomValue(fontSizeConfigAtom)
   const isShowTransRead = window.speechSynthesis && pronunciationConfig.isTransRead
   const speechOptions = useMemo(() => ({ volume: pronunciationConfig.transVolume }), [pronunciationConfig.transVolume])
-  const { speak, speaking } = useSpeech(trans, speechOptions)
+  const { speak, speaking } = useSpeech(meaning, speechOptions)
 
   const handleClickSoundIcon = useCallback(() => {
     speak(true)
@@ -32,12 +74,17 @@ export default function Translation({ trans, showTrans = true, onMouseEnter, onM
         } ${isTextSelectable && 'select-text'}`}
         style={{ fontSize: fontSizeConfig.translateFont.toString() + 'px' }}
       >
-        {showTrans ? trans : '\u00A0'}
+        {showTrans ? meaning || (loading ? '正在补查释义…' : '暂无释义') : '\u00A0'}
       </span>
-      {isShowTransRead && showTrans && (
+      {isShowTransRead && showTrans && meaning && (
         <Tooltip content="朗读释义" className="ml-3 h-5 w-5 cursor-pointer leading-7">
           <SoundIcon animated={speaking} onClick={handleClickSoundIcon} className="h-5 w-5" />
         </Tooltip>
+      )}
+      {showTrans && !meaning && !loading && (
+        <Link className="ml-3 text-sm text-indigo-500 underline" to={`/dictionary?q=${encodeURIComponent(word)}`}>
+          查看词典
+        </Link>
       )}
     </div>
   )

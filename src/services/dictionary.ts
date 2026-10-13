@@ -174,6 +174,7 @@ export function briefMeaning(result: DictionaryResult): string {
   if (zh.length) return zh.join('；')
   return word.entries
     .flatMap((entry) => entry.en)
+    .filter((meaning) => meaning.trim().toLocaleLowerCase('fr') !== word.word.toLocaleLowerCase('fr'))
     .slice(0, 2)
     .join('; ')
 }
