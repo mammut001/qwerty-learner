@@ -6,11 +6,11 @@ import { timeStamp2String } from '@/utils'
 import { generateNewWordReviewRecord, useGetLatestReviewRecord } from '@/utils/db/review-record'
 import * as Progress from '@radix-ui/react-progress'
 import { useSetAtom } from 'jotai'
-import { useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import MdiRobotAngry from '~icons/mdi/robot-angry'
 
-export function ReviewDetail({ errorData, dict }: { errorData: TErrorWordData[]; dict: Dictionary }) {
+export function ReviewDetail({ errorData, dict, isOpen }: { errorData: TErrorWordData[]; dict: Dictionary; isOpen: boolean }) {
   const latestReviewRecord = useGetLatestReviewRecord(dict.id)
   const setReviewModeInfo = useSetAtom(reviewModeInfoAtom)
   const setCurrentDictId = useSetAtom(currentDictIdAtom)
@@ -20,6 +20,13 @@ export function ReviewDetail({ errorData, dict }: { errorData: TErrorWordData[];
   const [isCreating, setIsCreating] = useState(false)
   const [createError, setCreateError] = useState('')
   const creating = useRef(false)
+  const mounted = useRef(true)
+  useLayoutEffect(() => {
+    mounted.current = isOpen
+    return () => {
+      mounted.current = false
+    }
+  }, [isOpen])
 
   const startReview = async () => {
     if (creating.current || errorData.length === 0) return
@@ -28,15 +35,16 @@ export function ReviewDetail({ errorData, dict }: { errorData: TErrorWordData[];
     setCreateError('')
     try {
       const record = await generateNewWordReviewRecord(dict.id, errorData)
+      if (!mounted.current) return
       setCurrentDictId(dict.id)
       setCurrentChapter(-1)
       setReviewModeInfo({ isReviewMode: true, reviewRecord: record })
       navigate('/typing')
     } catch {
-      setCreateError('创建复习失败，请检查浏览器存储空间后重试。')
+      if (mounted.current) setCreateError('创建复习失败，请检查浏览器存储空间后重试。')
     } finally {
       creating.current = false
-      setIsCreating(false)
+      if (mounted.current) setIsCreating(false)
     }
   }
 

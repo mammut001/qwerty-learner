@@ -107,7 +107,7 @@ export default function DictionaryComponent({ dictionary, autoOpen = false, plac
       </button>
 
       <DialogContent className="max-h-[calc(100dvh-2rem)] w-[calc(100vw-2rem)] max-w-[60rem] overflow-y-auto !rounded-[20px]">
-        <DictDetail dictionary={dictionary} />
+        <DictDetail dictionary={dictionary} isOpen={open} />
       </DialogContent>
     </Dialog>
   )
