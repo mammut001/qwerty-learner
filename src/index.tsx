@@ -9,7 +9,10 @@ import { LoadingUI } from './components/Loading'
 import RequireAccount from './components/RequireAccount'
 import { ShellHeaderProvider } from './components/ShellHeader'
 import './index.css'
+import { isGuestMode, readCachedStatus } from '@/services/guestMode'
 import { isOpenDarkModeAtom } from '@/store'
+import { authStatusAtom } from '@/store/auth'
+import { resolveHomePath } from '@/utils/homePath'
 import 'animate.css'
 import { useAtomValue } from 'jotai'
 import React, { Suspense, lazy, useEffect, useRef, useState } from 'react'
@@ -42,10 +45,14 @@ const ErrorBookPage = lazy(() => import('./pages/ErrorBook').then((module) => ({
 const BillingPage = lazy(() => import('./pages/Billing'))
 const FocusTimerDock = lazy(() => import('./components/FocusTimerDock'))
 
-// The study plan is the home page; old `/?dict=…` practice links keep working by forwarding to the typing page.
+// The study plan is the home page for signed-in users; guests land on typing practice.
+// Old `/?dict=…` practice links keep working by forwarding to the typing page.
 function HomeRedirect() {
   const { search } = useLocation()
-  return <Navigate to={search ? `/typing${search}` : '/study-plan'} replace />
+  const authStatus = useAtomValue(authStatusAtom)
+  const cachedStatus = readCachedStatus()
+  const guestMode = isGuestMode()
+  return <Navigate to={resolveHomePath({ search, authStatus, cachedStatus, guestMode })} replace />
 }
 
 async function migrateExistingStudyData() {
