@@ -81,6 +81,8 @@ export default function GrammarSessionPage() {
             grammarTopicForQuestionIds([...Object.keys(draft.answers), ...Object.keys(draft.reasons)]) ??
             findGrammarTopic(readStoredTopicId()) ??
             defaultGrammarTopic
+          const requestedTopic = findGrammarTopic(searchParams.get('topic'))
+          if (requestedTopic && requestedTopic.id !== draftTopic.id) return
           setTopicId(draftTopic.id)
           setStatus('running')
           setCurrentBatch(Math.min(draftTopic.batches.length - 1, draft.currentBatch))
@@ -100,7 +102,7 @@ export default function GrammarSessionPage() {
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [searchParams])
 
   useEffect(() => {
     if (status !== 'running') return
