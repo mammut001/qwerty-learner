@@ -1686,13 +1686,17 @@ export function submitReviewResult(item: ReviewQueueItem, quality: number) {
   const state = ensureFallback()
   enqueue([operation])
   const review = localReviewState(state.learning.reviews.items[item.itemId], item, quality, reviewedAt)
-  publish({
-    ...state,
-    learning: {
-      ...state.learning,
-      reviews: { items: { ...state.learning.reviews.items, [item.itemId]: review } },
-    },
-  })
+  try {
+    publish({
+      ...state,
+      learning: {
+        ...state.learning,
+        reviews: { items: { ...state.learning.reviews.items, [item.itemId]: review } },
+      },
+    })
+  } catch {
+    // The review is already durable in the mutation queue; a cache failure must not invite a duplicate submission.
+  }
   try {
     const cached = JSON.parse(localStorage.getItem(REVIEW_KEY) ?? '[]') as ReviewQueueItem[]
     localStorage.setItem(REVIEW_KEY, JSON.stringify(cached.filter((candidate) => candidate.itemId !== item.itemId)))
@@ -1701,7 +1705,6 @@ export function submitReviewResult(item: ReviewQueueItem, quality: number) {
   }
   return review
 }
-
 export async function getLearningProgress(): Promise<LearningProgress> {
   await syncStudyPlan()
   return (readCachedState() ?? ensureFallback()).learning
