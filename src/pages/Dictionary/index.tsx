@@ -31,17 +31,19 @@ export default function DictionaryPage() {
   const [suggestions, setSuggestions] = useState<string[]>([])
   const [accentedVariants, setAccentedVariants] = useState<string[]>([])
   const [error, setError] = useState('')
+  const [lookupAttempt, setLookupAttempt] = useState(0)
   const [history, setHistory] = useState(readHistory)
 
   useEffect(() => {
     setInput(query)
     setAccentedVariants([])
+    setError('')
     if (!query) {
       setResult(null)
       return
     }
     let cancelled = false
-    setError('')
+    setResult(null)
     lookupDictionary(query)
       .then((value) => {
         if (cancelled) return
@@ -69,7 +71,7 @@ export default function DictionaryPage() {
     return () => {
       cancelled = true
     }
-  }, [query])
+  }, [query, lookupAttempt])
 
   useEffect(() => {
     const typed = cleanDictionaryQuery(input)
@@ -215,7 +217,16 @@ export default function DictionaryPage() {
 
           <section className="my-card mt-6 rounded-2xl bg-white p-5 dark:bg-gray-800 sm:p-7">
             {error ? (
-              <div className="rounded-xl bg-red-50/70 p-4 text-sm text-red-600 dark:bg-red-950/30 dark:text-red-400">{error}</div>
+              <div role="alert" className="rounded-xl bg-red-50/70 p-4 text-sm text-red-600 dark:bg-red-950/30 dark:text-red-400">
+                <p>{error}</p>
+                <button
+                  type="button"
+                  className="mt-3 rounded-lg border border-current px-3 py-1.5 font-medium"
+                  onClick={() => setLookupAttempt((value) => value + 1)}
+                >
+                  重试查词
+                </button>
+              </div>
             ) : result && query && result.query === query ? (
               <DictionaryCard key={result.query} result={result.data} />
             ) : query ? (
