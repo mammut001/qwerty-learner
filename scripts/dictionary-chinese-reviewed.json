@@ -1,0 +1,37 @@
+[
+  {
+    "word": "rite",
+    "pos": "noun",
+    "zh": ["（宗教）仪式；礼仪"],
+    "source": "https://fr.wiktionary.org/wiki/rite#Français",
+    "reviewedAt": "2026-10-13"
+  },
+  {
+    "word": "rituel",
+    "pos": "adj",
+    "zh": ["宗教仪式的；按惯例进行的"],
+    "source": "https://fr.wiktionary.org/wiki/rituel#Adjectif",
+    "reviewedAt": "2026-10-13"
+  },
+  {
+    "word": "rituel",
+    "pos": "noun",
+    "zh": ["宗教仪式；仪式规程书"],
+    "source": "https://fr.wiktionary.org/wiki/rituel#Nom_commun",
+    "reviewedAt": "2026-10-13"
+  },
+  {
+    "word": "remonter",
+    "pos": "verb",
+    "zh": ["再次上去；回升", "追溯；沿着向上游走", "重新组装；给钟表上发条"],
+    "source": "https://fr.wiktionary.org/wiki/remonter#Français",
+    "reviewedAt": "2026-10-13"
+  },
+  {
+    "word": "embaucher",
+    "pos": "verb",
+    "zh": ["雇用；招聘"],
+    "source": "https://fr.wiktionary.org/wiki/embaucher#Français",
+    "reviewedAt": "2026-10-13"
+  }
+]

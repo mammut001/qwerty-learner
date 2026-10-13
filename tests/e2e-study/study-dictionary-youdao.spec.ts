@@ -3,6 +3,19 @@ import { expect, test } from '@playwright/test'
 // Request failure and delay fixtures must reach Playwright instead of the service-worker cache.
 test.use({ serviceWorkers: 'block' })
 
+// Keep missing-source scenarios independent of improvements to the real offline dictionary.
+test.beforeEach(async ({ page }) => {
+  await page.route('**/lexicon/fr/ri.json*', (route) =>
+    route.fulfill({
+      json: {
+        e: { rite: [['noun', '/ʁit/', 'm', ['rite'], []]] },
+        s: {},
+        f: {},
+      },
+    }),
+  )
+})
+
 const BONJOUR = {
   query: 'bonjour',
   word: 'bonjour',
@@ -133,7 +146,7 @@ test('typing exposes missing meanings when all sources fail', async ({ page }) =
 })
 
 test('typing still tries the online definition when the offline shard cannot load', async ({ page }) => {
-  await page.route('**/lexicon/fr/ri.json', (route) => route.abort())
+  await page.route('**/lexicon/fr/ri.json*', (route) => route.abort())
   await page.route('**/api/study-plan/dictionary**', (route) =>
     route.fulfill({ json: { word: 'rite', senses: [{ pos: 'm.', gloss: '仪式；礼仪' }], examples: [] } }),
   )
@@ -213,7 +226,7 @@ test('a new query hides the previous word and its save button while loading', as
   const gate = new Promise<void>((resolve) => {
     release = resolve
   })
-  await page.route('**/lexicon/fr/ri.json', async (route) => {
+  await page.route('**/lexicon/fr/ri.json*', async (route) => {
     await gate
     await route.continue()
   })
