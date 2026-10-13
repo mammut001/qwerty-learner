@@ -10,11 +10,19 @@ import {
   isValidSection,
   isValidTask,
   listSelectableMonths,
+  sanitizeText,
   validateRecallInput,
 } from './recalls'
 import type { RecallValidationResult } from './recalls'
 
 const FIXED_NOW = new Date(2026, 9, 15, 12, 0, 0) // 2026-10-15
+
+test('sanitizeText strips control characters while preserving tab and newline', () => {
+  assert.equal(
+    sanitizeText('\u0000Bonjour\t\nmonde!\u007f'),
+    'Bonjour\t\nmonde!',
+  )
+})
 
 test('task options per section', () => {
   assert.deepEqual(getTaskOptions('speaking'), [2, 3])

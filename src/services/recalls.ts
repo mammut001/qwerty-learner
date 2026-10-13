@@ -129,7 +129,14 @@ export function containsUrl(text: string): boolean {
 
 export function sanitizeText(text: string): string {
   if (typeof text !== 'string') return ''
-  return text.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '').trim()
+  let sanitized = ''
+  for (let i = 0; i < text.length; i++) {
+    const code = text.charCodeAt(i)
+    if (code === 0x7f) continue
+    if (code < 0x20 && code !== 0x09 && code !== 0x0a && code !== 0x0d) continue
+    sanitized += text[i]
+  }
+  return sanitized.trim()
 }
 
 export function isValidExamMonth(examMonth: unknown, now: Date | number = new Date()): boolean {

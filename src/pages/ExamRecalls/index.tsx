@@ -10,7 +10,7 @@ import {
   validateRecallInput,
 } from '@/services/recalls'
 import { trackAnalyticsEvent } from '@/utils/analytics'
-import React, { useEffect, useId, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useId, useMemo, useState } from 'react'
 import IconAlertCircle from '~icons/tabler/alert-circle'
 import IconCheck from '~icons/tabler/check'
 import IconChevronDown from '~icons/tabler/chevron-down'
@@ -86,43 +86,46 @@ export default function ExamRecallsPage() {
   }
 
   // Fetch initial page or refetch on filter change
-  const fetchList = async (offset = 0, append = false) => {
-    if (append) {
-      setLoadingMore(true)
-    } else {
-      setLoading(true)
-      setFetchError('')
-    }
-
-    try {
-      const res = await listRecalls({
-        section: sectionFilter || undefined,
-        task: typeof taskFilter === 'number' ? taskFilter : undefined,
-        month: monthFilter || undefined,
-        limit: PAGE_SIZE,
-        offset,
-      })
-
+  const fetchList = useCallback(
+    async (offset = 0, append = false) => {
       if (append) {
-        setItems((prev) => [...prev, ...res.items])
+        setLoadingMore(true)
       } else {
-        setItems(res.items)
+        setLoading(true)
+        setFetchError('')
       }
-      setTotal(res.total)
-    } catch (err) {
-      if (!append) {
-        setFetchError(err instanceof Error ? err.message : '加载失败，请检查网络后重试。')
+
+      try {
+        const res = await listRecalls({
+          section: sectionFilter || undefined,
+          task: typeof taskFilter === 'number' ? taskFilter : undefined,
+          month: monthFilter || undefined,
+          limit: PAGE_SIZE,
+          offset,
+        })
+
+        if (append) {
+          setItems((prev) => [...prev, ...res.items])
+        } else {
+          setItems(res.items)
+        }
+        setTotal(res.total)
+      } catch (err) {
+        if (!append) {
+          setFetchError(err instanceof Error ? err.message : '加载失败，请检查网络后重试。')
+        }
+      } finally {
+        setLoading(false)
+        setLoadingMore(false)
       }
-    } finally {
-      setLoading(false)
-      setLoadingMore(false)
-    }
-  }
+    },
+    [sectionFilter, taskFilter, monthFilter],
+  )
 
   // Trigger refetch whenever filters change
   useEffect(() => {
     void fetchList(0, false)
-  }, [sectionFilter, taskFilter, monthFilter])
+  }, [fetchList])
 
   // Load more pagination
   const handleLoadMore = () => {

@@ -8,7 +8,7 @@ import {
   reviewRecalls,
   saveRecallsAdminToken,
 } from '@/services/recalls'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import IconCheck from '~icons/tabler/check'
 import IconChevronDown from '~icons/tabler/chevron-down'
@@ -34,7 +34,7 @@ export default function AdminRecallsPage() {
   const [reviewMessage, setReviewMessage] = useState('')
 
   // Load recalls from server
-  const loadList = async (token: string, status: RecallStatus, offset = 0, append = false) => {
+  const loadList = useCallback(async (token: string, status: RecallStatus, offset = 0, append = false) => {
     if (!token.trim()) {
       setItems([])
       setTotal(0)
@@ -83,14 +83,14 @@ export default function AdminRecallsPage() {
       setLoading(false)
       setLoadingMore(false)
     }
-  }
+  }, [])
 
   // Initial load if token exists
   useEffect(() => {
     if (activeToken.trim()) {
       void loadList(activeToken, statusTab, 0, false)
     }
-  }, [activeToken, statusTab])
+  }, [activeToken, statusTab, loadList])
 
   // Submit token form
   const handleTokenSubmit = (e: React.FormEvent) => {
