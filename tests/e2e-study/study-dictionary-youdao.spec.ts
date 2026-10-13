@@ -141,3 +141,30 @@ test('typing still tries the online definition when the offline shard cannot loa
   await page.keyboard.press('Enter')
   await expect(page.getByText('仪式；礼仪', { exact: true })).toBeVisible()
 })
+
+for (const trans of [[], ['bonjour'], ['我的专属笔记']]) {
+  test(`saved word meaning can be completed without overwriting notes: ${JSON.stringify(trans)}`, async ({ page }) => {
+    await page.addInitScript((trans) => {
+      window.localStorage.setItem(
+        'qwerty-fr-custom-dicts-v1',
+        JSON.stringify([
+          { id: 'custom-repair', name: '生词本', description: '', words: [{ name: 'bonjour', trans }], createdAt: 1, updatedAt: 1 },
+        ]),
+      )
+    }, trans)
+    await page.route('**/api/study-plan/dictionary**', (route) => route.fulfill({ json: BONJOUR }))
+    await page.goto('/dictionary?q=bonjour')
+    await expect(page.getByTestId('dictionary-youdao')).toContainText('早安，日安')
+    const button = page.getByTestId('dictionary-add')
+    if (trans[0] === '我的专属笔记') {
+      await expect(button).toBeDisabled()
+      await expect(button).toHaveText('已在词表中')
+    } else {
+      await expect(button).toHaveText('补全释义')
+      await button.click()
+      await expect(page.getByRole('status')).toContainText('已补全')
+    }
+    const words = await page.evaluate(() => JSON.parse(localStorage.getItem('qwerty-fr-custom-dicts-v1') ?? '[]')[0].words)
+    expect(words).toEqual([{ name: 'bonjour', trans: trans[0] === '我的专属笔记' ? trans : ['早安，日安，白天好，你好'] }])
+  })
+}
