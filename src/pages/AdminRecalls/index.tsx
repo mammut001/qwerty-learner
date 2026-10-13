@@ -27,7 +27,6 @@ export default function AdminRecallsPage() {
   const [loading, setLoading] = useState(false)
   const [loadingMore, setLoadingMore] = useState(false)
   const [error, setError] = useState('')
-  const [isBlocked, setIsBlocked] = useState(false)
 
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [reviewing, setReviewing] = useState(false)
@@ -56,7 +55,6 @@ export default function AdminRecallsPage() {
         offset,
       })
 
-      setIsBlocked(false)
       if (append) {
         setItems((prev) => [...prev, ...res.items])
       } else {
@@ -66,10 +64,6 @@ export default function AdminRecallsPage() {
       setTotal(res.total)
     } catch (err: unknown) {
       const anyErr = err as { code?: string; status?: number; message?: string }
-      if (anyErr.status === 404 || anyErr.code === 'ADMIN_NOT_FOUND') {
-        setIsBlocked(true)
-        return
-      }
       if (anyErr.status === 401 || anyErr.status === 403 || anyErr.code === 'ADMIN_UNAUTHORIZED') {
         setError('令牌不正确。')
       } else {
@@ -124,10 +118,6 @@ export default function AdminRecallsPage() {
       setReviewMessage(`已更新 ${res.count} 条机经。`)
     } catch (err: unknown) {
       const anyErr = err as { code?: string; status?: number; message?: string }
-      if (anyErr.status === 404 || anyErr.code === 'ADMIN_NOT_FOUND') {
-        setIsBlocked(true)
-        return
-      }
       if (anyErr.status === 401 || anyErr.status === 403 || anyErr.code === 'ADMIN_UNAUTHORIZED') {
         setError('令牌不正确。')
       } else {
@@ -162,26 +152,6 @@ export default function AdminRecallsPage() {
     const h = String(d.getHours()).padStart(2, '0')
     const min = String(d.getMinutes()).padStart(2, '0')
     return `${y}-${m}-${day} ${h}:${min}`
-  }
-
-  // When blocked on public host (404), show card and nothing else
-  if (isBlocked) {
-    return (
-      <Layout>
-        <main className="w-full flex-1 overflow-y-auto px-4 pb-10 sm:px-6 lg:px-8">
-          <div className="mx-auto w-full max-w-4xl pt-8">
-            <div
-              data-testid="admin-blocked-notice"
-              className="my-card rounded-3xl bg-white p-6 text-center shadow-sm dark:bg-gray-800 sm:p-8"
-            >
-              <p className="text-base font-medium text-amber-800 dark:text-amber-200">
-                审核后台仅限内网访问。请通过 SSH 通道在本机地址打开本页。
-              </p>
-            </div>
-          </div>
-        </main>
-      </Layout>
-    )
   }
 
   return (

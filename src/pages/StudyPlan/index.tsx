@@ -57,6 +57,7 @@ import {
   requestStudyReminderPermission,
   saveStudyReminderPreferences,
 } from '@/services/studyReminder'
+import { useAdminAvailability } from '@/services/adminAvailability'
 import { customDictsAtom } from '@/store/customDict'
 import { db } from '@/utils/db'
 import { wordListFetcher } from '@/utils/wordListFetcher'
@@ -294,6 +295,7 @@ function minutesLabel(minutes: number) {
 }
 
 export default function StudyPlanPage() {
+  const adminAvailability = useAdminAvailability()
   const today = useMemo(() => new Date(), [])
   const todayKey = toDateKey(today)
   const [storage, setStorage] = useState<StudyPlanStorage>(() => loadStorage(todayKey))
@@ -1508,12 +1510,14 @@ export default function StudyPlanPage() {
                   今日推荐模考入口
                 </NavLink>
               )}
-              <NavLink
-                to="/admin/placement"
-                className="rounded-lg border border-violet-300 px-3 py-1.5 text-xs font-semibold text-violet-800 dark:border-violet-700 dark:text-violet-200"
-              >
-                机构定级看板
-              </NavLink>
+              {adminAvailability === 'available' && (
+                <NavLink
+                  to="/admin/placement"
+                  className="rounded-lg border border-violet-300 px-3 py-1.5 text-xs font-semibold text-violet-800 dark:border-violet-700 dark:text-violet-200"
+                >
+                  机构定级看板
+                </NavLink>
+              )}
             </div>
           </section>
         )}
