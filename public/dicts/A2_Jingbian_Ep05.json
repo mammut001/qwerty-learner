@@ -1,0 +1,578 @@
+[
+  {
+    "name": "orthographe",
+    "trans": [
+      "n.f. 拼写"
+    ]
+  },
+  {
+    "name": "interlocuteur",
+    "trans": [
+      "n.m. 对话者"
+    ]
+  },
+  {
+    "name": "interlocutrice",
+    "trans": [
+      "n.f. 女性对话者"
+    ]
+  },
+  {
+    "name": "débutant",
+    "trans": [
+      "n.m. 初学者"
+    ]
+  },
+  {
+    "name": "débutante",
+    "trans": [
+      "n.f. 女性初学者"
+    ]
+  },
+  {
+    "name": "liste",
+    "trans": [
+      "n.f. 清单，名单"
+    ]
+  },
+  {
+    "name": "cahier",
+    "trans": [
+      "n.m. 笔记本"
+    ]
+  },
+  {
+    "name": "reporter",
+    "trans": [
+      "n.m. 记者，通讯员"
+    ]
+  },
+  {
+    "name": "gîte",
+    "trans": [
+      "n.m. 度假小旅舍"
+    ]
+  },
+  {
+    "name": "événement",
+    "trans": [
+      "n.m. 事件，活动"
+    ]
+  },
+  {
+    "name": "lycéen",
+    "trans": [
+      "n.m. 高中生"
+    ]
+  },
+  {
+    "name": "lycéenne",
+    "trans": [
+      "n.f. 女高中生"
+    ]
+  },
+  {
+    "name": "anniversaire",
+    "trans": [
+      "n.m. 生日，周年纪念"
+    ]
+  },
+  {
+    "name": "courant",
+    "trans": [
+      "n.m. 水流，潮流"
+    ]
+  },
+  {
+    "name": "informatique",
+    "trans": [
+      "n.f. 计算机科学，信息技术"
+    ]
+  },
+  {
+    "name": "informaticien",
+    "trans": [
+      "n.m. 计算机工程师"
+    ]
+  },
+  {
+    "name": "terrasse",
+    "trans": [
+      "n.f. 露台，阳台"
+    ]
+  },
+  {
+    "name": "douche",
+    "trans": [
+      "n.f. 淋浴"
+    ]
+  },
+  {
+    "name": "sèche-cheveux",
+    "trans": [
+      "n.m. 吹风机"
+    ]
+  },
+  {
+    "name": "lave-linge",
+    "trans": [
+      "n.m. 洗衣机"
+    ]
+  },
+  {
+    "name": "lave-vaisselle",
+    "trans": [
+      "n.m. 洗碗机"
+    ]
+  },
+  {
+    "name": "four",
+    "trans": [
+      "n.m. 烤箱"
+    ]
+  },
+  {
+    "name": "micro-ondes",
+    "trans": [
+      "n.m. 微波炉"
+    ]
+  },
+  {
+    "name": "barbecue",
+    "trans": [
+      "n.m. 烧烤架"
+    ]
+  },
+  {
+    "name": "câble",
+    "trans": [
+      "n.m. 电缆，电线"
+    ]
+  },
+  {
+    "name": "styliste",
+    "trans": [
+      "n.m./f. 服装设计师"
+    ]
+  },
+  {
+    "name": "agent immobilier",
+    "trans": [
+      "n.m. 房产经纪人"
+    ]
+  },
+  {
+    "name": "médecin",
+    "trans": [
+      "n.m./f. 医生"
+    ]
+  },
+  {
+    "name": "photographe",
+    "trans": [
+      "n.m./f. 摄影师"
+    ]
+  },
+  {
+    "name": "robe",
+    "trans": [
+      "n.f. 连衣裙"
+    ]
+  },
+  {
+    "name": "tenue",
+    "trans": [
+      "n.f. 服装，着装"
+    ]
+  },
+  {
+    "name": "pantacourt",
+    "trans": [
+      "n.m. 七分裤"
+    ]
+  },
+  {
+    "name": "tee-shirt",
+    "trans": [
+      "n.m. T恤衫"
+    ]
+  },
+  {
+    "name": "occasion",
+    "trans": [
+      "n.f. 机会，时机"
+    ]
+  },
+  {
+    "name": "linge",
+    "trans": [
+      "n.m. 织物，衣物"
+    ]
+  },
+  {
+    "name": "miroir",
+    "trans": [
+      "n.m. 镜子"
+    ]
+  },
+  {
+    "name": "inconnu",
+    "trans": [
+      "n.m. 陌生人"
+    ]
+  },
+  {
+    "name": "inconnue",
+    "trans": [
+      "n.f. 陌生女子"
+    ]
+  },
+  {
+    "name": "paysage",
+    "trans": [
+      "n.m. 风景，景色"
+    ]
+  },
+  {
+    "name": "faute",
+    "trans": [
+      "n.f. 错误"
+    ]
+  },
+  {
+    "name": "prononciation",
+    "trans": [
+      "n.f. 发音"
+    ]
+  },
+  {
+    "name": "disposition",
+    "trans": [
+      "n.f. 支配，处理"
+    ]
+  },
+  {
+    "name": "spontané",
+    "trans": [
+      "adj. 自发的，直率的"
+    ]
+  },
+  {
+    "name": "réfléchi",
+    "trans": [
+      "adj. 深思熟虑的"
+    ]
+  },
+  {
+    "name": "grec",
+    "trans": [
+      "adj. 希腊的"
+    ]
+  },
+  {
+    "name": "étranger",
+    "trans": [
+      "adj. 外国的，陌生的"
+    ]
+  },
+  {
+    "name": "francophone",
+    "trans": [
+      "adj. 讲法语的"
+    ]
+  },
+  {
+    "name": "ancien",
+    "trans": [
+      "adj. 以前的，古老的"
+    ]
+  },
+  {
+    "name": "sympa",
+    "trans": [
+      "adj. 亲切的，热情的"
+    ]
+  },
+  {
+    "name": "seul",
+    "trans": [
+      "adj. 单独的，孤独的"
+    ]
+  },
+  {
+    "name": "irlandais",
+    "trans": [
+      "adj. 爱尔兰的"
+    ]
+  },
+  {
+    "name": "disponible",
+    "trans": [
+      "adj. 可使用的"
+    ]
+  },
+  {
+    "name": "fourni",
+    "trans": [
+      "adj. 配备的，提供的"
+    ]
+  },
+  {
+    "name": "cher",
+    "trans": [
+      "adj. 昂贵的"
+    ]
+  },
+  {
+    "name": "obligé",
+    "trans": [
+      "adj. 被迫的，必须的"
+    ]
+  },
+  {
+    "name": "bavarder",
+    "trans": [
+      "v.i. 闲聊，聊天"
+    ]
+  },
+  {
+    "name": "ressembler",
+    "trans": [
+      "v.i. 像，相似"
+    ]
+  },
+  {
+    "name": "souhaiter",
+    "trans": [
+      "v.t. 祝愿，希望"
+    ]
+  },
+  {
+    "name": "s'ennuyer",
+    "trans": [
+      "v.pr. 感到无聊"
+    ]
+  },
+  {
+    "name": "se séparer",
+    "trans": [
+      "v.pr. 分手，分开"
+    ]
+  },
+  {
+    "name": "se souvenir",
+    "trans": [
+      "v.pr. 回忆起，记得"
+    ]
+  },
+  {
+    "name": "se changer",
+    "trans": [
+      "v.pr. 换衣服"
+    ]
+  },
+  {
+    "name": "coûter",
+    "trans": [
+      "v.i. 价值，花费"
+    ]
+  },
+  {
+    "name": "s'amuser",
+    "trans": [
+      "v.pr. 玩得开心"
+    ]
+  },
+  {
+    "name": "amuser",
+    "trans": [
+      "v.t. 逗乐，使开心"
+    ]
+  },
+  {
+    "name": "comporter",
+    "trans": [
+      "v.t. 包含，具有"
+    ]
+  },
+  {
+    "name": "bénéficier",
+    "trans": [
+      "v.i. 享有，得益于"
+    ]
+  },
+  {
+    "name": "s'habiller",
+    "trans": [
+      "v.pr. 穿衣服"
+    ]
+  },
+  {
+    "name": "se méfier",
+    "trans": [
+      "v.pr. 提防，不信任"
+    ]
+  },
+  {
+    "name": "se moquer",
+    "trans": [
+      "v.pr. 嘲笑，不在乎"
+    ]
+  },
+  {
+    "name": "s'enfuir",
+    "trans": [
+      "v.pr. 逃跑，逃走"
+    ]
+  },
+  {
+    "name": "maquiller",
+    "trans": [
+      "v.t. 给……化妆"
+    ]
+  },
+  {
+    "name": "se maquiller",
+    "trans": [
+      "v.pr. 化妆"
+    ]
+  },
+  {
+    "name": "prononcer",
+    "trans": [
+      "v.t. 发音"
+    ]
+  },
+  {
+    "name": "oublier",
+    "trans": [
+      "v.t. 忘记"
+    ]
+  },
+  {
+    "name": "rapidement",
+    "trans": [
+      "adv. 快速地"
+    ]
+  },
+  {
+    "name": "gratuitement",
+    "trans": [
+      "adv. 免费地"
+    ]
+  },
+  {
+    "name": "entièrement",
+    "trans": [
+      "adv. 完全地，全部地"
+    ]
+  },
+  {
+    "name": "dehors",
+    "trans": [
+      "adv. 在外面"
+    ]
+  },
+  {
+    "name": "faire attention à",
+    "trans": [
+      "短语：注意……"
+    ]
+  },
+  {
+    "name": "à l'aise",
+    "trans": [
+      "短语：舒适，自在"
+    ]
+  },
+  {
+    "name": "à votre disposition",
+    "trans": [
+      "短语：随您差遣，听凭使用"
+    ]
+  },
+  {
+    "name": "être au courant",
+    "trans": [
+      "短语：知情，知晓"
+    ]
+  },
+  {
+    "name": "être dans l'informatique",
+    "trans": [
+      "短语：从事计算机行业"
+    ]
+  },
+  {
+    "name": "au fait",
+    "trans": [
+      "短语：顺便说一下，对了"
+    ]
+  },
+  {
+    "name": "toutes les cinq minutes",
+    "trans": [
+      "短语：每隔五分钟"
+    ]
+  },
+  {
+    "name": "ne s'inquiéter de rien",
+    "trans": [
+      "短语：什么都不用担心"
+    ]
+  },
+  {
+    "name": "se faire du souci",
+    "trans": [
+      "短语：发愁，担忧"
+    ]
+  },
+  {
+    "name": "après tout",
+    "trans": [
+      "短语：毕竟，不管怎么说"
+    ]
+  },
+  {
+    "name": "être obligé de",
+    "trans": [
+      "短语：不得不做……"
+    ]
+  },
+  {
+    "name": "chercher du travail",
+    "trans": [
+      "短语：找工作"
+    ]
+  },
+  {
+    "name": "trouver du travail",
+    "trans": [
+      "短语：找到工作"
+    ]
+  },
+  {
+    "name": "à l'âge de",
+    "trans": [
+      "短语：在……岁时"
+    ]
+  },
+  {
+    "name": "ne savoir rien",
+    "trans": [
+      "短语：一无所知"
+    ]
+  },
+  {
+    "name": "se passer bien",
+    "trans": [
+      "短语：进展顺利"
+    ]
+  },
+  {
+    "name": "au sud de",
+    "trans": [
+      "短语：在……以南"
+    ]
+  }
+]

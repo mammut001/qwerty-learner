@@ -1,0 +1,620 @@
+[
+  {
+    "name": "fête",
+    "trans": [
+      "n.f. 节日，庆祝"
+    ]
+  },
+  {
+    "name": "coucher du soleil",
+    "trans": [
+      "n.m. 日落"
+    ]
+  },
+  {
+    "name": "lever du soleil",
+    "trans": [
+      "n.m. 日出"
+    ]
+  },
+  {
+    "name": "promeneur",
+    "trans": [
+      "n.m. 散步者"
+    ]
+  },
+  {
+    "name": "manifestation",
+    "trans": [
+      "n.f. 大型活动，展示"
+    ]
+  },
+  {
+    "name": "succès",
+    "trans": [
+      "n.m. 成功"
+    ]
+  },
+  {
+    "name": "rassemblement",
+    "trans": [
+      "n.m. 集会，聚会"
+    ]
+  },
+  {
+    "name": "commune",
+    "trans": [
+      "n.f. 市镇"
+    ]
+  },
+  {
+    "name": "diversité",
+    "trans": [
+      "n.f. 多样性"
+    ]
+  },
+  {
+    "name": "jazz",
+    "trans": [
+      "n.m. 爵士乐"
+    ]
+  },
+  {
+    "name": "classique",
+    "trans": [
+      "n.m. 古典音乐"
+    ]
+  },
+  {
+    "name": "rock",
+    "trans": [
+      "n.m. 摇滚乐"
+    ]
+  },
+  {
+    "name": "rap",
+    "trans": [
+      "n.m. 说唱乐"
+    ]
+  },
+  {
+    "name": "pétard",
+    "trans": [
+      "n.m. 鞭炮"
+    ]
+  },
+  {
+    "name": "réveillon",
+    "trans": [
+      "n.m. 年夜饭，除夕宴"
+    ]
+  },
+  {
+    "name": "lanterne",
+    "trans": [
+      "n.f. 灯笼"
+    ]
+  },
+  {
+    "name": "calendrier",
+    "trans": [
+      "n.m. 日历，历法"
+    ]
+  },
+  {
+    "name": "pollution",
+    "trans": [
+      "n.f. 污染"
+    ]
+  },
+  {
+    "name": "sécurité",
+    "trans": [
+      "n.f. 安全"
+    ]
+  },
+  {
+    "name": "exposition",
+    "trans": [
+      "n.f. 展览"
+    ]
+  },
+  {
+    "name": "camping",
+    "trans": [
+      "n.m. 露营地，露营"
+    ]
+  },
+  {
+    "name": "canoë",
+    "trans": [
+      "n.m. 独木舟，皮划艇"
+    ]
+  },
+  {
+    "name": "rivière",
+    "trans": [
+      "n.f. 河流"
+    ]
+  },
+  {
+    "name": "boîte",
+    "trans": [
+      "n.f. 盒子；夜总会"
+    ]
+  },
+  {
+    "name": "cuisine",
+    "trans": [
+      "n.f. 厨房；烹饪"
+    ]
+  },
+  {
+    "name": "truffe",
+    "trans": [
+      "n.f. 松露"
+    ]
+  },
+  {
+    "name": "tranche",
+    "trans": [
+      "n.f. 薄片"
+    ]
+  },
+  {
+    "name": "chou",
+    "trans": [
+      "n.m. 卷心菜"
+    ]
+  },
+  {
+    "name": "rôti",
+    "trans": [
+      "n.m. 烤肉"
+    ]
+  },
+  {
+    "name": "sauce",
+    "trans": [
+      "n.f. 酱汁，调味汁"
+    ]
+  },
+  {
+    "name": "cuillerée",
+    "trans": [
+      "n.f. 一匙的量"
+    ]
+  },
+  {
+    "name": "cognac",
+    "trans": [
+      "n.m. 干邑白兰地"
+    ]
+  },
+  {
+    "name": "alchimiste",
+    "trans": [
+      "n.m. 炼金术士"
+    ]
+  },
+  {
+    "name": "cuisinier",
+    "trans": [
+      "n.m. 厨师"
+    ]
+  },
+  {
+    "name": "cuisinière",
+    "trans": [
+      "n.f. 女厨师；炉灶"
+    ]
+  },
+  {
+    "name": "sel",
+    "trans": [
+      "n.m. 盐"
+    ]
+  },
+  {
+    "name": "goût",
+    "trans": [
+      "n.m. 味道，爱好"
+    ]
+  },
+  {
+    "name": "frigo",
+    "trans": [
+      "n.m. 冰箱（口语）"
+    ]
+  },
+  {
+    "name": "plaquette",
+    "trans": [
+      "n.f. 小块，小板"
+    ]
+  },
+  {
+    "name": "beurre",
+    "trans": [
+      "n.m. 黄油"
+    ]
+  },
+  {
+    "name": "fruit",
+    "trans": [
+      "n.m. 水果"
+    ]
+  },
+  {
+    "name": "chocolat",
+    "trans": [
+      "n.m. 巧克力"
+    ]
+  },
+  {
+    "name": "fromage",
+    "trans": [
+      "n.m. 奶酪"
+    ]
+  },
+  {
+    "name": "plaisir",
+    "trans": [
+      "n.m. 愉快，高兴"
+    ]
+  },
+  {
+    "name": "détour",
+    "trans": [
+      "n.m. 绕道，弯路"
+    ]
+  },
+  {
+    "name": "artistique",
+    "trans": [
+      "adj. 艺术的"
+    ]
+  },
+  {
+    "name": "culturel",
+    "trans": [
+      "adj. 文化的"
+    ]
+  },
+  {
+    "name": "populaire",
+    "trans": [
+      "adj. 大众的，通俗的"
+    ]
+  },
+  {
+    "name": "musical",
+    "trans": [
+      "adj. 音乐的"
+    ]
+  },
+  {
+    "name": "fabuleux",
+    "trans": [
+      "adj. 极好的，精彩的"
+    ]
+  },
+  {
+    "name": "retentissant",
+    "trans": [
+      "adj. 轰动的，响亮的"
+    ]
+  },
+  {
+    "name": "festif",
+    "trans": [
+      "adj. 节日气氛的"
+    ]
+  },
+  {
+    "name": "lunaire",
+    "trans": [
+      "adj. 月亮的，阴历的"
+    ]
+  },
+  {
+    "name": "familial",
+    "trans": [
+      "adj. 家庭的"
+    ]
+  },
+  {
+    "name": "traditionnel",
+    "trans": [
+      "adj. 传统的"
+    ]
+  },
+  {
+    "name": "moche",
+    "trans": [
+      "adj. 丑陋的，难看的"
+    ]
+  },
+  {
+    "name": "faux",
+    "trans": [
+      "adj. 错误的，虚假的"
+    ]
+  },
+  {
+    "name": "fin",
+    "trans": [
+      "adj. 薄的，细腻的"
+    ]
+  },
+  {
+    "name": "particulier",
+    "trans": [
+      "adj. 特殊的，特别的"
+    ]
+  },
+  {
+    "name": "salé",
+    "trans": [
+      "adj. 咸的"
+    ]
+  },
+  {
+    "name": "sucré",
+    "trans": [
+      "adj. 甜的"
+    ]
+  },
+  {
+    "name": "doux",
+    "trans": [
+      "adj. 温和的，淡甜的"
+    ]
+  },
+  {
+    "name": "désolé",
+    "trans": [
+      "adj. 抱歉的"
+    ]
+  },
+  {
+    "name": "proposer",
+    "trans": [
+      "v.t. 提供，提议"
+    ]
+  },
+  {
+    "name": "redécouvrir",
+    "trans": [
+      "v.t. 重新发现"
+    ]
+  },
+  {
+    "name": "organiser",
+    "trans": [
+      "v.t. 组织，安排"
+    ]
+  },
+  {
+    "name": "accueillir",
+    "trans": [
+      "v.t. 迎接，接纳"
+    ]
+  },
+  {
+    "name": "varier",
+    "trans": [
+      "v.i. 变化，改变"
+    ]
+  },
+  {
+    "name": "causer",
+    "trans": [
+      "v.t. 造成，引起"
+    ]
+  },
+  {
+    "name": "déconseiller",
+    "trans": [
+      "v.t. 劝阻，不建议"
+    ]
+  },
+  {
+    "name": "supporter",
+    "trans": [
+      "v.t. 忍受，承受"
+    ]
+  },
+  {
+    "name": "déranger",
+    "trans": [
+      "v.t. 打扰"
+    ]
+  },
+  {
+    "name": "concentrer",
+    "trans": [
+      "v.t. 集中"
+    ]
+  },
+  {
+    "name": "déconcentrer",
+    "trans": [
+      "v.t. 使分心"
+    ]
+  },
+  {
+    "name": "couper",
+    "trans": [
+      "v.t. 切，割"
+    ]
+  },
+  {
+    "name": "résister",
+    "trans": [
+      "v.i. 抵抗，抵制"
+    ]
+  },
+  {
+    "name": "servir",
+    "trans": [
+      "v.t. 招待，端上"
+    ]
+  },
+  {
+    "name": "goûter",
+    "trans": [
+      "v.t. 品尝"
+    ]
+  },
+  {
+    "name": "tromper",
+    "trans": [
+      "v.t. 欺骗"
+    ]
+  },
+  {
+    "name": "se tromper",
+    "trans": [
+      "v.pr. 弄错，搞错"
+    ]
+  },
+  {
+    "name": "détruire",
+    "trans": [
+      "v.t. 摧毁，破坏"
+    ]
+  },
+  {
+    "name": "ranger",
+    "trans": [
+      "v.t. 整理，收拾"
+    ]
+  },
+  {
+    "name": "traditionnellement",
+    "trans": [
+      "adv. 传统上"
+    ]
+  },
+  {
+    "name": "dessus",
+    "trans": [
+      "adv. 在上面"
+    ]
+  },
+  {
+    "name": "vivement",
+    "trans": [
+      "adv. 强烈地，热烈地"
+    ]
+  },
+  {
+    "name": "par hasard",
+    "trans": [
+      "adv. 偶然，碰巧"
+    ]
+  },
+  {
+    "name": "par contre",
+    "trans": [
+      "adv. 相反，然而"
+    ]
+  },
+  {
+    "name": "avoir lieu",
+    "trans": [
+      "短语：举行，发生"
+    ]
+  },
+  {
+    "name": "nuit blanche",
+    "trans": [
+      "短语：不眠之夜"
+    ]
+  },
+  {
+    "name": "à la suite de",
+    "trans": [
+      "短语：在……之后"
+    ]
+  },
+  {
+    "name": "donner naissance à",
+    "trans": [
+      "短语：催生，诞生……"
+    ]
+  },
+  {
+    "name": "en passant par",
+    "trans": [
+      "短语：从……到，途径"
+    ]
+  },
+  {
+    "name": "faire claquer des pétards",
+    "trans": [
+      "短语：放鞭炮"
+    ]
+  },
+  {
+    "name": "tirer des feux d'artifice",
+    "trans": [
+      "短语：放烟花"
+    ]
+  },
+  {
+    "name": "se faire couper les cheveux",
+    "trans": [
+      "短语：剪头发"
+    ]
+  },
+  {
+    "name": "en détail",
+    "trans": [
+      "短语：详细地"
+    ]
+  },
+  {
+    "name": "faire plaisir à",
+    "trans": [
+      "短语：使……高兴"
+    ]
+  },
+  {
+    "name": "joyeux anniversaire",
+    "trans": [
+      "短语：生日快乐"
+    ]
+  },
+  {
+    "name": "chocolat au lait",
+    "trans": [
+      "短语：牛奶巧克力"
+    ]
+  },
+  {
+    "name": "chocolat noir",
+    "trans": [
+      "短语：黑巧克力"
+    ]
+  },
+  {
+    "name": "avoir horreur de",
+    "trans": [
+      "短语：极度厌恶……"
+    ]
+  },
+  {
+    "name": "faire un détour",
+    "trans": [
+      "短语：绕道走"
+    ]
+  },
+  {
+    "name": "en tranches fines",
+    "trans": [
+      "短语：切成薄片"
+    ]
+  }
+]
