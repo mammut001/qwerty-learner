@@ -4,6 +4,7 @@ import {
   adminApiEnabled,
   authorizeAdminRequest,
   authorizeRecallModeration,
+  parseRecallModeratorCanApprove,
   loadPlacementCohortReportFromDb,
   placementCohortCsv,
 } from './study-admin.mjs'
@@ -267,6 +268,7 @@ export function createStudyServer({
   accessPassword = process.env.STUDY_ACCESS_PASSWORD || '',
   adminToken = process.env.STUDY_ADMIN_TOKEN || '',
   recallModeratorToken = process.env.STUDY_RECALL_MODERATOR_TOKEN || '',
+  recallModeratorCanApprove = parseRecallModeratorCanApprove(process.env.STUDY_RECALL_MODERATOR_CAN_APPROVE),
   aiProvider = createAiProvider(process.env),
   aiLimits = aiRateLimits(process.env),
   deepgramApiKey = process.env.DEEPGRAM_API_KEY || '',
@@ -293,6 +295,7 @@ export function createStudyServer({
     db.exec('ALTER TABLE sync_keys ADD COLUMN revoked INTEGER NOT NULL DEFAULT 0')
   ensureNodeFeatureSchema(db)
   const metrics = createStudyMetrics()
+  const canModeratorApprove = parseRecallModeratorCanApprove(recallModeratorCanApprove)
   const slowThresholdMs = Number.isFinite(slowRequestMs) && slowRequestMs >= 0 ? slowRequestMs : 1000
 
   const verifier = firebaseVerifier || (firebaseProjectId ? createFirebaseVerifier({ projectId: firebaseProjectId }) : null)
@@ -756,6 +759,10 @@ export function createStudyServer({
       }
       if (input.action !== 'approve' && input.action !== 'reject') {
         return sendError(400, 'RECALL_REVIEW_INVALID', 'Invalid review action')
+      }
+      if (auth.role === 'moderator' && input.action === 'approve' && !canModeratorApprove) {
+        audit(null, 'admin_recalls_review', 'denied', { role: 'moderator', action: 'approve' })
+        return sendError(403, 'RECALL_MODERATOR_REJECT_ONLY', 'Moderator token is reject-only')
       }
       const result = reviewRecalls(db, { ids: input.ids, action: input.action })
       audit(null, 'admin_recalls_review', 'success', { count: result.count, action: input.action, role: auth.role })
@@ -2068,3 +2075,5 @@ export function createStudyServer({
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   createStudyServer().listen(Number(process.env.PORT || 8787), process.env.HOST || '127.0.0.1')
 }
+
+export { parseRecallModeratorCanApprove }

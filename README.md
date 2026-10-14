@@ -60,8 +60,10 @@
 - **自动拒绝仅限明确情形**：仅在前置过滤直接命中，或模型在未检出注入的前提下以明确理由（广告、离题、乱码、辱骂）判定拒绝时生效；任何存疑或潜在注入一律保留为 `hold` 由人工复核。
 - **残留风险与安全边界（Residual Risk）**：
   在开启 `--auto-approve` 的情况下，完全避开所有已知词汇与指令模板的新型隐蔽劝说（Novel Persuasion）仍然依赖两次独立的模型调用（分类器 + 探针）；确定性前置过滤器保证即使被劝说通过，该条目也绝不可能包含任何外部链接或联系方式；若模型被完全恶意接管，唯一可能绕过硬门禁被误过的样本仅限于纯自然语言日常闲聊（`off-topic-chat`，如记录午餐生活且不含任何商业/注入词汇的内容）。**官方强烈推荐保持 auto-approve 为 OFF**。
+- **机器人是带工具的智能体时**：
+  当审核机器人是由 LLM 驱动的智能体（拥有工具调用能力并持有审核凭据）时，必须使用 `--rules-only --no-excerpt` 模式运行，且机器人仅中继转发单行 `SUMMARY` 汇总结果，由人类管理员在后台管理页阅读题目并审批。如果智能体直接读取学员提交的文本，其中的提示注入便能直接触达具有操作能力的主体并诱导其调用工具或做出非预期行为；因此必须由服务端强制阻断通过权限，且智能体仅运行确定性规则清洗，杜绝任何原始投稿文本进入智能体上下文。
 - **爆炸半径防护**：默认 `--dry-run` 仅输出决策不发起变更；`--apply` 必须显式指定；具备单次处理上限（默认 50 条）与自动通过上限（默认 20 条，超额自动转 `hold`）；各题目独立评估互不干扰。
-- **凭据与日志隔离**：审核令牌与 API 密钥仅由环境变量读取，绝不记录到日志中，亦不传入模型提示词；JSON Lines 日志仅记录 ID、裁定、推荐建议、原因枚举、模型名、harness 版本与截断摘要（最多 80 字）。
+- **凭据与日志隔离**：审核令牌与 API 密钥仅由环境变量读取，绝不记录到日志中，亦不传入模型提示词；JSON Lines 日志仅记录 ID、裁定、推荐建议、原因枚举、模型名、harness 版本与截断摘要（最多 80 字；在 `--no-excerpt` 下不包含任何文本摘要）。
 
 **使用命令**：
 ```bash
@@ -76,6 +78,9 @@ RECALL_API_BASE=http://127.0.0.1:8787 RECALL_MODERATOR_TOKEN=your-token RECALL_A
 
 # 4. 全自主自动审核（需显式开启 --auto-approve）
 RECALL_API_BASE=http://127.0.0.1:8787 RECALL_MODERATOR_TOKEN=your-token RECALL_API_ORIGIN=https://french.paytonpei.top STUDY_AI_PROVIDER=openai STUDY_AI_MODEL=gpt-4.1-mini STUDY_AI_API_KEY=... node scripts/recall-moderator.mjs --apply --auto-approve --max-items 50 --max-approve 20 --log logs/moderation.jsonl
+
+# 5. 智能体运营机器人模式（纯确定性规则清洗，无模型调用，无题干文本泄漏）
+RECALL_API_BASE=http://127.0.0.1:8787 RECALL_MODERATOR_TOKEN=your-token node scripts/recall-moderator.mjs --rules-only --no-excerpt --apply --log logs/moderation.jsonl
 ```
 
 
@@ -85,7 +90,8 @@ RECALL_API_BASE=http://127.0.0.1:8787 RECALL_MODERATOR_TOKEN=your-token RECALL_A
 - 服务端设置 `STUDY_ADMIN_TOKEN`（≥16 字符）；管理页输入令牌后可：
   - 创建班级、轮换分班邀请码（16 位，仅创建/轮换时明文展示一次）
   - 按班级下拉筛选定级汇总，或查看全库
-- `STUDY_RECALL_MODERATOR_TOKEN`: token that can only list/approve/reject exam recalls.
+- `STUDY_RECALL_MODERATOR_TOKEN`: token that can only list/approve/reject exam recalls (reject-only by default).
+- `STUDY_RECALL_MODERATOR_CAN_APPROVE`: default `false` (only exactly `'true'` or `'1'` enables). When false, approve requests from the moderator token are rejected with 403 `RECALL_MODERATOR_REJECT_ONLY`.
 - 学员在学习计划页输入邀请码加入班级（`POST /api/study-plan/cohort/join`），绑定存于 `learner_cohorts`（一学员一条，可换班）。
 - 管理 API 摘要：
   - `GET/POST /api/study-plan/admin/cohorts` — 列表 / 建班（返回 `joinCode`）
