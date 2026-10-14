@@ -300,6 +300,21 @@ export function reviewRecalls(db, { ids, action, nowMs = Date.now() }) {
   return { count }
 }
 
+export function countRecallsByStatus(db) {
+  const row = db.prepare(`
+    SELECT
+      COALESCE(SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END), 0) AS pending,
+      COALESCE(SUM(CASE WHEN status = 'approved' THEN 1 ELSE 0 END), 0) AS approved,
+      COALESCE(SUM(CASE WHEN status = 'rejected' THEN 1 ELSE 0 END), 0) AS rejected
+    FROM exam_recalls
+  `).get()
+  return {
+    pending: Number(row?.pending || 0),
+    approved: Number(row?.approved || 0),
+    rejected: Number(row?.rejected || 0),
+  }
+}
+
 // Aliases matching prompt function names
 export const listApproved = listApprovedRecalls
 export const listForAdmin = listRecallsForAdmin

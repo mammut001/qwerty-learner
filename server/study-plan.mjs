@@ -28,6 +28,7 @@ import {
 } from './study-reports.mjs'
 import {
   MAX_PENDING_RECALLS,
+  countRecallsByStatus,
   listApprovedRecalls,
   listRecallsForAdmin,
   reviewRecalls,
@@ -480,6 +481,7 @@ export function createStudyServer({
     const adminReportsCsv = path === '/api/study-plan/admin/reports.csv'
     const adminReportsResolve = path === '/api/study-plan/admin/reports/resolve'
     const adminRecalls = path === '/api/study-plan/admin/recalls'
+    const adminRecallsSummary = path === '/api/study-plan/admin/recalls/summary'
     const adminRecallsReview = path === '/api/study-plan/admin/recalls/review'
     const itemReports = path === '/api/study-plan/reports'
     const recalls = path === '/api/study-plan/recalls'
@@ -506,7 +508,7 @@ export function createStudyServer({
         !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
         !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts && !access &&
         !adminConfig && !adminPlacementCohort && !adminPlacementCsv && !adminCohorts && !adminCohortRotate &&
-        !adminReports && !adminReportsCsv && !adminReportsResolve && !adminRecalls && !adminRecallsReview &&
+        !adminReports && !adminReportsCsv && !adminReportsResolve && !adminRecalls && !adminRecallsReview && !adminRecallsSummary &&
         !itemReports && !recalls &&
         !cohortInfo && !cohortJoin && !plan) {
       if (staticDir && !path.startsWith('/api/')) {
@@ -729,6 +731,21 @@ export function createStudyServer({
       const { items, total } = listRecallsForAdmin(db, { status: statusParam, limit: limitParam, offset: offsetParam })
       audit(null, 'admin_recalls', 'success', { count: items.length, status: statusParam, role: auth.role })
       return send(200, { ok: true, recalls: items, items, total })
+    }
+
+    if (adminRecallsSummary) {
+      if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      const auth = authorizeRecallModeration(req.headers.authorization, {
+        adminToken,
+        moderatorToken: recallModeratorToken,
+      })
+      if (!auth.ok) {
+        audit(null, 'admin_recalls_summary', auth.status === 401 ? 'denied' : 'disabled')
+        return sendError(auth.status, auth.code, auth.message)
+      }
+      const counts = countRecallsByStatus(db)
+      audit(null, 'admin_recalls_summary', 'success', { role: auth.role })
+      return send(200, { ok: true, pending: counts.pending, approved: counts.approved, rejected: counts.rejected })
     }
 
     if (adminRecallsReview) {

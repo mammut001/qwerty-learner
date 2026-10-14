@@ -625,3 +625,97 @@ test('API: server defaults recallModeratorCanApprove from process.env.STUDY_RECA
   }
 })
 
+test('API: GET /api/study-plan/admin/recalls/summary counts-only endpoint for agent bot', async () => {
+  const { dir, server } = setupTestServer({
+    adminToken: ADMIN_TOKEN,
+    recallModeratorToken: MOD_TOKEN,
+    recallModeratorCanApprove: true,
+  })
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
+
+  try {
+    // 1. Submit 3 items: 1 stays pending, 1 approved, 1 rejected
+    const r1 = await callApi(server, 'POST', '/recalls', {
+      section: 'speaking',
+      task: 2,
+      examMonth: '2026-10',
+      topic: 'Sujet pending pour test summary',
+    })
+    const r2 = await callApi(server, 'POST', '/recalls', {
+      section: 'writing',
+      task: 1,
+      examMonth: '2026-10',
+      topic: 'Sujet approuve pour test summary',
+    })
+    const r3 = await callApi(server, 'POST', '/recalls', {
+      section: 'speaking',
+      task: 3,
+      examMonth: '2026-10',
+      topic: 'Sujet rejete pour test summary',
+    })
+
+    await callApi(
+      server,
+      'POST',
+      '/admin/recalls/review',
+      { ids: [r2.data.id], action: 'approve' },
+      { Authorization: `Bearer ${ADMIN_TOKEN}` },
+    )
+    await callApi(
+      server,
+      'POST',
+      '/admin/recalls/review',
+      { ids: [r3.data.id], action: 'reject' },
+      { Authorization: `Bearer ${MOD_TOKEN}` },
+    )
+
+    // Moderator token -> 200 with correct counts and NO ids/text
+    const modRes = await callApi(server, 'GET', '/admin/recalls/summary', undefined, {
+      Authorization: `Bearer ${MOD_TOKEN}`,
+    })
+    assert.equal(modRes.response.status, 200)
+    assert.equal(modRes.data.ok, true)
+    assert.equal(modRes.data.pending, 1)
+    assert.equal(modRes.data.approved, 1)
+    assert.equal(modRes.data.rejected, 1)
+    // Verify no ids, no text, strictly counts only
+    assert.deepEqual(Object.keys(modRes.data).sort(), ['approved', 'ok', 'pending', 'rejected'])
+
+    // Admin token -> also 200
+    const adminRes = await callApi(server, 'GET', '/admin/recalls/summary', undefined, {
+      Authorization: `Bearer ${ADMIN_TOKEN}`,
+    })
+    assert.equal(adminRes.response.status, 200)
+    assert.deepEqual(adminRes.data, { ok: true, pending: 1, approved: 1, rejected: 1 })
+
+    // No token -> 401
+    const noTokenRes = await callApi(server, 'GET', '/admin/recalls/summary')
+    assert.equal(noTokenRes.response.status, 401)
+
+    // Wrong token -> 401
+    const wrongTokenRes = await callApi(server, 'GET', '/admin/recalls/summary', undefined, {
+      Authorization: 'Bearer completely-wrong-token-12345',
+    })
+    assert.equal(wrongTokenRes.response.status, 401)
+  } finally {
+    await new Promise((resolve) => server.close(resolve))
+    rmSync(dir, { recursive: true, force: true })
+  }
+
+  // Neither token configured -> 503
+  const { dir: dirDisabled, server: serverDisabled } = setupTestServer({
+    adminToken: '',
+    recallModeratorToken: '',
+  })
+  await new Promise((resolve) => serverDisabled.listen(0, '127.0.0.1', resolve))
+  try {
+    const disabledRes = await callApi(serverDisabled, 'GET', '/admin/recalls/summary', undefined, {
+      Authorization: `Bearer ${MOD_TOKEN}`,
+    })
+    assert.equal(disabledRes.response.status, 503)
+  } finally {
+    await new Promise((resolve) => serverDisabled.close(resolve))
+    rmSync(dirDisabled, { recursive: true, force: true })
+  }
+})
+
