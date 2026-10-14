@@ -1,0 +1,560 @@
+[
+  {
+    "name": "prairie",
+    "trans": [
+      "n.f. 草原，牧场"
+    ]
+  },
+  {
+    "name": "étang",
+    "trans": [
+      "n.m. 池塘"
+    ]
+  },
+  {
+    "name": "côte",
+    "trans": [
+      "n.f. 海岸，肋骨，山坡"
+    ]
+  },
+  {
+    "name": "phoque",
+    "trans": [
+      "n.m. 海豹"
+    ]
+  },
+  {
+    "name": "maire",
+    "trans": [
+      "n.m. 市长，镇长"
+    ]
+  },
+  {
+    "name": "mairie",
+    "trans": [
+      "n.f. 市政厅，镇公所"
+    ]
+  },
+  {
+    "name": "hommage",
+    "trans": [
+      "n.m. 敬意，致敬"
+    ]
+  },
+  {
+    "name": "talentueux",
+    "trans": [
+      "adj. 有才华的，有才能的"
+    ]
+  },
+  {
+    "name": "talent",
+    "trans": [
+      "n.m. 天赋，才干"
+    ]
+  },
+  {
+    "name": "propriété",
+    "trans": [
+      "n.f. 房产，地产；性质"
+    ]
+  },
+  {
+    "name": "propriétaire",
+    "trans": [
+      "n. 房东，业主，所有人"
+    ]
+  },
+  {
+    "name": "respecter",
+    "trans": [
+      "v.t. 尊重，遵守"
+    ]
+  },
+  {
+    "name": "respect",
+    "trans": [
+      "n.m. 尊重，敬意"
+    ]
+  },
+  {
+    "name": "respectueux",
+    "trans": [
+      "adj. 恭敬的，尊重的"
+    ]
+  },
+  {
+    "name": "prédécesseur",
+    "trans": [
+      "n.m. 前任，前辈"
+    ]
+  },
+  {
+    "name": "extension",
+    "trans": [
+      "n.f. 扩大，扩建，延伸"
+    ]
+  },
+  {
+    "name": "étendre",
+    "trans": [
+      "v.t. 扩大，展开"
+    ]
+  },
+  {
+    "name": "renoncer",
+    "trans": [
+      "v.i. 放弃，抛弃"
+    ]
+  },
+  {
+    "name": "renoncement",
+    "trans": [
+      "n.m. 放弃，抛弃"
+    ]
+  },
+  {
+    "name": "promoteur",
+    "trans": [
+      "n.m. 开发商，倡导者"
+    ]
+  },
+  {
+    "name": "promotion",
+    "trans": [
+      "n.f. 促销；提升，推广"
+    ]
+  },
+  {
+    "name": "promouvoir",
+    "trans": [
+      "v.t. 促进，提升，推广"
+    ]
+  },
+  {
+    "name": "chasseur",
+    "trans": [
+      "n.m. 猎人"
+    ]
+  },
+  {
+    "name": "chasser",
+    "trans": [
+      "v.t. 狩猎；驱赶"
+    ]
+  },
+  {
+    "name": "chasse",
+    "trans": [
+      "n.f. 打猎，狩猎"
+    ]
+  },
+  {
+    "name": "commune",
+    "trans": [
+      "n.f. 市镇，市镇管区"
+    ]
+  },
+  {
+    "name": "téléprojecteur",
+    "trans": [
+      "n.m. 投影仪"
+    ]
+  },
+  {
+    "name": "mondialiser",
+    "trans": [
+      "v.t. 使全球化"
+    ]
+  },
+  {
+    "name": "mondialisation",
+    "trans": [
+      "n.f. 全球化"
+    ]
+  },
+  {
+    "name": "mondial",
+    "trans": [
+      "adj. 全球的，世界范围的"
+    ]
+  },
+  {
+    "name": "agroalimentaire",
+    "trans": [
+      "adj. 农产食品加工的；n.m. 农产食品加工业"
+    ]
+  },
+  {
+    "name": "céréale",
+    "trans": [
+      "n.f. 谷物，粮食"
+    ]
+  },
+  {
+    "name": "élevage",
+    "trans": [
+      "n.m. 畜牧业，饲养"
+    ]
+  },
+  {
+    "name": "élever",
+    "trans": [
+      "v.t. 养育；饲养；建立"
+    ]
+  },
+  {
+    "name": "éleveur",
+    "trans": [
+      "n.m. 养殖者，牧民"
+    ]
+  },
+  {
+    "name": "vigne",
+    "trans": [
+      "n.f. 葡萄树，葡萄园"
+    ]
+  },
+  {
+    "name": "vignoble",
+    "trans": [
+      "n.m. 葡萄种植园"
+    ]
+  },
+  {
+    "name": "viticulteur",
+    "trans": [
+      "n.m. 葡萄种植者"
+    ]
+  },
+  {
+    "name": "entrepreneur",
+    "trans": [
+      "n.m. 企业家，承包商"
+    ]
+  },
+  {
+    "name": "entreprise",
+    "trans": [
+      "n.f. 企业，事业"
+    ]
+  },
+  {
+    "name": "satisfaire",
+    "trans": [
+      "v.t. 满足，使满意"
+    ]
+  },
+  {
+    "name": "satisfaction",
+    "trans": [
+      "n.f. 满足，称心"
+    ]
+  },
+  {
+    "name": "exigence",
+    "trans": [
+      "n.f. 苛求，严格要求"
+    ]
+  },
+  {
+    "name": "exigeant",
+    "trans": [
+      "adj. 严格的，要求高的"
+    ]
+  },
+  {
+    "name": "uniformiser",
+    "trans": [
+      "v.t. 使统一化，使单一化"
+    ]
+  },
+  {
+    "name": "uniformisation",
+    "trans": [
+      "n.f. 统一化，均一化"
+    ]
+  },
+  {
+    "name": "uniforme",
+    "trans": [
+      "adj. 一致的，均匀的；n.m. 制服"
+    ]
+  },
+  {
+    "name": "spécialité",
+    "trans": [
+      "n.f. 特产，专长，专业"
+    ]
+  },
+  {
+    "name": "approvisionnement",
+    "trans": [
+      "n.m. 供应，物资储备"
+    ]
+  },
+  {
+    "name": "approvisionner",
+    "trans": [
+      "v.t. 供应，供应物资"
+    ]
+  },
+  {
+    "name": "nucléaire",
+    "trans": [
+      "adj. 核的，核能的"
+    ]
+  },
+  {
+    "name": "renouvelable",
+    "trans": [
+      "adj. 可再生的，可续签的"
+    ]
+  },
+  {
+    "name": "renouveler",
+    "trans": [
+      "v.t. 更新，更换"
+    ]
+  },
+  {
+    "name": "renouvellement",
+    "trans": [
+      "n.m. 更新，复兴"
+    ]
+  },
+  {
+    "name": "mutation",
+    "trans": [
+      "n.f. 转变，变革；突变"
+    ]
+  },
+  {
+    "name": "robotiser",
+    "trans": [
+      "v.t. 使自动化，引入机器人"
+    ]
+  },
+  {
+    "name": "robotisation",
+    "trans": [
+      "n.f. 机器人化，自动化"
+    ]
+  },
+  {
+    "name": "robot",
+    "trans": [
+      "n.m. 机器人"
+    ]
+  },
+  {
+    "name": "compétitif",
+    "trans": [
+      "adj. 具有竞争力的"
+    ]
+  },
+  {
+    "name": "compétitivité",
+    "trans": [
+      "n.f. 竞争力"
+    ]
+  },
+  {
+    "name": "aéronautique",
+    "trans": [
+      "adj. 航空的；n.f. 航空学，航空工业"
+    ]
+  },
+  {
+    "name": "ferroviaire",
+    "trans": [
+      "adj. 铁路的"
+    ]
+  },
+  {
+    "name": "pharmaceutique",
+    "trans": [
+      "adj. 制药的，药物的"
+    ]
+  },
+  {
+    "name": "armement",
+    "trans": [
+      "n.m. 军备，武器装备"
+    ]
+  },
+  {
+    "name": "agriculteur",
+    "trans": [
+      "n.m. 农业从业者，农民"
+    ]
+  },
+  {
+    "name": "agriculture",
+    "trans": [
+      "n.f. 农业"
+    ]
+  },
+  {
+    "name": "exploitation",
+    "trans": [
+      "n.f. 农场；开采，利用"
+    ]
+  },
+  {
+    "name": "exploiter",
+    "trans": [
+      "v.t. 经营；开采；剥削"
+    ]
+  },
+  {
+    "name": "indépendance",
+    "trans": [
+      "n.f. 独立，自主"
+    ]
+  },
+  {
+    "name": "indépendant",
+    "trans": [
+      "adj. 独立的，自主的"
+    ]
+  },
+  {
+    "name": "filiale",
+    "trans": [
+      "n.f. 子公司，分店"
+    ]
+  },
+  {
+    "name": "secteur",
+    "trans": [
+      "n.m. 部门，行业，区域"
+    ]
+  },
+  {
+    "name": "moderniser",
+    "trans": [
+      "v.t. 使现代化"
+    ]
+  },
+  {
+    "name": "modernisation",
+    "trans": [
+      "n.f. 现代化"
+    ]
+  },
+  {
+    "name": "laitier",
+    "trans": [
+      "adj. 乳品的，乳制的"
+    ]
+  },
+  {
+    "name": "en l'honneur de",
+    "trans": [
+      "短语：向……表示敬意，为纪念……"
+    ]
+  },
+  {
+    "name": "avoir l'intention de",
+    "trans": [
+      "短语：打算做某事，有意于"
+    ]
+  },
+  {
+    "name": "à condition que",
+    "trans": [
+      "短语：只要，条件是（接虚拟式）"
+    ]
+  },
+  {
+    "name": "à condition de",
+    "trans": [
+      "短语：只要，条件是（接不定式）"
+    ]
+  },
+  {
+    "name": "donner rendez-vous à",
+    "trans": [
+      "短语：与某人相约"
+    ]
+  },
+  {
+    "name": "avoir rendez-vous",
+    "trans": [
+      "短语：有约会"
+    ]
+  },
+  {
+    "name": "disposer de",
+    "trans": [
+      "短语：拥有，支配"
+    ]
+  },
+  {
+    "name": "aboutir à",
+    "trans": [
+      "短语：导致，通向"
+    ]
+  },
+  {
+    "name": "se maintenir",
+    "trans": [
+      "短语：保持，维持"
+    ]
+  },
+  {
+    "name": "en particulier",
+    "trans": [
+      "短语：尤其，特别是"
+    ]
+  },
+  {
+    "name": "centrale nucléaire",
+    "trans": [
+      "短语：核电站"
+    ]
+  },
+  {
+    "name": "être prêt à",
+    "trans": [
+      "短语：准备好做某事"
+    ]
+  },
+  {
+    "name": "faire des économies",
+    "trans": [
+      "短语：节约开支，省钱"
+    ]
+  },
+  {
+    "name": "être en mutation",
+    "trans": [
+      "短语：处于转型变革中"
+    ]
+  },
+  {
+    "name": "main-d'œuvre",
+    "trans": [
+      "短语：劳动力，人工"
+    ]
+  },
+  {
+    "name": "travaux publics",
+    "trans": [
+      "短语：市政公共工程"
+    ]
+  },
+  {
+    "name": "train à grande vitesse",
+    "trans": [
+      "短语：高速列车，TGV"
+    ]
+  },
+  {
+    "name": "de plus en plus",
+    "trans": [
+      "短语：越来越……"
+    ]
+  }
+]

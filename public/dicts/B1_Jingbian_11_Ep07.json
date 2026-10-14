@@ -1,0 +1,482 @@
+[
+  {
+    "name": "ogm",
+    "trans": [
+      "n.m. 转基因生物"
+    ]
+  },
+  {
+    "name": "transgénique",
+    "trans": [
+      "adj. 转基因的"
+    ]
+  },
+  {
+    "name": "regrettable",
+    "trans": [
+      "adj. 令人遗憾的，应受责备的"
+    ]
+  },
+  {
+    "name": "intervenir",
+    "trans": [
+      "v.i. 干预，介入；发言"
+    ]
+  },
+  {
+    "name": "intervention",
+    "trans": [
+      "n.f. 介入，调解；手术"
+    ]
+  },
+  {
+    "name": "gendarme",
+    "trans": [
+      "n.m. 宪兵"
+    ]
+  },
+  {
+    "name": "gendarmerie",
+    "trans": [
+      "n.f. 宪兵队，宪兵营"
+    ]
+  },
+  {
+    "name": "dégrader",
+    "trans": [
+      "v.t. 破坏，损坏；降级"
+    ]
+  },
+  {
+    "name": "dégradation",
+    "trans": [
+      "n.f. 损坏，损毁；恶化"
+    ]
+  },
+  {
+    "name": "casino",
+    "trans": [
+      "n.m. 赌场"
+    ]
+  },
+  {
+    "name": "licencier",
+    "trans": [
+      "v.t. 解雇，辞退"
+    ]
+  },
+  {
+    "name": "licenciement",
+    "trans": [
+      "n.m. 解雇，裁员"
+    ]
+  },
+  {
+    "name": "réduction",
+    "trans": [
+      "n.f. 减价，折扣；减少"
+    ]
+  },
+  {
+    "name": "réduire",
+    "trans": [
+      "v.t. 减少，缩减"
+    ]
+  },
+  {
+    "name": "négocier",
+    "trans": [
+      "v.t. 洽谈，协商，谈判"
+    ]
+  },
+  {
+    "name": "négociation",
+    "trans": [
+      "n.f. 谈判，协商"
+    ]
+  },
+  {
+    "name": "négociateur",
+    "trans": [
+      "n.m. 谈判代表"
+    ]
+  },
+  {
+    "name": "agressif",
+    "trans": [
+      "adj. 好斗的，侵略性的"
+    ]
+  },
+  {
+    "name": "agressivité",
+    "trans": [
+      "n.f. 攻击性，好斗"
+    ]
+  },
+  {
+    "name": "agaçant",
+    "trans": [
+      "adj. 令人恼火的，烦人的"
+    ]
+  },
+  {
+    "name": "agacer",
+    "trans": [
+      "v.t. 使恼火，惹烦"
+    ]
+  },
+  {
+    "name": "agacement",
+    "trans": [
+      "n.m. 烦躁，不耐烦"
+    ]
+  },
+  {
+    "name": "autoriser",
+    "trans": [
+      "v.t. 允许，授权"
+    ]
+  },
+  {
+    "name": "autorisation",
+    "trans": [
+      "n.f. 许可，准许"
+    ]
+  },
+  {
+    "name": "observer",
+    "trans": [
+      "v.t. 观察；遵守（法规）"
+    ]
+  },
+  {
+    "name": "observation",
+    "trans": [
+      "n.f. 观察；遵守；评论"
+    ]
+  },
+  {
+    "name": "observateur",
+    "trans": [
+      "n.m. 观察员，观察家"
+    ]
+  },
+  {
+    "name": "tolérer",
+    "trans": [
+      "v.t. 容忍，容许"
+    ]
+  },
+  {
+    "name": "tolérance",
+    "trans": [
+      "n.f. 宽容，容忍度"
+    ]
+  },
+  {
+    "name": "tolérant",
+    "trans": [
+      "adj. 宽容的，容忍的"
+    ]
+  },
+  {
+    "name": "règlement",
+    "trans": [
+      "n.m. 规章，条例；结清"
+    ]
+  },
+  {
+    "name": "réglementer",
+    "trans": [
+      "v.t. 管制，以规章规范"
+    ]
+  },
+  {
+    "name": "réglementation",
+    "trans": [
+      "n.f. 规章制度，条例"
+    ]
+  },
+  {
+    "name": "consigne",
+    "trans": [
+      "n.f. 指示，指令；行李寄存处"
+    ]
+  },
+  {
+    "name": "interdire",
+    "trans": [
+      "v.t. 禁止"
+    ]
+  },
+  {
+    "name": "interdiction",
+    "trans": [
+      "n.f. 禁令，禁止"
+    ]
+  },
+  {
+    "name": "tract",
+    "trans": [
+      "n.m. 传单"
+    ]
+  },
+  {
+    "name": "distribuer",
+    "trans": [
+      "v.t. 分发，散发；分配"
+    ]
+  },
+  {
+    "name": "distribution",
+    "trans": [
+      "n.f. 分发，散发；配送"
+    ]
+  },
+  {
+    "name": "choc",
+    "trans": [
+      "n.m. 冲击，震惊；adj. 令人震惊的"
+    ]
+  },
+  {
+    "name": "planète",
+    "trans": [
+      "n.f. 行星，地球"
+    ]
+  },
+  {
+    "name": "réchauffer",
+    "trans": [
+      "v.t. 使变暖，加温"
+    ]
+  },
+  {
+    "name": "réchauffement",
+    "trans": [
+      "n.m. 变暖，升温"
+    ]
+  },
+  {
+    "name": "polluer",
+    "trans": [
+      "v.t. 污染"
+    ]
+  },
+  {
+    "name": "polluant",
+    "trans": [
+      "adj. 造成污染的；n.m. 污染物"
+    ]
+  },
+  {
+    "name": "pollution",
+    "trans": [
+      "n.f. 污染"
+    ]
+  },
+  {
+    "name": "déconseiller",
+    "trans": [
+      "v.t. 劝阻，不建议"
+    ]
+  },
+  {
+    "name": "marée",
+    "trans": [
+      "n.f. 潮汐，潮水"
+    ]
+  },
+  {
+    "name": "boulot",
+    "trans": [
+      "n.m. 工作，差事（口语）"
+    ]
+  },
+  {
+    "name": "loger",
+    "trans": [
+      "v.i. 住宿；v.t. 留宿，供给住宿"
+    ]
+  },
+  {
+    "name": "logement",
+    "trans": [
+      "n.m. 住所，住房"
+    ]
+  },
+  {
+    "name": "moyen",
+    "trans": [
+      "adj. 中等的，平均的；n.m. 方法，手段"
+    ]
+  },
+  {
+    "name": "moyenne",
+    "trans": [
+      "n.f. 平均，平均数"
+    ]
+  },
+  {
+    "name": "pêcher",
+    "trans": [
+      "v.t. 捕捞，钓鱼"
+    ]
+  },
+  {
+    "name": "pêche",
+    "trans": [
+      "n.f. 捕鱼，钓鱼；桃子"
+    ]
+  },
+  {
+    "name": "pêcheur",
+    "trans": [
+      "n.m. 渔民，钓鱼者"
+    ]
+  },
+  {
+    "name": "coque",
+    "trans": [
+      "n.f. 蚶，贝壳；船壳"
+    ]
+  },
+  {
+    "name": "goûter",
+    "trans": [
+      "v.t. 品尝，体会；n.m. 下午茶点"
+    ]
+  },
+  {
+    "name": "taguer",
+    "trans": [
+      "v.t. 涂鸦"
+    ]
+  },
+  {
+    "name": "nettoyer",
+    "trans": [
+      "v.t. 打扫，清洗，清除"
+    ]
+  },
+  {
+    "name": "nettoyage",
+    "trans": [
+      "n.m. 清扫，保洁"
+    ]
+  },
+  {
+    "name": "bénévolat",
+    "trans": [
+      "n.m. 志愿服务"
+    ]
+  },
+  {
+    "name": "bénévole",
+    "trans": [
+      "n. 志愿者；adj. 志愿的"
+    ]
+  },
+  {
+    "name": "plein champ",
+    "trans": [
+      "短语：露天田地，大田"
+    ]
+  },
+  {
+    "name": "mourir d'ennui",
+    "trans": [
+      "短语：无聊得要命，烦闷至极"
+    ]
+  },
+  {
+    "name": "c'est dommage",
+    "trans": [
+      "短语：真遗憾，太可惜了"
+    ]
+  },
+  {
+    "name": "en revanche",
+    "trans": [
+      "短语：相反，然而（引出对立或补偿）"
+    ]
+  },
+  {
+    "name": "par contre",
+    "trans": [
+      "短语：相反地，但是"
+    ]
+  },
+  {
+    "name": "pourtant",
+    "trans": [
+      "adv. 然而，但是，却"
+    ]
+  },
+  {
+    "name": "alors que",
+    "trans": [
+      "conj. 而，然而；当……时"
+    ]
+  },
+  {
+    "name": "quand même",
+    "trans": [
+      "短语：仍然，毕竟，尽管如此"
+    ]
+  },
+  {
+    "name": "tout de même",
+    "trans": [
+      "短语：毕竟，仍然，好歹"
+    ]
+  },
+  {
+    "name": "bien que",
+    "trans": [
+      "conj. 尽管，虽然（接虚拟式）"
+    ]
+  },
+  {
+    "name": "même si",
+    "trans": [
+      "conj. 即使，哪怕（接直陈式）"
+    ]
+  },
+  {
+    "name": "avoir le droit de",
+    "trans": [
+      "短语：有权利做某事，获准做某事"
+    ]
+  },
+  {
+    "name": "se dépêcher",
+    "trans": [
+      "短语：赶快，抓紧时间"
+    ]
+  },
+  {
+    "name": "n'y être pour rien",
+    "trans": [
+      "短语：与此事毫无瓜葛，完全无辜"
+    ]
+  },
+  {
+    "name": "tapage nocturne",
+    "trans": [
+      "短语：夜间喧闹扰民"
+    ]
+  },
+  {
+    "name": "d'avance",
+    "trans": [
+      "短语：事先，预先"
+    ]
+  },
+  {
+    "name": "se lancer dans",
+    "trans": [
+      "短语：投身于，大胆着手做"
+    ]
+  }
+]

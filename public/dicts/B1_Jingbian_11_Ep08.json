@@ -1,0 +1,458 @@
+[
+  {
+    "name": "réciproque",
+    "trans": [
+      "adj. 相互的，互惠的"
+    ]
+  },
+  {
+    "name": "réciproquement",
+    "trans": [
+      "adv. 相互地，反过来也一样"
+    ]
+  },
+  {
+    "name": "souvenir",
+    "trans": [
+      "n.m. 回忆，纪念品；v.pr. 记得"
+    ]
+  },
+  {
+    "name": "ordure",
+    "trans": [
+      "n.f. 垃圾，污秽；恶棍"
+    ]
+  },
+  {
+    "name": "allié",
+    "trans": [
+      "n.m. 盟友，同盟国；adj. 结盟的"
+    ]
+  },
+  {
+    "name": "allier",
+    "trans": [
+      "v.t. 使结盟，兼备"
+    ]
+  },
+  {
+    "name": "alliance",
+    "trans": [
+      "n.f. 联盟，同盟；结婚戒指"
+    ]
+  },
+  {
+    "name": "méthode",
+    "trans": [
+      "n.f. 方法，方式，教学法"
+    ]
+  },
+  {
+    "name": "méthodique",
+    "trans": [
+      "adj. 有条理的，有方法的"
+    ]
+  },
+  {
+    "name": "mêler",
+    "trans": [
+      "v.t. 混合，使掺杂，牵连"
+    ]
+  },
+  {
+    "name": "démolir",
+    "trans": [
+      "v.t. 拆毁，推倒"
+    ]
+  },
+  {
+    "name": "démolition",
+    "trans": [
+      "n.f. 拆除，破坏"
+    ]
+  },
+  {
+    "name": "démissionner",
+    "trans": [
+      "v.i. 辞职"
+    ]
+  },
+  {
+    "name": "démission",
+    "trans": [
+      "n.f. 辞职，辞呈"
+    ]
+  },
+  {
+    "name": "coupable",
+    "trans": [
+      "adj. 有罪的，内疚的；n. 罪人，肇事者"
+    ]
+  },
+  {
+    "name": "culpabilité",
+    "trans": [
+      "n.f. 有罪，内疚感"
+    ]
+  },
+  {
+    "name": "tapas",
+    "trans": [
+      "n.f.pl. 西班牙餐前小吃"
+    ]
+  },
+  {
+    "name": "coquillage",
+    "trans": [
+      "n.m. 贝壳，贝类海鲜"
+    ]
+  },
+  {
+    "name": "baie",
+    "trans": [
+      "n.f. 海湾；浆果"
+    ]
+  },
+  {
+    "name": "fasciner",
+    "trans": [
+      "v.t. 吸引，迷住"
+    ]
+  },
+  {
+    "name": "fascination",
+    "trans": [
+      "n.f. 迷恋，着迷"
+    ]
+  },
+  {
+    "name": "fascinant",
+    "trans": [
+      "adj. 迷人的，极有吸引力的"
+    ]
+  },
+  {
+    "name": "couscous",
+    "trans": [
+      "n.m. 北非库斯库斯粗麦粉"
+    ]
+  },
+  {
+    "name": "spaghetti",
+    "trans": [
+      "n.m. 意大利细面条"
+    ]
+  },
+  {
+    "name": "apéritif",
+    "trans": [
+      "n.m. 开胃酒，餐前小酌"
+    ]
+  },
+  {
+    "name": "amuse-gueule",
+    "trans": [
+      "n.m. 餐前小吃，当下酒菜的点心"
+    ]
+  },
+  {
+    "name": "méditerranéen",
+    "trans": [
+      "adj. 地中海的"
+    ]
+  },
+  {
+    "name": "chaleureux",
+    "trans": [
+      "adj. 热情的，热诚的，温暖的"
+    ]
+  },
+  {
+    "name": "chaleur",
+    "trans": [
+      "n.f. 热情；温暖，炎热"
+    ]
+  },
+  {
+    "name": "profiter",
+    "trans": [
+      "v.i. 利用，享受，获利"
+    ]
+  },
+  {
+    "name": "profit",
+    "trans": [
+      "n.m. 利益，收益"
+    ]
+  },
+  {
+    "name": "louper",
+    "trans": [
+      "v.t. 错失，搞砸（口语）"
+    ]
+  },
+  {
+    "name": "polonais",
+    "trans": [
+      "adj. 波兰的；n.m. 波兰语"
+    ]
+  },
+  {
+    "name": "piscine",
+    "trans": [
+      "n.f. 游泳池"
+    ]
+  },
+  {
+    "name": "thermale",
+    "trans": [
+      "adj. 温泉的，水疗的"
+    ]
+  },
+  {
+    "name": "thermes",
+    "trans": [
+      "n.m.pl. 古罗马公共浴场，温泉水疗所"
+    ]
+  },
+  {
+    "name": "calcium",
+    "trans": [
+      "n.m. 钙"
+    ]
+  },
+  {
+    "name": "magnésium",
+    "trans": [
+      "n.m. 镁"
+    ]
+  },
+  {
+    "name": "sulfate",
+    "trans": [
+      "n.m. 硫酸盐"
+    ]
+  },
+  {
+    "name": "cocktail",
+    "trans": [
+      "n.m. 鸡尾酒；混合物"
+    ]
+  },
+  {
+    "name": "rhumatisant",
+    "trans": [
+      "n. 风湿病患者"
+    ]
+  },
+  {
+    "name": "cardiaque",
+    "trans": [
+      "adj. 心脏的；n. 心脏病患者"
+    ]
+  },
+  {
+    "name": "stressé",
+    "trans": [
+      "adj. 压力过大的，焦虑的"
+    ]
+  },
+  {
+    "name": "stresser",
+    "trans": [
+      "v.t. 使紧张，施加压力"
+    ]
+  },
+  {
+    "name": "stress",
+    "trans": [
+      "n.m. 心理压力，应激反应"
+    ]
+  },
+  {
+    "name": "ottoman",
+    "trans": [
+      "adj. 奥斯曼帝国的"
+    ]
+  },
+  {
+    "name": "rajeunir",
+    "trans": [
+      "v.t. 使变年轻；v.i. 显得年轻"
+    ]
+  },
+  {
+    "name": "rajeunissement",
+    "trans": [
+      "n.m. 返老还童，年轻化"
+    ]
+  },
+  {
+    "name": "mosaïque",
+    "trans": [
+      "n.f. 马赛克，镶嵌画"
+    ]
+  },
+  {
+    "name": "baisser",
+    "trans": [
+      "v.t. 降低，放下；v.i. 下跌"
+    ]
+  },
+  {
+    "name": "croiser",
+    "trans": [
+      "v.t. 偶遇，相遇；交叉"
+    ]
+  },
+  {
+    "name": "hésiter",
+    "trans": [
+      "v.i. 犹豫，踌躇"
+    ]
+  },
+  {
+    "name": "hésitation",
+    "trans": [
+      "n.f. 犹豫，踌躇"
+    ]
+  },
+  {
+    "name": "en vouloir à",
+    "trans": [
+      "短语：怪罪某人，对某人怀恨在心"
+    ]
+  },
+  {
+    "name": "s'en vouloir",
+    "trans": [
+      "短语：自责，后悔"
+    ]
+  },
+  {
+    "name": "à peu près",
+    "trans": [
+      "短语：大约，差不多"
+    ]
+  },
+  {
+    "name": "passer devant",
+    "trans": [
+      "短语：从……前面经过"
+    ]
+  },
+  {
+    "name": "faire les présentations",
+    "trans": [
+      "短语：做相互介绍"
+    ]
+  },
+  {
+    "name": "tenir à",
+    "trans": [
+      "短语：坚持要，一心想要（接不定式）"
+    ]
+  },
+  {
+    "name": "passer avant",
+    "trans": [
+      "短语：优先于，排在……之前"
+    ]
+  },
+  {
+    "name": "au niveau de",
+    "trans": [
+      "短语：在……层面，在……水平上"
+    ]
+  },
+  {
+    "name": "donner un exemple",
+    "trans": [
+      "短语：举例说明"
+    ]
+  },
+  {
+    "name": "citer en exemple",
+    "trans": [
+      "短语：树立为榜样，引为范例"
+    ]
+  },
+  {
+    "name": "donner sa démission",
+    "trans": [
+      "短语：递交辞呈，辞职"
+    ]
+  },
+  {
+    "name": "laver son linge sale en famille",
+    "trans": [
+      "短语：家丑不可外扬"
+    ]
+  },
+  {
+    "name": "il suffit de",
+    "trans": [
+      "短语：只需，只要……就够了"
+    ]
+  },
+  {
+    "name": "se poser",
+    "trans": [
+      "短语：着陆，停落；提问"
+    ]
+  },
+  {
+    "name": "je ne dis pas non",
+    "trans": [
+      "短语：我不反对，我很乐意"
+    ]
+  },
+  {
+    "name": "rêver de",
+    "trans": [
+      "短语：梦想，渴望做某事"
+    ]
+  },
+  {
+    "name": "tendre à",
+    "trans": [
+      "短语：倾向于，趋向于"
+    ]
+  },
+  {
+    "name": "avoir tendance à",
+    "trans": [
+      "短语：往往会，有……的倾向"
+    ]
+  },
+  {
+    "name": "passer à table",
+    "trans": [
+      "短语：入席就餐"
+    ]
+  },
+  {
+    "name": "boire un pot",
+    "trans": [
+      "短语：喝一杯，小酌"
+    ]
+  },
+  {
+    "name": "à base de",
+    "trans": [
+      "短语：以……为主要成分，以……为基础"
+    ]
+  },
+  {
+    "name": "passer à côté de",
+    "trans": [
+      "短语：错过，与……失之交臂"
+    ]
+  },
+  {
+    "name": "se composer de",
+    "trans": [
+      "短语：由……组成"
+    ]
+  }
+]
