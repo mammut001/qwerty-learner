@@ -1,0 +1,542 @@
+[
+  {
+    "name": "souvenir",
+    "trans": [
+      "n.m. 回忆；纪念品"
+    ]
+  },
+  {
+    "name": "voeu",
+    "trans": [
+      "n.m. 愿望，祝愿"
+    ]
+  },
+  {
+    "name": "robe",
+    "trans": [
+      "n.f. 连衣裙"
+    ]
+  },
+  {
+    "name": "placard",
+    "trans": [
+      "n.m. 壁橱"
+    ]
+  },
+  {
+    "name": "bonbon",
+    "trans": [
+      "n.m. 糖果"
+    ]
+  },
+  {
+    "name": "poche",
+    "trans": [
+      "n.f. 口袋"
+    ]
+  },
+  {
+    "name": "aventure",
+    "trans": [
+      "n.f. 冒险"
+    ]
+  },
+  {
+    "name": "skate",
+    "trans": [
+      "n.m. 滑板"
+    ]
+  },
+  {
+    "name": "habitude",
+    "trans": [
+      "n.f. 习惯"
+    ]
+  },
+  {
+    "name": "princesse",
+    "trans": [
+      "n.f. 公主"
+    ]
+  },
+  {
+    "name": "frère",
+    "trans": [
+      "n.m. 兄弟"
+    ]
+  },
+  {
+    "name": "soeur",
+    "trans": [
+      "n.f. 姐妹"
+    ]
+  },
+  {
+    "name": "oncle",
+    "trans": [
+      "n.m. 伯父，叔父，舅舅"
+    ]
+  },
+  {
+    "name": "tante",
+    "trans": [
+      "n.f. 姑母，姨母，婶母"
+    ]
+  },
+  {
+    "name": "grand-père",
+    "trans": [
+      "n.m. 祖父，外祖父"
+    ]
+  },
+  {
+    "name": "grand-mère",
+    "trans": [
+      "n.f. 祖母，外祖母"
+    ]
+  },
+  {
+    "name": "cousin",
+    "trans": [
+      "n.m. 堂兄弟，表兄弟"
+    ]
+  },
+  {
+    "name": "cousine",
+    "trans": [
+      "n.f. 堂姐妹，表姐妹"
+    ]
+  },
+  {
+    "name": "famille",
+    "trans": [
+      "n.f. 家庭，家族"
+    ]
+  },
+  {
+    "name": "dispute",
+    "trans": [
+      "n.f. 争执，争吵"
+    ]
+  },
+  {
+    "name": "mort",
+    "trans": [
+      "n.f. 死亡"
+    ]
+  },
+  {
+    "name": "accident",
+    "trans": [
+      "n.m. 事故"
+    ]
+  },
+  {
+    "name": "facteur",
+    "trans": [
+      "n.m. 邮递员"
+    ]
+  },
+  {
+    "name": "mec",
+    "trans": [
+      "n.m. 家伙，男人"
+    ]
+  },
+  {
+    "name": "époque",
+    "trans": [
+      "n.f. 时代，时期"
+    ]
+  },
+  {
+    "name": "examen",
+    "trans": [
+      "n.m. 考试"
+    ]
+  },
+  {
+    "name": "licence",
+    "trans": [
+      "n.f. 学士学位；执照"
+    ]
+  },
+  {
+    "name": "mastère",
+    "trans": [
+      "n.m. 硕士学位"
+    ]
+  },
+  {
+    "name": "doctorat",
+    "trans": [
+      "n.m. 博士学位"
+    ]
+  },
+  {
+    "name": "écologie",
+    "trans": [
+      "n.f. 生态学"
+    ]
+  },
+  {
+    "name": "recherche",
+    "trans": [
+      "n.f. 研究；寻找"
+    ]
+  },
+  {
+    "name": "dame",
+    "trans": [
+      "n.f. 女士"
+    ]
+  },
+  {
+    "name": "vieux",
+    "trans": [
+      "adj. 年老的，古老的"
+    ]
+  },
+  {
+    "name": "jeune",
+    "trans": [
+      "adj. 年轻的"
+    ]
+  },
+  {
+    "name": "amusant",
+    "trans": [
+      "adj. 有趣的，好玩的"
+    ]
+  },
+  {
+    "name": "drôle",
+    "trans": [
+      "adj. 滑稽的，古怪的"
+    ]
+  },
+  {
+    "name": "stupide",
+    "trans": [
+      "adj. 愚蠢的"
+    ]
+  },
+  {
+    "name": "culturel",
+    "trans": [
+      "adj. 文化的"
+    ]
+  },
+  {
+    "name": "compliqué",
+    "trans": [
+      "adj. 复杂的"
+    ]
+  },
+  {
+    "name": "fâché",
+    "trans": [
+      "adj. 生气的，恼怒的"
+    ]
+  },
+  {
+    "name": "rond",
+    "trans": [
+      "adj. 圆的"
+    ]
+  },
+  {
+    "name": "carré",
+    "trans": [
+      "adj. 方的"
+    ]
+  },
+  {
+    "name": "heureux",
+    "trans": [
+      "adj. 幸福的，开心的"
+    ]
+  },
+  {
+    "name": "triste",
+    "trans": [
+      "adj. 悲伤的"
+    ]
+  },
+  {
+    "name": "embêté",
+    "trans": [
+      "adj. 烦恼的，尴尬的"
+    ]
+  },
+  {
+    "name": "amoureux",
+    "trans": [
+      "adj. 恋爱中的，多情的"
+    ]
+  },
+  {
+    "name": "se souvenir",
+    "trans": [
+      "v.pr. 记起，回忆起"
+    ]
+  },
+  {
+    "name": "remplir",
+    "trans": [
+      "v.t. 填满，装满"
+    ]
+  },
+  {
+    "name": "dessiner",
+    "trans": [
+      "v.t. 画画，绘制"
+    ]
+  },
+  {
+    "name": "frapper",
+    "trans": [
+      "v.t. 敲，打"
+    ]
+  },
+  {
+    "name": "s'occuper",
+    "trans": [
+      "v.pr. 照顾，照看"
+    ]
+  },
+  {
+    "name": "ressembler",
+    "trans": [
+      "v.i. 相似，像"
+    ]
+  },
+  {
+    "name": "quitter",
+    "trans": [
+      "v.t. 离开"
+    ]
+  },
+  {
+    "name": "reconnaître",
+    "trans": [
+      "v.t. 认出，辨认"
+    ]
+  },
+  {
+    "name": "se marier",
+    "trans": [
+      "v.pr. 结婚"
+    ]
+  },
+  {
+    "name": "marier",
+    "trans": [
+      "v.t. 嫁，娶；主持婚礼"
+    ]
+  },
+  {
+    "name": "divorcer",
+    "trans": [
+      "v.i. 离婚"
+    ]
+  },
+  {
+    "name": "réussir",
+    "trans": [
+      "v.i. 成功"
+    ]
+  },
+  {
+    "name": "s'amuser",
+    "trans": [
+      "v.pr. 玩乐，消遣"
+    ]
+  },
+  {
+    "name": "se sentir",
+    "trans": [
+      "v.pr. 感到，觉得"
+    ]
+  },
+  {
+    "name": "rendre",
+    "trans": [
+      "v.t. 使变得；归还"
+    ]
+  },
+  {
+    "name": "apercevoir",
+    "trans": [
+      "v.t. 瞥见，注意到"
+    ]
+  },
+  {
+    "name": "s'apercevoir",
+    "trans": [
+      "v.pr. 察觉，意识到"
+    ]
+  },
+  {
+    "name": "vivre",
+    "trans": [
+      "v.i. 生活，活着"
+    ]
+  },
+  {
+    "name": "souvent",
+    "trans": [
+      "adv. 经常"
+    ]
+  },
+  {
+    "name": "depuis",
+    "trans": [
+      "prép. 自从……以来"
+    ]
+  },
+  {
+    "name": "sauf",
+    "trans": [
+      "prép. 除了……之外"
+    ]
+  },
+  {
+    "name": "tellement",
+    "trans": [
+      "adv. 如此，非常"
+    ]
+  },
+  {
+    "name": "se souvenir de",
+    "trans": [
+      "短语：回忆起……"
+    ]
+  },
+  {
+    "name": "meilleur souvenir",
+    "trans": [
+      "短语：最美好的回忆"
+    ]
+  },
+  {
+    "name": "Quand j'étais petit...",
+    "trans": [
+      "短语：当我小的时候……"
+    ]
+  },
+  {
+    "name": "être en train de",
+    "trans": [
+      "短语：正处于做某事中"
+    ]
+  },
+  {
+    "name": "faire du skate",
+    "trans": [
+      "短语：玩滑板"
+    ]
+  },
+  {
+    "name": "plein de",
+    "trans": [
+      "短语：大量的，满满的"
+    ]
+  },
+  {
+    "name": "à la fac",
+    "trans": [
+      "短语：在大学里"
+    ]
+  },
+  {
+    "name": "ressembler à",
+    "trans": [
+      "短语：和……相像"
+    ]
+  },
+  {
+    "name": "fais voir",
+    "trans": [
+      "短语：让我看看"
+    ]
+  },
+  {
+    "name": "il y a + durée",
+    "trans": [
+      "短语：在……时间以前"
+    ]
+  },
+  {
+    "name": "avoir des nouvelles de",
+    "trans": [
+      "短语：得到……的消息"
+    ]
+  },
+  {
+    "name": "prendre une photo",
+    "trans": [
+      "短语：拍照"
+    ]
+  },
+  {
+    "name": "accident de voiture",
+    "trans": [
+      "短语：车祸"
+    ]
+  },
+  {
+    "name": "au milieu de",
+    "trans": [
+      "短语：在……当中"
+    ]
+  },
+  {
+    "name": "à l'époque",
+    "trans": [
+      "短语：在那个时期"
+    ]
+  },
+  {
+    "name": "se marier avec",
+    "trans": [
+      "短语：与某人结婚"
+    ]
+  },
+  {
+    "name": "ne... plus",
+    "trans": [
+      "短语：不再……"
+    ]
+  },
+  {
+    "name": "faire des études",
+    "trans": [
+      "短语：进行学业，深造"
+    ]
+  },
+  {
+    "name": "faire une recherche",
+    "trans": [
+      "短语：做调查，搜索"
+    ]
+  },
+  {
+    "name": "rendre visite à",
+    "trans": [
+      "短语：探望某人"
+    ]
+  },
+  {
+    "name": "tomber amoureux de",
+    "trans": [
+      "短语：爱上某人"
+    ]
+  },
+  {
+    "name": "tout à fait",
+    "trans": [
+      "短语：完全地，正是"
+    ]
+  }
+]

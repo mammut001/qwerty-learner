@@ -1,0 +1,422 @@
+[
+  {
+    "name": "chanteur",
+    "trans": [
+      "n.m. 歌手"
+    ]
+  },
+  {
+    "name": "chanteuse",
+    "trans": [
+      "n.f. 女歌手"
+    ]
+  },
+  {
+    "name": "feuille",
+    "trans": [
+      "n.f. 叶子；纸张"
+    ]
+  },
+  {
+    "name": "annonce",
+    "trans": [
+      "n.f. 启事，广告"
+    ]
+  },
+  {
+    "name": "message",
+    "trans": [
+      "n.m. 信息，消息"
+    ]
+  },
+  {
+    "name": "foudre",
+    "trans": [
+      "n.f. 闪电"
+    ]
+  },
+  {
+    "name": "document",
+    "trans": [
+      "n.m. 文件，材料"
+    ]
+  },
+  {
+    "name": "numéro",
+    "trans": [
+      "n.m. 号码"
+    ]
+  },
+  {
+    "name": "tour",
+    "trans": [
+      "n.m. 次序，轮流"
+    ]
+  },
+  {
+    "name": "faute",
+    "trans": [
+      "n.f. 过错，过失"
+    ]
+  },
+  {
+    "name": "papier",
+    "trans": [
+      "n.m. 纸张；证件"
+    ]
+  },
+  {
+    "name": "nièce",
+    "trans": [
+      "n.f. 侄女，外甥女"
+    ]
+  },
+  {
+    "name": "neveu",
+    "trans": [
+      "n.m. 侄子，外甥"
+    ]
+  },
+  {
+    "name": "contact",
+    "trans": [
+      "n.m. 联系"
+    ]
+  },
+  {
+    "name": "morceau",
+    "trans": [
+      "n.m. 一块，一片"
+    ]
+  },
+  {
+    "name": "infirmier",
+    "trans": [
+      "n.m. 男护士"
+    ]
+  },
+  {
+    "name": "infirmière",
+    "trans": [
+      "n.f. 女护士"
+    ]
+  },
+  {
+    "name": "continent",
+    "trans": [
+      "n.m. 大陆，大洲"
+    ]
+  },
+  {
+    "name": "Asie",
+    "trans": [
+      "n.f. 亚洲"
+    ]
+  },
+  {
+    "name": "Afrique",
+    "trans": [
+      "n.f. 非洲"
+    ]
+  },
+  {
+    "name": "Amérique",
+    "trans": [
+      "n.f. 美洲"
+    ]
+  },
+  {
+    "name": "Océanie",
+    "trans": [
+      "n.f. 大洋洲"
+    ]
+  },
+  {
+    "name": "Europe",
+    "trans": [
+      "n.f. 欧洲"
+    ]
+  },
+  {
+    "name": "occasion",
+    "trans": [
+      "n.f. 机会，场合"
+    ]
+  },
+  {
+    "name": "bêtise",
+    "trans": [
+      "n.f. 蠢事，傻话"
+    ]
+  },
+  {
+    "name": "mort",
+    "trans": [
+      "adj. 死的，枯萎的"
+    ]
+  },
+  {
+    "name": "direct",
+    "trans": [
+      "adj. 直接的"
+    ]
+  },
+  {
+    "name": "indirect",
+    "trans": [
+      "adj. 间接的"
+    ]
+  },
+  {
+    "name": "sympathique",
+    "trans": [
+      "adj. 令人喜爱的，热情的"
+    ]
+  },
+  {
+    "name": "complet",
+    "trans": [
+      "adj. 完整的；客满的"
+    ]
+  },
+  {
+    "name": "dur",
+    "trans": [
+      "adj. 艰难的；硬的"
+    ]
+  },
+  {
+    "name": "important",
+    "trans": [
+      "adj. 重要的"
+    ]
+  },
+  {
+    "name": "possible",
+    "trans": [
+      "adj. 可能的"
+    ]
+  },
+  {
+    "name": "content",
+    "trans": [
+      "adj. 高兴的，满意的"
+    ]
+  },
+  {
+    "name": "honteux",
+    "trans": [
+      "adj. 羞愧的，难为情的"
+    ]
+  },
+  {
+    "name": "étonné",
+    "trans": [
+      "adj. 感到惊讶的"
+    ]
+  },
+  {
+    "name": "téléphoner",
+    "trans": [
+      "v.i. 打电话"
+    ]
+  },
+  {
+    "name": "inviter",
+    "trans": [
+      "v.t. 邀请"
+    ]
+  },
+  {
+    "name": "sélectionner",
+    "trans": [
+      "v.t. 挑选，选拔"
+    ]
+  },
+  {
+    "name": "envoyer",
+    "trans": [
+      "v.t. 发送，寄"
+    ]
+  },
+  {
+    "name": "répondre",
+    "trans": [
+      "v.i. 回答，回复"
+    ]
+  },
+  {
+    "name": "poser",
+    "trans": [
+      "v.t. 提出；摆放"
+    ]
+  },
+  {
+    "name": "sortir",
+    "trans": [
+      "v.i. 出来，出去"
+    ]
+  },
+  {
+    "name": "revoir",
+    "trans": [
+      "v.t. 再见，重见"
+    ]
+  },
+  {
+    "name": "chercher",
+    "trans": [
+      "v.t. 寻找"
+    ]
+  },
+  {
+    "name": "remercier",
+    "trans": [
+      "v.t. 感谢"
+    ]
+  },
+  {
+    "name": "établir",
+    "trans": [
+      "v.t. 建立，确立"
+    ]
+  },
+  {
+    "name": "croire",
+    "trans": [
+      "v.t. 相信，认为"
+    ]
+  },
+  {
+    "name": "sûrement",
+    "trans": [
+      "adv. 想必，一定"
+    ]
+  },
+  {
+    "name": "totalement",
+    "trans": [
+      "adv. 完全地"
+    ]
+  },
+  {
+    "name": "jamais",
+    "trans": [
+      "adv. 从不，决不"
+    ]
+  },
+  {
+    "name": "toujours",
+    "trans": [
+      "adv. 总是；仍然"
+    ]
+  },
+  {
+    "name": "sans",
+    "trans": [
+      "prép. 没有，无"
+    ]
+  },
+  {
+    "name": "On s'appelle ?",
+    "trans": [
+      "短语：我们电话联系？"
+    ]
+  },
+  {
+    "name": "tous les deux",
+    "trans": [
+      "短语：两人一起"
+    ]
+  },
+  {
+    "name": "coup de foudre",
+    "trans": [
+      "短语：一见钟情"
+    ]
+  },
+  {
+    "name": "À qui le tour ?",
+    "trans": [
+      "短语：轮到谁了？"
+    ]
+  },
+  {
+    "name": "C'est à mon tour.",
+    "trans": [
+      "短语：轮到我了。"
+    ]
+  },
+  {
+    "name": "écouter aux portes",
+    "trans": [
+      "短语：偷听，听墙角"
+    ]
+  },
+  {
+    "name": "Ce n'est pas ma faute.",
+    "trans": [
+      "短语：这不是我的错。"
+    ]
+  },
+  {
+    "name": "avoir le temps de",
+    "trans": [
+      "短语：有时间做……"
+    ]
+  },
+  {
+    "name": "numéro de portable",
+    "trans": [
+      "短语：手机号码"
+    ]
+  },
+  {
+    "name": "Vous cherchez quelqu'un ?",
+    "trans": [
+      "短语：您在找人吗？"
+    ]
+  },
+  {
+    "name": "donner de ses nouvelles",
+    "trans": [
+      "短语：告知自己的近况"
+    ]
+  },
+  {
+    "name": "avoir des contacts avec",
+    "trans": [
+      "短语：与……保持联系"
+    ]
+  },
+  {
+    "name": "c'est possible",
+    "trans": [
+      "短语：有可能"
+    ]
+  },
+  {
+    "name": "en retard",
+    "trans": [
+      "短语：迟到"
+    ]
+  },
+  {
+    "name": "en toute occasion",
+    "trans": [
+      "短语：在任何场合"
+    ]
+  },
+  {
+    "name": "C'est tout.",
+    "trans": [
+      "短语：就这些了。"
+    ]
+  },
+  {
+    "name": "sans le savoir",
+    "trans": [
+      "短语：不知不觉地"
+    ]
+  }
+]
