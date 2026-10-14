@@ -181,7 +181,7 @@ const frenchDictionaries: DictionaryResource[] = [
   {
     id: 'a1-jingbian-ep00',
     name: 'A1 精编 · 第 0 单元 环游法语世界',
-    description: '基础问候、自我介绍、国家国籍与核心动词 être / s\'appeler',
+    description: "基础问候、自我介绍、国家国籍与核心动词 être / s'appeler",
     category: 'A1 精编',
     tags: ['A1'],
     url: './dicts/A1_Jingbian_Ep00.json',

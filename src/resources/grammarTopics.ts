@@ -929,7 +929,7 @@ export const grammarTopics: GrammarTopic[] = [
         ['une colline = 山丘', 'situé = 位于……的'],
       ],
       [
-        "Pour échapper au grand froid de janvier, ils partent deux semaines ___ Cuba.",
+        'Pour échapper au grand froid de janvier, ils partent deux semaines ___ Cuba.',
         'en',
         'à',
         'B',
@@ -1179,7 +1179,12 @@ export const grammarTopics: GrammarTopic[] = [
         ['une photo de famille = 家庭合影', 'l’enfance = 童年'],
       ],
     ]),
-    batches: batchesOf20(701, ['日常代动词变位与肯定命令', '否定命令与复合过去时配合', '最近将来时与姓名自反变位', '记忆代动词与过去时综合']),
+    batches: batchesOf20(701, [
+      '日常代动词变位与肯定命令',
+      '否定命令与复合过去时配合',
+      '最近将来时与姓名自反变位',
+      '记忆代动词与过去时综合',
+    ]),
     outputPrompts: [
       { zh: '我每天早上七点起床，然后洗澡。', hint: 'se lever à 7h / se doucher' },
       { zh: '快点穿衣服，别迟到了！', hint: 'habille-toi vite / ne sois pas en retard' },
@@ -1389,7 +1394,7 @@ export const grammarTopics: GrammarTopic[] = [
         ['une équipe = 团队', 'occupé = 忙碌的'],
       ],
       [
-        "Grâce au voisin, elle ___ rapidement déneiger son entrée de garage.",
+        'Grâce au voisin, elle ___ rapidement déneiger son entrée de garage.',
         'a pouvu',
         'a pu',
         'B',
@@ -1399,7 +1404,12 @@ export const grammarTopics: GrammarTopic[] = [
         ['déneiger = 铲雪，除雪', 'l’entrée de garage = 车库车道'],
       ],
     ]),
-    batches: batchesOf20(801, ['助动词选择入门（avoir vs être）', '分词配合与否定句位置', '状态动词与及物/不及物辨析', '常用动词不规则过去分词']),
+    batches: batchesOf20(801, [
+      '助动词选择入门（avoir vs être）',
+      '分词配合与否定句位置',
+      '状态动词与及物/不及物辨析',
+      '常用动词不规则过去分词',
+    ]),
     outputPrompts: [
       { zh: '昨天我们参观了卢浮宫博物馆，买了很多明信片。', hint: 'visiter le musée du Louvre / acheter beaucoup de cartes postales' },
       { zh: '我的两个姐姐上周日去了巴黎。', hint: 'partir à Paris dimanche dernier（注意 être 的阴性复数配合）' },
@@ -1619,7 +1629,12 @@ export const grammarTopics: GrammarTopic[] = [
         ['la fête de bienvenue = 迎新聚会'],
       ],
     ]),
-    batches: batchesOf20(901, ['否定词与 pas 的排他性', '疑问句基础与否定反驳（Si）', '限定句 ne...que 与否定强调', '疑问词（Quel/Combien/Où/Quand）']),
+    batches: batchesOf20(901, [
+      '否定词与 pas 的排他性',
+      '疑问句基础与否定反驳（Si）',
+      '限定句 ne...que 与否定强调',
+      '疑问词（Quel/Combien/Où/Quand）',
+    ]),
     outputPrompts: [
       { zh: '我晚上从不喝咖啡，我什么都不喝。', hint: 'ne jamais boire de café / ne rien boire' },
       { zh: '你们今天晚上打算吃什么？', hint: 'Qu’est-ce que vous allez manger ce soir ?' },
@@ -1839,7 +1854,12 @@ export const grammarTopics: GrammarTopic[] = [
         ['un atelier = 工作坊', 'participer à = 参与'],
       ],
     ]),
-    batches: batchesOf20(1001, ['形容词比较级基础（plus/moins/aussi）', '特殊比较级（meilleur vs mieux）', '名词数量比较与形容词最高级', '副词最高级与最高级综合']),
+    batches: batchesOf20(1001, [
+      '形容词比较级基础（plus/moins/aussi）',
+      '特殊比较级（meilleur vs mieux）',
+      '名词数量比较与形容词最高级',
+      '副词最高级与最高级综合',
+    ]),
     outputPrompts: [
       { zh: '坐火车比坐飞机更便宜，也更舒服。', hint: 'le train est moins cher et plus confortable que l’avion' },
       { zh: '我的法语发音比以前好，我说得更流利了。', hint: 'ma prononciation est meilleure / parler mieux' },
@@ -1854,7 +1874,8 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Futur proche, passé récent et présent continu',
     tagline: '动作临近时态与动词搭配',
     level: 'A1',
-    reminder: '将要做用 aller + 动词原形；刚刚做用 venir de + 动词原形；正在做用 être en train de + 动词原形；注意否定词夹住前面的变位动词。',
+    reminder:
+      '将要做用 aller + 动词原形；刚刚做用 venir de + 动词原形；正在做用 être en train de + 动词原形；注意否定词夹住前面的变位动词。',
     rule: '最近将来时：aller（现在时变位）+ 不定式；最近过去时：venir de（现在时变位）+ 不定式；正在进行：être en train de + 不定式；否定句中 ne...pas 夹住前面的助动词/半助动词（如 je ne vais pas partir）。',
     reasonPlaceholder: '例如：表示刚刚发生的事情，用 venir de + 动词原形……',
     scenarios: scenarios(2301, [
@@ -2059,7 +2080,12 @@ export const grammarTopics: GrammarTopic[] = [
         ['la laveuse = 洗衣机（魁北克常用词）', 'le rinçage = 漂洗'],
       ],
     ]),
-    batches: batchesOf20(2301, ['最近将来时变位与不定式', '最近过去时结构（venir de）', '正在进行时与临近时态对比', '否定句位置与时态辨析']),
+    batches: batchesOf20(2301, [
+      '最近将来时变位与不定式',
+      '最近过去时结构（venir de）',
+      '正在进行时与临近时态对比',
+      '否定句位置与时态辨析',
+    ]),
     outputPrompts: [
       { zh: '列车马上就要进站了，请大家注意安全。', hint: 'le train va arriver en gare / faire attention' },
       { zh: '我刚刚签完租房合同，现在准备搬家。', hint: 'venir de signer le bail / aller déménager' },
@@ -2073,7 +2099,8 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Adjectifs possessifs et démonstratifs',
     tagline: '主有与指示形容词性数配合',
     level: 'A1',
-    reminder: '主语决定“谁的”，修饰的名词决定“性与数”；阴性元音开头名词前用 mon/ton/son 代替 ma/ta/sa；指示词 ce 在元音或哑音 h 阳性单数前要变 cet。',
+    reminder:
+      '主语决定“谁的”，修饰的名词决定“性与数”；阴性元音开头名词前用 mon/ton/son 代替 ma/ta/sa；指示词 ce 在元音或哑音 h 阳性单数前要变 cet。',
     rule: '单数所有人：mon/ma/mes, ton/ta/tes, son/sa/ses；复数所有人：notre/nos, votre/vos, leur/leurs；元音或哑音 h 开头的阴性单数名词前强制使用 mon, ton, son（如 mon amie）；指示形容词：阳性辅音 ce，阳性元音/哑音 h 用 cet，阴性 cette，复数一律用 ces。',
     reasonPlaceholder: '例如：amie 是以元音开头的阴性单数名词，为了避免元音冲突，必须使用 mon 而不是 ma……',
     scenarios: scenarios(2401, [
@@ -2278,7 +2305,12 @@ export const grammarTopics: GrammarTopic[] = [
         ['un arrêt = 车站，停靠点', 'faire attention = 注意'],
       ],
     ]),
-    batches: batchesOf20(2401, ['单数主有形容词与阴性元音省音', '复数所有人主有形容词（notre/votre/leur）', '指示形容词单数（ce / cet / cette）', '指示形容词复数与综合辨析（ces）']),
+    batches: batchesOf20(2401, [
+      '单数主有形容词与阴性元音省音',
+      '复数所有人主有形容词（notre/votre/leur）',
+      '指示形容词单数（ce / cet / cette）',
+      '指示形容词复数与综合辨析（ces）',
+    ]),
     outputPrompts: [
       { zh: '我的女性朋友刚搬进她在蒙特利尔的新公寓。', hint: 'mon amie / emménager dans son nouvel appartement' },
       { zh: '请在表上填写您的姓名和电子邮箱地址。', hint: 'votre nom et votre adresse courriel' },
@@ -2292,7 +2324,8 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Futur simple',
     tagline: '简单将来时',
     level: 'A2',
-    reminder: '观察时间信号词与句子结构：是表示即刻发生的意图，还是将来某一时刻会发生的事实？注意特殊动词的不规则词干与 quand 引导的时间状语从句。',
+    reminder:
+      '观察时间信号词与句子结构：是表示即刻发生的意图，还是将来某一时刻会发生的事实？注意特殊动词的不规则词干与 quand 引导的时间状语从句。',
     rule: '简单将来时：动词原形（-re 动词去 e）+ -ai, -as, -a, -ons, -ez, -ont。特殊词干：être → ser-, avoir → aur-, aller → ir-, faire → fer-, pouvoir → pourr-, venir → viendr-, voir → verr-。quand 引导将来动作的从句中，主从句均用将来时。',
     reasonPlaceholder: '例如：quand 引导的从句表示将来的动作，主从句都要用简单将来时……',
     scenarios: scenarios(1101, [
@@ -2407,7 +2440,8 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Pronoms en et y',
     tagline: '副代词 en 与 y',
     level: 'A2',
-    reminder: '看动词接什么介词与成分：de + 物/数量词/部分冠词用 en；à + 物或地点介词短语用 y。注意：指人时 à + 人通常用 lui/leur 或 à + 重读代词，不可用 y！',
+    reminder:
+      '看动词接什么介词与成分：de + 物/数量词/部分冠词用 en；à + 物或地点介词短语用 y。注意：指人时 à + 人通常用 lui/leur 或 à + 重读代词，不可用 y！',
     rule: 'en 代替 “de + 名词”、“数量词/数量副词后的名词” 或部分冠词引导的宾语；y 代替地点状语或 “à + 事物/概念”。位置：位于相关动词之前；复合时态中位于助动词之前；否定句中置于 ne 之后、动词之前。',
     reasonPlaceholder: '例如：动词搭配是 penser à quelque chose，代指事物用代词 y……',
     scenarios: scenarios(1201, [
@@ -2490,7 +2524,7 @@ export const grammarTopics: GrammarTopic[] = [
         '半助动词 + 不定式 → y 放在不定式前',
       ],
       [
-        "- Tu as parlé de ce problème à ton directeur ? - Oui, je ___ en ai parlé ce matin.",
+        '- Tu as parlé de ce problème à ton directeur ? - Oui, je ___ en ai parlé ce matin.',
         'lui',
         'y',
         'A',
@@ -2523,7 +2557,8 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Conditionnel présent',
     tagline: '条件式现在时',
     level: 'A2',
-    reminder: '分清使用场景：是礼貌请求（voudrais, pourrais）、建议劝告（devrais），还是假设条件句？切记：si 从句中绝不能直接接条件式（si + imparfait）！',
+    reminder:
+      '分清使用场景：是礼貌请求（voudrais, pourrais）、建议劝告（devrais），还是假设条件句？切记：si 从句中绝不能直接接条件式（si + imparfait）！',
     rule: '构成：简单将来时词干 + 未完成过去时词尾（-ais, -ais, -ait, -ions, -iez, -aient）。主要用法：1. 礼貌客气（Je voudrais un café）；2. 提出建议（Tu devrais te reposer）；3. 纯假设条件句：si + imparfait → conditionnel présent。',
     reasonPlaceholder: '例如：表示委婉礼貌的请求，常用 conditionnel présent 形式……',
     scenarios: scenarios(1301, [
@@ -2538,7 +2573,7 @@ export const grammarTopics: GrammarTopic[] = [
         ['réserver une table = 订位'],
       ],
       [
-        'Excusez-moi monsieur, est-ce que vous ___ m\'indiquer le chemin de la gare ?',
+        "Excusez-moi monsieur, est-ce que vous ___ m'indiquer le chemin de la gare ?",
         'pouvez',
         'pourriez',
         'B',
@@ -2548,7 +2583,7 @@ export const grammarTopics: GrammarTopic[] = [
         ['indiquer le chemin = 指路'],
       ],
       [
-        'Ça te ___ d\'aller au cinéma ce soir ?',
+        "Ça te ___ d'aller au cinéma ce soir ?",
         'plaira',
         'plairait',
         'B',
@@ -2567,7 +2602,7 @@ export const grammarTopics: GrammarTopic[] = [
         ['un renseignement = 信息，情况'],
       ],
       [
-        'Tu as l\'air vraiment fatigué, tu ___ consulter un médecin.',
+        "Tu as l'air vraiment fatigué, tu ___ consulter un médecin.",
         'devrais',
         'dois',
         'A',
@@ -2577,7 +2612,7 @@ export const grammarTopics: GrammarTopic[] = [
         ["avoir l'air fatigué = 看起来疲惫"],
       ],
       [
-        'À votre place, je ne ___ pas cette offre d\'emploi.',
+        "À votre place, je ne ___ pas cette offre d'emploi.",
         'refuserai',
         'refuserais',
         'B',
@@ -2607,7 +2642,7 @@ export const grammarTopics: GrammarTopic[] = [
         ['améliorer = 提高，改善'],
       ],
       [
-        'Si j\'avais assez d\'argent, j\'___ une maison au bord de la mer.',
+        "Si j'avais assez d'argent, j'___ une maison au bord de la mer.",
         'achèterais',
         'achetais',
         'A',
@@ -2640,8 +2675,9 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Discours indirect',
     tagline: '间接引语',
     level: 'A2',
-    reminder: '先看引述动词（主句动词）的时态：主句是现在时，从句时态不变；主句是过去时，从句时态发生呼应（présent → imparfait, futur → conditionnel）。疑问句变间接引语时：一般疑问句用 si，qu\'est-ce qui 变 ce qui，qu\'est-ce que 变 ce que。',
-    rule: '间接引语转换规则：陈述句用 que 连接；一般疑问句用 si；疑问词 qu\'est-ce qui / qu\'est-ce que 分别转换为 ce qui / ce que。时态配合（主句为过去时）：直陈式现在时 → 未完成过去时；简单将来时 → 条件式现在时。',
+    reminder:
+      "先看引述动词（主句动词）的时态：主句是现在时，从句时态不变；主句是过去时，从句时态发生呼应（présent → imparfait, futur → conditionnel）。疑问句变间接引语时：一般疑问句用 si，qu'est-ce qui 变 ce qui，qu'est-ce que 变 ce que。",
+    rule: "间接引语转换规则：陈述句用 que 连接；一般疑问句用 si；疑问词 qu'est-ce qui / qu'est-ce que 分别转换为 ce qui / ce que。时态配合（主句为过去时）：直陈式现在时 → 未完成过去时；简单将来时 → 条件式现在时。",
     reasonPlaceholder: '例如：主句动词是复合过去时，直接引语的现在时在间接引语中需变为未完成过去时……',
     scenarios: scenarios(1401, [
       [
@@ -2667,24 +2703,24 @@ export const grammarTopics: GrammarTopic[] = [
       [
         'Elle veut savoir ___ nous avons préparé pour la fête.',
         'ce que',
-        'qu\'est-ce que',
+        "qu'est-ce que",
         'A',
-        '直接疑问句中的 qu\'est-ce que... 转换为间接引语时，必须变成 ce que，不能直接保留疑问句型 qu\'est-ce que。',
+        "直接疑问句中的 qu'est-ce que... 转换为间接引语时，必须变成 ce que，不能直接保留疑问句型 qu'est-ce que。",
         '她想知道我们为聚会准备了什么。',
-        'qu\'est-ce que 转间接引语 → ce que',
+        "qu'est-ce que 转间接引语 → ce que",
       ],
       [
         'Le professeur demande aux étudiants ___ ils ont compris la leçon.',
         'que',
-        's\'ils',
+        "s'ils",
         'B',
-        '提问是否理解是一般疑问句，用 si 引导；si 在代词 ils 前必须发生省音变成 s\'ils。',
+        "提问是否理解是一般疑问句，用 si 引导；si 在代词 ils 前必须发生省音变成 s'ils。",
         '老师问学生们是否听懂了这节课。',
-        'si + ils → s\'ils（省音）',
+        "si + ils → s'ils（省音）",
         ['une leçon = 课，功课'],
       ],
       [
-        'Marc dit : « Je suis très occupé. » → Marc dit qu\'il ___ très occupé.',
+        "Marc dit : « Je suis très occupé. » → Marc dit qu'il ___ très occupé.",
         'est',
         'était',
         'A',
@@ -2693,7 +2729,7 @@ export const grammarTopics: GrammarTopic[] = [
         '主句现在时（dit）→ 从句时态不变（est）',
       ],
       [
-        'Sophie nous affirme : « Nous partirons demain. » → Sophie nous affirme qu\'ils ___ demain.',
+        "Sophie nous affirme : « Nous partirons demain. » → Sophie nous affirme qu'ils ___ demain.",
         'partiraient',
         'partiront',
         'B',
@@ -2702,35 +2738,35 @@ export const grammarTopics: GrammarTopic[] = [
         '主句现在时（affirme）→ 从句保持将来时（partiront）',
       ],
       [
-        'Mon collègue m\'explique qu\'il ___ changer de bureau le mois prochain.',
+        "Mon collègue m'explique qu'il ___ changer de bureau le mois prochain.",
         'va',
         'allait',
         'A',
-        '主句 m\'explique 为现在时，从句表达将来的最近将来时 va changer 保持不变。',
+        "主句 m'explique 为现在时，从句表达将来的最近将来时 va changer 保持不变。",
         '我的同事向我解释他下个月要换办公室。',
         '主句现在时（explique）→ 从句时态不变（va）',
       ],
       [
-        'Hier, Paul m\'a dit : « Je cherche un nouvel appartement. » → Paul m\'a dit qu\'il ___ un nouvel appartement.',
+        "Hier, Paul m'a dit : « Je cherche un nouvel appartement. » → Paul m'a dit qu'il ___ un nouvel appartement.",
         'cherche',
         'cherchait',
         'B',
-        '主句动词 m\'a dit 为过去时（passé composé），直接引语中的现在时 cherche 在间接引语中必须变为未完成过去时 cherchait。',
+        "主句动词 m'a dit 为过去时（passé composé），直接引语中的现在时 cherche 在间接引语中必须变为未完成过去时 cherchait。",
         '昨天保罗跟我说他在找一套新公寓。',
         '主句过去时 → présent 变为 imparfait（cherchait）',
       ],
       [
-        'Elle m\'a assuré qu\'elle ___ à l\'heure au rendez-vous.',
+        "Elle m'a assuré qu'elle ___ à l'heure au rendez-vous.",
         'sera',
         'serait',
         'B',
-        '主句 m\'a assuré 为过去时，直接引语中的简单将来时（je serai）在间接引语中必须变为过去将来时（即条件式现在时 serait）。',
+        "主句 m'a assuré 为过去时，直接引语中的简单将来时（je serai）在间接引语中必须变为过去将来时（即条件式现在时 serait）。",
         '她向我保证她会准时赴约。',
         '主句过去时 → futur simple 变为 conditionnel présent（serait）',
-        ['être à l\'heure = 准时'],
+        ["être à l'heure = 准时"],
       ],
       [
-        'Thomas a raconté qu\'il ___ malade toute la semaine précédente.',
+        "Thomas a raconté qu'il ___ malade toute la semaine précédente.",
         'avait été',
         'a été',
         'A',
@@ -2753,7 +2789,8 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'La voix passive',
     tagline: '被动态与引导介词',
     level: 'A2',
-    reminder: '被动态的核心是 “être + 过去分词”。过去分词必须与主语（动作的承受者）进行性数配合！引导施动者多用介词 par；表示状态、情感、描写或构成的动词常接 de。时态变化体现在助动词 être 的时态上。',
+    reminder:
+      '被动态的核心是 “être + 过去分词”。过去分词必须与主语（动作的承受者）进行性数配合！引导施动者多用介词 par；表示状态、情感、描写或构成的动词常接 de。时态变化体现在助动词 être 的时态上。',
     rule: '被动语态构成：主语 + être（相应时态） + 过去分词（性数配合） + par / de + 施动者。par：用于具体动作的执行者；de：用于表示情感（aimé, respecté）、描述状态或构成（entouré, couvert, composé）的动词。',
     reasonPlaceholder: '例如：被动句中过去分词要与主语性数配合，主语是阴性单数故加 e……',
     scenarios: scenarios(1501, [
@@ -2847,7 +2884,7 @@ export const grammarTopics: GrammarTopic[] = [
         ['le bicentenaire = 两百周年纪念'],
       ],
       [
-        'Les travaux du métro ___ terminés à la fin de l\'année prochaine.',
+        "Les travaux du métro ___ terminés à la fin de l'année prochaine.",
         'sont',
         'seront',
         'B',
@@ -2870,12 +2907,13 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Pronoms possessifs et interrogatifs',
     tagline: '主有代词与疑问代词',
     level: 'A2',
-    reminder: '主有代词（le mien, la tienne, les leurs...）代替“主有形容词 + 名词”，前面必须带定冠词，性数与所替代的名词一致！疑问形容词 quel 修饰名词（Quel train ?），而疑问代词 lequel（laquelle, lesquels...）单独使用代替名词（Lequel préfères-tu ?）。',
+    reminder:
+      '主有代词（le mien, la tienne, les leurs...）代替“主有形容词 + 名词”，前面必须带定冠词，性数与所替代的名词一致！疑问形容词 quel 修饰名词（Quel train ?），而疑问代词 lequel（laquelle, lesquels...）单独使用代替名词（Lequel préfères-tu ?）。',
     rule: '主有代词：le mien / la mienne / les miens / les miennes；le tien / la tienne...；le sien / la sienne...；le nôtre / la nôtre / les nôtres；le vôtre / la vôtre / les vôtres；le leur / la leur / les leurs。疑问表达：quel(le)(s) + 名词（形容词性）；lequel / laquelle / lesquels / lesquelles 单独作代词（代词性，需配合性数）。',
     reasonPlaceholder: '例如：代替阴性单数名词 une valise，主有代词需用 la mienne……',
     scenarios: scenarios(1601, [
       [
-        'Tu as oublié ta clé ? Prends ___, j\'ai un double.',
+        "Tu as oublié ta clé ? Prends ___, j'ai un double.",
         'le mien',
         'la mienne',
         'B',
@@ -2904,7 +2942,7 @@ export const grammarTopics: GrammarTopic[] = [
         '指代 notre maison → la nôtre',
       ],
       [
-        'J\'ai retrouvé mes lunettes, mais Julie cherche encore ___.',
+        "J'ai retrouvé mes lunettes, mais Julie cherche encore ___.",
         'les siennes',
         'les leurs',
         'A',
@@ -2914,7 +2952,7 @@ export const grammarTopics: GrammarTopic[] = [
         ['les lunettes = 眼镜'],
       ],
       [
-        'Ce parapluie n\'est pas à moi. C\'est ___ ?',
+        "Ce parapluie n'est pas à moi. C'est ___ ?",
         'le tien',
         'ton',
         'A',
@@ -3078,7 +3116,7 @@ export const grammarTopics: GrammarTopic[] = [
         '把雨伞忘在车上是先完成的具体事件，不是背景描写，不能用 imparfait（oubliait），必须用愈过去时：avait oublié。',
         '他一进门，就发觉自己把雨伞落在公交车上了。',
         '过去的已完成动作先于发觉 → plus-que-parfait',
-        ["se rendre compte = 发觉，意识到", 'oublier son parapluie = 忘带雨伞'],
+        ['se rendre compte = 发觉，意识到', 'oublier son parapluie = 忘带雨伞'],
       ],
       [
         'Marie nous a expliqué qu’elle ___ en Italie pour ses études avant de venir à Paris.',
@@ -3199,7 +3237,7 @@ export const grammarTopics: GrammarTopic[] = [
         ['participer à une course = 参加跑步比赛', 'malade = 生病的'],
       ],
       [
-        "Vous ___ me laisser seul avec tous ces dossiers hier après-midi !",
+        'Vous ___ me laisser seul avec tous ces dossiers hier après-midi !',
         'ne devriez pas',
         "n'auriez pas dû",
         'B',
@@ -3222,7 +3260,8 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Le futur antérieur',
     tagline: '先将来时：时间从句与将来完成',
     level: 'B1',
-    reminder: '先将来时表示在将来的另一个动作之前将要完成的事情。在 quand、dès que、lorsque、une fois que 引导的时间从句中，先完成的动作用先将来时，主句动作用简单将来时。',
+    reminder:
+      '先将来时表示在将来的另一个动作之前将要完成的事情。在 quand、dès que、lorsque、une fois que 引导的时间从句中，先完成的动作用先将来时，主句动作用简单将来时。',
     rule: '构成：avoir 或 être 的简单将来时变位（aurai, auras, aura, aurons... / serai, seras, sera...）+ 过去分词。主要用法：1) 时间连词（dès que, quand, lorsque, une fois que）引导从句，表示比主句将来动作更早完成的事（Dès que j’aurai fini, je partirai）；2) 在将来某一时刻之前已完成的动作（D’ici demain, il sera arrivé）。',
     reasonPlaceholder: '例如：dès que 后面表示在离开之前先完成收拾，应该用先将来时 dès que j’aurai rangé……',
     scenarios: scenarios(1901, [
@@ -3234,7 +3273,7 @@ export const grammarTopics: GrammarTopic[] = [
         'dès que 引导的时间从句表示在打电话叫出租车（appellerons）之前先完成的动作，须用先将来时：aurons bouclé。',
         '我们一收拾好行李箱，就给出租车公司打电话去机场。',
         'dès que + 将来先完成动作 → futur antérieur',
-        ["boucler ses valises = 收拾好行李", "l'aéroport = 机场"],
+        ['boucler ses valises = 收拾好行李', "l'aéroport = 机场"],
       ],
       [
         'Quand vous ___ ce document, merci de me le renvoyer par courriel.',
@@ -3324,7 +3363,7 @@ export const grammarTopics: GrammarTopic[] = [
         '钟声响起时，学生们将已经离开了考场；强调动作在特定将来时刻前已经完成，用先将来时：auront quitté。',
         '十分钟后钟声将响起，而学生们到那时将已经离开考场。',
         '将来时间点前已完成动作 → auront quitté',
-        ["la cloche = 钟", "la salle d'examen = 考场"],
+        ['la cloche = 钟', "la salle d'examen = 考场"],
       ],
     ]),
     batches: batchesFrom(1901, ['先将来时构成与助动词', '时间连词（quand, dès que...）的先时性', '先将来时与简单将来时综合对比']),
@@ -3340,7 +3379,8 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Concession et condition',
     tagline: '让步与条件：虚拟式还是直陈式',
     level: 'B1',
-    reminder: '重点区分连词后接语式：bien que、quoique、à condition que、à moins que、pour que 固定接虚拟式；而 même si、alors que、parce que 接直陈式。',
+    reminder:
+      '重点区分连词后接语式：bien que、quoique、à condition que、à moins que、pour que 固定接虚拟式；而 même si、alors que、parce que 接直陈式。',
     rule: '接 subjonctif 的连词短语：1) 让步：bien que（虽然）, quoique（尽管）；2) 条件：à condition que（只要，条件是）, à moins que... (ne)（除非）；3) 目的：pour que / afin que（为了让）。接 indicatif 的连词短语：1) 让步与假设：même si（即使，哪怕）；2) 对比与对立：alors que（而，然而）；3) 原因：parce que / puisque（因为）。',
     reasonPlaceholder: '例如：bien que 引导让步从句固定接虚拟式，所以用 bien qu’il fasse……',
     scenarios: scenarios(2001, [
@@ -3458,7 +3498,8 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'La cause et la conséquence',
     tagline: '原因与结果：逻辑连词与动词表达',
     level: 'B1',
-    reminder: '区分介词的情感色彩与位置：grâce à 表积极原因（多亏），à cause de 表消极原因（由于）；comme 强调原因必置于句首；puisque 表示显而易见的事实依据；动词 causer / provoquer / entraîner 直接接结果名词。',
+    reminder:
+      '区分介词的情感色彩与位置：grâce à 表积极原因（多亏），à cause de 表消极原因（由于）；comme 强调原因必置于句首；puisque 表示显而易见的事实依据；动词 causer / provoquer / entraîner 直接接结果名词。',
     rule: '原因表达：1) 介词短语：grâce à + 名词（积极），à cause de + 名词（消极/中性），faute de + 名词（由于缺乏）；2) 连词：parce que（回答 pourquoi），puisque（显而易见的原因，既然），comme（置于句首，因为），car（并列连词，书面语）。结果表达：1) 副词与连词短语：donc（因此），c’est pourquoi（这就是为什么），par conséquent（因此），si bien que / de sorte que（以至于）；2) 动词表达：causer / provoquer / entraîner + 名词（引起、造成某结果）。',
     reasonPlaceholder: '例如：成功是通过团队努力带来的积极结果，介词要用 grâce à……',
     scenarios: scenarios(2101, [
@@ -3483,7 +3524,7 @@ export const grammarTopics: GrammarTopic[] = [
         ['annuler un vol = 取消航班', 'une tempête de neige = 暴风雪'],
       ],
       [
-        "___ il pleuvait à verse, nous avons décidé de reporter la visite au musée.",
+        '___ il pleuvait à verse, nous avons décidé de reporter la visite au musée.',
         'Comme',
         "Parce qu'",
         'A',
@@ -3530,7 +3571,7 @@ export const grammarTopics: GrammarTopic[] = [
         '逗号前是原因（没带身份证），逗号后引出必然产生的结果（无法进入大楼），表示“这就是为什么/因此”，用 c’est pourquoi。',
         '他身上没带身份证，这就是为什么他没能进入大楼。',
         '引出造成的结果 → c’est pourquoi',
-        ["les papiers d'identité = 身份证件", "un immeuble = 办公楼，大厦"],
+        ["les papiers d'identité = 身份证件", 'un immeuble = 办公楼，大厦'],
       ],
       [
         'Cette décision imprudente a ___ la démission immédiate du directeur financier.',
@@ -3563,7 +3604,11 @@ export const grammarTopics: GrammarTopic[] = [
         ['payer une amende = 交罚款', 'dépasser la vitesse = 超速'],
       ],
     ]),
-    batches: batchesFrom(2101, ['grâce à vs à cause de 及介词', '连词用法（comme, puisque, car, parce que）', '结果连词与动词（donc, si bien que, provoquer）']),
+    batches: batchesFrom(2101, [
+      'grâce à vs à cause de 及介词',
+      '连词用法（comme, puisque, car, parce que）',
+      '结果连词与动词（donc, si bien que, provoquer）',
+    ]),
     outputPrompts: [
       { zh: '多亏了他的建议，我顺利通过了面试。', hint: 'grâce à ses conseils / réussir l’entretien d’embauche' },
       { zh: '因为天气太糟糕，所有的火车都晚点了。', hint: 'comme / faire mauvais temps / tous les trains / être en retard' },
@@ -3576,7 +3621,8 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Le gérondif et le participe présent',
     tagline: '副动词与现在分词：方式、时间与修饰',
     level: 'B1',
-    reminder: '副动词结构为 en + 现在分词（en faisant），主语必须与主句主语严格一致，常表示同时性、方式或条件；现在分词（faisant）可作形容词修饰名词（相当于 qui 引导的关系从句）或作分词从句表示原因。',
+    reminder:
+      '副动词结构为 en + 现在分词（en faisant），主语必须与主句主语严格一致，常表示同时性、方式或条件；现在分词（faisant）可作形容词修饰名词（相当于 qui 引导的关系从句）或作分词从句表示原因。',
     rule: '构成：动词 nous 形式的词干 + -ant（parlons → parlant；finissons → finissant）。三个特殊不规则变位：être → étant，avoir → ayant，savoir → sachant。用法：1) 副动词（en + -ant）：表同时（Il écoute la radio en cuisinant）、方式（On apprend en pratiquant）、条件（En partant tôt, tu arriveras à l’heure）；与 tout 连用表对立让步（tout en souriant）。2) 现在分词（-ant）：修饰名词（des personnes cherchant un emploi = qui cherchent...）或分词从句（Ne sachant pas la réponse, il s’est tu）。',
     reasonPlaceholder: '例如：边听音乐边做家务表示动作同时进行，副动词要用 en écoutant……',
     scenarios: scenarios(2201, [
@@ -3598,7 +3644,7 @@ export const grammarTopics: GrammarTopic[] = [
         '这里是现在分词引导分词从句，相当于原因状语从句（Comme elle savait...），sachant 是 savoir 的特殊现在分词，不加 en。',
         '得知将会有火车罢工，她宁可选择乘坐长途大巴。',
         '分词从句表原因（Comme elle savait...） → Sachant',
-        ['une grève de trains = 火车罢工', "un autocar = 长途客车"],
+        ['une grève de trains = 火车罢工', 'un autocar = 长途客车'],
       ],
       [
         "C'est ___ régulièrement tous les jours que tu feras des progrès en français.",
