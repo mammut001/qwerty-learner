@@ -1,0 +1,710 @@
+[
+  {
+    "name": "télévision",
+    "trans": [
+      "n.f. 电视，电视机"
+    ]
+  },
+  {
+    "name": "chaîne",
+    "trans": [
+      "n.f. 频道；链条"
+    ]
+  },
+  {
+    "name": "télécommande",
+    "trans": [
+      "n.f. 遥控器"
+    ]
+  },
+  {
+    "name": "programme",
+    "trans": [
+      "n.m. 节目，日程"
+    ]
+  },
+  {
+    "name": "série",
+    "trans": [
+      "n.f. 连续剧"
+    ]
+  },
+  {
+    "name": "documentaire",
+    "trans": [
+      "n.m. 纪录片"
+    ]
+  },
+  {
+    "name": "magazine",
+    "trans": [
+      "n.m. 杂志；电视专栏"
+    ]
+  },
+  {
+    "name": "divertissement",
+    "trans": [
+      "n.m. 综艺，娱乐节目"
+    ]
+  },
+  {
+    "name": "sport",
+    "trans": [
+      "n.m. 体育"
+    ]
+  },
+  {
+    "name": "téléfilm",
+    "trans": [
+      "n.m. 电视电影"
+    ]
+  },
+  {
+    "name": "spectacle",
+    "trans": [
+      "n.m. 演出"
+    ]
+  },
+  {
+    "name": "reportage",
+    "trans": [
+      "n.m. 专题报道"
+    ]
+  },
+  {
+    "name": "actualités",
+    "trans": [
+      "n.f.pl. 新闻时事"
+    ]
+  },
+  {
+    "name": "débat",
+    "trans": [
+      "n.m. 辩论"
+    ]
+  },
+  {
+    "name": "téléréalité",
+    "trans": [
+      "n.f. 真人秀"
+    ]
+  },
+  {
+    "name": "dessin animé",
+    "trans": [
+      "n.m. 动画片"
+    ]
+  },
+  {
+    "name": "météo",
+    "trans": [
+      "n.f. 天气预报"
+    ]
+  },
+  {
+    "name": "chanteur",
+    "trans": [
+      "n.m. 歌手"
+    ]
+  },
+  {
+    "name": "chanteuse",
+    "trans": [
+      "n.f. 女歌手"
+    ]
+  },
+  {
+    "name": "groupe de rock",
+    "trans": [
+      "n.m. 摇滚乐队"
+    ]
+  },
+  {
+    "name": "carrière",
+    "trans": [
+      "n.f. 职业生涯"
+    ]
+  },
+  {
+    "name": "morceau",
+    "trans": [
+      "n.m. 乐曲；一块"
+    ]
+  },
+  {
+    "name": "mérite",
+    "trans": [
+      "n.m. 优点，功劳"
+    ]
+  },
+  {
+    "name": "galère",
+    "trans": [
+      "n.f. 苦差事，苦难"
+    ]
+  },
+  {
+    "name": "défi",
+    "trans": [
+      "n.m. 挑战"
+    ]
+  },
+  {
+    "name": "responsabilité",
+    "trans": [
+      "n.f. 责任"
+    ]
+  },
+  {
+    "name": "audition aveugle",
+    "trans": [
+      "n.f. 盲选"
+    ]
+  },
+  {
+    "name": "plateau",
+    "trans": [
+      "n.m. 演播厅，托盘"
+    ]
+  },
+  {
+    "name": "émission",
+    "trans": [
+      "n.f. 节目"
+    ]
+  },
+  {
+    "name": "réalisateur",
+    "trans": [
+      "n.m. 导演"
+    ]
+  },
+  {
+    "name": "animateur",
+    "trans": [
+      "n.m. 主持人"
+    ]
+  },
+  {
+    "name": "animatrice",
+    "trans": [
+      "n.f. 女主持人"
+    ]
+  },
+  {
+    "name": "trac",
+    "trans": [
+      "n.m. 登台怯场"
+    ]
+  },
+  {
+    "name": "répétition",
+    "trans": [
+      "n.f. 排练"
+    ]
+  },
+  {
+    "name": "escalier",
+    "trans": [
+      "n.m. 楼梯"
+    ]
+  },
+  {
+    "name": "public",
+    "trans": [
+      "n.m. 观众，公众"
+    ]
+  },
+  {
+    "name": "plaisanterie",
+    "trans": [
+      "n.f. 玩笑"
+    ]
+  },
+  {
+    "name": "contradiction",
+    "trans": [
+      "n.f. 矛盾"
+    ]
+  },
+  {
+    "name": "progrès",
+    "trans": [
+      "n.m. 进步"
+    ]
+  },
+  {
+    "name": "boum",
+    "trans": [
+      "n.f. 舞会"
+    ]
+  },
+  {
+    "name": "presse",
+    "trans": [
+      "n.f. 新闻媒体，报刊"
+    ]
+  },
+  {
+    "name": "mode",
+    "trans": [
+      "n.f. 时尚"
+    ]
+  },
+  {
+    "name": "beauté",
+    "trans": [
+      "n.f. 美容，美丽"
+    ]
+  },
+  {
+    "name": "people",
+    "trans": [
+      "n.m. 名流八卦"
+    ]
+  },
+  {
+    "name": "cuisine",
+    "trans": [
+      "n.f. 烹饪，美食"
+    ]
+  },
+  {
+    "name": "culture",
+    "trans": [
+      "n.f. 文化"
+    ]
+  },
+  {
+    "name": "déco",
+    "trans": [
+      "n.f. 家居装饰"
+    ]
+  },
+  {
+    "name": "société",
+    "trans": [
+      "n.f. 社会，公司"
+    ]
+  },
+  {
+    "name": "express",
+    "trans": [
+      "n.m. 快讯，快递"
+    ]
+  },
+  {
+    "name": "palmarès",
+    "trans": [
+      "n.m. 排行榜"
+    ]
+  },
+  {
+    "name": "hôpital",
+    "trans": [
+      "n.m. 医院"
+    ]
+  },
+  {
+    "name": "clinique",
+    "trans": [
+      "n.f. 诊所"
+    ]
+  },
+  {
+    "name": "journal",
+    "trans": [
+      "n.m. 报纸"
+    ]
+  },
+  {
+    "name": "invention",
+    "trans": [
+      "n.f. 发明"
+    ]
+  },
+  {
+    "name": "message",
+    "trans": [
+      "n.m. 便条，讯息"
+    ]
+  },
+  {
+    "name": "peinture",
+    "trans": [
+      "n.f. 油漆，画作"
+    ]
+  },
+  {
+    "name": "papier peint",
+    "trans": [
+      "n.m. 墙纸"
+    ]
+  },
+  {
+    "name": "aéroport",
+    "trans": [
+      "n.m. 机场"
+    ]
+  },
+  {
+    "name": "plantation",
+    "trans": [
+      "n.f. 种植园"
+    ]
+  },
+  {
+    "name": "partenaire",
+    "trans": [
+      "n.m./f. 合作伙伴"
+    ]
+  },
+  {
+    "name": "baobab",
+    "trans": [
+      "n.m. 猴面包树"
+    ]
+  },
+  {
+    "name": "branche",
+    "trans": [
+      "n.f. 树枝"
+    ]
+  },
+  {
+    "name": "feuille",
+    "trans": [
+      "n.f. 树叶"
+    ]
+  },
+  {
+    "name": "racine",
+    "trans": [
+      "n.f. 树根"
+    ]
+  },
+  {
+    "name": "arbre",
+    "trans": [
+      "n.m. 树"
+    ]
+  },
+  {
+    "name": "cérémonie",
+    "trans": [
+      "n.f. 典礼，仪式"
+    ]
+  },
+  {
+    "name": "remise",
+    "trans": [
+      "n.f. 颁发，交付"
+    ]
+  },
+  {
+    "name": "star",
+    "trans": [
+      "n.f. 明星"
+    ]
+  },
+  {
+    "name": "compétition",
+    "trans": [
+      "n.f. 比赛，竞赛"
+    ]
+  },
+  {
+    "name": "catégorie",
+    "trans": [
+      "n.f. 类别"
+    ]
+  },
+  {
+    "name": "exemplaire",
+    "trans": [
+      "n.m. 一份，一册"
+    ]
+  },
+  {
+    "name": "nomination",
+    "trans": [
+      "n.f. 提名"
+    ]
+  },
+  {
+    "name": "privé",
+    "trans": [
+      "adj. 私立的，私人的"
+    ]
+  },
+  {
+    "name": "fiable",
+    "trans": [
+      "adj. 可靠的"
+    ]
+  },
+  {
+    "name": "personnel",
+    "trans": [
+      "adj. 个人的"
+    ]
+  },
+  {
+    "name": "aveugle",
+    "trans": [
+      "adj. 盲的"
+    ]
+  },
+  {
+    "name": "physique",
+    "trans": [
+      "adj. 身体的，物理的"
+    ]
+  },
+  {
+    "name": "formidable",
+    "trans": [
+      "adj. 极好的，了不起的"
+    ]
+  },
+  {
+    "name": "exclusif",
+    "trans": [
+      "adj. 独家的"
+    ]
+  },
+  {
+    "name": "commercial",
+    "trans": [
+      "adj. 商业的"
+    ]
+  },
+  {
+    "name": "étonnant",
+    "trans": [
+      "adj. 令人吃惊的"
+    ]
+  },
+  {
+    "name": "orgueilleux",
+    "trans": [
+      "adj. 傲慢的，骄傲的"
+    ]
+  },
+  {
+    "name": "audacieux",
+    "trans": [
+      "adj. 大胆的"
+    ]
+  },
+  {
+    "name": "tenter",
+    "trans": [
+      "v.t. 尝试"
+    ]
+  },
+  {
+    "name": "lâcher",
+    "trans": [
+      "v.t. 放弃，放手"
+    ]
+  },
+  {
+    "name": "exploser",
+    "trans": [
+      "v.i. 爆炸，迸发"
+    ]
+  },
+  {
+    "name": "sourire",
+    "trans": [
+      "v.i. 微笑"
+    ]
+  },
+  {
+    "name": "tourner",
+    "trans": [
+      "v.t. 拍摄"
+    ]
+  },
+  {
+    "name": "associer",
+    "trans": [
+      "v.t. 组合，联合"
+    ]
+  },
+  {
+    "name": "respirer",
+    "trans": [
+      "v.i. 呼吸"
+    ]
+  },
+  {
+    "name": "sentir",
+    "trans": [
+      "v.t. 闻，感觉"
+    ]
+  },
+  {
+    "name": "punir",
+    "trans": [
+      "v.t. 惩罚"
+    ]
+  },
+  {
+    "name": "arracher",
+    "trans": [
+      "v.t. 拔除"
+    ]
+  },
+  {
+    "name": "replanter",
+    "trans": [
+      "v.t. 重新种植"
+    ]
+  },
+  {
+    "name": "admirer",
+    "trans": [
+      "v.t. 仰慕，赞美"
+    ]
+  },
+  {
+    "name": "accueillir",
+    "trans": [
+      "v.t. 迎接，接待"
+    ]
+  },
+  {
+    "name": "prouver",
+    "trans": [
+      "v.t. 证明"
+    ]
+  },
+  {
+    "name": "intituler",
+    "trans": [
+      "v.t. 题名为……"
+    ]
+  },
+  {
+    "name": "environ",
+    "trans": [
+      "adv. 大约"
+    ]
+  },
+  {
+    "name": "heureusement",
+    "trans": [
+      "adv. 幸运地"
+    ]
+  },
+  {
+    "name": "évidemment",
+    "trans": [
+      "adv. 显然地"
+    ]
+  },
+  {
+    "name": "vraiment",
+    "trans": [
+      "adv. 真正地"
+    ]
+  },
+  {
+    "name": "rapidement",
+    "trans": [
+      "adv. 迅速地"
+    ]
+  },
+  {
+    "name": "physiquement",
+    "trans": [
+      "adv. 身体上"
+    ]
+  },
+  {
+    "name": "changer de chaîne",
+    "trans": [
+      "短语：换台"
+    ]
+  },
+  {
+    "name": "coup de cœur",
+    "trans": [
+      "短语：心动之选"
+    ]
+  },
+  {
+    "name": "toucher du doigt",
+    "trans": [
+      "短语：触手可及"
+    ]
+  },
+  {
+    "name": "serrer la main",
+    "trans": [
+      "短语：握手"
+    ]
+  },
+  {
+    "name": "arriver à",
+    "trans": [
+      "短语：成功做到……"
+    ]
+  },
+  {
+    "name": "faire la connaissance de",
+    "trans": [
+      "短语：结识……"
+    ]
+  },
+  {
+    "name": "être ravi de",
+    "trans": [
+      "短语：很高兴……"
+    ]
+  },
+  {
+    "name": "bon voyage",
+    "trans": [
+      "短语：旅途愉快"
+    ]
+  },
+  {
+    "name": "bienvenue à",
+    "trans": [
+      "短语：欢迎来到……"
+    ]
+  },
+  {
+    "name": "c'est tout un programme",
+    "trans": [
+      "短语：说来话长，大有文章"
+    ]
+  },
+  {
+    "name": "lever son verre",
+    "trans": [
+      "短语：举杯祝酒"
+    ]
+  },
+  {
+    "name": "à l'envers",
+    "trans": [
+      "短语：颠倒，反向"
+    ]
+  },
+  {
+    "name": "ne pas perdre le nord",
+    "trans": [
+      "短语：不迷失方向，头脑清醒"
+    ]
+  },
+  {
+    "name": "pour peu que",
+    "trans": [
+      "短语：只要稍微……"
+    ]
+  }
+]

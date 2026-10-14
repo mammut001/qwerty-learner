@@ -1,0 +1,674 @@
+[
+  {
+    "name": "constructeur",
+    "trans": [
+      "n.m. 制造商"
+    ]
+  },
+  {
+    "name": "supermarché",
+    "trans": [
+      "n.m. 超市"
+    ]
+  },
+  {
+    "name": "alimentation",
+    "trans": [
+      "n.f. 食品，饮食"
+    ]
+  },
+  {
+    "name": "produit",
+    "trans": [
+      "n.m. 产品"
+    ]
+  },
+  {
+    "name": "beauté",
+    "trans": [
+      "n.f. 美容，美貌"
+    ]
+  },
+  {
+    "name": "hôtellerie",
+    "trans": [
+      "n.f. 酒店业"
+    ]
+  },
+  {
+    "name": "avion",
+    "trans": [
+      "n.m. 飞机"
+    ]
+  },
+  {
+    "name": "devoir",
+    "trans": [
+      "n.m. 责任，义务"
+    ]
+  },
+  {
+    "name": "esprit d'entreprise",
+    "trans": [
+      "n.m. 进取精神，创业精神"
+    ]
+  },
+  {
+    "name": "rôle",
+    "trans": [
+      "n.m. 角色，作用"
+    ]
+  },
+  {
+    "name": "entrepreneuriat",
+    "trans": [
+      "n.m. 创业，企业精神"
+    ]
+  },
+  {
+    "name": "aide à la personne",
+    "trans": [
+      "n.f. 家政服务，生活照料"
+    ]
+  },
+  {
+    "name": "enseignement",
+    "trans": [
+      "n.m. 教育，教学"
+    ]
+  },
+  {
+    "name": "loisir",
+    "trans": [
+      "n.m. 娱乐，休闲"
+    ]
+  },
+  {
+    "name": "retour",
+    "trans": [
+      "n.m. 返回"
+    ]
+  },
+  {
+    "name": "société",
+    "trans": [
+      "n.f. 公司；社会"
+    ]
+  },
+  {
+    "name": "chauffeur",
+    "trans": [
+      "n.m. 司机"
+    ]
+  },
+  {
+    "name": "fatigue",
+    "trans": [
+      "n.f. 疲劳"
+    ]
+  },
+  {
+    "name": "laboratoire",
+    "trans": [
+      "n.m. 实验室"
+    ]
+  },
+  {
+    "name": "chef de projet",
+    "trans": [
+      "n.m. 项目主管"
+    ]
+  },
+  {
+    "name": "expérience",
+    "trans": [
+      "n.f. 经验，经历"
+    ]
+  },
+  {
+    "name": "animation",
+    "trans": [
+      "n.f. 活动组织，主持"
+    ]
+  },
+  {
+    "name": "équipe",
+    "trans": [
+      "n.f. 团队"
+    ]
+  },
+  {
+    "name": "contact",
+    "trans": [
+      "n.m. 联系，交往"
+    ]
+  },
+  {
+    "name": "commercialisation",
+    "trans": [
+      "n.f. 营销，商业化"
+    ]
+  },
+  {
+    "name": "recrutement",
+    "trans": [
+      "n.m. 招聘"
+    ]
+  },
+  {
+    "name": "petite annonce",
+    "trans": [
+      "n.f. 分类广告，招聘启事"
+    ]
+  },
+  {
+    "name": "CV",
+    "trans": [
+      "n.m. 个人简历"
+    ]
+  },
+  {
+    "name": "lettre de motivation",
+    "trans": [
+      "n.f. 动机信，自荐信"
+    ]
+  },
+  {
+    "name": "entretien",
+    "trans": [
+      "n.m. 面试，谈话"
+    ]
+  },
+  {
+    "name": "formation",
+    "trans": [
+      "n.f. 培训，学历背景"
+    ]
+  },
+  {
+    "name": "diplôme",
+    "trans": [
+      "n.m. 文凭，毕业证书"
+    ]
+  },
+  {
+    "name": "licence",
+    "trans": [
+      "n.f. 本科，学士学位"
+    ]
+  },
+  {
+    "name": "mastère",
+    "trans": [
+      "n.m. 硕士学位"
+    ]
+  },
+  {
+    "name": "chimie",
+    "trans": [
+      "n.f. 化学"
+    ]
+  },
+  {
+    "name": "arôme",
+    "trans": [
+      "n.m. 香气，香味"
+    ]
+  },
+  {
+    "name": "formulateur",
+    "trans": [
+      "n.m. 配方师"
+    ]
+  },
+  {
+    "name": "boutique",
+    "trans": [
+      "n.f. 商店，时装店"
+    ]
+  },
+  {
+    "name": "vêtement",
+    "trans": [
+      "n.m. 服装，衣服"
+    ]
+  },
+  {
+    "name": "vendeuse",
+    "trans": [
+      "n.f. 女售货员"
+    ]
+  },
+  {
+    "name": "veste",
+    "trans": [
+      "n.f. 上衣，外套"
+    ]
+  },
+  {
+    "name": "jupe",
+    "trans": [
+      "n.f. 短裙"
+    ]
+  },
+  {
+    "name": "pantalon",
+    "trans": [
+      "n.m. 裤子"
+    ]
+  },
+  {
+    "name": "avis",
+    "trans": [
+      "n.m. 意见，看法"
+    ]
+  },
+  {
+    "name": "armoire",
+    "trans": [
+      "n.f. 壁橱，衣柜"
+    ]
+  },
+  {
+    "name": "compagnon",
+    "trans": [
+      "n.m. 男伴，同伴"
+    ]
+  },
+  {
+    "name": "compagne",
+    "trans": [
+      "n.f. 女伴，伴侣"
+    ]
+  },
+  {
+    "name": "embauche",
+    "trans": [
+      "n.f. 雇佣，录用"
+    ]
+  },
+  {
+    "name": "tenue",
+    "trans": [
+      "n.f. 服装，着装"
+    ]
+  },
+  {
+    "name": "itinéraire",
+    "trans": [
+      "n.m. 路线，行程"
+    ]
+  },
+  {
+    "name": "kit",
+    "trans": [
+      "n.m. 成套工具，组件"
+    ]
+  },
+  {
+    "name": "emploi",
+    "trans": [
+      "n.m. 就业，工作"
+    ]
+  },
+  {
+    "name": "boulot",
+    "trans": [
+      "n.m. 工作（俗）"
+    ]
+  },
+  {
+    "name": "travaux",
+    "trans": [
+      "n.m.pl. 工程，研究成果"
+    ]
+  },
+  {
+    "name": "gestion",
+    "trans": [
+      "n.f. 管理"
+    ]
+  },
+  {
+    "name": "copain",
+    "trans": [
+      "n.m. 朋友，男朋友"
+    ]
+  },
+  {
+    "name": "copine",
+    "trans": [
+      "n.f. 朋友，女朋友"
+    ]
+  },
+  {
+    "name": "automobile",
+    "trans": [
+      "adj. 汽车的"
+    ]
+  },
+  {
+    "name": "créatif",
+    "trans": [
+      "adj. 有创造力的"
+    ]
+  },
+  {
+    "name": "disponible",
+    "trans": [
+      "adj. 有空的，随叫随到的"
+    ]
+  },
+  {
+    "name": "dynamique",
+    "trans": [
+      "adj. 有活力的"
+    ]
+  },
+  {
+    "name": "responsable",
+    "trans": [
+      "adj. 负责的"
+    ]
+  },
+  {
+    "name": "célibataire",
+    "trans": [
+      "adj. 单身的"
+    ]
+  },
+  {
+    "name": "professionnel",
+    "trans": [
+      "adj. 职业的，专业的"
+    ]
+  },
+  {
+    "name": "décontracté",
+    "trans": [
+      "adj. 放松的，随意的"
+    ]
+  },
+  {
+    "name": "nul",
+    "trans": [
+      "adj. 差劲的，无效的"
+    ]
+  },
+  {
+    "name": "faible",
+    "trans": [
+      "adj. 薄弱的，差的"
+    ]
+  },
+  {
+    "name": "sexy",
+    "trans": [
+      "adj. 性感的"
+    ]
+  },
+  {
+    "name": "exact",
+    "trans": [
+      "adj. 准确的，确切的"
+    ]
+  },
+  {
+    "name": "stimuler",
+    "trans": [
+      "v.t. 激发，促进"
+    ]
+  },
+  {
+    "name": "prévoir",
+    "trans": [
+      "v.t. 预见，安排"
+    ]
+  },
+  {
+    "name": "boire",
+    "trans": [
+      "v.t. 喝，饮酒"
+    ]
+  },
+  {
+    "name": "conduire",
+    "trans": [
+      "v.t. 驾驶，开（车）"
+    ]
+  },
+  {
+    "name": "rechercher",
+    "trans": [
+      "v.t. 寻找，搜寻"
+    ]
+  },
+  {
+    "name": "aider",
+    "trans": [
+      "v.t. 帮助"
+    ]
+  },
+  {
+    "name": "plaire",
+    "trans": [
+      "v.i. 使喜欢"
+    ]
+  },
+  {
+    "name": "réussir",
+    "trans": [
+      "v.i. 成功"
+    ]
+  },
+  {
+    "name": "répéter",
+    "trans": [
+      "v.t. 重复，排练"
+    ]
+  },
+  {
+    "name": "confirmer",
+    "trans": [
+      "v.t. 确认"
+    ]
+  },
+  {
+    "name": "s'occuper",
+    "trans": [
+      "v.pr. 照看，负责"
+    ]
+  },
+  {
+    "name": "étonner",
+    "trans": [
+      "v.t. 使吃惊"
+    ]
+  },
+  {
+    "name": "postuler",
+    "trans": [
+      "v.i. 申请，应聘"
+    ]
+  },
+  {
+    "name": "embaucher",
+    "trans": [
+      "v.t. 雇佣，录用"
+    ]
+  },
+  {
+    "name": "couramment",
+    "trans": [
+      "adv. 流利地"
+    ]
+  },
+  {
+    "name": "depuis",
+    "trans": [
+      "prép. 自从……以来"
+    ]
+  },
+  {
+    "name": "sans",
+    "trans": [
+      "prép. 没有，无"
+    ]
+  },
+  {
+    "name": "plutôt",
+    "trans": [
+      "adv. 宁愿，更"
+    ]
+  },
+  {
+    "name": "franchement",
+    "trans": [
+      "adv. 坦率地，坦诚地"
+    ]
+  },
+  {
+    "name": "assez",
+    "trans": [
+      "adv. 足够"
+    ]
+  },
+  {
+    "name": "faire la fête",
+    "trans": [
+      "短语：聚会，庆祝"
+    ]
+  },
+  {
+    "name": "tout le monde",
+    "trans": [
+      "短语：大家，所有人"
+    ]
+  },
+  {
+    "name": "avoir besoin de",
+    "trans": [
+      "短语：需要……"
+    ]
+  },
+  {
+    "name": "faire attention à",
+    "trans": [
+      "短语：注意……"
+    ]
+  },
+  {
+    "name": "participer à",
+    "trans": [
+      "短语：参加……"
+    ]
+  },
+  {
+    "name": "s'inscrire à",
+    "trans": [
+      "短语：报名，注册……"
+    ]
+  },
+  {
+    "name": "s'intéresser à",
+    "trans": [
+      "短语：对……感兴趣"
+    ]
+  },
+  {
+    "name": "en avoir marre",
+    "trans": [
+      "短语：受够了，烦死了"
+    ]
+  },
+  {
+    "name": "être fier de",
+    "trans": [
+      "短语：以……为荣"
+    ]
+  },
+  {
+    "name": "se foutre de",
+    "trans": [
+      "短语：不在乎，无所谓（俗）"
+    ]
+  },
+  {
+    "name": "se ficher de",
+    "trans": [
+      "短语：不在乎，不放在心上"
+    ]
+  },
+  {
+    "name": "s'en faire",
+    "trans": [
+      "短语：担心，发愁"
+    ]
+  },
+  {
+    "name": "aller avec",
+    "trans": [
+      "短语：与……搭配"
+    ]
+  },
+  {
+    "name": "aller à",
+    "trans": [
+      "短语：适合……"
+    ]
+  },
+  {
+    "name": "avoir horreur de",
+    "trans": [
+      "短语：讨厌，极度厌恶"
+    ]
+  },
+  {
+    "name": "je vous en prie",
+    "trans": [
+      "短语：不用谢；您请"
+    ]
+  },
+  {
+    "name": "laisser tomber",
+    "trans": [
+      "短语：放弃，算了"
+    ]
+  },
+  {
+    "name": "entretien d'embauche",
+    "trans": [
+      "短语：求职面试"
+    ]
+  },
+  {
+    "name": "avoir envie de",
+    "trans": [
+      "短语：想要，渴望"
+    ]
+  },
+  {
+    "name": "en avoir assez",
+    "trans": [
+      "短语：受够了"
+    ]
+  },
+  {
+    "name": "vouloir de",
+    "trans": [
+      "短语：接受，愿意要"
+    ]
+  },
+  {
+    "name": "c'est maintenant ou jamais",
+    "trans": [
+      "短语：机不可失，时不再来"
+    ]
+  },
+  {
+    "name": "ça me va",
+    "trans": [
+      "短语：我看行，没问题"
+    ]
+  }
+]
