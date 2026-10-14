@@ -1,0 +1,722 @@
+[
+  {
+    "name": "algorithme",
+    "trans": [
+      "n.m. 算法"
+    ]
+  },
+  {
+    "name": "intelligence artificielle",
+    "trans": [
+      "n.f. 人工智能"
+    ]
+  },
+  {
+    "name": "désinformation",
+    "trans": [
+      "n.f. 虚假信息"
+    ]
+  },
+  {
+    "name": "fausse nouvelle",
+    "trans": [
+      "n.f. 假新闻"
+    ]
+  },
+  {
+    "name": "vie privée",
+    "trans": [
+      "n.f. 隐私"
+    ]
+  },
+  {
+    "name": "confidentialité",
+    "trans": [
+      "n.f. 保密性"
+    ]
+  },
+  {
+    "name": "cyberdépendance",
+    "trans": [
+      "n.f. 网络成瘾"
+    ]
+  },
+  {
+    "name": "cyberintimidation",
+    "trans": [
+      "n.f. 网络欺凌"
+    ]
+  },
+  {
+    "name": "décrochage scolaire",
+    "trans": [
+      "n.m. 辍学"
+    ]
+  },
+  {
+    "name": "scolarité",
+    "trans": [
+      "n.f. 学业；受教育期限"
+    ]
+  },
+  {
+    "name": "frais de scolarité",
+    "trans": [
+      "n.m.pl. 学费"
+    ]
+  },
+  {
+    "name": "établissement scolaire",
+    "trans": [
+      "n.m. 学校机构"
+    ]
+  },
+  {
+    "name": "enseignement à distance",
+    "trans": [
+      "n.m. 远程教育"
+    ]
+  },
+  {
+    "name": "cours en ligne",
+    "trans": [
+      "n.m. 网络课程"
+    ]
+  },
+  {
+    "name": "manuel scolaire",
+    "trans": [
+      "n.m. 教科书"
+    ]
+  },
+  {
+    "name": "lecture",
+    "trans": [
+      "n.f. 阅读"
+    ]
+  },
+  {
+    "name": "livre numérique",
+    "trans": [
+      "n.m. 电子书"
+    ]
+  },
+  {
+    "name": "journal télévisé",
+    "trans": [
+      "n.m. 电视新闻节目"
+    ]
+  },
+  {
+    "name": "médias sociaux",
+    "trans": [
+      "n.m.pl. 社交媒体"
+    ]
+  },
+  {
+    "name": "influenceur",
+    "trans": [
+      "n.m. 网红"
+    ]
+  },
+  {
+    "name": "temps d'écran",
+    "trans": [
+      "n.m. 屏幕使用时间"
+    ]
+  },
+  {
+    "name": "actualité",
+    "trans": [
+      "n.f. 时事"
+    ]
+  },
+  {
+    "name": "fiable",
+    "trans": [
+      "adj. 可靠的"
+    ]
+  },
+  {
+    "name": "véridique",
+    "trans": [
+      "adj. 真实的"
+    ]
+  },
+  {
+    "name": "vérifier",
+    "trans": [
+      "v.t. 核实"
+    ]
+  },
+  {
+    "name": "diffuser",
+    "trans": [
+      "v.t. 传播"
+    ]
+  },
+  {
+    "name": "censurer",
+    "trans": [
+      "v.t. 审查"
+    ]
+  },
+  {
+    "name": "surveiller",
+    "trans": [
+      "v.t. 监控"
+    ]
+  },
+  {
+    "name": "collecter",
+    "trans": [
+      "v.t. 收集"
+    ]
+  },
+  {
+    "name": "divulguer",
+    "trans": [
+      "v.t. 泄露"
+    ]
+  },
+  {
+    "name": "se méfier",
+    "trans": [
+      "v.pron. 提防"
+    ]
+  },
+  {
+    "name": "addictif",
+    "trans": [
+      "adj. 令人上瘾的"
+    ]
+  },
+  {
+    "name": "néfaste",
+    "trans": [
+      "adj. 有害的"
+    ]
+  },
+  {
+    "name": "numérisé",
+    "trans": [
+      "adj. 数字化的"
+    ]
+  },
+  {
+    "name": "interactif",
+    "trans": [
+      "adj. 互动的"
+    ]
+  },
+  {
+    "name": "concentration",
+    "trans": [
+      "n.f. 注意力"
+    ]
+  },
+  {
+    "name": "réussite scolaire",
+    "trans": [
+      "n.f. 学业成功"
+    ]
+  },
+  {
+    "name": "échec scolaire",
+    "trans": [
+      "n.m. 学业失败"
+    ]
+  },
+  {
+    "name": "enseignant",
+    "trans": [
+      "n.m. 教师"
+    ]
+  },
+  {
+    "name": "pédagogie",
+    "trans": [
+      "n.f. 教学法"
+    ]
+  },
+  {
+    "name": "licence universitaire",
+    "trans": [
+      "n.f. 本科学位"
+    ]
+  },
+  {
+    "name": "bourse d'études",
+    "trans": [
+      "n.f. 奖学金"
+    ]
+  },
+  {
+    "name": "endettement",
+    "trans": [
+      "n.m. 负债"
+    ]
+  },
+  {
+    "name": "passe-temps",
+    "trans": [
+      "n.m. 消遣"
+    ]
+  },
+  {
+    "name": "divertissement",
+    "trans": [
+      "n.m. 娱乐"
+    ]
+  },
+  {
+    "name": "abonnement",
+    "trans": [
+      "n.m. 订阅"
+    ]
+  },
+  {
+    "name": "contenu",
+    "trans": [
+      "n.m. 内容"
+    ]
+  },
+  {
+    "name": "propagande",
+    "trans": [
+      "n.f. 宣传"
+    ]
+  },
+  {
+    "name": "esprit critique",
+    "trans": [
+      "n.m. 批判性思维"
+    ]
+  },
+  {
+    "name": "consentement",
+    "trans": [
+      "n.m. 同意"
+    ]
+  },
+  {
+    "name": "mot de passe",
+    "trans": [
+      "n.m. 密码"
+    ]
+  },
+  {
+    "name": "robot conversationnel",
+    "trans": [
+      "n.m. 聊天机器人"
+    ]
+  },
+  {
+    "name": "apprentissage automatique",
+    "trans": [
+      "n.m. 机器学习"
+    ]
+  },
+  {
+    "name": "rumeur",
+    "trans": [
+      "n.f. 谣言"
+    ]
+  },
+  {
+    "name": "fracture numérique",
+    "trans": [
+      "n.f. 数字鸿沟"
+    ]
+  },
+  {
+    "name": "sensibilisation",
+    "trans": [
+      "n.f. 宣传教育；提高认识"
+    ]
+  },
+  {
+    "name": "plateforme",
+    "trans": [
+      "n.f. 平台"
+    ]
+  },
+  {
+    "name": "avatar",
+    "trans": [
+      "n.m. 虚拟形象"
+    ]
+  },
+  {
+    "name": "sédentaire",
+    "trans": [
+      "adj. 久坐的"
+    ]
+  },
+  {
+    "name": "lycéen",
+    "trans": [
+      "n.m. 高中生"
+    ]
+  },
+  {
+    "name": "à l'ère du numérique",
+    "trans": [
+      "短语：在数字时代"
+    ]
+  },
+  {
+    "name": "à l'heure des écrans",
+    "trans": [
+      "短语：在屏幕时代"
+    ]
+  },
+  {
+    "name": "passer des heures devant les écrans",
+    "trans": [
+      "短语：花数小时面对屏幕"
+    ]
+  },
+  {
+    "name": "être dépendant des écrans",
+    "trans": [
+      "短语：依赖屏幕"
+    ]
+  },
+  {
+    "name": "nuire à la santé mentale",
+    "trans": [
+      "短语：损害心理健康"
+    ]
+  },
+  {
+    "name": "nuire à la concentration",
+    "trans": [
+      "短语：影响注意力"
+    ]
+  },
+  {
+    "name": "favoriser la concentration",
+    "trans": [
+      "短语：有助于集中注意力"
+    ]
+  },
+  {
+    "name": "protéger la vie privée",
+    "trans": [
+      "短语：保护隐私"
+    ]
+  },
+  {
+    "name": "porter atteinte à la vie privée",
+    "trans": [
+      "短语：侵犯隐私"
+    ]
+  },
+  {
+    "name": "collecter des données à des fins commerciales",
+    "trans": [
+      "短语：出于商业目的收集数据"
+    ]
+  },
+  {
+    "name": "donner son consentement",
+    "trans": [
+      "短语：表示同意"
+    ]
+  },
+  {
+    "name": "ajouter foi à une information",
+    "trans": [
+      "短语：相信某条信息"
+    ]
+  },
+  {
+    "name": "démentir une rumeur",
+    "trans": [
+      "短语：辟谣"
+    ]
+  },
+  {
+    "name": "propager une rumeur",
+    "trans": [
+      "短语：散布谣言"
+    ]
+  },
+  {
+    "name": "lutter contre la désinformation",
+    "trans": [
+      "短语：打击虚假信息"
+    ]
+  },
+  {
+    "name": "faire la différence entre… et…",
+    "trans": [
+      "短语：区分……与……"
+    ]
+  },
+  {
+    "name": "avoir l'esprit critique",
+    "trans": [
+      "短语：具有批判精神"
+    ]
+  },
+  {
+    "name": "se tenir au courant de l'actualité",
+    "trans": [
+      "短语：了解时事"
+    ]
+  },
+  {
+    "name": "suivre l'actualité",
+    "trans": [
+      "短语：关注时事"
+    ]
+  },
+  {
+    "name": "suivre un cours en ligne",
+    "trans": [
+      "短语：上网课"
+    ]
+  },
+  {
+    "name": "obtenir un diplôme",
+    "trans": [
+      "短语：获得文凭"
+    ]
+  },
+  {
+    "name": "abandonner ses études",
+    "trans": [
+      "短语：放弃学业"
+    ]
+  },
+  {
+    "name": "interrompre ses études",
+    "trans": [
+      "短语：中断学业"
+    ]
+  },
+  {
+    "name": "poursuivre ses études",
+    "trans": [
+      "短语：继续学业"
+    ]
+  },
+  {
+    "name": "accéder à l'enseignement supérieur",
+    "trans": [
+      "短语：进入高等教育"
+    ]
+  },
+  {
+    "name": "payer des frais de scolarité",
+    "trans": [
+      "短语：缴纳学费"
+    ]
+  },
+  {
+    "name": "contracter un emprunt",
+    "trans": [
+      "短语：借贷款"
+    ]
+  },
+  {
+    "name": "rembourser un prêt",
+    "trans": [
+      "短语：偿还贷款"
+    ]
+  },
+  {
+    "name": "être endetté",
+    "trans": [
+      "短语：负债累累"
+    ]
+  },
+  {
+    "name": "développer le goût de la lecture",
+    "trans": [
+      "短语：培养阅读兴趣"
+    ]
+  },
+  {
+    "name": "se plonger dans un livre",
+    "trans": [
+      "短语：沉浸于书本"
+    ]
+  },
+  {
+    "name": "lire à voix haute",
+    "trans": [
+      "短语：朗读"
+    ]
+  },
+  {
+    "name": "les jeunes générations",
+    "trans": [
+      "短语：年轻一代"
+    ]
+  },
+  {
+    "name": "au fil du temps",
+    "trans": [
+      "短语：随着时间推移"
+    ]
+  },
+  {
+    "name": "selon les experts",
+    "trans": [
+      "短语：据专家称"
+    ]
+  },
+  {
+    "name": "d'après une étude récente",
+    "trans": [
+      "短语：根据最新研究"
+    ]
+  },
+  {
+    "name": "les effets néfastes de…",
+    "trans": [
+      "短语：……的有害影响"
+    ]
+  },
+  {
+    "name": "il convient de…",
+    "trans": [
+      "短语：应当……"
+    ]
+  },
+  {
+    "name": "il est préférable de…",
+    "trans": [
+      "短语：最好……"
+    ]
+  },
+  {
+    "name": "il faut reconnaître que…",
+    "trans": [
+      "短语：不得不承认……"
+    ]
+  },
+  {
+    "name": "on ne peut nier que…",
+    "trans": [
+      "短语：无法否认……"
+    ]
+  },
+  {
+    "name": "l'un des principaux enjeux de…",
+    "trans": [
+      "短语：……的主要挑战之一"
+    ]
+  },
+  {
+    "name": "constituer une menace pour…",
+    "trans": [
+      "短语：对……构成威胁"
+    ]
+  },
+  {
+    "name": "ouvrir la voie à…",
+    "trans": [
+      "短语：为……开辟道路"
+    ]
+  },
+  {
+    "name": "à la portée de tous",
+    "trans": [
+      "短语：人人可及"
+    ]
+  },
+  {
+    "name": "combler le fossé numérique",
+    "trans": [
+      "短语：弥合数字鸿沟"
+    ]
+  },
+  {
+    "name": "être exposé à des contenus violents",
+    "trans": [
+      "短语：接触暴力内容"
+    ]
+  },
+  {
+    "name": "se laisser influencer par…",
+    "trans": [
+      "短语：受……影响"
+    ]
+  },
+  {
+    "name": "d'un point de vue éthique",
+    "trans": [
+      "短语：从伦理角度"
+    ]
+  },
+  {
+    "name": "sur le plan éducatif",
+    "trans": [
+      "短语：在教育方面"
+    ]
+  },
+  {
+    "name": "il est recommandé de…",
+    "trans": [
+      "短语：建议……"
+    ]
+  },
+  {
+    "name": "encadrer l'usage des écrans",
+    "trans": [
+      "短语：规范屏幕使用"
+    ]
+  },
+  {
+    "name": "limiter le temps d'écran",
+    "trans": [
+      "短语：限制屏幕时间"
+    ]
+  },
+  {
+    "name": "au détriment de…",
+    "trans": [
+      "短语：以……为代价"
+    ]
+  },
+  {
+    "name": "une arme à double tranchant",
+    "trans": [
+      "短语：双刃剑"
+    ]
+  },
+  {
+    "name": "il va sans dire que…",
+    "trans": [
+      "短语：不言而喻"
+    ]
+  },
+  {
+    "name": "mener une réflexion sur…",
+    "trans": [
+      "短语：对……展开思考"
+    ]
+  },
+  {
+    "name": "s'interroger sur les conséquences de…",
+    "trans": [
+      "短语：思考……的后果"
+    ]
+  },
+  {
+    "name": "faire l'objet d'une enquête",
+    "trans": [
+      "短语：成为调查对象"
+    ]
+  },
+  {
+    "name": "mettre en garde contre…",
+    "trans": [
+      "短语：警告……"
+    ]
+  }
+]

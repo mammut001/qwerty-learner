@@ -1,0 +1,722 @@
+[
+  {
+    "name": "effet de serre",
+    "trans": [
+      "n.m. 温室效应"
+    ]
+  },
+  {
+    "name": "empreinte carbone",
+    "trans": [
+      "n.f. 碳足迹"
+    ]
+  },
+  {
+    "name": "émission",
+    "trans": [
+      "n.f. 排放；排放物"
+    ]
+  },
+  {
+    "name": "biodiversité",
+    "trans": [
+      "n.f. 生物多样性"
+    ]
+  },
+  {
+    "name": "écosystème",
+    "trans": [
+      "n.m. 生态系统"
+    ]
+  },
+  {
+    "name": "smog",
+    "trans": [
+      "n.m. 雾霾"
+    ]
+  },
+  {
+    "name": "recyclage",
+    "trans": [
+      "n.m. 回收"
+    ]
+  },
+  {
+    "name": "compostage",
+    "trans": [
+      "n.m. 堆肥"
+    ]
+  },
+  {
+    "name": "hydroélectricité",
+    "trans": [
+      "n.f. 水力发电"
+    ]
+  },
+  {
+    "name": "barrage",
+    "trans": [
+      "n.m. 水坝"
+    ]
+  },
+  {
+    "name": "déforestation",
+    "trans": [
+      "n.f. 砍伐森林"
+    ]
+  },
+  {
+    "name": "reboisement",
+    "trans": [
+      "n.m. 重新造林"
+    ]
+  },
+  {
+    "name": "sécheresse",
+    "trans": [
+      "n.f. 干旱"
+    ]
+  },
+  {
+    "name": "inondation",
+    "trans": [
+      "n.f. 洪水"
+    ]
+  },
+  {
+    "name": "ouragan",
+    "trans": [
+      "n.m. 飓风"
+    ]
+  },
+  {
+    "name": "verglas",
+    "trans": [
+      "n.m. 冰雨；路面结冰"
+    ]
+  },
+  {
+    "name": "catastrophe",
+    "trans": [
+      "n.f. 灾难"
+    ]
+  },
+  {
+    "name": "feu de forêt",
+    "trans": [
+      "n.m. 森林火灾"
+    ]
+  },
+  {
+    "name": "ressource naturelle",
+    "trans": [
+      "n.f. 自然资源"
+    ]
+  },
+  {
+    "name": "consommateur",
+    "trans": [
+      "n.m. 消费者"
+    ]
+  },
+  {
+    "name": "gaspillage",
+    "trans": [
+      "n.m. 浪费"
+    ]
+  },
+  {
+    "name": "emballage",
+    "trans": [
+      "n.m. 包装"
+    ]
+  },
+  {
+    "name": "covoiturage",
+    "trans": [
+      "n.m. 拼车"
+    ]
+  },
+  {
+    "name": "mobilité",
+    "trans": [
+      "n.f. 出行；流动性"
+    ]
+  },
+  {
+    "name": "transport",
+    "trans": [
+      "n.m. 运输；交通"
+    ]
+  },
+  {
+    "name": "bilan",
+    "trans": [
+      "n.m. 评估；总结"
+    ]
+  },
+  {
+    "name": "pénurie",
+    "trans": [
+      "n.f. 短缺"
+    ]
+  },
+  {
+    "name": "épuisement",
+    "trans": [
+      "n.m. 耗尽；枯竭"
+    ]
+  },
+  {
+    "name": "sobriété",
+    "trans": [
+      "n.f. 节制；节约"
+    ]
+  },
+  {
+    "name": "tri",
+    "trans": [
+      "n.m. 分类"
+    ]
+  },
+  {
+    "name": "cours d'eau",
+    "trans": [
+      "n.m. 河流"
+    ]
+  },
+  {
+    "name": "pesticide",
+    "trans": [
+      "n.m. 农药"
+    ]
+  },
+  {
+    "name": "surconsommation",
+    "trans": [
+      "n.f. 过度消费"
+    ]
+  },
+  {
+    "name": "écologie",
+    "trans": [
+      "n.f. 生态学；生态环境"
+    ]
+  },
+  {
+    "name": "canicule",
+    "trans": [
+      "n.f. 酷暑"
+    ]
+  },
+  {
+    "name": "panneau solaire",
+    "trans": [
+      "n.m. 太阳能板"
+    ]
+  },
+  {
+    "name": "polluer",
+    "trans": [
+      "v.t. 污染"
+    ]
+  },
+  {
+    "name": "diminuer",
+    "trans": [
+      "v.t. 减少；降低"
+    ]
+  },
+  {
+    "name": "conserver",
+    "trans": [
+      "v.t. 保存；保护"
+    ]
+  },
+  {
+    "name": "recycler",
+    "trans": [
+      "v.t. 回收利用"
+    ]
+  },
+  {
+    "name": "épuiser",
+    "trans": [
+      "v.t. 耗尽"
+    ]
+  },
+  {
+    "name": "gaspiller",
+    "trans": [
+      "v.t. 浪费"
+    ]
+  },
+  {
+    "name": "protéger",
+    "trans": [
+      "v.t. 保护"
+    ]
+  },
+  {
+    "name": "aménager",
+    "trans": [
+      "v.t. 规划；建设"
+    ]
+  },
+  {
+    "name": "sensibiliser",
+    "trans": [
+      "v.t. 使意识到；提高认识"
+    ]
+  },
+  {
+    "name": "atténuer",
+    "trans": [
+      "v.t. 减轻"
+    ]
+  },
+  {
+    "name": "réchauffer",
+    "trans": [
+      "v.t. 使变暖"
+    ]
+  },
+  {
+    "name": "émettre",
+    "trans": [
+      "v.t. 排放"
+    ]
+  },
+  {
+    "name": "renouvelable",
+    "trans": [
+      "adj. 可再生的"
+    ]
+  },
+  {
+    "name": "durable",
+    "trans": [
+      "adj. 可持续的"
+    ]
+  },
+  {
+    "name": "écologique",
+    "trans": [
+      "adj. 生态的；环保的"
+    ]
+  },
+  {
+    "name": "polluant",
+    "trans": [
+      "adj. 造成污染的"
+    ]
+  },
+  {
+    "name": "nocif",
+    "trans": [
+      "adj. 有害的"
+    ]
+  },
+  {
+    "name": "vulnérable",
+    "trans": [
+      "adj. 易受损的；脆弱的"
+    ]
+  },
+  {
+    "name": "économe",
+    "trans": [
+      "adj. 节约的"
+    ]
+  },
+  {
+    "name": "éolien",
+    "trans": [
+      "adj. 风力的"
+    ]
+  },
+  {
+    "name": "solaire",
+    "trans": [
+      "adj. 太阳能的"
+    ]
+  },
+  {
+    "name": "forestier",
+    "trans": [
+      "adj. 森林的"
+    ]
+  },
+  {
+    "name": "climatique",
+    "trans": [
+      "adj. 气候的"
+    ]
+  },
+  {
+    "name": "sinistré",
+    "trans": [
+      "adj. 受灾的"
+    ]
+  },
+  {
+    "name": "lutter contre le réchauffement climatique",
+    "trans": [
+      "短语：应对全球变暖"
+    ]
+  },
+  {
+    "name": "réduire ses émissions de gaz à effet de serre",
+    "trans": [
+      "短语：减少温室气体排放"
+    ]
+  },
+  {
+    "name": "s'engager en faveur de l'environnement",
+    "trans": [
+      "短语：致力于环境保护"
+    ]
+  },
+  {
+    "name": "porter atteinte à l'environnement",
+    "trans": [
+      "短语：损害环境"
+    ]
+  },
+  {
+    "name": "avoir des répercussions sur",
+    "trans": [
+      "短语：对……产生影响"
+    ]
+  },
+  {
+    "name": "avoir un impact négatif sur",
+    "trans": [
+      "短语：对……产生负面影响"
+    ]
+  },
+  {
+    "name": "mettre fin à la déforestation",
+    "trans": [
+      "短语：制止砍伐森林"
+    ]
+  },
+  {
+    "name": "favoriser le transport en commun",
+    "trans": [
+      "短语：促进公共交通"
+    ]
+  },
+  {
+    "name": "encourager les modes de transport durables",
+    "trans": [
+      "短语：鼓励可持续的出行方式"
+    ]
+  },
+  {
+    "name": "limiter l'usage de la voiture",
+    "trans": [
+      "短语：限制汽车的使用"
+    ]
+  },
+  {
+    "name": "trier ses déchets",
+    "trans": [
+      "短语：垃圾分类"
+    ]
+  },
+  {
+    "name": "réduire, réutiliser, recycler",
+    "trans": [
+      "短语：减量、再利用、再回收"
+    ]
+  },
+  {
+    "name": "à moyen terme",
+    "trans": [
+      "短语：中期来看"
+    ]
+  },
+  {
+    "name": "à brève échéance",
+    "trans": [
+      "短语：在短期之内"
+    ]
+  },
+  {
+    "name": "face aux changements climatiques",
+    "trans": [
+      "短语：面对气候变化"
+    ]
+  },
+  {
+    "name": "une économie circulaire",
+    "trans": [
+      "短语：循环经济"
+    ]
+  },
+  {
+    "name": "une source d'énergie propre",
+    "trans": [
+      "短语：清洁能源"
+    ]
+  },
+  {
+    "name": "exploiter le potentiel hydroélectrique",
+    "trans": [
+      "短语：开发水电潜力"
+    ]
+  },
+  {
+    "name": "les ressources naturelles renouvelables",
+    "trans": [
+      "短语：可再生的自然资源"
+    ]
+  },
+  {
+    "name": "une ressource non renouvelable",
+    "trans": [
+      "短语：不可再生资源"
+    ]
+  },
+  {
+    "name": "faire face à une catastrophe naturelle",
+    "trans": [
+      "短语：应对自然灾害"
+    ]
+  },
+  {
+    "name": "les dégâts causés par les inondations",
+    "trans": [
+      "短语：洪水造成的损失"
+    ]
+  },
+  {
+    "name": "se préparer aux situations d'urgence",
+    "trans": [
+      "短语：为紧急情况做准备"
+    ]
+  },
+  {
+    "name": "réduire les risques de catastrophe",
+    "trans": [
+      "短语：降低灾害风险"
+    ]
+  },
+  {
+    "name": "préserver la qualité de l'eau potable",
+    "trans": [
+      "短语：保护饮用水质量"
+    ]
+  },
+  {
+    "name": "les eaux usées",
+    "trans": [
+      "短语：废水"
+    ]
+  },
+  {
+    "name": "une station d'épuration",
+    "trans": [
+      "短语：污水处理厂"
+    ]
+  },
+  {
+    "name": "la forêt boréale",
+    "trans": [
+      "短语：北方森林"
+    ]
+  },
+  {
+    "name": "une espèce menacée d'extinction",
+    "trans": [
+      "短语：濒临灭绝的物种"
+    ]
+  },
+  {
+    "name": "la disparition des espèces",
+    "trans": [
+      "短语：物种消失"
+    ]
+  },
+  {
+    "name": "réduire la pollution atmosphérique",
+    "trans": [
+      "短语：减少大气污染"
+    ]
+  },
+  {
+    "name": "respirer un air pollué",
+    "trans": [
+      "短语：呼吸受污染的空气"
+    ]
+  },
+  {
+    "name": "les îlots de chaleur urbains",
+    "trans": [
+      "短语：城市热岛"
+    ]
+  },
+  {
+    "name": "verdir les villes",
+    "trans": [
+      "短语：让城市变绿"
+    ]
+  },
+  {
+    "name": "aménager des espaces verts",
+    "trans": [
+      "短语：规划绿地"
+    ]
+  },
+  {
+    "name": "un toit végétalisé",
+    "trans": [
+      "短语：绿色屋顶"
+    ]
+  },
+  {
+    "name": "le commerce équitable",
+    "trans": [
+      "短语：公平贸易"
+    ]
+  },
+  {
+    "name": "privilégier les produits locaux",
+    "trans": [
+      "短语：优先选择本地产品"
+    ]
+  },
+  {
+    "name": "acheter d'occasion",
+    "trans": [
+      "短语：购买二手商品"
+    ]
+  },
+  {
+    "name": "l'épuisement des ressources naturelles",
+    "trans": [
+      "短语：自然资源枯竭"
+    ]
+  },
+  {
+    "name": "un enjeu majeur",
+    "trans": [
+      "短语：重大挑战"
+    ]
+  },
+  {
+    "name": "être au cœur du débat",
+    "trans": [
+      "短语：处于辩论的核心"
+    ]
+  },
+  {
+    "name": "la survie de l'humanité",
+    "trans": [
+      "短语：人类的生存"
+    ]
+  },
+  {
+    "name": "dans le cadre de la lutte contre…",
+    "trans": [
+      "短语：在……的框架下"
+    ]
+  },
+  {
+    "name": "la responsabilité collective",
+    "trans": [
+      "短语：集体责任"
+    ]
+  },
+  {
+    "name": "une prise de conscience collective",
+    "trans": [
+      "短语：集体意识的觉醒"
+    ]
+  },
+  {
+    "name": "selon les experts en environnement",
+    "trans": [
+      "短语：据环境专家称"
+    ]
+  },
+  {
+    "name": "les pouvoirs publics doivent…",
+    "trans": [
+      "短语：公共机构应当……"
+    ]
+  },
+  {
+    "name": "il est essentiel de…",
+    "trans": [
+      "短语：有必要……"
+    ]
+  },
+  {
+    "name": "les conséquences dévastatrices de…",
+    "trans": [
+      "短语：……的毁灭性后果"
+    ]
+  },
+  {
+    "name": "à l'échelle planétaire",
+    "trans": [
+      "短语：在全球范围内"
+    ]
+  },
+  {
+    "name": "une taxe carbone",
+    "trans": [
+      "短语：碳税"
+    ]
+  },
+  {
+    "name": "couche d'ozone",
+    "trans": [
+      "短语：臭氧层"
+    ]
+  },
+  {
+    "name": "mettre en danger la santé publique",
+    "trans": [
+      "短语：危害公众健康"
+    ]
+  },
+  {
+    "name": "dans une perspective de développement durable",
+    "trans": [
+      "短语：从可持续发展的角度"
+    ]
+  },
+  {
+    "name": "l'hydroélectricité québécoise",
+    "trans": [
+      "短语：魁北克水电"
+    ]
+  },
+  {
+    "name": "adopter un mode de vie plus sobre",
+    "trans": [
+      "短语：采取更节俭的生活方式"
+    ]
+  },
+  {
+    "name": "les hydrocarbures",
+    "trans": [
+      "短语：碳氢化合物"
+    ]
+  },
+  {
+    "name": "les énergies fossiles",
+    "trans": [
+      "短语：化石能源"
+    ]
+  },
+  {
+    "name": "passer aux énergies renouvelables",
+    "trans": [
+      "短语：转向可再生能源"
+    ]
+  }
+]

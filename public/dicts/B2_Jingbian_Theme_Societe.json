@@ -1,0 +1,722 @@
+[
+  {
+    "name": "immigrant",
+    "trans": [
+      "n.m. 移民"
+    ]
+  },
+  {
+    "name": "logement",
+    "trans": [
+      "n.m. 住房；住宅"
+    ]
+  },
+  {
+    "name": "loyer",
+    "trans": [
+      "n.m. 租金"
+    ]
+  },
+  {
+    "name": "propriétaire",
+    "trans": [
+      "n.m./f. 业主；房东"
+    ]
+  },
+  {
+    "name": "locataire",
+    "trans": [
+      "n.m./f. 租客"
+    ]
+  },
+  {
+    "name": "itinérance",
+    "trans": [
+      "n.f. 无家可归"
+    ]
+  },
+  {
+    "name": "vieillissement",
+    "trans": [
+      "n.m. 老龄化"
+    ]
+  },
+  {
+    "name": "bénévolat",
+    "trans": [
+      "n.m. 志愿服务"
+    ]
+  },
+  {
+    "name": "transport en commun",
+    "trans": [
+      "n.m. 公共交通"
+    ]
+  },
+  {
+    "name": "aménagement du territoire",
+    "trans": [
+      "n.m. 国土规划；城市规划"
+    ]
+  },
+  {
+    "name": "densification",
+    "trans": [
+      "n.f. 密度增加；高密度化"
+    ]
+  },
+  {
+    "name": "étalement urbain",
+    "trans": [
+      "n.m. 城市无序扩张"
+    ]
+  },
+  {
+    "name": "francisation",
+    "trans": [
+      "n.f. 法语化（推广法语的过程）"
+    ]
+  },
+  {
+    "name": "accueil",
+    "trans": [
+      "n.m. 接待；接纳"
+    ]
+  },
+  {
+    "name": "diversité culturelle",
+    "trans": [
+      "n.f. 文化多样性"
+    ]
+  },
+  {
+    "name": "vivre-ensemble",
+    "trans": [
+      "n.m. 共处；和谐共存"
+    ]
+  },
+  {
+    "name": "exclusion sociale",
+    "trans": [
+      "n.f. 社会排斥"
+    ]
+  },
+  {
+    "name": "appartenance",
+    "trans": [
+      "n.f. 归属感；从属关系"
+    ]
+  },
+  {
+    "name": "cohésion sociale",
+    "trans": [
+      "n.f. 社会凝聚力"
+    ]
+  },
+  {
+    "name": "réseau de soutien",
+    "trans": [
+      "n.m. 支持网络"
+    ]
+  },
+  {
+    "name": "soins de santé",
+    "trans": [
+      "n.m.pl. 医疗保健服务"
+    ]
+  },
+  {
+    "name": "file d'attente",
+    "trans": [
+      "n.f. 排队；候诊队伍"
+    ]
+  },
+  {
+    "name": "délai",
+    "trans": [
+      "n.m. 期限；等待时间"
+    ]
+  },
+  {
+    "name": "surpopulation",
+    "trans": [
+      "n.f. 人口过多"
+    ]
+  },
+  {
+    "name": "pyramide des âges",
+    "trans": [
+      "n.f. 年龄金字塔"
+    ]
+  },
+  {
+    "name": "équité",
+    "trans": [
+      "n.f. 公平"
+    ]
+  },
+  {
+    "name": "taux d'inoccupation",
+    "trans": [
+      "n.m. 空置率"
+    ]
+  },
+  {
+    "name": "marché locatif",
+    "trans": [
+      "n.m. 租赁市场"
+    ]
+  },
+  {
+    "name": "s'intégrer",
+    "trans": [
+      "v.pron. 融入"
+    ]
+  },
+  {
+    "name": "accueillir",
+    "trans": [
+      "v.t. 接纳；迎接"
+    ]
+  },
+  {
+    "name": "lutter contre",
+    "trans": [
+      "v.t.ind. 与……斗争；对抗"
+    ]
+  },
+  {
+    "name": "vieillir",
+    "trans": [
+      "v.i. 变老"
+    ]
+  },
+  {
+    "name": "défavorisé",
+    "trans": [
+      "adj. 弱势的；处境不利的"
+    ]
+  },
+  {
+    "name": "abordable",
+    "trans": [
+      "adj. 可负担的；价格合理的"
+    ]
+  },
+  {
+    "name": "saturé",
+    "trans": [
+      "adj. 饱和的；超负荷的"
+    ]
+  },
+  {
+    "name": "inclusif",
+    "trans": [
+      "adj. 包容的；全纳的"
+    ]
+  },
+  {
+    "name": "desservir",
+    "trans": [
+      "v.t. 为……提供交通服务；通往"
+    ]
+  },
+  {
+    "name": "rénover",
+    "trans": [
+      "v.t. 翻新；改造"
+    ]
+  },
+  {
+    "name": "épauler",
+    "trans": [
+      "v.t. 支持；协助"
+    ]
+  },
+  {
+    "name": "entraver",
+    "trans": [
+      "v.t. 阻碍；妨碍"
+    ]
+  },
+  {
+    "name": "mixité sociale",
+    "trans": [
+      "n.f. 社会混合"
+    ]
+  },
+  {
+    "name": "laïcité",
+    "trans": [
+      "n.f. 政教分离；世俗性"
+    ]
+  },
+  {
+    "name": "accommodement raisonnable",
+    "trans": [
+      "n.m. 合理调适；合理安排"
+    ]
+  },
+  {
+    "name": "permis de travail",
+    "trans": [
+      "n.m. 工作许可证"
+    ]
+  },
+  {
+    "name": "s'intégrer à la société d'accueil",
+    "trans": [
+      "短语：融入接收社会"
+    ]
+  },
+  {
+    "name": "faire face à la pénurie de logements",
+    "trans": [
+      "短语：应对住房短缺"
+    ]
+  },
+  {
+    "name": "la crise du logement",
+    "trans": [
+      "短语：住房危机"
+    ]
+  },
+  {
+    "name": "peser sur le budget des ménages",
+    "trans": [
+      "短语：加重家庭预算负担"
+    ]
+  },
+  {
+    "name": "être aux prises avec",
+    "trans": [
+      "短语：被……困扰；与……纠缠"
+    ]
+  },
+  {
+    "name": "se heurter à des obstacles",
+    "trans": [
+      "短语：遭遇障碍"
+    ]
+  },
+  {
+    "name": "bénéficier d'un accompagnement",
+    "trans": [
+      "短语：获得支持与辅导"
+    ]
+  },
+  {
+    "name": "faciliter l'intégration des nouveaux arrivants",
+    "trans": [
+      "短语：促进新来者融入"
+    ]
+  },
+  {
+    "name": "dans un contexte de",
+    "trans": [
+      "短语：在……背景下"
+    ]
+  },
+  {
+    "name": "il convient de souligner que…",
+    "trans": [
+      "短语：值得强调的是……"
+    ]
+  },
+  {
+    "name": "force est de constater que…",
+    "trans": [
+      "短语：不得不承认……"
+    ]
+  },
+  {
+    "name": "pallier le manque de",
+    "trans": [
+      "短语：弥补……的不足"
+    ]
+  },
+  {
+    "name": "remédier à",
+    "trans": [
+      "短语：补救；解决"
+    ]
+  },
+  {
+    "name": "s'attaquer à",
+    "trans": [
+      "短语：着手应对；打击"
+    ]
+  },
+  {
+    "name": "accroître les disparités",
+    "trans": [
+      "短语：扩大差距"
+    ]
+  },
+  {
+    "name": "combler le fossé",
+    "trans": [
+      "短语：弥合鸿沟"
+    ]
+  },
+  {
+    "name": "sur le plan social",
+    "trans": [
+      "短语：在社会层面"
+    ]
+  },
+  {
+    "name": "constituer un enjeu majeur",
+    "trans": [
+      "短语：构成重大挑战"
+    ]
+  },
+  {
+    "name": "dans le but de",
+    "trans": [
+      "短语：为了……"
+    ]
+  },
+  {
+    "name": "il est indispensable de",
+    "trans": [
+      "短语：必须……；不可或缺的是……"
+    ]
+  },
+  {
+    "name": "à mon sens",
+    "trans": [
+      "短语：依我看"
+    ]
+  },
+  {
+    "name": "se sentir à l'aise",
+    "trans": [
+      "短语：感到自在"
+    ]
+  },
+  {
+    "name": "s'adapter à un nouveau milieu",
+    "trans": [
+      "短语：适应新环境"
+    ]
+  },
+  {
+    "name": "recevoir un soutien financier",
+    "trans": [
+      "短语：获得经济支持"
+    ]
+  },
+  {
+    "name": "prolonger l'espérance de vie",
+    "trans": [
+      "短语：延长预期寿命"
+    ]
+  },
+  {
+    "name": "trouver un logement abordable",
+    "trans": [
+      "短语：找到负担得起的住房"
+    ]
+  },
+  {
+    "name": "signer un bail",
+    "trans": [
+      "短语：签订租约"
+    ]
+  },
+  {
+    "name": "rompre un bail",
+    "trans": [
+      "短语：解除租约"
+    ]
+  },
+  {
+    "name": "réduire les délais d'attente",
+    "trans": [
+      "短语：缩短等待时间"
+    ]
+  },
+  {
+    "name": "avoir accès aux soins",
+    "trans": [
+      "短语：获得医疗服务"
+    ]
+  },
+  {
+    "name": "consacrer du temps à",
+    "trans": [
+      "短语：把时间花在……上"
+    ]
+  },
+  {
+    "name": "s'engager dans une association",
+    "trans": [
+      "短语：投身于某个协会"
+    ]
+  },
+  {
+    "name": "contribuer à la vie communautaire",
+    "trans": [
+      "短语：参与社区生活"
+    ]
+  },
+  {
+    "name": "faire du bénévolat",
+    "trans": [
+      "短语：做志愿工作"
+    ]
+  },
+  {
+    "name": "plaider en faveur de",
+    "trans": [
+      "短语：为……辩护；倡导"
+    ]
+  },
+  {
+    "name": "sur la base de",
+    "trans": [
+      "短语：基于"
+    ]
+  },
+  {
+    "name": "favoriser la mixité sociale",
+    "trans": [
+      "短语：促进社会混合"
+    ]
+  },
+  {
+    "name": "préserver la langue française",
+    "trans": [
+      "短语：保护法语"
+    ]
+  },
+  {
+    "name": "défendre le français",
+    "trans": [
+      "短语：捍卫法语"
+    ]
+  },
+  {
+    "name": "politique linguistique",
+    "trans": [
+      "n.f. 语言政策"
+    ]
+  },
+  {
+    "name": "exiger la maîtrise du français",
+    "trans": [
+      "短语：要求掌握法语"
+    ]
+  },
+  {
+    "name": "l'usage du français au travail",
+    "trans": [
+      "短语：工作中使用法语"
+    ]
+  },
+  {
+    "name": "désengorger le centre-ville",
+    "trans": [
+      "短语：疏解市中心拥堵"
+    ]
+  },
+  {
+    "name": "réaménager l'espace public",
+    "trans": [
+      "短语：重新规划公共空间"
+    ]
+  },
+  {
+    "name": "favoriser les déplacements à vélo",
+    "trans": [
+      "短语：鼓励骑行出行"
+    ]
+  },
+  {
+    "name": "en dépit de",
+    "trans": [
+      "短语：尽管；不顾"
+    ]
+  },
+  {
+    "name": "au cours des dernières années",
+    "trans": [
+      "短语：近年来"
+    ]
+  },
+  {
+    "name": "vivre en milieu urbain",
+    "trans": [
+      "短语：生活在城市环境中"
+    ]
+  },
+  {
+    "name": "il va sans dire que",
+    "trans": [
+      "短语：不言而喻"
+    ]
+  },
+  {
+    "name": "xénophobie",
+    "trans": [
+      "n.f. 仇外心理"
+    ]
+  },
+  {
+    "name": "minorité",
+    "trans": [
+      "n.f. 少数群体"
+    ]
+  },
+  {
+    "name": "autochtone",
+    "trans": [
+      "adj. 原住民的；本土的"
+    ]
+  },
+  {
+    "name": "natalité",
+    "trans": [
+      "n.f. 出生率"
+    ]
+  },
+  {
+    "name": "santé publique",
+    "trans": [
+      "n.f. 公共卫生"
+    ]
+  },
+  {
+    "name": "médecin de famille",
+    "trans": [
+      "n.m. 家庭医生"
+    ]
+  },
+  {
+    "name": "embouteillage",
+    "trans": [
+      "n.m. 交通堵塞"
+    ]
+  },
+  {
+    "name": "vétuste",
+    "trans": [
+      "adj. 陈旧的；老化的"
+    ]
+  },
+  {
+    "name": "accessibilité",
+    "trans": [
+      "n.f. 可达性；无障碍"
+    ]
+  },
+  {
+    "name": "subvention",
+    "trans": [
+      "n.f. 补贴"
+    ]
+  },
+  {
+    "name": "citoyenneté",
+    "trans": [
+      "n.f. 公民身份"
+    ]
+  },
+  {
+    "name": "allophone",
+    "trans": [
+      "adj./n.m./f. 母语非法语的（人）"
+    ]
+  },
+  {
+    "name": "marginalisation",
+    "trans": [
+      "n.f. 边缘化"
+    ]
+  },
+  {
+    "name": "aîné",
+    "trans": [
+      "n.m. 老年人；长者"
+    ]
+  },
+  {
+    "name": "proche aidant",
+    "trans": [
+      "n.m. 家庭照护者"
+    ]
+  },
+  {
+    "name": "faire l'objet de",
+    "trans": [
+      "短语：成为……的对象"
+    ]
+  },
+  {
+    "name": "avoir une incidence sur",
+    "trans": [
+      "短语：对……产生影响"
+    ]
+  },
+  {
+    "name": "lutter contre la discrimination",
+    "trans": [
+      "短语：反对歧视"
+    ]
+  },
+  {
+    "name": "au fil des ans",
+    "trans": [
+      "短语：随着时间推移"
+    ]
+  },
+  {
+    "name": "demandeur d'asile",
+    "trans": [
+      "n.m. 寻求庇护者"
+    ]
+  },
+  {
+    "name": "naturalisation",
+    "trans": [
+      "n.f. 入籍"
+    ]
+  },
+  {
+    "name": "salaire minimum",
+    "trans": [
+      "n.m. 最低工资"
+    ]
+  },
+  {
+    "name": "urbanisme",
+    "trans": [
+      "n.m. 城市规划（学科）"
+    ]
+  },
+  {
+    "name": "voie cyclable",
+    "trans": [
+      "n.f. 自行车道"
+    ]
+  },
+  {
+    "name": "zonage",
+    "trans": [
+      "n.m. 分区规划"
+    ]
+  },
+  {
+    "name": "suite à",
+    "trans": [
+      "短语：由于；继……之后"
+    ]
+  },
+  {
+    "name": "s'établir",
+    "trans": [
+      "v.pron. 定居"
+    ]
+  }
+]
