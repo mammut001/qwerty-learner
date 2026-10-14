@@ -149,6 +149,24 @@ test('an article plus a noun may use that noun gloss, and a compound still rejec
   assert.equal(supplementSourceAllowed("le pouvoir d'achat", "pouvoir d'achat"), true)
   assert.equal(supplementSourceAllowed("pouvoir d'achat", 'pouvoir'), false)
 
+  const maisonShard = JSON.parse(await readFile('public/lexicon/fr/ma.json', 'utf8'))
+  assert.equal(maisonShard.e.maisons, undefined)
+  const maisonLemmas = maisonShard.f.maisons
+  assert.ok(Array.isArray(maisonLemmas) && maisonLemmas.length === 1)
+  const maisonLemma = maisonLemmas[0]
+  const maisonSite = maisonShard.s[maisonLemma].find((item) => item.includes('房子'))
+  assert.equal(supplementSourceAllowed('les maisons', maisonLemma), true)
+  assert.equal(supplementSourceAllowed('les maisons', 'maisons'), true)
+  const pluralChinese = supplementSourceAllowed('les maisons', maisonLemma) ? maisonSite : ''
+  assert.equal(emptyOnlyLine('les maisons', 'les maisons', [], pluralChinese), `les maisons = ${maisonSite}`)
+  const pluralPreview = previewChineseSupplement('les maisons', ['my personal note'], pluralChinese)
+  assert.equal(pluralPreview.existing, 'my personal note')
+  assert.equal(applyChineseSupplement(pluralPreview, false), null)
+  const pluralAccepted = applyChineseSupplement(pluralPreview, true)
+  assert.match(pluralAccepted, /my personal note/)
+  assert.match(pluralAccepted, /房子/)
+  console.log(`plural lemma allowed: les maisons -> ${maisonLemma} = ${maisonSite}`)
+
   assert.equal(emptyOnlyLine('le logement', 'le logement', [], logementZh), `le logement = ${logementZh}`)
   assert.equal(emptyOnlyLine('un bail', 'un bail', [], '租约'), 'un bail = 租约')
   const partOnly = supplementSourceAllowed("pouvoir d'achat", 'pouvoir') ? '权力' : ''

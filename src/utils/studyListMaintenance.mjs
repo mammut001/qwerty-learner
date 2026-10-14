@@ -30,15 +30,24 @@ export function partGlossOnly(headword, gloss, partGlosses = []) {
   return partGlosses.some((item) => String(item ?? '').trim() === cleaned)
 }
 
+/** Article-stripped token is the lemma, or its regular plural (`maisons` → `maison`). */
+function articleNounMatchesLemma(noun, source) {
+  if (!noun || noun === source) return noun === source && noun.length > 0
+  if (/[\s-]/.test(noun) || !noun.startsWith(source)) return false
+  const ending = noun.slice(source.length)
+  return ending === 's' || ending === 'x'
+}
+
 /** A compound lookup may supply Chinese only for that whole headword.
- *  Study lists keep a leading article to mark gender, so `le logement` may use `logement`.
+ *  A leading article may use the noun, including the lemma of a plural (`les maisons` → `maison`).
  */
 export function supplementSourceAllowed(headword, sourceWord) {
   const head = foldApostrophe(headword).toLocaleLowerCase('fr')
   const source = foldApostrophe(sourceWord).toLocaleLowerCase('fr')
   if (!isCompoundHeadword(headword) || head === source) return true
   const noun = head.replace(/^(?:le|la|les|un|une|des) /u, '')
-  return noun !== head && noun === source
+  if (noun === head) return false
+  return articleNounMatchesLemma(noun, source)
 }
 
 /**
