@@ -1,0 +1,392 @@
+[
+  {
+    "name": "pénurie",
+    "trans": [
+      "n.f. 匮乏，短缺，匮竭"
+    ]
+  },
+  {
+    "name": "raréfaction",
+    "trans": [
+      "n.f. 稀少，变得稀缺"
+    ]
+  },
+  {
+    "name": "raréfier",
+    "trans": [
+      "v.t. 使稀少，使稀薄"
+    ]
+  },
+  {
+    "name": "accablant",
+    "trans": [
+      "adj. 令人难以忍受的；确凿沉重的"
+    ]
+  },
+  {
+    "name": "accabler",
+    "trans": [
+      "v.t. 压垮，使承受不住"
+    ]
+  },
+  {
+    "name": "préservation",
+    "trans": [
+      "n.f. 保存，保护，维护"
+    ]
+  },
+  {
+    "name": "préserver",
+    "trans": [
+      "v.t. 保护，维护，防范"
+    ]
+  },
+  {
+    "name": "faune",
+    "trans": [
+      "n.f. 动物群，动物界"
+    ]
+  },
+  {
+    "name": "flore",
+    "trans": [
+      "n.f. 植物群，植物界"
+    ]
+  },
+  {
+    "name": "amélioration",
+    "trans": [
+      "n.f. 改善，好转，进步"
+    ]
+  },
+  {
+    "name": "améliorer",
+    "trans": [
+      "v.t. 改进，改善，提高"
+    ]
+  },
+  {
+    "name": "régression",
+    "trans": [
+      "n.f. 倒退，衰退，退步"
+    ]
+  },
+  {
+    "name": "régresser",
+    "trans": [
+      "v.i. 倒退，退化"
+    ]
+  },
+  {
+    "name": "transformation",
+    "trans": [
+      "n.f. 转变，转化，改造"
+    ]
+  },
+  {
+    "name": "transformer",
+    "trans": [
+      "v.t. 改变，使变形，转化"
+    ]
+  },
+  {
+    "name": "matériau",
+    "trans": [
+      "n.m. 材料，原材料"
+    ]
+  },
+  {
+    "name": "chanvre",
+    "trans": [
+      "n.m. 大麻，麻纤维"
+    ]
+  },
+  {
+    "name": "paille",
+    "trans": [
+      "n.f. 麦秆，稻草；吸管"
+    ]
+  },
+  {
+    "name": "bois",
+    "trans": [
+      "n.m. 木头，木材；树林"
+    ]
+  },
+  {
+    "name": "recyclage",
+    "trans": [
+      "n.m. 回收利用，再循环"
+    ]
+  },
+  {
+    "name": "recycler",
+    "trans": [
+      "v.t. 回收利用，再循环；进修"
+    ]
+  },
+  {
+    "name": "recyclable",
+    "trans": [
+      "adj. 可回收利用的"
+    ]
+  },
+  {
+    "name": "digue",
+    "trans": [
+      "n.f. 堤防，大坝，护堤"
+    ]
+  },
+  {
+    "name": "barrage",
+    "trans": [
+      "n.m. 水坝，水闸；路障"
+    ]
+  },
+  {
+    "name": "tornade",
+    "trans": [
+      "n.f. 龙卷风"
+    ]
+  },
+  {
+    "name": "compost",
+    "trans": [
+      "n.m. 堆肥，混合肥料"
+    ]
+  },
+  {
+    "name": "composter",
+    "trans": [
+      "v.t. 制作堆肥；车票打卡剪票"
+    ]
+  },
+  {
+    "name": "cueillette",
+    "trans": [
+      "n.f. 采摘，采撷，采集"
+    ]
+  },
+  {
+    "name": "cueillir",
+    "trans": [
+      "v.t. 采摘，采集"
+    ]
+  },
+  {
+    "name": "urbanisme",
+    "trans": [
+      "n.m. 城市规划，城市建设"
+    ]
+  },
+  {
+    "name": "urbaniste",
+    "trans": [
+      "n. 城市规划专家"
+    ]
+  },
+  {
+    "name": "urbanisation",
+    "trans": [
+      "n.f. 城市化"
+    ]
+  },
+  {
+    "name": "écosystème",
+    "trans": [
+      "n.m. 生态系统"
+    ]
+  },
+  {
+    "name": "habitat",
+    "trans": [
+      "n.m. 栖息地；居住环境，住宅"
+    ]
+  },
+  {
+    "name": "habiter",
+    "trans": [
+      "v.t. 居住于；v.i. 居住"
+    ]
+  },
+  {
+    "name": "habitant",
+    "trans": [
+      "n.m. 居民，定居者"
+    ]
+  },
+  {
+    "name": "gouttière",
+    "trans": [
+      "n.f. 屋檐水槽，落水管"
+    ]
+  },
+  {
+    "name": "éolien",
+    "trans": [
+      "adj. 风力的，风能的"
+    ]
+  },
+  {
+    "name": "solaire",
+    "trans": [
+      "adj. 太阳的，太阳能的"
+    ]
+  },
+  {
+    "name": "thermique",
+    "trans": [
+      "adj. 热的，热量的，热能的"
+    ]
+  },
+  {
+    "name": "hydraulique",
+    "trans": [
+      "adj. 水力的，水能的，液压的"
+    ]
+  },
+  {
+    "name": "panneau",
+    "trans": [
+      "n.m. 板块；太阳能电池板"
+    ]
+  },
+  {
+    "name": "capteur",
+    "trans": [
+      "n.m. 传感器，集热器"
+    ]
+  },
+  {
+    "name": "isolant",
+    "trans": [
+      "adj. 绝缘的，隔热的；n.m. 绝缘隔热材料"
+    ]
+  },
+  {
+    "name": "isolation",
+    "trans": [
+      "n.f. 隔热，隔音，绝缘"
+    ]
+  },
+  {
+    "name": "isoler",
+    "trans": [
+      "v.t. 使隔绝，隔热，隔音"
+    ]
+  },
+  {
+    "name": "durabilité",
+    "trans": [
+      "n.f. 耐久性，可持续性"
+    ]
+  },
+  {
+    "name": "durable",
+    "trans": [
+      "adj. 持久的，可持续的"
+    ]
+  },
+  {
+    "name": "menacé",
+    "trans": [
+      "adj. 受到威胁的，濒危的"
+    ]
+  },
+  {
+    "name": "menacer",
+    "trans": [
+      "v.t. 威胁，危及"
+    ]
+  },
+  {
+    "name": "extinction",
+    "trans": [
+      "n.f. 灭绝，消亡；熄灭"
+    ]
+  },
+  {
+    "name": "éteindre",
+    "trans": [
+      "v.t. 扑灭，关掉（灯等）"
+    ]
+  },
+  {
+    "name": "développement durable",
+    "trans": [
+      "短语：可持续发展"
+    ]
+  },
+  {
+    "name": "effet de serre",
+    "trans": [
+      "短语：温室效应"
+    ]
+  },
+  {
+    "name": "gaz à effet de serre",
+    "trans": [
+      "短语：温室气体"
+    ]
+  },
+  {
+    "name": "panneau solaire",
+    "trans": [
+      "短语：太阳能电池板"
+    ]
+  },
+  {
+    "name": "tri sélectif",
+    "trans": [
+      "短语：垃圾分类收集"
+    ]
+  },
+  {
+    "name": "énergie renouvelable",
+    "trans": [
+      "短语：可再生能源"
+    ]
+  },
+  {
+    "name": "énergie fossile",
+    "trans": [
+      "短语：化石能源"
+    ]
+  },
+  {
+    "name": "empreinte écologique",
+    "trans": [
+      "短语：生态足迹"
+    ]
+  },
+  {
+    "name": "espèce menacée",
+    "trans": [
+      "短语：濒危物种"
+    ]
+  },
+  {
+    "name": "en voie de disparition",
+    "trans": [
+      "短语：濒临灭绝，正在消失"
+    ]
+  },
+  {
+    "name": "protection de l'environnement",
+    "trans": [
+      "短语：环境保护"
+    ]
+  },
+  {
+    "name": "économie d'énergie",
+    "trans": [
+      "短语：节约能源，节能"
+    ]
+  },
+  {
+    "name": "maison écologique",
+    "trans": [
+      "短语：生态环保住宅"
+    ]
+  }
+]

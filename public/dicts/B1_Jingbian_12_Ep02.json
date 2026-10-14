@@ -1,0 +1,374 @@
+[
+  {
+    "name": "coutume",
+    "trans": [
+      "n.f. 习俗，风俗，风气"
+    ]
+  },
+  {
+    "name": "coutumier",
+    "trans": [
+      "adj. 习以为常的，惯例的"
+    ]
+  },
+  {
+    "name": "tradition",
+    "trans": [
+      "n.f. 传统，惯例"
+    ]
+  },
+  {
+    "name": "traditionnel",
+    "trans": [
+      "adj. 传统的，符合惯例的"
+    ]
+  },
+  {
+    "name": "rituel",
+    "trans": [
+      "n.m. 仪式，典礼；adj. 仪式的，例行的"
+    ]
+  },
+  {
+    "name": "rite",
+    "trans": [
+      "n.m. 宗教仪式，规程"
+    ]
+  },
+  {
+    "name": "galette",
+    "trans": [
+      "n.f. 薄饼，圆饼"
+    ]
+  },
+  {
+    "name": "fève",
+    "trans": [
+      "n.f. 蚕豆；国王饼中的小瓷人"
+    ]
+  },
+  {
+    "name": "défiler",
+    "trans": [
+      "v.i. 列队行进，游行"
+    ]
+  },
+  {
+    "name": "défilé",
+    "trans": [
+      "n.m. 游行，行列；峡谷窄道"
+    ]
+  },
+  {
+    "name": "santon",
+    "trans": [
+      "n.m. 普罗旺斯彩陶小人像"
+    ]
+  },
+  {
+    "name": "crèche",
+    "trans": [
+      "n.f. 耶稣降生马槽模型；托儿所"
+    ]
+  },
+  {
+    "name": "joute",
+    "trans": [
+      "n.f. 马上长矛比武，水上竞技；论战"
+    ]
+  },
+  {
+    "name": "combat",
+    "trans": [
+      "n.m. 战斗，搏斗，较量"
+    ]
+  },
+  {
+    "name": "combattre",
+    "trans": [
+      "v.t. 与……战斗，打击"
+    ]
+  },
+  {
+    "name": "combattant",
+    "trans": [
+      "n.m. 战士，参战者"
+    ]
+  },
+  {
+    "name": "adversaire",
+    "trans": [
+      "n. 对手，敌手；反对者"
+    ]
+  },
+  {
+    "name": "assaut",
+    "trans": [
+      "n.m. 攻击，冲击，袭击"
+    ]
+  },
+  {
+    "name": "vainqueur",
+    "trans": [
+      "n.m. 胜利者，获胜者"
+    ]
+  },
+  {
+    "name": "vaincre",
+    "trans": [
+      "v.t. 战胜，克服，打败"
+    ]
+  },
+  {
+    "name": "victoire",
+    "trans": [
+      "n.f. 胜利，胜局"
+    ]
+  },
+  {
+    "name": "festif",
+    "trans": [
+      "adj. 节日的，欢乐庆典的"
+    ]
+  },
+  {
+    "name": "festivité",
+    "trans": [
+      "n.f. 庆祝活动，节日庆典"
+    ]
+  },
+  {
+    "name": "solstice",
+    "trans": [
+      "n.m. 至日（夏至或冬至）"
+    ]
+  },
+  {
+    "name": "équinoxe",
+    "trans": [
+      "n.m. 分点（春分或秋分）"
+    ]
+  },
+  {
+    "name": "folklore",
+    "trans": [
+      "n.m. 民俗，民间传说，地方风情"
+    ]
+  },
+  {
+    "name": "folklorique",
+    "trans": [
+      "adj. 民俗的，具有民族特色的"
+    ]
+  },
+  {
+    "name": "légende",
+    "trans": [
+      "n.f. 传说，传奇；图例说明"
+    ]
+  },
+  {
+    "name": "légendaire",
+    "trans": [
+      "adj. 传说中的，传奇式的"
+    ]
+  },
+  {
+    "name": "célébrer",
+    "trans": [
+      "v.t. 庆祝，举行典礼；赞美"
+    ]
+  },
+  {
+    "name": "célébration",
+    "trans": [
+      "n.f. 庆祝，庆典，仪式"
+    ]
+  },
+  {
+    "name": "perpétuer",
+    "trans": [
+      "v.t. 使永存，使代代相传"
+    ]
+  },
+  {
+    "name": "perpétuation",
+    "trans": [
+      "n.f. 延续，长存"
+    ]
+  },
+  {
+    "name": "hériter",
+    "trans": [
+      "v.t. 继承，遗传"
+    ]
+  },
+  {
+    "name": "héritage",
+    "trans": [
+      "n.m. 遗产，传承"
+    ]
+  },
+  {
+    "name": "héritier",
+    "trans": [
+      "n.m. 继承人"
+    ]
+  },
+  {
+    "name": "costume",
+    "trans": [
+      "n.m. 民族服装，演出服；西装"
+    ]
+  },
+  {
+    "name": "coutelier",
+    "trans": [
+      "n. 刀剪制造商，刀剑匠"
+    ]
+  },
+  {
+    "name": "coutellerie",
+    "trans": [
+      "n.f. 刀剪制造工艺，刀剪店"
+    ]
+  },
+  {
+    "name": "confrérie",
+    "trans": [
+      "n.f. 行会，兄弟会，友爱会"
+    ]
+  },
+  {
+    "name": "armure",
+    "trans": [
+      "n.f. 盔甲，装甲"
+    ]
+  },
+  {
+    "name": "bouclier",
+    "trans": [
+      "n.m. 盾牌；防护屏障"
+    ]
+  },
+  {
+    "name": "lance",
+    "trans": [
+      "n.f. 长矛，长枪；喷枪"
+    ]
+  },
+  {
+    "name": "lancer",
+    "trans": [
+      "v.t. 投掷，发起"
+    ]
+  },
+  {
+    "name": "baiser",
+    "trans": [
+      "n.m. 吻；v.t. 接吻"
+    ]
+  },
+  {
+    "name": "destin",
+    "trans": [
+      "n.m. 命运，天数"
+    ]
+  },
+  {
+    "name": "destinée",
+    "trans": [
+      "n.f. 命运，终局"
+    ]
+  },
+  {
+    "name": "figurine",
+    "trans": [
+      "n.f. 小塑像，小玩偶"
+    ]
+  },
+  {
+    "name": "aubade",
+    "trans": [
+      "n.f. 晨曲，清晨露天音乐会"
+    ]
+  },
+  {
+    "name": "mascarade",
+    "trans": [
+      "n.f. 假面舞会，伪装欺骗"
+    ]
+  },
+  {
+    "name": "la tradition veut que",
+    "trans": [
+      "短语：按照传统，相传（后接从句）"
+    ]
+  },
+  {
+    "name": "galette des rois",
+    "trans": [
+      "短语：三王节主显节国王饼"
+    ]
+  },
+  {
+    "name": "tirer les rois",
+    "trans": [
+      "短语：吃三王饼选国王"
+    ]
+  },
+  {
+    "name": "faire bon usage de",
+    "trans": [
+      "短语：妥善利用，好好使用"
+    ]
+  },
+  {
+    "name": "donner un baiser à",
+    "trans": [
+      "短语：给……一个吻"
+    ]
+  },
+  {
+    "name": "par rapport à",
+    "trans": [
+      "短语：与……相比，关于……"
+    ]
+  },
+  {
+    "name": "prendre fin",
+    "trans": [
+      "短语：结束，告终"
+    ]
+  },
+  {
+    "name": "avoir pour origine",
+    "trans": [
+      "短语：起源于……"
+    ]
+  },
+  {
+    "name": "remonter aux origines",
+    "trans": [
+      "短语：追溯到起源时代"
+    ]
+  },
+  {
+    "name": "participer à un tournoi",
+    "trans": [
+      "短语：参加锦标赛，参加骑士比武"
+    ]
+  },
+  {
+    "name": "porter chance",
+    "trans": [
+      "短语：带来好运"
+    ]
+  },
+  {
+    "name": "porter malheur",
+    "trans": [
+      "短语：带来厄运"
+    ]
+  }
+]

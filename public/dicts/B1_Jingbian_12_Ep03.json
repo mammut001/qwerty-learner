@@ -1,0 +1,404 @@
+[
+  {
+    "name": "limitation",
+    "trans": [
+      "n.f. 限制，限度"
+    ]
+  },
+  {
+    "name": "limiter",
+    "trans": [
+      "v.t. 限制，限定"
+    ]
+  },
+  {
+    "name": "vitesse",
+    "trans": [
+      "n.f. 速度，快捷"
+    ]
+  },
+  {
+    "name": "ivresse",
+    "trans": [
+      "n.f. 醉酒状态；陶醉"
+    ]
+  },
+  {
+    "name": "sanction",
+    "trans": [
+      "n.f. 制裁，处罚；批准"
+    ]
+  },
+  {
+    "name": "sanctionner",
+    "trans": [
+      "v.t. 惩罚，制裁；批准"
+    ]
+  },
+  {
+    "name": "ceinture",
+    "trans": [
+      "n.f. 腰带，安全带；环状物"
+    ]
+  },
+  {
+    "name": "stationnement",
+    "trans": [
+      "n.m. 泊车，停车，停放"
+    ]
+  },
+  {
+    "name": "stationner",
+    "trans": [
+      "v.i. 停车，停放"
+    ]
+  },
+  {
+    "name": "piéton",
+    "trans": [
+      "n.m. 行人；adj. 步行的"
+    ]
+  },
+  {
+    "name": "trottoir",
+    "trans": [
+      "n.m. 人行道"
+    ]
+  },
+  {
+    "name": "carrefour",
+    "trans": [
+      "n.m. 十字路口，交叉路口"
+    ]
+  },
+  {
+    "name": "feu",
+    "trans": [
+      "n.m. 火；车灯，交通信号灯"
+    ]
+  },
+  {
+    "name": "véhicule",
+    "trans": [
+      "n.m. 车辆，机动车；传播载体"
+    ]
+  },
+  {
+    "name": "frein",
+    "trans": [
+      "n.m. 刹车，制动器；阻碍"
+    ]
+  },
+  {
+    "name": "freiner",
+    "trans": [
+      "v.i. 刹车；v.t. 减缓，抑制"
+    ]
+  },
+  {
+    "name": "pare-brise",
+    "trans": [
+      "n.m. 汽车挡风玻璃"
+    ]
+  },
+  {
+    "name": "essuie-glace",
+    "trans": [
+      "n.m. 雨刷器"
+    ]
+  },
+  {
+    "name": "volant",
+    "trans": [
+      "n.m. 汽车方向盘；羽毛球"
+    ]
+  },
+  {
+    "name": "klaxon",
+    "trans": [
+      "n.m. 汽车喇叭"
+    ]
+  },
+  {
+    "name": "klaxonner",
+    "trans": [
+      "v.i. 鸣笛，按喇叭"
+    ]
+  },
+  {
+    "name": "visibilité",
+    "trans": [
+      "n.f. 能见度，可见性"
+    ]
+  },
+  {
+    "name": "visible",
+    "trans": [
+      "adj. 可见的，明显的"
+    ]
+  },
+  {
+    "name": "prudence",
+    "trans": [
+      "n.f. 谨慎，小心"
+    ]
+  },
+  {
+    "name": "prudent",
+    "trans": [
+      "adj. 谨慎的，细心的"
+    ]
+  },
+  {
+    "name": "amende",
+    "trans": [
+      "n.f. 罚款，罚金"
+    ]
+  },
+  {
+    "name": "permis",
+    "trans": [
+      "n.m. 许可证，执照"
+    ]
+  },
+  {
+    "name": "coffre",
+    "trans": [
+      "n.m. 汽车后备箱；保险箱"
+    ]
+  },
+  {
+    "name": "agglomération",
+    "trans": [
+      "n.f. 城市聚落，城市群，建成区"
+    ]
+  },
+  {
+    "name": "intempérie",
+    "trans": [
+      "n.f. 恶劣天气，风雨风暴"
+    ]
+  },
+  {
+    "name": "dégât",
+    "trans": [
+      "n.m. 损坏，灾害破坏损失"
+    ]
+  },
+  {
+    "name": "autoroute",
+    "trans": [
+      "n.f. 高速公路"
+    ]
+  },
+  {
+    "name": "itinéraire",
+    "trans": [
+      "n.m. 行车路线，行程"
+    ]
+  },
+  {
+    "name": "panneau",
+    "trans": [
+      "n.m. 指路牌，标牌，板"
+    ]
+  },
+  {
+    "name": "radars",
+    "trans": [
+      "n.m.pl. 雷达测速仪"
+    ]
+  },
+  {
+    "name": "infraction",
+    "trans": [
+      "n.f. 违章，违法行为"
+    ]
+  },
+  {
+    "name": "embouteillage",
+    "trans": [
+      "n.m. 交通堵塞，塞车"
+    ]
+  },
+  {
+    "name": "bouchon",
+    "trans": [
+      "n.m. 塞子；交通堵塞"
+    ]
+  },
+  {
+    "name": "dépassement",
+    "trans": [
+      "n.m. 超车；超出，超过"
+    ]
+  },
+  {
+    "name": "dépasser",
+    "trans": [
+      "v.t. 超车；超过，超越"
+    ]
+  },
+  {
+    "name": "priorité",
+    "trans": [
+      "n.f. 优先权，先行权"
+    ]
+  },
+  {
+    "name": "prioritaire",
+    "trans": [
+      "adj. 享有优先权的"
+    ]
+  },
+  {
+    "name": "accident",
+    "trans": [
+      "n.m. 事故，意外"
+    ]
+  },
+  {
+    "name": "collision",
+    "trans": [
+      "n.f. 碰撞，相撞事故"
+    ]
+  },
+  {
+    "name": "conduire",
+    "trans": [
+      "v.t. 驾驶，开；引导"
+    ]
+  },
+  {
+    "name": "conducteur",
+    "trans": [
+      "n.m. 驾驶员，司机"
+    ]
+  },
+  {
+    "name": "assurance",
+    "trans": [
+      "n.f. 车辆保险；确信"
+    ]
+  },
+  {
+    "name": "automobiliste",
+    "trans": [
+      "n. 开汽车者，驾车人"
+    ]
+  },
+  {
+    "name": "pneu",
+    "trans": [
+      "n.m. 轮胎"
+    ]
+  },
+  {
+    "name": "gonfler",
+    "trans": [
+      "v.t. 给……打气，充气"
+    ]
+  },
+  {
+    "name": "ceinture de sécurité",
+    "trans": [
+      "短语：汽车安全带"
+    ]
+  },
+  {
+    "name": "conduite en état d'ivresse",
+    "trans": [
+      "短语：酒后驾驶，醉驾"
+    ]
+  },
+  {
+    "name": "limitation de vitesse",
+    "trans": [
+      "短语：限速规定"
+    ]
+  },
+  {
+    "name": "transports en commun",
+    "trans": [
+      "短语：公共交通"
+    ]
+  },
+  {
+    "name": "permis de conduire",
+    "trans": [
+      "短语：驾驶执照，驾照"
+    ]
+  },
+  {
+    "name": "pot d'échappement",
+    "trans": [
+      "短语：汽车排气管"
+    ]
+  },
+  {
+    "name": "feux arrière",
+    "trans": [
+      "短语：汽车尾灯"
+    ]
+  },
+  {
+    "name": "sécurité routière",
+    "trans": [
+      "短语：道路交通安全"
+    ]
+  },
+  {
+    "name": "céder le passage",
+    "trans": [
+      "短语：礼让行车，让行"
+    ]
+  },
+  {
+    "name": "code de la route",
+    "trans": [
+      "短语：道路交通法规"
+    ]
+  },
+  {
+    "name": "prise de risque",
+    "trans": [
+      "短语：冒险，承担风险"
+    ]
+  },
+  {
+    "name": "respecter le code",
+    "trans": [
+      "短语：遵守交通法规"
+    ]
+  },
+  {
+    "name": "être sous l'emprise de l'alcool",
+    "trans": [
+      "短语：处于酒精影响下，酒后"
+    ]
+  },
+  {
+    "name": "excès de vitesse",
+    "trans": [
+      "短语：超速行驶"
+    ]
+  },
+  {
+    "name": "commettre une infraction",
+    "trans": [
+      "短语：违章，违反法规"
+    ]
+  },
+  {
+    "name": "payer une amende",
+    "trans": [
+      "短语：缴纳罚金"
+    ]
+  },
+  {
+    "name": "perdre des points",
+    "trans": [
+      "短语：驾照扣分"
+    ]
+  }
+]
