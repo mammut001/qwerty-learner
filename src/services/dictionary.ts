@@ -136,6 +136,22 @@ export async function lookupDictionary(text: string, options: { allowCompoundFal
   if (!query) return { query, words: [], lemmas: [] }
   const result = await lookupExact(query)
   if (result.words.length || result.lemmas.length) return result
+  // Study lists often retain an article to remember a noun's gender. Resolve the full noun phrase,
+  // retaining noun senses only so e.g. le bien does not inherit the adverb's curated definition.
+  const withArticle = query.match(/^(?:le|la|les|un|une|des) (.+)$/i)
+  if (withArticle) {
+    const retry = await lookupExact(withArticle[1])
+    const nouns = (words: DictionaryWord[]) =>
+      words.flatMap((word) => {
+        const entries = word.entries.filter((entry) => entry.pos === 'noun')
+        if (!entries.length) return []
+        const site = entries.length === word.entries.length ? word.site : word.site.filter((meaning) => /^(?:n\.|名词)/i.test(meaning))
+        return [{ ...word, site, entries }]
+      })
+    const words = nouns(retry.words)
+    const lemmas = nouns(retry.lemmas)
+    if (words.length || lemmas.length) return { ...retry, words, lemmas }
+  }
   // l'école → école, qu'il → il
   const stripped = query.replace(ELISIONS, '')
   if (stripped !== query) {
