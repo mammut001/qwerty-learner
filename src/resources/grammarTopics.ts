@@ -990,7 +990,7 @@ export const grammarTopics: GrammarTopic[] = [
     outputPrompts: [
       { zh: '昨天我们参观了卢浮宫博物馆，买了很多明信片。', hint: 'visiter le musée du Louvre / acheter beaucoup de cartes postales' },
       { zh: '我的两个姐姐上周日去了巴黎。', hint: 'partir à Paris dimanche dernier（注意 être 的阴性复数配合）' },
-      { zh: '我昨晚太累了，没有吃晚饭。', hint: 'ne pas manger le dîner / trop fatigué' },
+      { zh: '我昨晚太累了，没有吃晚饭。', hint: 'ne pas dîner / être trop fatigué' },
     ],
   },
   {
@@ -1014,14 +1014,14 @@ export const grammarTopics: GrammarTopic[] = [
         ['l’alcool = 酒精，酒', 'conduire = 开车'],
       ],
       [
-        "Tu as faim ? — Non, je n'ai envie de ___ manger pour l'instant.",
+        "Tu as faim ? — Non, je ne veux ___ manger pour l'instant.",
         'pas rien',
         'rien',
         'B',
-        'ne... rien（什么都不）替代了 ne... pas，二者不能叠加。正确的否定形式是 ne... rien，绝不能说 ne... pas rien。',
+        'ne... rien（什么都不）替代了 ne... pas，二者绝不能叠用（不能说 pas rien）：je ne veux rien manger。',
         '你饿了吗？——不饿，我现在什么都不想吃。',
         'ne... rien 不与 pas 连用',
-        ['avoir envie de = 想要……', 'pour l’instant = 目前'],
+        ['pour l’instant = 目前'],
       ],
       [
         'Je cherche mon passeport partout, mais je ne trouve ___ dans le tiroir.',
@@ -1132,7 +1132,7 @@ export const grammarTopics: GrammarTopic[] = [
         ['électrique = 电动的', 'un modèle = 车型，款式'],
       ],
       [
-        'En hiver, Montréal est beaucoup plus froide ___ Paris.',
+        'En hiver, Montréal est beaucoup plus froid ___ Paris.',
         'de',
         'que',
         'B',
