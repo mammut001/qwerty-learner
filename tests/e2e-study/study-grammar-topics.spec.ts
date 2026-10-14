@@ -11,7 +11,7 @@ test('a non-default grammar topic can be completed, synced and surfaces in the e
   await expect(page.getByTestId('grammar-topic-subjonctif-indicatif')).toContainText('NCLC 7 之后')
   await page.getByTestId('grammar-topic-subjonctif-indicatif').click()
   await expect(page.getByRole('heading', { name: 'Subjonctif vs indicatif' })).toBeVisible()
-  await expect(page.getByText('欧标 B1–B2 · Échelle N8–10')).toBeVisible()
+  await expect(page.locator('span', { hasText: '30 分钟' })).toContainText('欧标 B1–B2 · Échelle N8–10')
   await page.getByRole('button', { name: '开始 30 分钟' }).click()
 
   // Always answer A: the topic mixes A and B answers, so this yields both right and wrong items.
