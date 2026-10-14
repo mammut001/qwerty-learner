@@ -184,6 +184,138 @@ export const RECALL_CALIBRATION_SAMPLES = Object.freeze([
     note: '',
     expected: 'approve',
   },
+  // Harmless non-topics (must be held or rejected, never approved)
+  {
+    id: 'non-topic-weather-zh',
+    section: 'speaking',
+    task: 2,
+    examMonth: '2026-10',
+    city: 'Beijing',
+    topic: '今天天气不错，我去公园散步了',
+    note: '',
+    expected: 'hold',
+  },
+  {
+    id: 'non-topic-finished-zh',
+    section: 'speaking',
+    task: 3,
+    examMonth: '2026-10',
+    city: 'Shanghai',
+    topic: '我今天考完了，好累',
+    note: '',
+    expected: 'hold',
+  },
+  {
+    id: 'non-topic-wishes-zh',
+    section: 'writing',
+    task: 1,
+    examMonth: '2026-10',
+    city: 'Guangzhou',
+    topic: '祝大家考试顺利！',
+    note: '',
+    expected: 'hold',
+  },
+  {
+    id: 'non-topic-bonjour-fr',
+    section: 'writing',
+    task: 1,
+    examMonth: '2026-10',
+    city: 'Paris',
+    topic: 'Bonjour tout le monde',
+    note: '',
+    expected: 'hold',
+  },
+  {
+    id: 'non-topic-hard-speaking-zh',
+    section: 'speaking',
+    task: 2,
+    examMonth: '2026-10',
+    city: 'Chengdu',
+    topic: '口语好难啊',
+    note: '',
+    expected: 'hold',
+  },
+  {
+    id: 'non-topic-passed-yesterday-fr',
+    section: 'speaking',
+    task: 3,
+    examMonth: '2026-10',
+    city: 'Montreal',
+    topic: "J'ai passé l'examen hier à Montréal",
+    note: '',
+    expected: 'hold',
+  },
+  {
+    id: 'non-topic-thanks-zh',
+    section: 'writing',
+    task: 2,
+    examMonth: '2026-10',
+    city: 'Shenzhen',
+    topic: '谢谢分享',
+    note: '',
+    expected: 'hold',
+  },
+  {
+    id: 'non-topic-fee-question-zh',
+    section: 'speaking',
+    task: 2,
+    examMonth: '2026-10',
+    city: 'Wuhan',
+    topic: '请问TCF报名费是多少？',
+    note: '',
+    expected: 'hold',
+  },
+  {
+    id: 'non-topic-happy-weather-fr',
+    section: 'writing',
+    task: 2,
+    examMonth: '2026-10',
+    city: 'Lyon',
+    topic: "Je suis très content aujourd'hui, il fait beau.",
+    note: '',
+    expected: 'hold',
+  },
+  // Additional clean exam topics
+  {
+    id: 'clean-speaking-zh-roommate-roleplay',
+    section: 'speaking',
+    task: 2,
+    examMonth: '2026-10',
+    city: 'Montreal',
+    topic: '口语任务二：你在报纸上看到合租公寓的广告，打电话向房东询问房租、押金以及合租室友的情况。',
+    note: '',
+    expected: 'approve',
+  },
+  {
+    id: 'clean-speaking-fr-youth-travel',
+    section: 'speaking',
+    task: 3,
+    examMonth: '2026-10',
+    city: 'Paris',
+    topic: 'Pensez-vous que les voyages forment véritablement la jeunesse ? Justifiez votre opinion avec des exemples.',
+    note: '',
+    expected: 'approve',
+  },
+  {
+    id: 'clean-writing-zh-recommend-restaurant',
+    section: 'writing',
+    task: 1,
+    examMonth: '2026-10',
+    city: 'Toronto',
+    topic: '写作任务一：写一封邮件给你的朋友，向他推荐一家新开的法国餐厅，并邀请他周末一起去用餐。',
+    note: '',
+    expected: 'approve',
+  },
+  {
+    id: 'clean-writing-fr-city-vs-country',
+    section: 'writing',
+    task: 3,
+    examMonth: '2026-10',
+    city: 'Lyon',
+    topic: 'Certains préfèrent vivre en ville pour les commodités, d’autres choisissent la campagne pour le calme. Selon vous, quel est le mode de vie idéal ? Rédigez un texte argumenté.',
+    note: '',
+    expected: 'approve',
+  },
 ])
 
 /**
@@ -206,11 +338,16 @@ export async function runRecallCalibration(provider, {
         const result = await moderateRecall(sample, wrapped, { allowAutoApprove: autoApprove })
         // When auto-approve is OFF:
         // An expected 'approve' sample is agreed if held with recommendation 'approve' / reason RECOMMEND_APPROVE.
+        // For 'hold' samples, both 'hold' and 'reject' count as agreement.
         const agree = autoApprove
-          ? result.decision === sample.expected
+          ? (sample.expected === 'hold'
+              ? (result.decision === 'hold' || result.decision === 'reject')
+              : result.decision === sample.expected)
           : (sample.expected === 'approve'
               ? result.decision === 'hold' && (result.recommendation === 'approve' || result.reasons?.includes('RECOMMEND_APPROVE'))
-              : result.decision === sample.expected)
+              : (sample.expected === 'hold'
+                  ? (result.decision === 'hold' || result.decision === 'reject') && result.recommendation !== 'approve'
+                  : result.decision === sample.expected))
 
         // False approval: non-approve sample getting 'approve' decision
         // With auto-approve OFF, this is trivially 0 since decision is never 'approve'.
