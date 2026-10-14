@@ -1,0 +1,890 @@
+[
+  {
+    "name": "à mon avis…",
+    "trans": [
+      "短语：依我看……"
+    ]
+  },
+  {
+    "name": "selon moi…",
+    "trans": [
+      "短语：依我看……"
+    ]
+  },
+  {
+    "name": "d'après moi…",
+    "trans": [
+      "短语：据我看……"
+    ]
+  },
+  {
+    "name": "pour ma part…",
+    "trans": [
+      "短语：就我而言……"
+    ]
+  },
+  {
+    "name": "je pense que…",
+    "trans": [
+      "短语：我认为……"
+    ]
+  },
+  {
+    "name": "je trouve que…",
+    "trans": [
+      "短语：我觉得……"
+    ]
+  },
+  {
+    "name": "je crois que…",
+    "trans": [
+      "短语：我相信……"
+    ]
+  },
+  {
+    "name": "je suppose que…",
+    "trans": [
+      "短语：我推测……"
+    ]
+  },
+  {
+    "name": "il me semble que…",
+    "trans": [
+      "短语：在我看来……"
+    ]
+  },
+  {
+    "name": "on dit que…",
+    "trans": [
+      "短语：据说……"
+    ]
+  },
+  {
+    "name": "certains pensent que…",
+    "trans": [
+      "短语：有些人认为……"
+    ]
+  },
+  {
+    "name": "il est évident que…",
+    "trans": [
+      "短语：显然……"
+    ]
+  },
+  {
+    "name": "il est vrai que…",
+    "trans": [
+      "短语：确实……"
+    ]
+  },
+  {
+    "name": "je ne crois pas que…",
+    "trans": [
+      "短语：我不认为……"
+    ]
+  },
+  {
+    "name": "je ne suis pas sûr(e) que…",
+    "trans": [
+      "短语：我不确定……"
+    ]
+  },
+  {
+    "name": "je me demande si…",
+    "trans": [
+      "短语：我想知道是否……"
+    ]
+  },
+  {
+    "name": "il est possible que…",
+    "trans": [
+      "短语：有可能……"
+    ]
+  },
+  {
+    "name": "il est peu probable que…",
+    "trans": [
+      "短语：不太可能……"
+    ]
+  },
+  {
+    "name": "il se peut que…",
+    "trans": [
+      "短语：也许……"
+    ]
+  },
+  {
+    "name": "il est nécessaire que…",
+    "trans": [
+      "短语：有必要……"
+    ]
+  },
+  {
+    "name": "il est indispensable de…",
+    "trans": [
+      "短语：必不可少的是……"
+    ]
+  },
+  {
+    "name": "il est essentiel que…",
+    "trans": [
+      "短语：至关重要的是……"
+    ]
+  },
+  {
+    "name": "il faut que…",
+    "trans": [
+      "短语：必须……"
+    ]
+  },
+  {
+    "name": "il est important de…",
+    "trans": [
+      "短语：重要的是……"
+    ]
+  },
+  {
+    "name": "je suis absolument persuadé(e) que…",
+    "trans": [
+      "短语：我完全相信……"
+    ]
+  },
+  {
+    "name": "il va de soi que…",
+    "trans": [
+      "短语：不言而喻……"
+    ]
+  },
+  {
+    "name": "j'ai la conviction que…",
+    "trans": [
+      "短语：我坚信……"
+    ]
+  },
+  {
+    "name": "il ne fait aucun doute que…",
+    "trans": [
+      "短语：毫无疑问……"
+    ]
+  },
+  {
+    "name": "c'est un fait que…",
+    "trans": [
+      "短语：这是事实……"
+    ]
+  },
+  {
+    "name": "il me paraît inimaginable que…",
+    "trans": [
+      "短语：我觉得难以想象……"
+    ]
+  },
+  {
+    "name": "il apparaît en effet que…",
+    "trans": [
+      "短语：事实上似乎……"
+    ]
+  },
+  {
+    "name": "je partage cette analyse",
+    "trans": [
+      "短语：我赞同这一分析"
+    ]
+  },
+  {
+    "name": "je suis tout à fait d'accord avec…",
+    "trans": [
+      "短语：我完全同意……"
+    ]
+  },
+  {
+    "name": "je ne suis pas d'accord avec le fait que…",
+    "trans": [
+      "短语：我不同意……这一点"
+    ]
+  },
+  {
+    "name": "je m'oppose à ce que…",
+    "trans": [
+      "短语：我反对……"
+    ]
+  },
+  {
+    "name": "il est inadmissible que…",
+    "trans": [
+      "短语：……是不能接受的"
+    ]
+  },
+  {
+    "name": "il est inacceptable de…",
+    "trans": [
+      "短语：……是不能接受的"
+    ]
+  },
+  {
+    "name": "je ne suis pas en faveur de…",
+    "trans": [
+      "短语：我不赞成……"
+    ]
+  },
+  {
+    "name": "je suis perplexe quant à…",
+    "trans": [
+      "短语：我对……感到困惑"
+    ]
+  },
+  {
+    "name": "néanmoins…",
+    "trans": [
+      "adv. 尽管如此"
+    ]
+  },
+  {
+    "name": "je ne nie pas que…, cependant…",
+    "trans": [
+      "短语：我不否认……，但是……"
+    ]
+  },
+  {
+    "name": "il est exact que…, malgré cela…",
+    "trans": [
+      "短语：的确……，尽管如此……"
+    ]
+  },
+  {
+    "name": "ce n'est pas tout à fait ce que je voulais dire",
+    "trans": [
+      "短语：这不完全是我的意思"
+    ]
+  },
+  {
+    "name": "je me suis peut-être mal expliqué(e)",
+    "trans": [
+      "短语：我可能没有表达清楚"
+    ]
+  },
+  {
+    "name": "ce que je veux dire, c'est que…",
+    "trans": [
+      "短语：我的意思是……"
+    ]
+  },
+  {
+    "name": "je voudrais simplement expliquer que…",
+    "trans": [
+      "短语：我只想解释一下……"
+    ]
+  },
+  {
+    "name": "je voudrais ajouter que…",
+    "trans": [
+      "短语：我想补充说……"
+    ]
+  },
+  {
+    "name": "en d'autres termes…",
+    "trans": [
+      "短语：换句话说……"
+    ]
+  },
+  {
+    "name": "je m'explique",
+    "trans": [
+      "短语：我解释一下"
+    ]
+  },
+  {
+    "name": "c'est-à-dire que…",
+    "trans": [
+      "短语：也就是说……"
+    ]
+  },
+  {
+    "name": "autrement dit…",
+    "trans": [
+      "短语：换言之……"
+    ]
+  },
+  {
+    "name": "plus précisément…",
+    "trans": [
+      "短语：更确切地说……"
+    ]
+  },
+  {
+    "name": "ce qui signifie…",
+    "trans": [
+      "短语：这意味着……"
+    ]
+  },
+  {
+    "name": "je pourrais dire un mot ?",
+    "trans": [
+      "短语：我能说一句吗？"
+    ]
+  },
+  {
+    "name": "si je peux me permettre…",
+    "trans": [
+      "短语：如果我可以说……"
+    ]
+  },
+  {
+    "name": "pardon de vous interrompre…",
+    "trans": [
+      "短语：抱歉打断一下……"
+    ]
+  },
+  {
+    "name": "c'est à mon tour",
+    "trans": [
+      "短语：轮到我了"
+    ]
+  },
+  {
+    "name": "j'ai une remarque",
+    "trans": [
+      "短语：我有一个意见"
+    ]
+  },
+  {
+    "name": "merci de me laisser finir",
+    "trans": [
+      "短语：请让我把话说完"
+    ]
+  },
+  {
+    "name": "un instant, je n'ai pas terminé",
+    "trans": [
+      "短语：等一下，我还没说完"
+    ]
+  },
+  {
+    "name": "j'ai encore une chose à ajouter",
+    "trans": [
+      "短语：我还有一点要补充"
+    ]
+  },
+  {
+    "name": "avant de vous laisser la parole, un dernier mot",
+    "trans": [
+      "短语：在把发言权交给你之前，最后说一句"
+    ]
+  },
+  {
+    "name": "laissez-moi parler",
+    "trans": [
+      "短语：让我来说"
+    ]
+  },
+  {
+    "name": "prendre la parole",
+    "trans": [
+      "loc.v. 发言"
+    ]
+  },
+  {
+    "name": "garder la parole",
+    "trans": [
+      "loc.v. 保持发言权"
+    ]
+  },
+  {
+    "name": "dans une première partie…",
+    "trans": [
+      "短语：在第一部分中……"
+    ]
+  },
+  {
+    "name": "dans une seconde partie…",
+    "trans": [
+      "短语：在第二部分中……"
+    ]
+  },
+  {
+    "name": "tout d'abord",
+    "trans": [
+      "adv. 首先"
+    ]
+  },
+  {
+    "name": "ensuite",
+    "trans": [
+      "adv. 然后"
+    ]
+  },
+  {
+    "name": "enfin",
+    "trans": [
+      "adv. 最后；终于"
+    ]
+  },
+  {
+    "name": "en conclusion",
+    "trans": [
+      "短语：总之；作为结论"
+    ]
+  },
+  {
+    "name": "je présenterai…",
+    "trans": [
+      "短语：我将介绍……"
+    ]
+  },
+  {
+    "name": "je traiterai de…",
+    "trans": [
+      "短语：我将探讨……"
+    ]
+  },
+  {
+    "name": "nous aborderons la question de…",
+    "trans": [
+      "短语：我们将探讨……问题"
+    ]
+  },
+  {
+    "name": "nous focaliserons sur…",
+    "trans": [
+      "短语：我们将重点关注……"
+    ]
+  },
+  {
+    "name": "je terminerai en prenant position sur…",
+    "trans": [
+      "短语：我将以表明立场对……作结"
+    ]
+  },
+  {
+    "name": "je résumerai ma position",
+    "trans": [
+      "短语：我将总结我的立场"
+    ]
+  },
+  {
+    "name": "venons-en maintenant à…",
+    "trans": [
+      "短语：现在我们来谈……"
+    ]
+  },
+  {
+    "name": "nous allons à présent voir…",
+    "trans": [
+      "短语：现在我们来看……"
+    ]
+  },
+  {
+    "name": "d'une part… d'autre part…",
+    "trans": [
+      "短语：一方面……另一方面……"
+    ]
+  },
+  {
+    "name": "par ailleurs…",
+    "trans": [
+      "短语：此外……"
+    ]
+  },
+  {
+    "name": "en revanche…",
+    "trans": [
+      "短语：相反……"
+    ]
+  },
+  {
+    "name": "premièrement… deuxièmement…",
+    "trans": [
+      "短语：第一……第二……"
+    ]
+  },
+  {
+    "name": "plan par opposition",
+    "trans": [
+      "n.m. 对立式提纲"
+    ]
+  },
+  {
+    "name": "plan thématique",
+    "trans": [
+      "n.m. 主题式提纲"
+    ]
+  },
+  {
+    "name": "prendre des notes",
+    "trans": [
+      "loc.v. 做笔记"
+    ]
+  },
+  {
+    "name": "mot-clé",
+    "trans": [
+      "n.m. 关键词"
+    ]
+  },
+  {
+    "name": "transition",
+    "trans": [
+      "n.f. 过渡；衔接"
+    ]
+  },
+  {
+    "name": "introduction",
+    "trans": [
+      "n.f. 引言；导入"
+    ]
+  },
+  {
+    "name": "conclusion",
+    "trans": [
+      "n.f. 结论；结尾"
+    ]
+  },
+  {
+    "name": "stress",
+    "trans": [
+      "n.m. 压力"
+    ]
+  },
+  {
+    "name": "être sensible au stress",
+    "trans": [
+      "loc.v. 对压力敏感"
+    ]
+  },
+  {
+    "name": "surcharge de travail",
+    "trans": [
+      "n.f. 工作负担过重"
+    ]
+  },
+  {
+    "name": "paralyser",
+    "trans": [
+      "v.t. 使瘫痪；使无法行动"
+    ]
+  },
+  {
+    "name": "s'affoler",
+    "trans": [
+      "v.pr. 慌乱；惊慌失措"
+    ]
+  },
+  {
+    "name": "perdre ses moyens",
+    "trans": [
+      "loc.v. 失去镇定；发挥失常"
+    ]
+  },
+  {
+    "name": "faire des bêtises",
+    "trans": [
+      "loc.v. 做傻事；犯错"
+    ]
+  },
+  {
+    "name": "se calmer",
+    "trans": [
+      "v.pr. 平静下来"
+    ]
+  },
+  {
+    "name": "dominer",
+    "trans": [
+      "v.t. 控制；驾驭"
+    ]
+  },
+  {
+    "name": "s'aggraver",
+    "trans": [
+      "v.pr. 恶化"
+    ]
+  },
+  {
+    "name": "sport national",
+    "trans": [
+      "n.m. 国家体育项目"
+    ]
+  },
+  {
+    "name": "compétition",
+    "trans": [
+      "n.f. 竞赛；比赛"
+    ]
+  },
+  {
+    "name": "dopage",
+    "trans": [
+      "n.m. 兴奋剂使用"
+    ]
+  },
+  {
+    "name": "discipline",
+    "trans": [
+      "n.f. 纪律；体育项目"
+    ]
+  },
+  {
+    "name": "épanouissement",
+    "trans": [
+      "n.m. 个人发展；身心舒展"
+    ]
+  },
+  {
+    "name": "règle du jeu",
+    "trans": [
+      "n.f. 比赛规则"
+    ]
+  },
+  {
+    "name": "champion",
+    "trans": [
+      "n.m. 冠军；优胜者（阴性 championne）"
+    ]
+  },
+  {
+    "name": "supporter",
+    "trans": [
+      "n.m. 支持者；球迷"
+    ]
+  },
+  {
+    "name": "passion",
+    "trans": [
+      "n.f. 热情；爱好"
+    ]
+  },
+  {
+    "name": "violence",
+    "trans": [
+      "n.f. 暴力"
+    ]
+  },
+  {
+    "name": "tabac",
+    "trans": [
+      "n.m. 烟草"
+    ]
+  },
+  {
+    "name": "cigare",
+    "trans": [
+      "n.m. 雪茄"
+    ]
+  },
+  {
+    "name": "narghilé",
+    "trans": [
+      "n.m. 水烟"
+    ]
+  },
+  {
+    "name": "goudron",
+    "trans": [
+      "n.m. 焦油"
+    ]
+  },
+  {
+    "name": "monoxyde de carbone",
+    "trans": [
+      "n.m. 一氧化碳"
+    ]
+  },
+  {
+    "name": "dépendance",
+    "trans": [
+      "n.f. 依赖；成瘾"
+    ]
+  },
+  {
+    "name": "mortel",
+    "trans": [
+      "adj. 致命的（阴性 mortelle）"
+    ]
+  },
+  {
+    "name": "favoriser",
+    "trans": [
+      "v.t. 促进；助长"
+    ]
+  },
+  {
+    "name": "encourager à",
+    "trans": [
+      "v.t. 鼓励做……"
+    ]
+  },
+  {
+    "name": "écran",
+    "trans": [
+      "n.m. 屏幕"
+    ]
+  },
+  {
+    "name": "console de jeu",
+    "trans": [
+      "n.f. 游戏机"
+    ]
+  },
+  {
+    "name": "se priver de",
+    "trans": [
+      "v.pr. 放弃；戒除"
+    ]
+  },
+  {
+    "name": "volontairement",
+    "trans": [
+      "adv. 自愿地；故意地"
+    ]
+  },
+  {
+    "name": "désœuvré",
+    "trans": [
+      "adj. 无事可做的（阴性 désœuvrée）"
+    ]
+  },
+  {
+    "name": "violence verbale",
+    "trans": [
+      "n.f. 言语暴力"
+    ]
+  },
+  {
+    "name": "réduire",
+    "trans": [
+      "v.t. 减少；缩小"
+    ]
+  },
+  {
+    "name": "occupation",
+    "trans": [
+      "n.f. 活动；消遣"
+    ]
+  },
+  {
+    "name": "technologie",
+    "trans": [
+      "n.f. 技术"
+    ]
+  },
+  {
+    "name": "terminal",
+    "trans": [
+      "n.m. 终端设备；手机"
+    ]
+  },
+  {
+    "name": "tarder à décoller",
+    "trans": [
+      "loc.v. 迟迟未能打开市场"
+    ]
+  },
+  {
+    "name": "gadget",
+    "trans": [
+      "n.m. 小玩意儿；噱头"
+    ]
+  },
+  {
+    "name": "compliqué",
+    "trans": [
+      "adj. 复杂的（阴性 compliquée）"
+    ]
+  },
+  {
+    "name": "usage ponctuel",
+    "trans": [
+      "n.m. 偶尔的使用"
+    ]
+  },
+  {
+    "name": "sondage",
+    "trans": [
+      "n.m. 民意调查"
+    ]
+  },
+  {
+    "name": "sécurité publique",
+    "trans": [
+      "n.f. 公共安全"
+    ]
+  },
+  {
+    "name": "école mixte",
+    "trans": [
+      "n.f. 男女同校"
+    ]
+  },
+  {
+    "name": "école non mixte",
+    "trans": [
+      "n.f. 男女分校"
+    ]
+  },
+  {
+    "name": "ségrégation",
+    "trans": [
+      "n.f. 隔离；歧视"
+    ]
+  },
+  {
+    "name": "apprentissage",
+    "trans": [
+      "n.m. 学习；学习过程"
+    ]
+  },
+  {
+    "name": "socialisation",
+    "trans": [
+      "n.f. 社会化"
+    ]
+  },
+  {
+    "name": "prôner",
+    "trans": [
+      "v.t. 提倡；主张"
+    ]
+  },
+  {
+    "name": "avancée",
+    "trans": [
+      "n.f. 进步；前进"
+    ]
+  },
+  {
+    "name": "recul",
+    "trans": [
+      "n.m. 倒退；退步"
+    ]
+  },
+  {
+    "name": "enthousiasme",
+    "trans": [
+      "n.m. 热情；热忱"
+    ]
+  },
+  {
+    "name": "itinéraire",
+    "trans": [
+      "n.m. 路线；行程"
+    ]
+  },
+  {
+    "name": "patrimoine",
+    "trans": [
+      "n.m. 遗产；文化遗产"
+    ]
+  },
+  {
+    "name": "randonneur",
+    "trans": [
+      "n.m. 徒步旅行者（阴性 randonneuse）"
+    ]
+  },
+  {
+    "name": "se munir de",
+    "trans": [
+      "v.pr. 携带；准备"
+    ]
+  }
+]

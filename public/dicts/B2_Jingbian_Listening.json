@@ -1,0 +1,950 @@
+[
+  {
+    "name": "laisser un message",
+    "trans": [
+      "loc.v. 留言"
+    ]
+  },
+  {
+    "name": "rappeler quelqu'un",
+    "trans": [
+      "v.t. 回电话给某人"
+    ]
+  },
+  {
+    "name": "répondeur",
+    "trans": [
+      "n.m. 电话答录机"
+    ]
+  },
+  {
+    "name": "donner un coup de fil",
+    "trans": [
+      "loc.v. 打个电话"
+    ]
+  },
+  {
+    "name": "répondre à un message",
+    "trans": [
+      "loc.v. 回复留言"
+    ]
+  },
+  {
+    "name": "assister à",
+    "trans": [
+      "v.t.ind. 出席；参加"
+    ]
+  },
+  {
+    "name": "remettre à plus tard",
+    "trans": [
+      "loc.v. 推迟；改期"
+    ]
+  },
+  {
+    "name": "c'est trop juste",
+    "trans": [
+      "短语：时间太紧；太勉强"
+    ]
+  },
+  {
+    "name": "tu aurais dû + infinitif",
+    "trans": [
+      "句型：你本该……（表示遗憾或责备）"
+    ]
+  },
+  {
+    "name": "Je vous souhaite + nom",
+    "trans": [
+      "句型：祝您……"
+    ]
+  },
+  {
+    "name": "dès que + indicatif",
+    "trans": [
+      "句型：一……就……"
+    ]
+  },
+  {
+    "name": "Je vous prie de + infinitif",
+    "trans": [
+      "句型：请您……（礼貌请求）"
+    ]
+  },
+  {
+    "name": "Si cela vous intéresse",
+    "trans": [
+      "句型：如果您感兴趣的话"
+    ]
+  },
+  {
+    "name": "Pourriez-vous + infinitif ?",
+    "trans": [
+      "句型：您能否……？"
+    ]
+  },
+  {
+    "name": "Ça te va ?",
+    "trans": [
+      "句型：这样行吗？（口语确认）"
+    ]
+  },
+  {
+    "name": "Je t'embrasse",
+    "trans": [
+      "句型：（书信、留言结尾）吻你，爱你的"
+    ]
+  },
+  {
+    "name": "confirmer sa candidature",
+    "trans": [
+      "loc.v. 确认应聘"
+    ]
+  },
+  {
+    "name": "fixer un rendez-vous",
+    "trans": [
+      "loc.v. 约定见面时间"
+    ]
+  },
+  {
+    "name": "à mi-chemin entre",
+    "trans": [
+      "短语：在……之间的中点"
+    ]
+  },
+  {
+    "name": "un embouteillage",
+    "trans": [
+      "n.m. 交通堵塞"
+    ]
+  },
+  {
+    "name": "disponible",
+    "trans": [
+      "adj. 有空的；可以联系的"
+    ]
+  },
+  {
+    "name": "remplacer",
+    "trans": [
+      "v.t. 替换；代替"
+    ]
+  },
+  {
+    "name": "comptable",
+    "trans": [
+      "n.m. 会计"
+    ]
+  },
+  {
+    "name": "candidature",
+    "trans": [
+      "n.f. 应聘；申请"
+    ]
+  },
+  {
+    "name": "poste à pourvoir",
+    "trans": [
+      "短语：待招聘的职位"
+    ]
+  },
+  {
+    "name": "entretien d'embauche",
+    "trans": [
+      "n.m. 求职面试"
+    ]
+  },
+  {
+    "name": "postuler à",
+    "trans": [
+      "v.t.ind. 应聘"
+    ]
+  },
+  {
+    "name": "expérience professionnelle",
+    "trans": [
+      "n.f. 工作经验"
+    ]
+  },
+  {
+    "name": "stage",
+    "trans": [
+      "n.m. 实习"
+    ]
+  },
+  {
+    "name": "salarié",
+    "trans": [
+      "n.m. 雇员；工薪族"
+    ]
+  },
+  {
+    "name": "cadre",
+    "trans": [
+      "n.m. 管理人员；高级职员"
+    ]
+  },
+  {
+    "name": "télétravail",
+    "trans": [
+      "n.m. 远程办公"
+    ]
+  },
+  {
+    "name": "télétravailleur",
+    "trans": [
+      "n.m. 远程工作者"
+    ]
+  },
+  {
+    "name": "indépendant",
+    "trans": [
+      "adj. 自由职业的；独立的"
+    ]
+  },
+  {
+    "name": "recruter",
+    "trans": [
+      "v.t. 招聘"
+    ]
+  },
+  {
+    "name": "trier",
+    "trans": [
+      "v.t. 筛选；分类"
+    ]
+  },
+  {
+    "name": "petit boulot",
+    "trans": [
+      "n.m. 零工；兼职"
+    ]
+  },
+  {
+    "name": "gagner de l'argent de poche",
+    "trans": [
+      "loc.v. 赚零花钱"
+    ]
+  },
+  {
+    "name": "suivre une formation",
+    "trans": [
+      "loc.v. 参加培训"
+    ]
+  },
+  {
+    "name": "se perfectionner",
+    "trans": [
+      "v.pr. 进修；提高技能"
+    ]
+  },
+  {
+    "name": "organisme de formation",
+    "trans": [
+      "n.m. 培训机构"
+    ]
+  },
+  {
+    "name": "bénévole",
+    "trans": [
+      "n.m. 志愿者"
+    ]
+  },
+  {
+    "name": "avoir un bon niveau de",
+    "trans": [
+      "loc.v. 水平好；熟练掌握"
+    ]
+  },
+  {
+    "name": "parler couramment",
+    "trans": [
+      "loc.v. 流利地说"
+    ]
+  },
+  {
+    "name": "déplacement",
+    "trans": [
+      "n.m. 出差；行程"
+    ]
+  },
+  {
+    "name": "capable de",
+    "trans": [
+      "adj. 能够……的"
+    ]
+  },
+  {
+    "name": "contrat de travail",
+    "trans": [
+      "n.m. 劳动合同"
+    ]
+  },
+  {
+    "name": "réservation",
+    "trans": [
+      "n.f. 预订"
+    ]
+  },
+  {
+    "name": "aller simple",
+    "trans": [
+      "n.m. 单程票"
+    ]
+  },
+  {
+    "name": "aller-retour",
+    "trans": [
+      "n.m. 往返票"
+    ]
+  },
+  {
+    "name": "réduction",
+    "trans": [
+      "n.f. 折扣；减少"
+    ]
+  },
+  {
+    "name": "carte d'identité",
+    "trans": [
+      "n.f. 身份证"
+    ]
+  },
+  {
+    "name": "retard",
+    "trans": [
+      "n.m. 晚点；延误"
+    ]
+  },
+  {
+    "name": "en raison de",
+    "trans": [
+      "loc.prép. 由于"
+    ]
+  },
+  {
+    "name": "en provenance de",
+    "trans": [
+      "loc.prép. 来自"
+    ]
+  },
+  {
+    "name": "à destination de",
+    "trans": [
+      "loc.prép. 开往"
+    ]
+  },
+  {
+    "name": "voie",
+    "trans": [
+      "n.f. 站台；轨道"
+    ]
+  },
+  {
+    "name": "embarquer",
+    "trans": [
+      "v.i. 登车；登机"
+    ]
+  },
+  {
+    "name": "place non-fumeur",
+    "trans": [
+      "短语：禁烟座位"
+    ]
+  },
+  {
+    "name": "vitesse maximale",
+    "trans": [
+      "短语：最高速度"
+    ]
+  },
+  {
+    "name": "consommation",
+    "trans": [
+      "n.f. 耗油量；消费"
+    ]
+  },
+  {
+    "name": "voiture familiale",
+    "trans": [
+      "短语：家用轿车"
+    ]
+  },
+  {
+    "name": "accident de la route",
+    "trans": [
+      "短语：交通事故"
+    ]
+  },
+  {
+    "name": "circulation interrompue",
+    "trans": [
+      "短语：交通中断"
+    ]
+  },
+  {
+    "name": "prévisions météo",
+    "trans": [
+      "短语：天气预报"
+    ]
+  },
+  {
+    "name": "ciel nuageux",
+    "trans": [
+      "短语：多云的天空"
+    ]
+  },
+  {
+    "name": "ciel dégagé",
+    "trans": [
+      "短语：晴朗的天空"
+    ]
+  },
+  {
+    "name": "éclaircie",
+    "trans": [
+      "n.f. 放晴；云隙"
+    ]
+  },
+  {
+    "name": "averse",
+    "trans": [
+      "n.f. 阵雨"
+    ]
+  },
+  {
+    "name": "orage",
+    "trans": [
+      "n.m. 雷雨"
+    ]
+  },
+  {
+    "name": "anticyclone",
+    "trans": [
+      "n.m. 反气旋；高压区"
+    ]
+  },
+  {
+    "name": "température maximale",
+    "trans": [
+      "短语：最高气温"
+    ]
+  },
+  {
+    "name": "température minimale",
+    "trans": [
+      "短语：最低气温"
+    ]
+  },
+  {
+    "name": "manifestation",
+    "trans": [
+      "n.f. 示威；游行"
+    ]
+  },
+  {
+    "name": "défiler",
+    "trans": [
+      "v.i. 游行；列队走过"
+    ]
+  },
+  {
+    "name": "se dérouler",
+    "trans": [
+      "v.pr. 进行；发生"
+    ]
+  },
+  {
+    "name": "gravement blessé",
+    "trans": [
+      "短语：重伤的"
+    ]
+  },
+  {
+    "name": "prendre feu",
+    "trans": [
+      "loc.v. 着火"
+    ]
+  },
+  {
+    "name": "incendie",
+    "trans": [
+      "n.m. 火灾"
+    ]
+  },
+  {
+    "name": "exploser",
+    "trans": [
+      "v.i. 爆炸"
+    ]
+  },
+  {
+    "name": "victime",
+    "trans": [
+      "n.f. 受害者"
+    ]
+  },
+  {
+    "name": "secours",
+    "trans": [
+      "n.m.pl. 救援；救护"
+    ]
+  },
+  {
+    "name": "pompier",
+    "trans": [
+      "n.m. 消防员"
+    ]
+  },
+  {
+    "name": "rester bloqué",
+    "trans": [
+      "loc.v. 被困"
+    ]
+  },
+  {
+    "name": "fausse alerte",
+    "trans": [
+      "短语：误报"
+    ]
+  },
+  {
+    "name": "encourir",
+    "trans": [
+      "v.t. 面临（刑罚或风险）"
+    ]
+  },
+  {
+    "name": "condamner",
+    "trans": [
+      "v.t. 判决；谴责"
+    ]
+  },
+  {
+    "name": "reconnaître coupable",
+    "trans": [
+      "loc.v. 判定有罪"
+    ]
+  },
+  {
+    "name": "amende",
+    "trans": [
+      "n.f. 罚款"
+    ]
+  },
+  {
+    "name": "tribunal",
+    "trans": [
+      "n.m. 法庭"
+    ]
+  },
+  {
+    "name": "peine de prison",
+    "trans": [
+      "短语：监禁刑"
+    ]
+  },
+  {
+    "name": "contrefaçon",
+    "trans": [
+      "n.f. 仿冒；侵权"
+    ]
+  },
+  {
+    "name": "porter plainte",
+    "trans": [
+      "loc.v. 提出控告"
+    ]
+  },
+  {
+    "name": "disparaître",
+    "trans": [
+      "v.i. 失踪；消失"
+    ]
+  },
+  {
+    "name": "armé de",
+    "trans": [
+      "adj. 持有……的（武器）"
+    ]
+  },
+  {
+    "name": "cambrioleur",
+    "trans": [
+      "n.m. 窃贼"
+    ]
+  },
+  {
+    "name": "épidémie",
+    "trans": [
+      "n.f. 流行病"
+    ]
+  },
+  {
+    "name": "propagation",
+    "trans": [
+      "n.f. 传播；扩散"
+    ]
+  },
+  {
+    "name": "sondage",
+    "trans": [
+      "n.m. 民意调查"
+    ]
+  },
+  {
+    "name": "enquête",
+    "trans": [
+      "n.f. 调查；问卷"
+    ]
+  },
+  {
+    "name": "selon les organisateurs",
+    "trans": [
+      "短语：据组织者称"
+    ]
+  },
+  {
+    "name": "déclarer",
+    "trans": [
+      "v.t. 宣布；声明"
+    ]
+  },
+  {
+    "name": "fête",
+    "trans": [
+      "n.f. 节日；庆典"
+    ]
+  },
+  {
+    "name": "animer la vie culturelle",
+    "trans": [
+      "loc.v. 活跃文化生活"
+    ]
+  },
+  {
+    "name": "artiste",
+    "trans": [
+      "n.m./f. 艺术家"
+    ]
+  },
+  {
+    "name": "rap",
+    "trans": [
+      "n.m. 说唱音乐"
+    ]
+  },
+  {
+    "name": "pop",
+    "trans": [
+      "n.f. 流行音乐"
+    ]
+  },
+  {
+    "name": "politiquement engagé",
+    "trans": [
+      "短语：政治立场鲜明的"
+    ]
+  },
+  {
+    "name": "solidarité",
+    "trans": [
+      "n.f. 团结；互助"
+    ]
+  },
+  {
+    "name": "racisme",
+    "trans": [
+      "n.m. 种族主义"
+    ]
+  },
+  {
+    "name": "mortalité",
+    "trans": [
+      "n.f. 死亡率"
+    ]
+  },
+  {
+    "name": "prévention",
+    "trans": [
+      "n.f. 预防"
+    ]
+  },
+  {
+    "name": "punir",
+    "trans": [
+      "v.t. 惩罚"
+    ]
+  },
+  {
+    "name": "limitation de vitesse",
+    "trans": [
+      "短语：限速"
+    ]
+  },
+  {
+    "name": "divorce",
+    "trans": [
+      "n.m. 离婚"
+    ]
+  },
+  {
+    "name": "chômage",
+    "trans": [
+      "n.m. 失业"
+    ]
+  },
+  {
+    "name": "dépenses",
+    "trans": [
+      "n.f.pl. 开支；花费"
+    ]
+  },
+  {
+    "name": "pouvoir d'achat",
+    "trans": [
+      "n.m. 购买力"
+    ]
+  },
+  {
+    "name": "économiser",
+    "trans": [
+      "v.t. 节省"
+    ]
+  },
+  {
+    "name": "retraite",
+    "trans": [
+      "n.f. 退休"
+    ]
+  },
+  {
+    "name": "gratuité",
+    "trans": [
+      "n.f. 免费"
+    ]
+  },
+  {
+    "name": "données personnelles",
+    "trans": [
+      "短语：个人数据"
+    ]
+  },
+  {
+    "name": "réchauffement climatique",
+    "trans": [
+      "短语：气候变暖"
+    ]
+  },
+  {
+    "name": "éclipse",
+    "trans": [
+      "n.f. 日食；月食"
+    ]
+  },
+  {
+    "name": "vache folle",
+    "trans": [
+      "短语：疯牛病"
+    ]
+  },
+  {
+    "name": "vente aux enchères",
+    "trans": [
+      "短语：拍卖会"
+    ]
+  },
+  {
+    "name": "adjuger",
+    "trans": [
+      "v.t. 拍板成交"
+    ]
+  },
+  {
+    "name": "collection",
+    "trans": [
+      "n.f. 收藏品；系列"
+    ]
+  },
+  {
+    "name": "admirateur",
+    "trans": [
+      "n.m. 崇拜者"
+    ]
+  },
+  {
+    "name": "spectacle",
+    "trans": [
+      "n.m. 演出；表演"
+    ]
+  },
+  {
+    "name": "festival",
+    "trans": [
+      "n.m. 音乐节；节庆活动"
+    ]
+  },
+  {
+    "name": "paquebot",
+    "trans": [
+      "n.m. 大型客轮"
+    ]
+  },
+  {
+    "name": "voyage inaugural",
+    "trans": [
+      "短语：首航"
+    ]
+  },
+  {
+    "name": "baptiser",
+    "trans": [
+      "v.t. 命名；为……起名"
+    ]
+  },
+  {
+    "name": "réédition",
+    "trans": [
+      "n.f. 再版"
+    ]
+  },
+  {
+    "name": "auteur",
+    "trans": [
+      "n.m. 作者"
+    ]
+  },
+  {
+    "name": "scénario",
+    "trans": [
+      "n.m. 剧本；情节"
+    ]
+  },
+  {
+    "name": "bande dessinée",
+    "trans": [
+      "短语：连环画；漫画"
+    ]
+  },
+  {
+    "name": "match",
+    "trans": [
+      "n.m. 比赛"
+    ]
+  },
+  {
+    "name": "qualification",
+    "trans": [
+      "n.f. 晋级；资格"
+    ]
+  },
+  {
+    "name": "quart de finale",
+    "trans": [
+      "短语：四分之一决赛"
+    ]
+  },
+  {
+    "name": "marquer un but",
+    "trans": [
+      "loc.v. 进球"
+    ]
+  },
+  {
+    "name": "échec",
+    "trans": [
+      "n.m. 失败；挫折"
+    ]
+  },
+  {
+    "name": "négociation",
+    "trans": [
+      "n.f. 谈判"
+    ]
+  },
+  {
+    "name": "accord",
+    "trans": [
+      "n.m. 协议；一致"
+    ]
+  },
+  {
+    "name": "libéralisation des échanges",
+    "trans": [
+      "短语：贸易自由化"
+    ]
+  },
+  {
+    "name": "mondialisation",
+    "trans": [
+      "n.f. 全球化"
+    ]
+  },
+  {
+    "name": "candidat",
+    "trans": [
+      "n.m. 候选人；应聘者"
+    ]
+  },
+  {
+    "name": "campagne électorale",
+    "trans": [
+      "短语：竞选活动"
+    ]
+  },
+  {
+    "name": "faire campagne",
+    "trans": [
+      "loc.v. 竞选；开展宣传"
+    ]
+  },
+  {
+    "name": "scrutin",
+    "trans": [
+      "n.m. 投票；选举"
+    ]
+  },
+  {
+    "name": "mobilisation",
+    "trans": [
+      "n.f. 动员；发动"
+    ]
+  },
+  {
+    "name": "investissement",
+    "trans": [
+      "n.m. 投资"
+    ]
+  },
+  {
+    "name": "infrastructures",
+    "trans": [
+      "n.f.pl. 基础设施"
+    ]
+  },
+  {
+    "name": "financement",
+    "trans": [
+      "n.m. 融资；资金来源"
+    ]
+  },
+  {
+    "name": "hausse de tarif",
+    "trans": [
+      "短语：涨价"
+    ]
+  },
+  {
+    "name": "déficitaire",
+    "trans": [
+      "adj. 亏损的；赤字的"
+    ]
+  },
+  {
+    "name": "ligne à grande vitesse",
+    "trans": [
+      "短语：高速铁路线"
+    ]
+  }
+]
