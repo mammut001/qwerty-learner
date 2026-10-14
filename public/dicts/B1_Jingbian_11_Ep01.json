@@ -1,0 +1,674 @@
+[
+  {
+    "name": "presse",
+    "trans": [
+      "n.f. 报刊，新闻界"
+    ]
+  },
+  {
+    "name": "média",
+    "trans": [
+      "n.m. 媒体，大众传播媒介"
+    ]
+  },
+  {
+    "name": "information",
+    "trans": [
+      "n.f. 消息，信息；新闻"
+    ]
+  },
+  {
+    "name": "banlieue",
+    "trans": [
+      "n.f. 郊区"
+    ]
+  },
+  {
+    "name": "bilan",
+    "trans": [
+      "n.m. 总结，统计结果，资产负债表"
+    ]
+  },
+  {
+    "name": "attentat",
+    "trans": [
+      "n.m. 恐怖袭击，暗杀企图"
+    ]
+  },
+  {
+    "name": "canicule",
+    "trans": [
+      "n.f. 热浪，酷暑"
+    ]
+  },
+  {
+    "name": "victime",
+    "trans": [
+      "n.f. 受害者，遇难者"
+    ]
+  },
+  {
+    "name": "centrale",
+    "trans": [
+      "n.f. 发电厂，总局"
+    ]
+  },
+  {
+    "name": "décès",
+    "trans": [
+      "n.m. 死亡，去世"
+    ]
+  },
+  {
+    "name": "chaleur",
+    "trans": [
+      "n.f. 炎热，热度"
+    ]
+  },
+  {
+    "name": "excessif",
+    "trans": [
+      "adj. 过度的，过分的"
+    ]
+  },
+  {
+    "name": "remporter",
+    "trans": [
+      "v.t. 赢得，获得"
+    ]
+  },
+  {
+    "name": "battre",
+    "trans": [
+      "v.t. 打败，击败；打"
+    ]
+  },
+  {
+    "name": "fabriquer",
+    "trans": [
+      "v.t. 制造，制作"
+    ]
+  },
+  {
+    "name": "fabrication",
+    "trans": [
+      "n.f. 制造，制作"
+    ]
+  },
+  {
+    "name": "pot",
+    "trans": [
+      "n.m. 聚会便宴；壶，罐"
+    ]
+  },
+  {
+    "name": "médiathèque",
+    "trans": [
+      "n.f. 多媒体图书馆"
+    ]
+  },
+  {
+    "name": "recruter",
+    "trans": [
+      "v.t. 招聘，招募"
+    ]
+  },
+  {
+    "name": "recrutement",
+    "trans": [
+      "n.m. 招聘，录用"
+    ]
+  },
+  {
+    "name": "comédien",
+    "trans": [
+      "n.m. 演员"
+    ]
+  },
+  {
+    "name": "metteur en scène",
+    "trans": [
+      "n.m. 导演"
+    ]
+  },
+  {
+    "name": "désordre",
+    "trans": [
+      "n.m. 杂乱，混乱"
+    ]
+  },
+  {
+    "name": "ordre",
+    "trans": [
+      "n.m. 秩序，整齐"
+    ]
+  },
+  {
+    "name": "original",
+    "trans": [
+      "adj. 原作的；新颖独特的；n.m. 奇特的人"
+    ]
+  },
+  {
+    "name": "originalité",
+    "trans": [
+      "n.f. 独创性，独特性"
+    ]
+  },
+  {
+    "name": "vedette",
+    "trans": [
+      "n.f. 明星，著名演员"
+    ]
+  },
+  {
+    "name": "star",
+    "trans": [
+      "n.f. 明星"
+    ]
+  },
+  {
+    "name": "lendemain",
+    "trans": [
+      "n.m. 次日，第二天"
+    ]
+  },
+  {
+    "name": "surlendemain",
+    "trans": [
+      "n.m. 第三天，后天"
+    ]
+  },
+  {
+    "name": "veille",
+    "trans": [
+      "n.f. 前一天，前夕"
+    ]
+  },
+  {
+    "name": "conférence",
+    "trans": [
+      "n.f. 会议，讲座"
+    ]
+  },
+  {
+    "name": "rédaction",
+    "trans": [
+      "n.f. 撰写，起草；编辑部"
+    ]
+  },
+  {
+    "name": "rédiger",
+    "trans": [
+      "v.t. 撰写，起草"
+    ]
+  },
+  {
+    "name": "rédacteur",
+    "trans": [
+      "n.m. 编辑，撰稿人"
+    ]
+  },
+  {
+    "name": "squat",
+    "trans": [
+      "n.m. 非法占住的空房"
+    ]
+  },
+  {
+    "name": "délocaliser",
+    "trans": [
+      "v.t. 把工厂迁址，产业外迁"
+    ]
+  },
+  {
+    "name": "délocalisation",
+    "trans": [
+      "n.f. 产业外迁，工厂迁址"
+    ]
+  },
+  {
+    "name": "mobilisation",
+    "trans": [
+      "n.f. 动员，召集"
+    ]
+  },
+  {
+    "name": "fâché",
+    "trans": [
+      "adj. 生气的，愤怒的"
+    ]
+  },
+  {
+    "name": "fâcher",
+    "trans": [
+      "v.t. 使生气，激怒"
+    ]
+  },
+  {
+    "name": "jaloux",
+    "trans": [
+      "adj. 嫉妒的，羡慕的"
+    ]
+  },
+  {
+    "name": "jalousie",
+    "trans": [
+      "n.f. 嫉妒，妒忌"
+    ]
+  },
+  {
+    "name": "jalouser",
+    "trans": [
+      "v.t. 嫉妒，眼红"
+    ]
+  },
+  {
+    "name": "député",
+    "trans": [
+      "n.m. 国民议会议员"
+    ]
+  },
+  {
+    "name": "syndicat",
+    "trans": [
+      "n.m. 工会"
+    ]
+  },
+  {
+    "name": "production",
+    "trans": [
+      "n.f. 生产，制作"
+    ]
+  },
+  {
+    "name": "produire",
+    "trans": [
+      "v.t. 生产，制造，产生"
+    ]
+  },
+  {
+    "name": "produit",
+    "trans": [
+      "n.m. 产品，产物"
+    ]
+  },
+  {
+    "name": "productif",
+    "trans": [
+      "adj. 多产的，有生产力的"
+    ]
+  },
+  {
+    "name": "productivité",
+    "trans": [
+      "n.f. 生产率，生产力"
+    ]
+  },
+  {
+    "name": "bénéfice",
+    "trans": [
+      "n.m. 利润，收益；益处"
+    ]
+  },
+  {
+    "name": "effectivement",
+    "trans": [
+      "adv. 确实，事实上"
+    ]
+  },
+  {
+    "name": "bouger",
+    "trans": [
+      "v.i. 移动，活动"
+    ]
+  },
+  {
+    "name": "bruit",
+    "trans": [
+      "n.m. 噪音；传闻，轰动"
+    ]
+  },
+  {
+    "name": "gratuit",
+    "trans": [
+      "adj. 免费的"
+    ]
+  },
+  {
+    "name": "caricature",
+    "trans": [
+      "n.f. 讽刺画，夸张表现"
+    ]
+  },
+  {
+    "name": "caricaturer",
+    "trans": [
+      "v.t. 讽刺，夸张描述"
+    ]
+  },
+  {
+    "name": "exagérer",
+    "trans": [
+      "v.t. 夸大，夸张"
+    ]
+  },
+  {
+    "name": "catastrophe",
+    "trans": [
+      "n.f. 灾难，灾祸"
+    ]
+  },
+  {
+    "name": "ridicule",
+    "trans": [
+      "adj. 荒谬的，可笑的"
+    ]
+  },
+  {
+    "name": "sondage",
+    "trans": [
+      "n.m. 民意测验，调查"
+    ]
+  },
+  {
+    "name": "concurrent",
+    "trans": [
+      "n.m. 竞争者，竞争对手"
+    ]
+  },
+  {
+    "name": "circuler",
+    "trans": [
+      "v.i. 流通，循环，传播"
+    ]
+  },
+  {
+    "name": "révélation",
+    "trans": [
+      "n.f. 揭露，揭示，披露"
+    ]
+  },
+  {
+    "name": "diffusion",
+    "trans": [
+      "n.f. 传播，普及，发行"
+    ]
+  },
+  {
+    "name": "stagiaire",
+    "trans": [
+      "n. 实习生"
+    ]
+  },
+  {
+    "name": "stage",
+    "trans": [
+      "n.m. 实习，培训期"
+    ]
+  },
+  {
+    "name": "se passer",
+    "trans": [
+      "v.pr. 发生；度过"
+    ]
+  },
+  {
+    "name": "se produire",
+    "trans": [
+      "v.pr. 发生，出现"
+    ]
+  },
+  {
+    "name": "se dérouler",
+    "trans": [
+      "v.pr. 进行，开展"
+    ]
+  },
+  {
+    "name": "s'embraser",
+    "trans": [
+      "v.pr. 燃烧；局势激化"
+    ]
+  },
+  {
+    "name": "se bouger",
+    "trans": [
+      "v.pr. 行动起来，动身"
+    ]
+  },
+  {
+    "name": "lancer",
+    "trans": [
+      "v.t. 发起；投掷；发行"
+    ]
+  },
+  {
+    "name": "avoir lieu",
+    "trans": [
+      "短语：发生，举行"
+    ]
+  },
+  {
+    "name": "ce n'est pas la peine",
+    "trans": [
+      "短语：没必要，不用了"
+    ]
+  },
+  {
+    "name": "ce n'est pas la peine de",
+    "trans": [
+      "短语：没必要做某事"
+    ]
+  },
+  {
+    "name": "maison d'édition",
+    "trans": [
+      "短语：出版社"
+    ]
+  },
+  {
+    "name": "laisser faire",
+    "trans": [
+      "短语：听任，放任"
+    ]
+  },
+  {
+    "name": "commencer à",
+    "trans": [
+      "短语：开始做某事"
+    ]
+  },
+  {
+    "name": "commencer par",
+    "trans": [
+      "短语：从……开始"
+    ]
+  },
+  {
+    "name": "à nouveau",
+    "trans": [
+      "短语：重新，再次"
+    ]
+  },
+  {
+    "name": "de nouveau",
+    "trans": [
+      "短语：重新，再度"
+    ]
+  },
+  {
+    "name": "se faire engueuler",
+    "trans": [
+      "短语：挨骂，受训斥"
+    ]
+  },
+  {
+    "name": "se faire disputer",
+    "trans": [
+      "短语：挨训，受责怪"
+    ]
+  },
+  {
+    "name": "se faire virer",
+    "trans": [
+      "短语：被解雇，被开除"
+    ]
+  },
+  {
+    "name": "se faire voler",
+    "trans": [
+      "短语：被盗，失窃"
+    ]
+  },
+  {
+    "name": "être en désordre",
+    "trans": [
+      "短语：杂乱的，凌乱的"
+    ]
+  },
+  {
+    "name": "être en ordre",
+    "trans": [
+      "短语：整齐的，井然有序的"
+    ]
+  },
+  {
+    "name": "marché aux puces",
+    "trans": [
+      "短语：跳蚤市场"
+    ]
+  },
+  {
+    "name": "du nouveau",
+    "trans": [
+      "短语：新情况，新鲜事"
+    ]
+  },
+  {
+    "name": "pas vraiment",
+    "trans": [
+      "短语：不太，并不真正"
+    ]
+  },
+  {
+    "name": "vraiment pas",
+    "trans": [
+      "短语：真不，绝不"
+    ]
+  },
+  {
+    "name": "servir à",
+    "trans": [
+      "短语：用于，用来"
+    ]
+  },
+  {
+    "name": "ne servir à rien",
+    "trans": [
+      "短语：毫无用处"
+    ]
+  },
+  {
+    "name": "se passer de",
+    "trans": [
+      "短语：省去，免去，放弃"
+    ]
+  },
+  {
+    "name": "faire monter",
+    "trans": [
+      "短语：促使上升，提高"
+    ]
+  },
+  {
+    "name": "se fâcher contre",
+    "trans": [
+      "短语：对……发火"
+    ]
+  },
+  {
+    "name": "se fâcher avec",
+    "trans": [
+      "短语：与……闹翻"
+    ]
+  },
+  {
+    "name": "se moquer de",
+    "trans": [
+      "短语：不在乎，不放在眼里；嘲笑"
+    ]
+  },
+  {
+    "name": "ça m'est égal",
+    "trans": [
+      "短语：对我来说都一样，无所谓"
+    ]
+  },
+  {
+    "name": "tomber malade",
+    "trans": [
+      "短语：生病"
+    ]
+  },
+  {
+    "name": "bénéficier de",
+    "trans": [
+      "短语：从……中受益，享受"
+    ]
+  },
+  {
+    "name": "valoir la peine",
+    "trans": [
+      "短语：值得"
+    ]
+  },
+  {
+    "name": "ça vaut la peine",
+    "trans": [
+      "短语：这值得一做"
+    ]
+  },
+  {
+    "name": "faire du bruit",
+    "trans": [
+      "短语：引起骚动，惹人注目"
+    ]
+  },
+  {
+    "name": "passer de l'ombre à la lumière",
+    "trans": [
+      "短语：走向台前，公开化"
+    ]
+  },
+  {
+    "name": "info en continu",
+    "trans": [
+      "短语：24小时滚动新闻"
+    ]
+  },
+  {
+    "name": "en continu",
+    "trans": [
+      "短语：连续不断地"
+    ]
+  },
+  {
+    "name": "à cause de",
+    "trans": [
+      "短语：由于，因为（接消极或中性原因）"
+    ]
+  },
+  {
+    "name": "être couvert de",
+    "trans": [
+      "短语：被……覆盖"
+    ]
+  },
+  {
+    "name": "être suivi de",
+    "trans": [
+      "短语：随后是，接着是"
+    ]
+  }
+]
