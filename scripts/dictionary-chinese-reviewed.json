@@ -33,5 +33,36 @@
     "zh": ["雇用；招聘"],
     "source": "https://fr.wiktionary.org/wiki/embaucher#Français",
     "reviewedAt": "2026-10-13"
+  },
+  {
+    "word": "jusqu'à",
+    "pos": "prep",
+    "zh": ["截至"],
+    "example": "Une presse complaisante jusqu’à la servilité répandait dans le public, depuis les salons jusqu'aux mansardes, les idées les plus fausses et les plus dangereuses.",
+    "source": "https://fr.wiktionary.org/wiki/jusqu%E2%80%99%C3%A0#Pr%C3%A9position",
+    "reviewedAt": "2026-10-14"
+  },
+  {
+    "word": "pouvoir d'achat",
+    "pos": "noun",
+    "zh": ["购买力"],
+    "source": "https://fr.wiktionary.org/wiki/pouvoir_d%E2%80%99achat#Nom_commun",
+    "reviewedAt": "2026-10-14"
+  },
+  {
+    "word": "fort",
+    "pos": "adj",
+    "zh": ["强"],
+    "example": "C’est une phrase surutilisée du penseur allemand Friedrich Nietzsche: «Ce qui ne me tue pas me rend plus fort.»",
+    "source": "https://fr.wiktionary.org/wiki/fort#Adjectif",
+    "reviewedAt": "2026-10-14"
+  },
+  {
+    "word": "fort",
+    "pos": "noun",
+    "zh": ["要塞", "堡垒"],
+    "example": "A partir du 16 septembre, le fort de la Pompelle, un des forts de la ceinture de Reims édifié dans le cadre de la deuxième ligne de fortifications de Séré de Rivières, est désigné comme cible aux soldats français qui le prennent d'assaut le 23 septembre au prix d'innombrables vies.",
+    "source": "https://fr.wiktionary.org/wiki/fort#Nom_commun",
+    "reviewedAt": "2026-10-14"
   }
 ]

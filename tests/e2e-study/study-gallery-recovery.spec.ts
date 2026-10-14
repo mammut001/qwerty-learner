@@ -4,7 +4,7 @@ test.use({ serviceWorkers: 'block' })
 
 test('dictionary details explain failed error-word loading and offer an in-place retry', async ({ page }) => {
   let fail = true
-  await page.route('**/dicts/TCF_Canada_Foundation_01.json', (route) =>
+  await page.route('**/dicts/TCF_Canada_Foundation_01.json*', (route) =>
     route.fulfill({
       status: fail ? 503 : 200,
       json: fail ? { error: 'unavailable' } : [{ name: 'bonjour', trans: ['你好'] }],
@@ -22,7 +22,7 @@ test('dictionary details explain failed error-word loading and offer an in-place
 test('local error-word read failures can be retried without unhandled errors', async ({ page }) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
-  await page.route('**/dicts/TCF_Canada_Foundation_01.json', (route) => route.fulfill({ json: [{ name: 'bonjour', trans: ['你好'] }] }))
+  await page.route('**/dicts/TCF_Canada_Foundation_01.json*', (route) => route.fulfill({ json: [{ name: 'bonjour', trans: ['你好'] }] }))
   await page.addInitScript(() => {
     const original = IDBIndex.prototype.openCursor
     const state = window as Window & { failErrorWordRead?: boolean }

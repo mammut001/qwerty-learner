@@ -39,24 +39,27 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('message', (event) => {
   if (event.data?.type !== 'CACHE_URLS' || !Array.isArray(event.data.urls)) return
-  const done = caches.open(CACHE_NAME).then(async (cache) => {
-    for (const value of event.data.urls) {
-      try {
-        const url = new URL(value, self.registration.scope)
-        if (
-          url.origin !== self.location.origin ||
-          url.pathname.startsWith('/api/') ||
-          url.pathname.startsWith('/umami/') ||
-          url.pathname.startsWith('/__/auth/')
-        )
-          continue
-        const response = await fetch(url.href, { credentials: 'same-origin' })
-        if (response.ok && !isAssetHtmlResponse(url, response)) await cache.put(url.href, response.clone())
-      } catch {
-        // Best-effort warmup; individual asset failures must not break the service worker.
+  const done = caches
+    .open(CACHE_NAME)
+    .then(async (cache) => {
+      for (const value of event.data.urls) {
+        try {
+          const url = new URL(value, self.registration.scope)
+          if (
+            url.origin !== self.location.origin ||
+            url.pathname.startsWith('/api/') ||
+            url.pathname.startsWith('/umami/') ||
+            url.pathname.startsWith('/__/auth/')
+          )
+            continue
+          const response = await fetch(url.href, { credentials: 'same-origin' })
+          if (response.ok && !isAssetHtmlResponse(url, response)) await cache.put(url.href, response.clone())
+        } catch {
+          // Best-effort warmup; individual asset failures must not break the service worker.
+        }
       }
-    }
-  }).finally(() => event.ports?.[0]?.postMessage({ cached: true }))
+    })
+    .finally(() => event.ports?.[0]?.postMessage({ cached: true }))
   event.waitUntil(done)
 })
 
@@ -96,6 +99,8 @@ self.addEventListener('fetch', (event) => {
     return
   }
 
+  // The cache key is the full URL, including a practice-list or lexicon ?v= build token.
+  // A reload of the new page asks for a new token and does not reuse the previous body.
   event.respondWith(
     caches.match(request).then((cached) => {
       if (cached) return cached

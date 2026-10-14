@@ -5,7 +5,7 @@ test.use({ serviceWorkers: 'block' })
 test('a failed review creation preserves the chapter and can be retried', async ({ page }) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
-  await page.route('**/dicts/TCF_Canada_Foundation_01.json', (route) => route.fulfill({ json: [{ name: 'bonjour', trans: ['你好'] }] }))
+  await page.route('**/dicts/TCF_Canada_Foundation_01.json*', (route) => route.fulfill({ json: [{ name: 'bonjour', trans: ['你好'] }] }))
   await page.goto('/typing')
   await expect(page.locator('textarea')).toBeAttached()
   await page.keyboard.press('Enter')
@@ -43,7 +43,7 @@ test('a failed review creation preserves the chapter and can be retried', async 
 })
 
 test('closing details during a pending review save prevents a late navigation', async ({ page }) => {
-  await page.route('**/dicts/TCF_Canada_Foundation_01.json', (route) => route.fulfill({ json: [{ name: 'bonjour', trans: ['你好'] }] }))
+  await page.route('**/dicts/TCF_Canada_Foundation_01.json*', (route) => route.fulfill({ json: [{ name: 'bonjour', trans: ['你好'] }] }))
   await page.goto('/gallery?dict=tcf-canada-foundation-01')
   await expect(page.getByRole('dialog')).toBeVisible()
   await page.evaluate(async () => {

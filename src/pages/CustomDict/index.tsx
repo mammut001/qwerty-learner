@@ -11,6 +11,14 @@ import {
   parseWordListText,
   wordListToText,
 } from '@/store/customDict'
+import {
+  applyChineseSupplement,
+  emptyOnlyLine,
+  hasChineseText,
+  lacksCustomMeaning,
+  previewChineseSupplement,
+  supplementSourceAllowed,
+} from '@/utils/studyListMaintenance.mjs'
 import { saveAs } from 'file-saver'
 import { useAtom, useSetAtom } from 'jotai'
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -18,11 +26,8 @@ import { useNavigate } from 'react-router-dom'
 import IconPlus from '~icons/tabler/plus'
 import IconTrash from '~icons/tabler/trash'
 
-const missingMeaning = (word: { name: string; trans: string[] }) => {
-  const name = word.name.normalize('NFC').trim().toLocaleLowerCase('fr')
-  return word.trans.every((meaning) => !meaning.trim() || meaning.normalize('NFC').trim().toLocaleLowerCase('fr') === name)
-}
 const NEW_LIST = 'new'
+type SupplementPreview = { name: string; existing: string; chinese: string; next: string }
 const EXAMPLE = ['le logement = 住房', 'déménager = 搬家', 'un bail = 租约', 'avoir besoin de = 需要', 'en revanche = 相反，然而'].join(
   '\n',
 )
@@ -37,15 +42,22 @@ export default function CustomDictPage() {
   const importVersion = useRef(0)
   const meaningVersion = useRef(0)
   const [isCompleting, setIsCompleting] = useState(false)
+  const [isPreviewing, setIsPreviewing] = useState(false)
+  const [supplement, setSupplement] = useState<SupplementPreview[] | null>(null)
+  const previewVersion = useRef(0)
   const cancelCompletion = () => {
     meaningVersion.current += 1
+    previewVersion.current += 1
     setIsCompleting(false)
+    setIsPreviewing(false)
+    setSupplement(null)
   }
   const [isImporting, setIsImporting] = useState(false)
   useEffect(
     () => () => {
       importVersion.current += 1
       meaningVersion.current += 1
+      previewVersion.current += 1
     },
     [],
   )
@@ -183,10 +195,19 @@ export default function CustomDictPage() {
     }
   }
 
+  const lookupListChinese = async (name: string) => {
+    const result = await lookupDictionary(name, { allowCompoundFallback: false })
+    const target = result.words[0] ?? result.lemmas[0]
+    if (!target || !supplementSourceAllowed(name, target.word)) return ''
+    const chinese = [...target.site, ...target.entries.flatMap((entry) => entry.zh)].filter((meaning) => hasChineseText(meaning))
+    return Array.from(new Set(chinese)).slice(0, 3).join('；').slice(0, CUSTOM_DICT_LIMITS.trans)
+  }
+
   const completeMeanings = async () => {
-    if (isCompleting || isImporting || hasIncompleteWords()) return
+    if (isCompleting || isPreviewing || isImporting || hasIncompleteWords()) return
     const version = ++meaningVersion.current
-    const candidates = parsed.words.filter(missingMeaning)
+    setSupplement(null)
+    const candidates = parsed.words.filter((word) => lacksCustomMeaning(word.name, word.trans))
     if (!candidates.length) {
       setMessage({ tone: 'ok', text: '没有需要补全的词条，已有释义和笔记会保留。' })
       return
@@ -201,13 +222,8 @@ export default function CustomDictPage() {
       while (index < candidates.length && version === meaningVersion.current) {
         const word = candidates[index++]
         try {
-          const result = await lookupDictionary(word.name, { allowCompoundFallback: false })
+          const meaning = await lookupListChinese(word.name)
           if (version !== meaningVersion.current) return
-          const target = result.words[0] ?? result.lemmas[0]
-          const chinese = target
-            ? [...target.site, ...target.entries.flatMap((entry) => entry.zh)].filter((meaning) => /[一-鿿]/.test(meaning))
-            : []
-          const meaning = Array.from(new Set(chinese)).slice(0, 3).join('；').slice(0, CUSTOM_DICT_LIMITS.trans)
           if (meaning) meanings.set(keyOf(word.name), meaning)
         } catch {
           failed += 1
@@ -223,8 +239,8 @@ export default function CustomDictPage() {
           .split('\n')
           .map((line) => {
             const word = parseWordListText(line).words[0]
-            const meaning = word && missingMeaning(word) ? meanings.get(keyOf(word.name)) : ''
-            return meaning ? `${word.name} = ${meaning}` : line
+            const meaning = word && lacksCustomMeaning(word.name, word.trans) ? meanings.get(keyOf(word.name)) : ''
+            return word ? emptyOnlyLine(line, word.name, word.trans, meaning ?? '') : line
           })
           .join('\n'),
       )
@@ -236,6 +252,70 @@ export default function CustomDictPage() {
         meanings.size ? '检查编辑框后点保存。' : ''
       }${failed ? `有 ${failed} 个词条的数据加载失败，可重试。` : ''}`,
     })
+  }
+
+  const previewSupplements = async () => {
+    if (isCompleting || isPreviewing || isImporting || hasIncompleteWords()) return
+    const version = ++previewVersion.current
+    const candidates = parsed.words.filter((word) => !lacksCustomMeaning(word.name, word.trans))
+    if (!candidates.length) {
+      setSupplement(null)
+      setMessage({ tone: 'ok', text: '没有可预览的中文补充，已有释义和笔记会保留。' })
+      return
+    }
+    setIsPreviewing(true)
+    setSupplement(null)
+    setMessage(null)
+    const previews: SupplementPreview[] = []
+    let failed = 0
+    let index = 0
+    const worker = async () => {
+      while (index < candidates.length && version === previewVersion.current) {
+        const word = candidates[index++]
+        try {
+          const meaning = await lookupListChinese(word.name)
+          if (version !== previewVersion.current) return
+          const preview = previewChineseSupplement(word.name, word.trans, meaning, CUSTOM_DICT_LIMITS.trans)
+          if (preview) previews.push(preview)
+        } catch {
+          failed += 1
+        }
+      }
+    }
+    await Promise.all(Array.from({ length: Math.min(3, candidates.length) }, worker))
+    if (version !== previewVersion.current) return
+    setIsPreviewing(false)
+    setSupplement(previews)
+    setMessage({
+      tone: failed && !previews.length ? 'error' : 'ok',
+      text: previews.length
+        ? `有 ${previews.length} 个词条可以补充中文。采用后才会写入，原有释义会保留。${
+            failed ? `有 ${failed} 个词条的数据加载失败，可重试。` : ''
+          }`
+        : `没有可补充的中文，原有释义没有改动。${failed ? `有 ${failed} 个词条的数据加载失败，可重试。` : ''}`,
+    })
+  }
+
+  const acceptSupplement = () => {
+    if (!supplement?.length) return
+    const byName = new Map(supplement.map((item) => [normalizeCustomWordName(item.name).toLocaleLowerCase('fr'), item]))
+    setText(
+      text
+        .split('\n')
+        .map((line) => {
+          const word = parseWordListText(line).words[0]
+          if (!word || lacksCustomMeaning(word.name, word.trans)) return line
+          return applyChineseSupplement(byName.get(normalizeCustomWordName(word.name).toLocaleLowerCase('fr')) ?? null, true) ?? line
+        })
+        .join('\n'),
+    )
+    setMessage({ tone: 'ok', text: `已补充 ${supplement.length} 个词条的中文，原有释义仍在。检查编辑框后点保存。` })
+    setSupplement(null)
+  }
+
+  const dismissSupplement = () => {
+    setSupplement(null)
+    setMessage({ tone: 'ok', text: '已放弃中文补充，原有释义没有改动。' })
   }
 
   const exportJson = () => {
@@ -349,11 +429,27 @@ export default function CustomDictPage() {
                   )}
                   <button
                     type="button"
-                    disabled={isCompleting || isImporting || !parsed.words.some(missingMeaning)}
+                    disabled={
+                      isCompleting || isPreviewing || isImporting || !parsed.words.some((word) => lacksCustomMeaning(word.name, word.trans))
+                    }
                     onClick={() => void completeMeanings()}
                     className="text-indigo-500 hover:underline disabled:opacity-50"
                   >
                     {isCompleting ? '正在补全中文…' : '补全缺失中文'}
+                  </button>
+                  <button
+                    type="button"
+                    data-testid="chinese-supplement-preview-button"
+                    disabled={
+                      isCompleting ||
+                      isPreviewing ||
+                      isImporting ||
+                      !parsed.words.some((word) => !lacksCustomMeaning(word.name, word.trans))
+                    }
+                    onClick={() => void previewSupplements()}
+                    className="text-indigo-500 hover:underline disabled:opacity-50"
+                  >
+                    {isPreviewing ? '正在准备预览…' : '预览中文补充'}
                   </button>
                   <button
                     type="button"
@@ -410,6 +506,43 @@ export default function CustomDictPage() {
                 }`}
               >
                 {message.text}
+              </div>
+            )}
+
+            {supplement && supplement.length > 0 && (
+              <div
+                data-testid="chinese-supplement-preview"
+                className="mt-4 rounded-xl border border-indigo-200 bg-indigo-50/60 p-4 text-sm dark:border-indigo-900 dark:bg-indigo-950/30"
+              >
+                <p className="font-medium text-indigo-700 dark:text-indigo-200">中文补充预览</p>
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">采用后，中文会加在原有英文或笔记后面，不会覆盖它们。</p>
+                <ul className="mt-3 space-y-2">
+                  {supplement.map((item) => (
+                    <li key={item.name} className="rounded-lg bg-white px-3 py-2 dark:bg-gray-900">
+                      <div className="font-medium text-gray-900 dark:text-gray-100">{item.name}</div>
+                      <div className="text-gray-500 dark:text-gray-400">现有：{item.existing}</div>
+                      <div className="text-gray-900 dark:text-gray-100">补充：{item.chinese}</div>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-3 flex gap-3 text-xs">
+                  <button
+                    type="button"
+                    data-testid="chinese-supplement-accept"
+                    onClick={acceptSupplement}
+                    className="text-indigo-600 hover:underline"
+                  >
+                    采用补充
+                  </button>
+                  <button
+                    type="button"
+                    data-testid="chinese-supplement-dismiss"
+                    onClick={dismissSupplement}
+                    className="text-gray-500 hover:underline"
+                  >
+                    放弃
+                  </button>
+                </div>
               </div>
             )}
 

@@ -5,7 +5,7 @@ test.use({ serviceWorkers: 'block' })
 test('failed saved-review reads offer retry and recover the existing progress', async ({ page }) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
-  await page.route('**/dicts/TCF_Canada_Foundation_01.json', (route) => route.fulfill({ json: [{ name: 'bonjour', trans: ['你好'] }] }))
+  await page.route('**/dicts/TCF_Canada_Foundation_01.json*', (route) => route.fulfill({ json: [{ name: 'bonjour', trans: ['你好'] }] }))
   await page.goto('/gallery?dict=tcf-canada-foundation-01')
   await expect(page.getByRole('dialog')).toBeVisible()
   await page.evaluate(async () => {

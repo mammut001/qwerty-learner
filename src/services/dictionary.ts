@@ -2,6 +2,7 @@
 // and fetched one two-letter shard at a time.
 import { playFrenchVoice } from './frenchVoice'
 import { safeSpeak } from '@/utils/speechSynthesis'
+import { lexiconShardUrl } from '@/utils/studyListMaintenance.mjs'
 
 export type DictionaryEntry = {
   pos: string
@@ -69,9 +70,7 @@ function loadShard(name: string): Promise<Shard> {
   let pending = shardCache.get(name)
   if (!pending) {
     // Same deploy-prefix rule as the word-list fetcher.
-    pending = fetch(
-      `${REACT_APP_DEPLOY_ENV === 'pages' ? '/qwerty-learner' : ''}/lexicon/fr/${name}.json?v=${encodeURIComponent(LATEST_COMMIT_HASH)}`,
-    )
+    pending = fetch(lexiconShardUrl(name, LATEST_COMMIT_HASH, REACT_APP_DEPLOY_ENV === 'pages' ? '/qwerty-learner' : ''))
       .then(async (response) => {
         // A missing shard just means no word starts with those letters. Static hosts answer it with a 404,
         // single-page fallbacks with an HTML page.

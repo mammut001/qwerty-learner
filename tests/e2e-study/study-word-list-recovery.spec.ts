@@ -5,7 +5,7 @@ test.use({ serviceWorkers: 'block' })
 for (const payload of [{ error: 'bad response' }, [null], [{ name: 123 }], []]) {
   test(`invalid dictionary ${JSON.stringify(payload)} shows an error and retries in place`, async ({ page }) => {
     let recovered = false
-    await page.route('**/dicts/TCF_Canada_Foundation_01.json', (route) =>
+    await page.route('**/dicts/TCF_Canada_Foundation_01.json*', (route) =>
       route.fulfill({
         json: recovered ? [{ name: 'bonjour', trans: ['你好'] }] : payload,
       }),

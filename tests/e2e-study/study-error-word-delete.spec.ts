@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 test.use({ serviceWorkers: 'block' })
 
 test('failed deletion preserves the error word and keyboard retry removes it', async ({ page }) => {
-  await page.route('**/dicts/TCF_Canada_Foundation_01.json', (route) => route.fulfill({ json: [{ name: 'bonjour', trans: ['你好'] }] }))
+  await page.route('**/dicts/TCF_Canada_Foundation_01.json*', (route) => route.fulfill({ json: [{ name: 'bonjour', trans: ['你好'] }] }))
   await page.goto('/typing')
   await expect(page.locator('textarea')).toBeAttached()
   await page.keyboard.press('Enter')

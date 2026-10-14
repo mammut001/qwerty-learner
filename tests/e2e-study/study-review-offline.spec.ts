@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 test.use({ serviceWorkers: 'block' })
 
 test('saved review words remain usable when the original dictionary cannot be downloaded', async ({ page }) => {
-  await page.route('**/dicts/*.json', (route) => {
+  await page.route('**/dicts/*.json*', (route) => {
     return route.abort()
   })
   await page.addInitScript(() => {
