@@ -1,5 +1,5 @@
-import GuestProgressPrompt from '@/components/GuestProgressPrompt'
 import LookupText from '@/components/Dictionary/LookupText'
+import GuestProgressPrompt from '@/components/GuestProgressPrompt'
 import Layout from '@/components/Layout'
 import PageToolbar from '@/components/PageToolbar'
 import { defaultGrammarTopic, findGrammarTopic, grammarTopicForQuestionIds, grammarTopics } from '@/resources/grammarTopics'
@@ -22,6 +22,13 @@ type SessionStatus = 'intro' | 'running' | 'finished'
 
 const SESSION_SECONDS = 30 * 60
 const HISTORY_KEY = 'qwerty-fr-grammar-session-history-v1'
+
+const CEFR_GROUPS = ['A1', 'A2', 'A2–B1', 'B1', 'B1–B2', 'B2'] as const
+
+const isBeyondNclc7 = (echelle: string) => {
+  const lowEnd = parseInt(echelle.match(/\d+/)?.[0] ?? '0', 10)
+  return lowEnd > 7
+}
 
 const toDateKey = (timestamp: number) => {
   const date = new Date(timestamp)
@@ -246,9 +253,10 @@ export default function GrammarSessionPage() {
             <div className="flex items-center gap-3 text-indigo-500">
               <IconClock className="text-3xl" />
               <span className="text-sm font-medium">
-                30 分钟 · {topic.tagline} · {topic.level}
+                30 分钟 · {topic.tagline} · 欧标 {topic.level} · Échelle {topic.echelle}
               </span>
             </div>
+            {topic.echelleNote && <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">{topic.echelleNote}</p>}
             <h1 className="ui-title mt-4">{topic.title}</h1>
             <p className="mt-4 text-lg leading-8 text-gray-600 dark:text-gray-300">
               这不是刷分模式。每一道题都要先选答案，再用中文或法语写一句“为什么”。提交之后才会看到标准解释。
@@ -256,31 +264,47 @@ export default function GrammarSessionPage() {
 
             <div className="mt-8">
               <div className="text-sm font-semibold text-gray-900 dark:text-white">选择语法专题</div>
-              <div className="mt-3 grid gap-3 sm:grid-cols-2" role="radiogroup" aria-label="选择语法专题">
-                {grammarTopics.map((item) => {
-                  const last = history.find((session) => session.topic === item.topic)
+              <div className="mt-4 space-y-6" role="radiogroup" aria-label="选择语法专题">
+                {CEFR_GROUPS.map((levelGroup) => {
+                  const topicsInGroup = grammarTopics.filter((item) => item.level === levelGroup)
+                  if (topicsInGroup.length === 0) return null
                   return (
-                    <button
-                      key={item.id}
-                      type="button"
-                      role="radio"
-                      aria-checked={item.id === topic.id}
-                      data-testid={`grammar-topic-${item.id}`}
-                      onClick={() => setTopicId(item.id)}
-                      className={`rounded-xl border p-4 text-left transition ${
-                        item.id === topic.id
-                          ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-950/40'
-                          : 'border-gray-200 hover:border-indigo-300 dark:border-gray-700'
-                      }`}
-                    >
-                      <div className="font-semibold text-gray-900 dark:text-white">{item.title}</div>
-                      <div className="mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400">
-                        {item.tagline} · {item.level} · {item.scenarios.length} 题
+                    <div key={levelGroup} className="space-y-2">
+                      <div className="text-xs font-semibold text-gray-500 dark:text-gray-400">欧标 {levelGroup}</div>
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        {topicsInGroup.map((item) => {
+                          const last = history.find((session) => session.topic === item.topic)
+                          return (
+                            <button
+                              key={item.id}
+                              type="button"
+                              role="radio"
+                              aria-checked={item.id === topic.id}
+                              data-testid={`grammar-topic-${item.id}`}
+                              onClick={() => setTopicId(item.id)}
+                              className={`rounded-xl border p-4 text-left transition ${
+                                item.id === topic.id
+                                  ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-950/40'
+                                  : 'border-gray-200 hover:border-indigo-300 dark:border-gray-700'
+                              }`}
+                            >
+                              <div className="font-semibold text-gray-900 dark:text-white">{item.title}</div>
+                              <div className="mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400">
+                                {item.tagline} · 欧标 {item.level} · Échelle {item.echelle}
+                                {isBeyondNclc7(item.echelle) && (
+                                  <span className="ml-1 text-gray-400 dark:text-gray-500">（NCLC 7 之后）</span>
+                                )}
+                                {' · '}
+                                {item.scenarios.length} 题
+                              </div>
+                              <div className="mt-1 text-xs text-gray-400">
+                                {last ? `上次 ${last.score} / ${last.total} · ${last.day}` : '还没练过'}
+                              </div>
+                            </button>
+                          )
+                        })}
                       </div>
-                      <div className="mt-1 text-xs text-gray-400">
-                        {last ? `上次 ${last.score} / ${last.total} · ${last.day}` : '还没练过'}
-                      </div>
-                    </button>
+                    </div>
                   )
                 })}
               </div>

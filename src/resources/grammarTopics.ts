@@ -7,6 +7,9 @@ export type GrammarTopic = {
   title: string
   tagline: string
   level: string
+  /** Échelle québécoise niveau range where the scale expects this point, e.g. 'N4' or 'N4–6'; NCLC uses the same numbers */
+  echelle: string
+  echelleNote?: string
   reminder: string
   rule: string
   reasonPlaceholder: string
@@ -62,6 +65,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Passé composé vs imparfait',
     tagline: '过去时态恢复',
     level: 'A2–B1',
+    echelle: 'N4–5',
     reminder: '不要先找“时间词公式”。先问自己：这是在描述当时的背景/习惯，还是在讲发生并完成了什么？',
     rule: 'imparfait = 当时是什么样 / 正在干什么 / 以前经常干什么；passé composé = 发生了什么 / 完成了什么。',
     reasonPlaceholder: '例如：前面是在描述正在进行的背景，后面是突然发生的事件……',
@@ -79,6 +83,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Subjonctif vs indicatif',
     tagline: '虚拟式触发判断',
     level: 'B1–B2',
+    echelle: 'N8–10',
     reminder: '先问：主句是在陈述事实/确信，还是在表达意愿、情感、必要、怀疑？只有后者才触发 subjonctif。',
     rule: 'subjonctif = 意愿 / 情感 / 必要 / 怀疑 / 让步与目的（bien que、pour que）；indicatif = 事实与确信（penser que、espérer que、parce que）。',
     reasonPlaceholder: '例如：il faut que 表示必要，后面要用虚拟式……',
@@ -195,6 +200,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Pronoms COD / COI / y / en',
     tagline: '宾语代词选择',
     level: 'A2–B1',
+    echelle: 'N4–6',
     reminder: '先还原动词后面本来接什么：直接接人或物，还是 à + 人、à + 地点/事物、de + 名词？介词决定代词。',
     rule: '直接宾语 → le / la / les；à + 人 → lui / leur；à + 地点或事物 → y；de + 名词或数量 → en。',
     reasonPlaceholder: '例如：téléphoner 后面是 à + 人，所以用间接宾语代词……',
@@ -308,6 +314,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Hypothèse avec si',
     tagline: '条件句与条件式',
     level: 'B1–B2',
+    echelle: 'N6–8',
     reminder: 'si 后面永远不接 futur 或 conditionnel。先判断这个假设是真实可能、与现在相反，还是与过去相反。',
     rule: 'si + présent → futur / impératif；si + imparfait → conditionnel présent；si + plus-que-parfait → conditionnel passé。',
     reasonPlaceholder: '例如：这是与现在事实相反的假设，si 后面用 imparfait，主句用 conditionnel……',
@@ -422,6 +429,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Pronoms relatifs : qui / que / dont / où',
     tagline: '关系从句连接',
     level: 'A2–B1',
+    echelle: 'N4–6',
     reminder: '看空格后面的从句缺什么：缺主语、缺直接宾语、动词带 de，还是缺地点/时间？',
     rule: '缺主语 → qui；缺直接宾语 → que；动词或形容词带 de → dont；地点或时间 → où。',
     reasonPlaceholder: '例如：空格后面直接是动词，从句缺主语，所以用 qui……',
@@ -534,6 +542,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Articles : définis, indéfinis, partitifs',
     tagline: '冠词选用与 de 的替换',
     level: 'A1',
+    echelle: 'N4',
     reminder: '先看名词是泛指、确指还是不可数部分量；再注意否定句和数量词后面要不要把冠词替换为 de。',
     rule: '确指或喜好用 le/la/les；可数初次提及用 un/une/des；不可数数量用 du/de la/des；否定句（être 除外）与数量词后用 de；à/de 遇 le/les 要缩合为 au/aux/du/des。',
     reasonPlaceholder: '例如：后面是不可数的饮料名词，动词是 boire，所以用部分冠词 du……',
@@ -754,6 +763,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Prépositions de lieu : villes et pays',
     tagline: '城市与国家的介词选择',
     level: 'A1',
+    echelle: 'N2–3',
     reminder: '先分清是城市还是国家；如果是国家，看是阴性、阳性还是复数，以及是否以元音字母开头。',
     rule: '去/在城市用 à；阴性国家及元音开头国家用 en；阳性辅音国家用 au；复数国家用 aux。来自某地：城市与阴性国用 de/d’；阳性国用 du；复数国用 des。',
     reasonPlaceholder: '例如：Japon 是阳性国家且以辅音开头，表示在/去要用 au……',
@@ -974,6 +984,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Verbes pronominaux : présent, impératif, passé composé',
     tagline: '代动词变位、命令式与过去时',
     level: 'A1',
+    echelle: 'N2–4',
     reminder: '代词式动词别漏掉自反代词；注意否定句位置、命令式 toi 的变化，以及复合过去时必须用 être 且分词要配合。',
     rule: '现在时：主语 + 自反代词（me/te/se/nous/vous/se）+ 动词；否定：主语 + ne + 自反代词 + 动词 + pas；命令式肯定：动词-toi / nous / vous，否定：ne + te / nous / vous + 动词 + pas；复合过去时助动词一律用 être。',
     reasonPlaceholder: '例如：主语是 ma sœur，代动词复合过去时用 être，分词要配合加 e……',
@@ -1199,6 +1210,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Passé composé : avoir ou être',
     tagline: '助动词选择、配合与否定',
     level: 'A1',
+    echelle: 'N4–5',
     reminder: '先判断动词是用 avoir 还是 être：少数位移和出生死亡动词用 être，分词要与主语性数配合；否定词 ne...pas 夹在助动词两边。',
     rule: '大多数动词助动词用 avoir，宾语在后分词不配合；14 个位移与状态动词（aller, venir, partir, arriver, naître, mourir…）用 être，过去分词必须与主语性数配合（+e, +s, +es）；复合过去时否定句：ne + 助动词 + pas + 过去分词。',
     reasonPlaceholder: '例如：aller 是位移动词，助动词用 être，主语是阳性单数不用额外加 e……',
@@ -1424,6 +1436,8 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Négation et interrogation',
     tagline: '高级否定与疑问句型',
     level: 'A1',
+    echelle: 'N2–3',
+    echelleNote: 'ne…pas 为 N2–3；ne…jamais / rien / personne 等多种否定在量表中属于 N9',
     reminder: '否定词 jamais / rien / personne / plus 绝不和 pas 连用；提问分清是 Est-ce que 还是 Qu’est-ce que；回答否定疑问句用 Si。',
     rule: '否定：ne...jamais（从不）、ne...rien（什么都不）、ne...personne（没有人）、ne...plus（不再），均不可与 pas 叠用；疑问句：一般疑问用 Est-ce que 或倒装，提问事物用 Qu’est-ce que；否定疑问句肯定回答必须用 Si。',
     reasonPlaceholder: '例如：对方用否定句提问，回答表示反驳（其实要去），所以用 Si……',
@@ -1649,6 +1663,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Comparatif et superlatif',
     tagline: '比较级与最高级变化',
     level: 'A1',
+    echelle: 'N7',
     reminder: '形容词比较用 plus/moins/aussi + adj + que；区分 meilleur（形容词）和 mieux（副词）；最高级别忘了冠词配合 le/la/les plus。',
     rule: '形容词比较级：plus / moins / aussi + 形容词 + que；特殊变化：bon 的比较级是 meilleur（与名词配合），bien 的比较级是 mieux（修饰动词）；最高级：le / la / les plus + 形容词，冠词须与名词性数一致。',
     reasonPlaceholder: '例如：修饰的是动词 parler，要用副词比较级 mieux 而不是 meilleur……',
@@ -1874,6 +1889,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Futur proche, passé récent et présent continu',
     tagline: '动作临近时态与动词搭配',
     level: 'A1',
+    echelle: 'N3–5',
     reminder:
       '将要做用 aller + 动词原形；刚刚做用 venir de + 动词原形；正在做用 être en train de + 动词原形；注意否定词夹住前面的变位动词。',
     rule: '最近将来时：aller（现在时变位）+ 不定式；最近过去时：venir de（现在时变位）+ 不定式；正在进行：être en train de + 不定式；否定句中 ne...pas 夹住前面的助动词/半助动词（如 je ne vais pas partir）。',
@@ -2099,6 +2115,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Adjectifs possessifs et démonstratifs',
     tagline: '主有与指示形容词性数配合',
     level: 'A1',
+    echelle: 'N4',
     reminder:
       '主语决定“谁的”，修饰的名词决定“性与数”；阴性元音开头名词前用 mon/ton/son 代替 ma/ta/sa；指示词 ce 在元音或哑音 h 阳性单数前要变 cet。',
     rule: '单数所有人：mon/ma/mes, ton/ta/tes, son/sa/ses；复数所有人：notre/nos, votre/vos, leur/leurs；元音或哑音 h 开头的阴性单数名词前强制使用 mon, ton, son（如 mon amie）；指示形容词：阳性辅音 ce，阳性元音/哑音 h 用 cet，阴性 cette，复数一律用 ces。',
@@ -2324,6 +2341,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Futur simple',
     tagline: '简单将来时',
     level: 'A2',
+    echelle: 'N4–7',
     reminder:
       '观察时间信号词与句子结构：是表示即刻发生的意图，还是将来某一时刻会发生的事实？注意特殊动词的不规则词干与 quand 引导的时间状语从句。',
     rule: '简单将来时：动词原形（-re 动词去 e）+ -ai, -as, -a, -ons, -ez, -ont。特殊词干：être → ser-, avoir → aur-, aller → ir-, faire → fer-, pouvoir → pourr-, venir → viendr-, voir → verr-。quand 引导将来动作的从句中，主从句均用将来时。',
@@ -2542,6 +2560,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Pronoms en et y',
     tagline: '副代词 en 与 y',
     level: 'A2',
+    echelle: 'N4–6',
     reminder:
       '看动词接什么介词与成分：de + 物/数量词/部分冠词用 en；à + 物或地点介词短语用 y。注意：指人时 à + 人通常用 lui/leur 或 à + 重读代词，不可用 y！',
     rule: 'en 代替 “de + 名词”、“数量词/数量副词后的名词” 或部分冠词引导的宾语；y 代替地点状语或 “à + 事物/概念”。位置：位于相关动词之前；复合时态中位于助动词之前；否定句中置于 ne 之后、动词之前。',
@@ -2766,6 +2785,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Conditionnel présent',
     tagline: '条件式现在时',
     level: 'A2',
+    echelle: 'N3–7',
     reminder:
       '分清使用场景：是礼貌请求（voudrais, pourrais）、建议劝告（devrais），还是假设条件句？切记：si 从句中绝不能直接接条件式（si + imparfait）！',
     rule: '构成：简单将来时词干 + 未完成过去时词尾（-ais, -ais, -ait, -ions, -iez, -aient）。主要用法：1. 礼貌客气（Je voudrais un café）；2. 提出建议（Tu devrais te reposer）；3. 纯假设条件句：si + imparfait → conditionnel présent。',
@@ -2991,6 +3011,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Discours indirect',
     tagline: '间接引语',
     level: 'A2',
+    echelle: 'N9–10',
     reminder:
       "先看引述动词（主句动词）的时态：主句是现在时，从句时态不变；主句是过去时，从句时态发生呼应（présent → imparfait, futur → conditionnel）。疑问句变间接引语时：一般疑问句用 si，qu'est-ce qui 变 ce qui，qu'est-ce que 变 ce que。",
     rule: "间接引语转换规则：陈述句用 que 连接；一般疑问句用 si；疑问词 qu'est-ce qui / qu'est-ce que 分别转换为 ce qui / ce que。时态配合（主句为过去时）：直陈式现在时 → 未完成过去时；简单将来时 → 条件式现在时。",
@@ -3212,6 +3233,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'La voix passive',
     tagline: '被动态与引导介词',
     level: 'A2',
+    echelle: 'N6',
     reminder:
       '被动态的核心是 “être + 过去分词”。过去分词必须与主语（动作的承受者）进行性数配合！引导施动者多用介词 par；表示状态、情感、描写或构成的动词常接 de。时态变化体现在助动词 être 的时态上。',
     rule: '被动语态构成：主语 + être（相应时态） + 过去分词（性数配合） + par / de + 施动者。par：用于具体动作的执行者；de：用于表示情感（aimé, respecté）、描述状态或构成（entouré, couvert, composé）的动词。',
@@ -3437,6 +3459,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Pronoms possessifs et interrogatifs',
     tagline: '主有代词与疑问代词',
     level: 'A2',
+    echelle: 'N4',
     reminder:
       '主有代词（le mien, la tienne, les leurs...）代替“主有形容词 + 名词”，前面必须带定冠词，性数与所替代的名词一致！疑问形容词 quel 修饰名词（Quel train ?），而疑问代词 lequel（laquelle, lesquels...）单独使用代替名词（Lequel préfères-tu ?）。',
     rule: '主有代词：le mien / la mienne / les miens / les miennes；le tien / la tienne...；le sien / la sienne...；le nôtre / la nôtre / les nôtres；le vôtre / la vôtre / les vôtres；le leur / la leur / les leurs。疑问表达：quel(le)(s) + 名词（形容词性）；lequel / laquelle / lesquels / lesquelles 单独作代词（代词性，需配合性数）。',
@@ -3661,6 +3684,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Le plus-que-parfait',
     tagline: '愈过去时与先时性',
     level: 'B1',
+    echelle: 'N7',
     reminder: '先确定过去的基准时间点：发生在另一个过去动作之前的“过去的过去”，必须使用愈过去时（imparfait 助动词 + 过去分词）。',
     rule: '愈过去时 = avoir 或 être 的未完成过去时（avais, avait, avions... / étais, était...）+ 过去分词。用于表示在过去某个基准事件之前已完成的动作；位移动词及代动词助动词用 être 并与主语性数配合。',
     reasonPlaceholder: '例如：买票是在去看电影之前完成的动作，所以用愈过去时……',
@@ -3889,6 +3913,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Le conditionnel passé',
     tagline: '条件式过去时：遗憾、指责与未证实消息',
     level: 'B1',
+    echelle: 'N8–9',
     reminder: '条件式过去时用于对过去已发生或未发生的事情表达遗憾（regret）、责备（reproche），或报道未经证实的新闻传言。',
     rule: '构成：avoir 或 être 的条件式现在时（aurais, aurait, aurions... / serais, serait...）+ 过去分词。主要用法：1) 遗憾惋惜：j’aurais aimé...（我本想……）；2) 责备指责：tu aurais dû / tu aurais pu...（你本该……/你本可以……）；3) 未经证实的消息：l’accident aurait fait trois blessés（事故据称造成三人受伤）。',
     reasonPlaceholder: '例如：这是对过去未发生的事情表达遗憾和责备，应该用条件式过去时 tu aurais pu……',
@@ -4120,6 +4145,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Le futur antérieur',
     tagline: '先将来时：时间从句与将来完成',
     level: 'B1',
+    echelle: 'N7–8',
     reminder:
       '先将来时表示在将来的另一个动作之前将要完成的事情。在 quand、dès que、lorsque、une fois que 引导的时间从句中，先完成的动作用先将来时，主句动作用简单将来时。',
     rule: '构成：avoir 或 être 的简单将来时变位（aurai, auras, aura, aurons... / serai, seras, sera...）+ 过去分词。主要用法：1) 时间连词（dès que, quand, lorsque, une fois que）引导从句，表示比主句将来动作更早完成的事（Dès que j’aurai fini, je partirai）；2) 在将来某一时刻之前已完成的动作（D’ici demain, il sera arrivé）。',
@@ -4352,6 +4378,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Concession et condition',
     tagline: '让步与条件：虚拟式还是直陈式',
     level: 'B1',
+    echelle: 'N8–10',
     reminder:
       '重点区分连词后接语式：bien que、quoique、à condition que、à moins que、pour que 固定接虚拟式；而 même si、alors que、parce que 接直陈式。',
     rule: '接 subjonctif 的连词短语：1) 让步：bien que（虽然）, quoique（尽管）；2) 条件：à condition que（只要，条件是）, à moins que... (ne)（除非）；3) 目的：pour que / afin que（为了让）。接 indicatif 的连词短语：1) 让步与假设：même si（即使，哪怕）；2) 对比与对立：alors que（而，然而）；3) 原因：parce que / puisque（因为）。',
@@ -4581,6 +4608,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'La cause et la conséquence',
     tagline: '原因与结果：逻辑连词与动词表达',
     level: 'B1',
+    echelle: 'N6',
     reminder:
       '区分介词的情感色彩与位置：grâce à 表积极原因（多亏），à cause de 表消极原因（由于）；comme 强调原因必置于句首；puisque 表示显而易见的事实依据；动词 causer / provoquer / entraîner 直接接结果名词。',
     rule: '原因表达：1) 介词短语：grâce à + 名词（积极），à cause de + 名词（消极/中性），faute de + 名词（由于缺乏）；2) 连词：parce que（回答 pourquoi），puisque（显而易见的原因，既然），comme（置于句首，因为），car（并列连词，书面语）。结果表达：1) 副词与连词短语：donc（因此），c’est pourquoi（这就是为什么），par conséquent（因此），si bien que / de sorte que（以至于）；2) 动词表达：causer / provoquer / entraîner + 名词（引起、造成某结果）。',
@@ -4810,6 +4838,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Le gérondif et le participe présent',
     tagline: '副动词与现在分词：方式、时间与修饰',
     level: 'B1',
+    echelle: 'N3–5',
     reminder:
       '副动词结构为 en + 现在分词（en faisant），主语必须与主句主语严格一致，常表示同时性、方式或条件；现在分词（faisant）可作形容词修饰名词（相当于 qui 引导的关系从句）或作分词从句表示原因。',
     rule: '构成：动词 nous 形式的词干 + -ant（parlons → parlant；finissons → finissant）。三个特殊不规则变位：être → étant，avoir → ayant，savoir → sachant。用法：1) 副动词（en + -ant）：表同时（Il écoute la radio en cuisinant）、方式（On apprend en pratiquant）、条件（En partant tôt, tu arriveras à l’heure）；与 tout 连用表对立让步（tout en souriant）。2) 现在分词（-ant）：修饰名词（des personnes cherchant un emploi = qui cherchent...）或分词从句（Ne sachant pas la réponse, il s’est tu）。',
@@ -5042,6 +5071,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'L’accord du participe passé : COD antéposé et verbes pronominaux',
     tagline: '过去分词配合规则：前置直接宾语与代动词配合',
     level: 'B1',
+    echelle: 'N10',
     reminder:
       '以 avoir 为助动词时，过去分词通常不配合；只有当直接宾语（COD）置于动词之前时，分词才与该 COD 进行性数配合。注意：间接宾语（COI，如 lui, leur）、副代词 en 不配合；代动词后带自身 COD 时（elle s’est lavé les mains）分词亦不配合。',
     rule: '1) avoir 助动词 + COD 前置：当 COD 是前置的人称代词（le, la, les, nous, vous）、关系代词 que 或疑问词（combien de, quel）时，过去分词与 COD 性数配合（la lettre que j’ai écrite ; je les ai vus）。2) 不配合特例：与副代词 en 连用时不配合（Des formulaires, j’en ai rempli）；与间接宾语 COI 连用时不配合（Elle leur a expliqué）。3) 代动词配合：代动词以 être 作助动词，若自反代词为 COD 则分词与主语/COD配合（Elles se sont rencontrées）；若自反代词为 COI（Ils se sont parlé / téléphoné）或 COD 在动词之后（Elle s’est lavé les mains），过去分词均不配合。',
@@ -5267,6 +5297,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Les pronoms démonstratifs : formes simples et composées',
     tagline: '指示代词：指代人与物、修饰从句与中性代词',
     level: 'B1',
+    echelle: 'N4–6',
     reminder:
       '指示代词用于替代已经提及的名词，避免重复。简单形式（celui, celle, ceux, celles）绝不能单独使用，后面必须接关系从句（qui, que, où）、介词 de（表所属）或分词；复合形式（celui-ci, celui-là...）用于近指/远指或对比；中性指示代词（ce, ceci, cela, ça）指代整件事或抽象概念。',
     rule: '1) 简单指示代词（celui, celle, ceux, celles）：与所替代的名词性数一致。后面必须紧跟：① 关系从句（Celui qui conduit ne boit pas / celle que j’ai choisie）；② 介词 de 表所属（Mon passeport et celui de mon conjoint）；③ 分词（Ceux vivant à Montréal）。注意：英语 "the one who" 翻译为 celui qui，绝不能说 *ce qui pour une personne。2) 复合形式（-ci / -là）：celui-ci（这个，指较近的或后提及的）, celui-là（那个，指较远的或先提及的）。3) 中性指示代词：ce / c’ 用于 c’est, ce qui, ce que（指代抽象事物：Ce qui m’intéresse...）；cela / ça / ceci 指代整句话或未知事物（Ça dépend, fais ceci）。',
@@ -5501,6 +5532,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Impératif avec pronoms',
     tagline: '命令式与代词位置及语序',
     level: 'A2',
+    echelle: 'N2–4',
     reminder:
       '肯定命令式中代词置于动词后并用连字符相连，me/te 变为 moi/toi，双代词直宾在前（le-moi / lui-en）；否定命令式代词恢复置于动词前（ne me le... pas），保持 me/te。',
     rule: '肯定命令式：动词-代词（Donne-moi / Lève-toi / Vas-y / Parles-en）；双代词肯定语序为 动词-直宾（le/la/les）-间宾（moi/toi/lui/nous/vous/leur）-（y/en），如 Donne-le-moi / Donnez-lui-en。否定命令式：ne + 代词 + 动词 + pas（Ne me dérange pas / Ne me le donne pas / Ne lui en parle pas）。',
@@ -5726,6 +5758,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Formation et place des adverbes',
     tagline: '副词构成规则与位置',
     level: 'A2',
+    echelle: 'N4',
     reminder:
       '以辅音结尾的形容词变阴性后加 -ment（lentement, doucement）；元音结尾直接加 -ment（vraiment）；-ant/-ent 结尾变 -amment / -emment（couramment, récemment）；注意 bien/mal/vite 与 bon/mauvais/rapide 区分，以及复合过去时中短副词置于助动词与分词之间。',
     rule: '副词构成：1. 一般规则：阴性形容词 + -ment（lente → lentement, douce → doucement）；2. 阳性元音结尾直接加 -ment（vrai → vraiment, poli → poliment）；3. -ant → -amment（courant → couramment），-ent → -emment（récent → récemment）；4. 特殊构词：gentil → gentiment。副词修饰动词（Il cuisine bien / Il roule vite），形容词修饰名词（C’est un bon repas / un train rapide）。位置：复合过去时中，bien, mal, vite, déjà, beaucoup 等短副词置于助动词与过去分词之间（j’ai bien mangé）。',
@@ -5951,6 +5984,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Pronoms relatifs composés',
     tagline: '复合关系代词',
     level: 'B2',
+    echelle: 'N9',
     reminder:
       '先看先行词和动词搭配：动词或名词短语后接 à、de、sur、parmi 或复合介词时，关系代词要跟着介词变化；人用 qui 系列，物用 lequel 系列。',
     rule: 'prép. + lequel 系列（lequel / laquelle / lesquels / lesquelles）与先行词性数一致；à + lequel → auquel，de + lequel → duquel，复合介词中的 de 同样缩合；dont 只替代 de 补语，不能替代复合介词或 à 补语。',
@@ -6163,6 +6197,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Mise en relief : c’est … qui / que',
     tagline: '强调句与 ce 结构',
     level: 'B2',
+    echelle: 'N9–10',
     reminder: '先找被强调的成分：强调主语用 c’est … qui，强调其他成分用 c’est … que；被强调的人称决定动词的变位。',
     rule: 'c’est … qui 强调主语，动词与被强调的人称一致（c’est moi qui suis，c’est nous qui avons）；c’est … que 强调其他成分；ce qui / ce que / ce dont / ce à quoi 引出主语或补语，后面的 c’est 或 ce sont 与后面的名词数一致。',
     reasonPlaceholder: '例如：被强调的是“nous”，所以后面的动词要用第一人称复数 avons……',
@@ -6379,6 +6414,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Connecteurs d’opposition et de concession',
     tagline: '对立与让步连接词',
     level: 'B2',
+    echelle: 'N6–10',
     reminder:
       '先分清后面接的是名词、分句还是不定式：pourtant、cependant、néanmoins 等副词连接分句；malgré、en dépit de 后接名词；bien que、quoique 后接虚拟式；même si、alors que 后接直陈式。',
     rule: '副词连接词（pourtant、cependant、néanmoins、toutefois、en revanche、par contre、au contraire）后面是分句；介词（malgré、en dépit de）后面是名词；bien que、quoique 表示让步并接 subjonctif；même si 接 indicatif；alors que、tandis que 表示对比；avoir beau + infinitif 表示“不管怎样也……”。',
@@ -6595,6 +6631,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Infinitif ou subjonctif : même sujet ou non',
     tagline: '同一主语用不定式，不同主语用 que + subjonctif',
     level: 'B2',
+    echelle: 'N5–8',
     reminder: '先问：两个动作的主语是不是同一个人？同一个人 → 介词 + 不定式；不同的人 → 介词 + que + subjonctif。',
     rule: 'pour、avant、sans、afin、de peur：同主语用介词 + 不定式，不同主语用 pour que、avant que、sans que、afin que、de peur que + subjonctif（ne 为可省略的 ne explétif）。après 例外：同主语用 après avoir + 过去分词，不同主语用 après que + indicatif。vouloir：je veux partir（同主语），je veux que tu partes（不同主语）。',
     reasonPlaceholder: '例如：两个动作的主语不同（nous / les familles），所以介词后面要用 que + subjonctif……',
@@ -6798,6 +6835,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Nominalisation : verbes et adjectifs devenus noms',
     tagline: '动词与形容词变成名词',
     level: 'B2',
+    echelle: 'N7–8',
     reminder:
       '书面法语和新闻标题常用名词代替从句：augmenter → l’augmentation。先看词尾，再确定阴阳性（une augmentation，un choix），名词后面通常接 de。',
     rule: '-tion / -sion 多为阴性（l’augmentation、la décision）；-ment 多为阳性（le développement）；-ée 多为阴性（l’arrivée）；-é 多为阳性（un résumé）；形容词变名词要换词尾（rapide → la rapidité，fort → la force，beau → la beauté）。名词后接 de 表示补足语（la baisse des prix）。',
@@ -7016,6 +7054,7 @@ export const grammarTopics: GrammarTopic[] = [
     title: 'Passé simple : reconnaître et choisir la forme',
     tagline: '书面叙述中的简单过去时',
     level: 'B2',
+    echelle: 'N6–8',
     reminder: '看到 il fut、il eut、il prit 这类形式时，先在脑中换成 il a été、il a eu、il a pris，再判断句子是否通顺。',
     rule: 'passé simple 主要用于书面叙述（历史、小说、新闻），表示已经结束的过去事件。-er 动词：il -a、ils -èrent；不规则动词要单独记忆，如 il fut（être）、il eut（avoir）、il fit（faire）、il vint（venir）、il prit（prendre）、il vit（voir）。',
     reasonPlaceholder: '例如：前面是具体的历史年份，这里是叙述事件，需要简单过去时，而不是将来时或过去分词……',
