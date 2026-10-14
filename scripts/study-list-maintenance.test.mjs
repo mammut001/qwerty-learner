@@ -134,6 +134,37 @@ test('a non-empty note stays until the Chinese supplement is accepted, and empty
   assert.equal(supplementSourceAllowed("pouvoir d'achat", "pouvoir d'achat"), true)
 })
 
+test('an article plus a noun may use that noun gloss, and a compound still rejects one part', async () => {
+  const foundation = JSON.parse(await readFile('public/dicts/TCF_Canada_Foundation_01.json', 'utf8'))
+  const daily = JSON.parse(await readFile('public/dicts/TCF_Canada_Daily_Life.json', 'utf8'))
+  const logementZh = foundation.find((word) => word.name === 'logement').trans[0]
+  const maisonZh = daily.find((word) => word.name === 'maison').trans[0]
+  assert.equal(logementZh, 'n.m. 住房；住所')
+  assert.match(maisonZh, /房子/)
+
+  assert.equal(supplementSourceAllowed('le logement', 'logement'), true)
+  assert.equal(supplementSourceAllowed('un bail', 'bail'), true)
+  assert.equal(supplementSourceAllowed('la maison', 'maison'), true)
+  assert.equal(supplementSourceAllowed("le pouvoir d'achat", 'pouvoir'), false)
+  assert.equal(supplementSourceAllowed("le pouvoir d'achat", "pouvoir d'achat"), true)
+  assert.equal(supplementSourceAllowed("pouvoir d'achat", 'pouvoir'), false)
+
+  assert.equal(emptyOnlyLine('le logement', 'le logement', [], logementZh), `le logement = ${logementZh}`)
+  assert.equal(emptyOnlyLine('un bail', 'un bail', [], '租约'), 'un bail = 租约')
+  const partOnly = supplementSourceAllowed("pouvoir d'achat", 'pouvoir') ? '权力' : ''
+  assert.equal(emptyOnlyLine("pouvoir d'achat", "pouvoir d'achat", [], partOnly), "pouvoir d'achat")
+
+  const preview = previewChineseSupplement('la maison', ['my personal note'], maisonZh)
+  assert.equal(preview.existing, 'my personal note')
+  assert.equal(applyChineseSupplement(preview, false), null)
+  const accepted = applyChineseSupplement(preview, true)
+  assert.match(accepted, /my personal note/)
+  assert.match(accepted, /房子/)
+  console.log(`article+noun allowed: le logement = ${logementZh}`)
+  console.log(`article note kept: ${accepted}`)
+  console.log(`compound part rejected: pouvoir d'achat`)
+})
+
 test('practice-list URLs change with the build token and lexicon shards keep ?v=', () => {
   const first = practiceListUrl('./dicts/TCF_Canada_Foundation_01.json', 'build-a')
   const second = practiceListUrl('./dicts/TCF_Canada_Foundation_01.json', 'build-b')

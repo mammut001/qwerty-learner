@@ -30,10 +30,15 @@ export function partGlossOnly(headword, gloss, partGlosses = []) {
   return partGlosses.some((item) => String(item ?? '').trim() === cleaned)
 }
 
-/** A compound's lookup may only supply Chinese for that whole headword. */
+/** A compound lookup may supply Chinese only for that whole headword.
+ *  Study lists keep a leading article to mark gender, so `le logement` may use `logement`.
+ */
 export function supplementSourceAllowed(headword, sourceWord) {
-  if (!isCompoundHeadword(headword)) return true
-  return foldApostrophe(headword).toLocaleLowerCase('fr') === foldApostrophe(sourceWord).toLocaleLowerCase('fr')
+  const head = foldApostrophe(headword).toLocaleLowerCase('fr')
+  const source = foldApostrophe(sourceWord).toLocaleLowerCase('fr')
+  if (!isCompoundHeadword(headword) || head === source) return true
+  const noun = head.replace(/^(?:le|la|les|un|une|des) /u, '')
+  return noun !== head && noun === source
 }
 
 /**
