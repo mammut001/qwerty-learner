@@ -1,0 +1,434 @@
+[
+  {
+    "name": "maçonnerie",
+    "trans": [
+      "n.f. 砌砖，石工工程"
+    ]
+  },
+  {
+    "name": "maçon",
+    "trans": [
+      "n.m. 泥瓦匠，石匠"
+    ]
+  },
+  {
+    "name": "sommet",
+    "trans": [
+      "n.m. 顶峰，山顶；首脑会议"
+    ]
+  },
+  {
+    "name": "grimper",
+    "trans": [
+      "v.i. 攀登，爬，攀爬"
+    ]
+  },
+  {
+    "name": "escalader",
+    "trans": [
+      "v.t. 攀登，攀爬（岩石、墙壁）"
+    ]
+  },
+  {
+    "name": "escalade",
+    "trans": [
+      "n.f. 攀岩，攀爬"
+    ]
+  },
+  {
+    "name": "proximité",
+    "trans": [
+      "n.f. 接近，邻近"
+    ]
+  },
+  {
+    "name": "proche",
+    "trans": [
+      "adj. 靠近的，接近的；亲近的"
+    ]
+  },
+  {
+    "name": "éloignement",
+    "trans": [
+      "n.m. 远离，偏远，疏远"
+    ]
+  },
+  {
+    "name": "éloigner",
+    "trans": [
+      "v.t. 移开，使疏远"
+    ]
+  },
+  {
+    "name": "alentours",
+    "trans": [
+      "n.m.pl. 周围地区，郊区，周围的人"
+    ]
+  },
+  {
+    "name": "environs",
+    "trans": [
+      "n.m.pl. 周围，郊区，附近"
+    ]
+  },
+  {
+    "name": "dedans",
+    "trans": [
+      "n.m. 内部，里面；adv. 在里面"
+    ]
+  },
+  {
+    "name": "pénétrer",
+    "trans": [
+      "v.t. 穿透，渗入，进入"
+    ]
+  },
+  {
+    "name": "pénétration",
+    "trans": [
+      "n.f. 渗入，透入"
+    ]
+  },
+  {
+    "name": "postérieur",
+    "trans": [
+      "adj. 在后的，后来的"
+    ]
+  },
+  {
+    "name": "contour",
+    "trans": [
+      "n.m. 轮廓，周围，迂回路线"
+    ]
+  },
+  {
+    "name": "contourner",
+    "trans": [
+      "v.t. 绕过，绕……行驶"
+    ]
+  },
+  {
+    "name": "bord",
+    "trans": [
+      "n.m. 边缘，岸边；船舷"
+    ]
+  },
+  {
+    "name": "aborder",
+    "trans": [
+      "v.t. 靠近；着手讨论"
+    ]
+  },
+  {
+    "name": "tour",
+    "trans": [
+      "n.m. 环绕，周长；n.f. 塔楼"
+    ]
+  },
+  {
+    "name": "tourner",
+    "trans": [
+      "v.t. 转动；v.i. 旋转"
+    ]
+  },
+  {
+    "name": "source",
+    "trans": [
+      "n.f. 泉水，水源；源头，出处"
+    ]
+  },
+  {
+    "name": "oasis",
+    "trans": [
+      "n.f. 绿洲；令人惬意的地方"
+    ]
+  },
+  {
+    "name": "cascade",
+    "trans": [
+      "n.f. 瀑布；连续发生"
+    ]
+  },
+  {
+    "name": "résurgence",
+    "trans": [
+      "n.f. 再现，复活，伏流涌出"
+    ]
+  },
+  {
+    "name": "désert",
+    "trans": [
+      "n.m. 沙漠，荒原；adj. 荒凉的"
+    ]
+  },
+  {
+    "name": "faille",
+    "trans": [
+      "n.f. 断层；漏洞，弱点"
+    ]
+  },
+  {
+    "name": "scruter",
+    "trans": [
+      "v.t. 细看，审视，端详"
+    ]
+  },
+  {
+    "name": "contempler",
+    "trans": [
+      "v.t. 凝视，沉思，欣赏"
+    ]
+  },
+  {
+    "name": "contemplation",
+    "trans": [
+      "n.f. 沉思，凝视，赞美"
+    ]
+  },
+  {
+    "name": "ressentir",
+    "trans": [
+      "v.t. 感到，体会到"
+    ]
+  },
+  {
+    "name": "ressenti",
+    "trans": [
+      "n.m. 感受，直观体验"
+    ]
+  },
+  {
+    "name": "colonisation",
+    "trans": [
+      "n.f. 殖民化，拓殖"
+    ]
+  },
+  {
+    "name": "coloniser",
+    "trans": [
+      "v.t. 殖民，拓殖"
+    ]
+  },
+  {
+    "name": "colonie",
+    "trans": [
+      "n.f. 殖民地；夏令营"
+    ]
+  },
+  {
+    "name": "territoire",
+    "trans": [
+      "n.m. 领土，领地，地区"
+    ]
+  },
+  {
+    "name": "territorial",
+    "trans": [
+      "adj. 领土的，地域的"
+    ]
+  },
+  {
+    "name": "empire",
+    "trans": [
+      "n.m. 帝国；统治，支配"
+    ]
+  },
+  {
+    "name": "pèlerin",
+    "trans": [
+      "n.m. 朝圣者"
+    ]
+  },
+  {
+    "name": "pèlerinage",
+    "trans": [
+      "n.m. 朝圣，朝觐"
+    ]
+  },
+  {
+    "name": "climat",
+    "trans": [
+      "n.m. 气候；社会风气，氛围"
+    ]
+  },
+  {
+    "name": "climatique",
+    "trans": [
+      "adj. 气候的"
+    ]
+  },
+  {
+    "name": "température",
+    "trans": [
+      "n.f. 温度，体温"
+    ]
+  },
+  {
+    "name": "insécurité",
+    "trans": [
+      "n.f. 不安全，不安全感"
+    ]
+  },
+  {
+    "name": "sécurité",
+    "trans": [
+      "n.f. 安全，安心"
+    ]
+  },
+  {
+    "name": "cerisier",
+    "trans": [
+      "n.m. 樱桃树"
+    ]
+  },
+  {
+    "name": "châtaignier",
+    "trans": [
+      "n.m. 栗树"
+    ]
+  },
+  {
+    "name": "chêne",
+    "trans": [
+      "n.m. 橡树"
+    ]
+  },
+  {
+    "name": "sapin",
+    "trans": [
+      "n.m. 冷杉，枞树"
+    ]
+  },
+  {
+    "name": "s'approcher",
+    "trans": [
+      "v.pr. 走近，靠近"
+    ]
+  },
+  {
+    "name": "se rapprocher",
+    "trans": [
+      "v.pr. 靠拢，拉近距离"
+    ]
+  },
+  {
+    "name": "s'avancer",
+    "trans": [
+      "v.pr. 前进，向前走"
+    ]
+  },
+  {
+    "name": "s'introduire",
+    "trans": [
+      "v.pr. 潜入，进入"
+    ]
+  },
+  {
+    "name": "à proximité de",
+    "trans": [
+      "短语：在……附近，靠近"
+    ]
+  },
+  {
+    "name": "dans les environs",
+    "trans": [
+      "短语：在附近，在四周"
+    ]
+  },
+  {
+    "name": "aux alentours",
+    "trans": [
+      "短语：在周围地区，在周边"
+    ]
+  },
+  {
+    "name": "à l'intérieur de",
+    "trans": [
+      "短语：在……内部，在……里面"
+    ]
+  },
+  {
+    "name": "à l'extérieur de",
+    "trans": [
+      "短语：在……外部，在……外面"
+    ]
+  },
+  {
+    "name": "à l'endroit",
+    "trans": [
+      "短语：正面朝上，顺着方向"
+    ]
+  },
+  {
+    "name": "à l'envers",
+    "trans": [
+      "短语：反面朝外，倒置地，颠倒地"
+    ]
+  },
+  {
+    "name": "faire le grand nettoyage",
+    "trans": [
+      "短语：彻底大扫除"
+    ]
+  },
+  {
+    "name": "discours fleuve",
+    "trans": [
+      "短语：冗长冗长滔滔不绝的演讲"
+    ]
+  },
+  {
+    "name": "pic de pollution",
+    "trans": [
+      "短语：污染峰值，污染高峰"
+    ]
+  },
+  {
+    "name": "sommet international",
+    "trans": [
+      "短语：国际首脑峰会"
+    ]
+  },
+  {
+    "name": "raz-de-marée",
+    "trans": [
+      "短语：海啸；压倒性优势"
+    ]
+  },
+  {
+    "name": "passer un cap",
+    "trans": [
+      "短语：渡过难关，迈过关卡"
+    ]
+  },
+  {
+    "name": "langue courante",
+    "trans": [
+      "短语：通用语，日常用语"
+    ]
+  },
+  {
+    "name": "langue officielle",
+    "trans": [
+      "短语：官方语言"
+    ]
+  },
+  {
+    "name": "face à",
+    "trans": [
+      "短语：面对，同……相比"
+    ]
+  },
+  {
+    "name": "prendre des photos",
+    "trans": [
+      "短语：拍照"
+    ]
+  },
+  {
+    "name": "avoir l'air sympa",
+    "trans": [
+      "短语：看起来挺不错，显得随和"
+    ]
+  }
+]

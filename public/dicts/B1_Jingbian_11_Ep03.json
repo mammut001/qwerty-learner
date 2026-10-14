@@ -1,0 +1,548 @@
+[
+  {
+    "name": "sauver",
+    "trans": [
+      "v.t. 拯救，挽救"
+    ]
+  },
+  {
+    "name": "sauvetage",
+    "trans": [
+      "n.m. 拯救，救援"
+    ]
+  },
+  {
+    "name": "prestigieux",
+    "trans": [
+      "adj. 享有盛誉的，久负盛名的"
+    ]
+  },
+  {
+    "name": "prestige",
+    "trans": [
+      "n.m. 声望，威望"
+    ]
+  },
+  {
+    "name": "chapelle",
+    "trans": [
+      "n.f. 小教堂，祈祷室"
+    ]
+  },
+  {
+    "name": "rénover",
+    "trans": [
+      "v.t. 翻新，修缮"
+    ]
+  },
+  {
+    "name": "rénovation",
+    "trans": [
+      "n.f. 翻新，修复工程"
+    ]
+  },
+  {
+    "name": "mériter",
+    "trans": [
+      "v.t. 值得，配得上"
+    ]
+  },
+  {
+    "name": "oubli",
+    "trans": [
+      "n.m. 遗忘，忽略"
+    ]
+  },
+  {
+    "name": "destruction",
+    "trans": [
+      "n.f. 破坏，摧毁"
+    ]
+  },
+  {
+    "name": "détruire",
+    "trans": [
+      "v.t. 摧毁，破坏，消灭"
+    ]
+  },
+  {
+    "name": "inspirer",
+    "trans": [
+      "v.t. 启发，给……以灵感"
+    ]
+  },
+  {
+    "name": "inspiration",
+    "trans": [
+      "n.f. 灵感，启发"
+    ]
+  },
+  {
+    "name": "revue",
+    "trans": [
+      "n.f. 期刊，杂志；检阅"
+    ]
+  },
+  {
+    "name": "époque",
+    "trans": [
+      "n.f. 时代，时期"
+    ]
+  },
+  {
+    "name": "consacrer",
+    "trans": [
+      "v.t. 奉献，把……用于"
+    ]
+  },
+  {
+    "name": "tombeau",
+    "trans": [
+      "n.m. 坟墓，陵墓"
+    ]
+  },
+  {
+    "name": "insolite",
+    "trans": [
+      "adj. 罕见的，异常独特的"
+    ]
+  },
+  {
+    "name": "construire",
+    "trans": [
+      "v.t. 建造，构建"
+    ]
+  },
+  {
+    "name": "construction",
+    "trans": [
+      "n.f. 建造，建筑物"
+    ]
+  },
+  {
+    "name": "bâtir",
+    "trans": [
+      "v.t. 建造，建筑"
+    ]
+  },
+  {
+    "name": "bâtiment",
+    "trans": [
+      "n.m. 建筑物，大楼"
+    ]
+  },
+  {
+    "name": "démolir",
+    "trans": [
+      "v.t. 拆除，拆毁"
+    ]
+  },
+  {
+    "name": "démolition",
+    "trans": [
+      "n.f. 拆除，推倒"
+    ]
+  },
+  {
+    "name": "reconstruire",
+    "trans": [
+      "v.t. 重建，重新构建"
+    ]
+  },
+  {
+    "name": "reconstruction",
+    "trans": [
+      "n.f. 重建，复原"
+    ]
+  },
+  {
+    "name": "réparer",
+    "trans": [
+      "v.t. 修理，补救"
+    ]
+  },
+  {
+    "name": "réparation",
+    "trans": [
+      "n.f. 修理，修补"
+    ]
+  },
+  {
+    "name": "reconvertir",
+    "trans": [
+      "v.t. 改建，使转型"
+    ]
+  },
+  {
+    "name": "reconversion",
+    "trans": [
+      "n.f. 转型，改建"
+    ]
+  },
+  {
+    "name": "ruine",
+    "trans": [
+      "n.f. 废墟，破产"
+    ]
+  },
+  {
+    "name": "moulin",
+    "trans": [
+      "n.m. 磨坊，风车"
+    ]
+  },
+  {
+    "name": "toucher",
+    "trans": [
+      "v.t. 触摸；感动；触及"
+    ]
+  },
+  {
+    "name": "supprimer",
+    "trans": [
+      "v.t. 删除，取消，废除"
+    ]
+  },
+  {
+    "name": "suppression",
+    "trans": [
+      "n.f. 删除，取消"
+    ]
+  },
+  {
+    "name": "sauvegarder",
+    "trans": [
+      "v.t. 保存，备份；保护"
+    ]
+  },
+  {
+    "name": "sauvegarde",
+    "trans": [
+      "n.f. 保存，防护"
+    ]
+  },
+  {
+    "name": "disparaître",
+    "trans": [
+      "v.i. 消失，失踪"
+    ]
+  },
+  {
+    "name": "disparition",
+    "trans": [
+      "n.f. 消失，失踪"
+    ]
+  },
+  {
+    "name": "concurrence",
+    "trans": [
+      "n.f. 竞争，竞逐"
+    ]
+  },
+  {
+    "name": "espion",
+    "trans": [
+      "n.m. 间谍，侦探"
+    ]
+  },
+  {
+    "name": "espionne",
+    "trans": [
+      "n.f. 女间谍"
+    ]
+  },
+  {
+    "name": "gardien",
+    "trans": [
+      "n.m. 门卫，看守人"
+    ]
+  },
+  {
+    "name": "personnel",
+    "trans": [
+      "n.m. 全体员工，人事；adj. 个人的"
+    ]
+  },
+  {
+    "name": "recontacter",
+    "trans": [
+      "v.t. 重新联系"
+    ]
+  },
+  {
+    "name": "déranger",
+    "trans": [
+      "v.t. 打扰，打乱"
+    ]
+  },
+  {
+    "name": "dérangement",
+    "trans": [
+      "n.m. 打扰，故障"
+    ]
+  },
+  {
+    "name": "honte",
+    "trans": [
+      "n.f. 羞愧，耻辱"
+    ]
+  },
+  {
+    "name": "guerre",
+    "trans": [
+      "n.f. 战争"
+    ]
+  },
+  {
+    "name": "bataille",
+    "trans": [
+      "n.f. 战役，战斗"
+    ]
+  },
+  {
+    "name": "victoire",
+    "trans": [
+      "n.f. 胜利"
+    ]
+  },
+  {
+    "name": "défaite",
+    "trans": [
+      "n.f. 失败，战败"
+    ]
+  },
+  {
+    "name": "invasion",
+    "trans": [
+      "n.f. 入侵，侵略"
+    ]
+  },
+  {
+    "name": "envahir",
+    "trans": [
+      "v.t. 入侵，侵犯，涌入"
+    ]
+  },
+  {
+    "name": "envahisseur",
+    "trans": [
+      "n.m. 侵略者"
+    ]
+  },
+  {
+    "name": "conquérir",
+    "trans": [
+      "v.t. 征服，攻克"
+    ]
+  },
+  {
+    "name": "conquête",
+    "trans": [
+      "n.f. 征服，战利品"
+    ]
+  },
+  {
+    "name": "armée",
+    "trans": [
+      "n.f. 军队，军团"
+    ]
+  },
+  {
+    "name": "soldat",
+    "trans": [
+      "n.m. 士兵"
+    ]
+  },
+  {
+    "name": "fusil",
+    "trans": [
+      "n.m. 步枪，猎枪"
+    ]
+  },
+  {
+    "name": "canon",
+    "trans": [
+      "n.m. 大炮，加农炮；规范"
+    ]
+  },
+  {
+    "name": "bombarder",
+    "trans": [
+      "v.t. 轰炸，炮轰"
+    ]
+  },
+  {
+    "name": "bombardement",
+    "trans": [
+      "n.m. 轰炸，炮击"
+    ]
+  },
+  {
+    "name": "mémoire",
+    "trans": [
+      "n.f. 记忆，回忆；纪念"
+    ]
+  },
+  {
+    "name": "témoigner",
+    "trans": [
+      "v.i. 作证；表明，见证"
+    ]
+  },
+  {
+    "name": "témoin",
+    "trans": [
+      "n.m. 见证人，目击证人"
+    ]
+  },
+  {
+    "name": "témoignage",
+    "trans": [
+      "n.m. 证词，证言"
+    ]
+  },
+  {
+    "name": "vestige",
+    "trans": [
+      "n.m. 遗迹，残迹"
+    ]
+  },
+  {
+    "name": "patrimoine",
+    "trans": [
+      "n.m. 文化遗产，资产"
+    ]
+  },
+  {
+    "name": "siècle",
+    "trans": [
+      "n.m. 世纪，百年"
+    ]
+  },
+  {
+    "name": "historique",
+    "trans": [
+      "adj. 历史性的，有历史意义的"
+    ]
+  },
+  {
+    "name": "hôtel particulier",
+    "trans": [
+      "短语：公馆，贵族宅邸"
+    ]
+  },
+  {
+    "name": "être chargé de",
+    "trans": [
+      "短语：充满……的；负责……的"
+    ]
+  },
+  {
+    "name": "remettre en service",
+    "trans": [
+      "短语：重新投入使用"
+    ]
+  },
+  {
+    "name": "mériter de",
+    "trans": [
+      "短语：值得做某事"
+    ]
+  },
+  {
+    "name": "clé USB",
+    "trans": [
+      "短语：U盘，闪存盘"
+    ]
+  },
+  {
+    "name": "faire le coup",
+    "trans": [
+      "短语：下黑手，暗中做这种事"
+    ]
+  },
+  {
+    "name": "être au courant de",
+    "trans": [
+      "短语：知晓，了解某事"
+    ]
+  },
+  {
+    "name": "se renseigner",
+    "trans": [
+      "短语：打听情况，咨询"
+    ]
+  },
+  {
+    "name": "pas question",
+    "trans": [
+      "短语：没门，不行，绝不可能"
+    ]
+  },
+  {
+    "name": "il n'en est pas question",
+    "trans": [
+      "短语：这绝不可能，免谈"
+    ]
+  },
+  {
+    "name": "avoir honte",
+    "trans": [
+      "短语：感到羞愧，觉得丢脸"
+    ]
+  },
+  {
+    "name": "en attendant",
+    "trans": [
+      "短语：在此期间，暂时"
+    ]
+  },
+  {
+    "name": "faire le point",
+    "trans": [
+      "短语：做总结，盘点现状"
+    ]
+  },
+  {
+    "name": "pour une fois",
+    "trans": [
+      "短语：难得一次，仅此一次"
+    ]
+  },
+  {
+    "name": "déclarer la guerre",
+    "trans": [
+      "短语：宣战"
+    ]
+  },
+  {
+    "name": "entrer en guerre",
+    "trans": [
+      "短语：参战，进入战争状态"
+    ]
+  },
+  {
+    "name": "se battre",
+    "trans": [
+      "短语：战斗，搏斗，打架"
+    ]
+  },
+  {
+    "name": "avant de",
+    "trans": [
+      "短语：在做……之前（接不定式）"
+    ]
+  },
+  {
+    "name": "après avoir fait",
+    "trans": [
+      "短语：在做完……之后"
+    ]
+  },
+  {
+    "name": "rester entre nous",
+    "trans": [
+      "短语：内部保密，不向外宣扬"
+    ]
+  }
+]

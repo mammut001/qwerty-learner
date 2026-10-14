@@ -1,0 +1,452 @@
+[
+  {
+    "name": "implicite",
+    "trans": [
+      "adj. 含蓄的，暗含的"
+    ]
+  },
+  {
+    "name": "implicitement",
+    "trans": [
+      "adv. 含蓄地，暗中"
+    ]
+  },
+  {
+    "name": "crédible",
+    "trans": [
+      "adj. 可信的，可靠的"
+    ]
+  },
+  {
+    "name": "crédibilité",
+    "trans": [
+      "n.f. 可信度，信誉"
+    ]
+  },
+  {
+    "name": "éventail",
+    "trans": [
+      "n.m. 扇子；范围，系列"
+    ]
+  },
+  {
+    "name": "laxiste",
+    "trans": [
+      "adj. 宽容放任的；n. 放任主义者"
+    ]
+  },
+  {
+    "name": "laxisme",
+    "trans": [
+      "n.m. 放任主义，纪律涣散"
+    ]
+  },
+  {
+    "name": "introduire",
+    "trans": [
+      "v.t. 引入，插入，采用"
+    ]
+  },
+  {
+    "name": "introduction",
+    "trans": [
+      "n.f. 引言；引入，采用"
+    ]
+  },
+  {
+    "name": "contrôle",
+    "trans": [
+      "n.m. 检查，控制；小测验"
+    ]
+  },
+  {
+    "name": "contrôler",
+    "trans": [
+      "v.t. 检查，控制，核实"
+    ]
+  },
+  {
+    "name": "délibéré",
+    "trans": [
+      "adj. 深思熟虑的，蓄意的"
+    ]
+  },
+  {
+    "name": "artificiel",
+    "trans": [
+      "adj. 人工的，人造的，虚假的"
+    ]
+  },
+  {
+    "name": "artificiellement",
+    "trans": [
+      "adv. 人为地，造作地"
+    ]
+  },
+  {
+    "name": "dysfonctionnement",
+    "trans": [
+      "n.m. 运转不良，机能失常"
+    ]
+  },
+  {
+    "name": "impartir",
+    "trans": [
+      "v.t. 给予，分配（时间、任务）"
+    ]
+  },
+  {
+    "name": "agrégé",
+    "trans": [
+      "n. 大学高级教师资格获得者；adj. 通过教师资格会考的"
+    ]
+  },
+  {
+    "name": "discothèque",
+    "trans": [
+      "n.f. 迪斯科舞厅，唱片室"
+    ]
+  },
+  {
+    "name": "sinistre",
+    "trans": [
+      "adj. 阴沉凄凉的；n.m. 灾害，灾祸"
+    ]
+  },
+  {
+    "name": "insuffisant",
+    "trans": [
+      "adj. 不充足的，能力不足的"
+    ]
+  },
+  {
+    "name": "insuffisance",
+    "trans": [
+      "n.f. 不足，不充分；机能不全"
+    ]
+  },
+  {
+    "name": "impératif",
+    "trans": [
+      "adj. 命令式的，势在必行的；n.m. 必要条件，命令式"
+    ]
+  },
+  {
+    "name": "obligatoire",
+    "trans": [
+      "adj. 强制的，义务的，必修的"
+    ]
+  },
+  {
+    "name": "obligation",
+    "trans": [
+      "n.f. 义务，职责；债券"
+    ]
+  },
+  {
+    "name": "réclamer",
+    "trans": [
+      "v.t. 要求，索取，抗议"
+    ]
+  },
+  {
+    "name": "requérir",
+    "trans": [
+      "v.t. 请求，要求，需要"
+    ]
+  },
+  {
+    "name": "protester",
+    "trans": [
+      "v.i. 抗议，反对"
+    ]
+  },
+  {
+    "name": "protestation",
+    "trans": [
+      "n.f. 抗议，异议"
+    ]
+  },
+  {
+    "name": "médiatiser",
+    "trans": [
+      "v.t. 大肆宣传，媒体报道"
+    ]
+  },
+  {
+    "name": "médiatisation",
+    "trans": [
+      "n.f. 媒体广泛报道，宣传"
+    ]
+  },
+  {
+    "name": "volontariste",
+    "trans": [
+      "adj. 意志主义的，积极进取的"
+    ]
+  },
+  {
+    "name": "dictature",
+    "trans": [
+      "n.f. 专政，独裁政权"
+    ]
+  },
+  {
+    "name": "aggraver",
+    "trans": [
+      "v.t. 加重，使恶化"
+    ]
+  },
+  {
+    "name": "aggravation",
+    "trans": [
+      "n.f. 加重，恶化"
+    ]
+  },
+  {
+    "name": "postuler",
+    "trans": [
+      "v.t. 申请，应聘"
+    ]
+  },
+  {
+    "name": "postulant",
+    "trans": [
+      "n. 申请人，求职者"
+    ]
+  },
+  {
+    "name": "bilinguisme",
+    "trans": [
+      "n.m. 双语现象，通晓双语"
+    ]
+  },
+  {
+    "name": "bilingue",
+    "trans": [
+      "adj. 双语的；n. 能说双语者"
+    ]
+  },
+  {
+    "name": "multilinguisme",
+    "trans": [
+      "n.m. 多语并存，多语现象"
+    ]
+  },
+  {
+    "name": "multilingue",
+    "trans": [
+      "adj. 使用多种语言的"
+    ]
+  },
+  {
+    "name": "vecteur",
+    "trans": [
+      "n.m. 媒介，传播载体；矢量"
+    ]
+  },
+  {
+    "name": "finalité",
+    "trans": [
+      "n.f. 最终目的，宗旨"
+    ]
+  },
+  {
+    "name": "dialecte",
+    "trans": [
+      "n.m. 方言，土语"
+    ]
+  },
+  {
+    "name": "culte",
+    "trans": [
+      "n.m. 宗教仪式，崇拜"
+    ]
+  },
+  {
+    "name": "facultatif",
+    "trans": [
+      "adj. 非强制的，选修的，任意的"
+    ]
+  },
+  {
+    "name": "décret",
+    "trans": [
+      "n.m. 法令，政令"
+    ]
+  },
+  {
+    "name": "lancement",
+    "trans": [
+      "n.m. 发射；投放市场；启动"
+    ]
+  },
+  {
+    "name": "relier",
+    "trans": [
+      "v.t. 连接，联结；装订"
+    ]
+  },
+  {
+    "name": "approuver",
+    "trans": [
+      "v.t. 赞同，赞成，批准"
+    ]
+  },
+  {
+    "name": "approbation",
+    "trans": [
+      "n.f. 赞许，同意，批准"
+    ]
+  },
+  {
+    "name": "désapprouver",
+    "trans": [
+      "v.t. 不赞成，反对"
+    ]
+  },
+  {
+    "name": "désapprobation",
+    "trans": [
+      "n.f. 反对，不赞成"
+    ]
+  },
+  {
+    "name": "espèce",
+    "trans": [
+      "n.f. 种类，物种；现款"
+    ]
+  },
+  {
+    "name": "fluvial",
+    "trans": [
+      "adj. 河流的，水运的"
+    ]
+  },
+  {
+    "name": "justifier",
+    "trans": [
+      "v.t. 为……辩护，证明……是正当的"
+    ]
+  },
+  {
+    "name": "justification",
+    "trans": [
+      "n.f. 理由，证明，辩白"
+    ]
+  },
+  {
+    "name": "obsolète",
+    "trans": [
+      "adj. 过时的，已被废弃的"
+    ]
+  },
+  {
+    "name": "biodiversité",
+    "trans": [
+      "n.f. 生物多样性"
+    ]
+  },
+  {
+    "name": "tracé",
+    "trans": [
+      "n.m. 路线，走向，轮廓草图"
+    ]
+  },
+  {
+    "name": "accidentogène",
+    "trans": [
+      "adj. 易发生事故的"
+    ]
+  },
+  {
+    "name": "critère",
+    "trans": [
+      "n.m. 标准，准则"
+    ]
+  },
+  {
+    "name": "mettre en échec",
+    "trans": [
+      "短语：使受挫，击败"
+    ]
+  },
+  {
+    "name": "sous la moyenne",
+    "trans": [
+      "短语：不及格，低于平均水平"
+    ]
+  },
+  {
+    "name": "se contenter de",
+    "trans": [
+      "短语：满足于，仅仅满足于"
+    ]
+  },
+  {
+    "name": "lancer un débat",
+    "trans": [
+      "短语：发起辩论，展开讨论"
+    ]
+  },
+  {
+    "name": "faire défaut",
+    "trans": [
+      "短语：缺少，匮乏"
+    ]
+  },
+  {
+    "name": "priver de",
+    "trans": [
+      "短语：剥夺，使丧失"
+    ]
+  },
+  {
+    "name": "s'imposer",
+    "trans": [
+      "短语：成为必要，势在必行；确立地位"
+    ]
+  },
+  {
+    "name": "viser à",
+    "trans": [
+      "短语：旨在，以……为目标"
+    ]
+  },
+  {
+    "name": "mettre en œuvre",
+    "trans": [
+      "短语：贯彻，实施，落实"
+    ]
+  },
+  {
+    "name": "aller au-delà de",
+    "trans": [
+      "短语：超越，超出……的范畴"
+    ]
+  },
+  {
+    "name": "arriver en tête",
+    "trans": [
+      "短语：名列前茅，位居第一"
+    ]
+  },
+  {
+    "name": "bilan carbone",
+    "trans": [
+      "短语：碳足迹核算，碳排放评估"
+    ]
+  },
+  {
+    "name": "en fonction de",
+    "trans": [
+      "短语：根据，依据"
+    ]
+  },
+  {
+    "name": "lutter contre",
+    "trans": [
+      "短语：同……作斗争，反对"
+    ]
+  }
+]

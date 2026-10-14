@@ -1,0 +1,668 @@
+[
+  {
+    "name": "impression",
+    "trans": [
+      "n.f. 印象，感觉；印刷"
+    ]
+  },
+  {
+    "name": "vernissage",
+    "trans": [
+      "n.m. 艺术展览开幕酒会，预展"
+    ]
+  },
+  {
+    "name": "ouverture",
+    "trans": [
+      "n.f. 开幕，开放；孔口"
+    ]
+  },
+  {
+    "name": "basilique",
+    "trans": [
+      "n.f. 大教堂，巴西利卡"
+    ]
+  },
+  {
+    "name": "maîtresse",
+    "trans": [
+      "n.f. 情妇；女主人；女教师"
+    ]
+  },
+  {
+    "name": "bijou",
+    "trans": [
+      "n.m. 珠宝，首饰"
+    ]
+  },
+  {
+    "name": "front",
+    "trans": [
+      "n.m. 前额；前线"
+    ]
+  },
+  {
+    "name": "duc",
+    "trans": [
+      "n.m. 公爵"
+    ]
+  },
+  {
+    "name": "exiler",
+    "trans": [
+      "v.t. 流放，驱逐"
+    ]
+  },
+  {
+    "name": "banal",
+    "trans": [
+      "adj. 平常的，平庸的"
+    ]
+  },
+  {
+    "name": "origine",
+    "trans": [
+      "n.f. 起源，出身，来源"
+    ]
+  },
+  {
+    "name": "récupérer",
+    "trans": [
+      "v.t. 重新获得，收回；恢复"
+    ]
+  },
+  {
+    "name": "récupération",
+    "trans": [
+      "n.f. 收回，回收；恢复"
+    ]
+  },
+  {
+    "name": "jurer",
+    "trans": [
+      "v.t. 发誓，保证；咒骂"
+    ]
+  },
+  {
+    "name": "commission",
+    "trans": [
+      "n.f. 委员会；佣金"
+    ]
+  },
+  {
+    "name": "rendre",
+    "trans": [
+      "v.t. 归还；使变得"
+    ]
+  },
+  {
+    "name": "rédacteur en chef",
+    "trans": [
+      "n.m. 主编"
+    ]
+  },
+  {
+    "name": "éditeur",
+    "trans": [
+      "n.m. 出版商，出版人"
+    ]
+  },
+  {
+    "name": "édition",
+    "trans": [
+      "n.f. 出版，发行；版本"
+    ]
+  },
+  {
+    "name": "informateur",
+    "trans": [
+      "n.m. 消息提供者，线人"
+    ]
+  },
+  {
+    "name": "informaticien",
+    "trans": [
+      "n.m. 计算机专业人员"
+    ]
+  },
+  {
+    "name": "promettre",
+    "trans": [
+      "v.t. 承诺，保证"
+    ]
+  },
+  {
+    "name": "promesse",
+    "trans": [
+      "n.f. 诺言，保证"
+    ]
+  },
+  {
+    "name": "bombe",
+    "trans": [
+      "n.f. 炸弹；轰动性新闻"
+    ]
+  },
+  {
+    "name": "sauter",
+    "trans": [
+      "v.i. 跳跃；爆炸；被免职"
+    ]
+  },
+  {
+    "name": "assurer",
+    "trans": [
+      "v.t. 保证，向……担保；投保"
+    ]
+  },
+  {
+    "name": "assurance",
+    "trans": [
+      "n.f. 保险；确信，自信"
+    ]
+  },
+  {
+    "name": "risque",
+    "trans": [
+      "n.m. 风险，危险"
+    ]
+  },
+  {
+    "name": "risquer",
+    "trans": [
+      "v.t. 冒……的风险"
+    ]
+  },
+  {
+    "name": "remarquer",
+    "trans": [
+      "v.t. 注意到，察觉"
+    ]
+  },
+  {
+    "name": "remarque",
+    "trans": [
+      "n.f. 评论，意见；注意"
+    ]
+  },
+  {
+    "name": "scoop",
+    "trans": [
+      "n.m. 独家新闻，特大独家报道"
+    ]
+  },
+  {
+    "name": "augmenter",
+    "trans": [
+      "v.t. 提高，增加；v.i. 增长"
+    ]
+  },
+  {
+    "name": "augmentation",
+    "trans": [
+      "n.f. 提高，增长"
+    ]
+  },
+  {
+    "name": "vérification",
+    "trans": [
+      "n.f. 查对，核实"
+    ]
+  },
+  {
+    "name": "vérifier",
+    "trans": [
+      "v.t. 查对，核实"
+    ]
+  },
+  {
+    "name": "équipe",
+    "trans": [
+      "n.f. 团队，队伍"
+    ]
+  },
+  {
+    "name": "enquête",
+    "trans": [
+      "n.f. 调查，调研"
+    ]
+  },
+  {
+    "name": "enquêter",
+    "trans": [
+      "v.i. 调查，进行调研"
+    ]
+  },
+  {
+    "name": "accoucher",
+    "trans": [
+      "v.i. 分娩，生产"
+    ]
+  },
+  {
+    "name": "accouchement",
+    "trans": [
+      "n.m. 分娩，生产"
+    ]
+  },
+  {
+    "name": "comblé",
+    "trans": [
+      "adj. 感到十分满足的"
+    ]
+  },
+  {
+    "name": "perfectionné",
+    "trans": [
+      "adj. 先进的，精密的"
+    ]
+  },
+  {
+    "name": "perfectionner",
+    "trans": [
+      "v.t. 完善，提高"
+    ]
+  },
+  {
+    "name": "infrarouge",
+    "trans": [
+      "adj. 红外线的；n.m. 红外线"
+    ]
+  },
+  {
+    "name": "imagerie",
+    "trans": [
+      "n.f. 成像技术，影像学"
+    ]
+  },
+  {
+    "name": "tridimensionnel",
+    "trans": [
+      "adj. 三维的，立体的"
+    ]
+  },
+  {
+    "name": "pénétrer",
+    "trans": [
+      "v.t. 穿透，深入，渗入"
+    ]
+  },
+  {
+    "name": "expert",
+    "trans": [
+      "n.m. 专家；adj. 熟练的"
+    ]
+  },
+  {
+    "name": "expertise",
+    "trans": [
+      "n.f. 鉴定，专门知识"
+    ]
+  },
+  {
+    "name": "typique",
+    "trans": [
+      "adj. 典型的，具有代表性的"
+    ]
+  },
+  {
+    "name": "enceinte",
+    "trans": [
+      "adj. 怀孕的"
+    ]
+  },
+  {
+    "name": "affirmer",
+    "trans": [
+      "v.t. 断言，肯定地表示"
+    ]
+  },
+  {
+    "name": "affirmation",
+    "trans": [
+      "n.f. 断言，肯定"
+    ]
+  },
+  {
+    "name": "commémorer",
+    "trans": [
+      "v.t. 纪念，庆祝"
+    ]
+  },
+  {
+    "name": "commémoration",
+    "trans": [
+      "n.f. 纪念活动"
+    ]
+  },
+  {
+    "name": "époux",
+    "trans": [
+      "n.m. 配偶，丈夫"
+    ]
+  },
+  {
+    "name": "épouse",
+    "trans": [
+      "n.f. 配偶，妻子"
+    ]
+  },
+  {
+    "name": "exposer",
+    "trans": [
+      "v.t. 陈列，展出；阐述"
+    ]
+  },
+  {
+    "name": "exposition",
+    "trans": [
+      "n.f. 展览，展出"
+    ]
+  },
+  {
+    "name": "antérieur",
+    "trans": [
+      "adj. 在前的，先前的"
+    ]
+  },
+  {
+    "name": "flou",
+    "trans": [
+      "adj. 模糊的，不清晰的"
+    ]
+  },
+  {
+    "name": "varié",
+    "trans": [
+      "adj. 多样的，形形色色的"
+    ]
+  },
+  {
+    "name": "évolution",
+    "trans": [
+      "n.f. 演变，发展，进化"
+    ]
+  },
+  {
+    "name": "évoluer",
+    "trans": [
+      "v.i. 演变，发展"
+    ]
+  },
+  {
+    "name": "opérer",
+    "trans": [
+      "v.t. 做手术；操作"
+    ]
+  },
+  {
+    "name": "opération",
+    "trans": [
+      "n.f. 手术；操作；行动"
+    ]
+  },
+  {
+    "name": "peindre",
+    "trans": [
+      "v.t. 绘画，粉刷"
+    ]
+  },
+  {
+    "name": "peinture",
+    "trans": [
+      "n.f. 绘画；颜料"
+    ]
+  },
+  {
+    "name": "peintre",
+    "trans": [
+      "n.m. 画家；油漆匠"
+    ]
+  },
+  {
+    "name": "sculpter",
+    "trans": [
+      "v.t. 雕刻，雕塑"
+    ]
+  },
+  {
+    "name": "sculpture",
+    "trans": [
+      "n.f. 雕塑，雕刻作品"
+    ]
+  },
+  {
+    "name": "sculpteur",
+    "trans": [
+      "n.m. 雕塑家"
+    ]
+  },
+  {
+    "name": "dessiner",
+    "trans": [
+      "v.t. 绘制，画素描"
+    ]
+  },
+  {
+    "name": "dessin",
+    "trans": [
+      "n.m. 素描，图画"
+    ]
+  },
+  {
+    "name": "graver",
+    "trans": [
+      "v.t. 雕刻，镌刻；铭记"
+    ]
+  },
+  {
+    "name": "gravure",
+    "trans": [
+      "n.f. 版画，雕版"
+    ]
+  },
+  {
+    "name": "photographier",
+    "trans": [
+      "v.t. 拍照，摄影"
+    ]
+  },
+  {
+    "name": "photographie",
+    "trans": [
+      "n.f. 摄影，照片"
+    ]
+  },
+  {
+    "name": "photographe",
+    "trans": [
+      "n. 摄影师"
+    ]
+  },
+  {
+    "name": "représenter",
+    "trans": [
+      "v.t. 代表；描绘，展现"
+    ]
+  },
+  {
+    "name": "représentation",
+    "trans": [
+      "n.f. 展现；演出；代表"
+    ]
+  },
+  {
+    "name": "symboliser",
+    "trans": [
+      "v.t. 象征，作为……的象征"
+    ]
+  },
+  {
+    "name": "symbole",
+    "trans": [
+      "n.m. 象征，符号"
+    ]
+  },
+  {
+    "name": "évoquer",
+    "trans": [
+      "v.t. 提及；勾起，使想起"
+    ]
+  },
+  {
+    "name": "traduire",
+    "trans": [
+      "v.t. 翻译；表达，体现"
+    ]
+  },
+  {
+    "name": "sembler",
+    "trans": [
+      "v.i. 似乎，好像"
+    ]
+  },
+  {
+    "name": "paraître",
+    "trans": [
+      "v.i. 显得；出版，出现"
+    ]
+  },
+  {
+    "name": "douter",
+    "trans": [
+      "v.i. 怀疑，不确信"
+    ]
+  },
+  {
+    "name": "doute",
+    "trans": [
+      "n.m. 怀疑，疑虑"
+    ]
+  },
+  {
+    "name": "sûr",
+    "trans": [
+      "adj. 确信的；安全的"
+    ]
+  },
+  {
+    "name": "certain",
+    "trans": [
+      "adj. 确定的，无可置疑的"
+    ]
+  },
+  {
+    "name": "avoir l'impression de",
+    "trans": [
+      "短语：有……的印象，觉得做某事"
+    ]
+  },
+  {
+    "name": "avoir l'impression que",
+    "trans": [
+      "短语：觉得……，感到……"
+    ]
+  },
+  {
+    "name": "avoir l'air",
+    "trans": [
+      "短语：看起来，显得"
+    ]
+  },
+  {
+    "name": "ressembler à",
+    "trans": [
+      "短语：与……相似，相像"
+    ]
+  },
+  {
+    "name": "on dirait que",
+    "trans": [
+      "短语：好像，宛如"
+    ]
+  },
+  {
+    "name": "sûr et certain",
+    "trans": [
+      "短语：千真万确，十分笃定"
+    ]
+  },
+  {
+    "name": "douter de",
+    "trans": [
+      "短语：对……怀疑"
+    ]
+  },
+  {
+    "name": "d'après",
+    "trans": [
+      "prep. 根据，依照"
+    ]
+  },
+  {
+    "name": "d'après vous",
+    "trans": [
+      "短语：依您看，在您看来"
+    ]
+  },
+  {
+    "name": "faire plaisir à",
+    "trans": [
+      "短语：使某人高兴"
+    ]
+  },
+  {
+    "name": "au fait",
+    "trans": [
+      "短语：顺便提一下，对了"
+    ]
+  },
+  {
+    "name": "ce n'est pas banal",
+    "trans": [
+      "短语：这可不寻常，这很不一般"
+    ]
+  },
+  {
+    "name": "d'origine",
+    "trans": [
+      "短语：原先的，原产的，原籍的"
+    ]
+  },
+  {
+    "name": "projet de loi",
+    "trans": [
+      "短语：法案，法律草案"
+    ]
+  },
+  {
+    "name": "se rendre compte de",
+    "trans": [
+      "短语：意识到，发觉"
+    ]
+  },
+  {
+    "name": "être sur un coup",
+    "trans": [
+      "短语：在谋划某事，插手有赚头的事"
+    ]
+  },
+  {
+    "name": "entendre parler de",
+    "trans": [
+      "短语：听说关于……的事"
+    ]
+  },
+  {
+    "name": "s'interroger sur",
+    "trans": [
+      "短语：思考，探究……问题"
+    ]
+  },
+  {
+    "name": "prendre un verre",
+    "trans": [
+      "短语：喝一杯"
+    ]
+  }
+]

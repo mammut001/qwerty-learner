@@ -1,0 +1,434 @@
+[
+  {
+    "name": "parcours",
+    "trans": [
+      "n.m. 经历，历程，履历；路线"
+    ]
+  },
+  {
+    "name": "étape",
+    "trans": [
+      "n.f. 阶段，步骤；中途停顿"
+    ]
+  },
+  {
+    "name": "formation",
+    "trans": [
+      "n.f. 培训，学历教育，形成"
+    ]
+  },
+  {
+    "name": "former",
+    "trans": [
+      "v.t. 培养，培训；组成"
+    ]
+  },
+  {
+    "name": "formateur",
+    "trans": [
+      "n. 培训师，导师"
+    ]
+  },
+  {
+    "name": "comédien",
+    "trans": [
+      "n.m. 话剧演员，演员"
+    ]
+  },
+  {
+    "name": "sketch",
+    "trans": [
+      "n.m. 滑稽短剧，幽默短剧"
+    ]
+  },
+  {
+    "name": "diplôme",
+    "trans": [
+      "n.m. 文凭，毕业证书"
+    ]
+  },
+  {
+    "name": "diplômé",
+    "trans": [
+      "adj. 持有文凭的；n. 毕业生"
+    ]
+  },
+  {
+    "name": "baccalauréat",
+    "trans": [
+      "n.m. 法国高中毕业会考"
+    ]
+  },
+  {
+    "name": "recruteur",
+    "trans": [
+      "n.m. 招聘人员，招聘官"
+    ]
+  },
+  {
+    "name": "recrutement",
+    "trans": [
+      "n.m. 招聘，选拔"
+    ]
+  },
+  {
+    "name": "recruter",
+    "trans": [
+      "v.t. 招聘，录用"
+    ]
+  },
+  {
+    "name": "embauche",
+    "trans": [
+      "n.f. 雇佣，录用"
+    ]
+  },
+  {
+    "name": "embaucher",
+    "trans": [
+      "v.t. 雇佣，录用"
+    ]
+  },
+  {
+    "name": "profil",
+    "trans": [
+      "n.m. 人才画像，侧面轮廓，概况"
+    ]
+  },
+  {
+    "name": "compétence",
+    "trans": [
+      "n.f. 专业技能，胜任能力"
+    ]
+  },
+  {
+    "name": "compétent",
+    "trans": [
+      "adj. 能胜任的，有能力的"
+    ]
+  },
+  {
+    "name": "qualité",
+    "trans": [
+      "n.f. 品质，优点；质量"
+    ]
+  },
+  {
+    "name": "défaut",
+    "trans": [
+      "n.m. 缺点，不足；匮乏"
+    ]
+  },
+  {
+    "name": "rigoureux",
+    "trans": [
+      "adj. 严谨的，一丝不苟的"
+    ]
+  },
+  {
+    "name": "rigueur",
+    "trans": [
+      "n.f. 严谨，严密，严格"
+    ]
+  },
+  {
+    "name": "organisé",
+    "trans": [
+      "adj. 有条理的，善于组织的"
+    ]
+  },
+  {
+    "name": "organiser",
+    "trans": [
+      "v.t. 组织，安排"
+    ]
+  },
+  {
+    "name": "organisation",
+    "trans": [
+      "n.f. 组织，结构，筹划"
+    ]
+  },
+  {
+    "name": "autonome",
+    "trans": [
+      "adj. 能独立工作的，自治的"
+    ]
+  },
+  {
+    "name": "autonomie",
+    "trans": [
+      "n.f. 独立性，自主性"
+    ]
+  },
+  {
+    "name": "dynamique",
+    "trans": [
+      "adj. 有活力的，积极进取的"
+    ]
+  },
+  {
+    "name": "dynamisme",
+    "trans": [
+      "n.m. 活力，干劲"
+    ]
+  },
+  {
+    "name": "polyvalent",
+    "trans": [
+      "adj. 兼有多项技能的，多面手的"
+    ]
+  },
+  {
+    "name": "polyvalence",
+    "trans": [
+      "n.f. 多功能性，多面手能力"
+    ]
+  },
+  {
+    "name": "secrétariat",
+    "trans": [
+      "n.m. 秘书处，文秘工作"
+    ]
+  },
+  {
+    "name": "secrétaire",
+    "trans": [
+      "n. 秘书，办事员"
+    ]
+  },
+  {
+    "name": "artisanat",
+    "trans": [
+      "n.m. 手工业，手工艺"
+    ]
+  },
+  {
+    "name": "artisan",
+    "trans": [
+      "n.m. 手艺人，工匠"
+    ]
+  },
+  {
+    "name": "artisanal",
+    "trans": [
+      "adj. 手工的，传统手艺的"
+    ]
+  },
+  {
+    "name": "bureautique",
+    "trans": [
+      "n.f. 办公自动化，办公软件应用"
+    ]
+  },
+  {
+    "name": "gestion",
+    "trans": [
+      "n.f. 管理，经营"
+    ]
+  },
+  {
+    "name": "gérer",
+    "trans": [
+      "v.t. 管理，经营，处理"
+    ]
+  },
+  {
+    "name": "gestionnaire",
+    "trans": [
+      "n. 管理者，经办人"
+    ]
+  },
+  {
+    "name": "comptabilité",
+    "trans": [
+      "n.f. 会计，财务记账"
+    ]
+  },
+  {
+    "name": "comptable",
+    "trans": [
+      "n. 会计师；adj. 负有责任的"
+    ]
+  },
+  {
+    "name": "immobilier",
+    "trans": [
+      "adj. 不动产的；n.m. 房地产业"
+    ]
+  },
+  {
+    "name": "fiscal",
+    "trans": [
+      "adj. 财政的，税务的"
+    ]
+  },
+  {
+    "name": "fiscalité",
+    "trans": [
+      "n.f. 税制，税收政策"
+    ]
+  },
+  {
+    "name": "maintenance",
+    "trans": [
+      "n.f. 维护，检修，保养"
+    ]
+  },
+  {
+    "name": "maintenir",
+    "trans": [
+      "v.t. 保持，维护"
+    ]
+  },
+  {
+    "name": "postuler",
+    "trans": [
+      "v.t. 申请，求职"
+    ]
+  },
+  {
+    "name": "postulant",
+    "trans": [
+      "n. 申请人，求职者"
+    ]
+  },
+  {
+    "name": "candidature",
+    "trans": [
+      "n.f. 候选资格，应聘申请"
+    ]
+  },
+  {
+    "name": "candidat",
+    "trans": [
+      "n. 候选人，求职者"
+    ]
+  },
+  {
+    "name": "rémunération",
+    "trans": [
+      "n.f. 报酬，薪酬"
+    ]
+  },
+  {
+    "name": "salaire",
+    "trans": [
+      "n.m. 工资，薪金"
+    ]
+  },
+  {
+    "name": "salarié",
+    "trans": [
+      "n.m. 受薪雇员"
+    ]
+  },
+  {
+    "name": "aptitude",
+    "trans": [
+      "n.f. 才能，资质，适宜能力"
+    ]
+  },
+  {
+    "name": "précéder",
+    "trans": [
+      "v.t. 先于，走在……前面"
+    ]
+  },
+  {
+    "name": "succéder",
+    "trans": [
+      "v.i. 继承，接替，随之而来"
+    ]
+  },
+  {
+    "name": "chronologie",
+    "trans": [
+      "n.f. 年表，时间先后顺序"
+    ]
+  },
+  {
+    "name": "chronologique",
+    "trans": [
+      "adj. 按时间顺序的"
+    ]
+  },
+  {
+    "name": "lettre de motivation",
+    "trans": [
+      "短语：求职信，自荐信"
+    ]
+  },
+  {
+    "name": "curriculum vitae",
+    "trans": [
+      "短语：个人简历，CV"
+    ]
+  },
+  {
+    "name": "entretien d'embauche",
+    "trans": [
+      "短语：求职面试"
+    ]
+  },
+  {
+    "name": "classe préparatoire",
+    "trans": [
+      "短语：大学校预科班"
+    ]
+  },
+  {
+    "name": "contrat de travail",
+    "trans": [
+      "短语：劳动合同"
+    ]
+  },
+  {
+    "name": "relations publiques",
+    "trans": [
+      "短语：公共关系，公关"
+    ]
+  },
+  {
+    "name": "revue de presse",
+    "trans": [
+      "短语：新闻综述，媒体简报"
+    ]
+  },
+  {
+    "name": "au fur et à mesure que",
+    "trans": [
+      "短语：随着……，在……过程中"
+    ]
+  },
+  {
+    "name": "en même temps",
+    "trans": [
+      "短语：同时，并且"
+    ]
+  },
+  {
+    "name": "serrer la main",
+    "trans": [
+      "短语：握手"
+    ]
+  },
+  {
+    "name": "faire part de",
+    "trans": [
+      "短语：告知，通报某事"
+    ]
+  },
+  {
+    "name": "postérieur à",
+    "trans": [
+      "短语：在……之后的"
+    ]
+  },
+  {
+    "name": "antérieur à",
+    "trans": [
+      "短语：在……之前的"
+    ]
+  }
+]
