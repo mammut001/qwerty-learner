@@ -1,0 +1,464 @@
+[
+  {
+    "name": "intégration",
+    "trans": [
+      "n.f. 融入，一体化"
+    ]
+  },
+  {
+    "name": "intégrer",
+    "trans": [
+      "v.t. 使融入，使一体化"
+    ]
+  },
+  {
+    "name": "comportement",
+    "trans": [
+      "n.m. 行为，举止"
+    ]
+  },
+  {
+    "name": "comporter",
+    "trans": [
+      "v.t. 包含；v.pr. 表现，举止"
+    ]
+  },
+  {
+    "name": "adaptation",
+    "trans": [
+      "n.f. 适应，改编"
+    ]
+  },
+  {
+    "name": "adapter",
+    "trans": [
+      "v.t. 使适应，改编"
+    ]
+  },
+  {
+    "name": "acquérir",
+    "trans": [
+      "v.t. 获得，习得，学到"
+    ]
+  },
+  {
+    "name": "acquisition",
+    "trans": [
+      "n.f. 获得，习得，购置物"
+    ]
+  },
+  {
+    "name": "rigide",
+    "trans": [
+      "adj. 僵硬的，死板的，严厉的"
+    ]
+  },
+  {
+    "name": "rigidité",
+    "trans": [
+      "n.f. 僵化，死板，僵硬"
+    ]
+  },
+  {
+    "name": "fréquenter",
+    "trans": [
+      "v.t. 经常去，常与……交往"
+    ]
+  },
+  {
+    "name": "compatriote",
+    "trans": [
+      "n. 同胞，同乡"
+    ]
+  },
+  {
+    "name": "nouveauté",
+    "trans": [
+      "n.f. 新鲜事物，新颖，新书"
+    ]
+  },
+  {
+    "name": "faciliter",
+    "trans": [
+      "v.t. 使容易，促进，便利"
+    ]
+  },
+  {
+    "name": "nostalgique",
+    "trans": [
+      "adj. 怀旧的，思乡的"
+    ]
+  },
+  {
+    "name": "nostalgie",
+    "trans": [
+      "n.f. 怀旧，思乡之情"
+    ]
+  },
+  {
+    "name": "diplomate",
+    "trans": [
+      "n. 外交官；adj. 有交际手腕的"
+    ]
+  },
+  {
+    "name": "caméléon",
+    "trans": [
+      "n.m. 变色龙，善变的人"
+    ]
+  },
+  {
+    "name": "embarrasser",
+    "trans": [
+      "v.t. 使受阻；使尴尬，使为难"
+    ]
+  },
+  {
+    "name": "embarrassant",
+    "trans": [
+      "adj. 令人尴尬的，棘手的"
+    ]
+  },
+  {
+    "name": "embarras",
+    "trans": [
+      "n.m. 尴尬，窘迫；阻塞"
+    ]
+  },
+  {
+    "name": "insister",
+    "trans": [
+      "v.i. 坚持，强调"
+    ]
+  },
+  {
+    "name": "insistance",
+    "trans": [
+      "n.f. 坚持，再三要求"
+    ]
+  },
+  {
+    "name": "insistant",
+    "trans": [
+      "adj. 坚持的，再三的"
+    ]
+  },
+  {
+    "name": "oser",
+    "trans": [
+      "v.t. 敢，敢于"
+    ]
+  },
+  {
+    "name": "ultimatum",
+    "trans": [
+      "n.m. 最后通牒"
+    ]
+  },
+  {
+    "name": "dépression",
+    "trans": [
+      "n.f. 抑郁，消沉；萧条；低气压"
+    ]
+  },
+  {
+    "name": "dépressif",
+    "trans": [
+      "adj. 抑郁的"
+    ]
+  },
+  {
+    "name": "supplier",
+    "trans": [
+      "v.t. 哀求，恳求"
+    ]
+  },
+  {
+    "name": "chantage",
+    "trans": [
+      "n.m. 敲诈，勒索"
+    ]
+  },
+  {
+    "name": "solliciter",
+    "trans": [
+      "v.t. 申请，请求；征求"
+    ]
+  },
+  {
+    "name": "sollicitation",
+    "trans": [
+      "n.f. 请求，恳求"
+    ]
+  },
+  {
+    "name": "tournage",
+    "trans": [
+      "n.m. 拍摄，摄制"
+    ]
+  },
+  {
+    "name": "tourner",
+    "trans": [
+      "v.t. 拍摄；转动"
+    ]
+  },
+  {
+    "name": "motiver",
+    "trans": [
+      "v.t. 说明理由；激励，激发积极性"
+    ]
+  },
+  {
+    "name": "motivation",
+    "trans": [
+      "n.f. 动机，动力，积极性"
+    ]
+  },
+  {
+    "name": "rémunération",
+    "trans": [
+      "n.f. 报酬，薪水"
+    ]
+  },
+  {
+    "name": "rémunérer",
+    "trans": [
+      "v.t. 支付报酬"
+    ]
+  },
+  {
+    "name": "discrétion",
+    "trans": [
+      "n.f. 谨慎，保密，谨言慎行"
+    ]
+  },
+  {
+    "name": "discret",
+    "trans": [
+      "adj. 谨慎的，不引人注目的"
+    ]
+  },
+  {
+    "name": "admiration",
+    "trans": [
+      "n.f. 钦佩，赞赏"
+    ]
+  },
+  {
+    "name": "admirer",
+    "trans": [
+      "v.t. 钦佩，赞赏，欣赏"
+    ]
+  },
+  {
+    "name": "admirable",
+    "trans": [
+      "adj. 令人钦佩的，极好的"
+    ]
+  },
+  {
+    "name": "remerciement",
+    "trans": [
+      "n.m. 感谢，致谢"
+    ]
+  },
+  {
+    "name": "remercier",
+    "trans": [
+      "v.t. 感谢；解雇"
+    ]
+  },
+  {
+    "name": "anticiper",
+    "trans": [
+      "v.t. 预先考虑，提前发生"
+    ]
+  },
+  {
+    "name": "anticipation",
+    "trans": [
+      "n.f. 预见，提早"
+    ]
+  },
+  {
+    "name": "conventionnel",
+    "trans": [
+      "adj. 传统的，符合常规的"
+    ]
+  },
+  {
+    "name": "convention",
+    "trans": [
+      "n.f. 习俗，常规；公约，协定"
+    ]
+  },
+  {
+    "name": "indispensable",
+    "trans": [
+      "adj. 必不可少的，必需的"
+    ]
+  },
+  {
+    "name": "injuste",
+    "trans": [
+      "adj. 不公正的，不合理的"
+    ]
+  },
+  {
+    "name": "injustice",
+    "trans": [
+      "n.f. 不公正，冤屈"
+    ]
+  },
+  {
+    "name": "truffe",
+    "trans": [
+      "n.f. 松露；鼻子；笨蛋（口语）"
+    ]
+  },
+  {
+    "name": "s'intégrer",
+    "trans": [
+      "v.pr. 融入，适应环境"
+    ]
+  },
+  {
+    "name": "s'habituer",
+    "trans": [
+      "v.pr. 习惯于，适应"
+    ]
+  },
+  {
+    "name": "se documenter",
+    "trans": [
+      "v.pr. 查阅资料，收集信息"
+    ]
+  },
+  {
+    "name": "se comporter",
+    "trans": [
+      "v.pr. 举止，行为表现"
+    ]
+  },
+  {
+    "name": "s'habituer à",
+    "trans": [
+      "短语：习惯于……"
+    ]
+  },
+  {
+    "name": "faire face à",
+    "trans": [
+      "短语：面对，应对"
+    ]
+  },
+  {
+    "name": "être amoureux de",
+    "trans": [
+      "短语：爱上……，爱慕……"
+    ]
+  },
+  {
+    "name": "finir par",
+    "trans": [
+      "短语：最终，终于以……结束"
+    ]
+  },
+  {
+    "name": "en commun",
+    "trans": [
+      "短语：共同，共有"
+    ]
+  },
+  {
+    "name": "à partir de",
+    "trans": [
+      "短语：从……起，根据……"
+    ]
+  },
+  {
+    "name": "se dire",
+    "trans": [
+      "短语：心里想，暗自思量"
+    ]
+  },
+  {
+    "name": "être obligé de",
+    "trans": [
+      "短语：不得不，被迫做某事"
+    ]
+  },
+  {
+    "name": "faire du chantage",
+    "trans": [
+      "短语：进行敲诈勒索"
+    ]
+  },
+  {
+    "name": "lors de",
+    "trans": [
+      "短语：在……期间，在……之际"
+    ]
+  },
+  {
+    "name": "en titre",
+    "trans": [
+      "短语：正式的，名正言顺的"
+    ]
+  },
+  {
+    "name": "je me permets de",
+    "trans": [
+      "短语：请允许我，我冒昧……"
+    ]
+  },
+  {
+    "name": "ci-joint",
+    "trans": [
+      "短语：随信附上，附随的"
+    ]
+  },
+  {
+    "name": "par ailleurs",
+    "trans": [
+      "短语：此外，另一方面"
+    ]
+  },
+  {
+    "name": "en tant que",
+    "trans": [
+      "短语：作为，以……身份"
+    ]
+  },
+  {
+    "name": "dans l'attente de",
+    "trans": [
+      "短语：静候……，等待……"
+    ]
+  },
+  {
+    "name": "avoir le don de",
+    "trans": [
+      "短语：有做……的天赋；总是能……"
+    ]
+  },
+  {
+    "name": "faire preuve de",
+    "trans": [
+      "短语：表现出，显示出"
+    ]
+  },
+  {
+    "name": "passer pour",
+    "trans": [
+      "短语：被看作，被当成"
+    ]
+  },
+  {
+    "name": "de toute façon",
+    "trans": [
+      "短语：无论如何，反正"
+    ]
+  }
+]
