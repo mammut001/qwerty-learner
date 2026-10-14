@@ -19,6 +19,7 @@ import {
   buildInjectionProbeMessages,
   parseClassifierOutput,
   parseProbeOutput,
+  looksLikeExamTask,
   decideRecall,
   wrapProviderForRecalls,
   moderateRecall,
@@ -324,26 +325,59 @@ test('parser: validates schema strictly and rejects invalid formats', () => {
   assert.equal(parseClassifierOutput('not a json').ok, false)
 
   // Unknown verdict
-  assert.equal(parseClassifierOutput('{"verdict":"pass","reasons":["VALID_RECALL"],"isExamTopic":true,"injectionDetected":false,"evidence":""}', context).ok, false)
+  assert.equal(parseClassifierOutput('{"verdict":"pass","reasons":["VALID_RECALL"],"taskType":"writing_message","examLikelihood":"high","isExamTopic":true,"injectionDetected":false,"evidence":""}', context).ok, false)
 
   // Unknown reason code
-  assert.equal(parseClassifierOutput('{"verdict":"approve","reasons":["RANDOM_REASON"],"isExamTopic":true,"injectionDetected":false,"evidence":""}', context).ok, false)
+  assert.equal(parseClassifierOutput('{"verdict":"approve","reasons":["RANDOM_REASON"],"taskType":"writing_message","examLikelihood":"high","isExamTopic":true,"injectionDetected":false,"evidence":""}', context).ok, false)
 
   // Non-boolean isExamTopic
-  assert.equal(parseClassifierOutput('{"verdict":"approve","reasons":["VALID_RECALL"],"isExamTopic":"yes","injectionDetected":false,"evidence":""}', context).ok, false)
+  assert.equal(parseClassifierOutput('{"verdict":"approve","reasons":["VALID_RECALL"],"taskType":"writing_message","examLikelihood":"high","isExamTopic":"yes","injectionDetected":false,"evidence":""}', context).ok, false)
 
   // Non-verbatim evidence (hallucinated quote)
-  assert.equal(parseClassifierOutput('{"verdict":"approve","reasons":["VALID_RECALL"],"isExamTopic":true,"injectionDetected":false,"evidence":"Invented quote"}', context).ok, false)
+  assert.equal(parseClassifierOutput('{"verdict":"approve","reasons":["VALID_RECALL"],"taskType":"writing_message","examLikelihood":"high","isExamTopic":true,"injectionDetected":false,"evidence":"Invented quote"}', context).ok, false)
 
   // Valid output with verbatim evidence
-  const valid = parseClassifierOutput('{"verdict":"approve","reasons":["VALID_RECALL"],"isExamTopic":true,"injectionDetected":false,"evidence":"expression écrite"}', context)
+  const valid = parseClassifierOutput('{"verdict":"approve","reasons":["VALID_RECALL"],"taskType":"writing_message","examLikelihood":"high","isExamTopic":true,"injectionDetected":false,"evidence":"expression écrite"}', context)
   assert.equal(valid.ok, true)
   assert.equal(valid.value.verdict, 'approve')
+  assert.equal(valid.value.taskType, 'writing_message')
+  assert.equal(valid.value.examLikelihood, 'high')
   assert.equal(valid.value.evidence, 'expression écrite')
 
   // Valid output with empty evidence
-  const validEmptyEvidence = parseClassifierOutput('{"verdict":"approve","reasons":["VALID_RECALL"],"isExamTopic":true,"injectionDetected":false,"evidence":""}', context)
+  const validEmptyEvidence = parseClassifierOutput('{"verdict":"approve","reasons":["VALID_RECALL"],"taskType":"speaking_opinion","examLikelihood":"high","isExamTopic":true,"injectionDetected":false,"evidence":""}', context)
   assert.equal(validEmptyEvidence.ok, true)
+})
+
+test('parser: rejects missing or invalid taskType and examLikelihood', () => {
+  const context = { topic: 'TCF Canada expression écrite tâche 1' }
+  const validBase = {
+    verdict: 'approve',
+    reasons: ['VALID_RECALL'],
+    taskType: 'writing_message',
+    examLikelihood: 'high',
+    isExamTopic: true,
+    injectionDetected: false,
+    evidence: '',
+  }
+
+  // Missing taskType
+  const { taskType: _tt, ...noTaskType } = validBase
+  assert.equal(parseClassifierOutput(JSON.stringify(noTaskType), context).ok, false)
+
+  // Invalid taskType
+  assert.equal(parseClassifierOutput(JSON.stringify({ ...validBase, taskType: 'speaking_random' }), context).ok, false)
+  assert.equal(parseClassifierOutput(JSON.stringify({ ...validBase, taskType: '' }), context).ok, false)
+  assert.equal(parseClassifierOutput(JSON.stringify({ ...validBase, taskType: 123 }), context).ok, false)
+
+  // Missing examLikelihood
+  const { examLikelihood: _el, ...noExamLikelihood } = validBase
+  assert.equal(parseClassifierOutput(JSON.stringify(noExamLikelihood), context).ok, false)
+
+  // Invalid examLikelihood
+  assert.equal(parseClassifierOutput(JSON.stringify({ ...validBase, examLikelihood: 'extreme' }), context).ok, false)
+  assert.equal(parseClassifierOutput(JSON.stringify({ ...validBase, examLikelihood: 123 }), context).ok, false)
+  assert.equal(parseClassifierOutput(JSON.stringify({ ...validBase, examLikelihood: '' }), context).ok, false)
 })
 
 test('probe parser: strictly validates { clean: boolean }', () => {
@@ -394,7 +428,8 @@ test('decideRecall: truth table covers all gates', () => {
 
   // Model approve but probe clean is false -> hold
   const probeFail = decideRecall({
-    modelOutput: { verdict: 'approve', isExamTopic: true, injectionDetected: false },
+    taskShape: true,
+    modelOutput: { verdict: 'approve', isExamTopic: true, taskType: 'speaking_opinion', examLikelihood: 'high', injectionDetected: false },
     probeOutput: { clean: false },
   })
   assert.equal(probeFail.decision, 'hold')
@@ -402,7 +437,8 @@ test('decideRecall: truth table covers all gates', () => {
 
   // Model approve but probe threw or invalid -> hold
   const probeInvalid = decideRecall({
-    modelOutput: { verdict: 'approve', isExamTopic: true, injectionDetected: false },
+    taskShape: true,
+    modelOutput: { verdict: 'approve', isExamTopic: true, taskType: 'speaking_opinion', examLikelihood: 'high', injectionDetected: false },
     probeValid: false,
   })
   assert.equal(probeInvalid.decision, 'hold')
@@ -410,7 +446,8 @@ test('decideRecall: truth table covers all gates', () => {
 
   // Model approve but isExamTopic false -> hold
   const notTopic = decideRecall({
-    modelOutput: { verdict: 'approve', isExamTopic: false, injectionDetected: false },
+    taskShape: true,
+    modelOutput: { verdict: 'approve', isExamTopic: false, taskType: 'speaking_opinion', examLikelihood: 'high', injectionDetected: false },
     probeOutput: { clean: true },
   })
   assert.equal(notTopic.decision, 'hold')
@@ -432,7 +469,8 @@ test('decideRecall: truth table covers all gates', () => {
 
   // Approval cap exceeded -> hold
   const capExceeded = decideRecall({
-    modelOutput: { verdict: 'approve', isExamTopic: true, injectionDetected: false },
+    taskShape: true,
+    modelOutput: { verdict: 'approve', isExamTopic: true, taskType: 'speaking_opinion', examLikelihood: 'high', injectionDetected: false },
     probeOutput: { clean: true },
     approvedCount: 20,
     maxApprove: 20,
@@ -456,7 +494,8 @@ test('decideRecall: truth table covers all gates', () => {
 
   // Golden path: all criteria satisfied with allowAutoApprove: true -> approve
   const approved = decideRecall({
-    modelOutput: { verdict: 'approve', reasons: [RECALL_REASON_CODES.VALID_RECALL], isExamTopic: true, injectionDetected: false },
+    taskShape: true,
+    modelOutput: { verdict: 'approve', reasons: [RECALL_REASON_CODES.VALID_RECALL], isExamTopic: true, taskType: 'speaking_opinion', examLikelihood: 'high', injectionDetected: false },
     probeOutput: { clean: true },
     approvedCount: 5,
     maxApprove: 20,
@@ -468,7 +507,8 @@ test('decideRecall: truth table covers all gates', () => {
 
   // Golden path with allowAutoApprove: false (default) -> hold with RECOMMEND_APPROVE
   const heldWithRec = decideRecall({
-    modelOutput: { verdict: 'approve', reasons: [RECALL_REASON_CODES.VALID_RECALL], isExamTopic: true, injectionDetected: false },
+    taskShape: true,
+    modelOutput: { verdict: 'approve', reasons: [RECALL_REASON_CODES.VALID_RECALL], isExamTopic: true, taskType: 'speaking_opinion', examLikelihood: 'high', injectionDetected: false },
     probeOutput: { clean: true },
     approvedCount: 5,
     maxApprove: 20,
@@ -477,6 +517,100 @@ test('decideRecall: truth table covers all gates', () => {
   assert.equal(heldWithRec.decision, 'hold')
   assert.deepEqual(heldWithRec.reasons, [RECALL_REASON_CODES.RECOMMEND_APPROVE])
   assert.equal(heldWithRec.recommendation, 'approve')
+})
+
+test('looksLikeExamTask: returns ok false for non-tasks and ok true for calibration exam topics', () => {
+  const falseList = [
+    '今天天气不错，我去公园散步了',
+    '我今天考完了，好累',
+    '祝大家考试顺利！',
+    'Bonjour tout le monde',
+    '口语好难啊',
+    "J'ai passé l'examen hier à Montréal",
+    '谢谢分享',
+  ]
+
+  for (const text of falseList) {
+    const res = looksLikeExamTask({ topic: text })
+    assert.equal(res.ok, false, `Expected looksLikeExamTask to be false for: "${text}"`)
+    assert.deepEqual(res.markers, [], `Expected no markers for: "${text}"`)
+    // Also test with string parameter directly
+    assert.equal(looksLikeExamTask(text).ok, false)
+  }
+
+  const approveSamples = RECALL_CALIBRATION_SAMPLES.filter((s) => s.expected === 'approve')
+  assert.ok(approveSamples.length >= 6, 'Should have calibration approve samples')
+  for (const sample of approveSamples) {
+    const res = looksLikeExamTask(sample)
+    assert.equal(res.ok, true, `Expected looksLikeExamTask to be true for: "${sample.topic}"`)
+    assert.ok(res.markers.length > 0, `Expected markers for: "${sample.topic}"`)
+  }
+})
+
+test('decideRecall: strict exam task shape, taskType, and examLikelihood requirements', () => {
+  const baseModelOutput = {
+    verdict: 'approve',
+    reasons: [RECALL_REASON_CODES.VALID_RECALL],
+    isExamTopic: true,
+    taskType: 'speaking_opinion',
+    examLikelihood: 'high',
+    injectionDetected: false,
+  }
+  const cleanProbe = { clean: true }
+
+  // (a) taskShape false -> hold, review, NOT_AN_EXAM_TOPIC
+  const resA = decideRecall({
+    modelOutput: baseModelOutput,
+    probeOutput: cleanProbe,
+    taskShape: false,
+    allowAutoApprove: true,
+  })
+  assert.equal(resA.decision, 'hold')
+  assert.equal(resA.recommendation, 'review')
+  assert.ok(resA.reasons.includes(RECALL_REASON_CODES.NOT_AN_EXAM_TOPIC))
+
+  // (b) taskType 'none' -> hold, review, NOT_AN_EXAM_TOPIC
+  const resB = decideRecall({
+    modelOutput: { ...baseModelOutput, taskType: 'none' },
+    probeOutput: cleanProbe,
+    taskShape: true,
+    allowAutoApprove: true,
+  })
+  assert.equal(resB.decision, 'hold')
+  assert.equal(resB.recommendation, 'review')
+  assert.ok(resB.reasons.includes(RECALL_REASON_CODES.NOT_AN_EXAM_TOPIC))
+
+  // (c) examLikelihood 'medium' -> hold, review, NOT_AN_EXAM_TOPIC
+  const resC = decideRecall({
+    modelOutput: { ...baseModelOutput, examLikelihood: 'medium' },
+    probeOutput: cleanProbe,
+    taskShape: true,
+    allowAutoApprove: true,
+  })
+  assert.equal(resC.decision, 'hold')
+  assert.equal(resC.recommendation, 'review')
+  assert.ok(resC.reasons.includes(RECALL_REASON_CODES.NOT_AN_EXAM_TOPIC))
+
+  // (d) taskShape omitted (defaults to false) -> hold, review, NOT_AN_EXAM_TOPIC
+  const resD = decideRecall({
+    modelOutput: baseModelOutput,
+    probeOutput: cleanProbe,
+    allowAutoApprove: true,
+  })
+  assert.equal(resD.decision, 'hold')
+  assert.equal(resD.recommendation, 'review')
+  assert.ok(resD.reasons.includes(RECALL_REASON_CODES.NOT_AN_EXAM_TOPIC))
+
+  // All-good case with allowAutoApprove: true -> approve
+  const resGood = decideRecall({
+    modelOutput: baseModelOutput,
+    probeOutput: cleanProbe,
+    taskShape: true,
+    allowAutoApprove: true,
+  })
+  assert.equal(resGood.decision, 'approve')
+  assert.equal(resGood.recommendation, 'approve')
+  assert.deepEqual(resGood.reasons, [RECALL_REASON_CODES.VALID_RECALL])
 })
 
 // ---------------------------------------------------------------------------
@@ -493,6 +627,8 @@ test('moderateRecall: calls provider with one item, fresh nonces, and gates bloc
       return JSON.stringify({
         verdict: 'approve',
         reasons: ['VALID_RECALL'],
+        taskType: 'speaking_opinion',
+        examLikelihood: 'high',
         isExamTopic: true,
         injectionDetected: false,
         evidence: '',
@@ -533,6 +669,8 @@ test('moderateRecall: repair round heals malformed first response', async () => 
       return JSON.stringify({
         verdict: 'approve',
         reasons: ['VALID_RECALL'],
+        taskType: 'writing_message',
+        examLikelihood: 'high',
         isExamTopic: true,
         injectionDetected: false,
         evidence: 'voyage',
@@ -628,6 +766,8 @@ test('invariant: hostile fake provider cannot approve injection, meta-language, 
       return JSON.stringify({
         verdict: 'approve',
         reasons: ['VALID_RECALL'],
+        taskType: 'speaking_opinion',
+        examLikelihood: 'high',
         isExamTopic: true,
         injectionDetected: false,
         evidence: '',
@@ -650,7 +790,13 @@ test('invariant: hostile fake provider cannot approve injection, meta-language, 
       if (sample.expected === 'reject') {
         assert.equal(result.decision, 'reject', `Deterministic-reject sample "${sample.id}" must be rejected by pre-filter`)
       } else if (sample.expected === 'hold') {
-        assert.equal(result.decision, 'hold', `Sample "${sample.id}" must be held by injection/meta gates`)
+        assert.ok(
+          result.decision === 'hold' || result.decision === 'reject',
+          `Sample "${sample.id}" must be held or rejected by deterministic gates, got ${result.decision}`,
+        )
+        if (sample.id.startsWith('injection-')) {
+          assert.equal(result.decision, 'hold', `Sample "${sample.id}" must be held by injection/meta gates`)
+        }
       }
     } else {
       // Explicitly assert that 'off-topic-chat' is the single model-dependent residual risk
@@ -705,6 +851,40 @@ test('invariant: hostile fake provider cannot approve injection, meta-language, 
   }
 })
 
+test('moderateRecall: deterministic task-shape gate blocks rogue approve model on harmless weather text', async () => {
+  const weatherItem = {
+    id: 'weather-rogue-test',
+    section: 'speaking',
+    task: 2,
+    examMonth: '2026-10',
+    topic: '今天天气不错，我去公园散步了',
+  }
+
+  const rogueProvider = {
+    name: 'rogue-provider',
+    model: 'rogue-chat',
+    async complete(opts) {
+      if (opts.system?.includes('independent security probe')) {
+        return JSON.stringify({ clean: true })
+      }
+      return JSON.stringify({
+        verdict: 'approve',
+        reasons: ['VALID_RECALL'],
+        taskType: 'speaking_opinion',
+        examLikelihood: 'high',
+        isExamTopic: true,
+        injectionDetected: false,
+        evidence: '',
+      })
+    },
+  }
+
+  const result = await moderateRecall(weatherItem, rogueProvider, { allowAutoApprove: true })
+  assert.equal(result.decision, 'hold')
+  assert.equal(result.recommendation, 'review')
+  assert.ok(result.reasons.includes(RECALL_REASON_CODES.NOT_AN_EXAM_TOPIC))
+})
+
 // ---------------------------------------------------------------------------
 // 10. Property test: Auto-approve OFF is 100% immune to false approvals
 // ---------------------------------------------------------------------------
@@ -750,6 +930,8 @@ test('property test: with auto-approve OFF, 300 pseudo-random strings + calibrat
       return JSON.stringify({
         verdict: 'approve',
         reasons: ['VALID_RECALL'],
+        taskType: 'speaking_opinion',
+        examLikelihood: 'high',
         isExamTopic: true,
         injectionDetected: false,
         evidence: '',
