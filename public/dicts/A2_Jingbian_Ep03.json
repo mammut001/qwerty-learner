@@ -1,0 +1,656 @@
+[
+  {
+    "name": "tabagisme",
+    "trans": [
+      "n.m. 吸烟，烟瘾"
+    ]
+  },
+  {
+    "name": "fumée",
+    "trans": [
+      "n.f. 烟雾，烟"
+    ]
+  },
+  {
+    "name": "fumeur",
+    "trans": [
+      "n.m. 吸烟者"
+    ]
+  },
+  {
+    "name": "fumeuse",
+    "trans": [
+      "n.f. 女性吸烟者"
+    ]
+  },
+  {
+    "name": "non-fumeur",
+    "trans": [
+      "n.m. 不吸烟者"
+    ]
+  },
+  {
+    "name": "tabac",
+    "trans": [
+      "n.m. 烟草"
+    ]
+  },
+  {
+    "name": "tabagisme passif",
+    "trans": [
+      "n.m. 被动吸烟，二手烟"
+    ]
+  },
+  {
+    "name": "cigarette",
+    "trans": [
+      "n.f. 香烟"
+    ]
+  },
+  {
+    "name": "cigare",
+    "trans": [
+      "n.m. 雪茄"
+    ]
+  },
+  {
+    "name": "député",
+    "trans": [
+      "n.m. 议员"
+    ]
+  },
+  {
+    "name": "espace",
+    "trans": [
+      "n.m. 空间"
+    ]
+  },
+  {
+    "name": "victime",
+    "trans": [
+      "n.f. 受害者"
+    ]
+  },
+  {
+    "name": "inconscience",
+    "trans": [
+      "n.f. 无意识，盲目"
+    ]
+  },
+  {
+    "name": "conducteur",
+    "trans": [
+      "n.m. 司机，驾驶员"
+    ]
+  },
+  {
+    "name": "interdiction",
+    "trans": [
+      "n.f. 禁止"
+    ]
+  },
+  {
+    "name": "blues",
+    "trans": [
+      "n.m. 忧郁，蓝调"
+    ]
+  },
+  {
+    "name": "secteur",
+    "trans": [
+      "n.m. 行业，部门"
+    ]
+  },
+  {
+    "name": "parfumerie",
+    "trans": [
+      "n.f. 香水业，香水制造"
+    ]
+  },
+  {
+    "name": "téléphonie",
+    "trans": [
+      "n.f. 电信业"
+    ]
+  },
+  {
+    "name": "clientèle",
+    "trans": [
+      "n.f. 客户群体"
+    ]
+  },
+  {
+    "name": "ambiance",
+    "trans": [
+      "n.f. 气氛，氛围"
+    ]
+  },
+  {
+    "name": "révolution",
+    "trans": [
+      "n.f. 革命"
+    ]
+  },
+  {
+    "name": "chambre d'ami",
+    "trans": [
+      "n.f. 客房"
+    ]
+  },
+  {
+    "name": "huile essentielle",
+    "trans": [
+      "n.f. 精油"
+    ]
+  },
+  {
+    "name": "réunion",
+    "trans": [
+      "n.f. 会议"
+    ]
+  },
+  {
+    "name": "autorisation",
+    "trans": [
+      "n.f. 许可，批准"
+    ]
+  },
+  {
+    "name": "resto",
+    "trans": [
+      "n.m. 餐馆（通俗）"
+    ]
+  },
+  {
+    "name": "casse-tête",
+    "trans": [
+      "n.m. 难题，益智游戏"
+    ]
+  },
+  {
+    "name": "pôle de compétences",
+    "trans": [
+      "n.m. 高新技术企业基地"
+    ]
+  },
+  {
+    "name": "prototype",
+    "trans": [
+      "n.m. 样机，样品"
+    ]
+  },
+  {
+    "name": "marché",
+    "trans": [
+      "n.m. 市场"
+    ]
+  },
+  {
+    "name": "discours",
+    "trans": [
+      "n.m. 演讲，发言"
+    ]
+  },
+  {
+    "name": "héros",
+    "trans": [
+      "n.m. 英雄，主人公"
+    ]
+  },
+  {
+    "name": "invité",
+    "trans": [
+      "n.m. 客人，受邀者"
+    ]
+  },
+  {
+    "name": "écrivain",
+    "trans": [
+      "n.m. 作家"
+    ]
+  },
+  {
+    "name": "scénariste",
+    "trans": [
+      "n.m./f. 编剧"
+    ]
+  },
+  {
+    "name": "orateur",
+    "trans": [
+      "n.m. 演说家"
+    ]
+  },
+  {
+    "name": "conseil",
+    "trans": [
+      "n.m. 建议"
+    ]
+  },
+  {
+    "name": "police",
+    "trans": [
+      "n.f. 字体；警察"
+    ]
+  },
+  {
+    "name": "truc",
+    "trans": [
+      "n.m. 东西，小玩意"
+    ]
+  },
+  {
+    "name": "éditeur",
+    "trans": [
+      "n.m. 出版商，编辑"
+    ]
+  },
+  {
+    "name": "hirondelle",
+    "trans": [
+      "n.f. 燕子"
+    ]
+  },
+  {
+    "name": "publicité",
+    "trans": [
+      "n.f. 广告"
+    ]
+  },
+  {
+    "name": "tire-bouchon",
+    "trans": [
+      "n.m. 软木塞起子，开瓶器"
+    ]
+  },
+  {
+    "name": "ouvre-boîte",
+    "trans": [
+      "n.m. 开罐器"
+    ]
+  },
+  {
+    "name": "clé USB",
+    "trans": [
+      "n.f. U盘"
+    ]
+  },
+  {
+    "name": "oiseau",
+    "trans": [
+      "n.m. 鸟"
+    ]
+  },
+  {
+    "name": "nid",
+    "trans": [
+      "n.m. 鸟巢"
+    ]
+  },
+  {
+    "name": "buisson",
+    "trans": [
+      "n.m. 灌木丛"
+    ]
+  },
+  {
+    "name": "poule",
+    "trans": [
+      "n.f. 母鸡"
+    ]
+  },
+  {
+    "name": "bec",
+    "trans": [
+      "n.m. 鸟嘴，喙"
+    ]
+  },
+  {
+    "name": "chat",
+    "trans": [
+      "n.m. 猫"
+    ]
+  },
+  {
+    "name": "souris",
+    "trans": [
+      "n.f. 老鼠"
+    ]
+  },
+  {
+    "name": "présidence",
+    "trans": [
+      "n.f. 总统任期"
+    ]
+  },
+  {
+    "name": "gauche",
+    "trans": [
+      "n.f. 左派"
+    ]
+  },
+  {
+    "name": "candidat",
+    "trans": [
+      "n.m. 候选人"
+    ]
+  },
+  {
+    "name": "voix",
+    "trans": [
+      "n.f. 选票；声音"
+    ]
+  },
+  {
+    "name": "Premier ministre",
+    "trans": [
+      "n.m. 总理"
+    ]
+  },
+  {
+    "name": "Assemblée nationale",
+    "trans": [
+      "n.f. 国民议会"
+    ]
+  },
+  {
+    "name": "ministre",
+    "trans": [
+      "n.m./f. 部长"
+    ]
+  },
+  {
+    "name": "secrétaire",
+    "trans": [
+      "n.m./f. 书记，秘书"
+    ]
+  },
+  {
+    "name": "avocat",
+    "trans": [
+      "n.m. 律师"
+    ]
+  },
+  {
+    "name": "privé",
+    "trans": [
+      "adj. 私人的，民营的"
+    ]
+  },
+  {
+    "name": "dangereux",
+    "trans": [
+      "adj. 危险的"
+    ]
+  },
+  {
+    "name": "courageux",
+    "trans": [
+      "adj. 勇敢的"
+    ]
+  },
+  {
+    "name": "spécialisé",
+    "trans": [
+      "adj. 专业的，专门的"
+    ]
+  },
+  {
+    "name": "parfumé",
+    "trans": [
+      "adj. 带香味的"
+    ]
+  },
+  {
+    "name": "extraordinaire",
+    "trans": [
+      "adj. 非凡的，极佳的"
+    ]
+  },
+  {
+    "name": "critique",
+    "trans": [
+      "adj. 挑剔的，批评的"
+    ]
+  },
+  {
+    "name": "génial",
+    "trans": [
+      "adj. 绝妙的，极好的"
+    ]
+  },
+  {
+    "name": "intéressé",
+    "trans": [
+      "adj. 感兴趣的"
+    ]
+  },
+  {
+    "name": "intéressant",
+    "trans": [
+      "adj. 有趣的"
+    ]
+  },
+  {
+    "name": "socialiste",
+    "trans": [
+      "adj. 社会主义的，社会党的"
+    ]
+  },
+  {
+    "name": "fumer",
+    "trans": [
+      "v.i. 吸烟"
+    ]
+  },
+  {
+    "name": "accuser",
+    "trans": [
+      "v.t. 指责，控告"
+    ]
+  },
+  {
+    "name": "défendre",
+    "trans": [
+      "v.t. 保卫，辩护"
+    ]
+  },
+  {
+    "name": "douter",
+    "trans": [
+      "v.i. 怀疑"
+    ]
+  },
+  {
+    "name": "suffire",
+    "trans": [
+      "v.i. 足够"
+    ]
+  },
+  {
+    "name": "refuser",
+    "trans": [
+      "v.t. 拒绝"
+    ]
+  },
+  {
+    "name": "regretter",
+    "trans": [
+      "v.t. 感到遗憾，后悔"
+    ]
+  },
+  {
+    "name": "louer",
+    "trans": [
+      "v.t. 租赁，租用"
+    ]
+  },
+  {
+    "name": "loger",
+    "trans": [
+      "v.t. 住宿，安置"
+    ]
+  },
+  {
+    "name": "commercialiser",
+    "trans": [
+      "v.t. 使商品化，销售"
+    ]
+  },
+  {
+    "name": "raconter",
+    "trans": [
+      "v.t. 讲述"
+    ]
+  },
+  {
+    "name": "tenir",
+    "trans": [
+      "v.t. 经营，支撑"
+    ]
+  },
+  {
+    "name": "indiquer",
+    "trans": [
+      "v.t. 指出，指示"
+    ]
+  },
+  {
+    "name": "improviser",
+    "trans": [
+      "v.i. 即兴创作"
+    ]
+  },
+  {
+    "name": "finaliser",
+    "trans": [
+      "v.t. 最终敲定，完成"
+    ]
+  },
+  {
+    "name": "nommer",
+    "trans": [
+      "v.t. 任命"
+    ]
+  },
+  {
+    "name": "amuser",
+    "trans": [
+      "v.t. 逗乐，使开心"
+    ]
+  },
+  {
+    "name": "signaler",
+    "trans": [
+      "v.t. 指出，提醒"
+    ]
+  },
+  {
+    "name": "interpréter",
+    "trans": [
+      "v.t. 解释，表演"
+    ]
+  },
+  {
+    "name": "payer",
+    "trans": [
+      "v.t. 支付，付钱"
+    ]
+  },
+  {
+    "name": "seulement",
+    "trans": [
+      "adv. 仅仅，只"
+    ]
+  },
+  {
+    "name": "en particulier",
+    "trans": [
+      "adv. 尤其，特别"
+    ]
+  },
+  {
+    "name": "à bord",
+    "trans": [
+      "adv. 在船上，在车上"
+    ]
+  },
+  {
+    "name": "avoir le blues",
+    "trans": [
+      "短语：感到忧郁，心情低落"
+    ]
+  },
+  {
+    "name": "donner de ses nouvelles",
+    "trans": [
+      "短语：告知近况"
+    ]
+  },
+  {
+    "name": "se loger",
+    "trans": [
+      "短语：安家，安顿"
+    ]
+  },
+  {
+    "name": "passer voir",
+    "trans": [
+      "短语：顺道探望"
+    ]
+  },
+  {
+    "name": "faire les comptes",
+    "trans": [
+      "短语：算账，核算"
+    ]
+  },
+  {
+    "name": "pôle emploi",
+    "trans": [
+      "短语：就业服务中心"
+    ]
+  },
+  {
+    "name": "faire confiance à",
+    "trans": [
+      "短语：信任，信赖……"
+    ]
+  },
+  {
+    "name": "à l'échéance",
+    "trans": [
+      "短语：分期付款，到期支付"
+    ]
+  },
+  {
+    "name": "par carte bancaire",
+    "trans": [
+      "短语：用银行卡支付"
+    ]
+  },
+  {
+    "name": "en espèces",
+    "trans": [
+      "短语：用现金支付"
+    ]
+  },
+  {
+    "name": "reprendre le pouvoir",
+    "trans": [
+      "短语：重新执政"
+    ]
+  },
+  {
+    "name": "être pour",
+    "trans": [
+      "短语：支持，赞成"
+    ]
+  },
+  {
+    "name": "être contre",
+    "trans": [
+      "短语：反对"
+    ]
+  }
+]

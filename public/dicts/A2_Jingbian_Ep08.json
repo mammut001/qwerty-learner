@@ -1,0 +1,548 @@
+[
+  {
+    "name": "curiosité",
+    "trans": [
+      "n.f. 好奇心"
+    ]
+  },
+  {
+    "name": "gaîté",
+    "trans": [
+      "n.f. 欢乐，愉快"
+    ]
+  },
+  {
+    "name": "spontanéité",
+    "trans": [
+      "n.f. 自发性，坦率"
+    ]
+  },
+  {
+    "name": "peau",
+    "trans": [
+      "n.f. 皮肤"
+    ]
+  },
+  {
+    "name": "blouse",
+    "trans": [
+      "n.f. 工作罩衫，白大褂"
+    ]
+  },
+  {
+    "name": "passion",
+    "trans": [
+      "n.f. 热情，激情"
+    ]
+  },
+  {
+    "name": "action",
+    "trans": [
+      "n.f. 行动"
+    ]
+  },
+  {
+    "name": "jeunesse",
+    "trans": [
+      "n.f. 年轻，青春"
+    ]
+  },
+  {
+    "name": "énergie",
+    "trans": [
+      "n.f. 能量，精力"
+    ]
+  },
+  {
+    "name": "élégance",
+    "trans": [
+      "n.f. 优雅，高贵"
+    ]
+  },
+  {
+    "name": "simplicité",
+    "trans": [
+      "n.f. 简朴，简单"
+    ]
+  },
+  {
+    "name": "générosité",
+    "trans": [
+      "n.f. 慷慨，大度"
+    ]
+  },
+  {
+    "name": "créativité",
+    "trans": [
+      "n.f. 创造力"
+    ]
+  },
+  {
+    "name": "annonce",
+    "trans": [
+      "n.f. 通告，启事"
+    ]
+  },
+  {
+    "name": "réponse",
+    "trans": [
+      "n.f. 回答，答复"
+    ]
+  },
+  {
+    "name": "préhistoire",
+    "trans": [
+      "n.f. 史前时代"
+    ]
+  },
+  {
+    "name": "taille",
+    "trans": [
+      "n.f. 身高，尺寸"
+    ]
+  },
+  {
+    "name": "campement",
+    "trans": [
+      "n.m. 营地"
+    ]
+  },
+  {
+    "name": "nomade",
+    "trans": [
+      "n.m./f. 游牧者，流浪者"
+    ]
+  },
+  {
+    "name": "abri",
+    "trans": [
+      "n.m. 庇护所，避难处"
+    ]
+  },
+  {
+    "name": "ossement",
+    "trans": [
+      "n.m. 骨骼，骸骨"
+    ]
+  },
+  {
+    "name": "torche",
+    "trans": [
+      "n.f. 火把，火炬"
+    ]
+  },
+  {
+    "name": "paroi",
+    "trans": [
+      "n.f. 岩壁，墙面"
+    ]
+  },
+  {
+    "name": "signe",
+    "trans": [
+      "n.m. 标志，符号"
+    ]
+  },
+  {
+    "name": "bison",
+    "trans": [
+      "n.m. 野牛"
+    ]
+  },
+  {
+    "name": "mammouth",
+    "trans": [
+      "n.m. 猛犸象"
+    ]
+  },
+  {
+    "name": "ours",
+    "trans": [
+      "n.m. 熊"
+    ]
+  },
+  {
+    "name": "renne",
+    "trans": [
+      "n.m. 驯鹿"
+    ]
+  },
+  {
+    "name": "reine",
+    "trans": [
+      "n.f. 女王，王后"
+    ]
+  },
+  {
+    "name": "mur",
+    "trans": [
+      "n.m. 墙壁"
+    ]
+  },
+  {
+    "name": "secours",
+    "trans": [
+      "n.m. 救援，帮助"
+    ]
+  },
+  {
+    "name": "trou",
+    "trans": [
+      "n.m. 洞，孔"
+    ]
+  },
+  {
+    "name": "cheval",
+    "trans": [
+      "n.m. 马"
+    ]
+  },
+  {
+    "name": "chevaux",
+    "trans": [
+      "n.m.pl. 马（复数）"
+    ]
+  },
+  {
+    "name": "dame",
+    "trans": [
+      "n.f. 女士"
+    ]
+  },
+  {
+    "name": "radeau",
+    "trans": [
+      "n.m. 木筏"
+    ]
+  },
+  {
+    "name": "paquet",
+    "trans": [
+      "n.m. 包裹，小盒"
+    ]
+  },
+  {
+    "name": "surprise",
+    "trans": [
+      "n.f. 惊讶，惊喜"
+    ]
+  },
+  {
+    "name": "antiquaire",
+    "trans": [
+      "n.m./f. 古董商"
+    ]
+  },
+  {
+    "name": "antiquité",
+    "trans": [
+      "n.f. 古物，古代"
+    ]
+  },
+  {
+    "name": "astérisque",
+    "trans": [
+      "n.m. 星号"
+    ]
+  },
+  {
+    "name": "obésité",
+    "trans": [
+      "n.f. 肥胖症"
+    ]
+  },
+  {
+    "name": "état",
+    "trans": [
+      "n.m. 状态；国家"
+    ]
+  },
+  {
+    "name": "druide",
+    "trans": [
+      "n.m. 德鲁伊祭司"
+    ]
+  },
+  {
+    "name": "manque",
+    "trans": [
+      "n.m. 缺少，缺乏"
+    ]
+  },
+  {
+    "name": "cousin",
+    "trans": [
+      "n.m. 堂兄弟，表兄弟"
+    ]
+  },
+  {
+    "name": "cousine",
+    "trans": [
+      "n.f. 堂姐妹，表姐妹"
+    ]
+  },
+  {
+    "name": "tricolore",
+    "trans": [
+      "adj. 三色的"
+    ]
+  },
+  {
+    "name": "beige",
+    "trans": [
+      "adj. 米色的"
+    ]
+  },
+  {
+    "name": "bronzé",
+    "trans": [
+      "adj. 晒黑的，古铜色的"
+    ]
+  },
+  {
+    "name": "clair",
+    "trans": [
+      "adj. 明亮的，浅色的"
+    ]
+  },
+  {
+    "name": "foncé",
+    "trans": [
+      "adj. 深色的，暗的"
+    ]
+  },
+  {
+    "name": "exceptionnel",
+    "trans": [
+      "adj. 非凡的，特殊的"
+    ]
+  },
+  {
+    "name": "orné",
+    "trans": [
+      "adj. 装饰有……的"
+    ]
+  },
+  {
+    "name": "pénible",
+    "trans": [
+      "adj. 痛苦的，吃力的"
+    ]
+  },
+  {
+    "name": "rond",
+    "trans": [
+      "adj. 圆形的"
+    ]
+  },
+  {
+    "name": "normal",
+    "trans": [
+      "adj. 正常的"
+    ]
+  },
+  {
+    "name": "germain",
+    "trans": [
+      "adj. 亲近的，同源的"
+    ]
+  },
+  {
+    "name": "s'accorder",
+    "trans": [
+      "v.pr. 相处融洽，相配"
+    ]
+  },
+  {
+    "name": "affirmer",
+    "trans": [
+      "v.t. 肯定，断言"
+    ]
+  },
+  {
+    "name": "ajouter",
+    "trans": [
+      "v.t. 补充，增加"
+    ]
+  },
+  {
+    "name": "annoncer",
+    "trans": [
+      "v.t. 宣布，通知"
+    ]
+  },
+  {
+    "name": "déclarer",
+    "trans": [
+      "v.t. 声明，申报"
+    ]
+  },
+  {
+    "name": "reporter",
+    "trans": [
+      "v.t. 推迟，延期"
+    ]
+  },
+  {
+    "name": "expliquer",
+    "trans": [
+      "v.t. 解释"
+    ]
+  },
+  {
+    "name": "préciser",
+    "trans": [
+      "v.t. 明确说明，指出"
+    ]
+  },
+  {
+    "name": "répondre",
+    "trans": [
+      "v.i. 回答"
+    ]
+  },
+  {
+    "name": "prier",
+    "trans": [
+      "v.t. 请求，恳求"
+    ]
+  },
+  {
+    "name": "suggérer",
+    "trans": [
+      "v.t. 建议，提示"
+    ]
+  },
+  {
+    "name": "peindre",
+    "trans": [
+      "v.t. 绘画，粉刷"
+    ]
+  },
+  {
+    "name": "dessiner",
+    "trans": [
+      "v.t. 画素描，绘制"
+    ]
+  },
+  {
+    "name": "graver",
+    "trans": [
+      "v.t. 雕刻，刻印"
+    ]
+  },
+  {
+    "name": "sculpter",
+    "trans": [
+      "v.t. 雕塑"
+    ]
+  },
+  {
+    "name": "représenter",
+    "trans": [
+      "v.t. 描绘，代表"
+    ]
+  },
+  {
+    "name": "fâcher",
+    "trans": [
+      "v.t. 使生气"
+    ]
+  },
+  {
+    "name": "remarquer",
+    "trans": [
+      "v.t. 注意到，察觉"
+    ]
+  },
+  {
+    "name": "lutter",
+    "trans": [
+      "v.i. 斗争，搏斗"
+    ]
+  },
+  {
+    "name": "s'entendre",
+    "trans": [
+      "v.pr. 相处"
+    ]
+  },
+  {
+    "name": "surtout",
+    "trans": [
+      "adv. 特别，尤其"
+    ]
+  },
+  {
+    "name": "trop",
+    "trans": [
+      "adv. 太，过度"
+    ]
+  },
+  {
+    "name": "carte blanche",
+    "trans": [
+      "短语：全权委托，全权处理"
+    ]
+  },
+  {
+    "name": "voir rouge",
+    "trans": [
+      "短语：勃然大怒，发火"
+    ]
+  },
+  {
+    "name": "feu vert",
+    "trans": [
+      "短语：放行许可，绿灯"
+    ]
+  },
+  {
+    "name": "noir sur blanc",
+    "trans": [
+      "短语：白纸黑字"
+    ]
+  },
+  {
+    "name": "bleu marine",
+    "trans": [
+      "短语：藏青色，海军蓝"
+    ]
+  },
+  {
+    "name": "travail au noir",
+    "trans": [
+      "短语：打黑工，非法雇工"
+    ]
+  },
+  {
+    "name": "être perdu",
+    "trans": [
+      "短语：迷路，不知所措"
+    ]
+  },
+  {
+    "name": "avoir le goût de",
+    "trans": [
+      "短语：喜爱，爱好……"
+    ]
+  },
+  {
+    "name": "faire remarquer",
+    "trans": [
+      "短语：提醒注意，使人留意"
+    ]
+  },
+  {
+    "name": "s'entendre bien",
+    "trans": [
+      "短语：相处融洽"
+    ]
+  },
+  {
+    "name": "donner sa langue au chat",
+    "trans": [
+      "短语：猜不出认输"
+    ]
+  }
+]

@@ -1,0 +1,560 @@
+[
+  {
+    "name": "loterie",
+    "trans": [
+      "n.f. 彩票，抽奖"
+    ]
+  },
+  {
+    "name": "somme",
+    "trans": [
+      "n.f. 金额，款项"
+    ]
+  },
+  {
+    "name": "garde-robe",
+    "trans": [
+      "n.f. 衣柜；个人全部衣物"
+    ]
+  },
+  {
+    "name": "vigile",
+    "trans": [
+      "n.m. 保安"
+    ]
+  },
+  {
+    "name": "gain",
+    "trans": [
+      "n.m. 获利，中奖收益"
+    ]
+  },
+  {
+    "name": "gagnant",
+    "trans": [
+      "n.m. 中奖者，赢家"
+    ]
+  },
+  {
+    "name": "gagnante",
+    "trans": [
+      "n.f. 女性中奖者"
+    ]
+  },
+  {
+    "name": "joueur",
+    "trans": [
+      "n.m. 彩民，玩家"
+    ]
+  },
+  {
+    "name": "joueuse",
+    "trans": [
+      "n.f. 女性彩民"
+    ]
+  },
+  {
+    "name": "association",
+    "trans": [
+      "n.f. 协会，社团"
+    ]
+  },
+  {
+    "name": "ampleur",
+    "trans": [
+      "n.f. 规模，广度"
+    ]
+  },
+  {
+    "name": "chèque",
+    "trans": [
+      "n.m. 支票"
+    ]
+  },
+  {
+    "name": "maire",
+    "trans": [
+      "n.m. 市长"
+    ]
+  },
+  {
+    "name": "dette",
+    "trans": [
+      "n.f. 债务"
+    ]
+  },
+  {
+    "name": "maison de retraite",
+    "trans": [
+      "n.f. 养老院"
+    ]
+  },
+  {
+    "name": "rentrée",
+    "trans": [
+      "n.f. 开学，复工"
+    ]
+  },
+  {
+    "name": "cantine",
+    "trans": [
+      "n.f. 食堂"
+    ]
+  },
+  {
+    "name": "montant",
+    "trans": [
+      "n.m. 总额，数目"
+    ]
+  },
+  {
+    "name": "bouchon",
+    "trans": [
+      "n.m. 瓶塞；堵车"
+    ]
+  },
+  {
+    "name": "tire-bouchon",
+    "trans": [
+      "n.m. 开瓶器"
+    ]
+  },
+  {
+    "name": "ballon",
+    "trans": [
+      "n.m. 气球，球"
+    ]
+  },
+  {
+    "name": "montgolfière",
+    "trans": [
+      "n.f. 热气球"
+    ]
+  },
+  {
+    "name": "grande roue",
+    "trans": [
+      "n.f. 摩天轮"
+    ]
+  },
+  {
+    "name": "vertige",
+    "trans": [
+      "n.m. 头晕，眩晕"
+    ]
+  },
+  {
+    "name": "terre",
+    "trans": [
+      "n.f. 土地，地面"
+    ]
+  },
+  {
+    "name": "partenaire",
+    "trans": [
+      "n.m./f. 伙伴，搭档"
+    ]
+  },
+  {
+    "name": "château",
+    "trans": [
+      "n.m. 城堡"
+    ]
+  },
+  {
+    "name": "époque",
+    "trans": [
+      "n.f. 时代，时期"
+    ]
+  },
+  {
+    "name": "pré",
+    "trans": [
+      "n.m. 草地，牧场"
+    ]
+  },
+  {
+    "name": "tablier",
+    "trans": [
+      "n.m. 围裙"
+    ]
+  },
+  {
+    "name": "bille",
+    "trans": [
+      "n.f. 弹珠，小滚珠"
+    ]
+  },
+  {
+    "name": "aventure",
+    "trans": [
+      "n.f. 冒险，奇遇"
+    ]
+  },
+  {
+    "name": "portable",
+    "trans": [
+      "n.m. 手提电话，手机"
+    ]
+  },
+  {
+    "name": "intention",
+    "trans": [
+      "n.f. 意图，意愿"
+    ]
+  },
+  {
+    "name": "stupéfaction",
+    "trans": [
+      "n.f. 惊愕，目瞪口呆"
+    ]
+  },
+  {
+    "name": "portrait",
+    "trans": [
+      "n.m. 肖像，人物描写"
+    ]
+  },
+  {
+    "name": "hypothèse",
+    "trans": [
+      "n.f. 假设"
+    ]
+  },
+  {
+    "name": "personnage",
+    "trans": [
+      "n.m. 角色，人物"
+    ]
+  },
+  {
+    "name": "bière",
+    "trans": [
+      "n.f. 啤酒"
+    ]
+  },
+  {
+    "name": "serpent",
+    "trans": [
+      "n.m. 蛇"
+    ]
+  },
+  {
+    "name": "crocodile",
+    "trans": [
+      "n.m. 鳄鱼"
+    ]
+  },
+  {
+    "name": "blague",
+    "trans": [
+      "n.f. 玩笑"
+    ]
+  },
+  {
+    "name": "plaisanterie",
+    "trans": [
+      "n.f. 玩笑"
+    ]
+  },
+  {
+    "name": "jeu de mots",
+    "trans": [
+      "n.m. 双关语，文字游戏"
+    ]
+  },
+  {
+    "name": "détective",
+    "trans": [
+      "n.m./f. 侦探"
+    ]
+  },
+  {
+    "name": "profil",
+    "trans": [
+      "n.m. 侧面轮廓，概况"
+    ]
+  },
+  {
+    "name": "oreille",
+    "trans": [
+      "n.f. 耳朵"
+    ]
+  },
+  {
+    "name": "dossier",
+    "trans": [
+      "n.m. 档案，卷宗"
+    ]
+  },
+  {
+    "name": "lunettes",
+    "trans": [
+      "n.f.pl. 眼镜"
+    ]
+  },
+  {
+    "name": "terminal",
+    "trans": [
+      "n.m. 终点站"
+    ]
+  },
+  {
+    "name": "mec",
+    "trans": [
+      "n.m. 家伙，小伙子（俚语）"
+    ]
+  },
+  {
+    "name": "poumon",
+    "trans": [
+      "n.m. 肺部"
+    ]
+  },
+  {
+    "name": "atterrissage",
+    "trans": [
+      "n.m. 降落，着陆"
+    ]
+  },
+  {
+    "name": "anonyme",
+    "trans": [
+      "adj. 匿名的"
+    ]
+  },
+  {
+    "name": "faramineux",
+    "trans": [
+      "adj. 惊人的，天文数字的"
+    ]
+  },
+  {
+    "name": "rude",
+    "trans": [
+      "adj. 艰苦的，粗糙的"
+    ]
+  },
+  {
+    "name": "attentif",
+    "trans": [
+      "adj. 专注的，关心的"
+    ]
+  },
+  {
+    "name": "bienveillant",
+    "trans": [
+      "adj. 仁慈的，善意的"
+    ]
+  },
+  {
+    "name": "gonflé",
+    "trans": [
+      "adj. 充气的；生气的"
+    ]
+  },
+  {
+    "name": "autoritaire",
+    "trans": [
+      "adj. 专制的，专横的"
+    ]
+  },
+  {
+    "name": "amoureux",
+    "trans": [
+      "adj. 恋爱的，热爱的"
+    ]
+  },
+  {
+    "name": "carnivore",
+    "trans": [
+      "adj. 食肉的"
+    ]
+  },
+  {
+    "name": "néfaste",
+    "trans": [
+      "adj. 有害的，不吉利的"
+    ]
+  },
+  {
+    "name": "faste",
+    "trans": [
+      "adj. 吉利的，祥瑞的"
+    ]
+  },
+  {
+    "name": "s'aérer",
+    "trans": [
+      "v.pr. 透气，呼吸新鲜空气"
+    ]
+  },
+  {
+    "name": "promettre",
+    "trans": [
+      "v.t. 保证，答应"
+    ]
+  },
+  {
+    "name": "reverser",
+    "trans": [
+      "v.t. 移交，转交"
+    ]
+  },
+  {
+    "name": "se dégonfler",
+    "trans": [
+      "v.pr. 漏气；气馁，退缩"
+    ]
+  },
+  {
+    "name": "se connecter",
+    "trans": [
+      "v.pr. 连接，联络"
+    ]
+  },
+  {
+    "name": "se poser",
+    "trans": [
+      "v.pr. 降落，着陆"
+    ]
+  },
+  {
+    "name": "compter",
+    "trans": [
+      "v.i. 指望，打算"
+    ]
+  },
+  {
+    "name": "hésiter",
+    "trans": [
+      "v.i. 犹豫"
+    ]
+  },
+  {
+    "name": "atterrir",
+    "trans": [
+      "v.i. 降落"
+    ]
+  },
+  {
+    "name": "décoller",
+    "trans": [
+      "v.i. 起飞"
+    ]
+  },
+  {
+    "name": "ailleurs",
+    "trans": [
+      "adv. 在别处"
+    ]
+  },
+  {
+    "name": "là-dedans",
+    "trans": [
+      "adv. 在里面"
+    ]
+  },
+  {
+    "name": "positivement",
+    "trans": [
+      "adv. 确实地，肯定地"
+    ]
+  },
+  {
+    "name": "prendre le large",
+    "trans": [
+      "短语：远走高飞，逍遥自在"
+    ]
+  },
+  {
+    "name": "faire un tour du monde",
+    "trans": [
+      "短语：环球旅行"
+    ]
+  },
+  {
+    "name": "dans un premier temps",
+    "trans": [
+      "短语：首先，一开始"
+    ]
+  },
+  {
+    "name": "pour le moment",
+    "trans": [
+      "短语：目前，暂时"
+    ]
+  },
+  {
+    "name": "avoir le vertige",
+    "trans": [
+      "短语：感到眩晕"
+    ]
+  },
+  {
+    "name": "à ta place",
+    "trans": [
+      "短语：如果我是你"
+    ]
+  },
+  {
+    "name": "avoir l'intention de",
+    "trans": [
+      "短语：打算做……"
+    ]
+  },
+  {
+    "name": "compter sur",
+    "trans": [
+      "短语：依靠，指望……"
+    ]
+  },
+  {
+    "name": "sous forme de",
+    "trans": [
+      "短语：以……的形式"
+    ]
+  },
+  {
+    "name": "poser des questions",
+    "trans": [
+      "短语：提出问题"
+    ]
+  },
+  {
+    "name": "sans hésitation",
+    "trans": [
+      "短语：毫不犹豫"
+    ]
+  },
+  {
+    "name": "avoir raison",
+    "trans": [
+      "短语：有道理，是对的"
+    ]
+  },
+  {
+    "name": "avoir tort",
+    "trans": [
+      "短语：错了，不对"
+    ]
+  },
+  {
+    "name": "faire une blague",
+    "trans": [
+      "短语：开玩笑"
+    ]
+  },
+  {
+    "name": "porter des lunettes",
+    "trans": [
+      "短语：戴眼镜"
+    ]
+  },
+  {
+    "name": "à proximité de",
+    "trans": [
+      "短语：在……附近"
+    ]
+  }
+]

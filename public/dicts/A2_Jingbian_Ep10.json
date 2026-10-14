@@ -1,0 +1,494 @@
+[
+  {
+    "name": "tâche",
+    "trans": [
+      "n.f. 任务，工作"
+    ]
+  },
+  {
+    "name": "tâche ménagère",
+    "trans": [
+      "n.f. 家务劳动"
+    ]
+  },
+  {
+    "name": "repassage",
+    "trans": [
+      "n.m. 熨烫衣服"
+    ]
+  },
+  {
+    "name": "vaisselle",
+    "trans": [
+      "n.f. 洗碗；餐具"
+    ]
+  },
+  {
+    "name": "lessive",
+    "trans": [
+      "n.f. 洗衣服；洗涤物"
+    ]
+  },
+  {
+    "name": "bricolage",
+    "trans": [
+      "n.m. 修修补补，手工作业"
+    ]
+  },
+  {
+    "name": "aspirateur",
+    "trans": [
+      "n.m. 吸尘器"
+    ]
+  },
+  {
+    "name": "poubelle",
+    "trans": [
+      "n.f. 垃圾桶"
+    ]
+  },
+  {
+    "name": "ampoule",
+    "trans": [
+      "n.f. 灯泡"
+    ]
+  },
+  {
+    "name": "meuble",
+    "trans": [
+      "n.m. 家具"
+    ]
+  },
+  {
+    "name": "locataire",
+    "trans": [
+      "n.m./f. 房客，租户"
+    ]
+  },
+  {
+    "name": "colocation",
+    "trans": [
+      "n.f. 合租"
+    ]
+  },
+  {
+    "name": "colocataire",
+    "trans": [
+      "n.m./f. 合租室友"
+    ]
+  },
+  {
+    "name": "charge",
+    "trans": [
+      "n.f. 负担；物业杂费"
+    ]
+  },
+  {
+    "name": "bouquin",
+    "trans": [
+      "n.m. 书（口语）"
+    ]
+  },
+  {
+    "name": "chaussée",
+    "trans": [
+      "n.f. 车行道，马路"
+    ]
+  },
+  {
+    "name": "offre",
+    "trans": [
+      "n.f. 报价，提供"
+    ]
+  },
+  {
+    "name": "horaire",
+    "trans": [
+      "n.m. 时间表，营业时间"
+    ]
+  },
+  {
+    "name": "bout",
+    "trans": [
+      "n.m. 尽头，末端"
+    ]
+  },
+  {
+    "name": "surface",
+    "trans": [
+      "n.f. 面积，表面"
+    ]
+  },
+  {
+    "name": "hygiène",
+    "trans": [
+      "n.f. 卫生"
+    ]
+  },
+  {
+    "name": "pièce",
+    "trans": [
+      "n.f. 房间；一件"
+    ]
+  },
+  {
+    "name": "placard",
+    "trans": [
+      "n.m. 壁橱，壁柜"
+    ]
+  },
+  {
+    "name": "commerce",
+    "trans": [
+      "n.m. 商业，店铺"
+    ]
+  },
+  {
+    "name": "proximité",
+    "trans": [
+      "n.f. 邻近，接近"
+    ]
+  },
+  {
+    "name": "règle",
+    "trans": [
+      "n.f. 规则，尺子"
+    ]
+  },
+  {
+    "name": "tolérance",
+    "trans": [
+      "n.f. 宽容"
+    ]
+  },
+  {
+    "name": "humour",
+    "trans": [
+      "n.m. 幽默"
+    ]
+  },
+  {
+    "name": "humeur",
+    "trans": [
+      "n.f. 心情，情绪"
+    ]
+  },
+  {
+    "name": "habitude",
+    "trans": [
+      "n.f. 习惯"
+    ]
+  },
+  {
+    "name": "porcherie",
+    "trans": [
+      "n.f. 猪圈；脏乱的地方"
+    ]
+  },
+  {
+    "name": "étagère",
+    "trans": [
+      "n.f. 架子，搁板"
+    ]
+  },
+  {
+    "name": "courses",
+    "trans": [
+      "n.f.pl. 采购的物品，跑腿"
+    ]
+  },
+  {
+    "name": "balcon",
+    "trans": [
+      "n.m. 阳台"
+    ]
+  },
+  {
+    "name": "évier",
+    "trans": [
+      "n.m. 洗碗池"
+    ]
+  },
+  {
+    "name": "couette",
+    "trans": [
+      "n.f. 被子，羽绒被"
+    ]
+  },
+  {
+    "name": "drap",
+    "trans": [
+      "n.m. 床单"
+    ]
+  },
+  {
+    "name": "oreiller",
+    "trans": [
+      "n.m. 枕头"
+    ]
+  },
+  {
+    "name": "rideau",
+    "trans": [
+      "n.m. 窗帘"
+    ]
+  },
+  {
+    "name": "ménager",
+    "trans": [
+      "adj. 家务的，家庭的"
+    ]
+  },
+  {
+    "name": "rare",
+    "trans": [
+      "adj. 罕见的，稀少的"
+    ]
+  },
+  {
+    "name": "mensuel",
+    "trans": [
+      "adj. 每月的"
+    ]
+  },
+  {
+    "name": "irréprochable",
+    "trans": [
+      "adj. 无可挑剔的"
+    ]
+  },
+  {
+    "name": "équipé",
+    "trans": [
+      "adj. 配备齐全的"
+    ]
+  },
+  {
+    "name": "radin",
+    "trans": [
+      "adj. 吝啬的，小气的"
+    ]
+  },
+  {
+    "name": "perso",
+    "trans": [
+      "adj. 个人的"
+    ]
+  },
+  {
+    "name": "propre",
+    "trans": [
+      "adj. 干净的；自己的"
+    ]
+  },
+  {
+    "name": "sale",
+    "trans": [
+      "adj. 脏的"
+    ]
+  },
+  {
+    "name": "silencieux",
+    "trans": [
+      "adj. 安静的"
+    ]
+  },
+  {
+    "name": "insupportable",
+    "trans": [
+      "adj. 难以忍受的"
+    ]
+  },
+  {
+    "name": "partager",
+    "trans": [
+      "v.t. 分享，分担"
+    ]
+  },
+  {
+    "name": "nettoyer",
+    "trans": [
+      "v.t. 清洁，打扫"
+    ]
+  },
+  {
+    "name": "vider",
+    "trans": [
+      "v.t. 清空，倒空"
+    ]
+  },
+  {
+    "name": "étendre",
+    "trans": [
+      "v.t. 展开，晾晒"
+    ]
+  },
+  {
+    "name": "accrocher",
+    "trans": [
+      "v.t. 挂上"
+    ]
+  },
+  {
+    "name": "décrocher",
+    "trans": [
+      "v.t. 取下，摘下"
+    ]
+  },
+  {
+    "name": "installer",
+    "trans": [
+      "v.t. 安装，安置"
+    ]
+  },
+  {
+    "name": "monter",
+    "trans": [
+      "v.t. 组装；登上"
+    ]
+  },
+  {
+    "name": "débarrasser",
+    "trans": [
+      "v.t. 清理，收拾"
+    ]
+  },
+  {
+    "name": "repasser",
+    "trans": [
+      "v.t. 熨烫"
+    ]
+  },
+  {
+    "name": "balayer",
+    "trans": [
+      "v.t. 扫地"
+    ]
+  },
+  {
+    "name": "salir",
+    "trans": [
+      "v.t. 弄脏"
+    ]
+  },
+  {
+    "name": "tolérer",
+    "trans": [
+      "v.t. 容忍，容许"
+    ]
+  },
+  {
+    "name": "cohabiter",
+    "trans": [
+      "v.i. 共同居住，同居"
+    ]
+  },
+  {
+    "name": "en revanche",
+    "trans": [
+      "adv. 相反，然而"
+    ]
+  },
+  {
+    "name": "par semaine",
+    "trans": [
+      "adv. 每周"
+    ]
+  },
+  {
+    "name": "mensuellement",
+    "trans": [
+      "adv. 每月地"
+    ]
+  },
+  {
+    "name": "faire le ménage",
+    "trans": [
+      "短语：做家务"
+    ]
+  },
+  {
+    "name": "faire le lit",
+    "trans": [
+      "短语：铺床，整理床铺"
+    ]
+  },
+  {
+    "name": "faire la vaisselle",
+    "trans": [
+      "短语：洗碗"
+    ]
+  },
+  {
+    "name": "faire la lessive",
+    "trans": [
+      "短语：洗衣服"
+    ]
+  },
+  {
+    "name": "faire la cuisine",
+    "trans": [
+      "短语：做饭，下厨"
+    ]
+  },
+  {
+    "name": "passer l'aspirateur",
+    "trans": [
+      "短语：用吸尘器打扫"
+    ]
+  },
+  {
+    "name": "sortir la poubelle",
+    "trans": [
+      "短语：倒垃圾"
+    ]
+  },
+  {
+    "name": "vider la poubelle",
+    "trans": [
+      "短语：清空垃圾桶"
+    ]
+  },
+  {
+    "name": "étendre le linge",
+    "trans": [
+      "短语：晾衣服"
+    ]
+  },
+  {
+    "name": "changer une ampoule",
+    "trans": [
+      "短语：换灯泡"
+    ]
+  },
+  {
+    "name": "monter un meuble",
+    "trans": [
+      "短语：组装家具"
+    ]
+  },
+  {
+    "name": "débarrasser la table",
+    "trans": [
+      "短语：收拾餐桌"
+    ]
+  },
+  {
+    "name": "de prime abord",
+    "trans": [
+      "短语：乍看之下，起初"
+    ]
+  },
+  {
+    "name": "à tour de rôle",
+    "trans": [
+      "短语：轮流"
+    ]
+  },
+  {
+    "name": "mettre la table",
+    "trans": [
+      "短语：摆餐具"
+    ]
+  }
+]
