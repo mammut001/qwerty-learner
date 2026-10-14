@@ -4,6 +4,7 @@ import {
   adminApiEnabled,
   authorizeAdminRequest,
   authorizeRecallModeration,
+  parseRecallModeratorCanApprove,
   loadPlacementCohortReportFromDb,
   placementCohortCsv,
 } from './study-admin.mjs'
@@ -27,6 +28,7 @@ import {
 } from './study-reports.mjs'
 import {
   MAX_PENDING_RECALLS,
+  countRecallsByStatus,
   listApprovedRecalls,
   listRecallsForAdmin,
   reviewRecalls,
@@ -267,6 +269,7 @@ export function createStudyServer({
   accessPassword = process.env.STUDY_ACCESS_PASSWORD || '',
   adminToken = process.env.STUDY_ADMIN_TOKEN || '',
   recallModeratorToken = process.env.STUDY_RECALL_MODERATOR_TOKEN || '',
+  recallModeratorCanApprove = parseRecallModeratorCanApprove(process.env.STUDY_RECALL_MODERATOR_CAN_APPROVE),
   aiProvider = createAiProvider(process.env),
   aiLimits = aiRateLimits(process.env),
   deepgramApiKey = process.env.DEEPGRAM_API_KEY || '',
@@ -293,6 +296,7 @@ export function createStudyServer({
     db.exec('ALTER TABLE sync_keys ADD COLUMN revoked INTEGER NOT NULL DEFAULT 0')
   ensureNodeFeatureSchema(db)
   const metrics = createStudyMetrics()
+  const canModeratorApprove = parseRecallModeratorCanApprove(recallModeratorCanApprove)
   const slowThresholdMs = Number.isFinite(slowRequestMs) && slowRequestMs >= 0 ? slowRequestMs : 1000
 
   const verifier = firebaseVerifier || (firebaseProjectId ? createFirebaseVerifier({ projectId: firebaseProjectId }) : null)
@@ -477,6 +481,7 @@ export function createStudyServer({
     const adminReportsCsv = path === '/api/study-plan/admin/reports.csv'
     const adminReportsResolve = path === '/api/study-plan/admin/reports/resolve'
     const adminRecalls = path === '/api/study-plan/admin/recalls'
+    const adminRecallsSummary = path === '/api/study-plan/admin/recalls/summary'
     const adminRecallsReview = path === '/api/study-plan/admin/recalls/review'
     const itemReports = path === '/api/study-plan/reports'
     const recalls = path === '/api/study-plan/recalls'
@@ -503,7 +508,7 @@ export function createStudyServer({
         !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
         !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts && !access &&
         !adminConfig && !adminPlacementCohort && !adminPlacementCsv && !adminCohorts && !adminCohortRotate &&
-        !adminReports && !adminReportsCsv && !adminReportsResolve && !adminRecalls && !adminRecallsReview &&
+        !adminReports && !adminReportsCsv && !adminReportsResolve && !adminRecalls && !adminRecallsReview && !adminRecallsSummary &&
         !itemReports && !recalls &&
         !cohortInfo && !cohortJoin && !plan) {
       if (staticDir && !path.startsWith('/api/')) {
@@ -728,6 +733,21 @@ export function createStudyServer({
       return send(200, { ok: true, recalls: items, items, total })
     }
 
+    if (adminRecallsSummary) {
+      if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      const auth = authorizeRecallModeration(req.headers.authorization, {
+        adminToken,
+        moderatorToken: recallModeratorToken,
+      })
+      if (!auth.ok) {
+        audit(null, 'admin_recalls_summary', auth.status === 401 ? 'denied' : 'disabled')
+        return sendError(auth.status, auth.code, auth.message)
+      }
+      const counts = countRecallsByStatus(db)
+      audit(null, 'admin_recalls_summary', 'success', { role: auth.role })
+      return send(200, { ok: true, pending: counts.pending, approved: counts.approved, rejected: counts.rejected })
+    }
+
     if (adminRecallsReview) {
       if (req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
       const auth = authorizeRecallModeration(req.headers.authorization, {
@@ -756,6 +776,10 @@ export function createStudyServer({
       }
       if (input.action !== 'approve' && input.action !== 'reject') {
         return sendError(400, 'RECALL_REVIEW_INVALID', 'Invalid review action')
+      }
+      if (auth.role === 'moderator' && input.action === 'approve' && !canModeratorApprove) {
+        audit(null, 'admin_recalls_review', 'denied', { role: 'moderator', action: 'approve' })
+        return sendError(403, 'RECALL_MODERATOR_REJECT_ONLY', 'Moderator token is reject-only')
       }
       const result = reviewRecalls(db, { ids: input.ids, action: input.action })
       audit(null, 'admin_recalls_review', 'success', { count: result.count, action: input.action, role: auth.role })
@@ -2068,3 +2092,5 @@ export function createStudyServer({
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   createStudyServer().listen(Number(process.env.PORT || 8787), process.env.HOST || '127.0.0.1')
 }
+
+export { parseRecallModeratorCanApprove }

@@ -22,6 +22,7 @@ export const RECALL_REASON_CODES = Object.freeze({
   SCHEMA_INVALID: 'SCHEMA_INVALID',
   MODEL_ERROR: 'MODEL_ERROR',
   APPROVAL_CAP_EXCEEDED: 'APPROVAL_CAP_EXCEEDED',
+  RULES_ONLY_UNSCREENED: 'RULES_ONLY_UNSCREENED',
 })
 
 export const CLEAR_REJECT_REASONS = Object.freeze(new Set([
@@ -809,6 +810,53 @@ export function wrapProviderForRecalls(provider) {
 }
 
 /**
+ * Deterministic rules-only moderation without calling any AI model or provider.
+ */
+export function moderateRecallRulesOnly(item, { now = Date.now() } = {}) {
+  const preFilter = preFilterRecall(item)
+  if (preFilter.hit) {
+    return {
+      id: item?.id,
+      decision: 'reject',
+      recommendation: 'reject',
+      reasons: [preFilter.reason || RECALL_REASON_CODES.ADVERTISING],
+      model: 'rules-only',
+      harnessVersion: RECALL_HARNESS_VERSION,
+      moderatedAt: now,
+    }
+  }
+
+  const combinedText = [item?.topic, item?.note, item?.city].filter(Boolean).join('\n')
+  const injectionRegexHit = detectPromptInjection(combinedText)
+  const metaLanguageHit = detectMetaVocabulary(combinedText)
+
+  if (injectionRegexHit || metaLanguageHit) {
+    const reasons = []
+    if (injectionRegexHit) reasons.push(RECALL_REASON_CODES.PROMPT_INJECTION_SUSPECTED)
+    if (metaLanguageHit) reasons.push(RECALL_REASON_CODES.META_LANGUAGE)
+    return {
+      id: item?.id,
+      decision: 'hold',
+      recommendation: 'review',
+      reasons,
+      model: 'rules-only',
+      harnessVersion: RECALL_HARNESS_VERSION,
+      moderatedAt: now,
+    }
+  }
+
+  return {
+    id: item?.id,
+    decision: 'hold',
+    recommendation: 'human',
+    reasons: [RECALL_REASON_CODES.RULES_ONLY_UNSCREENED],
+    model: 'rules-only',
+    harnessVersion: RECALL_HARNESS_VERSION,
+    moderatedAt: now,
+  }
+}
+
+/**
  * Orchestrates moderation for one recall item.
  * Items are processed strictly independently. Fresh nonces are used for every call.
  */
@@ -819,7 +867,11 @@ export async function moderateRecall(item, provider, {
   approvedCount = 0,
   maxApprove = Infinity,
   allowAutoApprove = false,
+  rulesOnly = false,
 } = {}) {
+  if (rulesOnly) {
+    return moderateRecallRulesOnly(item, { now })
+  }
   if (!provider) throw new Error('AI provider is required for moderation')
   const wrapped = wrapProviderForRecalls(provider)
 

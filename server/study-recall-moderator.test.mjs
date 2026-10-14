@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { DatabaseSync } from 'node:sqlite'
 import { test } from 'node:test'
-import { authorizeRecallModeration } from './study-admin.mjs'
+import { authorizeRecallModeration, parseRecallModeratorCanApprove } from './study-admin.mjs'
 import { createStudyServer } from './study-plan.mjs'
 
 const ADMIN_TOKEN = 'test-study-admin-token-12345'
@@ -185,6 +185,7 @@ test('API: with both tokens configured - moderator access scope vs admin access 
   const { dir, database, server } = setupTestServer({
     adminToken: ADMIN_TOKEN,
     recallModeratorToken: MOD_TOKEN,
+    recallModeratorCanApprove: true,
   })
   await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
 
@@ -343,12 +344,12 @@ test('API: with only moderator token configured - recall endpoints work and repo
     assert.equal(modGet.response.status, 200)
     assert.equal(modGet.data.ok, true)
 
-    // Moderator can review recalls
+    // Moderator can review recalls (reject)
     const modReview = await callApi(
       server,
       'POST',
       '/admin/recalls/review',
-      { ids: [recallId], action: 'approve' },
+      { ids: [recallId], action: 'reject' },
       { Authorization: `Bearer ${MOD_TOKEN}` },
     )
     assert.equal(modReview.response.status, 200)
@@ -410,6 +411,311 @@ test('API: default recallModeratorToken option falls back to process.env.STUDY_R
     else process.env.STUDY_RECALL_MODERATOR_TOKEN = originalEnv
     await new Promise((resolve) => server.close(resolve))
     rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+// ---------------------------------------------------------------------------
+// Part 1: Reject-only moderator token & env parsing tests
+// ---------------------------------------------------------------------------
+
+test('unit: parseRecallModeratorCanApprove env parsing matrix', () => {
+  assert.equal(parseRecallModeratorCanApprove('true'), true)
+  assert.equal(parseRecallModeratorCanApprove('1'), true)
+  assert.equal(parseRecallModeratorCanApprove(true), true)
+
+  assert.equal(parseRecallModeratorCanApprove(''), false)
+  assert.equal(parseRecallModeratorCanApprove('0'), false)
+  assert.equal(parseRecallModeratorCanApprove('false'), false)
+  assert.equal(parseRecallModeratorCanApprove('yes'), false)
+  assert.equal(parseRecallModeratorCanApprove('TRUE'), false)
+  assert.equal(parseRecallModeratorCanApprove(undefined), false)
+  assert.equal(parseRecallModeratorCanApprove(null), false)
+  assert.equal(parseRecallModeratorCanApprove(false), false)
+})
+
+test('API: reject-only by default - moderator approve returns 403 RECALL_MODERATOR_REJECT_ONLY and row stays pending', async () => {
+  const { dir, database, server } = setupTestServer({
+    adminToken: ADMIN_TOKEN,
+    recallModeratorToken: MOD_TOKEN,
+  })
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
+
+  try {
+    const submitRes = await callApi(server, 'POST', '/recalls', {
+      section: 'speaking',
+      task: 2,
+      examMonth: '2026-10',
+      topic: 'Sujet pour tester le rejet-only du moderateur',
+    })
+    assert.equal(submitRes.response.status, 200)
+    const recallId = submitRes.data.id
+
+    // Moderator approve -> 403 RECALL_MODERATOR_REJECT_ONLY
+    const modApprove = await callApi(
+      server,
+      'POST',
+      '/admin/recalls/review',
+      { ids: [recallId], action: 'approve' },
+      { Authorization: `Bearer ${MOD_TOKEN}` },
+    )
+    assert.equal(modApprove.response.status, 403)
+    assert.equal(modApprove.data.code, 'RECALL_MODERATOR_REJECT_ONLY')
+
+    // Verify row remains 'pending' in database
+    const db = new DatabaseSync(database)
+    try {
+      const row = db.prepare('SELECT status FROM exam_recalls WHERE id = ?').get(recallId)
+      assert.equal(row?.status, 'pending')
+
+      // Verify audit log has 'denied' with role: 'moderator', action: 'approve'
+      const auditRow = db
+        .prepare('SELECT action, status, details FROM audit_log WHERE action = ? ORDER BY created_at DESC LIMIT 1')
+        .get('admin_recalls_review')
+      assert.equal(auditRow?.status, 'denied')
+      const details = JSON.parse(auditRow.details)
+      assert.equal(details.role, 'moderator')
+      assert.equal(details.action, 'approve')
+    } finally {
+      db.close()
+    }
+
+    // Moderator reject -> 200 and row becomes rejected
+    const modReject = await callApi(
+      server,
+      'POST',
+      '/admin/recalls/review',
+      { ids: [recallId], action: 'reject' },
+      { Authorization: `Bearer ${MOD_TOKEN}` },
+    )
+    assert.equal(modReject.response.status, 200)
+    assert.equal(modReject.data.reviewed, 1)
+
+    const db2 = new DatabaseSync(database)
+    try {
+      const row = db2.prepare('SELECT status FROM exam_recalls WHERE id = ?').get(recallId)
+      assert.equal(row?.status, 'rejected')
+    } finally {
+      db2.close()
+    }
+
+    // Admin approve -> 200
+    const submit2 = await callApi(server, 'POST', '/recalls', {
+      section: 'writing',
+      task: 1,
+      examMonth: '2026-10',
+      topic: 'Sujet pour approbation par admin',
+    })
+    assert.equal(submit2.response.status, 200)
+    const recallId2 = submit2.data.id
+
+    const adminApprove = await callApi(
+      server,
+      'POST',
+      '/admin/recalls/review',
+      { ids: [recallId2], action: 'approve' },
+      { Authorization: `Bearer ${ADMIN_TOKEN}` },
+    )
+    assert.equal(adminApprove.response.status, 200)
+    assert.equal(adminApprove.data.reviewed, 1)
+
+    const db3 = new DatabaseSync(database)
+    try {
+      const row = db3.prepare('SELECT status FROM exam_recalls WHERE id = ?').get(recallId2)
+      assert.equal(row?.status, 'approved')
+    } finally {
+      db3.close()
+    }
+  } finally {
+    await new Promise((resolve) => server.close(resolve))
+    rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+test('API: with recallModeratorCanApprove explicitly enabled, moderator approve returns 200', async () => {
+  const { dir, database, server } = setupTestServer({
+    adminToken: ADMIN_TOKEN,
+    recallModeratorToken: MOD_TOKEN,
+    recallModeratorCanApprove: true,
+  })
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
+
+  try {
+    const submitRes = await callApi(server, 'POST', '/recalls', {
+      section: 'speaking',
+      task: 3,
+      examMonth: '2026-10',
+      topic: 'Sujet pour approbation par moderateur autorise',
+    })
+    assert.equal(submitRes.response.status, 200)
+    const recallId = submitRes.data.id
+
+    const modApprove = await callApi(
+      server,
+      'POST',
+      '/admin/recalls/review',
+      { ids: [recallId], action: 'approve' },
+      { Authorization: `Bearer ${MOD_TOKEN}` },
+    )
+    assert.equal(modApprove.response.status, 200)
+    assert.equal(modApprove.data.reviewed, 1)
+
+    const db = new DatabaseSync(database)
+    try {
+      const row = db.prepare('SELECT status FROM exam_recalls WHERE id = ?').get(recallId)
+      assert.equal(row?.status, 'approved')
+    } finally {
+      db.close()
+    }
+  } finally {
+    await new Promise((resolve) => server.close(resolve))
+    rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+test('API: server defaults recallModeratorCanApprove from process.env.STUDY_RECALL_MODERATOR_CAN_APPROVE', async () => {
+  const originalEnv = process.env.STUDY_RECALL_MODERATOR_CAN_APPROVE
+  const originalMod = process.env.STUDY_RECALL_MODERATOR_TOKEN
+  process.env.STUDY_RECALL_MODERATOR_TOKEN = MOD_TOKEN
+
+  const testEnvValue = async (envVal, expectedStatus) => {
+    if (envVal === undefined) delete process.env.STUDY_RECALL_MODERATOR_CAN_APPROVE
+    else process.env.STUDY_RECALL_MODERATOR_CAN_APPROVE = envVal
+
+    const { dir, server } = setupTestServer({ adminToken: ADMIN_TOKEN })
+    await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
+
+    try {
+      const submit = await callApi(server, 'POST', '/recalls', {
+        section: 'speaking',
+        task: 2,
+        examMonth: '2026-10',
+        topic: 'Test env parsing topic',
+      })
+      const reviewRes = await callApi(
+        server,
+        'POST',
+        '/admin/recalls/review',
+        { ids: [submit.data.id], action: 'approve' },
+        { Authorization: `Bearer ${MOD_TOKEN}` },
+      )
+      assert.equal(reviewRes.response.status, expectedStatus, `Env val "${envVal}" should give status ${expectedStatus}`)
+    } finally {
+      await new Promise((resolve) => server.close(resolve))
+      rmSync(dir, { recursive: true, force: true })
+    }
+  }
+
+  try {
+    // Enabled values: 'true', '1'
+    await testEnvValue('true', 200)
+    await testEnvValue('1', 200)
+
+    // Disabled values: '', '0', 'false', 'yes', undefined
+    await testEnvValue('', 403)
+    await testEnvValue('0', 403)
+    await testEnvValue('false', 403)
+    await testEnvValue('yes', 403)
+    await testEnvValue(undefined, 403)
+  } finally {
+    if (originalEnv === undefined) delete process.env.STUDY_RECALL_MODERATOR_CAN_APPROVE
+    else process.env.STUDY_RECALL_MODERATOR_CAN_APPROVE = originalEnv
+
+    if (originalMod === undefined) delete process.env.STUDY_RECALL_MODERATOR_TOKEN
+    else process.env.STUDY_RECALL_MODERATOR_TOKEN = originalMod
+  }
+})
+
+test('API: GET /api/study-plan/admin/recalls/summary counts-only endpoint for agent bot', async () => {
+  const { dir, server } = setupTestServer({
+    adminToken: ADMIN_TOKEN,
+    recallModeratorToken: MOD_TOKEN,
+    recallModeratorCanApprove: true,
+  })
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
+
+  try {
+    // 1. Submit 3 items: 1 stays pending, 1 approved, 1 rejected
+    const r1 = await callApi(server, 'POST', '/recalls', {
+      section: 'speaking',
+      task: 2,
+      examMonth: '2026-10',
+      topic: 'Sujet pending pour test summary',
+    })
+    const r2 = await callApi(server, 'POST', '/recalls', {
+      section: 'writing',
+      task: 1,
+      examMonth: '2026-10',
+      topic: 'Sujet approuve pour test summary',
+    })
+    const r3 = await callApi(server, 'POST', '/recalls', {
+      section: 'speaking',
+      task: 3,
+      examMonth: '2026-10',
+      topic: 'Sujet rejete pour test summary',
+    })
+
+    await callApi(
+      server,
+      'POST',
+      '/admin/recalls/review',
+      { ids: [r2.data.id], action: 'approve' },
+      { Authorization: `Bearer ${ADMIN_TOKEN}` },
+    )
+    await callApi(
+      server,
+      'POST',
+      '/admin/recalls/review',
+      { ids: [r3.data.id], action: 'reject' },
+      { Authorization: `Bearer ${MOD_TOKEN}` },
+    )
+
+    // Moderator token -> 200 with correct counts and NO ids/text
+    const modRes = await callApi(server, 'GET', '/admin/recalls/summary', undefined, {
+      Authorization: `Bearer ${MOD_TOKEN}`,
+    })
+    assert.equal(modRes.response.status, 200)
+    assert.equal(modRes.data.ok, true)
+    assert.equal(modRes.data.pending, 1)
+    assert.equal(modRes.data.approved, 1)
+    assert.equal(modRes.data.rejected, 1)
+    // Verify no ids, no text, strictly counts only
+    assert.deepEqual(Object.keys(modRes.data).sort(), ['approved', 'ok', 'pending', 'rejected'])
+
+    // Admin token -> also 200
+    const adminRes = await callApi(server, 'GET', '/admin/recalls/summary', undefined, {
+      Authorization: `Bearer ${ADMIN_TOKEN}`,
+    })
+    assert.equal(adminRes.response.status, 200)
+    assert.deepEqual(adminRes.data, { ok: true, pending: 1, approved: 1, rejected: 1 })
+
+    // No token -> 401
+    const noTokenRes = await callApi(server, 'GET', '/admin/recalls/summary')
+    assert.equal(noTokenRes.response.status, 401)
+
+    // Wrong token -> 401
+    const wrongTokenRes = await callApi(server, 'GET', '/admin/recalls/summary', undefined, {
+      Authorization: 'Bearer completely-wrong-token-12345',
+    })
+    assert.equal(wrongTokenRes.response.status, 401)
+  } finally {
+    await new Promise((resolve) => server.close(resolve))
+    rmSync(dir, { recursive: true, force: true })
+  }
+
+  // Neither token configured -> 503
+  const { dir: dirDisabled, server: serverDisabled } = setupTestServer({
+    adminToken: '',
+    recallModeratorToken: '',
+  })
+  await new Promise((resolve) => serverDisabled.listen(0, '127.0.0.1', resolve))
+  try {
+    const disabledRes = await callApi(serverDisabled, 'GET', '/admin/recalls/summary', undefined, {
+      Authorization: `Bearer ${MOD_TOKEN}`,
+    })
+    assert.equal(disabledRes.response.status, 503)
+  } finally {
+    await new Promise((resolve) => serverDisabled.close(resolve))
+    rmSync(dirDisabled, { recursive: true, force: true })
   }
 })
 

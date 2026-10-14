@@ -34,6 +34,10 @@ export function authorizeRecallModeration(
   return { ok: false, status: 401, code: 'ADMIN_UNAUTHORIZED', message: 'Invalid admin token' }
 }
 
+export function parseRecallModeratorCanApprove(value) {
+  return value === true || value === 'true' || value === '1'
+}
+
 function sectionAccuracy(sectionTotals) {
   const out = {}
   for (const [section, row] of Object.entries(sectionTotals)) {
