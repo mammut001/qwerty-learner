@@ -1,0 +1,602 @@
+[
+  {
+    "name": "voyage",
+    "trans": [
+      "n.m. 旅行"
+    ]
+  },
+  {
+    "name": "anniversaire",
+    "trans": [
+      "n.m. 生日"
+    ]
+  },
+  {
+    "name": "chance",
+    "trans": [
+      "n.f. 机会；运气"
+    ]
+  },
+  {
+    "name": "type",
+    "trans": [
+      "n.m. 类型"
+    ]
+  },
+  {
+    "name": "transport",
+    "trans": [
+      "n.m. 交通，运输"
+    ]
+  },
+  {
+    "name": "groupe",
+    "trans": [
+      "n.m. 团队，组"
+    ]
+  },
+  {
+    "name": "bateau",
+    "trans": [
+      "n.m. 船"
+    ]
+  },
+  {
+    "name": "métro",
+    "trans": [
+      "n.m. 地铁"
+    ]
+  },
+  {
+    "name": "moto",
+    "trans": [
+      "n.f. 摩托车"
+    ]
+  },
+  {
+    "name": "prix",
+    "trans": [
+      "n.m. 价格，价钱"
+    ]
+  },
+  {
+    "name": "loyer",
+    "trans": [
+      "n.m. 房租"
+    ]
+  },
+  {
+    "name": "mètre",
+    "trans": [
+      "n.m. 米"
+    ]
+  },
+  {
+    "name": "degré",
+    "trans": [
+      "n.m. 度数，度"
+    ]
+  },
+  {
+    "name": "euro",
+    "trans": [
+      "n.m. 欧元"
+    ]
+  },
+  {
+    "name": "hôtel",
+    "trans": [
+      "n.m. 旅馆，饭店"
+    ]
+  },
+  {
+    "name": "mont",
+    "trans": [
+      "n.m. 山峰"
+    ]
+  },
+  {
+    "name": "silence",
+    "trans": [
+      "n.m. 安静，寂静"
+    ]
+  },
+  {
+    "name": "animal",
+    "trans": [
+      "n.m. 动物"
+    ]
+  },
+  {
+    "name": "enfance",
+    "trans": [
+      "n.f. 童年"
+    ]
+  },
+  {
+    "name": "banque",
+    "trans": [
+      "n.f. 银行"
+    ]
+  },
+  {
+    "name": "année",
+    "trans": [
+      "n.f. 年，一年"
+    ]
+  },
+  {
+    "name": "chien",
+    "trans": [
+      "n.m. 狗"
+    ]
+  },
+  {
+    "name": "chat",
+    "trans": [
+      "n.m. 猫"
+    ]
+  },
+  {
+    "name": "choucroute",
+    "trans": [
+      "n.f. 腌酸菜"
+    ]
+  },
+  {
+    "name": "idée",
+    "trans": [
+      "n.f. 想法，主意"
+    ]
+  },
+  {
+    "name": "gare",
+    "trans": [
+      "n.f. 火车站"
+    ]
+  },
+  {
+    "name": "billet",
+    "trans": [
+      "n.m. 票，车票"
+    ]
+  },
+  {
+    "name": "contrôleur",
+    "trans": [
+      "n.m. 查票员，检票员"
+    ]
+  },
+  {
+    "name": "valise",
+    "trans": [
+      "n.f. 行李箱"
+    ]
+  },
+  {
+    "name": "bébé",
+    "trans": [
+      "n.m. 婴儿，宝宝"
+    ]
+  },
+  {
+    "name": "an",
+    "trans": [
+      "n.m. 岁，年"
+    ]
+  },
+  {
+    "name": "changement",
+    "trans": [
+      "n.m. 更换，变化"
+    ]
+  },
+  {
+    "name": "pneu",
+    "trans": [
+      "n.m. 轮胎"
+    ]
+  },
+  {
+    "name": "vêtement",
+    "trans": [
+      "n.m. 衣服"
+    ]
+  },
+  {
+    "name": "devoir",
+    "trans": [
+      "n.m. 作业；职责"
+    ]
+  },
+  {
+    "name": "père",
+    "trans": [
+      "n.m. 父亲"
+    ]
+  },
+  {
+    "name": "mère",
+    "trans": [
+      "n.f. 母亲"
+    ]
+  },
+  {
+    "name": "Mexique",
+    "trans": [
+      "n.m. 墨西哥"
+    ]
+  },
+  {
+    "name": "Japon",
+    "trans": [
+      "n.m. 日本"
+    ]
+  },
+  {
+    "name": "Iran",
+    "trans": [
+      "n.m. 伊朗"
+    ]
+  },
+  {
+    "name": "États-Unis",
+    "trans": [
+      "n.m.pl. 美国"
+    ]
+  },
+  {
+    "name": "Pays-Bas",
+    "trans": [
+      "n.m.pl. 荷兰"
+    ]
+  },
+  {
+    "name": "Russie",
+    "trans": [
+      "n.f. 俄罗斯"
+    ]
+  },
+  {
+    "name": "Australie",
+    "trans": [
+      "n.f. 澳大利亚"
+    ]
+  },
+  {
+    "name": "cher",
+    "trans": [
+      "adj. 昂贵的；亲爱的"
+    ]
+  },
+  {
+    "name": "meilleur",
+    "trans": [
+      "adj. 更好的，更优秀的"
+    ]
+  },
+  {
+    "name": "tranquille",
+    "trans": [
+      "adj. 安静的，平静的"
+    ]
+  },
+  {
+    "name": "fatigant",
+    "trans": [
+      "adj. 累人的，使人疲劳的"
+    ]
+  },
+  {
+    "name": "bienvenu",
+    "trans": [
+      "adj. 受欢迎的"
+    ]
+  },
+  {
+    "name": "chéri",
+    "trans": [
+      "adj. 亲爱的"
+    ]
+  },
+  {
+    "name": "choisir",
+    "trans": [
+      "v.t. 选择"
+    ]
+  },
+  {
+    "name": "finir",
+    "trans": [
+      "v.t. 完成，结束"
+    ]
+  },
+  {
+    "name": "voyager",
+    "trans": [
+      "v.i. 旅行"
+    ]
+  },
+  {
+    "name": "penser",
+    "trans": [
+      "v.i. 思考，想"
+    ]
+  },
+  {
+    "name": "adorer",
+    "trans": [
+      "v.t. 热爱，非常喜欢"
+    ]
+  },
+  {
+    "name": "laisser",
+    "trans": [
+      "v.t. 留下，落下"
+    ]
+  },
+  {
+    "name": "découvrir",
+    "trans": [
+      "v.t. 发现，探索"
+    ]
+  },
+  {
+    "name": "composter",
+    "trans": [
+      "v.t. 剪票，打孔验票"
+    ]
+  },
+  {
+    "name": "noter",
+    "trans": [
+      "v.t. 记录，记下"
+    ]
+  },
+  {
+    "name": "changer",
+    "trans": [
+      "v.t. 改变；更换"
+    ]
+  },
+  {
+    "name": "pourquoi",
+    "trans": [
+      "adv.interr. 为什么"
+    ]
+  },
+  {
+    "name": "parce que",
+    "trans": [
+      "conj. 因为"
+    ]
+  },
+  {
+    "name": "quand",
+    "trans": [
+      "conj. 当……时"
+    ]
+  },
+  {
+    "name": "loin",
+    "trans": [
+      "adv. 远"
+    ]
+  },
+  {
+    "name": "près",
+    "trans": [
+      "adv. 近"
+    ]
+  },
+  {
+    "name": "tard",
+    "trans": [
+      "adv. 晚，迟"
+    ]
+  },
+  {
+    "name": "moins",
+    "trans": [
+      "adv. 较少，更少"
+    ]
+  },
+  {
+    "name": "plus",
+    "trans": [
+      "adv. 更多，更加"
+    ]
+  },
+  {
+    "name": "si",
+    "trans": [
+      "adv. （对否定疑问的肯定）是的，正相反"
+    ]
+  },
+  {
+    "name": "Bon voyage !",
+    "trans": [
+      "短语：旅途愉快！"
+    ]
+  },
+  {
+    "name": "Bon anniversaire !",
+    "trans": [
+      "短语：生日快乐！"
+    ]
+  },
+  {
+    "name": "Bon week-end !",
+    "trans": [
+      "短语：周末愉快！"
+    ]
+  },
+  {
+    "name": "Bonne chance !",
+    "trans": [
+      "短语：祝你好运！"
+    ]
+  },
+  {
+    "name": "Bonnes vacances !",
+    "trans": [
+      "短语：假期愉快！"
+    ]
+  },
+  {
+    "name": "Quel type de voyage préférez-vous ?",
+    "trans": [
+      "短语：您更喜欢哪种类型的旅行？"
+    ]
+  },
+  {
+    "name": "en groupe",
+    "trans": [
+      "短语：跟团"
+    ]
+  },
+  {
+    "name": "en voiture",
+    "trans": [
+      "短语：乘汽车"
+    ]
+  },
+  {
+    "name": "en train",
+    "trans": [
+      "短语：乘火车"
+    ]
+  },
+  {
+    "name": "en avion",
+    "trans": [
+      "短语：乘飞机"
+    ]
+  },
+  {
+    "name": "en bateau",
+    "trans": [
+      "短语：乘船"
+    ]
+  },
+  {
+    "name": "en métro",
+    "trans": [
+      "短语：乘地铁"
+    ]
+  },
+  {
+    "name": "à pied",
+    "trans": [
+      "短语：步行"
+    ]
+  },
+  {
+    "name": "à vélo",
+    "trans": [
+      "短语：骑自行车"
+    ]
+  },
+  {
+    "name": "faire un voyage",
+    "trans": [
+      "短语：去旅行"
+    ]
+  },
+  {
+    "name": "au Mexique",
+    "trans": [
+      "短语：在墨西哥"
+    ]
+  },
+  {
+    "name": "au Japon",
+    "trans": [
+      "短语：在日本"
+    ]
+  },
+  {
+    "name": "aux États-Unis",
+    "trans": [
+      "短语：在美国"
+    ]
+  },
+  {
+    "name": "aux Pays-Bas",
+    "trans": [
+      "短语：在荷兰"
+    ]
+  },
+  {
+    "name": "plus cher que",
+    "trans": [
+      "短语：比……更贵"
+    ]
+  },
+  {
+    "name": "moins cher que",
+    "trans": [
+      "短语：比……更便宜"
+    ]
+  },
+  {
+    "name": "aussi cher que",
+    "trans": [
+      "短语：和……一样贵"
+    ]
+  },
+  {
+    "name": "Qu'est-ce que tu penses de...",
+    "trans": [
+      "短语：你怎么看……？"
+    ]
+  },
+  {
+    "name": "Pourquoi pas ?",
+    "trans": [
+      "短语：为什么不呢？"
+    ]
+  },
+  {
+    "name": "À plus tard !",
+    "trans": [
+      "短语：回头见！"
+    ]
+  },
+  {
+    "name": "Ça y est.",
+    "trans": [
+      "短语：搞定了 / 成了。"
+    ]
+  },
+  {
+    "name": "Vous êtes les bienvenus.",
+    "trans": [
+      "短语：欢迎你们！"
+    ]
+  },
+  {
+    "name": "N'oublie pas de...",
+    "trans": [
+      "短语：别忘了……"
+    ]
+  },
+  {
+    "name": "changer de train",
+    "trans": [
+      "短语：换乘火车"
+    ]
+  },
+  {
+    "name": "faire attention à",
+    "trans": [
+      "短语：注意……，小心……"
+    ]
+  },
+  {
+    "name": "avoir 16 ans",
+    "trans": [
+      "短语：十六岁"
+    ]
+  }
+]

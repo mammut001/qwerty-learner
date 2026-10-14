@@ -1,0 +1,530 @@
+[
+  {
+    "name": "matinée",
+    "trans": [
+      "n.f. 上午，早晨的一段时间"
+    ]
+  },
+  {
+    "name": "journée",
+    "trans": [
+      "n.f. 一天，白天的时间"
+    ]
+  },
+  {
+    "name": "soirée",
+    "trans": [
+      "n.f. 傍晚，晚间的时间"
+    ]
+  },
+  {
+    "name": "routine",
+    "trans": [
+      "n.f. 日常惯例，常规"
+    ]
+  },
+  {
+    "name": "dent",
+    "trans": [
+      "n.f. 牙齿"
+    ]
+  },
+  {
+    "name": "douche",
+    "trans": [
+      "n.f. 淋浴"
+    ]
+  },
+  {
+    "name": "bain",
+    "trans": [
+      "n.m. 沐浴，泡澡"
+    ]
+  },
+  {
+    "name": "bonheur",
+    "trans": [
+      "n.m. 幸福，幸运"
+    ]
+  },
+  {
+    "name": "malheur",
+    "trans": [
+      "n.m. 不幸，灾祸"
+    ]
+  },
+  {
+    "name": "salon",
+    "trans": [
+      "n.m. 客厅，沙龙"
+    ]
+  },
+  {
+    "name": "lampe",
+    "trans": [
+      "n.f. 台灯，灯"
+    ]
+  },
+  {
+    "name": "œuvre",
+    "trans": [
+      "n.f. 作品"
+    ]
+  },
+  {
+    "name": "cuisine",
+    "trans": [
+      "n.f. 厨房；烹饪"
+    ]
+  },
+  {
+    "name": "chambre",
+    "trans": [
+      "n.f. 卧室，房间"
+    ]
+  },
+  {
+    "name": "caravane",
+    "trans": [
+      "n.f. 野营房车"
+    ]
+  },
+  {
+    "name": "balade",
+    "trans": [
+      "n.f. 闲逛，散步"
+    ]
+  },
+  {
+    "name": "forme",
+    "trans": [
+      "n.f. 体形；状态"
+    ]
+  },
+  {
+    "name": "résultat",
+    "trans": [
+      "n.m. 结果"
+    ]
+  },
+  {
+    "name": "bruit",
+    "trans": [
+      "n.m. 声音，噪音"
+    ]
+  },
+  {
+    "name": "ours",
+    "trans": [
+      "n.m. 熊"
+    ]
+  },
+  {
+    "name": "voisin",
+    "trans": [
+      "n.m. 邻居"
+    ]
+  },
+  {
+    "name": "boulangerie",
+    "trans": [
+      "n.f. 面包店"
+    ]
+  },
+  {
+    "name": "pâtisserie",
+    "trans": [
+      "n.f. 糕点店"
+    ]
+  },
+  {
+    "name": "fromagerie",
+    "trans": [
+      "n.f. 奶酪店"
+    ]
+  },
+  {
+    "name": "crémerie",
+    "trans": [
+      "n.f. 乳制品店"
+    ]
+  },
+  {
+    "name": "boucherie",
+    "trans": [
+      "n.f. 肉铺，肉店"
+    ]
+  },
+  {
+    "name": "poissonnerie",
+    "trans": [
+      "n.f. 鱼店，水产店"
+    ]
+  },
+  {
+    "name": "épicerie",
+    "trans": [
+      "n.f. 食品杂货店"
+    ]
+  },
+  {
+    "name": "supermarché",
+    "trans": [
+      "n.m. 超级市场"
+    ]
+  },
+  {
+    "name": "marché",
+    "trans": [
+      "n.m. 集市，市场"
+    ]
+  },
+  {
+    "name": "poisson",
+    "trans": [
+      "n.m. 鱼"
+    ]
+  },
+  {
+    "name": "fruit de mer",
+    "trans": [
+      "n.m. 海鲜"
+    ]
+  },
+  {
+    "name": "diable",
+    "trans": [
+      "n.m. 魔鬼"
+    ]
+  },
+  {
+    "name": "magnifique",
+    "trans": [
+      "adj. 极好的，壮丽的"
+    ]
+  },
+  {
+    "name": "intelligent",
+    "trans": [
+      "adj. 聪明的"
+    ]
+  },
+  {
+    "name": "normal",
+    "trans": [
+      "adj. 正常的"
+    ]
+  },
+  {
+    "name": "prochain",
+    "trans": [
+      "adj. 下一个的"
+    ]
+  },
+  {
+    "name": "se réveiller",
+    "trans": [
+      "v.pr. 醒来"
+    ]
+  },
+  {
+    "name": "réveiller",
+    "trans": [
+      "v.t. 叫醒"
+    ]
+  },
+  {
+    "name": "se lever",
+    "trans": [
+      "v.pr. 起床，起立"
+    ]
+  },
+  {
+    "name": "lever",
+    "trans": [
+      "v.t. 举起；叫起床"
+    ]
+  },
+  {
+    "name": "se laver",
+    "trans": [
+      "v.pr. 洗（脸/手/身体）"
+    ]
+  },
+  {
+    "name": "laver",
+    "trans": [
+      "v.t. 洗"
+    ]
+  },
+  {
+    "name": "brosser",
+    "trans": [
+      "v.t. 刷"
+    ]
+  },
+  {
+    "name": "s'habiller",
+    "trans": [
+      "v.pr. 穿衣服"
+    ]
+  },
+  {
+    "name": "habiller",
+    "trans": [
+      "v.t. 给……穿衣服"
+    ]
+  },
+  {
+    "name": "se coiffer",
+    "trans": [
+      "v.pr. 梳头"
+    ]
+  },
+  {
+    "name": "se promener",
+    "trans": [
+      "v.pr. 散步"
+    ]
+  },
+  {
+    "name": "promener",
+    "trans": [
+      "v.t. 带……散步"
+    ]
+  },
+  {
+    "name": "se reposer",
+    "trans": [
+      "v.pr. 休息"
+    ]
+  },
+  {
+    "name": "se coucher",
+    "trans": [
+      "v.pr. 上床睡觉"
+    ]
+  },
+  {
+    "name": "coucher",
+    "trans": [
+      "v.t. 使躺下，使就寝"
+    ]
+  },
+  {
+    "name": "se rencontrer",
+    "trans": [
+      "v.pr. 相遇，相见"
+    ]
+  },
+  {
+    "name": "rencontrer",
+    "trans": [
+      "v.t. 遇见"
+    ]
+  },
+  {
+    "name": "vendre",
+    "trans": [
+      "v.t. 出售，卖"
+    ]
+  },
+  {
+    "name": "s'en aller",
+    "trans": [
+      "v.pr. 走开，离去"
+    ]
+  },
+  {
+    "name": "offrir",
+    "trans": [
+      "v.t. 赠送，提供"
+    ]
+  },
+  {
+    "name": "fabriquer",
+    "trans": [
+      "v.t. 制作，制造"
+    ]
+  },
+  {
+    "name": "acheter",
+    "trans": [
+      "v.t. 购买"
+    ]
+  },
+  {
+    "name": "commencer",
+    "trans": [
+      "v.t. 开始"
+    ]
+  },
+  {
+    "name": "entendre",
+    "trans": [
+      "v.t. 听见"
+    ]
+  },
+  {
+    "name": "bouger",
+    "trans": [
+      "v.i. 移动，动"
+    ]
+  },
+  {
+    "name": "tôt",
+    "trans": [
+      "adv. 早"
+    ]
+  },
+  {
+    "name": "peut-être",
+    "trans": [
+      "adv. 也许，可能"
+    ]
+  },
+  {
+    "name": "rien",
+    "trans": [
+      "pron. 没有什么，什么都不"
+    ]
+  },
+  {
+    "name": "personne",
+    "trans": [
+      "pron. 没有人，谁都不"
+    ]
+  },
+  {
+    "name": "Bonne matinée !",
+    "trans": [
+      "短语：祝上午愉快！"
+    ]
+  },
+  {
+    "name": "Bonne journée !",
+    "trans": [
+      "短语：祝一天愉快！"
+    ]
+  },
+  {
+    "name": "Quelle journée !",
+    "trans": [
+      "短语：这一天真够忙的！"
+    ]
+  },
+  {
+    "name": "Quel bonheur !",
+    "trans": [
+      "短语：多幸福啊！"
+    ]
+  },
+  {
+    "name": "Quel malheur !",
+    "trans": [
+      "短语：多倒霉啊！"
+    ]
+  },
+  {
+    "name": "se brosser les dents",
+    "trans": [
+      "短语：刷牙"
+    ]
+  },
+  {
+    "name": "se laver les mains",
+    "trans": [
+      "短语：洗手"
+    ]
+  },
+  {
+    "name": "prendre une douche",
+    "trans": [
+      "短语：淋浴"
+    ]
+  },
+  {
+    "name": "prendre un bain",
+    "trans": [
+      "短语：泡澡"
+    ]
+  },
+  {
+    "name": "Soyez le bienvenu !",
+    "trans": [
+      "短语：欢迎您！"
+    ]
+  },
+  {
+    "name": "être en forme",
+    "trans": [
+      "短语：身体好，精神饱满"
+    ]
+  },
+  {
+    "name": "passer à table",
+    "trans": [
+      "短语：入座用餐"
+    ]
+  },
+  {
+    "name": "À table !",
+    "trans": [
+      "短语：开饭了！"
+    ]
+  },
+  {
+    "name": "faire une balade",
+    "trans": [
+      "短语：去散步"
+    ]
+  },
+  {
+    "name": "être d'accord avec",
+    "trans": [
+      "短语：同意（某人）"
+    ]
+  },
+  {
+    "name": "être d'accord pour",
+    "trans": [
+      "短语：赞同（某事）"
+    ]
+  },
+  {
+    "name": "Je n'entends rien.",
+    "trans": [
+      "短语：我什么都没听到。"
+    ]
+  },
+  {
+    "name": "Il n'y a personne.",
+    "trans": [
+      "短语：一个人也没有。"
+    ]
+  },
+  {
+    "name": "l'année prochaine",
+    "trans": [
+      "短语：明年"
+    ]
+  },
+  {
+    "name": "la semaine prochaine",
+    "trans": [
+      "短语：下周"
+    ]
+  },
+  {
+    "name": "commencer à + infinitif",
+    "trans": [
+      "短语：开始做某事"
+    ]
+  },
+  {
+    "name": "Ça veut dire que...",
+    "trans": [
+      "短语：这意味着……"
+    ]
+  }
+]
