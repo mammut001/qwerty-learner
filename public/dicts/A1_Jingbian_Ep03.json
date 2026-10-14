@@ -1,0 +1,716 @@
+[
+  {
+    "name": "vacances",
+    "trans": [
+      "n.f.pl. 假期"
+    ]
+  },
+  {
+    "name": "sport",
+    "trans": [
+      "n.m. 体育，运动"
+    ]
+  },
+  {
+    "name": "football",
+    "trans": [
+      "n.m. 足球"
+    ]
+  },
+  {
+    "name": "basket-ball",
+    "trans": [
+      "n.m. 篮球"
+    ]
+  },
+  {
+    "name": "volley-ball",
+    "trans": [
+      "n.m. 排球"
+    ]
+  },
+  {
+    "name": "badminton",
+    "trans": [
+      "n.m. 羽毛球"
+    ]
+  },
+  {
+    "name": "tennis",
+    "trans": [
+      "n.m. 网球"
+    ]
+  },
+  {
+    "name": "tennis de table",
+    "trans": [
+      "n.m. 乒乓球"
+    ]
+  },
+  {
+    "name": "cinéma",
+    "trans": [
+      "n.m. 电影院，电影"
+    ]
+  },
+  {
+    "name": "théâtre",
+    "trans": [
+      "n.m. 戏剧；剧院"
+    ]
+  },
+  {
+    "name": "concert",
+    "trans": [
+      "n.m. 音乐会"
+    ]
+  },
+  {
+    "name": "radio",
+    "trans": [
+      "n.f. 广播，收音机"
+    ]
+  },
+  {
+    "name": "jeu",
+    "trans": [
+      "n.m. 游戏"
+    ]
+  },
+  {
+    "name": "Internet",
+    "trans": [
+      "n.m. 互联网"
+    ]
+  },
+  {
+    "name": "pain",
+    "trans": [
+      "n.m. 面包"
+    ]
+  },
+  {
+    "name": "viande",
+    "trans": [
+      "n.f. 肉"
+    ]
+  },
+  {
+    "name": "légume",
+    "trans": [
+      "n.m. 蔬菜"
+    ]
+  },
+  {
+    "name": "argent",
+    "trans": [
+      "n.m. 钱"
+    ]
+  },
+  {
+    "name": "eau",
+    "trans": [
+      "n.f. 水"
+    ]
+  },
+  {
+    "name": "ski",
+    "trans": [
+      "n.m. 滑雪"
+    ]
+  },
+  {
+    "name": "natation",
+    "trans": [
+      "n.f. 游泳"
+    ]
+  },
+  {
+    "name": "vélo",
+    "trans": [
+      "n.m. 自行车"
+    ]
+  },
+  {
+    "name": "peinture",
+    "trans": [
+      "n.f. 绘画"
+    ]
+  },
+  {
+    "name": "courage",
+    "trans": [
+      "n.m. 勇气"
+    ]
+  },
+  {
+    "name": "patience",
+    "trans": [
+      "n.f. 耐心"
+    ]
+  },
+  {
+    "name": "jogging",
+    "trans": [
+      "n.m. 慢跑"
+    ]
+  },
+  {
+    "name": "film",
+    "trans": [
+      "n.m. 电影"
+    ]
+  },
+  {
+    "name": "randonnée",
+    "trans": [
+      "n.f. 徒步，远足"
+    ]
+  },
+  {
+    "name": "roman",
+    "trans": [
+      "n.m. 小说"
+    ]
+  },
+  {
+    "name": "rôle",
+    "trans": [
+      "n.m. 角色"
+    ]
+  },
+  {
+    "name": "cours",
+    "trans": [
+      "n.m. 课程"
+    ]
+  },
+  {
+    "name": "chaton",
+    "trans": [
+      "n.m. 小猫"
+    ]
+  },
+  {
+    "name": "tasse",
+    "trans": [
+      "n.f. 杯子"
+    ]
+  },
+  {
+    "name": "discothèque",
+    "trans": [
+      "n.f. 迪斯科舞厅"
+    ]
+  },
+  {
+    "name": "locomotive",
+    "trans": [
+      "n.f. 火车头"
+    ]
+  },
+  {
+    "name": "envie",
+    "trans": [
+      "n.f. 渴望，欲望"
+    ]
+  },
+  {
+    "name": "misère",
+    "trans": [
+      "n.f. 不幸；困难"
+    ]
+  },
+  {
+    "name": "expression",
+    "trans": [
+      "n.f. 表达，短语"
+    ]
+  },
+  {
+    "name": "problème",
+    "trans": [
+      "n.m. 问题"
+    ]
+  },
+  {
+    "name": "dommage",
+    "trans": [
+      "n.m. 损失；遗憾"
+    ]
+  },
+  {
+    "name": "montagne",
+    "trans": [
+      "n.f. 山，山区"
+    ]
+  },
+  {
+    "name": "château",
+    "trans": [
+      "n.m. 城堡"
+    ]
+  },
+  {
+    "name": "spectacle",
+    "trans": [
+      "n.m. 演出，表演"
+    ]
+  },
+  {
+    "name": "saison",
+    "trans": [
+      "n.f. 季节"
+    ]
+  },
+  {
+    "name": "festival",
+    "trans": [
+      "n.m. 节庆，节日"
+    ]
+  },
+  {
+    "name": "opéra",
+    "trans": [
+      "n.m. 歌剧"
+    ]
+  },
+  {
+    "name": "région",
+    "trans": [
+      "n.f. 大区"
+    ]
+  },
+  {
+    "name": "département",
+    "trans": [
+      "n.m. 省"
+    ]
+  },
+  {
+    "name": "commune",
+    "trans": [
+      "n.f. 市镇"
+    ]
+  },
+  {
+    "name": "tradition",
+    "trans": [
+      "n.f. 传统"
+    ]
+  },
+  {
+    "name": "paysage",
+    "trans": [
+      "n.m. 风景"
+    ]
+  },
+  {
+    "name": "goût",
+    "trans": [
+      "n.m. 口味，爱好"
+    ]
+  },
+  {
+    "name": "monde",
+    "trans": [
+      "n.m. 世界；人"
+    ]
+  },
+  {
+    "name": "vidéo",
+    "trans": [
+      "adj. 电子的，视频的"
+    ]
+  },
+  {
+    "name": "fatigué",
+    "trans": [
+      "adj. 疲劳的，累的"
+    ]
+  },
+  {
+    "name": "varié",
+    "trans": [
+      "adj. 多样的，不同的"
+    ]
+  },
+  {
+    "name": "chaque",
+    "trans": [
+      "adj. 每一个"
+    ]
+  },
+  {
+    "name": "se détendre",
+    "trans": [
+      "v.pr. 放松，休息"
+    ]
+  },
+  {
+    "name": "jouer",
+    "trans": [
+      "v.i. 玩；打（球）"
+    ]
+  },
+  {
+    "name": "rester",
+    "trans": [
+      "v.i. 留下，待在"
+    ]
+  },
+  {
+    "name": "faire",
+    "trans": [
+      "v.t. 做，从事"
+    ]
+  },
+  {
+    "name": "préférer",
+    "trans": [
+      "v.t. 更喜欢"
+    ]
+  },
+  {
+    "name": "surfer",
+    "trans": [
+      "v.i. 上网冲浪"
+    ]
+  },
+  {
+    "name": "manger",
+    "trans": [
+      "v.t. 吃"
+    ]
+  },
+  {
+    "name": "entrer",
+    "trans": [
+      "v.i. 进来，进入"
+    ]
+  },
+  {
+    "name": "apprendre",
+    "trans": [
+      "v.t. 学习"
+    ]
+  },
+  {
+    "name": "vouloir",
+    "trans": [
+      "v.t. 想要"
+    ]
+  },
+  {
+    "name": "savoir",
+    "trans": [
+      "v.t. 知道"
+    ]
+  },
+  {
+    "name": "danser",
+    "trans": [
+      "v.i. 跳舞"
+    ]
+  },
+  {
+    "name": "dire",
+    "trans": [
+      "v.t. 说"
+    ]
+  },
+  {
+    "name": "partir",
+    "trans": [
+      "v.i. 离开"
+    ]
+  },
+  {
+    "name": "randonner",
+    "trans": [
+      "v.i. 远足，徒步"
+    ]
+  },
+  {
+    "name": "visiter",
+    "trans": [
+      "v.t. 参观，游览"
+    ]
+  },
+  {
+    "name": "oublier",
+    "trans": [
+      "v.t. 忘记"
+    ]
+  },
+  {
+    "name": "zéro",
+    "trans": [
+      "num. 零"
+    ]
+  },
+  {
+    "name": "onze",
+    "trans": [
+      "num. 十一"
+    ]
+  },
+  {
+    "name": "douze",
+    "trans": [
+      "num. 十二"
+    ]
+  },
+  {
+    "name": "treize",
+    "trans": [
+      "num. 十三"
+    ]
+  },
+  {
+    "name": "quatorze",
+    "trans": [
+      "num. 十四"
+    ]
+  },
+  {
+    "name": "quinze",
+    "trans": [
+      "num. 十五"
+    ]
+  },
+  {
+    "name": "seize",
+    "trans": [
+      "num. 十六"
+    ]
+  },
+  {
+    "name": "dix-sept",
+    "trans": [
+      "num. 十七"
+    ]
+  },
+  {
+    "name": "dix-huit",
+    "trans": [
+      "num. 十八"
+    ]
+  },
+  {
+    "name": "dix-neuf",
+    "trans": [
+      "num. 十九"
+    ]
+  },
+  {
+    "name": "vingt",
+    "trans": [
+      "num. 二十"
+    ]
+  },
+  {
+    "name": "chez",
+    "trans": [
+      "prép. 在……家"
+    ]
+  },
+  {
+    "name": "hier",
+    "trans": [
+      "adv. 昨天"
+    ]
+  },
+  {
+    "name": "Qu'est-ce que vous faites ?",
+    "trans": [
+      "短语：您在做什么？"
+    ]
+  },
+  {
+    "name": "en vacances",
+    "trans": [
+      "短语：在度假中"
+    ]
+  },
+  {
+    "name": "jouer au football",
+    "trans": [
+      "短语：踢足球"
+    ]
+  },
+  {
+    "name": "jouer au tennis",
+    "trans": [
+      "短语：打网球"
+    ]
+  },
+  {
+    "name": "aller au cinéma",
+    "trans": [
+      "短语：去看电影"
+    ]
+  },
+  {
+    "name": "aller au théâtre",
+    "trans": [
+      "短语：去剧院"
+    ]
+  },
+  {
+    "name": "rester à la maison",
+    "trans": [
+      "短语：待在家里"
+    ]
+  },
+  {
+    "name": "écouter la radio",
+    "trans": [
+      "短语：听广播"
+    ]
+  },
+  {
+    "name": "jouer aux jeux vidéo",
+    "trans": [
+      "短语：玩电子游戏"
+    ]
+  },
+  {
+    "name": "surfer sur Internet",
+    "trans": [
+      "短语：上网浏览"
+    ]
+  },
+  {
+    "name": "faire du ski",
+    "trans": [
+      "短语：滑雪"
+    ]
+  },
+  {
+    "name": "faire de la natation",
+    "trans": [
+      "短语：游泳"
+    ]
+  },
+  {
+    "name": "faire du vélo",
+    "trans": [
+      "短语：骑自行车"
+    ]
+  },
+  {
+    "name": "faire de la musique",
+    "trans": [
+      "短语：搞音乐"
+    ]
+  },
+  {
+    "name": "faire de la peinture",
+    "trans": [
+      "短语：画画"
+    ]
+  },
+  {
+    "name": "Allez, du courage !",
+    "trans": [
+      "短语：加油，鼓起勇气！"
+    ]
+  },
+  {
+    "name": "aller + infinitif",
+    "trans": [
+      "短语：将要做某事（最近将来时）"
+    ]
+  },
+  {
+    "name": "venir de + infinitif",
+    "trans": [
+      "短语：刚刚做完某事（最近过去时）"
+    ]
+  },
+  {
+    "name": "chez moi",
+    "trans": [
+      "短语：在我家"
+    ]
+  },
+  {
+    "name": "chez toi",
+    "trans": [
+      "短语：在你家"
+    ]
+  },
+  {
+    "name": "faire un jogging",
+    "trans": [
+      "短语：去慢跑一次"
+    ]
+  },
+  {
+    "name": "il y a...",
+    "trans": [
+      "短语：有……"
+    ]
+  },
+  {
+    "name": "Il n'y a pas de...",
+    "trans": [
+      "短语：没有……"
+    ]
+  },
+  {
+    "name": "Je ne sais pas.",
+    "trans": [
+      "短语：我不知道。"
+    ]
+  },
+  {
+    "name": "avoir envie de",
+    "trans": [
+      "短语：渴望，想要做"
+    ]
+  },
+  {
+    "name": "avoir de la misère",
+    "trans": [
+      "短语：遇到困难（魁北克用法）"
+    ]
+  },
+  {
+    "name": "Ça veut dire quoi ?",
+    "trans": [
+      "短语：这是什么意思？"
+    ]
+  },
+  {
+    "name": "Ça veut dire...",
+    "trans": [
+      "短语：意思是……"
+    ]
+  },
+  {
+    "name": "Qu'est-ce que tu dis ?",
+    "trans": [
+      "短语：你说什么？"
+    ]
+  },
+  {
+    "name": "Pas de problème.",
+    "trans": [
+      "短语：没问题。"
+    ]
+  },
+  {
+    "name": "C'est dommage !",
+    "trans": [
+      "短语：真可惜！"
+    ]
+  },
+  {
+    "name": "tout le monde",
+    "trans": [
+      "短语：大家，所有人"
+    ]
+  }
+]

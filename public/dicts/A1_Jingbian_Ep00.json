@@ -1,0 +1,524 @@
+[
+  {
+    "name": "Paris",
+    "trans": [
+      "n.pr. 巴黎"
+    ]
+  },
+  {
+    "name": "Cannes",
+    "trans": [
+      "n.pr. 戛纳"
+    ]
+  },
+  {
+    "name": "Bruxelles",
+    "trans": [
+      "n.pr. 布鲁塞尔"
+    ]
+  },
+  {
+    "name": "Montréal",
+    "trans": [
+      "n.pr. 蒙特利尔"
+    ]
+  },
+  {
+    "name": "Québec",
+    "trans": [
+      "n.m. 魁北克"
+    ]
+  },
+  {
+    "name": "Canada",
+    "trans": [
+      "n.m. 加拿大"
+    ]
+  },
+  {
+    "name": "Tahiti",
+    "trans": [
+      "n.pr. 大溪地"
+    ]
+  },
+  {
+    "name": "guide",
+    "trans": [
+      "n. 导游"
+    ]
+  },
+  {
+    "name": "touriste",
+    "trans": [
+      "n. 游客"
+    ]
+  },
+  {
+    "name": "monsieur",
+    "trans": [
+      "n.m. 先生"
+    ]
+  },
+  {
+    "name": "madame",
+    "trans": [
+      "n.f. 太太；女士"
+    ]
+  },
+  {
+    "name": "mademoiselle",
+    "trans": [
+      "n.f. 小姐"
+    ]
+  },
+  {
+    "name": "serveur",
+    "trans": [
+      "n.m. 服务员"
+    ]
+  },
+  {
+    "name": "serveuse",
+    "trans": [
+      "n.f. 女服务员"
+    ]
+  },
+  {
+    "name": "café",
+    "trans": [
+      "n.m. 咖啡；咖啡馆"
+    ]
+  },
+  {
+    "name": "statue",
+    "trans": [
+      "n.f. 雕像，塑像"
+    ]
+  },
+  {
+    "name": "télévision",
+    "trans": [
+      "n.f. 电视，电视机"
+    ]
+  },
+  {
+    "name": "mer",
+    "trans": [
+      "n.f. 大海"
+    ]
+  },
+  {
+    "name": "plage",
+    "trans": [
+      "n.f. 海滩"
+    ]
+  },
+  {
+    "name": "restaurant",
+    "trans": [
+      "n.m. 餐馆，饭店"
+    ]
+  },
+  {
+    "name": "timbre",
+    "trans": [
+      "n.m. 邮票"
+    ]
+  },
+  {
+    "name": "bise",
+    "trans": [
+      "n.f. 吻，贴面礼"
+    ]
+  },
+  {
+    "name": "vie",
+    "trans": [
+      "n.f. 生活，生命"
+    ]
+  },
+  {
+    "name": "conjugaison",
+    "trans": [
+      "n.f. 动词变位"
+    ]
+  },
+  {
+    "name": "trait d'union",
+    "trans": [
+      "n.m. 连字符"
+    ]
+  },
+  {
+    "name": "chinois",
+    "trans": [
+      "adj. 中国的；n.m. 中文"
+    ]
+  },
+  {
+    "name": "français",
+    "trans": [
+      "adj. 法国的；n.m. 法语"
+    ]
+  },
+  {
+    "name": "allemand",
+    "trans": [
+      "adj. 德国的；n.m. 德语"
+    ]
+  },
+  {
+    "name": "espagnol",
+    "trans": [
+      "adj. 西班牙的；n.m. 西班牙语"
+    ]
+  },
+  {
+    "name": "italien",
+    "trans": [
+      "adj. 意大利的；n.m. 意大利语"
+    ]
+  },
+  {
+    "name": "japonais",
+    "trans": [
+      "adj. 日本的；n.m. 日语"
+    ]
+  },
+  {
+    "name": "belge",
+    "trans": [
+      "adj. 比利时的"
+    ]
+  },
+  {
+    "name": "beau",
+    "trans": [
+      "adj. 美丽的，漂亮的"
+    ]
+  },
+  {
+    "name": "super",
+    "trans": [
+      "adj. 极好的，顶呱呱的"
+    ]
+  },
+  {
+    "name": "s'appeler",
+    "trans": [
+      "v.pr. 名叫"
+    ]
+  },
+  {
+    "name": "parler",
+    "trans": [
+      "v.t. 说，讲"
+    ]
+  },
+  {
+    "name": "être",
+    "trans": [
+      "v.i. 是"
+    ]
+  },
+  {
+    "name": "regarder",
+    "trans": [
+      "v.t. 看"
+    ]
+  },
+  {
+    "name": "aimer",
+    "trans": [
+      "v.t. 喜欢，爱"
+    ]
+  },
+  {
+    "name": "je",
+    "trans": [
+      "pron. 我"
+    ]
+  },
+  {
+    "name": "tu",
+    "trans": [
+      "pron. 你"
+    ]
+  },
+  {
+    "name": "il",
+    "trans": [
+      "pron. 他"
+    ]
+  },
+  {
+    "name": "elle",
+    "trans": [
+      "pron. 她"
+    ]
+  },
+  {
+    "name": "vous",
+    "trans": [
+      "pron. 您，你们"
+    ]
+  },
+  {
+    "name": "moi",
+    "trans": [
+      "pron. 我（重读人称代词）"
+    ]
+  },
+  {
+    "name": "toi",
+    "trans": [
+      "pron. 你（重读人称代词）"
+    ]
+  },
+  {
+    "name": "qui",
+    "trans": [
+      "pron.interr. 谁"
+    ]
+  },
+  {
+    "name": "ce",
+    "trans": [
+      "pron.dém. 这，这个"
+    ]
+  },
+  {
+    "name": "comment",
+    "trans": [
+      "adv. 怎样，如何"
+    ]
+  },
+  {
+    "name": "oui",
+    "trans": [
+      "adv. 是，是的"
+    ]
+  },
+  {
+    "name": "non",
+    "trans": [
+      "adv. 不，不是"
+    ]
+  },
+  {
+    "name": "aussi",
+    "trans": [
+      "adv. 也"
+    ]
+  },
+  {
+    "name": "bien",
+    "trans": [
+      "adv. 好地，出色地"
+    ]
+  },
+  {
+    "name": "merci",
+    "trans": [
+      "int. 谢谢"
+    ]
+  },
+  {
+    "name": "bonjour",
+    "trans": [
+      "int. 你好，早上好"
+    ]
+  },
+  {
+    "name": "bonsoir",
+    "trans": [
+      "int. 晚上好"
+    ]
+  },
+  {
+    "name": "salut",
+    "trans": [
+      "int. 你好；再见"
+    ]
+  },
+  {
+    "name": "voici",
+    "trans": [
+      "prép. 这就是"
+    ]
+  },
+  {
+    "name": "et",
+    "trans": [
+      "conj. 和，而且"
+    ]
+  },
+  {
+    "name": "à",
+    "trans": [
+      "prép. 在……"
+    ]
+  },
+  {
+    "name": "Bonjour, monsieur.",
+    "trans": [
+      "短语：先生，您好。"
+    ]
+  },
+  {
+    "name": "Bonjour, madame.",
+    "trans": [
+      "短语：女士，您好。"
+    ]
+  },
+  {
+    "name": "Vous vous appelez comment ?",
+    "trans": [
+      "短语：您叫什么名字？"
+    ]
+  },
+  {
+    "name": "Tu t'appelles comment ?",
+    "trans": [
+      "短语：你叫什么名字？"
+    ]
+  },
+  {
+    "name": "Je m'appelle...",
+    "trans": [
+      "短语：我叫……"
+    ]
+  },
+  {
+    "name": "Il s'appelle comment ?",
+    "trans": [
+      "短语：他叫什么名字？"
+    ]
+  },
+  {
+    "name": "Excusez-moi.",
+    "trans": [
+      "短语：不好意思，请原谅。"
+    ]
+  },
+  {
+    "name": "Vous parlez français ?",
+    "trans": [
+      "短语：您说法语吗？"
+    ]
+  },
+  {
+    "name": "Je parle français.",
+    "trans": [
+      "短语：我说法语。"
+    ]
+  },
+  {
+    "name": "parler anglais",
+    "trans": [
+      "短语：说英语"
+    ]
+  },
+  {
+    "name": "parler allemand",
+    "trans": [
+      "短语：说德语"
+    ]
+  },
+  {
+    "name": "parler espagnol",
+    "trans": [
+      "短语：说西班牙语"
+    ]
+  },
+  {
+    "name": "parler italien",
+    "trans": [
+      "短语：说意大利语"
+    ]
+  },
+  {
+    "name": "Moi aussi.",
+    "trans": [
+      "短语：我也一样。"
+    ]
+  },
+  {
+    "name": "Toi aussi.",
+    "trans": [
+      "短语：你也一样。"
+    ]
+  },
+  {
+    "name": "Vous aussi.",
+    "trans": [
+      "短语：您也一样。"
+    ]
+  },
+  {
+    "name": "Vous êtes belge ?",
+    "trans": [
+      "短语：您是比利时人吗？"
+    ]
+  },
+  {
+    "name": "Vous parlez bien français.",
+    "trans": [
+      "短语：您的法语说得很好。"
+    ]
+  },
+  {
+    "name": "Qui est-ce ?",
+    "trans": [
+      "短语：这是谁？"
+    ]
+  },
+  {
+    "name": "C'est la vie.",
+    "trans": [
+      "短语：这就是生活。"
+    ]
+  },
+  {
+    "name": "C'est super.",
+    "trans": [
+      "短语：太棒了。"
+    ]
+  },
+  {
+    "name": "regarder la télévision",
+    "trans": [
+      "短语：看电视"
+    ]
+  },
+  {
+    "name": "aller à + ville",
+    "trans": [
+      "短语：去某个城市"
+    ]
+  },
+  {
+    "name": "Je suis à Paris.",
+    "trans": [
+      "短语：我在巴黎。"
+    ]
+  },
+  {
+    "name": "La mer est belle.",
+    "trans": [
+      "短语：大海真美。"
+    ]
+  },
+  {
+    "name": "La vie est belle.",
+    "trans": [
+      "短语：生活真美好。"
+    ]
+  },
+  {
+    "name": "Je t'aime.",
+    "trans": [
+      "短语：我爱你。"
+    ]
+  }
+]

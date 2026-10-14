@@ -1,0 +1,602 @@
+[
+  {
+    "name": "pays",
+    "trans": [
+      "n.m. 国家，地区"
+    ]
+  },
+  {
+    "name": "arbre",
+    "trans": [
+      "n.m. 树"
+    ]
+  },
+  {
+    "name": "garçon",
+    "trans": [
+      "n.m. 男孩"
+    ]
+  },
+  {
+    "name": "lit",
+    "trans": [
+      "n.m. 床"
+    ]
+  },
+  {
+    "name": "fleur",
+    "trans": [
+      "n.f. 花"
+    ]
+  },
+  {
+    "name": "fille",
+    "trans": [
+      "n.f. 女孩"
+    ]
+  },
+  {
+    "name": "table",
+    "trans": [
+      "n.f. 桌子"
+    ]
+  },
+  {
+    "name": "étudiant",
+    "trans": [
+      "n.m. 男学生"
+    ]
+  },
+  {
+    "name": "étudiante",
+    "trans": [
+      "n.f. 女学生"
+    ]
+  },
+  {
+    "name": "chanson",
+    "trans": [
+      "n.f. 歌曲，香颂"
+    ]
+  },
+  {
+    "name": "chant",
+    "trans": [
+      "n.m. 唱歌，声乐"
+    ]
+  },
+  {
+    "name": "boulevard",
+    "trans": [
+      "n.m. 林荫大道"
+    ]
+  },
+  {
+    "name": "cité",
+    "trans": [
+      "n.f. 城市；大学城；街区"
+    ]
+  },
+  {
+    "name": "accueil",
+    "trans": [
+      "n.m. 接待处，接待"
+    ]
+  },
+  {
+    "name": "stage",
+    "trans": [
+      "n.m. 实习，培训"
+    ]
+  },
+  {
+    "name": "secrétaire",
+    "trans": [
+      "n. 秘书"
+    ]
+  },
+  {
+    "name": "nom",
+    "trans": [
+      "n.m. 姓"
+    ]
+  },
+  {
+    "name": "prénom",
+    "trans": [
+      "n.m. 名"
+    ]
+  },
+  {
+    "name": "adresse",
+    "trans": [
+      "n.f. 地址"
+    ]
+  },
+  {
+    "name": "rue",
+    "trans": [
+      "n.f. 街道"
+    ]
+  },
+  {
+    "name": "nationalité",
+    "trans": [
+      "n.f. 国籍"
+    ]
+  },
+  {
+    "name": "profession",
+    "trans": [
+      "n.f. 职业"
+    ]
+  },
+  {
+    "name": "professeur",
+    "trans": [
+      "n.m. 教师，老师"
+    ]
+  },
+  {
+    "name": "prof",
+    "trans": [
+      "n. 老师（口语）"
+    ]
+  },
+  {
+    "name": "rivière",
+    "trans": [
+      "n.f. 河流"
+    ]
+  },
+  {
+    "name": "forêt",
+    "trans": [
+      "n.f. 森林"
+    ]
+  },
+  {
+    "name": "cafétéria",
+    "trans": [
+      "n.f. 自助餐厅"
+    ]
+  },
+  {
+    "name": "croissant",
+    "trans": [
+      "n.m. 羊角面包"
+    ]
+  },
+  {
+    "name": "train",
+    "trans": [
+      "n.m. 火车"
+    ]
+  },
+  {
+    "name": "sens",
+    "trans": [
+      "n.m. 意义；方向"
+    ]
+  },
+  {
+    "name": "musique",
+    "trans": [
+      "n.f. 音乐"
+    ]
+  },
+  {
+    "name": "danse",
+    "trans": [
+      "n.f. 舞蹈"
+    ]
+  },
+  {
+    "name": "arrivée",
+    "trans": [
+      "n.f. 到达"
+    ]
+  },
+  {
+    "name": "France",
+    "trans": [
+      "n.f. 法国"
+    ]
+  },
+  {
+    "name": "Belgique",
+    "trans": [
+      "n.f. 比利时"
+    ]
+  },
+  {
+    "name": "Luxembourg",
+    "trans": [
+      "n.m. 卢森堡"
+    ]
+  },
+  {
+    "name": "Suisse",
+    "trans": [
+      "n.f. 瑞士"
+    ]
+  },
+  {
+    "name": "Algérie",
+    "trans": [
+      "n.f. 阿尔及利亚"
+    ]
+  },
+  {
+    "name": "Maroc",
+    "trans": [
+      "n.m. 摩洛哥"
+    ]
+  },
+  {
+    "name": "Antilles",
+    "trans": [
+      "n.f.pl. 安的列斯群岛"
+    ]
+  },
+  {
+    "name": "Martinique",
+    "trans": [
+      "n.f. 马提尼克"
+    ]
+  },
+  {
+    "name": "Guadeloupe",
+    "trans": [
+      "n.f. 瓜德罗普"
+    ]
+  },
+  {
+    "name": "francophone",
+    "trans": [
+      "adj. 说法语的"
+    ]
+  },
+  {
+    "name": "international",
+    "trans": [
+      "adj. 国际的"
+    ]
+  },
+  {
+    "name": "universitaire",
+    "trans": [
+      "adj. 大学的"
+    ]
+  },
+  {
+    "name": "antillais",
+    "trans": [
+      "adj. 安的列斯群岛的"
+    ]
+  },
+  {
+    "name": "canadien",
+    "trans": [
+      "adj. 加拿大的"
+    ]
+  },
+  {
+    "name": "désolé",
+    "trans": [
+      "adj. 抱歉的，遗憾的"
+    ]
+  },
+  {
+    "name": "bon",
+    "trans": [
+      "adj. 好的；美味的"
+    ]
+  },
+  {
+    "name": "excellent",
+    "trans": [
+      "adj. 极好的，杰出的"
+    ]
+  },
+  {
+    "name": "deux",
+    "trans": [
+      "num. 二"
+    ]
+  },
+  {
+    "name": "trois",
+    "trans": [
+      "num. 三"
+    ]
+  },
+  {
+    "name": "juillet",
+    "trans": [
+      "n.m. 七月"
+    ]
+  },
+  {
+    "name": "habiter",
+    "trans": [
+      "v.i. 居住"
+    ]
+  },
+  {
+    "name": "connaître",
+    "trans": [
+      "v.t. 认识，知道"
+    ]
+  },
+  {
+    "name": "comprendre",
+    "trans": [
+      "v.t. 理解，懂得"
+    ]
+  },
+  {
+    "name": "chanter",
+    "trans": [
+      "v.t. 唱歌"
+    ]
+  },
+  {
+    "name": "venir",
+    "trans": [
+      "v.i. 来"
+    ]
+  },
+  {
+    "name": "aller",
+    "trans": [
+      "v.i. 去；进展"
+    ]
+  },
+  {
+    "name": "pouvoir",
+    "trans": [
+      "v.t. 能够"
+    ]
+  },
+  {
+    "name": "nous",
+    "trans": [
+      "pron. 我们"
+    ]
+  },
+  {
+    "name": "ils",
+    "trans": [
+      "pron. 他们"
+    ]
+  },
+  {
+    "name": "elles",
+    "trans": [
+      "pron. 她们"
+    ]
+  },
+  {
+    "name": "ensemble",
+    "trans": [
+      "adv. 一起"
+    ]
+  },
+  {
+    "name": "très",
+    "trans": [
+      "adv. 很，非常"
+    ]
+  },
+  {
+    "name": "alors",
+    "trans": [
+      "adv. 那么"
+    ]
+  },
+  {
+    "name": "tout",
+    "trans": [
+      "pron. 一切，所有"
+    ]
+  },
+  {
+    "name": "tous",
+    "trans": [
+      "pron. 大家，所有人"
+    ]
+  },
+  {
+    "name": "pardon",
+    "trans": [
+      "int. 不好意思，请原谅"
+    ]
+  },
+  {
+    "name": "de",
+    "trans": [
+      "prép. 出自，从；……的"
+    ]
+  },
+  {
+    "name": "les pays francophones",
+    "trans": [
+      "短语：法语国家"
+    ]
+  },
+  {
+    "name": "Bon après-midi",
+    "trans": [
+      "短语：下午好"
+    ]
+  },
+  {
+    "name": "Bonne soirée",
+    "trans": [
+      "短语：祝晚上愉快"
+    ]
+  },
+  {
+    "name": "Bonne nuit",
+    "trans": [
+      "短语：晚安"
+    ]
+  },
+  {
+    "name": "J'habite à Paris.",
+    "trans": [
+      "短语：我住在巴黎。"
+    ]
+  },
+  {
+    "name": "Il habite à New York.",
+    "trans": [
+      "短语：他住在纽约。"
+    ]
+  },
+  {
+    "name": "Nous sommes chinois.",
+    "trans": [
+      "短语：我们是中国人。"
+    ]
+  },
+  {
+    "name": "Vous connaissez la France ?",
+    "trans": [
+      "短语：您了解法国吗？"
+    ]
+  },
+  {
+    "name": "Elle comprend le français.",
+    "trans": [
+      "短语：她懂法语。"
+    ]
+  },
+  {
+    "name": "Je ne parle pas français.",
+    "trans": [
+      "短语：我不会说法语。"
+    ]
+  },
+  {
+    "name": "Pas mal !",
+    "trans": [
+      "短语：还不错！"
+    ]
+  },
+  {
+    "name": "Tu viens d'où ?",
+    "trans": [
+      "短语：你来自哪里？"
+    ]
+  },
+  {
+    "name": "Je viens de...",
+    "trans": [
+      "短语：我来自……"
+    ]
+  },
+  {
+    "name": "Je suis désolé.",
+    "trans": [
+      "短语：对不起。"
+    ]
+  },
+  {
+    "name": "Je ne suis pas de Paris.",
+    "trans": [
+      "短语：我不是巴黎人。"
+    ]
+  },
+  {
+    "name": "fiche d'inscription",
+    "trans": [
+      "短语：报名表"
+    ]
+  },
+  {
+    "name": "Tout va bien ?",
+    "trans": [
+      "短语：一切都好吗？"
+    ]
+  },
+  {
+    "name": "Le café est bon ?",
+    "trans": [
+      "短语：咖啡好喝吗？"
+    ]
+  },
+  {
+    "name": "Très bon.",
+    "trans": [
+      "短语：非常好。"
+    ]
+  },
+  {
+    "name": "À bientôt.",
+    "trans": [
+      "短语：一会儿见。"
+    ]
+  },
+  {
+    "name": "Au revoir.",
+    "trans": [
+      "短语：再见。"
+    ]
+  },
+  {
+    "name": "À demain !",
+    "trans": [
+      "短语：明天见！"
+    ]
+  },
+  {
+    "name": "Je peux ?",
+    "trans": [
+      "短语：我可以吗？"
+    ]
+  },
+  {
+    "name": "Bien sûr !",
+    "trans": [
+      "短语：当然！"
+    ]
+  },
+  {
+    "name": "Tu vas bien ?",
+    "trans": [
+      "短语：你好吗？"
+    ]
+  },
+  {
+    "name": "Vous allez bien ?",
+    "trans": [
+      "短语：您好吗？"
+    ]
+  },
+  {
+    "name": "Ça va ?",
+    "trans": [
+      "短语：最近怎么样？"
+    ]
+  },
+  {
+    "name": "Oui, ça va.",
+    "trans": [
+      "短语：挺好的。"
+    ]
+  },
+  {
+    "name": "l'arrivée du train",
+    "trans": [
+      "短语：火车的到达"
+    ]
+  },
+  {
+    "name": "le sens de la vie",
+    "trans": [
+      "短语：生命的意义"
+    ]
+  }
+]
