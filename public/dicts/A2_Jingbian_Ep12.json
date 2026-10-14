@@ -1,0 +1,512 @@
+[
+  {
+    "name": "maximum",
+    "trans": [
+      "n.m. 最大限度，最多"
+    ]
+  },
+  {
+    "name": "ingénieur",
+    "trans": [
+      "n.m./f. 工程师"
+    ]
+  },
+  {
+    "name": "technicien",
+    "trans": [
+      "n.m. 技术员，技师"
+    ]
+  },
+  {
+    "name": "technicienne",
+    "trans": [
+      "n.f. 女技师"
+    ]
+  },
+  {
+    "name": "artisan",
+    "trans": [
+      "n.m. 手艺人，工匠"
+    ]
+  },
+  {
+    "name": "artisane",
+    "trans": [
+      "n.f. 女手艺人"
+    ]
+  },
+  {
+    "name": "réflexion",
+    "trans": [
+      "n.f. 思考，反思"
+    ]
+  },
+  {
+    "name": "chercheur",
+    "trans": [
+      "n.m. 研究人员"
+    ]
+  },
+  {
+    "name": "chercheuse",
+    "trans": [
+      "n.f. 女性研究员"
+    ]
+  },
+  {
+    "name": "psychologue",
+    "trans": [
+      "n.m./f. 心理学家"
+    ]
+  },
+  {
+    "name": "imagination",
+    "trans": [
+      "n.f. 想象力"
+    ]
+  },
+  {
+    "name": "comédien",
+    "trans": [
+      "n.m. 话剧演员"
+    ]
+  },
+  {
+    "name": "comédienne",
+    "trans": [
+      "n.f. 女演员"
+    ]
+  },
+  {
+    "name": "artiste",
+    "trans": [
+      "n.m./f. 艺术家"
+    ]
+  },
+  {
+    "name": "coopération",
+    "trans": [
+      "n.f. 合作"
+    ]
+  },
+  {
+    "name": "professeur",
+    "trans": [
+      "n.m./f. 教师，教授"
+    ]
+  },
+  {
+    "name": "diplomate",
+    "trans": [
+      "n.m./f. 外交官"
+    ]
+  },
+  {
+    "name": "conseillère",
+    "trans": [
+      "n.f. 女顾问"
+    ]
+  },
+  {
+    "name": "policier",
+    "trans": [
+      "n.m. 警察"
+    ]
+  },
+  {
+    "name": "policière",
+    "trans": [
+      "n.f. 女警察"
+    ]
+  },
+  {
+    "name": "méthode",
+    "trans": [
+      "n.f. 方法"
+    ]
+  },
+  {
+    "name": "comptable",
+    "trans": [
+      "n.m./f. 会计"
+    ]
+  },
+  {
+    "name": "agriculteur",
+    "trans": [
+      "n.m. 农民，农业经营者"
+    ]
+  },
+  {
+    "name": "agricultrice",
+    "trans": [
+      "n.f. 女农民"
+    ]
+  },
+  {
+    "name": "compétence",
+    "trans": [
+      "n.f. 能力，胜任力"
+    ]
+  },
+  {
+    "name": "autonomie",
+    "trans": [
+      "n.f. 自主性，独立性"
+    ]
+  },
+  {
+    "name": "efficacité",
+    "trans": [
+      "n.f. 效率"
+    ]
+  },
+  {
+    "name": "honnêteté",
+    "trans": [
+      "n.f. 诚实，正直"
+    ]
+  },
+  {
+    "name": "air",
+    "trans": [
+      "n.m. 空气；神态"
+    ]
+  },
+  {
+    "name": "puzzle",
+    "trans": [
+      "n.m. 拼图"
+    ]
+  },
+  {
+    "name": "batterie",
+    "trans": [
+      "n.f. 电池"
+    ]
+  },
+  {
+    "name": "communication",
+    "trans": [
+      "n.f. 通讯，交流"
+    ]
+  },
+  {
+    "name": "panne",
+    "trans": [
+      "n.f. 故障，损坏"
+    ]
+  },
+  {
+    "name": "solution",
+    "trans": [
+      "n.f. 解决办法"
+    ]
+  },
+  {
+    "name": "bricoleur",
+    "trans": [
+      "n.m. 动手能力强的人"
+    ]
+  },
+  {
+    "name": "bricoleuse",
+    "trans": [
+      "n.f. 擅长手工的女性"
+    ]
+  },
+  {
+    "name": "résultat",
+    "trans": [
+      "n.m. 结果"
+    ]
+  },
+  {
+    "name": "équipe",
+    "trans": [
+      "n.f. 团队"
+    ]
+  },
+  {
+    "name": "objectif",
+    "trans": [
+      "n.m. 目标"
+    ]
+  },
+  {
+    "name": "technique",
+    "trans": [
+      "adj. 技术的"
+    ]
+  },
+  {
+    "name": "autonome",
+    "trans": [
+      "adj. 自主的，独立的"
+    ]
+  },
+  {
+    "name": "efficace",
+    "trans": [
+      "adj. 高效的，有效的"
+    ]
+  },
+  {
+    "name": "honnête",
+    "trans": [
+      "adj. 诚实的，正直的"
+    ]
+  },
+  {
+    "name": "utile",
+    "trans": [
+      "adj. 有用的"
+    ]
+  },
+  {
+    "name": "embêtant",
+    "trans": [
+      "adj. 令人烦恼的"
+    ]
+  },
+  {
+    "name": "compétent",
+    "trans": [
+      "adj. 有能力的，称职的"
+    ]
+  },
+  {
+    "name": "manuel",
+    "trans": [
+      "adj. 手工的，体力的"
+    ]
+  },
+  {
+    "name": "capable",
+    "trans": [
+      "adj. 有能力的"
+    ]
+  },
+  {
+    "name": "logique",
+    "trans": [
+      "adj. 符合逻辑的"
+    ]
+  },
+  {
+    "name": "créatif",
+    "trans": [
+      "adj. 有创意的"
+    ]
+  },
+  {
+    "name": "diplomatique",
+    "trans": [
+      "adj. 外交的，圆滑的"
+    ]
+  },
+  {
+    "name": "précis",
+    "trans": [
+      "adj. 精确的"
+    ]
+  },
+  {
+    "name": "calme",
+    "trans": [
+      "adj. 冷静的"
+    ]
+  },
+  {
+    "name": "agir",
+    "trans": [
+      "v.i. 行动，起作用"
+    ]
+  },
+  {
+    "name": "diriger",
+    "trans": [
+      "v.t. 领导，指导"
+    ]
+  },
+  {
+    "name": "entraîner",
+    "trans": [
+      "v.t. 带领；训练"
+    ]
+  },
+  {
+    "name": "profiter",
+    "trans": [
+      "v.i. 享受，利用"
+    ]
+  },
+  {
+    "name": "déguiser",
+    "trans": [
+      "v.t. 假扮，化装"
+    ]
+  },
+  {
+    "name": "jurer",
+    "trans": [
+      "v.i. 发誓，宣誓"
+    ]
+  },
+  {
+    "name": "embêter",
+    "trans": [
+      "v.t. 惹恼，打扰"
+    ]
+  },
+  {
+    "name": "gêner",
+    "trans": [
+      "v.t. 使难堪，妨碍"
+    ]
+  },
+  {
+    "name": "résoudre",
+    "trans": [
+      "v.t. 解决"
+    ]
+  },
+  {
+    "name": "coopérer",
+    "trans": [
+      "v.i. 合作，协作"
+    ]
+  },
+  {
+    "name": "réparer",
+    "trans": [
+      "v.t. 修理"
+    ]
+  },
+  {
+    "name": "conseiller",
+    "trans": [
+      "v.t. 建议，指点"
+    ]
+  },
+  {
+    "name": "perfectionner",
+    "trans": [
+      "v.t. 使完善，提高"
+    ]
+  },
+  {
+    "name": "maîtriser",
+    "trans": [
+      "v.t. 掌握，精通"
+    ]
+  },
+  {
+    "name": "d'habitude",
+    "trans": [
+      "adv. 通常，平时"
+    ]
+  },
+  {
+    "name": "pourtant",
+    "trans": [
+      "adv. 然而，尽管如此"
+    ]
+  },
+  {
+    "name": "cependant",
+    "trans": [
+      "adv. 然而，可是"
+    ]
+  },
+  {
+    "name": "malheureusement",
+    "trans": [
+      "adv. 不幸地，遗憾地"
+    ]
+  },
+  {
+    "name": "heureusement",
+    "trans": [
+      "adv. 幸好，幸运的是"
+    ]
+  },
+  {
+    "name": "tellement",
+    "trans": [
+      "adv. 如此，这么"
+    ]
+  },
+  {
+    "name": "d'abord",
+    "trans": [
+      "adv. 首先"
+    ]
+  },
+  {
+    "name": "être fait pour",
+    "trans": [
+      "短语：天生适合做……"
+    ]
+  },
+  {
+    "name": "avoir du temps libre",
+    "trans": [
+      "短语：有空闲时间"
+    ]
+  },
+  {
+    "name": "profiter du grand air",
+    "trans": [
+      "短语：享受户外新鲜空气"
+    ]
+  },
+  {
+    "name": "valoir mieux",
+    "trans": [
+      "短语：最好……"
+    ]
+  },
+  {
+    "name": "être utile à",
+    "trans": [
+      "短语：对……有用"
+    ]
+  },
+  {
+    "name": "tomber en panne",
+    "trans": [
+      "短语：发生故障"
+    ]
+  },
+  {
+    "name": "avoir l'habitude de",
+    "trans": [
+      "短语：习惯于……"
+    ]
+  },
+  {
+    "name": "être capable de",
+    "trans": [
+      "短语：能够做……"
+    ]
+  },
+  {
+    "name": "savoir faire",
+    "trans": [
+      "短语：懂得如何做，具有技能"
+    ]
+  },
+  {
+    "name": "trouver une solution",
+    "trans": [
+      "短语：找到解决办法"
+    ]
+  },
+  {
+    "name": "faire preuve de",
+    "trans": [
+      "短语：展现出，表现出"
+    ]
+  }
+]
