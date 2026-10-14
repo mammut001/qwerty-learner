@@ -1,0 +1,680 @@
+[
+  {
+    "name": "appétit",
+    "trans": [
+      "n.m. 胃口"
+    ]
+  },
+  {
+    "name": "apéritif",
+    "trans": [
+      "n.m. 开胃酒"
+    ]
+  },
+  {
+    "name": "entrée",
+    "trans": [
+      "n.f. 前菜，头盘"
+    ]
+  },
+  {
+    "name": "salade",
+    "trans": [
+      "n.f. 沙拉"
+    ]
+  },
+  {
+    "name": "olive",
+    "trans": [
+      "n.f. 橄榄"
+    ]
+  },
+  {
+    "name": "œuf",
+    "trans": [
+      "n.m. 鸡蛋"
+    ]
+  },
+  {
+    "name": "jambon",
+    "trans": [
+      "n.m. 火腿"
+    ]
+  },
+  {
+    "name": "champignon",
+    "trans": [
+      "n.m. 蘑菇"
+    ]
+  },
+  {
+    "name": "plat",
+    "trans": [
+      "n.m. 菜肴，一盘菜"
+    ]
+  },
+  {
+    "name": "porc",
+    "trans": [
+      "n.m. 猪肉"
+    ]
+  },
+  {
+    "name": "poulet",
+    "trans": [
+      "n.m. 鸡肉"
+    ]
+  },
+  {
+    "name": "bœuf",
+    "trans": [
+      "n.m. 牛肉"
+    ]
+  },
+  {
+    "name": "agneau",
+    "trans": [
+      "n.m. 羊羔肉"
+    ]
+  },
+  {
+    "name": "riz",
+    "trans": [
+      "n.m. 米饭，大米"
+    ]
+  },
+  {
+    "name": "fromage",
+    "trans": [
+      "n.m. 奶酪"
+    ]
+  },
+  {
+    "name": "dessert",
+    "trans": [
+      "n.m. 甜品，甜点"
+    ]
+  },
+  {
+    "name": "fruit",
+    "trans": [
+      "n.m. 水果"
+    ]
+  },
+  {
+    "name": "gâteau",
+    "trans": [
+      "n.m. 蛋糕"
+    ]
+  },
+  {
+    "name": "crème",
+    "trans": [
+      "n.f. 奶油"
+    ]
+  },
+  {
+    "name": "glace",
+    "trans": [
+      "n.f. 冰激凌；冰"
+    ]
+  },
+  {
+    "name": "lait",
+    "trans": [
+      "n.m. 牛奶"
+    ]
+  },
+  {
+    "name": "yaourt",
+    "trans": [
+      "n.m. 酸奶"
+    ]
+  },
+  {
+    "name": "vin",
+    "trans": [
+      "n.m. 葡萄酒"
+    ]
+  },
+  {
+    "name": "bière",
+    "trans": [
+      "n.f. 啤酒"
+    ]
+  },
+  {
+    "name": "jus",
+    "trans": [
+      "n.m. 果汁"
+    ]
+  },
+  {
+    "name": "pomme",
+    "trans": [
+      "n.f. 苹果"
+    ]
+  },
+  {
+    "name": "orange",
+    "trans": [
+      "n.f. 橙子"
+    ]
+  },
+  {
+    "name": "abricot",
+    "trans": [
+      "n.m. 杏"
+    ]
+  },
+  {
+    "name": "alcool",
+    "trans": [
+      "n.m. 酒精，酒"
+    ]
+  },
+  {
+    "name": "poule",
+    "trans": [
+      "n.f. 母鸡"
+    ]
+  },
+  {
+    "name": "coq",
+    "trans": [
+      "n.m. 公鸡"
+    ]
+  },
+  {
+    "name": "loup",
+    "trans": [
+      "n.m. 狼"
+    ]
+  },
+  {
+    "name": "tableau",
+    "trans": [
+      "n.m. 画作；表格"
+    ]
+  },
+  {
+    "name": "réservation",
+    "trans": [
+      "n.f. 预订"
+    ]
+  },
+  {
+    "name": "réceptionniste",
+    "trans": [
+      "n. 接待员"
+    ]
+  },
+  {
+    "name": "confirmation",
+    "trans": [
+      "n.f. 确认，核准"
+    ]
+  },
+  {
+    "name": "résidence",
+    "trans": [
+      "n.f. 住所，公馆"
+    ]
+  },
+  {
+    "name": "crêperie",
+    "trans": [
+      "n.f. 可丽饼店"
+    ]
+  },
+  {
+    "name": "crêpe",
+    "trans": [
+      "n.f. 可丽饼，薄饼"
+    ]
+  },
+  {
+    "name": "différence",
+    "trans": [
+      "n.f. 区别，差异"
+    ]
+  },
+  {
+    "name": "régime",
+    "trans": [
+      "n.m. 食谱；饮食控制"
+    ]
+  },
+  {
+    "name": "boisson",
+    "trans": [
+      "n.f. 饮料"
+    ]
+  },
+  {
+    "name": "cidre",
+    "trans": [
+      "n.m. 苹果酒"
+    ]
+  },
+  {
+    "name": "addition",
+    "trans": [
+      "n.f. 账单"
+    ]
+  },
+  {
+    "name": "erreur",
+    "trans": [
+      "n.f. 错误"
+    ]
+  },
+  {
+    "name": "sucre",
+    "trans": [
+      "n.m. 糖"
+    ]
+  },
+  {
+    "name": "chocolat",
+    "trans": [
+      "n.m. 巧克力"
+    ]
+  },
+  {
+    "name": "framboise",
+    "trans": [
+      "n.f. 覆盆子"
+    ]
+  },
+  {
+    "name": "fraise",
+    "trans": [
+      "n.f. 草莓"
+    ]
+  },
+  {
+    "name": "cochon",
+    "trans": [
+      "n.m. 猪"
+    ]
+  },
+  {
+    "name": "chèque",
+    "trans": [
+      "n.m. 支票"
+    ]
+  },
+  {
+    "name": "carte bancaire",
+    "trans": [
+      "n.f. 银行卡"
+    ]
+  },
+  {
+    "name": "liquide",
+    "trans": [
+      "n.m. 现金"
+    ]
+  },
+  {
+    "name": "principal",
+    "trans": [
+      "adj. 主要的"
+    ]
+  },
+  {
+    "name": "rosé",
+    "trans": [
+      "adj. 桃红色的，粉红的"
+    ]
+  },
+  {
+    "name": "blanc",
+    "trans": [
+      "adj. 白色的"
+    ]
+  },
+  {
+    "name": "rouge",
+    "trans": [
+      "adj. 红色的"
+    ]
+  },
+  {
+    "name": "alcoolique",
+    "trans": [
+      "adj. 酗酒的；含酒精的"
+    ]
+  },
+  {
+    "name": "fantastique",
+    "trans": [
+      "adj. 极好的，奇妙的"
+    ]
+  },
+  {
+    "name": "célèbre",
+    "trans": [
+      "adj. 著名的"
+    ]
+  },
+  {
+    "name": "premier",
+    "trans": [
+      "adj. 第一的"
+    ]
+  },
+  {
+    "name": "dernier",
+    "trans": [
+      "adj. 最后的；上一个的"
+    ]
+  },
+  {
+    "name": "pareil",
+    "trans": [
+      "adj. 相同的，一样的"
+    ]
+  },
+  {
+    "name": "spécial",
+    "trans": [
+      "adj. 特别的"
+    ]
+  },
+  {
+    "name": "paysan",
+    "trans": [
+      "adj. 乡村的；农民的"
+    ]
+  },
+  {
+    "name": "exact",
+    "trans": [
+      "adj. 准确的"
+    ]
+  },
+  {
+    "name": "occupé",
+    "trans": [
+      "adj. 忙碌的"
+    ]
+  },
+  {
+    "name": "deuxième",
+    "trans": [
+      "adj. 第二"
+    ]
+  },
+  {
+    "name": "second",
+    "trans": [
+      "adj. 第二"
+    ]
+  },
+  {
+    "name": "troisième",
+    "trans": [
+      "adj. 第三"
+    ]
+  },
+  {
+    "name": "quatrième",
+    "trans": [
+      "adj. 第四"
+    ]
+  },
+  {
+    "name": "cinquième",
+    "trans": [
+      "adj. 第五"
+    ]
+  },
+  {
+    "name": "sixième",
+    "trans": [
+      "adj. 第六"
+    ]
+  },
+  {
+    "name": "boire",
+    "trans": [
+      "v.t. 喝"
+    ]
+  },
+  {
+    "name": "devenir",
+    "trans": [
+      "v.i. 变成，成为"
+    ]
+  },
+  {
+    "name": "détester",
+    "trans": [
+      "v.t. 讨厌，厌恶"
+    ]
+  },
+  {
+    "name": "haïr",
+    "trans": [
+      "v.t. 憎恨"
+    ]
+  },
+  {
+    "name": "pondre",
+    "trans": [
+      "v.t. 下蛋"
+    ]
+  },
+  {
+    "name": "décider",
+    "trans": [
+      "v.t. 决定"
+    ]
+  },
+  {
+    "name": "attendre",
+    "trans": [
+      "v.t. 等待"
+    ]
+  },
+  {
+    "name": "confirmer",
+    "trans": [
+      "v.t. 确认"
+    ]
+  },
+  {
+    "name": "tenir",
+    "trans": [
+      "v.t. 拿着，握着"
+    ]
+  },
+  {
+    "name": "pardonner",
+    "trans": [
+      "v.t. 原谅"
+    ]
+  },
+  {
+    "name": "annuler",
+    "trans": [
+      "v.t. 取消"
+    ]
+  },
+  {
+    "name": "payer",
+    "trans": [
+      "v.t. 支付，付款"
+    ]
+  },
+  {
+    "name": "combien",
+    "trans": [
+      "adv.interr. 多少"
+    ]
+  },
+  {
+    "name": "presque",
+    "trans": [
+      "adv. 几乎，差不多"
+    ]
+  },
+  {
+    "name": "donc",
+    "trans": [
+      "conj. 因此，所以"
+    ]
+  },
+  {
+    "name": "exactement",
+    "trans": [
+      "adv. 准确地"
+    ]
+  },
+  {
+    "name": "Bon appétit !",
+    "trans": [
+      "短语：祝你好胃口！"
+    ]
+  },
+  {
+    "name": "plat principal",
+    "trans": [
+      "短语：主菜"
+    ]
+  },
+  {
+    "name": "vin blanc",
+    "trans": [
+      "短语：白葡萄酒"
+    ]
+  },
+  {
+    "name": "vin rouge",
+    "trans": [
+      "短语：红葡萄酒"
+    ]
+  },
+  {
+    "name": "vin rosé",
+    "trans": [
+      "短语：桃红葡萄酒"
+    ]
+  },
+  {
+    "name": "jus d'orange",
+    "trans": [
+      "短语：橙汁"
+    ]
+  },
+  {
+    "name": "jus de pomme",
+    "trans": [
+      "短语：苹果汁"
+    ]
+  },
+  {
+    "name": "Combien de...",
+    "trans": [
+      "短语：多少个……"
+    ]
+  },
+  {
+    "name": "Ça fait combien ?",
+    "trans": [
+      "短语：一共多少钱？"
+    ]
+  },
+  {
+    "name": "Ça coûte combien ?",
+    "trans": [
+      "短语：这个多少钱？"
+    ]
+  },
+  {
+    "name": "réserver une table",
+    "trans": [
+      "短语：预订一张桌子"
+    ]
+  },
+  {
+    "name": "au nom de...",
+    "trans": [
+      "短语：以……的名字"
+    ]
+  },
+  {
+    "name": "semaine dernière",
+    "trans": [
+      "短语：上周"
+    ]
+  },
+  {
+    "name": "année dernière",
+    "trans": [
+      "短语：去年"
+    ]
+  },
+  {
+    "name": "être au régime",
+    "trans": [
+      "短语：在节食中"
+    ]
+  },
+  {
+    "name": "Et comme boisson ?",
+    "trans": [
+      "短语：饮料要喝点什么？"
+    ]
+  },
+  {
+    "name": "prendre la route",
+    "trans": [
+      "短语：启程出发"
+    ]
+  },
+  {
+    "name": "L'addition, s'il vous plaît !",
+    "trans": [
+      "短语：麻烦买单！"
+    ]
+  },
+  {
+    "name": "faire une erreur",
+    "trans": [
+      "短语：犯错误"
+    ]
+  },
+  {
+    "name": "en tout",
+    "trans": [
+      "短语：总共"
+    ]
+  },
+  {
+    "name": "par ici",
+    "trans": [
+      "短语：这边走"
+    ]
+  },
+  {
+    "name": "par carte bancaire",
+    "trans": [
+      "短语：刷银行卡"
+    ]
+  },
+  {
+    "name": "par chèque",
+    "trans": [
+      "短语：用支票支付"
+    ]
+  },
+  {
+    "name": "en espèces",
+    "trans": [
+      "短语：用现金支付"
+    ]
+  }
+]

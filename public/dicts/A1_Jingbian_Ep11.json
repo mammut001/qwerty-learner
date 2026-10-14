@@ -1,0 +1,548 @@
+[
+  {
+    "name": "conseil",
+    "trans": [
+      "n.m. 建议；理事会"
+    ]
+  },
+  {
+    "name": "conseiller",
+    "trans": [
+      "v.t. 建议，劝告；n.m. 顾问"
+    ]
+  },
+  {
+    "name": "conseillère",
+    "trans": [
+      "n.f. 女顾问"
+    ]
+  },
+  {
+    "name": "solution",
+    "trans": [
+      "n.f. 解决办法"
+    ]
+  },
+  {
+    "name": "marchandise",
+    "trans": [
+      "n.f. 商品，货物"
+    ]
+  },
+  {
+    "name": "client",
+    "trans": [
+      "n.m. 顾客，客户"
+    ]
+  },
+  {
+    "name": "ouvrier",
+    "trans": [
+      "n.m. 工人"
+    ]
+  },
+  {
+    "name": "ouvrière",
+    "trans": [
+      "n.f. 女工"
+    ]
+  },
+  {
+    "name": "écolier",
+    "trans": [
+      "n.m. 小学生"
+    ]
+  },
+  {
+    "name": "écolière",
+    "trans": [
+      "n.f. 女小学生"
+    ]
+  },
+  {
+    "name": "collège",
+    "trans": [
+      "n.m. 初中"
+    ]
+  },
+  {
+    "name": "collégien",
+    "trans": [
+      "n.m. 初中生"
+    ]
+  },
+  {
+    "name": "lycée",
+    "trans": [
+      "n.m. 高中"
+    ]
+  },
+  {
+    "name": "lycéen",
+    "trans": [
+      "n.m. 高中生"
+    ]
+  },
+  {
+    "name": "acteur",
+    "trans": [
+      "n.m. 演员"
+    ]
+  },
+  {
+    "name": "actrice",
+    "trans": [
+      "n.f. 女演员"
+    ]
+  },
+  {
+    "name": "vendeur",
+    "trans": [
+      "n.m. 售货员"
+    ]
+  },
+  {
+    "name": "vendeuse",
+    "trans": [
+      "n.f. 女售货员"
+    ]
+  },
+  {
+    "name": "maître",
+    "trans": [
+      "n.m. 主人；大师"
+    ]
+  },
+  {
+    "name": "maîtresse",
+    "trans": [
+      "n.f. 女主人；女教师"
+    ]
+  },
+  {
+    "name": "hôte",
+    "trans": [
+      "n.m. 主人；客人"
+    ]
+  },
+  {
+    "name": "hôtesse",
+    "trans": [
+      "n.f. 女主人；空中乘务员"
+    ]
+  },
+  {
+    "name": "époux",
+    "trans": [
+      "n.m. 配偶，丈夫"
+    ]
+  },
+  {
+    "name": "épouse",
+    "trans": [
+      "n.f. 配偶，妻子"
+    ]
+  },
+  {
+    "name": "veuf",
+    "trans": [
+      "n.m. 鳏夫"
+    ]
+  },
+  {
+    "name": "veuve",
+    "trans": [
+      "n.f. 寡妇"
+    ]
+  },
+  {
+    "name": "ingénieur",
+    "trans": [
+      "n.m. 工程师"
+    ]
+  },
+  {
+    "name": "poste",
+    "trans": [
+      "n.f. 邮局；n.m. 职位"
+    ]
+  },
+  {
+    "name": "vase",
+    "trans": [
+      "n.m. 花瓶；n.f. 淤泥"
+    ]
+  },
+  {
+    "name": "voile",
+    "trans": [
+      "n.m. 面纱；n.f. 帆"
+    ]
+  },
+  {
+    "name": "accord",
+    "trans": [
+      "n.m. 协议，协定"
+    ]
+  },
+  {
+    "name": "formation",
+    "trans": [
+      "n.f. 培训，教育"
+    ]
+  },
+  {
+    "name": "documentation",
+    "trans": [
+      "n.f. 文献，资料"
+    ]
+  },
+  {
+    "name": "environnement",
+    "trans": [
+      "n.m. 环境"
+    ]
+  },
+  {
+    "name": "standardiste",
+    "trans": [
+      "n. 电话接线员"
+    ]
+  },
+  {
+    "name": "ligne",
+    "trans": [
+      "n.f. 线路；线条"
+    ]
+  },
+  {
+    "name": "crédit",
+    "trans": [
+      "n.m. 贷款；经费"
+    ]
+  },
+  {
+    "name": "organisation",
+    "trans": [
+      "n.f. 组织，机构"
+    ]
+  },
+  {
+    "name": "alimentation",
+    "trans": [
+      "n.f. 食品，饮食"
+    ]
+  },
+  {
+    "name": "agriculture",
+    "trans": [
+      "n.f. 农业"
+    ]
+  },
+  {
+    "name": "clinique",
+    "trans": [
+      "n.f. 诊所"
+    ]
+  },
+  {
+    "name": "vertige",
+    "trans": [
+      "n.m. 头晕，眩晕"
+    ]
+  },
+  {
+    "name": "aspirine",
+    "trans": [
+      "n.f. 阿司匹林"
+    ]
+  },
+  {
+    "name": "aventurier",
+    "trans": [
+      "n.m. 探险家"
+    ]
+  },
+  {
+    "name": "sommeil",
+    "trans": [
+      "n.m. 睡眠，困意"
+    ]
+  },
+  {
+    "name": "épaule",
+    "trans": [
+      "n.f. 肩膀"
+    ]
+  },
+  {
+    "name": "fesse",
+    "trans": [
+      "n.f. 臀部"
+    ]
+  },
+  {
+    "name": "ventre",
+    "trans": [
+      "n.m. 肚子，腹部"
+    ]
+  },
+  {
+    "name": "jambe",
+    "trans": [
+      "n.f. 腿"
+    ]
+  },
+  {
+    "name": "bras",
+    "trans": [
+      "n.m. 手臂"
+    ]
+  },
+  {
+    "name": "doigt",
+    "trans": [
+      "n.m. 手指，脚趾"
+    ]
+  },
+  {
+    "name": "pauvre",
+    "trans": [
+      "adj. 贫穷的；可怜的"
+    ]
+  },
+  {
+    "name": "ancien",
+    "trans": [
+      "adj. 古老的；前任的"
+    ]
+  },
+  {
+    "name": "joli",
+    "trans": [
+      "adj. 漂亮的，好看的"
+    ]
+  },
+  {
+    "name": "exceptionnel",
+    "trans": [
+      "adj. 例外的，特殊的"
+    ]
+  },
+  {
+    "name": "industriel",
+    "trans": [
+      "adj. 工业的"
+    ]
+  },
+  {
+    "name": "spatial",
+    "trans": [
+      "adj. 空间的，航天的"
+    ]
+  },
+  {
+    "name": "libre",
+    "trans": [
+      "adj. 自由的，空闲的"
+    ]
+  },
+  {
+    "name": "proposer",
+    "trans": [
+      "v.t. 建议，提议"
+    ]
+  },
+  {
+    "name": "agir",
+    "trans": [
+      "v.i. 行动，做事"
+    ]
+  },
+  {
+    "name": "intéresser",
+    "trans": [
+      "v.t. 使感兴趣"
+    ]
+  },
+  {
+    "name": "s'intéresser",
+    "trans": [
+      "v.pr. 对……感兴趣"
+    ]
+  },
+  {
+    "name": "programmer",
+    "trans": [
+      "v.t. 制订计划"
+    ]
+  },
+  {
+    "name": "patienter",
+    "trans": [
+      "v.i. 耐心等待"
+    ]
+  },
+  {
+    "name": "rappeler",
+    "trans": [
+      "v.t. 再次呼叫，回电话"
+    ]
+  },
+  {
+    "name": "terminer",
+    "trans": [
+      "v.t. 完成，结束"
+    ]
+  },
+  {
+    "name": "regretter",
+    "trans": [
+      "v.t. 感到遗憾，抱歉"
+    ]
+  },
+  {
+    "name": "remplacer",
+    "trans": [
+      "v.t. 代替，替换"
+    ]
+  },
+  {
+    "name": "stresser",
+    "trans": [
+      "v.i. 焦虑，感到紧张"
+    ]
+  },
+  {
+    "name": "supporter",
+    "trans": [
+      "v.t. 忍受，容忍"
+    ]
+  },
+  {
+    "name": "repartir",
+    "trans": [
+      "v.i. 重新出发"
+    ]
+  },
+  {
+    "name": "creuser",
+    "trans": [
+      "v.t. 挖掘，开凿"
+    ]
+  },
+  {
+    "name": "tout à coup",
+    "trans": [
+      "adv. 突然，忽然"
+    ]
+  },
+  {
+    "name": "pas encore",
+    "trans": [
+      "adv. 尚未，还没有"
+    ]
+  },
+  {
+    "name": "demander conseil",
+    "trans": [
+      "短语：征询意见，请教"
+    ]
+  },
+  {
+    "name": "donner un conseil",
+    "trans": [
+      "短语：提出建议"
+    ]
+  },
+  {
+    "name": "conseiller de",
+    "trans": [
+      "短语：建议做……"
+    ]
+  },
+  {
+    "name": "proposer de",
+    "trans": [
+      "短语：提议做……"
+    ]
+  },
+  {
+    "name": "école primaire",
+    "trans": [
+      "短语：小学"
+    ]
+  },
+  {
+    "name": "faire confiance à",
+    "trans": [
+      "短语：信任某人"
+    ]
+  },
+  {
+    "name": "s'intéresser à",
+    "trans": [
+      "短语：对……感兴趣"
+    ]
+  },
+  {
+    "name": "C'est de la part de qui ?",
+    "trans": [
+      "短语：请问是哪位打来的？"
+    ]
+  },
+  {
+    "name": "La ligne est occupée.",
+    "trans": [
+      "短语：线路占线中。"
+    ]
+  },
+  {
+    "name": "Je vous le passe.",
+    "trans": [
+      "短语：我帮您转接给他。"
+    ]
+  },
+  {
+    "name": "Je regrette.",
+    "trans": [
+      "短语：我很抱歉。"
+    ]
+  },
+  {
+    "name": "Qu'est-ce que tu as ?",
+    "trans": [
+      "短语：你怎么了？哪里不舒服？"
+    ]
+  },
+  {
+    "name": "se sentir bien",
+    "trans": [
+      "短语：感觉良好"
+    ]
+  },
+  {
+    "name": "se sentir mal",
+    "trans": [
+      "短语：感觉不舒服"
+    ]
+  },
+  {
+    "name": "avoir du sommeil",
+    "trans": [
+      "短语：感到犯困"
+    ]
+  },
+  {
+    "name": "avoir mal à la tête",
+    "trans": [
+      "短语：头疼"
+    ]
+  },
+  {
+    "name": "avoir une faim de loup",
+    "trans": [
+      "短语：饿得前胸贴后背"
+    ]
+  }
+]

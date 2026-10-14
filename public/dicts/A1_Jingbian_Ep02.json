@@ -1,0 +1,602 @@
+[
+  {
+    "name": "travail",
+    "trans": [
+      "n.m. 工作"
+    ]
+  },
+  {
+    "name": "avion",
+    "trans": [
+      "n.m. 飞机"
+    ]
+  },
+  {
+    "name": "montre",
+    "trans": [
+      "n.f. 手表"
+    ]
+  },
+  {
+    "name": "voiture",
+    "trans": [
+      "n.f. 汽车"
+    ]
+  },
+  {
+    "name": "parfum",
+    "trans": [
+      "n.m. 香水"
+    ]
+  },
+  {
+    "name": "capitale",
+    "trans": [
+      "n.f. 首都"
+    ]
+  },
+  {
+    "name": "livre",
+    "trans": [
+      "n.m. 书"
+    ]
+  },
+  {
+    "name": "place",
+    "trans": [
+      "n.f. 广场；座位"
+    ]
+  },
+  {
+    "name": "agence",
+    "trans": [
+      "n.f. 机构，办事处"
+    ]
+  },
+  {
+    "name": "maison",
+    "trans": [
+      "n.f. 房子，住宅"
+    ]
+  },
+  {
+    "name": "stagiaire",
+    "trans": [
+      "n. 实习生，培训生"
+    ]
+  },
+  {
+    "name": "rythme",
+    "trans": [
+      "n.m. 节奏，节拍"
+    ]
+  },
+  {
+    "name": "lettre",
+    "trans": [
+      "n.f. 信件；字母"
+    ]
+  },
+  {
+    "name": "pizzeria",
+    "trans": [
+      "n.f. 披萨店"
+    ]
+  },
+  {
+    "name": "école",
+    "trans": [
+      "n.f. 学校"
+    ]
+  },
+  {
+    "name": "texte",
+    "trans": [
+      "n.m. 文本，歌词"
+    ]
+  },
+  {
+    "name": "pause",
+    "trans": [
+      "n.f. 暂停，休息"
+    ]
+  },
+  {
+    "name": "nouvelle",
+    "trans": [
+      "n.f. 消息，新闻"
+    ]
+  },
+  {
+    "name": "photo",
+    "trans": [
+      "n.f. 照片"
+    ]
+  },
+  {
+    "name": "université",
+    "trans": [
+      "n.f. 大学"
+    ]
+  },
+  {
+    "name": "parc",
+    "trans": [
+      "n.m. 公园"
+    ]
+  },
+  {
+    "name": "copain",
+    "trans": [
+      "n.m. 朋友，伙伴"
+    ]
+  },
+  {
+    "name": "copine",
+    "trans": [
+      "n.f. 女朋友，女伴"
+    ]
+  },
+  {
+    "name": "coca",
+    "trans": [
+      "n.m. 可乐"
+    ]
+  },
+  {
+    "name": "boulanger",
+    "trans": [
+      "n.m. 面包师"
+    ]
+  },
+  {
+    "name": "couturier",
+    "trans": [
+      "n.m. 裁缝，时装设计师"
+    ]
+  },
+  {
+    "name": "chapelier",
+    "trans": [
+      "n.m. 帽商，制帽工人"
+    ]
+  },
+  {
+    "name": "chevalier",
+    "trans": [
+      "n.m. 骑士"
+    ]
+  },
+  {
+    "name": "poubelle",
+    "trans": [
+      "n.f. 垃圾桶"
+    ]
+  },
+  {
+    "name": "homme",
+    "trans": [
+      "n.m. 男人；人"
+    ]
+  },
+  {
+    "name": "ami",
+    "trans": [
+      "n.m. 朋友"
+    ]
+  },
+  {
+    "name": "amie",
+    "trans": [
+      "n.f. 女性朋友"
+    ]
+  },
+  {
+    "name": "ville",
+    "trans": [
+      "n.f. 城市"
+    ]
+  },
+  {
+    "name": "Marseille",
+    "trans": [
+      "n.pr. 马赛"
+    ]
+  },
+  {
+    "name": "Bordeaux",
+    "trans": [
+      "n.pr. 波尔多"
+    ]
+  },
+  {
+    "name": "Allemagne",
+    "trans": [
+      "n.f. 德国"
+    ]
+  },
+  {
+    "name": "Italie",
+    "trans": [
+      "n.f. 意大利"
+    ]
+  },
+  {
+    "name": "Espagne",
+    "trans": [
+      "n.f. 西班牙"
+    ]
+  },
+  {
+    "name": "Monaco",
+    "trans": [
+      "n.m. 摩纳哥"
+    ]
+  },
+  {
+    "name": "Andorre",
+    "trans": [
+      "n.f. 安道尔"
+    ]
+  },
+  {
+    "name": "Berne",
+    "trans": [
+      "n.pr. 伯尔尼"
+    ]
+  },
+  {
+    "name": "marseillais",
+    "trans": [
+      "adj. 马赛的"
+    ]
+  },
+  {
+    "name": "bordelais",
+    "trans": [
+      "adj. 波尔多的"
+    ]
+  },
+  {
+    "name": "parisien",
+    "trans": [
+      "adj. 巴黎的"
+    ]
+  },
+  {
+    "name": "grand",
+    "trans": [
+      "adj. 大的"
+    ]
+  },
+  {
+    "name": "petit",
+    "trans": [
+      "adj. 小的"
+    ]
+  },
+  {
+    "name": "difficile",
+    "trans": [
+      "adj. 困难的"
+    ]
+  },
+  {
+    "name": "étranger",
+    "trans": [
+      "adj. 外国的；n. 外国人"
+    ]
+  },
+  {
+    "name": "professionnel",
+    "trans": [
+      "adj. 职业的，专业的"
+    ]
+  },
+  {
+    "name": "curieux",
+    "trans": [
+      "adj. 好奇的"
+    ]
+  },
+  {
+    "name": "seul",
+    "trans": [
+      "adj. 单独的，独自的"
+    ]
+  },
+  {
+    "name": "chic",
+    "trans": [
+      "adj. 时髦的，漂亮的"
+    ]
+  },
+  {
+    "name": "gentil",
+    "trans": [
+      "adj. 和蔼的，客气的"
+    ]
+  },
+  {
+    "name": "riche",
+    "trans": [
+      "adj. 富有的"
+    ]
+  },
+  {
+    "name": "mauvais",
+    "trans": [
+      "adj. 坏的，差的"
+    ]
+  },
+  {
+    "name": "quel",
+    "trans": [
+      "adj.interr. 什么样的，哪一个"
+    ]
+  },
+  {
+    "name": "travailler",
+    "trans": [
+      "v.i. 工作；训练"
+    ]
+  },
+  {
+    "name": "avoir",
+    "trans": [
+      "v.t. 有"
+    ]
+  },
+  {
+    "name": "arrêter",
+    "trans": [
+      "v.t. 停止"
+    ]
+  },
+  {
+    "name": "écouter",
+    "trans": [
+      "v.t. 听"
+    ]
+  },
+  {
+    "name": "répéter",
+    "trans": [
+      "v.t. 重复"
+    ]
+  },
+  {
+    "name": "écrire",
+    "trans": [
+      "v.t. 写"
+    ]
+  },
+  {
+    "name": "lire",
+    "trans": [
+      "v.t. 读，阅读"
+    ]
+  },
+  {
+    "name": "quatre",
+    "trans": [
+      "num. 四"
+    ]
+  },
+  {
+    "name": "cinq",
+    "trans": [
+      "num. 五"
+    ]
+  },
+  {
+    "name": "six",
+    "trans": [
+      "num. 六"
+    ]
+  },
+  {
+    "name": "sept",
+    "trans": [
+      "num. 七"
+    ]
+  },
+  {
+    "name": "huit",
+    "trans": [
+      "num. 八"
+    ]
+  },
+  {
+    "name": "où",
+    "trans": [
+      "adv. 哪里"
+    ]
+  },
+  {
+    "name": "que",
+    "trans": [
+      "pron. 什么"
+    ]
+  },
+  {
+    "name": "quoi",
+    "trans": [
+      "pron. 什么（重读形式）"
+    ]
+  },
+  {
+    "name": "on",
+    "trans": [
+      "pron. 我们，大家，有人"
+    ]
+  },
+  {
+    "name": "avec",
+    "trans": [
+      "prép. 和……一起"
+    ]
+  },
+  {
+    "name": "après",
+    "trans": [
+      "prép. 在……之后"
+    ]
+  },
+  {
+    "name": "comme",
+    "trans": [
+      "conj. 像……一样"
+    ]
+  },
+  {
+    "name": "en",
+    "trans": [
+      "prép. 在……（国家等）"
+    ]
+  },
+  {
+    "name": "dans",
+    "trans": [
+      "prép. 在……里面"
+    ]
+  },
+  {
+    "name": "beaucoup",
+    "trans": [
+      "adv. 非常，很"
+    ]
+  },
+  {
+    "name": "juste",
+    "trans": [
+      "adv. 只是，仅仅"
+    ]
+  },
+  {
+    "name": "tiens",
+    "trans": [
+      "int. 嘿，瞧"
+    ]
+  },
+  {
+    "name": "aller au travail",
+    "trans": [
+      "短语：去上班"
+    ]
+  },
+  {
+    "name": "est-ce que",
+    "trans": [
+      "短语：是否（疑问句引导结构）"
+    ]
+  },
+  {
+    "name": "Qu'est-ce que c'est ?",
+    "trans": [
+      "短语：这是什么？"
+    ]
+  },
+  {
+    "name": "C'est qui ?",
+    "trans": [
+      "短语：这是谁？"
+    ]
+  },
+  {
+    "name": "C'est quoi ?",
+    "trans": [
+      "短语：这是什么？（口语）"
+    ]
+  },
+  {
+    "name": "Où est-ce qu'il habite ?",
+    "trans": [
+      "短语：他住在哪里？"
+    ]
+  },
+  {
+    "name": "Où habite-t-il ?",
+    "trans": [
+      "短语：他住在哪里？（倒装形式）"
+    ]
+  },
+  {
+    "name": "café au lait",
+    "trans": [
+      "短语：牛奶咖啡"
+    ]
+  },
+  {
+    "name": "aller aux toilettes",
+    "trans": [
+      "短语：去洗手间"
+    ]
+  },
+  {
+    "name": "à l'agence de voyage",
+    "trans": [
+      "短语：在旅行社"
+    ]
+  },
+  {
+    "name": "petit ami",
+    "trans": [
+      "短语：男朋友"
+    ]
+  },
+  {
+    "name": "petite amie",
+    "trans": [
+      "短语：女朋友"
+    ]
+  },
+  {
+    "name": "On arrête !",
+    "trans": [
+      "短语：停下来！"
+    ]
+  },
+  {
+    "name": "Ça ne va pas !",
+    "trans": [
+      "短语：这样不行！"
+    ]
+  },
+  {
+    "name": "Allez, au travail !",
+    "trans": [
+      "短语：加油，去干活吧！"
+    ]
+  },
+  {
+    "name": "Merci beaucoup.",
+    "trans": [
+      "短语：非常感谢。"
+    ]
+  },
+  {
+    "name": "Je voudrais...",
+    "trans": [
+      "短语：我想要……"
+    ]
+  },
+  {
+    "name": "faire une pause",
+    "trans": [
+      "短语：休息一会儿"
+    ]
+  },
+  {
+    "name": "s'il vous plaît",
+    "trans": [
+      "短语：请（尊称/复数）"
+    ]
+  },
+  {
+    "name": "Vous êtes très gentil.",
+    "trans": [
+      "短语：您太客气了。"
+    ]
+  }
+]

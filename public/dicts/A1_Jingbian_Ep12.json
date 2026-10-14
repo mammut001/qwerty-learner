@@ -1,0 +1,434 @@
+[
+  {
+    "name": "danger",
+    "trans": [
+      "n.m. 危险"
+    ]
+  },
+  {
+    "name": "assiette",
+    "trans": [
+      "n.f. 盘子"
+    ]
+  },
+  {
+    "name": "cahier",
+    "trans": [
+      "n.m. 笔记本"
+    ]
+  },
+  {
+    "name": "cheveu",
+    "trans": [
+      "n.m. 头发"
+    ]
+  },
+  {
+    "name": "œil",
+    "trans": [
+      "n.m. 眼睛"
+    ]
+  },
+  {
+    "name": "compagne",
+    "trans": [
+      "n.f. 女伴，生活伴侣"
+    ]
+  },
+  {
+    "name": "compagnon",
+    "trans": [
+      "n.m. 男伴，同伴"
+    ]
+  },
+  {
+    "name": "retard",
+    "trans": [
+      "n.m. 耽搁，迟到"
+    ]
+  },
+  {
+    "name": "biologiste",
+    "trans": [
+      "n. 生物学家"
+    ]
+  },
+  {
+    "name": "plaisir",
+    "trans": [
+      "n.m. 乐趣，愉快"
+    ]
+  },
+  {
+    "name": "contraire",
+    "trans": [
+      "n.m. 相反的事物"
+    ]
+  },
+  {
+    "name": "héritage",
+    "trans": [
+      "n.m. 遗产，继承"
+    ]
+  },
+  {
+    "name": "projet",
+    "trans": [
+      "n.m. 计划，项目"
+    ]
+  },
+  {
+    "name": "politique",
+    "trans": [
+      "n.f. 政治；adj. 政治的"
+    ]
+  },
+  {
+    "name": "droit",
+    "trans": [
+      "n.m. 权利；法律"
+    ]
+  },
+  {
+    "name": "gauche",
+    "trans": [
+      "n.f. 左派；左边"
+    ]
+  },
+  {
+    "name": "droite",
+    "trans": [
+      "n.f. 右派；右边"
+    ]
+  },
+  {
+    "name": "couleur",
+    "trans": [
+      "n.f. 颜色"
+    ]
+  },
+  {
+    "name": "production",
+    "trans": [
+      "n.f. 生产，产品"
+    ]
+  },
+  {
+    "name": "création",
+    "trans": [
+      "n.f. 创造，创立"
+    ]
+  },
+  {
+    "name": "témoignage",
+    "trans": [
+      "n.m. 证词，见证"
+    ]
+  },
+  {
+    "name": "importation",
+    "trans": [
+      "n.f. 进口"
+    ]
+  },
+  {
+    "name": "maladie",
+    "trans": [
+      "n.f. 疾病"
+    ]
+  },
+  {
+    "name": "esclavage",
+    "trans": [
+      "n.m. 奴隶制"
+    ]
+  },
+  {
+    "name": "joyeux",
+    "trans": [
+      "adj. 快乐的，愉快的"
+    ]
+  },
+  {
+    "name": "financier",
+    "trans": [
+      "adj. 金融的，财政的"
+    ]
+  },
+  {
+    "name": "neuf",
+    "trans": [
+      "adj. 崭新的"
+    ]
+  },
+  {
+    "name": "vif",
+    "trans": [
+      "adj. 活泼的，鲜艳的"
+    ]
+  },
+  {
+    "name": "cadet",
+    "trans": [
+      "adj. 较年幼的"
+    ]
+  },
+  {
+    "name": "aîné",
+    "trans": [
+      "adj. 较年长的"
+    ]
+  },
+  {
+    "name": "public",
+    "trans": [
+      "adj. 公共的，大众的"
+    ]
+  },
+  {
+    "name": "long",
+    "trans": [
+      "adj. 长的"
+    ]
+  },
+  {
+    "name": "vert",
+    "trans": [
+      "adj. 绿色的"
+    ]
+  },
+  {
+    "name": "jaune",
+    "trans": [
+      "adj. 黄色的"
+    ]
+  },
+  {
+    "name": "bleu",
+    "trans": [
+      "adj. 蓝色的"
+    ]
+  },
+  {
+    "name": "roux",
+    "trans": [
+      "adj. 红棕色的"
+    ]
+  },
+  {
+    "name": "impossible",
+    "trans": [
+      "adj. 不可能的"
+    ]
+  },
+  {
+    "name": "tutoyer",
+    "trans": [
+      "v.t. 用“你”称呼"
+    ]
+  },
+  {
+    "name": "vouvoyer",
+    "trans": [
+      "v.t. 用“您”称呼"
+    ]
+  },
+  {
+    "name": "expliquer",
+    "trans": [
+      "v.t. 解释，说明"
+    ]
+  },
+  {
+    "name": "hériter",
+    "trans": [
+      "v.i. 继承"
+    ]
+  },
+  {
+    "name": "lutter",
+    "trans": [
+      "v.i. 斗争，抗争"
+    ]
+  },
+  {
+    "name": "essayer",
+    "trans": [
+      "v.t. 尝试，试图"
+    ]
+  },
+  {
+    "name": "témoigner",
+    "trans": [
+      "v.i. 作证，证明"
+    ]
+  },
+  {
+    "name": "créer",
+    "trans": [
+      "v.t. 创造，创立"
+    ]
+  },
+  {
+    "name": "importer",
+    "trans": [
+      "v.t. 进口，输入"
+    ]
+  },
+  {
+    "name": "soixante-dix",
+    "trans": [
+      "num. 七十"
+    ]
+  },
+  {
+    "name": "soixante et onze",
+    "trans": [
+      "num. 七十一"
+    ]
+  },
+  {
+    "name": "soixante-douze",
+    "trans": [
+      "num. 七十二"
+    ]
+  },
+  {
+    "name": "quatre-vingts",
+    "trans": [
+      "num. 八十"
+    ]
+  },
+  {
+    "name": "quatre-vingt-un",
+    "trans": [
+      "num. 八十一"
+    ]
+  },
+  {
+    "name": "quatre-vingt-dix",
+    "trans": [
+      "num. 九十"
+    ]
+  },
+  {
+    "name": "quatre-vingt-onze",
+    "trans": [
+      "num. 九十一"
+    ]
+  },
+  {
+    "name": "contre",
+    "trans": [
+      "prép. 反对，抗拒"
+    ]
+  },
+  {
+    "name": "surtout",
+    "trans": [
+      "adv. 特别，尤其"
+    ]
+  },
+  {
+    "name": "plusieurs",
+    "trans": [
+      "adj.indéf. 几个，若干"
+    ]
+  },
+  {
+    "name": "Parlez-moi de vous !",
+    "trans": [
+      "短语：聊聊您自己吧！"
+    ]
+  },
+  {
+    "name": "en danger",
+    "trans": [
+      "短语：处于危险中"
+    ]
+  },
+  {
+    "name": "Très heureux de vous connaître.",
+    "trans": [
+      "短语：很高兴认识您。"
+    ]
+  },
+  {
+    "name": "Joyeux anniversaire !",
+    "trans": [
+      "短语：生日快乐！"
+    ]
+  },
+  {
+    "name": "Quoi de neuf ?",
+    "trans": [
+      "短语：有什么新鲜事吗？"
+    ]
+  },
+  {
+    "name": "Ecoute-moi !",
+    "trans": [
+      "短语：听我说！"
+    ]
+  },
+  {
+    "name": "Parle-moi !",
+    "trans": [
+      "短语：跟我说话！"
+    ]
+  },
+  {
+    "name": "Ne m'écoute pas !",
+    "trans": [
+      "短语：别听我的！"
+    ]
+  },
+  {
+    "name": "Ne me parle pas !",
+    "trans": [
+      "短语：别跟我说话！"
+    ]
+  },
+  {
+    "name": "faire plaisir à",
+    "trans": [
+      "短语：使某人开心"
+    ]
+  },
+  {
+    "name": "avec plaisir",
+    "trans": [
+      "短语：很乐意，非常乐意"
+    ]
+  },
+  {
+    "name": "c'est... qui...",
+    "trans": [
+      "短语：正是……（强调句型）"
+    ]
+  },
+  {
+    "name": "lutter contre",
+    "trans": [
+      "短语：与……做斗争"
+    ]
+  },
+  {
+    "name": "se décider",
+    "trans": [
+      "短语：下定决心，作决定"
+    ]
+  },
+  {
+    "name": "de ma part",
+    "trans": [
+      "短语：以我的名义，代表我"
+    ]
+  },
+  {
+    "name": "au fait",
+    "trans": [
+      "短语：顺便说一下，其实"
+    ]
+  }
+]

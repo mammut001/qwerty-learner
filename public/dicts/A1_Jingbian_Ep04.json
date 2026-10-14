@@ -1,0 +1,662 @@
+[
+  {
+    "name": "histoire",
+    "trans": [
+      "n.f. 故事；历史"
+    ]
+  },
+  {
+    "name": "match",
+    "trans": [
+      "n.m. 比赛"
+    ]
+  },
+  {
+    "name": "heure",
+    "trans": [
+      "n.f. 小时，钟点"
+    ]
+  },
+  {
+    "name": "portable",
+    "trans": [
+      "n.m. 手机"
+    ]
+  },
+  {
+    "name": "répétition",
+    "trans": [
+      "n.f. 排练，彩排"
+    ]
+  },
+  {
+    "name": "jardin",
+    "trans": [
+      "n.m. 花园"
+    ]
+  },
+  {
+    "name": "demi",
+    "trans": [
+      "n.m. 一半"
+    ]
+  },
+  {
+    "name": "soir",
+    "trans": [
+      "n.m. 晚上"
+    ]
+  },
+  {
+    "name": "matin",
+    "trans": [
+      "n.m. 早晨，上午"
+    ]
+  },
+  {
+    "name": "après-midi",
+    "trans": [
+      "n.m. 下午"
+    ]
+  },
+  {
+    "name": "midi",
+    "trans": [
+      "n.m. 正午十二点"
+    ]
+  },
+  {
+    "name": "minuit",
+    "trans": [
+      "n.m. 午夜十二点"
+    ]
+  },
+  {
+    "name": "cathédrale",
+    "trans": [
+      "n.f. 大教堂"
+    ]
+  },
+  {
+    "name": "amour",
+    "trans": [
+      "n.m. 爱情"
+    ]
+  },
+  {
+    "name": "désir",
+    "trans": [
+      "n.m. 愿望，欲望"
+    ]
+  },
+  {
+    "name": "artiste",
+    "trans": [
+      "n. 艺术家"
+    ]
+  },
+  {
+    "name": "sculpture",
+    "trans": [
+      "n.f. 雕塑"
+    ]
+  },
+  {
+    "name": "rime",
+    "trans": [
+      "n.f. 韵律，韵脚"
+    ]
+  },
+  {
+    "name": "siècle",
+    "trans": [
+      "n.m. 世纪"
+    ]
+  },
+  {
+    "name": "millénaire",
+    "trans": [
+      "n.m. 千年"
+    ]
+  },
+  {
+    "name": "étoile",
+    "trans": [
+      "n.f. 星星，星辰"
+    ]
+  },
+  {
+    "name": "verre",
+    "trans": [
+      "n.m. 玻璃；玻璃杯"
+    ]
+  },
+  {
+    "name": "pierre",
+    "trans": [
+      "n.f. 石头"
+    ]
+  },
+  {
+    "name": "poète",
+    "trans": [
+      "n.m. 诗人"
+    ]
+  },
+  {
+    "name": "main",
+    "trans": [
+      "n.f. 手"
+    ]
+  },
+  {
+    "name": "foule",
+    "trans": [
+      "n.f. 人群"
+    ]
+  },
+  {
+    "name": "porte",
+    "trans": [
+      "n.f. 门"
+    ]
+  },
+  {
+    "name": "philosophe",
+    "trans": [
+      "n.m. 哲学家"
+    ]
+  },
+  {
+    "name": "félicitations",
+    "trans": [
+      "n.f.pl. 祝贺，恭喜"
+    ]
+  },
+  {
+    "name": "santé",
+    "trans": [
+      "n.f. 健康"
+    ]
+  },
+  {
+    "name": "amitié",
+    "trans": [
+      "n.f. 友谊"
+    ]
+  },
+  {
+    "name": "soleil",
+    "trans": [
+      "n.m. 太阳，阳光"
+    ]
+  },
+  {
+    "name": "pluie",
+    "trans": [
+      "n.f. 雨"
+    ]
+  },
+  {
+    "name": "SMS",
+    "trans": [
+      "n.m. 短信"
+    ]
+  },
+  {
+    "name": "avenue",
+    "trans": [
+      "n.f. 大街，林荫道"
+    ]
+  },
+  {
+    "name": "coeur",
+    "trans": [
+      "n.m. 心，心脏"
+    ]
+  },
+  {
+    "name": "inconnu",
+    "trans": [
+      "n.m. 陌生人"
+    ]
+  },
+  {
+    "name": "guitare",
+    "trans": [
+      "n.f. 吉他"
+    ]
+  },
+  {
+    "name": "oiseau",
+    "trans": [
+      "n.m. 鸟"
+    ]
+  },
+  {
+    "name": "orchestre",
+    "trans": [
+      "n.m. 管弦乐队"
+    ]
+  },
+  {
+    "name": "corde",
+    "trans": [
+      "n.f. 琴弦；绳索"
+    ]
+  },
+  {
+    "name": "jour",
+    "trans": [
+      "n.m. 天，白天"
+    ]
+  },
+  {
+    "name": "semaine",
+    "trans": [
+      "n.f. 星期，周"
+    ]
+  },
+  {
+    "name": "bibliothèque",
+    "trans": [
+      "n.f. 图书馆"
+    ]
+  },
+  {
+    "name": "parent",
+    "trans": [
+      "n.m. 父母，亲属"
+    ]
+  },
+  {
+    "name": "janvier",
+    "trans": [
+      "n.m. 一月"
+    ]
+  },
+  {
+    "name": "février",
+    "trans": [
+      "n.m. 二月"
+    ]
+  },
+  {
+    "name": "mars",
+    "trans": [
+      "n.m. 三月"
+    ]
+  },
+  {
+    "name": "avril",
+    "trans": [
+      "n.m. 四月"
+    ]
+  },
+  {
+    "name": "mai",
+    "trans": [
+      "n.m. 五月"
+    ]
+  },
+  {
+    "name": "juin",
+    "trans": [
+      "n.m. 六月"
+    ]
+  },
+  {
+    "name": "août",
+    "trans": [
+      "n.m. 八月"
+    ]
+  },
+  {
+    "name": "septembre",
+    "trans": [
+      "n.m. 九月"
+    ]
+  },
+  {
+    "name": "octobre",
+    "trans": [
+      "n.m. 十月"
+    ]
+  },
+  {
+    "name": "novembre",
+    "trans": [
+      "n.m. 十一月"
+    ]
+  },
+  {
+    "name": "décembre",
+    "trans": [
+      "n.m. 十二月"
+    ]
+  },
+  {
+    "name": "lundi",
+    "trans": [
+      "n.m. 星期一"
+    ]
+  },
+  {
+    "name": "mardi",
+    "trans": [
+      "n.m. 星期二"
+    ]
+  },
+  {
+    "name": "mercredi",
+    "trans": [
+      "n.m. 星期三"
+    ]
+  },
+  {
+    "name": "jeudi",
+    "trans": [
+      "n.m. 星期四"
+    ]
+  },
+  {
+    "name": "vendredi",
+    "trans": [
+      "n.m. 星期五"
+    ]
+  },
+  {
+    "name": "samedi",
+    "trans": [
+      "n.m. 星期六"
+    ]
+  },
+  {
+    "name": "dimanche",
+    "trans": [
+      "n.m. 星期日"
+    ]
+  },
+  {
+    "name": "bizarre",
+    "trans": [
+      "adj. 奇怪的，古怪的"
+    ]
+  },
+  {
+    "name": "anonyme",
+    "trans": [
+      "adj. 匿名的，无名的"
+    ]
+  },
+  {
+    "name": "nouveau",
+    "trans": [
+      "adj. 新的"
+    ]
+  },
+  {
+    "name": "génial",
+    "trans": [
+      "adj. 极好的，绝妙的"
+    ]
+  },
+  {
+    "name": "fou",
+    "trans": [
+      "adj. 疯狂的"
+    ]
+  },
+  {
+    "name": "trente",
+    "trans": [
+      "num. 三十"
+    ]
+  },
+  {
+    "name": "quarante",
+    "trans": [
+      "num. 四十"
+    ]
+  },
+  {
+    "name": "cinquante",
+    "trans": [
+      "num. 五十"
+    ]
+  },
+  {
+    "name": "soixante",
+    "trans": [
+      "num. 六十"
+    ]
+  },
+  {
+    "name": "cent",
+    "trans": [
+      "num. 一百"
+    ]
+  },
+  {
+    "name": "mille",
+    "trans": [
+      "num. 一千"
+    ]
+  },
+  {
+    "name": "raconter",
+    "trans": [
+      "v.t. 讲述"
+    ]
+  },
+  {
+    "name": "naître",
+    "trans": [
+      "v.i. 出生"
+    ]
+  },
+  {
+    "name": "mourir",
+    "trans": [
+      "v.i. 去世，死亡"
+    ]
+  },
+  {
+    "name": "déjeuner",
+    "trans": [
+      "v.i. 吃午饭"
+    ]
+  },
+  {
+    "name": "dîner",
+    "trans": [
+      "v.i. 吃晚饭"
+    ]
+  },
+  {
+    "name": "rentrer",
+    "trans": [
+      "v.i. 回家，返回"
+    ]
+  },
+  {
+    "name": "dormir",
+    "trans": [
+      "v.i. 睡觉"
+    ]
+  },
+  {
+    "name": "monter",
+    "trans": [
+      "v.i. 登上，上升"
+    ]
+  },
+  {
+    "name": "tenter",
+    "trans": [
+      "v.t. 尝试"
+    ]
+  },
+  {
+    "name": "promettre",
+    "trans": [
+      "v.t. 许诺，承诺"
+    ]
+  },
+  {
+    "name": "s'embrasser",
+    "trans": [
+      "v.pr. 互相亲吻拥抱"
+    ]
+  },
+  {
+    "name": "accompagner",
+    "trans": [
+      "v.t. 陪伴，陪同"
+    ]
+  },
+  {
+    "name": "pendant",
+    "trans": [
+      "prép. 在……期间"
+    ]
+  },
+  {
+    "name": "sous",
+    "trans": [
+      "prép. 在……下面"
+    ]
+  },
+  {
+    "name": "jusqu'à",
+    "trans": [
+      "prép. 直到"
+    ]
+  },
+  {
+    "name": "puis",
+    "trans": [
+      "adv. 然后，接着"
+    ]
+  },
+  {
+    "name": "bravo",
+    "trans": [
+      "int. 好极了，太棒了"
+    ]
+  },
+  {
+    "name": "aujourd'hui",
+    "trans": [
+      "adv. 今天"
+    ]
+  },
+  {
+    "name": "raconter une histoire",
+    "trans": [
+      "短语：讲一个故事"
+    ]
+  },
+  {
+    "name": "Quelle heure est-il ?",
+    "trans": [
+      "短语：现在几点了？"
+    ]
+  },
+  {
+    "name": "Il est huit heures.",
+    "trans": [
+      "短语：现在八点整。"
+    ]
+  },
+  {
+    "name": "midi et demi",
+    "trans": [
+      "短语：中午十二点半"
+    ]
+  },
+  {
+    "name": "sept heures et demie",
+    "trans": [
+      "短语：七点半"
+    ]
+  },
+  {
+    "name": "du matin",
+    "trans": [
+      "短语：早晨/上午"
+    ]
+  },
+  {
+    "name": "du soir",
+    "trans": [
+      "短语：晚上"
+    ]
+  },
+  {
+    "name": "de l'après-midi",
+    "trans": [
+      "短语：下午"
+    ]
+  },
+  {
+    "name": "non plus",
+    "trans": [
+      "短语：也不"
+    ]
+  },
+  {
+    "name": "Moi non plus.",
+    "trans": [
+      "短语：我也不是 / 我也没。"
+    ]
+  },
+  {
+    "name": "jouer un rôle",
+    "trans": [
+      "短语：扮演角色"
+    ]
+  },
+  {
+    "name": "À votre santé !",
+    "trans": [
+      "短语：为您的健康干杯！"
+    ]
+  },
+  {
+    "name": "À notre amitié !",
+    "trans": [
+      "短语：为我们的友谊干杯！"
+    ]
+  },
+  {
+    "name": "Tchin tchin !",
+    "trans": [
+      "短语：干杯！"
+    ]
+  },
+  {
+    "name": "au soleil",
+    "trans": [
+      "短语：在阳光下"
+    ]
+  },
+  {
+    "name": "sous la pluie",
+    "trans": [
+      "短语：在雨中"
+    ]
+  },
+  {
+    "name": "les jours de la semaine",
+    "trans": [
+      "短语：一星期里的几天"
+    ]
+  },
+  {
+    "name": "avoir rendez-vous",
+    "trans": [
+      "短语：有约会"
+    ]
+  }
+]
