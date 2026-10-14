@@ -3837,7 +3837,7 @@ export const grammarTopics: GrammarTopic[] = [
         'duquel',
         'lequel',
         'B',
-        'prompt 中已有 sur，后面不需要再加介词，阳性单数先行词用 lequel；duquel 只在 de 的情况下出现，这里不适用。',
+        '介词 sur 后面接阳性单数先行词 un sujet，用 lequel：sur lequel。duquel = de + lequel，只用于由 de 引导的结构（如 près duquel）。',
         '这是一个专家们意见不一的话题。',
         'sur + 阳性单数 → lequel',
       ],
