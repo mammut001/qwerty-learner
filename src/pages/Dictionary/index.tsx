@@ -238,7 +238,7 @@ export default function DictionaryPage() {
               <div className="space-y-4 text-sm text-gray-600 dark:text-gray-300">
                 <p>
                   支持不带重音符号输入（ecole 能查到 école）、变位和变形还原（mangeais → manger），以及 l’、d’、qu’
-                  这类省音。阅读和听力复盘时，直接点原文里的单词也能查。
+                  这类省音。阅读和听力复盘时，直接点原文里的单词也能查。例句里的词也一样。
                 </p>
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-xs text-gray-400">{history.length > 0 ? '最近查过' : '试试看'}</span>

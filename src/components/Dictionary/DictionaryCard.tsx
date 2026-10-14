@@ -1,3 +1,4 @@
+import FrenchWords from './FrenchWords'
 import { type DictionaryResult, type DictionaryWord, GENDER_LABELS, POS_LABELS, briefMeaning, speakFrench } from '@/services/dictionary'
 import { type OnlineChineseSource, loadOnlineChinese, needsOnlineChinese } from '@/services/dictionaryOnline'
 import { type YoudaoFrench, loadYoudaoFrench, youdaoQuery } from '@/services/dictionaryYoudao'
@@ -221,22 +222,24 @@ function OnlineMeanings({ meanings, source, compact }: { meanings: string[]; sou
 
 function HighlightedExample({ text, words }: { text: string; words: string[] }) {
   const targets = words.map((word) => word.trim()).filter(Boolean)
-  if (targets.length === 0) return <>{text}</>
+  if (targets.length === 0) return <FrenchWords text={text} />
   const escaped = Array.from(new Set(targets))
     .sort((a, b) => b.length - a.length)
     .map((word) => word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/[’']/g, "[’']"))
   const pattern = new RegExp(`(?<![\\p{L}\\p{M}\\p{N}])(${escaped.join('|')})(?![\\p{L}\\p{M}\\p{N}])`, 'giu')
   return (
     <>
-      {text.split(pattern).map((part, index) =>
-        index % 2 === 1 ? (
-          <mark key={index} className="rounded bg-rose-50 px-0.5 font-semibold text-red-600 dark:bg-rose-950/50 dark:text-red-300">
-            {part}
-          </mark>
-        ) : (
-          part
-        ),
-      )}
+      {text.split(pattern).map((part, index) => {
+        if (!part) return null
+        if (index % 2 === 1) {
+          return (
+            <mark key={index} className="rounded bg-rose-50 px-0.5 font-semibold text-red-600 dark:bg-rose-950/50 dark:text-red-300">
+              <FrenchWords text={part} />
+            </mark>
+          )
+        }
+        return <FrenchWords key={index} text={part} />
+      })}
     </>
   )
 }

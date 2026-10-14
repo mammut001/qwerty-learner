@@ -104,10 +104,22 @@ test('rite stays a French headword and examples highlight whole words only', asy
   )
   await page.route('**://*.wiktionary.org/**', (route) => route.abort())
   await page.goto('/dictionary?q=rite')
-  const result = page.getByTestId('dictionary-result')
+  const result = page.locator('section').getByTestId('dictionary-result')
   await expect(result.locator('span[lang="fr"]', { hasText: /^rite$/ })).toBeVisible()
   await expect(result).toContainText('英文释义')
   await expect(result.locator('mark')).toHaveText(['rite', 'Rite', 'rite'])
+
+  await page.getByRole('button', { name: 'mérite', exact: true }).click()
+  const popover = page.getByTestId('dictionary-popover')
+  await expect(popover).toHaveAttribute('aria-label', '查词：mérite')
+  await expect(popover.getByRole('button', { name: 'étude', exact: true })).toBeVisible()
+  await popover.getByRole('button', { name: 'étude', exact: true }).click()
+  await expect(popover).toHaveCount(1)
+  await expect(popover).toHaveAttribute('aria-label', '查词：étude')
+  await expect(page).toHaveURL(/\/dictionary\?q=rite$/)
+  await expect(result.locator('mark')).toHaveText(['rite', 'Rite', 'rite'])
+  await popover.getByRole('button', { name: '关闭查词' }).click()
+  await expect(popover).toHaveCount(0)
 })
 
 test('an identical English gloss is not saved as a meaning', async ({ page }) => {

@@ -3,3 +3,6 @@ node_modules
 public/dicts
 stats.html
 public/lexicon
+
+# localProfileInit must stay the first import; the sort-imports plugin would move it.
+src/index.tsx

@@ -8,6 +8,7 @@ import AccessGate from './components/AccessGate'
 import AdminRouteGate from './components/AdminRouteGate'
 import AppErrorBoundary from './components/AppErrorBoundary'
 import AuthGate from './components/AuthGate'
+import { LookupProvider } from './components/Dictionary/LookupProvider'
 import Header from './components/Header'
 import { LoadingUI } from './components/Loading'
 import RequireAccount from './components/RequireAccount'
@@ -137,65 +138,67 @@ function Root() {
   return (
     <React.StrictMode>
       <BrowserRouter basename={REACT_APP_DEPLOY_ENV === 'pages' ? '/qwerty-learner' : ''}>
-        <AccessGate>
-          <AuthGate>
-            <ShellHeaderProvider>
-              <div className="flex h-screen w-full flex-col overflow-hidden">
-                <Header />
-                <ShellOutlet>
-                  <Suspense fallback={<OutletFallback />}>
-                    <Routes>
-                      <Route index element={<HomeRedirect />} />
-                      <Route path="/typing" element={isMobile ? <KeyboardRequiredPage /> : <TypingPage />} />
-                      <Route path="/gallery" element={isMobile ? <KeyboardRequiredPage /> : <GalleryPage />} />
-                      <Route path="/dictionary" element={<DictionaryPage />} />
-                      <Route path="/word-lists" element={<CustomDictPage />} />
-                      <Route path="/conjugation" element={<ConjugationPage />} />
-                      <Route path="/grammar-session" element={<GrammarSessionPage />} />
-                      <Route path="/tenses" element={<TensesPage />} />
-                      <Route path="/tenses/:lessonId" element={<TensesPage />} />
-                      <Route path="/study-plan" element={<RequireAccount pageName="学习计划"><StudyPlanPage /></RequireAccount>} />
-                      <Route path="/placement-test" element={<RequireAccount pageName="定级测试"><PlacementTestPage /></RequireAccount>} />
-                      <Route
-                        path="/admin/placement"
-                        element={
-                          <AdminRouteGate>
-                            <AdminPlacementPage />
-                          </AdminRouteGate>
-                        }
-                      />
-                      <Route path="/recalls" element={<ExamRecallsPage />} />
-                      <Route
-                        path="/admin/recalls"
-                        element={
-                          <AdminRouteGate>
-                            <AdminRecallsPage />
-                          </AdminRouteGate>
-                        }
-                      />
-                      <Route path="/tcf" element={<RequireAccount pageName="TCF 总览"><TcfHubPage /></RequireAccount>} />
-                      <Route path="/echelle" element={<RequireAccount pageName="能力量表"><EchelleQuebecoisePage /></RequireAccount>} />
-                      <Route path="/levels" element={<RequireAccount pageName="等级课程"><LevelsPage /></RequireAccount>} />
-                      <Route path="/levels/review" element={<RequireAccount pageName="课程复习"><LevelReviewPage /></RequireAccount>} />
-                      <Route path="/levels/:level" element={<RequireAccount pageName="等级课程"><LevelDetailPage /></RequireAccount>} />
-                      <Route path="/tcf-listening" element={<TcfListeningPage />} />
-                      <Route path="/tcf-reading" element={<TcfReadingPage />} />
-                      <Route path="/tcf-writing" element={<RequireAccount pageName="TCF 写作"><TcfWritingPage /></RequireAccount>} />
-                      <Route path="/tcf-speaking" element={<RequireAccount pageName="TCF 口语"><TcfSpeakingPage /></RequireAccount>} />
-                      <Route path="/analysis" element={<RequireAccount pageName="统计"><AnalysisPage /></RequireAccount>} />
-                      <Route path="/error-book" element={<RequireAccount pageName="错题本"><ErrorBookPage /></RequireAccount>} />
-                      <Route path="/billing" element={<BillingPage />} />
-                      <Route path="/*" element={<Navigate to="/study-plan" />} />
-                    </Routes>
-                  </Suspense>
-                </ShellOutlet>
-              </div>
-              <Suspense fallback={null}>
-                <FocusTimerDock />
-              </Suspense>
-            </ShellHeaderProvider>
-          </AuthGate>
-        </AccessGate>
+        <LookupProvider>
+          <AccessGate>
+            <AuthGate>
+              <ShellHeaderProvider>
+                <div className="flex h-screen w-full flex-col overflow-hidden">
+                  <Header />
+                  <ShellOutlet>
+                    <Suspense fallback={<OutletFallback />}>
+                      <Routes>
+                        <Route index element={<HomeRedirect />} />
+                        <Route path="/typing" element={isMobile ? <KeyboardRequiredPage /> : <TypingPage />} />
+                        <Route path="/gallery" element={isMobile ? <KeyboardRequiredPage /> : <GalleryPage />} />
+                        <Route path="/dictionary" element={<DictionaryPage />} />
+                        <Route path="/word-lists" element={<CustomDictPage />} />
+                        <Route path="/conjugation" element={<ConjugationPage />} />
+                        <Route path="/grammar-session" element={<GrammarSessionPage />} />
+                        <Route path="/tenses" element={<TensesPage />} />
+                        <Route path="/tenses/:lessonId" element={<TensesPage />} />
+                        <Route path="/study-plan" element={<RequireAccount pageName="学习计划"><StudyPlanPage /></RequireAccount>} />
+                        <Route path="/placement-test" element={<RequireAccount pageName="定级测试"><PlacementTestPage /></RequireAccount>} />
+                        <Route
+                          path="/admin/placement"
+                          element={
+                            <AdminRouteGate>
+                              <AdminPlacementPage />
+                            </AdminRouteGate>
+                          }
+                        />
+                        <Route path="/recalls" element={<ExamRecallsPage />} />
+                        <Route
+                          path="/admin/recalls"
+                          element={
+                            <AdminRouteGate>
+                              <AdminRecallsPage />
+                            </AdminRouteGate>
+                          }
+                        />
+                        <Route path="/tcf" element={<RequireAccount pageName="TCF 总览"><TcfHubPage /></RequireAccount>} />
+                        <Route path="/echelle" element={<RequireAccount pageName="能力量表"><EchelleQuebecoisePage /></RequireAccount>} />
+                        <Route path="/levels" element={<RequireAccount pageName="等级课程"><LevelsPage /></RequireAccount>} />
+                        <Route path="/levels/review" element={<RequireAccount pageName="课程复习"><LevelReviewPage /></RequireAccount>} />
+                        <Route path="/levels/:level" element={<RequireAccount pageName="等级课程"><LevelDetailPage /></RequireAccount>} />
+                        <Route path="/tcf-listening" element={<TcfListeningPage />} />
+                        <Route path="/tcf-reading" element={<TcfReadingPage />} />
+                        <Route path="/tcf-writing" element={<RequireAccount pageName="TCF 写作"><TcfWritingPage /></RequireAccount>} />
+                        <Route path="/tcf-speaking" element={<RequireAccount pageName="TCF 口语"><TcfSpeakingPage /></RequireAccount>} />
+                        <Route path="/analysis" element={<RequireAccount pageName="统计"><AnalysisPage /></RequireAccount>} />
+                        <Route path="/error-book" element={<RequireAccount pageName="错题本"><ErrorBookPage /></RequireAccount>} />
+                        <Route path="/billing" element={<BillingPage />} />
+                        <Route path="/*" element={<Navigate to="/study-plan" />} />
+                      </Routes>
+                    </Suspense>
+                  </ShellOutlet>
+                </div>
+                <Suspense fallback={null}>
+                  <FocusTimerDock />
+                </Suspense>
+              </ShellHeaderProvider>
+            </AuthGate>
+          </AccessGate>
+        </LookupProvider>
       </BrowserRouter>
     </React.StrictMode>
   )

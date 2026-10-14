@@ -1,11 +1,12 @@
+import RealReadingSection from './RealReadingSection'
+import FrenchWords from '@/components/Dictionary/FrenchWords'
 import EchelleAiEvaluation from '@/components/EchelleAiEvaluation'
 import Footer from '@/components/Footer'
-import RealReadingSection from './RealReadingSection'
 import SpeechMetricsCard from '@/components/SpeechMetricsCard'
-import { trackAnalyticsEvent } from '@/utils/analytics'
 import useAudioRecorder from '@/hooks/useAudioRecorder'
 import useFrenchSpeechRecognition from '@/hooks/useFrenchSpeechRecognition'
 import useSpeech from '@/hooks/useSpeech'
+import { ensureItemBatchLoaded, isItemBatchLoaded } from '@/resources/echelleBatchLoader'
 import {
   ECHELLE_ITEM_CATALOG,
   type EchelleCatalogItem,
@@ -18,10 +19,11 @@ import {
   getEchelleProductionTaskPool,
   scoreEchelleItem,
 } from '@/resources/echelleCurriculum'
-import { ensureItemBatchLoaded, isItemBatchLoaded } from '@/resources/echelleBatchLoader'
 import { estimateRetention } from '@/resources/echelleMemory'
 import { DISCOURSE_TYPE_META, getEchelleStage } from '@/resources/echelleQuebecoise'
 import { countDue, memoryLabel } from '@/resources/echelleReview'
+import { isGuestMode, onGuestModeChange } from '@/services/guestMode'
+import { type ReportCategory, isItemVariantReportedInSession, reportEchelleItem } from '@/services/reports'
 import type { EchelleAiStatus, EchelleEvaluation, EchelleItemRecord, LearningProgress, SpeechMetrics } from '@/services/studyPlanSync'
 import {
   evaluateEchelleProduction,
@@ -33,6 +35,7 @@ import {
   subscribeLearningProgress,
   transcribeSpeech,
 } from '@/services/studyPlanSync'
+import { trackAnalyticsEvent } from '@/utils/analytics'
 import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import IconBook from '~icons/tabler/book'
@@ -49,8 +52,6 @@ import IconPlayerStop from '~icons/tabler/player-stop'
 import IconRefresh from '~icons/tabler/refresh'
 import IconSparkles from '~icons/tabler/sparkles'
 import IconVolume from '~icons/tabler/volume'
-import { isGuestMode, onGuestModeChange } from '@/services/guestMode'
-import { type ReportCategory, isItemVariantReportedInSession, reportEchelleItem } from '@/services/reports'
 
 const skillLabels: Record<EchelleItemSkill, string> = {
   listening: '听力',
@@ -178,7 +179,7 @@ export default function LevelDetailPage() {
 
   return (
     <>
-      <div className="ui-shell-container pt-5 pb-8 sm:pt-6 sm:pb-10">
+      <div className="ui-shell-container pb-8 pt-5 sm:pb-10 sm:pt-6">
         <div className="mb-6 flex flex-wrap items-center gap-3">
           <Link to="/levels" className="ui-btn-secondary flex items-center gap-1">
             <IconChevronLeft className="h-4 w-4" />
@@ -431,10 +432,7 @@ function ItemReportSection({ itemId, variant }: { itemId: string; variant: numbe
 
   if (reported) {
     return (
-      <span
-        data-testid="report-submitted-confirmation"
-        className="inline-flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500"
-      >
+      <span data-testid="report-submitted-confirmation" className="inline-flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500">
         <IconCheck className="h-3.5 w-3.5 text-emerald-500" /> 已收到，谢谢
       </span>
     )
@@ -461,7 +459,7 @@ function ItemReportSection({ itemId, variant }: { itemId: string; variant: numbe
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
+          className="inline-flex items-center gap-1 text-xs text-gray-400 transition-colors hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
           title="报告题目问题"
           data-testid="report-issue-btn"
         >
@@ -470,7 +468,7 @@ function ItemReportSection({ itemId, variant }: { itemId: string; variant: numbe
       ) : (
         <div
           data-testid="report-issue-form"
-          className="w-full basis-full mt-2 p-3 bg-gray-50 dark:bg-white/[0.04] rounded-xl border border-gray-200 dark:border-white/10 text-sm space-y-3"
+          className="mt-2 w-full basis-full space-y-3 rounded-xl border border-gray-200 bg-gray-50 p-3 text-sm dark:border-white/10 dark:bg-white/[0.04]"
         >
           <div className="flex items-center justify-between text-xs font-medium text-gray-700 dark:text-gray-300">
             <span>报告题目问题</span>
@@ -485,10 +483,7 @@ function ItemReportSection({ itemId, variant }: { itemId: string; variant: numbe
           </div>
           <div className="flex flex-wrap gap-x-4 gap-y-2">
             {REPORT_CATEGORIES.map((opt) => (
-              <label
-                key={opt.value}
-                className="inline-flex items-center gap-1.5 text-xs text-gray-700 dark:text-gray-300 cursor-pointer"
-              >
+              <label key={opt.value} className="inline-flex cursor-pointer items-center gap-1.5 text-xs text-gray-700 dark:text-gray-300">
                 <input
                   type="radio"
                   name={`report-cat-${itemId}-${variant}`}
@@ -508,7 +503,7 @@ function ItemReportSection({ itemId, variant }: { itemId: string; variant: numbe
               placeholder="详细说明（可选，500字以内）"
               maxLength={500}
               rows={2}
-              className="w-full text-xs rounded-lg border border-gray-300 dark:border-white/10 bg-white dark:bg-white/[0.06] p-2 text-gray-900 dark:text-white focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+              className="w-full rounded-lg border border-gray-300 bg-white p-2 text-xs text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
               data-testid="report-note-input"
             />
             <div className="text-right text-[10px] text-gray-400">{note.length}/500</div>
@@ -523,7 +518,7 @@ function ItemReportSection({ itemId, variant }: { itemId: string; variant: numbe
               type="button"
               onClick={handleSubmit}
               disabled={submitting}
-              className="ui-btn-primary text-xs py-1 px-3 disabled:opacity-50"
+              className="ui-btn-primary px-3 py-1 text-xs disabled:opacity-50"
               data-testid="report-submit-btn"
             >
               {submitting ? '提交中…' : '提交'}
@@ -532,7 +527,7 @@ function ItemReportSection({ itemId, variant }: { itemId: string; variant: numbe
               type="button"
               onClick={() => setIsOpen(false)}
               disabled={submitting}
-              className="ui-btn-secondary text-xs py-1 px-3"
+              className="ui-btn-secondary px-3 py-1 text-xs"
               data-testid="report-cancel-btn"
             >
               取消
@@ -683,14 +678,14 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
           </div>
           {(showTranscript || submitted) && (
             <p className="mt-3 leading-relaxed text-gray-800 dark:text-gray-200" data-testid="listening-transcript">
-              {activeItem.text}
+              <FrenchWords text={activeItem.text ?? ''} lang="fr" />
             </p>
           )}
         </div>
       ) : (
         activeItem.text && (
           <div className="mb-4 rounded-xl bg-gray-50 p-3 text-sm leading-relaxed text-gray-800 dark:bg-white/[0.04] dark:text-gray-200">
-            {activeItem.text}
+            <FrenchWords text={activeItem.text} lang="fr" />
           </div>
         )
       )}
@@ -699,7 +694,9 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
         <div className="mb-4 space-y-1">
           {activeItem.examples.map(([fr, zh], index) => (
             <div key={index} className="text-sm">
-              <span className="text-gray-800 dark:text-gray-200">{fr}</span>
+              <span className="text-gray-800 dark:text-gray-200">
+                <FrenchWords text={fr} lang="fr" />
+              </span>
               <span className="ml-2 text-gray-500">{zh}</span>
             </div>
           ))}
@@ -709,7 +706,9 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
         <div className="mb-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
           {activeItem.words.map(([fr, zh]) => (
             <div key={fr} className="rounded-lg bg-gray-50 p-2 text-sm dark:bg-white/[0.04]">
-              <div className="font-medium text-gray-900 dark:text-white">{fr}</div>
+              <div className="font-medium text-gray-900 dark:text-white">
+                <FrenchWords text={fr} lang="fr" />
+              </div>
               <div className="text-gray-500">{zh}</div>
             </div>
           ))}
@@ -913,9 +912,7 @@ function ProductionPanel({
     }
   }
 
-  const isTranscriptEdited = Boolean(
-    speechMetrics && originalTranscript !== null && text.trim() !== originalTranscript.trim(),
-  )
+  const isTranscriptEdited = Boolean(speechMetrics && originalTranscript !== null && text.trim() !== originalTranscript.trim())
 
   const wc = wordCount(text)
   const targetWords = activeTask.wordMin ?? item.wordMin ?? 0
@@ -1138,9 +1135,7 @@ function ProductionPanel({
                 </div>
                 <span className="text-xs text-gray-400">/ 180s</span>
               </div>
-              <div className="mt-1 text-xs text-gray-500">
-                大声说出你的回答；目标：至少 {targetSeconds} 秒（最长 3 分钟自动停止）
-              </div>
+              <div className="mt-1 text-xs text-gray-500">大声说出你的回答；目标：至少 {targetSeconds} 秒（最长 3 分钟自动停止）</div>
 
               <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
                 {recorder.isRecording ? (
@@ -1179,9 +1174,7 @@ function ProductionPanel({
                   正在请求麦克风权限…
                 </p>
               )}
-              {recorder.permissionHint && (
-                <p className="mt-2 text-xs text-amber-600 dark:text-amber-300">{recorder.permissionHint}</p>
-              )}
+              {recorder.permissionHint && <p className="mt-2 text-xs text-amber-600 dark:text-amber-300">{recorder.permissionHint}</p>}
               {recorder.error && <p className="mt-2 text-xs text-rose-600">{recorder.error}</p>}
             </div>
 
@@ -1202,9 +1195,7 @@ function ProductionPanel({
                       }}
                       className="mt-0.5 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                     />
-                    <span>
-                      隐私说明：录音将发送至服务器及语音识别服务商（Deepgram）转写，不作云端存储。勾选即表示同意。
-                    </span>
+                    <span>隐私说明：录音将发送至服务器及语音识别服务商（Deepgram）转写，不作云端存储。勾选即表示同意。</span>
                   </label>
                 </div>
 
@@ -1214,7 +1205,9 @@ function ProductionPanel({
                     data-testid="speech-transcribe-eval-btn"
                     disabled={!asrConsent || isTranscribing || evaluating || recorder.isRecording}
                     onClick={() => void handleTranscribeAndEvaluate()}
-                    className={`${(speechMetrics || originalTranscript) ? 'ui-btn-secondary' : 'ui-btn-primary'} flex items-center gap-1 text-xs disabled:cursor-not-allowed disabled:opacity-50`}
+                    className={`${
+                      speechMetrics || originalTranscript ? 'ui-btn-secondary' : 'ui-btn-primary'
+                    } flex items-center gap-1 text-xs disabled:cursor-not-allowed disabled:opacity-50`}
                   >
                     <IconSparkles className="h-3.5 w-3.5" />
                     {isTranscribing ? '正在转写音频…' : evaluating ? 'AI 正在评分…' : '转写并评分'}
@@ -1239,18 +1232,14 @@ function ProductionPanel({
             )}
           </div>
 
-          {speechMetrics && (
-            <SpeechMetricsCard metrics={speechMetrics} transcript={originalTranscript ?? undefined} />
-          )}
+          {speechMetrics && <SpeechMetricsCard metrics={speechMetrics} transcript={originalTranscript ?? undefined} />}
 
           {(speechMetrics || text) && (
             <div>
               <div className="mb-1 flex items-center justify-between text-xs text-gray-500">
                 <span>转写内容（可手动修改，但修改后将作为「手动转写」模式评估，不含声学指标）：</span>
                 {isTranscriptEdited && (
-                  <span className="font-medium text-amber-600 dark:text-amber-400">
-                    ⚠️ 文本已修改（切换为手动转写模式）
-                  </span>
+                  <span className="font-medium text-amber-600 dark:text-amber-400">⚠️ 文本已修改（切换为手动转写模式）</span>
                 )}
               </div>
               {textArea}
@@ -1286,7 +1275,7 @@ function ProductionPanel({
               <button
                 type="button"
                 onClick={() => setFallbackToWebSpeech(false)}
-                className="mt-2 block mx-auto text-xs text-indigo-600 underline dark:text-indigo-400"
+                className="mx-auto mt-2 block text-xs text-indigo-600 underline dark:text-indigo-400"
               >
                 切换为 Deepgram 高清录音转写
               </button>
