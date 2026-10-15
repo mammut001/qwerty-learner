@@ -1,4 +1,5 @@
 import { isGuestMode } from './guestMode'
+import { TTS_BASE_URL, TTS_VOICES, computeTtsAudioUrl, computeTtsKey } from '@/utils/ttsKey.mjs'
 
 export type PlayFrenchVoiceResult = 'played' | 'superseded' | 'unavailable' | 'starred'
 
@@ -55,8 +56,73 @@ export async function lookupVoiceOverride(word: string): Promise<VoiceOverride |
   return overrides[key]
 }
 
+export type TtsAccent = 'fr-CA' | 'fr-FR'
+
+export interface TtsManifest {
+  version: string
+  base: string
+  voices: Record<string, string>
+  keys: {
+    'fr-CA': string[]
+    'fr-FR': string[]
+  }
+}
+
+export interface ParsedTtsManifest {
+  base: string
+  voices: Record<string, string>
+  keys: Record<TtsAccent, Set<string>>
+}
+
+let ttsManifestCache: ParsedTtsManifest | null = null
+let ttsManifestPromise: Promise<ParsedTtsManifest | null> | null = null
+
+export async function loadTtsManifest(): Promise<ParsedTtsManifest | null> {
+  if (ttsManifestCache) return ttsManifestCache
+  if (ttsManifestPromise) return ttsManifestPromise
+
+  ttsManifestPromise = (async () => {
+    try {
+      const prefix = REACT_APP_DEPLOY_ENV === 'pages' ? '/qwerty-learner' : ''
+      const response = await fetch(`${prefix}/voice/tts-manifest.json?v=${encodeURIComponent(LATEST_COMMIT_HASH)}`)
+      if (!response.ok) return null
+      const data = (await response.json()) as TtsManifest
+      if (!data?.keys) return null
+      ttsManifestCache = {
+        base: data.base || TTS_BASE_URL,
+        voices: data.voices || TTS_VOICES,
+        keys: {
+          'fr-CA': new Set(data.keys['fr-CA'] || []),
+          'fr-FR': new Set(data.keys['fr-FR'] || []),
+        },
+      }
+      return ttsManifestCache
+    } catch {
+      return null
+    } finally {
+      ttsManifestPromise = null
+    }
+  })()
+
+  return ttsManifestPromise
+}
+
+export async function lookupTtsAudioUrl(word: string, accent: TtsAccent = 'fr-CA'): Promise<string | null> {
+  const manifest = await loadTtsManifest()
+  if (!manifest) return null
+  const defaultVoices = TTS_VOICES as Record<string, string>
+  const voice = manifest.voices[accent] || defaultVoices[accent]
+  if (!voice) return null
+  const key = computeTtsKey(voice, word)
+  if (manifest.keys[accent]?.has(key)) {
+    return computeTtsAudioUrl(manifest.base, accent, key)
+  }
+  return null
+}
+
 if (typeof window !== 'undefined') {
   void loadVoiceOverrides()
+  void loadTtsManifest()
 }
 
 let audioContext: AudioContext | null = null

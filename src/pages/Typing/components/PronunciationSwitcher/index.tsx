@@ -1,6 +1,6 @@
 import Tooltip from '@/components/Tooltip'
 import { LANG_PRON_MAP } from '@/resources/soundResource'
-import { currentDictInfoAtom, phoneticConfigAtom, pronunciationConfigAtom } from '@/store'
+import { type PronunciationAccent, currentDictInfoAtom, phoneticConfigAtom, pronunciationConfigAtom } from '@/store'
 import type { PronunciationType } from '@/typings'
 import { PRONUNCIATION_PHONETIC_MAP } from '@/typings'
 import { CTRL } from '@/utils'
@@ -94,6 +94,16 @@ const PronunciationSwitcher = () => {
       }
     },
     [setPronunciationConfig, pronunciationList],
+  )
+
+  const onChangePronunciationAccent = useCallback(
+    (value: PronunciationAccent) => {
+      setPronunciationConfig((old) => ({
+        ...old,
+        accent: value,
+      }))
+    },
+    [setPronunciationConfig],
   )
 
   const currentLabel = useMemo(() => {
@@ -219,6 +229,51 @@ const PronunciationSwitcher = () => {
                       </Listbox>
                     </div>
                   </div>
+                  {pronunciationConfig.type === 'fr' && (
+                    <div className="flex w-full flex-col items-start gap-2 py-0">
+                      <span className="text-sm font-normal leading-5 text-gray-900 dark:text-white dark:text-opacity-60">法语发音口音</span>
+                      <div className="flex w-full flex-row items-center justify-between">
+                        <Listbox value={pronunciationConfig.accent || 'fr-CA'} onChange={onChangePronunciationAccent}>
+                          <div className="relative">
+                            <Listbox.Button className="listbox-button">
+                              <span>{pronunciationConfig.accent === 'fr-FR' ? '🇫🇷 法国口音' : '🇨🇦 魁北克口音'}</span>
+                              <span>
+                                <IconChevronDown className="focus:outline-none" />
+                              </span>
+                            </Listbox.Button>
+                            <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
+                              <Listbox.Options className="listbox-options">
+                                <Listbox.Option value="fr-CA">
+                                  {({ selected }) => (
+                                    <>
+                                      <span>🇨🇦 魁北克口音</span>
+                                      {selected ? (
+                                        <span className="listbox-options-icon">
+                                          <IconCheck className="focus:outline-none" />
+                                        </span>
+                                      ) : null}
+                                    </>
+                                  )}
+                                </Listbox.Option>
+                                <Listbox.Option value="fr-FR">
+                                  {({ selected }) => (
+                                    <>
+                                      <span>🇫🇷 法国口音</span>
+                                      {selected ? (
+                                        <span className="listbox-options-icon">
+                                          <IconCheck className="focus:outline-none" />
+                                        </span>
+                                      ) : null}
+                                    </>
+                                  )}
+                                </Listbox.Option>
+                              </Listbox.Options>
+                            </Transition>
+                          </div>
+                        </Listbox>
+                      </div>
+                    </div>
+                  )}
                   {pronunciationConfig.isOpen && (
                     <span className="text-colo text-xs font-medium text-gray-500 dark:text-white dark:text-opacity-60">
                       Tips: 朗读发音快捷键（{CTRL} + J）
