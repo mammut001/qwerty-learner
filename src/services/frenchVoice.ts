@@ -1,5 +1,6 @@
 import { isGuestMode } from './guestMode'
 import { TTS_BASE_URL, TTS_VOICES, computeTtsAudioUrl, computeTtsKey } from '@/utils/ttsKey.mjs'
+import { VOICE_MIRROR_PATH, mirrorOverridePath, mirrorTtsPath } from '@/utils/voiceMirror.mjs'
 
 export type PlayFrenchVoiceResult = 'played' | 'superseded' | 'unavailable' | 'starred'
 
@@ -107,17 +108,49 @@ export async function loadTtsManifest(): Promise<ParsedTtsManifest | null> {
   return ttsManifestPromise
 }
 
-export async function lookupTtsAudioUrl(word: string, accent: TtsAccent = 'fr-CA'): Promise<string | null> {
+// The self-hosted mirror only exists on the main deployment; the GitHub Pages build has no /voice-audio/.
+function hasVoiceMirror(): boolean {
+  return REACT_APP_DEPLOY_ENV !== 'pages'
+}
+
+/**
+ * Ordered URLs for a TTS clip: the same-origin mirror first, then the original bucket URL.
+ * Empty when the word has no pre-generated clip for this accent.
+ */
+export async function lookupTtsAudioCandidates(word: string, accent: TtsAccent = 'fr-CA'): Promise<string[]> {
   const manifest = await loadTtsManifest()
-  if (!manifest) return null
+  if (!manifest) return []
   const defaultVoices = TTS_VOICES as Record<string, string>
   const voice = manifest.voices[accent] || defaultVoices[accent]
-  if (!voice) return null
+  if (!voice) return []
   const key = computeTtsKey(voice, word, accent)
-  if (manifest.keys[accent]?.has(key)) {
-    return computeTtsAudioUrl(manifest.base, accent, key)
+  if (!manifest.keys[accent]?.has(key)) return []
+  const candidates: string[] = []
+  if (hasVoiceMirror()) {
+    candidates.push(`${VOICE_MIRROR_PATH}/${mirrorTtsPath(accent, key)}`)
   }
-  return null
+  candidates.push(computeTtsAudioUrl(manifest.base, accent, key))
+  return candidates
+}
+
+export async function lookupTtsAudioUrl(word: string, accent: TtsAccent = 'fr-CA'): Promise<string | null> {
+  const [first] = await lookupTtsAudioCandidates(word, accent)
+  return first ?? null
+}
+
+/**
+ * Ordered URLs for a Lingua Libre override: the same-origin mirror first, then the original audio URL.
+ * Empty when the override has no audio (speech synthesis is used instead).
+ */
+export function overrideAudioCandidates(override: VoiceOverride | null | undefined): string[] {
+  if (!override?.audio) return []
+  const candidates: string[] = []
+  const mirrorPath = hasVoiceMirror() ? mirrorOverridePath(override.audio) : null
+  if (mirrorPath) {
+    candidates.push(`${VOICE_MIRROR_PATH}/${mirrorPath}`)
+  }
+  candidates.push(override.audio)
+  return candidates
 }
 
 if (typeof window !== 'undefined') {

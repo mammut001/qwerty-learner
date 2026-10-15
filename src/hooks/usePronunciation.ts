@@ -2,8 +2,9 @@ import {
   type VoiceOverride,
   createPlaybackToken,
   isFrenchVoiceAvailable,
-  lookupTtsAudioUrl,
+  lookupTtsAudioCandidates,
   lookupVoiceOverride,
+  overrideAudioCandidates,
   playFrenchVoice,
   prefetchFrenchVoice,
   setFrenchVoiceLoop,
@@ -46,6 +47,81 @@ export function generateWordSoundSrc(word: string, pronunciation: Exclude<Pronun
     default:
       return ''
   }
+}
+
+type ClipPlayback = {
+  volume: number
+  rate: number
+  loop: boolean
+  isCurrent: () => boolean
+  audioRef: { current: HTMLAudioElement | null }
+  onStart: () => void
+  onEnd: () => void
+}
+
+/**
+ * Plays the first URL in `urls` that starts. A load error or a rejected play() moves on to the next URL.
+ * Resolves true once a clip has started, false if every URL failed or this playback was superseded.
+ */
+function playClipUrls(urls: string[], playback: ClipPlayback): Promise<boolean> {
+  const { volume, rate, loop, isCurrent, audioRef, onStart, onEnd } = playback
+
+  const tryFrom = (index: number): Promise<boolean> =>
+    new Promise<boolean>((resolve) => {
+      if (index >= urls.length || !isCurrent()) {
+        resolve(false)
+        return
+      }
+
+      const audio = new Audio(urls[index])
+      audio.volume = volume
+      audio.playbackRate = rate
+      audio.loop = loop
+      audioRef.current = audio
+
+      let started = false
+      let moved = false
+      let settled = false
+      const settle = (ok: boolean) => {
+        if (settled) return
+        settled = true
+        resolve(ok)
+      }
+      const finish = () => {
+        if (!isCurrent()) return
+        if (audioRef.current === audio) audioRef.current = null
+        onEnd()
+      }
+      const advance = () => {
+        if (started || moved) return
+        moved = true
+        audio.onerror = null
+        tryFrom(index + 1).then(settle)
+      }
+
+      audio.onplay = () => {
+        started = true
+        if (isCurrent()) onStart()
+      }
+      audio.onended = finish
+      audio.onerror = () => {
+        if (started) finish()
+        else advance()
+      }
+
+      audio.play().then(
+        () => {
+          started = true
+          settle(true)
+        },
+        () => advance(),
+      )
+    })
+
+  return tryFrom(0).then((ok) => {
+    if (!ok && isCurrent()) audioRef.current = null
+    return ok
+  })
 }
 
 export default function usePronunciationSound(word: string, isLoop?: boolean) {
@@ -111,49 +187,14 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
         activeTokenRef.current = myToken
 
         void (async () => {
-          let ttsUrl: string | null = null
+          const accent = pronunciationConfig.accent || 'fr-CA'
+          let ttsCandidates: string[] = []
           try {
-            const accent = pronunciationConfig.accent || 'fr-CA'
-            ttsUrl = await lookupTtsAudioUrl(word, accent)
+            ttsCandidates = await lookupTtsAudioCandidates(word, accent)
           } catch {
             // tolerate failure by falling back
           }
           if (activeTokenRef.current !== myToken) return
-
-          if (ttsUrl) {
-            const fallbackAudio = new Audio(ttsUrl)
-            fallbackAudio.volume = pronunciationConfig.volume
-            fallbackAudio.playbackRate = pronunciationConfig.rate
-            fallbackAudio.loop = loop
-            fallbackAudioRef.current = fallbackAudio
-            fallbackAudio.onplay = () => {
-              if (activeTokenRef.current === myToken) {
-                setIsPlaying(true)
-              }
-            }
-            fallbackAudio.onended = () => {
-              if (activeTokenRef.current === myToken) {
-                activeTokenRef.current = null
-              }
-              fallbackAudioRef.current = null
-              setIsPlaying(false)
-            }
-            fallbackAudio.onerror = () => {
-              if (activeTokenRef.current === myToken) {
-                activeTokenRef.current = null
-              }
-              fallbackAudioRef.current = null
-              setIsPlaying(false)
-            }
-            void fallbackAudio.play().catch(() => {
-              if (activeTokenRef.current === myToken) {
-                activeTokenRef.current = null
-              }
-              fallbackAudioRef.current = null
-              setIsPlaying(false)
-            })
-            return
-          }
 
           let override: VoiceOverride | null | undefined
           try {
@@ -163,67 +204,50 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
           }
           if (activeTokenRef.current !== myToken) return
 
-          if (override) {
-            if (override.audio) {
-              const fallbackAudio = new Audio(override.audio)
-              fallbackAudio.volume = pronunciationConfig.volume
-              fallbackAudio.playbackRate = pronunciationConfig.rate
-              fallbackAudio.loop = loop
-              fallbackAudioRef.current = fallbackAudio
-              fallbackAudio.onplay = () => {
+          // Ordered clips: TTS (same-origin mirror, then bucket), then the Lingua Libre override (mirror, then original).
+          const clipUrls = [...ttsCandidates, ...overrideAudioCandidates(override)]
+          if (clipUrls.length > 0) {
+            const started = await playClipUrls(clipUrls, {
+              volume: pronunciationConfig.volume,
+              rate: pronunciationConfig.rate,
+              loop,
+              isCurrent: () => activeTokenRef.current === myToken,
+              audioRef: fallbackAudioRef,
+              onStart: () => setIsPlaying(true),
+              onEnd: () => {
+                activeTokenRef.current = null
+                setIsPlaying(false)
+              },
+            })
+            if (started || activeTokenRef.current !== myToken) return
+          }
+
+          if (override && !override.audio) {
+            safeSpeak(word, {
+              volume: pronunciationConfig.volume,
+              rate: pronunciationConfig.rate,
+              onStart: () => {
                 if (activeTokenRef.current === myToken) {
                   setIsPlaying(true)
                 }
-              }
-              fallbackAudio.onended = () => {
+              },
+              onEnd: () => {
                 if (activeTokenRef.current === myToken) {
                   activeTokenRef.current = null
+                  setIsPlaying(false)
                 }
-                fallbackAudioRef.current = null
-                setIsPlaying(false)
-              }
-              fallbackAudio.onerror = () => {
+              },
+              onError: () => {
                 if (activeTokenRef.current === myToken) {
                   activeTokenRef.current = null
+                  setIsPlaying(false)
                 }
-                fallbackAudioRef.current = null
-                setIsPlaying(false)
-              }
-              void fallbackAudio.play().catch(() => {
-                if (activeTokenRef.current === myToken) {
-                  activeTokenRef.current = null
-                }
-                fallbackAudioRef.current = null
-                setIsPlaying(false)
-              })
-              return
-            } else {
-              safeSpeak(word, {
-                volume: pronunciationConfig.volume,
-                rate: pronunciationConfig.rate,
-                onStart: () => {
-                  if (activeTokenRef.current === myToken) {
-                    setIsPlaying(true)
-                  }
-                },
-                onEnd: () => {
-                  if (activeTokenRef.current === myToken) {
-                    activeTokenRef.current = null
-                    setIsPlaying(false)
-                  }
-                },
-                onError: () => {
-                  if (activeTokenRef.current === myToken) {
-                    activeTokenRef.current = null
-                    setIsPlaying(false)
-                  }
-                },
-              })
-              return
-            }
+              },
+            })
+            return
           }
 
-          // Otherwise keep the current behaviour
+          // Every clip failed (or none exist): the dictionary proxy, then Youdao / speech synthesis.
           const result = await playFrenchVoice(word, {
             volume: pronunciationConfig.volume,
             rate: pronunciationConfig.rate,
@@ -283,36 +307,17 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
               return
             }
             if (!soundSrc) {
-              const fallbackAudio = new Audio(generateWordSoundSrc(word, 'fr'))
-              fallbackAudio.volume = pronunciationConfig.volume
-              fallbackAudio.playbackRate = pronunciationConfig.rate
-              fallbackAudio.loop = loop
-              fallbackAudioRef.current = fallbackAudio
-              fallbackAudio.onplay = () => {
-                if (activeTokenRef.current === myToken) {
-                  setIsPlaying(true)
-                }
-              }
-              fallbackAudio.onended = () => {
-                if (activeTokenRef.current === myToken) {
+              void playClipUrls([generateWordSoundSrc(word, 'fr')], {
+                volume: pronunciationConfig.volume,
+                rate: pronunciationConfig.rate,
+                loop,
+                isCurrent: () => activeTokenRef.current === myToken,
+                audioRef: fallbackAudioRef,
+                onStart: () => setIsPlaying(true),
+                onEnd: () => {
                   activeTokenRef.current = null
-                }
-                fallbackAudioRef.current = null
-                setIsPlaying(false)
-              }
-              fallbackAudio.onerror = () => {
-                if (activeTokenRef.current === myToken) {
-                  activeTokenRef.current = null
-                }
-                fallbackAudioRef.current = null
-                setIsPlaying(false)
-              }
-              void fallbackAudio.play().catch(() => {
-                if (activeTokenRef.current === myToken) {
-                  activeTokenRef.current = null
-                }
-                fallbackAudioRef.current = null
-                setIsPlaying(false)
+                  setIsPlaying(false)
+                },
               })
             } else {
               playSound(options)
@@ -380,44 +385,39 @@ export function usePrefetchPronunciationSound(word: string | undefined) {
       let cancelled = false
       let created: HTMLAudioElement | null = null
       const accent = pronunciationConfig.accent || 'fr-CA'
-      void lookupTtsAudioUrl(word, accent).then(async (ttsUrl) => {
+      void (async () => {
+        const ttsCandidates = await lookupTtsAudioCandidates(word, accent)
         if (cancelled) return
-        if (ttsUrl) {
-          const head = document.head
-          const isPrefetch = (Array.from(head.querySelectorAll('audio[src]')) as HTMLAudioElement[]).some((el) => el.src === ttsUrl)
-          if (!isPrefetch) {
-            const audio = new Audio()
-            audio.src = ttsUrl
-            audio.preload = 'auto'
-            audio.style.display = 'none'
-            head.appendChild(audio)
-            created = audio
+        let fromOverride = false
+        let soundUrl: string | undefined = ttsCandidates[0]
+        if (!soundUrl) {
+          const override = await lookupVoiceOverride(word)
+          if (cancelled) return
+          if (override === undefined) {
+            if (isFrenchVoiceAvailable()) {
+              prefetchFrenchVoice(word)
+            }
+            return
           }
-          return
+          soundUrl = overrideAudioCandidates(override)[0]
+          fromOverride = true
         }
-
-        const override = await lookupVoiceOverride(word)
-        if (cancelled) return
-        if (override !== undefined) {
-          if (!override?.audio) return
-          const soundUrl = override.audio
-          const head = document.head
-          const isPrefetch = (Array.from(head.querySelectorAll('link[href]')) as HTMLLinkElement[]).some((el) => el.href === soundUrl)
-          if (!isPrefetch) {
-            const audio = new Audio()
-            audio.src = soundUrl
-            audio.preload = 'auto'
-            audio.crossOrigin = 'anonymous'
-            audio.style.display = 'none'
-            head.appendChild(audio)
-            created = audio
-          }
-          return
+        if (!soundUrl) return
+        const url: string = soundUrl
+        const head = document.head
+        const isPrefetch = (Array.from(head.querySelectorAll('audio[src]')) as HTMLAudioElement[]).some(
+          (el) => el.getAttribute('src') === url,
+        )
+        if (!isPrefetch) {
+          const audio = new Audio()
+          audio.src = url
+          audio.preload = 'auto'
+          if (fromOverride) audio.crossOrigin = 'anonymous'
+          audio.style.display = 'none'
+          head.appendChild(audio)
+          created = audio
         }
-        if (isFrenchVoiceAvailable()) {
-          prefetchFrenchVoice(word)
-        }
-      })
+      })()
       return () => {
         cancelled = true
         if (created && created.parentNode) {
