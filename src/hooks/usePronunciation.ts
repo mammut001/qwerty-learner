@@ -328,7 +328,10 @@ export function usePrefetchPronunciationSound(word: string | undefined) {
     if (!word) return
 
     if (pronunciationConfig.type === 'fr') {
+      let cancelled = false
+      let created: HTMLAudioElement | null = null
       void lookupVoiceOverride(word).then((override) => {
+        if (cancelled) return
         if (override !== undefined) {
           if (!override?.audio) return
           const soundUrl = override.audio
@@ -341,9 +344,7 @@ export function usePrefetchPronunciationSound(word: string | undefined) {
             audio.crossOrigin = 'anonymous'
             audio.style.display = 'none'
             head.appendChild(audio)
-            return () => {
-              head.removeChild(audio)
-            }
+            created = audio
           }
           return
         }
@@ -351,7 +352,12 @@ export function usePrefetchPronunciationSound(word: string | undefined) {
           prefetchFrenchVoice(word)
         }
       })
-      return
+      return () => {
+        cancelled = true
+        if (created && created.parentNode) {
+          created.parentNode.removeChild(created)
+        }
+      }
     }
 
     const soundUrl = generateWordSoundSrc(word, pronunciationConfig.type)

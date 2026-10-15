@@ -32,7 +32,8 @@ export async function loadVoiceOverrides(): Promise<Record<string, VoiceOverride
 
   overridesPromise = (async () => {
     try {
-      const response = await fetch('/voice/fr-overrides.json')
+      const prefix = REACT_APP_DEPLOY_ENV === 'pages' ? '/qwerty-learner' : ''
+      const response = await fetch(`${prefix}/voice/fr-overrides.json?v=${encodeURIComponent(LATEST_COMMIT_HASH)}`)
       if (!response.ok) return null
       const data = (await response.json()) as VoiceOverridesManifest
       overridesCache = data?.words || null
