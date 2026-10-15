@@ -1,0 +1,722 @@
+[
+  {
+    "name": "visioconférence",
+    "trans": [
+      "n.f. 视频会议"
+    ]
+  },
+  {
+    "name": "salariat",
+    "trans": [
+      "n.m. 工薪制度"
+    ]
+  },
+  {
+    "name": "employeur",
+    "trans": [
+      "n.m. 雇主"
+    ]
+  },
+  {
+    "name": "embauche",
+    "trans": [
+      "n.f. 雇用；招聘"
+    ]
+  },
+  {
+    "name": "licenciement",
+    "trans": [
+      "n.m. 解雇"
+    ]
+  },
+  {
+    "name": "rémunération",
+    "trans": [
+      "n.f. 报酬"
+    ]
+  },
+  {
+    "name": "manque",
+    "trans": [
+      "n.m. 缺乏"
+    ]
+  },
+  {
+    "name": "personnel",
+    "trans": [
+      "n.m. 工作人员"
+    ]
+  },
+  {
+    "name": "reconversion",
+    "trans": [
+      "n.f. 职业转换"
+    ]
+  },
+  {
+    "name": "perfectionnement",
+    "trans": [
+      "n.m. 进修"
+    ]
+  },
+  {
+    "name": "diplôme",
+    "trans": [
+      "n.m. 文凭"
+    ]
+  },
+  {
+    "name": "équivalence",
+    "trans": [
+      "n.f. 等效认定"
+    ]
+  },
+  {
+    "name": "reconnaissance",
+    "trans": [
+      "n.f. 认可"
+    ]
+  },
+  {
+    "name": "aptitude",
+    "trans": [
+      "n.f. 能力；才能"
+    ]
+  },
+  {
+    "name": "entrepreneuriat",
+    "trans": [
+      "n.m. 创业"
+    ]
+  },
+  {
+    "name": "syndicat",
+    "trans": [
+      "n.m. 工会"
+    ]
+  },
+  {
+    "name": "grève",
+    "trans": [
+      "n.f. 罢工"
+    ]
+  },
+  {
+    "name": "médiation",
+    "trans": [
+      "n.f. 调解"
+    ]
+  },
+  {
+    "name": "surmenage",
+    "trans": [
+      "n.m. 过度劳累"
+    ]
+  },
+  {
+    "name": "équilibre",
+    "trans": [
+      "n.m. 平衡"
+    ]
+  },
+  {
+    "name": "conciliation",
+    "trans": [
+      "n.f. 兼顾；协调"
+    ]
+  },
+  {
+    "name": "horaire",
+    "trans": [
+      "n.m. 工作时间表"
+    ]
+  },
+  {
+    "name": "flexibilité",
+    "trans": [
+      "n.f. 灵活性"
+    ]
+  },
+  {
+    "name": "poste",
+    "trans": [
+      "n.m. 职位"
+    ]
+  },
+  {
+    "name": "postulant",
+    "trans": [
+      "n.m. 应聘者"
+    ]
+  },
+  {
+    "name": "évaluation",
+    "trans": [
+      "n.f. 绩效评估"
+    ]
+  },
+  {
+    "name": "carrière",
+    "trans": [
+      "n.f. 职业生涯"
+    ]
+  },
+  {
+    "name": "avancement",
+    "trans": [
+      "n.m. 晋升"
+    ]
+  },
+  {
+    "name": "pension",
+    "trans": [
+      "n.f. 养老金"
+    ]
+  },
+  {
+    "name": "congé",
+    "trans": [
+      "n.m. 假期"
+    ]
+  },
+  {
+    "name": "discrimination",
+    "trans": [
+      "n.f. 歧视"
+    ]
+  },
+  {
+    "name": "surcharge",
+    "trans": [
+      "n.f. 超负荷"
+    ]
+  },
+  {
+    "name": "employabilité",
+    "trans": [
+      "n.f. 就业能力"
+    ]
+  },
+  {
+    "name": "accomplissement",
+    "trans": [
+      "n.m. 个人成就"
+    ]
+  },
+  {
+    "name": "rentabilité",
+    "trans": [
+      "n.f. 盈利能力"
+    ]
+  },
+  {
+    "name": "fragile",
+    "trans": [
+      "adj. 脆弱的；不稳定的"
+    ]
+  },
+  {
+    "name": "autonome",
+    "trans": [
+      "adj. 自主的"
+    ]
+  },
+  {
+    "name": "rémunéré",
+    "trans": [
+      "adj. 有报酬的"
+    ]
+  },
+  {
+    "name": "syndiqué",
+    "trans": [
+      "adj. 加入工会的"
+    ]
+  },
+  {
+    "name": "compétitif",
+    "trans": [
+      "adj. 有竞争力的"
+    ]
+  },
+  {
+    "name": "lucratif",
+    "trans": [
+      "adj. 有利可图的"
+    ]
+  },
+  {
+    "name": "qualifié",
+    "trans": [
+      "adj. 有资质的；熟练的"
+    ]
+  },
+  {
+    "name": "expérimenté",
+    "trans": [
+      "adj. 有经验的"
+    ]
+  },
+  {
+    "name": "polyvalent",
+    "trans": [
+      "adj. 多面手的"
+    ]
+  },
+  {
+    "name": "exigeant",
+    "trans": [
+      "adj. 要求高的"
+    ]
+  },
+  {
+    "name": "épanouissant",
+    "trans": [
+      "adj. 令人充实的"
+    ]
+  },
+  {
+    "name": "stimulant",
+    "trans": [
+      "adj. 激励人心的"
+    ]
+  },
+  {
+    "name": "postuler",
+    "trans": [
+      "v.i. 申请（职位）"
+    ]
+  },
+  {
+    "name": "engager",
+    "trans": [
+      "v.t. 雇用"
+    ]
+  },
+  {
+    "name": "renvoyer",
+    "trans": [
+      "v.t. 辞退"
+    ]
+  },
+  {
+    "name": "démissionner",
+    "trans": [
+      "v.i. 辞职"
+    ]
+  },
+  {
+    "name": "recrutement",
+    "trans": [
+      "n.m. 招聘"
+    ]
+  },
+  {
+    "name": "négocier",
+    "trans": [
+      "v.t. 协商；谈判"
+    ]
+  },
+  {
+    "name": "réclamer",
+    "trans": [
+      "v.t. 要求；索取"
+    ]
+  },
+  {
+    "name": "concilier",
+    "trans": [
+      "v.t. 兼顾；协调"
+    ]
+  },
+  {
+    "name": "surmener",
+    "trans": [
+      "v.t. 使过度劳累"
+    ]
+  },
+  {
+    "name": "se réaliser",
+    "trans": [
+      "v.pr. 实现自我"
+    ]
+  },
+  {
+    "name": "exercer",
+    "trans": [
+      "v.t. 从事（职业）"
+    ]
+  },
+  {
+    "name": "cotiser",
+    "trans": [
+      "v.i. 缴纳（社保或养老金）"
+    ]
+  },
+  {
+    "name": "délocaliser",
+    "trans": [
+      "v.t. 把……迁往国外"
+    ]
+  },
+  {
+    "name": "chercher un emploi",
+    "trans": [
+      "短语：找工作"
+    ]
+  },
+  {
+    "name": "déposer sa candidature",
+    "trans": [
+      "短语：递交求职申请"
+    ]
+  },
+  {
+    "name": "envoyer son curriculum vitae",
+    "trans": [
+      "短语：投递简历"
+    ]
+  },
+  {
+    "name": "rédiger une lettre de motivation",
+    "trans": [
+      "短语：撰写求职信"
+    ]
+  },
+  {
+    "name": "passer un entretien d'embauche",
+    "trans": [
+      "短语：参加求职面试"
+    ]
+  },
+  {
+    "name": "faire un stage en entreprise",
+    "trans": [
+      "短语：在企业实习"
+    ]
+  },
+  {
+    "name": "exercer un métier",
+    "trans": [
+      "短语：从事一种职业"
+    ]
+  },
+  {
+    "name": "perdre son emploi",
+    "trans": [
+      "短语：失去工作"
+    ]
+  },
+  {
+    "name": "toucher un salaire",
+    "trans": [
+      "短语：领取工资"
+    ]
+  },
+  {
+    "name": "gagner sa vie",
+    "trans": [
+      "短语：谋生"
+    ]
+  },
+  {
+    "name": "travailler à temps plein",
+    "trans": [
+      "短语：全职工作"
+    ]
+  },
+  {
+    "name": "travailler à temps partiel",
+    "trans": [
+      "短语：兼职工作"
+    ]
+  },
+  {
+    "name": "concilier vie professionnelle et vie personnelle",
+    "trans": [
+      "短语：兼顾工作与个人生活"
+    ]
+  },
+  {
+    "name": "trouver un équilibre entre travail et famille",
+    "trans": [
+      "短语：在工作与家庭之间找到平衡"
+    ]
+  },
+  {
+    "name": "faire des heures supplémentaires",
+    "trans": [
+      "短语：加班"
+    ]
+  },
+  {
+    "name": "avoir une charge de travail excessive",
+    "trans": [
+      "短语：工作量过大"
+    ]
+  },
+  {
+    "name": "souffrir d'épuisement professionnel",
+    "trans": [
+      "短语：患职业倦怠"
+    ]
+  },
+  {
+    "name": "prendre un congé parental",
+    "trans": [
+      "短语：休育儿假"
+    ]
+  },
+  {
+    "name": "travailler à distance",
+    "trans": [
+      "短语：远程工作"
+    ]
+  },
+  {
+    "name": "faire du télétravail",
+    "trans": [
+      "短语：远程办公"
+    ]
+  },
+  {
+    "name": "bénéficier d'horaires flexibles",
+    "trans": [
+      "短语：享有弹性工作时间"
+    ]
+  },
+  {
+    "name": "réduire le temps de travail",
+    "trans": [
+      "短语：缩短工时"
+    ]
+  },
+  {
+    "name": "faire face à une pénurie de main-d'œuvre",
+    "trans": [
+      "短语：应对劳动力短缺"
+    ]
+  },
+  {
+    "name": "faire reconnaître ses diplômes étrangers",
+    "trans": [
+      "短语：让外国文凭获得认可"
+    ]
+  },
+  {
+    "name": "obtenir une équivalence de diplôme",
+    "trans": [
+      "短语：获得学历等效认定"
+    ]
+  },
+  {
+    "name": "suivre une formation professionnelle",
+    "trans": [
+      "短语：参加职业培训"
+    ]
+  },
+  {
+    "name": "se former tout au long de la vie",
+    "trans": [
+      "短语：终身学习"
+    ]
+  },
+  {
+    "name": "changer de carrière",
+    "trans": [
+      "短语：转换职业"
+    ]
+  },
+  {
+    "name": "créer son entreprise",
+    "trans": [
+      "短语：创办企业"
+    ]
+  },
+  {
+    "name": "lancer une start-up",
+    "trans": [
+      "短语：创办初创公司"
+    ]
+  },
+  {
+    "name": "obtenir une promotion",
+    "trans": [
+      "短语：获得晋升"
+    ]
+  },
+  {
+    "name": "défendre les droits des salariés",
+    "trans": [
+      "短语：维护员工权益"
+    ]
+  },
+  {
+    "name": "adhérer à un syndicat",
+    "trans": [
+      "短语：加入工会"
+    ]
+  },
+  {
+    "name": "se mettre en grève",
+    "trans": [
+      "短语：举行罢工"
+    ]
+  },
+  {
+    "name": "négocier une convention collective",
+    "trans": [
+      "短语：协商集体协议"
+    ]
+  },
+  {
+    "name": "dans des conditions de travail difficiles",
+    "trans": [
+      "短语：在艰苦的工作条件下"
+    ]
+  },
+  {
+    "name": "faire un bilan de compétences",
+    "trans": [
+      "短语：进行职业能力评估"
+    ]
+  },
+  {
+    "name": "mettre à jour son CV",
+    "trans": [
+      "短语：更新简历"
+    ]
+  },
+  {
+    "name": "répondre à une offre d'emploi",
+    "trans": [
+      "短语：应聘招聘广告"
+    ]
+  },
+  {
+    "name": "être recruté par une entreprise",
+    "trans": [
+      "短语：被一家公司录用"
+    ]
+  },
+  {
+    "name": "se heurter à la discrimination",
+    "trans": [
+      "短语：遭遇歧视"
+    ]
+  },
+  {
+    "name": "lutter contre la discrimination à l'embauche",
+    "trans": [
+      "短语：反对招聘中的歧视"
+    ]
+  },
+  {
+    "name": "être au chômage",
+    "trans": [
+      "短语：处于失业状态"
+    ]
+  },
+  {
+    "name": "prendre sa retraite",
+    "trans": [
+      "短语：退休"
+    ]
+  },
+  {
+    "name": "cotiser pour sa retraite",
+    "trans": [
+      "短语：为养老金缴费"
+    ]
+  },
+  {
+    "name": "travailler en équipe",
+    "trans": [
+      "短语：团队合作"
+    ]
+  },
+  {
+    "name": "gérer le stress au travail",
+    "trans": [
+      "短语：处理工作压力"
+    ]
+  },
+  {
+    "name": "se sentir épuisé au travail",
+    "trans": [
+      "短语：在工作中感到精疲力竭"
+    ]
+  },
+  {
+    "name": "être en congé de maladie",
+    "trans": [
+      "短语：处于病假中"
+    ]
+  },
+  {
+    "name": "selon les experts du marché du travail…",
+    "trans": [
+      "短语：据劳动力市场专家……"
+    ]
+  },
+  {
+    "name": "d'un côté…, de l'autre…",
+    "trans": [
+      "短语：一方面……另一方面……"
+    ]
+  },
+  {
+    "name": "il est difficile de concilier…",
+    "trans": [
+      "短语：很难兼顾……"
+    ]
+  },
+  {
+    "name": "il convient de souligner que",
+    "trans": [
+      "短语：值得强调的是"
+    ]
+  },
+  {
+    "name": "les jeunes diplômés peinent à trouver…",
+    "trans": [
+      "短语：应届毕业生难以找到……"
+    ]
+  },
+  {
+    "name": "sur le plan professionnel",
+    "trans": [
+      "短语：在职业方面"
+    ]
+  },
+  {
+    "name": "au-delà des avantages financiers",
+    "trans": [
+      "短语：除了经济收益之外"
+    ]
+  },
+  {
+    "name": "à l'inverse",
+    "trans": [
+      "短语：相反"
+    ]
+  },
+  {
+    "name": "en contrepartie de…",
+    "trans": [
+      "短语：作为……的回报"
+    ]
+  },
+  {
+    "name": "compte tenu de la situation économique",
+    "trans": [
+      "短语：鉴于经济形势"
+    ]
+  },
+  {
+    "name": "dans le cadre d'un projet professionnel",
+    "trans": [
+      "短语：在职业规划项目中"
+    ]
+  }
+]

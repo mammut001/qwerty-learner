@@ -1,0 +1,662 @@
+[
+  {
+    "name": "cave",
+    "trans": [
+      "n.f. 地下室，地窖"
+    ]
+  },
+  {
+    "name": "rez-de-chaussée",
+    "trans": [
+      "n.m. 一楼，底层"
+    ]
+  },
+  {
+    "name": "étage",
+    "trans": [
+      "n.m. 楼层"
+    ]
+  },
+  {
+    "name": "pièce",
+    "trans": [
+      "n.f. 房间"
+    ]
+  },
+  {
+    "name": "bureau",
+    "trans": [
+      "n.m. 办公室；书房"
+    ]
+  },
+  {
+    "name": "lavage",
+    "trans": [
+      "n.m. 洗涤"
+    ]
+  },
+  {
+    "name": "salle à manger",
+    "trans": [
+      "n.f. 餐厅，饭厅"
+    ]
+  },
+  {
+    "name": "séjour",
+    "trans": [
+      "n.m. 起居室；逗留"
+    ]
+  },
+  {
+    "name": "salle de bains",
+    "trans": [
+      "n.f. 浴室"
+    ]
+  },
+  {
+    "name": "machine à laver",
+    "trans": [
+      "n.f. 洗衣机"
+    ]
+  },
+  {
+    "name": "brosse à dents",
+    "trans": [
+      "n.f. 牙刷"
+    ]
+  },
+  {
+    "name": "carrefour",
+    "trans": [
+      "n.m. 十字路口"
+    ]
+  },
+  {
+    "name": "boîte",
+    "trans": [
+      "n.f. 盒子，箱"
+    ]
+  },
+  {
+    "name": "feu",
+    "trans": [
+      "n.m. 火；交通信号灯"
+    ]
+  },
+  {
+    "name": "nez",
+    "trans": [
+      "n.m. 鼻子"
+    ]
+  },
+  {
+    "name": "pas",
+    "trans": [
+      "n.m. 步伐，脚步"
+    ]
+  },
+  {
+    "name": "fils",
+    "trans": [
+      "n.m. 儿子"
+    ]
+  },
+  {
+    "name": "tuyau",
+    "trans": [
+      "n.m. 管子"
+    ]
+  },
+  {
+    "name": "cheval",
+    "trans": [
+      "n.m. 马"
+    ]
+  },
+  {
+    "name": "vitrail",
+    "trans": [
+      "n.m. 彩绘玻璃"
+    ]
+  },
+  {
+    "name": "bijou",
+    "trans": [
+      "n.m. 珠宝"
+    ]
+  },
+  {
+    "name": "caillou",
+    "trans": [
+      "n.m. 小石子"
+    ]
+  },
+  {
+    "name": "chou",
+    "trans": [
+      "n.m. 卷心菜；小可爱"
+    ]
+  },
+  {
+    "name": "genou",
+    "trans": [
+      "n.m. 膝盖"
+    ]
+  },
+  {
+    "name": "hibou",
+    "trans": [
+      "n.m. 猫头鹰"
+    ]
+  },
+  {
+    "name": "joujou",
+    "trans": [
+      "n.m. 玩具"
+    ]
+  },
+  {
+    "name": "pou",
+    "trans": [
+      "n.m. 跳蚤"
+    ]
+  },
+  {
+    "name": "gendarme",
+    "trans": [
+      "n.m. 宪兵"
+    ]
+  },
+  {
+    "name": "manifestation",
+    "trans": [
+      "n.f. 游行示威"
+    ]
+  },
+  {
+    "name": "association",
+    "trans": [
+      "n.f. 协会，团体"
+    ]
+  },
+  {
+    "name": "protection",
+    "trans": [
+      "n.f. 保护"
+    ]
+  },
+  {
+    "name": "fermier",
+    "trans": [
+      "n.m. 农场主，农民"
+    ]
+  },
+  {
+    "name": "chemin",
+    "trans": [
+      "n.m. 道路，小路"
+    ]
+  },
+  {
+    "name": "nord",
+    "trans": [
+      "n.m. 北方"
+    ]
+  },
+  {
+    "name": "sud",
+    "trans": [
+      "n.m. 南方"
+    ]
+  },
+  {
+    "name": "est",
+    "trans": [
+      "n.m. 东方"
+    ]
+  },
+  {
+    "name": "ouest",
+    "trans": [
+      "n.m. 西方"
+    ]
+  },
+  {
+    "name": "avis",
+    "trans": [
+      "n.m. 意见，看法"
+    ]
+  },
+  {
+    "name": "tête",
+    "trans": [
+      "n.f. 头"
+    ]
+  },
+  {
+    "name": "estomac",
+    "trans": [
+      "n.m. 胃"
+    ]
+  },
+  {
+    "name": "dos",
+    "trans": [
+      "n.m. 背部"
+    ]
+  },
+  {
+    "name": "faim",
+    "trans": [
+      "n.f. 饥饿"
+    ]
+  },
+  {
+    "name": "soif",
+    "trans": [
+      "n.f. 口渴"
+    ]
+  },
+  {
+    "name": "chaud",
+    "trans": [
+      "n.m. 热；adj. 热的"
+    ]
+  },
+  {
+    "name": "froid",
+    "trans": [
+      "n.m. 冷；adj. 冷的"
+    ]
+  },
+  {
+    "name": "panneau",
+    "trans": [
+      "n.m. 牌子，指示牌"
+    ]
+  },
+  {
+    "name": "besoin",
+    "trans": [
+      "n.m. 需求，需要"
+    ]
+  },
+  {
+    "name": "produit",
+    "trans": [
+      "n.m. 产品"
+    ]
+  },
+  {
+    "name": "secours",
+    "trans": [
+      "n.m. 救援，救助"
+    ]
+  },
+  {
+    "name": "printemps",
+    "trans": [
+      "n.m. 春天"
+    ]
+  },
+  {
+    "name": "été",
+    "trans": [
+      "n.m. 夏天"
+    ]
+  },
+  {
+    "name": "automne",
+    "trans": [
+      "n.m. 秋天"
+    ]
+  },
+  {
+    "name": "hiver",
+    "trans": [
+      "n.m. 冬天"
+    ]
+  },
+  {
+    "name": "vent",
+    "trans": [
+      "n.m. 风"
+    ]
+  },
+  {
+    "name": "brouillard",
+    "trans": [
+      "n.m. 雾"
+    ]
+  },
+  {
+    "name": "interdit",
+    "trans": [
+      "adj. 被禁止的"
+    ]
+  },
+  {
+    "name": "large",
+    "trans": [
+      "adj. 宽阔的"
+    ]
+  },
+  {
+    "name": "suivant",
+    "trans": [
+      "adj. 接下来的，随后的"
+    ]
+  },
+  {
+    "name": "solaire",
+    "trans": [
+      "adj. 太阳的"
+    ]
+  },
+  {
+    "name": "sûr",
+    "trans": [
+      "adj. 确信的，有把握的"
+    ]
+  },
+  {
+    "name": "doux",
+    "trans": [
+      "adj. 温和的，柔和的"
+    ]
+  },
+  {
+    "name": "sec",
+    "trans": [
+      "adj. 干燥的"
+    ]
+  },
+  {
+    "name": "agréable",
+    "trans": [
+      "adj. 宜人的，令人愉快的"
+    ]
+  },
+  {
+    "name": "traverser",
+    "trans": [
+      "v.t. 穿过，横穿"
+    ]
+  },
+  {
+    "name": "tourner",
+    "trans": [
+      "v.i. 转弯"
+    ]
+  },
+  {
+    "name": "s'asseoir",
+    "trans": [
+      "v.pr. 坐下"
+    ]
+  },
+  {
+    "name": "asseoir",
+    "trans": [
+      "v.t. 使坐下"
+    ]
+  },
+  {
+    "name": "interdire",
+    "trans": [
+      "v.t. 禁止"
+    ]
+  },
+  {
+    "name": "falloir",
+    "trans": [
+      "v.i. 必须，应该"
+    ]
+  },
+  {
+    "name": "installer",
+    "trans": [
+      "v.t. 安装，安置"
+    ]
+  },
+  {
+    "name": "s'installer",
+    "trans": [
+      "v.pr. 定居，安顿"
+    ]
+  },
+  {
+    "name": "continuer",
+    "trans": [
+      "v.t. 继续"
+    ]
+  },
+  {
+    "name": "demander",
+    "trans": [
+      "v.t. 要求，询问"
+    ]
+  },
+  {
+    "name": "neiger",
+    "trans": [
+      "v.i. 下雪"
+    ]
+  },
+  {
+    "name": "pleuvoir",
+    "trans": [
+      "v.i. 下雨"
+    ]
+  },
+  {
+    "name": "devant",
+    "trans": [
+      "prép. 在……前面"
+    ]
+  },
+  {
+    "name": "derrière",
+    "trans": [
+      "prép. 在……后面"
+    ]
+  },
+  {
+    "name": "vers",
+    "trans": [
+      "prép. 向，朝；接近"
+    ]
+  },
+  {
+    "name": "avant",
+    "trans": [
+      "prép. 在……之前"
+    ]
+  },
+  {
+    "name": "Qu'on est bien ici !",
+    "trans": [
+      "短语：这里真惬意！"
+    ]
+  },
+  {
+    "name": "à droite de",
+    "trans": [
+      "短语：在……右边"
+    ]
+  },
+  {
+    "name": "à gauche de",
+    "trans": [
+      "短语：在……左边"
+    ]
+  },
+  {
+    "name": "à côté de",
+    "trans": [
+      "短语：在……旁边"
+    ]
+  },
+  {
+    "name": "aller tout droit",
+    "trans": [
+      "短语：一直走"
+    ]
+  },
+  {
+    "name": "tourner à droite",
+    "trans": [
+      "短语：向右拐"
+    ]
+  },
+  {
+    "name": "tourner à gauche",
+    "trans": [
+      "短语：向左拐"
+    ]
+  },
+  {
+    "name": "feu rouge",
+    "trans": [
+      "短语：红灯"
+    ]
+  },
+  {
+    "name": "Asseyez-vous !",
+    "trans": [
+      "短语：请坐！"
+    ]
+  },
+  {
+    "name": "Assieds-toi !",
+    "trans": [
+      "短语：坐下吧！"
+    ]
+  },
+  {
+    "name": "demander son chemin",
+    "trans": [
+      "短语：问路"
+    ]
+  },
+  {
+    "name": "perdre son chemin",
+    "trans": [
+      "短语：迷路"
+    ]
+  },
+  {
+    "name": "il faut + infinitif",
+    "trans": [
+      "短语：应该做某事"
+    ]
+  },
+  {
+    "name": "avoir raison",
+    "trans": [
+      "短语：有道理，是对的"
+    ]
+  },
+  {
+    "name": "à mon avis",
+    "trans": [
+      "短语：依我看"
+    ]
+  },
+  {
+    "name": "avoir mal à",
+    "trans": [
+      "短语：在……部位疼痛"
+    ]
+  },
+  {
+    "name": "avoir chaud",
+    "trans": [
+      "短语：觉得热"
+    ]
+  },
+  {
+    "name": "avoir soif",
+    "trans": [
+      "短语：觉得渴"
+    ]
+  },
+  {
+    "name": "avoir faim",
+    "trans": [
+      "短语：觉得饿"
+    ]
+  },
+  {
+    "name": "avoir besoin de",
+    "trans": [
+      "短语：需要……"
+    ]
+  },
+  {
+    "name": "Au secours !",
+    "trans": [
+      "短语：救命！"
+    ]
+  },
+  {
+    "name": "au printemps",
+    "trans": [
+      "短语：在春季"
+    ]
+  },
+  {
+    "name": "en été",
+    "trans": [
+      "短语：在夏季"
+    ]
+  },
+  {
+    "name": "en automne",
+    "trans": [
+      "短语：在秋季"
+    ]
+  },
+  {
+    "name": "en hiver",
+    "trans": [
+      "短语：在冬季"
+    ]
+  },
+  {
+    "name": "Il fait beau.",
+    "trans": [
+      "短语：天气好。"
+    ]
+  },
+  {
+    "name": "Il fait mauvais.",
+    "trans": [
+      "短语：天气不好。"
+    ]
+  },
+  {
+    "name": "Il fait chaud.",
+    "trans": [
+      "短语：天气热。"
+    ]
+  },
+  {
+    "name": "Il fait froid.",
+    "trans": [
+      "短语：天气冷。"
+    ]
+  },
+  {
+    "name": "Il y a du soleil.",
+    "trans": [
+      "短语：阳光明媚。"
+    ]
+  },
+  {
+    "name": "Il y a du vent.",
+    "trans": [
+      "短语：有风。"
+    ]
+  }
+]

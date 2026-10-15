@@ -1,0 +1,422 @@
+[
+  {
+    "name": "charte",
+    "trans": [
+      "n.f. 宪章，公约，规章"
+    ]
+  },
+  {
+    "name": "coordonnées",
+    "trans": [
+      "n.f.pl. 联系方式，联络信息"
+    ]
+  },
+  {
+    "name": "avouer",
+    "trans": [
+      "v.t. 承认，坦白"
+    ]
+  },
+  {
+    "name": "aveu",
+    "trans": [
+      "n.m. 坦白，供认"
+    ]
+  },
+  {
+    "name": "bredouiller",
+    "trans": [
+      "v.t. 嘟哝，支支吾吾地说"
+    ]
+  },
+  {
+    "name": "chuchoter",
+    "trans": [
+      "v.t. 低声细语，窃窃私语"
+    ]
+  },
+  {
+    "name": "chuchotement",
+    "trans": [
+      "n.m. 窃窃私语，低语"
+    ]
+  },
+  {
+    "name": "confesser",
+    "trans": [
+      "v.t. 坦白，向神甫忏悔"
+    ]
+  },
+  {
+    "name": "confession",
+    "trans": [
+      "n.f. 忏悔，坦白；教派"
+    ]
+  },
+  {
+    "name": "confier",
+    "trans": [
+      "v.t. 托付；向……倾诉秘密"
+    ]
+  },
+  {
+    "name": "confidence",
+    "trans": [
+      "n.f. 知心话，私下倾诉"
+    ]
+  },
+  {
+    "name": "crier",
+    "trans": [
+      "v.i. 喊叫，大声呼喊；v.t. 叫喊着说"
+    ]
+  },
+  {
+    "name": "cri",
+    "trans": [
+      "n.m. 喊叫声，呼叫"
+    ]
+  },
+  {
+    "name": "hurler",
+    "trans": [
+      "v.i. 嚎叫，怒吼，咆哮"
+    ]
+  },
+  {
+    "name": "hurlement",
+    "trans": [
+      "n.m. 嚎叫，怒吼"
+    ]
+  },
+  {
+    "name": "répliquer",
+    "trans": [
+      "v.t. 反驳，顶嘴，回答"
+    ]
+  },
+  {
+    "name": "réplique",
+    "trans": [
+      "n.f. 台词；反驳，答辩"
+    ]
+  },
+  {
+    "name": "rétorquer",
+    "trans": [
+      "v.t. 反驳，针锋相对地回答"
+    ]
+  },
+  {
+    "name": "accuser",
+    "trans": [
+      "v.t. 指责，控告"
+    ]
+  },
+  {
+    "name": "accusation",
+    "trans": [
+      "n.f. 指控，控告"
+    ]
+  },
+  {
+    "name": "apostropher",
+    "trans": [
+      "v.t. 厉声责问，斥责"
+    ]
+  },
+  {
+    "name": "bafouiller",
+    "trans": [
+      "v.i. 口齿不清，结结巴巴地说"
+    ]
+  },
+  {
+    "name": "bégayer",
+    "trans": [
+      "v.i. 结巴，口吃"
+    ]
+  },
+  {
+    "name": "blaguer",
+    "trans": [
+      "v.i. 开玩笑，说笑话"
+    ]
+  },
+  {
+    "name": "blague",
+    "trans": [
+      "n.f. 玩笑，笑话"
+    ]
+  },
+  {
+    "name": "dévoiler",
+    "trans": [
+      "v.t. 揭露，揭开面纱"
+    ]
+  },
+  {
+    "name": "formuler",
+    "trans": [
+      "v.t. 明确表达，阐明，提出"
+    ]
+  },
+  {
+    "name": "formulation",
+    "trans": [
+      "n.f. 措辞，表达方式"
+    ]
+  },
+  {
+    "name": "médire",
+    "trans": [
+      "v.i. 说人闲话，诽谤"
+    ]
+  },
+  {
+    "name": "médisance",
+    "trans": [
+      "n.f. 诽谤，流言蜚语"
+    ]
+  },
+  {
+    "name": "restriction",
+    "trans": [
+      "n.f. 限制，保留条件"
+    ]
+  },
+  {
+    "name": "restreindre",
+    "trans": [
+      "v.t. 限制，缩减"
+    ]
+  },
+  {
+    "name": "concession",
+    "trans": [
+      "n.f. 让步，妥协；特许权"
+    ]
+  },
+  {
+    "name": "concéder",
+    "trans": [
+      "v.t. 让步，承认，给予"
+    ]
+  },
+  {
+    "name": "hiérarchie",
+    "trans": [
+      "n.f. 等级制度，行政层级"
+    ]
+  },
+  {
+    "name": "hiérarchique",
+    "trans": [
+      "adj. 等级制的，层级的"
+    ]
+  },
+  {
+    "name": "organigramme",
+    "trans": [
+      "n.m. 组织架构图"
+    ]
+  },
+  {
+    "name": "mission",
+    "trans": [
+      "n.f. 使命，职责任务，差旅"
+    ]
+  },
+  {
+    "name": "tutoiement",
+    "trans": [
+      "n.m. 用 tu 称呼，互称你"
+    ]
+  },
+  {
+    "name": "tutoyer",
+    "trans": [
+      "v.t. 用 tu 称呼某人"
+    ]
+  },
+  {
+    "name": "vouvoiement",
+    "trans": [
+      "n.m. 用 vous 称呼，尊称您"
+    ]
+  },
+  {
+    "name": "vouvoyer",
+    "trans": [
+      "v.t. 用 vous 称呼某人"
+    ]
+  },
+  {
+    "name": "subordonné",
+    "trans": [
+      "n. 下属，部下；adj. 从属的"
+    ]
+  },
+  {
+    "name": "initiative",
+    "trans": [
+      "n.f. 主动性，倡议，首创精神"
+    ]
+  },
+  {
+    "name": "harcèlement",
+    "trans": [
+      "n.m. 骚扰，纠缠"
+    ]
+  },
+  {
+    "name": "harceler",
+    "trans": [
+      "v.t. 骚扰，不断困扰"
+    ]
+  },
+  {
+    "name": "sympathie",
+    "trans": [
+      "n.f. 好感，同情，赞同"
+    ]
+  },
+  {
+    "name": "sympathique",
+    "trans": [
+      "adj. 讨人喜欢的，热情的"
+    ]
+  },
+  {
+    "name": "confiance",
+    "trans": [
+      "n.f. 信任，信心"
+    ]
+  },
+  {
+    "name": "confiant",
+    "trans": [
+      "adj. 充满信心的，信任的"
+    ]
+  },
+  {
+    "name": "antipathie",
+    "trans": [
+      "n.f. 反感，厌恶"
+    ]
+  },
+  {
+    "name": "méfiance",
+    "trans": [
+      "n.f. 怀疑，不信任，戒备"
+    ]
+  },
+  {
+    "name": "méfiant",
+    "trans": [
+      "adj. 警惕的，多疑的"
+    ]
+  },
+  {
+    "name": "rigueur",
+    "trans": [
+      "n.f. 严格，严厉，严谨"
+    ]
+  },
+  {
+    "name": "se vanter",
+    "trans": [
+      "v.pr. 自夸，吹嘘"
+    ]
+  },
+  {
+    "name": "se méfier",
+    "trans": [
+      "v.pr. 提防，不信任"
+    ]
+  },
+  {
+    "name": "couper la parole",
+    "trans": [
+      "短语：打断某人的话"
+    ]
+  },
+  {
+    "name": "prendre acte de",
+    "trans": [
+      "短语：注意到了解，记录在案"
+    ]
+  },
+  {
+    "name": "taux d'activité",
+    "trans": [
+      "短语：劳动参与率，就业率"
+    ]
+  },
+  {
+    "name": "sous réserve de",
+    "trans": [
+      "短语：在……条件下，有待于"
+    ]
+  },
+  {
+    "name": "à moins que",
+    "trans": [
+      "conj. 除非，如果不（接虚拟式）"
+    ]
+  },
+  {
+    "name": "à moins de",
+    "trans": [
+      "短语：除非，除非通过（接不定式）"
+    ]
+  },
+  {
+    "name": "en dépit de",
+    "trans": [
+      "短语：不管，不顾，尽管（接名词）"
+    ]
+  },
+  {
+    "name": "il n'empêche que",
+    "trans": [
+      "短语：尽管如此依然，然而依然（接直陈式）"
+    ]
+  },
+  {
+    "name": "il n'en reste pas moins que",
+    "trans": [
+      "短语：事实依然是，依然不可否认的是"
+    ]
+  },
+  {
+    "name": "être de rigueur",
+    "trans": [
+      "短语：必不可少，必须遵守"
+    ]
+  },
+  {
+    "name": "supérieur hiérarchique",
+    "trans": [
+      "短语：顶头上司，直接上级"
+    ]
+  },
+  {
+    "name": "droit du travail",
+    "trans": [
+      "短语：劳动法"
+    ]
+  },
+  {
+    "name": "faire confiance à",
+    "trans": [
+      "短语：信任某人"
+    ]
+  },
+  {
+    "name": "harcèlement moral",
+    "trans": [
+      "短语：职场精神霸凌，心理骚扰"
+    ]
+  }
+]

@@ -1,0 +1,530 @@
+[
+  {
+    "name": "sport extrême",
+    "trans": [
+      "n.m. 极限运动"
+    ]
+  },
+  {
+    "name": "risque",
+    "trans": [
+      "n.m. 风险，危险"
+    ]
+  },
+  {
+    "name": "péril",
+    "trans": [
+      "n.m. 危机，危险"
+    ]
+  },
+  {
+    "name": "saut",
+    "trans": [
+      "n.m. 跳跃"
+    ]
+  },
+  {
+    "name": "élastique",
+    "trans": [
+      "n.m. 橡皮筋，松紧带"
+    ]
+  },
+  {
+    "name": "saut à l'élastique",
+    "trans": [
+      "n.m. 蹦极"
+    ]
+  },
+  {
+    "name": "adrénaline",
+    "trans": [
+      "n.f. 肾上腺素"
+    ]
+  },
+  {
+    "name": "poussée",
+    "trans": [
+      "n.f. 激增，冲劲"
+    ]
+  },
+  {
+    "name": "vol à voile",
+    "trans": [
+      "n.m. 滑翔飞行"
+    ]
+  },
+  {
+    "name": "vol",
+    "trans": [
+      "n.m. 飞行；盗窃"
+    ]
+  },
+  {
+    "name": "voile",
+    "trans": [
+      "n.f. 帆；翼"
+    ]
+  },
+  {
+    "name": "parachutisme",
+    "trans": [
+      "n.m. 跳伞运动"
+    ]
+  },
+  {
+    "name": "parachute",
+    "trans": [
+      "n.m. 降落伞"
+    ]
+  },
+  {
+    "name": "parapente",
+    "trans": [
+      "n.m. 滑翔伞"
+    ]
+  },
+  {
+    "name": "folie",
+    "trans": [
+      "n.f. 疯狂"
+    ]
+  },
+  {
+    "name": "vitesse",
+    "trans": [
+      "n.f. 速度"
+    ]
+  },
+  {
+    "name": "hauteur",
+    "trans": [
+      "n.f. 高度，高处"
+    ]
+  },
+  {
+    "name": "quotidien",
+    "trans": [
+      "n.m. 日报"
+    ]
+  },
+  {
+    "name": "habitué",
+    "trans": [
+      "n.m. 熟客，经常光顾者"
+    ]
+  },
+  {
+    "name": "habituée",
+    "trans": [
+      "n.f. 女性熟客"
+    ]
+  },
+  {
+    "name": "pont",
+    "trans": [
+      "n.m. 桥梁"
+    ]
+  },
+  {
+    "name": "loyer",
+    "trans": [
+      "n.m. 房租"
+    ]
+  },
+  {
+    "name": "propriétaire",
+    "trans": [
+      "n.m./f. 房东，业主"
+    ]
+  },
+  {
+    "name": "profession",
+    "trans": [
+      "n.f. 职业"
+    ]
+  },
+  {
+    "name": "logement",
+    "trans": [
+      "n.m. 住宅，住所"
+    ]
+  },
+  {
+    "name": "championnat",
+    "trans": [
+      "n.m. 锦标赛"
+    ]
+  },
+  {
+    "name": "ligue",
+    "trans": [
+      "n.f. 联赛，联盟"
+    ]
+  },
+  {
+    "name": "violence",
+    "trans": [
+      "n.f. 暴力"
+    ]
+  },
+  {
+    "name": "stade",
+    "trans": [
+      "n.m. 体育场"
+    ]
+  },
+  {
+    "name": "rugby",
+    "trans": [
+      "n.m. 橄榄球"
+    ]
+  },
+  {
+    "name": "téléspectateur",
+    "trans": [
+      "n.m. 电视观众"
+    ]
+  },
+  {
+    "name": "téléspectatrice",
+    "trans": [
+      "n.f. 女性电视观众"
+    ]
+  },
+  {
+    "name": "tournoi",
+    "trans": [
+      "n.m. 锦标赛，锦标巡回赛"
+    ]
+  },
+  {
+    "name": "célébrité",
+    "trans": [
+      "n.f. 名人，名声"
+    ]
+  },
+  {
+    "name": "patinage artistique",
+    "trans": [
+      "n.m. 花样滑冰"
+    ]
+  },
+  {
+    "name": "sportif",
+    "trans": [
+      "n.m. 运动员"
+    ]
+  },
+  {
+    "name": "sportive",
+    "trans": [
+      "n.f. 女运动员"
+    ]
+  },
+  {
+    "name": "blessure",
+    "trans": [
+      "n.f. 受伤，伤口"
+    ]
+  },
+  {
+    "name": "pompier",
+    "trans": [
+      "n.m. 消防员"
+    ]
+  },
+  {
+    "name": "accident",
+    "trans": [
+      "n.m. 事故，意外"
+    ]
+  },
+  {
+    "name": "témoin",
+    "trans": [
+      "n.m. 见证人，目击者"
+    ]
+  },
+  {
+    "name": "secours",
+    "trans": [
+      "n.m. 救助，救援"
+    ]
+  },
+  {
+    "name": "urgence",
+    "trans": [
+      "n.f. 紧急，急诊"
+    ]
+  },
+  {
+    "name": "nerveux",
+    "trans": [
+      "adj. 紧张的"
+    ]
+  },
+  {
+    "name": "peureux",
+    "trans": [
+      "adj. 胆小的"
+    ]
+  },
+  {
+    "name": "fou",
+    "trans": [
+      "adj. 疯狂的"
+    ]
+  },
+  {
+    "name": "dramatique",
+    "trans": [
+      "adj. 悲剧的，戏剧性的"
+    ]
+  },
+  {
+    "name": "célèbre",
+    "trans": [
+      "adj. 著名的"
+    ]
+  },
+  {
+    "name": "passif",
+    "trans": [
+      "adj. 被动的"
+    ]
+  },
+  {
+    "name": "absent",
+    "trans": [
+      "adj. 缺席的，缺乏的"
+    ]
+  },
+  {
+    "name": "dangereux",
+    "trans": [
+      "adj. 危险的"
+    ]
+  },
+  {
+    "name": "prudent",
+    "trans": [
+      "adj. 谨慎的"
+    ]
+  },
+  {
+    "name": "courageux",
+    "trans": [
+      "adj. 勇敢的"
+    ]
+  },
+  {
+    "name": "inconscient",
+    "trans": [
+      "adj. 盲目的，无意识的"
+    ]
+  },
+  {
+    "name": "sauter",
+    "trans": [
+      "v.i. 跳跃"
+    ]
+  },
+  {
+    "name": "cesser",
+    "trans": [
+      "v.i. 停止"
+    ]
+  },
+  {
+    "name": "pousser",
+    "trans": [
+      "v.t. 推；促进"
+    ]
+  },
+  {
+    "name": "souffler",
+    "trans": [
+      "v.i. 吹气，喘气"
+    ]
+  },
+  {
+    "name": "pisser",
+    "trans": [
+      "v.i. 撒尿（通俗）"
+    ]
+  },
+  {
+    "name": "témoigner",
+    "trans": [
+      "v.i. 作证，见证"
+    ]
+  },
+  {
+    "name": "enlever",
+    "trans": [
+      "v.t. 绑架；脱下"
+    ]
+  },
+  {
+    "name": "décourager",
+    "trans": [
+      "v.t. 使气馁"
+    ]
+  },
+  {
+    "name": "encourir",
+    "trans": [
+      "v.t. 招致，蒙受"
+    ]
+  },
+  {
+    "name": "construire",
+    "trans": [
+      "v.t. 建造"
+    ]
+  },
+  {
+    "name": "se débrouiller",
+    "trans": [
+      "v.pr. 设法应付，摆脱困境"
+    ]
+  },
+  {
+    "name": "permettre",
+    "trans": [
+      "v.t. 允许"
+    ]
+  },
+  {
+    "name": "se montrer",
+    "trans": [
+      "v.pr. 出现，露面"
+    ]
+  },
+  {
+    "name": "blesser",
+    "trans": [
+      "v.t. 使受伤"
+    ]
+  },
+  {
+    "name": "échapper",
+    "trans": [
+      "v.i. 逃脱，避开"
+    ]
+  },
+  {
+    "name": "risquer",
+    "trans": [
+      "v.t. 冒……的风险"
+    ]
+  },
+  {
+    "name": "particulièrement",
+    "trans": [
+      "adv. 特别地"
+    ]
+  },
+  {
+    "name": "parfaitement",
+    "trans": [
+      "adv. 完美地，完全地"
+    ]
+  },
+  {
+    "name": "probablement",
+    "trans": [
+      "adv. 可能地，大概"
+    ]
+  },
+  {
+    "name": "grâce à",
+    "trans": [
+      "prép. 多亏，幸亏"
+    ]
+  },
+  {
+    "name": "à vos risques et périls",
+    "trans": [
+      "短语：自担风险，后果自负"
+    ]
+  },
+  {
+    "name": "avoir le vertige",
+    "trans": [
+      "短语：头晕，眩晕"
+    ]
+  },
+  {
+    "name": "laisser tomber",
+    "trans": [
+      "短语：放弃，算了"
+    ]
+  },
+  {
+    "name": "prendre de la hauteur",
+    "trans": [
+      "短语：登高望远，站得高"
+    ]
+  },
+  {
+    "name": "sur place",
+    "trans": [
+      "短语：在现场，在当地"
+    ]
+  },
+  {
+    "name": "prendre une décision",
+    "trans": [
+      "短语：做出决定"
+    ]
+  },
+  {
+    "name": "en tant que",
+    "trans": [
+      "短语：作为"
+    ]
+  },
+  {
+    "name": "chercher à",
+    "trans": [
+      "短语：试图，力求"
+    ]
+  },
+  {
+    "name": "avoir peur de",
+    "trans": [
+      "短语：害怕……"
+    ]
+  },
+  {
+    "name": "faire peur à",
+    "trans": [
+      "短语：让……害怕"
+    ]
+  },
+  {
+    "name": "ressembler à",
+    "trans": [
+      "短语：与……相似"
+    ]
+  },
+  {
+    "name": "avoir failli",
+    "trans": [
+      "短语：差点，险些"
+    ]
+  },
+  {
+    "name": "être absent",
+    "trans": [
+      "短语：缺席，不在"
+    ]
+  },
+  {
+    "name": "porter secours",
+    "trans": [
+      "短语：进行施救"
+    ]
+  }
+]

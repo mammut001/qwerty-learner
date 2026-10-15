@@ -1,0 +1,554 @@
+[
+  {
+    "name": "soldes",
+    "trans": [
+      "n.m.pl. 大减价，打折期"
+    ]
+  },
+  {
+    "name": "article",
+    "trans": [
+      "n.m. 商品；文章"
+    ]
+  },
+  {
+    "name": "compte",
+    "trans": [
+      "n.m. 账户"
+    ]
+  },
+  {
+    "name": "panier",
+    "trans": [
+      "n.m. 购物篮"
+    ]
+  },
+  {
+    "name": "chariot",
+    "trans": [
+      "n.m. 购物车"
+    ]
+  },
+  {
+    "name": "matelas",
+    "trans": [
+      "n.m. 床垫"
+    ]
+  },
+  {
+    "name": "futon",
+    "trans": [
+      "n.m. 日式床垫"
+    ]
+  },
+  {
+    "name": "confort",
+    "trans": [
+      "n.m. 舒适"
+    ]
+  },
+  {
+    "name": "soie",
+    "trans": [
+      "n.f. 丝绸"
+    ]
+  },
+  {
+    "name": "cachemire",
+    "trans": [
+      "n.m. 开司米，羊绒"
+    ]
+  },
+  {
+    "name": "latex",
+    "trans": [
+      "n.m. 乳胶"
+    ]
+  },
+  {
+    "name": "commande",
+    "trans": [
+      "n.f. 订购，订单"
+    ]
+  },
+  {
+    "name": "réduction",
+    "trans": [
+      "n.f. 折扣，减价"
+    ]
+  },
+  {
+    "name": "livraison",
+    "trans": [
+      "n.f. 送货，交付"
+    ]
+  },
+  {
+    "name": "couchage",
+    "trans": [
+      "n.m. 寝具，铺位"
+    ]
+  },
+  {
+    "name": "coton",
+    "trans": [
+      "n.m. 棉花，棉布"
+    ]
+  },
+  {
+    "name": "toile",
+    "trans": [
+      "n.f. 帆布；画布"
+    ]
+  },
+  {
+    "name": "polyester",
+    "trans": [
+      "n.m. 聚酯纤维，化纤"
+    ]
+  },
+  {
+    "name": "bouton",
+    "trans": [
+      "n.m. 纽扣；按钮"
+    ]
+  },
+  {
+    "name": "épaisseur",
+    "trans": [
+      "n.f. 厚度"
+    ]
+  },
+  {
+    "name": "dimension",
+    "trans": [
+      "n.f. 尺寸，规格"
+    ]
+  },
+  {
+    "name": "bémol",
+    "trans": [
+      "n.m. 降音符；小缺点"
+    ]
+  },
+  {
+    "name": "canapé",
+    "trans": [
+      "n.m. 长沙发"
+    ]
+  },
+  {
+    "name": "ascenseur",
+    "trans": [
+      "n.m. 电梯"
+    ]
+  },
+  {
+    "name": "collection",
+    "trans": [
+      "n.f. 收藏，系列"
+    ]
+  },
+  {
+    "name": "sélection",
+    "trans": [
+      "n.f. 挑选，选拔"
+    ]
+  },
+  {
+    "name": "tache",
+    "trans": [
+      "n.f. 污渍，污点"
+    ]
+  },
+  {
+    "name": "boisson",
+    "trans": [
+      "n.f. 饮料"
+    ]
+  },
+  {
+    "name": "personnalité",
+    "trans": [
+      "n.f. 个性，人格"
+    ]
+  },
+  {
+    "name": "kebab",
+    "trans": [
+      "n.m. 烤肉卷饼"
+    ]
+  },
+  {
+    "name": "argent",
+    "trans": [
+      "n.m. 钱；银"
+    ]
+  },
+  {
+    "name": "billetterie",
+    "trans": [
+      "n.f. 售票处；自动取款机"
+    ]
+  },
+  {
+    "name": "billet",
+    "trans": [
+      "n.m. 钞票；票"
+    ]
+  },
+  {
+    "name": "frite",
+    "trans": [
+      "n.f. 炸薯条"
+    ]
+  },
+  {
+    "name": "salade",
+    "trans": [
+      "n.f. 沙拉"
+    ]
+  },
+  {
+    "name": "mayonnaise",
+    "trans": [
+      "n.f. 蛋黄酱"
+    ]
+  },
+  {
+    "name": "ketchup",
+    "trans": [
+      "n.m. 番茄酱"
+    ]
+  },
+  {
+    "name": "piment",
+    "trans": [
+      "n.m. 辣椒"
+    ]
+  },
+  {
+    "name": "yaourt",
+    "trans": [
+      "n.m. 酸奶"
+    ]
+  },
+  {
+    "name": "concombre",
+    "trans": [
+      "n.m. 黄瓜"
+    ]
+  },
+  {
+    "name": "ail",
+    "trans": [
+      "n.m. 大蒜"
+    ]
+  },
+  {
+    "name": "menthe",
+    "trans": [
+      "n.f. 薄荷"
+    ]
+  },
+  {
+    "name": "cabaret",
+    "trans": [
+      "n.m. 歌舞酒馆"
+    ]
+  },
+  {
+    "name": "sketch",
+    "trans": [
+      "n.m. 幽默短剧"
+    ]
+  },
+  {
+    "name": "répondeur",
+    "trans": [
+      "n.m. 电话答录机，留言信箱"
+    ]
+  },
+  {
+    "name": "accueil",
+    "trans": [
+      "n.m. 接待，首页"
+    ]
+  },
+  {
+    "name": "attente",
+    "trans": [
+      "n.f. 等待，期望"
+    ]
+  },
+  {
+    "name": "erreur",
+    "trans": [
+      "n.f. 错误"
+    ]
+  },
+  {
+    "name": "banlieue",
+    "trans": [
+      "n.f. 郊区"
+    ]
+  },
+  {
+    "name": "shampooing",
+    "trans": [
+      "n.m. 洗发水"
+    ]
+  },
+  {
+    "name": "après-shampooing",
+    "trans": [
+      "n.m. 护发素"
+    ]
+  },
+  {
+    "name": "masque",
+    "trans": [
+      "n.m. 面膜；发膜；口罩"
+    ]
+  },
+  {
+    "name": "handicap",
+    "trans": [
+      "n.m. 残疾，障碍"
+    ]
+  },
+  {
+    "name": "frein",
+    "trans": [
+      "n.m. 刹车；阻碍"
+    ]
+  },
+  {
+    "name": "rayé",
+    "trans": [
+      "adj. 有条纹的"
+    ]
+  },
+  {
+    "name": "confortable",
+    "trans": [
+      "adj. 舒适的"
+    ]
+  },
+  {
+    "name": "épais",
+    "trans": [
+      "adj. 厚的"
+    ]
+  },
+  {
+    "name": "abordable",
+    "trans": [
+      "adj. 价格适中的"
+    ]
+  },
+  {
+    "name": "pratique",
+    "trans": [
+      "adj. 实用的"
+    ]
+  },
+  {
+    "name": "peuplé",
+    "trans": [
+      "adj. 人口众多的"
+    ]
+  },
+  {
+    "name": "blond",
+    "trans": [
+      "adj. 金发的"
+    ]
+  },
+  {
+    "name": "brun",
+    "trans": [
+      "adj. 棕发的，深色的"
+    ]
+  },
+  {
+    "name": "châtain",
+    "trans": [
+      "adj. 栗色头发的"
+    ]
+  },
+  {
+    "name": "roux",
+    "trans": [
+      "adj. 红棕色头发的"
+    ]
+  },
+  {
+    "name": "gris",
+    "trans": [
+      "adj. 灰色的"
+    ]
+  },
+  {
+    "name": "pimenté",
+    "trans": [
+      "adj. 辛辣的"
+    ]
+  },
+  {
+    "name": "quotidien",
+    "trans": [
+      "adj. 日常的"
+    ]
+  },
+  {
+    "name": "solder",
+    "trans": [
+      "v.t. 减价出售"
+    ]
+  },
+  {
+    "name": "valider",
+    "trans": [
+      "v.t. 确认，使生效"
+    ]
+  },
+  {
+    "name": "manipuler",
+    "trans": [
+      "v.t. 操作，摆弄"
+    ]
+  },
+  {
+    "name": "replier",
+    "trans": [
+      "v.t. 折叠"
+    ]
+  },
+  {
+    "name": "racheter",
+    "trans": [
+      "v.t. 再次购买"
+    ]
+  },
+  {
+    "name": "sélectionner",
+    "trans": [
+      "v.t. 挑选"
+    ]
+  },
+  {
+    "name": "retirer",
+    "trans": [
+      "v.t. 提取，取出"
+    ]
+  },
+  {
+    "name": "patienter",
+    "trans": [
+      "v.i. 耐心等待"
+    ]
+  },
+  {
+    "name": "composer",
+    "trans": [
+      "v.t. 拨号，输入"
+    ]
+  },
+  {
+    "name": "effectuer",
+    "trans": [
+      "v.t. 执行，进行"
+    ]
+  },
+  {
+    "name": "pardonner",
+    "trans": [
+      "v.t. 原谅，宽恕"
+    ]
+  },
+  {
+    "name": "jusqu'à",
+    "trans": [
+      "prép. 直到……"
+    ]
+  },
+  {
+    "name": "également",
+    "trans": [
+      "adv. 同样地"
+    ]
+  },
+  {
+    "name": "ultérieurement",
+    "trans": [
+      "adv. 稍后，日后"
+    ]
+  },
+  {
+    "name": "faire du shopping",
+    "trans": [
+      "短语：购物，血拼"
+    ]
+  },
+  {
+    "name": "ajouter au panier",
+    "trans": [
+      "短语：加入购物车"
+    ]
+  },
+  {
+    "name": "frais de livraison",
+    "trans": [
+      "短语：运费，送货费"
+    ]
+  },
+  {
+    "name": "valider le panier",
+    "trans": [
+      "短语：结算购物车"
+    ]
+  },
+  {
+    "name": "de prime abord",
+    "trans": [
+      "短语：乍看起来，第一眼"
+    ]
+  },
+  {
+    "name": "lit d'appoint",
+    "trans": [
+      "短语：加铺，备用床"
+    ]
+  },
+  {
+    "name": "perte de temps",
+    "trans": [
+      "短语：浪费时间"
+    ]
+  },
+  {
+    "name": "mourir de soif",
+    "trans": [
+      "短语：口渴难耐"
+    ]
+  },
+  {
+    "name": "faire erreur",
+    "trans": [
+      "短语：搞错，弄错"
+    ]
+  },
+  {
+    "name": "être en attente",
+    "trans": [
+      "短语：处于等待状态"
+    ]
+  },
+  {
+    "name": "retirer de l'argent",
+    "trans": [
+      "短语：取钱"
+    ]
+  }
+]

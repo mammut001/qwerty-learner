@@ -1,0 +1,416 @@
+[
+  {
+    "name": "voyant",
+    "trans": [
+      "n. 通灵者，算命师；adj. 醒目的"
+    ]
+  },
+  {
+    "name": "voyance",
+    "trans": [
+      "n.f. 通灵，透视力，算命"
+    ]
+  },
+  {
+    "name": "consulter",
+    "trans": [
+      "v.t. 咨询，请教；查阅"
+    ]
+  },
+  {
+    "name": "consultation",
+    "trans": [
+      "n.f. 咨询，求诊，查阅"
+    ]
+  },
+  {
+    "name": "sceptique",
+    "trans": [
+      "adj. 怀疑的，持怀疑态度的"
+    ]
+  },
+  {
+    "name": "scepticisme",
+    "trans": [
+      "n.m. 怀疑态度，怀疑论"
+    ]
+  },
+  {
+    "name": "jovial",
+    "trans": [
+      "adj. 快活的，爽朗的"
+    ]
+  },
+  {
+    "name": "coincer",
+    "trans": [
+      "v.t. 卡住，夹住；使陷入困境"
+    ]
+  },
+  {
+    "name": "démarche",
+    "trans": [
+      "n.f. 步伐；步骤，方法；行动"
+    ]
+  },
+  {
+    "name": "marge",
+    "trans": [
+      "n.f. 页边空白；余地，利润幅度"
+    ]
+  },
+  {
+    "name": "atroce",
+    "trans": [
+      "adj. 残酷的，极其恶劣的，剧烈的"
+    ]
+  },
+  {
+    "name": "scénario",
+    "trans": [
+      "n.m. 剧本，脚本；情景预案"
+    ]
+  },
+  {
+    "name": "épouvantable",
+    "trans": [
+      "adj. 可怕的，骇人的，糟糕透顶的"
+    ]
+  },
+  {
+    "name": "épouvante",
+    "trans": [
+      "n.f. 惊骇，极度恐惧"
+    ]
+  },
+  {
+    "name": "entretien",
+    "trans": [
+      "n.m. 面试，会谈；保养"
+    ]
+  },
+  {
+    "name": "masque",
+    "trans": [
+      "n.m. 面具，口罩"
+    ]
+  },
+  {
+    "name": "masquer",
+    "trans": [
+      "v.t. 掩盖，戴面具"
+    ]
+  },
+  {
+    "name": "isolé",
+    "trans": [
+      "adj. 偏僻的，孤独的，孤立的"
+    ]
+  },
+  {
+    "name": "tordre",
+    "trans": [
+      "v.t. 拧，扭，绞"
+    ]
+  },
+  {
+    "name": "traîner",
+    "trans": [
+      "v.t. 拖，拉；v.i. 游荡，闲置"
+    ]
+  },
+  {
+    "name": "couteau",
+    "trans": [
+      "n.m. 刀，小刀"
+    ]
+  },
+  {
+    "name": "infernal",
+    "trans": [
+      "adj. 地狱般的，难以忍受的"
+    ]
+  },
+  {
+    "name": "terrifiant",
+    "trans": [
+      "adj. 极其可怕的，令人毛骨悚然的"
+    ]
+  },
+  {
+    "name": "terrifier",
+    "trans": [
+      "v.t. 使害怕，恐吓"
+    ]
+  },
+  {
+    "name": "terreur",
+    "trans": [
+      "n.f. 恐怖，惊骇"
+    ]
+  },
+  {
+    "name": "couler",
+    "trans": [
+      "v.i. 流动，流淌；沉没"
+    ]
+  },
+  {
+    "name": "surveiller",
+    "trans": [
+      "v.t. 监视，照看，监督"
+    ]
+  },
+  {
+    "name": "surveillance",
+    "trans": [
+      "n.f. 监视，监控，看守"
+    ]
+  },
+  {
+    "name": "généraliser",
+    "trans": [
+      "v.t. 推广，普及；概括"
+    ]
+  },
+  {
+    "name": "généralisation",
+    "trans": [
+      "n.f. 普及，推广；概括"
+    ]
+  },
+  {
+    "name": "infiltrer",
+    "trans": [
+      "v.t. 渗透，使潜入"
+    ]
+  },
+  {
+    "name": "infiltration",
+    "trans": [
+      "n.f. 渗透，潜入"
+    ]
+  },
+  {
+    "name": "truffer",
+    "trans": [
+      "v.t. 塞满，布满，暗藏"
+    ]
+  },
+  {
+    "name": "localiser",
+    "trans": [
+      "v.t. 确定位置，定位；使局部化"
+    ]
+  },
+  {
+    "name": "localisation",
+    "trans": [
+      "n.f. 定位，方位确定"
+    ]
+  },
+  {
+    "name": "ambulant",
+    "trans": [
+      "adj. 流动的，巡回的"
+    ]
+  },
+  {
+    "name": "répertorier",
+    "trans": [
+      "v.t. 编制目录，列清单，归类"
+    ]
+  },
+  {
+    "name": "répertoire",
+    "trans": [
+      "n.m. 名录，目录，曲目库"
+    ]
+  },
+  {
+    "name": "traquer",
+    "trans": [
+      "v.t. 围捕，搜捕，追截"
+    ]
+  },
+  {
+    "name": "traque",
+    "trans": [
+      "n.f. 围捕，追捕"
+    ]
+  },
+  {
+    "name": "fraudeur",
+    "trans": [
+      "n. 欺诈者，偷漏税者，逃票者"
+    ]
+  },
+  {
+    "name": "fraude",
+    "trans": [
+      "n.f. 欺诈，舞弊，偷税"
+    ]
+  },
+  {
+    "name": "frauder",
+    "trans": [
+      "v.i. 舞弊，欺诈"
+    ]
+  },
+  {
+    "name": "panoplie",
+    "trans": [
+      "n.f. 全套装具，整套器材"
+    ]
+  },
+  {
+    "name": "éthique",
+    "trans": [
+      "adj. 伦理的，道德的；n.f. 伦理学，道德规范"
+    ]
+  },
+  {
+    "name": "souffrir",
+    "trans": [
+      "v.i. 受痛苦，受折磨；v.t. 忍受"
+    ]
+  },
+  {
+    "name": "souffrance",
+    "trans": [
+      "n.f. 痛苦，苦难"
+    ]
+  },
+  {
+    "name": "ignorer",
+    "trans": [
+      "v.t. 不知道；不理睬，忽视"
+    ]
+  },
+  {
+    "name": "ignorance",
+    "trans": [
+      "n.f. 无知，不知情"
+    ]
+  },
+  {
+    "name": "rêve",
+    "trans": [
+      "n.m. 梦，梦想"
+    ]
+  },
+  {
+    "name": "rêver",
+    "trans": [
+      "v.i. 做梦，梦想"
+    ]
+  },
+  {
+    "name": "au fil de",
+    "trans": [
+      "短语：随着……的流逝，在……的过程中"
+    ]
+  },
+  {
+    "name": "se rendre compte",
+    "trans": [
+      "短语：意识到，省悟"
+    ]
+  },
+  {
+    "name": "gagner sa vie",
+    "trans": [
+      "短语：谋生，自食其力"
+    ]
+  },
+  {
+    "name": "dater de",
+    "trans": [
+      "短语：始于……时代，可追溯至"
+    ]
+  },
+  {
+    "name": "remonter à",
+    "trans": [
+      "短语：追溯到……时期"
+    ]
+  },
+  {
+    "name": "se retenir de",
+    "trans": [
+      "短语：克制自己不做某事，忍住"
+    ]
+  },
+  {
+    "name": "faire de la peine à",
+    "trans": [
+      "短语：使某人伤心难过"
+    ]
+  },
+  {
+    "name": "par tous les moyens",
+    "trans": [
+      "短语：千方百计，不择手段"
+    ]
+  },
+  {
+    "name": "mettre fin à",
+    "trans": [
+      "短语：终止，结束某事"
+    ]
+  },
+  {
+    "name": "à peine",
+    "trans": [
+      "短语：刚……就，勉强，几乎不"
+    ]
+  },
+  {
+    "name": "se rappeler",
+    "trans": [
+      "短语：回忆起，记得"
+    ]
+  },
+  {
+    "name": "fouiller dans sa mémoire",
+    "trans": [
+      "短语：搜寻记忆，竭力回想"
+    ]
+  },
+  {
+    "name": "se jeter à genoux",
+    "trans": [
+      "短语：跪倒在地"
+    ]
+  },
+  {
+    "name": "à flots",
+    "trans": [
+      "短语：大量地，滚滚地"
+    ]
+  },
+  {
+    "name": "être en nage",
+    "trans": [
+      "短语：大汗淋漓，汗流浃背"
+    ]
+  },
+  {
+    "name": "banque de données",
+    "trans": [
+      "短语：数据库，资料库"
+    ]
+  },
+  {
+    "name": "s'avérer",
+    "trans": [
+      "短语：被证实为，显现出"
+    ]
+  },
+  {
+    "name": "cogner à la porte",
+    "trans": [
+      "短语：敲门，撞门"
+    ]
+  }
+]

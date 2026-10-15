@@ -6,8 +6,12 @@ const pendingMutationCount = async (page) =>
 test('a non-default grammar topic can be completed, synced and surfaces in the error book', async ({ page }) => {
   await page.goto('/grammar-session')
   await expect(page.getByTestId('grammar-topic-passe-compose-imparfait')).toHaveAttribute('aria-checked', 'true')
+  await expect(page.getByTestId('grammar-topic-passe-compose-imparfait')).toContainText('Échelle N4–5')
+  await expect(page.getByTestId('grammar-topic-subjonctif-indicatif')).toContainText('Échelle N8–10')
+  await expect(page.getByTestId('grammar-topic-subjonctif-indicatif')).toContainText('NCLC 7 之后')
   await page.getByTestId('grammar-topic-subjonctif-indicatif').click()
   await expect(page.getByRole('heading', { name: 'Subjonctif vs indicatif' })).toBeVisible()
+  await expect(page.locator('span', { hasText: '30 分钟' })).toContainText('欧标 B1–B2 · Échelle N8–10')
   await page.getByRole('button', { name: '开始 30 分钟' }).click()
 
   // Always answer A: the topic mixes A and B answers, so this yields both right and wrong items.

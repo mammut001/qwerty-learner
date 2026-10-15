@@ -1,0 +1,530 @@
+[
+  {
+    "name": "éolien",
+    "trans": [
+      "adj. 风力的，风能的"
+    ]
+  },
+  {
+    "name": "éolienne",
+    "trans": [
+      "n.f. 风力发电机，风车"
+    ]
+  },
+  {
+    "name": "tempête",
+    "trans": [
+      "n.f. 暴风雨，风暴"
+    ]
+  },
+  {
+    "name": "adjoint",
+    "trans": [
+      "n.m. 助理，副职，副市长"
+    ]
+  },
+  {
+    "name": "revenu",
+    "trans": [
+      "n.m. 收入，收益"
+    ]
+  },
+  {
+    "name": "rapporter",
+    "trans": [
+      "v.t. 带来收益；带回；汇报"
+    ]
+  },
+  {
+    "name": "silencieux",
+    "trans": [
+      "adj. 安静的，无声的"
+    ]
+  },
+  {
+    "name": "silence",
+    "trans": [
+      "n.m. 寂静，沉默"
+    ]
+  },
+  {
+    "name": "bruyant",
+    "trans": [
+      "adj. 吵闹的，嘈杂的"
+    ]
+  },
+  {
+    "name": "installer",
+    "trans": [
+      "v.t. 安装，安置"
+    ]
+  },
+  {
+    "name": "installation",
+    "trans": [
+      "n.f. 安装，设施，装置"
+    ]
+  },
+  {
+    "name": "pétition",
+    "trans": [
+      "n.f. 请愿书"
+    ]
+  },
+  {
+    "name": "sourd",
+    "trans": [
+      "adj. 聋的；低沉的"
+    ]
+  },
+  {
+    "name": "muet",
+    "trans": [
+      "adj. 哑的，沉默的"
+    ]
+  },
+  {
+    "name": "voix",
+    "trans": [
+      "n.f. 声音；选票"
+    ]
+  },
+  {
+    "name": "adopter",
+    "trans": [
+      "v.t. 通过，采纳；收养"
+    ]
+  },
+  {
+    "name": "adoption",
+    "trans": [
+      "n.f. 通过，采纳；收养"
+    ]
+  },
+  {
+    "name": "applaudir",
+    "trans": [
+      "v.t. 鼓掌，喝彩"
+    ]
+  },
+  {
+    "name": "applaudissement",
+    "trans": [
+      "n.m. 鼓掌，欢呼"
+    ]
+  },
+  {
+    "name": "comité",
+    "trans": [
+      "n.m. 委员会"
+    ]
+  },
+  {
+    "name": "écologie",
+    "trans": [
+      "n.f. 生态学，生态保护"
+    ]
+  },
+  {
+    "name": "écologique",
+    "trans": [
+      "adj. 生态的，环保的"
+    ]
+  },
+  {
+    "name": "écologiste",
+    "trans": [
+      "n. 环保人士"
+    ]
+  },
+  {
+    "name": "démocratie",
+    "trans": [
+      "n.f. 民主，民主制度"
+    ]
+  },
+  {
+    "name": "démocratique",
+    "trans": [
+      "adj. 民主的"
+    ]
+  },
+  {
+    "name": "préfet",
+    "trans": [
+      "n.m. 省长，省行政长官"
+    ]
+  },
+  {
+    "name": "préfecture",
+    "trans": [
+      "n.f. 省政府，省府所在地"
+    ]
+  },
+  {
+    "name": "menacer",
+    "trans": [
+      "v.t. 威胁，恐吓"
+    ]
+  },
+  {
+    "name": "menace",
+    "trans": [
+      "n.f. 威胁，危险迹象"
+    ]
+  },
+  {
+    "name": "manifester",
+    "trans": [
+      "v.i. 游行示威；v.t. 表现出"
+    ]
+  },
+  {
+    "name": "manifestation",
+    "trans": [
+      "n.f. 游行示威；活动"
+    ]
+  },
+  {
+    "name": "manifestant",
+    "trans": [
+      "n.m. 示威者，游行人员"
+    ]
+  },
+  {
+    "name": "défendre",
+    "trans": [
+      "v.t. 保卫，捍卫；禁止"
+    ]
+  },
+  {
+    "name": "défense",
+    "trans": [
+      "n.f. 保卫，防御；禁止"
+    ]
+  },
+  {
+    "name": "défenseur",
+    "trans": [
+      "n.m. 捍卫者，辩护人"
+    ]
+  },
+  {
+    "name": "constitution",
+    "trans": [
+      "n.f. 宪法；构成"
+    ]
+  },
+  {
+    "name": "constitutionnel",
+    "trans": [
+      "adj. 宪法的，合宪的"
+    ]
+  },
+  {
+    "name": "indivisible",
+    "trans": [
+      "adj. 不可分割的"
+    ]
+  },
+  {
+    "name": "laïque",
+    "trans": [
+      "adj. 世俗的，非宗教的"
+    ]
+  },
+  {
+    "name": "laïcité",
+    "trans": [
+      "n.f. 世俗性，政教分离原则"
+    ]
+  },
+  {
+    "name": "distinction",
+    "trans": [
+      "n.f. 区别，区分；高雅"
+    ]
+  },
+  {
+    "name": "distinguer",
+    "trans": [
+      "v.t. 区分，辨别"
+    ]
+  },
+  {
+    "name": "égalité",
+    "trans": [
+      "n.f. 平等"
+    ]
+  },
+  {
+    "name": "égalitaire",
+    "trans": [
+      "adj. 平等主义的"
+    ]
+  },
+  {
+    "name": "croyance",
+    "trans": [
+      "n.f. 信仰，信念"
+    ]
+  },
+  {
+    "name": "croire",
+    "trans": [
+      "v.t. 相信，认为"
+    ]
+  },
+  {
+    "name": "décentraliser",
+    "trans": [
+      "v.t. 权力下放，实行地方分权"
+    ]
+  },
+  {
+    "name": "décentralisation",
+    "trans": [
+      "n.f. 权力下放，地方分权"
+    ]
+  },
+  {
+    "name": "emblème",
+    "trans": [
+      "n.m. 徽章，象征，标志"
+    ]
+  },
+  {
+    "name": "hymne",
+    "trans": [
+      "n.m. 国歌，赞歌"
+    ]
+  },
+  {
+    "name": "devise",
+    "trans": [
+      "n.f. 格言，座右铭；外汇"
+    ]
+  },
+  {
+    "name": "principe",
+    "trans": [
+      "n.m. 原则，原理"
+    ]
+  },
+  {
+    "name": "fonctionnaire",
+    "trans": [
+      "n. 公务员，公职人员"
+    ]
+  },
+  {
+    "name": "autorité",
+    "trans": [
+      "n.f. 权威，当局，管辖权"
+    ]
+  },
+  {
+    "name": "inondation",
+    "trans": [
+      "n.f. 洪水，水灾"
+    ]
+  },
+  {
+    "name": "inonder",
+    "trans": [
+      "v.t. 淹没，泛滥"
+    ]
+  },
+  {
+    "name": "garantir",
+    "trans": [
+      "v.t. 担保，保障"
+    ]
+  },
+  {
+    "name": "garantie",
+    "trans": [
+      "n.f. 担保，保证"
+    ]
+  },
+  {
+    "name": "justice",
+    "trans": [
+      "n.f. 司法；公正，正义"
+    ]
+  },
+  {
+    "name": "juste",
+    "trans": [
+      "adj. 公正的，正确的；adv. 恰好"
+    ]
+  },
+  {
+    "name": "protecteur",
+    "trans": [
+      "n.m. 保护者；adj. 保护的"
+    ]
+  },
+  {
+    "name": "protection",
+    "trans": [
+      "n.f. 保护，防护"
+    ]
+  },
+  {
+    "name": "protéger",
+    "trans": [
+      "v.t. 保护，防护"
+    ]
+  },
+  {
+    "name": "ostensible",
+    "trans": [
+      "adj. 显眼的，公开展示的"
+    ]
+  },
+  {
+    "name": "pratiquant",
+    "trans": [
+      "adj. 虔诚践行宗教的；n. 教徒"
+    ]
+  },
+  {
+    "name": "causer",
+    "trans": [
+      "v.t. 引起，导致；v.i. 聊天"
+    ]
+  },
+  {
+    "name": "provoquer",
+    "trans": [
+      "v.t. 引起，挑衅，激起"
+    ]
+  },
+  {
+    "name": "provoquant",
+    "trans": [
+      "adj. 挑衅的，刺激的"
+    ]
+  },
+  {
+    "name": "entraîner",
+    "trans": [
+      "v.t. 导致；训练，带动"
+    ]
+  },
+  {
+    "name": "susciter",
+    "trans": [
+      "v.t. 引起，激起"
+    ]
+  },
+  {
+    "name": "permettre",
+    "trans": [
+      "v.t. 允许，使得"
+    ]
+  },
+  {
+    "name": "avis de tempête",
+    "trans": [
+      "短语：暴风雨警报"
+    ]
+  },
+  {
+    "name": "parc éolien",
+    "trans": [
+      "短语：风力发电场"
+    ]
+  },
+  {
+    "name": "s'occuper de",
+    "trans": [
+      "短语：负责，照看，处理"
+    ]
+  },
+  {
+    "name": "se laisser faire",
+    "trans": [
+      "短语：任人摆布，逆来顺受"
+    ]
+  },
+  {
+    "name": "mettre en garde",
+    "trans": [
+      "短语：警告，提醒防备"
+    ]
+  },
+  {
+    "name": "voter pour",
+    "trans": [
+      "短语：投票赞成"
+    ]
+  },
+  {
+    "name": "voter contre",
+    "trans": [
+      "短语：投票反对"
+    ]
+  },
+  {
+    "name": "au lieu de",
+    "trans": [
+      "短语：与其，代替，而不（接不定式）"
+    ]
+  },
+  {
+    "name": "faute de",
+    "trans": [
+      "短语：由于缺乏，因缺少（接名词或不定式）"
+    ]
+  },
+  {
+    "name": "par manque de",
+    "trans": [
+      "短语：因为缺乏，由于不足"
+    ]
+  },
+  {
+    "name": "en raison de",
+    "trans": [
+      "短语：由于，鉴于"
+    ]
+  },
+  {
+    "name": "étant donné",
+    "trans": [
+      "短语：鉴于，由于"
+    ]
+  },
+  {
+    "name": "c'est pourquoi",
+    "trans": [
+      "短语：这就是为什么，因此"
+    ]
+  },
+  {
+    "name": "par conséquent",
+    "trans": [
+      "短语：因此，所以"
+    ]
+  },
+  {
+    "name": "de sorte que",
+    "trans": [
+      "短语：以至于，使得（接直陈式或虚拟式）"
+    ]
+  },
+  {
+    "name": "du coup",
+    "trans": [
+      "短语：于是，一下子，结果（口语）"
+    ]
+  },
+  {
+    "name": "avoir pour conséquence de",
+    "trans": [
+      "短语：导致……的结果"
+    ]
+  }
+]

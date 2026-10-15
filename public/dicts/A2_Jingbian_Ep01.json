@@ -1,0 +1,716 @@
+[
+  {
+    "name": "sondage",
+    "trans": [
+      "n.m. 民意调查"
+    ]
+  },
+  {
+    "name": "population",
+    "trans": [
+      "n.f. 人口"
+    ]
+  },
+  {
+    "name": "nourriture",
+    "trans": [
+      "n.f. 食品，食物"
+    ]
+  },
+  {
+    "name": "crainte",
+    "trans": [
+      "n.f. 担心，害怕"
+    ]
+  },
+  {
+    "name": "macaron",
+    "trans": [
+      "n.m. 马卡龙"
+    ]
+  },
+  {
+    "name": "gâteau",
+    "trans": [
+      "n.m. 蛋糕"
+    ]
+  },
+  {
+    "name": "évolution",
+    "trans": [
+      "n.f. 演变，发展"
+    ]
+  },
+  {
+    "name": "futur",
+    "trans": [
+      "n.m. 未来"
+    ]
+  },
+  {
+    "name": "centre-ville",
+    "trans": [
+      "n.m. 市中心"
+    ]
+  },
+  {
+    "name": "transport en commun",
+    "trans": [
+      "n.m. 公共交通"
+    ]
+  },
+  {
+    "name": "santé",
+    "trans": [
+      "n.f. 健康"
+    ]
+  },
+  {
+    "name": "cancer",
+    "trans": [
+      "n.m. 癌症"
+    ]
+  },
+  {
+    "name": "corps",
+    "trans": [
+      "n.m. 身体"
+    ]
+  },
+  {
+    "name": "coiffure",
+    "trans": [
+      "n.f. 发型"
+    ]
+  },
+  {
+    "name": "grotte",
+    "trans": [
+      "n.f. 山洞"
+    ]
+  },
+  {
+    "name": "orage",
+    "trans": [
+      "n.m. 暴风雨"
+    ]
+  },
+  {
+    "name": "escargot",
+    "trans": [
+      "n.m. 蜗牛"
+    ]
+  },
+  {
+    "name": "champignon",
+    "trans": [
+      "n.m. 蘑菇"
+    ]
+  },
+  {
+    "name": "piège",
+    "trans": [
+      "n.m. 陷阱"
+    ]
+  },
+  {
+    "name": "moitié",
+    "trans": [
+      "n.f. 一半"
+    ]
+  },
+  {
+    "name": "reste",
+    "trans": [
+      "n.m. 剩余部分"
+    ]
+  },
+  {
+    "name": "millionnaire",
+    "trans": [
+      "n.m./f. 百万富翁"
+    ]
+  },
+  {
+    "name": "parfum",
+    "trans": [
+      "n.m. 香水"
+    ]
+  },
+  {
+    "name": "métier",
+    "trans": [
+      "n.m. 职业"
+    ]
+  },
+  {
+    "name": "poste",
+    "trans": [
+      "n.m. 职位，岗位"
+    ]
+  },
+  {
+    "name": "chef",
+    "trans": [
+      "n.m. 负责人，主管"
+    ]
+  },
+  {
+    "name": "projet",
+    "trans": [
+      "n.m. 计划，项目"
+    ]
+  },
+  {
+    "name": "calme",
+    "trans": [
+      "n.m. 安静，镇定"
+    ]
+  },
+  {
+    "name": "retraite",
+    "trans": [
+      "n.f. 退休"
+    ]
+  },
+  {
+    "name": "congé",
+    "trans": [
+      "n.m. 假期，休假"
+    ]
+  },
+  {
+    "name": "salaire",
+    "trans": [
+      "n.m. 薪水，工资"
+    ]
+  },
+  {
+    "name": "contrôleur",
+    "trans": [
+      "n.m. 检查员，监督员"
+    ]
+  },
+  {
+    "name": "gestion",
+    "trans": [
+      "n.f. 管理"
+    ]
+  },
+  {
+    "name": "couple",
+    "trans": [
+      "n.m. 夫妇，情侣"
+    ]
+  },
+  {
+    "name": "ressources humaines",
+    "trans": [
+      "n.f.pl. 人力资源"
+    ]
+  },
+  {
+    "name": "chef de projet",
+    "trans": [
+      "n.m. 项目主管"
+    ]
+  },
+  {
+    "name": "qualité",
+    "trans": [
+      "n.f. 质量"
+    ]
+  },
+  {
+    "name": "production",
+    "trans": [
+      "n.f. 生产"
+    ]
+  },
+  {
+    "name": "contrôle",
+    "trans": [
+      "n.m. 检查，控制"
+    ]
+  },
+  {
+    "name": "liberté",
+    "trans": [
+      "n.f. 自由"
+    ]
+  },
+  {
+    "name": "stress",
+    "trans": [
+      "n.m. 压力，紧张"
+    ]
+  },
+  {
+    "name": "bureau",
+    "trans": [
+      "n.m. 办公室"
+    ]
+  },
+  {
+    "name": "choix",
+    "trans": [
+      "n.m. 选择"
+    ]
+  },
+  {
+    "name": "proposition",
+    "trans": [
+      "n.f. 提议，建议"
+    ]
+  },
+  {
+    "name": "service qualité",
+    "trans": [
+      "n.m. 质检部门"
+    ]
+  },
+  {
+    "name": "collègue",
+    "trans": [
+      "n.m./f. 同事"
+    ]
+  },
+  {
+    "name": "chômage",
+    "trans": [
+      "n.m. 失业"
+    ]
+  },
+  {
+    "name": "courage",
+    "trans": [
+      "n.m. 勇气"
+    ]
+  },
+  {
+    "name": "sociologue",
+    "trans": [
+      "n.m./f. 社会学家"
+    ]
+  },
+  {
+    "name": "étude",
+    "trans": [
+      "n.f. 研究，学业"
+    ]
+  },
+  {
+    "name": "influence",
+    "trans": [
+      "n.f. 影响，影响力"
+    ]
+  },
+  {
+    "name": "reflet",
+    "trans": [
+      "n.m. 反映，倒影"
+    ]
+  },
+  {
+    "name": "origine",
+    "trans": [
+      "n.f. 出身，起源"
+    ]
+  },
+  {
+    "name": "cadre",
+    "trans": [
+      "n.m. 管理干部"
+    ]
+  },
+  {
+    "name": "ouvrier",
+    "trans": [
+      "n.m. 工人"
+    ]
+  },
+  {
+    "name": "baccalauréat",
+    "trans": [
+      "n.m. 高中毕业会考"
+    ]
+  },
+  {
+    "name": "mention",
+    "trans": [
+      "n.f. 评语，优良等级"
+    ]
+  },
+  {
+    "name": "optimiste",
+    "trans": [
+      "adj. 乐观的"
+    ]
+  },
+  {
+    "name": "pessimiste",
+    "trans": [
+      "adj. 悲观的"
+    ]
+  },
+  {
+    "name": "bruyant",
+    "trans": [
+      "adj. 喧闹的"
+    ]
+  },
+  {
+    "name": "commun",
+    "trans": [
+      "adj. 共同的，普通的"
+    ]
+  },
+  {
+    "name": "malade",
+    "trans": [
+      "adj. 生病的"
+    ]
+  },
+  {
+    "name": "bon",
+    "trans": [
+      "adj. 好的"
+    ]
+  },
+  {
+    "name": "meilleur",
+    "trans": [
+      "adj. 更好的"
+    ]
+  },
+  {
+    "name": "sûr",
+    "trans": [
+      "adj. 确定的，安全的"
+    ]
+  },
+  {
+    "name": "social",
+    "trans": [
+      "adj. 社会的"
+    ]
+  },
+  {
+    "name": "sensible",
+    "trans": [
+      "adj. 敏感的，可感知的"
+    ]
+  },
+  {
+    "name": "populaire",
+    "trans": [
+      "adj. 受欢迎的，大众的"
+    ]
+  },
+  {
+    "name": "interdit",
+    "trans": [
+      "adj. 被禁止的"
+    ]
+  },
+  {
+    "name": "augmenter",
+    "trans": [
+      "v.i. 增加，上涨"
+    ]
+  },
+  {
+    "name": "guérir",
+    "trans": [
+      "v.t. 治愈，治好"
+    ]
+  },
+  {
+    "name": "vivre",
+    "trans": [
+      "v.i. 生活，生存"
+    ]
+  },
+  {
+    "name": "remplacer",
+    "trans": [
+      "v.t. 代替，替换"
+    ]
+  },
+  {
+    "name": "changer",
+    "trans": [
+      "v.t. 改变，更换"
+    ]
+  },
+  {
+    "name": "se développer",
+    "trans": [
+      "v.pr. 发展"
+    ]
+  },
+  {
+    "name": "interdire",
+    "trans": [
+      "v.t. 禁止"
+    ]
+  },
+  {
+    "name": "se retirer",
+    "trans": [
+      "v.pr. 隐退，隐居"
+    ]
+  },
+  {
+    "name": "planter",
+    "trans": [
+      "v.t. 种植"
+    ]
+  },
+  {
+    "name": "rapporter",
+    "trans": [
+      "v.t. 带回，带去"
+    ]
+  },
+  {
+    "name": "vendre",
+    "trans": [
+      "v.t. 出售，卖"
+    ]
+  },
+  {
+    "name": "déranger",
+    "trans": [
+      "v.t. 打扰"
+    ]
+  },
+  {
+    "name": "attendre",
+    "trans": [
+      "v.t. 等待"
+    ]
+  },
+  {
+    "name": "s'asseoir",
+    "trans": [
+      "v.pr. 坐下"
+    ]
+  },
+  {
+    "name": "fabriquer",
+    "trans": [
+      "v.t. 制造"
+    ]
+  },
+  {
+    "name": "réfléchir",
+    "trans": [
+      "v.i. 思考，反思"
+    ]
+  },
+  {
+    "name": "proposer",
+    "trans": [
+      "v.t. 提议，建议"
+    ]
+  },
+  {
+    "name": "intéresser",
+    "trans": [
+      "v.t. 使感兴趣"
+    ]
+  },
+  {
+    "name": "publier",
+    "trans": [
+      "v.t. 出版，发表"
+    ]
+  },
+  {
+    "name": "lier",
+    "trans": [
+      "v.t. 联系，结合"
+    ]
+  },
+  {
+    "name": "valoir",
+    "trans": [
+      "v.t. 价值，值得"
+    ]
+  },
+  {
+    "name": "rendre",
+    "trans": [
+      "v.t. 使得"
+    ]
+  },
+  {
+    "name": "longtemps",
+    "trans": [
+      "adv. 长期，长久"
+    ]
+  },
+  {
+    "name": "bientôt",
+    "trans": [
+      "adv. 很快"
+    ]
+  },
+  {
+    "name": "demain",
+    "trans": [
+      "adv. 明天"
+    ]
+  },
+  {
+    "name": "après-demain",
+    "trans": [
+      "adv. 后天"
+    ]
+  },
+  {
+    "name": "surtout",
+    "trans": [
+      "adv. 特别是，尤其"
+    ]
+  },
+  {
+    "name": "justement",
+    "trans": [
+      "adv. 正好，恰好"
+    ]
+  },
+  {
+    "name": "contre",
+    "trans": [
+      "prép. 反对，对照"
+    ]
+  },
+  {
+    "name": "face au futur",
+    "trans": [
+      "短语：面对未来"
+    ]
+  },
+  {
+    "name": "avoir peur de",
+    "trans": [
+      "短语：害怕……"
+    ]
+  },
+  {
+    "name": "faire cuire",
+    "trans": [
+      "短语：煮熟，弄熟"
+    ]
+  },
+  {
+    "name": "à ce train-là",
+    "trans": [
+      "短语：照这样下去"
+    ]
+  },
+  {
+    "name": "tout à l'heure",
+    "trans": [
+      "短语：刚才；一会儿后"
+    ]
+  },
+  {
+    "name": "dans un instant",
+    "trans": [
+      "短语：马上，片刻之后"
+    ]
+  },
+  {
+    "name": "dans une heure",
+    "trans": [
+      "短语：一小时后"
+    ]
+  },
+  {
+    "name": "la semaine prochaine",
+    "trans": [
+      "短语：下周"
+    ]
+  },
+  {
+    "name": "l'année prochaine",
+    "trans": [
+      "短语：明年"
+    ]
+  },
+  {
+    "name": "faire des économies",
+    "trans": [
+      "短语：省钱，存钱"
+    ]
+  },
+  {
+    "name": "partir à la retraite",
+    "trans": [
+      "短语：退休"
+    ]
+  },
+  {
+    "name": "prendre un congé",
+    "trans": [
+      "短语：请假，休假"
+    ]
+  },
+  {
+    "name": "être d'accord",
+    "trans": [
+      "短语：同意"
+    ]
+  },
+  {
+    "name": "pas du tout",
+    "trans": [
+      "短语：一点也不，完全不"
+    ]
+  },
+  {
+    "name": "avoir besoin de",
+    "trans": [
+      "短语：需要……"
+    ]
+  },
+  {
+    "name": "être fait pour",
+    "trans": [
+      "短语：天生适合做……"
+    ]
+  },
+  {
+    "name": "être au chômage",
+    "trans": [
+      "短语：处于失业状态"
+    ]
+  },
+  {
+    "name": "tant mieux",
+    "trans": [
+      "短语：太好了"
+    ]
+  },
+  {
+    "name": "bon courage",
+    "trans": [
+      "短语：祝好运，加油"
+    ]
+  },
+  {
+    "name": "valoir mieux",
+    "trans": [
+      "短语：最好……"
+    ]
+  },
+  {
+    "name": "ça avance",
+    "trans": [
+      "短语：有进展"
+    ]
+  }
+]

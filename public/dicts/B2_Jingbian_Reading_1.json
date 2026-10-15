@@ -1,0 +1,932 @@
+[
+  {
+    "name": "immigration",
+    "trans": [
+      "n.f. 移民（入境）"
+    ]
+  },
+  {
+    "name": "immigré",
+    "trans": [
+      "n.m. 移民（已定居的外国人）"
+    ]
+  },
+  {
+    "name": "réfugié",
+    "trans": [
+      "n.m. 难民"
+    ]
+  },
+  {
+    "name": "regroupement familial",
+    "trans": [
+      "n.m. 家庭团聚"
+    ]
+  },
+  {
+    "name": "intégration",
+    "trans": [
+      "n.f. 融入；一体化"
+    ]
+  },
+  {
+    "name": "citoyen",
+    "trans": [
+      "n.m. 公民"
+    ]
+  },
+  {
+    "name": "droit du sol",
+    "trans": [
+      "n.m. 出生地国籍原则"
+    ]
+  },
+  {
+    "name": "multiculturel",
+    "trans": [
+      "adj. 多元文化的"
+    ]
+  },
+  {
+    "name": "francophone",
+    "trans": [
+      "adj. 说法语的"
+    ]
+  },
+  {
+    "name": "francophonie",
+    "trans": [
+      "n.f. 法语国家（地区）"
+    ]
+  },
+  {
+    "name": "langue maternelle",
+    "trans": [
+      "n.f. 母语"
+    ]
+  },
+  {
+    "name": "langue officielle",
+    "trans": [
+      "n.f. 官方语言"
+    ]
+  },
+  {
+    "name": "influence",
+    "trans": [
+      "n.f. 影响力"
+    ]
+  },
+  {
+    "name": "diplomatie",
+    "trans": [
+      "n.f. 外交"
+    ]
+  },
+  {
+    "name": "ambassadeur",
+    "trans": [
+      "n.m. 大使"
+    ]
+  },
+  {
+    "name": "solidarité",
+    "trans": [
+      "n.f. 团结；互助"
+    ]
+  },
+  {
+    "name": "coopération",
+    "trans": [
+      "n.f. 合作"
+    ]
+  },
+  {
+    "name": "organisation non gouvernementale",
+    "trans": [
+      "n.f. 非政府组织（ONG）"
+    ]
+  },
+  {
+    "name": "droits de l'homme",
+    "trans": [
+      "n.m.pl. 人权"
+    ]
+  },
+  {
+    "name": "fête",
+    "trans": [
+      "n.f. 节日；庆典"
+    ]
+  },
+  {
+    "name": "fête nationale",
+    "trans": [
+      "n.f. 国庆节"
+    ]
+  },
+  {
+    "name": "réveillon",
+    "trans": [
+      "n.m. 圣诞夜聚餐"
+    ]
+  },
+  {
+    "name": "défilé",
+    "trans": [
+      "n.m. 游行；阅兵式"
+    ]
+  },
+  {
+    "name": "feu d'artifice",
+    "trans": [
+      "n.m. 烟花表演"
+    ]
+  },
+  {
+    "name": "cinématographie",
+    "trans": [
+      "n.f. 电影艺术"
+    ]
+  },
+  {
+    "name": "télévision",
+    "trans": [
+      "n.f. 电视"
+    ]
+  },
+  {
+    "name": "chaîne",
+    "trans": [
+      "n.f. 电视频道"
+    ]
+  },
+  {
+    "name": "audience",
+    "trans": [
+      "n.f. 收视率；观众群"
+    ]
+  },
+  {
+    "name": "abonné",
+    "trans": [
+      "n.m. 订户；用户"
+    ]
+  },
+  {
+    "name": "recette",
+    "trans": [
+      "n.f. 收入；票房"
+    ]
+  },
+  {
+    "name": "production",
+    "trans": [
+      "n.f. 制作；生产"
+    ]
+  },
+  {
+    "name": "diffusion",
+    "trans": [
+      "n.f. 播放；传播"
+    ]
+  },
+  {
+    "name": "loisir",
+    "trans": [
+      "n.m. 休闲；爱好"
+    ]
+  },
+  {
+    "name": "Internet",
+    "trans": [
+      "n.m. 互联网"
+    ]
+  },
+  {
+    "name": "réseau",
+    "trans": [
+      "n.m. 网络"
+    ]
+  },
+  {
+    "name": "courrier électronique",
+    "trans": [
+      "n.m. 电子邮件"
+    ]
+  },
+  {
+    "name": "internaute",
+    "trans": [
+      "n.m./f. 网民"
+    ]
+  },
+  {
+    "name": "ergonomie",
+    "trans": [
+      "n.f. 人机工程学"
+    ]
+  },
+  {
+    "name": "ressource",
+    "trans": [
+      "n.f. 资源"
+    ]
+  },
+  {
+    "name": "banque",
+    "trans": [
+      "n.f. 银行"
+    ]
+  },
+  {
+    "name": "banquier",
+    "trans": [
+      "n.m. 银行家"
+    ]
+  },
+  {
+    "name": "compte courant",
+    "trans": [
+      "n.m. 活期账户"
+    ]
+  },
+  {
+    "name": "épargne",
+    "trans": [
+      "n.f. 储蓄"
+    ]
+  },
+  {
+    "name": "crédit",
+    "trans": [
+      "n.m. 信贷；贷款"
+    ]
+  },
+  {
+    "name": "dépôt",
+    "trans": [
+      "n.m. 存款"
+    ]
+  },
+  {
+    "name": "retrait",
+    "trans": [
+      "n.m. 取款"
+    ]
+  },
+  {
+    "name": "relevé",
+    "trans": [
+      "n.m. 对账单"
+    ]
+  },
+  {
+    "name": "virement",
+    "trans": [
+      "n.m. 转账"
+    ]
+  },
+  {
+    "name": "prélèvement automatique",
+    "trans": [
+      "n.m. 自动扣款"
+    ]
+  },
+  {
+    "name": "chèque",
+    "trans": [
+      "n.m. 支票"
+    ]
+  },
+  {
+    "name": "carte bancaire",
+    "trans": [
+      "n.f. 银行卡"
+    ]
+  },
+  {
+    "name": "distributeur automatique de billets",
+    "trans": [
+      "n.m. 自动取款机（DAB）"
+    ]
+  },
+  {
+    "name": "guichet automatique de banque",
+    "trans": [
+      "n.m. 自动柜员机（GAB）"
+    ]
+  },
+  {
+    "name": "trésorerie",
+    "trans": [
+      "n.f. 现金流；资金状况"
+    ]
+  },
+  {
+    "name": "taux d'intérêt",
+    "trans": [
+      "n.m. 利率"
+    ]
+  },
+  {
+    "name": "banque centrale",
+    "trans": [
+      "n.f. 中央银行"
+    ]
+  },
+  {
+    "name": "monnaie",
+    "trans": [
+      "n.f. 货币"
+    ]
+  },
+  {
+    "name": "politique monétaire",
+    "trans": [
+      "n.f. 货币政策"
+    ]
+  },
+  {
+    "name": "inflation",
+    "trans": [
+      "n.f. 通货膨胀"
+    ]
+  },
+  {
+    "name": "billet",
+    "trans": [
+      "n.m. 纸币"
+    ]
+  },
+  {
+    "name": "emprunt",
+    "trans": [
+      "n.m. 借款；贷款"
+    ]
+  },
+  {
+    "name": "consommation",
+    "trans": [
+      "n.f. 消费"
+    ]
+  },
+  {
+    "name": "assurance",
+    "trans": [
+      "n.f. 保险"
+    ]
+  },
+  {
+    "name": "assureur",
+    "trans": [
+      "n.m. 保险公司；承保人"
+    ]
+  },
+  {
+    "name": "assuré",
+    "trans": [
+      "n.m. 投保人"
+    ]
+  },
+  {
+    "name": "bénéficiaire",
+    "trans": [
+      "n.m./f. 受益人"
+    ]
+  },
+  {
+    "name": "prime",
+    "trans": [
+      "n.f. 保费"
+    ]
+  },
+  {
+    "name": "sinistre",
+    "trans": [
+      "n.m. 事故；理赔事件"
+    ]
+  },
+  {
+    "name": "garantie",
+    "trans": [
+      "n.f. 保障；担保"
+    ]
+  },
+  {
+    "name": "police",
+    "trans": [
+      "n.f. 保单"
+    ]
+  },
+  {
+    "name": "contrat",
+    "trans": [
+      "n.m. 合同"
+    ]
+  },
+  {
+    "name": "risque",
+    "trans": [
+      "n.m. 风险"
+    ]
+  },
+  {
+    "name": "gastronomie",
+    "trans": [
+      "n.f. 美食；美食文化"
+    ]
+  },
+  {
+    "name": "mets",
+    "trans": [
+      "n.m. 菜肴"
+    ]
+  },
+  {
+    "name": "petit-déjeuner",
+    "trans": [
+      "n.m. 早餐"
+    ]
+  },
+  {
+    "name": "déjeuner",
+    "trans": [
+      "n.m. 午餐"
+    ]
+  },
+  {
+    "name": "dîner",
+    "trans": [
+      "n.m. 晚餐"
+    ]
+  },
+  {
+    "name": "raffiné",
+    "trans": [
+      "adj. 精致的；讲究的"
+    ]
+  },
+  {
+    "name": "eau minérale",
+    "trans": [
+      "n.f. 矿泉水"
+    ]
+  },
+  {
+    "name": "appellation d'origine contrôlée",
+    "trans": [
+      "n.f. 原产地命名控制（AOC）"
+    ]
+  },
+  {
+    "name": "dégustation",
+    "trans": [
+      "n.f. 品尝"
+    ]
+  },
+  {
+    "name": "déguster",
+    "trans": [
+      "v.t. 品尝"
+    ]
+  },
+  {
+    "name": "bouquet",
+    "trans": [
+      "n.m. 酒香；香气"
+    ]
+  },
+  {
+    "name": "arôme",
+    "trans": [
+      "n.m. 香气"
+    ]
+  },
+  {
+    "name": "corsé",
+    "trans": [
+      "adj. 醇厚的；浓郁的"
+    ]
+  },
+  {
+    "name": "humer",
+    "trans": [
+      "v.t. 闻；嗅"
+    ]
+  },
+  {
+    "name": "confrérie",
+    "trans": [
+      "n.f. 美酒（美食）协会"
+    ]
+  },
+  {
+    "name": "changement climatique",
+    "trans": [
+      "n.m. 气候变化"
+    ]
+  },
+  {
+    "name": "réchauffement climatique",
+    "trans": [
+      "n.m. 全球变暖"
+    ]
+  },
+  {
+    "name": "énergie renouvelable",
+    "trans": [
+      "n.f. 可再生能源"
+    ]
+  },
+  {
+    "name": "atmosphère",
+    "trans": [
+      "n.f. 大气"
+    ]
+  },
+  {
+    "name": "phénomène",
+    "trans": [
+      "n.m. 现象"
+    ]
+  },
+  {
+    "name": "satellite",
+    "trans": [
+      "n.m. 卫星"
+    ]
+  },
+  {
+    "name": "orbite",
+    "trans": [
+      "n.f. 轨道"
+    ]
+  },
+  {
+    "name": "exploit",
+    "trans": [
+      "n.m. 壮举"
+    ]
+  },
+  {
+    "name": "course",
+    "trans": [
+      "n.f. 竞赛"
+    ]
+  },
+  {
+    "name": "chercheur",
+    "trans": [
+      "n.m. 研究人员"
+    ]
+  },
+  {
+    "name": "racisme",
+    "trans": [
+      "n.m. 种族主义"
+    ]
+  },
+  {
+    "name": "raciste",
+    "trans": [
+      "adj. 种族主义的"
+    ]
+  },
+  {
+    "name": "supériorité",
+    "trans": [
+      "n.f. 优越性"
+    ]
+  },
+  {
+    "name": "métissage",
+    "trans": [
+      "n.m. 混血；融合"
+    ]
+  },
+  {
+    "name": "évolution",
+    "trans": [
+      "n.f. 进化；演变"
+    ]
+  },
+  {
+    "name": "sélection naturelle",
+    "trans": [
+      "n.f. 自然选择"
+    ]
+  },
+  {
+    "name": "Union européenne",
+    "trans": [
+      "n.f. 欧盟"
+    ]
+  },
+  {
+    "name": "directive",
+    "trans": [
+      "n.f. 指令"
+    ]
+  },
+  {
+    "name": "traité",
+    "trans": [
+      "n.m. 条约"
+    ]
+  },
+  {
+    "name": "souveraineté",
+    "trans": [
+      "n.f. 主权"
+    ]
+  },
+  {
+    "name": "suffrage universel",
+    "trans": [
+      "n.m. 普选"
+    ]
+  },
+  {
+    "name": "impulsion",
+    "trans": [
+      "n.f. 推动；动力"
+    ]
+  },
+  {
+    "name": "marché commun",
+    "trans": [
+      "n.m. 共同市场"
+    ]
+  },
+  {
+    "name": "élargissement",
+    "trans": [
+      "n.m. 扩大；扩员"
+    ]
+  },
+  {
+    "name": "mettre en commun",
+    "trans": [
+      "短语：共同拥有；集中（资源）"
+    ]
+  },
+  {
+    "name": "jouer un rôle",
+    "trans": [
+      "短语：起作用；发挥角色"
+    ]
+  },
+  {
+    "name": "être à l'origine de",
+    "trans": [
+      "短语：是……的起源"
+    ]
+  },
+  {
+    "name": "au cours de",
+    "trans": [
+      "短语：在……期间"
+    ]
+  },
+  {
+    "name": "à partir de",
+    "trans": [
+      "短语：从……起"
+    ]
+  },
+  {
+    "name": "depuis lors",
+    "trans": [
+      "短语：自那以后"
+    ]
+  },
+  {
+    "name": "dès lors",
+    "trans": [
+      "短语：从那时起；因此"
+    ]
+  },
+  {
+    "name": "de nos jours",
+    "trans": [
+      "短语：如今"
+    ]
+  },
+  {
+    "name": "à l'heure actuelle",
+    "trans": [
+      "短语：目前"
+    ]
+  },
+  {
+    "name": "en outre",
+    "trans": [
+      "短语：此外"
+    ]
+  },
+  {
+    "name": "en revanche",
+    "trans": [
+      "短语：相反；另一方面"
+    ]
+  },
+  {
+    "name": "en effet",
+    "trans": [
+      "短语：事实上"
+    ]
+  },
+  {
+    "name": "d'ailleurs",
+    "trans": [
+      "短语：而且；再说"
+    ]
+  },
+  {
+    "name": "en contrepartie",
+    "trans": [
+      "短语：作为交换"
+    ]
+  },
+  {
+    "name": "au-delà de",
+    "trans": [
+      "短语：超出；不仅……"
+    ]
+  },
+  {
+    "name": "à condition de",
+    "trans": [
+      "短语：条件是；只要"
+    ]
+  },
+  {
+    "name": "même si",
+    "trans": [
+      "短语：即使"
+    ]
+  },
+  {
+    "name": "afin de",
+    "trans": [
+      "短语：为了"
+    ]
+  },
+  {
+    "name": "il s'agit de",
+    "trans": [
+      "短语：这是关于……；指的是"
+    ]
+  },
+  {
+    "name": "tout le monde ou presque",
+    "trans": [
+      "短语：几乎所有人"
+    ]
+  },
+  {
+    "name": "de plus en plus",
+    "trans": [
+      "短语：越来越"
+    ]
+  },
+  {
+    "name": "sans cesse",
+    "trans": [
+      "短语：不断地"
+    ]
+  },
+  {
+    "name": "une panoplie de",
+    "trans": [
+      "短语：一整套；一系列"
+    ]
+  },
+  {
+    "name": "bon nombre de",
+    "trans": [
+      "短语：许多"
+    ]
+  },
+  {
+    "name": "dans certaines conditions",
+    "trans": [
+      "短语：在某些条件下"
+    ]
+  },
+  {
+    "name": "dans la vie courante",
+    "trans": [
+      "短语：日常生活中"
+    ]
+  },
+  {
+    "name": "s'adapter à",
+    "trans": [
+      "短语：适应"
+    ]
+  },
+  {
+    "name": "mettre à la disposition de",
+    "trans": [
+      "短语：供……使用"
+    ]
+  },
+  {
+    "name": "sur simple demande",
+    "trans": [
+      "短语：应要求"
+    ]
+  },
+  {
+    "name": "à l'échelle mondiale",
+    "trans": [
+      "短语：在全球范围内"
+    ]
+  },
+  {
+    "name": "en matière de",
+    "trans": [
+      "短语：在……方面"
+    ]
+  },
+  {
+    "name": "vis-à-vis de",
+    "trans": [
+      "短语：对于；相对于"
+    ]
+  },
+  {
+    "name": "au sein de",
+    "trans": [
+      "短语：在……之中"
+    ]
+  },
+  {
+    "name": "ni ... ni ...",
+    "trans": [
+      "短语：既不……也不……"
+    ]
+  },
+  {
+    "name": "avoir un vif intérêt pour",
+    "trans": [
+      "短语：对……兴趣浓厚"
+    ]
+  },
+  {
+    "name": "donner une impulsion à",
+    "trans": [
+      "短语：推动；促进"
+    ]
+  },
+  {
+    "name": "freiner l'inflation",
+    "trans": [
+      "短语：抑制通货膨胀"
+    ]
+  },
+  {
+    "name": "relancer la consommation",
+    "trans": [
+      "短语：刺激消费"
+    ]
+  },
+  {
+    "name": "acheter à crédit",
+    "trans": [
+      "短语：赊购；分期付款购买"
+    ]
+  },
+  {
+    "name": "ouvrir un compte",
+    "trans": [
+      "短语：开设账户"
+    ]
+  },
+  {
+    "name": "régler un achat",
+    "trans": [
+      "短语：支付购物款"
+    ]
+  },
+  {
+    "name": "être arrosé de",
+    "trans": [
+      "短语：配以（酒等）"
+    ]
+  },
+  {
+    "name": "il ne faut pas oublier que",
+    "trans": [
+      "短语：不能忘记……"
+    ]
+  },
+  {
+    "name": "berceau de",
+    "trans": [
+      "短语：……的发源地"
+    ]
+  }
+]

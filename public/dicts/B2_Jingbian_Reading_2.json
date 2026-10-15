@@ -1,0 +1,938 @@
+[
+  {
+    "name": "dessein",
+    "trans": [
+      "n.m. 计划；旨意"
+    ]
+  },
+  {
+    "name": "esprit",
+    "trans": [
+      "n.m. 精神；灵体"
+    ]
+  },
+  {
+    "name": "spirituel",
+    "trans": [
+      "adj. 精神的；灵性的"
+    ]
+  },
+  {
+    "name": "créature",
+    "trans": [
+      "n.f. 造物；生物"
+    ]
+  },
+  {
+    "name": "s'opposer à",
+    "trans": [
+      "v.pr. 反对"
+    ]
+  },
+  {
+    "name": "se manifester",
+    "trans": [
+      "v.pr. 显现；表现出来"
+    ]
+  },
+  {
+    "name": "chômage",
+    "trans": [
+      "n.m. 失业"
+    ]
+  },
+  {
+    "name": "chômeur",
+    "trans": [
+      "n.m. 失业者"
+    ]
+  },
+  {
+    "name": "taux de chômage",
+    "trans": [
+      "n.m. 失业率"
+    ]
+  },
+  {
+    "name": "population active",
+    "trans": [
+      "n.f. 劳动人口"
+    ]
+  },
+  {
+    "name": "précaire",
+    "trans": [
+      "adj. 不稳定的；临时的"
+    ]
+  },
+  {
+    "name": "emploi à durée déterminée",
+    "trans": [
+      "n.m. 固定期限合同工作"
+    ]
+  },
+  {
+    "name": "intérim",
+    "trans": [
+      "n.m. 临时工作；临时代理"
+    ]
+  },
+  {
+    "name": "licencier",
+    "trans": [
+      "v.t. 解雇"
+    ]
+  },
+  {
+    "name": "embaucher",
+    "trans": [
+      "v.t. 雇用"
+    ]
+  },
+  {
+    "name": "effectif",
+    "trans": [
+      "n.m. 员工人数；编制"
+    ]
+  },
+  {
+    "name": "main-d'œuvre",
+    "trans": [
+      "n.f. 劳动力"
+    ]
+  },
+  {
+    "name": "rentable",
+    "trans": [
+      "adj. 有利可图的"
+    ]
+  },
+  {
+    "name": "préretraite",
+    "trans": [
+      "n.f. 提前退休"
+    ]
+  },
+  {
+    "name": "secteur d'activité",
+    "trans": [
+      "n.m. 行业；经济部门"
+    ]
+  },
+  {
+    "name": "reprise économique",
+    "trans": [
+      "n.f. 经济复苏"
+    ]
+  },
+  {
+    "name": "marché du travail",
+    "trans": [
+      "n.m. 劳动力市场"
+    ]
+  },
+  {
+    "name": "se dégrader",
+    "trans": [
+      "v.pr. 恶化"
+    ]
+  },
+  {
+    "name": "supprimer des emplois",
+    "trans": [
+      "短语：裁减岗位"
+    ]
+  },
+  {
+    "name": "apprentissage",
+    "trans": [
+      "n.m. 学徒制；学习"
+    ]
+  },
+  {
+    "name": "enseignement professionnel",
+    "trans": [
+      "n.m. 职业教育"
+    ]
+  },
+  {
+    "name": "formation",
+    "trans": [
+      "n.f. 培训；教育"
+    ]
+  },
+  {
+    "name": "tranche d'âge",
+    "trans": [
+      "n.f. 年龄段"
+    ]
+  },
+  {
+    "name": "révolte",
+    "trans": [
+      "n.f. 反抗；起义"
+    ]
+  },
+  {
+    "name": "mouvement",
+    "trans": [
+      "n.m. 运动；潮流"
+    ]
+  },
+  {
+    "name": "contestation",
+    "trans": [
+      "n.f. 抗议；质疑"
+    ]
+  },
+  {
+    "name": "pesanteur",
+    "trans": [
+      "n.f. 束缚；惯性"
+    ]
+  },
+  {
+    "name": "libérer de",
+    "trans": [
+      "v.t. 把……从……中解放出来"
+    ]
+  },
+  {
+    "name": "revendication",
+    "trans": [
+      "n.f. 诉求；主张"
+    ]
+  },
+  {
+    "name": "mœurs",
+    "trans": [
+      "n.f.pl. 风俗；道德习惯"
+    ]
+  },
+  {
+    "name": "féminisme",
+    "trans": [
+      "n.m. 女权主义"
+    ]
+  },
+  {
+    "name": "adepte",
+    "trans": [
+      "n.m. 信徒；拥护者"
+    ]
+  },
+  {
+    "name": "couche sociale",
+    "trans": [
+      "n.f. 社会阶层"
+    ]
+  },
+  {
+    "name": "écologiste",
+    "trans": [
+      "adj./n. 生态的；生态主义者"
+    ]
+  },
+  {
+    "name": "antinucléaire",
+    "trans": [
+      "adj. 反核的"
+    ]
+  },
+  {
+    "name": "pilule contraceptive",
+    "trans": [
+      "n.f. 避孕药"
+    ]
+  },
+  {
+    "name": "reconnaître",
+    "trans": [
+      "v.t. 承认；认可"
+    ]
+  },
+  {
+    "name": "effet spécial",
+    "trans": [
+      "n.m. 特效"
+    ]
+  },
+  {
+    "name": "étape",
+    "trans": [
+      "n.f. 阶段；步骤"
+    ]
+  },
+  {
+    "name": "réalisation",
+    "trans": [
+      "n.f. 拍摄；制作；实现"
+    ]
+  },
+  {
+    "name": "image de synthèse",
+    "trans": [
+      "n.f. 合成图像；三维特效"
+    ]
+  },
+  {
+    "name": "numérique",
+    "trans": [
+      "adj. 数字的"
+    ]
+  },
+  {
+    "name": "virtuel",
+    "trans": [
+      "adj. 虚拟的"
+    ]
+  },
+  {
+    "name": "réaliste",
+    "trans": [
+      "adj. 逼真的；现实的"
+    ]
+  },
+  {
+    "name": "scénario",
+    "trans": [
+      "n.m. 剧本；情节"
+    ]
+  },
+  {
+    "name": "décor",
+    "trans": [
+      "n.m. 布景；环境"
+    ]
+  },
+  {
+    "name": "mise en scène",
+    "trans": [
+      "n.f. 导演；场面调度"
+    ]
+  },
+  {
+    "name": "tournage",
+    "trans": [
+      "n.m. 拍摄"
+    ]
+  },
+  {
+    "name": "improvisation",
+    "trans": [
+      "n.f. 即兴发挥"
+    ]
+  },
+  {
+    "name": "cinéaste",
+    "trans": [
+      "n.m. 电影人"
+    ]
+  },
+  {
+    "name": "mutation",
+    "trans": [
+      "n.f. 变革；转变"
+    ]
+  },
+  {
+    "name": "imaginaire",
+    "trans": [
+      "n.m. 想象世界；想象力"
+    ]
+  },
+  {
+    "name": "passer au second plan",
+    "trans": [
+      "短语：退居次要地位"
+    ]
+  },
+  {
+    "name": "être au service de",
+    "trans": [
+      "短语：为……服务"
+    ]
+  },
+  {
+    "name": "de pointe",
+    "trans": [
+      "adj. 尖端的；先进的"
+    ]
+  },
+  {
+    "name": "univers",
+    "trans": [
+      "n.m. 宇宙；世界"
+    ]
+  },
+  {
+    "name": "explosion",
+    "trans": [
+      "n.f. 爆炸；激增"
+    ]
+  },
+  {
+    "name": "se dilater",
+    "trans": [
+      "v.pr. 膨胀"
+    ]
+  },
+  {
+    "name": "galaxie",
+    "trans": [
+      "n.f. 星系"
+    ]
+  },
+  {
+    "name": "croyance",
+    "trans": [
+      "n.f. 信念；信仰"
+    ]
+  },
+  {
+    "name": "astrophysicien",
+    "trans": [
+      "n.m. 天体物理学家"
+    ]
+  },
+  {
+    "name": "évocateur",
+    "trans": [
+      "adj. 富有联想的；耐人寻味的"
+    ]
+  },
+  {
+    "name": "remonter dans le passé",
+    "trans": [
+      "短语：追溯过去"
+    ]
+  },
+  {
+    "name": "commerce électronique",
+    "trans": [
+      "n.m. 电子商务"
+    ]
+  },
+  {
+    "name": "essor",
+    "trans": [
+      "n.m. 迅速发展；腾飞"
+    ]
+  },
+  {
+    "name": "vente par correspondance",
+    "trans": [
+      "n.f. 邮购"
+    ]
+  },
+  {
+    "name": "réservation",
+    "trans": [
+      "n.f. 预订"
+    ]
+  },
+  {
+    "name": "sécurisé",
+    "trans": [
+      "adj. 安全的；有保障的"
+    ]
+  },
+  {
+    "name": "piratage",
+    "trans": [
+      "n.m. 黑客攻击；盗版"
+    ]
+  },
+  {
+    "name": "cryptage",
+    "trans": [
+      "n.m. 加密"
+    ]
+  },
+  {
+    "name": "carte bancaire",
+    "trans": [
+      "n.f. 银行卡"
+    ]
+  },
+  {
+    "name": "coordonnées bancaires",
+    "trans": [
+      "n.f.pl. 银行账户信息"
+    ]
+  },
+  {
+    "name": "porte-monnaie électronique",
+    "trans": [
+      "n.m. 电子钱包"
+    ]
+  },
+  {
+    "name": "monnaie virtuelle",
+    "trans": [
+      "n.f. 虚拟货币"
+    ]
+  },
+  {
+    "name": "régler un achat",
+    "trans": [
+      "短语：支付购买款项"
+    ]
+  },
+  {
+    "name": "payer à réception",
+    "trans": [
+      "短语：货到付款"
+    ]
+  },
+  {
+    "name": "molécule",
+    "trans": [
+      "n.f. 分子"
+    ]
+  },
+  {
+    "name": "organisme vivant",
+    "trans": [
+      "n.m. 生物体"
+    ]
+  },
+  {
+    "name": "s'user",
+    "trans": [
+      "v.pr. 磨损；耗损"
+    ]
+  },
+  {
+    "name": "autoreproduction",
+    "trans": [
+      "n.f. 自我复制"
+    ]
+  },
+  {
+    "name": "transmettre",
+    "trans": [
+      "v.t. 传递；传授"
+    ]
+  },
+  {
+    "name": "génération",
+    "trans": [
+      "n.f. 代；一代人"
+    ]
+  },
+  {
+    "name": "brin",
+    "trans": [
+      "n.m. 链；细丝"
+    ]
+  },
+  {
+    "name": "complémentaire",
+    "trans": [
+      "adj. 互补的；补充的"
+    ]
+  },
+  {
+    "name": "nucléotide",
+    "trans": [
+      "n.m. 核苷酸"
+    ]
+  },
+  {
+    "name": "séquence",
+    "trans": [
+      "n.f. 序列；片段"
+    ]
+  },
+  {
+    "name": "exclusif",
+    "trans": [
+      "adj. 独有的；排他的"
+    ]
+  },
+  {
+    "name": "caractéristique",
+    "trans": [
+      "n.f. 特征；特点"
+    ]
+  },
+  {
+    "name": "aide au développement",
+    "trans": [
+      "n.f. 发展援助"
+    ]
+  },
+  {
+    "name": "héritage",
+    "trans": [
+      "n.m. 遗产；传承"
+    ]
+  },
+  {
+    "name": "colonie",
+    "trans": [
+      "n.f. 殖民地"
+    ]
+  },
+  {
+    "name": "coopération",
+    "trans": [
+      "n.f. 合作"
+    ]
+  },
+  {
+    "name": "convertible",
+    "trans": [
+      "adj. 可兑换的"
+    ]
+  },
+  {
+    "name": "assistance technique",
+    "trans": [
+      "n.f. 技术援助"
+    ]
+  },
+  {
+    "name": "scolarisation",
+    "trans": [
+      "n.f. 入学；普及教育"
+    ]
+  },
+  {
+    "name": "matière première",
+    "trans": [
+      "n.f. 原材料"
+    ]
+  },
+  {
+    "name": "baisse des prix",
+    "trans": [
+      "短语：价格下跌"
+    ]
+  },
+  {
+    "name": "coup d'État",
+    "trans": [
+      "n.m. 政变"
+    ]
+  },
+  {
+    "name": "catastrophe naturelle",
+    "trans": [
+      "n.f. 自然灾害"
+    ]
+  },
+  {
+    "name": "guerre civile",
+    "trans": [
+      "n.f. 内战"
+    ]
+  },
+  {
+    "name": "agriculture",
+    "trans": [
+      "n.f. 农业"
+    ]
+  },
+  {
+    "name": "élevage",
+    "trans": [
+      "n.m. 畜牧业；饲养"
+    ]
+  },
+  {
+    "name": "céréale",
+    "trans": [
+      "n.f. 谷物"
+    ]
+  },
+  {
+    "name": "engrais",
+    "trans": [
+      "n.m. 化肥"
+    ]
+  },
+  {
+    "name": "productivité",
+    "trans": [
+      "n.f. 生产率"
+    ]
+  },
+  {
+    "name": "agriculteur",
+    "trans": [
+      "n.m. 农民；农场主"
+    ]
+  },
+  {
+    "name": "exploitation agricole",
+    "trans": [
+      "n.f. 农场；农业经营"
+    ]
+  },
+  {
+    "name": "pollution",
+    "trans": [
+      "n.f. 污染"
+    ]
+  },
+  {
+    "name": "volaille",
+    "trans": [
+      "n.f. 家禽"
+    ]
+  },
+  {
+    "name": "indépendance énergétique",
+    "trans": [
+      "n.f. 能源独立"
+    ]
+  },
+  {
+    "name": "approvisionnement",
+    "trans": [
+      "n.m. 供应；供货"
+    ]
+  },
+  {
+    "name": "centrale nucléaire",
+    "trans": [
+      "n.f. 核电站"
+    ]
+  },
+  {
+    "name": "crise pétrolière",
+    "trans": [
+      "n.f. 石油危机"
+    ]
+  },
+  {
+    "name": "privatiser",
+    "trans": [
+      "v.t. 私有化"
+    ]
+  },
+  {
+    "name": "éolienne",
+    "trans": [
+      "n.f. 风力发电机"
+    ]
+  },
+  {
+    "name": "capter",
+    "trans": [
+      "v.t. 收集；捕获"
+    ]
+  },
+  {
+    "name": "opinion publique",
+    "trans": [
+      "n.f. 舆论；公众意见"
+    ]
+  },
+  {
+    "name": "patinage",
+    "trans": [
+      "n.m. 滑冰"
+    ]
+  },
+  {
+    "name": "piste",
+    "trans": [
+      "n.f. 滑道；跑道；赛道"
+    ]
+  },
+  {
+    "name": "championnat",
+    "trans": [
+      "n.m. 锦标赛"
+    ]
+  },
+  {
+    "name": "compétition",
+    "trans": [
+      "n.f. 竞赛；竞争"
+    ]
+  },
+  {
+    "name": "entraînement",
+    "trans": [
+      "n.m. 训练"
+    ]
+  },
+  {
+    "name": "vedette",
+    "trans": [
+      "n.f. 明星；名人"
+    ]
+  },
+  {
+    "name": "enceinte",
+    "trans": [
+      "n.f. 场馆；围护结构"
+    ]
+  },
+  {
+    "name": "bénévole",
+    "trans": [
+      "n.m./f. 志愿者"
+    ]
+  },
+  {
+    "name": "altitude",
+    "trans": [
+      "n.f. 海拔"
+    ]
+  },
+  {
+    "name": "prédécesseur",
+    "trans": [
+      "n.m. 前任"
+    ]
+  },
+  {
+    "name": "exploit",
+    "trans": [
+      "n.m. 壮举；功绩"
+    ]
+  },
+  {
+    "name": "podium",
+    "trans": [
+      "n.m. 领奖台"
+    ]
+  },
+  {
+    "name": "dopage",
+    "trans": [
+      "n.m. 兴奋剂使用"
+    ]
+  },
+  {
+    "name": "sanction",
+    "trans": [
+      "n.f. 处罚；制裁"
+    ]
+  },
+  {
+    "name": "répandu",
+    "trans": [
+      "adj. 普遍的；流行的"
+    ]
+  },
+  {
+    "name": "tricher",
+    "trans": [
+      "v.i. 作弊"
+    ]
+  },
+  {
+    "name": "concurrent",
+    "trans": [
+      "n.m. 竞争对手"
+    ]
+  },
+  {
+    "name": "athlète",
+    "trans": [
+      "n.m./f. 运动员"
+    ]
+  },
+  {
+    "name": "inciter à",
+    "trans": [
+      "v.t. 鼓动；促使做"
+    ]
+  },
+  {
+    "name": "détecter",
+    "trans": [
+      "v.t. 检测；发现"
+    ]
+  },
+  {
+    "name": "franchir la ligne",
+    "trans": [
+      "短语：越过界线；触碰底线"
+    ]
+  },
+  {
+    "name": "maillot",
+    "trans": [
+      "n.m. 比赛服；球衣"
+    ]
+  },
+  {
+    "name": "coureur",
+    "trans": [
+      "n.m. 赛跑者；赛车手"
+    ]
+  },
+  {
+    "name": "parcours",
+    "trans": [
+      "n.m. 路线；经历"
+    ]
+  },
+  {
+    "name": "fête populaire",
+    "trans": [
+      "n.f. 民间节日"
+    ]
+  },
+  {
+    "name": "légende",
+    "trans": [
+      "n.f. 传奇；传说"
+    ]
+  },
+  {
+    "name": "course par étapes",
+    "trans": [
+      "n.f. 分段赛"
+    ]
+  },
+  {
+    "name": "téléspectateur",
+    "trans": [
+      "n.m. 电视观众"
+    ]
+  },
+  {
+    "name": "démocratiser",
+    "trans": [
+      "v.t. 使大众化"
+    ]
+  },
+  {
+    "name": "tournoi",
+    "trans": [
+      "n.m. 锦标赛；比赛"
+    ]
+  },
+  {
+    "name": "terre battue",
+    "trans": [
+      "n.f. 红土场地"
+    ]
+  },
+  {
+    "name": "remettre en cause",
+    "trans": [
+      "短语：质疑；重新审视"
+    ]
+  },
+  {
+    "name": "d'après le texte",
+    "trans": [
+      "短语：根据文章"
+    ]
+  },
+  {
+    "name": "en revanche",
+    "trans": [
+      "短语：相反；另一方面"
+    ]
+  }
+]

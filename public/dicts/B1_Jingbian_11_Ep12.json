@@ -1,0 +1,548 @@
+[
+  {
+    "name": "rentabiliser",
+    "trans": [
+      "v.t. 使有利可图，使获利"
+    ]
+  },
+  {
+    "name": "rentabilisation",
+    "trans": [
+      "n.f. 收益化，提高效益"
+    ]
+  },
+  {
+    "name": "rentable",
+    "trans": [
+      "adj. 有收益的，盈利的"
+    ]
+  },
+  {
+    "name": "rentabilité",
+    "trans": [
+      "n.f. 收益率，赢利能力"
+    ]
+  },
+  {
+    "name": "délasser",
+    "trans": [
+      "v.t. 使消除疲劳，使放松"
+    ]
+  },
+  {
+    "name": "délassement",
+    "trans": [
+      "n.m. 休息，消遣"
+    ]
+  },
+  {
+    "name": "contracture",
+    "trans": [
+      "n.f. 肌肉痉挛，强直收缩"
+    ]
+  },
+  {
+    "name": "séance",
+    "trans": [
+      "n.f. 一次，一场；会议"
+    ]
+  },
+  {
+    "name": "kinésithérapeute",
+    "trans": [
+      "n. 理疗按摩师"
+    ]
+  },
+  {
+    "name": "sieste",
+    "trans": [
+      "n.f. 午休，午睡"
+    ]
+  },
+  {
+    "name": "somme",
+    "trans": [
+      "n.m. 短暂睡眠；n.f. 总数，金额"
+    ]
+  },
+  {
+    "name": "assoupir",
+    "trans": [
+      "v.t. 使昏昏欲睡，缓和"
+    ]
+  },
+  {
+    "name": "affronter",
+    "trans": [
+      "v.t. 面对，勇敢迎战"
+    ]
+  },
+  {
+    "name": "affrontement",
+    "trans": [
+      "n.m. 对抗，冲突"
+    ]
+  },
+  {
+    "name": "évacuer",
+    "trans": [
+      "v.t. 疏散；排出，消除"
+    ]
+  },
+  {
+    "name": "évacuation",
+    "trans": [
+      "n.f. 疏散，排空，排除"
+    ]
+  },
+  {
+    "name": "chuter",
+    "trans": [
+      "v.i. 下跌，跌落，失败"
+    ]
+  },
+  {
+    "name": "chute",
+    "trans": [
+      "n.f. 跌倒，下降，坠落"
+    ]
+  },
+  {
+    "name": "coronarien",
+    "trans": [
+      "adj. 冠状动脉的"
+    ]
+  },
+  {
+    "name": "vertèbre",
+    "trans": [
+      "n.f. 脊椎骨"
+    ]
+  },
+  {
+    "name": "tonus",
+    "trans": [
+      "n.m. 活力，张力，元气"
+    ]
+  },
+  {
+    "name": "stimuler",
+    "trans": [
+      "v.t. 刺激，激发，促进"
+    ]
+  },
+  {
+    "name": "stimulation",
+    "trans": [
+      "n.f. 刺激，激励"
+    ]
+  },
+  {
+    "name": "stimulant",
+    "trans": [
+      "adj. 令人振奋的；n.m. 兴奋剂"
+    ]
+  },
+  {
+    "name": "cognitif",
+    "trans": [
+      "adj. 认知的"
+    ]
+  },
+  {
+    "name": "cognition",
+    "trans": [
+      "n.f. 认知"
+    ]
+  },
+  {
+    "name": "regain",
+    "trans": [
+      "n.m. 恢复，复兴，重现"
+    ]
+  },
+  {
+    "name": "vigilance",
+    "trans": [
+      "n.f. 警惕性，警觉"
+    ]
+  },
+  {
+    "name": "vigilant",
+    "trans": [
+      "adj. 警惕的，警觉的"
+    ]
+  },
+  {
+    "name": "réveil",
+    "trans": [
+      "n.m. 醒来，觉醒；闹钟"
+    ]
+  },
+  {
+    "name": "accroître",
+    "trans": [
+      "v.t. 增加，增大，增强"
+    ]
+  },
+  {
+    "name": "accroissement",
+    "trans": [
+      "n.m. 增加，增长"
+    ]
+  },
+  {
+    "name": "accru",
+    "trans": [
+      "adj. 增加的，增长的"
+    ]
+  },
+  {
+    "name": "éveillé",
+    "trans": [
+      "adj. 清醒的；机灵的"
+    ]
+  },
+  {
+    "name": "éveiller",
+    "trans": [
+      "v.t. 唤醒；激起"
+    ]
+  },
+  {
+    "name": "sommeil",
+    "trans": [
+      "n.m. 睡眠，睡意"
+    ]
+  },
+  {
+    "name": "nocturne",
+    "trans": [
+      "adj. 夜间的，夜行的"
+    ]
+  },
+  {
+    "name": "endormir",
+    "trans": [
+      "v.t. 催眠，使入睡"
+    ]
+  },
+  {
+    "name": "grignoter",
+    "trans": [
+      "v.t. 啃，吃零食；蚕食"
+    ]
+  },
+  {
+    "name": "grignotage",
+    "trans": [
+      "n.m. 吃零食，蚕食"
+    ]
+  },
+  {
+    "name": "visage",
+    "trans": [
+      "n.m. 脸，面孔"
+    ]
+  },
+  {
+    "name": "gorge",
+    "trans": [
+      "n.f. 喉咙，嗓子；峡谷"
+    ]
+  },
+  {
+    "name": "ventre",
+    "trans": [
+      "n.m. 肚子，腹部"
+    ]
+  },
+  {
+    "name": "genou",
+    "trans": [
+      "n.m. 膝盖"
+    ]
+  },
+  {
+    "name": "coude",
+    "trans": [
+      "n.m. 肘，肘部；弯头"
+    ]
+  },
+  {
+    "name": "bras",
+    "trans": [
+      "n.m. 手臂，胳膊"
+    ]
+  },
+  {
+    "name": "dos",
+    "trans": [
+      "n.m. 背，脊梁"
+    ]
+  },
+  {
+    "name": "jambe",
+    "trans": [
+      "n.f. 腿"
+    ]
+  },
+  {
+    "name": "poitrine",
+    "trans": [
+      "n.f. 胸部，胸膛"
+    ]
+  },
+  {
+    "name": "sourcil",
+    "trans": [
+      "n.m. 眉毛"
+    ]
+  },
+  {
+    "name": "lèvre",
+    "trans": [
+      "n.f. 嘴唇"
+    ]
+  },
+  {
+    "name": "grippe",
+    "trans": [
+      "n.f. 流行性感冒"
+    ]
+  },
+  {
+    "name": "rhume",
+    "trans": [
+      "n.m. 感冒，着凉"
+    ]
+  },
+  {
+    "name": "angine",
+    "trans": [
+      "n.f. 咽峡炎，扁桃体炎"
+    ]
+  },
+  {
+    "name": "intoxication",
+    "trans": [
+      "n.f. 中毒"
+    ]
+  },
+  {
+    "name": "asthme",
+    "trans": [
+      "n.m. 哮喘"
+    ]
+  },
+  {
+    "name": "urticaire",
+    "trans": [
+      "n.f. 荨麻疹"
+    ]
+  },
+  {
+    "name": "infarctus",
+    "trans": [
+      "n.m. 心肌梗死，心梗"
+    ]
+  },
+  {
+    "name": "diarrhée",
+    "trans": [
+      "n.f. 腹泻"
+    ]
+  },
+  {
+    "name": "éternuement",
+    "trans": [
+      "n.m. 喷嚏"
+    ]
+  },
+  {
+    "name": "éternuer",
+    "trans": [
+      "v.i. 打喷嚏"
+    ]
+  },
+  {
+    "name": "évanouissement",
+    "trans": [
+      "n.m. 昏厥，晕倒"
+    ]
+  },
+  {
+    "name": "nausée",
+    "trans": [
+      "n.f. 恶心，作呕"
+    ]
+  },
+  {
+    "name": "toux",
+    "trans": [
+      "n.f. 咳嗽"
+    ]
+  },
+  {
+    "name": "tousser",
+    "trans": [
+      "v.i. 咳嗽"
+    ]
+  },
+  {
+    "name": "vomissement",
+    "trans": [
+      "n.m. 呕吐"
+    ]
+  },
+  {
+    "name": "vomir",
+    "trans": [
+      "v.t. 呕吐"
+    ]
+  },
+  {
+    "name": "démangeaison",
+    "trans": [
+      "n.f. 发痒，瘙痒"
+    ]
+  },
+  {
+    "name": "démanger",
+    "trans": [
+      "v.i. 发痒"
+    ]
+  },
+  {
+    "name": "respiratoire",
+    "trans": [
+      "adj. 呼吸的"
+    ]
+  },
+  {
+    "name": "respiration",
+    "trans": [
+      "n.f. 呼吸"
+    ]
+  },
+  {
+    "name": "respirer",
+    "trans": [
+      "v.i. 呼吸；喘息"
+    ]
+  },
+  {
+    "name": "s'assoupir",
+    "trans": [
+      "v.pr. 打瞌睡，入睡"
+    ]
+  },
+  {
+    "name": "se détendre",
+    "trans": [
+      "v.pr. 放松，松弛"
+    ]
+  },
+  {
+    "name": "s'isoler",
+    "trans": [
+      "v.pr. 隔离自己，与世隔绝"
+    ]
+  },
+  {
+    "name": "s'endormir",
+    "trans": [
+      "v.pr. 入睡，睡着"
+    ]
+  },
+  {
+    "name": "s'évanouir",
+    "trans": [
+      "v.pr. 昏厥，晕倒；消失"
+    ]
+  },
+  {
+    "name": "faire une sieste",
+    "trans": [
+      "短语：睡午觉，午休"
+    ]
+  },
+  {
+    "name": "en somme",
+    "trans": [
+      "短语：总而言之，简而言之"
+    ]
+  },
+  {
+    "name": "être bien vu",
+    "trans": [
+      "短语：受到好评，受赏识"
+    ]
+  },
+  {
+    "name": "être à l'abri de",
+    "trans": [
+      "短语：免受……的侵袭，避开……"
+    ]
+  },
+  {
+    "name": "avoir du mal à",
+    "trans": [
+      "短语：做某事感到吃力，难以做某事"
+    ]
+  },
+  {
+    "name": "tout en faisant",
+    "trans": [
+      "短语：一边……一边……；尽管……却……"
+    ]
+  },
+  {
+    "name": "hausser les épaules",
+    "trans": [
+      "短语：耸肩（表示无所谓或无奈）"
+    ]
+  },
+  {
+    "name": "baisser les yeux",
+    "trans": [
+      "短语：垂下眼帘，低头看地"
+    ]
+  },
+  {
+    "name": "se frotter les mains",
+    "trans": [
+      "短语：搓手（表示满意或得意）"
+    ]
+  },
+  {
+    "name": "serrer les dents",
+    "trans": [
+      "短语：咬紧牙关，忍耐坚持"
+    ]
+  },
+  {
+    "name": "froncer les sourcils",
+    "trans": [
+      "短语：皱眉（表示不满或困惑）"
+    ]
+  },
+  {
+    "name": "intoxication alimentaire",
+    "trans": [
+      "短语：食物中毒"
+    ]
+  },
+  {
+    "name": "maux de tête",
+    "trans": [
+      "短语：头痛"
+    ]
+  },
+  {
+    "name": "attraper froid",
+    "trans": [
+      "短语：着凉，感冒"
+    ]
+  }
+]
