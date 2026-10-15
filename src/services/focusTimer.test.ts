@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { type FocusTimerSnapshot, advanceFocusTimer, focusTimerRecordedMinutes } from './focusTimer'
+import { FOCUS_IDLE_MS, type FocusTimerSnapshot, advanceFocusTimer, focusTimerRecordedMinutes } from './focusTimer'
 
 const T0 = Date.UTC(2026, 9, 10, 9, 0, 0)
 const MINUTE = 60_000
@@ -21,16 +21,30 @@ const running = (overrides: Partial<FocusTimerSnapshot> = {}): FocusTimerSnapsho
   ...overrides,
 })
 
-test('a background tab does not freeze the countdown', () => {
-  // The tab was hidden for 10 minutes with no input; the next tick should count the whole gap.
-  const next = advanceFocusTimer(running(), T0 + 10 * MINUTE)
-  assert.equal(next.status, 'running')
-  assert.equal(next.remainingMs, 15 * MINUTE)
-  assert.equal(next.activeMs, 10 * MINUTE)
+test('idle window is two minutes', () => {
+  assert.equal(FOCUS_IDLE_MS, 2 * MINUTE)
 })
 
-test('the countdown finishes on wall-clock time even after a long gap', () => {
-  const next = advanceFocusTimer(running(), T0 + 40 * MINUTE)
+test('a hidden tab keeps counting while the user was active recently', () => {
+  // Last input 90 seconds before the next tick (e.g. the tab was hidden in between): the whole gap counts.
+  const next = advanceFocusTimer(running(), T0 + 90_000)
+  assert.equal(next.status, 'running')
+  assert.equal(next.remainingMs, 25 * MINUTE - 90_000)
+  assert.equal(next.activeMs, 90_000)
+})
+
+test('no input for more than two minutes auto-pauses at the idle boundary', () => {
+  const next = advanceFocusTimer(running(), T0 + 10 * MINUTE)
+  assert.equal(next.status, 'paused')
+  assert.equal(next.pauseReason, 'idle')
+  assert.equal(next.lastTickAt, null)
+  assert.equal(next.activeMs, FOCUS_IDLE_MS)
+  assert.equal(next.remainingMs, 25 * MINUTE - FOCUS_IDLE_MS)
+})
+
+test('the countdown finishes on wall-clock time while input keeps arriving', () => {
+  // Activity recorded at 30 minutes keeps the timer running until the 25-minute target is used up.
+  const next = advanceFocusTimer(running({ lastActivityAt: T0 + 30 * MINUTE }), T0 + 40 * MINUTE)
   assert.equal(next.status, 'finished')
   assert.equal(next.remainingMs, 0)
   assert.equal(focusTimerRecordedMinutes(next), 25)
