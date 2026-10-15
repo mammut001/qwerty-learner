@@ -249,7 +249,7 @@ async function synthesizeText(auth, voiceName, accent, text) {
           'Content-Type': 'application/json; charset=utf-8',
         },
         body: JSON.stringify({
-          input: { text },
+          input: text.startsWith('<speak>') ? { ssml: text } : { text },
           voice: {
             languageCode: accent,
             name: voiceName,

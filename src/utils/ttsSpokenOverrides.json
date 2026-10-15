@@ -20,6 +20,10 @@
   "l'épuisement des ressources naturelles": {
     "fr-FR": "lépuisement des ressources naturelles"
   },
+  "s'établir": {
+    "fr-CA": "<speak><phoneme alphabet=\"ipa\" ph=\"setabliʁ\">s'établir</phoneme></speak>",
+    "fr-FR": "<speak><phoneme alphabet=\"ipa\" ph=\"setabliʁ\">s'établir</phoneme></speak>"
+  },
   "s'évanouir": {
     "fr-CA": "sévanouir"
   },
@@ -28,7 +32,8 @@
     "fr-FR": "à lâge de"
   },
   "à l'ère du numérique": {
-    "fr-CA": "à lère du numérique"
+    "fr-CA": "à lère du numérique",
+    "fr-FR": "à lère du numérique"
   },
   "à l'égard de": {
     "fr-FR": "à légard de"

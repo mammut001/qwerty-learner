@@ -9,6 +9,7 @@ import {
   speakableText,
   spokenTextFor,
 } from '../src/utils/ttsKey.mjs'
+import ttsSpokenOverridesJs from '../src/utils/ttsSpokenOverrides.mjs'
 import assert from 'node:assert/strict'
 import crypto from 'node:crypto'
 import fs from 'node:fs'
@@ -113,9 +114,9 @@ test('spokenTextFor applies overrides for specific accents and falls back to spe
   assert.equal(spokenTextFor("à l'âge de", 'fr-CA'), 'à lâge de')
   assert.equal(spokenTextFor("à l'âge de", 'fr-FR'), 'à lâge de')
 
-  // Only fr-CA overridden
+  // "à l'ère du numérique" overridden on both accents
   assert.equal(spokenTextFor("à l'ère du numérique", 'fr-CA'), 'à lère du numérique')
-  assert.equal(spokenTextFor("à l'ère du numérique", 'fr-FR'), "à l'ère du numérique")
+  assert.equal(spokenTextFor("à l'ère du numérique", 'fr-FR'), 'à lère du numérique')
 
   // Only fr-FR overridden
   assert.equal(spokenTextFor("à l'égard de", 'fr-CA'), "à l'égard de")
@@ -160,14 +161,25 @@ test('computeTtsKey applies accent-specific overrides and leaves unaffected keys
   const expectedCaKey = crypto.createHash('sha256').update(`v1|${TTS_VOICES['fr-CA']}|à lâge de`).digest('hex').slice(0, 16)
   assert.equal(caKey, expectedCaKey)
 
-  // Accent-specific override: "à l'ère du numérique" overridden on fr-CA, untouched on fr-FR
+  // "à l'ère du numérique" overridden on both accents
   const ereText = "à l'ère du numérique"
   const ereKeyCA = computeTtsKey(TTS_VOICES['fr-CA'], ereText, 'fr-CA')
   const expectedEreKeyCA = crypto.createHash('sha256').update(`v1|${TTS_VOICES['fr-CA']}|à lère du numérique`).digest('hex').slice(0, 16)
   assert.equal(ereKeyCA, expectedEreKeyCA)
 
-  // fr-FR has no override, matches existing manifest key
+  // fr-FR override matches the approved take key
   const ereKeyFR = computeTtsKey(TTS_VOICES['fr-FR'], ereText, 'fr-FR')
-  assert.equal(ereKeyFR, '0d2ff88cc9e7321b')
+  assert.equal(ereKeyFR, '22e12843cc45681e')
   assert.ok(keysFR.has(ereKeyFR))
+})
+
+test("approved takes for l'ère (fr-FR) and s'établir keep their audio keys", () => {
+  assert.equal(computeTtsKey(TTS_VOICES['fr-FR'], "à l'ère du numérique", 'fr-FR'), '22e12843cc45681e')
+  assert.equal(computeTtsKey(TTS_VOICES['fr-CA'], "s'établir", 'fr-CA'), 'f1820e0429acc8fe')
+  assert.equal(computeTtsKey(TTS_VOICES['fr-FR'], "s'établir", 'fr-FR'), '3458ce155d9f4404')
+})
+
+test('ttsSpokenOverrides.mjs default export matches ttsSpokenOverrides.json', () => {
+  const json = JSON.parse(fs.readFileSync('src/utils/ttsSpokenOverrides.json', 'utf8'))
+  assert.deepEqual(ttsSpokenOverridesJs, json)
 })
