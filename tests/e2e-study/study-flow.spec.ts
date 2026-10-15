@@ -122,6 +122,8 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
   // Start a real conjugation practice from the smart plan so task time and answer stats share one backend state.
   await page.getByRole('link', { name: '开始动词变位' }).click()
   await expect(page).toHaveURL(/studyTask=smart-conjugation/)
+  // This end-to-end scenario intentionally studies prendre; the page default is être.
+  await page.getByRole('button', { name: /prendre/ }).first().click()
   const answer = page.getByPlaceholder('例如：nous avons pris')
   await answer.fill('definitely-wrong')
   await page.getByRole('button', { name: '检查（Enter）' }).click()
@@ -266,7 +268,9 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
   await mobilePage.goto('/error-book')
   await expect(mobilePage.getByText('服务端统一错题本')).toBeVisible()
   await mobilePage.goto('/typing')
-  await expect(mobilePage.getByRole('heading', { name: '单词跟打需要键盘' })).toBeVisible()
+  // Phones intentionally route typing to the touch-friendly picker, not the keyboard warning.
+  await expect(mobilePage.getByRole('heading', { name: '点选练词' })).toBeVisible()
+  await expect(mobilePage).toHaveURL(/\/typing$/)
   await mobile.close()
   await cdp.send('WebAuthn.removeVirtualAuthenticator', { authenticatorId: authenticator.authenticatorId })
 })

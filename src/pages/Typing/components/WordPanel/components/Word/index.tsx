@@ -13,7 +13,6 @@ import { EXPLICIT_SPACE } from '@/constants'
 import useKeySounds from '@/hooks/useKeySounds'
 import { TypingContext, TypingStateActionType } from '@/pages/Typing/store'
 import {
-  currentChapterAtom,
   currentDictInfoAtom,
   isIgnoreCaseAtom,
   isShowAnswerOnHoverAtom,
@@ -48,7 +47,6 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
   const [isHoveringWord, setIsHoveringWord] = useState(false)
   const currentLanguage = useAtomValue(currentDictInfoAtom).language
   const currentLanguageCategory = useAtomValue(currentDictInfoAtom).languageCategory
-  const currentChapter = useAtomValue(currentChapterAtom)
 
   const [showTipAlert, setShowTipAlert] = useState(false)
   const wordPronunciationIconRef = useRef<WordPronunciationIconRef>(null)
@@ -71,6 +69,7 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
     newWordState.startTime = getUtcStringForMixpanel()
     newWordState.randomLetterVisible = headword.split('').map(() => Math.random() > 0.4)
     setWordState(newWordState)
+    setShowTipAlert(false)
   }, [word, currentLanguage, setWordState])
 
   const updateInput = useCallback(
@@ -228,6 +227,7 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
       }
     })
 
+    if (correctCount > 0) setShowTipAlert(false)
     for (let index = 0; index < correctCount; index += 1) {
       dispatch({ type: TypingStateActionType.REPORT_CORRECT_WORD })
     }
@@ -237,9 +237,6 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
         type: TypingStateActionType.REPORT_WRONG_WORD,
         payload: { letterMistake: { [errorIndex]: [inputChar] } },
       })
-      if (currentChapter === 0 && state.chapterData.index === 0 && wordState.wrongCount >= 3) {
-        setShowTipAlert(true)
-      }
     } else if (finished) {
       playHintSound()
     } else {
@@ -294,9 +291,15 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
     }
   }, [wordState.wrongCount, dispatch])
 
+  useEffect(() => {
+    if (!showTipAlert) return
+    const timer = window.setTimeout(() => setShowTipAlert(false), 5000)
+    return () => window.clearTimeout(timer)
+  }, [showTipAlert])
+
   return (
     <>
-      <InputHandler updateInput={updateInput} />
+      <InputHandler updateInput={updateInput} onInputConflict={() => setShowTipAlert(true)} />
       <div
         lang={currentLanguageCategory !== 'code' ? currentLanguageCategory : 'en'}
         className="flex flex-col items-center justify-center pb-1 pt-4"

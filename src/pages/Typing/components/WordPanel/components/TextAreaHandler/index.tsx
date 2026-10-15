@@ -3,7 +3,13 @@ import { TypingContext } from '@/pages/Typing/store'
 import type { FormEvent } from 'react'
 import { useCallback, useContext, useEffect, useRef } from 'react'
 
-export default function TextAreaHandler({ updateInput }: { updateInput: (updateObj: WordUpdateAction) => void }) {
+export default function TextAreaHandler({
+  updateInput,
+  onInputConflict,
+}: {
+  updateInput: (updateObj: WordUpdateAction) => void
+  onInputConflict: () => void
+}) {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
   const { state } = useContext(TypingContext)!
@@ -21,6 +27,17 @@ export default function TextAreaHandler({ updateInput }: { updateInput: (updateO
   const onInput = (e: FormEvent<HTMLTextAreaElement>) => {
     const nativeEvent = e.nativeEvent as InputEvent
     if (nativeEvent.isComposing) return
+    // Ordinary typos are not extension conflicts. Report only evidence that a
+    // plain insertText event was externally rewritten; not paste/composition.
+    if (
+      nativeEvent.inputType === 'insertText' &&
+      typeof nativeEvent.data === 'string' &&
+      e.currentTarget.value !== nativeEvent.data
+    ) {
+      e.currentTarget.value = ''
+      onInputConflict()
+      return
+    }
     // Paste events may have null data; the textarea still contains the inserted text.
     const text = nativeEvent.data ?? e.currentTarget.value
     if (text) updateInput({ type: 'add', value: text, event: e })

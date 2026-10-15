@@ -25,6 +25,8 @@ import 'react-app-polyfill/stable'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
+const NotFoundPage = lazy(() => import('./pages/NotFound'))
+const AdminHomePage = lazy(() => import('./pages/AdminHome'))
 const TypingPage = lazy(() => import('./pages/Typing'))
 const AnalysisPage = lazy(() => import('./pages/Analysis'))
 const GalleryPage = lazy(() => import('./pages/Gallery-N'))
@@ -118,8 +120,15 @@ function ShellOutlet({ children }: { children: React.ReactNode }) {
 
 function Root() {
   const darkMode = useAtomValue(isOpenDarkModeAtom)
+  const authStatus = useAtomValue(authStatusAtom)
+  // Do not start authenticated migration before the initial auth check resolves.
   useEffect(() => {
-    void migrateExistingStudyData()
+    if (authStatus && (!authStatus.enabled || !authStatus.required || authStatus.signedIn)) {
+      void migrateExistingStudyData()
+    }
+  }, [authStatus])
+
+  useEffect(() => {
     void import('@/services/pwa').then(({ registerStudyPwa }) => registerStudyPwa())
     void import('@/services/studyReminder').then(({ startStudyReminderScheduler }) => startStudyReminderScheduler())
     void import('@/services/focusTimer').then(({ startFocusTimerRuntime }) => startFocusTimerRuntime())
@@ -161,6 +170,7 @@ function Root() {
                         <Route path="/tenses/:lessonId" element={<TensesPage />} />
                         <Route path="/study-plan" element={<RequireAccount pageName="学习计划"><StudyPlanPage /></RequireAccount>} />
                         <Route path="/placement-test" element={<RequireAccount pageName="定级测试"><PlacementTestPage /></RequireAccount>} />
+                        <Route path="/admin" element={<AdminRouteGate><AdminHomePage /></AdminRouteGate>} />
                         <Route
                           path="/admin/placement"
                           element={
@@ -198,7 +208,7 @@ function Root() {
                         <Route path="/analysis" element={<RequireAccount pageName="统计"><AnalysisPage /></RequireAccount>} />
                         <Route path="/error-book" element={<RequireAccount pageName="错题本"><ErrorBookPage /></RequireAccount>} />
                         <Route path="/billing" element={<BillingPage />} />
-                        <Route path="/*" element={<Navigate to="/study-plan" />} />
+                        <Route path="*" element={<NotFoundPage />} />
                       </Routes>
                     </Suspense>
                   </ShellOutlet>

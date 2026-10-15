@@ -28,11 +28,25 @@ function repairConfig(value: unknown, fallback: unknown): unknown {
 export default function atomForConfig<T extends Record<string, unknown>>(
   key: string,
   defaultValue: T,
+  options: { getOnInit?: boolean } = {},
 ): WritableAtom<T, [SetStateActionWithReset<T>], void> {
+  // This project's Jotai version accepts only (key, initialValue, storage).
+  // atomWithStorage hydrates on mount, which happens after the first atom read.
+  // For settings needed during chapter setup, read the persisted value
+  // synchronously so a new page cannot initialize with the default first.
   const storageAtom = atomWithStorage(key, defaultValue)
+  const readCurrent = (value: T): T => {
+    if (!options.getOnInit) return value
+    try {
+      const serialized = localStorage.getItem(key)
+      return serialized === null ? value : (JSON.parse(serialized) as T)
+    } catch {
+      return value
+    }
+  }
   return atom(
     (get) => {
-      const config = get(storageAtom)
+      const config = readCurrent(get(storageAtom))
       const newConfig = repairConfig(config, defaultValue) as T
 
       if (newConfig !== config) {
@@ -47,7 +61,7 @@ export default function atomForConfig<T extends Record<string, unknown>>(
     },
     (get, set, update: SetStateActionWithReset<T>) => {
       if (typeof update === 'function') {
-        const current = repairConfig(get(storageAtom), defaultValue) as T
+        const current = repairConfig(readCurrent(get(storageAtom)), defaultValue) as T
         set(storageAtom, update(current))
       } else {
         set(storageAtom, update)

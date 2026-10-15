@@ -119,7 +119,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - run: npx --yes yarn@1.22.22 install --frozen-lockfile
+      - name: Install browser-test dependencies (retry transient registry errors)
+        run: |
+          for attempt in 1 2 3; do
+            if npx --yes yarn@1.22.22 install --frozen-lockfile; then exit 0; fi
+            sleep 5
+          done
+          exit 1
       - run: npx playwright install chromium
       - name: End-to-end study flow
         run: |

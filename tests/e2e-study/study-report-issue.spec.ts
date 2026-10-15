@@ -96,15 +96,23 @@ test.describe('Practice item issue reporting (« 报告问题 »)', () => {
     const card = page.getByTestId('level-item-n1-reading-0')
     await expect(card).toBeVisible()
 
-    // Answer questions first
-    const groups = card.getByRole('group')
-    const groupCount = await groups.count()
-    for (let i = 0; i < groupCount; i++) {
-      const firstChoice = groups.nth(i).getByRole('button').first()
+    // This item loads its question variant asynchronously. A count() call
+    // before the quiz renders can return zero, leaving Submit disabled forever.
+    const submitAnswerBtn = card.getByRole('button', { name: '提交答案' })
+    await expect(submitAnswerBtn).toBeVisible()
+    const questions = card.locator('fieldset')
+    await expect(questions.first()).toBeVisible()
+    const questionCount = await questions.count()
+    expect(questionCount).toBeGreaterThan(0)
+    for (let i = 0; i < questionCount; i++) {
+      const firstChoice = questions.nth(i).getByRole('button').first()
       await firstChoice.click()
+      await expect(firstChoice).toHaveAttribute('aria-pressed', 'true')
     }
 
-    const submitAnswerBtn = card.getByRole('button', { name: '提交答案' })
+    // Prove all questions are answered before submitting; never click a
+    // disabled control and let Playwright silently wait for its test timeout.
+    await expect(submitAnswerBtn).toBeEnabled()
     await submitAnswerBtn.click()
 
     // Now answered: result and retry buttons are shown, and report button is also visible

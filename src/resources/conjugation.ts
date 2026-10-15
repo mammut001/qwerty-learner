@@ -212,4 +212,4 @@ export const frenchVerbs: FrenchVerbConjugation[] = [
   seLever,
 ]
 
-export const defaultConjugationVerb = frenchVerbs.find((item) => item.infinitive === 'prendre') ?? frenchVerbs[0]
+export const defaultConjugationVerb = frenchVerbs[0]

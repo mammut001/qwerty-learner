@@ -178,8 +178,18 @@ test('random chapter mode preserves the order of a saved review when resuming', 
 test('ordinary chapters still shuffle when random mode is enabled', async ({ page }) => {
   await page.addInitScript(() => {
     Math.random = () => 0.999999
-    localStorage.setItem('randomConfig', JSON.stringify({ isOpen: true }))
   })
+  // Set the preference through the mounted atom before opening a new chapter;
+  // seeding localStorage alone can race Jotai's initial storage hydration.
+  await page.goto('/typing')
+  await page.getByTitle('打开设置对话框').click()
+  await page.getByRole('tab', { name: '高级设置' }).click()
+  await expect(page.getByText('随机已关闭')).toBeVisible()
+  await page.getByRole('switch').first().click()
+  await expect(page.getByText('随机已开启')).toBeVisible()
+  // Exercise a persisted preference, not merely React's currently mounted atom.
+  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('randomConfig') ?? '{}').isOpen)).toBe(true)
+  await page.getByRole('button', { name: '关闭设置' }).click()
   await page.goto('/word-lists')
   await page.getByLabel('词表名称').fill('随机练习验证')
   await page.getByLabel('词条', { exact: true }).fill('bonjour = 你好\nmerci = 谢谢\nsalut = 你好')
@@ -187,15 +197,16 @@ test('ordinary chapters still shuffle when random mode is enabled', async ({ pag
   await expect(page.getByRole('link', { name: '随机练习验证' })).toBeVisible()
   await page.keyboard.press('Enter')
   await expect(page.locator('textarea')).toBeFocused()
-  for (const word of ['salut', 'bonjour', 'merci']) {
-    await page.keyboard.insertText(word)
-    if (word !== 'merci')
-      await expect(
-        page
-          .locator('span')
-          .filter({ hasText: word === 'salut' ? /^b$/ : /^m$/ })
-          .first(),
-      ).toHaveClass(/text-gray-600/)
+  const displayedLetters = page.locator('div[lang="fr"] span.font-mono')
+  const expectedOrder = ['salut', 'bonjour', 'merci']
+  for (const word of expectedOrder) {
+    // Confirm the actual word being typed, not just a matching letter elsewhere
+    // in the interface; this also verifies the deterministic shuffled order.
+    await expect.poll(async () => (await displayedLetters.allTextContents()).join('')).toBe(word)
+    await expect(page.locator('textarea[spellcheck="false"]')).toBeFocused()
+    for (const key of word) await page.keyboard.press(key)
   }
-  await expect(page.getByRole('button', { name: '导出本章练习结果', exact: true })).toBeVisible()
+  const results = page.getByRole('dialog')
+  await expect(results).toBeVisible()
+  await expect(results.getByRole('button', { name: '导出本章练习结果', exact: true })).toBeVisible()
 })

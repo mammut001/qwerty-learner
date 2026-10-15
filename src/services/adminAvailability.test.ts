@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 import {
+  adminProbeEndpoint,
   mapStatusToAdminAvailability,
   resolveAdminAvailability,
 } from './adminAvailability'
@@ -48,4 +49,11 @@ test('other non-OK statuses and invalid inputs map to hidden', () => {
   assert.equal(resolveAdminAvailability(null), 'hidden')
   assert.equal(resolveAdminAvailability(undefined), 'hidden')
   assert.equal(resolveAdminAvailability('UNKNOWN_ERROR'), 'hidden')
+})
+
+test('admin permission probes use protected endpoints instead of the public config route', () => {
+  assert.equal(adminProbeEndpoint('/admin'), '/api/study-plan/admin/placement-cohort')
+  assert.equal(adminProbeEndpoint('/admin/placement'), '/api/study-plan/admin/placement-cohort')
+  assert.equal(adminProbeEndpoint('/admin/users'), '/api/study-plan/admin/users?limit=1')
+  assert.equal(adminProbeEndpoint('/admin/recalls'), '/api/study-plan/admin/recalls/summary')
 })
