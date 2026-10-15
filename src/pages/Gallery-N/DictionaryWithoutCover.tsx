@@ -52,18 +52,34 @@ export default function DictionaryComponent({ dictionary, autoOpen = false, plac
         }`}
         aria-label={`打开词库：${dictionary.name}`}
       >
-        <div className="relative ml-1 mt-2 flex h-full w-full flex-col items-start justify-start">
+        <div className="relative ml-1 mt-1 flex h-full w-full flex-col items-start justify-start">
           <h1
-            className={`mb-1.5 text-xl font-normal ${
+            className={`mb-1 text-xl font-normal ${
               isSelected ? 'text-white' : 'text-gray-800 group-hover:text-indigo-400 dark:text-gray-200'
             }`}
           >
             {dictionary.name}
           </h1>
-          {placementRecommended && (
-            <span className="mb-1 inline-block rounded-full bg-violet-600 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
-              定级推荐
-            </span>
+          {(placementRecommended || (dictionary.tags && dictionary.tags.length > 0)) && (
+            <div className="mb-1 flex flex-wrap items-center gap-1.5">
+              {placementRecommended && (
+                <span className="inline-block rounded-full bg-violet-600 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
+                  定级推荐
+                </span>
+              )}
+              {dictionary.tags?.map((tag) => (
+                <span
+                  key={tag}
+                  className={`inline-block rounded-full px-2 py-0.5 text-[10px] font-medium ${
+                    isSelected
+                      ? 'bg-white/25 text-white'
+                      : 'bg-indigo-50 text-indigo-600 dark:bg-indigo-950/60 dark:text-indigo-300'
+                  }`}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
           )}
 
           <TooltipProvider>
