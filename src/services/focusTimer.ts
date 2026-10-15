@@ -1,6 +1,5 @@
 import { flushStudyProgress, recordFocusSession } from './studyPlanSync'
 
-export const FOCUS_IDLE_MS = 2 * 60 * 1000
 const KEY = 'qwerty-fr-focus-timer-v1'
 const EVENT = 'qwerty-focus-timer-change'
 
@@ -66,11 +65,11 @@ const parseStored = (value: string | null): FocusTimerSnapshot | null => {
   }
 }
 
+// Time is measured from wall-clock timestamps only. Background tabs throttle timers, but the next call
+// simply counts the whole gap, so the countdown cannot freeze. Only an explicit pause stops it.
 export function advanceFocusTimer(snapshot: FocusTimerSnapshot, now: number): FocusTimerSnapshot {
   if (snapshot.status !== 'running' || snapshot.lastTickAt === null) return snapshot
-  const idleAt = snapshot.lastActivityAt + FOCUS_IDLE_MS
-  const effectiveNow = Math.min(now, idleAt)
-  const elapsed = Math.max(0, effectiveNow - snapshot.lastTickAt)
+  const elapsed = Math.max(0, now - snapshot.lastTickAt)
   const counted = Math.min(snapshot.remainingMs, elapsed)
   const remainingMs = Math.max(0, snapshot.remainingMs - counted)
   const activeMs = snapshot.activeMs + counted
@@ -83,16 +82,6 @@ export function advanceFocusTimer(snapshot: FocusTimerSnapshot, now: number): Fo
       status: 'finished',
       lastTickAt: null,
       pauseReason: null,
-    }
-  }
-  if (now >= idleAt) {
-    return {
-      ...snapshot,
-      activeMs,
-      remainingMs,
-      status: 'paused',
-      lastTickAt: null,
-      pauseReason: 'idle',
     }
   }
   return { ...snapshot, activeMs, remainingMs, lastTickAt: now }
@@ -237,9 +226,9 @@ export function startFocusTimerRuntime() {
     lastActivityWrite = now
     noteFocusTimerActivity(now)
   }
+  // Hiding the tab no longer pauses the timer; returning to it just refreshes the display and commit state.
   const visibility = () => {
-    if (document.visibilityState === 'hidden') pauseFocusTimer('hidden')
-    else tick()
+    if (document.visibilityState !== 'hidden') tick()
   }
 
   const timer = window.setInterval(tick, 1000)

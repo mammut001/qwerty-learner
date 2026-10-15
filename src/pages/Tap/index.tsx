@@ -5,10 +5,14 @@ import Layout from '@/components/Layout'
 import { currentChapterAtom, currentDictIdAtom, currentDictInfoAtom, reviewModeInfoAtom } from '@/store'
 import { customDictionariesAtom, findDictionary } from '@/store/customDict'
 import type { Dictionary } from '@/typings'
+import { addStudyMinutes, flushStudyProgress } from '@/services/studyPlanSync'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import IconRefresh from '~icons/tabler/refresh'
+
+// Same vocabulary smart tasks Typing credits; study-plan links on phones land here instead of /typing.
+const TAP_STUDY_VOCABULARY_TASKS = new Set(['mon-vocab', 'fri-vocab', 'minimum-vocab', 'smart-vocab'])
 
 /**
  * 点选模式: practice without a keyboard. Used on phones in place of /typing and /gallery, and on /tap everywhere.
@@ -24,6 +28,22 @@ export default function TapPage() {
   const requestedDictId = searchParams.get('dict')
   const requestedChapter = searchParams.get('chapter')
   const [view, setView] = useState<'picker' | 'practice'>(() => (requestedDictId ? 'practice' : 'picker'))
+  const studyPlanTracking = useRef<{ dateKey: string; taskId: string; startedAt: number } | null>(null)
+
+  // Credit the study-plan task with the time spent in practice, when the page is left.
+  const recordStudyPlanMinutes = () => {
+    const tracking = studyPlanTracking.current
+    studyPlanTracking.current = null
+    if (!tracking) return
+    const elapsedMinutes = Math.max(1, Math.ceil((Date.now() - tracking.startedAt) / 60000))
+    try {
+      addStudyMinutes(tracking.dateKey, tracking.taskId, elapsedMinutes)
+      void flushStudyProgress().catch(() => undefined)
+    } catch {
+      // Practice itself is unaffected if smart-task minute tracking cannot be queued.
+    }
+  }
+  useEffect(() => () => recordStudyPlanMinutes(), [])
 
   useEffect(() => {
     const requestedDictionary = findDictionary(requestedDictId, customDictionaries)
@@ -37,6 +57,18 @@ export default function TapPage() {
     setCurrentChapter(nextChapter)
     setReviewModeInfo((old) => ({ ...old, isReviewMode: false }))
     setView('practice')
+
+    const requestedStudyDate = searchParams.get('studyDate')
+    const requestedStudyTask = searchParams.get('studyTask')
+    if (
+      requestedStudyDate &&
+      requestedStudyTask &&
+      /^\d{4}-\d{2}-\d{2}$/.test(requestedStudyDate) &&
+      TAP_STUDY_VOCABULARY_TASKS.has(requestedStudyTask)
+    ) {
+      recordStudyPlanMinutes()
+      studyPlanTracking.current = { dateKey: requestedStudyDate, taskId: requestedStudyTask, startedAt: Date.now() }
+    }
 
     const nextSearchParams = new URLSearchParams(searchParams)
     for (const key of ['dict', 'chapter', 'studyDate', 'studyTask']) nextSearchParams.delete(key)

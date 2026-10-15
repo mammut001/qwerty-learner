@@ -19,9 +19,12 @@ interface LineChartsProps {
   suffix?: string
   target?: number
   targetLabel?: string
+  /** 'time' expects full timestamps; 'category' uses the first tuple item as a plain label (e.g. "10/06 周"). */
+  axis?: 'time' | 'category'
+  emptyText?: string
 }
 
-const LineCharts: FC<LineChartsProps> = ({ data, title, suffix, name, target, targetLabel }) => {
+const LineCharts: FC<LineChartsProps> = ({ data, title, suffix, name, target, targetLabel, axis = 'time', emptyText }) => {
   const [isOpenDarkMode] = useAtom(isOpenDarkModeAtom)
 
   const chartRef = useRef<HTMLDivElement>(null)
@@ -30,6 +33,7 @@ const LineCharts: FC<LineChartsProps> = ({ data, title, suffix, name, target, ta
 
   useEffect(() => {
     if (!chartRef.current || !data.length) return
+    const isCategory = axis === 'category'
 
     let chart = echarts.getInstanceByDom(chartRef.current)
     chart?.dispose()
@@ -42,18 +46,25 @@ const LineCharts: FC<LineChartsProps> = ({ data, title, suffix, name, target, ta
         left: '10%',
         right: '10%',
         top: '20%',
-        bottom: '10%',
+        bottom: isCategory ? '18%' : '10%',
       },
-      xAxis: {
-        type: 'time',
-        axisPointer: {
-          label: {
-            formatter: function (params: { seriesData: [{ data: [string, number] }] }) {
-              return params.seriesData[0].data[0]
+      xAxis: isCategory
+        ? {
+            type: 'category',
+            data: data.map((item) => item[0]),
+            boundaryGap: false,
+            axisLabel: { hideOverlap: true, rotate: 30 },
+          }
+        : {
+            type: 'time',
+            axisPointer: {
+              label: {
+                formatter: function (params: { seriesData: [{ data: [string, number] }] }) {
+                  return params.seriesData[0].data[0]
+                },
+              },
             },
           },
-        },
-      },
       yAxis: {
         type: 'value',
         axisLabel: { formatter: (value: number) => value + (suffix || '') },
@@ -63,11 +74,20 @@ const LineCharts: FC<LineChartsProps> = ({ data, title, suffix, name, target, ta
           name,
           type: 'line',
           smooth: true,
-          data: data,
+          data: isCategory ? data.map((item) => item[1]) : data,
           emphasis: { focus: 'series' },
         },
         ...(target === undefined || data.length === 0
           ? []
+          : isCategory
+          ? [{
+              name: targetLabel ?? '目标',
+              type: 'line',
+              symbol: 'none',
+              data: data.map(() => target),
+              lineStyle: { type: 'dashed', width: 2 },
+              tooltip: { show: false },
+            }]
           : [{
               name: targetLabel ?? '目标',
               type: 'line',
@@ -88,7 +108,7 @@ const LineCharts: FC<LineChartsProps> = ({ data, title, suffix, name, target, ta
     }
 
     chart.setOption(option)
-  }, [data, title, suffix, name, target, targetLabel, isOpenDarkMode])
+  }, [data, title, suffix, name, target, targetLabel, axis, isOpenDarkMode])
 
   useEffect(() => {
     if (!chartRef.current) return
@@ -99,7 +119,14 @@ const LineCharts: FC<LineChartsProps> = ({ data, title, suffix, name, target, ta
   return (
     <div className="flex h-full flex-col">
       <div className="text-center text-xl font-bold text-gray-600	dark:text-white">{title}</div>
-      <div style={{ width: '100%', height: '100%' }} ref={chartRef} className="line-chart flex-grow"></div>
+      {data.length === 0 ? (
+        <div className="flex flex-grow items-center justify-center px-6 text-center text-sm text-gray-500 dark:text-gray-400">
+          {emptyText ?? '暂无数据'}
+          {target !== undefined && ` · 目标 ${targetLabel ?? target}`}
+        </div>
+      ) : (
+        <div style={{ width: '100%', height: '100%' }} ref={chartRef} className="line-chart flex-grow"></div>
+      )}
     </div>
   )
 }

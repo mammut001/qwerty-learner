@@ -295,10 +295,11 @@ export function materializeNodeFeatures(db, learner, input, nowMs = Date.now()) 
   materializeTcfAttempts(db, learner, state)
 }
 
-export function listNodeErrorBook(db, learner, { kind = '', status = 'active', from = '', to = '', limit = 100 } = {}) {
+export function listNodeErrorBook(db, learner, { kind = '', dict = '', status = 'active', from = '', to = '', limit = 100 } = {}) {
   const clauses = ['learner=?']
   const args = [learner]
   if (kind) { clauses.push('kind=?'); args.push(kind) }
+  if (dict) { clauses.push("json_extract(context,'$.dict')=?"); args.push(dict) }
   if (status === 'active') clauses.push('mastered=0')
   else if (status === 'mastered') clauses.push('mastered=1')
   if (from) { clauses.push('last_wrong_at>=?'); args.push(new Date(from + 'T00:00:00.000Z').getTime()) }
