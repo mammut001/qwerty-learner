@@ -91,6 +91,8 @@ export type VocabularyProgressRecord = {
   durationMs: number
   wrongCount: number
   wrongKeys: string[]
+  /** 'tap' for 点选模式 answers; absent for typing (跟打) records. */
+  mode?: 'tap'
 }
 
 export type VocabularyProgressInput = Omit<VocabularyProgressRecord, 'id' | 'day'> & {

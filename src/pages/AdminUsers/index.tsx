@@ -218,7 +218,11 @@ function UserDetailPanel({
               hint={detail.checkins.days > 0 ? `打卡 ${detail.checkins.days} 天` : undefined}
             />
             <StatTile label="总时长" value={`${detail.totalMinutes} 分钟`} />
-            <StatTile label="打字词数" value={String(detail.vocabulary.totalWords)} />
+            <StatTile
+              label="打字词数"
+              value={String(detail.vocabulary.totalWords)}
+              hint={detail.vocabulary.tapCount > 0 ? `其中点选模式 ${detail.vocabulary.tapCount}` : undefined}
+            />
             <StatTile label="平均每词用时" value={formatSecondsPerWord(detail.vocabulary.avgMsPerWord)} />
             <StatTile label="正确率" value={formatPercent(detail.vocabulary.accuracy)} hint="无错误的词 / 全部词" />
             <StatTile

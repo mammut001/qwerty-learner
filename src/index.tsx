@@ -48,7 +48,7 @@ const TcfWritingPage = lazy(() => import('./pages/TcfWriting'))
 const TcfSpeakingPage = lazy(() => import('./pages/TcfSpeaking'))
 const DictionaryPage = lazy(() => import('./pages/Dictionary'))
 const CustomDictPage = lazy(() => import('./pages/CustomDict'))
-const KeyboardRequiredPage = lazy(() => import('./pages/KeyboardRequired'))
+const TapPage = lazy(() => import('./pages/Tap'))
 const ErrorBookPage = lazy(() => import('./pages/ErrorBook').then((module) => ({ default: module.ErrorBook })))
 const BillingPage = lazy(() => import('./pages/Billing'))
 const FocusTimerDock = lazy(() => import('./components/FocusTimerDock'))
@@ -81,6 +81,7 @@ async function migrateExistingStudyData() {
           .flat()
           .map(String)
           .slice(0, 200),
+        ...(record.mode === 'tap' ? { mode: 'tap' as const } : {}),
       })),
       grammarHistory,
       conjugation,
@@ -149,8 +150,9 @@ function Root() {
                     <Suspense fallback={<OutletFallback />}>
                       <Routes>
                         <Route index element={<HomeRedirect />} />
-                        <Route path="/typing" element={isMobile ? <KeyboardRequiredPage /> : <TypingPage />} />
-                        <Route path="/gallery" element={isMobile ? <KeyboardRequiredPage /> : <GalleryPage />} />
+                        <Route path="/typing" element={isMobile ? <TapPage /> : <TypingPage />} />
+                        <Route path="/gallery" element={isMobile ? <TapPage /> : <GalleryPage />} />
+                        <Route path="/tap" element={<TapPage />} />
                         <Route path="/dictionary" element={<DictionaryPage />} />
                         <Route path="/word-lists" element={<CustomDictPage />} />
                         <Route path="/conjugation" element={<ConjugationPage />} />

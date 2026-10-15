@@ -65,7 +65,8 @@ function validateVocabularyRecord(value) {
       !(value.chapter === null || integer(value.chapter, -1, 10000)) || !integer(value.timeStamp, 0, 9999999999) ||
       !date(value.day) || !integer(value.durationMs, 0, 86400000) || !integer(value.wrongCount, 0, 10000) ||
       !Array.isArray(value.wrongKeys) || value.wrongKeys.length > 200 ||
-      value.wrongKeys.some((key) => !text(key, 20))) throw new Error('Invalid vocabulary record')
+      value.wrongKeys.some((key) => !text(key, 20)) || !(value.mode === undefined || value.mode === 'tap'))
+    throw new Error('Invalid vocabulary record')
 }
 
 function validateGrammarDraft(value) {

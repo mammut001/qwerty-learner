@@ -599,3 +599,27 @@ test('public Worker host keeps /admin/users and /admin/users/detail as 404, even
     assert.equal(response.status, 404, path)
   }
 })
+
+test('getUserDetailForAdmin: tapCount counts vocabulary records answered in tap mode', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'admin-user-detail-tap-'))
+  const db = openSeedDb(join(dir, 'study.sqlite'))
+  try {
+    seed(db)
+    seedLearnerState(db)
+    const row = db.prepare('SELECT state FROM learners WHERE id = ?').get('l-google')
+    const state = JSON.parse(row.state)
+    state.learning.vocabulary.records.push(
+      { id: 'v5', word: 'pain', dict: 'A1', chapter: 1, timeStamp: Math.floor(NOW / 1000), durationMs: 900, wrongCount: 0, wrongKeys: [], day: utcDay(NOW), mode: 'tap' },
+      { id: 'v6', word: 'eau', dict: 'A1', chapter: 1, timeStamp: Math.floor(NOW / 1000), durationMs: 900, wrongCount: 1, wrongKeys: ['x'], day: utcDay(NOW), mode: 'tap' },
+    )
+    db.prepare('UPDATE learners SET state = ? WHERE id = ?').run(JSON.stringify(state), 'l-google')
+
+    const detail = getUserDetailForAdmin(db, 'acc-google', { now: NOW })
+    assert.equal(detail.vocabulary.totalWords, 6)
+    assert.equal(detail.vocabulary.tapCount, 2)
+    assert.doesNotMatch(JSON.stringify(detail), /"mode"/, 'raw record fields are not exposed')
+  } finally {
+    db.close()
+    rmSync(dir, { recursive: true, force: true })
+  }
+})

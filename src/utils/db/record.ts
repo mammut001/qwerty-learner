@@ -14,6 +14,8 @@ export interface IWordRecord {
   wrongCount: number
   // 每个字母被错误输入成什么, index 为字母的索引, 数组内为错误的 e.key
   mistakes: LetterMistakes
+  // 点选模式记录为 'tap'，跟打记录没有该字段
+  mode?: 'tap'
 }
 
 export interface LetterMistakes {
@@ -29,6 +31,7 @@ export class WordRecord implements IWordRecord {
   timing: number[]
   wrongCount: number
   mistakes: LetterMistakes
+  mode?: 'tap'
 
   constructor(word: string, dict: string, chapter: number | null, timing: number[], wrongCount: number, mistakes: LetterMistakes) {
     this.word = word

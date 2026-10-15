@@ -438,6 +438,7 @@ export function getUserDetailForAdmin(db, accountOrLearnerId, { now = Date.now()
 
   // Vocabulary.
   const totalTypingMs = records.reduce((sum, item) => sum + finiteNumber(item.durationMs), 0)
+  const tapCount = records.filter((item) => item.mode === 'tap').length
   const correctWords = records.filter((item) => finiteNumber(item.wrongCount) === 0).length
   const mistakes = new Map()
   const dicts = new Map()
@@ -496,6 +497,7 @@ export function getUserDetailForAdmin(db, accountOrLearnerId, { now = Date.now()
     vocabulary: {
       totalWords: records.length,
       totalTypingMs,
+      tapCount,
       avgMsPerWord: records.length ? Math.round(totalTypingMs / records.length) : null,
       accuracy: percent(correctWords, records.length),
       topMistakes: [...mistakes.values()]
