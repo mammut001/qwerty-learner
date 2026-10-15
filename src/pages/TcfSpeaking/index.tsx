@@ -641,7 +641,9 @@ export default function TcfSpeakingPage() {
                       }`}
                     >
                       {taskPhases[activeTask] === 'recording'
-                        ? '● 正在作答录音中'
+                        ? micAvailable
+                          ? '● 正在作答录音中'
+                          : '● 计时作答中（未录音）'
                         : taskPhases[activeTask] === 'prep'
                         ? '⏳ 准备时间'
                         : taskPhases[activeTask] === 'finished'
@@ -661,7 +663,7 @@ export default function TcfSpeakingPage() {
                     {taskPhases[activeTask] === 'recording' && (
                       <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-red-600 dark:text-red-400">
                         <span className="h-2 w-2 animate-ping rounded-full bg-red-500" />
-                        麦克风正在录音中，请清晰作答
+                        {micAvailable ? '麦克风正在录音中，请清晰作答' : '计时作答中（未录音）'}
                       </div>
                     )}
                   </div>

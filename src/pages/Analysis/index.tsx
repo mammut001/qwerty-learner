@@ -1,4 +1,5 @@
 import LineCharts from './components/LineCharts'
+import { trendCategoryLabel } from './trendLabels'
 import Layout from '@/components/Layout'
 import { placementSectionLabel } from '@/resources/placementTest'
 import {
@@ -47,14 +48,22 @@ const scaleLabels: Record<TrendScale, string> = {
   monthly: '按月',
 }
 
+const TCF_TREND_EMPTY_TEXT = '暂无模考记录，完成一次完整模考后显示趋势'
+
 const kindLabels: Record<ReviewQueueItem['kind'], string> = {
   vocabulary: '单词',
   grammar: '语法',
   conjugation: '变位',
 }
 
-const accuracySeries = (points: TrendPoint[], key: 'vocabularyAccuracy' | 'grammarAccuracy' | 'conjugationAccuracy') =>
-  points.flatMap<[string, number]>((point) => (point[key] === null ? [] : [[point.startDate, point[key] as number]]))
+const accuracySeries = (
+  points: TrendPoint[],
+  scale: TrendScale,
+  key: 'vocabularyAccuracy' | 'grammarAccuracy' | 'conjugationAccuracy',
+) =>
+  points.flatMap<[string, number]>((point) =>
+    point[key] === null ? [] : [[trendCategoryLabel(scale, point.startDate), point[key] as number]],
+  )
 
 const heatmapCellClass = (minutes: number, maxMinutes: number) => {
   if (minutes <= 0) return 'bg-gray-100 dark:bg-gray-800'
@@ -301,10 +310,10 @@ const Analysis = () => {
       : 'text-green-600 dark:text-green-300'
 
   const points = analytics?.trends[trendScale] ?? []
-  const minutesData = points.map<[string, number]>((point) => [point.startDate, point.minutes])
-  const vocabularyData = accuracySeries(points, 'vocabularyAccuracy')
-  const grammarData = accuracySeries(points, 'grammarAccuracy')
-  const conjugationData = accuracySeries(points, 'conjugationAccuracy')
+  const minutesData = points.map<[string, number]>((point) => [trendCategoryLabel(trendScale, point.startDate), point.minutes])
+  const vocabularyData = accuracySeries(points, trendScale, 'vocabularyAccuracy')
+  const grammarData = accuracySeries(points, trendScale, 'grammarAccuracy')
+  const conjugationData = accuracySeries(points, trendScale, 'conjugationAccuracy')
   const dashboard = analytics?.dashboard
   const heatmapMax = dashboard ? Math.max(1, ...dashboard.heatmap.map((item) => item.minutes)) : 1
   const mastery = dashboard?.mastery
@@ -994,6 +1003,7 @@ const Analysis = () => {
                           data={tcfListeningData}
                           target={458}
                           targetLabel="NCLC 7 · 458"
+                          emptyText={TCF_TREND_EMPTY_TEXT}
                         />
                       </div>
                       <div className="h-72 rounded-xl border border-indigo-100 bg-white p-4 dark:border-indigo-900 dark:bg-gray-900">
@@ -1003,6 +1013,7 @@ const Analysis = () => {
                           data={tcfReadingData}
                           target={453}
                           targetLabel="NCLC 7 · 453"
+                          emptyText={TCF_TREND_EMPTY_TEXT}
                         />
                       </div>
                       <div className="h-72 rounded-xl border border-indigo-100 bg-white p-4 dark:border-indigo-900 dark:bg-gray-900">
@@ -1012,6 +1023,7 @@ const Analysis = () => {
                           data={tcfWritingData}
                           target={10}
                           targetLabel="NCLC 7 · 10/20"
+                          emptyText={TCF_TREND_EMPTY_TEXT}
                         />
                       </div>
                       <div className="h-72 rounded-xl border border-indigo-100 bg-white p-4 dark:border-indigo-900 dark:bg-gray-900">
@@ -1021,6 +1033,7 @@ const Analysis = () => {
                           data={tcfSpeakingData}
                           target={10}
                           targetLabel="NCLC 7 · 10/20"
+                          emptyText={TCF_TREND_EMPTY_TEXT}
                         />
                       </div>
                     </div>
@@ -1028,16 +1041,16 @@ const Analysis = () => {
 
                   <div className="mt-5 grid gap-4 xl:grid-cols-2">
                     <div className="h-72 rounded-xl border border-gray-100 p-4 dark:border-gray-700">
-                      <LineCharts title={`${scaleLabels[trendScale]}学习时长`} name="分钟" data={minutesData} />
+                      <LineCharts title={`${scaleLabels[trendScale]}学习时长`} name="分钟" data={minutesData} axis="category" />
                     </div>
                     <div className="h-72 rounded-xl border border-gray-100 p-4 dark:border-gray-700">
-                      <LineCharts title={`${scaleLabels[trendScale]}单词正确率`} name="正确率" data={vocabularyData} suffix="%" />
+                      <LineCharts title={`${scaleLabels[trendScale]}单词正确率`} name="正确率" data={vocabularyData} suffix="%" axis="category" />
                     </div>
                     <div className="h-72 rounded-xl border border-gray-100 p-4 dark:border-gray-700">
-                      <LineCharts title={`${scaleLabels[trendScale]}语法正确率`} name="正确率" data={grammarData} suffix="%" />
+                      <LineCharts title={`${scaleLabels[trendScale]}语法正确率`} name="正确率" data={grammarData} suffix="%" axis="category" />
                     </div>
                     <div className="h-72 rounded-xl border border-gray-100 p-4 dark:border-gray-700">
-                      <LineCharts title={`${scaleLabels[trendScale]}动词变位正确率`} name="正确率" data={conjugationData} suffix="%" />
+                      <LineCharts title={`${scaleLabels[trendScale]}动词变位正确率`} name="正确率" data={conjugationData} suffix="%" axis="category" />
                     </div>
                   </div>
 

@@ -21,6 +21,7 @@ import IconCheck from '~icons/tabler/check'
 import IconClock from '~icons/tabler/clock'
 import IconDeviceFloppy from '~icons/tabler/device-floppy'
 import IconRefresh from '~icons/tabler/refresh'
+import { writingRemainingSeconds } from './remainingTime'
 
 type ExamMode = 'intro' | 'writing' | 'assessment' | 'review'
 
@@ -96,14 +97,18 @@ export default function TcfWritingPage() {
     }
   }, [])
 
-  // Timer countdown
+  // Timer countdown: always derived from the real start time, so refreshes and background tabs cannot reset or freeze it
   useEffect(() => {
-    if (mode !== 'writing') return
-    const timer = window.setInterval(() => {
-      setRemainingSeconds((old) => Math.max(0, old - 1))
-    }, 1000)
-    return () => window.clearInterval(timer)
-  }, [mode])
+    if (mode !== 'writing' || startedAt === null) return
+    const tick = () => setRemainingSeconds(writingRemainingSeconds(startedAt, Date.now(), TOTAL_SECONDS))
+    tick()
+    const timer = window.setInterval(tick, 1000)
+    document.addEventListener('visibilitychange', tick)
+    return () => {
+      window.clearInterval(timer)
+      document.removeEventListener('visibilitychange', tick)
+    }
+  }, [mode, startedAt])
 
   // Auto-submit when time expires
   useEffect(() => {
@@ -202,8 +207,13 @@ export default function TcfWritingPage() {
       2: draft.task2Response ?? '',
       3: draft.task3Response ?? '',
     })
-    setRemainingSeconds(Math.max(60, draft.remainingSeconds ?? TOTAL_SECONDS))
-    setStartedAt(draft.startedAt ?? Date.now())
+    // Keep the original start time so the countdown continues from real elapsed time. An expired exam resumes at 0
+    // and the auto-submit effect moves it to the assessment step.
+    const resumedStartedAt = Number.isFinite(draft.startedAt)
+      ? draft.startedAt
+      : Date.now() - (TOTAL_SECONDS - (draft.remainingSeconds ?? TOTAL_SECONDS)) * 1000
+    setStartedAt(resumedStartedAt)
+    setRemainingSeconds(writingRemainingSeconds(resumedStartedAt, Date.now(), TOTAL_SECONDS, draft.remainingSeconds))
     setActiveTask((draft.currentTask as 1 | 2 | 3) || 1)
     setMode('writing')
     setSavedDraft(null)

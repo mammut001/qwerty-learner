@@ -18,7 +18,8 @@ const timeLabel = (milliseconds: number) => {
 
 const pauseLabel: Record<string, string> = {
   manual: '已暂停',
-  hidden: '页面隐藏，已自动暂停',
+  // Legacy snapshots may still carry 'hidden'; the timer no longer pauses for a hidden tab.
+  hidden: '已暂停',
   idle: '长时间无输入，已自动暂停',
 }
 

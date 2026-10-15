@@ -182,6 +182,9 @@ export default function ConjugationPage() {
     if (mode !== 'practice') recordTrackedPracticeMinutes()
   }, [mode, recordTrackedPracticeMinutes, requestedStudyTask])
 
+  // Leaving the page while still practising should also credit the smart task.
+  useEffect(() => () => recordTrackedPracticeMinutes(), [recordTrackedPracticeMinutes])
+
   useEffect(
     () => () => {
       recordTrackedPracticeMinutes()

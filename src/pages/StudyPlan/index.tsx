@@ -38,6 +38,7 @@ import {
   importRemoteStudyPlan,
   joinCohort,
   linkStudyDevice,
+  loadErrorBook,
   loadLearnerCohort,
   loadPasskeyAccount,
   loadStudyAnalytics,
@@ -477,6 +478,8 @@ export default function StudyPlanPage() {
       return
     }
 
+    // Read the same server error book the 错题本 page shows (active vocabulary items for this dictionary),
+    // so the count matches it. Local IndexedDB records are not used: they can be stale and disagree with the server.
     let cancelled = false
     setPreviewErrorWordsState({
       dictId,
@@ -485,31 +488,13 @@ export default function StudyPlanPage() {
       error: '',
     })
 
-    if (learning && learning.vocabulary.records.length > 0) {
-      setPreviewErrorWordsState({
-        dictId,
-        status: 'ready',
-        words: new Set(
-          learning.vocabulary.records.filter((record) => record.dict === dictId && record.wrongCount > 0).map((record) => record.word),
-        ),
-        error: '',
-      })
-      return () => {
-        cancelled = true
-      }
-    }
-
-    db.wordRecords
-      .where('dict')
-      .equals(dictId)
-      .and((record) => record.wrongCount > 0)
-      .toArray()
-      .then((records) => {
+    loadErrorBook({ type: 'vocabulary', dict: dictId, status: 'active', limit: 1000 })
+      .then((items) => {
         if (cancelled) return
         setPreviewErrorWordsState({
           dictId,
           status: 'ready',
-          words: new Set(records.map((record) => record.word)),
+          words: new Set(items.map((item) => item.label)),
           error: '',
         })
       })
@@ -526,7 +511,7 @@ export default function StudyPlanPage() {
     return () => {
       cancelled = true
     }
-  }, [learning, previewDictionary?.id, previewWeek])
+  }, [previewDictionary?.id, previewWeek])
 
   const previewErrorWordsStatus = previewErrorWordsState.dictId === previewDictionary?.id ? previewErrorWordsState.status : 'loading'
   const previewErrorWords = previewErrorWordsStatus === 'ready' ? previewErrorWordsState.words : new Set<string>()

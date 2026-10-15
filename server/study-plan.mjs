@@ -2170,11 +2170,13 @@ export function createStudyServer({
       const status = requestUrl.searchParams.get('status') || 'active'
       const from = requestUrl.searchParams.get('from') || ''
       const to = requestUrl.searchParams.get('to') || ''
-      const limit = Math.min(100, Math.max(1, Number(requestUrl.searchParams.get('limit') || 100)))
+      const dict = requestUrl.searchParams.get('dict') || ''
+      const limit = Math.min(1000, Math.max(1, Number(requestUrl.searchParams.get('limit') || 100)))
       if ((kind && !ALLOWED_ERROR_TYPES.has(kind)) || !['active', 'mastered', 'all'].includes(status) ||
-          (from && !/^\d{4}-\d{2}-\d{2}$/.test(from)) || (to && !/^\d{4}-\d{2}-\d{2}$/.test(to)) || !Number.isFinite(limit))
+          (from && !/^\d{4}-\d{2}-\d{2}$/.test(from)) || (to && !/^\d{4}-\d{2}-\d{2}$/.test(to)) || !Number.isFinite(limit) ||
+          dict.length > 200)
         return sendError(400, 'INVALID_ERROR_BOOK_FILTER', 'Invalid error-book filter')
-      return send(200, { items: listNodeErrorBook(db, learner, { kind, status, from, to, limit }) })
+      return send(200, { items: listNodeErrorBook(db, learner, { kind, dict, status, from, to, limit }) })
     }
 
     if (checkins) {

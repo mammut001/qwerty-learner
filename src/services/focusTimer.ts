@@ -237,9 +237,9 @@ export function startFocusTimerRuntime() {
     lastActivityWrite = now
     noteFocusTimerActivity(now)
   }
+  // Hiding the tab does not pause the timer (only the idle rule and the user's own pause do); returning refreshes it.
   const visibility = () => {
-    if (document.visibilityState === 'hidden') pauseFocusTimer('hidden')
-    else tick()
+    if (document.visibilityState !== 'hidden') tick()
   }
 
   const timer = window.setInterval(tick, 1000)

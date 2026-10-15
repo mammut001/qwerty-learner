@@ -2161,6 +2161,7 @@ export async function revokeStudySyncKey(key = getStoredStudySyncKey()) {
 export async function loadErrorBook(
   filters: {
     type?: ReviewKind | ''
+    dict?: string
     status?: 'active' | 'mastered' | 'all'
     from?: string
     to?: string
@@ -2170,6 +2171,7 @@ export async function loadErrorBook(
   await syncStudyPlan()
   const params = new URLSearchParams()
   if (filters.type) params.set('type', filters.type)
+  if (filters.dict) params.set('dict', filters.dict)
   if (filters.status) params.set('status', filters.status)
   if (filters.from) params.set('from', filters.from)
   if (filters.to) params.set('to', filters.to)
