@@ -113,7 +113,7 @@ export async function lookupTtsAudioUrl(word: string, accent: TtsAccent = 'fr-CA
   const defaultVoices = TTS_VOICES as Record<string, string>
   const voice = manifest.voices[accent] || defaultVoices[accent]
   if (!voice) return null
-  const key = computeTtsKey(voice, word)
+  const key = computeTtsKey(voice, word, accent)
   if (manifest.keys[accent]?.has(key)) {
     return computeTtsAudioUrl(manifest.base, accent, key)
   }

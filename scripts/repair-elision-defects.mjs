@@ -278,6 +278,14 @@ async function main() {
   fs.writeFileSync(OVERRIDES_FILE, JSON.stringify(sortedOverrides, null, 2) + '\n', 'utf8')
   console.log(`\nSaved accepted overrides to ${OVERRIDES_FILE}`)
 
+  const mjsFile = path.resolve('src/utils/ttsSpokenOverrides.mjs')
+  fs.writeFileSync(
+    mjsFile,
+    `// Auto-generated module for seamless compatibility across Node.js ESM, TypeScript 4.0, and Vite browser bundling.\n// Canonical source of truth: src/utils/ttsSpokenOverrides.json\n\nexport default ${JSON.stringify(sortedOverrides, null, 2)}\n`,
+    'utf8',
+  )
+  console.log(`Saved companion module to ${mjsFile}`)
+
   console.log('\n========================================')
   console.log('         REPAIR SUMMARY                 ')
   console.log('========================================')

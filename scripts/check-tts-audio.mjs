@@ -1,5 +1,13 @@
 #!/usr/bin/env node
-import { TTS_BASE_URL, TTS_VOICES, computeTtsAudioUrl, computeTtsKey, computeTtsObjectPath, speakableText } from '../src/utils/ttsKey.mjs'
+import {
+  TTS_BASE_URL,
+  TTS_VOICES,
+  computeTtsAudioUrl,
+  computeTtsKey,
+  computeTtsObjectPath,
+  speakableText,
+  spokenTextFor,
+} from '../src/utils/ttsKey.mjs'
 import fs from 'node:fs'
 import path from 'node:path'
 
@@ -18,6 +26,8 @@ function parseArgs() {
   let limit = null
   let accent = null
   let concurrency = 4
+  let onlyKeys = null
+  let texts = null
 
   for (let i = 0; i < args.length; i++) {
     const arg = args[i]
@@ -33,10 +43,40 @@ function parseArgs() {
       concurrency = parseInt(arg.slice('--concurrency='.length), 10)
     } else if (arg === '--concurrency' && i + 1 < args.length) {
       concurrency = parseInt(args[++i], 10)
+    } else if (arg.startsWith('--only-keys=')) {
+      onlyKeys = new Set(
+        arg
+          .slice('--only-keys='.length)
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean),
+      )
+    } else if (arg === '--only-keys' && i + 1 < args.length) {
+      onlyKeys = new Set(
+        args[++i]
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean),
+      )
+    } else if (arg.startsWith('--texts=')) {
+      texts = new Set(
+        arg
+          .slice('--texts='.length)
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean),
+      )
+    } else if (arg === '--texts' && i + 1 < args.length) {
+      texts = new Set(
+        args[++i]
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean),
+      )
     }
   }
 
-  return { limit, accent, concurrency }
+  return { limit, accent, concurrency, onlyKeys, texts }
 }
 
 function getDeepgramApiKey() {
@@ -208,7 +248,7 @@ function generateReport(qcData) {
 }
 
 async function main() {
-  const { limit, accent, concurrency } = parseArgs()
+  const { limit, accent, concurrency, onlyKeys, texts } = parseArgs()
   const apiKey = getDeepgramApiKey()
   const qcData = loadJson(QC_FILE, { transcripts: {} })
   if (!qcData.transcripts) qcData.transcripts = {}
@@ -233,7 +273,7 @@ async function main() {
     for (const acc of ['fr-CA', 'fr-FR']) {
       const voice = TTS_VOICES[acc]
       if (voice) {
-        const key = computeTtsKey(voice, text)
+        const key = computeTtsKey(voice, text, acc)
         keyToText.set(`${acc}:${key}`, text)
       }
     }
@@ -245,7 +285,9 @@ async function main() {
   for (const acc of targetAccents) {
     const keys = manifest.keys[acc] || []
     for (const key of keys) {
+      if (onlyKeys && !onlyKeys.has(key)) continue
       const text = keyToText.get(`${acc}:${key}`) || key
+      if (texts && !texts.has(text)) continue
       const objectPath = computeTtsObjectPath(acc, key)
       const url = computeTtsAudioUrl(manifest.base || TTS_BASE_URL, acc, key)
       tasks.push({ accent: acc, key, text, objectPath, url })
@@ -289,7 +331,7 @@ async function main() {
         continue
       }
 
-      const normSource = normalise(speakableText(text))
+      const normSource = normalise(spokenTextFor(text, acc))
       const normTrans = normalise(transcript)
       const matched = normSource === normTrans
 

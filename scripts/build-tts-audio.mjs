@@ -1,5 +1,13 @@
 #!/usr/bin/env node
-import { TTS_VERSION, TTS_VOICES, TTS_BASE_URL, computeTtsKey, computeTtsObjectPath, speakableText } from '../src/utils/ttsKey.mjs'
+import {
+  TTS_VERSION,
+  TTS_VOICES,
+  TTS_BASE_URL,
+  computeTtsKey,
+  computeTtsObjectPath,
+  speakableText,
+  spokenTextFor,
+} from '../src/utils/ttsKey.mjs'
 import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -344,7 +352,7 @@ function updateManifest(state, tasks, isPartialRun = false, excludeSet = new Set
     for (const acc of ['fr-CA', 'fr-FR']) {
       const voice = TTS_VOICES[acc]
       if (voice) {
-        const key = computeTtsKey(voice, text)
+        const key = computeTtsKey(voice, text, acc)
         keySets[acc].delete(key)
       }
     }
@@ -380,7 +388,7 @@ async function main() {
       if (!voice) {
         throw new Error(`Unknown accent: ${acc}`)
       }
-      const key = computeTtsKey(voice, text)
+      const key = computeTtsKey(voice, text, acc)
       const objectPath = computeTtsObjectPath(acc, key)
       tasks.push({ accent: acc, voice, text, key, objectPath })
     }
@@ -437,7 +445,7 @@ async function main() {
           continue
         }
 
-        const spoken = speakableText(text)
+        const spoken = spokenTextFor(text, acc)
         const audioBuf = await synthesizeText(auth, voice, acc, spoken)
         await uploadAudio(auth, objectPath, audioBuf)
 
