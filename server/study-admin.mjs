@@ -157,3 +157,179 @@ export function placementCohortCsv(report) {
   }
   return lines.join('\n')
 }
+
+const DAY_MS = 86_400_000
+const USER_PROVIDERS = ['google', 'apple']
+const COMPLETED_CHECKIN_STATUSES = "('complete','makeup')"
+
+function clampInteger(value, fallback, min, max) {
+  const number = Number(value)
+  if (!Number.isFinite(number)) return fallback
+  return Math.min(max, Math.max(min, Math.trunc(number)))
+}
+
+// Escape LIKE wildcards with '!' so that a search for "100%" matches literally.
+function escapeLikeTerm(text) {
+  return text.replace(/[!%_]/g, (char) => `!${char}`)
+}
+
+function utcDayKey(ms) {
+  return new Date(ms).toISOString().slice(0, 10)
+}
+
+/**
+ * Admin view of signed-up accounts (intranet only; the route requires the full admin token).
+ * Returns one row per account ordered by most recent activity, plus a global summary.
+ * Filters: provider ('google' | 'apple') keeps accounts with that identity; q is a case-insensitive
+ * substring match on any identity email or display name. Emails are returned here, never in audit logs.
+ */
+export function listUsersForAdmin(db, { limit = 100, offset = 0, provider = null, q = '', now = Date.now() } = {}) {
+  const safeLimit = clampInteger(limit, 100, 1, 200)
+  const safeOffset = clampInteger(offset, 0, 0, Number.MAX_SAFE_INTEGER)
+  const safeProvider = provider && USER_PROVIDERS.includes(provider) ? provider : null
+  const term = String(q ?? '').trim().slice(0, 200)
+
+  const filters = []
+  const filterParams = []
+  if (safeProvider) {
+    filters.push('EXISTS (SELECT 1 FROM account_identities i WHERE i.account_id = a.id AND i.provider = ?)')
+    filterParams.push(safeProvider)
+  }
+  if (term) {
+    const pattern = `%${escapeLikeTerm(term)}%`
+    filters.push(
+      "EXISTS (SELECT 1 FROM account_identities i WHERE i.account_id = a.id AND (i.email LIKE ? ESCAPE '!' OR i.display_name LIKE ? ESCAPE '!'))",
+    )
+    filterParams.push(pattern, pattern)
+  }
+  const whereSql = filters.length ? `WHERE ${filters.join(' AND ')}` : ''
+
+  // Shared by the count and the page query. Session_agg uses `now` for active sessions, so it comes first.
+  const baseCte = `
+    WITH identity_agg AS (
+      SELECT account_id, MAX(last_login_at) AS last_login_at FROM account_identities GROUP BY account_id
+    ),
+    session_agg AS (
+      SELECT account_id,
+        MAX(created_at) AS last_session_at,
+        SUM(CASE WHEN expires_at > ? THEN 1 ELSE 0 END) AS active_sessions
+      FROM account_sessions GROUP BY account_id
+    ),
+    base AS (
+      SELECT a.id AS account_id, a.learner, a.created_at, ia.last_login_at,
+        COALESCE(sa.active_sessions, 0) AS active_sessions,
+        MAX(a.created_at, COALESCE(ia.last_login_at, 0), COALESCE(sa.last_session_at, 0)) AS activity_at
+      FROM accounts a
+      LEFT JOIN identity_agg ia ON ia.account_id = a.id
+      LEFT JOIN session_agg sa ON sa.account_id = a.id
+      ${whereSql}
+    )`
+
+  const total = Number(
+    db.prepare(`${baseCte} SELECT COUNT(*) AS total FROM base`).get(now, ...filterParams)?.total || 0,
+  )
+
+  const pageRows = db.prepare(`
+    ${baseCte}
+    SELECT p.account_id, p.learner, p.created_at, p.last_login_at, p.active_sessions, p.activity_at,
+      (SELECT COUNT(*) FROM checkins c WHERE c.learner = p.learner AND c.status IN ${COMPLETED_CHECKIN_STATUSES}) AS checkin_days,
+      (SELECT MAX(c.day) FROM checkins c WHERE c.learner = p.learner AND c.status IN ${COMPLETED_CHECKIN_STATUSES}) AS last_checkin_day,
+      (SELECT COUNT(*) FROM error_book e WHERE e.learner = p.learner) AS error_book_items,
+      (SELECT COUNT(*) FROM error_book e WHERE e.learner = p.learner AND e.mastered = 1) AS mastered_items,
+      (SELECT COUNT(*) FROM achievements y WHERE y.learner = p.learner) AS achievements
+    FROM (
+      SELECT * FROM base ORDER BY activity_at DESC, account_id LIMIT ? OFFSET ?
+    ) p
+    ORDER BY p.activity_at DESC, p.account_id
+  `).all(now, ...filterParams, safeLimit, safeOffset)
+
+  // One identities query for the whole page (no per-account loop).
+  const identitiesByAccount = new Map()
+  if (pageRows.length) {
+    const placeholders = pageRows.map(() => '?').join(',')
+    const identityRows = db.prepare(`
+      SELECT account_id, provider, email, display_name, last_login_at, created_at
+      FROM account_identities
+      WHERE account_id IN (${placeholders})
+      ORDER BY created_at, provider
+    `).all(...pageRows.map((row) => row.account_id))
+    for (const identity of identityRows) {
+      if (!identitiesByAccount.has(identity.account_id)) identitiesByAccount.set(identity.account_id, [])
+      identitiesByAccount.get(identity.account_id).push(identity)
+    }
+  }
+
+  const items = pageRows.map((row) => {
+    const identities = identitiesByAccount.get(row.account_id) ?? []
+    const providers = USER_PROVIDERS.filter((name) => identities.some((identity) => identity.provider === name))
+    const ordered = [...identities].sort(
+      (a, b) => USER_PROVIDERS.indexOf(a.provider) - USER_PROVIDERS.indexOf(b.provider) || a.created_at - b.created_at,
+    )
+    const emails = [...new Set(ordered.map((identity) => identity.email).filter(Boolean))]
+    const mostRecent = identities.reduce(
+      (best, identity) => (!best || identity.last_login_at > best.last_login_at ? identity : best),
+      null,
+    )
+    const displayName = mostRecent?.display_name || identities.find((identity) => identity.display_name)?.display_name || ''
+    return {
+      accountId: row.account_id,
+      createdAt: row.created_at,
+      lastLoginAt: row.last_login_at ?? null,
+      providers,
+      emails,
+      displayName,
+      checkinDays: Number(row.checkin_days) || 0,
+      lastCheckinDay: row.last_checkin_day ?? null,
+      errorBookItems: Number(row.error_book_items) || 0,
+      masteredItems: Number(row.mastered_items) || 0,
+      achievements: Number(row.achievements) || 0,
+      activeSessions: Number(row.active_sessions) || 0,
+    }
+  })
+
+  const weekAgo = now - 7 * DAY_MS
+  const monthAgo = now - 30 * DAY_MS
+  const counts = db.prepare(`
+    SELECT
+      (SELECT COUNT(*) FROM accounts) AS total,
+      (SELECT COUNT(DISTINCT account_id) FROM account_identities WHERE provider = 'google') AS google,
+      (SELECT COUNT(DISTINCT account_id) FROM account_identities WHERE provider = 'apple') AS apple,
+      (SELECT COUNT(*) FROM accounts a WHERE NOT EXISTS (SELECT 1 FROM account_identities i WHERE i.account_id = a.id)) AS passkey_only,
+      (SELECT COUNT(*) FROM accounts WHERE created_at >= ?) AS new_7,
+      (SELECT COUNT(*) FROM accounts WHERE created_at >= ?) AS new_30,
+      (SELECT COUNT(*) FROM accounts a WHERE
+        EXISTS (SELECT 1 FROM account_identities i WHERE i.account_id = a.id AND i.last_login_at >= ?)
+        OR EXISTS (SELECT 1 FROM account_sessions s WHERE s.account_id = a.id AND s.created_at >= ?)
+        OR EXISTS (SELECT 1 FROM checkins c WHERE c.learner = a.learner AND c.status IN ${COMPLETED_CHECKIN_STATUSES} AND c.day >= ?)
+      ) AS active_7
+  `).get(weekAgo, monthAgo, weekAgo, weekAgo, utcDayKey(weekAgo))
+
+  const todayUtc = Date.UTC(new Date(now).getUTCFullYear(), new Date(now).getUTCMonth(), new Date(now).getUTCDate())
+  const signupStart = todayUtc - 29 * DAY_MS
+  const signupRows = db.prepare(`
+    SELECT strftime('%Y-%m-%d', created_at / 1000.0, 'unixepoch') AS day, COUNT(*) AS count
+    FROM accounts WHERE created_at >= ? GROUP BY day
+  `).all(signupStart)
+  const signupCounts = new Map(signupRows.map((row) => [row.day, Number(row.count) || 0]))
+  const signupsByDay = Array.from({ length: 30 }, (_, index) => {
+    const day = utcDayKey(signupStart + index * DAY_MS)
+    return { day, count: signupCounts.get(day) ?? 0 }
+  })
+
+  return {
+    total,
+    items,
+    summary: {
+      totalAccounts: Number(counts.total) || 0,
+      byProvider: {
+        google: Number(counts.google) || 0,
+        apple: Number(counts.apple) || 0,
+        passkeyOnly: Number(counts.passkey_only) || 0,
+      },
+      newLast7Days: Number(counts.new_7) || 0,
+      newLast30Days: Number(counts.new_30) || 0,
+      activeLast7Days: Number(counts.active_7) || 0,
+      signupsByDay,
+    },
+  }
+}

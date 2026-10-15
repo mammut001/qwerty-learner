@@ -4,6 +4,7 @@ import {
   adminApiEnabled,
   authorizeAdminRequest,
   authorizeRecallModeration,
+  listUsersForAdmin,
   parseRecallModeratorCanApprove,
   loadPlacementCohortReportFromDb,
   placementCohortCsv,
@@ -694,6 +695,7 @@ export function createStudyServer({
     const adminRecalls = path === '/api/study-plan/admin/recalls'
     const adminRecallsSummary = path === '/api/study-plan/admin/recalls/summary'
     const adminRecallsReview = path === '/api/study-plan/admin/recalls/review'
+    const adminUsers = path === '/api/study-plan/admin/users'
     const itemReports = path === '/api/study-plan/reports'
     const recalls = path === '/api/study-plan/recalls'
     const cohortInfo = path === '/api/study-plan/cohort'
@@ -722,7 +724,7 @@ export function createStudyServer({
         !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
         !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts && !access &&
         !adminConfig && !adminPlacementCohort && !adminPlacementCsv && !adminCohorts && !adminCohortRotate &&
-        !adminReports && !adminReportsCsv && !adminReportsResolve && !adminRecalls && !adminRecallsReview && !adminRecallsSummary &&
+        !adminReports && !adminReportsCsv && !adminReportsResolve && !adminRecalls && !adminRecallsReview && !adminRecallsSummary && !adminUsers &&
         !itemReports && !recalls &&
         !cohortInfo && !cohortJoin && !plan) {
       if (staticDir && !path.startsWith('/api/')) {
@@ -962,6 +964,36 @@ export function createStudyServer({
       const counts = countRecallsByStatus(db)
       audit(null, 'admin_recalls_summary', 'success', { role: auth.role })
       return send(200, { ok: true, pending: counts.pending, approved: counts.approved, rejected: counts.rejected })
+    }
+
+    if (adminUsers) {
+      if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      // Full admin token only: the recall moderator token must not see account emails.
+      const auth = authorizeAdminRequest(req.headers.authorization, adminToken)
+      if (!auth.ok) {
+        audit(null, 'admin_users', auth.status === 401 ? 'denied' : 'disabled')
+        return sendError(auth.status, auth.code, auth.message)
+      }
+      const providerParam = requestUrl.searchParams.get('provider') || ''
+      if (providerParam && providerParam !== 'google' && providerParam !== 'apple') {
+        return sendError(400, 'ADMIN_USERS_INVALID', 'Invalid provider')
+      }
+      const qParam = (requestUrl.searchParams.get('q') || '').trim().slice(0, 200)
+      const limitParam = parseInt(requestUrl.searchParams.get('limit') || '50', 10)
+      const offsetParam = parseInt(requestUrl.searchParams.get('offset') || '0', 10)
+      const result = listUsersForAdmin(db, {
+        limit: Number.isFinite(limitParam) ? limitParam : 50,
+        offset: Number.isFinite(offsetParam) ? offsetParam : 0,
+        provider: providerParam || null,
+        q: qParam,
+      })
+      // Audit without the search term or any email: it may be a personal identifier.
+      audit(null, 'admin_users', 'success', {
+        count: result.items.length,
+        provider: providerParam || 'all',
+        hasQuery: qParam.length > 0,
+      })
+      return send(200, { ok: true, ...result })
     }
 
     if (adminRecallsReview) {
