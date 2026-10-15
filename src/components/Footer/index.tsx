@@ -57,7 +57,7 @@ const Footer: React.FC = () => {
         <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer" className="hover:text-indigo-500">
           CC BY-SA 4.0
         </a>{' '}
-        分享。{' '}
+        分享。部分发音来自 Lingua Libre / Wikimedia Commons 的真人录音（CC BY-SA）。{' '}
         <a
           href="https://github.com/mammut001/qwerty-learner/blob/master/public/lexicon/LICENSE.md"
           target="_blank"

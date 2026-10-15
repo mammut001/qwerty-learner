@@ -11,6 +11,53 @@ export type PlayFrenchVoiceOptions = {
   token?: number
 }
 
+export interface VoiceOverride {
+  audio: string | null
+  credit?: string
+  page?: string
+}
+
+export interface VoiceOverridesManifest {
+  generatedAt: string
+  source: string
+  words: Record<string, VoiceOverride>
+}
+
+let overridesCache: Record<string, VoiceOverride> | null = null
+let overridesPromise: Promise<Record<string, VoiceOverride> | null> | null = null
+
+export async function loadVoiceOverrides(): Promise<Record<string, VoiceOverride> | null> {
+  if (overridesCache) return overridesCache
+  if (overridesPromise) return overridesPromise
+
+  overridesPromise = (async () => {
+    try {
+      const response = await fetch('/voice/fr-overrides.json')
+      if (!response.ok) return null
+      const data = (await response.json()) as VoiceOverridesManifest
+      overridesCache = data?.words || null
+      return overridesCache
+    } catch {
+      return null
+    } finally {
+      overridesPromise = null
+    }
+  })()
+
+  return overridesPromise
+}
+
+export async function lookupVoiceOverride(word: string): Promise<VoiceOverride | null | undefined> {
+  const overrides = await loadVoiceOverrides()
+  if (!overrides) return undefined
+  const key = word.trim().toLowerCase()
+  return overrides[key]
+}
+
+if (typeof window !== 'undefined') {
+  void loadVoiceOverrides()
+}
+
 let audioContext: AudioContext | null = null
 
 function getAudioContext(): AudioContext | null {
@@ -83,7 +130,10 @@ export async function loadFrenchVoice(text: string): Promise<AudioBuffer> {
     const response = await fetch(url, { credentials: 'include' })
     if (!response.ok) {
       if (response.status === 401) {
-        const data = (await response.clone().json().catch(() => ({}))) as { code?: string }
+        const data = (await response
+          .clone()
+          .json()
+          .catch(() => ({}))) as { code?: string }
         if (data.code === 'LOGIN_REQUIRED') {
           if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('qwerty-auth-required'))
         } else {
