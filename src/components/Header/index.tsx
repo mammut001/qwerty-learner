@@ -1,5 +1,6 @@
 import logo from '@/assets/logo.svg'
 import AppleLogo from '@/components/AppleLogo'
+import GoogleLogo from '@/components/GoogleLogo'
 import { useShellHeaderHidden } from '@/components/ShellHeader'
 import {
   authErrorMessage,
@@ -323,29 +324,72 @@ const Header: React.FC = () => {
               </Menu>
             ) : (
               <div className="relative ml-1 flex items-center gap-1.5">
-                {appleEnabled && (
-                  <button
-                    type="button"
-                    data-testid="header-apple-sign-in"
-                    aria-label="使用 Apple 账号登录"
-                    title="使用 Apple 账号登录"
-                    onClick={startAppleSignIn}
-                    className="flex items-center justify-center rounded-full bg-black p-1.5 text-white shadow-sm transition-all hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200"
+                <Menu as="div" className="relative">
+                  <Menu.Button
+                    data-testid="header-sign-in"
+                    onMouseEnter={warmSdk}
+                    onFocus={warmSdk}
+                    disabled={isSigningIn}
+                    className="flex items-center whitespace-nowrap rounded-full bg-indigo-600 px-2.5 py-1 text-[12px] font-medium text-white shadow-sm transition-all hover:bg-indigo-700 disabled:opacity-50"
                   >
-                    <AppleLogo className="h-3.5 w-3.5" />
-                  </button>
-                )}
-                <button
-                  type="button"
-                  data-testid="header-sign-in"
-                  onClick={handleSignIn}
-                  onMouseEnter={warmSdk}
-                  onFocus={warmSdk}
-                  disabled={isSigningIn}
-                  className="flex items-center whitespace-nowrap rounded-full bg-indigo-600 px-2.5 py-1 text-[12px] font-medium text-white shadow-sm transition-all hover:bg-indigo-700 disabled:opacity-50"
-                >
-                  <span>{isSigningIn ? '登录中…' : '登录'}</span>
-                </button>
+                    <span>{isSigningIn ? '登录中…' : '登录'}</span>
+                  </Menu.Button>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="opacity-0 -translate-y-1"
+                    enterTo="opacity-100 translate-y-0"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                  >
+                    <Menu.Items className="absolute right-0 z-50 mt-2 w-60 origin-top-right rounded-2xl bg-white p-3 shadow-[0_20px_40px_-12px_rgba(30,27,75,0.2)] ring-1 ring-gray-900/[0.06] focus:outline-none dark:bg-gray-900 dark:ring-white/10">
+                      <div className="px-1 pb-2 text-xs text-gray-500 dark:text-gray-400">选择登录方式</div>
+                      <div className="flex flex-col gap-2">
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              type="button"
+                              data-testid="header-google-sign-in"
+                              onClick={handleSignIn}
+                              onMouseEnter={warmSdk}
+                              onFocus={warmSdk}
+                              disabled={isSigningIn}
+                              className={`flex w-full items-center justify-center gap-2 rounded-xl border border-gray-300 bg-white py-2 text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700 ${
+                                active ? 'bg-gray-50 dark:bg-gray-700' : ''
+                              }`}
+                            >
+                              <GoogleLogo className="h-4 w-4 shrink-0" />
+                              <span>{isSigningIn ? '正在登录…' : '使用 Google 账号登录'}</span>
+                            </button>
+                          )}
+                        </Menu.Item>
+                        {appleEnabled && (
+                          <Menu.Item>
+                            {({ active }) => (
+                              <button
+                                type="button"
+                                data-testid="header-apple-sign-in"
+                                onClick={startAppleSignIn}
+                                className={`flex w-full items-center justify-center gap-2 rounded-xl bg-black py-2 text-sm font-medium text-white shadow-sm transition-all hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200 ${
+                                  active ? 'bg-gray-800 dark:bg-gray-200' : ''
+                                }`}
+                              >
+                                <AppleLogo className="h-4 w-4 shrink-0" />
+                                <span>使用 Apple 账号登录</span>
+                              </button>
+                            )}
+                          </Menu.Item>
+                        )}
+                      </div>
+                      {appleEnabled && (
+                        <p className="mt-2 px-1 text-center text-[11px] text-gray-500 dark:text-gray-400">
+                          中国大陆用户请使用 Apple 登录
+                        </p>
+                      )}
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
                 {loginError && (
                   <div
                     role="alert"
@@ -452,9 +496,10 @@ const Header: React.FC = () => {
                     onMouseEnter={warmSdk}
                     onFocus={warmSdk}
                     disabled={isSigningIn}
-                    className="my-btn-primary flex w-full items-center justify-center gap-2 py-2 text-sm"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-300 bg-white py-2 text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
                   >
-                    <span>{isSigningIn ? '正在登录…' : '登录'}</span>
+                    <GoogleLogo className="h-4 w-4 shrink-0" />
+                    <span>{isSigningIn ? '正在登录…' : '使用 Google 账号登录'}</span>
                   </button>
                   {appleEnabled && (
                     <button
@@ -466,6 +511,9 @@ const Header: React.FC = () => {
                       <AppleLogo className="h-4 w-4" />
                       <span>使用 Apple 账号登录</span>
                     </button>
+                  )}
+                  {appleEnabled && (
+                    <p className="text-center text-[11px] text-gray-500 dark:text-gray-400">中国大陆用户请使用 Apple 登录</p>
                   )}
                   {loginError && (
                     <div role="alert" className="text-center text-xs text-red-600 dark:text-red-400">

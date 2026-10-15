@@ -42,7 +42,7 @@ export default function GuestProgressPrompt({ className = '' }: GuestProgressPro
   return (
     <div
       data-testid="guest-progress-prompt"
-      className={`flex items-center justify-center gap-2 text-xs text-gray-500 dark:text-gray-400 ${className}`}
+      className={`flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs text-gray-500 dark:text-gray-400 ${className}`}
     >
       <span>登录后可保存学习进度</span>
       <button
@@ -54,7 +54,7 @@ export default function GuestProgressPrompt({ className = '' }: GuestProgressPro
         disabled={signingIn}
         className="font-medium text-indigo-600 underline underline-offset-2 hover:text-indigo-500 dark:text-indigo-400 disabled:opacity-50"
       >
-        {signingIn ? '登录中…' : '登录'}
+        {signingIn ? '登录中…' : '使用 Google 账号登录'}
       </button>
       {appleEnabled && (
         <button
@@ -65,9 +65,10 @@ export default function GuestProgressPrompt({ className = '' }: GuestProgressPro
           className="inline-flex items-center gap-1 font-medium text-gray-900 underline underline-offset-2 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300 disabled:opacity-50"
         >
           <AppleLogo className="h-3.5 w-3.5 shrink-0" />
-          <span>Apple 登录</span>
+          <span>使用 Apple 账号登录</span>
         </button>
       )}
+      {appleEnabled && <span className="basis-full text-center text-[11px]">中国大陆用户请使用 Apple 登录</span>}
       {error && <span className="text-red-500">({error})</span>}
     </div>
   )
