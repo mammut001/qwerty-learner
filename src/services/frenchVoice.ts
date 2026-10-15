@@ -1,6 +1,6 @@
 import { isGuestMode } from './guestMode'
 
-export type PlayFrenchVoiceResult = 'played' | 'superseded' | 'unavailable'
+export type PlayFrenchVoiceResult = 'played' | 'superseded' | 'unavailable' | 'starred'
 
 export type PlayFrenchVoiceOptions = {
   volume?: number
@@ -82,6 +82,7 @@ function apiBase(): string {
 
 const bufferCache = new Map<string, AudioBuffer>()
 const inflightVoice = new Map<string, Promise<AudioBuffer>>()
+const starredWords = new Set<string>()
 let proxyUnavailable = false
 
 type AvailabilityListener = (available: boolean) => void
@@ -112,6 +113,12 @@ export async function loadFrenchVoice(text: string): Promise<AudioBuffer> {
   if (!query) throw new Error('Query is empty')
   const key = query.toLowerCase()
 
+  if (starredWords.has(key)) {
+    const err = new Error('Dictionary voice is starred')
+    ;(err as unknown as { code: string }).code = 'DICTIONARY_VOICE_STARRED'
+    throw err
+  }
+
   const cached = bufferCache.get(key)
   if (cached) {
     bufferCache.delete(key)
@@ -129,6 +136,18 @@ export async function loadFrenchVoice(text: string): Promise<AudioBuffer> {
     const url = `${apiBase()}/api/study-plan/dictionary/voice?q=${encodeURIComponent(query)}`
     const response = await fetch(url, { credentials: 'include' })
     if (!response.ok) {
+      if (response.status === 422) {
+        const data = (await response
+          .clone()
+          .json()
+          .catch(() => ({}))) as { code?: string }
+        if (data.code === 'DICTIONARY_VOICE_STARRED') {
+          starredWords.add(key)
+          const err = new Error('Dictionary voice is starred')
+          ;(err as unknown as { code: string }).code = 'DICTIONARY_VOICE_STARRED'
+          throw err
+        }
+      }
       if (response.status === 401) {
         const data = (await response
           .clone()
@@ -262,7 +281,10 @@ export async function playFrenchVoice(
   let buffer: AudioBuffer
   try {
     buffer = await loadFrenchVoice(text)
-  } catch {
+  } catch (err: unknown) {
+    if ((err as { code?: string })?.code === 'DICTIONARY_VOICE_STARRED') {
+      return 'starred'
+    }
     return 'unavailable'
   }
 

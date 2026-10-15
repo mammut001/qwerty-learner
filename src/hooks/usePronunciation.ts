@@ -210,6 +210,34 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
             return
           }
 
+          if (result === 'starred') {
+            if (activeTokenRef.current !== myToken) {
+              return
+            }
+            safeSpeak(word, {
+              volume: pronunciationConfig.volume,
+              rate: pronunciationConfig.rate,
+              onStart: () => {
+                if (activeTokenRef.current === myToken) {
+                  setIsPlaying(true)
+                }
+              },
+              onEnd: () => {
+                if (activeTokenRef.current === myToken) {
+                  activeTokenRef.current = null
+                  setIsPlaying(false)
+                }
+              },
+              onError: () => {
+                if (activeTokenRef.current === myToken) {
+                  activeTokenRef.current = null
+                  setIsPlaying(false)
+                }
+              },
+            })
+            return
+          }
+
           if (result === 'unavailable') {
             if (activeTokenRef.current !== myToken) {
               return

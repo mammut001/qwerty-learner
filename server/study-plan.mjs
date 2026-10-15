@@ -844,7 +844,12 @@ export function createStudyServer({
       if (!query) return sendError(400, 'DICTIONARY_QUERY_INVALID', 'Invalid dictionary query')
       const cacheKey = frenchQueryKey(query)
       const cached = youdaoVoiceCache.get(cacheKey, Date.now())
-      if (cached) return sendBinary(200, cached, 'audio/mpeg')
+      if (cached) {
+        if (cached?.starred) {
+          return sendError(422, 'DICTIONARY_VOICE_STARRED', 'Dictionary voice is starred for this headword')
+        }
+        return sendBinary(200, cached, 'audio/mpeg')
+      }
       const limit = consumeNodeRateLimit(db, 'actor:' + actorHash, 'dictionary-voice', {
         limit: 240,
         windowMs: 10 * 60_000,
@@ -858,6 +863,16 @@ export function createStudyServer({
           { retryAfterSeconds: Math.ceil(limit.retryAfterMs / 1000) },
           { 'Retry-After': String(Math.ceil(limit.retryAfterMs / 1000)) },
         )
+      }
+      let headwordLookup = null
+      try {
+        headwordLookup = await lookupFrench(query)
+      } catch {
+        // tolerate lookup failure
+      }
+      if (headwordLookup?.value?.starred || headwordLookup?.starred) {
+        youdaoVoiceCache.set(cacheKey, { starred: true }, 7 * 24 * 60 * 60 * 1000, Date.now())
+        return sendError(422, 'DICTIONARY_VOICE_STARRED', 'Dictionary voice is starred for this headword')
       }
       let outcome
       try {

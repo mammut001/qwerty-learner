@@ -1,5 +1,5 @@
 import { createStudyServer } from './study-plan.mjs'
-import { createYoudaoCache, fetchYoudaoFrenchVoice, lookupYoudaoFrench, normalizeFrenchQuery, parseYoudaoFrench } from './youdao-fr.mjs'
+import { createYoudaoCache, fetchYoudaoFrenchVoice, isYoudaoFrenchStarred, lookupYoudaoFrench, normalizeFrenchQuery, parseYoudaoFrench } from './youdao-fr.mjs'
 import assert from 'node:assert/strict'
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
@@ -24,6 +24,43 @@ const BONJOUR = {
     ],
   },
 }
+
+const VOULOIR_STARRED = {
+  fc: {
+    source: { name: '现代法汉汉法词典' },
+    word: [
+      {
+        trs: [{ pos: 'v.t.', tr: [{ l: { i: ['愿意；想，要'] } }] }],
+        phone: 'vulwa:r',
+        'return-phrase': { l: { i: 'vouloir*' } },
+      },
+    ],
+  },
+  simple: {
+    word: [
+      {
+        speech: 'vouloir*&le=fr',
+        'return-phrase': 'vouloir*',
+      },
+    ],
+  },
+}
+
+test('isYoudaoFrenchStarred identifies starred headwords across jsonapi shapes', () => {
+  assert.equal(isYoudaoFrenchStarred(VOULOIR_STARRED), true)
+  assert.equal(isYoudaoFrenchStarred(BONJOUR), false)
+  assert.equal(isYoudaoFrenchStarred({ simple: { word: [{ speech: 'faire*&le=fr' }] } }), true)
+  assert.equal(isYoudaoFrenchStarred({ simple: { word: [{ 'return-phrase': 'pouvoir*' }] } }), true)
+  assert.equal(isYoudaoFrenchStarred({ fc: { word: [{ 'return-phrase': 'voir*' }] } }), true)
+  assert.equal(isYoudaoFrenchStarred({ fc: { word: [{ 'return-phrase': { l: { i: 'venir*' } } }] } }), true)
+  assert.equal(isYoudaoFrenchStarred(null), false)
+  assert.equal(isYoudaoFrenchStarred({}), false)
+
+  const parsedStarred = parseYoudaoFrench(VOULOIR_STARRED, 'vouloir')
+  assert.equal(parsedStarred.starred, true)
+  const parsedBonjour = parseYoudaoFrench(BONJOUR, 'bonjour')
+  assert.equal(parsedBonjour.starred, false)
+})
 
 test('parseYoudaoFrench keeps the Chinese gloss and drops garbled examples', () => {
   const parsed = parseYoudaoFrench(BONJOUR, 'bonjour')
@@ -293,3 +330,56 @@ test('an explicit refresh replaces a cached miss and subsequent normal queries u
   assert.equal(reused.cached, true)
   assert.equal(calls, 2)
 })
+
+test('dictionary voice route rejects starred headwords with 422 and caches verdict', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'youdao-fr-starred-'))
+  let voiceCalls = 0
+  let lookupCalls = 0
+  const dummyAudio = Buffer.alloc(256, 1)
+
+  const server = createStudyServer({
+    database: join(dir, 'starred.sqlite'),
+    origin: 'http://localhost:5173',
+    accessPassword: '',
+    youdaoVoice: async () => {
+      voiceCalls += 1
+      return { buffer: dummyAudio }
+    },
+    youdaoLookup: async (query) => {
+      lookupCalls += 1
+      if (query === 'vouloir') {
+        return { value: parseYoudaoFrench(VOULOIR_STARRED, 'vouloir') }
+      }
+      return { value: parseYoudaoFrench(BONJOUR, query) }
+    },
+  })
+
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
+  const base = `http://127.0.0.1:${server.address().port}`
+  try {
+    // Starred headword returns 422 DICTIONARY_VOICE_STARRED
+    const res1 = await fetch(`${base}/api/study-plan/dictionary/voice?q=vouloir`)
+    assert.equal(res1.status, 422)
+    const body1 = await res1.json()
+    assert.equal(body1.code, 'DICTIONARY_VOICE_STARRED')
+    assert.equal(voiceCalls, 0)
+    assert.equal(lookupCalls, 1)
+
+    // Second call is served from voice cache verdict (no voice calls, no lookup calls)
+    const res2 = await fetch(`${base}/api/study-plan/dictionary/voice?q=vouloir`)
+    assert.equal(res2.status, 422)
+    const body2 = await res2.json()
+    assert.equal(body2.code, 'DICTIONARY_VOICE_STARRED')
+    assert.equal(voiceCalls, 0)
+    assert.equal(lookupCalls, 1)
+
+    // Normal non-starred word succeeds 200
+    const ok = await fetch(`${base}/api/study-plan/dictionary/voice?q=bonjour`)
+    assert.equal(ok.status, 200)
+    assert.equal(voiceCalls, 1)
+  } finally {
+    await new Promise((resolve) => server.close(resolve))
+    rmSync(dir, { recursive: true, force: true })
+  }
+})
+
