@@ -1092,10 +1092,10 @@ export function createStudyServer({
         audit(null, 'apple_login', 'denied', { code: 'APPLE_STATE_INVALID' })
         return sendAppleHop(res, withLoginResult('/', 'failed', 'APPLE_STATE_INVALID'))
       }
-      // The cookie binds this flow to the browser that started it (defends against login CSRF). When the browser
-      // did not send it, the pending row alone is accepted and the audit row records that.
+      // The apple_state cookie must match this pending row, which binds the callback to the browser that started
+      // the flow (login CSRF). It is checked before the row is consumed, so a forged POST cannot burn a victim's login.
       const cookieState = /(?:^|;\s*)apple_state=([a-f0-9]{64})(?:;|$)/.exec(req.headers.cookie || '')?.[1]
-      if (cookieState && !sameDigest(hash(cookieState), pending.state_hash)) {
+      if (!cookieState || !sameDigest(hash(cookieState), pending.state_hash)) {
         audit(null, 'apple_login', 'denied', { code: 'APPLE_STATE_MISMATCH' })
         return sendAppleHop(res, withLoginResult(pending.return_path, 'failed', 'APPLE_STATE_MISMATCH'))
       }
@@ -1126,13 +1126,13 @@ export function createStudyServer({
       }
       const ticket = randomBytes(32).toString('hex')
       db.prepare(`
-        INSERT INTO apple_login_tickets(ticket_hash,subject,email,display_name,return_path,prior_credential,created_at,expires_at)
-        VALUES(?,?,?,?,?,?,?,?)
+        INSERT INTO apple_login_tickets(ticket_hash,state_hash,subject,email,display_name,return_path,prior_credential,created_at,expires_at)
+        VALUES(?,?,?,?,?,?,?,?,?)
       `).run(
-        hash(ticket), identity.sub, identity.email, appleDisplayName(form.get('user')),
+        hash(ticket), pending.state_hash, identity.sub, identity.email, appleDisplayName(form.get('user')),
         pending.return_path, pending.prior_credential, nowMs, nowMs + APPLE_TICKET_MS,
       )
-      audit(null, 'apple_login', 'pending', { cookieBound: Boolean(cookieState) })
+      audit(null, 'apple_login', 'pending')
       return sendAppleHop(res, `/api/study-plan/auth/apple/finish?ticket=${ticket}`)
     }
 
@@ -1429,7 +1429,9 @@ export function createStudyServer({
       const clearStateCookie = `apple_state=; Path=/api/study-plan/auth/apple; HttpOnly; SameSite=${secure ? 'None' : 'Lax'}; Max-Age=0${secure ? '; Secure' : ''}`
       // Every Set-Cookie for this response goes in one header value: a later writeHead would replace earlier ones.
       const redirect = (location, cookies = [clearStateCookie]) => {
-        res.writeHead(303, { Location: location, 'Set-Cookie': cookies, 'Referrer-Policy': 'no-referrer' })
+        const headers = { Location: location, 'Referrer-Policy': 'no-referrer' }
+        if (cookies.length > 0) headers['Set-Cookie'] = cookies
+        res.writeHead(303, headers)
         return res.end()
       }
       const ticketValue = requestUrl.searchParams.get('ticket') || ''
@@ -1439,12 +1441,19 @@ export function createStudyServer({
       }
       const ticketHash = hash(ticketValue)
       const ticket = db.prepare(`
-        SELECT ticket_hash,subject,email,display_name,return_path,prior_credential,expires_at
+        SELECT ticket_hash,state_hash,subject,email,display_name,return_path,prior_credential,expires_at
         FROM apple_login_tickets WHERE ticket_hash=?
       `).get(ticketHash)
       if (!ticket || !sameDigest(ticket.ticket_hash, ticketHash)) {
         audit(null, 'apple_login', 'denied', { code: 'APPLE_TICKET_INVALID' })
         return redirect(withLoginResult('/', 'failed', 'APPLE_TICKET_INVALID'))
+      }
+      // Bind check before the ticket is consumed: only the browser that started the login may redeem it. A failed
+      // check leaves the ticket in place (it still expires) and keeps the apple_state cookie for the real browser.
+      const boundState = /(?:^|;\s*)apple_state=([a-f0-9]{64})(?:;|$)/.exec(req.headers.cookie || '')?.[1]
+      if (!boundState || !sameDigest(hash(boundState), ticket.state_hash)) {
+        audit(null, 'apple_login', 'denied', { code: 'APPLE_TICKET_UNBOUND' })
+        return redirect(withLoginResult(sanitizeReturnPath(ticket.return_path), 'failed', 'APPLE_TICKET_UNBOUND'), [])
       }
       // Single use: the ticket is only valid for the request that deletes it.
       const consumed = db.prepare('DELETE FROM apple_login_tickets WHERE ticket_hash=?').run(ticketHash)

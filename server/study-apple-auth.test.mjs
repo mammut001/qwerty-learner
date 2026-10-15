@@ -239,9 +239,9 @@ test('return paths are limited to same-site paths', async () => {
   for (const [input, expected] of cases) {
     // A fresh server per case keeps each one under the start/callback/finish rate limits.
     await withServer({}, async ({ login, finish }) => {
-      const { result } = await login({ returnPath: input, claims: { sub: `sub-${expected}` } })
+      const { result, started } = await login({ returnPath: input, claims: { sub: `sub-${expected}` } })
       assert.ok(result.ticket, `ticket issued for ${input}`)
-      const done = await finish(result.ticket)
+      const done = await finish(result.ticket, { cookie: started.stateCookie })
       assert.equal(done.status, 303, input)
       assert.equal(done.location, expected, input)
     })
@@ -250,7 +250,7 @@ test('return paths are limited to same-site paths', async () => {
 
 test('happy path creates an account, sets the session, and clears the state cookie', async () => {
   await withServer({}, async ({ login, finish, call, db }) => {
-    const { result } = await login({
+    const { result, started } = await login({
       returnPath: '/study-plan',
       user: { name: { firstName: 'Alice', lastName: 'Martin' }, email: APPLE_EMAIL },
     })
@@ -261,7 +261,7 @@ test('happy path creates an account, sets the session, and clears the state cook
     assert.ok(result.ticket)
     assert.ok(result.text.includes(`/api/study-plan/auth/apple/finish?ticket=${result.ticket}`))
 
-    const done = await finish(result.ticket)
+    const done = await finish(result.ticket, { cookie: started.stateCookie })
     assert.equal(done.status, 303)
     assert.equal(done.location, '/study-plan')
     assert.match(done.sessionCookie, /^study_session=[a-f0-9]{64}$/)
@@ -286,10 +286,10 @@ test('happy path creates an account, sets the session, and clears the state cook
 test('a second Apple login with the same subject reuses the same account and keeps the first name', async () => {
   await withServer({}, async ({ login, finish, call, db }) => {
     const first = await login({ claims: { sub: 'apple-repeat' }, user: { name: { firstName: 'Carol', lastName: 'Dupont' } } })
-    const firstDone = await finish(first.result.ticket)
+    const firstDone = await finish(first.result.ticket, { cookie: first.started.stateCookie })
     // Apple omits the name after the first authorization.
     const second = await login({ claims: { sub: 'apple-repeat' } })
-    const secondDone = await finish(second.result.ticket)
+    const secondDone = await finish(second.result.ticket, { cookie: second.started.stateCookie })
 
     const a = await call('GET', '/api/study-plan/auth', { cookie: firstDone.sessionCookie })
     const b = await call('GET', '/api/study-plan/auth', { cookie: secondDone.sessionCookie })
@@ -315,8 +315,8 @@ test('a guest learner from the start request is adopted and keeps its plan', asy
     assert.equal(saved.status, 200)
 
     // The guest cookie is sent on /start, which is what records the learner for adoption.
-    const { result } = await login({ cookie: anonCookie, claims: { sub: 'apple-guest' } })
-    const done = await finish(result.ticket)
+    const { result, started } = await login({ cookie: anonCookie, claims: { sub: 'apple-guest' } })
+    const done = await finish(result.ticket, { cookie: started.stateCookie })
     assert.equal(done.status, 303)
 
     const plan = await call('GET', '/api/study-plan', { cookie: done.sessionCookie })
@@ -332,8 +332,8 @@ test('an existing Google session links the Apple identity to the same account', 
     assert.equal(google.status, 200)
     const googleCookie = google.setCookies[0].split(';')[0]
 
-    const { result } = await login({ cookie: googleCookie, claims: { sub: 'apple-bob', email: 'bob-apple@privaterelay.appleid.com' } })
-    const done = await finish(result.ticket)
+    const { result, started } = await login({ cookie: googleCookie, claims: { sub: 'apple-bob', email: 'bob-apple@privaterelay.appleid.com' } })
+    const done = await finish(result.ticket, { cookie: started.stateCookie })
     assert.equal(done.status, 303)
 
     const status = await call('GET', '/api/study-plan/auth', { cookie: done.sessionCookie })
@@ -408,16 +408,30 @@ test('a bad id_token issues no ticket: wrong audience, issuer, signature, nonce,
   })
 })
 
-test('a missing apple_state cookie is accepted, but a mismatched cookie is rejected', async () => {
-  await withServer({}, async ({ start, callback, finish }) => {
-    // Browser dropped the cookie: the pending row still matches, so the login proceeds (audited).
+test('a callback without a matching apple_state cookie is rejected and keeps the pending row', async () => {
+  await withServer({}, async ({ start, callback, finish, db }) => {
+    // A dropped cookie is not accepted: the callback is denied before the pending row is consumed.
     const dropped = await start()
-    const accepted = await callback(
+    const missing = await callback(
       { state: dropped.state, id_token: signToken({ nonce: dropped.nonce }), code: 'c' },
       { cookie: '' },
     )
-    assert.ok(accepted.ticket, 'missing cookie with a matching pending row is accepted')
-    assert.equal((await finish(accepted.ticket)).status, 303)
+    assert.equal(missing.ticket, null)
+    assert.deepEqual(missing.loginResult, ['failed', 'APPLE_STATE_MISMATCH'])
+    const database = db()
+    try {
+      assert.equal(database.prepare('SELECT COUNT(*) AS n FROM apple_login_pending').get().n, 1, 'pending row still there')
+    } finally {
+      database.close()
+    }
+
+    // The real browser can still finish the same login afterwards.
+    const real = await callback(
+      { state: dropped.state, id_token: signToken({ nonce: dropped.nonce }), code: 'c' },
+      { cookie: dropped.stateCookie },
+    )
+    assert.ok(real.ticket, 'the right cookie completes the login')
+    assert.equal((await finish(real.ticket, { cookie: dropped.stateCookie })).status, 303)
 
     // A cookie from another flow does not bind to this state.
     const mismatched = await start()
@@ -428,6 +442,39 @@ test('a missing apple_state cookie is accepted, but a mismatched cookie is rejec
     )
     assert.equal(rejected.ticket, null)
     assert.deepEqual(rejected.loginResult, ['failed', 'APPLE_STATE_MISMATCH'])
+  })
+})
+
+test('a ticket is redeemed only by the browser that started the login', async () => {
+  await withServer({}, async ({ login, start, finish, db }) => {
+    const { result, started } = await login({ claims: { sub: 'bound' } })
+    const database = db()
+    const ticketRows = () => database.prepare('SELECT COUNT(*) AS n FROM apple_login_tickets').get().n
+    try {
+      // A shared /finish link opened without the apple_state cookie: no session, ticket untouched.
+      const noCookie = await finish(result.ticket)
+      assert.equal(noCookie.status, 303)
+      assert.equal(noCookie.sessionCookie, '')
+      assert.equal(noCookie.location, '/?login=failed&reason=APPLE_TICKET_UNBOUND')
+      assert.equal(noCookie.setCookies.some((c) => c.startsWith('apple_state=')), false, 'cookie not cleared')
+      assert.equal(ticketRows(), 1, 'ticket not consumed')
+
+      // Opened from a browser whose cookie belongs to a different /start: same result, ticket still there.
+      const other = await start()
+      const wrongCookie = await finish(result.ticket, { cookie: other.stateCookie })
+      assert.equal(wrongCookie.sessionCookie, '')
+      assert.equal(wrongCookie.location, '/?login=failed&reason=APPLE_TICKET_UNBOUND')
+      assert.equal(ticketRows(), 1, 'ticket still not consumed')
+    } finally {
+      database.close()
+    }
+
+    // The browser that started the login redeems it.
+    const bound = await finish(result.ticket, { cookie: started.stateCookie })
+    assert.equal(bound.status, 303)
+    assert.equal(bound.location, '/')
+    assert.match(bound.sessionCookie, /^study_session=[a-f0-9]{64}$/)
+    assert.ok(bound.setCookies.some((c) => c.startsWith('apple_state=;') && c.includes('Max-Age=0')))
   })
 })
 
@@ -447,10 +494,10 @@ test('user cancellation returns login=cancelled and issues no ticket', async () 
 test('tickets are single use and expire after two minutes', async () => {
   await withServer({}, async ({ login, finish, db }) => {
     const once = await login({ claims: { sub: 'ticket-once' } })
-    const first = await finish(once.result.ticket)
+    const first = await finish(once.result.ticket, { cookie: once.started.stateCookie })
     assert.equal(first.status, 303)
     assert.equal(first.location, '/')
-    const second = await finish(once.result.ticket)
+    const second = await finish(once.result.ticket, { cookie: once.started.stateCookie })
     assert.equal(second.sessionCookie, '')
     assert.equal(second.location, '/?login=failed&reason=APPLE_TICKET_INVALID')
 
@@ -461,7 +508,7 @@ test('tickets are single use and expire after two minutes', async () => {
     } finally {
       database.close()
     }
-    const expired = await finish(old.result.ticket)
+    const expired = await finish(old.result.ticket, { cookie: old.started.stateCookie })
     assert.equal(expired.sessionCookie, '')
     assert.equal(expired.location, '/?login=failed&reason=APPLE_TICKET_EXPIRED')
   })
@@ -469,9 +516,9 @@ test('tickets are single use and expire after two minutes', async () => {
 
 test('STUDY_ALLOWED_EMAILS blocks Apple accounts outside the list', async () => {
   await withServer({ allowedEmails: 'allowed@example.com' }, async ({ login, finish }) => {
-    const { result } = await login({ claims: { sub: 'not-allowed', email: APPLE_EMAIL } })
+    const { result, started } = await login({ claims: { sub: 'not-allowed', email: APPLE_EMAIL } })
     assert.ok(result.ticket, 'the callback itself does not check the allow-list')
-    const denied = await finish(result.ticket)
+    const denied = await finish(result.ticket, { cookie: started.stateCookie })
     assert.equal(denied.sessionCookie, '')
     assert.equal(denied.location, '/?login=failed&reason=EMAIL_NOT_ALLOWED')
   })
@@ -480,9 +527,9 @@ test('STUDY_ALLOWED_EMAILS blocks Apple accounts outside the list', async () => 
 test('the daily new-account limit applies to Apple sign-ups', async () => {
   await withServer({ maxNewAccountsPerDay: 1 }, async ({ login, finish }) => {
     const first = await login({ claims: { sub: 'limit-1' } })
-    assert.equal((await finish(first.result.ticket)).status, 303)
+    assert.equal((await finish(first.result.ticket, { cookie: first.started.stateCookie })).status, 303)
     const second = await login({ claims: { sub: 'limit-2' } })
-    const blocked = await finish(second.result.ticket)
+    const blocked = await finish(second.result.ticket, { cookie: second.started.stateCookie })
     assert.equal(blocked.sessionCookie, '')
     assert.equal(blocked.location, '/?login=failed&reason=SIGNUP_LIMIT_REACHED')
   })

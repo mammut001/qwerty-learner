@@ -171,8 +171,9 @@ export function ensureNodeFeatureSchema(db) {
     );
     CREATE INDEX IF NOT EXISTS apple_login_pending_expiry ON apple_login_pending(expires_at);
     CREATE TABLE IF NOT EXISTS apple_login_tickets (
-      ticket_hash TEXT NOT NULL PRIMARY KEY, subject TEXT NOT NULL, email TEXT NOT NULL, display_name TEXT NOT NULL DEFAULT '',
-      return_path TEXT NOT NULL, prior_credential TEXT, created_at INTEGER NOT NULL, expires_at INTEGER NOT NULL
+      ticket_hash TEXT NOT NULL PRIMARY KEY, state_hash TEXT NOT NULL, subject TEXT NOT NULL, email TEXT NOT NULL,
+      display_name TEXT NOT NULL DEFAULT '', return_path TEXT NOT NULL, prior_credential TEXT,
+      created_at INTEGER NOT NULL, expires_at INTEGER NOT NULL
     );
     CREATE INDEX IF NOT EXISTS apple_login_tickets_expiry ON apple_login_tickets(expires_at);
   `)
