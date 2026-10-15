@@ -37,6 +37,7 @@ const PlacementTestPage = lazy(() => import('./pages/PlacementTest'))
 const AdminPlacementPage = lazy(() => import('./pages/AdminPlacement'))
 const ExamRecallsPage = lazy(() => import('./pages/ExamRecalls'))
 const AdminRecallsPage = lazy(() => import('./pages/AdminRecalls'))
+const AdminUsersPage = lazy(() => import('./pages/AdminUsers'))
 const EchelleQuebecoisePage = lazy(() => import('./pages/EchelleQuebecoise'))
 const LevelsPage = lazy(() => import('./pages/Levels'))
 const LevelDetailPage = lazy(() => import('./pages/LevelDetail'))
@@ -172,6 +173,14 @@ function Root() {
                           element={
                             <AdminRouteGate>
                               <AdminRecallsPage />
+                            </AdminRouteGate>
+                          }
+                        />
+                        <Route
+                          path="/admin/users"
+                          element={
+                            <AdminRouteGate>
+                              <AdminUsersPage />
                             </AdminRouteGate>
                           }
                         />
