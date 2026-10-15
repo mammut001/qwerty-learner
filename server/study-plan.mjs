@@ -444,11 +444,15 @@ export function createStudyServer({
   const signInWithIdentity = ({ provider, subject, email, name, picture, priorCredential }) => {
     const now = Date.now()
     const loginExisting = (accountId) => {
+      // Apple sends the name only on the first authorization, so a later login must not blank a stored name.
+      const storedName = provider === 'apple'
+        ? (db.prepare('SELECT display_name FROM account_identities WHERE provider=? AND subject=?').get(provider, subject)?.display_name ?? '')
+        : ''
       db.prepare(`
         UPDATE account_identities
         SET email=?, display_name=?, picture=?, last_login_at=?
         WHERE provider=? AND subject=?
-      `).run(email, name, picture, now, provider, subject)
+      `).run(email, name || storedName, picture, now, provider, subject)
       const sessionToken = createAccountSession(db, accountId, now)
       if (priorCredential) {
         db.prepare('DELETE FROM account_sessions WHERE token_hash=?').run(priorCredential)
@@ -1423,8 +1427,9 @@ export function createStudyServer({
         })
       }
       const clearStateCookie = `apple_state=; Path=/api/study-plan/auth/apple; HttpOnly; SameSite=${secure ? 'None' : 'Lax'}; Max-Age=0${secure ? '; Secure' : ''}`
-      const redirect = (location) => {
-        res.writeHead(303, { Location: location, 'Set-Cookie': clearStateCookie, 'Referrer-Policy': 'no-referrer' })
+      // Every Set-Cookie for this response goes in one header value: a later writeHead would replace earlier ones.
+      const redirect = (location, cookies = [clearStateCookie]) => {
+        res.writeHead(303, { Location: location, 'Set-Cookie': cookies, 'Referrer-Policy': 'no-referrer' })
         return res.end()
       }
       const ticketValue = requestUrl.searchParams.get('ticket') || ''
@@ -1469,8 +1474,7 @@ export function createStudyServer({
         return redirect(withLoginResult(returnPath, 'failed', 'SIGNUP_LIMIT_REACHED'))
       }
       audit(outcome.learner, 'apple_login', 'success', { created: outcome.created, adopted: outcome.adopted })
-      res.setHeader('Set-Cookie', [sessionCookie(outcome.sessionToken, { secure, sameSite }), clearStateCookie])
-      return redirect(returnPath)
+      return redirect(returnPath, [sessionCookie(outcome.sessionToken, { secure, sameSite }), clearStateCookie])
     }
 
     if (passkeyLoginOptions || passkeyLoginVerify) {
