@@ -49,6 +49,7 @@ export interface AdminUserDetail {
   vocabulary: {
     totalWords: number
     totalTypingMs: number
+    tapCount: number
     avgMsPerWord: number | null
     accuracy: number | null
     topMistakes: Array<{ word: string; dict: string; wrongCount: number; attempts: number }>

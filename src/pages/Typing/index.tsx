@@ -1,5 +1,6 @@
 import Layout from '../../components/Layout'
 import { DictChapterButton } from './components/DictChapterButton'
+import { TapModeLink } from '../Tap/TapModeLink'
 import PronunciationSwitcher from './components/PronunciationSwitcher'
 import ResultScreen from './components/ResultScreen'
 import Speed from './components/Speed'
@@ -234,6 +235,7 @@ const App: React.FC = () => {
       <Layout>
         <PageToolbar>
           <DictChapterButton />
+          <TapModeLink />
           <PronunciationSwitcher />
           <Switcher />
           <StartButton isLoading={isLoading} />
