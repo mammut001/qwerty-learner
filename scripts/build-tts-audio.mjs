@@ -1,5 +1,13 @@
 #!/usr/bin/env node
-import { TTS_VERSION, TTS_VOICES, TTS_BASE_URL, computeTtsKey, computeTtsObjectPath, speakableText } from '../src/utils/ttsKey.mjs'
+import {
+  TTS_VERSION,
+  TTS_VOICES,
+  TTS_BASE_URL,
+  computeTtsKey,
+  computeTtsObjectPath,
+  speakableText,
+  spokenTextFor,
+} from '../src/utils/ttsKey.mjs'
 import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -137,7 +145,30 @@ function loadState() {
       // Ignore corrupt state
     }
   }
-  return { objects: {}, charactersUsed: 0 }
+
+  const initialObjects = {}
+  if (fs.existsSync(MANIFEST_FILE)) {
+    try {
+      const manifest = JSON.parse(fs.readFileSync(MANIFEST_FILE, 'utf8'))
+      for (const [acc, keys] of Object.entries(manifest.keys || {})) {
+        if (Array.isArray(keys)) {
+          for (const key of keys) {
+            const objectPath = computeTtsObjectPath(acc, key)
+            initialObjects[objectPath] = {
+              status: 'exists',
+              key,
+              accent: acc,
+              updatedAt: new Date().toISOString(),
+            }
+          }
+        }
+      }
+    } catch {
+      // Ignore
+    }
+  }
+
+  return { objects: initialObjects, charactersUsed: 0 }
 }
 
 function saveState(state) {
@@ -218,7 +249,7 @@ async function synthesizeText(auth, voiceName, accent, text) {
           'Content-Type': 'application/json; charset=utf-8',
         },
         body: JSON.stringify({
-          input: { text },
+          input: text.startsWith('<speak>') ? { ssml: text } : { text },
           voice: {
             languageCode: accent,
             name: voiceName,
@@ -344,7 +375,7 @@ function updateManifest(state, tasks, isPartialRun = false, excludeSet = new Set
     for (const acc of ['fr-CA', 'fr-FR']) {
       const voice = TTS_VOICES[acc]
       if (voice) {
-        const key = computeTtsKey(voice, text)
+        const key = computeTtsKey(voice, text, acc)
         keySets[acc].delete(key)
       }
     }
@@ -380,7 +411,7 @@ async function main() {
       if (!voice) {
         throw new Error(`Unknown accent: ${acc}`)
       }
-      const key = computeTtsKey(voice, text)
+      const key = computeTtsKey(voice, text, acc)
       const objectPath = computeTtsObjectPath(acc, key)
       tasks.push({ accent: acc, voice, text, key, objectPath })
     }
@@ -437,7 +468,7 @@ async function main() {
           continue
         }
 
-        const spoken = speakableText(text)
+        const spoken = spokenTextFor(text, acc)
         const audioBuf = await synthesizeText(auth, voice, acc, spoken)
         await uploadAudio(auth, objectPath, audioBuf)
 

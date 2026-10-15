@@ -1,6 +1,7 @@
 // Shared utility for Google Chirp 3 HD TTS key generation and paths.
 // Generates first 16 hex chars of sha256(`v1|<voice>|<spokenText>`).
 // Pure JS SHA-256 implementation so it can run identically in browser and Node without external deps.
+import ttsSpokenOverrides from './ttsSpokenOverrides.mjs'
 
 export const TTS_VERSION = 'v1'
 
@@ -122,10 +123,27 @@ export function speakableText(name) {
 }
 
 /**
- * Returns the first 16 hex characters of sha256(`v1|<voice>|<speakableText>`).
+ * Resolves spoken text for a dictionary headword:
+ * returns override from ttsSpokenOverrides if present for the given accent,
+ * otherwise returns standard speakableText(name).
  */
-export function computeTtsKey(voice, text) {
-  const spoken = speakableText(text)
+export function spokenTextFor(name, accent = DEFAULT_ACCENT) {
+  if (typeof name !== 'string') return ''
+  const trimmed = name.trim()
+  const override = ttsSpokenOverrides?.[trimmed]?.[accent]
+  if (typeof override === 'string' && override.trim()) {
+    return override.trim()
+  }
+  return speakableText(name)
+}
+
+/**
+ * Returns the first 16 hex characters of sha256(`v1|<voice>|<spokenText>`).
+ * Accepts optional accent (or derives from voice name).
+ */
+export function computeTtsKey(voice, text, accent) {
+  const resolvedAccent = accent || (voice?.startsWith('fr-FR') ? 'fr-FR' : 'fr-CA')
+  const spoken = spokenTextFor(text, resolvedAccent)
   const input = `${TTS_VERSION}|${voice}|${spoken}`
   const bytes = encoder.encode(input)
   return sha256Hex(bytes).slice(0, 16)
