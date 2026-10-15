@@ -8,7 +8,6 @@ import {
   prefetchFrenchVoice,
   setFrenchVoiceLoop,
   stopFrenchVoice,
-  subscribeFrenchVoiceAvailability,
 } from '@/services/frenchVoice'
 import { pronunciationConfigAtom } from '@/store'
 import type { PronunciationType } from '@/typings'
@@ -53,20 +52,16 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
   const pronunciationConfig = useAtomValue(pronunciationConfigAtom)
   const loop = useMemo(() => (typeof isLoop === 'boolean' ? isLoop : pronunciationConfig.isLoop), [isLoop, pronunciationConfig.isLoop])
   const [isPlaying, setIsPlaying] = useState(false)
-  const [proxyAvailable, setProxyAvailable] = useState(isFrenchVoiceAvailable)
   const activeTokenRef = useRef<number | null>(null)
   const fallbackAudioRef = useRef<HTMLAudioElement | null>(null)
 
-  useEffect(() => {
-    return subscribeFrenchVoiceAvailability(setProxyAvailable)
-  }, [])
-
+  // French never preloads a Howl: playback uses TTS / Lingua Libre first and only falls back to a plain Audio element for Youdao.
   const soundSrc = useMemo(() => {
-    if (pronunciationConfig.type === 'fr' && proxyAvailable) {
+    if (pronunciationConfig.type === 'fr') {
       return ''
     }
     return generateWordSoundSrc(word, pronunciationConfig.type)
-  }, [pronunciationConfig.type, proxyAvailable, word])
+  }, [pronunciationConfig.type, word])
 
   const [playSound, { stop: stopSound, sound }] = useSound(soundSrc, {
     html5: true,
