@@ -1,6 +1,6 @@
 import styles from './index.module.css'
 import { keySoundResources } from '@/resources/soundResource'
-import { hintSoundsConfigAtom, keySoundsConfigAtom, pronunciationConfigAtom } from '@/store'
+import { type PronunciationAccent, hintSoundsConfigAtom, keySoundsConfigAtom, pronunciationConfigAtom } from '@/store'
 import type { SoundResource } from '@/typings'
 import { toFixedNumber } from '@/utils'
 import { playKeySoundResource } from '@/utils/sounds/keySounds'
@@ -59,6 +59,15 @@ export default function SoundSetting() {
       setPronunciationConfig((prev) => ({
         ...prev,
         rate: value[0],
+      }))
+    },
+    [setPronunciationConfig],
+  )
+  const onChangePronunciationAccent = useCallback(
+    (value: PronunciationAccent) => {
+      setPronunciationConfig((prev) => ({
+        ...prev,
+        accent: value,
       }))
     },
     [setPronunciationConfig],
@@ -172,6 +181,52 @@ export default function SoundSetting() {
                 </Slider.Root>
                 <span className="ml-4 w-10 text-xs font-normal text-gray-600">{`${toFixedNumber(pronunciationConfig.rate, 2)}`}</span>
               </div>
+            </div>
+
+            <div className={styles.block}>
+              <span className={styles.blockLabel}>口音</span>
+              <Listbox
+                value={pronunciationConfig.accent || 'fr-CA'}
+                onChange={onChangePronunciationAccent}
+                disabled={!pronunciationConfig.isOpen}
+              >
+                <div className="relative">
+                  <Listbox.Button className="listbox-button w-60">
+                    <span>{pronunciationConfig.accent === 'fr-FR' ? '🇫🇷 法国口音' : '🇨🇦 魁北克口音'}</span>
+                    <span>
+                      <IconChevronDown className="focus:outline-none" />
+                    </span>
+                  </Listbox.Button>
+                  <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
+                    <Listbox.Options className="listbox-options">
+                      <Listbox.Option value="fr-CA">
+                        {({ selected }) => (
+                          <>
+                            <span>🇨🇦 魁北克口音</span>
+                            {selected ? (
+                              <span className="listbox-options-icon">
+                                <IconCheck className="focus:outline-none" />
+                              </span>
+                            ) : null}
+                          </>
+                        )}
+                      </Listbox.Option>
+                      <Listbox.Option value="fr-FR">
+                        {({ selected }) => (
+                          <>
+                            <span>🇫🇷 法国口音</span>
+                            {selected ? (
+                              <span className="listbox-options-icon">
+                                <IconCheck className="focus:outline-none" />
+                              </span>
+                            ) : null}
+                          </>
+                        )}
+                      </Listbox.Option>
+                    </Listbox.Options>
+                  </Transition>
+                </div>
+              </Listbox>
             </div>
           </div>
           {window.speechSynthesis && (

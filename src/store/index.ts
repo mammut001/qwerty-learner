@@ -50,6 +50,8 @@ export const hintSoundsConfigAtom = atomForConfig('hintSoundsConfig', {
   correctResource: correctSoundResources[0],
 })
 
+export type PronunciationAccent = 'fr-CA' | 'fr-FR'
+
 export const pronunciationConfigAtom = atomForConfig('pronunciation', {
   isOpen: true,
   volume: 1,
@@ -59,6 +61,7 @@ export const pronunciationConfigAtom = atomForConfig('pronunciation', {
   isTransRead: false,
   transVolume: 1,
   rate: 1,
+  accent: 'fr-CA' as PronunciationAccent,
 })
 
 export const fontSizeConfigAtom = atomForConfig('fontsize', defaultFontSizeConfig)

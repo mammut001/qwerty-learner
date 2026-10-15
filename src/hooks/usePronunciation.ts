@@ -2,6 +2,7 @@ import {
   type VoiceOverride,
   createPlaybackToken,
   isFrenchVoiceAvailable,
+  lookupTtsAudioUrl,
   lookupVoiceOverride,
   playFrenchVoice,
   prefetchFrenchVoice,
@@ -115,6 +116,50 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
         activeTokenRef.current = myToken
 
         void (async () => {
+          let ttsUrl: string | null = null
+          try {
+            const accent = pronunciationConfig.accent || 'fr-CA'
+            ttsUrl = await lookupTtsAudioUrl(word, accent)
+          } catch {
+            // tolerate failure by falling back
+          }
+          if (activeTokenRef.current !== myToken) return
+
+          if (ttsUrl) {
+            const fallbackAudio = new Audio(ttsUrl)
+            fallbackAudio.volume = pronunciationConfig.volume
+            fallbackAudio.playbackRate = pronunciationConfig.rate
+            fallbackAudio.loop = loop
+            fallbackAudioRef.current = fallbackAudio
+            fallbackAudio.onplay = () => {
+              if (activeTokenRef.current === myToken) {
+                setIsPlaying(true)
+              }
+            }
+            fallbackAudio.onended = () => {
+              if (activeTokenRef.current === myToken) {
+                activeTokenRef.current = null
+              }
+              fallbackAudioRef.current = null
+              setIsPlaying(false)
+            }
+            fallbackAudio.onerror = () => {
+              if (activeTokenRef.current === myToken) {
+                activeTokenRef.current = null
+              }
+              fallbackAudioRef.current = null
+              setIsPlaying(false)
+            }
+            void fallbackAudio.play().catch(() => {
+              if (activeTokenRef.current === myToken) {
+                activeTokenRef.current = null
+              }
+              fallbackAudioRef.current = null
+              setIsPlaying(false)
+            })
+            return
+          }
+
           let override: VoiceOverride | null | undefined
           try {
             override = await lookupVoiceOverride(word)
@@ -284,7 +329,16 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
 
       playSound(options)
     },
-    [loop, playSound, pronunciationConfig.rate, pronunciationConfig.type, pronunciationConfig.volume, soundSrc, word],
+    [
+      loop,
+      playSound,
+      pronunciationConfig.accent,
+      pronunciationConfig.rate,
+      pronunciationConfig.type,
+      pronunciationConfig.volume,
+      soundSrc,
+      word,
+    ],
   )
 
   const stop = useCallback(
@@ -330,7 +384,24 @@ export function usePrefetchPronunciationSound(word: string | undefined) {
     if (pronunciationConfig.type === 'fr') {
       let cancelled = false
       let created: HTMLAudioElement | null = null
-      void lookupVoiceOverride(word).then((override) => {
+      const accent = pronunciationConfig.accent || 'fr-CA'
+      void lookupTtsAudioUrl(word, accent).then(async (ttsUrl) => {
+        if (cancelled) return
+        if (ttsUrl) {
+          const head = document.head
+          const isPrefetch = (Array.from(head.querySelectorAll('audio[src]')) as HTMLAudioElement[]).some((el) => el.src === ttsUrl)
+          if (!isPrefetch) {
+            const audio = new Audio()
+            audio.src = ttsUrl
+            audio.preload = 'auto'
+            audio.style.display = 'none'
+            head.appendChild(audio)
+            created = audio
+          }
+          return
+        }
+
+        const override = await lookupVoiceOverride(word)
         if (cancelled) return
         if (override !== undefined) {
           if (!override?.audio) return
@@ -381,5 +452,5 @@ export function usePrefetchPronunciationSound(word: string | undefined) {
         head.removeChild(audio)
       }
     }
-  }, [pronunciationConfig.type, word])
+  }, [pronunciationConfig.accent, pronunciationConfig.type, word])
 }
