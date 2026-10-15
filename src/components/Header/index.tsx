@@ -1,10 +1,13 @@
 import logo from '@/assets/logo.svg'
+import AppleLogo from '@/components/AppleLogo'
 import { useShellHeaderHidden } from '@/components/ShellHeader'
 import {
   authErrorMessage,
+  consumeAppleLoginResult,
   logout,
   preloadFirebaseSdk,
   signInWithGoogle,
+  startAppleSignIn,
 } from '@/services/auth'
 import { getBillingStatus } from '@/services/billing'
 import { switchLocalProfile } from '@/services/localProfile'
@@ -59,6 +62,7 @@ const Header: React.FC = () => {
   const authStatus = useAtomValue(authStatusAtom)
   const isGuest = authStatus ? (authStatus.enabled && authStatus.required && !authStatus.signedIn) : isGuestMode()
   const [loginError, setLoginError] = useState('')
+  const appleEnabled = authStatus?.appleEnabled === true
   const [isSigningIn, setIsSigningIn] = useState(false)
   const [isSigningOut, setIsSigningOut] = useState(false)
   const warmSdk = () => void preloadFirebaseSdk().catch(() => undefined)
@@ -120,6 +124,13 @@ const Header: React.FC = () => {
   useEffect(() => {
     setMenuOpen(false)
   }, [pathname])
+
+  // Apple returns the user here with ?login=failed&reason=... when sign-in did not complete. A cancelled
+  // sign-in shows nothing. The header is always mounted, so it is the one place that reports this.
+  useEffect(() => {
+    const result = consumeAppleLoginResult()
+    if (result?.status === 'failed') setLoginError(authErrorMessage(result.reason || 'AUTH_FAILED'))
+  }, [])
 
   return (
     <header
@@ -311,7 +322,19 @@ const Header: React.FC = () => {
                 </Transition>
               </Menu>
             ) : (
-              <div className="relative ml-1">
+              <div className="relative ml-1 flex items-center gap-1.5">
+                {appleEnabled && (
+                  <button
+                    type="button"
+                    data-testid="header-apple-sign-in"
+                    aria-label="使用 Apple 账号登录"
+                    title="使用 Apple 账号登录"
+                    onClick={startAppleSignIn}
+                    className="flex items-center justify-center rounded-full bg-black p-1.5 text-white shadow-sm transition-all hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200"
+                  >
+                    <AppleLogo className="h-3.5 w-3.5" />
+                  </button>
+                )}
                 <button
                   type="button"
                   data-testid="header-sign-in"
@@ -433,6 +456,17 @@ const Header: React.FC = () => {
                   >
                     <span>{isSigningIn ? '正在登录…' : '登录'}</span>
                   </button>
+                  {appleEnabled && (
+                    <button
+                      type="button"
+                      data-testid="header-apple-sign-in-mobile"
+                      onClick={startAppleSignIn}
+                      className="flex w-full items-center justify-center gap-2 rounded-xl bg-black py-2 text-sm font-medium text-white transition-all hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200"
+                    >
+                      <AppleLogo className="h-4 w-4" />
+                      <span>使用 Apple 账号登录</span>
+                    </button>
+                  )}
                   {loginError && (
                     <div role="alert" className="text-center text-xs text-red-600 dark:text-red-400">
                       {loginError}

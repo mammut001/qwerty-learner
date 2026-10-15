@@ -18,6 +18,7 @@ export type AuthUser = {
 
 export type AuthStatus = {
   enabled: boolean
+  appleEnabled: boolean
   required: boolean
   signedIn: boolean
   user: AuthUser | null
@@ -166,7 +167,7 @@ export async function getAuthStatus(): Promise<AuthStatus> {
       signal: controller.signal,
     })
     if (response.status === 404) {
-      return { enabled: false, required: false, signedIn: false, user: null }
+      return { enabled: false, appleEnabled: false, required: false, signedIn: false, user: null }
     }
     if (!response.ok) {
       throw new Error(`Auth status: ${response.status}`)
@@ -174,12 +175,43 @@ export async function getAuthStatus(): Promise<AuthStatus> {
     const data = (await response.json()) as Partial<AuthStatus>
     return {
       enabled: data.enabled === true,
+      appleEnabled: data.appleEnabled === true,
       required: data.required === true,
       signedIn: data.signedIn === true,
       user: (data.user as AuthUser | null) ?? null,
     }
   } finally {
     window.clearTimeout(timer)
+  }
+}
+
+/** Server route that starts Sign in with Apple. It redirects to Apple and back to returnPath with ?login= on failure. */
+export function appleSignInUrl(returnPath: string): string {
+  return `${apiBase()}/api/study-plan/auth/apple/start?return=${encodeURIComponent(returnPath)}`
+}
+
+/** Full-page navigation to Apple, returning to the page the user is on. */
+export function startAppleSignIn(): void {
+  window.location.assign(appleSignInUrl(`${window.location.pathname}${window.location.search}`))
+}
+
+/**
+ * Reads ?login=<status>&reason=<code> left by the Apple callback, then removes both from the address bar.
+ * Returns null when the page was not reached through an Apple login.
+ */
+export function consumeAppleLoginResult(): { status: string; reason: string } | null {
+  try {
+    const params = new URLSearchParams(window.location.search)
+    const status = params.get('login')
+    if (!status) return null
+    const reason = params.get('reason') || ''
+    params.delete('login')
+    params.delete('reason')
+    const query = params.toString()
+    window.history.replaceState(window.history.state, '', `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`)
+    return { status, reason }
+  } catch {
+    return null
   }
 }
 
@@ -238,7 +270,7 @@ export async function logout(): Promise<void> {
 export function authErrorMessage(code: string): string {
   switch (code) {
     case 'EMAIL_NOT_ALLOWED':
-      return '这个 Google 账号没有被授权使用本站。'
+      return '这个账号没有被授权使用本站。'
     case 'AUTH_RATE_LIMITED':
       return '尝试次数太多，请稍后再试。'
     case 'POPUP_BLOCKED':
@@ -267,6 +299,21 @@ export function authErrorMessage(code: string): string {
       return '登录请求无效。'
     case 'ACCESS_REQUIRED':
       return '需要先输入站点访问口令。'
+    case 'APPLE_TOKEN_INVALID':
+    case 'APPLE_EMAIL_MISSING':
+      return 'Apple 登录凭据无效，请重新登录。'
+    case 'APPLE_TOKEN_EXPIRED':
+    case 'APPLE_STATE_EXPIRED':
+    case 'APPLE_TICKET_EXPIRED':
+      return 'Apple 登录已超时，请重新登录。'
+    case 'APPLE_EMAIL_UNVERIFIED':
+      return '该 Apple 账号的邮箱尚未验证。'
+    case 'APPLE_KEYS_UNAVAILABLE':
+      return 'Apple 登录验证服务暂时不可用，请稍后重试。'
+    case 'APPLE_STATE_INVALID':
+    case 'APPLE_STATE_MISMATCH':
+    case 'APPLE_TICKET_INVALID':
+      return 'Apple 登录请求已失效，请重新登录。'
     default:
       return '登录失败，请稍后重试。'
   }
