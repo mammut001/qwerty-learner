@@ -36,7 +36,7 @@ function setupTestServer(options = {}) {
 }
 
 test('migration v11 -> v12 creates item_reports table and migrates an existing DB forward', () => {
-  assert.equal(STUDY_SCHEMA_VERSION, 13)
+  assert.equal(STUDY_SCHEMA_VERSION, 14)
   const dir = mkdtempSync(join(tmpdir(), 'study-migration-v12-'))
   const db = new DatabaseSync(join(dir, 'study.sqlite'))
   try {
@@ -60,7 +60,7 @@ test('migration v11 -> v12 creates item_reports table and migrates an existing D
     // Forward migrate to v12
     ensureNodeFeatureSchema(db)
 
-    assert.equal(getNodeSchemaVersion(db), 13)
+    assert.equal(getNodeSchemaVersion(db), 14)
     const tables = new Set(db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all().map((r) => r.name))
     assert.ok(tables.has('item_reports'))
     assert.equal(db.prepare('SELECT COUNT(*) AS n FROM error_book').get().n, 1, 'existing error_book rows survive migration')
