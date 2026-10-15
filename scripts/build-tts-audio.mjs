@@ -9,9 +9,24 @@ const TMP_DIR = path.resolve('.tmp')
 const STATE_FILE = path.join(TMP_DIR, 'tts-state.json')
 const MANIFEST_FILE = path.resolve('public/voice/tts-manifest.json')
 const BUCKET_NAME = 'tcf-voice-tcf-canada-5b8c2'
+const EXCLUDE_FILE = path.resolve('scripts/tts-exclude.json')
 
 fs.mkdirSync(TMP_DIR, { recursive: true })
 fs.mkdirSync(path.dirname(MANIFEST_FILE), { recursive: true })
+
+export function loadExcludeList(filePath = EXCLUDE_FILE) {
+  if (fs.existsSync(filePath)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(filePath, 'utf8'))
+      if (Array.isArray(data)) {
+        return new Set(data.map((item) => (typeof item === 'string' ? item.trim() : item)).filter(Boolean))
+      }
+    } catch (err) {
+      console.warn(`Could not read ${filePath}:`, err.message)
+    }
+  }
+  return new Set()
+}
 
 function parseArgs() {
   const args = process.argv.slice(2)
@@ -283,7 +298,7 @@ async function uploadAudio(auth, objectPath, audioBuf) {
   throw new Error(`GCS upload exceeded retries for "${objectPath}"`)
 }
 
-function updateManifest(state, tasks, isPartialRun = false) {
+function updateManifest(state, tasks, isPartialRun = false, excludeSet = new Set()) {
   let manifest = {
     version: TTS_VERSION,
     base: TTS_BASE_URL,
@@ -316,10 +331,21 @@ function updateManifest(state, tasks, isPartialRun = false) {
   }
 
   for (const task of tasks) {
+    if (excludeSet.has(task.text)) continue
     const obj = state.objects[task.objectPath]
     if (obj && (obj.status === 'exists' || obj.status === 'generated')) {
       if (keySets[task.accent]) {
         keySets[task.accent].add(task.key)
+      }
+    }
+  }
+
+  for (const text of excludeSet) {
+    for (const acc of ['fr-CA', 'fr-FR']) {
+      const voice = TTS_VOICES[acc]
+      if (voice) {
+        const key = computeTtsKey(voice, text)
+        keySets[acc].delete(key)
       }
     }
   }
@@ -336,9 +362,11 @@ async function main() {
   const creds = getServiceAccountCredentials()
   const auth = new GoogleAuth(creds)
   const state = loadState()
+  const excludeSet = loadExcludeList()
 
-  const allTexts = collectDictNames()
-  console.log(`Collected ${allTexts.length} unique texts from ${DICT_DIR}`)
+  const rawTexts = collectDictNames()
+  const allTexts = rawTexts.filter((t) => !excludeSet.has(t))
+  console.log(`Collected ${rawTexts.length} unique texts from ${DICT_DIR} (${excludeSet.size} excluded, ${allTexts.length} active)`)
 
   const selectedTexts = limit ? allTexts.slice(0, limit) : allTexts
   const targetAccents = accent ? [accent] : ['fr-CA', 'fr-FR']
@@ -458,7 +486,7 @@ async function main() {
 
   saveState(state)
   const isPartialRun = Boolean(limit || accent)
-  const manifest = updateManifest(state, tasks, isPartialRun)
+  const manifest = updateManifest(state, tasks, isPartialRun, excludeSet)
 
   console.log('\n--- Final Summary ---')
   console.log(`Tasks: ${tasks.length}`)
