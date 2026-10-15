@@ -322,9 +322,7 @@ export function createStudyServer({
     return timingSafeEqual(Buffer.from(match[2], 'hex'), signAccess(match[1]))
   }
 
-  const resolveLearner = (token) => {
-    if (!token) return null
-    const credential = hash(token)
+  const resolveLearnerByCredential = (credential) => {
     let row = db.prepare('SELECT id,state FROM learners WHERE id=?').get(credential)
     if (row) return { learner: credential, row, viaSyncKey: false, viaAccount: false }
     const link = db.prepare('SELECT learner FROM sync_keys WHERE key_hash=? AND revoked=0').get(credential)
@@ -336,6 +334,114 @@ export function createStudyServer({
     return accountSession
       ? { ...accountSession, viaSyncKey: false, viaAccount: true }
       : null
+  }
+  const resolveLearner = (token) => (token ? resolveLearnerByCredential(hash(token)) : null)
+
+  // Shared account step for every identity provider (Google, Apple). Finds the account for (provider, subject) or
+  // creates one; adopts or links the browser's current learner; then mints a new account session. priorCredential
+  // is the hash of the session token the browser held before signing in (null when there was none).
+  const signInWithIdentity = ({ provider, subject, email, name, picture, priorCredential }) => {
+    const now = Date.now()
+    const loginExisting = (accountId) => {
+      db.prepare(`
+        UPDATE account_identities
+        SET email=?, display_name=?, picture=?, last_login_at=?
+        WHERE provider=? AND subject=?
+      `).run(email, name, picture, now, provider, subject)
+      const sessionToken = createAccountSession(db, accountId, now)
+      if (priorCredential) {
+        db.prepare('DELETE FROM account_sessions WHERE token_hash=?').run(priorCredential)
+      }
+      const accountRow = db.prepare('SELECT learner FROM accounts WHERE id=?').get(accountId)
+      return { limited: false, sessionToken, accountId, learner: accountRow?.learner ?? null, created: false, adopted: false, linked: false }
+    }
+
+    db.exec('BEGIN IMMEDIATE')
+    try {
+      const existingIdentity = db.prepare('SELECT account_id FROM account_identities WHERE provider=? AND subject=?').get(provider, subject)
+      if (existingIdentity) {
+        const result = loginExisting(existingIdentity.account_id)
+        db.exec('COMMIT')
+        return result
+      }
+
+      const signupLimit = consumeNodeRateLimit(db, 'global', 'auth-signup-daily', {
+        limit: maxSignupsDaily,
+        windowMs: 24 * 60 * 60_000,
+        blockMs: 60 * 60_000,
+      })
+      if (!signupLimit.allowed) {
+        db.exec('ROLLBACK')
+        return { limited: true }
+      }
+
+      const currentSession = priorCredential ? resolveLearnerByCredential(priorCredential) : null
+      let accountId = null
+      let targetLearner = null
+      let created = true
+      let adopted = false
+      let linked = false
+
+      const accountForLearner = currentSession?.learner
+        ? db.prepare('SELECT id FROM accounts WHERE learner=?').get(currentSession.learner)
+        : null
+
+      if (currentSession?.viaAccount && currentSession.accountId) {
+        const hasProvider = db.prepare('SELECT subject FROM account_identities WHERE account_id=? AND provider=?').get(currentSession.accountId, provider)
+        if (!hasProvider) {
+          accountId = currentSession.accountId
+          targetLearner = currentSession.learner
+          created = false
+          adopted = false
+          linked = true
+        }
+      } else if (currentSession && !currentSession.viaAccount && accountForLearner) {
+        const hasProvider = db.prepare('SELECT subject FROM account_identities WHERE account_id=? AND provider=?').get(accountForLearner.id, provider)
+        if (!hasProvider) {
+          accountId = accountForLearner.id
+          targetLearner = currentSession.learner
+          created = false
+          adopted = false
+          linked = true
+          db.prepare('UPDATE sync_keys SET revoked=1 WHERE learner=? AND revoked=0').run(targetLearner)
+        }
+      }
+
+      if (!accountId) {
+        if (currentSession && !currentSession.viaAccount && !accountForLearner && currentSession.row?.state != null) {
+          adopted = true
+          targetLearner = currentSession.learner
+          db.prepare('UPDATE sync_keys SET revoked=1 WHERE learner=? AND revoked=0').run(targetLearner)
+        } else {
+          targetLearner = hash(randomBytes(32).toString('hex'))
+          db.prepare('INSERT INTO learners(id, state) VALUES(?, NULL)').run(targetLearner)
+        }
+        accountId = randomBytes(16).toString('hex')
+        const userHandle = randomPasskeyValue(32)
+        db.prepare('INSERT INTO accounts(id, learner, user_handle, created_at) VALUES(?,?,?,?)')
+          .run(accountId, targetLearner, userHandle, now)
+      }
+
+      db.prepare(`
+        INSERT INTO account_identities(provider, subject, account_id, email, display_name, picture, created_at, last_login_at)
+        VALUES(?,?,?,?,?,?,?,?)
+      `).run(provider, subject, accountId, email, name, picture, now, now)
+
+      const sessionToken = createAccountSession(db, accountId, now)
+      if (priorCredential) {
+        db.prepare('DELETE FROM account_sessions WHERE token_hash=?').run(priorCredential)
+      }
+      db.exec('COMMIT')
+      return { limited: false, sessionToken, accountId, learner: targetLearner, created, adopted, linked }
+    } catch (error) {
+      db.exec('ROLLBACK')
+      // A concurrent sign-in for the same identity won the insert race: treat this request as a plain login.
+      if (String(error?.message).includes('UNIQUE constraint failed')) {
+        const existing = db.prepare('SELECT account_id FROM account_identities WHERE provider=? AND subject=?').get(provider, subject)
+        if (existing) return loginExisting(existing.account_id)
+      }
+      throw error
+    }
   }
 
   const ensureAccount = (req) => {
@@ -1046,144 +1152,28 @@ export function createStudyServer({
         return sendError(403, 'EMAIL_NOT_ALLOWED', 'Email not allowed')
       }
 
-      const now = Date.now()
       const oldToken = /(?:^|;\s*)study_session=([a-f0-9]{64})(?:;|$)/.exec(req.headers.cookie || '')?.[1]
-
-      db.exec('BEGIN IMMEDIATE')
-      try {
-        let existingIdentity = db.prepare('SELECT account_id FROM account_identities WHERE provider=? AND subject=?').get('google', user.uid)
-        if (existingIdentity) {
-          db.prepare(`
-            UPDATE account_identities
-            SET email=?, display_name=?, picture=?, last_login_at=?
-            WHERE provider=? AND subject=?
-          `).run(user.email, user.name, user.picture, now, 'google', user.uid)
-          const sessionToken = createAccountSession(db, existingIdentity.account_id, now)
-          if (oldToken) {
-            db.prepare('DELETE FROM account_sessions WHERE token_hash=?').run(hash(oldToken))
-          }
-          db.exec('COMMIT')
-          const accountRow = db.prepare('SELECT learner FROM accounts WHERE id=?').get(existingIdentity.account_id)
-          audit(accountRow?.learner, 'google_login', 'success', { created: false, adopted: false })
-          const userId = accountProfileId(existingIdentity.account_id)
-          res.setHeader('Set-Cookie', sessionCookie(sessionToken, { secure, sameSite }))
-          return send(200, {
-            signedIn: true,
-            created: false,
-            adopted: false,
-            linked: false,
-            user: { id: userId, email: user.email, name: user.name, picture: user.picture },
-          })
-        }
-
-        const signupLimit = consumeNodeRateLimit(db, 'global', 'auth-signup-daily', {
-          limit: maxSignupsDaily,
-          windowMs: 24 * 60 * 60_000,
-          blockMs: 60 * 60_000,
-        })
-        if (!signupLimit.allowed) {
-          db.exec('ROLLBACK')
-          audit(null, 'google_login', 'denied', { code: 'SIGNUP_LIMIT_REACHED' })
-          return sendError(429, 'SIGNUP_LIMIT_REACHED', 'Daily signup limit reached')
-        }
-
-        const currentSession = oldToken ? resolveLearner(oldToken) : null
-        let accountId = null
-        let targetLearner = null
-        let created = true
-        let adopted = false
-        let linked = false
-
-        const accountForLearner = currentSession?.learner
-          ? db.prepare('SELECT id FROM accounts WHERE learner=?').get(currentSession.learner)
-          : null
-
-        if (currentSession?.viaAccount && currentSession.accountId) {
-          const hasGoogle = db.prepare('SELECT subject FROM account_identities WHERE account_id=? AND provider=?').get(currentSession.accountId, 'google')
-          if (!hasGoogle) {
-            accountId = currentSession.accountId
-            targetLearner = currentSession.learner
-            created = false
-            adopted = false
-            linked = true
-          }
-        } else if (currentSession && !currentSession.viaAccount && accountForLearner) {
-          const hasGoogle = db.prepare('SELECT subject FROM account_identities WHERE account_id=? AND provider=?').get(accountForLearner.id, 'google')
-          if (!hasGoogle) {
-            accountId = accountForLearner.id
-            targetLearner = currentSession.learner
-            created = false
-            adopted = false
-            linked = true
-            db.prepare('UPDATE sync_keys SET revoked=1 WHERE learner=? AND revoked=0').run(targetLearner)
-          }
-        }
-
-        if (!accountId) {
-          if (currentSession && !currentSession.viaAccount && !accountForLearner && currentSession.row?.state != null) {
-            adopted = true
-            targetLearner = currentSession.learner
-            db.prepare('UPDATE sync_keys SET revoked=1 WHERE learner=? AND revoked=0').run(targetLearner)
-          } else {
-            targetLearner = hash(randomBytes(32).toString('hex'))
-            db.prepare('INSERT INTO learners(id, state) VALUES(?, NULL)').run(targetLearner)
-          }
-          accountId = randomBytes(16).toString('hex')
-          const userHandle = randomPasskeyValue(32)
-          db.prepare('INSERT INTO accounts(id, learner, user_handle, created_at) VALUES(?,?,?,?)')
-            .run(accountId, targetLearner, userHandle, now)
-        }
-
-        db.prepare(`
-          INSERT INTO account_identities(provider, subject, account_id, email, display_name, picture, created_at, last_login_at)
-          VALUES(?,?,?,?,?,?,?,?)
-        `).run('google', user.uid, accountId, user.email, user.name, user.picture, now, now)
-
-        const sessionToken = createAccountSession(db, accountId, now)
-        if (oldToken) {
-          db.prepare('DELETE FROM account_sessions WHERE token_hash=?').run(hash(oldToken))
-        }
-        db.exec('COMMIT')
-
-        const userId = accountProfileId(accountId)
-        audit(targetLearner, 'google_login', 'success', { created, adopted })
-        res.setHeader('Set-Cookie', sessionCookie(sessionToken, { secure, sameSite }))
-        return send(200, {
-          signedIn: true,
-          created,
-          adopted,
-          linked,
-          user: { id: userId, email: user.email, name: user.name, picture: user.picture },
-        })
-      } catch (error) {
-        db.exec('ROLLBACK')
-        if (String(error?.message).includes('UNIQUE constraint failed')) {
-          const existing = db.prepare('SELECT account_id FROM account_identities WHERE provider=? AND subject=?').get('google', user.uid)
-          if (existing) {
-            db.prepare(`
-              UPDATE account_identities
-              SET email=?, display_name=?, picture=?, last_login_at=?
-              WHERE provider=? AND subject=?
-            `).run(user.email, user.name, user.picture, now, 'google', user.uid)
-            const sessionToken = createAccountSession(db, existing.account_id, now)
-            if (oldToken) {
-              db.prepare('DELETE FROM account_sessions WHERE token_hash=?').run(hash(oldToken))
-            }
-            const accountRow = db.prepare('SELECT learner FROM accounts WHERE id=?').get(existing.account_id)
-            const userId = accountProfileId(existing.account_id)
-            audit(accountRow?.learner, 'google_login', 'success', { created: false, adopted: false })
-            res.setHeader('Set-Cookie', sessionCookie(sessionToken, { secure, sameSite }))
-            return send(200, {
-              signedIn: true,
-              created: false,
-              adopted: false,
-              linked: false,
-              user: { id: userId, email: user.email, name: user.name, picture: user.picture },
-            })
-          }
-        }
-        throw error
+      const outcome = signInWithIdentity({
+        provider: 'google',
+        subject: user.uid,
+        email: user.email,
+        name: user.name,
+        picture: user.picture,
+        priorCredential: oldToken ? hash(oldToken) : null,
+      })
+      if (outcome.limited) {
+        audit(null, 'google_login', 'denied', { code: 'SIGNUP_LIMIT_REACHED' })
+        return sendError(429, 'SIGNUP_LIMIT_REACHED', 'Daily signup limit reached')
       }
+      audit(outcome.learner, 'google_login', 'success', { created: outcome.created, adopted: outcome.adopted })
+      res.setHeader('Set-Cookie', sessionCookie(outcome.sessionToken, { secure, sameSite }))
+      return send(200, {
+        signedIn: true,
+        created: outcome.created,
+        adopted: outcome.adopted,
+        linked: outcome.linked,
+        user: { id: accountProfileId(outcome.accountId), email: user.email, name: user.name, picture: user.picture },
+      })
     }
 
     if (passkeyLoginOptions || passkeyLoginVerify) {
