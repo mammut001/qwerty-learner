@@ -28,6 +28,7 @@ function parseArgs() {
   let concurrency = 4
   let onlyKeys = null
   let texts = null
+  let model = 'nova-3'
 
   for (let i = 0; i < args.length; i++) {
     const arg = args[i]
@@ -39,6 +40,10 @@ function parseArgs() {
       accent = arg.slice('--accent='.length).trim()
     } else if (arg === '--accent' && i + 1 < args.length) {
       accent = args[++i].trim()
+    } else if (arg.startsWith('--model=')) {
+      model = arg.slice('--model='.length).trim()
+    } else if (arg === '--model' && i + 1 < args.length) {
+      model = args[++i].trim()
     } else if (arg.startsWith('--concurrency=')) {
       concurrency = parseInt(arg.slice('--concurrency='.length), 10)
     } else if (arg === '--concurrency' && i + 1 < args.length) {
@@ -76,7 +81,7 @@ function parseArgs() {
     }
   }
 
-  return { limit, accent, concurrency, onlyKeys, texts }
+  return { limit, accent, concurrency, onlyKeys, texts, model }
 }
 
 function getDeepgramApiKey() {
@@ -156,10 +161,10 @@ function collectDictNames() {
   return Array.from(candidateSet)
 }
 
-async function transcribeWithDeepgram(apiKey, audioUrl) {
+async function transcribeWithDeepgram(apiKey, audioUrl, model = 'nova-3') {
   for (let attempt = 1; attempt <= 4; attempt++) {
     try {
-      const res = await fetch('https://api.deepgram.com/v1/listen?language=fr&model=nova-2', {
+      const res = await fetch(`https://api.deepgram.com/v1/listen?language=fr&model=${encodeURIComponent(model)}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -182,7 +187,7 @@ async function transcribeWithDeepgram(apiKey, audioUrl) {
         if (!audioRes.ok) throw new Error(`Audio fetch failed (${audioRes.status})`)
         const audioBuf = Buffer.from(await audioRes.arrayBuffer())
 
-        const bufferRes = await fetch('https://api.deepgram.com/v1/listen?language=fr&model=nova-2', {
+        const bufferRes = await fetch(`https://api.deepgram.com/v1/listen?language=fr&model=${encodeURIComponent(model)}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'audio/mpeg',
@@ -248,7 +253,7 @@ function generateReport(qcData) {
 }
 
 async function main() {
-  const { limit, accent, concurrency, onlyKeys, texts } = parseArgs()
+  const { limit, accent, concurrency, onlyKeys, texts, model } = parseArgs()
   const apiKey = getDeepgramApiKey()
   const qcData = loadJson(QC_FILE, { transcripts: {} })
   if (!qcData.transcripts) qcData.transcripts = {}
@@ -323,7 +328,7 @@ async function main() {
         continue
       }
 
-      const transcript = await transcribeWithDeepgram(apiKey, url)
+      const transcript = await transcribeWithDeepgram(apiKey, url, model)
       if (transcript === null) {
         failedCount++
         checkedCount++
@@ -331,9 +336,13 @@ async function main() {
         continue
       }
 
-      const normSource = normalise(spokenTextFor(text, acc))
+      const spoken = spokenTextFor(text, acc)
+      const normSource = normalise(spoken)
       const normTrans = normalise(transcript)
-      const matched = normSource === normTrans
+      const elisionPrefixes = /\b(l|d|j|m|t|s|c|n|qu|jusqu|lorsqu|puisqu)\s+/g
+      const canonSource = normSource.replace(elisionPrefixes, '$1')
+      const canonTrans = normTrans.replace(elisionPrefixes, '$1')
+      const matched = normSource === normTrans || canonSource === canonTrans || normSource === canonTrans || canonSource === normTrans
 
       qcData.transcripts[objectPath] = {
         accent: acc,

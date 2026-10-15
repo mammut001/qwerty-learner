@@ -145,7 +145,30 @@ function loadState() {
       // Ignore corrupt state
     }
   }
-  return { objects: {}, charactersUsed: 0 }
+
+  const initialObjects = {}
+  if (fs.existsSync(MANIFEST_FILE)) {
+    try {
+      const manifest = JSON.parse(fs.readFileSync(MANIFEST_FILE, 'utf8'))
+      for (const [acc, keys] of Object.entries(manifest.keys || {})) {
+        if (Array.isArray(keys)) {
+          for (const key of keys) {
+            const objectPath = computeTtsObjectPath(acc, key)
+            initialObjects[objectPath] = {
+              status: 'exists',
+              key,
+              accent: acc,
+              updatedAt: new Date().toISOString(),
+            }
+          }
+        }
+      }
+    } catch {
+      // Ignore
+    }
+  }
+
+  return { objects: initialObjects, charactersUsed: 0 }
 }
 
 function saveState(state) {
