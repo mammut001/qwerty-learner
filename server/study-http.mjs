@@ -11,6 +11,9 @@ export function studyPolicy({ origin, secure, sameSite = 'strict' }, { method, h
   // Stripe webhook callbacks are server-to-server: no Origin, no cookie. Only the POST to the webhook path
   // is exempt (the route verifies the Stripe signature instead). Every other route keeps the full policy.
   const stripeWebhook = typeof healthOrOptions === 'object' && healthOrOptions?.webhook === true && method === 'POST'
+  // Apple's form_post callback is also cross-site (Origin appleid.apple.com, no SameSite cookies). Only the POST to
+  // the callback path is exempt; the route checks the id_token, the server-side state and the cookie binding.
+  const appleCallback = typeof healthOrOptions === 'object' && healthOrOptions?.appleCallback === true && method === 'POST'
   const responseHeaders = { Vary: 'Origin', 'Cache-Control': 'no-store' }
   const originList = String(origin || '').split(',').map((s) => s.trim()).filter(Boolean)
   if (originList.length === 0) return { status: 503, headers: responseHeaders }
@@ -23,7 +26,7 @@ export function studyPolicy({ origin, secure, sameSite = 'strict' }, { method, h
       return { status: 503, headers: responseHeaders }
   }
 
-  if (stripeWebhook) return { headers: responseHeaders }
+  if (stripeWebhook || appleCallback) return { headers: responseHeaders }
 
   const requestOrigin = headers.get('origin')
   const isMatch = requestOrigin && originList.includes(requestOrigin)

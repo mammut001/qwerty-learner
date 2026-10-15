@@ -23,6 +23,7 @@ test('query string -> /typing?...', () => {
   // Query string takes precedence even if user is signed in
   const signedInStatus: AuthStatus = {
     enabled: true,
+    appleEnabled: false,
     required: true,
     signedIn: true,
     user: mockUser,
@@ -36,6 +37,7 @@ test('query string -> /typing?...', () => {
 test('signed-in -> /study-plan', () => {
   const signedInStatus: AuthStatus = {
     enabled: true,
+    appleEnabled: false,
     required: true,
     signedIn: true,
     user: mockUser,
@@ -47,6 +49,7 @@ test('signed-in -> /study-plan', () => {
 test('sign-in not required -> /study-plan', () => {
   const disabledStatus: AuthStatus = {
     enabled: false,
+    appleEnabled: false,
     required: false,
     signedIn: false,
     user: null,
@@ -55,6 +58,7 @@ test('sign-in not required -> /study-plan', () => {
 
   const optionalStatus: AuthStatus = {
     enabled: true,
+    appleEnabled: false,
     required: false,
     signedIn: false,
     user: null,
@@ -65,6 +69,7 @@ test('sign-in not required -> /study-plan', () => {
 test('guest by backend status -> /typing', () => {
   const guestStatus: AuthStatus = {
     enabled: true,
+    appleEnabled: false,
     required: true,
     signedIn: false,
     user: null,

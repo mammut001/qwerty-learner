@@ -8,7 +8,7 @@ const parseJson = (value, fallback = null) => {
   try { return JSON.parse(value) } catch { return fallback }
 }
 
-export const STUDY_SCHEMA_VERSION = 13
+export const STUDY_SCHEMA_VERSION = 14
 
 export function ensureNodeFeatureSchema(db) {
   db.exec(`
@@ -165,6 +165,17 @@ export function ensureNodeFeatureSchema(db) {
     CREATE INDEX IF NOT EXISTS exam_recalls_learner ON exam_recalls(learner);
     CREATE INDEX IF NOT EXISTS exam_recalls_account ON exam_recalls(account_id);
     CREATE INDEX IF NOT EXISTS exam_recalls_dedupe ON exam_recalls(learner, dedupe_key);
+    CREATE TABLE IF NOT EXISTS apple_login_pending (
+      state_hash TEXT NOT NULL PRIMARY KEY, nonce_hash TEXT NOT NULL, return_path TEXT NOT NULL,
+      prior_credential TEXT, created_at INTEGER NOT NULL, expires_at INTEGER NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS apple_login_pending_expiry ON apple_login_pending(expires_at);
+    CREATE TABLE IF NOT EXISTS apple_login_tickets (
+      ticket_hash TEXT NOT NULL PRIMARY KEY, state_hash TEXT NOT NULL, subject TEXT NOT NULL, email TEXT NOT NULL,
+      display_name TEXT NOT NULL DEFAULT '', return_path TEXT NOT NULL, prior_credential TEXT,
+      created_at INTEGER NOT NULL, expires_at INTEGER NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS apple_login_tickets_expiry ON apple_login_tickets(expires_at);
   `)
   const existingVersion = Number(
     db.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").get()?.value ?? 0,

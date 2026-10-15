@@ -58,6 +58,7 @@ import {
 } from './study-node-passkey.mjs'
 import { randomPasskeyValue } from './study-passkey.mjs'
 import { createFirebaseVerifier } from './study-firebase.mjs'
+import { createAppleVerifier } from './study-apple.mjs'
 import { apply, record, validate, importOperations, exportPlan, normalizeState, studyAnalytics, buildReviewQueue } from './study-model.mjs'
 import {
   ensureNodeFeatureSchema,
@@ -194,6 +195,92 @@ async function readBody(req) {
   return input
 }
 
+const APPLE_PENDING_MS = 10 * 60_000
+const APPLE_TICKET_MS = 2 * 60_000
+const APPLE_STATE_COOKIE_MAX_AGE = 600
+const APPLE_AUTHORIZE_URL = 'https://appleid.apple.com/auth/authorize'
+const APPLE_FORM_MAX_BYTES = 64 * 1024
+
+// Only same-site paths may be used after login: '/x' yes; '//host', '/\\host', absolute URLs, fragments and
+// control characters are rejected. Anything else falls back to '/'.
+function sanitizeReturnPath(value) {
+  if (typeof value !== 'string' || value.length === 0 || value.length > 512) return '/'
+  if (!value.startsWith('/') || value.startsWith('//')) return '/'
+  const path = value.split('#')[0]
+  if (/[\\\s\u0000-\u001f\u007f]/.test(path)) return '/'
+  return path || '/'
+}
+
+const withLoginResult = (path, status, reason = '') =>
+  `${path}${path.includes('?') ? '&' : '?'}login=${status}${reason ? `&reason=${reason}` : ''}`
+
+// Constant-time comparison of two hex digests (both SHA-256, so the same length).
+const sameDigest = (a, b) => {
+  if (typeof a !== 'string' || typeof b !== 'string' || a.length !== 64 || b.length !== 64) return false
+  return timingSafeEqual(Buffer.from(a, 'hex'), Buffer.from(b, 'hex'))
+}
+
+const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (ch) => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+})[ch])
+
+// Apple's own page-to-page hop. Same-origin navigation after the POST is what lets the SameSite=Strict
+// study_session cookie be sent on the next request. No external resources, so the CSP can be strict.
+function sendAppleHop(res, target) {
+  const href = escapeHtml(target)
+  res.writeHead(200, {
+    'Content-Type': 'text/html; charset=utf-8',
+    'Cache-Control': 'no-store',
+    'Referrer-Policy': 'no-referrer',
+    'X-Content-Type-Options': 'nosniff',
+    'Content-Security-Policy': "default-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+  })
+  res.end(`<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="refresh" content="0;url=${href}">
+<title>登录中</title>
+</head>
+<body>
+<p>正在返回网站… <a href="${href}">如果没有自动跳转，请点击这里</a></p>
+</body>
+</html>
+`)
+}
+
+// Reads an application/x-www-form-urlencoded body (Apple's form_post). Throws RangeError when too large.
+async function readFormBody(req, limit = APPLE_FORM_MAX_BYTES) {
+  const type = String(req.headers['content-type'] || '').split(';')[0].trim().toLowerCase()
+  if (type !== 'application/x-www-form-urlencoded') throw new SyntaxError('Unsupported content type')
+  const chunks = []
+  let total = 0
+  for await (const chunk of req) {
+    const buf = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)
+    total += buf.length
+    if (total > limit) throw new RangeError('Request too large')
+    chunks.push(buf)
+  }
+  return new URLSearchParams(Buffer.concat(chunks, total).toString('utf8'))
+}
+
+// Only the fixed error codes are ever shown or stored; the name comes from Apple's first-login user JSON.
+function appleDisplayName(raw) {
+  if (typeof raw !== 'string' || raw.length === 0 || raw.length > 4096) return ''
+  try {
+    const name = JSON.parse(raw)?.name
+    return ['firstName', 'lastName']
+      .map((key) => (typeof name?.[key] === 'string' ? name[key].trim() : ''))
+      .filter(Boolean)
+      .join(' ')
+      .slice(0, 120)
+  } catch {
+    return ''
+  }
+}
+
 function readAudioBuffer(req, limit = MAX_AUDIO_BYTES) {
   return new Promise((resolve, reject) => {
     const chunks = []
@@ -280,6 +367,9 @@ export function createStudyServer({
   youdaoLookup = null,
   firebaseProjectId = process.env.STUDY_FIREBASE_PROJECT_ID || '',
   firebaseVerifier = null,
+  appleClientId = process.env.STUDY_APPLE_CLIENT_ID || '',
+  appleRedirectUri = process.env.STUDY_APPLE_REDIRECT_URI || '',
+  appleVerifier = null,
   authRequired = process.env.STUDY_AUTH_REQUIRED === 'true',
   allowedEmails = process.env.STUDY_ALLOWED_EMAILS || '',
   maxNewAccountsPerDay = Number(process.env.STUDY_MAX_NEW_ACCOUNTS_PER_DAY || 200),
@@ -302,6 +392,17 @@ export function createStudyServer({
   const verifier = firebaseVerifier || (firebaseProjectId ? createFirebaseVerifier({ projectId: firebaseProjectId }) : null)
   const authEnabled = Boolean(verifier)
   const loginRequired = Boolean(authRequired && authEnabled)
+  // Sign in with Apple needs a client id and a return URL. The default return URL is the first STUDY_ORIGIN host.
+  const defaultAppleRedirect = (() => {
+    try {
+      return `https://${new URL(String(origin).split(',')[0].trim()).host}/api/study-plan/auth/apple/callback`
+    } catch {
+      return ''
+    }
+  })()
+  const appleRedirect = appleRedirectUri || defaultAppleRedirect
+  const appleVerifierResolved = appleVerifier || (appleClientId ? createAppleVerifier({ clientId: appleClientId }) : null)
+  const appleEnabled = Boolean(appleClientId && appleRedirect && appleVerifierResolved)
   const allowedEmailList = Array.isArray(allowedEmails)
     ? allowedEmails
     : String(allowedEmails || '').split(',').map((s) => s.trim().toLowerCase()).filter(Boolean)
@@ -322,9 +423,7 @@ export function createStudyServer({
     return timingSafeEqual(Buffer.from(match[2], 'hex'), signAccess(match[1]))
   }
 
-  const resolveLearner = (token) => {
-    if (!token) return null
-    const credential = hash(token)
+  const resolveLearnerByCredential = (credential) => {
     let row = db.prepare('SELECT id,state FROM learners WHERE id=?').get(credential)
     if (row) return { learner: credential, row, viaSyncKey: false, viaAccount: false }
     const link = db.prepare('SELECT learner FROM sync_keys WHERE key_hash=? AND revoked=0').get(credential)
@@ -336,6 +435,118 @@ export function createStudyServer({
     return accountSession
       ? { ...accountSession, viaSyncKey: false, viaAccount: true }
       : null
+  }
+  const resolveLearner = (token) => (token ? resolveLearnerByCredential(hash(token)) : null)
+
+  // Shared account step for every identity provider (Google, Apple). Finds the account for (provider, subject) or
+  // creates one; adopts or links the browser's current learner; then mints a new account session. priorCredential
+  // is the hash of the session token the browser held before signing in (null when there was none).
+  const signInWithIdentity = ({ provider, subject, email, name, picture, priorCredential }) => {
+    const now = Date.now()
+    const loginExisting = (accountId) => {
+      // Apple sends the name only on the first authorization, so a later login must not blank a stored name.
+      const storedName = provider === 'apple'
+        ? (db.prepare('SELECT display_name FROM account_identities WHERE provider=? AND subject=?').get(provider, subject)?.display_name ?? '')
+        : ''
+      db.prepare(`
+        UPDATE account_identities
+        SET email=?, display_name=?, picture=?, last_login_at=?
+        WHERE provider=? AND subject=?
+      `).run(email, name || storedName, picture, now, provider, subject)
+      const sessionToken = createAccountSession(db, accountId, now)
+      if (priorCredential) {
+        db.prepare('DELETE FROM account_sessions WHERE token_hash=?').run(priorCredential)
+      }
+      const accountRow = db.prepare('SELECT learner FROM accounts WHERE id=?').get(accountId)
+      return { limited: false, sessionToken, accountId, learner: accountRow?.learner ?? null, created: false, adopted: false, linked: false }
+    }
+
+    db.exec('BEGIN IMMEDIATE')
+    try {
+      const existingIdentity = db.prepare('SELECT account_id FROM account_identities WHERE provider=? AND subject=?').get(provider, subject)
+      if (existingIdentity) {
+        const result = loginExisting(existingIdentity.account_id)
+        db.exec('COMMIT')
+        return result
+      }
+
+      const signupLimit = consumeNodeRateLimit(db, 'global', 'auth-signup-daily', {
+        limit: maxSignupsDaily,
+        windowMs: 24 * 60 * 60_000,
+        blockMs: 60 * 60_000,
+      })
+      if (!signupLimit.allowed) {
+        db.exec('ROLLBACK')
+        return { limited: true }
+      }
+
+      const currentSession = priorCredential ? resolveLearnerByCredential(priorCredential) : null
+      let accountId = null
+      let targetLearner = null
+      let created = true
+      let adopted = false
+      let linked = false
+
+      const accountForLearner = currentSession?.learner
+        ? db.prepare('SELECT id FROM accounts WHERE learner=?').get(currentSession.learner)
+        : null
+
+      if (currentSession?.viaAccount && currentSession.accountId) {
+        const hasProvider = db.prepare('SELECT subject FROM account_identities WHERE account_id=? AND provider=?').get(currentSession.accountId, provider)
+        if (!hasProvider) {
+          accountId = currentSession.accountId
+          targetLearner = currentSession.learner
+          created = false
+          adopted = false
+          linked = true
+        }
+      } else if (currentSession && !currentSession.viaAccount && accountForLearner) {
+        const hasProvider = db.prepare('SELECT subject FROM account_identities WHERE account_id=? AND provider=?').get(accountForLearner.id, provider)
+        if (!hasProvider) {
+          accountId = accountForLearner.id
+          targetLearner = currentSession.learner
+          created = false
+          adopted = false
+          linked = true
+          db.prepare('UPDATE sync_keys SET revoked=1 WHERE learner=? AND revoked=0').run(targetLearner)
+        }
+      }
+
+      if (!accountId) {
+        if (currentSession && !currentSession.viaAccount && !accountForLearner && currentSession.row?.state != null) {
+          adopted = true
+          targetLearner = currentSession.learner
+          db.prepare('UPDATE sync_keys SET revoked=1 WHERE learner=? AND revoked=0').run(targetLearner)
+        } else {
+          targetLearner = hash(randomBytes(32).toString('hex'))
+          db.prepare('INSERT INTO learners(id, state) VALUES(?, NULL)').run(targetLearner)
+        }
+        accountId = randomBytes(16).toString('hex')
+        const userHandle = randomPasskeyValue(32)
+        db.prepare('INSERT INTO accounts(id, learner, user_handle, created_at) VALUES(?,?,?,?)')
+          .run(accountId, targetLearner, userHandle, now)
+      }
+
+      db.prepare(`
+        INSERT INTO account_identities(provider, subject, account_id, email, display_name, picture, created_at, last_login_at)
+        VALUES(?,?,?,?,?,?,?,?)
+      `).run(provider, subject, accountId, email, name, picture, now, now)
+
+      const sessionToken = createAccountSession(db, accountId, now)
+      if (priorCredential) {
+        db.prepare('DELETE FROM account_sessions WHERE token_hash=?').run(priorCredential)
+      }
+      db.exec('COMMIT')
+      return { limited: false, sessionToken, accountId, learner: targetLearner, created, adopted, linked }
+    } catch (error) {
+      db.exec('ROLLBACK')
+      // A concurrent sign-in for the same identity won the insert race: treat this request as a plain login.
+      if (String(error?.message).includes('UNIQUE constraint failed')) {
+        const existing = db.prepare('SELECT account_id FROM account_identities WHERE provider=? AND subject=?').get(provider, subject)
+        if (existing) return loginExisting(existing.account_id)
+      }
+      throw error
+    }
   }
 
   const ensureAccount = (req) => {
@@ -495,6 +706,9 @@ export function createStudyServer({
     const authRoute = path === '/api/study-plan/auth'
     const authFirebase = path === '/api/study-plan/auth/firebase'
     const authLogout = path === '/api/study-plan/auth/logout'
+    const appleStart = path === '/api/study-plan/auth/apple/start'
+    const appleCallbackRoute = path === '/api/study-plan/auth/apple/callback'
+    const appleFinish = path === '/api/study-plan/auth/apple/finish'
     const billingStatus = path === '/api/study-plan/billing'
     const billingCheckout = path === '/api/study-plan/billing/checkout'
     const billingPortal = path === '/api/study-plan/billing/portal'
@@ -503,7 +717,7 @@ export function createStudyServer({
     if (!health && !importing && !exporting && !analytics && !syncKey && !revokeSyncKey && !linking && !unlinking &&
         !billingStatus && !billingCheckout && !billingPortal && !billingWebhook &&
         !echelleAi && !echelleEvaluate && !speechTranscribe && !dictionary && !dictionaryVoice &&
-        !authRoute && !authFirebase && !authLogout &&
+        !authRoute && !authFirebase && !authLogout && !appleStart && !appleCallbackRoute && !appleFinish &&
         !syncInfo && !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData &&
         !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
         !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts && !access &&
@@ -520,7 +734,7 @@ export function createStudyServer({
     const policy = studyPolicy(
       { origin, secure, sameSite },
       { method: req.method, headers: new Headers(req.headers) },
-      health ? true : { allowBinary: speechTranscribe, webhook: billingWebhook },
+      health ? true : { allowBinary: speechTranscribe, webhook: billingWebhook, appleCallback: appleCallbackRoute && appleEnabled },
     )
     for (const [key, value] of Object.entries(policy.headers)) res.setHeader(key, value)
     if (policy.status) return policy.status === 204
@@ -561,6 +775,8 @@ export function createStudyServer({
         db.prepare('SELECT event_id,event_type FROM billing_events LIMIT 1').get()
         db.prepare('SELECT id,item_id FROM item_reports LIMIT 1').get()
         db.prepare('SELECT id,topic FROM exam_recalls LIMIT 1').get()
+        db.prepare('SELECT state_hash,nonce_hash FROM apple_login_pending LIMIT 1').get()
+        db.prepare('SELECT ticket_hash,subject FROM apple_login_tickets LIMIT 1').get()
         const schemaVersion = getNodeSchemaVersion(db)
         if (schemaVersion !== STUDY_SCHEMA_VERSION) throw new Error('Schema version mismatch')
         return send(200, { ok: true, storage: 'sqlite', schemaVersion })
@@ -835,6 +1051,91 @@ export function createStudyServer({
       return send(200, { received: true })
     }
 
+    if (appleCallbackRoute) {
+      // Apple posts here cross-site. Like the Stripe webhook it runs before the site access gate, because the
+      // access cookie is SameSite=Strict and is not sent on this request. The id_token and the one-time server
+      // state are the authentication. Nothing here sets a session: it only issues a ticket for /finish.
+      if (req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      if (!appleEnabled) return sendError(404, 'AUTH_DISABLED', 'Authentication is disabled')
+      const limit = consumeNodeRateLimit(db, 'actor:' + actorHash, 'apple-callback', {
+        limit: 10,
+        windowMs: 5 * 60_000,
+        blockMs: 10 * 60_000,
+      })
+      if (!limit.allowed) {
+        return sendError(429, 'AUTH_RATE_LIMITED', 'Too many login attempts. Try again later.', {
+          retryAfterSeconds: Math.ceil(limit.retryAfterMs / 1000),
+        })
+      }
+      let form
+      try {
+        form = await readFormBody(req)
+      } catch (error) {
+        return sendPendingBodyError(
+          error instanceof RangeError ? 413 : 400,
+          error instanceof RangeError ? 'REQUEST_TOO_LARGE' : 'AUTH_REQUEST_INVALID',
+          'Invalid authentication request',
+        )
+      }
+      const nowMs = Date.now()
+      const stateValue = form.get('state') || ''
+      if (!/^[a-f0-9]{64}$/.test(stateValue)) {
+        audit(null, 'apple_login', 'denied', { code: 'APPLE_STATE_INVALID' })
+        return sendAppleHop(res, withLoginResult('/', 'failed', 'APPLE_STATE_INVALID'))
+      }
+      const stateHash = hash(stateValue)
+      const pending = db.prepare(`
+        SELECT state_hash,nonce_hash,return_path,prior_credential,expires_at
+        FROM apple_login_pending WHERE state_hash=?
+      `).get(stateHash)
+      if (!pending || !sameDigest(pending.state_hash, stateHash)) {
+        audit(null, 'apple_login', 'denied', { code: 'APPLE_STATE_INVALID' })
+        return sendAppleHop(res, withLoginResult('/', 'failed', 'APPLE_STATE_INVALID'))
+      }
+      // The apple_state cookie must match this pending row, which binds the callback to the browser that started
+      // the flow (login CSRF). It is checked before the row is consumed, so a forged POST cannot burn a victim's login.
+      const cookieState = /(?:^|;\s*)apple_state=([a-f0-9]{64})(?:;|$)/.exec(req.headers.cookie || '')?.[1]
+      if (!cookieState || !sameDigest(hash(cookieState), pending.state_hash)) {
+        audit(null, 'apple_login', 'denied', { code: 'APPLE_STATE_MISMATCH' })
+        return sendAppleHop(res, withLoginResult(pending.return_path, 'failed', 'APPLE_STATE_MISMATCH'))
+      }
+      // A state is usable exactly once: consume the pending row before anything else can fail.
+      const consumed = db.prepare('DELETE FROM apple_login_pending WHERE state_hash=?').run(stateHash)
+      if (consumed.changes !== 1) {
+        audit(null, 'apple_login', 'denied', { code: 'APPLE_STATE_INVALID' })
+        return sendAppleHop(res, withLoginResult('/', 'failed', 'APPLE_STATE_INVALID'))
+      }
+      if (pending.expires_at <= nowMs) {
+        audit(null, 'apple_login', 'denied', { code: 'APPLE_STATE_EXPIRED' })
+        return sendAppleHop(res, withLoginResult(pending.return_path, 'failed', 'APPLE_STATE_EXPIRED'))
+      }
+      if (form.get('error')) {
+        const cancelled = form.get('error') === 'user_cancelled_authorize'
+        audit(null, 'apple_login', 'denied', { code: cancelled ? 'APPLE_CANCELLED' : 'APPLE_ERROR' })
+        return sendAppleHop(res, cancelled
+          ? withLoginResult(pending.return_path, 'cancelled')
+          : withLoginResult(pending.return_path, 'failed', 'APPLE_ERROR'))
+      }
+      let identity
+      try {
+        identity = await appleVerifierResolved.verify(form.get('id_token') || '', { nonceHash: pending.nonce_hash })
+      } catch (error) {
+        const code = error instanceof Error ? error.message : 'APPLE_TOKEN_INVALID'
+        audit(null, 'apple_login', 'denied', { code })
+        return sendAppleHop(res, withLoginResult(pending.return_path, 'failed', code))
+      }
+      const ticket = randomBytes(32).toString('hex')
+      db.prepare(`
+        INSERT INTO apple_login_tickets(ticket_hash,state_hash,subject,email,display_name,return_path,prior_credential,created_at,expires_at)
+        VALUES(?,?,?,?,?,?,?,?,?)
+      `).run(
+        hash(ticket), pending.state_hash, identity.sub, identity.email, appleDisplayName(form.get('user')),
+        pending.return_path, pending.prior_credential, nowMs, nowMs + APPLE_TICKET_MS,
+      )
+      audit(null, 'apple_login', 'pending')
+      return sendAppleHop(res, `/api/study-plan/auth/apple/finish?ticket=${ticket}`)
+    }
+
     if (!accessGranted(req.headers.cookie)) return sendError(401, 'ACCESS_REQUIRED', 'Access password required')
 
     if (dictionaryVoice) {
@@ -933,6 +1234,7 @@ export function createStudyServer({
 
     if (authRoute && req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if ((authFirebase || authLogout) && req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+    if ((appleStart || appleFinish) && req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if ((importing || syncKey || revokeSyncKey || linking || unlinking || makeup || passkeyRegisterOptions ||
         passkeyRegisterVerify || passkeyLoginOptions || passkeyLoginVerify || itemReports) && req.method !== 'POST')
       return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
@@ -958,7 +1260,9 @@ export function createStudyServer({
           const identity = db.prepare(`
             SELECT email, display_name, picture
             FROM account_identities
-            WHERE account_id=? AND provider='google'
+            WHERE account_id=?
+            ORDER BY (provider='google') DESC, last_login_at DESC
+            LIMIT 1
           `).get(session.accountId)
           const userId = accountProfileId(session.accountId)
           if (identity) {
@@ -980,6 +1284,7 @@ export function createStudyServer({
       }
       return send(200, {
         enabled: authEnabled,
+        appleEnabled,
         required: loginRequired,
         signedIn,
         user,
@@ -1046,144 +1351,139 @@ export function createStudyServer({
         return sendError(403, 'EMAIL_NOT_ALLOWED', 'Email not allowed')
       }
 
-      const now = Date.now()
       const oldToken = /(?:^|;\s*)study_session=([a-f0-9]{64})(?:;|$)/.exec(req.headers.cookie || '')?.[1]
-
-      db.exec('BEGIN IMMEDIATE')
-      try {
-        let existingIdentity = db.prepare('SELECT account_id FROM account_identities WHERE provider=? AND subject=?').get('google', user.uid)
-        if (existingIdentity) {
-          db.prepare(`
-            UPDATE account_identities
-            SET email=?, display_name=?, picture=?, last_login_at=?
-            WHERE provider=? AND subject=?
-          `).run(user.email, user.name, user.picture, now, 'google', user.uid)
-          const sessionToken = createAccountSession(db, existingIdentity.account_id, now)
-          if (oldToken) {
-            db.prepare('DELETE FROM account_sessions WHERE token_hash=?').run(hash(oldToken))
-          }
-          db.exec('COMMIT')
-          const accountRow = db.prepare('SELECT learner FROM accounts WHERE id=?').get(existingIdentity.account_id)
-          audit(accountRow?.learner, 'google_login', 'success', { created: false, adopted: false })
-          const userId = accountProfileId(existingIdentity.account_id)
-          res.setHeader('Set-Cookie', sessionCookie(sessionToken, { secure, sameSite }))
-          return send(200, {
-            signedIn: true,
-            created: false,
-            adopted: false,
-            linked: false,
-            user: { id: userId, email: user.email, name: user.name, picture: user.picture },
-          })
-        }
-
-        const signupLimit = consumeNodeRateLimit(db, 'global', 'auth-signup-daily', {
-          limit: maxSignupsDaily,
-          windowMs: 24 * 60 * 60_000,
-          blockMs: 60 * 60_000,
-        })
-        if (!signupLimit.allowed) {
-          db.exec('ROLLBACK')
-          audit(null, 'google_login', 'denied', { code: 'SIGNUP_LIMIT_REACHED' })
-          return sendError(429, 'SIGNUP_LIMIT_REACHED', 'Daily signup limit reached')
-        }
-
-        const currentSession = oldToken ? resolveLearner(oldToken) : null
-        let accountId = null
-        let targetLearner = null
-        let created = true
-        let adopted = false
-        let linked = false
-
-        const accountForLearner = currentSession?.learner
-          ? db.prepare('SELECT id FROM accounts WHERE learner=?').get(currentSession.learner)
-          : null
-
-        if (currentSession?.viaAccount && currentSession.accountId) {
-          const hasGoogle = db.prepare('SELECT subject FROM account_identities WHERE account_id=? AND provider=?').get(currentSession.accountId, 'google')
-          if (!hasGoogle) {
-            accountId = currentSession.accountId
-            targetLearner = currentSession.learner
-            created = false
-            adopted = false
-            linked = true
-          }
-        } else if (currentSession && !currentSession.viaAccount && accountForLearner) {
-          const hasGoogle = db.prepare('SELECT subject FROM account_identities WHERE account_id=? AND provider=?').get(accountForLearner.id, 'google')
-          if (!hasGoogle) {
-            accountId = accountForLearner.id
-            targetLearner = currentSession.learner
-            created = false
-            adopted = false
-            linked = true
-            db.prepare('UPDATE sync_keys SET revoked=1 WHERE learner=? AND revoked=0').run(targetLearner)
-          }
-        }
-
-        if (!accountId) {
-          if (currentSession && !currentSession.viaAccount && !accountForLearner && currentSession.row?.state != null) {
-            adopted = true
-            targetLearner = currentSession.learner
-            db.prepare('UPDATE sync_keys SET revoked=1 WHERE learner=? AND revoked=0').run(targetLearner)
-          } else {
-            targetLearner = hash(randomBytes(32).toString('hex'))
-            db.prepare('INSERT INTO learners(id, state) VALUES(?, NULL)').run(targetLearner)
-          }
-          accountId = randomBytes(16).toString('hex')
-          const userHandle = randomPasskeyValue(32)
-          db.prepare('INSERT INTO accounts(id, learner, user_handle, created_at) VALUES(?,?,?,?)')
-            .run(accountId, targetLearner, userHandle, now)
-        }
-
-        db.prepare(`
-          INSERT INTO account_identities(provider, subject, account_id, email, display_name, picture, created_at, last_login_at)
-          VALUES(?,?,?,?,?,?,?,?)
-        `).run('google', user.uid, accountId, user.email, user.name, user.picture, now, now)
-
-        const sessionToken = createAccountSession(db, accountId, now)
-        if (oldToken) {
-          db.prepare('DELETE FROM account_sessions WHERE token_hash=?').run(hash(oldToken))
-        }
-        db.exec('COMMIT')
-
-        const userId = accountProfileId(accountId)
-        audit(targetLearner, 'google_login', 'success', { created, adopted })
-        res.setHeader('Set-Cookie', sessionCookie(sessionToken, { secure, sameSite }))
-        return send(200, {
-          signedIn: true,
-          created,
-          adopted,
-          linked,
-          user: { id: userId, email: user.email, name: user.name, picture: user.picture },
-        })
-      } catch (error) {
-        db.exec('ROLLBACK')
-        if (String(error?.message).includes('UNIQUE constraint failed')) {
-          const existing = db.prepare('SELECT account_id FROM account_identities WHERE provider=? AND subject=?').get('google', user.uid)
-          if (existing) {
-            db.prepare(`
-              UPDATE account_identities
-              SET email=?, display_name=?, picture=?, last_login_at=?
-              WHERE provider=? AND subject=?
-            `).run(user.email, user.name, user.picture, now, 'google', user.uid)
-            const sessionToken = createAccountSession(db, existing.account_id, now)
-            if (oldToken) {
-              db.prepare('DELETE FROM account_sessions WHERE token_hash=?').run(hash(oldToken))
-            }
-            const accountRow = db.prepare('SELECT learner FROM accounts WHERE id=?').get(existing.account_id)
-            const userId = accountProfileId(existing.account_id)
-            audit(accountRow?.learner, 'google_login', 'success', { created: false, adopted: false })
-            res.setHeader('Set-Cookie', sessionCookie(sessionToken, { secure, sameSite }))
-            return send(200, {
-              signedIn: true,
-              created: false,
-              adopted: false,
-              linked: false,
-              user: { id: userId, email: user.email, name: user.name, picture: user.picture },
-            })
-          }
-        }
-        throw error
+      const outcome = signInWithIdentity({
+        provider: 'google',
+        subject: user.uid,
+        email: user.email,
+        name: user.name,
+        picture: user.picture,
+        priorCredential: oldToken ? hash(oldToken) : null,
+      })
+      if (outcome.limited) {
+        audit(null, 'google_login', 'denied', { code: 'SIGNUP_LIMIT_REACHED' })
+        return sendError(429, 'SIGNUP_LIMIT_REACHED', 'Daily signup limit reached')
       }
+      audit(outcome.learner, 'google_login', 'success', { created: outcome.created, adopted: outcome.adopted })
+      res.setHeader('Set-Cookie', sessionCookie(outcome.sessionToken, { secure, sameSite }))
+      return send(200, {
+        signedIn: true,
+        created: outcome.created,
+        adopted: outcome.adopted,
+        linked: outcome.linked,
+        user: { id: accountProfileId(outcome.accountId), email: user.email, name: user.name, picture: user.picture },
+      })
+    }
+
+    if (appleStart) {
+      if (!appleEnabled) return sendError(404, 'AUTH_DISABLED', 'Authentication is disabled')
+      const limit = consumeNodeRateLimit(db, 'actor:' + actorHash, 'apple-start', {
+        limit: 10,
+        windowMs: 5 * 60_000,
+        blockMs: 10 * 60_000,
+      })
+      if (!limit.allowed) {
+        return sendError(429, 'AUTH_RATE_LIMITED', 'Too many login attempts. Try again later.', {
+          retryAfterSeconds: Math.ceil(limit.retryAfterMs / 1000),
+        })
+      }
+      const returnPath = sanitizeReturnPath(requestUrl.searchParams.get('return'))
+      const state = randomBytes(32).toString('hex')
+      // The nonce sent to Apple is sha256(N) for a random N. Only its hash is stored (see study-apple.mjs).
+      const nonceParam = hash(randomBytes(32).toString('hex'))
+      const priorToken = /(?:^|;\s*)study_session=([a-f0-9]{64})(?:;|$)/.exec(req.headers.cookie || '')?.[1]
+      const nowMs = Date.now()
+      db.prepare('DELETE FROM apple_login_pending WHERE expires_at<?').run(nowMs)
+      db.prepare('DELETE FROM apple_login_tickets WHERE expires_at<?').run(nowMs)
+      db.prepare(`
+        INSERT INTO apple_login_pending(state_hash,nonce_hash,return_path,prior_credential,created_at,expires_at)
+        VALUES(?,?,?,?,?,?)
+      `).run(hash(state), hash(nonceParam), returnPath, priorToken ? hash(priorToken) : null, nowMs, nowMs + APPLE_PENDING_MS)
+      const authorize = new URL(APPLE_AUTHORIZE_URL)
+      authorize.search = new URLSearchParams({
+        client_id: appleClientId,
+        redirect_uri: appleRedirect,
+        response_type: 'code id_token',
+        response_mode: 'form_post',
+        scope: 'name email',
+        state,
+        nonce: nonceParam,
+      }).toString()
+      const stateCookie = `apple_state=${state}; Path=/api/study-plan/auth/apple; HttpOnly; SameSite=${secure ? 'None' : 'Lax'}; Max-Age=${APPLE_STATE_COOKIE_MAX_AGE}${secure ? '; Secure' : ''}`
+      res.writeHead(302, { Location: authorize.href, 'Set-Cookie': stateCookie })
+      return res.end()
+    }
+
+    if (appleFinish) {
+      if (!appleEnabled) return sendError(404, 'AUTH_DISABLED', 'Authentication is disabled')
+      const limit = consumeNodeRateLimit(db, 'actor:' + actorHash, 'apple-finish', {
+        limit: 10,
+        windowMs: 5 * 60_000,
+        blockMs: 10 * 60_000,
+      })
+      if (!limit.allowed) {
+        return sendError(429, 'AUTH_RATE_LIMITED', 'Too many login attempts. Try again later.', {
+          retryAfterSeconds: Math.ceil(limit.retryAfterMs / 1000),
+        })
+      }
+      const clearStateCookie = `apple_state=; Path=/api/study-plan/auth/apple; HttpOnly; SameSite=${secure ? 'None' : 'Lax'}; Max-Age=0${secure ? '; Secure' : ''}`
+      // Every Set-Cookie for this response goes in one header value: a later writeHead would replace earlier ones.
+      const redirect = (location, cookies = [clearStateCookie]) => {
+        const headers = { Location: location, 'Referrer-Policy': 'no-referrer' }
+        if (cookies.length > 0) headers['Set-Cookie'] = cookies
+        res.writeHead(303, headers)
+        return res.end()
+      }
+      const ticketValue = requestUrl.searchParams.get('ticket') || ''
+      if (!/^[a-f0-9]{64}$/.test(ticketValue)) {
+        audit(null, 'apple_login', 'denied', { code: 'APPLE_TICKET_INVALID' })
+        return redirect(withLoginResult('/', 'failed', 'APPLE_TICKET_INVALID'))
+      }
+      const ticketHash = hash(ticketValue)
+      const ticket = db.prepare(`
+        SELECT ticket_hash,state_hash,subject,email,display_name,return_path,prior_credential,expires_at
+        FROM apple_login_tickets WHERE ticket_hash=?
+      `).get(ticketHash)
+      if (!ticket || !sameDigest(ticket.ticket_hash, ticketHash)) {
+        audit(null, 'apple_login', 'denied', { code: 'APPLE_TICKET_INVALID' })
+        return redirect(withLoginResult('/', 'failed', 'APPLE_TICKET_INVALID'))
+      }
+      // Bind check before the ticket is consumed: only the browser that started the login may redeem it. A failed
+      // check leaves the ticket in place (it still expires) and keeps the apple_state cookie for the real browser.
+      const boundState = /(?:^|;\s*)apple_state=([a-f0-9]{64})(?:;|$)/.exec(req.headers.cookie || '')?.[1]
+      if (!boundState || !sameDigest(hash(boundState), ticket.state_hash)) {
+        audit(null, 'apple_login', 'denied', { code: 'APPLE_TICKET_UNBOUND' })
+        return redirect(withLoginResult(sanitizeReturnPath(ticket.return_path), 'failed', 'APPLE_TICKET_UNBOUND'), [])
+      }
+      // Single use: the ticket is only valid for the request that deletes it.
+      const consumed = db.prepare('DELETE FROM apple_login_tickets WHERE ticket_hash=?').run(ticketHash)
+      const returnPath = sanitizeReturnPath(ticket.return_path)
+      if (consumed.changes !== 1) {
+        audit(null, 'apple_login', 'denied', { code: 'APPLE_TICKET_INVALID' })
+        return redirect(withLoginResult('/', 'failed', 'APPLE_TICKET_INVALID'))
+      }
+      if (ticket.expires_at <= Date.now()) {
+        audit(null, 'apple_login', 'denied', { code: 'APPLE_TICKET_EXPIRED' })
+        return redirect(withLoginResult(returnPath, 'failed', 'APPLE_TICKET_EXPIRED'))
+      }
+      if (allowedEmailSet && !allowedEmailSet.has(ticket.email.toLowerCase())) {
+        audit(null, 'apple_login', 'denied', { code: 'EMAIL_NOT_ALLOWED' })
+        return redirect(withLoginResult(returnPath, 'failed', 'EMAIL_NOT_ALLOWED'))
+      }
+      const outcome = signInWithIdentity({
+        provider: 'apple',
+        subject: ticket.subject,
+        email: ticket.email,
+        name: ticket.display_name,
+        picture: '',
+        priorCredential: ticket.prior_credential,
+      })
+      if (outcome.limited) {
+        audit(null, 'apple_login', 'denied', { code: 'SIGNUP_LIMIT_REACHED' })
+        return redirect(withLoginResult(returnPath, 'failed', 'SIGNUP_LIMIT_REACHED'))
+      }
+      audit(outcome.learner, 'apple_login', 'success', { created: outcome.created, adopted: outcome.adopted })
+      return redirect(returnPath, [sessionCookie(outcome.sessionToken, { secure, sameSite }), clearStateCookie])
     }
 
     if (passkeyLoginOptions || passkeyLoginVerify) {

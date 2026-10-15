@@ -1,6 +1,9 @@
 import logo from '@/assets/logo.svg'
-import { authErrorMessage, preloadFirebaseSdk, signInWithGoogle } from '@/services/auth'
+import AppleLogo from '@/components/AppleLogo'
+import { authErrorMessage, preloadFirebaseSdk, signInWithGoogle, startAppleSignIn } from '@/services/auth'
 import { switchLocalProfile } from '@/services/localProfile'
+import { authStatusAtom } from '@/store/auth'
+import { useAtomValue } from 'jotai'
 import type React from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -56,6 +59,7 @@ export default function SignInCard({
 }: SignInCardProps) {
   const [submitting, setSubmitting] = useState(false)
   const [message, setMessage] = useState('')
+  const appleEnabled = useAtomValue(authStatusAtom)?.appleEnabled === true
 
   const warmSdk = () => void preloadFirebaseSdk().catch(() => undefined)
 
@@ -103,6 +107,18 @@ export default function SignInCard({
         <GoogleIcon className="h-5 w-5 shrink-0" />
         <span>{submitting ? '正在登录…' : '使用 Google 账号登录'}</span>
       </button>
+      {appleEnabled && (
+        <button
+          type="button"
+          data-testid="apple-sign-in"
+          onClick={startAppleSignIn}
+          disabled={submitting}
+          className="mt-3 flex w-full items-center justify-center gap-3 rounded-2xl border border-black bg-black py-2.5 text-base font-medium text-white shadow-sm transition hover:bg-gray-900 disabled:cursor-not-allowed disabled:opacity-50 dark:border-white dark:bg-white dark:text-black dark:hover:bg-gray-200"
+        >
+          <AppleLogo className="h-5 w-5 shrink-0" />
+          <span>使用 Apple 账号登录</span>
+        </button>
+      )}
       {message && (
         <p role="alert" className="mt-3 text-sm text-red-600 dark:text-red-400">
           {message}

@@ -1,4 +1,5 @@
-import { authErrorMessage, preloadFirebaseSdk, signInWithGoogle } from '@/services/auth'
+import AppleLogo from '@/components/AppleLogo'
+import { authErrorMessage, preloadFirebaseSdk, signInWithGoogle, startAppleSignIn } from '@/services/auth'
 import { isGuestMode } from '@/services/guestMode'
 import { switchLocalProfile } from '@/services/localProfile'
 import { authStatusAtom } from '@/store/auth'
@@ -12,6 +13,7 @@ export interface GuestProgressPromptProps {
 export default function GuestProgressPrompt({ className = '' }: GuestProgressPromptProps) {
   const authStatus = useAtomValue(authStatusAtom)
   const isGuest = authStatus ? (authStatus.enabled && authStatus.required && !authStatus.signedIn) : isGuestMode()
+  const appleEnabled = authStatus?.appleEnabled === true
   const [signingIn, setSigningIn] = useState(false)
   const [error, setError] = useState('')
 
@@ -54,6 +56,18 @@ export default function GuestProgressPrompt({ className = '' }: GuestProgressPro
       >
         {signingIn ? '登录中…' : '登录'}
       </button>
+      {appleEnabled && (
+        <button
+          type="button"
+          data-testid="guest-progress-apple-sign-in"
+          onClick={startAppleSignIn}
+          disabled={signingIn}
+          className="inline-flex items-center gap-1 font-medium text-gray-900 underline underline-offset-2 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300 disabled:opacity-50"
+        >
+          <AppleLogo className="h-3.5 w-3.5 shrink-0" />
+          <span>Apple 登录</span>
+        </button>
+      )}
       {error && <span className="text-red-500">({error})</span>}
     </div>
   )

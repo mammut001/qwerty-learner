@@ -74,6 +74,7 @@ test('GET auth is disabled by default, reflects flags, and never sets a cookie',
     assert.equal(res.response.status, 200)
     assert.deepEqual(res.data, {
       enabled: false,
+      appleEnabled: false,
       required: false,
       signedIn: false,
       user: null,
@@ -88,6 +89,7 @@ test('GET auth is disabled by default, reflects flags, and never sets a cookie',
     assert.equal(res.response.status, 200)
     assert.deepEqual(res.data, {
       enabled: true,
+      appleEnabled: false,
       required: true,
       signedIn: false,
       user: null,
