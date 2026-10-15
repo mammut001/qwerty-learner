@@ -36,6 +36,60 @@ export interface AdminUsersResponse {
   summary: AdminUsersSummary
 }
 
+export interface AdminUserDailyWords {
+  day: string
+  words: number
+  ms: number
+}
+
+export interface AdminUserDetail {
+  lastActiveAt: number | null
+  activeDays: number
+  totalMinutes: number
+  vocabulary: {
+    totalWords: number
+    totalTypingMs: number
+    avgMsPerWord: number | null
+    accuracy: number | null
+    topMistakes: Array<{ word: string; dict: string; wrongCount: number; attempts: number }>
+    byDict: Array<{ dict: string; count: number; chapters: number[] }>
+    perDay: AdminUserDailyWords[]
+  }
+  grammar: {
+    sessions: number
+    accuracy: number | null
+    recent: Array<{ topic: string; day: string | null; score: number; total: number; elapsedSeconds: number; finishedAt: number | null }>
+  }
+  conjugation: { attempts: number; accuracy: number | null }
+  placement: {
+    latest: {
+      cefrLevel: string
+      finishedAt: number | null
+      suggestedStartWeek: number | null
+      sectionAccuracy: Record<string, number | null>
+    } | null
+    historyCount: number
+  }
+  tcf: {
+    count: number
+    recent: Array<{
+      skill: string
+      correctCount: number
+      questionCount: number
+      scaledScore: number
+      nclc: number
+      finishedAt: number | null
+    }>
+  }
+  errorBook: { total: number; mastered: number; active: number }
+  checkins: { days: number; lastDay: string | null }
+}
+
+export interface AdminUserDetailResponse {
+  ok: true
+  detail: AdminUserDetail
+}
+
 export interface AdminUsersQuery {
   provider?: AdminUserProvider | ''
   q?: string
@@ -84,14 +138,9 @@ function getApiBase(): string {
   }
 }
 
-export async function listAdminUsers(adminToken: string, query: AdminUsersQuery = {}): Promise<AdminUsersResponse> {
-  const params = new URLSearchParams()
-  if (query.provider) params.set('provider', query.provider)
-  if (query.q) params.set('q', query.q)
-  if (query.limit !== undefined) params.set('limit', String(query.limit))
-  if (query.offset !== undefined) params.set('offset', String(query.offset))
-  const qs = params.toString()
-  const url = `${getApiBase()}/api/study-plan/admin/users${qs ? `?${qs}` : ''}`
+// Shared GET helper for the admin endpoints: same token handling and error mapping for every call.
+async function fetchAdminJson<T>(pathWithQuery: string, adminToken: string, failureMessage: string): Promise<T> {
+  const url = `${getApiBase()}${pathWithQuery}`
 
   let response: Response
   try {
@@ -106,6 +155,11 @@ export async function listAdminUsers(adminToken: string, query: AdminUsersQuery 
 
   if (!response.ok) {
     if (response.status === 404) {
+      const data = (await response
+        .clone()
+        .json()
+        .catch(() => null)) as { code?: string } | null
+      if (data?.code === 'ADMIN_USER_NOT_FOUND') throw new AdminUsersError('没有找到该用户。', 'ADMIN_USER_NOT_FOUND', 404)
       throw new AdminUsersError('后台仅限内网访问。请通过 SSH 通道在本机地址打开本页。', 'ADMIN_NOT_FOUND', 404)
     }
     if (response.status === 401 || response.status === 403) {
@@ -115,8 +169,28 @@ export async function listAdminUsers(adminToken: string, query: AdminUsersQuery 
       throw new AdminUsersError('服务端未配置 STUDY_ADMIN_TOKEN。', 'ADMIN_DISABLED', 503)
     }
     const data = (await response.json().catch(() => null)) as { code?: string; error?: string; message?: string } | null
-    throw new AdminUsersError(data?.error || data?.message || '加载用户列表失败。', data?.code || 'ADMIN_FAILED', response.status)
+    throw new AdminUsersError(data?.error || data?.message || failureMessage, data?.code || 'ADMIN_FAILED', response.status)
   }
 
-  return (await response.json()) as AdminUsersResponse
+  return (await response.json()) as T
+}
+
+export async function listAdminUsers(adminToken: string, query: AdminUsersQuery = {}): Promise<AdminUsersResponse> {
+  const params = new URLSearchParams()
+  if (query.provider) params.set('provider', query.provider)
+  if (query.q) params.set('q', query.q)
+  if (query.limit !== undefined) params.set('limit', String(query.limit))
+  if (query.offset !== undefined) params.set('offset', String(query.offset))
+  const qs = params.toString()
+  return fetchAdminJson<AdminUsersResponse>(`/api/study-plan/admin/users${qs ? `?${qs}` : ''}`, adminToken, '加载用户列表失败。')
+}
+
+export async function getAdminUserDetail(adminToken: string, accountId: string): Promise<AdminUserDetail> {
+  const params = new URLSearchParams({ id: accountId })
+  const res = await fetchAdminJson<AdminUserDetailResponse>(
+    `/api/study-plan/admin/users/detail?${params.toString()}`,
+    adminToken,
+    '加载用户详情失败。',
+  )
+  return res.detail
 }

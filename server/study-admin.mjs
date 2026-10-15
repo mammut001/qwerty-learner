@@ -333,3 +333,218 @@ export function listUsersForAdmin(db, { limit = 100, offset = 0, provider = null
     },
   }
 }
+
+const DETAIL_WINDOW_DAYS = 30
+const DETAIL_TOP_MISTAKES = 10
+const DETAIL_RECENT = 10
+const DETAIL_TCF_RECENT = 5
+
+const isObject = (value) => Boolean(value) && typeof value === 'object' && !Array.isArray(value)
+const finiteNumber = (value) => {
+  const number = Number(value)
+  return Number.isFinite(number) ? number : 0
+}
+const percent = (correct, total) => (total > 0 ? Math.round((correct / total) * 100) : null)
+const dayStartMs = (day) => (typeof day === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(day) ? Date.parse(`${day}T00:00:00Z`) : NaN)
+
+// Accepts an account id (what /admin/users lists) or a learner id. Returns null when neither exists.
+function resolveAdminLearner(db, id) {
+  const account = db.prepare('SELECT id, learner FROM accounts WHERE id = ?').get(id)
+  if (account) return { accountId: account.id, learner: account.learner }
+  const learner = db.prepare('SELECT id FROM learners WHERE id = ?').get(id)
+  if (learner) return { accountId: null, learner: learner.id }
+  return null
+}
+
+function parseLearnerState(db, learner) {
+  const row = db.prepare('SELECT state FROM learners WHERE id = ?').get(learner)
+  if (!row || typeof row.state !== 'string') return {}
+  try {
+    const parsed = JSON.parse(row.state)
+    return isObject(parsed) ? parsed : {}
+  } catch {
+    return {}
+  }
+}
+
+/**
+ * Learning-activity summary for one user (intranet admin view). Returns aggregates only: no raw state,
+ * no emails, no sync keys or identity subjects. Returns null when the id matches no account or learner.
+ * Vocabulary timeStamp is in seconds (as in study-csv); other timestamps are milliseconds.
+ */
+export function getUserDetailForAdmin(db, accountOrLearnerId, { now = Date.now() } = {}) {
+  const id = String(accountOrLearnerId ?? '').trim().slice(0, 200)
+  if (!id) return null
+  const resolved = resolveAdminLearner(db, id)
+  if (!resolved) return null
+  const { learner, accountId } = resolved
+
+  const state = parseLearnerState(db, learner)
+  const learning = isObject(state.learning) ? state.learning : {}
+  const records = (Array.isArray(learning.vocabulary?.records) ? learning.vocabulary.records : []).filter(isObject)
+  const grammarHistory = (Array.isArray(learning.grammar?.history) ? learning.grammar.history : []).filter(isObject)
+  const conjugationAttempts = (Array.isArray(learning.conjugationAttempts) ? learning.conjugationAttempts : []).filter(isObject)
+  const focusSessions = (Array.isArray(learning.focusSessions) ? learning.focusSessions : []).filter(isObject)
+  const minutesByDay = isObject(state.minutes) ? state.minutes : {}
+
+  const completedCheckins = db.prepare(`
+    SELECT day, completed_at FROM checkins WHERE learner = ? AND status IN ${COMPLETED_CHECKIN_STATUSES}
+  `).all(learner)
+  const tcfRows = db.prepare(`
+    SELECT skill, correct_count, question_count, scaled_score, nclc, finished_at, day
+    FROM tcf_attempts WHERE learner = ? ORDER BY finished_at DESC LIMIT ?
+  `).all(learner, DETAIL_TCF_RECENT)
+  const tcfTotal = Number(db.prepare('SELECT COUNT(*) AS count FROM tcf_attempts WHERE learner = ?').get(learner)?.count) || 0
+  const errorRow = db.prepare(`
+    SELECT COUNT(*) AS total, SUM(CASE WHEN mastered = 1 THEN 1 ELSE 0 END) AS mastered,
+      MAX(last_attempt_at) AS last_attempt_at
+    FROM error_book WHERE learner = ?
+  `).get(learner)
+
+  // Active days: any day with a learning record, a completed check-in, or positive plan minutes.
+  const activeDays = new Set()
+  for (const item of [...records, ...grammarHistory, ...conjugationAttempts, ...focusSessions, ...tcfRows]) {
+    if (typeof item.day === 'string' && item.day) activeDays.add(item.day)
+  }
+  for (const row of completedCheckins) activeDays.add(row.day)
+  let totalMinutes = 0
+  const positiveMinuteDays = []
+  for (const [day, tasks] of Object.entries(minutesByDay)) {
+    const dayMinutes = isObject(tasks) ? Object.values(tasks).reduce((sum, value) => sum + finiteNumber(value), 0) : 0
+    totalMinutes += dayMinutes
+    if (dayMinutes > 0) {
+      activeDays.add(day)
+      positiveMinuteDays.push(day)
+    }
+  }
+
+  // Last activity: the latest timestamp across learning records, check-ins, errors and (for accounts) logins and sessions.
+  const activityTimes = [
+    ...records.map((item) => finiteNumber(item.timeStamp) * 1000),
+    ...grammarHistory.map((item) => finiteNumber(item.finishedAt)),
+    ...conjugationAttempts.map((item) => finiteNumber(item.occurredAt)),
+    ...focusSessions.map((item) => finiteNumber(item.endedAt)),
+    ...tcfRows.map((row) => finiteNumber(row.finished_at)),
+    ...completedCheckins.map((row) => finiteNumber(row.completed_at)),
+    finiteNumber(errorRow?.last_attempt_at),
+    ...positiveMinuteDays.map((day) => dayStartMs(day)).filter(Number.isFinite),
+  ]
+  if (accountId) {
+    const identity = db.prepare('SELECT MAX(last_login_at) AS last_login_at FROM account_identities WHERE account_id = ?').get(accountId)
+    const session = db.prepare('SELECT MAX(created_at) AS created_at FROM account_sessions WHERE account_id = ?').get(accountId)
+    activityTimes.push(finiteNumber(identity?.last_login_at), finiteNumber(session?.created_at))
+  }
+  const lastActiveAt = activityTimes.reduce((latest, time) => (time > latest ? time : latest), 0) || null
+
+  // Vocabulary.
+  const totalTypingMs = records.reduce((sum, item) => sum + finiteNumber(item.durationMs), 0)
+  const correctWords = records.filter((item) => finiteNumber(item.wrongCount) === 0).length
+  const mistakes = new Map()
+  const dicts = new Map()
+  const windowDays = Array.from({ length: DETAIL_WINDOW_DAYS }, (_, index) => utcDayKey(now - (DETAIL_WINDOW_DAYS - 1 - index) * DAY_MS))
+  const perDay = new Map(windowDays.map((day) => [day, { day, words: 0, ms: 0 }]))
+  for (const item of records) {
+    const word = String(item.word ?? '')
+    const wrong = finiteNumber(item.wrongCount)
+    if (word && wrong > 0) {
+      const entry = mistakes.get(word) ?? { word, dict: String(item.dict ?? ''), wrongCount: 0, attempts: 0 }
+      entry.wrongCount += wrong
+      entry.attempts += 1
+      mistakes.set(word, entry)
+    }
+    const dict = String(item.dict ?? '')
+    const dictEntry = dicts.get(dict) ?? { dict, count: 0, chapters: new Set() }
+    dictEntry.count += 1
+    if (Number.isInteger(item.chapter)) dictEntry.chapters.add(item.chapter)
+    dicts.set(dict, dictEntry)
+    const bucket = perDay.get(item.day)
+    if (bucket) {
+      bucket.words += 1
+      bucket.ms += finiteNumber(item.durationMs)
+    }
+  }
+
+  // Grammar.
+  const grammarScore = grammarHistory.reduce((sum, item) => sum + finiteNumber(item.score), 0)
+  const grammarTotal = grammarHistory.reduce((sum, item) => sum + finiteNumber(item.total), 0)
+  const recentGrammar = [...grammarHistory]
+    .sort((a, b) => finiteNumber(b.finishedAt) - finiteNumber(a.finishedAt))
+    .slice(0, DETAIL_RECENT)
+    .map((item) => ({
+      topic: String(item.topic ?? ''),
+      day: item.day ?? null,
+      score: finiteNumber(item.score),
+      total: finiteNumber(item.total),
+      elapsedSeconds: finiteNumber(item.elapsedSeconds),
+      finishedAt: item.finishedAt ?? null,
+    }))
+
+  // Conjugation.
+  const conjugationCorrect = conjugationAttempts.filter((item) => item.correct === true).length
+
+  // Placement.
+  const latestPlacement = isObject(learning.placement?.latest) ? learning.placement.latest : null
+  const placementSections = {}
+  for (const [section, score] of Object.entries(latestPlacement?.sectionScores ?? {})) {
+    if (isObject(score)) placementSections[section] = { correct: finiteNumber(score.correct), total: finiteNumber(score.total) }
+  }
+
+  return {
+    lastActiveAt,
+    activeDays: activeDays.size,
+    totalMinutes: Math.round(totalMinutes),
+    vocabulary: {
+      totalWords: records.length,
+      totalTypingMs,
+      avgMsPerWord: records.length ? Math.round(totalTypingMs / records.length) : null,
+      accuracy: percent(correctWords, records.length),
+      topMistakes: [...mistakes.values()]
+        .sort((a, b) => b.wrongCount - a.wrongCount || a.word.localeCompare(b.word))
+        .slice(0, DETAIL_TOP_MISTAKES),
+      byDict: [...dicts.values()]
+        .map((entry) => ({ dict: entry.dict, count: entry.count, chapters: [...entry.chapters].sort((a, b) => a - b) }))
+        .sort((a, b) => b.count - a.count || a.dict.localeCompare(b.dict)),
+      perDay: [...perDay.values()],
+    },
+    grammar: {
+      sessions: grammarHistory.length,
+      accuracy: percent(grammarScore, grammarTotal),
+      recent: recentGrammar,
+    },
+    conjugation: {
+      attempts: conjugationAttempts.length,
+      accuracy: percent(conjugationCorrect, conjugationAttempts.length),
+    },
+    placement: {
+      latest: latestPlacement && typeof latestPlacement.cefrLevel === 'string'
+        ? {
+            cefrLevel: latestPlacement.cefrLevel,
+            finishedAt: latestPlacement.finishedAt ?? null,
+            suggestedStartWeek: latestPlacement.recommendations?.suggestedStartWeek ?? null,
+            sectionAccuracy: sectionAccuracy(placementSections),
+          }
+        : null,
+      historyCount: Array.isArray(learning.placement?.history) ? learning.placement.history.length : 0,
+    },
+    tcf: {
+      count: tcfTotal,
+      recent: tcfRows.map((row) => ({
+        skill: row.skill,
+        correctCount: Number(row.correct_count) || 0,
+        questionCount: Number(row.question_count) || 0,
+        scaledScore: Number(row.scaled_score) || 0,
+        nclc: Number(row.nclc) || 0,
+        finishedAt: Number(row.finished_at) || null,
+      })),
+    },
+    errorBook: {
+      total: Number(errorRow?.total) || 0,
+      mastered: Number(errorRow?.mastered) || 0,
+      active: (Number(errorRow?.total) || 0) - (Number(errorRow?.mastered) || 0),
+    },
+    checkins: {
+      days: completedCheckins.length,
+      lastDay: completedCheckins.reduce((latest, row) => (!latest || row.day > latest ? row.day : latest), null),
+    },
+  }
+}

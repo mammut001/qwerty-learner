@@ -4,6 +4,7 @@ import {
   adminApiEnabled,
   authorizeAdminRequest,
   authorizeRecallModeration,
+  getUserDetailForAdmin,
   listUsersForAdmin,
   parseRecallModeratorCanApprove,
   loadPlacementCohortReportFromDb,
@@ -696,6 +697,7 @@ export function createStudyServer({
     const adminRecallsSummary = path === '/api/study-plan/admin/recalls/summary'
     const adminRecallsReview = path === '/api/study-plan/admin/recalls/review'
     const adminUsers = path === '/api/study-plan/admin/users'
+    const adminUserDetail = path === '/api/study-plan/admin/users/detail'
     const itemReports = path === '/api/study-plan/reports'
     const recalls = path === '/api/study-plan/recalls'
     const cohortInfo = path === '/api/study-plan/cohort'
@@ -724,7 +726,7 @@ export function createStudyServer({
         !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
         !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts && !access &&
         !adminConfig && !adminPlacementCohort && !adminPlacementCsv && !adminCohorts && !adminCohortRotate &&
-        !adminReports && !adminReportsCsv && !adminReportsResolve && !adminRecalls && !adminRecallsReview && !adminRecallsSummary && !adminUsers &&
+        !adminReports && !adminReportsCsv && !adminReportsResolve && !adminRecalls && !adminRecallsReview && !adminRecallsSummary && !adminUsers && !adminUserDetail &&
         !itemReports && !recalls &&
         !cohortInfo && !cohortJoin && !plan) {
       if (staticDir && !path.startsWith('/api/')) {
@@ -994,6 +996,26 @@ export function createStudyServer({
         hasQuery: qParam.length > 0,
       })
       return send(200, { ok: true, ...result })
+    }
+
+    if (adminUserDetail) {
+      if (req.method !== 'GET') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      // Same full-admin-token rule as /admin/users: the recall moderator token cannot read learner activity.
+      const auth = authorizeAdminRequest(req.headers.authorization, adminToken)
+      if (!auth.ok) {
+        audit(null, 'admin_user_detail', auth.status === 401 ? 'denied' : 'disabled')
+        return sendError(auth.status, auth.code, auth.message)
+      }
+      const idParam = (requestUrl.searchParams.get('id') || '').trim()
+      if (!idParam) return sendError(400, 'ADMIN_USER_DETAIL_INVALID', 'Missing id')
+      const detail = getUserDetailForAdmin(db, idParam)
+      if (!detail) {
+        audit(null, 'admin_user_detail', 'not_found')
+        return sendError(404, 'ADMIN_USER_NOT_FOUND', 'User not found')
+      }
+      // The audit row carries no id, email or learner data.
+      audit(null, 'admin_user_detail', 'success')
+      return send(200, { ok: true, detail })
     }
 
     if (adminRecallsReview) {

@@ -4,7 +4,8 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { DatabaseSync } from 'node:sqlite'
 import { test } from 'node:test'
-import { listUsersForAdmin } from './study-admin.mjs'
+import { getUserDetailForAdmin, listUsersForAdmin } from './study-admin.mjs'
+import { studyApi } from '../deploy/worker.mjs'
 import { ensureNodeFeatureSchema } from './study-node-features.mjs'
 import { createStudyServer } from './study-plan.mjs'
 
@@ -359,5 +360,242 @@ test('GET /admin/users: audit log records the access without emails or the searc
   } finally {
     await new Promise((resolve) => server.close(resolve))
     rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+// ---------------------------------------------------------------------------
+// User detail (learning activity summary)
+// ---------------------------------------------------------------------------
+
+const HOUR = 3_600_000
+
+// Learner state for acc-google (learner l-google). Values are chosen so the expected summary is easy to check.
+function seedLearnerState(db, now = NOW) {
+  const state = {
+    startDate: utcDay(now - 40 * DAY),
+    minutes: {
+      [utcDay(now)]: { reading: 30, vocabulary: 15 },
+      [utcDay(now - DAY)]: { vocabulary: 20 },
+      [utcDay(now - 44 * DAY)]: { vocabulary: 99 },
+    },
+    learning: {
+      vocabulary: {
+        records: [
+          { id: 'v1', word: 'bonjour', dict: 'A1', chapter: 1, timeStamp: Math.floor(now / 1000) - 3600, durationMs: 4000, wrongCount: 0, wrongKeys: [], day: utcDay(now) },
+          { id: 'v2', word: 'merci', dict: 'A1', chapter: 2, timeStamp: Math.floor(now / 1000) - 60, durationMs: 6000, wrongCount: 2, wrongKeys: ['a', 'b'], day: utcDay(now) },
+          { id: 'v3', word: 'merci', dict: 'A1', chapter: 2, timeStamp: Math.floor(now / 1000) - DAY / 1000, durationMs: 2000, wrongCount: 1, wrongKeys: ['c'], day: utcDay(now - DAY) },
+          { id: 'v4', word: 'chat', dict: 'B1', chapter: null, timeStamp: Math.floor(now / 1000) - DAY / 1000, durationMs: 3000, wrongCount: 0, wrongKeys: [], day: utcDay(now - DAY) },
+        ],
+      },
+      grammar: {
+        draft: null,
+        history: [
+          { id: '00000000-0000-4000-8000-000000000001', topic: 'passé composé', score: 8, total: 10, elapsedSeconds: 300, finishedAt: now - 2 * DAY, day: utcDay(now - 2 * DAY), answers: {}, reasons: {}, outputAnswers: [] },
+          { id: '00000000-0000-4000-8000-000000000002', topic: 'subjonctif', score: 3, total: 5, elapsedSeconds: 120, finishedAt: now - DAY, day: utcDay(now - DAY), answers: {}, reasons: {}, outputAnswers: [] },
+        ],
+      },
+      conjugationAttempts: [
+        { id: 'c1', verb: 'être', tense: 'present', correct: true, day: utcDay(now), occurredAt: now },
+        { id: 'c2', verb: 'avoir', tense: 'present', correct: false, day: utcDay(now), occurredAt: now - 1000 },
+        { id: 'c3', verb: 'aller', tense: 'futur', correct: true, day: utcDay(now - DAY), occurredAt: now - DAY },
+      ],
+      focusSessions: [
+        { id: 'f1', day: utcDay(now), taskId: 'vocabulary', title: 'Vocabulaire', minutes: 25, endedAt: now - 2 * HOUR },
+      ],
+      placement: {
+        latest: {
+          cefrLevel: 'B1',
+          finishedAt: now - 30 * DAY,
+          sectionScores: {
+            vocabulary: { correct: 8, total: 10 },
+            grammar: { correct: 5, total: 10 },
+            reading: { correct: 6, total: 10 },
+          },
+          recommendations: { suggestedStartWeek: 3 },
+        },
+        history: [],
+      },
+    },
+  }
+  db.prepare('INSERT INTO learners(id,state) VALUES(?,?)').run('l-google', JSON.stringify(state))
+
+  // Six TCF attempts, newest first in the table. The summary keeps the last five.
+  const insertTcf = db.prepare(`
+    INSERT INTO tcf_attempts(learner,attempt_id,skill,question_count,correct_count,scaled_score,nclc,duration_seconds,started_at,finished_at,day,answers)
+    VALUES(?,?,?,?,?,?,?,?,?,?,?,?)
+  `)
+  for (let index = 0; index < 6; index += 1) {
+    const finishedAt = now - index * HOUR
+    insertTcf.run('l-google', `t${index}`, 'listening', 39, 30, 300 + index * 10, 7, 1000, finishedAt - 1000, finishedAt, utcDay(now - 3 * DAY), '[]')
+  }
+}
+
+test('getUserDetailForAdmin: summary aggregates from learner state and tables', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'admin-user-detail-'))
+  const db = openSeedDb(join(dir, 'study.sqlite'))
+  try {
+    seed(db)
+    seedLearnerState(db)
+    const detail = getUserDetailForAdmin(db, 'acc-google', { now: NOW })
+    assert.ok(detail)
+
+    assert.equal(detail.lastActiveAt, NOW, 'latest check-in and conjugation attempt are at NOW')
+    // 10-15, 10-14, 10-13 (check-ins and grammar), 10-12 (TCF), 10-10 (make-up), 09-01 (minutes).
+    assert.equal(detail.activeDays, 6)
+    assert.equal(detail.totalMinutes, 164)
+
+    const vocab = detail.vocabulary
+    assert.equal(vocab.totalWords, 4)
+    assert.equal(vocab.totalTypingMs, 15000)
+    assert.equal(vocab.avgMsPerWord, 3750)
+    assert.equal(vocab.accuracy, 50, 'two of four words had no wrong answers')
+    assert.deepEqual(vocab.topMistakes.map((item) => [item.word, item.wrongCount]), [['merci', 3]])
+    assert.deepEqual(vocab.byDict, [
+      { dict: 'A1', count: 3, chapters: [1, 2] },
+      { dict: 'B1', count: 1, chapters: [] },
+    ])
+    assert.equal(vocab.perDay.length, 30)
+    assert.equal(vocab.perDay.at(-1).day, utcDay(NOW))
+    assert.deepEqual(vocab.perDay.at(-1), { day: utcDay(NOW), words: 2, ms: 10000 })
+    assert.deepEqual(vocab.perDay.at(-2), { day: utcDay(NOW - DAY), words: 2, ms: 5000 })
+    assert.equal(vocab.perDay.reduce((sum, row) => sum + row.words, 0), 4)
+
+    assert.equal(detail.grammar.sessions, 2)
+    assert.equal(detail.grammar.accuracy, 73, '11 of 15 answers')
+    assert.deepEqual(detail.grammar.recent.map((item) => item.topic), ['subjonctif', 'passé composé'])
+
+    assert.equal(detail.conjugation.attempts, 3)
+    assert.equal(detail.conjugation.accuracy, 67)
+
+    assert.equal(detail.placement.latest.cefrLevel, 'B1')
+    assert.equal(detail.placement.latest.suggestedStartWeek, 3)
+    assert.deepEqual(detail.placement.latest.sectionAccuracy, { vocabulary: 80, grammar: 50, reading: 60 })
+    assert.equal(detail.placement.historyCount, 0)
+
+    assert.equal(detail.tcf.count, 6)
+    assert.deepEqual(detail.tcf.recent.map((item) => item.scaledScore), [300, 310, 320, 330, 340])
+    assert.equal(detail.tcf.recent[0].nclc, 7)
+
+    assert.deepEqual(detail.errorBook, { total: 0, mastered: 0, active: 0 })
+    assert.deepEqual(detail.checkins, { days: 4, lastDay: utcDay(NOW) })
+
+    // No emails, learner ids or account ids in the summary.
+    assert.doesNotMatch(JSON.stringify(detail), /@|l-google|acc-google/)
+  } finally {
+    db.close()
+    rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+test('getUserDetailForAdmin: learner id works; accounts without learner state get empty sections', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'admin-user-detail-empty-'))
+  const db = openSeedDb(join(dir, 'study.sqlite'))
+  try {
+    seed(db)
+    seedLearnerState(db)
+    assert.deepEqual(
+      getUserDetailForAdmin(db, 'l-google', { now: NOW }),
+      getUserDetailForAdmin(db, 'acc-google', { now: NOW }),
+    )
+
+    // Apple account with error book rows but no learners row.
+    const apple = getUserDetailForAdmin(db, 'acc-apple', { now: NOW })
+    assert.equal(apple.vocabulary.totalWords, 0)
+    assert.equal(apple.vocabulary.accuracy, null)
+    assert.equal(apple.vocabulary.avgMsPerWord, null)
+    assert.equal(apple.vocabulary.perDay.every((row) => row.words === 0), true)
+    assert.equal(apple.grammar.sessions, 0)
+    assert.equal(apple.placement.latest, null)
+    assert.equal(apple.tcf.count, 0)
+    assert.deepEqual(apple.errorBook, { total: 3, mastered: 1, active: 2 })
+    assert.deepEqual(apple.checkins, { days: 0, lastDay: null })
+    assert.equal(apple.totalMinutes, 0)
+    assert.equal(apple.lastActiveAt, NOW, 'error book attempt is at NOW')
+
+    // Passkey-only account with no activity at all.
+    const passkey = getUserDetailForAdmin(db, 'acc-passkey', { now: NOW })
+    assert.equal(passkey.lastActiveAt, null)
+    assert.equal(passkey.activeDays, 0)
+
+    assert.equal(getUserDetailForAdmin(db, 'no-such-id', { now: NOW }), null)
+    assert.equal(getUserDetailForAdmin(db, '   ', { now: NOW }), null)
+  } finally {
+    db.close()
+    rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+test('GET /admin/users/detail: full admin token only; 400 without id, 404 unknown, 405 on POST', async () => {
+  const { dir, database, server } = setupServer({
+    adminToken: ADMIN_TOKEN,
+    recallModeratorToken: MOD_TOKEN,
+    recallModeratorCanApprove: true,
+  })
+  const seedDb = openSeedDb(database)
+  seed(seedDb)
+  seedLearnerState(seedDb)
+  seedDb.close()
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
+  const auth = { Authorization: `Bearer ${ADMIN_TOKEN}` }
+
+  try {
+    const noAuth = await callApi(server, 'GET', '/admin/users/detail?id=acc-google')
+    assert.equal(noAuth.response.status, 401)
+    assert.equal(noAuth.data.code, 'ADMIN_UNAUTHORIZED')
+
+    const moderator = await callApi(server, 'GET', '/admin/users/detail?id=acc-google', { Authorization: `Bearer ${MOD_TOKEN}` })
+    assert.equal(moderator.response.status, 401, 'recall moderator token must not read learner activity')
+
+    const ok = await callApi(server, 'GET', '/admin/users/detail?id=acc-google', auth)
+    assert.equal(ok.response.status, 200)
+    assert.equal(ok.data.ok, true)
+    assert.equal(ok.data.detail.vocabulary.totalWords, 4)
+    assert.doesNotMatch(JSON.stringify(ok.data), /@/)
+
+    const missing = await callApi(server, 'GET', '/admin/users/detail', auth)
+    assert.equal(missing.response.status, 400)
+    assert.equal(missing.data.code, 'ADMIN_USER_DETAIL_INVALID')
+
+    const unknown = await callApi(server, 'GET', '/admin/users/detail?id=no-such-id', auth)
+    assert.equal(unknown.response.status, 404)
+    assert.equal(unknown.data.code, 'ADMIN_USER_NOT_FOUND')
+
+    const post = await callApi(server, 'POST', '/admin/users/detail?id=acc-google', auth)
+    assert.equal(post.response.status, 405)
+
+    // Audit rows carry the action and status only, never the id or any email.
+    const reader = new DatabaseSync(database)
+    try {
+      const rows = reader.prepare("SELECT status, details FROM audit_log WHERE action = 'admin_user_detail'").all()
+      assert.ok(rows.some((row) => row.status === 'success'))
+      assert.ok(rows.some((row) => row.status === 'not_found'))
+      assert.ok(rows.some((row) => row.status === 'denied'))
+      for (const row of rows) assert.doesNotMatch(row.details, /@|acc-google|l-google/)
+    } finally {
+      reader.close()
+    }
+  } finally {
+    await new Promise((resolve) => server.close(resolve))
+    rmSync(dir, { recursive: true, force: true })
+  }
+
+  const disabled = setupServer({ adminToken: '' })
+  await new Promise((resolve) => disabled.server.listen(0, '127.0.0.1', resolve))
+  try {
+    const res = await callApi(disabled.server, 'GET', '/admin/users/detail?id=acc-google', auth)
+    assert.equal(res.response.status, 503)
+    assert.equal(res.data.code, 'ADMIN_DISABLED')
+  } finally {
+    await new Promise((resolve) => disabled.server.close(resolve))
+    rmSync(disabled.dir, { recursive: true, force: true })
+  }
+})
+
+test('public Worker host keeps /admin/users and /admin/users/detail as 404, even with the full admin token', async () => {
+  const origin = 'https://study.example'
+  const auth = { Authorization: `Bearer ${ADMIN_TOKEN}`, Origin: origin }
+  for (const path of ['/api/study-plan/admin/users', '/api/study-plan/admin/users/detail?id=acc-google']) {
+    const response = await studyApi(new Request(origin + path, { headers: auth }), { STUDY_ADMIN_TOKEN: ADMIN_TOKEN })
+    assert.equal(response.status, 404, path)
   }
 })

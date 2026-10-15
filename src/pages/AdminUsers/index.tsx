@@ -1,13 +1,16 @@
 import Layout from '@/components/Layout'
 import {
+  type AdminUserDailyWords,
+  type AdminUserDetail,
   type AdminUserItem,
   type AdminUserProvider,
   type AdminUsersSummary,
+  getAdminUserDetail,
   getStoredAdminUsersToken,
   listAdminUsers,
   saveAdminUsersToken,
 } from '@/services/adminUsers'
-import { type FormEvent, useCallback, useEffect, useRef, useState } from 'react'
+import { type FormEvent, type ReactNode, useCallback, useEffect, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import IconChevronDown from '~icons/tabler/chevron-down'
 import IconRefresh from '~icons/tabler/refresh'
@@ -103,6 +106,240 @@ function SignupChart({ data }: { data: AdminUsersSummary['signupsByDay'] }) {
   )
 }
 
+function formatPercent(value: number | null): string {
+  return value === null ? '—' : `${value}%`
+}
+
+function formatSecondsPerWord(ms: number | null): string {
+  return ms === null ? '—' : `${(ms / 1000).toFixed(1)} 秒`
+}
+
+function hasAnyActivity(detail: AdminUserDetail): boolean {
+  return (
+    detail.activeDays > 0 ||
+    detail.vocabulary.totalWords > 0 ||
+    detail.grammar.sessions > 0 ||
+    detail.conjugation.attempts > 0 ||
+    detail.tcf.count > 0 ||
+    detail.errorBook.total > 0 ||
+    detail.placement.latest !== null
+  )
+}
+
+function StatTile({ label, value, hint }: { label: string; value: string; hint?: string }) {
+  return (
+    <div className="rounded-2xl bg-gray-50 p-4 dark:bg-white/[0.03]">
+      <div className="text-[11px] font-medium text-gray-500 dark:text-gray-400">{label}</div>
+      <div className="mt-1 text-lg font-semibold tabular-nums text-gray-900 dark:text-white">{value}</div>
+      {hint && <div className="mt-0.5 text-[11px] text-gray-400 dark:text-gray-500">{hint}</div>}
+    </div>
+  )
+}
+
+function DetailSection({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <section className="rounded-2xl border border-gray-100 p-4 dark:border-white/10">
+      <h3 className="text-xs font-semibold text-gray-900 dark:text-white">{title}</h3>
+      <div className="mt-3 text-xs text-gray-700 dark:text-gray-300">{children}</div>
+    </section>
+  )
+}
+
+function DailyWordsChart({ data }: { data: AdminUserDailyWords[] }) {
+  const max = Math.max(1, ...data.map((row) => row.words))
+  const lastIndex = data.length - 1
+  return (
+    <section data-testid="admin-user-detail-chart">
+      <h3 className="text-xs font-semibold text-gray-900 dark:text-white">近 30 天每日词数（UTC 日）</h3>
+      <div className="mt-3 flex h-24 items-end gap-1">
+        {data.map((row) => {
+          const pct = row.words > 0 ? Math.max(4, Math.round((row.words / max) * 100)) : 0
+          return (
+            <div key={row.day} className="flex h-full min-w-0 flex-1 flex-col justify-end" title={`${row.day}：${row.words} 词`}>
+              <div className="w-full rounded-t bg-emerald-500 dark:bg-emerald-400" style={{ height: `${pct}%` }} />
+            </div>
+          )
+        })}
+      </div>
+      <div className="mt-1 flex gap-1">
+        {data.map((row, index) => (
+          <div key={row.day} className="min-w-0 flex-1 text-center text-[10px] text-gray-400 dark:text-gray-500">
+            {index % 5 === 0 || index === lastIndex ? row.day.slice(5) : ''}
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function UserDetailPanel({
+  email,
+  detail,
+  loading,
+  error,
+  onClose,
+}: {
+  email: string
+  detail: AdminUserDetail | null
+  loading: boolean
+  error: string
+  onClose: () => void
+}) {
+  return (
+    <section data-testid="admin-user-detail" className="my-card rounded-3xl bg-white p-6 dark:bg-gray-800">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0">
+          <div className="text-xs font-semibold text-gray-500 dark:text-gray-400">学习活动</div>
+          <div className="mt-1 break-all text-sm font-semibold text-gray-900 dark:text-white">{email || '—'}</div>
+        </div>
+        <button type="button" onClick={onClose} className="ui-btn-secondary px-3 py-1.5 text-xs">
+          关闭
+        </button>
+      </div>
+
+      {loading && <p className="mt-4 text-sm text-gray-400">加载中…</p>}
+      {error && (
+        <p data-testid="admin-user-detail-error" className="mt-4 text-sm text-red-600 dark:text-red-400">
+          {error}
+        </p>
+      )}
+
+      {detail && !loading && !error && !hasAnyActivity(detail) && (
+        <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">暂无学习记录。</p>
+      )}
+
+      {detail && !loading && !error && hasAnyActivity(detail) && (
+        <div className="mt-5 space-y-5">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <StatTile label="最近活跃" value={formatDateTime(detail.lastActiveAt)} />
+            <StatTile
+              label="学习天数"
+              value={`${detail.activeDays} 天`}
+              hint={detail.checkins.days > 0 ? `打卡 ${detail.checkins.days} 天` : undefined}
+            />
+            <StatTile label="总时长" value={`${detail.totalMinutes} 分钟`} />
+            <StatTile label="打字词数" value={String(detail.vocabulary.totalWords)} />
+            <StatTile label="平均每词用时" value={formatSecondsPerWord(detail.vocabulary.avgMsPerWord)} />
+            <StatTile label="正确率" value={formatPercent(detail.vocabulary.accuracy)} hint="无错误的词 / 全部词" />
+            <StatTile
+              label="错题本数"
+              value={`${detail.errorBook.active} 待掌握`}
+              hint={`共 ${detail.errorBook.total}，已掌握 ${detail.errorBook.mastered}`}
+            />
+          </div>
+
+          <div className="grid gap-4 lg:grid-cols-2">
+            <DetailSection title="最常错的词">
+              {detail.vocabulary.topMistakes.length === 0 ? (
+                <span className="text-gray-400">暂无错词。</span>
+              ) : (
+                <ol className="space-y-1">
+                  {detail.vocabulary.topMistakes.map((item) => (
+                    <li key={item.word} className="flex flex-wrap justify-between gap-2">
+                      <span className="font-medium text-gray-900 dark:text-gray-100">{item.word}</span>
+                      <span className="text-gray-500 dark:text-gray-400">
+                        {item.dict} · 错 {item.wrongCount} 次
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              )}
+            </DetailSection>
+
+            <DetailSection title="词库 / 章节">
+              {detail.vocabulary.byDict.length === 0 ? (
+                <span className="text-gray-400">暂无词库记录。</span>
+              ) : (
+                <ul className="space-y-1">
+                  {detail.vocabulary.byDict.map((item) => (
+                    <li key={item.dict} className="flex flex-wrap justify-between gap-2">
+                      <span className="font-medium text-gray-900 dark:text-gray-100">{item.dict || '未标注'}</span>
+                      <span className="text-gray-500 dark:text-gray-400">
+                        {item.count} 词{item.chapters.length > 0 ? ` · 章节 ${item.chapters.join(', ')}` : ''}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </DetailSection>
+          </div>
+
+          <DailyWordsChart data={detail.vocabulary.perDay} />
+
+          <div className="grid gap-4 lg:grid-cols-2">
+            <DetailSection title="语法练习">
+              <div className="mb-2">
+                {detail.grammar.sessions} 次 · 正确率 {formatPercent(detail.grammar.accuracy)}
+              </div>
+              {detail.grammar.recent.length > 0 && (
+                <ul className="space-y-1">
+                  {detail.grammar.recent.map((item, index) => (
+                    <li key={`${item.finishedAt ?? index}-${item.topic}`} className="flex flex-wrap justify-between gap-2">
+                      <span>{item.topic || '未命名'}</span>
+                      <span className="font-mono text-[11px] text-gray-500 dark:text-gray-400">
+                        {item.score}/{item.total}
+                        {item.day ? ` · ${item.day}` : ''}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </DetailSection>
+
+            <DetailSection title="变位练习">
+              {detail.conjugation.attempts > 0 ? (
+                <div>
+                  {detail.conjugation.attempts} 次 · 正确率 {formatPercent(detail.conjugation.accuracy)}
+                </div>
+              ) : (
+                <span className="text-gray-400">暂无变位记录。</span>
+              )}
+            </DetailSection>
+
+            <DetailSection title="分级测试">
+              {detail.placement.latest ? (
+                <div className="space-y-1">
+                  <div>
+                    最新等级 <span className="font-semibold text-gray-900 dark:text-white">{detail.placement.latest.cefrLevel}</span>
+                    {detail.placement.latest.suggestedStartWeek !== null &&
+                      ` · 建议从第 ${detail.placement.latest.suggestedStartWeek} 周开始`}
+                  </div>
+                  <div className="text-gray-500 dark:text-gray-400">
+                    {Object.entries(detail.placement.latest.sectionAccuracy)
+                      .map(([section, value]) => `${section} ${formatPercent(value)}`)
+                      .join(' · ')}
+                  </div>
+                  {detail.placement.historyCount > 0 && (
+                    <div className="text-gray-500 dark:text-gray-400">历史测试 {detail.placement.historyCount} 次</div>
+                  )}
+                </div>
+              ) : (
+                <span className="text-gray-400">暂无分级测试。</span>
+              )}
+            </DetailSection>
+
+            <DetailSection title="模拟考（TCF）">
+              <div className="mb-2">{detail.tcf.count} 次</div>
+              {detail.tcf.recent.length > 0 && (
+                <ul className="space-y-1">
+                  {detail.tcf.recent.map((item, index) => (
+                    <li key={`${item.finishedAt ?? index}-${item.skill}`} className="flex flex-wrap justify-between gap-2">
+                      <span>{item.skill}</span>
+                      <span className="font-mono text-[11px] text-gray-500 dark:text-gray-400">
+                        {item.scaledScore} 分 · NCLC {item.nclc} · {item.correctCount}/{item.questionCount}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </DetailSection>
+          </div>
+        </div>
+      )}
+    </section>
+  )
+}
+
 export default function AdminUsersPage() {
   const [tokenInput, setTokenInput] = useState(() => getStoredAdminUsersToken())
   const [activeToken, setActiveToken] = useState(() => getStoredAdminUsersToken())
@@ -117,6 +354,11 @@ export default function AdminUsersPage() {
   const [loadingMore, setLoadingMore] = useState(false)
   const [error, setError] = useState('')
   const requestSeq = useRef(0)
+  const detailSeq = useRef(0)
+  const [selectedUser, setSelectedUser] = useState<AdminUserItem | null>(null)
+  const [detail, setDetail] = useState<AdminUserDetail | null>(null)
+  const [detailLoading, setDetailLoading] = useState(false)
+  const [detailError, setDetailError] = useState('')
 
   const load = useCallback(async (token: string, filters: Filters, offset: number, append: boolean) => {
     if (!token.trim()) return
@@ -166,6 +408,36 @@ export default function AdminUsersPage() {
     }
   }, [activeToken, providerFilter, query, load])
 
+  const loadDetail = useCallback(async (token: string, accountId: string) => {
+    const seq = ++detailSeq.current
+    setDetailLoading(true)
+    setDetailError('')
+    setDetail(null)
+    try {
+      const next = await getAdminUserDetail(token, accountId)
+      if (seq !== detailSeq.current) return
+      setDetail(next)
+    } catch (err: unknown) {
+      if (seq !== detailSeq.current) return
+      setDetailError((err as { message?: string }).message || '加载用户详情失败。')
+    } finally {
+      if (seq === detailSeq.current) setDetailLoading(false)
+    }
+  }, [])
+
+  const handleOpenDetail = (user: AdminUserItem) => {
+    setSelectedUser(user)
+    void loadDetail(activeToken, user.accountId)
+  }
+
+  const handleCloseDetail = () => {
+    detailSeq.current += 1
+    setSelectedUser(null)
+    setDetail(null)
+    setDetailError('')
+    setDetailLoading(false)
+  }
+
   const handleTokenSubmit = (e: FormEvent) => {
     e.preventDefault()
     const trimmed = tokenInput.trim()
@@ -179,6 +451,7 @@ export default function AdminUsersPage() {
   }
 
   const handleClearToken = () => {
+    handleCloseDetail()
     saveAdminUsersToken('')
     setTokenInput('')
     setActiveToken('')
@@ -345,11 +618,18 @@ export default function AdminUsersPage() {
                         <th className="whitespace-nowrap px-4 py-3">错题</th>
                         <th className="whitespace-nowrap px-4 py-3">成就</th>
                         <th className="whitespace-nowrap px-4 py-3">在线会话</th>
+                        <th className="whitespace-nowrap px-4 py-3">学习活动</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 dark:divide-white/10">
                       {items.map((item) => (
-                        <tr key={item.accountId} data-testid="admin-users-row" className="align-top">
+                        <tr
+                          key={item.accountId}
+                          data-testid="admin-users-row"
+                          className={`align-top ${
+                            selectedUser?.accountId === item.accountId ? 'bg-indigo-50/60 dark:bg-indigo-500/10' : ''
+                          }`}
+                        >
                           <td className="min-w-[14rem] px-4 py-3">
                             <EmailList emails={item.emails} displayName={item.displayName} />
                           </td>
@@ -371,6 +651,17 @@ export default function AdminUsersPage() {
                           </td>
                           <td className="whitespace-nowrap px-4 py-3 tabular-nums">{item.achievements}</td>
                           <td className="whitespace-nowrap px-4 py-3 tabular-nums">{item.activeSessions}</td>
+                          <td className="whitespace-nowrap px-4 py-3">
+                            <button
+                              type="button"
+                              data-testid="admin-users-detail-button"
+                              aria-expanded={selectedUser?.accountId === item.accountId}
+                              onClick={() => handleOpenDetail(item)}
+                              className="ui-btn-secondary px-2.5 py-1 text-xs"
+                            >
+                              详情
+                            </button>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -381,6 +672,16 @@ export default function AdminUsersPage() {
                 )}
                 {loading && items.length === 0 && <div className="p-10 text-center text-sm text-gray-400">加载中…</div>}
               </div>
+
+              {selectedUser && (
+                <UserDetailPanel
+                  email={selectedUser.emails[0] || selectedUser.displayName}
+                  detail={detail}
+                  loading={detailLoading}
+                  error={detailError}
+                  onClose={handleCloseDetail}
+                />
+              )}
 
               {!loading && items.length > 0 && items.length < total && (
                 <div className="pt-2 text-center">
