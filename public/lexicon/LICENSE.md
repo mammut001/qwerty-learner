@@ -16,3 +16,5 @@ Wiktionary text is available under the Creative Commons Attribution-ShareAlike L
 It is separate from the application source code, which keeps its own licence.
 
 The `s` section of each file holds the meanings from this project's own word lists in `public/dicts`.
+
+Pronunciation audio for irregular verbs affected by upstream TTS artifacts is sourced from Lingua Libre via Wikimedia Commons under CC BY-SA (see `public/voice/fr-overrides.json`).

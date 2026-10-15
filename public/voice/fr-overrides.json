@@ -1,0 +1,560 @@
+{
+  "generatedAt": "2026-10-15T02:32:23.227Z",
+  "source": "Wikimedia Commons / Lingua Libre (CC BY-SA)",
+  "words": {
+    "accroître": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3c/LL-Q150_%28fra%29-Lepticed7-accro%C3%AEtre.wav/LL-Q150_%28fra%29-Lepticed7-accro%C3%AEtre.wav.mp3",
+      "credit": "Lepticed7 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Lepticed7-accro%C3%AEtre.wav"
+    },
+    "accueillir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2b/LL-Q150_%28fra%29-Lepticed7-accueillir.wav/LL-Q150_%28fra%29-Lepticed7-accueillir.wav.mp3",
+      "credit": "Lepticed7 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Lepticed7-accueillir.wav"
+    },
+    "acquérir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7e/LL-Q150_%28fra%29-DSwissK-acqu%C3%A9rir.wav/LL-Q150_%28fra%29-DSwissK-acqu%C3%A9rir.wav.mp3",
+      "credit": "DSwissK · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-DSwissK-acqu%C3%A9rir.wav"
+    },
+    "aller": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b0/LL-Q150_%28fra%29-Lepticed7-aller.wav/LL-Q150_%28fra%29-Lepticed7-aller.wav.mp3",
+      "credit": "Lepticed7 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Lepticed7-aller.wav"
+    },
+    "apercevoir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/19/LL-Q150_%28fra%29-Guilhelma-apercevoir.wav/LL-Q150_%28fra%29-Guilhelma-apercevoir.wav.mp3",
+      "credit": "Guilhelma · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Guilhelma-apercevoir.wav"
+    },
+    "apprendre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/dd/LL-Q150_%28fra%29-Lepticed7-apprendre.wav/LL-Q150_%28fra%29-Lepticed7-apprendre.wav.mp3",
+      "credit": "Lepticed7 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Lepticed7-apprendre.wav"
+    },
+    "asseoir": {
+      "audio": null
+    },
+    "attendre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/78/LL-Q150_%28fra%29-Lepticed7-attendre.wav/LL-Q150_%28fra%29-Lepticed7-attendre.wav.mp3",
+      "credit": "Lepticed7 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Lepticed7-attendre.wav"
+    },
+    "avoir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2f/LL-Q150_%28fra%29-GrandCelinien-avoir.wav/LL-Q150_%28fra%29-GrandCelinien-avoir.wav.mp3",
+      "credit": "GrandCelinien · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-GrandCelinien-avoir.wav"
+    },
+    "battre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/4a/LL-Q150_%28fra%29-WikiLucas00-battre.wav/LL-Q150_%28fra%29-WikiLucas00-battre.wav.mp3",
+      "credit": "WikiLucas00 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-WikiLucas00-battre.wav"
+    },
+    "boire": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/09/LL-Q150_%28fra%29-WikiLucas00-boire.wav/LL-Q150_%28fra%29-WikiLucas00-boire.wav.mp3",
+      "credit": "WikiLucas00 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-WikiLucas00-boire.wav"
+    },
+    "combattre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/0d/LL-Q150_%28fra%29-Lepticed7-combattre.wav/LL-Q150_%28fra%29-Lepticed7-combattre.wav.mp3",
+      "credit": "Lepticed7 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Lepticed7-combattre.wav"
+    },
+    "comprendre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/88/LL-Q150_%28fra%29-GrandCelinien-comprendre.wav/LL-Q150_%28fra%29-GrandCelinien-comprendre.wav.mp3",
+      "credit": "GrandCelinien · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-GrandCelinien-comprendre.wav"
+    },
+    "conduire": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/59/LL-Q150_%28fra%29-GrandCelinien-conduire.wav/LL-Q150_%28fra%29-GrandCelinien-conduire.wav.mp3",
+      "credit": "GrandCelinien · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-GrandCelinien-conduire.wav"
+    },
+    "connaître": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/20/LL-Q150_%28fra%29-Lepticed7-conna%C3%AEtre.wav/LL-Q150_%28fra%29-Lepticed7-conna%C3%AEtre.wav.mp3",
+      "credit": "Lepticed7 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Lepticed7-conna%C3%AEtre.wav"
+    },
+    "conquérir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/42/LL-Q150_%28fra%29-WikiLucas00-conqu%C3%A9rir.wav/LL-Q150_%28fra%29-WikiLucas00-conqu%C3%A9rir.wav.mp3",
+      "credit": "WikiLucas00 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-WikiLucas00-conqu%C3%A9rir.wav"
+    },
+    "construire": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/f/f9/LL-Q150_%28fra%29-GrandCelinien-construire.wav/LL-Q150_%28fra%29-GrandCelinien-construire.wav.mp3",
+      "credit": "GrandCelinien · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-GrandCelinien-construire.wav"
+    },
+    "convaincre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/70/LL-Q150_%28fra%29-Lepticed7-convaincre.wav/LL-Q150_%28fra%29-Lepticed7-convaincre.wav.mp3",
+      "credit": "Lepticed7 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Lepticed7-convaincre.wav"
+    },
+    "courir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/4b/LL-Q150_%28fra%29-WikiLucas00-courir.wav/LL-Q150_%28fra%29-WikiLucas00-courir.wav.mp3",
+      "credit": "WikiLucas00 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-WikiLucas00-courir.wav"
+    },
+    "croire": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6b/LL-Q150_%28fra%29-Pamputt-croire.wav/LL-Q150_%28fra%29-Pamputt-croire.wav.mp3",
+      "credit": "Pamputt · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Pamputt-croire.wav"
+    },
+    "cueillir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b2/LL-Q150_%28fra%29-LoquaxFR-cueillir.wav/LL-Q150_%28fra%29-LoquaxFR-cueillir.wav.mp3",
+      "credit": "LoquaxFR · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-LoquaxFR-cueillir.wav"
+    },
+    "desservir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/01/LL-Q150_%28fra%29-Lepticed7-desservir.wav/LL-Q150_%28fra%29-Lepticed7-desservir.wav.mp3",
+      "credit": "Lepticed7 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Lepticed7-desservir.wav"
+    },
+    "devenir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/04/LL-Q150_%28fra%29-Pamputt-devenir.wav/LL-Q150_%28fra%29-Pamputt-devenir.wav.mp3",
+      "credit": "Pamputt · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Pamputt-devenir.wav"
+    },
+    "dire": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/78/LL-Q150_%28fra%29-GrandCelinien-dire.wav/LL-Q150_%28fra%29-GrandCelinien-dire.wav.mp3",
+      "credit": "GrandCelinien · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-GrandCelinien-dire.wav"
+    },
+    "disparaître": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9c/LL-Q150_%28fra%29-WikiLucas00-dispara%C3%AEtre.wav/LL-Q150_%28fra%29-WikiLucas00-dispara%C3%AEtre.wav.mp3",
+      "credit": "WikiLucas00 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-WikiLucas00-dispara%C3%AEtre.wav"
+    },
+    "dormir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/cc/LL-Q150_%28fra%29-X-Javier-dormir.wav/LL-Q150_%28fra%29-X-Javier-dormir.wav.mp3",
+      "credit": "X-Javier · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-X-Javier-dormir.wav"
+    },
+    "décevoir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/76/LL-Q150_%28fra%29-Lyoko%C3%AF-d%C3%A9cevoir.wav/LL-Q150_%28fra%29-Lyoko%C3%AF-d%C3%A9cevoir.wav.mp3",
+      "credit": "Lyokoï · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Lyoko%C3%AF-d%C3%A9cevoir.wav"
+    },
+    "découvrir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/5e/LL-Q150_%28fra%29-Lepticed7-d%C3%A9couvrir.wav/LL-Q150_%28fra%29-Lepticed7-d%C3%A9couvrir.wav.mp3",
+      "credit": "Lepticed7 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Lepticed7-d%C3%A9couvrir.wav"
+    },
+    "défendre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6a/LL-Q150_%28fra%29-DSwissK-d%C3%A9fendre.wav/LL-Q150_%28fra%29-DSwissK-d%C3%A9fendre.wav.mp3",
+      "credit": "DSwissK · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-DSwissK-d%C3%A9fendre.wav"
+    },
+    "détruire": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/42/LL-Q150_%28fra%29-Lepticed7-d%C3%A9truire.wav/LL-Q150_%28fra%29-Lepticed7-d%C3%A9truire.wav.mp3",
+      "credit": "Lepticed7 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Lepticed7-d%C3%A9truire.wav"
+    },
+    "encourir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/33/LL-Q150_%28fra%29-Lepticed7-encourir.wav/LL-Q150_%28fra%29-Lepticed7-encourir.wav.mp3",
+      "credit": "Lepticed7 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Lepticed7-encourir.wav"
+    },
+    "endormir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a1/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-endormir.wav/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-endormir.wav.mp3",
+      "credit": "Jérémy-Günther-Heinz Jähnick · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-endormir.wav"
+    },
+    "entendre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/02/LL-Q150_%28fra%29-Guilhelma-entendre.wav/LL-Q150_%28fra%29-Guilhelma-entendre.wav.mp3",
+      "credit": "Guilhelma · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Guilhelma-entendre.wav"
+    },
+    "envoyer": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/95/LL-Q150_%28fra%29-Pamputt-envoyer.wav/LL-Q150_%28fra%29-Pamputt-envoyer.wav.mp3",
+      "credit": "Pamputt · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Pamputt-envoyer.wav"
+    },
+    "faire": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b7/LL-Q150_%28fra%29-Poslovitch-faire.wav/LL-Q150_%28fra%29-Poslovitch-faire.wav.mp3",
+      "credit": "Poslovitch · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Poslovitch-faire.wav"
+    },
+    "falloir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1a/LL-Q150_%28fra%29-Pamputt-falloir.wav/LL-Q150_%28fra%29-Pamputt-falloir.wav.mp3",
+      "credit": "Pamputt · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Pamputt-falloir.wav"
+    },
+    "handicap": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a4/LL-Q150_%28fra%29-Kiminou1-handicap.wav/LL-Q150_%28fra%29-Kiminou1-handicap.wav.mp3",
+      "credit": "Kiminou1 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Kiminou1-handicap.wav"
+    },
+    "harceler": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/49/LL-Q150_%28fra%29-DSwissK-harceler.wav/LL-Q150_%28fra%29-DSwissK-harceler.wav.mp3",
+      "credit": "DSwissK · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-DSwissK-harceler.wav"
+    },
+    "harcèlement": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/df/LL-Q150_%28fra%29-Opsylac-harc%C3%A8lement.wav/LL-Q150_%28fra%29-Opsylac-harc%C3%A8lement.wav.mp3",
+      "credit": "Opsylac · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Opsylac-harc%C3%A8lement.wav"
+    },
+    "hausse": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6e/LL-Q150_%28fra%29-VictorDtmtc-hausse.wav/LL-Q150_%28fra%29-VictorDtmtc-hausse.wav.mp3",
+      "credit": "VictorDtmtc · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-VictorDtmtc-hausse.wav"
+    },
+    "hauteur": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/95/LL-Q150_%28fra%29-0x010C-hauteur.wav/LL-Q150_%28fra%29-0x010C-hauteur.wav.mp3",
+      "credit": "0x010C · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-0x010C-hauteur.wav"
+    },
+    "haïr": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d4/LL-Q150_%28fra%29-GrandCelinien-ha%C3%AFr.wav/LL-Q150_%28fra%29-GrandCelinien-ha%C3%AFr.wav.mp3",
+      "credit": "GrandCelinien · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-GrandCelinien-ha%C3%AFr.wav"
+    },
+    "hibou": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/0d/LL-Q150_%28fra%29-DSwissK-hibou.wav/LL-Q150_%28fra%29-DSwissK-hibou.wav.mp3",
+      "credit": "DSwissK · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-DSwissK-hibou.wav"
+    },
+    "hiérarchie": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c5/LL-Q150_%28fra%29-0x010C-hi%C3%A9rarchie.wav/LL-Q150_%28fra%29-0x010C-hi%C3%A9rarchie.wav.mp3",
+      "credit": "0x010C · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-0x010C-hi%C3%A9rarchie.wav"
+    },
+    "hiérarchique": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/0f/LL-Q150_%28fra%29-Pamputt-hi%C3%A9rarchique.wav/LL-Q150_%28fra%29-Pamputt-hi%C3%A9rarchique.wav.mp3",
+      "credit": "Pamputt · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Pamputt-hi%C3%A9rarchique.wav"
+    },
+    "honte": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a7/LL-Q150_%28fra%29-DSwissK-honte.wav/LL-Q150_%28fra%29-DSwissK-honte.wav.mp3",
+      "credit": "DSwissK · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-DSwissK-honte.wav"
+    },
+    "humer": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6e/LL-Q150_%28fra%29-Anonyme569_%28ClasseNoes%29-humer.wav/LL-Q150_%28fra%29-Anonyme569_%28ClasseNoes%29-humer.wav.mp3",
+      "credit": "ClasseNoes · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Anonyme569_(ClasseNoes)-humer.wav"
+    },
+    "hurlement": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/f/fd/LL-Q150_%28fra%29-Jules78120-hurlement.wav/LL-Q150_%28fra%29-Jules78120-hurlement.wav.mp3",
+      "credit": "Jules78120 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Jules78120-hurlement.wav"
+    },
+    "hurler": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/f/f2/LL-Q150_%28fra%29-Arthur_Crbz-hurler.wav/LL-Q150_%28fra%29-Arthur_Crbz-hurler.wav.mp3",
+      "credit": "Arthur Crbz · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Arthur_Crbz-hurler.wav"
+    },
+    "héros": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b2/LL-Q150_%28fra%29-DSwissK-h%C3%A9ros.wav/LL-Q150_%28fra%29-DSwissK-h%C3%A9ros.wav.mp3",
+      "credit": "DSwissK · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-DSwissK-h%C3%A9ros.wav"
+    },
+    "interdire": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/80/LL-Q150_%28fra%29-Lepticed7-interdire.wav/LL-Q150_%28fra%29-Lepticed7-interdire.wav.mp3",
+      "credit": "Lepticed7 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Lepticed7-interdire.wav"
+    },
+    "intervenir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d5/LL-Q150_%28fra%29-WikiLucas00-intervenir.wav/LL-Q150_%28fra%29-WikiLucas00-intervenir.wav.mp3",
+      "credit": "WikiLucas00 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-WikiLucas00-intervenir.wav"
+    },
+    "introduire": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/29/LL-Q150_%28fra%29-Jules78120-introduire.wav/LL-Q150_%28fra%29-Jules78120-introduire.wav.mp3",
+      "credit": "Jules78120 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Jules78120-introduire.wav"
+    },
+    "joindre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/0f/LL-Q150_%28fra%29-Lepticed7-joindre.wav/LL-Q150_%28fra%29-Lepticed7-joindre.wav.mp3",
+      "credit": "Lepticed7 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Lepticed7-joindre.wav"
+    },
+    "lire": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7d/LL-Q150_%28fra%29-Pamputt-lire.wav/LL-Q150_%28fra%29-Pamputt-lire.wav.mp3",
+      "credit": "Pamputt · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Pamputt-lire.wav"
+    },
+    "maintenir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/4c/LL-Q150_%28fra%29-0x010C-maintenir.wav/LL-Q150_%28fra%29-0x010C-maintenir.wav.mp3",
+      "credit": "0x010C · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-0x010C-maintenir.wav"
+    },
+    "mettre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1f/LL-Q150_%28fra%29-Exilexi-mettre.wav/LL-Q150_%28fra%29-Exilexi-mettre.wav.mp3",
+      "credit": "Exilexi · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Exilexi-mettre.wav"
+    },
+    "mourir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/12/LL-Q150_%28fra%29-X-Javier-mourir.wav/LL-Q150_%28fra%29-X-Javier-mourir.wav.mp3",
+      "credit": "X-Javier · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-X-Javier-mourir.wav"
+    },
+    "médire": {
+      "audio": null
+    },
+    "naître": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/96/LL-Q150_%28fra%29-Simon_Villeneuve-na%C3%AEtre.wav/LL-Q150_%28fra%29-Simon_Villeneuve-na%C3%AEtre.wav.mp3",
+      "credit": "Simon Villeneuve · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Simon_Villeneuve-na%C3%AEtre.wav"
+    },
+    "offrir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/43/LL-Q150_%28fra%29-Pamputt-offrir.wav/LL-Q150_%28fra%29-Pamputt-offrir.wav.mp3",
+      "credit": "Pamputt · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Pamputt-offrir.wav"
+    },
+    "ouvrir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3e/LL-Q150_%28fra%29-WikiLucas00-ouvrir.wav/LL-Q150_%28fra%29-WikiLucas00-ouvrir.wav.mp3",
+      "credit": "WikiLucas00 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-WikiLucas00-ouvrir.wav"
+    },
+    "paraître": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3a/LL-Q150_%28fra%29-Pamputt-para%C3%AEtre.wav/LL-Q150_%28fra%29-Pamputt-para%C3%AEtre.wav.mp3",
+      "credit": "Pamputt · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Pamputt-para%C3%AEtre.wav"
+    },
+    "partir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/87/LL-Q150_%28fra%29-GrandCelinien-partir.wav/LL-Q150_%28fra%29-GrandCelinien-partir.wav.mp3",
+      "credit": "GrandCelinien · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-GrandCelinien-partir.wav"
+    },
+    "peindre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/dc/LL-Q150_%28fra%29-DSwissK-peindre.wav/LL-Q150_%28fra%29-DSwissK-peindre.wav.mp3",
+      "credit": "DSwissK · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-DSwissK-peindre.wav"
+    },
+    "permettre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c0/LL-Q150_%28fra%29-Pamputt-permettre.wav/LL-Q150_%28fra%29-Pamputt-permettre.wav.mp3",
+      "credit": "Pamputt · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Pamputt-permettre.wav"
+    },
+    "plaire": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a1/LL-Q150_%28fra%29-Poslovitch-plaire.wav/LL-Q150_%28fra%29-Poslovitch-plaire.wav.mp3",
+      "credit": "Poslovitch · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Poslovitch-plaire.wav"
+    },
+    "pleuvoir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a4/LL-Q150_%28fra%29-WikiLucas00-pleuvoir.wav/LL-Q150_%28fra%29-WikiLucas00-pleuvoir.wav.mp3",
+      "credit": "WikiLucas00 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-WikiLucas00-pleuvoir.wav"
+    },
+    "pondre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c3/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-pondre.wav/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-pondre.wav.mp3",
+      "credit": "Jérémy-Günther-Heinz Jähnick · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-pondre.wav"
+    },
+    "pouvoir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/65/LL-Q150_%28fra%29-GrandCelinien-pouvoir.wav/LL-Q150_%28fra%29-GrandCelinien-pouvoir.wav.mp3",
+      "credit": "GrandCelinien · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-GrandCelinien-pouvoir.wav"
+    },
+    "prendre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/16/LL-Q150_%28fra%29-GrandCelinien-prendre.wav/LL-Q150_%28fra%29-GrandCelinien-prendre.wav.mp3",
+      "credit": "GrandCelinien · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-GrandCelinien-prendre.wav"
+    },
+    "produire": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e9/LL-Q150_%28fra%29-Poslovitch-produire.wav/LL-Q150_%28fra%29-Poslovitch-produire.wav.mp3",
+      "credit": "Poslovitch · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Poslovitch-produire.wav"
+    },
+    "promettre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/69/LL-Q150_%28fra%29-DSwissK-promettre.wav/LL-Q150_%28fra%29-DSwissK-promettre.wav.mp3",
+      "credit": "DSwissK · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-DSwissK-promettre.wav"
+    },
+    "promouvoir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/76/LL-Q150_%28fra%29-DSwissK-promouvoir.wav/LL-Q150_%28fra%29-DSwissK-promouvoir.wav.mp3",
+      "credit": "DSwissK · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-DSwissK-promouvoir.wav"
+    },
+    "prévoir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a2/LL-Q150_%28fra%29-Poslovitch-pr%C3%A9voir.wav/LL-Q150_%28fra%29-Poslovitch-pr%C3%A9voir.wav.mp3",
+      "credit": "Poslovitch · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Poslovitch-pr%C3%A9voir.wav"
+    },
+    "recevoir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6b/LL-Q150_%28fra%29-Pamputt-recevoir.wav/LL-Q150_%28fra%29-Pamputt-recevoir.wav.mp3",
+      "credit": "Pamputt · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Pamputt-recevoir.wav"
+    },
+    "reconnaître": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d3/LL-Q150_%28fra%29-Guilhelma-reconna%C3%AEtre.wav/LL-Q150_%28fra%29-Guilhelma-reconna%C3%AEtre.wav.mp3",
+      "credit": "Guilhelma · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Guilhelma-reconna%C3%AEtre.wav"
+    },
+    "rendre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/4f/LL-Q150_%28fra%29-Pamputt-rendre.wav/LL-Q150_%28fra%29-Pamputt-rendre.wav.mp3",
+      "credit": "Pamputt · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Pamputt-rendre.wav"
+    },
+    "renvoyer": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/bb/LL-Q150_%28fra%29-LoquaxFR-renvoyer.wav/LL-Q150_%28fra%29-LoquaxFR-renvoyer.wav.mp3",
+      "credit": "LoquaxFR · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-LoquaxFR-renvoyer.wav"
+    },
+    "requérir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/56/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-requ%C3%A9rir.wav/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-requ%C3%A9rir.wav.mp3",
+      "credit": "Jérémy-Günther-Heinz Jähnick · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-requ%C3%A9rir.wav"
+    },
+    "ressenti": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b9/LL-Q150_%28fra%29-VictorDtmtc-ressenti.wav/LL-Q150_%28fra%29-VictorDtmtc-ressenti.wav.mp3",
+      "credit": "VictorDtmtc · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-VictorDtmtc-ressenti.wav"
+    },
+    "ressentir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/LL-Q150_%28fra%29-WikiLucas00-ressentir.wav/LL-Q150_%28fra%29-WikiLucas00-ressentir.wav.mp3",
+      "credit": "WikiLucas00 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-WikiLucas00-ressentir.wav"
+    },
+    "restreindre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/81/LL-Q150_%28fra%29-Lyoko%C3%AF-restreindre.wav/LL-Q150_%28fra%29-Lyoko%C3%AF-restreindre.wav.mp3",
+      "credit": "Lyokoï · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Lyoko%C3%AF-restreindre.wav"
+    },
+    "revoir": {
+      "audio": null
+    },
+    "réduire": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/15/LL-Q150_%28fra%29-Lepticed7-r%C3%A9duire.wav/LL-Q150_%28fra%29-Lepticed7-r%C3%A9duire.wav.mp3",
+      "credit": "Lepticed7 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Lepticed7-r%C3%A9duire.wav"
+    },
+    "répondre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b1/LL-Q150_%28fra%29-Arthur_Crbz-r%C3%A9pondre.wav/LL-Q150_%28fra%29-Arthur_Crbz-r%C3%A9pondre.wav.mp3",
+      "credit": "Arthur Crbz · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Arthur_Crbz-r%C3%A9pondre.wav"
+    },
+    "résoudre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/03/LL-Q150_%28fra%29-LoquaxFR-r%C3%A9soudre.wav/LL-Q150_%28fra%29-LoquaxFR-r%C3%A9soudre.wav.mp3",
+      "credit": "LoquaxFR · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-LoquaxFR-r%C3%A9soudre.wav"
+    },
+    "satisfaire": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/76/LL-Q150_%28fra%29-WikiLucas00-satisfaire.wav/LL-Q150_%28fra%29-WikiLucas00-satisfaire.wav.mp3",
+      "credit": "WikiLucas00 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-WikiLucas00-satisfaire.wav"
+    },
+    "savoir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/71/LL-Q150_%28fra%29-Roll-Morton-savoir.wav/LL-Q150_%28fra%29-Roll-Morton-savoir.wav.mp3",
+      "credit": "Roll-Morton · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Roll-Morton-savoir.wav"
+    },
+    "sentir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/bc/LL-Q150_%28fra%29-Guilhelma-sentir.wav/LL-Q150_%28fra%29-Guilhelma-sentir.wav.mp3",
+      "credit": "Guilhelma · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Guilhelma-sentir.wav"
+    },
+    "servir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c5/LL-Q150_%28fra%29-Xenoph%C3%B4n-servir.wav/LL-Q150_%28fra%29-Xenoph%C3%B4n-servir.wav.mp3",
+      "credit": "Xenophôn · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Xenoph%C3%B4n-servir.wav"
+    },
+    "sortir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3e/LL-Q150_%28fra%29-GrandCelinien-sortir.wav/LL-Q150_%28fra%29-GrandCelinien-sortir.wav.mp3",
+      "credit": "GrandCelinien · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-GrandCelinien-sortir.wav"
+    },
+    "souffrir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/8c/LL-Q150_%28fra%29-WikiLucas00-souffrir.wav/LL-Q150_%28fra%29-WikiLucas00-souffrir.wav.mp3",
+      "credit": "WikiLucas00 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-WikiLucas00-souffrir.wav"
+    },
+    "soumettre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/ca/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-soumettre.wav/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-soumettre.wav.mp3",
+      "credit": "Jérémy-Günther-Heinz Jähnick · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-soumettre.wav"
+    },
+    "sourire": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7c/LL-Q150_%28fra%29-DSwissK-sourire.wav/LL-Q150_%28fra%29-DSwissK-sourire.wav.mp3",
+      "credit": "DSwissK · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-DSwissK-sourire.wav"
+    },
+    "soutenir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/84/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-soutenir.wav/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-soutenir.wav.mp3",
+      "credit": "Jérémy-Günther-Heinz Jähnick · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-soutenir.wav"
+    },
+    "suffire": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a4/LL-Q150_%28fra%29-WikiLucas00-suffire.wav/LL-Q150_%28fra%29-WikiLucas00-suffire.wav.mp3",
+      "credit": "WikiLucas00 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-WikiLucas00-suffire.wav"
+    },
+    "tenir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/4a/LL-Q150_%28fra%29-X-Javier-tenir.wav/LL-Q150_%28fra%29-X-Javier-tenir.wav.mp3",
+      "credit": "X-Javier · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-X-Javier-tenir.wav"
+    },
+    "tordre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/44/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-tordre.wav/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-tordre.wav.mp3",
+      "credit": "Jérémy-Günther-Heinz Jähnick · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-tordre.wav"
+    },
+    "transmettre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/62/LL-Q150_%28fra%29-DSwissK-transmettre.wav/LL-Q150_%28fra%29-DSwissK-transmettre.wav.mp3",
+      "credit": "DSwissK · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-DSwissK-transmettre.wav"
+    },
+    "vaincre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9c/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-vaincre.wav/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-vaincre.wav.mp3",
+      "credit": "Jérémy-Günther-Heinz Jähnick · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-vaincre.wav"
+    },
+    "valoir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/f/f2/LL-Q150_%28fra%29-WikiLucas00-valoir.wav/LL-Q150_%28fra%29-WikiLucas00-valoir.wav.mp3",
+      "credit": "WikiLucas00 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-WikiLucas00-valoir.wav"
+    },
+    "vendre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/f/ff/LL-Q150_%28fra%29-LoquaxFR-vendre.wav/LL-Q150_%28fra%29-LoquaxFR-vendre.wav.mp3",
+      "credit": "LoquaxFR · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-LoquaxFR-vendre.wav"
+    },
+    "venir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1c/LL-Q150_%28fra%29-Roll-Morton-venir.wav/LL-Q150_%28fra%29-Roll-Morton-venir.wav.mp3",
+      "credit": "Roll-Morton · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Roll-Morton-venir.wav"
+    },
+    "vivre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/10/LL-Q150_%28fra%29-Roll-Morton-vivre.wav/LL-Q150_%28fra%29-Roll-Morton-vivre.wav.mp3",
+      "credit": "Roll-Morton · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Roll-Morton-vivre.wav"
+    },
+    "voir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6c/LL-Q150_%28fra%29-Loizbec-voir.wav/LL-Q150_%28fra%29-Loizbec-voir.wav.mp3",
+      "credit": "Loizbec · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Loizbec-voir.wav"
+    },
+    "vouloir": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b1/LL-Q150_%28fra%29-Pamputt-vouloir.wav/LL-Q150_%28fra%29-Pamputt-vouloir.wav.mp3",
+      "credit": "Pamputt · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Pamputt-vouloir.wav"
+    },
+    "week-end": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/90/LL-Q150_%28fra%29-Jules78120-week-end.wav/LL-Q150_%28fra%29-Jules78120-week-end.wav.mp3",
+      "credit": "Jules78120 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Jules78120-week-end.wav"
+    },
+    "écrire": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/17/LL-Q150_%28fra%29-Fhala.K-%C3%89crire.wav/LL-Q150_%28fra%29-Fhala.K-%C3%89crire.wav.mp3",
+      "credit": "Fhala.K · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Fhala.K-%C3%89crire.wav"
+    },
+    "émettre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ef/LL-Q150_%28fra%29-Lyoko%C3%AF-%C3%A9mettre.wav/LL-Q150_%28fra%29-Lyoko%C3%AF-%C3%A9mettre.wav.mp3",
+      "credit": "Lyokoï · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Lyoko%C3%AF-%C3%A9mettre.wav"
+    },
+    "éteindre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/5b/LL-Q150_%28fra%29-LoquaxFR-%C3%A9teindre.wav/LL-Q150_%28fra%29-LoquaxFR-%C3%A9teindre.wav.mp3",
+      "credit": "LoquaxFR · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-LoquaxFR-%C3%A9teindre.wav"
+    },
+    "étendre": {
+      "audio": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/0a/LL-Q150_%28fra%29-Lepticed7-%C3%A9tendre.wav/LL-Q150_%28fra%29-Lepticed7-%C3%A9tendre.wav.mp3",
+      "credit": "Lepticed7 · Lingua Libre · CC BY-SA",
+      "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Lepticed7-%C3%A9tendre.wav"
+    }
+  }
+}

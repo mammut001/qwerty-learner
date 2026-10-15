@@ -1,6 +1,6 @@
 import { isGuestMode } from './guestMode'
 
-export type PlayFrenchVoiceResult = 'played' | 'superseded' | 'unavailable'
+export type PlayFrenchVoiceResult = 'played' | 'superseded' | 'unavailable' | 'starred'
 
 export type PlayFrenchVoiceOptions = {
   volume?: number
@@ -9,6 +9,54 @@ export type PlayFrenchVoiceOptions = {
   onStart?: () => void
   onEnd?: () => void
   token?: number
+}
+
+export interface VoiceOverride {
+  audio: string | null
+  credit?: string
+  page?: string
+}
+
+export interface VoiceOverridesManifest {
+  generatedAt: string
+  source: string
+  words: Record<string, VoiceOverride>
+}
+
+let overridesCache: Record<string, VoiceOverride> | null = null
+let overridesPromise: Promise<Record<string, VoiceOverride> | null> | null = null
+
+export async function loadVoiceOverrides(): Promise<Record<string, VoiceOverride> | null> {
+  if (overridesCache) return overridesCache
+  if (overridesPromise) return overridesPromise
+
+  overridesPromise = (async () => {
+    try {
+      const prefix = REACT_APP_DEPLOY_ENV === 'pages' ? '/qwerty-learner' : ''
+      const response = await fetch(`${prefix}/voice/fr-overrides.json?v=${encodeURIComponent(LATEST_COMMIT_HASH)}`)
+      if (!response.ok) return null
+      const data = (await response.json()) as VoiceOverridesManifest
+      overridesCache = data?.words || null
+      return overridesCache
+    } catch {
+      return null
+    } finally {
+      overridesPromise = null
+    }
+  })()
+
+  return overridesPromise
+}
+
+export async function lookupVoiceOverride(word: string): Promise<VoiceOverride | null | undefined> {
+  const overrides = await loadVoiceOverrides()
+  if (!overrides) return undefined
+  const key = word.trim().toLowerCase()
+  return overrides[key]
+}
+
+if (typeof window !== 'undefined') {
+  void loadVoiceOverrides()
 }
 
 let audioContext: AudioContext | null = null
@@ -35,6 +83,7 @@ function apiBase(): string {
 
 const bufferCache = new Map<string, AudioBuffer>()
 const inflightVoice = new Map<string, Promise<AudioBuffer>>()
+const starredWords = new Set<string>()
 let proxyUnavailable = false
 
 type AvailabilityListener = (available: boolean) => void
@@ -65,6 +114,12 @@ export async function loadFrenchVoice(text: string): Promise<AudioBuffer> {
   if (!query) throw new Error('Query is empty')
   const key = query.toLowerCase()
 
+  if (starredWords.has(key)) {
+    const err = new Error('Dictionary voice is starred')
+    ;(err as unknown as { code: string }).code = 'DICTIONARY_VOICE_STARRED'
+    throw err
+  }
+
   const cached = bufferCache.get(key)
   if (cached) {
     bufferCache.delete(key)
@@ -82,8 +137,23 @@ export async function loadFrenchVoice(text: string): Promise<AudioBuffer> {
     const url = `${apiBase()}/api/study-plan/dictionary/voice?q=${encodeURIComponent(query)}`
     const response = await fetch(url, { credentials: 'include' })
     if (!response.ok) {
+      if (response.status === 422) {
+        const data = (await response
+          .clone()
+          .json()
+          .catch(() => ({}))) as { code?: string }
+        if (data.code === 'DICTIONARY_VOICE_STARRED') {
+          starredWords.add(key)
+          const err = new Error('Dictionary voice is starred')
+          ;(err as unknown as { code: string }).code = 'DICTIONARY_VOICE_STARRED'
+          throw err
+        }
+      }
       if (response.status === 401) {
-        const data = (await response.clone().json().catch(() => ({}))) as { code?: string }
+        const data = (await response
+          .clone()
+          .json()
+          .catch(() => ({}))) as { code?: string }
         if (data.code === 'LOGIN_REQUIRED') {
           if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('qwerty-auth-required'))
         } else {
@@ -212,7 +282,10 @@ export async function playFrenchVoice(
   let buffer: AudioBuffer
   try {
     buffer = await loadFrenchVoice(text)
-  } catch {
+  } catch (err: unknown) {
+    if ((err as { code?: string })?.code === 'DICTIONARY_VOICE_STARRED') {
+      return 'starred'
+    }
     return 'unavailable'
   }
 

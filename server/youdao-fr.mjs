@@ -42,6 +42,23 @@ function glossText(value) {
   return text && CJK.test(text) && !text.includes('<') ? text : ''
 }
 
+export function isYoudaoFrenchStarred(data) {
+  if (!data || typeof data !== 'object') return false
+  const simpleWords = Array.isArray(data?.simple?.word) ? data.simple.word : []
+  for (const w of simpleWords) {
+    if (typeof w?.speech === 'string' && w.speech.includes('*')) return true
+    if (typeof w?.['return-phrase'] === 'string' && w['return-phrase'].includes('*')) return true
+  }
+  const fcWords = Array.isArray(data?.fc?.word) ? data.fc.word : []
+  for (const w of fcWords) {
+    if (typeof w?.speech === 'string' && w.speech.includes('*')) return true
+    const rp = w?.['return-phrase']
+    if (typeof rp === 'string' && rp.includes('*')) return true
+    if (typeof rp?.l?.i === 'string' && rp.l.i.includes('*')) return true
+  }
+  return false
+}
+
 export function parseYoudaoFrench(data, query) {
   const fc = data && typeof data === 'object' ? data.fc : null
   const word = fc && Array.isArray(fc.word) ? fc.word[0] : null
@@ -75,6 +92,7 @@ export function parseYoudaoFrench(data, query) {
   const head = cleanText(word?.['return-phrase']?.l?.i).slice(0, 80)
   const phoneRaw = typeof word?.phone === 'string' ? word.phone.trim() : ''
   const source = cleanText(fc?.source?.name).slice(0, 40)
+  const starred = isYoudaoFrenchStarred(data) || head.includes('*')
   return {
     query,
     word: head || query,
@@ -82,6 +100,7 @@ export function parseYoudaoFrench(data, query) {
     source,
     senses,
     examples,
+    starred,
   }
 }
 
