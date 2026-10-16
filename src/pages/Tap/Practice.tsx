@@ -1,17 +1,24 @@
 import Flashcards from './Flashcards'
 import MultipleChoice from './MultipleChoice'
 import SessionSummary, { type RoundAnswer } from './SessionSummary'
+import Spelling, { type SpellKind } from './Spelling'
 import { recordTapAnswer } from './record'
+import { spellingEligible } from './tiles'
 import { type QuizKind, type TapWord, quizEligible } from './words'
 import type { Dictionary } from '@/typings'
 import { useState } from 'react'
 
-type TapTab = 'flash' | 'quiz'
+type TapTab = 'flash' | 'quiz' | 'spell'
 
 const KIND_LABEL: Record<QuizKind, string> = {
   fr2zh: '法→中',
   zh2fr: '中→法',
   listen: '听音选词',
+}
+
+const SPELL_KIND_LABEL: Record<SpellKind, string> = {
+  zh2fr: '看中文拼',
+  listen: '听音拼',
 }
 
 type Session = { id: number; words: TapWord[]; answers: RoundAnswer[] }
@@ -29,22 +36,33 @@ type PracticeProps = {
 export default function Practice({ dict, chapter, chapterWords, allWords, onOpenPicker, onChapter }: PracticeProps) {
   const [tab, setTab] = useState<TapTab>('flash')
   const [kind, setKind] = useState<QuizKind>('fr2zh')
+  const [spellKind, setSpellKind] = useState<SpellKind>('zh2fr')
   const [session, setSession] = useState<Session>(() => ({ id: 0, words: chapterWords, answers: [] }))
 
-  const roundWords = (nextTab: TapTab, nextKind: QuizKind) => (nextTab === 'quiz' ? quizEligible(chapterWords, nextKind) : chapterWords)
-  const startRound = (nextTab: TapTab, nextKind: QuizKind) =>
-    setSession((previous) => ({ id: previous.id + 1, words: roundWords(nextTab, nextKind), answers: [] }))
+  const roundWords = (nextTab: TapTab, nextKind: QuizKind, nextSpellKind: SpellKind) => {
+    if (nextTab === 'quiz') return quizEligible(chapterWords, nextKind)
+    if (nextTab === 'spell') return spellingEligible(chapterWords, nextSpellKind)
+    return chapterWords
+  }
+  const startRound = (nextTab: TapTab, nextKind: QuizKind, nextSpellKind: SpellKind) =>
+    setSession((previous) => ({ id: previous.id + 1, words: roundWords(nextTab, nextKind, nextSpellKind), answers: [] }))
 
   const switchTab = (next: TapTab) => {
     if (next === tab) return
     setTab(next)
-    startRound(next, kind)
+    startRound(next, kind, spellKind)
   }
 
   const switchKind = (next: QuizKind) => {
     if (next === kind) return
     setKind(next)
-    startRound('quiz', next)
+    startRound('quiz', next, spellKind)
+  }
+
+  const switchSpellKind = (next: SpellKind) => {
+    if (next === spellKind) return
+    setSpellKind(next)
+    startRound('spell', kind, next)
   }
 
   const record = (word: TapWord, correct: boolean, durationMs: number) => {
@@ -82,12 +100,15 @@ export default function Practice({ dict, chapter, chapterWords, allWords, onOpen
         </button>
       </header>
 
-      <div role="tablist" aria-label="练习方式" className="mt-4 grid grid-cols-2 gap-1 rounded-2xl bg-gray-100 p-1 dark:bg-white/5">
+      <div role="tablist" aria-label="练习方式" className="mt-4 grid grid-cols-3 gap-1 rounded-2xl bg-gray-100 p-1 dark:bg-white/5">
         <TabButton active={tab === 'flash'} onClick={() => switchTab('flash')}>
           闪卡
         </TabButton>
         <TabButton active={tab === 'quiz'} onClick={() => switchTab('quiz')}>
           四选一
+        </TabButton>
+        <TabButton active={tab === 'spell'} onClick={() => switchTab('spell')}>
+          拼词
         </TabButton>
       </div>
 
@@ -112,7 +133,42 @@ export default function Practice({ dict, chapter, chapterWords, allWords, onOpen
         </div>
       )}
 
-      {words.length === 0 ? (
+      {tab === 'spell' && (
+        <div role="tablist" aria-label="拼词类型" className="mt-3 grid grid-cols-2 gap-2">
+          {(Object.keys(SPELL_KIND_LABEL) as SpellKind[]).map((item) => (
+            <button
+              key={item}
+              type="button"
+              role="tab"
+              aria-selected={spellKind === item}
+              onClick={() => switchSpellKind(item)}
+              className={`h-10 rounded-xl border text-sm transition ${
+                spellKind === item
+                  ? 'border-indigo-500 bg-indigo-600 text-white'
+                  : 'border-gray-200 bg-white text-gray-700 dark:border-white/10 dark:bg-gray-800 dark:text-gray-200'
+              }`}
+            >
+              {SPELL_KIND_LABEL[item]}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {tab === 'spell' && words.length < 3 ? (
+        <div
+          role="status"
+          className="mt-6 rounded-3xl border border-gray-200 bg-white p-6 text-center text-sm text-gray-500 dark:border-white/10 dark:bg-gray-800 dark:text-gray-400"
+        >
+          <p>本章适合拼词的词条不足 3 个（已跳过长词或无释义词），建议使用「四选一」或换一章练习。</p>
+          <button
+            type="button"
+            onClick={() => switchTab('quiz')}
+            className="ui-btn-primary mt-4 h-11 px-5"
+          >
+            去练四选一
+          </button>
+        </div>
+      ) : words.length === 0 ? (
         <div
           role="status"
           className="mt-6 rounded-3xl border border-gray-200 bg-white p-6 text-center text-sm text-gray-500 dark:border-white/10 dark:bg-gray-800 dark:text-gray-400"
@@ -140,7 +196,7 @@ export default function Practice({ dict, chapter, chapterWords, allWords, onOpen
                 answers={answers}
                 hasNextChapter={hasNextChapter}
                 onRetryWrong={retryWrong}
-                onRestart={() => startRound(tab, kind)}
+                onRestart={() => startRound(tab, kind, spellKind)}
                 onNextChapter={() => onChapter(chapter + 1)}
                 onOpenPicker={onOpenPicker}
               />
@@ -153,13 +209,22 @@ export default function Practice({ dict, chapter, chapterWords, allWords, onOpen
                   advance(current, correct)
                 }}
               />
-            ) : current ? (
+            ) : current && tab === 'quiz' ? (
               <MultipleChoice
                 key={`${session.id}-${index}`}
                 word={current}
                 kind={kind}
                 chapterWords={chapterWords}
                 allWords={allWords}
+                isLast={index === words.length - 1}
+                onAnswer={(correct, durationMs) => record(current, correct, durationMs)}
+                onNext={(correct) => advance(current, correct)}
+              />
+            ) : current && tab === 'spell' ? (
+              <Spelling
+                key={`${session.id}-${index}`}
+                word={current}
+                kind={spellKind}
                 isLast={index === words.length - 1}
                 onAnswer={(correct, durationMs) => record(current, correct, durationMs)}
                 onNext={(correct) => advance(current, correct)}
