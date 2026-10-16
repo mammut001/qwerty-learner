@@ -44,7 +44,8 @@ export default defineConfig(async ({ mode }) => {
       minify: true,
       outDir: 'build',
       sourcemap: false,
-      manifest: true,
+      // Keep Vite's chunk map out of the root so it cannot overwrite public/manifest.json (the PWA manifest).
+      manifest: '.vite/manifest.json',
       rollupOptions: {
         output: {
           manualChunks: chunkForDependency,
