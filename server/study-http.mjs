@@ -8,6 +8,8 @@ function isLoopbackOrPrivate(hostname) {
 export function studyPolicy({ origin, secure, sameSite = 'strict' }, { method, headers }, healthOrOptions = false) {
   const health = typeof healthOrOptions === 'boolean' ? healthOrOptions : Boolean(healthOrOptions?.health)
   const allowBinary = typeof healthOrOptions === 'object' ? Boolean(healthOrOptions?.allowBinary) : false
+  // PUT is limited to the versioned full-mock session endpoint. Other APIs retain their strict method allowlist.
+  const allowSessionPut = typeof healthOrOptions === 'object' ? healthOrOptions?.allowSessionPut === true : false
   // Stripe webhook callbacks are server-to-server: no Origin, no cookie. Only the POST to the webhook path
   // is exempt (the route verifies the Stripe signature instead). Every other route keeps the full policy.
   const stripeWebhook = typeof healthOrOptions === 'object' && healthOrOptions?.webhook === true && method === 'POST'
@@ -37,7 +39,7 @@ export function studyPolicy({ origin, secure, sameSite = 'strict' }, { method, h
     responseHeaders['Access-Control-Allow-Origin'] = requestOrigin
     responseHeaders['Access-Control-Allow-Credentials'] = 'true'
   }
-  const methods = health ? ['GET'] : ['GET', 'POST', 'PATCH', 'DELETE']
+  const methods = health ? ['GET'] : allowSessionPut ? ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'] : ['GET', 'POST', 'PATCH', 'DELETE']
   if (method === 'OPTIONS') {
     const requested = (headers.get('access-control-request-headers') || '').toLowerCase().split(',').map((value) => value.trim()).filter(Boolean)
     if (!isMatch || !methods.includes(headers.get('access-control-request-method')) || requested.some((name) => name !== 'content-type'))

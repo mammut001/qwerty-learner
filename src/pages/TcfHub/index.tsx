@@ -43,6 +43,12 @@ export default function TcfHubPage() {
   const stats = (skill: TcfSkill): TcfSkillAnalytics | undefined => analytics?.tcf?.[skill]
   const reached = skills.filter(({ skill }) => stats(skill)?.gapToTarget === 0).length
   const attempted = skills.filter(({ skill }) => (stats(skill)?.attempts ?? 0) > 0).length
+  const weakest = skills
+    .filter(({ skill }) => stats(skill)?.latestScore != null)
+    .sort((a, b) =>
+      ((stats(b.skill)?.gapToTarget ?? 0) / TCF_CONFIG[b.skill].targetScore) -
+      ((stats(a.skill)?.gapToTarget ?? 0) / TCF_CONFIG[a.skill].targetScore),
+    )[0]
 
   return (
     <Layout>
@@ -112,6 +118,20 @@ export default function TcfHubPage() {
               </div>
             </div>
           </header>
+
+          <section className="ui-panel mt-5 flex flex-wrap items-center justify-between gap-4 px-5 py-5" data-testid="tcf-full-mock-entry">
+            <div>
+              <h2 className="text-lg font-semibold">完整连续模考 · 四项一气呵成</h2>
+              <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                CO 35 分钟 → CE 60 分钟 → EE 60 分钟 → EO 12 分钟。中断后可恢复，答题文字和进度支持跨设备同步。
+              </p>
+              <p className="mt-1 text-xs text-gray-500">录音保存在本设备；口语文字笔记可以跨设备继续。</p>
+              {weakest && <p className="mt-2 text-sm font-medium text-amber-600" data-testid="tcf-weakest-skill">
+                当前差距最大：{TCF_CONFIG[weakest.skill].shortLabel}（低于目标 {stats(weakest.skill)?.gapToTarget ?? 0} 分）
+              </p>}
+            </div>
+            <NavLink to="/tcf/full-mock" className="ui-btn-primary shrink-0">开始／恢复整场模考 →</NavLink>
+          </section>
 
           <div className="mt-5 grid gap-5 sm:grid-cols-2">
             {skills.map(({ skill, code, format }) => {
@@ -183,6 +203,19 @@ export default function TcfHubPage() {
                       </span>
                     )}
                   </div>
+
+                  {!!data?.trend.length && (
+                    <div className="mt-4" data-testid={`tcf-hub-trend-${skill}`}>
+                      <div className="mb-1 text-xs text-gray-500">最近成绩趋势（分）</div>
+                      <div className="flex h-12 items-end gap-1" aria-label={`${config.shortLabel} 最近成绩趋势`}>
+                        {data.trend.slice(-8).map((point) => (
+                          <div key={point.id} title={`${new Date(point.finishedAt).toLocaleDateString()}：${point.score}`}
+                            className="min-w-2 flex-1 rounded-t bg-indigo-400/70"
+                            style={{ height: `${Math.max(5, Math.round((point.score / config.maxScore) * 100))}%` }} />
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
                   <NavLink
                     to={`/echelle?skill=${skill}&level=${ECHELLE_TARGET_LEVEL}`}

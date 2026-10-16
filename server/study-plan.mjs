@@ -1,4 +1,5 @@
 import { studyPolicy, sessionCookie } from './study-http.mjs'
+import { normalizeFullMockSession, validateMockUpdate, FULL_MOCK_UPSERT_SQL } from './study-full-mock.mjs'
 import { errorBookCsv, learningRecordsCsv, weeklyReportsCsv } from './study-csv.mjs'
 import {
   adminApiEnabled,
@@ -684,6 +685,7 @@ export function createStudyServer({
     const tcfWriting = path === '/api/study-plan/tcf-writing'
     const tcfSpeaking = path === '/api/study-plan/tcf-speaking'
     const tcfAttempts = path === '/api/study-plan/tcf-attempts'
+    const tcfFullMock = path === '/api/study-plan/tcf-full-mock'
     const access = path === '/api/study-plan/access'
     const adminConfig = path === '/api/study-plan/admin/config'
     const adminPlacementCohort = path === '/api/study-plan/admin/placement-cohort'
@@ -724,7 +726,7 @@ export function createStudyServer({
         !authRoute && !authFirebase && !authLogout && !appleStart && !appleCallbackRoute && !appleFinish &&
         !syncInfo && !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData &&
         !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
-        !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts && !access &&
+        !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts && !tcfFullMock && !access &&
         !adminConfig && !adminPlacementCohort && !adminPlacementCsv && !adminCohorts && !adminCohortRotate &&
         !adminReports && !adminReportsCsv && !adminReportsResolve && !adminRecalls && !adminRecallsReview && !adminRecallsSummary && !adminUsers && !adminUserDetail &&
         !itemReports && !recalls &&
@@ -738,7 +740,7 @@ export function createStudyServer({
     const policy = studyPolicy(
       { origin, secure, sameSite },
       { method: req.method, headers: new Headers(req.headers) },
-      health ? true : { allowBinary: speechTranscribe, webhook: billingWebhook, appleCallback: appleCallbackRoute && appleEnabled },
+      health ? true : { allowBinary: speechTranscribe, allowSessionPut: tcfFullMock, webhook: billingWebhook, appleCallback: appleCallbackRoute && appleEnabled },
     )
     for (const [key, value] of Object.entries(policy.headers)) res.setHeader(key, value)
     if (policy.status) return policy.status === 204
@@ -1300,6 +1302,7 @@ export function createStudyServer({
     if (tcfWriting && !['GET', 'POST'].includes(req.method)) return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if (recalls && !['GET', 'POST'].includes(req.method)) return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if (tcfSpeaking && !['GET', 'POST', 'DELETE'].includes(req.method)) return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+    if (tcfFullMock && !['GET', 'PUT'].includes(req.method)) return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if (deleteData && req.method !== 'DELETE') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
     if (plan && !['GET', 'POST', 'PATCH'].includes(req.method)) return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
 
@@ -2221,6 +2224,27 @@ export function createStudyServer({
       const items = listNodeWeeklyReports(db, learner, limit)
       if (reportExport) return send(200, { format: 'qwerty-study-weekly-reports', version: 1, exportedAt: new Date().toISOString(), items })
       return send(200, { items })
+    }
+
+    if (tcfFullMock) {
+      const existing = db.prepare('SELECT revision,payload FROM tcf_full_mock_sessions WHERE learner=?').get(learner)
+      if (req.method === 'GET') return send(200, { session: existing ? JSON.parse(existing.payload) : null, revision: existing?.revision ?? 0, serverNow: Date.now() })
+      try {
+        const input = await readBody(req)
+        if (!hasExactKeys(input, ['session', 'revision'], ['session', 'revision']) ||
+            !Number.isSafeInteger(input.revision) || input.revision < 0) {
+          return sendError(400, 'INVALID_FULL_MOCK_REQUEST', 'Invalid session update')
+        }
+        const prior = existing ? JSON.parse(existing.payload) : null
+        const normalized = normalizeFullMockSession(input.session, prior)
+        validateMockUpdate(prior, normalized)
+        const result = db.prepare(FULL_MOCK_UPSERT_SQL).run(learner, JSON.stringify(normalized), Date.now(), input.revision)
+        if (!result.changes) return sendError(409, 'FULL_MOCK_CONFLICT', 'A newer session exists on another device')
+        const saved = db.prepare('SELECT revision FROM tcf_full_mock_sessions WHERE learner=?').get(learner)
+        return send(200, { ok: true, revision: saved.revision, session: normalized, serverNow: Date.now() })
+      } catch (error) {
+        return sendError(error instanceof RangeError ? 413 : 400, 'INVALID_FULL_MOCK_SESSION', 'Invalid session update')
+      }
     }
 
     if (tcfWritingDraft) {

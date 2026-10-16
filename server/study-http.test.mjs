@@ -54,3 +54,47 @@ test('Worker health and error responses enforce method/origin and expose no stor
   assert.doesNotMatch(await response.text(), /private database path/)
   assert.equal((await worker.fetch(new Request('https://api.example.invalid/health', { method: 'DELETE' }), env)).status, 405)
 })
+
+test('full mock PUT and preflight are allowed only by an explicitly scoped policy flag', () => {
+  const origin = 'https://frontend.example.invalid'
+  const settings = { origin, secure: true, sameSite: 'none' }
+  const headers = new Headers({ Origin: origin, 'Content-Type': 'application/json' })
+  const request = { method: 'PUT', headers }
+  assert.equal(studyPolicy(settings, request).status, 405, 'default write methods remain unchanged')
+  assert.equal(studyPolicy(settings, request, { allowSessionPut: true }).status, undefined)
+  assert.equal(studyPolicy(settings, { method: 'OPTIONS', headers: new Headers({
+    Origin: origin,
+    'Access-Control-Request-Method': 'PUT',
+    'Access-Control-Request-Headers': 'Content-Type',
+  }) }).status, 403, 'PUT preflight stays closed for other routes')
+  const preflight = studyPolicy(settings, { method: 'OPTIONS', headers: new Headers({
+    Origin: origin,
+    'Access-Control-Request-Method': 'PUT',
+    'Access-Control-Request-Headers': 'Content-Type',
+  }) }, { allowSessionPut: true })
+  assert.equal(preflight.status, 204)
+  assert.match(preflight.headers['Access-Control-Allow-Methods'], /\bPUT\b/)
+  assert.equal(studyPolicy(settings, { method: 'PUT', headers: new Headers({ Origin: 'https://evil.invalid', 'Content-Type': 'application/json' }) }, { allowSessionPut: true }).status, 403)
+})
+
+test('Worker preflight allows full-mock PUT but rejects PUT on other API routes', async () => {
+  const origin = 'https://frontend.example.invalid'
+  const env = {
+    STUDY_ORIGIN: origin,
+    STUDY_COOKIE_SECURE: 'true',
+    STUDY_COOKIE_SAME_SITE: 'none',
+    DB: { prepare() { throw new Error('database should not be queried for a preflight') } },
+  }
+  const preflight = (path) => worker.fetch(new Request(`https://api.example.invalid${path}`, {
+    method: 'OPTIONS',
+    headers: {
+      Origin: origin,
+      'Access-Control-Request-Method': 'PUT',
+      'Access-Control-Request-Headers': 'Content-Type',
+    },
+  }), env)
+  const allowed = await preflight('/api/study-plan/tcf-full-mock')
+  assert.equal(allowed.status, 204)
+  assert.match(allowed.headers.get('access-control-allow-methods'), /PUT/)
+  assert.equal((await preflight('/api/study-plan/tcf-writing/draft')).status, 403)
+})

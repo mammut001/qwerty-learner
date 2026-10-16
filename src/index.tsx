@@ -35,6 +35,7 @@ const GrammarSessionPage = lazy(() => import('./pages/GrammarSession'))
 const TensesPage = lazy(() => import('./pages/Tenses'))
 const StudyPlanPage = lazy(() => import('./pages/StudyPlan'))
 const TcfHubPage = lazy(() => import('./pages/TcfHub'))
+const TcfFullMockPage = lazy(() => import('./pages/TcfFullMock'))
 const PlacementTestPage = lazy(() => import('./pages/PlacementTest'))
 const AdminPlacementPage = lazy(() => import('./pages/AdminPlacement'))
 const ExamRecallsPage = lazy(() => import('./pages/ExamRecalls'))
@@ -197,6 +198,7 @@ function Root() {
                           }
                         />
                         <Route path="/tcf" element={<RequireAccount pageName="TCF 总览"><TcfHubPage /></RequireAccount>} />
+                        <Route path="/tcf/full-mock" element={<RequireAccount pageName="TCF 完整模考"><TcfFullMockPage /></RequireAccount>} />
                         <Route path="/echelle" element={<RequireAccount pageName="能力量表"><EchelleQuebecoisePage /></RequireAccount>} />
                         <Route path="/levels" element={<RequireAccount pageName="等级课程"><LevelsPage /></RequireAccount>} />
                         <Route path="/levels/review" element={<RequireAccount pageName="课程复习"><LevelReviewPage /></RequireAccount>} />

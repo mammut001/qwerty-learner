@@ -57,7 +57,7 @@ function createMockVerifier() {
 }
 
 test('migration v12 -> v13 creates exam_recalls table and migrates an existing DB forward', () => {
-  assert.equal(STUDY_SCHEMA_VERSION, 14)
+  assert.equal(STUDY_SCHEMA_VERSION, 15)
   const dir = mkdtempSync(join(tmpdir(), 'study-migration-v13-'))
   const db = new DatabaseSync(join(dir, 'study.sqlite'))
   try {
@@ -81,7 +81,7 @@ test('migration v12 -> v13 creates exam_recalls table and migrates an existing D
     // Forward migrate to v13
     ensureNodeFeatureSchema(db)
 
-    assert.equal(getNodeSchemaVersion(db), 14)
+    assert.equal(getNodeSchemaVersion(db), STUDY_SCHEMA_VERSION)
     const tables = new Set(db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all().map((r) => r.name))
     assert.ok(tables.has('exam_recalls'))
     assert.equal(db.prepare('SELECT COUNT(*) AS n FROM error_book').get().n, 1, 'existing error_book rows survive migration')

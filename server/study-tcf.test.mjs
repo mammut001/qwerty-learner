@@ -1,4 +1,5 @@
 import { createStudyServer } from './study-plan.mjs'
+import { STUDY_SCHEMA_VERSION } from './study-node-features.mjs'
 import {
   TCF_CONFIG,
   TCF_LISTENING_QUESTIONS,
@@ -163,7 +164,7 @@ test('TCF attempts persist, materialize and restore through a linked device', as
 
     const inspect = new DatabaseSync(database)
     assert.equal(inspect.prepare('SELECT COUNT(*) AS count FROM tcf_attempts').get().count, 1)
-    assert.equal(Number(inspect.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").get().value), 14)
+    assert.equal(Number(inspect.prepare("SELECT value FROM schema_meta WHERE key='schema_version'").get().value), STUDY_SCHEMA_VERSION)
     inspect.close()
 
     await stop()

@@ -532,6 +532,7 @@ export async function deleteWorkerLearnerData(db, learner) {
     db.prepare('DELETE FROM tcf_ee_drafts WHERE learner=?').bind(learner),
     db.prepare('DELETE FROM tcf_ee_attempts WHERE learner=?').bind(learner),
     db.prepare('DELETE FROM tcf_eo_attempts WHERE learner=?').bind(learner),
+    db.prepare('DELETE FROM tcf_full_mock_sessions WHERE learner=?').bind(learner),
     db.prepare('DELETE FROM audit_log WHERE learner=?').bind(learner),
     db.prepare('DELETE FROM rate_limits WHERE scope=?').bind('learner:' + learner),
     db.prepare('DELETE FROM passkey_challenges WHERE learner=?').bind(learner),

@@ -68,7 +68,7 @@ const subEvent = (id, type, created, status, extra = {}) => ({
 })
 
 test('schema v11 creates the billing tables and migrates an existing v10 database forward', () => {
-  assert.equal(STUDY_SCHEMA_VERSION, 14)
+  assert.equal(STUDY_SCHEMA_VERSION, 15)
   withDb((db) => {
     seedAccount(db)
     db.exec('DROP TABLE billing_events; DROP TABLE billing_subscriptions;')
@@ -78,7 +78,7 @@ test('schema v11 creates the billing tables and migrates an existing v10 databas
 
     ensureNodeFeatureSchema(db)
 
-    assert.equal(getNodeSchemaVersion(db), 14)
+    assert.equal(getNodeSchemaVersion(db), STUDY_SCHEMA_VERSION)
     const tables = new Set(db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all().map((row) => row.name))
     assert.ok(tables.has('billing_subscriptions'))
     assert.ok(tables.has('billing_events'))
@@ -88,8 +88,8 @@ test('schema v11 creates the billing tables and migrates an existing v10 databas
 
 test('a database newer than this server is still refused', () => {
   withDb((db) => {
-    db.prepare("UPDATE schema_meta SET value='15' WHERE key='schema_version'").run()
-    assert.throws(() => ensureNodeFeatureSchema(db), /newer than server v14/)
+    db.prepare("UPDATE schema_meta SET value=? WHERE key='schema_version'").run(String(STUDY_SCHEMA_VERSION + 1))
+    assert.throws(() => ensureNodeFeatureSchema(db), new RegExp(`newer than server v${STUDY_SCHEMA_VERSION}`))
   })
 })
 

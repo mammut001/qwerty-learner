@@ -1,4 +1,5 @@
 import { studyPolicy, sessionCookie } from '../server/study-http.mjs'
+import { normalizeFullMockSession, validateMockUpdate, FULL_MOCK_UPSERT_SQL } from '../server/study-full-mock.mjs'
 import { errorBookCsv, learningRecordsCsv, weeklyReportsCsv } from '../server/study-csv.mjs'
 import {
   adminApiEnabled,
@@ -53,7 +54,7 @@ import {
 } from './study-worker-features.mjs'
 
 const MAX_BODY_BYTES = 1700000
-const STUDY_SCHEMA_VERSION = 10
+const STUDY_SCHEMA_VERSION = 11
 const metrics = createStudyMetrics()
 const json = (status, data, headers = {}) => new Response(JSON.stringify(data), {
   status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', ...headers },
@@ -128,6 +129,7 @@ export async function studyApi(request, env) {
       await env.DB.prepare('SELECT learner,draft_id FROM tcf_ee_drafts LIMIT 1').all()
       await env.DB.prepare('SELECT learner,attempt_id FROM tcf_ee_attempts LIMIT 1').all()
       await env.DB.prepare('SELECT learner,attempt_id FROM tcf_eo_attempts LIMIT 1').all()
+      await env.DB.prepare('SELECT learner,revision FROM tcf_full_mock_sessions LIMIT 1').all()
       await env.DB.prepare('SELECT scope,action FROM rate_limits LIMIT 1').all()
       await env.DB.prepare('SELECT id,action FROM audit_log LIMIT 1').all()
       await env.DB.prepare('SELECT id,learner,user_handle FROM accounts LIMIT 1').all()
@@ -173,6 +175,7 @@ export async function studyApi(request, env) {
   const tcfWriting = path === '/api/study-plan/tcf-writing'
   const tcfSpeaking = path === '/api/study-plan/tcf-speaking'
   const tcfAttempts = path === '/api/study-plan/tcf-attempts'
+  const tcfFullMock = path === '/api/study-plan/tcf-full-mock'
   const adminConfig = path === '/api/study-plan/admin/config'
   const adminPlacementCohort = path === '/api/study-plan/admin/placement-cohort'
   const adminPlacementCsv = path === '/api/study-plan/admin/placement-cohort.csv'
@@ -188,7 +191,7 @@ export async function studyApi(request, env) {
       !echelleAi && !echelleEvaluate && !speechTranscribe &&
       !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData &&
       !account && !passkeyRegisterOptions && !passkeyRegisterVerify && !passkeyLoginOptions && !passkeyLoginVerify &&
-      !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts &&
+      !recordsCsv && !errorCsv && !reportsCsv && !tcfWritingDraft && !tcfWriting && !tcfSpeaking && !tcfAttempts && !tcfFullMock &&
       !adminConfig && !adminPlacementCohort && !adminPlacementCsv && !adminCohorts && !adminCohortRotate &&
       !cohortInfo && !cohortJoin && !plan)
     return jsonError(404, 'NOT_FOUND', 'Not found')
@@ -206,6 +209,7 @@ export async function studyApi(request, env) {
   if (tcfWritingDraft && !['GET', 'POST', 'PUT', 'DELETE'].includes(request.method)) return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
   if (tcfWriting && !['GET', 'POST'].includes(request.method)) return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
   if (tcfSpeaking && !['GET', 'POST', 'DELETE'].includes(request.method)) return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+  if (tcfFullMock && !['GET', 'PUT'].includes(request.method)) return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
   if (deleteData && request.method !== 'DELETE') return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
   if (plan && !['GET', 'POST', 'PATCH'].includes(request.method)) return jsonError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
 
@@ -682,6 +686,28 @@ export async function studyApi(request, env) {
     return json(200, { items }, headers)
   }
 
+  if (tcfFullMock) {
+    const existing = await db.prepare('SELECT revision,payload FROM tcf_full_mock_sessions WHERE learner=?').bind(learner).first()
+    if (request.method === 'GET') return json(200, { session: existing ? JSON.parse(existing.payload) : null, revision: existing?.revision ?? 0, serverNow: Date.now() }, headers)
+    try {
+      const input = await readBody(request)
+      if (!hasExactKeys(input, ['session', 'revision'], ['session', 'revision']) ||
+          !Number.isSafeInteger(input.revision) || input.revision < 0) {
+        return jsonError(400, 'INVALID_FULL_MOCK_REQUEST', 'Invalid session update', {}, headers)
+      }
+      const prior = existing ? JSON.parse(existing.payload) : null
+      const normalized = normalizeFullMockSession(input.session, prior)
+      validateMockUpdate(prior, normalized)
+      const result = await db.prepare(FULL_MOCK_UPSERT_SQL)
+        .bind(learner, JSON.stringify(normalized), Date.now(), input.revision).run()
+      if (!result.meta.changes) return jsonError(409, 'FULL_MOCK_CONFLICT', 'A newer session exists on another device', {}, headers)
+      const saved = await db.prepare('SELECT revision FROM tcf_full_mock_sessions WHERE learner=?').bind(learner).first()
+      return json(200, { ok: true, revision: saved.revision, session: normalized, serverNow: Date.now() }, headers)
+    } catch (error) {
+      return jsonError(error instanceof RangeError ? 413 : 400, 'INVALID_FULL_MOCK_SESSION', 'Invalid session update', {}, headers)
+    }
+  }
+
   if (tcfWritingDraft) {
     if (request.method === 'GET') {
       return json(200, { draft: await getWorkerTcfEeDraft(db, learner) }, headers)
@@ -959,7 +985,7 @@ export default {
         sameSite: env.STUDY_COOKIE_SAME_SITE || 'strict',
       },
       request,
-      ['/api/health', '/health'].includes(path) ? true : { allowBinary: path === '/api/study-plan/speech/transcribe' },
+      ['/api/health', '/health'].includes(path) ? true : { allowBinary: path === '/api/study-plan/speech/transcribe', allowSessionPut: path === '/api/study-plan/tcf-full-mock' },
     )
     let response
     if (policy.status) {
