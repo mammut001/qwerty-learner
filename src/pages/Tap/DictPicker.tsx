@@ -1,4 +1,5 @@
 import { dictionaries } from '@/resources/dictionary'
+import AddToHomeScreen from '@/components/AddToHomeScreen'
 import type { Dictionary } from '@/typings'
 import groupBy from '@/utils/groupBy'
 import range from '@/utils/range'
@@ -26,6 +27,8 @@ export default function DictPicker({ selectedDictId, selectedChapter, customDict
       <p className="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">
         不用键盘，看词或听音点选答案。练习记录和跟打共用。先选词库，再选章节。
       </p>
+
+      <AddToHomeScreen />
 
       {groups.map(([category, dicts]) => (
         <section key={category} className="mt-6">
