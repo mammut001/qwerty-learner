@@ -31,7 +31,10 @@ const Footer: React.FC = () => {
           TCF Canada 法语备考
         </button>
       </div>
-      <div id="footer-notices" hidden={!noticesOpen} className="flex w-full flex-col items-center gap-1.5">
+      <div
+        id="footer-notices"
+        className={`${noticesOpen ? 'flex' : 'hidden'} w-full flex-col items-center gap-1.5`}
+      >
         <p className="max-w-2xl text-center text-[11px] leading-relaxed text-gray-400 dark:text-gray-500">
           词库和题目尚未经法语母语者逐条校对，发现错误欢迎通过页面上的「报告问题」告诉我们。
         </p>
