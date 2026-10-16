@@ -8,7 +8,7 @@ const parseJson = (value, fallback = null) => {
   try { return JSON.parse(value) } catch { return fallback }
 }
 
-export const STUDY_SCHEMA_VERSION = 14
+export const STUDY_SCHEMA_VERSION = 15
 
 export function ensureNodeFeatureSchema(db) {
   db.exec(`
@@ -53,6 +53,10 @@ export function ensureNodeFeatureSchema(db) {
       day TEXT NOT NULL, PRIMARY KEY (learner,attempt_id)
     );
     CREATE INDEX IF NOT EXISTS tcf_ee_attempts_history ON tcf_ee_attempts(learner,finished_at DESC);
+    CREATE TABLE IF NOT EXISTS tcf_full_mock_sessions (
+      learner TEXT PRIMARY KEY, revision INTEGER NOT NULL DEFAULT 0,
+      payload TEXT NOT NULL, updated_at INTEGER NOT NULL
+    );
     CREATE TABLE IF NOT EXISTS tcf_eo_attempts (
       learner TEXT NOT NULL, attempt_id TEXT NOT NULL, task1_id TEXT NOT NULL, task1_duration INTEGER NOT NULL DEFAULT 0,
       task2_id TEXT NOT NULL, task2_duration INTEGER NOT NULL DEFAULT 0, task3_id TEXT NOT NULL, task3_duration INTEGER NOT NULL DEFAULT 0,
@@ -698,6 +702,7 @@ export function deleteNodeLearnerData(db, learner) {
     'tcf_ee_drafts',
     'tcf_ee_attempts',
     'tcf_eo_attempts',
+    'tcf_full_mock_sessions',
     'audit_log',
     'item_reports',
     'exam_recalls',

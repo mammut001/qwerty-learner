@@ -64,10 +64,36 @@ try {
   if (!(await metrics.text()).includes('qwerty_study_http_requests_total'))
     throw new Error('Worker metrics response missing Prometheus counters')
   const session = join(directory, 'session.json')
-  await smokeStudy(base, { saveSession: session, expectedSchemaVersion: 10 })
+  await smokeStudy(base, { saveSession: session, expectedSchemaVersion: 11 })
+  // Real D1 endpoint round-trip: authenticated learner isolation and revision checks.
+  const bootstrap = await fetch(`${base}/api/study-plan`, { headers: { Origin: base } })
+  const mockCookie = bootstrap.headers.get('set-cookie')?.split(';')[0]
+  if (!mockCookie) throw new Error('Full mock smoke: no session cookie')
+  const at = Date.now()
+  const mock = {
+    version: 1, id: crypto.randomUUID(), phase: 'listening', createdAt: at, updatedAt: at,
+    stageStartedAt: at, deadlineAt: at + 35 * 60 * 1000, completed: {},
+    qcm: { listening: { answers: { 'co-01': 1 }, played: ['co-01'], index: 1 }, reading: { answers: {}, played: [], index: 0 } },
+    writing: { taskIds: ['ee-t1-01', 'ee-t2-01', 'ee-t3-01'], texts: ['', '', ''], activeTask: 0,
+      scores: { taskCompletion: 0, coherence: 0, vocabulary: 0, grammar: 0 } },
+    speaking: { taskIds: ['eo-t1-01', 'eo-t2-01', 'eo-t3-01'], notes: ['', '', ''], durations: [0, 0, 0], activeTask: 0,
+      scores: { fluency: 0, pronunciation: 0, vocabulary: 0, grammar: 0, taskCompletion: 0 } },
+  }
+  const putMock = (revision) => fetch(`${base}/api/study-plan/tcf-full-mock`, {
+    method: 'PUT', headers: { Origin: base, Cookie: mockCookie, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ session: mock, revision }),
+  })
+  const firstPut = await putMock(0)
+  if (firstPut.status !== 200 || (await firstPut.json()).revision !== 1) throw new Error('D1 mock PUT failed')
+  if ((await putMock(0)).status !== 409) throw new Error('D1 mock revision conflict not enforced')
+  const getMock = () => fetch(`${base}/api/study-plan/tcf-full-mock`, { headers: { Origin: base, Cookie: mockCookie } })
+  const fetched = await (await getMock()).json()
+  if (fetched.session?.qcm.listening.answers['co-01'] !== 1) throw new Error('D1 mock state was not persisted')
   await stop()
   await start()
-  await smokeStudy(base, { resumeSession: session, expectedSchemaVersion: 10 })
+  await smokeStudy(base, { resumeSession: session, expectedSchemaVersion: 11 })
+  const restoredMock = await (await getMock()).json()
+  if (restoredMock.revision !== 1 || restoredMock.session?.id !== mock.id) throw new Error('D1 full mock did not survive restart')
   await smokeCors(base, base)
   await stop()
   config.vars.STUDY_ORIGIN = 'https://frontend.example.invalid'

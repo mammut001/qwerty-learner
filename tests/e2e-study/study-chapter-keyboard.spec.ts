@@ -6,6 +6,7 @@ for (const key of ['Space', 'Enter']) {
     const button = page.getByRole('button', { name: '第 1 章', exact: true })
     await expect(button).toBeVisible()
     await button.focus()
+    await expect(button).toBeFocused()
     await page.keyboard.press(key)
     await expect(page.getByRole('listbox')).toBeVisible()
     await page.keyboard.press('ArrowDown')

@@ -3,7 +3,7 @@ import { currentChapterAtom, currentDictInfoAtom, isReviewModeAtom } from '@/sto
 import range from '@/utils/range'
 import { Listbox, Transition } from '@headlessui/react'
 import { useAtom, useAtomValue } from 'jotai'
-import { Fragment } from 'react'
+import { Fragment, useRef } from 'react'
 import { NavLink } from 'react-router-dom'
 import IconCheck from '~icons/tabler/check'
 
@@ -12,6 +12,7 @@ export const DictChapterButton = () => {
   const [currentChapter, setCurrentChapter] = useAtom(currentChapterAtom)
   const chapterCount = currentDictInfo.chapterCount
   const isReviewMode = useAtomValue(isReviewModeAtom)
+  const chapterButtonRef = useRef<HTMLButtonElement>(null)
 
   return (
     <>
@@ -25,8 +26,13 @@ export const DictChapterButton = () => {
       </Tooltip>
       {!isReviewMode && (
         <Tooltip content="章节切换">
-          <Listbox value={currentChapter} onChange={setCurrentChapter}>
-            <Listbox.Button className="rounded-lg px-3 py-1 text-lg transition-colors duration-300 ease-in-out hover:bg-indigo-400 hover:text-white focus:outline-none dark:text-white dark:text-opacity-60 dark:hover:text-opacity-100">
+          <Listbox value={currentChapter} onChange={(chapter) => {
+            setCurrentChapter(chapter)
+            // Headless UI closes the option list and chapter content rerenders.
+            // Restore keyboard focus to the trigger after those updates, not the typing textarea.
+            requestAnimationFrame(() => chapterButtonRef.current?.focus())
+          }}>
+            <Listbox.Button ref={chapterButtonRef} className="rounded-lg px-3 py-1 text-lg transition-colors duration-300 ease-in-out hover:bg-indigo-400 hover:text-white focus:outline-none dark:text-white dark:text-opacity-60 dark:hover:text-opacity-100">
               第 {currentChapter + 1} 章
             </Listbox.Button>
             <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">

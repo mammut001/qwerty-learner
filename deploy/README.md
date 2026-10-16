@@ -203,7 +203,7 @@ For Docker deployments, `STUDY_TRUST_PROXY_IP=true` is enabled only behind the s
 
 ## Schema migration 0005 and analytics v5
 
-Apply every checked-in D1 migration in order. The current chain is `0001` through `0010`; `0010_account_identities.sql` adds Google account identities and records `schema_version=10`. The Node SQLite backend creates/upgrades the equivalent table at startup. Both health aliases verify the current schema version before reporting readiness.
+Apply every checked-in D1 migration in order. The current chain is `0001` through `0011`; `0011_tcf_full_mock.sql` adds resumable full-exam sessions and records `schema_version=11`. The Node SQLite backend creates/upgrades the equivalent table at startup. Both health aliases verify the current schema version before reporting readiness.
 
 Backup envelopes emitted by v5 include `version:5` and `schemaVersion:5`; imports intentionally continue accepting versions 1 through 5. The frontend's first-sync migration consolidates legacy IndexedDB vocabulary history plus grammar/conjugation localStorage into the durable server queue and marks migration complete only after the queue drains.
 

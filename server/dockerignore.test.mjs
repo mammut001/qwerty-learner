@@ -159,3 +159,8 @@ test('runtime data and sqlite files outside src remain excluded', () => {
     'Expected src/resources/tenses/data/index.ts to be included in docker context'
   )
 })
+
+test('study-api production image copies the full-mock server dependency', () => {
+  const dockerfile = fs.readFileSync(path.join(repoRoot, 'server/Dockerfile'), 'utf8')
+  assert.ok(dockerfile.includes('server/study-full-mock.mjs'), 'full-mock runtime module must be shipped with the study-api container')
+})

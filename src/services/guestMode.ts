@@ -7,6 +7,7 @@ const GATED_PATHS = new Set([
   '/levels/review',
   '/echelle',
   '/tcf',
+  '/tcf/full-mock',
   '/tcf-writing',
   '/tcf-speaking',
   '/analysis',

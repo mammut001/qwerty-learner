@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto'
 import { readFile, writeFile } from 'node:fs/promises'
 import { createPasskeyFixture } from '../server/study-passkey-test-helper.mjs'
 
-export async function smokeStudy(base, { saveSession, resumeSession, frontendOrigin, expectedSchemaVersion = 14 } = {}) {
+export async function smokeStudy(base, { saveSession, resumeSession, frontendOrigin, expectedSchemaVersion = 15 } = {}) {
   const url = new URL(base)
   assert.ok(url.protocol === 'https:' || ['localhost', '127.0.0.1'].includes(url.hostname), 'Public smoke requires HTTPS')
   const origin = url.origin
