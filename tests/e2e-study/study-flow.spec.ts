@@ -117,7 +117,7 @@ test('practice, offline persistence, sync, analytics, reminders and PWA shell', 
     return response.json()
   })
   expect(manifest.display).toBe('standalone')
-  expect(manifest.start_url).toBe('./study-plan')
+  expect(manifest.start_url).toBe('./tap')
 
   // Start a real conjugation practice from the smart plan so task time and answer stats share one backend state.
   await page.getByRole('link', { name: '开始动词变位' }).click()
