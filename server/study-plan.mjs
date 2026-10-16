@@ -2228,7 +2228,7 @@ export function createStudyServer({
 
     if (tcfFullMock) {
       const existing = db.prepare('SELECT revision,payload FROM tcf_full_mock_sessions WHERE learner=?').get(learner)
-      if (req.method === 'GET') return send(200, { session: existing ? JSON.parse(existing.payload) : null, revision: existing?.revision ?? 0 })
+      if (req.method === 'GET') return send(200, { session: existing ? JSON.parse(existing.payload) : null, revision: existing?.revision ?? 0, serverNow: Date.now() })
       try {
         const input = await readBody(req)
         if (!hasExactKeys(input, ['session', 'revision'], ['session', 'revision']) ||
@@ -2241,7 +2241,7 @@ export function createStudyServer({
         const result = db.prepare(FULL_MOCK_UPSERT_SQL).run(learner, JSON.stringify(normalized), Date.now(), input.revision)
         if (!result.changes) return sendError(409, 'FULL_MOCK_CONFLICT', 'A newer session exists on another device')
         const saved = db.prepare('SELECT revision FROM tcf_full_mock_sessions WHERE learner=?').get(learner)
-        return send(200, { ok: true, revision: saved.revision, session: normalized })
+        return send(200, { ok: true, revision: saved.revision, session: normalized, serverNow: Date.now() })
       } catch (error) {
         return sendError(error instanceof RangeError ? 413 : 400, 'INVALID_FULL_MOCK_SESSION', 'Invalid session update')
       }

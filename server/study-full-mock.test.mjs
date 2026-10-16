@@ -7,6 +7,7 @@ import { test } from 'node:test'
 import { createStudyServer } from './study-plan.mjs'
 import { validateFullMockSession, fullMockRemaining, FULL_MOCK_SECONDS, normalizeFullMockSession } from './study-full-mock.mjs'
 import { mergeFullMockSessions, hasFullMockRating } from '../src/services/tcfFullMockMerge.ts'
+import { fullMockClockOffset, correctedFullMockNow } from '../src/services/tcfFullMockClock.ts'
 
 const makeSession = (now = Date.now()) => ({
   version: 1, id: randomUUID(), phase: 'listening', createdAt: now, updatedAt: now,
@@ -54,12 +55,14 @@ test('full mock session: learner isolation, durable reload, optimistic revision 
     const other = await call('GET')
     assert.equal(first.status, 200)
     assert.equal(first.data.session, null)
+    assert.ok(Math.abs(first.data.serverNow - Date.now()) < 2000, 'GET includes authoritative millisecond server time')
     const s = makeSession()
     s.qcm.listening.answers['co-01'] = 2
     s.writing.texts[0] = "Bonjour, je voudrais m'inscrire."
     let saved = await call('PUT', first.cookie, { session: s, revision: 0 })
     assert.equal(saved.status, 200)
     assert.equal(saved.data.revision, 1)
+    assert.ok(Math.abs(saved.data.serverNow - Date.now()) < 2000, 'PUT response includes authoritative server time')
     const reload = await call('GET', first.cookie)
     assert.equal(reload.data.session.qcm.listening.answers['co-01'], 2)
     assert.equal(reload.data.session.writing.texts[0], s.writing.texts[0])
@@ -182,4 +185,51 @@ test('fast device timestamp is server-normalized without extending the current s
   assert.equal(updated.deadlineAt, stored.deadlineAt)
   assert.equal(updated.qcm.listening.answers['co-02'], 3)
   assert.equal(validateFullMockSession(updated), updated)
+})
+
+test('offline EE task 2, EO notes and changed QCM answer survive a reload using the last acknowledged base', () => {
+  const base = makeSession()
+  base.writing.texts[1] = 'Texte deux.'
+  base.speaking.notes[0] = 'Anciennes notes.'
+  base.qcm.listening.answers['co-01'] = 1
+
+  // The server did not receive any of the device's edits while offline.
+  const local = structuredClone(base)
+  local.writing.texts[1] = 'Hors ligne texte.'
+  local.speaking.notes[0] = 'Hors ligne notes.'
+  local.qcm.listening.answers['co-01'] = 3
+  local.updatedAt += 100
+
+  const merged = mergeFullMockSessions(base, local, base)
+  assert.equal(merged.writing.texts[1], 'Hors ligne texte.')
+  assert.equal(merged.speaking.notes[0], 'Hors ligne notes.')
+  assert.equal(merged.qcm.listening.answers['co-01'], 3)
+  assert.equal(merged.updatedAt, base.updatedAt, 'server metadata stays authoritative')
+  // If both sides edit the same task while offline, the server still wins.
+  const competingServer = structuredClone(base)
+  competingServer.writing.texts[1] = 'Serveur modifié.'
+  competingServer.speaking.notes[0] = 'Notes sur serveur.'
+  competingServer.qcm.listening.answers['co-01'] = 2
+  const conflict = mergeFullMockSessions(competingServer, local, base)
+  assert.equal(conflict.writing.texts[1], 'Serveur modifié.')
+  assert.equal(conflict.speaking.notes[0], 'Notes sur serveur.')
+  assert.equal(conflict.qcm.listening.answers['co-01'], 2)
+  // Without a baseline the implementation deliberately cannot safely
+  // distinguish a stale local rewrite from a genuine offline edit.
+  assert.equal(mergeFullMockSessions(base, local).writing.texts[1], 'Texte deux.')
+})
+
+test('server clock offset preserves full CO allowance and expires only at corrected deadline', () => {
+  const actualNow = 1_780_000_000_000
+  const deviceAhead = actualNow + 10 * 60_000
+  // Request made on a device 10 minutes ahead; 100ms round trip.
+  const offset = fullMockClockOffset(actualNow + 50, deviceAhead, deviceAhead + 100)
+  assert.equal(offset, -600_000)
+  const session = makeSession(actualNow)
+  assert.equal(fullMockRemaining(session, correctedFullMockNow(deviceAhead, offset)), 2100)
+  assert.equal(fullMockRemaining(session, correctedFullMockNow(deviceAhead + 2100_000 - 1000, offset)), 1)
+  assert.equal(fullMockRemaining(session, correctedFullMockNow(deviceAhead + 2100_000, offset)), 0)
+  // Midpoint compensates a normal 200ms request while preserving server time.
+  assert.equal(fullMockClockOffset(actualNow + 100, deviceAhead, deviceAhead + 200), -600_000)
+  assert.throws(() => fullMockClockOffset(NaN, deviceAhead, deviceAhead + 100), /INVALID_FULL_MOCK_SERVER_TIME/)
 })

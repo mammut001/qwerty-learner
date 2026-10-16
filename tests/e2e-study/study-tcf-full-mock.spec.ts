@@ -171,3 +171,81 @@ test('manual section submission asks confirmation, expiry does not, and unrated 
   await expect(page.getByTestId('full-mock-pending-rating-writing')).not.toBeVisible()
   await expect(page.getByTestId('full-mock-pending-rating-speaking')).toBeVisible()
 })
+
+test('offline EE task 2 and EO notes survive reload, reconnect and server three-way merge', async ({ page }) => {
+  page.on('dialog', (dialog) => void dialog.accept())
+  await page.goto('/tcf/full-mock')
+  await page.getByTestId('full-mock-start').click()
+  await expect(page.getByTestId('full-mock-save-status')).toHaveText('已自动保存到云端')
+  await page.getByTestId('full-mock-next-section').click() // CO -> CE
+  await expect(page.getByRole('heading', { name: 'CE 阅读', exact: true })).toBeVisible()
+  await page.getByTestId('full-mock-next-section').click() // CE -> EE
+  await expect(page.getByTestId('full-mock-writing')).toBeVisible()
+  await page.getByRole('button', { name: '任务 2', exact: true }).click()
+  const writing = page.getByTestId('full-mock-writing-input')
+  await writing.fill('Texte deux.')
+  await expect(page.getByTestId('full-mock-save-status')).toHaveText('已自动保存到云端')
+  expect(await page.evaluate(() =>
+    JSON.parse(localStorage.getItem('qwerty-tcf-full-mock-base-v1')!).writing.texts[1],
+  )).toBe('Texte deux.')
+
+  await page.route('**/api/**', (route) => route.abort())
+  await writing.fill('Hors ligne texte.')
+  await page.reload() // Still offline: local draft must remain available.
+  await expect(page.getByTestId('full-mock-writing-input')).toHaveValue('Hors ligne texte.')
+  expect(await page.evaluate(() =>
+    JSON.parse(localStorage.getItem('qwerty-tcf-full-mock-base-v1')!).writing.texts[1],
+  )).toBe('Texte deux.') // Offline edit MUST NOT advance the acknowledged base.
+
+  await page.unroute('**/api/**')
+  await page.reload() // Server still holds Texte deux., local changed since base.
+  await expect(page.getByTestId('full-mock-writing-input')).toHaveValue('Hors ligne texte.')
+  await expect(page.getByTestId('full-mock-save-status')).toHaveText('已自动保存到云端')
+  expect(await page.evaluate(async () => {
+    const response = await fetch('/api/study-plan/tcf-full-mock', { credentials: 'include', cache: 'no-store' })
+    if (!response.ok) throw new Error(`Full mock GET failed: ${response.status}`)
+    return (await response.json()).session.writing.texts[1]
+  })).toBe('Hors ligne texte.')
+  await page.reload()
+  await expect(page.getByTestId('full-mock-writing-input')).toHaveValue('Hors ligne texte.')
+
+  await page.getByTestId('full-mock-next-section').click() // EE -> EO
+  await expect(page.getByTestId('full-mock-speaking')).toBeVisible()
+  const notes = page.getByTestId('full-mock-speaking-notes')
+  await notes.fill('Notes initiales.')
+  await expect(page.getByTestId('full-mock-save-status')).toHaveText('已自动保存到云端')
+  await page.route('**/api/**', (route) => route.abort())
+  await notes.fill('Notes hors ligne.')
+  await page.reload()
+  await expect(page.getByTestId('full-mock-speaking-notes')).toHaveValue('Notes hors ligne.')
+  await page.unroute('**/api/**')
+  await page.reload()
+  await expect(page.getByTestId('full-mock-speaking-notes')).toHaveValue('Notes hors ligne.')
+  await expect(page.getByTestId('full-mock-save-status')).toHaveText('已自动保存到云端')
+  expect(await page.evaluate(async () => {
+    const response = await fetch('/api/study-plan/tcf-full-mock', { credentials: 'include', cache: 'no-store' })
+    if (!response.ok) throw new Error(`Full mock GET failed: ${response.status}`)
+    return (await response.json()).session.speaking.notes[0]
+  })).toBe('Notes hors ligne.')
+})
+
+test('fast client clock receives full CO time and does not prematurely submit', async ({ page }) => {
+  // Only the browser clock is advanced; Node/D1 keeps the actual time.
+  // Emulate a fast device wall clock without depending on newer Playwright
+  // clock APIs (this repository supports @playwright/test ^1.40).
+  await page.addInitScript(() => {
+    const nativeNow = Date.now.bind(Date)
+    Date.now = () => nativeNow() + 10 * 60_000
+  })
+  await page.goto('/tcf/full-mock')
+  await page.getByTestId('full-mock-start').click()
+  await expect(page.getByTestId('full-mock-save-status')).toHaveText('已自动保存到云端')
+  await expect(page.getByTestId('full-mock-timer')).toContainText(/34:|35:/)
+  await expect(page.getByRole('heading', { name: 'CO 听力', exact: true })).toBeVisible()
+  const offset = await page.evaluate(() => Number(localStorage.getItem('qwerty-tcf-full-mock-clock-v1')))
+  expect(offset).toBeGreaterThan(-620_000)
+  expect(offset).toBeLessThan(-580_000)
+  await page.reload()
+  await expect(page.getByTestId('full-mock-timer')).toContainText(/34:|35:/)
+  await expect(page.getByRole('heading', { name: 'CO 听力', exact: true })).toBeVisible()
+})

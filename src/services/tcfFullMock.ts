@@ -2,9 +2,12 @@ import { TCF_CONFIG, TCF_QUESTIONS, estimateTcfNclc, estimateTcfScaledScore, typ
 import { TCF_WRITING_PROMPTS_BY_TASK } from '@/resources/tcfWritingData'
 import { TCF_SPEAKING_PROMPTS_BY_TASK } from '@/resources/tcfSpeakingData'
 import { studyApiBase, syncStudyPlan } from '@/services/studyPlanSync'
+import { fullMockClockOffset } from './tcfFullMockClock'
 
 export const FULL_MOCK_ORDER: TcfSkill[] = ['listening', 'reading', 'writing', 'speaking']
 export const FULL_MOCK_STORAGE = 'qwerty-tcf-full-mock-v1'
+export const FULL_MOCK_BASE_STORAGE = 'qwerty-tcf-full-mock-base-v1'
+export const FULL_MOCK_CLOCK_STORAGE = 'qwerty-tcf-full-mock-clock-v1'
 
 type QcmProgress = { answers: Record<string, number>; played: string[]; index: number }
 type MockResult = { score: number | null; nclc: number | null; startedAt: number; finishedAt: number }
@@ -87,26 +90,56 @@ export function advanceFullMock(session: FullMockSession, score: number | null, 
   }
 }
 
-export function readLocalFullMock(): FullMockSession | null {
+function parseStoredSession(value: string | null): FullMockSession | null {
   try {
-    const value = JSON.parse(localStorage.getItem(FULL_MOCK_STORAGE) ?? 'null') as FullMockSession | null
-    return value && value.version === 1 && typeof value.id === 'string' &&
-      ['listening', 'reading', 'writing', 'speaking', 'complete'].includes(value.phase) &&
-      value.qcm && value.qcm.listening && value.qcm.reading &&
-      value.qcm.listening.answers && value.qcm.reading.answers &&
-      Array.isArray(value.qcm.listening.played) && Array.isArray(value.qcm.reading.played) &&
-      value.writing && Array.isArray(value.writing.texts) && value.writing.texts.length === 3 &&
-      value.speaking && Array.isArray(value.speaking.notes) && value.speaking.notes.length === 3 &&
-      value.completed && Number.isFinite(value.deadlineAt) ? value : null
+    const session = JSON.parse(value ?? 'null') as FullMockSession | null
+    return session && session.version === 1 && typeof session.id === 'string' &&
+      ['listening', 'reading', 'writing', 'speaking', 'complete'].includes(session.phase) &&
+      session.qcm && session.qcm.listening && session.qcm.reading &&
+      session.qcm.listening.answers && session.qcm.reading.answers &&
+      Array.isArray(session.qcm.listening.played) && Array.isArray(session.qcm.reading.played) &&
+      session.writing && Array.isArray(session.writing.texts) && session.writing.texts.length === 3 &&
+      session.speaking && Array.isArray(session.speaking.notes) && session.speaking.notes.length === 3 &&
+      session.completed && Number.isFinite(session.deadlineAt) ? session : null
   } catch { return null }
 }
 
+export function readLocalFullMock(): FullMockSession | null {
+  try { return parseStoredSession(localStorage.getItem(FULL_MOCK_STORAGE)) } catch { return null }
+}
+
 export function storeLocalFullMock(session: FullMockSession) {
-  try { localStorage.setItem(FULL_MOCK_STORAGE, JSON.stringify(session)) } catch { /* Private mode/storage denied */ }
+  try { localStorage.setItem(FULL_MOCK_STORAGE, JSON.stringify(session)) } catch { /* Storage denied */ }
+}
+
+// This is a distinct, durable *server-acknowledged* snapshot. Offline edits
+// must never modify it: after reload it is the three-way merge ancestor.
+export function readLocalFullMockBase(): FullMockSession | null {
+  try { return parseStoredSession(localStorage.getItem(FULL_MOCK_BASE_STORAGE)) } catch { return null }
+}
+
+export function storeLocalFullMockBase(session: FullMockSession | null) {
+  try {
+    if (session) localStorage.setItem(FULL_MOCK_BASE_STORAGE, JSON.stringify(session))
+    else localStorage.removeItem(FULL_MOCK_BASE_STORAGE)
+  } catch { /* Storage denied */ }
+}
+
+export function readLocalFullMockClockOffset(): number {
+  try {
+    const offset = Number(localStorage.getItem(FULL_MOCK_CLOCK_STORAGE))
+    return Number.isFinite(offset) && Math.abs(offset) <= 24 * 60 * 60 * 1000 ? offset : 0
+  } catch { return 0 }
+}
+
+export function storeLocalFullMockClockOffset(offset: number) {
+  if (!Number.isFinite(offset)) return
+  try { localStorage.setItem(FULL_MOCK_CLOCK_STORAGE, String(offset)) } catch { /* Storage denied */ }
 }
 
 const base = studyApiBase(import.meta.env?.VITE_STUDY_API_BASE_URL)
-export type RemotePayload = { session: FullMockSession | null; revision: number }
+export type RemotePayload = { session: FullMockSession | null; revision: number; clockOffsetMs: number }
+type WirePayload = { session: FullMockSession | null; revision: number; serverNow: number }
 
 export class FullMockRequestError extends Error {
   constructor(public readonly status: number, public readonly code: string) {
@@ -122,17 +155,25 @@ async function remoteError(response: Response): Promise<never> {
 export async function loadRemoteFullMock(): Promise<RemotePayload> {
   // Use the existing study sync to establish the same learner/session cookie.
   await syncStudyPlan()
+  const sentAt = Date.now()
   const response = await fetch(`${base}/api/study-plan/tcf-full-mock`, { credentials: 'include', cache: 'no-store' })
+  const receivedAt = Date.now()
   if (!response.ok) return remoteError(response)
-  return response.json() as Promise<RemotePayload>
+  const payload = await response.json() as WirePayload
+  return { session: payload.session, revision: payload.revision,
+    clockOffsetMs: fullMockClockOffset(payload.serverNow, sentAt, receivedAt) }
 }
 
-export async function saveRemoteFullMock(session: FullMockSession, revision: number): Promise<{ revision: number; session: FullMockSession }> {
+export async function saveRemoteFullMock(session: FullMockSession, revision: number): Promise<{ revision: number; session: FullMockSession; clockOffsetMs: number }> {
+  const sentAt = Date.now()
   const response = await fetch(`${base}/api/study-plan/tcf-full-mock`, {
     method: 'PUT', credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ session, revision }),
   })
+  const receivedAt = Date.now()
   if (!response.ok) return remoteError(response)
-  return response.json() as Promise<{ revision: number; session: FullMockSession }>
+  const payload = await response.json() as { revision: number; session: FullMockSession; serverNow: number }
+  return { revision: payload.revision, session: payload.session,
+    clockOffsetMs: fullMockClockOffset(payload.serverNow, sentAt, receivedAt) }
 }

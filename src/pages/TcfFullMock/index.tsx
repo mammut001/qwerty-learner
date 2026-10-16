@@ -12,9 +12,12 @@ import {
 import {
   FULL_MOCK_ORDER, advanceFullMock, createFullMockSession, fullMockQcmResult, fullMockRemaining,
   loadRemoteFullMock, readLocalFullMock, saveRemoteFullMock, storeLocalFullMock, FullMockRequestError,
+  readLocalFullMockBase, storeLocalFullMockBase,
+  readLocalFullMockClockOffset, storeLocalFullMockClockOffset,
   type FullMockSession,
 } from '@/services/tcfFullMock'
 import { hasFullMockRating, mergeFullMockSessions } from '@/services/tcfFullMockMerge'
+import { correctedFullMockNow } from '@/services/tcfFullMockClock'
 import { safeSpeak, stopSpeechSynthesis } from '@/utils/speechSynthesis'
 import { trackAnalyticsEvent } from '@/utils/analytics'
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -70,7 +73,14 @@ export default function TcfFullMockPage() {
   const [session, setSession] = useState<FullMockSession | null>(null)
   const sessionRef = useRef<FullMockSession | null>(null)
   const revisionRef = useRef(0)
-  const baseSessionRef = useRef<FullMockSession | null>(null)
+  const baseSessionRef = useRef<FullMockSession | null>(readLocalFullMockBase())
+  const [clockOffsetMs, setClockOffsetMs] = useState(readLocalFullMockClockOffset)
+  const clockOffsetRef = useRef(clockOffsetMs)
+  const syncClock = useCallback((offset: number) => {
+    clockOffsetRef.current = offset
+    setClockOffsetMs(offset)
+    storeLocalFullMockClockOffset(offset)
+  }, [])
   const savingRef = useRef(false)
   const lastUploadedRef = useRef('')
   const finishingRef = useRef(false)
@@ -95,12 +105,16 @@ export default function TcfFullMockPage() {
     const local = readLocalFullMock()
     try {
       const remote = await loadRemoteFullMock()
+      // Compare against the last *acknowledged* server snapshot persisted on
+      // this device, not the last offline edit nor any client timestamp.
+      // Read it before replacing it with this GET's authoritative response.
+      const acknowledged = readLocalFullMockBase()
+      const merged = mergeFullMockSessions(remote.session, local, acknowledged)
       revisionRef.current = remote.revision
       baseSessionRef.current = remote.session
+      storeLocalFullMockBase(remote.session)
       lastUploadedRef.current = remote.session ? JSON.stringify(remote.session) : ''
-      // Never trust a fast local updatedAt as permission to overwrite the
-      // server. Merge each answer; a same-question conflict favors the server.
-      const merged = mergeFullMockSessions(remote.session, local)
+      syncClock(remote.clockOffsetMs)
       if (merged) {
         applySession(merged)
       } else {
@@ -117,7 +131,7 @@ export default function TcfFullMockPage() {
     } finally {
       setLoaded(true)
     }
-  }, [applySession])
+  }, [applySession, syncClock])
 
   useEffect(() => { void load() }, [load])
   useEffect(() => {
@@ -142,7 +156,9 @@ export default function TcfFullMockPage() {
           const saved = await saveRemoteFullMock(latest, revisionRef.current)
           revisionRef.current = saved.revision
           baseSessionRef.current = saved.session
+          storeLocalFullMockBase(saved.session)
           lastUploadedRef.current = JSON.stringify(saved.session)
+          syncClock(saved.clockOffsetMs)
           const merged = mergeFullMockSessions(saved.session, sessionRef.current, latest)
           if (merged && JSON.stringify(merged) !== JSON.stringify(sessionRef.current)) applySession(merged)
           conflicts = 0
@@ -152,9 +168,12 @@ export default function TcfFullMockPage() {
           const remote = await loadRemoteFullMock()
           const pending = sessionRef.current
           revisionRef.current = remote.revision
-          const merged = mergeFullMockSessions(remote.session, pending, baseSessionRef.current)
+          const merged = mergeFullMockSessions(remote.session, pending,
+            baseSessionRef.current ?? readLocalFullMockBase())
           baseSessionRef.current = remote.session
+          storeLocalFullMockBase(remote.session)
           lastUploadedRef.current = remote.session ? JSON.stringify(remote.session) : ''
+          syncClock(remote.clockOffsetMs)
           if (merged) applySession(merged)
           // Loop retries only the fields not yet acknowledged by the server.
         }
@@ -171,7 +190,7 @@ export default function TcfFullMockPage() {
     } finally {
       savingRef.current = false
     }
-  }, [applySession])
+  }, [applySession, syncClock])
 
   useEffect(() => {
     if (!loaded || !session || JSON.stringify(session) === lastUploadedRef.current) return
@@ -202,7 +221,7 @@ export default function TcfFullMockPage() {
     const old = sessionRef.current
     if (!old) return
     setSaveMessage('正在同步…')
-    applySession({ ...transform(old), updatedAt: Math.max(Date.now(), old.updatedAt + 1) })
+    applySession({ ...transform(old), updatedAt: Math.max(correctedFullMockNow(Date.now(), clockOffsetRef.current), old.updatedAt + 1) })
   }, [applySession])
 
   const start = () => {
@@ -210,7 +229,7 @@ export default function TcfFullMockPage() {
     revisionRef.current = session ? revisionRef.current : 0
     lastUploadedRef.current = ''
     setSaveMessage('正在同步…')
-    applySession(createFullMockSession())
+    applySession(createFullMockSession(correctedFullMockNow(Date.now(), clockOffsetRef.current)))
     trackAnalyticsEvent('tcf_full_mock_start')
   }
 
@@ -221,7 +240,7 @@ export default function TcfFullMockPage() {
     setBusy(true)
     stopSpeechSynthesis()
     const phase = current.phase
-    const finishedAt = Date.now()
+    const finishedAt = correctedFullMockNow(Date.now(), clockOffsetRef.current)
     const duration = Math.max(0, Math.min(TCF_CONFIG[phase].minutes * 60, Math.round((Math.min(finishedAt, current.deadlineAt) - current.stageStartedAt) / 1000)))
     let score: number | null
     let nclc: number | null
@@ -272,7 +291,7 @@ export default function TcfFullMockPage() {
     setSaveMessage('补评已保存，正在同步…')
   }
 
-  const remaining = session ? fullMockRemaining(session, now) : 0
+  const remaining = session ? fullMockRemaining(session, correctedFullMockNow(now, clockOffsetMs)) : 0
   useEffect(() => {
     if (session && session.phase !== 'complete' && remaining === 0 && !busy) void submitStage()
   }, [session, remaining, busy, submitStage])

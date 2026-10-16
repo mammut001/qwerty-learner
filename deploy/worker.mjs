@@ -688,7 +688,7 @@ export async function studyApi(request, env) {
 
   if (tcfFullMock) {
     const existing = await db.prepare('SELECT revision,payload FROM tcf_full_mock_sessions WHERE learner=?').bind(learner).first()
-    if (request.method === 'GET') return json(200, { session: existing ? JSON.parse(existing.payload) : null, revision: existing?.revision ?? 0 }, headers)
+    if (request.method === 'GET') return json(200, { session: existing ? JSON.parse(existing.payload) : null, revision: existing?.revision ?? 0, serverNow: Date.now() }, headers)
     try {
       const input = await readBody(request)
       if (!hasExactKeys(input, ['session', 'revision'], ['session', 'revision']) ||
@@ -702,7 +702,7 @@ export async function studyApi(request, env) {
         .bind(learner, JSON.stringify(normalized), Date.now(), input.revision).run()
       if (!result.meta.changes) return jsonError(409, 'FULL_MOCK_CONFLICT', 'A newer session exists on another device', {}, headers)
       const saved = await db.prepare('SELECT revision FROM tcf_full_mock_sessions WHERE learner=?').bind(learner).first()
-      return json(200, { ok: true, revision: saved.revision, session: normalized }, headers)
+      return json(200, { ok: true, revision: saved.revision, session: normalized, serverNow: Date.now() }, headers)
     } catch (error) {
       return jsonError(error instanceof RangeError ? 413 : 400, 'INVALID_FULL_MOCK_SESSION', 'Invalid session update', {}, headers)
     }
