@@ -9,10 +9,15 @@ const phaseRank = (phase: FullMockSession['phase']) =>
 // is retained only when the server still has the acknowledged value.
 // Without a base snapshot we union distinct QCM answers and favor the server
 // for same-question conflicts; never compare client clocks for authority.
+// Cursor position is navigation state, not an answer. On initial GET/reload it
+// must come from the server, even when a stale local cursor differs from the
+// last acknowledged snapshot. On 409, merge cursor edits normally so a
+// locally advanced unsaved question is not reset by an unrelated write.
 export function mergeFullMockSessions(
   remote: FullMockSession | null,
   local: FullMockSession | null,
   base: FullMockSession | null = null,
+  options: { preferServerCursor?: boolean } = {},
 ): FullMockSession | null {
   if (!remote) return local
   if (!local || local.id !== remote.id) return remote
@@ -59,12 +64,14 @@ export function mergeFullMockSessions(
       listening: {
         answers: selectMap(remote.qcm.listening.answers, local.qcm.listening.answers, ancestor?.qcm.listening.answers),
         played: Array.from(new Set([...remote.qcm.listening.played, ...local.qcm.listening.played])),
-        index: choose(remote.qcm.listening.index, local.qcm.listening.index, ancestor?.qcm.listening.index) ?? remote.qcm.listening.index,
+        index: options.preferServerCursor ? remote.qcm.listening.index
+          : choose(remote.qcm.listening.index, local.qcm.listening.index, ancestor?.qcm.listening.index) ?? remote.qcm.listening.index,
       },
       reading: {
         answers: selectMap(remote.qcm.reading.answers, local.qcm.reading.answers, ancestor?.qcm.reading.answers),
         played: Array.from(new Set([...remote.qcm.reading.played, ...local.qcm.reading.played])),
-        index: choose(remote.qcm.reading.index, local.qcm.reading.index, ancestor?.qcm.reading.index) ?? remote.qcm.reading.index,
+        index: options.preferServerCursor ? remote.qcm.reading.index
+          : choose(remote.qcm.reading.index, local.qcm.reading.index, ancestor?.qcm.reading.index) ?? remote.qcm.reading.index,
       },
     },
     writing: {

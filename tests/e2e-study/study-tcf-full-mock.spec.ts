@@ -99,6 +99,17 @@ test('two devices recover a 409 automatically and a reload does not overwrite th
       localStorage.setItem(key, JSON.stringify(session))
     })
     await second.reload()
+    // Check the second device's own authenticated GET after reload: the
+    // backend still has Q2 as the cursor and both answer choices persisted.
+    const reloadedServer = await second.evaluate(async () => {
+      const response = await fetch('/api/study-plan/tcf-full-mock', {
+        credentials: 'include', cache: 'no-store',
+      })
+      if (!response.ok) throw new Error(`Full mock GET failed: ${response.status}`)
+      return (await response.json()).session.qcm.listening
+    })
+    expect(reloadedServer.index).toBe(1)
+    expect(reloadedServer.answers).toEqual({ 'co-01': 1, 'co-02': 2 })
     // The server also persists the current question index (Q2). Reload
     // restores Q2 directly; pressing "下一题" here would advance to Q3.
     await expect(second.getByTestId('full-mock-qcm')).toContainText('第 2 / 39 题')

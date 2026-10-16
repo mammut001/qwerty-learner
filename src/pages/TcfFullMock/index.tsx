@@ -109,7 +109,11 @@ export default function TcfFullMockPage() {
       // this device, not the last offline edit nor any client timestamp.
       // Read it before replacing it with this GET's authoritative response.
       const acknowledged = readLocalFullMockBase()
-      const merged = mergeFullMockSessions(remote.session, local, acknowledged)
+      // A successful GET is the authority for the active question cursor.
+      // Unlike an answer edit, stale local navigation must not rewind Q2
+      // after another device has already saved index 1.
+      const merged = mergeFullMockSessions(remote.session, local, acknowledged,
+        { preferServerCursor: true })
       revisionRef.current = remote.revision
       baseSessionRef.current = remote.session
       storeLocalFullMockBase(remote.session)

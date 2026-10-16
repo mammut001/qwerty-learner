@@ -233,3 +233,52 @@ test('server clock offset preserves full CO allowance and expires only at correc
   assert.equal(fullMockClockOffset(actualNow + 100, deviceAhead, deviceAhead + 200), -600_000)
   assert.throws(() => fullMockClockOffset(NaN, deviceAhead, deviceAhead + 100), /INVALID_FULL_MOCK_SERVER_TIME/)
 })
+
+test('GET/reload uses the persisted server cursor while preserving Q1/Q2 choices and offline answers', () => {
+  // A's 409-retry saved the second question, including the active cursor.
+  // B has an older local cursor, possibly modified after its last ack.
+  // Cursor is navigation state: GET must restore the saved server position.
+  const acknowledged = makeSession()
+  acknowledged.qcm.listening.index = 1
+  acknowledged.qcm.reading.index = 2
+  acknowledged.qcm.listening.answers['co-01'] = 1
+  const server = structuredClone(acknowledged)
+  server.qcm.listening.answers['co-02'] = 2
+  server.qcm.reading.answers['ce-03'] = 3
+  server.updatedAt += 10
+  const staleLocal = structuredClone(acknowledged)
+  staleLocal.qcm.listening.index = 0
+  staleLocal.qcm.reading.index = 0
+  staleLocal.updatedAt += 10_000_000 // no clock-based cursor precedence
+
+  // Document the actual regression: generic 3-way merge treats a stale
+  // cursor as a local field edit and rewinds the displayed question.
+  const defaultMerge = mergeFullMockSessions(server, staleLocal, acknowledged)
+  assert.equal(defaultMerge.qcm.listening.index, 0)
+  assert.equal(defaultMerge.qcm.reading.index, 0)
+
+  const restored = mergeFullMockSessions(server, staleLocal, acknowledged,
+    { preferServerCursor: true })
+  assert.equal(restored.qcm.listening.index, 1)
+  assert.equal(restored.qcm.reading.index, 2)
+  assert.deepEqual(restored.qcm.listening.answers, { 'co-01': 1, 'co-02': 2 })
+  assert.equal(restored.qcm.reading.answers['ce-03'], 3)
+  assert.equal(restored.updatedAt, server.updatedAt)
+  // A simultaneous offline answer edit is still merged per question.
+  staleLocal.qcm.listening.answers['co-03'] = 0
+  assert.deepEqual(mergeFullMockSessions(server, staleLocal, acknowledged,
+    { preferServerCursor: true }).qcm.listening.answers,
+  { 'co-01': 1, 'co-02': 2, 'co-03': 0 })
+
+  // On a 409 (not page load), keep unsaved local navigation when the
+  // server has not changed the cursor relative to the acknowledged base.
+  const initial = makeSession()
+  const pending = structuredClone(initial)
+  pending.qcm.listening.index = 1
+  pending.qcm.listening.answers['co-02'] = 2
+  const anotherDevice = structuredClone(initial)
+  anotherDevice.qcm.listening.answers['co-01'] = 1
+  const retried = mergeFullMockSessions(anotherDevice, pending, initial)
+  assert.equal(retried.qcm.listening.index, 1)
+  assert.deepEqual(retried.qcm.listening.answers, { 'co-01': 1, 'co-02': 2 })
+})
