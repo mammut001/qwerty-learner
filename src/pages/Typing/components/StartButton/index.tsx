@@ -3,7 +3,7 @@ import Tooltip from '@/components/Tooltip'
 import { randomConfigAtom } from '@/store'
 import { autoUpdate, offset, useFloating, useHover, useInteractions } from '@floating-ui/react'
 import { useAtomValue } from 'jotai'
-import { useCallback, useContext, useState } from 'react'
+import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 export default function StartButton({ isLoading }: { isLoading: boolean }) {
@@ -11,9 +11,26 @@ export default function StartButton({ isLoading }: { isLoading: boolean }) {
   const { state, dispatch } = useContext(TypingContext)!
   const randomConfig = useAtomValue(randomConfigAtom)
 
+  // Keep a start request made while the chapter is still loading. The toolbar
+  // mounts before the async word list arrives, so ignoring Enter here leaves
+  // the practice input unfocused even after the chapter appears.
+  const pendingStart = useRef(false)
   const onToggleIsTyping = useCallback(() => {
-    !isLoading && dispatch({ type: TypingStateActionType.TOGGLE_IS_TYPING })
+    if (isLoading) {
+      pendingStart.current = true
+      return
+    }
+    pendingStart.current = false
+    dispatch({ type: TypingStateActionType.TOGGLE_IS_TYPING })
   }, [isLoading, dispatch])
+
+  useEffect(() => {
+    if (isLoading || !pendingStart.current) return
+    pendingStart.current = false
+    if (!state.isFinished && !state.isTyping) {
+      dispatch({ type: TypingStateActionType.SET_IS_TYPING, payload: true })
+    }
+  }, [isLoading, state.isFinished, state.isTyping, dispatch])
 
   const onClickRestart = useCallback(() => {
     dispatch({ type: TypingStateActionType.REPEAT_CHAPTER, shouldShuffle: randomConfig.isOpen })

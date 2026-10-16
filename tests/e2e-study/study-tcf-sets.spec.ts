@@ -1,9 +1,10 @@
 import { expect, test } from '@playwright/test'
 
 test('TCF question sets, shared navigation, only-wrong review and wrong-answer practice', async ({ page }) => {
-  // Fresh visitors land on typing; legacy practice links keep their query string.
+  // The no-auth test server is an open environment: home is study-plan.
+  // Legacy practice links with a dict query still forward to /typing.
   await page.goto('/')
-  await expect(page).toHaveURL(/\/typing$/)
+  await expect(page).toHaveURL(/\/study-plan$/)
   await page.goto('/?dict=unknown-dict')
   await expect(page).toHaveURL(/\/typing\?dict=unknown-dict$/)
 

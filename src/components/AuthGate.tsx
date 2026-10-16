@@ -11,7 +11,7 @@ import {
 import { authStatusAtom } from '@/store/auth'
 import { useSetAtom } from 'jotai'
 import type React from 'react'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 const RECONCILED_FLAG = 'qfp:reconciled'
 
@@ -25,6 +25,7 @@ const writeCachedStatus = (status: 'open' | 'locked') => {
 
 export default function AuthGate({ children }: { children: React.ReactNode }) {
   const setAuthStatus = useSetAtom(authStatusAtom)
+  const [ready, setReady] = useState(false)
 
   const reconcileProfile = useCallback((status: AuthStatus): boolean => {
     if (status.signedIn && status.user?.id) {
@@ -67,12 +68,14 @@ export default function AuthGate({ children }: { children: React.ReactNode }) {
         const locked = status.enabled && status.required && !status.signedIn
         setGuestMode(locked)
         writeCachedStatus(locked ? 'locked' : 'open')
+        setReady(true)
       })
       .catch(() => {
         // Backend unreachable or offline: static deployments keep working
         if (!cancelled) {
           setGuestMode(false)
           writeCachedStatus('open')
+          setReady(true)
         }
       })
     return () => {
@@ -94,5 +97,7 @@ export default function AuthGate({ children }: { children: React.ReactNode }) {
     }
   }, [checkStatus])
 
-  return <>{children}</>
+  // Child pages may issue authenticated sync requests during mounting.
+  // Do not mount them before the auth check marks guests as guests.
+  return ready ? <>{children}</> : null
 }

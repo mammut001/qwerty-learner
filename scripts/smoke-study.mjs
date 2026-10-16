@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto'
 import { readFile, writeFile } from 'node:fs/promises'
 import { createPasskeyFixture } from '../server/study-passkey-test-helper.mjs'
 
-export async function smokeStudy(base, { saveSession, resumeSession, frontendOrigin } = {}) {
+export async function smokeStudy(base, { saveSession, resumeSession, frontendOrigin, expectedSchemaVersion = 14 } = {}) {
   const url = new URL(base)
   assert.ok(url.protocol === 'https:' || ['localhost', '127.0.0.1'].includes(url.hostname), 'Public smoke requires HTTPS')
   const origin = url.origin
@@ -19,7 +19,7 @@ export async function smokeStudy(base, { saveSession, resumeSession, frontendOri
   }
   const health = await fetch(`${origin}/api/health`, { signal: AbortSignal.timeout(20000) })
   assert.equal(health.status, 200, 'D1 health check')
-  assert.equal((await health.clone().json()).schemaVersion, 13, 'schema migration version is current')
+  assert.equal((await health.clone().json()).schemaVersion, expectedSchemaVersion, 'schema migration version is current')
   const alias = await fetch(`${origin}/health`, { signal: AbortSignal.timeout(20000) })
   assert.equal(alias.status, 200, '/health is API readiness, not SPA HTML')
   assert.equal((await alias.json()).ok, true)

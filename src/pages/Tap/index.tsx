@@ -70,9 +70,13 @@ export default function TapPage() {
       studyPlanTracking.current = { dateKey: requestedStudyDate, taskId: requestedStudyTask, startedAt: Date.now() }
     }
 
-    const nextSearchParams = new URLSearchParams(searchParams)
-    for (const key of ['dict', 'chapter', 'studyDate', 'studyTask']) nextSearchParams.delete(key)
-    setSearchParams(nextSearchParams, { replace: true })
+    // Keep the dictionary/chapter deep link stable across refresh. Preserve the
+    // existing one-time study-task query consumption without touching its tracking.
+    if (searchParams.has('studyDate') || searchParams.has('studyTask')) {
+      const nextSearchParams = new URLSearchParams(searchParams)
+      for (const key of ['studyDate', 'studyTask']) nextSearchParams.delete(key)
+      setSearchParams(nextSearchParams, { replace: true })
+    }
   }, [
     customDictionaries,
     requestedDictId,
@@ -89,6 +93,22 @@ export default function TapPage() {
     setCurrentChapter(chapter)
     setReviewModeInfo((old) => ({ ...old, isReviewMode: false }))
     setView('practice')
+    setSearchParams((previous) => {
+      const next = new URLSearchParams(previous)
+      next.set('dict', dict.id)
+      next.set('chapter', String(chapter))
+      return next
+    })
+  }
+
+  const chooseChapter = (chapter: number) => {
+    setCurrentChapter(chapter)
+    setSearchParams((previous) => {
+      const next = new URLSearchParams(previous)
+      next.set('dict', currentDictId)
+      next.set('chapter', String(chapter))
+      return next
+    })
   }
 
   return (
@@ -105,7 +125,7 @@ export default function TapPage() {
           dict={currentDictInfo}
           chapter={currentChapter}
           onOpenPicker={() => setView('picker')}
-          onChapter={(chapter) => setCurrentChapter(chapter)}
+          onChapter={chooseChapter}
         />
       )}
     </Layout>

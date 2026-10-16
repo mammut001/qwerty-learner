@@ -135,7 +135,8 @@ test('main nav and TCF 模考 stay in one document with a stable header', async 
 
   for (const item of examNav) {
     await page.getByRole('button', { name: 'TCF 模考' }).click()
-    await page.getByRole('menuitem', { name: new RegExp(item.name) }).click()
+    // Select by the actual destination: the recalls link also mentions 写作/口语.
+    await page.locator(`a[role="menuitem"][href="${item.url}"]`).click()
     await waitForDestination(page, item.url)
     const shell = await readShell(page)
     console.info(`shell ${item.url} ${JSON.stringify(shell)}`)

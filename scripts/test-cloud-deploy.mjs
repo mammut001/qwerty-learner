@@ -64,10 +64,10 @@ try {
   if (!(await metrics.text()).includes('qwerty_study_http_requests_total'))
     throw new Error('Worker metrics response missing Prometheus counters')
   const session = join(directory, 'session.json')
-  await smokeStudy(base, { saveSession: session })
+  await smokeStudy(base, { saveSession: session, expectedSchemaVersion: 10 })
   await stop()
   await start()
-  await smokeStudy(base, { resumeSession: session })
+  await smokeStudy(base, { resumeSession: session, expectedSchemaVersion: 10 })
   await smokeCors(base, base)
   await stop()
   config.vars.STUDY_ORIGIN = 'https://frontend.example.invalid'
