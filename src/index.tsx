@@ -5,6 +5,7 @@ import { setupChunkReloadListener } from './utils/chunkReload'
 initAnalytics()
 setupChunkReloadListener()
 import AccessGate from './components/AccessGate'
+import { titleForPath, usePageTitle } from './hooks/usePageTitle'
 import AdminRouteGate from './components/AdminRouteGate'
 import AppErrorBoundary from './components/AppErrorBoundary'
 import AuthGate from './components/AuthGate'
@@ -105,6 +106,7 @@ function OutletFallback() {
 function ShellOutlet({ children }: { children: React.ReactNode }) {
   const { pathname, search } = useLocation()
   const ref = useRef<HTMLDivElement>(null)
+  usePageTitle(titleForPath(pathname))
 
   useEffect(() => {
     ref.current?.scrollTo(0, 0)
