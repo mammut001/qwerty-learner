@@ -71,7 +71,7 @@ export function isPathIgnored(filePath, rules) {
   return { ignored, matchedRule }
 }
 
-test('no git-tracked files under src/ or server/ are excluded by .dockerignore', () => {
+test('no git-tracked files under src/ or server/ are excluded by .dockerignore (except server tests)', () => {
   const content = fs.readFileSync(dockerignorePath, 'utf8')
   const rules = parseDockerignore(content)
 
@@ -83,6 +83,7 @@ test('no git-tracked files under src/ or server/ are excluded by .dockerignore',
     .split(/\r?\n/)
     .map(f => f.trim())
     .filter(Boolean)
+    .filter(f => !f.endsWith('.test.mjs'))
 
   const excluded = []
   for (const file of files) {
@@ -99,6 +100,43 @@ test('no git-tracked files under src/ or server/ are excluded by .dockerignore',
       excluded.map(e => `  - ${e.file} (matched rule: ${e.matchedRule})`).join('\n')
   )
 })
+
+test('server test files are excluded by .dockerignore while runtime modules are not', () => {
+  const content = fs.readFileSync(dockerignorePath, 'utf8')
+  const rules = parseDockerignore(content)
+
+  const trackedOutput = execFileSync('git', ['ls-files', 'server'], {
+    cwd: repoRoot,
+    encoding: 'utf8',
+  })
+  const serverFiles = trackedOutput
+    .split(/\r?\n/)
+    .map(f => f.trim())
+    .filter(Boolean)
+
+  const testFiles = serverFiles.filter(f => f.endsWith('.test.mjs'))
+  const runtimeFiles = serverFiles.filter(f => !f.endsWith('.test.mjs'))
+
+  assert.ok(testFiles.length > 0, 'Expected to find server test files')
+  for (const file of testFiles) {
+    const { ignored } = isPathIgnored(file, rules)
+    assert.strictEqual(
+      ignored,
+      true,
+      `Expected server test file "${file}" to be excluded by .dockerignore`
+    )
+  }
+
+  for (const file of runtimeFiles) {
+    const { ignored, matchedRule } = isPathIgnored(file, rules)
+    assert.strictEqual(
+      ignored,
+      false,
+      `Expected server runtime module "${file}" to not be excluded by .dockerignore (matched rule: ${matchedRule})`
+    )
+  }
+})
+
 
 test('no git-tracked files under public/ or scripts/ are excluded by .dockerignore', () => {
   const content = fs.readFileSync(dockerignorePath, 'utf8')
@@ -162,5 +200,57 @@ test('runtime data and sqlite files outside src remain excluded', () => {
 
 test('study-api production image copies the full-mock server dependency', () => {
   const dockerfile = fs.readFileSync(path.join(repoRoot, 'server/Dockerfile'), 'utf8')
-  assert.ok(dockerfile.includes('server/study-full-mock.mjs'), 'full-mock runtime module must be shipped with the study-api container')
+  assert.ok(
+    dockerfile.includes('server/study-full-mock.mjs') || /COPY\s+server\/\*\.mjs\s+\.\/server\//.test(dockerfile),
+    'full-mock runtime module must be shipped with the study-api container'
+  )
 })
+
+test('study-api production image copies all server runtime modules imported by study-plan.mjs', () => {
+  const dockerfile = fs.readFileSync(path.join(repoRoot, 'server/Dockerfile'), 'utf8')
+  assert.match(
+    dockerfile,
+    /COPY\s+server\/\*\.mjs\s+\.\/server\//,
+    'Dockerfile must copy server/*.mjs to include all runtime modules'
+  )
+
+  const visited = new Set()
+  const queue = [path.join(repoRoot, 'server/study-plan.mjs')]
+  const importedModules = new Set()
+
+  while (queue.length > 0) {
+    const current = queue.shift()
+    if (visited.has(current)) continue
+    visited.add(current)
+
+    const content = fs.readFileSync(current, 'utf8')
+    const importRegex = /(?:from\s+['"](\.[^'"]+)['"]|import\s*\(\s*['"](\.[^'"]+)['"]\))/g
+    let match
+    while ((match = importRegex.exec(content)) !== null) {
+      const importPath = match[1] || match[2]
+      const resolved = path.resolve(path.dirname(current), importPath)
+      if (resolved.startsWith(path.join(repoRoot, 'server')) && resolved.endsWith('.mjs')) {
+        importedModules.add(resolved)
+        queue.push(resolved)
+      }
+    }
+  }
+
+  assert.ok(importedModules.size > 0, 'Should find imported runtime modules in study-plan.mjs')
+  const usesGlob = /COPY\s+server\/\*\.mjs\s+\.\/server\//.test(dockerfile)
+  for (const modulePath of importedModules) {
+    const rel = path.relative(repoRoot, modulePath)
+    if (rel.startsWith('server/echelle-variants/')) {
+      assert.ok(
+        dockerfile.includes('server/echelle-variants/'),
+        `Expected ${rel} to be covered by server/echelle-variants/ COPY in Dockerfile`
+      )
+    } else {
+      assert.ok(
+        usesGlob || dockerfile.includes(rel),
+        `Expected ${rel} to be covered by Dockerfile COPY instructions`
+      )
+    }
+  }
+})
+

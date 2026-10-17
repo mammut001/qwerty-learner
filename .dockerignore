@@ -15,3 +15,5 @@ deploy/wrangler.production.json
 deploy/deployment.json
 playwright-report
 test-results
+server/**/*.test.mjs
+server/*.test.mjs
