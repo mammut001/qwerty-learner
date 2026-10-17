@@ -1,3 +1,5 @@
+import { INTENSIVE_PASSAGES } from './intensiveListening'
+
 export interface RouteSeoItem {
   path: string
   title: string
@@ -8,6 +10,55 @@ export interface RouteSeoItem {
 
 export const SITE_NAME = 'Qwerty Français'
 export const SITE_SUFFIX = 'TCF Canada 法语｜Qwerty Français'
+
+export function passageTitle(passage: { title: string; level: string }): string {
+  return `${passage.title}｜法语精听 ${passage.level} — ${SITE_SUFFIX}`
+}
+
+export function titleForPath(pathname: string): string {
+  const defaultTitle = typeof document !== 'undefined' ? document.title : 'Qwerty Français — TCF Canada 法语打字背词'
+  const clean = pathname ? pathname.split('?')[0].split('#')[0] : '/'
+  const normalized = clean !== '/' ? clean.replace(/\/+$/, '') : '/'
+
+  if (normalized === '/') {
+    return defaultTitle
+  }
+
+  const match = ROUTE_SEO.find((item) => item.path === normalized)
+  if (match) {
+    return match.title
+  }
+
+  if (normalized.startsWith('/tenses/')) {
+    const tenses = ROUTE_SEO.find((item) => item.path === '/tenses')
+    if (tenses) {
+      return tenses.title
+    }
+  }
+
+  if (normalized.startsWith('/video-listening/')) {
+    const video = ROUTE_SEO.find((item) => item.path === '/video-listening')
+    if (video) {
+      return video.title
+    }
+  }
+
+  if (normalized.startsWith('/intensive-listening/')) {
+    const id = normalized.slice('/intensive-listening/'.length)
+    if (id) {
+      const passage = INTENSIVE_PASSAGES.find((p) => p.id === id)
+      if (passage) {
+        return passageTitle(passage)
+      }
+    }
+    const intensive = ROUTE_SEO.find((item) => item.path === '/intensive-listening')
+    if (intensive) {
+      return intensive.title
+    }
+  }
+
+  return defaultTitle
+}
 
 export const ROUTE_SEO: RouteSeoItem[] = [
   {
