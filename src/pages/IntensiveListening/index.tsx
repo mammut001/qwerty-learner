@@ -1,21 +1,25 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type React from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import Layout from '@/components/Layout'
 import { INTENSIVE_PASSAGES } from '@/resources/intensiveListening'
 import type { SentenceSegment } from '@/services/intensiveListeningAudio'
 import { loadIntensiveManifest } from '@/services/intensiveListeningAudio'
+import { trackAnalyticsEvent } from '@/utils/analytics'
 import { PassageCard } from './PassageCard'
 import { PlayerControls } from './PlayerControls'
 import { TranscriptView } from './TranscriptView'
 import { VocabAndQuiz } from './VocabAndQuiz'
 import {
+  ListeningAccumulator,
   findCurrentSentenceIndex,
   getCompletedPassageIds,
   getNextSentenceIndex,
   getPrevSentenceIndex,
   markPassageCompleted,
+  recordListeningMinutes,
   resolveIntensiveAudioCandidates,
+  resolveListeningStudyTask,
   shouldFallbackAudioCandidate,
   shouldLoopCurrentSentence,
 } from './helpers'
@@ -24,6 +28,9 @@ import type { IntensiveLevelFilter, IntensiveListeningManifest, Passage } from '
 export const IntensiveListeningPage: React.FC = () => {
   const { id } = useParams<{ id?: string }>()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const accumulatorRef = useRef<ListeningAccumulator | null>(null)
+  const hasTrackedCompleteRef = useRef(false)
 
   // Manifest cache & state
   const [manifest, setManifest] = useState<IntensiveListeningManifest | null>(null)
@@ -100,9 +107,42 @@ export const IntensiveListeningPage: React.FC = () => {
     }
   }, [activePassage?.id])
 
+  // Credit actual listening time via accumulator
+  useEffect(() => {
+    if (!activePassage) {
+      if (accumulatorRef.current) {
+        accumulatorRef.current.onLeave()
+        accumulatorRef.current = null
+      }
+      return
+    }
+
+    const { dateKey, taskId } = resolveListeningStudyTask(searchParams, 'intensive-listening')
+    hasTrackedCompleteRef.current = false
+
+    const accumulator = new ListeningAccumulator({
+      onFlush: (minutes) => {
+        recordListeningMinutes(dateKey, taskId, minutes)
+      },
+    })
+    accumulatorRef.current = accumulator
+
+    const handlePageHide = () => {
+      accumulator.onLeave()
+    }
+    window.addEventListener('pagehide', handlePageHide)
+
+    return () => {
+      window.removeEventListener('pagehide', handlePageHide)
+      accumulator.onLeave()
+      accumulatorRef.current = null
+    }
+  }, [activePassage?.id, searchParams])
+
   // Fallback to next audio source ONLY if current candidate suffers a real fatal error
   const handleAudioError = useCallback(
     (e?: React.SyntheticEvent<HTMLAudioElement, Event>) => {
+      accumulatorRef.current?.onPause()
       const audio = e?.currentTarget || audioRef.current
       const mediaError = audio?.error ?? null
       if (shouldFallbackAudioCandidate(candidateIndex, audioCandidates.length, mediaError)) {
@@ -141,6 +181,15 @@ export const IntensiveListeningPage: React.FC = () => {
         setActiveSentenceIndex(foundIdx)
       }
     }
+
+    // Track passage completion when reaching last sentence end
+    if (!hasTrackedCompleteRef.current && segments.length > 0) {
+      const lastSeg = segments[segments.length - 1]
+      if (lastSeg && time >= lastSeg.end - 0.25) {
+        hasTrackedCompleteRef.current = true
+        trackAnalyticsEvent('intensive_complete')
+      }
+    }
   }
 
   const handleLoadedMetadata = () => {
@@ -152,6 +201,11 @@ export const IntensiveListeningPage: React.FC = () => {
 
   const handleEnded = () => {
     setIsPlaying(false)
+    accumulatorRef.current?.onPause()
+    if (!hasTrackedCompleteRef.current) {
+      hasTrackedCompleteRef.current = true
+      trackAnalyticsEvent('intensive_complete')
+    }
     if (activePassage) {
       markPassageCompleted(activePassage.id)
       setCompletedIds(getCompletedPassageIds())
@@ -308,8 +362,14 @@ export const IntensiveListeningPage: React.FC = () => {
             onLoadedMetadata={handleLoadedMetadata}
             onEnded={handleEnded}
             onError={handleAudioError}
-            onPlay={() => setIsPlaying(true)}
-            onPause={() => setIsPlaying(false)}
+            onPlay={() => {
+              setIsPlaying(true)
+              accumulatorRef.current?.onPlay()
+            }}
+            onPause={() => {
+              setIsPlaying(false)
+              accumulatorRef.current?.onPause()
+            }}
             className="hidden"
           />
         )}

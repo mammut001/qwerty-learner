@@ -1,4 +1,13 @@
+import {
+  ListeningAccumulator,
+  type ListeningAccumulatorOptions,
+  getLocalStudyDate,
+  recordListeningMinutes,
+  resolveListeningStudyTask,
+} from '../../utils/listeningAccumulator'
 import type { VideoLesson } from '@/resources/videoLessons'
+
+export { ListeningAccumulator, type ListeningAccumulatorOptions, getLocalStudyDate, recordListeningMinutes, resolveListeningStudyTask }
 
 export interface VideoProgress {
   lastTime?: number

@@ -1,7 +1,21 @@
 import type { SentenceSegment } from '../../services/intensiveListeningAudio'
 import { resolveIntensiveAudioCandidates } from '../../services/intensiveListeningAudio'
+import {
+  ListeningAccumulator,
+  type ListeningAccumulatorOptions,
+  getLocalStudyDate,
+  recordListeningMinutes,
+  resolveListeningStudyTask,
+} from '../../utils/listeningAccumulator'
 
-export { resolveIntensiveAudioCandidates }
+export {
+  ListeningAccumulator,
+  type ListeningAccumulatorOptions,
+  getLocalStudyDate,
+  recordListeningMinutes,
+  resolveIntensiveAudioCandidates,
+  resolveListeningStudyTask,
+}
 
 export const INTENSIVE_STORAGE_KEY = 'tcf-intensive-listening-completed-v1'
 

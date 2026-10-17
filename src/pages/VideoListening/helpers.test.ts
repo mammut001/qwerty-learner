@@ -1,10 +1,12 @@
 import {
+  ListeningAccumulator,
   calculateSeekTarget,
   cyclePlaybackRate,
   filterLessons,
   formatSeconds,
   loadAllProgress,
   loadVideoProgress,
+  resolveListeningStudyTask,
   saveVideoProgress,
   shouldLoopAB,
 } from './helpers'
@@ -213,4 +215,44 @@ test('loadAllProgress and saveVideoProgress handle local persistence gracefully'
   mockStorage.setItem('tcf-video-listening-progress-v1', '{invalid json}')
   assert.deepEqual(loadAllProgress(mockStorage), {})
   assert.equal(loadVideoProgress('video-1', mockStorage), null)
+})
+
+test('ListeningAccumulator tracks YouTube PLAYING state and 60s milestone', () => {
+  const flushed: number[] = []
+  const acc = new ListeningAccumulator({
+    onFlush: (m) => flushed.push(m),
+  })
+
+  // Simulate YouTube player transitions
+  // YT.PlayerState.PLAYING = 1, PAUSED = 2
+  acc.onPlay() // state = 1
+  acc.advanceTime(40_000)
+  assert.equal(acc.getTotalPlaybackSeconds(), 40)
+  assert.equal(acc.getTotalPlaybackSeconds() >= 60, false)
+
+  acc.onPause() // state = 2
+  acc.advanceTime(20_000) // paused time does not advance playback seconds
+  assert.equal(acc.getTotalPlaybackSeconds(), 40)
+
+  acc.onPlay() // resume playing (state = 1)
+  acc.advanceTime(25_000) // now cumulative playback time is 65s
+  assert.equal(acc.getTotalPlaybackSeconds(), 65)
+  assert.equal(acc.getTotalPlaybackSeconds() >= 60, true)
+
+  // On leave, flushes cumulative 65s -> Math.ceil(65/60) = 2 minutes
+  acc.onLeave()
+  assert.deepEqual(flushed, [2])
+})
+
+test('resolveListeningStudyTask for VideoListening defaults to video-listening on non-listening days', () => {
+  const params = new URLSearchParams()
+  // Tuesday (2026-10-20)
+  const result = resolveListeningStudyTask(params, 'video-listening', new Date('2026-10-20T12:00:00Z').getTime())
+  assert.equal(result.taskId, 'video-listening')
+  assert.equal(result.dateKey, '2026-10-20')
+
+  // Custom task in query params is preserved
+  const customParams = new URLSearchParams('studyTask=sat-listening')
+  const customResult = resolveListeningStudyTask(customParams, 'video-listening', new Date('2026-10-20T12:00:00Z').getTime())
+  assert.equal(customResult.taskId, 'sat-listening')
 })
