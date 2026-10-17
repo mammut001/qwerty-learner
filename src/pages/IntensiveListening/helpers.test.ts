@@ -1,4 +1,5 @@
 import {
+  ListeningAccumulator,
   cycleSpeed,
   findCurrentSentenceIndex,
   formatSeconds,
@@ -6,6 +7,7 @@ import {
   getPrevSentenceIndex,
   normalizeLookupWord,
   resolveIntensiveAudioCandidates,
+  resolveListeningStudyTask,
   shouldFallbackAudioCandidate,
   shouldLoopCurrentSentence,
 } from './helpers'
@@ -175,4 +177,116 @@ test('normalizeLookupWord normalizes punctuation, ignores elisions, keeps hyphen
   const nfdEcole = 'e\u0301cole'
   assert.equal(normalizeLookupWord(nfdEcole), 'école')
   assert.equal(normalizeLookupWord(`l’${nfdEcole}`), 'école')
+})
+
+test('ListeningAccumulator accumulates only while playing and flushes on leave with ceiling rounding', () => {
+  const flushed: number[] = []
+  const acc = new ListeningAccumulator({
+    onFlush: (m) => flushed.push(m),
+  })
+
+  // Never played -> onLeave flushes nothing
+  acc.onLeave()
+  assert.deepEqual(flushed, [])
+
+  // Play for 30s -> flushes Math.ceil(30/60) = 1 minute
+  acc.onPlay()
+  acc.advanceTime(30_000)
+  acc.onLeave()
+  assert.deepEqual(flushed, [1])
+
+  // Play for 65s -> flushes Math.ceil(65/60) = 2 minutes
+  acc.onPlay()
+  acc.advanceTime(65_000)
+  acc.onLeave()
+  assert.deepEqual(flushed, [1, 2])
+})
+
+test('ListeningAccumulator flushes when paused for > 60s and handles subsequent playback', () => {
+  const flushed: number[] = []
+  const acc = new ListeningAccumulator({
+    onFlush: (m) => flushed.push(m),
+  })
+
+  // Play for 120s (2 min), then pause
+  acc.onPlay()
+  acc.advanceTime(120_000)
+  acc.onPause()
+
+  // Pause for 30s (<= 60s) -> no flush yet
+  acc.advanceTime(30_000)
+  assert.deepEqual(flushed, [])
+
+  // Pause for another 35s (total pause 65s > 60s) -> triggers flush of 2 minutes
+  acc.advanceTime(35_000)
+  assert.deepEqual(flushed, [2])
+
+  // Subsequent play starts from 0: play 20s then leave -> 1 minute
+  acc.onPlay()
+  acc.advanceTime(20_000)
+  acc.onLeave()
+  assert.deepEqual(flushed, [2, 1])
+})
+
+test('ListeningAccumulator resumes without flush if pause was <= 60s', () => {
+  const flushed: number[] = []
+  const acc = new ListeningAccumulator({
+    onFlush: (m) => flushed.push(m),
+  })
+
+  // Play for 40s
+  acc.onPlay()
+  acc.advanceTime(40_000)
+  acc.onPause()
+
+  // Pause for 20s (not > 60s)
+  acc.advanceTime(20_000)
+  assert.deepEqual(flushed, [])
+
+  // Resume playing for 30s -> total active listening = 70s
+  acc.onPlay()
+  acc.advanceTime(30_000)
+  acc.onLeave()
+  assert.deepEqual(flushed, [2]) // Math.ceil(70/60) = 2
+})
+
+test('ListeningAccumulator flushes periodically every 5 minutes', () => {
+  const flushed: number[] = []
+  const acc = new ListeningAccumulator({
+    onFlush: (m) => flushed.push(m),
+  })
+
+  // Play continuously for 5 minutes (300s)
+  acc.onPlay()
+  acc.advanceTime(300_000)
+  assert.deepEqual(flushed, [5])
+
+  // Play for another 2 minutes and leave
+  acc.advanceTime(120_000)
+  acc.onLeave()
+  assert.deepEqual(flushed, [5, 2])
+})
+
+test('resolveListeningStudyTask respects searchParams and falls back to study plan conventions', () => {
+  // Explicit params
+  const explicit = new URLSearchParams('studyDate=2026-10-15&studyTask=fri-listening')
+  assert.deepEqual(resolveListeningStudyTask(explicit, 'intensive-listening'), {
+    dateKey: '2026-10-15',
+    taskId: 'fri-listening',
+  })
+
+  // Saturday (2026-10-17) has scheduled 'sat-listening'
+  const saturdayNoParams = new URLSearchParams()
+  const satResult = resolveListeningStudyTask(saturdayNoParams, 'intensive-listening', new Date('2026-10-17T12:00:00Z').getTime())
+  assert.equal(satResult.taskId, 'sat-listening')
+
+  // Monday (2026-10-19) has scheduled 'mon-listening'
+  const mondayNoParams = new URLSearchParams()
+  const monResult = resolveListeningStudyTask(mondayNoParams, 'intensive-listening', new Date('2026-10-19T12:00:00Z').getTime())
+  assert.equal(monResult.taskId, 'mon-listening')
+
+  // Tuesday (2026-10-20) has no listening task in study plan -> falls back to 'intensive-listening'
+  const tuesdayNoParams = new URLSearchParams()
+  const tueResult = resolveListeningStudyTask(tuesdayNoParams, 'intensive-listening', new Date('2026-10-20T12:00:00Z').getTime())
+  assert.equal(tueResult.taskId, 'intensive-listening')
 })

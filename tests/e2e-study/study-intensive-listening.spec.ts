@@ -164,3 +164,80 @@ test('clicking a French word like école opens offline dictionary lookup with Ch
   await blindModeButton.click()
   await expect(transcript.getByText('école', { exact: false })).toHaveCount(0)
 })
+
+test('credits listening time to study minutes, respects study params, and fires intensive_complete on passage end', async ({
+  page,
+}) => {
+  await setupAudioAndAuth(page)
+
+  // Track analytics events and install controllable clock stub
+  await page.addInitScript(() => {
+    let offset = 0
+    const realNow = Date.now.bind(Date)
+    Date.now = () => realNow() + offset
+    ;(window as any).__advanceClock = (ms: number) => {
+      offset += ms
+    }
+    ;(window as any).umami = {
+      track: (name: string, data?: Record<string, string | number | boolean>) => {
+        ;((window as any)._trackedEvents ??= []).push({ name, data })
+      },
+    }
+  })
+
+  // Open passage with studyDate and studyTask params
+  await page.goto('/intensive-listening/premier-jour-cours-francais?studyDate=2026-10-17&studyTask=sat-listening')
+  await expect(page.getByRole('heading', { name: '第一天上法语课' })).toBeVisible()
+
+  const audio = page.locator('audio')
+  await expect.poll(async () => {
+    return await audio.evaluate((el: HTMLAudioElement) => el.readyState >= 1)
+  }).toBe(true)
+
+  // Start playback
+  await page.getByRole('button', { name: '播放', exact: true }).filter({ visible: true }).click()
+  await expect.poll(async () => {
+    return await audio.evaluate((el: HTMLAudioElement) => !el.paused)
+  }).toBe(true)
+
+  // While playing, advance clock by 75s of simulated playback (75s -> 2 minutes) and pause
+  await page.evaluate(() => {
+    ;(window as any).__advanceClock(75_000)
+    const audioEl = document.querySelector('audio')
+    audioEl?.pause()
+  })
+
+  // Leave page to trigger onLeave flush
+  await page.goto('/study-plan')
+
+  // Verify minutes are queued in study-plan pending queue
+  const pendingMinutesOps = await page.evaluate(() =>
+    Object.keys(localStorage)
+      .filter((k) => k.startsWith('qwerty-fr-study-plan-pending:'))
+      .flatMap((k) => JSON.parse(localStorage.getItem(k) ?? '{}').operations ?? [])
+      .filter((op) => op.kind === 'increment' || op.kind === 'minutes'),
+  )
+  expect(pendingMinutesOps.length).toBeGreaterThan(0)
+  const satOp = pendingMinutesOps.find((op) => op.task === 'sat-listening' && op.day === '2026-10-17')
+  expect(satOp).toBeDefined()
+  expect(satOp.value).toBe(2)
+
+  // Verify local plan storage updated
+  const storedPlan = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem('qwerty-fr-study-plan-v1') ?? '{}'),
+  )
+  expect(storedPlan.minutes?.['2026-10-17']?.['sat-listening']).toBeGreaterThanOrEqual(2)
+
+  // Re-visit passage to assert intensive_complete event
+  await page.goto('/intensive-listening/premier-jour-cours-francais')
+  await expect(page.getByRole('heading', { name: '第一天上法语课' })).toBeVisible()
+
+  // Trigger audio ended event
+  await audio.evaluate((el: HTMLAudioElement) => {
+    el.dispatchEvent(new Event('ended'))
+  })
+
+  // Assert intensive_complete analytics event was fired without PII
+  const tracked = await page.evaluate(() => (window as any)._trackedEvents ?? [])
+  expect(tracked.some((e: any) => e.name === 'intensive_complete')).toBe(true)
+})

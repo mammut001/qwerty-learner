@@ -2,17 +2,21 @@ import { PlayerControls } from './PlayerControls'
 import { VideoCard } from './VideoCard'
 import { YouTubePlayer } from './YouTubePlayer'
 import {
+  ListeningAccumulator,
   calculateSeekTarget,
   cyclePlaybackRate,
   filterLessons,
   loadAllProgress,
   loadVideoProgress,
+  recordListeningMinutes,
+  resolveListeningStudyTask,
   saveVideoProgress,
   shouldLoopAB,
 } from './helpers'
 import type { YouTubePlayerInstance } from './types'
 import Layout from '@/components/Layout'
 import { VIDEO_LESSONS, type VideoLesson } from '@/resources/videoLessons'
+import { trackAnalyticsEvent } from '@/utils/analytics'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import IconArrowLeft from '~icons/tabler/arrow-left'
@@ -49,6 +53,8 @@ export default function VideoListeningPage() {
   const [captionsEnabled, setCaptionsEnabled] = useState(true)
   const [pointA, setPointA] = useState<number | null>(null)
   const [pointB, setPointB] = useState<number | null>(null)
+  const accumulatorRef = useRef<ListeningAccumulator | null>(null)
+  const hasTrackedVideoListenRef = useRef(false)
 
   // Sync progress from localStorage on mount and route changes
   useEffect(() => {
@@ -64,6 +70,38 @@ export default function VideoListeningPage() {
     setPointA(null)
     setPointB(null)
   }, [selectedLesson?.id])
+
+  // Credit actual listening time via accumulator
+  useEffect(() => {
+    if (!selectedLesson) {
+      if (accumulatorRef.current) {
+        accumulatorRef.current.onLeave()
+        accumulatorRef.current = null
+      }
+      return
+    }
+
+    const { dateKey, taskId } = resolveListeningStudyTask(searchParams, 'video-listening')
+    hasTrackedVideoListenRef.current = false
+
+    const accumulator = new ListeningAccumulator({
+      onFlush: (minutes) => {
+        recordListeningMinutes(dateKey, taskId, minutes)
+      },
+    })
+    accumulatorRef.current = accumulator
+
+    const handlePageHide = () => {
+      accumulator.onLeave()
+    }
+    window.addEventListener('pagehide', handlePageHide)
+
+    return () => {
+      window.removeEventListener('pagehide', handlePageHide)
+      accumulator.onLeave()
+      accumulatorRef.current = null
+    }
+  }, [selectedLesson?.id, searchParams])
 
   // Check if current lesson is completed
   const isLessonCompleted = Boolean(selectedLesson && allProgress[selectedLesson.id]?.completed)
@@ -102,6 +140,17 @@ export default function VideoListeningPage() {
 
   const handleStateChange = useCallback(
     (state: number) => {
+      if (state === 1) {
+        accumulatorRef.current?.onPlay()
+      } else {
+        accumulatorRef.current?.onPause()
+      }
+
+      if (!hasTrackedVideoListenRef.current && accumulatorRef.current && accumulatorRef.current.getTotalPlaybackSeconds() >= 60) {
+        hasTrackedVideoListenRef.current = true
+        trackAnalyticsEvent('video_listen')
+      }
+
       if (state === 2 && playerRef.current && selectedLesson) {
         try {
           const cur = playerRef.current.getCurrentTime()
@@ -132,6 +181,11 @@ export default function VideoListeningPage() {
         }
       } catch {
         // Player might be switching or destroyed
+      }
+
+      if (!hasTrackedVideoListenRef.current && accumulatorRef.current && accumulatorRef.current.getTotalPlaybackSeconds() >= 60) {
+        hasTrackedVideoListenRef.current = true
+        trackAnalyticsEvent('video_listen')
       }
     }, 250)
 
@@ -329,11 +383,7 @@ export default function VideoListeningPage() {
 
             {/* YouTube 16:9 Video Player */}
             <div>
-              <YouTubePlayer
-                lesson={selectedLesson}
-                onReady={handlePlayerReady}
-                onStateChange={handleStateChange}
-              />
+              <YouTubePlayer lesson={selectedLesson} onReady={handlePlayerReady} onStateChange={handleStateChange} />
 
               {/* Player Controls Under Player */}
               <PlayerControls
