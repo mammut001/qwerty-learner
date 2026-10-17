@@ -1,7 +1,4 @@
-import assert from 'node:assert/strict'
-import fs from 'node:fs'
-import path from 'node:path'
-import test from 'node:test'
+import { INTENSIVE_PASSAGES } from '../src/resources/intensiveListening.ts'
 import {
   DEFAULT_FEMALE_VOICE,
   DEFAULT_MALE_VOICE,
@@ -10,10 +7,14 @@ import {
   computeIntensiveKey,
   computeIntensiveObjectPath,
   concatenateMp3Buffers,
+  formatTtsSpokenText,
   parseMp3Duration,
 } from '../src/utils/intensiveListeningAudioKey.mjs'
 import { mirrorIntensivePath } from '../src/utils/voiceMirror.mjs'
-import { INTENSIVE_PASSAGES } from '../src/resources/intensiveListening.ts'
+import assert from 'node:assert/strict'
+import fs from 'node:fs'
+import path from 'node:path'
+import test from 'node:test'
 
 test('computeIntensiveKey produces 16 hex chars and is deterministic', () => {
   const passage = {
@@ -50,23 +51,14 @@ test('assignPassageSentenceVoice assigns male/female Chirp voices appropriately'
     id: 'mono',
     speakers: { A: 'female' },
   }
-  assert.equal(
-    assignPassageSentenceVoice(monologueFemale, { speaker: 'A', fr: 'Test' }),
-    DEFAULT_FEMALE_VOICE,
-  )
+  assert.equal(assignPassageSentenceVoice(monologueFemale, { speaker: 'A', fr: 'Test' }), DEFAULT_FEMALE_VOICE)
 
   const dialogue = {
     id: 'dialogue',
     speakers: { A: 'female', B: 'male' },
   }
-  assert.equal(
-    assignPassageSentenceVoice(dialogue, { speaker: 'A', fr: 'Test' }),
-    DEFAULT_FEMALE_VOICE,
-  )
-  assert.equal(
-    assignPassageSentenceVoice(dialogue, { speaker: 'B', fr: 'Test' }),
-    DEFAULT_MALE_VOICE,
-  )
+  assert.equal(assignPassageSentenceVoice(dialogue, { speaker: 'A', fr: 'Test' }), DEFAULT_FEMALE_VOICE)
+  assert.equal(assignPassageSentenceVoice(dialogue, { speaker: 'B', fr: 'Test' }), DEFAULT_MALE_VOICE)
 })
 
 test('computeIntensiveObjectPath and mirrorIntensivePath align', () => {
@@ -113,19 +105,12 @@ test('intensive listening manifest is valid and consistent with passages', () =>
     assert.ok(passage, `Passage not found in intensiveListening.ts: ${passageId}`)
     assert.match(item.key, /^[0-9a-f]{16}$/)
     assert.ok(Array.isArray(item.segments))
-    assert.equal(
-      item.segments.length,
-      passage.sentences.length,
-      `Segments count mismatch for ${passageId}`,
-    )
+    assert.equal(item.segments.length, passage.sentences.length, `Segments count mismatch for ${passageId}`)
 
     let lastEnd = 0
     for (let i = 0; i < item.segments.length; i++) {
       const seg = item.segments[i]
-      assert.ok(
-        seg.start < seg.end,
-        `Segment start must be < end in ${passageId} index ${i}: [${seg.start}, ${seg.end}]`,
-      )
+      assert.ok(seg.start < seg.end, `Segment start must be < end in ${passageId} index ${i}: [${seg.start}, ${seg.end}]`)
       if (i > 0) {
         assert.ok(
           seg.start >= lastEnd,
@@ -137,13 +122,16 @@ test('intensive listening manifest is valid and consistent with passages', () =>
   }
 })
 
-test('applyTtsSentenceFixes fixes spoken text and updates key for passages with réévalu and elisions', () => {
-  assert.equal(applyTtsSentenceFixes('s’épanouir'), 'sépanouir')
-  assert.equal(applyTtsSentenceFixes('l’école'), 'lécole')
-  assert.equal(applyTtsSentenceFixes('qu’il'), 'quil')
-  assert.equal(applyTtsSentenceFixes('jusqu’à'), 'jusquà')
-  assert.equal(applyTtsSentenceFixes('L’Ontario'), 'LOntario')
+test('applyTtsSentenceFixes fixes spoken text and formatTtsSpokenText produces SSML for elisions', () => {
+  assert.equal(applyTtsSentenceFixes('s’épanouir'), 's’épanouir')
+  assert.equal(applyTtsSentenceFixes('l’école'), 'l’école')
+  assert.equal(applyTtsSentenceFixes('qu’il'), 'qu’il')
+  assert.equal(applyTtsSentenceFixes('jusqu’à'), 'jusqu’à')
+  assert.equal(applyTtsSentenceFixes('L’Ontario'), 'L’Ontario')
   assert.equal(applyTtsSentenceFixes('« Bonjour »'), '« Bonjour »')
+
+  assert.equal(formatTtsSpokenText('s’épanouir'), '<speak><phoneme alphabet="ipa" ph="sepanwiʁ">s’épanouir</phoneme></speak>')
+  assert.equal(formatTtsSpokenText('l’école'), '<speak><phoneme alphabet="ipa" ph="lekɔl">l’école</phoneme></speak>')
 
   assert.equal(applyTtsSentenceFixes('Je réévalue'), 'Je ré-évalue')
   assert.equal(applyTtsSentenceFixes('Je réévalue immédiatement la matrice'), 'Je ré-évalue immédiatement la matrice')
@@ -152,9 +140,7 @@ test('applyTtsSentenceFixes fixes spoken text and updates key for passages with 
   assert.equal(applyTtsSentenceFixes('réédition'), 'réédition')
   assert.equal(applyTtsSentenceFixes('l’réévaluation'), 'l’ré-évaluation')
 
-  const reevaluPassages = INTENSIVE_PASSAGES.filter((p) =>
-    p.sentences.some((s) => /réévalu/i.test(s.fr)),
-  )
+  const reevaluPassages = INTENSIVE_PASSAGES.filter((p) => p.sentences.some((s) => /réévalu/i.test(s.fr)))
   assert.equal(reevaluPassages.length, 1)
   assert.equal(reevaluPassages[0].id, 'entrevue-embauche-montreal')
 })

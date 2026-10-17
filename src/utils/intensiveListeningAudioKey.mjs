@@ -1,7 +1,8 @@
-import crypto from 'node:crypto'
 import { applyTtsSentenceFixes } from './ttsSentenceFixes.mjs'
+import { formatTtsSpokenText, formatTtsSsml } from './ttsSsml.mjs'
+import crypto from 'node:crypto'
 
-export { applyTtsSentenceFixes }
+export { applyTtsSentenceFixes, formatTtsSpokenText, formatTtsSsml }
 
 export const INTENSIVE_AUDIO_VERSION = 'v1'
 export const INTENSIVE_AUDIO_BASE_URL = 'https://storage.googleapis.com/tcf-voice-tcf-canada-5b8c2'
@@ -15,16 +16,9 @@ export const DEFAULT_INTENSIVE_SPEAKING_RATE = 0.95
  * - Female: fr-CA-Chirp3-HD-Aoede
  * - Monologue defaults to speaker A (or female if not specified).
  */
-export function assignPassageSentenceVoice(
-  passage,
-  sentence,
-  { maleVoice = DEFAULT_MALE_VOICE, femaleVoice = DEFAULT_FEMALE_VOICE } = {},
-) {
+export function assignPassageSentenceVoice(passage, sentence, { maleVoice = DEFAULT_MALE_VOICE, femaleVoice = DEFAULT_FEMALE_VOICE } = {}) {
   const speakerRole = sentence?.speaker || 'A'
-  const speakerGender =
-    passage?.speakers?.[speakerRole] ||
-    passage?.speakers?.A ||
-    (speakerRole === 'B' ? 'male' : 'female')
+  const speakerGender = passage?.speakers?.[speakerRole] || passage?.speakers?.A || (speakerRole === 'B' ? 'male' : 'female')
 
   return speakerGender === 'male' ? maleVoice : femaleVoice
 }
@@ -34,25 +28,13 @@ export function assignPassageSentenceVoice(
  */
 export function computeIntensiveKey(
   passage,
-  {
-    version = INTENSIVE_AUDIO_VERSION,
-    rate = DEFAULT_INTENSIVE_SPEAKING_RATE,
-    voiceA,
-    voiceB,
-  } = {},
+  { version = INTENSIVE_AUDIO_VERSION, rate = DEFAULT_INTENSIVE_SPEAKING_RATE, voiceA, voiceB } = {},
 ) {
-  const vA =
-    voiceA || (passage?.speakers?.A === 'male' ? DEFAULT_MALE_VOICE : DEFAULT_FEMALE_VOICE)
-  const vB =
-    voiceB ||
-    (passage?.speakers?.B
-      ? passage.speakers.B === 'male'
-        ? DEFAULT_MALE_VOICE
-        : DEFAULT_FEMALE_VOICE
-      : '')
+  const vA = voiceA || (passage?.speakers?.A === 'male' ? DEFAULT_MALE_VOICE : DEFAULT_FEMALE_VOICE)
+  const vB = voiceB || (passage?.speakers?.B ? (passage.speakers.B === 'male' ? DEFAULT_MALE_VOICE : DEFAULT_FEMALE_VOICE) : '')
 
   const sentencesStr = (passage?.sentences || [])
-    .map((s) => `${s.speaker || 'A'}:${applyTtsSentenceFixes(String(s.fr || '').trim())}`)
+    .map((s) => `${s.speaker || 'A'}:${formatTtsSpokenText(String(s.fr || '').trim())}`)
     .join('\n')
 
   const input = `${version}|${passage?.id || ''}|${vA}|${vB}|${rate}|${sentencesStr}`

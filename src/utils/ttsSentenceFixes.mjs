@@ -12,12 +12,6 @@ export const TTS_SENTENCE_FIX_RULES = [
       return 'ré-évalu'
     },
   },
-  {
-    // Google Chirp reads elided monosyllables/particles as separate letters (e.g. "s" ... "épanouir").
-    // Joining elided forms to the following vowel (incl. accented) or h word ensures fluent, natural pronunciation.
-    pattern: /\b(jusqu|lorsqu|puisqu|quoiqu|presqu|aujourd|qu|[cdjlmnst])['’](?=[aàâäeéèêëiîïoôöuùûüyÿæœh])/giu,
-    replace: (match, prefix) => prefix,
-  },
 ]
 
 /**

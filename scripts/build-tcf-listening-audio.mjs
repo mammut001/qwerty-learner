@@ -10,13 +10,7 @@ if (!isUnderTsLoader) {
   const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
   const loaderPath = path.join(repoRoot, 'server/ts-extension-loader.mjs')
   const scriptPath = fileURLToPath(import.meta.url)
-  const args = [
-    '--experimental-loader',
-    loaderPath,
-    '--experimental-strip-types',
-    scriptPath,
-    ...process.argv.slice(2),
-  ]
+  const args = ['--experimental-loader', loaderPath, '--experimental-strip-types', scriptPath, ...process.argv.slice(2)]
   const child = spawnSync(process.execPath, args, { stdio: 'inherit' })
   process.exit(child.status ?? 0)
 }
@@ -33,6 +27,7 @@ const {
   computeListeningObjectPath,
   getQuestionTurns,
 } = await import('../src/utils/tcfListeningAudioKey.mjs')
+const { findMissingElisionCombos } = await import('../src/utils/ttsSsml.mjs')
 
 const { TCF_LISTENING_QUESTIONS } = await import('../src/resources/tcfMock.ts')
 const { TCF_LISTENING_SET_B } = await import('../src/resources/tcfMockSetB.ts')
@@ -49,11 +44,14 @@ function parseArgs() {
   let voiceB = DEFAULT_VOICE_B
   let rate = DEFAULT_SPEAKING_RATE
   let concurrency = 4
+  let allowMissing = false
 
   for (let i = 0; i < args.length; i++) {
     const arg = args[i]
     if (arg === '--dry-run') {
       dryRun = true
+    } else if (arg === '--allow-missing') {
+      allowMissing = true
     } else if (arg.startsWith('--limit=')) {
       limit = parseInt(arg.slice('--limit='.length), 10)
     } else if (arg === '--limit' && i + 1 < args.length) {
@@ -81,7 +79,7 @@ function parseArgs() {
     }
   }
 
-  return { dryRun, limit, only, voiceA, voiceB, rate, concurrency }
+  return { dryRun, limit, only, voiceA, voiceB, rate, concurrency, allowMissing }
 }
 
 export function collectListeningQuestions() {
@@ -210,19 +208,35 @@ async function main() {
     return { question, turns, key, objectPath }
   })
 
+  // Refuse if any question contains an elision combo whose dictionary IPA is empty
+  const questionsWithMissing = []
+  for (const task of tasks) {
+    const missing = findMissingElisionCombos(task.question.audioText || '')
+    if (missing.length > 0) {
+      questionsWithMissing.push({ id: task.question.id, missing })
+    }
+  }
+
+  if (questionsWithMissing.length > 0) {
+    console.error(`Refusing synthesis: ${questionsWithMissing.length} questions contain elision combos with empty dictionary IPA:`)
+    for (const q of questionsWithMissing) {
+      console.error(`  - Question "${q.id}": [${q.missing.join(', ')}]`)
+    }
+    if (!config.allowMissing) {
+      console.error('Use --allow-missing to synthesize anyway.')
+      process.exit(1)
+    }
+  }
+
   if (config.dryRun) {
     await runDryRun(tasks, config)
     return
   }
 
   // Real execution (run by supervisor with valid credentials)
-  const {
-    GoogleAuth,
-    checkRemoteExists,
-    getServiceAccountCredentials,
-    synthesizeText,
-    uploadAudio,
-  } = await import('./google-cloud-shared.mjs')
+  const { GoogleAuth, checkRemoteExists, getServiceAccountCredentials, synthesizeText, uploadAudio } = await import(
+    './google-cloud-shared.mjs'
+  )
 
   const creds = getServiceAccountCredentials()
   const auth = new GoogleAuth(creds)
@@ -292,7 +306,9 @@ async function main() {
         completed++
 
         console.log(
-          `[${completed}/${tasks.length}] Generated [${question.id}] (${turns.length} turn${turns.length > 1 ? 's' : ''}, ${questionChars} chars) -> ${objectPath}`,
+          `[${completed}/${tasks.length}] Generated [${question.id}] (${turns.length} turn${
+            turns.length > 1 ? 's' : ''
+          }, ${questionChars} chars) -> ${objectPath}`,
         )
 
         // Save manifest incrementally

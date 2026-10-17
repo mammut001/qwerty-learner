@@ -1,3 +1,10 @@
+import { TCF_LISTENING_QUESTIONS } from '../src/resources/tcfMock.ts'
+import { TCF_LISTENING_SET_B } from '../src/resources/tcfMockSetB.ts'
+import {
+  resolveListeningAudioCandidates,
+  setListeningManifestCacheForTest,
+  lookupListeningAudioCandidates,
+} from '../src/services/tcfListeningAudio.ts'
 import {
   DEFAULT_SPEAKING_RATE,
   DEFAULT_VOICE_A,
@@ -10,17 +17,11 @@ import {
   computeListeningKey,
   computeListeningKeyForQuestion,
   computeListeningObjectPath,
+  formatTtsSpokenText,
   getQuestionTurns,
   mirrorListeningPath,
   splitTurns,
 } from '../src/utils/tcfListeningAudioKey.mjs'
-import {
-  resolveListeningAudioCandidates,
-  setListeningManifestCacheForTest,
-  lookupListeningAudioCandidates,
-} from '../src/services/tcfListeningAudio.ts'
-import { TCF_LISTENING_QUESTIONS } from '../src/resources/tcfMock.ts'
-import { TCF_LISTENING_SET_B } from '../src/resources/tcfMockSetB.ts'
 import assert from 'node:assert/strict'
 import crypto from 'node:crypto'
 import fs from 'node:fs'
@@ -35,23 +36,20 @@ test('constants match expected values', () => {
 })
 
 test('turn splitting breaks on em-dash and strips leading dash and spaces', () => {
-  const dialogue2Turns =
-    '— Bonjour, je voudrais deux billets pour le film de vingt heures. — Il ne reste que des places au premier rang.'
+  const dialogue2Turns = '— Bonjour, je voudrais deux billets pour le film de vingt heures. — Il ne reste que des places au premier rang.'
   const turns2 = splitTurns(dialogue2Turns)
   assert.equal(turns2.length, 2)
   assert.equal(turns2[0], 'Bonjour, je voudrais deux billets pour le film de vingt heures.')
   assert.equal(turns2[1], 'Il ne reste que des places au premier rang.')
 
-  const dialogue3Turns =
-    "— Bonjour, un café et un croissant, s'il vous plaît. — Sur place ou à emporter ? — À emporter, merci."
+  const dialogue3Turns = "— Bonjour, un café et un croissant, s'il vous plaît. — Sur place ou à emporter ? — À emporter, merci."
   const turns3 = splitTurns(dialogue3Turns)
   assert.equal(turns3.length, 3)
   assert.equal(turns3[0], "Bonjour, un café et un croissant, s'il vous plaît.")
   assert.equal(turns3[1], 'Sur place ou à emporter ?')
   assert.equal(turns3[2], 'À emporter, merci.')
 
-  const monologue =
-    'Attention, le train à destination de Montréal partira exceptionnellement de la voie douze au lieu de la voie huit.'
+  const monologue = 'Attention, le train à destination de Montréal partira exceptionnellement de la voie douze au lieu de la voie huit.'
   const turnsMono = splitTurns(monologue)
   assert.equal(turnsMono.length, 1)
   assert.equal(turnsMono[0], monologue)
@@ -257,13 +255,16 @@ test('committed public/voice/tcf-listening-manifest.json is valid JSON with 78 i
   assert.equal(Object.keys(content.items).length, 78)
 })
 
-test('applyTtsSentenceFixes updates keys for questions with elisions and preserves keys for unaffected questions', () => {
-  assert.equal(applyTtsSentenceFixes('s’épanouir'), 'sépanouir')
-  assert.equal(applyTtsSentenceFixes('l’école'), 'lécole')
-  assert.equal(applyTtsSentenceFixes('qu’il'), 'quil')
-  assert.equal(applyTtsSentenceFixes('jusqu’à'), 'jusquà')
-  assert.equal(applyTtsSentenceFixes('L’Ontario'), 'LOntario')
+test('applyTtsSentenceFixes preserves elisions, formatTtsSpokenText produces SSML, and keys are preserved for unaffected questions', () => {
+  assert.equal(applyTtsSentenceFixes('s’épanouir'), 's’épanouir')
+  assert.equal(applyTtsSentenceFixes('l’école'), 'l’école')
+  assert.equal(applyTtsSentenceFixes('qu’il'), 'qu’il')
+  assert.equal(applyTtsSentenceFixes('jusqu’à'), 'jusqu’à')
+  assert.equal(applyTtsSentenceFixes('L’Ontario'), 'L’Ontario')
   assert.equal(applyTtsSentenceFixes('« Bonjour »'), '« Bonjour »')
+
+  assert.equal(formatTtsSpokenText('s’épanouir'), '<speak><phoneme alphabet="ipa" ph="sepanwiʁ">s’épanouir</phoneme></speak>')
+  assert.equal(formatTtsSpokenText('l’école'), '<speak><phoneme alphabet="ipa" ph="lekɔl">l’école</phoneme></speak>')
 
   assert.equal(applyTtsSentenceFixes('Je réévalue'), 'Je ré-évalue')
   assert.equal(applyTtsSentenceFixes('Je réévalue immédiatement la matrice'), 'Je ré-évalue immédiatement la matrice')

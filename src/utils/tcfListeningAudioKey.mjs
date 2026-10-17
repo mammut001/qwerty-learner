@@ -1,9 +1,9 @@
 // Shared utility for TCF listening audio keys, turn splitting, and voice assignment.
 // Pure JS implementation so it runs identically in Node and the browser without external deps.
-
 import { applyTtsSentenceFixes } from './ttsSentenceFixes.mjs'
+import { formatTtsSpokenText, formatTtsSsml } from './ttsSsml.mjs'
 
-export { applyTtsSentenceFixes }
+export { applyTtsSentenceFixes, formatTtsSpokenText, formatTtsSsml }
 
 export const TCF_LISTENING_VERSION = 'v1'
 
@@ -140,13 +140,7 @@ export function isAnnouncementType(type) {
  * @param {string} voiceB default female voice
  * @returns {string} voice name
  */
-export function assignListeningVoice(
-  type,
-  turnIndex = 0,
-  isDialogue = false,
-  voiceA = DEFAULT_VOICE_A,
-  voiceB = DEFAULT_VOICE_B,
-) {
+export function assignListeningVoice(type, turnIndex = 0, isDialogue = false, voiceA = DEFAULT_VOICE_A, voiceB = DEFAULT_VOICE_B) {
   if (isDialogue) {
     return turnIndex % 2 === 0 ? voiceA : voiceB
   }
@@ -167,7 +161,7 @@ export function getQuestionTurns(question, voiceA = DEFAULT_VOICE_A, voiceB = DE
 
   return rawTurns.map((text, index) => ({
     index,
-    text: applyTtsSentenceFixes(text),
+    text: formatTtsSpokenText(text),
     voice: assignListeningVoice(question?.type || '', index, isDialogue, voiceA, voiceB),
   }))
 }
@@ -182,14 +176,9 @@ export function getQuestionTurns(question, voiceA = DEFAULT_VOICE_A, voiceB = DE
  * }} params
  * @returns {string} 16 hex characters
  */
-export function computeListeningKey({
-  version = TCF_LISTENING_VERSION,
-  voices,
-  rate = DEFAULT_SPEAKING_RATE,
-  audioText,
-}) {
+export function computeListeningKey({ version = TCF_LISTENING_VERSION, voices, rate = DEFAULT_SPEAKING_RATE, audioText }) {
   const voicesStr = Array.isArray(voices) ? voices.join('+') : String(voices || '')
-  const cleanText = typeof audioText === 'string' ? applyTtsSentenceFixes(audioText.trim()) : ''
+  const cleanText = typeof audioText === 'string' ? formatTtsSpokenText(audioText.trim()) : ''
   const input = `${version}|${voicesStr}|${rate}|${cleanText}`
   const bytes = encoder.encode(input)
   return sha256Hex(bytes).slice(0, 16)
@@ -208,12 +197,7 @@ export function computeListeningKey({
  */
 export function computeListeningKeyForQuestion(
   question,
-  {
-    version = TCF_LISTENING_VERSION,
-    rate = DEFAULT_SPEAKING_RATE,
-    voiceA = DEFAULT_VOICE_A,
-    voiceB = DEFAULT_VOICE_B,
-  } = {},
+  { version = TCF_LISTENING_VERSION, rate = DEFAULT_SPEAKING_RATE, voiceA = DEFAULT_VOICE_A, voiceB = DEFAULT_VOICE_B } = {},
 ) {
   const turns = getQuestionTurns(question, voiceA, voiceB)
   const voices = turns.map((t) => t.voice)
