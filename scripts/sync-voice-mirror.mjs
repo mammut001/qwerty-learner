@@ -6,9 +6,10 @@
 // Layout written under <targetDir> (served same-origin at /voice-audio/):
 //   v1/<accent>/<key>.mp3            from the GCS TTS bucket (public/voice/tts-manifest.json)
 //   ll/<decoded file name>           from Lingua Libre / Wikimedia (public/voice/fr-overrides.json)
+//   listening/v1/<key>.mp3           from GCS bucket (public/voice/tcf-listening-manifest.json)
 //
 // Existing non-empty files are skipped. Downloads go to "<file>.part" and are renamed when complete.
-import { mirrorOverrideFileName, mirrorTtsPath } from '../src/utils/voiceMirror.mjs'
+import { mirrorListeningPath, mirrorOverrideFileName, mirrorTtsPath } from '../src/utils/voiceMirror.mjs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -21,6 +22,8 @@ const DEFAULT_CONCURRENCY = 8
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const TTS_MANIFEST = path.join(repoRoot, 'public/voice/tts-manifest.json')
 const OVERRIDES = path.join(repoRoot, 'public/voice/fr-overrides.json')
+const LISTENING_MANIFEST = path.join(repoRoot, 'public/voice/tcf-listening-manifest.json')
+
 
 function parseArgs(argv) {
   const args = { dir: null, concurrency: DEFAULT_CONCURRENCY }
@@ -48,7 +51,8 @@ async function readJson(file) {
 /**
  * Builds the full list of { source, target } pairs, deduplicated by target path.
  */
-async function buildJobs(targetDir) {
+export async function buildJobs(targetDir) {
+
   const jobs = new Map()
   const add = (source, relativeTarget) => {
     const target = path.join(targetDir, relativeTarget)
@@ -76,8 +80,21 @@ async function buildJobs(targetDir) {
     add(override.audio, path.posix.join('ll', fileName))
   }
 
+  try {
+    const listeningManifest = await readJson(LISTENING_MANIFEST)
+    const listeningBase = String(listeningManifest.base || base).replace(/\/+$/, '')
+    for (const key of Object.values(listeningManifest.items || {})) {
+      if (!key) continue
+      const rel = mirrorListeningPath(key)
+      add(`${listeningBase}/${rel}`, rel)
+    }
+  } catch {
+    // Optional if listening manifest is missing or empty
+  }
+
   return [...jobs.values()]
 }
+
 
 async function fileSize(file) {
   try {
