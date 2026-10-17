@@ -126,10 +126,17 @@ test('spokenTextFor formats elision with SSML phoneme, respects manual overrides
   // Only fr-FR overridden in ttsSpokenOverrides
   assert.equal(spokenTextFor("à l'égard de", 'fr-FR'), 'à légard de')
 
-  // Entry with missing IPA returns plain text unchanged
-  assert.equal(spokenTextFor("bourse d'études", 'fr-CA'), "bourse d'études")
-  assert.equal(spokenTextFor("bourse d'études", 'fr-FR'), "bourse d'études")
-  assert.equal(spokenTextFor("en d'autres termes", 'fr-CA'), "en d'autres termes")
+  // bourse d'études returns SSML with phoneme for d'études
+  assert.equal(spokenTextFor("bourse d'études", 'fr-CA'), '<speak>bourse <phoneme alphabet="ipa" ph="detyd">d\'études</phoneme></speak>')
+  assert.equal(spokenTextFor("bourse d'études", 'fr-FR'), '<speak>bourse <phoneme alphabet="ipa" ph="detyd">d\'études</phoneme></speak>')
+
+  // Entry with missing IPA returns plain text unchanged (guaranteed absent combo / injected empty dictionary)
+  assert.equal(spokenTextFor("l'ozzzbrique", 'fr-CA'), "l'ozzzbrique")
+  assert.equal(spokenTextFor("l'ozzzbrique", 'fr-FR'), "l'ozzzbrique")
+  assert.equal(
+    spokenTextFor("à l'époque", 'fr-CA', { dictionary: { 'l’époque': { ipa: '', source: 'manual', reviewed: false } } }),
+    "à l'époque",
+  )
 
   // Unaffected entries without elision return standard speakableText
   assert.equal(spokenTextFor('bonjour', 'fr-CA'), 'bonjour')
