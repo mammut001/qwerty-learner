@@ -18,6 +18,13 @@ export default function TextAreaHandler({
     if (!textareaRef.current) return
 
     if (state.isTyping) {
+      if (
+        document.activeElement?.closest(
+          'button, a, input, select, [contenteditable="true"], [role="dialog"], [role="radiogroup"], [role="radio"], [role="button"]',
+        )
+      ) {
+        return
+      }
       textareaRef.current.focus()
     } else {
       textareaRef.current.blur()
@@ -44,13 +51,24 @@ export default function TextAreaHandler({
     e.currentTarget.value = ''
   }
 
-  const onBlur = useCallback(() => {
-    if (!textareaRef.current) return
+  const onBlur = useCallback(
+    (e: React.FocusEvent<HTMLTextAreaElement>) => {
+      if (!textareaRef.current) return
 
-    if (state.isTyping) {
-      textareaRef.current.focus()
-    }
-  }, [state.isTyping])
+      if (state.isTyping) {
+        const related = e.relatedTarget as HTMLElement | null
+        if (
+          related?.closest(
+            'button, a, input, select, [contenteditable="true"], [role="dialog"], [role="radiogroup"], [role="radio"], [role="button"]',
+          )
+        ) {
+          return
+        }
+        textareaRef.current.focus()
+      }
+    },
+    [state.isTyping],
+  )
 
   return (
     <textarea
