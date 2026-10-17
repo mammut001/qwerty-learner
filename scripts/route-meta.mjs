@@ -32,7 +32,7 @@ function setCanonical(html, url) {
   return html.replace(/<\/head>/i, `    <link rel="canonical" href="${escapedUrl}" />\n  </head>`)
 }
 
-function setTitle(html, title) {
+export function setTitle(html, title) {
   const escapedTitle = escapeHtml(title)
   const regex = /<title[\s\S]*?<\/title>/i
   if (regex.test(html)) {
@@ -41,10 +41,28 @@ function setTitle(html, title) {
   return html.replace(/<\/head>/i, `    <title>${escapedTitle}</title>\n  </head>`)
 }
 
-export function renderRouteHtml(html, route, allRoutes = ROUTE_SEO) {
+/**
+ * Rewrites relative icon and manifest links (e.g. ./favicon-32x32.png, ./manifest.json)
+ * to resolve against the app base on every route.
+ * For relative base ('./') the hrefs are left relative.
+ *
+ * @param {string} html
+ * @param {string} [base='/']
+ * @returns {string}
+ */
+export function resolveRelativeIconLinks(html, base = '/') {
+  if (!html || base === './') return html
+  const prefix = base.endsWith('/') ? base : `${base}/`
+  return html.replace(
+    /(<link\s+[^>]*?\bhref=["'])\.\/(favicon[^"']*|apple-touch-icon[^"']*|manifest\.(?:json|webmanifest))(["'])/gi,
+    `$1${prefix}$2$3`,
+  )
+}
+
+export function renderRouteHtml(html, route, allRoutes = ROUTE_SEO, base = '/') {
   if (!html || !route) return html
 
-  let result = html
+  let result = resolveRelativeIconLinks(html, base)
   const normalizedPath = route.path === '/' ? '/' : (route.path.startsWith('/') ? route.path : `/${route.path}`)
   const canonicalUrl = `${SITE_ORIGIN}${normalizedPath}`
 

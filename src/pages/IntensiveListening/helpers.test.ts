@@ -7,6 +7,7 @@ import {
   getNextSentenceIndex,
   getPrevSentenceIndex,
   resolveIntensiveAudioCandidates,
+  shouldFallbackAudioCandidate,
   shouldLoopCurrentSentence,
 } from './helpers'
 
@@ -109,4 +110,24 @@ test('resolveIntensiveAudioCandidates builds candidate URLs correctly', () => {
   const withoutMirror = resolveIntensiveAudioCandidates('test-passage', manifest, false)
   assert.equal(withoutMirror.length, 1)
   assert.equal(withoutMirror[0], 'https://storage.googleapis.com/test-bucket/intensive/v1/abcdef1234567890.mp3')
+})
+
+test('shouldFallbackAudioCandidate only falls back on fatal errors and preserves mirror otherwise', () => {
+  // Non-errors or missing error object must never fall back
+  assert.equal(shouldFallbackAudioCandidate(0, 2, null), false)
+  assert.equal(shouldFallbackAudioCandidate(0, 2, undefined), false)
+  assert.equal(shouldFallbackAudioCandidate(0, 2, {} as unknown as { code: number }), false)
+
+  // MEDIA_ERR_ABORTED (1) represents a canceled or superseded request, not a mirror failure
+  assert.equal(shouldFallbackAudioCandidate(0, 2, { code: 1 }), false)
+
+  // Real fatal errors: MEDIA_ERR_NETWORK (2), MEDIA_ERR_DECODE (3), MEDIA_ERR_SRC_NOT_SUPPORTED (4)
+  assert.equal(shouldFallbackAudioCandidate(0, 2, { code: 2 }), true)
+  assert.equal(shouldFallbackAudioCandidate(0, 2, { code: 3 }), true)
+  assert.equal(shouldFallbackAudioCandidate(0, 2, { code: 4 }), true)
+
+  // Boundary: when already on the last candidate, never fall back further
+  assert.equal(shouldFallbackAudioCandidate(1, 2, { code: 2 }), false)
+  assert.equal(shouldFallbackAudioCandidate(1, 2, { code: 4 }), false)
+  assert.equal(shouldFallbackAudioCandidate(0, 1, { code: 4 }), false)
 })

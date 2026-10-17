@@ -154,3 +154,30 @@ test('default.conf contains the new try_files with $uri $uri/index.html /index.h
     'try_files in location / must be "$uri $uri/index.html /index.html;"',
   )
 })
+
+test('rendered route HTML for base "/" resolves icon and manifest links to root (no "./")', async () => {
+  const indexHtml = await readRepoText('index.html')
+  const intensiveRoute = ROUTE_SEO.find((item) => item.path === '/intensive-listening')
+  assert.ok(intensiveRoute, 'ROUTE_SEO must contain /intensive-listening')
+
+  const rendered = renderRouteHtml(indexHtml, intensiveRoute, ROUTE_SEO, '/')
+
+  assert.match(rendered, /<link rel="icon" type="image\/png" sizes="32x32" href="\/favicon-32x32\.png" \/>/)
+  assert.match(rendered, /<link rel="icon" href="\/favicon\.ico" \/>/)
+  assert.match(rendered, /<link rel="apple-touch-icon" sizes="180x180" href="\/apple-touch-icon\.png" \/>/)
+  assert.match(rendered, /<link rel="icon" type="image\/png" sizes="16x16" href="\/favicon-16x16\.png" \/>/)
+  assert.match(rendered, /<link rel="manifest" href="\/manifest\.json" \/>/)
+  assert.doesNotMatch(rendered, /href="\.\/favicon-32x32\.png"/)
+  assert.doesNotMatch(rendered, /href="\.\/manifest\.json"/)
+})
+
+test('rendered route HTML preserves relative icon links for base "./" and prefixes for subpath base', async () => {
+  const indexHtml = await readRepoText('index.html')
+  const intensiveRoute = ROUTE_SEO.find((item) => item.path === '/intensive-listening')
+
+  const renderedRelative = renderRouteHtml(indexHtml, intensiveRoute, ROUTE_SEO, './')
+  assert.match(renderedRelative, /<link rel="icon" type="image\/png" sizes="32x32" href="\.\/favicon-32x32\.png" \/>/)
+
+  const renderedSubpath = renderRouteHtml(indexHtml, intensiveRoute, ROUTE_SEO, '/qwerty-learner/')
+  assert.match(renderedSubpath, /<link rel="icon" type="image\/png" sizes="32x32" href="\/qwerty-learner\/favicon-32x32\.png" \/>/)
+})
