@@ -28,6 +28,7 @@ const {
   DEFAULT_VOICE_B,
   TCF_LISTENING_BASE_URL,
   TCF_LISTENING_VERSION,
+  applyTtsSentenceFixes,
   computeListeningKeyForQuestion,
   computeListeningObjectPath,
   getQuestionTurns,

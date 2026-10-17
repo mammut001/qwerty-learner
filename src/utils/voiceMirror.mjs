@@ -54,3 +54,13 @@ export function mirrorListeningPath(key, version = 'v1') {
   return `listening/${version}/${key}.mp3`
 }
 
+/**
+ * Relative path of an intensive listening clip, same layout as the GCS bucket.
+ * @param {string} key 16-hex intensive key
+ * @param {string} [version='v1']
+ * @returns {string} `intensive/${version}/${key}.mp3`
+ */
+export function mirrorIntensivePath(key, version = 'v1') {
+  return `intensive/${version}/${key}.mp3`
+}
+

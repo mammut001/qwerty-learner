@@ -9,7 +9,7 @@
 //   listening/v1/<key>.mp3           from GCS bucket (public/voice/tcf-listening-manifest.json)
 //
 // Existing non-empty files are skipped. Downloads go to "<file>.part" and are renamed when complete.
-import { mirrorListeningPath, mirrorOverrideFileName, mirrorTtsPath } from '../src/utils/voiceMirror.mjs'
+import { mirrorIntensivePath, mirrorListeningPath, mirrorOverrideFileName, mirrorTtsPath } from '../src/utils/voiceMirror.mjs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -23,6 +23,7 @@ const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'
 const TTS_MANIFEST = path.join(repoRoot, 'public/voice/tts-manifest.json')
 const OVERRIDES = path.join(repoRoot, 'public/voice/fr-overrides.json')
 const LISTENING_MANIFEST = path.join(repoRoot, 'public/voice/tcf-listening-manifest.json')
+const INTENSIVE_MANIFEST = path.join(repoRoot, 'public/voice/intensive-listening-manifest.json')
 
 
 function parseArgs(argv) {
@@ -90,6 +91,19 @@ export async function buildJobs(targetDir) {
     }
   } catch {
     // Optional if listening manifest is missing or empty
+  }
+
+  try {
+    const intensiveManifest = await readJson(INTENSIVE_MANIFEST)
+    const intensiveBase = String(intensiveManifest.base || base).replace(/\/+$/, '')
+    for (const item of Object.values(intensiveManifest.items || {})) {
+      const key = typeof item === 'string' ? item : item?.key
+      if (!key) continue
+      const rel = mirrorIntensivePath(key, intensiveManifest.version || 'v1')
+      add(`${intensiveBase}/${rel}`, rel)
+    }
+  } catch {
+    // Optional if intensive manifest is missing or empty
   }
 
   return [...jobs.values()]

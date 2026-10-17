@@ -56,6 +56,7 @@ const LevelDetailPage = lazy(() => import('./pages/LevelDetail'))
 const LevelReviewPage = lazy(() => import('./pages/LevelReview'))
 const TcfListeningPage = lazy(() => import('./pages/TcfListening'))
 const VideoListeningPage = lazy(() => import('./pages/VideoListening'))
+const IntensiveListeningPage = lazy(() => import('./pages/IntensiveListening'))
 const TcfReadingPage = lazy(() => import('./pages/TcfReading'))
 const TcfWritingPage = lazy(() => import('./pages/TcfWriting'))
 const TcfSpeakingPage = lazy(() => import('./pages/TcfSpeaking'))
@@ -217,6 +218,8 @@ function Root() {
                         <Route path="/tcf-listening" element={<TcfListeningPage />} />
                         <Route path="/video-listening" element={<VideoListeningPage />} />
                         <Route path="/video-listening/:id" element={<VideoListeningPage />} />
+                        <Route path="/intensive-listening" element={<IntensiveListeningPage />} />
+                        <Route path="/intensive-listening/:id" element={<IntensiveListeningPage />} />
                         <Route path="/tcf-reading" element={<TcfReadingPage />} />
                         <Route path="/tcf-writing" element={<RequireAccount pageName="TCF 写作"><TcfWritingPage /></RequireAccount>} />
                         <Route path="/tcf-speaking" element={<RequireAccount pageName="TCF 口语"><TcfSpeakingPage /></RequireAccount>} />
