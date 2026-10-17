@@ -383,7 +383,11 @@ export default function VideoListeningPage() {
 
             {/* YouTube 16:9 Video Player */}
             <div>
-              <YouTubePlayer lesson={selectedLesson} onReady={handlePlayerReady} onStateChange={handleStateChange} />
+              <YouTubePlayer
+                lesson={selectedLesson}
+                onReady={handlePlayerReady}
+                onStateChange={handleStateChange}
+              />
 
               {/* Player Controls Under Player */}
               <PlayerControls
