@@ -257,23 +257,46 @@ test('committed public/voice/tcf-listening-manifest.json is valid JSON with 78 i
   assert.equal(Object.keys(content.items).length, 78)
 })
 
-test('applyTtsSentenceFixes fixes spoken text and preserves TCF listening keys for all 78 questions', () => {
+test('applyTtsSentenceFixes updates keys for questions with elisions and preserves keys for unaffected questions', () => {
+  assert.equal(applyTtsSentenceFixes('s’épanouir'), 'sépanouir')
+  assert.equal(applyTtsSentenceFixes('l’école'), 'lécole')
+  assert.equal(applyTtsSentenceFixes('qu’il'), 'quil')
+  assert.equal(applyTtsSentenceFixes('jusqu’à'), 'jusquà')
+  assert.equal(applyTtsSentenceFixes('L’Ontario'), 'LOntario')
+  assert.equal(applyTtsSentenceFixes('« Bonjour »'), '« Bonjour »')
+
   assert.equal(applyTtsSentenceFixes('Je réévalue'), 'Je ré-évalue')
   assert.equal(applyTtsSentenceFixes('Je réévalue immédiatement la matrice'), 'Je ré-évalue immédiatement la matrice')
   assert.equal(applyTtsSentenceFixes('un cadre préétabli'), 'un cadre préétabli')
   assert.equal(applyTtsSentenceFixes('rééquilibrage'), 'rééquilibrage')
   assert.equal(applyTtsSentenceFixes('réédition'), 'réédition')
+  assert.equal(applyTtsSentenceFixes('l’réévaluation'), 'l’ré-évaluation')
 
   const all = [...TCF_LISTENING_QUESTIONS, ...TCF_LISTENING_SET_B]
   assert.equal(all.length, 78)
 
   const manifestPath = 'public/voice/tcf-listening-manifest.json'
   const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'))
+  const elisionRegex = /\b(jusqu|lorsqu|puisqu|quoiqu|presqu|aujourd|qu|[cdjlmnst])['’](?=[aàâäeéèêëiîïoôöuùûüyÿæœh])/iu
+
+  let changedCount = 0
+  let unchangedCount = 0
 
   for (const q of all) {
     const hasReevalu = /réévalu/i.test(q.audioText || '')
     assert.equal(hasReevalu, false, `Question ${q.id} contains réévalu`)
+    const hasElision = elisionRegex.test(q.audioText || '')
     const key = computeListeningKeyForQuestion(q)
-    assert.equal(key, manifest.items[q.id], `Key mismatch for ${q.id}: ${key} !== ${manifest.items[q.id]}`)
+
+    if (hasElision) {
+      assert.notEqual(key, manifest.items[q.id], `Key should change for question with elision: ${q.id}`)
+      changedCount++
+    } else {
+      assert.equal(key, manifest.items[q.id], `Key mismatch for unaffected question ${q.id}: ${key} !== ${manifest.items[q.id]}`)
+      unchangedCount++
+    }
   }
+
+  assert.equal(changedCount, 54)
+  assert.equal(unchangedCount, 24)
 })

@@ -1,0 +1,219 @@
+import {
+  LONE_ELIDED_TOKENS,
+  SPELLED_PUNCTUATION_TOKENS,
+  classifyQaToken,
+  findFlaggedWords,
+  formatIntensiveFlaggedSentence,
+  formatTcfFlaggedMessage,
+  isFlaggedToken,
+  mapFlaggedWordToIntensiveSentence,
+  normalizeQaToken,
+  timeToSegmentIndex,
+} from '../src/utils/ttsQaHelpers.mjs'
+import { parseArgs } from './tts-qa-deepgram.mjs'
+import assert from 'node:assert/strict'
+import test from 'node:test'
+
+test('normalizeQaToken trims, lowercases, and strips surrounding punctuation', () => {
+  assert.equal(normalizeQaToken(''), '')
+  assert.equal(normalizeQaToken(null), '')
+  assert.equal(normalizeQaToken('  Bonjour  '), 'bonjour')
+  assert.equal(normalizeQaToken("s'"), 's')
+  assert.equal(normalizeQaToken('«s»'), 's')
+  assert.equal(normalizeQaToken('cédille,'), 'cédille')
+  assert.equal(normalizeQaToken('...Aigu!'), 'aigu')
+})
+
+test('isFlaggedToken and classifyQaToken flag all lone elided letters', () => {
+  const loneLetters = ['s', 'l', 'd', 'j', 'm', 'n', 't', 'c', 'qu']
+  for (const letter of loneLetters) {
+    assert.equal(isFlaggedToken(letter), true, `Failed for ${letter}`)
+    assert.equal(isFlaggedToken(letter.toUpperCase()), true, `Failed for uppercase ${letter}`)
+    assert.equal(isFlaggedToken(`${letter}'`), true, `Failed for ${letter}'`)
+
+    const classification = classifyQaToken(letter)
+    assert.ok(classification)
+    assert.equal(classification.type, 'lone_elision')
+    assert.equal(classification.token, letter)
+  }
+})
+
+test('isFlaggedToken and classifyQaToken flag spelled-out punctuation and accents', () => {
+  const punctuationTokens = [
+    'accent',
+    'aigu',
+    'grave',
+    'circonflexe',
+    'cédille',
+    'cedille',
+    'tréma',
+    'trema',
+    'apostrophe',
+    'astérisque',
+    'asterisque',
+    'tiret',
+  ]
+
+  for (const token of punctuationTokens) {
+    assert.equal(isFlaggedToken(token), true, `Failed for ${token}`)
+    assert.equal(isFlaggedToken(token.toUpperCase()), true, `Failed for uppercase ${token}`)
+    assert.equal(isFlaggedToken(`${token},`), true, `Failed for ${token},`)
+
+    const classification = classifyQaToken(token)
+    assert.ok(classification)
+    assert.equal(classification.type, 'spelled_punctuation')
+  }
+})
+
+test('isFlaggedToken returns false for normal spoken French words', () => {
+  const normalWords = [
+    'bonjour',
+    'sépanouir',
+    'lécole',
+    'quil',
+    'jusquà',
+    'daccord',
+    'cétait',
+    'merci',
+    'radio',
+    'communautaire',
+    'intégration',
+    'québécoise',
+  ]
+
+  for (const word of normalWords) {
+    assert.equal(isFlaggedToken(word), false, `False positive for "${word}"`)
+    assert.equal(classifyQaToken(word), null, `False positive classification for "${word}"`)
+  }
+})
+
+test('findFlaggedWords detects defect tokens from Deepgram word arrays with timestamps', () => {
+  // Simulates Deepgram transcript of "Les enfants peuvent s’épanouir à l’école"
+  // where "s" was pronounced as a separate word
+  const defectWords = [
+    { word: 'Les', start: 0.1, end: 0.3 },
+    { word: 'enfants', start: 0.32, end: 0.7 },
+    { word: 'peuvent', start: 0.75, end: 1.1 },
+    { word: 's', start: 1.15, end: 1.65 }, // Defect: 0.5s separate "s"
+    { word: 'épanouir', start: 1.7, end: 2.2 },
+    { word: 'à', start: 2.25, end: 2.35 },
+    { word: 'l’école', start: 2.4, end: 2.8 },
+  ]
+
+  const flagged = findFlaggedWords(defectWords)
+  assert.equal(flagged.length, 1)
+  assert.equal(flagged[0].token, 's')
+  assert.equal(flagged[0].type, 'lone_elision')
+  assert.equal(flagged[0].start, 1.15)
+  assert.equal(flagged[0].end, 1.65)
+  assert.equal(flagged[0].index, 3)
+
+  // Simulates spelled-out accent defect: "r e accent aigu"
+  const accentDefectWords = [
+    { word: 'r', start: 0.0, end: 0.2 },
+    { word: 'e', start: 0.22, end: 0.35 },
+    { word: 'accent', start: 0.4, end: 0.7 },
+    { word: 'aigu', start: 0.72, end: 1.0 },
+    { word: 'value', start: 1.05, end: 1.4 },
+  ]
+
+  const flaggedAccents = findFlaggedWords(accentDefectWords)
+  // "accent" and "aigu" must be flagged as spelled_punctuation
+  const types = flaggedAccents.map((f) => f.type)
+  assert.ok(types.includes('spelled_punctuation'))
+  const tokens = flaggedAccents.map((f) => f.token)
+  assert.ok(tokens.includes('accent'))
+  assert.ok(tokens.includes('aigu'))
+
+  // Clean words list produces no flagged items
+  const cleanWords = [
+    { word: 'Les', start: 0.1, end: 0.3 },
+    { word: 'enfants', start: 0.32, end: 0.7 },
+    { word: 'peuvent', start: 0.75, end: 1.1 },
+    { word: 'sépanouir', start: 1.15, end: 1.8 },
+    { word: 'à', start: 1.85, end: 1.95 },
+    { word: 'lécole', start: 2.0, end: 2.5 },
+  ]
+  assert.deepEqual(findFlaggedWords(cleanWords), [])
+})
+
+test('timeToSegmentIndex accurately locates segment for timestamps', () => {
+  const segments = [
+    { start: 0.0, end: 4.5 },
+    { start: 4.5, end: 9.8 },
+    { start: 9.8, end: 16.2 },
+  ]
+
+  // Mid-segment hits
+  assert.equal(timeToSegmentIndex(segments, 2.0), 0)
+  assert.equal(timeToSegmentIndex(segments, 7.0), 1)
+  assert.equal(timeToSegmentIndex(segments, 12.0), 2)
+
+  // Exact boundaries: [start, end)
+  assert.equal(timeToSegmentIndex(segments, 0.0), 0)
+  assert.equal(timeToSegmentIndex(segments, 4.5), 1)
+  assert.equal(timeToSegmentIndex(segments, 9.8), 2)
+
+  // Near end of audio
+  assert.equal(timeToSegmentIndex(segments, 16.2), 2)
+  assert.equal(timeToSegmentIndex(segments, 16.4), 2)
+
+  // Negative / out of bounds
+  assert.equal(timeToSegmentIndex(segments, -0.5), 0)
+  assert.equal(timeToSegmentIndex(segments, 25.0), 2)
+
+  // Invalid inputs
+  assert.equal(timeToSegmentIndex([], 5.0), -1)
+  assert.equal(timeToSegmentIndex(null, 5.0), -1)
+  assert.equal(timeToSegmentIndex(segments, NaN), -1)
+})
+
+test('mapFlaggedWordToIntensiveSentence and formatIntensiveFlaggedSentence produce expected format', () => {
+  const segments = [
+    { start: 0.0, end: 5.2 },
+    { start: 5.2, end: 11.4 },
+    { start: 11.4, end: 18.0 },
+  ]
+  const sentences = [
+    { speaker: 'A', fr: 'Première phrase du passage.' },
+    { speaker: 'A', fr: 'Deuxième phrase contenant une élision.' },
+    { speaker: 'A', fr: 'Troisième phrase de conclusion.' },
+  ]
+
+  const flaggedWord = {
+    token: 's',
+    start: 8.0,
+    end: 8.5,
+    type: 'lone_elision',
+  }
+
+  const mapped = mapFlaggedWordToIntensiveSentence(flaggedWord, segments, sentences)
+  assert.equal(mapped.segmentIndex, 1)
+  assert.equal(mapped.sentenceNumber, 2)
+  assert.equal(mapped.sentenceFr, 'Deuxième phrase contenant une élision.')
+
+  const formatted = formatIntensiveFlaggedSentence('test-passage', mapped.sentenceNumber, mapped.sentenceFr)
+  assert.equal(formatted, 'test-passage #2: Deuxième phrase contenant une élision.')
+
+  assert.equal(formatTcfFlaggedMessage('co-01'), 'co-01')
+})
+
+test('parseArgs parses CLI arguments for tts-qa-deepgram', () => {
+  assert.deepEqual(parseArgs(['intensive']), {
+    manifestType: 'intensive',
+    only: null,
+    concurrency: 2,
+  })
+
+  assert.deepEqual(parseArgs(['tcf-listening', '--only=co-05', '--concurrency=4']), {
+    manifestType: 'tcf-listening',
+    only: 'co-05',
+    concurrency: 4,
+  })
+
+  assert.deepEqual(parseArgs(['--type=intensive', '--only', 'radio-communautaire']), {
+    manifestType: 'intensive',
+    only: 'radio-communautaire',
+    concurrency: 2,
+  })
+})

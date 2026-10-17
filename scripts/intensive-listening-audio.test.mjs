@@ -137,12 +137,20 @@ test('intensive listening manifest is valid and consistent with passages', () =>
   }
 })
 
-test('applyTtsSentenceFixes fixes spoken text and updates key for passages with réévalu', () => {
+test('applyTtsSentenceFixes fixes spoken text and updates key for passages with réévalu and elisions', () => {
+  assert.equal(applyTtsSentenceFixes('s’épanouir'), 'sépanouir')
+  assert.equal(applyTtsSentenceFixes('l’école'), 'lécole')
+  assert.equal(applyTtsSentenceFixes('qu’il'), 'quil')
+  assert.equal(applyTtsSentenceFixes('jusqu’à'), 'jusquà')
+  assert.equal(applyTtsSentenceFixes('L’Ontario'), 'LOntario')
+  assert.equal(applyTtsSentenceFixes('« Bonjour »'), '« Bonjour »')
+
   assert.equal(applyTtsSentenceFixes('Je réévalue'), 'Je ré-évalue')
   assert.equal(applyTtsSentenceFixes('Je réévalue immédiatement la matrice'), 'Je ré-évalue immédiatement la matrice')
   assert.equal(applyTtsSentenceFixes('un cadre préétabli'), 'un cadre préétabli')
   assert.equal(applyTtsSentenceFixes('rééquilibrage'), 'rééquilibrage')
   assert.equal(applyTtsSentenceFixes('réédition'), 'réédition')
+  assert.equal(applyTtsSentenceFixes('l’réévaluation'), 'l’ré-évaluation')
 
   const reevaluPassages = INTENSIVE_PASSAGES.filter((p) =>
     p.sentences.some((s) => /réévalu/i.test(s.fr)),
