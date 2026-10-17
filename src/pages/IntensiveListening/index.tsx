@@ -15,6 +15,7 @@ import {
   getPrevSentenceIndex,
   markPassageCompleted,
   resolveIntensiveAudioCandidates,
+  shouldFallbackAudioCandidate,
   shouldLoopCurrentSentence,
 } from './helpers'
 import type { IntensiveLevelFilter, IntensiveListeningManifest, Passage } from './types'
@@ -87,17 +88,28 @@ export const IntensiveListeningPage: React.FC = () => {
     setActiveSentenceIndex(0)
     setIsLooping(false)
     if (audioRef.current) {
-      audioRef.current.pause()
-      audioRef.current.currentTime = 0
+      try {
+        audioRef.current.pause()
+        if (Number.isFinite(audioRef.current.currentTime) && audioRef.current.currentTime !== 0) {
+          audioRef.current.currentTime = 0
+        }
+      } catch {
+        // Ignore playback reset error during passage unmount/change
+      }
     }
   }, [activePassage?.id])
 
-  // Fallback to next audio source if current candidate errors
-  const handleAudioError = useCallback(() => {
-    if (candidateIndex + 1 < audioCandidates.length) {
-      setCandidateIndex((prev) => prev + 1)
-    }
-  }, [candidateIndex, audioCandidates.length])
+  // Fallback to next audio source ONLY if current candidate suffers a real fatal error
+  const handleAudioError = useCallback(
+    (e?: React.SyntheticEvent<HTMLAudioElement, Event>) => {
+      const audio = e?.currentTarget || audioRef.current
+      const mediaError = audio?.error ?? null
+      if (shouldFallbackAudioCandidate(candidateIndex, audioCandidates.length, mediaError)) {
+        setCandidateIndex((prev) => prev + 1)
+      }
+    },
+    [candidateIndex, audioCandidates.length],
+  )
 
   // Sync playback rate to audio element
   useEffect(() => {
@@ -284,6 +296,7 @@ export const IntensiveListeningPage: React.FC = () => {
         {/* Hidden Audio Element */}
         {currentCandidate && (
           <audio
+            key={activePassage.id}
             ref={audioRef}
             src={currentCandidate}
             preload="metadata"
@@ -291,6 +304,8 @@ export const IntensiveListeningPage: React.FC = () => {
             onLoadedMetadata={handleLoadedMetadata}
             onEnded={handleEnded}
             onError={handleAudioError}
+            onPlay={() => setIsPlaying(true)}
+            onPause={() => setIsPlaying(false)}
             className="hidden"
           />
         )}

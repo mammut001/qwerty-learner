@@ -8,6 +8,27 @@ export const INTENSIVE_STORAGE_KEY = 'tcf-intensive-listening-completed-v1'
 export const PLAYBACK_SPEEDS: number[] = [0.75, 1, 1.25]
 
 /**
+ * Decides whether audio playback should advance to the next candidate URL.
+ * Fallback to the next candidate (e.g. GCS bucket) must only occur when:
+ * 1. A subsequent candidate exists (currentIndex + 1 < totalCandidates).
+ * 2. A real, fatal MediaError occurred on the current candidate.
+ * Abort events (MEDIA_ERR_ABORTED = 1), missing error objects, or non-error events
+ * must never abandon the self-hosted mirror.
+ */
+export function shouldFallbackAudioCandidate(
+  currentIndex: number,
+  totalCandidates: number,
+  error: { code: number } | null | undefined,
+): boolean {
+  if (currentIndex + 1 >= totalCandidates) return false
+  if (!error || typeof error.code !== 'number') return false
+  // MEDIA_ERR_ABORTED (1) is triggered by pause, seek, or navigation aborts, not an asset failure
+  if (error.code === 1) return false
+  // Real fatal errors: MEDIA_ERR_NETWORK (2), MEDIA_ERR_DECODE (3), MEDIA_ERR_SRC_NOT_SUPPORTED (4)
+  return error.code === 2 || error.code === 3 || error.code === 4
+}
+
+/**
  * Finds the index of the sentence whose segment encompasses `currentTime` using binary search.
  * Edge cases:
  * - Empty segments => -1

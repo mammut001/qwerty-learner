@@ -49,7 +49,8 @@ self.addEventListener('message', (event) => {
             url.origin !== self.location.origin ||
             url.pathname.startsWith('/api/') ||
             url.pathname.startsWith('/umami/') ||
-            url.pathname.startsWith('/__/auth/')
+            url.pathname.startsWith('/__/auth/') ||
+            url.pathname.startsWith('/voice-audio/')
           )
             continue
           const response = await fetch(url.href, { credentials: 'same-origin' })
@@ -72,7 +73,8 @@ self.addEventListener('fetch', (event) => {
     url.origin !== self.location.origin ||
     url.pathname.startsWith('/api/') ||
     url.pathname.startsWith('/umami/') ||
-    url.pathname.startsWith('/__/auth/')
+    url.pathname.startsWith('/__/auth/') ||
+    url.pathname.startsWith('/voice-audio/')
   )
     return
 
@@ -105,7 +107,7 @@ self.addEventListener('fetch', (event) => {
     caches.match(request).then((cached) => {
       if (cached) return cached
       return fetch(request).then(async (response) => {
-        if (response.ok && response.type === 'basic' && !isAssetHtmlResponse(url, response)) {
+        if (response.ok && response.type === 'basic' && response.status === 200 && !isAssetHtmlResponse(url, response)) {
           const cache = await caches.open(CACHE_NAME)
           await cache.put(request, response.clone())
         }

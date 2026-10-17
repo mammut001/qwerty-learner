@@ -1,5 +1,5 @@
 import { ROUTE_SEO } from './src/resources/routeSeo'
-import { renderRouteHtml } from './scripts/route-meta.mjs'
+import { renderRouteHtml, resolveRelativeIconLinks } from './scripts/route-meta.mjs'
 import react from '@vitejs/plugin-react'
 import { promises as fs } from 'fs'
 import { getLastCommit } from 'git-last-commit'
@@ -17,10 +17,12 @@ function staticRouteMetaPlugin(): PluginOption {
 
   return {
     name: 'static-route-meta',
-    apply: 'build',
     configResolved(config) {
       resolvedBase = config.base
       resolvedOutDir = config.build.outDir || 'build'
+    },
+    transformIndexHtml(html) {
+      return resolveRelativeIconLinks(html, resolvedBase)
     },
     async closeBundle() {
       // ONLY when the resolved base is absolute ('/')
@@ -38,7 +40,7 @@ function staticRouteMetaPlugin(): PluginOption {
       }
 
       for (const route of ROUTE_SEO) {
-        const transformedHtml = renderRouteHtml(baseHtml, route, ROUTE_SEO)
+        const transformedHtml = renderRouteHtml(baseHtml, route, ROUTE_SEO, resolvedBase)
         if (route.path === '/') {
           await fs.writeFile(indexPath, transformedHtml, 'utf-8')
         } else {
