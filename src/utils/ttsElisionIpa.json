@@ -14,6 +14,11 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "d’accéder": {
+    "ipa": "daksede",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "d’accepter": {
     "ipa": "daksɛpte",
     "source": "lexicon",
@@ -31,6 +36,11 @@
   },
   "d’achat": {
     "ipa": "daʃa",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’action": {
+    "ipa": "daksjɔ̃",
     "source": "lexicon",
     "reviewed": false
   },
@@ -59,9 +69,24 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "d’ajustement": {
+    "ipa": "daʒystəmɑ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’amélioration": {
+    "ipa": "dameljɔʁasjɔ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "d’améliorer": {
     "ipa": "dameljɔʁe",
     "source": "lexicon",
+    "reviewed": false
+  },
+  "d’amérique": {
+    "ipa": "",
+    "source": "manual",
     "reviewed": false
   },
   "d’ami": {
@@ -94,6 +119,11 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "d’apporter": {
+    "ipa": "dapɔʁte",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "d’après": {
     "ipa": "dapʁɛ",
     "source": "lexicon",
@@ -119,8 +149,18 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "d’aspirants": {
+    "ipa": "",
+    "source": "manual",
+    "reviewed": false
+  },
   "d’attente": {
     "ipa": "datɑ̃t",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’augmentation": {
+    "ipa": "doɡmɑ̃tasjɔ̃",
     "source": "lexicon",
     "reviewed": false
   },
@@ -164,6 +204,11 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "d’échange": {
+    "ipa": "deʃɑ̃ʒ",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "d’échanger": {
     "ipa": "deʃɑ̃ʒe",
     "source": "lexicon",
@@ -181,6 +226,11 @@
   },
   "d’édition": {
     "ipa": "dedisjɔ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’embarquer": {
+    "ipa": "dɑ̃baʁke",
     "source": "lexicon",
     "reviewed": false
   },
@@ -279,6 +329,11 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "d’excellentes": {
+    "ipa": "",
+    "source": "manual",
+    "reviewed": false
+  },
   "d’exclamation": {
     "ipa": "dɛksklamasjɔ̃",
     "source": "lexicon",
@@ -286,6 +341,11 @@
   },
   "d’exemple": {
     "ipa": "dɛɡzɑ̃pl",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’expérience": {
+    "ipa": "dɛkspeʁjɑ̃s",
     "source": "lexicon",
     "reviewed": false
   },
@@ -306,6 +366,11 @@
   },
   "d’horaires": {
     "ipa": "dɔʁɛʁ",
+    "source": "manual",
+    "reviewed": false
+  },
+  "d’hydro": {
+    "ipa": "",
     "source": "manual",
     "reviewed": false
   },
@@ -334,6 +399,11 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "d’initiative": {
+    "ipa": "dinisjativ",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "d’initiatives": {
     "ipa": "dinisjativ",
     "source": "manual",
@@ -356,6 +426,11 @@
   },
   "d’intégration": {
     "ipa": "dɛ̃teɡʁasjɔ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’intelligence": {
+    "ipa": "dɛ̃tɛliʒɑ̃s",
     "source": "lexicon",
     "reviewed": false
   },
@@ -385,6 +460,11 @@
     "source": "manual",
     "reviewed": false,
     "note": "Chirp rejects ɲ in phoneme"
+  },
+  "d’opter": {
+    "ipa": "dɔpte",
+    "source": "lexicon",
+    "reviewed": false
   },
   "d’optimiser": {
     "ipa": "dɔptimize",
@@ -576,6 +656,11 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "l’altruisme": {
+    "ipa": "laltʁɥism",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "l’ambassadeur": {
     "ipa": "lɑ̃basadœʁ",
     "source": "lexicon",
@@ -646,6 +731,11 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "l’augmentation": {
+    "ipa": "loɡmɑ̃tasjɔ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "l’automne": {
     "ipa": "lotɔn",
     "source": "lexicon",
@@ -668,6 +758,11 @@
   },
   "l’avance": {
     "ipa": "lavɑ̃s",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’avis": {
+    "ipa": "lavi",
     "source": "lexicon",
     "reviewed": false
   },
@@ -736,6 +831,11 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "l’engagement": {
+    "ipa": "lɑ̃ɡaʒmɑ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "l’enracinement": {
     "ipa": "lɑ̃ʁasinmɑ̃",
     "source": "lexicon",
@@ -753,6 +853,11 @@
   },
   "l’entreprise": {
     "ipa": "lɑ̃tʁəpʁiz",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’entrevue": {
+    "ipa": "lɑ̃tʁəvy",
     "source": "lexicon",
     "reviewed": false
   },
@@ -813,6 +918,11 @@
   },
   "l’été": {
     "ipa": "lete",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’eucalyptus": {
+    "ipa": "løkaliptys",
     "source": "lexicon",
     "reviewed": false
   },
@@ -896,6 +1006,11 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "l’île": {
+    "ipa": "lil",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "l’immeuble": {
     "ipa": "limœbl",
     "source": "lexicon",
@@ -903,6 +1018,11 @@
   },
   "l’impression": {
     "ipa": "lɛ̃pʁɛsjɔ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’infiltration": {
+    "ipa": "lɛ̃filtʁasjɔ̃",
     "source": "lexicon",
     "reviewed": false
   },
@@ -938,6 +1058,11 @@
   },
   "l’intérieur": {
     "ipa": "lɛ̃teʁjœʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’interlocuteur": {
+    "ipa": "lɛ̃tɛʁlɔkytœʁ",
     "source": "lexicon",
     "reviewed": false
   },
@@ -1043,6 +1168,16 @@
   },
   "m’écoute": {
     "ipa": "mekut",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "m’empêche": {
+    "ipa": "",
+    "source": "manual",
+    "reviewed": false
+  },
+  "m’envoyer": {
+    "ipa": "mɑ̃vwaje",
     "source": "lexicon",
     "reviewed": false
   },
@@ -1338,6 +1473,11 @@
   },
   "s’étirent": {
     "ipa": "setiʁ",
+    "source": "manual",
+    "reviewed": false
+  },
+  "s’étonnent": {
+    "ipa": "",
     "source": "manual",
     "reviewed": false
   },

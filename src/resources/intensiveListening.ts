@@ -136,22 +136,12 @@ export const INTENSIVE_PASSAGES: Passage[] = [
     questions: [
       {
         q: '这位学员今天在便利店有什么经历？',
-        choices: [
-          '她找不到想买的热咖啡',
-          '她成功用法语完成了点单',
-          '店员完全听不懂她说的话',
-          '她因为听不懂法语而感到沮丧',
-        ],
+        choices: ['她找不到想买的热咖啡', '她成功用法语完成了点单', '店员完全听不懂她说的话', '她因为听不懂法语而感到沮丧'],
         answer: 1,
       },
       {
         q: '课堂上的教学安排包括什么？',
-        choices: [
-          '每天进行三小时的听力与会话练习',
-          '每周只上一节语法测试课',
-          '所有学员必须单独完成学术论文',
-          '老师要求大家整天只能自学',
-        ],
+        choices: ['每天进行三小时的听力与会话练习', '每周只上一节语法测试课', '所有学员必须单独完成学术论文', '老师要求大家整天只能自学'],
         answer: 0,
       },
     ],
@@ -250,22 +240,12 @@ export const INTENSIVE_PASSAGES: Passage[] = [
     questions: [
       {
         q: '房租每月一千一百加元中包含了哪些项目？',
-        choices: [
-          '仅包含网络和电费',
-          '包含暖气和热水',
-          '包含停车位和全套家具',
-          '不包含任何杂费',
-        ],
+        choices: ['仅包含网络和电费', '包含暖气和热水', '包含停车位和全套家具', '不包含任何杂费'],
         answer: 1,
       },
       {
         q: '双方约定什么时候实地看房？',
-        choices: [
-          '周三上午十点',
-          '周五傍晚六点',
-          '周六下午两点左右',
-          '下周一中午十二点',
-        ],
+        choices: ['周三上午十点', '周五傍晚六点', '周六下午两点左右', '下周一中午十二点'],
         answer: 2,
       },
     ],
@@ -363,12 +343,7 @@ export const INTENSIVE_PASSAGES: Passage[] = [
     questions: [
       {
         q: '在穿衣保暖方面，文章给出的核心建议是什么？',
-        choices: [
-          '只穿一件极厚且笨重的纯棉大衣',
-          '采用分层叠穿的洋葱式穿法',
-          '冬天在室外绝不佩戴手套与帽子',
-          '尽量不出门购买任何防寒衣物',
-        ],
+        choices: ['只穿一件极厚且笨重的纯棉大衣', '采用分层叠穿的洋葱式穿法', '冬天在室外绝不佩戴手套与帽子', '尽量不出门购买任何防寒衣物'],
         answer: 1,
       },
       {
@@ -497,12 +472,7 @@ export const INTENSIVE_PASSAGES: Passage[] = [
       },
       {
         q: '招聘主管表示公司通常在什么时候给应聘者答复？',
-        choices: [
-          '一个月之后的电话回访',
-          '下个月初的线上笔试通知',
-          '本周五前通过电子邮件通知',
-          '当天下午直接公布录用结果',
-        ],
+        choices: ['一个月之后的电话回访', '下个月初的线上笔试通知', '本周五前通过电子邮件通知', '当天下午直接公布录用结果'],
         answer: 2,
       },
     ],
@@ -610,12 +580,7 @@ export const INTENSIVE_PASSAGES: Passage[] = [
     questions: [
       {
         q: '讲述者通过哪种途径最有效地结识了当地居民并建立了深厚联系？',
-        choices: [
-          '独自在家里阅读历史书籍',
-          '在街区食物济贫库参与志愿服务',
-          '报名参加高额的商业俱乐部',
-          '在网上论坛与陌生人辩论',
-        ],
+        choices: ['独自在家里阅读历史书籍', '在街区食物济贫库参与志愿服务', '报名参加高额的商业俱乐部', '在网上论坛与陌生人辩论'],
         answer: 1,
       },
       {
@@ -751,6 +716,679 @@ export const INTENSIVE_PASSAGES: Passage[] = [
           '取消所有固定工位，由员工抽签决定是否上班',
         ],
         answer: 1,
+      },
+    ],
+  },
+  {
+    id: 'pharmacie-conseils-symptomes',
+    title: '在药房问药与症状',
+    titleFr: 'Conseils et symptômes à la pharmacie',
+    level: 'B1',
+    topic: '健康与就医',
+    speakers: {
+      A: 'female',
+      B: 'male',
+    },
+    sentences: [
+      {
+        speaker: 'A',
+        fr: 'Bonjour monsieur, j’ai la gorge très irritée et le nez bouché depuis hier soir.',
+        zh: '您好先生，从昨天傍晚开始，我的喉咙就特别痛，而且鼻子也堵住了。',
+      },
+      {
+        speaker: 'B',
+        fr: 'Bonjour madame ! Avez-vous de la fièvre ou des courbatures dans tout le corps ?',
+        zh: '您好女士！请问您发烧吗，或者全身有没有酸痛的感觉？',
+      },
+      {
+        speaker: 'A',
+        fr: 'J’ai pris ma température ce matin : j’avais seulement trente-sept point huit, donc pas de grosse fièvre.',
+        zh: '我今天早上量了体温，只有三十七点八度，所以并没有发高烧。',
+      },
+      {
+        speaker: 'B',
+        fr: 'C’est rassurant. Est-ce que votre toux est sèche ou bien vous avez des sécrétions dans les bronches ?',
+        zh: '那还挺让人安心的。请问您的咳嗽是干咳，还是支气管里有痰呢？',
+      },
+      {
+        speaker: 'A',
+        fr: 'C’est une toux plutôt sèche qui m’empêche de bien dormir la nuit.',
+        zh: '主要是干咳，而且咳得我夜里都睡不好觉。',
+      },
+      {
+        speaker: 'B',
+        fr: 'Prenez-vous actuellement d’autres médicaments ou avez-vous des allergies à certaines molécules ?',
+        zh: '您目前在服用其他药物吗，或者对某些药物成分过敏吗？',
+      },
+      {
+        speaker: 'A',
+        fr: 'Non, aucune allergie connue, et je ne prends aucun médicament régulier.',
+        zh: '没有，没有已知的过敏史，平时也没有长期服用任何常规药物。',
+      },
+      {
+        speaker: 'B',
+        fr: 'Je vous suggère ce sirop antitussif en vente libre pour calmer les quintes de toux en soirée.',
+        zh: '我建议您用这款非处方止咳糖浆，能有效缓解傍晚和夜间的剧烈咳嗽。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Parfait. Quelle est la posologie recommandée pour ce sirop ?',
+        zh: '好的。请问这款糖浆推荐的服用剂量是多少？',
+      },
+      {
+        speaker: 'B',
+        fr: 'Prenez une cuillère à soupe avant de vous coucher, mais pas plus de trois fois par jour.',
+        zh: '睡前喝一大汤匙，但一天不要超过三次。',
+      },
+      {
+        speaker: 'B',
+        fr: 'Pour votre gorge, ces pastilles au miel et à l’eucalyptus apporteront un soulagement immédiat.',
+        zh: '针对喉咙痛，这款蜂蜜桉树润喉糖能起到立竿见影的舒缓作用。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Avez-vous aussi une solution saline pour nettoyer et décongestionner les voies nasales ?',
+        zh: '您这里还有生理盐水喷雾吗，我想用来清洗鼻腔、缓解鼻塞？',
+      },
+      {
+        speaker: 'B',
+        fr: 'Oui, ce vaporisateur nasal d’eau de mer est très doux et nettoie efficacement sans accoutumance.',
+        zh: '有的，这款海水鼻腔喷雾非常温和，清洁效果好且不会产生药物依赖性。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Merci beaucoup pour vos précieux conseils, je vais prendre ces trois articles tout de suite.',
+        zh: '非常感谢您的悉心建议，这三样东西我这就一起买下了。',
+      },
+      {
+        speaker: 'B',
+        fr: 'Si vos symptômes persistent plus de cinq jours, consultez un médecin sans tarder.',
+        zh: '如果您的症状持续超过五天，请务必及时去就医看诊。',
+      },
+    ],
+    vocab: [
+      { fr: 'médicament en vente libre', zh: '非处方药（OTC 药物）' },
+      { fr: 'quinte de toux', zh: '剧烈咳嗽，阵咳' },
+      { fr: 'posologie', zh: '用药剂量与方法' },
+      { fr: 'pastilles', zh: '润喉糖，含片' },
+      { fr: 'décongestionner', zh: '消除充血，通鼻塞' },
+      { fr: 'sans accoutumance', zh: '无成瘾性，不产生药物依赖' },
+    ],
+    questions: [
+      {
+        q: '顾客目前出现了哪些主要不适症状？',
+        choices: ['喉咙痛、鼻塞以及影响睡眠的干咳', '持续多日的高烧和严重肺部感染', '剧烈的胃痛和药物过敏反应', '严重的腿部骨折和关节剧痛'],
+        answer: 0,
+      },
+      {
+        q: '药剂师对止咳糖浆给出了什么用药建议？',
+        choices: ['必须每隔一个小时喝一次', '睡前喝一汤匙，一天不超过三次', '饭前与大量抗生素一同服用', '只能在清晨空腹时服用一次'],
+        answer: 1,
+      },
+    ],
+  },
+  {
+    id: 'astuces-transport-stm-montreal',
+    title: '坐 STM 地铁与公交的小技巧',
+    titleFr: 'Astuces pour prendre le métro et le bus de la STM',
+    level: 'B1',
+    topic: '交通与城市生活',
+    speakers: {
+      A: 'male',
+    },
+    sentences: [
+      {
+        speaker: 'A',
+        fr: 'Se déplacer en transport en commun à Montréal est à la fois économique, rapide et écologique.',
+        zh: '在蒙特利尔乘坐公共交通出行，既经济实惠、快捷高效，又低碳环保。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Pour commencer, procurez-vous une carte OPUS rechargeable dans une billetterie métropolitaine ou dans un dépanneur.',
+        zh: '首先，你可以在大都会售票处或街角便利店办理一张可充值的 OPUS 交通卡。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Vous pouvez charger des titres mensuels ou des carnets de dix passages selon vos habitudes de déplacement.',
+        zh: '你可以根据自己的日常通勤习惯，充值月票或者十次票。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Dans les stations de métro souterraines, les quatre lignes de couleur permettent de traverser l’île facilement.',
+        zh: '在地下地铁站里，四条以不同颜色标识的地铁线能让你轻松穿行整座岛屿。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Sur le quai, attendez derrière la ligne jaune et laissez toujours sortir les passagers avant d’embarquer.',
+        zh: '在站台上，请在黄线后等候，并在上车前始终先礼让车内乘客下车。',
+      },
+      {
+        speaker: 'A',
+        fr: 'À l’intérieur de la rame, pensez à retirer votre sac à dos pour libérer de l’espace.',
+        zh: '进入车厢后，记得取下双肩背包放在身前或脚下，以腾出更多站立空间。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Pour le réseau des autobus, téléchargez une application comme Chrono afin de suivre les passages en temps réel.',
+        zh: '乘坐公交车网络时，建议下载 Chrono 等应用程序，以便实时追踪公交班次的到达时间。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Votre titre unitaire vous donne droit à une correspondance gratuite pendant une période de cent vingt minutes.',
+        zh: '你的单程车票在一百二十分钟内享有一次免费换乘地铁或公交的权益。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Il suffit de valider de nouveau votre carte sans que d’autres passages ne soient débités.',
+        zh: '换乘时只需再次刷卡即可，系统不会扣除额外的乘车次数。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Le soir, les femmes voyageant seules en autobus peuvent demander au chauffeur de descendre entre deux arrêts réguliers.',
+        zh: '夜间独自搭乘公交的女性乘客，可以向司机申请在两个正规车站之间就近下车。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Ce service permet d’accéder plus rapidement à son domicile et assure une meilleure sécurité nocturne.',
+        zh: '这项服务让乘客能够更快到家，并提供了更有力的夜间人身安全保障。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Pendant l’hiver, prévoyez toujours quelques minutes supplémentaires en cas de ralentissements causés par le verglas.',
+        zh: '在冬季，由于路面结冰常会导致车辆减速，出行时请始终多预留几分钟。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Avec ces quelques bonnes habitudes, vos déplacements montréalais deviendront agréables et sans aucun tracas.',
+        zh: '养成这些良好的出行习惯，你在蒙特利尔的旅程就会变得舒适惬意、毫无烦恼。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Bon voyage à toutes et à tous sur le magnifique réseau de notre métropole !',
+        zh: '祝大家在我们美丽的大都市交通网络中出行愉快！',
+      },
+    ],
+    vocab: [
+      { fr: 'titre de transport', zh: '车票，乘车通票' },
+      { fr: 'correspondance', zh: '换乘，转乘' },
+      { fr: 'rame', zh: '地铁列车，车厢编组' },
+      { fr: 'temps réel', zh: '实时，即时' },
+      { fr: 'descendre entre deux arrêts', zh: '在两站之间就近下车（夜间安全服务）' },
+      { fr: 'verglas', zh: '路面冻雨冰霜，黑冰' },
+    ],
+    questions: [
+      {
+        q: '乘客购买的单程票在多长时间内享有免费换乘权益？',
+        choices: ['三十分钟内', '六十分钟内', '一百二十分钟内', '整整二十四小时内'],
+        answer: 2,
+      },
+      {
+        q: '文中提到公交车在夜间为女性单独出行乘客提供什么便利服务？',
+        choices: ['免费提供出租车接送服务', '可申请在两个固定站台之间就近下车', '允许乘客在车厢内随意吸烟', '晚上八点之后免票乘车'],
+        answer: 1,
+      },
+    ],
+  },
+  {
+    id: 'appel-saaq-echange-permis',
+    title: '预约 SAAQ 驾照换领',
+    titleFr: 'Prise de rendez-vous pour échanger son permis à la SAAQ',
+    level: 'B1',
+    topic: '政务与证件办理',
+    speakers: {
+      A: 'male',
+      B: 'female',
+    },
+    sentences: [
+      {
+        speaker: 'A',
+        fr: 'Bonjour, j’aimerais prendre rendez-vous pour échanger mon permis de conduire étranger contre un permis québécois.',
+        zh: '您好，我想预约办理把外国驾照换领成魁北克驾照的手续。',
+      },
+      {
+        speaker: 'B',
+        fr: 'Bonjour monsieur ! Depuis combien de temps résidez-vous au Québec avec votre statut légal ?',
+        zh: '您好先生！请问您持有合法居留身份在魁北克定居多久了？',
+      },
+      {
+        speaker: 'A',
+        fr: 'Je suis arrivé il y a trois mois avec une confirmation de résidence permanente.',
+        zh: '我是三个月前持永久居民确认函抵达这里的。',
+      },
+      {
+        speaker: 'B',
+        fr: 'Très bien. Votre permis d’origine est-il toujours valide et rédigé en français ou en anglais ?',
+        zh: '很好。请问您原国家的驾照目前是否仍在有效期内，是用法语或英语书写的吗？',
+      },
+      {
+        speaker: 'A',
+        fr: 'Il est valide, mais rédigé dans une autre langue avec une traduction officielle reconnue.',
+        zh: '驾照是有效的，但原文是其他语种，不过我已经做了官方认可的正规翻译件。',
+      },
+      {
+        speaker: 'B',
+        fr: 'C’est parfait. Quels documents avez-vous pour prouver votre domicile actuel dans la province ?',
+        zh: '那很好。请问您有哪些文件能证明您目前在本省的居住地址呢？',
+      },
+      {
+        speaker: 'A',
+        fr: 'J’ai une copie de mon bail de logement et une facture récente d’Hydro-Québec.',
+        zh: '我有一份房屋租赁合同的副本，以及一张最近的魁北克电力公司账单。',
+      },
+      {
+        speaker: 'B',
+        fr: 'Ces deux preuves conviennent parfaitement pour vérifier votre résidence principale au Québec.',
+        zh: '这两样证明材料完全合规，足以核实您在魁北克的主居住地。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Est-ce que je devrai passer un examen théorique ou un test pratique sur route ?',
+        zh: '请问我需要参加理论笔试，或者路上的实际驾驶考核吗？',
+      },
+      {
+        speaker: 'B',
+        fr: 'Selon le pays émetteur, vous pourriez seulement avoir un test visuel sommaire lors de l’entrevue.',
+        zh: '根据原驾照核发国的不同，您在面谈时可能只需要接受一次基础视力测试。',
+      },
+      {
+        speaker: 'A',
+        fr: 'D’accord. Auriez-vous une plage horaire disponible au centre de services Henri-Bourassa ?',
+        zh: '明白了。请问昂利-布拉萨服务中心近期有可预约的时间段吗？',
+      },
+      {
+        speaker: 'B',
+        fr: 'J’ai une place mardi prochain à neuf heures et demie du matin, est-ce convenable ?',
+        zh: '我这里下周二上午九点半有一个空档，这个时间合适吗？',
+      },
+      {
+        speaker: 'A',
+        fr: 'C’est excellent, je réserve immédiatement cette date pour mon dossier d’échange.',
+        zh: '太好了，我就直接定下这个时间来办理换领档案。',
+      },
+      {
+        speaker: 'B',
+        fr: 'N’oubliez pas d’apporter tous vos documents originaux lors de votre visite en succursale.',
+        zh: '请别忘了在前往营业网点时，带齐所有相关文件材料的原件。',
+      },
+      {
+        speaker: 'A',
+        fr: 'C’est bien noté, merci beaucoup pour votre assistance courtoise et bonne journée !',
+        zh: '记下了，非常感谢您礼貌周到的帮助，祝您今天愉快！',
+      },
+      {
+        speaker: 'B',
+        fr: 'Au plaisir monsieur, et au plaisir de vous servir à la SAAQ !',
+        zh: '不客气先生，期待在 SAAQ 为您提供服务！',
+      },
+    ],
+    vocab: [
+      { fr: 'échange de permis', zh: '驾照换领，驾照互换' },
+      { fr: 'statut légal', zh: '合法居留身份' },
+      { fr: 'traduction officielle', zh: '官方认可的翻译文件' },
+      { fr: 'preuve de domicile', zh: '居住地址证明' },
+      { fr: 'plage horaire', zh: '预约时间段，档期' },
+      { fr: 'succursale', zh: '服务网点，分局机构' },
+    ],
+    questions: [
+      {
+        q: '通话者使用哪两样材料作为魁北克居住证明？',
+        choices: ['酒店发票与外国护照复印件', '租房合同以及魁北克电力公司账单', '银行信用卡以及地铁年票', '雇主证明信以及健身房会员卡'],
+        answer: 1,
+      },
+      {
+        q: '双方最终将预约时间定在什么时候？',
+        choices: ['下周二上午九点半', '本周五下午四点整', '下个月初的周末', '当天下午两点十五分'],
+        answer: 0,
+      },
+    ],
+  },
+  {
+    id: 'conference-francais-quebecois-france',
+    title: '魁北克法语与法国法语的差异',
+    titleFr: 'Les particularités du français québécois face au français de France',
+    level: 'B2',
+    topic: '语言文化与社会历史',
+    speakers: {
+      A: 'female',
+    },
+    sentences: [
+      {
+        speaker: 'A',
+        fr: 'Chers participants, bienvenue à cette causerie consacrée aux richesses comparées du français québécois et du français hexagonal.',
+        zh: '各位来宾，欢迎参加本次讲座，今天我们将共同探讨魁北克法语与法国本土法语的多元特色。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Beaucoup de nouveaux arrivants s’étonnent des contrastes lexicaux et phonétiques rencontrés dès leurs premières interactions à Montréal.',
+        zh: '许多初来乍到的新移民在蒙特利尔开展最初的日常交往时，都会对词汇与语音上的差异感到惊奇。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Il faut d’abord rappeler que le français d’Amérique du Nord plonge ses racines au dix-septième siècle.',
+        zh: '首先需要明确的是，北美法语的根基可以追溯到十七世纪的法兰西先民时期。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Les colons venus de Normandie ou du Poitou ont apporté un parler qui a évolué de manière autonome.',
+        zh: '来自诺曼底或普瓦图的定居先驱带来了各自的方言，并在大西洋彼岸自主独立地演变发展。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Ainsi, certains termes perçus en Europe comme des archaïsmes demeurent ici d’un usage quotidien tout à fait naturel.',
+        zh: '因此，一些在欧洲被视作古语的词汇，在魁北克至今仍是极其自然生动的日常用语。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Par exemple, employer le mot barrer pour fermer à clé ou débarbouillette pour une petite serviette humide.',
+        zh: '比如用 barrer 来表达“锁门”，或者用 débarbouillette 来指代洗脸擦手的小毛巾。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Une autre divergence marquante concerne la création de néologismes pour résister aux emprunts massifs à la langue anglaise.',
+        zh: '另一项引人注目的显著差异，在于创造新词以抵制对英语词汇的盲目照搬吸收。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Tandis que la France adopte volontiers des mots comme shopping ou parking, le Québec privilégie magasinage et stationnement.',
+        zh: '当法国人乐于借用 shopping 或 parking 时，魁北克则坚定推行 magasinage（购物）与 stationnement（停车场）。',
+      },
+      {
+        speaker: 'A',
+        fr: 'C’est d’ailleurs d’ici que proviennent les termes universels courriel ou clavardage, aujourd’hui diffusés dans toute la francophonie.',
+        zh: '事实上，正是魁北克首创了 courriel（电子邮件）和 clavardage（在线聊天），并推广至整个法语圈。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Sur le plan grammatical et discursif, le québécois familier emploie fréquemment la particule interrogative « tu ».',
+        zh: '在语法与口语交流层面，魁北克通俗口语经常使用疑问语气助词 tu。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Une formule comme « on part-tu ? » sert simplement à poser une question sans désigner directement l’interlocuteur.',
+        zh: '像 on part-tu ?（我们出发吗？）这样的句式，纯粹用于增强疑问语气，并不特指对方“你”。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Il ne s’agit nullement d’une version inférieure, mais plutôt d’une variante dynamique dotée d’une immense légitimité culturelle.',
+        zh: '这绝非什么低人一等的语言形式，而是一种充满活力且具备深厚文化正统性的语言变体。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Apprivoiser ces subtilités linguistiques constitue la plus belle passerelle vers une intégration harmonieuse et respectueuse.',
+        zh: '熟悉并领会这些语言精髓，是通向和谐、受尊重的社会融入的最美桥梁。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Je vous remercie pour votre attention et je réponds volontiers à toutes vos questions !',
+        zh: '感谢各位的专注聆听，接下来我很乐意回答大家的任何提问！',
+      },
+    ],
+    vocab: [
+      { fr: 'français hexagonal', zh: '法国本土法语（六角国法语）' },
+      { fr: 'archaïsme', zh: '古语词汇，古风用法' },
+      { fr: 'débarbouillette', zh: '洗脸小毛巾，面巾（魁北克特色词）' },
+      { fr: 'néologisme', zh: '新词，新造词' },
+      { fr: 'emprunt linguistique', zh: '语言外来借词' },
+      { fr: 'particule interrogative', zh: '疑问语气助词' },
+      { fr: 'apprivoiser', zh: '逐渐熟悉，领会掌握' },
+    ],
+    questions: [
+      {
+        q: '讲座中指出魁北克在应对外来语借词方面有什么显著特点？',
+        choices: [
+          '大量直接借用英语日常词汇而不作修改',
+          '积极创造规范的法语新词来替代英文借词',
+          '禁止居民在公众场合使用任何现代词汇',
+          '完全照搬法国本土最新流行的外来语',
+        ],
+        answer: 1,
+      },
+      {
+        q: '魁北克口语中常出现的语气助词“tu”（如 on part-tu ?）起什么作用？',
+        choices: [
+          '表示严厉的警告与批评态度',
+          '纯粹用于强化疑问语气而非指代第二人称',
+          '用来强调某一动作已经彻底完成',
+          '专门用于指称对话双方之外的第三方',
+        ],
+        answer: 1,
+      },
+    ],
+  },
+  {
+    id: 'litige-logement-mediation-tal',
+    title: '租房纠纷与 TAL 调解',
+    titleFr: 'Litige de logement et médiation devant le TAL',
+    level: 'B2',
+    topic: '法律权益与租房',
+    speakers: {
+      A: 'male',
+      B: 'female',
+    },
+    sentences: [
+      {
+        speaker: 'A',
+        fr: 'Bonjour, mon propriétaire vient de m’envoyer un avis d’augmentation de loyer de douze pour cent pour le prochain bail.',
+        zh: '您好，我的房东刚刚给我发来一份下一年度租约涨租通知，租金涨幅居然高达百分之十二。',
+      },
+      {
+        speaker: 'B',
+        fr: 'C’est une hausse considérable qui dépasse largement les indices d’ajustement publiés par le Tribunal administratif du logement.',
+        zh: '这个涨幅相当惊人，远远超出了魁北克房屋租赁法庭（TAL）公布的年度租金调整参考指标。',
+      },
+      {
+        speaker: 'A',
+        fr: 'En plus, il refuse de réparer une infiltration d’eau importante dans le plafond de ma salle de bain.',
+        zh: '不仅如此，我浴室天花板有一处严重的渗漏水问题，他也一直推脱拒绝维修。',
+      },
+      {
+        speaker: 'B',
+        fr: 'Vous disposez d’un délai strict de trente jours après réception de l’avis pour notifier votre réponse par écrit.',
+        zh: '在收到房东涨租通知后的三十天严格法定期限内，您必须通过书面形式作出明确答复。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Est-ce que j’ai le droit de refuser l’augmentation tout en renouvelant mon bail pour une autre année ?',
+        zh: '请问我有权在拒绝这一租金涨幅的同时，继续续签我下一年的租约吗？',
+      },
+      {
+        speaker: 'B',
+        fr: 'Absolument, c’est une protection fondamentale offerte à chaque locataire par le Code civil du Québec.',
+        zh: '当然有权，这是《魁北克民法典》赋予每一位租客的最根本法律保障。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Que se passera-t-il si le propriétaire persiste et refuse mon refus de hausse de loyer ?',
+        zh: '如果房东坚持己见、不接受我拒绝涨租的决定，接下来会发生什么？',
+      },
+      {
+        speaker: 'B',
+        fr: 'Ce sera alors à lui de s’adresser au tribunal pour demander une fixation officielle du loyer.',
+        zh: '届时必须由房东亲自向租赁法庭提出申请，要求法庭介入并裁定法定租金。',
+      },
+      {
+        speaker: 'B',
+        fr: 'Le tribunal utilise une grille rigoureuse basée sur les taxes municipales et les travaux réels d’amélioration.',
+        zh: '法庭会根据市政地税的变动以及实际开展的房屋修缮开销，依据严谨的测算表来核定涨幅。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Et concernant la moisissure et l’infiltration d’eau, quelle démarche juridique dois-je entreprendre en priorité ?',
+        zh: '那么针对霉菌和渗水问题，我首要应该采取什么法律步骤呢？',
+      },
+      {
+        speaker: 'B',
+        fr: 'Vous devez lui transmettre une mise en demeure formelle par courrier recommandé avec signature à la réception.',
+        zh: '您必须通过附带收条签收的挂号信，向房东送达一份正式的书面敦促催告函（mise en demeure）。',
+      },
+      {
+        speaker: 'B',
+        fr: 'Accordez-lui un délai raisonnable de dix jours pour faire intervenir un plombier qualifié dans votre logement.',
+        zh: '给他设定十天的合理宽限期，要求其安排专业持证管道工上门为您检修房屋。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Si nous ne trouvons pas d’accord, est-il possible d’opter pour une séance de médiation rapide ?',
+        zh: '如果我们无法达成共识，是否可以选择开展一次快捷的调解会议？',
+      },
+      {
+        speaker: 'B',
+        fr: 'Oui, le service de conciliation du tribunal permet souvent de régler les différends sans audience contentieuse longue.',
+        zh: '是的，租赁法庭的民事调解服务通常能帮助双方化解分歧，免去冗长繁琐的开庭对簿公堂。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Je me sens beaucoup plus rassuré et je vais rédiger ces deux réponses dès cet après-midi.',
+        zh: '我现在心里踏实多了，今天下午我就把这两份书面材料正式拟定好。',
+      },
+      {
+        speaker: 'B',
+        fr: 'N’hésitez pas à revenir nous voir avec vos brouillons pour que nous puissions les valider ensemble.',
+        zh: '拟好初稿后随时欢迎您再来找我们，我们一起帮您核对把关。',
+      },
+    ],
+    vocab: [
+      { fr: 'avis d’augmentation', zh: '租金上涨通知书' },
+      { fr: 'Tribunal administratif du logement', zh: '魁北克房屋租赁法庭（简称 TAL）' },
+      { fr: 'fixation de loyer', zh: '法定租金核定 / 裁定' },
+      { fr: 'mise en demeure', zh: '正式敦促催告函' },
+      { fr: 'courrier recommandé', zh: '双挂号信件（带签收回执）' },
+      { fr: 'conciliation', zh: '民事调解，协议和解' },
+      { fr: 'audience contentieuse', zh: '争议诉讼庭审' },
+    ],
+    questions: [
+      {
+        q: '租客在收到房东的涨租通知后，法律规定的书面答复期限是多久？',
+        choices: ['仅有四十八小时', '七天以内', '三十天以内', '六个月以内'],
+        answer: 2,
+      },
+      {
+        q: '针对天花板漏水和发霉问题，社区顾问建议租客首先采取什么行动？',
+        choices: [
+          '私自扣留全部房租并不再通知房东',
+          '通过挂号信向房东发出带有期限的正式催告函',
+          '立即搬离公寓并不支付任何费用',
+          '在社交媒体上公开房东的个人联系电话',
+        ],
+        answer: 1,
+      },
+    ],
+  },
+  {
+    id: 'podcast-benevolat-tremplin-emploi',
+    title: '志愿者经历如何帮助求职',
+    titleFr: 'Le bénévolat comme tremplin professionnel au Québec',
+    level: 'B2',
+    topic: '职业发展与社会参与',
+    speakers: {
+      A: 'female',
+    },
+    sentences: [
+      {
+        speaker: 'A',
+        fr: 'Bienvenue dans ce nouvel épisode de notre balado consacré aux stratégies d’insertion professionnelle sur le marché québécois.',
+        zh: '欢迎收听本期播客节目，今天我们将聚焦探讨在魁北克就业市场中实现职业融入的有效策略。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Pour beaucoup d’aspirants travailleurs, le manque d’expérience locale constitue une barrière parfois frustrante lors des démarches d’embauche.',
+        zh: '对于很多求职者而言，缺乏本地工作经验往往是在应聘求职过程中令人沮丧的一道壁垒。',
+      },
+      {
+        speaker: 'A',
+        fr: 'On se heurte souvent à ce dilemme : comment obtenir un poste sans expérience locale préalable sur son profil ?',
+        zh: '大家常常会陷入这样的两难困局：如果简历上缺乏本地经历，究竟该如何获得自己的第一份工作呢？',
+      },
+      {
+        speaker: 'A',
+        fr: 'L’engagement bénévole représente justement un levier extraordinaire pour briser ce cercle vicieux de façon constructive et valorisante.',
+        zh: '投身志愿服务，恰恰是打破这一恶性循环、建立自我价值的绝佳抓手。',
+      },
+      {
+        speaker: 'A',
+        fr: 'En vous impliquant dans un organisme communautaire, vous mobilisez des compétences concrètes dans un cadre collaboratif authentique.',
+        zh: '通过在社区公益组织中贡献力量，你能在真实的团队协作环境中充分调动并锻炼实操技能。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Que ce soit la coordination logistique ou la communication numérique, ces mandats témoignent directement de votre savoir-faire.',
+        zh: '无论是活动后勤协调还是数字化宣传沟通，这些具体实践任务都能直观体现你的专业素养。',
+      },
+      {
+        speaker: 'A',
+        fr: 'De surcroît, le bénévolat permet de bâtir un réseau de contacts professionnels de manière tout à fait spontanée.',
+        zh: '此外，参与义工活动还能以非常自然真诚的方式，逐步搭建起本地的人脉网络。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Vos superviseurs ou vos pairs deviennent d’excellentes références pour appuyer vos futures candidatures auprès des recruteurs québécois.',
+        zh: '你的团队主管或志愿伙伴，都将成为日后向魁北克招聘官力荐你的人选证明人。',
+      },
+      {
+        speaker: 'A',
+        fr: 'C’est également une occasion privilégiée de parfaire votre aisance linguistique dans des situations quotidiennes de travail réel.',
+        zh: '这同时也是在真实的职场日常情境中磨练语言表达、提升流利自信的绝佳契机。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Sur votre curriculum vitæ, n’hésitez pas à intégrer vos réalisations bénévoles sous la rubrique des expériences pertinentes.',
+        zh: '在个人简历中，不妨大胆地将志愿服务的亮眼成绩列入“相关经历”一栏。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Décrivez des résultats tangibles avec des verbes d’action pour capter immédiatement l’attention des comités de sélection.',
+        zh: '运用生动的行动动词，量化并描述切实成果，以便迅速抓住选拔委员会的眼球。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Lors de l’entrevue, illustrez votre polyvalence et votre esprit d’initiative grâce à ces anecdotes de terrain mémorables.',
+        zh: '在面试过程中，通过这些令人印象深刻的实战故事，生动展现你的多面能力与主动开拓精神。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Au Québec, l’altruisme et la contribution à la collectivité sont perçus comme des indicateurs d’intelligence relationnelle forte.',
+        zh: '在魁北克，利他精神和对社区公共利益的贡献，被广泛视为具备出众情商与人际交往能力的标志。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Choisissez une cause qui résonne avec vos valeurs pour transformer votre générosité en un formidable tremplin de carrière.',
+        zh: '选择一项与你价值观产生共鸣的公益事业吧，将你的善意奉献转化为职场腾飞的坚实跳板。',
+      },
+      {
+        speaker: 'A',
+        fr: 'Merci de votre écoute, et rendez-vous la semaine prochaine pour d’autres conseils inspirants sur notre balado !',
+        zh: '感谢大家的收听，下周同一时间请继续锁定我们的播客，获取更多富有启发性的职场建议！',
+      },
+    ],
+    vocab: [
+      { fr: 'balado', zh: '播客，音频广播节目（魁北克规范用词）' },
+      { fr: 'levier', zh: '杠杆，抓手，推动手段' },
+      { fr: 'cercle vicieux', zh: '恶性循环' },
+      { fr: 'références professionnelles', zh: '推荐人，背调推荐证明' },
+      { fr: 'aisance linguistique', zh: '语言流利自如度' },
+      { fr: 'polyvalence', zh: '多面手能力，综合适应力' },
+      { fr: 'tremplin', zh: '跳板，腾飞发展契机' },
+    ],
+    questions: [
+      {
+        q: '根据播客内容，志愿服务如何帮助求职者突破“缺乏本地工作经验”的困境？',
+        choices: [
+          '支付高额费用直接购买正式员工聘书',
+          '在实际协作中积累技能、结识人脉并获取本地推荐人',
+          '允许求职者在简历中虚构全职工作经历',
+          '替代所有学历认证与签证审核手续',
+        ],
+        answer: 1,
+      },
+      {
+        q: '节目建议求职者在个人简历中如何呈现义工经历？',
+        choices: [
+          '隐藏所有志愿经历，只字不提',
+          '将义工经历放在家庭生活兴趣一栏',
+          '使用行动动词将成果写在“相关经历”一栏',
+          '只能在面试被问到时口头顺便提一句',
+        ],
+        answer: 2,
       },
     ],
   },
