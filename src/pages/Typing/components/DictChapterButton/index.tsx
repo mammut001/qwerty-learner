@@ -26,8 +26,8 @@ export const DictChapterButton = () => {
       </Tooltip>
       {!isReviewMode && (
         <Tooltip content="章节切换">
-          <Listbox value={currentChapter} onChange={(chapter) => {
-            setCurrentChapter(chapter)
+          <Listbox value={currentChapter + 1} onChange={(chapter) => {
+            setCurrentChapter(chapter - 1)
             // Headless UI closes the option list and chapter content rerenders.
             // Restore keyboard focus to the trigger after those updates, not the typing textarea.
             requestAnimationFrame(() => chapterButtonRef.current?.focus())
@@ -38,7 +38,7 @@ export const DictChapterButton = () => {
             <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
               <Listbox.Options className="listbox-options z-10 w-32">
                 {range(0, chapterCount, 1).map((index) => (
-                  <Listbox.Option key={index} value={index}>
+                  <Listbox.Option key={index} value={index + 1}>
                     {({ selected }) => (
                       <div className="group flex cursor-pointer items-center justify-between">
                         {selected ? (
