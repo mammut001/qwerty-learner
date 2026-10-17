@@ -101,7 +101,7 @@ export const INTENSIVE_PASSAGES: Passage[] = [
       },
       {
         speaker: 'A',
-        fr: 'J’ai même osé commander entièrement en français avec la commis, et elle m’a comprise du premier coup !',
+        fr: 'J’ai même osé commander entièrement en français auprès de la commis, et elle m’a comprise du premier coup !',
         zh: '我甚至鼓起勇气完全用法语跟店员点单，她一下就听懂了我的意思！',
       },
       {
@@ -148,8 +148,8 @@ export const INTENSIVE_PASSAGES: Passage[] = [
   },
   {
     id: 'appel-location-appartement',
-    title: '在魁北克租公寓打电话',
-    titleFr: 'Appel pour louer un appartement à Québec',
+    title: '在蒙特利尔租公寓打电话',
+    titleFr: 'Appel pour louer un appartement à Montréal',
     level: 'B1',
     topic: '住房与生活',
     speakers: {
@@ -229,7 +229,7 @@ export const INTENSIVE_PASSAGES: Passage[] = [
       },
     ],
     vocab: [
-      { fr: 'trois et demi', zh: '一室一厅（魁北克房型，指一房一厅一厨加半卫）' },
+      { fr: 'trois et demi', zh: '一室一厅（魁北克房型：卧室、客厅、厨房各一间，“半间”指卫生间）' },
       { fr: 'loyer', zh: '房租' },
       { fr: 'chauffage', zh: '暖气，供暖' },
       { fr: 'buanderie', zh: '洗衣房' },
@@ -494,7 +494,7 @@ export const INTENSIVE_PASSAGES: Passage[] = [
       },
       {
         speaker: 'A',
-        fr: 'Aujourd’hui, j’aimerais vous partager quelques réflexions sincères sur mon propre parcours d’intégration depuis mon arrivée en terre québécoise il y a cinq ans.',
+        fr: 'Aujourd’hui, j’aimerais partager avec vous quelques réflexions sincères sur mon propre parcours d’intégration depuis mon arrivée en terre québécoise il y a cinq ans.',
         zh: '今天，我想真诚地与各位分享五年前我踏上魁北克这片土地以来，自己在融入生活中的几点感悟。',
       },
       {
@@ -879,7 +879,7 @@ export const INTENSIVE_PASSAGES: Passage[] = [
       },
       {
         speaker: 'A',
-        fr: 'Il suffit de valider de nouveau votre carte sans que d’autres passages ne soient débités.',
+        fr: 'Il suffit de valider de nouveau votre carte sans que d’autres passages soient débités.',
         zh: '换乘时只需再次刷卡即可，系统不会扣除额外的乘车次数。',
       },
       {

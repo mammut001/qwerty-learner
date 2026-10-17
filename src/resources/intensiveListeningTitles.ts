@@ -12,7 +12,7 @@ export const INTENSIVE_TITLES: IntensiveListeningTitle[] = [
   },
   {
     id: 'appel-location-appartement',
-    title: '在魁北克租公寓打电话',
+    title: '在蒙特利尔租公寓打电话',
     level: 'B1',
   },
   {
