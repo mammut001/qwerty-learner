@@ -101,6 +101,7 @@ test('renderRouteHtml includes h1/intro and links to the other main pages inside
   assert.match(rendered, /<a href="\/tenses">/)
   assert.match(rendered, /<a href="\/recalls">/)
   assert.match(rendered, /<a href="\/tcf-listening">/)
+  assert.match(rendered, /<a href="\/video-listening">/)
   assert.match(rendered, /<a href="\/tcf-reading">/)
 
   // Current page should not be self-linked in the other pages list
