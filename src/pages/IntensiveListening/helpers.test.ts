@@ -1,15 +1,16 @@
-import assert from 'node:assert/strict'
-import test from 'node:test'
 import {
   cycleSpeed,
   findCurrentSentenceIndex,
   formatSeconds,
   getNextSentenceIndex,
   getPrevSentenceIndex,
+  normalizeLookupWord,
   resolveIntensiveAudioCandidates,
   shouldFallbackAudioCandidate,
   shouldLoopCurrentSentence,
 } from './helpers'
+import assert from 'node:assert/strict'
+import test from 'node:test'
 
 test('findCurrentSentenceIndex returns correct indices via binary search', () => {
   const segments = [
@@ -130,4 +131,48 @@ test('shouldFallbackAudioCandidate only falls back on fatal errors and preserves
   assert.equal(shouldFallbackAudioCandidate(1, 2, { code: 2 }), false)
   assert.equal(shouldFallbackAudioCandidate(1, 2, { code: 4 }), false)
   assert.equal(shouldFallbackAudioCandidate(0, 1, { code: 4 }), false)
+})
+
+test('normalizeLookupWord normalizes punctuation, ignores elisions, keeps hyphenated words, and standardizes NFC', () => {
+  // Direct words
+  assert.equal(normalizeLookupWord('école'), 'école')
+  assert.equal(normalizeLookupWord('café'), 'café')
+
+  // Elisions (both straight quote and curly apostrophe)
+  assert.equal(normalizeLookupWord('l’école'), 'école')
+  assert.equal(normalizeLookupWord("l'école"), 'école')
+  assert.equal(normalizeLookupWord('L’école'), 'école')
+  assert.equal(normalizeLookupWord("L'école"), 'école')
+  assert.equal(normalizeLookupWord('d’arriver'), 'arriver')
+  assert.equal(normalizeLookupWord("d'arriver"), 'arriver')
+  assert.equal(normalizeLookupWord('j’ai'), 'ai')
+  assert.equal(normalizeLookupWord('qu’il'), 'il')
+  assert.equal(normalizeLookupWord('s’adapte'), 'adapte')
+  assert.equal(normalizeLookupWord('c’est'), 'est')
+  assert.equal(normalizeLookupWord('n’est'), 'est')
+  assert.equal(normalizeLookupWord('m’a'), 'a')
+  assert.equal(normalizeLookupWord('jusqu’à'), 'à')
+
+  // Hyphenated words kept whole
+  assert.equal(normalizeLookupWord('peut-être'), 'peut-être')
+  assert.equal(normalizeLookupWord('sous-couche'), 'sous-couche')
+  assert.equal(normalizeLookupWord('coupe-vent'), 'coupe-vent')
+  assert.equal(normalizeLookupWord('rendez-vous'), 'rendez-vous')
+
+  // Compound/non-elided words with internal apostrophe
+  assert.equal(normalizeLookupWord('aujourd’hui'), 'aujourd’hui')
+  assert.equal(normalizeLookupWord("aujourd'hui"), "aujourd'hui")
+
+  // Punctuation stripping
+  assert.equal(normalizeLookupWord('l’école.'), 'école')
+  assert.equal(normalizeLookupWord('«l’école»'), 'école')
+  assert.equal(normalizeLookupWord('(dépanneur),'), 'dépanneur')
+  assert.equal(normalizeLookupWord('peut-être !'), 'peut-être')
+  assert.equal(normalizeLookupWord('...'), '')
+  assert.equal(normalizeLookupWord(''), '')
+
+  // Unicode NFC normalization
+  const nfdEcole = 'e\u0301cole'
+  assert.equal(normalizeLookupWord(nfdEcole), 'école')
+  assert.equal(normalizeLookupWord(`l’${nfdEcole}`), 'école')
 })

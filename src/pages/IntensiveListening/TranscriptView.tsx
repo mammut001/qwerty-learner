@@ -1,5 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useContext, useEffect, useId, useRef } from 'react'
 import type React from 'react'
+import { LookupContext } from '@/components/Dictionary/lookupContext'
+import { ELISION_PREFIX, FRENCH_WORD_REGEX, normalizeLookupWord } from './helpers'
 import type { IntensiveSentence, SentenceSegment } from './types'
 
 interface TranscriptViewProps {
@@ -28,6 +30,16 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
   const containerRef = useRef<HTMLDivElement | null>(null)
   const rowRefs = useRef<(HTMLDivElement | null)[]>([])
   const lastScrollTimeRef = useRef<number>(0)
+  const ownerId = useId()
+  const lookup = useContext(LookupContext)
+  const activeWord = lookup?.active ?? null
+  const dismissIfOwner = lookup?.dismissIfOwner
+  const open = lookup?.open
+
+  useEffect(() => {
+    if (!dismissIfOwner) return
+    return () => dismissIfOwner(ownerId)
+  }, [ownerId, dismissIfOwner])
 
   // Track user manual scrolling to prevent disruptive auto-scrolls
   const handleScroll = () => {
@@ -75,6 +87,14 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
             ref={(el) => {
               rowRefs.current[index] = el
             }}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                onSelectSentence(index)
+              }
+            }}
             onClick={() => onSelectSentence(index)}
             className={`group relative cursor-pointer rounded-xl p-3.5 transition-all duration-200 ${
               isActive
@@ -109,11 +129,16 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
               </div>
 
               {/* Timestamp if available */}
-              {segment && !isAudioPending && (
-                <span className={`font-mono text-[10px] ${isActive ? 'text-gray-700 dark:text-gray-300' : 'text-gray-500 dark:text-gray-400'}`}>
-                  {segment.start.toFixed(1)}s
+              <div className="flex items-center gap-1.5">
+                <span className="rounded px-1 text-[10px] text-gray-400 opacity-60 transition-opacity group-hover:opacity-100 dark:text-gray-500" title="点击任意法语单词即可查词">
+                  查词
                 </span>
-              )}
+                {segment && !isAudioPending && (
+                  <span className={`font-mono text-[10px] ${isActive ? 'text-gray-700 dark:text-gray-300' : 'text-gray-500 dark:text-gray-400'}`}>
+                    {segment.start.toFixed(1)}s
+                  </span>
+                )}
+              </div>
             </div>
 
             {/* French Text (Larger font, bolded when active) */}
@@ -125,7 +150,44 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
               }`}
             >
               {showFrench ? (
-                sentence.fr
+                <span lang="fr">
+                  {sentence.fr.split(FRENCH_WORD_REGEX).map((token, tokenIdx) => {
+                    if (tokenIdx % 2 === 1) {
+                      const normalized = normalizeLookupWord(token)
+                      const isWordActive = Boolean(activeWord && normalized && activeWord.toLowerCase() === normalized.toLowerCase())
+                      const match = token.match(ELISION_PREFIX)
+                      const elisionPrefix = match ? match[0] : ''
+                      const coreWord = elisionPrefix ? token.slice(elisionPrefix.length) : token
+
+                      return (
+                        <span
+                          key={tokenIdx}
+                          tabIndex={-1}
+                          title="点击查词"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            if (normalized) {
+                              open?.(normalized, e.currentTarget, ownerId)
+                            }
+                          }}
+                          className={`cursor-pointer rounded px-0.5 py-0.5 transition-colors hover:underline hover:text-indigo-600 dark:hover:text-indigo-400 ${
+                            isWordActive ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300' : ''
+                          }`}
+                        >
+                          {elisionPrefix ? (
+                            <>
+                              <span>{elisionPrefix}</span>
+                              <span>{coreWord}</span>
+                            </>
+                          ) : (
+                            token
+                          )}
+                        </span>
+                      )
+                    }
+                    return <span key={tokenIdx}>{token}</span>
+                  })}
+                </span>
               ) : (
                 <span className="select-none tracking-widest text-gray-500 dark:text-gray-400 font-mono">
                   {getBlindPlaceholder(sentence.fr)}

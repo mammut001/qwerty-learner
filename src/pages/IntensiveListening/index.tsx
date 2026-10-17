@@ -424,7 +424,7 @@ export const IntensiveListeningPage: React.FC = () => {
             <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
               <div className="mb-3 flex items-center justify-between border-b border-gray-100 pb-2 dark:border-gray-700/60">
                 <h2 className="text-sm font-bold text-gray-900 dark:text-white">原文对照</h2>
-                <span className="text-xs text-gray-500 dark:text-gray-400">点击句子即刻跳转播放</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">点击单词查词 · 点击句子即刻跳转播放</span>
               </div>
 
               <TranscriptView

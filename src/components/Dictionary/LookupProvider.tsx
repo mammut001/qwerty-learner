@@ -8,7 +8,7 @@ const DictionaryCard = lazy(() => import('./DictionaryCard'))
 
 export function LookupProvider({ children }: { children: ReactNode }) {
   const { pathname, search } = useLocation()
-  const triggerRef = useRef<HTMLButtonElement | null>(null)
+  const triggerRef = useRef<HTMLElement | null>(null)
   const ownerRef = useRef<string | null>(null)
   const [active, setActive] = useState<string | null>(null)
   const [result, setResult] = useState<DictionaryResult | null>(null)
@@ -21,12 +21,12 @@ export function LookupProvider({ children }: { children: ReactNode }) {
     setActive(null)
   }, [])
 
-  const open = useCallback((word: string, trigger: HTMLButtonElement, ownerId: string | null) => {
+  const open = useCallback((word: string, trigger?: HTMLElement | null, ownerId?: string | null) => {
     // A click inside the card passes null so the card can remount for the new word
     // without its own cleanup dismissing the popover.
-    if (ownerId !== null) {
+    if (ownerId !== null && ownerId !== undefined) {
       ownerRef.current = ownerId
-      triggerRef.current = trigger
+      triggerRef.current = trigger ?? null
     }
     setActive(word)
   }, [])
