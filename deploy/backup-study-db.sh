@@ -16,6 +16,28 @@ mkdir -p "$BACKUP_DIR"
 chmod 700 "$BACKUP_DIR" 2>/dev/null || true
 LOG_FILE="${BACKUP_DIR}/backup.log"
 
+# Retention: keep newest 14 daily files in BACKUP_DIR only
+prune_daily_backups() {
+  (ls -1t "$BACKUP_DIR"/study-*.sqlite.gz 2>/dev/null || true) | tail -n +15 | while IFS= read -r file; do
+    [ -n "$file" ] || continue
+    [ -f "$file" ] || continue
+    case "$file" in
+      "$BACKUP_DIR"/study-*.sqlite.gz)
+        rm -f "$file"
+        ;;
+    esac
+  done
+}
+
+if [ "${BACKUP_TEST_ONLY:-0}" = "1" ] || [ "${BACKUP_PRUNE_ONLY:-0}" = "1" ]; then
+  prune_daily_backups
+  exit 0
+fi
+
+if [ "${BACKUP_SOURCE_ONLY:-0}" = "1" ]; then
+  return 0 2>/dev/null || exit 0
+fi
+
 # Resolve API image for the throwaway verification container
 if [ -z "${API_IMAGE:-}" ]; then
   API_IMAGE=$(docker inspect --format '{{.Config.Image}}' "$CONTAINER" 2>/dev/null || true)
@@ -136,15 +158,7 @@ gzip -f "$TARGET_SQLITE"
 BACKUP_SIZE=$(wc -c < "$TARGET_GZ" | tr -d ' ')
 
 ERROR_MSG="retention prune failed"
-# Retention: keep newest 14 daily files; delete older ones in BACKUP_DIR only
-for file in $((ls -1t "$BACKUP_DIR"/study-*.sqlite.gz 2>/dev/null || true) | tail -n +15); do
-  [ -f "$file" ] || continue
-  case "$file" in
-    "$BACKUP_DIR"/study-*.sqlite.gz)
-      rm -f "$file"
-      ;;
-  esac
-done
+prune_daily_backups
 
 STATUS="SUCCESS"
 echo "Backup completed successfully: ${BACKUP_BASENAME}.gz (${BACKUP_SIZE} bytes, ${VERIFY_COUNTS})"

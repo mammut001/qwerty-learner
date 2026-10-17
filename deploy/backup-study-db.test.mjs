@@ -17,6 +17,22 @@ test('deploy/backup-study-db.sh exists and is executable', () => {
   assert.ok((stat.mode & 0o111) !== 0, 'deploy/backup-study-db.sh must be executable')
 })
 
+test('script passes syntax checks with sh -n and (if available) dash -n', () => {
+  execFileSync('sh', ['-n', scriptPath])
+
+  let hasDash = false
+  try {
+    execFileSync('dash', ['-c', 'exit 0'], { stdio: 'ignore' })
+    hasDash = true
+  } catch {
+    // dash not installed, skip gracefully
+  }
+
+  if (hasDash) {
+    execFileSync('dash', ['-n', scriptPath])
+  }
+})
+
 test('script uses POSIX sh and set -eu', () => {
   const content = fs.readFileSync(scriptPath, 'utf8')
   assert.match(content, /^#!\/bin\/sh(\r?\n|$)/, 'must specify #!/bin/sh shebang')
@@ -72,7 +88,9 @@ test('script enforces 14-file retention and only deletes inside backups/daily', 
 
   // Ensure no deletions reference parent directories or general backups root
   for (const line of rmLines) {
-    assert.doesNotMatch(line, /(?:\.\.|\/backups\b(?!\/daily)|\$HOME\/backups\b(?!\/daily))/,
+    assert.doesNotMatch(
+      line,
+      /(?:\.\.|\/backups\b(?!\/daily)|\$HOME\/backups\b(?!\/daily))/,
       `rm line must not target outside backups/daily: ${line}`
     )
   }
@@ -91,7 +109,7 @@ test('script contains no network upload commands or leaked credentials', () => {
   assert.doesNotMatch(content, /password|secret|token|api[_-]?key/i, 'must not contain secrets')
 })
 
-test('retention prune simulation only deletes files beyond 14 inside backups/daily', async () => {
+test('retention logic runs against temp dir with 16 fake files without docker', async () => {
   const tmpDir = await mkdtemp(join(tmpdir(), 'backup-test-'))
   try {
     const backupsDir = join(tmpDir, 'backups')
@@ -108,8 +126,8 @@ test('retention prune simulation only deletes files beyond 14 inside backups/dai
     await writeFile(join(dailyDir, 'backup.log'), 'initial log\n')
     await writeFile(join(dailyDir, 'cron.log'), 'cron log\n')
 
-    // Create 20 daily backups
-    for (let i = 1; i <= 20; i++) {
+    // Create 16 daily backups
+    for (let i = 1; i <= 16; i++) {
       const day = String(i).padStart(2, '0')
       const fname = join(dailyDir, `study-202610${day}-0400.sqlite.gz`)
       await writeFile(fname, `content ${day}`)
@@ -117,32 +135,23 @@ test('retention prune simulation only deletes files beyond 14 inside backups/dai
       fs.utimesSync(fname, time, time)
     }
 
-    // Execute the exact retention loop from backup-study-db.sh
-    const shScript = `
-      BACKUP_DIR="${dailyDir}"
-      for file in $((ls -1t "$BACKUP_DIR"/study-*.sqlite.gz 2>/dev/null || true) | tail -n +15); do
-        [ -f "$file" ] || continue
-        case "$file" in
-          "$BACKUP_DIR"/study-*.sqlite.gz)
-            rm -f "$file"
-            ;;
-        esac
-      done
-    `
-    execFileSync('sh', ['-eu', '-c', shScript])
+    // Run retention logic via script with BACKUP_TEST_ONLY=1
+    execFileSync('sh', [scriptPath], {
+      env: { ...process.env, BACKUP_TEST_ONLY: '1', BACKUP_DIR: dailyDir },
+    })
 
     // Verify daily backup files
     const remaining = fs.readdirSync(dailyDir).filter((f) => f.startsWith('study-') && f.endsWith('.sqlite.gz'))
     assert.equal(remaining.length, 14, 'Must keep exactly 14 newest daily backups')
 
-    // The 14 newest (days 07 to 20) should remain
-    for (let i = 7; i <= 20; i++) {
+    // The 14 newest (days 03 to 16) should remain
+    for (let i = 3; i <= 16; i++) {
       const day = String(i).padStart(2, '0')
       assert.ok(fs.existsSync(join(dailyDir, `study-202610${day}-0400.sqlite.gz`)), `Day ${day} should be kept`)
     }
 
-    // The 6 oldest (days 01 to 06) should be deleted
-    for (let i = 1; i <= 6; i++) {
+    // The 2 oldest (days 01 and 02) should be deleted
+    for (let i = 1; i <= 2; i++) {
       const day = String(i).padStart(2, '0')
       assert.ok(!fs.existsSync(join(dailyDir, `study-202610${day}-0400.sqlite.gz`)), `Day ${day} should be pruned`)
     }
@@ -152,6 +161,31 @@ test('retention prune simulation only deletes files beyond 14 inside backups/dai
     assert.ok(fs.existsSync(outsideText), 'Outside notes in ~/backups must be preserved')
     assert.ok(fs.existsSync(join(dailyDir, 'backup.log')), 'backup.log must be preserved')
     assert.ok(fs.existsSync(join(dailyDir, 'cron.log')), 'cron.log must be preserved')
+
+    // Also test execution directly with dash if available
+    let hasDash = false
+    try {
+      execFileSync('dash', ['-c', 'exit 0'], { stdio: 'ignore' })
+      hasDash = true
+    } catch {
+      // dash not installed
+    }
+
+    if (hasDash) {
+      // Re-create the 2 deleted files so count is 16 again
+      for (let i = 1; i <= 2; i++) {
+        const day = String(i).padStart(2, '0')
+        const fname = join(dailyDir, `study-202610${day}-0400.sqlite.gz`)
+        await writeFile(fname, `content ${day}`)
+        const time = new Date(`2026-10-${day}T04:00:00Z`)
+        fs.utimesSync(fname, time, time)
+      }
+      execFileSync('dash', [scriptPath], {
+        env: { ...process.env, BACKUP_TEST_ONLY: '1', BACKUP_DIR: dailyDir },
+      })
+      const remainingDash = fs.readdirSync(dailyDir).filter((f) => f.startsWith('study-') && f.endsWith('.sqlite.gz'))
+      assert.equal(remainingDash.length, 14, 'Must keep exactly 14 newest daily backups when run under dash')
+    }
   } finally {
     await rm(tmpDir, { recursive: true, force: true })
   }
