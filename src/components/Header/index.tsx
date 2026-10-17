@@ -27,7 +27,7 @@ import IconX from '~icons/tabler/x'
 export interface NavItem {
   to: string
   label: string
-  showAt?: 'always' | 'xl' | '2xl'
+  showAt?: 'always' | 'lg' | 'xl' | '2xl'
 }
 
 const navItems: NavItem[] = [
@@ -38,16 +38,18 @@ const navItems: NavItem[] = [
   { to: '/word-lists', label: '我的词表', showAt: 'xl' },
   { to: '/dictionary', label: '查词', showAt: 'always' },
   { to: '/grammar-session', label: '语法', showAt: 'always' },
-  { to: '/conjugation', label: '动词变位', showAt: 'always' },
+  { to: '/conjugation', label: '动词变位', showAt: 'lg' },
   { to: '/tenses', label: '时态专题', showAt: '2xl' },
   { to: '/error-book', label: '错题本', showAt: '2xl' },
   { to: '/analysis', label: '统计', showAt: '2xl' },
 ]
 
-const itemDisplayClass = (showAt?: 'always' | 'xl' | '2xl') => {
+const itemDisplayClass = (showAt?: 'always' | 'lg' | 'xl' | '2xl') => {
   switch (showAt) {
     case 'always':
       return 'flex'
+    case 'lg':
+      return 'hidden lg:flex'
     case 'xl':
       return 'hidden xl:flex'
     case '2xl':
@@ -56,10 +58,12 @@ const itemDisplayClass = (showAt?: 'always' | 'xl' | '2xl') => {
   }
 }
 
-const dropdownItemClass = (showAt?: 'always' | 'xl' | '2xl') => {
+const dropdownItemClass = (showAt?: 'always' | 'lg' | 'xl' | '2xl') => {
   switch (showAt) {
     case 'always':
       return 'hidden'
+    case 'lg':
+      return 'lg:hidden'
     case 'xl':
       return 'xl:hidden'
     case '2xl':
@@ -152,14 +156,22 @@ const Header: React.FC = () => {
     }
   }
 
+  const [isLgOrAbove, setIsLgOrAbove] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024)
   const [isXlOrAbove, setIsXlOrAbove] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1280)
   useEffect(() => {
     if (typeof window === 'undefined' || !window.matchMedia) return
-    const mql = window.matchMedia('(min-width: 1280px)')
-    const onChange = (e: MediaQueryListEvent) => setIsXlOrAbove(e.matches)
-    setIsXlOrAbove(mql.matches)
-    mql.addEventListener('change', onChange)
-    return () => mql.removeEventListener('change', onChange)
+    const mqlLg = window.matchMedia('(min-width: 1024px)')
+    const mqlXl = window.matchMedia('(min-width: 1280px)')
+    const onLgChange = (e: MediaQueryListEvent) => setIsLgOrAbove(e.matches)
+    const onXlChange = (e: MediaQueryListEvent) => setIsXlOrAbove(e.matches)
+    setIsLgOrAbove(mqlLg.matches)
+    setIsXlOrAbove(mqlXl.matches)
+    mqlLg.addEventListener('change', onLgChange)
+    mqlXl.addEventListener('change', onXlChange)
+    return () => {
+      mqlLg.removeEventListener('change', onLgChange)
+      mqlXl.removeEventListener('change', onXlChange)
+    }
   }, [])
 
   const dictIndex = navItems.findIndex((item) => item.to === '/dictionary')
@@ -169,6 +181,7 @@ const Header: React.FC = () => {
   const isMoreActive = moreItems.some((item) => {
     if (pathname !== item.to) return false
     const showAt = item.showAt ?? '2xl'
+    if (showAt === 'lg') return !isLgOrAbove
     if (showAt === 'xl') return !isXlOrAbove
     return true
   })
