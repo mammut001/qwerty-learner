@@ -162,5 +162,57 @@ test('runtime data and sqlite files outside src remain excluded', () => {
 
 test('study-api production image copies the full-mock server dependency', () => {
   const dockerfile = fs.readFileSync(path.join(repoRoot, 'server/Dockerfile'), 'utf8')
-  assert.ok(dockerfile.includes('server/study-full-mock.mjs'), 'full-mock runtime module must be shipped with the study-api container')
+  assert.ok(
+    dockerfile.includes('server/study-full-mock.mjs') || /COPY\s+server\/\*\.mjs\s+\.\/server\//.test(dockerfile),
+    'full-mock runtime module must be shipped with the study-api container'
+  )
 })
+
+test('study-api production image copies all server runtime modules imported by study-plan.mjs', () => {
+  const dockerfile = fs.readFileSync(path.join(repoRoot, 'server/Dockerfile'), 'utf8')
+  assert.match(
+    dockerfile,
+    /COPY\s+server\/\*\.mjs\s+\.\/server\//,
+    'Dockerfile must copy server/*.mjs to include all runtime modules'
+  )
+
+  const visited = new Set()
+  const queue = [path.join(repoRoot, 'server/study-plan.mjs')]
+  const importedModules = new Set()
+
+  while (queue.length > 0) {
+    const current = queue.shift()
+    if (visited.has(current)) continue
+    visited.add(current)
+
+    const content = fs.readFileSync(current, 'utf8')
+    const importRegex = /(?:from\s+['"](\.[^'"]+)['"]|import\s*\(\s*['"](\.[^'"]+)['"]\))/g
+    let match
+    while ((match = importRegex.exec(content)) !== null) {
+      const importPath = match[1] || match[2]
+      const resolved = path.resolve(path.dirname(current), importPath)
+      if (resolved.startsWith(path.join(repoRoot, 'server')) && resolved.endsWith('.mjs')) {
+        importedModules.add(resolved)
+        queue.push(resolved)
+      }
+    }
+  }
+
+  assert.ok(importedModules.size > 0, 'Should find imported runtime modules in study-plan.mjs')
+  const usesGlob = /COPY\s+server\/\*\.mjs\s+\.\/server\//.test(dockerfile)
+  for (const modulePath of importedModules) {
+    const rel = path.relative(repoRoot, modulePath)
+    if (rel.startsWith('server/echelle-variants/')) {
+      assert.ok(
+        dockerfile.includes('server/echelle-variants/'),
+        `Expected ${rel} to be covered by server/echelle-variants/ COPY in Dockerfile`
+      )
+    } else {
+      assert.ok(
+        usesGlob || dockerfile.includes(rel),
+        `Expected ${rel} to be covered by Dockerfile COPY instructions`
+      )
+    }
+  }
+})
+
