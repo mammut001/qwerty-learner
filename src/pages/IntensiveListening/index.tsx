@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type React from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import Layout from '@/components/Layout'
 import { INTENSIVE_PASSAGES } from '@/resources/intensiveListening'
 import type { SentenceSegment } from '@/services/intensiveListeningAudio'
 import { loadIntensiveManifest } from '@/services/intensiveListeningAudio'
@@ -269,19 +270,21 @@ export const IntensiveListeningPage: React.FC = () => {
   // --- RENDER 1: Not found screen ---
   if (id && !activePassage) {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-12 text-center">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white">未找到该精听语篇</h2>
-        <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-          请检查网址或返回语篇列表选择其他练习。
-        </p>
-        <button
-          type="button"
-          onClick={() => navigate('/intensive-listening')}
-          className="mt-5 inline-flex items-center rounded-xl bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
-        >
-          ← 返回精听列表
-        </button>
-      </div>
+      <Layout>
+        <div className="w-full max-w-4xl mx-auto px-4 py-12 text-center">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">未找到该精听语篇</h2>
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            请检查网址或返回语篇列表选择其他练习。
+          </p>
+          <button
+            type="button"
+            onClick={() => navigate('/intensive-listening')}
+            className="mt-5 inline-flex items-center rounded-xl bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+          >
+            ← 返回精听列表
+          </button>
+        </div>
+      </Layout>
     )
   }
 
@@ -292,7 +295,8 @@ export const IntensiveListeningPage: React.FC = () => {
     const currentCandidate = audioCandidates[candidateIndex] || ''
 
     return (
-      <div className="w-full max-w-6xl mx-auto px-4 py-4 md:py-6 overflow-x-hidden">
+      <Layout>
+        <div className="w-full max-w-6xl mx-auto px-4 py-4 md:py-6 overflow-x-hidden">
         {/* Hidden Audio Element */}
         {currentCandidate && (
           <audio
@@ -450,12 +454,14 @@ export const IntensiveListeningPage: React.FC = () => {
           />
         </div>
       </div>
-    )
+    </Layout>
+  )
   }
 
   // --- RENDER 3: List View (/intensive-listening) ---
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 md:py-10">
+    <Layout>
+      <div className="w-full max-w-6xl mx-auto px-4 py-6 md:py-10">
       {/* Header Banner */}
       <div className="mb-8 text-center sm:text-left">
         <div className="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700 ring-1 ring-inset ring-indigo-600/20 dark:bg-indigo-950/50 dark:text-indigo-300 dark:ring-indigo-400/30">
@@ -514,6 +520,7 @@ export const IntensiveListeningPage: React.FC = () => {
         ))}
       </div>
     </div>
+  </Layout>
   )
 }
 
