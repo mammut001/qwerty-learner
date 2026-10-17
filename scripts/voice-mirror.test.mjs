@@ -1,4 +1,11 @@
-import { VOICE_MIRROR_PATH, mirrorListeningPath, mirrorOverrideFileName, mirrorOverridePath, mirrorTtsPath } from '../src/utils/voiceMirror.mjs'
+import {
+  VOICE_MIRROR_PATH,
+  mirrorIntensivePath,
+  mirrorListeningPath,
+  mirrorOverrideFileName,
+  mirrorOverridePath,
+  mirrorTtsPath,
+} from '../src/utils/voiceMirror.mjs'
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
@@ -8,6 +15,8 @@ test('mirror path constants and TTS paths follow the bucket layout', () => {
   assert.equal(mirrorTtsPath('fr-FR', 'abc'), 'v1/fr-FR/abc.mp3')
   assert.equal(mirrorListeningPath('f5be9877faf3ae9a'), 'listening/v1/f5be9877faf3ae9a.mp3')
   assert.equal(mirrorListeningPath('f5be9877faf3ae9a', 'v2'), 'listening/v2/f5be9877faf3ae9a.mp3')
+  assert.equal(mirrorIntensivePath('0123456789abcdef'), 'intensive/v1/0123456789abcdef.mp3')
+  assert.equal(mirrorIntensivePath('0123456789abcdef', 'v2'), 'intensive/v2/0123456789abcdef.mp3')
 })
 
 
