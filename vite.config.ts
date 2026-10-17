@@ -1,3 +1,5 @@
+import { ROUTE_SEO } from './src/resources/routeSeo'
+import { renderRouteHtml } from './scripts/route-meta.mjs'
 import react from '@vitejs/plugin-react'
 import { promises as fs } from 'fs'
 import { getLastCommit } from 'git-last-commit'
@@ -8,6 +10,46 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import Icons from 'unplugin-icons/vite'
 import { defineConfig } from 'vite'
 import type { PluginOption } from 'vite'
+
+function staticRouteMetaPlugin(): PluginOption {
+  let resolvedBase = '/'
+  let resolvedOutDir = 'build'
+
+  return {
+    name: 'static-route-meta',
+    apply: 'build',
+    configResolved(config) {
+      resolvedBase = config.base
+      resolvedOutDir = config.build.outDir || 'build'
+    },
+    async closeBundle() {
+      // ONLY when the resolved base is absolute ('/')
+      if (resolvedBase !== '/') {
+        return
+      }
+
+      const outDirAbs = path.resolve(__dirname, resolvedOutDir)
+      const indexPath = path.resolve(outDirAbs, 'index.html')
+      let baseHtml: string
+      try {
+        baseHtml = await fs.readFile(indexPath, 'utf-8')
+      } catch {
+        return
+      }
+
+      for (const route of ROUTE_SEO) {
+        const transformedHtml = renderRouteHtml(baseHtml, route, ROUTE_SEO)
+        if (route.path === '/') {
+          await fs.writeFile(indexPath, transformedHtml, 'utf-8')
+        } else {
+          const routeDir = path.resolve(outDirAbs, route.path.replace(/^\/+/, ''))
+          await fs.mkdir(routeDir, { recursive: true })
+          await fs.writeFile(path.resolve(routeDir, 'index.html'), transformedHtml, 'utf-8')
+        }
+      }
+    },
+  }
+}
 
 const chunkForDependency = (id: string) => {
   if (!id.includes('node_modules')) return undefined
@@ -39,6 +81,7 @@ export default defineConfig(async ({ mode }) => {
           },
         },
       }),
+      staticRouteMetaPlugin(),
     ],
     build: {
       minify: true,
