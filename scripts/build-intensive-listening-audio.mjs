@@ -28,6 +28,7 @@ const {
   DEFAULT_FEMALE_VOICE,
   DEFAULT_INTENSIVE_SPEAKING_RATE,
   DEFAULT_MALE_VOICE,
+  applyTtsSentenceFixes,
   assignPassageSentenceVoice,
   computeIntensiveKey,
   computeIntensiveObjectPath,
@@ -176,7 +177,7 @@ async function main() {
         index,
         speaker: sentence.speaker || 'A',
         voice,
-        text: sentence.fr,
+        text: applyTtsSentenceFixes(sentence.fr),
       }
     })
     return { passage, key, objectPath, sentencesWithVoices }

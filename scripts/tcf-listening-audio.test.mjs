@@ -4,6 +4,7 @@ import {
   DEFAULT_VOICE_B,
   TCF_LISTENING_BASE_URL,
   TCF_LISTENING_VERSION,
+  applyTtsSentenceFixes,
   assignListeningVoice,
   computeListeningAudioUrl,
   computeListeningKey,
@@ -247,11 +248,32 @@ test('all 78 listening questions across Set A and Set B process cleanly with dis
   }
 })
 
-test('committed public/voice/tcf-listening-manifest.json is valid JSON with empty items', () => {
+test('committed public/voice/tcf-listening-manifest.json is valid JSON with 78 items', () => {
   const manifestPath = 'public/voice/tcf-listening-manifest.json'
   assert.ok(fs.existsSync(manifestPath), `${manifestPath} must exist`)
   const content = JSON.parse(fs.readFileSync(manifestPath, 'utf8'))
   assert.equal(content.version, 'v1')
   assert.equal(content.base, TCF_LISTENING_BASE_URL)
-  assert.deepEqual(content.items, {}, 'Initial committed items must be empty')
+  assert.equal(Object.keys(content.items).length, 78)
+})
+
+test('applyTtsSentenceFixes fixes spoken text and preserves TCF listening keys for all 78 questions', () => {
+  assert.equal(applyTtsSentenceFixes('Je réévalue'), 'Je ré-évalue')
+  assert.equal(applyTtsSentenceFixes('Je réévalue immédiatement la matrice'), 'Je ré-évalue immédiatement la matrice')
+  assert.equal(applyTtsSentenceFixes('un cadre préétabli'), 'un cadre préétabli')
+  assert.equal(applyTtsSentenceFixes('rééquilibrage'), 'rééquilibrage')
+  assert.equal(applyTtsSentenceFixes('réédition'), 'réédition')
+
+  const all = [...TCF_LISTENING_QUESTIONS, ...TCF_LISTENING_SET_B]
+  assert.equal(all.length, 78)
+
+  const manifestPath = 'public/voice/tcf-listening-manifest.json'
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'))
+
+  for (const q of all) {
+    const hasReevalu = /réévalu/i.test(q.audioText || '')
+    assert.equal(hasReevalu, false, `Question ${q.id} contains réévalu`)
+    const key = computeListeningKeyForQuestion(q)
+    assert.equal(key, manifest.items[q.id], `Key mismatch for ${q.id}: ${key} !== ${manifest.items[q.id]}`)
+  }
 })

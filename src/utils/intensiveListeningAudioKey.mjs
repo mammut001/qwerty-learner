@@ -1,4 +1,7 @@
 import crypto from 'node:crypto'
+import { applyTtsSentenceFixes } from './ttsSentenceFixes.mjs'
+
+export { applyTtsSentenceFixes }
 
 export const INTENSIVE_AUDIO_VERSION = 'v1'
 export const INTENSIVE_AUDIO_BASE_URL = 'https://storage.googleapis.com/tcf-voice-tcf-canada-5b8c2'
@@ -49,7 +52,7 @@ export function computeIntensiveKey(
       : '')
 
   const sentencesStr = (passage?.sentences || [])
-    .map((s) => `${s.speaker || 'A'}:${String(s.fr || '').trim()}`)
+    .map((s) => `${s.speaker || 'A'}:${applyTtsSentenceFixes(String(s.fr || '').trim())}`)
     .join('\n')
 
   const input = `${version}|${passage?.id || ''}|${vA}|${vB}|${rate}|${sentencesStr}`

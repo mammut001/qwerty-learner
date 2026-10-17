@@ -1,6 +1,10 @@
 // Shared utility for TCF listening audio keys, turn splitting, and voice assignment.
 // Pure JS implementation so it runs identically in Node and the browser without external deps.
 
+import { applyTtsSentenceFixes } from './ttsSentenceFixes.mjs'
+
+export { applyTtsSentenceFixes }
+
 export const TCF_LISTENING_VERSION = 'v1'
 
 export const DEFAULT_VOICE_A = 'fr-CA-Chirp3-HD-Achird' // male
@@ -163,7 +167,7 @@ export function getQuestionTurns(question, voiceA = DEFAULT_VOICE_A, voiceB = DE
 
   return rawTurns.map((text, index) => ({
     index,
-    text,
+    text: applyTtsSentenceFixes(text),
     voice: assignListeningVoice(question?.type || '', index, isDialogue, voiceA, voiceB),
   }))
 }
@@ -185,7 +189,7 @@ export function computeListeningKey({
   audioText,
 }) {
   const voicesStr = Array.isArray(voices) ? voices.join('+') : String(voices || '')
-  const cleanText = typeof audioText === 'string' ? audioText.trim() : ''
+  const cleanText = typeof audioText === 'string' ? applyTtsSentenceFixes(audioText.trim()) : ''
   const input = `${version}|${voicesStr}|${rate}|${cleanText}`
   const bytes = encoder.encode(input)
   return sha256Hex(bytes).slice(0, 16)

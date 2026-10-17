@@ -5,6 +5,7 @@ import test from 'node:test'
 import {
   DEFAULT_FEMALE_VOICE,
   DEFAULT_MALE_VOICE,
+  applyTtsSentenceFixes,
   assignPassageSentenceVoice,
   computeIntensiveKey,
   computeIntensiveObjectPath,
@@ -134,4 +135,18 @@ test('intensive listening manifest is valid and consistent with passages', () =>
       lastEnd = seg.end
     }
   }
+})
+
+test('applyTtsSentenceFixes fixes spoken text and updates key for passages with réévalu', () => {
+  assert.equal(applyTtsSentenceFixes('Je réévalue'), 'Je ré-évalue')
+  assert.equal(applyTtsSentenceFixes('Je réévalue immédiatement la matrice'), 'Je ré-évalue immédiatement la matrice')
+  assert.equal(applyTtsSentenceFixes('un cadre préétabli'), 'un cadre préétabli')
+  assert.equal(applyTtsSentenceFixes('rééquilibrage'), 'rééquilibrage')
+  assert.equal(applyTtsSentenceFixes('réédition'), 'réédition')
+
+  const reevaluPassages = INTENSIVE_PASSAGES.filter((p) =>
+    p.sentences.some((s) => /réévalu/i.test(s.fr)),
+  )
+  assert.equal(reevaluPassages.length, 1)
+  assert.equal(reevaluPassages[0].id, 'entrevue-embauche-montreal')
 })
