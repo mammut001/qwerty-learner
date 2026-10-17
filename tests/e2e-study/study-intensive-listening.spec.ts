@@ -43,7 +43,9 @@ async function setupAudioAndAuth(page: Page) {
   })
 }
 
-test('intensive listening list, passage view, transcript toggles, sentence seek, and single main landmark', async ({ page }) => {
+test('intensive listening list, passage view, transcript toggles, sentence seek, and single main landmark', async ({
+  page,
+}) => {
   await setupAudioAndAuth(page)
 
   // Read manifest to obtain the exact segment start timestamp for sentence 3
@@ -90,22 +92,18 @@ test('intensive listening list, passage view, transcript toggles, sentence seek,
   // 6. Clicking sentence 3 seeks the <audio> currentTime to the manifest segment start of sentence 3
   const audio = page.locator('audio')
   // Wait until audio metadata has loaded from the stubbed MP3 fixture
-  await expect
-    .poll(async () => {
-      return await audio.evaluate((el: HTMLAudioElement) => el.readyState >= 1)
-    })
-    .toBe(true)
+  await expect.poll(async () => {
+    return await audio.evaluate((el: HTMLAudioElement) => el.readyState >= 1)
+  }).toBe(true)
 
   // Click sentence 3 (index 2) in the transcript list
   const sentence3Row = page.locator('[aria-label="精听原文对照"] > div').nth(2)
   await sentence3Row.click()
 
   // Verify currentTime matches the segment start in the manifest
-  await expect
-    .poll(async () => {
-      return await audio.evaluate((el: HTMLAudioElement) => el.currentTime)
-    })
-    .toBeCloseTo(sentence3SegmentStart, 1)
+  await expect.poll(async () => {
+    return await audio.evaluate((el: HTMLAudioElement) => el.currentTime)
+  }).toBeCloseTo(sentence3SegmentStart, 1)
 
   // Exactly one <main> remains asserted
   await expect(page.locator('main')).toHaveCount(1)

@@ -1,8 +1,8 @@
-import { ELISION_PREFIX, FRENCH_WORD_REGEX, normalizeLookupWord } from './helpers'
-import type { IntensiveSentence, SentenceSegment } from './types'
-import { LookupContext } from '@/components/Dictionary/lookupContext'
 import { useContext, useEffect, useId, useRef } from 'react'
 import type React from 'react'
+import { LookupContext } from '@/components/Dictionary/lookupContext'
+import { ELISION_PREFIX, FRENCH_WORD_REGEX, normalizeLookupWord } from './helpers'
+import type { IntensiveSentence, SentenceSegment } from './types'
 
 interface TranscriptViewProps {
   sentences: IntensiveSentence[]
@@ -128,20 +128,13 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
                 )}
               </div>
 
-              {/* Timestamp and lookup hint */}
+              {/* Timestamp if available */}
               <div className="flex items-center gap-1.5">
-                <span
-                  className="rounded px-1 text-[10px] text-gray-400 opacity-60 transition-opacity group-hover:opacity-100 dark:text-gray-500"
-                  title="点击任意法语单词即可查词"
-                >
+                <span className="rounded px-1 text-[10px] text-gray-400 opacity-60 transition-opacity group-hover:opacity-100 dark:text-gray-500" title="点击任意法语单词即可查词">
                   查词
                 </span>
                 {segment && !isAudioPending && (
-                  <span
-                    className={`font-mono text-[10px] ${
-                      isActive ? 'text-gray-700 dark:text-gray-300' : 'text-gray-500 dark:text-gray-400'
-                    }`}
-                  >
+                  <span className={`font-mono text-[10px] ${isActive ? 'text-gray-700 dark:text-gray-300' : 'text-gray-500 dark:text-gray-400'}`}>
                     {segment.start.toFixed(1)}s
                   </span>
                 )}
@@ -151,7 +144,9 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
             {/* French Text (Larger font, bolded when active) */}
             <div
               className={`text-base leading-relaxed tracking-normal transition-colors ${
-                isActive ? 'font-medium text-gray-900 dark:text-white' : 'text-gray-700 dark:text-gray-200'
+                isActive
+                  ? 'font-medium text-gray-900 dark:text-white'
+                  : 'text-gray-700 dark:text-gray-200'
               }`}
             >
               {showFrench ? (
@@ -175,7 +170,7 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
                               open?.(normalized, e.currentTarget, ownerId)
                             }
                           }}
-                          className={`cursor-pointer rounded px-0.5 py-0.5 transition-colors hover:text-indigo-600 hover:underline dark:hover:text-indigo-400 ${
+                          className={`cursor-pointer rounded px-0.5 py-0.5 transition-colors hover:underline hover:text-indigo-600 dark:hover:text-indigo-400 ${
                             isWordActive ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300' : ''
                           }`}
                         >
@@ -194,7 +189,7 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
                   })}
                 </span>
               ) : (
-                <span className="select-none font-mono tracking-widest text-gray-500 dark:text-gray-400">
+                <span className="select-none tracking-widest text-gray-500 dark:text-gray-400 font-mono">
                   {getBlindPlaceholder(sentence.fr)}
                 </span>
               )}
@@ -202,11 +197,7 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
 
             {/* Chinese Translation (Smaller font, grey) */}
             {showChinese && (
-              <div
-                className={`mt-1.5 text-xs leading-normal ${
-                  isActive ? 'text-gray-700 dark:text-gray-300' : 'text-gray-500 dark:text-gray-400'
-                }`}
-              >
+              <div className={`mt-1.5 text-xs leading-normal ${isActive ? 'text-gray-700 dark:text-gray-300' : 'text-gray-500 dark:text-gray-400'}`}>
                 {sentence.zh}
               </div>
             )}
