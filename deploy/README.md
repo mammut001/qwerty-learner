@@ -130,7 +130,26 @@ Keep exported JSON private. It contains progress but no login secret. Import/exp
 
 ## Operator backup / restore: Docker SQLite
 
-A full database backup covers every anonymous identity and the deduplication ledger. It is separate from one-browser JSON export. With the production Compose command used by `scripts/deploy-vm.sh`, make a consistent online backup (including committed WAL changes):
+A full database backup covers every anonymous identity and the deduplication ledger. It is separate from one-browser JSON export.
+
+### Automated daily backups (cron)
+
+On the production VPS (`~/qwerty-francais`), install the daily backup job in the `ubuntu` user crontab (`crontab -e`):
+
+```crontab
+23 4 * * * /home/ubuntu/qwerty-francais/deploy/backup-study-db.sh >> /home/ubuntu/backups/daily/cron.log 2>&1
+```
+
+The script `deploy/backup-study-db.sh`:
+1. Executes an online `VACUUM INTO` to a temp file inside the API container (`qwerty-francais-study-api-1`) via `node:sqlite`, uses `docker cp` to copy it to `/home/ubuntu/backups/daily/study-YYYYmmdd-HHMM.sqlite`, and deletes the temporary file in the container.
+2. Verifies the copy by running `PRAGMA integrity_check` (must be `ok`) and counting rows of `learners` and `accounts` in a throwaway container from the same image (`docker run --rm -v ~/backups/daily:/b:ro <api image> node -e ...`), printing the counts.
+3. Compresses the copy with `gzip` (`study-YYYYmmdd-HHMM.sqlite.gz`) and enforces a 14-file retention policy (deletes older files in `~/backups/daily` only — never touching any other files in `~/backups`).
+4. Logs one line per run to `~/backups/daily/backup.log` and exits non-zero on any failure.
+5. Never prints secrets and performs no network uploads (off-site storage is a separate decision).
+
+### Manual online backup
+
+With the production Compose command used by `scripts/deploy-vm.sh`, make a manual consistent online backup (including committed WAL changes):
 
 ```bash
 docker compose --env-file deploy/.env.production -f docker-compose.yaml -f docker-compose.production.yaml exec study-api node server/sqlite-backup.mjs /data/study-plan.sqlite /tmp/study-backup.sqlite
@@ -139,7 +158,41 @@ docker compose --env-file deploy/.env.production -f docker-compose.yaml -f docke
 
 The helper refuses an existing destination; use a new filename per backup. Store the resulting file outside the VM securely. `/tmp` is temporary: copy it before restarting the container. Do not commit database backups.
 
-To restore, first stop the `study-api` service with the same Compose arguments. Save the entire existing `study-data` volume as a rollback copy. In a temporary maintenance container with that volume mounted, move **all three** existing `study-plan.sqlite`, `study-plan.sqlite-wal` and `study-plan.sqlite-shm` files out of the data directory (if present), then copy the verified standalone backup to `/data/study-plan.sqlite` and set its owner to the image's `node` user (UID 1000), mode 600. Never replace only the main file while retaining an old WAL or while Node is running. Start `study-api` again; verify `/api/health` and the same browser's progress. Keep the rollback volume until verification passes. A restore rolls back progress for every identity to the backup time; stop writes during restoration.
+### How to restore (daily or manual backup)
+
+To restore:
+1. **Gunzip the backup file** (if restoring a compressed daily backup):
+   ```bash
+   gunzip -k /home/ubuntu/backups/daily/study-YYYYmmdd-HHMM.sqlite.gz
+   ```
+2. **Stop the API service**:
+   ```bash
+   docker compose --env-file deploy/.env.production -f docker-compose.yaml -f docker-compose.production.yaml stop study-api
+   ```
+   (or `docker stop qwerty-francais-study-api-1`). Stop writes during restoration; a restore rolls back progress for every identity to the backup time.
+3. **Save a rollback copy and copy into the volume / docker cp**:
+   Save the entire existing `study-data` volume as a rollback copy.
+   Never replace only the main file while retaining an old WAL or while Node is running. Move **all three** existing `study-plan.sqlite`, `study-plan.sqlite-wal`, and `study-plan.sqlite-shm` files out of `/data/` if present.
+   Copy the verified standalone backup into the volume (via a maintenance container or `docker cp`) and ensure ownership is set to the image's `node` user (UID 1000), mode 600:
+   ```bash
+   docker run --rm -v qwerty-francais_study-data:/data -v /home/ubuntu/backups/daily:/b:ro alpine sh -c "
+     rm -f /data/study-plan.sqlite* && \
+     cp /b/study-YYYYmmdd-HHMM.sqlite /data/study-plan.sqlite && \
+     chown 1000:1000 /data/study-plan.sqlite && \
+     chmod 600 /data/study-plan.sqlite
+   "
+   ```
+   Alternatively, via `docker cp` into the container while stopped:
+   ```bash
+   docker cp /home/ubuntu/backups/daily/study-YYYYmmdd-HHMM.sqlite qwerty-francais-study-api-1:/data/study-plan.sqlite
+   ```
+4. **Start the API service**:
+   ```bash
+   docker compose --env-file deploy/.env.production -f docker-compose.yaml -f docker-compose.production.yaml start study-api
+   ```
+   (or `docker start qwerty-francais-study-api-1`).
+5. **Verify restoration**:
+   Verify `http://127.0.0.1:8787/api/health` and verify learner progress in the browser. Keep the rollback volume until verification passes.
 
 ## Operator backup / restore: Cloudflare D1
 
