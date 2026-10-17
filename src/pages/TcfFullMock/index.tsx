@@ -18,7 +18,7 @@ import {
 } from '@/services/tcfFullMock'
 import { hasFullMockRating, mergeFullMockSessions } from '@/services/tcfFullMockMerge'
 import { correctedFullMockNow } from '@/services/tcfFullMockClock'
-import { safeSpeak, stopSpeechSynthesis } from '@/utils/speechSynthesis'
+import { playListeningQuestionAudio, stopListeningAudio } from '@/services/tcfListeningAudio'
 import { trackAnalyticsEvent } from '@/utils/analytics'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
@@ -242,9 +242,10 @@ export default function TcfFullMockPage() {
     if (!current || current.phase === 'complete' || finishingRef.current) return
     finishingRef.current = true
     setBusy(true)
-    stopSpeechSynthesis()
+    stopListeningAudio()
     const phase = current.phase
     const finishedAt = correctedFullMockNow(Date.now(), clockOffsetRef.current)
+
     const duration = Math.max(0, Math.min(TCF_CONFIG[phase].minutes * 60, Math.round((Math.min(finishedAt, current.deadlineAt) - current.stageStartedAt) / 1000)))
     let score: number | null
     let nclc: number | null
@@ -300,7 +301,9 @@ export default function TcfFullMockPage() {
     if (session && session.phase !== 'complete' && remaining === 0 && !busy) void submitStage()
   }, [session, remaining, busy, submitStage])
 
-  useEffect(() => { stopSpeechSynthesis() }, [session?.phase, session?.qcm.listening.index])
+  useEffect(() => { stopListeningAudio() }, [session?.phase, session?.qcm.listening.index])
+  useEffect(() => () => { stopListeningAudio() }, [])
+
 
   const activeRecordingKey = session ? `${session.id}-full-mock-eo-${session.speaking.activeTask}` : ''
   useEffect(() => {
@@ -488,10 +491,11 @@ export default function TcfFullMockPage() {
                             ...old,
                             qcm: { ...old.qcm, listening: { ...old.qcm.listening, played: [...old.qcm.listening.played, question.id] } },
                           }))
-                          safeSpeak(question.audioText ?? '', { lang: 'fr-CA', rate: 0.92 })
+                          void playListeningQuestionAudio(question)
                           trackAnalyticsEvent('listening_play')
                         }}
                         data-testid="full-mock-play"
+
                       >{progress.played.includes(question.id) ? '已播放（不可重播）' : '播放法语音频'}</button>
                     </div>
                   ) : (

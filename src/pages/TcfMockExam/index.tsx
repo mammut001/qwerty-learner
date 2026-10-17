@@ -17,8 +17,9 @@ import {
 } from '@/resources/tcfMock'
 import { isGuestMode } from '@/services/guestMode'
 import { type TcfAttemptRecord, addStudyMinutes, flushStudyProgress, getLearningProgress, recordTcfAttempt } from '@/services/studyPlanSync'
-import { safeSpeak, stopSpeechSynthesis } from '@/utils/speechSynthesis'
+import { playListeningQuestionAudio, stopListeningAudio } from '@/services/tcfListeningAudio'
 import { trackAnalyticsEvent } from '@/utils/analytics'
+
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { NavLink, useSearchParams } from 'react-router-dom'
 import IconArrowLeft from '~icons/tabler/arrow-left'
@@ -345,8 +346,10 @@ export default function TcfMockExamPage({ skill }: { skill: TcfQcmSkill }) {
 
   // Audio belongs to one question; leaving it must not keep the previous clip playing.
   useEffect(() => {
-    stopSpeechSynthesis()
+    stopListeningAudio()
   }, [currentIndex])
+
+  useEffect(() => () => { stopListeningAudio() }, [])
 
   const startPractice = () => {
     if (practicePool.length === 0) return
@@ -361,13 +364,14 @@ export default function TcfMockExamPage({ skill }: { skill: TcfQcmSkill }) {
   }
 
   const leavePractice = () => {
-    stopSpeechSynthesis()
+    stopListeningAudio()
     setMode('intro')
     setAnswers({})
     void refreshPracticePool()
   }
 
   const selectChoice = (choice: number) => {
+
     if (mode === 'practice') {
       if (answers[question.id] !== undefined) return
       if (choice === question.answer) markQuestionCleared(skill, question.id)
@@ -394,25 +398,21 @@ export default function TcfMockExamPage({ skill }: { skill: TcfQcmSkill }) {
     if (skill !== 'listening' || (mode !== 'practice' && played[question.id])) return
     if (mode !== 'practice') setPlayed((old) => ({ ...old, [question.id]: true }))
     trackAnalyticsEvent('listening_play')
-    const ok = safeSpeak(question.audioText ?? '', {
-      lang: 'fr-CA',
-      rate: 0.92,
+    void playListeningQuestionAudio(question, {
       onError: (err) => {
         if (err === 'not-supported') {
           setMessage('当前浏览器不支持法语语音播放，请使用最新版 Chrome / Safari。')
         }
       },
     })
-    if (!ok && (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined')) {
-      setMessage('当前浏览器不支持法语语音播放，请使用最新版 Chrome / Safari。')
-    }
   }
 
   async function finishExam() {
     if (mode !== 'running' || startedAt === null || submitting) return
     setSubmitting(true)
-    stopSpeechSynthesis()
+    stopListeningAudio()
     const finishedAt = Date.now()
+
     const responseItems = questions.map((item) => {
       const choice = answers[item.id]
       return {

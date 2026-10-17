@@ -43,3 +43,14 @@ export function mirrorOverridePath(audioUrl) {
   if (!fileName) return null
   return `ll/${encodeURIComponent(fileName)}`
 }
+
+/**
+ * Relative path of a TCF mock listening clip, same layout as the GCS bucket.
+ * @param {string} key 16-hex listening key
+ * @param {string} [version='v1']
+ * @returns {string} `listening/<version>/<key>.mp3`
+ */
+export function mirrorListeningPath(key, version = 'v1') {
+  return `listening/${version}/${key}.mp3`
+}
+

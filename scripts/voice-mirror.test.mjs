@@ -1,4 +1,4 @@
-import { VOICE_MIRROR_PATH, mirrorOverrideFileName, mirrorOverridePath, mirrorTtsPath } from '../src/utils/voiceMirror.mjs'
+import { VOICE_MIRROR_PATH, mirrorListeningPath, mirrorOverrideFileName, mirrorOverridePath, mirrorTtsPath } from '../src/utils/voiceMirror.mjs'
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
@@ -6,7 +6,10 @@ test('mirror path constants and TTS paths follow the bucket layout', () => {
   assert.equal(VOICE_MIRROR_PATH, '/voice-audio')
   assert.equal(mirrorTtsPath('fr-CA', '0009501a932aad8e'), 'v1/fr-CA/0009501a932aad8e.mp3')
   assert.equal(mirrorTtsPath('fr-FR', 'abc'), 'v1/fr-FR/abc.mp3')
+  assert.equal(mirrorListeningPath('f5be9877faf3ae9a'), 'listening/v1/f5be9877faf3ae9a.mp3')
+  assert.equal(mirrorListeningPath('f5be9877faf3ae9a', 'v2'), 'listening/v2/f5be9877faf3ae9a.mp3')
 })
+
 
 test('override file name is the URL-decoded last segment', () => {
   const url =
@@ -42,3 +45,16 @@ test('override path returns null for empty input', () => {
   assert.equal(mirrorOverridePath(null), null)
   assert.equal(mirrorOverridePath(''), null)
 })
+
+test('buildJobs compiles jobs from manifests and handles listening manifest', async () => {
+  const { buildJobs } = await import('./sync-voice-mirror.mjs')
+  const jobs = await buildJobs('/tmp/test-voice-mirror')
+  assert.ok(Array.isArray(jobs))
+  assert.ok(jobs.length > 0)
+  // All targets start with /tmp/test-voice-mirror
+  for (const job of jobs.slice(0, 5)) {
+    assert.ok(job.target.startsWith('/tmp/test-voice-mirror'))
+    assert.ok(job.source.startsWith('http'))
+  }
+})
+
