@@ -5,8 +5,8 @@
     "reviewed": false
   },
   "c’est": {
-    "ipa": "sɛst",
-    "source": "lexicon",
+    "ipa": "sɛ",
+    "source": "manual",
     "reviewed": false
   },
   "d’abord": {
@@ -40,7 +40,7 @@
     "reviewed": false
   },
   "d’appels": {
-    "ipa": "",
+    "ipa": "dapɛl",
     "source": "manual",
     "reviewed": false
   },
@@ -80,7 +80,7 @@
     "reviewed": false
   },
   "d’embouteillages": {
-    "ipa": "",
+    "ipa": "dɑ̃butɛjaʒ",
     "source": "manual",
     "reviewed": false
   },
@@ -90,7 +90,7 @@
     "reviewed": false
   },
   "d’emplois": {
-    "ipa": "",
+    "ipa": "dɑ̃plwa",
     "source": "manual",
     "reviewed": false
   },
@@ -130,7 +130,7 @@
     "reviewed": false
   },
   "d’europe": {
-    "ipa": "",
+    "ipa": "døʁɔp",
     "source": "manual",
     "reviewed": false
   },
@@ -165,7 +165,7 @@
     "reviewed": false
   },
   "d’initiatives": {
-    "ipa": "",
+    "ipa": "dinisjativ",
     "source": "manual",
     "reviewed": false
   },
@@ -210,22 +210,22 @@
     "reviewed": false
   },
   "j’achète": {
-    "ipa": "",
+    "ipa": "ʒaʃɛt",
     "source": "manual",
     "reviewed": false
   },
   "j’adore": {
-    "ipa": "",
+    "ipa": "ʒadɔʁ",
     "source": "manual",
     "reviewed": false
   },
   "j’ai": {
-    "ipa": "",
+    "ipa": "ʒe",
     "source": "manual",
     "reviewed": false
   },
   "j’aimerais": {
-    "ipa": "",
+    "ipa": "ʒɛmʁɛ",
     "source": "manual",
     "reviewed": false
   },
@@ -235,22 +235,22 @@
     "reviewed": false
   },
   "j’arrive": {
-    "ipa": "",
+    "ipa": "ʒaʁiv",
     "source": "manual",
     "reviewed": false
   },
   "j’avais": {
-    "ipa": "",
+    "ipa": "ʒavɛ",
     "source": "manual",
     "reviewed": false
   },
   "j’étais": {
-    "ipa": "",
+    "ipa": "ʒetɛ",
     "source": "manual",
     "reviewed": false
   },
   "j’hésite": {
-    "ipa": "",
+    "ipa": "ʒezit",
     "source": "manual",
     "reviewed": false
   },
@@ -275,7 +275,7 @@
     "reviewed": false
   },
   "l’ai": {
-    "ipa": "",
+    "ipa": "le",
     "source": "manual",
     "reviewed": false
   },
@@ -380,8 +380,8 @@
     "reviewed": false
   },
   "l’enseignement": {
-    "ipa": "lɑ̃sɛɲ(ə)mɑ̃",
-    "source": "lexicon",
+    "ipa": "lɑ̃sɛɲmɑ̃",
+    "source": "manual",
     "reviewed": false
   },
   "l’ensemble": {
@@ -515,7 +515,7 @@
     "reviewed": false
   },
   "m’inquiète": {
-    "ipa": "",
+    "ipa": "mɛ̃kjɛt",
     "source": "manual",
     "reviewed": false
   },
@@ -530,22 +530,22 @@
     "reviewed": false
   },
   "n’acceptera": {
-    "ipa": "",
+    "ipa": "naksɛptəʁa",
     "source": "manual",
     "reviewed": false
   },
   "n’es": {
-    "ipa": "",
+    "ipa": "nɛ",
     "source": "manual",
     "reviewed": false
   },
   "n’est": {
-    "ipa": "nɛst",
-    "source": "lexicon",
+    "ipa": "nɛ",
+    "source": "manual",
     "reviewed": false
   },
   "n’oubliez": {
-    "ipa": "",
+    "ipa": "nublije",
     "source": "manual",
     "reviewed": false
   },
@@ -565,8 +565,8 @@
     "reviewed": false
   },
   "qu’est": {
-    "ipa": "kɛst",
-    "source": "lexicon",
+    "ipa": "kɛ",
+    "source": "manual",
     "reviewed": false
   },
   "qu’il": {
@@ -585,12 +585,12 @@
     "reviewed": false
   },
   "s’adapte": {
-    "ipa": "",
+    "ipa": "sadapt",
     "source": "manual",
     "reviewed": false
   },
   "s’agit": {
-    "ipa": "",
+    "ipa": "saʒi",
     "source": "manual",
     "reviewed": false
   },
@@ -610,7 +610,7 @@
     "reviewed": false
   },
   "s’encourageait": {
-    "ipa": "",
+    "ipa": "sɑ̃kuʁaʒɛ",
     "source": "manual",
     "reviewed": false
   },
@@ -625,12 +625,12 @@
     "reviewed": false
   },
   "s’étirent": {
-    "ipa": "",
+    "ipa": "setiʁ",
     "source": "manual",
     "reviewed": false
   },
   "s’explique": {
-    "ipa": "",
+    "ipa": "sɛksplik",
     "source": "manual",
     "reviewed": false
   },
