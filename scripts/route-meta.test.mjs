@@ -1,7 +1,22 @@
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
+import fs from 'node:fs/promises'
+import os from 'node:os'
+import path from 'node:path'
 import test from 'node:test'
-import { ROUTE_SEO, escapeHtml, renderRouteHtml } from './route-meta.mjs'
+import {
+  INTENSIVE_PASSAGES,
+  INTENSIVE_TITLES,
+  ROUTE_SEO,
+  emitRouteStaticFiles,
+  escapeHtml,
+  generateSitemapXml,
+  passageDescription,
+  passageTitle,
+  renderPassageHtml,
+  renderRouteHtml,
+  titleForPath,
+} from './route-meta.mjs'
 
 const readRepoText = (relativePath) => readFile(new URL(`../${relativePath}`, import.meta.url), 'utf8')
 
@@ -181,3 +196,145 @@ test('rendered route HTML preserves relative icon links for base "./" and prefix
   const renderedSubpath = renderRouteHtml(indexHtml, intensiveRoute, ROUTE_SEO, '/qwerty-learner/')
   assert.match(renderedSubpath, /<link rel="icon" type="image\/png" sizes="32x32" href="\/qwerty-learner\/favicon-32x32\.png" \/>/)
 })
+
+test('per-passage HTML contains the canonical, escaped title, first sentence', () => {
+  for (const passage of INTENSIVE_PASSAGES) {
+    const html = renderPassageHtml(SAMPLE_TEMPLATE, passage, '/')
+    const expectedTitle = escapeHtml(passageTitle(passage))
+    const expectedCanonical = `https://french.paytonpei.top/intensive-listening/${passage.id}`
+    const firstSentence = escapeHtml(passage.sentences[0].fr)
+
+    assert.ok(html.includes(expectedCanonical), `canonical missing for passage ${passage.id}`)
+    assert.ok(html.includes(expectedTitle), `escaped title missing for passage ${passage.id}`)
+    assert.ok(html.includes(firstSentence), `first sentence missing for passage ${passage.id}`)
+
+    // Check noscript contains h1 with title zh and titleFr
+    assert.ok(
+      html.includes(`<h1>${escapeHtml(passage.title)} — ${escapeHtml(passage.titleFr)}</h1>`),
+      `h1 missing for passage ${passage.id}`,
+    )
+    // Check all French and Chinese translations are included
+    for (const sent of passage.sentences) {
+      assert.ok(html.includes(escapeHtml(sent.fr)), `french sentence missing: ${sent.fr}`)
+      assert.ok(html.includes(escapeHtml(sent.zh)), `chinese translation missing: ${sent.zh}`)
+    }
+    // Check backlink to /intensive-listening
+    assert.match(html, /<a href="\/intensive-listening">/)
+  }
+})
+
+test('renderPassageHtml escapes HTML special characters in passage metadata and sentences', () => {
+  const unsafePassage = {
+    id: 'test-unsafe',
+    title: 'Unsafe <title> & "more"',
+    titleFr: 'Titre <fr> & "test"',
+    level: 'B1',
+    topic: 'Topic <topic> & "test"',
+    sentences: [
+      { fr: 'Sentence <1> & "fr"', zh: '句子 <1> & "中"' },
+    ],
+    vocab: [],
+  }
+
+  const html = renderPassageHtml(SAMPLE_TEMPLATE, unsafePassage, '/')
+  assert.doesNotMatch(html, /<title>Unsafe <title>/)
+  assert.doesNotMatch(html, /Titre <fr>/)
+  assert.doesNotMatch(html, /Sentence <1>/)
+  assert.match(html, /&lt;title&gt; &amp; &quot;more&quot;/)
+  assert.match(html, /&lt;fr&gt; &amp; &quot;test&quot;/)
+  assert.match(html, /&lt;1&gt; &amp; &quot;fr&quot;/)
+})
+
+test('sitemap contains every passage URL', async () => {
+  const baseXml = await readRepoText('public/sitemap.xml')
+  const buildDate = '2026-10-17'
+  const xml = generateSitemapXml(baseXml, INTENSIVE_PASSAGES, buildDate)
+
+  for (const passage of INTENSIVE_PASSAGES) {
+    const expectedUrl = `https://french.paytonpei.top/intensive-listening/${passage.id}`
+    assert.ok(xml.includes(`<loc>${expectedUrl}</loc>`), `missing URL for passage: ${passage.id}`)
+    assert.ok(
+      xml.includes(`<loc>${expectedUrl}</loc><lastmod>${buildDate}</lastmod>`),
+      `missing lastmod buildDate for passage: ${passage.id}`,
+    )
+  }
+})
+
+test("base './' build writes no per-route folders", async () => {
+  const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'pseo-test-relative-'))
+  try {
+    await fs.writeFile(path.join(tempDir, 'index.html'), SAMPLE_TEMPLATE, 'utf-8')
+    const result = await emitRouteStaticFiles({
+      outDirAbs: tempDir,
+      resolvedBase: './',
+      routes: ROUTE_SEO,
+      passages: INTENSIVE_PASSAGES,
+      baseSitemapPath: path.resolve('public/sitemap.xml'),
+    })
+
+    assert.equal(result.writtenRoutes.length, 0)
+    assert.equal(result.writtenPassages.length, 0)
+    const files = await fs.readdir(tempDir)
+    assert.deepEqual(files, ['index.html'])
+  } finally {
+    await fs.rm(tempDir, { recursive: true, force: true })
+  }
+})
+
+test("base '/' build writes per-route folders, passage pages, and sitemap.xml", async () => {
+  const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'pseo-test-root-'))
+  try {
+    await fs.writeFile(path.join(tempDir, 'index.html'), SAMPLE_TEMPLATE, 'utf-8')
+    const result = await emitRouteStaticFiles({
+      outDirAbs: tempDir,
+      resolvedBase: '/',
+      routes: ROUTE_SEO,
+      passages: INTENSIVE_PASSAGES,
+      baseSitemapPath: path.resolve('public/sitemap.xml'),
+      buildDate: '2026-10-17',
+    })
+
+    assert.ok(result.writtenRoutes.length > 0)
+    assert.equal(result.writtenPassages.length, INTENSIVE_PASSAGES.length)
+    assert.equal(result.sitemapWritten, true)
+
+    for (const passage of INTENSIVE_PASSAGES) {
+      const passageHtml = await fs.readFile(
+        path.join(tempDir, 'intensive-listening', passage.id, 'index.html'),
+        'utf-8',
+      )
+      assert.ok(passageHtml.includes(escapeHtml(passageTitle(passage))))
+      assert.ok(passageHtml.includes(`https://french.paytonpei.top/intensive-listening/${passage.id}`))
+      assert.ok(passageHtml.includes(escapeHtml(passage.sentences[0].fr)))
+    }
+  } finally {
+    await fs.rm(tempDir, { recursive: true, force: true })
+  }
+})
+
+test('titleForPath returns passage title for /intensive-listening/:id', () => {
+  for (const passage of INTENSIVE_PASSAGES) {
+    assert.equal(
+      titleForPath(`/intensive-listening/${passage.id}`),
+      passageTitle(passage),
+    )
+    assert.equal(
+      titleForPath(`/intensive-listening/${passage.id}/`),
+      passageTitle(passage),
+    )
+  }
+  assert.equal(
+    titleForPath('/intensive-listening'),
+    ROUTE_SEO.find((r) => r.path === '/intensive-listening')?.title,
+  )
+})
+
+test('intensiveListeningTitles matches intensiveListening.ts ids, titles, and levels', () => {
+  const expected = INTENSIVE_PASSAGES.map((p) => ({
+    id: p.id,
+    title: p.title,
+    level: p.level,
+  }))
+  assert.deepEqual(INTENSIVE_TITLES, expected)
+})
+

@@ -1,5 +1,6 @@
 import { ROUTE_SEO } from './src/resources/routeSeo'
-import { renderRouteHtml, resolveRelativeIconLinks } from './scripts/route-meta.mjs'
+import { INTENSIVE_PASSAGES } from './src/resources/intensiveListening'
+import { emitRouteStaticFiles, resolveRelativeIconLinks } from './scripts/route-meta.mjs'
 import react from '@vitejs/plugin-react'
 import { promises as fs } from 'fs'
 import { getLastCommit } from 'git-last-commit'
@@ -31,24 +32,14 @@ function staticRouteMetaPlugin(): PluginOption {
       }
 
       const outDirAbs = path.resolve(__dirname, resolvedOutDir)
-      const indexPath = path.resolve(outDirAbs, 'index.html')
-      let baseHtml: string
-      try {
-        baseHtml = await fs.readFile(indexPath, 'utf-8')
-      } catch {
-        return
-      }
-
-      for (const route of ROUTE_SEO) {
-        const transformedHtml = renderRouteHtml(baseHtml, route, ROUTE_SEO, resolvedBase)
-        if (route.path === '/') {
-          await fs.writeFile(indexPath, transformedHtml, 'utf-8')
-        } else {
-          const routeDir = path.resolve(outDirAbs, route.path.replace(/^\/+/, ''))
-          await fs.mkdir(routeDir, { recursive: true })
-          await fs.writeFile(path.resolve(routeDir, 'index.html'), transformedHtml, 'utf-8')
-        }
-      }
+      const baseSitemapPath = path.resolve(__dirname, 'public/sitemap.xml')
+      await emitRouteStaticFiles({
+        outDirAbs,
+        resolvedBase,
+        routes: ROUTE_SEO,
+        passages: INTENSIVE_PASSAGES,
+        baseSitemapPath,
+      })
     },
   }
 }
