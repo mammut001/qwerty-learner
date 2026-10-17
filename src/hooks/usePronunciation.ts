@@ -188,14 +188,6 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
 
         void (async () => {
           const accent = pronunciationConfig.accent || 'fr-CA'
-          let ttsCandidates: string[] = []
-          try {
-            ttsCandidates = await lookupTtsAudioCandidates(word, accent)
-          } catch {
-            // tolerate failure by falling back
-          }
-          if (activeTokenRef.current !== myToken) return
-
           let override: VoiceOverride | null | undefined
           try {
             override = await lookupVoiceOverride(word)
@@ -203,24 +195,6 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
             // tolerate failure
           }
           if (activeTokenRef.current !== myToken) return
-
-          // Ordered clips: TTS (same-origin mirror, then bucket), then the Lingua Libre override (mirror, then original).
-          const clipUrls = [...ttsCandidates, ...overrideAudioCandidates(override)]
-          if (clipUrls.length > 0) {
-            const started = await playClipUrls(clipUrls, {
-              volume: pronunciationConfig.volume,
-              rate: pronunciationConfig.rate,
-              loop,
-              isCurrent: () => activeTokenRef.current === myToken,
-              audioRef: fallbackAudioRef,
-              onStart: () => setIsPlaying(true),
-              onEnd: () => {
-                activeTokenRef.current = null
-                setIsPlaying(false)
-              },
-            })
-            if (started || activeTokenRef.current !== myToken) return
-          }
 
           if (override && !override.audio) {
             safeSpeak(word, {
@@ -245,6 +219,32 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
               },
             })
             return
+          }
+
+          let ttsCandidates: string[] = []
+          try {
+            ttsCandidates = await lookupTtsAudioCandidates(word, accent)
+          } catch {
+            // tolerate failure by falling back
+          }
+          if (activeTokenRef.current !== myToken) return
+
+          // Ordered clips: Lingua Libre override (mirror, then original), then TTS (same-origin mirror, or bucket on Pages).
+          const clipUrls = [...overrideAudioCandidates(override), ...ttsCandidates]
+          if (clipUrls.length > 0) {
+            const started = await playClipUrls(clipUrls, {
+              volume: pronunciationConfig.volume,
+              rate: pronunciationConfig.rate,
+              loop,
+              isCurrent: () => activeTokenRef.current === myToken,
+              audioRef: fallbackAudioRef,
+              onStart: () => setIsPlaying(true),
+              onEnd: () => {
+                activeTokenRef.current = null
+                setIsPlaying(false)
+              },
+            })
+            if (started || activeTokenRef.current !== myToken) return
           }
 
           // Every clip failed (or none exist): the dictionary proxy, then Youdao / speech synthesis.
@@ -386,23 +386,36 @@ export function usePrefetchPronunciationSound(word: string | undefined) {
       let created: HTMLAudioElement | null = null
       const accent = pronunciationConfig.accent || 'fr-CA'
       void (async () => {
-        const ttsCandidates = await lookupTtsAudioCandidates(word, accent)
-        if (cancelled) return
-        let fromOverride = false
-        let soundUrl: string | undefined = ttsCandidates[0]
-        if (!soundUrl) {
-          const override = await lookupVoiceOverride(word)
-          if (cancelled) return
-          if (override === undefined) {
-            if (isFrenchVoiceAvailable()) {
-              prefetchFrenchVoice(word)
-            }
-            return
-          }
-          soundUrl = overrideAudioCandidates(override)[0]
-          fromOverride = true
+        let override: VoiceOverride | null | undefined
+        try {
+          override = await lookupVoiceOverride(word)
+        } catch {
+          // tolerate failure
         }
-        if (!soundUrl) return
+        if (cancelled) return
+
+        let soundUrl: string | undefined
+        let fromOverride = false
+        const overrideCandidates = overrideAudioCandidates(override)
+        if (overrideCandidates.length > 0) {
+          soundUrl = overrideCandidates[0]
+          fromOverride = true
+        } else if (!override || override.audio !== null) {
+          try {
+            const ttsCandidates = await lookupTtsAudioCandidates(word, accent)
+            soundUrl = ttsCandidates[0]
+          } catch {
+            // tolerate failure
+          }
+        }
+        if (cancelled) return
+
+        if (!soundUrl) {
+          if (override === undefined && isFrenchVoiceAvailable()) {
+            prefetchFrenchVoice(word)
+          }
+          return
+        }
         const url: string = soundUrl
         const head = document.head
         const isPrefetch = (Array.from(head.querySelectorAll('audio[src]')) as HTMLAudioElement[]).some(

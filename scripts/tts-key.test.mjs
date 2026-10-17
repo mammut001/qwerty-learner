@@ -183,3 +183,12 @@ test('ttsSpokenOverrides.mjs default export matches ttsSpokenOverrides.json', ()
   const json = JSON.parse(fs.readFileSync('src/utils/ttsSpokenOverrides.json', 'utf8'))
   assert.deepEqual(ttsSpokenOverridesJs, json)
 })
+
+test('ttsExclude.mjs export matches scripts/tts-exclude.json and isTtsExcluded works', async () => {
+  const { TTS_EXCLUDED_WORDS, isTtsExcluded } = await import('../src/utils/ttsExclude.mjs')
+  const json = JSON.parse(fs.readFileSync('scripts/tts-exclude.json', 'utf8'))
+  assert.deepEqual(TTS_EXCLUDED_WORDS, json)
+  assert.equal(isTtsExcluded('à'), true)
+  assert.equal(isTtsExcluded(' à '), true)
+  assert.equal(isTtsExcluded('bonjour'), false)
+})
