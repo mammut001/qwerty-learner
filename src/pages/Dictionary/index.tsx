@@ -149,7 +149,6 @@ export default function DictionaryPage() {
             <input
               type="search"
               aria-autocomplete="list"
-              aria-expanded={suggestions.length > 0}
               aria-controls={suggestions.length > 0 ? 'dictionary-suggestions-list' : undefined}
               aria-activedescendant={
                 selectedSuggestionIndex >= 0 && selectedSuggestionIndex < suggestions.length
@@ -230,7 +229,7 @@ export default function DictionaryPage() {
             ) : result && query && result.query === query ? (
               <DictionaryCard key={result.query} result={result.data} />
             ) : query ? (
-              <div className="flex items-center gap-2.5 py-4 text-sm text-gray-400 dark:text-gray-500">
+              <div className="flex items-center gap-2.5 py-4 text-sm text-gray-500 dark:text-gray-400">
                 <span className="inline-block h-2 w-2 animate-ping rounded-full bg-indigo-400 opacity-75" />
                 <span>正在查「{query}」…</span>
               </div>
@@ -241,7 +240,7 @@ export default function DictionaryPage() {
                   这类省音。阅读和听力复盘时，直接点原文里的单词也能查。例句里的词也一样。
                 </p>
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-xs text-gray-400">{history.length > 0 ? '最近查过' : '试试看'}</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">{history.length > 0 ? '最近查过' : '试试看'}</span>
                   {(history.length > 0 ? history : EXAMPLES).map((item) => (
                     <button key={item} type="button" onClick={() => search(item)} lang="fr" className={chipClass}>
                       {item}
@@ -263,7 +262,7 @@ export default function DictionaryPage() {
             </div>
           )}
 
-          <p className="mx-auto mt-6 max-w-prose text-center text-xs leading-5 text-gray-400/90 dark:text-gray-500">
+          <p className="mx-auto mt-6 max-w-prose text-center text-xs leading-5 text-gray-500 dark:text-gray-400">
             在线时，中文释义优先来自有道《现代法汉汉法词典》，查不到再由维基词典补全。离线词条来自英文与中文维基词典（Wiktionary），经
             kaikki.org / wiktextract 提取并裁剪，按 CC BY-SA 许可使用；「本站词库」是本项目自己整理的释义。
           </p>

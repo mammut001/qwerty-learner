@@ -41,6 +41,8 @@ export default function WordList() {
       <Tooltip content="List" placement="top" className="!absolute left-5 top-[50%] z-20">
         <button
           type="button"
+          aria-label="打开章节列表"
+          title="打开章节列表"
           onClick={openModal}
           className="fixed left-0 top-[50%] z-20 rounded-lg rounded-l-none bg-indigo-50 px-2 py-3 text-lg hover:bg-indigo-200 focus:outline-none dark:bg-indigo-900 dark:hover:bg-indigo-800"
         >

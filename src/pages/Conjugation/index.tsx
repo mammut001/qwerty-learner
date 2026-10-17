@@ -297,11 +297,11 @@ export default function ConjugationPage() {
                   type="button"
                   onClick={() => setSelectedVerb(verb)}
                   className={`w-full rounded-lg px-3 py-2 text-left transition ${
-                    active ? 'bg-indigo-500 text-white' : 'text-gray-700 hover:bg-indigo-50 dark:text-gray-200 dark:hover:bg-gray-700'
+                    active ? 'bg-indigo-600 text-white' : 'text-gray-700 hover:bg-indigo-50 dark:text-gray-200 dark:hover:bg-gray-700'
                   }`}
                 >
                   <div className="font-medium">{verb.infinitive}</div>
-                  <div className={`text-xs ${active ? 'text-indigo-100' : 'text-gray-400'}`}>{verb.translation}</div>
+                  <div className={`text-xs ${active ? 'text-indigo-100' : 'text-gray-500 dark:text-gray-400'}`}>{verb.translation}</div>
                 </button>
               )
             })}
@@ -334,7 +334,7 @@ export default function ConjugationPage() {
                   setMode('study')
                 }}
                 className={`rounded-lg px-4 py-2 text-sm ${
-                  mode === 'study' ? 'bg-white font-medium text-indigo-600 shadow dark:bg-gray-700' : 'text-gray-500'
+                  mode === 'study' ? 'bg-white font-medium text-indigo-600 shadow dark:bg-gray-700' : 'text-gray-600 dark:text-gray-400'
                 }`}
               >
                 查看模式
@@ -343,7 +343,7 @@ export default function ConjugationPage() {
                 type="button"
                 onClick={() => setMode('practice')}
                 className={`rounded-lg px-4 py-2 text-sm ${
-                  mode === 'practice' ? 'bg-white font-medium text-indigo-600 shadow dark:bg-gray-700' : 'text-gray-500'
+                  mode === 'practice' ? 'bg-white font-medium text-indigo-600 shadow dark:bg-gray-700' : 'text-gray-600 dark:text-gray-400'
                 }`}
               >
                 练习模式
@@ -369,7 +369,7 @@ export default function ConjugationPage() {
                   }`}
                 >
                   <div className="font-medium">{conjugationTenseLabels[tense]}</div>
-                  <div className="text-xs opacity-70">{accuracy === null ? '未练习' : `${accuracy}% · ${stat.correct}/${stat.total}`}</div>
+                  <div className={`text-xs ${selectedTense === tense ? 'text-indigo-600 dark:text-indigo-300' : 'text-gray-500 dark:text-gray-400'}`}>{accuracy === null ? '未练习' : `${accuracy}% · ${stat.correct}/${stat.total}`}</div>
                 </button>
               )
             })}

@@ -110,7 +110,7 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
 
               {/* Timestamp if available */}
               {segment && !isAudioPending && (
-                <span className="font-mono text-[10px] opacity-75">
+                <span className={`font-mono text-[10px] ${isActive ? 'text-gray-700 dark:text-gray-300' : 'text-gray-500 dark:text-gray-400'}`}>
                   {segment.start.toFixed(1)}s
                 </span>
               )}
@@ -127,7 +127,7 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
               {showFrench ? (
                 sentence.fr
               ) : (
-                <span className="select-none tracking-widest text-gray-400 dark:text-gray-500 font-mono">
+                <span className="select-none tracking-widest text-gray-500 dark:text-gray-400 font-mono">
                   {getBlindPlaceholder(sentence.fr)}
                 </span>
               )}
@@ -135,7 +135,7 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
 
             {/* Chinese Translation (Smaller font, grey) */}
             {showChinese && (
-              <div className="mt-1.5 text-xs text-gray-500 leading-normal dark:text-gray-400">
+              <div className={`mt-1.5 text-xs leading-normal ${isActive ? 'text-gray-700 dark:text-gray-300' : 'text-gray-500 dark:text-gray-400'}`}>
                 {sentence.zh}
               </div>
             )}

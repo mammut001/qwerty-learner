@@ -62,7 +62,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ lesson, progress }) => {
         <div className="absolute left-2 top-2">
           <span
             className={`rounded-md px-2 py-0.5 text-xs font-bold shadow-sm ${
-              lesson.level === 'B1' ? 'bg-emerald-600 text-white' : 'bg-amber-600 text-white'
+              lesson.level === 'B1' ? 'bg-emerald-700 text-white' : 'bg-amber-700 text-white'
             }`}
           >
             {lesson.level}
@@ -71,7 +71,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ lesson, progress }) => {
 
         {/* Completed indicator badge on top-right */}
         {isCompleted && (
-          <div className="absolute right-2 top-2 flex items-center gap-1 rounded-md bg-emerald-600/90 px-2 py-0.5 text-xs font-medium text-white shadow-sm backdrop-blur-sm">
+          <div className="absolute right-2 top-2 flex items-center gap-1 rounded-md bg-emerald-700/90 px-2 py-0.5 text-xs font-medium text-white shadow-sm backdrop-blur-sm">
             <IconCheck className="h-3.5 w-3.5" />
             <span>已完成</span>
           </div>
