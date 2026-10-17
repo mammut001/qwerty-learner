@@ -71,7 +71,7 @@ export function isPathIgnored(filePath, rules) {
   return { ignored, matchedRule }
 }
 
-test('no git-tracked files under src/ or server/ are excluded by .dockerignore', () => {
+test('no git-tracked files under src/ or server/ are excluded by .dockerignore (except server tests)', () => {
   const content = fs.readFileSync(dockerignorePath, 'utf8')
   const rules = parseDockerignore(content)
 
@@ -83,6 +83,7 @@ test('no git-tracked files under src/ or server/ are excluded by .dockerignore',
     .split(/\r?\n/)
     .map(f => f.trim())
     .filter(Boolean)
+    .filter(f => !f.endsWith('.test.mjs'))
 
   const excluded = []
   for (const file of files) {
@@ -99,6 +100,43 @@ test('no git-tracked files under src/ or server/ are excluded by .dockerignore',
       excluded.map(e => `  - ${e.file} (matched rule: ${e.matchedRule})`).join('\n')
   )
 })
+
+test('server test files are excluded by .dockerignore while runtime modules are not', () => {
+  const content = fs.readFileSync(dockerignorePath, 'utf8')
+  const rules = parseDockerignore(content)
+
+  const trackedOutput = execFileSync('git', ['ls-files', 'server'], {
+    cwd: repoRoot,
+    encoding: 'utf8',
+  })
+  const serverFiles = trackedOutput
+    .split(/\r?\n/)
+    .map(f => f.trim())
+    .filter(Boolean)
+
+  const testFiles = serverFiles.filter(f => f.endsWith('.test.mjs'))
+  const runtimeFiles = serverFiles.filter(f => !f.endsWith('.test.mjs'))
+
+  assert.ok(testFiles.length > 0, 'Expected to find server test files')
+  for (const file of testFiles) {
+    const { ignored } = isPathIgnored(file, rules)
+    assert.strictEqual(
+      ignored,
+      true,
+      `Expected server test file "${file}" to be excluded by .dockerignore`
+    )
+  }
+
+  for (const file of runtimeFiles) {
+    const { ignored, matchedRule } = isPathIgnored(file, rules)
+    assert.strictEqual(
+      ignored,
+      false,
+      `Expected server runtime module "${file}" to not be excluded by .dockerignore (matched rule: ${matchedRule})`
+    )
+  }
+})
+
 
 test('no git-tracked files under public/ or scripts/ are excluded by .dockerignore', () => {
   const content = fs.readFileSync(dockerignorePath, 'utf8')
