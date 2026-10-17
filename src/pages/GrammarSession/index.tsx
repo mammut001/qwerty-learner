@@ -250,7 +250,7 @@ export default function GrammarSessionPage() {
       <Layout>
         <div className="container mx-auto flex flex-1 items-center justify-center px-4 pb-10 sm:px-6 lg:px-10">
           <section className="my-card w-full max-w-3xl rounded-3xl bg-white p-5 dark:bg-gray-800 sm:p-10">
-            <div className="flex items-center gap-3 text-indigo-500">
+            <div className="flex items-center gap-3 text-indigo-600 dark:text-indigo-400">
               <IconClock className="text-3xl" />
               <span className="text-sm font-medium">
                 30 分钟 · {topic.tagline} · 欧标 {topic.level} · Échelle {topic.echelle}
@@ -292,12 +292,12 @@ export default function GrammarSessionPage() {
                               <div className="mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400">
                                 {item.tagline} · 欧标 {item.level} · Échelle {item.echelle}
                                 {isBeyondNclc7(item.echelle) && (
-                                  <span className="ml-1 text-gray-400 dark:text-gray-500">（NCLC 7 之后）</span>
+                                  <span className="ml-1 text-gray-500 dark:text-gray-400">（NCLC 7 之后）</span>
                                 )}
                                 {' · '}
                                 {item.scenarios.length} 题
                               </div>
-                              <div className="mt-1 text-xs text-gray-400">
+                              <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
                                 {last ? `上次 ${last.score} / ${last.total} · ${last.day}` : '还没练过'}
                               </div>
                             </button>

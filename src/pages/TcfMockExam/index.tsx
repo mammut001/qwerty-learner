@@ -584,7 +584,7 @@ export default function TcfMockExamPage({ skill }: { skill: TcfQcmSkill }) {
                       }`}
                     >
                       <div className="font-semibold text-gray-900 dark:text-white">{option.label}</div>
-                      <div className="mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400">{option.detail}</div>
+                      <div className="mt-1 text-xs leading-5 text-gray-600 dark:text-gray-400">{option.detail}</div>
                     </button>
                   ))}
                 </div>
