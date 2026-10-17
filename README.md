@@ -148,6 +148,12 @@ RECALL_API_BASE=http://127.0.0.1:8787 RECALL_API_TOKEN=your-token node scripts/r
 
 完整安全模型、残留风险和全部命令见 [docs/recall-moderation.md](docs/recall-moderation.md)。
 
+## 语音合成管线 (TTS)
+
+词汇发音、TCF 模考听力与精听短文采用 Google Cloud TTS (Chirp 3 HD) 与 SSML IPA 字典合成，并通过 Deepgram Nova-3 ASR 进行自动化质检与人工全量试听复核。
+
+完整音频管线架构、省音与变音注音决策记录、同形异音避坑、GCS/VPS 镜像运维与逐步操作清单见 [docs/tts-pipeline.md](docs/tts-pipeline.md)。
+
 ## 致谢与许可
 
 - 基于 [RealKai42/qwerty-learner](https://github.com/RealKai42/qwerty-learner) 修改。
