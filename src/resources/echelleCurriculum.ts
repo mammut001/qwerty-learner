@@ -1,7 +1,9 @@
 import * as raw from '../../server/echelle-curriculum-core.mjs'
 import type { EchelleDiscourseType } from './echelleQuebecoise'
 
-export type EchelleItemSkill = 'listening' | 'reading' | 'writing' | 'speaking' | 'lex' | 'gr'
+import type { EchelleItemSkill } from './echelleItemId'
+export type { EchelleItemSkill }
+
 
 export type EchelleQuestion = { prompt: string; choices: string[]; answer: string }
 
@@ -61,7 +63,7 @@ export const ECHELLE_ITEM_CATALOG = raw.ECHELLE_ITEM_CATALOG as Readonly<Record<
 
 export const getEchelleLevelItems = raw.getEchelleLevelItems as (level: number) => string[]
 
-export const parseEchelleItemId = raw.parseEchelleItemId as (itemId: string) => { level: number; skill: EchelleItemSkill } | null
+export { ECHELLE_ITEM_ID_REGEX, parseEchelleItemId } from './echelleItemId'
 
 export const scoreEchelleItem = raw.scoreEchelleItem as (
   itemId: string,

@@ -625,7 +625,7 @@ describe('Échelle item variant engine', () => {
         resetStudyPlanSyncForTest()
         resetBatchLoaderStateForTest()
         registerIndicatorScenarios(N01_02_SCENARIOS)
-        recordEchelleMastery({ itemId, answers, variant })
+        await recordEchelleMastery({ itemId, answers, variant })
         const cachedBaseline = JSON.parse(localStorage.getItem('qwerty-fr-study-plan-v1'))
         const baselineRecord = cachedBaseline.learning.echelle.items[itemId]
 
@@ -639,7 +639,7 @@ describe('Échelle item variant engine', () => {
           return { N01_02_SCENARIOS }
         })
 
-        recordEchelleMastery({ itemId, answers, variant })
+        await recordEchelleMastery({ itemId, answers, variant })
         const reconcilePromise = getLastEchelleReconcilePromise()
         assert.ok(reconcilePromise, 'Reconcile promise must be started')
         await reconcilePromise

@@ -1,6 +1,5 @@
-import { computePlacementResult } from '../../server/placement-data.mjs'
-import { getIndicatorScenarios, parseEchelleItemId, scoreEchelleItem } from '../resources/echelleCurriculum'
-import { nextMemory } from '../resources/echelleMemory'
+import type { EchelleScore } from '../resources/echelleCurriculum'
+import { parseEchelleItemId } from '../resources/echelleItemId'
 import type { PlacementProfile, PlacementResult } from '../resources/placementTest'
 import { isGuestMode, onGuestModeChange, setGuestMode } from './guestMode'
 import { trackAnalyticsEvent } from '../utils/analytics'
@@ -1276,8 +1275,9 @@ export type PlacementResultInput = {
   answers: { questionId: string; choiceIndex: number }[]
 }
 
-export function recordPlacementResult(input: PlacementResultInput): PlacementResult {
+export async function recordPlacementResult(input: PlacementResultInput): Promise<PlacementResult> {
   if (!Array.isArray(input.answers) || input.answers.length === 0) throw new Error('INVALID_PLACEMENT_ANSWERS')
+  const { computePlacementResult } = await import('../../server/placement-data.mjs')
   const result = computePlacementResult({
     ...input,
     id: input.id ?? crypto.randomUUID(),
@@ -1308,12 +1308,16 @@ export type EchelleCheckInput = {
   aiRequired?: boolean
 }
 
-export function recordEchelleMastery(input: EchelleCheckInput) {
+export async function recordEchelleMastery(input: EchelleCheckInput): Promise<EchelleScore & { mastered: boolean }> {
   const hasVariant = typeof input.variant === 'number' && input.variant > 0
   const meta = {
     ...(input.response ?? {}),
     ...(hasVariant ? { variant: input.variant } : {}),
   }
+  const [{ getIndicatorScenarios, scoreEchelleItem }, { nextMemory }] = await Promise.all([
+    import('../resources/echelleCurriculum'),
+    import('../resources/echelleMemory'),
+  ])
   const result = scoreEchelleItem(input.itemId, input.answers, meta)
   if (!result) throw new Error('UNKNOWN_ECHELLE_ITEM')
   // The server keeps the newest attempt only, so retries within one millisecond must still move forward.
@@ -1397,7 +1401,7 @@ export function recordEchelleMastery(input: EchelleCheckInput) {
   if (parsed && (parsed.skill === 'writing' || parsed.skill === 'speaking')) {
     const primaryId = `n${parsed.level}-${parsed.skill}-production`
     if (input.itemId !== primaryId) {
-      recordEchelleMastery({ ...input, itemId: primaryId })
+      await recordEchelleMastery({ ...input, itemId: primaryId })
     }
   }
   return { ...result, mastered: result.mastered && selfAssess }

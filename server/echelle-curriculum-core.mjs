@@ -57,13 +57,8 @@ function toQuestions(itemId, rows) {
 }
 
 // Item ID regex used server-side for validation.
-export const ECHELLE_ITEM_ID_REGEX = /^n(\d{1,2})-(listening|reading|writing|speaking|lex|gr)-[a-z0-9-]{1,60}$/
-
-export function parseEchelleItemId(itemId) {
-  const m = itemId.match(ECHELLE_ITEM_ID_REGEX)
-  if (!m) return null
-  return { level: Number(m[1]), skill: m[2] }
-}
+import { ECHELLE_ITEM_ID_REGEX, parseEchelleItemId } from './echelle-item-id.mjs'
+export { ECHELLE_ITEM_ID_REGEX, parseEchelleItemId }
 
 // Grammar / text concept mapping ---------------------------------------------
 const GRAMMAR_BY_TEXT = new Map()
