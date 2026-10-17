@@ -1,3 +1,11 @@
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import type React from 'react'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import Layout from '@/components/Layout'
+import { INTENSIVE_PASSAGES } from '@/resources/intensiveListening'
+import type { SentenceSegment } from '@/services/intensiveListeningAudio'
+import { loadIntensiveManifest } from '@/services/intensiveListeningAudio'
+import { trackAnalyticsEvent } from '@/utils/analytics'
 import { PassageCard } from './PassageCard'
 import { PlayerControls } from './PlayerControls'
 import { TranscriptView } from './TranscriptView'
@@ -16,14 +24,6 @@ import {
   shouldLoopCurrentSentence,
 } from './helpers'
 import type { IntensiveLevelFilter, IntensiveListeningManifest, Passage } from './types'
-import Layout from '@/components/Layout'
-import { INTENSIVE_PASSAGES } from '@/resources/intensiveListening'
-import type { SentenceSegment } from '@/services/intensiveListeningAudio'
-import { loadIntensiveManifest } from '@/services/intensiveListeningAudio'
-import { trackAnalyticsEvent } from '@/utils/analytics'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import type React from 'react'
-import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
 export const IntensiveListeningPage: React.FC = () => {
   const { id } = useParams<{ id?: string }>()
