@@ -80,19 +80,66 @@ export function classifyQaToken(rawToken) {
 }
 
 /**
+ * Resolves the list of ignored defect tokens for a specific item from an ignore configuration.
+ * Supports matching exact item ID or question id suffix (e.g. matching question id 'co-11').
+ * @param {Record<string, Record<string, string[]>> | null | undefined} ignoreConfig
+ * @param {string} manifestType e.g. 'tcf-listening' or 'intensive'
+ * @param {string} itemId e.g. 'co-11' or 'radio-communautaire'
+ * @returns {string[]}
+ */
+export function getIgnoredTokens(ignoreConfig, manifestType, itemId) {
+  if (!ignoreConfig || typeof ignoreConfig !== 'object') return []
+  const typeMap = ignoreConfig[manifestType]
+  if (!typeMap || typeof typeMap !== 'object') return []
+  if (Array.isArray(typeMap[itemId])) return typeMap[itemId]
+  if (typeof itemId === 'string') {
+    const match = Object.entries(typeMap).find(([k]) => itemId === k || itemId.endsWith(k))
+    if (match && Array.isArray(match[1])) return match[1]
+  }
+  return []
+}
+
+/**
+ * Normalizes an array or Set of ignored tokens into a Set of cleaned tokens.
+ * @param {Array<string> | Set<string> | null | undefined} ignoredTokens
+ * @returns {Set<string>}
+ */
+function toNormalizedIgnoreSet(ignoredTokens) {
+  if (!ignoredTokens) return new Set()
+  const list = ignoredTokens instanceof Set ? Array.from(ignoredTokens) : Array.isArray(ignoredTokens) ? ignoredTokens : [ignoredTokens]
+  return new Set(list.map((t) => normalizeQaToken(t)).filter(Boolean))
+}
+
+/**
+ * Filters an array of already-flagged items using an ignore list.
+ * @param {Array<{ token: string }>} flaggedWords
+ * @param {Array<string> | Set<string>} [ignoredTokens]
+ * @returns {Array<{ token: string }>}
+ */
+export function filterIgnoredFlaggedWords(flaggedWords, ignoredTokens = []) {
+  if (!Array.isArray(flaggedWords)) return []
+  const ignoreSet = toNormalizedIgnoreSet(ignoredTokens)
+  if (ignoreSet.size === 0) return flaggedWords
+  return flaggedWords.filter((f) => !ignoreSet.has(normalizeQaToken(f.token)))
+}
+
+/**
  * Inspects a list of Deepgram word objects or tokens and returns all flagged items.
+ * An optional list or Set of ignoredTokens can be provided to skip known legitimate letter spellings.
  * @param {Array<string | { word?: string, punctuated_word?: string, start?: number, end?: number, confidence?: number }>} words
+ * @param {Array<string> | Set<string>} [ignoredTokens]
  * @returns {Array<{ token: string, raw: string, type: string, reason: string, start: number | null, end: number | null, confidence: number | null, index: number }>}
  */
-export function findFlaggedWords(words) {
+export function findFlaggedWords(words, ignoredTokens = []) {
   if (!Array.isArray(words)) return []
+  const ignoreSet = toNormalizedIgnoreSet(ignoredTokens)
   const flagged = []
 
   for (let i = 0; i < words.length; i++) {
     const item = words[i]
     const raw = typeof item === 'string' ? item : item?.word || item?.punctuated_word || ''
     const classification = classifyQaToken(raw)
-    if (classification) {
+    if (classification && !ignoreSet.has(classification.token)) {
       flagged.push({
         ...classification,
         start: typeof item?.start === 'number' ? item.start : null,

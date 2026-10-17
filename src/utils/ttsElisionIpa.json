@@ -186,8 +186,10 @@
   },
   "d’oignon": {
     "ipa": "dɔɲɔ̃",
-    "source": "lexicon",
-    "reviewed": false
+    "say": "doignon",
+    "source": "manual",
+    "reviewed": false,
+    "note": "Chirp rejects ɲ in phoneme"
   },
   "d’optimiser": {
     "ipa": "dɔptimize",

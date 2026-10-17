@@ -20,9 +20,32 @@ const { INTENSIVE_AUDIO_BASE_URL, computeIntensiveObjectPath } = await import('.
 
 const { TCF_LISTENING_BASE_URL, computeListeningObjectPath } = await import('../src/utils/tcfListeningAudioKey.mjs')
 
-const { findFlaggedWords, formatIntensiveFlaggedSentence, formatTcfFlaggedMessage, mapFlaggedWordToIntensiveSentence } = await import(
-  '../src/utils/ttsQaHelpers.mjs'
-)
+const {
+  findFlaggedWords,
+  formatIntensiveFlaggedSentence,
+  formatTcfFlaggedMessage,
+  getIgnoredTokens,
+  mapFlaggedWordToIntensiveSentence,
+} = await import('../src/utils/ttsQaHelpers.mjs')
+
+export const QA_IGNORE_FILE = path.resolve('scripts/tts-qa-ignore.json')
+
+/**
+ * Loads the optional per-item QA ignore list (e.g. scripts/tts-qa-ignore.json).
+ * @param {string} [filePath]
+ * @returns {Record<string, Record<string, string[]>>}
+ */
+export function loadQaIgnoreConfig(filePath = QA_IGNORE_FILE) {
+  if (filePath && fs.existsSync(filePath)) {
+    try {
+      return JSON.parse(fs.readFileSync(filePath, 'utf8'))
+    } catch (err) {
+      console.warn(`Warning: Could not parse QA ignore file ${filePath}: ${err.message}`)
+      return {}
+    }
+  }
+  return {}
+}
 
 const INTENSIVE_MANIFEST_FILE = path.resolve('public/voice/intensive-listening-manifest.json')
 const TCF_MANIFEST_FILE = path.resolve('public/voice/tcf-listening-manifest.json')
@@ -124,7 +147,7 @@ export async function transcribeWithDeepgram(apiKey, audioBuffer) {
   throw new Error('Deepgram transcription failed after retries')
 }
 
-async function runIntensiveQa({ only, concurrency, apiKey }) {
+async function runIntensiveQa({ only, concurrency, apiKey, ignoreConfig = loadQaIgnoreConfig() }) {
   if (!fs.existsSync(INTENSIVE_MANIFEST_FILE)) {
     console.error(`Error: Manifest file not found: ${INTENSIVE_MANIFEST_FILE}`)
     process.exit(1)
@@ -155,7 +178,8 @@ async function runIntensiveQa({ only, concurrency, apiKey }) {
     try {
       const audioBuffer = await downloadAudio(publicUrl)
       const asr = await transcribeWithDeepgram(apiKey, audioBuffer)
-      const flagged = findFlaggedWords(asr.words)
+      const ignoredTokens = getIgnoredTokens(ignoreConfig, 'intensive', passageId)
+      const flagged = findFlaggedWords(asr.words, ignoredTokens)
 
       if (flagged.length > 0) {
         totalDefects += flagged.length
@@ -182,7 +206,7 @@ async function runIntensiveQa({ only, concurrency, apiKey }) {
   return totalDefects
 }
 
-async function runTcfQa({ only, concurrency, apiKey }) {
+async function runTcfQa({ only, concurrency, apiKey, ignoreConfig = loadQaIgnoreConfig() }) {
   if (!fs.existsSync(TCF_MANIFEST_FILE)) {
     console.error(`Error: Manifest file not found: ${TCF_MANIFEST_FILE}`)
     process.exit(1)
@@ -210,7 +234,8 @@ async function runTcfQa({ only, concurrency, apiKey }) {
     try {
       const audioBuffer = await downloadAudio(publicUrl)
       const asr = await transcribeWithDeepgram(apiKey, audioBuffer)
-      const flagged = findFlaggedWords(asr.words)
+      const ignoredTokens = getIgnoredTokens(ignoreConfig, 'tcf-listening', qId)
+      const flagged = findFlaggedWords(asr.words, ignoredTokens)
 
       if (flagged.length > 0) {
         totalDefects += flagged.length
@@ -245,11 +270,12 @@ async function main() {
     process.exit(1)
   }
 
+  const ignoreConfig = loadQaIgnoreConfig()
   let totalDefects = 0
   if (manifestType === 'intensive') {
-    totalDefects = await runIntensiveQa({ only, concurrency, apiKey })
+    totalDefects = await runIntensiveQa({ only, concurrency, apiKey, ignoreConfig })
   } else {
-    totalDefects = await runTcfQa({ only, concurrency, apiKey })
+    totalDefects = await runTcfQa({ only, concurrency, apiKey, ignoreConfig })
   }
 
   if (totalDefects > 0) {

@@ -101,7 +101,7 @@ export function normalizeElisionCombo(combo) {
 let cachedDict = null
 /**
  * Loads the elision IPA dictionary from src/utils/ttsElisionIpa.json.
- * @returns {Record<string, { ipa: string, source: 'lexicon' | 'manual', reviewed: boolean }>}
+ * @returns {Record<string, { ipa: string, say?: string, source: 'lexicon' | 'manual', reviewed: boolean, note?: string }>}
  */
 export function loadElisionIpaDict() {
   if (cachedDict) return cachedDict
@@ -122,8 +122,9 @@ export function loadElisionIpaDict() {
 
 /**
  * Finds all elision combos in a sentence that are missing or have empty IPA in the dictionary.
+ * Combos with an optional "say" replacement text are not considered missing even if IPA is empty.
  * @param {string} text
- * @param {Record<string, { ipa: string }>} [dictionary]
+ * @param {Record<string, { ipa?: string, say?: string }>} [dictionary]
  * @returns {string[]} array of missing combo keys normalized to ’
  */
 export function findMissingElisionCombos(text, dictionary = loadElisionIpaDict()) {
@@ -133,8 +134,9 @@ export function findMissingElisionCombos(text, dictionary = loadElisionIpaDict()
   for (const m of matches) {
     const key = normalizeElisionCombo(m[0])
     const entry = dictionary?.[key]
+    const hasSay = typeof entry?.say === 'string' && entry.say.trim() !== ''
     const ipa = typeof entry?.ipa === 'string' ? entry.ipa.trim() : ''
-    if (!ipa) {
+    if (!ipa && !hasSay) {
       missing.add(key)
     }
   }
@@ -156,14 +158,15 @@ export function escapeXml(text) {
  * Formats a sentence for TTS using SSML:
  * - Applies réévalue fix
  * - Escapes XML in text
- * - Wraps each elision combo found in dictionary with <phoneme alphabet="ipa" ph="IPA">combo</phoneme>
+ * - If combo has "say" text, replaces with escaped say text
+ * - Otherwise wraps each elision combo found in dictionary with <phoneme alphabet="ipa" ph="IPA">combo</phoneme>
  * - Preserves original casing and apostrophe of the combo
  * - Wraps entire text in <speak>...</speak>
- * - Refuses synthesis (throws Error) if allowMissing is false and a combo has empty IPA
+ * - Refuses synthesis (throws Error) if allowMissing is false and a combo has neither IPA nor say
  *
  * @param {string | null | undefined} text
  * @param {{
- *   dictionary?: Record<string, { ipa: string }>,
+ *   dictionary?: Record<string, { ipa?: string, say?: string }>,
  *   allowMissing?: boolean,
  *   alwaysWrapSpeak?: boolean
  * }} [options]
@@ -205,9 +208,12 @@ export function formatTtsSsml(text, { dictionary = loadElisionIpaDict(), allowMi
 
     const key = normalizeElisionCombo(raw)
     const entry = dictionary?.[key]
+    const hasSay = typeof entry?.say === 'string' && entry.say.trim() !== ''
     const ipa = typeof entry?.ipa === 'string' ? entry.ipa.trim() : ''
 
-    if (ipa) {
+    if (hasSay) {
+      ssml += escapeXml(entry.say)
+    } else if (ipa) {
       ssml += `<phoneme alphabet="ipa" ph="${ipa}">${escapeXml(raw)}</phoneme>`
     } else {
       ssml += escapeXml(raw)

@@ -289,11 +289,11 @@ test('applyTtsSentenceFixes preserves elisions, formatTtsSpokenText produces SSM
     const hasElision = elisionRegex.test(q.audioText || '')
     const key = computeListeningKeyForQuestion(q)
 
+    assert.equal(key, manifest.items[q.id], `Key mismatch for question ${q.id}: ${key} !== ${manifest.items[q.id]}`)
+
     if (hasElision) {
-      assert.notEqual(key, manifest.items[q.id], `Key should change for question with elision: ${q.id}`)
       changedCount++
     } else {
-      assert.equal(key, manifest.items[q.id], `Key mismatch for unaffected question ${q.id}: ${key} !== ${manifest.items[q.id]}`)
       unchangedCount++
     }
   }

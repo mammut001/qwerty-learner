@@ -2,15 +2,17 @@ import {
   LONE_ELIDED_TOKENS,
   SPELLED_PUNCTUATION_TOKENS,
   classifyQaToken,
+  filterIgnoredFlaggedWords,
   findFlaggedWords,
   formatIntensiveFlaggedSentence,
   formatTcfFlaggedMessage,
+  getIgnoredTokens,
   isFlaggedToken,
   mapFlaggedWordToIntensiveSentence,
   normalizeQaToken,
   timeToSegmentIndex,
 } from '../src/utils/ttsQaHelpers.mjs'
-import { parseArgs } from './tts-qa-deepgram.mjs'
+import { QA_IGNORE_FILE, loadQaIgnoreConfig, parseArgs } from './tts-qa-deepgram.mjs'
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
@@ -216,4 +218,80 @@ test('parseArgs parses CLI arguments for tts-qa-deepgram', () => {
     only: 'radio-communautaire',
     concurrency: 2,
   })
+})
+
+test('getIgnoredTokens extracts per-item ignored tokens from ignore config', () => {
+  const config = {
+    'tcf-listening': {
+      'co-11': ['c'],
+      'co-20': ['s', 'qu'],
+    },
+    'intensive': {
+      'radio-communautaire': ['c'],
+    },
+  }
+
+  // Exact matches
+  assert.deepEqual(getIgnoredTokens(config, 'tcf-listening', 'co-11'), ['c'])
+  assert.deepEqual(getIgnoredTokens(config, 'tcf-listening', 'co-20'), ['s', 'qu'])
+  assert.deepEqual(getIgnoredTokens(config, 'intensive', 'radio-communautaire'), ['c'])
+
+  // Suffix matching fallback
+  assert.deepEqual(getIgnoredTokens(config, 'tcf-listening', 'tcf-set-b-co-11'), ['c'])
+
+  // Non-matching
+  assert.deepEqual(getIgnoredTokens(config, 'tcf-listening', 'co-01'), [])
+  assert.deepEqual(getIgnoredTokens(config, 'unknown-type', 'co-11'), [])
+  assert.deepEqual(getIgnoredTokens(null, 'tcf-listening', 'co-11'), [])
+  assert.deepEqual(getIgnoredTokens({}, 'tcf-listening', 'co-11'), [])
+})
+
+test('findFlaggedWords skips ignored defect tokens for specific items', () => {
+  // Simulates question co-11: "vol AC 412" transcribed as "vol A C quatre cent douze"
+  const wordsCo11 = [
+    { word: 'vol', start: 0.1, end: 0.4 },
+    { word: 'A', start: 0.45, end: 0.65 },
+    { word: 'C', start: 0.7, end: 1.0 }, // Would normally be flagged as lone elision
+    { word: 'quatre', start: 1.05, end: 1.4 },
+  ]
+
+  // Without ignore list: 'c' is flagged
+  const flaggedWithoutIgnore = findFlaggedWords(wordsCo11)
+  assert.equal(flaggedWithoutIgnore.length, 1)
+  assert.equal(flaggedWithoutIgnore[0].token, 'c')
+
+  // With ignore list: 'c' is skipped
+  const flaggedWithIgnore = findFlaggedWords(wordsCo11, ['c'])
+  assert.deepEqual(flaggedWithIgnore, [])
+
+  // Case-insensitive and punctuation-tolerant ignore matching
+  assert.deepEqual(findFlaggedWords(wordsCo11, ['C']), [])
+  assert.deepEqual(findFlaggedWords(wordsCo11, ["c'"]), [])
+  assert.deepEqual(findFlaggedWords(wordsCo11, new Set(['c'])), [])
+
+  // Unrelated defects in same item are still flagged
+  const mixedWords = [
+    { word: 'C', start: 0.5, end: 0.8 }, // Ignored
+    { word: 's', start: 1.2, end: 1.5 }, // Real defect
+  ]
+  const mixedFlagged = findFlaggedWords(mixedWords, ['c'])
+  assert.equal(mixedFlagged.length, 1)
+  assert.equal(mixedFlagged[0].token, 's')
+
+  // filterIgnoredFlaggedWords helper
+  const allFlagged = findFlaggedWords(mixedWords)
+  assert.equal(allFlagged.length, 2)
+  const filtered = filterIgnoredFlaggedWords(allFlagged, ['c'])
+  assert.equal(filtered.length, 1)
+  assert.equal(filtered[0].token, 's')
+})
+
+test('loadQaIgnoreConfig loads committed scripts/tts-qa-ignore.json with AC flight code rule', () => {
+  const config = loadQaIgnoreConfig(QA_IGNORE_FILE)
+  assert.ok(config && typeof config === 'object')
+  assert.ok(Array.isArray(config?.['tcf-listening']?.['co-11']))
+  assert.deepEqual(config['tcf-listening']['co-11'], ['c'])
+
+  // Non-existent path returns empty object safely
+  assert.deepEqual(loadQaIgnoreConfig('/tmp/non-existent-qa-ignore.json'), {})
 })

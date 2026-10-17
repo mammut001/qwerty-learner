@@ -155,3 +155,39 @@ test('formatTtsSpokenText uses committed dictionary by default and formats stand
   const s3 = formatTtsSpokenText("d'été")
   assert.equal(s3, '<speak><phoneme alphabet="ipa" ph="dete">d\'été</phoneme></speak>')
 })
+
+test('say strategy replaces combo with plain escaped say text and avoids phoneme element', () => {
+  const customDict = {
+    'd’oignon': { ipa: 'dɔɲɔ̃', say: 'doignon', source: 'manual', reviewed: false, note: 'Chirp rejects ɲ in phoneme' },
+    'l’école': { ipa: 'lekɔl', source: 'lexicon', reviewed: false },
+    'qu’autre': { ipa: '', say: 'quautre & plus', source: 'manual', reviewed: false },
+  }
+
+  // d'oignon replaces with "doignon" instead of <phoneme>
+  assert.equal(
+    formatTtsSsml("des pelures d'oignon fraîches", { dictionary: customDict }),
+    '<speak>des pelures doignon fraîches</speak>',
+  )
+  assert.equal(
+    formatTtsSsml('des pelures d’oignon fraîches', { dictionary: customDict }),
+    '<speak>des pelures doignon fraîches</speak>',
+  )
+
+  // Mixed: one combo with phoneme, one combo with say
+  assert.equal(
+    formatTtsSsml("l'école et d'oignon", { dictionary: customDict }),
+    '<speak><phoneme alphabet="ipa" ph="lekɔl">l\'école</phoneme> et doignon</speak>',
+  )
+
+  // say with empty ipa does NOT count as missing and does not throw with allowMissing: false
+  assert.deepEqual(findMissingElisionCombos("rien qu'autre", customDict), [])
+  assert.equal(
+    formatTtsSsml("rien qu'autre", { dictionary: customDict, allowMissing: false }),
+    '<speak>rien quautre &amp; plus</speak>',
+  )
+
+  // Real committed dictionary formats d’oignon as doignon without phoneme
+  const committedReal = formatTtsSpokenText("pelures d’oignon pour le bouillon")
+  assert.equal(committedReal, '<speak>pelures doignon pour le bouillon</speak>')
+  assert.ok(!committedReal.includes('<phoneme'))
+})
