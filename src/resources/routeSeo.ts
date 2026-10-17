@@ -1,4 +1,4 @@
-import { INTENSIVE_PASSAGES } from './intensiveListening'
+import { INTENSIVE_TITLES } from './intensiveListeningTitles'
 
 export interface RouteSeoItem {
   path: string
@@ -46,9 +46,9 @@ export function titleForPath(pathname: string): string {
   if (normalized.startsWith('/intensive-listening/')) {
     const id = normalized.slice('/intensive-listening/'.length)
     if (id) {
-      const passage = INTENSIVE_PASSAGES.find((p) => p.id === id)
-      if (passage) {
-        return passageTitle(passage)
+      const item = INTENSIVE_TITLES.find((p) => p.id === id)
+      if (item) {
+        return passageTitle(item)
       }
     }
     const intensive = ROUTE_SEO.find((item) => item.path === '/intensive-listening')

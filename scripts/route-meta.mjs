@@ -1,9 +1,10 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { INTENSIVE_PASSAGES } from '../src/resources/intensiveListening.ts'
+import { INTENSIVE_TITLES } from '../src/resources/intensiveListeningTitles.ts'
 import { ROUTE_SEO, passageTitle, titleForPath } from '../src/resources/routeSeo.ts'
 
-export { ROUTE_SEO, ROUTE_SEO as routeSeo, INTENSIVE_PASSAGES, passageTitle, titleForPath }
+export { ROUTE_SEO, ROUTE_SEO as routeSeo, INTENSIVE_PASSAGES, INTENSIVE_TITLES, passageTitle, titleForPath }
 
 export const SITE_ORIGIN = 'https://french.paytonpei.top'
 

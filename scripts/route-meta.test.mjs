@@ -6,6 +6,7 @@ import path from 'node:path'
 import test from 'node:test'
 import {
   INTENSIVE_PASSAGES,
+  INTENSIVE_TITLES,
   ROUTE_SEO,
   emitRouteStaticFiles,
   escapeHtml,
@@ -327,3 +328,13 @@ test('titleForPath returns passage title for /intensive-listening/:id', () => {
     ROUTE_SEO.find((r) => r.path === '/intensive-listening')?.title,
   )
 })
+
+test('intensiveListeningTitles matches intensiveListening.ts ids, titles, and levels', () => {
+  const expected = INTENSIVE_PASSAGES.map((p) => ({
+    id: p.id,
+    title: p.title,
+    level: p.level,
+  }))
+  assert.deepEqual(INTENSIVE_TITLES, expected)
+})
+
