@@ -589,14 +589,14 @@ function QuizPanel({ item }: { item: EchelleQuizItem }) {
       ? scoreEchelleItem(activeItem.id, answers, { variant })
       : null
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!complete) return
     if (variant > 0 && item.kind === 'indicator' && !isItemBatchLoaded(item.id)) {
       console.error(`[QuizPanel] Cannot submit variant ${variant} for ${item.id} before batch is loaded`)
       return
     }
     const score = scoreEchelleItem(activeItem.id, answers, { variant })
-    recordEchelleMastery({ itemId: activeItem.id, answers, variant })
+    await recordEchelleMastery({ itemId: activeItem.id, answers, variant })
     setSubmitted(true)
     trackAnalyticsEvent('level_quiz_submit', {
       level: item.level,
@@ -932,8 +932,8 @@ function ProductionPanel({
     !evaluating &&
     !isTranscribing
 
-  const handleSelfMaster = () => {
-    recordEchelleMastery({
+  const handleSelfMaster = async () => {
+    await recordEchelleMastery({
       itemId: activeTask.id,
       response: isWriting ? { selfChecks, wordCount: wc } : { selfChecks, seconds: effectiveAudioSeconds },
     })

@@ -21,10 +21,18 @@ import { authStatusAtom } from '@/store/auth'
 import { resolveHomePath } from '@/utils/homePath'
 import 'animate.css'
 import { useAtomValue } from 'jotai'
+// Targeted polyfill for Safari 14 / iOS 14 / Chrome < 98 (Typing practice relies on structuredClone).
+if (typeof globalThis.structuredClone !== 'function') {
+  globalThis.structuredClone = ((value: unknown) => {
+    if (value === undefined) return undefined
+    return JSON.parse(JSON.stringify(value))
+  }) as typeof structuredClone
+}
+
 import React, { Suspense, lazy, useEffect, useRef, useState } from 'react'
-import 'react-app-polyfill/stable'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
+
 
 const NotFoundPage = lazy(() => import('./pages/NotFound'))
 const AdminHomePage = lazy(() => import('./pages/AdminHome'))

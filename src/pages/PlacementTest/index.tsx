@@ -100,7 +100,7 @@ export default function PlacementTestPage() {
     if (index > 0) setIndex((value) => value - 1)
   }
 
-  const finishTest = () => {
+  const finishTest = async () => {
     const finishedAt = Date.now()
     const start = startedAt ?? finishedAt
     const payload = {
@@ -119,7 +119,7 @@ export default function PlacementTestPage() {
       if (firstMissing >= 0) setIndex(firstMissing)
       return
     }
-    const saved = recordPlacementResult(payload)
+    const saved = await recordPlacementResult(payload)
     setResult(saved)
     setMode('result')
     void flushStudyProgress()
