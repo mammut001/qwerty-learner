@@ -98,20 +98,9 @@ async function clickMainNav(page: Page, name: string) {
     return
   }
   const more = nav.getByRole('button', { name: /更多/ })
-  if (await more.isVisible().catch(() => false)) {
-    await more.click()
-    const menuItem = page.getByRole('menuitem', { name, exact: true })
-    if (await menuItem.isVisible().catch(() => false)) {
-      await menuItem.click()
-      return
-    }
-    const menuLink = page.getByRole('link', { name, exact: true })
-    if (await menuLink.isVisible().catch(() => false)) {
-      await menuLink.click()
-      return
-    }
-  }
-  await direct.click()
+  await more.click()
+  const item = nav.getByRole('menuitem', { name, exact: true }).or(nav.getByRole('link', { name, exact: true }))
+  await item.click()
 }
 
 test('main nav and TCF 模考 stay in one document with a stable header', async ({ page }) => {
