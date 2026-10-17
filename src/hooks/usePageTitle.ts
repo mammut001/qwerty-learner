@@ -28,6 +28,13 @@ export function titleForPath(pathname: string): string {
     }
   }
 
+  if (normalized.startsWith('/intensive-listening/')) {
+    const intensive = ROUTE_SEO.find((item) => item.path === '/intensive-listening')
+    if (intensive) {
+      return intensive.title
+    }
+  }
+
   return defaultTitle
 }
 

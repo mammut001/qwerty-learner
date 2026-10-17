@@ -107,6 +107,14 @@ export const ROUTE_SEO: RouteSeoItem[] = [
     intro: '精选加拿大、魁北克与法国真实新闻与演讲视频，结合变速与 A-B 复读功能磨耳朵。',
   },
   {
+    path: '/intensive-listening',
+    title: `精听 — ${SITE_SUFFIX}`,
+    description:
+      '专为 TCF Canada 考生打造的法语句级同步精听训练平台，收录原创魁北克生活、租房与职场高频语料。通过原生加拿大法语发音、毫秒级音频文本对照、单句循环复读与盲听测验，全面攻克连音与听力难关。',
+    h1: '法语句级同步精听',
+    intro: '独创魁北克标准法语篇，句级同步高亮对照，支持单句循环、盲听模式与词汇测验。',
+  },
+  {
     path: '/tcf-reading',
     title: `TCF 阅读练习 — ${SITE_SUFFIX}`,
     description:
