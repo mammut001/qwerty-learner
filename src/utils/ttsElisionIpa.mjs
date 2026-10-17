@@ -143,7 +143,7 @@ export default {
     "reviewed": false
   },
   "d’autres": {
-    "ipa": "",
+    "ipa": "dotʁ",
     "source": "manual",
     "reviewed": false
   },
@@ -268,7 +268,7 @@ export default {
     "reviewed": false
   },
   "d’études": {
-    "ipa": "",
+    "ipa": "detyd",
     "source": "manual",
     "reviewed": false
   },
@@ -308,7 +308,7 @@ export default {
     "reviewed": false
   },
   "d’horaires": {
-    "ipa": "",
+    "ipa": "dɔʁɛʁ",
     "source": "manual",
     "reviewed": false
   },
@@ -475,12 +475,12 @@ export default {
     "reviewed": false
   },
   "j’habitais": {
-    "ipa": "",
+    "ipa": "ʒabitɛ",
     "source": "manual",
     "reviewed": false
   },
   "j’habite": {
-    "ipa": "",
+    "ipa": "ʒabit",
     "source": "manual",
     "reviewed": false
   },
@@ -1055,7 +1055,7 @@ export default {
     "reviewed": false
   },
   "m’explique": {
-    "ipa": "",
+    "ipa": "mɛksplik",
     "source": "manual",
     "reviewed": false
   },
@@ -1070,7 +1070,7 @@ export default {
     "reviewed": false
   },
   "m’intéresse": {
-    "ipa": "",
+    "ipa": "mɛ̃teʁɛs",
     "source": "manual",
     "reviewed": false
   },
@@ -1080,7 +1080,7 @@ export default {
     "reviewed": false
   },
   "m’oppose": {
-    "ipa": "",
+    "ipa": "mɔpoz",
     "source": "manual",
     "reviewed": false
   },
@@ -1090,12 +1090,12 @@ export default {
     "reviewed": false
   },
   "n’ai": {
-    "ipa": "",
+    "ipa": "ne",
     "source": "manual",
     "reviewed": false
   },
   "n’empêche": {
-    "ipa": "",
+    "ipa": "nɑ̃pɛʃ",
     "source": "manual",
     "reviewed": false
   },
@@ -1105,7 +1105,7 @@ export default {
     "reviewed": false
   },
   "n’entends": {
-    "ipa": "",
+    "ipa": "nɑ̃tɑ̃",
     "source": "manual",
     "reviewed": false
   },
@@ -1120,12 +1120,12 @@ export default {
     "reviewed": false
   },
   "n’hésitez": {
-    "ipa": "",
+    "ipa": "nezite",
     "source": "manual",
     "reviewed": false
   },
   "n’importe": {
-    "ipa": "",
+    "ipa": "nɛ̃pɔʁt",
     "source": "manual",
     "reviewed": false
   },
@@ -1230,7 +1230,7 @@ export default {
     "reviewed": false
   },
   "s’appeler": {
-    "ipa": "sap(ə)le",
+    "ipa": "saple",
     "source": "lexicon",
     "reviewed": false
   },
@@ -1435,12 +1435,12 @@ export default {
     "reviewed": false
   },
   "t’aime": {
-    "ipa": "",
+    "ipa": "tɛm",
     "source": "manual",
     "reviewed": false
   },
   "t’appelles": {
-    "ipa": "",
+    "ipa": "tapɛl",
     "source": "manual",
     "reviewed": false
   },
