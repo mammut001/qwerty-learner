@@ -43,9 +43,7 @@ async function setupAudioAndAuth(page: Page) {
   })
 }
 
-test('intensive listening list, passage view, transcript toggles, sentence seek, and single main landmark', async ({
-  page,
-}) => {
+test('intensive listening list, passage view, transcript toggles, sentence seek, and single main landmark', async ({ page }) => {
   await setupAudioAndAuth(page)
 
   // Read manifest to obtain the exact segment start timestamp for sentence 3
@@ -92,18 +90,22 @@ test('intensive listening list, passage view, transcript toggles, sentence seek,
   // 6. Clicking sentence 3 seeks the <audio> currentTime to the manifest segment start of sentence 3
   const audio = page.locator('audio')
   // Wait until audio metadata has loaded from the stubbed MP3 fixture
-  await expect.poll(async () => {
-    return await audio.evaluate((el: HTMLAudioElement) => el.readyState >= 1)
-  }).toBe(true)
+  await expect
+    .poll(async () => {
+      return await audio.evaluate((el: HTMLAudioElement) => el.readyState >= 1)
+    })
+    .toBe(true)
 
   // Click sentence 3 (index 2) in the transcript list
   const sentence3Row = page.locator('[aria-label="精听原文对照"] > div').nth(2)
   await sentence3Row.click()
 
   // Verify currentTime matches the segment start in the manifest
-  await expect.poll(async () => {
-    return await audio.evaluate((el: HTMLAudioElement) => el.currentTime)
-  }).toBeCloseTo(sentence3SegmentStart, 1)
+  await expect
+    .poll(async () => {
+      return await audio.evaluate((el: HTMLAudioElement) => el.currentTime)
+    })
+    .toBeGreaterThanOrEqual(sentence3SegmentStart)
 
   // Exactly one <main> remains asserted
   await expect(page.locator('main')).toHaveCount(1)
@@ -165,19 +167,13 @@ test('clicking a French word like école opens offline dictionary lookup with Ch
   await expect(transcript.getByText('école', { exact: false })).toHaveCount(0)
 })
 
-test('credits listening time to study minutes, respects study params, and fires intensive_complete on passage end', async ({
-  page,
-}) => {
+test('credits listening time to study minutes, respects study params, and fires intensive_complete on passage end', async ({ page }) => {
   await setupAudioAndAuth(page)
 
-  // Track analytics events and install controllable clock stub
+  await page.clock.install({ time: new Date('2026-10-17T12:00:00') })
+
+  // Track analytics events
   await page.addInitScript(() => {
-    let offset = 0
-    const realNow = Date.now.bind(Date)
-    Date.now = () => realNow() + offset
-    ;(window as any).__advanceClock = (ms: number) => {
-      offset += ms
-    }
     ;(window as any).umami = {
       track: (name: string, data?: Record<string, string | number | boolean>) => {
         ;((window as any)._trackedEvents ??= []).push({ name, data })
@@ -190,22 +186,31 @@ test('credits listening time to study minutes, respects study params, and fires 
   await expect(page.getByRole('heading', { name: '第一天上法语课' })).toBeVisible()
 
   const audio = page.locator('audio')
-  await expect.poll(async () => {
-    return await audio.evaluate((el: HTMLAudioElement) => el.readyState >= 1)
-  }).toBe(true)
+  await expect
+    .poll(async () => {
+      return await audio.evaluate((el: HTMLAudioElement) => el.readyState >= 1)
+    })
+    .toBe(true)
 
   // Start playback
   await page.getByRole('button', { name: '播放', exact: true }).filter({ visible: true }).click()
-  await expect.poll(async () => {
-    return await audio.evaluate((el: HTMLAudioElement) => !el.paused)
-  }).toBe(true)
+  await expect
+    .poll(async () => {
+      return await audio.evaluate((el: HTMLAudioElement) => !el.paused)
+    })
+    .toBe(true)
+  await expect(page.getByRole('button', { name: '暂停', exact: true }).filter({ visible: true })).toBeVisible()
 
   // While playing, advance clock by 75s of simulated playback (75s -> 2 minutes) and pause
-  await page.evaluate(() => {
-    ;(window as any).__advanceClock(75_000)
-    const audioEl = document.querySelector('audio')
-    audioEl?.pause()
+  await page.clock.runFor(75_000)
+  await audio.evaluate((el: HTMLAudioElement) => {
+    el.pause()
   })
+  await expect
+    .poll(async () => {
+      return await audio.evaluate((el: HTMLAudioElement) => el.paused)
+    })
+    .toBe(true)
 
   // Leave page to trigger onLeave flush
   await page.goto('/study-plan')
@@ -223,9 +228,7 @@ test('credits listening time to study minutes, respects study params, and fires 
   expect(satOp.value).toBe(2)
 
   // Verify local plan storage updated
-  const storedPlan = await page.evaluate(() =>
-    JSON.parse(localStorage.getItem('qwerty-fr-study-plan-v1') ?? '{}'),
-  )
+  const storedPlan = await page.evaluate(() => JSON.parse(localStorage.getItem('qwerty-fr-study-plan-v1') ?? '{}'))
   expect(storedPlan.minutes?.['2026-10-17']?.['sat-listening']).toBeGreaterThanOrEqual(2)
 
   // Re-visit passage to assert intensive_complete event

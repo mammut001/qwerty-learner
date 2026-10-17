@@ -54,15 +54,10 @@ test('credits video listening time to study minutes and fires video_listen analy
     route.fulfill({ json: { enabled: true, required: false, signedIn: false, user: null } }),
   )
 
+  await page.clock.install({ time: new Date('2026-10-17T12:00:00') })
+
   // Stub YouTube iframe API and clock before page loads
   await page.addInitScript(() => {
-    let offset = 0
-    const realNow = Date.now.bind(Date)
-    Date.now = () => realNow() + offset
-    ;(window as any).__advanceClock = (ms: number) => {
-      offset += ms
-    }
-
     // Analytics spy
     ;(window as any).umami = {
       track: (name: string, data?: Record<string, string | number | boolean>) => {
@@ -77,9 +72,9 @@ test('credits video listening time to study minutes and fires video_listen analy
     class MockPlayer {
       constructor(elementId: string, options: any) {
         stateChangeCallback = options?.events?.onStateChange
-        setTimeout(() => {
+        queueMicrotask(() => {
           options?.events?.onReady?.({ target: this })
-        }, 10)
+        })
       }
       playVideo() {
         currentState = 1
@@ -123,17 +118,7 @@ test('credits video listening time to study minutes and fires video_listen analy
   })
 
   // Advance time by 65s of playback (65s -> 2 minutes, and >= 60s for video_listen)
-  await page.evaluate(() => {
-    ;(window as any).__advanceClock(65_000)
-  })
-
-  // Wait for 250ms polling loop to process the 65s playback
-  await expect.poll(async () => {
-    return await page.evaluate(() => {
-      const events = (window as any)._trackedEvents ?? []
-      return events.some((e: any) => e.name === 'video_listen')
-    })
-  }).toBe(true)
+  await page.clock.runFor(65_000)
 
   // Verify only 1 video_listen event was fired
   const events = await page.evaluate(() => (window as any)._trackedEvents ?? [])
@@ -156,8 +141,6 @@ test('credits video listening time to study minutes and fires video_listen analy
   expect(satOp.value).toBe(2)
 
   // Verify local study plan state updated
-  const storedPlan = await page.evaluate(() =>
-    JSON.parse(localStorage.getItem('qwerty-fr-study-plan-v1') ?? '{}'),
-  )
+  const storedPlan = await page.evaluate(() => JSON.parse(localStorage.getItem('qwerty-fr-study-plan-v1') ?? '{}'))
   expect(storedPlan.minutes?.['2026-10-17']?.['sat-listening']).toBeGreaterThanOrEqual(2)
 })
