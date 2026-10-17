@@ -49,7 +49,7 @@ import {
   reduceBillingEvent,
   verifyStripeSignature,
 } from './study-billing.mjs'
-import { bearerMatches, createStudyMetrics, logStudyRequest, loopbackAddress, studyRequestId } from './study-observability.mjs'
+import { bearerMatches, createStudyMetrics, extractCspReportFields, logCspReport, logStudyRequest, loopbackAddress, studyRequestId } from './study-observability.mjs'
 import {
   createAccountSession,
   createNodePasskeyLoginOptions,
@@ -267,6 +267,23 @@ async function readFormBody(req, limit = APPLE_FORM_MAX_BYTES) {
     chunks.push(buf)
   }
   return new URLSearchParams(Buffer.concat(chunks, total).toString('utf8'))
+}
+
+const CSP_REPORT_MAX_BYTES = 8 * 1024
+
+// Reads a JSON or CSP-report body up to limit bytes (default 8 KB). Throws RangeError if exceeded.
+async function readJsonBody(req, limit = CSP_REPORT_MAX_BYTES) {
+  const chunks = []
+  let total = 0
+  for await (const chunk of req) {
+    const buf = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)
+    total += buf.length
+    if (total > limit) throw new RangeError('Request too large')
+    chunks.push(buf)
+  }
+  const raw = Buffer.concat(chunks, total).toString('utf8')
+  if (!raw.trim()) return {}
+  return JSON.parse(raw)
 }
 
 // Only the fixed error codes are ever shown or stored; the name comes from Apple's first-login user JSON.
@@ -719,9 +736,10 @@ export function createStudyServer({
     const billingCheckout = path === '/api/study-plan/billing/checkout'
     const billingPortal = path === '/api/study-plan/billing/portal'
     const billingWebhook = path === '/api/study-plan/billing/webhook'
+    const cspReportRoute = path === '/api/study-plan/csp-report'
     const plan = path === '/api/study-plan'
     if (!health && !importing && !exporting && !analytics && !syncKey && !revokeSyncKey && !linking && !unlinking &&
-        !billingStatus && !billingCheckout && !billingPortal && !billingWebhook &&
+        !billingStatus && !billingCheckout && !billingPortal && !billingWebhook && !cspReportRoute &&
         !echelleAi && !echelleEvaluate && !speechTranscribe && !dictionary && !dictionaryVoice &&
         !authRoute && !authFirebase && !authLogout && !appleStart && !appleCallbackRoute && !appleFinish &&
         !syncInfo && !review && !errorBook && !checkins && !makeup && !achievements && !reports && !reportExport && !deleteData &&
@@ -740,7 +758,7 @@ export function createStudyServer({
     const policy = studyPolicy(
       { origin, secure, sameSite },
       { method: req.method, headers: new Headers(req.headers) },
-      health ? true : { allowBinary: speechTranscribe, allowSessionPut: tcfFullMock, webhook: billingWebhook, appleCallback: appleCallbackRoute && appleEnabled },
+      health ? true : { allowBinary: speechTranscribe, allowSessionPut: tcfFullMock, webhook: billingWebhook, appleCallback: appleCallbackRoute && appleEnabled, cspReport: cspReportRoute },
     )
     for (const [key, value] of Object.entries(policy.headers)) res.setHeader(key, value)
     if (policy.status) return policy.status === 204
@@ -1190,6 +1208,42 @@ export function createStudyServer({
       )
       audit(null, 'apple_login', 'pending')
       return sendAppleHop(res, `/api/study-plan/auth/apple/finish?ticket=${ticket}`)
+    }
+
+    if (cspReportRoute) {
+      if (req.method !== 'POST') return sendError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed')
+      const limit = consumeNodeRateLimit(db, 'actor:' + actorHash, 'csp-report', {
+        limit: 60,
+        windowMs: 60 * 1000,
+        blockMs: 60 * 1000,
+      })
+      if (!limit.allowed) {
+        return sendError(
+          429,
+          'REPORT_RATE_LIMITED',
+          'Too many reports. Try again later.',
+          { retryAfterSeconds: Math.ceil(limit.retryAfterMs / 1000) },
+          { 'Retry-After': String(Math.ceil(limit.retryAfterMs / 1000)) },
+        )
+      }
+      const contentType = String(req.headers['content-type'] || '').split(';')[0].trim().toLowerCase()
+      if (contentType !== 'application/csp-report' && contentType !== 'application/json') {
+        return sendPendingBodyError(415, 'UNSUPPORTED_MEDIA_TYPE', 'Unsupported content type')
+      }
+      let body
+      try {
+        body = await readJsonBody(req, CSP_REPORT_MAX_BYTES)
+      } catch (error) {
+        return sendPendingBodyError(
+          error instanceof RangeError ? 413 : 400,
+          error instanceof RangeError ? 'REQUEST_TOO_LARGE' : 'REPORT_INVALID',
+          error instanceof RangeError ? 'Request too large' : 'Invalid report payload',
+        )
+      }
+      const fields = extractCspReportFields(body)
+      logCspReport({ requestId, ...fields })
+      res.writeHead(204, { 'Cache-Control': 'no-store' })
+      return res.end()
     }
 
     if (!accessGranted(req.headers.cookie)) return sendError(401, 'ACCESS_REQUIRED', 'Access password required')
