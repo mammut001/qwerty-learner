@@ -12,6 +12,7 @@ import {
   parseMp3Duration,
 } from '../src/utils/intensiveListeningAudioKey.mjs'
 import { mirrorIntensivePath } from '../src/utils/voiceMirror.mjs'
+import { INTENSIVE_PASSAGES } from '../src/resources/intensiveListening.ts'
 
 test('computeIntensiveKey produces 16 hex chars and is deterministic', () => {
   const passage = {
@@ -95,11 +96,42 @@ test('concatenateMp3Buffers combines multiple chunks', () => {
   assert.deepEqual([...combined], [1, 2, 3, 4, 5])
 })
 
-test('intensive listening manifest exists and is valid empty JSON', () => {
+test('intensive listening manifest is valid and consistent with passages', () => {
   const manifestPath = path.resolve('public/voice/intensive-listening-manifest.json')
   assert.ok(fs.existsSync(manifestPath))
   const data = JSON.parse(fs.readFileSync(manifestPath, 'utf8'))
   assert.equal(data.version, 'v1')
-  assert.ok(typeof data.items === 'object')
-  assert.equal(Object.keys(data.items).length, 0)
+  assert.ok(typeof data.items === 'object' && data.items !== null)
+
+  const passageMap = new Map(INTENSIVE_PASSAGES.map((p) => [p.id, p]))
+  const itemEntries = Object.entries(data.items)
+  assert.ok(itemEntries.length > 0)
+
+  for (const [passageId, item] of itemEntries) {
+    const passage = passageMap.get(passageId)
+    assert.ok(passage, `Passage not found in intensiveListening.ts: ${passageId}`)
+    assert.match(item.key, /^[0-9a-f]{16}$/)
+    assert.ok(Array.isArray(item.segments))
+    assert.equal(
+      item.segments.length,
+      passage.sentences.length,
+      `Segments count mismatch for ${passageId}`,
+    )
+
+    let lastEnd = 0
+    for (let i = 0; i < item.segments.length; i++) {
+      const seg = item.segments[i]
+      assert.ok(
+        seg.start < seg.end,
+        `Segment start must be < end in ${passageId} index ${i}: [${seg.start}, ${seg.end}]`,
+      )
+      if (i > 0) {
+        assert.ok(
+          seg.start >= lastEnd,
+          `Segments must be increasing and non-overlapping in ${passageId} index ${i}: start ${seg.start} < lastEnd ${lastEnd}`,
+        )
+      }
+      lastEnd = seg.end
+    }
+  }
 })
