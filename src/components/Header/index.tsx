@@ -75,6 +75,7 @@ const dropdownItemClass = (showAt?: 'always' | 'lg' | 'xl' | '2xl') => {
 const examItems = [
   { to: '/tcf', label: '总览', code: 'NCLC 7', detail: '四项差距' },
   { to: '/tcf-listening', label: '听力', code: 'CO', detail: '35 分钟 · 39 题' },
+  { to: '/video-listening', label: '视频听力', code: '精听', detail: '真实语料 · 精听复读' },
   { to: '/tcf-reading', label: '阅读', code: 'CE', detail: '60 分钟 · 39 题' },
   { to: '/tcf-writing', label: '写作', code: 'EE', detail: '60 分钟 · 3 任务' },
   { to: '/tcf-speaking', label: '口语', code: 'EO', detail: '12 分钟 · 3 任务' },
@@ -92,7 +93,7 @@ const navItemClass = (isActive: boolean) =>
 const Header: React.FC = () => {
   const { pathname } = useLocation()
   const shellHidden = useShellHeaderHidden()
-  const isExamActive = pathname.startsWith('/tcf') || pathname.startsWith('/echelle') || pathname.startsWith('/recalls')
+  const isExamActive = pathname.startsWith('/tcf') || pathname.startsWith('/echelle') || pathname.startsWith('/recalls') || pathname.startsWith('/video-listening')
   const [menuOpen, setMenuOpen] = useState(false)
   const authStatus = useAtomValue(authStatusAtom)
   const isGuest = authStatus ? (authStatus.enabled && authStatus.required && !authStatus.signedIn) : isGuestMode()
@@ -549,7 +550,7 @@ const Header: React.FC = () => {
           ))}
           {examItems.map((item) => (
             <NavLink key={item.to} to={item.to} end className={({ isActive }) => `flex ${navItemClass(isActive)} justify-center py-2.5`}>
-              <span>模考 · {item.label}</span>
+              <span>{item.to === '/video-listening' ? item.label : `模考 · ${item.label}`}</span>
               {isGuest && isPathGated(item.to) && (
                 <IconLock className="h-3 w-3 shrink-0 text-gray-400 dark:text-gray-500" aria-label="需要登录" />
               )}

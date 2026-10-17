@@ -99,6 +99,14 @@ export const ROUTE_SEO: RouteSeoItem[] = [
     intro: '还原机考听力环境，精听真实语速音频与高频考题，冲刺 NCLC 7 听力分数。',
   },
   {
+    path: '/video-listening',
+    title: `视频听力 — ${SITE_SUFFIX}`,
+    description:
+      '精选加拿大魁北克与法国真实视频语料，专为 TCF Canada 考生打造的视频精听与复读练习工具。支持变速播放、A-B 循环复读与盲听对照模式，帮助攻克真实语速与魁北克口音，全面提高法语听力理解能力。',
+    h1: '法语视频精听与发音练习',
+    intro: '精选加拿大、魁北克与法国真实新闻与演讲视频，结合变速与 A-B 复读功能磨耳朵。',
+  },
+  {
     path: '/tcf-reading',
     title: `TCF 阅读练习 — ${SITE_SUFFIX}`,
     description:

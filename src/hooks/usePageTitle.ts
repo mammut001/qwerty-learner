@@ -21,6 +21,13 @@ export function titleForPath(pathname: string): string {
     }
   }
 
+  if (normalized.startsWith('/video-listening/')) {
+    const video = ROUTE_SEO.find((item) => item.path === '/video-listening')
+    if (video) {
+      return video.title
+    }
+  }
+
   return defaultTitle
 }
 
