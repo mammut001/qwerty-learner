@@ -19,6 +19,7 @@ import { isGuestMode } from '@/services/guestMode'
 import { type TcfAttemptRecord, addStudyMinutes, flushStudyProgress, getLearningProgress, recordTcfAttempt } from '@/services/studyPlanSync'
 import { playListeningQuestionAudio, stopListeningAudio } from '@/services/tcfListeningAudio'
 import { trackAnalyticsEvent } from '@/utils/analytics'
+
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { NavLink, useSearchParams } from 'react-router-dom'
 import IconArrowLeft from '~icons/tabler/arrow-left'
@@ -348,11 +349,7 @@ export default function TcfMockExamPage({ skill }: { skill: TcfQcmSkill }) {
     stopListeningAudio()
   }, [currentIndex])
 
-  useEffect(() => {
-    return () => {
-      stopListeningAudio()
-    }
-  }, [])
+  useEffect(() => () => { stopListeningAudio() }, [])
 
   const startPractice = () => {
     if (practicePool.length === 0) return
@@ -374,6 +371,7 @@ export default function TcfMockExamPage({ skill }: { skill: TcfQcmSkill }) {
   }
 
   const selectChoice = (choice: number) => {
+
     if (mode === 'practice') {
       if (answers[question.id] !== undefined) return
       if (choice === question.answer) markQuestionCleared(skill, question.id)
