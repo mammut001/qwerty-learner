@@ -74,6 +74,74 @@ export function logStudyRequest({ requestId, method, path, status, durationMs, s
   console.log(JSON.stringify(payload))
 }
 
+export function sanitizeBlockedUri(raw) {
+  if (typeof raw !== 'string' || !raw) return ''
+  const trimmed = raw.trim()
+  if (['eval', 'inline', 'self', 'wasm-eval'].includes(trimmed)) return trimmed
+  if (trimmed.startsWith('data:')) return 'data:'
+  if (trimmed.startsWith('blob:')) return 'blob:'
+  try {
+    const url = new URL(trimmed)
+    if (url.origin && url.origin !== 'null') return url.origin
+    return url.protocol || ''
+  } catch {
+    return trimmed.split('?')[0].split('#')[0].slice(0, 100)
+  }
+}
+
+export function sanitizeDocumentPath(raw) {
+  if (typeof raw !== 'string' || !raw) return ''
+  try {
+    const url = new URL(raw, 'http://localhost')
+    return url.pathname || '/'
+  } catch {
+    return raw.split('?')[0].split('#')[0].slice(0, 100) || '/'
+  }
+}
+
+export function extractCspReportFields(body) {
+  const report =
+    body?.['csp-report'] ||
+    (Array.isArray(body) ? body[0]?.body : null) ||
+    (body && typeof body === 'object' ? body : {})
+  const directive =
+    report['violated-directive'] ||
+    report['effective-directive'] ||
+    report['violatedDirective'] ||
+    report['effectiveDirective'] ||
+    ''
+  const blockedUri =
+    report['blocked-uri'] ||
+    report['blockedURI'] ||
+    report['blockedURL'] ||
+    report['blocked-url'] ||
+    ''
+  const documentUri =
+    report['document-uri'] ||
+    report['documentURI'] ||
+    report['documentURL'] ||
+    report['url'] ||
+    ''
+  return {
+    directive: String(directive).trim(),
+    blockedOrigin: sanitizeBlockedUri(blockedUri),
+    documentPath: sanitizeDocumentPath(documentUri),
+  }
+}
+
+export function logCspReport({ requestId, directive, blockedOrigin, documentPath }) {
+  const payload = {
+    timestamp: new Date().toISOString(),
+    level: 'info',
+    event: 'csp_report',
+    requestId,
+    directive: String(directive || '').slice(0, 100),
+    blockedOrigin: String(blockedOrigin || '').slice(0, 200),
+    documentPath: String(documentPath || '').slice(0, 200),
+  }
+  console.log(JSON.stringify(payload))
+}
+
 export function bearerMatches(header, token) {
   if (!token || typeof header !== 'string') return false
   const expected = 'Bearer ' + token

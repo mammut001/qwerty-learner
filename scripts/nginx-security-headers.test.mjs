@@ -131,9 +131,28 @@ test('default.conf preserves existing Cache-Control headers', async () => {
   }
 })
 
-test('default.conf does not set Content-Security-Policy (out of scope)', async () => {
+test('default.conf sets Content-Security-Policy-Report-Only with report-uri and is not enforcing', async () => {
   const conf = await readRepoText('public/default.conf')
-  assert.doesNotMatch(conf, /Content-Security-Policy/i)
+  const blocks = parseLocationBlocks(conf)
+
+  // Enforcing header must NOT be set
+  assert.doesNotMatch(conf, /add_header\s+Content-Security-Policy\s+/i, 'Content-Security-Policy must not be enforcing')
+
+  // HTML response locations must include Content-Security-Policy-Report-Only
+  const htmlLocations = ['/', '= /50x.html']
+  for (const location of htmlLocations) {
+    assert.ok(blocks.has(location), `location ${location} should exist in default.conf`)
+    const body = blocks.get(location)
+    assert.match(
+      body,
+      /add_header\s+Content-Security-Policy-Report-Only\s+"[^"]*report-uri\s+\/api\/study-plan\/csp-report[^"]*"\s+always;/,
+      `location ${location} is missing Content-Security-Policy-Report-Only header with report-uri`,
+    )
+    assert.match(body, /default-src\s+'self'/, `location ${location} missing default-src 'self'`)
+    assert.match(body, /object-src\s+'none'/, `location ${location} missing object-src 'none'`)
+    assert.match(body, /base-uri\s+'self'/, `location ${location} missing base-uri 'self'`)
+    assert.match(body, /frame-ancestors\s+'self'/, `location ${location} missing frame-ancestors 'self'`)
+  }
 })
 
 test('default.conf leaves API proxy locations untouched and proxying to study-api', async () => {
