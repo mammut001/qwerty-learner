@@ -128,7 +128,7 @@ export default function DictionaryPage() {
 
   return (
     <Layout>
-      <main className="w-full flex-1 overflow-y-auto px-4 pb-8 sm:px-6">
+      <div className="w-full flex-1 overflow-y-auto px-4 pb-8 sm:px-6">
         <div className="mx-auto w-full max-w-3xl">
           <div className="ui-eyebrow">法语词典</div>
           <h1 className="ui-title mt-3">查词</h1>
@@ -268,7 +268,7 @@ export default function DictionaryPage() {
             kaikki.org / wiktextract 提取并裁剪，按 CC BY-SA 许可使用；「本站词库」是本项目自己整理的释义。
           </p>
         </div>
-      </main>
+      </div>
     </Layout>
   )
 }

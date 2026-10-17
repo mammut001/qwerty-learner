@@ -54,7 +54,7 @@ export default function TextAreaHandler({
 
   return (
     <textarea
-      className="absolute left-0 top-0 m-0 h-0 w-0 appearance-none overflow-hidden border-0 p-0 focus:outline-none"
+      className="pointer-events-none absolute left-0 top-0 m-0 h-0 w-0 resize-none appearance-none overflow-hidden border-0 p-0 caret-transparent opacity-0 focus:outline-none"
       ref={textareaRef}
       autoFocus
       spellCheck="false"

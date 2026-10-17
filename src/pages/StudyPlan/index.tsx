@@ -1138,7 +1138,7 @@ export default function StudyPlanPage() {
 
   return (
     <Layout>
-      <main className="ui-shell-container flex-1 pt-5 pb-12 sm:pt-6">
+      <div className="ui-shell-container flex-1 pt-5 pb-12 sm:pt-6">
         <section className="my-card relative overflow-hidden rounded-[28px] bg-white p-5 dark:bg-gray-800 sm:p-8">
           <div
             aria-hidden
@@ -2637,7 +2637,7 @@ export default function StudyPlanPage() {
             {importMessage && <div className="max-w-sm text-right text-xs text-gray-500 dark:text-gray-400">{importMessage}</div>}
           </div>
         </section>
-      </main>
+      </div>
     </Layout>
   )
 }

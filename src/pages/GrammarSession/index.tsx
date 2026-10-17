@@ -248,7 +248,7 @@ export default function GrammarSessionPage() {
   if (status === 'intro') {
     return (
       <Layout>
-        <main className="container mx-auto flex flex-1 items-center justify-center px-4 pb-10 sm:px-6 lg:px-10">
+        <div className="container mx-auto flex flex-1 items-center justify-center px-4 pb-10 sm:px-6 lg:px-10">
           <section className="my-card w-full max-w-3xl rounded-3xl bg-white p-5 dark:bg-gray-800 sm:p-10">
             <div className="flex items-center gap-3 text-indigo-500">
               <IconClock className="text-3xl" />
@@ -340,7 +340,7 @@ export default function GrammarSessionPage() {
             </button>
             <GuestProgressPrompt className="mt-4 justify-start" />
           </section>
-        </main>
+        </div>
       </Layout>
     )
   }
@@ -348,7 +348,7 @@ export default function GrammarSessionPage() {
   if (status === 'finished') {
     return (
       <Layout>
-        <main className="container mx-auto flex flex-1 items-center justify-center px-4 pb-10 sm:px-6 lg:px-10">
+        <div className="container mx-auto flex flex-1 items-center justify-center px-4 pb-10 sm:px-6 lg:px-10">
           <section className="my-card w-full max-w-3xl rounded-3xl bg-white p-5 dark:bg-gray-800 sm:p-10">
             <div className="ui-eyebrow">本次 30 分钟训练完成</div>
             <h1 className="ui-title mt-3">
@@ -396,7 +396,7 @@ export default function GrammarSessionPage() {
             </div>
             <GuestProgressPrompt className="mt-6" />
           </section>
-        </main>
+        </div>
       </Layout>
     )
   }
@@ -423,7 +423,7 @@ export default function GrammarSessionPage() {
         </div>
       </PageToolbar>
 
-      <main className="container mx-auto w-full max-w-5xl flex-1 px-4 pb-12 sm:px-10">
+      <div className="container mx-auto w-full max-w-5xl flex-1 px-4 pb-12 sm:px-10">
         <div className="mb-6 flex items-end justify-between gap-6">
           <div>
             <div className="ui-eyebrow">
@@ -612,7 +612,7 @@ export default function GrammarSessionPage() {
             </div>
           </section>
         )}
-      </main>
+      </div>
     </Layout>
   )
 }

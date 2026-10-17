@@ -129,7 +129,7 @@ export default function PlacementTestPage() {
 
   return (
     <Layout>
-      <main className="w-full flex-1 overflow-y-auto px-4 pb-10 sm:px-6 lg:px-8">
+      <div className="w-full flex-1 overflow-y-auto px-4 pb-10 sm:px-6 lg:px-8">
         <div className="mx-auto w-full max-w-3xl">
           <NavLink
             to="/study-plan"
@@ -392,7 +392,7 @@ export default function PlacementTestPage() {
             </section>
           )}
         </div>
-      </main>
+      </div>
     </Layout>
   )
 }

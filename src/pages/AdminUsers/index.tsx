@@ -498,7 +498,7 @@ export default function AdminUsersPage() {
 
   return (
     <Layout>
-      <main className="w-full flex-1 overflow-y-auto px-4 pb-10 sm:px-6 lg:px-8">
+      <div className="w-full flex-1 overflow-y-auto px-4 pb-10 sm:px-6 lg:px-8">
         <div className="mx-auto w-full max-w-6xl space-y-6">
           {/* Header */}
           <header className="my-card relative mt-2 overflow-hidden rounded-[28px] bg-white p-6 dark:bg-gray-800 sm:p-9">
@@ -715,7 +715,7 @@ export default function AdminUsersPage() {
             </>
           )}
         </div>
-      </main>
+      </div>
     </Layout>
   )
 }

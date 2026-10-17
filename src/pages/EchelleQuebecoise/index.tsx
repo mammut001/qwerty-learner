@@ -78,7 +78,7 @@ export default function EchelleQuebecoisePage() {
 
   return (
     <Layout>
-      <main className="w-full flex-1 overflow-y-auto px-4 pb-10 sm:px-6 lg:px-8">
+      <div className="w-full flex-1 overflow-y-auto px-4 pb-10 sm:px-6 lg:px-8">
         <div className="mx-auto w-full max-w-5xl space-y-5">
           <header className="my-card relative overflow-hidden rounded-[28px] bg-white p-6 dark:bg-gray-800 sm:p-9">
             <div
@@ -224,7 +224,7 @@ export default function EchelleQuebecoisePage() {
             ）。法文为原文，中文为学习用释义。量表本身不是测评工具；这里的「当前」来自你最近一次模考的训练估算。
           </p>
         </div>
-      </main>
+      </div>
     </Layout>
   )
 }

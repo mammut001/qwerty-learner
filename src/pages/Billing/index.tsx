@@ -96,7 +96,7 @@ export default function BillingPage() {
 
   return (
     <Layout>
-      <main className="w-full flex-1 overflow-y-auto px-4 pb-6">
+      <div className="w-full flex-1 overflow-y-auto px-4 pb-6">
         <section className="my-card mx-auto mt-6 max-w-md rounded-3xl bg-white p-6 dark:bg-gray-800">
           <div className="flex items-center justify-between gap-3">
             <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Pro 订阅</h1>
@@ -169,7 +169,7 @@ export default function BillingPage() {
             </div>
           )}
         </section>
-      </main>
+      </div>
     </Layout>
   )
 }
