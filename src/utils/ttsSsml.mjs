@@ -1,8 +1,7 @@
 // Utility functions for IPA pronunciation dictionary and SSML formatting for Google Cloud TTS.
 // Canonical dictionary: src/utils/ttsElisionIpa.json
+import ttsElisionIpa from './ttsElisionIpa.mjs'
 import { applyTtsSentenceFixes } from './ttsSentenceFixes.mjs'
-import fs from 'node:fs'
-import { createRequire } from 'node:module'
 
 export { applyTtsSentenceFixes }
 
@@ -98,26 +97,13 @@ export function normalizeElisionCombo(combo) {
   return combo.toLowerCase().replace(/['`]/g, '’').trim()
 }
 
-let cachedDict = null
+let cachedDict = ttsElisionIpa
 /**
- * Loads the elision IPA dictionary from src/utils/ttsElisionIpa.json.
+ * Loads the elision IPA dictionary from src/utils/ttsElisionIpa.json via companion module.
  * @returns {Record<string, { ipa: string, say?: string, source: 'lexicon' | 'manual', reviewed: boolean, note?: string }>}
  */
 export function loadElisionIpaDict() {
-  if (cachedDict) return cachedDict
-  try {
-    const require = createRequire(import.meta.url)
-    cachedDict = require('./ttsElisionIpa.json')
-    return cachedDict
-  } catch {
-    try {
-      const p = new URL('./ttsElisionIpa.json', import.meta.url)
-      cachedDict = JSON.parse(fs.readFileSync(p, 'utf8'))
-      return cachedDict
-    } catch {
-      return {}
-    }
-  }
+  return cachedDict
 }
 
 /**

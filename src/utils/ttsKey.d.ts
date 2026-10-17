@@ -6,6 +6,7 @@ export declare const DEFAULT_ACCENT: TtsAccent
 export declare const TTS_BASE_URL: string
 
 export declare function speakableText(name: string): string
-export declare function computeTtsKey(voice: string, text: string): string
+export declare function spokenTextFor(name: string, accent?: string, options?: any): string
+export declare function computeTtsKey(voice: string, text: string, accent?: string): string
 export declare function computeTtsObjectPath(accent: TtsAccent, key: string): string
 export declare function computeTtsAudioUrl(base: string, accent: TtsAccent, key: string): string

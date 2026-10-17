@@ -19,6 +19,7 @@ if (!isUnderTsLoader) {
 const { ELISION_COMBO_REGEX, PREFIX_IPA, PREFIX_REGEX_STR, VOWELS_H_STR, extractLexiconIpa, normalizeElisionCombo, shardOf } = await import(
   '../src/utils/ttsSsml.mjs'
 )
+const { speakableText } = await import('../src/utils/ttsKey.mjs')
 
 const { INTENSIVE_PASSAGES } = await import('../src/resources/intensiveListening.ts')
 const { TCF_LISTENING_QUESTIONS } = await import('../src/resources/tcfMock.ts')
@@ -64,6 +65,32 @@ export function scanAllSources() {
   for (const q of TCF_LISTENING_SET_B || []) {
     if (typeof q?.audioText === 'string') {
       texts.push(q.audioText)
+    }
+  }
+
+  // 4. Vocabulary names from public/dicts/*.json
+  const dictDir = path.resolve('public/dicts')
+  if (fs.existsSync(dictDir)) {
+    const dictFiles = fs
+      .readdirSync(dictDir)
+      .filter((f) => f.endsWith('.json'))
+      .sort()
+    for (const file of dictFiles) {
+      try {
+        const entries = JSON.parse(fs.readFileSync(path.join(dictDir, file), 'utf8'))
+        if (Array.isArray(entries)) {
+          for (const item of entries) {
+            if (typeof item?.name === 'string') {
+              const cleaned = speakableText(item.name)
+              if (cleaned) {
+                texts.push(cleaned)
+              }
+            }
+          }
+        }
+      } catch (err) {
+        console.warn(`Could not read ${file}:`, err.message)
+      }
     }
   }
 
@@ -167,11 +194,26 @@ async function main() {
 
   fs.writeFileSync(DICT_FILE, JSON.stringify(sortedDict, null, 2) + '\n', 'utf8')
   console.log(`Saved ${Object.keys(sortedDict).length} combos to ${DICT_FILE}`)
+
+  const mjsFile = path.resolve('src/utils/ttsElisionIpa.mjs')
+  fs.writeFileSync(
+    mjsFile,
+    `// Auto-generated module for seamless compatibility across Node.js ESM, TypeScript 4.0, and Vite browser bundling.\n// Canonical source of truth: src/utils/ttsElisionIpa.json\n\nexport default ${JSON.stringify(
+      sortedDict,
+      null,
+      2,
+    )}\n`,
+    'utf8',
+  )
+  console.log(`Saved companion module to ${mjsFile}`)
+
   console.log(
     `Stats: ${stats.scanned} scanned (${stats.preservedCount} preserved, ${stats.newlyFoundCount} lexicon, ${stats.newlyMissingCount} manual)\n`,
   )
 
-  const missingEntries = Object.entries(sortedDict).filter(([, v]) => !v.ipa || v.ipa.trim() === '' || v.source === 'manual')
+  const missingEntries = Object.entries(sortedDict).filter(
+    ([, v]) => !v.ipa || v.ipa.trim() === '' || (v.source === 'manual' && !v.reviewed && !v.say),
+  )
 
   console.log('### TODO Table: Elision Combos Missing Lexicon IPA (Require Manual Review)')
   console.log('| Combo | IPA | Source | Reviewed | Notes |')

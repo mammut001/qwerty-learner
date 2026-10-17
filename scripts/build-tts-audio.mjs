@@ -8,6 +8,8 @@ import {
   speakableText,
   spokenTextFor,
 } from '../src/utils/ttsKey.mjs'
+import ttsSpokenOverrides from '../src/utils/ttsSpokenOverrides.mjs'
+import { ELISION_COMBO_REGEX, findMissingElisionCombos } from '../src/utils/ttsSsml.mjs'
 import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -41,10 +43,16 @@ function parseArgs() {
   let limit = null
   let accent = null
   let concurrency = 4
+  let onlyElision = false
+  let dryRun = false
 
   for (let i = 0; i < args.length; i++) {
     const arg = args[i]
-    if (arg.startsWith('--limit=')) {
+    if (arg === '--only-elision') {
+      onlyElision = true
+    } else if (arg === '--dry-run') {
+      dryRun = true
+    } else if (arg.startsWith('--limit=')) {
       limit = parseInt(arg.slice('--limit='.length), 10)
     } else if (arg === '--limit' && i + 1 < args.length) {
       limit = parseInt(args[++i], 10)
@@ -59,7 +67,7 @@ function parseArgs() {
     }
   }
 
-  return { limit, accent, concurrency }
+  return { limit, accent, concurrency, onlyElision, dryRun }
 }
 
 function getServiceAccountCredentials() {
@@ -389,23 +397,60 @@ function updateManifest(state, tasks, isPartialRun = false, excludeSet = new Set
 }
 
 async function main() {
-  const { limit, accent, concurrency } = parseArgs()
-  const creds = getServiceAccountCredentials()
-  const auth = new GoogleAuth(creds)
+  const { limit, accent, concurrency, onlyElision, dryRun } = parseArgs()
   const state = loadState()
   const excludeSet = loadExcludeList()
 
   const rawTexts = collectDictNames()
-  const allTexts = rawTexts.filter((t) => !excludeSet.has(t))
+  let allTexts = rawTexts.filter((t) => !excludeSet.has(t))
   console.log(`Collected ${rawTexts.length} unique texts from ${DICT_DIR} (${excludeSet.size} excluded, ${allTexts.length} active)`)
+
+  function hasElision(name) {
+    const sp = speakableText(name)
+    return new RegExp(ELISION_COMBO_REGEX.source, 'iu').test(sp)
+  }
+
+  if (onlyElision) {
+    allTexts = allTexts.filter(hasElision)
+    console.log(`Filtered to ${allTexts.length} texts containing elisions (--only-elision)`)
+  }
 
   const selectedTexts = limit ? allTexts.slice(0, limit) : allTexts
   const targetAccents = accent ? [accent] : ['fr-CA', 'fr-FR']
 
-  console.log(`Processing ${selectedTexts.length} texts across accent(s): ${targetAccents.join(', ')} (concurrency: ${concurrency})`)
+  // Identify entries skipped due to missing IPA in dictionary
+  const skippedMissingIpa = []
+  const validTexts = []
+
+  for (const text of selectedTexts) {
+    const sp = speakableText(text)
+    const missing = findMissingElisionCombos(sp)
+    if (missing.length > 0) {
+      // If manual overrides exist for all target accents, it is not missing
+      const allAccentsOverridden = targetAccents.every((acc) => {
+        const override = ttsSpokenOverrides?.[text.trim()]?.[acc]
+        return typeof override === 'string' && override.trim()
+      })
+      if (!allAccentsOverridden) {
+        skippedMissingIpa.push({ text, missing })
+        continue
+      }
+    }
+    validTexts.push(text)
+  }
+
+  if (skippedMissingIpa.length > 0) {
+    console.log(`\n--- Entries Skipped Due to Missing IPA (${skippedMissingIpa.length}) ---`)
+    for (const item of skippedMissingIpa) {
+      console.log(`  - "${item.text}" (missing: ${item.missing.join(', ')})`)
+    }
+    console.log('')
+  }
+
+  console.log(`Processing ${validTexts.length} texts across accent(s): ${targetAccents.join(', ')} (concurrency: ${concurrency})`)
 
   const tasks = []
-  for (const text of selectedTexts) {
+  for (const text of validTexts) {
     for (const acc of targetAccents) {
       const voice = TTS_VOICES[acc]
       if (!voice) {
@@ -418,6 +463,23 @@ async function main() {
   }
 
   console.log(`Total tasks to check/generate: ${tasks.length}`)
+
+  if (dryRun) {
+    console.log('\n--- Dry Run Summary ---')
+    console.log(`Selected texts: ${selectedTexts.length}`)
+    console.log(`Skipped (missing IPA): ${skippedMissingIpa.length}`)
+    console.log(`Valid texts to process: ${validTexts.length}`)
+    console.log(`Tasks to check/generate: ${tasks.length}`)
+    console.log('Sample tasks:')
+    for (const t of tasks.slice(0, 10)) {
+      console.log(`  [${t.accent}] "${t.text}" => spoken: "${spokenTextFor(t.text, t.accent)}" => key: ${t.key}`)
+    }
+    console.log('\nDry run complete. No synthesis performed, no files modified.')
+    return
+  }
+
+  const creds = getServiceAccountCredentials()
+  const auth = new GoogleAuth(creds)
 
   let generatedCount = 0
   let skippedCount = 0
@@ -516,11 +578,12 @@ async function main() {
   await Promise.all(pool)
 
   saveState(state)
-  const isPartialRun = Boolean(limit || accent)
+  const isPartialRun = Boolean(limit || accent || onlyElision)
   const manifest = updateManifest(state, tasks, isPartialRun, excludeSet)
 
   console.log('\n--- Final Summary ---')
   console.log(`Tasks: ${tasks.length}`)
+  console.log(`Skipped (missing IPA): ${skippedMissingIpa.length}`)
   console.log(`Generated: ${generatedCount}`)
   console.log(`Skipped (already exists): ${skippedCount}`)
   console.log(`Failed: ${failedCount}`)

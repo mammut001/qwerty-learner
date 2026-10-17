@@ -19,8 +19,23 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "d’accord": {
+    "ipa": "dakɔʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "d’accueil": {
     "ipa": "dakœj",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’achat": {
+    "ipa": "daʃa",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’activité": {
+    "ipa": "daktivite",
     "source": "lexicon",
     "reviewed": false
   },
@@ -29,8 +44,33 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "d’âge": {
+    "ipa": "daʒ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’agréer": {
+    "ipa": "daɡʁee",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "d’ailleurs": {
     "ipa": "dajœʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’améliorer": {
+    "ipa": "dameljɔʁe",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’ami": {
+    "ipa": "dami",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’annulation": {
+    "ipa": "danylasjɔ̃",
     "source": "lexicon",
     "reviewed": false
   },
@@ -39,9 +79,24 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "d’appel": {
+    "ipa": "dapɛl",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "d’appels": {
     "ipa": "dapɛl",
     "source": "manual",
+    "reviewed": false
+  },
+  "d’appoint": {
+    "ipa": "dapwɛ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’après": {
+    "ipa": "dapʁɛ",
+    "source": "lexicon",
     "reviewed": false
   },
   "d’arbitrer": {
@@ -54,6 +109,21 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "d’artifice": {
+    "ipa": "daʁtifis",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’asile": {
+    "ipa": "dazil",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’attente": {
+    "ipa": "datɑ̃t",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "d’autobus": {
     "ipa": "dotɔbys",
     "source": "lexicon",
@@ -61,6 +131,26 @@
   },
   "d’automne": {
     "ipa": "dotɔn",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’autre": {
+    "ipa": "dotʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’autres": {
+    "ipa": "",
+    "source": "manual",
+    "reviewed": false
+  },
+  "d’avance": {
+    "ipa": "davɑ̃s",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’avis": {
+    "ipa": "davi",
     "source": "lexicon",
     "reviewed": false
   },
@@ -79,6 +169,26 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "d’échappement": {
+    "ipa": "deʃapmɑ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’écran": {
+    "ipa": "dekʁɑ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’édition": {
+    "ipa": "dedisjɔ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’embauche": {
+    "ipa": "dɑ̃boʃ",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "d’embouteillages": {
     "ipa": "dɑ̃butɛjaʒ",
     "source": "manual",
@@ -92,6 +202,16 @@
   "d’emplois": {
     "ipa": "dɑ̃plwa",
     "source": "manual",
+    "reviewed": false
+  },
+  "d’énergie": {
+    "ipa": "denɛʁʒi",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’ennui": {
+    "ipa": "dɑ̃nɥi",
+    "source": "lexicon",
     "reviewed": false
   },
   "d’enrichissement": {
@@ -114,8 +234,23 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "d’épuisement": {
+    "ipa": "depɥizmɑ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’épuration": {
+    "ipa": "depyʁasjɔ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "d’équipe": {
     "ipa": "dekip",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’état": {
+    "ipa": "deta",
     "source": "lexicon",
     "reviewed": false
   },
@@ -129,6 +264,11 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "d’études": {
+    "ipa": "",
+    "source": "manual",
+    "reviewed": false
+  },
   "d’europe": {
     "ipa": "døʁɔp",
     "source": "manual",
@@ -139,9 +279,34 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "d’exclamation": {
+    "ipa": "dɛksklamasjɔ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’exemple": {
+    "ipa": "dɛɡzɑ̃pl",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’extinction": {
+    "ipa": "dɛkstɛ̃ksjɔ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’habitude": {
+    "ipa": "dabityd",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "d’hiver": {
     "ipa": "divɛʁ",
     "source": "lexicon",
+    "reviewed": false
+  },
+  "d’horaires": {
+    "ipa": "",
+    "source": "manual",
     "reviewed": false
   },
   "d’ici": {
@@ -164,9 +329,24 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "d’information": {
+    "ipa": "dɛ̃fɔʁmasjɔ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "d’initiatives": {
     "ipa": "dinisjativ",
     "source": "manual",
+    "reviewed": false
+  },
+  "d’inoccupation": {
+    "ipa": "dinɔkypasjɔ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’inscription": {
+    "ipa": "dɛ̃skʁipsjɔ̃",
+    "source": "lexicon",
     "reviewed": false
   },
   "d’insertion": {
@@ -184,6 +364,21 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "d’ivresse": {
+    "ipa": "divʁɛs",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’occasion": {
+    "ipa": "dɔkazjɔ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’œuvre": {
+    "ipa": "dœvʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "d’oignon": {
     "ipa": "dɔɲɔ̃",
     "say": "doignon",
@@ -196,6 +391,26 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "d’orange": {
+    "ipa": "dɔʁɑ̃ʒ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’origine": {
+    "ipa": "dɔʁiʒin",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’où": {
+    "ipa": "du",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’ozone": {
+    "ipa": "dɔzɔn",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "d’un": {
     "ipa": "dœ̃",
     "source": "lexicon",
@@ -203,6 +418,11 @@
   },
   "d’une": {
     "ipa": "dyn",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "d’union": {
+    "ipa": "dynjɔ̃",
     "source": "lexicon",
     "reviewed": false
   },
@@ -251,9 +471,24 @@
     "source": "manual",
     "reviewed": false
   },
+  "j’habitais": {
+    "ipa": "",
+    "source": "manual",
+    "reviewed": false
+  },
+  "j’habite": {
+    "ipa": "",
+    "source": "manual",
+    "reviewed": false
+  },
   "j’hésite": {
     "ipa": "ʒezit",
     "source": "manual",
+    "reviewed": false
+  },
+  "jusqu’à": {
+    "ipa": "ʒyska",
+    "source": "lexicon",
     "reviewed": false
   },
   "jusqu’au": {
@@ -261,8 +496,23 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "l’abri": {
+    "ipa": "labʁi",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’accent": {
+    "ipa": "laksɑ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "l’accès": {
     "ipa": "laksɛ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’accident": {
+    "ipa": "laksidɑ̃",
     "source": "lexicon",
     "reviewed": false
   },
@@ -273,6 +523,31 @@
   },
   "l’achat": {
     "ipa": "laʃa",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’activité": {
+    "ipa": "laktivite",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’actualité": {
+    "ipa": "laktɥalite",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’addition": {
+    "ipa": "ladisjɔ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’âge": {
+    "ipa": "laʒ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’agence": {
+    "ipa": "laʒɑ̃s",
     "source": "lexicon",
     "reviewed": false
   },
@@ -291,8 +566,28 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "l’alarme": {
+    "ipa": "lalaʁm",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’alcool": {
+    "ipa": "lalkɔl",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’ambassadeur": {
+    "ipa": "lɑ̃basadœʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "l’an": {
     "ipa": "lɑ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’année": {
+    "ipa": "lane",
     "source": "lexicon",
     "reviewed": false
   },
@@ -306,8 +601,38 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "l’après": {
+    "ipa": "lapʁɛ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’argent": {
+    "ipa": "laʁʒɑ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "l’arrivée": {
     "ipa": "laʁive",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’ascenseur": {
+    "ipa": "lasɑ̃sœʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’aspirateur": {
+    "ipa": "laspiʁatœʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’assurance": {
+    "ipa": "lasyʁɑ̃s",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’attente": {
+    "ipa": "latɑ̃t",
     "source": "lexicon",
     "reviewed": false
   },
@@ -351,6 +676,16 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "l’échéance": {
+    "ipa": "leʃeɑ̃s",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’échelle": {
+    "ipa": "leʃɛl",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "l’école": {
     "ipa": "lekɔl",
     "source": "lexicon",
@@ -371,8 +706,33 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "l’égard": {
+    "ipa": "leɡaʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’élastique": {
+    "ipa": "lelastik",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "l’embarquement": {
     "ipa": "lɑ̃baʁkəmɑ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’embauche": {
+    "ipa": "lɑ̃boʃ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’emprise": {
+    "ipa": "lɑ̃pʁiz",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’endroit": {
+    "ipa": "lɑ̃dʁwa",
     "source": "lexicon",
     "reviewed": false
   },
@@ -396,8 +756,48 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "l’envers": {
+    "ipa": "lɑ̃vɛʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’environnement": {
+    "ipa": "lɑ̃viʁɔnmɑ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’époque": {
+    "ipa": "lepɔk",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’épuisement": {
+    "ipa": "lepɥizmɑ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "l’équipe": {
     "ipa": "lekip",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’ère": {
+    "ipa": "lɛʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’espace": {
+    "ipa": "lɛspas",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’espérance": {
+    "ipa": "lɛspeʁɑ̃s",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’espoir": {
+    "ipa": "lɛspwaʁ",
     "source": "lexicon",
     "reviewed": false
   },
@@ -426,8 +826,38 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "l’expéditeur": {
+    "ipa": "lɛkspeditœʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "l’expérience": {
     "ipa": "lɛkspeʁjɑ̃s",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’expression": {
+    "ipa": "lɛkspʁɛsjɔ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’extérieur": {
+    "ipa": "lɛksteʁjœʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’habitude": {
+    "ipa": "labityd",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’hébergement": {
+    "ipa": "lebɛʁʒəmɑ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’heure": {
+    "ipa": "lœʁ",
     "source": "lexicon",
     "reviewed": false
   },
@@ -441,13 +871,48 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "l’homme": {
+    "ipa": "lɔm",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’honneur": {
+    "ipa": "lɔnœʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "l’hôpital": {
     "ipa": "lopital",
     "source": "lexicon",
     "reviewed": false
   },
+  "l’humanité": {
+    "ipa": "lymanite",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’hydroélectricité": {
+    "ipa": "lidʁoelɛktʁisite",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "l’immeuble": {
     "ipa": "limœbl",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’impression": {
+    "ipa": "lɛ̃pʁɛsjɔ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’inflation": {
+    "ipa": "lɛ̃flasjɔ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’informatique": {
+    "ipa": "lɛ̃fɔʁmatik",
     "source": "lexicon",
     "reviewed": false
   },
@@ -458,6 +923,11 @@
   },
   "l’intelligence": {
     "ipa": "lɛ̃tɛliʒɑ̃s",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’intention": {
+    "ipa": "lɛ̃tɑ̃sjɔ̃",
     "source": "lexicon",
     "reviewed": false
   },
@@ -476,6 +946,26 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "l’inverse": {
+    "ipa": "lɛ̃vɛʁs",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’objet": {
+    "ipa": "lɔbʒɛ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’occasion": {
+    "ipa": "lɔkazjɔ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’ombre": {
+    "ipa": "lɔ̃bʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "l’on": {
     "ipa": "lɔ̃",
     "source": "lexicon",
@@ -491,6 +981,11 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "l’origine": {
+    "ipa": "lɔʁiʒin",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "l’ouverture": {
     "ipa": "luvɛʁtyʁ",
     "source": "lexicon",
@@ -501,8 +996,23 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "l’université": {
+    "ipa": "lynivɛʁsite",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "l’urgence": {
     "ipa": "lyʁʒɑ̃s",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’usage": {
+    "ipa": "lyzaʒ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "l’utilisation": {
+    "ipa": "lytilizasjɔ̃",
     "source": "lexicon",
     "reviewed": false
   },
@@ -516,6 +1026,36 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "m’adresser": {
+    "ipa": "madʁɛse",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "m’appelle": {
+    "ipa": "mapɛl",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "m’as": {
+    "ipa": "mas",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "m’écoute": {
+    "ipa": "mekut",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "m’est": {
+    "ipa": "mɛst",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "m’explique": {
+    "ipa": "",
+    "source": "manual",
+    "reviewed": false
+  },
   "m’inquiète": {
     "ipa": "mɛ̃kjɛt",
     "source": "manual",
@@ -526,13 +1066,43 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "m’intéresse": {
+    "ipa": "",
+    "source": "manual",
+    "reviewed": false
+  },
   "m’occuper": {
     "ipa": "mɔkype",
     "source": "lexicon",
     "reviewed": false
   },
+  "m’oppose": {
+    "ipa": "",
+    "source": "manual",
+    "reviewed": false
+  },
   "n’acceptera": {
     "ipa": "naksɛptəʁa",
+    "source": "manual",
+    "reviewed": false
+  },
+  "n’ai": {
+    "ipa": "",
+    "source": "manual",
+    "reviewed": false
+  },
+  "n’empêche": {
+    "ipa": "",
+    "source": "manual",
+    "reviewed": false
+  },
+  "n’en": {
+    "ipa": "nɑ̃",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "n’entends": {
+    "ipa": "",
     "source": "manual",
     "reviewed": false
   },
@@ -544,6 +1114,21 @@
   "n’est": {
     "ipa": "nɛ",
     "source": "manual",
+    "reviewed": false
+  },
+  "n’hésitez": {
+    "ipa": "",
+    "source": "manual",
+    "reviewed": false
+  },
+  "n’importe": {
+    "ipa": "",
+    "source": "manual",
+    "reviewed": false
+  },
+  "n’oublie": {
+    "ipa": "nubli",
+    "source": "lexicon",
     "reviewed": false
   },
   "n’oubliez": {
@@ -586,9 +1171,44 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "qu’une": {
+    "ipa": "kyn",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’accorder": {
+    "ipa": "sakɔʁde",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "s’adapte": {
     "ipa": "sadapt",
     "source": "manual",
+    "reviewed": false
+  },
+  "s’adapter": {
+    "ipa": "sadapte",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’adresser": {
+    "ipa": "sadʁɛse",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’aérer": {
+    "ipa": "saeʁe",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’affoler": {
+    "ipa": "safɔle",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’aggraver": {
+    "ipa": "saɡʁave",
+    "source": "lexicon",
     "reviewed": false
   },
   "s’agit": {
@@ -596,13 +1216,68 @@
     "source": "manual",
     "reviewed": false
   },
+  "s’amuser": {
+    "ipa": "samyze",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’apercevoir": {
+    "ipa": "sapɛʁsəvwaʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’appeler": {
+    "ipa": "sap(ə)le",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "s’appelle": {
     "ipa": "sapɛl",
     "source": "lexicon",
     "reviewed": false
   },
+  "s’approcher": {
+    "ipa": "sapʁɔʃe",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "s’approprier": {
     "ipa": "sapʁɔpʁije",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’asseoir": {
+    "ipa": "saswaʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’assoupir": {
+    "ipa": "sasupiʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’attaquer": {
+    "ipa": "satake",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’avancer": {
+    "ipa": "savɑ̃se",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’avérer": {
+    "ipa": "saveʁe",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’embraser": {
+    "ipa": "sɑ̃bʁaze",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’embrasser": {
+    "ipa": "sɑ̃bʁase",
     "source": "lexicon",
     "reviewed": false
   },
@@ -616,8 +1291,38 @@
     "source": "manual",
     "reviewed": false
   },
+  "s’endormir": {
+    "ipa": "sɑ̃dɔʁmiʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’enfuir": {
+    "ipa": "sɑ̃fɥiʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’engager": {
+    "ipa": "sɑ̃ɡaʒe",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’ennuyer": {
+    "ipa": "sɑ̃nɥije",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’entendre": {
+    "ipa": "sɑ̃tɑ̃dʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "s’épanouir": {
     "ipa": "sepanwiʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’est": {
+    "ipa": "sɛst",
     "source": "lexicon",
     "reviewed": false
   },
@@ -626,9 +1331,24 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "s’établir": {
+    "ipa": "setabliʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "s’étirent": {
     "ipa": "setiʁ",
     "source": "manual",
+    "reviewed": false
+  },
+  "s’évanouir": {
+    "ipa": "sevanwiʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’excuser": {
+    "ipa": "sɛkskyze",
+    "source": "lexicon",
     "reviewed": false
   },
   "s’explique": {
@@ -641,8 +1361,88 @@
     "source": "lexicon",
     "reviewed": false
   },
+  "s’habituer": {
+    "ipa": "sabitɥe",
+    "source": "lexicon",
+    "reviewed": false
+  },
   "s’il": {
     "ipa": "sil",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’imposer": {
+    "ipa": "sɛ̃poze",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’inquiéter": {
+    "ipa": "sɛ̃kjete",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’inscrire": {
+    "ipa": "sɛ̃skʁiʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’installer": {
+    "ipa": "sɛ̃stale",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’intégrer": {
+    "ipa": "sɛ̃teɡʁe",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’intéresser": {
+    "ipa": "sɛ̃teʁɛse",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’interroger": {
+    "ipa": "sɛ̃tɛʁɔʒe",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’introduire": {
+    "ipa": "sɛ̃tʁɔdɥiʁ",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’isoler": {
+    "ipa": "sizɔle",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’occuper": {
+    "ipa": "sɔkype",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’opposer": {
+    "ipa": "sɔpoze",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "s’user": {
+    "ipa": "syze",
+    "source": "lexicon",
+    "reviewed": false
+  },
+  "t’aime": {
+    "ipa": "",
+    "source": "manual",
+    "reviewed": false
+  },
+  "t’appelles": {
+    "ipa": "",
+    "source": "manual",
+    "reviewed": false
+  },
+  "t’embrasse": {
+    "ipa": "tɑ̃bʁas",
     "source": "lexicon",
     "reviewed": false
   }
