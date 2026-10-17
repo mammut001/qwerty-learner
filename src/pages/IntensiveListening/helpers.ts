@@ -144,3 +144,35 @@ export function markPassageCompleted(passageId: string): void {
     // Ignore storage write errors (e.g. private browsing quota)
   }
 }
+
+/**
+ * Matches French words including hyphenated words and words with internal apostrophes.
+ */
+export const FRENCH_WORD_REGEX = /([A-Za-zÀ-ÖØ-öø-ÿŒœÆæ]+(?:['’-][A-Za-zÀ-ÖØ-öø-ÿŒœÆæ]+)*)/
+
+/**
+ * Common French elision prefixes (articles, pronouns, prepositions, conjunctions).
+ * l' (le/la), d' (de), j' (je), m' (me), t' (te), s' (se), c' (ce), n' (ne), qu' (que/qui),
+ * jusqu' (jusque), lorsqu' (lorsque), puisqu' (puisque).
+ */
+export const ELISION_PREFIX = /^(?:l|d|j|n|s|m|t|c|qu|jusqu|lorsqu|puisqu)['’](?=[A-Za-zÀ-ÖØ-öø-ÿŒœÆæ])/i
+
+/**
+ * Punctuation characters at word boundaries.
+ */
+const PUNCTUATION_EDGES = /^[\s.,;:!?«»"“”()[\]…—–'’\\-]+|[\s.,;:!?«»"“”()[\]…—–'’\\-]+$/gu
+
+/**
+ * Normalizes a word clicked in intensive listening for dictionary lookup:
+ * - strips surrounding punctuation
+ * - ignores elided articles/pronouns (e.g. l'école -> école, d'arriver -> arriver)
+ * - keeps hyphenated words whole (e.g. peut-être -> peut-être)
+ * - standardizes Unicode to NFC form
+ */
+export function normalizeLookupWord(raw: string): string {
+  if (!raw) return ''
+  let word = raw.normalize('NFC').replace(PUNCTUATION_EDGES, '')
+  word = word.replace(ELISION_PREFIX, '')
+  word = word.replace(PUNCTUATION_EDGES, '')
+  return word.normalize('NFC')
+}
