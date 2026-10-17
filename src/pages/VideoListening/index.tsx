@@ -100,6 +100,20 @@ export default function VideoListeningPage() {
     [selectedLesson],
   )
 
+  const handleStateChange = useCallback(
+    (state: number) => {
+      if (state === 2 && playerRef.current && selectedLesson) {
+        try {
+          const cur = playerRef.current.getCurrentTime()
+          saveVideoProgress(selectedLesson.id, { lastTime: cur })
+        } catch {
+          // ignore
+        }
+      }
+    },
+    [selectedLesson],
+  )
+
   // 250ms polling loop for A-B repeat and time tracking
   useEffect(() => {
     if (!playerReady || !selectedLesson) return
@@ -318,16 +332,7 @@ export default function VideoListeningPage() {
               <YouTubePlayer
                 lesson={selectedLesson}
                 onReady={handlePlayerReady}
-                onStateChange={(state) => {
-                  if (state === 2 && playerRef.current) {
-                    try {
-                      const cur = playerRef.current.getCurrentTime()
-                      saveVideoProgress(selectedLesson.id, { lastTime: cur })
-                    } catch {
-                      // ignore
-                    }
-                  }
-                }}
+                onStateChange={handleStateChange}
               />
 
               {/* Player Controls Under Player */}

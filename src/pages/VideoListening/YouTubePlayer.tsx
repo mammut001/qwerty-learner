@@ -83,6 +83,13 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({ lesson, onReady, o
   const [retryNonce, setRetryNonce] = useState(0)
   const playerRef = useRef<YouTubePlayerInstance | null>(null)
 
+  const onReadyRef = useRef(onReady)
+  onReadyRef.current = onReady
+  const onErrorRef = useRef(onError)
+  onErrorRef.current = onError
+  const onStateChangeRef = useRef(onStateChange)
+  onStateChangeRef.current = onStateChange
+
   useEffect(() => {
     let isCancelled = false
     setIsLoading(true)
@@ -129,6 +136,8 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({ lesson, onReady, o
         }
 
         playerRef.current = new window.YT.Player(containerId, {
+          width: '100%',
+          height: '100%',
           videoId: lesson.youtubeId,
           playerVars,
           events: {
@@ -136,17 +145,17 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({ lesson, onReady, o
               if (isCancelled) return
               setIsLoading(false)
               playerRef.current = event.target
-              onReady(event.target)
+              onReadyRef.current(event.target)
             },
             onError: (event: unknown) => {
               if (isCancelled) return
               setIsLoading(false)
               setLoadError(true)
-              onError?.(event)
+              onErrorRef.current?.(event)
             },
             onStateChange: (event: { data: number }) => {
               if (isCancelled) return
-              onStateChange?.(event.data)
+              onStateChangeRef.current?.(event.data)
             },
           },
         })
@@ -155,7 +164,7 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({ lesson, onReady, o
         if (isCancelled) return
         setIsLoading(false)
         setLoadError(true)
-        onError?.(error)
+        onErrorRef.current?.(error)
       })
 
     return () => {
@@ -169,10 +178,10 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({ lesson, onReady, o
         playerRef.current = null
       }
     }
-  }, [containerId, lesson.id, lesson.youtubeId, lesson.start, lesson.end, retryNonce, onReady, onError, onStateChange])
+  }, [containerId, lesson.youtubeId, lesson.start, lesson.end, retryNonce])
 
   return (
-    <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-lg ring-1 ring-gray-900/10 dark:ring-white/10">
+    <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-lg ring-1 ring-gray-900/10 dark:ring-white/10 [&>iframe]:absolute [&>iframe]:inset-0 [&>iframe]:h-full [&>iframe]:w-full">
       {/* Target container for YouTube IFrame */}
       <div id={containerId} className="h-full w-full" />
 
