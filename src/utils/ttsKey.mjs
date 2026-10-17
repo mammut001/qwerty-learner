@@ -1,6 +1,7 @@
 // Shared utility for Google Chirp 3 HD TTS key generation and paths.
 // Generates first 16 hex chars of sha256(`v1|<voice>|<spokenText>`).
 // Pure JS SHA-256 implementation so it can run identically in browser and Node without external deps.
+import { applyTtsSentenceFixes } from './ttsSentenceFixes.mjs'
 import ttsSpokenOverrides from './ttsSpokenOverrides.mjs'
 import { ELISION_COMBO_REGEX, findMissingElisionCombos, formatTtsSsml, loadElisionIpaDict } from './ttsSsml.mjs'
 
@@ -136,8 +137,10 @@ export function spokenTextFor(name, accent = DEFAULT_ACCENT, options = {}) {
   if (typeof override === 'string' && override.trim()) {
     return override.trim()
   }
-  const text = speakableText(name)
+  let text = speakableText(name)
   if (!text) return ''
+
+  text = applyTtsSentenceFixes(text)
 
   const matches = text.match(new RegExp(ELISION_COMBO_REGEX.source, 'iu'))
   if (!matches) {

@@ -141,6 +141,18 @@ test('spokenTextFor formats elision with SSML phoneme, respects manual overrides
   // Unaffected entries without elision return standard speakableText
   assert.equal(spokenTextFor('bonjour', 'fr-CA'), 'bonjour')
   assert.equal(spokenTextFor('bonjour', 'fr-FR'), 'bonjour')
+
+  // Sentence fixes are applied before SSML elisions
+  assert.equal(
+    spokenTextFor("réaménager l'espace public", 'fr-CA'),
+    '<speak>ré-aménager <phoneme alphabet="ipa" ph="lɛspas">l\'espace</phoneme> public</speak>',
+  )
+  assert.equal(
+    spokenTextFor("réaménager l'espace public", 'fr-FR'),
+    '<speak>ré-aménager <phoneme alphabet="ipa" ph="lɛspas">l\'espace</phoneme> public</speak>',
+  )
+  assert.equal(spokenTextFor('réaménagement', 'fr-CA'), 'ré-aménagement')
+  assert.equal(spokenTextFor('réévaluer', 'fr-CA'), 'ré-évaluer')
 })
 
 test('computeTtsKey leaves keys unchanged for a sample of 20 non-elision words', () => {

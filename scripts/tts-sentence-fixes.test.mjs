@@ -10,6 +10,13 @@ test('applyTtsSentenceFixes fixes réévalue pronunciations', () => {
   assert.equal(applyTtsSentenceFixes('« Bonjour »'), '« Bonjour »')
 })
 
+test('applyTtsSentenceFixes fixes réaménag pronunciations', () => {
+  assert.equal(applyTtsSentenceFixes("réaménager l'espace public"), "ré-aménager l'espace public")
+  assert.equal(applyTtsSentenceFixes('Réaménager la ville'), 'Ré-aménager la ville')
+  assert.equal(applyTtsSentenceFixes('RÉAMÉNAGEMENT DU QUARTIER'), 'RÉ-AMÉNAGEMENT DU QUARTIER')
+  assert.equal(applyTtsSentenceFixes('aménagement'), 'aménagement')
+})
+
 test('applyTtsSentenceFixes preserves elisions as standard text', () => {
   // Elisions are no longer joined globally; they are preserved in standard text
   // and handled via SSML phonemes in the TTS pipeline.

@@ -22,6 +22,16 @@ export const SPELLED_PUNCTUATION_TOKENS = Object.freeze(
 )
 
 /**
+ * Helper to check if text contains euphonic '-t-'.
+ * @param {string | null | undefined} text
+ * @returns {boolean}
+ */
+export function hasEuphonicT(text) {
+  if (typeof text !== 'string') return false
+  return text.toLowerCase().includes('-t-')
+}
+
+/**
  * Normalizes a raw token from Deepgram ASR:
  * lowercases and strips leading/trailing whitespace and punctuation.
  * @param {string | null | undefined} token
@@ -37,12 +47,18 @@ export function normalizeQaToken(token) {
 
 /**
  * Checks whether a token is flagged as a lone elided letter or spelled-out punctuation.
+ * Ignores lone 't' tokens when originalText contains euphonic '-t-'.
  * @param {string | null | undefined} rawToken
+ * @param {string | { originalText?: string }} [originalText]
  * @returns {boolean}
  */
-export function isFlaggedToken(rawToken) {
+export function isFlaggedToken(rawToken, originalText = '') {
   const clean = normalizeQaToken(rawToken)
   if (!clean) return false
+  const text = typeof originalText === 'string' ? originalText : originalText?.originalText || ''
+  if (clean === 't' && hasEuphonicT(text)) {
+    return false
+  }
   if (LONE_ELIDED_TOKENS.has(clean)) return true
   const unaccented = clean.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
   return SPELLED_PUNCTUATION_TOKENS.has(clean) || SPELLED_PUNCTUATION_TOKENS.has(unaccented)
@@ -50,12 +66,19 @@ export function isFlaggedToken(rawToken) {
 
 /**
  * Classifies a token and returns defect metadata, or null if token is normal.
+ * Ignores lone 't' tokens when originalText contains euphonic '-t-'.
  * @param {string | null | undefined} rawToken
+ * @param {string | { originalText?: string }} [originalText]
  * @returns {{ token: string, raw: string, type: string, reason: string } | null}
  */
-export function classifyQaToken(rawToken) {
+export function classifyQaToken(rawToken, originalText = '') {
   const clean = normalizeQaToken(rawToken)
   if (!clean) return null
+
+  const text = typeof originalText === 'string' ? originalText : originalText?.originalText || ''
+  if (clean === 't' && hasEuphonicT(text)) {
+    return null
+  }
 
   if (LONE_ELIDED_TOKENS.has(clean)) {
     return {
@@ -112,33 +135,62 @@ function toNormalizedIgnoreSet(ignoredTokens) {
 
 /**
  * Filters an array of already-flagged items using an ignore list.
+ * Also ignores lone 't' tokens when originalText contains euphonic '-t-'.
  * @param {Array<{ token: string }>} flaggedWords
  * @param {Array<string> | Set<string>} [ignoredTokens]
+ * @param {string | { originalText?: string }} [originalText]
  * @returns {Array<{ token: string }>}
  */
-export function filterIgnoredFlaggedWords(flaggedWords, ignoredTokens = []) {
+export function filterIgnoredFlaggedWords(flaggedWords, ignoredTokens = [], originalText = '') {
   if (!Array.isArray(flaggedWords)) return []
+  const text = typeof originalText === 'string' ? originalText : originalText?.originalText || ''
+  const ignoreEuphT = hasEuphonicT(text)
   const ignoreSet = toNormalizedIgnoreSet(ignoredTokens)
-  if (ignoreSet.size === 0) return flaggedWords
-  return flaggedWords.filter((f) => !ignoreSet.has(normalizeQaToken(f.token)))
+  return flaggedWords.filter((f) => {
+    const clean = normalizeQaToken(f.token)
+    if (clean === 't' && ignoreEuphT) return false
+    return !ignoreSet.has(clean)
+  })
 }
 
 /**
  * Inspects a list of Deepgram word objects or tokens and returns all flagged items.
  * An optional list or Set of ignoredTokens can be provided to skip known legitimate letter spellings.
+ * An optional originalText string can be provided to treat euphonic '-t-' as legitimate.
  * @param {Array<string | { word?: string, punctuated_word?: string, start?: number, end?: number, confidence?: number }>} words
- * @param {Array<string> | Set<string>} [ignoredTokens]
+ * @param {Array<string> | Set<string> | string | { ignoredTokens?: any, originalText?: string }} [ignoredTokens]
+ * @param {string | { originalText?: string }} [originalText]
  * @returns {Array<{ token: string, raw: string, type: string, reason: string, start: number | null, end: number | null, confidence: number | null, index: number }>}
  */
-export function findFlaggedWords(words, ignoredTokens = []) {
+export function findFlaggedWords(words, ignoredTokens = [], originalText = '') {
   if (!Array.isArray(words)) return []
-  const ignoreSet = toNormalizedIgnoreSet(ignoredTokens)
+
+  let effectiveIgnored = ignoredTokens
+  let effectiveOriginalText = originalText
+
+  if (typeof ignoredTokens === 'string' && !originalText) {
+    if (ignoredTokens.includes('-t-') || ignoredTokens.includes(' ')) {
+      effectiveIgnored = []
+      effectiveOriginalText = ignoredTokens
+    }
+  } else if (
+    ignoredTokens &&
+    typeof ignoredTokens === 'object' &&
+    !Array.isArray(ignoredTokens) &&
+    !(ignoredTokens instanceof Set)
+  ) {
+    effectiveIgnored = ignoredTokens.ignoredTokens || []
+    effectiveOriginalText = ignoredTokens.originalText || originalText
+  }
+
+  const text = typeof effectiveOriginalText === 'string' ? effectiveOriginalText : effectiveOriginalText?.originalText || ''
+  const ignoreSet = toNormalizedIgnoreSet(effectiveIgnored)
   const flagged = []
 
   for (let i = 0; i < words.length; i++) {
     const item = words[i]
     const raw = typeof item === 'string' ? item : item?.word || item?.punctuated_word || ''
-    const classification = classifyQaToken(raw)
+    const classification = classifyQaToken(raw, text)
     if (classification && !ignoreSet.has(classification.token)) {
       flagged.push({
         ...classification,

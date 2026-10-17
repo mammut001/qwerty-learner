@@ -7,6 +7,7 @@ import {
   formatIntensiveFlaggedSentence,
   formatTcfFlaggedMessage,
   getIgnoredTokens,
+  hasEuphonicT,
   isFlaggedToken,
   mapFlaggedWordToIntensiveSentence,
   normalizeQaToken,
@@ -294,4 +295,83 @@ test('loadQaIgnoreConfig loads committed scripts/tts-qa-ignore.json with AC flig
 
   // Non-existent path returns empty object safely
   assert.deepEqual(loadQaIgnoreConfig('/tmp/non-existent-qa-ignore.json'), {})
+})
+
+test('euphonic -t- is treated as legitimate across QA helpers', () => {
+  // 1. hasEuphonicT detects -t-
+  assert.equal(hasEuphonicT('a-t-il'), true)
+  assert.equal(hasEuphonicT('passe-t-il'), true)
+  assert.equal(hasEuphonicT('va-t-elle'), true)
+  assert.equal(hasEuphonicT("Y a-t-il des frais d'annulation ?"), true)
+  assert.equal(hasEuphonicT("Y A-T-IL UNE LISTE D'ATTENTE ?"), true)
+  assert.equal(hasEuphonicT('peut-on'), false)
+  assert.equal(hasEuphonicT("à l'époque"), false)
+  assert.equal(hasEuphonicT(''), false)
+  assert.equal(hasEuphonicT(null), false)
+  assert.equal(hasEuphonicT(undefined), false)
+
+  // 2. isFlaggedToken and classifyQaToken ignore lone 't' when originalText contains -t-
+  assert.equal(isFlaggedToken('t', 'a-t-il'), false)
+  assert.equal(isFlaggedToken('T', 'passe-t-il'), false)
+  assert.equal(isFlaggedToken("t'", 'va-t-elle'), false)
+  assert.equal(isFlaggedToken('t', "Y a-t-il des frais d'annulation ?"), false)
+  assert.equal(classifyQaToken('t', 'a-t-il'), null)
+  assert.equal(classifyQaToken('T', 'passe-t-il'), null)
+
+  // But 't' is still flagged when originalText does not contain -t-
+  assert.equal(isFlaggedToken('t', "à l'époque"), true)
+  assert.equal(isFlaggedToken('t', 'peut-on'), true)
+  assert.equal(isFlaggedToken('t', ''), true)
+  assert.equal(isFlaggedToken('t'), true)
+  assert.ok(classifyQaToken('t', "à l'époque"))
+
+  // Other lone tokens are STILL flagged even if originalText contains -t-
+  assert.equal(isFlaggedToken('s', "Y a-t-il une liste d'attente ?"), true)
+  assert.equal(isFlaggedToken('d', "Y a-t-il une liste d'attente ?"), true)
+  assert.equal(isFlaggedToken('qu', "Y a-t-il une liste d'attente ?"), true)
+  assert.ok(classifyQaToken('s', "Y a-t-il une liste d'attente ?"))
+
+  // 3. findFlaggedWords ignores lone 't' when originalText has -t-
+  const deepgramWordsWithEuphonicT = [
+    { word: 'Y', start: 0.1, end: 0.3 },
+    { word: 'a', start: 0.32, end: 0.5 },
+    { word: 't', start: 0.52, end: 0.65 }, // Transcribed as lone 't'
+    { word: 'il', start: 0.68, end: 0.9 },
+    { word: 'des', start: 0.92, end: 1.1 },
+    { word: 'frais', start: 1.12, end: 1.5 },
+  ]
+
+  // With originalText: lone 't' is ignored
+  const flaggedWithContext = findFlaggedWords(deepgramWordsWithEuphonicT, [], "Y a-t-il des frais d'annulation ?")
+  assert.deepEqual(flaggedWithContext, [])
+
+  // Also works passing originalText as 2nd arg
+  assert.deepEqual(findFlaggedWords(deepgramWordsWithEuphonicT, "Y a-t-il des frais d'annulation ?"), [])
+
+  // Without context or when text has no -t-: 't' is flagged
+  const flaggedWithoutContext = findFlaggedWords(deepgramWordsWithEuphonicT)
+  assert.equal(flaggedWithoutContext.length, 1)
+  assert.equal(flaggedWithoutContext[0].token, 't')
+
+  const flaggedWithUnrelatedContext = findFlaggedWords(deepgramWordsWithEuphonicT, [], "à l'époque")
+  assert.equal(flaggedWithUnrelatedContext.length, 1)
+  assert.equal(flaggedWithUnrelatedContext[0].token, 't')
+
+  // Real defects alongside euphonic 't' are still flagged
+  const mixedDefectWords = [
+    { word: 't', start: 0.5, end: 0.6 }, // Legitimate euphonic t
+    { word: 's', start: 1.2, end: 1.5 }, // Real defect
+  ]
+  const flaggedMixed = findFlaggedWords(mixedDefectWords, [], 'a-t-il')
+  assert.equal(flaggedMixed.length, 1)
+  assert.equal(flaggedMixed[0].token, 's')
+
+  // 4. filterIgnoredFlaggedWords filters 't' when originalText has -t-
+  const flaggedTokens = [{ token: 't' }, { token: 's' }]
+  const filteredTokens = filterIgnoredFlaggedWords(flaggedTokens, [], 'a-t-il')
+  assert.equal(filteredTokens.length, 1)
+  assert.equal(filteredTokens[0].token, 's')
+
+  const nonFilteredTokens = filterIgnoredFlaggedWords(flaggedTokens, [], "à l'époque")
+  assert.equal(nonFilteredTokens.length, 2)
 })

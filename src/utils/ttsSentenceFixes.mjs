@@ -12,6 +12,16 @@ export const TTS_SENTENCE_FIX_RULES = [
       return 'ré-évalu'
     },
   },
+  {
+    // Google Chirp spells out "réaménag*" (e.g. "r e accent aigu a ménagé").
+    // Hyphenating to "ré-aménag*" ensures natural spoken pronunciation.
+    pattern: /\bré(a)ménag/gi,
+    replace: (match) => {
+      if (match.startsWith('RÉ') || match.startsWith('RÉ-')) return 'RÉ-AMÉNAG'
+      if (match.startsWith('Ré')) return 'Ré-aménag'
+      return 'ré-aménag'
+    },
+  },
 ]
 
 /**

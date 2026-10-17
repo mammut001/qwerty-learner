@@ -179,7 +179,8 @@ async function runIntensiveQa({ only, concurrency, apiKey, ignoreConfig = loadQa
       const audioBuffer = await downloadAudio(publicUrl)
       const asr = await transcribeWithDeepgram(apiKey, audioBuffer)
       const ignoredTokens = getIgnoredTokens(ignoreConfig, 'intensive', passageId)
-      const flagged = findFlaggedWords(asr.words, ignoredTokens)
+      const originalText = passage?.sentences?.map((s) => s.fr).join(' ') || ''
+      const flagged = findFlaggedWords(asr.words, ignoredTokens, originalText)
 
       if (flagged.length > 0) {
         totalDefects += flagged.length
@@ -213,6 +214,12 @@ async function runTcfQa({ only, concurrency, apiKey, ignoreConfig = loadQaIgnore
   }
 
   const manifest = JSON.parse(fs.readFileSync(TCF_MANIFEST_FILE, 'utf8'))
+  const { TCF_LISTENING_QUESTIONS } = await import('../src/resources/tcfMock.ts')
+  const { TCF_LISTENING_SET_B } = await import('../src/resources/tcfMockSetB.ts')
+  const questionMap = new Map([
+    ...(TCF_LISTENING_QUESTIONS || []).map((q) => [q.id, q]),
+    ...(TCF_LISTENING_SET_B || []).map((q) => [q.id, q]),
+  ])
   let questionIds = Object.keys(manifest.items || {}).sort()
 
   if (only) {
@@ -235,7 +242,9 @@ async function runTcfQa({ only, concurrency, apiKey, ignoreConfig = loadQaIgnore
       const audioBuffer = await downloadAudio(publicUrl)
       const asr = await transcribeWithDeepgram(apiKey, audioBuffer)
       const ignoredTokens = getIgnoredTokens(ignoreConfig, 'tcf-listening', qId)
-      const flagged = findFlaggedWords(asr.words, ignoredTokens)
+      const question = questionMap.get(qId)
+      const originalText = question?.audioText || ''
+      const flagged = findFlaggedWords(asr.words, ignoredTokens, originalText)
 
       if (flagged.length > 0) {
         totalDefects += flagged.length
