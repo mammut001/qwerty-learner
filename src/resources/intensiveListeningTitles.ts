@@ -12,7 +12,7 @@ export const INTENSIVE_TITLES: IntensiveListeningTitle[] = [
   },
   {
     id: 'appel-location-appartement',
-    title: '在魁北克租公寓打电话',
+    title: '在蒙特利尔租公寓打电话',
     level: 'B1',
   },
   {
@@ -33,6 +33,36 @@ export const INTENSIVE_TITLES: IntensiveListeningTitle[] = [
   {
     id: 'debat-teletravail-hybride',
     title: '关于远程办公的讨论',
+    level: 'B2',
+  },
+  {
+    id: 'pharmacie-conseils-symptomes',
+    title: '在药房问药与症状',
+    level: 'B1',
+  },
+  {
+    id: 'astuces-transport-stm-montreal',
+    title: '坐 STM 地铁与公交的小技巧',
+    level: 'B1',
+  },
+  {
+    id: 'appel-saaq-echange-permis',
+    title: '预约 SAAQ 驾照换领',
+    level: 'B1',
+  },
+  {
+    id: 'conference-francais-quebecois-france',
+    title: '魁北克法语与法国法语的差异',
+    level: 'B2',
+  },
+  {
+    id: 'litige-logement-mediation-tal',
+    title: '租房纠纷与 TAL 调解',
+    level: 'B2',
+  },
+  {
+    id: 'podcast-benevolat-tremplin-emploi',
+    title: '志愿者经历如何帮助求职',
     level: 'B2',
   },
 ]

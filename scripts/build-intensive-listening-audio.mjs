@@ -10,13 +10,7 @@ if (!isUnderTsLoader) {
   const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
   const loaderPath = path.join(repoRoot, 'server/ts-extension-loader.mjs')
   const scriptPath = fileURLToPath(import.meta.url)
-  const args = [
-    '--experimental-loader',
-    loaderPath,
-    '--experimental-strip-types',
-    scriptPath,
-    ...process.argv.slice(2),
-  ]
+  const args = ['--experimental-loader', loaderPath, '--experimental-strip-types', scriptPath, ...process.argv.slice(2)]
   const child = spawnSync(process.execPath, args, { stdio: 'inherit' })
   process.exit(child.status ?? 0)
 }
@@ -33,8 +27,10 @@ const {
   computeIntensiveKey,
   computeIntensiveObjectPath,
   concatenateMp3Buffers,
+  formatTtsSpokenText,
   parseMp3Duration,
 } = await import('../src/utils/intensiveListeningAudioKey.mjs')
+const { findMissingElisionCombos } = await import('../src/utils/ttsSsml.mjs')
 
 const { INTENSIVE_PASSAGES } = await import('../src/resources/intensiveListening.ts')
 
@@ -48,11 +44,14 @@ function parseArgs() {
   let only = null
   let rate = DEFAULT_INTENSIVE_SPEAKING_RATE
   let concurrency = 2
+  let allowMissing = false
 
   for (let i = 0; i < args.length; i++) {
     const arg = args[i]
     if (arg === '--dry-run') {
       dryRun = true
+    } else if (arg === '--allow-missing') {
+      allowMissing = true
     } else if (arg.startsWith('--limit=')) {
       limit = parseInt(arg.slice('--limit='.length), 10)
     } else if (arg === '--limit' && i + 1 < args.length) {
@@ -72,7 +71,7 @@ function parseArgs() {
     }
   }
 
-  return { dryRun, limit, only, rate, concurrency }
+  return { dryRun, limit, only, rate, concurrency, allowMissing }
 }
 
 function loadExistingManifest() {
@@ -177,11 +176,36 @@ async function main() {
         index,
         speaker: sentence.speaker || 'A',
         voice,
-        text: applyTtsSentenceFixes(sentence.fr),
+        text: formatTtsSpokenText(sentence.fr),
       }
     })
     return { passage, key, objectPath, sentencesWithVoices }
   })
+
+  // Refuse if any sentence contains an elision combo whose dictionary IPA is empty
+  const passagesWithMissing = []
+  for (const task of tasks) {
+    const missingSet = new Set()
+    for (const item of task.sentencesWithVoices) {
+      const sentenceText = task.passage.sentences[item.index]?.fr
+      const missing = findMissingElisionCombos(sentenceText)
+      for (const m of missing) missingSet.add(m)
+    }
+    if (missingSet.size > 0) {
+      passagesWithMissing.push({ id: task.passage.id, missing: Array.from(missingSet) })
+    }
+  }
+
+  if (passagesWithMissing.length > 0) {
+    console.error(`Refusing synthesis: ${passagesWithMissing.length} passages contain elision combos with empty dictionary IPA:`)
+    for (const p of passagesWithMissing) {
+      console.error(`  - Passage "${p.id}": [${p.missing.join(', ')}]`)
+    }
+    if (!config.allowMissing) {
+      console.error('Use --allow-missing to synthesize anyway.')
+      process.exit(1)
+    }
+  }
 
   if (config.dryRun) {
     await runDryRun(tasks, config)
@@ -189,13 +213,9 @@ async function main() {
   }
 
   // Real execution (executed by supervisor with valid credentials)
-  const {
-    GoogleAuth,
-    checkRemoteExists,
-    getServiceAccountCredentials,
-    synthesizeText,
-    uploadAudio,
-  } = await import('./google-cloud-shared.mjs')
+  const { GoogleAuth, checkRemoteExists, getServiceAccountCredentials, synthesizeText, uploadAudio } = await import(
+    './google-cloud-shared.mjs'
+  )
 
   const creds = getServiceAccountCredentials()
   const auth = new GoogleAuth(creds)

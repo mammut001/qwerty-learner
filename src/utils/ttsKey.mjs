@@ -1,7 +1,9 @@
 // Shared utility for Google Chirp 3 HD TTS key generation and paths.
 // Generates first 16 hex chars of sha256(`v1|<voice>|<spokenText>`).
 // Pure JS SHA-256 implementation so it can run identically in browser and Node without external deps.
+import { applyTtsSentenceFixes } from './ttsSentenceFixes.mjs'
 import ttsSpokenOverrides from './ttsSpokenOverrides.mjs'
+import { ELISION_COMBO_REGEX, findMissingElisionCombos, formatTtsSsml, loadElisionIpaDict } from './ttsSsml.mjs'
 
 export const TTS_VERSION = 'v1'
 
@@ -125,16 +127,33 @@ export function speakableText(name) {
 /**
  * Resolves spoken text for a dictionary headword:
  * returns override from ttsSpokenOverrides if present for the given accent,
- * otherwise returns standard speakableText(name).
+ * otherwise if speakable text contains elision combos, returns SSML built with the elision builder.
+ * If any combo has no IPA and no say, returns the plain text unchanged.
  */
-export function spokenTextFor(name, accent = DEFAULT_ACCENT) {
+export function spokenTextFor(name, accent = DEFAULT_ACCENT, options = {}) {
   if (typeof name !== 'string') return ''
   const trimmed = name.trim()
   const override = ttsSpokenOverrides?.[trimmed]?.[accent]
   if (typeof override === 'string' && override.trim()) {
     return override.trim()
   }
-  return speakableText(name)
+  let text = speakableText(name)
+  if (!text) return ''
+
+  text = applyTtsSentenceFixes(text)
+
+  const matches = text.match(new RegExp(ELISION_COMBO_REGEX.source, 'iu'))
+  if (!matches) {
+    return text
+  }
+
+  const dictionary = options?.dictionary || loadElisionIpaDict()
+  const missing = findMissingElisionCombos(text, dictionary)
+  if (missing.length > 0) {
+    return text
+  }
+
+  return formatTtsSsml(text, { dictionary })
 }
 
 /**
