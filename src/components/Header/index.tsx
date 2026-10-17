@@ -24,19 +24,49 @@ import IconLock from '~icons/tabler/lock'
 import IconMenu from '~icons/tabler/menu-2'
 import IconX from '~icons/tabler/x'
 
-const navItems = [
-  { to: '/study-plan', label: '学习计划' },
-  { to: '/placement-test', label: '定级测试' },
-  { to: '/levels', label: '等级课程' },
-  { to: '/typing', label: '单词跟打' },
-  { to: '/word-lists', label: '我的词表' },
-  { to: '/dictionary', label: '查词' },
-  { to: '/grammar-session', label: '语法' },
-  { to: '/conjugation', label: '动词变位' },
-  { to: '/tenses', label: '时态专题' },
-  { to: '/error-book', label: '错题本' },
-  { to: '/analysis', label: '统计' },
+export interface NavItem {
+  to: string
+  label: string
+  showAt?: 'always' | 'xl' | '2xl'
+}
+
+const navItems: NavItem[] = [
+  { to: '/study-plan', label: '学习计划', showAt: 'always' },
+  { to: '/placement-test', label: '定级测试', showAt: '2xl' },
+  { to: '/levels', label: '等级课程', showAt: 'xl' },
+  { to: '/typing', label: '单词跟打', showAt: 'always' },
+  { to: '/word-lists', label: '我的词表', showAt: 'xl' },
+  { to: '/dictionary', label: '查词', showAt: 'always' },
+  { to: '/grammar-session', label: '语法', showAt: 'always' },
+  { to: '/conjugation', label: '动词变位', showAt: 'always' },
+  { to: '/tenses', label: '时态专题', showAt: '2xl' },
+  { to: '/error-book', label: '错题本', showAt: '2xl' },
+  { to: '/analysis', label: '统计', showAt: '2xl' },
 ]
+
+const itemDisplayClass = (showAt?: 'always' | 'xl' | '2xl') => {
+  switch (showAt) {
+    case 'always':
+      return 'flex'
+    case 'xl':
+      return 'hidden xl:flex'
+    case '2xl':
+    default:
+      return 'hidden 2xl:flex'
+  }
+}
+
+const dropdownItemClass = (showAt?: 'always' | 'xl' | '2xl') => {
+  switch (showAt) {
+    case 'always':
+      return 'hidden'
+    case 'xl':
+      return 'xl:hidden'
+    case '2xl':
+    default:
+      return ''
+  }
+}
 
 const examItems = [
   { to: '/tcf', label: '总览', code: 'NCLC 7', detail: '四项差距' },
@@ -49,7 +79,7 @@ const examItems = [
 ]
 
 const navItemClass = (isActive: boolean) =>
-  `flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-1.5 text-[13px] font-medium no-underline transition-all duration-200 hover:no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 xl:px-3 ${
+  `items-center gap-1 whitespace-nowrap rounded-full px-2 py-1 text-[12px] font-medium no-underline transition-all duration-200 hover:no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 md:px-2 md:py-1 md:text-[12.5px] lg:px-2.5 lg:py-1.5 lg:text-[13px] xl:px-3 ${
     isActive
       ? 'bg-white text-indigo-700 shadow-[0_1px_2px_rgba(17,24,39,0.08),0_0_0_1px_rgba(99,102,241,0.14)] dark:bg-white/10 dark:text-white dark:shadow-none'
       : 'text-gray-600 hover:bg-white/70 hover:text-gray-950 dark:text-gray-400 dark:hover:bg-white/[0.06] dark:hover:text-white'
@@ -122,6 +152,27 @@ const Header: React.FC = () => {
     }
   }
 
+  const [isXlOrAbove, setIsXlOrAbove] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1280)
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return
+    const mql = window.matchMedia('(min-width: 1280px)')
+    const onChange = (e: MediaQueryListEvent) => setIsXlOrAbove(e.matches)
+    setIsXlOrAbove(mql.matches)
+    mql.addEventListener('change', onChange)
+    return () => mql.removeEventListener('change', onChange)
+  }, [])
+
+  const dictIndex = navItems.findIndex((item) => item.to === '/dictionary')
+  const itemsBeforeExam = dictIndex >= 0 ? navItems.slice(0, dictIndex) : navItems
+  const itemsAfterExam = dictIndex >= 0 ? navItems.slice(dictIndex) : []
+  const moreItems = navItems.filter((item) => item.showAt !== 'always')
+  const isMoreActive = moreItems.some((item) => {
+    if (pathname !== item.to) return false
+    const showAt = item.showAt ?? '2xl'
+    if (showAt === 'xl') return !isXlOrAbove
+    return true
+  })
+
   useEffect(() => {
     setMenuOpen(false)
   }, [pathname])
@@ -140,7 +191,7 @@ const Header: React.FC = () => {
         shellHidden ? 'hidden' : ''
       }`}
     >
-      <div className="ui-shell-container py-3.5">
+      <div className="ui-shell-container 2xl:max-w-7xl py-3.5">
         <div className="flex w-full items-center justify-between gap-3">
         <NavLink className="group flex shrink-0 items-center gap-3 whitespace-nowrap no-underline hover:no-underline" to="/study-plan">
           <span className="relative flex h-10 w-10 items-center justify-center rounded-2xl bg-white shadow-[0_1px_2px_rgba(17,24,39,0.06),0_0_0_1px_rgba(17,24,39,0.05),0_8px_20px_-8px_rgba(79,70,229,0.45)] transition-transform duration-200 group-hover:-translate-y-px dark:bg-white/[0.06] dark:shadow-none dark:ring-1 dark:ring-white/10 sm:h-11 sm:w-11">
@@ -160,7 +211,7 @@ const Header: React.FC = () => {
         </NavLink>
         <button
           type="button"
-          className="rounded-full p-2 text-gray-600 ring-1 ring-gray-200/80 hover:bg-white hover:text-indigo-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:text-gray-300 dark:ring-white/10 dark:hover:bg-white/[0.06] lg:hidden"
+          className="rounded-full p-2 text-gray-600 ring-1 ring-gray-200/80 hover:bg-white hover:text-indigo-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:text-gray-300 dark:ring-white/10 dark:hover:bg-white/[0.06] md:hidden"
           aria-label={menuOpen ? '收起导航' : '展开导航'}
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
@@ -169,11 +220,16 @@ const Header: React.FC = () => {
           {menuOpen ? <IconX className="h-6 w-6" /> : <IconMenu className="h-6 w-6" />}
         </button>
         <nav
-          className="relative z-40 hidden items-center justify-end gap-0.5 rounded-full bg-gray-900/[0.035] p-1 ring-1 ring-inset ring-gray-900/[0.05] backdrop-blur-md dark:bg-white/[0.04] dark:ring-white/[0.06] lg:flex"
+          className="relative z-40 hidden items-center justify-end gap-0.5 rounded-full bg-gray-900/[0.035] p-1 ring-1 ring-inset ring-gray-900/[0.05] backdrop-blur-md dark:bg-white/[0.04] dark:ring-white/[0.06] md:flex"
           aria-label="主导航"
         >
-          {navItems.slice(0, 5).map((item) => (
-            <NavLink key={item.to} to={item.to} end className={({ isActive }) => navItemClass(isActive)}>
+          {itemsBeforeExam.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end
+              className={({ isActive }) => `${itemDisplayClass(item.showAt)} ${navItemClass(isActive)}`}
+            >
               <span>{item.label}</span>
               {isGuest && isPathGated(item.to) && (
                 <IconLock className="h-3 w-3 shrink-0 text-gray-400 dark:text-gray-500" aria-label="需要登录" />
@@ -182,7 +238,7 @@ const Header: React.FC = () => {
           ))}
           <Menu as="div" className="relative">
             <Menu.Button
-              className={navItemClass(isExamActive)}
+              className={`flex ${navItemClass(isExamActive)}`}
               onKeyDown={(event: React.KeyboardEvent) => {
                 if (event.key === ' ') event.preventDefault()
               }}
@@ -233,14 +289,65 @@ const Header: React.FC = () => {
               </Menu.Items>
             </Transition>
           </Menu>
-          {navItems.slice(5).map((item) => (
-            <NavLink key={item.to} to={item.to} end className={({ isActive }) => navItemClass(isActive)}>
+          {itemsAfterExam.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end
+              className={({ isActive }) => `${itemDisplayClass(item.showAt)} ${navItemClass(isActive)}`}
+            >
               <span>{item.label}</span>
               {isGuest && isPathGated(item.to) && (
                 <IconLock className="h-3 w-3 shrink-0 text-gray-400 dark:text-gray-500" aria-label="需要登录" />
               )}
             </NavLink>
           ))}
+          <Menu as="div" className="relative 2xl:hidden">
+            <Menu.Button
+              className={`flex ${navItemClass(isMoreActive)}`}
+              aria-label="更多导航"
+              onKeyDown={(event: React.KeyboardEvent) => {
+                if (event.key === ' ') event.preventDefault()
+              }}
+            >
+              <span>更多</span>
+              <IconChevronDown className="h-4 w-4" />
+            </Menu.Button>
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="opacity-0 -translate-y-1"
+              enterTo="opacity-100 translate-y-0"
+              leave="transition ease-in duration-75"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Menu.Items className="absolute right-0 z-50 mt-3 w-44 origin-top-right rounded-2xl bg-white p-1.5 shadow-[0_24px_48px_-16px_rgba(30,27,75,0.25)] ring-1 ring-gray-900/[0.06] focus:outline-none dark:bg-gray-900 dark:ring-white/10">
+                <div className="px-3 pb-1.5 pt-2 text-[10.5px] font-semibold uppercase tracking-[0.16em] text-gray-400">
+                  更多导航
+                </div>
+                {moreItems.map((item) => (
+                  <Menu.Item key={item.to}>
+                    {({ active }) => (
+                      <NavLink
+                        to={item.to}
+                        className={`flex items-center justify-between rounded-xl px-3 py-2 text-sm no-underline transition-colors hover:no-underline ${
+                          active || pathname === item.to
+                            ? 'bg-indigo-50/80 text-indigo-700 dark:bg-white/[0.06] dark:text-white'
+                            : 'text-gray-700 dark:text-gray-200'
+                        } ${dropdownItemClass(item.showAt)}`}
+                      >
+                        <span className="font-medium">{item.label}</span>
+                        {isGuest && isPathGated(item.to) && (
+                          <IconLock className="h-3 w-3 shrink-0 text-gray-400 dark:text-gray-500" aria-label="需要登录" />
+                        )}
+                      </NavLink>
+                    )}
+                  </Menu.Item>
+                ))}
+              </Menu.Items>
+            </Transition>
+          </Menu>
           {authStatus?.enabled && (
             authStatus.signedIn ? (
               <Menu as="div" className="relative ml-1">
@@ -417,10 +524,10 @@ const Header: React.FC = () => {
         <nav
           id="mobile-nav"
           aria-label="主导航"
-          className="my-card mt-3 grid grid-cols-2 gap-1 rounded-3xl bg-white/90 p-2 backdrop-blur-xl dark:bg-gray-900/90 sm:grid-cols-3 lg:hidden"
+          className="my-card mt-3 grid grid-cols-2 gap-1 rounded-3xl bg-white/90 p-2 backdrop-blur-xl dark:bg-gray-900/90 sm:grid-cols-3 md:hidden"
         >
           {navItems.map((item) => (
-            <NavLink key={item.to} to={item.to} end className={({ isActive }) => `${navItemClass(isActive)} justify-center py-2.5`}>
+            <NavLink key={item.to} to={item.to} end className={({ isActive }) => `flex ${navItemClass(isActive)} justify-center py-2.5`}>
               <span>{item.label}</span>
               {isGuest && isPathGated(item.to) && (
                 <IconLock className="h-3 w-3 shrink-0 text-gray-400 dark:text-gray-500" aria-label="需要登录" />
@@ -428,7 +535,7 @@ const Header: React.FC = () => {
             </NavLink>
           ))}
           {examItems.map((item) => (
-            <NavLink key={item.to} to={item.to} end className={({ isActive }) => `${navItemClass(isActive)} justify-center py-2.5`}>
+            <NavLink key={item.to} to={item.to} end className={({ isActive }) => `flex ${navItemClass(isActive)} justify-center py-2.5`}>
               <span>模考 · {item.label}</span>
               {isGuest && isPathGated(item.to) && (
                 <IconLock className="h-3 w-3 shrink-0 text-gray-400 dark:text-gray-500" aria-label="需要登录" />

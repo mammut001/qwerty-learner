@@ -91,7 +91,16 @@ async function waitForDestination(page: Page, url: string) {
 }
 
 async function clickMainNav(page: Page, name: string) {
-  await page.getByRole('navigation', { name: '主导航' }).getByRole('link', { name, exact: true }).click()
+  const nav = page.getByRole('navigation', { name: '主导航' })
+  const direct = nav.getByRole('link', { name, exact: true })
+  if (await direct.isVisible().catch(() => false)) {
+    await direct.click()
+    return
+  }
+  const more = nav.getByRole('button', { name: /更多/ })
+  await more.click()
+  const item = nav.getByRole('menuitem', { name, exact: true }).or(nav.getByRole('link', { name, exact: true }))
+  await item.click()
 }
 
 test('main nav and TCF 模考 stay in one document with a stable header', async ({ page }) => {

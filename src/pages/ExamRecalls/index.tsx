@@ -187,7 +187,7 @@ export default function ExamRecallsPage() {
 
   return (
     <Layout>
-      <main className="w-full flex-1 overflow-y-auto px-4 pb-12 sm:px-6 lg:px-8">
+      <div className="w-full flex-1 overflow-y-auto px-4 pb-12 sm:px-6 lg:px-8">
         <div className="mx-auto w-full max-w-4xl space-y-6">
           {/* Header Block */}
           <header className="my-card relative overflow-hidden rounded-[28px] bg-white p-6 dark:bg-gray-800 sm:p-9">
@@ -665,7 +665,7 @@ export default function ExamRecallsPage() {
             )}
           </section>
         </div>
-      </main>
+      </div>
     </Layout>
   )
 }

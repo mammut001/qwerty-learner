@@ -269,7 +269,7 @@ export default function ConjugationPage() {
 
   return (
     <Layout>
-      <main className="container mx-auto flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-4 pb-6 sm:px-10 lg:flex-row lg:gap-6 lg:overflow-hidden">
+      <div className="container mx-auto flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-4 pb-6 sm:px-10 lg:flex-row lg:gap-6 lg:overflow-hidden">
         <aside className="my-card flex max-h-64 w-full shrink-0 flex-col overflow-hidden rounded-2xl bg-white p-4 dark:bg-gray-800 lg:max-h-none lg:w-72">
           <div className="mb-3">
             <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Conjugaison</h2>
@@ -497,7 +497,7 @@ export default function ConjugationPage() {
             </div>
           )}
         </section>
-      </main>
+      </div>
     </Layout>
   )
 }

@@ -333,7 +333,7 @@ export default function CustomDictPage() {
 
   return (
     <Layout>
-      <main className="container mx-auto w-full max-w-6xl flex-1 overflow-y-auto px-4 pb-10 sm:px-10">
+      <div className="container mx-auto w-full max-w-6xl flex-1 overflow-y-auto px-4 pb-10 sm:px-10">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <div className="ui-eyebrow">自定义背单词</div>
@@ -603,7 +603,7 @@ export default function CustomDictPage() {
             </div>
           </section>
         </div>
-      </main>
+      </div>
     </Layout>
   )
 }

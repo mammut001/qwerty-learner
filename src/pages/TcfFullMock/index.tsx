@@ -363,7 +363,7 @@ export default function TcfFullMockPage() {
     } catch { setSaveMessage('无法访问麦克风，请检查浏览器权限；文字记录仍可跨设备同步') }
   }
 
-  if (!loaded) return <Layout><main className="p-8" role="status">正在恢复连续模考…</main></Layout>
+  if (!loaded) return <Layout><div className="p-8" role="status">正在恢复连续模考…</div></Layout>
 
   const phase = session?.phase
   const qcmSkill: TcfQcmSkill | null = phase === 'listening' || phase === 'reading' ? phase : null
@@ -413,7 +413,7 @@ export default function TcfFullMockPage() {
 
   return (
     <Layout>
-      <main className="w-full flex-1 overflow-y-auto px-4 py-7 sm:px-8" data-testid="tcf-full-mock">
+      <div className="w-full flex-1 overflow-y-auto px-4 py-7 sm:px-8" data-testid="tcf-full-mock">
         <div className="mx-auto max-w-5xl space-y-5">
           <nav className="flex items-center justify-between text-sm">
             <NavLink to="/tcf" className="text-indigo-600">← TCF NCLC 7 总览</NavLink>
@@ -592,7 +592,7 @@ export default function TcfFullMockPage() {
             </>
           )}
         </div>
-      </main>
+      </div>
     </Layout>
   )
 }
