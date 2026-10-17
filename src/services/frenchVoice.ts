@@ -1,6 +1,6 @@
 import { isGuestMode } from './guestMode'
-import { TTS_BASE_URL, TTS_VOICES, computeTtsAudioUrl, computeTtsKey } from '@/utils/ttsKey.mjs'
-import { VOICE_MIRROR_PATH, mirrorOverridePath, mirrorTtsPath } from '@/utils/voiceMirror.mjs'
+import { TTS_BASE_URL, TTS_VOICES, computeTtsAudioUrl, computeTtsKey, isTtsExcluded } from '../utils/ttsKey.mjs'
+import { VOICE_MIRROR_PATH, mirrorOverridePath, mirrorTtsPath } from '../utils/voiceMirror.mjs'
 
 export type PlayFrenchVoiceResult = 'played' | 'superseded' | 'unavailable' | 'starred'
 
@@ -28,14 +28,21 @@ export interface VoiceOverridesManifest {
 let overridesCache: Record<string, VoiceOverride> | null = null
 let overridesPromise: Promise<Record<string, VoiceOverride> | null> | null = null
 
+export function setVoiceOverridesCacheForTest(cache: Record<string, VoiceOverride> | null): void {
+  overridesCache = cache
+  overridesPromise = null
+}
+
 export async function loadVoiceOverrides(): Promise<Record<string, VoiceOverride> | null> {
   if (overridesCache) return overridesCache
   if (overridesPromise) return overridesPromise
 
   overridesPromise = (async () => {
     try {
-      const prefix = REACT_APP_DEPLOY_ENV === 'pages' ? '/qwerty-learner' : ''
-      const response = await fetch(`${prefix}/voice/fr-overrides.json?v=${encodeURIComponent(LATEST_COMMIT_HASH)}`)
+      const prefix = typeof REACT_APP_DEPLOY_ENV !== 'undefined' && REACT_APP_DEPLOY_ENV === 'pages' ? '/qwerty-learner' : ''
+      const hash = typeof LATEST_COMMIT_HASH !== 'undefined' ? LATEST_COMMIT_HASH : ''
+      const query = hash ? `?v=${encodeURIComponent(hash)}` : ''
+      const response = await fetch(`${prefix}/voice/fr-overrides.json${query}`)
       if (!response.ok) return null
       const data = (await response.json()) as VoiceOverridesManifest
       overridesCache = data?.words || null
@@ -75,61 +82,37 @@ export interface ParsedTtsManifest {
   keys: Record<TtsAccent, Set<string>>
 }
 
-let ttsManifestCache: ParsedTtsManifest | null = null
-let ttsManifestPromise: Promise<ParsedTtsManifest | null> | null = null
-
+/**
+ * @deprecated The client no longer downloads tts-manifest.json; clip URLs are derived directly from the key.
+ */
 export async function loadTtsManifest(): Promise<ParsedTtsManifest | null> {
-  if (ttsManifestCache) return ttsManifestCache
-  if (ttsManifestPromise) return ttsManifestPromise
-
-  ttsManifestPromise = (async () => {
-    try {
-      const prefix = REACT_APP_DEPLOY_ENV === 'pages' ? '/qwerty-learner' : ''
-      const response = await fetch(`${prefix}/voice/tts-manifest.json?v=${encodeURIComponent(LATEST_COMMIT_HASH)}`)
-      if (!response.ok) return null
-      const data = (await response.json()) as TtsManifest
-      if (!data?.keys) return null
-      ttsManifestCache = {
-        base: data.base || TTS_BASE_URL,
-        voices: data.voices || TTS_VOICES,
-        keys: {
-          'fr-CA': new Set(data.keys['fr-CA'] || []),
-          'fr-FR': new Set(data.keys['fr-FR'] || []),
-        },
-      }
-      return ttsManifestCache
-    } catch {
-      return null
-    } finally {
-      ttsManifestPromise = null
-    }
-  })()
-
-  return ttsManifestPromise
+  return null
 }
 
 // The self-hosted mirror only exists on the main deployment; the GitHub Pages build has no /voice-audio/.
 function hasVoiceMirror(): boolean {
-  return REACT_APP_DEPLOY_ENV !== 'pages'
+  return typeof REACT_APP_DEPLOY_ENV === 'undefined' || REACT_APP_DEPLOY_ENV !== 'pages'
 }
 
 /**
- * Ordered URLs for a TTS clip: the same-origin mirror first, then the original bucket URL.
- * Empty when the word has no pre-generated clip for this accent.
+ * Ordered URLs for a TTS clip: the same-origin mirror (or GCS bucket on Pages).
+ * Empty when the word is excluded from TTS.
  */
 export async function lookupTtsAudioCandidates(word: string, accent: TtsAccent = 'fr-CA'): Promise<string[]> {
-  const manifest = await loadTtsManifest()
-  if (!manifest) return []
+  const query = typeof word === 'string' ? word.trim() : ''
+  if (!query || isTtsExcluded(query)) return []
+
   const defaultVoices = TTS_VOICES as Record<string, string>
-  const voice = manifest.voices[accent] || defaultVoices[accent]
+  const voice = defaultVoices[accent]
   if (!voice) return []
-  const key = computeTtsKey(voice, word, accent)
-  if (!manifest.keys[accent]?.has(key)) return []
+
+  const key = computeTtsKey(voice, query, accent)
   const candidates: string[] = []
   if (hasVoiceMirror()) {
     candidates.push(`${VOICE_MIRROR_PATH}/${mirrorTtsPath(accent, key)}`)
+  } else {
+    candidates.push(computeTtsAudioUrl(TTS_BASE_URL, accent, key))
   }
-  candidates.push(computeTtsAudioUrl(manifest.base, accent, key))
   return candidates
 }
 
@@ -153,9 +136,29 @@ export function overrideAudioCandidates(override: VoiceOverride | null | undefin
   return candidates
 }
 
+/**
+ * Ordered candidate audio clip URLs for a French word:
+ * 1. Lingua Libre override (mirror, then original Wikimedia URL)
+ * 2. Pre-generated Chirp TTS (mirror, or GCS on Pages)
+ * Returns [] if word has an audio: null override or is excluded from TTS and has no override.
+ */
+export async function lookupPronunciationCandidates(word: string, accent: TtsAccent = 'fr-CA'): Promise<string[]> {
+  let override: VoiceOverride | null | undefined
+  try {
+    override = await lookupVoiceOverride(word)
+  } catch {
+    override = undefined
+  }
+  if (override && !override.audio) {
+    return []
+  }
+  const overrideCandidates = overrideAudioCandidates(override)
+  const ttsCandidates = await lookupTtsAudioCandidates(word, accent)
+  return [...overrideCandidates, ...ttsCandidates]
+}
+
 if (typeof window !== 'undefined') {
   void loadVoiceOverrides()
-  void loadTtsManifest()
 }
 
 let audioContext: AudioContext | null = null

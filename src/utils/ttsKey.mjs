@@ -157,3 +157,5 @@ export function computeTtsAudioUrl(base, accent, key) {
   const cleanBase = String(base ?? '').replace(/\/+$/, '')
   return `${cleanBase}/${computeTtsObjectPath(accent, key)}`
 }
+
+export { TTS_EXCLUDED_WORDS, isTtsExcluded } from './ttsExclude.mjs'

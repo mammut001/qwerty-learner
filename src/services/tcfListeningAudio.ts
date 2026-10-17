@@ -84,10 +84,6 @@ export async function lookupListeningAudioCandidates(questionId: string): Promis
   return resolveListeningAudioCandidates(questionId, manifest)
 }
 
-if (typeof window !== 'undefined') {
-  void loadListeningManifest()
-}
-
 let activeAudio: HTMLAudioElement | null = null
 let currentPlaybackToken = 0
 
